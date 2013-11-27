@@ -9,3 +9,7 @@ The best place to learn October is by [reading the documentation](http://october
 ### Development Team
 
 October was created by Alexey Bobkov and Samuel Georges, who both continue to develop the platform.
+
+### October will be available soon...
+
+October is being developed at the moment. We are working to get it finished. [Follow us on Twitter](http://twitter.com/octobercms) to hear about our launch.
