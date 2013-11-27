@@ -12,4 +12,7 @@ October was created by Alexey Bobkov and Samuel Georges, who both continue to de
 
 ### October will be available soon...
 
-October is being developed at the moment. We are working to get it finished. [Follow us on Twitter](http://twitter.com/octobercms) to hear about our launch.
+October is being developed at the moment. We are working to get it finished. 
+
+* [Follow us on Twitter](http://twitter.com/octobercms) to hear about our launch.
+* [Join us on IRC](https://kiwiirc.com/client/irc.freenode.net/?nick=Octonaut|?#october) to chat with us.
