@@ -8,7 +8,7 @@ The best place to learn October is by [reading the documentation](http://october
 
 ### Development Team
 
-October was created by Alexey Bobkov and Samuel Georges, who both continue to develop the platform.
+October was created by [Alexey Bobkov](http://ca.linkedin.com/pub/aleksey-bobkov/2b/ba0/232) and [Samuel Georges](http://au.linkedin.com/pub/sam-georges/31/641/a9), who both continue to develop the platform.
 
 ### October will be available soon...
 
