@@ -1,0 +1,50 @@
+{
+    "name": "october/october",
+    "description": "October CMS",
+    "homepage": "http://octobercms.com",
+    "keywords": ["october", "cms", "octobercms", "laravel"],
+    "require": {
+        "php": ">=5.4.0",
+        "laravel/framework": "4.1.*",
+        "october/rain": "dev-master"
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master"
+    },
+    "autoload": {
+        "classmap": [
+            "modules",
+            "plugins",
+            "tests/TestCase.php"
+        ],
+        "psr-0": {
+            "Modules": "",
+            "Plugins": ""
+        }
+    },
+    "___scripts": {
+        "post-install-cmd": [
+            "php artisan optimize"
+        ],
+        "pre-update-cmd": [
+            "php artisan clear-compiled"
+        ],
+        "post-update-cmd": [
+            "php artisan optimize"
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "dev",
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "/package"
+        }
+    ]
+}
