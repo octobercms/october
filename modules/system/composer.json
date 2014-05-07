@@ -1,0 +1,27 @@
+{
+    "name": "october/system",
+    "description": "System module for October CMS",
+    "homepage": "http://octobercms.com",
+    "keywords": ["october cms", "october", "system"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Bobkov",
+            "email": "aleksey.bobkov@gmail.com"
+        },
+        {
+            "name": "Samuel Georges",
+            "email": "daftspunky@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "october/rain": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "System": ""
+        }
+    },
+    "minimum-stability": "dev"
+}
