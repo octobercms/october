@@ -19,7 +19,7 @@
         "october/system": "dev-master",
         "october/backend": "dev-master",
         "october/cms": "dev-master",
-        "october/rain": "1.*"
+        "october/rain": "dev-master"
     },
     "require-dev": {
         "mockery/mockery": "dev-master"
