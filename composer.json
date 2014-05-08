@@ -16,21 +16,15 @@
     "require": {
         "php": ">=5.4.0",
         "laravel/framework": "4.1.*",
-        "october/rain": "dev-master"
+        "october/rain": "1.*"
     },
     "require-dev": {
         "mockery/mockery": "dev-master"
     },
     "autoload": {
         "classmap": [
-            "modules",
-            "plugins",
             "tests/TestCase.php"
-        ],
-        "psr-0": {
-            "Modules": "",
-            "Plugins": ""
-        }
+        ]
     },
     "___scripts": {
         "post-install-cmd": [
