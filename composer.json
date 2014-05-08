@@ -16,6 +16,9 @@
     "require": {
         "php": ">=5.4.0",
         "laravel/framework": "4.1.*",
+        "october/system": "dev-master",
+        "october/backend": "dev-master",
+        "october/cms": "dev-master",
         "october/rain": "1.*"
     },
     "require-dev": {
@@ -43,12 +46,5 @@
     "config": {
         "preferred-install": "dist"
     },
-    "minimum-stability": "dev",
-
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "/package"
-        }
-    ]
+    "minimum-stability": "dev"
 }
