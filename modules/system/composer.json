@@ -1,5 +1,6 @@
 {
     "name": "october/system",
+    "type": "october-module",
     "description": "System module for October CMS",
     "homepage": "http://octobercms.com",
     "keywords": ["october cms", "october", "system"],
@@ -16,7 +17,8 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "october/rain": "1.*"
+        "october/rain": "1.*",
+        "composer/installers": "~1.0"
     },
     "autoload": {
         "psr-0": {
