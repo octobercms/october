@@ -49,7 +49,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.0",
+            "dev-master": "1.0.0-dev",
             "dev-develop": "1.0.0-dev"
         }
     }
