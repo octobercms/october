@@ -3,7 +3,6 @@
     "description": "October CMS",
     "homepage": "http://octobercms.com",
     "keywords": ["october", "cms", "octobercms", "laravel"],
-    "version": "0.1.0",
     "authors": [
         {
             "name": "Alexey Bobkov",
@@ -47,10 +46,10 @@
     "config": {
         "preferred-install": "dist"
     },
-    "___minimum-stability": "dev",
+    "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1.x-dev"
+            "dev-master": "1.0.x-dev"
         }
     }
 }
