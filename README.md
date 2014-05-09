@@ -16,3 +16,5 @@ You can communicate with us using the following mediums:
 
 * [Follow us on Twitter](http://twitter.com/octobercms) for announcements and updates.
 * [Join us on IRC](https://kiwiirc.com/client/irc.freenode.net/?nick=Octonaut|?#october) to chat with us.
+
+Thank-you :-)
