@@ -3,6 +3,7 @@
     "description": "October CMS",
     "homepage": "http://octobercms.com",
     "keywords": ["october", "cms", "octobercms", "laravel"],
+    "version": "0.1.0",
     "authors": [
         {
             "name": "Alexey Bobkov",
