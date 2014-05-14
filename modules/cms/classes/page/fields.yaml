@@ -1,0 +1,80 @@
+fields:
+  settings[title]:
+    span: left
+    label: Title
+    placeholder: New page title
+    attributes:
+      default-focus: 1
+
+  settings[url]:
+    span: right
+    placeholder: /
+    label: URL
+    attributes:
+      data-input-preset: 'input[name="settings[title]"]'
+      data-input-preset-type: url
+      data-input-preset-closest-parent: form
+
+  toolbar:
+    type: partial
+    path: page_toolbar
+    cssClass: collapse-visible
+
+  components: Cms\FormWidgets\Components
+
+tabs:
+  fields:
+    # published:
+    #   tab: General
+    #   span: left
+    #   label: Published
+    #   type: checkbox
+
+    fileName:
+      tab: Settings
+      span: left
+      label: File Name
+      attributes:
+        data-input-preset: 'input[name="settings[title]"]'
+        data-input-preset-type: file
+        data-input-preset-closest-parent: form
+
+    settings[layout]:
+      tab: Settings
+      span: right
+      label: Layout
+      type: dropdown
+      options: getLayoutOptions
+
+    settings[description]:
+      tab: Settings
+      label: Description
+      type: textarea
+      size: tiny
+
+    settings[meta_title]:
+      tab: Meta
+      label: Meta Title
+
+    settings[meta_description]:
+      tab: Meta
+      label: Meta Description
+      type: textarea
+      size: tiny
+
+secondaryTabs:
+  stretch: true
+  fields:
+    markup:
+      tab: Markup
+      type: codeeditor
+      stretch: true
+      options:
+        language: twig
+
+    code:
+      tab: Code
+      type: codeeditor
+      stretch: true
+      options:
+        language: php

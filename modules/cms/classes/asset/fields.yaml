@@ -1,0 +1,20 @@
+fields:
+  fileName:
+    label: File Name
+    attributes:
+      default-focus: 1
+
+  toolbar:
+    type: partial
+    path: content_toolbar
+    cssClass: collapse-visible
+
+secondaryTabs:
+  stretch: true
+  fields:
+    content:
+      tab: Content
+      type: codeeditor
+      stretch: true
+      options:
+        language: css

@@ -1,0 +1,22 @@
+<div id="relationManagePivotPopup" data-request-data="_relation_field: '<?= $relationField ?>'">
+    <?= Form::open() ?>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="popup">&times;</button>
+            <h4 class="modal-title">Add a new <?= $relationLabel ?></h4>
+        </div>
+        <div class="modal-body">
+            <p>Click on an item to add</p>
+        </div>
+
+        <?= $relationManageWidget->render() ?>
+
+        <div class="modal-footer">
+            <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="popup">
+                Cancel
+            </button>
+        </div>
+    <?= Form::close() ?>
+</div>

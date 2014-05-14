@@ -1,0 +1,3 @@
+<?php foreach (Flash::all() as $type => $message): ?>
+    <p data-control="flash-message" class="flash-message <?= $type ?>" data-interval="5"><?= $message ?></p>
+<?php endforeach ?>

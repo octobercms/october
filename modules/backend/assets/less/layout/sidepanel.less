@@ -1,0 +1,57 @@
+//
+// Side panel
+// --------------------------------------------------
+
+#layout-side-panel {
+    .fix-button {
+        position: absolute;
+        right: 2px;
+        top: 1px;
+        display: block;
+        width: 20px;
+        height: 20px;
+        font-size: 13px;
+
+        i {
+            display: block;
+            text-align: center;
+            margin-top: 5px;
+            color: @color-scrollpanel-fix-button;
+        }
+
+        &:hover {
+            text-decoration: none;
+            .opacity(1)!important;
+        }
+    }
+}
+
+body.side-panel-not-fixed {
+    #layout-side-panel {
+        display: none;
+
+        .fix-button {
+            .opacity(0.5);
+        }
+    }
+}
+
+body.display-side-panel {
+    #layout-side-panel {
+        display: block;
+        position: absolute;
+        z-index: 500;
+        width: 300px;
+        .box-shadow(2px 0px 2px 0 rgba(0, 0, 0, 0.3))
+    }
+}
+
+.touch #layout-side-panel .fix-button {
+    display: none;
+}
+
+@media (max-width: @screen-sm) {
+    #layout-side-panel .fix-button {
+        display: none;
+    }
+}

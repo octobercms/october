@@ -1,0 +1,40 @@
+//
+// Pagination
+// --------------------------------------------------
+
+.control-pagination {
+    font-size: 0;
+    .page-iteration {
+        margin-right: 4px;
+        font-size: 14px;
+    }
+    .page-next, .page-back {
+        display: inline-block;
+        padding: 10px 15px;
+        &:before {
+            color: @color-pagination-icon;
+            font-size: 14px;
+            line-height: 14px;
+            display: inline-block;
+            vertical-align: baseline;
+        }
+    }
+    a.page-next, a.page-back {
+        &:hover:before {
+            color: @color-pagination-hover;
+        }
+    }
+    span.page-next, span.page-back {
+        &:before {
+            color: @color-pagination-inactive;
+        }
+    }
+    .page-next {
+        padding-left: 6px;
+    }
+    .page-back {
+        padding-right: 6px;
+    }
+    .page-next:before { .icon(@chevron-right); }
+    .page-back:before { .icon(@chevron-left); }
+}

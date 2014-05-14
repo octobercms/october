@@ -1,0 +1,322 @@
+@import "../../../backend/assets/less/core/boot.less";
+
+//
+// Component list
+// --------------------------------------------------
+
+@color-component-list-bg:       #2C3E50;
+@color-component-bg:            #ffffff;
+@color-component-text:          #475354;
+@color-component-hover-bg:      #3382b6;
+@color-component-hover-text:    #ffffff;
+@color-group-bg:                #f1f3f4;
+
+.component-lego-icon() {
+    position: absolute;
+    font-size: 37px;
+    top: 1px;
+    z-index: 50;
+    color: @color-component-bg;
+    text-shadow: 0 0 1px @color-component-text;
+    width: 12px;
+    overflow: hidden;
+    text-indent: -25px;
+    right: -12px;
+
+    .icon(@puzzle-piece);
+}
+
+div.control-componentlist div.components div.layout-cell, .component-list .components div.layout-cell {
+    font-size: 11px;
+    cursor: pointer;
+    background: @color-component-bg;
+
+    &:hover {
+        background: @color-component-hover-bg;
+    }
+
+    > div {
+        white-space: normal;
+        color: @color-component-text;
+        position: relative;
+        border-right: 1px solid @color-panel-light;
+
+        &:hover {
+            color: @color-component-hover-text;
+        }
+
+        &:before {
+            position: absolute;
+            font-size: 16px;
+            left: 15px;
+            top: 9px;
+            .opacity(0.7);
+        }
+
+        &:after {
+            .component-lego-icon();
+        }
+
+        &:hover:after {
+            text-shadow: none;
+            color: @color-component-hover-bg;
+        }
+
+        span {
+            display: block;
+
+            &.name {
+                white-space: nowrap;
+                padding: 8px 15px 0;
+                font-weight: 400;
+                line-height: 20px;
+                font-size: 12px;
+            }
+
+            &.description {
+                padding: 0 15px 10px;
+                margin-top: 8px;
+                font-weight: 100;
+                font-size: 11px;
+                line-height: 150%;
+            }
+        }
+    }
+}
+
+div.control-componentlist {
+    position: relative;
+    background-color: @color-component-list-bg;
+    padding: 0;
+    .transition(all 0.3s ease);
+
+    &.has-components {
+        padding: 10px;
+    }
+
+    div.layout {
+        width: auto;
+    }
+
+    div.components {
+        div.layout-cell {
+            &:first-child {
+                .border-left-radius(3px);
+            }
+
+            &:last-child {
+                margin-right: 0;
+                .border-right-radius(3px);
+
+                > div {
+                    border-right: none;
+
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+
+            &:nth-child(2n) > div:after {
+                top: auto;
+                bottom: 5px;
+            }
+
+            > div {
+                .translate(0, 0);
+                .transition-transform(0.2s);
+
+                max-width: 250px;
+                min-width: 170px;
+
+                &.popover-highlight {
+                    border-right-color: rgba(0,0,0,0);
+                    background: @color-component-bg!important;
+                    color: @color-component-text!important;
+
+                    &:after {
+                        color: @color-component-bg;
+                        text-shadow: none;
+                    }
+
+                    a.remove {
+                        display: none;
+                    }
+                }
+
+                span {
+                    &.name {
+                        padding-left: 38px;
+                    }
+
+                    &.description {
+                        padding-bottom: 35px;
+                    }
+
+                    &.alias {
+                        padding: 0 15px;
+                        font-weight: 500;
+                        position: absolute;
+                        width: 100%;
+                        bottom: 10px;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+
+                        &:before {
+                            margin-right: 4px;
+                            .opacity(0.55);
+                        }
+                    }
+                }
+
+                a.remove {
+                    position: absolute;
+                    display: inline-block;
+                    top: 1px;
+                    right: 5px;
+                    color: @color-component-text;
+                    font-size: 14px;
+                    .opacity(0.3);
+
+                    &:hover {
+                        .opacity(1);
+                        text-decoration: none;
+                    }
+                }
+
+                &:hover {
+                    a.remove {
+                        color: @color-component-hover-text;
+                    }
+                }
+            }
+
+            &.adding > div {
+                .translate(0, -100px)!important;
+            }
+        }
+    }
+}
+
+.component-list .components {
+    div.layout {
+        div.layout-row {
+            div.layout-cell {
+                border-top: 1px solid @color-panel-light;
+                span.alias {display: none;}
+                a.remove {display: none;}
+
+                &:last-child > div {
+                    border-right: none;
+                    &:after {
+                        display: none;
+                    }
+                }
+
+                > div {
+                    &:before {
+                        .component-lego-icon();
+                        .rotate(-90deg);
+                        .opacity(1);
+                        left: auto;
+                        top: -17px;
+                        right: 15px;
+                    }
+
+                    &:hover:before {
+                        text-shadow: none;
+                        color: @color-component-hover-bg;
+                    }
+                }
+            }
+
+            &:first-child {
+                div.layout-cell {
+                    > div {
+                        &:before {display: none;}
+                    }
+                }
+            }
+        }
+    }
+
+    div.layout.single {
+        div.layout-row > div.layout-cell > div {
+            border-right: none;
+            &:before {
+                display: block;
+                right: 55.5%;
+            }
+        }
+    }
+}
+
+.control-filelist.component-list {
+    ul li {
+        div.group {
+            background: @color-group-bg;
+            border-top: 1px solid darken(@color-panel-light, 2%);
+            padding: 10px;
+            position: relative;
+            cursor: pointer;
+
+            h4 {
+                text-transform: uppercase;
+                font-size: 12px;
+                margin-top: 3px;
+
+                a {
+                    padding-left: 33px;
+
+                    &:before {
+                        left: 0;
+                    }
+
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+
+            span.description {
+                display: block;
+                font-size: 12px;
+                padding-left: 33px;
+            }
+
+            i {
+                position: absolute;
+                left: 22px;
+                top: 20px;
+                font-size: 16px;
+                .opacity(0.7);
+                color: @color-text-title;
+            }
+        }
+    }
+}
+
+.disable-component-list-hover() {
+    background: @color-component-bg;
+    color: @color-component-text;
+
+    &:after {
+        text-shadow: 0 0 1px @color-component-text!important;
+        color: @color-component-bg!important;
+    }
+}
+
+.touch {
+    div.control-componentlist div.components div.layout-cell {
+        > div:hover, > div:active, > div:active:focus {
+            .disable-component-list-hover();
+        }
+    }
+}
+
+body.drag div.control-componentlist div.components div.layout-cell {
+    > div, > div:hover, > div:active {
+        .disable-component-list-hover();
+   }
+}

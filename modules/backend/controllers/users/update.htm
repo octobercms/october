@@ -1,0 +1,70 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('backend/users') ?>">System Administrators</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <?php Block::put('form-contents') ?>
+
+        <?= $this->formRenderOutsideFields() ?>
+        <?= $this->formRenderPrimaryTabs() ?>
+
+        <div class="form-buttons layout-item fix">
+            <div class="loading-indicator-container">
+                <button
+                    type="submit"
+                    data-request="onSave"
+                    data-request-data="redirect:0"
+                    data-hotkey="ctrl+s"
+                    data-hotkey-mac="cmd+s"
+                    data-load-indicator="Saving Admin..."
+                    class="btn btn-primary">
+                    <u>S</u>ave
+                </button>
+                <button
+                    type="button"
+                    data-request="onSave"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+enter"
+                    data-hotkey-mac="cmd+enter"
+                    data-load-indicator="Saving Admin..."
+                    class="btn btn-default">
+                    Save and Close
+                </button>
+                <span class="btn-text">
+                    or <a href="<?= Backend::url('backend/users') ?>">Cancel</a>
+                </span>
+                <button
+                    type="button"
+                    class="oc-icon-trash-o btn-icon danger pull-right"
+                    data-request="onDelete"
+                    data-load-indicator="Deleting Admin..."
+                    data-request-confirm="Do you really want to delete this admin?">
+                </button>
+            </div>
+        </div>
+
+    <?php Block::endPut() ?>
+
+    <?php Block::put('form-sidebar') ?>
+        <div class="hide-tabs"><?= $this->formRenderSecondaryTabs() ?></div>
+    <?php Block::endPut() ?>
+
+    <?php Block::put('body') ?>
+        <?= Form::open(['class'=>'layout stretch']) ?>
+            <?= $this->makeLayout('form-with-sidebar') ?>
+        <?= Form::close() ?>
+    <?php Block::endPut() ?>
+
+<?php else: ?>
+    <div class="padded-container">
+        <div class="control-breadcrumb">
+            <?= Block::placeholder('breadcrumb') ?>
+        </div>
+        <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+        <p><a href="<?= Backend::url('backend/users') ?>" class="btn btn-default">Return to the administrator list</a></p>
+    </div>
+<?php endif ?>

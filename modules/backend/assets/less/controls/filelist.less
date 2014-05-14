@@ -1,0 +1,173 @@
+//
+// File list control
+// --------------------------------------------------
+
+.control-filelist {
+    .listPaddings (@level) when (@level > 0) {
+        @offset-base: 27px;
+
+        > li.group {
+            > ul {
+                > li > a {
+                    padding-left: (@level+2)*@offset-base;
+                    margin-left: -1*@level*@offset-base;
+                }
+
+                .listPaddings(@level - 1);
+            }
+        }
+    }
+    .listPaddings (0) {}
+
+    p.no-data {
+        padding: 18px 0;
+        margin: 0;
+        color: @color-filelist-norecords-text;
+        font-size: 12px;
+        text-align: center;
+        font-weight: 400;
+        .border-radius(@border-radius-base);
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+
+        li {
+            font-weight: 300;
+            line-height: 150%;
+            position: relative;
+            list-style: none;
+
+            a:hover {
+                background: @color-list-hover;
+            }
+            &.active a {
+                background: @color-list-active;
+                position: relative;
+                &:after {
+                    position: absolute;
+                    height: 100%;
+                    width: 4px;
+                    left: 0;
+                    top: 0;
+                    background: @color-list-active-border;
+                    display: block;
+                    content: ' ';
+                }
+            }
+
+            a {
+                display: block;
+                padding: 10px 40px 10px 20px;
+                outline: none;
+
+                &:hover, &:focus, &:active {text-decoration: none;}
+
+                span { 
+                    display: block;
+
+                    &.title {
+                        font-weight: 500;
+                        color: @color-text-title;
+                        font-size: 12px;
+                    }
+
+                    &.description {
+                        color: @color-text-description;
+                        font-size: 12px;
+                        font-weight: 500;
+
+                        strong {
+                            color: @color-text-title;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+
+            &.group {
+                > h4, > div.group > h4 {
+                    font-weight: 500;
+                    font-size: 12px;
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    display: relative;
+
+                    a {
+                        padding: 10px 20px 10px 53px;
+                        color: @color-text-title;
+                        position: relative;
+                        outline: none;
+
+                        &:hover {background: transparent;}
+
+                        &:before, &:after {
+                            width: 10px;
+                            height: 10px;
+                            display: block;
+                            position: absolute;
+                            top: 1px;
+                        }
+
+                        &:after {
+                            left: 34px;
+                            .icon(@folder);
+                            color: @color-list-icon;
+                            font-size: 14px;
+                            top: 9px;
+                        }
+
+                        &:before {
+                            left: 20px;
+                            top: 9px;
+                            color: @color-list-arrow;
+                            .icon(@caret-right);
+                            .transform( ~'rotate(90deg) translate(5px, 0)' );
+                            .transition(all 0.1s ease);
+                        }
+                    }
+                }
+
+                > ul {
+                    > li > a {
+                        padding-left: 52px;
+                    }
+
+                    > li.group {padding-left: 20px;}
+
+                    .listPaddings(10);
+                }
+
+                &[data-status=collapsed] {
+                    > h4 a:before, > div.group > h4 a:before {
+                        .transform( ~'rotate(0deg) translate(3px, 0)' );
+                    }
+
+                    & > ul, & > div.subitems {
+                        display: none;
+                    }
+                }
+            }
+
+            /* Temporary checkbox style */
+            .checkbox {
+                position: absolute;
+                top: 3px;
+                right: 17px;
+
+                label {
+                    margin-right: 0;
+
+                    &:before {
+                        border-color: @color-filelist-cb-border;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.touch .control-filelist li:not(.active) a:hover {
+    background: transparent;
+}

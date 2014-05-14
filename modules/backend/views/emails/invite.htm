@@ -1,0 +1,41 @@
+subject = "Welcome to October CMS"
+==
+
+Hi {{ name }},
+
+A user account has been created for you.
+
+Login: {{ login }}
+
+Password: {{ password }}
+
+
+After signing in you should change your password by clicking your name on the top right corner of the administration area.
+
+You can use the following link to sign in:
+{{ link }}
+
+
+---
+This is an automatic message. Do not reply to it.
+
+==
+
+<p>Hi {{ name }},</p>
+
+<p>A user account has been created for you.</p>
+
+<p>
+    Login: {{ login }}<br />
+    Password: {{ password }}
+</p>
+
+<p>After signing in you should change your password by clicking your name on the top right corner of the administration area.</p>
+
+<p>
+    You can use the following link to sign in:<br />
+    <a href="{{ link }}">{{ link }}</a>
+</p>
+
+<hr />
+<strong>This is an automatic message. Do not reply to it.</strong>

@@ -1,0 +1,47 @@
+@import "../../../backend/assets/less/core/boot.less";
+
+.control-updatelist {
+
+    border: 1px solid #ccc;
+    margin-bottom: @line-height-computed;
+
+    h5 {
+        background-color: @color-list-accent;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        padding: 15px 10px;
+        margin: 0;
+        text-transform: uppercase;
+        font-size: 13px;
+
+        &:first-of-type {
+            border-top: none;
+        }
+
+        small {
+            text-transform: none;
+            float: right;
+            line-height: 13px;
+            margin-right: 5px;
+        }
+    }
+
+    dl {
+        padding: 10px;
+        margin-bottom: 0;
+        font-size: 12px;
+        .clearfix;
+
+        dt, dd {
+            float: left;
+            padding: 5px 0;
+        }
+        dt {
+            width: 15%;
+        }
+        dd {
+            width: 85%;
+        }
+    }
+
+}

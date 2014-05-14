@@ -1,0 +1,67 @@
+<?php if ($relationManageId): ?>
+
+    <?= Form::ajax('onRelationManagePivotUpdate', [
+        'data' => ['_relation_field' => $relationField, 'manage_id' => $relationManageId],
+        'data-stripe-load-indicator' => true
+    ]) ?>
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="popup">&times;</button>
+            <h4 class="modal-title">Related <?= $relationLabel ?> data</h4>
+        </div>
+        <div class="modal-body">
+            <?= $relationPivotWidget->render() ?>
+        </div>
+        <div class="modal-footer">
+            <button
+                type="submit"
+                class="btn btn-primary"
+                data-dismiss="popup">
+                Update
+            </button>
+            <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="popup">
+                Cancel
+            </button>
+        </div>
+
+    <?= Form::close() ?>
+
+<?php else: ?>
+
+    <?= Form::ajax('onRelationManagePivotCreate', [
+        'data' => ['_relation_field' => $relationField, 'foreign_id' => $foreignId],
+        'data-stripe-load-indicator' => true
+    ]) ?>
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="popup">&times;</button>
+            <h4 class="modal-title">Related <?= $relationLabel ?> data</h4>
+        </div>
+        <div class="modal-body">
+            <?= $relationPivotWidget->render() ?>
+        </div>
+        <div class="modal-footer">
+            <button
+                type="submit"
+                class="btn btn-primary"
+                data-dismiss="popup">
+                Add
+            </button>
+            <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="popup">
+                Cancel
+            </button>
+        </div>
+
+    <?= Form::close() ?>
+
+<?php endif ?>
+
+
+
+

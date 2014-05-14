@@ -1,0 +1,7 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+  name:
+    label: backend::lang.user.group.name_field

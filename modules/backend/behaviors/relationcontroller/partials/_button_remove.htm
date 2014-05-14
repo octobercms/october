@@ -1,0 +1,13 @@
+<button
+    class="btn btn-sm btn-default oc-icon-trash-o"
+    onclick="$(this).data('request-data', {
+        checked: $('#<?= $this->relationGetId('view') ?> .control-list').listWidget('getChecked')
+    })"
+    disabled="disabled"
+    data-request="onRelationManageRemove"
+    data-trigger-type="enable"
+    data-trigger="#<?= $this->relationGetId('view') ?> .control-list input[type=checkbox]"
+    data-trigger-condition="checked"
+    data-stripe-load-indicator>
+    <?= trans('backend::lang.relation.remove') ?>
+</button>

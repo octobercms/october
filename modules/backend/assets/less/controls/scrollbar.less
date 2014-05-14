@@ -1,0 +1,118 @@
+//
+// Scrollbar
+// --------------------------------------------------
+
+.drag-noselect {
+    user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+
+.control-scrollbar {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+
+    >.scrollbar-scrollbar {
+        position: absolute;
+        z-index: 100;
+        .scrollbar-track {
+            background-color: @color-scrollbar-track;
+            position: relative;
+            .border-radius(5px);
+
+            .scrollbar-thumb {
+                background-color: @color-scrollbar-thumb;
+                .border-radius(5px);
+                cursor: pointer;
+                overflow: hidden;
+                position: absolute;
+            }
+        }
+        &.disabled {
+            display: none!important;
+        }
+    }
+
+    &.vertical {
+        >.scrollbar-scrollbar {
+            right: 0;
+            width: 4px;
+            .scrollbar-track {
+                height: 100%;
+                width: 4px;
+                .scrollbar-thumb {
+                    height: 20px;
+                    width: 4px;
+                    top: 0;
+                    left: 0;
+                }
+            }
+
+            &:active, &:hover {
+                width: 6px;
+                .transition(width .3s);
+                .scrollbar-track,
+                .scrollbar-thumb {
+                    width: 6px;
+                    .transition(width .3s);
+                }
+            }
+        }
+    }
+
+    &.horizontal {
+        >.scrollbar-scrollbar {
+            margin: 0 0 5px;
+            clear: both;
+            height: 4px;
+            .scrollbar-track {
+                width: 100%;
+                height: 4px;
+                .scrollbar-thumb {
+                    height: 4px;
+                    margin:2px 0;
+                    left: 0;
+                    top: 0;
+                }
+            }
+            
+            &:active, &:hover {
+                height: 6px;
+                .transition(height .3s);
+                .scrollbar-track,
+                .scrollbar-thumb {
+                    height: 6px;
+                    .transition(height .3s);
+                }
+            }
+        }
+    }
+}
+
+.no-touch .control-scrollbar {
+    >.scrollbar-scrollbar {
+        opacity: 0;
+        .transition(opacity 0.3s);
+    }
+
+    &:active >.scrollbar-scrollbar,
+    &:hover >.scrollbar-scrollbar {opacity: 1;}
+}
+
+@media (max-width: @screen-sm) {
+    &.responsive-sidebar {
+        > .layout-cell:last-child {
+            .control-scrollbar {
+                overflow: visible;
+                height: auto;
+
+                .scrollbar-scrollbar {
+                    display: none!important;
+                }
+            }
+        }
+    }
+}

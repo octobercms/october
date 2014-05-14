@@ -1,0 +1,67 @@
+title = "AJAX framework"
+url = "/ajax"
+layout = "default"
+==
+<?php
+function onTest()
+{
+    $value1 = post('value1');
+    $value2 = post('value2');
+    $operation = post('operation');
+
+    switch ($operation) {
+        case '+' :
+            $this['result'] = $value1 + $value2;
+            break;
+        case '-' :
+            $this['result'] = $value1 - $value2;
+            break;
+        case '*' :
+            $this['result'] = $value1 * $value2;
+            break;
+        default :
+            $this['result'] = $value1 / $value2;
+            break;
+    }
+}
+?>
+==
+<div class="jumbotron title-js">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h1>AJAX framework</h1>
+                <p>This built-in JavaScript framework provides simple but powerful AJAX capabilities. Check out the calculator example below.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Calculator</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-inline" data-request="onTest" data-request-update="calcresult: '#result'">
+                <input type="text" class="form-control" value="15" name="value1" style="width:100px">
+                <select class="form-control" name="operation" style="width: 70px">
+                    <option>+</option>
+                    <option>-</option>
+                    <option>*</option>
+                    <option>/</option>
+                </select>
+                <input type="text" class="form-control" value="5" name="value2" style="width:100px">
+                <button type="submit" class="btn btn btn-primary">Calculate</button>
+            </form>
+        </div>
+        <div class="panel-footer" id="result">
+            {% partial "calcresult" %}
+        </div>
+    </div>
+
+</div>
+
+<!-- Page Explanation -->
+<div class="container">{% partial "explain/ajax.htm" %}</div>

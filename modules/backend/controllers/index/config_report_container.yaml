@@ -1,0 +1,6 @@
+defaultWidgets:
+   systemStatus:
+        class: System\ReportWidgets\Status
+        sortOrder: 1
+        configuration:
+            ocWidgetWidth: 10

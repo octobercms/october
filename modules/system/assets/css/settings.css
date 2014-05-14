@@ -1,0 +1,72 @@
+.control-settings .settings-category {
+  padding: 20px;
+  background-color: #ecf0f1;
+}
+.control-settings .settings-category h3 {
+  margin: 0;
+  font-weight: 100;
+  color: #293e50;
+}
+.control-settings .settings-items {
+  padding: 20px;
+  margin: 0;
+}
+.control-settings .settings-items.row {
+  font-size: 0;
+}
+.control-settings .settings-items.row > .settings-item {
+  float: none;
+  vertical-align: top;
+  display: inline-block;
+}
+.control-settings .settings-items .settings-item > a {
+  display: block;
+  position: relative;
+  padding-left: 72px;
+  padding-top: 10px;
+  text-decoration: none;
+  margin-bottom: 20px;
+  line-height: 150%;
+}
+.control-settings .settings-items .settings-item > a h5 {
+  margin-top: 0;
+  color: #333333;
+  font-size: 18px;
+  line-height: 150%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.control-settings .settings-items .settings-item > a p {
+  color: #777;
+  font-size: 12px;
+  line-height: 150%;
+}
+.control-settings .settings-items .settings-item > a .item-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #f0f0f0;
+  -webkit-border-radius: 999px;
+  -moz-border-radius: 999px;
+  border-radius: 999px;
+  width: 64px;
+  height: 64px;
+  display: block;
+  text-align: center;
+  color: #555;
+}
+.control-settings .settings-items .settings-item > a .item-icon i {
+  font-size: 52px;
+  line-height: 64px;
+}
+.control-settings .settings-items .settings-item > a:hover h5 {
+  color: #063f68;
+}
+.control-settings .settings-items .settings-item > a:hover p {
+  color: #063f68;
+}
+.control-settings .settings-items .settings-item > a:hover .item-icon {
+  background: #e0e0e0;
+  color: #063f68;
+}

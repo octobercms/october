@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+        <title>Admin</title>
+        <link href="<?= URL::to('modules/backend/assets/css/october.css') ?>" rel="stylesheet">
+
+        <script src="<?= URL::to('modules/backend/assets/js/vendor/jquery-2.0.3.min.js') ?>"></script>
+        <script src="<?= URL::to('modules/system/assets/js/framework.js') ?>"></script>
+        <script src="<?= URL::to('modules/backend/assets/js/october.utils.js') ?>"></script>
+        <script src="<?= URL::to('modules/backend/assets/js/vendor/modernizr.min.js') ?>"></script>
+        <script src="<?= URL::to('modules/backend/assets/js/october.flashmessage.js') ?>"></script>
+        <script src="<?= URL::to('modules/backend/assets/js/auth/auth.js') ?>"></script>
+        
+        <script>
+        <!--
+            backendBasePath = '<?= Backend::baseUrl() ?>';
+        // -->
+        </script>
+        <?= $this->makeAssets() ?>
+        <?= Block::placeholder('head') ?>
+    </head>
+    <body class="outer <?= $this->bodyClass ?>">
+        <div id="layout-canvas">
+            <div class="layout">
+                <div class="layout-row min-size layout-head">
+                    <div class="layout-cell">
+                        <h1><?= trans('system::lang.app.name') ?></h1>
+                    </div>
+                </div>
+                <div class="layout-row">
+                    <div class="layout-cell">
+                        <div class="outer-form-container">
+                            <div id="layout-flash-messages"><?= $this->makeLayoutPartial('flash_messages') ?></div>
+
+                            <?= Block::placeholder('body') ?>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- /layout-canvas -->
+    </body>
+</html>
+

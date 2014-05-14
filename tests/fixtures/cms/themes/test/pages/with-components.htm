@@ -1,0 +1,14 @@
+url = "/with-components"
+layout = "content"
+
+[testArchive firstAlias]
+posts-per-page = "6"
+
+[October\Test\Components\Archive secondAlias]
+posts-per-page = "9"
+==
+<p>This page uses components.</p>
+{% for post in secondAlias.posts %}
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.content }}</p>
+{% endfor %}

@@ -1,0 +1,19 @@
+<!-- Switch -->
+<div class="field-switch">
+    <label><?= $field->label ?></label>
+    <?php if ($field->comment): ?>
+        <p class="help-block"><?= e(trans($field->comment)) ?></p>
+    <?php endif ?>
+</div>
+<label class="custom-switch" onclick="">
+    <input
+        type="checkbox"
+        id="<?= $field->getId() ?>"
+        name="<?= $field->getName() ?>"
+        value="1"
+        <?= $this->previewMode ? 'readonly="readonly"' : '' ?>
+        <?= $field->value == 1 ? 'checked="checked"' : '' ?>
+        <?= HTML::attributes($field->attributes) ?>>
+    <span><span><?= e(trans('backend::lang.form.field_on')) ?></span><span><?= e(trans('backend::lang.form.field_off')) ?></span></span>
+    <a class="slide-button"></a>
+</label>

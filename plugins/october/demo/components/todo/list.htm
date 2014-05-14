@@ -1,0 +1,13 @@
+{% for item in items %}
+    <li class="list-group-item">
+        <input type="hidden" name="items[]" value="{{ item }}" />
+        
+        {{ item }}
+
+        <button type="button" 
+            class="close pull-right" 
+            aria-hidden="true" 
+            class="" 
+            onclick="$(this).closest('li').remove()">&times;</button>
+    </li>
+{% endfor %}

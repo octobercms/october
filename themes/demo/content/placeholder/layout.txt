@@ -1,0 +1,4 @@
+<head>
+    ...
+    {% placeholder head %}
+</head>

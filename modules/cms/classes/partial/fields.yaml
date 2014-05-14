@@ -1,0 +1,25 @@
+fields:
+  fileName:
+    span: left
+    label: File Name
+    attributes:
+      default-focus: 1
+
+  settings[description]:
+    span: right
+    label: Description
+
+  toolbar:
+    type: partial
+    path: partial_toolbar
+    cssClass: collapse-visible
+
+secondaryTabs:
+  stretch: true
+  fields:
+    markup:
+      tab: Markup
+      type: codeeditor
+      stretch: true
+      options:
+        language: twig

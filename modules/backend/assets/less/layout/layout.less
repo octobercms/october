@@ -1,0 +1,161 @@
+//
+// Common layout elements
+// --------------------------------------------------
+
+body.drag * {
+    cursor: drag !important;
+    cursor: -webkit-grab !important;
+    cursor: -moz-grab !important;
+}
+
+// Used by sortable plugin
+body.dragging, body.dragging * {
+    cursor: move !important;
+}
+
+body.loading, body.loading * {
+    cursor: wait !important;
+}
+
+//
+// Layout canvas
+//
+
+html,
+body {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+}
+
+body {
+    background: @color-body-bg;
+}
+
+#layout-canvas {
+    min-height: 100%;
+    height: 100%;
+}
+
+//
+// Flexible layout system
+// --------------------------------------------------
+
+.layout {
+    .layout-cell() {
+        display: table-cell;
+        vertical-align: top;
+        height: 100%;
+
+        &.width-100 {width: 100px;}
+        &.width-120 {width: 120px;}
+        &.width-200 {width: 200px;}
+        &.width-300 {width: 300px;}
+        
+        &.layout-container, .layout-container, &.padded-container, .padded-container {padding: 20px 20px 0 20px;}
+
+        .layout-relative {
+            position: relative;
+            height: 100%;
+        }
+
+        .layout-absolute {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+
+        &.min-size {
+            width: 0;
+        }
+
+        &.center {
+            text-align: center;
+        }
+
+        &.middle {
+            vertical-align: middle;
+        }
+
+        &.width-fix {
+            > form, > div {
+                display: inline-block;
+            }
+        }
+    }
+
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+
+    > .layout-row {
+        display: table-row;
+        vertical-align: top;
+        height: 100%;
+
+        > .layout-cell {
+            .layout-cell();
+        }
+
+        &.min-size {
+            height: 0;
+        }
+    }
+
+    > .layout-cell {
+        .layout-cell();
+    }
+}
+
+//
+// Layout styles
+//
+
+body.compact-container {
+    .layout {
+        &.layout-container, .layout-container { padding: 0 !important; }
+    }
+}
+
+body.slim-container {
+    .layout {
+        &.layout-container, .layout-container { padding-left: 0 !important; padding-right: 0 !important; }
+    }
+}
+
+//
+// Screen specific
+//
+
+@media (max-width: @screen-sm) {
+    .layout {
+        .hide-on-small {
+            display: none;
+        }
+
+        //
+        // Layout with a responsive sidebar
+        //
+
+        &.responsive-sidebar {
+            > .layout-cell:first-child {
+                display: table-footer-group;
+                height: auto;
+
+                .control-breadcrumb {
+                    display: none;
+                }
+            }
+
+            > .layout-cell:last-child {
+                display: table-header-group;
+                width: auto;
+                height: auto;
+
+                .layout-absolute {
+                    position: static;
+                }
+            }
+        }
+    }
+}

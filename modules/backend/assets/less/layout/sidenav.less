@@ -1,0 +1,93 @@
+//
+// Side navigation bar
+// --------------------------------------------------
+
+#layout-sidenav {
+    .virtualFullHeight() {
+        content: ' ';
+        position: absolute;
+        height: 100%;
+        top: 0;
+    }
+
+    background-color: @color-sidebarnav-bg;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    padding: 10px 0;
+
+    .box-sizing(border-box);
+
+    ul {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+
+        li {
+            display: block;
+            text-align: center;
+            position: relative;
+
+            a {
+                padding: 13px;
+                display: block;
+                font-size: 12px;
+                color: @color-sidebarnav-inactive-text;
+                font-weight: normal;
+
+                &:hover {
+                    text-decoration: none;
+                    background-color: transparent;
+                }
+
+                &:focus {
+                    background: transparent;
+                }
+
+                i {
+                    color: @color-sidebarnav-inactive-icon;
+                    display: block;
+                    margin-bottom: 5px;
+                    font-size: 28px;
+                }
+            }
+
+            &.active a, a:hover {
+                color: @color-sidebarnav-active-text;
+                i {color: @color-sidebarnav-active-icon;}
+            }
+
+            span.counter {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                padding: 2px 6px 3px 4px;
+                background-color: @color-sidebarnav-counter-bg;
+                color: @color-sidebarnav-counter-text;
+                font-size: 11px;
+                line-height: 100%;
+                .border-radius(3px);
+                .opacity(1);
+                .scale(1);
+                .transition(all 0.3s);
+
+                &.empty {
+                    .opacity(0);
+                    .scale(0);
+                }
+            }
+        }
+    }
+
+    .vertical-scroll-marker(@color-sidebarnav-inactive-icon);
+}
+
+#layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,
+.touch #layout-sidenav.layout-sidenav li:not(.active) a:hover {
+    color: @color-sidebarnav-inactive-text!important;
+    i {color: @color-sidebarnav-inactive-icon!important;}
+    &:after {display: none!important;}
+}

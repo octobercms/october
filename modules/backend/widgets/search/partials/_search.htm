@@ -1,0 +1,17 @@
+<?= Form::ajax($this->getEventHandler('onSubmit')) ?>
+
+    <div class="loading-indicator-container size-input-text">
+        <input
+            placeholder="<?= $placeholder ?>"
+            type="text"
+            name="term"
+            value="<?= $value ?>"
+            data-request="<?= $this->getEventHandler('onSubmit') ?>"
+            data-track-input
+            data-load-indicator
+            data-load-indicator-opaque
+            class="form-control icon search growable"
+            autocomplete="off" />
+    </div>
+
+<?= Form::close() ?>

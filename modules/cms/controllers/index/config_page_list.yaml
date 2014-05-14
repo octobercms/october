@@ -1,0 +1,11 @@
+# ===================================
+#  Configures the page list widget
+# ===================================
+
+titleProperty: 'title'
+descriptionProperty: description
+descriptionProperties:
+    url: URL
+noRecordsMessage: 'cms::lang.page.no_list_records'
+deleteConfirmation: 'cms::lang.page.delete_confirm_multiple'
+itemType: page

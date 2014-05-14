@@ -1,0 +1,63 @@
+description = "Default layout"
+==
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>October CMS - {{ this.page.title }}</title>
+        <meta name="author" content="October CMS">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}" />
+        {% styles %}
+        <link href="{{ [
+            'assets/css/theme.css'
+        ]|theme }}" rel="stylesheet">
+    </head>
+    <body>
+
+        <!-- Header -->
+        <header id="layout-header">
+
+            <!-- Nav -->
+            <nav id="layout-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{ 'home'|page }}">October Demo</a>
+                    </div>
+                    <div class="collapse navbar-collapse navbar-main-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="{% if page.url == '/' %}active{% endif %}"><a href="{{ 'home'|page }}">Basic concepts</a></li>
+                            <li class="{% if page.url == '/ajax' %}active{% endif %}"><a href="{{ 'ajax'|page }}">AJAX framework</a></li>
+                            <li class="{% if page.url == '/plugins' %}active{% endif %}"><a href="{{ 'plugins'|page }}">Plugin components</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+        </header>
+
+        <!-- Content -->
+        <section id="layout-content">
+            {% page %}
+        </section>
+
+        <!-- Footer -->
+        <footer id="layout-footer">
+            {% partial "footer" %}
+        </footer>
+
+        <!-- Scripts -->
+        <script src="{{ [
+            'assets/javascript/jquery.js', 
+            'assets/javascript/app.js'
+        ]|theme }}"></script>
+        {% framework extras %}
+        {% scripts %}
+
+    </body>
+</html>

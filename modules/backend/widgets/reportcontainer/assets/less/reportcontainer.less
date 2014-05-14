@@ -1,0 +1,195 @@
+@import "../../../../assets/less/core/boot.less";
+
+.report-container {
+    > ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 15px;
+
+        .item {
+            float: left;
+            overflow: hidden;
+
+            .content {
+                margin: 5px;
+                position: relative;
+
+                .drag-handle {
+                    width: 14px;
+                    height: 14px;
+                    position: absolute;
+                    left: 15px;
+                    top: 13px;
+                    .opacity(0);
+                    .transition(opacity 0.2s);
+                    font-size: 14px;
+                    cursor: move;
+
+                    &:before {
+                        .icon(@bars);
+                        color: @color-report-widget-control-inactive;
+                    }
+                }
+
+                .widget-control {
+                    position: absolute;
+                    display: none;
+                    width: 15px;
+                    height: 15px;
+                    color: @color-report-widget-control-inactive;
+                    .opacity(1);
+                    outline: none;
+
+                    &:hover {
+                        color: @color-link;
+                    }
+                }
+
+                .report-widget h3 {
+                    padding-left: 0;
+                    .transition(padding 0.2s);
+                }
+
+                .edit-widget {
+                    text-indent: -10000em;
+                    right: 15px;
+                    top: 15px;
+
+                    &:before {
+                        position: absolute;
+                        display: block;
+                        text-indent: 0;
+                        left: 0;
+                        width: 15px;
+                        height: 15px;
+                        font-size: 16px;
+                    }
+
+                    &:hover:before {
+                        text-decoration: none;
+                    }
+
+                    &.inspector-open {
+                        display: block;
+                    }
+                }
+
+                .close {
+                    right: 10px;
+                    top: 15px;
+                }
+            }
+
+            &:hover, &.dragged {
+                .widget-control {
+                    display: block;
+                }
+
+                .report-widget h3 {
+                    padding-left: 18px;
+                }
+
+                .drag-handle { 
+                    .opacity(1);
+                }
+            }
+
+            &.width-1 {width: 9.95%;}
+            &.width-2 {width: 19.95%;}
+            &.width-3 {width: 29.95%;}
+            &.width-4 {width: 39.95%;}
+            &.width-5 {width: 49.95%;}
+            &.width-6 {width: 59.95%;}
+            &.width-7 {width: 69.95%;}
+            &.width-8 {width: 79.95%;}
+            &.width-9 {width: 89.95%;}
+            &.width-10 {width: 100%;}
+
+            &.dragged {
+                -webkit-transition-duration: 0!important;
+                -moz-transition-duration: 0!important;
+                transition-duration: 0!important;
+
+                .translate3d(0, 0, 0)!important;
+
+                position: absolute;
+                opacity: 0.5;
+                z-index: 2000;
+            }
+
+            &.placeholder {
+                display: none;
+            }
+
+            &.separator {
+                width: 100%!important;
+            }
+        }
+
+        &.add-delete .item .content .edit-widget {
+            right: 30px;
+        }
+
+        &.wrapped {
+            .item {
+                width: 100%!important;
+            }
+        }
+    }
+
+    .add-widget {
+        display: inline-block;
+        color: #bcc3c7;
+        padding: 10px 15px;
+        font-size: 14px;
+        font-weight: 400;
+        border: 1px dashed #bcc3c7;
+        .border-radius(@border-radius-base);
+        margin-left: 5px;
+        margin-bottom: 15px;
+
+        i {
+            margin-right: 5px;
+        }
+
+        &:hover {
+            text-decoration: none;
+            background-color: @color-link;
+            color: white;
+            border: 1px solid @color-link;
+        }
+    }
+
+    /**** Isotope CSS3 transitions ****/
+
+    &.isotope,
+    &.isotope .isotope-item {
+      -webkit-transition-duration: 0.8s;
+         -moz-transition-duration: 0.8s;
+              transition-duration: 0.8s;
+
+    }
+
+    &.isotope {
+      -webkit-transition-property: height, width;
+         -moz-transition-property: height, width;
+              transition-property: height, width;
+    }
+
+    &.isotope .isotope-item {
+      -webkit-transition-property: -webkit-transform, opacity;
+         -moz-transition-property:    -moz-transform, opacity;
+              transition-property:         transform, opacity;
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .report-container {
+        ul .item {
+            // The breakpoint should be defined in the CSS and JS,
+            // otherwise some widgets can't calculate the width properly, 
+            // as the JS is applied too late.
+            width: 100%!important;
+        }
+    }
+}

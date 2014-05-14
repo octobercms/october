@@ -1,0 +1,318 @@
+.fancy-layout {
+    //
+    // Fancy form tabs
+    //
+
+    .tab-collapse-icon {
+        position: absolute;
+        display:  block;
+        text-decoration: none;
+        outline: none;
+        .opacity(0.6);
+        .transition(all 0.3s);
+        font-size: 12px;
+        color: @color-fancy-master-tabs-active-text;
+        right: 11px;
+
+        &:hover {
+            text-decoration: none;
+            .opacity(1);
+        }
+
+        &.primary {
+            color: @color-fancy-secondary-tabs-bg;
+            bottom: -25px;
+            z-index: 100;
+            .scaleAxes(1, -1);
+
+            i {
+                position: relative;
+                display: block;
+            }
+        }
+    }
+
+    .control-tabs, &.control-tabs {
+        &.master {
+            overflow: hidden;
+
+            &:before, &:after {
+                top: 7px;
+                font-size: 14px;
+                color: @color-fancy-master-tabs-inactive-text;
+            }
+            &:before {left: 8px;}
+            &:after {right: 8px;}
+            &.scroll-before:before {color: @color-fancy-master-tabs-active-text;}
+            &.scroll-after:after {color: @color-fancy-master-tabs-active-text;}
+
+            > div > div.tabs-container {
+                background: @color-fancy-master-tabs-bg;
+                padding-left: 20px;
+                padding-right: 20px;
+
+                > ul.nav-tabs {
+                    > li {
+                        span.tab-close i {
+                            top: 4px;
+                            right: 1px;
+                            color: @color-fancy-master-tabs-inactive-text!important;
+
+                            &:hover {color: @color-fancy-master-tabs-active-text!important;}
+                        }
+
+                        a {
+                            border-bottom: none;
+                            background: transparent;
+                            padding: 11px 15px 12px 5px;
+                            font-size: 14px;
+                            color: @color-fancy-master-tabs-inactive-text;
+                        }
+
+                        &.active {
+                            a {color: @color-fancy-master-tabs-active-text;}
+                            span.tab-close i {color: @color-fancy-master-tabs-active-text;}
+                        }
+                    }
+                }
+            }
+
+            &.has-tabs {
+                &:before, &:after {display: block;}
+            }
+        }
+
+        &.secondary {
+            > div > ul.nav-tabs {
+                background: @color-fancy-secondary-tabs-bg;
+                > li {
+                    border-right: none;
+                    padding-right: 0;
+                    margin-right: 0;
+                    a {
+                        background: transparent;
+                        border: none;
+                        padding: 8px 10px;
+                        color: @color-fancy-secondary-tabs-inactive-text;
+                    }
+
+                    &.active {
+                        a {color: @color-fancy-secondary-tabs-active-text;}
+                    }
+                }
+            }
+
+            .tab-collapse-icon {
+                .tab-collapse-icon();
+
+                &.primary {
+                    color: @color-fancy-master-tabs-active-text;
+                    top: 12px;
+                    right: 11px;
+                    bottom: auto;
+                }
+            }
+
+            &.primary-collapsed {
+                .tab-collapse-icon.primary {
+                    .scaleAxes(1, 1);
+                }
+            }
+        }
+
+        &.primary {
+            > div > ul.nav-tabs {
+                background: @color-fancy-primary-tabs-bg;
+
+                &:before {
+                    display: none;
+                }
+
+                > li {
+                    background: transparent;
+                    border-right: none;
+                    padding-right: 0;
+                    padding-left: 0;
+                    margin-right: 0;
+
+                    a {
+                        background: transparent;
+                        border: none;
+                        padding: 8px 10px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: @color-fancy-primary-tabs-inactive-text;
+                    }
+
+                    &.active {
+                        a {
+                            color: @color-fancy-primary-tabs-active-text;
+                            &:before {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            > .tab-content > .tab-pane {
+                padding: 15px 15px 0 15px;
+
+                .form-control {
+                    border-width: 1px;
+                }
+            }
+
+            &.collapsed {
+                display: none;
+            }
+        }
+
+        > div.tab-content {
+            background: @color-body-bg;
+
+            > div.tab-pane {
+                padding: 0;
+
+                &.padded-pane {
+                    padding: 15px 15px 0 15px;
+                }
+            }
+        }
+    }
+
+    //
+    // Forms and buttons
+    //
+
+    .form-tabless-fields {
+        .clearfix();
+        position: relative;
+        background: @color-fancy-form-tabless-fields-bg;
+        padding: 18px 23px 0 23px;
+        .transition(all 0.5s);
+
+        label {
+            text-transform: uppercase;
+            color: @color-fancy-form-label;
+            margin-bottom: 0;
+        }
+
+        input[type=text] {
+            background: transparent;
+            border: none;
+            color: @color-fancy-form-text;
+            font-size: 35px;
+            font-weight: 100;
+            height: auto;
+            padding: 0;
+            .placeholder(@color-fancy-form-placeholder);
+
+            &:focus, &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        .form-group {
+            padding-bottom: 0;
+        }
+
+        .tab-collapse-icon {
+            .tab-collapse-icon();
+            &.tabless {
+                top: 11px;
+            }
+        }
+
+        &.collapsed {
+            padding: 5px 23px 0 10px;
+
+            .tab-collapse-icon {
+                &.tabless {
+                    .scaleAxes(1, -1);
+                }
+            }
+
+            .form-group:not(.collapse-visible) {
+                display: none;
+            }
+
+            .form-buttons {
+                padding-bottom: 0;
+            }
+        }
+
+        .loading-indicator-container {
+            .loading-indicator {
+                background-color: @color-fancy-form-tabless-fields-bg;
+                padding: 0 0 0 30px;
+                color: @color-fancy-form-label;
+                margin-top: 1px;
+                height: 90%;
+                font-size: 12px;
+                line-height: 100%;
+                > span {
+                    left: -10px;
+                    top: 18px;
+                }
+            }
+        }
+    }
+
+    .form-buttons {
+        .transition(all 0.5s);
+        padding-top: 2px;
+        padding-bottom: 5px;
+        margin-top: -6px;
+
+        .btn {
+            margin-left: -11px;
+            background-color: transparent;
+        }
+    }
+
+    .form-buttons {
+        .btn {
+            color: @color-fancy-master-tabs-active-text;
+            .opacity(0.5);
+            .transition(all 0.3s ease);
+
+            &:hover {
+                .opacity(1);
+            }
+        }
+    }
+
+    form.oc-data-changed {
+        .btn.save {
+            .opacity(1);
+        }
+    }
+
+    //
+    // Code editor
+    //
+
+    .field-codeeditor { 
+        border: none!important;
+        .border-radius(0);
+
+        .editor-code {
+            .border-radius(0);
+        }
+    }
+}
+
+html.cssanimations { 
+    .fancy-layout {
+        .form-tabless-fields {
+            .loading-indicator-container {
+                .loading-indicator > span {
+                    .animation(spin 1s linear infinite);
+                    background-image: url(../images/loading-indicator-white.svg);
+                    background-size: 20px 20px;
+                }
+            }
+        }
+    }
+}

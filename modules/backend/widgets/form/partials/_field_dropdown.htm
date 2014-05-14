@@ -1,0 +1,21 @@
+<!-- Dropdown -->
+<?php if ($this->previewMode): ?>
+    <div class="form-control"><?= (isset($field->options[$field->value])) ? e($field->options[$field->value]) : '' ?></div>
+<?php else: ?>
+    <select
+        id="<?= $field->getId() ?>"
+        name="<?= $field->getName() ?>"
+        class="form-control custom-select"
+        <?= HTML::attributes($field->attributes) ?>>
+        <?php if ($field->placeholder): ?>
+            <option value=""><?= e(trans($field->placeholder)) ?></option>
+        <?php endif ?>
+        <?php foreach ($field->options as $value => $text): ?>
+            <option
+                <?= $value == $field->value ? 'selected="selected"' : '' ?>
+                value="<?= $value ?>">
+                    <?= e($text) ?>
+            </option>
+        <?php endforeach ?>
+    </select>
+<?php endif?>

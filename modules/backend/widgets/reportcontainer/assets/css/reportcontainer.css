@@ -1,0 +1,189 @@
+.report-container {
+  /**** Isotope CSS3 transitions ****/
+}
+.report-container > ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 15px;
+}
+.report-container > ul .item {
+  float: left;
+  overflow: hidden;
+}
+.report-container > ul .item .content {
+  margin: 5px;
+  position: relative;
+}
+.report-container > ul .item .content .drag-handle {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  left: 15px;
+  top: 13px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+  font-size: 14px;
+  cursor: move;
+}
+.report-container > ul .item .content .drag-handle:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f0c9";
+  color: #b6b6b6;
+}
+.report-container > ul .item .content .widget-control {
+  position: absolute;
+  display: none;
+  width: 15px;
+  height: 15px;
+  color: #b6b6b6;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  outline: none;
+}
+.report-container > ul .item .content .widget-control:hover {
+  color: #0181b9;
+}
+.report-container > ul .item .content .report-widget h3 {
+  padding-left: 0;
+  -webkit-transition: padding 0.2s;
+  transition: padding 0.2s;
+}
+.report-container > ul .item .content .edit-widget {
+  text-indent: -10000em;
+  right: 15px;
+  top: 15px;
+}
+.report-container > ul .item .content .edit-widget:before {
+  position: absolute;
+  display: block;
+  text-indent: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  font-size: 16px;
+}
+.report-container > ul .item .content .edit-widget:hover:before {
+  text-decoration: none;
+}
+.report-container > ul .item .content .edit-widget.inspector-open {
+  display: block;
+}
+.report-container > ul .item .content .close {
+  right: 10px;
+  top: 15px;
+}
+.report-container > ul .item:hover .widget-control,
+.report-container > ul .item.dragged .widget-control {
+  display: block;
+}
+.report-container > ul .item:hover .report-widget h3,
+.report-container > ul .item.dragged .report-widget h3 {
+  padding-left: 18px;
+}
+.report-container > ul .item:hover .drag-handle,
+.report-container > ul .item.dragged .drag-handle {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+.report-container > ul .item.width-1 {
+  width: 9.95%;
+}
+.report-container > ul .item.width-2 {
+  width: 19.95%;
+}
+.report-container > ul .item.width-3 {
+  width: 29.95%;
+}
+.report-container > ul .item.width-4 {
+  width: 39.95%;
+}
+.report-container > ul .item.width-5 {
+  width: 49.95%;
+}
+.report-container > ul .item.width-6 {
+  width: 59.95%;
+}
+.report-container > ul .item.width-7 {
+  width: 69.95%;
+}
+.report-container > ul .item.width-8 {
+  width: 79.95%;
+}
+.report-container > ul .item.width-9 {
+  width: 89.95%;
+}
+.report-container > ul .item.width-10 {
+  width: 100%;
+}
+.report-container > ul .item.dragged {
+  -webkit-transition-duration: 0!important;
+  -moz-transition-duration: 0!important;
+  transition-duration: 0!important;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) !important;
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+.report-container > ul .item.placeholder {
+  display: none;
+}
+.report-container > ul .item.separator {
+  width: 100%!important;
+}
+.report-container > ul.add-delete .item .content .edit-widget {
+  right: 30px;
+}
+.report-container > ul.wrapped .item {
+  width: 100%!important;
+}
+.report-container .add-widget {
+  display: inline-block;
+  color: #bcc3c7;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px dashed #bcc3c7;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  margin-left: 5px;
+  margin-bottom: 15px;
+}
+.report-container .add-widget i {
+  margin-right: 5px;
+}
+.report-container .add-widget:hover {
+  text-decoration: none;
+  background-color: #0181b9;
+  color: white;
+  border: 1px solid #0181b9;
+}
+.report-container.isotope,
+.report-container.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+  -moz-transition-duration: 0.8s;
+  transition-duration: 0.8s;
+}
+.report-container.isotope {
+  -webkit-transition-property: height, width;
+  -moz-transition-property: height, width;
+  transition-property: height, width;
+}
+.report-container.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -moz-transition-property: -moz-transform, opacity;
+  transition-property: transform, opacity;
+}
+@media (max-width: 768px) {
+  .report-container ul .item {
+    width: 100%!important;
+  }
+}

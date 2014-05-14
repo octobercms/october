@@ -1,0 +1,102 @@
+//
+// Popup
+// --------------------------------------------------
+
+.modal-content {
+    .box-shadow(none);
+    .border-radius(2px);
+    border: none;
+    background: @color-popup-content-bg;
+    .close {color: #fff;}
+}
+
+.modal-header {
+    background: @color-popup-header-bg;
+    color: @color-popup-header-text;
+    border: none;
+
+    h4 {
+        font-weight: 600;
+        font-size: 16px;
+    }
+}
+
+.modal-footer {
+    background: @color-popup-footer-bg;
+    border: none;
+    margin-top: 0;
+    padding: 0 20px 20px 20px;
+}
+
+.modal-body {
+    padding-bottom: 0;
+
+    p:last-child {
+        margin-bottom: 20px;
+    }
+}
+
+.control-popup {
+    &.fade {
+        .modal-dialog {
+            .opacity(0);
+            .transition(~'all 0.3s, width 0s');
+            .transform(~'scale(0.7)');
+        }
+    }
+
+    &.fade.in {
+        .modal-dialog {
+            .opacity(1);
+            .transform( ~'scale(1)');
+        }
+    }
+}
+
+.popup-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: (@zindex-modal-background - 10);
+    background-color: @modal-backdrop-bg;
+    background-color: rgba(0,0,0,.2);
+    .opacity(1);
+
+    .popup-loading-indicator { 
+        display: block;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 130px;
+        left: 50%;
+        margin-left: -50px;
+        .transition(~'all 0.3s, width 0s');
+        .transform(~'scale(0.7)');
+        .opacity(0);
+
+        &:after {
+            content: ' ';
+            display: block;
+            background-size: 50px 50px;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-image: url(../images/loading-indicator-transparent.svg);
+            .animation(spin 1s linear infinite);
+            width: 50px;
+            height: 50px;
+            margin: 25px 0 0 25px;
+        }
+    }
+
+    &.loading .popup-loading-indicator {
+        .opacity(1);
+        .transform(~'scale(1)');
+    }
+
+}
+
+.mac body.modal-open {
+    margin-right: 0;
+}

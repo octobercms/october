@@ -1,0 +1,26 @@
+<div class="report-container">
+    <ul
+        id="<?= $this->getId('container-list') ?>"
+        class="<?= $this->canAddAndDelete ? 'add-delete' : null ?>"
+        data-control="report-container">
+
+        <?php foreach ($widgets as $widgetAlias=>$widgetInfo): ?>
+            <?= $this->makePartial('widget', [
+                'widgetAlias' => $widgetAlias,
+                'widget' => $widgetInfo['widget'],
+                'sortOrder' => $widgetInfo['sortOrder']
+            ]) ?>
+        <?php endforeach ?>
+
+    </ul>
+    <input type="hidden" value="<?= $this->alias ?>" data-container-alias />
+    <?php if ($this->canAddAndDelete): ?>
+        <a
+            href="javascript:;"
+            class="add-widget"
+            data-control="popup"
+            data-handler="<?= $this->getEventHandler('onLoadAddPopup') ?>">
+            <i class="icon-plus"></i> Add widget
+        </a>
+    <?php endif ?>
+</div>

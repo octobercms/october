@@ -1,0 +1,10 @@
+var = value
+[section]
+version = 10
+==
+function onBeforeDisplay($controller)
+{
+    $controller->data['something'] = 'some value';
+}
+==
+<p>This is a paragraph</p>

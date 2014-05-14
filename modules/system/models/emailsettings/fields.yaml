@@ -1,0 +1,55 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+tabs:
+
+  fields:
+    send_mode:
+      label: Email Method
+      type: dropdown
+      tab: General
+
+    sender_name:
+      label: Sender Name
+      span: auto
+      tab: General
+
+    sender_email:
+      label: Sender Email
+      span: auto
+      tab: General
+
+    smtp_address:
+      label: SMTP address
+      tab: SMTP
+
+    smtp_authorization:
+      type: checkbox
+      label: SMTP Authorization Required
+      tab: SMTP
+      comment: Use this checkbox if your SMTP server requires authorization.
+
+    smtp_user:
+      label: User
+      tab: SMTP
+      span: left
+
+    smtp_password:
+      label: Password
+      tab: SMTP
+      span: right
+
+    smtp_port:
+      label: SMTP Port
+      tab: SMTP
+
+    smtp_ssl:
+      type: checkbox
+      label: SSL connection required
+      tab: SMTP
+
+    sendmail_path:
+      label: Sendmail path
+      commentAbove: Please specify the path of the sendmail program.
+      tab: Sendmail

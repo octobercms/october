@@ -1,0 +1,10 @@
+<td class="list-checkbox nolink">
+    <div class="checkbox custom-checkbox nolabel">
+        <input
+            type="checkbox"
+            name="checked[]"
+            id="<?= $this->getId('checkbox_' . $record->getKey()) ?>"
+            value="<?= $record->getKey() ?>" />
+        <label for="<?= $this->getId('checkbox_' . $record->getKey()) ?>">Check</label>
+    </div>
+</td>

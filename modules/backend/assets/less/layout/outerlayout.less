@@ -1,0 +1,163 @@
+
+// Layout for "Outside" pages, such as the Login screen
+//
+
+body.outer {
+    background: @color-outer-bg;
+
+    .layout {
+        > .layout-row {
+            &.layout-head {
+                text-align: center;
+                background: @color-outer-header;
+
+                > .layout-cell {
+                    height: 300px!important;
+                    padding: 50px 0;
+                    .box-sizing(border-box);
+                    vertical-align: middle;
+
+                    h1 {
+                        .hide-text();
+                        display: inline-block;
+                        background: transparent url(../images/october-logo-text.png) no-repeat left top;
+                        width: 404px;
+                        height: 65px;
+                    }
+                }
+            }
+
+
+            > .layout-cell {
+                vertical-align: middle;
+
+                .outer-form-container {
+                    margin: 0 auto;
+                    width: 404px;
+
+                    h2 {
+                        font-size: 18px;
+                        margin: 20px 0;
+                        color: @color-outer-heading;
+                    }
+
+                    .horizontal-form {
+                        font-size: 0;
+
+                        input {
+                            vertical-align: top;
+                            margin-right: 9px;
+                            display: inline-block;
+                            border: none;
+                            .border-radius(2px);
+
+                            &.width-1 {
+                                width: 160px;
+                            }
+
+                            &.width-2 {
+                                width: 323px;
+                            }
+                        }
+
+                        button {
+                            background: @link-color;
+                            text-align: center;
+                            font-size: 13px;
+                            font-weight: 600;
+                            height: 40px;
+                            vertical-align: top;
+                            .box-sizing(border-box);
+
+                            &.login-button {
+                                display: inline-block;
+                                width: 65px;
+                            }
+                        }
+                    }
+
+                    .forgot-password {
+                        margin-top: 30px;
+                        font-size: 13px;
+                        top: 8px;
+
+                        a {
+                            color: @color-outer-muted-text;
+                        }
+
+                        &:before {
+                            color: @color-outer-muted-text;
+                            font-size: 14px;
+                            position: relative;
+                            margin-right: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+html.csstransitions {
+    body.outer {
+        .outer-form-container {
+           .transition(all 0.5s ease-out);
+            .scaleAxes(1, 1);
+        }
+
+        &.preload {
+            .outer-form-container {
+                .scaleAxes(0.2, 0.2);
+            }
+        }
+    }
+}
+
+/*
+
+.outer-form-container {
+    width: 240px;
+    display: inline-block;
+    text-align: left;
+
+    h1 {
+        color: @color-outer-heading;
+        font-size: 39px;
+        font-weight: 400;
+        margin-bottom: 4px;
+
+        + p {
+            font-size: 13px;
+            color: @color-outer-description;
+            margin-bottom: 20px;
+        }
+    }
+
+    .form-group.combine-fields {
+        input:first-child {
+            border-bottom: 1px solid lighten(@color-form-field-border, 5%);
+            .border-bottom-radius(0);
+        }
+        input:last-child {
+            border-top: none;
+            .border-top-radius(0);
+        }
+
+        &.october {
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                display: block;
+                width: 145px;
+                height: 155px;
+                top: -149px;
+                right: -57px;
+                background: transparent url(../images/tree.png) no-repeat left top;
+            }
+        }
+    }
+}
+
+*/

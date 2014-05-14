@@ -1,0 +1,24 @@
+<?= Form::open() ?>
+
+    <div class="input-group" style="width: 207px">
+        <input
+            placeholder="<?= e(trans('backend::lang.list.search_prompt')) ?>"
+            type="text"
+            name="code"
+            value=""
+            class="form-control icon plus growable pull-right"
+            autocomplete="off" />
+
+        <span class="input-group-btn">
+            <button
+                type="submit"
+                class="btn btn-success"
+                id="installPluginButton"
+                data-control="popup"
+                data-handler="onInstallPlugin">
+                <?= e(trans('system::lang.install.plugin_label')) ?>
+            </button>
+        </span>
+    </div>
+
+<?= Form::close() ?>

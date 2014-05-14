@@ -1,0 +1,12 @@
+1.0.1:
+    - Added some upgrade file and some seeding
+    - some_upgrade_file.php
+    - some_seeding_file.php
+1.0.2:
+    - Create blog post comments table
+    - create_comments_table.php
+1.0.3: Bug fix update that uses no scripts
+1.0.4: Another fix
+1.0.5: 
+    - Create blog settings table
+    - create_blog_settings_table.php

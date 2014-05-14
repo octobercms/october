@@ -1,0 +1,30 @@
+@import "../../../../assets/less/core/boot.less";
+
+@richeditor-toolbar-size: 30px;
+
+.field-richeditor {
+    border: 1px solid @color-form-field-border;
+    &, .redactor_box, .redactor_toolbar {
+        .border-radius(5px);
+    }
+
+    &.editor-focus { 
+        border: 1px solid @color-form-field-border-focus; 
+    }
+
+    &.size-tiny textarea { height: (@size-tiny - @richeditor-toolbar-size); }
+    &.size-small textarea { height: (@size-small - @richeditor-toolbar-size); }
+    &.size-large textarea { height: (@size-large - @richeditor-toolbar-size); }
+    &.size-huge textarea { height: (@size-huge - @richeditor-toolbar-size); }
+    &.size-giant textarea { height: (@size-giant - @richeditor-toolbar-size); }
+
+    .redactor_box {
+        border: none;
+        .redactor_toolbar {
+            .border-top-radius(2px);
+            .border-bottom-radius(0);
+            background: @color-form-editor-toolbar;
+            border-bottom: 1px solid @color-form-field-border;
+        }
+    }
+}

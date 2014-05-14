@@ -1,0 +1,24 @@
+title = "Plugin components"
+url = "/plugins"
+layout = "default"
+
+[demoTodo]
+max = 3
+==
+<div class="jumbotron title-js">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h1>Plugin components</h1>
+                <p>Plugins can provide components, simple building blocks that enrich any page or layout. Check out the todo example below.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    {% component 'demoTodo' %}
+</div>
+
+<!-- Page Explanation -->
+<div class="container">{% partial "explain/plugins.htm" %}</div>

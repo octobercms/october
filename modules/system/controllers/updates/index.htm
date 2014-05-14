@@ -1,0 +1,34 @@
+<div class="scoreboard">
+    <div data-control="toolbar">
+        <div class="scoreboard-item title-value">
+            <h4><?= e(trans('system::lang.project.name')) ?></h4>
+            <?php if ($project_id): ?>
+                <p class="oc-icon-chain"><?= $project_name ?></p>
+                <p class="description">
+                    <?= e(trans('system::lang.project.owner_label')) ?>: <?= $project_owner ?>
+                    (<a
+                        href="javascript:;"
+                        data-request-confirm="Are you sure?"
+                        data-request="onDetachProject"
+                        data-stripe-load-indicator>detach</a>)
+                </p>
+            <?php else: ?>
+                <p class="oc-icon-chain-broken">None</p>
+                <p class="description">
+                    <a
+                        href="javascript:;"
+                        data-control="popup"
+                        data-handler="onLoadProjectForm">
+                        Attach to Project
+                    </a>
+                </p>
+            <?php endif ?>
+        </div>
+        <div class="scoreboard-item title-value">
+            <h4><?= e(trans('system::lang.updates.core_build')) ?></h4>
+            <p><?= $core_build ?></p>
+        </div>
+    </div>
+</div>
+
+<?= $this->listRender() ?>

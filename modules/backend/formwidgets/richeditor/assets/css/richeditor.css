@@ -1,0 +1,39 @@
+.field-richeditor {
+  border: 1px solid #e0e0e0;
+}
+.field-richeditor,
+.field-richeditor .redactor_box,
+.field-richeditor .redactor_toolbar {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.field-richeditor.editor-focus {
+  border: 1px solid #cccccc;
+}
+.field-richeditor.size-tiny textarea {
+  height: 20px;
+}
+.field-richeditor.size-small textarea {
+  height: 70px;
+}
+.field-richeditor.size-large textarea {
+  height: 170px;
+}
+.field-richeditor.size-huge textarea {
+  height: 220px;
+}
+.field-richeditor.size-giant textarea {
+  height: 320px;
+}
+.field-richeditor .redactor_box {
+  border: none;
+}
+.field-richeditor .redactor_box .redactor_toolbar {
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background: #f6f6f6;
+  border-bottom: 1px solid #e0e0e0;
+}

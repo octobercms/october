@@ -1,0 +1,111 @@
+<?php if (!$this->fatalError): ?>
+
+    <?php if ($hasUpdates): ?>
+
+        <div class="modal-body">
+            <p>
+                <strong><?= e(trans('system::lang.updates.found.label')) ?></strong>
+                <?= e(trans('system::lang.updates.found.help')) ?>
+            </p>
+
+            <div class="control-updatelist">
+                <div class="control-scrollbar" style="height:300px" data-control="scrollbar">
+
+                    <?php if ($core): ?>
+                        <h5>
+                            <?= e(trans('system::lang.system.name')) ?>
+                            <?php if ($core['old_build']): ?>
+                                <?= e(trans('system::lang.updates.core_build_old', ['build'=>$core['old_build']])) ?>
+                            <?php endif ?>
+                        </h5>
+                        <dl>
+                            <dt><?= e(trans('system::lang.updates.core_build_new', ['build'=>$core['build']])) ?></dt>
+                            <dd><?= e(trans('system::lang.updates.core_build_new_help')) ?></dd>
+                        </dl>
+                        <input type="hidden" name="hash" value="<?= e($core['hash']) ?>" />
+                        <input type="hidden" name="build" value="<?= e($core['build']) ?>" />
+                    <?php endif ?>
+
+                    <?php foreach ($updateList as $code => $plugin): ?>
+                        <h5>
+                            <?= e($plugin['name']) ?>
+
+                            <?php if ($plugin['old_version']): ?>
+                                <small><?= e(trans('system::lang.updates.plugin_version_old', ['version'=>$plugin['old_version']])) ?></small>
+                            <?php else: ?>
+                                <small><?= e(trans('system::lang.updates.plugin_version_none')) ?></small>
+                            <?php endif ?>
+                        </h5>
+                        <dl>
+                            <?php foreach ($plugin['updates'] as $version => $description): ?>
+                                <dt><?= e(trans('system::lang.updates.plugin_version_new', compact('version'))) ?></dt>
+                                <dd><?= e($description) ?></dd>
+                            <?php endforeach ?>
+                        </dl>
+
+                        <input type="hidden" name="plugins[<?= e($code) ?>]" value="<?= e($plugin['hash']) ?>" />
+                    <?php endforeach ?>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button
+                type="button"
+                class="btn btn-primary"
+                data-dismiss="popup"
+                data-control="popup"
+                data-handler="onApplyUpdates"
+                data-keyboard="false">
+                <?= e(trans('system::lang.updates.update_label')) ?>
+            </button>
+            <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="popup">
+                <?= e(trans('backend::lang.form.cancel')) ?>
+            </button>
+        </div>
+
+    <?php else: ?>
+
+        <div class="modal-body">
+            <p><?= e(trans('system::lang.updates.none.help')) ?></p>
+        </div>
+        <div class="modal-footer">
+            <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="popup">
+                <?= e(trans('backend::lang.form.close')) ?>
+            </button>
+            <button
+                type="button"
+                class="btn btn-primary"
+                data-dismiss="popup"
+                data-control="popup"
+                data-handler="onForceUpdate"
+                data-keyboard="false">
+                <?= e(trans('system::lang.updates.force_label')) ?>
+            </button>
+        </div>
+
+    <?php endif ?>
+
+<?php else: ?>
+
+    <div class="modal-body">
+        <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    </div>
+    <div class="modal-footer">
+        <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="popup">
+            <?= e(trans('backend::lang.form.close')) ?>
+        </button>
+    </div>
+
+<?php endif ?>

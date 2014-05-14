@@ -1,0 +1,94 @@
+//
+// Filters
+// --------------------------------------------------
+
+.control-filter {
+    padding: 0 10px;
+    font-size: 13px;
+    color: @color-filter-text;
+    background-color: @color-filter-bg;
+    border-top: 1px solid @color-filter-border;
+    border-bottom: 1px solid @color-filter-border;
+    a {
+        color: @color-filter-text;
+        text-decoration: none; 
+    }
+
+    >.filter-set {
+        display: inline-block;
+        padding: 15px;
+        .filter-label {}
+        .filter-setting {
+            display: inline-block;
+        }
+
+        &:after {
+            font-size: 14px;
+            .icon(@angle-down);
+        }
+
+        &.active {
+            .filter-setting {
+                padding-left: 5px;
+                padding-right: 5px;
+                color: #FFF;
+                background-color: @color-filter-bg-active;
+                .border-radius(4px);
+            }
+        }
+
+        &:hover {
+            color: #000;
+            .filter-label { color: @color-filter-text; }
+            &.active .filter-setting { background-color: darken(@color-filter-bg-active, 5%); }
+        }
+    }
+}
+
+.control-filter-popover {
+    min-width: 275px;
+
+    .filter-search {
+        min-height: 36px;
+        input {
+            min-height: 36px;
+            border: none; 
+            border-bottom: 1px solid @color-filter-border;
+            background: transparent url(../images/bitmap-icons.png) no-repeat 100% -82px;
+            .border-radius(0);
+        }
+    }
+
+    .filter-items, .filter-active-items {
+        color: @color-filter-text;
+        font-size: 13px;
+        ul, li { list-style-type: none; margin:0; padding:0; }
+        a {
+            text-decoration: none;
+            color: @color-filter-text;
+            display: block;
+            padding: 7px 15px; 
+
+            &:before {
+                margin-right: 8px;
+                display: inline-block;
+                vertical-align: baseline;
+            }
+
+            &:hover {
+                background-color: @color-filter-items-bg-hover;
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .filter-items {
+        background-color: @color-filter-items-bg;
+        border-bottom: 1px solid @color-filter-border;
+        a:before { .icon(@plus); }
+    }
+
+    .filter-active-items {
+        a:before { .icon(@times); }
+    }
+}

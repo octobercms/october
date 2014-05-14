@@ -1,0 +1,16 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: backend::lang.user.group.list_title
+list: @/modules/backend/models/group/columns.yaml
+modelClass: Backend\Models\UserGroup
+recordUrl: backend/groups/update/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 5
+showCheckboxes: yes
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

@@ -1,0 +1,21 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+  name:
+    label: Name
+    sortable: false
+
+  description:
+    label: Description
+    sortable: false
+
+  version:
+    label: Version
+    sortable: false
+
+  author:
+    label: Author
+    sortable: false

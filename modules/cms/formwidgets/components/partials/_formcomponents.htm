@@ -1,0 +1,19 @@
+<div class="control-componentlist">
+    <div class="components" data-control="toolbar">
+        <div class="layout">
+            <?php foreach ($components as $component): ?>
+                <div class="layout-cell">
+                    <div class="<?= 'oc-'.$component->pluginIcon ?> layout-relative" data-inspectable data-inspector-title="<?= $name = e($this->getComponentName($component)) ?>" data-inspector-description="<?= $description = e($this->getComponentDescription($component)) ?>" data-inspector-config="<?= e($this->getComponentsPropertyConfig($component)) ?>" data-inspector-class="<?= get_class($component) ?>">
+                        <span class="name"><?= $name ?></span>
+                        <span class="description"><?= $description ?></span>
+                        <span class="alias oc-icon-code"><?= e($component->alias) ?></span>
+                        <input type="hidden" name="component_properties[]" data-inspector-values value="<?= e($this->getComponentPropertyValues($component)) ?>"/>
+                        <input type="hidden" name="component_names[]" value="<?= e($component->name) ?>"></input>
+                        <input type="hidden" name="component_aliases[]" value="<?= e($component->alias) ?>"></input>
+                        <a href="#" class="remove">&times;</a>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+//
+// Simple List
+// --------------------------------------------------
+// Usage:
+//   <div class="control-simplelist">
+//       <ul>
+//           <li>Hello friend</li>
+//       </ul>
+//   </div>
+//
+// With icons:
+//   <div class="control-simplelist with-icons">
+//       <ul>
+//           <li class="oc-icon-ok">Hello friend</li>
+//       </ul>
+//   </div>
+//
+// With checkboxes:
+//   <div class="control-simplelist with-checkboxes">
+//       <ul>
+//           <li>
+//               <div class="checkbox custom-checkbox">
+//                   <input id="checkbox-example1" name="checkbox" value="1" type="checkbox">
+//                   <label class="choice" for="checkbox-example1"> Dodge Viper</label>
+//               </div>
+//           </li>
+//       </ul>
+//   </div>
+
+.control-simplelist {
+
+    font-size: 13px;
+
+    ul { padding-left: 15px; }
+
+    &.with-icons, &.with-checkboxes {
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+    }
+
+    &.with-checkboxes {}
+
+    &.is-sortable {
+
+        li.placeholder {
+            position: relative;
+            &:before {
+                top: -10px;
+                position: absolute;
+                .triangle(right, 5px, 9px, @color-sortable-caret);
+            }
+        }
+
+        li.dragged {
+            position: absolute;
+            .opacity(.5);
+            z-index: 2000;
+            color: @color-sortable-active;
+
+            width: auto !important; // Prevent browser scrollbars
+        }
+    }
+
+    &.is-scrollable {
+        height: 200px;
+    }
+
+}

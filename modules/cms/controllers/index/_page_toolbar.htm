@@ -1,0 +1,30 @@
+<div class="form-buttons loading-indicator-container">
+    <a
+        href="javascript:;" 
+        class="btn btn-primary oc-icon-ok save"
+        data-request="onSave"
+        data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+        data-hotkey="ctrl+s"
+        data-hotkey-mac="cmd+s">
+            <?= e(trans('backend::lang.form.save')) ?>
+    </a>
+
+    <?php
+        $pageUrl = isset($pageUrl) ? $pageUrl : null;
+    ?>
+    <a
+        href="<?= URL::to($pageUrl) ?>"
+        target="_blank"
+        class="btn btn-primary oc-icon-screenshot <?php if (!$templatePath): ?>hide<?php endif ?>"
+        data-control="preview-button">
+        Preview
+    </a>
+
+    <button
+        type="button"
+        class="btn btn-default empty oc-icon-trash-o <?php if (!$templatePath): ?>hide<?php endif ?>"
+        data-request="onDelete"
+        data-request-confirm="<?= e(trans('cms::lang.page.delete_confirm_single')) ?>"
+        data-request-success="$.oc.cmsPage.updateTemplateList('page'); $(element).trigger('close.oc.tab', [{force: true}])"
+        data-control="delete-button"></button>
+</div>

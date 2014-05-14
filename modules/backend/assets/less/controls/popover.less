@@ -1,0 +1,192 @@
+div.control-popover {
+    position: absolute;
+    background-clip: content-box;
+    left: 0;
+    top: 0;
+    z-index: 161;
+
+    & > div {
+        position: relative;
+        background: @color-popover-bg;
+        border: 1px solid @color-popover-border;
+        .box-shadow(2px 2px 2px rgba(0,0,0,0.05));
+        .border-top-radius(5px);
+        .border-bottom-radius(2px);
+
+        &:after, &:before {
+            position: absolute;
+        }
+
+        &:after {z-index: 201;}
+        &:before {z-index: 200;}
+    }
+
+    &.placement-bottom > div {
+        &:after {
+            .triangle(up, 15px, 8px, @color-popover-bg);
+            left: 15px;
+            top: -8px;
+        }
+
+        &:before {
+            .triangle(up, 17px, 9px, @color-popover-border);
+            left: 14px;
+            top: -9px;
+        }
+    }
+
+    &.placement-top > div {
+        &:after {
+            .triangle(down, 15px, 8px, @color-popover-bg);
+            left: 15px;
+            bottom: -8px;
+        }
+
+        &:before {
+            .triangle(down, 17px, 9px, @color-popover-border);
+            left: 14px;
+            bottom: -9px;
+        }
+    }
+
+    &.placement-left > div {
+        &:after {
+            .triangle(right, 8px, 15px, @color-popover-bg);
+            right: -8px;
+            top: 7px;
+        }
+
+        &:before {
+            .triangle(right, 9px, 17px, @color-popover-border);
+            right: -9px;
+            top: 6px;
+        }
+    }
+
+    &.placement-right > div {
+        &:after {
+            .triangle(left, 8px, 15px, @color-popover-bg);
+            left: -8px;
+            top: 7px;
+        }
+
+        &:before {
+            .triangle(left, 9px, 17px, @color-popover-border);
+            left: -9px;
+            top: 6px;
+        }
+    }
+
+    div.popover-body {
+        padding: 15px;
+    }
+
+    .popover-head {
+        background: @color-popover-head-bg;
+        padding: 14px 16px;
+        position: relative;
+        color: @color-popover-head-text;
+        .border-top-radius(2px);
+
+        &:before {
+            z-index: 202;
+            position: absolute;
+        }
+
+        h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 0;
+        }
+
+        p {
+            font-size: 13px;
+            font-weight: 100;
+            margin: 0;
+        }
+
+        .close {
+            float: none;
+            position: absolute;
+            right: 7px;
+            top: 4px;
+            color: @color-popover-head-text;
+            outline: none;
+
+            &:hover {
+                .opacity(1);
+            }
+        }
+    }
+
+    &.placement-bottom .popover-head:before {
+        .triangle(up, 15px, 8px, @color-popover-head-bg);
+        left: 15px;
+        top: -8px;
+    }
+
+    &.placement-left .popover-head:before {
+        .triangle(right, 8px, 15px, @color-popover-head-bg);
+        right: -8px;
+        top: 7px;
+    }
+
+    &.placement-right .popover-head:before {
+        .triangle(left, 8px, 15px, @color-popover-head-bg);
+        left: -8px;
+        top: 7px;
+    }
+}
+
+.popover-highlight {
+    position: relative;
+    z-index: 162!important;
+    &:hover, &:active, &:focus {
+        z-index: 162!important;
+    }
+}
+
+div.popover-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 160;
+}
+
+@media (max-width: @screen-xs) {
+    body.popover-open {
+
+        overflow: hidden;
+
+        .control-popover {
+            overflow: auto;
+            overflow-y: scroll;
+            position: fixed;
+            margin: 0;
+            padding: 10px;
+            width: 100%!important;
+            z-index: 209;
+            top: 0!important;
+            right: 0!important;
+            bottom: 0!important;
+            left: 0!important;
+
+            > div {
+                padding: 0;
+                min-height: 100%;
+                .box-shadow(none);
+
+                &:before, &:after {
+                    display: none;
+                }
+            }
+
+            .popover-head:before {
+                display: none;
+            }
+        }
+    }
+}

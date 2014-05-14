@@ -1,0 +1,44 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('backend/users') ?>">System Administrators</a></li>
+        <li><a href="<?= Backend::url('backend/groups') ?>">Manage Groups</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <?= Form::open(['class'=>'layout-item stretch layout-column']) ?>
+
+        <?= $this->formRender() ?>
+
+        <div class="form-buttons layout-item fix">
+            <div class="loading-indicator-container">
+                <button
+                    type="submit"
+                    data-request="onSave"
+                    data-hotkey="ctrl+s"
+                    data-hotkey-mac="cmd+s"
+                    data-load-indicator="Creating Group..."
+                    class="btn btn-primary">
+                    Create
+                </button>
+                <button 
+                    type="button"
+                    data-request="onSave"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+s"
+                    data-hotkey-mac="cmd+s"
+                    data-load-indicator="Creating Group..."
+                    class="btn btn-default">
+                    Create and Close
+                </button>
+            </div>
+        </div>
+
+    <?= Form::close() ?>
+
+<?php else: ?>
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('backend/groups') ?>" class="btn btn-default">Return to the group list</a></p>
+<?php endif ?>

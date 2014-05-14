@@ -1,0 +1,43 @@
+.control-breadcrumb {
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 0 0 20px 0;
+
+    ul { 
+        margin: 0; 
+        padding: 0; 
+    }
+    li { 
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: inline-block; 
+        color: @color-breadcrumb-text-active;
+        a {
+            color: @color-breadcrumb-text;
+            text-decoration: none;
+            &:hover { color: @color-breadcrumb-text-active; }
+        }
+
+        &:after {
+            font-size: 14px;
+            line-height: 14px;
+            display: inline-block;
+            margin-left: 6px;
+            margin-right: 2px;
+            vertical-align: baseline;
+            color: @color-breadcrumb-text;
+            .icon(@angle-right);
+        }
+
+        &:last-child:after {
+            content:'';
+        }
+    }
+}
+
+body.slim-container {
+    .control-breadcrumb {
+        padding: 0 20px 20px 20px;
+    }
+}

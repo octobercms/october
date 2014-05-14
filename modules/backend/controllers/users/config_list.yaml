@@ -1,0 +1,19 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: backend::lang.user.list_title
+list: @/modules/backend/models/user/columns.yaml
+modelClass: Backend\Models\User
+recordUrl: backend/users/update/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 5
+showCheckboxes: yes
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt
+
+
+

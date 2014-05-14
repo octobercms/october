@@ -1,0 +1,13 @@
+<div data-request-data="_relation_field: '<?= $relationField ?>'" id="<?= $this->relationGetId() ?>">
+
+    <!-- Relation Toolbar -->
+    <div id="<?= $this->relationGetId('toolbar') ?>">
+        <?= $this->relationRenderToolbar() ?>
+    </div>
+
+    <!-- Relation View -->
+    <div id="<?= $this->relationGetId('view') ?>">
+        <?= $this->relationRenderView() ?>
+    </div>
+
+</div>

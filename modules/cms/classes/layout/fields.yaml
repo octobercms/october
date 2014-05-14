@@ -1,0 +1,34 @@
+fields:
+  fileName:
+    label: File Name
+    span: left
+    attributes:
+      default-focus: 1
+
+  settings[description]:
+    label: Description
+    span: right
+
+  toolbar:
+    type: partial
+    path: layout_toolbar
+    cssClass: collapse-visible
+
+  components: Cms\FormWidgets\Components
+
+secondaryTabs:
+  stretch: true
+  fields:
+    markup:
+      tab: Markup
+      type: codeeditor
+      stretch: true
+      options:
+        language: twig
+
+    code:
+      tab: Code
+      type: codeeditor
+      stretch: true
+      options:
+        language: php

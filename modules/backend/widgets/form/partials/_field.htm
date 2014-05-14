@@ -1,0 +1,24 @@
+<div class="form-group <?= $this->previewMode ? 'form-group-preview' : '' ?> <?= $field->type ?>-field span-<?= $field->span ?> <?= $field->required?'is-required':'' ?> <?= $field->stretch?'layout-relative':'' ?> <?= $field->cssClass ?>">
+
+    <?php if (in_array($field->type, ['checkbox', 'switch'])): ?>
+
+        <?= $this->makePartial('field_'.$field->type, ['field' => $field]) ?>
+
+    <?php else: ?>
+
+        <?php if ($field->label): ?>
+            <label for="<?= $field->getId() ?>"><?= e(trans($field->label)) ?></label>
+        <?php endif ?>
+
+        <?php if ($field->comment && $field->commentPosition == 'above'): ?>
+            <p class="help-block before-field"><?= e(trans($field->comment)) ?></p>
+        <?php endif ?>
+
+        <?= $this->renderFieldElement($field) ?>
+
+        <?php if ($field->comment && $field->commentPosition == 'below'): ?>
+            <p class="help-block"><?= e(trans($field->comment)) ?></p>
+        <?php endif ?>
+
+    <?php endif ?>
+</div>

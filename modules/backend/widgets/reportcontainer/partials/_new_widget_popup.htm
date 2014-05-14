@@ -1,0 +1,44 @@
+<?= Form::open([
+    'data-request' => $this->getEventHandler('onAddWidget'),
+    'data-request-success' => "\$el.trigger('close.oc.popup'); \$(window).trigger('oc.report-widget-added')",
+    'data-stripe-load-indicator' => 1
+]) ?>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="popup">&times;</button>
+        <h4 class="modal-title">Add widget</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label>Widget</label>
+            <select class="form-control custom-select" name="className" data-placeholder="please select">
+                <option></option>
+                <?php foreach ($widgets as $className => $widgetInfo):?>
+                    <option value="<?= e($className) ?>"><?= isset($widgetInfo['label']) ? e($widgetInfo['label']) : $className ?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Width</label>
+            <select class="form-control custom-select" name="size">
+                <option></option>
+                <?php foreach ($sizes as $size => $name):?>
+                    <option value="<?= e($size) ?>" <?= $size == 10 ? 'selected' : null ?>><?= e($name) ?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button
+            type="submit"
+            class="btn btn-primary">
+            Add
+        </button>
+        <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="popup">
+            Cancel
+        </button>
+    </div>
+<?= Form::close() ?>

@@ -1,0 +1,78 @@
+<div
+    id="<?= $this->getId() ?>"
+    class="field-fileupload <?= $singleFile ? 'has-attachments' : '' ?>"
+    data-control="fileupload"
+    data-upload-input="#<?= $this->getId('upload-input') ?>"
+    data-unique-id="<?= $this->getId() ?>"
+    data-image-width="<?= $imageWidth ?>"
+    data-image-height="<?= $imageHeight ?>"
+    data-item-template="<?= $this->getId('template') ?>">
+
+    <div
+        class="image-single attachment-item"
+        data-attachment-id="<?= $singleFile ? $singleFile->id : '' ?>"
+        style="width: <?= $imageWidth.'px' ?>; height: <?= $imageHeight.'px' ?>">
+
+        <!-- Add New Image -->
+        <a
+            href="javascript:;"
+            class="uploader-link no-attachment"
+            <?php if ($singleFile): ?>style="display:none"<?php endif ?>>
+            <table><tr><td class="oc-<?= $emptyIcon ?>"></td></tr></table>
+        </a>
+
+        <div class="uploader-progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="uploader-loading"></div>
+    </div>
+
+    <!-- Upload form -->
+    <input
+        id="<?= $this->getId('upload-input') ?>"
+        type="file"
+        name="file_data"
+        class="attachment-input" />
+
+    <!-- Populated Image -->
+    <script type="text/template" id="<?= $this->getId('template') ?>">
+
+        <a href="{{path}}" target="_blank" class="active-image">
+            <img src="{{thumb}}" alt="" class="attachment-image" />
+        </a>
+        <div class="uploader-toolbar">
+            <h3>
+                <abbr title="{{#title}}{{title}}{{/title}}{{^title}}{{file_name}}{{/title}}">
+                    {{#title}}{{title}}{{/title}}{{^title}}{{file_name}}{{/title}}
+                </abbr>
+            </h3>
+            {{#description}}
+                <p><abbr title="{{description}}">{{description}}</abbr></p>
+            {{/description}}
+            <a
+                href="javascript:;"
+                class="uploader-remove oc-icon-times"
+                data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
+                data-request-data="file_id: {{id}}"></a>
+
+            <div class="controls">
+                <a
+                    href="javascript:;"
+                    class="uploader-config oc-icon-cog"
+                    data-control="popup"
+                    data-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"
+                    data-request-data="file_id: {{id}}"></a>
+
+                <a
+                    href="{{path}}"
+                    class="uploader-file-link oc-icon-paper-clip"
+                    target="_blank"></a>
+            </div>
+        </div>
+
+    </script>
+
+    <!-- Existing images -->
+    <script> $('#<?= $this->getId() ?>').data('populatedData', <?= $fileList ?>); </script>
+
+</div>

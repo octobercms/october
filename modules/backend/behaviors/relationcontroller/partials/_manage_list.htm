@@ -1,0 +1,27 @@
+<?= Form::open() ?>
+    <div data-request-data="_relation_field: '<?= $relationField ?>'">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="popup">&times;</button>
+            <h4 class="modal-title">Add a new <?= $relationLabel ?></h4>
+        </div>
+
+        <?= $relationManageWidget->render() ?>
+
+        <div class="modal-footer">
+            <button
+                type="button"
+                class="btn btn-primary"
+                data-request="onRelationManageAdd"
+                data-dismiss="popup"
+                data-stripe-load-indicator>
+                Add selected
+            </button>
+            <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="popup">
+                Cancel
+            </button>
+        </div>
+    </div>
+<?= Form::close() ?>

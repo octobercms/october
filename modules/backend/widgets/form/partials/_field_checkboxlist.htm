@@ -1,0 +1,40 @@
+<!-- Checkbox List -->
+<?php
+    $checkedValues = (is_array($field->value)) ? $field->value : [$field->value];
+?>
+<?php if (count($field->options)): ?>
+
+    <?php $index = 0; foreach ($field->options as $value => $option): ?>
+        <?php
+            $index++;
+            $checkboxId = 'checkbox_'.$field->columnName.'_'.$index;
+            if (is_string($option))
+                $option = array($option);
+        ?>
+        <div class="checkbox custom-checkbox">
+
+            <input
+                type="checkbox"
+                id="<?= $checkboxId ?>"
+                name="<?= $field->getName() ?>[]"
+                value="<?= $value ?>"
+                <?= $this->previewMode ? 'readonly="readonly"' : '' ?>
+                <?= in_array($value, $checkedValues) ? 'checked="checked"' : '' ?>>
+
+            <label for="<?= $checkboxId ?>">
+                <?= e(trans($option[0])) ?>
+            </label>
+            <?php if (isset($option[1])): ?>
+                <p class="help-block"><?= e(trans($option[1])) ?></p>
+            <?php endif ?>
+        </div>
+    <?php endforeach ?>
+
+<?php else: ?>
+
+    <!-- No options specified -->
+    <?php if ($field->placeholder): ?>
+        <p><?= e(trans($field->placeholder)) ?></p>
+    <?php endif ?>
+
+<?php endif ?>
