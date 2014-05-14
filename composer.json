@@ -6,13 +6,22 @@
     "authors": [
         {
             "name": "Alexey Bobkov",
-            "email": "aleksey.bobkov@gmail.com"
+            "email": "aleksey.bobkov@gmail.com",
+            "role": "Co-founder"
         },
         {
             "name": "Samuel Georges",
-            "email": "daftspunky@gmail.com"
+            "email": "daftspunky@gmail.com",
+            "role": "Co-founder"
         }
     ],
+    "support": {
+        "issues": "https://github.com/octobercms/october/issues",
+        "forum": "http://octobercms.com/forum/",
+        "docs": "http://octobercms.com/docs/",
+        "irc": "irc://irc.freenode.net/october",
+        "source": "https://github.com/octobercms/october"
+    },
     "require": {
         "php": ">=5.4.0",
         "laravel/framework": "4.1.*",

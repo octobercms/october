@@ -1,0 +1,12 @@
+/bootstrap/compiled.php
+/vendor
+composer.lock
+composer.phar
+.DS_Store
+php_errors.log
+nginx-error.log
+nginx-access.log
+nginx-ssl.access.log
+nginx-ssl.error.log
+php-errors.log
+sftp-config.json
