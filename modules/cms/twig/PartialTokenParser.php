@@ -30,6 +30,7 @@ class PartialTokenParser extends Twig_TokenParser
      */
     public function parse(Twig_Token $token)
     {
+        $lineno = $token->getLine();
         $stream = $this->parser->getStream();
 
         $name = $this->parser->getExpressionParser()->parseExpression();
