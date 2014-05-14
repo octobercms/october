@@ -1,0 +1,50 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    ##
+    ## Handle resource requests
+    ##
+    RewriteCond %{REQUEST_URI} combine/.*(.css|.js)
+    RewriteRule ^ index.php [L]
+
+    ##
+    ## Black list protected files
+    ##
+    RewriteRule themes/.*/(layouts|pages|partials)/.*.htm index.php [L,NC]
+    RewriteRule uploads/protected/.* index.php [L,NC]
+
+    ##
+    ## White listed folders and files
+    ##
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_URI} !\.js
+    RewriteCond %{REQUEST_URI} !\.ico
+    RewriteCond %{REQUEST_URI} !\.jpg
+    RewriteCond %{REQUEST_URI} !\.gif
+    RewriteCond %{REQUEST_URI} !\.css
+    RewriteCond %{REQUEST_URI} !\.less
+    RewriteCond %{REQUEST_URI} !\.scss
+    RewriteCond %{REQUEST_URI} !\.png
+    RewriteCond %{REQUEST_URI} !\.swf
+    RewriteCond %{REQUEST_URI} !\.txt
+    RewriteCond %{REQUEST_URI} !\.xml
+    RewriteCond %{REQUEST_URI} !\.xls
+    RewriteCond %{REQUEST_URI} !\.eot
+    RewriteCond %{REQUEST_URI} !\.woff
+    RewriteCond %{REQUEST_URI} !\.ttf
+    RewriteCond %{REQUEST_URI} !\.svg
+    RewriteCond %{REQUEST_URI} !docs/.*
+    RewriteCond %{REQUEST_URI} !themes/.*
+    RewriteRule ^ index.php [L,NC]
+
+    ##
+    ## Standard routes
+    ##
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+</IfModule>
