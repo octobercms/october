@@ -538,17 +538,10 @@ class Form extends WidgetBase
             /*
              * Handle HTML array, eg: item[key][another]
              */
-            $_data = $data;
             $columnParts = Str::evalHtmlArray($field->columnName);
-            $columnName = array_pop($columnParts);
-            foreach ($columnParts as $part) {
-                if (!array_key_exists($part, $_data))
-                    $_data[$part] = [];
-
-                $_data = $_data[$part];
-            }
-
-            $data[$columnName] = array_key_exists($columnName, $_data) ? 1 : 0;
+            $columnDotted = implode('.', $columnParts);
+            $columnValue = array_get($data, $columnDotted, 0);
+            array_set($data, $columnDotted, $columnValue);
         }
 
         /*
