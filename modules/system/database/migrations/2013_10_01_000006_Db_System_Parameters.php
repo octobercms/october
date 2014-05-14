@@ -15,7 +15,7 @@ class DbSystemParameters extends Migration
             $table->string('group');
             $table->string('item');
             $table->text('value')->nullable();
-            $table->index(['namespace', 'group', 'item']);
+            $table->index(['namespace', 'group', 'item'], 'key_index');
         });
     }
 
