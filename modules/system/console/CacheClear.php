@@ -46,8 +46,11 @@ class CacheClear extends ClearCommand
      */
     public static function fireInternal()
     {
-        $command = App::make('System\Console\CacheClear');
-        $command->fire();
+        try {
+            $command = App::make('System\Console\CacheClear');
+            $command->fire();
+        }
+        catch (\Exception $ex) {}
     }
 
 }
