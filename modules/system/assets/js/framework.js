@@ -63,8 +63,23 @@ if (window.jQuery === undefined)
                 'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update)
             },
             success: function(data, textStatus, jqXHR) {
-                this.options.beforeUpdate.apply(this, [data, textStatus, jqXHR])
 
+                /*
+                 * Halt here if beforeUpdate() or data-request-before-update returns false
+                 */
+                if (this.options.beforeUpdate.apply(this, [context, data, textStatus, jqXHR]) === false) return
+                if (options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}($el, context, textStatus, jqXHR))') === false) return
+
+                /*
+                 * Trigger 'ajaxBeforeUpdate' on the form, halt if event.preventDefault() is called
+                 */
+                var _event = jQuery.Event('ajaxBeforeUpdate')
+                form.trigger(_event, [context, data, textStatus, jqXHR])
+                if (_event.isDefaultPrevented()) return
+
+                /*
+                 * Proceed with the update process
+                 */
                 var updatePromise = requestOptions.handleUpdateResponse(data, textStatus, jqXHR)
 
                 updatePromise.done(function(){
@@ -99,10 +114,13 @@ if (window.jQuery === undefined)
 
                 updatePromise.done(function(){
                     $el.data('error-message', errorMsg)
-                    var e = jQuery.Event( "ajaxError" )
-                    form.trigger(e, [context, textStatus, jqXHR])
-                    if (e.isDefaultPrevented())
-                        return
+
+                    /*
+                     * Trigger 'ajaxError' on the form, halt if event.preventDefault() is called
+                     */
+                    var _event = jQuery.Event('ajaxError')
+                    form.trigger(_event, [context, textStatus, jqXHR])
+                    if (_event.isDefaultPrevented()) return
 
                     /*
                      * Halt here if the data-request-error attribute returns false
@@ -224,6 +242,7 @@ if (window.jQuery === undefined)
         update: {},
         type : 'POST',
         beforeUpdate: function(data, textStatus, jqXHR) {},
+        evalBeforeUpdate: null,
         evalSuccess: null,
         evalError: null
     }
@@ -250,6 +269,7 @@ if (window.jQuery === undefined)
 
         var $this = $(this).first()
         var data  = {
+            evalBeforeUpdate: $this.data('request-before-update'),
             evalSuccess: $this.data('request-success'),
             evalError: $this.data('request-error'),
             confirm: $this.data('request-confirm'),
