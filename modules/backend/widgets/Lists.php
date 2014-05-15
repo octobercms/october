@@ -514,8 +514,8 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if (($response = Event::fire('backend.list.overrideHeaderValue', [$this, $column, $value])) && is_array($response))
-            $value = array_pop($response);
+        if ($response = Event::fire('backend.list.overrideHeaderValue', [$this, $column, $value], true))
+            $value = $response;
 
         if (($response = $this->trigger('list.overrideHeaderValue', $this, $column, $value)) && is_array($response))
             $value = array_pop($response);
@@ -536,8 +536,8 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if (($response = Event::fire('backend.list.overrideColumnValue', [$this, $record, $column, $value])) && is_array($response))
-            $value = array_pop($response);
+        if ($response = Event::fire('backend.list.overrideColumnValue', [$this, $record, $column, $value], true))
+            $value = $response;
 
         if (($response = $this->trigger('list.overrideColumnValue', $this, $record, $column, $value)) && is_array($response))
             $value = array_pop($response);
@@ -557,8 +557,8 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if (($response = Event::fire('backend.list.injectRowClass', [$this, $record])) && is_array($response))
-            $value = array_pop($response);
+        if ($response = Event::fire('backend.list.injectRowClass', [$this, $record], true))
+            $value = $response;
 
         if (($response = $this->trigger('list.injectRowClass', $this, $record)) && is_array($response))
             $value = array_pop($response);
