@@ -66,7 +66,7 @@ if (window.jQuery === undefined)
                 /*
                  * Halt here if beforeUpdate() or data-request-before-update returns false
                  */
-                if (this.options.beforeUpdate.apply(this, [context, data, textStatus, jqXHR]) === false) return
+                if (this.options.beforeUpdate.apply(this, [data, textStatus, jqXHR]) === false) return
                 if (options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}($el, context, data, textStatus, jqXHR))') === false) return
 
                 /*
