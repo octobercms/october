@@ -63,12 +63,11 @@ if (window.jQuery === undefined)
                 'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update)
             },
             success: function(data, textStatus, jqXHR) {
-
                 /*
                  * Halt here if beforeUpdate() or data-request-before-update returns false
                  */
                 if (this.options.beforeUpdate.apply(this, [context, data, textStatus, jqXHR]) === false) return
-                if (options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}($el, context, textStatus, jqXHR))') === false) return
+                if (options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}($el, context, data, textStatus, jqXHR))') === false) return
 
                 /*
                  * Trigger 'ajaxBeforeUpdate' on the form, halt if event.preventDefault() is called
