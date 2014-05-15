@@ -111,8 +111,8 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if (($event = Event::fire('cms.beforeDisplay', [$this, $url, $page])) && is_array($event))
-            return array_pop($event);
+        if ($event = Event::fire('cms.beforeDisplay', [$this, $url, $page], true))
+            return $event;
 
         /*
          * If the page was not found, render the 404 page - either provided by the theme or the built-in one.
@@ -190,8 +190,8 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if (($event = Event::fire('cms.afterDisplay', [$this, $url, $page])) && is_array($event))
-            return array_pop($event);
+        if ($event = Event::fire('cms.afterDisplay', [$this, $url, $page], true))
+            return $event;
 
         return $result;
     }
