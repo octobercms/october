@@ -498,7 +498,7 @@ class RelationController extends ControllerBehavior
             $config->showCheckboxes = true;
 
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
-            $widget->bind('list.extendQueryBefore', function($host, $query) {
+            $widget->bindEvent('list.extendQueryBefore', function($host, $query) {
                 $this->relationObject->setQuery($query);
                 $this->relationObject->addConstraints();
             });
@@ -572,7 +572,7 @@ class RelationController extends ControllerBehavior
          * Exclude exisiting relationships
          */
         if ($this->manageMode == 'pivot' || $this->manageMode == 'list') {
-            $widget->bind('list.extendQueryBefore', function($host, $query) {
+            $widget->bindEvent('list.extendQueryBefore', function($host, $query) {
 
                 /*
                  * Where not in the current list of related records

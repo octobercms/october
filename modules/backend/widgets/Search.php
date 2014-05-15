@@ -90,7 +90,7 @@ class Search extends WidgetBase
          * Trigger class event, merge results as viewable array
          */
         $params = func_get_args();
-        $result = $this->trigger('search.submit', $params);
+        $result = $this->fireEvent('search.submit', [$params]);
         return Util::arrayMerge($result);
     }
 
