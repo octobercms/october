@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DbSystemFiles extends Migration 
+class DbSystemFiles extends Migration
 {
 
     public function up()
@@ -19,8 +19,8 @@ class DbSystemFiles extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->string('field')->nullable()->index();
-            $table->string('attachment_id')->index();
-            $table->string('attachment_type')->index();
+            $table->string('attachment_id')->index()->nullable();
+            $table->string('attachment_type')->index()->nullable();
             $table->boolean('public')->default(true);
             $table->integer('sort_order')->nullable();
             $table->timestamps();
