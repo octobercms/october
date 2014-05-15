@@ -155,8 +155,8 @@ class ServiceProvider extends ModuleServiceProvider
         SettingsManager::instance()->registerCallback(function($manager){
             $manager->registerSettingItems('October.System', [
                 'email' => [
-                    'label'       => 'Email Configuration',
-                    'description' => 'Manage email configuration.',
+                    'label'       => 'system::lang.email.menu_label',
+                    'description' => 'system::lang.email.menu_description',
                     'category'    => 'System',
                     'icon'        => 'icon-envelope',
                     'class'       => 'System\Models\EmailSettings',

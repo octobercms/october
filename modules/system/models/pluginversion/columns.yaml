@@ -5,17 +5,17 @@
 columns:
 
   name:
-    label: Name
+    label: system::lang.updates.plugin_name
     sortable: false
 
   description:
-    label: Description
+    label: system::lang.updates.plugin_description
     sortable: false
 
   version:
-    label: Version
+    label: system::lang.updates.plugin_version
     sortable: false
 
   author:
-    label: Author
+    label: system::lang.updates.plugin_author
     sortable: false

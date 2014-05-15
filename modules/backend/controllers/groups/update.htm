@@ -20,7 +20,7 @@
                     data-request-data="redirect:0"
                     data-hotkey="ctrl+s"
                     data-hotkey-mac="cmd+s"
-                    data-load-indicator="<?= e(trans('backend::lang.user.group.saving')) ?>"
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
                     class="btn btn-primary">
                     <?= e(trans('backend::lang.form.save')) ?>
                 </button>
@@ -30,7 +30,7 @@
                     data-request-data="close:1"
                     data-hotkey="ctrl+enter"
                     data-hotkey-mac="cmd+enter"
-                    data-load-indicator="<?= e(trans('backend::lang.user.group.saving')) ?>"
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
                     class="btn btn-default">
                     <?= e(trans('backend::lang.form.save_and_close')) ?>
                 </button>
@@ -38,8 +38,8 @@
                     type="button"
                     class="btn btn-danger pull-right"
                     data-request="onDelete"
-                    data-load-indicator="<?= e(trans('backend::lang.user.group.deleting')) ?>"
-                    data-request-confirm="Do you really want to delete this admin?">
+                    data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
+                    data-request-confirm="<?= e(trans('backend::lang.user.group.delete_confirm')) ?>">
                     <?= e(trans('backend::lang.form.delete')) ?>
                 </button>
             </div>

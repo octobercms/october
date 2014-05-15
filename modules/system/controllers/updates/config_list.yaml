@@ -2,7 +2,7 @@
 #  List Behavior Config
 # ===================================
 
-title: Manage Updates
+title: system::lang.updates.title
 list: @/modules/system/models/pluginversion/columns.yaml
 modelClass: System\Models\PluginVersion
 noRecordsMessage: backend::lang.list.no_records
