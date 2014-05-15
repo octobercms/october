@@ -115,7 +115,7 @@ trait AssetMaker
         $cssPath = $this->getAssetPath($name);
 
         if (isset($this->controller))
-            $this->controller->addCss($cssPath);
+            $this->controller->addCss($cssPath, $attributes);
 
         if (substr($cssPath, 0, 1) == '/')
             $cssPath = Request::getBaseUrl() . $cssPath;
@@ -139,7 +139,7 @@ trait AssetMaker
         $rssPath = $this->getAssetPath($name);
 
         if (isset($this->controller))
-            $this->controller->addRss($rssPath);
+            $this->controller->addRss($rssPath, $attributes);
 
         if (substr($rssPath, 0, 1) == '/')
             $rssPath = Request::getBaseUrl() . $rssPath;
