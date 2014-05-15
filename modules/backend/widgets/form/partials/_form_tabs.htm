@@ -5,7 +5,7 @@
 <div class="<?= $isStretch?'layout-row min-size':'' ?>">
     <ul class="nav nav-tabs">
         <?php $index = 0; foreach ($tabs as $name => $fields): ?>
-            <li class="<?= $index++==0?'active':''?>"><a href="#<?= $type.'tab-'.$index ?>"><?= $name ?></a></li>
+            <li class="<?= $index++==0?'active':''?>"><a href="#<?= $type.'tab-'.$index ?>"><?= e(trans($name)) ?></a></li>
         <?php endforeach ?>
     </ul>
 </div>

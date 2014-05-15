@@ -1,13 +1,13 @@
 fields:
   fileName:
     span: left
-    label: File Name
+    label: cms::lang.editor.filename
     attributes:
       default-focus: 1
 
   settings[description]:
     span: right
-    label: Description
+    label: cms::lang.editor.description
 
   toolbar:
     type: partial
@@ -18,7 +18,7 @@ secondaryTabs:
   stretch: true
   fields:
     markup:
-      tab: Markup
+      tab: cms::lang.editor.markup
       type: codeeditor
       stretch: true
       options:
