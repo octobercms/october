@@ -112,7 +112,11 @@ class Controller extends BaseController
          * Extensibility
          */
         if (($event = Event::fire('cms.beforeDisplay', [$this, $url, $page])) && is_array($event))
-            return array_pop($event);
+        {
+            while ( $output = array_pop($event) )
+                if ( $output )
+                    return $output;
+        }
 
         /*
          * If the page was not found, render the 404 page - either provided by the theme or the built-in one.
