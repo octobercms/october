@@ -20,7 +20,7 @@ Please follow the following guides and code standards:
 
 ### Foundation library
 
-The CMS uses [Laravel](http://four.laravel.com) as a foundation PHP framework.
+The CMS uses [Laravel](http://laravel.com) as a foundation PHP framework.
 
 ### Contact
 
