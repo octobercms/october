@@ -61,7 +61,7 @@ return [
         'menu_label' => 'Innehåll',
         'no_list_records' => 'Inga innehållsfiler funna',
         'delete_confirm_multiple' => 'Vill du verkligen radera markerade filer eller mappar?',
-        'delete_confirm_single' => 'Vill du verkligen radera detta innehåll-fil?',
+        'delete_confirm_single' => 'Vill du verkligen radera detta innehållsfil?',
         'new' => 'Ny innehållsfil'
     ],
     'ajax_handler' => [
