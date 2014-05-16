@@ -16,7 +16,7 @@ class DbBackendUserPreferences extends Migration
             $table->string('group');
             $table->string('item');
             $table->text('value')->nullable();
-            $table->index(['user_id', 'namespace', 'group', 'item'], 'key_index');
+            $table->index(['user_id', 'namespace', 'group', 'item'], 'user_item_index');
         });
     }
 

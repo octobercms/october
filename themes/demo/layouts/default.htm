@@ -31,9 +31,9 @@ description = "Default layout"
                     </div>
                     <div class="collapse navbar-collapse navbar-main-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="{% if page.url == '/' %}active{% endif %}"><a href="{{ 'home'|page }}">Basic concepts</a></li>
-                            <li class="{% if page.url == '/ajax' %}active{% endif %}"><a href="{{ 'ajax'|page }}">AJAX framework</a></li>
-                            <li class="{% if page.url == '/plugins' %}active{% endif %}"><a href="{{ 'plugins'|page }}">Plugin components</a></li>
+                            <li class="{% if this.page.id == 'home' %}active{% endif %}"><a href="{{ 'home'|page }}">Basic concepts</a></li>
+                            <li class="{% if this.page.id == 'ajax' %}active{% endif %}"><a href="{{ 'ajax'|page }}">AJAX framework</a></li>
+                            <li class="{% if this.page.id == 'plugins' %}active{% endif %}"><a href="{{ 'plugins'|page }}">Plugin components</a></li>
                         </ul>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ description = "Default layout"
 
         <!-- Scripts -->
         <script src="{{ [
-            'assets/javascript/jquery.js', 
+            'assets/javascript/jquery.js',
             'assets/javascript/app.js'
         ]|theme }}"></script>
         {% framework extras %}

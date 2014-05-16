@@ -6,6 +6,12 @@
     RewriteEngine On
 
     ##
+    ## You may need to uncomment the following line for some hosting environments,
+    ## if you have installed to a subdirectory, enter the name here also.
+    ##
+    # RewriteBase /
+
+    ##
     ## Handle resource requests
     ##
     RewriteCond %{REQUEST_URI} combine/.*(.css|.js)

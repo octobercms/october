@@ -128,23 +128,23 @@ class ListController extends ControllerBehavior
         /*
          * Extensibility helpers
          */
-        $widget->bind('list.extendQueryBefore', function($host, $query) use ($definition) {
+        $widget->bindEvent('list.extendQueryBefore', function($host, $query) use ($definition) {
             $this->controller->listExtendQueryBefore($query, $definition);
         });
 
-        $widget->bind('list.extendQuery', function($host, $query) use ($definition) {
+        $widget->bindEvent('list.extendQuery', function($host, $query) use ($definition) {
             $this->controller->listExtendQuery($query, $definition);
         });
 
-        $widget->bind('list.injectRowClass', function($host, $record) use ($definition) {
+        $widget->bindEvent('list.injectRowClass', function($host, $record) use ($definition) {
             return $this->controller->listInjectRowClass($record, $definition);
         });
 
-        $widget->bind('list.overrideColumnValue', function($host, $record, $column, $value) use ($definition) {
+        $widget->bindEvent('list.overrideColumnValue', function($host, $record, $column, $value) use ($definition) {
             return $this->controller->listOverrideColumnValue($record, $column->columnName, $definition);
         });
 
-        $widget->bind('list.overrideHeaderValue', function($host, $column, $value) use ($definition) {
+        $widget->bindEvent('list.overrideHeaderValue', function($host, $column, $value) use ($definition) {
             return $this->controller->listOverrideHeaderValue($column->columnName, $definition);
         });
 
@@ -162,7 +162,7 @@ class ListController extends ControllerBehavior
              * Link the Search Widget to the List Widget
              */
             if ($searchWidget = $toolbarWidget->getSearchWidget()) {
-                $searchWidget->bind('search.submit', function() use ($widget, $searchWidget) {
+                $searchWidget->bindEvent('search.submit', function() use ($widget, $searchWidget) {
                     $widget->setSearchTerm($searchWidget->getActiveTerm());
                     return $widget->onRender();
                 });

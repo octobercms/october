@@ -47,3 +47,13 @@
     font-weight: 300;
     font-style: normal;
 }
+
+//
+// Chrome exhibits strange behavior when custom fonts are used
+// on select inputs. This fixes the garbled text.
+//
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    select {
+        font-family: sans-serif;
+    }
+}

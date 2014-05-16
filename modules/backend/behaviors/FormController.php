@@ -79,11 +79,11 @@ class FormController extends ControllerBehavior
          */
         $this->formWidget = $this->makeWidget('Backend\Widgets\Form', $config);
 
-        $this->formWidget->bind('form.extendFieldsBefore', function($host) {
+        $this->formWidget->bindEvent('form.extendFieldsBefore', function($host) {
             $this->controller->formExtendFieldsBefore($host);
         });
 
-        $this->formWidget->bind('form.extendFields', function($host) {
+        $this->formWidget->bindEvent('form.extendFields', function($host) {
             $this->controller->formExtendFields($host);
         });
 

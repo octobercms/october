@@ -5,7 +5,7 @@ return [
         'invalid_file' => 'Invalid file name: :name. File names can contain only alphanumeric symbols, underscores, dashes and dots. Some examples of correct file names: page.htm, page, subdirectory/page',
         'invalid_property' => 'The property ":name" cannot be set',
         'file_already_exists' => 'File ":name" already exists.',
-        'error_saving' => 'Eror saving file ":name".',
+        'error_saving' => 'Error saving file ":name".',
         'error_creating_directory' => 'Error creating directory :name',
         'invalid_file_extension'=>'Invalid file extension: :invalid. Allowed extensions are: :allowed.',
         'error_deleting' => 'Error deleting the template file ":name".',
@@ -73,6 +73,26 @@ return [
     ],
     'cms' => [
         'menu_label' => "CMS"
+    ],
+    'sidebar' => [
+        'add' => 'Add',
+        'search' => 'Search...'
+    ],
+    'editor' => [
+        'settings' => 'Settings',
+        'title' => 'Title',
+        'new_title' => 'New page title',
+        'url' => 'URL',
+        'filename' => 'File Name',
+        'layout' => 'Layout',
+        'description' => 'Description',
+        'preview' => 'Preview',
+        'meta' => 'Meta',
+        'meta_title' => 'Meta Title',
+        'meta_description' => 'Meta Description',
+        'markup' => 'Markup',
+        'code' => 'Code',
+        'content' => 'Content',
     ],
     'asset' => [
         'menu_label' => "Assets",

@@ -1,7 +1,7 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('backend/users') ?>">System Administrators</a></li>
-        <li><a href="<?= Backend::url('backend/groups') ?>">Manage Groups</a></li>
+        <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
+        <li><a href="<?= Backend::url('backend/groups') ?>"><?= e(trans('backend::lang.user.group.menu_label')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -20,9 +20,9 @@
                     data-request-data="redirect:0"
                     data-hotkey="ctrl+s"
                     data-hotkey-mac="cmd+s"
-                    data-load-indicator="Saving Group..."
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
                     class="btn btn-primary">
-                    <u>S</u>ave
+                    <?= e(trans('backend::lang.form.save')) ?>
                 </button>
                 <button
                     type="button"
@@ -30,17 +30,17 @@
                     data-request-data="close:1"
                     data-hotkey="ctrl+enter"
                     data-hotkey-mac="cmd+enter"
-                    data-load-indicator="Saving Group..."
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
                     class="btn btn-default">
-                    Save and Close
+                    <?= e(trans('backend::lang.form.save_and_close')) ?>
                 </button>
                 <button
                     type="button"
                     class="btn btn-danger pull-right"
                     data-request="onDelete"
-                    data-load-indicator="Deleting Group..."
-                    data-request-confirm="Do you really want to delete this admin?">
-                    Delete
+                    data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
+                    data-request-confirm="<?= e(trans('backend::lang.user.group.delete_confirm')) ?>">
+                    <?= e(trans('backend::lang.form.delete')) ?>
                 </button>
             </div>
         </div>
@@ -49,5 +49,5 @@
 
 <?php else: ?>
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('backend/groups') ?>" class="btn btn-default">Return to the group list</a></p>
+    <p><a href="<?= Backend::url('backend/groups') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.group.return')) ?></a></p>
 <?php endif ?>

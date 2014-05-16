@@ -218,7 +218,7 @@ class Form extends WidgetBase
          * Extensibility
          */
         Event::fire('backend.form.extendFieldsBefore', [$this]);
-        $this->trigger('form.extendFieldsBefore', $this);
+        $this->fireEvent('form.extendFieldsBefore', $this);
 
         /*
          * Outside fields
@@ -248,7 +248,7 @@ class Form extends WidgetBase
          * Extensibility
          */
         Event::fire('backend.form.extendFields', [$this]);
-        $this->trigger('form.extendFields', $this);
+        $this->fireEvent('form.extendFields', $this);
 
         /*
          * Convert automatic spanned fields

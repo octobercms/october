@@ -10,16 +10,16 @@
                         href="javascript:;"
                         data-request-confirm="Are you sure?"
                         data-request="onDetachProject"
-                        data-stripe-load-indicator>detach</a>)
+                        data-stripe-load-indicator><?= e(trans('system::lang.project.detach_confirm')) ?></a>)
                 </p>
             <?php else: ?>
-                <p class="oc-icon-chain-broken">None</p>
+                <p class="oc-icon-chain-broken"><?= e(trans('system::lang.project.none')) ?></p>
                 <p class="description">
                     <a
                         href="javascript:;"
                         data-control="popup"
                         data-handler="onLoadProjectForm">
-                        Attach to Project
+                        <?= e(trans('system::lang.project.attach')) ?>
                     </a>
                 </p>
             <?php endif ?>

@@ -52,9 +52,9 @@ class SettingsModel extends ModelBehavior
         /*
          * Access to model's overrides is unavailable, using events instead
          */
-        $this->model->bind('model.afterFetch', [$this, 'afterModelFetch']);
-        $this->model->bind('model.beforeSave', [$this, 'beforeModelSave']);
-        $this->model->bind('model.afterSetAttribute', [$this, 'setModelAttribute']);
+        $this->model->bindEvent('model.afterFetch', [$this, 'afterModelFetch']);
+        $this->model->bindEvent('model.beforeSave', [$this, 'beforeModelSave']);
+        $this->model->bindEvent('model.afterSetAttribute', [$this, 'setModelAttribute']);
 
         /*
          * Parse the config

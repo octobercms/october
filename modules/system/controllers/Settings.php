@@ -73,7 +73,7 @@ class Settings extends Controller
         }
         $model->save(null, $this->formWidget->getSessionKey());
 
-        Flash::success(Lang::get('system::lang.settings.update_success', ['name'=>$item->label]));
+        Flash::success(Lang::get('system::lang.settings.update_success', ['name' => Lang::get($item->label)]));
 
         if ($redirect = Backend::Url('system/settings'))
             return Redirect::to($redirect);

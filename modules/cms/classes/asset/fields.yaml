@@ -1,6 +1,6 @@
 fields:
   fileName:
-    label: File Name
+    label: cms::lang.editor.filename
     attributes:
       default-focus: 1
 
@@ -13,7 +13,7 @@ secondaryTabs:
   stretch: true
   fields:
     content:
-      tab: Content
+      tab: cms::lang.editor.content
       type: codeeditor
       stretch: true
       options:

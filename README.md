@@ -20,7 +20,7 @@ Please follow the following guides and code standards:
 
 ### Foundation library
 
-The CMS uses [Laravel](http://four.laravel.com) as a foundation PHP framework.
+The CMS uses [Laravel](http://laravel.com) as a foundation PHP framework.
 
 ### Contact
 
@@ -29,3 +29,7 @@ You can communicate with us using the following mediums:
 * [Follow us on Twitter](http://twitter.com/octobercms) for announcements and updates.
 * [Follow us on Facebook](http://facebook.com/octobercms) for announcements and updates.
 * [Join us on IRC](https://kiwiirc.com/client/irc.freenode.net/?nick=Octonaut|?#october) to chat with us.
+
+### License
+
+The OctoberCMS platform is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

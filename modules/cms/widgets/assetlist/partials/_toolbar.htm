@@ -7,7 +7,7 @@
                         <button type="button" class="btn btn-primary oc-icon-plus"
                             data-control="create-asset"
                             data-toggle="dropdown"
-                            >Add</button>
+                            ><?= e(trans('cms::lang.sidebar.add')) ?></button>
 
                         <ul class="dropdown-menu" role="menu" data-dropdown-title="<?= e(trans('cms::lang.asset.drop_down_add_title')) ?>">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" data-control="create-template" class="oc-icon-file-text-o"><?= e(trans('cms::lang.asset.create_file')) ?></a></li>
@@ -60,7 +60,7 @@
         </div>
         <div class="layout-cell">
             <div class="relative toolbar-item loading-indicator-container size-input-text">
-                <input placeholder="search..." type="text" name="search" value="<?= e($this->getSearchTerm()) ?>"
+                <input placeholder="<?= e(trans('cms::lang.sidebar.search')) ?>" type="text" name="search" value="<?= e($this->getSearchTerm()) ?>"
                     class="form-control icon search" autocomplete="off"
                     data-track-input
                     data-load-indicator

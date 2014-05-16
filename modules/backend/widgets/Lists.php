@@ -259,7 +259,7 @@ class Lists extends WidgetBase
          * Extensibility
          */
         Event::fire('backend.list.extendQueryBefore', [$this, $query]);
-        $this->trigger('list.extendQueryBefore', $this, $query);
+        $this->fireEvent('list.extendQueryBefore', [$this, $query]);
 
         /*
          * Related custom selects, must come first
@@ -274,7 +274,18 @@ class Lists extends WidgetBase
             $alias = Db::getQueryGrammar()->wrap($column->columnName);
             $table =  $this->model->makeRelation($column->relation)->getTable();
             $sqlSelect = $this->parseTableName($column->sqlSelect, $table);
-            $selects[] = Db::raw("group_concat(" . $sqlSelect . " separator ', ') as ". $alias);
+
+            switch (Db::getDefaultConnection()) {
+                default:
+                case 'mysql':
+                    $selects[] = Db::raw("group_concat(" . $sqlSelect . " separator ', ') as ". $alias);
+                    break;
+
+                case 'sqlite':
+                    $selects[] = Db::raw("group_concat(" . $sqlSelect . ", ', ') as ". $alias);
+                    break;
+            }
+
             $joins[] = $column->relation;
             $tables[$column->relation] = $table;
         }
@@ -331,7 +342,7 @@ class Lists extends WidgetBase
          * Extensibility
          */
         Event::fire('backend.list.extendQuery', [$this, $query]);
-        $this->trigger('list.extendQuery', $this, $query);
+        $this->fireEvent('list.extendQuery', [$this, $query]);
 
         // Grouping due to the joinWith() call
         $query->select($selects);
@@ -514,11 +525,11 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if (($response = Event::fire('backend.list.overrideHeaderValue', [$this, $column, $value])) && is_array($response))
-            $value = array_pop($response);
+        if ($response = Event::fire('backend.list.overrideHeaderValue', [$this, $column, $value], true))
+            $value = $response;
 
-        if (($response = $this->trigger('list.overrideHeaderValue', $this, $column, $value)) && is_array($response))
-            $value = array_pop($response);
+        if ($response = $this->fireEvent('list.overrideHeaderValue', [$this, $column, $value], true))
+            $value = $response;
 
         return $value;
     }
@@ -536,11 +547,11 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if (($response = Event::fire('backend.list.overrideColumnValue', [$this, $record, $column, $value])) && is_array($response))
-            $value = array_pop($response);
+        if ($response = Event::fire('backend.list.overrideColumnValue', [$this, $record, $column, $value], true))
+            $value = $response;
 
-        if (($response = $this->trigger('list.overrideColumnValue', $this, $record, $column, $value)) && is_array($response))
-            $value = array_pop($response);
+        if ($response = $this->fireEvent('list.overrideColumnValue', [$this, $record, $column, $value], true))
+            $value = $response;
 
         return $value;
     }
@@ -557,11 +568,11 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if (($response = Event::fire('backend.list.injectRowClass', [$this, $record])) && is_array($response))
-            $value = array_pop($response);
+        if ($response = Event::fire('backend.list.injectRowClass', [$this, $record], true))
+            $value = $response;
 
-        if (($response = $this->trigger('list.injectRowClass', $this, $record)) && is_array($response))
-            $value = array_pop($response);
+        if ($response = $this->fireEvent('list.injectRowClass', [$this, $record], true))
+            $value = $response;
 
         return $value;
     }

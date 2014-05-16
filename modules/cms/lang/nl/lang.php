@@ -74,6 +74,26 @@ return [
     'cms' => [
         'menu_label' => "CMS"
     ],
+    'sidebar' => [
+        'add' => 'Toevoegen',
+        'search' => 'Zoeken...'
+    ],
+    'editor' => [
+        'settings' => 'Instellingen',
+        'title' => 'Titel',
+        'new_title' => 'Nieuwe paginatitel',
+        'url' => 'URL',
+        'filename' => 'Bestandsnaam',
+        'layout' => 'Layout',
+        'description' => 'Omschrijving',
+        'preview' => 'Voorbeeld',
+        'meta' => 'Meta',
+        'meta_title' => 'Meta Titel',
+        'meta_description' => 'Meta Omschrijving',
+        'markup' => 'Opmaak',
+        'code' => 'Code',
+        'content' => 'Content',
+    ],
     'asset' => [
         'menu_label' => "Middelen",
         'drop_down_add_title' => 'Toevoegen...',

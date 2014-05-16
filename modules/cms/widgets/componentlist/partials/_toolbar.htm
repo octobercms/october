@@ -2,7 +2,7 @@
     <div class="layout control-toolbar">
         <div class="layout-cell">
             <div class="relative toolbar-item loading-indicator-container size-input-text">
-                <input placeholder="search..." type="text" name="search" value="<?= e($this->getSearchTerm()) ?>" 
+                <input placeholder="<?= e(trans('cms::lang.sidebar.search')) ?>" type="text" name="search" value="<?= e($this->getSearchTerm()) ?>" 
                     class="form-control icon search" autocomplete="off"
                     data-track-input
                     data-load-indicator

@@ -338,7 +338,7 @@ class CmsObject
         }
 
         clearstatcache();
-        $this->mtime = File::lastModified($fullPath);
+        $this->mtime = @File::lastModified($fullPath);
         $this->originalFileName = $this->fileName;
     }
 
