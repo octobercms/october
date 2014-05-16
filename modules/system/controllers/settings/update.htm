@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('system/settings') ?>">Settings</a></li>
+        <li><a href="<?= Backend::url('system/settings') ?>"><?= e(trans('system::lang.settings.menu_label')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -19,13 +19,13 @@
                     data-request-data="redirect:0"
                     data-hotkey="ctrl+s"
                     data-hotkey-mac="cmd+s"
-                    data-load-indicator="Saving..."
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
                     class="btn btn-primary">
-                    <u>S</u>ave settings
+                    <?= e(trans('backend::lang.form.save')) ?>
                 </button>
 
                 <span class="btn-text">
-                    or <a href="<?= Backend::url('system/settings') ?>">Cancel</a>
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('system/settings') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
             </div>
         </div>
@@ -33,5 +33,5 @@
 
 <?php else: ?>
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('system/settings') ?>" class="btn btn-default">Return to system settings</a></p>
+    <p><a href="<?= Backend::url('system/settings') ?>" class="btn btn-default"><?= e(trans('system::lang.settings.return')) ?></a></p>
 <?php endif ?>

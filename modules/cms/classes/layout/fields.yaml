@@ -1,12 +1,12 @@
 fields:
   fileName:
-    label: File Name
+    label: cms::lang.editor.filename
     span: left
     attributes:
       default-focus: 1
 
   settings[description]:
-    label: Description
+    label: cms::lang.editor.description
     span: right
 
   toolbar:
@@ -20,14 +20,14 @@ secondaryTabs:
   stretch: true
   fields:
     markup:
-      tab: Markup
+      tab: cms::lang.editor.markup
       type: codeeditor
       stretch: true
       options:
         language: twig
 
     code:
-      tab: Code
+      tab: cms::lang.editor.code
       type: codeeditor
       stretch: true
       options:

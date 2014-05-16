@@ -6,50 +6,50 @@ tabs:
 
   fields:
     send_mode:
-      label: Email Method
+      label: system::lang.email.method
       type: dropdown
-      tab: General
+      tab: system::lang.email.general
 
     sender_name:
-      label: Sender Name
+      label: system::lang.email.sender_name
       span: auto
-      tab: General
+      tab: system::lang.email.general
 
     sender_email:
-      label: Sender Email
+      label: system::lang.email.sender_email
       span: auto
-      tab: General
+      tab: system::lang.email.general
 
     smtp_address:
-      label: SMTP address
-      tab: SMTP
+      label: system::lang.email.smtp_address
+      tab: system::lang.email.smtp
 
     smtp_authorization:
       type: checkbox
-      label: SMTP Authorization Required
-      tab: SMTP
-      comment: Use this checkbox if your SMTP server requires authorization.
+      label: system::lang.email.smtp_authorization
+      tab: system::lang.email.smtp
+      comment: system::lang.email.smtp_authorization_comment
 
     smtp_user:
-      label: User
-      tab: SMTP
+      label: system::lang.email.smtp_username
+      tab: system::lang.email.smtp
       span: left
 
     smtp_password:
-      label: Password
-      tab: SMTP
+      label: system::lang.email.smtp_password
+      tab: system::lang.email.smtp
       span: right
 
     smtp_port:
-      label: SMTP Port
-      tab: SMTP
+      label: system::lang.email.smtp_port
+      tab: system::lang.email.smtp
 
     smtp_ssl:
       type: checkbox
-      label: SSL connection required
-      tab: SMTP
+      label: system::lang.email.smtp_ssl
+      tab: system::lang.email.smtp
 
     sendmail_path:
-      label: Sendmail path
-      commentAbove: Please specify the path of the sendmail program.
-      tab: Sendmail
+      label: system::lang.email.sendmail_path
+      commentAbove: system::lang.email.sendmail_path_comment
+      tab: system::lang.email.sendmail

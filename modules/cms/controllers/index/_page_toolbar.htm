@@ -6,7 +6,7 @@
         data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
         data-hotkey="ctrl+s"
         data-hotkey-mac="cmd+s">
-            <?= e(trans('backend::lang.form.save')) ?>
+        <?= e(trans('backend::lang.form.save')) ?>
     </a>
 
     <?php
@@ -17,7 +17,7 @@
         target="_blank"
         class="btn btn-primary oc-icon-screenshot <?php if (!$templatePath): ?>hide<?php endif ?>"
         data-control="preview-button">
-        Preview
+        <?= e(trans('cms::lang.editor.preview')) ?>
     </a>
 
     <button

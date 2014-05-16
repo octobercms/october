@@ -1,15 +1,15 @@
 fields:
   settings[title]:
     span: left
-    label: Title
-    placeholder: New page title
+    label: cms::lang.editor.title
+    placeholder: cms::lang.editor.new_title
     attributes:
       default-focus: 1
 
   settings[url]:
     span: right
     placeholder: /
-    label: URL
+    label: cms::lang.editor.url
     attributes:
       data-input-preset: 'input[name="settings[title]"]'
       data-input-preset-type: url
@@ -31,34 +31,34 @@ tabs:
     #   type: checkbox
 
     fileName:
-      tab: Settings
+      tab: cms::lang.editor.settings
       span: left
-      label: File Name
+      label: cms::lang.editor.filename
       attributes:
         data-input-preset: 'input[name="settings[title]"]'
         data-input-preset-type: file
         data-input-preset-closest-parent: form
 
     settings[layout]:
-      tab: Settings
+      tab: cms::lang.editor.settings
       span: right
-      label: Layout
+      label: cms::lang.editor.layout
       type: dropdown
       options: getLayoutOptions
 
     settings[description]:
-      tab: Settings
-      label: Description
+      tab: cms::lang.editor.settings
+      label: cms::lang.editor.description
       type: textarea
       size: tiny
 
     settings[meta_title]:
-      tab: Meta
-      label: Meta Title
+      tab: cms::lang.editor.meta
+      label: cms::lang.editor.meta_title
 
     settings[meta_description]:
-      tab: Meta
-      label: Meta Description
+      tab: cms::lang.editor.meta
+      label: cms::lang.editor.meta_description
       type: textarea
       size: tiny
 
@@ -66,14 +66,14 @@ secondaryTabs:
   stretch: true
   fields:
     markup:
-      tab: Markup
+      tab: cms::lang.editor.markup
       type: codeeditor
       stretch: true
       options:
         language: twig
 
     code:
-      tab: Code
+      tab: cms::lang.editor.code
       type: codeeditor
       stretch: true
       options:

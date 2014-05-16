@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('backend/users') ?>">System Administrators</a></li>
+        <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -20,9 +20,9 @@
                     data-request-data="redirect:0"
                     data-hotkey="ctrl+s"
                     data-hotkey-mac="cmd+s"
-                    data-load-indicator="Saving Admin..."
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
                     class="btn btn-primary">
-                    <u>S</u>ave
+                    <?= e(trans('backend::lang.form.save')) ?>
                 </button>
                 <button
                     type="button"
@@ -30,19 +30,19 @@
                     data-request-data="close:1"
                     data-hotkey="ctrl+enter"
                     data-hotkey-mac="cmd+enter"
-                    data-load-indicator="Saving Admin..."
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
                     class="btn btn-default">
-                    Save and Close
+                    <?= e(trans('backend::lang.form.save_and_close')) ?>
                 </button>
                 <span class="btn-text">
-                    or <a href="<?= Backend::url('backend/users') ?>">Cancel</a>
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
                 <button
                     type="button"
                     class="oc-icon-trash-o btn-icon danger pull-right"
                     data-request="onDelete"
-                    data-load-indicator="Deleting Admin..."
-                    data-request-confirm="Do you really want to delete this admin?">
+                    data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
+                    data-request-confirm="<?= e(trans('backend::lang.user.delete_confirm')) ?>">
                 </button>
             </div>
         </div>
@@ -65,6 +65,6 @@
             <?= Block::placeholder('breadcrumb') ?>
         </div>
         <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-        <p><a href="<?= Backend::url('backend/users') ?>" class="btn btn-default">Return to the administrator list</a></p>
+        <p><a href="<?= Backend::url('backend/users') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.return')) ?></a></p>
     </div>
 <?php endif ?>

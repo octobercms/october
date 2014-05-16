@@ -1,7 +1,7 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('backend/users') ?>">System Administrators</a></li>
-        <li><a href="<?= Backend::url('backend/groups') ?>">Manage Groups</a></li>
+        <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
+        <li><a href="<?= Backend::url('backend/groups') ?>"><?= e(trans('backend::lang.user.group.menu_label')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -19,9 +19,9 @@
                     data-request="onSave"
                     data-hotkey="ctrl+s"
                     data-hotkey-mac="cmd+s"
-                    data-load-indicator="Creating Group..."
+                    data-load-indicator="<?= e(trans('backend::lang.form.creating')) ?>"
                     class="btn btn-primary">
-                    Create
+                    <?= e(trans('backend::lang.form.create')) ?>
                 </button>
                 <button 
                     type="button"
@@ -29,9 +29,9 @@
                     data-request-data="close:1"
                     data-hotkey="ctrl+s"
                     data-hotkey-mac="cmd+s"
-                    data-load-indicator="Creating Group..."
+                    data-load-indicator="<?= e(trans('backend::lang.form.creating')) ?>"
                     class="btn btn-default">
-                    Create and Close
+                    <?= e(trans('backend::lang.form.create_and_close')) ?>
                 </button>
             </div>
         </div>
@@ -40,5 +40,5 @@
 
 <?php else: ?>
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('backend/groups') ?>" class="btn btn-default">Return to the group list</a></p>
+    <p><a href="<?= Backend::url('backend/groups') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.group.return')) ?></a></p>
 <?php endif ?>

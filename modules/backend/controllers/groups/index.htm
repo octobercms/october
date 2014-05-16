@@ -1,8 +1,8 @@
-<div class="control-breadcrumb">
+<?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('backend/users') ?>">System Administrators</a></li>
+        <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
-</div>
+<?php Block::endPut() ?>
 
 <?= $this->listRender() ?>
