@@ -245,13 +245,20 @@
     }
 }
 
-
 &.hide-tabs {
     .control-tabs {
         ul.nav-tabs {display: none;}
 
         > div.tab-content > div.tab-pane {
             padding-top: 0;
+        }
+    }
+}
+
+.form-sidebar {
+    .control-tabs.secondary {
+        > div > ul.nav-tabs > li a {
+            background: transparent;
         }
     }
 }

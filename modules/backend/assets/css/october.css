@@ -9701,6 +9701,9 @@ body.dropdown-open .dropdown-overlay {
 .hide-tabs .control-tabs > div.tab-content > div.tab-pane {
   padding-top: 0;
 }
+.form-sidebar .control-tabs.secondary > div > ul.nav-tabs > li a {
+  background: transparent;
+}
 #layout-canvas .flash-message {
   display: none;
 }
