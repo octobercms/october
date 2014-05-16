@@ -57,12 +57,12 @@ return [
         'new' => 'Ny partial'
     ],
     'content' => [
-        'not_found' => "Content-filen ':name' kunde ej hittas",
-        'menu_label' => 'Content',
-        'no_list_records' => 'Inga content-filer funna',
+        'not_found' => "Innehållet ':name' kunde ej hittas",
+        'menu_label' => 'Innehåll',
+        'no_list_records' => 'Inga innehållsfiler funna',
         'delete_confirm_multiple' => 'Vill du verkligen radera markerade filer eller mappar?',
-        'delete_confirm_single' => 'Vill du verkligen radera denna content-fil?',
-        'new' => 'Ny content-fil'
+        'delete_confirm_single' => 'Vill du verkligen radera detta innehållsfil?',
+        'new' => 'Ny innehållsfil'
     ],
     'ajax_handler' => [
         'invalid_name' => "Felaktig AJAX-hanterare: :name",
@@ -75,27 +75,27 @@ return [
         'menu_label' => "CMS"
     ],
     'sidebar' => [
-        'add' => 'Add',
-        'search' => 'Search...'
+        'add' => 'Lägg till',
+        'search' => 'Sök...'
     ],
     'editor' => [
-        'settings' => 'Settings',
-        'title' => 'Title',
-        'new_title' => 'New page title',
+        'settings' => 'Inställningar',
+        'title' => 'Titel',
+        'new_title' => 'Ny sidtitel',
         'url' => 'URL',
-        'filename' => 'File Name',
+        'filename' => 'Filnamn',
         'layout' => 'Layout',
-        'description' => 'Description',
-        'preview' => 'Preview',
+        'description' => 'Beskrivning',
+        'preview' => 'Förhandsgranska',
         'meta' => 'Meta',
-        'meta_title' => 'Meta Title',
-        'meta_description' => 'Meta Description',
+        'meta_title' => 'Meta-titel',
+        'meta_description' => 'Meta-beskrivning',
         'markup' => 'Markup',
-        'code' => 'Code',
-        'content' => 'Content',
+        'code' => 'Kod',
+        'content' => 'Innehåll',
     ],
     'asset' => [
-        'menu_label' => "Assets",
+        'menu_label' => "Filsystem",
         'drop_down_add_title' => 'Lägg till...',
         'drop_down_operation_title' => 'Åtgärd...',
         'upload_files' => 'Ladda upp fil(er)',
@@ -122,7 +122,7 @@ return [
         'error_uploading_file' => 'Ett fel uppstod vid uppladdning av ":name" :error',
         'move_please_select' => 'Var god välj',
         'move_destination' => 'Destionationsmapp',
-        'move_popup_title' => 'Flytta assets',
+        'move_popup_title' => 'Flytta objekt',
         'move_button' => 'Flytta',
         'selected_files_not_found' => 'Valda filer kunde ej hittas',
         'select_destination_dir' => 'Var god välj en destinationsmapp',
@@ -133,7 +133,7 @@ return [
         'path' => 'Sökväg'
     ],
     'component' => [
-        'menu_label' => "Komponent",
+        'menu_label' => "Komponenter",
         'unnamed' => "Ej namngiven",
         'no_description' => "Ingen beskrivning",
         'alias' => "Alias",
