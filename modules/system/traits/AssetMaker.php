@@ -38,40 +38,37 @@ trait AssetMaker
 
         if ($type == null || $type == 'css'){
             foreach ($this->assets['css'] as $asset) {
-                $attributes = HTML::attributes(array_merge(
-                    [
-                        'rel' => 'stylesheet',
-                        'href' => $asset['path']
-                    ],
-                    $asset['attributes'])
-                );
+
+                $attributes = HTML::attributes(array_merge([
+                    'rel'  => 'stylesheet',
+                    'href' => $asset['path']
+                ], $asset['attributes']));
+
                 $result .= '<link' . $attributes . '>' . PHP_EOL;
             }
         }
 
         if ($type == null || $type == 'rss'){
             foreach ($this->assets['rss'] as $asset) {
-                $attributes = HTML::attributes(array_merge(
-                    [
-                        'rel' => 'alternate',
-                        'href' => $asset['path'],
-                        'title' => 'RSS',
-                        'type' => 'application/rss+xml'
-                    ],
-                    $asset['attributes'])
-                );
+
+                $attributes = HTML::attributes(array_merge([
+                    'rel'   => 'alternate',
+                    'href'  => $asset['path'],
+                    'title' => 'RSS',
+                    'type'  => 'application/rss+xml'
+                ], $asset['attributes']));
+
                 $result .= '<link' . $attributes . '>' . PHP_EOL;
             }
         }
 
         if ($type == null || $type == 'js') {
             foreach ($this->assets['js'] as $asset) {
-                $attributes = HTML::attributes(array_merge(
-                    [
-                        'src' => $asset['path']
-                    ],
-                    $asset['attributes'])
-                );
+
+                $attributes = HTML::attributes(array_merge([
+                    'src' => $asset['path']
+                ], $asset['attributes']));
+
                 $result .= '<script' . $attributes . '></script>' . PHP_EOL;
             }
         }
@@ -83,7 +80,7 @@ trait AssetMaker
      * Adds JavaScript asset to the asset list. Call $this->makeAssets() in a view 
      * to output corresponding markup.
      * @param string $name Specifies a path (URL) to the script.
-     * @param array $attributes Adds HTML attributes to the asset link.
+     * @param array $attributes Adds extra HTML attributes to the asset link.
      * @return void
      */
     public function addJs($name, $attributes = [])
@@ -97,17 +94,14 @@ trait AssetMaker
             $jsPath = Request::getBaseUrl() . $jsPath;
 
         if (!in_array($jsPath, $this->assets['js']))
-            $this->assets['js'][] = [
-                'path' => $jsPath,
-                'attributes' => $attributes
-            ];
+            $this->assets['js'][] = ['path' => $jsPath, 'attributes' => $attributes];
     }
 
     /**
      * Adds StyleSheet asset to the asset list. Call $this->makeAssets() in a view
      * to output corresponding markup.
      * @param string $name Specifies a path (URL) to the script.
-     * @param array $attributes Adds HTML attributes to the asset link.
+     * @param array $attributes Adds extra HTML attributes to the asset link.
      * @return void
      */
     public function addCss($name, $attributes = [])
@@ -121,17 +115,14 @@ trait AssetMaker
             $cssPath = Request::getBaseUrl() . $cssPath;
 
         if (!in_array($cssPath, $this->assets['css']))
-            $this->assets['css'][] = [
-                'path' => $cssPath,
-                'attributes' => $attributes
-            ];
+            $this->assets['css'][] = ['path' => $cssPath, 'attributes' => $attributes];
     }
 
     /**
      * Adds an RSS link asset to the asset list. Call $this->makeAssets() in a view
      * to output corresponding markup.
      * @param string $name Specifies a path (URL) to the RSS channel
-     * @param array $attributes Adds HTML attributes to the asset link.
+     * @param array $attributes Adds extra HTML attributes to the asset link.
      * @return void
      */
     public function addRss($name, $attributes = [])
@@ -145,10 +136,7 @@ trait AssetMaker
             $rssPath = Request::getBaseUrl() . $rssPath;
 
         if (!in_array($rssPath, $this->assets['rss']))
-            $this->assets['rss'][] = [
-                'path' => $rssPath,
-                'attributes' => $attributes
-            ];
+            $this->assets['rss'][] = ['path' => $rssPath, 'attributes' => $attributes];
     }
 
     /**
