@@ -5,7 +5,7 @@ return [
         'invalid_file' => 'Invalid file name: :name. File names can contain only alphanumeric symbols, underscores, dashes and dots. Some examples of correct file names: page.htm, page, subdirectory/page',
         'invalid_property' => 'The property ":name" cannot be set',
         'file_already_exists' => 'File ":name" already exists.',
-        'error_saving' => 'Eror saving file ":name".',
+        'error_saving' => 'Error saving file ":name".',
         'error_creating_directory' => 'Error creating directory :name',
         'invalid_file_extension'=>'Invalid file extension: :invalid. Allowed extensions are: :allowed.',
         'error_deleting' => 'Error deleting the template file ":name".',
