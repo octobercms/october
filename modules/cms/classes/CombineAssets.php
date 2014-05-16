@@ -171,10 +171,11 @@ class CombineAssets
             $version = $combiner->getLastModified();
 
             $cacheInfo = [
-                'output'  => $cacheId.'-'.$version,
-                'version' => $version,
-                'files'   => $assets,
-                'path'    => $this->path
+                'output'    => $cacheId.'-'.$version,
+                'version'   => $version,
+                'files'     => $assets,
+                'path'      => $this->path,
+                'extension' => $extension
             ];
 
             $this->putCache($cacheId, $cacheInfo);
@@ -208,7 +209,7 @@ class CombineAssets
 
         $combiner = $this->prepareCombiner($cacheInfo['files']);
         $contents = $combiner->dump();
-        $mime = (File::extension($cacheInfo['output']) == 'css') ? 'text/css' : 'text/javascript';
+        $mime = ($cacheInfo['extension'] == 'css') ? 'text/css' : 'text/javascript';
 
         header_remove();
         $response = Response::make($contents);
