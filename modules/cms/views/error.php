@@ -8,7 +8,7 @@
     </head>
     <body>
         <div class="container">
-            <h1><i class="icon-off warning"></i> <?= Lang::get('cms::lang.page.custom_error.label') ?></h1>
+            <h1><i class="icon-power-off warning"></i> <?= Lang::get('cms::lang.page.custom_error.label') ?></h1>
             <p class="lead"><?= Lang::get('cms::lang.page.custom_error.help') ?></p>
         </div>
     </body>
