@@ -25,44 +25,14 @@ return [
     'project' => [
         'name' => 'Projekt',
         'owner_label' => 'Ägare',
-<<<<<<< HEAD
-        'attach' => 'Attach Project',
-        'detach' => 'Detach Project',
-        'none' => 'None',
-=======
         'attach' => 'Länka projekt',
         'detach' => 'Avlänka projekt',
         'none' => 'Inget',
->>>>>>> Swedish lang files for build 78
         'id' => [
             'label' => 'Projekt-ID',
             'help' => 'Hur du hittar ditt Projekt-ID',
             'missing' => 'Var god välj ett Projekt-ID',
         ],
-<<<<<<< HEAD
-        'detach_confirm_' => 'Are you sure you want to detach this project?',
-        'unbind_success' => 'Projektet har blivit avlänkat',
-        'return' => 'Return to system settings',
-    ],
-    'email' => [
-        'menu_label' => 'Email Configuration',
-        'menu_description' => 'Manage email configuration.',
-        'general' => 'General',
-        'method' => 'Email Method',
-        'sender_name' => 'Sender Name',
-        'sender_email' => 'Sender Email',
-        'smtp' => 'SMTP',
-        'smtp_address' => 'SMTP Address',
-        'smtp_authorization' => 'SMTP authorization required',
-        'smtp_authorization_comment' => 'Use this checkbox if your SMTP server requires authorization.',
-        'smtp_username' => 'Username',
-        'smtp_password' => 'Password',
-        'smtp_port' => 'SMTP Port',
-        'smtp_ssl' => 'SSL connection required',
-        'sendmail' => 'Sendmail',
-        'sendmail_path' => 'Sendmail Path',
-        'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
-=======
         'detach_confirm_' => 'Vill du verkligen avlänka detta projekt?',
         'unbind_success' => 'Projektet har blivit avlänkat',
         'return' => 'Återgå till systeminställningar',
@@ -85,7 +55,6 @@ return [
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail-sökväg',
         'sendmail_path_comment' => 'Var god ange sökvägen till sendmail',
->>>>>>> Swedish lang files for build 78
     ],
     'settings' => [
         'menu_label' => 'Inställningar',

@@ -45,13 +45,8 @@ return [
         'name' => 'Administratör',
         'menu_label' => 'Administratörer',
         'list_title' => 'Hantera administratörer',
-<<<<<<< HEAD
-        'new' => 'New Administrator',
-        'login' => "Logga in",
-=======
         'new' => 'Ny Administratör',
         'login' => "Användarnamn",
->>>>>>> Swedish lang files for build 78
         'first_name' => "Förnamn",
         'last_name' => "Efternamn",
         'full_name' => "Fullständigt namn",
@@ -101,9 +96,9 @@ return [
         'missing_model' => 'Formuläregenskapen som används i :class har ingen modell definierad',
         'missing_definition' => "Formuläregenskapen saknar ett fält för ':field'",
         'not_found' => 'Record ID :id för formuläret kunde ej hittas',
-        'create' => 'Create',
-        'create_and_close' => 'Spara och stäng',
-        'creating' => 'Creating...',
+        'create' => 'Skapa',
+        'create_and_close' => 'Skapa och stäng',
+        'creating' => 'Skapar...',
         'save' => 'Spara',
         'save_and_close' => 'Spara och stäng',
         'saving' => 'Sparar...',
