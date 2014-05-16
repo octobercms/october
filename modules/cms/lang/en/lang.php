@@ -81,7 +81,7 @@ return [
     'editor' => [
         'settings' => 'Settings',
         'title' => 'Title',
-        'new_title' => 'Nieuwe paginatitel',
+        'new_title' => 'New page title',
         'url' => 'URL',
         'filename' => 'File Name',
         'layout' => 'Layout',
