@@ -45,8 +45,13 @@ return [
         'name' => 'Administratör',
         'menu_label' => 'Administratörer',
         'list_title' => 'Hantera administratörer',
+<<<<<<< HEAD
         'new' => 'New Administrator',
         'login' => "Logga in",
+=======
+        'new' => 'Ny Administratör',
+        'login' => "Användarnamn",
+>>>>>>> Swedish lang files for build 78
         'first_name' => "Förnamn",
         'last_name' => "Efternamn",
         'full_name' => "Fullständigt namn",

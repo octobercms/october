@@ -25,14 +25,21 @@ return [
     'project' => [
         'name' => 'Projekt',
         'owner_label' => 'Ägare',
+<<<<<<< HEAD
         'attach' => 'Attach Project',
         'detach' => 'Detach Project',
         'none' => 'None',
+=======
+        'attach' => 'Länka projekt',
+        'detach' => 'Avlänka projekt',
+        'none' => 'Inget',
+>>>>>>> Swedish lang files for build 78
         'id' => [
             'label' => 'Projekt-ID',
             'help' => 'Hur du hittar ditt Projekt-ID',
             'missing' => 'Var god välj ett Projekt-ID',
         ],
+<<<<<<< HEAD
         'detach_confirm_' => 'Are you sure you want to detach this project?',
         'unbind_success' => 'Projektet har blivit avlänkat',
         'return' => 'Return to system settings',
@@ -55,6 +62,30 @@ return [
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail Path',
         'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
+=======
+        'detach_confirm_' => 'Vill du verkligen avlänka detta projekt?',
+        'unbind_success' => 'Projektet har blivit avlänkat',
+        'return' => 'Återgå till systeminställningar',
+    ],
+    'email' => [
+        'menu_label' => 'Epost-konfiguration',
+        'menu_description' => 'Hantera epost-inställningar',
+        'general' => 'Generellt',
+        'method' => 'Email-metod',
+        'sender_name' => 'Avsändarnamn',
+        'sender_email' => 'Avsändarens epost-adress',
+        'smtp' => 'SMTP',
+        'smtp_address' => 'SMTP-adress',
+        'smtp_authorization' => 'SMTP-autentisering krävs',
+        'smtp_authorization_comment' => 'Om din server kräver autentisering, markerar du denna checkbox',
+        'smtp_username' => 'Användarnamn',
+        'smtp_password' => 'Lösenord',
+        'smtp_port' => 'SMTP-port',
+        'smtp_ssl' => 'SSL-anslutning krävs',
+        'sendmail' => 'Sendmail',
+        'sendmail_path' => 'Sendmail-sökväg',
+        'sendmail_path_comment' => 'Var god ange sökvägen till sendmail',
+>>>>>>> Swedish lang files for build 78
     ],
     'settings' => [
         'menu_label' => 'Inställningar',
