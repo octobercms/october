@@ -13,7 +13,7 @@
     <body>
         <div class="container">
 
-            <h1><i class="icon-off warning"></i> Error</h1>
+            <h1><i class="icon-power-off warning"></i> Error</h1>
 
             <p class="lead">We're sorry, but an unhandled error occurred. Please see the details below.</p>
 
