@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use System\Models\Parameters;
 use System\Models\PluginVersion;
 use System\Console\CacheClear;
+use System\Classes\SystemException;
 use System\Classes\ApplicationException;
 use October\Rain\Filesystem\Zip;
 use Exception;
@@ -473,7 +474,7 @@ class UpdateManager
             });
         }
         catch (Exception $ex) {
-            throw new ApplicationException(Lang::get('system::lang.server.connect_error'));
+            throw new SystemException(Lang::get('system::lang.server.connect_error'));
         }
 
         if ($result->code == 404)
@@ -521,7 +522,7 @@ class UpdateManager
             });
         }
         catch (Exception $ex) {
-            throw new ApplicationException(Lang::get('system::lang.server.connect_error'));
+            throw new SystemException(Lang::get('system::lang.server.connect_error'));
         }
 
         if ($result->code != 200)
