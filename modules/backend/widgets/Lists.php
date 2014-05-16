@@ -274,7 +274,18 @@ class Lists extends WidgetBase
             $alias = Db::getQueryGrammar()->wrap($column->columnName);
             $table =  $this->model->makeRelation($column->relation)->getTable();
             $sqlSelect = $this->parseTableName($column->sqlSelect, $table);
-            $selects[] = Db::raw("group_concat(" . $sqlSelect . " separator ', ') as ". $alias);
+
+            switch (Db::getDefaultConnection()) {
+                default:
+                case 'mysql':
+                    $selects[] = Db::raw("group_concat(" . $sqlSelect . " separator ', ') as ". $alias);
+                    break;
+
+                case 'sqlite':
+                    $selects[] = Db::raw("group_concat(" . $sqlSelect . ", ', ') as ". $alias);
+                    break;
+            }
+
             $joins[] = $column->relation;
             $tables[$column->relation] = $table;
         }
