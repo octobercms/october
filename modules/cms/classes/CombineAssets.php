@@ -171,10 +171,10 @@ class CombineAssets
             $version = $combiner->getLastModified();
 
             $cacheInfo = [
-                'output' => $cacheId.'-'.$version.'.'.$extension,
+                'output'  => $cacheId.'-'.$version,
                 'version' => $version,
-                'files' => $assets,
-                'path' => $this->path
+                'files'   => $assets,
+                'path'    => $this->path
             ];
 
             $this->putCache($cacheId, $cacheInfo);

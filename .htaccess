@@ -12,12 +12,6 @@
     # RewriteBase /
 
     ##
-    ## Handle resource requests
-    ##
-    RewriteCond %{REQUEST_URI} combine/.*(.css|.js)
-    RewriteRule ^ index.php [L]
-
-    ##
     ## Black list protected files
     ##
     RewriteRule themes/.*/(layouts|pages|partials)/.*.htm index.php [L,NC]

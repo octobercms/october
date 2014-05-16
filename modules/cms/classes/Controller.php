@@ -632,6 +632,7 @@ class Controller extends BaseController
 
     /**
      * Combines JavaScript and StyleSheet assets.
+     * @param string $name Combined file code
      * @return string Combined content.
      */
     public function combine($name)
