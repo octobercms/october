@@ -326,7 +326,7 @@ class Controller extends Extendable
                  * Detect assets
                  */
                 if ($this->hasAssetsDefined()) {
-                    $responseContents['X_OCTOBER_ASSETS'] = $this->assets;
+                    $responseContents['X_OCTOBER_ASSETS'] = $this->getAssetPaths();
                 }
 
                 return Response::make()->setContent($responseContents);

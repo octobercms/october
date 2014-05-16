@@ -140,6 +140,22 @@ trait AssetMaker
     }
 
     /**
+     * Returns an array of all registered asset paths.
+     * @return array
+     */
+    public function getAssetPaths()
+    {
+        $assets = [];
+        foreach ($this->assets as $type => $collection) {
+            $assets[$type] = [];
+            foreach ($collection as $asset) {
+                $assets[$type][] = $asset['path'];
+            }
+        }
+        return $assets;
+    }
+
+    /**
      * Locates a file based on it's definition. If the file starts with
      * a forward slash, it will be returned in context of the application public path,
      * otherwise it will be returned in context of the asset path.
