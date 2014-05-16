@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title><?= Lang::get('cms::lang.page.custom_error.label') ?></title>
-        <link href="<?= URL::to('/modules/system/assets/vendor/font-awesome/css/font-awesome.css') ?>" rel="stylesheet">
+        <link href="<?= URL::to('/modules/system/assets/vendor/font-autumn/css/font-autumn.css') ?>" rel="stylesheet">
         <link href="<?= URL::to('/modules/system/assets/css/styles.css') ?>" rel="stylesheet">
     </head>
     <body>

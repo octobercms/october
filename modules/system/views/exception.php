@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Exception</title>
-        <link href="<?= URL::to('/modules/system/assets/vendor/font-awesome/css/font-awesome.css') ?>" rel="stylesheet">
+        <link href="<?= URL::to('/modules/system/assets/vendor/font-autumn/css/font-autumn.css') ?>" rel="stylesheet">
         <link href="<?= URL::to('/modules/system/assets/css/styles.css') ?>" rel="stylesheet">
         <script src="<?= URL::to('/modules/system/assets/vendor/syntaxhighlighter/scripts/shCore.js') ?>"></script>
         <script src="<?= URL::to('/modules/system/assets/vendor/syntaxhighlighter/scripts/shBrushPhp.js') ?>"></script>
