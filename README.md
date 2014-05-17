@@ -6,6 +6,10 @@ October's mission is to show the world that web development is not rocket scienc
 
 The best place to learn October is by [reading the documentation](http://octobercms.com/docs).
 
+### Installing October
+
+Instructions on how to install October can be found at the [installation guide](http://octobercms.com/docs/help/install).
+
 ### Development Team
 
 October was created by [Alexey Bobkov](http://ca.linkedin.com/pub/aleksey-bobkov/2b/ba0/232) and [Samuel Georges](http://au.linkedin.com/pub/sam-georges/31/641/a9), who both continue to develop the platform.
@@ -30,6 +34,6 @@ You can communicate with us using the following mediums:
 * [Follow us on Facebook](http://facebook.com/octobercms) for announcements and updates.
 * [Join us on IRC](https://kiwiirc.com/client/irc.freenode.net/?nick=Octonaut|?#october) to chat with us.
 
-### License
+### Licence
 
 The OctoberCMS platform is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
