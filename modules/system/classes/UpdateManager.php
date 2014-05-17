@@ -594,7 +594,7 @@ class UpdateManager
     }
 
     /**
-     * Create a nonce based on milisecond time
+     * Create a nonce based on millisecond time
      * @return int
      */
     private function createNonce()

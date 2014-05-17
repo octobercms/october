@@ -60,8 +60,8 @@ class Theme
     /**
      * Returns the active theme.
      * By default the active theme is loaded from the cms.activeTheme parameter,
-     * but this behavior can be overriden by the cms.activeTheme event listeners.
-     * @return \Cms\Classes\Theme Returns the loaded theme objesct.
+     * but this behavior can be overridden by the cms.activeTheme event listeners.
+     * @return \Cms\Classes\Theme Returns the loaded theme object.
      * If the theme doesn't exist, returns null.
      */
     public static function getActiveTheme()
@@ -86,10 +86,10 @@ class Theme
     /**
      * Returns the edit theme.
      * By default the edit theme is loaded from the cms.editTheme parameter,
-     * but this behavior can be overriden by the cms.editTheme event listeners.
+     * but this behavior can be overridden by the cms.editTheme event listeners.
      * If the edit theme is not defined in the configuration file, the active theme
      * is returned.
-     * @return \Cms\Classes\Theme Returns the loaded theme objesct.
+     * @return \Cms\Classes\Theme Returns the loaded theme object.
      * If the theme doesn't exist, returns null.
      */
     public static function getEditTheme()

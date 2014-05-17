@@ -74,7 +74,7 @@ class WidgetManager
 
     /**
      * Makes a widget object with configuration set.
-     * @param $className A widget class name.
+     * @param string $className A widget class name.
      * @param Controller $controller The Backend controller that spawned this widget.
      * @param array $configuration Configuration values.
      * @return WidgetBase The widget object.
@@ -92,7 +92,7 @@ class WidgetManager
          */
         if (!class_exists($className)) {
             throw new SystemException(Lang::get('backend::lang.widget.not_registered', [
-                'name' => $name
+                'name' => $className
             ]));
         }
 

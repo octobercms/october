@@ -213,7 +213,7 @@ class Controller extends Extendable
 
     /**
      * Invokes the current controller action without rendering a view,
-     * used by AJAX handler who may rely on the logic inside the aciton.
+     * used by AJAX handler who may rely on the logic inside the action.
      */
     public function pageAction()
     {

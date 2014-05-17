@@ -110,7 +110,7 @@ class VersionManager
     }
 
     /**
-     * Applys a single version update to a plugin.
+     * Applies a single version update to a plugin.
      */
     protected function applyPluginUpdate($code, $version, $details)
     {
@@ -149,7 +149,7 @@ class VersionManager
      */
     public function removePlugin($plugin)
     {
-        $code = (is_string($plugin)) ? $code : $this->pluginManager->getIdentifier($plugin);
+        $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
         if (!$this->hasVersionFile($code))
             return false;

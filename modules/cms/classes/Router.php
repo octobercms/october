@@ -56,7 +56,7 @@ class Router
 
     /**
      * Creates the router instance.
-     * @param \Cms\ClassesTheme $theme Specifies the theme being processed.
+     * @param \Cms\Classes\Theme $theme Specifies the theme being processed.
      */
     public function __construct(Theme $theme)
     {

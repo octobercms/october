@@ -166,7 +166,7 @@ class SettingsModel extends ModelBehavior
     }
 
     /**
-     * Checks if a key is legitamite or should be added to 
+     * Checks if a key is legitimate or should be added to
      * the field value collection
      */
     private function isKeyAllowed($key)
