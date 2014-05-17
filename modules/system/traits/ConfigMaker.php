@@ -1,12 +1,13 @@
 <?php namespace System\Traits;
 
-use stdClass;
 use Str;
 use File;
 use Lang;
+use Event;
 use October\Rain\Support\Yaml;
 use System\Classes\SystemException;
 use Backend\Classes\Controller;
+use stdClass;
 
 /**
  * Config Maker Trait
@@ -48,6 +49,18 @@ trait ConfigMaker
             throw new SystemException(Lang::get('system::lang.config.not_found', ['file' => $configFile, 'location' => get_called_class()]));
 
         $config = Yaml::parse(File::get($configFile));
+
+        /*
+         * Extensibility
+         */
+        $publicFile = File::localToPublic($configFile);
+        if ($results = Event::fire('system.extendConfigFile', [$publicFile, $config])) {
+            foreach ($results as $result) {
+                if (!is_array($result)) continue;
+                $config = array_merge($config, $result);
+            }
+        }
+
         $config = $this->makeConfigFromArray($config);
 
         foreach ($requiredConfig as $property) {
