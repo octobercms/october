@@ -18,7 +18,7 @@ class Loader implements Twig_LoaderInterface
 
     /**
      * Sets a CMS object to load the template from.
-     * @param \Cms\Classes\CmsObject CmsO $obj Specifies the CMS object.
+     * @param \Cms\Classes\CmsObject $obj Specifies the CMS object.
      */
     public function setObject(CmsObject $obj)
     {
