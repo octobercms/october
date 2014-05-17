@@ -33,8 +33,13 @@ return [
             'help' => 'Hur du hittar ditt Projekt-ID',
             'missing' => 'Var god välj ett Projekt-ID',
         ],
-        'detach_confirm_' => 'Vill du verkligen avlänka detta projekt?',
+        'detach_confirm' => 'Vill du verkligen avlänka detta projekt?',
         'unbind_success' => 'Projektet har blivit avlänkat',
+    ],
+    'settings' => [
+        'menu_label' => 'Inställningar',
+        'missing_model' => 'Inställningssidan saknar en modell-definition',
+        'update_success' => 'Inställningar för :name har uppdaterats',
         'return' => 'Återgå till systeminställningar',
     ],
     'email' => [
@@ -55,11 +60,6 @@ return [
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail-sökväg',
         'sendmail_path_comment' => 'Var god ange sökvägen till sendmail',
-    ],
-    'settings' => [
-        'menu_label' => 'Inställningar',
-        'missing_model' => 'Inställningssidan saknar en modell-definition',
-        'update_success' => 'Inställningar för :name har uppdaterats',
     ],
     'install' => [
         'project_label' => 'Länka till Projekt',

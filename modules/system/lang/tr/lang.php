@@ -33,8 +33,13 @@ return [
             'help' => 'Proje ID\'sini nasıl bulurum?',
             'missing' => 'Lütfen kullanılacak Proje ID\'sini belirleyin.',
         ],
-        'detach_confirm_' => 'Are you sure you want to detach this project?',
+        'detach_confirm' => 'Are you sure you want to detach this project?',
         'unbind_success' => 'Project has been detached successfully.',
+    ],
+    'settings' => [
+        'menu_label' => 'Ayarlar',
+        'missing_model' => 'The settings page is missing a Model definition.',
+        'update_success' => 'Settings for :name have been updated successfully.',
         'return' => 'Return to system settings',
     ],
     'email' => [
@@ -55,11 +60,6 @@ return [
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail Path',
         'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
-    ],
-    'settings' => [
-        'menu_label' => 'Ayarlar',
-        'missing_model' => 'The settings page is missing a Model definition.',
-        'update_success' => 'Settings for :name have been updated successfully.',
     ],
     'install' => [
         'project_label' => 'Projeye bağla',

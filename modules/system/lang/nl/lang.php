@@ -33,7 +33,7 @@ return [
             'help' => 'Hoe vind je jouw Project ID',
             'missing' => 'Voer een Project ID in.',
         ],
-        'detach_confirm_' => 'Are you sure you want to detach this project?',
+        'detach_confirm' => 'Are you sure you want to detach this project?',
         'unbind_success' => 'Project is succesvol ontkoppeld.',
     ],
     'settings' => [
