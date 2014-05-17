@@ -9,7 +9,7 @@ use Twig_TokenParser;
  * <pre>
  *  {% placeholder head %}
  *
- *  or - use default placeholer content
+ *  or - use default placeholder content
  *
  *  {% placeholder head %}
  *    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"/>

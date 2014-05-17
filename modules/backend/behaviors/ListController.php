@@ -19,7 +19,7 @@ class ListController extends ControllerBehavior
     /**
      * @var array List definitions, keys for alias and value for configuration.
      */
-    private $listDefinintions;
+    private $listDefinitions;
 
     /**
      * @var string The primary list alias to use. Default: list
@@ -61,18 +61,18 @@ class ListController extends ControllerBehavior
          * Extract list definitions
          */
         if (is_array($controller->listConfig)) {
-            $this->listDefinintions = $controller->listConfig;
-            $this->primaryDefinition = key($this->listDefinintions);
+            $this->listDefinitions = $controller->listConfig;
+            $this->primaryDefinition = key($this->listDefinitions);
         }
         else {
-            $this->listDefinintions = ['list' => $controller->listConfig];
+            $this->listDefinitions = ['list' => $controller->listConfig];
             $this->primaryDefinition = 'list';
         }
 
         /*
          * Build configuration
          */
-        $this->setConfig($this->listDefinintions[$this->primaryDefinition], $this->requiredConfig);
+        $this->setConfig($this->listDefinitions[$this->primaryDefinition], $this->requiredConfig);
     }
 
     /**
@@ -81,7 +81,7 @@ class ListController extends ControllerBehavior
      */
     public function makeLists()
     {
-        foreach ($this->listDefinintions as $definition => $config) {
+        foreach ($this->listDefinitions as $definition => $config) {
             $this->listWidgets[$definition] = $this->makeList($definition);
         }
 
@@ -94,10 +94,10 @@ class ListController extends ControllerBehavior
      */
     public function makeList($definition = null)
     {
-        if (!$definition || !isset($this->listDefinintions[$definition]))
+        if (!$definition || !isset($this->listDefinitions[$definition]))
             $definition = $this->primaryDefinition;
 
-        $listConfig = $this->makeConfig($this->listDefinintions[$definition], $this->requiredConfig);
+        $listConfig = $this->makeConfig($this->listDefinitions[$definition], $this->requiredConfig);
 
         /*
          * Create the model
@@ -197,7 +197,7 @@ class ListController extends ControllerBehavior
         if (!count($this->listWidgets))
             throw new SystemException(Lang::get('backend::lang.list.behavior_not_ready'));
 
-        if (!$definition || !isset($this->listDefinintions[$definition]))
+        if (!$definition || !isset($this->listDefinitions[$definition]))
             $definition = $this->primaryDefinition;
 
         $collection = [];

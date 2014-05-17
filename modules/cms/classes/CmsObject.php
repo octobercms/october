@@ -211,7 +211,7 @@ class CmsObject
 
     /**
      * Helper for {{ page.id }} or {{ layout.id }} twig vars
-     * Returns a unqiue string for this object.
+     * Returns a unique string for this object.
      * @return string
      */
     public function getId()

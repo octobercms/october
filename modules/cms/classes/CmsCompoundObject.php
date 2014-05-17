@@ -49,6 +49,7 @@ class CmsCompoundObject extends CmsObject
 
     /**
      * Loads the object from a file.
+     * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
      * @param string $fileName Specifies the file name, with the extension.
      * The file name can contain only alphanumeric symbols, dashes and dots.
      * @return boolean Returns true if the object was successfully loaded. Otherwise returns false.
@@ -152,7 +153,7 @@ class CmsCompoundObject extends CmsObject
     }
 
     /**
-     * Sets the PHP code content stirng.
+     * Sets the PHP code content string.
      * @param string $value Specifies the PHP code string.
      * @return \Cms\Classes\CmsCompoundObject Returns the object instance.
      */

@@ -32,7 +32,7 @@ class ServiceProvider extends ModuleServiceProvider
         parent::register('system');
 
         /*
-         * Reregister core providers
+         * Register core providers
          */
         App::register('October\Rain\Config\ConfigServiceProvider');
         App::register('October\Rain\Translation\TranslationServiceProvider');

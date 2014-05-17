@@ -57,9 +57,9 @@ class CmsException extends ApplicationException
     }
 
     /**
-     * Checks some conditions to confirm error has actually occured
+     * Checks some conditions to confirm error has actually occurred
      * due to the CMS template code, not some external code. If the error
-     * has occured in external code, the function will return false. Otherwise return 
+     * has occurred in external code, the function will return false. Otherwise return
      * true and modify the exception by overriding it's content, line and message values
      * to be accurate against a CMS object properties.
      * @param \Exception $exception The exception to modify.
@@ -152,7 +152,7 @@ class CmsException extends ApplicationException
                 return false;
         }
         /*
-         * Errors occuring the PHP code base class (Cms\Classes\CodeBase)
+         * Errors occurring the PHP code base class (Cms\Classes\CodeBase)
          */
         else {
             $trace = $exception->getTrace();

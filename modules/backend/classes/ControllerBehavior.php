@@ -116,7 +116,7 @@ class ControllerBehavior extends ExtensionBase
      * These methods could be defined in a controller to override a behavior default action.
      * Such methods should be defined as public, to allow the behavior object to access it.
      * By default public methods of a controller are considered as actions.
-     * To prevent this occurance, methods should be hidden by using this method.
+     * To prevent this occurrence, methods should be hidden by using this method.
      * @param mixed $methodName Specifies a method name.
      */
     protected function hideAction($methodName)

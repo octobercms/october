@@ -166,8 +166,8 @@ class Controller extends BaseController
         /*
          * Execute page lifecycle
          */
-        if ($cycleReponse = $this->execPageCycle())
-            return $cycleReponse;
+        if ($cycleResponse = $this->execPageCycle())
+            return $cycleResponse;
 
         /*
          * Render the page
@@ -566,7 +566,7 @@ class Controller extends BaseController
      *
      * @param mixed $name Specifies the Cms Page file name.
      * @param array $parameters Route parameters to consider in the URL.
-     * @param bool $routePersistence By default the exisiting routing parameters will be included
+     * @param bool $routePersistence By default the existing routing parameters will be included
      * when creating the URL, set to false to disable this feature.
      * @return string
      */

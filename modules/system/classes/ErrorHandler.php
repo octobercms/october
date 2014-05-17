@@ -27,7 +27,7 @@ class ErrorHandler
 
     /**
      * All exceptions are piped through this method from the framework workflow. This method will mask
-     * any foriegn exceptions with a "scent" of the native application's exception, so it can render 
+     * any foreign exceptions with a "scent" of the native application's exception, so it can render
      * correctly when displayed on the error page.
      * @param Exception $proposedException The exception candidate that has been thrown.
      * @return View Object containing the error page.

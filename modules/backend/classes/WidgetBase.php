@@ -43,7 +43,7 @@ abstract class WidgetBase
     /**
      * Constructor
      * @param Backend\Classes\Controller $controller
-     * @param array $configuration Proactive configuration definintion.
+     * @param array $configuration Proactive configuration definition.
      * @return void
      */
     public function __construct($controller, $configuration = [])
@@ -200,7 +200,7 @@ abstract class WidgetBase
     }
 
     /**
-     * Retreieves a widget related key/value pair from session data.
+     * Retrieves a widget related key/value pair from session data.
      * @param string $key Unique key for the data store.
      * @param string $default A default value to use when value is not found.
      * @return string
