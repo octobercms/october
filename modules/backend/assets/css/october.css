@@ -9809,7 +9809,7 @@ body.dropdown-open .dropdown-overlay {
 }
 div.scoreboard {
   position: relative;
-  padding: 0 20px;
+  padding: 0;
 }
 div.scoreboard:after,
 div.scoreboard:before {
@@ -9881,6 +9881,9 @@ div.scoreboard .control-chart ul li > i {
 }
 div.scoreboard .control-chart .canvas + ul {
   margin-left: 0;
+}
+body.slim-container div.scoreboard {
+  padding: 0 20px;
 }
 .control-chart {
   text-align: left;

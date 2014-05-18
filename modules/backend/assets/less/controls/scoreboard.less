@@ -1,6 +1,6 @@
 div.scoreboard {
     position: relative;
-    padding: 0 20px;
+    padding: 0;
 
     .horizontal-scroll-indicators(@color-scroll-indicator);
     &:before, &:after { margin-top: -10px; }
@@ -36,5 +36,11 @@ div.scoreboard {
         }
 
         .canvas + ul {margin-left: 0;}
+    }
+}
+
+body.slim-container {
+    div.scoreboard {
+        padding: 0 20px;
     }
 }
