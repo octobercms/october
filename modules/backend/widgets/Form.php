@@ -509,10 +509,16 @@ class Form extends WidgetBase
          * This won't execute for standard field names.
          */
         foreach ($keyParts as $key) {
-            if (!is_array($result) || !array_key_exists($key, $result))
-                return $defaultValue;
 
-            $result = $result[$key];
+            if (is_array($result)) {
+                if (!array_key_exists($key, $result)) return $defaultValue;
+                $result = $result[$key];
+            }
+            else {
+                if (!isset($result->{$key})) return $defaultValue;
+                $result = $result->{$key};
+            }
+
         }
 
         return $result;
