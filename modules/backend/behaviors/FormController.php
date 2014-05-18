@@ -130,11 +130,8 @@ class FormController extends ControllerBehavior
         $this->controller->formBeforeSave($model);
         $this->controller->formBeforeCreateSave($model);
 
-        $saveData = $this->formWidget->getSaveData();
-        foreach ($saveData as $attribute => $value) {
-            $model->{$attribute} = $value;
-        }
-        $model->save(null, $this->formWidget->getSessionKey());
+        $this->setModelAttributes($model, $this->formWidget->getSaveData());
+        $model->push($this->formWidget->getSessionKey());
 
         $this->controller->formAfterSave($model);
 
@@ -182,11 +179,8 @@ class FormController extends ControllerBehavior
         $this->controller->formBeforeSave($model);
         $this->controller->formBeforeEditSave($model);
 
-        $saveData = $this->formWidget->getSaveData();
-        foreach ($saveData as $attribute => $value) {
-            $model->{$attribute} = $value;
-        }
-        $model->save(null, $this->formWidget->getSessionKey());
+        $this->setModelAttributes($model, $this->formWidget->getSaveData());
+        $model->push($this->formWidget->getSessionKey());
 
         $this->controller->formAfterSave($model);
 
@@ -518,5 +512,26 @@ class FormController extends ControllerBehavior
      * @return void
      */
     public function formExtendQuery($query) {}
+
+    //
+    // Internals
+    //
+
+    /**
+     * Sets a data collection to a model attributes, relations will also be set.
+     * @param array $saveData Data to save.
+     * @param Model $model Model to save to
+     * @return void
+     */
+    private function setModelAttributes($model, $saveData)
+    {
+        $singularTypes = ['belongsTo', 'hasOne', 'morphOne'];
+        foreach ($saveData as $attribute => $value) {
+            if ($model->hasRelation($attribute) && in_array($model->getRelationType($attribute), $singularTypes))
+                $this->setModelAttributes($model->{$attribute}, $value);
+            else
+                $model->{$attribute} = $value;
+        }
+    }
 
 }
