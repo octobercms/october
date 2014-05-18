@@ -28,7 +28,7 @@ abstract class WidgetBase
     /**
      * @var Backend\Classes\Controller Backend controller object.
      */
-    protected $controller;
+    public $controller;
 
     /**
      * @var string A unique alias to identify this widget.
