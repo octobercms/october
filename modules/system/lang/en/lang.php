@@ -33,7 +33,7 @@ return [
             'help' => 'How to find your Project ID',
             'missing' => 'Please specify a Project ID to use.',
         ],
-        'detach_confirm_' => 'Are you sure you want to detach this project?',
+        'detach_confirm' => 'Are you sure you want to detach this project?',
         'unbind_success' => 'Project has been detached successfully.',
     ],
     'settings' => [

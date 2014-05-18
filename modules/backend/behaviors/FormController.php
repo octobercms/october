@@ -513,7 +513,7 @@ class FormController extends ControllerBehavior
 
     /**
      * Extend the query used for finding the form model. Extra conditions
-     * can be appied to the query, for example, $query->withTrashed();
+     * can be applied to the query, for example, $query->withTrashed();
      * @param October\Rain\Database\Builder $query
      * @return void
      */

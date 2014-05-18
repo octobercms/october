@@ -114,10 +114,10 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Determines if the asset minifcation is enabled.
+    | Determines if the asset minification is enabled.
     |--------------------------------------------------------------------------
     |
-    | If the minifcation is enabled, combined assets are compressed (minified).
+    | If the minification is enabled, combined assets are compressed (minified).
     | It is recommended to disable the minification during the development, and
     | enable it in the production mode.
     |

@@ -346,12 +346,11 @@ class AssetList extends WidgetBase
 
     protected function getData()
     {
-        $result = [];
         $assetsPath = $this->getAssetsPath();
 
         if (!file_exists($assetsPath) || !is_dir($assetsPath)) {
             if (!@mkdir($assetsPath))
-                throw new ApplicationException(Lang::get('cms::lang.cms_object.error_creating_directory', ['name'=>$path]));
+                throw new ApplicationException(Lang::get('cms::lang.cms_object.error_creating_directory', ['name'=>$assetsPath]));
         }
 
         $searchTerm = Str::lower($this->getSearchTerm());

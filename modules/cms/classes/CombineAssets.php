@@ -89,7 +89,7 @@ class CombineAssets
         $this->registerFilter('less', new \Assetic\Filter\LessphpFilter);
 
         /*
-         * Minifcation filters
+         * Minification filters
          */
         if ($this->useMinify) {
             $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
@@ -114,7 +114,7 @@ class CombineAssets
      * Combines asset file references of a single type to produce 
      * a URL reference to the combined contents.
      * @var array List of asset files.
-     * @var string File extension, used for asthetic purposes only.
+     * @var string File extension, used for aesthetic purposes only.
      * @return string URL to contents.
      */
     protected function prepareRequest(array $assets, $path = null)
@@ -186,7 +186,7 @@ class CombineAssets
 
     /**
      * Returns the URL used for accessing the combined files.
-     * @param string $outputFileName A custom file name to use.
+     * @param string $outputFilename A custom file name to use.
      * @return string
      */
     protected function getCombinedUrl($outputFilename = 'undefined.css')

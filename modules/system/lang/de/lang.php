@@ -33,8 +33,13 @@ return [
             'help' => 'Wie Sie Ihre Projekt-ID finden',
             'missing' => 'Bitte geben Sie eine Projekt-ID an.',
         ],
-        'detach_confirm_' => 'Are you sure you want to detach this project?',
+        'detach_confirm' => 'Are you sure you want to detach this project?',
         'unbind_success' => 'Projekt wurde erfolgreich getrennt (detached).',
+    ],
+    'settings' => [
+        'menu_label' => 'Einstellungen',
+        'missing_model' => 'Der Einstellungsseite fehlt eine Model-Definition.',
+        'update_success' => 'Einstellung für :name wurde erfolgreich aktualisiert.',
         'return' => 'Return to system settings',
     ],
     'email' => [
@@ -55,11 +60,6 @@ return [
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail Path',
         'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
-    ],
-    'settings' => [
-        'menu_label' => 'Einstellungen',
-        'missing_model' => 'Der Einstellungsseite fehlt eine Model-Definition.',
-        'update_success' => 'Einstellung für :name wurde erfolgreich aktualisiert.',
     ],
     'install' => [
         'project_label' => 'Mit Projekt verbinden',

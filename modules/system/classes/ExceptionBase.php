@@ -209,7 +209,7 @@ class ExceptionBase extends Exception
      * @return Array with stack information, each value will be an object with these values:
      * id - The stack ID number.
      * code - The class and function name being called.
-     * args - The arguements passed to the code function above.
+     * args - The arguments passed to the code function above.
      * file - Reference to the file containing the called code.
      * line - Reference to the line number of the file.
      */
@@ -230,7 +230,7 @@ class ExceptionBase extends Exception
 
             $args = null;
             if (isset($event['args']) && count($event['args'])) {
-                $args = $this->formatStackArguements($event['args'], false);
+                $args = $this->formatStackArguments($event['args'], false);
             }
             
             $result[] = (object)[
@@ -293,7 +293,7 @@ class ExceptionBase extends Exception
      * @param array arguments A list of the function or method arguments
      * @return string
      */
-    protected function formatStackArguements($arguments)
+    protected function formatStackArguments($arguments)
     {
         $argsArray = array();
         foreach ($arguments as $argument) {

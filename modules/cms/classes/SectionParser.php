@@ -97,8 +97,8 @@ class SectionParser
 
     /**
      * Returns the line number of a found instance of CMS object section separator (==).
-     * @param $content Object content
-     * @param $instance Which instance to look for
+     * @param string $content Object content
+     * @param int $instance Which instance to look for
      * @return int The line number the instance was found.
      */
     private static function calculateLinePosition($content, $instance = 1)
@@ -120,8 +120,8 @@ class SectionParser
      * Pushes the starting line number forward since it is not always directly
      * after the separator (==). There can be an opening tag or white space in between
      * where the section really begins.
-     * @param $content Object content
-     * @param $startLine The calculated starting line from calculateLinePosition()
+     * @param string $content Object content
+     * @param int $startLine The calculated starting line from calculateLinePosition()
      * @return int The adjusted line number.
      */
     private static function adjustLinePosition($content, $startLine = -1)

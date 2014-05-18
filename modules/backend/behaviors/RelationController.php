@@ -103,7 +103,7 @@ class RelationController extends ControllerBehavior
     protected $manageMode;
 
     /**
-     * @var int Primary id of an exisiting relation record.
+     * @var int Primary id of an existing relation record.
      */
     protected $manageId;
 
@@ -353,7 +353,7 @@ class RelationController extends ControllerBehavior
     }
 
     /**
-     * Returns the exisiting record IDs for the relation.
+     * Returns the existing record IDs for the relation.
      */
     private function findExistingRelationIds($checkIds = null)
     {
@@ -391,7 +391,7 @@ class RelationController extends ControllerBehavior
 
         if (($checkedIds = post('checked')) && is_array($checkedIds)) {
             /*
-             * Remove exisiting relations from the array
+             * Remove existing relations from the array
              */
             $existingIds = $this->findExistingRelationIds($checkedIds);
             $checkedIds = array_diff($checkedIds, $existingIds);
@@ -451,7 +451,7 @@ class RelationController extends ControllerBehavior
         $saveData = $this->pivotWidget->getSaveData();
 
         /*
-         * Check for exisiting relation
+         * Check for existing relation
          */
         $existing = $this->relationObject->where('id', $foreignId)->count();
 
@@ -569,7 +569,7 @@ class RelationController extends ControllerBehavior
         }
 
         /*
-         * Exclude exisiting relationships
+         * Exclude existing relationships
          */
         if ($this->manageMode == 'pivot' || $this->manageMode == 'list') {
             $widget->bindEvent('list.extendQueryBefore', function($host, $query) {

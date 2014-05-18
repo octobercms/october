@@ -140,7 +140,7 @@ class FormField
 
     /**
      * Sets a side of the field on a form.
-     * @param $value Specifies a side. Possible values: left, right, full
+     * @param string $value Specifies a side. Possible values: left, right, full
      */
     public function span($value = 'full')
     {
@@ -150,7 +150,7 @@ class FormField
 
     /**
      * Sets a side of the field on a form.
-     * @param $value Specifies a size. Possible values: tiny, small, large, huge, giant
+     * @param string $value Specifies a size. Possible values: tiny, small, large, huge, giant
      */
     public function size($value = 'large')
     {
@@ -180,7 +180,7 @@ class FormField
      * Adds a text comment above or below the field.
      * @param string $text Specifies a comment text.
      * @param string $position Specifies a comment position.
-     * @param bool $commentHtml Set to true if you use HTML formatting in the comment
+     * @param bool $isHtml Set to true if you use HTML formatting in the comment
      * Supported values are 'below' and 'above'
      */
     public function comment($text, $position = 'below', $isHtml = false)
