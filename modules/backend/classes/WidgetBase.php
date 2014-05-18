@@ -28,7 +28,7 @@ abstract class WidgetBase
     /**
      * @var Backend\Classes\Controller Backend controller object.
      */
-    public $controller;
+    protected $controller;
 
     /**
      * @var string A unique alias to identify this widget.
@@ -177,6 +177,14 @@ abstract class WidgetBase
         }
 
         return $result;
+    }
+
+    /**
+     * Returns the controller using this widget.
+     */
+    public function getController()
+    {
+        return $this->controller;
     }
 
     //
