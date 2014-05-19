@@ -1,5 +1,6 @@
 <?php namespace Backend\Classes;
 
+use System\Classes\PluginManager;
 use October\Rain\Auth\Manager as RainAuthManager;
 
 /**
@@ -98,10 +99,29 @@ class AuthManager extends RainAuthManager
         if ($this->permissionCache !== false)
             return $this->permissionCache;
 
+        /*
+         * Load module items
+         */
         foreach ($this->callbacks as $callback) {
             $callback($this);
         }
 
+        /*
+         * Load plugin items
+         */
+        $plugins = PluginManager::instance()->getPlugins();
+
+        foreach ($plugins as $id => $plugin) {
+            $items = $plugin->registerPermissions();
+            if (!is_array($items))
+                continue;
+
+            $this->registerPermissions($id, $items);
+        }
+
+        /*
+         * Sort permission items
+         */
         usort($this->permissions, function($a, $b) {
             if ($a->order == $b->order)
                 return 0;
