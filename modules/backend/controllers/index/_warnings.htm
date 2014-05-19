@@ -1,0 +1,39 @@
+<?php
+
+$uploadsWritable = is_writable(PATH_BASE.'/themes');
+$themesWritable = is_writable(PATH_BASE.'/uploads');
+$curlInstalled = function_exists('curl_init') && defined('CURLOPT_FOLLOWLOCATION');
+$gdInstalled = extension_loaded('gd');
+$zipInstalled = class_exists('ZipArchive');
+$showTips = (!$uploadsWritable || !$themesWritable || !$curlInstalled || !$gdInstalled || !$zipInstalled);
+
+?>
+<?php if ($showTips): ?>
+    <div class="callout callout-warning">
+        <div class="header">
+            <i class="icon-warning"></i>
+            <h3>System configuration tips</h3>
+            <p>There are issues you need to pay attention to in order to configure the system properly.</p>
+        </div>
+
+        <div class="content">
+            <ul>
+                <?php if (!$uploadsWritable): ?>
+                    <li>Directory <strong>/uploads</strong> or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.</li>
+                <?php endif ?>
+                <?php if (!$uploadsWritable): ?>
+                    <li>Directory <strong>/themes</strong> or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.</li>
+                <?php endif ?>
+                <?php if (!$curlInstalled): ?>
+                    <li>The PHP extension <strong>cURL</strong> is not installed. Please install this library and activate the extension.</li>
+                <?php endif ?>
+                <?php if (!$gdInstalled): ?>
+                    <li>The PHP extension <strong>GD</strong> is not installed. Please install this library and activate the extension.</li>
+                <?php endif ?>
+                <?php if (!$zipInstalled): ?>
+                    <li>The PHP extension <strong>Zip</strong> is not installed. Please install this library and activate the extension.</li>
+                <?php endif ?>
+            </ul>
+        </div>
+    </div>
+<?php endif ?>

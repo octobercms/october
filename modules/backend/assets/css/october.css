@@ -9164,44 +9164,117 @@ html.cssanimations .cursor-loading-indicator.hide {
   background-size: 50% auto;
 }
 .callout {
+  font-size: 14px;
   margin-bottom: 20px;
+}
+.callout.callout-danger > .header {
+  background: #f6b5b2;
+}
+.callout.callout-danger > .header i {
+  color: #9f5551;
+}
+.callout.callout-danger > .content {
+  background: #f8d6d5;
+}
+.callout.callout-info > .header {
+  background: #b9dbef;
+}
+.callout.callout-info > .header i {
+  color: #597f97;
+}
+.callout.callout-info > .content {
+  background: #d8eaf4;
+}
+.callout.callout-success > .header {
+  background: #d3e9bf;
+}
+.callout.callout-success > .header i {
+  color: #6d915e;
+}
+.callout.callout-success > .content {
+  background: #e6f1db;
+}
+.callout.callout-warning > .header {
+  background: #f6e7b2;
+}
+.callout.callout-warning > .header i {
+  color: #9f8e51;
+}
+.callout.callout-warning > .content {
+  background: #f8f0d5;
+}
+.callout > .header {
   padding: 20px;
-  border-left: 3px solid #eeeeee;
+  padding-bottom: 15px;
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+  color: #2f2d26;
 }
-.callout h4 {
-  margin-top: 0;
-  margin-bottom: 5px;
+.callout > .header h3 {
+  letter-spacing: 0;
+  margin: 0 0 7px 0;
+  font-size: 14px;
+  font-weight: bold;
 }
-.callout p:last-child {
+.callout > .header h3,
+.callout > .header p {
+  margin-left: 35px;
+}
+.callout > .header *:last-child {
   margin-bottom: 0;
 }
-.callout-danger {
-  background-color: #fdf7f7;
-  border-color: #ebccd1;
+.callout > .header:last-child {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
 }
-.callout-danger h4 {
-  color: #a94442;
+.callout > .header i {
+  font-size: 26px;
+  float: left;
 }
-.callout-warning {
-  background-color: #faf8f0;
-  border-color: #faebcc;
+.callout > .content {
+  color: #2f2d26;
+  padding: 16px 20px 15px;
 }
-.callout-warning h4 {
-  color: #8a6d3b;
+.callout > .content h1,
+.callout > .content h2,
+.callout > .content h3,
+.callout > .content h4,
+.callout > .content h5,
+.callout > .content h6 {
+  color: #2f2d26;
+  text-transform: none;
+  margin: 20px 0 5px 0;
+  line-height: 150%;
 }
-.callout-info {
-  background-color: #f4f8fa;
-  border-color: #bce8f1;
+.callout > .content h1 {
+  font-size: 30px;
 }
-.callout-info h4 {
-  color: #31708f;
+.callout > .content h2 {
+  font-size: 26px;
 }
-.callout-success {
-  background-color: #f9fdf7;
-  border-color: #d6e9c6;
+.callout > .content h3 {
+  font-size: 24px;
 }
-.callout-success h4 {
-  color: #3c763d;
+.callout > .content h4 {
+  font-size: 20px;
+}
+.callout > .content h5 {
+  font-size: 18px;
+}
+.callout > .content h6 {
+  font-size: 16px;
+}
+.callout > .content *:last-child {
+  margin-bottom: 0;
+}
+.callout > .content ul li,
+.callout > .content ol li {
+  margin-bottom: 5px;
+}
+.callout > .content .action-panel {
+  padding: 10px 0 0 0;
 }
 .dropdown-menu {
   padding: 0;
