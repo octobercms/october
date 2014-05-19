@@ -1,5 +1,6 @@
 <?php namespace Cms\Controllers;
 
+use Config;
 use URL;
 use Lang;
 use Flash;
@@ -142,6 +143,11 @@ class Index extends Controller
             if (array_key_exists($field, $_POST))
                 $templateData[$field] = Request::input($field);
         }
+        
+        if (!empty($templateData['markup'] && Config::get('cms.convertLineEndings', false) === true) {
+            $templateData['markup'] = $this->convertLineEndings($templateData['markup']);
+        }
+
 
         if (!Request::input('templateForceSave') && $template->mtime) {
             if (Request::input('templateMtime') != $template->mtime)
@@ -361,4 +367,20 @@ class Index extends Controller
 
         return $settings;
     }
+    
+    /**
+     * convertLineEndings Replaces Windows style (/r/n) line endings with unix style (/n)
+     * line endings.
+     *
+     * @param string $markup The markup to convert to unix style endings
+     *
+     * @return string $markup
+     */
+    private function convertLineEndings($markup)
+    {
+        $markup = str_replace("\r\n", "\n", $markup);
+        $markup = str_replace("\r", "\n", $markup);
+        return $markup;
+    }
+
 }
