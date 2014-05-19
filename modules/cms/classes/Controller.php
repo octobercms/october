@@ -2,7 +2,6 @@
 
 use URL;
 use App;
-use Log;
 use File;
 use View;
 use Lang;
@@ -329,7 +328,6 @@ class Controller extends BaseController
                 return Response::make($responseContents, 406);
              }
             catch (Exception $ex) {
-                Log::error($ex);
                 return Response::make($ex->getMessage(), 500);
             }
         }

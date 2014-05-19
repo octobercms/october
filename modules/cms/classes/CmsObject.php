@@ -327,7 +327,7 @@ class CmsObject
                 throw new ApplicationException(Lang::get('cms::lang.cms_object.error_creating_directory', ['name'=>$dirPath]));
         }
 
-        if (@file_put_contents($fullPath, $this->content) === false)
+        if (@File::put($fullPath, $this->content) === false)
             throw new ApplicationException(Lang::get('cms::lang.cms_object.error_saving', ['name'=>$this->fileName]));
 
         if (strlen($this->originalFileName) && $this->originalFileName !== $this->fileName) {

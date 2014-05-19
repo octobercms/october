@@ -1,6 +1,7 @@
 <?php namespace System\Classes;
 
 use App;
+use Log;
 use URL;
 use Lang;
 use Http;
@@ -10,7 +11,6 @@ use Carbon\Carbon;
 use System\Models\Parameters;
 use System\Models\PluginVersion;
 use System\Console\CacheClear;
-use System\Classes\SystemException;
 use System\Classes\ApplicationException;
 use October\Rain\Filesystem\Zip;
 use Exception;
@@ -474,7 +474,8 @@ class UpdateManager
             });
         }
         catch (Exception $ex) {
-            throw new SystemException(Lang::get('system::lang.server.connect_error'));
+            Log::error($ex);
+            throw new ApplicationException(Lang::get('system::lang.server.connect_error'));
         }
 
         if ($result->code == 404)
@@ -522,7 +523,8 @@ class UpdateManager
             });
         }
         catch (Exception $ex) {
-            throw new SystemException(Lang::get('system::lang.server.connect_error'));
+            Log::error($ex);
+            throw new ApplicationException(Lang::get('system::lang.server.connect_error'));
         }
 
         if ($result->code != 200)
