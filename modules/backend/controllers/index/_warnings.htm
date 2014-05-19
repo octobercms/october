@@ -12,26 +12,26 @@ $showTips = (!$uploadsWritable || !$themesWritable || !$curlInstalled || !$gdIns
     <div class="callout callout-warning">
         <div class="header">
             <i class="icon-warning"></i>
-            <h3>System configuration tips</h3>
-            <p>There are issues you need to pay attention to in order to configure the system properly.</p>
+            <h3><?= e(trans('backend::lang.warnings.tips')) ?></h3>
+            <p><?= e(trans('backend::lang.warnings.tips_description')) ?></p>
         </div>
 
         <div class="content">
             <ul>
                 <?php if (!$uploadsWritable): ?>
-                    <li>Directory <strong>/uploads</strong> or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.</li>
+                    <li><?= Lang::get('backend::lang.warnings.permissions', ['name' => '<strong>/uploads</strong>']); ?></li>
                 <?php endif ?>
                 <?php if (!$uploadsWritable): ?>
-                    <li>Directory <strong>/themes</strong> or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.</li>
+                    <li><?= Lang::get('backend::lang.warnings.permissions', ['name' => '<strong>/themes</strong>']); ?></li>
                 <?php endif ?>
                 <?php if (!$curlInstalled): ?>
-                    <li>The PHP extension <strong>cURL</strong> is not installed. Please install this library and activate the extension.</li>
+                    <li><?= Lang::get('backend::lang.warnings.extension', ['name' => '<strong>cURL</strong>']); ?></li>
                 <?php endif ?>
                 <?php if (!$gdInstalled): ?>
-                    <li>The PHP extension <strong>GD</strong> is not installed. Please install this library and activate the extension.</li>
+                    <li><?= Lang::get('backend::lang.warnings.extension', ['name' => '<strong>GD</strong>']); ?></li>
                 <?php endif ?>
                 <?php if (!$zipInstalled): ?>
-                    <li>The PHP extension <strong>Zip</strong> is not installed. Please install this library and activate the extension.</li>
+                    <li><?= Lang::get('backend::lang.warnings.extension', ['name' => '<strong>Zip</strong>']); ?></li>
                 <?php endif ?>
             </ul>
         </div>
