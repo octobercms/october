@@ -143,8 +143,8 @@ class Index extends Controller
             if (array_key_exists($field, $_POST))
                 $templateData[$field] = Request::input($field);
         }
-        
-        if (!empty($templateData['markup'] && Config::get('cms.convertLineEndings', false) === true) {
+
+        if (!empty($templateData['markup']) && Config::get('cms.convertLineEndings', false) === true) {
             $templateData['markup'] = $this->convertLineEndings($templateData['markup']);
         }
 
