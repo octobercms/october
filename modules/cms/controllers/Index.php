@@ -367,7 +367,7 @@ class Index extends Controller
 
         return $settings;
     }
-    
+
     /**
      * convertLineEndings Replaces Windows style (/r/n) line endings with unix style (/n)
      * line endings.
