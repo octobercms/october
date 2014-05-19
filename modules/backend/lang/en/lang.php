@@ -136,4 +136,10 @@ return [
         'missing_relation' => "Model ':class' does not contain a definition for ':relation'.",
         'invalid_class' => "Model :model used in :class is not valid, it must inherit the \Model class.",
     ],
+    'warnings' => [
+        'tips' => 'System configuration tips',
+        'tips_description' => 'There are issues you need to pay attention to in order to configure the system properly.',
+        'permissions'  => 'Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.',
+        'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.'
+    ],
 ];
