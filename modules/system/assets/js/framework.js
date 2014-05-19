@@ -137,6 +137,9 @@ if (window.jQuery === undefined)
              * Custom function, display an error message to the user
              */
             handleErrorMessage: function(message) {
+                var _event = jQuery.Event('ajaxErrorMessage')
+                $(window).trigger(_event, [message])
+                if (_event.isDefaultPrevented()) return
                 alert(message)
             },
 
