@@ -306,7 +306,7 @@ class Lists extends WidgetBase
 
                     if (isset($column->sqlSelect)) {
                         $table = (isset($column->relation)) ? $tables[$column->relation] : 'base';
-                        $columnName = Db::raw($this->parseTableName($column->sqlSelect, $table));
+                        $columnName = DbDongle::raw($this->parseTableName($column->sqlSelect, $table));
                     }
                     else
                         $columnName = $column->columnName;
