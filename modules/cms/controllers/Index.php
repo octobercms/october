@@ -148,7 +148,6 @@ class Index extends Controller
             $templateData['markup'] = $this->convertLineEndings($templateData['markup']);
         }
 
-
         if (!Request::input('templateForceSave') && $template->mtime) {
             if (Request::input('templateMtime') != $template->mtime)
                 throw new ApplicationException('mtime-mismatch');
@@ -369,12 +368,10 @@ class Index extends Controller
     }
 
     /**
-     * convertLineEndings Replaces Windows style (/r/n) line endings with unix style (/n)
+     * Replaces Windows style (/r/n) line endings with unix style (/n)
      * line endings.
-     *
      * @param string $markup The markup to convert to unix style endings
-     *
-     * @return string $markup
+     * @return string
      */
     private function convertLineEndings($markup)
     {
