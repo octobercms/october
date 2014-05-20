@@ -1,11 +1,14 @@
 <?php
 
+$themesDir = Config::get('cms.themesDir');
+$uploadsDir = Config::get('cms.uploadsDir');
+
 $warnings = [];
 $writablePaths = [
-    '/themes',
-    '/uploads',
-    '/uploads/public',
-    '/uploads/protected',
+    $themesDir,
+    $uploadsDir,
+    $uploadsDir.'/public',
+    $uploadsDir.'/protected',
     '/app/storage',
     '/app/storage/logs',
     '/app/storage/cache',
