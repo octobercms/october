@@ -167,7 +167,8 @@ class WidgetManager
     /**
      * Returns a class name from a form widget alias
      * Normalizes a class name or converts an alias to it's class name.
-     * @return string The class name resolved, or null.
+     * @param string $name Class name or form widget alias.
+     * @return string The class name resolved, or the original name.
      */
     public function resolveFormWidget($name)
     {
