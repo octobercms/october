@@ -7,6 +7,7 @@ use Lang;
 use Input;
 use Event;
 use Backend;
+use DbDongle;
 use October\Rain\Router\Helper as RouterHelper;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
@@ -275,17 +276,7 @@ class Lists extends WidgetBase
             $table =  $this->model->makeRelation($column->relation)->getTable();
             $sqlSelect = $this->parseTableName($column->sqlSelect, $table);
 
-            switch (Db::getDefaultConnection()) {
-                default:
-                case 'mysql':
-                    $selects[] = Db::raw("group_concat(" . $sqlSelect . " separator ', ') as ". $alias);
-                    break;
-
-                case 'sqlite':
-                    $selects[] = Db::raw("group_concat(" . $sqlSelect . ", ', ') as ". $alias);
-                    break;
-            }
-
+            $selects[] = DbDongle::raw("group_concat(" . $sqlSelect . " separator ', ') as ". $alias);
             $joins[] = $column->relation;
             $tables[$column->relation] = $table;
         }
@@ -302,7 +293,7 @@ class Lists extends WidgetBase
 
             $alias = Db::getQueryGrammar()->wrap($column->columnName);
             $sqlSelect = $this->parseTableName($column->sqlSelect, $tables['base']);
-            $selects[] = Db::raw($sqlSelect . ' as '. $alias);
+            $selects[] = DbDongle::raw($sqlSelect . ' as '. $alias);
         }
 
         /*

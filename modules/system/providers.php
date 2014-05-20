@@ -11,7 +11,6 @@ return [
     'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
     'Illuminate\Routing\ControllerServiceProvider',
     'Illuminate\Cookie\CookieServiceProvider',
-    'Illuminate\Database\DatabaseServiceProvider',
     'Illuminate\Encryption\EncryptionServiceProvider',
     'Illuminate\Hashing\HashServiceProvider',
     'Illuminate\Log\LogServiceProvider',
@@ -29,6 +28,7 @@ return [
     /*
      * October Rain providers
      */
+    'October\Rain\Database\DatabaseServiceProvider',
     'October\Rain\Filesystem\FilesystemServiceProvider',
     'October\Rain\Config\ConfigServiceProvider',
     'October\Rain\Html\HtmlServiceProvider',

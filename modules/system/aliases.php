@@ -47,6 +47,7 @@ return [
     'Flash'           => 'October\Rain\Support\Facades\Flash',
     'Http'            => 'October\Rain\Support\Facades\Http',
     'Str'             => 'October\Rain\Support\Facades\Str',
+    'DbDongle'        => 'October\Rain\Support\Facades\DbDongle',
     'Backend'         => 'Backend\Facades\Backend',
     'BackendMenu'     => 'Backend\Facades\BackendMenu',
     'BackendAuth'     => 'Backend\Facades\BackendAuth',
