@@ -1,14 +1,28 @@
 <?php
 
-$uploadsWritable = is_writable(PATH_BASE.'/themes');
-$themesWritable = is_writable(PATH_BASE.'/uploads');
-$curlInstalled = function_exists('curl_init') && defined('CURLOPT_FOLLOWLOCATION');
-$gdInstalled = extension_loaded('gd');
-$zipInstalled = class_exists('ZipArchive');
-$showTips = (!$uploadsWritable || !$themesWritable || !$curlInstalled || !$gdInstalled || !$zipInstalled);
+$warnings = [];
+$writablePaths = [
+    '/themes',
+    '/uploads',
+];
+$requiredExtensions = [
+    'GD' => extension_loaded('gd'),
+    'fileinfo' => extension_loaded('fileinfo'),
+    'Zip' => class_exists('ZipArchive'),
+    'cURL' => function_exists('curl_init') && defined('CURLOPT_FOLLOWLOCATION'),
+];
+
+foreach ($writablePaths as $path) {
+    if (!is_writable(PATH_BASE.$path))
+        $warnings[] = Lang::get('backend::lang.warnings.permissions', ['name' => '<strong>'.$path.'</strong>']);
+}
+foreach ($requiredExtensions as $extension => $installed) {
+    if (!$installed)
+        $warnings[] = Lang::get('backend::lang.warnings.extension', ['name' => '<strong>'.$extension.'</strong>']);
+}
 
 ?>
-<?php if ($showTips): ?>
+<?php if (count($warnings)): ?>
     <div class="callout callout-warning">
         <div class="header">
             <i class="icon-warning"></i>
@@ -18,21 +32,9 @@ $showTips = (!$uploadsWritable || !$themesWritable || !$curlInstalled || !$gdIns
 
         <div class="content">
             <ul>
-                <?php if (!$uploadsWritable): ?>
-                    <li><?= Lang::get('backend::lang.warnings.permissions', ['name' => '<strong>/uploads</strong>']); ?></li>
-                <?php endif ?>
-                <?php if (!$uploadsWritable): ?>
-                    <li><?= Lang::get('backend::lang.warnings.permissions', ['name' => '<strong>/themes</strong>']); ?></li>
-                <?php endif ?>
-                <?php if (!$curlInstalled): ?>
-                    <li><?= Lang::get('backend::lang.warnings.extension', ['name' => '<strong>cURL</strong>']); ?></li>
-                <?php endif ?>
-                <?php if (!$gdInstalled): ?>
-                    <li><?= Lang::get('backend::lang.warnings.extension', ['name' => '<strong>GD</strong>']); ?></li>
-                <?php endif ?>
-                <?php if (!$zipInstalled): ?>
-                    <li><?= Lang::get('backend::lang.warnings.extension', ['name' => '<strong>Zip</strong>']); ?></li>
-                <?php endif ?>
+                <?php foreach ($warnings as $warning): ?>
+                    <li><?= $warning ?></li>
+                <?php endforeach ?>
             </ul>
         </div>
     </div>
