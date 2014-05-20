@@ -160,10 +160,10 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Uploads directory
+    | Temporary directory
     |--------------------------------------------------------------------------
     |
-    | Specifies the uploads directory relative to the application root directory.
+    | Specifies a directory used by the application for temporarily storing files.
     |
     */
 
