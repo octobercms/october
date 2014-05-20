@@ -1,8 +1,8 @@
 <?php namespace System\Classes;
 
 use App;
-use Log;
 use URL;
+use File;
 use Lang;
 use Http;
 use Schema;
@@ -72,8 +72,14 @@ class UpdateManager
         $this->versionManager = VersionManager::instance();
         $this->migrator = App::make('migrator');
         $this->repository = App::make('migration.repository');
-        $this->tempDirectory = sys_get_temp_dir();
+        $this->tempDirectory = Config::get('cms.tempDir', sys_get_temp_dir());
         $this->baseDirectory = PATH_BASE;
+
+        /*
+         * Ensure temp directory exists
+         */
+        if (!File::isDirectory($this->tempDirectory))
+            File::makeDirectory($this->tempDirectory, 0777, true);
     }
 
     /**
@@ -468,15 +474,9 @@ class UpdateManager
      */
     public function requestServerData($uri, $postData = [])
     {
-        try {
-            $result = Http::post($this->createServerUrl($uri), function($http) use ($postData) {
-                $this->applyHttpAttributes($http, $postData);
-            });
-        }
-        catch (Exception $ex) {
-            Log::error($ex);
-            throw new ApplicationException(Lang::get('system::lang.server.connect_error'));
-        }
+        $result = Http::post($this->createServerUrl($uri), function($http) use ($postData) {
+            $this->applyHttpAttributes($http, $postData);
+        });
 
         if ($result->code == 404)
             throw new ApplicationException(Lang::get('system::lang.server.response_not_found'));
@@ -516,16 +516,10 @@ class UpdateManager
     {
         $filePath = $this->getFilePath($fileCode);
 
-        try {
-            $result = Http::post($this->createServerUrl($uri), function($http) use ($postData, $filePath) {
-                $this->applyHttpAttributes($http, $postData);
-                $http->toFile($filePath);
-            });
-        }
-        catch (Exception $ex) {
-            Log::error($ex);
-            throw new ApplicationException(Lang::get('system::lang.server.connect_error'));
-        }
+        $result = Http::post($this->createServerUrl($uri), function($http) use ($postData, $filePath) {
+            $this->applyHttpAttributes($http, $postData);
+            $http->toFile($filePath);
+        });
 
         if ($result->code != 200)
             throw new ApplicationException(Lang::get('system::lang.server.file_error'));
