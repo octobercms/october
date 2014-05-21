@@ -7391,6 +7391,11 @@ label {
 .form-group-preview .form-control {
   background-color: #f6f6f6;
   height: auto;
+  min-height: 38px;
+}
+.form-group-preview .custom-checkbox label,
+.form-group-preview .custom-radio label {
+  cursor: default;
 }
 .help-block {
   font-size: 12px;

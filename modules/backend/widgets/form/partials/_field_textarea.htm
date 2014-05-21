@@ -1,6 +1,6 @@
 <!-- Textarea -->
 <?php if ($this->previewMode): ?>
-    <div class="form-control"><?= e($field->value) ?></div>
+    <div class="form-control"><?= nl2br(e($field->value)) ?></div>
 <?php else: ?>
     <textarea
         name="<?= $field->getName() ?>"

@@ -28,6 +28,7 @@ class FileUpload extends FormWidgetBase
 
     public $imageWidth;
     public $imageHeight;
+    public $previewNoFilesMessage;
 
     /**
      * {@inheritDoc}
@@ -36,6 +37,7 @@ class FileUpload extends FormWidgetBase
     {
         $this->imageHeight = $this->getConfig('imageHeight', 100);
         $this->imageWidth = $this->getConfig('imageWidth', 100);
+        $this->previewNoFilesMessage = $this->getConfig('previewNoFilesMessage', 'backend::lang.form.preview_no_files_message');
         $this->checkUploadPostback();
     }
 

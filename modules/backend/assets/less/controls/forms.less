@@ -127,8 +127,13 @@ label {
     .form-control {
         background-color: @color-form-field-preview;
         height: auto;
+        min-height: 38px;
     }
 
+    .custom-checkbox,
+    .custom-radio {
+        label {cursor: default;}
+    }
 }
 
 .help-block {

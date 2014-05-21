@@ -10,10 +10,9 @@
     data-item-template="<?= $this->getId('template') ?>">
 
     <div class="image-multi">
-
         <ul>
             <!-- Add New Image -->
-            <li class="attachment-item attachment-uploader" style="width: <?= $imageWidth.'px' ?>; height: <?= $imageHeight.'px' ?>">
+            <li class="attachment-item attachment-uploader <?php if ($this->previewMode): ?>hidden<?php endif ?>" style="width: <?= $imageWidth.'px' ?>; height: <?= $imageHeight.'px' ?>">
                 <a href="javascript:;" class="uploader-link no-attachment">
                     <table><tr><td class="oc-<?= $emptyIcon ?>"></td></tr></table>
                 </a>
@@ -24,7 +23,9 @@
                 <div class="uploader-loading"></div>
             </li>
         </ul>
-
+        <?php if ($this->previewMode && !count($fileList)): ?>
+            <div class="no-data" style="height: <?= $imageHeight.'px' ?>"><?= e(trans($this->previewNoFilesMessage)) ?></div>
+        <?php endif ?>
     </div>
 
     <!-- Upload form -->
@@ -55,6 +56,7 @@
                     {{#description}}
                         <p><abbr title="{{description}}">{{description}}</abbr></p>
                     {{/description}}
+                    <?php if (!$this->previewMode): ?>
                     <a
                         href="javascript:;"
                         class="uploader-remove oc-icon-times"
@@ -73,6 +75,7 @@
                             class="uploader-file-link oc-icon-paper-clip"
                             target="_blank"></a>
                     </div>
+                    <?php endif ?>
                 </div>
                 <div class="uploader-loading"></div>
             </div>
