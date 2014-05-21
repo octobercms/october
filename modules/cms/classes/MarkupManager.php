@@ -12,8 +12,8 @@ class MarkupManager
 {
     use \October\Rain\Support\Traits\Singleton;
 
-    const EXTENSION_FILTER = 'functions';
-    const EXTENSION_FUNCTION = 'filters';
+    const EXTENSION_FILTER = 'filters';
+    const EXTENSION_FUNCTION = 'functions';
     const EXTENSION_TOKEN_PARSER = 'tokens';
 
     /**
