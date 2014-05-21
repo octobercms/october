@@ -68,34 +68,6 @@ class PluginManager
     }
 
     /**
-     * Cross checks all plugins and their dependancies, if not met plugins
-     * are disabled and vice versa.
-     */
-    protected function loadDependencies()
-    {
-        foreach ($this->plugins as $id => $plugin) {
-
-            if (!isset($plugin->require) || !$plugin->require)
-                continue;
-
-            $required = is_array($plugin->require) ? $plugin->require : [$plugin->require];
-            $disable = false;
-            foreach ($required as $require) {
-                if (!$this->hasPlugin($require))
-                    $disable = true;
-
-                elseif (($pluginObj = $this->findByIdentifier($require)) && $pluginObj->disabled)
-                    $disable = true;
-            }
-
-            if ($disable)
-                $this->disablePlugin($id);
-            else
-                $this->enablePlugin($id);
-        }
-    }
-
-    /**
      * Finds all available plugins and loads them in to the $plugins array.
      */
     public function loadPlugins()
@@ -134,89 +106,31 @@ class PluginManager
     }
 
     /**
-     * Loads all disabled plugins from the meta file.
+     * Cross checks all plugins and their dependancies, if not met plugins
+     * are disabled and vice versa.
      */
-    protected function loadDisabled()
+    protected function loadDependencies()
     {
-        $path = $this->metaPath.'/disabled.json';
+        foreach ($this->plugins as $id => $plugin) {
 
-        if (($configDisabled = Config::get('cms.disablePlugins')) && is_array($configDisabled)) {
-            foreach ($configDisabled as $disabled)
-                $this->disabledPlugins[$disabled] = true;
+            if (!isset($plugin->require) || !$plugin->require)
+                continue;
+
+            $required = is_array($plugin->require) ? $plugin->require : [$plugin->require];
+            $disable = false;
+            foreach ($required as $require) {
+                if (!$this->hasPlugin($require))
+                    $disable = true;
+
+                elseif (($pluginObj = $this->findByIdentifier($require)) && $pluginObj->disabled)
+                    $disable = true;
+            }
+
+            if ($disable)
+                $this->disablePlugin($id);
+            else
+                $this->enablePlugin($id);
         }
-
-        if (File::exists($path)) {
-            $disabled = json_decode(File::get($path), true);
-            $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
-        }
-        else {
-            $this->writeDisabled();
-        }
-    }
-
-    /**
-     * Determines if a plugin is disabled by looking at the meta information
-     * or the application configuration.
-     * @return boolean
-     */
-    public function isDisabled($id)
-    {
-        $code = $this->getIdentifier($id);
-        if (array_key_exists($code, $this->disabledPlugins))
-            return true;
-    }
-
-    /**
-     * Write the disabled plugins to a meta file.
-     */
-    protected function writeDisabled()
-    {
-        $path = $this->metaPath.'/disabled.json';
-        File::put($path, json_encode($this->disabledPlugins));
-    }
-
-    /**
-     * Disables a single plugin in the system.
-     * @param string $id Plugin code/namespace
-     * @param bool $user Set to true if disabled by the user
-     */
-    public function disablePlugin($id, $isUser = false)
-    {
-        $code = $this->getIdentifier($id);
-        if (array_key_exists($code, $this->disabledPlugins))
-            return false;
-
-        $this->disabledPlugins[$code] = $isUser;
-        $this->writeDisabled();
-
-        if ($pluginObj = $this->findByIdentifier($code))
-            $pluginObj->disabled = true;
-
-        return true;
-    }
-
-    /**
-     * Enables a single plugin in the system.
-     * @param string $id Plugin code/namespace
-     * @param bool $user Set to true if enabled by the user
-     */
-    public function enablePlugin($id, $isUser = false)
-    {
-        $code = $this->getIdentifier($id);
-        if (!array_key_exists($code, $this->disabledPlugins))
-            return false;
-
-        // Prevent system from enabling plugins disabled by the user
-        if (!$isUser && $this->disabledPlugins[$code] === true)
-            return false;
-
-        unset($this->disabledPlugins[$code]);
-        $this->writeDisabled();
-
-        if ($pluginObj = $this->findByIdentifier($code))
-            $pluginObj->disabled = false;
-
-        return true;
     }
 
     /**
@@ -413,4 +327,95 @@ class PluginManager
         $namespace = implode('.', $slice);
         return $namespace;
     }
+
+    //
+    // Disability
+    //
+
+    /**
+     * Loads all disables plugins from the meta file.
+     */
+    protected function loadDisabled()
+    {
+        $path = $this->metaPath.'/disabled.json';
+
+        if (($configDisabled = Config::get('cms.disablePlugins')) && is_array($configDisabled)) {
+            foreach ($configDisabled as $disabled)
+                $this->disabledPlugins[$disabled] = true;
+        }
+
+        if (File::exists($path)) {
+            $disabled = json_decode(File::get($path), true);
+            $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
+        }
+        else {
+            $this->writeDisabled();
+        }
+    }
+
+    /**
+     * Determines if a plugin is disabled by looking at the meta information
+     * or the application configuration.
+     * @return boolean
+     */
+    public function isDisabled($id)
+    {
+        $code = $this->getIdentifier($id);
+        if (array_key_exists($code, $this->disabledPlugins))
+            return true;
+    }
+
+    /**
+     * Write the disabled plugins to a meta file.
+     */
+    protected function writeDisabled()
+    {
+        $path = $this->metaPath.'/disabled.json';
+        File::put($path, json_encode($this->disabledPlugins));
+    }
+
+    /**
+     * Disables a single plugin in the system.
+     * @param string $id Plugin code/namespace
+     * @param bool $user Set to true if disabled by the user
+     */
+    public function disablePlugin($id, $isUser = false)
+    {
+        $code = $this->getIdentifier($id);
+        if (array_key_exists($code, $this->disabledPlugins))
+            return false;
+
+        $this->disabledPlugins[$code] = $isUser;
+        $this->writeDisabled();
+
+        if ($pluginObj = $this->findByIdentifier($code))
+            $pluginObj->disabled = true;
+
+        return true;
+    }
+
+    /**
+     * Enables a single plugin in the system.
+     * @param string $id Plugin code/namespace
+     * @param bool $user Set to true if enabled by the user
+     */
+    public function enablePlugin($id, $isUser = false)
+    {
+        $code = $this->getIdentifier($id);
+        if (!array_key_exists($code, $this->disabledPlugins))
+            return false;
+
+        // Prevent system from enabling plugins disabled by the user
+        if (!$isUser && $this->disabledPlugins[$code] === true)
+            return false;
+
+        unset($this->disabledPlugins[$code]);
+        $this->writeDisabled();
+
+        if ($pluginObj = $this->findByIdentifier($code))
+            $pluginObj->disabled = false;
+
+        return true;
+    }
+
 }
