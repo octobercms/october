@@ -297,7 +297,7 @@ class Form extends WidgetBase
     /**
      * Programatically add fields, used internally and for extensibility.
      */
-    public function addFields(array $fields, $addToTab = null)
+    public function addFields(array $fields, $addToArea = null)
     {
         foreach ($fields as $name => $config) {
 
@@ -322,7 +322,7 @@ class Form extends WidgetBase
 
             $this->allFields[$name] = $fieldObj;
 
-            switch (strtolower($addToTab)) {
+            switch (strtolower($addToArea)) {
                 case 'primary':
                     $this->primaryTabs[$tab][$name] = $fieldObj;
                     break;
