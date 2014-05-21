@@ -11462,16 +11462,16 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   left: -18px;
   top: 11px;
 }
-.control-treelist li > div.record > a.move {
+.control-treelist .record > a.move {
   display: inline-block;
   padding: 7px 0 7px 10px;
   text-decoration: none;
   color: #bdc3c7;
 }
-.control-treelist li > div.record > a.move:hover {
+.control-treelist .record > a.move:hover {
   color: #4da7e8;
 }
-.control-treelist li > div.record > a.move:before {
+.control-treelist .record > a.move:before {
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
@@ -11480,37 +11480,37 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   *margin-right: .3em;
   content: "\f0c9";
 }
-.control-treelist li > div.record > span {
+.control-treelist .record > span {
   color: #666666;
   display: inline-block;
   padding: 7px 15px 7px 5px;
 }
-.control-treelist li.dragged {
+.control-treelist .dragged {
   position: absolute;
   z-index: 2000;
   width: auto !important;
   height: auto !important;
 }
-.control-treelist li.dragged > div.record {
+.control-treelist .dragged > .record {
   opacity: 0.5;
   filter: alpha(opacity=50);
   background: #4da7e8 !important;
 }
-.control-treelist li.dragged > div.record > a.move:before,
-.control-treelist li.dragged > div.record > span {
+.control-treelist .dragged > .record > a.move:before,
+.control-treelist .dragged > .record > span {
   color: white;
 }
-.control-treelist li.dragged > div.record:before {
+.control-treelist .dragged > .record:before {
   display: none;
 }
-.control-treelist li.placeholder {
+.control-treelist .placeholder {
   display: inline-block;
   position: relative;
   background: #4da7e8 !important;
   height: 25px;
   margin-bottom: 5px;
 }
-.control-treelist li.placeholder:before {
+.control-treelist .placeholder:before {
   display: block;
   position: absolute;
   font-family: FontAwesome;
