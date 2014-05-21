@@ -10,6 +10,15 @@ use Illuminate\Support\ServiceProvider as ServiceProviderBase;
  */
 abstract class PluginBase extends ServiceProviderBase
 {
+    /**
+     * @var array Plugin dependencies
+     */
+    public $require = [];
+
+    /**
+     * @var boolean Determine if this plugin should be loaded (false) or not (true).
+     */
+    public $disabled = false;
 
     /**
      * Returns information about this plugin, including plugin name and developer name.

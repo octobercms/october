@@ -37,6 +37,11 @@ class CacheClear extends ClearCommand
             $this->info('Twig cache cleared!');
         }
 
+        /*
+         * Meta
+         */
+        $this->files->delete($this->laravel['config']['app.manifest'].'/disabled.json');
+
         parent::fire();
     }
 
