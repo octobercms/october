@@ -516,13 +516,17 @@ class UpdateManager
     {
         $filePath = $this->getFilePath($fileCode);
 
+        if ($projectId = Parameters::get('system::project.id')) {
+            $postData['project'] = $projectId;
+        }
+
         $result = Http::post($this->createServerUrl($uri), function($http) use ($postData, $filePath) {
             $this->applyHttpAttributes($http, $postData);
             $http->toFile($filePath);
         });
 
         if ($result->code != 200)
-            throw new ApplicationException(Lang::get('system::lang.server.file_error'));
+            throw new ApplicationException(File::get($filePath));
 
         if (md5_file($filePath) != $expectedHash) {
             @unlink($filePath);
