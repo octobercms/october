@@ -8,9 +8,9 @@
                     <?= e(trans('system::lang.project.owner_label')) ?>: <?= $project_owner ?>
                     (<a
                         href="javascript:;"
-                        data-request-confirm="Are you sure?"
+                        data-request-confirm="<?= e(trans('system::lang.project.detach_confirm')) ?>"
                         data-request="onDetachProject"
-                        data-stripe-load-indicator><?= e(trans('system::lang.project.detach_confirm')) ?></a>)
+                        data-stripe-load-indicator><?= e(trans('system::lang.project.detach')) ?></a>)
                 </p>
             <?php else: ?>
                 <p class="oc-icon-chain-broken"><?= e(trans('system::lang.project.none')) ?></p>

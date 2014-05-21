@@ -1,3 +1,6 @@
+* **Build 86** (2014-05-21)
+  - Fixes an issue where paid plugins could not be downloaded.
+
 * **Build 84** (2014-05-20)
   - A temporary directory can now be specified in config (see config cms.tempDir).
   - Default AJAX error message can now be overridden (see `ajaxErrorMessage` jQuery event).
