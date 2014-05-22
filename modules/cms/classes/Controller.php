@@ -84,7 +84,7 @@ class Controller extends BaseController
     public function __construct($theme = null)
     {
         $this->theme = $theme ? $theme : Theme::getActiveTheme();
-        $this->assetPath = $this->themeUrl();
+        $this->assetPath = Config::get('cms.themesDir').'/'.$this->theme->getDirName();
     }
 
     /**
