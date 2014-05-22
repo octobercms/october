@@ -5,7 +5,7 @@
 
 * **Build 87** (2014-05-21)
   - Plugins can now be disabled manually by config (see config cms.disablePlugins).
-  - Plugins with missing dependancies are disabled by the system.
+  - Plugins with missing dependencies are disabled by the system.
   - Fixes an issue where paid plugins could not be downloaded.
 
 * **Build 84** (2014-05-20)
