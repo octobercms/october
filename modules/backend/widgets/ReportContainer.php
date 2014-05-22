@@ -87,9 +87,9 @@ class ReportContainer extends WidgetBase
         $this->addJs('js/reportcontainer.js');
     }
 
-    /*
-     * Event handelrs
-     */
+    //
+    // Event handlers
+    //
 
     public function onUpdateWidget()
     {
@@ -97,8 +97,8 @@ class ReportContainer extends WidgetBase
 
         $widget = $this->findWidgetByAlias($alias);
         $this->saveWidgetProperties($alias, $widget->setProperties(
-                json_decode(Request::input('fields'), true)
-            ));
+            json_decode(Request::input('fields'), true)
+        ));
 
         return [
             '#'.$alias => $widget->render()
@@ -204,9 +204,9 @@ class ReportContainer extends WidgetBase
         $this->setWidgetsToUserPreferences($widgets);
     }
 
-    /*
-     * Methods for the internal use
-     */
+    //
+    // Methods for the internal use
+    //
 
     protected function loadWidgets()
     {
@@ -286,16 +286,17 @@ class ReportContainer extends WidgetBase
             'validationPattern' => '^[0-9]+$',
             'validationMessage' => 'Please enter the widget width as a number between 1 and 10.',
             'options'           => [
-                1=>'1 column', 
-                2=>'2 columns', 
-                3=>'3 columns', 
-                4=>'4 columns', 
-                5=>'5 columns', 
-                6=>'6 columns', 
-                7=>'7 columns', 
-                8=>'8 columns', 
-                9=>'9 columns', 
-                10=>'10 columns']
+                1  => '1 column',
+                2  => '2 columns',
+                3  => '3 columns',
+                4  => '4 columns',
+                5  => '5 columns',
+                6  => '6 columns',
+                7  => '7 columns',
+                8  => '8 columns',
+                9  => '9 columns',
+                10 => '10 columns'
+            ]
         ];
         $result[] = $property;
 

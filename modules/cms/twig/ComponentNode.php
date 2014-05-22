@@ -1,8 +1,8 @@
 <?php namespace Cms\Twig;
 
 use Twig_Node;
-use Twig_Node_Expression;
 use Twig_Compiler;
+use Twig_NodeInterface;
 
 /**
  * Represents a component node
@@ -12,9 +12,9 @@ use Twig_Compiler;
  */
 class ComponentNode extends Twig_Node
 {
-    public function __construct(Twig_Node_Expression $name, $lineno, $tag = 'component')
+    public function __construct(Twig_NodeInterface $nodes, $paramNames, $lineno, $tag = 'component')
     {
-        parent::__construct(['name'=>$name], [], $lineno, $tag);
+        parent::__construct(['nodes' => $nodes], ['names' => $paramNames], $lineno, $tag);
     }
 
     /**
@@ -24,11 +24,23 @@ class ComponentNode extends Twig_Node
      */
     public function compile(Twig_Compiler $compiler)
     {
+        $compiler->addDebugInfo($this);
+
+        $compiler->write("\$context['__cms_component_params'] = [];\n");
+
+        for ($i = 1; $i < count($this->getNode('nodes')); $i++) {
+            $compiler->write("\$context['__cms_component_params']['".$this->getAttribute('names')[$i-1]."'] = ");
+            $compiler->subcompile($this->getNode('nodes')->getNode($i));
+            $compiler->write(";\n");
+        }
+
         $compiler
-            ->addDebugInfo($this)
             ->write("echo \$this->env->getExtension('CMS')->componentFunction(")
-            ->subcompile($this->getNode('name'))
+            ->subcompile($this->getNode('nodes')->getNode(0))
+            ->write(", \$context['__cms_component_params']")
             ->write(");\n")
         ;
+
+        $compiler->write("unset(\$context['__cms_component_params']);\n");
     }
 }

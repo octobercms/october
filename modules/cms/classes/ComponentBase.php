@@ -5,7 +5,6 @@ use Lang;
 use Config;
 use Cms\Classes\CodeBase;
 use Cms\Classes\CmsException;
-use System\Traits\PropertyContainer;
 use October\Rain\Extension\Extendable;
 
 /**
@@ -16,7 +15,8 @@ use October\Rain\Extension\Extendable;
  */
 abstract class ComponentBase extends Extendable
 {
-    use PropertyContainer;
+    use \System\Traits\AssetMaker;
+    use \System\Traits\PropertyContainer;
 
     /**
      * @var string A unique identifier for this component.
@@ -69,6 +69,7 @@ abstract class ComponentBase extends Extendable
 
         $className = Str::normalizeClassName(get_called_class());
         $this->dirName = strtolower(str_replace('\\', '/', $className));
+        $this->assetPath = Config::get('cms.pluginsDir') . dirname(dirname($this->dirName));
 
         parent::__construct();
     }
@@ -83,13 +84,18 @@ abstract class ComponentBase extends Extendable
      */
     public function getPath()
     {
-        return base_path() . Config::get('cms.pluginsDir') . '/' . $this->dirName;
+        return base_path() . Config::get('cms.pluginsDir') . $this->dirName;
     }
 
     /**
      * Executed when this component is bound to a page or layout.
      */
     public function onRun() {}
+
+    /**
+     * Executed when this component is rendered on a page or layout.
+     */
+    public function onRender() {}
 
     /**
      * Dynamically handle calls into the controller instance.

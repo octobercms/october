@@ -536,8 +536,14 @@ class Controller extends BaseController
      * Renders a component's default content. 
      * @return string Returns the component default contents.
      */
-    public function renderComponent($name)
+    public function renderComponent($name, $parameters = [])
     {
+        if ($componentObj = $this->findComponentByName($name)) {
+            $componentObj->setProperties(array_merge($componentObj->getProperties(), $parameters));
+            if ($result = $componentObj->onRender())
+                return $result;
+        }
+
         return $this->renderPartial($name.'::default');
     }
 

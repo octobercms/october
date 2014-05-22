@@ -1,3 +1,8 @@
+* **Build 89** (2014-05-22)
+  - Components have a new override method `onRender()` called before a component is rendered.
+  - The `{% component %} tag now supports passing parameters that override the component properties when they are rendered.
+  - Calling `addJs()` and `addCss()` in components without a starting slash (/) will now reference the component directory, instead of the theme.
+
 * **Build 87** (2014-05-21)
   - Plugins can now be disabled manually by config (see config cms.disablePlugins).
   - Plugins with missing dependancies are disabled by the system.
