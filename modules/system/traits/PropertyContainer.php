@@ -42,7 +42,7 @@ trait PropertyContainer
     }
 
     /**
-     * Defines the properties used by this class. 
+     * Defines the properties used by this class.
      * This method should be used as an override in the extended class.
      */
     public function defineProperties()

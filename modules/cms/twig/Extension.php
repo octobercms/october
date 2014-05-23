@@ -167,11 +167,13 @@ class Extension extends Twig_Extension
 
     /**
      * Renders a component's default content.
+     * @param string $name Specifies the component name.
+     * @param array $parameters A optional list of parameters to pass to the component.
      * @return string Returns the component default contents.
      */
-    public function componentFunction($name)
+    public function componentFunction($name, $parameters = [])
     {
-        return $this->controller->renderComponent($name);
+        return $this->controller->renderComponent($name, $parameters);
     }
 
     /**

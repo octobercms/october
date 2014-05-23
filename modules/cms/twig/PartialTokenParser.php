@@ -1,8 +1,8 @@
 <?php namespace Cms\Twig;
 
+use Twig_Node;
 use Twig_Token;
 use Twig_TokenParser;
-use Twig_Node;
 use Twig_Error_Syntax;
 
 /**
@@ -52,9 +52,8 @@ class PartialTokenParser extends Twig_TokenParser
                     $end = true;
                     break;
 
-                default :
+                default:
                     throw new Twig_Error_Syntax(sprintf('Invalid syntax in the partial tag. Line %s', $lineno), $stream->getCurrent()->getLine(), $stream->getFilename());
-
                     break;
             }
         }

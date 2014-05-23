@@ -69,7 +69,8 @@ hr {
 	margin-bottom: 15px;
 }
 blockquote {
-	margin-left: 3em;
+	margin-left: 1.5em !important;
+	padding-left: 0;
 	color: #777;
 	font-style: italic;
 }

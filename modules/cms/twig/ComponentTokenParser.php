@@ -1,7 +1,9 @@
 <?php namespace Cms\Twig;
 
+use Twig_Node;
 use Twig_Token;
 use Twig_TokenParser;
+use Twig_Error_Syntax;
 
 /**
  * Parser for the {% component %} Twig tag.
@@ -24,10 +26,35 @@ class ComponentTokenParser extends Twig_TokenParser
      */
     public function parse(Twig_Token $token)
     {
+        $lineno = $token->getLine();
         $stream = $this->parser->getStream();
+
         $name = $this->parser->getExpressionParser()->parseExpression();
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
-        return new ComponentNode($name, $token->getLine(), $this->getTag());
+        $paramNames = [];
+        $nodes = [$name];
+
+        $end = false;
+        while (!$end) {
+            $current = $stream->next();
+
+            switch ($current->getType()) {
+                case Twig_Token::NAME_TYPE:
+                    $paramNames[] = $current->getValue();
+                    $stream->expect(Twig_Token::OPERATOR_TYPE, '=');
+                    $nodes[] = $this->parser->getExpressionParser()->parseExpression();
+                    break;
+
+                case Twig_Token::BLOCK_END_TYPE:
+                    $end = true;
+                    break;
+
+                default:
+                    throw new Twig_Error_Syntax(sprintf('Invalid syntax in the partial tag. Line %s', $lineno), $stream->getCurrent()->getLine(), $stream->getFilename());
+                    break;
+            }
+        }
+
+        return new ComponentNode(new Twig_Node($nodes), $paramNames, $token->getLine(), $this->getTag());
     }
 
     /**
