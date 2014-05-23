@@ -22,7 +22,7 @@ class Page extends CmsCompoundObject
      * Creates an instance of the object and associates it with a CMS theme.
      * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
      */
-    public function __construct(Theme $theme)
+    public function __construct(Theme $theme = null)
     {
         parent::__construct($theme);
 

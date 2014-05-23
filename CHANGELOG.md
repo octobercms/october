@@ -1,3 +1,7 @@
+* **Build 90** (2014-05-23)
+  - Class `CmsPropertyHelper` has been deprecated, will be removed year > 2014.
+  - Cms Objects now support basic queries that return a collection. Eg: `Page::sortBy('title')->lists('title', 'baseFileName')`
+
 * **Build 89** (2014-05-22)
   - Components have a new override method `onRender()` called before a component is rendered.
   - The `{% component %}` tag now supports passing parameters that override the component properties when they are rendered.

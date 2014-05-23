@@ -1,12 +1,19 @@
 <?php namespace Cms\Classes;
 
+/**
+ *
+ * DEPRECATED WARNING: This class is deprecated and should be deleted
+ * if the current year is equal to or greater than 2015 @todo.
+ *
+ */
+
+use Flash;
 use Cms\Classes\Page;
-use Cms\Classes\Theme;
 use System\Classes\ApplicationException;
 
 /**
  * This class provides helper methods for inspectable properties.
- *
+ * 
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -18,19 +25,7 @@ class CmsPropertyHelper
      */
     public static function listPages()
     {
-        if (!($theme = Theme::getEditTheme()))
-            throw new ApplicationException(Lang::get('cms::lang.theme.edit.not_found'));
-
-        $pages = Page::listInTheme($theme, true);
-
-        $result = [];
-        foreach ($pages as $page) {
-            $fileName = $page->getBaseFileName();
-            $result[$fileName] = $fileName;
-        }
-
-        ksort($result);
-
-        return $result;
+        Flash::warning("CmsPropertyHelper::listPages() is deprecated, use Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName') instead.");
+        return Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
 }

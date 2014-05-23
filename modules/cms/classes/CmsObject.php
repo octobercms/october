@@ -5,7 +5,6 @@ use Lang;
 use Cache;
 use Config;
 use Validator;
-use Cms\Classes\FileHelper;
 use System\Classes\SystemException;
 use System\Classes\ApplicationException;
 use October\Rain\Support\ValidationException;
@@ -63,7 +62,7 @@ class CmsObject
      * Creates an instance of the object and associates it with a CMS theme.
      * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
      */
-    public function __construct(Theme $theme)
+    public function __construct(Theme $theme = null)
     {
         $this->theme = $theme;
     }
@@ -370,6 +369,9 @@ class CmsObject
      */
     public static function listInTheme($theme, $skipCache = false)
     {
+        if (!$theme)
+            throw new ApplicationException(Lang::get('cms::lang.theme.active.not_set'));
+
         $dirPath = $theme->getPath().'/'.static::getObjectTypeDirName();
         $result = [];
 
@@ -432,6 +434,48 @@ class CmsObject
 
         return false;
     }
+
+    //
+    // Queries
+    //
+
+    /**
+     * Get a new query builder for the object
+     * @return CmsObjectQuery
+     */
+    public function newQuery()
+    {
+        $query = new CmsObjectQuery($this, $this->theme);
+        return $query;
+    }
+
+    /**
+     * Handle dynamic method calls into the method.
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        $query = $this->newQuery();
+        return call_user_func_array(array($query, $method), $parameters);
+    }
+
+    /**
+     * Handle dynamic static method calls into the method.
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed
+     */
+    public static function __callStatic($method, $parameters)
+    {
+        $instance = new static;
+        return call_user_func_array([$instance, $method], $parameters);
+    }
+
+    //
+    // Overrides
+    //
 
     /**
      * Initializes the object properties from the cached data.
