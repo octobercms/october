@@ -1,6 +1,7 @@
 <?php namespace Cms\Classes;
 
 use Cms\Classes\Page;
+use Cms\Classes\Content;
 use Cms\Classes\Theme;
 use System\Classes\ApplicationException;
 
@@ -27,6 +28,28 @@ class CmsPropertyHelper
         foreach ($pages as $page) {
             $fileName = $page->getBaseFileName();
             $result[$fileName] = $fileName;
+        }
+
+        ksort($result);
+
+        return $result;
+    }
+
+    /**
+     * Returns a list of CMS content blocks as array of content file paths and titles.
+     * @return array
+     */
+    public static function listContents()
+    {
+        if (!($theme = Theme::getEditTheme()))
+            throw new ApplicationException(Lang::get('cms::lang.theme.edit.not_found'));
+
+        $contents = Content::listInTheme($theme, true);
+
+        $result = [];
+        foreach ($contents as $content) {
+            $fileName = $content->getBaseFileName();
+            $result[$content->getFileName()] = $fileName;
         }
 
         ksort($result);
