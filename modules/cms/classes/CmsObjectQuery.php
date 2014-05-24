@@ -17,14 +17,9 @@ class CmsObjectQuery
 
     protected $theme;
 
-    public function __construct($cmsObject, $theme)
+    public function __construct($cmsObject)
     {
         $this->cmsObject = $cmsObject;
-
-        if ($theme)
-            $this->theme = $theme;
-        else
-            $this->inEditTheme();
     }
 
     /**
@@ -72,6 +67,9 @@ class CmsObjectQuery
      */
     public function all()
     {
+        if (!$this->theme)
+            $this->inEditTheme();
+
         $collection = forward_static_call([$this->cmsObject, 'listInTheme'], $this->theme, !$this->useCache);
         $collection = new CmsObjectCollection($collection);
         return $collection;
@@ -85,11 +83,13 @@ class CmsObjectQuery
      */
     public function __call($method, $parameters)
     {
-        if (!method_exists('Cms\Classes\CmsObjectCollection', $method))
-            return;
+        if (method_exists('Cms\Classes\CmsObjectCollection', $method)) {
+            $collection = $this->all();
+            return call_user_func_array(array($collection, $method), $parameters);
+        }
 
-        $collection = $this->all();
-        return call_user_func_array(array($collection, $method), $parameters);
+        $className = get_class($this);
+        throw new \BadMethodCallException("Call to undefined method {$className}::{$method}()");
     }
 
 }
