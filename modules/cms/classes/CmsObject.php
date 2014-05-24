@@ -152,6 +152,9 @@ class CmsObject implements ArrayAccess
         if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting()))
             throw new SystemException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
 
+        if (!strlen(File::extension($fileName)))
+            $fileName .= '.htm';
+
         $fullPath = static::getFilePath($theme, $fileName);
 
         if (!File::isFile($fullPath))

@@ -55,6 +55,11 @@ abstract class ComponentBase extends Extendable
     protected $page;
 
     /**
+     * @var array Cache of linked Component objects, used for page links.
+     */
+    protected $pageLinkCache = [];
+
+    /**
      * Component constructor. Takes in the page or layout code section object
      * and properties set by the page or layout.
      */
@@ -146,4 +151,37 @@ abstract class ComponentBase extends Extendable
 
         return $value;
     }
+
+    /**
+     * Creates a page link to another page. Allows mapping to the other page's
+     * component properties for the purpose of extracting URL routing parameters.
+     * @param  string $page  Page name or page file name
+     * @param  string $class Component class name
+     * @param  array $mappings ['componentProperty' => 'routed value']
+     * @return string
+     */
+    protected function makePageLink($page, $class, $mappings = [])
+    {
+        if (!isset($this->pageLinkCache[$page.$class])) {
+            $this->pageLinkCache[$page.$class] = $this->getOtherPageComponent($page, $class);
+        }
+
+        if (!$component = $this->pageLinkCache[$page.$class])
+            return null;
+
+        $params = [];
+        foreach ($mappings as $property => $value) {
+
+            if (!$param = $component->property($property))
+                continue;
+
+            if (substr($param, 0, 1) == ':')
+                $param = substr($param, 1);
+
+            $params[$param] = $value;
+        }
+
+        return $this->pageUrl($page, $params);
+    }
+
 }

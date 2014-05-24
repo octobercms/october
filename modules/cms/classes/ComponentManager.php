@@ -162,7 +162,7 @@ class ComponentManager
     public function hasComponent($name)
     {
         $className = $this->resolve($name);
-        if (!$className) 
+        if (!$className)
             return false;
 
         return isset($this->classMap[$className]);
