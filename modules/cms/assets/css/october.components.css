@@ -201,6 +201,10 @@ div.control-componentlist div.components div.layout-cell.adding > div {
   -ms-transform: translate(0, -100px) !important;
   transform: translate(0, -100px) !important;
 }
+.draggable-component-item {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
 .draggable-component-item span.alias {
   display: none;
 }

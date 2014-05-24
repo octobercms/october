@@ -512,6 +512,7 @@
             // Set the last alias used so dragComponents can use it
             $('input[name="component_aliases[]"]', $(this)).val(alias)
 
+            $component.attr('data-component-attached', true)
             $componentContainer.addClass($iconInput.val())
             $iconInput.remove()
             $componentContainer.attr('data-inspectable', '')

@@ -33,11 +33,15 @@
             editorPos
 
         $el.mousedown(function(event){
+            if ($el.data('component-attached')) return
+
             startDrag(event)
             return false
         })
 
         $el.on('touchstart', function(event){
+            if ($el.data('component-attached')) return
+
             var touchEvent = event.originalEvent;
             if (touchEvent.touches.length == 1) {
                 startDrag(touchEvent.touches[0])
@@ -171,8 +175,10 @@
                 $editor.insert("{% component '" + alias + "' %}")
             }
 
-            $editor.removeAllListeners('mousemove')
-            $editor.blur()
+            if ($editor) {
+                $editor.removeAllListeners('mousemove')
+                $editor.blur()
+            }
         }
 
         function collision($div1, $div2) {
