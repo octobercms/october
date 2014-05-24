@@ -106,11 +106,11 @@
         /*
          * Set language and theme
          */
-        assetManager.load({ 
+        assetManager.load({
             js:[
                 options.vendorPath + '/mode-' + options.language + '.js',
                 options.vendorPath + '/theme-' + options.theme + '.js'
-            ] 
+            ]
         }, function(){
             editor.setTheme('ace/theme/'+options.theme)
             var inline = options.language === 'php'
@@ -142,7 +142,7 @@
         /*
          * Toolbar
          */
-        
+
         this.$toolbar.find('>ul>li>a')
             .each(function(){
                 var abbr = $(this).find('>abbr'),
@@ -178,6 +178,10 @@
         })
     }
 
+    CodeEditor.prototype.getEditorObject = function() {
+        return this.editor
+    }
+
     CodeEditor.prototype.toggleFullscreen = function() {
         this.$el.toggleClass('editor-fullscreen')
         this.$fullscreenEnable.toggle()
@@ -202,7 +206,8 @@
     var old = $.fn.codeEditor
 
     $.fn.codeEditor = function (option) {
-        return this.each(function () {
+        var args = Array.prototype.slice.call(arguments, 1), result
+        this.each(function () {
             var $this   = $(this)
             var data    = $this.data('oc.codeEditor')
             var options = $.extend({}, CodeEditor.DEFAULTS, $this.data(), typeof option == 'object' && option)
@@ -210,8 +215,11 @@
                 $this.data('oc.codeEditor', (data = new CodeEditor(this, options)))
                 $this.trigger('oc.codeEditorReady')
             }
-            if (typeof option == 'string') data[option].call($this)
+            if (typeof option == 'string') result = data[option].apply(data, args)
+            if (typeof result != 'undefined') return false 
         })
+
+        return result ? result : this
     }
 
     $.fn.codeEditor.Constructor = CodeEditor
