@@ -88,6 +88,11 @@ abstract class ComponentBase extends Extendable
     }
 
     /**
+     * Executed when this component is first initialized, before AJAX requests.
+     */
+    public function onInit() {}
+
+    /**
      * Executed when this component is bound to a page or layout.
      */
     public function onRun() {}

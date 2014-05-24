@@ -273,6 +273,7 @@ class Controller extends BaseController
             $this->vars[$alias] = $this->page->components[$alias] = $componentObj;
         }
 
+        $componentObj->onInit();
         return $componentObj;
     }
 
