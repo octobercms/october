@@ -31,7 +31,7 @@ class Updates extends Controller
     {
         parent::__construct();
 
-        $this->addCss('/modules/system/assets/css/updates.css');
+        $this->addCss('/modules/system/assets/css/updates.css', 'core');
 
         BackendMenu::setContext('October.System', 'system', 'updates');
     }

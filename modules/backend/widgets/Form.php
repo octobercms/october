@@ -120,7 +120,7 @@ class Form extends WidgetBase
      */
     public function loadAssets()
     {
-        $this->addJs('js/form.js');
+        $this->addJs('js/form.js', 'core');
     }
 
     /**

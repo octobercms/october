@@ -41,10 +41,10 @@ class RichEditor extends FormWidgetBase
      */
     public function loadAssets()
     {
-        $this->addCss('vendor/redactor/redactor.css');
-        $this->addCss('css/richeditor.css');
-        $this->addJs('vendor/redactor/redactor.js');
-        $this->addJs('js/richeditor.js');
+        $this->addCss('vendor/redactor/redactor.css', 'core');
+        $this->addCss('css/richeditor.css', 'core');
+        $this->addJs('vendor/redactor/redactor.js', 'core');
+        $this->addJs('js/richeditor.js', 'core');
     }
 
 }

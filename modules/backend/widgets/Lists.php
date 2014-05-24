@@ -157,7 +157,7 @@ class Lists extends WidgetBase
      */
     public function loadAssets()
     {
-        $this->addJs('js/october.list.js');
+        $this->addJs('js/october.list.js', 'core');
     }
 
     /**

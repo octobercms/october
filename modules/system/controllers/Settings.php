@@ -31,7 +31,7 @@ class Settings extends Controller
     {
         parent::__construct();
 
-        $this->addCss('/modules/system/assets/css/settings.css');
+        $this->addCss('/modules/system/assets/css/settings.css', 'core');
 
         BackendMenu::setContext('October.System', 'system', 'settings');
     }

@@ -116,7 +116,7 @@ class RelationController extends ControllerBehavior
     {
         parent::__construct($controller);
 
-        $this->addJs('js/october.relation.js');
+        $this->addJs('js/october.relation.js', 'core');
 
         /*
          * Build configuration

@@ -153,8 +153,8 @@ class FileUpload extends FormWidgetBase
      */
     public function loadAssets()
     {
-        $this->addCss('css/fileupload.css');
-        $this->addJs('js/fileupload.js');
+        $this->addCss('css/fileupload.css', 'core');
+        $this->addJs('js/fileupload.js', 'core');
     }
 
     /**
