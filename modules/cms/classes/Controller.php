@@ -237,23 +237,43 @@ class Controller extends BaseController
      */
     protected function initComponents()
     {
-        $manager = ComponentManager::instance();
-
         if (!$this->layout->isFallBack()) {
             foreach ($this->layout->settings['components'] as $component => $properties) {
                 list($name, $alias) = strpos($component, ' ') ? explode(' ', $component) : array($component, $component);
-                $componentObj = $manager->makeComponent($name, $this->layoutObj, $properties);
-                $componentObj->alias = $alias;
-                $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
+                $this->addComponent($name, $alias, $properties, true);
             }
         }
 
         foreach ($this->page->settings['components'] as $component => $properties) {
             list($name, $alias) = strpos($component, ' ') ? explode(' ', $component) : array($component, $component);
+            $this->addComponent($name, $alias, $properties);
+        }
+    }
+
+    /**
+     * Adds a component to the page object
+     * @param mixed  $name        Component class name or short name
+     * @param string $alias       Alias to give the component
+     * @param array  $properties  Component properties
+     * @param bool   $addToLayout Add to layout, instead of page
+     * @return ComponentBase Component object
+     */
+    public function addComponent($name, $alias, $properties, $addToLayout = false)
+    {
+        $manager = ComponentManager::instance();
+
+        if ($addToLayout) {
+            $componentObj = $manager->makeComponent($name, $this->layoutObj, $properties);
+            $componentObj->alias = $alias;
+            $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
+        }
+        else {
             $componentObj = $manager->makeComponent($name, $this->pageObj, $properties);
             $componentObj->alias = $alias;
             $this->vars[$alias] = $this->page->components[$alias] = $componentObj;
         }
+
+        return $componentObj;
     }
 
     /**
