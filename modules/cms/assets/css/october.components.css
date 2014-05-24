@@ -1,26 +1,35 @@
-div.control-componentlist div.components div.layout-cell,
-.component-list .components div.layout-cell {
+.draggable-component-item,
+.component-list .components div.layout-cell,
+div.control-componentlist div.components div.layout-cell {
   font-size: 11px;
   cursor: pointer;
   background: #ffffff;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-div.control-componentlist div.components div.layout-cell:hover,
-.component-list .components div.layout-cell:hover {
+.draggable-component-item:hover,
+.component-list .components div.layout-cell:hover,
+div.control-componentlist div.components div.layout-cell:hover {
   background: #3382b6;
 }
-div.control-componentlist div.components div.layout-cell > div,
-.component-list .components div.layout-cell > div {
+.draggable-component-item > div,
+.component-list .components div.layout-cell > div,
+div.control-componentlist div.components div.layout-cell > div {
   white-space: normal;
   color: #475354;
   position: relative;
   border-right: 1px solid #ecf0f1;
 }
-div.control-componentlist div.components div.layout-cell > div:hover,
-.component-list .components div.layout-cell > div:hover {
+.draggable-component-item > div:hover,
+.component-list .components div.layout-cell > div:hover,
+div.control-componentlist div.components div.layout-cell > div:hover {
   color: #ffffff;
 }
-div.control-componentlist div.components div.layout-cell > div:before,
-.component-list .components div.layout-cell > div:before {
+.draggable-component-item > div:before,
+.component-list .components div.layout-cell > div:before,
+div.control-componentlist div.components div.layout-cell > div:before {
   position: absolute;
   font-size: 16px;
   left: 15px;
@@ -28,8 +37,9 @@ div.control-componentlist div.components div.layout-cell > div:before,
   opacity: 0.7;
   filter: alpha(opacity=70);
 }
-div.control-componentlist div.components div.layout-cell > div:after,
-.component-list .components div.layout-cell > div:after {
+.draggable-component-item > div:after,
+.component-list .components div.layout-cell > div:after,
+div.control-componentlist div.components div.layout-cell > div:after {
   position: absolute;
   font-size: 37px;
   top: 1px;
@@ -48,30 +58,49 @@ div.control-componentlist div.components div.layout-cell > div:after,
   *margin-right: .3em;
   content: "\f12e";
 }
-div.control-componentlist div.components div.layout-cell > div:hover:after,
-.component-list .components div.layout-cell > div:hover:after {
+.draggable-component-item > div:hover:after,
+.component-list .components div.layout-cell > div:hover:after,
+div.control-componentlist div.components div.layout-cell > div:hover:after {
   text-shadow: none;
   color: #3382b6;
 }
-div.control-componentlist div.components div.layout-cell > div span,
-.component-list .components div.layout-cell > div span {
+.draggable-component-item > div span,
+.component-list .components div.layout-cell > div span,
+div.control-componentlist div.components div.layout-cell > div span {
   display: block;
 }
-div.control-componentlist div.components div.layout-cell > div span.name,
-.component-list .components div.layout-cell > div span.name {
+.draggable-component-item > div span.name,
+.component-list .components div.layout-cell > div span.name,
+div.control-componentlist div.components div.layout-cell > div span.name {
   white-space: nowrap;
   padding: 8px 15px 0;
   font-weight: 400;
   line-height: 20px;
   font-size: 12px;
 }
-div.control-componentlist div.components div.layout-cell > div span.description,
-.component-list .components div.layout-cell > div span.description {
+.draggable-component-item > div span.description,
+.component-list .components div.layout-cell > div span.description,
+div.control-componentlist div.components div.layout-cell > div span.description {
   padding: 0 15px 10px;
   margin-top: 8px;
   font-weight: 100;
   font-size: 11px;
   line-height: 150%;
+}
+.draggable-component-item.placeholder > div,
+.component-list .components div.layout-cell.placeholder > div,
+div.control-componentlist div.components div.layout-cell.placeholder > div {
+  background: #e0e0e0;
+  color: #e0e0e0;
+}
+.draggable-component-item.placeholder > div:before,
+.component-list .components div.layout-cell.placeholder > div:before,
+div.control-componentlist div.components div.layout-cell.placeholder > div:before,
+.draggable-component-item.placeholder > div:after,
+.component-list .components div.layout-cell.placeholder > div:after,
+div.control-componentlist div.components div.layout-cell.placeholder > div:after {
+  color: #e0e0e0 !important;
+  text-shadow: none !important;
 }
 div.control-componentlist {
   position: relative;
@@ -171,6 +200,12 @@ div.control-componentlist div.components div.layout-cell.adding > div {
   -webkit-transform: translate(0, -100px) !important;
   -ms-transform: translate(0, -100px) !important;
   transform: translate(0, -100px) !important;
+}
+.draggable-component-item span.alias {
+  display: none;
+}
+.draggable-component-item a.remove {
+  display: none;
 }
 .component-list .components div.layout div.layout-row div.layout-cell {
   border-top: 1px solid #ecf0f1;

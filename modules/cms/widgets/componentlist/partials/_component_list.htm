@@ -1,10 +1,10 @@
 <div class="components subitems">
     <div class="layout">
         <div class="layout-row">
-            <?php 
+            <?php
                 $count = count($components);
-                foreach ($components as $index => $component): 
             ?>
+            <?php foreach ($components as $index => $component): ?>
                 <?php if ($index > 0 && ($index % 2) == 0): ?>
                     </div>
 
@@ -15,7 +15,7 @@
 
                     <div class="layout-row">
                 <?php endif ?>
-                <div class="layout-cell" data-component>
+                <div class="layout-cell" data-control="dragcomponent" data-component>
                     <div class="layout-relative">
                         <span class="name"><?= e($component->title) ?></span>
                         <span class="description"><?= e($component->description) ?></span>

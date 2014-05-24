@@ -509,6 +509,9 @@
                 counter++
             }
 
+            // Set the last alias used so dragComponents can use it
+            $('input[name="component_aliases[]"]', $(this)).val(alias)
+
             $componentContainer.addClass($iconInput.val())
             $iconInput.remove()
             $componentContainer.attr('data-inspectable', '')

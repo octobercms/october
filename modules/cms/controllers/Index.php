@@ -77,6 +77,7 @@ class Index extends Controller
         }
 
         $this->addJs('/modules/cms/assets/js/october.cmspage.js');
+        $this->addJs('/modules/cms/assets/js/october.dragcomponents.js');
         $this->addCss('/modules/cms/assets/css/october.components.css');
 
         // Preload Ace editor modes explicitly, because they could be changed dynamically
