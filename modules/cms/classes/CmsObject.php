@@ -412,6 +412,8 @@ class CmsObject implements ArrayAccess
 
     /**
      * Implements the getter functionality.
+     * @param  string  $name
+     * @return void
      */
     public function __get($name)
     {
@@ -424,7 +426,6 @@ class CmsObject implements ArrayAccess
 
     /**
      * Determine if an attribute exists on the object.
-     *
      * @param  string  $key
      * @return void
      */
@@ -439,7 +440,6 @@ class CmsObject implements ArrayAccess
 
     /**
      * Determine if the given attribute exists.
-     *
      * @param  mixed  $offset
      * @return bool
      */
@@ -450,7 +450,6 @@ class CmsObject implements ArrayAccess
 
     /**
      * Get the value for a given offset.
-     *
      * @param  mixed  $offset
      * @return mixed
      */
@@ -461,7 +460,6 @@ class CmsObject implements ArrayAccess
 
     /**
      * Set the value for a given offset.
-     *
      * @param  mixed  $offset
      * @param  mixed  $value
      * @return void
@@ -473,7 +471,6 @@ class CmsObject implements ArrayAccess
 
     /**
      * Unset the value for a given offset.
-     *
      * @param  mixed  $offset
      * @return void
      */

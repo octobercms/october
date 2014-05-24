@@ -98,4 +98,35 @@ class CodeBase extends Extendable implements ArrayAccess
 
         return call_user_func_array([$this->controller, $method], $parameters);
     }
+
+    /**
+     * This object is referenced as $this->page in Cms\Classes\ComponentBase,
+     * so to avoid $this->page->page this method will proxy there.
+     * @param  string  $name
+     * @return void
+     */
+    public function __get($name)
+    {
+        return $this->page->{$name};
+    }
+
+    /**
+     * As per __get, this will set a variable instead.
+     * @param  string  $key
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        return $this->page->{$name} = $value;
+    }
+
+    /**
+     * As per __get, this will check if a variable isset instead.
+     * @param  string  $key
+     * @return void
+     */
+    public function __isset($key)
+    {
+        return isset($this->page->{$name});
+    }
 }
