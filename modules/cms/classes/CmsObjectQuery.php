@@ -85,6 +85,9 @@ class CmsObjectQuery
      */
     public function __call($method, $parameters)
     {
+        if (!method_exists('Cms\Classes\CmsObjectCollection', $method))
+            return;
+
         $collection = $this->all();
         return call_user_func_array(array($collection, $method), $parameters);
     }

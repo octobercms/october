@@ -11,6 +11,7 @@ use October\Rain\Support\ValidationException;
 use Exception;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
+use ArrayAccess;
 
 /**
  * This is a base class for all CMS objects - content files, pages, partials and layouts.
@@ -19,7 +20,7 @@ use RecursiveDirectoryIterator;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class CmsObject
+class CmsObject implements ArrayAccess
 {
     /**
      * @var string Specifies the file name corresponding the CMS object.
@@ -433,6 +434,51 @@ class CmsObject
             return true;
 
         return false;
+    }
+
+    /**
+     * Determine if the given attribute exists.
+     *
+     * @param  mixed  $offset
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->$offset);
+    }
+
+    /**
+     * Get the value for a given offset.
+     *
+     * @param  mixed  $offset
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->$offset;
+    }
+
+    /**
+     * Set the value for a given offset.
+     *
+     * @param  mixed  $offset
+     * @param  mixed  $value
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->$offset = $value;
+    }
+
+    /**
+     * Unset the value for a given offset.
+     *
+     * @param  mixed  $offset
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->$offset);
     }
 
     //
