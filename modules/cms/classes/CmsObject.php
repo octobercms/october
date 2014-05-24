@@ -62,7 +62,7 @@ class CmsObject implements ArrayAccess
     /**
      * Creates an instance of the object and associates it with a CMS theme.
      * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
-     * If the theme is specified as NULL, then a query can be performed on the object.
+     * If the theme is specified as NULL, then a query can be performed on the object directly.
      */
     public function __construct(Theme $theme = null)
     {
@@ -492,7 +492,7 @@ class CmsObject implements ArrayAccess
      */
     public function newQuery()
     {
-        $query = new CmsObjectQuery($this);
+        $query = new CmsObjectQuery($this, $this->theme);
         return $query;
     }
 
@@ -504,8 +504,8 @@ class CmsObject implements ArrayAccess
      */
     public function __call($method, $parameters)
     {
-        // If this object is populated with a theme, then a query 
-        // cannot be performed on it to reduce overhead.
+        // If this object is populated with a theme, then a query
+        // cannot be performed on it to reduce overhead on populated objects.
         if (!$this->theme) {
             $query = $this->newQuery();
             return call_user_func_array(array($query, $method), $parameters);

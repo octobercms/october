@@ -17,9 +17,10 @@ class CmsObjectQuery
 
     protected $theme;
 
-    public function __construct($cmsObject)
+    public function __construct($cmsObject, $theme = null)
     {
         $this->cmsObject = $cmsObject;
+        $this->theme = $theme;
     }
 
     /**
