@@ -103,6 +103,10 @@ div.control-componentlist {
     padding: 0;
     .transition(all 0.3s ease);
 
+    &.droppable {
+        background-color: lighten(@color-component-list-bg, 20%);
+    }
+
     &.has-components {
         padding: 10px;
     }

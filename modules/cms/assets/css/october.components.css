@@ -109,6 +109,9 @@ div.control-componentlist {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
+div.control-componentlist.droppable {
+  background-color: #507192;
+}
 div.control-componentlist.has-components {
   padding: 10px;
 }

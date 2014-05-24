@@ -26,6 +26,7 @@
             $clone,
             $editorArea,
             $editor,
+            $componentList,
             adjX = 0,
             adjY = 0,
             dragging = false,
@@ -50,9 +51,10 @@
         })
 
         function initDrag(event) {
+            $componentList = $('#cms-master-tabs > div.tab-content > .tab-pane.active .control-componentlist')
             $el.addClass(self.options.placeholderClass)
             $clone.show()
-            $editorArea = $('[data-control="codeeditor"]:visible')
+            $editorArea = $('#cms-master-tabs > div.tab-content > .tab-pane.active [data-control="codeeditor"]')
             if (!$editorArea.length) return
 
             $editor = $editorArea.codeEditor('getEditorObject')
@@ -131,6 +133,11 @@
                 left: (event.pageX - adjX - offset.x),
                 top: (event.pageY - adjY - offset.y)
             })
+
+            if (collision($clone, $componentList))
+                $componentList.addClass('droppable')
+            else
+                $componentList.removeClass('droppable')
         }
 
         /*
@@ -160,19 +167,30 @@
         }
 
         function finishDrag() {
-            if (collision($clone, $editorArea)) {
+
+            // Dragged back to original position
+            if (collision($clone, $el)) {
+                // Do nothing
+            }
+            // Dragged to the code editor
+            else if (collision($clone, $editorArea)) {
 
                 // Add the component to the page
                 $el.click()
 
                 // Can only attach to page or layouts
-                var $componentList = $('#cms-master-tabs > div.tab-content > .tab-pane.active .control-componentlist .layout')
                 if (!$componentList.length || !$editor)
-                    return;
+                    return
 
                 // Inject {% component %} tag
                 var alias = $('input[name="component_aliases[]"]', $el).val()
                 $editor.insert("{% component '" + alias + "' %}")
+            }
+
+            // Dragged to the component list
+            else if (collision($clone, $componentList)) {
+                // Add the component to the page
+                $el.click()
             }
 
             if ($editor) {
@@ -182,7 +200,7 @@
         }
 
         function collision($div1, $div2) {
-            if (!$div1.length || !$div2.length)
+            if (!$div1 || !$div2 || !$div1.length || !$div2.length)
                 return false
 
             var x1 = $div1.offset().left,
