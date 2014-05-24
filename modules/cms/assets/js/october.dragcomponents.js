@@ -167,26 +167,18 @@
         }
 
         function finishDrag() {
-
-            // Dragged back to original position
-            if (collision($clone, $el)) {
-                // Do nothing
-            }
             // Dragged to the code editor
-            else if (collision($clone, $editorArea)) {
-
+            if (collision($clone, $editorArea)) {
                 // Add the component to the page
                 $el.click()
 
                 // Can only attach to page or layouts
-                if (!$componentList.length || !$editor)
-                    return
-
-                // Inject {% component %} tag
-                var alias = $('input[name="component_aliases[]"]', $el).val()
-                $editor.insert("{% component '" + alias + "' %}")
+                if ($componentList.length && $editor) {
+                    // Inject {% component %} tag
+                    var alias = $('input[name="component_aliases[]"]', $el).val()
+                    $editor.insert("{% component '" + alias + "' %}")
+                }
             }
-
             // Dragged to the component list
             else if (collision($clone, $componentList)) {
                 // Add the component to the page
@@ -196,6 +188,10 @@
             if ($editor) {
                 $editor.removeAllListeners('mousemove')
                 $editor.blur()
+            }
+
+            if ($componentList.length) {
+                $componentList.removeClass('droppable')
             }
         }
 
