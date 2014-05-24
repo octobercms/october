@@ -238,12 +238,11 @@ class Controller extends BaseController
     protected function initComponents()
     {
         $manager = ComponentManager::instance();
-        
+
         if (!$this->layout->isFallBack()) {
             foreach ($this->layout->settings['components'] as $component => $properties) {
                 list($name, $alias) = strpos($component, ' ') ? explode(' ', $component) : array($component, $component);
                 $componentObj = $manager->makeComponent($name, $this->layoutObj, $properties);
-                $componentObj->id = uniqid($alias);
                 $componentObj->alias = $alias;
                 $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
             }
@@ -496,7 +495,6 @@ class Controller extends BaseController
             /*
              * Set context for self access
              */
-            $componentObj->id = uniqid($componentAlias);
             $this->vars['__SELF__'] = $componentObj;
         }
         else {
@@ -533,12 +531,13 @@ class Controller extends BaseController
     }
 
     /**
-     * Renders a component's default content. 
+     * Renders a component's default content.
      * @return string Returns the component default contents.
      */
     public function renderComponent($name, $parameters = [])
     {
         if ($componentObj = $this->findComponentByName($name)) {
+            $componentObj->id = uniqid($name);
             $componentObj->setProperties(array_merge($componentObj->getProperties(), $parameters));
             if ($result = $componentObj->onRender())
                 return $result;
