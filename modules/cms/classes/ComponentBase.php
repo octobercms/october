@@ -136,7 +136,7 @@ abstract class ComponentBase extends Extendable
         $value = $this->property($name, $default);
 
         if (substr($value, 0, 1) == ':')
-            return $this->param($value, $default);
+            return $this->param(substr($value, 1), $default);
 
         return $value;
     }
