@@ -464,9 +464,24 @@
          * Listen for the click event on the components' remove link
          */
         $(document).on('click', '#cms-master-tabs > div.tab-content > .tab-pane.active .control-componentlist a.remove', function(e) {
-            var pane = $(this).closest('.tab-pane')
             $(this).trigger('change')
-            $(this).closest('div.layout-cell').remove()
+            var pane = $(this).closest('.tab-pane'),
+                component = $(this).closest('div.layout-cell')
+
+            /*
+             * Remove any {% component %} tags in the editor for this component
+             */
+            var editor = $('[data-control=codeeditor]', pane)
+            if (editor.length) {
+                var alias = $('input[name="component_aliases[]"]', component).val(),
+                    codeEditor = editor.codeEditor('getEditorObject')
+
+                codeEditor.replace('', {
+                    needle: "{% component '" + alias + "' %}"
+                })
+            }
+
+            component.remove()
             $(window).trigger('oc.updateUi')
 
             updateComponentListClass(pane)
