@@ -13,6 +13,8 @@ class PluginVersion extends Model
      */
     protected $guarded = ['*'];
 
+    protected static $versionCache = null;
+
     /**
      * After the model is populated
      */
@@ -31,6 +33,22 @@ class PluginVersion extends Model
                 $this->{$attribute} = $info;
             }
         }
-
     }
+
+    /**
+     * Returns the current version for a plugin
+     * @param  string $pluginCode Plugin code. Eg: Acme.Blog
+     * @return string
+     */
+    public static function getVersion($pluginCode)
+    {
+        if (self::$versionCache === null) {
+            self::$versionCache = self::lists('version', 'code');
+        }
+
+        return isset(self::$versionCache[$pluginCode])
+            ? self::$versionCache[$pluginCode]
+            : null;
+    }
+
 }

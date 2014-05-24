@@ -76,17 +76,17 @@ class Index extends Controller
             $this->handleError($ex);
         }
 
-        $this->addJs('/modules/cms/assets/js/october.cmspage.js');
-        $this->addJs('/modules/cms/assets/js/october.dragcomponents.js');
-        $this->addCss('/modules/cms/assets/css/october.components.css');
+        $this->addJs('/modules/cms/assets/js/october.cmspage.js', 'core');
+        $this->addJs('/modules/cms/assets/js/october.dragcomponents.js', 'core');
+        $this->addCss('/modules/cms/assets/css/october.components.css', 'core');
 
         // Preload Ace editor modes explicitly, because they could be changed dynamically
         // depending on a content block type
-        $this->addJs('/modules/backend/formwidgets/codeeditor/assets/vendor/ace/ace.js');
+        $this->addJs('/modules/backend/formwidgets/codeeditor/assets/vendor/ace/ace.js', 'core');
 
         $aceModes = ['markdown', 'plain_text', 'html', 'less', 'css', 'scss', 'sass', 'javascript'];
         foreach ($aceModes as $mode)
-            $this->addJs('/modules/backend/formwidgets/codeeditor/assets/vendor/ace/mode-'.$mode.'.js');
+            $this->addJs('/modules/backend/formwidgets/codeeditor/assets/vendor/ace/mode-'.$mode.'.js', 'core');
 
         $this->bodyClass = 'compact-container side-panel-not-fixed';
         $this->pageTitle = Lang::get('cms::lang.cms.menu_label');

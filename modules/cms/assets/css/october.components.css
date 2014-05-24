@@ -202,8 +202,8 @@ div.control-componentlist div.components div.layout-cell.adding > div {
   transform: translate(0, -100px) !important;
 }
 .draggable-component-item {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 .draggable-component-item span.alias {
   display: none;

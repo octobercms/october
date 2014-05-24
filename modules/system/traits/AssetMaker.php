@@ -1,8 +1,10 @@
 <?php namespace System\Traits;
 
+use HTML;
 use File;
 use Request;
-use HTML;
+use System\Models\Parameters;
+use System\Models\PluginVersion;
 use System\Classes\SystemException;
 
 /**
@@ -35,14 +37,17 @@ trait AssetMaker
     {
         if ($type != null) $type = strtolower($type);
         $result = null;
+        $reserved = ['build'];
 
         if ($type == null || $type == 'css'){
             foreach ($this->assets['css'] as $asset) {
 
                 $attributes = HTML::attributes(array_merge([
-                    'rel'  => 'stylesheet',
-                    'href' => $asset['path']
-                ], $asset['attributes']));
+                        'rel'  => 'stylesheet',
+                        'href' => $this->getAssetEntryBuildPath($asset)
+                    ],
+                    array_except($asset['attributes'], $reserved)
+                ));
 
                 $result .= '<link' . $attributes . '>' . PHP_EOL;
             }
@@ -52,11 +57,13 @@ trait AssetMaker
             foreach ($this->assets['rss'] as $asset) {
 
                 $attributes = HTML::attributes(array_merge([
-                    'rel'   => 'alternate',
-                    'href'  => $asset['path'],
-                    'title' => 'RSS',
-                    'type'  => 'application/rss+xml'
-                ], $asset['attributes']));
+                        'rel'   => 'alternate',
+                        'href'  => $this->getAssetEntryBuildPath($asset),
+                        'title' => 'RSS',
+                        'type'  => 'application/rss+xml'
+                    ],
+                    array_except($asset['attributes'], $reserved)
+                ));
 
                 $result .= '<link' . $attributes . '>' . PHP_EOL;
             }
@@ -66,8 +73,10 @@ trait AssetMaker
             foreach ($this->assets['js'] as $asset) {
 
                 $attributes = HTML::attributes(array_merge([
-                    'src' => $asset['path']
-                ], $asset['attributes']));
+                        'src' => $this->getAssetEntryBuildPath($asset)
+                    ],
+                    array_except($asset['attributes'], $reserved)
+                ));
 
                 $result .= '<script' . $attributes . '></script>' . PHP_EOL;
             }
@@ -90,6 +99,9 @@ trait AssetMaker
         if (isset($this->controller))
             $this->controller->addJs($jsPath, $attributes);
 
+        if (is_string($attributes))
+            $attributes = ['build' => $attributes];
+
         if (substr($jsPath, 0, 1) == '/')
             $jsPath = Request::getBaseUrl() . $jsPath;
 
@@ -110,6 +122,9 @@ trait AssetMaker
 
         if (isset($this->controller))
             $this->controller->addCss($cssPath, $attributes);
+
+        if (is_string($attributes))
+            $attributes = ['build' => $attributes];
 
         if (substr($cssPath, 0, 1) == '/')
             $cssPath = Request::getBaseUrl() . $cssPath;
@@ -132,6 +147,9 @@ trait AssetMaker
         if (isset($this->controller))
             $this->controller->addRss($rssPath, $attributes);
 
+        if (is_string($attributes))
+            $attributes = ['build' => $attributes];
+
         if (substr($rssPath, 0, 1) == '/')
             $rssPath = Request::getBaseUrl() . $rssPath;
 
@@ -149,7 +167,7 @@ trait AssetMaker
         foreach ($this->assets as $type => $collection) {
             $assets[$type] = [];
             foreach ($collection as $asset) {
-                $assets[$type][] = $asset['path'];
+                $assets[$type][] = $this->getAssetEntryBuildPath($asset);
             }
         }
         return $assets;
@@ -190,6 +208,28 @@ trait AssetMaker
     public function hasAssetsDefined()
     {
         return count($this->assets, COUNT_RECURSIVE) > 3;
+    }
+
+    /**
+     * Internal helper, attaches a build code to an asset path
+     * @param  array $asset Stored asset array
+     * @return string
+     */
+    private function getAssetEntryBuildPath($asset)
+    {
+        $path = $asset['path'];
+        if (isset($asset['attributes']['build'])) {
+            $build = $asset['attributes']['build'];
+
+            if ($build == 'core')
+                $build = 'v' . Parameters::get('system::core.build', 1);
+            elseif ($pluginVersion = PluginVersion::getVersion($build))
+                $build = 'v' . $pluginVersion;
+
+            $path .= '?' . $build;
+        }
+
+        return $path;
     }
 
 }

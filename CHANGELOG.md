@@ -1,3 +1,7 @@
+* **Build 91** (2014-05-24)
+  - Components can now be dragged from the side navigation directly on to the page.
+  - Asset maker functions (addJs, addCss, addRss) now use an optional build code, either *core* or a plugin code. This is converted to a version number to ensure updates are not affected by cached assets.
+
 * **Build 90** (2014-05-23)
   - Class `CmsPropertyHelper` has been deprecated, will be removed year > 2014.
   - Cms Objects now support basic queries that return a collection. Eg: `Page::sortBy('title')->lists('title', 'baseFileName')`
