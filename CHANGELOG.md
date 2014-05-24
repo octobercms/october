@@ -2,6 +2,7 @@
   - Components can now be dragged from the side navigation directly on to the page.
   - Asset maker methods (addJs, addCss, addRss) now use an optional build code, either *core* or a plugin code. This is converted to a version number to ensure updates are not affected by cached assets.
   - Added new method `addComponent()` to Cms Controller. Components can now act as a proxy for other components.
+  - Added new override method `onInit()` to Components, called before AJAX requests are processed.
 
 * **Build 90** (2014-05-23)
   - Class `CmsPropertyHelper` has been deprecated, will be removed year > 2014.

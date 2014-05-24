@@ -93,7 +93,8 @@ abstract class ComponentBase extends Extendable
     public function onInit() {}
 
     /**
-     * Executed when this component is bound to a page or layout.
+     * Executed when this component is bound to a page or layout, part of 
+     * the page life cycle.
      */
     public function onRun() {}
 
