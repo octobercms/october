@@ -279,48 +279,6 @@ class Controller extends BaseController
     }
 
     /**
-     * Creates a basic component object for another page, useful for extracting properties.
-     * @param  string $page  Page name or page file name
-     * @param  string $class Component class name
-     * @return ComponentBase
-     */
-    public function getOtherPageComponent($page, $class)
-    {
-        $class = Str::normalizeClassName($class);
-        $theme = $this->getTheme();
-        $manager = ComponentManager::instance();
-        $componentObj = new $class;
-
-        if (($page = Page::loadCached($theme, $page)) && isset($page->settings['components'])) {
-            foreach ($page->settings['components'] as $component => $properties) {
-                list($name, $alias) = strpos($component, ' ') ? explode(' ', $component) : array($component, $component);
-                if ($manager->resolve($name) == $class) {
-                    $componentObj->setProperties($properties);
-                    $componentObj->alias = $alias;
-                    return $componentObj;
-                }
-            }
-
-            if (!isset($page->settings['layout']))
-                return null;
-
-            $layout = $page->settings['layout'];
-            if (($layout = Layout::loadCached($theme, $layout)) && isset($layout->settings['components'])) {
-                foreach ($layout->settings['components'] as $component => $properties) {
-                    list($name, $alias) = strpos($component, ' ') ? explode(' ', $component) : array($component, $component);
-                    if ($manager->resolve($name) == $class) {
-                        $componentObj->setProperties($properties);
-                        $componentObj->alias = $alias;
-                        return $componentObj;
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Executes the page, layout, component and plugin AJAX handlers.
      * @return mixed Returns the AJAX Response object or null.
      */
@@ -779,4 +737,47 @@ class Controller extends BaseController
 
         return null;
     }
+
+    /**
+     * Creates a basic component object for another page, useful for extracting properties.
+     * @param  string $page  Page name or page file name
+     * @param  string $class Component class name
+     * @return ComponentBase
+     */
+    // public function getOtherPageComponent($page, $class)
+    // {
+    //     $class = Str::normalizeClassName($class);
+    //     $theme = $this->getTheme();
+    //     $manager = ComponentManager::instance();
+    //     $componentObj = new $class;
+
+    //     if (($page = Page::loadCached($theme, $page)) && isset($page->settings['components'])) {
+    //         foreach ($page->settings['components'] as $component => $properties) {
+    //             list($name, $alias) = strpos($component, ' ') ? explode(' ', $component) : array($component, $component);
+    //             if ($manager->resolve($name) == $class) {
+    //                 $componentObj->setProperties($properties);
+    //                 $componentObj->alias = $alias;
+    //                 return $componentObj;
+    //             }
+    //         }
+
+    //         if (!isset($page->settings['layout']))
+    //             return null;
+
+    //         $layout = $page->settings['layout'];
+    //         if (($layout = Layout::loadCached($theme, $layout)) && isset($layout->settings['components'])) {
+    //             foreach ($layout->settings['components'] as $component => $properties) {
+    //                 list($name, $alias) = strpos($component, ' ') ? explode(' ', $component) : array($component, $component);
+    //                 if ($manager->resolve($name) == $class) {
+    //                     $componentObj->setProperties($properties);
+    //                     $componentObj->alias = $alias;
+    //                     return $componentObj;
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     return null;
+    // }
+
 }

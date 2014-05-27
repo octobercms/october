@@ -136,7 +136,7 @@ class Router
      * @param array $parameters Route parameters to consider in the URL.
      * @return string A built URL matching the page route.
      */
-    public function findByFile($fileName, $parameters = []) 
+    public function findByFile($fileName, $parameters = [])
     {
         if (!strlen(File::extension($fileName)))
             $fileName .= '.htm';

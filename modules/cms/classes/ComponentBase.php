@@ -160,28 +160,28 @@ abstract class ComponentBase extends Extendable
      * @param  array $mappings ['componentProperty' => 'routed value']
      * @return string
      */
-    protected function makePageLink($page, $class, $mappings = [])
-    {
-        if (!isset($this->pageLinkCache[$page.$class])) {
-            $this->pageLinkCache[$page.$class] = $this->getOtherPageComponent($page, $class);
-        }
+    // protected function makePageLink($page, $class, $mappings = [])
+    // {
+    //     if (!isset($this->pageLinkCache[$page.$class])) {
+    //         $this->pageLinkCache[$page.$class] = $this->getOtherPageComponent($page, $class);
+    //     }
 
-        if (!$component = $this->pageLinkCache[$page.$class])
-            return null;
+    //     if (!$component = $this->pageLinkCache[$page.$class])
+    //         return null;
 
-        $params = [];
-        foreach ($mappings as $property => $value) {
+    //     $params = [];
+    //     foreach ($mappings as $property => $value) {
 
-            if (!$param = $component->property($property))
-                continue;
+    //         if (!$param = $component->property($property))
+    //             continue;
 
-            if (substr($param, 0, 1) == ':')
-                $param = substr($param, 1);
+    //         if (substr($param, 0, 1) == ':')
+    //             $param = substr($param, 1);
 
-            $params[$param] = $value;
-        }
+    //         $params[$param] = $value;
+    //     }
 
-        return $this->pageUrl($page, $params);
-    }
+    //     return $this->pageUrl($page, $params);
+    // }
 
 }
