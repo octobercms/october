@@ -10451,6 +10451,13 @@ ul.status-list li {
 ul.status-list li:last-child {
   margin-right: 0;
 }
+ul.status-list li a {
+  color: #7e8c8d;
+}
+ul.status-list li a:hover {
+  color: #0181b9;
+  text-decoration: none;
+}
 ul.status-list li span.status {
   display: inline-block;
   padding: 1px 5px;
