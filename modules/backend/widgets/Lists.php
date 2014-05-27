@@ -8,11 +8,13 @@ use Input;
 use Event;
 use Backend;
 use DbDongle;
+use Carbon\Carbon;
 use October\Rain\Router\Helper as RouterHelper;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
 use System\Classes\ApplicationException;
 use October\Rain\Database\Model;
+use DateTime;
 
 /**
  * List Widget
@@ -630,7 +632,13 @@ class Lists extends WidgetBase
     {
         if ($value === null)
             return null;
-        
+
+        if ($value instanceof DateTime)
+            $value = Carbon::instance($value);
+
+        if (!$value instanceof Carbon)
+            throw new ApplicationException(sprintf('Column value %s is not a DateTime object, are you missing a $dates reference in the Model?', $column->columnName));
+
         return $value->diffForHumans();
     }
 
