@@ -190,6 +190,7 @@ class ListController extends ControllerBehavior
 
     /**
      * Renders the widget collection.
+     * @param  string $definition Optional list definition.
      * @return string Rendered HTML for the list.
      */
     public function listRender($definition = null)
@@ -208,6 +209,22 @@ class ListController extends ControllerBehavior
         $collection[] = $this->listWidgets[$definition]->render();
 
         return implode(PHP_EOL, $collection);
+    }
+
+    /**
+     * Refreshes the list container only, useful for returning in custom AJAX requests.
+     * @param  string $definition Optional list definition.
+     * @return array The list element selector as the key, and the list contents are the value.
+     */
+    public function listRefresh($definition = null)
+    {
+        if (!count($this->listWidgets))
+            $this->makeLists();
+
+        if (!$definition || !isset($this->listDefinitions[$definition]))
+            $definition = $this->primaryDefinition;
+
+        return $this->listWidgets[$definition]->onRender();
     }
 
     //
