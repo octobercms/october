@@ -422,7 +422,18 @@ class RelationController extends ControllerBehavior
 
     public function onRelationManageDelete()
     {
-        // @todo
+        $this->beforeAjax();
+
+        if (($checkedIds = post('checked')) && is_array($checkedIds)) {
+            foreach ($checkedIds as $relationId) {
+                if (!$obj = $this->relationObject->find($relationId))
+                    continue;
+
+                $obj->delete();
+            }
+        }
+
+        return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
 
     public function onRelationManageCreate()
