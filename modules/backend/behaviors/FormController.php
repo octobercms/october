@@ -530,7 +530,7 @@ class FormController extends ControllerBehavior
 
         $singularTypes = ['belongsTo', 'hasOne', 'morphOne'];
         foreach ($saveData as $attribute => $value) {
-            if ($model->hasRelation($attribute) && in_array($model->getRelationType($attribute), $singularTypes))
+            if (is_array($value) && $model->hasRelation($attribute) && in_array($model->getRelationType($attribute), $singularTypes))
                 $this->setModelAttributes($model->{$attribute}, $value);
             else
                 $model->{$attribute} = $value;
