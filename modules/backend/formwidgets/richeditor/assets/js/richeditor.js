@@ -41,7 +41,7 @@
          * Initialize Redactor editor
          */
         this.$textarea.redactor({
-            fullpage: true,
+            iframe: true,
             css: this.options.iframeCss,
             focusCallback: function() { self.$el.addClass('editor-focus') },
             blurCallback: function() { self.$el.removeClass('editor-focus') }
