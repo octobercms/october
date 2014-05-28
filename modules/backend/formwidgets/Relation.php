@@ -116,4 +116,11 @@ class Relation extends FormWidgetBase
          return $this->renderFormField = $field;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getSaveData($value)
+    {
+        return strlen($value) ? $value : null;
+    }
 }
