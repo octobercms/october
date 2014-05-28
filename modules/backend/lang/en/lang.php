@@ -125,6 +125,8 @@ return [
         'add_name' => "Add :name",
         'create' => "Create",
         'create_name' => "Create :name",
+        'update' => "Update",
+        'update_name' => "Update :name",
         'remove' => "Remove",
         'remove_name' => "Remove :name",
         'delete' => "Delete",

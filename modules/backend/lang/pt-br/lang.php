@@ -113,6 +113,8 @@ return [
         'add_name' => "Adicionar :name",
         'create' => "Criar",
         'create_name' => "Criar :name",
+        'update' => "Update",
+        'update_name' => "Update :name",
         'remove' => "Remover",
         'remove_name' => "Remover :name",
         'delete' => "Apagar",

@@ -124,6 +124,8 @@ return [
         'add_name' => ":name hinzufügen",
         'create' => "Erstellen",
         'create_name' => "Erstelle :name",
+        'update' => "Update",
+        'update_name' => "Update :name",
         'remove' => "Entfernen",
         'remove_name' => ":name entfernen",
         'delete' => "Löschen",

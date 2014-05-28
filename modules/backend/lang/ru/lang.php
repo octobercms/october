@@ -124,6 +124,8 @@ return [
         'add_name' => "Добавление :name",
         'create' => "Создать",
         'create_name' => "Создание :name",
+        'update' => "Update",
+        'update_name' => "Update :name",
         'remove' => "Удалить",
         'remove_name' => "Удаление :name",
         'delete' => "Удалить",

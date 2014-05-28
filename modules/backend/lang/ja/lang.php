@@ -124,6 +124,8 @@ return [
         'add_name' => "追加 :name",
         'create' => "作成",
         'create_name' => "作成 :name",
+        'update' => "Update",
+        'update_name' => "Update :name",
         'remove' => "削除",
         'remove_name' => "削除 :name",
         'delete' => "削除",

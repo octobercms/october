@@ -124,6 +124,8 @@ return [
         'add_name' => "Lägg till :name",
         'create' => "Skapa",
         'create_name' => "Skapa :name",
+        'update' => "Update",
+        'update_name' => "Update :name",
         'remove' => "Ta bort",
         'remove_name' => "Ta bort :name",
         'delete' => "Radera",

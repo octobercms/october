@@ -124,6 +124,8 @@ return [
         'add_name' => ":name Ekle",
         'create' => "Oluştur",
         'create_name' => ":name Oluştur",
+        'update' => "Update",
+        'update_name' => "Update :name",
         'remove' => "Kaldır",
         'remove_name' => ":name Kaldır",
         'delete' => "Sil",

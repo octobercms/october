@@ -304,6 +304,7 @@ class RelationController extends ControllerBehavior
         $this->vars['relationManageId'] = $this->manageId;
         $this->vars['relationLabel'] = $this->config->label ?: $this->field;
         $this->vars['relationField'] = $this->field;
+        $this->vars['relationType'] = $this->relationType;
         $this->vars['relationViewWidget'] = $this->viewWidget;
         $this->vars['relationManageWidget'] = $this->manageWidget;
         $this->vars['relationToolbarWidget'] = $this->toolbarWidget;
@@ -430,6 +431,16 @@ class RelationController extends ControllerBehavior
 
         $saveData = $this->manageWidget->getSaveData();
         $this->relationObject->create($saveData);
+
+        return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
+    }
+
+    public function onRelationManageUpdate()
+    {
+        $this->beforeAjax();
+
+        $saveData = $this->manageWidget->getSaveData();
+        $this->relationObject->find($this->manageId)->save($saveData);
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }

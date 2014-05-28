@@ -124,6 +124,8 @@ return [
         'add_name' => ":name Toevoegen",
         'create' => "Maken",
         'create_name' => "Maak :name",
+        'update' => "Update",
+        'update_name' => "Update :name",
         'remove' => "Verwijder",
         'remove_name' => "Verwijder :name",
         'delete' => "Wissen",
