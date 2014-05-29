@@ -1,4 +1,4 @@
-* **Build 95** (2014-05-29)
+* **Build 96** (2014-05-29)
   - Plugin CLI commands are now case insensitive.
   - Fixes a bug where belongsTo form field relations were not being set.
   - Form field `richeditor` (WYSIWYG) no longer adds full page HTML tags.

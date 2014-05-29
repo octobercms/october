@@ -121,6 +121,12 @@ class Relation extends FormWidgetBase
      */
     public function getSaveData($value)
     {
-        return strlen($value) ? $value : null;
+        if (is_string($value) && !strlen($value))
+            return null;
+
+        if (is_array($value) && !count($value))
+            return null;
+
+        return $value;
     }
 }
