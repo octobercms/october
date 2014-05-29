@@ -311,7 +311,7 @@ class Lists extends WidgetBase
                         $columnName = DbDongle::raw($this->parseTableName($column->sqlSelect, $table));
                     }
                     else
-                        $columnName = $column->columnName;
+                        $columnName = $tables['base'] . '.' . $column->columnName;
 
                     $columnsToSearch[] = $columnName;
                 }
