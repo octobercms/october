@@ -254,7 +254,7 @@ class PluginManager
     public function findByIdentifier($identifier)
     {
         if (!isset($this->plugins[$identifier]))
-            return null;
+            $identifier = $this->normalizeIdentifier($identifier);
 
         return $this->plugins[$identifier];
     }
@@ -326,6 +326,21 @@ class PluginManager
         $slice = array_slice($parts, 1, 2);
         $namespace = implode('.', $slice);
         return $namespace;
+    }
+
+    /**
+     * Takes a human plugin code (acme.blog) and makes it authentic (Acme.Blog)
+     * @param  string $id
+     * @return string
+     */
+    public function normalizeIdentifier($identifier)
+    {
+        foreach ($this->plugins as $id => $object) {
+            if (strtolower($id) == strtolower($identifier))
+                return $id;
+        }
+
+        return $identifier;
     }
 
     //

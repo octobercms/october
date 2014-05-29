@@ -39,6 +39,7 @@ class PluginRemove extends Command
     {
         if ($this->confirm('Are you sure you want to uninstall this plugin? [yes|no]')) {
             $pluginName = $this->argument('name');
+            $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
 
             /*
              * Rollback plugin

@@ -2,6 +2,7 @@
 
 use Illuminate\Console\Command;
 use System\Classes\UpdateManager;
+use System\Classes\PluginManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -36,6 +37,8 @@ class PluginRefresh extends Command
     public function fire()
     {
         $pluginName = $this->argument('name');
+        $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
+
         $manager = UpdateManager::instance()->resetNotes();
 
         $manager->rollbackPlugin($pluginName);
