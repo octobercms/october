@@ -467,7 +467,7 @@
 
             $.each(this.fieldDef.options, function(value, title){
                 options.push({value: value, title: title})
-            }) 
+            })
 
            data.options = options
         }
@@ -580,8 +580,8 @@
                     $select.append($('<option></option>'))
 
                 if (data.options)
-                    $.each(data.options, function(value, title) {
-                        $select.append($('<option></option>').attr('value', value).text(title))
+                    $.each(data.options, function(key, obj) {
+                        $select.append($('<option></option>').attr('value', obj.value).text(obj.title))
                     })
 
                 var hasOption = $('option[value="' + currentValue + '"]', $select).length > 0
@@ -591,7 +591,7 @@
                     $('option:first-child', $select).attr("selected", "selected");
 
                 $select.trigger('change')
-                
+
                 self.hideLoadingIndicator()
             },
             error: function(jqXHR, textStatus, errorThrown) {
