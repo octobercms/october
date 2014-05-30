@@ -63,6 +63,19 @@ class CmsObjectQuery
     }
 
     /**
+     * Finds a single Cms Object by its file name
+     * @param  string $fileName
+     * @return CmsObject
+     */
+    public function find($fileName)
+    {
+        if ($this->useCache)
+            return forward_static_call($this->cmsObject, 'loadCached', $this->theme, $fileName);
+        else
+            return forward_static_call($this->cmsObject, 'load', $this->theme, $fileName);
+    }
+
+    /**
      * Returns all CMS objects for the set theme
      * @return CmsObjectCollection
      */
