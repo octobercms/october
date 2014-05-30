@@ -265,12 +265,16 @@ class Controller extends BaseController
         $manager = ComponentManager::instance();
 
         if ($addToLayout) {
-            $componentObj = $manager->makeComponent($name, $this->layoutObj, $properties);
+            if (!$componentObj = $manager->makeComponent($name, $this->layoutObj, $properties))
+                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
+
             $componentObj->alias = $alias;
             $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
         }
         else {
-            $componentObj = $manager->makeComponent($name, $this->pageObj, $properties);
+            if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties))
+                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
+
             $componentObj->alias = $alias;
             $this->vars[$alias] = $this->page->components[$alias] = $componentObj;
         }
