@@ -69,6 +69,9 @@ class CmsObjectQuery
      */
     public function find($fileName)
     {
+        if (!$this->theme)
+            $this->inEditTheme();
+
         if ($this->useCache)
             return forward_static_call([$this->cmsObject, 'loadCached'], $this->theme, $fileName);
         else
