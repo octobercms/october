@@ -377,27 +377,6 @@ class Form extends WidgetBase
             throw new ApplicationException(Lang::get('backend::lang.field.invalid_type', ['type'=>gettype($fieldType)]));
 
         /*
-         * Widget with options
-         */
-        if ($this->isFormWidget($fieldType) !== false) {
-            $fieldOptions = (isset($config['options'])) ? $config['options'] : [];
-            $fieldOptions['widget'] = $fieldType;
-            $field->displayAs('widget', $fieldOptions);
-        }
-        /*
-         * Simple field with options
-         */
-        elseif (strlen($fieldType)) {
-            $fieldOptions = (isset($config['options'])) ? $config['options'] : [];
-            $studlyField = studly_case(strtolower($fieldType));
-
-            if (method_exists($this, 'eval'.$studlyField.'Options'))
-                $fieldOptions = $this->{'eval'.$studlyField.'Options'}($field, $fieldOptions);
-
-            $field->displayAs($fieldType, $fieldOptions);
-        }
-
-        /*
          * Process remaining options
          */
         if (isset($config['span'])) $field->span($config['span']);
@@ -420,6 +399,27 @@ class Form extends WidgetBase
          * Set field value
          */
         $field->value = $this->getFieldValue($field);
+
+        /*
+         * Widget with options
+         */
+        if ($this->isFormWidget($fieldType) !== false) {
+            $fieldOptions = (isset($config['options'])) ? $config['options'] : [];
+            $fieldOptions['widget'] = $fieldType;
+            $field->displayAs('widget', $fieldOptions);
+        }
+        /*
+         * Simple field with options
+         */
+        elseif (strlen($fieldType)) {
+            $fieldOptions = (isset($config['options'])) ? $config['options'] : [];
+            $studlyField = studly_case(strtolower($fieldType));
+
+            if (method_exists($this, 'eval'.$studlyField.'Options'))
+                $fieldOptions = $this->{'eval'.$studlyField.'Options'}($field, $fieldOptions);
+
+            $field->displayAs($fieldType, $fieldOptions);
+        }
 
         return $field;
     }
