@@ -598,13 +598,13 @@ class Form extends WidgetBase
             if (!method_exists($this->model, $methodName))
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$methodName, 'field'=>$field->columnName]));
 
-            $fieldOptions = $this->model->$methodName();
+            $fieldOptions = $this->model->$methodName($field);
         }
         else if (is_string($fieldOptions)) {
             if (!method_exists($this->model, $fieldOptions))
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$fieldOptions, 'field'=>$field->columnName]));
 
-            $fieldOptions = $this->model->$fieldOptions();
+            $fieldOptions = $this->model->$fieldOptions($field);
         }
 
         return $fieldOptions;
