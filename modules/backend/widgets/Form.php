@@ -358,6 +358,11 @@ class Form extends WidgetBase
         $field->idPrefix = $this->getId();
 
         /*
+         * Set field value
+         */
+        $field->value = $this->getFieldValue($field);
+
+        /*
          * Simple widget field, only widget type is supplied
          */
         if (is_string($config) && $this->isFormWidget($config) !== false) {
@@ -415,11 +420,6 @@ class Form extends WidgetBase
         if (array_key_exists('required', $config)) $field->required = $config['required'];
         if (array_key_exists('disabled', $config)) $field->disabled = $config['disabled'];
         if (array_key_exists('stretch', $config)) $field->stretch = $config['stretch'];
-
-        /*
-         * Set field value
-         */
-        $field->value = $this->getFieldValue($field);
 
         return $field;
     }
@@ -595,16 +595,19 @@ class Form extends WidgetBase
     {
         if (!$fieldOptions) {
             $methodName = 'get'.studly_case($field->columnName).'Options';
-            if (!method_exists($this->model, $methodName))
+            if (!method_exists($this->model, $methodName) && !method_exists($this->model, 'getDropdownOptions'))
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$methodName, 'field'=>$field->columnName]));
 
-            $fieldOptions = $this->model->$methodName();
+            if (method_exists($this->model, $methodName))
+                $fieldOptions = $this->model->$methodName($field->value);
+
+            $fieldOptions = $this->model->getDropdownOptions($field->columnName, $field->value);
         }
         else if (is_string($fieldOptions)) {
             if (!method_exists($this->model, $fieldOptions))
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$fieldOptions, 'field'=>$field->columnName]));
 
-            $fieldOptions = $this->model->$fieldOptions();
+            $fieldOptions = $this->model->$fieldOptions($field->value, $field->columnName);
         }
 
         return $fieldOptions;
