@@ -91,7 +91,7 @@ class Relation extends FormWidgetBase
          $relatedObj = $this->model->makeRelation($this->relationName);
          $query = $relatedObj->newQuery();
 
-         if ($this->relationType == 'belongsToMany') {
+         if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany'])) {
             $field->type = 'checkboxlist';
             $field->value = $relationObj->getRelatedIds();
          }
@@ -100,10 +100,6 @@ class Relation extends FormWidgetBase
             $field->placeholder = $this->emptyOption;
             $foreignKey = $relationObj->getForeignKey();
             $field->value = $this->model->$foreignKey;
-         }
-         else if ($this->relationType == ('morphToMany' || 'morphedByMany')) {
-            $field->type = 'checkboxlist';
-            $field->value = $relationObj->getRelatedIds();
          }
         
          // It is safe to assume that if the model and related model are of 
