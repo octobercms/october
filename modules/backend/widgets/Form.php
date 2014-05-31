@@ -600,8 +600,8 @@ class Form extends WidgetBase
 
             if (method_exists($this->model, $methodName))
                 $fieldOptions = $this->model->$methodName($field->value);
-
-            $fieldOptions = $this->model->getDropdownOptions($field->columnName, $field->value);
+            else
+                $fieldOptions = $this->model->getDropdownOptions($field->columnName, $field->value);
         }
         else if (is_string($fieldOptions)) {
             if (!method_exists($this->model, $fieldOptions))
