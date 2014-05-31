@@ -101,7 +101,11 @@ class Relation extends FormWidgetBase
             $foreignKey = $relationObj->getForeignKey();
             $field->value = $this->model->$foreignKey;
          }
-
+         else if ($this->relationType == ('morphToMany' || 'morphedByMany')) {
+            $field->type = 'checkboxlist';
+            $field->value = $relationObj->getRelatedIds();
+         }
+        
          // It is safe to assume that if the model and related model are of 
          // the exact same class, then it cannot be related to itself
          if ($this->model->exists && (get_class($this->model) == get_class($relatedObj))) {
