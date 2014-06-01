@@ -594,12 +594,10 @@ class Form extends WidgetBase
     private function getOptionsFromModel($field, $fieldOptions)
     {
         if (is_array($fieldOptions) && is_callable($fieldOptions)) {
-            return call_user_func($fieldOptions, $this, $field);
+            $fieldOptions = call_user_func($fieldOptions, $this, $field);
         }
-        elseif (is_array($fieldOptions)) {
-            return $fieldOptions;
-        }
-        elseif (!$fieldOptions) {
+
+        if (!is_array($fieldOptions) && !$fieldOptions) {
             $methodName = 'get'.studly_case($field->columnName).'Options';
             if (!method_exists($this->model, $methodName) && !method_exists($this->model, 'getDropdownOptions'))
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$methodName, 'field'=>$field->columnName]));
@@ -616,7 +614,7 @@ class Form extends WidgetBase
             $fieldOptions = $this->model->$fieldOptions($field->value, $field->columnName);
         }
 
-        return [];
+        return $fieldOptions;
     }
 
     /**
