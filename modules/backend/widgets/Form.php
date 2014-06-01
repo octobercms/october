@@ -393,7 +393,7 @@ class Form extends WidgetBase
          * Simple field with options
          */
         elseif (strlen($fieldType)) {
-            $fieldOptions = (isset($config['options'])) ? $config['options'] : [];
+            $fieldOptions = (isset($config['options'])) ? $config['options'] : null;
             $studlyField = studly_case(strtolower($fieldType));
 
             if (method_exists($this, 'eval'.$studlyField.'Options'))
