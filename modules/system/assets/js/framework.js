@@ -140,7 +140,7 @@ if (window.jQuery === undefined)
                 var _event = jQuery.Event('ajaxErrorMessage')
                 $(window).trigger(_event, [message])
                 if (_event.isDefaultPrevented()) return
-                alert(message)
+                if (message) alert(message)
             },
 
             /*

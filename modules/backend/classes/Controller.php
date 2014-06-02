@@ -339,7 +339,7 @@ class Controller extends Extendable
                 $responseContents = [];
                 $responseContents['#layout-flash-messages'] = $this->makeLayoutPartial('flash_messages');
                 $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
-                return Response::make()->setContent($responseContents);
+                return Response::make($responseContents, 406);
             }
             catch (Exception $ex) {
                 Log::error($ex);
