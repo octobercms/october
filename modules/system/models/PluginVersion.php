@@ -15,6 +15,8 @@ class PluginVersion extends Model
 
     protected static $versionCache = null;
 
+    public $orphaned = false;
+
     /**
      * After the model is populated
      */
@@ -33,6 +35,12 @@ class PluginVersion extends Model
                 $this->{$attribute} = $info;
             }
         }
+        else {
+            $this->name = $this->code;
+            $this->description = 'Plugin has been removed from the file system.';
+            $this->orphaned = true;
+        }
+
     }
 
     /**

@@ -31,6 +31,7 @@ use Illuminate\Http\RedirectResponse;
 class Controller extends BaseController
 {
     use \System\Traits\AssetMaker;
+    use \October\Rain\Support\Traits\Emitter;
 
     /**
      * @var \Cms\Classes\Theme A reference to the CMS theme processed by the controller.
@@ -111,7 +112,10 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if ($event = Event::fire('cms.beforeDisplay', [$this, $url, $page], true))
+        if ($event = Event::fire('cms.page.beforeDisplay', [$this, $url, $page], true))
+            return $event;
+
+        if ($event = $this->fireEvent('page.beforeDisplay', [$this, $url, $page], true))
             return $event;
 
         /*
@@ -191,7 +195,10 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if ($event = Event::fire('cms.afterDisplay', [$this, $url, $page], true))
+        if ($event = Event::fire('cms.page.display', [$this, $url, $page], true))
+            return $event;
+
+        if ($event = $this->fireEvent('page.display', [$this, $url, $page], true))
             return $event;
 
         return $result;
@@ -417,6 +424,15 @@ class Controller extends BaseController
     protected function execPageCycle()
     {
         /*
+         * Extensibility
+         */
+        if ($event = Event::fire('cms.page.start', [$this], true))
+            return $event;
+
+        if ($event = $this->fireEvent('page.start', [$this], true))
+            return $event;
+
+        /*
          * Run layout functions
          */
         if ($this->layoutObj) {
@@ -448,6 +464,15 @@ class Controller extends BaseController
                 return ($result = $this->layoutObj->onEnd()) ? $result : null;
             });
         }
+
+        /*
+         * Extensibility
+         */
+        if ($event = Event::fire('cms.page.end', [$this], true))
+            return $event;
+
+        if ($event = $this->fireEvent('page.end', [$this], true))
+            return $event;
 
         return $response;
     }

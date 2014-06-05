@@ -172,6 +172,24 @@ class VersionManager
         return true;
     }
 
+    /**
+     * Deletes all records from the version and history tables for a plugin.
+     * @param  string $pluginCode Plugin code
+     * @return void
+     */
+    public function purgePlugin($pluginCode)
+    {
+        $versions = Db::table('system_plugin_versions')->where('code', $pluginCode);
+        if ($countVersions = $versions->count())
+            $versions->delete();
+
+        $history = Db::table('system_plugin_history')->where('code', $pluginCode);
+        if ($countHistory = $history->count())
+            $history->delete();
+
+        return (($countHistory + $countVersions) > 0) ? true : false;
+    }
+
     //
     // File representation
     //
