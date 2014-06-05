@@ -11,6 +11,11 @@ fields:
     label: system::lang.editor.tab_size
     span: right
 
+  theme:
+    label: system::lang.editor.theme
+    type: dropdown
+    span: full
+
   use_hard_tabs:
     label: system::lang.editor.use_hard_tabs
     type: checkbox

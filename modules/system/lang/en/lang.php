@@ -104,6 +104,7 @@ return [
         'use_hard_tabs_comment' => 'Use this checkbox if you would like to use hard tabs instead of spaces.',
         'use_wrap' => 'Enable Word Wrap',
         'use_wrap_comment' => 'Use this checkbox if you want your content to wrap instead of overflowing.',
+        'theme' => 'Editor Color Scheme'
     ],
     'install' => [
         'project_label' => 'Attach to Project',
