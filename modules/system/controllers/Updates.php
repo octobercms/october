@@ -57,6 +57,7 @@ class Updates extends Controller
      */
     public function manage()
     {
+        $this->pageTitle = Lang::get('system::lang.plugins.manage');
         PluginManager::instance()->clearDisabledCache();
         return $this->getClassExtension('Backend.Behaviors.ListController')->index();
     }
@@ -407,8 +408,7 @@ class Updates extends Controller
                 }
             }
 
-            Flash::success('Successfully removed those plugins from the system.');
-
+            Flash::success(Lang::get('system::lang.plugins.remove_success'));
         }
 
         return $this->listRefresh('manage');
@@ -436,7 +436,7 @@ class Updates extends Controller
                 $manager->updatePlugin($pluginCode);
             }
 
-            Flash::success('Successfully refreshed those plugins in the system.');
+            Flash::success(Lang::get('system::lang.plugins.refresh_success'));
         }
 
         return $this->listRefresh('manage');
@@ -476,9 +476,9 @@ class Updates extends Controller
         }
 
         if ($disable)
-            Flash::success('Successfully disabled those plugins.');
+            Flash::success(Lang::get('system::lang.plugins.disable_success'));
         else
-            Flash::success('Successfully enabled those plugins.');
+            Flash::success(Lang::get('system::lang.plugins.enable_success'));
 
         return Redirect::to(Backend::url('system/updates/manage'));
     }

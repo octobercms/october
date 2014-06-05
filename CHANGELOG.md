@@ -1,3 +1,6 @@
+* **Build 99** (2014-06-05)
+  - Plugins can now be removed, refreshed and disabled via the back-end.
+
 * **Build 96** (2014-05-29)
   - Plugin CLI commands are now case insensitive.
   - Fixes a bug where belongsTo form field relations were not being set.

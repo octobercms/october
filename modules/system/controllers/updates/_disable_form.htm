@@ -1,7 +1,7 @@
 <?= Form::open(['id' => 'disableForm']) ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
-        <h4 class="modal-title">Enable or Disable Plugins</h4>
+        <h4 class="modal-title"><?= e(trans('system::lang.plugins.enable_or_disable_title')) ?></h4>
     </div>
     <div class="modal-body">
 
@@ -9,7 +9,7 @@
             <p class="flash-message static error"><?= $fatalError ?></p>
         <?php endif ?>
 
-        <p>Plugins selected: <?= count($checked) ?></p>
+        <p><?= e(trans('system::lang.plugins.selected_amount', ['amount'=>count($checked)])) ?></p>
 
         <div class="form-group">
             <!-- Checkbox -->
@@ -20,9 +20,9 @@
                     value="1"
                     id="pluginDisable">
                 <label for="pluginDisable">
-                    Disabled
+                    <?= e(trans('system::lang.plugins.disabled_label')) ?>
                 </label>
-                <p class="help-block">Plugins that are disabled are ignored by the application.</p>
+                <p class="help-block"><?= e(trans('system::lang.plugins.disabled_help')) ?></p>
             </div>
         </div>
 
@@ -39,7 +39,7 @@
             data-request="onDisablePlugins"
             data-request-confirm="Are you sure?"
             data-stripe-load-indicator>
-            Apply
+            <?= e(trans('backend::lang.form.apply')) ?>
         </button>
         <button
             type="button"
