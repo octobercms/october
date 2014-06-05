@@ -107,7 +107,7 @@ return [
         'undefined_tab' => 'Разное',
         'field_off' => 'Выкл',
         'field_on' => 'Вкл',
-        'apply' => 'Привенить',
+        'apply' => 'Применить',
         'cancel' => 'Отмена',
         'close' => 'Закрыть',
         'ok' => 'OK',
