@@ -75,6 +75,16 @@ return [
         'sendmail_path' => 'Sendmail Path',
         'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
     ],
+    'editor' => [
+        'menu_label' => 'Editor Configuration',
+        'menu_description' => 'Manage editor configuration.',
+        'font_size' => 'Font Size',
+        'tab_size' => 'Indentation Width',
+        'use_hard_tabs' => 'Indent Using Tabs',
+        'use_hard_tabs_comment' => 'Use this checkbox if you would like to use hard tabs instead of spaces.',
+        'use_wrap' => 'Enable Word Wrap',
+        'use_wrap_comment' => 'Use this checkbox if you want your content to wrap instead of overflowing.',
+    ],
     'install' => [
         'project_label' => 'Attach to Project',
         'plugin_label' => 'Install Plugin',

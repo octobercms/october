@@ -1,6 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
+use System\Models\EditorSettings;
 
 /**
  * Code Editor
@@ -32,6 +33,16 @@ class CodeEditor extends FormWidgetBase
     public $wrapWords = true;
 
     /**
+     * @var boolean Indicates whether the the editor uses spaces for indentation
+     */
+    public $useSoftTabs = true;
+
+    /**
+     * @var boolean Sets the size of the indentation
+     */
+    public $tabSize = 4;
+
+    /**
      * @var integer Sets the font size
      */
     public $fontSize = 12;
@@ -51,11 +62,16 @@ class CodeEditor extends FormWidgetBase
      */
     public function init()
     {
+        // Load the editor system settings
+        $editorSettings = EditorSettings::instance();
+
         $this->language = $this->getConfig('language', 'php');
         $this->showGutter = $this->getConfig('showGutter', true);
         $this->theme = $this->getConfig('theme', 'twilight');
-        $this->wrapWords = $this->getConfig('wrapWords', false);
-        $this->fontSize = $this->getConfig('fontSize', false);
+        $this->wrapWords = $this->getConfig('wrapWords', $editorSettings->use_wrap);
+        $this->fontSize = $this->getConfig('fontSize', $editorSettings->font_size);
+        $this->tabSize = $this->getConfig('tabSize', $editorSettings->tab_size);
+        $this->useSoftTabs = $this->getConfig('useSoftTabs', !$editorSettings->use_hard_tabs);
         $this->margin = $this->getConfig('margin', 0);
     }
 
@@ -79,6 +95,8 @@ class CodeEditor extends FormWidgetBase
         $this->vars['showGutter'] = $this->showGutter;
         $this->vars['wrapWords'] = $this->wrapWords;
         $this->vars['fontSize'] = $this->fontSize;
+        $this->vars['tabSize'] = $this->tabSize;
+        $this->vars['useSoftTabs'] = $this->useSoftTabs;
         $this->vars['theme'] = $this->theme;
         $this->vars['name'] = $this->formField->getName();
         $this->vars['value'] = $this->model->{$this->columnName};
