@@ -167,13 +167,13 @@
                 offset: offset,
                 offsetX: offsetX,
                 offsetY: offsetY,
-                width: 300
+                width: 400
             })
 
             self.$el.on('hiding.oc.popover', function(e){self.onBeforeHide(e)})
             self.$el.on('hide.oc.popover', function(){self.cleanup()})
             self.$el.addClass('inspector-open')
-            
+
             $(self.$el.data('oc.popover').$container).on('keydown', function(e){
                 if(e.keyCode == 13)
                     $(this).trigger('close.oc.popover')
