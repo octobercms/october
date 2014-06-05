@@ -23,7 +23,7 @@ return [
         ],
     ],
     'plugins' => [
-        'manage' => 'Manage Plugins',
+        'manage' => 'Manage plugins',
         'enable_or_disable' => 'Enable or disable',
         'enable_or_disable_title' => 'Enable or Disable Plugins',
         'remove' => 'Remove',
