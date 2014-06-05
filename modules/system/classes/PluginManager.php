@@ -350,6 +350,12 @@ class PluginManager
     // Disability
     //
 
+    public function clearDisabledCache()
+    {
+        File::delete($this->metaPath.'/disabled.json');
+        $this->disabledPlugins = [];
+    }
+
     /**
      * Loads all disables plugins from the meta file.
      */

@@ -1,0 +1,46 @@
+<div data-control="toolbar">
+    <div class="btn-group">
+        <button
+            class="btn btn-default oc-icon-magic"
+            disabled="disabled"
+            onclick="$(this).data('request-data', {
+                checked: $('.control-list').listWidget('getChecked')
+            })"
+            data-control="popup"
+            data-handler="onLoadDisableForm"
+            data-trigger-type="enable"
+            data-trigger=".control-list input[type=checkbox]"
+            data-trigger-condition="checked"
+            data-stripe-load-indicator>
+            Enable or disable
+        </button>
+        <button
+            class="btn btn-default oc-icon-refresh"
+            disabled="disabled"
+            onclick="$(this).data('request-data', {
+                checked: $('.control-list').listWidget('getChecked')
+            })"
+            data-request="onRefreshPlugins"
+            data-request-confirm="Are you sure?"
+            data-trigger-type="enable"
+            data-trigger=".control-list input[type=checkbox]"
+            data-trigger-condition="checked"
+            data-stripe-load-indicator>
+            Refresh
+        </button>
+        <button
+            class="btn btn-default oc-icon-trash-o"
+            disabled="disabled"
+            onclick="$(this).data('request-data', {
+                checked: $('.control-list').listWidget('getChecked')
+            })"
+            data-request="onRemovePlugins"
+            data-request-confirm="Are you sure?"
+            data-trigger-type="enable"
+            data-trigger=".control-list input[type=checkbox]"
+            data-trigger-condition="checked"
+            data-stripe-load-indicator>
+            Remove
+        </button>
+    </div>
+</div>

@@ -7972,11 +7972,17 @@ table.table.data tbody tr:not(.no-data):hover td a,
 table.table.data tbody tr:not(.no-data):hover td span {
   color: white;
 }
-table.table.data tbody tr.error td,
-table.table.data tbody tr.error th,
-table.table.data tbody tr.error td a,
-table.table.data tbody tr.error th a {
-  color: #b2341c;
+table.table.data tbody tr.hidden td,
+table.table.data tbody tr.hidden th,
+table.table.data tbody tr.hidden td a,
+table.table.data tbody tr.hidden th a {
+  display: none;
+}
+table.table.data tbody tr.strike td,
+table.table.data tbody tr.strike th,
+table.table.data tbody tr.strike td a,
+table.table.data tbody tr.strike th a {
+  text-decoration: line-through;
 }
 table.table.data tbody tr.processing td,
 table.table.data tbody tr.processing th,
@@ -7984,10 +7990,16 @@ table.table.data tbody tr.processing td a,
 table.table.data tbody tr.processing th a {
   color: #666666;
 }
-table.table.data tbody tr.success td,
-table.table.data tbody tr.success th,
-table.table.data tbody tr.success td a,
-table.table.data tbody tr.success th a {
+table.table.data tbody tr.negative td,
+table.table.data tbody tr.negative th,
+table.table.data tbody tr.negative td a,
+table.table.data tbody tr.negative th a {
+  color: #b2341c;
+}
+table.table.data tbody tr.positive td,
+table.table.data tbody tr.positive th,
+table.table.data tbody tr.positive td a,
+table.table.data tbody tr.positive th a {
   color: #278731;
 }
 table.table.data tbody tr.disabled td,
@@ -8008,7 +8020,7 @@ table.table.data tbody tr.new td a,
 table.table.data tbody tr.important td a,
 table.table.data tbody tr.new th a,
 table.table.data tbody tr.important th a {
-  font-weight: bold;
+  font-weight: 600;
 }
 table.table.data tbody tr.safe td,
 table.table.data tbody tr.special td,

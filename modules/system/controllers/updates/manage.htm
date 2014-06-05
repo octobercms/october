@@ -1,0 +1,8 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('system/updates') ?>">Updates</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?= $this->listRender('manage') ?>
