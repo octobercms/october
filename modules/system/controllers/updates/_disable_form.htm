@@ -1,0 +1,51 @@
+<?= Form::open(['id' => 'disableForm']) ?>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="popup">&times;</button>
+        <h4 class="modal-title">Enable or Disable Plugins</h4>
+    </div>
+    <div class="modal-body">
+
+        <?php if ($this->fatalError): ?>
+            <p class="flash-message static error"><?= $fatalError ?></p>
+        <?php endif ?>
+
+        <p>Plugins selected: <?= count($checked) ?></p>
+
+        <div class="form-group">
+            <!-- Checkbox -->
+            <div class="checkbox custom-checkbox">
+                <input
+                    type="checkbox"
+                    name="disable"
+                    value="1"
+                    id="pluginDisable">
+                <label for="pluginDisable">
+                    Disabled
+                </label>
+                <p class="help-block">Plugins that are disabled are ignored by the application.</p>
+            </div>
+        </div>
+
+        <?php foreach ($checked as $id): ?>
+            <input type="hidden" name="checked[]" value="<?= $id ?>" />
+        <?php endforeach ?>
+
+    </div>
+
+    <div class="modal-footer">
+        <button
+            type="submit"
+            class="btn btn-primary"
+            data-request="onDisablePlugins"
+            data-request-confirm="Are you sure?"
+            data-stripe-load-indicator>
+            Apply
+        </button>
+        <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="popup">
+            <?= e(trans('backend::lang.form.cancel')) ?>
+        </button>
+    </div>
+<?= Form::close() ?>

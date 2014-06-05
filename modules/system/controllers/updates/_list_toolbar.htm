@@ -1,9 +1,16 @@
 <div data-control="toolbar">
-    <a
-        href="javascript:;"
-        class="btn btn-primary oc-icon-refresh"
-        data-control="popup"
-        data-handler="onLoadUpdates">
-        <?= e(trans('system::lang.updates.check_label')) ?>
-    </a>
+    <div class="btn-group">
+        <a
+            href="javascript:;"
+            class="btn btn-primary oc-icon-refresh"
+            data-control="popup"
+            data-handler="onLoadUpdates">
+            <?= e(trans('system::lang.updates.check_label')) ?>
+        </a>
+        <a
+            href="<?= Backend::url('system/updates/manage') ?>"
+            class="btn btn-default">
+            Manage plugins
+        </a>
+    </div>
 </div>
