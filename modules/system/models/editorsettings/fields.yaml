@@ -1,0 +1,24 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+  font_size:
+    label: system::lang.editor.font_size
+    span: left
+
+  tab_size:
+    label: system::lang.editor.tab_size
+    span: right
+
+  use_hard_tabs:
+    label: system::lang.editor.use_hard_tabs
+    type: checkbox
+    span: full
+    comment: system::lang.editor.use_hard_tabs_comment
+
+  use_wrap:
+    label: system::lang.editor.use_wrap
+    type: checkbox
+    span: full
+    comment: system::lang.editor.use_wrap_comment
