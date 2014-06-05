@@ -179,6 +179,14 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-envelope',
                     'class'       => 'System\Models\EmailSettings',
                     'sort'        => 100
+                ], 
+                'editor' => [
+                    'label'       => 'system::lang.editor.menu_label',
+                    'description' => 'system::lang.editor.menu_description',
+                    'category'    => 'System',
+                    'icon'        => 'icon-code',
+                    'class'       => 'System\Models\EditorSettings',
+                    'sort'        => 200
                 ],
                 'email_templates' => [
                     'label'       => 'system::lang.email_templates.menu_label',
