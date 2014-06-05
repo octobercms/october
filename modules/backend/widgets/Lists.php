@@ -276,15 +276,20 @@ class Lists extends WidgetBase
 
             $alias = Db::getQueryGrammar()->wrap($column->columnName);
             $table =  $this->model->makeRelation($column->relation)->getTable();
+            $relationType = $this->model->getRelationType($column->relation);
             $sqlSelect = $this->parseTableName($column->sqlSelect, $table);
 
-            $selects[] = DbDongle::raw("group_concat(" . $sqlSelect . " separator ', ') as ". $alias);
+            if (in_array($relationType, ['hasMany', 'belongsToMany', 'morphToMany', 'morphedByMany', 'morphMany', 'attachMany', 'hasManyThrough']))
+                $selects[] = DbDongle::raw("group_concat(" . $sqlSelect . " separator ', ') as ". $alias);
+            else
+                $selects[] = DbDongle::raw($sqlSelect . ' as '. $alias);
+
             $joins[] = $column->relation;
             $tables[$column->relation] = $table;
         }
 
         if ($joins)
-            $query->joinWith(array_unique($joins));
+            $query->joinWith(array_unique($joins), false);
 
         /*
          * Custom select queries

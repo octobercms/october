@@ -392,13 +392,18 @@ class UpdateManager
          * Remove the plugin database and version
          */
         if (!($plugin = $this->pluginManager->findByIdentifier($name))) {
-            $this->note('<error>Unable to find:</error> ' . $name);
-            return;
+            if ($this->versionManager->purgePlugin($name)) {
+                $this->note('<info>Purged from database:</info> ' . $name);
+                return $this;
+            }
         }
 
-        if ($this->versionManager->removePlugin($plugin))
+        if ($this->versionManager->removePlugin($plugin)) {
             $this->note('<info>Rolled back:</info> ' . $name);
+            return $this;
+        }
 
+        $this->note('<error>Unable to find:</error> ' . $name);
         return $this;
     }
 

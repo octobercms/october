@@ -54,7 +54,7 @@ class SettingsModel extends ModelBehavior
          */
         $this->model->bindEvent('model.afterFetch', [$this, 'afterModelFetch']);
         $this->model->bindEvent('model.beforeSave', [$this, 'beforeModelSave']);
-        $this->model->bindEvent('model.afterSetAttribute', [$this, 'setModelAttribute']);
+        $this->model->bindEvent('model.setAttribute', [$this, 'setModelAttribute']);
 
         /*
          * Parse the config
