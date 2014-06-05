@@ -67,7 +67,7 @@ class CodeEditor extends FormWidgetBase
 
         $this->language = $this->getConfig('language', 'php');
         $this->showGutter = $this->getConfig('showGutter', true);
-        $this->theme = $this->getConfig('theme', 'twilight');
+        $this->theme = $this->getConfig('theme', $editorSettings->theme);
         $this->wrapWords = $this->getConfig('wrapWords', $editorSettings->use_wrap);
         $this->fontSize = $this->getConfig('fontSize', $editorSettings->font_size);
         $this->tabSize = $this->getConfig('tabSize', $editorSettings->tab_size);
