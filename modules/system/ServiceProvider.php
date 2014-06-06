@@ -14,6 +14,7 @@ use System\Classes\SettingsManager;
 use System\Twig\Engine as TwigEngine;
 use System\Twig\Loader as TwigLoader;
 use System\Models\EmailSettings;
+use System\Models\EmailTemplate;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 
@@ -69,19 +70,35 @@ class ServiceProvider extends ModuleServiceProvider
         });
 
         /*
+         * Register basic twig
+         */
+        App::bindShared('twig', function($app) {
+            return new Twig_Environment(new TwigLoader(), ['auto_reload' => true]);
+        });
+
+        /*
          * Register .htm extension for Twig views
          */
         App::make('view')->addExtension('htm', 'twig', function() {
-            $twigEnvironment = new Twig_Environment(new TwigLoader(), ['auto_reload' => true]);
-            return new TwigEngine($twigEnvironment);
+            return new TwigEngine(App::make('twig'));
         });
 
         /*
          * Override system email with email settings
          */
-        Event::listen('mailer.register', function() {
+        Event::listen('mailer.beforeRegister', function() {
             if (EmailSettings::isConfigured())
                 EmailSettings::applyConfigValues();
+        });
+
+        /*
+         * Override standard Mailer content with template
+         */
+        Event::listen('mailer.register', function() {
+            App::make('mailer')->bindEvent('content.beforeAdd', function($message, $view, $plain, $data){
+                if (EmailTemplate::addContentToMailer($message, $view, $data))
+                    return false;
+            });
         });
 
         /*

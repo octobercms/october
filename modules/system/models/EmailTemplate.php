@@ -1,5 +1,6 @@
 <?php namespace System\Models;
 
+use App;
 use File;
 use View;
 use Model;
@@ -23,6 +24,11 @@ class EmailTemplate extends Model
     public $belongsTo = [
         'layout' => ['System\Models\EmailLayout']
     ];
+
+    /**
+     * @var array A cache of customised email templates.
+     */
+    protected static $cache = [];
 
     /**
      * @var array Cache of registration callbacks.
@@ -80,6 +86,33 @@ class EmailTemplate extends Model
     protected static function getTemplateSections($code)
     {
         return MailParser::parse(File::get(View::make($code)->getPath()));
+    }
+
+    public static function addContentToMailer($message, $code, $data)
+    {
+        if (!isset(self::$cache[$code])) {
+            if (!$template = self::where('is_custom', true)->whereCode($code)->first())
+                return false;
+
+            self::$cache[$code] = $template;
+        }
+        else
+            $template = self::$cache[$code];
+
+        /*
+         * Set Twig to load from a string
+         */
+        $twig = App::make('twig');
+        $oldLoader = $twig->getLoader();
+        $twig->setLoader(new \Twig_Loader_String);
+
+        $message->subject($twig->render($template->subject, $data));
+        $message->setBody($twig->render($template->content_html, $data), 'text/html');
+        if (strlen($template->content_text))
+            $message->addPart($twig->render($template->content_text, $data), 'text/plain');
+
+        $twig->setLoader($oldLoader);
+        return true;
     }
 
     //
