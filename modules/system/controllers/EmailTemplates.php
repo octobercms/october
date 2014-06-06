@@ -3,10 +3,12 @@
 use Str;
 use Lang;
 use File;
+use Mail;
 use Flash;
 use Backend;
 use Redirect;
 use BackendMenu;
+use BackendAuth;
 use Backend\Classes\Controller;
 use System\Models\EmailTemplate;
 use System\Classes\ApplicationException;
@@ -51,6 +53,23 @@ class EmailTemplates extends Controller
     public function formBeforeSave($model)
     {
         $model->is_custom = true;
+    }
+
+    public function onTest($recordId)
+    {
+        try {
+            $model = $this->formFindModelObject($recordId);
+            $user = BackendAuth::getUser();
+
+            Mail::send($model->code, [], function($message) use ($user) {
+                $message->to($user->email, $user->full_name);
+            });
+
+            Flash::success('The test message has been successfully sent.');
+        }
+        catch (Exception $ex) {
+            Flash::error($ex->getMessage());
+        }
     }
 
 }
