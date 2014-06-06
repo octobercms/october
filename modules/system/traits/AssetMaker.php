@@ -236,11 +236,12 @@ trait AssetMaker
      */
     private function getAssetScheme($asset)
     {
-        if (!preg_match("/(\/\/|http|https)/", $asset)) {
-            if (substr($asset, 0, 1) == '/')
-                $asset = Request::getBaseUrl() . $asset;        
-        }
-        
+        if (preg_match("/(\/\/|http|https)/", $asset))
+            return $asset;
+
+        if (substr($asset, 0, 1) == '/')
+            $asset = Request::getBaseUrl() . $asset;
+
         return $asset;
     }
 
