@@ -194,7 +194,7 @@
 
         var e = $.Event('showing.oc.inspector')
         this.$el.trigger(e, [{callback: displayPopover}])
-        if (e.isDefaultPrevented()) 
+        if (e.isDefaultPrevented())
             return
 
         if (!e.isPropagationStopped())

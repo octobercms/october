@@ -21,7 +21,7 @@ class DbBackendUsers extends Migration
             $table->string('persist_code')->nullable();
             $table->string('reset_password_code')->nullable()->index();
             $table->text('permissions')->nullable();
-            $table->boolean('activated')->default(0);
+            $table->boolean('is_activated')->default(0);
             $table->timestamp('activated_at')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->timestamps();

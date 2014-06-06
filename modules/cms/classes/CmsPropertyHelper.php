@@ -3,7 +3,9 @@
 /**
  *
  * DEPRECATED WARNING: This class is deprecated and should be deleted
- * if the current year is equal to or greater than 2015 @todo.
+ * if the current year is equal to or greater than 2015.
+ * 
+ * @todo Delete this file if year >= 2015.
  *
  */
 

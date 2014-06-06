@@ -144,8 +144,9 @@ class ServiceProvider extends ModuleServiceProvider
          */
         BackendAuth::registerCallback(function($manager) {
             $manager->registerPermissions('October.System', [
-                'system.manage_settings' => ['label' => 'Manage system settings', 'tab' => 'System'],
-                'system.manage_updates'  => ['label' => 'Manage software updates', 'tab' => 'System'],
+                'system.manage_settings'        => ['label' => 'Manage system settings', 'tab' => 'System'],
+                'system.manage_updates'         => ['label' => 'Manage software updates', 'tab' => 'System'],
+                'system.manage_email_templates' => ['label' => 'Manage email templates', 'tab' => 'System'],
             ]);
         });
 
@@ -154,12 +155,20 @@ class ServiceProvider extends ModuleServiceProvider
          */
         SettingsManager::instance()->registerCallback(function($manager){
             $manager->registerSettingItems('October.System', [
-                'email' => [
+                'email_settings' => [
                     'label'       => 'system::lang.email.menu_label',
                     'description' => 'system::lang.email.menu_description',
                     'category'    => 'System',
                     'icon'        => 'icon-envelope',
                     'class'       => 'System\Models\EmailSettings',
+                    'sort'        => 100
+                ],
+                'email_templates' => [
+                    'label'       => 'system::lang.email_templates.menu_label',
+                    'description' => 'system::lang.email_templates.menu_description',
+                    'category'    => 'System',
+                    'icon'        => 'icon-envelope-square',
+                    'url'         => Backend::url('system/emailtemplates'),
                     'sort'        => 100
                 ],
             ]);

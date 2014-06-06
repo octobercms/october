@@ -1,0 +1,46 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    layout:
+        label: system::lang.email_templates.layout
+        type: relation
+        options:
+            emptyOption: -- No layout --
+
+    code:
+        label: system::lang.email_templates.code
+        comment: system::lang.email_templates.code_comment
+        span: left
+        context: create
+
+    subject:
+        label: system::lang.email_templates.subject
+        comment: system::lang.email_templates.subject_comment
+        span: right
+        # context: create
+
+    # @todo Fix duplicate key problem
+    # subject:
+    #     label: system::lang.email_templates.subject
+    #     context: update
+
+    description:
+        label: system::lang.email_templates.description
+        type: textarea
+        size: tiny
+
+secondaryTabs:
+    fields:
+
+        content_html:
+            type: richeditor
+            size: huge
+            tab: system::lang.email_templates.content_html
+
+        content_text:
+            type: textarea
+            size: huge
+            tab: system::lang.email_templates.content_text

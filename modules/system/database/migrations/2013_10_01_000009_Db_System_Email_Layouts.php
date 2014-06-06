@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class DbSystemEmailLayouts extends Migration
+{
+
+    public function up()
+    {
+        Schema::create('system_email_layouts', function(Blueprint $table)
+        {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('name')->nullable();
+            $table->string('code')->nullable();
+            $table->text('content_html')->nullable();
+            $table->text('content_text')->nullable();
+            $table->text('content_css')->nullable();
+            $table->boolean('is_locked')->default(0);
+            $table->timestamps();
+        });
+    }
+
+    public function down()
+    {
+        Schema::drop('system_email_layouts');
+    }
+
+}

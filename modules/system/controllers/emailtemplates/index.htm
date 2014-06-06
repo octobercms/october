@@ -1,0 +1,27 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('system/settings') ?>"><?= e(trans('system::lang.settings.menu_label')) ?></a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+
+<div class="control-tabs secondary" data-control="tab">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#templates"><?= e(trans('system::lang.email_templates.templates')) ?></a></li>
+        <li><a href="#templates"><?= e(trans('system::lang.email_templates.layouts')) ?></a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active">
+            <div class="list-preview">
+                <?= $this->listRender('templates') ?>
+            </div>
+        </div>
+        <div class="tab-pane">
+            <div class="list-preview">
+                <?= $this->listRender('layouts') ?>
+            </div>
+        </div>
+    </div>
+</div>
+

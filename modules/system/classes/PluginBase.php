@@ -105,6 +105,17 @@ abstract class PluginBase extends ServiceProviderBase
     }
 
     /**
+     * Registers any email templates implemented by this plugin.
+     * The templates must be returned in the following format:
+     * ['acme.blog::emails.welcome' => 'This is a description of the welcome template'],
+     * ['acme.blog::emails.forgot_password' => 'This is a description of the forgot password template'],
+     */
+    public function registerEmailTemplates()
+    {
+        return [];
+    }
+
+    /**
      * Registers a new console (artisan) command
      * @param $key The command name
      * @param $class The command class

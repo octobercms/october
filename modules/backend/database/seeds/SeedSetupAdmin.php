@@ -35,7 +35,7 @@ class SeedSetupAdmin extends Seeder
             'first_name'            => static::$firstName,
             'last_name'             => static::$lastName,
             'permissions'           => ['superuser' => 1],
-            'activated'             => true
+            'is_activated'          => true
         ]);
 
         $user->addGroup($group);

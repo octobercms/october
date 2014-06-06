@@ -128,12 +128,13 @@ class FormController extends ControllerBehavior
         $this->initForm($model);
 
         $this->controller->formBeforeSave($model);
-        $this->controller->formBeforeCreateSave($model);
+        $this->controller->formBeforeCreate($model);
 
         $this->setModelAttributes($model, $this->formWidget->getSaveData());
         $model->push($this->formWidget->getSessionKey());
 
         $this->controller->formAfterSave($model);
+        $this->controller->formAfterCreate($model);
 
         Flash::success($this->getLang('create[flash-save]', 'backend::lang.form.create_success'));
 
@@ -177,12 +178,13 @@ class FormController extends ControllerBehavior
         $this->initForm($model, 'update');
 
         $this->controller->formBeforeSave($model);
-        $this->controller->formBeforeEditSave($model);
+        $this->controller->formBeforeUpdate($model);
 
         $this->setModelAttributes($model, $this->formWidget->getSaveData());
         $model->push($this->formWidget->getSessionKey());
 
         $this->controller->formAfterSave($model);
+        $this->controller->formAfterUpdate($model);
 
         Flash::success($this->getLang('update[flash-save]', 'backend::lang.form.update_success'));
 
@@ -409,16 +411,10 @@ class FormController extends ControllerBehavior
     //
 
     /**
-     * Called before the creation form is saved.
+     * Called before the creation or updating form is saved.
      * @param Model
      */
-    public function formBeforeCreateSave($model) {}
-
-    /**
-     * Called after the creation form is saved.
-     * @param Model
-     */
-    public function formAfterCreateSave($model) {}
+    public function formBeforeSave($model) {}
 
     /**
      * Called after the creation or updating form is saved.
@@ -427,22 +423,28 @@ class FormController extends ControllerBehavior
     public function formAfterSave($model) {}
 
     /**
+     * Called before the creation form is saved.
+     * @param Model
+     */
+    public function formBeforeCreate($model) {}
+
+    /**
+     * Called after the creation form is saved.
+     * @param Model
+     */
+    public function formAfterCreate($model) {}
+
+    /**
      * Called before the updating form is saved.
      * @param Model
      */
-    public function formBeforeEditSave($model) {}
-
-    /**
-     * Called before the creation or updating form is saved.
-     * @param Model
-     */
-    public function formBeforeSave($model) {}
+    public function formBeforeUpdate($model) {}
 
     /**
      * Called after the updating form is saved.
      * @param Model
      */
-    public function formAfterEditSave($model) {}
+    public function formAfterUpdate($model) {}
 
     /**
      * Called after the form model is deleted.

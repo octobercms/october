@@ -15,14 +15,14 @@
  * - data-closable - enables the Close Tab feature
  * - data-pane-classes - a list of CSS classes to apply new pane elements
  *
- * Example with data attributes (data-control="tab"): 
+ * Example with data attributes (data-control="tab"):
  *
  *  <div class="control-tabs master" data-control="tab" data-closable>
  *      <ul class="nav nav-tabs">
- *        <li class="active"><a href="#home">Home</a></li>
+ *          <li class="active"><a href="#home">Home</a></li>
  *      </ul>
  *      <div class="tab-content">
- *        <div class="tab-pane active">Home</div>
+ *          <div class="tab-pane active">Home</div>
  *      </div>
  *  </div>
  *

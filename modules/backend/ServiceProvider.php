@@ -7,6 +7,7 @@ use BackendMenu;
 use BackendAuth;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
+use System\Models\EmailTemplate;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -68,6 +69,16 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerPermissions('October.Backend', [
                 'backend.access_dashboard' => ['label' => 'View the dashboard', 'tab' => 'System'],
                 'backend.manage_users'     => ['label' => 'Manage other administrators', 'tab' => 'System'],
+            ]);
+        });
+
+        /*
+         * Register email templates
+         */
+        EmailTemplate::registerCallback(function($template){
+            $template->registerEmailTemplates([
+                'backend::emails.invite' => 'Invitation for newly created administrators.',
+                'backend::emails.restore' => 'Password reset instructions for backend-end administrators.',
             ]);
         });
     }

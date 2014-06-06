@@ -76,8 +76,8 @@ trait PropertyContainer
 
     /**
      * Returns a defined property value or default if one is not set.
-     * @param $name The property name to look for.
-     * @param $default A default value to return if no name is found.
+     * @param string $name The property name to look for.
+     * @param string $default A default value to return if no name is found.
      * @return string The property value or the default specified.
      */
     public function property($name, $default = null)

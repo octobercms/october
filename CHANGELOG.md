@@ -1,3 +1,7 @@
+* **Build 101** (2014-06-06)
+  - Added a global traceLog() helper for help with debugging.
+  - New settings area added to manage Email templates and layouts.
+
 * **Build 99** (2014-06-05)
   - Plugins can now be removed, refreshed and disabled via the back-end.
 

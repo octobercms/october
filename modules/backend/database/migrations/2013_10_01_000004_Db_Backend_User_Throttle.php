@@ -15,10 +15,10 @@ class DbBackendUserThrottle extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('ip_address')->nullable();
             $table->integer('attempts')->default(0);
-            $table->boolean('suspended')->default(0);
-            $table->boolean('banned')->default(0);
             $table->timestamp('last_attempt_at')->nullable();
+            $table->boolean('is_suspended')->default(0);
             $table->timestamp('suspended_at')->nullable();
+            $table->boolean('is_banned')->default(0);
             $table->timestamp('banned_at')->nullable();
         });
     }

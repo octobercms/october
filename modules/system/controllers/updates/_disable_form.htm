@@ -11,19 +11,23 @@
 
         <p><?= e(trans('system::lang.plugins.selected_amount', ['amount'=>count($checked)])) ?></p>
 
-        <div class="form-group">
-            <!-- Checkbox -->
-            <div class="checkbox custom-checkbox">
-                <input
-                    type="checkbox"
-                    name="disable"
-                    value="1"
-                    id="pluginDisable">
-                <label for="pluginDisable">
-                    <?= e(trans('system::lang.plugins.disabled_label')) ?>
-                </label>
-                <p class="help-block"><?= e(trans('system::lang.plugins.disabled_help')) ?></p>
+        <div class="form-preview">
+
+            <div class="form-group">
+                <!-- Checkbox -->
+                <div class="checkbox custom-checkbox">
+                    <input
+                        type="checkbox"
+                        name="disable"
+                        value="1"
+                        id="pluginDisable">
+                    <label for="pluginDisable">
+                        <?= e(trans('system::lang.plugins.disabled_label')) ?>
+                    </label>
+                    <p class="help-block"><?= e(trans('system::lang.plugins.disabled_help')) ?></p>
+                </div>
             </div>
+
         </div>
 
         <?php foreach ($checked as $id): ?>

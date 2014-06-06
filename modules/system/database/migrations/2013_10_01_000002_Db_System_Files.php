@@ -21,7 +21,7 @@ class DbSystemFiles extends Migration
             $table->string('field')->nullable()->index();
             $table->string('attachment_id')->index()->nullable();
             $table->string('attachment_type')->index()->nullable();
-            $table->boolean('public')->default(true);
+            $table->boolean('is_public')->default(true);
             $table->integer('sort_order')->nullable();
             $table->timestamps();
         });

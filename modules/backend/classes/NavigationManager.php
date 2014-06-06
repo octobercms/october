@@ -60,6 +60,10 @@ class NavigationManager
         $this->pluginManager = PluginManager::instance();
     }
 
+    /**
+     * Loads the menu items from modules and plugins
+     * @return void
+     */
     protected function loadItems()
     {
         /*

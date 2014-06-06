@@ -62,6 +62,9 @@ class Updates extends Controller
         return $this->getClassExtension('Backend.Behaviors.ListController')->index();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function listInjectRowClass($record, $definition = null)
     {
         if ($record->disabledByConfig)

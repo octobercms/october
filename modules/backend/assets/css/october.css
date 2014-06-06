@@ -7279,6 +7279,18 @@ label {
 .form-control.align-right {
   text-align: right;
 }
+.form-preview {
+  padding: 15px;
+  margin-bottom: 20px;
+  background: white;
+  border: 1px solid #eee;
+}
+.form-preview .form-group {
+  padding-bottom: 10px;
+}
+.form-preview > .form-group:last-child {
+  padding-bottom: 0;
+}
 .form-elements:before,
 .form-tabless-fields:before,
 .form-elements:after,
@@ -7768,6 +7780,15 @@ label {
 }
 .select2-drop .select2-results > li > div {
   padding: 5px 7px 5px;
+}
+.list-preview {
+  padding: 20px 0 0;
+  margin-bottom: 20px;
+  background: white;
+  border: 1px solid #e2e2e2;
+}
+.list-preview .control-list:last-child > table {
+  margin-bottom: 0;
 }
 .control-list p.no-data {
   padding: 18px 20px;
@@ -8515,7 +8536,7 @@ table.table.data tr.list-tree-level-25 td.list-data-column-1 {
 .modal-body {
   padding-bottom: 0;
 }
-.modal-body p:last-child {
+.modal-body > p:last-child {
   margin-bottom: 20px;
 }
 .control-popup.fade .modal-dialog {

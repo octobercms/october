@@ -3,8 +3,8 @@
 # ===================================
 
 tabs:
-
   fields:
+
     send_mode:
       label: system::lang.email.method
       type: dropdown
