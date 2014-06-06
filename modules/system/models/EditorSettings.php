@@ -6,8 +6,8 @@ use DirectoryIterator;
 
 class EditorSettings extends Model
 {
-    public $implement = ['System.Behaviors.SettingsModel'];
-    public $settingsCode = 'system_editor_settings';
+    public $implement = ['System.Behaviors.UserSettingsModel'];
+    public $settingsCode = 'system::editor.settings';
     public $settingsFields = 'fields.yaml';
 
     const DEFAULT_THEME = 'twilight';
