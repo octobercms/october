@@ -54,7 +54,7 @@ class PluginVersion extends Model
                 $manager->enablePlugin($this->code, true);
 
             $this->disabledBySystem = $pluginObj->disabled;
-            $this->disabledByConfig = in_array($this->code, Config::get('cms.disablePlugins'));
+            $this->disabledByConfig = in_array($this->code, Config::get('cms.disablePlugins', []));
         }
         else {
             $this->name = $this->code;
