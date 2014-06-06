@@ -25,6 +25,8 @@
     }
 
     RichEditor.DEFAULTS = {
+        stylesheet: null,
+        fullpage: false
     }
 
     RichEditor.prototype.init = function (){
@@ -40,12 +42,21 @@
         /*
          * Initialize Redactor editor
          */
-        this.$textarea.redactor({
-            iframe: true,
-            css: this.options.iframeCss,
+        var redactorOptions = {
             focusCallback: function() { self.$el.addClass('editor-focus') },
             blurCallback: function() { self.$el.removeClass('editor-focus') }
-        });
+        }
+
+        if (this.options.stylesheet) {
+            redactorOptions.iframe = true
+            redactorOptions.css = this.options.stylesheet
+        }
+
+        if (this.options.fullpage) {
+            redactorOptions.fullpage = true
+        }
+
+        this.$textarea.redactor(redactorOptions)
     }
 
     // RICHEDITOR PLUGIN DEFINITION
