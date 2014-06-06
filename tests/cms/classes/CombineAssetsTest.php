@@ -70,12 +70,10 @@ class CombineAssetsTest extends TestCase
         $combiner = new CombineAssets;
         $url = $combiner->combine(['assets/css/style1.css', 'assets/css/style2.css'], '/tests/fixtures/Cms/themes/test');
         $this->assertNotNull($url);
-        $this->assertRegExp('/\.css$/i', $url);         // Must end in .css
         $this->assertRegExp('/\w+[-]\d+/i', $url);      // Must contain hash-number
 
         $url = $combiner->combine(['assets/js/script1.js', 'assets/js/script2.js'], '/tests/fixtures/Cms/themes/test');
         $this->assertNotNull($url);
-        $this->assertRegExp('/\.js$/i', $url);          // Must end in .js
         $this->assertRegExp('/\w+[-]\d+/i', $url);      // Must contain hash-number
     }
 
