@@ -3,7 +3,7 @@
 <title><?= $this->pageTitle ?> | October CMS</title>
 
 <link href="<?= URL::to('modules/backend/assets/vendor/select2/select2.css') ?>" rel="stylesheet">
-<link href="<?= URL::to('modules/backend/assets/css/october.css') ?>" rel="stylesheet">
+<link href="<?= URL::to('modules/backend/assets/css/october.css') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>" rel="stylesheet">
 
 <script src="<?= URL::to('modules/backend/assets/js/vendor/jquery-2.0.3.min.js') ?>"></script>
 <script src="<?= URL::to('modules/backend/assets/js/vendor/jquery.ui.widget.js') ?>"></script>
