@@ -102,8 +102,7 @@ trait AssetMaker
         if (is_string($attributes))
             $attributes = ['build' => $attributes];
 
-        if (substr($jsPath, 0, 1) == '/')
-            $jsPath = Request::getBaseUrl() . $jsPath;
+        $jsPath = $this->getAssetScheme($jsPath);
 
         if (!in_array($jsPath, $this->assets['js']))
             $this->assets['js'][] = ['path' => $jsPath, 'attributes' => $attributes];
@@ -126,8 +125,7 @@ trait AssetMaker
         if (is_string($attributes))
             $attributes = ['build' => $attributes];
 
-        if (substr($cssPath, 0, 1) == '/')
-            $cssPath = Request::getBaseUrl() . $cssPath;
+        $cssPath = $this->getAssetScheme($cssPath);
 
         if (!in_array($cssPath, $this->assets['css']))
             $this->assets['css'][] = ['path' => $cssPath, 'attributes' => $attributes];
@@ -150,8 +148,7 @@ trait AssetMaker
         if (is_string($attributes))
             $attributes = ['build' => $attributes];
 
-        if (substr($rssPath, 0, 1) == '/')
-            $rssPath = Request::getBaseUrl() . $rssPath;
+        $rssPath = $this->getAssetScheme($rssPath);
 
         if (!in_array($rssPath, $this->assets['rss']))
             $this->assets['rss'][] = ['path' => $rssPath, 'attributes' => $attributes];
@@ -230,6 +227,21 @@ trait AssetMaker
         }
 
         return $path;
+    }
+
+    /**
+     * Internal helper, get asset scheme
+     * @param string $asset Specifies a path (URL) to the asset.
+     * @return string
+     */
+    private function getAssetScheme($asset)
+    {
+        if (!preg_match("/(\/\/|http|https)/", $asset)) {
+            if (substr($asset, 0, 1) == '/')
+                $asset = Request::getBaseUrl() . $asset;        
+        }
+        
+        return $asset;
     }
 
 }
