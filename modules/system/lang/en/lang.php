@@ -95,6 +95,7 @@ return [
         'content_html' => 'HTML',
         'content_css' => 'CSS',
         'content_text' => 'Plaintext',
+    ],
     'editor' => [
         'menu_label' => 'Editor Configuration',
         'menu_description' => 'Manage editor configuration.',
@@ -103,8 +104,8 @@ return [
         'use_hard_tabs' => 'Indent Using Tabs',
         'use_hard_tabs_comment' => 'Use this checkbox if you would like to use hard tabs instead of spaces.',
         'use_wrap' => 'Enable Word Wrap',
-        'use_wrap_comment' => 'Use this checkbox if you want your content to wrap instead of overflowing.',
-        'theme' => 'Editor Color Scheme'
+        'use_wrap_comment' => 'Use this checkbox if you want your text to wrap instead of overflowing.',
+        'theme' => 'Text Color Scheme',
     ],
     'install' => [
         'project_label' => 'Attach to Project',
