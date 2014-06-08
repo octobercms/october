@@ -372,7 +372,9 @@ class Form extends WidgetBase
             return $field;
         }
 
-
+        /*
+         * Defined field type
+         */
         $fieldType = isset($config['type']) ? $config['type'] : null;
         if (!is_string($fieldType) && !is_null($fieldType))
             throw new ApplicationException(Lang::get('backend::lang.field.invalid_type', ['type'=>gettype($fieldType)]));
