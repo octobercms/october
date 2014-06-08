@@ -448,7 +448,13 @@ class Lists extends WidgetBase
         if (!isset($this->config->columns) || !is_array($this->config->columns) || !count($this->config->columns))
             throw new ApplicationException(Lang::get('backend::lang.list.missing_columns', ['class'=>get_class($this->controller)]));
 
-        $definitions = $this->config->columns;
+        $this->addColumns($this->config->columns);
+
+        /*
+         * Extensibility
+         */
+        Event::fire('backend.list.extendColumns', [$this]);
+        $this->fireEvent('list.extendColumns', $this);
 
         /*
          * Use a supplied column order
@@ -456,20 +462,27 @@ class Lists extends WidgetBase
         if ($columnOrder = $this->getSession('order', null)) {
             $orderedDefinitions = [];
             foreach ($columnOrder as $column) {
-                $orderedDefinitions[$column] = $definitions[$column];
+                $orderedDefinitions[$column] = $this->columns[$column];
             }
 
-            $definitions = array_merge($orderedDefinitions, $definitions);
+            $this->columns = array_merge($orderedDefinitions, $this->columns);
         }
 
+
+        return $this->columns;
+    }
+
+    /**
+     * Programatically add columns, used internally and for extensibility.
+     */
+    public function addColumns(array $columns)
+    {
         /*
          * Build a final collection of list column objects
          */
-        foreach ($definitions as $columnName => $config) {
+        foreach ($columns as $columnName => $config) {
             $this->columns[$columnName] = $this->makeListColumn($columnName, $config);
         }
-
-        return $this->columns;
     }
 
     /**
