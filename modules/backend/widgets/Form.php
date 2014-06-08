@@ -368,6 +368,7 @@ class Form extends WidgetBase
         if (isset($config['comment'])) $field->comment($config['comment']);
         if (isset($config['placeholder'])) $field->placeholder = $config['placeholder'];
         if (isset($config['default'])) $field->defaults = $config['default'];
+        if (isset($config['forceDefault'])) $field->forceDefault = $config['forceDefault'];
         if (isset($config['cssClass'])) $field->cssClass = $config['cssClass'];
         if (isset($config['attributes'])) $field->attributes = $config['attributes'];
         if (isset($config['path'])) $field->path = $config['path'];
@@ -484,11 +485,16 @@ class Form extends WidgetBase
 
         $columnName = $field->columnName;
 
-        if (!$this->model->exists)
+        if (!$this->model->exists) {
             $defaultValue = strlen($field->defaults) ? $field->defaults : null;
-        else
-            $defaultValue = (isset($this->data->{$columnName})) ? $this->data->{$columnName} : null;
-
+        } else {
+            $defaultValue = null;
+            if (isset($this->data->{$columnName})) {
+                $defaultValue = $this->data->{$columnName};
+            } elseif (isset($field->forceDefault) && $field->forceDefault === true){
+                $defaultValue = $field->defaults;
+            }
+        }
         /*
          * Array field name, eg: field[key][key2][key3]
          */
