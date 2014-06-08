@@ -486,8 +486,11 @@ class Form extends WidgetBase
 
         if (!$this->model->exists)
             $defaultValue = strlen($field->defaults) ? $field->defaults : null;
-        else
-            $defaultValue = (isset($this->data->{$columnName})) ? $this->data->{$columnName} : null;
+        elseif (!isset($this->data->{$columnName})) {
+            $defaultValue = strlen($field->defaults) ? $field->defaults : null;
+        } else {
+            $defaultValue = $this->data->{$columnName};
+        }
 
         /*
          * Array field name, eg: field[key][key2][key3]
