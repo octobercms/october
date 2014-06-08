@@ -358,6 +358,26 @@ class Form extends WidgetBase
         $field->idPrefix = $this->getId();
 
         /*
+         * Simple widget field, only widget type is supplied
+         */
+        if (is_string($config) && $this->isFormWidget($config) !== false) {
+            $field->displayAs('widget', ['widget' => $config]);
+            return $field;
+        }
+        /*
+         * Simple field, only field type is supplied
+         */
+        elseif (is_string($config)) {
+            $field->displayAs($config);
+            return $field;
+        }
+
+
+        $fieldType = isset($config['type']) ? $config['type'] : null;
+        if (!is_string($fieldType) && !is_null($fieldType))
+            throw new ApplicationException(Lang::get('backend::lang.field.invalid_type', ['type'=>gettype($fieldType)]));
+
+        /*
          * Process basic options
          */
         if (isset($config['span'])) $field->span($config['span']);
@@ -380,25 +400,6 @@ class Form extends WidgetBase
          * Set field value
          */
         $field->value = $this->getFieldValue($field);
-
-        /*
-         * Simple widget field, only widget type is supplied
-         */
-        if (is_string($config) && $this->isFormWidget($config) !== false) {
-            $field->displayAs('widget', ['widget' => $config]);
-            return $field;
-        }
-        /*
-         * Simple field, only field type is supplied
-         */
-        elseif (is_string($config)) {
-            $field->displayAs($config);
-            return $field;
-        }
-
-        $fieldType = isset($config['type']) ? $config['type'] : null;
-        if (!is_string($fieldType) && !is_null($fieldType))
-            throw new ApplicationException(Lang::get('backend::lang.field.invalid_type', ['type'=>gettype($fieldType)]));
 
         /*
          * Widget with options
