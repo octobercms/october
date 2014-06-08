@@ -468,7 +468,6 @@ class Lists extends WidgetBase
             $this->columns = array_merge($orderedDefinitions, $this->columns);
         }
 
-
         return $this->columns;
     }
 

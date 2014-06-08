@@ -358,6 +358,25 @@ class Form extends WidgetBase
         $field->idPrefix = $this->getId();
 
         /*
+         * Process basic options
+         */
+        if (isset($config['span'])) $field->span($config['span']);
+        if (isset($config['context'])) $field->context = $config['context'];
+        if (isset($config['size'])) $field->size($config['size']);
+        if (isset($config['tab'])) $field->tab($config['tab']);
+        if (isset($config['commentAbove'])) $field->comment($config['commentAbove'], 'above');
+        if (isset($config['comment'])) $field->comment($config['comment']);
+        if (isset($config['placeholder'])) $field->placeholder = $config['placeholder'];
+        if (isset($config['default'])) $field->defaults = $config['default'];
+        if (isset($config['cssClass'])) $field->cssClass = $config['cssClass'];
+        if (isset($config['attributes'])) $field->attributes = $config['attributes'];
+        if (isset($config['path'])) $field->path = $config['path'];
+
+        if (array_key_exists('required', $config)) $field->required = $config['required'];
+        if (array_key_exists('disabled', $config)) $field->disabled = $config['disabled'];
+        if (array_key_exists('stretch', $config)) $field->stretch = $config['stretch'];
+
+        /*
          * Set field value
          */
         $field->value = $this->getFieldValue($field);
@@ -401,25 +420,6 @@ class Form extends WidgetBase
 
             $field->displayAs($fieldType, $fieldOptions);
         }
-
-        /*
-         * Process remaining options
-         */
-        if (isset($config['span'])) $field->span($config['span']);
-        if (isset($config['context'])) $field->context = $config['context'];
-        if (isset($config['size'])) $field->size($config['size']);
-        if (isset($config['tab'])) $field->tab($config['tab']);
-        if (isset($config['commentAbove'])) $field->comment($config['commentAbove'], 'above');
-        if (isset($config['comment'])) $field->comment($config['comment']);
-        if (isset($config['placeholder'])) $field->placeholder = $config['placeholder'];
-        if (isset($config['default'])) $field->defaults = $config['default'];
-        if (isset($config['cssClass'])) $field->cssClass = $config['cssClass'];
-        if (isset($config['attributes'])) $field->attributes = $config['attributes'];
-        if (isset($config['path'])) $field->path = $config['path'];
-
-        if (array_key_exists('required', $config)) $field->required = $config['required'];
-        if (array_key_exists('disabled', $config)) $field->disabled = $config['disabled'];
-        if (array_key_exists('stretch', $config)) $field->stretch = $config['stretch'];
 
         return $field;
     }
