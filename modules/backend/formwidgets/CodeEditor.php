@@ -2,6 +2,7 @@
 
 use Backend\Models\EditorSettings;
 use Backend\Classes\FormWidgetBase;
+use System\Models\EditorSettings;
 
 /**
  * Code Editor
