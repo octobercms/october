@@ -24,7 +24,7 @@
     },
     "require": {
         "php": ">=5.4",
-        "laravel/framework": "4.1.*",
+        "laravel/framework": "4.2.*",
         "october/system": "dev-master",
         "october/backend": "dev-master",
         "october/cms": "dev-master",
