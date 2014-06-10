@@ -29,6 +29,7 @@
     RewriteCond %{REQUEST_URI} !\.css
     RewriteCond %{REQUEST_URI} !\.less
     RewriteCond %{REQUEST_URI} !\.scss
+    RewriteCond %{REQUEST_URI} !\.pdf
     RewriteCond %{REQUEST_URI} !\.png
     RewriteCond %{REQUEST_URI} !\.swf
     RewriteCond %{REQUEST_URI} !\.txt
