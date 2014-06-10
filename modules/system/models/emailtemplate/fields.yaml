@@ -16,16 +16,13 @@ fields:
         span: left
         context: create
 
-    subject:
+    subject@create:
         label: system::lang.email_templates.subject
         comment: system::lang.email_templates.subject_comment
         span: right
-        # context: create
 
-    # @todo Fix duplicate key problem
-    # subject:
-    #     label: system::lang.email_templates.subject
-    #     context: update
+    subject@update:
+        label: system::lang.email_templates.subject
 
     description:
         label: system::lang.email_templates.description

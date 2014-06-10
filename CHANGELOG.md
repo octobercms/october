@@ -1,3 +1,7 @@
+* **Build x** (2014-06-10)
+  - Form fields can now pass context via their name definnition using syntax `field@context`.
+  - Added a code editor preferences page.
+
 * **Build 101** (2014-06-06)
   - Added a global traceLog() helper for help with debugging.
   - New settings area added to manage Email templates and layouts.

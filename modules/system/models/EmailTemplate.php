@@ -91,7 +91,7 @@ class EmailTemplate extends Model
     public static function addContentToMailer($message, $code, $data)
     {
         if (!isset(self::$cache[$code])) {
-            if (!$template = self::where('is_custom', true)->whereCode($code)->first())
+            if (!$template = self::whereCode($code)->first())
                 return false;
 
             self::$cache[$code] = $template;
@@ -107,9 +107,31 @@ class EmailTemplate extends Model
         $twig->setLoader(new \Twig_Loader_String);
 
         $message->subject($twig->render($template->subject, $data));
-        $message->setBody($twig->render($template->content_html, $data), 'text/html');
-        if (strlen($template->content_text))
-            $message->addPart($twig->render($template->content_text, $data), 'text/plain');
+
+        /*
+         * HTML contents
+         */
+        $html = $twig->render($template->content_html, $data);
+        if ($template->layout) {
+            $html = $twig->render($template->layout->content_html, [
+                'message' => $html,
+                'css' => $template->layout->content_css
+            ]);
+        }
+
+        $message->setBody($html, 'text/html');
+
+        /*
+         * Text contents
+         */
+        if (strlen($template->content_text)) {
+            $text = $twig->render($template->content_text, $data);
+            if ($template->layout) {
+                $text = $twig->render($template->layout->content_text, ['message' => $text]);
+            }
+
+            $message->addPart($text, 'text/plain');
+        }
 
         $twig->setLoader($oldLoader);
         return true;

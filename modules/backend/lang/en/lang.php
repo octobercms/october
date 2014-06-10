@@ -145,4 +145,15 @@ return [
         'permissions'  => 'Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.',
         'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.'
     ],
+    'editor' => [
+        'menu_label' => 'Editor Configuration',
+        'menu_description' => 'Manage editor configuration.',
+        'font_size' => 'Font Size',
+        'tab_size' => 'Indentation Width',
+        'use_hard_tabs' => 'Indent Using Tabs',
+        'use_hard_tabs_comment' => 'Use this checkbox if you would like to use hard tabs instead of spaces.',
+        'use_wrap' => 'Enable Word Wrap',
+        'use_wrap_comment' => 'Use this checkbox if you want your text to wrap instead of overflowing.',
+        'theme' => 'Text Color Scheme',
+    ],
 ];

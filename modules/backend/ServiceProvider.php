@@ -8,6 +8,7 @@ use BackendAuth;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use System\Models\EmailTemplate;
+use System\Classes\SettingsManager;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -59,6 +60,22 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['backend.access_dashboard'],
                     'order'       => 1
                 ]
+            ]);
+        });
+
+        /*
+         * Register settings
+         */
+        SettingsManager::instance()->registerCallback(function($manager){
+            $manager->registerSettingItems('October.Backend', [
+                'editor' => [
+                    'label'       => 'backend::lang.editor.menu_label',
+                    'description' => 'backend::lang.editor.menu_description',
+                    'category'    => 'System',
+                    'icon'        => 'icon-code',
+                    'class'       => 'Backend\Models\EditorSettings',
+                    'sort'        => 200
+                ],
             ]);
         });
 

@@ -353,7 +353,10 @@ class Form extends WidgetBase
     protected function makeFormField($name, $config)
     {
         $label = (isset($config['label'])) ? $config['label'] : null;
-        $field = new FormField($name, $label);
+        list($fieldName, $fieldContext) = $this->getFieldName($name);
+
+        $field = new FormField($fieldName, $label);
+        if ($fieldContext) $field->context = $fieldContext;
         $field->arrayName = $this->arrayName;
         $field->idPrefix = $this->getId();
 
@@ -471,6 +474,19 @@ class Form extends WidgetBase
 
         $widget = new $widgetClass($this->controller, $this->model, $field, $widgetConfig);
         return $this->formWidgets[$field->columnName] = $widget;
+    }
+
+    /**
+     * Parses a field's name
+     * @param stirng $field Field name
+     * @return array [columnName, context]
+     */
+    public function getFieldName($field)
+    {
+        if (strpos($field, '@') === false)
+            return [$field, null];
+
+        return explode('@', $field);
     }
 
     /**

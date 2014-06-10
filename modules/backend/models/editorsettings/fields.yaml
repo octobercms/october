@@ -1,0 +1,29 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+  font_size:
+    label: backend::lang.editor.font_size
+    span: left
+
+  tab_size:
+    label: backend::lang.editor.tab_size
+    span: right
+
+  theme:
+    label: backend::lang.editor.theme
+    type: dropdown
+    span: full
+
+  use_hard_tabs:
+    label: backend::lang.editor.use_hard_tabs
+    type: checkbox
+    span: full
+    comment: backend::lang.editor.use_hard_tabs_comment
+
+  use_wrap:
+    label: backend::lang.editor.use_wrap
+    type: checkbox
+    span: full
+    comment: backend::lang.editor.use_wrap_comment

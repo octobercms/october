@@ -27,15 +27,15 @@ p {
 $html = '<html>
     <head>
         <style type="text/css" media="screen">
-            {{ css }}
+            {{ css|raw }}
         </style>
     </head>
     <body>
-        {{ message }}
+        {{ message|raw }}
     </body>
 </html>';
 
-$text = '{{message}}';
+$text = '{{ message|raw }}';
 
         EmailLayout::create([
             'is_locked'    => true,
@@ -49,17 +49,17 @@ $text = '{{message}}';
 $html = '<html>
     <head>
         <style type="text/css" media="screen">
-            {{ css }}
+            {{ css|raw }}
         </style>
     </head>
     <body>
-        {{ message }}
+        {{ message|raw }}
         <hr />
         <p>This is an automatic message. Please do not reply to it.</p>
     </body>
 </html>';
 
-$text = '{{message}}
+$text = '{{ message|raw }}
 
 
 ---

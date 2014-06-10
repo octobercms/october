@@ -10,15 +10,12 @@ fields:
         span: left
         context: create
 
-    name:
+    name@create:
         label: system::lang.email_templates.name
         span: right
-        # context: create
 
-    # @todo Fix duplicate key problem
-    # name:
-    #     label: system::lang.email_templates.name
-    #     context: update
+    name@update:
+        label: system::lang.email_templates.name
 
 secondaryTabs:
     fields:
