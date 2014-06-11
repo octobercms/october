@@ -38,7 +38,7 @@ class Asset extends CmsObject
      */
     public static function getEditableExtensions()
     {
-        $defaultTypes =  ['css','js','less','sass','scss'];
+        $defaultTypes =  ['css','js','less','sass','scss','php'];
 
         $configTypes = Config::get('cms.editableAssetTypes'); 
         if (!$configTypes)
