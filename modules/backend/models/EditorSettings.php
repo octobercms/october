@@ -15,10 +15,14 @@ class EditorSettings extends Model
     public function initSettingsData()
     {
         $config = App::make('config');
-        $this->font_size = $config->get('editor.font.size', 12);
-        $this->tab_size = $config->get('editor.tab.size', 4);
-        $this->use_hard_tabs = $config->get('editor.tab.usehard', false);
-        $this->use_wrap = $config->get('editor.wrap.enable', false);
+        $this->font_size = $config->get('editor.font_size', 12);
+        $this->tab_size = $config->get('editor.tab_size', 4);
+        $this->use_hard_tabs = $config->get('editor.use_hard_tabs', false);
+        $this->word_wrap = $config->get('editor.word_wrap', 'off');
+        $this->code_folding = $config->get('editor.code_folding', 'manual');
+        $this->show_invisibles = $config->get('editor.show_invisibles', true);
+        $this->highlight_active_line = $config->get('editor.highlight_active_line', true);
+        $this->show_gutter = $config->get('editor.show_gutter', true);
         $this->theme = $config->get('editor.theme', static::DEFAULT_THEME);
     }
 
@@ -26,10 +30,14 @@ class EditorSettings extends Model
     {
         $config = App::make('config');
         $settings = self::instance();
-        $config->set('editor.font.size', $settings->font_size);
-        $config->set('editor.tab.size', $settings->tab_size);
-        $config->set('editor.tab.usehard', $settings->use_hard_tabs);
-        $config->set('editor.wrap.enable', $settings->use_wrap);
+        $config->set('editor.font_size', $settings->font_size);
+        $config->set('editor.tab_size', $settings->tab_size);
+        $config->set('editor.use_hard_tabs', $settings->use_hard_tabs);
+        $config->set('editor.word_wrap', $settings->word_wrap);
+        $config->set('editor.code_folding', $settings->code_folding);
+        $config->set('editor.show_invisibles', $settings->show_invisibles);
+        $config->set('editor.highlight_active_line', $settings->highlight_active_line);
+        $config->set('editor.show_gutter', $settings->show_gutter);
         $config->set('editor.theme', $settings->theme);
     }
 

@@ -7390,7 +7390,7 @@ label {
   padding-bottom: 0;
 }
 .form-group.checkbox-field {
-  padding-bottom: 0;
+  padding-bottom: 5px;
 }
 .form-group.checkbox-align {
   padding-left: 23px;

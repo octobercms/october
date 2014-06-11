@@ -1,5 +1,6 @@
 <?php namespace Backend\Controllers;
 
+use Lang;
 use BackendMenu;
 use Backend\Classes\Controller;
 use Backend\Models\EditorSettings as EditorSettingsModel;
@@ -42,13 +43,14 @@ class EditorSettings extends Controller
 
         $this->vars['showGutter'] = true;
         $this->vars['theme'] = $editorSettings->theme;
-        $this->vars['wrapWords'] = $editorSettings->use_wrap;
+        $this->vars['wrapWords'] = $editorSettings->word_wrap !== 'off';
         $this->vars['fontSize'] = $editorSettings->font_size;
         $this->vars['tabSize'] = $editorSettings->tab_size;
         $this->vars['useSoftTabs'] = !$editorSettings->use_hard_tabs;
         $this->vars['margin'] = 0;
 
         $this->getClassExtension('Backend.Behaviors.FormController')->update();
+        $this->pageTitle = Lang::get('backend::lang.editor.menu_label');
     }
 
     public function formFindModelObject()

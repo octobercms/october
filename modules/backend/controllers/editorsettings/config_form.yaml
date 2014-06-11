@@ -2,11 +2,6 @@
 #  Form Behavior Config
 # ===================================
 
-name: system::lang.email_templates.template
 form: @/modules/backend/models/editorsettings/fields.yaml
 modelClass: Backend\Models\EditorSettings
 defaultRedirect: system/emailtemplates
-
-update:
-    redirect: system/emailtemplates
-    redirectClose: system/emailtemplates
