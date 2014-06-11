@@ -151,9 +151,7 @@ return [
         'font_size' => 'Font Size',
         'tab_size' => 'Indentation Width',
         'use_hard_tabs' => 'Indent Using Tabs',
-        'use_hard_tabs_comment' => 'Use this checkbox if you would like to use hard tabs instead of spaces.',
         'use_wrap' => 'Enable Word Wrap',
-        'use_wrap_comment' => 'Use this checkbox if you want your text to wrap instead of overflowing.',
         'theme' => 'Text Color Scheme',
     ],
 ];

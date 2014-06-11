@@ -9,7 +9,32 @@
 
     <?= Form::open(['class'=>'layout-item stretch layout-column']) ?>
 
-        <?= $this->formRender() ?>
+        <div class="row">
+            <div class="col-md-5" id="editorSettingsForm">
+                <div class="form-preview">
+                    <?= $this->formRender() ?>
+                </div>
+            </div>
+            <div class="col-md-7">
+
+                <div
+                    id="editorsettingsCodeeditor"
+                    class="field-codeeditor size-large layout-relative"
+                    data-control="codeeditor"
+                    data-language="css"
+                    data-show-gutter="<?= $showGutter ? 'true' : 'false' ?>"
+                    data-wrap-mode="<?= $wrapWords ? 'true' : 'false' ?>"
+                    data-theme="<?= $theme ?>"
+                    data-margin="<?= $margin ?>"
+                    data-font-size="<?= $fontSize ?>"
+                    data-tab-size="<?= $tabSize ?>"
+                    data-use-soft-tabs="<?= $useSoftTabs ?>"
+                    data-vendor-path="<?= URL::to('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>/">
+                    <textarea name="editorsettings_codeeditor"><?= e($this->makePartial('example_code')) ?></textarea>
+                </div>
+
+            </div>
+        </div>
 
         <div class="form-buttons layout-item fix">
             <div class="loading-indicator-container">

@@ -7285,9 +7285,6 @@ label {
   background: white;
   border: 1px solid #eee;
 }
-.form-preview .form-group {
-  padding-bottom: 10px;
-}
 .form-preview > .form-group:last-child {
   padding-bottom: 0;
 }
@@ -7392,9 +7389,12 @@ label {
 .form-group.layout-relative {
   padding-bottom: 0;
 }
+.form-group.checkbox-field {
+  padding-bottom: 0;
+}
 .form-group.checkbox-align {
   padding-left: 23px;
-  margin-top: -21px;
+  margin-top: -5px;
 }
 .form-group.no-padding.span-left,
 .form-group.no-padding.span-right {
@@ -7470,6 +7470,7 @@ label {
 .custom-checkbox,
 .custom-radio {
   padding-left: 23px;
+  margin-top: 0;
 }
 .custom-checkbox input[type=radio],
 .custom-radio input[type=radio],

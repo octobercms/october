@@ -32,10 +32,6 @@ label {
     background: white;
     border: 1px solid #eee;
 
-    .form-group {
-        padding-bottom: 10px;
-    }
-
     >.form-group:last-child {
         padding-bottom: 0;
     }
@@ -129,9 +125,13 @@ label {
         padding-bottom: 0;
     }
 
+    &.checkbox-field {
+        padding-bottom: 0;
+    }
+
     &.checkbox-align {
         padding-left: 23px;
-        margin-top: -21px;
+        margin-top: -5px;
     }
 
     &.no-padding {
@@ -202,12 +202,13 @@ label {
 .custom-checkbox,
 .custom-radio {
     padding-left: 23px;
+    margin-top: 0;
 
     input[type=radio],
     input[type=checkbox] {
         display: none;
     }
-    
+
     label {
         display: inline-block;
         cursor: pointer;

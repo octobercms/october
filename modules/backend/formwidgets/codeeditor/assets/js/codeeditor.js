@@ -112,7 +112,7 @@
                 options.vendorPath + '/theme-' + options.theme + '.js'
             ]
         }, function(){
-            editor.setTheme('ace/theme/'+options.theme)
+            editor.setTheme('ace/theme/' + options.theme)
             var inline = options.language === 'php'
             editor.getSession().setMode({path: 'ace/mode/'+options.language, inline: inline})
         })
@@ -136,7 +136,7 @@
         editor.on('blur', function(){ self.$el.removeClass('editor-focus') })
         editor.on('focus', function(){ self.$el.addClass('editor-focus') })
 
-        editor.renderer.setScrollMargin(options.margin, options.margin, 0, 0) 
+        editor.renderer.setScrollMargin(options.margin, options.margin, 0, 0)
         editor.renderer.setPadding(options.margin) 
 
         /*
@@ -152,9 +152,9 @@
 
                 $(this).attr('title', title)
             })
-            .tooltip({ 
-                delay: 500, 
-                placement: 'auto', 
+            .tooltip({
+                delay: 500,
+                placement: 'auto',
                 html: true 
             })
         ;
@@ -175,6 +175,17 @@
             bindKey: { win: 'Ctrl+Alt+F', mac: 'Ctrl+Alt+F' },
             exec: $.proxy(this.toggleFullscreen, this),
             readOnly: true
+        })
+    }
+
+    CodeEditor.prototype.setTheme = function(theme) {
+        var self = this
+        assetManager.load({
+            js:[
+                this.options.vendorPath + '/theme-' + theme + '.js'
+            ]
+        }, function(){
+            self.editor.setTheme('ace/theme/' + theme)
         })
     }
 

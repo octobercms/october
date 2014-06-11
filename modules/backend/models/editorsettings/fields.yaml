@@ -20,10 +20,8 @@ fields:
     label: backend::lang.editor.use_hard_tabs
     type: checkbox
     span: full
-    comment: backend::lang.editor.use_hard_tabs_comment
 
   use_wrap:
     label: backend::lang.editor.use_wrap
     type: checkbox
     span: full
-    comment: backend::lang.editor.use_wrap_comment
