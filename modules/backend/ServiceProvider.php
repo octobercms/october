@@ -73,7 +73,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'backend::lang.editor.menu_description',
                     'category'    => 'System',
                     'icon'        => 'icon-code',
-                    'class'       => 'Backend\Models\EditorSettings',
+                    'url'         => Backend::URL('backend/editorsettings'),
                     'sort'        => 200
                 ],
             ]);
