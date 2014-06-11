@@ -80,6 +80,8 @@ return array(
 
 	'key' => 'CHANGE_ME!!!',
 
+	'cipher' => MCRYPT_RIJNDAEL_256,
+
 	/*
 	|--------------------------------------------------------------------------
 	| Autoloaded Service Providers
@@ -124,7 +126,7 @@ return array(
 
 	'aliases' => array_merge(include(base_path().'/modules/system/aliases.php'), array(
 
-		// 'Str'             => 'Illuminate\Support\Str', // Example
+		// 'Str' => 'Illuminate\Support\Str', // Example
 
 	)),
 
