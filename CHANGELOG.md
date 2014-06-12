@@ -1,6 +1,8 @@
-* **Build x** (2014-06-10)
+* **Build 106** (2014-06-10)
+  - Upgrade to Laravel 4.2.
   - Form fields can now pass context via their name definnition using syntax `field@context`.
   - Added a code editor preferences page.
+  - Fixes a bug where morphToMany relations show all records in list rows.
 
 * **Build 101** (2014-06-06)
   - Added a global traceLog() helper for help with debugging.
