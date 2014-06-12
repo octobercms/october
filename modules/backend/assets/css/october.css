@@ -9066,7 +9066,6 @@ html.cssanimations .cursor-loading-indicator.hide {
   line-height: 150%;
   position: relative;
   list-style: none;
-  /* Temporary checkbox style */
 }
 .control-filelist ul li a:hover {
   background: #dddddd;
@@ -9231,7 +9230,7 @@ html.cssanimations .cursor-loading-indicator.hide {
 }
 .control-filelist ul li .checkbox {
   position: absolute;
-  top: 3px;
+  top: 13px;
   right: 17px;
 }
 .control-filelist ul li .checkbox label {
