@@ -141,8 +141,8 @@ return [
         'validation_message' => "Псевдонимы обязательны и могут содержать только латинские буквы, цифры и знаки подчеркивания. Псевдонимы должны начинаться с латинской буквы.",
         'invalid_request' => "Шаблон не может быть сохранен, так как запрос содержит поврежденную информацию о компоненентах.",
         'no_records' => 'Компоненты не найдены',
-        'not_found' => "The component ':name' is not found.",
-        'method_not_found' => "The component ':name' does not contain a method ':method'.",
+        'not_found' => "Компонент ':name' не найден.",
+        'method_not_found' => "Компонент ':name' не содержит метод ':method'.",
     ],
     'template' => [
         'invalid_type' => "Неизвестный тип шаблона.",

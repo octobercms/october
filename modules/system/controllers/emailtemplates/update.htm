@@ -31,7 +31,7 @@
                     data-hotkey-mac="cmd+s"
                     data-load-indicator="Saving Template..."
                     class="btn btn-primary">
-                    <u>S</u>ave
+                    <?= e(trans('backend::lang.form.save')) ?>
                 </button>
                 <button
                     type="button"
@@ -41,7 +41,7 @@
                     data-hotkey-mac="cmd+enter"
                     data-load-indicator="Saving Template..."
                     class="btn btn-default">
-                    Save and Close
+                    <?= e(trans('backend::lang.form.save_and_close')) ?>
                 </button>
                 <button
                     type="button"
@@ -49,7 +49,7 @@
                     data-load-indicator="Sending test message..."
                     data-request-confirm="A test message will be sent to <?= e(BackendAuth::getUser()->email) ?>. Continue?"
                     class="btn btn-info">
-                    Send test message
+                    <?= e(trans('system::lang.email_templates.test_send')) ?>
                 </button>
                 <button
                     type="button"
@@ -59,7 +59,7 @@
                     data-request-confirm="Do you really want to delete this template?">
                 </button>
                 <span class="btn-text">
-                    or <a href="<?= Backend::url('system/emailtemplates') ?>">Cancel</a>
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('system/emailtemplates') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
             </div>
         </div>
@@ -69,6 +69,6 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('system/emailtemplates') ?>" class="btn btn-default">Return to template list</a></p>
+    <p><a href="<?= Backend::url('system/emailtemplates') ?>" class="btn btn-default"><?= e(trans('system::lang.email_templates.return')) ?></a></p>
 
 <?php endif ?>
