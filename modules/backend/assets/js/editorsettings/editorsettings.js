@@ -16,27 +16,7 @@ $(document).ready(function(){
     })
 
     $('#Form-form-field-EditorSettings-word_wrap').on('change', function(){
-        switch ($(this).val()) {
-            case "off":
-                session.setUseWrapMode(false)
-                renderer.setPrintMarginColumn(80)
-            break
-            case "40":
-                session.setUseWrapMode(true)
-                session.setWrapLimitRange(40, 40)
-                renderer.setPrintMarginColumn(40)
-            break
-            case "80":
-                session.setUseWrapMode(true)
-                session.setWrapLimitRange(80, 80)
-                renderer.setPrintMarginColumn(80)
-            break
-            case "fluid":
-                session.setUseWrapMode(true)
-                session.setWrapLimitRange(null, null)
-                renderer.setPrintMarginColumn(80)
-            break
-        }
+        editorEl.codeEditor('setWordWrap', $(this).val())
     })
 
     $('#Form-form-field-EditorSettings-code_folding').on('change', function(){

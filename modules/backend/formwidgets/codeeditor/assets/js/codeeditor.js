@@ -36,22 +36,22 @@
     }
 
     CodeEditor.DEFAULTS = {
-        vendorPath: '/',
+        fontSize: 12,
+        wordWrap: 'off',
+        codeFolding: 'manual',
+        tabSize: 4,
+        theme: 'textmate',
         showInvisibles: true,
         highlightActiveLine: true,
+        useSoftTabs: true,
         showGutter: true,
+        language: 'php',
+        margin: 0,
+        vendorPath: '/',
         showPrintMargin: true,
         highlightSelectedWord: false,
         hScrollBarAlwaysVisible: false,
-        useSoftTabs: true,
-        tabSize: 4,
-        fontSize: 12,
-        wrapMode: false,
-        readOnly: false,
-        theme: 'textmate',
-        folding: 'manual',
-        language: 'php',
-        margin: 0
+        readOnly: false
     }
 
     CodeEditor.prototype.init = function (){
@@ -130,11 +130,11 @@
         editor.getSession().setUseSoftTabs(options.useSoftTabs)
         editor.getSession().setTabSize(options.tabSize)
         editor.setReadOnly(options.readOnly)
-        editor.getSession().setFoldStyle(options.folding)
-        editor.getSession().setUseWrapMode(options.wrapMode)
+        editor.getSession().setFoldStyle(options.codeFolding)
         editor.setFontSize(options.fontSize)
         editor.on('blur', function(){ self.$el.removeClass('editor-focus') })
         editor.on('focus', function(){ self.$el.addClass('editor-focus') })
+        this.setWordWrap(options.wordWrap)
 
         editor.renderer.setScrollMargin(options.margin, options.margin, 0, 0)
         editor.renderer.setPadding(options.margin) 
@@ -176,6 +176,34 @@
             exec: $.proxy(this.toggleFullscreen, this),
             readOnly: true
         })
+    }
+
+    CodeEditor.prototype.setWordWrap = function(mode) {
+        var session = this.editor.getSession(),
+            renderer = this.editor.renderer
+
+        switch (mode + '') {
+            default:
+            case "off":
+                session.setUseWrapMode(false)
+                renderer.setPrintMarginColumn(80)
+            break
+            case "40":
+                session.setUseWrapMode(true)
+                session.setWrapLimitRange(40, 40)
+                renderer.setPrintMarginColumn(40)
+            break
+            case "80":
+                session.setUseWrapMode(true)
+                session.setWrapLimitRange(80, 80)
+                renderer.setPrintMarginColumn(80)
+            break
+            case "fluid":
+                session.setUseWrapMode(true)
+                session.setWrapLimitRange(null, null)
+                renderer.setPrintMarginColumn(80)
+            break
+        }
     }
 
     CodeEditor.prototype.setTheme = function(theme) {

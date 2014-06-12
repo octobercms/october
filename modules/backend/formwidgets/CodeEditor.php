@@ -30,7 +30,7 @@ class CodeEditor extends FormWidgetBase
     /**
      * @var boolean Indicates whether the the word wrapping is enabled
      */
-    public $wrapWords = true;
+    public $wordWrap = true;
 
     /**
      * @var boolean Indicates whether the the editor uses spaces for indentation
@@ -65,13 +65,16 @@ class CodeEditor extends FormWidgetBase
         // Load the editor system settings
         $editorSettings = EditorSettings::instance();
 
-        $this->language = $this->getConfig('language', 'php');
-        $this->showGutter = $this->getConfig('showGutter', true);
-        $this->theme = $this->getConfig('theme', $editorSettings->theme);
-        $this->wrapWords = $this->getConfig('wrapWords', $editorSettings->use_wrap);
         $this->fontSize = $this->getConfig('fontSize', $editorSettings->font_size);
+        $this->wordWrap = $this->getConfig('wordWrap', $editorSettings->word_wrap);
+        $this->codeFolding = $this->getConfig('codeFolding', $editorSettings->code_folding);
         $this->tabSize = $this->getConfig('tabSize', $editorSettings->tab_size);
+        $this->theme = $this->getConfig('theme', $editorSettings->theme);
+        $this->showInvisibles = $this->getConfig('showInvisibles', $editorSettings->show_invisibles);
+        $this->highlightActiveLine = $this->getConfig('highlightActiveLine', $editorSettings->highlight_active_line);
         $this->useSoftTabs = $this->getConfig('useSoftTabs', !$editorSettings->use_hard_tabs);
+        $this->showGutter = $this->getConfig('showGutter', $editorSettings->show_gutter);
+        $this->language = $this->getConfig('language', 'php');
         $this->margin = $this->getConfig('margin', 0);
     }
 
@@ -89,18 +92,21 @@ class CodeEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['fontSize'] = $this->fontSize;
+        $this->vars['wordWrap'] = $this->wordWrap;
+        $this->vars['codeFolding'] = $this->codeFolding;
+        $this->vars['tabSize'] = $this->tabSize;
+        $this->vars['theme'] = $this->theme;
+        $this->vars['showInvisibles'] = $this->showInvisibles;
+        $this->vars['highlightActiveLine'] = $this->highlightActiveLine;
+        $this->vars['useSoftTabs'] = $this->useSoftTabs;
+        $this->vars['showGutter'] = $this->showGutter;
+        $this->vars['language'] = $this->language;
+        $this->vars['margin'] = $this->margin;
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
-        $this->vars['language'] = $this->language;
-        $this->vars['showGutter'] = $this->showGutter;
-        $this->vars['wrapWords'] = $this->wrapWords;
-        $this->vars['fontSize'] = $this->fontSize;
-        $this->vars['tabSize'] = $this->tabSize;
-        $this->vars['useSoftTabs'] = $this->useSoftTabs;
-        $this->vars['theme'] = $this->theme;
         $this->vars['name'] = $this->formField->getName();
         $this->vars['value'] = $this->model->{$this->columnName};
-        $this->vars['margin'] = $this->margin;
     }
 
     /**

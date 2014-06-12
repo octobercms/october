@@ -5,14 +5,17 @@
         id="<?= $this->getId() ?>"
         class="field-codeeditor size-<?= $size ?> <?= $stretch?'layout-relative':'' ?>"
         data-control="codeeditor"
-        data-language="<?= $language ?>"
-        data-show-gutter="<?= $showGutter ? 'true' : 'false' ?>"
-        data-wrap-mode="<?= $wrapWords ? 'true' : 'false' ?>"
-        data-theme="<?= $theme ?>"
-        data-margin="<?= $margin ?>"
         data-font-size="<?= $fontSize ?>"
+        data-word-wrap="<?= $wordWrap ?>"
+        data-code-folding="<?= $codeFolding ?>"
         data-tab-size="<?= $tabSize ?>"
+        data-theme="<?= $theme ?>"
+        data-show-invisibles="<?= $showInvisibles ?>"
+        data-highlight-active-line="<?= $highlightActiveLine ?>"
         data-use-soft-tabs="<?= $useSoftTabs ?>"
+        data-show-gutter="<?= $showGutter ? 'true' : 'false' ?>"
+        data-language="<?= $language ?>"
+        data-margin="<?= $margin ?>"
         data-vendor-path="<?= URL::to('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>/">
         <div class="editor-toolbar">
             <ul>

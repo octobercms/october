@@ -41,16 +41,25 @@ class EditorSettings extends Controller
         // Load the editor system settings
         $editorSettings = EditorSettingsModel::instance();
 
-        $this->vars['showGutter'] = true;
-        $this->vars['theme'] = $editorSettings->theme;
-        $this->vars['wrapWords'] = $editorSettings->word_wrap !== 'off';
         $this->vars['fontSize'] = $editorSettings->font_size;
+        $this->vars['wordWrap'] = $editorSettings->word_wrap;
+        $this->vars['codeFolding'] = $editorSettings->code_folding;
         $this->vars['tabSize'] = $editorSettings->tab_size;
+        $this->vars['theme'] = $editorSettings->theme;
+        $this->vars['showInvisibles'] = $editorSettings->show_invisibles;
+        $this->vars['highlightActiveLine'] = $this->highlight_active_line;
         $this->vars['useSoftTabs'] = !$editorSettings->use_hard_tabs;
+        $this->vars['showGutter'] = true;
+        $this->vars['language'] = 'css';
         $this->vars['margin'] = 0;
 
         $this->getClassExtension('Backend.Behaviors.FormController')->update();
         $this->pageTitle = Lang::get('backend::lang.editor.menu_label');
+    }
+
+    public function index_onSave()
+    {
+        return $this->getClassExtension('Backend.Behaviors.FormController')->update_onSave();
     }
 
     public function formFindModelObject()
