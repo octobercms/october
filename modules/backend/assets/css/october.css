@@ -7752,7 +7752,7 @@ label {
   min-height: 36px;
   border: none;
   border-bottom: 1px solid #b2b9be;
-  background: transparent url('../images/bitmap-icons.png') no-repeat 100% -84px;
+  background: transparent url('../images/bitmap-icons.png') no-repeat 100% -84px !important;
 }
 .select2-drop .select2-results {
   padding: 0;
