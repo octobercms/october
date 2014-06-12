@@ -7677,7 +7677,7 @@ label {
   border-left: none;
 }
 .custom-select.select2-container .select2-choice .select2-arrow b {
-  background: none;
+  background: none !important;
   text-align: center;
   color: #666666;
 }
