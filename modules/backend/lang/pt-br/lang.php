@@ -7,7 +7,7 @@ return [
     ],
     'widget' => [
         'not_registered' => "Uma classe de widget com o nome ':name' não foi definida",
-        'not_bound' => "Um widget cuja classe se chama ':name' não foi amarrado ao controlador",
+        'not_bound' => "Um widget cuja classe se chama ':name' não foi indexado ao controlador",
     ],
     'page' => [
         'untitled' => "Sem Título",
@@ -44,13 +44,13 @@ return [
     'user' => [
         'name' => 'Administrador',
         'menu_label' => 'Administratores',
-        'new' => 'Novo Administrador',
-        'list_title' => 'Gerenciar Administradores',
+        'new' => 'Novo administrador',
+        'list_title' => 'Gerenciar administradores',
         'login' => "Usuário",
         'first_name' => "Nome",
         'last_name' => "Sobrenome",
         'full_name' => "Nome Completo",
-        'email' => "Email",
+        'email' => "E-mail",
         'groups' => "Grupos",
         'groups_comment' => "Defina a quais grupos essa pessoa pertence.",
         'avatar' => "Avatar",
@@ -61,15 +61,15 @@ return [
         'send_invite' => 'Enviar convite por email',
         'send_invite_comment' => 'Marque esta caixa para enviar um convite por email',
         'delete_confirm' => 'Você realmente quer apagar este administrador?',
-        'return' => 'Retornar à lista de administrador',
+        'return' => 'Retornar à lista de administradores',
         'group' => [
             'name' => 'Grupo',
             'name_field' => 'Nome',
             'menu_label' => 'Grupos',
-            'list_title' => 'Gerenciar Grupos',
-            'new' => 'Novo grupo Administrador',
-            'delete_confirm' => 'Você realmente deseja excluir este grupo de administrador?',
-            'return' => 'Voltar para a lista de grupos',
+            'list_title' => 'Gerenciar grupos',
+            'new' => 'Novo grupo administrador',
+            'delete_confirm' => 'Você realmente deseja excluir este grupo de administradores?',
+            'return' => 'Voltar para a lista de grupos de administradores',
         ],
         'preferences' => [
             'not_authenticated' => 'Nenhum usuário autenticado pra carregar as preferências.'
@@ -83,7 +83,7 @@ return [
         'missing_column' => 'Não existe definição de coluna para :columns.',
         'missing_columns' => 'Lista utilizada em :class não possui colunas de lista definidas.',
         'missing_definition' => "Lista não possui uma coluna para o campo ':field'.",
-        'behavior_not_ready' => 'Lista não foi inicializado. Confira se você chamou makeLists() no seu controlador.',
+        'behavior_not_ready' => 'Lista não foi inicializada. Confira se você chamou makeLists() no seu controlador.',
     ],
     'form' => [
         'create_title' => "Novo :name",
@@ -92,10 +92,10 @@ return [
         'create_success' => ':name foi criado com sucesso',
         'update_success' => ':name foi atualizado com sucesso',
         'delete_success' => ':name foi apagado com sucesso',
-        'missing_id' => "ID do registro não especificada",
+        'missing_id' => "ID do registro não especificado",
         'missing_model' => 'Formulário utilizado na classe :class não tem um modelo definido.',
-        'missing_definition' => "Formulário não contem um campo ':field'.",
-        'not_found' => 'Nenhum registro encontrado com a ID :id',
+        'missing_definition' => "Formulário não contém um campo ':field'.",
+        'not_found' => 'Nenhum registro encontrado com o ID :id',
         'create' => 'Criar',
         'create_and_close' => 'Criar e sair',
         'creating' => 'Criando...',
@@ -112,7 +112,7 @@ return [
         'close' => 'Fechar',
         'ok' => 'OK',
         'or' => 'ou',
-        'confirm_tab_close' => 'Você quer fechar essa aba? As alterações que não foram salvas serão perdidas',
+        'confirm_tab_close' => 'Tem certeza que deseja fechar essa aba? As alterações que não foram salvas serão perdidas',
         'behavior_not_ready' => 'O formulário não foi inicializado. Confira se você chamou initForm() no seu controlador.',
         'preview_no_files_message' => 'Os arquivos não foram carregados'
     ],
@@ -135,14 +135,14 @@ return [
     'model' => [
         'name' => "Modelo",
         'not_found' => "Modelo ':class' com ID :id não foi encontrado",
-        'missing_id' => "ID do registro não especificada.",
+        'missing_id' => "ID do registro não especificado.",
         'missing_relation' => "Modelo ':class' não contém uma definição para o relacionamento ':relation'.",
-        'invalid_class' => "Modelo :model utilizado na class :class não é válido. É necessário herdar a classe \Model.",
+        'invalid_class' => "Modelo :model utilizado na classe :class não é válido. É necessário herdar a classe \Model.",
     ],
     'warnings' => [
         'tips' => 'Dicas de configuração do sistema',
         'tips_description' => 'Há questões que você precisa prestar atenção, a fim de configurar o sistema corretamente.',
-        'permissions'  => 'Diretório :name ou em seus subdiretórios não é gravável para PHP. Por favor, definir permissões para o servidor neste diretório correspondente.',
-        'extension' => 'A extenção PHP :name não está instalado. Por favor, instale esta biblioteca e ativar a extensão.'
+        'permissions'  => 'Diretório :name ou em seus subdiretórios não é gravável para o PHP. Por favor, defina permissões para o servidor neste diretório correspondente.',
+        'extension' => 'A extenção PHP :name não está instalada. Por favor, instale esta biblioteca para ativar a extensão.'
     ],
 ];
