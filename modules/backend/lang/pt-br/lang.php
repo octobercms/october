@@ -145,4 +145,17 @@ return [
         'permissions'  => 'Diretório :name ou em seus subdiretórios não é gravável para o PHP. Por favor, defina permissões para o servidor neste diretório correspondente.',
         'extension' => 'A extenção PHP :name não está instalada. Por favor, instale esta biblioteca para ativar a extensão.'
     ],
+    'editor' => [
+        'menu_label' => 'Definições do Editor',
+        'menu_description' => 'Gerenciar configurações do editor.',
+        'font_size' => 'Tamanho da fonte',
+        'tab_size' => 'Tamanho do espaçamento',
+        'use_hard_tabs' => 'Recuo usando guias',
+        'code_folding' => 'Código flexível',
+        'word_wrap' => 'Quebra de linha',
+        'highlight_active_line' => 'Destaque na linha ativa',
+        'show_invisibles' => 'Mostrar caracteres invisíveis',
+        'show_gutter' => 'Mostrar numeração de linhas',
+        'theme' => 'Esquema de cores',
+    ],
 ];
