@@ -108,7 +108,7 @@ class Relation extends FormWidgetBase
             $query->where($relatedObj->getKeyName(), '<>', $this->model->id);
          }
 
-         if ($relatedObj->isClassExtendedWith('October.Rain.Database.Behaviors.NestedSetModel'))
+         if (in_array('October\Rain\Database\Traits\NestedTree', class_uses($relatedObj)))
             $field->options = $query->listsNested($this->nameColumn, $relatedObj->getKeyName());
          else
             $field->options = $query->lists($this->nameColumn, $relatedObj->getKeyName());
