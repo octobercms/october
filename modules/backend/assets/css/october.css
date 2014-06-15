@@ -7690,7 +7690,7 @@ label {
   border-left: none;
 }
 .custom-select.select2-container .select2-choice .select2-arrow b {
-  background: none;
+  background: none !important;
   text-align: center;
   color: #666666;
 }
@@ -7765,7 +7765,7 @@ label {
   min-height: 36px;
   border: none;
   border-bottom: 1px solid #b2b9be;
-  background: transparent url('../images/bitmap-icons.png') no-repeat 100% -84px;
+  background: transparent url('../images/bitmap-icons.png') no-repeat 100% -84px !important;
 }
 .select2-drop .select2-results {
   padding: 0;
