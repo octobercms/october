@@ -7690,7 +7690,7 @@ label {
   border-left: none;
 }
 .custom-select.select2-container .select2-choice .select2-arrow b {
-  background: none !important;
+  background: none;
   text-align: center;
   color: #666666;
 }
@@ -7765,7 +7765,7 @@ label {
   min-height: 36px;
   border: none;
   border-bottom: 1px solid #b2b9be;
-  background: transparent url('../images/bitmap-icons.png') no-repeat 100% -84px !important;
+  background: transparent url('../images/bitmap-icons.png') no-repeat 100% -84px;
 }
 .select2-drop .select2-results {
   padding: 0;
@@ -7783,10 +7783,13 @@ label {
   padding: 5px 7px 5px;
 }
 .list-preview {
-  padding: 20px 0 0;
+  padding: 0;
   margin-bottom: 20px;
   background: white;
   border: 1px solid #e2e2e2;
+}
+.list-preview > .list-header:first-child {
+  padding-top: 20px;
 }
 .list-preview .control-list:last-child > table {
   margin-bottom: 0;
@@ -8363,7 +8366,8 @@ table.table.data tr.list-tree-level-25 td.list-data-column-1 {
   padding-left: 15px;
 }
 .control-simplelist.with-icons ul,
-.control-simplelist.with-checkboxes ul {
+.control-simplelist.with-checkboxes ul,
+.control-simplelist.is-selectable ul {
   list-style-type: none;
   padding-left: 0;
 }
@@ -8391,6 +8395,49 @@ table.table.data tr.list-tree-level-25 td.list-data-column-1 {
 }
 .control-simplelist.is-scrollable {
   height: 200px;
+}
+.control-simplelist.is-scrollable.size-tiny {
+  min-height: 250px;
+}
+.control-simplelist.is-scrollable.size-small {
+  min-height: 300px;
+}
+.control-simplelist.is-scrollable.size-large {
+  min-height: 400px;
+}
+.control-simplelist.is-scrollable.size-huge {
+  min-height: 450px;
+}
+.control-simplelist.is-scrollable.size-giant {
+  min-height: 550px;
+}
+.control-simplelist.is-selectable li {
+  padding: 5px 10px;
+  border-bottom: 1px solid #e2e2e2;
+}
+.control-simplelist.is-selectable li .heading {
+  font-size: 14px;
+  font-weight: bold;
+}
+.control-simplelist.is-selectable li a {
+  color: #333333;
+}
+.control-simplelist.is-selectable li:hover {
+  background: #4da7e8;
+  cursor: pointer;
+}
+.control-simplelist.is-selectable li:hover,
+.control-simplelist.is-selectable li:hover a {
+  color: white;
+}
+.control-simplelist.is-selectable li:hover a {
+  text-decoration: none;
+}
+.control-simplelist.is-selectable li:last-child {
+  border-bottom: none;
+}
+.list-preview .control-simplelist.is-selectable ul {
+  margin-bottom: 0;
 }
 .control-filter {
   padding: 0 10px;

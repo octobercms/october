@@ -57,10 +57,14 @@
 //
 
 .list-preview {
-    padding: 20px 0 0;
+    padding: 0;
     margin-bottom: 20px;
     background: white;
     border: 1px solid @color-list-border;
+
+    > .list-header:first-child {
+        padding-top: 20px;
+    }
 
     .control-list:last-child > table {
         margin-bottom: 0;
