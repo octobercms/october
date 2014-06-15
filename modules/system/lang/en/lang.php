@@ -95,6 +95,9 @@ return [
         'content_html' => 'HTML',
         'content_css' => 'CSS',
         'content_text' => 'Plaintext',
+        'test_send' => 'Send test message',
+        'test_success' => 'The test message has been successfully sent.',
+        'return' => 'Return to template list'
     ],
     'install' => [
         'project_label' => 'Attach to Project',
