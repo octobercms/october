@@ -148,7 +148,7 @@ class NavigationManager
      * - permissions - an array of permissions the back-end user should have, optional.
      * - counter - an optional numeric value to output near the menu icon. The value should be
      *   a number or a callable returning a number.
-     * @param string $owner Specifies the menu items owner plugin or module in the format Vendor/Module.
+     * @param string $owner Specifies the menu items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the menu item definitions.
      */
     public function registerMenuItems($owner, array $definitions)

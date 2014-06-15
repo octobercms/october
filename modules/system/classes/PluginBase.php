@@ -78,13 +78,14 @@ abstract class PluginBase extends ServiceProviderBase
     /**
      * Registers any report widgets provided by this plugin.
      * The widgets must be returned in the following format:
-     * ['className1'=>[
-     *          'name'=>'My widget 1',
-     *          'context'=>['context-1', 'context-2'],
+     * [
+     *  'className1'=>[
+     *          'name'    => 'My widget 1',
+     *          'context' => ['context-1', 'context-2'],
      *      ], 
-     *  'className2'=>[
-     *          'name'=>'My widget 2',
-     *          'context'=>'context-1'
+     *  'className2' => [
+     *          'name'    => 'My widget 2',
+     *          'context' => 'context-1'
      *      ]
      * ]
      */

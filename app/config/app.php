@@ -80,7 +80,7 @@ return array(
 
 	'key' => 'CHANGE_ME!!!',
 
-	'cipher' => MCRYPT_RIJNDAEL_256,
+	'cipher' => MCRYPT_RIJNDAEL_128,
 
 	/*
 	|--------------------------------------------------------------------------
