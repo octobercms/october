@@ -53,9 +53,14 @@
                 var offset = $item.offset(),
                     pointer = container.rootGroup.pointer
 
-                cursorAdjustment = {
-                    left: pointer.left - offset.left,
-                    top: pointer.top - offset.top
+                if (pointer) {
+                    cursorAdjustment = {
+                        left: pointer.left - offset.left,
+                        top: pointer.top - offset.top
+                    }
+                }
+                else {
+                    cursorAdjustment = null
                 }
 
                 $item.css({
@@ -68,13 +73,17 @@
             // Executed at the beginning of a mouse move event.
             // The Placeholder has not been moved yet.
             onDrag: function ($item, position, _super, event) {
-                // Relative cursors position
-                $item.css({
-                  left: position.left - cursorAdjustment.left,
-                  top: position.top - cursorAdjustment.top
-                })
-                // Default behavior
-                // $item.css(position)
+                if (cursorAdjustment) {
+                    // Relative cursors position
+                    $item.css({
+                      left: position.left - cursorAdjustment.left,
+                      top: position.top - cursorAdjustment.top
+                    })
+                }
+                else {
+                    // Default behavior
+                    $item.css(position)
+                }
             },
             // Called when the mouse button is beeing released
             onDrop: function ($item, container, _super, event) {

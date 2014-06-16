@@ -82,7 +82,7 @@
             event.stopPropagation()
         })
 
-        $(window).on('resize', $.proxy(this.update, this))
+        $(window).on('resize, oc.updateUi', $.proxy(this.update, this))
 
          /*
           * Internal event, drag has started
