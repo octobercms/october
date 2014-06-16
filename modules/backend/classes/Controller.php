@@ -154,8 +154,7 @@ class Controller extends Extendable
 
             // Check his access groups against the page definition
             if ($this->requiredPermissions && !$this->user->hasAnyAccess($this->requiredPermissions))
-                if ($this->action != 'mysettings')
-                    return Response::make('Access Forbidden', '403');
+                return Response::make('Access Forbidden', '403');
         }
 
         /*
