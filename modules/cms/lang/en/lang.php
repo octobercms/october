@@ -27,6 +27,11 @@ return [
             'label' => "Page not found",
             'help' => "The requested page cannot be found.",
         ],
+        'access_denied' => [
+            'label' => "Access denied",
+            'help' => "You don't have the required permissions to view this page.",
+            'cms_link' => "Go to CMS backend",
+        ],
         'custom_error' => [
             'label' => "Page error",
             'help' => "We're sorry, but something went wrong and the page cannot be displayed.",
