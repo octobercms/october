@@ -110,8 +110,10 @@ class FormController extends ControllerBehavior
         try {
             $this->context = strlen($context) ? $context : $this->getConfig('create[context]', 'create');
             $this->controller->pageTitle = $this->controller->pageTitle ?: $this->getLang('create[title]', 'backend::lang.form.create_title');
-            $model = $this->createModel();
+            $model = $this->controller->formCreateModelObject();
             $this->initForm($model);
+
+            $this->controller->vars['formModel'] = $model;
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -124,7 +126,7 @@ class FormController extends ControllerBehavior
      */
     public function create_onSave()
     {
-        $model = $this->createModel();
+        $model = $this->controller->formCreateModelObject();
         $this->initForm($model);
 
         $this->controller->formBeforeSave($model);
@@ -452,8 +454,9 @@ class FormController extends ControllerBehavior
      */
     public function formAfterDelete($model) {}
 
+
     /**
-     * Finds a Model record based on it's primary identifier. This logic
+     * Finds a Model record by its primary identifier, used by update actions. This logic
      * can be changed by overriding it in the controller.
      * @param string $recordId
      * @return Model
@@ -483,6 +486,16 @@ class FormController extends ControllerBehavior
     }
 
     /**
+     * Creates a new instance of a form model, used by create actions. This logic
+     * can be changed by overriding it in the controller.
+     * @return Model
+     */
+    public function formCreateModelObject()
+    {
+        return $this->createModel();
+    }
+
+    /**
      * Called before the form fields are defined.
      * @param Backend\Widgets\Form $host The hosting form widget
      * @return void
@@ -497,8 +510,8 @@ class FormController extends ControllerBehavior
     public function formExtendFields($host) {}
 
     /**
-     * Extend supplied model, the model can be altered by overriding
-     * it in the controller.
+     * Extend supplied model used by create and update actions, the model can
+     * be altered by overriding it in the controller.
      * @param Model $model
      * @return Model
      */
