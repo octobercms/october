@@ -89,6 +89,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'cms.manage_assets'    => ['label' => 'Manage assets', 'tab' => 'Cms'],
                 'cms.manage_pages'     => ['label' => 'Manage pages', 'tab' => 'Cms'],
                 'cms.manage_layouts'   => ['label' => 'Manage layouts', 'tab' => 'Cms'],
+                'cms.manage_partials'  => ['label' => 'Manage partials', 'tab' => 'Cms'],
             ]);
         });
 
