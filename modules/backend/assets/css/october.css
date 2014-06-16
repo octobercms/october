@@ -7433,6 +7433,19 @@ label {
 .field-textarea.size-giant {
   min-height: 350px;
 }
+.field-checkboxlist-scrollable {
+  background: white;
+  border: 1px solid #e2e2e2;
+  padding-left: 15px;
+  height: 300px;
+}
+.field-checkboxlist-scrollable .checkbox {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.field-checkboxlist-scrollable .checkbox ~ .checkbox {
+  margin-top: 0;
+}
 .form-buttons {
   padding-bottom: 20px;
   font-size: 0;

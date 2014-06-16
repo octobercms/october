@@ -114,7 +114,10 @@ return [
         'or' => 'or',
         'confirm_tab_close' => 'Do you really want to close the tab? Unsaved changes will be lost.',
         'behavior_not_ready' => 'Form behavior has not been initialized, check that you have called initForm() in your controller.',
-        'preview_no_files_message' => 'Files are not uploaded'
+        'preview_no_files_message' => 'Files are not uploaded',
+        'select' => 'Select',
+        'select_all' => 'all',
+        'select_none' => 'none',
     ],
     'relation' => [
         'missing_definition' => "Relation behavior does not contain a definition for ':field'.",

@@ -151,7 +151,7 @@ label {
 
     .custom-checkbox,
     .custom-radio {
-        label {cursor: default;}
+        label { cursor: default; }
     }
 }
 
@@ -169,6 +169,22 @@ label {
     &.size-large { min-height: @size-large; }
     &.size-huge { min-height: @size-huge; }
     &.size-giant { min-height: @size-giant; }
+}
+
+.field-checkboxlist-scrollable {
+    background: white;
+    border: 1px solid @color-list-border;
+    padding-left: 15px;
+    height: @size-large + 100;
+
+    // First checkbox
+    .checkbox {
+        margin-top: 15px;
+        margin-bottom: 5px;
+    }
+
+    // All others
+    .checkbox ~ .checkbox { margin-top: 0; }
 }
 
 .form-buttons {
