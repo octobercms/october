@@ -27,6 +27,11 @@ return [
             'label' => "Sidan kunde ej hittas",
             'help' => "Den begärda sidan kunde ej hittas",
         ],
+        'access_denied' => [
+            'label' => "Nekat tillträde",
+            'help' => "Du har inte behörighet att visa den här sidan.",
+            'cms_link' => "Gå till CMS backend",
+        ],
         'custom_error' => [
             'label' => "Sidfel",
             'help' => "Tyvärr kan inte sidan visas",

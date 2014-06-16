@@ -27,6 +27,11 @@ return [
             'label' => "Pagina niet gevonden",
             'help' => "De opgevraagde pagina bestaat niet.",
         ],
+        'access_denied' => [
+            'label' => "Toegang geweigerd",
+            'help' => "Je hebt niet de benodigde rechten om deze pagina te bekijken.",
+            'cms_link' => "Ga naar CMS backend",
+        ],
         'custom_error' => [
             'label' => "Paginafout",
             'help' => "Onze excuses, er is iets mis gegaan. De opgevraagde pagina kan niet worden getoond.",
