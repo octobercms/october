@@ -1,3 +1,9 @@
+* **Build 108** (2014-06-16)
+  - Checkbox List form fields now use scrollbars for 10+ checkboxes.
+  - Added new form behavior override: formCreateModelObject.
+  - Fixes a bug where models using NestedTree trait would not save.
+  - Opening back-end My Settings page now has no permission check.
+
 * **Build 106** (2014-06-10)
   - Upgrade to Laravel 4.2.
   - Form fields can now pass context via their name definnition using syntax `field@context`.
