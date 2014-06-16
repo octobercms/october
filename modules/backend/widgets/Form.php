@@ -612,22 +612,32 @@ class Form extends WidgetBase
      */
     private function getOptionsFromModel($field, $fieldOptions)
     {
+        /*
+         * Advanced usage, supplied options are callable
+         */
         if (is_array($fieldOptions) && is_callable($fieldOptions)) {
             $fieldOptions = call_user_func($fieldOptions, $this, $field);
         }
 
+        /*
+         * Refer to the model method or any of its behaviors
+         */
         if (!is_array($fieldOptions) && !$fieldOptions) {
             $methodName = 'get'.studly_case($field->columnName).'Options';
-            if (!method_exists($this->model, $methodName) && !method_exists($this->model, 'getDropdownOptions'))
+            if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getDropdownOptions'))
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$methodName, 'field'=>$field->columnName]));
 
-            if (method_exists($this->model, $methodName))
+            if ($this->model->methodExists($methodName))
                 $fieldOptions = $this->model->$methodName($field->value);
             else
                 $fieldOptions = $this->model->getDropdownOptions($field->columnName, $field->value);
         }
+
+        /*
+         * Field options are an explicit method reference
+         */
         elseif (is_string($fieldOptions)) {
-            if (!method_exists($this->model, $fieldOptions))
+            if (!$this->model->methodExists($fieldOptions))
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$fieldOptions, 'field'=>$field->columnName]));
 
             $fieldOptions = $this->model->$fieldOptions($field->value, $field->columnName);
