@@ -87,6 +87,7 @@ class Controller extends BaseController
     {
         $this->theme = $theme ? $theme : Theme::getActiveTheme();
         $this->assetPath = Config::get('cms.themesDir').'/'.$this->theme->getDirName();
+        $this->router = new Router($this->theme);
     }
 
     /**
@@ -104,8 +105,6 @@ class Controller extends BaseController
 
         if (!strlen($url))
             $url = '/';
-
-        $this->router = new Router($this->theme);
 
         $page = $this->router->findByUrl($url);
 
