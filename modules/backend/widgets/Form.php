@@ -624,10 +624,10 @@ class Form extends WidgetBase
          */
         if (!is_array($fieldOptions) && !$fieldOptions) {
             $methodName = 'get'.studly_case($field->columnName).'Options';
-            if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getDropdownOptions'))
+            if (!$this->methodExists($this->model, $methodName) && !$this->methodExists($this->model, 'getDropdownOptions'))
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$methodName, 'field'=>$field->columnName]));
 
-            if ($this->model->methodExists($methodName))
+            if ($this->methodExists($this->model, $methodName))
                 $fieldOptions = $this->model->$methodName($field->value);
             else
                 $fieldOptions = $this->model->getDropdownOptions($field->columnName, $field->value);
@@ -637,7 +637,7 @@ class Form extends WidgetBase
          * Field options are an explicit method reference
          */
         elseif (is_string($fieldOptions)) {
-            if (!$this->model->methodExists($fieldOptions))
+            if (!$this->methodExists($this->model, $fieldOptions))
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$fieldOptions, 'field'=>$field->columnName]));
 
             $fieldOptions = $this->model->$fieldOptions($field->value, $field->columnName);
@@ -666,6 +666,20 @@ class Form extends WidgetBase
     public function getContext()
     {
         return $this->activeContext;
+    }
+
+    /**
+     * Internal helper for method existence checks
+     * @param  object $object
+     * @param  string $method
+     * @return boolean
+     */
+    private function methodExists($object, $method)
+    {
+        if (method_exists($object, 'methodExists'))
+            return $object->methodExists($method);
+
+        return method_exists($object, $method);
     }
 
 }
