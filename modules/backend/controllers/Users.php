@@ -31,6 +31,9 @@ class Users extends Controller
     {
         parent::__construct();
 
+        if ($this->action == 'mysettings')
+            $this->requiredPermissions = null;
+
         BackendMenu::setContext('October.System', 'system', 'users');
     }
 
