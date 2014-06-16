@@ -299,6 +299,7 @@ class PluginManager
         $dirPath = $this->getPath();
         $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirPath));
         $it->setMaxDepth(2);
+        $it->rewind();
 
         while($it->valid()) {
             if (($it->getDepth() > 1) && $it->isFile() && (strtolower($it->getFilename()) == "plugin.php")) {
