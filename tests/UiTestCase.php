@@ -32,11 +32,11 @@ class UiTestCase extends PHPUnit_Extensions_SeleniumTestCase
         $this->waitForPageToLoad("30000");
     }
 
-    protected function waitForElementPresent($target, $timeout = 120)
+    protected function waitForElementPresent($target, $timeout = 60)
     {
         for ($second = 0; ; $second++) {
             if ($second >= $timeout)
-                $this->fail("timeout");
+                $this->fail('timeout');
 
             try {
                 if ($this->isElementPresent($target)) break;
@@ -46,5 +46,21 @@ class UiTestCase extends PHPUnit_Extensions_SeleniumTestCase
             sleep(1);
         }
     }
+
+    protected function waitForElementNotPresent($target, $timeout = 60)
+    {
+        for ($second = 0; ; $second++) {
+            if ($second >= $timeout)
+                $this->fail('timeout');
+
+            try {
+                if (!$this->isElementPresent($target)) break;
+            }
+            catch (Exception $e) {}
+
+            sleep(1);
+        }
+    }
+
 
 }
