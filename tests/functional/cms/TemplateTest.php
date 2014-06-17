@@ -27,10 +27,10 @@ class TemplateTest extends UiTestCase
 
         // Save the new page
         $this->click("xpath=(//a[@data-request='onSave'])[1]");
-        $this->waitForElementPresent("xpath=(//li[@data-tab-id='page-website-xxx_functional_test_page.htm'])[1]");
+        $this->waitForElementPresent("xpath=(//li[@data-tab-id='page-".TEST_SELENIUM_THEME."-xxx_functional_test_page.htm'])[1]");
 
         // Close the tab
-        $this->click("xpath=(//li[@data-tab-id='page-website-xxx_functional_test_page.htm']/span[@class='tab-close'])[1]");
+        $this->click("xpath=(//li[@data-tab-id='page-".TEST_SELENIUM_THEME."-xxx_functional_test_page.htm']/span[@class='tab-close'])[1]");
 
         // Reopen the tab
         $this->waitForElementPresent("xpath=(//div[@id='TemplateList-pageList-template-list']//li[@data-item-path='xxx_functional_test_page.htm']/a)[1]");
@@ -60,10 +60,10 @@ class TemplateTest extends UiTestCase
 
         // Save the new partial
         $this->click("xpath=(//a[@data-request='onSave'])[1]");
-        $this->waitForElementPresent("xpath=(//li[@data-tab-id='partial-website-xxx_functional_test_partial.htm'])[1]");
+        $this->waitForElementPresent("xpath=(//li[@data-tab-id='partial-".TEST_SELENIUM_THEME."-xxx_functional_test_partial.htm'])[1]");
 
         // Close the tab
-        $this->click("xpath=(//li[@data-tab-id='partial-website-xxx_functional_test_partial.htm']/span[@class='tab-close'])[1]");
+        $this->click("xpath=(//li[@data-tab-id='partial-".TEST_SELENIUM_THEME."-xxx_functional_test_partial.htm']/span[@class='tab-close'])[1]");
 
         // Reopen the tab
         $this->waitForElementPresent("xpath=(//div[@id='TemplateList-partialList-template-list']//li[@data-item-path='xxx_functional_test_partial.htm']/a)[1]");
@@ -93,10 +93,10 @@ class TemplateTest extends UiTestCase
 
         // Save the new layout
         $this->click("xpath=(//a[@data-request='onSave'])[1]");
-        $this->waitForElementPresent("xpath=(//li[@data-tab-id='layout-website-xxx_functional_test_layout.htm'])[1]");
+        $this->waitForElementPresent("xpath=(//li[@data-tab-id='layout-".TEST_SELENIUM_THEME."-xxx_functional_test_layout.htm'])[1]");
 
         // Close the tab
-        $this->click("xpath=(//li[@data-tab-id='layout-website-xxx_functional_test_layout.htm']/span[@class='tab-close'])[1]");
+        $this->click("xpath=(//li[@data-tab-id='layout-".TEST_SELENIUM_THEME."-xxx_functional_test_layout.htm']/span[@class='tab-close'])[1]");
 
         // Reopen the tab
         $this->waitForElementPresent("xpath=(//div[@id='TemplateList-layoutList-template-list']//li[@data-item-path='xxx_functional_test_layout.htm']/a)[1]");
@@ -125,10 +125,10 @@ class TemplateTest extends UiTestCase
 
         // Save the new content
         $this->click("xpath=(//a[@data-request='onSave'])[1]");
-        $this->waitForElementPresent("xpath=(//li[@data-tab-id='content-website-xxx_functional_test_content.txt'])[1]");
+        $this->waitForElementPresent("xpath=(//li[@data-tab-id='content-".TEST_SELENIUM_THEME."-xxx_functional_test_content.txt'])[1]");
 
         // Close the tab
-        $this->click("xpath=(//li[@data-tab-id='content-website-xxx_functional_test_content.txt']/span[@class='tab-close'])[1]");
+        $this->click("xpath=(//li[@data-tab-id='content-".TEST_SELENIUM_THEME."-xxx_functional_test_content.txt']/span[@class='tab-close'])[1]");
 
         // Reopen the tab
         $this->waitForElementPresent("xpath=(//div[@id='TemplateList-contentList-template-list']//li[@data-item-path='xxx_functional_test_content.txt']/a)[1]");
