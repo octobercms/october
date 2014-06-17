@@ -433,7 +433,7 @@ label {
                 background: transparent;
                 border-left: none;
                 b {
-                    background: none;
+                    background: none !important;
                     text-align: center;
                     color: @color-custom-input-icon;
                     &:before { .icon(@angle-down); }
@@ -459,7 +459,7 @@ label {
 
     &.select2-container.select2-dropdown-open,
     &.select2-container.select2-dropdown-open.select2-drop-above {
-        .select2-choice { 
+        .select2-choice {
             background: @color-custom-select-bg;
             .select2-arrow {
                 border-left-color: transparent;
@@ -503,7 +503,7 @@ label {
             min-height: 36px;
             border: none;
             border-bottom: 1px solid @color-custom-select-border;
-            background: transparent url('../images/bitmap-icons.png') no-repeat 100% -84px;
+            background: transparent url('../images/bitmap-icons.png') no-repeat 100% -84px !important;
         }
     }
 
