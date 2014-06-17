@@ -301,7 +301,7 @@ ESC;
 
     public function testComponentAliases()
     {
-        include_once dirname(dirname(__DIR__)) . '/fixtures/System/plugins/October/Test/Components/Archive.php';
+        include_once base_path() . '/tests/fixtures/System/plugins/October/Test/Components/Archive.php';
 
         $theme = new Theme();
         $theme->load('test');

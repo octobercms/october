@@ -35,7 +35,8 @@
     },
     "autoload": {
         "classmap": [
-            "tests/TestCase.php"
+            "tests/TestCase.php",
+            "tests/UiTestCase.php"
         ]
     },
     "___scripts": {
