@@ -125,7 +125,7 @@ class CodeBase extends Extendable implements ArrayAccess
      * @param  string  $key
      * @return void
      */
-    public function __isset($key)
+    public function __isset($name)
     {
         return isset($this->page->{$name});
     }
