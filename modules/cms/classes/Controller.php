@@ -125,11 +125,12 @@ class Controller extends BaseController
         /*
          * If the page was not found, render the 404 page - either provided by the theme or the built-in one.
          */
-        if (!$page && ($page = $this->router->findByUrl('/404')))
+        if (!$page) {
             $this->setStatusCode(404);
 
-        if (!$page)
-            return Response::make(View::make('cms::404'), 404);
+            if (!$page = $this->router->findByUrl('/404'))
+                return Response::make(View::make('cms::404'), $this->statusCode);
+        }
 
         $this->page = $page;
 
