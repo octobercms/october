@@ -113,6 +113,7 @@ class CodeBase extends Extendable implements ArrayAccess
     /**
      * As per __get, this will set a variable instead.
      * @param  string  $name
+     * @param  mixed   $value
      * @return void
      */
     public function __set($name, $value)
