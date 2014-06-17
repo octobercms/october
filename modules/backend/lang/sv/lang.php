@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "Ej namngiven",
+        'access_denied' => [
+            'label' => "Nekat tillträde",
+            'help' => "Du har inte behörighet att visa den här sidan.",
+            'cms_link' => "Gå till CMS backend",
+        ],
     ],
     'partial' => [
         'not_found' => "En partial med namn ':name' kunde ej hittas",

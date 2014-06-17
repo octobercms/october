@@ -27,11 +27,6 @@ return [
             'label' => "Sayfa bulunamadı",
             'help' => "İstenilen sayfa bulunamadı.",
         ],
-        'access_denied' => [
-            'label' => "Giriş engellendi",
-            'help' => "Bu sayfayı görüntülemek için gerekli izinlere sahip değilsiniz.",
-            'cms_link' => "CMS uç git",
-        ],
         'custom_error' => [
             'label' => "Sayfa hatası",
             'help' => "Üzgünüz, bir şeyler ters gitti ve sayfa görüntülenemiyor.",

@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "Sem Título",
+        'access_denied' => [
+            'label' => "Acesso negado",
+            'help' => "Você não tem as permissões necessárias para visualizar esta página.",
+            'cms_link' => "Ir para CMS backend",
+        ],
     ],
     'partial' => [
         'not_found' => "O bloco ':name' não foi encontrado.",

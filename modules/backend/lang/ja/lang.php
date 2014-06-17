@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "タイトル無し",
+        'access_denied' => [
+            'label' => "アクセスが拒否されました",
+            'help' => "このページを表示するために必要な権限がありません。",
+            'cms_link' => "CMSのバックエンドに行く",
+        ],
     ],
     'partial' => [
         'not_found' => "':name'パーシャルは見つかりません。",

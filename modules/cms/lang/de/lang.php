@@ -27,11 +27,6 @@ return [
             'label' => "Seite nicht gefunden",
             'help' => "Die angeforderte Seite kann nicht gefunden werden.",
         ],
-        'access_denied' => [
-            'label' => "Zugriff verweigert",
-            'help' => "Sie haben nicht die erforderlichen Berechtigungen, um diese Seite zu sehen.",
-            'cms_link' => "Zum CMS-Backend",
-        ],
         'custom_error' => [
             'label' => "Seitenfehler",
             'help' => "Entschuldigung, ein Fehler trat auf, sodass die gewünschte Seite nicht angezeigt werden kann.",

@@ -146,7 +146,7 @@ class Controller extends Extendable
             // Not logged in, redirect to login screen or show ajax error
             if (!BackendAuth::check()) {
                 return Request::ajax()
-                    ? Response::make(View::make('backend::403'), 403)
+                    ? Response::make(Lang::get('backend::lang.page.access_denied.label'), 403)
                     : Redirect::guest(Backend::url('backend/auth'));
             }
 
@@ -154,12 +154,8 @@ class Controller extends Extendable
             $this->user = BackendAuth::getUser();
 
             // Check his access groups against the page definition
-            if ($this->requiredPermissions && !$this->user->hasAnyAccess($this->requiredPermissions)) {
-                if ($this->user->hasAnyAccess(['cms.*']))
-                    return Response::make(View::make('backend::403', ['cms_link' => '<a href="'.Backend::url('cms').'">'.Lang::get('cms::lang.page.access_denied.cms_link').'</a>']), 403);
-
-                return Response::make(View::make('backend::403'), 403);
-            }
+            if ($this->requiredPermissions && !$this->user->hasAnyAccess($this->requiredPermissions))
+                return Response::make(View::make('backend::access_denied'), 403);
         }
 
         /*

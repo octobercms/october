@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "Unbenannt",
+        'access_denied' => [
+            'label' => "Zugriff verweigert",
+            'help' => "Sie haben nicht die erforderlichen Berechtigungen, um diese Seite zu sehen.",
+            'cms_link' => "Zum CMS-Backend",
+        ],
     ],
     'partial' => [
         'not_found' => "Das Partial ':name' wurde nicht gefunden.",

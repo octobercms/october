@@ -27,11 +27,6 @@ return [
             'label' => "Página não encontrada",
             'help' => "A página solicitada não pode ser encontrada.",
         ],
-        'access_denied' => [
-            'label' => "Acesso negado",
-            'help' => "Você não tem as permissões necessárias para visualizar esta página.",
-            'cms_link' => "Ir para CMS backend",
-        ],
         'custom_error' => [
             'label' => "Erro na página",
             'help' => "Lamentamos, mas algo deu errado e que a página não pode ser exibida.",

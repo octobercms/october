@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "Başlıksız",
+        'access_denied' => [
+            'label' => "Giriş engellendi",
+            'help' => "Bu sayfayı görüntülemek için gerekli izinlere sahip değilsiniz.",
+            'cms_link' => "CMS uç git",
+        ],
     ],
     'partial' => [
         'not_found' => "':name' bölümü bulunamadı.",

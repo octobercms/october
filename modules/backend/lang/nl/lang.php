@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "Naamloos",
+        'access_denied' => [
+            'label' => "Toegang geweigerd",
+            'help' => "Je hebt niet de benodigde rechten om deze pagina te bekijken.",
+            'cms_link' => "Ga naar CMS backend",
+        ],
     ],
     'partial' => [
         'not_found' => "Het sjabloon (partial) ':name' is niet gevonden.",
