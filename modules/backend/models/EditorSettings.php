@@ -16,7 +16,7 @@ class EditorSettings extends Model
     {
         $config = App::make('config');
         $this->font_size = $config->get('editor.font_size', 12);
-        $this->word_wrap = $config->get('editor.word_wrap', 'off');
+        $this->word_wrap = $config->get('editor.word_wrap', 'fluid');
         $this->code_folding = $config->get('editor.code_folding', 'manual');
         $this->tab_size = $config->get('editor.tab_size', 4);
         $this->theme = $config->get('editor.theme', static::DEFAULT_THEME);
