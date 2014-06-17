@@ -91,6 +91,11 @@ class Controller extends Extendable
     protected $guarded = [];
 
     /**
+     * @var int Response status code
+     */
+    protected $statusCode = 200;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -173,7 +178,12 @@ class Controller extends Extendable
         /*
          * Execute page action
          */
-        return $this->execPageAction($action, $params);
+        $result = $this->execPageAction($action, $params);
+
+        if (!is_string($result))
+            return $result;
+
+        return Response::make($result, $this->statusCode);
     }
 
     /**
@@ -423,6 +433,16 @@ class Controller extends Extendable
             $id .= '-' . $suffix;
 
         return $id;
+    }
+
+    /**
+     * Sets the status code for the current web response.
+     * @param int $code Status code
+     */
+    public function setStatusCode($code)
+    {
+        $this->statusCode = (int) $code;
+        return $this;
     }
 
     /**

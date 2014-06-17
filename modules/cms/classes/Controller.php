@@ -209,6 +209,9 @@ class Controller extends BaseController
         if ($event = $this->fireEvent('page.display', [$this, $url, $page], true))
             return $event;
 
+        if (!is_string($result))
+            return $result;
+
         return Response::make($result, $this->statusCode);
     }
 

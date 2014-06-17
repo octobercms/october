@@ -35,9 +35,10 @@ class ControllerTest extends TestCase
         $theme->load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/some-page-that-doesnt-exist');
-        $this->assertInternalType('string', $response);
-        $page404Content = file_get_contents($theme->getPath().'/pages/404.htm');
-        $this->assertEquals('<p>Page not found</p>', $response);
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+        $content = $response->getContent();
+        $this->assertInternalType('string', $content);
+        $this->assertEquals('<p>Page not found</p>', $content);
     }
 
     public function testRoot()
@@ -49,9 +50,10 @@ class ControllerTest extends TestCase
         $theme->load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/');
-        $this->assertInternalType('string', $response);
-        $content = file_get_contents($theme->getPath().'/pages/index.htm');
-        $this->assertEquals('<h1>My Webpage</h1>', trim($response));
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+        $content = $response->getContent();
+        $this->assertInternalType('string', $content);
+        $this->assertEquals('<h1>My Webpage</h1>', trim($content));
     }
 
     /**
@@ -75,7 +77,9 @@ class ControllerTest extends TestCase
         $theme->load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-layout');
-        $this->assertEquals('<div><p>Hey</p></div>', $response);
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+        $content = $response->getContent();
+        $this->assertEquals('<div><p>Hey</p></div>', $content);
     }
 
     public function testPartials()
@@ -86,7 +90,7 @@ class ControllerTest extends TestCase
         $theme = new Theme();
         $theme->load('test');
         $controller = new Controller($theme);
-        $response = $controller->run('/with-partials');
+        $response = $controller->run('/with-partials')->getContent();
         $this->assertEquals('<div>LAYOUT PARTIAL<p>Hey PAGE PARTIAL Homer Simpson A partial</p></div>', $response);
     }
 
@@ -95,7 +99,7 @@ class ControllerTest extends TestCase
         $theme = new Theme();
         $theme->load('test');
         $controller = new Controller($theme);
-        $response = $controller->run('/with-content');
+        $response = $controller->run('/with-content')->getContent();
         $this->assertEquals('<div>LAYOUT CONTENT<p>Hey PAGE CONTENT A content</p></div>', $response);
     }
 
@@ -104,7 +108,7 @@ class ControllerTest extends TestCase
         $theme = new Theme();
         $theme->load('test');
         $controller = new Controller($theme);
-        $response = $controller->run('/with-placeholder');
+        $response = $controller->run('/with-placeholder')->getContent();
         $this->assertEquals("<div>LAYOUT CONTENT <span>BLOCK\n  DEFAULT</span> <p>Hey PAGE CONTENT</p></div>SECOND BLOCK", $response);
     }
 
@@ -113,7 +117,7 @@ class ControllerTest extends TestCase
         $theme = new Theme();
         $theme->load('test');
         $controller = new Controller($theme);
-        $response = $controller->run('/apage');
+        $response = $controller->run('/apage')->getContent();
         $this->assertEquals("<div>LAYOUT CONTENT <h1>This page is a subdirectory</h1></div>", $response);
     }
 
@@ -126,7 +130,7 @@ class ControllerTest extends TestCase
         $theme = new Theme();
         $theme->load('test');
         $controller = new Controller($theme);
-        $response = $controller->run('/no-partial');
+        $response = $controller->run('/no-partial')->getContent();
     }
 
     public function testPageLifeCycle()
@@ -134,7 +138,7 @@ class ControllerTest extends TestCase
         $theme = new Theme();
         $theme->load('test');
         $controller = new Controller($theme);
-        $response = $controller->run('/cycle-test');
+        $response = $controller->run('/cycle-test')->getContent();
         $this->assertEquals('12345', $response);
     }
 
@@ -277,10 +281,10 @@ class ControllerTest extends TestCase
         $theme = new Theme();
         $theme->load('test');
         $controller = new Controller($theme);
-        $response = $controller->run('/with-component');
+        $response = $controller->run('/with-component')->getContent();
         $page = PHPUnit_Framework_Assert::readAttribute($controller, 'page');
         $this->assertArrayHasKey('testArchive', $page->components);
-        
+
         $component = $page->components['testArchive'];
         $details = $component->componentDetails();
 
@@ -306,7 +310,7 @@ ESC;
         $theme = new Theme();
         $theme->load('test');
         $controller = new Controller($theme);
-        $response = $controller->run('/with-components');
+        $response = $controller->run('/with-components')->getContent();
         $page = PHPUnit_Framework_Assert::readAttribute($controller, 'page');
 
         $this->assertArrayHasKey('firstAlias', $page->components);
