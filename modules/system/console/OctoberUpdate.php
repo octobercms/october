@@ -48,9 +48,11 @@ class OctoberUpdate extends Command
         $coreHash = array_get($updateList, 'core.hash');
         $coreBuild = array_get($updateList, 'core.build');
 
-        $this->output->writeln('<info>Downloading application files</info>');
-        $manager->downloadCore($coreHash);
-
+        if ($coreHash) {
+            $this->output->writeln('<info>Downloading application files</info>');
+            $manager->downloadCore($coreHash);
+        }
+        
         $plugins = array_get($updateList, 'plugins');
         foreach ($plugins as $code => $plugin) {
             $pluginName = array_get($plugin, 'name');
@@ -60,8 +62,10 @@ class OctoberUpdate extends Command
             $manager->downloadPlugin($code, $pluginHash);
         }
 
-        $this->output->writeln('<info>Unpacking application files</info>');
-        $manager->extractCore($coreHash, $coreBuild);
+        if ($coreHash) {
+            $this->output->writeln('<info>Unpacking application files</info>');
+            $manager->extractCore($coreHash, $coreBuild);
+        }
 
         foreach ($plugins as $code => $plugin) {
             $pluginName = array_get($plugin, 'name');
