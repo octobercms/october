@@ -208,7 +208,7 @@ class Controller extends BaseController
      * Registers the \Cms\Twig\Extension object with Twig.
      * @return \Twig_Environment Returns the Twig environment object.
      */
-    protected function initTwigEnvironment()
+    public function initTwigEnvironment()
     {
         $this->loader = new TwigLoader();
 
