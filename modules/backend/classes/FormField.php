@@ -11,7 +11,6 @@ use Str;
  */
 class FormField
 {
-
     /**
      * @var string Form field column name.
      */
@@ -49,7 +48,7 @@ class FormField
     public $type = 'text';
 
     /**
-     * @var string Field or widget options.
+     * @var string Field options.
      */
     public $options = [];
 
@@ -123,6 +122,11 @@ class FormField
      */
     public $path;
 
+    /**
+     * @var array Raw field configuration.
+     */
+    public $config;
+
     public function __construct($columnName, $label)
     {
         $this->columnName = $columnName;
@@ -159,6 +163,17 @@ class FormField
     }
 
     /**
+     * Sets field options, for dropdowns, radio lists and checkbox lists.
+     * @param  array $value
+     * @return self
+     */
+    public function options($value = [])
+    {
+        $this->options = $value;
+        return $this;
+    }
+
+    /**
      * Specifies a field control rendering mode. Supported modes are:
      * - text - creates a text field. Default for varchar column types.
      * - textarea - creates a textarea control. Default for text column types.
@@ -167,13 +182,39 @@ class FormField
      * - checkbox - creates a single checkbox.
      * - checkboxlist - creates a checkbox list.
      * @param string $type Specifies a render mode as described above
-     * @param array $options A list of render mode specific options.
+     * @param array $config A list of render mode specific config.
      */
-    public function displayAs($type, $options = [])
+    public function displayAs($type, $config = [])
     {
-        $this->type = $type;
-        $this->options = $options;
+        $this->type = strtolower($type) ?: $this->type;
+        $this->config = $this->evalConfig($config);
         return $this;
+    }
+
+    /**
+     * Process options and apply them to this object.
+     * @param array $config
+     * @return array
+     */
+    protected function evalConfig($config)
+    {
+        if (isset($config['options'])) $this->options($config['options']);
+        if (isset($config['span'])) $this->span($config['span']);
+        if (isset($config['context'])) $this->context = $config['context'];
+        if (isset($config['size'])) $this->size($config['size']);
+        if (isset($config['tab'])) $this->tab($config['tab']);
+        if (isset($config['commentAbove'])) $this->comment($config['commentAbove'], 'above');
+        if (isset($config['comment'])) $this->comment($config['comment']);
+        if (isset($config['placeholder'])) $this->placeholder = $config['placeholder'];
+        if (isset($config['default'])) $this->defaults = $config['default'];
+        if (isset($config['cssClass'])) $this->cssClass = $config['cssClass'];
+        if (isset($config['attributes'])) $this->attributes = $config['attributes'];
+        if (isset($config['path'])) $this->path = $config['path'];
+
+        if (array_key_exists('required', $config)) $this->required = $config['required'];
+        if (array_key_exists('disabled', $config)) $this->disabled = $config['disabled'];
+        if (array_key_exists('stretch', $config)) $this->stretch = $config['stretch'];
+        return $config;
     }
 
     /**
@@ -222,5 +263,4 @@ class FormField
         $id = rtrim(str_replace(['[', ']'], '-', $id), '-');
         return $id;
     }
-
 }

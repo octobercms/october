@@ -361,45 +361,34 @@ class Form extends WidgetBase
         $field->idPrefix = $this->getId();
 
         /*
-         * Simple widget field, only widget type is supplied
+         * Simple field type
          */
-        if (is_string($config) && $this->isFormWidget($config) !== false) {
-            $field->displayAs('widget', ['widget' => $config]);
-            return $field;
-        }
-        /*
-         * Simple field, only field type is supplied
-         */
-        elseif (is_string($config)) {
-            $field->displayAs($config);
-            return $field;
-        }
+        if (is_string($config)) {
 
+            if ($this->isFormWidget($config) !== false)
+                $field->displayAs('widget', ['widget' => $config]);
+            else
+                $field->displayAs($config);
+        }
         /*
          * Defined field type
          */
-        $fieldType = isset($config['type']) ? $config['type'] : null;
-        if (!is_string($fieldType) && !is_null($fieldType))
-            throw new ApplicationException(Lang::get('backend::lang.field.invalid_type', ['type'=>gettype($fieldType)]));
+        else {
 
-        /*
-         * Process basic options
-         */
-        if (isset($config['span'])) $field->span($config['span']);
-        if (isset($config['context'])) $field->context = $config['context'];
-        if (isset($config['size'])) $field->size($config['size']);
-        if (isset($config['tab'])) $field->tab($config['tab']);
-        if (isset($config['commentAbove'])) $field->comment($config['commentAbove'], 'above');
-        if (isset($config['comment'])) $field->comment($config['comment']);
-        if (isset($config['placeholder'])) $field->placeholder = $config['placeholder'];
-        if (isset($config['default'])) $field->defaults = $config['default'];
-        if (isset($config['cssClass'])) $field->cssClass = $config['cssClass'];
-        if (isset($config['attributes'])) $field->attributes = $config['attributes'];
-        if (isset($config['path'])) $field->path = $config['path'];
+            $fieldType = isset($config['type']) ? $config['type'] : null;
+            if (!is_string($fieldType) && !is_null($fieldType))
+                throw new ApplicationException(Lang::get('backend::lang.field.invalid_type', ['type'=>gettype($fieldType)]));
 
-        if (array_key_exists('required', $config)) $field->required = $config['required'];
-        if (array_key_exists('disabled', $config)) $field->disabled = $config['disabled'];
-        if (array_key_exists('stretch', $config)) $field->stretch = $config['stretch'];
+            /*
+             * Widget with configuration
+             */
+            if ($this->isFormWidget($fieldType) !== false) {
+                $config['widget'] = $fieldType;
+                $fieldType = 'widget';
+            }
+
+            $field->displayAs($fieldType, $config);
+        }
 
         /*
          * Set field value
@@ -407,24 +396,13 @@ class Form extends WidgetBase
         $field->value = $this->getFieldValue($field);
 
         /*
-         * Widget with options
+         * Get field options from model
          */
-        if ($this->isFormWidget($fieldType) !== false) {
-            $fieldOptions = (isset($config['options'])) ? $config['options'] : [];
-            $fieldOptions['widget'] = $fieldType;
-            $field->displayAs('widget', $fieldOptions);
-        }
-        /*
-         * Simple field with options
-         */
-        elseif (strlen($fieldType)) {
+        $optionModelTypes = ['dropdown', 'radio', 'checkboxlist'];
+        if (in_array($field->type, $optionModelTypes)) {
             $fieldOptions = (isset($config['options'])) ? $config['options'] : null;
-            $studlyField = studly_case(strtolower($fieldType));
-
-            if (method_exists($this, 'eval'.$studlyField.'Options'))
-                $fieldOptions = $this->{'eval'.$studlyField.'Options'}($field, $fieldOptions);
-
-            $field->displayAs($fieldType, $fieldOptions);
+            $fieldOptions = $this->getOptionsFromModel($field, $fieldOptions);
+            $field->options($fieldOptions);
         }
 
         return $field;
@@ -460,7 +438,7 @@ class Form extends WidgetBase
         if (isset($this->formWidgets[$field->columnName]))
             return $this->formWidgets[$field->columnName];
 
-        $widgetConfig = $this->makeConfig($field->options);
+        $widgetConfig = $this->makeConfig($field->config);
         $widgetConfig->alias = $this->alias . studly_case($field->columnName);
         $widgetConfig->sessionKey = $this->getSessionKey();
 
@@ -581,30 +559,6 @@ class Form extends WidgetBase
         }
 
         return $data;
-    }
-
-    /**
-     * Evaluate and validate dropdown field options.
-     */
-    public function evalDropdownOptions($field, $fieldOptions)
-    {
-        return $this->getOptionsFromModel($field, $fieldOptions);
-    }
-
-    /**
-     * Evaluate and validate radio field options.
-     */
-    public function evalRadioOptions($field, $fieldOptions)
-    {
-        return $this->getOptionsFromModel($field, $fieldOptions);
-    }
-
-    /**
-     * Evaluate and validate checkbox list field options.
-     */
-    public function evalCheckboxlistOptions($field, $fieldOptions)
-    {
-        return $this->getOptionsFromModel($field, $fieldOptions);
     }
 
     /**

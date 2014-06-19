@@ -65,11 +65,7 @@ abstract class WidgetBase
         if (!$configuration)
             $configuration = [];
 
-        $this->config = new stdClass();
-        foreach ($configuration as $name => $value) {
-            $name = camel_case($name);
-            $this->config->{$name} = $value;
-        }
+        $this->config = $this->makeConfig($configuration);
 
         /*
          * If no alias is set by the configuration.
