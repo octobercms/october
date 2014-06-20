@@ -608,6 +608,8 @@ class Lists extends WidgetBase
         if ($value === null)
             return null;
 
+        $value = $this->validateDateTimeValue($value, $column);
+
         if ($column->format !== null)
             return $value->format($column->format);
 
@@ -621,6 +623,8 @@ class Lists extends WidgetBase
     {
         if ($value === null)
             return null;
+
+        $value = $this->validateDateTimeValue($value, $column);
 
         if ($column->format === null)
             $column->format = 'g:i A';
@@ -636,6 +640,8 @@ class Lists extends WidgetBase
         if ($value === null)
             return null;
 
+        $value = $this->validateDateTimeValue($value, $column);
+
         if ($column->format !== null)
             return $value->format($column->format);
 
@@ -650,13 +656,23 @@ class Lists extends WidgetBase
         if ($value === null)
             return null;
 
+        $value = $this->validateDateTimeValue($value, $column);
+
+        return $value->diffForHumans();
+    }
+
+    /**
+     * Validates a column type as a date
+     */
+    private function validateDateTimeValue($value, $column)
+    {
         if ($value instanceof DateTime)
             $value = Carbon::instance($value);
 
         if (!$value instanceof Carbon)
-            throw new ApplicationException(sprintf('Column value %s is not a DateTime object, are you missing a $dates reference in the Model?', $column->columnName));
+            throw new ApplicationException(Lang::get('backend::lang.list.invalid_column_datetime', ['column' => $column->columnName]));
 
-        return $value->diffForHumans();
+        return $value;
     }
 
     //
