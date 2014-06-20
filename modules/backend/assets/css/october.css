@@ -7392,6 +7392,9 @@ label {
 .form-group.checkbox-field {
   padding-bottom: 5px;
 }
+.form-group.number-field > .form-control {
+  text-align: right;
+}
 .form-group.checkbox-align {
   padding-left: 23px;
   margin-top: -5px;
