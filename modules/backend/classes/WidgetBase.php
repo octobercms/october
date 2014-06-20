@@ -123,7 +123,11 @@ abstract class WidgetBase
      */
     public function getId($suffix = null)
     {
-        $id = Str::getRealClass(get_called_class()) . '-' . $this->alias;
+        $id = Str::getRealClass(get_called_class());
+
+        if ($this->alias != $this->defaultAlias)
+            $id .= '-' . $this->alias;
+
         if ($suffix !== null)
             $id .= '-' . $suffix;
 
@@ -229,7 +233,9 @@ abstract class WidgetBase
      */
     protected function makeSessionId()
     {
-        return 'widget.' . $this->controller->getId() . '-' . $this->getId();
+        // Removes Class name and "Controllers" directory
+        $rootNamespace = Str::getClassId(Str::getClassNamespace(Str::getClassNamespace($this->controller)));
+        return 'widget.' . $rootNamespace . '-' . $this->controller->getId() . '-' . $this->getId();
     }
 
     /**
