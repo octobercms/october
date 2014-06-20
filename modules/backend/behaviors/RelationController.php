@@ -48,6 +48,11 @@ class RelationController extends ControllerBehavior
     protected $requiredProperties = ['relationConfig'];
 
     /**
+     * @var array Properties that must exist for each relationship definition.
+     */
+    protected $requiredRelationProperties = ['label'];
+
+    /**
      * @var array Configuration values that must exist when applying the primary config file.
      */
     protected $requiredConfig = [];
@@ -150,7 +155,7 @@ class RelationController extends ControllerBehavior
             throw new ApplicationException(Lang::get('backend::lang.relation.missing_definition', compact('field')));
 
         $this->alias = camel_case('relation ' . $field);
-        $this->config = (object)$this->getConfig($field);
+        $this->config = $this->makeConfig($this->getConfig($field), $this->requiredRelationProperties);
 
         /*
          * Relationship details
@@ -504,7 +509,9 @@ class RelationController extends ControllerBehavior
         ];
         $toolbarConfig = $this->makeConfig($this->getConfig('toolbar', $defaultConfig));
         $toolbarConfig->alias = $this->alias . 'Toolbar';
-        return $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
+
+        $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
+        return $toolbarWidget;
     }
 
     protected function makeViewWidget()
@@ -516,6 +523,7 @@ class RelationController extends ControllerBehavior
             $config = $this->makeConfig($this->config->list);
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ViewList';
+            $config->noRecordsMessage = $this->config->emptyMessage;
             $config->recordOnClick = sprintf("$.oc.relationBehavior.clickManageListRecord('%s', :id)", $this->field);
             $config->showCheckboxes = true;
 
