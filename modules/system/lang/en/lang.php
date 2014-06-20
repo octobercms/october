@@ -155,7 +155,7 @@ return [
     ],
     'config' => [
         'not_found' => 'Unable to find configuration file :file defined for :location.',
-        'required' => 'Configuration used in :location must supply a value :property.',
+        'required' => "Configuration used in :location must supply a value ':property'.",
     ],
     'zip' => [
         'extract_failed' => "Unable to extract core file ':file'.",

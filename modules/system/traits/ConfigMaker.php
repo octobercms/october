@@ -29,40 +29,52 @@ trait ConfigMaker
      */
     public function makeConfig($configFile = [], $requiredConfig = [])
     {
-        // Already made
-        if (is_object($configFile))
-            return $configFile;
-
-        // Embedded config
-        if (is_array($configFile))
-            return $this->makeConfigFromArray($configFile);
-
         /*
-         * Process config file contents
+         * Config already made
          */
-        if (isset($this->controller) && method_exists($this->controller, 'getConfigPath'))
-            $configFile = $this->controller->getConfigPath($configFile);
-        else
-            $configFile = $this->getConfigPath($configFile);
-
-        if (!File::isFile($configFile))
-            throw new SystemException(Lang::get('system::lang.config.not_found', ['file' => $configFile, 'location' => get_called_class()]));
-
-        $config = Yaml::parse(File::get($configFile));
-
-        /*
-         * Extensibility
-         */
-        $publicFile = File::localToPublic($configFile);
-        if ($results = Event::fire('system.extendConfigFile', [$publicFile, $config])) {
-            foreach ($results as $result) {
-                if (!is_array($result)) continue;
-                $config = array_merge($config, $result);
-            }
+        if (is_object($configFile)) {
+            $config = $configFile;
         }
 
-        $config = $this->makeConfigFromArray($config);
+        /*
+         * Embedded config
+         */
+        elseif (is_array($configFile)) {
+            $config = $this->makeConfigFromArray($configFile);
+        }
 
+        /*
+         * Process config from file contents
+         */
+        else {
+
+            if (isset($this->controller) && method_exists($this->controller, 'getConfigPath'))
+                $configFile = $this->controller->getConfigPath($configFile);
+            else
+                $configFile = $this->getConfigPath($configFile);
+
+            if (!File::isFile($configFile))
+                throw new SystemException(Lang::get('system::lang.config.not_found', ['file' => $configFile, 'location' => get_called_class()]));
+
+            $config = Yaml::parse(File::get($configFile));
+
+            /*
+             * Extensibility
+             */
+            $publicFile = File::localToPublic($configFile);
+            if ($results = Event::fire('system.extendConfigFile', [$publicFile, $config])) {
+                foreach ($results as $result) {
+                    if (!is_array($result)) continue;
+                    $config = array_merge($config, $result);
+                }
+            }
+
+            $config = $this->makeConfigFromArray($config);
+        }
+
+        /*
+         * Validate required configuration
+         */
         foreach ($requiredConfig as $property) {
             if (!property_exists($config, $property))
                 throw new SystemException(Lang::get('system::lang.config.required', ['property' => $property, 'location' => get_called_class()]));
@@ -149,4 +161,5 @@ trait ConfigMaker
         $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
         return $guessedPath;
     }
+
 }
