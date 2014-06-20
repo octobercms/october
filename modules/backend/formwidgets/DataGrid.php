@@ -9,12 +9,12 @@ use Backend\Classes\FormWidgetBase;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class Grid extends FormWidgetBase
+class DataGrid extends FormWidgetBase
 {
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'grid';
+    public $defaultAlias = 'datagrid';
 
     /**
      * @var array Grid columns
@@ -35,7 +35,7 @@ class Grid extends FormWidgetBase
     public function render()
     {
         $this->prepareVars();
-        return $this->makePartial('grid');
+        return $this->makePartial('datagrid');
     }
 
     /**
@@ -105,9 +105,9 @@ class Grid extends FormWidgetBase
     public function loadAssets()
     {
         $this->addCss('vendor/handsontable/jquery.handsontable.full.css', 'core');
-        $this->addCss('css/grid.css', 'core');
+        $this->addCss('css/datagrid.css', 'core');
         $this->addJs('vendor/handsontable/jquery.handsontable.full.js', 'core');
-        $this->addJs('js/grid.js', 'core');
+        $this->addJs('js/datagrid.js', 'core');
     }
 
     /**

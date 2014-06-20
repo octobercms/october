@@ -46,9 +46,9 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Date picker',
                 'alias' => 'datepicker'
             ]);
-            $manager->registerFormWidget('Backend\FormWidgets\Grid', [
-                'label' => 'Grid',
-                'alias' => 'grid'
+            $manager->registerFormWidget('Backend\FormWidgets\DataGrid', [
+                'label' => 'Data Grid',
+                'alias' => 'datagrid'
             ]);
         });
 
