@@ -37,3 +37,7 @@ You can communicate with us using the following mediums:
 ### Licence
 
 The OctoberCMS platform is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+### Contributing
+
+Before sending a PR, be sure to review the [Contributing Guidelines](CONTRIBUTING.md) first.
