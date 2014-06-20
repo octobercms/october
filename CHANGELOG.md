@@ -1,3 +1,8 @@
+* **Build 110** (2014-06-xx)
+  - Created a new Grid form widget for managing tabular data.
+  - Widget identifiers have changed to remove the alias if it matches the default alias.
+  - Add new form field type called `number`.
+
 * **Build 108** (2014-06-16)
   - Checkbox List form fields now use scrollbars for 10+ checkboxes.
   - Added new form behavior override: formCreateModelObject.
