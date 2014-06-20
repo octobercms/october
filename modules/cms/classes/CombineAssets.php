@@ -94,6 +94,7 @@ class CombineAssets
         if ($this->useMinify) {
             $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
             $this->registerFilter('css', new \October\Rain\Support\Filters\StylesheetMinify);
+            $this->registerFilter('less', new \October\Rain\Support\Filters\StylesheetMinify);
         }
     }
 
