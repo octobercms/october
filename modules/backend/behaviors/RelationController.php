@@ -271,10 +271,10 @@ class RelationController extends ControllerBehavior
                 return $this->toolbarWidget->render();
 
             case 'view':
-                return $this->makePartial('view');
+                return $this->relationMakePartial('view');
 
             default:
-                return $this->makePartial('container');
+                return $this->relationMakePartial('container');
         }
     }
 
@@ -352,7 +352,11 @@ class RelationController extends ControllerBehavior
      */
     public function relationMakePartial($partial, $params = [])
     {
-        return $this->makePartial($partial, $params);
+        $contents = $this->controller->makePartial('relation_'.$partial, $params, false);
+        if (!$contents)
+            $contents = $this->makePartial($partial, $params);
+
+        return $contents;
     }
 
     /**
@@ -399,7 +403,7 @@ class RelationController extends ControllerBehavior
             return $this->onRelationManagePivotForm();
 
         $view = 'manage_' . $this->manageMode;
-        return $this->makePartial($view);
+        return $this->relationMakePartial($view);
     }
 
     /**
@@ -495,7 +499,7 @@ class RelationController extends ControllerBehavior
         $this->beforeAjax();
 
         $this->vars['foreignId'] = post('foreign_id');
-        return $this->makePartial('pivot_form');
+        return $this->relationMakePartial('pivot_form');
     }
 
     public function onRelationManagePivotCreate()
