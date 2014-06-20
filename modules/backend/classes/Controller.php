@@ -14,6 +14,7 @@ use BackendAuth;
 use System\Classes\SystemException;
 use October\Rain\Extension\Extendable;
 use October\Rain\Support\ValidationException;
+use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Http\RedirectResponse;
 
 /**
@@ -352,8 +353,10 @@ class Controller extends Extendable
                 $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
                 return Response::make($responseContents, 406);
             }
+            catch (MassAssignmentException $ex) {
+                return Response::make(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]), 500);
+            }
             catch (Exception $ex) {
-                Log::error($ex);
                 return Response::make($ex->getMessage(), 500);
             }
         }

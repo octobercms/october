@@ -89,6 +89,7 @@ return [
         'missing_columns' => 'Er zijn geen kolommen opgegeven voor de lijst in :class.',
         'missing_definition' => "Het gedrag (behavior) van de lijst bevat geen kolom voor ':field'.",
         'behavior_not_ready' => 'Gedrag (behavior) van de lijst is niet geladen. Controleer of makeLists() in de controller is aangeroepen.',
+        'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
     ],
     'form' => [
         'create_title' => "Maak :name",
@@ -142,5 +143,25 @@ return [
         'missing_id' => "Record ID van het model is niet opgegeven.",
         'missing_relation' => "Model ':class' bevat geen definitie voor ':relation'.",
         'invalid_class' => "Model :model gebruikt in :class is ongeldig. Het moet de \Model klasse erven (inherit).",
+        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
+    ],
+    'warnings' => [
+        'tips' => 'System configuration tips',
+        'tips_description' => 'There are issues you need to pay attention to in order to configure the system properly.',
+        'permissions'  => 'Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.',
+        'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.'
+    ],
+    'editor' => [
+        'menu_label' => 'Editor Configuration',
+        'menu_description' => 'Manage editor configuration.',
+        'font_size' => 'Font size',
+        'tab_size' => 'Tab size',
+        'use_hard_tabs' => 'Indent using tabs',
+        'code_folding' => 'Code folding',
+        'word_wrap' => 'Word wrap',
+        'highlight_active_line' => 'Highlight active line',
+        'show_invisibles' => 'Show invisible characters',
+        'show_gutter' => 'Show gutter',
+        'theme' => 'Color scheme',
     ],
 ];

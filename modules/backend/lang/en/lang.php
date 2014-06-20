@@ -89,6 +89,7 @@ return [
         'missing_columns' => 'List used in :class has no list columns defined.',
         'missing_definition' => "List behavior does not contain a column for ':field'.",
         'behavior_not_ready' => 'List behavior has not been initialized, check that you have called makeLists() in your controller.',
+        'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
     ],
     'form' => [
         'create_title' => "New :name",
@@ -146,6 +147,7 @@ return [
         'missing_id' => "There is no ID specified for looking up the model record.",
         'missing_relation' => "Model ':class' does not contain a definition for ':relation'.",
         'invalid_class' => "Model :model used in :class is not valid, it must inherit the \Model class.",
+        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
     ],
     'warnings' => [
         'tips' => 'System configuration tips',

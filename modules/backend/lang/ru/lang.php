@@ -89,6 +89,7 @@ return [
         'missing_columns' => 'Список используемый в :class не имеет никаких столбцов.',
         'missing_definition' => "Поведение списка не содержит столбец для ':field'.",
         'behavior_not_ready' => 'Поведение списка не было инициализировано, проверьте вызов makeLists() в вашем контроллере.',
+        'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
     ],
     'form' => [
         'create_title' => "Создание :name",
@@ -143,11 +144,25 @@ return [
         'missing_id' => "Нет идентификатора для поиска модели записи.",
         'missing_relation' => "Модель ':class' не содержит определения для ':relation'",
         'invalid_class' => "Модель :model используемая в :class не допустима, она должна наследовать класс \Model.",
+        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
     ],
     'warnings' => [
         'tips' => 'Подсказки по конфигурации системы',
         'tips_description' => 'Есть проблемы, на которые стоит обратить внимание, чтобы правильно настроить систему.',
         'permissions'  => 'Каталог :name или его подкаталоги недоступны для записи. Укажите соответствующие разрешения для веб-сервера.',
         'extension' => 'Расширение PHP :name не установлено. Установите эту библиотеку и активируйте расширение.'
+    ],
+    'editor' => [
+        'menu_label' => 'Editor Configuration',
+        'menu_description' => 'Manage editor configuration.',
+        'font_size' => 'Font size',
+        'tab_size' => 'Tab size',
+        'use_hard_tabs' => 'Indent using tabs',
+        'code_folding' => 'Code folding',
+        'word_wrap' => 'Word wrap',
+        'highlight_active_line' => 'Highlight active line',
+        'show_invisibles' => 'Show invisible characters',
+        'show_gutter' => 'Show gutter',
+        'theme' => 'Color scheme',
     ],
 ];
