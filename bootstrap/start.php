@@ -25,7 +25,7 @@ $app = new Illuminate\Foundation\Application;
 */
 
 $env = $app->detectEnvironment(function(){
-	return isset($_SERVER['CMS_ENV']) ? $_SERVER['CMS_ENV'] : null;
+	return isset($_SERVER['CMS_ENV']) ? $_SERVER['CMS_ENV'] : 'production';
 });
 
 /*
