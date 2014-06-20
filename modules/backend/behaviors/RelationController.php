@@ -4,6 +4,7 @@ use DB;
 use Str;
 use Lang;
 use Event;
+use Form as FormHelper;
 use Backend\Classes\ControllerBehavior;
 use System\Classes\ApplicationException;
 use October\Rain\Database\Model;
@@ -111,6 +112,11 @@ class RelationController extends ControllerBehavior
      * @var int Primary id of an existing relation record.
      */
     protected $manageId;
+
+    /**
+     * @var string Active session key, used for deferred bindings.
+     */
+    public $sessionKey;
 
     /**
      * Behavior constructor
@@ -246,7 +252,15 @@ class RelationController extends ControllerBehavior
     {
         $field = $this->validateField($field);
 
+        if (is_string($options)) $options = ['sessionKey' => $options];
+
         $this->prepareVars();
+
+        /*
+         * Session key
+         */
+        if (isset($options['sessionKey']))
+            $this->sessionKey = $options['sessionKey'];
 
         /*
          * Determine the partial to use based on the supplied section option
@@ -388,43 +402,35 @@ class RelationController extends ControllerBehavior
         return $this->makePartial($view);
     }
 
-    public function onRelationManageAdd()
+    /**
+     * Create a new related model
+     */
+    public function onRelationManageCreate()
     {
         $this->beforeAjax();
 
-        if ($this->viewMode != 'multi')
-            throw new ApplicationException(Lang::get('backend::lang.relation.invalid_action_single'));
-
-        if (($checkedIds = post('checked')) && is_array($checkedIds)) {
-            /*
-             * Remove existing relations from the array
-             */
-            $existingIds = $this->findExistingRelationIds($checkedIds);
-            $checkedIds = array_diff($checkedIds, $existingIds);
-
-            $models = $this->relationModel->whereIn('id', $checkedIds)->get();
-            foreach ($models as $model) {
-                $this->relationObject->add($model);
-            }
-        }
+        $saveData = $this->manageWidget->getSaveData();
+        $this->relationObject->create($saveData, $this->relationGetSessionKey());
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
 
-    public function onRelationManageRemove()
+    /**
+     * Updated an existing related model's fields
+     */
+    public function onRelationManageUpdate()
     {
         $this->beforeAjax();
 
-        if ($this->viewMode != 'multi')
-            throw new ApplicationException(Lang::get('backend::lang.relation.invalid_action_single'));
-
-        if (($checkedIds = post('checked')) && is_array($checkedIds)) {
-            $this->relationObject->detach($checkedIds);
-        }
+        $saveData = $this->manageWidget->getSaveData();
+        $this->relationObject->find($this->manageId)->save($saveData);
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
 
+    /**
+     * Delete an existing related model completely
+     */
     public function onRelationManageDelete()
     {
         $this->beforeAjax();
@@ -441,22 +447,45 @@ class RelationController extends ControllerBehavior
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
 
-    public function onRelationManageCreate()
+    /**
+     * Add an existing related model to the primary model
+     */
+    public function onRelationManageAdd()
     {
         $this->beforeAjax();
 
-        $saveData = $this->manageWidget->getSaveData();
-        $this->relationObject->create($saveData);
+        if ($this->viewMode != 'multi')
+            throw new ApplicationException(Lang::get('backend::lang.relation.invalid_action_single'));
+
+        if (($checkedIds = post('checked')) && is_array($checkedIds)) {
+            /*
+             * Remove existing relations from the array
+             */
+            $existingIds = $this->findExistingRelationIds($checkedIds);
+            $checkedIds = array_diff($checkedIds, $existingIds);
+
+            $models = $this->relationModel->whereIn('id', $checkedIds)->get();
+            foreach ($models as $model) {
+                $this->relationObject->add($model, $this->relationGetSessionKey());
+            }
+        }
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
 
-    public function onRelationManageUpdate()
+    /**
+     * Remove an existing related model from the primary model (join table only)
+     */
+    public function onRelationManageRemove()
     {
         $this->beforeAjax();
 
-        $saveData = $this->manageWidget->getSaveData();
-        $this->relationObject->find($this->manageId)->save($saveData);
+        if ($this->viewMode != 'multi')
+            throw new ApplicationException(Lang::get('backend::lang.relation.invalid_action_single'));
+
+        if (($checkedIds = post('checked')) && is_array($checkedIds)) {
+            $this->relationObject->detach($checkedIds);
+        }
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
@@ -530,7 +559,12 @@ class RelationController extends ControllerBehavior
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
             $widget->bindEvent('list.extendQueryBefore', function($host, $query) {
                 $this->relationObject->setQuery($query);
-                $this->relationObject->addConstraints();
+                if ($this->model->exists) {
+                    $this->relationObject->addConstraints();
+                }
+                if ($sessionKey = $this->relationGetSessionKey()) {
+                    $this->relationObject->withDeferred($sessionKey);
+                }
             });
         }
         /*
@@ -645,4 +679,19 @@ class RelationController extends ControllerBehavior
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);
         return $widget;
     }
+
+    /**
+     * Returns the active session key.
+     */
+    public function relationGetSessionKey()
+    {
+        if ($this->sessionKey)
+            return $this->sessionKey;
+
+        if (post('_session_key'))
+            return $this->sessionKey = post('_session_key');
+
+        return $this->sessionKey = FormHelper::getSessionKey();
+    }
+
 }
