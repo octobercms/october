@@ -93,6 +93,7 @@ class Controller extends BaseController
         $this->theme = $theme ? $theme : Theme::getActiveTheme();
         $this->assetPath = Config::get('cms.themesDir').'/'.$this->theme->getDirName();
         $this->router = new Router($this->theme);
+        $this->initTwigEnvironment();
     }
 
     /**
@@ -144,8 +145,6 @@ class Controller extends BaseController
             throw new CmsException(Lang::get('cms::lang.layout.not_found', ['name'=>$page->layout]));
 
         $this->layout = $layout;
-
-        $this->initTwigEnvironment();
 
         /*
          * The 'this' variable is reserved for default variables.
@@ -218,7 +217,7 @@ class Controller extends BaseController
     /**
      * Initializes the Twig environment and loader.
      * Registers the \Cms\Twig\Extension object with Twig.
-     * @return \Twig_Environment Returns the Twig environment object.
+     * @return void
      */
     protected function initTwigEnvironment()
     {
