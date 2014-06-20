@@ -2,6 +2,7 @@
   - Created a new Grid form widget for managing tabular data.
   - Widget identifiers have changed to remove the alias if it matches the default alias.
   - Add new form field type called `number`.
+  - You can now override partials for Relation controller by creating partials with `relation_` prefix in the controller view directory.
 
 * **Build 108** (2014-06-16)
   - Checkbox List form fields now use scrollbars for 10+ checkboxes.

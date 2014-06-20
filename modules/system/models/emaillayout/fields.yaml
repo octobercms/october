@@ -24,15 +24,13 @@ secondaryTabs:
             type: codeeditor
             size: giant
             tab: system::lang.email_templates.content_html
-            options:
-                language: html
+            language: html
 
         content_css:
             type: codeeditor
             size: giant
             tab: system::lang.email_templates.content_css
-            options:
-                language: css
+            language: css
 
         content_text:
             type: textarea
