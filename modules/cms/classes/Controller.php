@@ -775,10 +775,10 @@ class Controller extends BaseController
     }
 
     /**
-     * Returns the path to an uploaded file/image
+     * Returns the uploaded file/image object
      * @param string $file Specifies the file name.
      * @param string $publicOrProtected Whether the file is a public or protected file
-     * @return array An array of data for selected file
+     * @return object An object of data for selected file
      */
     public function getFile($file = null, $publicOrProtected = 'public')
     {
