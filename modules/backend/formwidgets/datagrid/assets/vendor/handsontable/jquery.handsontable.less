@@ -24,6 +24,10 @@
     line-height: 14px;
     font-size: 13px;
 
+    .relative {
+        position: relative;
+    }
+
     &.htAutoColumnSize {
         visibility: hidden;
         left: 0;
@@ -114,7 +118,6 @@
         th {
             padding: 0;
             .relative {
-                position: relative;
                 padding: 2px 4px;
             }
         }
@@ -152,7 +155,20 @@
         z-index: 999;
         cursor: move;
     }
-    th .manualColumnMover {
+
+    .manualRowMover {
+        position: absolute;
+        left: -4px;
+        top: 0;
+        background-color: transparent;
+        height: 5px;
+        width: 50px;
+        z-index: 999;
+        cursor: move;
+    }
+
+    th .manualColumnMover,
+    th .manualRowMover {
         &:hover,
         &.active {
             background-color: #88F;
