@@ -48,12 +48,10 @@
         this.$el.handsontable(handsontableOptions)
         this.gridInstance = this.$el.handsontable('getInstance')
 
-        this.staticWidths = this.calculateColumnWidths()
-        self.gridInstance.render()
+        self.updateUi()
 
         $(window).on('oc.updateUi', function(){
-            self.staticWidths = self.calculateColumnWidths()
-            self.gridInstance.render()
+            self.updateUi()
         })
 
         $(window).on('resize', function(){
@@ -92,8 +90,18 @@
                 index = selectedArr[0]
         }
 
+        if (!index && command == 'insert_row')
+            index = 0
+
         if (index === 0 || index)
             this.gridInstance.alter(command, index)
+
+        this.updateUi()
+    }
+
+    DataGrid.prototype.updateUi = function() {
+        this.staticWidths = this.calculateColumnWidths()
+        this.gridInstance.render()
     }
 
     DataGrid.prototype.calculateColumnWidths = function() {
@@ -103,10 +111,20 @@
             usedWidth = 0,
             unsetWidthCounts = 0,
             staticWidths = [],
-            headerOffsetWidth = 0
+            offsetWidth = 0
 
+        /*
+         * Account for row headers
+         */
         this.$el.find('colgroup > .rowHeader').each(function(){
-            headerOffsetWidth += $(this).width()
+            offsetWidth += $(this).width()
+        })
+
+        /*
+         * Account for scrollbars
+         */
+        this.$el.find('.dragdealer.vertical:visible').each(function(){
+            offsetWidth += $(this).width()
         })
 
         $.each(widths, function() {
@@ -119,7 +137,7 @@
             if (this > 0) {
                 staticWidths.push(this)
             } else {
-                var remainingWidth = ((totalWidth - headerOffsetWidth - usedWidth) / unsetWidthCounts) - 1
+                var remainingWidth = ((totalWidth - offsetWidth - usedWidth) / unsetWidthCounts) - 1
                 staticWidths.push(Math.max(remainingWidth, 100))
             }
         })
@@ -169,7 +187,6 @@
 /*
  * Custom plugin for handsontable
  */
-
 
 (function (Handsontable, $) {
     "use strict";
@@ -227,6 +244,7 @@
 
                     $btn.on('mouseup', function () {
                         instance.alter("remove_row", row);
+                        $(window).trigger('oc.updateUi')
                     });
                 }
             };
