@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use DB;
 use URL;
 use Str;
 use App;
@@ -79,6 +80,11 @@ class Controller extends BaseController
     public $vars = [];
 
     /**
+     * @var A reference to the all the files in DB::system_files
+     */
+    public $files = [];
+
+    /**
      * Creates the controller.
      * @param \Cms\Classes\Theme $theme Specifies the CMS theme.
      * If the theme is not specified, the current active theme used.
@@ -88,6 +94,7 @@ class Controller extends BaseController
         $this->theme = $theme ? $theme : Theme::getActiveTheme();
         $this->assetPath = Config::get('cms.themesDir').'/'.$this->theme->getDirName();
         $this->router = new Router($this->theme);
+        $this->files = DB::table("system_files")->get();
     }
 
     /**
@@ -762,6 +769,36 @@ class Controller extends BaseController
 
             if (File::isFile($fileName))
                 return $component;
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the path to an uploaded file/image
+     * @param string $file Specifies the file name.
+     * @param string $publicOrProtected Whether the file is a public or protected file
+     * @return array An array of data for selected file
+     */
+    public function getFile($file = null, $publicOrProtected = 'public')
+    {
+        foreach ( $this->files as $row )
+            if ( $row->file_name === $file )
+                $result = $row;
+
+        if ( isset($result) ) {
+            $uploadsIterator = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator("uploads/{$publicOrProtected}") );
+
+            foreach ($uploadsIterator as $path => $object) {
+                if ( !$object->isDir() ) {
+                    $path = explode(DIRECTORY_SEPARATOR, $path);
+
+                    if ( $result->disk_name === end($path) ) {
+                        $path = implode(DIRECTORY_SEPARATOR, $path);
+                        return (object) array_merge((array) $result, array('path' => $path));
+                    }
+                }
+            }
         }
 
         return null;
