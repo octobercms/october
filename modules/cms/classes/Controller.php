@@ -82,7 +82,7 @@ class Controller extends BaseController
     /**
      * @var A reference to the all the files in DB::system_files
      */
-    public $files = [];
+    public $systemFiles = [];
 
     /**
      * Creates the controller.
@@ -94,7 +94,7 @@ class Controller extends BaseController
         $this->theme = $theme ? $theme : Theme::getActiveTheme();
         $this->assetPath = Config::get('cms.themesDir').'/'.$this->theme->getDirName();
         $this->router = new Router($this->theme);
-        $this->files = DB::table("system_files")->get();
+        $this->systemFiles = DB::table("system_files")->get();
     }
 
     /**
@@ -782,7 +782,7 @@ class Controller extends BaseController
      */
     public function getFile($file = null, $publicOrProtected = 'public')
     {
-        foreach ( $this->files as $row )
+        foreach ( $this->systemFiles as $row )
             if ( $row->file_name === $file )
                 $result = $row;
 
