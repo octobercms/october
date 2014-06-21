@@ -7,8 +7,15 @@
  * http://handsontable.com/
  *
  * Date: Thu Sep 19 2013 01:45:41 GMT+0200 (Central European Daylight Time)
+ *
+ * Forked from: https://github.com/warpech/jquery-handsontable/tree/7bd83de5ca32858735fb01ae3b9c1287246a83cb
+ *
+ * - Remove code comments
+ * - Removed contextMenu plugin
+ * - Use autocomplete plugin instead of typeahead
+ * - Custom checkboxes
+ * 
  */
-/*jslint white: true, browser: true, plusplus: true, indent: 4, maxerr: 50 */
 
 var Handsontable = { //class namespace
   extension: {}, //extenstion namespace
@@ -3631,10 +3638,7 @@ Handsontable.AutocompleteRenderer = function (instance, TD, row, col, prop, valu
   instance.view.wt.wtDom.empty(TD); //TODO identify under what circumstances this line can be removed
   TD.appendChild(TEXT);
 };
-var clonableINPUT = document.createElement('INPUT');
-clonableINPUT.className = 'htCheckboxRendererInput';
-clonableINPUT.type = 'checkbox';
-clonableINPUT.setAttribute('autocomplete', 'off');
+
 
 /**
  * Checkbox renderer
@@ -3656,24 +3660,32 @@ Handsontable.CheckboxRenderer = function (instance, TD, row, col, prop, value, c
 
   instance.view.wt.wtDom.empty(TD); //TODO identify under what circumstances this line can be removed
 
-  var INPUT = clonableINPUT.cloneNode(false); //this is faster than createElement
+  var randStr = Math.random().toString(36).substring(7),
+      $input = $('<input />').prop({
+          type: 'checkbox',
+          autocomplete: 'off',
+          id: 'datagridCheckbox_'+randStr
+      }),
+      $checkbox = $('<div />').addClass('custom-checkbox nolabel htCheckboxRendererInput')
+        .append($input)
+        .append($('<label />').prop({
+            'for': 'datagridCheckbox_'+randStr
+        }));
+
+  var INPUT = $input.get(0),
+      CHECKBOX = $checkbox.get(0); //this is faster than createElement
 
   if (value === cellProperties.checkedTemplate || value === Handsontable.helper.stringify(cellProperties.checkedTemplate)) {
     INPUT.checked = true;
-    TD.appendChild(INPUT);
+    TD.appendChild(CHECKBOX);
   }
   else if (value === cellProperties.uncheckedTemplate || value === Handsontable.helper.stringify(cellProperties.uncheckedTemplate)) {
-    TD.appendChild(INPUT);
+    TD.appendChild(CHECKBOX);
   }
-  else if (value === null) { //default value
-    INPUT.className += ' noValue';
-    TD.appendChild(INPUT);
+  else { //default value
+    CHECKBOX.className += ' noValue';
+    TD.appendChild(CHECKBOX);
   }
-  else {
-    instance.view.wt.wtDom.fastInnerText(TD, '#bad value#'); //this is faster than innerHTML. See: https://github.com/warpech/jquery-handsontable/wiki/JavaScript-&-DOM-performance-tips
-  }
-
-  var $input = $(INPUT);
 
   if (cellProperties.readOnly) {
     $input.on('click', function (event) {
@@ -5527,192 +5539,6 @@ Handsontable.PluginHooks.add('beforeGet', htSortColumn.onBeforeGetSet);
 Handsontable.PluginHooks.add('beforeSet', htSortColumn.onBeforeGetSet);
 Handsontable.PluginHooks.add('afterGetColHeader', htSortColumn.getColHeader);
 
-
-(function(Handsontable){
-  function init(){
-    var instance = this;
-    var pluginEnabled = !!(instance.getSettings().contextMenu);
-
-    if(pluginEnabled){
-      createContextMenu.call(instance);
-    } else {
-      destroyContextMenu.call(instance);
-    }
-  }
-
-  function createContextMenu() {
-    var instance = this
-      , selectorId = instance.rootElement[0].id
-      , allItems = {
-        "row_above": {name: "Insert row above", disabled: isDisabled},
-        "row_below": {name: "Insert row below", disabled: isDisabled},
-        "hsep1": "---------",
-        "col_left": {name: "Insert column on the left", disabled: isDisabled},
-        "col_right": {name: "Insert column on the right", disabled: isDisabled},
-        "hsep2": "---------",
-        "remove_row": {name: "Remove row", disabled: isDisabled},
-        "remove_col": {name: "Remove column", disabled: isDisabled},
-        "hsep3": "---------",
-        "undo": {name: "Undo", disabled: function () {
-          return !instance.undoRedo || !instance.isUndoAvailable();
-        }},
-        "redo": {name: "Redo", disabled: function () {
-          return !instance.undoRedo || !instance.isRedoAvailable();
-        }}
-      }
-      , defaultOptions = {
-        selector : "#" + selectorId + ' table, #' + selectorId + ' div',
-        trigger  : 'right',
-        callback : onContextClick
-      }
-      , options = {}
-      , i
-      , ilen
-      , settings = instance.getSettings();
-
-    function onContextClick(key) {
-      var corners = instance.getSelected(); //[selection start row, selection start col, selection end row, selection end col]
-
-      if (!corners) {
-        return; //needed when there are 2 grids on a page
-      }
-
-      /**
-       * `selection` variable contains normalized selection coordinates.
-       * selection.start - top left corner of selection area
-       * selection.end - bottom right corner of selection area
-       */
-
-      var selection = {
-        start: new Handsontable.SelectionPoint(),
-        end: new Handsontable.SelectionPoint()
-      };
-
-      selection.start.row(Math.min(corners[0], corners[2]));
-      selection.start.col(Math.min(corners[1], corners[3]));
-
-      selection.end.row(Math.max(corners[0], corners[2]));
-      selection.end.col(Math.max(corners[1], corners[3]));
-
-      switch (key) {
-        case "row_above":
-          instance.alter("insert_row", selection.start.row());
-          break;
-
-        case "row_below":
-          instance.alter("insert_row", selection.end.row() + 1);
-          break;
-
-        case "col_left":
-          instance.alter("insert_col", selection.start.col());
-          break;
-
-        case "col_right":
-          instance.alter("insert_col", selection.end.col() + 1);
-          break;
-
-        case "remove_row":
-          instance.alter(key, selection.start.row(), (selection.end.row() - selection.start.row()) + 1);
-          break;
-
-        case "remove_col":
-          instance.alter(key, selection.start.col(), (selection.end.col() - selection.start.col()) + 1);
-          break;
-
-        case "undo":
-          instance.undo();
-          break;
-
-        case "redo":
-          instance.redo();
-          break;
-      }
-    }
-
-    function isDisabled(key) {
-      //TODO rewrite
-      /*if (instance.blockedCols.main.find('th.htRowHeader.active').length && (key === "remove_col" || key === "col_left" || key === "col_right")) {
-       return true;
-       }
-       else if (instance.blockedRows.main.find('th.htColHeader.active').length && (key === "remove_row" || key === "row_above" || key === "row_below")) {
-       return true;
-       }
-       else*/
-      if (instance.countRows() >= instance.getSettings().maxRows && (key === "row_above" || key === "row_below")) {
-        return true;
-      }
-      else if (instance.countCols() >= instance.getSettings().maxCols && (key === "col_left" || key === "col_right")) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
-
-    if (settings.contextMenu === true) { //contextMenu is true
-      options.items = allItems;
-    }
-    else if (Object.prototype.toString.apply(settings.contextMenu) === '[object Array]') { //contextMenu is an array
-      options.items = {};
-      for (i = 0, ilen = settings.contextMenu.length; i < ilen; i++) {
-        var key = settings.contextMenu[i];
-        if (typeof allItems[key] === 'undefined') {
-          throw new Error('Context menu key "' + key + '" is not recognised');
-        }
-        options.items[key] = allItems[key];
-      }
-    }
-    else if (Object.prototype.toString.apply(settings.contextMenu) === '[object Object]') { //contextMenu is an options object as defined in http://medialize.github.com/jQuery-contextMenu/docs.html
-      options = settings.contextMenu;
-      if (options.items) {
-        for (i in options.items) {
-          if (options.items.hasOwnProperty(i) && allItems[i]) {
-            if (typeof options.items[i] === 'string') {
-              options.items[i] = allItems[i];
-            }
-            else {
-              options.items[i] = $.extend(true, allItems[i], options.items[i]);
-            }
-          }
-        }
-      }
-      else {
-        options.items = allItems;
-      }
-
-      if (options.callback) {
-        var handsontableCallback = defaultOptions.callback;
-        var customCallback = options.callback;
-        options.callback = function (key, options) {
-          handsontableCallback(key, options);
-          customCallback(key, options);
-        }
-      }
-    }
-
-    if (!selectorId) {
-      throw new Error("Handsontable container must have an id");
-    }
-
-    $.contextMenu($.extend(true, defaultOptions, options));
-  }
-
-  function destroyContextMenu() {
-    var id = this.rootElement[0].id;
-    $.contextMenu('destroy', "#" + id + ' table, #' + id + ' div');
-
-    /*
-     * There is a bug in $.contextMenu: 'destroy' does not remove layer when selector is provided. When the below line
-     * is removed, running the context menu tests in Jasmine will produce invisible layers that are never removed from DOM
-     */
-    $(document.querySelectorAll('#context-menu-layer')).remove();
-  }
-
-  Handsontable.PluginHooks.add('afterInit', init);
-  Handsontable.PluginHooks.add('afterUpdateSettings', init);
-  Handsontable.PluginHooks.add('afterDestroy', destroyContextMenu);
-
-})(Handsontable);
 /**
  * This plugin adds support for legacy features, deprecated APIs, etc.
  */
@@ -8373,69 +8199,6 @@ else {
   };
 }
 
-/*//http://net.tutsplus.com/tutorials/javascript-ajax/javascript-from-null-cross-browser-event-binding/
- WalkontableDom.prototype.addEvent = (function () {
- var that = this;
- if (document.addEventListener) {
- return function (elem, type, cb) {
- if ((elem && !elem.length) || elem === window) {
- elem.addEventListener(type, cb, false);
- }
- else if (elem && elem.length) {
- var len = elem.length;
- for (var i = 0; i < len; i++) {
- that.addEvent(elem[i], type, cb);
- }
- }
- };
- }
- else {
- return function (elem, type, cb) {
- if ((elem && !elem.length) || elem === window) {
- elem.attachEvent('on' + type, function () {
-
- //normalize
- //http://stackoverflow.com/questions/4643249/cross-browser-event-object-normalization
- var e = window['event'];
- e.target = e.srcElement;
- //e.offsetX = e.layerX;
- //e.offsetY = e.layerY;
- e.relatedTarget = e.relatedTarget || e.type == 'mouseover' ? e.fromElement : e.toElement;
- if (e.target.nodeType === 3) e.target = e.target.parentNode; //Safari bug
-
- return cb.call(elem, e)
- });
- }
- else if (elem.length) {
- var len = elem.length;
- for (var i = 0; i < len; i++) {
- that.addEvent(elem[i], type, cb);
- }
- }
- };
- }
- })();
-
- WalkontableDom.prototype.triggerEvent = function (element, eventName, target) {
- var event;
- if (document.createEvent) {
- event = document.createEvent("MouseEvents");
- event.initEvent(eventName, true, true);
- } else {
- event = document.createEventObject();
- event.eventType = eventName;
- }
-
- event.eventName = eventName;
- event.target = target;
-
- if (document.createEvent) {
- target.dispatchEvent(event);
- } else {
- target.fireEvent("on" + event.eventType, event);
- }
- };*/
-
 WalkontableDom.prototype.removeTextNodes = function (elem, parent) {
   if (elem.nodeType === 3) {
     parent.removeChild(elem); //bye text nodes!
@@ -10546,24 +10309,7 @@ function WalkontableViewport(instance) {
   }
 }
 
-/*WalkontableViewport.prototype.isInSightVertical = function () {
-  //is table outside viewport bottom edge
-  if (tableTop > windowHeight + scrollTop) {
-    return -1;
-  }
-
-  //is table outside viewport top edge
-  else if (scrollTop > tableTop + tableFakeHeight) {
-    return -2;
-  }
-
-  //table is in viewport but how much exactly?
-  else {
-
-  }
-};*/
-
-//used by scrollbar
+// Used by scrollbar
 WalkontableViewport.prototype.getWorkspaceHeight = function (proposedHeight) {
   if (this.instance.isNativeScroll) {
     return this.clientHeight;

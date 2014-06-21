@@ -7,63 +7,52 @@
  * http://handsontable.com/
  *
  * Date: Thu Sep 19 2013 01:45:41 GMT+0200 (Central European Daylight Time)
+ *
+ * Forked from: https://github.com/warpech/jquery-handsontable/tree/7bd83de5ca32858735fb01ae3b9c1287246a83cb
+ *
+ * - Customized for OctoberCMS
+ *
  */
-
 .handsontable {
   position: relative;
   font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.3em;
+  line-height: 14px;
   font-size: 13px;
 }
-
 .handsontable.htAutoColumnSize {
   visibility: hidden;
   left: 0;
   position: absolute;
   top: 0;
 }
-
 .handsontable table,
 .handsontable tbody,
 .handsontable thead,
 .handsontable td,
 .handsontable th,
-.handsontable div
-{
+.handsontable div {
   box-sizing: content-box;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
 }
-
 .handsontable table.htCore {
-  border-collapse: separate; /*it must be separate, otherwise there are offset miscalculations in WebKit: http://stackoverflow.com/questions/2655987/border-collapse-differences-in-ff-and-webkit*/
+  border-collapse: separate;
   position: relative;
-  /*this actually only changes appearance of user selection - does not make text unselectable
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
-  -ms-user-select: none;
-  /*user-select: none; /*no browser supports unprefixed version*/
   border-spacing: 0;
   margin: 0;
   border-width: 0;
   table-layout: fixed;
   width: 0;
   outline-width: 0;
-  /* reset bootstrap table style. for more info see: https://github.com/warpech/jquery-handsontable/issues/224 */
   max-width: none;
   max-height: none;
 }
-
 .handsontable col {
   width: 50px;
 }
-
 .handsontable col.rowHeader {
   width: 50px;
 }
-
 .handsontable th,
 .handsontable td {
   border-right: 1px solid #CCC;
@@ -71,27 +60,23 @@
   height: 22px;
   empty-cells: show;
   line-height: 21px;
-  padding: 0 4px 0 4px; /* top, bottom padding different than 0 is handled poorly by FF with HTML5 doctype */
+  padding: 0 4px 0 4px;
   background-color: #FFF;
   font-size: 12px;
   vertical-align: top;
   overflow: hidden;
   outline-width: 0;
-  white-space: pre-line; /* preserve new line character in cell */
+  white-space: pre-line;
 }
-
 .handsontable td.htInvalid {
   -webkit-transition: background 0.75s ease;
   transition: background 0.75s ease;
   background-color: #ff4c42;
 }
-
 .handsontable th:last-child {
-  /*Foundation framework fix*/
   border-right: 1px solid #CCC;
   border-bottom: 1px solid #CCC;
 }
-
 .handsontable tr:first-child th.htNoFrame,
 .handsontable th:first-child.htNoFrame,
 .handsontable th.htNoFrame {
@@ -99,27 +84,29 @@
   background-color: white;
   border-color: #FFF;
 }
-
 .handsontable th:first-child,
 .handsontable td:first-child,
 .handsontable .htNoFrame + th,
 .handsontable .htNoFrame + td {
   border-left: 1px solid #CCC;
 }
-
 .handsontable tr:first-child th,
 .handsontable tr:first-child td {
   border-top: 1px solid #CCC;
 }
-
 .handsontable thead tr:last-child th {
   border-bottom-width: 0;
 }
-
 .handsontable thead tr.lastChild th {
   border-bottom-width: 0;
 }
-
+.handsontable thead th {
+  padding: 0;
+}
+.handsontable thead th .relative {
+  position: relative;
+  padding: 2px 4px;
+}
 .handsontable th {
   background-color: #EEE;
   color: #222;
@@ -127,26 +114,12 @@
   font-weight: normal;
   white-space: nowrap;
 }
-
 .handsontable th .small {
   font-size: 12px;
 }
-
-.handsontable thead th {
-  padding: 0;
-}
-
 .handsontable th.active {
   background-color: #CCC;
 }
-
-.handsontable thead th .relative {
-  position: relative;
-  padding: 2px 4px;
-}
-
-/* plugins */
-
 .handsontable .manualColumnMover {
   position: absolute;
   left: 0;
@@ -157,29 +130,27 @@
   z-index: 999;
   cursor: move;
 }
-
 .handsontable th .manualColumnMover:hover,
 .handsontable th .manualColumnMover.active {
   background-color: #88F;
 }
-
 .handsontable .manualColumnResizer {
   position: absolute;
   top: 0;
   cursor: col-resize;
 }
-
+.handsontable .manualColumnResizer:hover .manualColumnResizerHandle,
+.handsontable .manualColumnResizer.active .manualColumnResizerHandle {
+  background-color: #AAB !important;
+}
+.handsontable .manualColumnResizer.active .manualColumnResizerLine {
+  display: block;
+}
 .handsontable .manualColumnResizerHandle {
   background-color: transparent;
   width: 5px;
   height: 25px;
 }
-
-.handsontable .manualColumnResizer:hover .manualColumnResizerHandle,
-.handsontable .manualColumnResizer.active .manualColumnResizerHandle {
-  background-color: #AAB;
-}
-
 .handsontable .manualColumnResizerLine {
   position: absolute;
   right: 0;
@@ -189,81 +160,47 @@
   width: 0;
   border-right: 1px dashed #777;
 }
-
-.handsontable .manualColumnResizer.active .manualColumnResizerLine {
-  display: block;
-}
-
 .handsontable .columnSorting:hover {
   text-decoration: underline;
   cursor: pointer;
 }
-
-/* border line */
 .handsontable .wtBorder {
   position: absolute;
   font-size: 0;
 }
-
 .handsontable td.area {
   background-color: #EEF4FF;
 }
-
-/* fill handle */
 .handsontable .wtBorder.corner {
   font-size: 0;
   cursor: crosshair;
 }
-
 .handsontable .htBorder.htFillBorder {
   background: red;
   width: 1px;
   height: 1px;
 }
-
-.handsontableInput {
-  border: 2px solid #5292F7;
-  outline-width: 0;
-  margin: 0;
-  padding: 1px 4px 0 2px;
-  font-family: Arial, Helvetica, sans-serif; /*repeat from .handsontable (inherit doesn't work with IE<8) */
-  line-height: 1.3em; /*repeat from .handsontable (inherit doesn't work with IE<8) */
-  font-size: 13px;
-  -webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.4);
-  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.4);
-  resize: none;
-
-  /*below are needed to overwrite stuff added by jQuery UI Bootstrap theme*/
-  display: inline-block;
-  font-size: 13px;
-  color: #000;
-  border-radius: 0;
-}
-
-.handsontableInputHolder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
-}
-
-/*
-TextRenderer readOnly cell
-*/
 .handsontable .htDimmed {
   font-style: italic;
   color: #777;
 }
-
-/*
-AutocompleteRenderer down arrow
-*/
+.handsontable .htCheckboxRendererInput.noValue {
+  /*opacity: 0.5;*/
+}
+.handsontable .htCheckboxRendererInput.custom-checkbox label {
+  margin: 0;
+}
+.handsontable .htCheckboxRendererInput.custom-checkbox label:before {
+  bottom: -3px;
+  left: 5px;
+}
+.handsontable .htNumeric {
+  text-align: right;
+}
 .handsontable .htAutocomplete {
   position: relative;
   padding-right: 20px;
 }
-
 .handsontable .htAutocompleteArrow {
   position: absolute;
   top: 0;
@@ -274,26 +211,9 @@ AutocompleteRenderer down arrow
   width: 16px;
   text-align: center;
 }
-
 .handsontable td .htAutocompleteArrow:hover {
   color: #777;
 }
-
-/*
-CheckboxRenderer
-*/
-.handsontable .htCheckboxRendererInput.noValue {
-  opacity: 0.5;
-}
-
-/*
-NumericRenderer
-*/
-.handsontable .htNumeric {
-  text-align: right;
-}
-
-/* autocomplete rules. Needed only if you are using the autocomplete feature */
 .handsontable .autocomplete {
   position: absolute;
   font-family: Arial, Helvetica, sans-serif;
@@ -319,14 +239,12 @@ NumericRenderer
   background-clip: padding-box;
   border-radius: 4px;
 }
-
 .handsontable .autocomplete li {
   line-height: 18px;
   min-height: 18px;
   display: list-item;
   margin: 0;
 }
-
 .handsontable .autocomplete a {
   display: block;
   padding: 3px 15px;
@@ -336,8 +254,9 @@ NumericRenderer
   min-height: 18px;
   color: #333;
   white-space: nowrap;
+  color: #08C;
+  text-decoration: none;
 }
-
 .handsontable .autocomplete li > a:hover,
 .handsontable .autocomplete .active > a,
 .handsontable .autocomplete .active > a:hover {
@@ -345,25 +264,6 @@ NumericRenderer
   text-decoration: none;
   background-color: #08C;
 }
-
-.handsontable .autocomplete a {
-  color: #08C;
-  text-decoration: none;
-}
-
-/*context menu rules*/
-ul.context-menu-list {
-  color: black;
-}
-
-ul.context-menu-list li {
-  margin-bottom: 0; /*Foundation framework fix*/
-}
-
-/**
- * dragdealer
- */
-
 .handsontable .dragdealer {
   position: relative;
   width: 9px;
@@ -371,14 +271,34 @@ ul.context-menu-list li {
   background: #F8F8F8;
   border: 1px solid #DDD;
 }
-
 .handsontable .dragdealer .handle {
   position: absolute;
   width: 9px;
   height: 9px;
   background: #C5C5C5;
 }
-
 .handsontable .dragdealer .disabled {
   background: #898989;
+}
+.handsontableInput {
+  border: 2px solid #5292F7;
+  outline-width: 0;
+  margin: 0;
+  padding: 1px 4px 0 2px;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.3em;
+  -webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.4);
+  resize: none;
+  display: inline-block;
+  font-size: 13px;
+  color: #000;
+  border-radius: 0;
+}
+.handsontableInputHolder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
 }
