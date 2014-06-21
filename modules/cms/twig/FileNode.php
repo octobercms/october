@@ -4,7 +4,7 @@ use Twig_Node;
 use Twig_Compiler;
 
 /**
- * Represents a getPublic node
+ * Represents a file node
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
