@@ -9,7 +9,8 @@
  *
  * Forked by daftspunk:
  *
- * - Source can be an object { value: 'something', label: 'Something' }
+ * - Source can be an object [{ value: 'something', label: 'Something' }, { value: 'else', label: 'Something Else' }]
+ * - Source can also be { something: 'Something', else: 'Else' }
  */
 
 !function($){
@@ -100,8 +101,19 @@
             return item;
         },
 
+        itemsToArray: function (items) {
+            var newArray = []
+            $.each(items, function(value, label){
+                newArray.push({ label: label, value: value })
+            })
+            return newArray
+        },
+
         process: function (items) {
             var that = this
+
+            if (typeof items == 'object')
+                items = this.itemsToArray(items)
 
             items = $.grep(items, function (item) {
                 return that.matcher(item)
