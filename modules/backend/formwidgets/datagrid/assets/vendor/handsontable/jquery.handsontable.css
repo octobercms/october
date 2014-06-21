@@ -312,3 +312,32 @@
   width: 1px;
   height: 1px;
 }
+
+
+
+
+
+
+/**
+ * Handsontable RemoveRow extension. See `demo/buttons.html` for example usage
+ */
+.handsontable.htRemoveRow th.htRemoveRow {
+  text-align: center;
+}
+
+.handsontable.htRemoveRow th.htRemoveRow .btn {
+  background-color: #BBB;
+  border-radius: 9px;
+  padding: 0 6px 0 6px;
+  color: #FFF;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: bold;
+  display: none;
+  margin: 0 auto;
+  width: 10px;
+}
+
+.handsontable.htRemoveRow th.htRemoveRow .btn:hover {
+  background-color: #777;
+}
