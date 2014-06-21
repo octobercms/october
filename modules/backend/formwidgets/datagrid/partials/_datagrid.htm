@@ -1,14 +1,19 @@
-
-<?= $toolbarWidget->render() ?>
-
 <div
     id="<?= $this->getId() ?>"
-    style="width:100%"
-    data-control="datagrid"
-    data-min-rows="<?= $minRows ?>"></div>
+    class="field-datagrid size-<?= $size ?>">
+
+    <?= $toolbarWidget->render() ?>
+
+    <div
+        id="<?= $this->getId('grid') ?>"
+        style="width:100%"
+        data-control="datagrid"
+        class="control-datagrid"
+        ></div>
+</div>
 
 <script>
-    $('#<?= $this->getId() ?>')
+    $('#<?= $this->getId('grid') ?>')
         .data('columns', <?= json_encode($columnDefinitions) ?>)
         .data('columnHeaders', <?= json_encode($columnHeaders) ?>)
         .data('columnWidths', <?= json_encode($columnWidths) ?>)

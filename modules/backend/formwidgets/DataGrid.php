@@ -53,7 +53,7 @@ class DataGrid extends FormWidgetBase
         $this->vars['columnHeaders'] = $this->getColumnHeaders();
         $this->vars['columnDefinitions'] = $this->getColumnDefinitions();
         $this->vars['columnWidths'] = $this->getColumnWidths();
-        $this->vars['minRows'] = $this->getMinRows();
+        $this->vars['size'] = $this->size;
         $this->vars['toolbarWidget'] = $this->makeToolbarWidget();
     }
 
@@ -66,17 +66,6 @@ class DataGrid extends FormWidgetBase
 
         $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
         return $toolbarWidget;
-    }
-
-    protected function getMinRows()
-    {
-        switch ($this->size) {
-            case 'tiny': return 2;
-            case 'small': return 4;
-            case 'large': return 6;
-            case 'huge': return 8;
-            case 'giant': return 10;
-        }
     }
 
     protected function getColumnHeaders()

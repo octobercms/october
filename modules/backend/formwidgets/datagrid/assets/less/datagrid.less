@@ -1,0 +1,21 @@
+@import "../../../../assets/less/core/boot.less";
+
+@color-datagrid-body-bg: #eeeeee;
+
+.field-datagrid {
+
+    &.size-tiny .control-datagrid { min-height: @size-tiny; }
+    &.size-small .control-datagrid { min-height: @size-small; }
+    &.size-large .control-datagrid { min-height: @size-large; }
+    &.size-huge .control-datagrid { min-height: @size-huge; }
+    &.size-giant .control-datagrid { min-height: @size-giant; }
+
+    .control-datagrid {
+        background: @color-datagrid-body-bg;
+
+        table thead th {
+            background-color: @color-body-bg;
+        }
+    }
+
+}

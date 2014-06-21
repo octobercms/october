@@ -1,0 +1,21 @@
+.field-datagrid.size-tiny .control-datagrid {
+  min-height: 50px;
+}
+.field-datagrid.size-small .control-datagrid {
+  min-height: 100px;
+}
+.field-datagrid.size-large .control-datagrid {
+  min-height: 200px;
+}
+.field-datagrid.size-huge .control-datagrid {
+  min-height: 250px;
+}
+.field-datagrid.size-giant .control-datagrid {
+  min-height: 350px;
+}
+.field-datagrid .control-datagrid {
+  background: #eeeeee;
+}
+.field-datagrid .control-datagrid table thead th {
+  background-color: #fafafa;
+}

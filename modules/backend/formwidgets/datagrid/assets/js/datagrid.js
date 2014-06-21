@@ -23,6 +23,7 @@
         this.$el       = $(element)
 
         this.staticWidths = this.options.columnWidths
+        this.gridInstance = null
 
         // Init
         var handsontableOptions = {
@@ -30,9 +31,11 @@
             colWidths: function(columnIndex) {
                 return self.staticWidths[columnIndex]
             },
+            height: 400,
             columns: this.options.columns,
+            startRows: this.options.startRows,
             minRows: this.options.minRows,
-            minSpareRows: 1,
+            // minSpareRows: 1,
             currentRowClassName: 'currentRow',
             // rowHeaders: true,
             // manualColumnMove: true,
@@ -42,15 +45,15 @@
             removeRowPlugin: true
         }
 
-
         this.$el.handsontable(handsontableOptions)
+        this.gridInstance = this.$el.handsontable('getInstance')
 
         this.staticWidths = this.calculateColumnWidths()
-        self.$el.handsontable('render')
+        self.gridInstance.render()
 
         $(window).on('oc.updateUi', function(){
             self.staticWidths = self.calculateColumnWidths()
-            self.$el.handsontable('render')
+            self.gridInstance.render()
         })
 
         $(window).on('resize', function(){
@@ -59,10 +62,38 @@
     }
 
     DataGrid.DEFAULTS = {
-        minRows: null,
+        startRows: 1,
+        minRows: 1,
         columnHeaders: null,
         columnWidths: null,
-        columns: null
+        columns: null,
+        confirmMessage: 'Are you sure?'
+    }
+
+    DataGrid.prototype.getData = function() {
+        return this.$el.handsontable('getData')
+    }
+
+    DataGrid.prototype.insertRow = function(index) {
+        this.alterRow(index, 'insert_row')
+    }
+
+    DataGrid.prototype.removeRow = function(index) {
+        if (!confirm(this.options.confirmMessage))
+            return
+
+        this.alterRow(index, 'remove_row')
+    }
+
+    DataGrid.prototype.alterRow = function(index, command) {
+        if (!index) {
+            var selectedArr = this.gridInstance.getSelected()
+            if (selectedArr && selectedArr.length > 0)
+                index = selectedArr[0]
+        }
+
+        if (index === 0 || index)
+            this.gridInstance.alter(command, index)
     }
 
     DataGrid.prototype.calculateColumnWidths = function() {
@@ -88,7 +119,7 @@
             if (this > 0) {
                 staticWidths.push(this)
             } else {
-                var remainingWidth = ((totalWidth - headerOffsetWidth - usedWidth) / unsetWidthCounts) - 2
+                var remainingWidth = ((totalWidth - headerOffsetWidth - usedWidth) / unsetWidthCounts) - 1
                 staticWidths.push(Math.max(remainingWidth, 100))
             }
         })
@@ -174,7 +205,6 @@
             return $(td).parent('tr').find('th.htControlPanel').eq(0).find('.close');
         }
     }
-
 
     Handsontable.PluginHooks.add('beforeInitWalkontable', function (walkontableConfig) {
         var instance = this;
