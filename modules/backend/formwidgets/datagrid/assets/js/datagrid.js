@@ -94,13 +94,12 @@
                 var dataSet = {
                     autocomplete_field: column.data,
                     autocomplete_value: query,
-                    autocomplete_data: self.getData()
+                    autocomplete_data: self.getDataAtRow()
                 }
 
                 $.request(self.options.autocompleteHandler, {
                     data: dataSet,
                     success: function(data, textStatus, jqXHR){
-                        console.log(data.result)
                         process(data.result)
                     }
                 })
@@ -120,35 +119,56 @@
         confirmMessage: 'Are you sure?'
     }
 
+    DataGrid.prototype.getDataAtRow = function(row) {
+        if (!row && row !== 0)
+            row = this.getSelectedRow()
+
+        return $.extend(true, {}, this.gridInstance.getDataAtRow(row))
+    }
+
     DataGrid.prototype.getData = function() {
-        return this.$el.handsontable('getData')
+        var results = [],
+            dataArray = this.gridInstance.getData()
+
+        $.each(dataArray, function(index, object){
+            results.push($.extend(true, {}, object))
+        })
+        return results
     }
 
     DataGrid.prototype.insertRow = function(index) {
-        this.alterRow(index, 'insert_row')
+        if (!index)
+            index = this.getSelectedRow()
+
+        if (!index)
+            index = 0
+
+        this.gridInstance.alter('insert_row', index)
+        this.updateUi()
     }
 
     DataGrid.prototype.removeRow = function(index) {
         if (!confirm(this.options.confirmMessage))
             return
 
-        this.alterRow(index, 'remove_row')
+        if (!index)
+            index = this.getSelectedRow()
+
+        if (!index && index !== 0)
+            return
+
+        this.gridInstance.alter('remove_row', index)
+        this.updateUi()
     }
 
-    DataGrid.prototype.alterRow = function(index, command) {
-        if (!index) {
-            var selectedArr = this.gridInstance.getSelected()
-            if (selectedArr && selectedArr.length > 0)
-                index = selectedArr[0]
-        }
+    DataGrid.prototype.getSelectedRow = function() {
+        var row,
+            selectedArr = this.gridInstance.getSelected()
 
-        if (!index && command == 'insert_row')
-            index = 0
+        if (selectedArr && selectedArr.length > 0)
+            row = selectedArr[0]
 
-        if (index === 0 || index)
-            this.gridInstance.alter(command, index)
-
-        this.updateUi()
+        return row
     }
 
     DataGrid.prototype.updateUi = function() {
