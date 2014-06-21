@@ -4,7 +4,7 @@ use Twig_Token;
 use Twig_TokenParser;
 
 /**
- * Parser for the {{ getPublic() }} Twig tag.
+ * Parser for the {{ file() }} Twig tag.
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
