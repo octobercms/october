@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use DB;
 use URL;
 use Str;
 use App;
@@ -79,6 +80,11 @@ class Controller extends BaseController
     public $vars = [];
 
     /**
+     * @var A reference to the all the files in DB::system_files
+     */
+    public $systemFiles = [];
+
+    /**
      * @var int Response status code
      */
     protected $statusCode = 200;
@@ -94,6 +100,7 @@ class Controller extends BaseController
         $this->assetPath = Config::get('cms.themesDir').'/'.$this->theme->getDirName();
         $this->router = new Router($this->theme);
         $this->initTwigEnvironment();
+        $this->systemFiles = DB::table("system_files")->get();
     }
 
     /**
@@ -634,6 +641,36 @@ class Controller extends BaseController
     public function getRouter()
     {
         return $this->router;
+    }
+
+    /**
+     * Returns the uploaded file/image
+     * @param string $file Specifies the file name.
+     * @param string $publicOrProtected Whether the file is a public or protected file
+     * @return object An object of data for selected file
+     */
+    public function getFile($file = null, $publicOrProtected = 'public')
+    {
+        foreach ( $this->systemFiles as $row )
+            if ( $row->file_name === $file )
+                $result = $row;
+
+        if ( isset($result) ) {
+            $uploadsIterator = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator("uploads/{$publicOrProtected}") );
+
+            foreach ($uploadsIterator as $path => $object) {
+                if ( !$object->isDir() ) {
+                    $path = explode(DIRECTORY_SEPARATOR, $path);
+
+                    if ( $result->disk_name === end($path) ) {
+                        $path = implode(DIRECTORY_SEPARATOR, $path);
+                        return (object) array_merge((array) $result, array('path' => $path));
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     /**
