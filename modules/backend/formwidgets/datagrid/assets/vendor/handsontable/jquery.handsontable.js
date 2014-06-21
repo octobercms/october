@@ -395,6 +395,7 @@ Handsontable.Core = function (rootElement, userSettings) {
      */
     getVars: {},
     get: function (row, prop) {
+      row = Handsontable.PluginHooks.execute(instance, 'modifyRow', row);
       datamap.getVars.row = row;
       datamap.getVars.prop = prop;
       instance.PluginHooks.run('beforeGet', datamap.getVars);
@@ -445,6 +446,7 @@ Handsontable.Core = function (rootElement, userSettings) {
      */
     setVars: {},
     set: function (row, prop, value, source) {
+      row = Handsontable.PluginHooks.execute(instance, 'modifyRow', row, source || "datamapGet");
       datamap.setVars.row = row;
       datamap.setVars.prop = prop;
       datamap.setVars.value = value;
@@ -477,10 +479,12 @@ Handsontable.Core = function (rootElement, userSettings) {
       var physicRow = (GridSettings.prototype.data.length + index) % GridSettings.prototype.data.length;
       var logicRows = [];
       var rowsToRemove = amount;
+      var row;
 
       while (physicRow < GridSettings.prototype.data.length && rowsToRemove) {
         this.get(physicRow, 0); //this performs an actual mapping and saves the result to getVars
-        logicRows.push(this.getVars.row);
+        row = Handsontable.PluginHooks.execute(instance, 'modifyRow', this.getVars.row);
+        logicRows.push(row);
 
         rowsToRemove--;
         physicRow++;
@@ -2305,7 +2309,7 @@ Handsontable.Core = function (rootElement, userSettings) {
 
       instance.PluginHooks.execute('beforeGet', getVars);
 
-      return getVars.row;
+      return Handsontable.PluginHooks.execute(instance, 'modifyRow', getVars.row);
     }
 
     /**
@@ -2519,12 +2523,14 @@ Handsontable.Core = function (rootElement, userSettings) {
    * @return {Boolean} ending If true, will only count empty rows at the end of the data source
    */
   this.countEmptyRows = function (ending) {
-    var i = instance.countRows() - 1
-      , empty = 0;
+    var i = instance.countRows() - 1, 
+        empty = 0,
+        row;
     while (i >= 0) {
       datamap.get(i, 0);
+      row = Handsontable.PluginHooks.execute(instance, 'modifyRow', datamap.getVars.row);
 
-      if (instance.isEmptyRow(datamap.getVars.row)) {
+      if (instance.isEmptyRow(row)) {
         empty++;
       }
       else if (ending) {
@@ -4913,7 +4919,8 @@ Handsontable.PluginHookClass = (function () {
       afterCopyLimit: [],
 
       // Modifiers
-      modifyCol: []
+      modifyCol: [],
+      modifyRow: []
     }
   };
 
