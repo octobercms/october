@@ -31,11 +31,14 @@
                 return self.staticWidths[columnIndex]
             },
             columns: this.options.columns,
-            startRows: this.options.startRows,
-            fillHandle: false,
+            minRows: this.options.minRows,
+            minSpareRows: 1,
+            currentRowClassName: 'currentRow',
             // rowHeaders: true,
             // manualColumnMove: true,
             // manualRowMove: true,
+            fillHandle: false,
+            multiSelect: false,
             removeRowPlugin: true
         }
 
@@ -56,7 +59,7 @@
     }
 
     DataGrid.DEFAULTS = {
-        startRows: null,
+        minRows: null,
         columnHeaders: null,
         columnWidths: null,
         columns: null

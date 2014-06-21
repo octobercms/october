@@ -22,11 +22,17 @@ class DataGrid extends FormWidgetBase
     protected $columns = [];
 
     /**
+     * @var string Grid size
+     */
+    protected $size = 'large';
+
+    /**
      * {@inheritDoc}
      */
     public function init()
     {
-        $this->columns = $this->getConfig('columns');
+        $this->columns = $this->getConfig('columns', []);
+        $this->size = $this->getConfig('size', $this->size);
     }
 
     /**
@@ -47,6 +53,30 @@ class DataGrid extends FormWidgetBase
         $this->vars['columnHeaders'] = $this->getColumnHeaders();
         $this->vars['columnDefinitions'] = $this->getColumnDefinitions();
         $this->vars['columnWidths'] = $this->getColumnWidths();
+        $this->vars['minRows'] = $this->getMinRows();
+        $this->vars['toolbarWidget'] = $this->makeToolbarWidget();
+    }
+
+    protected function makeToolbarWidget()
+    {
+        $toolbarConfig = $this->makeConfig([
+            'alias'   => $this->alias . 'Toolbar',
+            'buttons' => $this->getViewPath('_toolbar.htm'),
+        ]);
+
+        $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
+        return $toolbarWidget;
+    }
+
+    protected function getMinRows()
+    {
+        switch ($this->size) {
+            case 'tiny': return 2;
+            case 'small': return 4;
+            case 'large': return 6;
+            case 'huge': return 8;
+            case 'giant': return 10;
+        }
     }
 
     protected function getColumnHeaders()

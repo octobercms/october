@@ -14,6 +14,8 @@
  *
  */
 
+@import "../../../../../assets/less/core/boot.less";
+
 @color-handsontable-header: #808c8d;
 @color-handsontable-active-cell: #4da7e8;
 @color-handsontable-border: #e2e2e2;
@@ -144,6 +146,10 @@
         th:last-of-type {
             border-right: 1px solid @color-handsontable-border !important;
         }
+
+        td:first-of-type.currentRow {
+            border-left: 3px solid @color-list-stripe-active;
+        }
     }
 
     th.active {
@@ -218,25 +224,25 @@
         cursor: pointer;
     }
 
-    &.htRemoveRow th.htRemoveRow {
-        text-align: center;
-    }
-
-    &.htRemoveRow th.htRemoveRow .btn {
-        background-color: #BBB;
-        border-radius: 9px;
-        padding: 0 6px 0 6px;
-        color: #FFF;
-        cursor: pointer;
-        font-size: 11px;
-        font-weight: bold;
-        display: none;
-        margin: 0 auto;
-        width: 10px;
-    }
-
-    &.htRemoveRow th.htRemoveRow .btn:hover {
-        background-color: #777;
+    &.htRemoveRow  {
+        th.htRemoveRow {
+            text-align: center;
+            .btn {
+                background-color: #BBB;
+                border-radius: 9px;
+                padding: 0 6px 0 6px;
+                color: #FFF;
+                cursor: pointer;
+                font-size: 11px;
+                font-weight: bold;
+                display: none;
+                margin: 0 auto;
+                width: 10px;
+                &:hover {
+                    background-color: #777;
+                }
+            }
+        }
     }
 
     //
@@ -250,31 +256,14 @@
             width: 1px;
         }
         th.htControlPanel {
+            border: none !important;
             .close {
                 background: transparent;
                 line-height: @handsontable-cell-height;
                 position: absolute;
-                right: 5px;
+                right: 7px;
             }
         }
-    }
-
-
-    &.htControlPanel th.htControlPanel .btn {
-        background-color: #BBB;
-        border-radius: 9px;
-        padding: 0 6px 0 6px;
-        color: #FFF;
-        cursor: pointer;
-        font-size: 11px;
-        font-weight: bold;
-        display: none;
-        margin: 0 auto;
-        width: 10px;
-    }
-
-    &.htControlPanel th.htControlPanel .btn:hover {
-        background-color: #777;
     }
 
     //
@@ -445,7 +434,7 @@
     font-size: @handsontable-font-size;
     resize: none;
     display: inline-block;
-    color: #000;
+    color: @text-color;
     border-radius: 0;
     text-indent: 1px;
 }

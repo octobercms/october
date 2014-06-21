@@ -1,8 +1,11 @@
+
+<?= $toolbarWidget->render() ?>
+
 <div
     id="<?= $this->getId() ?>"
     style="width:100%"
     data-control="datagrid"
-    data-start-rows="6"></div>
+    data-min-rows="<?= $minRows ?>"></div>
 
 <script>
     $('#<?= $this->getId() ?>')
