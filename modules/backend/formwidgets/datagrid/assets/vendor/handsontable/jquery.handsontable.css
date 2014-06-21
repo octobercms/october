@@ -15,9 +15,6 @@
  */
 .handsontable {
   position: relative;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 14px;
-  font-size: 13px;
 }
 .handsontable .relative {
   position: relative;
@@ -60,16 +57,19 @@
 .handsontable td {
   border-right: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
-  height: 22px;
+  height: 28px;
   empty-cells: show;
-  line-height: 21px;
+  line-height: 27px;
   padding: 0 4px 0 4px;
   background-color: #FFF;
-  font-size: 12px;
+  font-size: 13px;
   vertical-align: top;
   overflow: hidden;
   outline-width: 0;
   white-space: pre-line;
+}
+.handsontable th {
+  font-size: 12px;
 }
 .handsontable td.htInvalid {
   -webkit-transition: background 0.75s ease;
@@ -84,8 +84,8 @@
 .handsontable th:first-child.htNoFrame,
 .handsontable th.htNoFrame {
   border-left-width: 0;
-  background-color: white;
-  border-color: #FFF;
+  background-color: transparent;
+  border-color: transparent;
 }
 .handsontable th:first-child,
 .handsontable td:first-child,
@@ -120,6 +120,9 @@
 }
 .handsontable th .small {
   font-size: 12px;
+}
+.handsontable tbody th:last-of-type {
+  border-right: 1px solid #e2e2e2 !important;
 }
 .handsontable th.active {
   /*background-color: #CCC;*/
@@ -181,6 +184,52 @@
   text-decoration: underline;
   cursor: pointer;
 }
+.handsontable.htRemoveRow th.htRemoveRow {
+  text-align: center;
+}
+.handsontable.htRemoveRow th.htRemoveRow .btn {
+  background-color: #BBB;
+  border-radius: 9px;
+  padding: 0 6px 0 6px;
+  color: #FFF;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: bold;
+  display: none;
+  margin: 0 auto;
+  width: 10px;
+}
+.handsontable.htRemoveRow th.htRemoveRow .btn:hover {
+  background-color: #777;
+}
+.handsontable.htControlPanel {
+  position: relative;
+  width: auto;
+}
+.handsontable.htControlPanel col:first-child {
+  width: 1px;
+}
+.handsontable.htControlPanel th.htControlPanel .close {
+  background: transparent;
+  line-height: 28px;
+  position: absolute;
+  right: 5px;
+}
+.handsontable.htControlPanel th.htControlPanel .btn {
+  background-color: #BBB;
+  border-radius: 9px;
+  padding: 0 6px 0 6px;
+  color: #FFF;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: bold;
+  display: none;
+  margin: 0 auto;
+  width: 10px;
+}
+.handsontable.htControlPanel th.htControlPanel .btn:hover {
+  background-color: #777;
+}
 .handsontable .wtBorder {
   position: absolute;
   font-size: 0;
@@ -201,15 +250,12 @@
   font-style: italic;
   color: #777;
 }
-.handsontable .htCheckboxRendererInput.noValue {
-  /*opacity: 0.5;*/
-}
 .handsontable .htCheckboxRendererInput.custom-checkbox label {
   margin: 0;
 }
 .handsontable .htCheckboxRendererInput.custom-checkbox label:before {
   bottom: -4px;
-  left: 5px;
+  left: -9px;
 }
 .handsontable .htNumeric {
   text-align: right;
@@ -223,7 +269,7 @@
   top: 0;
   right: 0;
   font-size: 10px;
-  color: #EEE;
+  color: rgba(0, 0, 0, 0.07);
   cursor: default;
   width: 16px;
   text-align: center;
@@ -233,7 +279,6 @@
 }
 .handsontable .autocomplete {
   position: absolute;
-  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.3em;
   font-size: 13px;
   z-index: 10;
@@ -297,13 +342,13 @@
   outline-width: 0;
   margin: 0;
   padding: 1px 4px 0 2px;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.3em;
+  line-height: 1.8em;
+  font-size: 13px;
   resize: none;
   display: inline-block;
-  font-size: 13px;
   color: #000;
   border-radius: 0;
+  text-indent: 1px;
 }
 .handsontableInputHolder {
   position: absolute;
@@ -311,33 +356,4 @@
   left: 0;
   width: 1px;
   height: 1px;
-}
-
-
-
-
-
-
-/**
- * Handsontable RemoveRow extension. See `demo/buttons.html` for example usage
- */
-.handsontable.htRemoveRow th.htRemoveRow {
-  text-align: center;
-}
-
-.handsontable.htRemoveRow th.htRemoveRow .btn {
-  background-color: #BBB;
-  border-radius: 9px;
-  padding: 0 6px 0 6px;
-  color: #FFF;
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: bold;
-  display: none;
-  margin: 0 auto;
-  width: 10px;
-}
-
-.handsontable.htRemoveRow th.htRemoveRow .btn:hover {
-  background-color: #777;
 }

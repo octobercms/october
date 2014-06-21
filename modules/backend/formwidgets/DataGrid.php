@@ -73,7 +73,10 @@ class DataGrid extends FormWidgetBase
         foreach ($this->columns as $key => $column) {
             $item = [];
             $item['data'] = $key;
-            $item['readOnly'] = isset($column['readOnly']) && $column['readOnly'];
+
+            if (isset($column['readOnly']))
+                $item['readOnly'] =  $column['readOnly'];
+
             $item = $this->evalColumnType($column, $item);
             $definitions[] = $item;
         }
@@ -94,6 +97,16 @@ class DataGrid extends FormWidgetBase
                 $item['type'] = 'numeric';
                 $item['format'] = '$0,0.00';
                 break;
+
+            case 'checkbox':
+                $item['type'] = 'checkbox';
+                break;
+
+            case 'autocomplete':
+                $item['type'] = 'autocomplete';
+                if (isset($column['source'])) $item['source'] = $column['source'];
+                if (isset($column['strict'])) $item['strict'] = $column['strict'];
+                break;
         }
 
         return $item;
@@ -104,9 +117,9 @@ class DataGrid extends FormWidgetBase
      */
     public function loadAssets()
     {
-        $this->addCss('vendor/handsontable/jquery.handsontable.full.css', 'core');
+        $this->addCss('vendor/handsontable/jquery.handsontable.css', 'core');
         $this->addCss('css/datagrid.css', 'core');
-        $this->addJs('vendor/handsontable/jquery.handsontable.full.js', 'core');
+        $this->addJs('vendor/handsontable/jquery.handsontable.js', 'core');
         $this->addJs('js/datagrid.js', 'core');
     }
 

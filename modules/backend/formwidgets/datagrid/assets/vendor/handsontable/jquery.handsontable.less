@@ -18,11 +18,11 @@
 @color-handsontable-active-cell: #4da7e8;
 @color-handsontable-border: #e2e2e2;
 
+@handsontable-cell-height: 28px;
+@handsontable-font-size: 13px;
+
 .handsontable {
     position: relative;
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 14px;
-    font-size: 13px;
 
     .relative {
         position: relative;
@@ -67,16 +67,20 @@
     td {
         border-right: 1px solid @color-handsontable-border;
         border-bottom: 1px solid @color-handsontable-border;
-        height: 22px;
+        height: @handsontable-cell-height;
         empty-cells: show;
-        line-height: 21px;
+        line-height: @handsontable-cell-height - 1px;
         padding: 0 4px 0 4px;
         background-color: #FFF;
-        font-size: 12px;
+        font-size: @handsontable-font-size;
         vertical-align: top;
         overflow: hidden;
         outline-width: 0;
         white-space: pre-line;
+    }
+
+    th {
+        font-size: @handsontable-font-size - 1px;
     }
 
     td.htInvalid {
@@ -93,8 +97,8 @@
     th:first-child.htNoFrame,
     th.htNoFrame {
         border-left-width: 0;
-        background-color: white;
-        border-color: #FFF;
+        background-color: transparent;
+        border-color: transparent;
     }
 
     th:first-child,
@@ -134,6 +138,12 @@
         text-transform: uppercase;
 
         .small { font-size: 12px; }
+    }
+
+    tbody {
+        th:last-of-type {
+            border-right: 1px solid @color-handsontable-border !important;
+        }
     }
 
     th.active {
@@ -208,6 +218,65 @@
         cursor: pointer;
     }
 
+    &.htRemoveRow th.htRemoveRow {
+        text-align: center;
+    }
+
+    &.htRemoveRow th.htRemoveRow .btn {
+        background-color: #BBB;
+        border-radius: 9px;
+        padding: 0 6px 0 6px;
+        color: #FFF;
+        cursor: pointer;
+        font-size: 11px;
+        font-weight: bold;
+        display: none;
+        margin: 0 auto;
+        width: 10px;
+    }
+
+    &.htRemoveRow th.htRemoveRow .btn:hover {
+        background-color: #777;
+    }
+
+    //
+    // Custom CP
+    //
+
+    &.htControlPanel {
+        position: relative;
+        width: auto;
+        col:first-child {
+            width: 1px;
+        }
+        th.htControlPanel {
+            .close {
+                background: transparent;
+                line-height: @handsontable-cell-height;
+                position: absolute;
+                right: 5px;
+            }
+        }
+    }
+
+
+    &.htControlPanel th.htControlPanel .btn {
+        background-color: #BBB;
+        border-radius: 9px;
+        padding: 0 6px 0 6px;
+        color: #FFF;
+        cursor: pointer;
+        font-size: 11px;
+        font-weight: bold;
+        display: none;
+        margin: 0 auto;
+        width: 10px;
+    }
+
+    &.htControlPanel th.htControlPanel .btn:hover {
+        background-color: #777;
+    }
+
     //
     // Border line
     //
@@ -248,13 +317,16 @@
     //
 
     .htCheckboxRendererInput {
-        &.noValue { /*opacity: 0.5;*/ }
-        &.custom-checkbox label {
-            margin: 0;
+        //&.noValue { opacity: 0.5; }
+        &.custom-checkbox {
+            //text-align: center;
+            label {
+                margin: 0;
 
-            &:before {
-                bottom: -4px;
-                left: 5px;
+                &:before {
+                    bottom: -4px;
+                    left: -9px;
+                }
             }
         }
     }
@@ -280,7 +352,7 @@
         top: 0;
         right: 0;
         font-size: 10px;
-        color: #EEE;
+        color: rgba(0,0,0,.07);
         cursor: default;
         width: 16px;
         text-align: center;
@@ -293,7 +365,6 @@
 
     .autocomplete {
         position: absolute;
-        font-family: Arial, Helvetica, sans-serif;
         line-height: 1.3em;
         font-size: 13px;
         z-index: 10;
@@ -370,14 +441,13 @@
     outline-width: 0;
     margin: 0;
     padding: 1px 4px 0 2px;
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.3em;
-    font-size: 13px;
+    line-height: 1.8em;
+    font-size: @handsontable-font-size;
     resize: none;
     display: inline-block;
-    font-size: 13px;
     color: #000;
     border-radius: 0;
+    text-indent: 1px;
 }
 
 .handsontableInputHolder {
