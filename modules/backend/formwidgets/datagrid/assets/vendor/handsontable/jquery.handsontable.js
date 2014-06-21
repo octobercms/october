@@ -5925,7 +5925,6 @@ function HandsontableManualRowMove() {
     var manualRowMoveEnabled = !!(instance.getSettings().manualRowMove);
 
     if (manualRowMoveEnabled) {
-      console.log('yerp');
       var initialManualRowPositions = instance.getSettings().manualRowMove;
 
       var loadedManualRowPostions = loadManualRowPositions.call(instance);
