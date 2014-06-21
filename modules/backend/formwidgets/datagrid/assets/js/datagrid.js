@@ -24,6 +24,7 @@
 
         this.staticWidths = this.options.columnWidths
         this.gridInstance = null
+        this.columns = validateColumns(this.options.columns)
 
         // Init
         var handsontableOptions = {
@@ -32,10 +33,9 @@
                 return self.staticWidths[columnIndex]
             },
             height: 400,
-            columns: this.options.columns,
+            columns: this.columns,
             startRows: this.options.startRows,
             minRows: this.options.minRows,
-            // minSpareRows: 1,
             currentRowClassName: 'currentRow',
             // rowHeaders: true,
             // manualColumnMove: true,
@@ -44,6 +44,9 @@
             multiSelect: false,
             removeRowPlugin: true
         }
+
+        if (this.options.autoInsertRows)
+            handsontableOptions.minSpareRows = 1
 
         this.$el.handsontable(handsontableOptions)
         this.gridInstance = this.$el.handsontable('getInstance')
@@ -57,14 +60,63 @@
         $(window).on('resize', function(){
             self.staticWidths = self.calculateColumnWidths()
         })
+
+        function validateColumns(columns) {
+            $.each(columns, function(index, column){
+
+                if (column.type == 'autocomplete' && !column.source) {
+                    column.source = function(query, process) {
+                        return requestAutocompleteData(column, query, process)
+                    }
+                }
+
+            })
+
+            return columns
+        }
+
+        var autocompleteLastQuery = '',
+            autocompleteInterval = 300,
+            autocompleteInputTimer
+
+        function requestAutocompleteData(column, query, process) {
+
+            if (!self.options.autocompleteHandler)
+                return
+
+            if (query == autocompleteLastQuery) return
+            autocompleteLastQuery = query
+
+            if (autocompleteInputTimer !== undefined)
+                window.clearTimeout(autocompleteInputTimer);
+
+            autocompleteInputTimer = window.setTimeout(function(){
+                var dataSet = {
+                    autocomplete_field: column.data,
+                    autocomplete_value: query,
+                    autocomplete_data: self.getData()
+                }
+
+                $.request(self.options.autocompleteHandler, {
+                    data: dataSet,
+                    success: function(data, textStatus, jqXHR){
+                        console.log(data.result)
+                        process(data.result)
+                    }
+                })
+
+            }, autocompleteInterval);
+        }
     }
 
     DataGrid.DEFAULTS = {
         startRows: 1,
         minRows: 1,
+        autoInsertRows: false,
         columnHeaders: null,
         columnWidths: null,
         columns: null,
+        autocompleteHandler: null,
         confirmMessage: 'Are you sure?'
     }
 

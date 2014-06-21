@@ -7,8 +7,9 @@
     <div
         id="<?= $this->getId('grid') ?>"
         style="width:100%"
-        data-control="datagrid"
         class="control-datagrid"
+        data-control="datagrid"
+        data-autocomplete-handler="<?= $this->getEventHandler('onAutocomplete') ?>"
         ></div>
 </div>
 

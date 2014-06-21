@@ -1,11 +1,21 @@
 <?php namespace Backend\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
+use System\Classes\ApplicationException;
 
 /**
  * Grid
  * Renders a grid field.
  *
+ * Supported options:
+ *
+ * - allowInsert
+ * - autoInsertRows
+ * - allowRemove
+ * - allowImport
+ * - allowExport
+ * - exportFileName
+ * 
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -68,6 +78,10 @@ class DataGrid extends FormWidgetBase
         return $toolbarWidget;
     }
 
+    //
+    // Getters
+    //
+
     protected function getColumnHeaders()
     {
         $headers = [];
@@ -123,13 +137,36 @@ class DataGrid extends FormWidgetBase
 
             case 'autocomplete':
                 $item['type'] = 'autocomplete';
-                if (isset($column['source'])) $item['source'] = $column['source'];
+                if (isset($column['options'])) $item['source'] = $column['options'];
                 if (isset($column['strict'])) $item['strict'] = $column['strict'];
                 break;
         }
 
         return $item;
     }
+
+    //
+    // AJAX
+    //
+
+    public function onAutocomplete()
+    {
+        if (!$this->model->methodExists('getGridAutocompleteValues'))
+            throw new ApplicationException('Model :model does not contain a method getGridAutocompleteValues()');
+
+        $field = post('autocomplete_field');
+        $value = post('autocomplete_value');
+        $data = post('autocomplete_data', []);
+        $result = $this->model->getGridAutocompleteValues($field, $value, $data);
+        if (!is_array($result))
+            $result = [];
+
+        return ['result' => $result];
+    }
+
+    //
+    // Internals
+    //
 
     /**
      * {@inheritDoc}
