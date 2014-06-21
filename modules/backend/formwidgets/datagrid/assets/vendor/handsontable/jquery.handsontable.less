@@ -14,6 +14,10 @@
  *
  */
 
+@color-handsontable-header: #808c8d;
+@color-handsontable-active-cell: #4da7e8;
+@color-handsontable-border: #e2e2e2;
+
 .handsontable {
     position: relative;
     font-family: Arial, Helvetica, sans-serif;
@@ -27,7 +31,7 @@
         top: 0;
     }
 
-    table,tbody, thead, td, th, div {
+    table, tbody, thead, td, th, div {
         box-sizing: content-box;
         -webkit-box-sizing: content-box;
         -moz-box-sizing: content-box;
@@ -57,8 +61,8 @@
 
     th,
     td {
-        border-right: 1px solid #CCC;
-        border-bottom: 1px solid #CCC;
+        border-right: 1px solid @color-handsontable-border;
+        border-bottom: 1px solid @color-handsontable-border;
         height: 22px;
         empty-cells: show;
         line-height: 21px;
@@ -78,8 +82,8 @@
     }
     th:last-child {
         // Foundation framework fix
-        border-right: 1px solid #CCC;
-        border-bottom: 1px solid #CCC;
+        border-right: 1px solid @color-handsontable-border;
+        border-bottom: 1px solid @color-handsontable-border;
     }
     tr:first-child th.htNoFrame,
     th:first-child.htNoFrame,
@@ -93,11 +97,11 @@
     td:first-child,
     .htNoFrame + th,
     .htNoFrame + td {
-        border-left: 1px solid #CCC;
+        border-left: 1px solid @color-handsontable-border;
     }
     tr:first-child th,
     tr:first-child td {
-        border-top: 1px solid #CCC;
+        border-top: 1px solid @color-handsontable-border;
     }
 
     thead {
@@ -117,16 +121,21 @@
     }
 
     th {
-        background-color: #EEE;
-        color: #222;
+        background-color: transparent;
+        color: @color-handsontable-header;
         text-align: center;
         font-weight: normal;
         white-space: nowrap;
+
+        border: none !important;
+        text-transform: uppercase;
+
         .small { font-size: 12px; }
     }
 
     th.active {
-        background-color: #CCC;
+        /*background-color: #CCC;*/
+        color: #666;
     }
 
     //
@@ -228,7 +237,7 @@
             margin: 0;
 
             &:before {
-                bottom: -3px;
+                bottom: -4px;
                 left: 5px;
             }
         }
@@ -281,15 +290,12 @@
         margin: 2px 0 0 0;
         list-style: none;
         background-color: white;
-        border-color: #CCC;
         border-color: rgba(0, 0, 0, 0.2);
         border-style: solid;
         border-width: 1px;
-        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
         -webkit-background-clip: padding-box;
         background-clip: padding-box;
-        border-radius: 4px;
+
         li {
             line-height: 18px;
             min-height: 18px;
@@ -303,9 +309,8 @@
             font-weight: normal;
             line-height: 18px;
             min-height: 18px;
-            color: #333;
+            color: #666;
             white-space: nowrap;
-            color: #08C;
             text-decoration: none;
         }
 
@@ -314,7 +319,7 @@
         .active > a:hover {
             color: white;
             text-decoration: none;
-            background-color: #08C;
+            background-color: @color-handsontable-active-cell;
         }
     }
 
@@ -345,15 +350,13 @@
 //
 
 .handsontableInput {
-    border: 2px solid #5292F7;
+    border: 2px solid @color-handsontable-active-cell;
     outline-width: 0;
     margin: 0;
     padding: 1px 4px 0 2px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.3em;
     font-size: 13px;
-    -webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.4);
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.4);
     resize: none;
     display: inline-block;
     font-size: 13px;
@@ -368,4 +371,3 @@
     width: 1px;
     height: 1px;
 }
-

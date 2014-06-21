@@ -3046,7 +3046,7 @@ Handsontable.TableView = function (instance) {
         className: 'current',
         border: {
           width: 2,
-          color: '#5292F7',
+          color: '#4da7e8',
           style: 'solid',
           cornerVisible: function () {
             return that.settings.fillHandle && !that.isCellEdited() && !instance.selection.isMultiple()
