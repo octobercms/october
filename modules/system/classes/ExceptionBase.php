@@ -91,7 +91,7 @@ class ExceptionBase extends Exception
      * and Php errors.
      * @param string $message Error message.
      * @param int $code Error code.
-     * @param closure $closure Closure function containing code to execute.
+     * @param \closure $closure Closure function containing code to execute.
      * @param array $params Parameters passed to the function as the first parameter.
      * @return mixed Returned value from the closure function.
      */
