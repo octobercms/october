@@ -80,12 +80,12 @@ class Controller extends BaseController
     public $vars = [];
 
     /**
-     * @var A reference to the all the files in DB::system_files
+     * @var array A reference to the all the files in DB::system_files
      */
     public $systemFiles = [];
     
     /**
-     * @var A reference to the all the files in the "uploads/" directory
+     * @var array A reference to the all the files in the "uploads/" directory
      */
     public $uploadedFiles = [];
 
