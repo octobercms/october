@@ -106,7 +106,7 @@ class Controller extends BaseController
         $this->router = new Router($this->theme);
         $this->initTwigEnvironment();
         $this->systemFiles = DB::table("system_files")->get();
-        $this->uploadedFiles = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator( substr(Config::get('cms.uploadsDir'), 1)."/" ) ) );
+        $this->uploadedFiles = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator( substr(Config::get('cms.uploadsDir'), 1)."/" ) );
     }
 
     /**
