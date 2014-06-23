@@ -83,6 +83,11 @@ class Controller extends BaseController
      * @var A reference to the all the files in DB::system_files
      */
     public $systemFiles = [];
+    
+    /**
+     * @var A reference to the all the files in the "uploads/" directory
+     */
+    public $uploadedFiles = [];
 
     /**
      * @var int Response status code
@@ -101,6 +106,7 @@ class Controller extends BaseController
         $this->router = new Router($this->theme);
         $this->initTwigEnvironment();
         $this->systemFiles = DB::table("system_files")->get();
+        $this->uploadedFiles = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator("uploads/") );
     }
 
     /**
@@ -656,13 +662,12 @@ class Controller extends BaseController
                 $result = $row;
 
         if ( isset($result) ) {
-            $uploadsIterator = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator("uploads/{$publicOrProtected}") );
-
-            foreach ($uploadsIterator as $path => $object) {
+            
+            foreach ($this->uploadedFiles as $path => $object) {
                 if ( !$object->isDir() ) {
                     $path = explode(DIRECTORY_SEPARATOR, $path);
 
-                    if ( $result->disk_name === end($path) ) {
+                    if ( $path[1] === $publicOrProtected AND $result->disk_name === end($path) ) {
                         $path = implode(DIRECTORY_SEPARATOR, $path);
                         return (object) array_merge((array) $result, array('path' => $path));
                     }
