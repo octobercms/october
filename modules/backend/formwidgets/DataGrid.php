@@ -65,6 +65,7 @@ class DataGrid extends FormWidgetBase
         $this->vars['columnWidths'] = $this->getColumnWidths();
         $this->vars['size'] = $this->size;
         $this->vars['toolbarWidget'] = $this->makeToolbarWidget();
+        $this->vars['value'] = json_encode($this->model->{$this->columnName});
     }
 
     protected function makeToolbarWidget()
@@ -184,6 +185,6 @@ class DataGrid extends FormWidgetBase
      */
     public function getSaveData($value)
     {
-        return $value;
+        return json_decode($value);
     }
 }

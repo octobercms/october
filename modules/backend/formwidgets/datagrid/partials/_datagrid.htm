@@ -9,8 +9,16 @@
         style="width:100%"
         class="control-datagrid"
         data-control="datagrid"
+        data-data-locker="#<?= $this->getId('datalocker') ?>"
         data-autocomplete-handler="<?= $this->getEventHandler('onAutocomplete') ?>"
         ></div>
+
+    <input
+        type="hidden"
+        id="<?= $this->getId('datalocker') ?>"
+        name="<?= $name ?>"
+        value="<?= e($value) ?>"
+        />
 </div>
 
 <script>
