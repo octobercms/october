@@ -1,4 +1,4 @@
-* **Build 110** (2014-06-xx)
+* **Build 110** (2014-06-24)
   - Created a new Grid form widget for managing tabular data.
   - Widget identifiers have changed to remove the alias if it matches the default alias.
   - Add new form field type called `number`.
