@@ -184,20 +184,20 @@ class Controller extends BaseController
         /*
          * Render the page
          */
-        CmsException::capture($this->page, 400, function() {
-            $this->loader->setObject($this->page);
-            $template = $this->twig->loadTemplate($this->page->getFullPath());
-            $this->pageContents = $template->render($this->vars);
-        });
+        CmsException::mask($this->page, 400);
+        $this->loader->setObject($this->page);
+        $template = $this->twig->loadTemplate($this->page->getFullPath());
+        $this->pageContents = $template->render($this->vars);
+        CmsException::unmask();
 
         /*
          * Render the layout
          */
-        $result = CmsException::capture($this->layout, 400, function() {
-            $this->loader->setObject($this->layout);
-            $template = $this->twig->loadTemplate($this->layout->getFullPath());
-            return $template->render($this->vars);
-        });
+        CmsException::mask($this->layout, 400);
+        $this->loader->setObject($this->layout);
+        $template = $this->twig->loadTemplate($this->layout->getFullPath());
+        $result = $template->render($this->vars);
+        CmsException::unmask();
 
         /*
          * Extensibility
@@ -239,16 +239,16 @@ class Controller extends BaseController
         $this->layoutObj = null;
         
         if (!$this->layout->isFallBack()) {
-            CmsException::capture($this->layout, 300, function(){
-                $parser = new CodeParser($this->layout);
-                $this->layoutObj = $parser->source($this->page, $this->layout, $this);
-            });
+            CmsException::mask($this->layout, 300);
+            $parser = new CodeParser($this->layout);
+            $this->layoutObj = $parser->source($this->page, $this->layout, $this);
+            CmsException::unmask();
         }
 
-        CmsException::capture($this->page, 300, function(){
-            $parser = new CodeParser($this->page);
-            $this->pageObj = $parser->source($this->page, $this->layout, $this);
-        });
+        CmsException::mask($this->page, 300);
+        $parser = new CodeParser($this->page);
+        $this->pageObj = $parser->source($this->page, $this->layout, $this);
+        CmsException::unmask();
     }
 
     /**
@@ -446,11 +446,11 @@ class Controller extends BaseController
          * Run layout functions
          */
         if ($this->layoutObj) {
-            $response = CmsException::capture($this->layout, 300, function(){
-                return (($result = $this->layoutObj->onStart())
-                    || ($result = $this->layout->runComponents())
-                    || ($result = $this->layoutObj->onBeforePageStart())) ? $result: null;
-            });
+            CmsException::mask($this->layout, 300);
+            $response = (($result = $this->layoutObj->onStart())
+                || ($result = $this->layout->runComponents())
+                || ($result = $this->layoutObj->onBeforePageStart())) ? $result: null;
+            CmsException::unmask();
 
             if ($response) return $response;
         }
@@ -458,11 +458,11 @@ class Controller extends BaseController
         /*
          * Run page functions
          */
-        $response = CmsException::capture($this->page, 300, function(){
-            return (($result = $this->pageObj->onStart())
-                || ($result = $this->page->runComponents())
-                || ($result = $this->pageObj->onEnd())) ? $result : null;
-        });
+        CmsException::mask($this->page, 300);
+        $response = (($result = $this->pageObj->onStart())
+            || ($result = $this->page->runComponents())
+            || ($result = $this->pageObj->onEnd())) ? $result : null;
+        CmsException::unmask();
 
         if ($response) return $response;
 
@@ -470,9 +470,9 @@ class Controller extends BaseController
          * Run remaining layout functions
          */
         if ($this->layoutObj) {
-            $response = CmsException::capture($this->layout, 300, function(){
-                return ($result = $this->layoutObj->onEnd()) ? $result : null;
-            });
+            CmsException::mask($this->layout, 300);
+            $response = ($result = $this->layoutObj->onEnd()) ? $result : null;
+            CmsException::unmask();
         }
 
         /*
@@ -567,9 +567,12 @@ class Controller extends BaseController
                 throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
         }
 
+        CmsException::mask($partial, 400);
         $this->loader->setObject($partial);
         $template = $this->twig->loadTemplate($partial->getFullPath());
         $result = $template->render(array_merge($this->vars, $parameters));
+        CmsException::unmask();
+
         $this->componentContext = null;
         return $result;
     }

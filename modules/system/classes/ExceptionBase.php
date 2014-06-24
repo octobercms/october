@@ -59,7 +59,7 @@ class ExceptionBase extends Exception
         if ($this->className === null) {
             $this->className = get_called_class();
         }
-        
+
         if ($this->errorType === null)  {
             $this->errorType = 'Undefined';
         }
@@ -86,26 +86,27 @@ class ExceptionBase extends Exception
     }
 
     /**
-     * Captures and masks an exception inside an anonymous closure's code.
-     * This is an equivalent of a try/catch block, but it can catch Fatal
-     * and Php errors.
+     * Masks an exception with the called class. This should catch fatal and php errors.
+     * It should always be followed by the unmask() method to remove the mask.
      * @param string $message Error message.
      * @param int $code Error code.
-     * @param \closure $closure Closure function containing code to execute.
-     * @param array $params Parameters passed to the function as the first parameter.
-     * @return mixed Returned value from the closure function.
+     * @return void
      */
-    public static function capture($message = null, $code = 0, $closure, $params = [])
+    public static function mask($message = null, $code = 0)
     {
         $calledClass = get_called_class();
         $exception = new $calledClass($message, $code);
-
         ErrorHandler::applyMask($exception);
-        $result = $closure($params);
-        ErrorHandler::removeMask();
+    }
 
-        return $result;
-    } 
+    /**
+     * Removes the active mask from the called class.
+     * @return void
+     */
+    public static function unmask()
+    {
+        ErrorHandler::removeMask();
+    }
 
     /**
      * If this exception acts as a mask, sets the face for the foreign exception.

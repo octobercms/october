@@ -59,9 +59,9 @@ class CmsCompoundObject extends CmsObject
         if (($obj = parent::load($theme, $fileName)) === null)
             return null;
 
-        $parsedData = CmsException::capture($obj, 200, function() use ($obj) {
-             return SectionParser::parse($obj->content);
-        });
+        CmsException::mask($obj, 200);
+        $parsedData = SectionParser::parse($obj->content);
+        CmsException::unmask();
 
         $obj->settings = $parsedData['settings'];
         $obj->code = $parsedData['code'];
