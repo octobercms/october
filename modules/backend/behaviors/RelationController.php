@@ -556,9 +556,11 @@ class RelationController extends ControllerBehavior
             $config = $this->makeConfig($this->config->list);
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ViewList';
-            $config->noRecordsMessage = $this->config->emptyMessage;
             $config->recordOnClick = sprintf("$.oc.relationBehavior.clickManageListRecord('%s', :id)", $this->field);
             $config->showCheckboxes = true;
+
+            if ($emptyMessage = $this->getConfig('emptyMessage'))
+                $config->noRecordsMessage = $emptyMessage;
 
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
             $widget->bindEvent('list.extendQueryBefore', function($host, $query) {
