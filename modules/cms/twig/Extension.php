@@ -10,6 +10,7 @@ use Twig_SimpleFunction;
 use Cms\Classes\Controller;
 use Cms\Classes\CmsException;
 use Cms\Classes\MarkupManager;
+use System\Classes\ApplicationException;
 
 /**
  * The CMS Twig extension class implements the basic CMS Twig functions and filters.
@@ -69,7 +70,7 @@ class Extension extends Twig_Extension
          */
         foreach ($this->markupManager->listFunctions() as $name => $callable) {
             if (!is_callable($callable))
-                continue;
+                throw new ApplicationException(sprintf('The markup function for %s is not callable.', $name));
 
             $functions[] = new Twig_SimpleFunction($name, $callable, ['is_safe' => ['html']]);
         }
@@ -95,7 +96,7 @@ class Extension extends Twig_Extension
          */
         foreach ($this->markupManager->listFilters() as $name => $callable) {
             if (!is_callable($callable))
-                continue;
+                throw new ApplicationException(sprintf('The markup filter for %s is not callable.', $name));
 
             $filters[] = new Twig_SimpleFilter($name, $callable, ['is_safe' => ['html']]);
         }
