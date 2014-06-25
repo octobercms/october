@@ -7,7 +7,7 @@ use Config;
 use System\Classes\SystemException;
 
 /**
- * This class represents the CMS theme. 
+ * This class represents the CMS theme.
  * CMS theme is a directory that contains all CMS objects - pages, layouts, partials and asset files..
  * The theme parameters are specified in the theme.ini file in the theme root directory.
  *
@@ -31,10 +31,13 @@ class Theme
 
     /**
      * Returns the absolute theme path.
+     * @param string $dir Optional theme directory. Defaults to $this->getDirName()
      */
-    public function getPath()
+    public function getPath($dir = NULL)
     {
-        return base_path().Config::get('cms.themesDir').'/'.$this->dirName;
+        if ( !$dir ) $dir = $this->getDirName();
+
+        return base_path().Config::get('cms.themesDir').'/'.$dir;
     }
 
     /**
@@ -44,6 +47,19 @@ class Theme
     public function getDirName()
     {
         return $this->dirName;
+    }
+
+    /**
+     * Determines if a theme with given path exists
+     * @param string $dir The theme directory
+     * @return bool
+     */
+    public static function exists($dir)
+    {
+        $theme = new self;
+        $path = $theme->getPath($dir);
+
+        return File::isDirectory($path);
     }
 
     /**
