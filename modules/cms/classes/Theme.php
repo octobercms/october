@@ -31,13 +31,15 @@ class Theme
 
     /**
      * Returns the absolute theme path.
-     * @param string $dir Optional theme directory. Defaults to $this->getDirName()
+     * @param  string $directory Optional theme directory. Defaults to $this->getDirName()
+     * @return string
      */
-    public function getPath($dir = NULL)
+    public function getPath($dirName = null)
     {
-        if ( !$dir ) $dir = $this->getDirName();
+        if (!$dirName)
+            $dirName = $this->getDirName();
 
-        return base_path().Config::get('cms.themesDir').'/'.$dir;
+        return base_path().Config::get('cms.themesDir').'/'.$dirName;
     }
 
     /**
@@ -54,10 +56,10 @@ class Theme
      * @param string $dir The theme directory
      * @return bool
      */
-    public static function exists($dir)
+    public static function exists($dirName)
     {
         $theme = new self;
-        $path = $theme->getPath($dir);
+        $path = $theme->getPath($dirName);
 
         return File::isDirectory($path);
     }
