@@ -646,10 +646,9 @@ class Controller extends BaseController
     /**
      * Returns the uploaded file/image
      * @param string $file Specifies the file name.
-     * @param string $publicOrProtected Whether the file is a public or protected file
      * @return object An object of data for selected file
      */
-    public function getFile($file = null, $publicOrProtected = 'public')
+    public function getFile($file)
     {
         foreach ( $this->systemFiles as $row ) {
             if ( $row->file_name === $file ) {
