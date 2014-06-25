@@ -83,11 +83,6 @@ class Controller extends BaseController
      * @var array A reference to the all the files in DB::system_files
      */
     public $systemFiles = [];
-    
-    /**
-     * @var array A reference to the all the files in the "uploads/" directory
-     */
-    public $uploadedFiles = [];
 
     /**
      * @var int Response status code
