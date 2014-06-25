@@ -31,7 +31,7 @@ class Theme
 
     /**
      * Returns the absolute theme path.
-     * @param  string $directory Optional theme directory. Defaults to $this->getDirName()
+     * @param  string $dirName Optional theme directory. Defaults to $this->getDirName()
      * @return string
      */
     public function getPath($dirName = null)
@@ -52,8 +52,8 @@ class Theme
     }
 
     /**
-     * Determines if a theme with given path exists
-     * @param string $dir The theme directory
+     * Determines if a theme with given directory name exists
+     * @param string $dirName The theme directory
      * @return bool
      */
     public static function exists($dirName)
