@@ -208,7 +208,7 @@ class Extension extends Twig_Extension
      */
     public function fileFunction($file)
     {
-        return $this->controller->getFile($file, $publicOrProtected);
+        return $this->controller->getFile($file);
     }
 
     /**
