@@ -204,10 +204,9 @@ class Extension extends Twig_Extension
     /**
      * Returns the uploaded file/image
      * @param string $file Specifies the file name.
-     * @param string $publicOrProtected Whether the file is a public or protected file
      * @return object An object of data for selected file
      */
-    public function fileFunction($file=null, $publicOrProtected='public')
+    public function fileFunction($file)
     {
         return $this->controller->getFile($file, $publicOrProtected);
     }
