@@ -40,6 +40,18 @@ abstract class ComponentBase extends Extendable
     public $pluginIcon;
 
     /**
+     * @var string Component CSS class name for the back-end page/layout component list.
+     * This field is used by the CMS internally.
+     */
+    public $componentCssClass;
+
+    /**
+     * @var boolean Determines whether Inspector can be used with the component.
+     * This field is used by the CMS internally.
+     */
+    public $inspectorEnabled = true;
+
+    /**
      * @var string Specifies the component directory name.
      */
     protected $dirName;

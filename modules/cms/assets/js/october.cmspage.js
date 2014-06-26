@@ -88,6 +88,18 @@
         })
 
         /*
+         * Listen for the onBeforeRequest event
+         */
+        $('#cms-master-tabs').on('oc.beforeRequest', function(event) {
+            var $form = $(event.target)
+
+            if ( $('.components .layout-cell.error-component', $form).length > 0) {
+                if (!confirm('The form contains unknown components. Their properties will be lost on save. Do you want to save the form?'))
+                    event.preventDefault()
+            }
+        })
+
+        /*
          * Listen for the tabs "shown" event to track the current template in the list
          */
         $('#cms-master-tabs').on('shown.bs.tab', function(event){

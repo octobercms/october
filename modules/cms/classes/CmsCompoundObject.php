@@ -133,8 +133,8 @@ class CmsCompoundObject extends CmsObject
 
             $settingParts = explode(' ', $setting);
             $settingName = $settingParts[0];
-            if (!$manager->hasComponent($settingName))
-                continue;
+            // if (!$manager->hasComponent($settingName))
+            //     continue;
 
             $components[$setting] = $value;
             unset($this->settings[$setting]);

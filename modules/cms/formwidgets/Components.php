@@ -3,7 +3,9 @@
 use Backend\Classes\FormWidgetBase;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentHelpers;
+use Cms\Classes\UnknownComponent;
 use Lang;
+use Exception;
 
 /**
  * Component Builder
@@ -36,15 +38,22 @@ class Components extends FormWidgetBase
         foreach ($this->model->settings['components'] as $name=>$properties) {
             list($name, $alias) = strpos($name, ' ') ? explode(' ', $name) : [$name, $name];
 
-            $componentObj = $manager->makeComponent($name, null, $properties);
-            $componentObj->alias = $alias;
-            $componentObj->pluginIcon = 'icon-puzzle-piece';
+            try {
+                $componentObj = $manager->makeComponent($name, null, $properties);
 
-            $plugin = $manager->findComponentPlugin($componentObj);
-            if ($plugin) {
-                $pluginDetails = $plugin->pluginDetails();
-                if (isset($pluginDetails['icon']))
-                    $componentObj->pluginIcon = $pluginDetails['icon'];
+                $componentObj->alias = $alias;
+                $componentObj->pluginIcon = 'icon-puzzle-piece';
+
+                $plugin = $manager->findComponentPlugin($componentObj);
+                if ($plugin) {
+                    $pluginDetails = $plugin->pluginDetails();
+                    if (isset($pluginDetails['icon']))
+                        $componentObj->pluginIcon = $pluginDetails['icon'];
+                }
+            } catch (Exception $ex) {
+                $componentObj = new UnknownComponent(null, $properties, $ex->getMessage());
+                $componentObj->alias = $alias;
+                $componentObj->pluginIcon = 'icon-bug';
             }
 
             $result[] = $componentObj;
