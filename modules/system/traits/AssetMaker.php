@@ -240,7 +240,7 @@ trait AssetMaker
             return $asset;
 
         if (substr($asset, 0, 1) == '/')
-            $asset = Request::getBaseUrl() . $asset;
+            $asset = Request::getBasePath() . $asset;
 
         return $asset;
     }

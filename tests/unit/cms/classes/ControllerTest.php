@@ -350,4 +350,26 @@ ESC;
         $this->assertArrayHasKey('ajax-result', $content);
         $this->assertEquals('page', $content['ajax-result']);
     }
+
+    public function testThemeUrl()
+    {
+        $theme = new Theme();
+        $theme->load('test');
+        $controller = new Controller($theme);
+
+        $url = $controller->themeUrl();
+        $this->assertEquals('/tests/fixtures/cms/themes/test', $url);
+
+        $url = $controller->themeUrl('foo/bar.css');
+        $this->assertEquals('/tests/fixtures/cms/themes/test/foo/bar.css', $url);
+
+        $url = $controller->themeUrl(['assets/css/style1.css', 'assets/css/style2.css']);
+        $url = substr($url, 0, strpos($url, '-'));
+        $this->assertEquals('/combine/88634b8fa6f4f6442ce830d38296640a', $url);
+
+        $url = $controller->themeUrl(['assets/js/script1.js', 'assets/js/script2.js']);
+        $url = substr($url, 0, strpos($url, '-'));
+        $this->assertEquals('/combine/860afc990164a60a8e90682d04da27ee', $url);
+    }
+
 }

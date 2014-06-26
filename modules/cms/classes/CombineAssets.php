@@ -5,6 +5,7 @@ use File;
 use Lang;
 use Cache;
 use Config;
+use Request;
 use Response;
 use Assetic\Asset\AssetCollection;
 use Assetic\Asset\FileAsset;
@@ -238,7 +239,7 @@ class CombineAssets
 
         $cache = new FilesystemCache($this->storagePath);
         $collection = new AssetCollection($files, [], $filesSalt);
-        $collection->setTargetPath('combine/');
+        $collection->setTargetPath($this->getTargetPath());
 
         // @todo - Remove, this cache step is too hardcore.
         // if (!$this->useCache)
@@ -246,6 +247,27 @@ class CombineAssets
 
         $cachedCollection = new AssetCache($collection, $cache);
         return $cachedCollection;
+    }
+
+    /**
+     * Returns the target path for use with the combiner. The target
+     * path helps generate relative links within CSS.
+     *
+     * /combine              returns combine/
+     * /index.php/combine    returns index-php/combine/
+     *
+     * @return string The new target path
+     */
+    protected function getTargetPath($path = null)
+    {
+        if ($path === null)
+            $path = Request::getBaseUrl().'/combine';
+
+        if (strpos($path, '/') === 0)
+            $path = substr($path, 1);
+
+        $path = str_replace('.', '-', $path).'/';
+        return $path;
     }
 
     /**
