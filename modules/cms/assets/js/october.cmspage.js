@@ -40,7 +40,7 @@
                 success: function(data) {
                     this.success(data).done(function(){
                         $.oc.stripeLoadIndicator.hide()
-                        $('#cms-master-tabs').ocTab('addTab', data.title, data.tab, tabId, $form.data('type-icon'))
+                        $('#cms-master-tabs').ocTab('addTab', data.tabTitle, data.tab, tabId, $form.data('type-icon'))
                     }).always(function(){
                         $.oc.stripeLoadIndicator.hide()
                     })
@@ -82,6 +82,9 @@
          */
         $('#cms-master-tabs').on('closed.oc.tab', function(event){
             updateModifiedCounter()
+
+            if ($('> div.tab-content > div.tab-pane', '#cms-master-tabs').length == 0)
+                setPageTitle('')
         })
 
         /*
@@ -92,6 +95,11 @@
                 return
 
             var dataId = $(event.target).closest('li').attr('data-tab-id')
+
+            var title = $(event.target).attr('title')
+            if (title)
+                setPageTitle(title)
+
             $('#cms-side-panel [data-control=filelist]').fileList('markActive', dataId)
             $('#cms-side-panel form').trigger('oc.list.setActiveItem', [dataId])
         })
@@ -202,8 +210,10 @@
                     $('[data-control=preview-button]', this).attr('href', data.pageUrl)
             }
 
-            if (data.title !== undefined)
-                $('#cms-master-tabs').ocTab('updateTitle', $(this).closest('.tab-pane'), data.title)
+            if (data.tabTitle !== undefined) {
+                $('#cms-master-tabs').ocTab('updateTitle', $(this).closest('.tab-pane'), data.tabTitle)
+                setPageTitle(data.tabTitle)
+            }
 
             var tabId = $('input[name=templateType]', this).val() + '-'
                         + $('input[name=theme]', this).val() + '-'
@@ -251,8 +261,9 @@
                },
                success: function(data) {
                     this.success(data).done(function(){
-                        $('#cms-master-tabs').ocTab('addTab', data.title, data.tab, tabId, $form.data('type-icon') + ' new-template')
+                        $('#cms-master-tabs').ocTab('addTab', data.tabTitle, data.tab, tabId, $form.data('type-icon') + ' new-template')
                         $('#layout-side-panel').trigger('close.oc.sidePanel')
+                        setPageTitle(data.tabTitle)
                     }).always(function(){
                         $.oc.stripeLoadIndicator.hide()
                     })
@@ -446,7 +457,7 @@
                 success: function(data) {
                     this.success(data).done(function(){
                         $.oc.stripeLoadIndicator.hide()
-                        $('#cms-master-tabs').ocTab('updateTab', tab, data.title, data.tab)
+                        $('#cms-master-tabs').ocTab('updateTab', tab, data.tabTitle, data.tab)
                         $('#cms-master-tabs').ocTab('unmodifyTab', tab)
                         updateModifiedCounter()
                     }).always(function(){
@@ -458,6 +469,13 @@
                     $.oc.stripeLoadIndicator.hide()
                 }
             })
+        }
+
+        function setPageTitle(title) {
+            if (title.length)
+                $.oc.layout.setPageTitle(title + ' | ')
+            else
+                $.oc.layout.setPageTitle(title)
         }
 
         /*
