@@ -14,7 +14,8 @@ use Exception;
 use Twig_Environment;
 use Controller as BaseController;
 use Cms\Twig\Loader as TwigLoader;
-use Cms\Twig\Extension as TwigExtension;
+use Cms\Twig\Extension as CmsTwigExtension;
+use System\Twig\Extension as SystemTwigExtension;
 use Cms\Classes\FileHelper as CmsFileHelper;
 use System\Classes\ErrorHandler;
 use October\Rain\Support\Markdown;
@@ -229,7 +230,8 @@ class Controller extends BaseController
             $options['cache'] =  storage_path().'/twig';
 
         $this->twig = new Twig_Environment($this->loader, $options);
-        $this->twig->addExtension(new TwigExtension($this));
+        $this->twig->addExtension(new CmsTwigExtension($this));
+        $this->twig->addExtension(new SystemTwigExtension);
     }
 
     /**
