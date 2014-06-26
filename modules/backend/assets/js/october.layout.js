@@ -30,8 +30,15 @@
 
     $.oc.layout = new OctoberLayout()
 
-    $(document).ready($.oc.layout.updateLayout())
+    $(document).ready(function(){
+        $.oc.layout.updateLayout()
+
+        window.setTimeout($.oc.layout.updateLayout, 100)
+    })
     $(window).on('resize', function() {
+        $.oc.layout.updateLayout()
+    })
+    $(window).on('oc.updateUi', function() {
         $.oc.layout.updateLayout()
     })
 })(jQuery);

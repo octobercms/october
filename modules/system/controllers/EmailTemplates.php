@@ -47,7 +47,6 @@ class EmailTemplates extends Controller
 
         EmailTemplate::syncAll();
         $this->getClassExtension('Backend.Behaviors.ListController')->index();
-        $this->bodyClass = null;
     }
 
     public function formBeforeSave($model)

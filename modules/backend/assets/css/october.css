@@ -7856,6 +7856,11 @@ label {
 .control-list table.table.data .list-pagination {
   font-size: 14px;
   text-align: right;
+  padding-top: 20px;
+}
+.control-list table.table.data .list-pagination .loading-indicator div {
+  margin-left: 20px;
+  font-size: 12px;
 }
 table.table.data {
   font-size: 12px;
@@ -8079,7 +8084,7 @@ table.table.data tbody tr.safe td a,
 table.table.data tbody tr.special td a,
 table.table.data tbody tr.safe th a,
 table.table.data tbody tr.special th a {
-  font-style: italic;
+  color: #98a7a8;
 }
 table.table.data tfoot a {
   color: #666666;
@@ -10159,6 +10164,47 @@ body.dropdown-open .dropdown-overlay {
   margin-right: 0;
   padding-right: 0;
 }
+.control-tabs.content-tabs > ul.nav-tabs {
+  position: relative;
+}
+.control-tabs.content-tabs > ul.nav-tabs:before {
+  content: ' ';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #e3e5e7;
+}
+.control-tabs.content-tabs > ul.nav-tabs li {
+  margin-right: 0;
+  border-right: 1px solid #e3e5e7;
+}
+.control-tabs.content-tabs > ul.nav-tabs li a {
+  font-size: 12px;
+  padding: 17px 20px;
+  margin: 0;
+  border: none;
+  text-transform: uppercase;
+  background: transparent;
+}
+.control-tabs.content-tabs > ul.nav-tabs li:last-child {
+  border-right: none;
+}
+.control-tabs.content-tabs > ul.nav-tabs li.active {
+  background: #ffffff;
+}
+.control-tabs.content-tabs > ul.nav-tabs li.active a {
+  font-weight: 600;
+}
+.control-tabs.content-tabs > ul.nav-tabs li.active:last-child {
+  border-right: 1px solid #e3e5e7;
+}
+.control-tabs.content-tabs > .tab-content > .tab-pane div.toolbar-widget {
+  background: #ffffff;
+  margin-top: -20px;
+  padding-top: 20px;
+}
 .hide-tabs .control-tabs ul.nav-tabs {
   display: none;
 }
@@ -10224,7 +10270,8 @@ body.dropdown-open .dropdown-overlay {
 }
 .control-pagination .page-iteration {
   margin-right: 4px;
-  font-size: 14px;
+  font-size: 12px;
+  color: #98a7a8;
 }
 .control-pagination .page-next,
 .control-pagination .page-back {
@@ -10234,14 +10281,16 @@ body.dropdown-open .dropdown-overlay {
 .control-pagination .page-next:before,
 .control-pagination .page-back:before {
   color: #666666;
-  font-size: 14px;
-  line-height: 14px;
+  font-size: 19px;
+  line-height: 19px;
   display: inline-block;
   vertical-align: baseline;
+  position: relative;
+  top: 2px;
 }
 .control-pagination a.page-next:hover:before,
 .control-pagination a.page-back:hover:before {
-  color: #222222;
+  color: #1795f1;
 }
 .control-pagination span.page-next:before,
 .control-pagination span.page-back:before {
@@ -10260,7 +10309,7 @@ body.dropdown-open .dropdown-overlay {
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
-  content: "\f054";
+  content: "\f105";
 }
 .control-pagination .page-back:before {
   font-family: FontAwesome;
@@ -10269,7 +10318,7 @@ body.dropdown-open .dropdown-overlay {
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
-  content: "\f053";
+  content: "\f104";
 }
 div.scoreboard {
   position: relative;
@@ -10652,10 +10701,11 @@ ul.status-list li span.status.info {
 .control-breadcrumb {
   font-size: 12px;
   text-transform: uppercase;
-  padding: 0 0 20px 0;
+  padding: 15px 20px;
+  margin: -20px -20px 20px -20px;
+  background-color: #2b343d;
 }
 .control-breadcrumb ul {
-  margin: 0;
   padding: 0;
 }
 .control-breadcrumb li {
@@ -10663,14 +10713,15 @@ ul.status-list li span.status.info {
   margin: 0;
   padding: 0;
   display: inline-block;
-  color: #999999;
+  color: #9da3a7;
+  letter-spacing: 0.05em;
 }
 .control-breadcrumb li a {
-  color: #405261;
+  color: #ecf0f1;
   text-decoration: none;
 }
 .control-breadcrumb li a:hover {
-  color: #999999;
+  color: #ecf0f1;
 }
 .control-breadcrumb li:after {
   font-size: 14px;
@@ -10679,7 +10730,7 @@ ul.status-list li span.status.info {
   margin-left: 6px;
   margin-right: 2px;
   vertical-align: baseline;
-  color: #405261;
+  color: #9da3a7;
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
@@ -10691,8 +10742,12 @@ ul.status-list li span.status.info {
 .control-breadcrumb li:last-child:after {
   content: '';
 }
+.control-breadcrumb + .content-tabs {
+  margin-top: -20px;
+}
 body.slim-container .control-breadcrumb {
-  padding: 0 20px 20px 20px;
+  margin-left: 0;
+  margin-right: 0;
 }
 div.control-popover {
   position: absolute;

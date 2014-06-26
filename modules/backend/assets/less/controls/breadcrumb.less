@@ -1,22 +1,26 @@
 .control-breadcrumb {
     font-size: 12px;
     text-transform: uppercase;
-    padding: 0 0 20px 0;
+    padding: 15px 20px;
+    margin: -20px -20px 20px -20px;
+    background-color: @color-breadcrumb-background;
 
     ul { 
-        margin: 0; 
         padding: 0; 
     }
+
     li { 
         list-style: none;
         margin: 0;
         padding: 0;
         display: inline-block; 
         color: @color-breadcrumb-text-active;
+        letter-spacing: 0.05em;
+
         a {
             color: @color-breadcrumb-text;
             text-decoration: none;
-            &:hover { color: @color-breadcrumb-text-active; }
+            &:hover { color: @color-breadcrumb-text; }
         }
 
         &:after {
@@ -26,7 +30,7 @@
             margin-left: 6px;
             margin-right: 2px;
             vertical-align: baseline;
-            color: @color-breadcrumb-text;
+            color: @color-breadcrumb-text-active;
             .icon(@angle-right);
         }
 
@@ -34,10 +38,15 @@
             content:'';
         }
     }
+
+    + .content-tabs {
+        margin-top: -20px;
+    }
 }
 
 body.slim-container {
     .control-breadcrumb {
-        padding: 0 20px 20px 20px;
+        margin-left: 0;
+        margin-right: 0;
     }
 }
