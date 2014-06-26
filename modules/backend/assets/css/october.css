@@ -7077,6 +7077,10 @@ body.display-side-panel #layout-side-panel {
   -webkit-box-shadow: 2px 0px 2px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 2px 0px 2px 0 rgba(0, 0, 0, 0.3);
 }
+body.side-panel-fix-shadow #layout-side-panel {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 .touch #layout-side-panel .fix-button {
   display: none;
 }
