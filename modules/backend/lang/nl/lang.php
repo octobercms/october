@@ -152,8 +152,8 @@ return [
         'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.'
     ],
     'editor' => [
-        'menu_label' => 'Editor Configuration',
-        'menu_description' => 'Manage editor configuration.',
+        'menu_label' => 'Editor Preferences',
+        'menu_description' => 'Manage code editor preferences.',
         'font_size' => 'Font size',
         'tab_size' => 'Tab size',
         'use_hard_tabs' => 'Indent using tabs',

@@ -40,8 +40,8 @@ class File extends FileBase
     {
         $uploadsDir = Config::get('cms.uploadsDir');
         if ($this->isPublic())
-            return Request::getBaseUrl() . $uploadsDir . '/public/';
+            return Request::getBasePath() . $uploadsDir . '/public/';
         else
-            return Request::getBaseUrl() . $uploadsDir . '/protected/';
+            return Request::getBasePath() . $uploadsDir . '/protected/';
     }
 }

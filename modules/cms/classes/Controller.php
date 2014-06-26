@@ -14,7 +14,8 @@ use Exception;
 use Twig_Environment;
 use Controller as BaseController;
 use Cms\Twig\Loader as TwigLoader;
-use Cms\Twig\Extension as TwigExtension;
+use Cms\Twig\Extension as CmsTwigExtension;
+use System\Twig\Extension as SystemTwigExtension;
 use Cms\Classes\FileHelper as CmsFileHelper;
 use System\Classes\ErrorHandler;
 use October\Rain\Support\Markdown;
@@ -229,7 +230,8 @@ class Controller extends BaseController
             $options['cache'] =  storage_path().'/twig';
 
         $this->twig = new Twig_Environment($this->loader, $options);
-        $this->twig->addExtension(new TwigExtension($this));
+        $this->twig->addExtension(new CmsTwigExtension($this));
+        $this->twig->addExtension(new SystemTwigExtension);
     }
 
     /**
@@ -686,14 +688,15 @@ class Controller extends BaseController
     public function themeUrl($url = null)
     {
         $themePath = Config::get('cms.themesDir').'/'.$this->getTheme()->getDirName();
-        $_url = Request::getBaseUrl();
 
-        if ($url === null)
-            $_url .= $themePath;
-        elseif (is_array($url))
+        if (is_array($url)) {
+            $_url = Request::getBaseUrl();
             $_url .= CombineAssets::combine($url, $themePath);
-        else
-            $_url .= $themePath.'/'.$url;
+        }
+        else {
+            $_url = Request::getBasePath().$themePath;
+            if ($url !== null) $_url .= '/'.$url;
+        }
 
         return $_url;
     }

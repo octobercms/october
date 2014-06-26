@@ -13,6 +13,7 @@ use System\Classes\PluginManager;
 use System\Classes\SettingsManager;
 use System\Twig\Engine as TwigEngine;
 use System\Twig\Loader as TwigLoader;
+use System\Twig\Extension as TwigExtension;
 use System\Models\EmailSettings;
 use System\Models\EmailTemplate;
 use Backend\Classes\WidgetManager;
@@ -74,7 +75,9 @@ class ServiceProvider extends ModuleServiceProvider
          * Register basic twig
          */
         App::bindShared('twig', function($app) {
-            return new Twig_Environment(new TwigLoader(), ['auto_reload' => true]);
+            $twig = new Twig_Environment(new TwigLoader(), ['auto_reload' => true]);
+            $twig->addExtension(new TwigExtension);
+            return $twig;
         });
 
         /*

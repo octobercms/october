@@ -86,7 +86,6 @@ class Extension extends Twig_Extension
     public function getFilters()
     {
         $filters = [
-            new Twig_SimpleFilter('app', [$this, 'appFilter'], ['is_safe' => ['html']]),
             new Twig_SimpleFilter('page', [$this, 'pageFilter'], ['is_safe' => ['html']]),
             new Twig_SimpleFilter('theme', [$this, 'themeFilter'], ['is_safe' => ['html']]),
         ];
@@ -209,16 +208,6 @@ class Extension extends Twig_Extension
     public function themeFilter($url)
     {
         return $this->controller->themeUrl($url);
-    }
-
-    /**
-     * Converts supplied URL to one relative to the website root.
-     * @param mixed $url Specifies the application-relative URL
-     * @return string
-     */
-    public function appFilter($url)
-    {
-        return URL::to($url);
     }
 
     /**

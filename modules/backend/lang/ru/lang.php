@@ -12,9 +12,9 @@ return [
     'page' => [
         'untitled' => "Без названия",
         'access_denied' => [
-            'label' => "доступ запрещен",
-            'help' => "Вы не должны необходимые разрешения для просмотра этой страницы.",
-            'cms_link' => "К CMS серверной",
+            'label' => "Доступ запрещен",
+            'help' => "У вас нет необходимых прав для просмотра этой страницы.",
+            'cms_link' => "Перейти к CMS",
         ],
     ],
     'partial' => [
@@ -89,7 +89,7 @@ return [
         'missing_columns' => 'Список используемый в :class не имеет никаких столбцов.',
         'missing_definition' => "Поведение списка не содержит столбец для ':field'.",
         'behavior_not_ready' => 'Поведение списка не было инициализировано, проверьте вызов makeLists() в вашем контроллере.',
-        'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
+        'invalid_column_datetime' => "Значение столбца ':column' не является объектом DateTime. Отсутствует \$dates ссылка в модели?",
     ],
     'form' => [
         'create_title' => "Создание :name",
@@ -120,7 +120,10 @@ return [
         'or' => 'или',
         'confirm_tab_close' => 'Закрыть вкладку? Несохраненные изменения будут потеряны.',
         'behavior_not_ready' => 'Поведение формы не было инициализировано, проверьте вызов initForm() в вашем контроллере.',
-        'preview_no_files_message' => 'Файлы не загружены'
+        'preview_no_files_message' => 'Файлы не загружены',
+        'select' => 'Выбрать',
+        'select_all' => 'все',
+        'select_none' => 'ничего',
     ],
     'relation' => [
         'missing_definition' => "Поведение отношения не содержит определения для ':field'.",
@@ -144,7 +147,7 @@ return [
         'missing_id' => "Нет идентификатора для поиска модели записи.",
         'missing_relation' => "Модель ':class' не содержит определения для ':relation'",
         'invalid_class' => "Модель :model используемая в :class не допустима, она должна наследовать класс \Model.",
-        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
+        'mass_assignment_failed' => "Массовое заполнение недоступно для атрибута модели ':attribute'.",
     ],
     'warnings' => [
         'tips' => 'Подсказки по конфигурации системы',
@@ -153,16 +156,16 @@ return [
         'extension' => 'Расширение PHP :name не установлено. Установите эту библиотеку и активируйте расширение.'
     ],
     'editor' => [
-        'menu_label' => 'Editor Configuration',
-        'menu_description' => 'Manage editor configuration.',
-        'font_size' => 'Font size',
-        'tab_size' => 'Tab size',
-        'use_hard_tabs' => 'Indent using tabs',
-        'code_folding' => 'Code folding',
-        'word_wrap' => 'Word wrap',
-        'highlight_active_line' => 'Highlight active line',
-        'show_invisibles' => 'Show invisible characters',
-        'show_gutter' => 'Show gutter',
-        'theme' => 'Color scheme',
+        'menu_label' => 'Настройки редактора',
+        'menu_description' => 'Управление настройками редактора кода.',
+        'font_size' => 'Размер шрифта',
+        'tab_size' => 'Размер табуляции',
+        'use_hard_tabs' => 'Использовать табуляцию для индентации',
+        'code_folding' => 'Свертывание кода',
+        'word_wrap' => 'Перенос слов',
+        'highlight_active_line' => 'Подсвечивать активную строку',
+        'show_invisibles' => 'Показывать невидимые символы',
+        'show_gutter' => 'Показывать нумерацию строк',
+        'theme' => 'Цветовая схема',
     ],
 ];
