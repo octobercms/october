@@ -118,6 +118,15 @@ div.control-componentlist.has-components {
 div.control-componentlist div.layout {
   width: auto;
 }
+div.control-componentlist div.components div.layout-cell.error-component {
+  background: #ab2a1c;
+}
+div.control-componentlist div.components div.layout-cell.error-component > div {
+  color: #ffffff;
+}
+div.control-componentlist div.components div.layout-cell.error-component > div:after {
+  color: #ab2a1c;
+}
 div.control-componentlist div.components div.layout-cell:first-child {
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;

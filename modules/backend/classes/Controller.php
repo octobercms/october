@@ -77,6 +77,11 @@ class Controller extends Extendable
     public $pageTitle;
 
     /**
+     * @var string Page title template
+     */
+    public $pageTitleTemplate;
+
+    /**
      * @var string Body class property used for customising the layout on a controller basis.
      */
     public $bodyClass;

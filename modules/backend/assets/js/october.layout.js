@@ -1,5 +1,16 @@
 (function($){
-    function updateLayout() {
+    var OctoberLayout = function() {}
+
+    OctoberLayout.prototype.setPageTitle = function(title) {
+        var $title = $('title')
+
+        if (this.pageTitleTemplate === undefined)
+            this.pageTitleTemplate = $title.data('titleTemplate')
+
+        $title.text(this.pageTitleTemplate.replace('%s', title))
+    }
+
+    OctoberLayout.prototype.updateLayout = function(title) {
         $('.layout-cell.width-fix').each(function(){
             var $el = $(this).children();
             if ($el.length > 0) {
@@ -14,6 +25,13 @@
         })
     }
 
-    $(document).ready(updateLayout)
-    $(window).on('resize', updateLayout)
+    if ($.oc === undefined)
+        $.oc = {}
+
+    $.oc.layout = new OctoberLayout()
+
+    $(document).ready($.oc.layout.updateLayout())
+    $(window).on('resize', function() {
+        $.oc.layout.updateLayout()
+    })
 })(jQuery);

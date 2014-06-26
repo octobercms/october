@@ -1,6 +1,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
-<title><?= $this->pageTitle ?> | October CMS</title>
+<title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s | October CMS' : e($this->pageTitleTemplate) ?>">
+    <?= $this->pageTitle ?> | October CMS
+</title>
 
 <link href="<?= URL::to('modules/backend/assets/vendor/select2/select2.css') ?>" rel="stylesheet">
 <link href="<?= URL::to('modules/backend/assets/css/october.css') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>" rel="stylesheet">
