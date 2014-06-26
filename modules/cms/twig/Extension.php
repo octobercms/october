@@ -58,6 +58,7 @@ class Extension extends Twig_Extension
     public function getFunctions()
     {
         $functions = [
+            new Twig_SimpleFunction('file', [$this, 'fileFunction'], ['is_safe' => ['html']]),
             new Twig_SimpleFunction('page', [$this, 'pageFunction'], ['is_safe' => ['html']]),
             new Twig_SimpleFunction('partial', [$this, 'partialFunction'], ['is_safe' => ['html']]),
             new Twig_SimpleFunction('content', [$this, 'contentFunction'], ['is_safe' => ['html']]),
@@ -122,6 +123,7 @@ class Extension extends Twig_Extension
             new FlashTokenParser,
             new ScriptsTokenParser,
             new StylesTokenParser,
+            new FileTokenParser
         ];
 
         $extraParsers = $this->markupManager->listTokenParsers();
@@ -197,6 +199,16 @@ class Extension extends Twig_Extension
 
         $result = str_replace('<!-- X_OCTOBER_DEFAULT_BLOCK_CONTENT -->', trim($default), $result);
         return $result;
+    }
+
+    /**
+     * Returns the uploaded file/image
+     * @param string $file Specifies the file name.
+     * @return object An object of data for selected file
+     */
+    public function fileFunction($file)
+    {
+        return $this->controller->getFile($file);
     }
 
     /**

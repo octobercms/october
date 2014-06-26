@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use DB;
 use URL;
 use Str;
 use App;
@@ -80,6 +81,11 @@ class Controller extends BaseController
     public $vars = [];
 
     /**
+     * @var array A reference to the all the files in DB::system_files
+     */
+    public $systemFiles = [];
+
+    /**
      * @var int Response status code
      */
     protected $statusCode = 200;
@@ -95,6 +101,7 @@ class Controller extends BaseController
         $this->assetPath = Config::get('cms.themesDir').'/'.$this->theme->getDirName();
         $this->router = new Router($this->theme);
         $this->initTwigEnvironment();
+        $this->systemFiles = DB::table("system_files")->get();
     }
 
     /**
@@ -640,6 +647,35 @@ class Controller extends BaseController
     public function getRouter()
     {
         return $this->router;
+    }
+
+    /**
+     * Returns the uploaded file/image
+     * @param string $file Specifies the file name.
+     * @return object An object of data for selected file
+     */
+    public function getFile($file)
+    {
+        foreach ( $this->systemFiles as $row ) {
+            if ( $row->file_name === $file ) {
+
+                // get the Model from the $file
+                $model = new $row->attachment_type();
+                $files = $model->first()[$row->field];
+
+                // if file is single attachment
+                if ( isset($files['attributes']) )
+                    return $files;
+                // if file is part of collection
+                else {
+                    foreach ($files as $f)
+                        if ( $file === $f->file_name )
+                            return $f;
+                }
+            }
+        }
+
+        return null;
     }
 
     /**
