@@ -178,7 +178,7 @@ table.table.data {
         td, th {
             padding: 11px 15px;
             color: @color-list-text;
-            border-color: transparent;
+            border-color: @color-list-grid;
 
             a {
                 color: @color-list-text;
@@ -210,6 +210,12 @@ table.table.data {
                 }
             }
         }
+        tr:first-child {
+            th, td {
+                border-top-width: 0;
+            }
+        }
+
         tr td:first-child {
             border-left: 3px solid transparent;
             padding-left: 17px;
@@ -241,7 +247,6 @@ table.table.data {
                 text-decoration: line-through;
             }
         }
-
 
         tr.processing {
             td, th, td a, th a {

@@ -9,8 +9,6 @@
                 data-request-data="page: <?= $pageCurrent-1 ?>"
                 data-load-indicator="Loading..."
                 title="Previous page"></a>
-        <?php else: ?>
-            <span class="page-back"></span>
         <?php endif ?>
         <?php if ($pageLast > $pageCurrent): ?>
         <a
@@ -20,8 +18,6 @@
             data-request="<?= $this->getEventHandler('onPaginate') ?>"
             data-load-indicator="Loading..."
             title="Next page"></a>
-        <?php else: ?>
-            <span class="page-next"></span>
         <?php endif ?>
     </div>
 </div>
