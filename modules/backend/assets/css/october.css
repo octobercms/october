@@ -10707,6 +10707,7 @@ ul.status-list li span.status.info {
 }
 .control-breadcrumb ul {
   padding: 0;
+  margin: 0;
 }
 .control-breadcrumb li {
   list-style: none;
