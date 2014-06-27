@@ -168,4 +168,7 @@ return [
         'show_gutter' => 'Show gutter',
         'theme' => 'Color scheme',
     ],
+    'tooltips' => [
+        'preview_website' => 'Preview the website'
+    ]
 ];

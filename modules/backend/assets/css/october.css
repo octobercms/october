@@ -6718,18 +6718,23 @@ nav#layout-mainmenu.navbar ul li.icon i {
 nav#layout-mainmenu.navbar ul li.icon a {
   padding: 14px;
 }
-nav#layout-mainmenu.navbar ul li.power-off i {
+nav#layout-mainmenu.navbar ul li.power-off i,
+nav#layout-mainmenu.navbar ul li.preview i {
   font-size: 20px;
 }
-nav#layout-mainmenu.navbar ul li.power-off a {
+nav#layout-mainmenu.navbar ul li.power-off a,
+nav#layout-mainmenu.navbar ul li.preview a {
   padding: 20px;
 }
 nav#layout-mainmenu.navbar ul li.account {
   margin-right: 0;
+  line-height: 23px;
 }
 nav#layout-mainmenu.navbar ul li.account img {
   width: 25px;
   margin-right: 7px;
+  position: relative;
+  top: -2px;
 }
 nav#layout-mainmenu.navbar ul.nav {
   display: inline-block;

@@ -18,8 +18,12 @@
     </div>
     <div class="layout-cell width-fix">
         <ul>
-            <?php /* @todo Context help system */ ?>
-            <!-- <li class="icon"><a href="#"><i class="icon-question"></i></a></li> -->
+            <?php 
+                /* @todo Context help system 
+                    <li class="icon"><a href="#"><i class="icon-question"></i></a></li>
+                */
+            ?>
+            <li class="icon preview"><a href="#" data-toggle="tooltip" data-placement="bottom" title="<?= trans('backend::lang.tooltips.preview_website') ?>"><i class="icon-paw"></i></a></li>
             <li class="highlight account">
                 <a href="<?= Backend::url('backend/users/mysettings') ?>">
                     <img src="<?= $this->user->getAvatarThumb() ?>">
@@ -27,7 +31,7 @@
                 </a>
             </li>
             <li class="icon power-off">
-                <a href="<?= Backend::url('backend/auth/signout') ?>" title="<?= trans('backend::lang.account.sign_out') ?>"><i class="icon-power-off"></i></a>
+                <a data-toggle="tooltip" data-placement="left" href="<?= Backend::url('backend/auth/signout') ?>" title="<?= trans('backend::lang.account.sign_out') ?>"><i class="icon-power-off"></i></a>
             </li>
         </ul>
     </div>
