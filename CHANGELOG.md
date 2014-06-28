@@ -4,6 +4,7 @@
   - Assets now correctly load when opening the site via `/index.php`.
   - Added a Preview website link to the Backend template.
   - Composer build now prefers stable packages.
+  - Missing or broken components are now handled gracefully by the Backend.
 
 * **Build 110** (2014-06-24)
   - Created a new Grid form widget for managing tabular data.
