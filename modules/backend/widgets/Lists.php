@@ -549,7 +549,16 @@ class Lists extends WidgetBase
      */
     public function getColumnValue($record, $column)
     {
-        $value = $record->{$column->columnName};
+        /*
+         * If the column is a relation, it will be a custom select,
+         * so prevent the Model from attempting to load the relation
+         * if the value is NULL.
+         */
+        $columnName = $column->columnName;
+        if ($record->hasRelation($columnName) && array_key_exists($columnName, $record->attributes))
+            $value = $record->attributes[$columnName];
+        else
+            $value = $record->{$columnName};
 
         if (method_exists($this, 'eval'. studly_case($column->type) .'TypeValue'))
             $value = $this->{'eval'. studly_case($column->type) .'TypeValue'}($value, $column);
