@@ -245,7 +245,7 @@
     }
 
     &.content-tabs {
-        > ul.nav-tabs { 
+        > ul.nav-tabs {
             position: relative;
 
             &:before {
@@ -276,6 +276,7 @@
                 }
 
                 &.active {
+                    border-top: 1px solid @color-tab-content-border;
                     background: @color-tab-content-active-bg;
                     a {
                         font-weight: 600;
@@ -289,6 +290,7 @@
         }
 
         > .tab-content > .tab-pane {
+            div.padded-container,
             div.toolbar-widget {
                 background: @color-tab-content-active-bg;
                 margin-top: -20px;

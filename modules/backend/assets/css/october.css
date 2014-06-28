@@ -7485,6 +7485,10 @@ label {
   margin-right: 0;
   margin-left: 10px;
 }
+body.compact-container .form-buttons,
+body.slim-container .form-buttons {
+  padding-left: 20px;
+}
 @media (max-width: 769px) {
   .form-group.span-left,
   .form-group.span-right {
@@ -10197,6 +10201,7 @@ body.dropdown-open .dropdown-overlay {
   border-right: none;
 }
 .control-tabs.content-tabs > ul.nav-tabs li.active {
+  border-top: 1px solid #e3e5e7;
   background: #ffffff;
 }
 .control-tabs.content-tabs > ul.nav-tabs li.active a {
@@ -10205,6 +10210,7 @@ body.dropdown-open .dropdown-overlay {
 .control-tabs.content-tabs > ul.nav-tabs li.active:last-child {
   border-right: 1px solid #e3e5e7;
 }
+.control-tabs.content-tabs > .tab-content > .tab-pane div.padded-container,
 .control-tabs.content-tabs > .tab-content > .tab-pane div.toolbar-widget {
   background: #ffffff;
   margin-top: -20px;
