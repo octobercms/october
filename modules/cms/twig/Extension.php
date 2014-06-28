@@ -9,7 +9,6 @@ use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 use Cms\Classes\Controller;
 use Cms\Classes\CmsException;
-use Cms\Classes\MarkupManager;
 use System\Classes\ApplicationException;
 
 /**
@@ -26,18 +25,12 @@ class Extension extends Twig_Extension
     private $controller;
 
     /**
-     * @var \Cms\Classes\MarkupManager A reference to the markup manager instance.
-     */
-    private $markupManager;
-
-    /**
      * Creates the extension instance.
      * @param \Cms\Classes\Controller $controller The CMS controller object.
      */
     public function __construct(Controller $controller)
     {
         $this->controller = $controller;
-        $this->markupManager = MarkupManager::instance();
     }
 
     /**
@@ -57,25 +50,13 @@ class Extension extends Twig_Extension
      */
     public function getFunctions()
     {
-        $functions = [
+        return [
             new Twig_SimpleFunction('page', [$this, 'pageFunction'], ['is_safe' => ['html']]),
             new Twig_SimpleFunction('partial', [$this, 'partialFunction'], ['is_safe' => ['html']]),
             new Twig_SimpleFunction('content', [$this, 'contentFunction'], ['is_safe' => ['html']]),
             new Twig_SimpleFunction('component', [$this, 'componentFunction'], ['is_safe' => ['html']]),
             new Twig_SimpleFunction('placeholder', [$this, 'placeholderFunction'], ['is_safe' => ['html']]),
         ];
-
-        /*
-         * Include extensions provided by plugins
-         */
-        foreach ($this->markupManager->listFunctions() as $name => $callable) {
-            if (!is_callable($callable))
-                throw new ApplicationException(sprintf('The markup function for %s is not callable.', $name));
-
-            $functions[] = new Twig_SimpleFunction($name, $callable, ['is_safe' => ['html']]);
-        }
-
-        return $functions;
     }
 
     /**
@@ -85,22 +66,10 @@ class Extension extends Twig_Extension
      */
     public function getFilters()
     {
-        $filters = [
+        return [
             new Twig_SimpleFilter('page', [$this, 'pageFilter'], ['is_safe' => ['html']]),
             new Twig_SimpleFilter('theme', [$this, 'themeFilter'], ['is_safe' => ['html']]),
         ];
-
-        /*
-         * Include extensions provided by plugins
-         */
-        foreach ($this->markupManager->listFilters() as $name => $callable) {
-            if (!is_callable($callable))
-                throw new ApplicationException(sprintf('The markup filter for %s is not callable.', $name));
-
-            $filters[] = new Twig_SimpleFilter($name, $callable, ['is_safe' => ['html']]);
-        }
-
-        return $filters;
     }
 
     /**
@@ -110,7 +79,7 @@ class Extension extends Twig_Extension
      */
     public function getTokenParsers()
     {
-        $parsers = [
+        return [
             new PageTokenParser,
             new PartialTokenParser,
             new ContentTokenParser,
@@ -123,16 +92,6 @@ class Extension extends Twig_Extension
             new ScriptsTokenParser,
             new StylesTokenParser,
         ];
-
-        $extraParsers = $this->markupManager->listTokenParsers();
-        foreach ($extraParsers as $obj) {
-            if (!$obj instanceof Twig_TokenParser)
-                continue;
-
-            $parsers[] = $obj;
-        }
-
-        return $parsers;
     }
 
     /**
