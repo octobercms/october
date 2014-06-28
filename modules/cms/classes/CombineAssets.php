@@ -260,8 +260,10 @@ class CombineAssets
      */
     protected function getTargetPath($path = null)
     {
-        if ($path === null)
-            $path = Request::getBaseUrl().'/combine';
+        if ($path === null) {
+            $baseUri = substr(Request::getBaseUrl(), strlen(Request::getBasePath()));
+            $path = $baseUri.'/combine';
+        }
 
         if (strpos($path, '/') === 0)
             $path = substr($path, 1);
