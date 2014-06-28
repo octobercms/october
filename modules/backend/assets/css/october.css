@@ -10173,6 +10173,21 @@ body.dropdown-open .dropdown-overlay {
   margin-right: 0;
   padding-right: 0;
 }
+.control-tabs.content-tabs.tabs-inset ul.nav-tabs {
+  padding-left: 20px;
+}
+.control-tabs.content-tabs.tabs-inset ul.nav-tabs li {
+  border-top: 1px solid transparent;
+}
+.control-tabs.content-tabs.tabs-inset ul.nav-tabs li .active {
+  border-top: 1px solid #e3e5e7;
+}
+.control-tabs.content-tabs.tabs-inset ul.nav-tabs li:first-child {
+  border-left: 1px solid transparent;
+}
+.control-tabs.content-tabs.tabs-inset ul.nav-tabs li:first-child.active {
+  border-left: 1px solid #e3e5e7;
+}
 .control-tabs.content-tabs > ul.nav-tabs {
   position: relative;
 }
@@ -10201,7 +10216,6 @@ body.dropdown-open .dropdown-overlay {
   border-right: none;
 }
 .control-tabs.content-tabs > ul.nav-tabs li.active {
-  border-top: 1px solid #e3e5e7;
   background: #ffffff;
 }
 .control-tabs.content-tabs > ul.nav-tabs li.active a {

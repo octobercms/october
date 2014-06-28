@@ -245,6 +245,24 @@
     }
 
     &.content-tabs {
+        &.tabs-inset {
+            ul.nav-tabs {
+                padding-left: 20px;
+                li {
+                    border-top: 1px solid transparent;
+                    .active {
+                       border-top: 1px solid @color-tab-content-border;
+                    }
+                }
+                li:first-child {
+                    border-left: 1px solid transparent;
+                    &.active {
+                        border-left: 1px solid @color-tab-content-border;
+                    }
+                }
+            }
+        }
+
         > ul.nav-tabs {
             position: relative;
 
@@ -276,7 +294,6 @@
                 }
 
                 &.active {
-                    border-top: 1px solid @color-tab-content-border;
                     background: @color-tab-content-active-bg;
                     a {
                         font-weight: 600;
