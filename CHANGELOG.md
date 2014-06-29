@@ -1,3 +1,7 @@
+* **Build 113** (2014-06-29)
+  - Component properties now support grouping by supplying a `group` value.
+  - Form fields now support interdependancies by supplying a `depends` value.
+
 * **Build 111** (2014-06-27)
   - Components now support a shared `/partials` directory used as a fallback when a partial is not found.
   - Improved the styling of the Breadcrumb and Email templates page.
