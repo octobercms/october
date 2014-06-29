@@ -21,6 +21,7 @@
  *   Each element in the array is an object with the following properties:
  *   - property
  *   - title
+ *   - group (optional)
  *   - type (currently supported types are: string, checkbox, dropdown)
  *   - description (optional)
  *   - validationPattern (regex pattern for for validating the value, supported by the text editor)
@@ -84,42 +85,47 @@
                 'an hidden input element with the data-inspector-values property.')
     }
 
-    Inspector.prototype.getPopoverTemplate = function() {
-        return '                                                                        \
-                <div class="popover-head">                                              \
-                    <h3>{{title}}</h3>                                                  \
-                    {{#description}}                                                    \
-                        <p>{{description}}</p>                                          \
-                    {{/description}}                                                    \
-                    <button type="button" class="close"                                 \
-                        data-dismiss="popover"                                          \
-                        aria-hidden="true">&times;</button>                             \
-                </div>                                                                  \
-                <form>                                                                  \
-                    <table class="inspector-fields">                                    \
-                        {{#properties}}                                                 \
-                            <tr id="{{#propFormat}}{{property}}{{/propFormat}}">        \
-                                <th><div title="{{title}}">                             \
-                                {{title}}                                               \
-                                {{#info}}{{/info}}                                      \
-                                </div></th>                                             \
-                                {{#editor}}{{/editor}}                                  \
-                            </tr>                                                       \
-                        {{/properties}}                                                 \
-                    </table>                                                            \
-                <form>                                                                  \
+    Inspector.prototype.getPopoverTemplate = function() {  
+        return '                                                                                                      \
+                <div class="popover-head">                                                                            \
+                    <h3>{{title}}</h3>                                                                                \
+                    {{#description}}                                                                                  \
+                        <p>{{description}}</p>                                                                        \
+                    {{/description}}                                                                                  \
+                    <button type="button" class="close"                                                               \
+                        data-dismiss="popover"                                                                        \
+                        aria-hidden="true">&times;</button>                                                           \
+                </div>                                                                                                \
+                <form>                                                                                                \
+                    <table class="inspector-fields {{#tableClass}}{{/tableClass}}">                                   \
+                        {{#properties}}                                                                               \
+                            <tr id="{{#propFormat}}{{property}}{{/propFormat}}"                                       \
+                                {{#dataGroupIndex}}{{/dataGroupIndex}}                                                \
+                                class="{{#cellClass}}{{/cellClass}}">                                                 \
+                                <th {{#colspan}}{{/colspan}}><div><div class="title-element" title="{{title}}">       \
+                                {{#expandControl}}{{/expandControl}}                                                  \
+                                {{title}}                                                                             \
+                                {{#info}}{{/info}}                                                                    \
+                                </div></div></th>                                                                     \
+                                {{#editor}}{{/editor}}                                                                \
+                            </tr>                                                                                     \
+                        {{/properties}}                                                                               \
+                    </table>                                                                                          \
+                <form>                                                                                                \
             '
     }
 
     Inspector.prototype.init = function() {
         var self = this,
+            fieldsConfig = this.preprocessConfig(),
             data = {
                 title: this.$el.data('inspector-title'),
                 description: this.$el.data('inspector-description'),
-                properties: this.config,
+                properties: fieldsConfig.properties,
                 editor: function() {
                     return function(text, render) {
-                        return self.renderEditor(this, render)
+                        if (this.itemType == 'property')
+                            return self.renderEditor(this, render)
                     }
                 },
                 info: function() {
@@ -132,6 +138,41 @@
                     return function(text, render) {
                         return 'prop-'+render(text).replace('.', '-')
                     }
+                },
+                colspan: function() {
+                    return function(text, render) {
+                        return this.itemType == 'group' ? 'colspan="2"' : null
+                    }
+                },
+                tableClass: function() {
+                    return function(text, render) {
+                        return fieldsConfig.hasGroups ? 'has-groups' : null
+                    }
+                },
+                cellClass: function() {
+                    return function(text, render) {
+                        var result = this.itemType + ((this.itemType == 'property' && this.groupIndex !== undefined) ? ' grouped' : '')
+
+                        if (this.itemType == 'property' && this.groupIndex !== undefined)
+                            result += self.groupExpanded(this.group) ? ' expanded' : ' collapsed'
+
+                        return result
+                    }
+                },
+                expandControl: function() {
+                    return function(text, render) {
+                        if (this.itemType == 'group') {
+                            this.itemStatus = self.groupExpanded(this.title) ? 'expanded' : ''
+
+                            return render('<a class="expandControl {{itemStatus}}" href="javascript:;" data-group-index="{{groupIndex}}"><span>Expand/collapse</span></a>', this)
+                        }
+                    }
+                },
+                dataGroupIndex: function() {
+                    return function(text, render) {
+                        return this.groupIndex !== undefined && this.itemType == 'property' ? render('data-group-index={{groupIndex}}', this) : ''
+                    }
+
                 }
             }
 
@@ -190,6 +231,12 @@
             })
 
             $('[data-toggle=tooltip]', self.$el.data('oc.popover').$container).tooltip({placement: 'auto right', container: 'body'})
+
+            var $container = self.$el.data('oc.popover').$container
+            $container.on('click', 'tr.group', function(){
+                self.toggleGroup($('a.expandControl', this), $container)
+                return false
+            })
         }
 
         var e = $.Event('showing.oc.inspector')
@@ -199,6 +246,118 @@
 
         if (!e.isPropagationStopped())
             displayPopover()
+    }
+
+    // Creates group nodes in the property set
+    //
+    Inspector.prototype.preprocessConfig = function() {
+        var fields = [],
+            result = {
+                hasGroups: false,
+                properties: []
+            },
+            groupIndex = 0
+
+        function findGroup(title) {
+            var groups = $.grep(fields, function(item) {
+                return item.itemType !== undefined && item.itemType == 'group' && item.title == title
+            })
+
+            if (groups.length > 0)
+                return groups[0]
+
+            return null
+        }
+
+        $.each(this.config, function() {
+            this.itemType = 'property'
+
+            if (this.group === undefined)
+                fields.push(this)
+            else {
+                var group = findGroup(this.group)
+
+                if (!group) {
+                    group = {
+                        itemType: 'group',
+                        title: this.group,
+                        properties: [],
+                        groupIndex: groupIndex
+                    }
+
+                    groupIndex++
+                    fields.push(group)
+                }
+
+                this.groupIndex = group.groupIndex
+                group.properties.push(this)
+            }
+        })
+
+        $.each(fields, function() {
+            result.properties.push(this)
+
+            if (this.itemType == 'group') {
+                result.hasGroups = true
+
+                $.each(this.properties, function() {
+                    result.properties.push(this)
+                })
+
+                delete this.properties
+            }
+        })
+
+        return result
+    }
+
+    Inspector.prototype.toggleGroup = function(link, $container) {
+        var $link = $(link),
+            groupIndex = $link.data('group-index'),
+            propertyRows = $('tr[data-group-index='+groupIndex+']', $container),
+            duration = Math.round(100 / propertyRows.length),
+            collapse = true,
+            statuses = this.loadGroupExpandedStatuses(),
+            title = $('div.title-element', $link.closest('tr')).attr('title')
+
+        if ($link.hasClass('expanded')) {
+            $link.removeClass('expanded')
+            statuses[title] = false
+        } else {
+            $link.addClass('expanded')
+            collapse = false
+            statuses[title] = true
+        }
+
+        propertyRows.each(function(index){
+            var self = $(this)
+            setTimeout(function(){
+                self.toggleClass('collapsed', collapse)
+                self.toggleClass('expanded', !collapse)
+            }, index*duration)
+            
+        })
+
+       this.writeGroupExpandedStatuses(statuses)
+    }
+
+    Inspector.prototype.loadGroupExpandedStatuses = function() {
+        var statuses = this.$el.data('inspector-group-statuses')
+
+        return statuses !== undefined ? JSON.parse(statuses) : {}
+    }
+
+    Inspector.prototype.writeGroupExpandedStatuses = function(statuses) {
+        this.$el.data('inspector-group-statuses', JSON.stringify(statuses))
+    }
+
+    Inspector.prototype.groupExpanded = function(title) {
+        var statuses = this.loadGroupExpandedStatuses()
+
+        if (statuses[title] !== undefined)
+            return statuses[title]
+
+        return false
     }
 
     Inspector.prototype.initProperties = function() {

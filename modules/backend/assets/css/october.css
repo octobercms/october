@@ -11406,6 +11406,29 @@ html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-contain
   -moz-border-radius: 0 0 2px 0;
   border-radius: 0 0 2px 0;
 }
+.inspector-fields tr.group {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.inspector-fields tr.group th {
+  background: #e0e4e5;
+  font-weight: 600;
+  cursor: pointer;
+}
+.inspector-fields tr.collapsed {
+  display: none;
+}
+.inspector-fields tr.expanded {
+  display: table-row;
+}
+.inspector-fields.has-groups th {
+  padding-left: 20px;
+}
+.inspector-fields.has-groups tr.grouped th {
+  padding-left: 35px;
+}
 .inspector-fields td {
   font-weight: 300;
   border-left: 1px solid #f2f2f2;
@@ -11447,16 +11470,18 @@ html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-contain
 }
 .inspector-fields th > div {
   position: relative;
+}
+.inspector-fields th > div > div {
   white-space: nowrap;
   padding-right: 10px;
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
 }
-.inspector-fields th > div span.info {
+.inspector-fields th > div > div span.info {
   display: inline-block;
   position: absolute;
-  right: -6px;
+  right: -1px;
   top: 3px;
   font-size: 14px;
   width: 10px;
@@ -11465,9 +11490,56 @@ html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-contain
   opacity: 0.4;
   filter: alpha(opacity=40);
 }
-.inspector-fields th > div span.info:hover {
+.inspector-fields th > div > div span.info:before {
+  margin-left: 3px;
+}
+.inspector-fields th > div > div span.info:hover {
   opacity: 1;
   filter: alpha(opacity=100);
+}
+.inspector-fields th > div a.expandControl {
+  display: block;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: -15px;
+  top: 2px;
+  text-indent: -100000em;
+}
+.inspector-fields th > div a.expandControl span {
+  position: absolute;
+  display: inline-block;
+  left: 0;
+  top: 0;
+  width: 12px;
+  height: 12px;
+}
+.inspector-fields th > div a.expandControl span:after {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f105";
+  position: absolute;
+  left: 4px;
+  top: -2px;
+  width: 12px;
+  height: 12px;
+  font-size: 13px;
+  color: #333333;
+  text-indent: 0;
+}
+.inspector-fields th > div a.expandControl.expanded span:after {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f107";
+  left: 2px;
 }
 .inspector-fields input[type=text] {
   display: block;
@@ -11560,9 +11632,9 @@ div.control-popover.control-inspector > div:after {
   top: 5px;
   color: #95a5a6;
 }
-.select2-drop.ocInspectorDropdown .select2-search .select2-input {
+.select2-drop.ocInspectorDropdown .select2-search input.select2-input {
   min-height: 26px;
-  background: transparent;
+  background: transparent!important;
   padding-left: 12px;
   padding-right: 12px;
 }
