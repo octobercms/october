@@ -50,7 +50,7 @@ class FormField
     /**
      * @var string Field options.
      */
-    public $options = [];
+    public $options;
 
     /**
      * @var string Specifies a side. Possible values: auto, left, right, full
@@ -127,6 +127,11 @@ class FormField
      */
     public $config;
 
+    /**
+     * @var array Other field names this field depends on, when the other fields are modified, this field will update.
+     */
+    public $depends;
+
     public function __construct($columnName, $label)
     {
         $this->columnName = $columnName;
@@ -167,9 +172,23 @@ class FormField
      * @param  array $value
      * @return self
      */
-    public function options($value = [])
+    public function options($value = null)
     {
-        $this->options = $value;
+        if ($value === null) {
+            if (is_array($this->options)) {
+                return $this->options;
+            }
+            elseif (is_callable($this->options)) {
+                $callable = $this->options;
+                return $callable();
+            }
+
+            return [];
+        }
+        else {
+            $this->options = $value;
+        }
+
         return $this;
     }
 
@@ -209,6 +228,7 @@ class FormField
         if (isset($config['default'])) $this->defaults = $config['default'];
         if (isset($config['cssClass'])) $this->cssClass = $config['cssClass'];
         if (isset($config['attributes'])) $this->attributes = $config['attributes'];
+        if (isset($config['depends'])) $this->depends = $config['depends'];
         if (isset($config['path'])) $this->path = $config['path'];
 
         if (array_key_exists('required', $config)) $this->required = $config['required'];

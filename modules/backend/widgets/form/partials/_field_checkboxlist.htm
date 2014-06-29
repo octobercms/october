@@ -1,10 +1,11 @@
-<!-- Checkbox List -->
 <?php
+    $fieldOptions = $field->options();
     $checkedValues = (is_array($field->value)) ? $field->value : [$field->value];
 ?>
-<?php if (count($field->options)): ?>
+<!-- Checkbox List -->
+<?php if (count($fieldOptions)): ?>
 
-    <?php if (count($field->options) > 10): ?>
+    <?php if (count($fieldOptions) > 10): ?>
         <!-- Quick selection -->
         <small>
             <?= e(trans('backend::lang.form.select')) ?>:
@@ -17,7 +18,7 @@
             <div class="control-scrollbar" data-control="scrollbar">
     <?php endif ?>
 
-    <?php $index = 0; foreach ($field->options as $value => $option): ?>
+    <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
         <?php
             $index++;
             $checkboxId = 'checkbox_'.$field->columnName.'_'.$index;
@@ -42,7 +43,7 @@
         </div>
     <?php endforeach ?>
 
-    <?php if (count($field->options) > 10): ?>
+    <?php if (count($fieldOptions) > 10): ?>
             </div>
         </div>
     <?php endif ?>

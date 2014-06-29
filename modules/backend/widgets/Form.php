@@ -120,7 +120,7 @@ class Form extends WidgetBase
      */
     public function loadAssets()
     {
-        $this->addJs('js/form.js', 'core');
+        $this->addJs('js/october.form.js', 'core');
     }
 
     /**
@@ -188,7 +188,7 @@ class Form extends WidgetBase
         if (!$this->model)
             throw new ApplicationException(Lang::get('backend::lang.form.missing_model', ['class'=>get_class($this->controller)]));
 
-        $this->data = (object)$this->getConfig('data', $this->model);
+        $this->data = (object) $this->getConfig('data', $this->model);
 
         return $this->model;
     }
@@ -203,6 +203,57 @@ class Form extends WidgetBase
         $this->vars['outsideFields'] = $this->outsideFields;
         $this->vars['primaryTabs'] = $this->primaryTabs;
         $this->vars['secondaryTabs'] = $this->secondaryTabs;
+    }
+
+    /**
+     * Sets or resets form field values.
+     * @param array $data
+     * @return array
+     */
+    public function setFormValues($data = null)
+    {
+        if ($data == null)
+            $data = $this->getSaveData();
+
+        $this->model->fill($data);
+        $this->data = (object) array_merge((array) $this->data, (array) $data);
+
+        foreach ($this->allFields as $field)
+            $field->value = $this->getFieldValue($field);
+
+        return $data;
+    }
+
+    /**
+     * Event handler for refreshing the form.
+     */
+    public function onRender()
+    {
+        $this->setFormValues();
+        $this->prepareVars();
+        $result = [];
+
+        /*
+         * If an array of fields is supplied, update specified fields individually.
+         */
+        if (($updateFields = post('fields')) && is_array($updateFields)) {
+
+            foreach ($updateFields as $field) {
+                if (!isset($this->allFields[$field]))
+                    continue;
+
+                $fieldObject = $this->allFields[$field];
+                $result['#' . $fieldObject->getId('container')] = $this->renderField($fieldObject);
+            }
+        }
+
+        /*
+         * Update the whole form
+         */
+        if (empty($result))
+            $result = ['#'.$this->getId() => $this->makePartial('form')];
+
+        return $result;
     }
 
     /**
@@ -400,14 +451,25 @@ class Form extends WidgetBase
          */
         $optionModelTypes = ['dropdown', 'radio', 'checkboxlist'];
         if (in_array($field->type, $optionModelTypes)) {
-            $fieldOptions = (isset($config['options'])) ? $config['options'] : null;
-            $fieldOptions = $this->getOptionsFromModel($field, $fieldOptions);
-            $field->options($fieldOptions);
+
+            /*
+             * Defer the execution of option data collection
+             */
+            $field->options(function() use ($field, $config) {
+                $fieldOptions = (isset($config['options'])) ? $config['options'] : null;
+                $fieldOptions = $this->getOptionsFromModel($field, $fieldOptions);
+                return $fieldOptions;
+            });
         }
 
         return $field;
     }
 
+    /**
+     * Check if a field type is a widget or not
+     * @param  string  $fieldType
+     * @return boolean
+     */
     private function isFormWidget($fieldType)
     {
         if ($fieldType === null)
@@ -519,6 +581,22 @@ class Form extends WidgetBase
         }
 
         return $result;
+    }
+
+    /**
+     * Returns a HTML encoded value containing the other fields this
+     * field depends on
+     * @param  use Backend\Classes\FormField $field
+     * @return string
+     */
+    public function getFieldDepends($field)
+    {
+        if (!$field->depends)
+            return;
+
+        $depends = is_array($field->depends) ? $field->depends : [$field->depends];
+        $depends = htmlspecialchars(json_encode($depends), ENT_QUOTES, 'UTF-8');
+        return $depends;
     }
 
     /**

@@ -1,4 +1,9 @@
-<div class="form-widget form-elements layout" role="form" id="<?= $this->getId() ?>">
+<div
+    data-control="formwidget"
+    data-refresh-handler="<?= $this->getEventHandler('onRender') ?>"
+    class="form-widget form-elements layout"
+    role="form"
+    id="<?= $this->getId() ?>">
 
     <?php if ($outsideFields): ?>
         <?= $this->makePartial('form_outside_fields') ?>

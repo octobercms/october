@@ -8749,11 +8749,13 @@ html.cssanimations .loading-indicator.transparent > span {
   margin-top: -10px;
   background-size: 20px 20px;
 }
+.loading-indicator-container.size-form-field .loading-indicator,
 .loading-indicator-container.size-input-text .loading-indicator {
   background-color: transparent;
   padding: 0;
   margin: 0;
 }
+.loading-indicator-container.size-form-field .loading-indicator > span,
 .loading-indicator-container.size-input-text .loading-indicator > span {
   padding: 0;
   margin: 0;
@@ -8763,6 +8765,13 @@ html.cssanimations .loading-indicator.transparent > span {
   width: 23px;
   height: 23px;
   background-size: 23px 23px;
+}
+.loading-indicator-container.size-form-field .loading-indicator > span {
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 html.cssanimations .cursor-loading-indicator {
   background: transparent url(../images/loading-indicator-transparent.svg) no-repeat 50% 50%;
@@ -10179,7 +10188,7 @@ body.dropdown-open .dropdown-overlay {
 .control-tabs.content-tabs.tabs-inset ul.nav-tabs li {
   border-top: 1px solid transparent;
 }
-.control-tabs.content-tabs.tabs-inset ul.nav-tabs li .active {
+.control-tabs.content-tabs.tabs-inset ul.nav-tabs li.active {
   border-top: 1px solid #e3e5e7;
 }
 .control-tabs.content-tabs.tabs-inset ul.nav-tabs li:first-child {
