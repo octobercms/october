@@ -243,7 +243,7 @@ class Form extends WidgetBase
                     continue;
 
                 $fieldObject = $this->allFields[$field];
-                $result['#' . $fieldObject->getId('container')] = $this->renderField($fieldObject);
+                $result['#' . $fieldObject->getId('group')] = $this->renderField($fieldObject);
             }
         }
 
