@@ -8,6 +8,7 @@ use Backend;
 use BackendMenu;
 use BackendAuth;
 use Twig_Environment;
+use Twig_Loader_String;
 use System\Classes\ErrorHandler;
 use System\Classes\PluginManager;
 use System\Classes\SettingsManager;
@@ -72,7 +73,7 @@ class ServiceProvider extends ModuleServiceProvider
         });
 
         /*
-         * Register basic twig
+         * Register basic Twig
          */
         App::bindShared('twig', function($app) {
             $twig = new Twig_Environment(new TwigLoader(), ['auto_reload' => true]);
@@ -85,6 +86,15 @@ class ServiceProvider extends ModuleServiceProvider
          */
         App::make('view')->addExtension('htm', 'twig', function() {
             return new TwigEngine(App::make('twig'));
+        });
+
+        /*
+         * Register Twig that will parse strings
+         */
+        App::bindShared('twig.string', function($app) {
+            $twig = $app['twig'];
+            $twig->setLoader(new Twig_Loader_String);
+            return $twig;
         });
 
         /*

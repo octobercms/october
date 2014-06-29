@@ -1,4 +1,4 @@
-<?php namespace Cms\Classes;
+<?php namespace System\Classes;
 
 use System\Classes\PluginManager;
 

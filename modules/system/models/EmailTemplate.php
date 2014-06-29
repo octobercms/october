@@ -100,12 +100,9 @@ class EmailTemplate extends Model
             $template = self::$cache[$code];
 
         /*
-         * Set Twig to load from a string
+         * Get Twig to load from a string
          */
-        $twig = App::make('twig');
-        $oldLoader = $twig->getLoader();
-        $twig->setLoader(new \Twig_Loader_String);
-
+        $twig = App::make('twig.string');
         $message->subject($twig->render($template->subject, $data));
 
         /*
@@ -133,7 +130,6 @@ class EmailTemplate extends Model
             $message->addPart($text, 'text/plain');
         }
 
-        $twig->setLoader($oldLoader);
         return true;
     }
 

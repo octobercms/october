@@ -1,5 +1,10 @@
-* **Build 111** (2014-06-xx)
+* **Build 111** (2014-06-27)
   - Components now support a shared `/partials` directory used as a fallback when a partial is not found.
+  - Improved the styling of the Breadcrumb and Email templates page.
+  - Assets now correctly load when opening the site via `/index.php`.
+  - Added a Preview website link to the Backend template.
+  - Composer build now prefers stable packages.
+  - Missing or broken components are now handled gracefully by the Backend.
 
 * **Build 110** (2014-06-24)
   - Created a new Grid form widget for managing tabular data.

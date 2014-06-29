@@ -23,7 +23,11 @@
                     <li class="icon"><a href="#"><i class="icon-question"></i></a></li>
                 */
             ?>
-            <li class="icon preview"><a href="#" data-toggle="tooltip" data-placement="bottom" title="<?= trans('backend::lang.tooltips.preview_website') ?>"><i class="icon-paw"></i></a></li>
+            <li class="icon preview">
+                <a href="<?= URL::to('/') ?>" target="_blank" data-toggle="tooltip" data-placement="bottom" title="<?= trans('backend::lang.tooltips.preview_website') ?>">
+                    <i class="icon-paw"></i>
+                </a>
+            </li>
             <li class="highlight account">
                 <a href="<?= Backend::url('backend/users/mysettings') ?>">
                     <img src="<?= $this->user->getAvatarThumb() ?>">

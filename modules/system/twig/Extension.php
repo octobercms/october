@@ -6,6 +6,7 @@ use Twig_TokenParser;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 use System\Classes\ApplicationException;
+use System\Classes\MarkupManager;
 
 /**
  * The System Twig extension class implements common Twig functions and filters.
@@ -15,10 +16,19 @@ use System\Classes\ApplicationException;
  */
 class Extension extends Twig_Extension
 {
+
+    /**
+     * @var \System\Classes\MarkupManager A reference to the markup manager instance.
+     */
+    private $markupManager;
+
     /**
      * Creates the extension instance.
      */
-    public function __construct(){}
+    public function __construct()
+    {
+        $this->markupManager = MarkupManager::instance();
+    }
 
     /**
      * Returns the name of the extension.
@@ -37,7 +47,19 @@ class Extension extends Twig_Extension
      */
     public function getFunctions()
     {
-        return [];
+        $functions = [];
+
+        /*
+         * Include extensions provided by plugins
+         */
+        foreach ($this->markupManager->listFunctions() as $name => $callable) {
+            if (!is_callable($callable))
+                throw new ApplicationException(sprintf('The markup function for %s is not callable.', $name));
+
+            $functions[] = new Twig_SimpleFunction($name, $callable, ['is_safe' => ['html']]);
+        }
+
+        return $functions;
     }
 
     /**
@@ -51,6 +73,16 @@ class Extension extends Twig_Extension
             new Twig_SimpleFilter('app', [$this, 'appFilter'], ['is_safe' => ['html']]),
         ];
 
+        /*
+         * Include extensions provided by plugins
+         */
+        foreach ($this->markupManager->listFilters() as $name => $callable) {
+            if (!is_callable($callable))
+                throw new ApplicationException(sprintf('The markup filter for %s is not callable.', $name));
+
+            $filters[] = new Twig_SimpleFilter($name, $callable, ['is_safe' => ['html']]);
+        }
+
         return $filters;
     }
 
@@ -61,7 +93,17 @@ class Extension extends Twig_Extension
      */
     public function getTokenParsers()
     {
-        return [];
+        $parsers = [];
+
+        $extraParsers = $this->markupManager->listTokenParsers();
+        foreach ($extraParsers as $obj) {
+            if (!$obj instanceof Twig_TokenParser)
+                continue;
+
+            $parsers[] = $obj;
+        }
+
+        return $parsers;
     }
 
     /**
@@ -73,4 +115,5 @@ class Extension extends Twig_Extension
     {
         return URL::to($url);
     }
+
 }
