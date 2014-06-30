@@ -24,7 +24,7 @@ class DbSystemEmailLayouts extends Migration
 
     public function down()
     {
-        Schema::drop('system_email_layouts');
+        Schema::dropIfExists('system_email_layouts');
     }
 
 }

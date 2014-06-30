@@ -21,6 +21,6 @@ class DbSystemParameters extends Migration
 
     public function down()
     {
-        Schema::drop('system_parameters');
+        Schema::dropIfExists('system_parameters');
     }
 }

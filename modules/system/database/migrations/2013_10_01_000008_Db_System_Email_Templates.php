@@ -25,7 +25,7 @@ class DbSystemEmailTemplates extends Migration
 
     public function down()
     {
-        Schema::drop('system_email_templates');
+        Schema::dropIfExists('system_email_templates');
     }
 
 }

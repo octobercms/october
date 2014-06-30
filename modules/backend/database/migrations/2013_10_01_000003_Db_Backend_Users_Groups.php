@@ -19,7 +19,7 @@ class DbBackendUsersGroups extends Migration
 
     public function down()
     {
-        Schema::drop('backend_users_groups');
+        Schema::dropIfExists('backend_users_groups');
     }
 
 }
