@@ -7485,8 +7485,7 @@ label {
   margin-right: 0;
   margin-left: 10px;
 }
-body.compact-container .form-buttons,
-body.slim-container .form-buttons {
+.form-buttons.buttons-inset {
   padding-left: 20px;
 }
 @media (max-width: 769px) {

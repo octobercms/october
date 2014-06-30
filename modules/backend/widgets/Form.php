@@ -128,6 +128,7 @@ class Form extends WidgetBase
      *
      * Options:
      *  - preview: Render this form as an uneditable preview. Default: false
+     *  - useContainer: Wrap the result in a container, used by AJAX. Default: true
      *  - section: Which form section to render. Default: null
      *     - outside: Renders the Outside Fields area.
      *     - primary: Renders the Primary Tabs area.
@@ -137,26 +138,43 @@ class Form extends WidgetBase
     public function render($options = [])
     {
         if (isset($options['preview'])) $this->previewMode = $options['preview'];
+        if (!isset($options['useContainer'])) $options['useContainer'] = true;
+        if (!isset($options['section'])) $options['section'] = null;
+
+        $extraVars = [];
+        $targetPartial = 'form';
 
         /*
          * Determine the partial to use based on the supplied section option
          */
-        $section = (isset($options['section'])) ? $options['section'] : null;
-        switch (strtolower($section)) {
-            case 'outside': $targetPartial = 'form_outside_fields'; break;
-            case 'primary': $targetPartial = 'form_primary_tabs'; break;
-            case 'secondary': $targetPartial = 'form_secondary_tabs'; break;
-            default: $targetPartial = 'form'; break;
+        if ($section = $options['section']) {
+
+            switch (strtolower($section)) {
+                default:
+                case 'outside': $sectionPartial = 'section_outside-fields'; break;
+                case 'primary': $sectionPartial = 'section_primary-tabs'; break;
+                case 'secondary': $sectionPartial = 'section_secondary-tabs'; break;
+            }
+
+            $targetPartial = $sectionPartial;
+            $extraVars['renderSection'] = $section;
+        }
+
+        /*
+         * Apply a container to the element
+         */
+        if ($useContainer = $options['useContainer']) {
+            $targetPartial = ($section) ? 'section-container' : 'form-container';
         }
 
         $this->prepareVars();
-        return $this->makePartial($targetPartial);
+        return $this->makePartial($targetPartial, $extraVars);
     }
 
     /**
      * Renders a single form field
      */
-    public function renderField($field)
+    public function renderField($field, $options = [])
     {
         if (is_string($field)) {
             if (!isset($this->allFields[$field]))
@@ -165,8 +183,11 @@ class Form extends WidgetBase
             $field = $this->allFields[$field];
         }
 
+        if (!isset($options['useContainer'])) $options['useContainer'] = true;
+        $targetPartial = $options['useContainer'] ? 'field-container' : 'field';
+
         $this->prepareVars();
-        return $this->makePartial('field', ['field' => $field]);
+        return $this->makePartial($targetPartial, ['field' => $field]);
     }
 
     /**
