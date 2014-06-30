@@ -131,6 +131,11 @@ class Lists extends WidgetBase
     public $treeExpanded = true;
 
     /**
+     * @var array List of CSS classes to apply to the list container element
+     */
+    public $cssClasses = [];
+
+    /**
      * Initialize the widget, called by the constructor and free from its parameters.
      */
     public function init()
@@ -176,6 +181,7 @@ class Lists extends WidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['cssClasses'] = implode(' ', $this->cssClasses);
         $this->vars['columns'] = $this->getVisibleListColumns();
         $this->vars['columnTotal'] = $this->getTotalColumns();
         $this->vars['records'] = $this->getRecords();
