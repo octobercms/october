@@ -119,6 +119,11 @@ class RelationController extends ControllerBehavior
     public $sessionKey;
 
     /**
+     * @var bool Disables the ability to add, update, delete or create relations.
+     */
+    public $readOnly = false;
+
+    /**
      * Behavior constructor
      * @param Backend\Classes\Controller $controller
      * @return void
@@ -128,6 +133,7 @@ class RelationController extends ControllerBehavior
         parent::__construct($controller);
 
         $this->addJs('js/october.relation.js', 'core');
+        $this->addCss('css/relation.css', 'core');
 
         /*
          * Build configuration
@@ -171,6 +177,7 @@ class RelationController extends ControllerBehavior
         $this->relationObject = $this->model->{$field}();
         $this->relationModel = $this->relationObject->getRelated();
 
+        $this->readOnly = $this->getConfig('readOnly');
         $this->viewMode = $this->evalViewMode();
         $this->manageMode = $this->evalManageMode();
         $this->manageId = post('manage_id');
@@ -178,27 +185,27 @@ class RelationController extends ControllerBehavior
         /*
          * Toolbar widget
          */
-        $this->toolbarWidget = $this->makeToolbarWidget();
-        $this->toolbarWidget->bindToController();
+        if ($this->toolbarWidget = $this->makeToolbarWidget())
+            $this->toolbarWidget->bindToController();
 
         /*
          * View widget
          */
-        $this->viewWidget = $this->makeViewWidget();
-        $this->viewWidget->bindToController();
+        if ($this->viewWidget = $this->makeViewWidget())
+            $this->viewWidget->bindToController();
 
         /*
          * Manage widget
          */
-        $this->manageWidget = $this->makeManageWidget();
-        $this->manageWidget->bindToController();
+        if ($this->manageWidget = $this->makeManageWidget())
+            $this->manageWidget->bindToController();
 
         /*
          * Pivot widget
          */
         if ($this->manageMode == 'pivot') {
-            $this->pivotWidget = $this->makePivotWidget();
-            $this->pivotWidget->bindToController();
+            if ($this->pivotWidget = $this->makePivotWidget())
+                $this->pivotWidget->bindToController();
         }
 
         $this->initialized = true;
@@ -268,7 +275,7 @@ class RelationController extends ControllerBehavior
         $section = (isset($options['section'])) ? $options['section'] : null;
         switch (strtolower($section)) {
             case 'toolbar':
-                return $this->toolbarWidget->render();
+                return $this->toolbarWidget ? $this->toolbarWidget->render() : null;
 
             case 'view':
                 return $this->relationMakePartial('view');
@@ -537,6 +544,9 @@ class RelationController extends ControllerBehavior
 
     protected function makeToolbarWidget()
     {
+        if ($this->readOnly)
+            return;
+
         $defaultConfig = [
             'buttons' => '@/modules/backend/behaviors/relationcontroller/partials/_toolbar.htm',
         ];
@@ -544,6 +554,7 @@ class RelationController extends ControllerBehavior
         $toolbarConfig->alias = $this->alias . 'Toolbar';
 
         $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
+        $toolbarWidget->cssClasses[] = 'list-header';
         return $toolbarWidget;
     }
 
@@ -591,10 +602,11 @@ class RelationController extends ControllerBehavior
 
     protected function makeManageWidget()
     {
+        $widget = null;
         /*
          * Pivot
          */
-        if ($this->manageMode == 'pivot') {
+        if ($this->manageMode == 'pivot' && isset($this->config->list)) {
             $config = $this->makeConfig($this->config->list);
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ManagePivotList';
@@ -605,7 +617,7 @@ class RelationController extends ControllerBehavior
         /*
          * List
          */
-        elseif ($this->manageMode == 'list') {
+        elseif ($this->manageMode == 'list' && isset($this->config->list)) {
             $config = $this->makeConfig($this->config->list);
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ManageList';
@@ -616,7 +628,7 @@ class RelationController extends ControllerBehavior
         /*
          * Form
          */
-        elseif ($this->manageMode == 'form') {
+        elseif ($this->manageMode == 'form' && isset($this->config->form)) {
             $config = $this->makeConfig($this->config->form);
             $config->model = $this->relationModel;
             $config->arrayName = Str::getRealClass($this->relationModel);
@@ -637,6 +649,9 @@ class RelationController extends ControllerBehavior
 
             $widget = $this->makeWidget('Backend\Widgets\Form', $config);
         }
+
+        if (!$widget)
+            return null;
 
         /*
          * Exclude existing relationships
