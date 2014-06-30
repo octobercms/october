@@ -168,7 +168,7 @@ class Lists extends WidgetBase
     public function render()
     {
         $this->prepareVars();
-        return $this->makePartial('list_container');
+        return $this->makePartial('list-container');
     }
 
     /**
