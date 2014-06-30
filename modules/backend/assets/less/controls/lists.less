@@ -52,77 +52,10 @@
 //   </div>
 //
 
-//
-// List containers
-//
-
-.list-preview {
-    padding: 0;
-    margin-bottom: 20px;
-    background: white;
-    border: 1px solid @color-list-border;
-
-    > .list-header:first-child {
-        padding-top: 20px;
-    }
-
-    .control-list:last-child > table {
-        margin-bottom: 0;
-    }
-}
 
 //
-// List control
+// List Data Table
 //
-
-.control-list {
-    p.no-data {
-        padding: 18px 20px;
-        margin: 0 20px;
-        color: @color-list-norecords-text;
-        font-size: 14px;
-        text-align: center;
-        font-weight: 300;
-        .border-radius(@border-radius-base);
-    }
-
-    table.table.data {
-        .list-setup {
-            width: 48px;
-            a {
-                display: block;
-                color: #000000;
-                &:before {
-                    font-size: 14px;
-                    line-height: 14px;
-                    .icon(@list-ul);
-                    display: inline-block;
-                    margin-left: 8px;
-                    vertical-align: baseline;
-                    .opacity(.6);
-                }
-
-                &:hover:before {
-                    .opacity(1);
-                    color: @color-list-hover-bg!important;
-                }
-            }
-        }
-
-        .list-pagination {
-            font-size: 14px;
-            text-align: right;
-            padding-top: 20px;
-
-            .loading-indicator {
-                div {
-                    margin-left: 20px;
-                    font-size: 12px;
-                }
-            }
-        }
-    }
-}
 
 table.table.data {
     .list-head-icon(@icon) {
@@ -147,7 +80,7 @@ table.table.data {
 
         td, th {
             border-width: 1px;
-            border-top: 1px solid @color-list-border!important;
+            border-top: 1px solid @color-list-border !important;
             border-color: @color-list-border;
             padding: 0;
             font-weight: normal;
@@ -304,7 +237,7 @@ table.table.data {
     .list-checkbox {
         padding-left: 16px;
         padding-right: 8px;
-        width: 44px;
+        width: 52px;
         vertical-align: top;
         border-right: 1px solid @color-list-border-light;
         .checkbox { margin: 0; }
@@ -348,13 +281,95 @@ table.table.data {
 
 }
 
+//
+// List containers
+//
+
+.list-preview {
+    padding: 0;
+    margin-bottom: 20px;
+    background: white;
+    border: 1px solid @color-list-border;
+
+    .list-header:first-child {
+        padding-top: 20px;
+    }
+
+    .control-list:last-child > table {
+        margin-bottom: 0;
+    }
+}
+
+// List to sit flush to the element above (no toolbar)
+.list-flush {
+    table.table.data {
+        thead tr th {
+            border-top: none !important;
+        }
+    }
+}
+
+//
+// List control
+//
+
+.control-list {
+    p.no-data {
+        padding: 18px 20px;
+        margin: 0 20px;
+        color: @color-list-norecords-text;
+        font-size: 14px;
+        text-align: center;
+        font-weight: 300;
+        .border-radius(@border-radius-base);
+    }
+
+    table.table.data {
+        .list-setup {
+            width: 48px;
+            a {
+                display: block;
+                color: #000000;
+                &:before {
+                    font-size: 14px;
+                    line-height: 14px;
+                    .icon(@list-ul);
+                    display: inline-block;
+                    margin-left: 8px;
+                    vertical-align: baseline;
+                    .opacity(.6);
+                }
+
+                &:hover:before {
+                    .opacity(1);
+                    color: @color-list-hover-bg !important;
+                }
+            }
+        }
+
+        .list-pagination {
+            font-size: 14px;
+            text-align: right;
+            padding-top: 20px;
+
+            .loading-indicator {
+                div {
+                    margin-left: 20px;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
 .list-header {
     background-color: @color-list-header-bg;
     padding: 0 20px 1px 20px;
 
-    &.control-breadcrumb {
-         padding-bottom: 20px !important;
-    }
+    // Remove if year >= 2015
+    //&.control-breadcrumb {
+    //     padding-bottom: 20px !important;
+    //}
 
     h3 {
         font-size: 14px;
@@ -375,7 +390,7 @@ table.table.data {
 
             thead tr {
                 th {
-                    border-top: none!important;
+                    border-top: none !important;
                 }
             }
 

@@ -228,7 +228,7 @@
                 padding-right: 10px;
                 margin-right: 10px;
                 border-right: 1px solid @color-ui-border;
-                
+
                 a {
                     font-size: 12px;
                     font-weight: 600;
@@ -245,23 +245,6 @@
     }
 
     &.content-tabs {
-        &.tabs-inset {
-            ul.nav-tabs {
-                padding-left: 20px;
-                li {
-                    border-top: 1px solid transparent;
-                    &.active {
-                       border-top: 1px solid @color-tab-content-border;
-                    }
-                }
-                li:first-child {
-                    border-left: 1px solid transparent;
-                    &.active {
-                        border-left: 1px solid @color-tab-content-border;
-                    }
-                }
-            }
-        }
 
         > ul.nav-tabs {
             position: relative;
@@ -278,6 +261,7 @@
 
             li {
                 margin-right: 0;
+                border-top: 1px solid transparent;
                 border-right: 1px solid @color-tab-content-border;
 
                 a {
@@ -289,11 +273,19 @@
                     background: transparent;
                 }
 
+                &:first-child {
+                    border-left: 1px solid transparent;
+                    &.active {
+                        border-left: 1px solid @color-tab-content-border;
+                    }
+                }
+
                 &:last-child {
                     border-right: none;
                 }
 
                 &.active {
+                    border-top: 1px solid @color-tab-content-border;
                     background: @color-tab-content-active-bg;
                     a {
                         font-weight: 600;
@@ -307,11 +299,33 @@
         }
 
         > .tab-content > .tab-pane {
+            padding-top: 0;
+
             div.padded-container,
             div.toolbar-widget {
                 background: @color-tab-content-active-bg;
-                margin-top: -20px;
                 padding-top: 20px;
+            }
+        }
+
+        // Tabs to sit in by the standard offset (20px)
+        &.tabs-offset {
+            > ul.nav-tabs {
+                li:first-child {
+                    margin-left: 20px;
+                }
+            }
+        }
+
+        // Tabs to sit flush to the element above
+        &.tabs-flush {
+            > ul.nav-tabs {
+                li {
+                    border-top: none;
+                }
+                li:first-child {
+                    border-left: none;
+                }
             }
         }
     }

@@ -7485,7 +7485,7 @@ label {
   margin-right: 0;
   margin-left: 10px;
 }
-.form-buttons.buttons-inset {
+.form-buttons.buttons-offset {
   padding-left: 20px;
 }
 @media (max-width: 769px) {
@@ -7810,66 +7810,6 @@ label {
 .select2-drop .select2-results > li > div {
   padding: 5px 7px 5px;
 }
-.list-preview {
-  padding: 0;
-  margin-bottom: 20px;
-  background: white;
-  border: 1px solid #e2e2e2;
-}
-.list-preview > .list-header:first-child {
-  padding-top: 20px;
-}
-.list-preview .control-list:last-child > table {
-  margin-bottom: 0;
-}
-.control-list p.no-data {
-  padding: 18px 20px;
-  margin: 0 20px;
-  color: #666666;
-  font-size: 14px;
-  text-align: center;
-  font-weight: 300;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-}
-.control-list table.table.data .list-setup {
-  width: 48px;
-}
-.control-list table.table.data .list-setup a {
-  display: block;
-  color: #000000;
-}
-.control-list table.table.data .list-setup a:before {
-  font-size: 14px;
-  line-height: 14px;
-  font-family: FontAwesome;
-  font-weight: normal;
-  font-style: normal;
-  text-decoration: inherit;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  content: "\f0ca";
-  display: inline-block;
-  margin-left: 8px;
-  vertical-align: baseline;
-  opacity: 0.6;
-  filter: alpha(opacity=60);
-}
-.control-list table.table.data .list-setup a:hover:before {
-  opacity: 1;
-  filter: alpha(opacity=100);
-  color: #4da7e8 !important;
-}
-.control-list table.table.data .list-pagination {
-  font-size: 14px;
-  text-align: right;
-  padding-top: 20px;
-}
-.control-list table.table.data .list-pagination .loading-indicator div {
-  margin-left: 20px;
-  font-size: 12px;
-}
 table.table.data {
   font-size: 12px;
 }
@@ -8106,7 +8046,7 @@ table.table.data tfoot th {
 table.table.data .list-checkbox {
   padding-left: 16px;
   padding-right: 8px;
-  width: 44px;
+  width: 52px;
   vertical-align: top;
   border-right: 1px solid #eeeeee;
 }
@@ -8288,12 +8228,72 @@ table.table.data tr.list-tree-level-25 a.list-expand-collapse {
 table.table.data tr.list-tree-level-25 td.list-data-column-1 {
   padding-left: 275px;
 }
+.list-preview {
+  padding: 0;
+  margin-bottom: 20px;
+  background: white;
+  border: 1px solid #e2e2e2;
+}
+.list-preview .list-header:first-child {
+  padding-top: 20px;
+}
+.list-preview .control-list:last-child > table {
+  margin-bottom: 0;
+}
+.list-flush table.table.data thead tr th {
+  border-top: none !important;
+}
+.control-list p.no-data {
+  padding: 18px 20px;
+  margin: 0 20px;
+  color: #666666;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 300;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.control-list table.table.data .list-setup {
+  width: 48px;
+}
+.control-list table.table.data .list-setup a {
+  display: block;
+  color: #000000;
+}
+.control-list table.table.data .list-setup a:before {
+  font-size: 14px;
+  line-height: 14px;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f0ca";
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: baseline;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+.control-list table.table.data .list-setup a:hover:before {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  color: #4da7e8 !important;
+}
+.control-list table.table.data .list-pagination {
+  font-size: 14px;
+  text-align: right;
+  padding-top: 20px;
+}
+.control-list table.table.data .list-pagination .loading-indicator div {
+  margin-left: 20px;
+  font-size: 12px;
+}
 .list-header {
   background-color: transparent;
   padding: 0 20px 1px 20px;
-}
-.list-header.control-breadcrumb {
-  padding-bottom: 20px !important;
 }
 .list-header h3 {
   font-size: 14px;
@@ -8310,7 +8310,7 @@ table.table.data tr.list-tree-level-25 td.list-data-column-1 {
   margin-bottom: 0;
 }
 .report-widget .table-container table.table.data thead tr th {
-  border-top: none!important;
+  border-top: none !important;
 }
 .report-widget .table-container table.table.data tbody tr:nth-child(even) td,
 .report-widget .table-container table.table.data tbody tr:nth-child(even) th {
@@ -10181,21 +10181,6 @@ body.dropdown-open .dropdown-overlay {
   margin-right: 0;
   padding-right: 0;
 }
-.control-tabs.content-tabs.tabs-inset ul.nav-tabs {
-  padding-left: 20px;
-}
-.control-tabs.content-tabs.tabs-inset ul.nav-tabs li {
-  border-top: 1px solid transparent;
-}
-.control-tabs.content-tabs.tabs-inset ul.nav-tabs li.active {
-  border-top: 1px solid #e3e5e7;
-}
-.control-tabs.content-tabs.tabs-inset ul.nav-tabs li:first-child {
-  border-left: 1px solid transparent;
-}
-.control-tabs.content-tabs.tabs-inset ul.nav-tabs li:first-child.active {
-  border-left: 1px solid #e3e5e7;
-}
 .control-tabs.content-tabs > ul.nav-tabs {
   position: relative;
 }
@@ -10210,6 +10195,7 @@ body.dropdown-open .dropdown-overlay {
 }
 .control-tabs.content-tabs > ul.nav-tabs li {
   margin-right: 0;
+  border-top: 1px solid transparent;
   border-right: 1px solid #e3e5e7;
 }
 .control-tabs.content-tabs > ul.nav-tabs li a {
@@ -10220,10 +10206,17 @@ body.dropdown-open .dropdown-overlay {
   text-transform: uppercase;
   background: transparent;
 }
+.control-tabs.content-tabs > ul.nav-tabs li:first-child {
+  border-left: 1px solid transparent;
+}
+.control-tabs.content-tabs > ul.nav-tabs li:first-child.active {
+  border-left: 1px solid #e3e5e7;
+}
 .control-tabs.content-tabs > ul.nav-tabs li:last-child {
   border-right: none;
 }
 .control-tabs.content-tabs > ul.nav-tabs li.active {
+  border-top: 1px solid #e3e5e7;
   background: #ffffff;
 }
 .control-tabs.content-tabs > ul.nav-tabs li.active a {
@@ -10232,11 +10225,22 @@ body.dropdown-open .dropdown-overlay {
 .control-tabs.content-tabs > ul.nav-tabs li.active:last-child {
   border-right: 1px solid #e3e5e7;
 }
+.control-tabs.content-tabs > .tab-content > .tab-pane {
+  padding-top: 0;
+}
 .control-tabs.content-tabs > .tab-content > .tab-pane div.padded-container,
 .control-tabs.content-tabs > .tab-content > .tab-pane div.toolbar-widget {
   background: #ffffff;
-  margin-top: -20px;
   padding-top: 20px;
+}
+.control-tabs.content-tabs.tabs-offset > ul.nav-tabs li:first-child {
+  margin-left: 20px;
+}
+.control-tabs.content-tabs.tabs-flush > ul.nav-tabs li {
+  border-top: none;
+}
+.control-tabs.content-tabs.tabs-flush > ul.nav-tabs li:first-child {
+  border-left: none;
 }
 .hide-tabs .control-tabs ul.nav-tabs {
   display: none;
