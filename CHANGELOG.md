@@ -1,6 +1,7 @@
-* **Build 113** (2014-06-29)
+* **Build 113** (2014-07-01)
   - Component properties now support grouping by supplying a `group` value.
   - Form fields now support interdependancies by supplying a `depends` value.
+  - Improve styling on RelationController behavior.
 
 * **Build 111** (2014-06-27)
   - Components now support a shared `/partials` directory used as a fallback when a partial is not found.
