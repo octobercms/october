@@ -97,8 +97,8 @@ trait ConfigMaker
             return $object;
 
         foreach ($configArray as $name => $value) {
-            $name = camel_case($name);
-            $object->{$name} = $value;
+            $_name = camel_case($name);
+            $object->{$name} = $object->{$_name} = $value;
         }
 
         return $object;
