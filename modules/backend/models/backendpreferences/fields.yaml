@@ -1,0 +1,10 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    locale:
+        label: backend::lang.backend_preferences.locale
+        comment: backend::lang.backend_preferences.locale_comment
+        type: dropdown
+        span: left

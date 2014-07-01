@@ -61,17 +61,6 @@
                 })
         })
 
-
-        // dependants.on('change', 'select, input', function(){
-        //     var depends = $(this).closest('[data-field-depends]').data('field-depends'),
-        //         form = $(this).closest('form')
-
-        //     if (!form.length || !self.options.refreshHandler)
-        //         return
-
-        //     form.request(self.options.refreshHandler)
-        // })
-
     }
 
 

@@ -38,8 +38,16 @@ class Settings extends Controller
 
     public function index()
     {
-        $this->pageTitle = 'Settings';
-        $this->vars['items'] = SettingsManager::instance()->listItems();
+        $this->pageTitle = Lang::get('backend::lang.settings.menu_label');
+        $this->vars['items'] = SettingsManager::instance()->listItems('system');
+        $this->bodyClass = 'compact-container';
+    }
+
+    public function mysettings()
+    {
+        BackendMenu::setContextSideMenu('mysettings');
+        $this->pageTitle = Lang::get('backend::lang.mysettings.menu_label');
+        $this->vars['items'] = SettingsManager::instance()->listItems('mysettings');
         $this->bodyClass = 'compact-container';
     }
 

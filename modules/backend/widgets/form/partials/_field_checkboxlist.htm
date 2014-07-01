@@ -22,8 +22,7 @@
         <?php
             $index++;
             $checkboxId = 'checkbox_'.$field->columnName.'_'.$index;
-            if (is_string($option))
-                $option = array($option);
+            if (is_string($option)) $option = [$option];
         ?>
         <div class="checkbox custom-checkbox">
             <input

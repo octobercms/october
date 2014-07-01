@@ -36,7 +36,8 @@ class SettingsManager
         'icon'        => null,
         'url'         => null,
         'permissions' => [],
-        'order'       => 100
+        'order'       => 100,
+        'context'     => 'system',
     ];
 
     /**
@@ -107,12 +108,40 @@ class SettingsManager
     /**
      * Returns a collection of all settings
      */
-    public function listItems()
+    public function listItems($context = null)
     {
         if ($this->items === null)
             $this->loadItems();
 
+        if ($context !== null)
+            return $this->filterByContext($this->items, $context);
+
         return $this->items;
+    }
+
+    /**
+     * Filters a set of items by a given context.
+     * @param  array $items
+     * @param  string $context
+     * @return array
+     */
+    protected function filterByContext($items, $context)
+    {
+        $filteredItems = [];
+        foreach ($items as $categoryName => $category) {
+
+            $filteredCategory = [];
+            foreach ($category as $item) {
+                $itemContext = is_array($item->context) ? $item->context : [$item->context];
+                if (in_array($context, $itemContext))
+                    $filteredCategory[] = $item;
+            }
+
+            if (count($filteredCategory))
+                $filteredItems[$categoryName] = $filteredCategory;
+        }
+
+        return $filteredItems;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('system/settings') ?>"><?= e(trans('system::lang.settings.menu_label')) ?></a></li>
+        <li><a href="<?= Backend::url('system/settings/mysettings') ?>"><?= e(trans('backend::lang.mysettings.menu_label')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -18,7 +18,7 @@
             <div class="col-md-7">
 
                 <div
-                    id="editorsettingsCodeeditor"
+                    id="editorpreferencesCodeeditor"
                     class="field-codeeditor size-large layout-relative"
                     data-control="codeeditor"
                     data-font-size="<?= $fontSize ?>"
@@ -33,7 +33,7 @@
                     data-language="<?= $language ?>"
                     data-margin="<?= $margin ?>"
                     data-vendor-path="<?= URL::to('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>/">
-                    <textarea name="editorsettings_codeeditor"><?= e($this->makePartial('example_code')) ?></textarea>
+                    <textarea name="editorpreferences_codeeditor"><?= e($this->makePartial('example_code')) ?></textarea>
                 </div>
 
             </div>

@@ -5,6 +5,16 @@ return [
         'name' => 'October CMS',
         'motto' => 'Getting back to basics',
     ],
+    'locale' => [
+        'en' => 'English',
+        'nl' => 'Dutch',
+        'ja' => 'Japanese',
+        'sv' => 'Swedish',
+        'tr' => 'Turkish',
+        'br' => 'Brazilian Portuguese',
+        'de' => 'Germen',
+        'ru' => 'Russian',
+    ],
     'directory' => [
         'create_fail' => "Cannot create directory: :name",
     ],

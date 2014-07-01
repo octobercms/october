@@ -75,10 +75,29 @@ class ServiceProvider extends ModuleServiceProvider
                 'editor' => [
                     'label'       => 'backend::lang.editor.menu_label',
                     'description' => 'backend::lang.editor.menu_description',
-                    'category'    => 'System',
+                    'category'    => 'My Settings',
                     'icon'        => 'icon-code',
-                    'url'         => Backend::URL('backend/editorsettings'),
-                    'sort'        => 200
+                    'url'         => Backend::URL('backend/editorpreferences'),
+                    'sort'        => 200,
+                    'context'     => 'mysettings'
+                ],
+                'backend_preferences' => [
+                    'label'       => 'backend::lang.backend_preferences.menu_label',
+                    'description' => 'backend::lang.backend_preferences.menu_description',
+                    'category'    => 'My Settings',
+                    'icon'        => 'icon-laptop',
+                    'class'       => 'Backend\Models\BackendPreferences',
+                    'sort'        => 200,
+                    'context'     => 'mysettings'
+                ],
+                'myaccount' => [
+                    'label'       => 'backend::lang.myaccount.menu_label',
+                    'description' => 'backend::lang.myaccount.menu_description',
+                    'category'    => 'My Settings',
+                    'icon'        => 'icon-user',
+                    'url'         => Backend::URL('backend/users/myaccount'),
+                    'sort'        => 200,
+                    'context'     => 'mysettings'
                 ],
             ]);
         });

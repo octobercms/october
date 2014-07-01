@@ -1,5 +1,6 @@
 <?php namespace Backend\Classes;
 
+use App;
 use Str;
 use Log;
 use Lang;
@@ -7,10 +8,12 @@ use View;
 use Flash;
 use Request;
 use Backend;
+use Session;
 use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
+use Backend\Models\BackendPreferences;
 use System\Classes\SystemException;
 use October\Rain\Extension\Extendable;
 use October\Rain\Support\ValidationException;
@@ -167,6 +170,17 @@ class Controller extends Extendable
             // Check his access groups against the page definition
             if ($this->requiredPermissions && !$this->user->hasAnyAccess($this->requiredPermissions))
                 return Response::make(View::make('backend::access_denied'), 403);
+        }
+
+        /*
+         * Set the admin preference locale
+         */
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
+        elseif ($locale = BackendPreferences::get('locale')) {
+            Session::put('locale', $locale);
+            App::setLocale($locale);
         }
 
         /*

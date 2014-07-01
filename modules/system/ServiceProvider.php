@@ -144,7 +144,7 @@ class ServiceProvider extends ModuleServiceProvider
                         ],
                         'users' => [
                             'label'       => 'backend::lang.user.menu_label',
-                            'icon'        => 'icon-user',
+                            'icon'        => 'icon-users',
                             'url'         => Backend::url('backend/users'),
                             'permissions' => ['backend.manage_users']
                         ],

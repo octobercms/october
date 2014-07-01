@@ -3,7 +3,7 @@
 use Lang;
 use BackendMenu;
 use Backend\Classes\Controller;
-use Backend\Models\EditorSettings as EditorSettingsModel;
+use Backend\Models\EditorPreferences as EditorPreferencesModel;
 
 /**
  * Editor Settings controller
@@ -12,7 +12,7 @@ use Backend\Models\EditorSettings as EditorSettingsModel;
  * @author Alexey Bobkov, Samuel Georges
  *
  */
-class EditorSettings extends Controller
+class EditorPreferences extends Controller
 {
 
     public $implement = [
@@ -31,15 +31,15 @@ class EditorSettings extends Controller
         $this->addCss('/modules/backend/formwidgets/codeeditor/assets/css/codeeditor.css', 'core');
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/vendor/ace/ace.js', 'core');
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/codeeditor.js', 'core');
-        $this->addJs('/modules/backend/assets/js/editorsettings/editorsettings.js', 'core');
+        $this->addJs('/modules/backend/assets/js/editorpreferences/editorpreferences.js', 'core');
 
-        BackendMenu::setContext('October.System', 'system', 'settings');
+        BackendMenu::setContext('October.System', 'system', 'mysettings');
     }
 
     public function index()
     {
         // Load the editor system settings
-        $editorSettings = EditorSettingsModel::instance();
+        $editorSettings = EditorPreferencesModel::instance();
 
         $this->vars['fontSize'] = $editorSettings->font_size;
         $this->vars['wordWrap'] = $editorSettings->word_wrap;
@@ -64,6 +64,6 @@ class EditorSettings extends Controller
 
     public function formFindModelObject()
     {
-        return EditorSettingsModel::instance();
+        return EditorPreferencesModel::instance();
     }
 }
