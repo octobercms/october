@@ -191,6 +191,43 @@ label {
     .checkbox ~ .checkbox { margin-top: 0; }
 }
 
+.field-recordfinder {
+    background-color: @color-form-field-preview;
+    border: 1px solid @color-form-field-border;
+    overflow: hidden;
+    position: relative;
+    .form-control {
+        background: transparent;
+        border-color: transparent;
+        height: auto;
+        /*min-height: 38px;*/
+    }
+    .btn {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -44px;
+        height: 88px;
+        width: 46px;
+        text-align: center;
+        &:before {
+            .triangle(left, 36px, 88px, @btn-default-bg);
+            position: absolute;
+            left: -26px;
+            top: 50%;
+            margin-top: -44px;
+        }
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            &:before {
+                .triangle(left, 36px, 88px, darken(@btn-default-bg, 8%));
+            }
+        }
+    }
+}
+
 .form-buttons {
     .clearfix();
     padding-bottom: 20px;

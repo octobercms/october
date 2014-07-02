@@ -8239,6 +8239,52 @@ label {
 .field-checkboxlist-scrollable .checkbox ~ .checkbox {
   margin-top: 0;
 }
+.field-recordfinder {
+  background-color: #f6f6f6;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  position: relative;
+}
+.field-recordfinder .form-control {
+  background: transparent;
+  border-color: transparent;
+  height: auto;
+  /*min-height: 38px;*/
+}
+.field-recordfinder .btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -44px;
+  height: 88px;
+  width: 46px;
+  text-align: center;
+}
+.field-recordfinder .btn:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 44px solid transparent;
+  border-bottom: 44px solid transparent;
+  border-right: 36px solid #e3e3e3;
+  position: absolute;
+  left: -26px;
+  top: 50%;
+  margin-top: -44px;
+}
+.field-recordfinder .btn:hover:before,
+.field-recordfinder .btn:focus:before,
+.field-recordfinder .btn:active:before,
+.field-recordfinder .btn.active:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 44px solid transparent;
+  border-bottom: 44px solid transparent;
+  border-right: 36px solid #cfcfcf;
+}
 .form-buttons {
   padding-bottom: 20px;
   font-size: 0;

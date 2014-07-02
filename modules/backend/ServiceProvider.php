@@ -50,6 +50,10 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Data Grid',
                 'alias' => 'datagrid'
             ]);
+            $manager->registerFormWidget('Backend\FormWidgets\RecordFinder', [
+                'label' => 'Record Finder',
+                'alias' => 'recordfinder'
+            ]);
         });
 
         /*
