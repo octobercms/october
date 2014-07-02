@@ -171,9 +171,6 @@ return [
     'tooltips' => [
         'preview_website' => 'Preview the website'
     ],
-    'settings' => [
-        'menu_label' => 'Settings',
-    ],
     'mysettings' => [
         'menu_label' => 'My Settings',
         'menu_description' => 'Settings relate to your administration account',

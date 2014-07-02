@@ -286,6 +286,17 @@ class RelationController extends ControllerBehavior
     }
 
     /**
+     * Refreshes the relation container only, useful for returning in custom AJAX requests.
+     * @param  string $field Relation definition.
+     * @return array The relation element selector as the key, and the relation view contents are the value.
+     */
+    public function relationRefresh($field)
+    {
+        $field = $this->validateField($field);
+        return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
+    }
+
+    /**
      * Renders the toolbar only.
      * @param string $field The relationship field.
      * @return string Rendered HTML for the toolbar.
@@ -567,7 +578,7 @@ class RelationController extends ControllerBehavior
             $config = $this->makeConfig($this->config->list);
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ViewList';
-            $config->recordOnClick = sprintf("$.oc.relationBehavior.clickManageListRecord('%s', :id)", $this->field);
+            $config->recordOnClick = sprintf("$.oc.relationBehavior.clickManageListRecord(:id, '%s', '%s')", $this->field, $this->relationGetSessionKey());
             $config->showCheckboxes = true;
 
             if ($emptyMessage = $this->getConfig('emptyMessage'))
@@ -611,7 +622,7 @@ class RelationController extends ControllerBehavior
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ManagePivotList';
             $config->showSetup = false;
-            $config->recordOnClick = sprintf("$.oc.relationBehavior.clickManagePivotListRecord('%s', :id)", $this->field);
+            $config->recordOnClick = sprintf("$.oc.relationBehavior.clickManagePivotListRecord(:id, '%s', '%s')", $this->field, $this->relationGetSessionKey());
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
         }
         /*
