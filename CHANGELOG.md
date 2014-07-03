@@ -1,6 +1,10 @@
 * **Build 114** (2014-07-03)
   - Created a new Record Finder form widget for searching related records.
   - All instances now use the Cron queue driver by default (see config queue.default).
+  - Created My Settings backend page. Renamed old My Settings to My Account.
+  - Moved Editor Preferences to My Settings area.
+  - Created Backend Preferences page, used for setting the Backend langauge.
+  - Dropdown field options can now supply an image or icon.
 
 * **Build 113** (2014-07-01)
   - Component properties now support grouping by supplying a `group` value.
@@ -25,7 +29,7 @@
   - Checkbox List form fields now use scrollbars for 10+ checkboxes.
   - Added new form behavior override: formCreateModelObject.
   - Fixes a bug where models using NestedTree trait would not save.
-  - Opening back-end My Settings page now has no permission check.
+  - Opening back-end My Account page now has no permission check.
 
 * **Build 106** (2014-06-10)
   - Upgrade to Laravel 4.2.
