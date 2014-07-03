@@ -86,34 +86,34 @@ class Relation extends FormWidgetBase
      */
     protected function makeRenderFormField()
     {
-         $field = clone $this->formField;
-         $relationObj = $this->model->{$this->relationName}();
-         $relatedObj = $this->model->makeRelation($this->relationName);
-         $query = $relatedObj->newQuery();
+        $field = clone $this->formField;
+        $relationObj = $this->model->{$this->relationName}();
+        $relatedObj = $this->model->makeRelation($this->relationName);
+        $query = $relatedObj->newQuery();
 
-         if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany'])) {
+        if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany'])) {
             $field->type = 'checkboxlist';
             $field->value = $relationObj->getRelatedIds();
-         }
-         else if ($this->relationType == 'belongsTo') {
+        }
+        else if ($this->relationType == 'belongsTo') {
             $field->type = 'dropdown';
             $field->placeholder = $this->emptyOption;
             $foreignKey = $relationObj->getForeignKey();
             $field->value = $this->model->$foreignKey;
-         }
-        
-         // It is safe to assume that if the model and related model are of 
-         // the exact same class, then it cannot be related to itself
-         if ($this->model->exists && (get_class($this->model) == get_class($relatedObj))) {
-            $query->where($relatedObj->getKeyName(), '<>', $this->model->id);
-         }
+        }
 
-         if (in_array('October\Rain\Database\Traits\NestedTree', class_uses($relatedObj)))
+        // It is safe to assume that if the model and related model are of 
+        // the exact same class, then it cannot be related to itself
+        if ($this->model->exists && (get_class($this->model) == get_class($relatedObj))) {
+            $query->where($relatedObj->getKeyName(), '<>', $this->model->id);
+        }
+
+        if (in_array('October\Rain\Database\Traits\NestedTree', class_uses($relatedObj)))
             $field->options = $query->listsNested($this->nameColumn, $relatedObj->getKeyName());
-         else
+        else
             $field->options = $query->lists($this->nameColumn, $relatedObj->getKeyName());
 
-         return $this->renderFormField = $field;
+        return $this->renderFormField = $field;
     }
 
     /**

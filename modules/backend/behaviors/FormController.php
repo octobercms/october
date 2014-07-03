@@ -87,6 +87,14 @@ class FormController extends ControllerBehavior
             $this->controller->formExtendFields($host);
         });
 
+        $this->formWidget->bindEvent('form.refreshBefore', function($host, $saveData) {
+            return $this->controller->formExtendRefreshData($host, $saveData);
+        });
+
+        $this->formWidget->bindEvent('form.refresh', function($host, $result) {
+            return $this->controller->formExtendRefreshResults($host, $result);
+        });
+
         $this->formWidget->bindToController();
 
         /*
@@ -508,6 +516,22 @@ class FormController extends ControllerBehavior
      * @return void
      */
     public function formExtendFields($host) {}
+
+    /**
+     * Called before the form is refreshed, should return an array of additional save data.
+     * @param Backend\Widgets\Form $host The hosting form widget
+     * @param array $saveData Current save data
+     * @return array
+     */
+    public function formExtendRefreshData($host, $saveData) {}
+
+    /**
+     * Called after the form is refreshed, should return an array of additional result parameters.
+     * @param Backend\Widgets\Form $host The hosting form widget
+     * @param array $result Current result parameters.
+     * @return array
+     */
+    public function formExtendRefreshResults($host, $result) {}
 
     /**
      * Extend supplied model used by create and update actions, the model can

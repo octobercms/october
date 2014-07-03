@@ -200,7 +200,6 @@ label {
         background: transparent;
         border-color: transparent;
         height: auto;
-        /*min-height: 38px;*/
     }
     .btn {
         position: absolute;
@@ -208,12 +207,11 @@ label {
         top: 50%;
         margin-top: -44px;
         height: 88px;
-        width: 46px;
-        text-align: center;
+        width: 36px;
         &:before {
-            .triangle(left, 36px, 88px, @btn-default-bg);
+            .triangle(left, 26px, 88px, @btn-default-bg);
             position: absolute;
-            left: -26px;
+            left: -16px;
             top: 50%;
             margin-top: -44px;
         }
@@ -222,7 +220,7 @@ label {
         &:active,
         &.active {
             &:before {
-                .triangle(left, 36px, 88px, darken(@btn-default-bg, 8%));
+                .triangle(left, 26px, 88px, darken(@btn-default-bg, 8%));
             }
         }
     }

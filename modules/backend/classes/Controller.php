@@ -401,6 +401,9 @@ class Controller extends Extendable
              */
             $this->pageAction();
 
+            if ($this->fatalError)
+                throw new SystemException($this->fatalError);
+
             if (!isset($this->widget->{$widgetName}))
                 throw new SystemException(Lang::get('backend::lang.widget.not_bound', ['name'=>$widgetName]));
 

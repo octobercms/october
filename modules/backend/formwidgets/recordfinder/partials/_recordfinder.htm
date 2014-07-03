@@ -1,7 +1,32 @@
-<div class="field-recordfinder">
+<div
+    class="field-recordfinder"
+    data-control="recordfinder"
+    data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
+    data-data-locker="#<?= $field->getId() ?>"
+    id="<?= $this->getId() ?>">
     <span class="form-control">
-        <!-- Hello<br /><small>sam@daftspunk.com</small> -->
-        <span class="text-muted">Click the <i class="icon-search"></i> button to find a user</span>
+        <?php if ($value): ?>
+            <?= $nameValue ?: 'Undefined' ?>
+            <?php if ($descriptionValue): ?>
+                <br /><small><?= $descriptionValue ?></small>
+            <?php endif ?>
+        <?php else: ?>
+            <span class="text-muted"><?= $prompt ?></span>
+        <?php endif ?>
     </span>
-    <button class="btn btn-default" type="button"><i class="icon-search"></i></button>
+    <button
+        class="btn btn-default"
+        data-control="popup"
+        data-handler="<?= $this->getEventHandler('onFindRecord') ?>"
+        data-request-data="recordfinder_flag: 1"
+        type="button">
+        <i class="icon-search"></i>
+    </button>
+
+    <input
+        type="hidden"
+        name="<?= $field->getName() ?>"
+        id="<?= $field->getId() ?>"
+        value="<?= e($value) ?>"
+        />
 </div>

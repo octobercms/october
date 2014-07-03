@@ -8249,7 +8249,6 @@ label {
   background: transparent;
   border-color: transparent;
   height: auto;
-  /*min-height: 38px;*/
 }
 .field-recordfinder .btn {
   position: absolute;
@@ -8257,8 +8256,7 @@ label {
   top: 50%;
   margin-top: -44px;
   height: 88px;
-  width: 46px;
-  text-align: center;
+  width: 36px;
 }
 .field-recordfinder .btn:before {
   content: '';
@@ -8267,9 +8265,9 @@ label {
   height: 0;
   border-top: 44px solid transparent;
   border-bottom: 44px solid transparent;
-  border-right: 36px solid #e3e3e3;
+  border-right: 26px solid #e3e3e3;
   position: absolute;
-  left: -26px;
+  left: -16px;
   top: 50%;
   margin-top: -44px;
 }
@@ -8283,7 +8281,7 @@ label {
   height: 0;
   border-top: 44px solid transparent;
   border-bottom: 44px solid transparent;
-  border-right: 36px solid #cfcfcf;
+  border-right: 26px solid #cfcfcf;
 }
 .form-buttons {
   padding-bottom: 20px;

@@ -211,7 +211,7 @@ class Lists extends WidgetBase
     /**
      * Event handler for refreshing the list.
      */
-    public function onRender()
+    public function onRefresh()
     {
         $this->prepareVars();
         return ['#'.$this->getId() => $this->makePartial('list')];
@@ -223,7 +223,7 @@ class Lists extends WidgetBase
     public function onPaginate()
     {
         App::make('paginator')->setCurrentPage(post('page'));
-        return $this->onRender();
+        return $this->onRefresh();
     }
 
     /**
@@ -760,7 +760,7 @@ class Lists extends WidgetBase
              */
             App::make('paginator')->setCurrentPage(post('page'));
 
-            return $this->onRender();
+            return $this->onRefresh();
         }
     }
 
@@ -867,7 +867,7 @@ class Lists extends WidgetBase
 
         $this->putSession('order', post('column_order'));
         $this->putSession('per_page', post('records_per_page', $this->recordsPerPage));
-        return $this->onRender();
+        return $this->onRefresh();
     }
 
     /**
@@ -938,7 +938,7 @@ class Lists extends WidgetBase
     public function onToggleTreeNode()
     {
         $this->putSession('tree_node_status_' . post('node_id'), post('status') ? 0 : 1);
-        return $this->onRender();
+        return $this->onRefresh();
     }
 
 }

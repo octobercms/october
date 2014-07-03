@@ -248,11 +248,24 @@ class Form extends WidgetBase
     /**
      * Event handler for refreshing the form.
      */
-    public function onRender()
+    public function onRefresh()
     {
-        $this->setFormValues();
-        $this->prepareVars();
         $result = [];
+        $saveData = $this->getSaveData();
+
+        /*
+         * Extensibility
+         */
+        $eventResults = $this->fireEvent('form.refreshBefore', [$this, $saveData]) + Event::fire('backend.form.refreshBefore', [$this, $saveData]);
+        foreach ($eventResults as $eventResult)
+            $saveData = $eventResult + $saveData;
+
+        /*
+         * Set the form variables and prepare the widget
+         */
+        $this->setFormValues($saveData);
+        $this->prepareVars();
+
 
         /*
          * If an array of fields is supplied, update specified fields individually.
@@ -264,7 +277,7 @@ class Form extends WidgetBase
                     continue;
 
                 $fieldObject = $this->allFields[$field];
-                $result['#' . $fieldObject->getId('group')] = $this->renderField($fieldObject);
+                $result['#' . $fieldObject->getId('group')] = $this->makePartial('field', ['field' => $fieldObject]);
             }
         }
 
@@ -273,6 +286,13 @@ class Form extends WidgetBase
          */
         if (empty($result))
             $result = ['#'.$this->getId() => $this->makePartial('form')];
+
+        /*
+         * Extensibility
+         */
+        $eventResults = $this->fireEvent('form.refresh', [$this, $result]) + Event::fire('backend.form.refresh', [$this, $result]);
+        foreach ($eventResults as $eventResult)
+            $result = $eventResult + $result;
 
         return $result;
     }
