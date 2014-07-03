@@ -11,6 +11,7 @@ use Config;
 use Request;
 use Response;
 use Exception;
+use BackendAuth;
 use Twig_Environment;
 use Controller as BaseController;
 use Cms\Twig\Loader as TwigLoader;
@@ -113,7 +114,14 @@ class Controller extends BaseController
         if (!strlen($url))
             $url = '/';
 
+        /*
+         * Handle hidden pages
+         */
         $page = $this->router->findByUrl($url);
+        if ($page && $page->hidden) {
+            if (!BackendAuth::getUser())
+                $page = null;
+        }
 
         /*
          * Extensibility

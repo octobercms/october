@@ -8402,6 +8402,10 @@ label {
 .custom-radio:focus label:before {
   border-color: #5fb6f5;
 }
+.custom-checkbox p.help-block,
+.custom-radio p.help-block {
+  margin-top: 0;
+}
 .custom-radio label:before {
   border-radius: 8px;
 }

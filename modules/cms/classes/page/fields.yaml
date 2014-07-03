@@ -24,12 +24,6 @@ fields:
 
 tabs:
   fields:
-    # published:
-    #   tab: General
-    #   span: left
-    #   label: Published
-    #   type: checkbox
-
     fileName:
       tab: cms::lang.editor.settings
       span: left
@@ -61,6 +55,12 @@ tabs:
       label: cms::lang.editor.meta_description
       type: textarea
       size: tiny
+
+    settings[hidden]:
+      tab: cms::lang.editor.settings
+      label: cms::lang.editor.hidden
+      type: checkbox
+      comment: cms::lang.editor.hidden_comment
 
 secondaryTabs:
   stretch: true
