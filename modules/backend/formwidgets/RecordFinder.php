@@ -112,7 +112,7 @@ class RecordFinder extends FormWidgetBase
         $this->vars['nameValue'] = $this->getNameValue();
         $this->vars['descriptionValue'] = $this->getDescriptionValue();
         $this->vars['listWidget'] = $this->listWidget;
-        $this->vars['prompt'] = str_replace('%s', '<i class="icon-search"></i>', $this->prompt);
+        $this->vars['prompt'] = str_replace('%s', '<i class="icon-th-list"></i>', $this->prompt);
     }
 
     /**

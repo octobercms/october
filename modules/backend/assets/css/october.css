@@ -8240,7 +8240,7 @@ label {
   margin-top: 0;
 }
 .field-recordfinder {
-  background-color: #f6f6f6;
+  background-color: #ffffff;
   border: 1px solid #e0e0e0;
   overflow: hidden;
   position: relative;
@@ -8249,8 +8249,13 @@ label {
   background: transparent;
   border-color: transparent;
   height: auto;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 8px 30px 10px 11px;
 }
 .field-recordfinder .btn {
+  background: transparent;
   position: absolute;
   right: 0;
   top: 50%;
@@ -8258,30 +8263,18 @@ label {
   height: 88px;
   width: 36px;
 }
-.field-recordfinder .btn:before {
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 44px solid transparent;
-  border-bottom: 44px solid transparent;
-  border-right: 26px solid #e3e3e3;
-  position: absolute;
-  left: -16px;
-  top: 50%;
-  margin-top: -44px;
+.field-recordfinder .btn i {
+  font-size: 14px;
 }
-.field-recordfinder .btn:hover:before,
-.field-recordfinder .btn:focus:before,
-.field-recordfinder .btn:active:before,
-.field-recordfinder .btn.active:before {
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 44px solid transparent;
-  border-bottom: 44px solid transparent;
-  border-right: 26px solid #cfcfcf;
+.field-recordfinder .text-muted i {
+  font-size: 14px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  margin: 0 2px;
+}
+.field-recordfinder .primary {
+  font-weight: 600;
 }
 .form-buttons {
   padding-bottom: 20px;

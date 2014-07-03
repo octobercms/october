@@ -6,9 +6,9 @@
     id="<?= $this->getId() ?>">
     <span class="form-control">
         <?php if ($value): ?>
-            <?= $nameValue ?: 'Undefined' ?>
+            <span class="primary"><?= e($nameValue) ?: 'Undefined' ?></span>
             <?php if ($descriptionValue): ?>
-                <br /><small><?= $descriptionValue ?></small>
+                <span class="secondary"> - <?= e($descriptionValue) ?></span>
             <?php endif ?>
         <?php else: ?>
             <span class="text-muted"><?= $prompt ?></span>
@@ -20,7 +20,7 @@
         data-handler="<?= $this->getEventHandler('onFindRecord') ?>"
         data-request-data="recordfinder_flag: 1"
         type="button">
-        <i class="icon-search"></i>
+        <i class="icon-th-list"></i>
     </button>
 
     <input

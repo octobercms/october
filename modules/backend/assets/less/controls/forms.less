@@ -192,7 +192,7 @@ label {
 }
 
 .field-recordfinder {
-    background-color: @color-form-field-preview;
+    background-color: @color-form-field-bg;
     border: 1px solid @color-form-field-border;
     overflow: hidden;
     position: relative;
@@ -200,29 +200,33 @@ label {
         background: transparent;
         border-color: transparent;
         height: auto;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 8px 30px 10px 11px;
     }
     .btn {
+        background: transparent;
         position: absolute;
         right: 0;
         top: 50%;
         margin-top: -44px;
         height: 88px;
         width: 36px;
-        &:before {
-            .triangle(left, 26px, 88px, @btn-default-bg);
-            position: absolute;
-            left: -16px;
-            top: 50%;
-            margin-top: -44px;
+
+        i {
+            font-size: 14px;
         }
-        &:hover,
-        &:focus,
-        &:active,
-        &.active {
-            &:before {
-                .triangle(left, 26px, 88px, darken(@btn-default-bg, 8%));
-            }
-        }
+    }
+    .text-muted i {
+        font-size: 14px;
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        margin: 0 2px;
+    }
+    .primary {
+        font-weight: 600;
     }
 }
 
