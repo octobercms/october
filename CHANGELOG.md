@@ -1,3 +1,7 @@
+* **Build x** (2014-07-x)
+  - Created a new Record Finder form widget for searching related records.
+  - All instances now use the Cron queue driver by default (see config queue.default).
+
 * **Build 113** (2014-07-01)
   - Component properties now support grouping by supplying a `group` value.
   - Form fields now support interdependancies by supplying a `depends` value.
