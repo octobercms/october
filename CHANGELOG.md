@@ -5,6 +5,7 @@
   - Moved Editor Preferences to My Settings area.
   - Created Backend Preferences page, used for setting the Backend langauge.
   - Dropdown field options can now supply an image or icon.
+  - CMS Pages now have a hidden flag.
 
 * **Build 113** (2014-07-01)
   - Component properties now support grouping by supplying a `group` value.
