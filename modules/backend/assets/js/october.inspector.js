@@ -102,9 +102,9 @@
                             <tr id="{{#propFormat}}{{property}}{{/propFormat}}"                                       \
                                 {{#dataGroupIndex}}{{/dataGroupIndex}}                                                \
                                 class="{{#cellClass}}{{/cellClass}}">                                                 \
-                                <th {{#colspan}}{{/colspan}}><div><div class="title-element" title="{{title}}">       \
+                                <th {{#colspan}}{{/colspan}}><div><div><span class="title-element" title="{{title}}"> \
                                 {{#expandControl}}{{/expandControl}}                                                  \
-                                {{title}}                                                                             \
+                                {{title}}</span>                                                                      \
                                 {{#info}}{{/info}}                                                                    \
                                 </div></div></th>                                                                     \
                                 {{#editor}}{{/editor}}                                                                \
@@ -318,7 +318,7 @@
             duration = Math.round(100 / propertyRows.length),
             collapse = true,
             statuses = this.loadGroupExpandedStatuses(),
-            title = $('div.title-element', $link.closest('tr')).attr('title')
+            title = $('span.title-element', $link.closest('tr')).attr('title')
 
         if ($link.hasClass('expanded')) {
             $link.removeClass('expanded')
