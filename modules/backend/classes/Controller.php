@@ -152,6 +152,9 @@ class Controller extends Extendable
          */
         $isPublicAction = in_array($action, $this->publicActions);
 
+        // Create a new instance of the admin user
+        $this->user = BackendAuth::getUser();
+
         /*
          * Check that user is logged in and has permission to view this page
          */
@@ -164,9 +167,6 @@ class Controller extends Extendable
                     : Redirect::guest(Backend::url('backend/auth'));
             }
 
-            // Create a new instance of the admin user
-            $this->user = BackendAuth::getUser();
-
             // Check his access groups against the page definition
             if ($this->requiredPermissions && !$this->user->hasAnyAccess($this->requiredPermissions))
                 return Response::make(View::make('backend::access_denied'), 403);
@@ -178,7 +178,7 @@ class Controller extends Extendable
         if (Session::has('locale')) {
             App::setLocale(Session::get('locale'));
         }
-        elseif ($locale = BackendPreferences::get('locale')) {
+        elseif ($this->user && $locale = BackendPreferences::get('locale')) {
             Session::put('locale', $locale);
             App::setLocale($locale);
         }
