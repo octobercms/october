@@ -1,9 +1,9 @@
 <?php namespace System\Database\Seeds;
 
 use Seeder;
-use System\Models\EmailLayout;
+use System\Models\MailLayout;
 
-class SeedSetupEmailLayouts extends Seeder
+class SeedSetupMailLayouts extends Seeder
 {
 
     public function run()
@@ -37,7 +37,7 @@ $html = '<html>
 
 $text = '{{ message|raw }}';
 
-        EmailLayout::create([
+        MailLayout::create([
             'is_locked'    => true,
             'name'         => 'Default',
             'code'         => 'default',
@@ -66,7 +66,7 @@ $text = '{{ message|raw }}
 This is an automatic message. Please do not reply to it.
 ';
 
-        EmailLayout::create([
+        MailLayout::create([
             'is_locked'    => true,
             'name'         => 'System',
             'code'         => 'system',

@@ -3,12 +3,12 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DbSystemEmailTemplates extends Migration
+class DbSystemMailTemplates extends Migration
 {
 
     public function up()
     {
-        Schema::create('system_email_templates', function(Blueprint $table)
+        Schema::create('system_mail_templates', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -25,7 +25,7 @@ class DbSystemEmailTemplates extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('system_email_templates');
+        Schema::dropIfExists('system_mail_templates');
     }
 
 }

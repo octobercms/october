@@ -5,17 +5,17 @@
 fields:
 
     code:
-        label: system::lang.email_templates.code
-        comment: system::lang.email_templates.code_comment
+        label: system::lang.mail_templates.code
+        comment: system::lang.mail_templates.code_comment
         span: left
         context: create
 
     name@create:
-        label: system::lang.email_templates.name
+        label: system::lang.mail_templates.name
         span: right
 
     name@update:
-        label: system::lang.email_templates.name
+        label: system::lang.mail_templates.name
 
 secondaryTabs:
     fields:
@@ -23,16 +23,16 @@ secondaryTabs:
         content_html:
             type: codeeditor
             size: giant
-            tab: system::lang.email_templates.content_html
+            tab: system::lang.mail_templates.content_html
             language: html
 
         content_css:
             type: codeeditor
             size: giant
-            tab: system::lang.email_templates.content_css
+            tab: system::lang.mail_templates.content_css
             language: css
 
         content_text:
             type: textarea
             size: giant
-            tab: system::lang.email_templates.content_text
+            tab: system::lang.mail_templates.content_text

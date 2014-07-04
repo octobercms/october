@@ -7,26 +7,26 @@ use Model;
 use October\Rain\Mail\MailParser;
 use System\Classes\PluginManager;
 
-class EmailTemplate extends Model
+class MailTemplate extends Model
 {
     /**
      * @var string The database table used by the model.
      */
-    protected $table = 'system_email_templates';
+    protected $table = 'system_mail_templates';
 
     public $rules = [
-        'code'                  => 'required|unique:system_email_templates',
+        'code'                  => 'required|unique:system_mail_templates',
         'subject'               => 'required',
         'description'           => 'required',
         'content_html'          => 'required',
     ];
 
     public $belongsTo = [
-        'layout' => ['System\Models\EmailLayout']
+        'layout' => ['System\Models\MailLayout']
     ];
 
     /**
-     * @var array A cache of customised email templates.
+     * @var array A cache of customised mail templates.
      */
     protected static $cache = [];
 
@@ -58,7 +58,7 @@ class EmailTemplate extends Model
          * Create new templates
          */
         if (count($newTemplates))
-            $categories = EmailLayout::lists('id', 'code');
+            $categories = MailLayout::lists('id', 'code');
 
         foreach ($newTemplates as $code => $description) {
             $sections = self::getTemplateSections($code);
@@ -138,7 +138,7 @@ class EmailTemplate extends Model
     //
 
     /**
-     * Loads registered email templates from modules and plugins
+     * Loads registered mail templates from modules and plugins
      * @return void
      */
     public function loadRegisteredTemplates()
@@ -149,11 +149,11 @@ class EmailTemplate extends Model
 
         $plugins = PluginManager::instance()->getPlugins();
         foreach ($plugins as $pluginId => $pluginObj) {
-            $templates = $pluginObj->registerEmailTemplates();
+            $templates = $pluginObj->registerMailTemplates();
             if (!is_array($templates))
                 continue;
 
-            $this->registerEmailTemplates($templates);
+            $this->registerMailTemplates($templates);
         }
     }
 
@@ -170,13 +170,13 @@ class EmailTemplate extends Model
     }
 
     /**
-     * Registers a callback function that defines email templates.
+     * Registers a callback function that defines mail templates.
      * The callback function should register templates by calling the manager's
-     * registerEmailTemplates() function. Thi instance is passed to the
+     * registerMailTemplates() function. Thi instance is passed to the
      * callback function as an argument. Usage:
      * <pre>
-     *   EmailTemplate::registerCallback(function($template){
-     *       $template->registerEmailTemplates([...]);
+     *   MailTemplate::registerCallback(function($template){
+     *       $template->registerMailTemplates([...]);
      *   });
      * </pre>
      * @param callable $callback A callable function.
@@ -187,9 +187,9 @@ class EmailTemplate extends Model
     }
 
     /**
-     * Registers email views and manageable templates.
+     * Registers mail views and manageable templates.
      */
-    public function registerEmailTemplates(array $definitions)
+    public function registerMailTemplates(array $definitions)
     {
         if (!static::$registeredTemplates)
             static::$registeredTemplates = [];

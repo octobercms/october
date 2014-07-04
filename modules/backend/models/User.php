@@ -97,7 +97,7 @@ class User extends UserBase
             'link' => Backend::url('backend'),
         ];
 
-        Mail::send('backend::emails.invite', $data, function($message)
+        Mail::send('backend::mail.invite', $data, function($message)
         {
             $message->to($this->email, $this->full_name);
         });

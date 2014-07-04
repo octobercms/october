@@ -4,4 +4,4 @@
 
 form: @/modules/backend/models/editorpreferences/fields.yaml
 modelClass: Backend\Models\EditorPreferences
-defaultRedirect: system/emailtemplates
+defaultRedirect: system/mailtemplates

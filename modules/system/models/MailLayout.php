@@ -3,15 +3,15 @@
 use Model;
 use System\Classes\ApplicationException;
 
-class EmailLayout extends Model
+class MailLayout extends Model
 {
     /**
      * @var string The database table used by the model.
      */
-    protected $table = 'system_email_layouts';
+    protected $table = 'system_mail_layouts';
 
     public $rules = [
-        'code'                  => 'required|unique:system_email_layouts',
+        'code'                  => 'required|unique:system_mail_layouts',
         'name'                  => 'required',
         'content_html'          => 'required',
     ];

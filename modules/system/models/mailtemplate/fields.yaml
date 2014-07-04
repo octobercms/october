@@ -5,27 +5,27 @@
 fields:
 
     layout:
-        label: system::lang.email_templates.layout
+        label: system::lang.mail_templates.layout
         type: relation
         options:
             emptyOption: -- No layout --
 
     code:
-        label: system::lang.email_templates.code
-        comment: system::lang.email_templates.code_comment
+        label: system::lang.mail_templates.code
+        comment: system::lang.mail_templates.code_comment
         span: left
         context: create
 
     subject@create:
-        label: system::lang.email_templates.subject
-        comment: system::lang.email_templates.subject_comment
+        label: system::lang.mail_templates.subject
+        comment: system::lang.mail_templates.subject_comment
         span: right
 
     subject@update:
-        label: system::lang.email_templates.subject
+        label: system::lang.mail_templates.subject
 
     description:
-        label: system::lang.email_templates.description
+        label: system::lang.mail_templates.description
         type: textarea
         size: tiny
 
@@ -35,9 +35,9 @@ secondaryTabs:
         content_html:
             type: richeditor
             size: huge
-            tab: system::lang.email_templates.content_html
+            tab: system::lang.mail_templates.content_html
 
         content_text:
             type: textarea
             size: huge
-            tab: system::lang.email_templates.content_text
+            tab: system::lang.mail_templates.content_text

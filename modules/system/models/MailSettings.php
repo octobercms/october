@@ -3,11 +3,11 @@
 use App;
 use Model;
 
-class EmailSettings extends Model
+class MailSettings extends Model
 {
     public $implement = ['System.Behaviors.SettingsModel'];
 
-    public $settingsCode = 'system_email_settings';
+    public $settingsCode = 'system_mail_settings';
     public $settingsFields = 'fields.yaml';
 
     const MODE_MAIL     = 'mail';

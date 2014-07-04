@@ -15,8 +15,8 @@ use System\Classes\SettingsManager;
 use System\Twig\Engine as TwigEngine;
 use System\Twig\Loader as TwigLoader;
 use System\Twig\Extension as TwigExtension;
-use System\Models\EmailSettings;
-use System\Models\EmailTemplate;
+use System\Models\MailSettings;
+use System\Models\MailTemplate;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 
@@ -101,8 +101,8 @@ class ServiceProvider extends ModuleServiceProvider
          * Override system email with email settings
          */
         Event::listen('mailer.beforeRegister', function() {
-            if (EmailSettings::isConfigured())
-                EmailSettings::applyConfigValues();
+            if (MailSettings::isConfigured())
+                MailSettings::applyConfigValues();
         });
 
         /*
@@ -110,7 +110,7 @@ class ServiceProvider extends ModuleServiceProvider
          */
         Event::listen('mailer.register', function($provider, $mailer) {
             $mailer->bindEvent('beforeAddContent', function($message, $view, $plain, $data){
-                if (EmailTemplate::addContentToMailer($message, $view, $data))
+                if (MailTemplate::addContentToMailer($message, $view, $data))
                     return false;
             });
         });
@@ -177,7 +177,7 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerPermissions('October.System', [
                 'system.manage_settings'        => ['label' => 'Manage system settings', 'tab' => 'System'],
                 'system.manage_updates'         => ['label' => 'Manage software updates', 'tab' => 'System'],
-                'system.manage_email_templates' => ['label' => 'Manage email templates', 'tab' => 'System'],
+                'system.manage_mail_templates'  => ['label' => 'Manage mail templates', 'tab' => 'System'],
             ]);
         });
 
@@ -187,19 +187,19 @@ class ServiceProvider extends ModuleServiceProvider
         SettingsManager::instance()->registerCallback(function($manager){
             $manager->registerSettingItems('October.System', [
                 'email_settings' => [
-                    'label'       => 'system::lang.email.menu_label',
-                    'description' => 'system::lang.email.menu_description',
+                    'label'       => 'system::lang.mail.menu_label',
+                    'description' => 'system::lang.mail.menu_description',
                     'category'    => 'System',
                     'icon'        => 'icon-envelope',
-                    'class'       => 'System\Models\EmailSettings',
+                    'class'       => 'System\Models\MailSettings',
                     'sort'        => 100
                 ],
-                'email_templates' => [
-                    'label'       => 'system::lang.email_templates.menu_label',
-                    'description' => 'system::lang.email_templates.menu_description',
+                'mail_templates' => [
+                    'label'       => 'system::lang.mail_templates.menu_label',
+                    'description' => 'system::lang.mail_templates.menu_description',
                     'category'    => 'System',
                     'icon'        => 'icon-envelope-square',
-                    'url'         => Backend::url('system/emailtemplates'),
+                    'url'         => Backend::url('system/mailtemplates'),
                     'sort'        => 100
                 ],
             ]);

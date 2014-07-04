@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         Eloquent::unguard();
 
-        $this->call('System\Database\Seeds\SeedSetupEmailLayouts');
+        $this->call('System\Database\Seeds\SeedSetupMailLayouts');
     }
 
 }
