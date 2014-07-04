@@ -129,7 +129,7 @@ class Controller extends BaseController
         if ($event = Event::fire('cms.page.beforeDisplay', [$this, $url, $page], true))
             return $event;
 
-        if ($event = $this->fireEvent('page.beforeDisplay', [$this, $url, $page], true))
+        if ($event = $this->fireEvent('page.beforeDisplay', [$url, $page], true))
             return $event;
 
         /*
@@ -215,7 +215,7 @@ class Controller extends BaseController
         if ($event = Event::fire('cms.page.display', [$this, $url, $page], true))
             return $event;
 
-        if ($event = $this->fireEvent('page.display', [$this, $url, $page], true))
+        if ($event = $this->fireEvent('page.display', [$url, $page], true))
             return $event;
 
         if (!is_string($result))
@@ -450,7 +450,7 @@ class Controller extends BaseController
         if ($event = Event::fire('cms.page.start', [$this], true))
             return $event;
 
-        if ($event = $this->fireEvent('page.start', [$this], true))
+        if ($event = $this->fireEvent('page.start', [], true))
             return $event;
 
         /*
@@ -492,7 +492,7 @@ class Controller extends BaseController
         if ($event = Event::fire('cms.page.end', [$this], true))
             return $event;
 
-        if ($event = $this->fireEvent('page.end', [$this], true))
+        if ($event = $this->fireEvent('page.end', [], true))
             return $event;
 
         return $response;

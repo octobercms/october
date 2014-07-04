@@ -79,20 +79,20 @@ class FormController extends ControllerBehavior
          */
         $this->formWidget = $this->makeWidget('Backend\Widgets\Form', $config);
 
-        $this->formWidget->bindEvent('form.extendFieldsBefore', function($host) {
-            $this->controller->formExtendFieldsBefore($host);
+        $this->formWidget->bindEvent('form.extendFieldsBefore', function() {
+            $this->controller->formExtendFieldsBefore($this->formWidget);
         });
 
-        $this->formWidget->bindEvent('form.extendFields', function($host) {
-            $this->controller->formExtendFields($host);
+        $this->formWidget->bindEvent('form.extendFields', function() {
+            $this->controller->formExtendFields($this->formWidget);
         });
 
-        $this->formWidget->bindEvent('form.refreshBefore', function($host, $saveData) {
-            return $this->controller->formExtendRefreshData($host, $saveData);
+        $this->formWidget->bindEvent('form.beforeRefresh', function($saveData) {
+            return $this->controller->formExtendRefreshData($this->formWidget, $saveData);
         });
 
-        $this->formWidget->bindEvent('form.refresh', function($host, $result) {
-            return $this->controller->formExtendRefreshResults($host, $result);
+        $this->formWidget->bindEvent('form.refresh', function($result) {
+            return $this->controller->formExtendRefreshResults($this->formWidget, $result);
         });
 
         $this->formWidget->bindToController();

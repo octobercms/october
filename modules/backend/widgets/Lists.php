@@ -268,7 +268,7 @@ class Lists extends WidgetBase
          * Extensibility
          */
         Event::fire('backend.list.extendQueryBefore', [$this, $query]);
-        $this->fireEvent('list.extendQueryBefore', [$this, $query]);
+        $this->fireEvent('list.extendQueryBefore', [$query]);
 
         /*
          * Related custom selects, must come first
@@ -346,7 +346,7 @@ class Lists extends WidgetBase
          * Extensibility
          */
         Event::fire('backend.list.extendQuery', [$this, $query]);
-        $this->fireEvent('list.extendQuery', [$this, $query]);
+        $this->fireEvent('list.extendQuery', [$query]);
 
         // Grouping due to the joinWith() call
         $query->select($selects);
@@ -460,7 +460,7 @@ class Lists extends WidgetBase
          * Extensibility
          */
         Event::fire('backend.list.extendColumns', [$this]);
-        $this->fireEvent('list.extendColumns', $this);
+        $this->fireEvent('list.extendColumns');
 
         /*
          * Use a supplied column order
@@ -544,7 +544,7 @@ class Lists extends WidgetBase
         if ($response = Event::fire('backend.list.overrideHeaderValue', [$this, $column, $value], true))
             $value = $response;
 
-        if ($response = $this->fireEvent('list.overrideHeaderValue', [$this, $column, $value], true))
+        if ($response = $this->fireEvent('list.overrideHeaderValue', [$column, $value], true))
             $value = $response;
 
         return $value;
@@ -575,7 +575,7 @@ class Lists extends WidgetBase
         if ($response = Event::fire('backend.list.overrideColumnValue', [$this, $record, $column, $value], true))
             $value = $response;
 
-        if ($response = $this->fireEvent('list.overrideColumnValue', [$this, $record, $column, $value], true))
+        if ($response = $this->fireEvent('list.overrideColumnValue', [$record, $column, $value], true))
             $value = $response;
 
         return $value;
@@ -596,7 +596,7 @@ class Lists extends WidgetBase
         if ($response = Event::fire('backend.list.injectRowClass', [$this, $record], true))
             $value = $response;
 
-        if ($response = $this->fireEvent('list.injectRowClass', [$this, $record], true))
+        if ($response = $this->fireEvent('list.injectRowClass', [$record], true))
             $value = $response;
 
         return $value;

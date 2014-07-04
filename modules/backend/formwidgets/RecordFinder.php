@@ -171,7 +171,7 @@ class RecordFinder extends FormWidgetBase
         $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':id')", $this->getId());
         $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 
-        // $widget->bindEvent('list.extendQueryBefore', function($host, $query) {
+        // $widget->bindEvent('list.extendQueryBefore', function($query) {
 
         //     /*
         //      * Where not in the current list of related records

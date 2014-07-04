@@ -585,7 +585,7 @@ class RelationController extends ControllerBehavior
                 $config->noRecordsMessage = $emptyMessage;
 
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
-            $widget->bindEvent('list.extendQueryBefore', function($host, $query) {
+            $widget->bindEvent('list.extendQueryBefore', function($query) {
                 $this->relationObject->setQuery($query);
                 if ($this->model->exists) {
                     $this->relationObject->addConstraints();
@@ -668,7 +668,7 @@ class RelationController extends ControllerBehavior
          * Exclude existing relationships
          */
         if ($this->manageMode == 'pivot' || $this->manageMode == 'list') {
-            $widget->bindEvent('list.extendQueryBefore', function($host, $query) {
+            $widget->bindEvent('list.extendQueryBefore', function($query) {
 
                 /*
                  * Where not in the current list of related records
