@@ -266,7 +266,6 @@ class Form extends WidgetBase
         $this->setFormValues($saveData);
         $this->prepareVars();
 
-
         /*
          * If an array of fields is supplied, update specified fields individually.
          */

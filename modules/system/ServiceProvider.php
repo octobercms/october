@@ -108,8 +108,8 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Override standard Mailer content with template
          */
-        Event::listen('mailer.register', function() {
-            App::make('mailer')->bindEvent('content.beforeAdd', function($message, $view, $plain, $data){
+        Event::listen('mailer.register', function($provider, $mailer) {
+            $mailer->bindEvent('beforeAddContent', function($message, $view, $plain, $data){
                 if (EmailTemplate::addContentToMailer($message, $view, $data))
                     return false;
             });
