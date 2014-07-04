@@ -16,7 +16,7 @@
 
     <?php foreach ($columns as $key => $column): ?>
         <?php if ($showSorting && $column->sortable): ?>
-            <th class="<?= $this->sortColumn==$column->columnName?'sort-'.$this->sortDirection.' active':'sort-desc' ?>">
+            <th class="<?= $this->sortColumn==$column->columnName?'sort-'.$this->sortDirection.' active':'sort-desc' ?> list-data-column-<?= $column->columnName ?>"">
                 <a
                     href="javascript:;"
                     data-request="<?= $this->getEventHandler('onSort') ?>"
@@ -26,7 +26,7 @@
                 </a>
             </th>
         <?php else: ?>
-            <th>
+            <th class="list-data-column-<?= $column->columnName ?>">
                 <span><?= $this->getHeaderValue($column) ?></span>
             </th>
         <?php endif ?>
