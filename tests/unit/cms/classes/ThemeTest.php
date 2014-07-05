@@ -2,7 +2,7 @@
 
 use Cms\Classes\Theme;
 
-class ThemeTest extends TestCase 
+class ThemeTest extends TestCase
 {
     public function setUp()
     {
@@ -41,10 +41,10 @@ class ThemeTest extends TestCase
         $theme->load('test');
 
         $pages = $theme->listPages();
-        $this->assertInternalType('array', $pages);
+        $this->assertInstanceOf('\Cms\Classes\CmsObjectCollection', $pages);
 
         $expectedPageNum = $this->countThemePages(base_path().'/tests/fixtures/Cms/themes/test/pages');
-        $this->assertEquals($expectedPageNum, count($pages));
+        $this->assertEquals($expectedPageNum, $pages->count());
 
         $this->assertInstanceOf('\Cms\Classes\Page', $pages[0]);
         $this->assertNotEmpty($pages[0]->url);

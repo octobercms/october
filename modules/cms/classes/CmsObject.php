@@ -378,7 +378,7 @@ class CmsObject implements ArrayAccess
             throw new ApplicationException(Lang::get('cms::lang.theme.active.not_set'));
 
         $dirPath = $theme->getPath().'/'.static::getObjectTypeDirName();
-        $result = [];
+        $result = new CmsObjectCollection;
 
         if (!File::isDirectory($dirPath))
             return $result;
@@ -394,7 +394,7 @@ class CmsObject implements ArrayAccess
                     $filePath = basename($it->getPath()).'/'.$filePath;
 
                 $page = $skipCache ? static::load($theme, $filePath) : static::loadCached($theme, $filePath);
-                $result[] = $page;
+                $result->add($page);
             }
 
             $it->next();
