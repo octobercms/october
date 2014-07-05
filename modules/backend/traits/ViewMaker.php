@@ -45,17 +45,22 @@ trait ViewMaker
      * Render a partial file contents located in the views folder.
      * @param string $partial The view to load.
      * @param array $params Parameter variables to pass to the view.
+     * @param bool $throwException Throw an exception if the partial is not found
      * @return string The view contents.
      */
-    public function makePartial($partial, $params = [])
+    public function makePartial($partial, $params = [], $throwException = true)
     {
         if (!in_array(substr($partial, 0, 1), ['/', '@']) && realpath($partial) === false)
             $partial = '_' . strtolower($partial) . '.htm';
 
         $partialPath = $this->getViewPath($partial);
 
-        if (!File::isFile($partialPath))
-            throw new SystemException(Lang::get('backend::lang.partial.not_found', ['name' => $partialPath]));
+        if (!File::isFile($partialPath)) {
+            if ($throwException)
+                throw new SystemException(Lang::get('backend::lang.partial.not_found', ['name' => $partialPath]));
+            else
+                return false;
+        }
 
         return $this->makeFileContents($partialPath, $params);
     }
@@ -95,9 +100,10 @@ trait ViewMaker
      * @param string $name Specifies the layout name.
      * If this parameter is omitted, the $layout property will be used.
      * @param array $params Parameter variables to pass to the view.
+     * @param bool $throwException Throw an exception if the layout is not found
      * @return string The layout contents
      */
-    public function makeLayout($name = null, $params = [])
+    public function makeLayout($name = null, $params = [], $throwException = true)
     {
         $layout = ($name === null) ? $this->layout : $name;
         if ($layout == '')
@@ -105,8 +111,12 @@ trait ViewMaker
 
         $layoutPath = $this->getViewPath($layout . '.htm', $this->layoutPath);
 
-        if (!File::isFile($layoutPath))
-            throw new SystemException(Lang::get('cms::lang.layout.not_found', ['name' => $layoutPath]));
+        if (!File::isFile($layoutPath)) {
+            if ($throwException)
+                throw new SystemException(Lang::get('cms::lang.layout.not_found', ['name' => $layoutPath]));
+            else
+                return false;
+        }
 
         return $this->makeFileContents($layoutPath, $params);
     }

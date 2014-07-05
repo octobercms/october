@@ -78,13 +78,14 @@ abstract class PluginBase extends ServiceProviderBase
     /**
      * Registers any report widgets provided by this plugin.
      * The widgets must be returned in the following format:
-     * ['className1'=>[
-     *          'name'=>'My widget 1',
-     *          'context'=>['context-1', 'context-2'],
+     * [
+     *  'className1'=>[
+     *          'name'    => 'My widget 1',
+     *          'context' => ['context-1', 'context-2'],
      *      ], 
-     *  'className2'=>[
-     *          'name'=>'My widget 2',
-     *          'context'=>'context-1'
+     *  'className2' => [
+     *          'name'    => 'My widget 2',
+     *          'context' => 'context-1'
      *      ]
      * ]
      */
@@ -100,6 +101,17 @@ abstract class PluginBase extends ServiceProviderBase
      * ['className2' => 'anotherAlias']
      */
     public function registerFormWidgets()
+    {
+        return [];
+    }
+
+    /**
+     * Registers any email templates implemented by this plugin.
+     * The templates must be returned in the following format:
+     * ['acme.blog::emails.welcome' => 'This is a description of the welcome template'],
+     * ['acme.blog::emails.forgot_password' => 'This is a description of the forgot password template'],
+     */
+    public function registerEmailTemplates()
     {
         return [];
     }

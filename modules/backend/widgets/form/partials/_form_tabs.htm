@@ -13,7 +13,7 @@
 <div class="tab-content <?= $isStretch?'layout-row ':'' ?>">
     <?php $index = 0; foreach ($tabs as $name => $fields): ?>
         <div
-            class="tab-pane <?= $index++==0?'active':''?> <?= $isStretch?'layout-cell':'' ?>" 
+            class="tab-pane <?= $index++==0?'active':''?> <?= $isStretch?'layout-cell':'' ?>"
             id="<?= $type.'tab-'.$index ?>">
             <?= $this->makePartial('form_fields', ['fields' => $fields]) ?>
         </div>

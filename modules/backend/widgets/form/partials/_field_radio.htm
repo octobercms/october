@@ -1,7 +1,10 @@
+<?php
+    $fieldOptions = $field->options();
+?>
 <!-- Radio List -->
-<?php if (count($field->options)): ?>
+<?php if (count($fieldOptions)): ?>
 
-    <?php $index = 0; foreach ($field->options as $value => $option): ?>
+    <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
         <?php
             $index++;
             if (is_string($option))
@@ -16,6 +19,7 @@
                 name="<?= $field->getName() ?>"
                 value="<?= $value ?>"
                 type="radio"
+                <?= $field->value == $value ? 'checked="checked"' : '' ?>
                 <?= HTML::attributes($field->attributes) ?>>
 
             <label for="<?= $fieldId ?>">

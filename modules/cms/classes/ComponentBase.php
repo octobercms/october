@@ -40,6 +40,18 @@ abstract class ComponentBase extends Extendable
     public $pluginIcon;
 
     /**
+     * @var string Component CSS class name for the back-end page/layout component list.
+     * This field is used by the CMS internally.
+     */
+    public $componentCssClass;
+
+    /**
+     * @var boolean Determines whether Inspector can be used with the component.
+     * This field is used by the CMS internally.
+     */
+    public $inspectorEnabled = true;
+
+    /**
      * @var string Specifies the component directory name.
      */
     protected $dirName;
@@ -74,7 +86,7 @@ abstract class ComponentBase extends Extendable
 
         $className = Str::normalizeClassName(get_called_class());
         $this->dirName = strtolower(str_replace('\\', '/', $className));
-        $this->assetPath = Config::get('cms.pluginsDir') . dirname(dirname($this->dirName));
+        $this->assetPath = Config::get('cms.pluginsDir').dirname(dirname($this->dirName));
 
         parent::__construct();
     }
@@ -89,7 +101,7 @@ abstract class ComponentBase extends Extendable
      */
     public function getPath()
     {
-        return base_path() . Config::get('cms.pluginsDir') . $this->dirName;
+        return base_path().Config::get('cms.pluginsDir').$this->dirName;
     }
 
     /**
@@ -160,28 +172,28 @@ abstract class ComponentBase extends Extendable
      * @param  array $mappings ['componentProperty' => 'routed value']
      * @return string
      */
-    protected function makePageLink($page, $class, $mappings = [])
-    {
-        if (!isset($this->pageLinkCache[$page.$class])) {
-            $this->pageLinkCache[$page.$class] = $this->getOtherPageComponent($page, $class);
-        }
+    // protected function makePageLink($page, $class, $mappings = [])
+    // {
+    //     if (!isset($this->pageLinkCache[$page.$class])) {
+    //         $this->pageLinkCache[$page.$class] = $this->getOtherPageComponent($page, $class);
+    //     }
 
-        if (!$component = $this->pageLinkCache[$page.$class])
-            return null;
+    //     if (!$component = $this->pageLinkCache[$page.$class])
+    //         return null;
 
-        $params = [];
-        foreach ($mappings as $property => $value) {
+    //     $params = [];
+    //     foreach ($mappings as $property => $value) {
 
-            if (!$param = $component->property($property))
-                continue;
+    //         if (!$param = $component->property($property))
+    //             continue;
 
-            if (substr($param, 0, 1) == ':')
-                $param = substr($param, 1);
+    //         if (substr($param, 0, 1) == ':')
+    //             $param = substr($param, 1);
 
-            $params[$param] = $value;
-        }
+    //         $params[$param] = $value;
+    //     }
 
-        return $this->pageUrl($page, $params);
-    }
+    //     return $this->pageUrl($page, $params);
+    // }
 
 }

@@ -20,26 +20,35 @@ class ComponentHelpers
         $result = [];
 
         $property = [
-            'property'=>'oc.alias',
-            'title'=>Lang::get('cms::lang.component.alias'),
-            'description'=>Lang::get('cms::lang.component.alias_description'),
-            'type'=>'string',
-            'validationPattern'=>'^[a-zA-Z]+[0-9a-z\_]*$',
-            'validationMessage'=>Lang::get('cms::lang.component.validation_message')
+            'property'          => 'oc.alias',
+            'title'             => Lang::get('cms::lang.component.alias'),
+            'description'       => Lang::get('cms::lang.component.alias_description'),
+            'type'              => 'string',
+            'validationPattern' => '^[a-zA-Z]+[0-9a-z\_]*$',
+            'validationMessage' => Lang::get('cms::lang.component.validation_message')
         ];
         $result[] = $property;
 
         $properties = $component->defineProperties();
-        foreach ($properties as $name=>$params) {
+        foreach ($properties as $name => $params) {
             $property = [
-                'property'=>$name,
-                'title'=>isset($params['title']) ? $params['title'] : $name,
-                'type'=>isset($params['type']) ? $params['type'] : 'string'
+                'property' => $name,
+                'title'    => isset($params['title']) ? $params['title'] : $name,
+                'type'     => isset($params['type']) ? $params['type'] : 'string'
             ];
 
-            foreach ($params as $name=>$value) {
-                if (!array_key_exists($name, $property))
-                    $property[$name] = $value;
+            foreach ($params as $name => $value) {
+                if (isset($property[$name])) continue;
+                $property[$name] = $value;
+            }
+
+            /*
+             * Translate human values
+             */
+            $translate = ['title', 'description'];
+            foreach ($property as $name => $value) {
+                if (!in_array($name, $translate)) continue;
+                $property[$name] = Lang::get($value);
             }
 
             $result[] = $property;
@@ -60,7 +69,7 @@ class ComponentHelpers
         $result['oc.alias'] = $component->alias;
 
         $properties = $component->defineProperties();
-        foreach ($properties as $name=>$params)
+        foreach ($properties as $name => $params)
             $result[$name] = $component->property($name);
 
         return json_encode($result);
@@ -74,10 +83,11 @@ class ComponentHelpers
     public static function getComponentName($component)
     {
         $details = $component->componentDetails();
-        if (isset($details['name']))
-            return $details['name'];
+        $name = (isset($details['name']))
+            ? $details['name']
+            : 'cms::lang.component.unnamed';
 
-        return Lang::get('cms::lang.component.unnamed');
+        return Lang::get($name);
     }
 
     /**
@@ -88,9 +98,10 @@ class ComponentHelpers
     public static function getComponentDescription($component)
     {
         $details = $component->componentDetails();
-        if (isset($details['description']))
-            return $details['description'];
+        $name = (isset($details['description']))
+            ? $details['description']
+            : 'cms::lang.component.no_description';
 
-        return Lang::get('cms::lang.component.no_description');
+        return Lang::get($name);
     }
 }

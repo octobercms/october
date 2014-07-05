@@ -1,7 +1,26 @@
 <div data-control="toolbar">
-    <?= $this->relationMakePartial('button_add') ?>
-    <?= $this->relationMakePartial('button_remove') ?>
 
+    <?php if ($relationType == 'hasMany'): ?>
 
+        <?= $this->relationMakePartial('button_create') ?>
+        <?= $this->relationMakePartial('button_delete') ?>
+
+    <?php elseif ($relationType == 'belongsToMany'): ?>
+
+        <?= $this->relationMakePartial('button_add') ?>
+        <?= $this->relationMakePartial('button_remove') ?>
+
+    <?php elseif ($relationType == 'belongsToTODO'): ?>
+
+        <?= $this->relationMakePartial('button_link') ?>
+        <?= $this->relationMakePartial('button_unlink') ?>
+
+    <?php elseif ($relationType == 'hasOneTODO'): ?>
+
+        <?= $this->relationMakePartial('button_create') ?>
+        <?= $this->relationMakePartial('button_update') ?>
+        <?= $this->relationMakePartial('button_delete') ?>
+
+    <?php endif ?>
 
 </div>

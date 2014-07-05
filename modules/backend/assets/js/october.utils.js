@@ -74,7 +74,7 @@ AssetManager = function() {
                 callback && callback()
                 return
             }
-            
+
             o.loadJavaScript(jsList, function(){
                 jsLoaded = true
                 checkLoaded()
@@ -99,7 +99,7 @@ AssetManager = function() {
                 if (!jsLoaded)
                     return false
 
-                if (cssCounter < cssList.length) 
+                if (cssCounter < cssList.length)
                     return false
 
                 callback && callback()

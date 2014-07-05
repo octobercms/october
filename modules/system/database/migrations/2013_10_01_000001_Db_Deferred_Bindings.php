@@ -17,14 +17,14 @@ class DbDeferredBindings extends Migration
             $table->string('slave_type')->index();
             $table->string('slave_id')->index();
             $table->string('session_key');
-            $table->boolean('bind')->default(true);
+            $table->boolean('is_bind')->default(true);
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::drop('deferred_bindings');
+        Schema::dropIfExists('deferred_bindings');
     }
 
 }

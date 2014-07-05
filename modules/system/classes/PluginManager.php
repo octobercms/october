@@ -254,6 +254,9 @@ class PluginManager
     public function findByIdentifier($identifier)
     {
         if (!isset($this->plugins[$identifier]))
+            $identifier = $this->normalizeIdentifier($identifier);
+
+        if (!isset($this->plugins[$identifier]))
             return null;
 
         return $this->plugins[$identifier];
@@ -296,6 +299,7 @@ class PluginManager
         $dirPath = $this->getPath();
         $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirPath));
         $it->setMaxDepth(2);
+        $it->rewind();
 
         while($it->valid()) {
             if (($it->getDepth() > 1) && $it->isFile() && (strtolower($it->getFilename()) == "plugin.php")) {
@@ -328,9 +332,30 @@ class PluginManager
         return $namespace;
     }
 
+    /**
+     * Takes a human plugin code (acme.blog) and makes it authentic (Acme.Blog)
+     * @param  string $id
+     * @return string
+     */
+    public function normalizeIdentifier($identifier)
+    {
+        foreach ($this->plugins as $id => $object) {
+            if (strtolower($id) == strtolower($identifier))
+                return $id;
+        }
+
+        return $identifier;
+    }
+
     //
     // Disability
     //
+
+    public function clearDisabledCache()
+    {
+        File::delete($this->metaPath.'/disabled.json');
+        $this->disabledPlugins = [];
+    }
 
     /**
      * Loads all disables plugins from the meta file.

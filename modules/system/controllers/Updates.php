@@ -2,13 +2,17 @@
 
 use Str;
 use Lang;
+use File;
 use Flash;
 use Backend;
 use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
 use System\Models\Parameters;
+use System\Models\PluginVersion;
+use System\Console\CacheClear;
 use System\Classes\UpdateManager;
+use System\Classes\PluginManager;
 use System\Classes\ApplicationException;
 use Exception;
 
@@ -25,7 +29,7 @@ class Updates extends Controller
 
     public $requiredPermissions = ['system.manage_updates'];
 
-    public $listConfig = 'config_list.yaml';
+    public $listConfig = ['list' => 'config_list.yaml', 'manage' => 'config_manage_list.yaml'];
 
     public function __construct()
     {
@@ -37,7 +41,7 @@ class Updates extends Controller
     }
 
     /**
-     * Update controller
+     * Index controller
      */
     public function index()
     {
@@ -46,6 +50,36 @@ class Updates extends Controller
         $this->vars['project_name'] = Parameters::get('system::project.name');
         $this->vars['project_owner'] = Parameters::get('system::project.owner');
         return $this->getClassExtension('Backend.Behaviors.ListController')->index();
+    }
+
+    /**
+     * Plugin manage controller
+     */
+    public function manage()
+    {
+        $this->pageTitle = Lang::get('system::lang.plugins.manage');
+        PluginManager::instance()->clearDisabledCache();
+        return $this->getClassExtension('Backend.Behaviors.ListController')->index();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function listInjectRowClass($record, $definition = null)
+    {
+        if ($record->disabledByConfig)
+            return 'hidden';
+
+        if ($record->orphaned || $record->is_disabled)
+            return 'safe disabled';
+
+        if ($definition != 'manage')
+            return;
+
+        if ($record->disabledBySystem)
+            return 'negative';
+
+        return 'positive';
     }
 
     /**
@@ -306,7 +340,7 @@ class Updates extends Controller
     }
 
     //
-    // Install Plugin
+    // Plugin management
     //
 
     /**
@@ -350,4 +384,106 @@ class Updates extends Controller
             return $this->makePartial('plugin_form');
         }
     }
+
+    /**
+     * Removes or purges plugins from the system.
+     * @return void
+     */
+    public function onRemovePlugins()
+    {
+        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+
+            foreach ($checkedIds as $objectId) {
+                if (!$object = PluginVersion::find($objectId))
+                    continue;
+
+                /*
+                 * Rollback plugin
+                 */
+                $pluginCode = $object->code;
+                UpdateManager::instance()->rollbackPlugin($pluginCode);
+
+                /*
+                 * Delete from file system
+                 */
+                if ($pluginPath = PluginManager::instance()->getPluginPath($pluginCode)) {
+                    File::deleteDirectory($pluginPath);
+                }
+            }
+
+            Flash::success(Lang::get('system::lang.plugins.remove_success'));
+        }
+
+        return $this->listRefresh('manage');
+    }
+
+    /**
+     * Rebuilds plugin database migrations.
+     * @return void
+     */
+    public function onRefreshPlugins()
+    {
+        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+
+            $manager = UpdateManager::instance();
+
+            foreach ($checkedIds as $objectId) {
+                if (!$object = PluginVersion::find($objectId))
+                    continue;
+
+                /*
+                 * Refresh plugin
+                 */
+                $pluginCode = $object->code;
+                $manager->rollbackPlugin($pluginCode);
+                $manager->updatePlugin($pluginCode);
+            }
+
+            Flash::success(Lang::get('system::lang.plugins.refresh_success'));
+        }
+
+        return $this->listRefresh('manage');
+    }
+
+    public function onLoadDisableForm()
+    {
+        try {
+            $this->vars['checked'] = post('checked');
+        }
+        catch (Exception $ex) {
+            $this->handleError($ex);
+        }
+        return $this->makePartial('disable_form');
+    }
+
+    public function onDisablePlugins()
+    {
+        $disable = post('disable', false);
+        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+
+            $manager = PluginManager::instance();
+
+            foreach ($checkedIds as $objectId) {
+                if (!$object = PluginVersion::find($objectId))
+                    continue;
+
+                if ($disable)
+                    $manager->disablePlugin($object->code, true);
+                else
+                    $manager->enablePlugin($object->code, true);
+
+                $object->is_disabled = $disable;
+                $object->save();
+            }
+
+        }
+
+        if ($disable)
+            Flash::success(Lang::get('system::lang.plugins.disable_success'));
+        else
+            Flash::success(Lang::get('system::lang.plugins.enable_success'));
+
+        return Redirect::to(Backend::url('system/updates/manage'));
+    }
+
 }

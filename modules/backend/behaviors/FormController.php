@@ -87,6 +87,14 @@ class FormController extends ControllerBehavior
             $this->controller->formExtendFields($host);
         });
 
+        $this->formWidget->bindEvent('form.refreshBefore', function($host, $saveData) {
+            return $this->controller->formExtendRefreshData($host, $saveData);
+        });
+
+        $this->formWidget->bindEvent('form.refresh', function($host, $result) {
+            return $this->controller->formExtendRefreshResults($host, $result);
+        });
+
         $this->formWidget->bindToController();
 
         /*
@@ -110,8 +118,10 @@ class FormController extends ControllerBehavior
         try {
             $this->context = strlen($context) ? $context : $this->getConfig('create[context]', 'create');
             $this->controller->pageTitle = $this->controller->pageTitle ?: $this->getLang('create[title]', 'backend::lang.form.create_title');
-            $model = $this->createModel();
+            $model = $this->controller->formCreateModelObject();
             $this->initForm($model);
+
+            $this->controller->vars['formModel'] = $model;
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -124,16 +134,17 @@ class FormController extends ControllerBehavior
      */
     public function create_onSave()
     {
-        $model = $this->createModel();
+        $model = $this->controller->formCreateModelObject();
         $this->initForm($model);
 
         $this->controller->formBeforeSave($model);
-        $this->controller->formBeforeCreateSave($model);
+        $this->controller->formBeforeCreate($model);
 
         $this->setModelAttributes($model, $this->formWidget->getSaveData());
         $model->push($this->formWidget->getSessionKey());
 
         $this->controller->formAfterSave($model);
+        $this->controller->formAfterCreate($model);
 
         Flash::success($this->getLang('create[flash-save]', 'backend::lang.form.create_success'));
 
@@ -177,12 +188,13 @@ class FormController extends ControllerBehavior
         $this->initForm($model, 'update');
 
         $this->controller->formBeforeSave($model);
-        $this->controller->formBeforeEditSave($model);
+        $this->controller->formBeforeUpdate($model);
 
         $this->setModelAttributes($model, $this->formWidget->getSaveData());
         $model->push($this->formWidget->getSessionKey());
 
         $this->controller->formAfterSave($model);
+        $this->controller->formAfterUpdate($model);
 
         Flash::success($this->getLang('update[flash-save]', 'backend::lang.form.update_success'));
 
@@ -409,16 +421,10 @@ class FormController extends ControllerBehavior
     //
 
     /**
-     * Called before the creation form is saved.
+     * Called before the creation or updating form is saved.
      * @param Model
      */
-    public function formBeforeCreateSave($model) {}
-
-    /**
-     * Called after the creation form is saved.
-     * @param Model
-     */
-    public function formAfterCreateSave($model) {}
+    public function formBeforeSave($model) {}
 
     /**
      * Called after the creation or updating form is saved.
@@ -427,22 +433,28 @@ class FormController extends ControllerBehavior
     public function formAfterSave($model) {}
 
     /**
+     * Called before the creation form is saved.
+     * @param Model
+     */
+    public function formBeforeCreate($model) {}
+
+    /**
+     * Called after the creation form is saved.
+     * @param Model
+     */
+    public function formAfterCreate($model) {}
+
+    /**
      * Called before the updating form is saved.
      * @param Model
      */
-    public function formBeforeEditSave($model) {}
-
-    /**
-     * Called before the creation or updating form is saved.
-     * @param Model
-     */
-    public function formBeforeSave($model) {}
+    public function formBeforeUpdate($model) {}
 
     /**
      * Called after the updating form is saved.
      * @param Model
      */
-    public function formAfterEditSave($model) {}
+    public function formAfterUpdate($model) {}
 
     /**
      * Called after the form model is deleted.
@@ -450,8 +462,9 @@ class FormController extends ControllerBehavior
      */
     public function formAfterDelete($model) {}
 
+
     /**
-     * Finds a Model record based on it's primary identifier. This logic
+     * Finds a Model record by its primary identifier, used by update actions. This logic
      * can be changed by overriding it in the controller.
      * @param string $recordId
      * @return Model
@@ -481,6 +494,16 @@ class FormController extends ControllerBehavior
     }
 
     /**
+     * Creates a new instance of a form model, used by create actions. This logic
+     * can be changed by overriding it in the controller.
+     * @return Model
+     */
+    public function formCreateModelObject()
+    {
+        return $this->createModel();
+    }
+
+    /**
      * Called before the form fields are defined.
      * @param Backend\Widgets\Form $host The hosting form widget
      * @return void
@@ -495,8 +518,24 @@ class FormController extends ControllerBehavior
     public function formExtendFields($host) {}
 
     /**
-     * Extend supplied model, the model can be altered by overriding
-     * it in the controller.
+     * Called before the form is refreshed, should return an array of additional save data.
+     * @param Backend\Widgets\Form $host The hosting form widget
+     * @param array $saveData Current save data
+     * @return array
+     */
+    public function formExtendRefreshData($host, $saveData) {}
+
+    /**
+     * Called after the form is refreshed, should return an array of additional result parameters.
+     * @param Backend\Widgets\Form $host The hosting form widget
+     * @param array $result Current result parameters.
+     * @return array
+     */
+    public function formExtendRefreshResults($host, $result) {}
+
+    /**
+     * Extend supplied model used by create and update actions, the model can
+     * be altered by overriding it in the controller.
      * @param Model $model
      * @return Model
      */
@@ -530,7 +569,7 @@ class FormController extends ControllerBehavior
 
         $singularTypes = ['belongsTo', 'hasOne', 'morphOne'];
         foreach ($saveData as $attribute => $value) {
-            if ($model->hasRelation($attribute) && in_array($model->getRelationType($attribute), $singularTypes))
+            if (is_array($value) && $model->hasRelation($attribute) && in_array($model->getRelationType($attribute), $singularTypes))
                 $this->setModelAttributes($model->{$attribute}, $value);
             else
                 $model->{$attribute} = $value;

@@ -3,8 +3,14 @@
 
     <?php if (!isset($error)): ?>
         <ul class="status-list">
-            <li><span class="status circle success"></span> online</li>
-            <li><span class="status primary"><?= $updates ?></span> <?= Str::plural('update', $updates) ?> available!</li>
+            <li>
+                <span class="status circle success"></span> online
+            </li>
+            <li>
+                <a href="<?= Backend::url('system/updates') ?>">
+                    <span class="status primary"><?= $updates ?></span> <?= Str::plural('update', $updates) ?> available!
+                </a>
+            </li>
         </ul>
     <?php else: ?>
         <p class="flash-message static warning"><?= e($error) ?></p>

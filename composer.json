@@ -24,7 +24,7 @@
     },
     "require": {
         "php": ">=5.4",
-        "laravel/framework": "4.1.*",
+        "laravel/framework": "4.2.*",
         "october/system": "dev-master",
         "october/backend": "dev-master",
         "october/cms": "dev-master",
@@ -35,7 +35,8 @@
     },
     "autoload": {
         "classmap": [
-            "tests/TestCase.php"
+            "tests/TestCase.php",
+            "tests/UiTestCase.php"
         ]
     },
     "___scripts": {
@@ -55,5 +56,6 @@
     "config": {
         "preferred-install": "dist"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

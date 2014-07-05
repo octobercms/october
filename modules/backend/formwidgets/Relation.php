@@ -34,12 +34,31 @@ class Relation extends FormWidgetBase
     public $renderFormField;
 
     /**
+     * @var string Model column to use for the name reference
+     */
+    public $nameColumn = 'name';
+
+    /**
+     * @var string Model column to use for the description reference
+     */
+    public $descriptionColumn = 'description';
+
+    /**
+     * @var string Empty value to use if the relation is singluar (belongsTo)
+     */
+    public $emptyOption;
+
+    /**
      * {@inheritDoc}
      */
     public function init()
     {
         $this->relationName = $this->formField->columnName;
         $this->relationType = $this->model->getRelationType($this->relationName);
+
+        $this->nameColumn = $this->getConfig('nameColumn', $this->nameColumn);
+        $this->descriptionColumn = $this->getConfig('descriptionColumn', $this->descriptionColumn);
+        $this->emptyOption = $this->getConfig('emptyOption');
 
         if (!$this->model->hasRelation($this->relationName))
             throw new SystemException(Lang::get('backend::lang.model.missing_relation', ['class'=>get_class($this->controller), 'relation'=>$this->relationName]));
@@ -67,24 +86,47 @@ class Relation extends FormWidgetBase
      */
     protected function makeRenderFormField()
     {
-         $field = clone $this->formField;
-         $relationObj = $this->model->{$this->relationName}();
-         $relatedObj = $this->model->makeRelation($this->relationName);
+        $field = clone $this->formField;
+        $relationObj = $this->model->{$this->relationName}();
+        $relatedObj = $this->model->makeRelation($this->relationName);
+        $query = $relatedObj->newQuery();
 
-         if ($this->relationType == 'belongsToMany') {
+        if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany'])) {
             $field->type = 'checkboxlist';
             $field->value = $relationObj->getRelatedIds();
-         }
-         else if ($this->relationType == 'belongsTo') {
+        }
+        else if ($this->relationType == 'belongsTo') {
             $field->type = 'dropdown';
+            $field->placeholder = $this->emptyOption;
             $foreignKey = $relationObj->getForeignKey();
             $field->value = $this->model->$foreignKey;
-         }
+        }
 
-         // @todo Should be configurable
-         $field->options = $relatedObj->all()->lists('name', 'id');
+        // It is safe to assume that if the model and related model are of 
+        // the exact same class, then it cannot be related to itself
+        if ($this->model->exists && (get_class($this->model) == get_class($relatedObj))) {
+            $query->where($relatedObj->getKeyName(), '<>', $this->model->id);
+        }
 
-         return $this->renderFormField = $field;
+        if (in_array('October\Rain\Database\Traits\NestedTree', class_uses($relatedObj)))
+            $field->options = $query->listsNested($this->nameColumn, $relatedObj->getKeyName());
+        else
+            $field->options = $query->lists($this->nameColumn, $relatedObj->getKeyName());
+
+        return $this->renderFormField = $field;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getSaveData($value)
+    {
+        if (is_string($value) && !strlen($value))
+            return null;
+
+        if (is_array($value) && !count($value))
+            return null;
+
+        return $value;
+    }
 }

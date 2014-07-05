@@ -23,6 +23,31 @@
         }
     }
 
+    tr.group {
+        .user-select(none);
+
+        th {
+            background: #e0e4e5;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    }
+
+    tr {
+        &.collapsed {display: none;}
+        &.expanded {display: table-row;}
+    }
+
+    &.has-groups {
+        th {
+            padding-left: 20px;
+        }
+
+        tr.grouped th {
+            padding-left: 35px;
+        }
+    }
+
     td {
         font-weight: 300;
         border-left: 1px solid @color-inspector-bg;
@@ -72,24 +97,66 @@
 
         > div {
             position: relative;
-            white-space: nowrap;
-            padding-right: 10px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            width: 100%;
 
-            span.info {
-                display: inline-block;
+            > div {
+                white-space: nowrap;
+                padding-right: 10px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 100%;
+
+                span.info {
+                    display: inline-block;
+                    position: absolute;
+                    right: -1px;
+                    top: 3px;
+                    font-size: 14px;
+                    width: 10px;
+                    height: 12px;
+                    line-height: 80%;
+                    .opacity(0.4);
+                    &:before {
+                        margin-left: 3px;
+                    }
+                    &:hover {
+                        .opacity(1);
+                    }
+                }
+            }
+
+            a.expandControl {
+                display: block;
                 position: absolute;
-                right: -6px;
-                top: 3px;
-                font-size: 14px;
-                width: 10px;
+                width: 12px;
                 height: 12px;
-                line-height: 80%;
-                .opacity(0.4);
-                &:hover {
-                    .opacity(1);
+                left: -15px;
+                top: 2px;
+                text-indent: -100000em;
+
+                span {
+                    position: absolute;
+                    display: inline-block;
+                    left: 0;
+                    top: 0;
+                    width: 12px;
+                    height: 12px;
+
+                    &:after {
+                        .icon(@angle-right);
+                        position: absolute;
+                        left: 4px;
+                        top: -2px;
+                        width: 12px;
+                        height: 12px;
+                        font-size: 13px;
+                        color: #333333;
+                        text-indent: 0;
+                    }
+                }
+
+                &.expanded span:after {
+                    .icon(@angle-down);
+                    left: 2px;
                 }
             }
         }
@@ -210,9 +277,9 @@ div.control-popover {
                 color: #95a5a6;
             }
 
-            .select2-input {
+            input.select2-input {
                 min-height: 26px;
-                background: transparent;
+                background: transparent!important;
                 padding-left: 12px;
                 padding-right: 12px;
             }

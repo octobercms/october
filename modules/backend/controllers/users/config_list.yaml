@@ -8,7 +8,7 @@ modelClass: Backend\Models\User
 recordUrl: backend/users/update/:id
 noRecordsMessage: backend::lang.list.no_records
 recordsPerPage: 5
-showCheckboxes: yes
+showCheckboxes: true
 
 toolbar:
     buttons: list_toolbar

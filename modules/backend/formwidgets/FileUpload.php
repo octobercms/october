@@ -191,7 +191,7 @@ class FileUpload extends FormWidgetBase
 
             $file = new File();
             $file->data = $uploadedFile;
-            $file->public = $fileRelation->isPublic();
+            $file->is_public = $fileRelation->isPublic();
             $file->save();
 
             $fileRelation->add($file, $this->sessionKey);

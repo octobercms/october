@@ -7,6 +7,8 @@ use BackendMenu;
 use BackendAuth;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
+use System\Models\EmailTemplate;
+use System\Classes\SettingsManager;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -44,6 +46,14 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Date picker',
                 'alias' => 'datepicker'
             ]);
+            $manager->registerFormWidget('Backend\FormWidgets\DataGrid', [
+                'label' => 'Data Grid',
+                'alias' => 'datagrid'
+            ]);
+            $manager->registerFormWidget('Backend\FormWidgets\RecordFinder', [
+                'label' => 'Record Finder',
+                'alias' => 'recordfinder'
+            ]);
         });
 
         /*
@@ -62,12 +72,57 @@ class ServiceProvider extends ModuleServiceProvider
         });
 
         /*
+         * Register settings
+         */
+        SettingsManager::instance()->registerCallback(function($manager){
+            $manager->registerSettingItems('October.Backend', [
+                'editor' => [
+                    'label'       => 'backend::lang.editor.menu_label',
+                    'description' => 'backend::lang.editor.menu_description',
+                    'category'    => 'My Settings',
+                    'icon'        => 'icon-code',
+                    'url'         => Backend::URL('backend/editorpreferences'),
+                    'sort'        => 200,
+                    'context'     => 'mysettings'
+                ],
+                'backend_preferences' => [
+                    'label'       => 'backend::lang.backend_preferences.menu_label',
+                    'description' => 'backend::lang.backend_preferences.menu_description',
+                    'category'    => 'My Settings',
+                    'icon'        => 'icon-laptop',
+                    'class'       => 'Backend\Models\BackendPreferences',
+                    'sort'        => 200,
+                    'context'     => 'mysettings'
+                ],
+                'myaccount' => [
+                    'label'       => 'backend::lang.myaccount.menu_label',
+                    'description' => 'backend::lang.myaccount.menu_description',
+                    'category'    => 'My Settings',
+                    'icon'        => 'icon-user',
+                    'url'         => Backend::URL('backend/users/myaccount'),
+                    'sort'        => 200,
+                    'context'     => 'mysettings'
+                ],
+            ]);
+        });
+
+        /*
          * Register permissions
          */
         BackendAuth::registerCallback(function($manager) {
             $manager->registerPermissions('October.Backend', [
                 'backend.access_dashboard' => ['label' => 'View the dashboard', 'tab' => 'System'],
                 'backend.manage_users'     => ['label' => 'Manage other administrators', 'tab' => 'System'],
+            ]);
+        });
+
+        /*
+         * Register email templates
+         */
+        EmailTemplate::registerCallback(function($template){
+            $template->registerEmailTemplates([
+                'backend::emails.invite' => 'Invitation for newly created administrators.',
+                'backend::emails.restore' => 'Password reset instructions for backend-end administrators.',
             ]);
         });
     }

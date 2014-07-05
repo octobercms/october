@@ -32,6 +32,15 @@
             $el.find('> ul, > ol').sortable(sortableOptions)
         }
 
+        if ($el.hasClass('is-scrollable')) {
+
+            /*
+             * Inject a scrollbar container
+             */
+            $el.wrapInner($('<div />').addClass('control-scrollbar'))
+            var $scrollbar = $el.find('>.control-scrollbar:first')
+            $scrollbar.scrollbar()
+        }
     }
 
     SimpleList.DEFAULTS = {

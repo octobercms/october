@@ -48,8 +48,16 @@ trait InspectableContainer
         else
             $options = $obj->getPropertyOptions($property);
 
+        /*
+         * Convert to array to retain the sort order in JavaScript
+         */
+        $optionsArray = [];
+        foreach ($options as $value => $title) {
+            $optionsArray[] = ['value' => $value, 'title' => $title];
+        }
+
         return [
-            'options' => $options
+            'options' => $optionsArray
         ];
     }
 }

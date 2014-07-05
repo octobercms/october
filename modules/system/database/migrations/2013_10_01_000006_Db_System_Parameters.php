@@ -11,9 +11,9 @@ class DbSystemParameters extends Migration
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('namespace');
-            $table->string('group');
-            $table->string('item');
+            $table->string('namespace', 100);
+            $table->string('group', 50);
+            $table->string('item', 150);
             $table->text('value')->nullable();
             $table->index(['namespace', 'group', 'item'], 'item_index');
         });
@@ -21,6 +21,6 @@ class DbSystemParameters extends Migration
 
     public function down()
     {
-        Schema::drop('system_parameters');
+        Schema::dropIfExists('system_parameters');
     }
 }

@@ -4,7 +4,7 @@ use Lang;
 use Backend;
 use BackendMenu;
 use BackendAuth;
-use Cms\Classes\MarkupManager;
+use System\Classes\MarkupManager;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 
@@ -89,6 +89,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'cms.manage_assets'    => ['label' => 'Manage assets', 'tab' => 'Cms'],
                 'cms.manage_pages'     => ['label' => 'Manage pages', 'tab' => 'Cms'],
                 'cms.manage_layouts'   => ['label' => 'Manage layouts', 'tab' => 'Cms'],
+                'cms.manage_partials'  => ['label' => 'Manage partials', 'tab' => 'Cms'],
             ]);
         });
 

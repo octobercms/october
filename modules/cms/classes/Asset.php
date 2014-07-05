@@ -1,7 +1,7 @@
 <?php namespace Cms\Classes;
 
-use Cms\Classes\Theme;
 use Config;
+use Cms\Classes\Theme;
 
 /**
  * The CMS theme asset file class.
@@ -40,7 +40,7 @@ class Asset extends CmsObject
     {
         $defaultTypes =  ['css','js','less','sass','scss'];
 
-        $configTypes = Config::get('cms.editableAssetTypes'); 
+        $configTypes = Config::get('cms.editableAssetTypes');
         if (!$configTypes)
             return $defaultTypes;
 

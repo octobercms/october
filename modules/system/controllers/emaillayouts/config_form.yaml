@@ -1,0 +1,16 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: system::lang.email_templates.layout
+form: @/modules/system/models/emaillayout/fields.yaml
+modelClass: System\Models\EmailLayout
+defaultRedirect: system/emailtemplates
+
+create:
+    redirect: system/emailtemplates/update/:id
+    redirectClose: system/emailtemplates
+
+update:
+    redirect: system/emailtemplates
+    redirectClose: system/emailtemplates

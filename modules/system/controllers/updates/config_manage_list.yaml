@@ -1,0 +1,12 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+list: @/modules/system/models/pluginversion/columns.yaml
+modelClass: System\Models\PluginVersion
+noRecordsMessage: backend::lang.list.no_records
+showSetup: false
+showCheckboxes: true
+
+toolbar:
+    buttons: list_manage_toolbar

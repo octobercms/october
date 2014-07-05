@@ -1,7 +1,10 @@
+<?php
+    $fieldOptions = $field->options();
+?>
 <!-- Balloon selector -->
 <div data-control="balloon-selector" id="<?= $field->getId() ?>" <?= HTML::attributes($field->attributes) ?>>
     <ul>
-        <?php foreach ($field->options as $value => $text): ?>
+        <?php foreach ($fieldOptions as $value => $text): ?>
             <li data-value="<?= e($value) ?>" class="<?= $value == $field->value ? 'active' : '' ?>"><?= e($text) ?></li>
         <?php endforeach ?>
     </ul>

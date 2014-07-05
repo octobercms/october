@@ -19,7 +19,6 @@ secondaryTabs:
   fields:
     markup:
       tab: cms::lang.editor.markup
-      type: codeeditor
       stretch: true
-      options:
-        language: twig
+      type: codeeditor
+      language: twig

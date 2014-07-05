@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "Unbenannt",
+        'access_denied' => [
+            'label' => "Zugriff verweigert",
+            'help' => "Sie haben nicht die erforderlichen Berechtigungen, um diese Seite zu sehen.",
+            'cms_link' => "Zum CMS-Backend",
+        ],
     ],
     'partial' => [
         'not_found' => "Das Partial ':name' wurde nicht gefunden.",
@@ -84,6 +89,7 @@ return [
         'missing_columns' => 'In :class benutzte Liste behinhaltet keine Spalten',
         'missing_definition' => "Der Liste fehlt eine Spalte für ':field'.",
         'behavior_not_ready' => 'Listenverhalten kann nicht initialisiert werden, überprüfen Sie den Aufruf von makeLists() in Ihrem Controller.',
+        'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
     ],
     'form' => [
         'create_title' => "Neuer :name",
@@ -124,6 +130,8 @@ return [
         'add_name' => ":name hinzufügen",
         'create' => "Erstellen",
         'create_name' => "Erstelle :name",
+        'update' => "Update",
+        'update_name' => "Update :name",
         'remove' => "Entfernen",
         'remove_name' => ":name entfernen",
         'delete' => "Löschen",
@@ -135,5 +143,25 @@ return [
         'missing_id' => "Für diesen Model-Datensatz ist keine ID angegeben",
         'missing_relation' => "Model ':class' hat keine definierte Verbindung ':relation'.",
         'invalid_class' => "In :class benutztes Model :model ist ungültig, da es von der Klasse \Model abgeleitet sein muss (inherit).",
+        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
+    ],
+    'warnings' => [
+        'tips' => 'System configuration tips',
+        'tips_description' => 'There are issues you need to pay attention to in order to configure the system properly.',
+        'permissions'  => 'Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.',
+        'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.'
+    ],
+    'editor' => [
+        'menu_label' => 'Editor Preferences',
+        'menu_description' => 'Manage code editor preferences.',
+        'font_size' => 'Font size',
+        'tab_size' => 'Tab size',
+        'use_hard_tabs' => 'Indent using tabs',
+        'code_folding' => 'Code folding',
+        'word_wrap' => 'Word wrap',
+        'highlight_active_line' => 'Highlight active line',
+        'show_invisibles' => 'Show invisible characters',
+        'show_gutter' => 'Show gutter',
+        'theme' => 'Color scheme',
     ],
 ];

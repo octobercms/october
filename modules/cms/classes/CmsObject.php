@@ -385,6 +385,7 @@ class CmsObject implements ArrayAccess
 
         $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirPath));
         $it->setMaxDepth(1); // Support only a single level of subdirectories
+        $it->rewind();
 
         while($it->valid()) {
             if ($it->isFile() && in_array($it->getExtension(), static::$allowedExtensions)) {

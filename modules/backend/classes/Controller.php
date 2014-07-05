@@ -1,18 +1,23 @@
 <?php namespace Backend\Classes;
 
+use App;
 use Str;
 use Log;
 use Lang;
+use View;
 use Flash;
 use Request;
 use Backend;
+use Session;
 use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
+use Backend\Models\BackendPreferences;
 use System\Classes\SystemException;
 use October\Rain\Extension\Extendable;
 use October\Rain\Support\ValidationException;
+use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Http\RedirectResponse;
 
 /**
@@ -75,6 +80,11 @@ class Controller extends Extendable
     public $pageTitle;
 
     /**
+     * @var string Page title template
+     */
+    public $pageTitleTemplate;
+
+    /**
      * @var string Body class property used for customising the layout on a controller basis.
      */
     public $bodyClass;
@@ -88,6 +98,11 @@ class Controller extends Extendable
      * @var array Controller specified methods which cannot be called as actions.
      */
     protected $guarded = [];
+
+    /**
+     * @var int Response status code
+     */
+    protected $statusCode = 200;
 
     /**
      * Constructor.
@@ -137,6 +152,9 @@ class Controller extends Extendable
          */
         $isPublicAction = in_array($action, $this->publicActions);
 
+        // Create a new instance of the admin user
+        $this->user = BackendAuth::getUser();
+
         /*
          * Check that user is logged in and has permission to view this page
          */
@@ -145,16 +163,24 @@ class Controller extends Extendable
             // Not logged in, redirect to login screen or show ajax error
             if (!BackendAuth::check()) {
                 return Request::ajax()
-                    ? Response::make('Access Forbidden', '403')
+                    ? Response::make(Lang::get('backend::lang.page.access_denied.label'), 403)
                     : Redirect::guest(Backend::url('backend/auth'));
             }
 
-            // Create a new instance of the admin user
-            $this->user = BackendAuth::getUser();
-
             // Check his access groups against the page definition
             if ($this->requiredPermissions && !$this->user->hasAnyAccess($this->requiredPermissions))
-                return Response::make('Access Forbidden', '403');
+                return Response::make(View::make('backend::access_denied'), 403);
+        }
+
+        /*
+         * Set the admin preference locale
+         */
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
+        elseif ($this->user && $locale = BackendPreferences::get('locale')) {
+            Session::put('locale', $locale);
+            App::setLocale($locale);
         }
 
         /*
@@ -172,7 +198,12 @@ class Controller extends Extendable
         /*
          * Execute page action
          */
-        return $this->execPageAction($action, $params);
+        $result = $this->execPageAction($action, $params);
+
+        if (!is_string($result))
+            return $result;
+
+        return Response::make($result, $this->statusCode);
     }
 
     /**
@@ -339,10 +370,12 @@ class Controller extends Extendable
                 $responseContents = [];
                 $responseContents['#layout-flash-messages'] = $this->makeLayoutPartial('flash_messages');
                 $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
-                return Response::make()->setContent($responseContents);
+                return Response::make($responseContents, 406);
+            }
+            catch (MassAssignmentException $ex) {
+                return Response::make(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]), 500);
             }
             catch (Exception $ex) {
-                Log::error($ex);
                 return Response::make($ex->getMessage(), 500);
             }
         }
@@ -367,6 +400,9 @@ class Controller extends Extendable
              * Execute the page action so widgets are initialized
              */
             $this->pageAction();
+
+            if ($this->fatalError)
+                throw new SystemException($this->fatalError);
 
             if (!isset($this->widget->{$widgetName}))
                 throw new SystemException(Lang::get('backend::lang.widget.not_bound', ['name'=>$widgetName]));
@@ -422,6 +458,16 @@ class Controller extends Extendable
             $id .= '-' . $suffix;
 
         return $id;
+    }
+
+    /**
+     * Sets the status code for the current web response.
+     * @param int $code Status code
+     */
+    public function setStatusCode($code)
+    {
+        $this->statusCode = (int) $code;
+        return $this;
     }
 
     /**

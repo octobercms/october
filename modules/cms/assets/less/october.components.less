@@ -11,6 +11,8 @@
 @color-component-hover-text:    #ffffff;
 @color-component-placeholder:   #e0e0e0;
 @color-group-bg:                #f1f3f4;
+@color-error-component-bg:      #ab2a1c;
+@color-error-component-text:    #ffffff;
 
 .component-lego-icon() {
     position: absolute;
@@ -117,6 +119,18 @@ div.control-componentlist {
 
     div.components {
         div.layout-cell {
+            &.error-component {
+                background: @color-error-component-bg;
+
+                > div {
+                    color: @color-error-component-text;
+
+                    &:after {
+                        color: @color-error-component-bg;
+                    }
+                }
+            }
+
             &:first-child {
                 .border-left-radius(3px);
             }

@@ -102,15 +102,15 @@ class ComponentList extends WidgetBase
                 $component->alias = '--alias--';
 
                 $item = (object)[
-                    'title' => ComponentHelpers::getComponentName($component),
-                    'description' => ComponentHelpers::getComponentDescription($component),
-                    'plugin' => $pluginName,
+                    'title'          => ComponentHelpers::getComponentName($component),
+                    'description'    => ComponentHelpers::getComponentDescription($component),
+                    'plugin'         => $pluginName,
                     'propertyConfig' => ComponentHelpers::getComponentsPropertyConfig($component),
                     'propertyValues' => ComponentHelpers::getComponentPropertyValues($component, $alias),
-                    'className' => get_class($component),
-                    'pluginIcon' => $pluginIcon,
-                    'alias' => $alias,
-                    'name' => $componentInfo->duplicateAlias ? $componentInfo->className : $componentInfo->alias
+                    'className'      => get_class($component),
+                    'pluginIcon'     => $pluginIcon,
+                    'alias'          => $alias,
+                    'name'           => $componentInfo->duplicateAlias ? $componentInfo->className : $componentInfo->alias
                 ];
 
                 if ($searchWords && !$this->itemMatchesSearch($searchWords, $item))
@@ -118,11 +118,11 @@ class ComponentList extends WidgetBase
 
                 if (!array_key_exists($pluginClass, $items)) {
                     $group = (object)[
-                        'title' => $pluginName,
+                        'title'       => $pluginName,
                         'description' => $pluginDescription,
                         'pluginClass' => $pluginClass,
-                        'icon' => $pluginIcon,
-                        'items' => []
+                        'icon'        => $pluginIcon,
+                        'items'       => []
                     ];
 
                     $items[$pluginClass] = $group;
@@ -167,10 +167,10 @@ class ComponentList extends WidgetBase
                 }
 
                 $componentList[] = (object)[
-                    'className' => $className,
-                    'alias' => $alias,
+                    'className'      => $className,
+                    'alias'          => $alias,
                     'duplicateAlias' => $duplicateAlias,
-                    'pluginClass' => get_class($plugin)
+                    'pluginClass'    => get_class($plugin)
                 ];
             }
         }

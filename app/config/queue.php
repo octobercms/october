@@ -11,11 +11,11 @@ return array(
     | API, giving you convenient access to each back-end using the same
     | syntax for each one. Here you may set the default queue driver.
     |
-    | Supported: "sync", "beanstalkd", "sqs", "iron"
+    | Supported: "cron", "sync", "beanstalkd", "sqs", "iron"
     |
     */
 
-    'default' => 'sync',
+    'default' => 'cron',
 
     /*
     |--------------------------------------------------------------------------
@@ -29,6 +29,10 @@ return array(
     */
 
     'connections' => array(
+
+        'cron' => array(
+            'driver' => 'cron',
+        ),
 
         'sync' => array(
             'driver' => 'sync',

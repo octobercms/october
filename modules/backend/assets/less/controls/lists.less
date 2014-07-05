@@ -51,46 +51,11 @@
 //       </table>
 //   </div>
 //
-.control-list {
-    p.no-data {
-        padding: 18px 20px;
-        margin: 0 20px;
-        color: @color-list-norecords-text;
-        font-size: 14px;
-        text-align: center;
-        font-weight: 300;
-        .border-radius(@border-radius-base);
-    }
 
-    table.table.data {
-        .list-setup {
-            width: 48px;
-            a {
-                display: block;
-                color: #000000;
-                &:before {
-                    font-size: 14px;
-                    line-height: 14px;
-                    .icon(@list-ul);
-                    display: inline-block;
-                    margin-left: 8px;
-                    vertical-align: baseline;
-                    .opacity(.6);
-                }
 
-                &:hover:before {
-                    .opacity(1);
-                    color: @color-list-hover-bg!important;
-                }
-            }
-        }
-
-        .list-pagination {
-            font-size: 14px;
-            text-align: right;
-        }
-    }
-}
+//
+// List Data Table
+//
 
 table.table.data {
     .list-head-icon(@icon) {
@@ -115,7 +80,7 @@ table.table.data {
 
         td, th {
             border-width: 1px;
-            border-top: 1px solid @color-list-border!important;
+            border-top: 1px solid @color-list-border !important;
             border-color: @color-list-border;
             padding: 0;
             font-weight: normal;
@@ -154,7 +119,7 @@ table.table.data {
         td, th {
             padding: 11px 15px;
             color: @color-list-text;
-            border-color: transparent;
+            border-color: @color-list-grid;
 
             a {
                 color: @color-list-text;
@@ -186,6 +151,12 @@ table.table.data {
                 }
             }
         }
+        tr:first-child {
+            th, td {
+                border-top-width: 0;
+            }
+        }
+
         tr td:first-child {
             border-left: 3px solid transparent;
             padding-left: 17px;
@@ -205,6 +176,54 @@ table.table.data {
                color: white;
             }
         }
+
+        tr.hidden {
+            td, th, td a, th a {
+                display: none;
+            }
+        }
+
+        tr.strike {
+            td, th, td a, th a {
+                text-decoration: line-through;
+            }
+        }
+
+        tr.processing {
+            td, th, td a, th a {
+                color: #666666;
+            }
+        }
+
+        tr.negative {
+            td, th, td a, th a {
+                color: #b2341c;
+            }
+        }
+
+        tr.positive {
+            td, th, td a, th a {
+                color: #278731;
+            }
+        }
+
+        tr.disabled, tr.deleted {
+            td, th, td a, th a {
+                color: #888888;
+            }
+        }
+
+        tr.new, tr.important {
+            td, th, td a, th a {
+                font-weight: 600;
+            }
+        }
+
+        tr.safe, tr.special {
+            td, th, td a, th a {
+                color: #98a7a8;
+            }
+        }
     }
 
     tfoot {
@@ -218,7 +237,7 @@ table.table.data {
     .list-checkbox {
         padding-left: 16px;
         padding-right: 8px;
-        width: 44px;
+        width: 52px;
         vertical-align: top;
         border-right: 1px solid @color-list-border-light;
         .checkbox { margin: 0; }
@@ -231,7 +250,7 @@ table.table.data {
     }
 
     thead tr th.list-checkbox {
-        padding: 18px 0 0 18px;
+        padding: 18px 0 0 20px;
     }
 
     .list-tree {
@@ -262,13 +281,95 @@ table.table.data {
 
 }
 
+//
+// List containers
+//
+
+.list-preview {
+    padding: 0;
+    margin-bottom: 20px;
+    background: white;
+    border: 1px solid @color-list-border;
+
+    .list-header:first-child {
+        padding-top: 20px;
+    }
+
+    .control-list:last-child > table {
+        margin-bottom: 0;
+    }
+}
+
+// List to sit flush to the element above (no toolbar)
+.list-flush {
+    table.table.data {
+        thead tr th {
+            border-top: none !important;
+        }
+    }
+}
+
+//
+// List control
+//
+
+.control-list {
+    p.no-data {
+        padding: 18px 20px;
+        margin: 0 20px;
+        color: @color-list-norecords-text;
+        font-size: 14px;
+        text-align: center;
+        font-weight: 300;
+        .border-radius(@border-radius-base);
+    }
+
+    table.table.data {
+        .list-setup {
+            width: 48px;
+            a {
+                display: block;
+                color: #000000;
+                &:before {
+                    font-size: 14px;
+                    line-height: 14px;
+                    .icon(@list-ul);
+                    display: inline-block;
+                    margin-left: 8px;
+                    vertical-align: baseline;
+                    .opacity(.6);
+                }
+
+                &:hover:before {
+                    .opacity(1);
+                    color: @color-list-hover-bg !important;
+                }
+            }
+        }
+
+        .list-pagination {
+            font-size: 14px;
+            text-align: right;
+            padding-top: 20px;
+
+            .loading-indicator {
+                div {
+                    margin-left: 20px;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
 .list-header {
     background-color: @color-list-header-bg;
     padding: 0 20px 1px 20px;
 
-    &.control-breadcrumb {
-         padding-bottom: 20px !important;
-    }
+    // Remove if year >= 2015
+    //&.control-breadcrumb {
+    //     padding-bottom: 20px !important;
+    //}
 
     h3 {
         font-size: 14px;
@@ -289,7 +390,7 @@ table.table.data {
 
             thead tr {
                 th {
-                    border-top: none!important;
+                    border-top: none !important;
                 }
             }
 

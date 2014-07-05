@@ -1,12 +1,16 @@
-<div data-request-data="_relation_field: '<?= $relationField ?>'" id="<?= $this->relationGetId() ?>">
+<div
+    data-request-data="_relation_field: '<?= $relationField ?>'" id="<?= $this->relationGetId() ?>"
+    class="relation-behavior">
 
-    <!-- Relation Toolbar -->
-    <div id="<?= $this->relationGetId('toolbar') ?>">
-        <?= $this->relationRenderToolbar() ?>
-    </div>
+    <?php if ($toolbar = $this->relationRenderToolbar()): ?>
+        <!-- Relation Toolbar -->
+        <div id="<?= $this->relationGetId('toolbar') ?>" class="relation-toolbar">
+            <?=  $toolbar ?>
+        </div>
+    <?php endif ?>
 
     <!-- Relation View -->
-    <div id="<?= $this->relationGetId('view') ?>">
+    <div id="<?= $this->relationGetId('view') ?>" class="relation-manager">
         <?= $this->relationRenderView() ?>
     </div>
 

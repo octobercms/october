@@ -2,7 +2,7 @@
     id="<?= $this->getId() ?>"
     class="field-fileupload is-multi <?= count($fileList) ? 'has-attachments' : '' ?> is-sortable"
     data-control="fileupload"
-    data-upload-input="#<?= $this->getId('upload-input') ?>"
+    data-upload-input="#<?= $this->getId('uploadInput') ?>"
     data-unique-id="<?= $this->getId() ?>"
     data-sort-handler="<?= $this->getEventHandler('onSortAttachments') ?>"
     data-item-template="<?= $this->getId('template') ?>">
@@ -27,7 +27,7 @@
 
     <!-- Upload form -->
     <input
-        id="<?= $this->getId('upload-input') ?>"
+        id="<?= $this->getId('uploadInput') ?>"
         type="file"
         multiple="true"
         name="file_data"

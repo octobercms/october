@@ -23,6 +23,21 @@ label {
 }
 
 //
+// Form containers
+//
+
+.form-preview {
+    padding: 15px;
+    margin-bottom: 20px;
+    background: white;
+    border: 1px solid #eee;
+
+    >.form-group:last-child {
+        padding-bottom: 0;
+    }
+}
+
+//
 // Nice forms
 //
 
@@ -110,9 +125,17 @@ label {
         padding-bottom: 0;
     }
 
+    &.checkbox-field {
+        padding-bottom: 5px;
+    }
+
+    &.number-field {
+        > .form-control { text-align: right; }
+    }
+
     &.checkbox-align {
         padding-left: 23px;
-        margin-top: -21px;
+        margin-top: -5px;
     }
 
     &.no-padding {
@@ -132,7 +155,7 @@ label {
 
     .custom-checkbox,
     .custom-radio {
-        label {cursor: default;}
+        label { cursor: default; }
     }
 }
 
@@ -152,6 +175,57 @@ label {
     &.size-giant { min-height: @size-giant; }
 }
 
+.field-checkboxlist-scrollable {
+    background: white;
+    border: 1px solid @color-list-border;
+    padding-left: 15px;
+    height: @size-large + 100;
+
+    // First checkbox
+    .checkbox {
+        margin-top: 15px;
+        margin-bottom: 5px;
+    }
+
+    // All others
+    .checkbox ~ .checkbox { margin-top: 0; }
+}
+
+.field-recordfinder {
+    background-color: @color-form-field-preview;
+    border: 1px solid @color-form-field-border;
+    overflow: hidden;
+    position: relative;
+    .form-control {
+        background: transparent;
+        border-color: transparent;
+        height: auto;
+    }
+    .btn {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -44px;
+        height: 88px;
+        width: 36px;
+        &:before {
+            .triangle(left, 26px, 88px, @btn-default-bg);
+            position: absolute;
+            left: -16px;
+            top: 50%;
+            margin-top: -44px;
+        }
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            &:before {
+                .triangle(left, 26px, 88px, darken(@btn-default-bg, 8%));
+            }
+        }
+    }
+}
+
 .form-buttons {
     .clearfix();
     padding-bottom: 20px;
@@ -164,6 +238,10 @@ label {
     .pull-right {
         margin-right: 0;
         margin-left: 10px;
+    }
+
+    &.buttons-offset {
+        padding-left: 20px;
     }
 }
 
@@ -183,12 +261,13 @@ label {
 .custom-checkbox,
 .custom-radio {
     padding-left: 23px;
+    margin-top: 0;
 
     input[type=radio],
     input[type=checkbox] {
         display: none;
     }
-    
+
     label {
         display: inline-block;
         cursor: pointer;
@@ -244,6 +323,10 @@ label {
         label:before {
             border-color: @color-focus;
         }
+    }
+
+    p.help-block {
+        margin-top: 0;
     }
 }
 
@@ -397,7 +480,7 @@ label {
                 background: transparent;
                 border-left: none;
                 b {
-                    background: none;
+                    background: none !important;
                     text-align: center;
                     color: @color-custom-input-icon;
                     &:before { .icon(@angle-down); }
@@ -423,7 +506,7 @@ label {
 
     &.select2-container.select2-dropdown-open,
     &.select2-container.select2-dropdown-open.select2-drop-above {
-        .select2-choice { 
+        .select2-choice {
             background: @color-custom-select-bg;
             .select2-arrow {
                 border-left-color: transparent;
@@ -467,7 +550,7 @@ label {
             min-height: 36px;
             border: none;
             border-bottom: 1px solid @color-custom-select-border;
-            background: transparent url('../images/bitmap-icons.png') no-repeat 100% -84px;
+            background: transparent url('../images/bitmap-icons.png') no-repeat 100% -84px !important;
         }
     }
 
