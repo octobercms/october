@@ -332,7 +332,7 @@ class Controller extends BaseController
                     $partialList = explode('&', $partialList);
 
                     foreach ($partialList as $partial) {
-                        if (!CmsFileHelper::validateName($partial))
+                        if (!preg_match('/^(?:\w+\:{2}|@)?[a-z0-9\_\-\.\/]+$/i', $partial))
                             throw new CmsException(Lang::get('cms::lang.partial.invalid_name', ['name'=>$partial]));
                     }
                 }

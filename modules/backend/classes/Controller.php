@@ -308,7 +308,7 @@ class Controller extends Extendable
 
                     // @todo Do we need to validate backend partials?
                     // foreach ($partialList as $partial) {
-                    //     if (!CmsFileHelper::validateName($partial))
+                    //     if (!preg_match('/^(?:\w+\:{2}|@)?[a-z0-9\_\-\.\/]+$/i', $partial))
                     //         throw new SystemException(Lang::get('cms::lang.partial.invalid_name', ['name'=>$partial]));
                     // }
                 }

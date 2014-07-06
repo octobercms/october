@@ -17,7 +17,7 @@ class FileHelper
      */
     public static function validateName($fileName)
     {
-        return preg_match('/^([a-z0-9\-\.]+\:{2})?[a-z0-9\_\-\.\/]+$/i', $fileName) ? true : false;
+        return preg_match('/^[a-z0-9\_\-\.\/]+$/i', $fileName) ? true : false;
     }
 
     /**
