@@ -1,4 +1,4 @@
-* **Build 11x** (2014-07-xx)
+* **Build 115** (2014-07-06)
   - Important! All references to *Email* have been changed to *Mail* and renaming may be required in plugins.
   - Console command october:update now supports --core, --plugins and --force options.
 
