@@ -1,5 +1,6 @@
 * **Build 11x** (2014-07-xx)
   - Important! All references to *Email* have been changed to *Mail* and renaming may be required in plugins.
+  - Console command october:update now supports --core, --plugins and --force options.
 
 * **Build 114** (2014-07-03)
   - Created a new Record Finder form widget for searching related records.

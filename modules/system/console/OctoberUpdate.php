@@ -34,26 +34,30 @@ class OctoberUpdate extends Command
     {
         $this->output->writeln('<info>Updating October...</info>');
         $manager = UpdateManager::instance()->resetNotes();
+        $forceUpdate = $this->option('force');
+        $pluginsOnly = $this->option('plugins');
+        $coreOnly = $this->option('core');
 
-        $updateList = $manager->requestUpdateList();
+        $updateList = $manager->requestUpdateList($forceUpdate);
         $updates = (int)array_get($updateList, 'update', 0);
 
         if ($updates == 0) {
             $this->output->writeln('<info>No new updates found</info>');
             return;
         }
-        else
+        else {
             $this->output->writeln(sprintf('<info>Found %s new %s!</info>', $updates, Str::plural('update', $updates)));
+        }
 
-        $coreHash = array_get($updateList, 'core.hash');
+        $coreHash = $pluginsOnly ? null : array_get($updateList, 'core.hash');
         $coreBuild = array_get($updateList, 'core.build');
 
         if ($coreHash) {
             $this->output->writeln('<info>Downloading application files</info>');
             $manager->downloadCore($coreHash);
         }
-        
-        $plugins = array_get($updateList, 'plugins');
+
+        $plugins = $coreOnly ? [] : array_get($updateList, 'plugins');
         foreach ($plugins as $code => $plugin) {
             $pluginName = array_get($plugin, 'name');
             $pluginHash = array_get($plugin, 'hash');
@@ -94,7 +98,11 @@ class OctoberUpdate extends Command
      */
     protected function getOptions()
     {
-        return [];
+        return [
+            ['force', null, InputOption::VALUE_NONE, 'Force updates.'],
+            ['core', null, InputOption::VALUE_NONE, 'Update core application files only.'],
+            ['plugins', null, InputOption::VALUE_NONE, 'Update plugin files only.'],
+        ];
     }
 
 }
