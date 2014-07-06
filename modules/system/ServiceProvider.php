@@ -112,12 +112,6 @@ class ServiceProvider extends ModuleServiceProvider
             if (MailTemplate::addContentToMailer($message, $view, $data))
                 return false;
         });
-        // Event::listen('mailer.register', function($provider, $mailer) {
-        //     $mailer->bindEvent('mailer.beforeAddContent', function($message, $view, $plain, $data){
-        //         if (MailTemplate::addContentToMailer($message, $view, $data))
-        //             return false;
-        //     });
-        // });
 
         /*
          * Register other module providers
