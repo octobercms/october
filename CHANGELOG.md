@@ -1,4 +1,4 @@
-* **Build 11x** (2014-07-xx)
+* **Build 116** (2014-07-07)
   - Added new layout and page method `onInit()` called after components are initialized and before AJAX requests are processed.
 
 * **Build 115** (2014-07-06)
