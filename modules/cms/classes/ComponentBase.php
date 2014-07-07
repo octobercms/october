@@ -17,6 +17,7 @@ abstract class ComponentBase extends Extendable
 {
     use \System\Traits\AssetMaker;
     use \System\Traits\PropertyContainer;
+    use \October\Rain\Support\Traits\Emitter;
 
     /**
      * @var string A unique identifier for this component.
@@ -107,7 +108,8 @@ abstract class ComponentBase extends Extendable
     /**
      * Executed when this component is first initialized, before AJAX requests.
      */
-    public function onInit() {}
+    public function init() {}
+    public function onInit() {} // Deprecated: Remove ithis line if year >= 2015
 
     /**
      * Executed when this component is bound to a page or layout, part of 

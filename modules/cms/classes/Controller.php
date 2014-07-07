@@ -174,6 +174,18 @@ class Controller extends BaseController
         $this->initComponents();
 
         /*
+         * Give the layout and page an opportunity to participate
+         * after components are initialized and before AJAX is handled.
+         */
+        CmsException::mask($this->layout, 300);
+        $this->layoutObj->onInit()
+        CmsException::unmask();
+
+        CmsException::mask($this->page, 300);
+        $this->pageObj->onInit();
+        CmsException::unmask();
+
+        /*
          * Execute AJAX event
          */
         if ($ajaxResponse = $this->execAjaxHandlers())
@@ -248,7 +260,7 @@ class Controller extends BaseController
     protected function initCustomObjects()
     {
         $this->layoutObj = null;
-        
+
         if (!$this->layout->isFallBack()) {
             CmsException::mask($this->layout, 300);
             $parser = new CodeParser($this->layout);
@@ -307,7 +319,8 @@ class Controller extends BaseController
             $this->vars[$alias] = $this->page->components[$alias] = $componentObj;
         }
 
-        $componentObj->onInit();
+        $componentObj->init();
+        $componentObj->onInit(); // Deprecated: Remove ithis line if year >= 2015
         return $componentObj;
     }
 
