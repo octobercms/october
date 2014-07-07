@@ -178,7 +178,7 @@ class Controller extends BaseController
          * after components are initialized and before AJAX is handled.
          */
         CmsException::mask($this->layout, 300);
-        $this->layoutObj->onInit()
+        $this->layoutObj->onInit();
         CmsException::unmask();
 
         CmsException::mask($this->page, 300);
