@@ -213,9 +213,14 @@ label {
         margin-top: -44px;
         height: 88px;
         width: 36px;
+        color: lighten(@btn-default-color, 15%);
 
         i {
             font-size: 14px;
+        }
+
+        &:hover {
+            color: @btn-default-color;
         }
     }
     .text-muted i {
@@ -228,6 +233,13 @@ label {
     .primary {
         font-weight: 600;
     }
+}
+
+.recordfinder-search {
+    background-position: right -81px !important;
+    border-top: none  !important;
+    border-left: none  !important;
+    border-right: none  !important;
 }
 
 .form-buttons {

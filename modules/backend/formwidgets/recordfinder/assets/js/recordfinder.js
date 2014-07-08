@@ -33,6 +33,7 @@
         var self = this
         $(this.options.dataLocker).val(recordId)
 
+        this.$el.loadIndicator({ opaque: true })
         this.$el.request(this.options.refreshHandler, {
             success: function(data) {
                 this.success(data)

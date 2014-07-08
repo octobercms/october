@@ -19,12 +19,17 @@ class Search extends WidgetBase
     public $defaultAlias = 'search';
 
     /**
-     * @var string Search placeholder text
+     * @var string Search placeholder text.
      */
     public $placeholder;
 
     /**
-     * @var string Active search term pulled from session data
+     * @var bool Field show grow when selected.
+     */
+    public $growable = true;
+
+    /**
+     * @var string Active search term pulled from session data.
      */
     public $activeTerm;
 
@@ -32,6 +37,11 @@ class Search extends WidgetBase
      * @var string Custom partial file definition, in context of the controller.
      */
     public $customPartial;
+
+    /**
+     * @var array List of CSS classes to apply to the list container element.
+     */
+    public $cssClasses = [];
 
     /**
      * Constructor.
@@ -48,6 +58,17 @@ class Search extends WidgetBase
 
         if (isset($this->config->partial))
             $this->customPartial = $this->config->partial;
+
+        if (isset($this->config->growable))
+            $this->growable = $this->config->growable;
+
+        /*
+         * Add CSS class styles
+         */
+        $this->cssClasses[] = 'icon search';
+
+        if ($this->growable)
+            $this->cssClasses[] = 'growable';
     }
 
     /**
@@ -68,6 +89,7 @@ class Search extends WidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['cssClasses'] = implode(' ', $this->cssClasses);
         $this->vars['placeholder'] = $this->placeholder;
         $this->vars['value'] = $this->getActiveTerm();
     }
@@ -80,11 +102,7 @@ class Search extends WidgetBase
         /*
          * Save or reset search term in session
          */
-        $term = post('term');
-        if (strlen($term))
-            $this->putSession('term', $term);
-        else
-            $this->resetSession();
+        $this->setActiveTerm(post('term'));
 
         /*
          * Trigger class event, merge results as viewable array
@@ -100,5 +118,18 @@ class Search extends WidgetBase
     public function getActiveTerm()
     {
         return $this->activeTerm = $this->getSession('term', '');
+    }
+
+    /**
+     * Sets an active search term for this widget instance.
+     */
+    public function setActiveTerm($term)
+    {
+        if (strlen($term))
+            $this->putSession('term', $term);
+        else
+            $this->resetSession();
+
+        $this->activeTerm = $term;
     }
 }

@@ -65,6 +65,11 @@ class RecordFinder extends FormWidgetBase
     protected $listWidget;
 
     /**
+     * @var Backend\Classes\WidgetBase Reference to the widget used for searching.
+     */
+    protected $searchWidget;
+
+    /**
      * {@inheritDoc}
      */
     public function init()
@@ -82,6 +87,20 @@ class RecordFinder extends FormWidgetBase
 
         if (post('recordfinder_flag')) {
             $this->listWidget = $this->makeListWidget();
+            $this->listWidget->bindToController();
+
+            $this->searchWidget = $this->makeSearchWidget();
+            $this->searchWidget->bindToController();
+
+            /*
+             * Link the Search Widget to the List Widget
+             */
+            $this->searchWidget->bindEvent('search.submit', function() {
+                $this->listWidget->setSearchTerm($this->searchWidget->getActiveTerm());
+                return $this->listWidget->onRefresh();
+            });
+
+            $this->searchWidget->setActiveTerm(null);
         }
     }
 
@@ -112,6 +131,7 @@ class RecordFinder extends FormWidgetBase
         $this->vars['nameValue'] = $this->getNameValue();
         $this->vars['descriptionValue'] = $this->getDescriptionValue();
         $this->vars['listWidget'] = $this->listWidget;
+        $this->vars['searchWidget'] = $this->searchWidget;
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-th-list"></i>', $this->prompt);
     }
 
@@ -168,6 +188,7 @@ class RecordFinder extends FormWidgetBase
         $config->alias = $this->alias . 'List';
         $config->showSetup = false;
         $config->showCheckboxes = false;
+        $config->recordsPerPage = 20;
         $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':id')", $this->getId());
         $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 
@@ -183,6 +204,17 @@ class RecordFinder extends FormWidgetBase
 
         // });
 
+        return $widget;
+    }
+
+    protected function makeSearchWidget()
+    {
+        $config = $this->makeConfig();
+        $config->alias = $this->alias . 'Search';
+        $config->growable = false;
+        $config->useSession = false;
+        $widget = $this->makeWidget('Backend\Widgets\Search', $config);
+        $widget->cssClasses[] = 'recordfinder-search';
         return $widget;
     }
 }
