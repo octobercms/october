@@ -8262,9 +8262,13 @@ label {
   margin-top: -44px;
   height: 88px;
   width: 36px;
+  color: #8c8c8c;
 }
 .field-recordfinder .btn i {
   font-size: 14px;
+}
+.field-recordfinder .btn:hover {
+  color: #666666;
 }
 .field-recordfinder .text-muted i {
   font-size: 14px;
@@ -8275,6 +8279,12 @@ label {
 }
 .field-recordfinder .primary {
   font-weight: 600;
+}
+.recordfinder-search {
+  background-position: right -81px !important;
+  border-top: none  !important;
+  border-left: none  !important;
+  border-right: none  !important;
 }
 .form-buttons {
   padding-bottom: 20px;
