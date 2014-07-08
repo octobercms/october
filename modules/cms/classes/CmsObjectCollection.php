@@ -11,4 +11,16 @@ use System\Classes\ApplicationException;
  */
 class CmsObjectCollection extends CollectionBase
 {
+    /**
+     * Add an item to the collection.
+     *
+     * @param  mixed  $item
+     * @return Cms\Classes\CmsObjectCollection
+     */
+    public function add($item)
+    {
+        $this->items[] = $item;
+
+        return $this;
+    }
 }
