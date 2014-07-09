@@ -675,7 +675,7 @@ class RelationController extends ControllerBehavior
                  */
                 $existingIds = $this->findExistingRelationIds();
                 if (count($existingIds)) {
-                    $query->whereNotIn('id', $existingIds);
+                    $query->whereNotIn($this->relationModel->getQualifiedKeyName(), $existingIds);
                 }
 
             });
