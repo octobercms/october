@@ -153,7 +153,7 @@ class EmailTemplate extends Model
 
         $plugins = PluginManager::instance()->getPlugins();
         foreach ($plugins as $pluginId => $pluginObj) {
-            $templates = $pluginObj->registerEmailTemplates();
+            $templates = method_exists($pluginObj, 'registerEmailTemplates') ? $pluginObj->registerEmailTemplates() : false;
             if (!is_array($templates))
                 continue;
 
