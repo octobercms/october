@@ -75,7 +75,7 @@ return [
         'sendmail_path' => 'Caminho do Sendmail',
         'sendmail_path_comment' => 'Por favor, especifique o caminho do programa sendmail.',
     ],
-    'email_templates' => [
+    'mail_templates' => [
         'menu_label' => 'Modelos de E-mail',
         'menu_description' => 'Modificar os modelos de e-mail que são enviados para usuários e administradores.',
         'new_template' => 'Novo modelo',

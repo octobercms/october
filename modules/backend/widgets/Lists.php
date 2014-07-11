@@ -131,6 +131,11 @@ class Lists extends WidgetBase
     public $treeExpanded = true;
 
     /**
+     * @var array List of CSS classes to apply to the list container element
+     */
+    public $cssClasses = [];
+
+    /**
      * Initialize the widget, called by the constructor and free from its parameters.
      */
     public function init()
@@ -168,7 +173,7 @@ class Lists extends WidgetBase
     public function render()
     {
         $this->prepareVars();
-        return $this->makePartial('list_container');
+        return $this->makePartial('list-container');
     }
 
     /**
@@ -176,6 +181,7 @@ class Lists extends WidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['cssClasses'] = implode(' ', $this->cssClasses);
         $this->vars['columns'] = $this->getVisibleListColumns();
         $this->vars['columnTotal'] = $this->getTotalColumns();
         $this->vars['records'] = $this->getRecords();
@@ -205,7 +211,7 @@ class Lists extends WidgetBase
     /**
      * Event handler for refreshing the list.
      */
-    public function onRender()
+    public function onRefresh()
     {
         $this->prepareVars();
         return ['#'.$this->getId() => $this->makePartial('list')];
@@ -217,7 +223,7 @@ class Lists extends WidgetBase
     public function onPaginate()
     {
         App::make('paginator')->setCurrentPage(post('page'));
-        return $this->onRender();
+        return $this->onRefresh();
     }
 
     /**
@@ -262,7 +268,7 @@ class Lists extends WidgetBase
          * Extensibility
          */
         Event::fire('backend.list.extendQueryBefore', [$this, $query]);
-        $this->fireEvent('list.extendQueryBefore', [$this, $query]);
+        $this->fireEvent('list.extendQueryBefore', [$query]);
 
         /*
          * Related custom selects, must come first
@@ -340,7 +346,7 @@ class Lists extends WidgetBase
          * Extensibility
          */
         Event::fire('backend.list.extendQuery', [$this, $query]);
-        $this->fireEvent('list.extendQuery', [$this, $query]);
+        $this->fireEvent('list.extendQuery', [$query]);
 
         // Grouping due to the joinWith() call
         $query->select($selects);
@@ -454,7 +460,7 @@ class Lists extends WidgetBase
          * Extensibility
          */
         Event::fire('backend.list.extendColumns', [$this]);
-        $this->fireEvent('list.extendColumns', $this);
+        $this->fireEvent('list.extendColumns');
 
         /*
          * Use a supplied column order
@@ -538,7 +544,7 @@ class Lists extends WidgetBase
         if ($response = Event::fire('backend.list.overrideHeaderValue', [$this, $column, $value], true))
             $value = $response;
 
-        if ($response = $this->fireEvent('list.overrideHeaderValue', [$this, $column, $value], true))
+        if ($response = $this->fireEvent('list.overrideHeaderValue', [$column, $value], true))
             $value = $response;
 
         return $value;
@@ -549,7 +555,16 @@ class Lists extends WidgetBase
      */
     public function getColumnValue($record, $column)
     {
-        $value = $record->{$column->columnName};
+        /*
+         * If the column is a relation, it will be a custom select,
+         * so prevent the Model from attempting to load the relation
+         * if the value is NULL.
+         */
+        $columnName = $column->columnName;
+        if ($record->hasRelation($columnName) && array_key_exists($columnName, $record->attributes))
+            $value = $record->attributes[$columnName];
+        else
+            $value = $record->{$columnName};
 
         if (method_exists($this, 'eval'. studly_case($column->type) .'TypeValue'))
             $value = $this->{'eval'. studly_case($column->type) .'TypeValue'}($value, $column);
@@ -560,7 +575,7 @@ class Lists extends WidgetBase
         if ($response = Event::fire('backend.list.overrideColumnValue', [$this, $record, $column, $value], true))
             $value = $response;
 
-        if ($response = $this->fireEvent('list.overrideColumnValue', [$this, $record, $column, $value], true))
+        if ($response = $this->fireEvent('list.overrideColumnValue', [$record, $column, $value], true))
             $value = $response;
 
         return $value;
@@ -581,7 +596,7 @@ class Lists extends WidgetBase
         if ($response = Event::fire('backend.list.injectRowClass', [$this, $record], true))
             $value = $response;
 
-        if ($response = $this->fireEvent('list.injectRowClass', [$this, $record], true))
+        if ($response = $this->fireEvent('list.injectRowClass', [$record], true))
             $value = $response;
 
         return $value;
@@ -608,6 +623,8 @@ class Lists extends WidgetBase
         if ($value === null)
             return null;
 
+        $value = $this->validateDateTimeValue($value, $column);
+
         if ($column->format !== null)
             return $value->format($column->format);
 
@@ -621,6 +638,8 @@ class Lists extends WidgetBase
     {
         if ($value === null)
             return null;
+
+        $value = $this->validateDateTimeValue($value, $column);
 
         if ($column->format === null)
             $column->format = 'g:i A';
@@ -636,6 +655,8 @@ class Lists extends WidgetBase
         if ($value === null)
             return null;
 
+        $value = $this->validateDateTimeValue($value, $column);
+
         if ($column->format !== null)
             return $value->format($column->format);
 
@@ -650,13 +671,23 @@ class Lists extends WidgetBase
         if ($value === null)
             return null;
 
+        $value = $this->validateDateTimeValue($value, $column);
+
+        return $value->diffForHumans();
+    }
+
+    /**
+     * Validates a column type as a date
+     */
+    private function validateDateTimeValue($value, $column)
+    {
         if ($value instanceof DateTime)
             $value = Carbon::instance($value);
 
         if (!$value instanceof Carbon)
-            throw new ApplicationException(sprintf('Column value %s is not a DateTime object, are you missing a $dates reference in the Model?', $column->columnName));
+            throw new ApplicationException(Lang::get('backend::lang.list.invalid_column_datetime', ['column' => $column->columnName]));
 
-        return $value->diffForHumans();
+        return $value;
     }
 
     //
@@ -729,7 +760,7 @@ class Lists extends WidgetBase
              */
             App::make('paginator')->setCurrentPage(post('page'));
 
-            return $this->onRender();
+            return $this->onRefresh();
         }
     }
 
@@ -836,7 +867,7 @@ class Lists extends WidgetBase
 
         $this->putSession('order', post('column_order'));
         $this->putSession('per_page', post('records_per_page', $this->recordsPerPage));
-        return $this->onRender();
+        return $this->onRefresh();
     }
 
     /**
@@ -907,7 +938,7 @@ class Lists extends WidgetBase
     public function onToggleTreeNode()
     {
         $this->putSession('tree_node_status_' . post('node_id'), post('status') ? 0 : 1);
-        return $this->onRender();
+        return $this->onRefresh();
     }
 
 }

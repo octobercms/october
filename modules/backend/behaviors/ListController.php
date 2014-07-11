@@ -128,23 +128,23 @@ class ListController extends ControllerBehavior
         /*
          * Extensibility helpers
          */
-        $widget->bindEvent('list.extendQueryBefore', function($host, $query) use ($definition) {
+        $widget->bindEvent('list.extendQueryBefore', function($query) use ($definition) {
             $this->controller->listExtendQueryBefore($query, $definition);
         });
 
-        $widget->bindEvent('list.extendQuery', function($host, $query) use ($definition) {
+        $widget->bindEvent('list.extendQuery', function($query) use ($definition) {
             $this->controller->listExtendQuery($query, $definition);
         });
 
-        $widget->bindEvent('list.injectRowClass', function($host, $record) use ($definition) {
+        $widget->bindEvent('list.injectRowClass', function($record) use ($definition) {
             return $this->controller->listInjectRowClass($record, $definition);
         });
 
-        $widget->bindEvent('list.overrideColumnValue', function($host, $record, $column, $value) use ($definition) {
+        $widget->bindEvent('list.overrideColumnValue', function($record, $column, $value) use ($definition) {
             return $this->controller->listOverrideColumnValue($record, $column->columnName, $definition);
         });
 
-        $widget->bindEvent('list.overrideHeaderValue', function($host, $column, $value) use ($definition) {
+        $widget->bindEvent('list.overrideHeaderValue', function($column, $value) use ($definition) {
             return $this->controller->listOverrideHeaderValue($column->columnName, $definition);
         });
 
@@ -164,7 +164,7 @@ class ListController extends ControllerBehavior
             if ($searchWidget = $toolbarWidget->getSearchWidget()) {
                 $searchWidget->bindEvent('search.submit', function() use ($widget, $searchWidget) {
                     $widget->setSearchTerm($searchWidget->getActiveTerm());
-                    return $widget->onRender();
+                    return $widget->onRefresh();
                 });
 
                 // Find predefined search term
@@ -224,7 +224,7 @@ class ListController extends ControllerBehavior
         if (!$definition || !isset($this->listDefinitions[$definition]))
             $definition = $this->primaryDefinition;
 
-        return $this->listWidgets[$definition]->onRender();
+        return $this->listWidgets[$definition]->onRefresh();
     }
 
     //

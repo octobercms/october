@@ -1,0 +1,22 @@
+.relation-behavior {
+  padding: 0;
+  margin-bottom: 20px;
+  background: white;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+}
+.relation-behavior .list-header:first-child {
+  padding-top: 20px;
+}
+.relation-behavior .control-list:last-child > table {
+  margin-bottom: 0;
+}
+.relation-flush .relation-behavior {
+  border-top: 0;
+}
+.relation-flush .relation-behavior .relation-manager table.table.data thead tr th {
+  border-top: none !important;
+}
+.relation-flush .relation-behavior .relation-toolbar + .relation-manager table.table.data thead tr th {
+  border-top: 1px solid #e2e2e2 !important;
+}

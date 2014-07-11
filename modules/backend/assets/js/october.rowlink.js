@@ -44,7 +44,7 @@
             })
 
             $(this).addClass(options.linkedClass)
-            link.replaceWith(link.html())
+            link.hide().after(link.html())
         })
 
     }

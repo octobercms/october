@@ -5,6 +5,16 @@ return [
         'name' => 'October CMS',
         'motto' => 'Getting back to basics',
     ],
+    'locale' => [
+        'en' => 'English',
+        'nl' => 'Dutch',
+        'ja' => 'Japanese',
+        'sv' => 'Swedish',
+        'tr' => 'Turkish',
+        'br' => 'Brazilian Portuguese',
+        'de' => 'German',
+        'ru' => 'Russian',
+    ],
     'directory' => [
         'create_fail' => "Cannot create directory: :name",
     ],
@@ -56,11 +66,11 @@ return [
         'update_success' => 'Settings for :name have been updated successfully.',
         'return' => 'Return to system settings',
     ],
-    'email' => [
-        'menu_label' => 'Email Configuration',
+    'mail' => [
+        'menu_label' => 'Mail Configuration',
         'menu_description' => 'Manage email configuration.',
         'general' => 'General',
-        'method' => 'Email Method',
+        'method' => 'Mail Method',
         'sender_name' => 'Sender Name',
         'sender_email' => 'Sender Email',
         'smtp' => 'SMTP',
@@ -75,14 +85,14 @@ return [
         'sendmail_path' => 'Sendmail Path',
         'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
     ],
-    'email_templates' => [
-        'menu_label' => 'Email Templates',
-        'menu_description' => 'Modify the email templates that are sent to users and administrators.',
+    'mail_templates' => [
+        'menu_label' => 'Mail Templates',
+        'menu_description' => 'Modify the mail templates that are sent to users and administrators.',
         'new_template' => 'New Template',
         'new_layout' => 'New Layout',
         'template' => 'Template',
         'templates' => 'Templates',
-        'menu_layouts_label' => 'Email Layouts',
+        'menu_layouts_label' => 'Mail Layouts',
         'layout' => 'Layout',
         'layouts' => 'Layouts',
         'name' => 'Name',
@@ -155,7 +165,7 @@ return [
     ],
     'config' => [
         'not_found' => 'Unable to find configuration file :file defined for :location.',
-        'required' => 'Configuration used in :location must supply a value :property.',
+        'required' => "Configuration used in :location must supply a value ':property'.",
     ],
     'zip' => [
         'extract_failed' => "Unable to extract core file ':file'.",

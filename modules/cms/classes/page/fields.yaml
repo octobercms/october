@@ -24,12 +24,6 @@ fields:
 
 tabs:
   fields:
-    # published:
-    #   tab: General
-    #   span: left
-    #   label: Published
-    #   type: checkbox
-
     fileName:
       tab: cms::lang.editor.settings
       span: left
@@ -62,19 +56,23 @@ tabs:
       type: textarea
       size: tiny
 
+    settings[hidden]:
+      tab: cms::lang.editor.settings
+      label: cms::lang.editor.hidden
+      type: checkbox
+      comment: cms::lang.editor.hidden_comment
+
 secondaryTabs:
   stretch: true
   fields:
     markup:
       tab: cms::lang.editor.markup
-      type: codeeditor
       stretch: true
-      options:
-        language: twig
+      type: codeeditor
+      language: twig
 
     code:
       tab: cms::lang.editor.code
-      type: codeeditor
       stretch: true
-      options:
-        language: php
+      type: codeeditor
+      language: php

@@ -4,7 +4,7 @@ use Lang;
 use Backend;
 use BackendMenu;
 use BackendAuth;
-use Cms\Classes\MarkupManager;
+use System\Classes\MarkupManager;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 

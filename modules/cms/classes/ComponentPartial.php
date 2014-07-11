@@ -1,5 +1,7 @@
 <?php namespace Cms\Classes;
 
+use File;
+
 /**
  * The CMS component partial class.
  *
@@ -49,6 +51,18 @@ class ComponentPartial extends CmsObject
      */
     public static function getFilePath($component, $fileName)
     {
-        return $component->getPath().'/'.$fileName;
+        $path = $component->getPath().'/'.$fileName;
+
+        /*
+         * Check the shared "/partials" directory for the partial
+         */
+        if (!File::isFile($path)) {
+            $sharedDir = dirname($component->getPath()).'/partials';
+            $sharedPath = $sharedDir.'/'.$fileName;
+            if (File::isFile($sharedPath))
+                return $sharedPath;
+        }
+
+        return $path;
     }
 }

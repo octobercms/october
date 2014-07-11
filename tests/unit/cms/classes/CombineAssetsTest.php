@@ -114,6 +114,17 @@ class CombineAssetsTest extends TestCase
         $this->markTestIncomplete('TODO');
     }
 
+    public function testGetTargetPath()
+    {
+        $combiner = new CombineAssets;
+
+        $value = self::callProtectedMethod($combiner, 'getTargetPath', ['/combine']);
+        $this->assertEquals('combine/', $value);
+
+        $value = self::callProtectedMethod($combiner, 'getTargetPath', ['/index.php/combine']);
+        $this->assertEquals('index-php/combine/', $value);
+    }
+
     public function testMakeCacheId()
     {
         $sampleResources = ['assets/css/style1.css', 'assets/css/style2.css'];

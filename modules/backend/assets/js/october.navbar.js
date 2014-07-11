@@ -17,6 +17,10 @@
                 nav = $('ul.nav', navbar)
 
             nav.verticalMenu($('a.menu-toggle', navbar))
+
+            $('[data-toggle="tooltip"]', navbar).tooltip({
+                'container': 'body'
+            })
         })
     })
 })(jQuery);

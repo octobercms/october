@@ -21,14 +21,12 @@ secondaryTabs:
   fields:
     markup:
       tab: cms::lang.editor.markup
-      type: codeeditor
       stretch: true
-      options:
-        language: twig
+      type: codeeditor
+      language: twig
 
     code:
       tab: cms::lang.editor.code
-      type: codeeditor
       stretch: true
-      options:
-        language: php
+      type: codeeditor
+      language: php

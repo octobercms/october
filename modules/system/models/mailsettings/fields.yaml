@@ -1,0 +1,55 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+tabs:
+  fields:
+
+    send_mode:
+      label: system::lang.mail.method
+      type: dropdown
+      tab: system::lang.mail.general
+
+    sender_name:
+      label: system::lang.mail.sender_name
+      span: auto
+      tab: system::lang.mail.general
+
+    sender_email:
+      label: system::lang.mail.sender_email
+      span: auto
+      tab: system::lang.mail.general
+
+    smtp_address:
+      label: system::lang.mail.smtp_address
+      tab: system::lang.mail.smtp
+
+    smtp_authorization:
+      type: checkbox
+      label: system::lang.mail.smtp_authorization
+      tab: system::lang.mail.smtp
+      comment: system::lang.mail.smtp_authorization_comment
+
+    smtp_user:
+      label: system::lang.mail.smtp_username
+      tab: system::lang.mail.smtp
+      span: left
+
+    smtp_password:
+      label: system::lang.mail.smtp_password
+      tab: system::lang.mail.smtp
+      span: right
+
+    smtp_port:
+      label: system::lang.mail.smtp_port
+      tab: system::lang.mail.smtp
+
+    smtp_ssl:
+      type: checkbox
+      label: system::lang.mail.smtp_ssl
+      tab: system::lang.mail.smtp
+
+    sendmail_path:
+      label: system::lang.mail.sendmail_path
+      commentAbove: system::lang.mail.sendmail_path_comment
+      tab: system::lang.mail.sendmail

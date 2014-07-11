@@ -42,6 +42,12 @@ class CodeBase extends Extendable implements ArrayAccess
     }
 
     /**
+     * This event is triggered when all components are initialized and before AJAX is handled.
+     * The layout's onInit method triggers before the page's onInit method.
+     */
+    public function onInit() {}
+
+    /**
      * This event is triggered in the beginning of the execution cycle.
      * The layout's onStart method triggers before the page's onStart method.
      */

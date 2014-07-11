@@ -1,0 +1,15 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: system::lang.mail_templates.menu_label
+list: @/modules/system/models/maillayout/columns.yaml
+modelClass: System\Models\MailLayout
+recordUrl: system/maillayouts/update/:id
+noRecordsMessage: backend::lang.list.no_records
+showSetup: false
+
+toolbar:
+    buttons: list_layouts_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

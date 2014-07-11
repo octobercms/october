@@ -12,6 +12,10 @@ use October\Rain\Auth\Models\User as UserBase;
  */
 class User extends UserBase
 {
+    use \October\Rain\Database\Traits\Hashable;
+    use \October\Rain\Database\Traits\Purgeable;
+    use \October\Rain\Database\Traits\Validation;
+
     /**
      * @var string The database table used by the model.
      */
@@ -97,7 +101,7 @@ class User extends UserBase
             'link' => Backend::url('backend'),
         ];
 
-        Mail::send('backend::emails.invite', $data, function($message)
+        Mail::send('backend::mail.invite', $data, function($message)
         {
             $message->to($this->email, $this->full_name);
         });

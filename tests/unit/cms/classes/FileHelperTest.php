@@ -12,6 +12,8 @@ class FileHelperTest extends TestCase
         $this->assertFalse(FileHelper::validateName('test\testdat'));
         $this->assertTrue(FileHelper::validateName('01test-test.dat'));
         $this->assertFalse(FileHelper::validateName('test@test.dat'));
+        $this->assertFalse(FileHelper::validateName('test::test'));
+        $this->assertFalse(FileHelper::validateName('@test'));
     }
 
     public function testFormatIniString()

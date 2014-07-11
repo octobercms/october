@@ -93,6 +93,8 @@ return [
         'markup' => 'Markup',
         'code' => 'Code',
         'content' => 'Content',
+        'hidden' => 'Hidden',
+        'hidden_comment' => 'Hidden pages are accessible only by logged-in back-end users.'
     ],
     'asset' => [
         'menu_label' => "Assets",

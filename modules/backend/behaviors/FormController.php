@@ -45,6 +45,11 @@ class FormController extends ControllerBehavior
     protected $context;
 
     /**
+     * @var array List of prepared models that require saving.
+     */
+    private $modelsToSave = [];
+
+    /**
      * Behavior constructor
      * @param Backend\Classes\Controller $controller
      * @return void
@@ -79,12 +84,20 @@ class FormController extends ControllerBehavior
          */
         $this->formWidget = $this->makeWidget('Backend\Widgets\Form', $config);
 
-        $this->formWidget->bindEvent('form.extendFieldsBefore', function($host) {
-            $this->controller->formExtendFieldsBefore($host);
+        $this->formWidget->bindEvent('form.extendFieldsBefore', function() {
+            $this->controller->formExtendFieldsBefore($this->formWidget);
         });
 
-        $this->formWidget->bindEvent('form.extendFields', function($host) {
-            $this->controller->formExtendFields($host);
+        $this->formWidget->bindEvent('form.extendFields', function() {
+            $this->controller->formExtendFields($this->formWidget);
+        });
+
+        $this->formWidget->bindEvent('form.beforeRefresh', function($saveData) {
+            return $this->controller->formExtendRefreshData($this->formWidget, $saveData);
+        });
+
+        $this->formWidget->bindEvent('form.refresh', function($result) {
+            return $this->controller->formExtendRefreshResults($this->formWidget, $result);
         });
 
         $this->formWidget->bindToController();
@@ -126,14 +139,17 @@ class FormController extends ControllerBehavior
      */
     public function create_onSave()
     {
+        $this->context = $this->getConfig('update[context]', 'create');
         $model = $this->controller->formCreateModelObject();
         $this->initForm($model);
 
         $this->controller->formBeforeSave($model);
         $this->controller->formBeforeCreate($model);
 
-        $this->setModelAttributes($model, $this->formWidget->getSaveData());
-        $model->push($this->formWidget->getSessionKey());
+        $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
+        foreach ($modelsToSave as $modelToSave) {
+            $modelToSave->save(null, $this->formWidget->getSessionKey());
+        }
 
         $this->controller->formAfterSave($model);
         $this->controller->formAfterCreate($model);
@@ -176,14 +192,17 @@ class FormController extends ControllerBehavior
      */
     public function update_onSave($recordId = null)
     {
+        $this->context = $this->getConfig('update[context]', 'update');
         $model = $this->controller->formFindModelObject($recordId);
-        $this->initForm($model, 'update');
+        $this->initForm($model);
 
         $this->controller->formBeforeSave($model);
         $this->controller->formBeforeUpdate($model);
 
-        $this->setModelAttributes($model, $this->formWidget->getSaveData());
-        $model->push($this->formWidget->getSessionKey());
+        $modelsToSave =$this->prepareModelsToSave($model, $this->formWidget->getSaveData());
+        foreach ($modelsToSave as $modelToSave) {
+            $modelToSave->save(null, $this->formWidget->getSessionKey());
+        }
 
         $this->controller->formAfterSave($model);
         $this->controller->formAfterUpdate($model);
@@ -201,8 +220,9 @@ class FormController extends ControllerBehavior
      */
     public function update_onDelete($recordId = null)
     {
+        $this->context = $this->getConfig('update[context]', 'update');
         $model = $this->controller->formFindModelObject($recordId);
-        $this->initForm($model, 'update');
+        $this->initForm($model);
 
         $model->delete();
 
@@ -510,6 +530,22 @@ class FormController extends ControllerBehavior
     public function formExtendFields($host) {}
 
     /**
+     * Called before the form is refreshed, should return an array of additional save data.
+     * @param Backend\Widgets\Form $host The hosting form widget
+     * @param array $saveData Current save data
+     * @return array
+     */
+    public function formExtendRefreshData($host, $saveData) {}
+
+    /**
+     * Called after the form is refreshed, should return an array of additional result parameters.
+     * @param Backend\Widgets\Form $host The hosting form widget
+     * @param array $result Current result parameters.
+     * @return array
+     */
+    public function formExtendRefreshResults($host, $result) {}
+
+    /**
      * Extend supplied model used by create and update actions, the model can
      * be altered by overriding it in the controller.
      * @param Model $model
@@ -532,14 +568,23 @@ class FormController extends ControllerBehavior
     // Internals
     //
 
+    private function prepareModelsToSave($model, $saveData)
+    {
+        $this->modelsToSave = [];
+        $this->setModelAttributes($model, $saveData);
+        return $this->modelsToSave;
+    }
+
     /**
      * Sets a data collection to a model attributes, relations will also be set.
      * @param array $saveData Data to save.
      * @param Model $model Model to save to
-     * @return void
+     * @return array The collection of models to save.
      */
     private function setModelAttributes($model, $saveData)
     {
+        $this->modelsToSave[] = $model;
+
         if (!is_array($saveData))
             return;
 
