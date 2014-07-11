@@ -1,0 +1,20 @@
+<div
+    data-control="formwidget"
+    data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
+    class="layout-row"
+    role="form"
+    id="<?= $this->getId($renderSection.'Container') ?>">
+
+    <?php if ($renderSection == 'outside'): ?>
+        <?= $this->makePartial('section_outside-fields') ?>
+    <?php endif ?>
+
+    <?php if ($renderSection == 'primary'): ?>
+        <?= $this->makePartial('section_primary-tabs') ?>
+    <?php endif ?>
+
+    <?php if ($renderSection == 'secondary'): ?>
+        <?= $this->makePartial('section_secondary-tabs') ?>
+    <?php endif ?>
+
+</div>

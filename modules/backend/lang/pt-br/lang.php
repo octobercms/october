@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "Sem Título",
+        'access_denied' => [
+            'label' => "Acesso negado",
+            'help' => "Você não tem as permissões necessárias para visualizar esta página.",
+            'cms_link' => "Ir para CMS backend",
+        ],
     ],
     'partial' => [
         'not_found' => "O bloco ':name' não foi encontrado.",
@@ -84,6 +89,7 @@ return [
         'missing_columns' => 'Lista utilizada em :class não possui colunas de lista definidas.',
         'missing_definition' => "Lista não possui uma coluna para o campo ':field'.",
         'behavior_not_ready' => 'Lista não foi inicializada. Confira se você chamou makeLists() no seu controlador.',
+        'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
     ],
     'form' => [
         'create_title' => "Novo :name",
@@ -138,6 +144,7 @@ return [
         'missing_id' => "ID do registro não especificado.",
         'missing_relation' => "Modelo ':class' não contém uma definição para o relacionamento ':relation'.",
         'invalid_class' => "Modelo :model utilizado na classe :class não é válido. É necessário herdar a classe \Model.",
+        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
     ],
     'warnings' => [
         'tips' => 'Dicas de configuração do sistema',

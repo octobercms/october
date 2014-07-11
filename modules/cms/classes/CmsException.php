@@ -45,7 +45,7 @@ class CmsException extends ApplicationException
      */
     public function __construct($message = null, $code = 100, Exception $previous = null)
     {
-        if ($message instanceof CmsCompoundObject) {
+        if ($message instanceof CmsCompoundObject || $message instanceof ComponentPartial) {
             $this->compoundObject = $message;
             $message = '';
         }

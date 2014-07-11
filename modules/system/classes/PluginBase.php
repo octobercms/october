@@ -106,12 +106,12 @@ abstract class PluginBase extends ServiceProviderBase
     }
 
     /**
-     * Registers any email templates implemented by this plugin.
+     * Registers any mail templates implemented by this plugin.
      * The templates must be returned in the following format:
-     * ['acme.blog::emails.welcome' => 'This is a description of the welcome template'],
-     * ['acme.blog::emails.forgot_password' => 'This is a description of the forgot password template'],
+     * ['acme.blog::mail.welcome' => 'This is a description of the welcome template'],
+     * ['acme.blog::mail.forgot_password' => 'This is a description of the forgot password template'],
      */
-    public function registerEmailTemplates()
+    public function registerMailTemplates()
     {
         return [];
     }

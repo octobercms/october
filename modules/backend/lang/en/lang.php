@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "Untitled",
+        'access_denied' => [
+            'label' => "Access denied",
+            'help' => "You don't have the required permissions to view this page.",
+            'cms_link' => "Return to the backend",
+        ],
     ],
     'partial' => [
         'not_found' => "The partial ':name' is not found.",
@@ -84,6 +89,7 @@ return [
         'missing_columns' => 'List used in :class has no list columns defined.',
         'missing_definition' => "List behavior does not contain a column for ':field'.",
         'behavior_not_ready' => 'List behavior has not been initialized, check that you have called makeLists() in your controller.',
+        'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
     ],
     'form' => [
         'create_title' => "New :name",
@@ -141,6 +147,7 @@ return [
         'missing_id' => "There is no ID specified for looking up the model record.",
         'missing_relation' => "Model ':class' does not contain a definition for ':relation'.",
         'invalid_class' => "Model :model used in :class is not valid, it must inherit the \Model class.",
+        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
     ],
     'warnings' => [
         'tips' => 'System configuration tips',
@@ -149,8 +156,8 @@ return [
         'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.'
     ],
     'editor' => [
-        'menu_label' => 'Editor Configuration',
-        'menu_description' => 'Manage editor configuration.',
+        'menu_label' => 'Code Editor Preferences',
+        'menu_description' => 'Customize the code editor preferences, such as font size and color scheme.',
         'font_size' => 'Font size',
         'tab_size' => 'Tab size',
         'use_hard_tabs' => 'Indent using tabs',
@@ -160,5 +167,22 @@ return [
         'show_invisibles' => 'Show invisible characters',
         'show_gutter' => 'Show gutter',
         'theme' => 'Color scheme',
+    ],
+    'tooltips' => [
+        'preview_website' => 'Preview the website'
+    ],
+    'mysettings' => [
+        'menu_label' => 'My Settings',
+        'menu_description' => 'Settings relate to your administration account',
+    ],
+    'myaccount' => [
+        'menu_label' => 'My Account',
+        'menu_description' => 'Update your account details such as name, email address and password.',
+    ],
+    'backend_preferences' => [
+        'menu_label' => 'Backend Preferences',
+        'menu_description' => 'Manage language preference and the appearance of the backend.',
+        'locale' => 'Language',
+        'locale_comment' => 'Select your desired locale for language use.',
     ],
 ];

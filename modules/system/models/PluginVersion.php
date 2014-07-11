@@ -6,6 +6,7 @@ use System\Classes\PluginManager;
 
 class PluginVersion extends Model
 {
+    use \October\Rain\Database\Traits\Purgeable;
 
     public $table = 'system_plugin_versions';
 

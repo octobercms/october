@@ -42,6 +42,12 @@ class CodeBase extends Extendable implements ArrayAccess
     }
 
     /**
+     * This event is triggered when all components are initialized and before AJAX is handled.
+     * The layout's onInit method triggers before the page's onInit method.
+     */
+    public function onInit() {}
+
+    /**
      * This event is triggered in the beginning of the execution cycle.
      * The layout's onStart method triggers before the page's onStart method.
      */
@@ -112,7 +118,8 @@ class CodeBase extends Extendable implements ArrayAccess
 
     /**
      * As per __get, this will set a variable instead.
-     * @param  string  $key
+     * @param  string  $name
+     * @param  mixed   $value
      * @return void
      */
     public function __set($name, $value)
@@ -122,10 +129,10 @@ class CodeBase extends Extendable implements ArrayAccess
 
     /**
      * As per __get, this will check if a variable isset instead.
-     * @param  string  $key
+     * @param  string  $name
      * @return void
      */
-    public function __isset($key)
+    public function __isset($name)
     {
         return isset($this->page->{$name});
     }

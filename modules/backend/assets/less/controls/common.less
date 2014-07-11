@@ -41,6 +41,10 @@
     font-size: 14px;
     margin-bottom: @line-height-computed;
 
+    > .close {
+        margin: 15px 15px 0 0;
+    }
+
     &.callout-danger {
         > .header {
             background: @callout-danger-header-bg;
@@ -134,6 +138,22 @@
 
         .action-panel {
             padding: 10px 0 0 0;
+        }
+    }
+
+    &.no-icon {
+        > .header {
+            h3, p {
+                margin-left: 0;
+            }
+        }
+    }
+
+    &.no-subheader {
+        > .header {
+            i {
+                margin-top: -5px;
+            }
         }
     }
 }

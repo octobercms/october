@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "Naamloos",
+        'access_denied' => [
+            'label' => "Toegang geweigerd",
+            'help' => "Je hebt niet de benodigde rechten om deze pagina te bekijken.",
+            'cms_link' => "Ga naar CMS backend",
+        ],
     ],
     'partial' => [
         'not_found' => "Het sjabloon (partial) ':name' is niet gevonden.",
@@ -18,7 +23,7 @@ return [
     'account' => [
         'sign_out' => 'Uitloggen',
         'login' => 'Inloggen',
-        'reset' => 'Reset',
+        'reset' => 'Wissen',
         'restore' => 'Herstellen',
         'login_placeholder' => 'gebruikersnaam',
         'password_placeholder' => 'wachtwoord',
@@ -84,6 +89,7 @@ return [
         'missing_columns' => 'Er zijn geen kolommen opgegeven voor de lijst in :class.',
         'missing_definition' => "Het gedrag (behavior) van de lijst bevat geen kolom voor ':field'.",
         'behavior_not_ready' => 'Gedrag (behavior) van de lijst is niet geladen. Controleer of makeLists() in de controller is aangeroepen.',
+        'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
     ],
     'form' => [
         'create_title' => "Maak :name",
@@ -137,5 +143,25 @@ return [
         'missing_id' => "Record ID van het model is niet opgegeven.",
         'missing_relation' => "Model ':class' bevat geen definitie voor ':relation'.",
         'invalid_class' => "Model :model gebruikt in :class is ongeldig. Het moet de \Model klasse erven (inherit).",
+        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
+    ],
+    'warnings' => [
+        'tips' => 'Systeem configuratie tips',
+        'tips_description' => 'Er zijn fouten opgetreden in uw systeem. Los deze problemen op om uw systeem goed te configureren.',
+        'permissions'  => 'De map :name of de submapen zijn niet schrijfbaar voor PHP. Zet de bijhorende rechten voor de webserver in deze map.',
+        'extension' => 'De PHP extensie :name is niet geinstalleerd. Installeer deze versie en activeer de extensie.'
+    ],
+    'editor' => [
+        'menu_label' => 'Bewerker instellingen',
+        'menu_description' => 'Beheer code bewerker instellingen.',
+        'font_size' => 'Lettertype grootte',
+        'tab_size' => 'Tab positie',
+        'use_hard_tabs' => 'Inspringen met tabs',
+        'code_folding' => 'Code invouwing',
+        'word_wrap' => 'Tekstterugloop',
+        'highlight_active_line' => 'Markeer actieve lijnen',
+        'show_invisibles' => 'Toon verborgen karakters',
+        'show_gutter' => 'Toon regelnummers',
+        'theme' => 'Kleurschema',
     ],
 ];

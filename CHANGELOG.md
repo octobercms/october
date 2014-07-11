@@ -1,8 +1,48 @@
+* **Build 11x** (2014-07-xx)
+  - Added new Backend control for creating informative panels (hints).
+  - Added new properties to RelationController: readOnly, showSorting, defaultSort.
+  - Hashable, Sluggable, Purgeable and Validation traits must now be used in the Model class definition.
+
+* **Build 116** (2014-07-07)
+  - Added new layout and page method `onInit()` called after components are initialized and before AJAX requests are processed.
+
+* **Build 115** (2014-07-06)
+  - Important! All references to *Email* have been changed to *Mail* and renaming may be required in plugins.
+  - Console command october:update now supports --core, --plugins and --force options.
+
+* **Build 114** (2014-07-03)
+  - Created a new Record Finder form widget for searching related records.
+  - All instances now use the Cron queue driver by default (see config queue.default).
+  - Created My Settings backend page. Renamed old My Settings to My Account.
+  - Moved Editor Preferences to My Settings area.
+  - Created Backend Preferences page, used for setting the Backend langauge.
+  - Dropdown field options can now supply an image or icon.
+  - CMS Pages now have a hidden flag.
+
+* **Build 113** (2014-07-01)
+  - Component properties now support grouping by supplying a `group` value.
+  - Form fields now support interdependancies by supplying a `depends` value.
+  - Improve styling on RelationController behavior.
+
+* **Build 111** (2014-06-27)
+  - Components now support a shared `/partials` directory used as a fallback when a partial is not found.
+  - Improved the styling of the Breadcrumb and Email templates page.
+  - Assets now correctly load when opening the site via `/index.php`.
+  - Added a Preview website link to the Backend template.
+  - Composer build now prefers stable packages.
+  - Missing or broken components are now handled gracefully by the Backend.
+
+* **Build 110** (2014-06-24)
+  - Created a new Grid form widget for managing tabular data.
+  - Widget identifiers have changed to remove the alias if it matches the default alias.
+  - Add new form field type called `number`.
+  - You can now override partials for Relation controller by creating partials with `relation_` prefix in the controller view directory.
+
 * **Build 108** (2014-06-16)
   - Checkbox List form fields now use scrollbars for 10+ checkboxes.
   - Added new form behavior override: formCreateModelObject.
   - Fixes a bug where models using NestedTree trait would not save.
-  - Opening back-end My Settings page now has no permission check.
+  - Opening back-end My Account page now has no permission check.
 
 * **Build 106** (2014-06-10)
   - Upgrade to Laravel 4.2.
@@ -26,7 +66,7 @@
   - Components can now be dragged from the side navigation directly on to the page.
   - Asset maker methods (addJs, addCss, addRss) now use an optional build code, either *core* or a plugin code. This is converted to a version number to ensure updates are not affected by cached assets.
   - Added new method `addComponent()` to Cms Controller. Components can now act as a proxy for other components.
-  - Added new override method `onInit()` to Components, called before AJAX requests are processed.
+  - Added new override method `init()` to Components, called before AJAX requests are processed.
 
 * **Build 90** (2014-05-23)
   - Class `CmsPropertyHelper` has been deprecated, will be removed year > 2014.

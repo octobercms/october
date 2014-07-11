@@ -26,6 +26,11 @@ class ErrorHandler
     protected static $activeMask;
 
     /**
+     * @var array A collection of masks, so multiples can be applied in order.
+     */
+    protected static $maskLayers = [];
+
+    /**
      * All exceptions are piped through this method from the framework workflow. This method will mask
      * any foreign exceptions with a "scent" of the native application's exception, so it can render
      * correctly when displayed on the error page.
@@ -69,7 +74,7 @@ class ErrorHandler
             $exception->setMask($proposedException);
         }
 
-        // Ensure our system view path is registered
+        // Ensure System view path is registered
         View::addNamespace('system', base_path().'/modules/system/views');
 
         return View::make('system::exception', ['exception' => $exception]);
@@ -82,6 +87,9 @@ class ErrorHandler
      */
     public static function applyMask(\Exception $exception)
     {
+        if (static::$activeMask !== null)
+            array_push(static::$maskLayers, static::$activeMask);
+
         static::$activeMask = $exception;
     }
 
@@ -91,7 +99,10 @@ class ErrorHandler
      */
     public static function removeMask()
     {
-        static::$activeMask = null;
+        if (count(static::$maskLayers) > 0)
+            static::$activeMask = array_pop(static::$maskLayers);
+        else
+            static::$activeMask = null;
     }
 
     /**

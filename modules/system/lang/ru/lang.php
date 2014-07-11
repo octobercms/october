@@ -75,7 +75,7 @@ return [
         'sendmail_path' => 'Sendmail Путь',
         'sendmail_path_comment' => 'Пожалуйста, укажите путь к sendmail.',
     ],
-    'email_templates' => [
+    'mail_templates' => [
         'menu_label' => 'Шаблоны почты',
         'menu_description' => 'Изменение шаблонов писем, отправляемых пользователям и администраторам.',
         'new_template' => 'Новый шаблон',

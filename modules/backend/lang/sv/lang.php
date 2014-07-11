@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "Ej namngiven",
+        'access_denied' => [
+            'label' => "Nekat tillträde",
+            'help' => "Du har inte behörighet att visa den här sidan.",
+            'cms_link' => "Gå till CMS backend",
+        ],
     ],
     'partial' => [
         'not_found' => "En partial med namn ':name' kunde ej hittas",
@@ -84,6 +89,7 @@ return [
         'missing_columns' => 'Listan som används i :class har inga listkolumner definerade',
         'missing_definition' => "Listegenskapen saknar en kolumn för ':field'",
         'behavior_not_ready' => 'Listegenskapen har inte blivit initierad, kontrollera att du har anropat makeLists() i din controller',
+        'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
     ],
     'form' => [
         'create_title' => "Ny :name",
@@ -137,5 +143,25 @@ return [
         'missing_id' => "Det finns inget ID anviget för modellen",
         'missing_relation' => "Modellen ':class' saknar en definition för ':relation'",
         'invalid_class' => "Modellen :model i klass :class är ej giltig. Den måste ärva från \Model-klassen",
+        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
+    ],
+    'warnings' => [
+        'tips' => 'System configuration tips',
+        'tips_description' => 'There are issues you need to pay attention to in order to configure the system properly.',
+        'permissions'  => 'Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.',
+        'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.'
+    ],
+    'editor' => [
+        'menu_label' => 'Editor Configuration',
+        'menu_description' => 'Manage editor configuration.',
+        'font_size' => 'Font size',
+        'tab_size' => 'Tab size',
+        'use_hard_tabs' => 'Indent using tabs',
+        'code_folding' => 'Code folding',
+        'word_wrap' => 'Word wrap',
+        'highlight_active_line' => 'Highlight active line',
+        'show_invisibles' => 'Show invisible characters',
+        'show_gutter' => 'Show gutter',
+        'theme' => 'Color scheme',
     ],
 ];

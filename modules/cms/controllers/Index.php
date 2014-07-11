@@ -90,6 +90,7 @@ class Index extends Controller
 
         $this->bodyClass = 'compact-container side-panel-not-fixed';
         $this->pageTitle = Lang::get('cms::lang.cms.menu_label');
+        $this->pageTitleTemplate = '%s CMS | October';
     }
 
     //
@@ -116,7 +117,7 @@ class Index extends Controller
         }
 
         return [
-            'title' => $this->getTabTitle($type, $template),
+            'tabTitle' => $this->getTabTitle($type, $template),
             'tab'   => $this->makePartial('form_page', [
                 'form'          => $widget,
                 'templateType'  => $type,
@@ -162,7 +163,7 @@ class Index extends Controller
         $result = [
             'templatePath' => $template->fileName,
             'templateMtime' => $template->mtime,
-            'title'        => $this->getTabTitle($type, $template)
+            'tabTitle'        => $this->getTabTitle($type, $template)
         ];
 
         if ($type == 'page') {
@@ -192,7 +193,7 @@ class Index extends Controller
         $this->vars['templatePath'] = '';
 
         return [
-            'title' => $this->getTabTitle($type, $template),
+            'tabTitle' => $this->getTabTitle($type, $template),
             'tab'   => $this->makePartial('form_page', [
                 'form'          => $widget,
                 'templateType'  => $type,

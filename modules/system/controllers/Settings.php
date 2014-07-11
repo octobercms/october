@@ -38,8 +38,16 @@ class Settings extends Controller
 
     public function index()
     {
-        $this->pageTitle = 'Settings';
-        $this->vars['items'] = SettingsManager::instance()->listItems();
+        $this->pageTitle = Lang::get('system::lang.settings.menu_label');
+        $this->vars['items'] = SettingsManager::instance()->listItems('system');
+        $this->bodyClass = 'compact-container';
+    }
+
+    public function mysettings()
+    {
+        BackendMenu::setContextSideMenu('mysettings');
+        $this->pageTitle = Lang::get('backend::lang.mysettings.menu_label');
+        $this->vars['items'] = SettingsManager::instance()->listItems('mysettings');
         $this->bodyClass = 'compact-container';
     }
 
@@ -52,6 +60,15 @@ class Settings extends Controller
         try {
             $item = $this->findSettingItem($author, $plugin, $code);
             $this->pageTitle = $item->label;
+
+            if ($item->context == 'mysettings') {
+                $this->vars['parentLink'] = Backend::url('system/settings/mysettings');
+                $this->vars['parentLabel'] = Lang::get('backend::lang.mysettings.menu_label');
+            }
+            else {
+                $this->vars['parentLink'] = Backend::url('system/settings');
+                $this->vars['parentLabel'] = Lang::get('system::lang.settings.menu_label');
+            }
 
             $model = $this->createModel($item);
             $this->initWidgets($model);

@@ -2,7 +2,7 @@
     id="<?= $this->getId() ?>"
     class="field-fileupload <?= $singleFile ? 'has-attachments' : '' ?>"
     data-control="fileupload"
-    data-upload-input="#<?= $this->getId('upload-input') ?>"
+    data-upload-input="#<?= $this->getId('uploadInput') ?>"
     data-unique-id="<?= $this->getId() ?>"
     data-image-width="<?= $imageWidth ?>"
     data-image-height="<?= $imageHeight ?>"
@@ -29,7 +29,7 @@
 
     <!-- Upload form -->
     <input
-        id="<?= $this->getId('upload-input') ?>"
+        id="<?= $this->getId('uploadInput') ?>"
         type="file"
         name="file_data"
         class="attachment-input" />

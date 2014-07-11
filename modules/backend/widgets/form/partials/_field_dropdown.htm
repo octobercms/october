@@ -1,6 +1,9 @@
+<?php
+    $fieldOptions = $field->options();
+?>
 <!-- Dropdown -->
 <?php if ($this->previewMode): ?>
-    <div class="form-control"><?= (isset($field->options[$field->value])) ? e($field->options[$field->value]) : '' ?></div>
+    <div class="form-control"><?= (isset($fieldOptions[$field->value])) ? e($fieldOptions[$field->value]) : '' ?></div>
 <?php else: ?>
     <select
         id="<?= $field->getId() ?>"
@@ -10,11 +13,15 @@
         <?php if ($field->placeholder): ?>
             <option value=""><?= e(trans($field->placeholder)) ?></option>
         <?php endif ?>
-        <?php foreach ($field->options as $value => $text): ?>
+        <?php foreach ($fieldOptions as $value => $option): ?>
+            <?php
+                if (is_string($option)) $option = [$option];
+            ?>
             <option
                 <?= $value == $field->value ? 'selected="selected"' : '' ?>
+                <?php if (isset($option[1])): ?>data-<?=strpos($option[1],'.')?'image':'icon'?>="<?= $option[1] ?>"<?php endif ?>
                 value="<?= $value ?>">
-                    <?= e($text) ?>
+                    <?= e($option[0]) ?>
             </option>
         <?php endforeach ?>
     </select>

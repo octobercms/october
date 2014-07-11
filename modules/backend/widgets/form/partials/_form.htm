@@ -1,15 +1,12 @@
-<div class="form-widget form-elements layout" role="form" id="<?= $this->getId() ?>">
 
-    <?php if ($outsideFields): ?>
-        <?= $this->makePartial('form_outside_fields') ?>
-    <?php endif ?>
+<?php if ($outsideFields): ?>
+    <?= $this->makePartial('section_outside-fields') ?>
+<?php endif ?>
 
-    <?php if ($primaryTabs): ?>
-        <?= $this->makePartial('form_primary_tabs') ?>
-    <?php endif ?>
+<?php if ($primaryTabs): ?>
+    <?= $this->makePartial('section_primary-tabs') ?>
+<?php endif ?>
 
-    <?php if ($secondaryTabs): ?>
-        <?= $this->makePartial('form_secondary_tabs') ?>
-    <?php endif ?>
-
-</div>
+<?php if ($secondaryTabs): ?>
+    <?= $this->makePartial('section_secondary-tabs') ?>
+<?php endif ?>

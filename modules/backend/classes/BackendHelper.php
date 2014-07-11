@@ -27,11 +27,11 @@ class BackendHelper
     /**
      * Returns a URL in context of the active Backend skin
      */
-    public function skinUrl($path = null)
+    public function skinAsset($path = null)
     {
         $path = RouterHelper::normalizeUrl($path);
         $skinPath = Skin::getActive()->skinPath;
-        return URL::to($skinPath . $path);
+        return URL::asset($skinPath . $path);
     }
 
     /**

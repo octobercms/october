@@ -14,7 +14,6 @@ secondaryTabs:
   fields:
     content:
       tab: cms::lang.editor.content
-      type: codeeditor
       stretch: true
-      options:
-        language: css
+      type: codeeditor
+      language: css

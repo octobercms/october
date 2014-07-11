@@ -101,6 +101,12 @@
         > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
             > li {
                 margin-right: 5px;
+                border-right: 1px solid #E67E22;
+                padding-right: 10px;
+
+                &:last-of-type {
+                    border-right: none;
+                }
 
                 a {
                     padding-left: 20px!important;
@@ -228,7 +234,7 @@
                 padding-right: 10px;
                 margin-right: 10px;
                 border-right: 1px solid @color-ui-border;
-                
+
                 a {
                     font-size: 12px;
                     font-weight: 600;
@@ -239,6 +245,90 @@
                     border-right: none;
                     margin-right: 0;
                     padding-right: 0;
+                }
+            }
+        }
+    }
+
+    &.content-tabs {
+
+        > ul.nav-tabs {
+            position: relative;
+
+            &:before {
+                content: ' ';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background: @color-tab-content-border;
+            }
+
+            li {
+                margin-right: 0;
+                border-top: 1px solid @color-tab-content-border;
+                border-right: 1px solid @color-tab-content-border;
+
+                a {
+                    font-size: 12px;
+                    padding: 17px 20px;
+                    margin: 0;
+                    border: none;
+                    text-transform: uppercase;
+                    background: transparent;
+                }
+
+                &:first-child {
+                    border-left: 1px solid @color-tab-content-border;
+                }
+
+                &:last-child {
+                    border-right: 1px solid @color-tab-content-border;
+                }
+
+                &.active {
+                    background: @color-tab-content-active-bg;
+                    a {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+
+        > .tab-content > .tab-pane {
+            padding-top: 0;
+
+            div.padded-container,
+            div.toolbar-widget {
+                background: @color-tab-content-active-bg;
+                padding-top: 20px;
+            }
+        }
+
+        // Tabs to sit in by the standard offset (20px)
+        &.tabs-offset {
+            > ul.nav-tabs {
+                li:first-child {
+                    margin-left: 20px;
+                }
+            }
+        }
+
+        // Tabs to sit flush to the element above
+        &.tabs-flush {
+            > ul.nav-tabs {
+                li {
+                    border-top: none;
+                }
+                li:last-child {
+                    border-right: 1px solid transparent;
+                }
+                li:first-child {
+                    border-left: 1px solid transparent;
+                }
+                li.active:last-child {
+                    border-right: 1px solid @color-tab-content-border;
                 }
             }
         }

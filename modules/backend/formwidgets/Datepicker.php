@@ -3,8 +3,8 @@
 use Backend\Classes\FormWidgetBase;
 
 /**
- * Code Editor
- * Renders a code editor field.
+ * Date picker
+ * Renders a date picker field.
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges

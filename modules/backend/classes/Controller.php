@@ -1,18 +1,25 @@
 <?php namespace Backend\Classes;
 
+use App;
 use Str;
 use Log;
 use Lang;
+use View;
 use Flash;
 use Request;
 use Backend;
+use Session;
 use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
+use Backend\Models\UserPreferences;
+use Backend\Models\BackendPreferences;
 use System\Classes\SystemException;
+use System\Classes\ApplicationException;
 use October\Rain\Extension\Extendable;
 use October\Rain\Support\ValidationException;
+use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Http\RedirectResponse;
 
 /**
@@ -75,6 +82,11 @@ class Controller extends Extendable
     public $pageTitle;
 
     /**
+     * @var string Page title template
+     */
+    public $pageTitleTemplate;
+
+    /**
      * @var string Body class property used for customising the layout on a controller basis.
      */
     public $bodyClass;
@@ -82,12 +94,17 @@ class Controller extends Extendable
     /**
      * @var array Default methods which cannot be called as actions.
      */
-    public $hiddenActions = ['run', 'actionExists', 'pageAction', 'getId', 'handleError'];
+    public $hiddenActions = ['run', 'actionExists', 'pageAction', 'getId', 'setStatusCode', 'handleError', 'makeHintPartial'];
 
     /**
      * @var array Controller specified methods which cannot be called as actions.
      */
     protected $guarded = [];
+
+    /**
+     * @var int Response status code
+     */
+    protected $statusCode = 200;
 
     /**
      * Constructor.
@@ -137,6 +154,9 @@ class Controller extends Extendable
          */
         $isPublicAction = in_array($action, $this->publicActions);
 
+        // Create a new instance of the admin user
+        $this->user = BackendAuth::getUser();
+
         /*
          * Check that user is logged in and has permission to view this page
          */
@@ -145,16 +165,24 @@ class Controller extends Extendable
             // Not logged in, redirect to login screen or show ajax error
             if (!BackendAuth::check()) {
                 return Request::ajax()
-                    ? Response::make('Access Forbidden', '403')
+                    ? Response::make(Lang::get('backend::lang.page.access_denied.label'), 403)
                     : Redirect::guest(Backend::url('backend/auth'));
             }
 
-            // Create a new instance of the admin user
-            $this->user = BackendAuth::getUser();
-
             // Check his access groups against the page definition
             if ($this->requiredPermissions && !$this->user->hasAnyAccess($this->requiredPermissions))
-                return Response::make('Access Forbidden', '403');
+                return Response::make(View::make('backend::access_denied'), 403);
+        }
+
+        /*
+         * Set the admin preference locale
+         */
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
+        elseif ($this->user && $locale = BackendPreferences::get('locale')) {
+            Session::put('locale', $locale);
+            App::setLocale($locale);
         }
 
         /*
@@ -172,7 +200,12 @@ class Controller extends Extendable
         /*
          * Execute page action
          */
-        return $this->execPageAction($action, $params);
+        $result = $this->execPageAction($action, $params);
+
+        if (!is_string($result))
+            return $result;
+
+        return Response::make($result, $this->statusCode);
     }
 
     /**
@@ -277,7 +310,7 @@ class Controller extends Extendable
 
                     // @todo Do we need to validate backend partials?
                     // foreach ($partialList as $partial) {
-                    //     if (!CmsFileHelper::validateName($partial))
+                    //     if (!preg_match('/^(?:\w+\:{2}|@)?[a-z0-9\_\-\.\/]+$/i', $partial))
                     //         throw new SystemException(Lang::get('cms::lang.partial.invalid_name', ['name'=>$partial]));
                     // }
                 }
@@ -341,8 +374,10 @@ class Controller extends Extendable
                 $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
                 return Response::make($responseContents, 406);
             }
+            catch (MassAssignmentException $ex) {
+                return Response::make(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]), 500);
+            }
             catch (Exception $ex) {
-                Log::error($ex);
                 return Response::make($ex->getMessage(), 500);
             }
         }
@@ -367,6 +402,9 @@ class Controller extends Extendable
              * Execute the page action so widgets are initialized
              */
             $this->pageAction();
+
+            if ($this->fatalError)
+                throw new SystemException($this->fatalError);
 
             if (!isset($this->widget->{$widgetName}))
                 throw new SystemException(Lang::get('backend::lang.widget.not_bound', ['name'=>$widgetName]));
@@ -425,6 +463,16 @@ class Controller extends Extendable
     }
 
     /**
+     * Sets the status code for the current web response.
+     * @param int $code Status code
+     */
+    public function setStatusCode($code)
+    {
+        $this->statusCode = (int) $code;
+        return $this;
+    }
+
+    /**
      * Sets standard page variables in the case of a controller error.
      */
     public function handleError($exception)
@@ -432,4 +480,54 @@ class Controller extends Extendable
         $this->fatalError = $exception->getMessage();
         $this->vars['fatalError'] = $exception->getMessage();
     }
+
+    //
+    // Hints
+    //
+
+    /**
+     * Renders a hint partial, used for displaying informative information that
+     * can be hidden by the user.
+     * @param  string $name    Unique key name
+     * @param  string $partial Reference to content (partial name)
+     * @param  array  $params  Extra parameters
+     * @return string
+     */
+    public function makeHintPartial($name, $partial, array $params = [])
+    {
+        return $this->makeLayoutPartial('hint', [
+            'hintName'    => $name,
+            'hintPartial' => $partial,
+            'hintParams'  => $params
+        ] + $params);
+    }
+
+    /**
+     * Ajax handler to hide a backend hint, once hidden the partial
+     * will no longer display for the user.
+     * @return void
+     */
+    public function onHideBackendHint()
+    {
+        if (!$name = post('name'))
+            throw new ApplicationException('Missing a hint name.');
+
+        $preferences = UserPreferences::forUser();
+        $hiddenHints = $preferences->get('backend::hints.hidden', []);
+        $hiddenHints[$name] = 1;
+
+        $preferences->set('backend::hints.hidden', $hiddenHints);
+    }
+
+    /**
+     * Checks if a hint has been hidden by the user.
+     * @param  string $name Unique key name
+     * @return boolean
+     */
+    public function isBackendHintHidden($name)
+    {
+        $hiddenHints = UserPreferences::forUser()->get('backend::hints.hidden', []);
+        return array_key_exists($name, $hiddenHints);
+    }
+
 }

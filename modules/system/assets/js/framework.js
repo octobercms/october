@@ -45,7 +45,9 @@ if (window.jQuery === undefined)
             loading = options.loading !== undefined && options.loading.length ? $(options.loading) : null,
             isRedirect = options.redirect !== undefined && options.redirect.length
 
-        form.trigger('oc.beforeRequest', context)
+        var _event = jQuery.Event('oc.beforeRequest')
+        form.trigger(_event, context)
+        if (_event.isDefaultPrevented()) return
 
         var data = [form.serialize()]
 

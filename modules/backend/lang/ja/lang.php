@@ -11,6 +11,11 @@ return [
     ],
     'page' => [
         'untitled' => "タイトル無し",
+        'access_denied' => [
+            'label' => "アクセスが拒否されました",
+            'help' => "このページを表示するために必要な権限がありません。",
+            'cms_link' => "CMSのバックエンドに行く",
+        ],
     ],
     'partial' => [
         'not_found' => "':name'パーシャルは見つかりません。",
@@ -84,6 +89,7 @@ return [
         'missing_columns' => ':classクラスの中のリストには、リストするカラムが定義されていません。',
         'missing_definition' => "リストビヘイビアーは、':field'に対するカラムを持っていません。",
         'behavior_not_ready' => 'リストビヘイビアーは初期化されていません。コントローラーで、makeLists()を呼び出しているか確認してください。',
+        'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
     ],
     'form' => [
         'create_title' => "新規 :name",
@@ -137,5 +143,25 @@ return [
         'missing_id' => "モデルレコードを探すためのIDが、指定されていません。",
         'missing_relation' => "':class'モデルは、':relation'の定義を持っていません。",
         'invalid_class' => ":classクラスで使用している、:modelモデルは正しくありません。\Modelクラスを継承してください。",
+        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
+    ],
+    'warnings' => [
+        'tips' => 'System configuration tips',
+        'tips_description' => 'There are issues you need to pay attention to in order to configure the system properly.',
+        'permissions'  => 'Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.',
+        'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.'
+    ],
+    'editor' => [
+        'menu_label' => 'Editor Preferences',
+        'menu_description' => 'Manage code editor preferences.',
+        'font_size' => 'Font size',
+        'tab_size' => 'Tab size',
+        'use_hard_tabs' => 'Indent using tabs',
+        'code_folding' => 'Code folding',
+        'word_wrap' => 'Word wrap',
+        'highlight_active_line' => 'Highlight active line',
+        'show_invisibles' => 'Show invisible characters',
+        'show_gutter' => 'Show gutter',
+        'theme' => 'Color scheme',
     ],
 ];

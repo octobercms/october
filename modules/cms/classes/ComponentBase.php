@@ -17,6 +17,7 @@ abstract class ComponentBase extends Extendable
 {
     use \System\Traits\AssetMaker;
     use \System\Traits\PropertyContainer;
+    use \October\Rain\Support\Traits\Emitter;
 
     /**
      * @var string A unique identifier for this component.
@@ -38,6 +39,18 @@ abstract class ComponentBase extends Extendable
      * This field is used by the CMS internally.
      */
     public $pluginIcon;
+
+    /**
+     * @var string Component CSS class name for the back-end page/layout component list.
+     * This field is used by the CMS internally.
+     */
+    public $componentCssClass;
+
+    /**
+     * @var boolean Determines whether Inspector can be used with the component.
+     * This field is used by the CMS internally.
+     */
+    public $inspectorEnabled = true;
 
     /**
      * @var string Specifies the component directory name.
@@ -74,7 +87,7 @@ abstract class ComponentBase extends Extendable
 
         $className = Str::normalizeClassName(get_called_class());
         $this->dirName = strtolower(str_replace('\\', '/', $className));
-        $this->assetPath = Config::get('cms.pluginsDir') . dirname(dirname($this->dirName));
+        $this->assetPath = Config::get('cms.pluginsDir').dirname(dirname($this->dirName));
 
         parent::__construct();
     }
@@ -89,13 +102,14 @@ abstract class ComponentBase extends Extendable
      */
     public function getPath()
     {
-        return base_path() . Config::get('cms.pluginsDir') . $this->dirName;
+        return base_path().Config::get('cms.pluginsDir').$this->dirName;
     }
 
     /**
      * Executed when this component is first initialized, before AJAX requests.
      */
-    public function onInit() {}
+    public function init() {}
+    public function onInit() {} // Deprecated: Remove ithis line if year >= 2015
 
     /**
      * Executed when this component is bound to a page or layout, part of 

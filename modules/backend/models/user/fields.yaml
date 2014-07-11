@@ -60,7 +60,6 @@ secondaryTabs:
     avatar:
       label: backend::lang.user.avatar
       type: fileupload
-      options:
-        mode: image
-        image-height: 260
-        image-width: 260
+      mode: image
+      imageHeight: 260
+      imageWidth: 260

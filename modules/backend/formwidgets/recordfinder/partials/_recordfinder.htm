@@ -1,0 +1,32 @@
+<div
+    id="<?= $this->getId() ?>"
+    class="field-recordfinder loading-indicator-container size-input-text"
+    data-control="recordfinder"
+    data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
+    data-data-locker="#<?= $field->getId() ?>">
+    <span class="form-control">
+        <?php if ($value): ?>
+            <span class="primary"><?= e($nameValue) ?: 'Undefined' ?></span>
+            <?php if ($descriptionValue): ?>
+                <span class="secondary"> - <?= e($descriptionValue) ?></span>
+            <?php endif ?>
+        <?php else: ?>
+            <span class="text-muted"><?= $prompt ?></span>
+        <?php endif ?>
+    </span>
+    <button
+        class="btn btn-default"
+        data-control="popup"
+        data-handler="<?= $this->getEventHandler('onFindRecord') ?>"
+        data-request-data="recordfinder_flag: 1"
+        type="button">
+        <i class="icon-th-list"></i>
+    </button>
+
+    <input
+        type="hidden"
+        name="<?= $field->getName() ?>"
+        id="<?= $field->getId() ?>"
+        value="<?= e($value) ?>"
+        />
+</div>

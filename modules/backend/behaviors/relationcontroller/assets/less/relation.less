@@ -1,0 +1,44 @@
+@import "../../../../assets/less/core/boot.less";
+
+@color-relation-bg: #fff;
+@color-relation-border: #ddd;
+
+.relation-behavior {
+    padding: 0;
+    margin-bottom: 20px;
+    background: white;
+    background: @color-relation-bg;
+    border: 1px solid @color-relation-border;
+
+    .list-header:first-child {
+        padding-top: 20px;
+    }
+
+    .control-list:last-child > table {
+        margin-bottom: 0;
+    }
+}
+
+// Relation manager to sit flush to the element above
+.relation-flush {
+    .relation-behavior {
+        border-top: 0;
+
+        .relation-manager {
+            table.table.data {
+                thead tr th {
+                    border-top: none !important;
+                }
+            }
+        }
+
+        .relation-toolbar + .relation-manager {
+            table.table.data {
+                thead tr th {
+                    border-top: 1px solid @color-list-border !important;
+                }
+            }
+        }
+
+    }
+}

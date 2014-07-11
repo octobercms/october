@@ -28,6 +28,7 @@ return [
     /*
      * October Rain providers
      */
+    'October\Rain\Cron\CronServiceProvider',
     'October\Rain\Database\DatabaseServiceProvider',
     'October\Rain\Filesystem\FilesystemServiceProvider',
     'October\Rain\Config\ConfigServiceProvider',

@@ -128,10 +128,11 @@
     }
 
     Tab.prototype.initTab = function(li) {
-        var 
+        var
             $tabs = $('>li', this.$tabsContainer),
             tabIndex = $tabs.index(li),
-            targetId = this.tabId + '-tab-' + tabIndex,
+            time = new Date().getTime(),
+            targetId = this.tabId + '-tab-' + tabIndex + time,
             $a = $('a', li)
 
         $a.attr('data-target', '#'+targetId).attr('data-toggle', 'tab')
