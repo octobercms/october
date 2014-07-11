@@ -323,7 +323,7 @@ class RelationController extends ControllerBehavior
      * @param string $field The relationship field.
      * @return string The active field name.
      */
-    private function validateField($field)
+    private function validateField($field = null)
     {
         $field = $field ?: post(self::PARAM_FIELD);
 
