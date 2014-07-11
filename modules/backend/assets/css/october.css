@@ -9289,6 +9289,9 @@ table.table.data tr.list-tree-level-25 td.list-data-column-1 {
   font-weight: bold;
 }
 .control-simplelist.is-selectable li a {
+  padding: 5px 10px;
+  margin: -5px -10px;
+  display: block;
   color: #333333;
 }
 .control-simplelist.is-selectable li:hover {
@@ -10412,6 +10415,9 @@ html.cssanimations .cursor-loading-indicator.hide {
   font-size: 14px;
   margin-bottom: 20px;
 }
+.callout > .close {
+  margin: 15px 15px 0 0;
+}
 .callout.callout-danger > .header {
   background: #f6b5b2;
 }
@@ -10520,6 +10526,13 @@ html.cssanimations .cursor-loading-indicator.hide {
 }
 .callout > .content .action-panel {
   padding: 10px 0 0 0;
+}
+.callout.no-icon > .header h3,
+.callout.no-icon > .header p {
+  margin-left: 0;
+}
+.callout.no-subheader > .header i {
+  margin-top: -5px;
 }
 .dropdown-menu {
   padding: 0;
@@ -11027,7 +11040,7 @@ body.dropdown-open .dropdown-overlay {
 }
 .control-tabs.content-tabs > ul.nav-tabs li {
   margin-right: 0;
-  border-top: 1px solid transparent;
+  border-top: 1px solid #e3e5e7;
   border-right: 1px solid #e3e5e7;
 }
 .control-tabs.content-tabs > ul.nav-tabs li a {
@@ -11039,23 +11052,16 @@ body.dropdown-open .dropdown-overlay {
   background: transparent;
 }
 .control-tabs.content-tabs > ul.nav-tabs li:first-child {
-  border-left: 1px solid transparent;
-}
-.control-tabs.content-tabs > ul.nav-tabs li:first-child.active {
   border-left: 1px solid #e3e5e7;
 }
 .control-tabs.content-tabs > ul.nav-tabs li:last-child {
-  border-right: none;
+  border-right: 1px solid #e3e5e7;
 }
 .control-tabs.content-tabs > ul.nav-tabs li.active {
-  border-top: 1px solid #e3e5e7;
   background: #ffffff;
 }
 .control-tabs.content-tabs > ul.nav-tabs li.active a {
   font-weight: 600;
-}
-.control-tabs.content-tabs > ul.nav-tabs li.active:last-child {
-  border-right: 1px solid #e3e5e7;
 }
 .control-tabs.content-tabs > .tab-content > .tab-pane {
   padding-top: 0;
@@ -11071,8 +11077,14 @@ body.dropdown-open .dropdown-overlay {
 .control-tabs.content-tabs.tabs-flush > ul.nav-tabs li {
   border-top: none;
 }
+.control-tabs.content-tabs.tabs-flush > ul.nav-tabs li:last-child {
+  border-right: 1px solid transparent;
+}
 .control-tabs.content-tabs.tabs-flush > ul.nav-tabs li:first-child {
-  border-left: none;
+  border-left: 1px solid transparent;
+}
+.control-tabs.content-tabs.tabs-flush > ul.nav-tabs li.active:last-child {
+  border-right: 1px solid #e3e5e7;
 }
 .hide-tabs .control-tabs ul.nav-tabs {
   display: none;

@@ -13,8 +13,10 @@ use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
+use Backend\Models\UserPreferences;
 use Backend\Models\BackendPreferences;
 use System\Classes\SystemException;
+use System\Classes\ApplicationException;
 use October\Rain\Extension\Extendable;
 use October\Rain\Support\ValidationException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
@@ -92,7 +94,7 @@ class Controller extends Extendable
     /**
      * @var array Default methods which cannot be called as actions.
      */
-    public $hiddenActions = ['run', 'actionExists', 'pageAction', 'getId', 'handleError'];
+    public $hiddenActions = ['run', 'actionExists', 'pageAction', 'getId', 'setStatusCode', 'handleError', 'makeHintPartial'];
 
     /**
      * @var array Controller specified methods which cannot be called as actions.
@@ -478,4 +480,54 @@ class Controller extends Extendable
         $this->fatalError = $exception->getMessage();
         $this->vars['fatalError'] = $exception->getMessage();
     }
+
+    //
+    // Hints
+    //
+
+    /**
+     * Renders a hint partial, used for displaying informative information that
+     * can be hidden by the user.
+     * @param  string $name    Unique key name
+     * @param  string $partial Reference to content (partial name)
+     * @param  array  $params  Extra parameters
+     * @return string
+     */
+    public function makeHintPartial($name, $partial, array $params = [])
+    {
+        return $this->makeLayoutPartial('hint', [
+            'hintName'    => $name,
+            'hintPartial' => $partial,
+            'hintParams'  => $params
+        ] + $params);
+    }
+
+    /**
+     * Ajax handler to hide a backend hint, once hidden the partial
+     * will no longer display for the user.
+     * @return void
+     */
+    public function onHideBackendHint()
+    {
+        if (!$name = post('name'))
+            throw new ApplicationException('Missing a hint name.');
+
+        $preferences = UserPreferences::forUser();
+        $hiddenHints = $preferences->get('backend::hints.hidden', []);
+        $hiddenHints[$name] = 1;
+
+        $preferences->set('backend::hints.hidden', $hiddenHints);
+    }
+
+    /**
+     * Checks if a hint has been hidden by the user.
+     * @param  string $name Unique key name
+     * @return boolean
+     */
+    public function isBackendHintHidden($name)
+    {
+        $hiddenHints = UserPreferences::forUser()->get('backend::hints.hidden', []);
+        return array_key_exists($name, $hiddenHints);
+    }
+
 }

@@ -128,7 +128,7 @@
     }
 
     Tab.prototype.initTab = function(li) {
-        var 
+        var
             $tabs = $('>li', this.$tabsContainer),
             tabIndex = $tabs.index(li),
             time = new Date().getTime(),

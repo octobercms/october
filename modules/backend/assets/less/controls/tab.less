@@ -261,7 +261,7 @@
 
             li {
                 margin-right: 0;
-                border-top: 1px solid transparent;
+                border-top: 1px solid @color-tab-content-border;
                 border-right: 1px solid @color-tab-content-border;
 
                 a {
@@ -274,25 +274,17 @@
                 }
 
                 &:first-child {
-                    border-left: 1px solid transparent;
-                    &.active {
-                        border-left: 1px solid @color-tab-content-border;
-                    }
+                    border-left: 1px solid @color-tab-content-border;
                 }
 
                 &:last-child {
-                    border-right: none;
+                    border-right: 1px solid @color-tab-content-border;
                 }
 
                 &.active {
-                    border-top: 1px solid @color-tab-content-border;
                     background: @color-tab-content-active-bg;
                     a {
                         font-weight: 600;
-                    }
-
-                    &:last-child {
-                        border-right: 1px solid @color-tab-content-border;
                     }
                 }
             }
@@ -323,8 +315,14 @@
                 li {
                     border-top: none;
                 }
+                li:last-child {
+                    border-right: 1px solid transparent;
+                }
                 li:first-child {
-                    border-left: none;
+                    border-left: 1px solid transparent;
+                }
+                li.active:last-child {
+                    border-right: 1px solid @color-tab-content-border;
                 }
             }
         }
