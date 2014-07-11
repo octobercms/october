@@ -376,7 +376,7 @@ class RelationController extends ControllerBehavior
      */
     public function relationMakePartial($partial, $params = [])
     {
-        $contents = $this->controller->makePartial('relation_'.$partial, $params, false);
+        $contents = $this->controller->makePartial('relation_'.$partial, $params + $this->vars, false);
         if (!$contents)
             $contents = $this->makePartial($partial, $params);
 
