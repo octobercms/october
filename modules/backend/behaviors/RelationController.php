@@ -59,6 +59,16 @@ class RelationController extends ControllerBehavior
     protected $requiredConfig = [];
 
     /**
+     * @var array Original configuration values
+     */
+    private $originalConfig;
+
+    /**
+     * @var bool Has the behavior been initialized.
+     */
+    private $initialized = false;
+
+    /**
      * @var string Relationship type
      */
     public $relationType;
@@ -92,11 +102,6 @@ class RelationController extends ControllerBehavior
      * @var string A unique alias to pass to widgets.
      */
     protected $alias;
-
-    /**
-     * @var bool Has the behavior been initialized.
-     */
-    protected $initialized = false;
 
     /**
      * @var string Relation has many (multi) or has one (single).
@@ -138,7 +143,7 @@ class RelationController extends ControllerBehavior
         /*
          * Build configuration
          */
-        $this->config = $this->makeConfig($controller->relationConfig, $this->requiredConfig);
+        $this->config = $this->originalConfig = $this->makeConfig($controller->relationConfig, $this->requiredConfig);
     }
 
     /**
@@ -149,8 +154,7 @@ class RelationController extends ControllerBehavior
      */
     public function initRelation($model, $field = null)
     {
-        $field = $field ?: post(self::PARAM_FIELD);
-
+        $this->config = $this->originalConfig;
         $this->model = $model;
         $this->field = $field;
 
@@ -207,8 +211,6 @@ class RelationController extends ControllerBehavior
             if ($this->pivotWidget = $this->makePivotWidget())
                 $this->pivotWidget->bindToController();
         }
-
-        $this->initialized = true;
     }
 
     /**
@@ -323,10 +325,12 @@ class RelationController extends ControllerBehavior
      */
     private function validateField($field)
     {
-        if (!$this->initialized)
+        $field = $field ?: post(self::PARAM_FIELD);
+
+        if ($field && $field != $this->field)
             $this->initRelation($this->model, $field);
 
-        if ($field == null && !$this->initialized)
+        if (!$field && !$this->field)
             throw new ApplicationException(Lang::get('backend::lang.relation.missing_definition', compact('field')));
 
         return $field ?: $this->field;
@@ -355,11 +359,13 @@ class RelationController extends ControllerBehavior
      */
     protected function beforeAjax()
     {
-        if ($this->initialized) return;
+        if ($this->initialized)
+            return;
 
         $this->controller->pageAction();
-        $this->validateField(post(self::PARAM_FIELD));
+        $this->validateField();
         $this->prepareVars();
+        $this->initialized = true;
     }
 
     /**
@@ -578,8 +584,13 @@ class RelationController extends ControllerBehavior
             $config = $this->makeConfig($this->config->list);
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ViewList';
-            $config->recordOnClick = sprintf("$.oc.relationBehavior.clickManageListRecord(:id, '%s', '%s')", $this->field, $this->relationGetSessionKey());
-            $config->showCheckboxes = true;
+            $config->showSorting = $this->getConfig('showSorting', true);
+            $config->defaultSort = $this->getConfig('defaultSort');
+
+            if (!$this->readOnly) {
+                $config->recordOnClick = sprintf("$.oc.relationBehavior.clickManageListRecord(:id, '%s', '%s')", $this->field, $this->relationGetSessionKey());
+                $config->showCheckboxes = true;
+            }
 
             if ($emptyMessage = $this->getConfig('emptyMessage'))
                 $config->noRecordsMessage = $emptyMessage;
