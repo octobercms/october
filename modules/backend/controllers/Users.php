@@ -65,7 +65,7 @@ class Users extends Controller
      */
     public function myaccount_onSave()
     {
-        $result = $this->getClassExtension('Backend.Behaviors.FormController')->update_onSave($this->user->id);
+        $result = $this->getClassExtension('Backend.Behaviors.FormController')->update_onSave($this->user->id, 'mysettings');
 
         /*
          * If the password or login name has been updated, reauthenticate the user

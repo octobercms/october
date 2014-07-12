@@ -137,9 +137,9 @@ class FormController extends ControllerBehavior
      * Ajax handler for saving from the creation form.
      * @return mixed
      */
-    public function create_onSave()
+    public function create_onSave($context = null)
     {
-        $this->context = $this->getConfig('update[context]', 'create');
+        $this->context = strlen($context) ? $context : $this->getConfig('create[context]', 'create');
         $model = $this->controller->formCreateModelObject();
         $this->initForm($model);
 
@@ -190,9 +190,9 @@ class FormController extends ControllerBehavior
      * @param int $recordId The model primary key to update.
      * @return mixed
      */
-    public function update_onSave($recordId = null)
+    public function update_onSave($recordId = null, $context = null)
     {
-        $this->context = $this->getConfig('update[context]', 'update');
+        $this->context = strlen($context) ? $context : $this->getConfig('update[context]', 'update');
         $model = $this->controller->formFindModelObject($recordId);
         $this->initForm($model);
 
@@ -258,7 +258,6 @@ class FormController extends ControllerBehavior
             $this->controller->handleError($ex);
         }
     }
-
 
     //
     // Utils
@@ -596,5 +595,4 @@ class FormController extends ControllerBehavior
                 $model->{$attribute} = $value;
         }
     }
-
 }
