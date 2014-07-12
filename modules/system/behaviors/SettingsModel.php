@@ -140,18 +140,12 @@ class SettingsModel extends ModelBehavior
      */
     public function beforeModelSave()
     {
+        // Purge the field values from the attributes
+        $this->model->attributes = array_diff_key($this->model->attributes, $this->fieldValues);
+
         $this->model->item = $this->recordCode;
         if ($this->fieldValues)
             $this->model->value = $this->fieldValues;
-    }
-
-    /**
-     * Add the field values to the model for validation,
-     * then purge them again.
-     */
-    public function beforeValidate()
-    {
-        $this->model->purgeable = array_keys($this->fieldValues);
     }
 
     /**
