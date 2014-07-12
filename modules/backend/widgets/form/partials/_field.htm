@@ -5,7 +5,10 @@
 <?php else: ?>
 
     <?php if ($field->label): ?>
-        <label for="<?= $field->getId() ?>"><?= e(trans($field->label)) ?></label>
+        <label for="<?= $field->getId() ?>">
+            <?= e(trans($field->label)) ?>
+            <?= ($field->required ? '*' : '') ?>
+        </label>
     <?php endif ?>
 
     <?php if ($field->comment && $field->commentPosition == 'above'): ?>
