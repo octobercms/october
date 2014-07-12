@@ -1,7 +1,8 @@
-* **Build 11x** (2014-07-xx)
+* **Build 117** (2014-07-12)
   - Added new Backend control for creating informative panels (hints).
   - Added new properties to RelationController: readOnly, showSorting, defaultSort.
   - Hashable, Sluggable, Purgeable and Validation traits must now be used in the Model class definition.
+  - Plugins can now extend existing Back-end navigation menu items, see Event docs for an example.
 
 * **Build 116** (2014-07-07)
   - Added new layout and page method `onInit()` called after components are initialized and before AJAX requests are processed.
