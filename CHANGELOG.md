@@ -3,6 +3,7 @@
   - Added new properties to RelationController: readOnly, showSorting, defaultSort.
   - Hashable, Sluggable, Purgeable and Validation traits must now be used in the Model class definition.
   - Plugins can now extend existing Back-end navigation menu items, see Event docs for an example.
+  - Required form fields now sport an asterisk (*) character at the end of their label.
 
 * **Build 116** (2014-07-07)
   - Added new layout and page method `onInit()` called after components are initialized and before AJAX requests are processed.

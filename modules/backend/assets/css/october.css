@@ -8159,8 +8159,9 @@ label {
 .form-group.is-required > label:after {
   color: #ff0000;
   vertical-align: super;
-  font-size: 50%;
+  font-size: 60%;
   content: " *";
+  text-shadow: 0 0 2px #b30000;
 }
 .form-group.span-full {
   width: 100%;

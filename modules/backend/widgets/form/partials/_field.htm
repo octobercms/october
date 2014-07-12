@@ -7,7 +7,6 @@
     <?php if ($field->label): ?>
         <label for="<?= $field->getId() ?>">
             <?= e(trans($field->label)) ?>
-            <?= ($field->required ? '*' : '') ?>
         </label>
     <?php endif ?>
 
