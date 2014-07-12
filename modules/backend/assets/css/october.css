@@ -12150,6 +12150,9 @@ div.popover-overlay {
 .fancy-layout .form-tabless-fields .form-group {
   padding-bottom: 0;
 }
+.fancy-layout .form-tabless-fields .form-group.is-required > label:after {
+  display: none;
+}
 .fancy-layout .form-tabless-fields .tab-collapse-icon {
   position: absolute;
   display: block;

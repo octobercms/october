@@ -215,6 +215,12 @@
 
         .form-group {
             padding-bottom: 0;
+
+            &.is-required {
+                > label:after {
+                    display: none;
+                }
+            }
         }
 
         .tab-collapse-icon {
