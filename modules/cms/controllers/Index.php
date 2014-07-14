@@ -1,6 +1,7 @@
 <?php namespace Cms\Controllers;
 
 use Config;
+use Event;
 use URL;
 use Lang;
 use Flash;
@@ -157,6 +158,8 @@ class Index extends Controller
 
         $template->fill($templateData);
         $template->save();
+        Event::fire('cms.template.save', [$this, $type]);
+        $this->fireEvent('cms.template.save', [$type]);
 
         Flash::success(Lang::get('cms::lang.template.saved'));
 
@@ -224,6 +227,9 @@ class Index extends Controller
             $error = $ex->getMessage();
         }
 
+        Event::fire('cms.template.delete', [$this, $type]);
+        $this->fireEvent('cms.template.delete', [$type]);
+
         return [
             'deleted' => $deleted,
             'error'   => $error,
@@ -236,8 +242,11 @@ class Index extends Controller
         $this->validateRequestTheme();
 
         $this->loadTemplate(
-            Request::input('templateType'), 
+            Request::input('templateType'),
             trim(Request::input('templatePath')))->delete();
+
+        Event::fire('cms.template.delete', [$this, $type]);
+        $this->fireEvent('cms.template.delete', [$type]);
     }
 
     public function onGetTemplateList()
