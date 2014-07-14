@@ -106,9 +106,9 @@ class Controller extends BaseController
      * If the parameter is omitted, the current URL used.
      * @return string Returns the processed page content.
      */
-    public function run($url = null)
+    public function run($url = '/')
     {
-        if (!$url)
+        if ($url === null)
             $url = Request::path();
 
         if (!strlen($url))
@@ -690,8 +690,13 @@ class Controller extends BaseController
         if ($routePersistence)
             $parameters = array_merge($this->router->getParameters(), $parameters);
 
-        $url = $this->router->findByFile($name, $parameters);
-        return ($url) ? URL::to($url) : null;
+        if (!$url = $this->router->findByFile($name, $parameters))
+            return null;
+
+        if (substr($url, 0, 1) == '/')
+            $url = substr($url, 1);
+
+        return URL::action('Cms\Classes\Controller@run', ['slug' => $url]);
     }
 
     /**
