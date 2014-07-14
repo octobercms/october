@@ -18,9 +18,20 @@
     z-index: 10000;
     .border-radius(@border-radius-base);
 
-    &.success {background: @color-flash-success-bg;}
-    &.error {background: @color-flash-error-bg;}
-    &.warning {background: @color-flash-warning-bg;}
+    &.fade {
+        .opacity(0);
+        .transition(~'all 0.5s, width 0s');
+        .transform(~'scale(0.9)');
+    }
+
+    &.fade.in {
+        .opacity(1);
+        .transform( ~'scale(1)');
+    }
+
+    &.success { background: @color-flash-success-bg; }
+    &.error { background: @color-flash-error-bg; }
+    &.warning { background: @color-flash-warning-bg; }
 
     button {
         float: none;

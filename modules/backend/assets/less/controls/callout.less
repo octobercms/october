@@ -1,0 +1,135 @@
+//
+// Callouts
+// --------------------------------------------------
+
+.callout {
+    font-size: 14px;
+    margin-bottom: @line-height-computed;
+
+    &.fade {
+        .opacity(0);
+        .transition(~'all 0.5s, width 0s');
+        .transform(~'scale(0.9)');
+    }
+
+    &.fade.in {
+        .opacity(1);
+        .transform( ~'scale(1)');
+    }
+
+    > .close {
+        margin: 15px 15px 0 0;
+    }
+
+    &.callout-danger {
+        > .header {
+            background: @callout-danger-header-bg;
+            i { color: @callout-danger-icon; }
+        }
+        > .content { background: @callout-danger-content-bg; }
+    }
+
+    &.callout-info {
+        > .header {
+            background: @callout-info-header-bg;
+            i { color: @callout-info-icon; }
+        }
+        > .content { background: @callout-info-content-bg; }
+    }
+
+    &.callout-success {
+        > .header {
+            background: @callout-success-header-bg;
+            i { color: @callout-success-icon; }
+        }
+        > .content { background: @callout-success-content-bg; }
+    }
+
+    &.callout-warning {
+        > .header {
+            background: @callout-warning-header-bg;
+            i { color: @callout-warning-icon; }
+        }
+        > .content { background: @callout-warning-content-bg; }
+    }
+
+    > .header {
+        padding: @callout-padding;
+        padding-bottom: 15px;
+        .border-radius(4px 4px 0 0);
+        color: #2f2d26;
+
+        h3 {
+            letter-spacing: 0;
+            margin: 0 0 7px 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        h3, p {
+            margin-left: 35px;
+        }
+
+        *:last-child {
+            margin-bottom: 0;
+        }
+
+        &:last-child {
+            .border-radius(4px);
+        }
+
+        i {
+            font-size: 26px;
+            float: left;
+        }
+    }
+
+    > .content {
+        color: #2f2d26;
+        padding: 16px 20px 15px;
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #2f2d26;
+            text-transform: none;
+            margin: 20px 0 5px 0;
+            line-height: 150%;
+        }
+
+        h1 { font-size: 30px; }
+        h2 { font-size: 26px; }
+        h3 { font-size: 24px; }
+        h4 { font-size: 20px; }
+        h5 { font-size: 18px; }
+        h6 { font-size: 16px; }
+
+        *:last-child {
+            margin-bottom: 0;
+        }
+
+        ul, ol {
+            li {
+                margin-bottom: 5px;
+            }
+        }
+
+        .action-panel {
+            padding: 10px 0 0 0;
+        }
+    }
+
+    &.no-icon {
+        > .header {
+            h3, p {
+                margin-left: 0;
+            }
+        }
+    }
+
+    &.no-subheader {
+        > .header {
+            i {
+                margin-top: -5px;
+            }
+        }
+    }
+}

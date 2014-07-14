@@ -10412,129 +10412,6 @@ html.cssanimations .cursor-loading-indicator.hide {
   background-repeat: no-repeat;
   background-size: 50% auto;
 }
-.callout {
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-.callout > .close {
-  margin: 15px 15px 0 0;
-}
-.callout.callout-danger > .header {
-  background: #f6b5b2;
-}
-.callout.callout-danger > .header i {
-  color: #9f5551;
-}
-.callout.callout-danger > .content {
-  background: #f8d6d5;
-}
-.callout.callout-info > .header {
-  background: #b9dbef;
-}
-.callout.callout-info > .header i {
-  color: #597f97;
-}
-.callout.callout-info > .content {
-  background: #d8eaf4;
-}
-.callout.callout-success > .header {
-  background: #d3e9bf;
-}
-.callout.callout-success > .header i {
-  color: #6d915e;
-}
-.callout.callout-success > .content {
-  background: #e6f1db;
-}
-.callout.callout-warning > .header {
-  background: #f6e7b2;
-}
-.callout.callout-warning > .header i {
-  color: #9f8e51;
-}
-.callout.callout-warning > .content {
-  background: #f8f0d5;
-}
-.callout > .header {
-  padding: 20px;
-  padding-bottom: 15px;
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  border-radius: 4px 4px 0 0;
-  color: #2f2d26;
-}
-.callout > .header h3 {
-  letter-spacing: 0;
-  margin: 0 0 7px 0;
-  font-size: 14px;
-  font-weight: bold;
-}
-.callout > .header h3,
-.callout > .header p {
-  margin-left: 35px;
-}
-.callout > .header *:last-child {
-  margin-bottom: 0;
-}
-.callout > .header:last-child {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
-.callout > .header i {
-  font-size: 26px;
-  float: left;
-}
-.callout > .content {
-  color: #2f2d26;
-  padding: 16px 20px 15px;
-}
-.callout > .content h1,
-.callout > .content h2,
-.callout > .content h3,
-.callout > .content h4,
-.callout > .content h5,
-.callout > .content h6 {
-  color: #2f2d26;
-  text-transform: none;
-  margin: 20px 0 5px 0;
-  line-height: 150%;
-}
-.callout > .content h1 {
-  font-size: 30px;
-}
-.callout > .content h2 {
-  font-size: 26px;
-}
-.callout > .content h3 {
-  font-size: 24px;
-}
-.callout > .content h4 {
-  font-size: 20px;
-}
-.callout > .content h5 {
-  font-size: 18px;
-}
-.callout > .content h6 {
-  font-size: 16px;
-}
-.callout > .content *:last-child {
-  margin-bottom: 0;
-}
-.callout > .content ul li,
-.callout > .content ol li {
-  margin-bottom: 5px;
-}
-.callout > .content .action-panel {
-  padding: 10px 0 0 0;
-}
-.callout.no-icon > .header h3,
-.callout.no-icon > .header p {
-  margin-left: 0;
-}
-.callout.no-subheader > .header i {
-  margin-top: -5px;
-}
 .dropdown-menu {
   padding: 0;
   background: transparent;
@@ -11112,6 +10989,22 @@ body.dropdown-open .dropdown-overlay {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
+}
+.flash-message.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: all 0.5s, width 0s;
+  transition: all 0.5s, width 0s;
+  -webkit-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);
+}
+.flash-message.fade.in {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
 }
 .flash-message.success {
   background: #8da85e;
@@ -12798,4 +12691,143 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   left: -10px;
   top: 8px;
   z-index: 2000;
+}
+.callout {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.callout.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: all 0.5s, width 0s;
+  transition: all 0.5s, width 0s;
+  -webkit-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);
+}
+.callout.fade.in {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+.callout > .close {
+  margin: 15px 15px 0 0;
+}
+.callout.callout-danger > .header {
+  background: #f6b5b2;
+}
+.callout.callout-danger > .header i {
+  color: #9f5551;
+}
+.callout.callout-danger > .content {
+  background: #f8d6d5;
+}
+.callout.callout-info > .header {
+  background: #b9dbef;
+}
+.callout.callout-info > .header i {
+  color: #597f97;
+}
+.callout.callout-info > .content {
+  background: #d8eaf4;
+}
+.callout.callout-success > .header {
+  background: #d3e9bf;
+}
+.callout.callout-success > .header i {
+  color: #6d915e;
+}
+.callout.callout-success > .content {
+  background: #e6f1db;
+}
+.callout.callout-warning > .header {
+  background: #f6e7b2;
+}
+.callout.callout-warning > .header i {
+  color: #9f8e51;
+}
+.callout.callout-warning > .content {
+  background: #f8f0d5;
+}
+.callout > .header {
+  padding: 20px;
+  padding-bottom: 15px;
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+  color: #2f2d26;
+}
+.callout > .header h3 {
+  letter-spacing: 0;
+  margin: 0 0 7px 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+.callout > .header h3,
+.callout > .header p {
+  margin-left: 35px;
+}
+.callout > .header *:last-child {
+  margin-bottom: 0;
+}
+.callout > .header:last-child {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.callout > .header i {
+  font-size: 26px;
+  float: left;
+}
+.callout > .content {
+  color: #2f2d26;
+  padding: 16px 20px 15px;
+}
+.callout > .content h1,
+.callout > .content h2,
+.callout > .content h3,
+.callout > .content h4,
+.callout > .content h5,
+.callout > .content h6 {
+  color: #2f2d26;
+  text-transform: none;
+  margin: 20px 0 5px 0;
+  line-height: 150%;
+}
+.callout > .content h1 {
+  font-size: 30px;
+}
+.callout > .content h2 {
+  font-size: 26px;
+}
+.callout > .content h3 {
+  font-size: 24px;
+}
+.callout > .content h4 {
+  font-size: 20px;
+}
+.callout > .content h5 {
+  font-size: 18px;
+}
+.callout > .content h6 {
+  font-size: 16px;
+}
+.callout > .content *:last-child {
+  margin-bottom: 0;
+}
+.callout > .content ul li,
+.callout > .content ol li {
+  margin-bottom: 5px;
+}
+.callout > .content .action-panel {
+  padding: 10px 0 0 0;
+}
+.callout.no-icon > .header h3,
+.callout.no-icon > .header p {
+  margin-left: 0;
+}
+.callout.no-subheader > .header i {
+  margin-top: -5px;
 }

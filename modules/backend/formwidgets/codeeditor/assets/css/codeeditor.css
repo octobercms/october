@@ -31,6 +31,8 @@
 .field-codeeditor .ace_search {
   font-family: 'Open Sans', Arial, sans-serif;
   font-size: 14px;
+  color: #333333;
+  z-index: 153;
 }
 .field-codeeditor .editor-code {
   -webkit-border-radius: 2px;

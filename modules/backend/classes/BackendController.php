@@ -61,7 +61,7 @@ class BackendController extends ControllerBase
             if ($controllerObj = $this->findController($controllerClass, $action, Config::get('cms.pluginsDir', '/plugins')))
                 return $controllerObj->run($action, $controllerParams);
         }
-        
+
         /*
          * Fall back on Cms controller
          */
