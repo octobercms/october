@@ -158,7 +158,8 @@ class Index extends Controller
 
         $template->fill($templateData);
         $template->save();
-        Event::fire('cms.template.save', [$type]);
+        Event::fire('cms.template.save', [$this, $type]);
+        $this->fireEvent('cms.template.save', [$type]);
 
         Flash::success(Lang::get('cms::lang.template.saved'));
 
@@ -226,7 +227,9 @@ class Index extends Controller
             $error = $ex->getMessage();
         }
 
-        Event::fire('cms.template.delete', [$type]);
+        Event::fire('cms.template.delete', [$this, $type]);
+        $this->fireEvent('cms.template.delete', [$type]);
+
         return [
             'deleted' => $deleted,
             'error'   => $error,
@@ -242,7 +245,8 @@ class Index extends Controller
             Request::input('templateType'),
             trim(Request::input('templatePath')))->delete();
 
-        Event::fire('cms.template.delete', [$type]);
+        Event::fire('cms.template.delete', [$this, $type]);
+        $this->fireEvent('cms.template.delete', [$type]);
     }
 
     public function onGetTemplateList()
