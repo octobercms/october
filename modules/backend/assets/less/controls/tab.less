@@ -101,6 +101,12 @@
         > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
             > li {
                 margin-right: 5px;
+                border-right: 1px solid @color-list-active-border;
+                padding-right: 10px;
+
+                &:last-of-type {
+                    border-right: none;
+                }
 
                 a {
                     padding-left: 20px!important;
@@ -186,7 +192,7 @@
                 padding-left: 11px;
                 margin-right: 0;
                 background: transparent;
-                
+
                 a {
                     font-size: 12px;
                     padding-bottom: 3px;
