@@ -139,8 +139,13 @@
         if (!$a.attr('title'))
             $a.attr('title', $a.text())
 
+        var html = $a.html()
+
+        $a.html('')
+        $a.append($('<span class="title"></span>').html(html))
+
         var pane = $('> .tab-pane', this.$pagesContainer).eq(tabIndex).attr('id', targetId)
-        $(li).append($('<span class="tab-close"><i class="icon-times"></i></span>').click(function(){
+        $(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){
             $(this).trigger('close.oc.tab')
             return false
         }))

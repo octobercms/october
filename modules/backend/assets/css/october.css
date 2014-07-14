@@ -11935,11 +11935,27 @@ div.popover-overlay {
   padding-left: 20px;
   padding-right: 20px;
 }
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs {
+  margin-left: -8px;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li {
+  margin-left: -10px;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li span.tab-close,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li span.tab-close {
+  top: 9px;
+  right: -3px;
+  left: auto;
+  z-index: 110;
+}
 .fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li span.tab-close i,
 .fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li span.tab-close i {
   top: 4px;
   right: 1px;
-  color: #e39664 !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+  font: 14px bold "Helvetica Neue", Helvetica, Arial, sans-seri8;
 }
 .fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li span.tab-close i:hover,
 .fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li span.tab-close i:hover {
@@ -11949,17 +11965,103 @@ div.popover-overlay {
 .fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a {
   border-bottom: none;
   background: transparent;
-  padding: 11px 15px 12px 5px;
   font-size: 14px;
   color: #e39664;
+  padding: 6px 0 0 0;
+  overflow: visible;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title {
+  position: relative;
+  display: inline-block;
+  padding: 8px 5px 9px 5px;
+  font-size: 13px;
+  z-index: 100;
+  background-color: #b9530f;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:before,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:before,
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:after,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:after {
+  content: ' ';
+  position: absolute;
+  background: transparent url(../images/tab-shape.svg) no-repeat left -80px;
+  width: 20px;
+  display: block;
+  height: 30px;
+  top: 0;
+  z-index: 100;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:before,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:before {
+  left: -20px;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:after,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:after {
+  right: -20px;
+  background-position: -80px -80px;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a:before,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a:before {
+  z-index: 110;
+  position: relative;
+  margin-right: -12px;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a[class*=icon] > span.title,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a[class*=icon] > span.title {
+  padding-left: 18px;
 }
 .fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li.active a,
 .fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li.active a {
+  z-index: 107;
   color: #ffffff;
 }
 .fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li.active span.tab-close i,
 .fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li.active span.tab-close i {
   color: #ffffff;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li.active a > span.title,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li.active a > span.title {
+  background-color: #e67e22;
+  z-index: 105;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li.active a > span.title:before,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li.active a > span.title:before {
+  background-position: left -40px;
+  z-index: 107;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li.active a > span.title:after,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li.active a > span.title:after {
+  background-position: -80px -40px;
+  z-index: 107;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li[data-modified] span.tab-close i,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li[data-modified] span.tab-close i {
+  top: 4px;
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li[data-modified] span.tab-close i:before,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li[data-modified] span.tab-close i:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f111";
+  font-size: 9px;
+}
+.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li:first-child,
+.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li:first-child {
+  margin-left: 0;
+}
+.fancy-layout .control-tabs.master[data-closable] > div > div.tabs-container > ul.nav-tabs > li a > span.title,
+.fancy-layout.control-tabs.master[data-closable] > div > div.tabs-container > ul.nav-tabs > li a > span.title {
+  padding-right: 10px;
 }
 .fancy-layout .control-tabs.master.has-tabs:before,
 .fancy-layout.control-tabs.master.has-tabs:before,

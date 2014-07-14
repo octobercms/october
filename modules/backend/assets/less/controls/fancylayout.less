@@ -52,26 +52,122 @@
                 padding-right: 20px;
 
                 > ul.nav-tabs {
+                    margin-left: -8px;
                     > li {
-                        span.tab-close i {
-                            top: 4px;
-                            right: 1px;
-                            color: @color-fancy-master-tabs-inactive-text!important;
+                        margin-left: -10px;
 
-                            &:hover {color: @color-fancy-master-tabs-active-text!important;}
+                        span.tab-close{
+                            top: 9px;
+                            right: -3px;
+                            left: auto;
+                            z-index: 110;
+
+                            i {
+                                top: 4px;
+                                right: 1px;
+                                color: rgba(255, 255, 255, 0.3)!important;
+                                font: 14px bold "Helvetica Neue", Helvetica, Arial, sans-seri8;
+    
+                                &:hover {color: @color-fancy-master-tabs-active-text!important;}
+                            }
+                        
                         }
 
                         a {
                             border-bottom: none;
                             background: transparent;
-                            padding: 11px 15px 12px 5px;
                             font-size: 14px;
                             color: @color-fancy-master-tabs-inactive-text;
+                            padding: 6px 0 0 0;
+                            overflow: visible;
+
+                            > span.title {
+                                position: relative;
+                                display: inline-block;
+                                padding: 8px 5px 9px 5px;
+                                font-size: 13px;
+                                z-index: 100;
+                                background-color: @color-fancy-form-inactive-tab;
+
+                                &:before, &:after {
+                                    content: ' ';
+                                    position: absolute;
+                                    background: transparent url(../images/tab-shape.svg) no-repeat left -80px;
+                                    width: 20px;
+                                    display: block;
+                                    height: 30px;
+                                    top: 0;
+                                    z-index: 100;
+                                }
+
+                                &:before {
+                                    left: -20px;
+                                }
+
+                                &:after {
+                                    right: -20px;
+                                    background-position: -80px -80px;
+                                }
+                            }
+
+                            &:before {
+                                z-index: 110;
+                                position: relative;
+                                margin-right: -12px;
+                            }
+
+                            &[class*=icon] > span.title {
+                                padding-left: 18px;
+                            }
                         }
 
                         &.active {
-                            a {color: @color-fancy-master-tabs-active-text;}
+                            a {
+                                z-index: 107;
+                                color: @color-fancy-master-tabs-active-text;
+                            }
                             span.tab-close i {color: @color-fancy-master-tabs-active-text;}
+
+                            a > span.title {
+                                background-color: @color-fancy-form-tabless-fields-bg;
+                                z-index: 105;
+                                &:before {
+                                    background-position: left -40px;
+                                    z-index: 107;
+                                }
+                                &:after {
+                                    background-position: -80px -40px;
+                                    z-index: 107;
+                                }
+                            }
+                        }
+
+                            &[data-modified] {
+                                span.tab-close i {
+                                    top: 4px;
+                                    .hide-text();
+
+                                    &:before {
+                                        .icon(@circle);
+                                        font-size: 9px;
+                                    }
+                                }
+                            }
+
+                        &:first-child {
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
+
+            &[data-closable] {
+                > div > div.tabs-container {
+                    > ul.nav-tabs {
+                        > li {
+                            a > span.title {
+                                padding-right: 10px;
+                            }
                         }
                     }
                 }
