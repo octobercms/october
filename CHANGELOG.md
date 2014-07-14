@@ -1,3 +1,6 @@
+* **Build 121** (2014-07-15)
+  - Restyled the CMS tabs
+
 * **Build 117** (2014-07-12)
   - Added new Backend control for creating informative panels (hints).
   - Added new properties to RelationController: readOnly, showSorting, defaultSort.
