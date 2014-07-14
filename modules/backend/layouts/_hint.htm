@@ -2,7 +2,7 @@
     $type = !empty($type) ? $type : 'info';
 ?>
 <?php if (empty($hintName) || !$this->isBackendHintHidden($hintName)): ?>
-    <div class="callout callout-<?= $type ?> <?=empty($icon)?'no-icon':''?> <?=empty($subtitle)?'no-subheader':''?>">
+    <div class="callout callout-<?= $type ?> fade in <?=empty($icon)?'no-icon':''?> <?=empty($subtitle)?'no-subheader':''?>">
         <?php if (!empty($hintName)): ?>
             <button
                 type="button"
