@@ -35,6 +35,7 @@ class Controller extends Extendable
     use \System\Traits\ConfigMaker;
     use \Backend\Traits\ViewMaker;
     use \Backend\Traits\WidgetMaker;
+    use \October\Rain\Support\Traits\Emitter;
 
     /**
      * @var string Object used for storing a fatal error.

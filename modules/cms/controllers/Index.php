@@ -1,26 +1,26 @@
 <?php namespace Cms\Controllers;
 
-use Config;
-use Event;
 use URL;
 use Lang;
 use Flash;
+use Event;
+use Config;
 use Request;
 use Response;
 use Exception;
 use BackendMenu;
-use Backend\Classes\WidgetManager;
 use Backend\Classes\Controller;
+use Backend\Classes\WidgetManager;
+use Cms\Widgets\AssetList;
 use Cms\Widgets\TemplateList;
 use Cms\Widgets\ComponentList;
-use Cms\Widgets\AssetList;
 use Cms\Classes\Page;
-use Cms\Classes\Partial;
-use Cms\Classes\Layout;
-use Cms\Classes\Content;
 use Cms\Classes\Theme;
-use System\Classes\ApplicationException;
 use Cms\Classes\Router;
+use Cms\Classes\Layout;
+use Cms\Classes\Partial;
+use Cms\Classes\Content;
+use System\Classes\ApplicationException;
 use Backend\Traits\InspectableContainer;
 use October\Rain\Router\Router as RainRouter;
 
@@ -158,6 +158,10 @@ class Index extends Controller
 
         $template->fill($templateData);
         $template->save();
+
+        /*
+         * Extensibility
+         */
         Event::fire('cms.template.save', [$this, $type]);
         $this->fireEvent('cms.template.save', [$type]);
 
@@ -227,6 +231,9 @@ class Index extends Controller
             $error = $ex->getMessage();
         }
 
+        /*
+         * Extensibility
+         */
         Event::fire('cms.template.delete', [$this, $type]);
         $this->fireEvent('cms.template.delete', [$type]);
 
@@ -243,8 +250,12 @@ class Index extends Controller
 
         $this->loadTemplate(
             Request::input('templateType'),
-            trim(Request::input('templatePath')))->delete();
+            trim(Request::input('templatePath'))
+        )->delete();
 
+        /*
+         * Extensibility
+         */
         Event::fire('cms.template.delete', [$this, $type]);
         $this->fireEvent('cms.template.delete', [$type]);
     }
