@@ -158,7 +158,7 @@ class Index extends Controller
 
         $template->fill($templateData);
         $template->save();
-        Event::fire('cms.template.afterSave', [$type]);
+        Event::fire('cms.template.save', [$type]);
 
         Flash::success(Lang::get('cms::lang.template.saved'));
 
@@ -226,7 +226,7 @@ class Index extends Controller
             $error = $ex->getMessage();
         }
 
-        Event::fire('cms.template.afterDelete', [$type]);
+        Event::fire('cms.template.delete', [$type]);
         return [
             'deleted' => $deleted,
             'error'   => $error,
