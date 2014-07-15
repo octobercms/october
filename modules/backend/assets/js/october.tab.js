@@ -361,7 +361,7 @@
             return
 
         var processedTitle = this.generateTitleText(title, index),
-            $link = $('> li > a', this.$tabsContainer).eq(index)
+            $link = $('> li > a span.title', this.$tabsContainer).eq(index)
 
         $link.attr('title', title)
         $link.text(processedTitle)
