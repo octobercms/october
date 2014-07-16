@@ -5,7 +5,8 @@ use Cms\Classes\Theme;
 
 class ControllerTest extends TestCase
 {
-    public function tearDown() {
+    public function tearDown()
+    {
         Mockery::close();
     }
 
