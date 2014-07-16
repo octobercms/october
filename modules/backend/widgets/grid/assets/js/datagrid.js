@@ -32,7 +32,7 @@
             colWidths: function(columnIndex) {
                 return self.staticWidths[columnIndex]
             },
-            height: 400,
+            // height: 400,
             columns: this.columns,
             startRows: this.options.startRows,
             minRows: this.options.minRows,

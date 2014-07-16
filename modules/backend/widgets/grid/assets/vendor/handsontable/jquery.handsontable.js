@@ -14,6 +14,7 @@
  * - Removed contextMenu plugin
  * - Use autocomplete plugin instead of typeahead
  * - Custom checkboxes
+ * - Removed native scrollbars
  * 
  */
 
