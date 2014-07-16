@@ -4,7 +4,6 @@ use Lang;
 use Backend;
 use BackendMenu;
 use BackendAuth;
-use System\Classes\MarkupManager;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 
@@ -90,48 +89,6 @@ class ServiceProvider extends ModuleServiceProvider
                 'cms.manage_pages'     => ['label' => 'Manage pages', 'tab' => 'Cms'],
                 'cms.manage_layouts'   => ['label' => 'Manage layouts', 'tab' => 'Cms'],
                 'cms.manage_partials'  => ['label' => 'Manage partials', 'tab' => 'Cms'],
-            ]);
-        });
-
-        /*
-         * Register markup tags
-         */
-        MarkupManager::instance()->registerCallback(function($manager){
-            $manager->registerFunctions([
-                // Global helpers
-                'post' => 'post',
-
-                // Form helpers
-                'form_ajax'         => ['Form', 'ajax'],
-                'form_open'         => ['Form', 'open'],
-                'form_close'        => ['Form', 'close'],
-                'form_token'        => ['Form', 'token'],
-                'form_session_key'  => ['Form', 'sessionKey'],
-                'form_token'        => ['Form', 'token'],
-                'form_model'        => ['Form', 'model'],
-                'form_label'        => ['Form', 'label'],
-                'form_text'         => ['Form', 'text'],
-                'form_password'     => ['Form', 'password'],
-                'form_checkbox'     => ['Form', 'checkbox'],
-                'form_radio'        => ['Form', 'radio'],
-                'form_file'         => ['Form', 'file'],
-                'form_select'       => ['Form', 'select'],
-                'form_select_range' => ['Form', 'selectRange'],
-                'form_select_month' => ['Form', 'selectMonth'],
-                'form_submit'       => ['Form', 'submit'],
-                'form_macro'        => ['Form', '__call'],
-                'form_value'        => ['Form', 'value'],
-            ]);
-
-            $manager->registerFilters([
-                // String helpers
-                'slug'     => ['Str', 'slug'],
-                'plural'   => ['Str', 'plural'],
-                'singular' => ['Str', 'singular'],
-                'finish'   => ['Str', 'finish'],
-                'snake'    => ['Str', 'snake'],
-                'camel'    => ['Str', 'camel'],
-                'studly'   => ['Str', 'studly'],
             ]);
         });
 

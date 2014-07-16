@@ -52,12 +52,7 @@ class Extension extends Twig_Extension
         /*
          * Include extensions provided by plugins
          */
-        foreach ($this->markupManager->listFunctions() as $name => $callable) {
-            if (!is_callable($callable))
-                throw new ApplicationException(sprintf('The markup function for %s is not callable.', $name));
-
-            $functions[] = new Twig_SimpleFunction($name, $callable, ['is_safe' => ['html']]);
-        }
+        $functions = $this->markupManager->makeTwigFunctions($functions);
 
         return $functions;
     }
@@ -76,12 +71,7 @@ class Extension extends Twig_Extension
         /*
          * Include extensions provided by plugins
          */
-        foreach ($this->markupManager->listFilters() as $name => $callable) {
-            if (!is_callable($callable))
-                throw new ApplicationException(sprintf('The markup filter for %s is not callable.', $name));
-
-            $filters[] = new Twig_SimpleFilter($name, $callable, ['is_safe' => ['html']]);
-        }
+        $filters = $this->markupManager->makeTwigFilters($filters);
 
         return $filters;
     }
@@ -95,13 +85,10 @@ class Extension extends Twig_Extension
     {
         $parsers = [];
 
-        $extraParsers = $this->markupManager->listTokenParsers();
-        foreach ($extraParsers as $obj) {
-            if (!$obj instanceof Twig_TokenParser)
-                continue;
-
-            $parsers[] = $obj;
-        }
+        /*
+         * Include extensions provided by plugins
+         */
+        $parsers = $this->markupManager->makeTwigTokenParsers($parsers);
 
         return $parsers;
     }

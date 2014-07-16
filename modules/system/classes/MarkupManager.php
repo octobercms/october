@@ -1,5 +1,10 @@
 <?php namespace System\Classes;
 
+use Str;
+use Twig_TokenParser;
+use Twig_SimpleFilter;
+use Twig_SimpleFunction;
+use System\Classes\ApplicationException;
 use System\Classes\PluginManager;
 
 /**
@@ -187,6 +192,128 @@ class MarkupManager
     public function listTokenParsers()
     {
         return $this->listExtensions(self::EXTENSION_TOKEN_PARSER);
+    }
+
+    /**
+     * Makes a set of Twig functions for use in a twig extension.
+     * @param  array $functions Current collection
+     * @return array
+     */
+    public function makeTwigFunctions($functions = [])
+    {
+        if (!is_array($functions))
+            $functions = [];
+
+        foreach ($this->listFunctions() as $name => $callable) {
+
+            /*
+             * Handle a wildcard function
+             */
+            if (strpos($name, '*') !== false && $this->isWildCallable($callable)) {
+                $callable = function($name) use ($callable) {
+                    $arguments = array_slice(func_get_args(), 1);
+                    $method = $this->isWildCallable($callable, Str::camel($name));
+                    return call_user_func_array($method, $arguments);
+                };
+            }
+
+            if (!is_callable($callable))
+                throw new ApplicationException(sprintf('The markup function for %s is not callable.', $name));
+
+            $functions[] = new Twig_SimpleFunction($name, $callable, ['is_safe' => ['html']]);
+        }
+
+        return $functions;
+    }
+
+    /**
+     * Makes a set of Twig filters for use in a twig extension.
+     * @param  array $filters Current collection
+     * @return array
+     */
+    public function makeTwigFilters($filters = [])
+    {
+        if (!is_array($filters))
+            $filters = [];
+
+        foreach ($this->listFilters() as $name => $callable) {
+
+            /*
+             * Handle a wildcard function
+             */
+            if (strpos($name, '*') !== false && $this->isWildCallable($callable)) {
+                $callable = function($name) use ($callable) {
+                    $arguments = array_slice(func_get_args(), 1);
+                    $method = $this->isWildCallable($callable, Str::camel($name));
+                    return call_user_func_array($method, $arguments);
+                };
+            }
+
+            if (!is_callable($callable))
+                throw new ApplicationException(sprintf('The markup filter for %s is not callable.', $name));
+
+            $filters[] = new Twig_SimpleFilter($name, $callable, ['is_safe' => ['html']]);
+        }
+
+        return $filters;
+    }
+
+    /**
+     * Makes a set of Twig token parsers for use in a twig extension.
+     * @param  array $parsers Current collection
+     * @return array
+     */
+    public function makeTwigTokenParsers($parsers = [])
+    {
+        if (!is_array($parsers))
+            $parsers = [];
+
+        $extraParsers = $this->listTokenParsers();
+        foreach ($extraParsers as $obj) {
+            if (!$obj instanceof Twig_TokenParser)
+                continue;
+
+            $parsers[] = $obj;
+        }
+
+        return $parsers;
+    }
+
+    /**
+     * Tests if a callable type contains a wildcard, also acts as a 
+     * utility to replace the wildcard with a string.
+     * @param  callable  $callable
+     * @param  string $replaceWith
+     * @return mixed
+     */
+    protected function isWildCallable($callable, $replaceWith = false)
+    {
+        $isWild = false;
+
+        if (is_string($callable) && strpos($callable, '*') !== false)
+            $isWild = $replaceWith ? str_replace('*', $replaceWith, $callable) : true;
+
+        if (is_array($callable)) {
+            if (is_string($callable[0]) && strpos($callable[0], '*') !== false) {
+                if ($replaceWith) {
+                    $isWild = $callable;
+                    $isWild[0] = str_replace('*', $replaceWith, $callable[0]);
+                }
+                else
+                    $isWild = true;
+            }
+
+            if (!empty($callable[1]) && strpos($callable[1], '*') !== false) {
+                if ($replaceWith) {
+                    $isWild = $isWild ?: $callable;
+                    $isWild[1] = str_replace('*', $replaceWith, $callable[1]);
+                }
+                else
+                    $isWild = true;
+            }
+        }
+
+        return $isWild;
     }
 
 }
