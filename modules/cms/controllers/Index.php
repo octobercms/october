@@ -243,7 +243,7 @@ class Index extends Controller
             Request::input('templateType'),
             trim(Request::input('templatePath')))->delete();
 
-        Event::fire('cms.template.delete', [$this, $type]);
+        Event::fire('cms.template.delete', [$this]);
     }
 
     public function onGetTemplateList()
