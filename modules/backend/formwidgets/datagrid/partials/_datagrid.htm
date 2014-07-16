@@ -2,16 +2,7 @@
     id="<?= $this->getId() ?>"
     class="field-datagrid size-<?= $size ?>">
 
-    <?= $toolbarWidget->render() ?>
-
-    <div
-        id="<?= $this->getId('grid') ?>"
-        style="width:100%"
-        class="control-datagrid"
-        data-control="datagrid"
-        data-data-locker="#<?= $this->getId('dataLocker') ?>"
-        data-autocomplete-handler="<?= $this->getEventHandler('onAutocomplete') ?>"
-        ></div>
+    <?= $grid->render() ?>
 
     <input
         type="hidden"
@@ -21,9 +12,3 @@
         />
 </div>
 
-<script>
-    $('#<?= $this->getId('grid') ?>')
-        .data('columns', <?= json_encode($columnDefinitions) ?>)
-        .data('columnHeaders', <?= json_encode($columnHeaders) ?>)
-        .data('columnWidths', <?= json_encode($columnWidths) ?>)
-</script>

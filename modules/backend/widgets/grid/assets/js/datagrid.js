@@ -37,12 +37,12 @@
             startRows: this.options.startRows,
             minRows: this.options.minRows,
             currentRowClassName: 'currentRow',
-            // rowHeaders: true,
+            // rowHeaders: false,
             // manualColumnMove: true,
             // manualRowMove: true,
             fillHandle: false,
             multiSelect: false,
-            removeRowPlugin: true
+            removeRowPlugin: this.options.allowRemove
         }
 
         if (this.options.autoInsertRows)
@@ -67,6 +67,13 @@
             } catch (e) {
                 delete handsontableOptions.data
             }
+        }
+        else if (this.options.sourceHandler) {
+            $.request(self.options.sourceHandler, {
+                success: function(data, textStatus, jqXHR){
+                    self.gridInstance.loadData(data.result)
+                }
+            })
         }
 
         this.$el.handsontable(handsontableOptions)
@@ -138,6 +145,8 @@
         columnWidths: null,
         columns: null,
         autocompleteHandler: null,
+        sourceHandler: null,
+        allowRemove: true,
         confirmMessage: 'Are you sure?'
     }
 
