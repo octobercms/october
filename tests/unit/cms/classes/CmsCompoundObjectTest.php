@@ -37,15 +37,18 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertInternalType('array', $obj->settings);
         $this->assertArrayHasKey('var', $obj->settings);
         $this->assertEquals('value', $obj->settings['var']);
-        $this->assertArrayHasKey('section', $obj->settings);
-        $this->assertInternalType('array', $obj->settings['section']);
-        $this->assertArrayHasKey('version', $obj->settings['section']);
-        $this->assertEquals(10, $obj->settings['section']['version']);
+
+        $this->assertArrayHasKey('components', $obj->settings);
+
+        $this->assertArrayHasKey('section', $obj->settings['components']);
+        $this->assertInternalType('array', $obj->settings['components']['section']);
+        $this->assertArrayHasKey('version', $obj->settings['components']['section']);
+        $this->assertEquals(10, $obj->settings['components']['section']['version']);
 
         $this->assertEquals('value', $obj->var);
-        $this->assertInternalType('array', $obj->section);
-        $this->assertArrayHasKey('version', $obj->section);
-        $this->assertEquals(10, $obj->section['version']);
+
+        $this->assertArrayHasKey('version', $obj->settings['components']['section']);
+        $this->assertEquals(10, $obj->settings['components']['section']['version']);
     }
 
     public function testParseComponentSettings()
@@ -95,15 +98,17 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertInternalType('array', $obj->settings);
         $this->assertArrayHasKey('var', $obj->settings);
         $this->assertEquals('value', $obj->settings['var']);
-        $this->assertArrayHasKey('section', $obj->settings);
-        $this->assertInternalType('array', $obj->settings['section']);
-        $this->assertArrayHasKey('version', $obj->settings['section']);
-        $this->assertEquals(10, $obj->settings['section']['version']);
+
+        $this->assertArrayHasKey('components', $obj->settings);
+
+        $this->assertInternalType('array', $obj->settings['components']['section']);
+        $this->assertArrayHasKey('version', $obj->settings['components']['section']);
+        $this->assertEquals(10, $obj->settings['components']['section']['version']);
 
         $this->assertEquals('value', $obj->var);
-        $this->assertInternalType('array', $obj->section);
-        $this->assertArrayHasKey('version', $obj->section);
-        $this->assertEquals(10, $obj->section['version']);
+        $this->assertInternalType('array', $obj->settings['components']['section']);
+        $this->assertArrayHasKey('version', $obj->settings['components']['section']);
+        $this->assertEquals(10, $obj->settings['components']['section']['version']);
 
         /*
          * Load the test object again, it should be loaded from the cache this time
@@ -118,15 +123,17 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertInternalType('array', $obj->settings);
         $this->assertArrayHasKey('var', $obj->settings);
         $this->assertEquals('value', $obj->settings['var']);
-        $this->assertArrayHasKey('section', $obj->settings);
-        $this->assertInternalType('array', $obj->settings['section']);
-        $this->assertArrayHasKey('version', $obj->settings['section']);
-        $this->assertEquals(10, $obj->settings['section']['version']);
+
+        $this->assertArrayHasKey('components', $obj->settings);
+
+        $this->assertInternalType('array', $obj->settings['components']['section']);
+        $this->assertArrayHasKey('version', $obj->settings['components']['section']);
+        $this->assertEquals(10, $obj->settings['components']['section']['version']);
 
         $this->assertEquals('value', $obj->var);
-        $this->assertInternalType('array', $obj->section);
-        $this->assertArrayHasKey('version', $obj->section);
-        $this->assertEquals(10, $obj->section['version']);
+        $this->assertInternalType('array', $obj->settings['components']['section']);
+        $this->assertArrayHasKey('version', $obj->settings['components']['section']);
+        $this->assertEquals(10, $obj->settings['components']['section']['version']);
     }
 
     public function testUndefinedProperty()
