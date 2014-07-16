@@ -55,6 +55,7 @@ class SettingsModel extends ModelBehavior
         $this->model->bindEvent('model.afterFetch', [$this, 'afterModelFetch']);
         $this->model->bindEvent('model.beforeSave', [$this, 'beforeModelSave']);
         $this->model->bindEvent('model.setAttribute', [$this, 'setModelAttribute']);
+        $this->model->bindEvent('model.saveInternal', [$this, 'saveModelInternal']);
 
         /*
          * Parse the config
@@ -140,14 +141,21 @@ class SettingsModel extends ModelBehavior
     }
 
     /**
+     * Internal save method for the model
+     * @return void
+     */
+    public function saveModelInternal()
+    {
+        // Purge the field values from the attributes
+        $this->model->attributes = array_diff_key($this->model->attributes, $this->fieldValues);
+    }
+
+    /**
      * Before the model is saved, ensure the record code is set
      * and the jsonable field values
      */
     public function beforeModelSave()
     {
-        // Purge the field values from the attributes
-        $this->model->attributes = array_diff_key($this->model->attributes, $this->fieldValues);
-
         $this->model->item = $this->recordCode;
         if ($this->fieldValues)
             $this->model->value = $this->fieldValues;
