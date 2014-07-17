@@ -51,7 +51,10 @@
         if (this.options.autoInsertRows)
             handsontableOptions.minSpareRows = 1
 
-        if (this.options.dataLocker) {
+        if (this.options.data) {
+            handsontableOptions.data = this.options.data
+        }
+        else if (this.options.dataLocker) {
             /*
              * Event to update the data locker
              */
@@ -72,11 +75,7 @@
             }
         }
         else if (this.options.sourceHandler) {
-            $.request(self.options.sourceHandler, {
-                success: function(data, textStatus, jqXHR){
-                    self.setData(data.result)
-                }
-            })
+            self.refreshDataSource()
         }
 
         this.$el.handsontable(handsontableOptions)
@@ -140,7 +139,9 @@
     }
 
     DataGrid.DEFAULTS = {
+        data: null,
         dataLocker: null,
+        sourceHandler: null,
         startRows: 1,
         minRows: 1,
         autoInsertRows: false,
@@ -148,7 +149,6 @@
         columnWidths: null,
         columns: null,
         autocompleteHandler: null,
-        sourceHandler: null,
         allowRemove: true,
         confirmMessage: 'Are you sure?'
     }
@@ -164,6 +164,14 @@
         return $.extend(true, {}, this.gridInstance.getDataAtRow(row))
     }
 
+    DataGrid.prototype.refreshDataSource = function() {
+        var self = this
+        this.$el.request(self.options.sourceHandler, {
+            success: function(data, textStatus, jqXHR){
+                self.setData(data.result)
+            }
+        })
+    }
     DataGrid.prototype.setData = function(data) {
         this.gridInstance.loadData(data)
     }

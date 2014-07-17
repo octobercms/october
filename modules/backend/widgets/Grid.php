@@ -51,9 +51,14 @@ class Grid extends WidgetBase
     protected $disableToolbar = false;
 
     /**
-     * @var mixed Array of data, or callable for data source.
+     * @var array Provided data set
      */
-    protected $dataSource;
+    protected $data;
+
+    /**
+     * @var boolean Use a remote data source
+     */
+    protected $useDataSource;
 
     /**
      * @var string HTML element that can [re]store the grid data.
@@ -70,8 +75,9 @@ class Grid extends WidgetBase
         $this->allowInsert = $this->getConfig('allowInsert', $this->allowInsert);
         $this->allowRemove = $this->getConfig('allowRemove', $this->allowRemove);
         $this->disableToolbar = $this->getConfig('disableToolbar', $this->disableToolbar);
+        $this->data = $this->getConfig('data', $this->data);
         $this->dataLocker = $this->getConfig('dataLocker', $this->dataLocker);
-        $this->dataSource = $this->getConfig('dataSource', $this->dataSource);
+        $this->useDataSource = $this->getConfig('useDataSource', $this->useDataSource);
     }
 
     /**
@@ -97,7 +103,9 @@ class Grid extends WidgetBase
         $this->vars['allowInsert'] = $this->allowInsert;
         $this->vars['allowRemove'] = $this->allowRemove;
         $this->vars['disableToolbar'] = $this->disableToolbar;
+        $this->vars['data'] = $this->data;
         $this->vars['dataLocker'] = $this->dataLocker;
+        $this->vars['useDataSource'] = $this->useDataSource;
     }
 
     protected function makeToolbarWidget()
@@ -131,10 +139,17 @@ class Grid extends WidgetBase
 
     public function onDataSource()
     {
-        if ($this->dataLocker)
+        if (!$this->useDataSource)
             return;
 
-        $result = $this->dataSource;
+        $result = [];
+
+        if ($_result = $this->fireEvent('grid.dataSource', [], true))
+            $result = $_result;
+
+        if (!is_array($result))
+            $result = [];
+
         return ['result' => $result];
     }
 
