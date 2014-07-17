@@ -11518,7 +11518,8 @@ ul.status-list li span.status.info {
 .control-breadcrumb li:last-child:after {
   content: '';
 }
-.control-breadcrumb + .content-tabs {
+.control-breadcrumb + .content-tabs,
+.control-breadcrumb + .padded-container {
   margin-top: -20px;
 }
 body.slim-container .control-breadcrumb {

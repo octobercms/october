@@ -15,7 +15,12 @@
  * - Use autocomplete plugin instead of typeahead
  * - Custom checkboxes
  * - Removed native scrollbars
- * 
+ *
+ * @todo
+ *  - Add a Column strategy for even distribution of 0 width columns
+ *  - Replace dragdealer with October scrollbars
+ *  - Explore mobile support, currently non-existent
+ *
  */
 
 var Handsontable = { //class namespace

@@ -494,8 +494,11 @@ class Controller extends Extendable
      * @param  array  $params  Extra parameters
      * @return string
      */
-    public function makeHintPartial($name, $partial, array $params = [])
+    public function makeHintPartial($name, $partial = null, array $params = [])
     {
+        if (!$partial)
+            $partial = $name;
+
         return $this->makeLayoutPartial('hint', [
             'hintName'    => $name,
             'hintPartial' => $partial,

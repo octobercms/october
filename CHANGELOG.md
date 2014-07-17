@@ -1,6 +1,11 @@
+* **Build 125** (2014-07-xx)
+  - New shorthand method for `$this->getClassExtension('Backend.Behaviors.FormController')` becomes `$this->asExtension('FormController')`.
+  - Buttons inside a popup support new `data-popup-load-indicator` attribute.
+
 * **Build 124** (2014-07-17)
   - Improvements to Twig functions and filters.
   - URL, HTML and Form helpers are now available in Twig.
+  - The DataGrid form widget has been moved to a standard widget called Grid.
 
 * **Build 122** (2014-07-15)
   - Restyled the CMS tabs

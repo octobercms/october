@@ -4,7 +4,7 @@
     <?php endif ?>
 
     <div
-        id="<?= $this->getId('grid') ?>"
+        id="<?= $this->getId() ?>"
         style="width:100%"
         class="control-datagrid"
         data-control="datagrid"
@@ -16,7 +16,7 @@
 
 </div>
 <script>
-    $('#<?= $this->getId('grid') ?>')
+    $('#<?= $this->getId() ?>')
         .data('columns', <?= json_encode($columnDefinitions) ?>)
         .data('columnHeaders', <?= json_encode($columnHeaders) ?>)
         .data('columnWidths', <?= json_encode($columnWidths) ?>)

@@ -22,13 +22,16 @@
         this.options   = options
         this.$el       = $(element)
 
+        this.columnHeaders = this.options.columnHeaders
         this.staticWidths = this.options.columnWidths
         this.gridInstance = null
         this.columns = validateColumns(this.options.columns)
 
         // Init
         var handsontableOptions = {
-            colHeaders: this.options.columnHeaders,
+            colHeaders: function(columnIndex) {
+                return self.columnHeaders[columnIndex]
+            },
             colWidths: function(columnIndex) {
                 return self.staticWidths[columnIndex]
             },
@@ -148,6 +151,10 @@
         sourceHandler: null,
         allowRemove: true,
         confirmMessage: 'Are you sure?'
+    }
+
+    DataGrid.prototype.setHeaderValue = function(index, value) {
+        this.columnHeaders[index] = value
     }
 
     DataGrid.prototype.getDataAtRow = function(row) {
