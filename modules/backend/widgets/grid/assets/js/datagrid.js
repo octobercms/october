@@ -74,7 +74,7 @@
         else if (this.options.sourceHandler) {
             $.request(self.options.sourceHandler, {
                 success: function(data, textStatus, jqXHR){
-                    self.gridInstance.loadData(data.result)
+                    self.setData(data.result)
                 }
             })
         }
@@ -162,6 +162,10 @@
             row = this.getSelectedRow()
 
         return $.extend(true, {}, this.gridInstance.getDataAtRow(row))
+    }
+
+    DataGrid.prototype.setData = function(data) {
+        this.gridInstance.loadData(data)
     }
 
     DataGrid.prototype.getData = function() {
