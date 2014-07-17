@@ -1,3 +1,7 @@
+* **Build 124** (2014-07-17)
+  - Improvements to Twig functions and filters.
+  - URL, HTML and Form helpers are now available in Twig.
+
 * **Build 122** (2014-07-15)
   - Restyled the CMS tabs
 
