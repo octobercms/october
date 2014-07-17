@@ -1,0 +1,20 @@
+<div data-control="toolbar">
+    <?php if ($allowInsert): ?>
+        <a
+            href="javascript:;"
+            class="btn btn-sm btn-default oc-icon-plus-square"
+            onclick="$(this).closest('.datagrid-widget').find('[data-control=datagrid]').dataGrid('insertRow')">
+            Insert Row
+        </a>
+    <?php endif ?>
+    <?php if ($allowRemove): ?>
+        <a
+            href="javascript:;"
+            class="btn btn-sm btn-default oc-icon-minus-square"
+            onclick="$(this).closest('.datagrid-widget').find('[data-control=datagrid]').dataGrid('removeRow')">
+            Delete Row
+        </a>
+    <?php endif ?>
+    <!-- <a href="#" class="btn btn-sm btn-default oc-icon-floppy-o">Save as CSV</a> -->
+    <!-- <a href="#" class="btn btn-sm btn-default oc-icon-upload">Import CSV</a> -->
+</div> 

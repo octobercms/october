@@ -1,0 +1,23 @@
+<div class="datagrid-widget">
+    <?php if (!$disableToolbar): ?>
+        <?= $toolbarWidget->render() ?>
+    <?php endif ?>
+
+    <div
+        id="<?= $this->getId('grid') ?>"
+        style="width:100%"
+        class="control-datagrid"
+        data-control="datagrid"
+        data-allow-remove="<?= $allowRemove ? 'true' : 'false' ?>"
+        <?php if ($dataLocker): ?>data-data-locker="<?= $dataLocker ?>"<?php endif ?>
+        data-autocomplete-handler="<?= $this->getEventHandler('onAutocomplete') ?>"
+        data-source-handler="<?= $this->getEventHandler('onDataSource') ?>"
+        ></div>
+
+</div>
+<script>
+    $('#<?= $this->getId('grid') ?>')
+        .data('columns', <?= json_encode($columnDefinitions) ?>)
+        .data('columnHeaders', <?= json_encode($columnHeaders) ?>)
+        .data('columnWidths', <?= json_encode($columnWidths) ?>)
+</script>
