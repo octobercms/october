@@ -51,19 +51,24 @@ class Grid extends WidgetBase
     protected $disableToolbar = false;
 
     /**
-     * @var array Provided data set
+     * @var array Provided data set, cannot use with dataLocker or useDataSource.
      */
     protected $data;
 
     /**
-     * @var boolean Use a remote data source
-     */
-    protected $useDataSource;
-
-    /**
-     * @var string HTML element that can [re]store the grid data.
+     * @var string HTML element that can [re]store the grid data, cannot use with data or useDataSource.
      */
     protected $dataLocker;
+
+    /**
+     * @var boolean Get data from AJAX callback (onDataSource), cannot use with data or dataLocker.
+     */
+    protected $useDataSource = false;
+
+    /**
+     * @var boolean Sends an AJAX callback (onDataChanged) any time a field is changed.
+     */
+    protected $monitorChanges = true;
 
     /**
      * Initialize the widget, called by the constructor and free from its parameters.
@@ -78,6 +83,7 @@ class Grid extends WidgetBase
         $this->data = $this->getConfig('data', $this->data);
         $this->dataLocker = $this->getConfig('dataLocker', $this->dataLocker);
         $this->useDataSource = $this->getConfig('useDataSource', $this->useDataSource);
+        $this->monitorChanges = $this->getConfig('monitorChanges', $this->monitorChanges);
     }
 
     /**
@@ -106,6 +112,7 @@ class Grid extends WidgetBase
         $this->vars['data'] = $this->data;
         $this->vars['dataLocker'] = $this->dataLocker;
         $this->vars['useDataSource'] = $this->useDataSource;
+        $this->vars['monitorChanges'] = $this->monitorChanges;
     }
 
     protected function makeToolbarWidget()
@@ -135,6 +142,19 @@ class Grid extends WidgetBase
         $data = post('autocomplete_data', []);
         $result = $this->fireEvent('grid.autocomplete', [$field, $value, $data], true);
         return ['result' => $result];
+    }
+
+    public function onDataChanged()
+    {
+        if (!$this->monitorChanges)
+            return;
+
+        /*
+         * Changes array, each array item will contain:
+         * ['rowData' => [...], 'keyName' => 'changedColumn', 'oldValue' => 'was', 'newValue' => 'is']
+         */
+        $changes = post('changes');
+        $this->fireEvent('grid.dataChanged', [$changes]);
     }
 
     public function onDataSource()

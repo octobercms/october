@@ -12,6 +12,7 @@
         data-autocomplete-handler="<?= $this->getEventHandler('onAutocomplete') ?>"
         <?php if ($dataLocker): ?>data-data-locker="<?= $dataLocker ?>"<?php endif ?>
         <?php if ($useDataSource): ?>data-source-handler="<?= $this->getEventHandler('onDataSource') ?>"<?php endif ?>
+        <?php if ($monitorChanges): ?>data-change-handler="<?= $this->getEventHandler('onDataChanged') ?>"<?php endif ?>
         ></div>
 
 </div>

@@ -124,9 +124,6 @@
 .handsontable tbody th:last-of-type {
   border-right: 1px solid #e2e2e2 !important;
 }
-.handsontable tbody td:first-of-type.currentRow {
-  border-left: 3px solid #ff9933;
-}
 .handsontable th.active {
   /*background-color: #CCC;*/
   color: #666;

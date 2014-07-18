@@ -3,13 +3,16 @@
  * 
  * Data attributes:
  * - data-control="datagrid" - enables the plugin on an element
- * - data-option="value" - an option with a value
+ * - data-allow-remove="true" - allow rows to be removed
+ * - data-autocomplete-handler="onAutocomplete" - AJAX handler for autocomplete values
+ * - data-data-locker="input#locker" - Input element to store and restore grid data as JSON
+ * - data-source-handler="onGetData" - AJAX handler for obtaining grid data
  *
  * JavaScript API:
- * $('a#someElement').dataGrid({ option: 'value' })
+ * $('div#someElement').dataGrid({ option: 'value' })
  *
- * Dependences: 
- * - Some other plugin (filename.js)
+ * Dependences:
+ * - Handsontable (handsontable.js)
  */
 
 +function ($) { "use strict";
@@ -43,6 +46,19 @@
             // rowHeaders: false,
             // manualColumnMove: true,
             // manualRowMove: true,
+            afterChange: function(changes, source) {
+                if (source === 'loadData')
+                    return
+
+                /*
+                 * changes - is a 2D array containing information about each of the edited cells 
+                 *           [ [row, prop, oldVal, newVal], ... ].
+                 *
+                 * source  - is one of the strings: "alter", "empty", "edit", "populateFromArray",
+                 *           "loadData", "autofill", "paste".
+                 */
+                self.$el.trigger('datagrid.change', [changes, source])
+            },
             fillHandle: false,
             multiSelect: false,
             removeRowPlugin: this.options.allowRemove
@@ -51,18 +67,24 @@
         if (this.options.autoInsertRows)
             handsontableOptions.minSpareRows = 1
 
+        /*
+         * Data provided
+         */
         if (this.options.data) {
             handsontableOptions.data = this.options.data
         }
+        /*
+         * Data from a data locker
+         */
         else if (this.options.dataLocker) {
             /*
              * Event to update the data locker
              */
             this.$dataLocker = $(this.options.dataLocker)
-            handsontableOptions.afterChange = function(changes, source) {
+            self.$el.on('datagrid.change', function(event, eventData) {
                 if (!self.gridInstance) return
                 self.$dataLocker.val(JSON.stringify(self.getData()))
-            }
+            })
 
             /*
              * Populate existing data
@@ -74,10 +96,44 @@
                 delete handsontableOptions.data
             }
         }
+        /*
+         * Data from an AJAX data source
+         */
         else if (this.options.sourceHandler) {
             self.refreshDataSource()
         }
 
+        /*
+         * Monitor for data changes
+         */
+        if (this.options.changeHandler) {
+            self.$el.on('datagrid.change', function(event, changes, source) {
+                var changeData = [];
+
+                $.each(changes, function(index, change){
+                    var changeObj = {}
+                    changeObj.keyName = change[1]
+                    changeObj.oldValue = change[2]
+                    changeObj.newValue = change[3]
+
+                    if (changeObj.oldValue == changeObj.newValue)
+                        return; // continue
+
+                    changeObj.rowData = self.getDataAtRow(change[0])
+                    changeData.push(changeObj)
+                })
+
+                if (changeData.length > 0) {
+                    self.$el.request(self.options.changeHandler, {
+                        data: { changes: changeData }
+                    })
+                }
+            })
+        }
+
+        /*
+         * Create up Handson table and validate columns
+         */
         this.$el.handsontable(handsontableOptions)
         this.gridInstance = this.$el.handsontable('getInstance')
 
@@ -105,6 +161,9 @@
             return columns
         }
 
+        /*
+         * Auto complete
+         */
         var autocompleteLastQuery = '',
             autocompleteInterval = 300,
             autocompleteInputTimer
@@ -142,6 +201,7 @@
         data: null,
         dataLocker: null,
         sourceHandler: null,
+        changeHandler: null,
         startRows: 1,
         minRows: 1,
         autoInsertRows: false,
