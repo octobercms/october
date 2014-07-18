@@ -12,7 +12,7 @@ return [
         'sv' => 'Swedish',
         'tr' => 'Turkish',
         'br' => 'Brazilian Portuguese',
-        'de' => 'Germen',
+        'de' => 'German',
         'ru' => 'Russian',
     ],
     'directory' => [

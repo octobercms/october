@@ -1,12 +1,20 @@
 <?php
 
 /*
- * Back-end routes
+ * Register Backend routes before all user routes.
  */
+App::before(function($request) {
 
-Route::group(['prefix' => Config::get('cms.backendUri', 'backend')], function() {
-    Route::any('{slug}', 'Backend\Classes\BackendController@run')->where('slug', '(.*)?');
+    /*
+     * Other pages
+     */
+    Route::group(['prefix' => Config::get('cms.backendUri', 'backend')], function() {
+        Route::any('{slug}', 'Backend\Classes\BackendController@run')->where('slug', '(.*)?');
+    });
+
+    /*
+     * Entry point
+     */
+    Route::any(Config::get('cms.backendUri', 'backend'), 'Backend\Classes\BackendController@run');
+
 });
-
-
-Route::any(Config::get('cms.backendUri', 'backend'), 'Backend\Classes\BackendController@run');

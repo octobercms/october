@@ -83,6 +83,6 @@ class Toolbar extends WidgetBase
         if (!isset($this->config->buttons))
             return false;
 
-        return $this->controller->makePartial($this->config->buttons);
+        return $this->controller->makePartial($this->config->buttons, $this->vars);
     }
 }

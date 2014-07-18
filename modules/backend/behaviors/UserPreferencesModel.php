@@ -43,7 +43,12 @@ class UserPreferencesModel extends SettingsModel
 
         if (!$item) {
             $this->model->initSettingsData();
-            $this->model->forceSave();
+
+            if (method_exists($this->model, 'forceSave'))
+                $this->model->forceSave();
+            else
+                $this->model->save();
+
             $this->model->reload();
             $item = $this->model;
         }
@@ -65,8 +70,10 @@ class UserPreferencesModel extends SettingsModel
      */
     public function beforeModelSave()
     {
-        $preferences = UserPreferences::forUser();
+        // Purge the field values from the attributes
+        $this->model->attributes = array_diff_key($this->model->attributes, $this->fieldValues);
 
+        $preferences = UserPreferences::forUser();
         list($namespace, $group, $item) = $preferences->parseKey($this->recordCode);
         $this->model->item = $item;
         $this->model->group = $group;

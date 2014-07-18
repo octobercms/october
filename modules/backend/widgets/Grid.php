@@ -1,12 +1,11 @@
-<?php namespace Backend\FormWidgets;
+<?php namespace Backend\Widgets;
 
-use Backend\Classes\FormWidgetBase;
-use System\Classes\ApplicationException;
+use Backend\Classes\WidgetBase;
 
 /**
- * Grid
- * Renders a grid field.
- *
+ * Grid Widget
+ * Renders a search container used for viewing tabular data
+ * 
  * Supported options:
  *
  * - allowInsert
@@ -19,12 +18,12 @@ use System\Classes\ApplicationException;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class DataGrid extends FormWidgetBase
+class Grid extends WidgetBase
 {
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'datagrid';
+    public $defaultAlias = 'grid';
 
     /**
      * @var array Grid columns
@@ -32,51 +31,111 @@ class DataGrid extends FormWidgetBase
     protected $columns = [];
 
     /**
-     * @var string Grid size
+     * @var boolean Show data table header
      */
-    protected $size = 'large';
+    protected $showHeader = true;
 
     /**
-     * {@inheritDoc}
+     * @var boolean Insert row button
+     */
+    protected $allowInsert = true;
+
+    /**
+     * @var boolean Delete row button
+     */
+    protected $allowRemove = true;
+
+    /**
+     * @var boolean Disable the toolbar
+     */
+    protected $disableToolbar = false;
+
+    /**
+     * @var mixed Array of data, or callable for data source.
+     */
+    protected $dataSource;
+
+    /**
+     * @var string HTML element that can [re]store the grid data.
+     */
+    protected $dataLocker;
+
+    /**
+     * Initialize the widget, called by the constructor and free from its parameters.
      */
     public function init()
     {
         $this->columns = $this->getConfig('columns', []);
-        $this->size = $this->getConfig('size', $this->size);
+        $this->showHeader = $this->getConfig('showHeader', $this->showHeader);
+        $this->allowInsert = $this->getConfig('allowInsert', $this->allowInsert);
+        $this->allowRemove = $this->getConfig('allowRemove', $this->allowRemove);
+        $this->disableToolbar = $this->getConfig('disableToolbar', $this->disableToolbar);
+        $this->dataLocker = $this->getConfig('dataLocker', $this->dataLocker);
+        $this->dataSource = $this->getConfig('dataSource', $this->dataSource);
     }
 
     /**
-     * {@inheritDoc}
+     * Renders the widget.
      */
     public function render()
     {
         $this->prepareVars();
-        return $this->makePartial('datagrid');
+        return $this->makePartial('grid');
     }
 
     /**
-     * Prepares the list data
+     * Prepares the view data
      */
     public function prepareVars()
     {
-        $this->vars['name'] = $this->formField->getName();
         $this->vars['columnHeaders'] = $this->getColumnHeaders();
         $this->vars['columnDefinitions'] = $this->getColumnDefinitions();
         $this->vars['columnWidths'] = $this->getColumnWidths();
-        $this->vars['size'] = $this->size;
         $this->vars['toolbarWidget'] = $this->makeToolbarWidget();
-        $this->vars['value'] = json_encode($this->model->{$this->columnName});
+
+        $this->vars['showHeader'] = $this->showHeader;
+        $this->vars['allowInsert'] = $this->allowInsert;
+        $this->vars['allowRemove'] = $this->allowRemove;
+        $this->vars['disableToolbar'] = $this->disableToolbar;
+        $this->vars['dataLocker'] = $this->dataLocker;
     }
 
     protected function makeToolbarWidget()
     {
+        if ($this->disableToolbar)
+            return;
+
         $toolbarConfig = $this->makeConfig([
             'alias'   => $this->alias . 'Toolbar',
             'buttons' => $this->getViewPath('_toolbar.htm'),
         ]);
 
         $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
+        $toolbarWidget->vars['allowInsert'] = $this->allowInsert;
+        $toolbarWidget->vars['allowRemove'] = $this->allowRemove;
         return $toolbarWidget;
+    }
+
+    //
+    // AJAX
+    //
+
+    public function onAutocomplete()
+    {
+        $field = post('autocomplete_field');
+        $value = post('autocomplete_value');
+        $data = post('autocomplete_data', []);
+        $result = $this->fireEvent('grid.autocomplete', [$field, $value, $data], true);
+        return ['result' => $result];
+    }
+
+    public function onDataSource()
+    {
+        if ($this->dataLocker)
+            return;
+
+        $result = $this->dataSource;
+        return ['result' => $result];
     }
 
     //
@@ -85,6 +144,9 @@ class DataGrid extends FormWidgetBase
 
     protected function getColumnHeaders()
     {
+        if (!$this->showHeader)
+            return false;
+
         $headers = [];
         foreach ($this->columns as $key => $column) {
             $headers[] = isset($column['title']) ? $column['title'] : '???';
@@ -147,25 +209,6 @@ class DataGrid extends FormWidgetBase
     }
 
     //
-    // AJAX
-    //
-
-    public function onAutocomplete()
-    {
-        if (!$this->model->methodExists('getGridAutocompleteValues'))
-            throw new ApplicationException('Model :model does not contain a method getGridAutocompleteValues()');
-
-        $field = post('autocomplete_field');
-        $value = post('autocomplete_value');
-        $data = post('autocomplete_data', []);
-        $result = $this->model->getGridAutocompleteValues($field, $value, $data);
-        if (!is_array($result))
-            $result = [];
-
-        return ['result' => $result];
-    }
-
-    //
     // Internals
     //
 
@@ -180,11 +223,4 @@ class DataGrid extends FormWidgetBase
         $this->addJs('js/datagrid.js', 'core');
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getSaveData($value)
-    {
-        return json_decode($value);
-    }
 }

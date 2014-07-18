@@ -15,7 +15,7 @@ class Page extends CmsCompoundObject
 {
     protected $settingsValidationRules = [
         'title' => 'required',
-        'url' => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|]*$/i']
+        'url'   => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|]*$/i']
     ];
 
     /**
@@ -71,5 +71,30 @@ class Page extends CmsCompoundObject
         }
 
         return $result;
+    }
+
+    /**
+     * Helper that returns a nicer list of pages for use in dropdowns.
+     * @return array
+     */
+    public static function getNameList()
+    {
+        $result = [];
+        $pages = self::sortBy('baseFileName')->all();
+        foreach ($pages as $page) {
+            $result[$page->baseFileName] = $page->title.' ('.$page->baseFileName.')';
+        }
+
+        return $result;
+    }
+
+    /**
+     * Helper that makes a URL for a page in the active theme.
+     * @return string
+     */
+    public static function url($page, $params = [])
+    {
+        $controller = new Controller;
+        return $controller->pageUrl($page, $params);
     }
 }

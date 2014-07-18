@@ -87,19 +87,15 @@ class Relation extends FormWidgetBase
     protected function makeRenderFormField()
     {
         $field = clone $this->formField;
-        $relationObj = $this->model->{$this->relationName}();
         $relatedObj = $this->model->makeRelation($this->relationName);
         $query = $relatedObj->newQuery();
 
         if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany'])) {
             $field->type = 'checkboxlist';
-            $field->value = $relationObj->getRelatedIds();
         }
         else if ($this->relationType == 'belongsTo') {
             $field->type = 'dropdown';
             $field->placeholder = $this->emptyOption;
-            $foreignKey = $relationObj->getForeignKey();
-            $field->value = $this->model->$foreignKey;
         }
 
         // It is safe to assume that if the model and related model are of 

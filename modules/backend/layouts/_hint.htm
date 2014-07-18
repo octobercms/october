@@ -1,0 +1,26 @@
+<?php
+    $type = !empty($type) ? $type : 'info';
+?>
+<?php if (empty($hintName) || !$this->isBackendHintHidden($hintName)): ?>
+    <div class="callout callout-<?= $type ?> fade in <?=empty($icon)?'no-icon':''?> <?=empty($subtitle)?'no-subheader':''?>">
+        <?php if (!empty($hintName)): ?>
+            <button
+                type="button"
+                class="close"
+                data-request="onHideBackendHint"
+                data-request-data="name: '<?= $hintName ?>'"
+                data-dismiss="callout"
+                aria-hidden="true">&times;</button>
+        <?php endif ?>
+        <?php if (!empty($title)): ?>
+            <div class="header">
+                <?php if (!empty($icon)): ?><i class="<?= $icon ?>"></i><?php endif ?>
+                <h3><?= $title ?></h3>
+                <?php if (!empty($subtitle)): ?><p><?= $subtitle ?></p><?php endif ?>
+            </div>
+        <?php endif ?>
+        <div class="content">
+            <?= $this->makePartial($hintPartial, $hintParams) ?>
+        </div>
+    </div>
+<?php endif ?>

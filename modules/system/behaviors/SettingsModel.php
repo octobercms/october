@@ -55,6 +55,7 @@ class SettingsModel extends ModelBehavior
         $this->model->bindEvent('model.afterFetch', [$this, 'afterModelFetch']);
         $this->model->bindEvent('model.beforeSave', [$this, 'beforeModelSave']);
         $this->model->bindEvent('model.setAttribute', [$this, 'setModelAttribute']);
+        $this->model->bindEvent('model.saveInternal', [$this, 'saveModelInternal']);
 
         /*
          * Parse the config
@@ -75,7 +76,12 @@ class SettingsModel extends ModelBehavior
 
         if (!$item) {
             $this->model->initSettingsData();
-            $this->model->forceSave();
+
+            if (method_exists($this->model, 'forceSave'))
+                $this->model->forceSave();
+            else
+                $this->model->save();
+
             $this->model->reload();
             $item = $this->model;
         }
@@ -135,6 +141,16 @@ class SettingsModel extends ModelBehavior
     }
 
     /**
+     * Internal save method for the model
+     * @return void
+     */
+    public function saveModelInternal()
+    {
+        // Purge the field values from the attributes
+        $this->model->attributes = array_diff_key($this->model->attributes, $this->fieldValues);
+    }
+
+    /**
      * Before the model is saved, ensure the record code is set
      * and the jsonable field values
      */
@@ -143,15 +159,6 @@ class SettingsModel extends ModelBehavior
         $this->model->item = $this->recordCode;
         if ($this->fieldValues)
             $this->model->value = $this->fieldValues;
-    }
-
-    /**
-     * Add the field values to the model for validation,
-     * then purge them again.
-     */
-    public function beforeValidate()
-    {
-        $this->model->purgeable = array_keys($this->fieldValues);
     }
 
     /**

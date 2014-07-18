@@ -236,7 +236,9 @@ class ReportContainer extends WidgetBase
 
     protected function getWidgetsFromUserPreferences()
     {
-        return UserPreferences::forUser()->get($this->getUserPreferencesKey(), $this->defaultWidgets);
+        $widgets = UserPreferences::forUser()->get($this->getUserPreferencesKey(), $this->defaultWidgets);
+        if (!is_array($widgets)) return [];
+        return $widgets;
     }
 
     protected function setWidgetsToUserPreferences($widgets)

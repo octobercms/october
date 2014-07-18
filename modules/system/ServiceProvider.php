@@ -10,6 +10,7 @@ use BackendAuth;
 use Twig_Environment;
 use Twig_Loader_String;
 use System\Classes\ErrorHandler;
+use System\Classes\MarkupManager;
 use System\Classes\PluginManager;
 use System\Classes\SettingsManager;
 use System\Twig\Engine as TwigEngine;
@@ -176,6 +177,44 @@ class ServiceProvider extends ModuleServiceProvider
                 'system.manage_settings'        => ['label' => 'Manage system settings', 'tab' => 'System'],
                 'system.manage_updates'         => ['label' => 'Manage software updates', 'tab' => 'System'],
                 'system.manage_mail_templates'  => ['label' => 'Manage mail templates', 'tab' => 'System'],
+            ]);
+        });
+
+        /*
+         * Register markup tags
+         */
+        MarkupManager::instance()->registerCallback(function($manager){
+            $manager->registerFunctions([
+                // Functions
+                'post'           => 'post',
+                'link_to'        => 'link_to',
+                'link_to_asset'  => 'link_to_asset',
+                'link_to_route'  => 'link_to_route',
+                'link_to_action' => 'link_to_action',
+                'asset'          => 'asset',
+                'action'         => 'action',
+                'url'            => 'url',
+                'route'          => 'route',
+                'secure_url'     => 'secure_url',
+                'secure_asset'   => 'secure_asset',
+
+                // Classes
+                'str_*'          => ['Str', '*'],
+                'url_*'          => ['URL', '*'],
+                'html_*'         => ['HTML', '*'],
+                'form_*'         => ['Form', '*'],
+                'form_macro'     => ['Form', '__call'],
+            ]);
+
+            $manager->registerFilters([
+                // Classes
+                'slug'           => ['Str', 'slug'],
+                'plural'         => ['Str', 'plural'],
+                'singular'       => ['Str', 'singular'],
+                'finish'         => ['Str', 'finish'],
+                'snake'          => ['Str', 'snake'],
+                'camel'          => ['Str', 'camel'],
+                'studly'         => ['Str', 'studly'],
             ]);
         });
 

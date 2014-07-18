@@ -4,6 +4,7 @@ use URL;
 use File;
 use Lang;
 use Cache;
+use Route;
 use Config;
 use Request;
 use Response;
@@ -193,7 +194,13 @@ class CombineAssets
      */
     protected function getCombinedUrl($outputFilename = 'undefined.css')
     {
-        return URL::action('Cms\Classes\Controller@combine', [$outputFilename], false);
+        $combineAction = 'Cms\Classes\Controller@combine';
+        $actionExists = Route::getRoutes()->getByAction($combineAction) !== null;
+
+        if ($actionExists)
+            return URL::action($combineAction, [$outputFilename], false);
+        else
+            return Request::getBasePath().'/combine/'.$outputFilename;
     }
 
     /**

@@ -1,9 +1,9 @@
 <div
-    class="field-recordfinder"
+    id="<?= $this->getId() ?>"
+    class="field-recordfinder loading-indicator-container size-input-text"
     data-control="recordfinder"
     data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
-    data-data-locker="#<?= $field->getId() ?>"
-    id="<?= $this->getId() ?>">
+    data-data-locker="#<?= $field->getId() ?>">
     <span class="form-control">
         <?php if ($value): ?>
             <span class="primary"><?= e($nameValue) ?: 'Undefined' ?></span>

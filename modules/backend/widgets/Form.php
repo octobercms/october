@@ -3,6 +3,7 @@
 use App;
 use Str;
 use Lang;
+use Model;
 use Form as FormHelper;
 use Input;
 use Event;
@@ -487,6 +488,12 @@ class Form extends WidgetBase
         $field->value = $this->getFieldValue($field);
 
         /*
+         * Check model if field is required
+         */
+        if (!$field->required && $this->model && method_exists($this->model, 'isAttributeRequired'))
+            $field->required = $this->model->isAttributeRequired($field->columnName);
+
+        /*
          * Get field options from model
          */
         $optionModelTypes = ['dropdown', 'radio', 'checkboxlist'];
@@ -582,34 +589,27 @@ class Form extends WidgetBase
         }
 
         $columnName = $field->columnName;
-
-        if (!$this->model->exists)
-            $defaultValue = strlen($field->defaults) ? $field->defaults : null;
-        else
-            $defaultValue = (isset($this->data->{$columnName})) ? $this->data->{$columnName} : null;
+        $defaultValue = (!$this->model->exists) && strlen($field->defaults) ? $field->defaults : null;
 
         /*
          * Array field name, eg: field[key][key2][key3]
          */
         $keyParts = Str::evalHtmlArray($columnName);
+        $lastField = end($keyParts);
+        $result = $this->data;
 
         /*
-         * First part will be the field name, pop it off.
-         */
-        $fieldName = array_shift($keyParts);
-
-        if (!isset($this->data->{$fieldName}))
-            return $defaultValue;
-
-        $result = $this->data->{$fieldName};
-
-        /*
-         * Loop the remaining key parts and build a result.
-         * This won't execute for standard field names.
+         * Loop the field key parts and build a value.
+         * To support relations only the last ield should return the 
+         * relation value, all others will look up the relation object as normal.
          */
         foreach ($keyParts as $key) {
 
-            if (is_array($result)) {
+            if ($key == $lastField && $result instanceof Model && $result->hasRelation($key)) {
+                if (!$result = $result->getRelationValue($key))
+                    return $defaultValue;
+            }
+            elseif (is_array($result)) {
                 if (!array_key_exists($key, $result)) return $defaultValue;
                 $result = $result[$key];
             }
