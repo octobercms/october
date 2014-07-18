@@ -73,7 +73,6 @@ class AssetList extends WidgetBase
     {
         $this->addCss('css/assetlist.css', 'core');
         $this->addJs('js/assetlist.js', 'core');
-        $this->addJs('/modules/backend/widgets/form/assets/js/form.js', 'core');
     }
 
     /**
