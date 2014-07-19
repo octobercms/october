@@ -68,7 +68,7 @@ class Theme
      */
     public static function exists($dirName)
     {
-        $theme = new self;
+        $theme = new static;
         $path = $theme->getPath($dirName);
 
         return File::isDirectory($path);
@@ -112,7 +112,7 @@ class Theme
         if (!strlen($activeTheme))
             throw new SystemException(Lang::get('cms::lang.theme.active.not_set'));
 
-        $theme = new self();
+        $theme = new static;
         $theme->load($activeTheme);
         if (!File::isDirectory($theme->getPath()))
             return null;
@@ -154,7 +154,7 @@ class Theme
         if (!strlen($editTheme))
             throw new SystemException(Lang::get('cms::lang.theme.edit.not_set'));
 
-        $theme = new self();
+        $theme = new static;
         $theme->load($editTheme);
         if (!File::isDirectory($theme->getPath()))
             return null;
@@ -171,17 +171,16 @@ class Theme
         $path = base_path().Config::get('cms.themesDir');
 
         $it = new DirectoryIterator($path);
+        $it->rewind();
+
         $result = [];
         foreach ($it as $fileinfo) {
-            if ($fileinfo->isDot() ||(substr($fileinfo->getFilename(), 0, 1) == '.'))
+            if ($fileinfo->isDot() || (substr($fileinfo->getFilename(), 0, 1) == '.'))
                 continue;
 
-            $theme = new self();
+            $theme = new static;
             $theme->load($fileinfo->getFilename());
-
             $result[] = $theme;
-
-
         }
 
         return $result;

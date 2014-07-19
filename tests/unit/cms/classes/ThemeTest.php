@@ -17,7 +17,7 @@ class ThemeTest extends TestCase
         $it->setMaxDepth(1);
         $it->rewind();
 
-        while($it->valid()) {
+        while ($it->valid()) {
             if (!$it->isDot() && !$it->isDir() && $it->getExtension() == 'htm')
                 $result++;
 
