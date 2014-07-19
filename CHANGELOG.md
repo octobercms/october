@@ -1,4 +1,5 @@
 * **Build 125** (2014-07-xx)
+  - Added new Theme picker to the backend via Settings > Front-end theme
   - New shorthand method for `$this->getClassExtension('Backend.Behaviors.FormController')` becomes `$this->asExtension('FormController')`.
   - Buttons inside a popup support new `data-popup-load-indicator` attribute.
 

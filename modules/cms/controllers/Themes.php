@@ -14,7 +14,7 @@ use Cms\Classes\Theme as CmsTheme;
  * @author Alexey Bobkov, Samuel Georges
  *
  */
-class Theme extends Controller
+class Themes extends Controller
 {
     public $requiredPermissions = ['cms.manage_themes'];
 
@@ -35,7 +35,7 @@ class Theme extends Controller
 
     public function index()
     {
-        
+
     }
 
     public function index_onSetActiveTheme()
