@@ -27,7 +27,6 @@ class Theme extends Controller
     {
         parent::__construct();
 
-        $this->addJs('/modules/cms/assets/js/themeselector/themeselector.js', 'core');
         $this->addCss('/modules/cms/assets/css/october.theme-selector.css', 'core');
 
         $this->pageTitle = Lang::get('cms::lang.theme.settings_menu');
