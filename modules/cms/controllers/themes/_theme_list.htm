@@ -15,7 +15,7 @@
     <div class="layout-cell min-height theme-description">
         <h3><?= e($theme->getConfigValue('name', $theme->getDirName())) ?></h3>
         <?php if (strlen($author)): ?>
-            <p class="author">by <a href="<?= e($theme->getConfigValue('author-url', '#')) ?>"><?= e($author) ?></a></p>
+            <p class="author">by <a href="<?= e($theme->getConfigValue('authorUrl', '#')) ?>"><?= e($author) ?></a></p>
         <?php endif ?>
         <p class="description"><?= e($theme->getConfigValue('description', 'The theme description is not provided.')) ?></p>
         <div class="controls">
