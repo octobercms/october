@@ -7323,6 +7323,9 @@ body {
 .layout > .layout-row > .layout-cell.min-size {
   width: 0;
 }
+.layout > .layout-row > .layout-cell.min-height {
+  height: 0;
+}
 .layout > .layout-row > .layout-cell.center {
   text-align: center;
 }
@@ -7362,6 +7365,9 @@ body {
 }
 .layout > .layout-row > .layout-cell.min-size {
   width: 0;
+}
+.layout > .layout-row > .layout-cell.min-height {
+  height: 0;
 }
 .layout > .layout-row > .layout-cell.center {
   text-align: center;
@@ -7410,6 +7416,9 @@ body {
 }
 .layout > .layout-cell.min-size {
   width: 0;
+}
+.layout > .layout-cell.min-height {
+  height: 0;
 }
 .layout > .layout-cell.center {
   text-align: center;
@@ -11520,6 +11529,9 @@ ul.status-list li span.status.info {
 }
 .control-breadcrumb + .content-tabs {
   margin-top: -20px;
+}
+.control-breadcrumb.no-bottom-margin {
+  margin-bottom: 0;
 }
 body.slim-container .control-breadcrumb {
   margin-left: 0;

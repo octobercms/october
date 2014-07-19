@@ -1,0 +1,21 @@
+<?= Block::put('body') ?>
+    <div class="layout">
+        <div class="layout-row min-size">
+            <div class="control-breadcrumb no-bottom-margin">
+                <ul>
+                    <li><a href="<?= Backend::url('system/settings') ?>"><?= e(trans('system::lang.settings.menu_label')) ?></a></li>
+                    <li><?= e($this->pageTitle) ?></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layout-row">
+            <?= Form::open(['onsubmit'=>'return false']) ?>
+            <div class="layout theme-selector-layout" id="theme-list">
+                <?= $this->makePartial('theme_list') ?>
+            </div>
+            <?= Form::close() ?>
+        </div>
+
+    </div>
+<?= Block::endPut() ?>

@@ -6,6 +6,7 @@ use BackendMenu;
 use BackendAuth;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
+use System\Classes\SettingsManager;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -89,6 +90,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'cms.manage_pages'     => ['label' => 'Manage pages', 'tab' => 'Cms'],
                 'cms.manage_layouts'   => ['label' => 'Manage layouts', 'tab' => 'Cms'],
                 'cms.manage_partials'  => ['label' => 'Manage partials', 'tab' => 'Cms'],
+                'cms.manage_themes'    => ['label' => 'Manage themes', 'tab' => 'Cms']
             ]);
         });
 
@@ -99,6 +101,21 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Cms\FormWidgets\Components');
         });
 
+        /*
+         * Register settings
+         */
+        SettingsManager::instance()->registerCallback(function($manager){
+            $manager->registerSettingItems('October.Cms', [
+                'theme' => [
+                    'label'       => 'cms::lang.theme.settings_menu',
+                    'description' => 'cms::lang.theme.settings_menu_description',
+                    'category'    => 'CMS',
+                    'icon'        => 'icon-picture-o',
+                    'url'         => Backend::URL('cms/theme'),
+                    'sort'        => 200
+                ]
+            ]);
+        });
     }
 
     /**
