@@ -1,15 +1,15 @@
 <?php namespace Cms\Classes;
 
+use URL;
 use File;
 use Lang;
+use Cache;
 use Event;
 use Config;
-use URL;
-use Cache;
-use DB;
-use DirectoryIterator;
-use System\Classes\SystemException;
 use October\Rain\Support\Yaml;
+use System\Models\Parameters;
+use System\Classes\SystemException;
+use DirectoryIterator;
 
 /**
  * This class represents the CMS theme.
@@ -94,14 +94,14 @@ class Theme
      */
     public static function getActiveTheme()
     {
-        $configKey = 'cms.activeTheme';
+        $paramKey = 'cms::theme.active';
+        $activeTheme = Config::get('cms.activeTheme');
 
-        $activeTheme = Config::get($configKey);
+        $dbResult = Parameters::findRecord($paramKey)
+            ->remember(1440, $paramKey)
+            ->pluck('value')
+        ;
 
-        $dbResult = DB::table('system_settings')
-            ->where('item', '=', $configKey)
-            ->remember(1440, $configKey)
-            ->pluck('value');
         if ($dbResult !== null)
             $activeTheme = $dbResult;
 
@@ -127,11 +127,9 @@ class Theme
      */
     public static function setActiveTheme($code)
     {
-        $configKey = 'cms.activeTheme';
-
-        DB::table('system_settings')->where('item', '=', $configKey)->delete();
-        DB::table('system_settings')->insert(['item'=>$configKey, 'value'=>$code]);
-        Cache::forget($configKey);
+        $paramKey = 'cms::theme.active';
+        Parameters::set($paramKey, $code);
+        Cache::forget($paramKey);
     }
 
     /**
