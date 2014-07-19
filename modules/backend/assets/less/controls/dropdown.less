@@ -91,8 +91,29 @@
         }
     }
 
+    &.pull-right {
+        .dropdown-container > ul {
+            &:after {
+                left: auto;
+                right: 15px;
+            }
+            &:before {
+                left: auto;
+                right: 14px;
+            }
+            li.first-item a {
+                &:hover, &:focus {
+                    &:after {
+                        left: auto;
+                        right: 15px;
+                    }
+                }
+            }
+        }
+    }
+
     &.top {
-        .dropdown-container { 
+        .dropdown-container {
             > ul {
                 &:after {
                     .triangle(down, 15px, 8px, @dropdown-bg);
@@ -110,7 +131,7 @@
     }
 }
 
-.touch .dropdown-menu .dropdown-container > ul li { 
+.touch .dropdown-menu .dropdown-container > ul li {
     a:hover {
         color: @dropdown-link-color;
         background: white;

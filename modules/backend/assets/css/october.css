@@ -10506,6 +10506,19 @@ html.cssanimations .cursor-loading-indicator.hide {
 .dropdown-menu .dropdown-container > ul li.divider {
   margin: 0;
 }
+.dropdown-menu.pull-right .dropdown-container > ul:after {
+  left: auto;
+  right: 15px;
+}
+.dropdown-menu.pull-right .dropdown-container > ul:before {
+  left: auto;
+  right: 14px;
+}
+.dropdown-menu.pull-right .dropdown-container > ul li.first-item a:hover:after,
+.dropdown-menu.pull-right .dropdown-container > ul li.first-item a:focus:after {
+  left: auto;
+  right: 15px;
+}
 .dropdown-menu.top .dropdown-container > ul:after {
   content: '';
   display: block;
