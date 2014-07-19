@@ -24,8 +24,8 @@ return [
         'settings_menu' => 'Front-end theme',
         'settings_menu_description' => 'Preview the list of installed themes and select an active theme.',
         'find_more_themes' => 'Find more themes on OctoberCMS Theme Marketplace.',
-        'activate_btn' => 'Activate',
-        'active_btn' => 'Activate',
+        'activate_button' => 'Activate',
+        'active_button' => 'Activate',
     ],
     'page' => [
         'not_found' => [
