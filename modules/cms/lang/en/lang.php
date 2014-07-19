@@ -20,7 +20,12 @@ return [
             'not_set' => "The edit theme is not set.",
             'not_found' => "The edit theme is not found.",
             'not_match' => "The object you're trying to access doesn't belong to the theme being edited. Please reload the page."
-        ]
+        ],
+        'settings_menu' => 'Front-end theme',
+        'settings_menu_description' => 'Preview the list of installed themes and select an active theme.',
+        'find_more_themes' => 'Find more themes on OctoberCMS Theme Marketplace.',
+        'activate_btn' => 'Activate',
+        'active_btn' => 'Activate',
     ],
     'page' => [
         'not_found' => [
