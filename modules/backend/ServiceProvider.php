@@ -82,7 +82,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => 'My Settings',
                     'icon'        => 'icon-code',
                     'url'         => Backend::URL('backend/editorpreferences'),
-                    'sort'        => 200,
+                    'order'       => 600,
                     'context'     => 'mysettings'
                 ],
                 'backend_preferences' => [
@@ -91,7 +91,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => 'My Settings',
                     'icon'        => 'icon-laptop',
                     'class'       => 'Backend\Models\BackendPreferences',
-                    'sort'        => 200,
+                    'order'       => 500,
                     'context'     => 'mysettings'
                 ],
                 'myaccount' => [
@@ -100,7 +100,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => 'My Settings',
                     'icon'        => 'icon-user',
                     'url'         => Backend::URL('backend/users/myaccount'),
-                    'sort'        => 200,
+                    'order'       => 400,
                     'context'     => 'mysettings'
                 ],
             ]);

@@ -229,7 +229,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => 'System',
                     'icon'        => 'icon-envelope',
                     'class'       => 'System\Models\MailSettings',
-                    'sort'        => 100
+                    'order'       => 400,
                 ],
                 'mail_templates' => [
                     'label'       => 'system::lang.mail_templates.menu_label',
@@ -237,7 +237,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => 'System',
                     'icon'        => 'icon-envelope-square',
                     'url'         => Backend::url('system/mailtemplates'),
-                    'sort'        => 100
+                    'order'       => 400,
                 ],
             ]);
         });

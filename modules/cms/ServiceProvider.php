@@ -112,7 +112,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => 'CMS',
                     'icon'        => 'icon-picture-o',
                     'url'         => Backend::URL('cms/theme'),
-                    'sort'        => 200
+                    'order'       => 200
                 ]
             ]);
         });
