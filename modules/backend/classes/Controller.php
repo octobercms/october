@@ -379,7 +379,7 @@ class Controller extends Extendable
                 return Response::make(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]), 500);
             }
             catch (Exception $ex) {
-                return Response::make($ex->getMessage(), 500);
+                return Response::make(sprintf('"%s" on line %s of %s', $ex->getMessage(), $ex->getLine(), $ex->getFile()), 500);
             }
         }
 

@@ -8,7 +8,7 @@ use System\Classes\ApplicationException;
  *
  * Usage:
  *
- * In the model class definition: 
+ * In the model class definition:
  *
  *   public $implement = ['System.Behaviors.SettingsModel'];
  *   public $settingsCode = 'author_plugin_code';
@@ -200,4 +200,4 @@ class SettingsModel extends ModelBehavior
     {
         return $this->fieldConfig;
     }
-} 
+}
