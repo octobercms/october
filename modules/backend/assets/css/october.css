@@ -10966,6 +10966,7 @@ body.dropdown-open .dropdown-overlay {
 .control-tabs.content-tabs > .tab-content > .tab-pane {
   padding-top: 0;
 }
+.control-tabs.content-tabs > .tab-content > .tab-pane div.list-header,
 .control-tabs.content-tabs > .tab-content > .tab-pane div.padded-container,
 .control-tabs.content-tabs > .tab-content > .tab-pane div.toolbar-widget {
   background: #ffffff;
