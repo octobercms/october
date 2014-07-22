@@ -205,8 +205,12 @@ class Router
              */
             $pages = $this->theme->listPages();
             $map = [];
-            foreach ($pages as $page)
+            foreach ($pages as $page) {
+                if (!$page->url)
+                    continue;
+
                 $map[] = ['file' => $page->getFileName(), 'pattern' => $page->url];
+            }
 
             self::$urlMap = $map;
             if ($cacheable)
