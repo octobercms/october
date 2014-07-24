@@ -143,6 +143,8 @@ return [
         'update_success' => 'The update process was performed successfully.',
         'update_failed_label' => 'Update failed',
         'force_label' => 'Force update',
+        'theme_label' => 'Theme',
+        'theme_new_install' => 'New theme installation.',
         'found' => [
             'label' => 'Found new updates!',
             'help' => 'Click Update software to begin the update process.',
