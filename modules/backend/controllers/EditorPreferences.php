@@ -3,6 +3,7 @@
 use Lang;
 use BackendMenu;
 use Backend\Classes\Controller;
+use System\Classes\SettingsManager;
 use Backend\Models\EditorPreferences as EditorPreferencesModel;
 
 /**
@@ -34,6 +35,7 @@ class EditorPreferences extends Controller
         $this->addJs('/modules/backend/assets/js/editorpreferences/editorpreferences.js', 'core');
 
         BackendMenu::setContext('October.System', 'system', 'mysettings');
+        SettingsManager::setContext('October.Backend', 'editor');
     }
 
     public function index()

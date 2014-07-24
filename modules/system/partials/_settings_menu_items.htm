@@ -1,0 +1,26 @@
+<?php
+    $context = System\Classes\SettingsManager::instance()->getContext();
+?>
+<ul class="top-level">
+    <?php foreach ($items as $category => $items): ?>
+        <li>
+            <div class="group">
+                <h3><?= $category ?></h3>
+            </div>
+
+            <ul>
+                <?php foreach ($items as $item): ?>
+                    <li class="<?= strtolower($item->owner) == $context->owner && strtolower($item->code) == $context->itemCode ? 'active' : false ?>">
+                        <a href="<?= $item->url ?>">
+                            <i class="<?= $item->icon ?>"></i>
+                            <span class="header"><?= e(trans($item->label)) ?></span>
+                            <span class="description"><?= e(trans($item->description)) ?></span>
+                        </a>
+                    </li>
+                <?php endforeach ?>
+
+            </ul>
+
+        </li>
+    <?php endforeach ?>
+</ul>

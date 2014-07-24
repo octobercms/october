@@ -29,6 +29,9 @@ class SettingsManager
      */
     private $allItems;
 
+    private $contextOwner;
+    private $contextItemCode;
+
     static $itemDefaults = [
         'code'        => null,
         'label'       => null,
@@ -209,6 +212,33 @@ class SettingsManager
 
             $this->items[] = (object)$item;
         }
+    }
+
+    /**
+     * Sets the navigation context.
+     * @param string $owner Specifies the setting items owner plugin or module in the format Vendor/Module.
+     * @param string $code Specifies the settings item code.
+     */
+    public static function setContext($owner, $code)
+    {
+        $instance = self::instance();
+
+        $instance->contextOwner = strtolower($owner);
+        $instance->contextItemCode = strtolower($code);
+    }
+
+    /**
+     * Returns information about the current settings context.
+     * @return mixed Returns an object with the following fields:
+     * - itemCode
+     * - owner
+     */
+    public function getContext()
+    {
+        return (object)[
+            'itemCode' => $this->contextItemCode,
+            'owner' => $this->contextOwner 
+        ];
     }
 
     /**

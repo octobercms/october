@@ -6,6 +6,7 @@ use Redirect;
 use BackendMenu;
 use BackendAuth;
 use Backend\Classes\Controller;
+use System\Classes\SettingsManager;
 
 /**
  * Backend user controller
@@ -55,7 +56,8 @@ class Users extends Controller
      */
     public function myaccount()
     {
-        BackendMenu::setContextSideMenu('mysettings');
+        SettingsManager::setContext('October.Backend', 'myaccount');
+
         $this->pageTitle = Lang::get('backend::lang.myaccount.menu_label');
         return $this->update($this->user->id, 'myaccount');
     }

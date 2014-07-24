@@ -24,6 +24,8 @@ class NavigationManager
      */
     private $items;
 
+    private $contextSidenavPartials = [];
+
     private $contextOwner;
     private $contextMainMenuItemCode;
     private $contextSideMenuItemCode;
@@ -295,9 +297,9 @@ class NavigationManager
     /**
      * Sets the navigation context.
      * The function sets the navigation owner, main menu item code and the side menu item code.
-     * @param string @owner Specifies the navigation owner in the format Vendor/Module
-     * @param string @mainMenuItemCode Specifies the main menu item code
-     * @param string @sideMenuItemCode Specifies the side menu item code
+     * @param string $owner Specifies the navigation owner in the format Vendor/Module
+     * @param string $mainMenuItemCode Specifies the main menu item code
+     * @param string $sideMenuItemCode Specifies the side menu item code
      */
     public function setContext($owner, $mainMenuItemCode, $sideMenuItemCode = null)
     {
@@ -309,7 +311,7 @@ class NavigationManager
     /**
      * Sets the navigation context.
      * The function sets the navigation owner.
-     * @param string @owner Specifies the navigation owner in the format Vendor/Module
+     * @param string $owner Specifies the navigation owner in the format Vendor/Module
      */
     public function setContextOwner($owner)
     {
@@ -318,7 +320,7 @@ class NavigationManager
 
     /**
      * Specifies a code of the main menu item in the current navigation context.
-     * @param string @mainMenuItemCode Specifies the main menu item code
+     * @param string $mainMenuItemCode Specifies the main menu item code
      */
     public function setContextMainMenu($mainMenuItemCode)
     {
@@ -330,18 +332,20 @@ class NavigationManager
      * @return mixed Returns an object with the following fields:
      * - mainMenuCode
      * - sideMenuCode
+     * - owner
      */
     public function getContext()
     {
         return (object)[
             'mainMenuCode' => $this->contextMainMenuItemCode,
-            'sideMenuCode' => $this->contextSideMenuItemCode
+            'sideMenuCode' => $this->contextSideMenuItemCode,
+            'owner' => $this->contextOwner 
         ];
     }
 
     /**
      * Specifies a code of the side menu item in the current navigation context.
-     * @param string @sideMenuItemCode Specifies the side menu item code
+     * @param string $sideMenuItemCode Specifies the side menu item code
      */
     public function setContextSideMenu($sideMenuItemCode)
     {
@@ -350,7 +354,7 @@ class NavigationManager
 
     /**
      * Determines if a main menu item is active.
-     * @param mixed @item Specifies the item object.
+     * @param mixed $item Specifies the item object.
      * @return boolean Returns true if the menu item is active.
      */
     public function isMainMenuItemActive($item)
@@ -360,12 +364,39 @@ class NavigationManager
 
     /**
      * Determines if a side menu item is active.
-     * @param mixed @item Specifies the item object.
+     * @param mixed $item Specifies the item object.
      * @return boolean Returns true if the side item is active.
      */
     public function isSideMenuItemActive($item)
     {
         return $this->contextOwner == $item->owner && $this->contextSideMenuItemCode == $item->code;
+    }
+
+    /**
+     * Registers a special side navigation partial for a specific main menu.
+     * The sidenav partial replaces the standard side navigation.
+     * @param string $owner Specifies the navigation owner in the format Vendor/Module.
+     * @param string $mainMenuItemCode Specifies the main menu item code.
+     * @param string $partial Specifies the partial name.
+     */
+    public function registerContextSidenavPartial($owner, $mainMenuItemCode, $partial)
+    {
+        $this->contextSidenavPartials[$owner.$mainMenuItemCode] = $partial;
+    }
+
+    /**
+     * Returns the side navigation partial for a specific main menu previously registered with the registerContextSidenavPartial() method.
+     * @param string $owner Specifies the navigation owner in the format Vendor/Module.
+     * @param string $mainMenuItemCode Specifies the main menu item code.
+     * @return mixed Returns the partial name or null.
+     */
+    public function getContextSidenavPartial($owner, $mainMenuItemCode)
+    {
+        $key = $owner.$mainMenuItemCode;
+
+        return array_key_exists($key, $this->contextSidenavPartials) ? 
+            $this->contextSidenavPartials[$key] :
+            null;
     }
 
     /**

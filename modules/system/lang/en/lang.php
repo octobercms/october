@@ -65,6 +65,7 @@ return [
         'missing_model' => 'The settings page is missing a Model definition.',
         'update_success' => 'Settings for :name have been updated successfully.',
         'return' => 'Return to system settings',
+        'search' => 'Search'
     ],
     'mail' => [
         'menu_label' => 'Mail Configuration',

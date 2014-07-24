@@ -258,6 +258,12 @@ class ServiceProvider extends ModuleServiceProvider
         App::bindShared('command.cache.clear', function($app) {
             return new \System\Console\CacheClear($app['cache'], $app['files']);
         });
+
+        /*
+         * Register the sidebar for the System main menu
+         */
+
+        BackendMenu::registerContextSidenavPartial('October.System', 'system', '@/modules/system/partials/_system_sidebar.htm');
     }
 
     /**
