@@ -55,6 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
+			'port'      => '',
 			'database'  => 'database',
 			'username'  => 'root',
 			'password'  => '',
@@ -66,6 +67,7 @@ return array(
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',
+			'port'     => '',
 			'database' => 'database',
 			'username' => 'root',
 			'password' => '',
@@ -77,6 +79,7 @@ return array(
 		'sqlsrv' => array(
 			'driver'   => 'sqlsrv',
 			'host'     => 'localhost',
+			'port'     => '',
 			'database' => 'database',
 			'username' => 'root',
 			'password' => '',
