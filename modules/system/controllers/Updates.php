@@ -195,10 +195,16 @@ class Updates extends Controller
                 $plugins[$code] = array_get($plugin, 'hash', null);
             }
 
+            $themes = [];
+            $themeList = array_get($result, 'themes', []);
+            foreach ($themeList as $code => $theme) {
+                $themes[$code] = array_get($theme, 'hash', null);
+            }
+
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps($core, $plugins);
+            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes);
 
             /*
              * Finish up

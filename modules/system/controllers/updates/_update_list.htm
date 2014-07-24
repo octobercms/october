@@ -16,7 +16,7 @@
                             <i class="icon-cube"></i>
                             <?= e(trans('system::lang.system.name')) ?>
                             <?php if ($core['old_build']): ?>
-                                <?= e(trans('system::lang.updates.core_build_old', ['build'=>$core['old_build']])) ?>
+                                <small><?= e(trans('system::lang.updates.core_build_old', ['build'=>$core['old_build']])) ?></small>
                             <?php endif ?>
                         </h5>
                         <dl>
