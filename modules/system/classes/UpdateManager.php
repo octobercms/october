@@ -470,6 +470,7 @@ class UpdateManager
         if (!Zip::extract($filePath, $this->baseDirectory . '/themes/'))
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
 
+        $this->setThemeInstalled($name);
         @unlink($filePath);
     }
 
