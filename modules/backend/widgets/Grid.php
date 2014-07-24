@@ -51,14 +51,24 @@ class Grid extends WidgetBase
     protected $disableToolbar = false;
 
     /**
-     * @var mixed Array of data, or callable for data source.
+     * @var array Provided data set, cannot use with dataLocker or useDataSource.
      */
-    protected $dataSource;
+    protected $data;
 
     /**
-     * @var string HTML element that can [re]store the grid data.
+     * @var string HTML element that can [re]store the grid data, cannot use with data or useDataSource.
      */
     protected $dataLocker;
+
+    /**
+     * @var boolean Get data from AJAX callback (onDataSource), cannot use with data or dataLocker.
+     */
+    protected $useDataSource = false;
+
+    /**
+     * @var boolean Sends an AJAX callback (onDataChanged) any time a field is changed.
+     */
+    protected $monitorChanges = true;
 
     /**
      * Initialize the widget, called by the constructor and free from its parameters.
@@ -70,8 +80,10 @@ class Grid extends WidgetBase
         $this->allowInsert = $this->getConfig('allowInsert', $this->allowInsert);
         $this->allowRemove = $this->getConfig('allowRemove', $this->allowRemove);
         $this->disableToolbar = $this->getConfig('disableToolbar', $this->disableToolbar);
+        $this->data = $this->getConfig('data', $this->data);
         $this->dataLocker = $this->getConfig('dataLocker', $this->dataLocker);
-        $this->dataSource = $this->getConfig('dataSource', $this->dataSource);
+        $this->useDataSource = $this->getConfig('useDataSource', $this->useDataSource);
+        $this->monitorChanges = $this->getConfig('monitorChanges', $this->monitorChanges);
     }
 
     /**
@@ -97,7 +109,10 @@ class Grid extends WidgetBase
         $this->vars['allowInsert'] = $this->allowInsert;
         $this->vars['allowRemove'] = $this->allowRemove;
         $this->vars['disableToolbar'] = $this->disableToolbar;
+        $this->vars['data'] = $this->data;
         $this->vars['dataLocker'] = $this->dataLocker;
+        $this->vars['useDataSource'] = $this->useDataSource;
+        $this->vars['monitorChanges'] = $this->monitorChanges;
     }
 
     protected function makeToolbarWidget()
@@ -129,12 +144,32 @@ class Grid extends WidgetBase
         return ['result' => $result];
     }
 
-    public function onDataSource()
+    public function onDataChanged()
     {
-        if ($this->dataLocker)
+        if (!$this->monitorChanges)
             return;
 
-        $result = $this->dataSource;
+        /*
+         * Changes array, each array item will contain:
+         * ['rowData' => [...], 'keyName' => 'changedColumn', 'oldValue' => 'was', 'newValue' => 'is']
+         */
+        $changes = post('changes');
+        $this->fireEvent('grid.dataChanged', [$changes]);
+    }
+
+    public function onDataSource()
+    {
+        if (!$this->useDataSource)
+            return;
+
+        $result = [];
+
+        if ($_result = $this->fireEvent('grid.dataSource', [], true))
+            $result = $_result;
+
+        if (!is_array($result))
+            $result = [];
+
         return ['result' => $result];
     }
 

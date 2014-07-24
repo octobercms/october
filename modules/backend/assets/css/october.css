@@ -7271,6 +7271,7 @@ body {
   /* The html and body elements cannot have any padding or margin. */
 }
 body {
+  webkit-font-smoothing: antialiased;
   background: #fafafa;
 }
 #layout-canvas {
@@ -7323,6 +7324,9 @@ body {
 .layout > .layout-row > .layout-cell.min-size {
   width: 0;
 }
+.layout > .layout-row > .layout-cell.min-height {
+  height: 0;
+}
 .layout > .layout-row > .layout-cell.center {
   text-align: center;
 }
@@ -7362,6 +7366,9 @@ body {
 }
 .layout > .layout-row > .layout-cell.min-size {
   width: 0;
+}
+.layout > .layout-row > .layout-cell.min-height {
+  height: 0;
 }
 .layout > .layout-row > .layout-cell.center {
   text-align: center;
@@ -7410,6 +7417,9 @@ body {
 }
 .layout > .layout-cell.min-size {
   width: 0;
+}
+.layout > .layout-cell.min-height {
+  height: 0;
 }
 .layout > .layout-cell.center {
   text-align: center;
@@ -10506,6 +10516,19 @@ html.cssanimations .cursor-loading-indicator.hide {
 .dropdown-menu .dropdown-container > ul li.divider {
   margin: 0;
 }
+.dropdown-menu.pull-right .dropdown-container > ul:after {
+  left: auto;
+  right: 15px;
+}
+.dropdown-menu.pull-right .dropdown-container > ul:before {
+  left: auto;
+  right: 14px;
+}
+.dropdown-menu.pull-right .dropdown-container > ul li.first-item a:hover:after,
+.dropdown-menu.pull-right .dropdown-container > ul li.first-item a:focus:after {
+  left: auto;
+  right: 15px;
+}
 .dropdown-menu.top .dropdown-container > ul:after {
   content: '';
   display: block;
@@ -10944,6 +10967,7 @@ body.dropdown-open .dropdown-overlay {
 .control-tabs.content-tabs > .tab-content > .tab-pane {
   padding-top: 0;
 }
+.control-tabs.content-tabs > .tab-content > .tab-pane div.list-header,
 .control-tabs.content-tabs > .tab-content > .tab-pane div.padded-container,
 .control-tabs.content-tabs > .tab-content > .tab-pane div.toolbar-widget {
   background: #ffffff;
@@ -11518,8 +11542,12 @@ ul.status-list li span.status.info {
 .control-breadcrumb li:last-child:after {
   content: '';
 }
-.control-breadcrumb + .content-tabs {
+.control-breadcrumb + .content-tabs,
+.control-breadcrumb + .padded-container {
   margin-top: -20px;
+}
+.control-breadcrumb.no-bottom-margin {
+  margin-bottom: 0;
 }
 body.slim-container .control-breadcrumb {
   margin-left: 0;

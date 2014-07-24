@@ -254,11 +254,16 @@ class FormField
 
     /**
      * Returns a value suitable for the field name property.
+     * @param  string $arrayName Specify a custom array name
+     * @return string
      */
-    public function getName()
+    public function getName($arrayName = null)
     {
-        if ($this->arrayName)
-            return $this->arrayName.'['.implode('][', Str::evalHtmlArray($this->columnName)).']';
+        if ($arrayName === null)
+            $arrayName = $this->arrayName;
+
+        if ($arrayName)
+            return $arrayName.'['.implode('][', Str::evalHtmlArray($this->columnName)).']';
         else
             return $this->columnName;
     }

@@ -101,7 +101,7 @@
 
     // LOADINDICATOR DATA-API
     // ==============
-    
+
     $(document)
         .on('ajaxPromise', '[data-load-indicator]', function() {
             var

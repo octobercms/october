@@ -1,0 +1,51 @@
+<?php
+    $themes = Cms\Classes\Theme::all();
+    $activeTheme = Cms\Classes\Theme::getActiveTheme();
+    $cnt = count($themes);
+
+    foreach ($themes as $index=>$theme):
+        $isLast = $index == $cnt-1;
+        $isActive = $activeTheme->getDirName() == $theme->getDirName();
+        $author = $theme->getConfigValue('author');
+?>
+<div class="layout-row <?= $isLast ? 'last' : null ?> min-size <?= $isActive ? 'active' : null ?>">
+    <div class="layout-cell min-height theme-thumbnail">
+        <div class="thumbnail-container"><img src="<?= $theme->getPreviewImageUrl() ?>"/></div>
+    </div>
+    <div class="layout-cell min-height theme-description">
+        <h3><?= e($theme->getConfigValue('name', $theme->getDirName())) ?></h3>
+        <?php if (strlen($author)): ?>
+            <p class="author">by <a href="<?= e($theme->getConfigValue('authorUrl', '#')) ?>"><?= e($author) ?></a></p>
+        <?php endif ?>
+        <p class="description"><?= e($theme->getConfigValue('description', 'The theme description is not provided.')) ?></p>
+        <div class="controls">
+            <?php if ($isActive): ?>
+                <button
+                    type="submit"
+                    disabled
+                    class="btn btn-disabled">
+                    <i class="icon-star"></i>
+                    <?= e(trans('cms::lang.theme.active_button')) ?>
+                </button>
+            <?php else: ?>
+                <button
+                    type="submit"
+                    data-request="onSetActiveTheme"
+                    data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
+                    data-stripe-load-indicator
+                    class="btn btn-primary">
+                    <?= e(trans('cms::lang.theme.activate_button')) ?>
+                </button>
+            <?php endif ?>
+        </div>
+    </div>
+</div>
+<?php endforeach ?>
+<div class="layout-row links">
+    <div class="layout-cell theme-thumbnail">
+        
+    </div>
+    <div class="layout-cell theme-description">
+        <a class="find-more-themes" href="http://octobercms.com/themes"><?= e(trans('cms::lang.theme.find_more_themes')) ?></a>
+    </div>
+</div>

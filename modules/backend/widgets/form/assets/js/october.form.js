@@ -63,7 +63,6 @@
 
     }
 
-
     // FORM WIDGET PLUGIN DEFINITION
     // ============================
 
@@ -97,7 +96,7 @@
 
     // FORM WIDGET DATA-API
     // ==============
-    
+
     $(document).render(function(){
         $('[data-control="formwidget"]').formWidget();
     })

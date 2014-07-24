@@ -4,20 +4,22 @@
     <?php endif ?>
 
     <div
-        id="<?= $this->getId('grid') ?>"
+        id="<?= $this->getId() ?>"
         style="width:100%"
         class="control-datagrid"
         data-control="datagrid"
         data-allow-remove="<?= $allowRemove ? 'true' : 'false' ?>"
-        <?php if ($dataLocker): ?>data-data-locker="<?= $dataLocker ?>"<?php endif ?>
         data-autocomplete-handler="<?= $this->getEventHandler('onAutocomplete') ?>"
-        data-source-handler="<?= $this->getEventHandler('onDataSource') ?>"
+        <?php if ($dataLocker): ?>data-data-locker="<?= $dataLocker ?>"<?php endif ?>
+        <?php if ($useDataSource): ?>data-source-handler="<?= $this->getEventHandler('onDataSource') ?>"<?php endif ?>
+        <?php if ($monitorChanges): ?>data-change-handler="<?= $this->getEventHandler('onDataChanged') ?>"<?php endif ?>
         ></div>
 
 </div>
 <script>
-    $('#<?= $this->getId('grid') ?>')
+    $('#<?= $this->getId() ?>')
         .data('columns', <?= json_encode($columnDefinitions) ?>)
         .data('columnHeaders', <?= json_encode($columnHeaders) ?>)
         .data('columnWidths', <?= json_encode($columnWidths) ?>)
+        <?php if ($data): ?>.data('data', <?= json_encode($data) ?>)<?php endif ?>
 </script>
