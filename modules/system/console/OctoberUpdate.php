@@ -1,6 +1,7 @@
 <?php namespace System\Console;
 
 use Str;
+use Config;
 use Illuminate\Console\Command;
 use System\Classes\UpdateManager;
 use Symfony\Component\Console\Input\InputOption;
@@ -35,9 +36,29 @@ class OctoberUpdate extends Command
         $this->output->writeln('<info>Updating October...</info>');
         $manager = UpdateManager::instance()->resetNotes();
         $forceUpdate = $this->option('force');
-        $pluginsOnly = $this->option('plugins');
-        $coreOnly = $this->option('core');
 
+        /*
+         * Check for disabilities
+         */
+        $disableCore = $disablePlugins = $disableThemes = false;
+
+        if ($this->option('plugins')) {
+            $disableCore = true;
+            $disableThemes = true;
+        }
+
+        if ($this->option('core')) {
+            $disablePlugins = true;
+            $disableThemes = true;
+        }
+
+        if (Config::get('cms.disableCoreUpdates', false)) {
+            $disableCore = true;
+        }
+
+        /*
+         * Perform update
+         */
         $updateList = $manager->requestUpdateList($forceUpdate);
         $updates = (int)array_get($updateList, 'update', 0);
 
@@ -49,7 +70,7 @@ class OctoberUpdate extends Command
             $this->output->writeln(sprintf('<info>Found %s new %s!</info>', $updates, Str::plural('update', $updates)));
         }
 
-        $coreHash = $pluginsOnly ? null : array_get($updateList, 'core.hash');
+        $coreHash = $disableCore ? null : array_get($updateList, 'core.hash');
         $coreBuild = array_get($updateList, 'core.build');
 
         if ($coreHash) {
@@ -57,7 +78,7 @@ class OctoberUpdate extends Command
             $manager->downloadCore($coreHash);
         }
 
-        $plugins = $coreOnly ? [] : array_get($updateList, 'plugins');
+        $plugins = $disablePlugins ? [] : array_get($updateList, 'plugins');
         foreach ($plugins as $code => $plugin) {
             $pluginName = array_get($plugin, 'name');
             $pluginHash = array_get($plugin, 'hash');
