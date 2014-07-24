@@ -206,6 +206,16 @@ class UpdateManager
         }
         $result['plugins'] = $plugins;
 
+        /*
+         * Strip out themes that have been installed before
+         */
+        $themes = [];
+        foreach (array_get($result, 'themes', []) as $code => $info) {
+            if (!$this->isThemeInstalled($code))
+                $themes[$code] = $info;
+        }
+        $result['themes'] = $themes;
+
         Parameters::set('system::update.count', array_get($result, 'update', 0));
 
         return $result;
@@ -431,6 +441,31 @@ class UpdateManager
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
 
         @unlink($filePath);
+    }
+
+    //
+    // Themes
+    //
+
+    /**
+     * Checks if a theme has ever been installed before.
+     * @param  string  $name Theme code
+     * @return boolean
+     */
+    public function isThemeInstalled($name)
+    {
+        return array_key_exists($name, Parameters::get('system::theme.history', []));
+    }
+
+    /**
+     * Flags a theme as being installed, so it is not downloaded twice.
+     * @param string $name Theme code
+     */
+    public function setThemeInstalled($name)
+    {
+        $history = Parameters::get('system::theme.history', []);
+        $history[$name] = Carbon::now()->timestamp;
+        Parameters::set('system::theme.history', $history);
     }
 
     //

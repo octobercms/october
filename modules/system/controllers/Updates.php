@@ -158,7 +158,8 @@ class Updates extends Controller
 
             $this->vars['core'] = array_get($result, 'core', false);
             $this->vars['hasUpdates'] = array_get($result, 'update', false);
-            $this->vars['updateList'] = array_get($result, 'plugins', []);
+            $this->vars['pluginList'] = array_get($result, 'plugins', []);
+            $this->vars['themeList'] = array_get($result, 'themes', []);
         }
         catch (Exception $ex) {
             $this->handleError($ex);
