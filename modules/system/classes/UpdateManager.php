@@ -448,6 +448,32 @@ class UpdateManager
     //
 
     /**
+     * Downloads a theme from the update server.
+     * @param string $name Theme name.
+     * @param string $hash Expected file hash.
+     * @return self
+     */
+    public function downloadTheme($name, $hash)
+    {
+        $fileCode = $name . $hash;
+        $this->requestServerFile('theme/get', $fileCode, $hash, ['name' => $name]);
+    }
+
+    /**
+     * Extracts a theme after it has been downloaded.
+     */
+    public function extractTheme($name, $hash)
+    {
+        $fileCode = $name . $hash;
+        $filePath = $this->getFilePath($fileCode);
+
+        if (!Zip::extract($filePath, $this->baseDirectory . '/themes/'))
+            throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
+
+        @unlink($filePath);
+    }
+
+    /**
      * Checks if a theme has ever been installed before.
      * @param  string  $name Theme code
      * @return boolean

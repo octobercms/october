@@ -119,8 +119,16 @@ class Updates extends Controller
                 $manager->downloadPlugin(post('name'), post('hash'));
                 break;
 
+            case 'downloadTheme':
+                $manager->downloadTheme(post('name'), post('hash'));
+                break;
+
             case 'extractPlugin':
                 $manager->extractPlugin(post('name'), post('hash'));
+                break;
+
+            case 'extractTheme':
+                $manager->extractTheme(post('name'), post('hash'));
                 break;
 
             case 'completeUpdate':
@@ -215,18 +223,20 @@ class Updates extends Controller
     public function onApplyUpdates()
     {
         try {
-            $plugins = post('plugins', []);
-            if (!is_array($plugins))
-                $plugins = [];
-
             $coreHash = post('hash');
             $coreBuild = post('build');
             $core = [$coreHash, $coreBuild];
 
+            $plugins = post('plugins', []);
+            if (!is_array($plugins)) $plugins = [];
+
+            $themes = post('themes', []);
+            if (!is_array($themes)) $themes = [];
+
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps($core, $plugins);
+            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes);
 
             /*
              * Finish up
@@ -245,13 +255,16 @@ class Updates extends Controller
         return $this->makePartial('execute');
     }
 
-    private function buildUpdateSteps($core, $plugins)
+    private function buildUpdateSteps($core, $plugins, $themes)
     {
+        if (!is_array($core))
+            $core = [null, null];
+
         if (!is_array($plugins))
             $plugins = [];
 
-        if (!is_array($core))
-            $core = [null, null];
+        if (!is_array($themes))
+            $themes = [];
 
         $updateSteps = [];
         list($coreHash, $coreBuild) = $core;
@@ -276,6 +289,15 @@ class Updates extends Controller
             ];
         }
 
+        foreach ($themes as $name => $hash) {
+            $updateSteps[] = [
+                'code'  => 'downloadTheme',
+                'label' => Lang::get('system::lang.updates.theme_downloading', compact('name')),
+                'name'  => $name,
+                'hash'  => $hash
+            ];
+        }
+
         /*
          * Extract
          */
@@ -292,6 +314,15 @@ class Updates extends Controller
             $updateSteps[] = [
                 'code' => 'extractPlugin',
                 'label' => Lang::get('system::lang.updates.plugin_extracting', compact('name')),
+                'name' => $name,
+                'hash' => $hash
+            ];
+        }
+
+        foreach ($themes as $name => $hash) {
+            $updateSteps[] = [
+                'code' => 'extractTheme',
+                'label' => Lang::get('system::lang.updates.theme_extracting', compact('name')),
                 'name' => $name,
                 'hash' => $hash
             ];
