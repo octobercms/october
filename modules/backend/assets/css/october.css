@@ -7271,6 +7271,7 @@ body {
   /* The html and body elements cannot have any padding or margin. */
 }
 body {
+  webkit-font-smoothing: antialiased;
   background: #fafafa;
 }
 #layout-canvas {
