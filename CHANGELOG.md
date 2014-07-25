@@ -1,7 +1,10 @@
-* **Build 125** (2014-07-xx)
+* **Build 125** (2014-07-24)
+  - Theme support added.
   - Added new Theme picker to the backend via Settings > Front-end theme
   - New shorthand method for `$this->getClassExtension('Backend.Behaviors.FormController')` becomes `$this->asExtension('FormController')`.
   - Buttons inside a popup support new `data-popup-load-indicator` attribute.
+  - Added a new config item to disable core updates completely (see config cms.disableCoreUpdates).
+  - Added a unique alternate favicon to the Back-end area.
 
 * **Build 124** (2014-07-17)
   - Improvements to Twig functions and filters.

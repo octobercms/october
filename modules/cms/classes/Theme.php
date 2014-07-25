@@ -175,7 +175,7 @@ class Theme
 
         $result = [];
         foreach ($it as $fileinfo) {
-            if ($fileinfo->isDot() || (substr($fileinfo->getFilename(), 0, 1) == '.'))
+            if (!$fileinfo->isDir() || $fileinfo->isDot())
                 continue;
 
             $theme = new static;

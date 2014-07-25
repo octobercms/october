@@ -13,9 +13,10 @@
 
                     <?php if ($core): ?>
                         <h5>
+                            <i class="icon-cube"></i>
                             <?= e(trans('system::lang.system.name')) ?>
                             <?php if ($core['old_build']): ?>
-                                <?= e(trans('system::lang.updates.core_build_old', ['build'=>$core['old_build']])) ?>
+                                <small><?= e(trans('system::lang.updates.core_build_old', ['build'=>$core['old_build']])) ?></small>
                             <?php endif ?>
                         </h5>
                         <dl>
@@ -26,8 +27,23 @@
                         <input type="hidden" name="build" value="<?= e($core['build']) ?>" />
                     <?php endif ?>
 
-                    <?php foreach ($updateList as $code => $plugin): ?>
+                    <?php foreach ($themeList as $code => $theme): ?>
                         <h5>
+                            <i class="icon-picture-o"></i>
+                            <?= e(array_get($theme, 'name', 'Unknown')) ?>
+                            <small><?= e(trans('system::lang.updates.theme_label')) ?></small>
+                        </h5>
+                        <dl>
+                            <dt><?= e(array_get($theme, 'version', 'v1.0.0')) ?></dt>
+                            <dd><?= e(trans('system::lang.updates.theme_new_install')) ?></dd>
+                        </dl>
+
+                        <input type="hidden" name="themes[<?= e($code) ?>]" value="<?= e($theme['hash']) ?>" />
+                    <?php endforeach ?>
+
+                    <?php foreach ($pluginList as $code => $plugin): ?>
+                        <h5>
+                            <i class="icon-puzzle-piece"></i>
                             <?= e($plugin['name']) ?>
 
                             <?php if ($plugin['old_version']): ?>

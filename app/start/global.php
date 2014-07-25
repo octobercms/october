@@ -48,7 +48,10 @@ Log::useFiles(storage_path().'/logs/system.log');
 
 App::error(function(Exception $exception, $code)
 {
-    Log::error($exception);
+    /*
+     * October uses a custom error handler, see
+     * System\Classes\ErrorHandler::handleException
+     */
 });
 
 /*

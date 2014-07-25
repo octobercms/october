@@ -400,7 +400,14 @@ class Controller extends BaseController
                 return Response::make($responseContents, 406);
              }
             catch (Exception $ex) {
-                return Response::make($ex->getMessage(), 500);
+                /*
+                 * Display a "dumbed down" error if custom page is activated
+                 * otherwise display a more detailed error.
+                 */
+                if (Config::get('cms.customErrorPage', false))
+                    return Response::make($ex->getMessage(), 500);
+
+                return Response::make(sprintf('"%s" on line %s of %s', $ex->getMessage(), $ex->getLine(), $ex->getFile()), 500);
             }
         }
 
