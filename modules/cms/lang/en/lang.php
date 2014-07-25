@@ -15,6 +15,7 @@ return [
     'theme' => [
         'active' => [
             'not_set' => "The active theme is not set.",
+            'not_found' => "The active theme is not found.",
         ],
         'edit' => [
             'not_set' => "The edit theme is not set.",

@@ -93,6 +93,9 @@ class Controller extends BaseController
     public function __construct($theme = null)
     {
         $this->theme = $theme ? $theme : Theme::getActiveTheme();
+        if (!$this->theme)
+            throw new CmsException(Lang::get('cms::lang.theme.active.not_found'));
+
         $this->assetPath = Config::get('cms.themesDir').'/'.$this->theme->getDirName();
         $this->router = new Router($this->theme);
         $this->initTwigEnvironment();
