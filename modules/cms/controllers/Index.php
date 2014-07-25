@@ -248,10 +248,9 @@ class Index extends Controller
     {
         $this->validateRequestTheme();
 
-        $this->loadTemplate(
-            Request::input('templateType'),
-            trim(Request::input('templatePath'))
-        )->delete();
+        $type = Request::input('templateType');
+
+        $this->loadTemplate($type, trim(Request::input('templatePath')))->delete();
 
         /*
          * Extensibility
