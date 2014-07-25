@@ -1,3 +1,6 @@
+* **Build 130** (2014-07-xx)
+  - Added markdown Twig filter `{{ 'I am **markdown**'|md }}`.
+
 * **Build 129** (2014-07-25)
   - Fixes a bug where the active theme is not editable in the back-end.
   - Added a new console command `october:util` for performing utility and maintenance tasks.

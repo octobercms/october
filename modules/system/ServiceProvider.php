@@ -215,6 +215,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'snake'          => ['Str', 'snake'],
                 'camel'          => ['Str', 'camel'],
                 'studly'         => ['Str', 'studly'],
+                'md'             => ['October\Rain\Support\Markdown', 'parse'],
             ]);
         });
 
