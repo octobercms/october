@@ -232,6 +232,11 @@
             }
         })
     }
+
+    DataGrid.prototype.deselect = function() {
+        this.gridInstance.deselectCell()
+    }
+
     DataGrid.prototype.setData = function(data) {
         this.gridInstance.loadData(data)
     }

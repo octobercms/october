@@ -248,6 +248,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsoleCommand('october.up', 'System\Console\OctoberUp');
         $this->registerConsoleCommand('october.down', 'System\Console\OctoberDown');
         $this->registerConsoleCommand('october.update', 'System\Console\OctoberUpdate');
+        $this->registerConsoleCommand('october.util', 'System\Console\OctoberUtil');
         $this->registerConsoleCommand('plugin.install', 'System\Console\PluginInstall');
         $this->registerConsoleCommand('plugin.remove', 'System\Console\PluginRemove');
         $this->registerConsoleCommand('plugin.refresh', 'System\Console\PluginRefresh');

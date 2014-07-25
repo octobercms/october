@@ -413,7 +413,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps(null, $plugins);
+            $updateSteps = $this->buildUpdateSteps(null, $plugins, []);
 
             /*
              * Finish up
