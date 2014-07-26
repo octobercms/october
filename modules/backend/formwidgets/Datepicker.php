@@ -79,6 +79,7 @@ class Datepicker extends FormWidgetBase
     {
         $this->addCss('vendor/pikaday/css/pikaday.css', 'core');
         $this->addCss('css/datepicker.css', 'core');
+        $this->addJs('vendor/moment/moment.js', 'core');
         $this->addJs('vendor/pikaday/js/pikaday.js', 'core');
         $this->addJs('vendor/pikaday/js/pikaday.jquery.js', 'core');
         $this->addJs('js/datepicker.js', 'core');
