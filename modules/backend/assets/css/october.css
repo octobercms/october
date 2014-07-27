@@ -1945,6 +1945,7 @@ select[multiple].input-lg {
   border: 1px solid transparent;
   white-space: nowrap;
   padding: 9px 11px;
+  padding: 9px 16.5px;
   font-size: 14px;
   line-height: 1.428571429;
   border-radius: 2px;
@@ -2264,6 +2265,7 @@ fieldset[disabled] .btn-link:focus {
 .btn-lg,
 .btn-group-lg > .btn {
   padding: 10px 16px;
+  padding: 10px 24px;
   font-size: 18px;
   line-height: 1.33;
   border-radius: 6px;
@@ -2271,6 +2273,7 @@ fieldset[disabled] .btn-link:focus {
 .btn-sm,
 .btn-group-sm > .btn {
   padding: 5px 10px;
+  padding: 5px 15px;
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
@@ -2278,6 +2281,7 @@ fieldset[disabled] .btn-link:focus {
 .btn-xs,
 .btn-group-xs > .btn {
   padding: 1px 5px;
+  padding: 1px 7.5px;
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
@@ -10197,8 +10201,7 @@ html.cssanimations .cursor-loading-indicator.hide {
   font-size: 13px;
   border: none;
   text-align: left;
-  outline: none!important;
-  padding: 9px 18px;
+  outline: none !important;
 }
 .btn[class^="oc-icon-"]:before,
 .btn[class*=" oc-icon-"]:before {
