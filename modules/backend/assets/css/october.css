@@ -5410,6 +5410,8 @@ a .icon-flip-vertical:before {
 .oc-icon-video-camera:before {
   content: "\f03d";
 }
+.oc-icon-photo:before,
+.oc-icon-image:before,
 .oc-icon-picture-o:before {
   content: "\f03e";
 }
@@ -5773,6 +5775,8 @@ a .icon-flip-vertical:before {
 .oc-icon-square:before {
   content: "\f0c8";
 }
+.oc-icon-navicon:before,
+.oc-icon-reorder:before,
 .oc-icon-bars:before {
   content: "\f0c9";
 }
@@ -5832,12 +5836,12 @@ a .icon-flip-vertical:before {
   content: "\f0dc";
 }
 .oc-icon-sort-down:before,
-.oc-icon-sort-asc:before {
-  content: "\f0de";
-}
-.oc-icon-sort-up:before,
 .oc-icon-sort-desc:before {
   content: "\f0dd";
+}
+.oc-icon-sort-up:before,
+.oc-icon-sort-asc:before {
+  content: "\f0de";
 }
 .oc-icon-envelope:before {
   content: "\f0e0";
@@ -6026,10 +6030,8 @@ a .icon-flip-vertical:before {
 .oc-icon-code:before {
   content: "\f121";
 }
+.oc-icon-mail-reply-all:before,
 .oc-icon-reply-all:before {
-  content: "\f122";
-}
-.oc-icon-mail-reply-all:before {
   content: "\f122";
 }
 .oc-icon-star-half-empty:before,
@@ -6376,6 +6378,238 @@ a .icon-flip-vertical:before {
 }
 .oc-icon-plus-square-o:before {
   content: "\f196";
+}
+.oc-icon-space-shuttle:before {
+  content: "\f197";
+}
+.oc-icon-slack:before {
+  content: "\f198";
+}
+.oc-icon-envelope-square:before {
+  content: "\f199";
+}
+.oc-icon-wordpress:before {
+  content: "\f19a";
+}
+.oc-icon-openid:before {
+  content: "\f19b";
+}
+.oc-icon-institution:before,
+.oc-icon-bank:before,
+.oc-icon-university:before {
+  content: "\f19c";
+}
+.oc-icon-mortar-board:before,
+.oc-icon-graduation-cap:before {
+  content: "\f19d";
+}
+.oc-icon-yahoo:before {
+  content: "\f19e";
+}
+.oc-icon-google:before {
+  content: "\f1a0";
+}
+.oc-icon-reddit:before {
+  content: "\f1a1";
+}
+.oc-icon-reddit-square:before {
+  content: "\f1a2";
+}
+.oc-icon-stumbleupon-circle:before {
+  content: "\f1a3";
+}
+.oc-icon-stumbleupon:before {
+  content: "\f1a4";
+}
+.oc-icon-delicious:before {
+  content: "\f1a5";
+}
+.oc-icon-digg:before {
+  content: "\f1a6";
+}
+.oc-icon-pied-piper-square:before,
+.oc-icon-pied-piper:before {
+  content: "\f1a7";
+}
+.oc-icon-pied-piper-alt:before {
+  content: "\f1a8";
+}
+.oc-icon-drupal:before {
+  content: "\f1a9";
+}
+.oc-icon-joomla:before {
+  content: "\f1aa";
+}
+.oc-icon-language:before {
+  content: "\f1ab";
+}
+.oc-icon-fax:before {
+  content: "\f1ac";
+}
+.oc-icon-building:before {
+  content: "\f1ad";
+}
+.oc-icon-child:before {
+  content: "\f1ae";
+}
+.oc-icon-paw:before {
+  content: "\f1b0";
+}
+.oc-icon-spoon:before {
+  content: "\f1b1";
+}
+.oc-icon-cube:before {
+  content: "\f1b2";
+}
+.oc-icon-cubes:before {
+  content: "\f1b3";
+}
+.oc-icon-behance:before {
+  content: "\f1b4";
+}
+.oc-icon-behance-square:before {
+  content: "\f1b5";
+}
+.oc-icon-steam:before {
+  content: "\f1b6";
+}
+.oc-icon-steam-square:before {
+  content: "\f1b7";
+}
+.oc-icon-recycle:before {
+  content: "\f1b8";
+}
+.oc-icon-automobile:before,
+.oc-icon-car:before {
+  content: "\f1b9";
+}
+.oc-icon-cab:before,
+.oc-icon-taxi:before {
+  content: "\f1ba";
+}
+.oc-icon-tree:before {
+  content: "\f1bb";
+}
+.oc-icon-spotify:before {
+  content: "\f1bc";
+}
+.oc-icon-deviantart:before {
+  content: "\f1bd";
+}
+.oc-icon-soundcloud:before {
+  content: "\f1be";
+}
+.oc-icon-database:before {
+  content: "\f1c0";
+}
+.oc-icon-file-pdf-o:before {
+  content: "\f1c1";
+}
+.oc-icon-file-word-o:before {
+  content: "\f1c2";
+}
+.oc-icon-file-excel-o:before {
+  content: "\f1c3";
+}
+.oc-icon-file-powerpoint-o:before {
+  content: "\f1c4";
+}
+.oc-icon-file-photo-o:before,
+.oc-icon-file-picture-o:before,
+.oc-icon-file-image-o:before {
+  content: "\f1c5";
+}
+.oc-icon-file-zip-o:before,
+.oc-icon-file-archive-o:before {
+  content: "\f1c6";
+}
+.oc-icon-file-sound-o:before,
+.oc-icon-file-audio-o:before {
+  content: "\f1c7";
+}
+.oc-icon-file-movie-o:before,
+.oc-icon-file-video-o:before {
+  content: "\f1c8";
+}
+.oc-icon-file-code-o:before {
+  content: "\f1c9";
+}
+.oc-icon-vine:before {
+  content: "\f1ca";
+}
+.oc-icon-codepen:before {
+  content: "\f1cb";
+}
+.oc-icon-jsfiddle:before {
+  content: "\f1cc";
+}
+.oc-icon-life-bouy:before,
+.oc-icon-life-saver:before,
+.oc-icon-support:before,
+.oc-icon-life-ring:before {
+  content: "\f1cd";
+}
+.oc-icon-circle-o-notch:before {
+  content: "\f1ce";
+}
+.oc-icon-ra:before,
+.oc-icon-rebel:before {
+  content: "\f1d0";
+}
+.oc-icon-ge:before,
+.oc-icon-empire:before {
+  content: "\f1d1";
+}
+.oc-icon-git-square:before {
+  content: "\f1d2";
+}
+.oc-icon-git:before {
+  content: "\f1d3";
+}
+.oc-icon-hacker-news:before {
+  content: "\f1d4";
+}
+.oc-icon-tencent-weibo:before {
+  content: "\f1d5";
+}
+.oc-icon-qq:before {
+  content: "\f1d6";
+}
+.oc-icon-wechat:before,
+.oc-icon-weixin:before {
+  content: "\f1d7";
+}
+.oc-icon-send:before,
+.oc-icon-paper-plane:before {
+  content: "\f1d8";
+}
+.oc-icon-send-o:before,
+.oc-icon-paper-plane-o:before {
+  content: "\f1d9";
+}
+.oc-icon-history:before {
+  content: "\f1da";
+}
+.oc-icon-circle-thin:before {
+  content: "\f1db";
+}
+.oc-icon-header:before {
+  content: "\f1dc";
+}
+.oc-icon-paragraph:before {
+  content: "\f1dd";
+}
+.oc-icon-sliders:before {
+  content: "\f1de";
+}
+.oc-icon-share-alt:before {
+  content: "\f1e0";
+}
+.oc-icon-share-alt-square:before {
+  content: "\f1e1";
+}
+.oc-icon-bomb:before {
+  content: "\f1e2";
 }
 [class^="flag-"],
 [class*=" flag-"] {

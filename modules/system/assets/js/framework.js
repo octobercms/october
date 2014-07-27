@@ -318,20 +318,20 @@ if (window.jQuery === undefined)
     }
 
     $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function(){
-        $(this).request();
+        $(this).request()
     });
 
     $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function(){
-        $(this).request();
+        $(this).request()
         return false;
     });
 
     $(document).on('keydown', 'input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]', function(e){
         if (e.keyCode == 13) {
             if (this.dataTrackInputTimer !== undefined)
-                window.clearTimeout(this.dataTrackInputTimer);
+                window.clearTimeout(this.dataTrackInputTimer)
 
-            $(this).request();
+            $(this).request()
             return false;
         }
     });
@@ -347,20 +347,20 @@ if (window.jQuery === undefined)
         $el.data('oc.lastvalue', this.value)
 
         if (this.dataTrackInputTimer !== undefined)
-            window.clearTimeout(this.dataTrackInputTimer);
+            window.clearTimeout(this.dataTrackInputTimer)
 
         var interval = $(this).data('track-input')
         if (!interval)
-            interval = 300;
+            interval = 300
 
         var self = this;
         this.dataTrackInputTimer = window.setTimeout(function(){
-            $(self).request();
+            $(self).request()
         }, interval);
     });
 
     $(document).on('submit', '[data-request]', function(){
-        $(this).request();
+        $(this).request()
         return false;
     });
 
