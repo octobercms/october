@@ -40,7 +40,7 @@
             minDate: new Date(options.minDate),
             maxDate: new Date(options.maxDate),
             yearRange: options.yearRange,
-            defaultDate: new Date(),
+            setDefaultDate: moment(this.$input.val()).toDate(),
             onOpen: function() {
                 var $field = $(this._o.trigger)
 

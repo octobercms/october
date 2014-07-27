@@ -10,6 +10,8 @@ use Symfony\Component\Console\Input\InputArgument;
 class PluginRemove extends Command
 {
 
+    use \Illuminate\Console\ConfirmableTrait;
+
     /**
      * The console command name.
      * @var string
@@ -37,26 +39,31 @@ class PluginRemove extends Command
      */
     public function fire()
     {
-        if ($this->confirm('Are you sure you want to uninstall this plugin? [yes|no]')) {
-            $pluginName = $this->argument('name');
-            $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
+        $pluginManager = PluginManager::instance();
+        $pluginName = $this->argument('name');
+        $pluginName = $pluginManager->normalizeIdentifier($pluginName);
 
-            /*
-             * Rollback plugin
-             */
-            $manager = UpdateManager::instance()->resetNotes();
-            $manager->rollbackPlugin($pluginName);
+        if (!$pluginManager->hasPlugin($pluginName))
+            return $this->error(sprintf('Unable to find a registered plugin called "%s"', $pluginName));
 
-            foreach ($manager->getNotes() as $note)
-                $this->output->writeln($note);
+        if (!$this->confirmToProceed(sprintf('This will DELETE "%s" from the filesystem and database.', $pluginName)))
+            return;
 
-            /*
-             * Delete from file system
-             */
-            if ($pluginPath = PluginManager::instance()->getPluginPath($pluginName)) {
-                File::deleteDirectory($pluginPath);
-                $this->output->writeln(sprintf('<info>Deleted: %s</info>', $pluginName));
-            }
+        /*
+         * Rollback plugin
+         */
+        $manager = UpdateManager::instance()->resetNotes();
+        $manager->rollbackPlugin($pluginName);
+
+        foreach ($manager->getNotes() as $note)
+            $this->output->writeln($note);
+
+        /*
+         * Delete from file system
+         */
+        if ($pluginPath = $pluginManager->getPluginPath($pluginName)) {
+            File::deleteDirectory($pluginPath);
+            $this->output->writeln(sprintf('<info>Deleted: %s</info>', $pluginName));
         }
     }
 
@@ -77,7 +84,18 @@ class PluginRemove extends Command
      */
     protected function getOptions()
     {
-        return [];
+        return [
+            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run.'],
+        ];
+    }
+
+    /**
+     * Get the default confirmation callback.
+     * @return \Closure
+     */
+    protected function getDefaultConfirmCallback()
+    {
+        return function() { return true; };
     }
 
 }

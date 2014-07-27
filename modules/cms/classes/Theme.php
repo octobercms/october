@@ -145,7 +145,7 @@ class Theme
     {
         $editTheme = Config::get('cms.editTheme');
         if (!$editTheme)
-            $editTheme = Config::get('cms.activeTheme');
+            $editTheme = static::getActiveTheme()->getDirName();
 
         $apiResult = Event::fire('cms.editTheme', [], true);
         if ($apiResult !== null)

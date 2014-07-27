@@ -1,5 +1,14 @@
+* **Build 130** (2014-07-xx)
+  - Added markdown Twig filter `{{ 'I am **markdown**'|md }}`.
+
+* **Build 129** (2014-07-25)
+  - Fixes a bug where the active theme is not editable in the back-end.
+  - Added a new console command `october:util` for performing utility and maintenance tasks.
+  - Added new utility command for deleting thumbs in the uploads directory `october:util purge thumbs`.
+  - Improved console command confirmation dialogs.
+
 * **Build 125** (2014-07-24)
-  - Theme support added.
+  - Added support for Themes.
   - Added new Theme picker to the backend via Settings > Front-end theme
   - New shorthand method for `$this->getClassExtension('Backend.Behaviors.FormController')` becomes `$this->asExtension('FormController')`.
   - Buttons inside a popup support new `data-popup-load-indicator` attribute.

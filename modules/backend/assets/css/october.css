@@ -11039,6 +11039,9 @@ body.dropdown-open .dropdown-overlay {
 .flash-message.warning {
   background: #f0ad4e;
 }
+.flash-message.info {
+  background: #5fb6f5;
+}
 .flash-message button {
   float: none;
   position: absolute;

@@ -8,6 +8,8 @@ use Symfony\Component\Console\Input\InputArgument;
 class OctoberDown extends Command
 {
 
+    use \Illuminate\Console\ConfirmableTrait;
+
     /**
      * The console command name.
      */
@@ -31,13 +33,13 @@ class OctoberDown extends Command
      */
     public function fire()
     {
-        if ($this->confirm('Destroy all database tables? [yes|no]')) {
+        if (!$this->confirmToProceed('This will DESTROY all database tables.'))
+            return;
 
-            $manager = UpdateManager::instance()->resetNotes()->uninstall();
+        $manager = UpdateManager::instance()->resetNotes()->uninstall();
 
-            foreach ($manager->getNotes() as $note)
-                $this->output->writeln($note);
-        }
+        foreach ($manager->getNotes() as $note)
+            $this->output->writeln($note);
     }
 
     /**
@@ -53,7 +55,18 @@ class OctoberDown extends Command
      */
     protected function getOptions()
     {
-        return [];
+        return [
+            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run.'],
+        ];
+    }
+
+    /**
+     * Get the default confirmation callback.
+     * @return \Closure
+     */
+    protected function getDefaultConfirmCallback()
+    {
+        return function() { return true; };
     }
 
 }
