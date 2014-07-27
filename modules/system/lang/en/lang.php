@@ -121,6 +121,7 @@ return [
         'title' => 'Manage Updates',
         'name' => 'Software update',
         'menu_label' => 'Updates',
+        'menu_description' => 'Update the system, manage and install plugins and themes.',
         'check_label' => 'Check for updates',
         'retry_label' => 'Try again',
         'plugin_name' => 'Name',

@@ -12893,6 +12893,7 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   padding: 15px 15px 15px 33px;
   margin: 0;
   position: relative;
+  cursor: pointer;
 }
 .sidenav-tree ul.top-level > li > div.group h3:before {
   width: 10px;

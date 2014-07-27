@@ -1,16 +1,23 @@
 <?php
     $context = System\Classes\SettingsManager::instance()->getContext();
+
+    $collapsedGroups = explode('|', 
+        isset($_COOKIE['sidenav_treegroupStatus']) ? $_COOKIE['sidenav_treegroupStatus'] : null
+    );
+
 ?>
 <ul class="top-level">
-    <?php foreach ($items as $category => $items): ?>
-        <li>
+    <?php foreach ($items as $category => $items):
+        $collapsed = in_array($category, $collapsedGroups);
+    ?>
+        <li data-group-code="<?= e($category) ?>" <?= $collapsed ? 'data-status="collapsed"' : null ?>>
             <div class="group">
-                <h3><?= $category ?></h3>
+                <h3><?= e($category) ?></h3>
             </div>
 
             <ul>
                 <?php foreach ($items as $item): ?>
-                    <li class="<?= strtolower($item->owner) == $context->owner && strtolower($item->code) == $context->itemCode ? 'active' : false ?>">
+                    <li class="<?= strtolower($item->owner) == $context->owner && strtolower($item->code) == $context->itemCode ? 'active' : false ?>" data-keywords="<?= e(trans($item->keywords)) ?>">
                         <a href="<?= $item->url ?>">
                             <i class="<?= $item->icon ?>"></i>
                             <span class="header"><?= e(trans($item->label)) ?></span>

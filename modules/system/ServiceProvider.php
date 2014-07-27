@@ -132,29 +132,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-cog',
                     'url'         => Backend::url('system/settings'),
                     'permissions' => ['backend.manage_users', 'system.*'],
-                    'order'       => 1000,
-
-                    'sideMenu' => [
-                        'settings' => [
-                            'label'       => 'system::lang.settings.menu_label',
-                            'icon'        => 'icon-cogs',
-                            'url'         => Backend::url('system/settings'),
-                            'permissions' => ['system.manage_settings']
-                        ],
-                        'users' => [
-                            'label'       => 'backend::lang.user.menu_label',
-                            'icon'        => 'icon-users',
-                            'url'         => Backend::url('backend/users'),
-                            'permissions' => ['backend.manage_users']
-                        ],
-                        'updates' => [
-                            'label'       => 'system::lang.updates.menu_label',
-                            'icon'        => 'icon-cloud-download',
-                            'url'         => Backend::url('system/updates'),
-                            'permissions' => ['system.manage_updates']
-                        ]
-                    ]
-
+                    'order'       => 1000
                 ]
             ]);
         });
@@ -237,8 +215,27 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => 'System',
                     'icon'        => 'icon-envelope-square',
                     'url'         => Backend::url('system/mailtemplates'),
-                    'order'       => 400,
+                    'order'       => 500,
                 ],
+                'administrators' => [
+                    'label'       => 'backend::lang.user.menu_label',
+                    'description' => 'backend::lang.user.menu_description',
+                    'category'    => 'System',
+                    'icon'        => 'icon-users',
+                    'url'         => Backend::url('backend/users'),
+                    'permissions' => ['backend.manage_users'],
+                    'order'       => 600
+                ],
+                'updates' => [
+                    'label'       => 'system::lang.updates.menu_label',
+                    'description' => 'system::lang.updates.menu_description',
+                    'category'    => 'System',
+                    'icon'        => 'icon-cloud-download',
+                    'url'         => Backend::url('system/updates'),
+                    'permissions' => ['system.manage_updates'],
+                    'order'       => 700
+                ]
+
             ]);
         });
 

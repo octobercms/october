@@ -41,6 +41,7 @@ class SettingsManager
         'permissions' => [],
         'order'       => 500,
         'context'     => 'system',
+        'keywords'    => null
     ];
 
     /**
