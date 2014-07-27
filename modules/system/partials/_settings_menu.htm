@@ -1,0 +1,9 @@
+<?php
+    $systemItems = System\Classes\SettingsManager::instance()->listItems('system');
+    $mySettingItems = System\Classes\SettingsManager::instance()->listItems('mysettings');
+
+    // + Administrators
+?>
+
+<?= $this->makePartial('@/modules/system/partials/_settings_menu_items.htm', ['items'=>$mySettingItems]); ?>
+<?= $this->makePartial('@/modules/system/partials/_settings_menu_items.htm', ['items'=>$systemItems]); ?>

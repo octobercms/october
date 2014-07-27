@@ -1,10 +1,3 @@
-<?php Block::put('breadcrumb') ?>
-    <ul>
-        <li><a href="<?= Backend::url('system/settings') ?>"><?= e(trans('system::lang.settings.menu_label')) ?></a></li>
-        <li><?= e($this->pageTitle) ?></li>
-    </ul>
-<?php Block::endPut() ?>
-
 <div class="control-tabs content-tabs tabs-flush" data-control="tab">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#templates"><?= e(trans('system::lang.mail_templates.templates')) ?></a></li>

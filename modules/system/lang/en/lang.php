@@ -65,6 +65,7 @@ return [
         'missing_model' => 'The settings page is missing a Model definition.',
         'update_success' => 'Settings for :name have been updated successfully.',
         'return' => 'Return to system settings',
+        'search' => 'Search'
     ],
     'mail' => [
         'menu_label' => 'Mail Configuration',
@@ -87,7 +88,7 @@ return [
     ],
     'mail_templates' => [
         'menu_label' => 'Mail Templates',
-        'menu_description' => 'Modify the mail templates that are sent to users and administrators.',
+        'menu_description' => 'Modify the mail templates that are sent to users and administrators, manage email layouts.',
         'new_template' => 'New Template',
         'new_layout' => 'New Layout',
         'template' => 'Template',
@@ -120,6 +121,7 @@ return [
         'title' => 'Manage Updates',
         'name' => 'Software update',
         'menu_label' => 'Updates',
+        'menu_description' => 'Update the system, manage and install plugins and themes.',
         'check_label' => 'Check for updates',
         'retry_label' => 'Try again',
         'plugin_name' => 'Name',

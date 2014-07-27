@@ -171,10 +171,12 @@
 
         > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
             position: relative;
+            margin-left: -20px;
+            margin-right: -20px;
 
             &:before {
                 position: absolute;
-                top: 19px;
+                top: 26px;
                 height: 1px;
                 width: 100%;
                 content: ' ';
@@ -185,14 +187,52 @@
                 padding-right: 10px;
                 padding-left: 11px;
                 margin-right: 0;
+                margin-left: -30px;
                 background: transparent;
+
+                &:first-child {
+                    margin-left: 0;
+                    padding-left: 15px!important;
+                }
                 
                 a {
                     font-size: 12px;
                     padding-bottom: 3px;
+                    padding: 0 16px;
+                    margin: 0;
                     position: relative;
                     z-index: 101;
                     background: transparent;
+                    overflow: visible;
+
+                    > span.title {
+                        position: relative;
+                        display: inline-block;
+                        padding: 5px 5px 9px 5px;
+                        .box-sizing(border-box);
+                        border-top: 1px solid #f0f0f0;
+                        z-index: 100;
+
+                        &:before, &:after {
+                            content: ' ';
+                            position: absolute;
+                            background: transparent url(../images/primary-tab-shape.png) no-repeat left -31px;
+                            width: 16px;
+                            height: 26px;
+                            display: block;
+                            top: -1px;
+                            z-index: 100;
+                        }
+
+                        &:before {
+                            left: -16px;
+                        }
+
+                        &:after {
+                            right: -16px;
+                            background-position: -61px -31px;
+                        }
+                    }
                 }
 
                 &:last-child {
@@ -205,14 +245,32 @@
                     padding-left: 0;
                 }
 
-                &.active a {
-                    &:before {
-                        content: ' ';
-                        position: absolute;
-                        width: 100%;
-                        left: 0;
-                        top: 19px;
-                        border-bottom: 1px solid @color-tab-active-marker;
+                &.active a:before {
+                    position: absolute;
+                    top: 26px;
+                    height: 1px;
+                    right: 2px;
+                    left: 0;
+                    content: ' ';
+                    background-color: @color-body-bg;
+                }
+
+                &.active a{
+                    z-index: 107;
+
+                    > span.title {
+                        z-index: 105;
+                        border-top-color: #d6d6d6;
+    
+                        &:before {
+                            background-position: left 0;
+                            z-index: 107;
+                        }
+    
+                        &:after {
+                            background-position: -61px 0;
+                            z-index: 107;
+                        }
                     }
                 }
             }
