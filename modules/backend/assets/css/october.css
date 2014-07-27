@@ -8275,11 +8275,10 @@ label {
 .field-recordfinder .btn {
   background: transparent;
   position: absolute;
-  right: 0;
+  right: -2px;
   top: 50%;
   margin-top: -44px;
   height: 88px;
-  width: 36px;
   color: #8c8c8c;
 }
 .field-recordfinder .btn i {
