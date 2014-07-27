@@ -1,6 +1,6 @@
-* **Build 130** (2014-07-xx)
-  - Added markdown Twig filter `{{ 'I am **markdown**'|md }}`.
+* **Build 130** (2014-07-27)
   - Complete redesign of Settings area.
+  - Added markdown Twig filter `{{ 'I am **markdown**'|md }}`.
 
 * **Build 129** (2014-07-25)
   - Fixes a bug where the active theme is not editable in the back-end.
