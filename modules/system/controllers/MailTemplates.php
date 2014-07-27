@@ -12,6 +12,7 @@ use BackendAuth;
 use Backend\Classes\Controller;
 use System\Models\MailTemplate;
 use System\Classes\ApplicationException;
+use System\Classes\SettingsManager;
 use Exception;
 
 /**
@@ -39,6 +40,7 @@ class MailTemplates extends Controller
         parent::__construct();
 
         BackendMenu::setContext('October.System', 'system', 'settings');
+        SettingsManager::setContext('October.System', 'mail_templates');
     }
 
     public function index()
@@ -47,6 +49,7 @@ class MailTemplates extends Controller
 
         MailTemplate::syncAll();
         $this->getClassExtension('Backend.Behaviors.ListController')->index();
+        $this->bodyClass = 'compact-container';
     }
 
     public function formBeforeSave($model)

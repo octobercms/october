@@ -88,7 +88,7 @@ return [
     ],
     'mail_templates' => [
         'menu_label' => 'Mail Templates',
-        'menu_description' => 'Modify the mail templates that are sent to users and administrators.',
+        'menu_description' => 'Modify the mail templates that are sent to users and administrators, manage email layouts.',
         'new_template' => 'New Template',
         'new_layout' => 'New Layout',
         'template' => 'Template',

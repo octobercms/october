@@ -13,6 +13,7 @@ label {
 .form-control {
     .transition(none);
     .box-shadow(none);
+    .border-radius(3px);
     &:focus {
         .box-shadow(none);
     }
@@ -361,18 +362,19 @@ label {
 
 .switch-field {
     .field-switch {
-        padding-left: 105px;
+        padding-left: 75px;
         float: left;
     }
 }
 
 .custom-switch {
     display: block;
-    width: 90px;
-    height: 25px;
+    width: 58px;
+    height: 26px;
     position: relative;
     text-transform: uppercase;
-    border: 1px solid @color-custom-input-border;
+    border: none;
+    cursor: pointer;
     .border-radius(3px);
 
     * { .box-sizing(border-box); }
@@ -381,12 +383,12 @@ label {
         z-index: 4;
         display: block;
         position: absolute;
-        right: 50%;
-        top: 0;
-        width: 50%;
-        height: 100%;
+        right: 34px;
+        top: 2px;
+        width: 22px;
+        height: 22px;
         background-color: @color-switch-input-bg;
-        .border-radius(3px);
+        .border-radius(20px);
         .transition(all 0.1s);
     }
 
@@ -408,11 +410,19 @@ label {
         position: absolute;
         .opacity(0);
         &:checked {
-            ~ .slide-button { right: 0%; }
+            ~ .slide-button { 
+                right: 2px; 
+            }
             ~ span { background-color: @color-switch-input-on; }
             ~ span span {
-                &:first-of-type { color: #FFFFFF; }
-                &:last-of-type { color: #666666; }
+                &:first-of-type { 
+                    color: #FFFFFF;
+                    display: block;
+                }
+                &:last-of-type {
+                    color: #666666;
+                    display: none;
+                }
             }
         }
     }
@@ -424,19 +434,28 @@ label {
         left: 0;
         width: 100%;
         background-color: @color-switch-input-off;
+        font-size: 11px;
         .user-select(none);
-        .border-radius(3px);
+        .border-radius(20px);
 
         span {
             z-index: 5;
             display: block;
             width: 50%;
             position: absolute;
-            top: 0;
+            top: 1px;
             left: 0;
-            text-align: center;
-            &:last-child { left: 50%; color: #FFFFFF; }
-            &:first-of-type { color: #666666; }
+            .box-sizing(border-box);
+            &:last-child {
+                left: 50%; 
+                color: #FFFFFF;
+                display: block;
+            }
+            &:first-of-type {
+                padding-left: 9px;
+                display: none;
+                color: #666666;
+            }
         }
     }
 }

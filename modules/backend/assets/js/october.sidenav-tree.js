@@ -50,6 +50,12 @@
             this.$searchInput.val(searchTerm)
             this.applySearch()
         }
+
+        var scrollbar = $('[data-control=scrollbar]', this.$el).data('oc.scrollbar'),
+            active = $('li.active', this.$el)
+
+        if (active.length > 0)
+            scrollbar.gotoElement(active)
     }
 
     SidenavTree.prototype.toggleGroup = function(group) {

@@ -37,6 +37,7 @@ class Users extends Controller
             $this->requiredPermissions = null;
 
         BackendMenu::setContext('October.System', 'system', 'users');
+        SettingsManager::setContext('October.System', 'administrators');
     }
 
     /**
