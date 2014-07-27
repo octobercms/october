@@ -49,6 +49,7 @@ return [
     'user' => [
         'name' => 'Administrator',
         'menu_label' => 'Administrators',
+        'menu_description' => 'Manage back-end administrator users, groups and permissions.',
         'list_title' => 'Manage Administrators',
         'new' => 'New Administrator',
         'login' => "Login",
@@ -178,6 +179,7 @@ return [
     'myaccount' => [
         'menu_label' => 'My Account',
         'menu_description' => 'Update your account details such as name, email address and password.',
+        'menu_keywords' => 'security login'
     ],
     'backend_preferences' => [
         'menu_label' => 'Backend Preferences',

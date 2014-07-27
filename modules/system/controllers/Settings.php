@@ -57,6 +57,8 @@ class Settings extends Controller
 
     public function update($author, $plugin, $code = null)
     {
+        SettingsManager::setContext($author.'.'.$plugin, $code);
+
         try {
             $item = $this->findSettingItem($author, $plugin, $code);
             $this->pageTitle = $item->label;

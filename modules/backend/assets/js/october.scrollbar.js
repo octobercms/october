@@ -255,6 +255,57 @@
             : this.$el.get(0).scrollWidth;
     }
 
+    Scrollbar.prototype.gotoElement = function(element, callback) {
+        var $el = $(element)
+        if (!$el.length)
+            return;
+
+        var self = this,
+            offset = 0,
+            animated = false,
+            params = {
+                duration: 300, 
+                queue: false, 
+                complete: function(){
+                    if (callback !== undefined)
+                        callback()
+                }
+            }
+
+        if (!this.options.vertical) {
+            offset = $el.get(0).offsetLeft - this.$el.scrollLeft()
+
+            if (offset < 0) {
+                this.$el.animate({'scrollLeft': $el.get(0).offsetLeft}, params)
+                animated = true
+            } else {
+                offset = $el.get(0).offsetLeft + $el.outerWidth() - (this.$el.scrollLeft() + this.$el.outerWidth())
+                if (offset > 0) {
+                    this.$el.animate({'scrollLeft': $el.get(0).offsetLeft + $el.outerWidth() - this.$el.outerWidth()}, params)
+                    animated = true
+                }
+            }
+        } else {
+            offset = $el.get(0).offsetTop - this.$el.scrollTop()
+
+            if (offset < 0) {
+                this.$el.animate({'scrollTop': $el.get(0).offsetTop}, params)
+                animated = true
+            } else {
+                offset = $el.get(0).offsetTop - (this.$el.scrollTop() + this.$el.outerHeight())
+                if (offset > 0) {
+                    this.$el.animate({'scrollTop': $el.get(0).offsetTop + $el.outerHeight() - this.$el.outerHeight()}, params)
+                    animated = true
+                }
+            }
+        }
+
+        if (!animated && callback !== undefined)
+            callback()
+
+        return this
+    }
+
     // SCROLLBAR PLUGIN DEFINITION
     // ============================
 

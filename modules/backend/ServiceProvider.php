@@ -101,7 +101,8 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-user',
                     'url'         => Backend::URL('backend/users/myaccount'),
                     'order'       => 400,
-                    'context'     => 'mysettings'
+                    'context'     => 'mysettings',
+                    'keywords'    => 'backend::lang.myaccount.menu_keywords',
                 ],
             ]);
         });

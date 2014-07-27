@@ -5,6 +5,7 @@ use Config;
 use BackendMenu;
 use Input;
 use Backend\Classes\Controller;
+use System\Classes\SettingsManager;
 use Cms\Classes\Theme as CmsTheme;
 
 /**
@@ -18,7 +19,7 @@ class Themes extends Controller
 {
     public $requiredPermissions = ['cms.manage_themes'];
 
-    public $bodyClass = 'slim-container';
+    public $bodyClass = 'compact-container';
 
     /**
      * Constructor.
@@ -31,6 +32,7 @@ class Themes extends Controller
 
         $this->pageTitle = Lang::get('cms::lang.theme.settings_menu');
         BackendMenu::setContext('October.System', 'system', 'settings');
+        SettingsManager::setContext('October.Cms', 'theme');
     }
 
     public function index()

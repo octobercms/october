@@ -14,6 +14,7 @@ use System\Models\PluginVersion;
 use System\Console\CacheClear;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
+use System\Classes\SettingsManager;
 use System\Classes\ApplicationException;
 use Exception;
 
@@ -44,6 +45,7 @@ class Updates extends Controller
         $this->addCss('/modules/system/assets/css/updates.css', 'core');
 
         BackendMenu::setContext('October.System', 'system', 'updates');
+        SettingsManager::setContext('October.System', 'updates');
 
         $this->disableCoreUpdates = Config::get('cms.disableCoreUpdates', false);
     }
