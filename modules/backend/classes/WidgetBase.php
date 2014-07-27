@@ -131,7 +131,7 @@ abstract class WidgetBase
         if ($suffix !== null)
             $id .= '-' . $suffix;
 
-	$id = str_replace(['[', ']'], '__', $id);
+        $id = str_replace(['[', ']'], '__', $id);
 
         return $id;
     }
