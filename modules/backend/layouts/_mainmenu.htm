@@ -3,7 +3,11 @@
         <div class="toolbar-item">
             <div data-control="toolbar">
                 <a class="menu-toggle" href="javascript:;">
-                    <i class="icon-bars"></i>CMS
+                    <i class="icon-bars"></i>
+                    <?php
+                        $activeItem = BackendMenu::getActiveMainMenuItem();
+                        echo $activeItem ? e(trans($activeItem->label)) : 'CMS';
+                    ?>
                 </a>
 
                 <ul class="nav">

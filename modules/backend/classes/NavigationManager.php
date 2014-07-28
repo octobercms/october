@@ -363,6 +363,20 @@ class NavigationManager
     }
 
     /**
+     * Returns the currently active main menu item
+     * @param mixed $item Returns the item object or null.
+     */
+    public function getActiveMainMenuItem()
+    {
+        foreach ($this->listMainMenuItems() as $item) {
+            if ($this->isMainMenuItemActive($item))
+                return $item;
+        }
+
+        return null;
+    }
+
+    /**
      * Determines if a side menu item is active.
      * @param mixed $item Specifies the item object.
      * @return boolean Returns true if the side item is active.
