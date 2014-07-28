@@ -600,14 +600,16 @@ class Form extends WidgetBase
 
         /*
          * Loop the field key parts and build a value.
-         * To support relations only the last ield should return the 
+         * To support relations only the last field should return the
          * relation value, all others will look up the relation object as normal.
          */
         foreach ($keyParts as $key) {
 
-            if ($key == $lastField && $result instanceof Model && $result->hasRelation($key)) {
-                if (!$result = $result->getRelationValue($key))
-                    return $defaultValue;
+            if ($result instanceof Model && $result->hasRelation($key)) {
+                if ($key == $lastField)
+                    $result = $result->getRelationValue($key) ?: $defaultValue;
+                else
+                    $result = $result->{$key};
             }
             elseif (is_array($result)) {
                 if (!array_key_exists($key, $result)) return $defaultValue;
