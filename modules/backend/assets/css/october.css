@@ -11884,6 +11884,11 @@ body.slim-container .control-breadcrumb {
   margin-left: 0;
   margin-right: 0;
 }
+body.compact-container .control-breadcrumb {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
 div.control-popover {
   position: absolute;
   background-clip: content-box;
