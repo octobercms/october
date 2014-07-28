@@ -35,7 +35,9 @@
             <li class="highlight account">
                 <a href="<?= Backend::url('system/settings/mysettings') ?>">
                     <img src="<?= $this->user->getAvatarThumb() ?>">
-                    <?= e($this->user->first_name.' '.$this->user->last_name) ?>
+                    <span class="hidden-xs">
+                        <?= e($this->user->first_name.' '.$this->user->last_name) ?>
+                    </span>
                 </a>
             </li>
             <li class="icon power-off">
