@@ -9,7 +9,7 @@
   border-radius: 5px;
 }
 .field-richeditor.editor-focus {
-  border: 1px solid #cccccc;
+  border: 1px solid #808c8d;
 }
 .field-richeditor.size-tiny textarea {
   height: 20px;
@@ -30,8 +30,8 @@
   border: none;
 }
 .field-richeditor .redactor_box .redactor_toolbar {
-  border-top-right-radius: 2px;
-  border-top-left-radius: 2px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   background: #f6f6f6;

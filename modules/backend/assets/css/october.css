@@ -8374,7 +8374,7 @@ label {
   font-size: 13px;
 }
 .form-control:focus {
-  border: 1px solid #cccccc;
+  border: 1px solid #808c8d;
 }
 .form-control.icon {
   background-repeat: no-repeat;
@@ -8792,7 +8792,7 @@ label {
   border-radius: 2px;
 }
 .custom-select.select2-container.select2-dropdown-open {
-  border-color: #cccccc;
+  border-color: #808c8d;
 }
 .custom-select.select2-container.select2-dropdown-open,
 .custom-select.select2-container.select2-dropdown-open .select2-choices {
