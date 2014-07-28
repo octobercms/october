@@ -25,15 +25,12 @@
     "require": {
         "php": ">=5.4",
         "laravel/framework": "4.2.*",
-        "october/system": "dev-master",
-        "october/backend": "dev-master",
-        "october/cms": "dev-master",
-        "october/rain": "dev-master"
+        "october/system": "~1.0",
+        "october/backend": "~1.0",
+        "october/cms": "~1.0",
+        "october/rain": "~1.0"
     },
-    "require-dev": {
-        "mockery/mockery": "dev-master"
-    },
-    "autoload": {
+    "autoload-dev": {
         "classmap": [
             "tests/TestCase.php",
             "tests/UiTestCase.php"

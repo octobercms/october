@@ -5,11 +5,6 @@ use Cms\Classes\Theme;
 
 class ControllerTest extends TestCase
 {
-    public function tearDown()
-    {
-        Mockery::close();
-    }
-
     public function test404()
     {
         /*
@@ -152,7 +147,7 @@ class ControllerTest extends TestCase
             with($this->stringContains('X_OCTOBER_REQUEST_HANDLER'), $this->anything())->
             will($this->returnValue($handler));
 
-        if ($partials !== false) 
+        if ($partials !== false)
             $requestMock->expects($this->at(1))->
                 method('header')->
                 with($this->stringContains('X_OCTOBER_REQUEST_PARTIALS'), $this->anything())->
@@ -316,7 +311,7 @@ ESC;
 
         $this->assertArrayHasKey('firstAlias', $page->components);
         $this->assertArrayHasKey('secondAlias', $page->components);
-        
+
         $component = $page->components['firstAlias'];
         $component2 = $page->components['secondAlias'];
 
