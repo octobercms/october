@@ -13337,3 +13337,49 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 .sidenav-tree ul.top-level > li > ul li:hover a {
   background-color: #34495e;
 }
+.sidenav-tree .back-link {
+  display: none;
+}
+@media (max-width: 768px) {
+  .sidenav-tree {
+    width: 100%;
+    height: auto!important;
+    display: block!important;
+  }
+  .sidenav-tree > .layout {
+    display: none;
+  }
+  .sidenav-tree-root .sidenav-tree {
+    width: 100%!important;
+    height: 100%!important;
+    display: table-cell !important;
+  }
+  .sidenav-tree-root .sidenav-tree .back-link {
+    display: none!important;
+  }
+  .sidenav-tree-root .sidenav-tree > .layout {
+    display: table!important;
+  }
+  .sidenav-tree-root #layout-body {
+    display: none;
+  }
+  body.has-sidenav-tree .sidenav-tree .back-link {
+    display: block;
+    background: #2b3e50;
+    padding: 13px 15px;
+    color: #bdc3c7;
+    font-size: 14px;
+    text-transform: uppercase;
+    line-height: 14px;
+  }
+  body.has-sidenav-tree .sidenav-tree .back-link i {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  body.has-sidenav-tree .sidenav-tree .back-link:hover {
+    text-decoration: none;
+  }
+  body.has-sidenav-tree #layout-body {
+    display: block!important;
+  }
+}

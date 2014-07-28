@@ -1,4 +1,6 @@
 <div class="layout-cell sidenav-tree" data-control="sidenav-tree" data-search-input="#settings-search-input">
+    <a class="back-link" href="<?= Backend::url('system/settings') ?>"><i class="icon-angle-left"></i><?= e(trans('system::lang.settings.menu_label')) ?></a>
+
     <div class="layout">
         <div class="layout-row min-size">
             <?= $this->makePartial('@/modules/system/partials/_settings_menu_toolbar.htm') ?>

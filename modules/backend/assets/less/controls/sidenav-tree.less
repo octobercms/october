@@ -134,4 +134,67 @@
             }
         }
     }
+
+    .back-link {
+        display: none;
+
+
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .sidenav-tree {
+        width: 100%;
+        height: auto!important;
+        display: block!important;
+
+        > .layout {
+            display: none;
+        }
+    }
+
+    .sidenav-tree-root {
+        .sidenav-tree {
+            width: 100%!important;
+            height: 100%!important;
+            display: table-cell!important;
+
+            .back-link {
+                display: none!important;
+            }
+
+            > .layout {
+                display: table!important;
+            }
+        }
+
+        #layout-body {
+            display: none;
+        }
+    }
+
+    body.has-sidenav-tree {
+        .sidenav-tree {
+            .back-link {
+                display: block;
+                background: @color-sidebarnav-back-link-bg;
+                padding: 13px 15px;
+                color: @color-sidebarnav-back-link-text;
+                font-size: 14px;
+                text-transform: uppercase;
+                line-height: 14px;
+                i {
+                    display: inline-block;
+                    margin-right: 10px;
+                }
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        #layout-body {
+            display: block!important;
+        }
+    }
 }

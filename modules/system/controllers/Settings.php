@@ -40,7 +40,7 @@ class Settings extends Controller
     {
         $this->pageTitle = Lang::get('system::lang.settings.menu_label');
         $this->vars['items'] = SettingsManager::instance()->listItems('system');
-        $this->bodyClass = 'compact-container';
+        $this->bodyClass = 'compact-container sidenav-tree-root';
     }
 
     public function mysettings()
