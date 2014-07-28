@@ -7820,6 +7820,11 @@ nav#layout-mainmenu .menu-toggle i,
   vertical-align: middle;
   margin-right: 10px;
 }
+.mainmenu-collapsed li a i {
+  width: 40px;
+  text-align: left;
+  display: inline-block;
+}
 nav#layout-mainmenu.navbar ul li:hover a:active,
 .mainmenu-collapsed li:hover a:active,
 nav#layout-mainmenu.navbar ul li:hover a:focus,

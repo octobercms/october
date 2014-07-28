@@ -21,6 +21,7 @@
                 }
 
                 $(this).width($el.get(0).offsetWidth + margin)
+                $(this).trigger('oc.widthFixed')
             }
         })
     }

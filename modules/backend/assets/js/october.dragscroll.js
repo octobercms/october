@@ -268,7 +268,7 @@
             return (activeElement.get(0).offsetTop + activeElement.height()) < this.el.scrollTop()
     }
 
-    DragScroll.prototype.goToElement = function(element, callback) {
+    DragScroll.prototype.goToElement = function(element, callback, options) {
         var $el = $(element)
         if (!$el.length)
             return;
@@ -283,6 +283,8 @@
                     callback()
             }
         }
+
+        params = $.extend(params, options || {})
 
         var offset = 0,
             animated = false
