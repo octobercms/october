@@ -67,9 +67,9 @@
                     display: block;
                     position: relative;
                     padding: 15px 15px 15px 40px;
-                    color: @color-sidebarnav-tree-inactive-text;
                     background: @color-sidebarnav-tree-inactive-bg;
                     margin-bottom: 1px;
+                    color: @color-sidebarnav-tree-inactive-text;
                     text-decoration: none!important;
 
                     &:hover {
@@ -88,11 +88,13 @@
                         line-height: 150%;
 
                         &.header {
+                            color: @color-sidebarnav-tree-inactive-header;
                             font-size: 14px;
                             margin-bottom: 5px;
                         }
 
                         &.description {
+                            color: @color-sidebarnav-tree-inactive-desc;
                             font-size: 12px;
                             font-weight: 100;
                         }
@@ -111,6 +113,14 @@
                         left: 0;
                         top: 0;
                         height: 100%;
+                    }
+
+                    span.header {
+                        color: @color-sidebarnav-tree-active-header;
+                    }
+
+                    span.description {
+                        color: @color-sidebarnav-tree-active-text;
                     }
                 }
 

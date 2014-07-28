@@ -11165,7 +11165,7 @@ body.dropdown-open .dropdown-overlay {
 .control-tabs.primary > div > div > ul.nav-tabs > li a > span.title:after {
   content: ' ';
   position: absolute;
-  background: transparent url(../images/primary-tab-shape.png) no-repeat left -31px;
+  background: transparent url(../images/primary-tab-shape.png?v2) no-repeat left -31px;
   width: 16px;
   height: 26px;
   display: block;
@@ -12391,6 +12391,8 @@ div.popover-overlay {
 .fancy-layout .control-tabs.primary > div > ul.nav-tabs,
 .fancy-layout.control-tabs.primary > div > ul.nav-tabs {
   background: #7f8c8d;
+  margin-left: 0!important;
+  margin-right: 0!important;
 }
 .fancy-layout .control-tabs.primary > div > ul.nav-tabs:before,
 .fancy-layout.control-tabs.primary > div > ul.nav-tabs:before {
@@ -12400,26 +12402,59 @@ div.popover-overlay {
 .fancy-layout.control-tabs.primary > div > ul.nav-tabs > li {
   background: transparent;
   border-right: none;
-  padding-right: 0;
-  padding-left: 0;
-  margin-right: 0;
+}
+.fancy-layout .control-tabs.primary > div > ul.nav-tabs > li:first-child,
+.fancy-layout.control-tabs.primary > div > ul.nav-tabs > li:first-child {
+  margin-left: -5px;
 }
 .fancy-layout .control-tabs.primary > div > ul.nav-tabs > li a,
 .fancy-layout.control-tabs.primary > div > ul.nav-tabs > li a {
   background: transparent;
   border: none;
-  padding: 8px 10px;
+  padding: 12px 16px 0px;
   font-size: 12px;
   font-weight: 600;
-  color: #bdc3c7;
+  color: #95a5a6;
+}
+.fancy-layout .control-tabs.primary > div > ul.nav-tabs > li a span.title,
+.fancy-layout.control-tabs.primary > div > ul.nav-tabs > li a span.title {
+  background: #d5d9d8;
+  border-top: none;
+  padding: 5px 5px 3px 5px;
+}
+.fancy-layout .control-tabs.primary > div > ul.nav-tabs > li a span.title:before,
+.fancy-layout.control-tabs.primary > div > ul.nav-tabs > li a span.title:before,
+.fancy-layout .control-tabs.primary > div > ul.nav-tabs > li a span.title:after,
+.fancy-layout.control-tabs.primary > div > ul.nav-tabs > li a span.title:after {
+  top: 0;
+}
+.fancy-layout .control-tabs.primary > div > ul.nav-tabs > li a span.title:before,
+.fancy-layout.control-tabs.primary > div > ul.nav-tabs > li a span.title:before {
+  background-position: left -92px;
+}
+.fancy-layout .control-tabs.primary > div > ul.nav-tabs > li a span.title:after,
+.fancy-layout.control-tabs.primary > div > ul.nav-tabs > li a span.title:after {
+  background-position: -61px -92px;
 }
 .fancy-layout .control-tabs.primary > div > ul.nav-tabs > li.active a,
 .fancy-layout.control-tabs.primary > div > ul.nav-tabs > li.active a {
-  color: #ffffff;
+  color: #808c8d;
 }
 .fancy-layout .control-tabs.primary > div > ul.nav-tabs > li.active a:before,
 .fancy-layout.control-tabs.primary > div > ul.nav-tabs > li.active a:before {
   display: none;
+}
+.fancy-layout .control-tabs.primary > div > ul.nav-tabs > li.active a span.title,
+.fancy-layout.control-tabs.primary > div > ul.nav-tabs > li.active a span.title {
+  background: #fafafa;
+}
+.fancy-layout .control-tabs.primary > div > ul.nav-tabs > li.active a span.title:before,
+.fancy-layout.control-tabs.primary > div > ul.nav-tabs > li.active a span.title:before {
+  background-position: left -62px;
+}
+.fancy-layout .control-tabs.primary > div > ul.nav-tabs > li.active a span.title:after,
+.fancy-layout.control-tabs.primary > div > ul.nav-tabs > li.active a span.title:after {
+  background-position: -61px -62px;
 }
 .fancy-layout .control-tabs.primary > .tab-content > .tab-pane,
 .fancy-layout.control-tabs.primary > .tab-content > .tab-pane {
@@ -13249,9 +13284,9 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   display: block;
   position: relative;
   padding: 15px 15px 15px 40px;
-  color: #808b93;
   background: #3d5265;
   margin-bottom: 1px;
+  color: #808c8d;
   text-decoration: none!important;
 }
 .sidenav-tree ul.top-level > li > ul li a:hover {
@@ -13268,10 +13303,12 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   line-height: 150%;
 }
 .sidenav-tree ul.top-level > li > ul li a span.header {
+  color: #cad5d8;
   font-size: 14px;
   margin-bottom: 5px;
 }
 .sidenav-tree ul.top-level > li > ul li a span.description {
+  color: #bdc3c7;
   font-size: 12px;
   font-weight: 100;
 }
@@ -13287,6 +13324,12 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   left: 0;
   top: 0;
   height: 100%;
+}
+.sidenav-tree ul.top-level > li > ul li.active a span.header {
+  color: #ffffff;
+}
+.sidenav-tree ul.top-level > li > ul li.active a span.description {
+  color: #ecf0f1;
 }
 .sidenav-tree ul.top-level > li > ul li:last-child a {
   margin-bottom: 0;

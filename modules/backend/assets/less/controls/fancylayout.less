@@ -219,6 +219,8 @@
         &.primary {
             > div > ul.nav-tabs {
                 background: @color-fancy-primary-tabs-bg;
+                margin-left: 0!important;
+                margin-right: 0!important;
 
                 &:before {
                     display: none;
@@ -227,17 +229,36 @@
                 > li {
                     background: transparent;
                     border-right: none;
-                    padding-right: 0;
-                    padding-left: 0;
-                    margin-right: 0;
+
+                    &:first-child {
+                        margin-left: -5px;
+                    }
 
                     a {
                         background: transparent;
                         border: none;
-                        padding: 8px 10px;
+                        padding: 12px 16px 0px;
                         font-size: 12px;
                         font-weight: 600;
                         color: @color-fancy-primary-tabs-inactive-text;
+
+                        span.title {
+                            background: @color-fancy-primary-tabs-inactive-bg;
+                            border-top: none;
+                            padding: 5px 5px 3px 5px;
+
+                            &:before, &:after {
+                                top: 0;
+                            }
+
+                            &:before {
+                                background-position: left -92px;
+                            }
+
+                            &:after {
+                                background-position: -61px -92px;
+                            }
+                        }
                     }
 
                     &.active {
@@ -245,6 +266,18 @@
                             color: @color-fancy-primary-tabs-active-text;
                             &:before {
                                 display: none;
+                            }
+
+                            span.title {
+                                background: @color-fancy-primary-tabs-active-bg;
+
+                                &:before {
+                                    background-position: left -62px;
+                                }
+
+                                &:after {
+                                    background-position: -61px -62px;
+                                }
                             }
                         }
                     }
