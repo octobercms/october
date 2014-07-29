@@ -154,6 +154,9 @@ class RelationController extends ControllerBehavior
      */
     public function initRelation($model, $field = null)
     {
+        if ($field == null)
+            $field = post(self::PARAM_FIELD);
+
         $this->config = $this->originalConfig;
         $this->model = $model;
         $this->field = $field;
