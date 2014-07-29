@@ -45,8 +45,8 @@ trait ViewMaker
      * Render a partial file contents located in the views folder.
      * @param string $partial The view to load.
      * @param array $params Parameter variables to pass to the view.
-     * @param bool $throwException Throw an exception if the partial is not found
-     * @return string The view contents.
+     * @param bool $throwException Throw an exception if the partial is not found.
+     * @return mixed Partial contents or false if not throwing an exception.
      */
     public function makePartial($partial, $params = [], $throwException = true)
     {

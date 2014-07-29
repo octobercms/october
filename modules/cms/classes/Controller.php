@@ -535,8 +535,12 @@ class Controller extends BaseController
     /**
      * Renders a requested partial.
      * The framework uses this method internally.
+     * @param string $partial The view to load.
+     * @param array $params Parameter variables to pass to the view.
+     * @param bool $throwException Throw an exception if the partial is not found.
+     * @return mixed Partial contents or false if not throwing an exception.
      */
-    public function renderPartial($name, $parameters = [])
+    public function renderPartial($name, $parameters = [], $throwException = true)
     {
         /*
          * Alias @ symbol for ::
@@ -555,18 +559,26 @@ class Controller extends BaseController
              * Component alias not supplied
              */
             if (!strlen($componentAlias)) {
-                if ($this->componentContext !== null)
+                if ($this->componentContext !== null) {
                     $componentObj = $this->componentContext;
-
-                elseif (($componentObj = $this->findComponentByPartial($partialName)) === null)
-                    throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
+                }
+                elseif (($componentObj = $this->findComponentByPartial($partialName)) === null) {
+                    if ($throwException)
+                        throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
+                    else
+                        return false;
+                }
             }
             /*
              * Component alias is supplied
              */
             else {
-                if (($componentObj = $this->findComponentByName($componentAlias)) === null)
-                    throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$componentAlias]));
+                if (($componentObj = $this->findComponentByName($componentAlias)) === null) {
+                    if ($throwException)
+                        throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$componentAlias]));
+                    else
+                        return false;
+                }
             }
 
             $partial = null;
@@ -587,8 +599,12 @@ class Controller extends BaseController
                 $partial = ComponentPartial::loadCached($componentObj, $partialName);
 
 
-            if ($partial === null)
-                throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
+            if ($partial === null) {
+                if ($throwException)
+                    throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
+                else
+                    return false;
+            }
 
             /*
              * Set context for self access
@@ -599,8 +615,12 @@ class Controller extends BaseController
             /*
              * Process theme partial
              */
-            if (($partial = Partial::loadCached($this->theme, $name)) === null)
-                throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
+            if (($partial = Partial::loadCached($this->theme, $name)) === null) {
+                if ($throwException)
+                    throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
+                else
+                    return false;
+            }
         }
 
         CmsException::mask($partial, 400);
@@ -665,7 +685,7 @@ class Controller extends BaseController
                 return $result;
         }
 
-        return $this->renderPartial($name.'::default');
+        return $this->renderPartial($name.'::default', [], false);
     }
 
     /**
