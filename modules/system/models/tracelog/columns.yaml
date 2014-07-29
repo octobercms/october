@@ -1,0 +1,16 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+        searchable: yes
+
+    created_at:
+        label: Date & Time
+        searchable: yes
+
+    message:
+        label: Message
+        searchable: yes

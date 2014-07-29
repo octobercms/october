@@ -1,0 +1,15 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    url:
+        label: URL
+        searchable: yes
+
+    referer:
+        label: Referer
+        searchable: yes
+
+    count:
+        label: Counter

@@ -1,0 +1,32 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    created_at:
+        label: Date & Time
+        searchable: yes
+
+    login:
+        relation: user
+        select: @login
+        searchable: yes
+
+    ip_address:
+        label: IP Address
+        searchable: yes
+
+    first_name:
+        relation: user
+        select: @first_name
+        searchable: yes
+
+    last_name:
+        relation: user
+        select: @first_name
+        searchable: yes
+
+    email:
+        relation: user
+        select: @email
+        searchable: yes
