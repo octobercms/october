@@ -1,7 +1,7 @@
 <?php
 
-use Cms\Classes\Controller;
 use Cms\Classes\Theme;
+use Cms\Classes\Controller;
 
 class ControllerTest extends TestCase
 {
@@ -10,7 +10,6 @@ class ControllerTest extends TestCase
         /*
          * Test the built-in 404 page
          */
-
         $theme = new Theme();
         $theme->load('apitest');
         $controller = new Controller($theme);
@@ -26,7 +25,6 @@ class ControllerTest extends TestCase
         /*
          * Test the theme 404 page
          */
-
         $theme = new Theme();
         $theme->load('test');
         $controller = new Controller($theme);

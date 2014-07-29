@@ -6,6 +6,7 @@ use Lang;
 use Cache;
 use Event;
 use Config;
+use DbDongle;
 use October\Rain\Support\Yaml;
 use System\Models\Parameters;
 use System\Classes\SystemException;
@@ -97,13 +98,15 @@ class Theme
         $paramKey = 'cms::theme.active';
         $activeTheme = Config::get('cms.activeTheme');
 
-        $dbResult = Parameters::findRecord($paramKey)
-            ->remember(1440, $paramKey)
-            ->pluck('value')
-        ;
+        if (DbDongle::hasDatabase()) {
+            $dbResult = Parameters::findRecord($paramKey)
+                ->remember(1440, $paramKey)
+                ->pluck('value')
+            ;
 
-        if ($dbResult !== null)
-            $activeTheme = $dbResult;
+            if ($dbResult !== null)
+                $activeTheme = $dbResult;
+        }
 
         $apiResult = Event::fire('cms.activeTheme', [], true);
         if ($apiResult !== null)

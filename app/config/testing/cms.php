@@ -4,6 +4,17 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
+    | Specifies the default CMS theme
+    |--------------------------------------------------------------------------
+    |
+    | This parameter value can be overridden by the CMS back-end settings.
+    |
+    */
+
+    'activeTheme' => 'test',
+
+    /*
+    |--------------------------------------------------------------------------
     | Plugins directory
     |--------------------------------------------------------------------------
     |
@@ -66,14 +77,16 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Specifies the default CMS theme
+    | Determines if a friendly error page should be used.
     |--------------------------------------------------------------------------
     |
-    | This parameter value can be overridden by the CMS back-end settings.
+    | If this value is set to true, a friendly error page is used when an
+    | exception is encountered. You must create a CMS page with route "/error"
+    | to set the contents of this page. Otherwise the default error page is shown.
     |
     */
 
-    'activeTheme' => 'test',
+    'customErrorPage' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -88,7 +101,7 @@ return array(
     */
 
     'enableAssetCache' => false, 
-    
+
     /*
     |--------------------------------------------------------------------------
     | Disables Twig caching for unit tests
