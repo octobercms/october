@@ -188,6 +188,7 @@ return [
         'locale_comment' => 'Select your desired locale for language use.',
     ],
     'access_log' => [
+        'hint' => 'This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.',
         'menu_label' => 'Access Log',
         'menu_description' => 'View a list of successful back-end user sign ins.',
         'created_at' => 'Date & Time',

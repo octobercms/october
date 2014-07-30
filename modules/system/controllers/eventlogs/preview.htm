@@ -14,6 +14,11 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('system/eventlogs') ?>" class="btn btn-default">Return to event log list</a></p>
 
 <?php endif ?>
+
+<p>
+    <a href="<?= Backend::url('system/eventlogs') ?>" class="btn btn-default oc-icon-chevron-left">
+        <?= e(trans('system::lang.event_log.return_link')) ?>
+    </a>
+</p>
