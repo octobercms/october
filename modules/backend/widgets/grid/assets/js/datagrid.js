@@ -74,6 +74,12 @@
             handsontableOptions.data = this.options.data
         }
         /*
+         * Data from an AJAX data source
+         */
+        else if (this.options.sourceHandler) {
+            self.refreshDataSource()
+        }
+        /*
          * Data from a data locker
          */
         else if (this.options.dataLocker) {
@@ -95,12 +101,6 @@
             } catch (e) {
                 delete handsontableOptions.data
             }
-        }
-        /*
-         * Data from an AJAX data source
-         */
-        else if (this.options.sourceHandler) {
-            self.refreshDataSource()
         }
 
         /*
