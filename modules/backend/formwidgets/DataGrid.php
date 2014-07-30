@@ -79,9 +79,17 @@ class DataGrid extends FormWidgetBase
         return $grid;
     }
 
+    /**
+     * Looks at the model for getXXXAutocompleteValues or getGridAutocompleteValues methods
+     * to obtain values for autocomplete field types.
+     * @param  string $field Grid field name
+     * @param  string $value Current value
+     * @param  string $data  Data for the entire grid
+     * @return array
+     */
     public function getAutocompleteValues($field, $value, $data)
     {
-        $methodName = 'get'.studly_case($this->columnName).'GridAutocompleteValues';
+        $methodName = 'get'.studly_case($this->columnName).'AutocompleteValues';
 
         if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getGridAutocompleteValues'))
             throw new ApplicationException('Model :model does not contain a method getGridAutocompleteValues()');
@@ -96,7 +104,6 @@ class DataGrid extends FormWidgetBase
 
         return $result;
     }
-
 
     public function getDataSourceValues()
     {
