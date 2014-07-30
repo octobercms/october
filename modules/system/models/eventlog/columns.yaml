@@ -4,13 +4,13 @@
 
 columns:
     id:
-        label: ID
+        label: system::lang.event_log.id
         searchable: yes
 
     created_at:
-        label: Date & Time
+        label: system::lang.event_log.created_at
         searchable: yes
 
     message:
-        label: Message
+        label: system::lang.event_log.message
         searchable: yes

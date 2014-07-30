@@ -190,5 +190,11 @@ return [
     'access_log' => [
         'menu_label' => 'Access Log',
         'menu_description' => 'View a list of successful back-end user sign ins.',
+        'created_at' => 'Date & Time',
+        'login' => 'Login',
+        'ip_address' => 'IP address',
+        'first_name' => 'First name',
+        'last_name' => 'Last name',
+        'email' => 'Email',
     ],
 ];

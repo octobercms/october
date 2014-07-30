@@ -2,7 +2,7 @@
 #  List Behavior Config
 # ===================================
 
-title: Access Log
+title: backend::lang.access_log.menu_label
 list: @/modules/backend/models/accesslog/columns.yaml
 modelClass: Backend\Models\AccessLog
 recordUrl: backend/accesslogs/preview/:id

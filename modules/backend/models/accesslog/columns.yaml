@@ -4,29 +4,33 @@
 
 columns:
     created_at:
-        label: Date & Time
+        label: backend::lang.access_log.created_at
         searchable: yes
 
     login:
+        label: backend::lang.access_log.login
         relation: user
         select: @login
         searchable: yes
 
     ip_address:
-        label: IP Address
+        label: backend::lang.access_log.ip_address
         searchable: yes
 
     first_name:
+        label: backend::lang.access_log.first_name
         relation: user
         select: @first_name
         searchable: yes
 
     last_name:
+        label: backend::lang.access_log.last_name
         relation: user
         select: @first_name
         searchable: yes
 
     email:
+        label: backend::lang.access_log.email
         relation: user
         select: @email
         searchable: yes

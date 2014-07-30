@@ -182,6 +182,9 @@ return [
         'empty_link' => 'Empty event log',
         'empty_loading' => 'Emptying event log...',
         'empty_success' => 'Successfully emptied the event log.',
+        'id' => 'ID',
+        'created_at' => 'Date & Time',
+        'message' => 'Message',
     ],
     'request_log' => [
         'menu_label' => 'Request Log',
@@ -189,5 +192,9 @@ return [
         'empty_link' => 'Empty request log',
         'empty_loading' => 'Emptying request log...',
         'empty_success' => 'Successfully emptied the request log.',
+        'count' => 'Counter',
+        'referer' => 'Referer',
+        'url' => 'URL',
+        'status_code' => 'Status',
     ],
 ];

@@ -2,7 +2,7 @@
 #  List Behavior Config
 # ===================================
 
-title: Event Log
+title: system::lang.event_log.menu_label
 list: @/modules/system/models/eventlog/columns.yaml
 modelClass: System\Models\EventLog
 recordUrl: system/eventlogs/preview/:id

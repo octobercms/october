@@ -4,16 +4,16 @@
 
 columns:
     status_code:
-        label: Status
+        label: system::lang.request_log.status_code
         searchable: yes
 
     url:
-        label: URL
+        label: system::lang.request_log.url
         searchable: yes
 
     referer:
-        label: Referer
+        label: system::lang.request_log.referer
         searchable: yes
 
     count:
-        label: Counter
+        label: system::lang.request_log.count
