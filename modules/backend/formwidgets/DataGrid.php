@@ -118,9 +118,9 @@ class DataGrid extends FormWidgetBase
             throw new ApplicationException('Model :model does not contain a method getGridDataSourceValues()');
 
         if ($this->model->methodExists($methodName))
-            $result = $this->model->$methodName($field, $value, $data);
+            $result = $this->model->$methodName();
         else
-            $result = $this->model->getGridDataSourceValues($this->columnName, $field, $value, $data);
+            $result = $this->model->getGridDataSourceValues($this->columnName);
 
         if (!is_array($result))
             $result = [];
