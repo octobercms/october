@@ -20,6 +20,11 @@ class RequestLog extends Model
     protected $guarded = [];
 
     /**
+     * @var array List of attribute names which are json encoded and decoded from the database.
+     */
+    protected $jsonable = ['referer'];
+
+    /**
      * Creates a log record
      * @return self
      */
@@ -27,9 +32,14 @@ class RequestLog extends Model
     {
         $record = static::firstOrNew([
             'url' => Request::fullUrl(),
-            'referer' => Request::header('referer'),
             'status_code' => $statusCode,
         ]);
+
+        if ($referer = Request::header('referer')) {
+            $referers = (array) $record->referer ?: [];
+            $referers[] = $referer;
+            $record->referer = $referers;
+        }
 
         if (!$record->exists) {
             $record->count = 1;

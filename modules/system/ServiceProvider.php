@@ -82,7 +82,7 @@ class ServiceProvider extends ModuleServiceProvider
             if (!DbDongle::hasDatabase())
                 return;
 
-            EventLog::add($message, $level, json_encode($context));
+            EventLog::add($message, $level);
         });
 
         /*

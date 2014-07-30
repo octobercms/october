@@ -11,9 +11,5 @@ columns:
         label: system::lang.request_log.url
         searchable: yes
 
-    referer:
-        label: system::lang.request_log.referer
-        searchable: yes
-
     count:
         label: system::lang.request_log.count

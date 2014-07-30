@@ -198,7 +198,7 @@ return [
         'empty_success' => 'Successfully emptied the request log.',
         'return_link' => 'Return to request log',
         'count' => 'Counter',
-        'referer' => 'Referer',
+        'referer' => 'Referers',
         'url' => 'URL',
         'status_code' => 'Status',
     ],

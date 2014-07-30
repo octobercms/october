@@ -14,7 +14,7 @@ class DbSystemRequestLogs extends Migration
             $table->increments('id');
             $table->string('url')->nullable();
             $table->integer('status_code')->nullable();
-            $table->string('referer')->nullable();
+            $table->text('referer')->nullable();
             $table->integer('count')->default(0);
             $table->timestamps();
         });

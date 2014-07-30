@@ -1,0 +1,9 @@
+<?php if (count($formModel->referer) > 0): ?>
+    <ul>
+        <?php foreach ($formModel->referer as $referer): ?>
+            <li><?= $referer ?></li>
+        <?php endforeach ?>
+    </ul>
+<?php else: ?>
+    <p><em>There were no detected referers to this URL.</em></p>
+<?php endif ?>
