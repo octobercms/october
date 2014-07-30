@@ -105,6 +105,11 @@ class DataGrid extends FormWidgetBase
         return $result;
     }
 
+    /**
+     * Looks at the model for getXXXDataSourceValues or getGridDataSourceValues methods
+     * to obtain the starting values for the grid.
+     * @return array
+     */
     public function getDataSourceValues()
     {
         $methodName = 'get'.studly_case($this->columnName).'DataSourceValues';
