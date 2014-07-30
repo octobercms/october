@@ -81,10 +81,16 @@ class DataGrid extends FormWidgetBase
 
     public function getAutocompleteValues($field, $value, $data)
     {
-        if (!$this->model->methodExists('getGridAutocompleteValues'))
+        $methodName = 'get'.studly_case($this->columnName).'GridAutocompleteValues';
+
+        if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getGridAutocompleteValues'))
             throw new ApplicationException('Model :model does not contain a method getGridAutocompleteValues()');
 
-        $result = $this->model->getGridAutocompleteValues($field, $value, $data);
+        if ($this->model->methodExists($methodName))
+            $result = $this->model->$methodName($field, $value, $data);
+        else
+            $result = $this->model->getGridAutocompleteValues($this->columnName, $field, $value, $data);
+
         if (!is_array($result))
             $result = [];
 
