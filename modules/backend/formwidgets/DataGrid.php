@@ -105,12 +105,25 @@ class DataGrid extends FormWidgetBase
         return $result;
     }
 
+    /**
+     * Looks at the model for getXXXDataSourceValues or getGridDataSourceValues methods
+     * to obtain the starting values for the grid.
+     * @return array
+     */
     public function getDataSourceValues()
     {
-        if (!$this->model->methodExists('getGridDataSourceValues'))
+        $methodName = 'get'.studly_case($this->columnName).'DataSourceValues';
+
+        if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getGridDataSourceValues'))
             throw new ApplicationException('Model :model does not contain a method getGridDataSourceValues()');
 
-        $result = $this->model->getGridDataSourceValues();
+        if ($this->model->methodExists($methodName))
+            $result = $this->model->$methodName();
+        else
+            $result = $this->model->getGridDataSourceValues($this->columnName);
+
+        if (!is_array($result))
+            $result = [];
 
         return $result;
     }
