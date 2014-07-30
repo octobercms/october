@@ -7,7 +7,7 @@ list: @/modules/system/models/requestlog/columns.yaml
 modelClass: System\Models\RequestLog
 recordUrl: system/requestlogs/preview/:id
 noRecordsMessage: backend::lang.list.no_records
-showSetup: false
+showSetup: true
 
 toolbar:
     buttons: list_toolbar

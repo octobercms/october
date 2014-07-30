@@ -5,9 +5,8 @@
 title: backend::lang.access_log.menu_label
 list: @/modules/backend/models/accesslog/columns.yaml
 modelClass: Backend\Models\AccessLog
-recordUrl: backend/accesslogs/preview/:id
 noRecordsMessage: backend::lang.list.no_records
-showSetup: false
+showSetup: true
 
 toolbar:
     buttons: list_toolbar
