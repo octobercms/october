@@ -179,11 +179,15 @@ return [
     'event_log' => [
         'menu_label' => 'Event Log',
         'menu_description' => 'View system log messages with their recorded time and details.',
-        'empty' => 'Empty event log',
+        'empty_link' => 'Empty event log',
+        'empty_loading' => 'Emptying event log...',
+        'empty_success' => 'Successfully emptied the event log.',
     ],
     'request_log' => [
         'menu_label' => 'Request Log',
         'menu_description' => 'View bad or redirected requests, such as Page not found (404).',
-        'empty' => 'Empty request log',
+        'empty_link' => 'Empty request log',
+        'empty_loading' => 'Emptying request log...',
+        'empty_success' => 'Successfully emptied the request log.',
     ],
 ];

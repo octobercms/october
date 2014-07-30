@@ -10,6 +10,7 @@ use BackendMenu;
 use Backend\Classes\Controller;
 use System\Classes\ApplicationException;
 use System\Classes\SettingsManager;
+use System\Models\RequestLog;
 use Exception;
 
 /**
@@ -39,6 +40,13 @@ class RequestLogs extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('October.System', 'request_logs');
+    }
+
+    public function onEmptyLog()
+    {
+        RequestLog::truncate();
+        Flash::success(Lang::get('system::lang.event_log.empty_success'));
+        return $this->listRefresh();
     }
 
 }
