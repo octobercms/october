@@ -16,9 +16,10 @@ use Twig_Environment;
 use Controller as BaseController;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\Extension as CmsTwigExtension;
-use System\Twig\Extension as SystemTwigExtension;
 use Cms\Classes\FileHelper as CmsFileHelper;
+use System\Models\RequestLog;
 use System\Classes\ErrorHandler;
+use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Support\Markdown;
 use October\Rain\Support\ValidationException;
 use Illuminate\Http\RedirectResponse;
@@ -140,6 +141,9 @@ class Controller extends BaseController
          */
         if (!$page) {
             $this->setStatusCode(404);
+
+            // Log the 404 request
+            RequestLog::add();
 
             if (!$page = $this->router->findByUrl('/404'))
                 return Response::make(View::make('cms::404'), $this->statusCode);

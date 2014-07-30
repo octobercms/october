@@ -23,11 +23,12 @@ class RequestLog extends Model
      * Creates a log record
      * @return self
      */
-    public static function add()
+    public static function add($statusCode = 404)
     {
         $record = static::firstOrNew([
             'url' => Request::fullUrl(),
             'referer' => Request::header('referer'),
+            'status_code' => $statusCode,
         ]);
 
         if (!$record->exists) {

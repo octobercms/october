@@ -3,6 +3,10 @@
 # ===================================
 
 columns:
+    status_code:
+        label: Status
+        searchable: yes
+
     url:
         label: URL
         searchable: yes

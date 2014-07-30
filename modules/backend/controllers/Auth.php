@@ -7,6 +7,7 @@ use Redirect;
 use Validator;
 use BackendAuth;
 use Backend\Models\User;
+use Backend\Models\AccessLog;
 use Backend\Classes\Controller;
 use System\Classes\VersionManager;
 use System\Classes\ApplicationException;
@@ -72,6 +73,9 @@ class Auth extends Controller
             'login' => post('login'),
             'password' => post('password')
         ], true);
+
+        // Log the sign in event
+        AccessLog::add($user);
 
         // Load version updates
         VersionManager::instance()->updateAll();
