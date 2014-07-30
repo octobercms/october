@@ -5,6 +5,7 @@ use Lang;
 use Event;
 use Config;
 use Backend;
+use DbDongle;
 use BackendMenu;
 use BackendAuth;
 use Twig_Environment;
@@ -16,6 +17,7 @@ use System\Classes\SettingsManager;
 use System\Twig\Engine as TwigEngine;
 use System\Twig\Loader as TwigLoader;
 use System\Twig\Extension as TwigExtension;
+use System\Models\EventLog;
 use System\Models\MailSettings;
 use System\Models\MailTemplate;
 use Backend\Classes\WidgetManager;
@@ -74,6 +76,16 @@ class ServiceProvider extends ModuleServiceProvider
         });
 
         /*
+         * Write all log events to the database
+         */
+        Event::listen('illuminate.log', function($level, $message, $context){
+            if (!DbDongle::hasDatabase())
+                return;
+
+            EventLog::add($message, $level, json_encode($context));
+        });
+
+        /*
          * Register basic Twig
          */
         App::bindShared('twig', function($app) {
@@ -99,7 +111,7 @@ class ServiceProvider extends ModuleServiceProvider
         });
 
         /*
-         * Override system email with email settings
+         * Override system mailer with mail settings
          */
         Event::listen('mailer.beforeRegister', function() {
             if (MailSettings::isConfigured())
@@ -202,7 +214,7 @@ class ServiceProvider extends ModuleServiceProvider
          */
         SettingsManager::instance()->registerCallback(function($manager){
             $manager->registerSettingItems('October.System', [
-                'email_settings' => [
+                'mail_settings' => [
                     'label'       => 'system::lang.mail.menu_label',
                     'description' => 'system::lang.mail.menu_description',
                     'category'    => 'System',
@@ -235,8 +247,25 @@ class ServiceProvider extends ModuleServiceProvider
                     'url'         => Backend::url('system/updates'),
                     'permissions' => ['system.manage_updates'],
                     'order'       => 700
-                ]
-
+                ],
+                'event_logs' => [
+                    'label'       => 'system::lang.event_log.menu_label',
+                    'description' => 'system::lang.event_log.menu_description',
+                    'category'    => 'Logs',
+                    'icon'        => 'icon-exclamation-triangle',
+                    'url'         => Backend::url('system/eventlogs'),
+                    'permissions' => ['system.access_event_logs'],
+                    'order'       => 800
+                ],
+                'request_logs' => [
+                    'label'       => 'system::lang.request_log.menu_label',
+                    'description' => 'system::lang.request_log.menu_description',
+                    'category'    => 'Logs',
+                    'icon'        => 'icon-file-o',
+                    'url'         => Backend::url('system/requestlogs'),
+                    'permissions' => ['system.access_request_logs'],
+                    'order'       => 800
+                ],
             ]);
         });
 
@@ -261,7 +290,6 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register the sidebar for the System main menu
          */
-
         BackendMenu::registerContextSidenavPartial('October.System', 'system', '@/modules/system/partials/_system_sidebar.htm');
     }
 
