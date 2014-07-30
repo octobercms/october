@@ -3,12 +3,12 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DbSystemTraceLog extends Migration
+class DbSystemEventLogs extends Migration
 {
 
     public function up()
     {
-        Schema::create('system_trace_log', function(Blueprint $table)
+        Schema::create('system_event_logs', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -21,7 +21,7 @@ class DbSystemTraceLog extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('system_trace_log');
+        Schema::dropIfExists('system_event_logs');
     }
 
 }

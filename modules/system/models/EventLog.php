@@ -5,13 +5,13 @@ use Model;
 /**
  * Model for logging system errors and debug trace messages
  */
-class TraceLog extends Model
+class EventLog extends Model
 {
 
     /**
      * @var string The database table used by the model.
      */
-    protected $table = 'system_trace_log';
+    protected $table = 'system_event_logs';
 
     /**
      * Creates a log record

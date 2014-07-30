@@ -1,0 +1,15 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: Event Log
+list: @/modules/system/models/eventlog/columns.yaml
+modelClass: System\Models\EventLog
+recordUrl: system/eventlogs/preview/:id
+noRecordsMessage: backend::lang.list.no_records
+showSetup: false
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

@@ -176,4 +176,14 @@ return [
     'zip' => [
         'extract_failed' => "Unable to extract core file ':file'.",
     ],
+    'event_log' => [
+        'menu_label' => 'Event Log',
+        'menu_description' => 'View system log messages with their recorded time and details.',
+        'empty' => 'Empty event log',
+    ],
+    'request_log' => [
+        'menu_label' => 'Request Log',
+        'menu_description' => 'View bad or redirected requests, such as Page not found (404).',
+        'empty' => 'Empty request log',
+    ],
 ];

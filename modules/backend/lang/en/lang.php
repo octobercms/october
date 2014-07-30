@@ -187,4 +187,8 @@ return [
         'locale' => 'Language',
         'locale_comment' => 'Select your desired locale for language use.',
     ],
+    'access_log' => [
+        'menu_label' => 'Access Log',
+        'menu_description' => 'View a list of successful back-end user sign ins.',
+    ],
 ];

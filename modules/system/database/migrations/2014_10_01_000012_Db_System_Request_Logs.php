@@ -3,16 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DbCmsErrorLog extends Migration
+class DbSystemRequestLogs extends Migration
 {
 
     public function up()
     {
-        Schema::create('cms_error_log', function(Blueprint $table)
+        Schema::create('system_request_logs', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('url')->nullable();
+            $table->integer('status_code')->nullable();
             $table->string('referer')->nullable();
             $table->integer('count')->default(0);
             $table->timestamps();
@@ -21,7 +22,7 @@ class DbCmsErrorLog extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('cms_error_log');
+        Schema::dropIfExists('system_request_logs');
     }
 
 }
