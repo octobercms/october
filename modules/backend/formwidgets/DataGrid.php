@@ -74,6 +74,7 @@ class DataGrid extends FormWidgetBase
         $grid = new Grid($this->controller, $config);
         $grid->alias = $this->alias . 'Grid';
         $grid->bindEvent('grid.autocomplete', [$this, 'getAutocompleteValues']);
+        $grid->bindEvent('grid.dataSource', [$this, 'getDataSourceValues']);
 
         return $grid;
     }
@@ -86,6 +87,17 @@ class DataGrid extends FormWidgetBase
         $result = $this->model->getGridAutocompleteValues($field, $value, $data);
         if (!is_array($result))
             $result = [];
+
+        return $result;
+    }
+
+
+    public function getDataSourceValues()
+    {
+        if (!$this->model->methodExists('getGridDataSourceValues'))
+            throw new ApplicationException('Model :model does not contain a method getGridDataSourceValues()');
+
+        $result = $this->model->getGridDataSourceValues();
 
         return $result;
     }
