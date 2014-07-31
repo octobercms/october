@@ -226,7 +226,7 @@ class Grid extends WidgetBase
 
             case 'currency':
                 $item['type'] = 'numeric';
-                $item['format'] = '$0,0.00';
+                $item['format'] = isset($column['format']) ? $column['format'] : '$0,0.00';
                 break;
 
             case 'checkbox':
