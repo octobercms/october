@@ -502,18 +502,10 @@ class Lists extends WidgetBase
         else
             $label = studly_case($name);
 
-        $column = new ListColumn($name, $label);
+        $columnType = isset($config['type']) ? $config['type'] : null;
 
-        /*
-         * Process options
-         */
-        if (isset($config['type'])) $column->type = $config['type'];
-        if (isset($config['searchable'])) $column->searchable = $config['searchable'];
-        if (isset($config['sortable'])) $column->sortable = $config['sortable'];
-        if (isset($config['invisible'])) $column->invisible = $config['invisible'];
-        if (isset($config['select'])) $column->sqlSelect = $config['select'];
-        if (isset($config['relation'])) $column->relation = $config['relation'];
-        if (isset($config['format'])) $column->format = $config['format'];
+        $column = new ListColumn($name, $label);
+        $column->displayAs($columnType, $config);
 
         return $column;
     }
