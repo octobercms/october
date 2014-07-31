@@ -14,6 +14,11 @@ class EventLog extends Model
     protected $table = 'system_event_logs';
 
     /**
+     * @var array List of attribute names which are json encoded and decoded from the database.
+     */
+    protected $jsonable = ['details'];
+
+    /**
      * Creates a log record
      * @param string $message Specifies the message text
      * @param string $level Specifies the logging level
@@ -25,10 +30,23 @@ class EventLog extends Model
         $record = new static;
         $record->message = $message;
         $record->level = $level;
-        $record->details = $details;
+
+        if ($details !== null)
+            $record->details = (array) $details;
+
         $record->save();
 
         return $record;
+    }
+
+    /**
+     * Beautify level value.
+     * @param  string $level
+     * @return string
+     */
+    public function getLevelAttribute($level)
+    {
+        return ucfirst($level);
     }
 
 }
