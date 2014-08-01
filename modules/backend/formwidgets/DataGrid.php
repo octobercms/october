@@ -39,6 +39,14 @@ class DataGrid extends FormWidgetBase
     }
 
     /**
+     * @return Backend\Widgets\Grid   The grid to be displayed.
+     */
+    public function getGrid()
+    {
+        return $this->grid;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function render()
