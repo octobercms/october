@@ -394,7 +394,7 @@ class Index extends Controller
      * @param string $markup The markup to convert to unix style endings
      * @return string
      */
-    private function convertLineEndings($markup)
+    protected function convertLineEndings($markup)
     {
         $markup = str_replace("\r\n", "\n", $markup);
         $markup = str_replace("\r", "\n", $markup);

@@ -144,7 +144,7 @@ class Settings extends Controller
     /**
      * Locates a setting item for a module or plugin
      */
-    private function findSettingItem($author, $plugin, $code)
+    protected function findSettingItem($author, $plugin, $code)
     {
         $manager = SettingsManager::instance();
 

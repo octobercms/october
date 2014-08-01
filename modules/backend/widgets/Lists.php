@@ -249,7 +249,7 @@ class Lists extends WidgetBase
      * @param  string $table
      * @return string
      */
-    private function parseTableName($sql, $table)
+    protected function parseTableName($sql, $table)
     {
         return str_replace('@', $table.'.', $sql);
     }
@@ -679,7 +679,7 @@ class Lists extends WidgetBase
     /**
      * Validates a column type as a date
      */
-    private function validateDateTimeValue($value, $column)
+    protected function validateDateTimeValue($value, $column)
     {
         if ($value instanceof DateTime)
             $value = Carbon::instance($value);

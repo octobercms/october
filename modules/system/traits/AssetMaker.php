@@ -212,7 +212,7 @@ trait AssetMaker
      * @param  array $asset Stored asset array
      * @return string
      */
-    private function getAssetEntryBuildPath($asset)
+    protected function getAssetEntryBuildPath($asset)
     {
         $path = $asset['path'];
         if (isset($asset['attributes']['build'])) {
@@ -234,7 +234,7 @@ trait AssetMaker
      * @param string $asset Specifies a path (URL) to the asset.
      * @return string
      */
-    private function getAssetScheme($asset)
+    protected function getAssetScheme($asset)
     {
         if (preg_match("/(\/\/|http|https)/", $asset))
             return $asset;

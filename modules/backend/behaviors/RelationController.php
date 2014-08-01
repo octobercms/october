@@ -326,7 +326,7 @@ class RelationController extends ControllerBehavior
      * @param string $field The relationship field.
      * @return string The active field name.
      */
-    private function validateField($field = null)
+    protected function validateField($field = null)
     {
         $field = $field ?: post(self::PARAM_FIELD);
 
@@ -406,7 +406,7 @@ class RelationController extends ControllerBehavior
     /**
      * Returns the existing record IDs for the relation.
      */
-    private function findExistingRelationIds($checkIds = null)
+    protected function findExistingRelationIds($checkIds = null)
     {
         $results = $this->relationObject
             ->getBaseQuery()

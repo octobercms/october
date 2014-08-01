@@ -606,7 +606,7 @@ class UpdateManager
      * @param  string $fileCode A unique file code
      * @return string           Full path on the disk
      */
-    private function getFilePath($fileCode)
+    protected function getFilePath($fileCode)
     {
         $name = md5($fileCode) . '.arc';
         return $this->tempDirectory . '/' . $name;
@@ -628,7 +628,7 @@ class UpdateManager
      * @param  string $uri URI
      * @return string      URL
      */
-    private function createServerUrl($uri)
+    protected function createServerUrl($uri)
     {
         $gateway = Config::get('cms.updateServer', 'http://octobercms.com/api');
         if (substr($gateway, -1) != '/')
@@ -643,7 +643,7 @@ class UpdateManager
      * @param  array $postData Post data
      * @return void
      */
-    private function applyHttpAttributes($http, $postData)
+    protected function applyHttpAttributes($http, $postData)
     {
         $postData['url'] = base64_encode(URL::to('/'));
 
@@ -664,7 +664,7 @@ class UpdateManager
      * Create a nonce based on millisecond time
      * @return int
      */
-    private function createNonce()
+    protected function createNonce()
     {
         $mt = explode(' ', microtime());
         return $mt[1] . substr($mt[0], 2, 6);
@@ -674,7 +674,7 @@ class UpdateManager
      * Create a unique signature for transmission.
      * @return string
      */
-    private function createSignature($data, $secret)
+    protected function createSignature($data, $secret)
     {
         return base64_encode(hash_hmac('sha512', http_build_query($data, '', '&'), base64_decode($secret), true));
     }

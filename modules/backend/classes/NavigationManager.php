@@ -419,7 +419,7 @@ class NavigationManager
      * @param array $items A collection of menu items
      * @return array The filtered menu items
      */
-    private function filterItemPermissions($user, array $items)
+    protected function filterItemPermissions($user, array $items)
     {
         $items = array_filter($items, function($item) use ($user) {
             if (!$item->permissions || !count($item->permissions))
@@ -436,7 +436,7 @@ class NavigationManager
      * @param  object $item
      * @return string
      */
-    private function makeItemKey($owner, $code)
+    protected function makeItemKey($owner, $code)
     {
         return strtoupper($owner).'.'.strtoupper($code);
     }

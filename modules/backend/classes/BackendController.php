@@ -75,7 +75,7 @@ class BackendController extends ControllerBase
      * @param string $action Specifies a method name to execute.
      * @return ControllerBase Returns the backend controller object
      */
-    private function findController($controller, $action, $dirPrefix = null)
+    protected function findController($controller, $action, $dirPrefix = null)
     {
         /*
          * Workaround: Composer does not support case insensitivity.

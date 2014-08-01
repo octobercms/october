@@ -270,7 +270,7 @@ class SettingsManager
      * @param array $items A collection of setting items
      * @return array The filtered settings items
      */
-    private function filterItemPermissions($user, array $items)
+    protected function filterItemPermissions($user, array $items)
     {
         array_filter($items, function($item) use ($user) {
             if (!$item->permissions || !count($item->permissions))

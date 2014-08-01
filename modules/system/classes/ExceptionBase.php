@@ -254,7 +254,7 @@ class ExceptionBase extends Exception
      * @param array $traceInfo The trace information from getTrace() or debug_backtrace().
      * @return array The filtered array containing the trace information.
      */
-    private function filterCallStack($traceInfo)
+    protected function filterCallStack($traceInfo)
     {
         /*
          * Determine if filter should be used at all.
