@@ -17,20 +17,20 @@ class SettingsManager
     /**
      * @var array Cache of registration callbacks.
      */
-    private $callbacks = [];
+    protected $callbacks = [];
 
     /**
      * @var array List of registered items.
      */
-    private $items;
+    protected $items;
     
     /**
      * @var array Flat collection of all items.
      */
-    private $allItems;
+    protected $allItems;
 
-    private $contextOwner;
-    private $contextItemCode;
+    protected $contextOwner;
+    protected $contextItemCode;
 
     static $itemDefaults = [
         'code'        => null,

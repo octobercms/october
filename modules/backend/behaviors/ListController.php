@@ -19,22 +19,22 @@ class ListController extends ControllerBehavior
     /**
      * @var array List definitions, keys for alias and value for configuration.
      */
-    private $listDefinitions;
+    protected $listDefinitions;
 
     /**
      * @var string The primary list alias to use. Default: list
      */
-    private $primaryDefinition;
+    protected $primaryDefinition;
 
     /**
      * @var Backend\Classes\WidgetBase Reference to the list widget object.
      */
-    private $listWidgets = [];
+    protected $listWidgets = [];
 
     /**
      * @var WidgetBase Reference to the toolbar widget objects.
      */
-    private $toolbarWidgets = [];
+    protected $toolbarWidgets = [];
 
     /**
      * {@inheritDoc}

@@ -46,7 +46,7 @@ class Form extends WidgetBase
      */
     public $allFields = [];
 
-    /** 
+    /**
      * @var array Collection of all form widgets used in this form.
      */
     public $formWidgets = [];

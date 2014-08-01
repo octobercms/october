@@ -22,7 +22,7 @@ class Extension extends Twig_Extension
     /**
      * @var \Cms\Classes\Controller A reference to the CMS controller.
      */
-    private $controller;
+    protected $controller;
 
     /**
      * Creates the extension instance.

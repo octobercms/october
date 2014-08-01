@@ -37,17 +37,17 @@ class AuthManager extends RainAuthManager
     /**
      * @var array Cache of registration callbacks.
      */
-    private $callbacks = [];
+    protected $callbacks = [];
 
     /**
      * @var array List of registered permissions.
      */
-    private $permissions = [];
+    protected $permissions = [];
 
     /**
      * @var array Cache of registered permissions.
      */
-    private $permissionCache = false;
+    protected $permissionCache = false;
 
     /**
      * Registers a callback function that defines authentication permissions.

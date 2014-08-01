@@ -26,22 +26,22 @@ class RelationController extends ControllerBehavior
     /**
      * @var Backend\Classes\WidgetBase Reference to the toolbar widget object.
      */
-    private $toolbarWidget;
+    protected $toolbarWidget;
 
     /**
      * @var Backend\Classes\WidgetBase Reference to the widget used for viewing (list or form).
      */
-    private $viewWidget;
+    protected $viewWidget;
 
     /**
      * @var Backend\Classes\WidgetBase Reference to the widget used for relation management.
      */
-    private $manageWidget;
+    protected $manageWidget;
 
     /**
      * @var Backend\Classes\WidgetBase Reference to widget for relations with pivot data.
      */
-    private $pivotWidget;
+    protected $pivotWidget;
 
     /**
      * {@inheritDoc}
@@ -61,12 +61,12 @@ class RelationController extends ControllerBehavior
     /**
      * @var array Original configuration values
      */
-    private $originalConfig;
+    protected $originalConfig;
 
     /**
      * @var bool Has the behavior been initialized.
      */
-    private $initialized = false;
+    protected $initialized = false;
 
     /**
      * @var string Relationship type

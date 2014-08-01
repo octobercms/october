@@ -19,7 +19,7 @@ class Toolbar extends WidgetBase
     /**
      * @var WidgetBase Reference to the search widget object.
      */
-    private $searchWidget;
+    protected $searchWidget;
 
     /**
      * @var string Name of partial containing control panel.

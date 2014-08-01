@@ -42,7 +42,7 @@ class Router
     /**
      * @var array A list of parameters names and values extracted from the URL pattern and URL string.
      */
-    private $parameters = [];
+    protected $parameters = [];
 
     /**
      * @var array Contains the URL map - the list of page file names and corresponding URL patterns.

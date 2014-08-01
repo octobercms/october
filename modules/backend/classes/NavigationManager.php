@@ -17,18 +17,18 @@ class NavigationManager
     /**
      * @var array Cache of registration callbacks.
      */
-    private $callbacks = [];
+    protected $callbacks = [];
 
     /**
      * @var array List of registered items.
      */
-    private $items;
+    protected $items;
 
-    private $contextSidenavPartials = [];
+    protected $contextSidenavPartials = [];
 
-    private $contextOwner;
-    private $contextMainMenuItemCode;
-    private $contextSideMenuItemCode;
+    protected $contextOwner;
+    protected $contextMainMenuItemCode;
+    protected $contextSideMenuItemCode;
 
     static $mainItemDefaults = [
         'code'        => null,

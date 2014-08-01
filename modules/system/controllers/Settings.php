@@ -23,7 +23,7 @@ class Settings extends Controller
     /**
      * @var WidgetBase Reference to the widget object.
      */
-    private $formWidget;
+    protected $formWidget;
 
     public $requiredPermissions = ['system.manage_settings'];
 

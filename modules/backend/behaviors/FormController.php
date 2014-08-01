@@ -25,7 +25,7 @@ class FormController extends ControllerBehavior
     /**
      * @var Backend\Classes\WidgetBase Reference to the widget object.
      */
-    private $formWidget;
+    protected $formWidget;
 
     /**
      * {@inheritDoc}
@@ -47,7 +47,7 @@ class FormController extends ControllerBehavior
     /**
      * @var array List of prepared models that require saving.
      */
-    private $modelsToSave = [];
+    protected $modelsToSave = [];
 
     /**
      * Behavior constructor

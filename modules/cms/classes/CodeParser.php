@@ -17,22 +17,22 @@ class CodeParser
     /**
      * @var \Cms\Classes\CmsCompoundObject A reference to the CMS object being parsed.
      */
-    private $object;
+    protected $object;
 
     /**
      * @var string Contains a path to the CMS object's file being parsed.
      */
-    private $filePath;
+    protected $filePath;
 
     /**
      * @var mixed The internal cache, keeps parsed object information during a request.
      */
-    static private $cache = [];
+    static protected $cache = [];
 
     /**
      * @var string Key for the parsed PHP file information cache.
      */
-    private $dataCacheKey = 'cms-php-file-data';
+    protected $dataCacheKey = 'cms-php-file-data';
 
     /**
      * Creates the class instance
