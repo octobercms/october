@@ -4,17 +4,10 @@
 
 fields:
 
-    status_code:
-        label: system::lang.request_log.status_code
-        span: auto
-
-    count:
-        label: system::lang.request_log.count
-        span: auto
-
     url:
         label: system::lang.request_log.url
 
     referer:
         label: system::lang.request_log.referer
         type: partial
+        path: referer_field

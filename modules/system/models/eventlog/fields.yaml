@@ -4,14 +4,5 @@
 
 fields:
 
-    id:
-        label: system::lang.event_log.id
-        span: auto
-
-    level:
-        label: system::lang.event_log.level
-        span: auto
-
     message:
-        label: system::lang.event_log.message
         type: textarea

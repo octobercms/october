@@ -9499,6 +9499,13 @@ table.table.data tr.list-tree-level-25 td.list-cell-index-1 {
 .control-simplelist ul {
   padding-left: 15px;
 }
+.control-simplelist.form-control ul {
+  margin-bottom: 0;
+}
+.control-simplelist.form-control li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
 .control-simplelist.with-icons ul,
 .control-simplelist.with-checkboxes ul,
 .control-simplelist.is-selectable ul {

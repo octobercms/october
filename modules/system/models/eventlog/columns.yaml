@@ -14,3 +14,5 @@ columns:
     message:
         label: system::lang.event_log.message
         searchable: yes
+        type: partial
+        path: message_column
