@@ -4,6 +4,7 @@ use Str;
 use File;
 use stdClass;
 use Session;
+use Event;
 
 /**
  * Widget base class.
@@ -112,6 +113,12 @@ abstract class WidgetBase
     {
         if ($this->controller->widget === null)
             $this->controller->widget = new \stdClass();
+
+        /*
+         * Extensibility
+         */
+        Event::fire('widget.beforeBindToController', [$this]);
+        $this->fireEvent('widget.beforeBindToController');
 
         $this->controller->widget->{$this->alias} = $this;
     }
