@@ -601,6 +601,14 @@ class Lists extends WidgetBase
     /**
      * Process as boolean switch
      */
+    public function evalPartialTypeValue($value, $column)
+    {
+        return $this->controller->makePartial($column->path ?: $column->columnName, ['value' => $value, 'column' => $column]);
+    }
+
+    /**
+     * Process as boolean switch
+     */
     public function evalSwitchTypeValue($value, $column)
     {
         // return ($value) ? '<i class="icon-check"></i>' : '<i class="icon-times"></i>';

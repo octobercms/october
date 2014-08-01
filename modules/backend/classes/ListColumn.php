@@ -56,9 +56,19 @@ class ListColumn
     public $cssClass;
 
     /**
-     * @var string Specify a format or style for the column value, such as a Date
+     * @var string Specify a format or style for the column value, such as a Date.
      */
     public $format;
+
+    /**
+     * @var string Specifies a path for partial-type fields.
+     */
+    public $path;
+
+    /**
+     * @var array Raw field configuration.
+     */
+    public $config;
 
     /**
      * Constructor
@@ -96,6 +106,7 @@ class ListColumn
         if (isset($config['select'])) $this->sqlSelect = $config['select'];
         if (isset($config['relation'])) $this->relation = $config['relation'];
         if (isset($config['format'])) $this->format = $config['format'];
+        if (isset($config['path'])) $this->path = $config['path'];
 
         return $config;
     }
