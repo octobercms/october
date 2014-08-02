@@ -39,6 +39,14 @@ class DataGrid extends FormWidgetBase
     }
 
     /**
+     * @return Backend\Widgets\Grid   The grid to be displayed.
+     */
+    public function getGrid()
+    {
+        return $this->grid;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function render()
@@ -74,16 +82,54 @@ class DataGrid extends FormWidgetBase
         $grid = new Grid($this->controller, $config);
         $grid->alias = $this->alias . 'Grid';
         $grid->bindEvent('grid.autocomplete', [$this, 'getAutocompleteValues']);
+        $grid->bindEvent('grid.dataSource', [$this, 'getDataSourceValues']);
 
         return $grid;
     }
 
+    /**
+     * Looks at the model for getXXXAutocompleteValues or getGridAutocompleteValues methods
+     * to obtain values for autocomplete field types.
+     * @param  string $field Grid field name
+     * @param  string $value Current value
+     * @param  string $data  Data for the entire grid
+     * @return array
+     */
     public function getAutocompleteValues($field, $value, $data)
     {
-        if (!$this->model->methodExists('getGridAutocompleteValues'))
+        $methodName = 'get'.studly_case($this->columnName).'AutocompleteValues';
+
+        if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getGridAutocompleteValues'))
             throw new ApplicationException('Model :model does not contain a method getGridAutocompleteValues()');
 
-        $result = $this->model->getGridAutocompleteValues($field, $value, $data);
+        if ($this->model->methodExists($methodName))
+            $result = $this->model->$methodName($field, $value, $data);
+        else
+            $result = $this->model->getGridAutocompleteValues($this->columnName, $field, $value, $data);
+
+        if (!is_array($result))
+            $result = [];
+
+        return $result;
+    }
+
+    /**
+     * Looks at the model for getXXXDataSourceValues or getGridDataSourceValues methods
+     * to obtain the starting values for the grid.
+     * @return array
+     */
+    public function getDataSourceValues()
+    {
+        $methodName = 'get'.studly_case($this->columnName).'DataSourceValues';
+
+        if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getGridDataSourceValues'))
+            throw new ApplicationException('Model :model does not contain a method getGridDataSourceValues()');
+
+        if ($this->model->methodExists($methodName))
+            $result = $this->model->$methodName();
+        else
+            $result = $this->model->getGridDataSourceValues($this->columnName);
+
         if (!is_array($result))
             $result = [];
 

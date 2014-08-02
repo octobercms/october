@@ -60,10 +60,10 @@
     <?php Block::endPut() ?>
 
 <?php else: ?>
+    <div class="control-breadcrumb">
+        <?= Block::placeholder('breadcrumb') ?>
+    </div>
     <div class="padded-container">
-        <div class="control-breadcrumb">
-            <?= Block::placeholder('breadcrumb') ?>
-        </div>
         <p class="flash-message static error"><?= e($this->fatalError) ?></p>
         <p><a href="<?= Backend::url('backend/users') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.return')) ?></a></p>
     </div>

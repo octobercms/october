@@ -1,9 +1,11 @@
 <?php namespace Backend\FormWidgets;
 
+use Lang;
 use Backend\Classes\FormWidgetBase;
+use System\Classes\SystemException;
 
 /**
- * Date picker
+ * Record Finder
  * Renders a record finder field.
  *
  *    user:

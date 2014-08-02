@@ -18,7 +18,7 @@ class ComponentManager
     /**
      * @var array Cache of registration callbacks.
      */
-    private $callbacks = [];
+    protected $callbacks = [];
 
     /**
      * @var array An array where keys are codes and values are class names.

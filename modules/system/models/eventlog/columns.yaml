@@ -1,0 +1,18 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: system::lang.event_log.id
+        searchable: yes
+
+    created_at:
+        label: system::lang.event_log.created_at
+        searchable: yes
+
+    message:
+        label: system::lang.event_log.message
+        searchable: yes
+        type: partial
+        path: message_column

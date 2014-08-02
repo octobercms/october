@@ -1,0 +1,15 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    status_code:
+        label: system::lang.request_log.status_code
+        searchable: yes
+
+    url:
+        label: system::lang.request_log.url
+        searchable: yes
+
+    count:
+        label: system::lang.request_log.count

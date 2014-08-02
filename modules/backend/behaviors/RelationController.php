@@ -26,22 +26,22 @@ class RelationController extends ControllerBehavior
     /**
      * @var Backend\Classes\WidgetBase Reference to the toolbar widget object.
      */
-    private $toolbarWidget;
+    protected $toolbarWidget;
 
     /**
      * @var Backend\Classes\WidgetBase Reference to the widget used for viewing (list or form).
      */
-    private $viewWidget;
+    protected $viewWidget;
 
     /**
      * @var Backend\Classes\WidgetBase Reference to the widget used for relation management.
      */
-    private $manageWidget;
+    protected $manageWidget;
 
     /**
      * @var Backend\Classes\WidgetBase Reference to widget for relations with pivot data.
      */
-    private $pivotWidget;
+    protected $pivotWidget;
 
     /**
      * {@inheritDoc}
@@ -61,12 +61,12 @@ class RelationController extends ControllerBehavior
     /**
      * @var array Original configuration values
      */
-    private $originalConfig;
+    protected $originalConfig;
 
     /**
      * @var bool Has the behavior been initialized.
      */
-    private $initialized = false;
+    protected $initialized = false;
 
     /**
      * @var string Relationship type
@@ -154,6 +154,9 @@ class RelationController extends ControllerBehavior
      */
     public function initRelation($model, $field = null)
     {
+        if ($field == null)
+            $field = post(self::PARAM_FIELD);
+
         $this->config = $this->originalConfig;
         $this->model = $model;
         $this->field = $field;
@@ -323,7 +326,7 @@ class RelationController extends ControllerBehavior
      * @param string $field The relationship field.
      * @return string The active field name.
      */
-    private function validateField($field = null)
+    protected function validateField($field = null)
     {
         $field = $field ?: post(self::PARAM_FIELD);
 
@@ -403,7 +406,7 @@ class RelationController extends ControllerBehavior
     /**
      * Returns the existing record IDs for the relation.
      */
-    private function findExistingRelationIds($checkIds = null)
+    protected function findExistingRelationIds($checkIds = null)
     {
         $results = $this->relationObject
             ->getBaseQuery()

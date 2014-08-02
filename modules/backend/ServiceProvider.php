@@ -104,6 +104,15 @@ class ServiceProvider extends ModuleServiceProvider
                     'context'     => 'mysettings',
                     'keywords'    => 'backend::lang.myaccount.menu_keywords',
                 ],
+                'access_logs' => [
+                    'label'       => 'backend::lang.access_log.menu_label',
+                    'description' => 'backend::lang.access_log.menu_description',
+                    'category'    => 'Logs',
+                    'icon'        => 'icon-lock',
+                    'url'         => Backend::url('backend/accesslogs'),
+                    'permissions' => ['backend.access_admin_logs'],
+                    'order'       => 800
+                ],
             ]);
         });
 

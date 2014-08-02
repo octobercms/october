@@ -23,7 +23,7 @@ class Settings extends Controller
     /**
      * @var WidgetBase Reference to the widget object.
      */
-    private $formWidget;
+    protected $formWidget;
 
     public $requiredPermissions = ['system.manage_settings'];
 
@@ -144,7 +144,7 @@ class Settings extends Controller
     /**
      * Locates a setting item for a module or plugin
      */
-    private function findSettingItem($author, $plugin, $code)
+    protected function findSettingItem($author, $plugin, $code)
     {
         $manager = SettingsManager::instance();
 

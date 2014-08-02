@@ -243,7 +243,7 @@ class VersionManager
     /**
      * Returns the absolute path to a version file for a plugin.
      */
-    private function getVersionFile($code)
+    protected function getVersionFile($code)
     {
         $versionFile = $this->pluginManager->getPluginPath($code) . '/updates/version.yaml';
         return $versionFile;
@@ -252,7 +252,7 @@ class VersionManager
     /**
      * Checks if a plugin has a version file.
      */
-    private function hasVersionFile($code)
+    protected function hasVersionFile($code)
     {
         $versionFile = $this->getVersionFile($code);
         return File::isFile($versionFile);

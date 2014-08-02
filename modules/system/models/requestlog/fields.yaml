@@ -1,0 +1,13 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    url:
+        label: system::lang.request_log.url
+
+    referer:
+        label: system::lang.request_log.referer
+        type: partial
+        path: referer_field

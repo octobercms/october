@@ -25,7 +25,7 @@ class FormController extends ControllerBehavior
     /**
      * @var Backend\Classes\WidgetBase Reference to the widget object.
      */
-    private $formWidget;
+    protected $formWidget;
 
     /**
      * {@inheritDoc}
@@ -47,7 +47,7 @@ class FormController extends ControllerBehavior
     /**
      * @var array List of prepared models that require saving.
      */
-    private $modelsToSave = [];
+    protected $modelsToSave = [];
 
     /**
      * Behavior constructor
@@ -349,7 +349,7 @@ class FormController extends ControllerBehavior
      * @param array $extras Any extra params to include in the language string variables
      * @return string The translated string.
      */
-    private function getLang($name, $default = null, $extras = [])
+    protected function getLang($name, $default = null, $extras = [])
     {
         $name = $this->getConfig($name, $default);
         $vars = [
@@ -567,7 +567,7 @@ class FormController extends ControllerBehavior
     // Internals
     //
 
-    private function prepareModelsToSave($model, $saveData)
+    protected function prepareModelsToSave($model, $saveData)
     {
         $this->modelsToSave = [];
         $this->setModelAttributes($model, $saveData);
@@ -580,7 +580,7 @@ class FormController extends ControllerBehavior
      * @param Model $model Model to save to
      * @return array The collection of models to save.
      */
-    private function setModelAttributes($model, $saveData)
+    protected function setModelAttributes($model, $saveData)
     {
         $this->modelsToSave[] = $model;
 

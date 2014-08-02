@@ -24,7 +24,7 @@ class MarkupManager
     /**
      * @var array Cache of registration callbacks.
      */
-    private $callbacks = [];
+    protected $callbacks = [];
 
     /**
      * @var array Registered extension items

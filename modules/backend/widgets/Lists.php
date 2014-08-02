@@ -249,7 +249,7 @@ class Lists extends WidgetBase
      * @param  string $table
      * @return string
      */
-    private function parseTableName($sql, $table)
+    protected function parseTableName($sql, $table)
     {
         return str_replace('@', $table.'.', $sql);
     }
@@ -502,18 +502,10 @@ class Lists extends WidgetBase
         else
             $label = studly_case($name);
 
-        $column = new ListColumn($name, $label);
+        $columnType = isset($config['type']) ? $config['type'] : null;
 
-        /*
-         * Process options
-         */
-        if (isset($config['type'])) $column->type = $config['type'];
-        if (isset($config['searchable'])) $column->searchable = $config['searchable'];
-        if (isset($config['sortable'])) $column->sortable = $config['sortable'];
-        if (isset($config['invisible'])) $column->invisible = $config['invisible'];
-        if (isset($config['select'])) $column->sqlSelect = $config['select'];
-        if (isset($config['relation'])) $column->relation = $config['relation'];
-        if (isset($config['format'])) $column->format = $config['format'];
+        $column = new ListColumn($name, $label);
+        $column->displayAs($columnType, $config);
 
         return $column;
     }
@@ -609,6 +601,14 @@ class Lists extends WidgetBase
     /**
      * Process as boolean switch
      */
+    public function evalPartialTypeValue($value, $column)
+    {
+        return $this->controller->makePartial($column->path ?: $column->columnName, ['value' => $value, 'column' => $column]);
+    }
+
+    /**
+     * Process as boolean switch
+     */
     public function evalSwitchTypeValue($value, $column)
     {
         // return ($value) ? '<i class="icon-check"></i>' : '<i class="icon-times"></i>';
@@ -679,7 +679,7 @@ class Lists extends WidgetBase
     /**
      * Validates a column type as a date
      */
-    private function validateDateTimeValue($value, $column)
+    protected function validateDateTimeValue($value, $column)
     {
         if ($value instanceof DateTime)
             $value = Carbon::instance($value);

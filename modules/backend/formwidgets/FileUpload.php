@@ -68,10 +68,13 @@ class FileUpload extends FormWidgetBase
         $columnName = $this->columnName;
         $list = $this->model->$columnName()->withDeferred($this->sessionKey)->orderBy('sort_order')->get();
 
-        // Set the thumb for each file
+        /*
+         * Set the thumb for each file
+         */
         foreach ($list as $file) {
             $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, ['mode' => 'crop']);
         }
+
         return $list;
     }
 

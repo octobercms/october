@@ -263,7 +263,7 @@ class Updates extends Controller
         return $this->makePartial('execute');
     }
 
-    private function buildUpdateSteps($core, $plugins, $themes)
+    protected function buildUpdateSteps($core, $plugins, $themes)
     {
         if (!is_array($core))
             $core = [null, null];

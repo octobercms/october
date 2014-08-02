@@ -20,7 +20,7 @@ class CmsException extends ApplicationException
     /**
      * @var Cms\Classes\CmsCompoundObject A reference to a CMS object used for masking errors.
      */
-    private $compoundObject;
+    protected $compoundObject;
 
     /**
      * @var array Collection of error codes for each error distinction.

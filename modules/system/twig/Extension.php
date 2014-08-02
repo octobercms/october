@@ -20,7 +20,7 @@ class Extension extends Twig_Extension
     /**
      * @var \System\Classes\MarkupManager A reference to the markup manager instance.
      */
-    private $markupManager;
+    protected $markupManager;
 
     /**
      * Creates the extension instance.

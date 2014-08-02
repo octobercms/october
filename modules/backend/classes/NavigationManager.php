@@ -17,18 +17,18 @@ class NavigationManager
     /**
      * @var array Cache of registration callbacks.
      */
-    private $callbacks = [];
+    protected $callbacks = [];
 
     /**
      * @var array List of registered items.
      */
-    private $items;
+    protected $items;
 
-    private $contextSidenavPartials = [];
+    protected $contextSidenavPartials = [];
 
-    private $contextOwner;
-    private $contextMainMenuItemCode;
-    private $contextSideMenuItemCode;
+    protected $contextOwner;
+    protected $contextMainMenuItemCode;
+    protected $contextSideMenuItemCode;
 
     static $mainItemDefaults = [
         'code'        => null,
@@ -419,7 +419,7 @@ class NavigationManager
      * @param array $items A collection of menu items
      * @return array The filtered menu items
      */
-    private function filterItemPermissions($user, array $items)
+    protected function filterItemPermissions($user, array $items)
     {
         $items = array_filter($items, function($item) use ($user) {
             if (!$item->permissions || !count($item->permissions))
@@ -436,7 +436,7 @@ class NavigationManager
      * @param  object $item
      * @return string
      */
-    private function makeItemKey($owner, $code)
+    protected function makeItemKey($owner, $code)
     {
         return strtoupper($owner).'.'.strtoupper($code);
     }

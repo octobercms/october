@@ -85,7 +85,7 @@ class UserPreferencesModel extends SettingsModel
      * Checks if a key is legitimate or should be added to
      * the field value collection
      */
-    private function isKeyAllowed($key)
+    protected function isKeyAllowed($key)
     {
         /*
          * Let the core columns through

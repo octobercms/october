@@ -39,14 +39,14 @@ class Form extends WidgetBase
     /**
      * @var boolean Determines if field definitions have been created.
      */
-    private $fieldsDefined = false;
+    protected $fieldsDefined = false;
 
     /**
      * @var array Collection of all fields used in this form.
      */
     public $allFields = [];
 
-    /** 
+    /**
      * @var array Collection of all form widgets used in this form.
      */
     public $formWidgets = [];
@@ -218,7 +218,7 @@ class Form extends WidgetBase
     /**
      * Prepares the list data
      */
-    public function prepareVars()
+    protected function prepareVars()
     {
         $this->defineFormFields();
         $this->vars['sessionKey'] = $this->getSessionKey();
@@ -517,7 +517,7 @@ class Form extends WidgetBase
      * @param  string  $fieldType
      * @return boolean
      */
-    private function isFormWidget($fieldType)
+    protected function isFormWidget($fieldType)
     {
         if ($fieldType === null)
             return false;
@@ -539,7 +539,7 @@ class Form extends WidgetBase
     /**
      * Makes a widget object from a form field object.
      */
-    public function makeFormWidget($field)
+    protected function makeFormWidget($field)
     {
         if ($field->type != 'widget')
             return null;
@@ -687,7 +687,7 @@ class Form extends WidgetBase
     /**
      * Looks at the model for defined options.
      */
-    private function getOptionsFromModel($field, $fieldOptions)
+    protected function getOptionsFromModel($field, $fieldOptions)
     {
         /*
          * Advanced usage, supplied options are callable
@@ -751,7 +751,7 @@ class Form extends WidgetBase
      * @param  string $method
      * @return boolean
      */
-    private function methodExists($object, $method)
+    protected function methodExists($object, $method)
     {
         if (method_exists($object, 'methodExists'))
             return $object->methodExists($method);

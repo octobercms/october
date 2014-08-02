@@ -53,12 +53,12 @@ class FormField
     public $options;
 
     /**
-     * @var string Specifies a side. Possible values: auto, left, right, full
+     * @var string Specifies a side. Possible values: auto, left, right, full.
      */
     public $span = 'full';
 
     /**
-     * @var string Specifies a size. Possible values: tiny, small, large, huge, giant
+     * @var string Specifies a size. Possible values: tiny, small, large, huge, giant.
      */
     public $size = 'large';
 
@@ -88,12 +88,12 @@ class FormField
     public $comment;
     
     /**
-     * @var string Specifies the comment position
+     * @var string Specifies the comment position.
      */
     public $commentPosition = 'below';
 
     /**
-     * @var string Specifies if the comment is in HTML format
+     * @var string Specifies if the comment is in HTML format.
      */
     public $commentHtml = false;
 

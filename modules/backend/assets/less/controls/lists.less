@@ -273,7 +273,7 @@ table.table.data {
     .makeTreeLevel(@count) when (@count < 26) {
         tr.list-tree-level-@{count} {
             a.list-expand-collapse { left: 20px + (10 * @count); }
-            td.list-data-column-1 { padding-left: 25px + (10 * @count); }
+            td.list-cell-index-1 { padding-left: 25px + (10 * @count); }
         }
         .makeTreeLevel(@count + 1);
     }

@@ -51,14 +51,24 @@ class ListColumn
     public $relation;
 
     /**
-     * @var string Specify a CSS class to attach to the list row element.
+     * @var string Specify a CSS class to attach to the list cell element.
      */
     public $cssClass;
 
     /**
-     * @var string Specify a format or style for the column value, such as a Date
+     * @var string Specify a format or style for the column value, such as a Date.
      */
     public $format;
+
+    /**
+     * @var string Specifies a path for partial-type fields.
+     */
+    public $path;
+
+    /**
+     * @var array Raw field configuration.
+     */
+    public $config;
 
     /**
      * Constructor
@@ -75,19 +85,30 @@ class ListColumn
      * - number - numeric column, aligned right
      * @param string $type Specifies a render mode as described above
      */
-    public function displayAs($type)
+    public function displayAs($type, $config)
     {
-        $this->type = $type;
+        $this->type = strtolower($type) ?: $this->type;
+        $this->config = $this->evalConfig($config);
         return $this;
     }
 
     /**
-     * Specifies CSS classes to apply to the table row element.
+     * Process options and apply them to this object.
+     * @param array $config
+     * @return array
      */
-    public function cssClass($class)
+    protected function evalConfig($config)
     {
-        $this->cssClass = $class;
-        return $this;
+        if (isset($config['cssClass'])) $this->cssClass = $config['cssClass'];
+        if (isset($config['searchable'])) $this->searchable = $config['searchable'];
+        if (isset($config['sortable'])) $this->sortable = $config['sortable'];
+        if (isset($config['invisible'])) $this->invisible = $config['invisible'];
+        if (isset($config['select'])) $this->sqlSelect = $config['select'];
+        if (isset($config['relation'])) $this->relation = $config['relation'];
+        if (isset($config['format'])) $this->format = $config['format'];
+        if (isset($config['path'])) $this->path = $config['path'];
+
+        return $config;
     }
 
 }

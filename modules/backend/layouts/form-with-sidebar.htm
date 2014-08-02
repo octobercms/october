@@ -1,14 +1,13 @@
 <div class="layout responsive-sidebar">
     <div class="layout-cell">
+        <!-- Breadcrumb -->
+        <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
+            <div class="control-breadcrumb">
+                <?= $breadcrumbContent ?>
+            </div>
+        <?php endif ?>
+
         <div class="padded-container">
-
-            <!-- Breadcrumb -->
-            <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
-                <div class="control-breadcrumb">
-                    <?= $breadcrumbContent ?>
-                </div>
-            <?php endif ?>
-
             <?= Block::placeholder('form-contents') ?>
         </div>
     </div>

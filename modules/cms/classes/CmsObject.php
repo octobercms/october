@@ -8,10 +8,10 @@ use Validator;
 use System\Classes\SystemException;
 use System\Classes\ApplicationException;
 use October\Rain\Support\ValidationException;
-use Exception;
-use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use ArrayAccess;
+use Exception;
 
 /**
  * This is a base class for all CMS objects - content files, pages, partials and layouts.

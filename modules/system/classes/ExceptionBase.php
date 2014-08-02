@@ -18,7 +18,7 @@ class ExceptionBase extends Exception
     /**
      * @var Exception If this exception is acting as a mask, this property stores the face exception.
      */
-    private $mask;
+    protected $mask;
 
     /**
      * @var string Hint Message to help the user with troubleshooting the error (optional).
@@ -43,7 +43,7 @@ class ExceptionBase extends Exception
     /**
      * @var stdObject Cached code information for highlighting code.
      */
-    private $highlight;
+    protected $highlight;
 
     /**
      * CMS base exception class constructor. Inherits the native PHP Exception.
@@ -254,7 +254,7 @@ class ExceptionBase extends Exception
      * @param array $traceInfo The trace information from getTrace() or debug_backtrace().
      * @return array The filtered array containing the trace information.
      */
-    private function filterCallStack($traceInfo)
+    protected function filterCallStack($traceInfo)
     {
         /*
          * Determine if filter should be used at all.

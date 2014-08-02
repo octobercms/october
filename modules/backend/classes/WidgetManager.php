@@ -27,7 +27,7 @@ class WidgetManager
     /**
      * @var array Cache of report widget registration callbacks.
      */
-    private $formWidgetCallbacks = [];
+    protected $formWidgetCallbacks = [];
 
     /**
      * @var array An array of report widgets.
@@ -42,7 +42,7 @@ class WidgetManager
     /**
      * @var array Cache of report widget registration callbacks.
      */
-    private $reportWidgetCallbacks = [];
+    protected $reportWidgetCallbacks = [];
 
     /**
      * @var array An array where keys are aliases and values are class names.
