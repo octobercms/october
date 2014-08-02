@@ -311,14 +311,17 @@ class ReportContainer extends WidgetBase
 
         $result[] = $property;
         foreach ($properties as $name=>$params) {
+
             $property = [
                 'property'          => $name,
                 'title'             => isset($params['title']) ? $params['title'] : $name,
-                'description'       => isset($params['description']) ? $params['description'] : null,
-                'type'              => isset($params['type']) ? $params['type'] : 'string',
-                'validationPattern' => isset($params['validationPattern']) ? $params['validationPattern'] : null,
-                'validationMessage' => isset($params['validationMessage']) ? $params['validationMessage'] : null
+                'type'              => isset($params['type']) ? $params['type'] : 'string'
             ];
+
+           foreach ($params as $name => $value) {
+                if (isset($property[$name])) continue;
+                $property[$name] = $value;
+            }
 
             $result[] = $property;
         }

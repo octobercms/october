@@ -40,7 +40,7 @@ trait InspectableContainer
         if (!$traitFound)
             throw new ApplicationException('The options cannot be loaded for the specified class.');
 
-        $obj = new $className();
+        $obj = new $className(null);
 
         $methodName = 'get'.ucfirst($property).'Options';
         if (method_exists($obj, $methodName))

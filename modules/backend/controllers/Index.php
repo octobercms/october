@@ -3,6 +3,7 @@
 use BackendMenu;
 use Backend\Classes\Controller;
 use Backend\Widgets\ReportContainer;
+use Backend\Traits\InspectableContainer;
 
 /**
  * Dashboard controller
@@ -13,6 +14,7 @@ use Backend\Widgets\ReportContainer;
  */
 class Index extends Controller
 {
+    use InspectableContainer;
 
     public $requiredPermissions = ['backend.access_dashboard'];
 
