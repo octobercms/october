@@ -21,6 +21,7 @@ use System\Classes\ApplicationException;
  */
 class Form extends WidgetBase
 {
+
     /**
      * {@inheritDoc}
      */
@@ -44,12 +45,12 @@ class Form extends WidgetBase
     /**
      * @var array Collection of all fields used in this form.
      */
-    public $allFields = [];
+    protected $allFields = [];
 
     /**
      * @var array Collection of all form widgets used in this form.
      */
-    public $formWidgets = [];
+    protected $formWidgets = [];
 
     /**
      * @var array Collection of fields not contained in a tab.
@@ -561,6 +562,44 @@ class Form extends WidgetBase
 
         $widget = new $widgetClass($this->controller, $this->model, $field, $widgetConfig);
         return $this->formWidgets[$field->columnName] = $widget;
+    }
+
+    /**
+     * Get all the loaded form widgets for the instance.
+     * @return array
+     */
+    public function getFormWidgets()
+    {
+        return $this->formWidgets;
+    }
+
+    /**
+     * Get a specified form widget
+     * @param  string $columnName
+     * @return mixed
+     */
+    public function getFormWidget($field)
+    {
+        return $this->formWidgets[$field];
+    }
+
+    /**
+     * Get all the registered fields for the instance.
+     * @return array
+     */
+    public function getFields()
+    {
+        return $this->allFields;
+    }
+
+    /**
+     * Get a specified field object
+     * @param  string $columnName
+     * @return mixed
+     */
+    public function getField($field)
+    {
+        return $this->allFields[$field];
     }
 
     /**
