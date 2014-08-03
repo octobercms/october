@@ -15,12 +15,18 @@ return [
     'theme' => [
         'active' => [
             'not_set' => "Aucun thème activé.",
+            'not_found' => "Thème activé introuvable.",
         ],
         'edit' => [
             'not_set' => "Le thème d'édition n'est pas activé.",
             'not_found' => "Thème d'édition introuvable.",
             'not_match' => "L'objet auquel vous essayez d'accéder n'appartient pas au thème en cours d'édition. Veuillez recharger la page."
-        ]
+        ],
+        'settings_menu' => 'Front-end theme',
+        'settings_menu_description' => 'Aperçu des thèmes installés et sélection du thème actif.',
+        'find_more_themes' => 'Trouvez plus de thèmes sur le marketplace de OctoberCMS.',
+        'activate_button' => 'Activer',
+        'active_button' => 'Activer',
     ],
     'page' => [
         'not_found' => [
