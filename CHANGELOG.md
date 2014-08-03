@@ -1,3 +1,6 @@
+* **Build 132** (2014-08-03)
+  - New system logging pages: Event log, Request log and Access log.
+
 * **Build 130** (2014-07-27)
   - Complete redesign of Settings area.
   - Added markdown Twig filter `{{ 'I am **markdown**'|md }}`.
