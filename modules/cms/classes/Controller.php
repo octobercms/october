@@ -19,6 +19,7 @@ use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Classes\FileHelper as CmsFileHelper;
 use System\Models\RequestLog;
 use System\Classes\ErrorHandler;
+use System\Classes\ApplicationException;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Support\Markdown;
 use October\Rain\Support\ValidationException;
@@ -403,6 +404,9 @@ class Controller extends BaseController
                 $responseContents['X_OCTOBER_ERROR_MESSAGE'] = $ex->getMessage();
                 return Response::make($responseContents, 406);
              }
+            catch (ApplicationException $ex) {
+                return Response::make($ex->getMessage(), 500);
+            }
             catch (Exception $ex) {
                 /*
                  * Display a "dumbed down" error if custom page is activated
