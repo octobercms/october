@@ -24,12 +24,12 @@ trait ViewMaker
     /**
      * @var string Specifies a path to the views directory.
      */
-    private $viewPath;
+    protected $viewPath;
 
     /**
      * @var string Specifies a path to the layout directory.
      */
-    private $layoutPath;
+    protected $layoutPath;
 
     /**
      * @var string Layout to use for the view.

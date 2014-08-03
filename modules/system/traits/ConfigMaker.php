@@ -22,7 +22,7 @@ trait ConfigMaker
     /**
      * @var string Specifies a path to the config directory.
      */
-    private $configPath;
+    protected $configPath;
 
     /**
      * Reads the contents of the supplied file and applies it to this object.

@@ -10,8 +10,6 @@ use October\Rain\Auth\Models\Group as GroupBase;
  */
 class UserGroup extends GroupBase
 {
-    use \October\Rain\Database\Traits\Validation;
-
     /**
      * @var string The database table used by the model.
      */
