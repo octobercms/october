@@ -5,6 +5,16 @@ return [
         'name' => 'October CMS',
         'motto' => 'Возвращение к истокам',
     ],
+    'locale' => [
+        'en' => 'English',
+        'nl' => 'Dutch',
+        'ja' => 'Japanese',
+        'sv' => 'Swedish',
+        'tr' => 'Turkish',
+        'br' => 'Brazilian Portuguese',
+        'de' => 'German',
+        'ru' => 'Russian',
+    ],
     'directory' => [
         'create_fail' => "Невозможно создать директорию: :name",
     ],
@@ -55,8 +65,9 @@ return [
         'missing_model' => 'На странице настроек отсутствует определение модели.',
         'update_success' => 'Настройки для :name успешно обновлены.',
         'return' => 'Вернуться к системным настройкам',
+        'search' => 'Поиск'
     ],
-    'email' => [
+    'mail' => [
         'menu_label' => 'Настройки почты',
         'menu_description' => 'Управление настройками электронной почты.',
         'general' => 'Общее',
@@ -110,6 +121,7 @@ return [
         'title' => 'Менеджер обновлений',
         'name' => 'Обновление ПО',
         'menu_label' => 'Обновления',
+        'menu_description' => 'Обновление системы, управление и установка плагинов и тем.',
         'check_label' => 'Проверить обновления ',
         'retry_label' => 'Попробовать еще раз',
         'plugin_name' => 'Название',
@@ -127,6 +139,10 @@ return [
         'plugin_version_none' => 'Новый плагин',
         'plugin_version_old' => 'Текущая версия v:version',
         'plugin_version_new' => 'v:version',
+        'theme_label' => 'Темы',
+        'theme_new_install' => 'Новая тема установлена.',
+        'theme_downloading' => 'Загрузка темы: :name',
+        'theme_extracting' => 'Распаковка темы: :name',
         'update_label' => 'Обновить',
         'update_completing' => 'Завершение процесса обновления',
         'update_loading' => 'Поиск доступных обновлений...',
