@@ -410,6 +410,15 @@ class FormController extends ControllerBehavior
     }
 
     /**
+     * Returns the widget used by this behavior.
+     * @return Backend\Classes\WidgetBase
+     */
+    public function formGetWidget()
+    {
+        return $this->formWidget;
+    }
+
+    /**
      * Helper to get a unique ID for the form widget.
      * @return string
      */
