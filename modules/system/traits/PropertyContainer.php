@@ -15,7 +15,7 @@ trait PropertyContainer
     /**
      * @var array Contains the object property values.
      */
-    protected $properties = [];
+    private $properties = [];
 
     /**
      * Validates the properties against the defined properties of the class.

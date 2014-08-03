@@ -21,7 +21,7 @@ trait AssetMaker
     /**
      * @var array Collection of assets to display in the layout.
      */
-    protected $assets = ['js'=>[], 'css'=>[], 'rss'=>[]];
+    private $assets = ['js'=>[], 'css'=>[], 'rss'=>[]];
 
     /**
      * @var string Specifies a path to the asset directory.
