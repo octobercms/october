@@ -43,7 +43,7 @@ class BackendController extends ControllerBase
          */
         $module = isset($params[0]) ? $params[0] : 'backend';
         $controller = isset($params[1]) ? $params[1] : 'index';
-        self::$action = $action = isset($params[2]) ? $params[2] : 'index';
+        self::$action = $action = isset($params[2]) ? camel_case($params[2]) : 'index';
         self::$params = $controllerParams = array_slice($params, 3);
         $controllerClass = '\\'.$module.'\Controllers\\'.$controller;
         if ($controllerObj = $this->findController($controllerClass, $action, '/modules'))
@@ -55,7 +55,7 @@ class BackendController extends ControllerBase
         if (count($params) >= 2) {
             list($author, $plugin) = $params;
             $controller = isset($params[2]) ? $params[2] : 'index';
-            self::$action = $action = isset($params[3]) ? $params[3] : 'index';
+            self::$action = $action = isset($params[3]) ? camel_case($params[3]) : 'index';
             self::$params = $controllerParams = array_slice($params, 4);
             $controllerClass = '\\'.$author.'\\'.$plugin.'\Controllers\\'.$controller;
             if ($controllerObj = $this->findController($controllerClass, $action, Config::get('cms.pluginsDir', '/plugins')))
