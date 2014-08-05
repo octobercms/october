@@ -408,14 +408,16 @@ class RelationController extends ControllerBehavior
      */
     protected function findExistingRelationIds($checkIds = null)
     {
+        $foreignKeyName = $this->relationModel->getKey();
+
         $results = $this->relationObject
             ->getBaseQuery()
-            ->select('id');
+            ->select($foreignKeyName);
 
         if ($checkIds !== null && is_array($checkIds) && count($checkIds))
-            $results = $results->whereIn('id', $checkIds);
+            $results = $results->whereIn($foreignKeyName, $checkIds);
 
-        return $results->lists('id');
+        return $results->lists($foreignKeyName);
     }
 
     //
@@ -494,10 +496,15 @@ class RelationController extends ControllerBehavior
              */
             $existingIds = $this->findExistingRelationIds($checkedIds);
             $checkedIds = array_diff($checkedIds, $existingIds);
+            $foreignKeyName = $this->relationModel->getKey();
 
-            $models = $this->relationModel->whereIn('id', $checkedIds)->get();
+            $models = $this->relationModel->whereIn($foreignKeyName, $checkedIds)->get();
             foreach ($models as $model) {
-                $this->relationObject->add($model, $this->relationGetSessionKey());
+
+                if ($this->model->exists)
+                    $this->relationObject->add($model);
+                else
+                    $this->relationObject->add($model, $this->relationGetSessionKey());
             }
         }
 
@@ -540,7 +547,8 @@ class RelationController extends ControllerBehavior
         /*
          * Check for existing relation
          */
-        $existing = $this->relationObject->where('id', $foreignId)->count();
+        $foreignKeyName = $this->relationModel->getKey();
+        $existing = $this->relationObject->where($foreignKeyName, $foreignId)->count();
 
         if (!$existing)
             $this->relationObject->add($foreignModel, null, $saveData);
