@@ -143,6 +143,9 @@
             var $primaryCollapseIcon = $('<a href="javascript:;" class="tab-collapse-icon primary"><i class="icon-chevron-down"></i></a>')
             var $primaryPanel = $('.control-tabs.primary', data.pane)
             var $secondaryPanel = $('.control-tabs.secondary', data.pane)
+            var $primaryTabContainer = $('.nav-tabs', $primaryPanel)
+
+            $primaryTabContainer.addClass('master-area')
 
             if ($primaryPanel.length > 0) {
                 $secondaryPanel.append($primaryCollapseIcon);
@@ -361,8 +364,13 @@
         })
 
         function updateComponentListClass(pane) {
-            var $componentList = $('.control-componentlist', pane)
-            $componentList.toggleClass('has-components', $('.layout', $componentList).children().length > 0)
+            var $componentList = $('.control-componentlist', pane),
+                $primaryPanel = $('.control-tabs.primary', pane),
+                $primaryTabContainer = $('.nav-tabs', $primaryPanel),
+                hasComponents = $('.layout', $componentList).children().length > 0
+
+            $primaryTabContainer.toggleClass('component-area', hasComponents)
+            $componentList.toggleClass('has-components', hasComponents)
         }
 
         function updateFormEditorMode(pane, initialization) {

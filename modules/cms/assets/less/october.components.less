@@ -352,6 +352,18 @@ div.control-componentlist {
     }
 }
 
+.fancy-layout {
+    .control-tabs, &.control-tabs {
+        &.primary {
+            > div > ul.nav-tabs {
+                &.component-area {
+                    background: @color-component-list-bg;
+                }
+            }
+        }
+    }
+}
+
 body.drag div.control-componentlist div.components div.layout-cell {
     > div, > div:hover, > div:active {
         .disable-component-list-hover();

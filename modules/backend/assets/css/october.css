@@ -12411,6 +12411,12 @@ div.popover-overlay {
   margin-left: 0!important;
   margin-right: 0!important;
 }
+.fancy-layout .control-tabs.primary > div > ul.nav-tabs.master-area,
+.fancy-layout.control-tabs.primary > div > ul.nav-tabs.master-area {
+  -webkit-transition: background-color 0.5s;
+  transition: background-color 0.5s;
+  background: #e67e22;
+}
 .fancy-layout .control-tabs.primary > div > ul.nav-tabs:before,
 .fancy-layout.control-tabs.primary > div > ul.nav-tabs:before {
   display: none;
