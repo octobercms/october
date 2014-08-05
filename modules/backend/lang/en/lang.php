@@ -45,6 +45,9 @@ return [
     ],
     'dashboard' => [
         'menu_label' => 'Dashboard',
+        'widget_label' => 'Widget',
+        'widget_width' => 'Width',
+        'add_widget' => 'Add widget',
     ],
     'user' => [
         'name' => 'Administrator',
@@ -114,6 +117,7 @@ return [
         'undefined_tab' => 'Misc',
         'field_off' => 'Off',
         'field_on' => 'On',
+        'add' => 'Add',
         'apply' => 'Apply',
         'cancel' => 'Cancel',
         'close' => 'Close',

@@ -1,15 +1,15 @@
 <?= Form::open([
     'data-request' => $this->getEventHandler('onAddWidget'),
     'data-request-success' => "\$el.trigger('close.oc.popup'); \$(window).trigger('oc.report-widget-added')",
-    'data-stripe-load-indicator' => 1
+    'data-popup-load-indicator' => 1
 ]) ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
-        <h4 class="modal-title">Add widget</h4>
+        <h4 class="modal-title"><?= e(trans('backend::lang.dashboard.add_widget')) ?></h4>
     </div>
     <div class="modal-body">
         <div class="form-group">
-            <label>Widget</label>
+            <label><?= e(trans('backend::lang.dashboard.widget_label')) ?></label>
             <select class="form-control custom-select" name="className" data-placeholder="please select">
                 <option></option>
                 <?php foreach ($widgets as $className => $widgetInfo):?>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="form-group">
-            <label>Width</label>
+            <label><?= e(trans('backend::lang.dashboard.widget_width')) ?></label>
             <select class="form-control custom-select" name="size">
                 <option></option>
                 <?php foreach ($sizes as $size => $name):?>
@@ -32,13 +32,13 @@
         <button
             type="submit"
             class="btn btn-primary">
-            Add
+            <?= e(trans('backend::lang.form.add')) ?>
         </button>
         <button
             type="button"
             class="btn btn-default"
             data-dismiss="popup">
-            Cancel
+            <?= e(trans('backend::lang.form.cancel')) ?>
         </button>
     </div>
 <?= Form::close() ?>
