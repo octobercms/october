@@ -100,10 +100,10 @@ class Grid extends WidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['toolbarWidget'] = $this->makeToolbarWidget();
         $this->vars['columnHeaders'] = $this->getColumnHeaders();
         $this->vars['columnDefinitions'] = $this->getColumnDefinitions();
         $this->vars['columnWidths'] = $this->getColumnWidths();
-        $this->vars['toolbarWidget'] = $this->makeToolbarWidget();
 
         $this->vars['showHeader'] = $this->showHeader;
         $this->vars['allowInsert'] = $this->allowInsert;
@@ -120,12 +120,14 @@ class Grid extends WidgetBase
         if ($this->disableToolbar)
             return;
 
-        $toolbarConfig = $this->makeConfig([
-            'alias'   => $this->alias . 'Toolbar',
+        $defaultConfig = [
             'buttons' => $this->getViewPath('_toolbar.htm'),
-        ]);
+        ];
+        $toolbarConfig = $this->makeConfig($this->getConfig('toolbar', $defaultConfig));
+        $toolbarConfig->alias = $this->alias . 'Toolbar';
 
         $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
+        $toolbarWidget->vars['gridWidget'] = $this;
         $toolbarWidget->vars['allowInsert'] = $this->allowInsert;
         $toolbarWidget->vars['allowRemove'] = $this->allowRemove;
         return $toolbarWidget;
@@ -153,8 +155,15 @@ class Grid extends WidgetBase
          * Changes array, each array item will contain:
          * ['rowData' => [...], 'keyName' => 'changedColumn', 'oldValue' => 'was', 'newValue' => 'is']
          */
-        $changes = post('changes');
-        $this->fireEvent('grid.dataChanged', [$changes]);
+        $changes = post('grid_changes');
+
+        /*
+         * Action will be either:
+         * "remove", "alter", "empty", "edit", "populateFromArray", "autofill", "paste"
+         */
+        $action = post('grid_action');
+
+        $this->fireEvent('grid.dataChanged', [$action, $changes]);
     }
 
     public function onDataSource()

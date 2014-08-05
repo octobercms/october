@@ -55,7 +55,7 @@
                  *           [ [row, prop, oldVal, newVal], ... ].
                  *
                  * source  - is one of the strings: "alter", "empty", "edit", "populateFromArray",
-                 *           "loadData", "autofill", "paste".
+                 *           "loadData", "autofill", "paste", "remove".
                  */
                 self.$el.trigger('datagrid.change', [changes, source])
             },
@@ -87,7 +87,7 @@
              * Event to update the data locker
              */
             this.$dataLocker = $(this.options.dataLocker)
-            self.$el.on('datagrid.change', function(event, eventData) {
+            self.$el.on('datagrid.change', function(event) {
                 if (!self.gridInstance) return
                 self.$dataLocker.val(JSON.stringify(self.getData()))
             })
@@ -125,7 +125,7 @@
 
                 if (changeData.length > 0) {
                     self.$el.request(self.options.changeHandler, {
-                        data: { changes: changeData }
+                        data: { grid_action: source, grid_changes: changeData }
                     })
                 }
             })
@@ -278,6 +278,9 @@
 
         if (!index && index !== 0)
             return
+
+        var changes = [[index, null, null, 'DELETE']]
+        this.$el.trigger('datagrid.change', [changes, 'remove'])
 
         this.gridInstance.alter('remove_row', index)
         this.updateUi()
@@ -437,7 +440,7 @@
                     $el.append($btn);
 
                     $btn.on('mouseup', function () {
-                        instance.alter("remove_row", row);
+                        instance.rootElement.dataGrid('removeRow', row)
                         $(window).trigger('oc.updateUi')
                     });
                 }
