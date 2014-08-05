@@ -4,7 +4,7 @@ use Backend\Classes\WidgetBase;
 
 /**
  * Filter Widget
- * Renders a search container used for filtering things.
+ * Renders a container used for filtering things.
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
