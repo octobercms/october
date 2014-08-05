@@ -26,7 +26,7 @@ columns:
     last_name:
         label: backend::lang.access_log.last_name
         relation: user
-        select: @first_name
+        select: @last_name
         searchable: yes
 
     email:
