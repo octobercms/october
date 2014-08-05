@@ -45,6 +45,7 @@ return [
         'refresh_success' => "Successfully refreshed those plugins in the system.",
         'disable_success' => "Successfully disabled those plugins.",
         'enable_success' => "Successfully enabled those plugins.",
+        'unknown_plugin' => "Plugin has been removed from the file system.",
     ],
     'project' => [
         'name' => 'Project',
