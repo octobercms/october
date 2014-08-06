@@ -109,7 +109,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'theme' => [
                     'label'       => 'cms::lang.theme.settings_menu',
                     'description' => 'cms::lang.theme.settings_menu_description',
-                    'category'    => 'CMS',
+                    'category'    => SettingsManager::CATEGORY_CMS,
                     'icon'        => 'icon-picture-o',
                     'url'         => Backend::URL('cms/themes'),
                     'order'       => 200

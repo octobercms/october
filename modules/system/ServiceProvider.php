@@ -214,26 +214,10 @@ class ServiceProvider extends ModuleServiceProvider
          */
         SettingsManager::instance()->registerCallback(function($manager){
             $manager->registerSettingItems('October.System', [
-                'mail_settings' => [
-                    'label'       => 'system::lang.mail.menu_label',
-                    'description' => 'system::lang.mail.menu_description',
-                    'category'    => 'System',
-                    'icon'        => 'icon-envelope',
-                    'class'       => 'System\Models\MailSettings',
-                    'order'       => 400,
-                ],
-                'mail_templates' => [
-                    'label'       => 'system::lang.mail_templates.menu_label',
-                    'description' => 'system::lang.mail_templates.menu_description',
-                    'category'    => 'System',
-                    'icon'        => 'icon-envelope-square',
-                    'url'         => Backend::url('system/mailtemplates'),
-                    'order'       => 500,
-                ],
                 'administrators' => [
                     'label'       => 'backend::lang.user.menu_label',
                     'description' => 'backend::lang.user.menu_description',
-                    'category'    => 'System',
+                    'category'    => SettingsManager::CATEGORY_SYSTEM,
                     'icon'        => 'icon-users',
                     'url'         => Backend::url('backend/users'),
                     'permissions' => ['backend.manage_users'],
@@ -242,7 +226,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'updates' => [
                     'label'       => 'system::lang.updates.menu_label',
                     'description' => 'system::lang.updates.menu_description',
-                    'category'    => 'System',
+                    'category'    => SettingsManager::CATEGORY_SYSTEM,
                     'icon'        => 'icon-cloud-download',
                     'url'         => Backend::url('system/updates'),
                     'permissions' => ['system.manage_updates'],
@@ -251,7 +235,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'event_logs' => [
                     'label'       => 'system::lang.event_log.menu_label',
                     'description' => 'system::lang.event_log.menu_description',
-                    'category'    => 'Logs',
+                    'category'    => SettingsManager::CATEGORY_LOGS,
                     'icon'        => 'icon-exclamation-triangle',
                     'url'         => Backend::url('system/eventlogs'),
                     'permissions' => ['system.access_event_logs'],
@@ -260,11 +244,27 @@ class ServiceProvider extends ModuleServiceProvider
                 'request_logs' => [
                     'label'       => 'system::lang.request_log.menu_label',
                     'description' => 'system::lang.request_log.menu_description',
-                    'category'    => 'Logs',
+                    'category'    => SettingsManager::CATEGORY_LOGS,
                     'icon'        => 'icon-file-o',
                     'url'         => Backend::url('system/requestlogs'),
                     'permissions' => ['system.access_request_logs'],
                     'order'       => 800
+                ],
+                'mail_settings' => [
+                    'label'       => 'system::lang.mail.menu_label',
+                    'description' => 'system::lang.mail.menu_description',
+                    'category'    => SettingsManager::CATEGORY_MAIL,
+                    'icon'        => 'icon-envelope',
+                    'class'       => 'System\Models\MailSettings',
+                    'order'       => 400,
+                ],
+                'mail_templates' => [
+                    'label'       => 'system::lang.mail_templates.menu_label',
+                    'description' => 'system::lang.mail_templates.menu_description',
+                    'category'    => SettingsManager::CATEGORY_MAIL,
+                    'icon'        => 'icon-envelope-square',
+                    'url'         => Backend::url('system/mailtemplates'),
+                    'order'       => 500,
                 ],
             ]);
         });

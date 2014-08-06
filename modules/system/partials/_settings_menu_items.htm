@@ -1,7 +1,7 @@
 <?php
     $context = System\Classes\SettingsManager::instance()->getContext();
 
-    $collapsedGroups = explode('|', 
+    $collapsedGroups = explode('|',
         isset($_COOKIE['sidenav_treegroupStatus']) ? $_COOKIE['sidenav_treegroupStatus'] : null
     );
 
@@ -12,7 +12,7 @@
     ?>
         <li data-group-code="<?= e($category) ?>" <?= $collapsed ? 'data-status="collapsed"' : null ?>>
             <div class="group">
-                <h3><?= e($category) ?></h3>
+                <h3><?= e(trans($category)) ?></h3>
             </div>
 
             <ul>
@@ -25,9 +25,7 @@
                         </a>
                     </li>
                 <?php endforeach ?>
-
             </ul>
-
         </li>
     <?php endforeach ?>
 </ul>

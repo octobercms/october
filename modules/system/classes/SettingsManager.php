@@ -15,6 +15,22 @@ class SettingsManager
     use \October\Rain\Support\Traits\Singleton;
 
     /**
+     * Allocated category types
+     */
+    const CATEGORY_CMS = 'system::lang.system.categories.cms';
+    const CATEGORY_MISC = 'system::lang.system.categories.misc';
+    const CATEGORY_MAIL = 'system::lang.system.categories.mail';
+    const CATEGORY_LOGS = 'system::lang.system.categories.logs';
+    const CATEGORY_SHOP = 'system::lang.system.categories.shop';
+    const CATEGORY_TEAM = 'system::lang.system.categories.team';
+    const CATEGORY_USERS = 'system::lang.system.categories.users';
+    const CATEGORY_SOCIAL = 'system::lang.system.categories.social';
+    const CATEGORY_SYSTEM = 'system::lang.system.categories.system';
+    const CATEGORY_EVENTS = 'system::lang.system.categories.events';
+    const CATEGORY_CUSTOMERS = 'system::lang.system.categories.customers';
+    const CATEGORY_MYSETTINGS = 'system::lang.system.categories.my_settings';
+
+    /**
      * @var array Cache of registration callbacks.
      */
     protected $callbacks = [];
@@ -29,9 +45,19 @@ class SettingsManager
      */
     protected $allItems;
 
+    /**
+     * @var string Active plugin or module owner.
+     */
     protected $contextOwner;
+
+    /**
+     * @var string Active item code.
+     */
     protected $contextItemCode;
 
+    /**
+     * @var array Settings item defaults.
+     */
     static $itemDefaults = [
         'code'        => null,
         'label'       => null,
