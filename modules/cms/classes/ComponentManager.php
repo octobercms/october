@@ -100,6 +100,9 @@ class ComponentManager
         if (!$code)
             $code = Str::getClassId($className);
 
+        if ($code == 'viewBag' && $className != 'Cms\Classes\ViewBag')
+            throw new SystemException(sprintf('The component code viewBag is reserved. Please use another code for the component class %s.', $className));
+
         $className = Str::normalizeClassName($className);
         $this->codeMap[$code] = $className;
         $this->classMap[$className] = $code;

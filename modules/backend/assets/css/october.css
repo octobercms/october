@@ -7753,7 +7753,7 @@ nav#layout-mainmenu.navbar ul li.preview i {
 }
 nav#layout-mainmenu.navbar ul li.power-off a,
 nav#layout-mainmenu.navbar ul li.preview a {
-  padding: 20px;
+  padding: 22px 20px 20px 20px;
 }
 nav#layout-mainmenu.navbar ul li.account {
   margin-right: 0;

@@ -367,7 +367,7 @@
             var $componentList = $('.control-componentlist', pane),
                 $primaryPanel = $('.control-tabs.primary', pane),
                 $primaryTabContainer = $('.nav-tabs', $primaryPanel),
-                hasComponents = $('.layout', $componentList).children().length > 0
+                hasComponents = $('.layout', $componentList).children(':not(.hidden)').length > 0
 
             $primaryTabContainer.toggleClass('component-area', hasComponents)
             $componentList.toggleClass('has-components', hasComponents)

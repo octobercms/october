@@ -7,6 +7,7 @@ use BackendAuth;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use System\Classes\SettingsManager;
+use Cms\Classes\ComponentManager;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -115,6 +116,13 @@ class ServiceProvider extends ModuleServiceProvider
                     'order'       => 200
                 ]
             ]);
+        });
+
+        /*
+         * Register components
+         */
+        ComponentManager::instance()->registerComponents(function($manager){
+            $manager->registerComponent('Cms\Classes\ViewBag', 'viewBag');
         });
     }
 

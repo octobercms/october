@@ -35,6 +35,11 @@ abstract class ComponentBase extends Extendable
     public $name;
 
     /**
+     * @var boolean Determines whether the component is hidden in the back-end UI.
+     */
+    public $isHidden = false;
+
+    /**
      * @var string Icon of the plugin that defines the component. 
      * This field is used by the CMS internally.
      */
