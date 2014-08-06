@@ -74,11 +74,11 @@ class Auth extends Controller
             'password' => post('password')
         ], true);
 
-        // Log the sign in event
-        AccessLog::add($user);
-
         // Load version updates
         VersionManager::instance()->updateAll();
+
+        // Log the sign in event
+        AccessLog::add($user);
 
         // Redirect to the intended page after successful sign in
         return Redirect::intended(Backend::url('backend'));
