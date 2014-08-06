@@ -79,8 +79,10 @@
             var start = self.options.startAngle;
             $.each(values.values, function(index, valueInfo) {
                 var length = 360/values.total * valueInfo.value;
+                if (length == 360)
+                    length--;
 
-                self.segments[index].animate({segment: [start, start + length]}, 1000, "backOut")
+                self.segments[index].animate({segment: [start, start + length]}, 1000, "bounce")
                 start += length
             })
         });
