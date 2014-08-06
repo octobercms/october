@@ -1,6 +1,1 @@
-<?php
-	if (preg_match("/with message '(.+)' in/", $value, $matches))
-		echo $matches[1];
-	else
-		echo Str::limit($value, 100);
-?>
+<?= e($record->summary) ?>

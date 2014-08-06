@@ -559,7 +559,7 @@ class Lists extends WidgetBase
             $value = $record->{$columnName};
 
         if (method_exists($this, 'eval'. studly_case($column->type) .'TypeValue'))
-            $value = $this->{'eval'. studly_case($column->type) .'TypeValue'}($value, $column);
+            $value = $this->{'eval'. studly_case($column->type) .'TypeValue'}($record, $column, $value);
 
         /*
          * Extensibility
@@ -601,15 +601,19 @@ class Lists extends WidgetBase
     /**
      * Process as boolean switch
      */
-    public function evalPartialTypeValue($value, $column)
+    protected function evalPartialTypeValue($record, $column, $value)
     {
-        return $this->controller->makePartial($column->path ?: $column->columnName, ['value' => $value, 'column' => $column]);
+        return $this->controller->makePartial($column->path ?: $column->columnName, [
+            'listColumn' => $column,
+            'record'     => $record,
+            'value'      => $value
+        ]);
     }
 
     /**
      * Process as boolean switch
      */
-    public function evalSwitchTypeValue($value, $column)
+    protected function evalSwitchTypeValue($record, $column, $value)
     {
         // return ($value) ? '<i class="icon-check"></i>' : '<i class="icon-times"></i>';
         return ($value) ? 'Yes' : 'No';
@@ -618,7 +622,7 @@ class Lists extends WidgetBase
     /**
      * Process as a datetime value
      */
-    public function evalDatetimeTypeValue($value, $column)
+    protected function evalDatetimeTypeValue($record, $column, $value)
     {
         if ($value === null)
             return null;
@@ -634,7 +638,7 @@ class Lists extends WidgetBase
     /**
      * Process as a time value
      */
-    public function evalTimeTypeValue($value, $column)
+    protected function evalTimeTypeValue($record, $column, $value)
     {
         if ($value === null)
             return null;
@@ -650,7 +654,7 @@ class Lists extends WidgetBase
     /**
      * Process as a date value
      */
-    public function evalDateTypeValue($value, $column)
+    protected function evalDateTypeValue($record, $column, $value)
     {
         if ($value === null)
             return null;
@@ -666,7 +670,7 @@ class Lists extends WidgetBase
     /**
      * Process as diff for humans (1 min ago)
      */
-    public function evalTimesinceTypeValue($value, $column)
+    protected function evalTimesinceTypeValue($record, $column, $value)
     {
         if ($value === null)
             return null;

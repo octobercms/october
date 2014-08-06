@@ -79,7 +79,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'editor' => [
                     'label'       => 'backend::lang.editor.menu_label',
                     'description' => 'backend::lang.editor.menu_description',
-                    'category'    => 'My Settings',
+                    'category'    => SettingsManager::CATEGORY_MYSETTINGS,
                     'icon'        => 'icon-code',
                     'url'         => Backend::URL('backend/editorpreferences'),
                     'order'       => 600,
@@ -88,7 +88,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'backend_preferences' => [
                     'label'       => 'backend::lang.backend_preferences.menu_label',
                     'description' => 'backend::lang.backend_preferences.menu_description',
-                    'category'    => 'My Settings',
+                    'category'    => SettingsManager::CATEGORY_MYSETTINGS,
                     'icon'        => 'icon-laptop',
                     'class'       => 'Backend\Models\BackendPreferences',
                     'order'       => 500,
@@ -97,7 +97,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'myaccount' => [
                     'label'       => 'backend::lang.myaccount.menu_label',
                     'description' => 'backend::lang.myaccount.menu_description',
-                    'category'    => 'My Settings',
+                    'category'    => SettingsManager::CATEGORY_MYSETTINGS,
                     'icon'        => 'icon-user',
                     'url'         => Backend::URL('backend/users/myaccount'),
                     'order'       => 400,
@@ -107,7 +107,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'access_logs' => [
                     'label'       => 'backend::lang.access_log.menu_label',
                     'description' => 'backend::lang.access_log.menu_description',
-                    'category'    => 'Logs',
+                    'category'    => SettingsManager::CATEGORY_LOGS,
                     'icon'        => 'icon-lock',
                     'url'         => Backend::url('backend/accesslogs'),
                     'permissions' => ['backend.access_admin_logs'],

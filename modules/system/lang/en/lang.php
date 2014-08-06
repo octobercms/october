@@ -24,6 +24,20 @@ return [
     'system' => [
         'name' => 'System',
         'menu_label' => 'System',
+        'categories' => [
+            'cms' => 'CMS',
+            'misc' => 'Misc',
+            'logs' => 'Logs',
+            'mail' => 'Mail',
+            'shop' => 'Shop',
+            'team' => 'Team',
+            'users' => 'Users',
+            'system' => 'System',
+            'social' => 'Social',
+            'events' => 'Events',
+            'customers' => 'Customers',
+            'my_settings' => 'My Settings',
+        ],
     ],
     'plugin' => [
         'unnamed' => 'Unnamed plugin',

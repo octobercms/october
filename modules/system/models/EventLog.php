@@ -1,5 +1,6 @@
 <?php namespace System\Models;
 
+use Str;
 use Model;
 
 /**
@@ -47,6 +48,19 @@ class EventLog extends Model
     public function getLevelAttribute($level)
     {
         return ucfirst($level);
+    }
+
+    /**
+     * Creates a shorter version of the message attribute,
+     * extracts the exception message or limits by 100 characters.
+     * @return string
+     */
+    public function getSummaryAttribute()
+    {
+        if (preg_match("/with message '(.+)' in/", $this->message, $match))
+            return $match[1];
+
+        return Str::limit($this->message, 100);
     }
 
 }
