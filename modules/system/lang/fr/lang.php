@@ -51,7 +51,7 @@ return [
         'name' => 'Projet',
         'owner_label' => 'Auteur',
         'attach' => 'Attacher un projet',
-        'detach' => 'Detacher le Projet',
+        'detach' => 'Détacher le Projet',
         'none' => 'Aucun',
         'id' => [
             'label' => 'Projet ID',
@@ -115,12 +115,12 @@ return [
         'project_label' => 'Attacher un project',
         'plugin_label' => 'Installer un plugin',
         'missing_plugin_name' => 'Merci de spécifier le nom d\'un Plugin à installer.',
-        'install_completing' => 'Fin du processus d\'instalation',
+        'install_completing' => 'Fin du processus d\'installation',
         'install_success' => 'Le plugin a été installé avec succès.',
     ],
     'updates' => [
         'title' => 'Gérer les mises à jour',
-        'name' => 'Software update',
+        'name' => 'Mise à jour',
         'menu_label' => 'Mise à jour',
         'menu_description' => 'Mise à jour du système, gestion et installation des plugins et thèmes.',
         'check_label' => 'Vérifier les mises à jour',
