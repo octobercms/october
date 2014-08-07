@@ -194,7 +194,7 @@ return [
     'request_log' => [
         'hint' => 'Ce journal affiche une liste de requêtes potentiellement suspectes. par exemple, si un visiteur ouvre une page de CMS introuvable, une ligne avec le status code 404 est alors crée.',
         'menu_label' => 'Journal des requêtes',
-        'menu_description' => 'Affiche les redirections et mauvaises requêtes, comme Page non trouvée(404).',
+        'menu_description' => 'Affiche les requêtes erronées ou redirigées, comme les erreurs 404.',
         'empty_link' => 'Vider le journal des requêtes',
         'empty_loading' => 'Vidage du journal des requêtes...',
         'empty_success' => 'Le journal des requêtes a été vidé avec succès.',
