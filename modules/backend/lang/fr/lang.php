@@ -45,6 +45,9 @@ return [
     ],
     'dashboard' => [
         'menu_label' => 'Tableau de bord',
+        'widget_label' => 'Widget',
+        'widget_width' => 'Taille',
+        'add_widget' => 'Ajouter un widget',
     ],
     'user' => [
         'name' => 'Administrateur',
@@ -114,6 +117,7 @@ return [
         'undefined_tab' => 'Misc',
         'field_off' => 'Off',
         'field_on' => 'On',
+        'add' => 'Ajouter',
         'apply' => 'Appliquer',
         'cancel' => 'Annuler',
         'close' => 'Fermer',
