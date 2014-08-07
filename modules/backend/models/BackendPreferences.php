@@ -27,7 +27,7 @@ class BackendPreferences extends Model
 
     public function getLocaleOptions()
     {
-        return [
+        $locales = [
             'en' => [Lang::get('system::lang.locale.en'), 'flag-gb'],
             'ru' => [Lang::get('system::lang.locale.ru'), 'flag-ru'],
             'nl' => [Lang::get('system::lang.locale.nl'), 'flag-nl'],
@@ -36,7 +36,12 @@ class BackendPreferences extends Model
             'tr' => [Lang::get('system::lang.locale.tr'), 'flag-tr'],
             'br' => [Lang::get('system::lang.locale.br'), 'flag-br'],
             'de' => [Lang::get('system::lang.locale.de'), 'flag-de'],
+            'fr' => [Lang::get('system::lang.locale.fr'), 'flag-fr'],
         ];
+
+        // Sort the locales alphabetically
+        asort($locales);
+        return $locales;
     }
 
     public function afterSave()
