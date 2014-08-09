@@ -85,7 +85,7 @@
                 'an hidden input element with the data-inspector-values property.')
     }
 
-    Inspector.prototype.getPopoverTemplate = function() {  
+    Inspector.prototype.getPopoverTemplate = function() {
         return '                                                                                                      \
                 <div class="popover-head">                                                                            \
                     <h3>{{title}}</h3>                                                                                \

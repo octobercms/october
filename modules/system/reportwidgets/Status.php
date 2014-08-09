@@ -4,7 +4,6 @@ use System\Models\Parameters;
 use System\Classes\UpdateManager;
 use Backend\Classes\ReportWidgetBase;
 use Exception;
-use Lang;
 
 /**
  * System status report widget.
@@ -33,11 +32,11 @@ class Status extends ReportWidgetBase
     {
         return [
             'title' => [
-                'title'             => Lang::get('backend::lang.dashboard.widget_title_label'),
-                'default'           => Lang::get('backend::lang.dashboard.status.widget_title_default'),
+                'title'             => 'backend::lang.dashboard.widget_title_label',
+                'default'           => 'backend::lang.dashboard.status.widget_title_default',
                 'type'              => 'string',
                 'validationPattern' => '^.+$',
-                'validationMessage' => Lang::get('backend::lang.dashboard.widget_title_error')
+                'validationMessage' => 'backend::lang.dashboard.widget_title_error',
             ]
         ];
     }

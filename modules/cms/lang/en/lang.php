@@ -160,11 +160,11 @@ return [
         'saved'=> "The template has been successfully saved."
     ],
     'permissions' => [
-    	'manage_content' => 'Manage content',
-    	'manage_assets' => 'Manage assets',
-    	'manage_pages' => 'Manage pages',
-    	'manage_layouts' => 'Manage layouts',
-    	'manage_partials' => 'Manage partials',
-    	'manage_themes' => 'Manage themes'
+        'manage_content' => 'Manage content',
+        'manage_assets' => 'Manage assets',
+        'manage_pages' => 'Manage pages',
+        'manage_layouts' => 'Manage layouts',
+        'manage_partials' => 'Manage partials',
+        'manage_themes' => 'Manage themes'
     ]
 ];

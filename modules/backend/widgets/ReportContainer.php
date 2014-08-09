@@ -1,12 +1,12 @@
 <?php namespace Backend\Widgets;
 
-use Backend\Classes\WidgetBase;
-use System\Classes\ApplicationException;
-use Request;
-use Backend\Classes\WidgetManager;
-use Backend\Models\UserPreferences;
 use File;
 use Lang;
+use Request;
+use Backend\Classes\WidgetBase;
+use Backend\Classes\WidgetManager;
+use Backend\Models\UserPreferences;
+use System\Classes\ApplicationException;
 
 /**
  * Report Container Widget
@@ -315,13 +315,13 @@ class ReportContainer extends WidgetBase
 
             $property = [
                 'property'          => $name,
-                'title'             => isset($params['title']) ? $params['title'] : $name,
+                'title'             => isset($params['title']) ? Lang::get($params['title']) : $name,
                 'type'              => isset($params['type']) ? $params['type'] : 'string'
             ];
 
            foreach ($params as $name => $value) {
                 if (isset($property[$name])) continue;
-                $property[$name] = $value;
+                $property[$name] = Lang::get($value);
             }
 
             $result[] = $property;
@@ -335,8 +335,9 @@ class ReportContainer extends WidgetBase
         $result = [];
 
         $properties = $widget->defineProperties();
-        foreach ($properties as $name=>$params)
+        foreach ($properties as $name=>$params) {
             $result[$name] = $widget->property($name);
+        }
 
         $result['ocWidgetWidth'] = $widget->property('ocWidgetWidth');
         $result['ocWidgetNewRow'] = $widget->property('ocWidgetNewRow');
