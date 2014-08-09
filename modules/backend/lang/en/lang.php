@@ -48,6 +48,21 @@ return [
         'widget_label' => 'Widget',
         'widget_width' => 'Width',
         'add_widget' => 'Add widget',
+        'widget_inspector_title' => 'Widget configuration',
+        'widget_inspector_description' => 'Configure the report widget',
+        'widget_columns_label' => 'Width :columns',
+        'widget_columns_description' => 'The widget width, a number between 1 and 10.',
+        'widget_columns_error' => 'Please enter the widget width as a number between 1 and 10.',
+        'columns' => '{1} column|[2,Inf] columns',
+        'widget_new_row_label' => 'Force new row',
+        'widget_new_row_description' => 'Put the widget in a new row.',
+		'widget_title_label' => 'Widget title',
+		'widget_title_error' => 'The Widget Title is required.',
+        'status' => [
+			'widget_title_default' => 'System status',
+        	'online' => 'online',
+			'update_available' => '{0} updates available!|{1} update available!|[2,Inf] updates available!',
+        ]
     ],
     'user' => [
         'name' => 'Administrator',
