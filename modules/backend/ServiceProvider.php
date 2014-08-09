@@ -121,8 +121,8 @@ class ServiceProvider extends ModuleServiceProvider
          */
         BackendAuth::registerCallback(function($manager) {
             $manager->registerPermissions('October.Backend', [
-                'backend.access_dashboard' => ['label' => 'View the dashboard', 'tab' => 'System'],
-                'backend.manage_users'     => ['label' => 'Manage other administrators', 'tab' => 'System'],
+                'backend.access_dashboard' => ['label' => 'system::lang.permissions.view_the_dashboard', 'tab' => 'System'],
+                'backend.manage_users'     => ['label' => 'system::lang.permissions.manage_other_administrators', 'tab' => 'System'],
             ]);
         });
 

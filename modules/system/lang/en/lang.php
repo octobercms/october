@@ -221,4 +221,11 @@ return [
         'url' => 'URL',
         'status_code' => 'Status',
     ],
+    'permissions' => [
+    	'manage_system_settings' => 'Manage system settings',
+    	'manage_software_updates' => 'Manage software updates',
+    	'manage_mail_templates' => 'Manage mail templates',
+    	'manage_other_administrators' => 'Manage other administrators',
+    	'view_the_dashboard' => 'View the dashboard'
+    ]
 ];

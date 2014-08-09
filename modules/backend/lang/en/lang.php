@@ -109,6 +109,13 @@ return [
         'missing_definition' => "List behavior does not contain a column for ':field'.",
         'behavior_not_ready' => 'List behavior has not been initialized, check that you have called makeLists() in your controller.',
         'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
+        'pagination' => 'Displayed records: :from-:to of :total',
+        'setup_title' => 'List Setup',
+        'setup_help' => 'Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.',
+        'records_per_page' => 'Records per page',
+        'records_per_page_help' => 'Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.',
+        'apply_changes' => 'Apply changes',
+        'cancel' => 'Cancel'
     ],
     'form' => [
         'create_title' => "New :name",
