@@ -5,9 +5,9 @@
 columns:
 
     name:
-        label: Name
+        label: system::lang.mail_templates.name
         searchable: true
 
     code:
-        label: Code
+        label: system::lang.mail_templates.code
         searchable: true

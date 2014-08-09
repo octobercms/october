@@ -86,12 +86,12 @@ class ServiceProvider extends ModuleServiceProvider
          */
         BackendAuth::registerCallback(function($manager) {
             $manager->registerPermissions('October.Cms', [
-                'cms.manage_content'   => ['label' => 'Manage content', 'tab' => 'Cms'],
-                'cms.manage_assets'    => ['label' => 'Manage assets', 'tab' => 'Cms'],
-                'cms.manage_pages'     => ['label' => 'Manage pages', 'tab' => 'Cms'],
-                'cms.manage_layouts'   => ['label' => 'Manage layouts', 'tab' => 'Cms'],
-                'cms.manage_partials'  => ['label' => 'Manage partials', 'tab' => 'Cms'],
-                'cms.manage_themes'    => ['label' => 'Manage themes', 'tab' => 'Cms']
+                'cms.manage_content'   => ['label' => 'cms::lang.permissions.manage_content', 'tab' => 'Cms'],
+                'cms.manage_assets'    => ['label' => 'cms::lang.permissions.manage_assets', 'tab' => 'Cms'],
+                'cms.manage_pages'     => ['label' => 'cms::lang.permissions.manage_pages', 'tab' => 'Cms'],
+                'cms.manage_layouts'   => ['label' => 'cms::lang.permissions.manage_layouts', 'tab' => 'Cms'],
+                'cms.manage_partials'  => ['label' => 'cms::lang.permissions.manage_partials', 'tab' => 'Cms'],
+                'cms.manage_themes'    => ['label' => 'cms::lang.permissions.manage_themes', 'tab' => 'Cms']
             ]);
         });
 

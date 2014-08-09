@@ -164,9 +164,9 @@ class ServiceProvider extends ModuleServiceProvider
          */
         BackendAuth::registerCallback(function($manager) {
             $manager->registerPermissions('October.System', [
-                'system.manage_settings'        => ['label' => 'Manage system settings', 'tab' => 'System'],
-                'system.manage_updates'         => ['label' => 'Manage software updates', 'tab' => 'System'],
-                'system.manage_mail_templates'  => ['label' => 'Manage mail templates', 'tab' => 'System'],
+                'system.manage_settings'        => ['label' => 'system::lang.permissions.manage_system_settings', 'tab' => 'System'],
+                'system.manage_updates'         => ['label' => 'system::lang.permissions.manage_software_updates', 'tab' => 'System'],
+                'system.manage_mail_templates'  => ['label' => 'system::lang.permissions.manage_mail_templates', 'tab' => 'System'],
             ]);
         });
 
