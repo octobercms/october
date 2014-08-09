@@ -25,6 +25,20 @@ return [
     'system' => [
         'name' => 'Système',
         'menu_label' => 'Système',
+        'categories' => [
+            'cms' => 'CMS',
+            'misc' => 'Divers',
+            'logs' => 'Logs',
+            'mail' => 'Email',
+            'shop' => 'Boutique',
+            'team' => 'Equipe',
+            'users' => 'Utilisateurs',
+            'system' => 'Système',
+            'social' => 'Social',
+            'events' => 'Evénement',
+            'customers' => 'Clients',
+            'my_settings' => 'Mes réglages',
+        ],
     ],
     'plugin' => [
         'unnamed' => 'Plugin sans nom',
