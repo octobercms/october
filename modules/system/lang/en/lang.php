@@ -15,6 +15,7 @@ return [
         'de' => 'German',
         'ru' => 'Russian',
         'fr' => 'French',
+        'it' => 'Italian',
     ],
     'directory' => [
         'create_fail' => "Cannot create directory: :name",
