@@ -84,6 +84,7 @@
                 return false
         })
 
+        $(document).on('ready', $.proxy(this.fixScrollClasses, this))
         $(window).on('resize', $.proxy(this.fixScrollClasses, this))
 
         /*
