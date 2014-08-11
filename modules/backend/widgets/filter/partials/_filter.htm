@@ -1,4 +1,9 @@
-<div class="control-filter">
+<div
+    class="control-filter"
+    data-control="filterwidget"
+    data-options-handler="<?= $this->getEventHandler('onFilterGetOptions') ?>">
+
+    <?= $this->makePartial('filter_scopes') ?>
 
     <a class="filter-set" href="javascript:;">
         <span class="filter-label">Categories:</span>
@@ -10,8 +15,12 @@
         <span class="filter-setting">2</span>
     </a>
 
-</div>
+    <div class="filter-scope checkbox custom-checkbox">
+        <input type="checkbox" id="hideTranslated" name="hide_translated" value="1" />
+        <label for="hideTranslated">Hide disabled</label>
+    </div>
 
+</div>
 <script>
     $('.control-filter').on('click', 'a.filter-set', function(){
         $(this).ocPopover({
@@ -35,6 +44,10 @@
             <ul>
                 <li><a href="#">Deleted</a></li>
                 <li><a href="#">Deployed</a></li>
+                <li><a href="#">Deployed</a></li>
+                <li><a href="#">Deployed</a></li>
+                <li><a href="#">Deployed</a></li>
+                <li><a href="#">Deployed</a></li>
                 <li><a href="#">Detailed</a></li>
             </ul>
         </div>
@@ -46,3 +59,4 @@
         </div>
     </div>
 </script>
+

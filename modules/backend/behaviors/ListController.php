@@ -37,6 +37,11 @@ class ListController extends ControllerBehavior
     protected $toolbarWidgets = [];
 
     /**
+     * @var WidgetBase Reference to the filter widget objects.
+     */
+    protected $filterWidgets = [];
+
+    /**
      * {@inheritDoc}
      */
     protected $requiredProperties = ['listConfig'];
@@ -174,6 +179,20 @@ class ListController extends ControllerBehavior
             $this->toolbarWidgets[$definition] = $toolbarWidget;
         }
 
+        /*
+         * Prepare the filter widget (optional)
+         */
+        if (isset($listConfig->filter)) {
+            $filterConfig = $this->makeConfig($listConfig->filter);
+            $filterConfig->alias = $widget->alias . 'Filter';
+            $filterWidget = $this->makeWidget('Backend\Widgets\Filter', $filterConfig);
+            $filterWidget->bindToController();
+
+            $widget->cssClasses[] = 'list-flush';
+
+            $this->filterWidgets[$definition] = $filterWidget;
+        }
+
         return $widget;
     }
 
@@ -205,6 +224,9 @@ class ListController extends ControllerBehavior
 
         if (isset($this->toolbarWidgets[$definition]))
             $collection[] = $this->toolbarWidgets[$definition]->render();
+
+        if (isset($this->filterWidgets[$definition]))
+            $collection[] = $this->filterWidgets[$definition]->render();
 
         $collection[] = $this->listWidgets[$definition]->render();
 

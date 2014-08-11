@@ -182,14 +182,14 @@
         this.$el.data('oc.inspectorVisible', true)
 
         var displayPopover = function() {
-            var offset = self.$el.data('inspector-offset') 
+            var offset = self.$el.data('inspector-offset')
             if (offset === undefined)
                 offset = 15
-            
-            var offsetX = self.$el.data('inspector-offset-x'),
-                offsetY = self.$el.data('inspector-offset-y') 
 
-            var placement = self.$el.data('inspector-placement') 
+            var offsetX = self.$el.data('inspector-offset-x'),
+                offsetY = self.$el.data('inspector-offset-y')
+
+            var placement = self.$el.data('inspector-placement')
             if (placement === undefined)
                 placement = 'bottom'
 
@@ -248,8 +248,9 @@
             displayPopover()
     }
 
-    // Creates group nodes in the property set
-    //
+    /*
+     * Creates group nodes in the property set
+     */
     Inspector.prototype.preprocessConfig = function() {
         var fields = [],
             result = {
@@ -707,15 +708,15 @@
 
     InspectorEditorDropdown.prototype.showLoadingIndicator = function() {
         if (!Modernizr.touch)
-            this.indicatorContainer.loadIndicator({'opaque': true}) 
+            this.indicatorContainer.loadIndicator({'opaque': true})
     }
 
     InspectorEditorDropdown.prototype.hideLoadingIndicator = function() {
         if (!Modernizr.touch)
-            this.indicatorContainer.loadIndicator('hide') 
+            this.indicatorContainer.loadIndicator('hide')
     }
 
-    InspectorEditorDropdown.prototype.loadOptions= function() {
+    InspectorEditorDropdown.prototype.loadOptions = function() {
         var $form = $(this.selector).closest('form'),
             data = this.inspector.propertyValues,
             $select = $(this.selector),
@@ -764,7 +765,7 @@
 
     // INSPECTOR DATA-API
     // ==================
- 
+
     $(document).on('click', '[data-inspectable]', function(){
         var $this = $(this),
             inspector = $this.data('oc.inspector')
