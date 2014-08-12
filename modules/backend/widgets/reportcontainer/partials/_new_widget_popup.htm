@@ -13,7 +13,7 @@
             <select class="form-control custom-select" name="className" data-placeholder="please select">
                 <option></option>
                 <?php foreach ($widgets as $className => $widgetInfo):?>
-                    <option value="<?= e($className) ?>"><?= isset($widgetInfo['label']) ? e($widgetInfo['label']) : $className ?></option>
+                    <option value="<?= e($className) ?>"><?= isset($widgetInfo['label']) ? e(trans($widgetInfo['label'])) : $className ?></option>
                 <?php endforeach ?>
             </select>
         </div>

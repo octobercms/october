@@ -86,6 +86,9 @@ return [
         'send_invite_comment' => 'Use this checkbox to send an invitation to the user by email',
         'delete_confirm' => 'Do you really want to delete this administrator?',
         'return' => 'Return to the administrator list',
+        'allow' => 'Allow',
+        'inherit' => 'Inherit',
+        'deny' => 'Deny',
         'group' => [
             'name' => 'Group',
             'name_field' => 'Name',
@@ -110,12 +113,21 @@ return [
         'behavior_not_ready' => 'List behavior has not been initialized, check that you have called makeLists() in your controller.',
         'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
         'pagination' => 'Displayed records: :from-:to of :total',
+        'prev_page' => 'Previous page',
+        'next_page' => 'Next page',
+        'loading' => 'Loading...',
         'setup_title' => 'List Setup',
         'setup_help' => 'Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.',
         'records_per_page' => 'Records per page',
         'records_per_page_help' => 'Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.',
         'apply_changes' => 'Apply changes',
         'cancel' => 'Cancel'
+    ],
+    'fileupload' => [
+    	'attachment' => 'Attachment',
+    	'help' => 'Add a title and description for this attachment.',
+    	'title_label' => 'Title',
+    	'description_label' => 'Description'
     ],
     'form' => [
         'create_title' => "New :name",
@@ -151,13 +163,20 @@ return [
         'select' => 'Select',
         'select_all' => 'all',
         'select_none' => 'none',
+        'insert_row' => 'Insert Row',
+        'delete_row' => 'Delete Row'
     ],
     'relation' => [
         'missing_definition' => "Relation behavior does not contain a definition for ':field'.",
         'missing_model' => "Relation behavior used in :class does not have a model defined.",
         'invalid_action_single' => "This action cannot be performed on a singular relationship.",
         'invalid_action_multi' => "This action cannot be performed on a multiple relationship.",
+        'help'	=> "Click on an item to add",
+        'related_data' => "Related :name data",
         'add' => "Add",
+        'add_selected' => "Add selected",
+        'add_a_new' => "Add a new :name",
+        'cancel' => "Cancel",
         'add_name' => "Add :name",
         'create' => "Create",
         'create_name' => "Create :name",
@@ -167,6 +186,7 @@ return [
         'remove_name' => "Remove :name",
         'delete' => "Delete",
         'delete_name' => "Delete :name",
+        'delete_confirm' => "Are you sure?",
     ],
     'model' => [
         'name' => "Model",

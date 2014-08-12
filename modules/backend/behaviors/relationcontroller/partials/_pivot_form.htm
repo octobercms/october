@@ -7,7 +7,7 @@
 
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="popup">&times;</button>
-            <h4 class="modal-title">Related <?= $relationLabel ?> data</h4>
+            <h4 class="modal-title"><?= e(trans('backend::lang.relation.related_data', ['name'=>$relatedLabel])) ?></h4>
         </div>
         <div class="modal-body">
             <?= $relationPivotWidget->render() ?>
@@ -17,13 +17,13 @@
                 type="submit"
                 class="btn btn-primary"
                 data-dismiss="popup">
-                Update
+                <?= e(trans('backend::lang.relation.update')) ?>
             </button>
             <button
                 type="button"
                 class="btn btn-default"
                 data-dismiss="popup">
-                Cancel
+                <?= e(trans('backend::lang.relation.cancel')) ?>
             </button>
         </div>
 
@@ -38,7 +38,7 @@
 
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="popup">&times;</button>
-            <h4 class="modal-title">Related <?= $relationLabel ?> data</h4>
+            <h4 class="modal-title"><?= e(trans('backend::lang.relation.related_data', ['name'=>$relatedLabel])) ?></h4>
         </div>
         <div class="modal-body">
             <?= $relationPivotWidget->render() ?>
@@ -48,13 +48,13 @@
                 type="submit"
                 class="btn btn-primary"
                 data-dismiss="popup">
-                Add
+                <?= e(trans('backend::lang.relation.add')) ?>
             </button>
             <button
                 type="button"
                 class="btn btn-default"
                 data-dismiss="popup">
-                Cancel
+                <?= e(trans('backend::lang.relation.cancel')) ?>
             </button>
         </div>
 
