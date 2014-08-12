@@ -144,9 +144,9 @@ class ReportContainer extends WidgetBase
 
         return [
             '@#'.$this->getId('container-list') => $this->makePartial('widget', [
-                'widget' => $widget,
+                'widget'      => $widget,
                 'widgetAlias' => $widgetInfo['alias'],
-                'sortOrder' => $widgetInfo['sortOrder']
+                'sortOrder'   => $widgetInfo['sortOrder']
             ])
         ];
     }
@@ -311,7 +311,7 @@ class ReportContainer extends WidgetBase
         ];
 
         $result[] = $property;
-        foreach ($properties as $name=>$params) {
+        foreach ($properties as $name => $params) {
 
             $property = [
                 'property'          => $name,
@@ -335,8 +335,8 @@ class ReportContainer extends WidgetBase
         $result = [];
 
         $properties = $widget->defineProperties();
-        foreach ($properties as $name=>$params) {
-            $result[$name] = $widget->property($name);
+        foreach ($properties as $name => $params) {
+            $result[$name] = Lang::get($widget->property($name));
         }
 
         $result['ocWidgetWidth'] = $widget->property('ocWidgetWidth');
