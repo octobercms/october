@@ -42,7 +42,7 @@
         <?php endforeach ?>
     </ul>
 <?php else: ?>
-    <p class="no-data"><?= trans($this->noRecordsMessage) ?></p>
+    <p class="no-data"><?= e(trans($this->noRecordsMessage)) ?></p>
 <?php endif ?>
 
 <?php if (!isset($nested)): ?>

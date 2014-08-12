@@ -28,7 +28,12 @@
                 */
             ?>
             <li class="icon preview">
-                <a href="<?= URL::to('/') ?>" target="_blank" data-toggle="tooltip" data-placement="bottom" title="<?= trans('backend::lang.tooltips.preview_website') ?>">
+                <a
+                    href="<?= URL::to('/') ?>"
+                    target="_blank"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
                     <i class="icon-crosshairs"></i>
                 </a>
             </li>
@@ -41,7 +46,13 @@
                 </a>
             </li>
             <li class="icon power-off">
-                <a data-toggle="tooltip" data-placement="left" href="<?= Backend::url('backend/auth/signout') ?>" title="<?= trans('backend::lang.account.sign_out') ?>"><i class="icon-power-off"></i></a>
+                <a
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    href="<?= Backend::url('backend/auth/signout') ?>"
+                    title="<?= e(trans('backend::lang.account.sign_out')) ?>">
+                    <i class="icon-power-off"></i>
+                </a>
             </li>
         </ul>
     </div>
