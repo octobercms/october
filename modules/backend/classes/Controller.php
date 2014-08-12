@@ -325,7 +325,7 @@ class Controller extends Extendable
                  * Execute the handler
                  */
                 if (!$result = $this->runAjaxHandler($handler))
-                    throw new SystemException(Lang::get('cms::lang.ajax_handler.not_found', ['name'=>$handler]));
+                    throw new ApplicationException(Lang::get('cms::lang.ajax_handler.not_found', ['name'=>$handler]));
 
                 /*
                  * If the handler returned an array, we should add it to output for rendering.
