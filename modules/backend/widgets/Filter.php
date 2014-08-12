@@ -4,6 +4,7 @@ use Event;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\FilterScope;
 use System\Classes\ApplicationException;
+use October\Rain\Support\Util;
 
 /**
  * Filter Widget
@@ -80,6 +81,25 @@ class Filter extends WidgetBase
         $this->vars['scopes'] = $this->allScopes;
     }
 
+    public function onFilterUpdate()
+    {
+        $this->defineFilterScopes();
+
+        if (!$scope = post('scopeName'))
+            return;
+
+        $active = $this->optionsFromAjax(post('options.active'));
+        $this->setScopeValue($scope, $active);
+
+        /*
+         * Trigger class event, merge results as viewable array
+         */
+        $params = func_get_args();
+        $result = $this->fireEvent('scope.update', [$params]);
+        if ($result && is_array($result))
+            return Util::arrayMerge($result);
+    }
+
     public function onFilterGetOptions()
     {
         $this->defineFilterScopes();
@@ -88,27 +108,14 @@ class Filter extends WidgetBase
             return;
 
         $scope = $this->getScope($scopeName);
-
-        // $available = [
-        //     ['id' => 1, 'name' => 'Deleted'],
-        //     ['id' => 2, 'name' => 'Moo'],
-        // ];
-
+        $activeKeys = $scope->value ? array_keys($scope->value) : [];
         $available = $this->getAvailableOptions($scope);
-        $active = $this->filterActiveOptions($available);
-
-        // $active = [
-        //     ['id' => 3, 'name' => 'Selected'],
-        //     ['id' => 4, 'name' => 'Bar'],
-        // ];
-
-        $available = $this->processOptionsForAjax($available);
-        $active = $this->processOptionsForAjax($active);
+        $active = $this->filterActiveOptions($activeKeys, $available);
 
         return [
             'options' => [
-                'available' => $available,
-                'active' => $active,
+                'available' => $this->optionsToAjax($available),
+                'active'    => $this->optionsToAjax($active),
             ]
         ];
     }
@@ -123,13 +130,11 @@ class Filter extends WidgetBase
         return $available;
     }
 
-    protected function filterActiveOptions(&$availableOptions)
+    protected function filterActiveOptions(array $activekeys, array &$availableOptions)
     {
-        $fromSession = [1];
-
         $active = [];
         foreach ($availableOptions as $id => $option) {
-            if (!in_array($id, $fromSession))
+            if (!in_array($id, $activekeys))
                 continue;
 
             $active[$id] = $option;
@@ -139,11 +144,24 @@ class Filter extends WidgetBase
         return $active;
     }
 
-    protected function processOptionsForAjax($options)
+    protected function optionsToAjax($options)
     {
         $processed = [];
         foreach ($options as $id => $result) {
             $processed[] = ['id' => $id, 'name' => $result];
+        }
+        return $processed;
+    }
+
+    protected function optionsFromAjax($options)
+    {
+        $processed = [];
+        if (!is_array($options))
+            return $processed;
+
+        foreach ($options as $option) {
+            if (!$id = array_get($option, 'id')) continue;
+            $processed[$id] = array_get($option, 'name');
         }
         return $processed;
     }
@@ -238,7 +256,45 @@ class Filter extends WidgetBase
 
         $scope = new FilterScope($name, $label);
         $scope->displayAs($scopeType, $config);
+
+        /*
+         * Set scope value
+         */
+        $scope->value = $this->getScopeValue($scope);
+
         return $scope;
+    }
+
+    /**
+     * Returns a scope value for this widget instance.
+     */
+    public function getScopeValue($scope, $default = null)
+    {
+        if (is_string($scope)) {
+            if (!isset($this->allScopes[$scope]))
+                throw new ApplicationException('No definition for scope ' . $scope);
+
+            $scope = $this->allScopes[$scope];
+        }
+
+        $cacheKey = 'scope-'.$scope->scopeName;
+        return $this->getSession($cacheKey, $default);
+    }
+
+    /**
+     * Sets an scope value for this widget instance.
+     */
+    public function setScopeValue($scope, $value)
+    {
+        if (is_string($scope)) {
+            if (!isset($this->allScopes[$scope]))
+                throw new ApplicationException('No definition for scope ' . $scope);
+
+            $scope = $this->allScopes[$scope];
+        }
+
+        $cacheKey = 'scope-'.$scope->scopeName;
+        $this->putSession($cacheKey, $value);
     }
 
     /**

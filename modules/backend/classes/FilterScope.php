@@ -22,9 +22,14 @@ class FilterScope
     public $idPrefix;
 
     /**
-     * @var string Form scope label.
+     * @var string Filter scope label.
      */
     public $label;
+
+    /**
+     * @var string Filter scope value.
+     */
+    public $value;
 
     /**
      * @var string Filter mode.

@@ -1,11 +1,12 @@
 <div
     class="control-filter"
     data-control="filterwidget"
-    data-options-handler="<?= $this->getEventHandler('onFilterGetOptions') ?>">
+    data-options-handler="<?= $this->getEventHandler('onFilterGetOptions') ?>"
+    data-update-handler="<?= $this->getEventHandler('onFilterUpdate') ?>">
 
     <?= $this->makePartial('filter_scopes') ?>
 
-    <a class="filter-set" href="javascript:;">
+<!--     <a class="filter-set" href="javascript:;">
         <span class="filter-label">Categories:</span>
         <span class="filter-setting">all</span>
     </a>
@@ -13,7 +14,7 @@
     <a class="filter-set active" href="javascript:;">
         <span class="filter-label">Statuses:</span>
         <span class="filter-setting">2</span>
-    </a>
+    </a> -->
 
     <div class="filter-scope checkbox custom-checkbox">
         <input type="checkbox" id="hideTranslated" name="hide_translated" value="1" />
