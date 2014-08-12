@@ -154,7 +154,7 @@ class ServiceProvider extends ModuleServiceProvider
          */
         WidgetManager::instance()->registerReportWidgets(function($manager){
             $manager->registerReportWidget('System\ReportWidgets\Status', [
-                'label'   => Lang::get('backend::lang.dashboard.status.widget_title_default'),
+                'label'   => 'backend::lang.dashboard.status.widget_title_default',
                 'context' => 'dashboard'
             ]);
         });
