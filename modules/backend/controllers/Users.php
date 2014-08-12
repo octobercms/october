@@ -98,9 +98,9 @@ class Users extends Controller
                 'comment' => $permission->comment,
                 'type' => 'balloon-selector',
                 'options' => [
-                    1 => 'Allow',
-                    0 => 'Inherit',
-                    -1 => 'Deny',
+                    1 => Lang::get('backend::lang.user.allow'),
+                    0 => Lang::get('backend::lang.user.inherit'),
+                    -1 => Lang::get('backend::lang.user.deny'),
                 ],
                 'attributes' => [
                     'data-trigger' => "input[name='User[permissions][superuser]']",

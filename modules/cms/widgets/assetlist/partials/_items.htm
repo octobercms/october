@@ -32,7 +32,7 @@
                             data-control="popup"
                             data-request-data="renamePath: '<?= e($item->path) ?>'"
                             data-handler="<?= $this->getEventHandler('onLoadRenamePopup') ?>"
-                        >Rename</a>
+                        ><?= trans('cms::lang.asset.rename') ?></a>
                     </div>
 
                     <input type="hidden" name="file[<?= e($item->path) ?>]" value="0"/>
@@ -45,7 +45,7 @@
                             <?= $this->isFileSelected($item) ? 'checked' : null ?> 
                             data-request="<?= $this->getEventHandler('onSelect') ?>"
                             value="1">
-                        <label for="<?= $cbId ?>">Select</label>
+                        <label for="<?= $cbId ?>"><?= trans('cms::lang.asset.select') ?></label>
                     </div>
 
                 </li>

@@ -22,7 +22,7 @@
                 checked: $('.control-list').listWidget('getChecked')
             })"
             data-request="onRefreshPlugins"
-            data-request-confirm="Are you sure?"
+            data-request-confirm="<?= e(trans('system::lang.plugins.refresh_confirm')) ?>"
             data-trigger-type="enable"
             data-trigger=".control-list input[type=checkbox]"
             data-trigger-condition="checked"
@@ -37,7 +37,7 @@
                 checked: $('.control-list').listWidget('getChecked')
             })"
             data-request="onRemovePlugins"
-            data-request-confirm="Are you sure?"
+            data-request-confirm="<?= e(trans('system::lang.plugins.remove_confirm')) ?>"
             data-trigger-type="enable"
             data-trigger=".control-list input[type=checkbox]"
             data-trigger-condition="checked"
