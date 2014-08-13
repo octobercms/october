@@ -265,6 +265,16 @@ class Controller extends BaseController
     }
 
     /**
+     * Returns the Twig environment.
+     *
+     * @return Twig_Environment
+     */
+    public function getTwig()
+    {
+        return $this->twig;
+    }
+
+    /**
      * Initializes the custom layout and page objects.
      */
     protected function initCustomObjects()
