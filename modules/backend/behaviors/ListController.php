@@ -183,12 +183,23 @@ class ListController extends ControllerBehavior
          * Prepare the filter widget (optional)
          */
         if (isset($listConfig->filter)) {
+            $widget->cssClasses[] = 'list-flush';
+
             $filterConfig = $this->makeConfig($listConfig->filter);
             $filterConfig->alias = $widget->alias . 'Filter';
             $filterWidget = $this->makeWidget('Backend\Widgets\Filter', $filterConfig);
             $filterWidget->bindToController();
 
-            $widget->cssClasses[] = 'list-flush';
+            /*
+             * Filter the list when the scopes are changed
+             */
+            $filterWidget->bindEvent('filter.update', function() use ($widget, $filterWidget){
+                $widget->addFilter([$filterWidget, 'applyAllScopesToQuery']);
+                return $widget->onRefresh();
+            });
+
+            // Apply predefined filter values
+            $widget->addFilter([$filterWidget, 'applyAllScopesToQuery']);
 
             $this->filterWidgets[$definition] = $filterWidget;
         }

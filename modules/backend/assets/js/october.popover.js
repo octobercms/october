@@ -31,9 +31,10 @@
  * Events:
  * - showing.oc.popover - triggered before the popover is displayed. Allows to override the 
  *   popover options (for example the content) or cancel the action with e.preventDefault()
+ * - show.oc.popover - triggered after the popover is displayed.
  * - hiding.oc.popover - triggered before the popover is closed. Allows to cancel the action with
  *   e.preventDefault()
- * - hide.oc.popover - triggered after the popover is hidden. 
+ * - hide.oc.popover - triggered after the popover is hidden.
  *
  * JavaScript API:
  * $('#element').ocPopover({
@@ -133,6 +134,7 @@
          */
          this.$container.css('visibility', 'visible')
         $(document.body).addClass('popover-open')
+        this.$el.trigger('show.oc.popover')
 
         /*
          * Bind events

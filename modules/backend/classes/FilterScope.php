@@ -22,6 +22,16 @@ class FilterScope
     public $idPrefix;
 
     /**
+     * @var string Column to display for the display name
+     */
+    public $nameColumn = 'name';
+
+    /**
+     * @var string Column to display for the description (optional)
+     */
+    public $descriptionColumn;
+
+    /**
      * @var string Filter scope label.
      */
     public $label;
@@ -55,6 +65,16 @@ class FilterScope
      * @var string Specifies a default value for supported scopes.
      */
     public $defaults;
+
+    /**
+     * @var string Raw SQL conditions to use when applying this scope.
+     */
+    public $conditions;
+
+    /**
+     * @var string Model scope method to use when applying this filter scope.
+     */
+    public $scope;
 
     /**
      * @var string Specifies a CSS class to attach to the scope container.
@@ -96,7 +116,11 @@ class FilterScope
         if (isset($config['options'])) $this->options($config['options']);
         if (isset($config['context'])) $this->context = $config['context'];
         if (isset($config['default'])) $this->defaults = $config['default'];
+        if (isset($config['conditions'])) $this->conditions = $config['conditions'];
+        if (isset($config['scope'])) $this->scope = $config['scope'];
         if (isset($config['cssClass'])) $this->cssClass = $config['cssClass'];
+        if (isset($config['nameColumn'])) $this->nameColumn = $config['nameColumn'];
+        if (isset($config['descriptionColumn'])) $this->descriptionColumn = $config['descriptionColumn'];
 
         if (array_key_exists('disabled', $config)) $this->disabled = $config['disabled'];
         return $config;

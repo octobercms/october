@@ -1,5 +1,6 @@
 <?php namespace Backend\Widgets;
 
+use DB as Db;
 use Event;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\FilterScope;
@@ -81,6 +82,22 @@ class Filter extends WidgetBase
         $this->vars['scopes'] = $this->allScopes;
     }
 
+    /**
+     * Renders the HTML element for a scope
+     */
+    public function renderScopeElement($scope)
+    {
+        return $this->makePartial('scope_'.$scope->type, ['scope' => $scope]);
+    }
+
+    //
+    // AJAX
+    //
+
+    /**
+     * Update a filter scope value.
+     * @return array
+     */
     public function onFilterUpdate()
     {
         $this->defineFilterScopes();
@@ -88,31 +105,48 @@ class Filter extends WidgetBase
         if (!$scope = post('scopeName'))
             return;
 
-        $active = $this->optionsFromAjax(post('options.active'));
-        $this->setScopeValue($scope, $active);
+        $scope = $this->getScope($scope);
+
+        switch ($scope->type) {
+            case 'group':
+                $active = $this->optionsFromAjax(post('options.active'));
+                $this->setScopeValue($scope, $active);
+                break;
+
+            case 'checkbox':
+                $checked = post('value') == 'true' ? true : false;
+                $this->setScopeValue($scope, $checked);
+                break;
+        }
 
         /*
          * Trigger class event, merge results as viewable array
          */
         $params = func_get_args();
-        $result = $this->fireEvent('scope.update', [$params]);
+        $result = $this->fireEvent('filter.update', [$params]);
         if ($result && is_array($result))
             return Util::arrayMerge($result);
     }
 
+    /**
+     * Returns available options for group scope type.
+     * @return array
+     */
     public function onFilterGetOptions()
     {
         $this->defineFilterScopes();
 
+        $searchQuery = post('search');
         if (!$scopeName = post('scopeName'))
             return;
 
         $scope = $this->getScope($scopeName);
         $activeKeys = $scope->value ? array_keys($scope->value) : [];
-        $available = $this->getAvailableOptions($scope);
-        $active = $this->filterActiveOptions($activeKeys, $available);
+        $available = $this->getAvailableOptions($scope, $searchQuery);
+        $active = $searchQuery ? [] : $this->filterActiveOptions($activeKeys, $available);
 
         return [
+            'scopeName' => $scopeName,
             'options' => [
                 'available' => $this->optionsToAjax($available),
                 'active'    => $this->optionsToAjax($active),
@@ -120,21 +154,41 @@ class Filter extends WidgetBase
         ];
     }
 
-    protected function getAvailableOptions($scope)
+    //
+    // Internals
+    //
+
+    /**
+     * Returns the available options a scope can use, either from the
+     * model relation or from a supplied array. Optionally apply a search
+     * constraint to the options.
+     * @param  string $scope
+     * @param  string $searchQuery
+     * @return array
+     */
+    protected function getAvailableOptions($scope, $searchQuery = null)
     {
         $available = [];
-        $options = $this->getOptionsFromModel($scope);
+        $nameColumn = $this->getScopeNameColumn($scope);
+        $options = $this->getOptionsFromModel($scope, $searchQuery);
         foreach ($options as $option) {
-            $available[$option->id] = $option->name;
+            $available[$option->getKey()] = $option->{$nameColumn};
         }
         return $available;
     }
 
-    protected function filterActiveOptions(array $activekeys, array &$availableOptions)
+    /**
+     * Removes any already selected options from the available options, returns
+     * a newly built array.
+     * @param  array  $activeKeys
+     * @param  array  $availableOptions
+     * @return array
+     */
+    protected function filterActiveOptions(array $activeKeys, array &$availableOptions)
     {
         $active = [];
         foreach ($availableOptions as $id => $option) {
-            if (!in_array($id, $activekeys))
+            if (!in_array($id, $activeKeys))
                 continue;
 
             $active[$id] = $option;
@@ -144,43 +198,17 @@ class Filter extends WidgetBase
         return $active;
     }
 
-    protected function optionsToAjax($options)
-    {
-        $processed = [];
-        foreach ($options as $id => $result) {
-            $processed[] = ['id' => $id, 'name' => $result];
-        }
-        return $processed;
-    }
-
-    protected function optionsFromAjax($options)
-    {
-        $processed = [];
-        if (!is_array($options))
-            return $processed;
-
-        foreach ($options as $option) {
-            if (!$id = array_get($option, 'id')) continue;
-            $processed[$id] = array_get($option, 'name');
-        }
-        return $processed;
-    }
-
     /**
      * Looks at the model for defined scope items.
      */
-    protected function getOptionsFromModel($scope)
+    protected function getOptionsFromModel($scope, $searchQuery = null)
     {
         $model = $this->scopeModels[$scope->scopeName];
-        return $model->all();
-    }
+        if (!$searchQuery)
+            return $model->all();
 
-    /**
-     * Renders the HTML element for a scope
-     */
-    public function renderScopeElement($scope)
-    {
-        return $this->makePartial('scope_'.$scope->type, ['scope' => $scope]);
+        $searchFields = [$model->getKeyName(), $this->getScopeNameColumn($scope)];
+        return $model->searchWhere($searchQuery, $searchFields)->get();
     }
 
     /**
@@ -235,12 +263,11 @@ class Filter extends WidgetBase
             /*
              * Validate scope model
              */
-            if (!isset($config['modelClass']))
-                throw new ApplicationException('Missing model definition for scope');
-
-            $class = $config['modelClass'];
-            $model = new $class;
-            $this->scopeModels[$name] = $model;
+            if (isset($config['modelClass'])) {
+                $class = $config['modelClass'];
+                $model = new $class;
+                $this->scopeModels[$name] = $model;
+            }
 
             $this->allScopes[$name] = $scopeObj;
         }
@@ -265,17 +292,77 @@ class Filter extends WidgetBase
         return $scope;
     }
 
+    //
+    // Filter query logic
+    //
+
+    /**
+     * Applies all scopes to a DB query.
+     * @param  Builder $query
+     * @return Builder
+     */
+    public function applyAllScopesToQuery($query)
+    {
+        foreach ($this->allScopes as $scope) {
+            $this->applyScopeToQuery($scope, $query);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Applies a filter scope constraints to a DB query.
+     * @param  string $scope
+     * @param  Builder $query
+     * @return Builder
+     */
+    public function applyScopeToQuery($scope, $query)
+    {
+        if (is_string($scope))
+            $scope = $this->getScope($scope);
+
+        if (!$scope->value)
+            return;
+
+        $value = is_array($scope->value) ? array_keys($scope->value) : $scope->value;
+
+        /*
+         * Condition
+         */
+        if ($scopeConditions = $scope->conditions) {
+            if (is_array($value)) {
+                $filtered = implode(',', array_build($value, function($key, $_value){
+                    return [$key, Db::getPdo()->quote($_value)];
+                }));
+            }
+            else {
+                $filtered = Db::getPdo()->quote($value);
+            }
+
+            $query->whereRaw(strtr($scopeConditions, [':filtered' => $filtered]));
+        }
+
+        /*
+         * Scope
+         */
+        if ($scopeMethod = $scope->scope) {
+            $query->$scopeMethod($value);
+        }
+
+        return $query;
+    }
+
+    //
+    // Access layer
+    //
+
     /**
      * Returns a scope value for this widget instance.
      */
     public function getScopeValue($scope, $default = null)
     {
-        if (is_string($scope)) {
-            if (!isset($this->allScopes[$scope]))
-                throw new ApplicationException('No definition for scope ' . $scope);
-
-            $scope = $this->allScopes[$scope];
-        }
+        if (is_string($scope))
+            $scope = $this->getScope($scope);
 
         $cacheKey = 'scope-'.$scope->scopeName;
         return $this->getSession($cacheKey, $default);
@@ -286,15 +373,13 @@ class Filter extends WidgetBase
      */
     public function setScopeValue($scope, $value)
     {
-        if (is_string($scope)) {
-            if (!isset($this->allScopes[$scope]))
-                throw new ApplicationException('No definition for scope ' . $scope);
-
-            $scope = $this->allScopes[$scope];
-        }
+        if (is_string($scope))
+            $scope = $this->getScope($scope);
 
         $cacheKey = 'scope-'.$scope->scopeName;
         $this->putSession($cacheKey, $value);
+
+        $scope->value = $value;
     }
 
     /**
@@ -313,7 +398,23 @@ class Filter extends WidgetBase
      */
     public function getScope($scope)
     {
+        if (!isset($this->allScopes[$scope]))
+            throw new ApplicationException('No definition for scope ' . $scope);
+
         return $this->allScopes[$scope];
+    }
+
+    /**
+     * Returns the display name column for a scope.
+     * @param  string $scope
+     * @return string
+     */
+    public function getScopeNameColumn($scope)
+    {
+        if (is_string($scope))
+            $scope = $this->getScope($scope);
+
+        return $scope->nameColumn;
     }
 
     /**
@@ -322,6 +423,42 @@ class Filter extends WidgetBase
     public function getContext()
     {
         return $this->activeContext;
+    }
+
+    //
+    // Helpers
+    //
+
+    /**
+     * Convert a key/pair array to a named array {id: 1, name: 'Foobar'}
+     * @param  array $options
+     * @return array
+     */
+    protected function optionsToAjax($options)
+    {
+        $processed = [];
+        foreach ($options as $id => $result) {
+            $processed[] = ['id' => $id, 'name' => $result];
+        }
+        return $processed;
+    }
+
+    /**
+     * Convert a named array to a key/pair array
+     * @param  array $options
+     * @return array
+     */
+    protected function optionsFromAjax($options)
+    {
+        $processed = [];
+        if (!is_array($options))
+            return $processed;
+
+        foreach ($options as $option) {
+            if (!$id = array_get($option, 'id')) continue;
+            $processed[$id] = array_get($option, 'name');
+        }
+        return $processed;
     }
 
 }

@@ -78,7 +78,12 @@ class Lists extends WidgetBase
     /**
      * @var string Filter the records by a search term.
      */
-    public $searchTerm;
+    protected $searchTerm;
+
+    /**
+     * @var array Collection of functions to apply to each list query.
+     */
+    protected $filterCallbacks = [];
 
     /**
      * @var bool Shows the sorting options for each column.
@@ -339,8 +344,11 @@ class Lists extends WidgetBase
         }
 
         /*
-         * @todo Apply filters etc
+         * Apply filters
          */
+        foreach ($this->filterCallbacks as $callback) {
+            $callback($query);
+        }
 
         /*
          * Extensibility
@@ -692,6 +700,15 @@ class Lists extends WidgetBase
             throw new ApplicationException(Lang::get('backend::lang.list.invalid_column_datetime', ['column' => $column->columnName]));
 
         return $value;
+    }
+
+    //
+    // Filtering
+    //
+
+    public function addFilter(callable $filter)
+    {
+        $this->filterCallbacks[] = $filter;
     }
 
     //

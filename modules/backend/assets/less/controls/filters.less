@@ -67,8 +67,16 @@
             min-height: 36px;
             border: none;
             border-bottom: 1px solid @color-filter-border;
-            background: transparent url(../images/bitmap-icons.png) no-repeat 100% -82px;
-            .border-radius(0);
+            .border-bottom-radius(0);
+            background-color: transparent;
+        }
+
+        .form-control.icon.search {
+            background-position: right -81px;
+        }
+
+        .close {
+            display: none;
         }
     }
 
@@ -129,5 +137,31 @@
     .filter-active-items {
         a:before { .icon(@times); }
         li.animate-enter { .animation(fadeInDown .5s); }
+    }
+}
+
+@media (max-width: @screen-xs) {
+    .control-filter-popover {
+        .filter-items {
+            height: 200px;
+        }
+        .filter-search {
+            input {
+                padding-left: 36px;
+                padding-right: 36px;
+            }
+            .form-control.icon.search {
+                background-position: 0 -81px;
+            }
+            .close {
+                width: 30px;
+                display: block;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                font-size: 28px;
+                z-index: 2;
+            }
+        }
     }
 }
