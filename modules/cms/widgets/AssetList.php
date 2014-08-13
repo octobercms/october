@@ -640,7 +640,7 @@ class AssetList extends WidgetBase
                 if ($this->pathMatchesSearch($words, $path)) {
                     $result[] = (object)[
                         'type'=>'file',
-                        'path'=>$path,
+                        'path'=>File::normalizePath($path),
                         'name'=>$item->getFilename(),
                         'editable'=>in_array(strtolower($item->getExtension()), $editableAssetTypes)
                     ];
