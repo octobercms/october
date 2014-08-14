@@ -1,3 +1,7 @@
+* **Build 137** (2014-08-14)
+  - Lists now support Filters (see Backend > Lists docs).
+  - Numerous hard coded phrases converted to localized strings.
+
 * **Build 132** (2014-08-03)
   - New system logging pages: Event log, Request log and Access log.
 
