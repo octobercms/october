@@ -31,9 +31,10 @@
  * Events:
  * - showing.oc.popover - triggered before the popover is displayed. Allows to override the 
  *   popover options (for example the content) or cancel the action with e.preventDefault()
+ * - show.oc.popover - triggered after the popover is displayed.
  * - hiding.oc.popover - triggered before the popover is closed. Allows to cancel the action with
  *   e.preventDefault()
- * - hide.oc.popover - triggered after the popover is hidden. 
+ * - hide.oc.popover - triggered after the popover is hidden.
  *
  * JavaScript API:
  * $('#element').ocPopover({
@@ -55,14 +56,14 @@
     Popover.prototype.hide = function() {
         var e = $.Event('hiding.oc.popover', {relatedTarget: this.$el})
         this.$el.trigger(e, this)
-        if (e.isDefaultPrevented()) 
+        if (e.isDefaultPrevented())
             return
 
         if (this.$container) this.$container.remove()
         if (this.$overlay) this.$overlay.remove()
 
-        this.$overlay = false;
-        this.$container = false;
+        this.$overlay = false
+        this.$container = false
 
         this.$el.removeClass('popover-highlight')
         this.$el.data('oc.popover', null)
@@ -70,46 +71,46 @@
 
         $(document).unbind('mousedown', this.docClickHandler);
         this.$el.trigger('hide.oc.popover')
-        $(document).off('.oc.popover');
+        $(document).off('.oc.popover')
     }
 
     Popover.prototype.show = function(options) {
-        var self = this;
+        var self = this
 
         /*
          * Trigger the show event
          */
         var e = $.Event('showing.oc.popover', {relatedTarget: this.$el})
         this.$el.trigger(e, this)
-        if (e.isDefaultPrevented()) 
+        if (e.isDefaultPrevented())
             return
 
         /*
          * Create the popover container and overlay
          */
-
-        this.$container = $('<div/>')
+        this.$container = $('<div />')
             .addClass('control-popover')
             .css('visibility', 'hidden')
 
         if (this.options.containerClass)
             this.$container.addClass(this.options.containerClass)
 
-        var $content = $('<div/>').html(this.getContent())
+        var $content = $('<div />').html(this.getContent())
         this.$container.append($content)
 
         if (this.options.width)
             this.$container.width(this.options.width)
 
         if (this.options.modal) {
-            this.$overlay = $('<div/>').addClass('popover-overlay')
+            this.$overlay = $('<div />').addClass('popover-overlay')
             $(document.body).append(this.$overlay)
             if (this.options.highlightModalTarget) {
                 this.$el.addClass('popover-highlight')
                 this.$el.blur()
             }
-        } else
+        } else {
             this.$overlay = false
+        }
 
         if (this.options.container)
             $(this.options.container).append(this.$container);
@@ -119,8 +120,7 @@
         /*
          * Determine the popover position
          */
-
-        var 
+        var
             placement = this.calcPlacement(),
             position = this.calcPosition(placement);
 
@@ -132,14 +132,13 @@
         /*
          * Display the popover
          */
-
          this.$container.css('visibility', 'visible')
         $(document.body).addClass('popover-open')
+        this.$el.trigger('show.oc.popover')
 
         /*
          * Bind events
          */
-
          this.$container.on('mousedown', function(e){
             e.stopPropagation();
          })
@@ -173,12 +172,12 @@
     }
 
     Popover.prototype.calcDimensions = function() {
-        var 
+        var
             documentWidth = $(document).width(),
             documentHeight = $(document).height(),
             targetOffset = this.$el.offset(),
             targetWidth = this.$el.outerWidth(),
-            targetHeight = this.$el.outerHeight();
+            targetHeight = this.$el.outerHeight()
 
         return {
             containerWidth: this.$container.outerWidth() + this.arrowSize,
@@ -242,24 +241,24 @@
     }
 
     Popover.prototype.calcPosition = function(placement) {
-        var 
+        var
             dimensions = this.calcDimensions(),
-            result;
+            result
 
         switch (placement) {
-            case 'left' :
+            case 'left':
                 var realOffset = this.options.offsetY === undefined ? this.options.offset : this.options.offsetY
                 result = {x: (dimensions.targetOffset.left - dimensions.containerWidth), y: dimensions.targetOffset.top + realOffset}
             break;
-            case 'top' :
+            case 'top':
                 var realOffset = this.options.offsetX === undefined ? this.options.offset : this.options.offsetX
                 result = {x: dimensions.targetOffset.left + realOffset, y: (dimensions.targetOffset.top - dimensions.containerHeight)}
             break;
-            case 'bottom' :
+            case 'bottom':
                 var realOffset = this.options.offsetX === undefined ? this.options.offset : this.options.offsetX
                 result = {x: dimensions.targetOffset.left + realOffset, y: (dimensions.targetOffset.top + dimensions.targetHeight + this.arrowSize)}
             break;
-            case 'right' :
+            case 'right':
                 var realOffset = this.options.offsetY === undefined ? this.options.offset : this.options.offsetY
                 result = {x: (dimensions.targetOffset.left + dimensions.targetWidth + this.arrowSize), y: dimensions.targetOffset.top + realOffset}
             break;
@@ -268,14 +267,14 @@
         if (!this.options.container)
             return result
 
-        var 
+        var
             $container = $(this.options.container),
-            containerOffset = $container.offset();
+            containerOffset = $container.offset()
 
-        result.x -= containerOffset.left;
-        result.y -= containerOffset.top;
+        result.x -= containerOffset.left
+        result.y -= containerOffset.top
 
-        return result;
+        return result
     }
 
     Popover.prototype.onDocumentClick = function() {

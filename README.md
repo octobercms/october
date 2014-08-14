@@ -26,6 +26,13 @@ Please follow the following guides and code standards:
 
 The CMS uses [Laravel](http://laravel.com) as a foundation PHP framework.
 
+### Using LESS
+
+The theme is based on the Twitter Bootstrap framework and uses LESS language for generating the CSS. Please use a suitable LESS application for compiling the **assets/less/*.less** file to **assets/css/*.css**. The following applications are recommended:
+
+* [LESS.app](http://incident57.com/less/) for Mac
+* [WinLess](http://winless.org/) for Windows
+
 ### Contact
 
 You can communicate with us using the following mediums:

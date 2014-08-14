@@ -1,6 +1,6 @@
 <!-- Switch -->
 <div class="field-switch">
-    <label><?= $field->label ?></label>
+    <label><?= e(trans($field->label)) ?></label>
     <?php if ($field->comment): ?>
         <p class="help-block"><?= e(trans($field->comment)) ?></p>
     <?php endif ?>

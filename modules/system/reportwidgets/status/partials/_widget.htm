@@ -1,14 +1,16 @@
 <div class="report-widget">
-    <h3><?= e($this->property('title')) ?></h3>
+    <h3><?= e(trans($this->property('title'))) ?></h3>
 
     <?php if (!isset($error)): ?>
         <ul class="status-list">
             <li>
-                <span class="status circle success"></span> online
+                <span class="status circle success"></span>
+                <?= e(trans('backend::lang.dashboard.status.online')) ?>
             </li>
             <li>
                 <a href="<?= Backend::url('system/updates') ?>">
-                    <span class="status primary"><?= $updates ?></span> <?= Str::plural('update', $updates) ?> available!
+                    <span class="status primary"><?= $updates ?></span>
+                    <?= e(trans_choice('backend::lang.dashboard.status.update_available', $updates)) ?>
                 </a>
             </li>
         </ul>

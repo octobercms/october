@@ -1,7 +1,7 @@
-<?php 
+<?php
     $searchMode = $this->isSearchMode();
 
-    if (($upPath = $this->getUpPath()) !== null && !$searchMode): 
+    if (($upPath = $this->getUpPath()) !== null && !$searchMode):
 ?>
     <p class="parent">
         <a href="<?= $upPath ?>" data-path="<?= $upPath ?>" class="link"><?= $this->getCurrentRelativePath() ?></a>
@@ -25,34 +25,34 @@
                     </a>
 
                     <div class="controls">
-                        <a 
+                        <a
                             href="javascript:;"
                             class="control icon btn-primary oc-icon-terminal" 
-                            title="Rename" 
+                            title="Rename"
                             data-control="popup"
                             data-request-data="renamePath: '<?= e($item->path) ?>'"
                             data-handler="<?= $this->getEventHandler('onLoadRenamePopup') ?>"
-                        >Rename</a>
+                        ><?= e(trans('cms::lang.asset.rename')) ?></a>
                     </div>
 
                     <input type="hidden" name="file[<?= e($item->path) ?>]" value="0"/>
                     <div class="checkbox custom-checkbox nolabel">
                         <?php $cbId = 'cb'.md5($item->path) ?>
                         <input 
-                            id="<?= $cbId ?>" 
+                            id="<?= $cbId ?>"
                             type="checkbox"
-                            name="file[<?= e($item->path) ?>]" 
+                            name="file[<?= e($item->path) ?>]"
                             <?= $this->isFileSelected($item) ? 'checked' : null ?> 
                             data-request="<?= $this->getEventHandler('onSelect') ?>"
                             value="1">
-                        <label for="<?= $cbId ?>">Select</label>
+                        <label for="<?= $cbId ?>"><?= e(trans('cms::lang.asset.select')) ?></label>
                     </div>
 
                 </li>
             <?php endforeach ?>
         </ul>
     <?php else: ?>
-        <p class="no-data"><?= trans($this->noRecordsMessage) ?></p>
+        <p class="no-data"><?= e(trans($this->noRecordsMessage)) ?></p>
     <?php endif ?>
 </div>
 

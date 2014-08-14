@@ -65,6 +65,6 @@ class EditorPreferences extends Model
 
         // Sort the theme alphabetically, and push the default theme
         asort($themes);
-        return [static::DEFAULT_THEME => 'Twilight'] + $themes;
+        return [static::DEFAULT_THEME => ucwords(static::DEFAULT_THEME)] + $themes;
     }
 }

@@ -11,8 +11,8 @@
         <a href="javascript:;"
             class="oc-icon-cog widget-control edit-widget"
             data-inspectable
-            data-inspector-title="Widget configuration"
-            data-inspector-description="Configure the report widget"
+            data-inspector-title="<?= e(trans('backend::lang.dashboard.widget_inspector_title')) ?>"
+            data-inspector-description="<?= e(trans('backend::lang.dashboard.widget_inspector_description')) ?>"
             data-inspector-config="<?= e($this->getWidgetPropertyConfig($widget)) ?>"
             data-inspector-class="<?= get_class($widget) ?>"
             data-inspector-offset="-3"

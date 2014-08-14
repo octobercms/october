@@ -9,11 +9,13 @@ return [
         'en' => 'English',
         'nl' => 'Dutch',
         'ja' => 'Japanese',
-        'sv' => 'Swedish',
+        'se' => 'Swedish',
         'tr' => 'Turkish',
         'br' => 'Brazilian Portuguese',
         'de' => 'German',
         'ru' => 'Russian',
+        'fr' => 'French',
+        'it' => 'Italian',
     ],
     'directory' => [
         'create_fail' => "Cannot create directory: :name",
@@ -55,8 +57,11 @@ return [
         'disabled_label' => 'Disabled',
         'disabled_help' => 'Plugins that are disabled are ignored by the application.',
         'selected_amount' => 'Plugins selected: :amount',
+        'remove_confirm' => 'Are you sure?',
         'remove_success' => "Successfully removed those plugins from the system.",
+        'refresh_confirm' => 'Are you sure?',
         'refresh_success' => "Successfully refreshed those plugins in the system.",
+        'disable_confirm' => 'Are you sure?',
         'disable_success' => "Successfully disabled those plugins.",
         'enable_success' => "Successfully enabled those plugins.",
         'unknown_plugin' => "Plugin has been removed from the file system.",
@@ -220,4 +225,11 @@ return [
         'url' => 'URL',
         'status_code' => 'Status',
     ],
+    'permissions' => [
+        'manage_system_settings' => 'Manage system settings',
+        'manage_software_updates' => 'Manage software updates',
+        'manage_mail_templates' => 'Manage mail templates',
+        'manage_other_administrators' => 'Manage other administrators',
+        'view_the_dashboard' => 'View the dashboard'
+    ]
 ];

@@ -75,7 +75,7 @@ abstract class ComponentBase extends Extendable
     /**
      * @var array Cache of linked Component objects, used for page links.
      */
-    protected $pageLinkCache = [];
+    // protected $pageLinkCache = [];
 
     /**
      * Component constructor. Takes in the page or layout code section object

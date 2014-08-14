@@ -100,7 +100,9 @@ return [
         'code' => 'Code',
         'content' => 'Content',
         'hidden' => 'Hidden',
-        'hidden_comment' => 'Hidden pages are accessible only by logged-in back-end users.'
+        'hidden_comment' => 'Hidden pages are accessible only by logged-in back-end users.',
+        'enter_fullscreen' => 'Enter fullscreen mode',
+        'exit_fullscreen' => 'Exit fullscreen mode'
     ],
     'asset' => [
         'menu_label' => "Assets",
@@ -109,9 +111,12 @@ return [
         'upload_files' => 'Upload file(s)',
         'create_file' => 'Create file',
         'create_directory' => 'Create directory',
+        'directory_popup_title' => 'New directory',
+        'directory_name' => 'Directory name',
         'rename' => 'Rename',
         'delete' => 'Delete',
         'move' => 'Move',
+        'select' => 'Select',
         'new' => 'New file',
         'rename_popup_title' => 'Rename',
         'rename_new_name' => 'New name',
@@ -156,5 +161,13 @@ return [
         'invalid_type' => "Unknown template type.",
         'not_found' => "The requested template was not found.",
         'saved'=> "The template has been successfully saved."
+    ],
+    'permissions' => [
+        'manage_content' => 'Manage content',
+        'manage_assets' => 'Manage assets',
+        'manage_pages' => 'Manage pages',
+        'manage_layouts' => 'Manage layouts',
+        'manage_partials' => 'Manage partials',
+        'manage_themes' => 'Manage themes'
     ]
 ];

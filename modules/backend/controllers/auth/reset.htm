@@ -1,4 +1,4 @@
-<h2><?= trans('backend::lang.account.enter_new_password') ?></h2>
+<h2><?= e(trans('backend::lang.account.enter_new_password')) ?></h2>
 
 <?= Form::open() ?>
     <input type="hidden" name="postback" value="1" />
@@ -26,7 +26,7 @@
 
         <p class="pull-right forgot-password">
             <a href="<?= Backend::url('backend/auth') ?>" class="text-muted">
-                <?= trans('backend::lang.form.cancel') ?>
+                <?= e(trans('backend::lang.form.cancel')) ?>
             </a>
         </p>
     </div>

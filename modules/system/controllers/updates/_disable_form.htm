@@ -41,7 +41,7 @@
             type="submit"
             class="btn btn-primary"
             data-request="onDisablePlugins"
-            data-request-confirm="Are you sure?"
+            data-request-confirm="<?= e(trans('backend::lang.form.plugins.disable_confirm')) ?>"
             data-stripe-load-indicator>
             <?= e(trans('backend::lang.form.apply')) ?>
         </button>

@@ -1,13 +1,10 @@
 <?= Form::open() ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
-        <h4 class="modal-title">List Setup</h4>
+        <h4 class="modal-title"><?= e(trans('backend::lang.list.setup_title')) ?></h4>
     </div>
     <div class="modal-body">
-        <p>
-            Use checkboxes to select columns you want to see in the list.
-            You can change position of columns by dragging them up or down.
-        </p>
+        <p><?= e(trans('backend::lang.list.setup_help')) ?></p>
 
         <div class="control-simplelist with-checkboxes is-sortable" data-control="simplelist">
             <ul>
@@ -37,10 +34,9 @@
 
         <?php if ($this->showPagination): ?>
             <div class="form-group">
-                <label>Records per page</label>
+                <label><?= e(trans('backend::lang.list.records_per_page')) ?></label>
                 <p class="help-block">
-                    Select the number of records per page to display.
-                    Please note that high number of records on a single page can reduce performance.
+                    <?= e(trans('backend::lang.list.records_per_page_help')) ?>
                 </p>
                 <select class="form-control custom-select" name="records_per_page">
                     <?php foreach ($perPageOptions as $optionValue): ?>
@@ -58,13 +54,13 @@
             data-request="<?= $this->getEventHandler('onApplySetup') ?>"
             data-dismiss="popup"
             data-stripe-load-indicator>
-            Apply changes
+            <?= e(trans('backend::lang.list.apply_changes')) ?>
         </button>
         <button
             type="button"
             class="btn btn-default"
             data-dismiss="popup">
-            Cancel
+            <?= e(trans('backend::lang.list.cancel')) ?>
         </button>
     </div>
 <?= Form::close() ?>

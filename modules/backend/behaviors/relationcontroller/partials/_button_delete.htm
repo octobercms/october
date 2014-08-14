@@ -5,10 +5,10 @@
     })"
     disabled="disabled"
     data-request="onRelationManageDelete"
-    data-request-confirm="Are you sure?"
+    data-request-confirm="<?= e(trans('backend::lang.relation.delete_confirm')) ?>"
     data-trigger-type="enable"
     data-trigger="#<?= $this->relationGetId('view') ?> .control-list input[type=checkbox]"
     data-trigger-condition="checked"
     data-stripe-load-indicator>
-    <?= trans('backend::lang.relation.delete') ?>
+    <?= e(trans('backend::lang.relation.delete')) ?>
 </button>
