@@ -1,0 +1,146 @@
+.control-treeview {
+    ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        > li {
+            position: relative;
+
+            span.expand {
+                display: none;
+            }
+
+            > div {
+                font-size: 14px;
+                font-weight: 600;
+                color: @color-treeview-item-title;
+                background: @color-treeview-item-bg;
+                margin-bottom: 1px;
+                padding: 16px 16px 15px 51px;
+                position: relative;
+
+                &:before {
+                    content: ' ';
+                    background-image: url(../images/treeview-icons.svg);
+                    background-position: 0px top;
+                    background-repeat: no-repeat;
+                    background-size: 25px auto;
+
+                    position: absolute;
+                    width: 21px;
+                    height: 26px;
+                    left: 18px;
+                    top: 20px;
+                }
+
+                > span {
+                    display: block;
+                    font-weight: 400;
+                    color: @color-treeview-item-comment;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                &:hover {
+                    background-color: @color-treeview-hover-bg;
+                    color: @color-treeview-hover-text;
+
+                    &:before {
+                        background-position: 0px -65px;
+                    }
+
+                    > span {
+                        color: @color-treeview-hover-text;
+                    }
+                }
+            }
+
+            &[data-status=collapsed] > ol {
+                display: none;
+            }
+
+            &.has-subitems {
+                >div {
+                    &:before {
+                        background-position: 0 -29px;
+                        width: 23px;
+                        height: 29px;
+                        left: 16px;
+                    }
+
+                    &:hover:before {
+                        background-position: 0px -95px;
+                    }
+                }
+            }
+        }
+
+        @max-level: 10;
+
+        .tree-view-paddings (@level) when (@level > 0) {
+            > li {
+                > ol {
+                    > li > div {
+                        padding-left: 71 + (@max-level - @level)*20px;
+
+                        &:before {
+                            margin-left: 20 + (@max-level - @level)*20px;
+                        }
+                    }
+
+                    .tree-view-paddings(@level - 1);
+                }
+            }
+        }
+
+        .tree-view-paddings (@max-level);
+    }
+}
+
+.oc-treeview-expand-control {
+    .hide-text();
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    border-radius: 20px;
+    background: @color-treeview-item-bg;
+    display: block;
+    z-index: 100;
+    cursor: pointer;
+    .transition(opacity 0.2s);
+
+    &.expand-hidden {
+        display: none;
+    }
+
+    &.expand-drag-hidden {
+        .opacity(0);
+    }
+
+    &:before {
+        .icon(@caret-right);
+        font-size: 15px;
+        position: absolute;
+        left: 7px;
+        top: 12px;
+        color: @color-treeview-expand-icon;
+        .transition(all 0.1s ease);
+    }
+
+    &.hover {
+        background-color: @color-treeview-hover-bg;
+
+        &:before {
+            color: @color-treeview-hover-text;
+        }
+    }
+
+    &[data-status=expanded] {
+        &:before {
+            .transform( ~'rotate(90deg) translate(0, 0)' );
+        }
+    }
+}
