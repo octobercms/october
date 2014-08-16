@@ -255,7 +255,10 @@ class Controller extends BaseController
     {
         $this->loader = new TwigLoader();
 
-        $options = ['auto_reload' => true];
+        $options = [
+            'auto_reload' => true,
+            'debug' => Config::get('app.debug', false),
+        ];
         if (!Config::get('cms.twigNoCache'))
             $options['cache'] =  storage_path().'/twig';
 
