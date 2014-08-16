@@ -45,7 +45,7 @@ class RequestLogs extends Controller
     public function onEmptyLog()
     {
         RequestLog::truncate();
-        Flash::success(Lang::get('system::lang.event_log.empty_success'));
+        Flash::success(Lang::get('system::lang.request_log.empty_success'));
         return $this->listRefresh();
     }
 

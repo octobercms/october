@@ -47,6 +47,7 @@ return [
         'menu_label' => 'Dashboard',
         'widget_label' => 'Widget',
         'widget_width' => 'Width',
+        'full_width' => 'full width',
         'add_widget' => 'Add widget',
         'widget_inspector_title' => 'Widget configuration',
         'widget_inspector_description' => 'Configure the report widget',
@@ -163,6 +164,7 @@ return [
         'select' => 'Select',
         'select_all' => 'all',
         'select_none' => 'none',
+        'select_placeholder' => 'please select',
         'insert_row' => 'Insert Row',
         'delete_row' => 'Delete Row'
     ],

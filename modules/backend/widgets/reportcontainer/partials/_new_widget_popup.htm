@@ -10,7 +10,7 @@
     <div class="modal-body">
         <div class="form-group">
             <label><?= e(trans('backend::lang.dashboard.widget_label')) ?></label>
-            <select class="form-control custom-select" name="className" data-placeholder="please select">
+            <select class="form-control custom-select" name="className" data-placeholder="<?= e(trans('backend::lang.form.select_placeholder')) ?>">
                 <option></option>
                 <?php foreach ($widgets as $className => $widgetInfo):?>
                     <option value="<?= e($className) ?>"><?= isset($widgetInfo['label']) ? e(trans($widgetInfo['label'])) : $className ?></option>
