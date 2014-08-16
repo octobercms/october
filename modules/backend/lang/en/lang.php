@@ -120,15 +120,13 @@ return [
         'setup_title' => 'List Setup',
         'setup_help' => 'Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.',
         'records_per_page' => 'Records per page',
-        'records_per_page_help' => 'Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.',
-        'apply_changes' => 'Apply changes',
-        'cancel' => 'Cancel'
+        'records_per_page_help' => 'Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.'
     ],
     'fileupload' => [
-    	'attachment' => 'Attachment',
-    	'help' => 'Add a title and description for this attachment.',
-    	'title_label' => 'Title',
-    	'description_label' => 'Description'
+        'attachment' => 'Attachment',
+        'help' => 'Add a title and description for this attachment.',
+        'title_label' => 'Title',
+        'description_label' => 'Description'
     ],
     'form' => [
         'create_title' => "New :name",

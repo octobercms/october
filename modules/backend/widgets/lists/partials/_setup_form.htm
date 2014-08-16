@@ -54,13 +54,13 @@
             data-request="<?= $this->getEventHandler('onApplySetup') ?>"
             data-dismiss="popup"
             data-stripe-load-indicator>
-            <?= e(trans('backend::lang.list.apply_changes')) ?>
+            <?= e(trans('backend::lang.form.apply')) ?>
         </button>
         <button
             type="button"
             class="btn btn-default"
             data-dismiss="popup">
-            <?= e(trans('backend::lang.list.cancel')) ?>
+            <?= e(trans('backend::lang.form.cancel')) ?>
         </button>
     </div>
 <?= Form::close() ?>
