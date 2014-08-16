@@ -32,12 +32,12 @@ class BackendPreferences extends Model
             'ru' => [Lang::get('system::lang.locale.ru'), 'flag-ru'],
             'nl' => [Lang::get('system::lang.locale.nl'), 'flag-nl'],
             'ja' => [Lang::get('system::lang.locale.ja'), 'flag-jp'],
-            'se' => [Lang::get('system::lang.locale.se'), 'flag-se'],
+            'sv' => [Lang::get('system::lang.locale.sv'), 'flag-sv'],
             'tr' => [Lang::get('system::lang.locale.tr'), 'flag-tr'],
             'br' => [Lang::get('system::lang.locale.br'), 'flag-br'],
             'de' => [Lang::get('system::lang.locale.de'), 'flag-de'],
             'fr' => [Lang::get('system::lang.locale.fr'), 'flag-fr'],
-            'it' => [Lang::get('system::lang.locale.it'), 'flag-it'],
+            'ro' => [Lang::get('system::lang.locale.ro'), 'flag-ro'],
         ];
 
         // Sort the locales alphabetically
