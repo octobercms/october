@@ -32,11 +32,11 @@ class Status extends ReportWidgetBase
     {
         return [
             'title' => [
-                'title'             => 'backend::lang.dashboard.widget_title_label',
-                'default'           => 'backend::lang.dashboard.status.widget_title_default',
+                'title'             => e(trans('backend::lang.dashboard.widget_title_label')),
+                'default'           => e(trans('backend::lang.dashboard.status.widget_title_default')),
                 'type'              => 'string',
                 'validationPattern' => '^.+$',
-                'validationMessage' => 'backend::lang.dashboard.widget_title_error',
+                'validationMessage' => e(trans('backend::lang.dashboard.widget_title_error')),
             ]
         ];
     }
