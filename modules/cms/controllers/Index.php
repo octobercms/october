@@ -163,7 +163,7 @@ class Index extends Controller
          * Extensibility
          */
         Event::fire('cms.template.save', [$this, $template, $type]);
-        $this->fireEvent('cms.template.save', [$template, $type]);
+        $this->fireEvent('template.save', [$template, $type]);
 
         Flash::success(Lang::get('cms::lang.template.saved'));
 
@@ -235,7 +235,7 @@ class Index extends Controller
          * Extensibility
          */
         Event::fire('cms.template.delete', [$this, $type]);
-        $this->fireEvent('cms.template.delete', [$type]);
+        $this->fireEvent('template.delete', [$type]);
 
         return [
             'deleted' => $deleted,
@@ -256,7 +256,7 @@ class Index extends Controller
          * Extensibility
          */
         Event::fire('cms.template.delete', [$this, $type]);
-        $this->fireEvent('cms.template.delete', [$type]);
+        $this->fireEvent('template.delete', [$type]);
     }
 
     public function onGetTemplateList()
