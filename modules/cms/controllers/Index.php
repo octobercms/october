@@ -162,15 +162,15 @@ class Index extends Controller
         /*
          * Extensibility
          */
-        Event::fire('cms.template.save', [$this, $type]);
-        $this->fireEvent('cms.template.save', [$type]);
+        Event::fire('cms.template.save', [$this, $template, $type]);
+        $this->fireEvent('cms.template.save', [$template, $type]);
 
         Flash::success(Lang::get('cms::lang.template.saved'));
 
         $result = [
-            'templatePath' => $template->fileName,
+            'templatePath'  => $template->fileName,
             'templateMtime' => $template->mtime,
-            'tabTitle'        => $this->getTabTitle($type, $template)
+            'tabTitle'      => $this->getTabTitle($type, $template)
         ];
 
         if ($type == 'page') {
