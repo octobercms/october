@@ -113,9 +113,7 @@ return [
         'setup_title' => 'Configura elenco',
         'setup_help' => 'Utilizza le checkbox per selezionare le colonne che vuoi visualizzare nell\'elenco. Puoi cambiare la posizione delle colonne trascinandole verso l\'alto o il basso.',
         'records_per_page' => 'Record per pagina',
-        'records_per_page_help' => 'Seleziona il numero di record da visualizzare su ogni pagina. Ricorda che un numero elevato di record in una singola pagina può ridurre le prestazioni.',
-        'apply_changes' => 'Applica modifiche',
-        'cancel' => 'Annulla'
+        'records_per_page_help' => 'Seleziona il numero di record da visualizzare su ogni pagina. Ricorda che un numero elevato di record in una singola pagina può ridurre le prestazioni.'
     ],
     'form' => [
         'create_title' => "Nuovo :name",
