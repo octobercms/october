@@ -105,7 +105,7 @@
                      * Halt here if beforeUpdate() or data-request-before-update returns false
                      */
                     if (this.options.beforeUpdate.apply(this, [data, textStatus, jqXHR]) === false) return
-                    if (this.options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+this.options.evalBeforeUpdate+'}($el, context, data, textStatus, jqXHR))') === false) return
+                    if (this.options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+this.options.evalBeforeUpdate+'}(self.$el, context, data, textStatus, jqXHR))') === false) return
 
                     self.setContent(data.result)
                     $(window).trigger('ajaxUpdateComplete', [this, data, textStatus, jqXHR])
