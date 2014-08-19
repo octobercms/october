@@ -1,3 +1,7 @@
+* **Build 13x** (2014-08-xx)
+  - List widget has been refactored to improve efficiency.
+  - Added new list column type `nameFrom` (take name from X attribute) as an alternative to `select`.
+
 * **Build 137** (2014-08-14)
   - Lists now support Filters (see Backend > Lists docs).
   - Numerous hard coded phrases converted to localized strings.
