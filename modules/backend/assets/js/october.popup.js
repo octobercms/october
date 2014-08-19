@@ -1,6 +1,6 @@
 /*
  * Ajax Popup plugin
- * 
+ *
  * Data attributes:
  * - data-control="popup" - enables the ajax popup plugin
  * - data-ajax="popup-content.htm" - ajax content to load
@@ -99,9 +99,19 @@
             this.$el.request(this.options.handler, {
                 data: this.options.extraData,
                 success: function(data, textStatus, jqXHR) {
+                    var context = { handler: this.handler, options: this.options }
+
+                    /*
+                     * Halt here if beforeUpdate() or data-request-before-update returns false
+                     */
+                    if (this.options.beforeUpdate.apply(this, [data, textStatus, jqXHR]) === false) return
+                    if (this.options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+this.options.evalBeforeUpdate+'}(self.$el, context, data, textStatus, jqXHR))') === false) return
+
                     self.setContent(data.result)
                     $(window).trigger('ajaxUpdateComplete', [this, data, textStatus, jqXHR])
                     self.triggerEvent('popupComplete')
+
+                    this.options.evalSuccess && eval('(function($el, context, data, textStatus, jqXHR) {'+this.options.evalSuccess+'}(self.$el, context, data, textStatus, jqXHR))')
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
@@ -168,7 +178,7 @@
             this.$backdrop = null;
         }
     }
-    
+
     Popup.prototype.setLoading = function(val) {
         if (!this.$backdrop)
             return;
