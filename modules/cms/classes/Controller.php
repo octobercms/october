@@ -551,7 +551,18 @@ class Controller extends BaseController
      */
     public function renderPage()
     {
-        return $this->pageContents;
+        $contents = $this->pageContents;
+
+        /*
+         * Extensibility
+         */
+        if ($event = $this->fireEvent('page.render', [$contents], true))
+            return $event;
+
+        if ($event = Event::fire('cms.page.render', [$this, $contents], true))
+            return $event;
+
+        return $contents;
     }
 
     /**
