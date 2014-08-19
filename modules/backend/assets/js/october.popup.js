@@ -111,7 +111,7 @@
                     $(window).trigger('ajaxUpdateComplete', [this, data, textStatus, jqXHR])
                     self.triggerEvent('popupComplete')
 
-                    this.options.evalSuccess && eval('(function($el, context, data, textStatus, jqXHR) {'+this.options.evalSuccess+'}(this.$el, context, data, textStatus, jqXHR))')
+                    this.options.evalSuccess && eval('(function($el, context, data, textStatus, jqXHR) {'+this.options.evalSuccess+'}(self.$el, context, data, textStatus, jqXHR))')
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
