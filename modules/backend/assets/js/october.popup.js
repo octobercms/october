@@ -1,6 +1,6 @@
 /*
  * Ajax Popup plugin
- * 
+ *
  * Data attributes:
  * - data-control="popup" - enables the ajax popup plugin
  * - data-ajax="popup-content.htm" - ajax content to load
@@ -104,9 +104,11 @@
                     self.triggerEvent('popupComplete')
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
-                    self.hide()
-                    self.triggerEvent('popupError')
+                    this.error(jqXHR, textStatus, errorThrown).done(function(){
+                        alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
+                        self.hide()
+                        self.triggerEvent('popupError')
+                    })
                 }
             })
 
@@ -168,7 +170,7 @@
             this.$backdrop = null;
         }
     }
-    
+
     Popup.prototype.setLoading = function(val) {
         if (!this.$backdrop)
             return;
