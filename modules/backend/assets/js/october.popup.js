@@ -99,9 +99,11 @@
             this.$el.request(this.options.handler, {
                 data: this.options.extraData,
                 success: function(data, textStatus, jqXHR) {
-                    self.setContent(data.result)
-                    $(window).trigger('ajaxUpdateComplete', [this, data, textStatus, jqXHR])
-                    self.triggerEvent('popupComplete')
+                    this.success(data, textStatus, jqXHR).done(function(){
+                        self.setContent(data.result)
+                        $(window).trigger('ajaxUpdateComplete', [this, data, textStatus, jqXHR])
+                        self.triggerEvent('popupComplete')
+                    })
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
