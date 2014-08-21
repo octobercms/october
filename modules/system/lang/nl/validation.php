@@ -41,8 +41,8 @@ return array(
     "ip"               => "Het IP-adres van :attribute is ongeldig.",
     "max"              => array(
         "numeric" => "De waarde van :attribute mag niet hoger zijn dan :max.",
-        "file"    => "De bestandsgrootte van :attribute mag niet hoger zijn dan :max kilobytes.",
-        "string"  => "Het aantal tekens van :attribute mag niet hoger zijn dan :max tekens.",
+        "file"    => "De bestandsgrootte van :attribute mag niet groter zijn dan :max kilobytes.",
+        "string"  => "Het aantal tekens van :attribute mag niet groter zijn dan :max tekens.",
         "array"   => "Het veld :attribute mag niet meer dan :max objecten bevatten.",
     ),
     "mimes"            => "Het bestand van :attribute mag enkel zijn van het type: :values.",
