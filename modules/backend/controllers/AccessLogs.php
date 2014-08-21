@@ -8,6 +8,7 @@ use Backend;
 use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
+use Backend\Models\AccessLog;
 use System\Classes\ApplicationException;
 use System\Classes\SettingsManager;
 use Exception;
@@ -36,6 +37,13 @@ class AccessLogs extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('October.Backend', 'access_logs');
+    }
+    
+    public function onEmptyLog()
+    {
+        AccessLog::truncate();
+        Flash::success(Lang::get('backend::lang.access_log.empty_success'));
+        return $this->listRefresh();
     }
 
 }
