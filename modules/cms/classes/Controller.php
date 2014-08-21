@@ -196,6 +196,15 @@ class Controller extends BaseController
         CmsException::unmask();
 
         /*
+         * Extensibility
+         */
+        if ($event = $this->fireEvent('page.init', [$url, $page], true))
+            return $event;
+
+        if ($event = Event::fire('cms.page.init', [$this, $url, $page], true))
+            return $event;
+
+        /*
          * Execute AJAX event
          */
         if ($ajaxResponse = $this->execAjaxHandlers())
