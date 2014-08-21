@@ -243,5 +243,8 @@ return [
         'first_name' => 'First name',
         'last_name' => 'Last name',
         'email' => 'Email',
+        'empty_link' => 'Empty access log',
+        'empty_loading' => 'Emptying access log...',
+        'empty_success' => 'Successfully emptied the access log.',
     ],
 ];
