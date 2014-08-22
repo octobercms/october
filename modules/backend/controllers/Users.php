@@ -49,7 +49,7 @@ class Users extends Controller
         if ($context != 'myaccount' && $recordId == $this->user->id)
             return Redirect::to(Backend::url('backend/users/myaccount'));
 
-        return $this->getClassExtension('Backend.Behaviors.FormController')->update($recordId, $context);
+        return $this->asExtension('FormController')->update($recordId, $context);
     }
 
     /**
@@ -68,7 +68,7 @@ class Users extends Controller
      */
     public function myaccount_onSave()
     {
-        $result = $this->getClassExtension('Backend.Behaviors.FormController')->update_onSave($this->user->id, 'myaccount');
+        $result = $this->asExtension('FormController')->update_onSave($this->user->id, 'myaccount');
 
         /*
          * If the password or login name has been updated, reauthenticate the user
