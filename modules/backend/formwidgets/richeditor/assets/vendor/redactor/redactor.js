@@ -1,6 +1,6 @@
 /*
-	Redactor v9.2.4
-	Updated: May 15, 2014
+	Redactor v9.2.6
+	Updated: Jul 19, 2014
 
 	http://imperavi.com/redactor/
 
@@ -73,7 +73,7 @@
 	}
 
 	$.Redactor = Redactor;
-	$.Redactor.VERSION = '9.2.4';
+	$.Redactor.VERSION = '9.2.6';
 	$.Redactor.opts = {
 
 			// settings
@@ -116,10 +116,7 @@
 				'ctrl+shift+7': "this.execCommand('insertorderedlist', false)",
 				'ctrl+shift+8': "this.execCommand('insertunorderedlist', false)"
 			},
-			shortcutsAdd: {
-				'ctrl+3': "this.execCommand('removeFormat', false)"
-
-			},
+			shortcutsAdd: false,
 
 			autosave: false, // false or url
 			autosaveInterval: 60, // seconds
@@ -904,8 +901,6 @@
 				// do not sync
 				return false;
 			}
-
-
 			// fix second level up ul, ol
 			html = html.replace(/<\/li><(ul|ol)>([\w\W]*?)<\/(ul|ol)>/gi, '<$1>$2</$1></li>');
 
@@ -1011,11 +1006,17 @@
 
 			// remove spans
 			html = html.replace(/<span(.*?)>([\w\W]*?)<\/span>/gi, '$2');
+			html = html.replace(/<inline>([\w\W]*?)<\/inline>/gi, '$1');
 			html = html.replace(/<inline>/gi, '<span>');
 			html = html.replace(/<inline /gi, '<span ');
 			html = html.replace(/<\/inline>/gi, '</span>');
-			html = html.replace(/<span(.*?)class="redactor_placeholder"(.*?)>([\w\W]*?)<\/span>/gi, '');
 
+			if (this.opts.removeEmptyTags)
+			{
+				html = html.replace(/<span>([\w\W]*?)<\/span>/gi, '$1');
+			}
+
+			html = html.replace(/<span(.*?)class="redactor_placeholder"(.*?)>([\w\W]*?)<\/span>/gi, '');
 			html = html.replace(/<img(.*?)contenteditable="false"(.*?)>/gi, '<img$1$2>');
 
 			// special characters
@@ -2192,7 +2193,7 @@
 		},
 		toggleVisual: function()
 		{
-			var html = this.$source.hide().val();;
+			var html = this.$source.hide().val();
 			if (typeof this.modified !== 'undefined')
 			{
 				var modified = this.modified.replace(/\n/g, '');
@@ -2515,6 +2516,8 @@
 		{
 			if (!this.opts.air) return;
 
+			this.selectionSave();
+
 			var left, top;
 			$('.redactor_air').hide();
 
@@ -2620,6 +2623,11 @@
 					$item = $('<a href="#" class="' + btnObject.className + ' redactor_dropdown_' + btnName + '">' + btnObject.title + '</a>');
 					$item.on('click', $.proxy(function(e)
 					{
+						if (this.opts.air)
+						{
+							this.selectionRestore();
+						}
+
 						if (e.preventDefault) e.preventDefault();
 						if (this.browser('msie')) e.returnValue = false;
 
@@ -2629,6 +2637,7 @@
 
 						this.buttonActiveObserver();
 						if (this.opts.air) this.$air.fadeOut(100);
+
 
 					}, this));
 				}
@@ -2684,7 +2693,6 @@
 
 			var hdlHideDropDown = $.proxy(function(e)
 			{
-
 				this.dropdownHide(e, $dropdown);
 
 			}, this);
@@ -4408,7 +4416,25 @@
 			}
 			else
 			{
-				this.document.execCommand('fontSize', false, 4 );
+				var cmd, arg = value;
+				switch (attr)
+				{
+					case 'font-size':
+						cmd = 'fontSize';
+						arg = 4;
+					break;
+					case 'font-family':
+						cmd = 'fontName';
+					break;
+					case 'color':
+						cmd = 'foreColor';
+					break;
+					case 'background-color':
+						cmd = 'backColor';
+					break;
+				}
+
+				this.document.execCommand(cmd, false, arg);
 
 				var fonts = this.$editor.find('font');
 				$.each(fonts, $.proxy(function(i, s)
@@ -4630,9 +4656,9 @@
 				var range = sel.getRangeAt(0);
 				range.deleteContents();
 
-				var el = this.document.createElement('div');
+				var el = document.createElement('div');
 				el.innerHTML = html;
-				var frag = this.document.createDocumentFragment(), node, lastNode;
+				var frag = document.createDocumentFragment(), node, lastNode;
 				while ((node = el.firstChild))
 				{
 					lastNode = frag.appendChild(node);
@@ -5949,6 +5975,7 @@
 
 				if (node1.length != 0 && node2.length != 0)
 				{
+
 					this.selectionSet(node1[0], 0, node2[0], 0);
 				}
 				else if (node1.length != 0)
@@ -6064,6 +6091,7 @@
 			}
 			else
 			{
+
 				this.insertHtmlAdvanced(html, false);
 			}
 
@@ -7210,12 +7238,11 @@
 		showProgressBar: function()
 		{
 			this.buildProgressBar();
-			this.$progressBar.fadeIn();
+			$('#redactor-progress').fadeIn();
 		},
 		hideProgressBar: function()
 		{
-			this.buildProgressBar();
-			this.$progressBar.fadeOut(1500);
+			$('#redactor-progress').fadeOut(1500);
 		},
 
 		// MODAL
@@ -7337,8 +7364,8 @@
 			}
 
 			$('#redactor_modal_close').on('click', $.proxy(this.modalClose, this));
-			$(document).keyup($.proxy(this.modalCloseHandler, this));
-			this.$editor.keyup($.proxy(this.modalCloseHandler, this));
+			$(document).on('keyup', $.proxy(this.modalCloseHandler, this));
+			this.$editor.on('keyup', $.proxy(this.modalCloseHandler, this));
 
 			this.modalSetContent(content);
 			this.modalSetTitle(title);
@@ -7531,8 +7558,8 @@
 					$('#redactor_modal_overlay').hide().off('click', this.modalClose);
 				}
 
-				$(document).unbind('keyup', this.hdlModalClose);
-				this.$editor.unbind('keyup', this.hdlModalClose);
+				$(document).off('keyup', this.modalCloseHandler);
+				this.$editor.off('keyup', this.modalCloseHandler);
 
 				this.selectionRestore();
 
