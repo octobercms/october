@@ -81,7 +81,6 @@ class FileUpload extends FormWidgetBase
 
     protected function getFileList()
     {
-        $columnName = $this->columnName;
         $list = $this->getColumn()->withDeferred($this->sessionKey)->orderBy('sort_order')->get();
 
         /*
@@ -113,7 +112,6 @@ class FileUpload extends FormWidgetBase
     public function onRemoveAttachment()
     {
         if (($file_id = post('file_id')) && ($file = File::find($file_id))) {
-            $columnName = $this->columnName;
             $this->getColumn()->remove($file, $this->sessionKey);
         }
     }
@@ -205,7 +203,6 @@ class FileUpload extends FormWidgetBase
             if (!$uploadedFile->isValid())
                 throw new SystemException('File is not valid');
 
-            $columnName = $this->columnName;
             $fileRelation = $this->getColumn();
 
             $file = new File();
