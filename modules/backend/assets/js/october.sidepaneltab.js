@@ -115,7 +115,10 @@
     }
 
     SidePanelTab.prototype.updatePanelPosition = function() {
-        this.$el.height($(document).height() - this.mainNavHeight)
+        if (!this.panelFixed())
+            this.$el.height($(document).height() - this.mainNavHeight)
+        else
+            this.$el.css('height', '')
 
         if (this.panelVisible && $(window).width() > this.options.breakpoint && this.panelFixed())
             this.hideSidePanel()

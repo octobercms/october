@@ -47,6 +47,8 @@ class CmsCompoundObject extends CmsObject
 
     protected $settingsValidationMessages = [];
 
+    protected $viewBagCache = false;
+
     /**
      * Loads the object from a file.
      * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
@@ -201,6 +203,29 @@ class CmsCompoundObject extends CmsObject
         $this->content = trim(implode(PHP_EOL.'=='.PHP_EOL, $content));
         parent::save();
     }
+
+    /**
+     * Returns the configured view bag component.
+     * This method is used only in the back-end and for internal system needs when 
+     * the standard way to access components is not an option.
+     * @return \Cms\Classes\ViewBag Returns the view bag component instance.
+     */
+    public function getViewBag()
+    {
+        if ($this->viewBagCache !== false)
+            return $this->viewBagCache;
+
+        $componentName = 'viewBag';
+
+        if (!isset($this->settings['components'][$componentName]))
+            return $this->viewBagCache = null;
+
+        return $this->viewBagCache = ComponentManager::instance()->makeComponent(
+            $componentName, 
+            null, 
+            $this->settings['components'][$componentName]);
+    }
+
 
     /**
      * Parses the settings array.

@@ -13008,6 +13008,22 @@ div.popover-overlay {
   -moz-border-radius: 0;
   border-radius: 0;
 }
+.fancy-layout .field-richeditor {
+  border: none;
+  border-left: 1px solid #e0e0e0;
+}
+.fancy-layout .field-richeditor,
+.fancy-layout .field-richeditor .redactor_box,
+.fancy-layout .field-richeditor .redactor_toolbar {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+body.side-panel-not-fixed .fancy-layout .field-richeditor {
+  border-left: none;
+}
 html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-container .loading-indicator > span {
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
@@ -13455,35 +13471,35 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   margin: 0;
   padding: 0;
   list-style: none;
+  background: #ffffff;
 }
 .control-treeview ol > li {
-  position: relative;
-}
-.control-treeview ol > li span.expand {
-  display: none;
+  -webkit-transition: width 1s;
+  transition: width 1s;
 }
 .control-treeview ol > li > div {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: #2b3e50;
   background: #ffffff;
-  margin-bottom: 1px;
-  padding: 16px 16px 15px 51px;
+  border-bottom: 1px solid #ecf0f1;
+  padding: 16px 16px 15px 61px;
   position: relative;
+  cursor: pointer;
 }
 .control-treeview ol > li > div:before {
   content: ' ';
-  background-image: url(../images/treeview-icons.svg);
-  background-position: 0px top;
+  background-image: url(../images/treeview-icons.png);
+  background-position: 0px -28px;
   background-repeat: no-repeat;
-  background-size: 25px auto;
+  background-size: 42px auto;
   position: absolute;
   width: 21px;
-  height: 26px;
-  left: 18px;
+  height: 22px;
+  left: 28px;
   top: 20px;
 }
-.control-treeview ol > li > div > span {
+.control-treeview ol > li > div span.comment {
   display: block;
   font-weight: 400;
   color: #95a5a6;
@@ -13492,113 +13508,25 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.control-treeview ol > li > div:hover {
-  background-color: #58b6f7;
-  color: #ffffff;
-}
-.control-treeview ol > li > div:hover:before {
-  background-position: 0px -65px;
-}
-.control-treeview ol > li > div:hover > span {
-  color: #ffffff;
-}
-.control-treeview ol > li[data-status=collapsed] > ol {
-  display: none;
-}
-.control-treeview ol > li.has-subitems > div:before {
-  background-position: 0 -29px;
-  width: 23px;
-  height: 29px;
-  left: 16px;
-}
-.control-treeview ol > li.has-subitems > div:hover:before {
-  background-position: 0px -95px;
-}
-.control-treeview ol > li > ol > li > div {
-  padding-left: 71px;
-}
-.control-treeview ol > li > ol > li > div:before {
-  margin-left: 20px;
-}
-.control-treeview ol > li > ol > li > ol > li > div {
-  padding-left: 91px;
-}
-.control-treeview ol > li > ol > li > ol > li > div:before {
-  margin-left: 40px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > div {
-  padding-left: 111px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > div:before {
-  margin-left: 60px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div {
-  padding-left: 131px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
-  margin-left: 80px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
-  padding-left: 151px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
-  margin-left: 100px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
-  padding-left: 171px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
-  margin-left: 120px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
-  padding-left: 191px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
-  margin-left: 140px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
-  padding-left: 211px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
-  margin-left: 160px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
-  padding-left: 231px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
-  margin-left: 180px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
-  padding-left: 251px;
-}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
-  margin-left: 200px;
-}
-.oc-treeview-expand-control {
+.control-treeview ol > li > div > span.expand {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
   border: 0;
-  position: absolute;
-  width: 23px;
-  height: 23px;
-  border-radius: 20px;
-  background: #ffffff;
-  display: block;
-  z-index: 100;
-  cursor: pointer;
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s;
-}
-.oc-treeview-expand-control.expand-hidden {
   display: none;
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  top: 24px;
+  left: 2px;
+  cursor: pointer;
+  color: #bdc3c7;
+  -webkit-transition: transform 0.1s ease;
+  transition: transform 0.1s ease;
 }
-.oc-treeview-expand-control.expand-drag-hidden {
-  opacity: 0;
-  filter: alpha(opacity=0);
-}
-.oc-treeview-expand-control:before {
+.control-treeview ol > li > div > span.expand:before {
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
@@ -13606,24 +13534,320 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
   content: "\f0da";
+  line-height: 100%;
   font-size: 15px;
+  position: relative;
+  left: 8px;
+  top: 2px;
+}
+.control-treeview ol > li > div > span.drag-handle {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-transition: opacity 0.4s;
+  transition: opacity 0.4s;
   position: absolute;
-  left: 7px;
-  top: 12px;
-  color: #33495f;
-  -webkit-transition: all 0.1s ease;
-  transition: all 0.1s ease;
+  right: 10px;
+  bottom: 5px;
+  width: 14px;
+  height: 14px;
+  cursor: move;
+  color: #bdc3c7;
+  opacity: 0;
+  filter: alpha(opacity=0);
 }
-.oc-treeview-expand-control.hover {
-  background-color: #58b6f7;
+.control-treeview ol > li > div > span.drag-handle:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f0c9";
+  font-size: 14px;
 }
-.oc-treeview-expand-control.hover:before {
+.control-treeview ol > li > div span.borders {
+  font-size: 0;
+}
+.control-treeview ol > li.dragged div,
+.control-treeview ol > li > div:hover {
+  background-color: #58b6f7 !important;
+  color: #ffffff !important;
+}
+.control-treeview ol > li.dragged div:before,
+.control-treeview ol > li > div:hover:before {
+  background-position: 0px -80px;
+}
+.control-treeview ol > li.dragged div:after,
+.control-treeview ol > li > div:hover:after {
+  top: 0!important;
+  bottom: 0!important;
+}
+.control-treeview ol > li.dragged div span,
+.control-treeview ol > li > div:hover span {
+  color: #ffffff !important;
+}
+.control-treeview ol > li.dragged div span.drag-handle,
+.control-treeview ol > li > div:hover span.drag-handle {
+  cursor: move;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+.control-treeview ol > li.dragged div span.borders,
+.control-treeview ol > li > div:hover span.borders {
+  display: none;
+}
+.control-treeview ol > li.dragged li.has-subitems > div:before,
+.control-treeview ol > li.dragged.has-subitems > div:before {
+  background-position: 0px -52px;
+}
+.control-treeview ol > li > ol {
+  padding-left: 20px;
+}
+.control-treeview ol > li[data-status=collapsed] > ol {
+  display: none;
+}
+.control-treeview ol > li.has-subitems > div:before {
+  background-position: 0 0;
+  width: 23px;
+  height: 26px;
+  left: 26px;
+}
+.control-treeview ol > li.has-subitems > div:hover:before {
+  background-position: 0px -52px;
+}
+.control-treeview ol > li.has-subitems > div span.expand {
+  display: block;
+}
+.control-treeview ol > li.placeholder {
+  height: 0;
+  position: relative;
+  border-bottom: 1px dotted #c03f31;
+}
+.control-treeview ol > li.placeholder:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f0da";
+  font-size: 23px;
+  color: white;
+  position: absolute;
+  left: -11px;
+  top: -17px;
+  z-index: 1900;
+}
+.control-treeview ol > li.placeholder:after {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f0da";
+  font-size: 21px;
+  color: #c03f31;
+  position: absolute;
+  left: -10px;
+  top: -14px;
+  z-index: 1901;
+}
+.control-treeview ol > li.dragged {
+  position: absolute;
+  z-index: 2000;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+.control-treeview ol > li.dragged > div {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.control-treeview ol > li.drop-target > div {
+  background-color: #2581b8!important;
   color: #ffffff;
 }
-.oc-treeview-expand-control[data-status=expanded]:before {
+.control-treeview ol > li.drop-target > div:before {
+  background-position: 0px -80px;
+}
+.control-treeview ol > li.drop-target > div > span.comment {
+  color: #ffffff;
+}
+.control-treeview ol > li.drop-target.has-subitems > div:before {
+  background-position: 0px -52px;
+}
+.control-treeview ol > li[data-status=expanded] > div > span.expand {
   -webkit-transform: rotate(90deg) translate(0, 0);
   -ms-transform: rotate(90deg) translate(0, 0);
   transform: rotate(90deg) translate(0, 0);
+}
+.control-treeview ol > li.drag-ghost {
+  background-color: transparent;
+  box-sizing: content-box;
+}
+.control-treeview ol > li.active > div {
+  background: #dddddd;
+}
+.control-treeview ol > li.active > div:after {
+  position: absolute;
+  width: 4px;
+  left: 0;
+  top: -1px;
+  bottom: -1px;
+  background: #e67e22;
+  display: block;
+  content: ' ';
+}
+.control-treeview ol > li.active > div > span.comment,
+.control-treeview ol > li.active > div > span.expand {
+  color: #8f8f8f;
+}
+.control-treeview ol > li.active > div > span.borders:before,
+.control-treeview ol > li.active > div > span.borders:after {
+  content: ' ';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  display: block;
+  left: 0;
+  background-color: #dddddd;
+}
+.control-treeview ol > li.active > div > span.borders:before {
+  top: -1px;
+}
+.control-treeview ol > li.active > div > span.borders:after {
+  bottom: -1px;
+}
+.control-treeview ol > li > ol > li > div {
+  margin-left: -20px;
+  padding-left: 71px;
+}
+.control-treeview ol > li > ol > li > div:before {
+  margin-left: 10px;
+}
+.control-treeview ol > li > ol > li > div > span.expand {
+  left: 12px;
+}
+.control-treeview ol > li > ol > li > ol > li > div {
+  margin-left: -40px;
+  padding-left: 81px;
+}
+.control-treeview ol > li > ol > li > ol > li > div:before {
+  margin-left: 20px;
+}
+.control-treeview ol > li > ol > li > ol > li > div > span.expand {
+  left: 22px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > div {
+  margin-left: -60px;
+  padding-left: 91px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > div:before {
+  margin-left: 30px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > div > span.expand {
+  left: 32px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div {
+  margin-left: -80px;
+  padding-left: 101px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
+  margin-left: 40px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand {
+  left: 42px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
+  margin-left: -100px;
+  padding-left: 111px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
+  margin-left: 50px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand {
+  left: 52px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
+  margin-left: -120px;
+  padding-left: 121px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
+  margin-left: 60px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand {
+  left: 62px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
+  margin-left: -140px;
+  padding-left: 131px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
+  margin-left: 70px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand {
+  left: 72px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
+  margin-left: -160px;
+  padding-left: 141px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
+  margin-left: 80px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand {
+  left: 82px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
+  margin-left: -180px;
+  padding-left: 151px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
+  margin-left: 90px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand {
+  left: 92px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
+  margin-left: -200px;
+  padding-left: 161px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
+  margin-left: 100px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand {
+  left: 102px;
+}
+@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
+  .control-treeview ol > li > div:before {
+    background-position: 0px -79px;
+    background-size: 21px auto;
+  }
+  .control-treeview ol > li.has-subitems > div:before {
+    background-position: 0px -52px;
+  }
+  .control-treeview ol > li.has-subitems > div:hover:before {
+    background-position: 0px -102px;
+  }
+  .control-treeview ol > li.dragged > div:before,
+  .control-treeview ol > li.dragged li > div:before,
+  .control-treeview ol > li > div:hover:before {
+    background-position: 0px -129px;
+  }
+  .control-treeview ol > li.dragged li.has-subitems > div:before,
+  .control-treeview ol > li.dragged.has-subitems > div:before {
+    background-position: 0px -102px;
+  }
+  .control-treeview ol > li.drop-target > div:before {
+    background-position: 0px -129px;
+  }
+  .control-treeview ol > li.drop-target.has-subitems > div:before {
+    background-position: 0px -102px;
+  }
 }
 .callout {
   font-size: 14px;

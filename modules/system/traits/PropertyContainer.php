@@ -82,7 +82,7 @@ trait PropertyContainer
      */
     public function property($name, $default = null)
     {
-        return isset($this->properties[$name])
+        return array_key_exists($name, $this->properties)
             ? $this->properties[$name]
             : $default;
     }

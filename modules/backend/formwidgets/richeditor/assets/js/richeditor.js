@@ -44,7 +44,8 @@
          */
         var redactorOptions = {
             focusCallback: function() { self.$el.addClass('editor-focus') },
-            blurCallback: function() { self.$el.removeClass('editor-focus') }
+            blurCallback: function() { self.$el.removeClass('editor-focus') },
+            initCallback: function() { self.build() }
         }
 
         if (this.options.stylesheet) {
@@ -57,6 +58,15 @@
         }
 
         this.$textarea.redactor(redactorOptions)
+    }
+
+    RichEditor.prototype.build = function() {
+        if (this.$el.hasClass('stretch')) {
+            var $iframe = $('iframe', this.$el),
+                $toolbar = $('.redactor_toolbar', this.$el)
+
+            $iframe.css('padding-top', $toolbar.height())
+        }
     }
 
     // RICHEDITOR PLUGIN DEFINITION

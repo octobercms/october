@@ -3,7 +3,7 @@
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
-        class="field-richeditor size-<?= $size ?> <?= $stretch?'layout-item stretch':'' ?>"
+        class="field-richeditor size-<?= $size ?> <?= $stretch?'layout-relative stretch':'' ?>"
         data-stylesheet="<?= URL::to('/modules/backend/formwidgets/richeditor/assets/css/iframe.css') ?>"
         <?php if ($fullPage): ?>data-fullpage="true"<?php endif ?>
         data-control="richeditor">

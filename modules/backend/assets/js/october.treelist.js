@@ -19,15 +19,18 @@
 
         this.options = options || {};
 
-        $el.find('> ol').sortable({
+        var sortableOptions = {
             handle: options.handle,
             onDrop: function($item, container, _super) {
                 self.$el.trigger('move.oc.treelist', { item: $item, container: container })
                 _super($item, container)
+            },
+            afterMove: function($placeholder, container, $closestEl) {
+                self.$el.trigger('aftermove.oc.treelist', { placeholder: $placeholder, container: container, closestEl: $closestEl })
             }
+        }
 
-        })
-
+        $el.find('> ol').sortable($.extend(sortableOptions, options))
     }
 
     TreeListWidget.DEFAULTS = {
