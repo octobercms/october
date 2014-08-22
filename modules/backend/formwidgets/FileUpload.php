@@ -1,5 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
+use Str;
 use Input;
 use Validator;
 use System\Models\File;
@@ -63,10 +64,25 @@ class FileUpload extends FormWidgetBase
         $this->vars['imageWidth'] = $this->imageWidth;
     }
 
+    protected function getColumn()
+    {
+        $model = $this->model;
+        $columnName = $this->columnName;
+        $relations = Str::evalHtmlArray($columnName);
+        $last_relation = array_pop($relations);
+
+        while ( $relations )
+        {
+            $relation = array_shift($relations);
+            $model = $model->$relation;
+        }
+        return $model->$last_relation();
+    }
+
     protected function getFileList()
     {
         $columnName = $this->columnName;
-        $list = $this->model->$columnName()->withDeferred($this->sessionKey)->orderBy('sort_order')->get();
+        $list = $this->getColumn()->withDeferred($this->sessionKey)->orderBy('sort_order')->get();
 
         /*
          * Set the thumb for each file
@@ -98,7 +114,7 @@ class FileUpload extends FormWidgetBase
     {
         if (($file_id = post('file_id')) && ($file = File::find($file_id))) {
             $columnName = $this->columnName;
-            $this->model->$columnName()->remove($file, $this->sessionKey);
+            $this->getColumn()->remove($file, $this->sessionKey);
         }
     }
 
@@ -190,7 +206,7 @@ class FileUpload extends FormWidgetBase
                 throw new SystemException('File is not valid');
 
             $columnName = $this->columnName;
-            $fileRelation = $this->model->$columnName();
+            $fileRelation = $this->getColumn();
 
             $file = new File();
             $file->data = $uploadedFile;
