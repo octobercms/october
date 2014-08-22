@@ -61,12 +61,27 @@
     }
 
     RichEditor.prototype.build = function() {
-        if (this.$el.hasClass('stretch')) {
-            var $iframe = $('iframe', this.$el),
-                $toolbar = $('.redactor_toolbar', this.$el)
+        var $iframe = this.$textarea.redactor('getIframe'),
+            $toolbar = this.$textarea.redactor('getToolbar'),
+            $html = $('html')
 
+        if (!$iframe)
+            return
+
+        if (this.$el.hasClass('stretch')) {
             $iframe.css('padding-top', $toolbar.height())
         }
+
+        /*
+         * Replicate hotkeys to parent container
+         */
+        $iframe.contents().find('html').on('keydown', function(event){
+            $html.triggerHandler(event)
+        })
+
+        $iframe.contents().find('html').on('keyup', function(event){
+            $html.triggerHandler(event)
+        })
     }
 
     // RICHEDITOR PLUGIN DEFINITION
