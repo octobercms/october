@@ -46,7 +46,7 @@ class Lists extends WidgetBase
     protected $visibleColumns;
 
     /**
-     * @var array All available columns.
+     * @var array Collection of all list columns used in this list.
      */
     protected $columns;
 
@@ -402,15 +402,8 @@ class Lists extends WidgetBase
          * Apply sorting
          */
         if ($sortColumn = $this->getSortColumn()) {
-            // Determine if the column has an sqlSelect
-            foreach ($this->getListColumns() as $column) {
-                if ($column->columnName == $sortColumn) {
-                    if ($column->sqlSelect) {
-                        $sortColumn = $column->sqlSelect;
-                    }
-                    break;
-                }
-            }
+            if ($column = array_get($this->columns, $sortColumn) && $column->sqlSelect)
+                $sortColumn = $column->sqlSelect;
 
             $query->orderBy($sortColumn, $this->sortDirection);
         }
@@ -489,11 +482,30 @@ class Lists extends WidgetBase
     }
 
     /**
+     * Get all the registered columns for the instance.
+     * @return array
+     */
+    public function getColumns()
+    {
+        return $this->columns ?: $this->defineListColumns();
+    }
+
+    /**
+     * Get a specified column object
+     * @param  string $column
+     * @return mixed
+     */
+    public function getColumn($column)
+    {
+        return $this->columns[$column];
+    }
+
+    /**
      * Returns the list columns that are visible by list settings or default
      */
     protected function getVisibleListColumns()
     {
-        $definitions = $this->getListColumns();
+        $definitions = $this->defineListColumns();
         $columns = [];
 
         /*
@@ -531,7 +543,7 @@ class Lists extends WidgetBase
     /**
      * Builds an array of list columns with keys as the column name and values as a ListColumn object.
      */
-    protected function getListColumns()
+    protected function defineListColumns()
     {
         if (!isset($this->config->columns) || !is_array($this->config->columns) || !count($this->config->columns))
             throw new ApplicationException(Lang::get('backend::lang.list.missing_columns', ['class'=>get_class($this->controller)]));
@@ -832,7 +844,7 @@ class Lists extends WidgetBase
      */
     protected function getSearchableColumns()
     {
-        $columns = $this->columns ?: $this->getListColumns();
+        $columns = $this->getColumns();
         $searchable = [];
 
         foreach ($columns as $column) {
@@ -942,7 +954,7 @@ class Lists extends WidgetBase
         if ($this->sortableColumns !== null)
             return $this->sortableColumns;
 
-        $columns = $this->columns ?: $this->getListColumns();
+        $columns = $this->getColumns();
         $sortable = [];
 
         foreach ($columns as $column) {
@@ -1006,12 +1018,12 @@ class Lists extends WidgetBase
         /*
          * Force all columns invisible
          */
-        $allColumns = $this->getListColumns();
-        foreach ($allColumns as $column) {
+        $columns = $this->defineListColumns();
+        foreach ($columns as $column) {
             $column->invisible = true;
         }
 
-        return array_merge($allColumns, $this->getVisibleListColumns());
+        return array_merge($columns, $this->getVisibleListColumns());
     }
 
     //
