@@ -494,6 +494,15 @@ class Controller extends BaseController
     }
 
     /**
+     * Invokes the current page cycle without rendering the page,
+     * used by AJAX handler that may rely on the logic inside the action.
+     */
+    public function pageCycle()
+    {
+        return $this->execPageCycle();
+    }
+
+    /**
      * Executes the page life cycle.
      * Creates an object from the PHP sections of the page and
      * it's layout, then executes their life cycle functions.

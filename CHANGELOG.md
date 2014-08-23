@@ -1,5 +1,6 @@
 * **Build 14x** (2014-08-xx)
   - Components and variables can now be accessed in the page code section via `$this->foo` in addition to `$this['foo']`.
+  - AJAX handlers in the CMS can now invoke the page cycle without rendering the page using `$this->pageCycle()`.
 
 * **Build 139** (2014-08-18)
   - List widget has been refactored to improve efficiency.
