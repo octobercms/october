@@ -412,13 +412,14 @@ class Lists extends WidgetBase
             $callback($query);
         }
 
+        $query->select($selects);
+
         /*
          * Extensibility
          */
         Event::fire('backend.list.extendQuery', [$this, $query]);
         $this->fireEvent('list.extendQuery', [$query]);
 
-        $query->select($selects);
         return $query;
     }
 
@@ -1042,7 +1043,7 @@ class Lists extends WidgetBase
     //
     // Helpers
     //
-    
+
     /**
      * Check if column refers to a relation of the model
      * @param  ListColumn  $column List column object
