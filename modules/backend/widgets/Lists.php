@@ -402,7 +402,7 @@ class Lists extends WidgetBase
          * Apply sorting
          */
         if ($sortColumn = $this->getSortColumn()) {
-            if ($column = array_get($this->columns, $sortColumn) && $column->sqlSelect)
+            if (($column = array_get($this->columns, $sortColumn)) && $column->sqlSelect)
                 $sortColumn = $column->sqlSelect;
 
             $query->orderBy($sortColumn, $this->sortDirection);
