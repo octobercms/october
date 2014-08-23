@@ -402,6 +402,16 @@ class Lists extends WidgetBase
          * Apply sorting
          */
         if ($sortColumn = $this->getSortColumn()) {
+            // Determine if the column has an sqlSelect
+            foreach ($this->getListColumns() as $column) {
+                if ($column->columnName == $sortColumn) {
+                    if ($column->sqlSelect) {
+                        $sortColumn = $column->sqlSelect;
+                    }
+                    break;
+                }
+            }
+
             $query->orderBy($sortColumn, $this->sortDirection);
         }
 
@@ -1049,7 +1059,7 @@ class Lists extends WidgetBase
     //
     // Helpers
     //
-    
+
     /**
      * Check if column refers to a relation of the model
      * @param  ListColumn  $column List column object
