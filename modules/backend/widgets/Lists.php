@@ -413,12 +413,16 @@ class Lists extends WidgetBase
         }
 
         /*
+         * Add custom selects
+         */
+        $query->select($selects);
+
+        /*
          * Extensibility
          */
         Event::fire('backend.list.extendQuery', [$this, $query]);
         $this->fireEvent('list.extendQuery', [$query]);
 
-        $query->select($selects);
         return $query;
     }
 
