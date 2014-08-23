@@ -690,6 +690,9 @@ class Lists extends WidgetBase
     {
         return $this->controller->makePartial($column->path ?: $column->columnName, [
             'listColumn' => $column,
+            'listRecord' => $record,
+            'listValue'  => $value,
+            'column'     => $column,
             'record'     => $record,
             'value'      => $value
         ]);
