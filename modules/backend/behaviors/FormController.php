@@ -12,6 +12,7 @@ use October\Rain\Support\Util;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Classes\ApplicationException;
 use Exception;
+use Schema;
 
 /**
  * Form Controller Behavior
@@ -313,8 +314,10 @@ class FormController extends ControllerBehavior
         if (post('redirect', true))
             $redirectUrl = Backend::url($this->getRedirectUrl($context));
 
-        if ($model && $redirectUrl)
-            $redirectUrl = RouterHelper::parseValues($model, [$model->getKeyName()], $redirectUrl);
+        if ($model && $redirectUrl) {
+            $columns = Schema::getColumnListing($model->table);
+            $redirectUrl = RouterHelper::parseValues($model, $columns, $redirectUrl);   
+        }
 
         return ($redirectUrl) ? Redirect::to($redirectUrl) : null;
     }
