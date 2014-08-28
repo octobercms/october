@@ -5,6 +5,7 @@ use Cms\Classes\CodeBase;
 use System\Classes\SystemException;
 use Cms\Classes\FileHelper;
 use October\Rain\Support\ValidationException;
+use Cms\Classes\ViewBag;
 
 /**
  * This is a base class for CMS objects that have multiple sections - pages, partials and layouts.
@@ -46,6 +47,10 @@ class CmsCompoundObject extends CmsObject
     protected $settingsValidationRules = [];
 
     protected $settingsValidationMessages = [];
+
+    protected $viewBagValidationRules = [];
+
+    protected $viewBagValidationMessages = [];
 
     protected $viewBagCache = false;
 
@@ -217,8 +222,12 @@ class CmsCompoundObject extends CmsObject
 
         $componentName = 'viewBag';
 
-        if (!isset($this->settings['components'][$componentName]))
-            return $this->viewBagCache = null;
+        if (!isset($this->settings['components'][$componentName])) {
+            $viewBag = new ViewBag(null, []);
+            $viewBag->name = $componentName;
+
+            return $this->viewBagCache = $viewBag;
+        }
 
         return $this->viewBagCache = ComponentManager::instance()->makeComponent(
             $componentName, 
@@ -266,5 +275,11 @@ class CmsCompoundObject extends CmsObject
         $validation = Validator::make($this->settings, $this->settingsValidationRules, $this->settingsValidationMessages);
         if ($validation->fails())
             throw new ValidationException($validation);
+
+        if ($this->viewBagValidationRules && isset($this->settings['viewBag'])) {
+            $validation = Validator::make($this->settings['viewBag'], $this->viewBagValidationRules, $this->viewBagValidationMessages);
+            if ($validation->fails())
+                throw new ValidationException($validation);
+        }
     }
 }

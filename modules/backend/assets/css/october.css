@@ -13467,6 +13467,9 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   top: 8px;
   z-index: 2000;
 }
+.control-treeview {
+  margin-bottom: 40px;
+}
 .control-treeview ol {
   margin: 0;
   padding: 0;
@@ -13480,12 +13483,18 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 .control-treeview ol > li > div {
   font-size: 13px;
   font-weight: 600;
-  color: #2b3e50;
   background: #ffffff;
   border-bottom: 1px solid #ecf0f1;
-  padding: 16px 16px 15px 61px;
   position: relative;
-  cursor: pointer;
+}
+.control-treeview ol > li > div > a {
+  color: #2b3e50;
+  padding: 16px 45px 15px 61px;
+  display: block;
+  text-decoration: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .control-treeview ol > li > div:before {
   content: ' ';
@@ -13549,7 +13558,7 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   -webkit-transition: opacity 0.4s;
   transition: opacity 0.4s;
   position: absolute;
-  right: 10px;
+  right: 24px;
   bottom: 5px;
   width: 14px;
   height: 14px;
@@ -13571,9 +13580,68 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 .control-treeview ol > li > div span.borders {
   font-size: 0;
 }
+.control-treeview ol > li > div > ul.submenu {
+  position: absolute;
+  left: 20px;
+  bottom: -37px;
+  padding: 0;
+  list-style: none;
+  z-index: 200;
+  height: 37px;
+  display: none;
+  margin-left: 15px;
+  background: transparent url(../images/treeview-submenu-tabs.png) repeat-x left -39px;
+}
+.control-treeview ol > li > div > ul.submenu:before,
+.control-treeview ol > li > div > ul.submenu:after {
+  background: transparent url(../images/treeview-submenu-tabs.png) no-repeat left top;
+  content: ' ';
+  display: block;
+  width: 20px;
+  height: 37px;
+  position: absolute;
+  top: 0;
+}
+.control-treeview ol > li > div > ul.submenu:before {
+  left: -20px;
+}
+.control-treeview ol > li > div > ul.submenu:after {
+  background-position: -100px top;
+  right: -20px;
+}
+.control-treeview ol > li > div > ul.submenu li {
+  font-size: 12px;
+}
+.control-treeview ol > li > div > ul.submenu li a {
+  display: block;
+  padding: 4px 3px 0 3px;
+  color: #ffffff;
+  text-decoration: none;
+  outline: none;
+}
+.control-treeview ol > li > div > ul.submenu li a i {
+  margin-right: 5px;
+}
+.control-treeview ol > li > div:hover > ul.submenu {
+  display: block;
+}
+.control-treeview ol > li > div .checkbox {
+  position: absolute;
+  top: 19px;
+  right: 17px;
+}
+.control-treeview ol > li > div .checkbox label {
+  margin-right: 0;
+}
+.control-treeview ol > li > div .checkbox label:before {
+  border-color: #cccccc;
+}
 .control-treeview ol > li.dragged div,
 .control-treeview ol > li > div:hover {
   background-color: #58b6f7 !important;
+}
+.control-treeview ol > li.dragged div > a,
+.control-treeview ol > li > div:hover > a {
   color: #ffffff !important;
 }
 .control-treeview ol > li.dragged div:before,
@@ -13602,6 +13670,9 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 .control-treeview ol > li.dragged li.has-subitems > div:before,
 .control-treeview ol > li.dragged.has-subitems > div:before {
   background-position: 0px -52px;
+}
+.control-treeview ol > li.dragged div > ul.submenu {
+  display: none!important;
 }
 .control-treeview ol > li > ol {
   padding-left: 20px;
@@ -13669,13 +13740,15 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 }
 .control-treeview ol > li.drop-target > div {
   background-color: #2581b8!important;
+}
+.control-treeview ol > li.drop-target > div > a {
+  color: #ffffff;
+}
+.control-treeview ol > li.drop-target > div > a > span.comment {
   color: #ffffff;
 }
 .control-treeview ol > li.drop-target > div:before {
   background-position: 0px -80px;
-}
-.control-treeview ol > li.drop-target > div > span.comment {
-  color: #ffffff;
 }
 .control-treeview ol > li.drop-target.has-subitems > div:before {
   background-position: 0px -52px;
@@ -13726,6 +13799,10 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   margin-left: -20px;
   padding-left: 71px;
 }
+.control-treeview ol > li > ol > li > div > a {
+  margin-left: -71px;
+  padding-left: 71px;
+}
 .control-treeview ol > li > ol > li > div:before {
   margin-left: 10px;
 }
@@ -13734,6 +13811,10 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 }
 .control-treeview ol > li > ol > li > ol > li > div {
   margin-left: -40px;
+  padding-left: 81px;
+}
+.control-treeview ol > li > ol > li > ol > li > div > a {
+  margin-left: -81px;
   padding-left: 81px;
 }
 .control-treeview ol > li > ol > li > ol > li > div:before {
@@ -13746,6 +13827,10 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   margin-left: -60px;
   padding-left: 91px;
 }
+.control-treeview ol > li > ol > li > ol > li > ol > li > div > a {
+  margin-left: -91px;
+  padding-left: 91px;
+}
 .control-treeview ol > li > ol > li > ol > li > ol > li > div:before {
   margin-left: 30px;
 }
@@ -13754,6 +13839,10 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 }
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div {
   margin-left: -80px;
+  padding-left: 101px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div > a {
+  margin-left: -101px;
   padding-left: 101px;
 }
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
@@ -13766,6 +13855,10 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   margin-left: -100px;
   padding-left: 111px;
 }
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a {
+  margin-left: -111px;
+  padding-left: 111px;
+}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
   margin-left: 50px;
 }
@@ -13774,6 +13867,10 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 }
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
   margin-left: -120px;
+  padding-left: 121px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a {
+  margin-left: -121px;
   padding-left: 121px;
 }
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
@@ -13786,6 +13883,10 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   margin-left: -140px;
   padding-left: 131px;
 }
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a {
+  margin-left: -131px;
+  padding-left: 131px;
+}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
   margin-left: 70px;
 }
@@ -13794,6 +13895,10 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 }
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
   margin-left: -160px;
+  padding-left: 141px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a {
+  margin-left: -141px;
   padding-left: 141px;
 }
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
@@ -13806,6 +13911,10 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   margin-left: -180px;
   padding-left: 151px;
 }
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a {
+  margin-left: -151px;
+  padding-left: 151px;
+}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {
   margin-left: 90px;
 }
@@ -13814,6 +13923,10 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 }
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div {
   margin-left: -200px;
+  padding-left: 161px;
+}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a {
+  margin-left: -161px;
   padding-left: 161px;
 }
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before {

@@ -30,36 +30,7 @@
          * Init the sortable
          */
 
-        this.$el.treeListWidget({
-            tweakCursorAdjustment: function(adjustment) {
-                if (!adjustment)
-                    return adjustment
-
-                if (self.$scrollbar.length > 0) {
-                    adjustment.top -= self.$scrollbar.scrollTop()
-                }
-
-                return adjustment;
-            },
-            isValidTarget: function($item, container) {
-                return $(container.el).closest('li').attr('data-status') != 'collapsed'
-            },
-            useAnimation: true,
-            handle: 'span.drag-handle'
-        })
-
-        this.$el.on('move.oc.treelist', function(){
-            setTimeout(function(){
-                self.$allItems.removeClass('drop-target')
-                self.fixSubItems()
-                self.sendReorderRequest()
-            }, 50)
-        })
-
-        this.$el.on('aftermove.oc.treelist', function(event, data) {
-            self.$allItems.removeClass('drop-target')
-            data.container.el.closest('li').addClass('drop-target')
-        })
+        this.initSortable()
 
         /*
          * Create expand/collapse icons and drag handles
@@ -71,8 +42,15 @@
          * Bind the click events
          */
 
-        this.$el.on('click', 'li > div', function(event) {
-            var e = $.Event('open.oc.treeview', {relatedTarget: $(this).parent().get(0), clickEvent: event})
+        this.$el.on('click', 'li > div > ul.submenu li a', function(event) {
+            var e = $.Event('submenu.oc.treeview', {relatedTarget: this, clickEvent: event})
+            self.$el.trigger(e, this)
+
+            return false
+        })
+
+        this.$el.on('click', 'li > div > a', function(event) {
+            var e = $.Event('open.oc.treeview', {relatedTarget: $(this).closest('li').get(0), clickEvent: event})
             self.$el.trigger(e, this)
 
             return false
@@ -192,6 +170,44 @@
         this.$el.request(this.options.reorderHandler, {data: {structure: JSON.stringify(groups)}})
     }
 
+    TreeView.prototype.initSortable = function() {
+        var self = this
+
+        if (this.$el.data('oc.treelist'))
+            this.$el.treeListWidget('unbind')
+
+        this.$el.treeListWidget({
+            tweakCursorAdjustment: function(adjustment) {
+                if (!adjustment)
+                    return adjustment
+
+                if (self.$scrollbar.length > 0) {
+                    adjustment.top -= self.$scrollbar.scrollTop()
+                }
+
+                return adjustment;
+            },
+            isValidTarget: function($item, container) {
+                return $(container.el).closest('li').attr('data-status') != 'collapsed'
+            },
+            useAnimation: true,
+            handle: 'span.drag-handle'
+        })
+
+        this.$el.on('move.oc.treelist', function(){
+            setTimeout(function(){
+                self.$allItems.removeClass('drop-target')
+                self.fixSubItems()
+                self.sendReorderRequest()
+            }, 50)
+        })
+
+        this.$el.on('aftermove.oc.treelist', function(event, data) {
+            self.$allItems.removeClass('drop-target')
+            data.container.el.closest('li').addClass('drop-target')
+        })
+    }
+
     TreeView.prototype.markActive = function(dataId) {
         $('li', this.$el).removeClass('active')
 
@@ -202,7 +218,9 @@
     }
 
     TreeView.prototype.update = function() {
+        this.$allItems = $('li', this.$el)
         this.createItemControls()
+        this.initSortable()
 
         if (this.dataId !== undefined)
             this.markActive(this.dataId)

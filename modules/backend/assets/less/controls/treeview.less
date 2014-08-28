@@ -1,4 +1,6 @@
 .control-treeview {
+    margin-bottom: 40px;
+
     ol {
         margin: 0;
         padding: 0;
@@ -11,12 +13,17 @@
             > div {
                 font-size: 13px;
                 font-weight: 600;
-                color: @color-treeview-item-title;
                 background: @color-treeview-item-bg;
                 border-bottom: 1px solid @color-panel-light;
-                padding: 16px 16px 15px 61px;
                 position: relative;
-                cursor: pointer;
+
+                > a {
+                    color: @color-treeview-item-title;
+                    padding: 16px 45px 15px 61px;
+                    display: block;
+                    text-decoration: none;
+                    .box-sizing(border-box);
+                }
 
                 &:before {
                     content: ' ';
@@ -71,7 +78,7 @@
                     .transition(opacity 0.4s);
 
                     position: absolute;
-                    right: 10px;
+                    right: 24px;
                     bottom: 5px;
                     width: 14px;
                     height: 14px;
@@ -88,11 +95,83 @@
                 span.borders {
                     font-size: 0;
                 }
+
+                > ul.submenu {
+                    position: absolute;
+                    left: 20px;
+                    bottom: -37px;
+                    padding: 0;
+                    list-style: none;
+                    z-index: 200;
+                    height: 37px;
+                    display: none;
+                    margin-left: 15px;
+
+                    background: transparent url(../images/treeview-submenu-tabs.png) repeat-x left -39px;
+
+                    &:before, &:after {
+                        background: transparent url(../images/treeview-submenu-tabs.png) no-repeat left top;
+                        content: ' ';
+                        display: block;
+                        width: 20px;
+                        height: 37px;
+                        position: absolute;
+                        top: 0;
+                    }
+
+                    &:before {
+                        left: -20px;
+                    }
+
+                    &:after {
+                        background-position: -100px top;
+                        right: -20px;
+                    }
+
+                    li {
+                        font-size: 12px;
+
+                        a {
+                            display: block;
+                            padding: 4px 3px 0 3px;
+                            color: @color-treeview-submenu-text;
+                            text-decoration: none;
+                            outline: none;
+
+                            i {
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    > ul.submenu {
+                        display: block;
+                    }
+                }
+
+                .checkbox {
+                    position: absolute;
+                    top: 19px;
+                    right: 17px;
+
+                    label {
+                        margin-right: 0;
+
+                        &:before {
+                            border-color: @color-filelist-cb-border;
+                        }
+                    }
+                }
             }
 
             &.dragged div, > div:hover {
                 background-color: @color-treeview-hover-bg!important;
-                color: @color-treeview-hover-text!important;
+
+                > a {
+                    color: @color-treeview-hover-text!important;
+                }
 
                 &:before {
                     background-position: 0px -80px;
@@ -122,6 +201,10 @@
                     > div:before {
                         background-position: 0px -52px;
                     }
+                }
+
+                div > ul.submenu {
+                    display: none!important;
                 }
             }
 
@@ -193,14 +276,16 @@
             &.drop-target  {
                 > div {
                     background-color: #2581b8!important;
-                    color: @color-treeview-hover-text;
+
+                    > a {
+                        color: @color-treeview-hover-text;
+                        > span.comment {
+                            color: @color-treeview-hover-text;
+                        }
+                    }
 
                     &:before {
                         background-position: 0px -80px;
-                    }
-
-                    > span.comment {
-                        color: @color-treeview-hover-text;
                     }
                 }
 
@@ -263,6 +348,11 @@
                     > li > div {
                         margin-left: -20-(@max-level - @level)*20px;
                         padding-left: 61+(@max-level - @level + 1)*10px;
+
+                        > a {
+                            margin-left: -61-(@max-level - @level + 1)*10px;
+                            padding-left: 61+(@max-level - @level + 1)*10px;
+                        }
 
                         &:before {
                             margin-left: (@max-level - @level + 1)*10px;
