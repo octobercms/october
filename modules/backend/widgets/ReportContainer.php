@@ -319,8 +319,13 @@ class ReportContainer extends WidgetBase
                 'type'              => isset($params['type']) ? $params['type'] : 'string'
             ];
 
-           foreach ($params as $name => $value) {
-                if (isset($property[$name])) continue;
+            foreach ($params as $name => $value) {
+                if (isset($property[$name])) 
+                    continue;
+
+                if (is_array($value))
+                    continue;
+
                 $property[$name] = Lang::get($value);
             }
 
