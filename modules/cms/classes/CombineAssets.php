@@ -75,28 +75,23 @@ class CombineAssets
         $this->useMinify = Config::get('cms.enableAssetMinify', false);
 
         /*
-         * Register basic JavaScript filters.
+         * Register JavaScript filters.
          */
         $this->registerFilter('js', new \October\Rain\Support\Filters\JavascriptImporter);
 
         /*
-         * Register basic CSS filters.
+         * Register CSS filters.
          */
         $this->registerFilter('css', new \Assetic\Filter\CssImportFilter);
-        $this->registerFilter('css', new \Assetic\Filter\CssRewriteFilter);
-
-        /*
-         * Special filters
-         */
-        $this->registerFilter('less', new \Assetic\Filter\LessphpFilter);
+        $this->registerFilter(['css', 'less'], new \Assetic\Filter\CssRewriteFilter);
+        $this->registerFilter('less', new \October\Rain\Support\Filters\LessCompiler);
 
         /*
          * Minification filters
          */
         if ($this->useMinify) {
             $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
-            $this->registerFilter('css', new \October\Rain\Support\Filters\StylesheetMinify);
-            $this->registerFilter('less', new \October\Rain\Support\Filters\StylesheetMinify);
+            $this->registerFilter(['css', 'less'], new \October\Rain\Support\Filters\StylesheetMinify);
         }
     }
 
@@ -370,8 +365,15 @@ class CombineAssets
      */
     public function registerFilter($extension, $filter)
     {
+        if (is_array($extension)) {
+            foreach ($extension as $_extension) {
+                $this->registerFilter($_extension, $filter);
+            }
+            return;
+        }
+
         $extension = strtolower($extension);
-        
+
         if (!isset($this->filters[$extension]))
             $this->filters[$extension] = [];
 
