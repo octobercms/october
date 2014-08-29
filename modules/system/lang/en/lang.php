@@ -11,12 +11,12 @@ return [
         'ja' => 'Japanese',
         'se' => 'Swedish',
         'tr' => 'Turkish',
-        'br' => 'Brazilian Portuguese',
         'de' => 'German',
         'ru' => 'Russian',
         'fr' => 'French',
         'it' => 'Italian',
         'ro' => 'Romana',
+        'pt-br' => 'Brazilian Portuguese',
     ],
     'directory' => [
         'create_fail' => "Cannot create directory: :name",

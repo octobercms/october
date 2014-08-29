@@ -11,11 +11,11 @@ return [
         'ja' => 'Giapponese',
         'se' => 'Svedese',
         'tr' => 'Turco',
-        'br' => 'Portoghese (Brasile)',
         'de' => 'Tedesco',
         'ru' => 'Russo',
         'fr' => 'Francese',
         'it' => 'Italiano',
+        'pt-br' => 'Portoghese (Brasile)',
     ],
     'directory' => [
         'create_fail' => "Impossibile creare la cartella: :name",

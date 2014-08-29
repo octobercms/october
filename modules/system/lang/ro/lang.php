@@ -11,11 +11,11 @@ return [
         'ja' => 'Japoneza',
         'sv' => 'Suedeza',
         'tr' => 'Turca',
-        'br' => 'Portugheza (Brazilia)',
         'de' => 'Germana',
         'ru' => 'Rusa',
         'fr' => 'Franceza',
         'ro' => 'Romana'
+        'pt-br' => 'Portugheza (Brazilia)',
     ],
     'directory' => [
         'create_fail' => "Nu se poate crea directorul: :name",

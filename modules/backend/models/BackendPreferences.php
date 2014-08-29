@@ -25,6 +25,10 @@ class BackendPreferences extends Model
         $config->set('app.locale', $settings->locale);
     }
 
+    /**
+     * Returns available options for the "locale" attribute.
+     * @return array
+     */
     public function getLocaleOptions()
     {
         $locales = [
@@ -34,15 +38,16 @@ class BackendPreferences extends Model
             'ja' => [Lang::get('system::lang.locale.ja'), 'flag-jp'],
             'se' => [Lang::get('system::lang.locale.se'), 'flag-se'],
             'tr' => [Lang::get('system::lang.locale.tr'), 'flag-tr'],
-            'br' => [Lang::get('system::lang.locale.br'), 'flag-br'],
             'de' => [Lang::get('system::lang.locale.de'), 'flag-de'],
             'fr' => [Lang::get('system::lang.locale.fr'), 'flag-fr'],
             'it' => [Lang::get('system::lang.locale.it'), 'flag-it'],
             'ro' => [Lang::get('system::lang.locale.ro'), 'flag-ro'],
+            'pt-br' => [Lang::get('system::lang.locale.pt-br'), 'flag-br'],
         ];
 
-        // Sort the locales alphabetically
+        // Sort locales alphabetically
         asort($locales);
+
         return $locales;
     }
 

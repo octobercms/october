@@ -11,12 +11,12 @@ return [
         'ja' => 'Japans',
         'se' => 'Zweeds',
         'tr' => 'Turks',
-        'br' => 'Braziliaans Portugees',
         'de' => 'Duits',
         'ru' => 'Russisch',
         'fr' => 'Frans',
         'it' => 'Italiaans',
         'ro' => 'Roemeens',
+        'pt-br' => 'Braziliaans Portugees',
     ],
     'directory' => [
         'create_fail' => "Map aanmaken mislukt: :name",

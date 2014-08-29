@@ -11,10 +11,10 @@ return [
         'ja' => 'Japonais',
         'se' => 'Suédois',
         'tr' => 'Turque',
-        'br' => 'Portugais-Brésilien',
         'de' => 'Allemand',
         'ru' => 'Russe',
         'fr' => 'Français',
+        'pt-br' => 'Portugais-Brésilien',
     ],
     'directory' => [
         'create_fail' => "Impossible de créer le répertoire : :name",
