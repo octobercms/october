@@ -13,7 +13,7 @@ use stdClass;
  * Config Maker Trait
  * Adds configuration based methods to a class
  *
- * @package october\backend
+ * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
 trait ConfigMaker

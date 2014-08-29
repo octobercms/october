@@ -23,6 +23,8 @@ use Assetic\Cache\FilesystemCache;
  */
 class CombineAssets
 {
+    use \System\Traits\PathMaker;
+
     /**
      * @var Self Instance for multi cycle execution.
      */
@@ -37,6 +39,11 @@ class CombineAssets
      * @var array A list of known StyleSheet extensions.
      */
     protected static $cssExtensions = ['css', 'less', 'scss', 'sass'];
+
+    /**
+     * @var array Aliases for asset file paths.
+     */
+    protected $aliases = [];
 
     /**
      * @var array Filters to apply to each file.
@@ -69,18 +76,18 @@ class CombineAssets
     public function __construct()
     {
         /*
-         * Register cache preference.
+         * Register cache preference
          */
         $this->useCache = Config::get('cms.enableAssetCache', false);
         $this->useMinify = Config::get('cms.enableAssetMinify', false);
 
         /*
-         * Register JavaScript filters.
+         * Register JavaScript filters
          */
         $this->registerFilter('js', new \October\Rain\Support\Filters\JavascriptImporter);
 
         /*
-         * Register CSS filters.
+         * Register CSS filters
          */
         $this->registerFilter('css', new \Assetic\Filter\CssImportFilter);
         $this->registerFilter(['css', 'less'], new \Assetic\Filter\CssRewriteFilter);
@@ -93,6 +100,14 @@ class CombineAssets
             $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
             $this->registerFilter(['css', 'less'], new \October\Rain\Support\Filters\StylesheetMinify);
         }
+
+        /*
+         * Common Aliases
+         */
+        $this->registerAlias('js', 'jquery', '~/modules/backend/assets/js/vendor/jquery-2.0.3.min.js');
+        $this->registerAlias('js', 'framework', '~/modules/system/assets/js/framework.js');
+        $this->registerAlias('js', 'framework.extras', '~/modules/system/assets/js/framework.extras.js');
+        $this->registerAlias('css', 'framework.extras', '~/modules/system/assets/css/framework.extras.css');
     }
 
     /**
@@ -106,6 +121,136 @@ class CombineAssets
             static::$instance = new self();
 
         return static::$instance->prepareRequest($assets, $path);
+    }
+
+    /**
+     * Returns the combined contents from a prepared cache identifier.
+     * @return string Combined file contents.
+     */
+    public function getContents($cacheId)
+    {
+        $cacheInfo = $this->getCache($cacheId);
+        if (!$cacheInfo)
+            throw new CmsException(Lang::get('cms::lang.combiner.not_found', ['name'=>$cacheId]));
+
+        $this->path = $cacheInfo['path'];
+        $this->storagePath = storage_path().'/combiner/cms';
+
+        $combiner = $this->prepareCombiner($cacheInfo['files']);
+        $contents = $combiner->dump();
+        $mime = ($cacheInfo['extension'] == 'css') ? 'text/css' : 'text/javascript';
+
+        header_remove();
+        $response = Response::make($contents);
+        $response->header('Content-Type', $mime);
+        $response->header('Cache-Control', 'max-age=31536000, public');
+        $response->header('Expires', gmdate('D, d M Y H:i:s \G\M\T', time() + 2678400));
+
+        return $response;
+    }
+
+    /**
+     * Register an alias to use for a longer file reference.
+     * @param string $extension Extension name. Eg: css
+     * @param object $filter Collection of files to combine
+     * @return Self
+     */
+    public function registerAlias($extension, $alias, $file)
+    {
+        $extension = strtolower($extension);
+
+        if (!isset($this->aliases[$extension]))
+            $this->aliases[$extension] = [];
+
+        $this->aliases[$extension][$alias] = $file;
+
+        return $this;
+    }
+
+    /**
+     * Clears any registered aliases.
+     * @param string $extension Extension name. Eg: css
+     * @return Self
+     */
+    public function resetAliases($extension = null)
+    {
+        if ($extension === null)
+            $this->aliases = [];
+        else
+            $this->aliases[$extension] = [];
+
+        return $this;
+    }
+
+    /**
+     * Returns aliases.
+     * @param string $extension Extension name. Eg: css
+     * @return Self
+     */
+    public function getAliases($extension = null)
+    {
+        if ($extension === null)
+            return $this->aliases;
+        elseif (isset($this->aliases[$extension]))
+            return $this->aliases[$extension];
+        else
+            return null;
+    }
+
+    /**
+     * Register a filter to apply to the combining process.
+     * @param string|array $extension Extension name. Eg: css
+     * @param object $filter Collection of files to combine.
+     * @return Self
+     */
+    public function registerFilter($extension, $filter)
+    {
+        if (is_array($extension)) {
+            foreach ($extension as $_extension) {
+                $this->registerFilter($_extension, $filter);
+            }
+            return;
+        }
+
+        $extension = strtolower($extension);
+
+        if (!isset($this->filters[$extension]))
+            $this->filters[$extension] = [];
+
+        if ($filter !== null)
+            $this->filters[$extension][] = $filter;
+
+        return $this;
+    }
+
+    /**
+     * Clears any registered filters.
+     * @param string $extension Extension name. Eg: css
+     * @return Self
+     */
+    public function resetFilters($extension = null)
+    {
+        if ($extension === null)
+            $this->filters = [];
+        else
+            $this->filters[$extension] = [];
+
+        return $this;
+    }
+
+    /**
+     * Returns filters.
+     * @param string $extension Extension name. Eg: css
+     * @return Self
+     */
+    public function getFilters($extension = null)
+    {
+        if ($extension === null)
+            return $this->filters;
+        elseif (isset($this->filters[$extension]))
+            return $this->filters[$extension];
+        else
+            return null;
     }
 
     /**
@@ -133,6 +278,15 @@ class CombineAssets
         $combineCss = [];
 
         foreach ($assets as $asset) {
+            /*
+             * Allow aliases to go through without an extension
+             */
+            if (substr($asset, 0, 1) == '@') {
+                $combineJs[] = $asset;
+                $combineCss[] = $asset;
+                continue;
+            }
+
             $extension = File::extension($asset);
 
             if (in_array($extension, self::$jsExtensions)) {
@@ -149,13 +303,27 @@ class CombineAssets
         /*
          * Determine which group of assets to combine.
          */
-        if (count($combineJs) > count($combineCss)) {
+        if (count($combineCss) > count($combineJs)) {
+            $extension = 'css';
+            $assets = $combineCss;
+        }
+        else {
             $extension = 'js';
             $assets = $combineJs;
         }
-        else {
-            $extension = 'css';
-            $assets = $combineCss;
+
+        /*
+         * Apply registered aliases
+         */
+        if ($aliasMap = $this->getAliases($extension)) {
+            foreach ($assets as $key => $asset) {
+                if (substr($asset, 0, 1) !== '@')
+                    continue;
+                $_asset = substr($asset, 1);
+
+                if (isset($aliasMap[$_asset]))
+                    $assets[$key] = $aliasMap[$_asset];
+            }
         }
 
         /*
@@ -202,39 +370,14 @@ class CombineAssets
      * Returns the combined contents from a prepared cache identifier.
      * @return string Combined file contents.
      */
-    public function getContents($cacheId)
-    {
-        $cacheInfo = $this->getCache($cacheId);
-        if (!$cacheInfo)
-            throw new CmsException(Lang::get('cms::lang.combiner.not_found', ['name'=>$cacheId]));
-
-        $this->path = $cacheInfo['path'];
-        $this->storagePath = storage_path().'/combiner/cms';
-
-        $combiner = $this->prepareCombiner($cacheInfo['files']);
-        $contents = $combiner->dump();
-        $mime = ($cacheInfo['extension'] == 'css') ? 'text/css' : 'text/javascript';
-
-        header_remove();
-        $response = Response::make($contents);
-        $response->header('Content-Type', $mime);
-        $response->header('Cache-Control', 'max-age=31536000, public');
-        $response->header('Expires', gmdate('D, d M Y H:i:s \G\M\T', time() + 2678400));
-
-        return $response;
-    }
-
-    /**
-     * Returns the combined contents from a prepared cache identifier.
-     * @return string Combined file contents.
-     */
     protected function prepareCombiner(array $assets)
     {
         $files = [];
         $filesSalt = null;
         foreach ($assets as $asset) {
             $filters = $this->getFilters(File::extension($asset));
-            $files[] = new FileAsset($this->path . $asset, $filters, public_path());
+            $path = $this->makePath($asset) ?: $this->path . $asset;
+            $files[] = new FileAsset($path, $filters, public_path());
             $filesSalt .= $this->path . $asset;
         }
         $filesSalt = md5($filesSalt);
@@ -355,60 +498,6 @@ class CombineAssets
 
         Cache::forever('combiner.index', serialize($index));
         return true;
-    }
-
-    /**
-     * Register a filter to apply to the combining process.
-     *
-     * @param object $filter Collection of files to combine
-     * @return Self
-     */
-    public function registerFilter($extension, $filter)
-    {
-        if (is_array($extension)) {
-            foreach ($extension as $_extension) {
-                $this->registerFilter($_extension, $filter);
-            }
-            return;
-        }
-
-        $extension = strtolower($extension);
-
-        if (!isset($this->filters[$extension]))
-            $this->filters[$extension] = [];
-
-        if ($filter !== null)
-            $this->filters[$extension][] = $filter;
-
-        return $this;
-    }
-
-    /**
-     * Clears any registered filters.
-     * @return Self
-     */
-    public function resetFilters($extension = null)
-    {
-        if ($extension === null)
-            $this->filters = [];
-        else
-            $this->filters[$extension] = [];
-
-        return $this;
-    }
-
-    /**
-     * Returns filters.
-     * @return Self
-     */
-    public function getFilters($extension = null)
-    {
-        if ($extension === null)
-            return $this->filters;
-        elseif (isset($this->filters[$extension]))
-            return $this->filters[$extension];
-        else
-            return null;
     }
 
 }

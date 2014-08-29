@@ -11,7 +11,7 @@ use System\Classes\SystemException;
  * Asset Maker Trait
  * Adds asset based methods to a class
  *
- * @package october\backend
+ * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
 
