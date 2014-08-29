@@ -15,6 +15,7 @@ use BackendAuth;
 use Twig_Environment;
 use Controller as BaseController;
 use Cms\Twig\Loader as TwigLoader;
+use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Classes\FileHelper as CmsFileHelper;
 use System\Models\RequestLog;
@@ -262,11 +263,13 @@ class Controller extends BaseController
      */
     protected function initTwigEnvironment()
     {
-        $this->loader = new TwigLoader();
+        $this->loader = new TwigLoader;
+
+        $isDebugMode = Config::get('app.debug', false);
 
         $options = [
             'auto_reload' => true,
-            'debug' => Config::get('app.debug', false),
+            'debug' => $isDebugMode,
         ];
         if (!Config::get('cms.twigNoCache'))
             $options['cache'] =  storage_path().'/twig';
@@ -274,6 +277,9 @@ class Controller extends BaseController
         $this->twig = new Twig_Environment($this->loader, $options);
         $this->twig->addExtension(new CmsTwigExtension($this));
         $this->twig->addExtension(new SystemTwigExtension);
+
+        if ($isDebugMode)
+            $this->twig->addExtension(new DebugExtension($this));
     }
 
     /**
