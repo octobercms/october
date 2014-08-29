@@ -89,7 +89,7 @@ class DebugExtension extends Twig_Extension
      * @param string $caption Caption of the dump
      * @return void
      */
-    public function dump($variables = null, $caption = 'Variable Inspector')
+    public function dump($variables = null, $caption = 'Page variables')
     {
         $info = [];
 

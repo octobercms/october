@@ -1,8 +1,10 @@
-* **Build 14x** (2014-08-xx)
+* **Build 139** (2014-08-30)
   - Components and variables can now be accessed in the page code section via `$this->foo` in addition to `$this['foo']`.
   - AJAX handlers in the CMS can now invoke the page cycle without rendering the page using `$this->pageCycle()`.
+  - Fixes path references in the LESS compiler.
+  - Asset combiner now supports aliases and external files (see CMS > Markup docs).
 
-* **Build 139** (2014-08-18)
+* **Build 138** (2014-08-18)
   - List widget has been refactored to improve efficiency.
   - Added new list column type `nameFrom` (take name from X attribute) as an alternative to `select`.
 
