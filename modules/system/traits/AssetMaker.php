@@ -38,13 +38,21 @@ trait AssetMaker
         if ($type != null) $type = strtolower($type);
         $result = null;
         $reserved = ['build'];
+        $pathCache = [];
 
         if ($type == null || $type == 'css'){
             foreach ($this->assets['css'] as $asset) {
 
+                /*
+                 * Prevent duplicates
+                 */
+                $path = $this->getAssetEntryBuildPath($asset);
+                if (isset($pathCache[$path])) continue;
+                $pathCache[$path] = true;
+
                 $attributes = HTML::attributes(array_merge([
                         'rel'  => 'stylesheet',
-                        'href' => $this->getAssetEntryBuildPath($asset)
+                        'href' => $path
                     ],
                     array_except($asset['attributes'], $reserved)
                 ));
@@ -56,9 +64,16 @@ trait AssetMaker
         if ($type == null || $type == 'rss'){
             foreach ($this->assets['rss'] as $asset) {
 
+                /*
+                 * Prevent duplicates
+                 */
+                $path = $this->getAssetEntryBuildPath($asset);
+                if (isset($pathCache[$path])) continue;
+                $pathCache[$path] = true;
+
                 $attributes = HTML::attributes(array_merge([
                         'rel'   => 'alternate',
-                        'href'  => $this->getAssetEntryBuildPath($asset),
+                        'href'  => $path,
                         'title' => 'RSS',
                         'type'  => 'application/rss+xml'
                     ],
@@ -72,8 +87,15 @@ trait AssetMaker
         if ($type == null || $type == 'js') {
             foreach ($this->assets['js'] as $asset) {
 
+                /*
+                 * Prevent duplicates
+                 */
+                $path = $this->getAssetEntryBuildPath($asset);
+                if (isset($pathCache[$path])) continue;
+                $pathCache[$path] = true;
+
                 $attributes = HTML::attributes(array_merge([
-                        'src' => $this->getAssetEntryBuildPath($asset)
+                        'src' => $path
                     ],
                     array_except($asset['attributes'], $reserved)
                 ));

@@ -154,7 +154,7 @@ class FormController extends ControllerBehavior
         $this->controller->formAfterSave($model);
         $this->controller->formAfterCreate($model);
 
-        Flash::success($this->getLang('create[flash-save]', 'backend::lang.form.create_success'));
+        Flash::success($this->getLang('create[flashSave]', 'backend::lang.form.create_success'));
 
         if ($redirect = $this->makeRedirect('create', $model))
             return $redirect;
@@ -207,7 +207,7 @@ class FormController extends ControllerBehavior
         $this->controller->formAfterSave($model);
         $this->controller->formAfterUpdate($model);
 
-        Flash::success($this->getLang('update[flash-save]', 'backend::lang.form.update_success'));
+        Flash::success($this->getLang('update[flashSave]', 'backend::lang.form.update_success'));
 
         if ($redirect = $this->makeRedirect('update', $model))
             return $redirect;
@@ -228,7 +228,7 @@ class FormController extends ControllerBehavior
 
         $this->controller->formAfterDelete($model);
 
-        Flash::success($this->getLang('update[flash-delete]', 'backend::lang.form.delete_success'));
+        Flash::success($this->getLang('update[flashDelete]', 'backend::lang.form.delete_success'));
 
         if ($redirect = $this->makeRedirect('delete', $model))
             return $redirect;

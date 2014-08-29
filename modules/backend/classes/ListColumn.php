@@ -41,7 +41,14 @@ class ListColumn
     public $sortable = true;
 
     /**
-     * @var string Custom SQL for selecting this record value.
+     * @var string Model attribute to use for the display value, this will
+     * override any $sqlSelect definition.
+     */
+    public $nameFrom;
+
+    /**
+     * @var string Custom SQL for selecting this record display value,
+     * the @ symbol is replaced with the table name.
      */
     public $sqlSelect;
 
@@ -103,6 +110,7 @@ class ListColumn
         if (isset($config['searchable'])) $this->searchable = $config['searchable'];
         if (isset($config['sortable'])) $this->sortable = $config['sortable'];
         if (isset($config['invisible'])) $this->invisible = $config['invisible'];
+        if (isset($config['nameFrom'])) $this->nameFrom = $config['nameFrom'];
         if (isset($config['select'])) $this->sqlSelect = $config['select'];
         if (isset($config['relation'])) $this->relation = $config['relation'];
         if (isset($config['format'])) $this->format = $config['format'];

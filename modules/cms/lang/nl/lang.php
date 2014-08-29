@@ -5,27 +5,33 @@ return [
         'invalid_file' => 'Ongeldige bestandsnaam: :name. Bestandsnamen mogen enkel bestaan uit letters, cijfers, underscores, streepjes en punten. Voorbeelden van correcte bestandsnamen: pagina.htm, pagina, map/pagina',
         'invalid_property' => 'Parameter ":name" kan niet worden gewijzigd',
         'file_already_exists' => 'Bestand ":name" bestaat al.',
-        'error_saving' => 'Bestand opslaan mislukt: ":name".',
-        'error_creating_directory' => 'Map aanmaken mislukt: ":name"',
+        'error_saving' => 'Bestand opslaan mislukt: ":name". Controleer de schrijfrechten.',
+        'error_creating_directory' => 'Map aanmaken mislukt: ":name". Controleer de schrijfrechten.',
         'invalid_file_extension'=>'Ongeldige bestandsextensie: :invalid. Toegestane extensies zijn: :allowed.',
-        'error_deleting' => 'Fout bij het verwijderen van template: ":name".',
+        'error_deleting' => 'Fout bij het verwijderen van template: ":name". Controleer de schrijfrechten.',
         'delete_success' => 'Templates zijn succesvol verwijderd: :count.',
         'file_name_required' => 'Het invullen van een bestandsnaam is verplicht.'
     ],
     'theme' => [
         'active' => [
             'not_set' => "Er is geen actief thema geselecteerd.",
+            'not_found' => "Het actieve thema is niet gevonden.",
         ],
         'edit' => [
             'not_set' => "Er is geen thema ingesteld om te kunnen bewerken.",
             'not_found' => "Het te bewerken thema is niet gevonden.",
             'not_match' => "Het object dat je probeert te openen behoort niet tot het te bewerken thema. Herlaad de pagina."
-        ]
+        ],
+        'settings_menu' => 'Front-end thema',
+        'settings_menu_description' => 'Bekijk de lijst met geïnstalleerde themas en selecteer een beschikbaar thema.',
+        'find_more_themes' => 'Vind meer thema\'s op de OctoberCMS thema marktplaats.',
+        'activate_button' => 'Activeer',
+        'active_button' => 'Activeer',
     ],
     'page' => [
         'not_found' => [
             'label' => "Pagina niet gevonden",
-            'help' => "De opgevraagde pagina bestaat niet.",
+            'help' => "De opgevraagde pagina kan niet worden gevonden.",
         ],
         'custom_error' => [
             'label' => "Paginafout",
@@ -34,7 +40,7 @@ return [
         'menu_label' => 'Pagina\'s',
         'no_list_records' => 'Geen pagina\'s gevonden',
         'new' => 'Nieuwe pagina',
-        'invalid_url' => 'Ongeldig URL formaat. De URL moet beginnen met een schuine streep en mag enkel bestaan uit letters, cijfers en de volgende tekens: _-[]:?|/+*',
+        'invalid_url' => 'Ongeldig URL formaat. De URL moet beginnen met een schuine streep en mag enkel bestaan uit letters, cijfers en de volgende tekens: ._-[]:?|/+*',
         'delete_confirm_multiple' => 'Weet je zeker dat je de geselecteerde pagina\'s wilt verwijderen?',
         'delete_confirm_single' => 'Weet je zeker dat je deze pagina wilt verwijderen?',
         'no_layout' => '-- geen layout --'
@@ -88,11 +94,15 @@ return [
         'description' => 'Omschrijving',
         'preview' => 'Voorbeeld',
         'meta' => 'Meta',
-        'meta_title' => 'Meta Titel',
-        'meta_description' => 'Meta Omschrijving',
+        'meta_title' => 'Meta titel',
+        'meta_description' => 'Meta omschrijving',
         'markup' => 'Opmaak',
         'code' => 'Code',
         'content' => 'Content',
+        'hidden' => 'Verborgen',
+        'hidden_comment' => 'Verborgen pagina zijn alleen toegankelijk voor ingelogde gebruikers.',
+        'enter_fullscreen' => 'Volledig scherm starten',
+        'exit_fullscreen' => 'Volledig scherm afsluiten',
     ],
     'asset' => [
         'menu_label' => "Middelen",
@@ -101,9 +111,12 @@ return [
         'upload_files' => 'Bestand(en) uploaden',
         'create_file' => 'Nieuw bestand',
         'create_directory' => 'Nieuwe map',
+        'directory_popup_title' => 'Nieuwe map',
+        'directory_name' => 'Mapnaam',
         'rename' => 'Hernoemen',
         'delete' => 'Verwijderen',
         'move' => 'Verplaatsen',
+        'select' => 'Selecteren',
         'new' => 'Nieuw bestand',
         'rename_popup_title' => 'Hernoemen',
         'rename_new_name' => 'Nieuwe naam',
@@ -116,7 +129,7 @@ return [
         'already_exists' => 'Bestand of map met deze naam bestaat al',
         'error_renaming' => 'Fout bij hernoemen van bestand of map',
         'name_cant_be_empty' => 'De naam mag niet leeg zijn',
-        'too_large' => 'Het geüploade bestand is te groot. De maximaal toegestane bestandsgrootte is :max_size',
+        'too_large' => 'Het geüploadete bestand is te groot. De maximaal toegestane bestandsgrootte is :max_size',
         'type_not_allowed' => 'Enkel de volgende bestandstypen zijn toegestaand: :allowed_types',
         'file_not_valid' => 'Bestand is ongeldig',
         'error_uploading_file' => 'Fout tijdens uploaden bestand ":name": :error',
@@ -135,7 +148,7 @@ return [
     'component' => [
         'menu_label' => "Componenten",
         'unnamed' => "Naamloos",
-        'no_description' => "Geen beschrijviging opgegeven",
+        'no_description' => "Geen beschrijving opgegeven",
         'alias' => "Alias",
         'alias_description' => "Een unieke naam voor dit component voor gebruik in de code van een pagina of layout.",
         'validation_message' => "Een alias voor het component is verplicht en mag alleen bestaan uit letters, cijfers en underscores. De alias moet beginnen met een letter.",
@@ -148,5 +161,13 @@ return [
         'invalid_type' => "Onbekend type template.",
         'not_found' => "De opgevraagde template is niet gevonden.",
         'saved'=> "De template is succesvol opgeslagen."
+    ],
+    'permissions' => [
+        'manage_content' => 'Beheer inhoud',
+        'manage_assets' => 'Beheer middelen',
+        'manage_pages' => 'Beheer pagina\'s',
+        'manage_layouts' => 'Beheer layouts',
+        'manage_partials' => 'Beheer sjablonen',
+        'manage_themes' => 'Beheer thema\'s'
     ]
 ];

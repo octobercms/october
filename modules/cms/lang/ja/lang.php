@@ -34,7 +34,7 @@ return [
         'menu_label' => 'ページ',
         'no_list_records' => 'ページが見つかりません',
         'new' => '新ページ',
-        'invalid_url' => '正しくないURL形式。URLはスラッシュ(/)で始まり、数字、ラテン文字、_-[]:?|/+*で構成します。',
+        'invalid_url' => '正しくないURL形式。URLはスラッシュ(/)で始まり、数字、ラテン文字、._-[]:?|/+*で構成します。',
         'delete_confirm_multiple' => '指定した全ページを本当に削除しますか？',
         'delete_confirm_single' => '本当にこのページを削除しますか？',
         'no_layout' => '-- レイアウト無し --'

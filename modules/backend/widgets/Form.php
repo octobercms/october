@@ -45,7 +45,7 @@ class Form extends WidgetBase
     /**
      * @var array Collection of all fields used in this form.
      */
-    protected $allFields = [];
+    protected $fields = [];
 
     /**
      * @var array Collection of all form widgets used in this form.
@@ -179,10 +179,10 @@ class Form extends WidgetBase
     public function renderField($field, $options = [])
     {
         if (is_string($field)) {
-            if (!isset($this->allFields[$field]))
+            if (!isset($this->fields[$field]))
                 throw new ApplicationException(Lang::get('backend::lang.form.missing_definition', compact('field')));
 
-            $field = $this->allFields[$field];
+            $field = $this->fields[$field];
         }
 
         if (!isset($options['useContainer'])) $options['useContainer'] = true;
@@ -241,7 +241,7 @@ class Form extends WidgetBase
         $this->model->fill($data);
         $this->data = (object) array_merge((array) $this->data, (array) $data);
 
-        foreach ($this->allFields as $field)
+        foreach ($this->fields as $field)
             $field->value = $this->getFieldValue($field);
 
         return $data;
@@ -274,10 +274,10 @@ class Form extends WidgetBase
         if (($updateFields = post('fields')) && is_array($updateFields)) {
 
             foreach ($updateFields as $field) {
-                if (!isset($this->allFields[$field]))
+                if (!isset($this->fields[$field]))
                     continue;
 
-                $fieldObject = $this->allFields[$field];
+                $fieldObject = $this->fields[$field];
                 $result['#' . $fieldObject->getId('group')] = $this->makePartial('field', ['field' => $fieldObject]);
             }
         }
@@ -357,7 +357,7 @@ class Form extends WidgetBase
         /*
          * Bind all form widgets to controller
          */
-        foreach ($this->allFields as $field) {
+        foreach ($this->fields as $field) {
             if ($field->type != 'widget')
                 continue;
 
@@ -413,7 +413,7 @@ class Form extends WidgetBase
                     continue;
             }
 
-            $this->allFields[$name] = $fieldObj;
+            $this->fields[$name] = $fieldObj;
 
             switch (strtolower($addToArea)) {
                 case 'primary':
@@ -589,7 +589,7 @@ class Form extends WidgetBase
      */
     public function getFields()
     {
-        return $this->allFields;
+        return $this->fields;
     }
 
     /**
@@ -599,7 +599,7 @@ class Form extends WidgetBase
      */
     public function getField($field)
     {
-        return $this->allFields[$field];
+        return $this->fields[$field];
     }
 
     /**
@@ -621,10 +621,10 @@ class Form extends WidgetBase
     public function getFieldValue($field)
     {
         if (is_string($field)) {
-            if (!isset($this->allFields[$field]))
+            if (!isset($this->fields[$field]))
                 throw new ApplicationException(Lang::get('backend::lang.form.missing_definition', compact('field')));
 
-            $field = $this->allFields[$field];
+            $field = $this->fields[$field];
         }
 
         $columnName = $field->columnName;
@@ -694,7 +694,7 @@ class Form extends WidgetBase
          * Boolean fields (checkbox, switch) won't be present value FALSE
          * Number fields should be converted to integers
          */
-        foreach ($this->allFields as $field) {
+        foreach ($this->fields as $field) {
 
             if (!in_array($field->type, ['switch', 'checkbox', 'number']))
                 continue;

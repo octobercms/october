@@ -1,3 +1,15 @@
+* **Build 14x** (2014-08-xx)
+  - Components and variables can now be accessed in the page code section via `$this->foo` in addition to `$this['foo']`.
+  - AJAX handlers in the CMS can now invoke the page cycle without rendering the page using `$this->pageCycle()`.
+
+* **Build 139** (2014-08-18)
+  - List widget has been refactored to improve efficiency.
+  - Added new list column type `nameFrom` (take name from X attribute) as an alternative to `select`.
+
+* **Build 137** (2014-08-14)
+  - Lists now support Filters (see Backend > Lists docs).
+  - Numerous hard coded phrases converted to localized strings.
+
 * **Build 132** (2014-08-03)
   - New system logging pages: Event log, Request log and Access log.
 

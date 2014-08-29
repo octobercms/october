@@ -48,7 +48,7 @@ class MailTemplates extends Controller
         /* @todo Remove line if year >= 2015 */ if (!\System\Models\MailLayout::whereCode('default')->count()) { \Eloquent::unguard(); with(new \System\Database\Seeds\SeedSetupMailLayouts)->run(); }
 
         MailTemplate::syncAll();
-        $this->getClassExtension('Backend.Behaviors.ListController')->index();
+        $this->asExtension('ListController')->index();
         $this->bodyClass = 'compact-container';
     }
 

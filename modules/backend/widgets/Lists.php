@@ -46,7 +46,7 @@ class Lists extends WidgetBase
     protected $visibleColumns;
 
     /**
-     * @var array All available columns.
+     * @var array Collection of all list columns used in this list.
      */
     protected $columns;
 
@@ -265,9 +265,10 @@ class Lists extends WidgetBase
     protected function prepareModel()
     {
         $query = $this->model->newQuery();
-        $selects = [$this->model->getTable().'.*'];
-        $tables = ['base'=>$this->model->getTable()];
+        $primaryTable = $this->model->getTable();
+        $selects = [$primaryTable.'.*'];
         $joins = [];
+        $withs = [];
 
         /*
          * Extensibility
@@ -276,70 +277,134 @@ class Lists extends WidgetBase
         $this->fireEvent('list.extendQueryBefore', [$query]);
 
         /*
-         * Related custom selects, must come first
+         * Prepare searchable column names
          */
-        foreach ($this->getVisibleListColumns() as $column) {
-            if (!isset($column->relation) || !isset($column->sqlSelect))
-                continue;
+        $primarySearchable = [];
+        $relationSearchable = [];
 
-            if (!$this->model->hasRelation($column->relation))
-                throw new ApplicationException(Lang::get('backend::lang.model.missing_relation', ['class'=>get_class($this->model), 'relation'=>$column->relation]));
+        $columnsToSearch = [];
+        if (!empty($this->searchTerm) && ($searchableColumns = $this->getSearchableColumns())) {
+            foreach ($searchableColumns as $column) {
+                /*
+                 * Related
+                 */
+                if ($this->isColumnRelated($column)) {
+                    $table = $this->model->makeRelation($column->relation)->getTable();
+                    $columnName = isset($column->sqlSelect)
+                        ? DbDongle::raw($this->parseTableName($column->sqlSelect, $table))
+                        : $table . '.' . $column->nameFrom;
 
-            $alias = Db::getQueryGrammar()->wrap($column->columnName);
-            $table =  $this->model->makeRelation($column->relation)->getTable();
-            $relationType = $this->model->getRelationType($column->relation);
-            $sqlSelect = $this->parseTableName($column->sqlSelect, $table);
+                    $relationSearchable[$column->relation][] = $columnName;
+                }
+                /*
+                 * Primary
+                 */
+                else {
+                    $columnName = isset($column->sqlSelect)
+                        ? DbDongle::raw($this->parseTableName($column->sqlSelect, $primaryTable))
+                        : $primaryTable . '.' . $column->columnName;
 
-            if (in_array($relationType, ['hasMany', 'belongsToMany', 'morphToMany', 'morphedByMany', 'morphMany', 'attachMany', 'hasManyThrough']))
-                $selects[] = DbDongle::raw("group_concat(" . $sqlSelect . " separator ', ') as ". $alias);
-            else
-                $selects[] = DbDongle::raw($sqlSelect . ' as '. $alias);
-
-            $joins[] = $column->relation;
-            $tables[$column->relation] = $table;
+                    $primarySearchable[] = $columnName;
+                }
+            }
         }
 
-        if ($joins)
-            $query->joinWith(array_unique($joins), false);
+        /*
+         * Prepare related eager loads (withs) and custom selects (joins)
+         */
+        foreach ($this->getVisibleListColumns() as $column) {
+
+            if (!$this->isColumnRelated($column) || (!isset($column->sqlSelect) && !isset($column->nameFrom)))
+                continue;
+
+            if (isset($column->nameFrom))
+                $withs[] = $column->relation;
+
+            $joins[] = $column->relation;
+        }
+
+        /*
+         * Include any relation constraints
+         */
+        if ($joins) {
+            foreach (array_unique($joins) as $join) {
+                /*
+                 * Apply a supplied search term for relation columns and
+                 * constrain the query only if there is something to search for
+                 */
+                $columnsToSearch = array_get($relationSearchable, $join, []);
+
+                if (count($columnsToSearch) > 0) {
+                    $query->whereHas($join, function($_query) use ($columnsToSearch) {
+                        $_query->searchWhere($this->searchTerm, $columnsToSearch);
+                    });
+                }
+            }
+        }
+
+        /*
+         * Add eager loads to the query
+         */
+        if ($withs) {
+            $query->with(array_unique($withs));
+        }
 
         /*
          * Custom select queries
          */
         foreach ($this->getVisibleListColumns() as $column) {
-            if (!isset($column->sqlSelect) || isset($column->relation))
+            if (!isset($column->sqlSelect))
                 continue;
 
             $alias = Db::getQueryGrammar()->wrap($column->columnName);
-            $sqlSelect = $this->parseTableName($column->sqlSelect, $tables['base']);
-            $selects[] = DbDongle::raw($sqlSelect . ' as '. $alias);
+
+            /*
+             * Relation column
+             */
+            if (isset($column->relation)) {
+                $table =  $this->model->makeRelation($column->relation)->getTable();
+                $relationType = $this->model->getRelationType($column->relation);
+                $sqlSelect = $this->parseTableName($column->sqlSelect, $table);
+
+                /*
+                 * Manipulate a count query for the sub query
+                 */
+                $relationObj = $this->model->{$column->relation}();
+                $countQuery = $relationObj->getRelationCountQuery($relationObj->getRelated()->newQuery(), $query);
+
+                $joinSql = $this->isColumnRelated($column, true)
+                    ? DbDongle::raw("group_concat(" . $sqlSelect . " separator ', ')")
+                    : DbDongle::raw($sqlSelect);
+
+                $joinSql = $countQuery->select($joinSql)->toSql();
+
+                $selects[] = Db::raw("(".$joinSql.") as ".$alias);
+            }
+            /*
+             * Primary column
+             */
+            else {
+                $sqlSelect = $this->parseTableName($column->sqlSelect, $primaryTable);
+                $selects[] = DbDongle::raw($sqlSelect . ' as '. $alias);
+            }
         }
 
         /*
-         * Handle a supplied search term
+         * Apply a supplied search term for primary columns
          */
-        if (!empty($this->searchTerm) && ($searchableColumns = $this->getSearchableColumns())) {
-            $query->orWhere(function($innerQuery) use ($searchableColumns, $tables) {
-                $columnsToSearch = [];
-                foreach ($searchableColumns as $column) {
-
-                    if (isset($column->sqlSelect)) {
-                        $table = (isset($column->relation)) ? $tables[$column->relation] : 'base';
-                        $columnName = DbDongle::raw($this->parseTableName($column->sqlSelect, $table));
-                    }
-                    else
-                        $columnName = $tables['base'] . '.' . $column->columnName;
-
-                    $columnsToSearch[] = $columnName;
-                }
-
-                $innerQuery->searchWhere($this->searchTerm, $columnsToSearch);
+        if (count($primarySearchable) > 0) {
+            $query->orWhere(function($innerQuery) use ($primarySearchable) {
+                $innerQuery->searchWhere($this->searchTerm, $primarySearchable);
             });
         }
 
         /*
-         * Handle sorting
+         * Apply sorting
          */
         if ($sortColumn = $this->getSortColumn()) {
+            if (($column = array_get($this->columns, $sortColumn)) && $column->sqlSelect)
+                $sortColumn = $column->sqlSelect;
+
             $query->orderBy($sortColumn, $this->sortDirection);
         }
 
@@ -351,14 +416,16 @@ class Lists extends WidgetBase
         }
 
         /*
+         * Add custom selects
+         */
+        $query->select($selects);
+
+        /*
          * Extensibility
          */
         Event::fire('backend.list.extendQuery', [$this, $query]);
         $this->fireEvent('list.extendQuery', [$query]);
 
-        // Grouping due to the joinWith() call
-        $query->select($selects);
-        $query->groupBy($this->model->getQualifiedKeyName());
         return $query;
     }
 
@@ -415,11 +482,30 @@ class Lists extends WidgetBase
     }
 
     /**
+     * Get all the registered columns for the instance.
+     * @return array
+     */
+    public function getColumns()
+    {
+        return $this->columns ?: $this->defineListColumns();
+    }
+
+    /**
+     * Get a specified column object
+     * @param  string $column
+     * @return mixed
+     */
+    public function getColumn($column)
+    {
+        return $this->columns[$column];
+    }
+
+    /**
      * Returns the list columns that are visible by list settings or default
      */
     protected function getVisibleListColumns()
     {
-        $definitions = $this->getListColumns();
+        $definitions = $this->defineListColumns();
         $columns = [];
 
         /*
@@ -457,7 +543,7 @@ class Lists extends WidgetBase
     /**
      * Builds an array of list columns with keys as the column name and values as a ListColumn object.
      */
-    protected function getListColumns()
+    protected function defineListColumns()
     {
         if (!isset($this->config->columns) || !is_array($this->config->columns) || !count($this->config->columns))
             throw new ApplicationException(Lang::get('backend::lang.list.missing_columns', ['class'=>get_class($this->controller)]));
@@ -555,16 +641,33 @@ class Lists extends WidgetBase
      */
     public function getColumnValue($record, $column)
     {
+
+        $columnName = $column->columnName;
+
         /*
-         * If the column is a relation, it will be a custom select,
+         * Handle taking name from model attribute.
+         */
+        if ($column->nameFrom) {
+            if (!array_key_exists($columnName, $record->getRelations()))
+                $value = null;
+            elseif ($this->isColumnRelated($column, true))
+                $value = implode(', ', $record->{$columnName}->lists($column->nameFrom));
+            elseif ($this->isColumnRelated($column))
+                $value = $record->{$columnName}->{$column->nameFrom};
+            else
+                $value = $record->{$column->nameFrom};
+        }
+        /*
+         * Otherwise, if the column is a relation, it will be a custom select,
          * so prevent the Model from attempting to load the relation
          * if the value is NULL.
          */
-        $columnName = $column->columnName;
-        if ($record->hasRelation($columnName) && array_key_exists($columnName, $record->attributes))
-            $value = $record->attributes[$columnName];
-        else
-            $value = $record->{$columnName};
+        else {
+            if ($record->hasRelation($columnName) && array_key_exists($columnName, $record->attributes))
+                $value = $record->attributes[$columnName];
+            else
+                $value = $record->{$columnName};
+        }
 
         if (method_exists($this, 'eval'. studly_case($column->type) .'TypeValue'))
             $value = $this->{'eval'. studly_case($column->type) .'TypeValue'}($record, $column, $value);
@@ -613,6 +716,9 @@ class Lists extends WidgetBase
     {
         return $this->controller->makePartial($column->path ?: $column->columnName, [
             'listColumn' => $column,
+            'listRecord' => $record,
+            'listValue'  => $value,
+            'column'     => $column,
             'record'     => $record,
             'value'      => $value
         ]);
@@ -738,7 +844,7 @@ class Lists extends WidgetBase
      */
     protected function getSearchableColumns()
     {
-        $columns = $this->columns ?: $this->getListColumns();
+        $columns = $this->getColumns();
         $searchable = [];
 
         foreach ($columns as $column) {
@@ -848,7 +954,7 @@ class Lists extends WidgetBase
         if ($this->sortableColumns !== null)
             return $this->sortableColumns;
 
-        $columns = $this->columns ?: $this->getListColumns();
+        $columns = $this->getColumns();
         $sortable = [];
 
         foreach ($columns as $column) {
@@ -912,12 +1018,12 @@ class Lists extends WidgetBase
         /*
          * Force all columns invisible
          */
-        $allColumns = $this->getListColumns();
-        foreach ($allColumns as $column) {
+        $columns = $this->defineListColumns();
+        foreach ($columns as $column) {
             $column->invisible = true;
         }
 
-        return array_merge($allColumns, $this->getVisibleListColumns());
+        return array_merge($columns, $this->getVisibleListColumns());
     }
 
     //
@@ -960,6 +1066,40 @@ class Lists extends WidgetBase
     {
         $this->putSession('tree_node_status_' . post('node_id'), post('status') ? 0 : 1);
         return $this->onRefresh();
+    }
+
+    //
+    // Helpers
+    //
+
+    /**
+     * Check if column refers to a relation of the model
+     * @param  ListColumn  $column List column object
+     * @param  boolean     $multi  If set, returns true only if the relation is a "multiple relation type"
+     * @return boolean
+     */
+    protected function isColumnRelated($column, $multi = false)
+    {
+        if (!isset($column->relation))
+            return false;
+
+        if (!$this->model->hasRelation($column->relation))
+            throw new ApplicationException(Lang::get('backend::lang.model.missing_relation', ['class'=>get_class($this->model), 'relation'=>$column->relation]));
+
+        if (!$multi)
+            return true;
+
+        $relationType = $this->model->getRelationType($column->relation);
+
+        return in_array($relationType, [
+            'hasMany',
+            'belongsToMany',
+            'morphToMany',
+            'morphedByMany',
+            'morphMany',
+            'attachMany',
+            'hasManyThrough'
+        ]);
     }
 
 }

@@ -59,7 +59,7 @@ class Updates extends Controller
         $this->vars['project_id'] = Parameters::get('system::project.id');
         $this->vars['project_name'] = Parameters::get('system::project.name');
         $this->vars['project_owner'] = Parameters::get('system::project.owner');
-        return $this->getClassExtension('Backend.Behaviors.ListController')->index();
+        return $this->asExtension('ListController')->index();
     }
 
     /**
@@ -69,7 +69,7 @@ class Updates extends Controller
     {
         $this->pageTitle = Lang::get('system::lang.plugins.manage');
         PluginManager::instance()->clearDisabledCache();
-        return $this->getClassExtension('Backend.Behaviors.ListController')->index();
+        return $this->asExtension('ListController')->index();
     }
 
     /**

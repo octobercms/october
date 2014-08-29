@@ -34,7 +34,7 @@ return [
         'menu_label' => 'Sayfalar',
         'no_list_records' => 'Hiç sayfa yok.',
         'new' => 'Sayfa oluştur',
-        'invalid_url' => 'Hata URL formatı. The URL should start with the forward slash symbol and can contain digits, Latin letters and the following symbols: _-[]:?|/+*',
+        'invalid_url' => 'Hata URL formatı. The URL should start with the forward slash symbol and can contain digits, Latin letters and the following symbols: ._-[]:?|/+*',
         'delete_confirm_multiple' => 'Seçili sayfaları silmek istediğinize emin misiniz?',
         'delete_confirm_single' => 'Bu sayfayı silmek istediğinize emin misiniz?',
         'no_layout' => '-- şablon yok --'

@@ -83,7 +83,6 @@ class Router
             /*
              * Find the page by URL and cache the route
              */
-
             if (!$fileName) {
                 $router = $this->getRouterObject();
 
@@ -105,9 +104,8 @@ class Router
             }
 
             /*
-             * Return the page 
+             * Return the page
              */
-
             if ($fileName) {
                 if (($page = Page::loadCached($this->theme, $fileName)) === null) {
                     /*
@@ -230,6 +228,16 @@ class Router
     {
         Cache::forget($this->getCacheKey('page-url-map'));
         Cache::forget($this->getCacheKey('cms-url-list'));
+    }
+
+    /**
+     * Sets the current routing parameters.
+     * @param  array $parameters
+     * @return array
+     */
+    public function setParameters(array $parameters)
+    {
+        $this->parameters = $parameters;
     }
 
     /**

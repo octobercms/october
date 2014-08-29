@@ -196,6 +196,15 @@ class Controller extends BaseController
         CmsException::unmask();
 
         /*
+         * Extensibility
+         */
+        if ($event = $this->fireEvent('page.init', [$url, $page], true))
+            return $event;
+
+        if ($event = Event::fire('cms.page.init', [$this, $url, $page], true))
+            return $event;
+
+        /*
          * Execute AJAX event
          */
         if ($ajaxResponse = $this->execAjaxHandlers())
@@ -255,7 +264,10 @@ class Controller extends BaseController
     {
         $this->loader = new TwigLoader();
 
-        $options = ['auto_reload' => true];
+        $options = [
+            'auto_reload' => true,
+            'debug' => Config::get('app.debug', false),
+        ];
         if (!Config::get('cms.twigNoCache'))
             $options['cache'] =  storage_path().'/twig';
 
@@ -482,6 +494,15 @@ class Controller extends BaseController
     }
 
     /**
+     * Invokes the current page cycle without rendering the page,
+     * used by AJAX handler that may rely on the logic inside the action.
+     */
+    public function pageCycle()
+    {
+        return $this->execPageCycle();
+    }
+
+    /**
      * Executes the page life cycle.
      * Creates an object from the PHP sections of the page and
      * it's layout, then executes their life cycle functions.
@@ -548,7 +569,18 @@ class Controller extends BaseController
      */
     public function renderPage()
     {
-        return $this->pageContents;
+        $contents = $this->pageContents;
+
+        /*
+         * Extensibility
+         */
+        if ($event = $this->fireEvent('page.render', [$contents], true))
+            return $event;
+
+        if ($event = Event::fire('cms.page.render', [$this, $contents], true))
+            return $event;
+
+        return $contents;
     }
 
     /**

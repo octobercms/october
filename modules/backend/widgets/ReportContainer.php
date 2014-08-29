@@ -117,7 +117,7 @@ class ReportContainer extends WidgetBase
     {
         $sizes = [];
         for ($i = 1; $i <= 10; $i++)
-            $sizes[$i] = $i < 10 ? $i : $i.' (full width)';
+            $sizes[$i] = $i < 10 ? $i : $i.' (' . Lang::get('backend::lang.dashboard.full_width') . ')';
 
         $this->vars['sizes'] = $sizes;
         $this->vars['widgets'] = WidgetManager::instance()->listReportWidgets();

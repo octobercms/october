@@ -55,13 +55,13 @@ class EditorPreferences extends Controller
         $this->vars['language'] = 'css';
         $this->vars['margin'] = 0;
 
-        $this->getClassExtension('Backend.Behaviors.FormController')->update();
+        $this->asExtension('FormController')->update();
         $this->pageTitle = Lang::get('backend::lang.editor.menu_label');
     }
 
     public function index_onSave()
     {
-        return $this->getClassExtension('Backend.Behaviors.FormController')->update_onSave();
+        return $this->asExtension('FormController')->update_onSave();
     }
 
     public function formFindModelObject()

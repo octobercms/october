@@ -40,7 +40,7 @@ return [
         'menu_label' => 'Pages',
         'no_list_records' => 'No pages found',
         'new' => 'New page',
-        'invalid_url' => 'Invalid URL format. The URL should start with the forward slash symbol and can contain digits, Latin letters and the following symbols: _-[]:?|/+*',
+        'invalid_url' => 'Invalid URL format. The URL should start with the forward slash symbol and can contain digits, Latin letters and the following symbols: ._-[]:?|/+*',
         'delete_confirm_multiple' => 'Do you really want to delete selected pages?',
         'delete_confirm_single' => 'Do you really want delete this page?',
         'no_layout' => '-- no layout --'
