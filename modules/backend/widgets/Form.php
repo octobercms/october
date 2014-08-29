@@ -197,7 +197,7 @@ class Form extends WidgetBase
      */
     public function renderFieldElement($field)
     {
-        return $this->makePartial('field_'.$field->type, ['field' => $field]);
+        return $this->makePartial('field_'.$field->type, ['field' => $field, 'formModel' => $this->model]);
     }
 
     /**
