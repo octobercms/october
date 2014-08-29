@@ -314,7 +314,7 @@ class FormController extends ControllerBehavior
             $redirectUrl = Backend::url($this->getRedirectUrl($context));
 
         if ($model && $redirectUrl)
-            $redirectUrl = RouterHelper::parseValues($model, [$model->getKeyName()], $redirectUrl);
+            $redirectUrl = RouterHelper::parseValues($model, array_keys($model->getAttributes()), $redirectUrl);
 
         return ($redirectUrl) ? Redirect::to($redirectUrl) : null;
     }
