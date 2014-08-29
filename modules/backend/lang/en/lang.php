@@ -244,4 +244,7 @@ return [
         'last_name' => 'Last name',
         'email' => 'Email',
     ],
+    'filter' => [
+      'all' => 'all'
+    ]
 ];
