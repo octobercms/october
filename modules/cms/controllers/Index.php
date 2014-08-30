@@ -276,7 +276,7 @@ class Index extends Controller
         if (!$alias = post('tokenName'))
             throw new ApplicationException(trans('cms::lang.component.no_records'));
 
-        // Can only break apart components at this stage
+        // Can only expand components at this stage
         if ((!$type = post('tokenType')) && $type != 'component')
             return;
 
