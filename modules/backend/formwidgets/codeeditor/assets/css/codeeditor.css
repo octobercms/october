@@ -11,7 +11,7 @@
   filter: alpha(opacity=0);
 }
 .field-codeeditor.editor-focus {
-  border: 2px solid #cccccc;
+  border: 2px solid #808c8d;
 }
 .field-codeeditor.size-tiny {
   min-height: 50px;
@@ -41,7 +41,7 @@
 }
 .field-codeeditor .editor-toolbar {
   position: absolute;
-  top: 0;
+  top: 3px;
   right: 3px;
   z-index: 150;
 }
@@ -53,15 +53,18 @@
 }
 .field-codeeditor .editor-toolbar > ul > li {
   float: left;
-  padding: 2px 5px;
-  height: 25px;
 }
 .field-codeeditor .editor-toolbar > ul > li > a {
+  display: block;
+  height: 25px;
+  width: 25px;
   color: #666;
   font-size: 20px;
+  text-align: center;
   text-decoration: none;
 }
 .field-codeeditor .editor-toolbar > ul > li > a > abbr {
+  position: absolute;
   font: 0/0 a;
   color: transparent;
   text-shadow: none;

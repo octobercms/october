@@ -26,7 +26,7 @@
         this.$toolbar  = this.$el.find('>.editor-toolbar:first')
         this.$code     = null
         this.editor    = null
-        
+
         // Toolbar links
         this.isFullscreen = false
         this.$fullscreenEnable = this.$toolbar.find('li.fullscreen-enable')
@@ -219,6 +219,10 @@
 
     CodeEditor.prototype.getEditorObject = function() {
         return this.editor
+    }
+
+    CodeEditor.prototype.getToolbar = function() {
+        return this.$toolbar
     }
 
     CodeEditor.prototype.toggleFullscreen = function() {
