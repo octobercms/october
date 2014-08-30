@@ -2,58 +2,166 @@
  * Token Breaker plugin
  * Locates Twig tokens and replaces them with potential content inside.
  * 
- * Data attributes:
- * - data-control="dragcomponents" - enables the plugin on an element
- * - data-option="value" - an option with a value
- *
  * JavaScript API:
- * $('a#someElement').dragComponents({ option: 'value' })
+ * $('#codeEditor').tokenBreaker({ option: 'value' })
  *
  * Dependences: 
- * - Some other plugin (filename.js)
+ * - Code Edtior (codeeditor.js)
  */
-var $editorArea = $('#cms-master-tabs > div.tab-content > .tab-pane.active [data-control="codeeditor"]')
-var $editor = $editorArea.codeEditor('getEditorObject'),
-    $selection = $editor.getSelection(),
-    $session = $editor.getSession(),
-    $document = $session.getDocument()
 
-$selection.on('changeCursor', function (event){
++function ($) { "use strict";
 
-    var cursor = $selection.getCursor(),
-        line = $document.getLine(cursor.row),
-        wordRange = $session.getWordRange(cursor.row, cursor.column),
-        word = $session.getTextRange(wordRange)
+    // TOKEN BREAKER CLASS DEFINITION
+    // ============================
 
-    if (word == 'component') {
+    var TokenBreaker = function(element, options) {
+        this.options   = options
+        this.$el       = $(element)
 
-        var lineRegex = new RegExp(/{%\s*component\s(['"])([^"']+)(?:\1)[^(?:%})]+%}/i),
-            result = lineRegex.exec(line),
-            start,
-            end,
-            lastEnd = 0,
-            lineLength = line.length
+        // Public properties
+        this.something  = false
 
-        if (result) {
-            while (true) {
-                start = line.indexOf(result[0], lastEnd),
-                end = start + result[0].length
-                if (start == -1) break
+        // Init
+        this.init()
+    }
 
-                if (isMatchingRegex(start, end, cursor.column)) {
-                    console.log(result[2] + "Found result at: " + end)
-                }
+    TokenBreaker.DEFAULTS = {
+        option: 'default'
+    }
 
-                lastEnd = end
-            }
+    TokenBreaker.prototype.init = function() {
+
+        this.$editor = this.$el.codeEditor('getEditorObject')
+        this.$selection = this.$editor.getSelection()
+        this.$session = this.$editor.getSession()
+        this.tokenName = null
+        this.tokenValue = null
+        this.tokenDefinition = null
+
+        this.$selection.on('changeCursor', $.proxy(this.cursorChange, this))
+    }
+
+    TokenBreaker.prototype.cursorChange = function(event) {
+
+        var cursor = this.$selection.getCursor(),
+            word = this.getActiveWord(cursor).toLowerCase()
+
+        if (word == 'component') {
+            this.handleCursorOnToken(cursor, word)
+        }
+        else if (this.tokenName) {
+            this.tokenName = null
+            this.tokenValue = null
+            this.tokenDefinition = null
+
+            this.$el.trigger('hide.oc.tokenbreaker')
         }
 
-
     }
-})
 
-function isMatchingRegex(sampleStart, sampleEnd, target)
-{
-    return sampleStart < target && sampleEnd > target
-}
+    TokenBreaker.prototype.handleCursorOnToken = function(cursor, token) {
+        var line = this.$session.getLine(cursor.row),
+            definition = this.getTwigTokenDefinition(token, line, cursor.column)
 
+        if (definition) {
+
+            var value = this.getTwigTokenValue(token, definition[0])
+
+            if (value) {
+                if (!this.tokenName)
+                    this.$el.trigger('show.oc.tokenbreaker')
+
+                this.tokenName = token
+                this.tokenValue = value
+                this.tokenDefinition = definition
+            }
+        }
+    }
+
+    TokenBreaker.prototype.breakToken = function() {
+        console.log('Breaking token ' + this.tokenName + ' with value: ' + this.tokenValue)
+
+        // Prepare a promise
+        // Lock the editor
+        // Replace the text
+        // Unlock after promise resolved
+    }
+
+    TokenBreaker.prototype.getTwigTokenValue = function(tokenName, tokenString) {
+
+        var regex = new RegExp("^{%\\s*"+tokenName+"\\s(['"+'"'+"])([^"+'"'+"']+)(?:\\1)[^(?:%})]+%}$", "i"),
+            regexMatch = regex.exec(tokenString)
+
+        if (regexMatch && regexMatch[2])
+            return regexMatch[2]
+
+        return null
+    }
+
+    /**
+     * Returns an array of [tokenString, startPos, endPos] or null
+     * Eg: ['{% component "thing" %}', 0, 23]
+     */
+    TokenBreaker.prototype.getTwigTokenDefinition = function(token, str, pos, filter) {
+
+        if (!filter)
+            filter = 0
+
+        var filteredStr = str.substring(filter),
+            regex = new RegExp("{%\\s*"+token+"\\s[^(?:%})]+%}", "i"),
+            regexMatch = regex.exec(filteredStr)
+
+        if (regexMatch) {
+            var start = str.indexOf(regexMatch[0], filter),
+                end = start + regexMatch[0].length
+
+            // Win!
+            if (start < pos && end > pos)
+                return [regexMatch[0], start, end]
+
+            // Try again
+            return this.getTwigTokenDefinition(token, str, pos, end)
+        }
+
+        // Fail
+        return null
+    }
+
+    TokenBreaker.prototype.getActiveWord = function(cursor) {
+        var $session = this.$session,
+            wordRange = $session.getWordRange(cursor.row, cursor.column),
+            word = $session.getTextRange(wordRange)
+
+        return word
+    }
+
+    // TOKEN BREAKER PLUGIN DEFINITION
+    // ============================
+
+    var old = $.fn.tokenBreaker
+
+    $.fn.tokenBreaker = function (option) {
+        var args = Array.prototype.slice.call(arguments, 1), regexMatch
+        this.each(function () {
+            var $this   = $(this)
+            var data    = $this.data('oc.tokenbreaker')
+            var options = $.extend({}, TokenBreaker.DEFAULTS, $this.data(), typeof option == 'object' && option)
+            if (!data) $this.data('oc.tokenbreaker', (data = new TokenBreaker(this, options)))
+            if (typeof option == 'string') regexMatch = data[option].apply(data, args)
+            if (typeof regexMatch != 'undefined') return false
+        })
+
+        return regexMatch ? regexMatch : this
+    }
+
+    $.fn.tokenBreaker.Constructor = TokenBreaker
+
+    // TOKEN BREAKER NO CONFLICT
+    // =================
+
+    $.fn.tokenBreaker.noConflict = function () {
+        $.fn.tokenBreaker = old
+        return this
+    }
+
+}(window.jQuery);

@@ -76,9 +76,17 @@ class Index extends Controller
         catch (Exception $ex) {
             $this->handleError($ex);
         }
+    }
 
+    //
+    // Pages
+    //
+
+    public function index()
+    {
         $this->addJs('/modules/cms/assets/js/october.cmspage.js', 'core');
         $this->addJs('/modules/cms/assets/js/october.dragcomponents.js', 'core');
+        $this->addJs('/modules/cms/assets/js/october.tokenbreaker.js', 'core');
         $this->addCss('/modules/cms/assets/css/october.components.css', 'core');
 
         // Preload Ace editor modes explicitly, because they could be changed dynamically
@@ -92,14 +100,6 @@ class Index extends Controller
         $this->bodyClass = 'compact-container side-panel-not-fixed';
         $this->pageTitle = Lang::get('cms::lang.cms.menu_label');
         $this->pageTitleTemplate = '%s CMS | October';
-    }
-
-    //
-    // Pages
-    //
-
-    public function index()
-    {
     }
 
     public function index_onOpenTemplate()
