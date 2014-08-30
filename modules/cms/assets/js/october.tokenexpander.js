@@ -1,20 +1,20 @@
 /*
- * Token Breaker plugin
+ * Token Expander plugin
  * Locates Twig tokens and replaces them with potential content inside.
  * 
  * JavaScript API:
- * $('#codeEditor').tokenBreaker({ option: 'value' })
+ * $('#codeEditor').tokenExpander({ option: 'value' })
  *
- * Dependences: 
+ * Dependences:
  * - Code Edtior (codeeditor.js)
  */
 
 +function ($) { "use strict";
 
-    // TOKEN BREAKER CLASS DEFINITION
+    // TOKEN EXPANDER CLASS DEFINITION
     // ============================
 
-    var TokenBreaker = function(element, options) {
+    var TokenExpander = function(element, options) {
         this.options   = options
         this.$el       = $(element)
 
@@ -25,11 +25,11 @@
         this.init()
     }
 
-    TokenBreaker.DEFAULTS = {
+    TokenExpander.DEFAULTS = {
         option: 'default'
     }
 
-    TokenBreaker.prototype.init = function() {
+    TokenExpander.prototype.init = function() {
 
         this.$editor = this.$el.codeEditor('getEditorObject')
         this.$selection = this.$editor.getSelection()
@@ -37,11 +37,12 @@
         this.tokenName = null
         this.tokenValue = null
         this.tokenDefinition = null
+        this.tokenRange = null
 
         this.$selection.on('changeCursor', $.proxy(this.cursorChange, this))
     }
 
-    TokenBreaker.prototype.cursorChange = function(event) {
+    TokenExpander.prototype.cursorChange = function(event) {
 
         var cursor = this.$selection.getCursor(),
             word = this.getActiveWord(cursor).toLowerCase()
@@ -53,13 +54,14 @@
             this.tokenName = null
             this.tokenValue = null
             this.tokenDefinition = null
+            this.tokenRange = null
 
-            this.$el.trigger('hide.oc.tokenbreaker')
+            this.$el.trigger('hide.oc.tokenexpander')
         }
 
     }
 
-    TokenBreaker.prototype.handleCursorOnToken = function(cursor, token) {
+    TokenExpander.prototype.handleCursorOnToken = function(cursor, token) {
         var line = this.$session.getLine(cursor.row),
             definition = this.getTwigTokenDefinition(token, line, cursor.column)
 
@@ -69,25 +71,39 @@
 
             if (value) {
                 if (!this.tokenName)
-                    this.$el.trigger('show.oc.tokenbreaker')
+                    this.$el.trigger('show.oc.tokenexpander')
 
                 this.tokenName = token
                 this.tokenValue = value
                 this.tokenDefinition = definition
+                this.tokenRange = this.$selection.getRange() // Used only for its row
             }
         }
     }
 
-    TokenBreaker.prototype.breakToken = function() {
-        console.log('Breaking token ' + this.tokenName + ' with value: ' + this.tokenValue)
+    /**
+     * Callback must return a promise object
+     */
+    TokenExpander.prototype.expandToken = function(callback) {
+        var $editor = this.$editor,
+            $session = this.$session,
+            definition = this.tokenDefinition,
+            range = this.tokenRange
 
-        // Prepare a promise
-        // Lock the editor
-        // Replace the text
-        // Unlock after promise resolved
+        $editor.setReadOnly(true)
+
+        callback(this.tokenName, this.tokenValue)
+            .done(function(data){
+                range.setStart(range.start.row, definition[1])
+                range.setEnd(range.end.row, definition[2])
+                $session.replace(range, data.result)
+            })
+            .always(function(){
+                $editor.setReadOnly(false)
+            })
     }
 
-    TokenBreaker.prototype.getTwigTokenValue = function(tokenName, tokenString) {
+    TokenExpander.prototype.getTwigTokenValue = function(tokenName, tokenString) {
 
         var regex = new RegExp("^{%\\s*"+tokenName+"\\s(['"+'"'+"])([^"+'"'+"']+)(?:\\1)[^(?:%})]+%}$", "i"),
             regexMatch = regex.exec(tokenString)
@@ -102,7 +118,7 @@
      * Returns an array of [tokenString, startPos, endPos] or null
      * Eg: ['{% component "thing" %}', 0, 23]
      */
-    TokenBreaker.prototype.getTwigTokenDefinition = function(token, str, pos, filter) {
+    TokenExpander.prototype.getTwigTokenDefinition = function(token, str, pos, filter) {
 
         if (!filter)
             filter = 0
@@ -127,7 +143,7 @@
         return null
     }
 
-    TokenBreaker.prototype.getActiveWord = function(cursor) {
+    TokenExpander.prototype.getActiveWord = function(cursor) {
         var $session = this.$session,
             wordRange = $session.getWordRange(cursor.row, cursor.column),
             word = $session.getTextRange(wordRange)
@@ -135,18 +151,18 @@
         return word
     }
 
-    // TOKEN BREAKER PLUGIN DEFINITION
+    // TOKEN EXPANDER PLUGIN DEFINITION
     // ============================
 
-    var old = $.fn.tokenBreaker
+    var old = $.fn.tokenExpander
 
-    $.fn.tokenBreaker = function (option) {
+    $.fn.tokenExpander = function (option) {
         var args = Array.prototype.slice.call(arguments, 1), regexMatch
         this.each(function () {
             var $this   = $(this)
-            var data    = $this.data('oc.tokenbreaker')
-            var options = $.extend({}, TokenBreaker.DEFAULTS, $this.data(), typeof option == 'object' && option)
-            if (!data) $this.data('oc.tokenbreaker', (data = new TokenBreaker(this, options)))
+            var data    = $this.data('oc.tokenexpander')
+            var options = $.extend({}, TokenExpander.DEFAULTS, $this.data(), typeof option == 'object' && option)
+            if (!data) $this.data('oc.tokenexpander', (data = new TokenExpander(this, options)))
             if (typeof option == 'string') regexMatch = data[option].apply(data, args)
             if (typeof regexMatch != 'undefined') return false
         })
@@ -154,13 +170,13 @@
         return regexMatch ? regexMatch : this
     }
 
-    $.fn.tokenBreaker.Constructor = TokenBreaker
+    $.fn.tokenExpander.Constructor = TokenExpander
 
-    // TOKEN BREAKER NO CONFLICT
+    // TOKEN EXPANDER NO CONFLICT
     // =================
 
-    $.fn.tokenBreaker.noConflict = function () {
-        $.fn.tokenBreaker = old
+    $.fn.tokenExpander.noConflict = function () {
+        $.fn.tokenExpander = old
         return this
     }
 
