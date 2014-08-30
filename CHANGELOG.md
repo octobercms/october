@@ -1,3 +1,6 @@
+* **Build 14x** (2014-09-xx)
+  - Add new `dump()` Twig function (config app.debug must be true).
+
 * **Build 139** (2014-08-30)
   - Components and variables can now be accessed in the page code section via `$this->foo` in addition to `$this['foo']`.
   - AJAX handlers in the CMS can now invoke the page cycle without rendering the page using `$this->pageCycle()`.

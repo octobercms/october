@@ -14,6 +14,7 @@ class DebugExtension extends Twig_Extension
 {
     const PAGE_CAPTION = 'Page variables';
     const OBJECT_CAPTION = 'Object variables';
+    const COMPONENT_CAPTION = 'Component variables';
 
     /**
      * @var \Cms\Classes\Controller A reference to the CMS controller.
@@ -88,7 +89,12 @@ class DebugExtension extends Twig_Extension
         else {
             $this->variablePrefix = false;
             for ($i = 2; $i < $count; $i++) {
-                $result .= $this->dump(func_get_arg($i), static::OBJECT_CAPTION);
+                $var = func_get_arg($i);
+                $caption = $var instanceof ComponentBase
+                    ? static::COMPONENT_CAPTION
+                    : static::OBJECT_CAPTION;
+
+                $result .= $this->dump($var, $caption);
             }
         }
 
@@ -245,6 +251,9 @@ class DebugExtension extends Twig_Extension
         elseif ($variable instanceof Collection)
             $label = 'Collection('.$variable->count().')';
 
+        elseif ($variable instanceof Paginator)
+            $label = 'Paged Collection('.$variable->count().')';
+
         elseif ($variable instanceof Model)
             $label = 'Model';
 
@@ -362,12 +371,12 @@ class DebugExtension extends Twig_Extension
 
         $methods = [];
         foreach ($info->getMethods() as $method) {
-            if (!$method->isPublic()) continue;
+            if (!$method->isPublic()) continue; // Only public
+            if ($method->class != $class) continue; // Only locals
             $name = $method->getName();
             if (in_array($name, $this->blockMethods)) continue; // Blocked methods
             if (preg_match('/^on[A-Z]{1}[\w+]*$/', $name)) continue; // AJAX methods
             if (preg_match('/^get[A-Z]{1}[\w+]*Options$/', $name)) continue; // getSomethingOptions
-            if ($method->class != $class) continue; // Only locals
             if (substr($name, 0, 1) == '_') continue; // Magic/hidden method
             $name .= '()';
             $methods[$name] = '___METHOD___|'.$name;
@@ -376,7 +385,8 @@ class DebugExtension extends Twig_Extension
 
         $vars = [];
         foreach ($info->getProperties() as $property) {
-            if (!$property->isPublic()) continue;
+            if (!$property->isPublic()) continue; // Only public
+            if ($property->class != $class) continue; // Only locals
             $name = $property->getName();
             $vars[$name] = $object->{$name};
             $this->commentMap[$name] = $this->evalDocBlock($property);
@@ -435,8 +445,8 @@ class DebugExtension extends Twig_Extension
             'border'                => '1px solid #bbb',
             'border-radius'         => '4px',
             'font-size'             => '12px',
-            'line-height'           => '1.4em',
-            'margin'                => '30px',
+            'line-height'           => '18px',
+            'margin'                => '20px',
             'padding'               => '7px',
             'display'               => 'inline-block',
         ]);
