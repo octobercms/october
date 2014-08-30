@@ -5,9 +5,16 @@ use Twig_Extension;
 use Twig_Environment;
 use Twig_SimpleFunction;
 use Cms\Classes\Controller;
+use Cms\Classes\ComponentBase;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Model;
 
 class DebugExtension extends Twig_Extension
 {
+    const PAGE_CAPTION = 'Page variables';
+    const OBJECT_CAPTION = 'Object variables';
+
     /**
      * @var \Cms\Classes\Controller A reference to the CMS controller.
      */
@@ -21,7 +28,14 @@ class DebugExtension extends Twig_Extension
     /**
      * @var boolean If no variable is passed, true.
      */
-    protected $controllerMode = false;
+    protected $variablePrefix = false;
+
+    /**
+     * @var array Collection of method/property comments.
+     */
+    protected $commentMap = [];
+
+    protected $blockMethods = ['componentDetails', 'defineProperties', 'getPropertyOptions', 'offsetExists', 'offsetGet', 'offsetSet', 'offsetUnset'];
 
     /**
      * Creates the extension instance.
@@ -44,17 +58,24 @@ class DebugExtension extends Twig_Extension
         );
     }
 
+    /**
+     * Processes the dump variables, if none is supplied, all the twig
+     * template variables are used
+     * @param  Twig_Environment $env
+     * @param  array            $context
+     * @return string
+     */
     public function runDump(Twig_Environment $env, $context)
     {
         if (!$env->isDebug()) {
             return;
         }
 
-        ob_start();
+        $result = '';
 
         $count = func_num_args();
-        if (2 === $count) {
-            $this->controllerMode = true;
+        if ($count == 2) {
+            $this->variablePrefix = true;
             $vars = [];
             foreach ($context as $key => $value) {
                 if (!$value instanceof Twig_Template) {
@@ -62,14 +83,16 @@ class DebugExtension extends Twig_Extension
                 }
             }
 
-            $this->dump($vars);
-        } else {
+            $result .= $this->dump($vars, static::PAGE_CAPTION);
+        }
+        else {
+            $this->variablePrefix = false;
             for ($i = 2; $i < $count; $i++) {
-                $this->dump(func_get_arg($i));
+                $result .= $this->dump(func_get_arg($i), static::OBJECT_CAPTION);
             }
         }
 
-        return ob_get_clean();
+        return $result;
     }
 
     /**
@@ -89,16 +112,27 @@ class DebugExtension extends Twig_Extension
      * @param string $caption Caption of the dump
      * @return void
      */
-    public function dump($variables = null, $caption = 'Page variables')
+    public function dump($variables = null, $caption = null)
     {
+        $this->commentMap = [];
+        $this->zebra = 1;
         $info = [];
 
-        if (!is_array($variables))
-            $variables = [$variables];
+        if (!is_array($variables)) {
+            if ($variables instanceof Paginator)
+                $variables = $this->paginatorToArray($variables);
+            elseif (is_object($variables))
+                $variables = $this->objectToArray($variables);
+            else
+                $variables = [$variables];
+        }
 
         $output = [];
         $output[] = '<table>';
-        $output[] = $this->makeTableHeader($caption);
+
+        if ($caption)
+            $output[] = $this->makeTableHeader($caption);
+
         foreach ($variables as $key => $item) {
             $output[] = $this->makeTableRow($key, $item);
         }
@@ -106,9 +140,14 @@ class DebugExtension extends Twig_Extension
 
         $html = implode(PHP_EOL, $output);
 
-        print '<pre style="' . $this->getContainerCss() . '">' . $html . '</pre>';
+        return '<pre style="' . $this->getContainerCss() . '">' . $html . '</pre>';
     }
 
+    /**
+     * Builds the HTML used for the table header.
+     * @param  string $caption
+     * @return string
+     */
     protected function makeTableHeader($caption)
     {
         $output = [];
@@ -118,43 +157,144 @@ class DebugExtension extends Twig_Extension
         return implode(PHP_EOL, $output);
     }
 
+    /**
+     * Builds the HTML used for each table row.
+     * @param  mixed $key
+     * @param  mixed $variable
+     * @return string
+     */
     protected function makeTableRow($key, $variable)
     {
         $this->zebra = $this->zebra ? 0 : 1;
-        $css = $this->getDataCss();
+        $css = $this->getDataCss($variable);
         $output = [];
         $output[] = '<tr>';
-
-        if ($this->controllerMode)
-            $output[] = '<td style="'.$css.'">{{<span> '.$key.' </span>}}</td>';
-        else
-            $output[] = '<td style="'.$css.'">'.$key.'</td>';
-
-        $output[] = '<td style="'.$css.'">'.gettype($variable).'</td>';
-        $output[] = '<td style="'.$css.'">'.$this->evalVarDesc($variable).'</td>';
+        $output[] = '<td style="'.$css.'">'.$this->evalKeyLabel($key).'</td>';
+        $output[] = '<td style="'.$css.'">'.$this->evalVarLabel($variable).'</td>';
+        $output[] = '<td style="'.$css.'">'.$this->evalVarDesc($variable, $key).'</td>';
         $output[] = '</tr>';
         return implode(PHP_EOL, $output);
     }
 
-    protected function evalVarDesc($variable)
+    protected function evalKeyLabel($key)
     {
-        switch (gettype($variable)) {
+        if ($this->variablePrefix === true) {
+            $output = '{{ <span>%s</span> }}';
+        }
+        elseif (is_array($this->variablePrefix)) {
+            $prefix = implode('.', $this->variablePrefix);
+            $output = '{{ <span>'.$prefix.'.%s</span> }}';
+        }
+        elseif ($this->variablePrefix) {
+            $output = '{{ <span>'.$this->variablePrefix.'.%s</span> }}';
+        }
+        else {
+            $output = '%s';
+        }
+
+        return sprintf($output, $key);
+    }
+
+    /**
+     * Evaluate the variable description
+     * @param  mixed $variable
+     * @return string
+     */
+    protected function evalVarLabel($variable)
+    {
+        $type = $this->getType($variable);
+        switch ($type) {
             case 'object':
-                return $this->evalObjDesc($variable);
+                return $this->evalObjLabel($variable);
 
             case 'array':
-                return $this->evalArrDesc($variable);
+                return $type . '('.count($variable).')';
 
             default:
-                return '';
+                return $type;
         }
     }
 
-    protected function evalObjDesc($variable)
+    /**
+     * Evaluate an object type for label
+     * @param  object $variable
+     * @return string
+     */
+    protected function getType($variable)
     {
-        return '<abbr title="'.e(get_class($variable)).'">'.Str::getRealClass($variable).'</abbr>';
+        $type = gettype($variable);
+        if ($type == 'string' && substr($variable, 0, 12) == '___METHOD___')
+            return 'method';
+
+        return $type;
     }
 
+    /**
+     * Evaluate an object type for label
+     * @param  object $variable
+     * @return string
+     */
+    protected function evalObjLabel($variable)
+    {
+        $class = get_class($variable);
+        $label = Str::getRealClass($variable);
+
+        if ($variable instanceof ComponentBase)
+            $label = '<strong>Component</strong>';
+
+        elseif ($variable instanceof Collection)
+            $label = 'Collection('.$variable->count().')';
+
+        elseif ($variable instanceof Model)
+            $label = 'Model';
+
+        return '<abbr title="'.e($class).'">'.$label.'</abbr>';
+    }
+
+    /**
+     * Evaluate the variable description
+     * @param  mixed $variable
+     * @return string
+     */
+    protected function evalVarDesc($variable, $key)
+    {
+        $type = $this->getType($variable);
+
+        if ($type == 'method')
+            return $this->evalMethodDesc($variable);
+
+        if (isset($this->commentMap[$key]))
+            return $this->commentMap[$key];
+
+        if ($type == 'array')
+            return $this->evalArrDesc($variable);
+
+        if ($type == 'object')
+            return $this->evalObjDesc($variable);
+
+        return '';
+    }
+
+    /**
+     * Evaluate an method type for description
+     * @param  object $variable
+     * @return string
+     */
+    protected function evalMethodDesc($variable)
+    {
+        $parts = explode('|', $variable);
+        if (count($parts) < 2)
+            return null;
+
+        $method = $parts[1];
+        return isset($this->commentMap[$method]) ?  $this->commentMap[$method] : null;
+    }
+
+    /**
+     * Evaluate an array type for description
+     * @param  array $variable
+     * @return string
+     */
     protected function evalArrDesc($variable)
     {
         $output = [];
@@ -166,17 +306,121 @@ class DebugExtension extends Twig_Extension
     }
 
     /**
+     * Evaluate an object type for description
+     * @param  array $variable
+     * @return string
+     */
+    protected function evalObjDesc($variable)
+    {
+        $output = [];
+        if ($variable instanceof ComponentBase) {
+            $details = $variable->componentDetails();
+            $output[] = '<abbr title="'.array_get($details, 'description').'">';
+            $output[] = array_get($details, 'name');
+            $output[] = '</abbr>';
+        }
+
+        return implode('', $output);
+    }
+
+    //
+    // Object helpers
+    //
+
+    protected function paginatorToArray(Paginator $paginator)
+    {
+        $this->commentMap = [
+            'links()'       => 'Renders links for navigating the collection',
+            'currentPage'   => 'Get the current page for the request.',
+            'lastPage'      => 'Get the last page that should be available.',
+            'perPage'       => 'Get the number of items to be displayed per page.',
+            'total'         => 'Get the total number of items in the complete collection.',
+            'from'          => 'Get the number of the first item on the paginator.',
+            'to'            => 'Get the number of the last item on the paginator.',
+            'count'         => 'Returns the number of items in this collection',
+        ];
+
+        return [
+            'links' => '___METHOD___|links()',
+            'currentPage' => '___METHOD___|currentPage',
+            'lastPage' => '___METHOD___|lastPage',
+            'perPage' => '___METHOD___|perPage',
+            'total' => '___METHOD___|total',
+            'from' => '___METHOD___|from',
+            'to' => '___METHOD___|to',
+            'count' => '___METHOD___|count',
+        ];
+    }
+
+
+    protected function objectToArray($object)
+    {
+        $class = get_class($object);
+        $info = new \ReflectionClass($object);
+
+        $this->commentMap[$class] = [];
+
+        $methods = [];
+        foreach ($info->getMethods() as $method) {
+            if (!$method->isPublic()) continue;
+            $name = $method->getName();
+            if (in_array($name, $this->blockMethods)) continue; // Blocked methods
+            if (preg_match('/^on[A-Z]{1}[\w+]*$/', $name)) continue; // AJAX methods
+            if (preg_match('/^get[A-Z]{1}[\w+]*Options$/', $name)) continue; // getSomethingOptions
+            if ($method->class != $class) continue; // Only locals
+            if (substr($name, 0, 1) == '_') continue; // Magic/hidden method
+            $name .= '()';
+            $methods[$name] = '___METHOD___|'.$name;
+            $this->commentMap[$name] = $this->evalDocBlock($method);
+        }
+
+        $vars = [];
+        foreach ($info->getProperties() as $property) {
+            if (!$property->isPublic()) continue;
+            $name = $property->getName();
+            $vars[$name] = $object->{$name};
+            $this->commentMap[$name] = $this->evalDocBlock($property);
+        }
+
+        return $methods + $vars;
+    }
+
+    protected function evalDocBlock($reflectionObj)
+    {
+        $comment = $reflectionObj->getDocComment();
+        $comment = substr($comment, 3, -2);
+
+        $parts = explode('@', $comment);
+        $comment = array_shift($parts);
+        $comment = trim(trim($comment), '*');
+        $comment = implode(' ', array_map('trim', explode('*', $comment)));
+
+        return $comment;
+    }
+
+
+    //
+    // Style helpers
+    //
+
+    /**
      * Get the CSS string for the output data
      *
      * @return string
      */
-    protected function getDataCss()
+    protected function getDataCss($variable)
     {
-        return $this->arrayToCss([
+        $css = [
             'padding'               => '7px',
             'background-color'      => $this->zebra ? '#D8D9DB' : '#FFF',
             'color'                 => '#405261',
-        ]);
+        ];
+
+        $type = gettype($variable);
+        if ($type == 'NULL')
+            $css['color'] = '#999';
+
+        return $this->arrayToCss($css);
     }
 
     /**
