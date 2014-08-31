@@ -15,12 +15,18 @@ return [
     'theme' => [
         'active' => [
             'not_set' => "O tema ativo não foi definido.",
+            'not_found' => "O tema ativo não foi encontrado.",
         ],
         'edit' => [
             'not_set' => "O tema de edição não foi definido.",
             'not_found' => "O tema de edição não foi encontrado.",
             'not_match' => "O objeto que você está tentando acessar não pertence ao tema que está sendo editado. Por favor, recarregue a página."
-        ]
+        ],
+        'settings_menu' => 'Temas',
+        'settings_menu_description' => 'Veja a lista de temas instalados.',
+        'find_more_themes' => 'Encontrar mais temas.',
+        'activate_button' => 'Ativar',
+        'active_button' => 'Ativar',
     ],
     'page' => [
         'not_found' => [
@@ -33,7 +39,8 @@ return [
         ],
         'menu_label' => 'Páginas',
         'no_list_records' => 'Nenhuma página foi encontradas',
-        'invalid_url' => 'Formato de URL inválido. O URL deve começar com o símbolo de barra e pode conter dígitos, letras latinas e os seguintes símbolos: ._-[]:?|/+*',
+        'new' => 'Nova página',
+        'invalid_url' => 'Formato de URL inválido. O URL deve começar com o símbolo de barra e pode conter dígitos, letras latinas e os seguintes símbolos: _-[]:?|/+*',
         'delete_confirm_multiple' => 'Você realmente quer excluir as páginas selecionadas?',
         'delete_confirm_single' => 'Você realmente quer excluir esta página?',
         'no_layout' => '-- sem layout --'
@@ -71,11 +78,11 @@ return [
         'not_found' => "O arquivo combinador ':name' não foi encontrado.",
     ],
     'cms' => [
-        'menu_label' => "CMS"
+        'menu_label' => "Design"
     ],
     'sidebar' => [
         'add' => 'Adicionar',
-        'search' => 'Pesquisar...'
+        'search' => 'Buscar...'
     ],
     'editor' => [
         'settings' => 'Configurações',
@@ -92,6 +99,10 @@ return [
         'markup' => 'Edição',
         'code' => 'Código',
         'content' => 'Conteúdo',
+        'hidden' => 'Oculta',
+        'hidden_comment' => 'Páginas ocultas são acessíveis somente para administradores.',
+        'enter_fullscreen' => 'Entrar no modo de tela cheia',
+        'exit_fullscreen' => 'Sair do modo de tela cheia'
     ],
     'asset' => [
         'menu_label' => "Arquivos",
@@ -100,9 +111,12 @@ return [
         'upload_files' => 'Enviar arquivo(s)',
         'create_file' => 'Criar arquivo',
         'create_directory' => 'Criar diretório',
+        'directory_popup_title' => 'Novo diretório',
+        'directory_name' => 'Nome do diretório',
         'rename' => 'Renomear',
-        'delete' => 'Remover',
+        'delete' => 'Excluir',
         'move' => 'Mover',
+        'select' => 'Selecionar',
         'new' => 'Novo arquivo',
         'rename_popup_title' => 'Renomear',
         'rename_new_name' => 'Novo nome',
@@ -147,5 +161,13 @@ return [
         'invalid_type' => "Tipo de modelo desconhecido.",
         'not_found' => "O modelo solicitado não foi encontrado.",
         'saved'=> "O modelo foi salvo com sucesso."
+    ],
+    'permissions' => [
+        'manage_content' => 'Gerenciar conteúdo',
+        'manage_assets' => 'Gerenciar arquivos',
+        'manage_pages' => 'Gerenciar páginas',
+        'manage_layouts' => 'Gerenciar layouts',
+        'manage_partials' => 'Gerenciar blocos',
+        'manage_themes' => 'Gerenciar temas'
     ]
 ];
