@@ -14,7 +14,7 @@ return [
         'access_denied' => [
             'label' => "Acesso negado",
             'help' => "Você não tem as permissões necessárias para visualizar esta página.",
-            'cms_link' => "Voltar",
+            'cms_link' => "Voltar à área de administração",
         ],
     ],
     'partial' => [
