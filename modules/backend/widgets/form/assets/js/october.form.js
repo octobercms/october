@@ -32,7 +32,7 @@
          * Map master and slave field map
          */
         form.find('[data-field-depends]').each(function(){
-            var name = $(this).data('column-name'),
+            var name = $(this).data('field-name'),
                 depends = $(this).data('field-depends')
 
             $.each(depends, function(index, depend){
@@ -46,15 +46,15 @@
         /*
          * When a master is updated, refresh its slaves
          */
-        $.each(fieldMap, function(columnName, toRefresh){
-            form.find('[data-column-name="'+columnName+'"]')
+        $.each(fieldMap, function(fieldName, toRefresh){
+            form.find('[data-field-name="'+fieldName+'"]')
                 .on('change', 'select, input', function(){
                     formEl.request(self.options.refreshHandler, {
                         data: toRefresh
                     })
 
                     $.each(toRefresh.fields, function(index, field){
-                        form.find('[data-column-name="'+field+'"]')
+                        form.find('[data-field-name="'+field+'"]')
                             .addClass('loading-indicator-container size-form-field')
                             .loadIndicator()
                     })

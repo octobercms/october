@@ -192,6 +192,8 @@
                 $panel.trigger('unmodified.oc.tab')
                 updateModifiedCounter()
             })
+
+            addTokenExpanderToEditor(data.pane, $form)
         })
 
         /*
@@ -431,6 +433,54 @@
 
             $.each(counters, function(type, data){
                 $.oc.sideNav.setCounter('cms/' + data.menu, data.count);
+            })
+        }
+
+        function addTokenExpanderToEditor(pane, $form) {
+            var group = $('[data-field-name=markup]', pane),
+                editor = $('[data-control=codeeditor]', group),
+                toolbar = editor.codeEditor('getToolbar'),
+                canExpand = false
+
+            if (editor.data('oc.tokenexpander'))
+                return
+
+            editor.tokenExpander()
+
+            var breakButton = $('<li />').prop({ 'class': 'tokenexpander-button' }).append(
+                $('<a />').prop({ 'href': 'javascript:; '}).append(
+                    $('<i />').prop({ 'class': 'icon-code-fork' })
+                )
+            )
+
+            breakButton.hide().on('click', function(){
+                handleExpandToken(editor, $form)
+                return false
+            })
+
+            $('ul:first', toolbar).prepend(breakButton)
+
+            editor
+                .on('show.oc.tokenexpander', function(){
+                    canExpand = true
+                    breakButton.show()
+                })
+                .on('hide.oc.tokenexpander', function(){
+                    canExpand = false
+                    breakButton.hide()
+                })
+                .on('dblclick', function(e){
+                    if ((e.metaKey || e.ctrlKey) && canExpand) {
+                        handleExpandToken(editor, $form)
+                    }
+                })
+        }
+
+        function handleExpandToken(editor, $form) {
+            editor.tokenExpander('expandToken', function(token, value){
+                return $form.request('onExpandMarkupToken', {
+                    data: { tokenType: token, tokenName: value }
+                })
             })
         }
 
