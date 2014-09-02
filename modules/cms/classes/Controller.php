@@ -54,14 +54,24 @@ class Controller extends BaseController
     protected $loader;
 
     /**
-     * @var \Cms\Classes\Page A reference to the CMS page being processed.
+     * @var \Cms\Classes\Page A reference to the CMS page template being processed.
      */
     protected $page;
 
     /**
-     * @var \Cms\Classes\Layout A reference to the CMS layout used by the page.
+     * @var \Cms\Classes\CodeBase A reference to the CMS page code section object.
+     */
+    protected $pageObj;
+
+    /**
+     * @var \Cms\Classes\Layout A reference to the CMS layout template used by the page.
      */
     protected $layout;
+
+    /**
+     * @var \Cms\Classes\CodeBase A reference to the CMS layout code section object.
+     */
+    protected $layoutObj;
 
     /**
      * @var \Twig_Environment Keeps the Twig environment object.
@@ -280,15 +290,6 @@ class Controller extends BaseController
 
         if ($isDebugMode)
             $this->twig->addExtension(new DebugExtension($this));
-    }
-
-    /**
-     * Returns the Twig environment.
-     * @return Twig_Environment
-     */
-    public function getTwig()
-    {
-        return $this->twig;
     }
 
     /**
@@ -765,12 +766,39 @@ class Controller extends BaseController
     }
 
     /**
+     * Returns the Twig environment.
+     * @return Twig_Environment
+     */
+    public function getTwig()
+    {
+        return $this->twig;
+    }
+
+    /**
      * Returns the routing object.
      * @return \Cms\Classes\Router
      */
     public function getRouter()
     {
         return $this->router;
+    }
+
+    /**
+     * Intended to be called from the layout, returns the page code base object.
+     * @return \Cms\Classes\CodeBase
+     */
+    public function getPageObject()
+    {
+        return $this->pageObj;
+    }
+
+    /**
+     * Intended to be called from the page, returns the layout code base object.
+     * @return \Cms\Classes\CodeBase
+     */
+    public function getLayoutObject()
+    {
+        return $this->layoutObj;
     }
 
     /**
