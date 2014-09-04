@@ -13667,6 +13667,11 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 .control-treeview ol > li > div:hover span.borders {
   display: none;
 }
+.control-treeview ol > li[data-no-drag-mode] div:hover span.drag-handle {
+  cursor: default!important;
+  opacity: 0.3 !important;
+  filter: alpha(opacity=30) !important;
+}
 .control-treeview ol > li.dragged li.has-subitems > div:before,
 .control-treeview ol > li.dragged.has-subitems > div:before {
   background-position: 0px -52px;
@@ -13934,6 +13939,14 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 }
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand {
   left: 102px;
+}
+.control-treeview p.no-data {
+  padding: 18px 0;
+  margin: 0;
+  color: #666666;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 400;
 }
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
   .control-treeview ol > li > div:before {

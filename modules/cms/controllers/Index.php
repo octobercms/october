@@ -135,10 +135,11 @@ class Index extends Controller
         $templatePath = trim(Request::input('templatePath'));
         $template = $templatePath ? $this->loadTemplate($type, $templatePath) : $this->createTemplate($type);
 
-        $settings = $this->upgradeSettings(Request::input('settings'));
+        $settings = Request::input('settings') ?: [];
+        $settings = $this->upgradeSettings($settings);
 
         $templateData = [];
-        if (Request::input('settings'))
+        if ($settings)
             $templateData['settings'] = $settings;
 
         $fields = ['markup', 'code', 'fileName', 'content'];

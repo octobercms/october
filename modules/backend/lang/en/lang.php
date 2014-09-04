@@ -164,7 +164,10 @@ return [
         'select_all' => 'all',
         'select_none' => 'none',
         'insert_row' => 'Insert Row',
-        'delete_row' => 'Delete Row'
+        'delete_row' => 'Delete Row',
+        'concurrency-file-changed-title' => 'File was changed',
+        'concurrency-file-changed-description' => 'The file you\'re editing has been changed on disk by another user. You can either reload the file and lose your changes or override the file on the disk.',
+        'reload' => 'Reload',
     ],
     'relation' => [
         'missing_definition' => "Relation behavior does not contain a definition for ':field'.",

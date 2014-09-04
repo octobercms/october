@@ -196,6 +196,13 @@
                 }
             }
 
+            &[data-no-drag-mode] div:hover {
+                span.drag-handle {
+                    cursor: default!important;
+                    .opacity(0.3)!important;
+                }
+            }
+
             &.dragged {
                 li.has-subitems, &.has-subitems {
                     > div:before {
@@ -369,6 +376,15 @@
         }
 
         .tree-view-paddings (@max-level);
+    }
+
+    p.no-data {
+        padding: 18px 0;
+        margin: 0;
+        color: @color-filelist-norecords-text;
+        font-size: 12px;
+        text-align: center;
+        font-weight: 400;
     }
 }
 

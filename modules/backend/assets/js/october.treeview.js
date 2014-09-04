@@ -83,6 +83,9 @@
 
             $container.append($('<span class="drag-handle">Drag</span>'))
             $container.append($('<span class="borders"></span>'))
+
+            if ($(this).attr('data-no-drag-mode') !== undefined)
+              $('span.drag-handle', this).attr('title', 'Dragging is disabled when the Search is active')
         })
     }
 
@@ -171,7 +174,11 @@
     }
 
     TreeView.prototype.initSortable = function() {
-        var self = this
+        var self = this,
+            $noDragItems = $('[data-no-drag-mode]', this.$el)
+
+        if ($noDragItems.length > 0)
+            return
 
         if (this.$el.data('oc.treelist'))
             this.$el.treeListWidget('unbind')
