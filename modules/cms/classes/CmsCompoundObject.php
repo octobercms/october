@@ -5,6 +5,7 @@ use Cms\Classes\CodeBase;
 use System\Classes\SystemException;
 use Cms\Classes\FileHelper;
 use October\Rain\Support\ValidationException;
+use Cms\Classes\ViewBag;
 
 /**
  * This is a base class for CMS objects that have multiple sections - pages, partials and layouts.
@@ -46,6 +47,12 @@ class CmsCompoundObject extends CmsObject
     protected $settingsValidationRules = [];
 
     protected $settingsValidationMessages = [];
+
+    protected $viewBagValidationRules = [];
+
+    protected $viewBagValidationMessages = [];
+
+    protected $viewBagCache = false;
 
     /**
      * Loads the object from a file.
@@ -203,6 +210,33 @@ class CmsCompoundObject extends CmsObject
     }
 
     /**
+     * Returns the configured view bag component.
+     * This method is used only in the back-end and for internal system needs when 
+     * the standard way to access components is not an option.
+     * @return \Cms\Classes\ViewBag Returns the view bag component instance.
+     */
+    public function getViewBag()
+    {
+        if ($this->viewBagCache !== false)
+            return $this->viewBagCache;
+
+        $componentName = 'viewBag';
+
+        if (!isset($this->settings['components'][$componentName])) {
+            $viewBag = new ViewBag(null, []);
+            $viewBag->name = $componentName;
+
+            return $this->viewBagCache = $viewBag;
+        }
+
+        return $this->viewBagCache = ComponentManager::instance()->makeComponent(
+            $componentName, 
+            null, 
+            $this->settings['components'][$componentName]);
+    }
+
+
+    /**
      * Parses the settings array.
      * Child classes can override this method in order to update
      * the content of the $settings property after the object
@@ -241,5 +275,11 @@ class CmsCompoundObject extends CmsObject
         $validation = Validator::make($this->settings, $this->settingsValidationRules, $this->settingsValidationMessages);
         if ($validation->fails())
             throw new ValidationException($validation);
+
+        if ($this->viewBagValidationRules && isset($this->settings['viewBag'])) {
+            $validation = Validator::make($this->settings['viewBag'], $this->viewBagValidationRules, $this->viewBagValidationMessages);
+            if ($validation->fails())
+                throw new ValidationException($validation);
+        }
     }
 }

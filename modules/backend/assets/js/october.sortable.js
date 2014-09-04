@@ -55,6 +55,8 @@
             handle: "",
             // The exact css path between the item and its subcontainers
             itemPath: "",
+            // Use animation when an item is removed or inserted into the tree
+            useAnimation : false,
             // The css selector of the items
             itemSelector: "li",
             // Check if the dragged item may be inside the container.
@@ -66,6 +68,10 @@
             // Executed before onDrop if placeholder is detached.
             // This happens if pullPlaceholder is set to false and the drop occurs outside a container.
             onCancel: function ($item, container, _super, event) {
+            },
+
+            tweakCursorAdjustment: function(adjustment) {
+                return adjustment
             },
             // Called after the drag has been started,
             // that is the mouse button is beeing held down and
@@ -87,10 +93,16 @@
                     cursorAdjustment = null
                 }
 
+                cursorAdjustment = this.tweakCursorAdjustment(cursorAdjustment)
+
                 $item.css({
                     height: $item.height(),
                     width: $item.width()
                 })
+
+                if (this.useAnimation)
+                    $item.data('oc.animated', true)
+
                 $item.addClass("dragged")
                 $("body").addClass("dragging")
             },
@@ -109,10 +121,15 @@
                     $item.css(position)
                 }
             },
-            // Called when the mouse button is beeing released
+            // Called when the mouse button is being released
             onDrop: function ($item, container, _super, event) {
                 $item.removeClass("dragged").removeAttr("style")
                 $("body").removeClass("dragging")
+
+                if ($item.data('oc.animated')) {
+                    $item.hide()
+                    $item.slideDown(200)
+                }
             },
             // Called on mousedown. If falsy value is returned, the dragging will not start.
             onMousedown: function ($item, _super, event) {

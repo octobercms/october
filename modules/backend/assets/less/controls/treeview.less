@@ -1,40 +1,45 @@
 .control-treeview {
+    margin-bottom: 40px;
+
     ol {
         margin: 0;
         padding: 0;
         list-style: none;
+        background: @color-treeview-item-bg;
 
         > li {
-            position: relative;
-
-            span.expand {
-                display: none;
-            }
+            .transition(width 1s);
 
             > div {
-                font-size: 14px;
+                font-size: 13px;
                 font-weight: 600;
-                color: @color-treeview-item-title;
                 background: @color-treeview-item-bg;
-                margin-bottom: 1px;
-                padding: 16px 16px 15px 51px;
+                border-bottom: 1px solid @color-panel-light;
                 position: relative;
+
+                > a {
+                    color: @color-treeview-item-title;
+                    padding: 16px 45px 15px 61px;
+                    display: block;
+                    text-decoration: none;
+                    .box-sizing(border-box);
+                }
 
                 &:before {
                     content: ' ';
-                    background-image: url(../images/treeview-icons.svg);
-                    background-position: 0px top;
+                    background-image: url(../images/treeview-icons.png);
+                    background-position: 0px -28px;
                     background-repeat: no-repeat;
-                    background-size: 25px auto;
+                    background-size: 42px auto;
 
                     position: absolute;
                     width: 21px;
-                    height: 26px;
-                    left: 18px;
+                    height: 22px;
+                    left: 28px;
                     top: 20px;
                 }
 
-                > span {
+                span.comment {
                     display: block;
                     font-weight: 400;
                     color: @color-treeview-item-comment;
@@ -44,18 +49,174 @@
                     text-overflow: ellipsis;
                 }
 
-                &:hover {
-                    background-color: @color-treeview-hover-bg;
-                    color: @color-treeview-hover-text;
+                > span.expand {
+                    .hide-text();
+                    display: none;
+                    position: absolute;
+                    left: 0;
+                    width: 20px;
+                    height: 20px;
+                    top: 24px;
+                    left: 2px;
+                    cursor: pointer;
+                    color: @color-treeview-control;
+                    .transition(transform 0.1s ease);
 
                     &:before {
-                        background-position: 0px -65px;
-                    }
+                        .icon(@caret-right);
+                        line-height: 100%;
+                        font-size: 15px;
 
-                    > span {
-                        color: @color-treeview-hover-text;
+                        position: relative;
+                        left: 8px;
+                        top: 2px;
                     }
                 }
+
+                > span.drag-handle {
+                    .hide-text();
+                    .transition(opacity 0.4s);
+
+                    position: absolute;
+                    right: 24px;
+                    bottom: 5px;
+                    width: 14px;
+                    height: 14px;
+                    cursor: move;
+                    color: @color-treeview-control;
+                    .opacity(0);
+
+                    &:before {
+                        .icon(@bars);
+                        font-size: 14px;
+                    }
+                }
+
+                span.borders {
+                    font-size: 0;
+                }
+
+                > ul.submenu {
+                    position: absolute;
+                    left: 20px;
+                    bottom: -37px;
+                    padding: 0;
+                    list-style: none;
+                    z-index: 200;
+                    height: 37px;
+                    display: none;
+                    margin-left: 15px;
+
+                    background: transparent url(../images/treeview-submenu-tabs.png) repeat-x left -39px;
+
+                    &:before, &:after {
+                        background: transparent url(../images/treeview-submenu-tabs.png) no-repeat left top;
+                        content: ' ';
+                        display: block;
+                        width: 20px;
+                        height: 37px;
+                        position: absolute;
+                        top: 0;
+                    }
+
+                    &:before {
+                        left: -20px;
+                    }
+
+                    &:after {
+                        background-position: -100px top;
+                        right: -20px;
+                    }
+
+                    li {
+                        font-size: 12px;
+
+                        a {
+                            display: block;
+                            padding: 4px 3px 0 3px;
+                            color: @color-treeview-submenu-text;
+                            text-decoration: none;
+                            outline: none;
+
+                            i {
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    > ul.submenu {
+                        display: block;
+                    }
+                }
+
+                .checkbox {
+                    position: absolute;
+                    top: 19px;
+                    right: 17px;
+
+                    label {
+                        margin-right: 0;
+
+                        &:before {
+                            border-color: @color-filelist-cb-border;
+                        }
+                    }
+                }
+            }
+
+            &.dragged div, > div:hover {
+                background-color: @color-treeview-hover-bg!important;
+
+                > a {
+                    color: @color-treeview-hover-text!important;
+                }
+
+                &:before {
+                    background-position: 0px -80px;
+                }
+
+                &:after {
+                    top: 0!important;
+                    bottom: 0!important;
+                }
+
+                span {
+                    color: @color-treeview-hover-text!important;
+
+                    &.drag-handle {
+                        cursor: move;
+                        .opacity(1);
+                    }
+
+                    &.borders {
+                        display: none;
+                    }
+                }
+            }
+
+            &[data-no-drag-mode] div:hover {
+                span.drag-handle {
+                    cursor: default!important;
+                    .opacity(0.3)!important;
+                }
+            }
+
+            &.dragged {
+                li.has-subitems, &.has-subitems {
+                    > div:before {
+                        background-position: 0px -52px;
+                    }
+                }
+
+                div > ul.submenu {
+                    display: none!important;
+                }
+            }
+
+            > ol {
+                padding-left: 20px;
             }
 
             &[data-status=collapsed] > ol {
@@ -65,14 +226,122 @@
             &.has-subitems {
                 >div {
                     &:before {
-                        background-position: 0 -29px;
+                        background-position: 0 0;
                         width: 23px;
-                        height: 29px;
-                        left: 16px;
+                        height: 26px;
+                        left: 26px;
                     }
 
                     &:hover:before {
-                        background-position: 0px -95px;
+                        background-position: 0px -52px;
+                    }
+
+                    span.expand {
+                        display: block;
+                    }
+                }
+            }
+
+            &.placeholder {
+                height: 0;
+                position: relative;
+                border-bottom: 1px dotted #c03f31;
+
+                &:before {
+                    .icon(@caret-right);
+                    font-size: 23px;
+                    color: white;
+                    position: absolute;
+                    left: -11px;
+                    top: -17px;
+                    z-index: 1900;
+                }
+
+                &:after {
+                    .icon(@caret-right);
+                    font-size: 21px;
+                    color: #c03f31;
+                    position: absolute;
+                    left: -10px;
+                    top: -14px;
+                    z-index: 1901;
+                }
+            }
+
+            &.dragged {
+                position: absolute;
+                z-index: 2000;
+                // width: auto!important;
+                // height: auto!important;
+                .opacity(0.5);
+
+                > div {
+                    .border-radius(3px);
+                }
+            }
+
+            &.drop-target  {
+                > div {
+                    background-color: #2581b8!important;
+
+                    > a {
+                        color: @color-treeview-hover-text;
+                        > span.comment {
+                            color: @color-treeview-hover-text;
+                        }
+                    }
+
+                    &:before {
+                        background-position: 0px -80px;
+                    }
+                }
+
+                &.has-subitems > div:before {
+                    background-position: 0px -52px;
+                }
+            }
+
+            &[data-status=expanded] > div > span.expand {
+                .transform( ~'rotate(90deg) translate(0, 0)' );
+            }
+
+            &.drag-ghost {
+                background-color: transparent;
+                box-sizing: content-box;
+            }
+
+            &.active {
+                > div {
+                    background: @color-list-active;
+
+                    &:after {
+                        position: absolute;
+                        width: 4px;
+                        left: 0;
+                        top: -1px;
+                        bottom: -1px;
+                        background: @color-list-active-border;
+                        display: block;
+                        content: ' ';
+                    }
+
+                    > span.comment, > span.expand {
+                        color: @color-treeview-item-active-comment;
+                    }
+
+                    > span.borders {
+                        &:before, &:after {
+                            content: ' ';
+                            position: absolute;
+                            width: 100%;
+                            height: 1px;
+                            display: block;
+                            left: 0;
+                            background-color: @color-list-active;
+                        }
+
+                        &:before {top: -1px;}
+                        &:after {bottom: -1px;}
                     }
                 }
             }
@@ -84,10 +353,20 @@
             > li {
                 > ol {
                     > li > div {
-                        padding-left: 71 + (@max-level - @level)*20px;
+                        margin-left: -20-(@max-level - @level)*20px;
+                        padding-left: 61+(@max-level - @level + 1)*10px;
+
+                        > a {
+                            margin-left: -61-(@max-level - @level + 1)*10px;
+                            padding-left: 61+(@max-level - @level + 1)*10px;
+                        }
 
                         &:before {
-                            margin-left: 20 + (@max-level - @level)*20px;
+                            margin-left: (@max-level - @level + 1)*10px;
+                        }
+
+                        > span.expand {
+                            left: 2+(@max-level - @level + 1)*10px;
                         }
                     }
 
@@ -98,49 +377,56 @@
 
         .tree-view-paddings (@max-level);
     }
+
+    p.no-data {
+        padding: 18px 0;
+        margin: 0;
+        color: @color-filelist-norecords-text;
+        font-size: 12px;
+        text-align: center;
+        font-weight: 400;
+    }
 }
 
-.oc-treeview-expand-control {
-    .hide-text();
-    position: absolute;
-    width: 23px;
-    height: 23px;
-    border-radius: 20px;
-    background: @color-treeview-item-bg;
-    display: block;
-    z-index: 100;
-    cursor: pointer;
-    .transition(opacity 0.2s);
+// Retina 
+@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
+    .control-treeview {
+        ol {
+            > li {
+                > div{
+                    &:before {
+                        background-position: 0px -79px;
+                        background-size: 21px auto;
+                    }
+                }
 
-    &.expand-hidden {
-        display: none;
-    }
+                &.has-subitems > div {
+                    &:before {background-position: 0px -52px;}
+                    &:hover:before {background-position: 0px -102px;}
+                }
 
-    &.expand-drag-hidden {
-        .opacity(0);
-    }
+                &.dragged > div, &.dragged li > div, > div:hover {
+                    &:before {background-position: 0px -129px;}
+                }
 
-    &:before {
-        .icon(@caret-right);
-        font-size: 15px;
-        position: absolute;
-        left: 7px;
-        top: 12px;
-        color: @color-treeview-expand-icon;
-        .transition(all 0.1s ease);
-    }
+                &.dragged {
+                    li.has-subitems, &.has-subitems {
+                        > div:before {
+                            background-position: 0px -102px;
+                        }
+                    }
+                }
 
-    &.hover {
-        background-color: @color-treeview-hover-bg;
+                &.drop-target {
+                    > div:before {
+                        background-position: 0px -129px;
+                    }
 
-        &:before {
-            color: @color-treeview-hover-text;
-        }
-    }
-
-    &[data-status=expanded] {
-        &:before {
-            .transform( ~'rotate(90deg) translate(0, 0)' );
+                    &.has-subitems > div:before {
+                        background-position: 0px -102px;
+                    }
+                }
+            }
         }
     }
 }

@@ -21,6 +21,8 @@ ol,
 table,
 dl,
 blockquote,
+td,
+th,
 pre {
     font-size: 14px;
     line-height: 1.5rem;
@@ -157,6 +159,9 @@ h4 {
 h5 {
     margin-bottom: 10px;
     font-size: 1em;
+}
+table {
+    width: 100%;
 }
 
 body.redactor_editor_wym {

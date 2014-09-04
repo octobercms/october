@@ -19,6 +19,7 @@
         this.options   = options
         this.$el       = $(element)
         this.$textarea = this.$el.find('>textarea:first')
+        this.$form     = this.$el.closest('form')
         this.editor    = null
 
         this.init();
@@ -44,7 +45,9 @@
          */
         var redactorOptions = {
             focusCallback: function() { self.$el.addClass('editor-focus') },
-            blurCallback: function() { self.$el.removeClass('editor-focus') }
+            blurCallback: function() { self.$el.removeClass('editor-focus') },
+            initCallback: function() { self.build() },
+            changeCallback: function() { self.onChange() }
         }
 
         if (this.options.stylesheet) {
@@ -57,6 +60,35 @@
         }
 
         this.$textarea.redactor(redactorOptions)
+    }
+
+    RichEditor.prototype.build = function() {
+        var $iframe = $('iframe', this.$el),
+            $toolbar = $('.redactor_toolbar', this.$el),
+            $html = $('html')
+
+        if (!$iframe.length)
+            return
+
+        if (this.$el.hasClass('stretch')) {
+            $iframe.css('padding-top', $toolbar.height())
+        }
+
+        /*
+         * Replicate hotkeys to parent container
+         */
+        $iframe.contents().find('html').on('keydown', function(event){
+            $html.triggerHandler(event)
+        })
+
+        $iframe.contents().find('html').on('keyup', function(event){
+            $html.triggerHandler(event)
+        })
+    }
+
+    RichEditor.prototype.onChange = function() {
+        this.$form.trigger('change')
+
     }
 
     // RICHEDITOR PLUGIN DEFINITION

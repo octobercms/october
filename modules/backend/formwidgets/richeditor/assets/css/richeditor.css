@@ -9,7 +9,7 @@
   border-radius: 5px;
 }
 .field-richeditor.editor-focus {
-  border: 1px solid #808c8d;
+  border-color: #808c8d;
 }
 .field-richeditor.size-tiny textarea {
   height: 20px;
@@ -41,4 +41,32 @@
 }
 .field-richeditor .redactor_box iframe {
   border: none;
+}
+.field-richeditor.stretch .redactor_box {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.field-richeditor.stretch .redactor_box .redactor_toolbar {
+  display: block;
+  border-bottom: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.field-richeditor.stretch .redactor_box .redactor_toolbar > li:first-child:after {
+  position: absolute;
+  content: ' ';
+  width: 100%;
+  height: 1px;
+  left: 0;
+  top: 32px;
+  background-color: #e0e0e0;
+}
+.field-richeditor.stretch .redactor_box iframe {
+  display: block;
+  position: absolute;
+  height: 100%!important;
 }

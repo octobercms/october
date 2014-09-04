@@ -441,6 +441,28 @@
             .border-radius(0);
         }
     }
+
+    //
+    // Rich editor
+    //
+
+    .field-richeditor {
+        border: none;
+        border-left: 1px solid @color-form-field-border;
+
+        &, .redactor_box, .redactor_toolbar {
+            .border-radius(0);
+            .border-top-radius(0);
+        }
+    }
+}
+
+body.side-panel-not-fixed {
+    .fancy-layout {
+        .field-richeditor {
+            border-left: none;
+        }
+    }
 }
 
 html.cssanimations { 

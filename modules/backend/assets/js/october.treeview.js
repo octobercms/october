@@ -1,159 +1,118 @@
 /*
  * TreeView Widget. Represents a sortable and draggable tree view. This widget was first used in the Pages plugin, for the sidebar page tree.
  *
- * Supported options:
+ * Data attributes:
+ * - data-group-status-handler - AJAX handler to execute when an item is collapsed or expanded by a user
+ * - data-reorder-handler - AJAX handler to execute when items are reordered
  * 
- * Events:
+ * Events
+ * - open.oc.treeview - this event is triggered on the list element when an item is clicked.
  * 
  * Dependences:
+ * - Tree list (october.treelist.js)
  * 
  */
 +function ($) { "use strict";
     var TreeView = function (element, options) {
         this.$el = $(element)
         this.options = options
-        this.expandControls = []
 
         this.init()
     }
 
     TreeView.prototype.init = function () {
-        this.$expandControlContainer = this.options.expandControlContainer !== null ?
-                this.$el.closest(this.options.expandControlContainer) :
-                $(document.body)
-
-        /*
-         * Delete existing expand/collapse icons
-         */
-
-        $.each(this.expandControls, function(){
-            $(this).remove()
-        })
-
-        /*
-         * Create new expand/collapse icons
-         */
+        this.$allItems = $('li', this.$el)
+        this.$scrollbar = this.$el.closest('[data-control=scrollbar]')
 
         var self = this
-
-        $('li', this.$el).each(function() {
-            var $el = $(this),
-                $expand = $('> span.expand', $el),
-                $info = $('> div', $el)
-
-            $expand
-                .data('oc.treeview-parent', $el)
-                .addClass('oc-treeview-expand-control')
-                .addClass('hidden')
-
-            self.$expandControlContainer.append($expand)
-
-            self.expandControls.push($expand)
-
-            $expand.click(function(){
-                self.toggleGroup($expand)
-            })
-
-            $info.mouseenter(function() {
-                $expand.addClass('hover')
-            })
-
-            $info.mouseleave(function() {
-                $expand.removeClass('hover')
-            })
-        })
-
-        this.realignExpandControls()
-
-        /*
-         * Bind to a scrollbar events, if the treeview is hosted inside a scrollbar
-         */
-
-        var $scrollbar = this.$el.closest('[data-control=scrollbar]')
-
-        if ($scrollbar.length > 0) {
-            $scrollbar.on('oc.scrollStart', $.proxy(this.hideExpandControls, this))
-            $scrollbar.on('oc.scrollEnd', $.proxy(this.showExpandControls, this))
-        }
-
-        /*
-         * Ralign expand controls after window resize
-         */
-
-        $(window).on('resize, oc.updateUi', $.proxy(this.realignExpandControls, this))
 
         /*
          * Init the sortable
          */
 
-        this.$el.treeListWidget()
+        this.initSortable()
+
+        /*
+         * Create expand/collapse icons and drag handles
+         */
+
+        this.createItemControls()
+
+        /*
+         * Bind the click events
+         */
+
+        this.$el.on('click', 'li > div > ul.submenu li a', function(event) {
+            var e = $.Event('submenu.oc.treeview', {relatedTarget: this, clickEvent: event})
+            self.$el.trigger(e, this)
+
+            return false
+        })
+
+        this.$el.on('click', 'li > div > a', function(event) {
+            var e = $.Event('open.oc.treeview', {relatedTarget: $(this).closest('li').get(0), clickEvent: event})
+            self.$el.trigger(e, this)
+
+            return false
+        })
+
+        /*
+         * Listen for the AJAX updates and update the widget
+         */
+        this.$el.on('ajaxUpdate', $.proxy(this.update, this))
     }
 
-    TreeView.prototype.alignExpandControls = function() {
-        var expandControlOffset = this.$expandControlContainer.offset(),
-            expandControlHeight = this.$expandControlContainer.height()
+    TreeView.prototype.createItemControls = function() {
+        var self = this
 
-        $.each(this.expandControls, function(){
-            var $expand = $(this),
-                $li = $expand.data('oc.treeview-parent'),
-                offset = $li.offset(),
-                top = offset.top+14-expandControlOffset.top,
-                outside = top < 0 || (top+20) > expandControlHeight
+        $('li', this.$el).each(function() {
+            var $container = $('> div', this),
+                $expand = $('> span.expand', $container),
+                group = this
 
-            $expand.css({
-                left: offset.left-7-expandControlOffset.left,
-                top: top
+            if ($expand.length > 0)
+                return
+
+            $expand = $('<span class="expand">Expand</span>').click(function(){
+                self.toggleGroup($(group))
+
+                return false
             })
 
-            $expand.toggleClass('expand-hidden', !$li.hasClass('has-subitems') || outside)
+            $container.prepend($expand)
+
+            $container.append($('<span class="drag-handle">Drag</span>'))
+            $container.append($('<span class="borders"></span>'))
+
+            if ($(this).attr('data-no-drag-mode') !== undefined)
+              $('span.drag-handle', this).attr('title', 'Dragging is disabled when the Search is active')
         })
     }
 
-    TreeView.prototype.hideExpandControls = function() {
-        $.each(this.expandControls, function(){
-            $(this).addClass('expand-drag-hidden')
-        })
-    }
-
-    TreeView.prototype.showExpandControls = function() {
-        $.each(this.expandControls, function(){
-            $(this).removeClass('expand-drag-hidden')
-        })
-
-        this.realignExpandControls()
-    }
-
-    TreeView.prototype.realignExpandControls = function() {
-        this.alignExpandControls()
-
-        $.each(this.expandControls, function(){
-            $(this).removeClass('hidden')
-        })
-    }
-
-    TreeView.prototype.collapseGroup = function($expandControl, $list) {
+    TreeView.prototype.collapseGroup = function($group) {
         var self = this,
-            $subitems = $('> ol', $list)
+            $subitems = $('> ol', $group)
 
-        $subitems.css('overflow', 'hidden')
-        $expandControl.attr('data-status', 'collapsed')
+        $subitems.css({
+            'overflow': 'hidden'
+        })
 
         $subitems.animate({'height': 0}, { duration: 100, queue: false, complete: function() {
             $subitems.css({
                 'overflow': 'visible',
-                'display': 'none'
+                'display': 'none',
+                'height' : 'auto'
             })
-            $list.attr('data-status', 'collapsed')
-            self.alignExpandControls()
+            $group.attr('data-status', 'collapsed')
             $(window).trigger('resize')
         } })
 
-        // this.sendGroupStatusRequest(group, 0);
+        this.sendGroupStatusRequest($group, 0)
     }
 
-    TreeView.prototype.expandGroup = function($expandControl, $list) {
+    TreeView.prototype.expandGroup = function($group) {
         var self = this,
-            $subitems = $('> ol', $list)
+            $subitems = $('> ol', $group)
 
         $subitems.css({
             'overflow': 'hidden',
@@ -161,31 +120,121 @@
             'height': 0
         })
 
-        $list.attr('data-status', 'expanded')
+        $group.attr('data-status', 'expanded')
         $subitems.animate({'height': $subitems[0].scrollHeight}, { duration: 100, queue: false, complete: function() {
             $subitems.css({
                 'overflow': 'visible',
                 'height': 'auto'
             })
-            $expandControl.attr('data-status', 'expanded')
-            self.alignExpandControls()
             $(window).trigger('resize')
         } })
 
-//        this.sendGroupStatusRequest(group, 1);
+       this.sendGroupStatusRequest($group, 1);
+    }
+
+    TreeView.prototype.fixSubItems = function() {
+        $('li', this.$el).each(function(){
+            var $li = $(this),
+            $subitems = $('> ol > li', $li)
+            $li.toggleClass('has-subitems', $subitems.length > 0)
+        })
     }
 
     TreeView.prototype.toggleGroup = function(group) {
         var $group = $(group);
 
         $group.attr('data-status') == 'expanded' ?
-            this.collapseGroup($group, $group.data('oc.treeview-parent')) : 
-            this.expandGroup($group, $group.data('oc.treeview-parent'))
+            this.collapseGroup($group) : 
+            this.expandGroup($group)
+    }
+
+    TreeView.prototype.sendGroupStatusRequest = function($group, status) {
+        if (this.options.groupStatusHandler !== undefined) {
+            var groupId = $group.data('group-id')
+
+            $group.request(this.options.groupStatusHandler, {data: {group: groupId, status: status}})
+        }
+    }
+
+    TreeView.prototype.sendReorderRequest = function() {
+        var groups = {}
+
+        function iterator($container, node) {
+            $('> li', $container).each(function(){
+                var subnodes = {}
+                iterator($('> ol', this), subnodes)
+
+                node[$(this).data('groupId')] = subnodes
+            })
+        }
+
+        iterator($('> ol', this.$el), groups)
+
+        this.$el.request(this.options.reorderHandler, {data: {structure: JSON.stringify(groups)}})
+    }
+
+    TreeView.prototype.initSortable = function() {
+        var self = this,
+            $noDragItems = $('[data-no-drag-mode]', this.$el)
+
+        if ($noDragItems.length > 0)
+            return
+
+        if (this.$el.data('oc.treelist'))
+            this.$el.treeListWidget('unbind')
+
+        this.$el.treeListWidget({
+            tweakCursorAdjustment: function(adjustment) {
+                if (!adjustment)
+                    return adjustment
+
+                if (self.$scrollbar.length > 0) {
+                    adjustment.top -= self.$scrollbar.scrollTop()
+                }
+
+                return adjustment;
+            },
+            isValidTarget: function($item, container) {
+                return $(container.el).closest('li').attr('data-status') != 'collapsed'
+            },
+            useAnimation: true,
+            handle: 'span.drag-handle'
+        })
+
+        this.$el.on('move.oc.treelist', function(){
+            setTimeout(function(){
+                self.$allItems.removeClass('drop-target')
+                self.fixSubItems()
+                self.sendReorderRequest()
+            }, 50)
+        })
+
+        this.$el.on('aftermove.oc.treelist', function(event, data) {
+            self.$allItems.removeClass('drop-target')
+            data.container.el.closest('li').addClass('drop-target')
+        })
+    }
+
+    TreeView.prototype.markActive = function(dataId) {
+        $('li', this.$el).removeClass('active')
+
+        if (dataId)
+            $('li[data-id="'+dataId+'"]', this.$el).addClass('active')
+
+        this.dataId = dataId
+    }
+
+    TreeView.prototype.update = function() {
+        this.$allItems = $('li', this.$el)
+        this.createItemControls()
+        this.initSortable()
+
+        if (this.dataId !== undefined)
+            this.markActive(this.dataId)
     }
 
     TreeView.DEFAULTS = {
-        sortableHandle: null,
-        expandControlContainer: null
+
     }
 
     // TREEVIEW PLUGIN DEFINITION
@@ -194,11 +243,21 @@
     var old = $.fn.treeView
 
     $.fn.treeView = function (option) {
+        var args = arguments
+
         return this.each(function () {
             var $this = $(this)
             var data  = $this.data('oc.treeView')
             var options = $.extend({}, TreeView.DEFAULTS, $this.data(), typeof option == 'object' && option)
             if (!data) $this.data('oc.treeView', (data = new TreeView(this, options)))
+
+            if (typeof option == 'string') { 
+                var methodArgs = [];
+                for (var i=1; i<args.length; i++)
+                    methodArgs.push(args[i])
+
+                data[option].apply(data, methodArgs)
+            }
         })
       }
 

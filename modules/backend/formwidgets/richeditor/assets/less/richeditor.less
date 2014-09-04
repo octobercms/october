@@ -9,7 +9,7 @@
     }
 
     &.editor-focus { 
-        border: 1px solid @color-form-field-border-focus; 
+        border-color: @color-form-field-border-focus; 
     }
 
     &.size-tiny textarea { height: (@size-tiny - @richeditor-toolbar-size); }
@@ -29,6 +29,40 @@
         }
         iframe {
             border: none;
+        }
+    }
+
+    &.stretch {
+        .redactor_box {
+            display: block;
+            position: relative;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+
+            .redactor_toolbar {
+                display: block;
+                border-bottom: none;
+                position: absolute;
+                top: 0;
+                width: 100%;
+
+                > li:first-child:after {
+                    position: absolute;
+                    content: ' ';
+                    width: 100%;
+                    height: 1px;
+                    left: 0;
+                    top: 32px;
+                    background-color: @color-form-field-border;
+                }
+            }
+
+            iframe {
+                display: block;
+                position: absolute;
+                height: 100%!important;
+            }
         }
     }
 }

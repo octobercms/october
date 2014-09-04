@@ -6,7 +6,7 @@
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class Content extends CmsObject
+class Content extends CmsCompoundObject
 {
     protected static $allowedExtensions = ['htm', 'txt', 'md'];
 

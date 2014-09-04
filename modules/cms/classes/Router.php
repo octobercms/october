@@ -4,6 +4,7 @@ use Lang;
 use File;
 use Cache;
 use Config;
+use Event;
 use System\Classes\SystemException;
 use October\Rain\Router\Router as RainRouter;
 use October\Rain\Router\Helper as RouterHelper;
@@ -71,6 +72,10 @@ class Router
     public function findByUrl($url)
     {
         $url = RouterHelper::normalizeUrl($url);
+
+        $apiResult = Event::fire('cms.router.beforeRoute', [$url], true);
+        if ($apiResult !== null)
+            return $apiResult;
 
         for ($pass = 1; $pass <= 2; $pass++) {
             $fileName = null;

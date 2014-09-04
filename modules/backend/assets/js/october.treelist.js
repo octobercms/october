@@ -19,15 +19,23 @@
 
         this.options = options || {};
 
-        $el.find('> ol').sortable({
+        var sortableOptions = {
             handle: options.handle,
             onDrop: function($item, container, _super) {
                 self.$el.trigger('move.oc.treelist', { item: $item, container: container })
                 _super($item, container)
+            },
+            afterMove: function($placeholder, container, $closestEl) {
+                self.$el.trigger('aftermove.oc.treelist', { placeholder: $placeholder, container: container, closestEl: $closestEl })
             }
+        }
 
-        })
+        $el.find('> ol').sortable($.extend(sortableOptions, options))
+    }
 
+    TreeListWidget.prototype.unbind = function() {
+        this.$el.find('> ol').sortable('destroy')
+        this.$el.removeData('oc.treelist')
     }
 
     TreeListWidget.DEFAULTS = {
@@ -48,7 +56,7 @@
             var data    = $this.data('oc.treelist')
             var options = $.extend({}, TreeListWidget.DEFAULTS, $this.data(), typeof option == 'object' && option)
             if (!data) $this.data('oc.treelist', (data = new TreeListWidget(this, options)))
-            if (typeof option == 'string') result = data[option].call($this)
+            if (typeof option == 'string') result = data[option].call(data)
             if (typeof result != 'undefined') return false
         })
 
