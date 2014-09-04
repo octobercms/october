@@ -51,5 +51,5 @@ return [
     'Backend'         => 'Backend\Facades\Backend',
     'BackendMenu'     => 'Backend\Facades\BackendMenu',
     'BackendAuth'     => 'Backend\Facades\BackendAuth',
-
+    'ValidationException' => 'October\Rain\Support\ValidationException',
 ];
