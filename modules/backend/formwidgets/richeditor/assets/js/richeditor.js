@@ -63,25 +63,25 @@
     }
 
     RichEditor.prototype.build = function() {
-        var $iframe = $('iframe', this.$el),
+        var $editors = $('iframe, textarea', this.$el),
             $toolbar = $('.redactor_toolbar', this.$el),
             $html = $('html')
 
-        if (!$iframe.length)
+        if (!$editors.length)
             return
 
         if (this.$el.hasClass('stretch')) {
-            $iframe.css('padding-top', $toolbar.height())
+            $editors.css('padding-top', $toolbar.height())
         }
 
         /*
          * Replicate hotkeys to parent container
          */
-        $iframe.contents().find('html').on('keydown', function(event){
+        $editors.contents().find('html').on('keydown', function(event){
             $html.triggerHandler(event)
         })
 
-        $iframe.contents().find('html').on('keyup', function(event){
+        $editors.contents().find('html').on('keyup', function(event){
             $html.triggerHandler(event)
         })
     }

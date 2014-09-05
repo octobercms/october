@@ -65,7 +65,8 @@
   top: 32px;
   background-color: #e0e0e0;
 }
-.field-richeditor.stretch .redactor_box iframe {
+.field-richeditor.stretch .redactor_box iframe,
+.field-richeditor.stretch .redactor_box textarea {
   display: block;
   position: absolute;
   height: 100%!important;
