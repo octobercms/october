@@ -554,6 +554,32 @@ label {
 }
 
 //
+// Multi select
+//
+
+.select2-container-multi {
+    &.form-control {
+        height: auto;
+    }
+
+    .select2-choices {
+        min-height: 28px;
+        line-height: 28px;
+        padding-left: 10px;
+        .select2-search-choice {
+            background: none;
+            .box-shadow(none);
+            padding: 8px 7px 8px 22px;
+            margin: 4px 0 4px 5px;
+        }
+    }
+
+    .select2-search-choice-close {
+        left: 5px;
+    }
+}
+
+//
 // Outside Select2 container
 //
 
