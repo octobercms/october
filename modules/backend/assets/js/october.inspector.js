@@ -550,9 +550,14 @@
     }
 
     InspectorEditorCheckbox.prototype.renderEditor = function() {
+        var isChecked =  this.inspector.readProperty(this.fieldDef.property)
+
+        if (isChecked == '0' || isChecked == 'false')
+            isChecked = false
+
         var data = {
                 id: this.editorId,
-                checked: this.inspector.readProperty(this.fieldDef.property) ? 'checked' : null,
+                checked: isChecked ? 'checked' : null,
                 cbId: this.editorId + '-cb',
                 title: this.fieldDef.title
             }
