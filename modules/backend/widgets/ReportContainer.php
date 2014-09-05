@@ -323,10 +323,7 @@ class ReportContainer extends WidgetBase
                 if (isset($property[$name])) 
                     continue;
 
-                if (is_array($value))
-                    continue;
-
-                $property[$name] = Lang::get($value);
+                $property[$name] = !is_array($value) ? Lang::get($value) : $value;
             }
 
             $result[] = $property;
