@@ -1,5 +1,10 @@
 * **Build 14x** (2014-09-xx)
+  - Various fixes to the RelationController relating to belongsToMany relations.
+  - Tree Lists are now collapsed by default to better handle large data sets.
+
+* **Build 141** (2014-09-04)
   - Add new `dump()` Twig function (config app.debug must be true).
+  - Components can now be expanded in the CMS editor by holding Ctrl/Meta and double clicking the `{% component %}` tag.
 
 * **Build 139** (2014-08-30)
   - Components and variables can now be accessed in the page code section via `$this->foo` in addition to `$this['foo']`.

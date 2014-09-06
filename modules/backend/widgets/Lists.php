@@ -66,7 +66,7 @@ class Lists extends WidgetBase
     public $recordOnClick;
 
     /**
-     * @var int Rows to display for each page.
+     * @var int Maximum rows to display for each page.
      */
     public $recordsPerPage;
 
