@@ -581,8 +581,18 @@ class RelationController extends ControllerBehavior
         $toolbarConfig = $this->makeConfig($this->getConfig('toolbar', $defaultConfig));
         $toolbarConfig->alias = $this->alias . 'Toolbar';
 
+        /*
+         * Add search to toolbar
+         */
+        if ($this->viewMode == 'multi' && $this->getConfig('view[showSearch]')) {
+            $toolbarConfig->search = [
+                'prompt' => 'backend::lang.list.search_prompt',
+            ];
+        }
+
         $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
         $toolbarWidget->cssClasses[] = 'list-header';
+
         return $toolbarWidget;
     }
 
@@ -607,8 +617,11 @@ class RelationController extends ControllerBehavior
             if ($emptyMessage = $this->getConfig('emptyMessage'))
                 $config->noRecordsMessage = $emptyMessage;
 
+            /*
+             * Constrain the query by the relationship and deferred items
+             */
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
-            $widget->bindEvent('list.extendQueryBefore', function($query) {
+            $widget->bindEvent('list.extendQuery', function($query) {
                 $this->relationObject->setQuery($query);
                 if ($this->model->exists) {
                     $this->relationObject->addConstraints();
@@ -617,6 +630,21 @@ class RelationController extends ControllerBehavior
                     $this->relationObject->withDeferred($sessionKey);
                 }
             });
+
+            /*
+             * Constrain the list by the search widget, if available
+             */
+            if ($this->toolbarWidget && $this->getConfig('view[showSearch]')) {
+                if ($searchWidget = $this->toolbarWidget->getSearchWidget()) {
+                    $searchWidget->bindEvent('search.submit', function() use ($widget, $searchWidget) {
+                        $widget->setSearchTerm($searchWidget->getActiveTerm());
+                        return $widget->onRefresh();
+                    });
+
+                    // Find predefined search term
+                    $widget->setSearchTerm($searchWidget->getActiveTerm());
+                }
+            }
         }
         /*
          * Single (belongs to, has one)
@@ -657,6 +685,8 @@ class RelationController extends ControllerBehavior
             $config->alias = $this->alias . 'ManageList';
             $config->showSetup = false;
             $config->showCheckboxes = true;
+            $config->showSorting = $this->getConfig('manage[showSorting]', true);
+            $config->defaultSort = $this->getConfig('manage[defaultSort]');
             $config->recordsPerPage = $this->getConfig('manage[recordsPerPage]');
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
         }
