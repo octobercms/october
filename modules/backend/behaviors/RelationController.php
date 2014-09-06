@@ -496,7 +496,7 @@ class RelationController extends ControllerBehavior
              */
             $existingIds = $this->findExistingRelationIds($checkedIds);
             $checkedIds = array_diff($checkedIds, $existingIds);
-            $foreignKeyName = $this->relationModel->getKey();
+            $foreignKeyName = $this->relationModel->getKeyName();
 
             $models = $this->relationModel->whereIn($foreignKeyName, $checkedIds)->get();
             foreach ($models as $model) {
@@ -547,7 +547,7 @@ class RelationController extends ControllerBehavior
         /*
          * Check for existing relation
          */
-        $foreignKeyName = $this->relationModel->getKey();
+        $foreignKeyName = $this->relationModel->getKeyName();
         $existing = $this->relationObject->where($foreignKeyName, $foreignId)->count();
 
         if (!$existing)
