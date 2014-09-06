@@ -20,10 +20,10 @@ if (window.jQuery === undefined)
          */
 
         if (handler == undefined)
-            throw new Error('The request handler name is not specified.');
+            throw new Error('The request handler name is not specified.')
 
         if (!handler.match(/^(?:\w+\:{2})?on*/))
-            throw new Error('Invalid handler name. The correct handler name format is: "onEvent".');
+            throw new Error('Invalid handler name. The correct handler name format is: "onEvent".')
 
         /*
          * Detect if page is refreshed to stop any active ajax errors
@@ -55,8 +55,14 @@ if (window.jQuery === undefined)
             data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
         })
 
+        if ($el.is(':input')) {
+            var inputName = $el.attr('name')
+            if (options.data[inputName] === undefined)
+                options.data[inputName] = $el.val()
+        }
+
         if (options.data !== undefined && !$.isEmptyObject(options.data))
-            data.push($.param(options.data));
+            data.push($.param(options.data))
 
         var requestOptions = {
             context: context,
@@ -257,12 +263,12 @@ if (window.jQuery === undefined)
      * Internal function, build a string of partials and their update elements.
      */
     Request.prototype.extractPartials = function(update) {
-        var result = [];
+        var result = []
 
         for (var partial in update)
             result.push(partial)
 
-        return result.join('&');
+        return result.join('&')
     }
 
     // REQUEST PLUGIN DEFINITION
@@ -319,12 +325,12 @@ if (window.jQuery === undefined)
 
     $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function(){
         $(this).request()
-    });
+    })
 
     $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function(){
         $(this).request()
-        return false;
-    });
+        return false
+    })
 
     $(document).on('keydown', 'input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]', function(e){
         if (e.keyCode == 13) {
@@ -332,14 +338,14 @@ if (window.jQuery === undefined)
                 window.clearTimeout(this.dataTrackInputTimer)
 
             $(this).request()
-            return false;
+            return false
         }
-    });
+    })
 
     $(document).on('keyup', 'input[type=text][data-request][data-track-input], input[type=password][data-request][data-track-input]', function(e){
-        var 
+        var
             $el = $(this),
-            lastValue = $el.data('oc.lastvalue');
+            lastValue = $el.data('oc.lastvalue')
 
         if (lastValue !== undefined && lastValue == this.value)
             return
@@ -353,16 +359,16 @@ if (window.jQuery === undefined)
         if (!interval)
             interval = 300
 
-        var self = this;
+        var self = this
         this.dataTrackInputTimer = window.setTimeout(function(){
             $(self).request()
-        }, interval);
-    });
+        }, interval)
+    })
 
     $(document).on('submit', '[data-request]', function(){
         $(this).request()
-        return false;
-    });
+        return false
+    })
 
     /*
      * Invent our own event that unifies document.ready with window.ajaxUpdateComplete
