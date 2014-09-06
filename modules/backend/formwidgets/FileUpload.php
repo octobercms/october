@@ -64,24 +64,27 @@ class FileUpload extends FormWidgetBase
         $this->vars['imageWidth'] = $this->imageWidth;
     }
 
-    protected function getColumn()
+    /**
+     * Returns the attachment relation object from the model,
+     * supports nesting via HTML array.
+     * @return Relation
+     */
+    protected function getRelationObject()
     {
         $model = $this->model;
-        $columnName = $this->columnName;
-        $relations = Str::evalHtmlArray($columnName);
-        $last_relation = array_pop($relations);
+        $relations = Str::evalHtmlArray($this->columnName);
+        $lastField = array_pop($relations);
 
-        while ( $relations )
-        {
-            $relation = array_shift($relations);
-            $model = $model->$relation;
+        foreach ($relations as $relation) {
+            $model = $model->{$relation};
         }
-        return $model->$last_relation();
+
+        return $model->$lastField();
     }
 
     protected function getFileList()
     {
-        $list = $this->getColumn()->withDeferred($this->sessionKey)->orderBy('sort_order')->get();
+        $list = $this->getRelationObject()->withDeferred($this->sessionKey)->orderBy('sort_order')->get();
 
         /*
          * Set the thumb for each file
@@ -112,7 +115,7 @@ class FileUpload extends FormWidgetBase
     public function onRemoveAttachment()
     {
         if (($file_id = post('file_id')) && ($file = File::find($file_id))) {
-            $this->getColumn()->remove($file, $this->sessionKey);
+            $this->getRelationObject()->remove($file, $this->sessionKey);
         }
     }
 
@@ -203,7 +206,7 @@ class FileUpload extends FormWidgetBase
             if (!$uploadedFile->isValid())
                 throw new SystemException('File is not valid');
 
-            $fileRelation = $this->getColumn();
+            $fileRelation = $this->getRelationObject();
 
             $file = new File();
             $file->data = $uploadedFile;
