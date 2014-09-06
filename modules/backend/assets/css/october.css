@@ -9147,16 +9147,31 @@ label {
   min-height: 28px;
   line-height: 28px;
   padding-left: 10px;
+  background: none;
 }
 .select2-container-multi .select2-choices .select2-search-choice {
   background: none;
+  padding: 8px 15px;
+  margin: 4px 0 4px 5px;
   -webkit-box-shadow: none;
   box-shadow: none;
-  padding: 8px 7px 8px 22px;
-  margin: 4px 0 4px 5px;
+  -webkit-transition: 0.25s linear;
+  transition: 0.25s linear;
+}
+.select2-container-multi .select2-choices .select2-search-choice:hover {
+  padding: 8px 7px 8px 23px;
+}
+.select2-container-multi .select2-choices .select2-search-choice:hover .select2-search-choice-close {
+  opacity: 1;
 }
 .select2-container-multi .select2-search-choice-close {
-  left: 5px;
+  -webkit-transition: 0.25s linear;
+  transition: 0.25s linear;
+  opacity: 0;
+  left: 7px;
+}
+.select2-drop-multi .select2-no-results {
+  padding: 7px;
 }
 .select2-drop {
   -webkit-box-shadow: none;
