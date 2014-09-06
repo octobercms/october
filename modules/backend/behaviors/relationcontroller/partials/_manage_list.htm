@@ -5,7 +5,12 @@
             <h4 class="modal-title"><?= e(trans('backend::lang.relation.add_a_new', ['name'=>$relationLabel])) ?></h4>
         </div>
 
-        <?= $relationManageWidget->render() ?>
+        <div class="list-flush">
+            <?php if ($relationSearchWidget): ?>
+                <?= $relationSearchWidget->render() ?>
+            <?php endif ?>
+            <?= $relationManageWidget->render() ?>
+        </div>
 
         <div class="modal-footer">
             <button

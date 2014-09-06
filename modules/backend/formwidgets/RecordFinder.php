@@ -214,7 +214,7 @@ class RecordFinder extends FormWidgetBase
         $config = $this->makeConfig();
         $config->alias = $this->alias . 'Search';
         $config->growable = false;
-        $config->useSession = false;
+        $config->prompt = 'backend::lang.list.search_prompt';
         $widget = $this->makeWidget('Backend\Widgets\Search', $config);
         $widget->cssClasses[] = 'recordfinder-search';
         return $widget;

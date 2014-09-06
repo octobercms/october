@@ -24,6 +24,11 @@ class RelationController extends ControllerBehavior
     const PARAM_FIELD = '_relation_field';
 
     /**
+     * @var Backend\Classes\WidgetBase Reference to the search widget object.
+     */
+    protected $searchWidget;
+
+    /**
      * @var Backend\Classes\WidgetBase Reference to the toolbar widget object.
      */
     protected $toolbarWidget;
@@ -349,9 +354,10 @@ class RelationController extends ControllerBehavior
         $this->vars['relationLabel'] = $this->config->label ?: $this->field;
         $this->vars['relationField'] = $this->field;
         $this->vars['relationType'] = $this->relationType;
-        $this->vars['relationViewWidget'] = $this->viewWidget;
-        $this->vars['relationManageWidget'] = $this->manageWidget;
+        $this->vars['relationSearchWidget'] = $this->searchWidget;
         $this->vars['relationToolbarWidget'] = $this->toolbarWidget;
+        $this->vars['relationManageWidget'] = $this->manageWidget;
+        $this->vars['relationViewWidget'] = $this->viewWidget;
         $this->vars['relationPivotWidget'] = $this->pivotWidget;
     }
 
@@ -570,6 +576,17 @@ class RelationController extends ControllerBehavior
     // Widgets
     //
 
+    protected function makeSearchWidget()
+    {
+        $config = $this->makeConfig();
+        $config->alias = $this->alias . 'ManageSearch';
+        $config->growable = false;
+        $config->prompt = 'backend::lang.list.search_prompt';
+        $widget = $this->makeWidget('Backend\Widgets\Search', $config);
+        $widget->cssClasses[] = 'recordfinder-search';
+        return $widget;
+    }
+
     protected function makeToolbarWidget()
     {
         if ($this->readOnly)
@@ -586,7 +603,7 @@ class RelationController extends ControllerBehavior
          */
         if ($this->viewMode == 'multi' && $this->getConfig('view[showSearch]')) {
             $toolbarConfig->search = [
-                'prompt' => 'backend::lang.list.search_prompt',
+                'prompt' => 'backend::lang.list.search_prompt'
             ];
         }
 
@@ -641,8 +658,7 @@ class RelationController extends ControllerBehavior
                         return $widget->onRefresh();
                     });
 
-                    // Find predefined search term
-                    $widget->setSearchTerm($searchWidget->getActiveTerm());
+                    $searchWidget->setActiveTerm(null);
                 }
             }
         }
@@ -689,6 +705,21 @@ class RelationController extends ControllerBehavior
             $config->defaultSort = $this->getConfig('manage[defaultSort]');
             $config->recordsPerPage = $this->getConfig('manage[recordsPerPage]');
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
+
+            /*
+             * Link the Search Widget to the List Widget
+             */
+            if ($this->getConfig('manage[showSearch]')) {
+                $this->searchWidget = $this->makeSearchWidget();
+                $this->searchWidget->bindToController();
+                $this->searchWidget->bindEvent('search.submit', function() use ($widget) {
+                    $widget->setSearchTerm($this->searchWidget->getActiveTerm());
+                    return $widget->onRefresh();
+                });
+
+                $this->searchWidget->setActiveTerm(null);
+            }
+
         }
         /*
          * Form
@@ -722,7 +753,7 @@ class RelationController extends ControllerBehavior
          * Exclude existing relationships
          */
         if ($this->manageMode == 'pivot' || $this->manageMode == 'list') {
-            $widget->bindEvent('list.extendQueryBefore', function($query) {
+            $widget->bindEvent('list.extendQuery', function($query) {
 
                 /*
                  * Where not in the current list of related records
