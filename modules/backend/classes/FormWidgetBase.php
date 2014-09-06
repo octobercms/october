@@ -66,8 +66,7 @@ abstract class FormWidgetBase extends WidgetBase
     {
         $id = parent::getId($suffix);
         $id .= '-' . $this->columnName;
-        $id = rtrim(str_replace(['[', ']'], '-', $id), '-');
-        return $id;
+        return Str::evalHtmlId($id);
     }
 
     /**
