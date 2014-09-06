@@ -133,7 +133,7 @@ class Lists extends WidgetBase
     /**
      * @var bool Expand the tree nodes by default.
      */
-    public $treeExpanded = true;
+    public $treeExpanded = false;
 
     /**
      * @var array List of CSS classes to apply to the list container element
