@@ -7,6 +7,7 @@ use System\Models\File;
 use System\Classes\SystemException;
 use Backend\Classes\FormWidgetBase;
 use October\Rain\Support\ValidationException;
+use Exception;
 
 /**
  * File upload field
@@ -163,7 +164,7 @@ class FileUpload extends FormWidgetBase
 
             throw new SystemException('Unable to find file, it may no longer exist');
         }
-        catch (\Exception $ex) {
+        catch (Exception $ex) {
             return json_encode(['error' => $ex->getMessage()]);
         }
     }
@@ -219,7 +220,7 @@ class FileUpload extends FormWidgetBase
             $result = $file;
 
         }
-        catch (\Exception $ex) {
+        catch (Exception $ex) {
             $result = json_encode(['error' => $ex->getMessage()]);
         }
 

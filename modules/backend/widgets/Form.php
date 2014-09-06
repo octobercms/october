@@ -549,7 +549,7 @@ class Form extends WidgetBase
             return $this->formWidgets[$field->columnName];
 
         $widgetConfig = $this->makeConfig($field->config);
-        $widgetConfig->alias = $this->alias . studly_case($field->columnName);
+        $widgetConfig->alias = $this->alias . studly_case(Str::evalHtmlId($field->columnName));
         $widgetConfig->sessionKey = $this->getSessionKey();
 
         $widgetName = $widgetConfig->widget;
