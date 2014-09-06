@@ -209,8 +209,8 @@ class Extension extends Twig_Extension
     /**
      * Closes a layout block.
      */
-    public function endBlock()
+    public function endBlock($append = true)
     {
-        Block::endBlock();
+        Block::endBlock($append);
     }
 }

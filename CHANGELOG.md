@@ -1,6 +1,8 @@
 * **Build 14x** (2014-09-xx)
   - Various fixes to the RelationController relating to belongsToMany relations.
   - Tree Lists are now collapsed by default to better handle large data sets.
+  - The `{% put %}` tag now appends by default.
+  - The closing put tag now supports **overwrite**, eg: `{% endput overwrite %}`.
 
 * **Build 141** (2014-09-04)
   - Add new `dump()` Twig function (config app.debug must be true).
