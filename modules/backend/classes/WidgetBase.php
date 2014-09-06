@@ -71,7 +71,10 @@ abstract class WidgetBase
          * If no alias is set by the configuration.
          */
         if (!isset($this->alias))
+        {
             $this->alias = (isset($this->config->alias)) ? $this->config->alias : $this->defaultAlias;
+            $this->alias = rtrim(str_replace(['[', ']'], '_', $this->alias), '_');
+        }
 
         /*
          * Prepare assets used by this widget.
