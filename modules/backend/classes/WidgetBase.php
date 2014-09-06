@@ -131,9 +131,7 @@ abstract class WidgetBase
         if ($suffix !== null)
             $id .= '-' . $suffix;
 
-        $id = rtrim(str_replace(['[', ']'], '-', $id), '-');
-
-        return $id;
+        return Str::evalHtmlId($id);
     }
 
     /**

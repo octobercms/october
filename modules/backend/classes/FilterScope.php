@@ -140,8 +140,7 @@ class FilterScope
         if ($this->idPrefix)
             $id = $this->idPrefix . '-' . $id;
 
-        $id = rtrim(str_replace(['[', ']'], '-', $id), '-');
-        return $id;
+        return Str::evalHtmlId($id);
     }
 
 }
