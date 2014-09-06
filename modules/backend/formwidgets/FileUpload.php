@@ -179,6 +179,14 @@ class FileUpload extends FormWidgetBase
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function getSaveData($value)
+    {
+        return FormWidgetBase::NO_SAVE_DATA;
+    }
+
+    /**
      * Checks the current request to see if it is a postback containing a file upload
      * for this particular widget.
      */

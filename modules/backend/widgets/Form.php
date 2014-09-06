@@ -11,6 +11,7 @@ use Backend\Classes\FormField;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
 use System\Classes\ApplicationException;
+use Backend\Classes\FormWidgetBase;
 
 /**
  * Form Widget
@@ -718,6 +719,8 @@ class Form extends WidgetBase
                 : null;
 
             $data[$field] = $widget->getSaveData($widgetValue);
+            if ($data[$field] === FormWidgetBase::NO_SAVE_DATA)
+                unset($data[$field]);
         }
 
         return $data;
