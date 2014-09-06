@@ -1,5 +1,7 @@
 <?php namespace Backend\Classes;
 
+use Str;
+
 /**
  * Form Widget base class
  * Widgets used specifically for forms
