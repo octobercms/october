@@ -102,7 +102,7 @@ class Search extends WidgetBase
         /*
          * Save or reset search term in session
          */
-        $this->setActiveTerm(post('term'));
+        $this->setActiveTerm(post($this->getName()));
 
         /*
          * Trigger class event, merge results as viewable array
@@ -132,5 +132,14 @@ class Search extends WidgetBase
             $this->resetSession();
 
         $this->activeTerm = $term;
+    }
+
+    /**
+     * Returns a value suitable for the field name property.
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->alias . '[term]';
     }
 }
