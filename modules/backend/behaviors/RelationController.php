@@ -408,7 +408,7 @@ class RelationController extends ControllerBehavior
      */
     protected function findExistingRelationIds($checkIds = null)
     {
-        $foreignKeyName = $this->relationModel->getKey();
+        $foreignKeyName = $this->relationModel->getKeyName();
 
         $results = $this->relationObject
             ->getBaseQuery()
