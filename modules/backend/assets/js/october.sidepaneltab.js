@@ -115,9 +115,9 @@
     }
 
     SidePanelTab.prototype.updatePanelPosition = function() {
-        if (!this.panelFixed())
+        if (!this.panelFixed() || Modernizr.touch)
             this.$el.height($(document).height() - this.mainNavHeight)
-        else
+        else 
             this.$el.css('height', '')
 
         if (this.panelVisible && $(window).width() > this.options.breakpoint && this.panelFixed())
