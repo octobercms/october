@@ -188,6 +188,9 @@ class CmsCompoundObject extends CmsObject
 
         $trim($this->settings);
 
+        if (array_key_exists('components', $this->settings) && count($this->settings['components']) == 0)
+            unset($this->settings['components']);
+
         $this->validate();
 
         $content = [];
