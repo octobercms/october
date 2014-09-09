@@ -439,11 +439,12 @@
         function addTokenExpanderToEditor(pane, $form) {
             var group = $('[data-field-name=markup]', pane),
                 editor = $('[data-control=codeeditor]', group),
-                toolbar = editor.codeEditor('getToolbar'),
                 canExpand = false
 
-            if (editor.data('oc.tokenexpander'))
+            if (!editor.length || editor.data('oc.tokenexpander'))
                 return
+
+            var toolbar = editor.codeEditor('getToolbar')
 
             editor.tokenExpander()
 
