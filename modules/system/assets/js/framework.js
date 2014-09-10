@@ -202,15 +202,18 @@ if (window.jQuery === undefined)
                  * Focus fields with errors
                  */
                 if (data['X_OCTOBER_ERROR_FIELDS']) {
-                    var foundField = false
+                    var isFirstInvalidField = true
                     $.each(data['X_OCTOBER_ERROR_FIELDS'], function(fieldName, fieldMessages){
                         var fieldElement = form.find('[name="'+fieldName+'"], [name$="['+fieldName+']"]').filter(':enabled').first()
                         if (fieldElement.length > 0) {
-                            if (!foundField) {
-                                fieldElement.focus()
-                                foundField = true
+
+                            var _event = jQuery.Event('ajaxInvalidField')
+                            $(window).trigger(_event, [fieldElement, fieldName, fieldMessages, isFirstInvalidField])
+
+                            if (isFirstInvalidField) {
+                                if (!_event.isDefaultPrevented()) fieldElement.focus()
+                                isFirstInvalidField = false
                             }
-                            $(window).trigger('ajaxInvalidField', [fieldElement, fieldName, fieldMessages])
                         }
                     })
                 }
