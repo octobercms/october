@@ -109,6 +109,8 @@ if (window.jQuery === undefined)
                  */
                 if (jqXHR.status == 406 && jqXHR.responseJSON) {
                     errorMsg = jqXHR.responseJSON['X_OCTOBER_ERROR_MESSAGE']
+                    isRedirect = false
+                    options.redirect = null
                     updatePromise = requestOptions.handleUpdateResponse(jqXHR.responseJSON, textStatus, jqXHR)
                 }
                 /*
