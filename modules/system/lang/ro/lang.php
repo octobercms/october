@@ -14,7 +14,7 @@ return [
         'de' => 'Germana',
         'ru' => 'Rusa',
         'fr' => 'Franceza',
-        'ro' => 'Romana'
+        'ro' => 'Romana',
         'pt-br' => 'Portugheza (Brazilia)',
     ],
     'directory' => [
