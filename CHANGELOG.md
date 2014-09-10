@@ -1,3 +1,6 @@
+* **Build 14x** (2014-09-xx)
+  - Standard setting pages now have **Save** and **Save and Close** buttons.
+
 * **Build 143** (2014-09-09)
   - Various fixes to the RelationController relating to belongsToMany relations.
   - Tree Lists are now collapsed by default to better handle large data sets.

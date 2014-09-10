@@ -94,10 +94,16 @@ class Settings extends Controller
 
         Flash::success(Lang::get('system::lang.settings.update_success', ['name' => Lang::get($item->label)]));
 
-        if ($item->context == 'mysettings')
-            return Redirect::to(Backend::url('system/settings/mysettings'));
-        else
-            return Redirect::to(Backend::url('system/settings'));
+        /*
+         * Handle redirect
+         */
+        if ($redirectUrl = post('redirect', true)) {
+            $redirectUrl = ($item->context == 'mysettings')
+                ? Backend::url('system/settings/mysettings')
+                : Backend::url('system/settings');
+
+            return Redirect::to($redirectUrl);
+        }
     }
 
     /**
