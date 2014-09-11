@@ -165,6 +165,38 @@
             }
         }
     }
+
+    &.hero {
+        ul {
+            li {
+                background: @color-filelist-hero-item-bg;
+                border-bottom: 1px solid @color-panel-light;
+
+                a {
+                    padding: 16px 45px 15px 50px;
+                    font-size: 13px;
+
+                    span.title {
+                        font-size: 13px;
+                        font-weight: 600;
+                        color: @color-filelist-title-hero;
+                    }
+
+                    &:hover {
+                        background: @color-filelist-hero-hover-bg;
+                        span.title, span.description {
+                            color: @color-filelist-hero-hover-text!important;
+                        }
+                    }
+                }
+
+                .checkbox {
+                    top: 17px;
+                    right: 17px;
+                }
+            }
+        }
+    }
 }
 
 .touch .control-filelist li:not(.active) a:hover {

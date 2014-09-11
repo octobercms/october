@@ -21,6 +21,7 @@
                     color: @color-treeview-item-title;
                     padding: 16px 45px 15px 61px;
                     display: block;
+                    line-height: 150%;
                     text-decoration: none;
                     .box-sizing(border-box);
                 }
@@ -164,6 +165,27 @@
                         }
                     }
                 }
+
+                &.popover-highlight {
+                    background-color: @color-treeview-hover-bg!important;
+
+                    &:before {
+                        background-position: 0px -80px;
+                    }
+
+                    > a {
+                        color: @color-treeview-hover-text!important;
+                        cursor: default;
+                    }
+
+                    span {
+                        color: @color-treeview-hover-text!important;
+                    }
+
+                    > ul.submenu, > span.drag-handle {
+                        display: none!important;
+                    }
+                }
             }
 
             &.dragged div, > div:hover {
@@ -224,7 +246,7 @@
             }
 
             &.has-subitems {
-                >div {
+                > div {
                     &:before {
                         background-position: 0 0;
                         width: 23px;
@@ -232,8 +254,8 @@
                         left: 26px;
                     }
 
-                    &:hover:before {
-                        background-position: 0px -52px;
+                    &:hover, &.popover-highlight {
+                        &:before {background-position: 0px -52px;}
                     }
 
                     span.expand {
@@ -386,6 +408,99 @@
         text-align: center;
         font-weight: 400;
     }
+
+    /*
+     * Light version of the treeview - transparent background, no bottom borders,
+     * smaller paddings, inline submenu
+     */ 
+    &.light {
+        margin-bottom: 0;
+        margin-top: 20px;
+
+        ol {
+            background-color: transparent;
+            > li {
+                > div {
+                    background-color: transparent;
+                    border-bottom: none;
+
+                    &:before {
+                        top: 15px;
+                    }
+
+                    > a {
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                    }
+
+                    span.expand {
+                        top: 19px;
+                    }
+
+                    > span.drag-handle {
+                        top: 0;
+                        right: 0;
+                        bottom: auto;
+                        height: 100%;
+                        width: 60px;
+                        background: @color-treeview-light-submenu-bg;
+                        .transition(none)!important;
+
+                        &:before {
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            margin-left: -6px;
+                        }
+                    }
+
+                    > ul.submenu {
+                        right: 60px;
+                        left: auto;
+                        bottom: auto;
+                        top: 0;
+                        height: 100%;
+                        margin: 0;
+                        background: transparent;
+                        white-space: nowrap;
+                        font-size: 0;
+
+                        &:before, &:after {
+                            display: none;
+                        }
+
+                        li {
+                            height: 100%;
+                            display: inline-block;
+                            background: @color-treeview-light-submenu-bg;
+                            border-right: 1px solid @color-treeview-light-submenu-border;
+
+                            p {
+                                display: table;
+                                height: 100%;
+                                padding: 0;
+                                margin: 0;
+
+                                a {
+                                    display: table-cell;
+                                    vertical-align: middle;
+                                    height: 100%;
+                                    padding: 0 20px;
+                                    font-size: 13px;
+                                    .box-sizing(border-box);
+
+                                    i.control-icon {
+                                        font-size: 22px;
+                                        margin-right: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 // Retina 
@@ -402,10 +517,12 @@
 
                 &.has-subitems > div {
                     &:before {background-position: 0px -52px;}
-                    &:hover:before {background-position: 0px -102px;}
+                    &:hover, &.popover-highlight {
+                        &:before {background-position: 0px -102px;}
+                    }
                 }
 
-                &.dragged > div, &.dragged li > div, > div:hover {
+                &.dragged > div, &.dragged li > div, > div:hover, > div.popover-highlight {
                     &:before {background-position: 0px -129px;}
                 }
 

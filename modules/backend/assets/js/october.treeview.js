@@ -81,7 +81,9 @@
 
             $container.prepend($expand)
 
-            $container.append($('<span class="drag-handle">Drag</span>'))
+            if (!$('.drag-handle', $container).length)
+                $container.append($('<span class="drag-handle">Drag</span>'))
+
             $container.append($('<span class="borders"></span>'))
 
             if ($(this).attr('data-no-drag-mode') !== undefined)
@@ -157,6 +159,9 @@
     }
 
     TreeView.prototype.sendReorderRequest = function() {
+        if (this.options.reorderHandler === undefined)
+            return
+
         var groups = {}
 
         function iterator($container, node) {
@@ -203,6 +208,7 @@
 
         this.$el.on('move.oc.treelist', function(){
             setTimeout(function(){
+                self.$el.trigger('change')
                 self.$allItems.removeClass('drop-target')
                 self.fixSubItems()
                 self.sendReorderRequest()
@@ -273,7 +279,11 @@
 
     // TREEVIEW DATA-API
     // ===============
-    $(window).load(function(){
+    // $(window).load(function(){
+    //     $('[data-control=treeview]').treeView()
+    // })
+
+    $(document).render(function(){
         $('[data-control=treeview]').treeView()
     })
 

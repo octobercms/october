@@ -10820,6 +10820,30 @@ html.cssanimations .cursor-loading-indicator.hide {
 .control-filelist ul li .checkbox label:before {
   border-color: #cccccc;
 }
+.control-filelist.hero ul li {
+  background: #ffffff;
+  border-bottom: 1px solid #ecf0f1;
+}
+.control-filelist.hero ul li a {
+  padding: 16px 45px 15px 50px;
+  font-size: 13px;
+}
+.control-filelist.hero ul li a span.title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2b3e50;
+}
+.control-filelist.hero ul li a:hover {
+  background: #58b6f7;
+}
+.control-filelist.hero ul li a:hover span.title,
+.control-filelist.hero ul li a:hover span.description {
+  color: #ffffff !important;
+}
+.control-filelist.hero ul li .checkbox {
+  top: 17px;
+  right: 17px;
+}
 .touch .control-filelist li:not(.active) a:hover {
   background: transparent;
 }
@@ -12282,12 +12306,11 @@ div.control-popover {
   background-clip: content-box;
   left: 0;
   top: 0;
-  z-index: 161;
+  z-index: 170;
 }
 div.control-popover > div {
   position: relative;
   background: #ffffff;
-  border: 1px solid #949ea6;
   -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.05);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.05);
   border-top-right-radius: 5px;
@@ -12398,6 +12421,9 @@ div.control-popover.placement-right > div:before {
 div.control-popover div.popover-body {
   padding: 15px;
 }
+div.control-popover div.popover-body.form-container {
+  padding-bottom: 0;
+}
 div.control-popover .popover-head {
   background: #d35400;
   padding: 14px 16px;
@@ -12414,11 +12440,12 @@ div.control-popover .popover-head h3 {
   font-size: 14px;
   font-weight: 600;
   margin-top: 0;
+  margin-bottom: 0;
 }
 div.control-popover .popover-head p {
   font-size: 13px;
   font-weight: 100;
-  margin: 0;
+  margin: 10px 0 0 0;
 }
 div.control-popover .popover-head .close {
   float: none;
@@ -12863,6 +12890,10 @@ div.popover-overlay {
 .fancy-layout .control-tabs.primary > .tab-content > .tab-pane,
 .fancy-layout.control-tabs.primary > .tab-content > .tab-pane {
   padding: 15px 15px 0 15px;
+}
+.fancy-layout .control-tabs.primary > .tab-content > .tab-pane.full-size,
+.fancy-layout.control-tabs.primary > .tab-content > .tab-pane.full-size {
+  padding: 0;
 }
 .fancy-layout .control-tabs.primary > .tab-content > .tab-pane .form-control,
 .fancy-layout.control-tabs.primary > .tab-content > .tab-pane .form-control {
@@ -13503,6 +13534,10 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 }
 .control-treeview {
   margin-bottom: 40px;
+  /*
+     * Light version of the treeview - transparent background, no bottom borders,
+     * smaller paddings, inline submenu
+     */
 }
 .control-treeview ol {
   margin: 0;
@@ -13525,6 +13560,7 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   color: #2b3e50;
   padding: 16px 45px 15px 61px;
   display: block;
+  line-height: 150%;
   text-decoration: none;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -13670,6 +13706,23 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 .control-treeview ol > li > div .checkbox label:before {
   border-color: #cccccc;
 }
+.control-treeview ol > li > div.popover-highlight {
+  background-color: #58b6f7 !important;
+}
+.control-treeview ol > li > div.popover-highlight:before {
+  background-position: 0px -80px;
+}
+.control-treeview ol > li > div.popover-highlight > a {
+  color: #ffffff !important;
+  cursor: default;
+}
+.control-treeview ol > li > div.popover-highlight span {
+  color: #ffffff !important;
+}
+.control-treeview ol > li > div.popover-highlight > ul.submenu,
+.control-treeview ol > li > div.popover-highlight > span.drag-handle {
+  display: none!important;
+}
 .control-treeview ol > li.dragged div,
 .control-treeview ol > li > div:hover {
   background-color: #58b6f7 !important;
@@ -13725,7 +13778,8 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   height: 26px;
   left: 26px;
 }
-.control-treeview ol > li.has-subitems > div:hover:before {
+.control-treeview ol > li.has-subitems > div:hover:before,
+.control-treeview ol > li.has-subitems > div.popover-highlight:before {
   background-position: 0px -52px;
 }
 .control-treeview ol > li.has-subitems > div span.expand {
@@ -13982,6 +14036,84 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   text-align: center;
   font-weight: 400;
 }
+.control-treeview.light {
+  margin-bottom: 0;
+  margin-top: 20px;
+}
+.control-treeview.light ol {
+  background-color: transparent;
+}
+.control-treeview.light ol > li > div {
+  background-color: transparent;
+  border-bottom: none;
+}
+.control-treeview.light ol > li > div:before {
+  top: 15px;
+}
+.control-treeview.light ol > li > div > a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.control-treeview.light ol > li > div span.expand {
+  top: 19px;
+}
+.control-treeview.light ol > li > div > span.drag-handle {
+  top: 0;
+  right: 0;
+  bottom: auto;
+  height: 100%;
+  width: 60px;
+  background: #2581b8;
+  -webkit-transition: none !important;
+  transition: none !important;
+}
+.control-treeview.light ol > li > div > span.drag-handle:before {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -6px;
+}
+.control-treeview.light ol > li > div > ul.submenu {
+  right: 60px;
+  left: auto;
+  bottom: auto;
+  top: 0;
+  height: 100%;
+  margin: 0;
+  background: transparent;
+  white-space: nowrap;
+  font-size: 0;
+}
+.control-treeview.light ol > li > div > ul.submenu:before,
+.control-treeview.light ol > li > div > ul.submenu:after {
+  display: none;
+}
+.control-treeview.light ol > li > div > ul.submenu li {
+  height: 100%;
+  display: inline-block;
+  background: #2581b8;
+  border-right: 1px solid #328ec8;
+}
+.control-treeview.light ol > li > div > ul.submenu li p {
+  display: table;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+.control-treeview.light ol > li > div > ul.submenu li p a {
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  padding: 0 20px;
+  font-size: 13px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.control-treeview.light ol > li > div > ul.submenu li p a i.control-icon {
+  font-size: 22px;
+  margin-right: 0;
+}
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
   .control-treeview ol > li > div:before {
     background-position: 0px -79px;
@@ -13990,12 +14122,14 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   .control-treeview ol > li.has-subitems > div:before {
     background-position: 0px -52px;
   }
-  .control-treeview ol > li.has-subitems > div:hover:before {
+  .control-treeview ol > li.has-subitems > div:hover:before,
+  .control-treeview ol > li.has-subitems > div.popover-highlight:before {
     background-position: 0px -102px;
   }
   .control-treeview ol > li.dragged > div:before,
   .control-treeview ol > li.dragged li > div:before,
-  .control-treeview ol > li > div:hover:before {
+  .control-treeview ol > li > div:hover:before,
+  .control-treeview ol > li > div.popover-highlight:before {
     background-position: 0px -129px;
   }
   .control-treeview ol > li.dragged li.has-subitems > div:before,

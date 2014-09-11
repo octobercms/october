@@ -3,12 +3,11 @@ div.control-popover {
     background-clip: content-box;
     left: 0;
     top: 0;
-    z-index: 161;
+    z-index: 170;
 
     & > div {
         position: relative;
         background: @color-popover-bg;
-        border: 1px solid @color-popover-border;
         .box-shadow(2px 2px 2px rgba(0,0,0,0.05));
         .border-top-radius(5px);
         .border-bottom-radius(2px);
@@ -79,6 +78,10 @@ div.control-popover {
 
     div.popover-body {
         padding: 15px;
+
+        &.form-container {
+            padding-bottom: 0;
+        }
     }
 
     .popover-head {
@@ -97,12 +100,13 @@ div.control-popover {
             font-size: 14px;
             font-weight: 600;
             margin-top: 0;
+            margin-bottom: 0;
         }
 
         p {
             font-size: 13px;
             font-weight: 100;
-            margin: 0;
+            margin: 10px 0 0 0;
         }
 
         .close {

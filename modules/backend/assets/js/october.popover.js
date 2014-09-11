@@ -2,7 +2,7 @@
  * Popover plugin
  *
  * Options:
- * - placement: top | bottom | left | right. The placement could automatically be changed 
+ * - placement: top | bottom | left | right | center. The placement could automatically be changed 
      if the popover doesn't fit into the desired position.
  * - fallbackPlacement: top | bottom | left | right. The placement to use if the default placement
  *   and all other possible placements do not work. The default value is "bottom".
@@ -132,9 +132,10 @@
         /*
          * Display the popover
          */
-         this.$container.css('visibility', 'visible')
+        this.$container.css('visibility', 'visible')
         $(document.body).addClass('popover-open')
-        this.$el.trigger('show.oc.popover')
+        var showEvent = jQuery.Event( "show.oc.popover", { relatedTarget: this.$container.get(0) } );
+        this.$el.trigger(showEvent)
 
         /*
          * Bind events
@@ -190,7 +191,8 @@
             spaceTop: targetOffset.top,
             spaceBottom: documentHeight - (targetHeight + targetOffset.top),
             spaceHorizontalBottom: documentHeight - targetOffset.top,
-            spaceVerticalRight: documentWidth - targetOffset.left
+            spaceVerticalRight: documentWidth - targetOffset.left,
+            documentWidth: documentWidth
         }
     }
 
@@ -217,7 +219,10 @@
     Popover.prototype.calcPlacement = function() {
         var 
             placement = this.options.placement,
-             dimensions = this.calcDimensions();
+            dimensions = this.calcDimensions();
+
+        if (placement == 'center')
+            return placement
 
         if (placement != 'bottom' && placement != 'top' && placement != 'left' && placement != 'right')
             placement = 'bottom'
@@ -261,6 +266,10 @@
             case 'right':
                 var realOffset = this.options.offsetY === undefined ? this.options.offset : this.options.offsetY
                 result = {x: (dimensions.targetOffset.left + dimensions.targetWidth + this.arrowSize), y: dimensions.targetOffset.top + realOffset}
+            break;
+            case 'center' :
+                var windowHeight = $(window).height()
+                result = {x: (dimensions.documentWidth/2 - dimensions.containerWidth/2), y: (windowHeight/2 - dimensions.containerHeight/2)}
             break;
         }
 
