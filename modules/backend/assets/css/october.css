@@ -12424,6 +12424,9 @@ div.control-popover div.popover-body {
 div.control-popover div.popover-body.form-container {
   padding-bottom: 0;
 }
+div.control-popover div.popover-footer {
+  padding: 0 20px 20px 20px;
+}
 div.control-popover .popover-head {
   background: #d35400;
   padding: 14px 16px;
@@ -12441,6 +12444,8 @@ div.control-popover .popover-head h3 {
   font-weight: 600;
   margin-top: 0;
   margin-bottom: 0;
+  padding-right: 15px;
+  line-height: 130%;
 }
 div.control-popover .popover-head p {
   font-size: 13px;
@@ -12450,8 +12455,8 @@ div.control-popover .popover-head p {
 div.control-popover .popover-head .close {
   float: none;
   position: absolute;
-  right: 7px;
-  top: 4px;
+  right: 11px;
+  top: 12px;
   color: #ffffff;
   outline: none;
 }
