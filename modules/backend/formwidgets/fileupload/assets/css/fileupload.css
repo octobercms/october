@@ -282,6 +282,7 @@ html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar a.uploader
 html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar a.uploader-remove:hover {
   color: #c73f26;
 }
+html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar a.uploader-config,
 html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar a.uploader-file-link {
   display: inline-block;
 }

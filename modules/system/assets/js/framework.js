@@ -204,7 +204,7 @@ if (window.jQuery === undefined)
                 if (data['X_OCTOBER_ERROR_FIELDS']) {
                     var isFirstInvalidField = true
                     $.each(data['X_OCTOBER_ERROR_FIELDS'], function(fieldName, fieldMessages){
-                        var fieldElement = form.find('[name="'+fieldName+'"], [name$="['+fieldName+']"]').filter(':enabled').first()
+                        var fieldElement = form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
                         if (fieldElement.length > 0) {
 
                             var _event = jQuery.Event('ajaxInvalidField')
@@ -244,6 +244,7 @@ if (window.jQuery === undefined)
 
         if (loading) loading.show()
 
+        $(window).trigger('ajaxBeforeSend')
         $el.trigger('ajaxPromise')
         return $.ajax(requestOptions)
             .fail(function(jqXHR, textStatus, errorThrown){

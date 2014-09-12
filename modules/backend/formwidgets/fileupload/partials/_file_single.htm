@@ -47,23 +47,30 @@
             {{#description}}
                 <p><abbr title="{{description}}">{{description}}</abbr></p>
             {{/description}}
-            <a
-                href="javascript:;"
-                class="uploader-remove oc-icon-times"
-                data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
-                data-request-data="file_id: {{id}}"></a>
 
-            <a
-                href="javascript:;"
-                class="uploader-config oc-icon-cog"
-                data-control="popup"
-                data-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"
-                data-request-data="file_id: {{id}}"></a>
+            <?php if (!$this->previewMode): ?>
+                <a
+                    href="javascript:;"
+                    class="uploader-remove oc-icon-times"
+                    data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
+                    data-request-data="file_id: {{id}}"></a>
+            <?php endif ?>
 
-            <a
-                href="{{path}}"
-                class="uploader-file-link oc-icon-paper-clip"
-                target="_blank"></a>
+            <div class="controls">
+                <?php if (!$this->previewMode): ?>
+                    <a
+                        href="javascript:;"
+                        class="uploader-config oc-icon-cog"
+                        data-control="popup"
+                        data-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"
+                        data-request-data="file_id: {{id}}"></a>
+                <?php endif ?>
+
+                <a
+                    href="{{path}}"
+                    class="uploader-file-link oc-icon-paper-clip"
+                    target="_blank"></a>
+            </div>
         </div>
 
     </script>
