@@ -7,6 +7,7 @@ return [
     ],
     'locale' => [
         'en' => 'Engleza',
+        'fa' => 'Persian',
         'nl' => 'Olandeza',
         'ja' => 'Japoneza',
         'sv' => 'Suedeza',
@@ -14,7 +15,7 @@ return [
         'de' => 'Germana',
         'ru' => 'Rusa',
         'fr' => 'Franceza',
-        'ro' => 'Romana'
+        'ro' => 'Romana',
         'pt-br' => 'Portugheza (Brazilia)',
     ],
     'directory' => [
