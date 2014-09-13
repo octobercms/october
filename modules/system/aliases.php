@@ -31,7 +31,6 @@ return [
     'Route'           => 'Illuminate\Support\Facades\Route',
     'Schema'          => 'Illuminate\Support\Facades\Schema',
     'Session'         => 'Illuminate\Support\Facades\Session',
-    'URL'             => 'Illuminate\Support\Facades\URL',
     'Validator'       => 'Illuminate\Support\Facades\Validator',
     'View'            => 'Illuminate\Support\Facades\View',
     'Form'            => 'Illuminate\Support\Facades\Form',
@@ -52,4 +51,5 @@ return [
     'BackendMenu'     => 'Backend\Facades\BackendMenu',
     'BackendAuth'     => 'Backend\Facades\BackendAuth',
     'ValidationException' => 'October\Rain\Support\ValidationException',
+    'URL'             => 'October\Rain\Support\Facades\URL',
 ];

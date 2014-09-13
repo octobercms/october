@@ -213,8 +213,14 @@ trait AssetMaker
 
         foreach ($assetPath as $path) {
             $_fileName = $path . '/' . $fileName;
-            if (File::isFile(PATH_BASE . '/' . $_fileName))
+            if (File::isFile(PATH_BASE . '/' . $_fileName)){
+                if(trans('backend::lang.layout.direction') == 'rtl'){
+                    $pathParts = pathinfo($_fileName);
+                    if(File::isFile(PATH_BASE . '/' . $pathParts['filename'] . '-rtl.' . $pathParts['extension']  ))
+                        $_fileName = $pathParts['dirname'] . '/' . $pathParts['filename'] . '-rtl.' . $pathParts['extension']; 
+                }
                 break;
+            }
         }
 
         return $_fileName;
