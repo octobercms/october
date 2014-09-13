@@ -20,7 +20,6 @@
         this.$el       = $(element)
         this.$textarea = this.$el.find('>textarea:first')
         this.$form     = this.$el.closest('form')
-        this.editor    = null
 
         this.init();
     }
@@ -44,10 +43,15 @@
          * Initialize Redactor editor
          */
         var redactorOptions = {
+            observeImages: false,
             focusCallback: function() { self.$el.addClass('editor-focus') },
             blurCallback: function() { self.$el.removeClass('editor-focus') },
             initCallback: function() { self.build() },
-            changeCallback: function() { self.onChange() }
+            changeCallback: function() {
+                self.sanityCheckContent(this.$editor)
+                // this.$editor.trigger('mutate')
+                self.$form.trigger('change')
+            }
         }
 
         if (this.options.stylesheet) {
@@ -58,6 +62,8 @@
         if (this.options.fullpage) {
             redactorOptions.fullpage = true
         }
+
+        // redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'table', 'quote']
 
         this.$textarea.redactor(redactorOptions)
     }
@@ -86,9 +92,17 @@
         })
     }
 
-    RichEditor.prototype.onChange = function() {
-        this.$form.trigger('change')
+    RichEditor.prototype.sanityCheckContent = function($editor) {
+        // First and last elements should always be paragraphs
+        var safeElements = 'p, h1, h2, h3, h4, h5';
 
+        if (!$editor.children(':last-child').is(safeElements)) {
+            $editor.append('<p><br></p>')
+        }
+
+        if (!$editor.children(':first-child').is(safeElements)) {
+            $editor.prepend('<p><br></p>')
+        }
     }
 
     // RICHEDITOR PLUGIN DEFINITION

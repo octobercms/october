@@ -2,14 +2,19 @@
 
 @richeditor-toolbar-size: 30px;
 
+.field-flush .field-richeditor {
+    &, &.editor-focus {
+        border: none;
+    }
+}
 .field-richeditor {
     border: 1px solid @color-form-field-border;
     &, .redactor_box, .redactor_toolbar {
         .border-radius(5px);
     }
 
-    &.editor-focus { 
-        border-color: @color-form-field-border-focus; 
+    &.editor-focus {
+        border-color: @color-form-field-border-focus;
     }
 
     &.size-tiny textarea { height: (@size-tiny - @richeditor-toolbar-size); }
@@ -20,15 +25,36 @@
 
     .redactor_box {
         border: none;
-        .redactor_toolbar {
-            .border-top-radius(3px);
-            .border-bottom-radius(0);
-            background: @color-form-editor-toolbar;
-            border-bottom: 1px solid @color-form-field-border;
-            .box-shadow(none);
-        }
         iframe {
             border: none;
+        }
+    }
+
+    .redactor_toolbar {
+        .border-top-radius(3px);
+        .border-bottom-radius(0);
+        background: @color-richeditor-toolbar;
+        border-bottom: none;
+        .box-shadow(none);
+        border: none;
+
+        li a {
+            zoom: 1;
+            font-size: 14px;
+            color: @color-richeditor-toolbar-btn-color;
+            width: 20px;
+            line-height: 20px;
+            text-align: center;
+            &:hover {
+                outline: none;
+                background-color: @color-richeditor-toolbar-btn-bg-hover;
+                color: @color-richeditor-toolbar-btn-color-hover;
+            }
+            &:active, &.redactor_act {
+                outline: none;
+                background-color: @color-richeditor-toolbar-btn-bg;
+                color: @color-richeditor-toolbar-btn-color-hover;
+            }
         }
     }
 
@@ -46,16 +72,6 @@
                 position: absolute;
                 top: 0;
                 width: 100%;
-
-                > li:first-child:after {
-                    position: absolute;
-                    content: ' ';
-                    width: 100%;
-                    height: 1px;
-                    left: 0;
-                    top: 32px;
-                    background-color: @color-form-field-border;
-                }
             }
 
             iframe, textarea {
@@ -65,4 +81,6 @@
             }
         }
     }
+
 }
+
