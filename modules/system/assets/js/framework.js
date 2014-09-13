@@ -104,13 +104,17 @@ if (window.jQuery === undefined)
                     return
 
                 /*
+                 * Disable redirects
+                 */
+                isRedirect = false
+                options.redirect = null
+
+                /*
                  * Error 406 is a "smart error" that returns response object that is
                  * processed in the same fashion as a successful response.
                  */
                 if (jqXHR.status == 406 && jqXHR.responseJSON) {
                     errorMsg = jqXHR.responseJSON['X_OCTOBER_ERROR_MESSAGE']
-                    isRedirect = false
-                    options.redirect = null
                     updatePromise = requestOptions.handleUpdateResponse(jqXHR.responseJSON, textStatus, jqXHR)
                 }
                 /*
