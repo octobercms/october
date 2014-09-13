@@ -33,6 +33,7 @@ class BackendPreferences extends Model
     {
         $locales = [
             'en' => [Lang::get('system::lang.locale.en'), 'flag-gb'],
+            'fa' => [Lang::get('system::lang.locale.fa'), 'flag-fa'],
             'ru' => [Lang::get('system::lang.locale.ru'), 'flag-ru'],
             'nl' => [Lang::get('system::lang.locale.nl'), 'flag-nl'],
             'ja' => [Lang::get('system::lang.locale.ja'), 'flag-jp'],
