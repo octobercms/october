@@ -706,7 +706,9 @@ class Form extends WidgetBase
             $columnParts = Str::evalHtmlArray($field->columnName);
             $columnDotted = implode('.', $columnParts);
             $columnValue = array_get($data, $columnDotted, 0);
-            if ($field->type == 'number') $columnValue = (float) $columnValue;
+            if ($field->type == 'number') {
+                $columnValue = !strlen(trim($columnValue)) ? NULL : (float) $columnValue;
+            }
             array_set($data, $columnDotted, $columnValue);
         }
 
