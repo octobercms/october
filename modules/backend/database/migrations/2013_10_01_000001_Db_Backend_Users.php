@@ -14,7 +14,7 @@ class DbBackendUsers extends Migration
             $table->increments('id');
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('login')->unique();
+            $table->string('login')->unique()->index();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('activation_code')->nullable()->index();
