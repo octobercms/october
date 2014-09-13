@@ -1,0 +1,480 @@
+.fancy-layout {
+    //
+    // Fancy form tabs
+    //
+
+    .tab-collapse-icon {
+        position: absolute;
+        display:  block;
+        text-decoration: none;
+        outline: none;
+        .opacity(0.6);
+        .transition(all 0.3s);
+        font-size: 12px;
+        color: @color-fancy-master-tabs-active-text;
+        left: 11px;
+
+        &:hover {
+            text-decoration: none;
+            .opacity(1);
+        }
+
+        &.primary {
+            color: @color-fancy-secondary-tabs-bg;
+            bottom: -25px;
+            z-index: 100;
+            .scaleAxes(1, -1);
+
+            i {
+                position: relative;
+                display: block;
+            }
+        }
+    }
+
+    .control-tabs, &.control-tabs {
+        &.master {
+            overflow: hidden;
+
+            &:before, &:after {
+                top: 7px;
+                font-size: 14px;
+                color: @color-fancy-master-tabs-inactive-text;
+            }
+            &:before {left: 8px;}
+            &:after {right: 8px;}
+            &.scroll-before:before {color: @color-fancy-master-tabs-active-text;}
+            &.scroll-after:after {color: @color-fancy-master-tabs-active-text;}
+
+            > div > div.tabs-container {
+                background: @color-fancy-master-tabs-bg;
+                padding-right: 20px;
+                padding-left: 20px;
+
+                > ul.nav-tabs {
+                    margin-right: -8px;
+                    > li {
+                        margin-right: -10px;
+
+                        span.tab-close{
+                            top: 9px;
+                            left: -3px;
+                            right: auto;
+                            z-index: 110;
+
+                            i {
+                                top: 4px;
+                                left: 1px;
+                                color: rgba(255, 255, 255, 0.3)!important;
+                                font: 14px bold "Helvetica Neue", Helvetica, Arial, sans-seri8;
+    
+                                &:hover {color: @color-fancy-master-tabs-active-text!important;}
+                            }
+                        
+                        }
+
+                        a {
+                            border-bottom: none;
+                            background: transparent;
+                            font-size: 14px;
+                            color: @color-fancy-master-tabs-inactive-text;
+                            padding: 6px 0 0 0;
+                            overflow: visible;
+
+                            > span.title {
+                                position: relative;
+                                display: inline-block;
+                                padding: 8px 5px 9px 5px;
+                                font-size: 13px;
+                                z-index: 100;
+                                background-color: @color-fancy-form-inactive-tab;
+
+                                &:before, &:after {
+                                    content: ' ';
+                                    position: absolute;
+                                    background: transparent url(../images/tab-shape.svg) no-repeat left -80px;
+                                    width: 20px;
+                                    display: block;
+                                    height: 30px;
+                                    top: 0;
+                                    z-index: 100;
+                                }
+
+                                &:before {
+                                    left: -20px;
+                                }
+
+                                &:after {
+                                    right: -20px;
+                                    background-position: -80px -80px;
+                                }
+                            }
+
+                            &:before {
+                                z-index: 110;
+                                position: relative;
+                                margin-left: -12px;
+                            }
+
+                            &[class*=icon] > span.title {
+                                padding-right: 18px;
+                            }
+                        }
+
+                        &.active {
+                            a {
+                                z-index: 107;
+                                color: @color-fancy-master-tabs-active-text;
+                            }
+                            span.tab-close i {color: @color-fancy-master-tabs-active-text;}
+
+                            a > span.title {
+                                background-color: @color-fancy-form-tabless-fields-bg;
+                                z-index: 105;
+                                &:before {
+                                    background-position: left -40px;
+                                    z-index: 107;
+                                }
+                                &:after {
+                                    background-position: -80px -40px;
+                                    z-index: 107;
+                                }
+                            }
+                        }
+
+                            &[data-modified] {
+                                span.tab-close i {
+                                    top: 4px;
+                                    .hide-text();
+
+                                    &:before {
+                                        .icon(@circle);
+                                        font-size: 9px;
+                                    }
+                                }
+                            }
+
+                        &:first-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+
+            &[data-closable] {
+                > div > div.tabs-container {
+                    > ul.nav-tabs {
+                        > li {
+                            a > span.title {
+                                padding-left: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.has-tabs {
+                &:before, &:after {display: block;}
+            }
+        }
+
+        &.secondary {
+            > div > ul.nav-tabs {
+                background: @color-fancy-secondary-tabs-bg;
+                > li {
+                    border-left: none;
+                    padding-left: 0;
+                    margin-left: 0;
+                    a {
+                        background: transparent;
+                        border: none;
+                        padding: 8px 10px;
+                        color: @color-fancy-secondary-tabs-inactive-text;
+                    }
+
+                    &.active {
+                        a {color: @color-fancy-secondary-tabs-active-text;}
+                    }
+                }
+            }
+
+            .tab-collapse-icon {
+                .tab-collapse-icon();
+
+                &.primary {
+                    color: @color-fancy-master-tabs-active-text;
+                    top: 12px;
+                    left: 11px;
+                    bottom: auto;
+                }
+            }
+
+            &.primary-collapsed {
+                .tab-collapse-icon.primary {
+                    .scaleAxes(1, 1);
+                }
+            }
+        }
+
+        &.primary {
+            > div > ul.nav-tabs {
+                background: @color-fancy-primary-tabs-bg;
+                margin-left: 0!important;
+                margin-right: 0!important;
+
+                &.master-area {
+                    .transition(background-color 0.5s);
+                    background: @color-fancy-form-tabless-fields-bg;
+                }
+
+                &:before {
+                    display: none;
+                }
+
+                > li {
+                    background: transparent;
+                    border-left: none;
+
+                    &:first-child {
+                        margin-right: -5px;
+                    }
+
+                    a {
+                        background: transparent;
+                        border: none;
+                        padding: 12px 16px 0px;
+                        font-size: 12px;
+                        font-weight: 400;
+                        color: @color-fancy-primary-tabs-inactive-text;
+
+                        span.title {
+                            background: @color-fancy-primary-tabs-inactive-bg;
+                            border-top: none;
+                            padding: 5px 5px 3px 5px;
+
+                            &:before, &:after {
+                                top: 0;
+                            }
+
+                            &:before {
+                                background-position: right -92px;
+                            }
+
+                            &:after {
+                                background-position: 0px -92px;
+                            }
+                        }
+                    }
+
+                    &.active {
+                        a {
+                            color: @color-fancy-primary-tabs-active-text;
+                            &:before {
+                                display: none;
+                            }
+
+                            span.title {
+                                background: @color-fancy-primary-tabs-active-bg;
+
+                                &:before {
+                                    background-position: right -62px;
+                                }
+
+                                &:after {
+                                    background-position: 0px -62px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            > .tab-content > .tab-pane {
+                padding: 15px 15px 0 15px;
+
+                .form-control {
+                    border-width: 1px;
+                }
+            }
+
+            &.collapsed {
+                display: none;
+            }
+        }
+
+        > div.tab-content {
+            background: @color-body-bg;
+
+            > div.tab-pane {
+                padding: 0;
+
+                &.padded-pane {
+                    padding: 15px 15px 0 15px;
+                }
+            }
+        }
+    }
+
+    //
+    // Forms and buttons
+    //
+
+    .form-tabless-fields {
+        .clearfix();
+        position: relative;
+        background: @color-fancy-form-tabless-fields-bg;
+        padding: 18px 23px 0 23px;
+        .transition(all 0.5s);
+
+        label {
+            text-transform: uppercase;
+            color: @color-fancy-form-label;
+            margin-bottom: 0;
+        }
+
+        input[type=text] {
+            background: transparent;
+            border: none;
+            color: @color-fancy-form-text;
+            font-size: 35px;
+            font-weight: 100;
+            height: auto;
+            padding: 0;
+            .placeholder(@color-fancy-form-placeholder);
+
+            &:focus, &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        .form-group {
+            padding-bottom: 0;
+
+            &.is-required {
+                > label:after {
+                    display: none;
+                }
+            }
+        }
+
+        .tab-collapse-icon {
+            .tab-collapse-icon();
+            &.tabless {
+                top: 11px;
+            }
+        }
+
+        &.collapsed {
+            padding: 5px 10px 0 23px;
+
+            .tab-collapse-icon {
+                &.tabless {
+                    .scaleAxes(1, -1);
+                }
+            }
+
+            .form-group:not(.collapse-visible) {
+                display: none;
+            }
+
+            .form-buttons {
+                padding-bottom: 0;
+            }
+        }
+
+        .loading-indicator-container {
+            .loading-indicator {
+                background-color: @color-fancy-form-tabless-fields-bg;
+                padding: 0 30px 0 0;
+                color: @color-fancy-form-label;
+                margin-top: 1px;
+                height: 90%;
+                font-size: 12px;
+                line-height: 100%;
+                > span {
+                    right: -10px;
+                    top: 18px;
+                }
+            }
+        }
+    }
+
+    .form-buttons {
+        .transition(all 0.5s);
+        padding-top: 2px;
+        padding-bottom: 5px;
+        margin-top: -6px;
+
+        .btn {
+            margin-right: -11px;
+            background-color: transparent;
+        }
+    }
+
+    .form-buttons {
+        .btn {
+            color: @color-fancy-master-tabs-active-text;
+            .opacity(0.5);
+            .transition(all 0.3s ease);
+
+            &:hover {
+                .opacity(1);
+            }
+        }
+    }
+
+    form.oc-data-changed {
+        .btn.save {
+            .opacity(1);
+        }
+    }
+
+    //
+    // Code editor
+    //
+
+    .field-codeeditor { 
+        border: none!important;
+        .border-radius(0);
+
+        .editor-code {
+            .border-radius(0);
+        }
+    }
+
+    //
+    // Rich editor
+    //
+
+    .field-richeditor {
+        border: none;
+        border-right: 1px solid @color-form-field-border;
+
+        &, .redactor_box, .redactor_toolbar {
+            .border-radius(0);
+            .border-top-radius(0);
+        }
+    }
+}
+
+body.side-panel-not-fixed {
+    .fancy-layout {
+        .field-richeditor {
+            border-right: none;
+        }
+    }
+}
+
+html.cssanimations { 
+    .fancy-layout {
+        .form-tabless-fields {
+            .loading-indicator-container {
+                .loading-indicator > span {
+                    .animation(spin 1s linear infinite);
+                    background-image: url(../images/loading-indicator-white.svg);
+                    background-size: 20px 20px;
+                }
+            }
+        }
+    }
+}
