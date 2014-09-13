@@ -246,6 +246,6 @@ return [
       'all' => 'Alle'
     ],
     'layout' => [
-        'direction' => 'lrt'
+        'direction' => 'ltr'
     ]
 ];

@@ -248,6 +248,6 @@ return [
       'all' => 'todos'
     ],
     'layout' => [
-        'direction' => 'lrt'
+        'direction' => 'ltr'
     ]
 ];
