@@ -244,4 +244,7 @@ return [
         'last_name' => 'Achternaam',
         'email' => 'E-mailadres',
     ],
+    'layout' => [
+        'direction' => 'lrt'
+    ]
 ];

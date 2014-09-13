@@ -164,4 +164,7 @@ return [
         'show_gutter' => 'Show gutter',
         'theme' => 'Color scheme',
     ],
+    'layout' => [
+        'direction' => 'lrt'
+    ]
 ];
