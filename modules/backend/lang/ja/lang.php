@@ -165,6 +165,6 @@ return [
         'theme' => 'Color scheme',
     ],
     'layout' => [
-        'direction' => 'lrt'
+        'direction' => 'ltr'
     ]
 ];

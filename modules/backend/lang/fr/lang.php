@@ -203,6 +203,6 @@ return [
         'email' => 'Email',
     ],
     'layout' => [
-        'direction' => 'lrt'
+        'direction' => 'ltr'
     ]
 ];

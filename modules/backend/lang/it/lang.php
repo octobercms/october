@@ -223,6 +223,6 @@ return [
         'email' => 'Indirizzo e-mail',
     ],
     'layout' => [
-        'direction' => 'lrt'
+        'direction' => 'ltr'
     ]
 ];

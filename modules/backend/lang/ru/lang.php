@@ -245,6 +245,6 @@ return [
         'email' => 'Почта',
     ],
     'layout' => [
-        'direction' => 'lrt'
+        'direction' => 'ltr'
     ]
 ];

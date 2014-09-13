@@ -251,6 +251,6 @@ return [
       'all' => 'all'
     ],
     'layout' => [
-        'direction' => 'lrt'
+        'direction' => 'ltr'
     ]
 ];
