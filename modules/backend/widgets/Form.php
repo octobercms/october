@@ -498,7 +498,7 @@ class Form extends WidgetBase
         /*
          * Get field options from model
          */
-        $optionModelTypes = ['dropdown', 'radio', 'checkboxlist'];
+        $optionModelTypes = ['dropdown', 'radio', 'checkboxlist', 'balloon-selector'];
         if (in_array($field->type, $optionModelTypes)) {
 
             /*
