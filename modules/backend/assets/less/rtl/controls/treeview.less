@@ -1,0 +1,432 @@
+.control-treeview {
+    margin-bottom: 40px;
+
+    ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background: @color-treeview-item-bg;
+
+        > li {
+            .transition(width 1s);
+
+            > div {
+                font-size: 13px;
+                font-weight: 600;
+                background: @color-treeview-item-bg;
+                border-bottom: 1px solid @color-panel-light;
+                position: relative;
+
+                > a {
+                    color: @color-treeview-item-title;
+                    padding: 16px 61px 15px 45px;
+                    display: block;
+                    text-decoration: none;
+                    .box-sizing(border-box);
+                }
+
+                &:before {
+                    content: ' ';
+                    background-image: url(../images/treeview-icons.png);
+                    background-position: 0px -28px;
+                    background-repeat: no-repeat;
+                    background-size: 42px auto;
+
+                    position: absolute;
+                    width: 21px;
+                    height: 22px;
+                    right: 28px;
+                    top: 20px;
+                }
+
+                span.comment {
+                    display: block;
+                    font-weight: 400;
+                    color: @color-treeview-item-comment;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                > span.expand {
+                    .hide-text();
+                    display: none;
+                    position: absolute;
+                    right: 0;
+                    width: 20px;
+                    height: 20px;
+                    top: 24px;
+                    right: 2px;
+                    cursor: pointer;
+                    color: @color-treeview-control;
+                    .transition(transform 0.1s ease);
+
+                    &:before {
+                        .icon(@caret-right);
+                        line-height: 100%;
+                        font-size: 15px;
+
+                        position: relative;
+                        right: 8px;
+                        top: 2px;
+                    }
+                }
+
+                > span.drag-handle {
+                    .hide-text();
+                    .transition(opacity 0.4s);
+
+                    position: absolute;
+                    left: 24px;
+                    bottom: 5px;
+                    width: 14px;
+                    height: 14px;
+                    cursor: move;
+                    color: @color-treeview-control;
+                    .opacity(0);
+
+                    &:before {
+                        .icon(@bars);
+                        font-size: 14px;
+                    }
+                }
+
+                span.borders {
+                    font-size: 0;
+                }
+
+                > ul.submenu {
+                    position: absolute;
+                    right: 20px;
+                    bottom: -37px;
+                    padding: 0;
+                    list-style: none;
+                    z-index: 200;
+                    height: 37px;
+                    display: none;
+                    margin-right: 15px;
+
+                    background: transparent url(../images/treeview-submenu-tabs.png) repeat-x right -39px;
+
+                    &:before, &:after {
+                        background: transparent url(../images/treeview-submenu-tabs.png) no-repeat right top;
+                        content: ' ';
+                        display: block;
+                        width: 20px;
+                        height: 37px;
+                        position: absolute;
+                        top: 0;
+                    }
+
+                    &:before {
+                        right: -20px;
+                    }
+
+                    &:after {
+                        background-position: 0px top;
+                        left: -20px;
+                    }
+
+                    li {
+                        font-size: 12px;
+
+                        a {
+                            display: block;
+                            padding: 4px 3px 0 3px;
+                            color: @color-treeview-submenu-text;
+                            text-decoration: none;
+                            outline: none;
+
+                            i {
+                                margin-left: 5px;
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    > ul.submenu {
+                        display: block;
+                    }
+                }
+
+                .checkbox {
+                    position: absolute;
+                    top: 19px;
+                    left: 17px;
+
+                    label {
+                        margin-left: 0;
+
+                        &:before {
+                            border-color: @color-filelist-cb-border;
+                        }
+                    }
+                }
+            }
+
+            &.dragged div, > div:hover {
+                background-color: @color-treeview-hover-bg!important;
+
+                > a {
+                    color: @color-treeview-hover-text!important;
+                }
+
+                &:before {
+                    background-position: 0px -80px;
+                }
+
+                &:after {
+                    top: 0!important;
+                    bottom: 0!important;
+                }
+
+                span {
+                    color: @color-treeview-hover-text!important;
+
+                    &.drag-handle {
+                        cursor: move;
+                        .opacity(1);
+                    }
+
+                    &.borders {
+                        display: none;
+                    }
+                }
+            }
+
+            &[data-no-drag-mode] div:hover {
+                span.drag-handle {
+                    cursor: default!important;
+                    .opacity(0.3)!important;
+                }
+            }
+
+            &.dragged {
+                li.has-subitems, &.has-subitems {
+                    > div:before {
+                        background-position: 0px -52px;
+                    }
+                }
+
+                div > ul.submenu {
+                    display: none!important;
+                }
+            }
+
+            > ol {
+                padding-right: 20px;
+            }
+
+            &[data-status=collapsed] > ol {
+                display: none;
+            }
+
+            &.has-subitems {
+                >div {
+                    &:before {
+                        background-position: 0 0;
+                        width: 23px;
+                        height: 26px;
+                        right: 26px;
+                    }
+
+                    &:hover:before {
+                        background-position: 0px -52px;
+                    }
+
+                    span.expand {
+                        display: block;
+                    }
+                }
+            }
+
+            &.placeholder {
+                height: 0;
+                position: relative;
+                border-bottom: 1px dotted #c03f31;
+
+                &:before {
+                    .icon(@caret-left);
+                    font-size: 23px;
+                    color: white;
+                    position: absolute;
+                    right: -11px;
+                    top: -17px;
+                    z-index: 1900;
+                }
+
+                &:after {
+                    .icon(@caret-left);
+                    font-size: 21px;
+                    color: #c03f31;
+                    position: absolute;
+                    right: -10px;
+                    top: -14px;
+                    z-index: 1901;
+                }
+            }
+
+            &.dragged {
+                position: absolute;
+                z-index: 2000;
+                // width: auto!important;
+                // height: auto!important;
+                .opacity(0.5);
+
+                > div {
+                    .border-radius(3px);
+                }
+            }
+
+            &.drop-target  {
+                > div {
+                    background-color: #2581b8!important;
+
+                    > a {
+                        color: @color-treeview-hover-text;
+                        > span.comment {
+                            color: @color-treeview-hover-text;
+                        }
+                    }
+
+                    &:before {
+                        background-position: 0px -80px;
+                    }
+                }
+
+                &.has-subitems > div:before {
+                    background-position: 0px -52px;
+                }
+            }
+
+            &[data-status=expanded] > div > span.expand {
+                .transform( ~'rotate(90deg) translate(0, 0)' );
+            }
+
+            &.drag-ghost {
+                background-color: transparent;
+                box-sizing: content-box;
+            }
+
+            &.active {
+                > div {
+                    background: @color-list-active;
+
+                    &:after {
+                        position: absolute;
+                        width: 4px;
+                        right: 0;
+                        top: -1px;
+                        bottom: -1px;
+                        background: @color-list-active-border;
+                        display: block;
+                        content: ' ';
+                    }
+
+                    > span.comment, > span.expand {
+                        color: @color-treeview-item-active-comment;
+                    }
+
+                    > span.borders {
+                        &:before, &:after {
+                            content: ' ';
+                            position: absolute;
+                            width: 100%;
+                            height: 1px;
+                            display: block;
+                            right: 0;
+                            background-color: @color-list-active;
+                        }
+
+                        &:before {top: -1px;}
+                        &:after {bottom: -1px;}
+                    }
+                }
+            }
+        }
+
+        @max-level: 10;
+
+        .tree-view-paddings (@level) when (@level > 0) {
+            > li {
+                > ol {
+                    > li > div {
+                        margin-right: -20-(@max-level - @level)*20px;
+                        padding-right: 61+(@max-level - @level + 1)*10px;
+
+                        > a {
+                            margin-right: -61-(@max-level - @level + 1)*10px;
+                            padding-right: 61+(@max-level - @level + 1)*10px;
+                        }
+
+                        &:before {
+                            margin-right: (@max-level - @level + 1)*10px;
+                        }
+
+                        > span.expand {
+                            right: 2+(@max-level - @level + 1)*10px;
+                        }
+                    }
+
+                    .tree-view-paddings(@level - 1);
+                }
+            }
+        }
+
+        .tree-view-paddings (@max-level);
+    }
+
+    p.no-data {
+        padding: 18px 0;
+        margin: 0;
+        color: @color-filelist-norecords-text;
+        font-size: 12px;
+        text-align: center;
+        font-weight: 400;
+    }
+}
+
+// Retina 
+@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
+    .control-treeview {
+        ol {
+            > li {
+                > div{
+                    &:before {
+                        background-position: 0px -79px;
+                        background-size: 21px auto;
+                    }
+                }
+
+                &.has-subitems > div {
+                    &:before {background-position: 0px -52px;}
+                    &:hover:before {background-position: 0px -102px;}
+                }
+
+                &.dragged > div, &.dragged li > div, > div:hover {
+                    &:before {background-position: 0px -129px;}
+                }
+
+                &.dragged {
+                    li.has-subitems, &.has-subitems {
+                        > div:before {
+                            background-position: 0px -102px;
+                        }
+                    }
+                }
+
+                &.drop-target {
+                    > div:before {
+                        background-position: 0px -129px;
+                    }
+
+                    &.has-subitems > div:before {
+                        background-position: 0px -102px;
+                    }
+                }
+            }
+        }
+    }
+}
