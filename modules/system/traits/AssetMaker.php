@@ -243,6 +243,14 @@ trait AssetMaker
     protected function getAssetEntryBuildPath($asset)
     {
         $path = $asset['path'];
+
+        //check for rtl version of file
+        if(trans('backend::lang.layout.direction') == 'rtl'){
+            $pathParts = pathinfo($path);
+            if(File::isFile(public_path() . '/..' . $pathParts['dirname'] . '/' .$pathParts['filename'] . '-rtl.' . $pathParts['extension']))
+                $path = $pathParts['dirname'] . '/' . $pathParts['filename'] . '-rtl.' . $pathParts['extension']; 
+        }
+
         if (isset($asset['attributes']['build'])) {
             $build = $asset['attributes']['build'];
 
