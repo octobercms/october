@@ -21,7 +21,7 @@ trait PathMaker
     protected $pathSymbols = [
         '$' => PATH_PLUGINS,
         '~' => PATH_BASE,
-        '/' => PATH_BASE, // @deprecated
+        // '/' => PATH_BASE, // @deprecated
         '@' => PATH_BASE, // @deprecated
     ];
 
