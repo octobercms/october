@@ -1,9 +1,11 @@
 <?php if ($relationManageId): ?>
 
-    <?= Form::ajax('onRelationManageUpdate', [
-        'data' => ['_relation_field' => $relationField, 'manage_id' => $relationManageId],
-        'data-stripe-load-indicator' => true
-    ]) ?>
+    <?= Form::ajax('onRelationManageUpdate', ['data-stripe-load-indicator' => true]) ?>
+
+        <!-- Passable fields -->
+        <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
+        <input type="hidden" name="manage_id" value="<?= $relationManageId ?>" />
+
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="popup">&times;</button>
             <h4 class="modal-title">
@@ -33,10 +35,11 @@
 
 <?php else: ?>
 
-    <?= Form::ajax('onRelationManageCreate', [
-        'data' => ['_relation_field' => $relationField],
-        'data-stripe-load-indicator' => true
-    ]) ?>
+    <?= Form::ajax('onRelationManageCreate', ['data-stripe-load-indicator' => true]) ?>
+
+        <!-- Passable fields -->
+        <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
+
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="popup">&times;</button>
             <h4 class="modal-title">

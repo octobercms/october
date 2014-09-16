@@ -462,7 +462,7 @@ class RelationController extends ControllerBehavior
         $this->beforeAjax();
 
         $saveData = $this->manageWidget->getSaveData();
-        $this->relationObject->find($this->manageId)->save($saveData);
+        $this->relationObject->find($this->manageId)->save($saveData, $this->relationGetSessionKey());
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
