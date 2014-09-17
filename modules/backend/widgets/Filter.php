@@ -414,7 +414,7 @@ class Filter extends WidgetBase
         if (is_string($scope))
             $scope = $this->getScope($scope);
 
-        return $scope->nameColumn;
+        return $scope->nameFrom;
     }
 
     /**
