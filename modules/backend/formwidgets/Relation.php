@@ -36,12 +36,12 @@ class Relation extends FormWidgetBase
     /**
      * @var string Model column to use for the name reference
      */
-    public $nameColumn = 'name';
+    public $nameFrom = 'name';
 
     /**
      * @var string Model column to use for the description reference
      */
-    public $descriptionColumn = 'description';
+    public $descriptionFrom = 'description';
 
     /**
      * @var string Empty value to use if the relation is singluar (belongsTo)
@@ -56,9 +56,12 @@ class Relation extends FormWidgetBase
         $this->relationName = $this->formField->columnName;
         $this->relationType = $this->model->getRelationType($this->relationName);
 
-        $this->nameColumn = $this->getConfig('nameColumn', $this->nameColumn);
-        $this->descriptionColumn = $this->getConfig('descriptionColumn', $this->descriptionColumn);
+        $this->nameFrom = $this->getConfig('nameFrom', $this->nameFrom);
+        $this->descriptionFrom = $this->getConfig('descriptionFrom', $this->descriptionFrom);
         $this->emptyOption = $this->getConfig('emptyOption');
+
+        /* @todo Remove line if year >= 2015 */ if ($this->getConfig('nameColumn')) $this->nameFrom = $this->getConfig('nameColumn');
+        /* @todo Remove line if year >= 2015 */ if ($this->getConfig('descriptionColumn')) $this->descriptionFrom = $this->getConfig('descriptionColumn');
 
         if (!$this->model->hasRelation($this->relationName))
             throw new SystemException(Lang::get('backend::lang.model.missing_relation', ['class'=>get_class($this->controller), 'relation'=>$this->relationName]));
@@ -105,9 +108,9 @@ class Relation extends FormWidgetBase
         }
 
         if (in_array('October\Rain\Database\Traits\NestedTree', class_uses($relatedObj)))
-            $field->options = $query->listsNested($this->nameColumn, $relatedObj->getKeyName());
+            $field->options = $query->listsNested($this->nameFrom, $relatedObj->getKeyName());
         else
-            $field->options = $query->lists($this->nameColumn, $relatedObj->getKeyName());
+            $field->options = $query->lists($this->nameFrom, $relatedObj->getKeyName());
 
         return $this->renderFormField = $field;
     }
