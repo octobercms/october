@@ -78,7 +78,9 @@ class ListColumn
     public $config;
 
     /**
-     * Constructor
+     * Constructor.
+     * @param string $columnName
+     * @param string $label
      */
     public function __construct($columnName, $label)
     {

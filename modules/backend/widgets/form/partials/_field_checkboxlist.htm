@@ -21,7 +21,7 @@
     <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
         <?php
             $index++;
-            $checkboxId = 'checkbox_'.$field->columnName.'_'.$index;
+            $checkboxId = 'checkbox_'.$field->getId().'_'.$index;
             if (is_string($option)) $option = [$option];
         ?>
         <div class="checkbox custom-checkbox">

@@ -493,7 +493,7 @@ class Form extends WidgetBase
          * Check model if field is required
          */
         if (!$field->required && $this->model && method_exists($this->model, 'isAttributeRequired'))
-            $field->required = $this->model->isAttributeRequired($field->columnName);
+            $field->required = $this->model->isAttributeRequired($field->fieldName);
 
         /*
          * Get field options from model
@@ -546,11 +546,11 @@ class Form extends WidgetBase
         if ($field->type != 'widget')
             return null;
 
-        if (isset($this->formWidgets[$field->columnName]))
-            return $this->formWidgets[$field->columnName];
+        if (isset($this->formWidgets[$field->fieldName]))
+            return $this->formWidgets[$field->fieldName];
 
         $widgetConfig = $this->makeConfig($field->config);
-        $widgetConfig->alias = $this->alias . studly_case(Str::evalHtmlId($field->columnName));
+        $widgetConfig->alias = $this->alias . studly_case(Str::evalHtmlId($field->fieldName));
         $widgetConfig->sessionKey = $this->getSessionKey();
 
         $widgetName = $widgetConfig->widget;
@@ -562,7 +562,7 @@ class Form extends WidgetBase
         }
 
         $widget = new $widgetClass($this->controller, $this->model, $field, $widgetConfig);
-        return $this->formWidgets[$field->columnName] = $widget;
+        return $this->formWidgets[$field->fieldName] = $widget;
     }
 
     /**
@@ -576,7 +576,7 @@ class Form extends WidgetBase
 
     /**
      * Get a specified form widget
-     * @param  string $columnName
+     * @param  string $fieldName
      * @return mixed
      */
     public function getFormWidget($field)
@@ -595,7 +595,7 @@ class Form extends WidgetBase
 
     /**
      * Get a specified field object
-     * @param  string $columnName
+     * @param  string $fieldName
      * @return mixed
      */
     public function getField($field)
@@ -628,13 +628,13 @@ class Form extends WidgetBase
             $field = $this->fields[$field];
         }
 
-        $columnName = $field->columnName;
+        $fieldName = $field->fieldName;
         $defaultValue = (!$this->model->exists) && strlen($field->defaults) ? $field->defaults : null;
 
         /*
          * Array field name, eg: field[key][key2][key3]
          */
-        $keyParts = Str::evalHtmlArray($columnName);
+        $keyParts = Str::evalHtmlArray($fieldName);
         $lastField = end($keyParts);
         $result = $this->data;
 
@@ -703,7 +703,7 @@ class Form extends WidgetBase
             /*
              * Handle HTML array, eg: item[key][another]
              */
-            $columnParts = Str::evalHtmlArray($field->columnName);
+            $columnParts = Str::evalHtmlArray($field->fieldName);
             $columnDotted = implode('.', $columnParts);
             $columnValue = array_get($data, $columnDotted, 0);
             if ($field->type == 'number') {
@@ -744,14 +744,14 @@ class Form extends WidgetBase
          * Refer to the model method or any of its behaviors
          */
         if (!is_array($fieldOptions) && !$fieldOptions) {
-            $methodName = 'get'.studly_case($field->columnName).'Options';
+            $methodName = 'get'.studly_case($field->fieldName).'Options';
             if (!$this->methodExists($this->model, $methodName) && !$this->methodExists($this->model, 'getDropdownOptions'))
-                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$methodName, 'field'=>$field->columnName]));
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$methodName, 'field'=>$field->fieldName]));
 
             if ($this->methodExists($this->model, $methodName))
                 $fieldOptions = $this->model->$methodName($field->value);
             else
-                $fieldOptions = $this->model->getDropdownOptions($field->columnName, $field->value);
+                $fieldOptions = $this->model->getDropdownOptions($field->fieldName, $field->value);
         }
 
         /*
@@ -759,9 +759,9 @@ class Form extends WidgetBase
          */
         elseif (is_string($fieldOptions)) {
             if (!$this->methodExists($this->model, $fieldOptions))
-                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$fieldOptions, 'field'=>$field->columnName]));
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', ['model'=>get_class($this->model), 'method'=>$fieldOptions, 'field'=>$field->fieldName]));
 
-            $fieldOptions = $this->model->$fieldOptions($field->value, $field->columnName);
+            $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName);
         }
 
         return $fieldOptions;
