@@ -707,7 +707,7 @@ class Form extends WidgetBase
             $columnDotted = implode('.', $columnParts);
             $columnValue = array_get($data, $columnDotted, 0);
             if ($field->type == 'number') {
-                $columnValue = !strlen(trim($columnValue)) ? NULL : (float) $columnValue;
+                $columnValue = !strlen(trim($columnValue)) ? null : (float) $columnValue;
             }
             array_set($data, $columnDotted, $columnValue);
         }

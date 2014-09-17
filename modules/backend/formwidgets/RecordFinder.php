@@ -13,8 +13,8 @@ use System\Classes\SystemException;
  *        type: recordfinder
  *        list: @/plugins/rainlab/user/models/user/columns.yaml
  *        prompt: Click the Find button to find a user
- *        nameColumn: name
- *        descriptionColumn: email
+ *        nameFrom: name
+ *        descriptionFrom: email
  * 
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
@@ -49,12 +49,12 @@ class RecordFinder extends FormWidgetBase
     /**
      * @var string Relation column to display for the name
      */
-    public $nameColumn;
+    public $nameFrom;
 
     /**
      * @var string Relation column to display for the description
      */
-    public $descriptionColumn;
+    public $descriptionFrom;
 
     /**
      * @var string Prompt to display if no record is selected.
@@ -81,8 +81,11 @@ class RecordFinder extends FormWidgetBase
 
         $this->prompt = $this->getConfig('prompt', 'Click the %s button to find a record');
         $this->keyField = $this->getConfig('keyField', $this->keyField);
-        $this->nameColumn = $this->getConfig('nameColumn', $this->nameColumn);
-        $this->descriptionColumn = $this->getConfig('descriptionColumn', $this->descriptionColumn);
+        $this->nameFrom = $this->getConfig('nameFrom', $this->nameFrom);
+        $this->descriptionFrom = $this->getConfig('descriptionFrom', $this->descriptionFrom);
+
+        /* @todo Remove line if year >= 2015 */ if ($this->getConfig('nameColumn')) $this->nameFrom = $this->getConfig('nameColumn');
+        /* @todo Remove line if year >= 2015 */ if ($this->getConfig('descriptionColumn')) $this->descriptionFrom = $this->getConfig('descriptionColumn');
 
         if (!$this->model->hasRelation($this->relationName))
             throw new SystemException(Lang::get('backend::lang.model.missing_relation', ['class'=>get_class($this->controller), 'relation'=>$this->relationName]));
@@ -163,18 +166,18 @@ class RecordFinder extends FormWidgetBase
 
     public function getNameValue()
     {
-        if (!$this->relationModel || !$this->nameColumn)
+        if (!$this->relationModel || !$this->nameFrom)
             return null;
 
-        return $this->relationModel->{$this->nameColumn};
+        return $this->relationModel->{$this->nameFrom};
     }
 
     public function getDescriptionValue()
     {
-        if (!$this->relationModel || !$this->descriptionColumn)
+        if (!$this->relationModel || !$this->descriptionFrom)
             return null;
 
-        return $this->relationModel->{$this->descriptionColumn};
+        return $this->relationModel->{$this->descriptionFrom};
     }
 
     public function onFindRecord()
