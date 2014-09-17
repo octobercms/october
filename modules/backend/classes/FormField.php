@@ -244,6 +244,10 @@ class FormField
         if (array_key_exists('required', $config)) $this->required = $config['required'];
         if (array_key_exists('disabled', $config)) $this->disabled = $config['disabled'];
         if (array_key_exists('stretch', $config)) $this->stretch = $config['stretch'];
+
+        if (isset($config['valueFrom'])) $this->valueFrom = $config['valueFrom'];
+        else $this->valueFrom = $this->fieldName;
+
         return $config;
     }
 

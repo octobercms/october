@@ -65,24 +65,6 @@ class FileUpload extends FormWidgetBase
         $this->vars['imageWidth'] = $this->imageWidth;
     }
 
-    /**
-     * Returns the attachment relation object from the model,
-     * supports nesting via HTML array.
-     * @return Relation
-     */
-    protected function getRelationObject()
-    {
-        $model = $this->model;
-        $relations = Str::evalHtmlArray($this->columnName);
-        $lastField = array_pop($relations);
-
-        foreach ($relations as $relation) {
-            $model = $model->{$relation};
-        }
-
-        return $model->$lastField();
-    }
-
     protected function getFileList()
     {
         $list = $this->getRelationObject()->withDeferred($this->sessionKey)->orderBy('sort_order')->get();
@@ -97,6 +79,10 @@ class FileUpload extends FormWidgetBase
         return $list;
     }
 
+    /**
+     * Returns the display mode for the file upload. Eg: file-multi, image-single, etc.
+     * @return string
+     */
     protected function getDisplayMode()
     {
         $mode = $this->getConfig('mode', 'image');
@@ -104,10 +90,32 @@ class FileUpload extends FormWidgetBase
         if (str_contains($mode, '-'))
             return $mode;
 
-        $relationType = $this->model->getRelationType($this->columnName);
+        $relationType = $this->getRelationType();
         $mode .= ($relationType == 'attachMany' || $relationType == 'morphMany') ? '-multi' : '-single';
 
         return $mode;
+    }
+
+    /**
+     * Returns the value as a relation object from the model,
+     * supports nesting via HTML array.
+     * @return Relation
+     */
+    protected function getRelationObject()
+    {
+        list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+        return $model->{$attribute}();
+    }
+
+    /**
+     * Returns the value as a relation type from the model,
+     * supports nesting via HTML array.
+     * @return Relation
+     */
+    protected function getRelationType()
+    {
+        list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+        return $model->getRelationType($attribute);
     }
 
     /**

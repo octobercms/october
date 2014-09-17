@@ -76,7 +76,7 @@ class RecordFinder extends FormWidgetBase
      */
     public function init()
     {
-        $this->relationName = $this->formField->columnName;
+        $this->relationName = $this->formField->valueFrom;
         $this->relationType = $this->model->getRelationType($this->relationName);
 
         $this->prompt = $this->getConfig('prompt', 'Click the %s button to find a record');
@@ -120,7 +120,9 @@ class RecordFinder extends FormWidgetBase
 
     public function onRefresh()
     {
-        $this->model->{$this->columnName} = post($this->formField->getName());
+        list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+        $model->{$attribute} = post($this->formField->getName());
+
         $this->prepareVars();
         return ['#'.$this->getId('container') => $this->makePartial('recordfinder')];
     }
@@ -130,7 +132,9 @@ class RecordFinder extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->relationModel = $this->model->{$this->columnName};
+        // This should be a relation and return a Model
+        $this->relationModel = $this->getLoadData();
+
         $this->vars['value'] = $this->getKeyValue();
         $this->vars['field'] = $this->formField;
         $this->vars['nameValue'] = $this->getNameValue();

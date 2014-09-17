@@ -57,7 +57,7 @@ class Datepicker extends FormWidgetBase
     {
         $this->vars['name'] = $this->formField->getName();
 
-        $value = $this->model->{$this->columnName};
+        $value = $this->getLoadData();
 
         if ($this->mode != 'datetime' && $value) {
             if (is_string($value))

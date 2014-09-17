@@ -53,7 +53,7 @@ class Relation extends FormWidgetBase
      */
     public function init()
     {
-        $this->relationName = $this->formField->columnName;
+        $this->relationName = $this->valueFrom;
         $this->relationType = $this->model->getRelationType($this->relationName);
 
         $this->nameFrom = $this->getConfig('nameFrom', $this->nameFrom);

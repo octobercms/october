@@ -18,9 +18,14 @@ abstract class FormWidgetBase extends WidgetBase
     public $formField;
 
     /**
-     * @var string Form field column name.
+     * @var string Form field name.
      */
-    public $columnName;
+    public $fieldName;
+
+    /**
+     * @var string Model attribute to get/set value from.
+     */
+    public $valueFrom;
 
     /**
      * @var mixed Model object.
@@ -52,8 +57,12 @@ abstract class FormWidgetBase extends WidgetBase
     public function __construct($controller, $model, $formField, $configuration = [])
     {
         $this->formField = $formField;
-        $this->columnName = $formField->columnName;
+        $this->fieldName = $formField->fieldName;
+        $this->valueFrom = $formField->valueFrom;
         $this->model = $model;
+
+        /* @todo Remove line if year >= 2015 */ $this->columnName = $formField->valueFrom;
+
         if (isset($configuration->sessionKey)) $this->sessionKey = $configuration->sessionKey;
         if (isset($configuration->previewMode)) $this->previewMode = $configuration->previewMode;
 
@@ -72,7 +81,7 @@ abstract class FormWidgetBase extends WidgetBase
     public function getId($suffix = null)
     {
         $id = parent::getId($suffix);
-        $id .= '-' . $this->columnName;
+        $id .= '-' . $this->fieldName;
         return Str::evalHtmlId($id);
     }
 
@@ -84,6 +93,37 @@ abstract class FormWidgetBase extends WidgetBase
     public function getSaveData($value)
     {
         return $value;
+    }
+
+    /**
+     * Returns the value for this form field,
+     * supports nesting via HTML array.
+     * @return string
+     */
+    public function getLoadData()
+    {
+        list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+        return $model->{$attribute};
+    }
+
+    /**
+     * Returns the final model and attribute name of
+     * a nested HTML array attribute.
+     * Eg: list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+     * @param  string $attribute.
+     * @return array
+     */
+    public function getModelArrayAttribute($attribute)
+    {
+        $model = $this->model;
+        $parts = Str::evalHtmlArray($attribute);
+        $last = array_pop($parts);
+
+        foreach ($parts as $part) {
+            $model = $model->{$part};
+        }
+
+        return [$model, $last];
     }
 
 }

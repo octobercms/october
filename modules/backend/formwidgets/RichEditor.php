@@ -41,7 +41,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->formField->getName();
-        $this->vars['value'] = $this->model->{$this->columnName};
+        $this->vars['value'] = $this->getLoadData();
     }
 
     /**
