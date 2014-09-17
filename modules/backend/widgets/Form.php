@@ -729,7 +729,7 @@ class Form extends WidgetBase
         /*
          * Handle fields that differ by fieldName and valueFrom
          */
-        $mappedFields = [];
+        $remappedFields = [];
         foreach ($this->fields as $field) {
             if ($field->fieldName == $field->valueFrom)
                 continue;
@@ -747,11 +747,14 @@ class Form extends WidgetBase
              */
             $parts = Str::evalHtmlArray($field->valueFrom);
             $dotted = implode('.', $parts);
-            array_set($mappedFields, $dotted, $value);
+            array_set($remappedFields, $dotted, $value);
         }
 
-        $data = array_merge($mappedFields, $data);
-        // $data['X_OCTOBER_MAPPED_FIELDS'] = $mappedFields;
+        if (count($remappedFields) > 0) {
+            $data = array_merge($remappedFields, $data);
+            // Could be useful for field name collisions
+            // $data['X_OCTOBER_REMAPPED_FIELDS'] = $remappedFields;
+        }
 
         return $data;
     }
