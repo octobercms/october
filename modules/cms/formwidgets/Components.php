@@ -23,7 +23,7 @@ class Components extends FormWidgetBase
     {
         $components = $this->listComponents();
 
-        return $this->makePartial('formcomponents', ['components'=>$components]);
+        return $this->makePartial('formcomponents', ['components' => $components]);
     }
 
     protected function listComponents()
@@ -35,7 +35,7 @@ class Components extends FormWidgetBase
 
         $manager = ComponentManager::instance();
         $manager->listComponents();
-        foreach ($this->model->settings['components'] as $name=>$properties) {
+        foreach ($this->model->settings['components'] as $name => $properties) {
             list($name, $alias) = strpos($name, ' ') ? explode(' ', $name) : [$name, $name];
 
             try {
@@ -50,7 +50,8 @@ class Components extends FormWidgetBase
                     if (isset($pluginDetails['icon']))
                         $componentObj->pluginIcon = $pluginDetails['icon'];
                 }
-            } catch (Exception $ex) {
+            }
+            catch (Exception $ex) {
                 $componentObj = new UnknownComponent(null, $properties, $ex->getMessage());
                 $componentObj->alias = $alias;
                 $componentObj->pluginIcon = 'icon-bug';

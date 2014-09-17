@@ -44,7 +44,7 @@ class RecordFinder extends FormWidgetBase
     /**
      * @var string Field name to use for key.
      */
-    public $keyField = 'id';
+    public $keyFrom = 'id';
 
     /**
      * @var string Relation column to display for the name
@@ -80,7 +80,7 @@ class RecordFinder extends FormWidgetBase
         $this->relationType = $this->model->getRelationType($this->relationName);
 
         $this->prompt = $this->getConfig('prompt', 'Click the %s button to find a record');
-        $this->keyField = $this->getConfig('keyField', $this->keyField);
+        $this->keyFrom = $this->getConfig('keyFrom', $this->keyFrom);
         $this->nameFrom = $this->getConfig('nameFrom', $this->nameFrom);
         $this->descriptionFrom = $this->getConfig('descriptionFrom', $this->descriptionFrom);
 
@@ -165,7 +165,7 @@ class RecordFinder extends FormWidgetBase
         if (!$this->relationModel)
             return null;
 
-        return $this->relationModel->{$this->keyField};
+        return $this->relationModel->{$this->keyFrom};
     }
 
     public function getNameValue()

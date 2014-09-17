@@ -242,8 +242,9 @@ class Form extends WidgetBase
         $this->model->fill($data);
         $this->data = (object) array_merge((array) $this->data, (array) $data);
 
-        foreach ($this->fields as $field)
+        foreach ($this->fields as $field) {
             $field->value = $this->getFieldValue($field);
+        }
 
         return $data;
     }
