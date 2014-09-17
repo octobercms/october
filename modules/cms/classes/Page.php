@@ -92,9 +92,9 @@ class Page extends CmsCompoundObject
      * Helper that makes a URL for a page in the active theme.
      * @return string
      */
-    public static function url($page, $params = [])
+    public static function url($page, $params = [], $absolute = true)
     {
         $controller = new Controller;
-        return $controller->pageUrl($page, $params);
+        return $controller->pageUrl($page, $params, true, $absolute);
     }
 }

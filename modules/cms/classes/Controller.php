@@ -807,10 +807,11 @@ class Controller extends BaseController
      * @param mixed $name Specifies the Cms Page file name.
      * @param array $parameters Route parameters to consider in the URL.
      * @param bool $routePersistence By default the existing routing parameters will be included
+     * @param bool $absolute If True - create absolute URL path, if False - create relative URL path
      * when creating the URL, set to false to disable this feature.
      * @return string
      */
-    public function pageUrl($name, $parameters = [], $routePersistence = true)
+    public function pageUrl($name, $parameters = [], $routePersistence = true, $absolute = true)
     {
         if (!$name)
             return null;
@@ -832,7 +833,7 @@ class Controller extends BaseController
         if (substr($url, 0, 1) == '/')
             $url = substr($url, 1);
 
-        return URL::action('Cms\Classes\Controller@run', ['slug' => $url]);
+        return URL::action('Cms\Classes\Controller@run', ['slug' => $url], $absolute);
     }
 
     /**
