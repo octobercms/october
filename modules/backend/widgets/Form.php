@@ -704,13 +704,13 @@ class Form extends WidgetBase
             /*
              * Handle HTML array, eg: item[key][another]
              */
-            $columnParts = Str::evalHtmlArray($field->fieldName);
-            $columnDotted = implode('.', $columnParts);
-            $columnValue = array_get($data, $columnDotted, 0);
+            $parts = Str::evalHtmlArray($field->fieldName);
+            $dotted = implode('.', $parts);
+            $value = array_get($data, $dotted, 0);
             if ($field->type == 'number') {
-                $columnValue = !strlen(trim($columnValue)) ? null : (float) $columnValue;
+                $value = !strlen(trim($value)) ? null : (float) $value;
             }
-            array_set($data, $columnDotted, $columnValue);
+            array_set($data, $dotted, $value);
         }
 
         /*
@@ -725,6 +725,33 @@ class Form extends WidgetBase
             if ($data[$field] === FormWidgetBase::NO_SAVE_DATA)
                 unset($data[$field]);
         }
+
+        /*
+         * Handle fields that differ by fieldName and valueFrom
+         */
+        $mappedFields = [];
+        foreach ($this->fields as $field) {
+            if ($field->fieldName == $field->valueFrom)
+                continue;
+
+            /*
+             * Get the value, remove it from the data collection
+             */
+            $parts = Str::evalHtmlArray($field->fieldName);
+            $dotted = implode('.', $parts);
+            $value = array_get($data, $dotted);
+            array_forget($data, $dotted);
+
+            /*
+             * Set the new value to the data collection
+             */
+            $parts = Str::evalHtmlArray($field->valueFrom);
+            $dotted = implode('.', $parts);
+            array_set($mappedFields, $dotted, $value);
+        }
+
+        $data = array_merge($mappedFields, $data);
+        // $data['X_OCTOBER_MAPPED_FIELDS'] = $mappedFields;
 
         return $data;
     }
