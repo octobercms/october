@@ -1,10 +1,11 @@
 <?php if ($relationManageId): ?>
 
-    <?= Form::ajax('onRelationManageUpdate', ['data-stripe-load-indicator' => true]) ?>
+    <?= Form::ajax('onRelationManageUpdate', ['data-stripe-load-indicator' => true, 'sessionKey' => $newSessionKey]) ?>
 
         <!-- Passable fields -->
-        <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
         <input type="hidden" name="manage_id" value="<?= $relationManageId ?>" />
+        <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
+        <input type="hidden" name="_relation_session_key" value="<?= $relationSessionKey ?>" />
 
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="popup">&times;</button>
@@ -35,10 +36,11 @@
 
 <?php else: ?>
 
-    <?= Form::ajax('onRelationManageCreate', ['data-stripe-load-indicator' => true]) ?>
+    <?= Form::ajax('onRelationManageCreate', ['data-stripe-load-indicator' => true, 'sessionKey' => $newSessionKey]) ?>
 
         <!-- Passable fields -->
         <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
+        <input type="hidden" name="_relation_session_key" value="<?= $relationSessionKey ?>" />
 
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="popup">&times;</button>

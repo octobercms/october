@@ -359,6 +359,7 @@ class RelationController extends ControllerBehavior
         $this->vars['relationManageWidget'] = $this->manageWidget;
         $this->vars['relationViewWidget'] = $this->viewWidget;
         $this->vars['relationPivotWidget'] = $this->pivotWidget;
+        $this->vars['relationSessionKey'] = $this->relationGetSessionKey();
     }
 
     /**
@@ -437,6 +438,9 @@ class RelationController extends ControllerBehavior
         if ($this->manageMode == 'pivot' && $this->manageId)
             return $this->onRelationManagePivotForm();
 
+        // The form should not share its session key with the parent
+        $this->vars['newSessionKey'] = str_random(40);
+
         $view = 'manage_' . $this->manageMode;
         return $this->relationMakePartial($view);
     }
@@ -449,7 +453,8 @@ class RelationController extends ControllerBehavior
         $this->beforeAjax();
 
         $saveData = $this->manageWidget->getSaveData();
-        $this->relationObject->create($saveData, $this->relationGetSessionKey());
+        $newModel = $this->relationObject->create($saveData, $this->relationGetSessionKey(true));
+        $newModel->commitDeferred($this->manageWidget->getSessionKey());
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
@@ -462,7 +467,7 @@ class RelationController extends ControllerBehavior
         $this->beforeAjax();
 
         $saveData = $this->manageWidget->getSaveData();
-        $this->relationObject->find($this->manageId)->save($saveData, $this->relationGetSessionKey());
+        $this->relationObject->find($this->manageId)->save($saveData, $this->manageWidget->getSessionKey());
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
@@ -800,10 +805,13 @@ class RelationController extends ControllerBehavior
     /**
      * Returns the active session key.
      */
-    public function relationGetSessionKey()
+    public function relationGetSessionKey($force = false)
     {
-        if ($this->sessionKey)
+        if ($this->sessionKey && !$force)
             return $this->sessionKey;
+
+        if (post('_relation_session_key'))
+            return $this->sessionKey = post('_relation_session_key');
 
         if (post('_session_key'))
             return $this->sessionKey = post('_session_key');
