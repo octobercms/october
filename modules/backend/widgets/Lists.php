@@ -292,7 +292,7 @@ class Lists extends WidgetBase
                     $table = $this->model->makeRelation($column->relation)->getTable();
                     $columnName = isset($column->sqlSelect)
                         ? DbDongle::raw($this->parseTableName($column->sqlSelect, $table))
-                        : $table . '.' . $column->nameFrom;
+                        : $table . '.' . $column->valueFrom;
 
                     $relationSearchable[$column->relation][] = $columnName;
                 }
@@ -314,10 +314,10 @@ class Lists extends WidgetBase
          */
         foreach ($this->getVisibleListColumns() as $column) {
 
-            if (!$this->isColumnRelated($column) || (!isset($column->sqlSelect) && !isset($column->nameFrom)))
+            if (!$this->isColumnRelated($column) || (!isset($column->sqlSelect) && !isset($column->valueFrom)))
                 continue;
 
-            if (isset($column->nameFrom))
+            if (isset($column->valueFrom))
                 $withs[] = $column->relation;
 
             $joins[] = $column->relation;
@@ -647,15 +647,15 @@ class Lists extends WidgetBase
         /*
          * Handle taking name from model attribute.
          */
-        if ($column->nameFrom) {
+        if ($column->valueFrom) {
             if (!array_key_exists($columnName, $record->getRelations()))
                 $value = null;
             elseif ($this->isColumnRelated($column, true))
-                $value = implode(', ', $record->{$columnName}->lists($column->nameFrom));
+                $value = implode(', ', $record->{$columnName}->lists($column->valueFrom));
             elseif ($this->isColumnRelated($column))
-                $value = $record->{$columnName}->{$column->nameFrom};
+                $value = $record->{$columnName}->{$column->valueFrom};
             else
-                $value = $record->{$column->nameFrom};
+                $value = $record->{$column->valueFrom};
         }
         /*
          * Otherwise, if the column is a relation, it will be a custom select,
