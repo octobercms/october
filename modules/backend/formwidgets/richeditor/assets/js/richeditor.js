@@ -44,6 +44,7 @@
          */
         var redactorOptions = {
             observeImages: false,
+            // autoresize: false,
             focusCallback: function() { self.$el.addClass('editor-focus') },
             blurCallback: function() { self.$el.removeClass('editor-focus') },
             initCallback: function() { self.build() },
@@ -54,16 +55,12 @@
             }
         }
 
-        if (this.options.stylesheet) {
-            redactorOptions.iframe = true
-            redactorOptions.css = this.options.stylesheet
-        }
-
         if (this.options.fullpage) {
             redactorOptions.fullpage = true
         }
 
         // redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'table', 'quote']
+        redactorOptions.plugins = ['fullscreen']
 
         this.$textarea.redactor(redactorOptions)
     }

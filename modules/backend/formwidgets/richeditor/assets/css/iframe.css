@@ -1,14 +1,14 @@
 html {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 body {
-    margin: 0;
-    padding: 10px;
-    font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
-    color: #333;
+  margin: 0;
+  padding: 10px;
+  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
+  color: #333;
 }
-
+/*
 code,
 pre {
     font-family: Menlo, Monaco, monospace, sans-serif;
@@ -206,3 +206,197 @@ body.redactor_editor_wym {
     border: none !important;
 }
 
+*/
+figure {
+  position: relative;
+}
+figcaption {
+  text-align: center;
+  line-height: 1.428571429;
+  font-size: 14px;
+}
+figure[data-type=table] {
+  clear: both;
+}
+figure[data-type=video] {
+  position: relative;
+  margin-bottom: 1.428571429;
+  text-align: center;
+  clear: both;
+}
+figure[data-type=video] p {
+  margin: 0;
+}
+figure[data-type=video].wy-figure-full:before {
+  position: relative;
+  padding-bottom: 51%;
+  width: 100%;
+  height: 0;
+  content: "";
+  display: block;
+}
+figure[data-type=video].wy-figure-full iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+figure[data-type=image] {
+  position: relative;
+  margin-bottom: 1.428571429;
+}
+figure[data-type=image] .wy-figure-controls {
+  top: 0px;
+}
+figure[data-type=image] img {
+  width: 100%;
+}
+figure[data-type=image].wy-figure-large {
+  width: 100%;
+  clear: both;
+}
+figure[data-type=image].wy-figure-medium {
+  width: 50%;
+}
+figure[data-type=image].wy-figure-small {
+  width: 33%;
+}
+figure[data-type=quote] {
+  margin-bottom: 1.428571429;
+  margin-left: 1.428571429;
+  font-style: italic;
+  position: relative;
+  border-left: solid 5px #333333;
+  padding-left: 1.428571429;
+}
+figure[data-type=quote] figcaption {
+  font-weight: bold;
+  text-align: left;
+}
+figure[data-type=quote] .wy-figure-controls {
+  margin-left: -5px;
+}
+figure[data-type=quote].wy-figure-medium {
+  font-size: 20px;
+}
+figure[data-type=quote].wy-figure-large {
+  font-size: 24px;
+}
+figure[data-type=quote].wy-figure-right {
+  width: 33%;
+}
+figure[data-type=quote].wy-figure-left {
+  width: 33%;
+  border-left: none;
+  border-right: solid 5px #333333;
+  padding-left: 0;
+  padding-right: 1.428571429;
+  margin-left: 0;
+  margin-right: 1.428571429;
+}
+figure[data-type=quote].wy-figure-left .wy-figure-controls {
+  margin-left: 0;
+  margin-right: -5px;
+}
+figure[data-type=quote] cite {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+}
+figure[data-type=quote] cite:before {
+  content: "\2014\00a0";
+}
+figure[data-type=quote] cite:empty:before {
+  opacity: 0.4;
+  content: "\2014 Type to add citation (optional)";
+}
+figure:hover .wy-figure-controls {
+  display: block;
+}
+.wy-figure-controls {
+  background: #555555;
+  padding: 0.35714285725;
+  position: absolute;
+  display: none;
+  min-width: 100%;
+  white-space: nowrap;
+  left: 0;
+  height: 37px;
+  top: -37px;
+  margin: 0 auto;
+  font-family: 'Open Sans', Arial, sans-serif;
+  border-bottom: solid 3px #3c3c3c;
+  line-height: 1.428571429;
+  font-style: normal;
+  z-index: 5;
+  text-align: center;
+}
+.wy-figure-controls span {
+  display: inline-block;
+  border: none;
+  background: none;
+  color: #fff;
+  vertical-align: top;
+  font-size: 14px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  cursor: pointer;
+}
+.wy-figure-controls span:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+.wy-figure-controls span.on {
+  background: #fff;
+  color: #555555;
+}
+.wy-figure-controls span.wy-figure-controls-divider {
+  width: 1px;
+  background: #6f6f6f;
+  padding: 0;
+  margin: 0 2px;
+  cursor: normal;
+}
+.wy-figure-controls span.wy-figure-controls-small {
+  font-size: 50%;
+}
+.wy-figure-controls span.wy-figure-controls-medium {
+  font-size: 75%;
+}
+.wy-figure-controls span.wy-figure-controls-delete {
+  margin-left: 1.428571429;
+}
+.wy-figure-controls span.wy-figure-controls-delete:hover {
+  background: #ff0000;
+}
+.wy-figure-controls span.wy-figure-controls-table {
+  width: auto;
+  padding-left: 0.35714285725;
+  text-align: left;
+}
+.wy-figure-right {
+  float: right;
+  margin-left: 1.428571429;
+}
+.wy-figure-right .wy-figure-controls {
+  right: 0;
+}
+.wy-figure-left {
+  float: left;
+  margin-right: 1.428571429;
+}
+@media (max-width: 769px) {
+  figure[data-type=image] {
+    width: 100% !important;
+    float: none !important;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  figure[data-type=video] iframe {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
