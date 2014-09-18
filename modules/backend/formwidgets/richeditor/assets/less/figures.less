@@ -1,0 +1,247 @@
+//
+// Figures
+//
+
+.redactor_editor {
+
+    figure {
+        position: relative;
+    }
+
+    figcaption {
+        text-align: center;
+        line-height: @line-height-computed;
+        font-size: @font-size-base;
+    }
+
+    figure[data-type=table] {
+        clear: both;
+    }
+
+    figure[data-type=video] {
+        position: relative;
+        margin-bottom: @line-height-computed;
+        text-align: center;
+        clear: both;
+        p {
+            margin: 0;
+        }
+
+        &.wy-figure-full {
+            &:before {
+                position: relative;
+                padding-bottom: 51%;
+                width: 100%;
+                height: 0;
+                content: "";
+                display: block;
+            }
+            iframe {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    }
+
+    figure[data-type=image] {
+        position: relative;
+        margin-bottom: @line-height-computed;
+        .wy-figure-controls {
+            top: 0px;
+        }
+        img {
+            width: 100%;
+        }
+        &.wy-figure-large {
+            width: 100%;
+            clear: both;
+        }
+        &.wy-figure-medium {
+            width: 50%;
+        }
+        &.wy-figure-small {
+            width: 33%;
+        }
+    }
+
+    figure[data-type=quote] {
+        font-family: Georgia, serif;
+        margin-bottom: @line-height-computed;
+        margin-left: @line-height-computed;
+        font-style: italic;
+        position: relative;
+        border-left: solid 4px @color-border;
+        padding-left: @line-height-computed;
+        figcaption {
+            font-weight: bold;
+            text-align: left;
+        }
+        .wy-figure-controls {
+            margin-left: -5px;
+        }
+        &.wy-figure-medium {
+            &, blockquote { font-size: 20px; }
+        }
+        &.wy-figure-large {
+            &, blockquote { font-size: 24px; }
+        }
+        &.wy-figure-right {
+            width: 33%;
+        }
+        &.wy-figure-left {
+            width: 33%;
+            border-left: none;
+            border-right: solid 5px @text-color;
+            padding-left: 0;
+            padding-right: @line-height-computed;
+            margin-left: 0;
+            margin-right: @line-height-computed;
+            .wy-figure-controls {
+                margin-left: 0;
+                margin-right: -5px;
+            }
+        }
+        cite {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            &:before {
+                content: "\2014\00a0";
+            }
+            &:empty:before {
+                opacity: 0.4;
+                content: "\2014 Type to add citation (optional)";
+            }
+        }
+    }
+
+}
+
+.redactor_box {
+
+    figure:hover .wy-figure-controls {
+        display: block
+    }
+
+    .wy-figure-controls {
+        background: @color-richeditor-toolbar !important;
+        padding: 0;
+        position: absolute;
+        display: none;
+        min-width: 100%;
+        white-space: nowrap;
+        left: 0;
+        height: 30px;
+        top: -30px;
+        margin: 0 auto;
+        font-family: @font-family-base;
+        line-height: @line-height-computed;
+        font-style: normal;
+        z-index: @richeditor-zindex + 500;
+        text-align: center;
+    }
+
+    .wy-figure-controls span {
+        display: inline-block;
+        border: none;
+        background: none;
+        color: @color-richeditor-toolbar-btn-color;
+        vertical-align: top;
+        font-size: 14px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;
+        &:before {
+            line-height: 24px;
+        }
+        &:hover {
+            background: rgba(255,255,255,.3);
+            color: #fff;
+            background: @color-richeditor-toolbar-btn-bg-hover;
+            color: @color-richeditor-toolbar-btn-color-hover;
+        }
+        &.on {
+            background: #fff;
+            color: @gray;
+            background-color: @color-richeditor-toolbar-btn-bg-active;
+            color: @color-richeditor-toolbar-btn-color-hover;
+        }
+    }
+
+    .wy-figure-controls span {
+        &.wy-figure-controls-divider {
+            width: 1px;
+            background: @color-border;
+            padding: 0;
+            margin: 0 4px;
+            cursor: normal;
+        }
+        &.wy-figure-controls-small {
+            font-size: 7px;
+        }
+        &.wy-figure-controls-medium {
+            font-size: 10px;
+        }
+        &.wy-figure-controls-arrow-left:before {
+            .icon(@arrow-left);
+        }
+        &.wy-figure-controls-arrow-right:before {
+            .icon(@arrow-right);
+        }
+        &.wy-figure-controls-arrow-up:before {
+            .icon(@arrow-up);
+        }
+        &.wy-figure-controls-arrow-down:before {
+            .icon(@arrow-down);
+        }
+        &.wy-figure-controls-resize-full:before {
+            .icon(@expand);
+        }
+        &.wy-figure-controls-resize-small:before {
+            .icon(@compress);
+        }
+        &.wy-figure-controls-delete {
+            margin-left: @line-height-computed;
+            &:before { .icon(@trash-o); }
+            &:hover { background: @color-btn-danger; }
+        }
+        &.wy-figure-controls-table {
+            width: auto;
+            padding-left: @line-height-computed / 4;
+            text-align: left;
+            &:before { .icon(@table); }
+        }
+    }
+
+    .wy-figure-right {
+        float: right;
+        margin-left: @line-height-computed;
+        .wy-figure-controls {
+            right: 0;
+        }
+    }
+
+    .wy-figure-left {
+        float: left;
+        margin-right: @line-height-computed;
+    }
+
+    @media (max-width: @menu-breakpoint-max) {
+        figure[data-type=image] {
+            width: 100% !important;
+            float: none !important;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        figure[data-type=video] iframe {
+            width: 100% !important;
+            height: auto !important;
+        }
+    }
+
+}

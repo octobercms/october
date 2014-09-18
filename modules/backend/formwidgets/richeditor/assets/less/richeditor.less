@@ -4,6 +4,9 @@
 @richeditor-zindex: 1060;
 @richeditor-gutter: 20px;
 
+@import "redactor.less";
+@import "figures.less";
+
 .field-flush .field-richeditor {
     &, &.editor-focus {
         border: none;
@@ -12,8 +15,11 @@
 
 .field-richeditor {
     border: 1px solid @color-form-field-border;
-    &, .redactor_box, .redactor_toolbar {
+    &, .redactor_box {
         .border-radius(5px);
+    }
+    .redactor_toolbar {
+        .border-top-radius(3px);
     }
 
     &.editor-focus {
@@ -28,98 +34,33 @@
 }
 
 //
-// Redactor Box
+// Stretch
 //
 
-.field-richeditor .redactor_box,
-.redactor_box_fullscreen.redactor_box {
-    border: none;
-    iframe {
-        border: none;
-    }
-    .redactor_toolbar {
-        .border-top-radius(3px);
-        .border-bottom-radius(0);
-        background: @color-richeditor-toolbar;
-        border-bottom: none;
-        .box-shadow(none);
-        border: none;
+.field-richeditor.stretch {
+    .redactor_box {
+        display: block;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
 
-        li.redactor_btn_right {
-            float: right;
-            margin-right: 2px;
-        }
-
-        li a {
-            zoom: 1;
-            font-size: 14px;
-            color: @color-richeditor-toolbar-btn-color;
-            width: 20px;
-            line-height: 20px;
-            text-align: center;
-            &:hover {
-                outline: none;
-                background-color: @color-richeditor-toolbar-btn-bg-hover;
-                color: @color-richeditor-toolbar-btn-color-hover;
-            }
-            &:active, &.redactor_act {
-                outline: none;
-                background-color: @color-richeditor-toolbar-btn-bg;
-                color: @color-richeditor-toolbar-btn-color-hover;
-            }
-        }
-    }
-
-    &.stretch {
-        .redactor_box {
+        .redactor_toolbar {
             display: block;
-            position: relative;
-            height: 100%;
+            border-bottom: none;
+            position: absolute;
+            top: 0;
             width: 100%;
-            overflow: hidden;
+        }
 
-            .redactor_toolbar {
-                display: block;
-                border-bottom: none;
-                position: absolute;
-                top: 0;
-                width: 100%;
-            }
+        .redactor_editor {
+            height: 100% !important;
+        }
 
-            iframe, textarea {
-                display: block;
-                position: absolute;
-                height: 100% !important;
-            }
+        iframe, textarea {
+            display: block;
+            position: absolute;
+            height: 100% !important;
         }
     }
-}
-
-//
-// Fullscreen specific
-//
-
-.redactor_box_fullscreen {
-    background: @color-body-bg;
-    overflow-y: scroll !important;
-
-    .redactor_editor {
-        max-width: 960px;
-        margin: @richeditor-gutter auto !important;
-        padding: @richeditor-gutter;
-    }
-}
-
-//
-// zIndex
-//
-
-.redactor_box_fullscreen {
-    z-index: @richeditor-zindex !important;
-}
-
-#redactor_modal_overlay,
-#redactor_modal,
-.redactor_dropdown {
-    z-index: @richeditor-zindex + 1 !important;
 }

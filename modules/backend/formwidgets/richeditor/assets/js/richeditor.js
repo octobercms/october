@@ -61,7 +61,7 @@
             initCallback: function() { self.build() },
             changeCallback: function() {
                 self.sanityCheckContent(this.$editor)
-                // this.$editor.trigger('mutate')
+                this.$editor.trigger('mutate')
                 self.$form.trigger('change')
 
                 if (self.$dataLocker)
@@ -74,7 +74,7 @@
         }
 
         // redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'table', 'quote']
-        redactorOptions.plugins = ['cleanup', 'fullscreen']
+        redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'quote']
 
         this.$textarea.redactor(redactorOptions)
     }

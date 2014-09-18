@@ -52,9 +52,11 @@ class RichEditor extends FormWidgetBase
         // Plugins
         $this->addJs('js/plugin.cleanup.js', 'core');
         $this->addJs('js/plugin.fullscreen.js', 'core');
+        $this->addJs('js/plugin.figure.js', 'core');
+        $this->addJs('js/plugin.quote.js', 'core');
 
         // Redactor
-        $this->addCss('vendor/redactor/redactor.css', 'core');
+        // $this->addCss('vendor/redactor/redactor.css', 'core');
         $this->addJs('vendor/redactor/redactor.js', 'core');
 
         // Rich editor
