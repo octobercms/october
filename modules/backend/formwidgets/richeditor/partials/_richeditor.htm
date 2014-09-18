@@ -5,7 +5,13 @@
         id="<?= $this->getId() ?>"
         class="field-richeditor size-<?= $size ?> <?= $stretch?'layout-relative stretch':'' ?>"
         <?php if ($fullPage): ?>data-fullpage="true"<?php endif ?>
+        data-data-locker="#<?= $this->getId('dataLocker') ?>"
         data-control="richeditor">
-        <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>"><?= e($value) ?></textarea>
+        <textarea id="<?= $this->getId('textarea') ?>"></textarea>
+    </div>
+
+    <!-- Data locker -->
+    <div style="display: none">
+        <textarea name="<?= $name ?>" id="<?= $this->getId('dataLocker') ?>"><?= e($value) ?></textarea>
     </div>
 <?php endif ?>

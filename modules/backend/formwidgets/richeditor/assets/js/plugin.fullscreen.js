@@ -106,9 +106,9 @@
             if (this.opts.toolbarExternal) {
                 this.$box.css('top', this.boxcss.top)
                 this.$toolbar.css({
-                    'width': this.toolcss.width,
-                    'top': this.toolcss.top,
-                    'position': this.toolcss.position
+                    width: this.toolcss.width,
+                    top: this.toolcss.top,
+                    position: this.toolcss.position
                 })
             }
 
@@ -160,9 +160,9 @@
 
             if (this.opts.toolbarExternal) {
                 this.$toolbar.css({
-                    'top': '0px',
-                    'position': 'absolute',
-                    'width': '100%'
+                    top: '0px',
+                    position: 'absolute',
+                    width: '100%'
                 })
 
                 this.$box.css('top', toolbarHeight + 'px')
