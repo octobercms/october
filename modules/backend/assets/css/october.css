@@ -8729,6 +8729,22 @@ label {
 .form-group.no-padding.span-right {
   width: 50%;
 }
+.form-group.input-sidebar-control {
+  padding-right: 35px;
+}
+.form-group.input-sidebar-control .sidebar-control {
+  position: absolute;
+  right: 8px;
+  bottom: 28px;
+  font-size: 16px;
+  color: #c4c4c4;
+}
+.form-group.input-sidebar-control .sidebar-control:hover,
+.form-group.input-sidebar-control .sidebar-control:focus {
+  text-decoration: none;
+  color: #0181b9;
+  outline: none;
+}
 .form-group-preview .form-control {
   background-color: #f6f6f6;
   height: auto;
@@ -9071,6 +9087,19 @@ label {
   border: 0 !important;
   border-radius: 2px;
 }
+.custom-select.select2-container .loading-indicator {
+  background: transparent;
+}
+.custom-select.select2-container .loading-indicator > span {
+  background-image: url(../images/loading-indicator-transparent.svg);
+  left: auto;
+  right: 10px;
+  top: 19px;
+  background-size: 17px 17px;
+}
+.custom-select.select2-container.in-progress .select2-choice .select2-arrow {
+  display: none!important;
+}
 .custom-select.select2-container.select2-dropdown-open {
   border-color: #808c8d;
 }
@@ -9080,6 +9109,9 @@ label {
 }
 .custom-select.select2-container.select2-dropdown-open.select2-drop-above {
   border-radius: 0 0 2px 2px;
+}
+.custom-select.select2-container-active {
+  border-color: #808c8d;
 }
 .custom-select.select2-container .select2-choice {
   height: 36px;
@@ -9213,6 +9245,9 @@ label {
 .select2-drop .select2-results .select2-searching,
 .select2-drop .select2-results .select2-selection-limit {
   background: #FFFFFF;
+}
+.select2-drop .select2-results .select2-no-results {
+  padding: 7px!important;
 }
 .select2-drop .select2-results .select2-highlighted {
   background: #4da7e8;
@@ -10843,6 +10878,27 @@ html.cssanimations .cursor-loading-indicator.hide {
 .control-filelist.hero ul li .checkbox {
   top: 17px;
   right: 17px;
+}
+.control-filelist.hero ul li.active a:after {
+  top: -1px;
+  bottom: -1px;
+  height: auto;
+}
+.control-filelist.hero ul li.active a > span.borders:before,
+.control-filelist.hero ul li.active a > span.borders:after {
+  content: ' ';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  display: block;
+  left: 0;
+  background-color: #dddddd;
+}
+.control-filelist.hero ul li.active a > span.borders:before {
+  top: -1px;
+}
+.control-filelist.hero ul li.active a > span.borders:after {
+  bottom: -1px;
 }
 .touch .control-filelist li:not(.active) a:hover {
   background: transparent;
@@ -13287,21 +13343,11 @@ html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-contain
 .inspector-fields div.custom-select.select2-container .select2-choice.select2-default {
   font-weight: normal!Important;
 }
+.inspector-fields div.custom-select.select2-container .loading-indicator > span {
+  top: 15px;
+}
 .inspector-fields div.custom-select.select2-container.select2-dropdown-open .select2-choice {
   background: white;
-}
-.inspector-fields div.custom-select.select2-container .loading-indicator {
-  background: transparent;
-}
-.inspector-fields div.custom-select.select2-container .loading-indicator > span {
-  background-image: url(../images/loading-indicator-transparent.svg);
-  left: auto;
-  right: 10px;
-  top: 15px;
-  background-size: 17px 17px;
-}
-.inspector-fields div.custom-select.select2-container.in-progress .select2-choice .select2-arrow {
-  display: none!important;
 }
 .inspector-fields tr.changed td {
   font-weight: 600;
@@ -13893,6 +13939,14 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 .control-treeview ol > li.active > div > span.borders:after {
   bottom: -1px;
 }
+.control-treeview ol > li.no-data {
+  padding: 18px 0;
+  margin: 0;
+  color: #666666;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 400;
+}
 .control-treeview ol > li > ol > li > div {
   margin-left: -20px;
   padding-left: 71px;
@@ -14040,6 +14094,31 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   font-size: 12px;
   text-align: center;
   font-weight: 400;
+}
+.control-treeview a.menu-control {
+  display: block;
+  margin: 20px;
+  padding: 13px 15px;
+  border: dotted 2px #ebebeb;
+  color: #bdc3c7;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  vertical-align: middle;
+}
+.control-treeview a.menu-control:hover {
+  text-decoration: none;
+  background-color: #58b6f7 !important;
+  color: #ffffff !important;
+  border: none;
+  padding: 15px 17px;
+}
+.control-treeview a.menu-control i {
+  margin-right: 10px;
+  font-size: 14px;
 }
 .control-treeview.light {
   margin-bottom: 0;

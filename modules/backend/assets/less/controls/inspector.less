@@ -194,27 +194,15 @@
                 }
             }
 
+            .loading-indicator {
+                > span {
+                    top: 15px;
+                }
+            }
+
             &.select2-dropdown-open {
                 .select2-choice {
                     background: white;
-                }
-            }
-
-            .loading-indicator {
-                background: transparent;
-
-                > span {
-                    background-image:url(../images/loading-indicator-transparent.svg);
-                    left: auto;
-                    right: 10px;
-                    top: 15px;
-                    background-size: 17px 17px;
-                }
-            }
-
-            &.in-progress {
-                .select2-choice .select2-arrow {
-                    display: none!important;
                 }
             }
         }

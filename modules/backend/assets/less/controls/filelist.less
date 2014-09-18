@@ -194,6 +194,33 @@
                     top: 17px;
                     right: 17px;
                 }
+
+                &.active {
+                    a {
+                        &:after {
+                            top: -1px;
+                            bottom: -1px;
+                            height: auto;
+                        }
+
+                        > span.borders {
+                            &:before, &:after {
+                                content: ' ';
+                                position: absolute;
+                                width: 100%;
+                                height: 1px;
+                                display: block;
+                                left: 0;
+                                background-color: @color-list-active;
+                            }
+
+                            &:before {top: -1px;}
+                            &:after {bottom: -1px;}
+                        }
+
+
+                    }
+                }
             }
         }
     }

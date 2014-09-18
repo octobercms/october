@@ -194,3 +194,26 @@ assetManager = new AssetManager();
         return this;
     }
 })
+
+/*
+ * String escape
+ */
+
+if ($.oc === undefined)
+    $.oc = {}
+
+$.oc.escapeHtmlString = function(string) {
+    var htmlEscapes = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;',
+            '/': '&#x2F;'
+        },
+        htmlEscaper = /[&<>"'\/]/g
+
+    return ('' + string).replace(htmlEscaper, function(match) {
+        return htmlEscapes[match];
+    })
+}

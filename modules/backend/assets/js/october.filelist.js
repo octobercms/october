@@ -48,6 +48,8 @@
 
             return false
         })
+
+        this.$el.on('ajaxUpdate', $.proxy(this.update, this))
     }
 
     FileList.prototype.toggleGroup = function(group) {
@@ -112,6 +114,13 @@
         $('li.item', this.$el).removeClass('active')
         if (dataId)
             $('li.item[data-id="'+dataId+'"]', this.$el).addClass('active')
+
+        this.dataId = dataId
+    }
+
+    FileList.prototype.update = function() {
+        if (this.dataId !== undefined)
+            this.markActive(this.dataId)
     }
 
     // FILELIST PLUGIN DEFINITION

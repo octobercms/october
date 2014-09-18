@@ -57,9 +57,15 @@
             $(window).on('beforeunload', $.proxy(this.onBeforeUnload, this))
     }
 
-    ChangeMonitor.prototype.change = function(ev) {
+    ChangeMonitor.prototype.change = function(ev, inputChange) {
         if (this.paused)
             return
+
+        if (!inputChange) {
+            var type = $(ev.target).attr('type')
+            if (type == 'text' || type == "password")
+                return
+        }
 
         if (!this.$el.hasClass('oc-data-changed')) {
             this.$el.trigger('changed.oc.changeMonitor')
@@ -83,8 +89,9 @@
 
         var $el = $(ev.target)
         if ($el.data('oldval.oc.changeMonitor') != $el.val()) {
+
             $el.data('oldval.oc.changeMonitor', $el.val());
-            this.change(ev);
+            this.change(ev, true);
         }
     }
 

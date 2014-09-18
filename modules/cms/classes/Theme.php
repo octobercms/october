@@ -32,6 +32,10 @@ class Theme
      */
     protected $configCache = null;
 
+    protected static $activeThemeCache = false;
+
+    protected static $editThemeCache = false;
+
     /**
      * Loads the theme.
      */
@@ -95,6 +99,9 @@ class Theme
      */
     public static function getActiveTheme()
     {
+        if (self::$activeThemeCache !== false)
+            return self::$activeThemeCache;
+
         $paramKey = 'cms::theme.active';
         $activeTheme = Config::get('cms.activeTheme');
 
@@ -118,9 +125,9 @@ class Theme
         $theme = new static;
         $theme->load($activeTheme);
         if (!File::isDirectory($theme->getPath()))
-            return null;
+            return self::$activeThemeCache = null;
 
-        return $theme;
+        return self::$activeThemeCache = $theme;
     }
 
     /**
@@ -130,6 +137,9 @@ class Theme
      */
     public static function setActiveTheme($code)
     {
+        self::$activeThemeCache = false;
+        self::$editThemeCache = false;
+
         $paramKey = 'cms::theme.active';
         Parameters::set($paramKey, $code);
         Cache::forget($paramKey);
@@ -146,6 +156,9 @@ class Theme
      */
     public static function getEditTheme()
     {
+        if (self::$editThemeCache !== false)
+            return self::$editThemeCache;
+
         $editTheme = Config::get('cms.editTheme');
         if (!$editTheme)
             $editTheme = static::getActiveTheme()->getDirName();
@@ -160,9 +173,9 @@ class Theme
         $theme = new static;
         $theme->load($editTheme);
         if (!File::isDirectory($theme->getPath()))
-            return null;
+            return self::$editThemeCache = null;
 
-        return $theme;
+        return self::$editThemeCache = $theme;
     }
 
     /**

@@ -90,7 +90,6 @@ class Router
              */
             if (!$fileName) {
                 $router = $this->getRouterObject();
-
                 if ($router->match($url)) {
                     $this->parameters = $router->getParameters();
 

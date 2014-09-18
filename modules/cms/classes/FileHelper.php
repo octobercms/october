@@ -80,15 +80,25 @@ class FileHelper
                     $sections[$key] = self::formatIniString($value, $level+1);
                 else {
                     foreach ($value as $val)
-                        $content .= $key.'[] = "'.$val.'"'.PHP_EOL;
+                        $content .= $key.'[] = "'.self::escapeIniString($val).'"'.PHP_EOL;
                 }
             } elseif (strlen($value))
-                $content .= $key.' = "'.$value.'"'.PHP_EOL;
+                $content .= $key.' = "'.self::escapeIniString($value).'"'.PHP_EOL;
         }
 
         foreach ($sections as $key=>$section)
             $content .= PHP_EOL.'['.$key.']'.PHP_EOL.$section.PHP_EOL;
 
         return trim($content);
+    }
+
+    /**
+     * Escapes a string for saving in INI format
+     * @param string $string Specifies the string to escape
+     * @return string Returns the processed string
+     */
+    public static function escapeIniString($string)
+    {
+        return str_replace('"', '\"', $string);
     }
 }

@@ -1,6 +1,15 @@
 .control-treeview {
     margin-bottom: 40px;
 
+    .no-data() {
+        padding: 18px 0;
+        margin: 0;
+        color: @color-filelist-norecords-text;
+        font-size: 12px;
+        text-align: center;
+        font-weight: 400;
+    }
+
     ol {
         margin: 0;
         padding: 0;
@@ -367,6 +376,10 @@
                     }
                 }
             }
+
+            &.no-data {
+                .no-data();
+            }
         }
 
         @max-level: 10;
@@ -401,12 +414,33 @@
     }
 
     p.no-data {
-        padding: 18px 0;
-        margin: 0;
-        color: @color-filelist-norecords-text;
+        .no-data();
+    }
+
+    a.menu-control {
+        display: block;
+        margin: 20px;
+        padding: 13px 15px;
+        border: dotted 2px #ebebeb;
+        color: #bdc3c7;
         font-size: 12px;
-        text-align: center;
-        font-weight: 400;
+        font-weight: 600;
+        text-transform: uppercase;
+        .border-radius(5px);
+        vertical-align: middle;
+
+        &:hover {
+            text-decoration: none;
+            background-color: @color-treeview-hover-bg!important;
+            color: @color-treeview-hover-text!important;
+            border: none;
+            padding: 15px 17px;
+        }
+
+        i {
+            margin-right: 10px;
+            font-size: 14px;
+        }
     }
 
     /*

@@ -54,6 +54,8 @@ class CmsObject implements ArrayAccess
 
     protected static $allowedExtensions = ['htm'];
 
+    protected static $defaultExtension = 'htm';
+
     /**
      * @var integer The template file modification time.
      */
@@ -82,7 +84,7 @@ class CmsObject implements ArrayAccess
             throw new SystemException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
 
         if (!strlen(File::extension($fileName)))
-            $fileName .= '.htm';
+            $fileName .= '.'.static::$defaultExtension;
 
         $filePath = static::getFilePath($theme, $fileName);
         if (array_key_exists($filePath, ObjectMemoryCache::$cache))
@@ -153,7 +155,7 @@ class CmsObject implements ArrayAccess
             throw new SystemException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
 
         if (!strlen(File::extension($fileName)))
-            $fileName .= '.htm';
+            $fileName .= '.'.static::$defaultExtension;
 
         $fullPath = static::getFilePath($theme, $fileName);
 
@@ -331,6 +333,7 @@ class CmsObject implements ArrayAccess
                 throw new ApplicationException(Lang::get('cms::lang.cms_object.error_creating_directory', ['name'=>$dirPath]));
         }
 
+        $newFullPath = $fullPath;
         if (@File::put($fullPath, $this->content) === false)
             throw new ApplicationException(Lang::get('cms::lang.cms_object.error_saving', ['name'=>$this->fileName]));
 
@@ -342,7 +345,8 @@ class CmsObject implements ArrayAccess
         }
 
         clearstatcache();
-        $this->mtime = @File::lastModified($fullPath);
+
+        $this->mtime = @File::lastModified($newFullPath);
         $this->originalFileName = $this->fileName;
     }
 
