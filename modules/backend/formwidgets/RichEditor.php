@@ -1,6 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
+use Config;
 
 /**
  * Rich Editor
@@ -60,6 +61,7 @@ class RichEditor extends FormWidgetBase
         $this->addJs('vendor/redactor/redactor.js', 'core');
 
         // Rich editor
+        $this->addJs(Config::get('cms.richeditorSettings', 'js/richeditorSettings.js'), 'core');
         $this->addCss('css/richeditor.css', 'core');
         $this->addJs('js/richeditor.js', 'core');
 

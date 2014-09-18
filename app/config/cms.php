@@ -216,4 +216,20 @@ return array(
 
     'convertLineEndings' => false,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Richeditor (redactor) settings file path
+    |--------------------------------------------------------------------------
+    |
+    | If you want to override the default settings, add your redactor settings in a js
+    |   file in a public path, then and add the path below.  Something like '/uploads/public/richeditorSettings.js'
+    |
+    | The js file should contain a single variable with all your settings within it like so:
+    |    var redactorSettings = {convertImageLinks: true,imageFloatMargin: '30px'};
+    |
+    | You can find the redactor settings located here: http://imperavi.com/redactor/docs/settings
+    |
+    */
+    'richeditorSettings' => 'js/richeditorSettings.js',
+
 );
