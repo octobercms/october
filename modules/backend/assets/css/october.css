@@ -7789,7 +7789,7 @@ body {
 }
 body {
   webkit-font-smoothing: antialiased;
-  background: #fafafa;
+  background: #f9f9f9;
 }
 #layout-canvas {
   min-height: 100%;
@@ -10086,7 +10086,7 @@ table.table.data tr.list-tree-level-25 td.list-cell-index-1 {
   -moz-border-radius: 2px;
   border-radius: 2px;
   border: none;
-  background: #fafafa;
+  background: #f9f9f9;
 }
 .modal-content .close {
   color: #fff;
@@ -10184,7 +10184,7 @@ table.table.data tr.list-tree-level-25 td.list-cell-index-1 {
   color: #999999;
   font-size: 14px;
   font-weight: 500;
-  background: #fafafa;
+  background: #f9f9f9;
   text-align: left;
   z-index: 100;
 }
@@ -11361,7 +11361,7 @@ body.dropdown-open .dropdown-overlay {
   border-right: none!important;
   padding: 0 0 10px 0;
   color: #cccccc;
-  background: #fafafa;
+  background: #f9f9f9;
   font-weight: 400;
   max-width: 150px;
   text-overflow: ellipsis;
@@ -11597,7 +11597,7 @@ body.dropdown-open .dropdown-overlay {
   right: 2px;
   left: 0;
   content: ' ';
-  background-color: #fafafa;
+  background-color: #f9f9f9;
 }
 .control-tabs.primary > ul.nav-tabs > li.active a,
 .control-tabs.primary > div > ul.nav-tabs > li.active a,
@@ -12874,7 +12874,7 @@ div.popover-overlay {
 }
 .fancy-layout .control-tabs > div.tab-content,
 .fancy-layout.control-tabs > div.tab-content {
-  background: #fafafa;
+  background: #f9f9f9;
 }
 .fancy-layout .control-tabs > div.tab-content > div.tab-pane,
 .fancy-layout.control-tabs > div.tab-content > div.tab-pane {
