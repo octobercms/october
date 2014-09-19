@@ -21,8 +21,8 @@
         "october/rain": "~1.0"
     },
     "autoload": {
-        "psr-0": {
-            "Cms": ""
+        "psr-4": {
+            "Cms\\": ""
         }
     },
     "extra": {

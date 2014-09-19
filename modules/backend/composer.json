@@ -21,8 +21,8 @@
         "october/rain": "~1.0"
     },
     "autoload": {
-        "psr-0": {
-            "Backend": ""
+        "psr-4": {
+            "Backend\\": ""
         }
     },
     "extra": {
