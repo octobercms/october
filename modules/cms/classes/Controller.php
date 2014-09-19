@@ -646,7 +646,7 @@ class Controller extends BaseController
              * Check if the theme has an override
              */
             if (strpos($partialName, '/') === false) {
-                $overrideName = strtolower($componentObj->alias) . '/' . $partialName;
+                $overrideName = $componentObj->alias . '/' . $partialName;
                 $partial = Partial::loadCached($this->theme, $overrideName);
             }
 
