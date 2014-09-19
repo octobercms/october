@@ -20,8 +20,8 @@ class ComponentManagerTest extends TestCase
 
     public function testListComponentDetails()
     {
-        include_once base_path() . '/tests/fixtures/System/plugins/October/Test/Components/Archive.php';
-        include_once base_path() . '/tests/fixtures/System/plugins/October/Test/Components/Post.php';
+        include_once base_path() . '/tests/fixtures/system/plugins/october/test/components/Archive.php';
+        include_once base_path() . '/tests/fixtures/system/plugins/october/test/components/Post.php';
 
         $manager = ComponentManager::instance();
         $components = $manager->listComponentDetails();
@@ -71,7 +71,7 @@ class ComponentManagerTest extends TestCase
 
     public function testMakeComponent()
     {
-        include_once base_path() . '/tests/fixtures/System/plugins/October/Test/Components/Archive.php';
+        include_once base_path() . '/tests/fixtures/system/plugins/october/test/components/Archive.php';
 
         $pageObj = $this->spoofPageCode();
 
@@ -90,7 +90,7 @@ class ComponentManagerTest extends TestCase
 
     public function testDefineProperties()
     {
-        include_once base_path() . '/tests/fixtures/System/plugins/October/Test/Components/Archive.php';
+        include_once base_path() . '/tests/fixtures/system/plugins/october/test/components/Archive.php';
         $manager = ComponentManager::instance();
         $object = $manager->makeComponent('testArchive');
         $details = $object->componentDetails();
