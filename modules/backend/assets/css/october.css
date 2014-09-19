@@ -13044,7 +13044,7 @@ div.popover-overlay {
 }
 .fancy-layout .field-richeditor {
   border: none;
-  border-left: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0 !important;
 }
 .fancy-layout .field-richeditor,
 .fancy-layout .field-richeditor .redactor_box,

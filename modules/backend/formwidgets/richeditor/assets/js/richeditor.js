@@ -80,14 +80,14 @@
     }
 
     RichEditor.prototype.build = function() {
-        var $editors = $('textarea', this.$el),
+        var $editors = $('.redactor_editor', this.$el),
             $toolbar = $('.redactor_toolbar', this.$el)
 
         if (!$editors.length)
             return
 
         if (this.$el.hasClass('stretch')) {
-            $editors.css('padding-top', $toolbar.height())
+            $editors.css('top', $toolbar.height()+1)
         }
     }
 
