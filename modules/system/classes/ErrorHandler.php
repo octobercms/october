@@ -37,14 +37,10 @@ class ErrorHandler
      * @param Exception $proposedException The exception candidate that has been thrown.
      * @return View Object containing the error page.
      */
-    public function handleException(\Exception $proposedException, $httpCode = 500, $isCli = false)
+    public function handleException(\Exception $proposedException, $httpCode = 500)
     {
-        // Disable the error handler for CLI environment
-        if ($isCli)
-            return;
-
-        // Disable the error handler for test environment
-        if (Config::getEnvironment() == 'testing')
+        // Disable the error handler for test and CLI environment
+        if (App::runningUnitTests() || App::runningInConsole())
             return;
 
         // Detect AJAX request and use error 500
