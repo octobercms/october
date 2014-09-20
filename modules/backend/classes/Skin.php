@@ -63,8 +63,6 @@ abstract class Skin
 
         $this->publicSkinPath = File::localToPublic($this->skinPath);
         $this->defaultPublicSkinPath = File::localToPublic($this->defaultSkinPath);
-
-        traceLog($this->skinPath);
     }
 
     /**
