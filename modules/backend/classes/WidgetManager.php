@@ -136,8 +136,11 @@ class WidgetManager
         return $this->formWidgets;
     }
 
-    /*
+    /**
      * Registers a single form form widget.
+     * @param string $className Widget class name.
+     * @param array $widgetInfo Registration information, can contain an 'alias' key.
+     * @return void
      */
     public function registerFormWidget($className, $widgetInfo = null)
     {
