@@ -1011,6 +1011,10 @@ body .redactor_air .redactor_toolbar {
 .redactor_box figure:hover .oc-figure-controls {
   display: block;
 }
+.redactor_box figcaption:empty:before {
+  opacity: .4;
+  content: "Type to add caption (optional)";
+}
 .redactor_box .oc-figure-controls {
   background: #dddddd !important;
   padding: 0;

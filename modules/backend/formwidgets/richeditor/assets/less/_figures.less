@@ -113,6 +113,7 @@
             }
             &:empty:before {
                 opacity: 0.4;
+                // @todo Convert to language value
                 content: "\2014 Type to add citation (optional)";
             }
         }
@@ -124,6 +125,14 @@
 
     figure:hover .oc-figure-controls {
         display: block
+    }
+
+    figcaption {
+        &:empty:before {
+            opacity: .4;
+            // @todo Convert to language value
+            content: "Type to add caption (optional)";
+        }
     }
 
     .oc-figure-controls {
