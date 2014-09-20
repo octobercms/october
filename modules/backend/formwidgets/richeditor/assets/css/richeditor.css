@@ -986,7 +986,7 @@ body .redactor_air .redactor_toolbar {
 .redactor_editor figure[data-type=quote].oc-figure-left {
   width: 33%;
   border-left: none;
-  border-right: solid 5px #333333;
+  border-right: solid 4px #cccccc;
   padding-left: 0;
   padding-right: 20px;
   margin-left: 0;
