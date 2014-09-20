@@ -77,8 +77,8 @@
 
         showToolbar: function (event) {
             var $figure = $(event.currentTarget),
-                $toolbar = this.getToolbar(type).data('figure', $figure).prependTo($figure),
-                type = $figure.data('type') || 'default'
+                type = $figure.data('type') || 'default',
+                $toolbar = this.getToolbar(type).data('figure', $figure).prependTo($figure)
 
             if (this.redactor[type] && this.redactor[type].onShow) {
                 this.redactor[type].onShow($figure, $toolbar)
@@ -154,9 +154,8 @@
 
         getToolbar: function (type) {
 
-            if (this.toolbar[type]) {
+            if (this.toolbar[type])
                 return this.toolbar[type]
-            }
 
             var controlGroup  = (this.redactor[type] && this.redactor[type].controlGroup) || this.controlGroup,
                 controls      = $.extend({}, this.control, (this.redactor[type] && this.redactor[type].control) || {}),
