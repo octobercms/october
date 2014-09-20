@@ -244,4 +244,7 @@ return [
         'last_name' => 'Фамилия',
         'email' => 'Почта',
     ],
+    'layout' => [
+        'direction' => 'ltr'
+    ]
 ];

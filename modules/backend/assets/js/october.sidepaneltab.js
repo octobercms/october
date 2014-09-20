@@ -95,10 +95,19 @@
 
         this.$el.appendTo('#layout-canvas')
         this.panelVisible = true
-        this.$el.css({
-            left: this.sideNavWidth,
-            top: this.mainNavHeight
-        })
+        //check for rtl layout
+        if(layoutDirection && layoutDirection == 'rtl'){
+            this.$el.css({
+                right: this.sideNavWidth,
+                top: this.mainNavHeight
+            })
+        }
+        else{
+            this.$el.css({
+                left: this.sideNavWidth,
+                top: this.mainNavHeight
+            })
+        }
 
         this.updatePanelPosition()
         $(window).trigger('resize')

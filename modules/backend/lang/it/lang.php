@@ -222,4 +222,7 @@ return [
         'last_name' => 'Cognome',
         'email' => 'Indirizzo e-mail',
     ],
+    'layout' => [
+        'direction' => 'ltr'
+    ]
 ];

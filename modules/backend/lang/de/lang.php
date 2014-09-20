@@ -244,5 +244,8 @@ return [
     ],
     'filter' => [
       'all' => 'Alle'
+    ],
+    'layout' => [
+        'direction' => 'ltr'
     ]
 ];

@@ -1,0 +1,46 @@
+div.scoreboard {
+    position: relative;
+    padding: 0;
+
+    .horizontal-scroll-indicators(@color-scroll-indicator);
+    &:before, &:after { margin-top: -10px; }
+    &:before { right: 7px; }
+    &:after { left: 10px; }
+
+    div.scoreboard-item {
+        display: inline-block;
+        margin-left: 40px;
+        margin-bottom: 20px;
+        vertical-align: top;
+
+        &:last-child {
+            margin-left: 0;
+        }
+    }
+
+    .control-chart {
+        // Setup the chart height in the scoreboard
+        // and set offsets so that the elements do not
+        // "jump" when the chart script loads and
+        // adds the canvas and color indicator elements.
+        height: 67px;
+
+        ul {
+            margin-right: 77px;
+            top: -2px;
+
+            li {
+                padding-right: 18px; 
+                & > i {margin-right: -18px;}
+            }
+        }
+
+        .canvas + ul {margin-right: 0;}
+    }
+}
+
+body.slim-container {
+    div.scoreboard {
+        padding: 0 20px;
+    }
+}

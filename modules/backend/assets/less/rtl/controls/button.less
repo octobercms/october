@@ -1,0 +1,101 @@
+//
+// Buttons
+// --------------------------------------------------
+
+.btn {
+    font-size: 13px;
+    border: none;
+    text-align: right;
+    outline: none !important;
+
+    &[class^="oc-icon-"],
+    &[class*=" oc-icon-"] {
+        &:before {
+            font-size: 14px;
+            line-height: 14px;
+            position: relative;
+        }
+    }
+
+    &[disabled] {
+        background-color: @color-button-disabled-bg;
+        color: @color-button-disabled-text;
+    }
+
+    &.active,
+    &:active {
+       .box-shadow(none);
+    }
+}
+
+.btn-group {
+    .btn{
+        border-left: 1px solid rgba(0,0,0,0.09);
+        margin-right: 0!important;
+
+        &:last-child, &.last {
+            border-left: none;
+        }
+
+        &.last {
+            .border-left-radius(@border-radius-base)!important;
+        }
+    }
+
+    > .dropdown {
+        float: right;
+
+        &:not(:last-child, .last) > .btn {
+            border-left: 1px solid rgba(0,0,0,0.09);
+            .border-left-radius(0)!important;
+        }
+
+        &:not(:first-child) > .btn {
+            .border-right-radius(0)!important;
+        }
+
+        &.last {
+            .btn {
+                border-left: none;
+            }
+        }
+    }
+}
+
+.btn-icon {
+    display: inline-block;
+    height: 36px;
+    font-size: 21px;
+    background: transparent;
+    border: none;
+    outline: none;
+
+    &:before {
+        display: block;
+        color: @color-icon-btn-default;
+    }
+
+    &:hover:before {
+        color: @color-btn-danger;
+    }
+
+    &.pull-right:before {
+        margin-left: 0;
+    }
+}
+
+.btn-text {
+    font-size: 13px;
+    padding: 9px 0;
+    vertical-align: middle;
+    display: inline-block;
+
+    a {
+        color: @btn-default-color;
+
+        &:hover {
+            color: @color-link;
+            text-decoration: none;
+        }
+    }
+}
