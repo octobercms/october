@@ -1,0 +1,132 @@
+@import "../../../../assets/less/core/boot.less";
+
+figure {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+figure {
+    position: relative;
+}
+
+figcaption {
+    text-align: center;
+    line-height: 24px;
+    font-size: 16px;
+}
+
+figure[data-type=table] {
+    clear: both;
+}
+
+figure[data-type=video] {
+    position: relative;
+    margin-bottom: 24px;
+    text-align: center;
+    clear: both;
+}
+
+figure[data-type=video] p {
+    margin: 0;
+}
+figure[data-type=video].oc-figure-full p {
+    position: relative;
+    padding-bottom: 51%;
+    width: 100%;
+    height: 0;
+}
+figure[data-type=video].oc-figure-full iframe {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+figure[data-type=image] {
+    position: relative;
+    margin-bottom: 24px;
+}
+figure[data-type=image] img {
+    width: 100%;
+}
+figure[data-type=image].oc-figure-large {
+    width: 100%;
+    clear: both;
+}
+figure[data-type=image].oc-figure-medium {
+    width: 50%;
+}
+figure[data-type=image].oc-figure-small {
+    width: 33%;
+}
+
+figure[data-type=quote] {
+    font-family: "Georgia", serif;
+    margin-bottom: 24px;
+    margin-left: 24px;
+    font-style: italic;
+    position: relative;
+    border-left: solid 5px #404040;
+    padding-left: 24px;
+}
+figure[data-type=quote] figcaption {
+    font-weight: bold;
+    text-align: left;
+}
+figure[data-type=quote].oc-figure-medium {
+    font-size: 20px;
+}
+figure[data-type=quote].oc-figure-large {
+    font-size: 24px;
+}
+figure[data-type=quote].oc-figure-right {
+    width: 33%;
+}
+figure[data-type=quote].oc-figure-left {
+    width: 33%;
+    border-left: none;
+    border-right: solid 5px #404040;
+    padding-left: 0;
+    padding-right: 24px;
+    margin-left: 0;
+    margin-right: 24px;
+}
+figure[data-type=quote] cite {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+}
+figure[data-type=quote] cite:before {
+    content: "\2014\00a0";
+}
+
+.oc-figure-right {
+    float: right;
+    margin-left: 24px;
+}
+.oc-figure-right .oc-figure-controls {
+    right: 0;
+}
+
+.oc-figure-left {
+    float: left;
+    margin-right: 24px;
+}
+
+@media screen and (max-width: 480px) {
+    figure[data-type=image] {
+        width: 100% !important;
+        float: none !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    figure[data-type=video] iframe {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+@import "_shared.less";

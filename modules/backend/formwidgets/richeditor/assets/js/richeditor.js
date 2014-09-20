@@ -55,7 +55,6 @@
          */
         var redactorOptions = {
             observeImages: false,
-            // autoresize: false,
             focusCallback: function() { self.$el.addClass('editor-focus') },
             blurCallback: function() { self.$el.removeClass('editor-focus') },
             initCallback: function() { self.build() },
@@ -73,8 +72,8 @@
             redactorOptions.fullpage = true
         }
 
-        // redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'table', 'quote']
-        redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'quote']
+        redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'quote', 'table']
+        redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule', 'html'],
 
         this.$textarea.redactor(redactorOptions)
     }

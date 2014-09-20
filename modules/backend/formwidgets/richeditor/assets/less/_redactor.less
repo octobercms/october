@@ -83,7 +83,7 @@
 #redactor_modal_overlay,
 #redactor_modal,
 .redactor_dropdown {
-    z-index: @richeditor-zindex + 1 !important;
+    z-index: @richeditor-zindex + 2 !important;
 }
 
 
@@ -200,7 +200,7 @@ body .redactor_box_fullscreen {
     video, img {
         height: auto;
     }
-    div, p, ul, ol, table, dl, blockquote, pre {
+    div, p, ul, ol, dl, blockquote, pre {
         margin: 0;
         margin-bottom: 10px !important;
         border: none;
@@ -231,19 +231,19 @@ body .redactor_box_fullscreen {
     dd {
         margin-left: 1em;
     }
-    table {
-        border-collapse: collapse;
-        font-size: 1em !important;
-    }
-    table td {
-        padding: 5px !important;
-        border: 1px solid #ddd;
-        vertical-align: top;
-    }
-    table thead td {
-        border-bottom: 2px solid #000 !important;
-        font-weight: bold !important;
-    }
+    // table {
+    //     border-collapse: collapse;
+    //     font-size: 1em !important;
+    // }
+    // table td {
+    //     padding: 5px !important;
+    //     border: 1px solid #ddd;
+    //     vertical-align: top;
+    // }
+    // table thead td {
+    //     border-bottom: 2px solid #000 !important;
+    //     font-weight: bold !important;
+    // }
     code {
         background-color: #d8d7d7 !important;
     }
@@ -325,7 +325,7 @@ body .redactor_box_fullscreen {
 
     // October
     background: @color-richeditor-toolbar;
-    z-index: @richeditor-zindex + 3;
+    z-index: @richeditor-zindex + 1;
 
     &:after {
         content: "";

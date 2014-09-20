@@ -27,7 +27,7 @@
             margin: 0;
         }
 
-        &.wy-figure-full {
+        &.oc-figure-full {
             &:before {
                 position: relative;
                 padding-bottom: 51%;
@@ -49,20 +49,20 @@
     figure[data-type=image] {
         position: relative;
         margin-bottom: @line-height-computed;
-        .wy-figure-controls {
+        .oc-figure-controls {
             top: 0px;
         }
         img {
             width: 100%;
         }
-        &.wy-figure-large {
+        &.oc-figure-large {
             width: 100%;
             clear: both;
         }
-        &.wy-figure-medium {
+        &.oc-figure-medium {
             width: 50%;
         }
-        &.wy-figure-small {
+        &.oc-figure-small {
             width: 33%;
         }
     }
@@ -79,19 +79,19 @@
             font-weight: bold;
             text-align: left;
         }
-        .wy-figure-controls {
+        .oc-figure-controls {
             margin-left: -5px;
         }
-        &.wy-figure-medium {
+        &.oc-figure-medium {
             &, blockquote { font-size: 20px; }
         }
-        &.wy-figure-large {
+        &.oc-figure-large {
             &, blockquote { font-size: 24px; }
         }
-        &.wy-figure-right {
+        &.oc-figure-right {
             width: 33%;
         }
-        &.wy-figure-left {
+        &.oc-figure-left {
             width: 33%;
             border-left: none;
             border-right: solid 5px @text-color;
@@ -99,7 +99,7 @@
             padding-right: @line-height-computed;
             margin-left: 0;
             margin-right: @line-height-computed;
-            .wy-figure-controls {
+            .oc-figure-controls {
                 margin-left: 0;
                 margin-right: -5px;
             }
@@ -122,11 +122,11 @@
 
 .redactor_box {
 
-    figure:hover .wy-figure-controls {
+    figure:hover .oc-figure-controls {
         display: block
     }
 
-    .wy-figure-controls {
+    .oc-figure-controls {
         background: @color-richeditor-toolbar !important;
         padding: 0;
         position: absolute;
@@ -144,7 +144,7 @@
         text-align: center;
     }
 
-    .wy-figure-controls span {
+    .oc-figure-controls span {
         display: inline-block;
         border: none;
         background: none;
@@ -173,62 +173,82 @@
         }
     }
 
-    .wy-figure-controls span {
-        &.wy-figure-controls-divider {
+    .oc-figure-controls span {
+        &.oc-figure-controls-divider {
             width: 1px;
             background: @color-border;
             padding: 0;
             margin: 0 4px;
             cursor: normal;
         }
-        &.wy-figure-controls-small {
+        &.oc-figure-controls-small {
             font-size: 7px;
         }
-        &.wy-figure-controls-medium {
+        &.oc-figure-controls-medium {
             font-size: 10px;
         }
-        &.wy-figure-controls-arrow-left:before {
+        &.oc-figure-controls-arrow-left:before {
             .icon(@arrow-left);
         }
-        &.wy-figure-controls-arrow-right:before {
+        &.oc-figure-controls-arrow-right:before {
             .icon(@arrow-right);
         }
-        &.wy-figure-controls-arrow-up:before {
+        &.oc-figure-controls-arrow-up:before {
             .icon(@arrow-up);
         }
-        &.wy-figure-controls-arrow-down:before {
+        &.oc-figure-controls-arrow-down:before {
             .icon(@arrow-down);
         }
-        &.wy-figure-controls-resize-full:before {
+        &.oc-figure-controls-resize-full:before {
             .icon(@expand);
         }
-        &.wy-figure-controls-resize-small:before {
+        &.oc-figure-controls-resize-small:before {
             .icon(@compress);
         }
-        &.wy-figure-controls-delete {
+        &.oc-figure-controls-delete {
             margin-left: @line-height-computed;
             &:before { .icon(@trash-o); }
             &:hover { background: @color-btn-danger; }
         }
-        &.wy-figure-controls-table {
+        &.oc-figure-controls-table {
             width: auto;
-            padding-left: @line-height-computed / 4;
+            padding-left: @line-height-computed / 2;
+            padding-right: @line-height-computed / 2;
             text-align: left;
             &:before { .icon(@table); }
         }
     }
 
-    .wy-figure-right {
+    .oc-figure-right {
         float: right;
         margin-left: @line-height-computed;
-        .wy-figure-controls {
+        .oc-figure-controls {
             right: 0;
         }
     }
 
-    .wy-figure-left {
+    .oc-figure-left {
         float: left;
         margin-right: @line-height-computed;
+    }
+
+    .oc-dropdown-menu {
+        &, ul { padding: 0 !important; }
+
+        ul {
+            background-color: @dropdown-bg !important;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 0 15px !important;
+            color: @dropdown-link-color !important;
+            text-decoration: none !important;
+            &:hover,
+            &:focus {
+                color: @color-dropdown-hover-text !important;
+            }
+        }
     }
 
     @media (max-width: @menu-breakpoint-max) {
