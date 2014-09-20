@@ -2,7 +2,6 @@
 
 use URL;
 use Config;
-use Session;
 use Request;
 use October\Rain\Router\Helper as RouterHelper;
 
@@ -29,9 +28,8 @@ class BackendHelper
      */
     public function skinAsset($path = null)
     {
-        $path = RouterHelper::normalizeUrl($path);
-        $skinPath = Skin::getActive()->skinPath;
-        return URL::asset($skinPath . $path);
+        $skinPath = Skin::getActive()->getPath($path, true);
+        return URL::asset($skinPath);
     }
 
     /**

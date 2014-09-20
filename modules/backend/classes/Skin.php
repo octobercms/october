@@ -1,6 +1,9 @@
 <?php namespace Backend\Classes;
 
+use Str;
+use File;
 use Config;
+use October\Rain\Router\Helper as RouterHelper;
 
 /**
  * Skin Base class
@@ -16,8 +19,29 @@ abstract class Skin
      */
     abstract public function skinDetails();
 
+    /**
+     * @var string The absolute path to this skin.
+     */
     public $skinPath;
 
+    /**
+     * @var string The public path to this skin.
+     */
+    public $publicSkinPath;
+
+    /**
+     * @var string The default skin path, usually the root level of modules/backend.
+     */
+    public $defaultSkinPath;
+
+    /**
+     * @var string The default public skin path.
+     */
+    public $defaultPublicSkinPath;
+
+    /**
+     * @var Self Cache of the active skin.
+     */
     private static $skinCache;
 
     /**
@@ -25,7 +49,54 @@ abstract class Skin
      */
     public function __construct()
     {
-        $this->skinPath = str_replace('\\', '/', get_called_class());
+        $this->defaultSkinPath = PATH_BASE . '/modules/backend';
+
+        /*
+         * Guess the skin path
+         */
+        $class = get_called_class();
+        $classFolder = strtolower(Str::getRealClass($class));
+        $classFile = realpath(dirname(File::fromClass($class)));
+        $this->skinPath = $classFile
+            ? $classFile . '/' . $classFolder
+            : $this->defaultSkinPath;
+
+        $this->publicSkinPath = File::localToPublic($this->skinPath);
+        $this->defaultPublicSkinPath = File::localToPublic($this->defaultSkinPath);
+
+        traceLog($this->skinPath);
+    }
+
+    /**
+     * Looks up a path to a skin-based file, if it doesn't exist, the default path is used.
+     * @param  string  $path
+     * @param  boolean $isPublic
+     * @return string
+     */
+    public function getPath($path = null, $isPublic = false)
+    {
+        $path = RouterHelper::normalizeUrl($path);
+        $assetFile = $this->skinPath . $path;
+
+        if (File::isFile($assetFile)) {
+            return $isPublic
+                ? $this->publicSkinPath . $path
+                : $this->skinPath . $path;
+        }
+        else {
+            return $isPublic
+                ? $this->defaultPublicSkinPath . $path
+                : $this->defaultSkinPath . $path;
+        }
+    }
+
+    /**
+     * Returns an array of paths where skin layouts can be found.
+     * @return array
+     */
+    public function getLayoutPaths()
+    {
+        return [$this->skinPath.'/layouts', $this->defaultSkinPath.'/layouts'];
     }
 
     /**
