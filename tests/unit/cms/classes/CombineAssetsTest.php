@@ -68,11 +68,11 @@ class CombineAssetsTest extends TestCase
     public function testCombine()
     {
         $combiner = new CombineAssets;
-        $url = $combiner->combine(['assets/css/style1.css', 'assets/css/style2.css'], '/tests/fixtures/Cms/themes/test');
+        $url = $combiner->combine(['assets/css/style1.css', 'assets/css/style2.css'], '/tests/fixtures/cms/themes/test');
         $this->assertNotNull($url);
         $this->assertRegExp('/\w+[-]\d+/i', $url);      // Must contain hash-number
 
-        $url = $combiner->combine(['assets/js/script1.js', 'assets/js/script2.js'], '/tests/fixtures/Cms/themes/test');
+        $url = $combiner->combine(['assets/js/script1.js', 'assets/js/script2.js'], '/tests/fixtures/cms/themes/test');
         $this->assertNotNull($url);
         $this->assertRegExp('/\w+[-]\d+/i', $url);      // Must contain hash-number
     }
