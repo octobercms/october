@@ -76,6 +76,12 @@
         // redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'table', 'quote']
         redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'quote']
 
+        /*
+         * Combine the redactor settings (possibly custom) with the options above
+         * This allows you to override any of the above settings as well.
+         */
+        for (var redactorSetting in redactorSettings) { redactorOptions[redactorSetting] = redactorSettings[redactorSetting]; }
+
         this.$textarea.redactor(redactorOptions)
     }
 
