@@ -1,4 +1,4 @@
-<?php namespace October\Test;
+<?php namespace October\Tester;
 
 use System\Classes\PluginBase;
 
@@ -17,8 +17,8 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'October\Test\Components\Archive' => 'testArchive',
-            '\October\Test\Components\Post' => 'testPost'
+            'October\Tester\Components\Archive' => 'testArchive',
+            'October\Tester\Components\Post' => 'testPost'
         ];
     }
 

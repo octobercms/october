@@ -155,7 +155,8 @@ class Controller extends BaseController
             $this->setStatusCode(404);
 
             // Log the 404 request
-            RequestLog::add();
+            if (!App::runningUnitTests())
+                RequestLog::add();
 
             if (!$page = $this->router->findByUrl('/404'))
                 return Response::make(View::make('cms::404'), $this->statusCode);
