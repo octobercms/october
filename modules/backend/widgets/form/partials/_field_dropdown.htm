@@ -9,7 +9,7 @@
         id="<?= $field->getId() ?>"
         name="<?= $field->getName() ?>"
         class="form-control custom-select"
-        <?= HTML::attributes($field->attributes) ?>>
+        <?= $field->getAttributes() ?>>
         <?php if ($field->placeholder): ?>
             <option value=""><?= e(trans($field->placeholder)) ?></option>
         <?php endif ?>

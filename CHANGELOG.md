@@ -1,5 +1,6 @@
 * **Build 14x** (2014-09-xx)
   - Added new `hint` form field type (see Backend > Forms docs).
+  - Added new `containerAttributes` property to form fields (see Backend > Forms docs).
 
 * **Build 145** (2014-09-13)
   - Standard setting pages now have **Save** and **Save and Close** buttons.

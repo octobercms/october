@@ -1,6 +1,7 @@
 <?php namespace Backend\Classes;
 
 use Str;
+use HTML;
 
 /**
  * Form Field definition
@@ -237,7 +238,8 @@ class FormField
         if (isset($config['placeholder'])) $this->placeholder = $config['placeholder'];
         if (isset($config['default'])) $this->defaults = $config['default'];
         if (isset($config['cssClass'])) $this->cssClass = $config['cssClass'];
-        if (isset($config['attributes'])) $this->attributes = $config['attributes'];
+        if (isset($config['attributes'])) $this->attributes($config['attributes']);
+        if (isset($config['containerAttributes'])) $this->attributes($config['containerAttributes'], 'container');
         if (isset($config['depends'])) $this->depends = $config['depends'];
         if (isset($config['path'])) $this->path = $config['path'];
 
@@ -264,6 +266,41 @@ class FormField
         $this->commentPosition = $position;
         $this->commentHtml = $isHtml;
         return $this;
+    }
+
+    /**
+     * Sets the attributes for this field in a given position.
+     * - field: Attributes are added to the form field element (input, select, textarea, etc)
+     * - container: Attributes are added to the form field container (div.form-group)
+     * @param  array $items
+     * @param  strubg $position
+     * @return void
+     */
+    public function attributes($items, $position = 'field')
+    {
+        if (!is_array($items))
+            return;
+
+        $multiArray = array_filter($items, 'is_array');
+        if (!$multiArray) {
+            $this->attributes[$position] = $items;
+            return;
+        }
+
+        foreach ($items as $_position => $_items) {
+            $this->attributes($_items, $_position);
+        }
+    }
+
+    /**
+     * Returns the attributes for this field at a given position.
+     * @param  string $position
+     * @return array
+     */
+    public function getAttributes($position = 'field', $htmlBuild = true)
+    {
+        $result = array_get($this->attributes, $position, []);
+        return $htmlBuild ? HTML::attributes($result) : $result;
     }
 
     /**

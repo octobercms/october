@@ -116,7 +116,8 @@ class Relation extends FormWidgetBase
             // by joining its pivot table. Remove all joins from the query.
             $query->getQuery()->getQuery()->joins = [];
 
-            if (in_array('October\Rain\Database\Traits\NestedTree', class_uses($relatedObj)))
+            $treeTraits = ['October\Rain\Database\Traits\NestedTree', 'October\Rain\Database\Traits\SimpleTree'];
+            if (count(array_intersect($treeTraits, class_uses($relatedObj))) > 0)
                 $field->options = $query->listsNested($this->nameFrom, $relatedObj->getKeyName());
             else
                 $field->options = $query->lists($this->nameFrom, $relatedObj->getKeyName());
