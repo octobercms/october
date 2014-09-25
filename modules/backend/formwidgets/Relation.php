@@ -109,7 +109,7 @@ class Relation extends FormWidgetBase
             // It is safe to assume that if the model and related model are of 
             // the exact same class, then it cannot be related to itself
             if ($model->exists && (get_class($model) == get_class($relatedObj))) {
-                $query->where($relatedObj->getKeyName(), '<>', $model->id);
+                $query->where($relatedObj->getKeyName(), '<>', $model->getKey());
             }
 
             // Even though "no constraints" is applied, belongsToMany constrains the query
