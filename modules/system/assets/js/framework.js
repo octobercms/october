@@ -55,7 +55,7 @@ if (window.jQuery === undefined)
             data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
         })
 
-        if ($el.is(':input') && !$el.parents('form').length) {
+        if ($el.is(':input') && !form.length) {
             var inputName = $el.attr('name')
             if (options.data[inputName] === undefined)
                 options.data[inputName] = $el.val()
