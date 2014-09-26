@@ -39,4 +39,9 @@ return [
     'October\Rain\Support\FlashServiceProvider',
     'October\Rain\Mail\MailServiceProvider',
 
+    /*
+     * Vendor providers
+     */
+    'Indatus\Dispatcher\ServiceProvider',
+
 ];
