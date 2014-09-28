@@ -94,7 +94,15 @@ class Page extends CmsCompoundObject
      */
     public static function url($page, $params = [], $absolute = true)
     {
-        $controller = new Controller;
+        /*
+         * Reuse existing controller or create a new one, 
+         * assuming that the method is called not during the front-end
+         * request processing.
+         */
+        $controller = Controller::getController();
+        if (!$controller)
+            $controller = new Controller;
+
         return $controller->pageUrl($page, $params, true, $absolute);
     }
 }

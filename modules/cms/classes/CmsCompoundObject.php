@@ -6,6 +6,8 @@ use System\Classes\SystemException;
 use Cms\Classes\FileHelper;
 use October\Rain\Support\ValidationException;
 use Cms\Classes\ViewBag;
+use Cache;
+use Config;
 
 /**
  * This is a base class for CMS objects that have multiple sections - pages, partials and layouts.
@@ -53,6 +55,8 @@ class CmsCompoundObject extends CmsObject
     protected $viewBagValidationMessages = [];
 
     protected $viewBagCache = false;
+
+    protected static $objectComponentPropertyMap = null;
 
     /**
      * Loads the object from a file.
@@ -232,12 +236,101 @@ class CmsCompoundObject extends CmsObject
             return $this->viewBagCache = $viewBag;
         }
 
-        return $this->viewBagCache = ComponentManager::instance()->makeComponent(
+        return $this->viewBagCache = $this->getComponent($componentName);
+    }
+
+    /**
+     * Returns a component by its name.
+     * This method is used only in the back-end and for internal system needs when 
+     * the standard way to access components is not an option.
+     * @param string $componentName Specifies the component name.
+     * @return \Cms\Classes\ComponentBase Returns the component instance or null.
+     */
+    public function getComponent($componentName)
+    {
+        if (!$this->hasComponent($componentName))
+            return null;
+
+        return ComponentManager::instance()->makeComponent(
             $componentName, 
             null, 
             $this->settings['components'][$componentName]);
     }
 
+    /**
+     * Checks if the object has a component with the specified name.
+     * @param string $componentName Specifies the component name.
+     * @return boolean Returns true if the component exists.
+     */
+    public function hasComponent($componentName)
+    {
+        return isset($this->settings['components'][$componentName]);
+    }
+
+    /**
+     * Returns component property names and values.
+     * This method implements caching and can be used in the run-time on the front-end.
+     * @param string $componentName Specifies the component name.
+     * @return array Returns an associative array with property names in the keys and property values in the values.
+     */
+    public function getComponentProperties($componentName)
+    {
+        $key = crc32($this->theme->getPath()).'component-properties';
+
+        if (self::$objectComponentPropertyMap !== null) {
+            $objectComponentMap = self::$objectComponentPropertyMap;
+        } else {
+            $cached = Cache::get($key, false);
+            $unserialized = $cached ? @unserialize($cached) : false;
+            $objectComponentMap = $unserialized ? $unserialized : [];
+            if ($objectComponentMap)
+                self::$objectComponentPropertyMap = $objectComponentMap;
+        }
+
+        $objectCode = $this->getBaseFileName();
+
+        if (array_key_exists($objectCode, $objectComponentMap)) {
+            if (array_key_exists($componentName, $objectComponentMap[$objectCode]))
+                return $objectComponentMap[$objectCode][$componentName];
+
+            return [];
+        }
+
+        if (!isset($this->settings['components']))
+            $objectComponentMap[$objectCode] = [];
+        else {
+            foreach ($this->settings['components'] as $componentName=>$componentSettings) {
+                $component = $this->getComponent($componentName);
+                if (!$component)
+                    continue;
+
+                $componentProperties = [];
+                $propertyDefinitions = $component->defineProperties();
+                foreach ($propertyDefinitions as $propertyName=>$propertyInfo)
+                    $componentProperties[$propertyName] = $component->property($propertyName);
+
+                $objectComponentMap[$objectCode][$componentName] = $componentProperties;
+            }
+        }
+
+        self::$objectComponentPropertyMap = $objectComponentMap;
+
+        Cache::put($key, serialize($objectComponentMap), Config::get('cms.parsedPageCacheTTL', 10));
+
+        if (array_key_exists($componentName, $objectComponentMap[$objectCode]))
+            return $objectComponentMap[$objectCode][$componentName];
+
+        return [];
+    }
+
+    /**
+     * Clears the object cache.
+     */
+    public static function clearCache($theme)
+    {
+        $key = crc32($theme->getPath()).'component-properties';
+        Cache::forget($key);
+    }
 
     /**
      * Parses the settings array.

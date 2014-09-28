@@ -80,14 +80,23 @@
     }
 
     RichEditor.prototype.build = function() {
-        var $editors = $('.redactor_editor', this.$el),
+        this.updateLayout()
+
+        $(window).resize($.proxy(this.updateLayout, this))
+    }
+
+    RichEditor.prototype.updateLayout = function() {
+        var $editor = $('.redactor_editor', this.$el),
+            $codeEditor = $('textarea', this.$el),
             $toolbar = $('.redactor_toolbar', this.$el)
 
-        if (!$editors.length)
+        if (!$editor.length)
             return
 
         if (this.$el.hasClass('stretch')) {
-            $editors.css('top', $toolbar.height()+1)
+            var height = $toolbar.height()
+            $editor.css('top', height+1)
+            $codeEditor.css('top', height)
         }
     }
 

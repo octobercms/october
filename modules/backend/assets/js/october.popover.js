@@ -158,9 +158,12 @@
 
          if (this.options.closeOnEsc) {
              $(document).on('keyup.oc.popover', function(e){
+                if ($(e.target).hasClass('select2-offscreen'))
+                    return false
+
                 if (e.keyCode == 27) {
                     self.hide()
-                    return false;
+                    return false
                 }
              })
          }
@@ -270,6 +273,9 @@
             case 'center' :
                 var windowHeight = $(window).height()
                 result = {x: (dimensions.documentWidth/2 - dimensions.containerWidth/2), y: (windowHeight/2 - dimensions.containerHeight/2)}
+
+                if (result.y < 40)
+                    result.y = 40
             break;
         }
 

@@ -20,6 +20,7 @@ use Cms\Classes\Router;
 use Cms\Classes\Layout;
 use Cms\Classes\Partial;
 use Cms\Classes\Content;
+use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
 use System\Classes\ApplicationException;
@@ -180,6 +181,7 @@ class Index extends Controller
             $result['pageUrl'] = URL::to($template->url);
             $router = new Router($this->theme);
             $router->clearCache();
+            CmsCompoundObject::clearCache($this->theme);
         }
 
         return $result;

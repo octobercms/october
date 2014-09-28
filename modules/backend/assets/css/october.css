@@ -8735,7 +8735,7 @@ label {
 .form-group.input-sidebar-control .sidebar-control {
   position: absolute;
   right: 8px;
-  bottom: 28px;
+  top: 34px;
   font-size: 16px;
   color: #c4c4c4;
 }

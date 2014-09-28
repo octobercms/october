@@ -98,6 +98,8 @@ class Controller extends BaseController
      */
     protected $statusCode = 200;
 
+    protected static $instance = null;
+
     /**
      * Creates the controller.
      * @param \Cms\Classes\Theme $theme Specifies the CMS theme.
@@ -112,6 +114,18 @@ class Controller extends BaseController
         $this->assetPath = Config::get('cms.themesDir').'/'.$this->theme->getDirName();
         $this->router = new Router($this->theme);
         $this->initTwigEnvironment();
+
+        self::$instance = $this;
+    }
+
+    /**
+     * Returns an existing instance of the controller.
+     * If the controller doesn't exists, returns null.
+     * @return mixed Returns the controller object or null;
+     */
+    public static function getController()
+    {
+        return self::$instance;
     }
 
     /**
@@ -713,7 +727,7 @@ class Controller extends BaseController
             throw new CmsException(Lang::get('cms::lang.content.not_found', ['name'=>$name]));
 
         $filePath = $content->getFullPath();
-        $fileContent = File::get($filePath);
+        $fileContent = $content->markup;
 
         if (strtolower(File::extension($filePath)) == 'md')
             $fileContent = Markdown::parse($fileContent);

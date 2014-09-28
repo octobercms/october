@@ -53,7 +53,7 @@
             width: 100%;
         }
 
-        .redactor_editor {
+        .redactor_editor, textarea {
             height: auto !important;
             width: 100%!important;
             left: 0;
@@ -62,7 +62,11 @@
             position: absolute;
         }
 
-        iframe, textarea {
+        textarea {
+            padding: 10px;
+        } 
+
+        iframe {
             display: block;
             position: absolute;
             height: 100% !important;
