@@ -20,7 +20,7 @@
                 value="<?= $value ?>"
                 type="radio"
                 <?= $field->value == $value ? 'checked="checked"' : '' ?>
-                <?= HTML::attributes($field->attributes) ?>>
+                <?= $field->getAttributes() ?>>
 
             <label for="<?= $fieldId ?>">
                 <?= e(trans($option[0])) ?>

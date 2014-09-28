@@ -1,0 +1,33 @@
+{
+    "name": "october/demo-plugin",
+    "type": "october-plugin",
+    "description": "Demo OctoberCMS plugin",
+    "keywords": ["october", "cms", "demo", "plugin"],
+    "license": "MIT",
+
+    "authors": [
+        {
+            "name": "Alexey Bobkov",
+            "email": "aleksey.bobkov@gmail.com",
+            "role": "Co-founder"
+        },
+        {
+            "name": "Samuel Georges",
+            "email": "daftspunky@gmail.com",
+            "role": "Co-founder"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "October\\Demo\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

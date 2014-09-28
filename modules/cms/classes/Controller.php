@@ -169,7 +169,8 @@ class Controller extends BaseController
             $this->setStatusCode(404);
 
             // Log the 404 request
-            RequestLog::add();
+            if (!App::runningUnitTests())
+                RequestLog::add();
 
             if (!$page = $this->router->findByUrl('/404'))
                 return Response::make(View::make('cms::404'), $this->statusCode);
@@ -660,7 +661,7 @@ class Controller extends BaseController
              * Check if the theme has an override
              */
             if (strpos($partialName, '/') === false) {
-                $overrideName = strtolower($componentObj->alias) . '/' . $partialName;
+                $overrideName = $componentObj->alias . '/' . $partialName;
                 $partial = Partial::loadCached($this->theme, $overrideName);
             }
 

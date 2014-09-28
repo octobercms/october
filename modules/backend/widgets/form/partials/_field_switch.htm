@@ -13,7 +13,7 @@
         value="1"
         <?= $this->previewMode ? 'readonly="readonly"' : '' ?>
         <?= $field->value == 1 ? 'checked="checked"' : '' ?>
-        <?= HTML::attributes($field->attributes) ?>>
+        <?= $field->getAttributes() ?>>
     <span><span><?= e(trans('backend::lang.form.field_on')) ?></span><span><?= e(trans('backend::lang.form.field_off')) ?></span></span>
     <a class="slide-button"></a>
 </label>

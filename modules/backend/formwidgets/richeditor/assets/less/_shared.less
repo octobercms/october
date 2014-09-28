@@ -1,0 +1,118 @@
+
+.oc-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    margin-bottom: @line-height-computed;
+
+    caption {
+        color: #000;
+        font: italic 85%/1 arial, sans-serif;
+        padding: 1em 0;
+        text-align: center;
+    }
+
+    td, th {
+        font-size: 90%;
+        margin: 0;
+        overflow: visible;
+        padding: @table-cell-padding;
+    }
+
+    td:first-child, th:first-child {
+        border-left-width: 0;
+    }
+
+    thead {
+        color: #000;
+        text-align: left;
+        vertical-align: bottom;
+        white-space: nowrap;
+        th {
+            font-weight: bold;
+            border-bottom: solid 2px @table-border-color;
+        }
+    }
+
+    td {
+        background-color: transparent;
+        vertical-align: middle;
+    }
+}
+
+.oc-table td p {
+    line-height: @line-height-computed * .75;
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+.oc-table .oc-table-cell-min {
+    width: 1%;
+    padding-right: 0;
+    input[type=checkbox], input[type=checkbox] {
+        margin: 0;
+    }
+}
+
+.oc-table-secondary {
+    color: @text-color;
+    font-size: 90%;
+}
+.oc-table-tertiary {
+    color: @text-color;
+    font-size: 80%;
+}
+
+//
+// Striped tables
+//
+
+.oc-table-odd td, .oc-table-striped tr:nth-child(2n-1) td {
+    background-color: @table-bg-accent;
+}
+
+.oc-table-backed {
+    background-color: @table-bg-accent;
+}
+
+//
+// Bordered tables
+//
+
+.oc-table-bordered-all {
+    border: 1px solid @table-border-color;
+
+    td {
+        border-bottom: 1px solid @table-border-color;
+        border-left: 1px solid @table-border-color;
+    }
+    tbody > tr:last-child td {
+        border-bottom-width: 0;
+    }
+}
+
+.oc-table-bordered {
+    border: 1px solid @table-border-color;
+}
+
+.oc-table-bordered-rows {
+    td {
+        border-bottom: 1px solid @table-border-color;
+    }
+    tbody > tr:last-child td {
+        border-bottom-width: 0;
+    }
+}
+
+.oc-table-horizontal {
+    tbody > tr:last-child td {
+        border-bottom-width: 0;
+    }
+    td, th {
+        border-width: 0 0 1px 0;
+        border-bottom: 1px solid @table-border-color;
+    }
+    tbody > tr:last-child td {
+        border-bottom-width: 0;
+    }
+}

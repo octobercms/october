@@ -1,12 +1,25 @@
 <?php
 
+use Backend\Classes\Controller;
 use Backend\Classes\WidgetManager;
 
 class WidgetManagerTest extends TestCase
 {
     public function testMakeWidget()
     {
-        $this->markTestIncomplete('TODO');
+        $manager = WidgetManager::instance();
+        $widget = $manager->makeWidget('Backend\Widgets\Search');
+        $this->assertTrue($widget instanceof \Backend\Widgets\Search);
+
+        $controller = new Controller;
+        $widget = $manager->makeWidget('Backend\Widgets\Search', $controller);
+        $this->assertInstanceOf('Backend\Widgets\Search', $widget);
+        $this->assertInstanceOf('Backend\Classes\Controller', $widget->getController());
+
+        $config = ['test' => 'config'];
+        $widget = $manager->makeWidget('Backend\Widgets\Search', null, $config);
+        $this->assertInstanceOf('Backend\Widgets\Search', $widget);
+        $this->assertEquals('config', $widget->getConfig('test'));
     }
 
     public function testListFormWidgets()

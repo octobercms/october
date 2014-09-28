@@ -3,6 +3,7 @@
 use Lang;
 use Backend\Classes\FormWidgetBase;
 use System\Classes\SystemException;
+use Illuminate\Database\Eloquent\Relations\Relation as RelationBase;
 
 /**
  * Form Relationship
@@ -89,30 +90,40 @@ class Relation extends FormWidgetBase
      */
     protected function makeRenderFormField()
     {
-        $field = clone $this->formField;
-        $relatedObj = $this->model->makeRelation($this->relationName);
-        $query = $relatedObj->newQuery();
+        return $this->renderFormField = RelationBase::noConstraints(function() {
 
-        if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany'])) {
-            $field->type = 'checkboxlist';
-        }
-        else if ($this->relationType == 'belongsTo') {
-            $field->type = 'dropdown';
-            $field->placeholder = $this->emptyOption;
-        }
+            $field = clone $this->formField;
 
-        // It is safe to assume that if the model and related model are of 
-        // the exact same class, then it cannot be related to itself
-        if ($this->model->exists && (get_class($this->model) == get_class($relatedObj))) {
-            $query->where($relatedObj->getKeyName(), '<>', $this->model->id);
-        }
+            list($model, $attribute) = $this->getModelArrayAttribute($this->relationName);
+            $relatedObj = $model->makeRelation($attribute);
+            $query = $model->{$attribute}()->newQuery();
 
-        if (in_array('October\Rain\Database\Traits\NestedTree', class_uses($relatedObj)))
-            $field->options = $query->listsNested($this->nameFrom, $relatedObj->getKeyName());
-        else
-            $field->options = $query->lists($this->nameFrom, $relatedObj->getKeyName());
+            if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany'])) {
+                $field->type = 'checkboxlist';
+            }
+            else if ($this->relationType == 'belongsTo') {
+                $field->type = 'dropdown';
+                $field->placeholder = $this->emptyOption;
+            }
 
-        return $this->renderFormField = $field;
+            // It is safe to assume that if the model and related model are of 
+            // the exact same class, then it cannot be related to itself
+            if ($model->exists && (get_class($model) == get_class($relatedObj))) {
+                $query->where($relatedObj->getKeyName(), '<>', $model->getKey());
+            }
+
+            // Even though "no constraints" is applied, belongsToMany constrains the query
+            // by joining its pivot table. Remove all joins from the query.
+            $query->getQuery()->getQuery()->joins = [];
+
+            $treeTraits = ['October\Rain\Database\Traits\NestedTree', 'October\Rain\Database\Traits\SimpleTree'];
+            if (count(array_intersect($treeTraits, class_uses($relatedObj))) > 0)
+                $field->options = $query->listsNested($this->nameFrom, $relatedObj->getKeyName());
+            else
+                $field->options = $query->lists($this->nameFrom, $relatedObj->getKeyName());
+
+            return $field;
+        });
     }
 
     /**

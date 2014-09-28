@@ -86,6 +86,9 @@
         'ظ':'th', 'ع':'aa', 'غ':'gh', 'ف':'f', 'ق':'k', 'ك':'k', 'ل':'l', 'م':'m',
         'ن':'n', 'ه':'h', 'و':'o', 'ي':'y'
     },
+    PERSIAN_MAP = {
+        'آ':'a', 'ا':'a', 'پ':'p', 'چ':'ch', 'ژ':'zh', 'ک':'k', 'گ':'gh', 'ی':'y'
+    },
     LITHUANIAN_MAP = {
         'ą':'a', 'č':'c', 'ę':'e', 'ė':'e', 'į':'i', 'š':'s', 'ų':'u', 'ū':'u',
         'ž':'z',
@@ -111,6 +114,7 @@
         POLISH_MAP,
         LATVIAN_MAP,
         ARABIC_MAP,
+        PERSIAN_MAP,
         LITHUANIAN_MAP,
         SERBIAN_MAP,
         AZERBAIJANI_MAP

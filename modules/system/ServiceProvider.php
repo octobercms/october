@@ -71,8 +71,7 @@ class ServiceProvider extends ModuleServiceProvider
          */
         App::error(function(\Exception $exception, $httpCode){
             $handler = new ErrorHandler;
-            $isConsole = App::runningInConsole();
-            return $handler->handleException($exception, $httpCode, $isConsole);
+            return $handler->handleException($exception, $httpCode);
         });
 
         /*

@@ -202,6 +202,9 @@ trait AssetMaker
      */
     public function getAssetPath($fileName, $assetPath = null)
     {
+        if (preg_match("/(\/\/|http|https)/", $fileName))
+            return $fileName;
+
         if (!$assetPath)
             $assetPath = $this->assetPath;
 

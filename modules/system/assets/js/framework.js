@@ -55,7 +55,7 @@ if (window.jQuery === undefined)
             data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
         })
 
-        if ($el.is(':input')) {
+        if ($el.is(':input') && !form.length) {
             var inputName = $el.attr('name')
             if (options.data[inputName] === undefined)
                 options.data[inputName] = $el.val()
@@ -252,14 +252,19 @@ if (window.jQuery === undefined)
         $el.trigger('ajaxPromise')
         return $.ajax(requestOptions)
             .fail(function(jqXHR, textStatus, errorThrown){
-                if (!isRedirect) $el.trigger('ajaxFail', [context, textStatus, jqXHR])
+                if (!isRedirect) {
+                    $el.trigger('ajaxFail', [context, textStatus, jqXHR])
+                    if (loading) loading.hide()
+                }
             })
             .done(function(data, textStatus, jqXHR){
-                if (!isRedirect) $el.trigger('ajaxDone', [context, data, textStatus, jqXHR])
+                if (!isRedirect) {
+                    $el.trigger('ajaxDone', [context, data, textStatus, jqXHR])
+                    if (loading) loading.hide()
+                }
             })
             .always(function(dataOrXhr, textStatus, xhrOrError){
                 $el.trigger('ajaxAlways', [context, dataOrXhr, textStatus, xhrOrError])
-                if (loading) loading.hide()
             })
     }
 

@@ -23,7 +23,7 @@ class FileHelperTest extends TestCase
             'var2'=>'value 21'
         ];
 
-        $path = base_path().'/tests/fixtures/Cms/filehelper/simple.ini';
+        $path = base_path().'/tests/fixtures/cms/filehelper/simple.ini';
         $this->assertFileExists($path);
 
         $str = FileHelper::formatIniString($data);
@@ -43,7 +43,7 @@ class FileHelperTest extends TestCase
             'var2'=>'value 21'
         ];
 
-        $path = base_path().'/tests/fixtures/Cms/filehelper/sections.ini';
+        $path = base_path().'/tests/fixtures/cms/filehelper/sections.ini';
         $this->assertFileExists($path);
 
         $str = FileHelper::formatIniString($data);
@@ -71,7 +71,7 @@ class FileHelperTest extends TestCase
             'var2'=>'value 21'
         ];
 
-        $path = base_path().'/tests/fixtures/Cms/filehelper/subsections.ini';
+        $path = base_path().'/tests/fixtures/cms/filehelper/subsections.ini';
         $this->assertFileExists($path);
 
         $str = FileHelper::formatIniString($data);

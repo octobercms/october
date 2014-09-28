@@ -1,30 +1,30 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0, minimal-ui">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="icon" type="image/png" href="<?= URL::asset('modules/backend/assets/images/favicon.png') ?>">
+<link rel="icon" type="image/png" href="<?= Backend::skinAsset('assets/images/favicon.png') ?>">
 <title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s | October CMS' : e($this->pageTitleTemplate) ?>">
     <?= $this->pageTitle ?> | October CMS
 </title>
 
-<link href="<?= URL::asset('modules/backend/assets/vendor/select2/select2.css') ?>" rel="stylesheet">
-<link href="<?= URL::asset('modules/backend/assets/css/october.css') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>" rel="stylesheet">
+<link href="<?= Backend::skinAsset('assets/vendor/select2/select2.css') ?>" rel="stylesheet">
+<link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>" rel="stylesheet">
 
-<script src="<?= URL::asset('modules/backend/assets/js/vendor/jquery-2.0.3.min.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/vendor/jquery.ui.widget.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/jquery-2.0.3.min.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.ui.widget.js') ?>"></script>
 <script src="<?= URL::asset('modules/system/assets/js/framework.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/vendor/modernizr.min.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/vendor/mousewheel.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/vendor/jquery.touchwipe.min.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/vendor/moment.min.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/vendor/raphael-min.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/vendor/jquery.autoellipsis.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/vendor/jquery.waterfall.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/vendor/jquery.cookie.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/modernizr.min.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/mousewheel.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.touchwipe.min.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/moment.min.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/raphael-min.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.autoellipsis.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.waterfall.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.cookie.js') ?>"></script>
 
-<script src="<?= URL::asset('modules/backend/assets/vendor/select2/select2.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/vendor/mustache/mustache.min.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/vendor/fileupload/jquery.fileupload.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/vendor/fileupload/jquery.iframe-transport.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/vendor/select2/select2.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/vendor/mustache/mustache.min.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/vendor/fileupload/jquery.fileupload.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/vendor/fileupload/jquery.iframe-transport.js') ?>"></script>
 
 <script src="<?= URL::asset('modules/system/assets/vendor/bootstrap/js/tooltip.js') ?>"></script>
 <script src="<?= URL::asset('modules/system/assets/vendor/bootstrap/js/modal.js') ?>"></script>
@@ -32,47 +32,47 @@
 <script src="<?= URL::asset('modules/system/assets/vendor/bootstrap/js/transition.js') ?>"></script>
 <script src="<?= URL::asset('modules/system/assets/vendor/bootstrap/js/dropdown.js') ?>"></script>
 
-<script src="<?= URL::asset('modules/backend/assets/vendor/flot/jquery.flot.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/vendor/flot/jquery.flot.tooltip.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/vendor/flot/jquery.flot.resize.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/vendor/flot/jquery.flot.time.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/vendor/flot/jquery.flot.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/vendor/flot/jquery.flot.tooltip.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/vendor/flot/jquery.flot.resize.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/vendor/flot/jquery.flot.time.js') ?>"></script>
 
-<script src="<?= URL::asset('modules/backend/assets/js/october.controls.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.utils.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.triggerapi.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.dragscroll.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.toolbar.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.verticalmenu.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.navbar.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.sidenav.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.tab.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.popover.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.popup.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.goalmeter.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.scrollbar.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.filelist.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.hotkey.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.loadindicator.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.stripeloadindicator.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.flashmessage.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.inputpreset.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.layout.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.sidepaneltab.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.simplelist.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.sortable.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.inspector.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.dropdown.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.changemonitor.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.chartutils.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.chartpie.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.chartbar.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.chartline.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.balloonselector.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.rowlink.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.treelist.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.autocomplete.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.callout.js') ?>"></script>
-<script src="<?= URL::asset('modules/backend/assets/js/october.sidenav-tree.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.controls.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.utils.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.triggerapi.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.dragscroll.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.toolbar.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.verticalmenu.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.navbar.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.sidenav.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.tab.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.popover.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.popup.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.goalmeter.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.scrollbar.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.filelist.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.hotkey.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.loadindicator.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.stripeloadindicator.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.flashmessage.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.inputpreset.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.layout.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.sidepaneltab.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.simplelist.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.sortable.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.inspector.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.dropdown.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.changemonitor.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.chartutils.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.chartpie.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.chartbar.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.chartline.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.balloonselector.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.rowlink.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.treelist.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.autocomplete.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.callout.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october.sidenav-tree.js') ?>"></script>
 
 <script>
 <!--

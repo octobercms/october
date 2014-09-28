@@ -127,7 +127,7 @@ class Controller extends Extendable
          * Define layout and view paths
          */
         $this->layout = 'default';
-        $this->layoutPath = ['modules/backend/layouts'];
+        $this->layoutPath = Skin::getActive()->getLayoutPaths();
 
         // Option A: (@todo Determine which is faster by benchmark)
         // $relativePath = strtolower(str_replace('\\', '/', get_called_class()));

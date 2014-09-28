@@ -1,4 +1,4 @@
-<?php namespace October\Test\Components;
+<?php namespace October\Tester\Components;
 
 use Cms\Classes\ComponentBase;
 

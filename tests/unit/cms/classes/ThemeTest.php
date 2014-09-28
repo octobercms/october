@@ -43,7 +43,7 @@ class ThemeTest extends TestCase
         $pages = $theme->listPages();
         $this->assertInternalType('array', $pages);
 
-        $expectedPageNum = $this->countThemePages(base_path().'/tests/fixtures/Cms/themes/test/pages');
+        $expectedPageNum = $this->countThemePages(base_path().'/tests/fixtures/cms/themes/test/pages');
         $this->assertEquals($expectedPageNum, count($pages));
 
         $this->assertInstanceOf('\Cms\Classes\Page', $pages[0]);

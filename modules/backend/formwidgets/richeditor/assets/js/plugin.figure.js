@@ -77,8 +77,8 @@
 
         showToolbar: function (event) {
             var $figure = $(event.currentTarget),
-                $toolbar = this.getToolbar(type).data('figure', $figure).prependTo($figure),
-                type = $figure.data('type') || 'default'
+                type = $figure.data('type') || 'default',
+                $toolbar = this.getToolbar(type).data('figure', $figure).prependTo($figure)
 
             if (this.redactor[type] && this.redactor[type].onShow) {
                 this.redactor[type].onShow($figure, $toolbar)
@@ -86,7 +86,7 @@
         },
 
         hideToolbar: function (event) {
-            $(event.currentTarget).find('.wy-figure-controls').appendTo(this.redactor.$box)
+            $(event.currentTarget).find('.oc-figure-controls').appendTo(this.redactor.$box)
         },
 
         observeToolbars: function () {
@@ -94,12 +94,12 @@
             /*
              * Before clicking a command, make sure we save the current node within the editor
              */
-            this.redactor.$editor.on('mousedown', '.wy-figure-controls', $.proxy(function () {
+            this.redactor.$editor.on('mousedown', '.oc-figure-controls', $.proxy(function () {
                 event.preventDefault()
                 this.current = this.redactor.getCurrent()
             }, this))
 
-            this.redactor.$editor.on('click', '.wy-figure-controls span, .wy-figure-controls a', $.proxy(function (event) {
+            this.redactor.$editor.on('click', '.oc-figure-controls span, .oc-figure-controls a', $.proxy(function (event) {
                 event.stopPropagation()
                 var $target = $(event.currentTarget),
                     command = $target.data('command'),
@@ -122,7 +122,7 @@
                  * If $editor is focused, click doesn't seem to fire
                  */
                 this.redactor.$editor.on('touchstart', 'figure', function (event) {
-                    if (event.target.nodeName !== 'FIGCAPTION' && $(event.target).parents('.wy-figure-controls').length) {
+                    if (event.target.nodeName !== 'FIGCAPTION' && $(event.target).parents('.oc-figure-controls').length) {
                         $(this).trigger('click', event)
                     }
                 })
@@ -153,15 +153,13 @@
         },
 
         getToolbar: function (type) {
-
-            if (this.toolbar[type]) {
+            if (this.toolbar[type])
                 return this.toolbar[type]
-            }
 
             var controlGroup  = (this.redactor[type] && this.redactor[type].controlGroup) || this.controlGroup,
                 controls      = $.extend({}, this.control, (this.redactor[type] && this.redactor[type].control) || {}),
                 $controls     = this.buildControls(controlGroup, controls),
-                $toolbar      = $('<div class="wy-figure-controls">').append($controls)
+                $toolbar      = $('<div class="oc-figure-controls">').append($controls)
 
             this.toolbar[type] = $toolbar
 
@@ -183,7 +181,7 @@
                     control = controls[command]
 
                     $controls = $controls.add($('<span>', {
-                        'class': 'wy-figure-controls-' + control.classSuffix,
+                        'class': 'oc-figure-controls-' + control.classSuffix,
                         'text': control.text
                     }).data({
                         command: command,
@@ -196,31 +194,38 @@
                 else if (typeof command === 'object') {
                     $.each(command, $.proxy(function (text, commands) {
 
-                        var dropdown = $('<span>').text(' ' + text).addClass('wy-figure-controls-table wy-dropdown')
+                        var $button = $('<span>').text(' ' + text).addClass('oc-figure-controls-table dropdown'),
+                            $dropdown = $('<ul class="dropdown-menu open oc-dropdown-menu" />'),
+                            container = $('<li class="dropdown-container" />'),
+                            list = $('<ul />'),
+                            listItem
 
-                        $('<span class="caret">').appendTo(dropdown)
+                        $dropdown.append(container.append(list))
+                        $button.append($dropdown)
 
-                        var list = $('<dl class="wy-dropdown-menu wy-dropdown-bubble wy-dropdown-arrow wy-dropdown-arrow-left">').appendTo(dropdown)
-
-                        dropdown.on('mouseover', function () { list.show() })
-                        dropdown.on('mouseout', function () { list.hide() })
+                        $button.on('mouseover', function () { $dropdown.show() })
+                        $button.on('mouseout', function () { $dropdown.hide() })
 
                         $.each(commands, $.proxy(function (index, command) {
                             control = controls[command]
                             if (command === '|') {
-                                $('<dd class="divider">').appendTo(list)
+                                $('<li class="divider" />').appendTo(list)
                             }
                             else {
-                                $('<a>', {
+                                listItem = $('<li />')
+                                $('<a />', {
                                     text: control.text
                                 }).data({
                                     command: command,
                                     control: control
-                                }).appendTo($('<dd>').appendTo(list))
+                                }).appendTo(listItem)
+
+                                if (index == 0) listItem.addClass('first-item')
+                                listItem.appendTo(list)
                             }
                         }, this))
 
-                        $controls = $controls.add(dropdown)
+                        $controls = $controls.add($button)
 
                     }, this))
                 }
@@ -234,7 +239,7 @@
             /*
              * Move the toolbar before carrying out the command so it doesn't break when undoing/redoing
              */
-            $figure.find('.wy-figure-controls').appendTo(this.redactor.$box)
+            $figure.find('.oc-figure-controls').appendTo(this.redactor.$box)
 
             /*
              * Maintain undo history
