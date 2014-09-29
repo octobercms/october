@@ -1,7 +1,7 @@
 /*
  * Sortable plugin, a forked version of johnny's sortable plugin. 
  *
- * Forked from: https://github.com/johnny/jquery-sortable/tree/271cd2c742439842000e6f92d4dae96bb8dcd595
+ * Forked from: https://github.com/johnny/jquery-sortable/tree/1563f32858cfe250051ad0a573425569c49d631f
  *
  * Note: Consider using october.simplelist.js with "is-sortable" class.
  * 
