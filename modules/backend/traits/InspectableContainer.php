@@ -24,19 +24,7 @@ trait InspectableContainer
         if (!$className)
             throw new ApplicationException('The inspectable class name is not specified.');
 
-        $classes = class_parents($className);
-        array_unshift($classes, $className);
-
-        $traitFound = false;
-        foreach ($classes as $class) {
-            $traits = class_uses($class);
-
-            if (in_array('System\Traits\PropertyContainer', $traits)) {
-                $traitFound = true;
-                break;
-            }
-        }
-
+        $traitFound = in_array('System\Traits\PropertyContainer', class_uses_recursive($className));
         if (!$traitFound)
             throw new ApplicationException('The options cannot be loaded for the specified class.');
 
