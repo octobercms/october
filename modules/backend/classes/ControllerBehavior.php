@@ -14,10 +14,10 @@ use System\Traits\ViewMaker;
  */
 class ControllerBehavior extends ExtensionBase
 {
+    use \Backend\Traits\WidgetMaker;
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
-    use \Backend\Traits\WidgetMaker;
-    use \Backend\Traits\ViewMaker {
+    use \System\Traits\ViewMaker {
         ViewMaker::makeFileContents as localMakeFileContents;
     }
 

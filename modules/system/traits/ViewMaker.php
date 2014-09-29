@@ -16,8 +16,6 @@ use System\Classes\SystemException;
 
 trait ViewMaker
 {
-    use \System\Traits\PathMaker;
-
     /**
      * @var array A list of variables to pass to the page.
      */
@@ -52,7 +50,7 @@ trait ViewMaker
      */
     public function makePartial($partial, $params = [], $throwException = true)
     {
-        if (!$this->isPathSymbol($partial) && realpath($partial) === false)
+        if (!File::isPathSymbol($partial) && realpath($partial) === false)
             $partial = '_' . strtolower($partial) . '.htm';
 
         $partialPath = $this->getViewPath($partial);
@@ -153,7 +151,7 @@ trait ViewMaker
         if (!$viewPath)
             $viewPath = $this->viewPath;
 
-        $fileName = $this->makePath($fileName, $fileName);
+        $fileName = File::symbolizePath($fileName, $fileName);
 
         if (substr($fileName, 0, 1) == '/' || realpath($fileName) !== false)
             return $fileName;
