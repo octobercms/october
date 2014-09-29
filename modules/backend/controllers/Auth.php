@@ -13,7 +13,7 @@ use System\Classes\VersionManager;
 use System\Classes\ApplicationException;
 use October\Rain\Support\ValidationException;
 use Exception;
-
+use Event;
 /**
  * Authentication controller
  *
@@ -44,6 +44,7 @@ class Auth extends Controller
      */
     public function signin()
     {
+        Event::fire('backend.admin.signinform', [$this]);
         $this->bodyClass = 'signin';
 
         try {
