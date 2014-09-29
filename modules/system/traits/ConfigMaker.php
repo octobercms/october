@@ -122,7 +122,7 @@ trait ConfigMaker
 
         $fileName = File::symbolizePath($fileName, $fileName);
 
-        if (substr($fileName, 0, 1) == '/' || realpath($fileName) !== false)
+        if (File::isLocalPath($fileName) || realpath($fileName) !== false)
             return $fileName;
 
         if (!is_array($configPath))

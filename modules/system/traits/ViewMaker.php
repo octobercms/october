@@ -129,7 +129,7 @@ trait ViewMaker
      */
     public function makeLayoutPartial($partial, $params = [])
     {
-        if (!in_array(substr($partial, 0, 1), ['/', '@']))
+        if (!File::isLocalPath($partial) && !File::isPathSymbol($partial))
             $partial = '_' . strtolower($partial);
 
         return $this->makeLayout($partial, $params);
@@ -153,7 +153,7 @@ trait ViewMaker
 
         $fileName = File::symbolizePath($fileName, $fileName);
 
-        if (substr($fileName, 0, 1) == '/' || realpath($fileName) !== false)
+        if (File::isLocalPath($fileName) || realpath($fileName) !== false)
             return $fileName;
 
         if (!is_array($viewPath))
