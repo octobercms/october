@@ -2,6 +2,7 @@
   - Added new `hint` form field type (see Backend > Forms docs).
   - Added new `containerAttributes` property to form fields (see Backend > Forms docs).
   - Field attributes have had an API change `$field->attributes` should now be `$field->getAttributes()`.
+  - Added scheduled console commands (see Help > Console docs).
 
 * **Build 145** (2014-09-13)
   - Standard setting pages now have **Save** and **Save and Close** buttons.
