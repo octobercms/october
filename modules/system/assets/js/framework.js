@@ -215,10 +215,7 @@ if (window.jQuery === undefined)
                             $(window).trigger(_event, [fieldElement, fieldName, fieldMessages, isFirstInvalidField])
 
                             if (isFirstInvalidField) {
-                                if (!_event.isDefaultPrevented()) {
-                                    // Bug in Chrome, calling events too early
-                                    setTimeout(function(){ fieldElement.focus() }, 1)
-                                }
+                                if (!_event.isDefaultPrevented()) fieldElement.focus()
                                 isFirstInvalidField = false
                             }
                         }
