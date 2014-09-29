@@ -31,7 +31,6 @@
 +function ($) { "use strict";
 
     var eventNames,
-        isTouch = 'ontouchstart' in window,
         cursorAdjustment,
         containerDefaults = {
             drag:     true,  // Items can be dragged from this container
@@ -174,23 +173,13 @@
             top: 0,
             bottom: 0,
             right: 0
-        }
-
-    if (isTouch) {
+        },
         eventNames = {
-            start: "touchstart",
-            drop: "touchend",
-            drag: "touchmove",
+            start: "touchstart.sortable mousedown.sortable",
+            drop: "touchend.sortable touchcancel.sortable mouseup.sortable",
+            drag: "touchmove.sortable mousemove.sortable",
             scroll: "scroll.sortable"
         }
-    } else {
-        eventNames = {
-            start: "mousedown.sortable",
-            drop: "mouseup.sortable",
-            drag: "mousemove.sortable",
-            scroll: "scroll.sortable"
-        }
-    }
 
     /*
      * a is Array [left, right, top, bottom]
@@ -316,8 +305,8 @@
                                 groupDefaults.onDrag,
                                 e)
 
-            var x = (isTouch) ? e.originalEvent.touches[0].pageX : e.pageX,
-                y = (isTouch) ? e.originalEvent.touches[0].pageY : e.pageY,
+            var x = e.pageX || e.originalEvent.pageX,
+                y = e.pageY || e.originalEvent.pageY,
                 box = this.sameResultBox,
                 t = this.options.tolerance
 
@@ -417,17 +406,7 @@
             return this.offsetParent
         },
         setPointer: function (e) {
-            if (isTouch) {
-                var pointer = {
-                    left: e.originalEvent.touches[0].pageX,
-                    top: e.originalEvent.touches[0].pageY
-                }
-            } else {
-                var pointer = {
-                    left: e.pageX,
-                    top: e.pageY
-                }
-            }
+            var pointer = this.getPointer(e)
 
             if (this.$getOffsetParent()) {
                 var relativePointer = getRelativePosition(pointer, this.$getOffsetParent())
@@ -439,17 +418,16 @@
             this.pointer = pointer
         },
         distanceMet: function (e) {
-            if (isTouch) {
-                return (Math.max(
-                        Math.abs(this.pointer.left - e.originalEvent.touches[0].pageX),
-                        Math.abs(this.pointer.top - e.originalEvent.touches[0].pageY)
-                    ) >= this.options.distance)
-
-            } else {
-                return (Math.max(
-                        Math.abs(this.pointer.left - e.pageX),
-                        Math.abs(this.pointer.top - e.pageY)
-                    ) >= this.options.distance)
+            var currentPointer = this.getPointer(e)
+            return (Math.max(
+                Math.abs(this.pointer.left - currentPointer.left),
+                Math.abs(this.pointer.top - currentPointer.top)
+            ) >= this.options.distance)
+        },
+        getPointer: function(e) {
+            return {
+                left: e.pageX || e.originalEvent.pageX,
+                top: e.pageY || e.originalEvent.pageY
             }
         },
         setupDelayTimer: function () {
