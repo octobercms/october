@@ -1,4 +1,4 @@
-<?php namespace Backend\Traits;
+<?php namespace System\Traits;
 
 use Str;
 use File;

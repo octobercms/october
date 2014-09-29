@@ -4,7 +4,7 @@ use Str;
 use Lang;
 use System\Classes\ApplicationException;
 use October\Rain\Extension\ExtensionBase;
-use Backend\Traits\ViewMaker;
+use System\Traits\ViewMaker;
 
 /**
  * Controller Behavior base class

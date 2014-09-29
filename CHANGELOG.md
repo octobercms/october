@@ -1,3 +1,6 @@
+* **Build 15x** (2014-09-xx)
+  - Moved `ViewMaker` trait to live under system, it can be useful for Models too.
+
 * **Build 149** (2014-09-29)
   - Added new `hint` form field type (see Backend > Forms docs).
   - Added new `containerAttributes` property to form fields (see Backend > Forms docs).

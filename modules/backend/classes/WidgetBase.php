@@ -16,7 +16,7 @@ abstract class WidgetBase
 
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
-    use \Backend\Traits\ViewMaker;
+    use \System\Traits\ViewMaker;
     use \Backend\Traits\WidgetMaker;
     use \October\Rain\Support\Traits\Emitter;
 
