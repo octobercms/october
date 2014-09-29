@@ -120,7 +120,7 @@ trait ConfigMaker
         if (!$configPath)
             $configPath = $this->configPath;
 
-        $fileName = str_replace('@', PATH_BASE, $fileName);
+        $fileName = File::symbolizePath($fileName, $fileName);
 
         if (substr($fileName, 0, 1) == '/' || realpath($fileName) !== false)
             return $fileName;
