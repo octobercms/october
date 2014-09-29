@@ -1,6 +1,5 @@
 <?php namespace System\Traits;
 
-use Str;
 use File;
 use Lang;
 use Event;
@@ -156,7 +155,7 @@ trait ConfigMaker
      */
     public function guessConfigPathFrom($class, $suffix = '')
     {
-        $classFolder = strtolower(Str::getRealClass($class));
+        $classFolder = strtolower(class_basename($class));
         $classFile = realpath(dirname(File::fromClass($class)));
         $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
         return $guessedPath;

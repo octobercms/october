@@ -1,6 +1,5 @@
 <?php namespace System\Controllers;
 
-use Str;
 use Lang;
 use Flash;
 use Backend;
@@ -125,7 +124,7 @@ class Settings extends Controller
     {
         $config = $model->getFieldConfig();
         $config->model = $model;
-        $config->arrayName = Str::getRealClass($model);
+        $config->arrayName = class_basename($model);
         $config->context = 'update';
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);

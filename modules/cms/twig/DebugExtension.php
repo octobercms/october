@@ -1,6 +1,5 @@
 <?php namespace Cms\Twig;
 
-use Str;
 use Twig_Extension;
 use Twig_Environment;
 use Twig_SimpleFunction;
@@ -243,7 +242,7 @@ class DebugExtension extends Twig_Extension
     protected function evalObjLabel($variable)
     {
         $class = get_class($variable);
-        $label = Str::getRealClass($variable);
+        $label = class_basename($variable);
 
         if ($variable instanceof ComponentBase)
             $label = '<strong>Component</strong>';

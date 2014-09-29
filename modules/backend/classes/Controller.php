@@ -1,7 +1,6 @@
 <?php namespace Backend\Classes;
 
 use App;
-use Str;
 use Log;
 use Lang;
 use View;
@@ -459,7 +458,7 @@ class Controller extends Extendable
      */
     public function getId($suffix = null)
     {
-        $id = Str::getRealClass(get_called_class()) . '-' . $this->action;
+        $id = class_basename(get_called_class()) . '-' . $this->action;
         if ($suffix !== null)
             $id .= '-' . $suffix;
 
