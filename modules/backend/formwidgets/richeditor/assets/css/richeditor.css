@@ -55,13 +55,13 @@
   z-index: auto !important;
 }
 .redactor_box_fullscreen {
-  z-index: 1060 !important;
+  z-index: 300 !important;
   width: 100%!important;
 }
 #redactor_modal_overlay,
 #redactor_modal,
 .redactor_dropdown {
-  z-index: 1062 !important;
+  z-index: 302 !important;
 }
 body .redactor_air {
   position: absolute;
@@ -260,7 +260,7 @@ body .redactor_box_fullscreen .redactor_editor {
   line-height: 1 !important;
   border: none;
   background: #dddddd;
-  z-index: 1061;
+  z-index: 301;
 }
 .redactor_toolbar:after {
   content: "";
@@ -1033,7 +1033,7 @@ body .redactor_air .redactor_toolbar {
   font-family: 'Open Sans', Arial, sans-serif;
   line-height: 20px;
   font-style: normal;
-  z-index: 1560;
+  z-index: 800;
   text-align: center;
 }
 .redactor_box .oc-figure-controls span {

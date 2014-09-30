@@ -22,7 +22,6 @@ use System\Models\RequestLog;
 use System\Classes\ErrorHandler;
 use System\Classes\ApplicationException;
 use System\Twig\Extension as SystemTwigExtension;
-use October\Rain\Support\Markdown;
 use October\Rain\Support\ValidationException;
 use Illuminate\Http\RedirectResponse;
 
@@ -727,11 +726,7 @@ class Controller extends BaseController
         elseif (($content = Content::loadCached($this->theme, $name)) === null)
             throw new CmsException(Lang::get('cms::lang.content.not_found', ['name'=>$name]));
 
-        $filePath = $content->getFullPath();
-        $fileContent = $content->markup;
-
-        if (strtolower(File::extension($filePath)) == 'md')
-            $fileContent = Markdown::parse($fileContent);
+        $fileContent = $content->parsedMarkup;
 
         /*
          * Extensibility
