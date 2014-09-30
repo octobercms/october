@@ -1,6 +1,5 @@
 <?php namespace Backend\Classes;
 
-use Str;
 use File;
 use Config;
 use October\Rain\Router\Helper as RouterHelper;
@@ -55,7 +54,7 @@ abstract class Skin
          * Guess the skin path
          */
         $class = get_called_class();
-        $classFolder = strtolower(Str::getRealClass($class));
+        $classFolder = strtolower(class_basename($class));
         $classFile = realpath(dirname(File::fromClass($class)));
         $this->skinPath = $classFile
             ? $classFile . '/' . $classFolder

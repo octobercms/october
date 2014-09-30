@@ -21,6 +21,7 @@ return array(
     | Specify which modules should be registered when using the application.
     |
     */
+
     'loadModules' => ['System', 'Backend', 'Cms'],
 
     /*
@@ -31,6 +32,7 @@ return array(
     | Specify plugin codes which will always be disabled in the application.
     |
     */
+
     'disablePlugins' => [],
 
     /*

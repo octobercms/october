@@ -4,7 +4,7 @@ use Str;
 use Lang;
 use System\Classes\ApplicationException;
 use October\Rain\Extension\ExtensionBase;
-use Backend\Traits\ViewMaker;
+use System\Traits\ViewMaker;
 
 /**
  * Controller Behavior base class
@@ -14,10 +14,10 @@ use Backend\Traits\ViewMaker;
  */
 class ControllerBehavior extends ExtensionBase
 {
+    use \Backend\Traits\WidgetMaker;
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
-    use \Backend\Traits\WidgetMaker;
-    use \Backend\Traits\ViewMaker {
+    use \System\Traits\ViewMaker {
         ViewMaker::makeFileContents as localMakeFileContents;
     }
 

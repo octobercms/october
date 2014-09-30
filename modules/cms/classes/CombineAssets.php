@@ -23,8 +23,6 @@ use Assetic\Cache\FilesystemCache;
  */
 class CombineAssets
 {
-    use \System\Traits\PathMaker;
-
     /**
      * @var Self Instance for multi cycle execution.
      */
@@ -376,7 +374,7 @@ class CombineAssets
         $filesSalt = null;
         foreach ($assets as $asset) {
             $filters = $this->getFilters(File::extension($asset));
-            $path = $this->makePath($asset) ?: $this->path . $asset;
+            $path = File::symbolizePath($asset) ?: $this->path . $asset;
             $files[] = new FileAsset($path, $filters, public_path());
             $filesSalt .= $this->path . $asset;
         }

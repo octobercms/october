@@ -50,7 +50,7 @@ class ServiceProvider extends ModuleServiceProvider
         if (!defined('PATH_BASE')) define('PATH_BASE', base_path());
         if (!defined('PATH_PUBLIC')) define('PATH_PUBLIC', public_path());
         if (!defined('PATH_STORAGE')) define('PATH_STORAGE', storage_path());
-        if (!defined('PATH_PLUGINS')) define('PATH_PLUGINS', base_path() . Config::get('cms.pluginsDir'));
+        if (!defined('PATH_PLUGINS')) define('PATH_PLUGINS', base_path() . Config::get('cms.pluginsDir', '/plugins'));
 
         /*
          * Register singletons

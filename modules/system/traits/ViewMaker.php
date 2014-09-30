@@ -1,6 +1,5 @@
-<?php namespace Backend\Traits;
+<?php namespace System\Traits;
 
-use Str;
 use File;
 use Lang;
 use Block;
@@ -16,8 +15,6 @@ use System\Classes\SystemException;
 
 trait ViewMaker
 {
-    use \System\Traits\PathMaker;
-
     /**
      * @var array A list of variables to pass to the page.
      */
@@ -52,7 +49,7 @@ trait ViewMaker
      */
     public function makePartial($partial, $params = [], $throwException = true)
     {
-        if (!$this->isPathSymbol($partial) && realpath($partial) === false)
+        if (!File::isPathSymbol($partial) && realpath($partial) === false)
             $partial = '_' . strtolower($partial) . '.htm';
 
         $partialPath = $this->getViewPath($partial);
@@ -131,7 +128,7 @@ trait ViewMaker
      */
     public function makeLayoutPartial($partial, $params = [])
     {
-        if (!in_array(substr($partial, 0, 1), ['/', '@']))
+        if (!File::isLocalPath($partial) && !File::isPathSymbol($partial))
             $partial = '_' . strtolower($partial);
 
         return $this->makeLayout($partial, $params);
@@ -153,9 +150,9 @@ trait ViewMaker
         if (!$viewPath)
             $viewPath = $this->viewPath;
 
-        $fileName = $this->makePath($fileName, $fileName);
+        $fileName = File::symbolizePath($fileName, $fileName);
 
-        if (substr($fileName, 0, 1) == '/' || realpath($fileName) !== false)
+        if (File::isLocalPath($fileName) || realpath($fileName) !== false)
             return $fileName;
 
         if (!is_array($viewPath))
@@ -214,7 +211,7 @@ trait ViewMaker
      */
     public function guessViewPathFrom($class, $suffix = '', $isPublic = false)
     {
-        $classFolder = strtolower(Str::getRealClass($class));
+        $classFolder = strtolower(class_basename($class));
         $classFile = realpath(dirname(File::fromClass($class)));
         $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
         return ($isPublic) ? File::localToPublic($guessedPath) : $guessedPath;

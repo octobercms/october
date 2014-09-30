@@ -433,7 +433,9 @@
     /*
      * Detect invalid fields, focus the tab
      */
-    $(window).on('ajaxInvalidField', function(ev, element, name){
+    $(window).on('ajaxInvalidField', function(event, element, name, messages, isFirst){
+        if (!isFirst) return
+        event.preventDefault()
         element.closest('[data-control=tab]').ocTab('goToElement', element)
         element.focus()
     })

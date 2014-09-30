@@ -51,9 +51,14 @@
             formatSelection: formatSelectOption,
             escapeMarkup: function(m) { return m; }
         })
-
-        $(document).on('disable', 'select.custom-select', function(event, status){
-            $(this).select2('enable', !status)
-        })
     })
+
+    $(document).on('disable', 'select.custom-select', function(event, status){
+        $(this).select2('enable', !status)
+    })
+
+    $(document).on('focus', 'select.custom-select', function(event){
+        setTimeout($.proxy(function() { $(this).select2('focus') }, this), 10)
+    })
+
 })(jQuery);

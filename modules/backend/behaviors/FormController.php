@@ -76,7 +76,7 @@ class FormController extends ControllerBehavior
 
         $config = $this->makeConfig($this->config->form);
         $config->model = $model;
-        $config->arrayName = Str::getRealClass($model);
+        $config->arrayName = class_basename($model);
         $config->context = $context;
 
         /*

@@ -1,7 +1,6 @@
 <?php namespace Backend\Behaviors;
 
 use DB;
-use Str;
 use Lang;
 use Event;
 use Form as FormHelper;
@@ -400,7 +399,7 @@ class RelationController extends ControllerBehavior
      */
     public function relationGetId($suffix = null)
     {
-        $id = Str::getRealClass($this);
+        $id = class_basename($this);
         if ($this->field)
             $id .= '-' . $this->field;
 
@@ -673,7 +672,7 @@ class RelationController extends ControllerBehavior
         elseif ($this->viewMode == 'single') {
             $config = $this->makeConfig($this->config->form);
             $config->model = $this->relationModel;
-            $config->arrayName = Str::getRealClass($this->relationModel);
+            $config->arrayName = class_basename($this->relationModel);
             $config->context = 'relation';
             $config->alias = $this->alias . 'ViewForm';
 
@@ -732,7 +731,7 @@ class RelationController extends ControllerBehavior
         elseif ($this->manageMode == 'form' && isset($this->config->form)) {
             $config = $this->makeConfig($this->config->form);
             $config->model = $this->relationModel;
-            $config->arrayName = Str::getRealClass($this->relationModel);
+            $config->arrayName = class_basename($this->relationModel);
             $config->context = 'relation';
             $config->alias = $this->alias . 'ManageForm';
 
@@ -778,7 +777,7 @@ class RelationController extends ControllerBehavior
     {
         $config = $this->makeConfig($this->config->pivot);
         $config->model = $this->relationModel;
-        $config->arrayName = Str::getRealClass($this->relationModel);
+        $config->arrayName = class_basename($this->relationModel);
         $config->context = 'relation';
         $config->alias = $this->alias . 'ManagePivotForm';
 

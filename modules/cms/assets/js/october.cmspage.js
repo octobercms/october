@@ -57,7 +57,9 @@
         /*
          * Detect invalid fields, uncollapse the panel
          */
-        $(window).on('ajaxInvalidField', function(ev, element, name){
+        $(window).on('ajaxInvalidField', function(ev, element, name, messages, isFirst){
+            if (!isFirst) return
+            event.preventDefault()
 
             var $panel = element.closest('.form-tabless-fields.collapsed'),
                 $primaryPanel = element.closest('.control-tabs.primary.collapsed')

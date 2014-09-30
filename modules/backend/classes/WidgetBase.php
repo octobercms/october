@@ -16,7 +16,7 @@ abstract class WidgetBase
 
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
-    use \Backend\Traits\ViewMaker;
+    use \System\Traits\ViewMaker;
     use \Backend\Traits\WidgetMaker;
     use \October\Rain\Support\Traits\Emitter;
 
@@ -123,7 +123,7 @@ abstract class WidgetBase
      */
     public function getId($suffix = null)
     {
-        $id = Str::getRealClass(get_called_class());
+        $id = class_basename(get_called_class());
 
         if ($this->alias != $this->defaultAlias)
             $id .= '-' . $this->alias;
