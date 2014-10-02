@@ -1,6 +1,7 @@
 <?php namespace Cms;
 
 use Lang;
+use Event;
 use Backend;
 use BackendMenu;
 use BackendAuth;
@@ -8,6 +9,7 @@ use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use System\Classes\SettingsManager;
 use Cms\Classes\ComponentManager;
+use Cms\Classes\Page as CmsPage;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -134,6 +136,22 @@ class ServiceProvider extends ModuleServiceProvider
     public function boot()
     {
         parent::boot('cms');
+
+        Event::listen('pages.menuitem.listTypes', function() {
+            return [
+                'cms-page'=>'CMS Page '
+            ];
+        });
+
+        Event::listen('pages.menuitem.getTypeInfo', function($type) {
+            if ($type == 'cms-page')
+                return CmsPage::getMenuTypeInfo($type);
+        });
+
+        Event::listen('pages.menuitem.resolveItem', function($type, $item, $url, $theme) {
+            if ($type == 'cms-page')
+                return CmsPage::resolveMenuItem($item, $url, $theme);
+        });
     }
 
 }
