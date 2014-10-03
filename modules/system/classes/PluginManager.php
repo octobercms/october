@@ -446,4 +446,17 @@ class PluginManager
         return true;
     }
 
+    /**
+     * Check if a plugin exists and is enabled.
+     * @param   string $id Plugin identifier, eg: Namespace.PluginName
+     * @return  boolean
+     */
+    public static function pluginExists($id)
+    {
+        $instance = static::instance();
+        return (!$instance->findByIdentifier($id) || $instance->isDisabled($id))
+            ? false
+            : true;
+    }
+
 }
