@@ -1,0 +1,32 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    logo:
+        label: Logo
+        type: fileupload
+        commentAbove: Upload a custom logo to use in the back-end.
+        mode: image
+        imageHeight: 170
+        imageWidth: 170
+
+    app_name:
+        label: App Name
+        commentAbove: This name is shown in the title area of the back-end.
+
+    app_motto:
+        label: App Motto
+        commentAbove: This name is shown on the sign in screen for the back-end.
+
+    primary_color:
+        label: Primary color
+        type: colorpicker
+        span: auto
+
+    secondary_color:
+        label: Secondary color
+        type: colorpicker
+        span: auto
+

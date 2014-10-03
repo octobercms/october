@@ -26,7 +26,7 @@
             <div class="layout">
                 <div class="layout-row min-size layout-head">
                     <div class="layout-cell">
-                        <h1><?= e(trans('system::lang.app.name')) ?></h1>
+                        <h1 class="oc-logo-white"><?= e(trans('system::lang.app.name')) ?></h1>
                     </div>
                 </div>
                 <div class="layout-row">
@@ -41,6 +41,15 @@
 
             </div>
         </div><!-- /layout-canvas -->
+
+        <?php if ($logo = \Backend\Models\BackendSettings::getLogo()): ?>
+            <style>
+                .oc-logo-white {
+                    background-image: url(<?= $logo ?>);
+                    height: 170px !important;
+                }
+            </style>
+        <?php endif ?>
     </body>
 </html>
 

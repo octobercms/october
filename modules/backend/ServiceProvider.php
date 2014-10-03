@@ -37,14 +37,17 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'File uploader',
                 'alias' => 'fileupload'
             ]);
-
             $manager->registerFormWidget('Backend\FormWidgets\Relation', [
                 'label' => 'Relationship',
                 'alias' => 'relation'
             ]);
-            $manager->registerFormWidget('Backend\FormWidgets\Datepicker', [
+            $manager->registerFormWidget('Backend\FormWidgets\DatePicker', [
                 'label' => 'Date picker',
                 'alias' => 'datepicker'
+            ]);
+            $manager->registerFormWidget('Backend\FormWidgets\ColorPicker', [
+                'label' => 'Color picker',
+                'alias' => 'colorpicker'
             ]);
             $manager->registerFormWidget('Backend\FormWidgets\DataGrid', [
                 'label' => 'Data Grid',
@@ -76,6 +79,14 @@ class ServiceProvider extends ModuleServiceProvider
          */
         SettingsManager::instance()->registerCallback(function($manager){
             $manager->registerSettingItems('October.Backend', [
+                'backend_settings' => [
+                    'label'       => 'backend::lang.backend_settings.menu_label',
+                    'description' => 'backend::lang.backend_settings.menu_description',
+                    'category'    => SettingsManager::CATEGORY_SYSTEM,
+                    'icon'        => 'icon-paint-brush',
+                    'class'       => 'Backend\Models\BackendSettings',
+                    'order'       => 500,
+                ],
                 'editor' => [
                     'label'       => 'backend::lang.editor.menu_label',
                     'description' => 'backend::lang.editor.menu_description',

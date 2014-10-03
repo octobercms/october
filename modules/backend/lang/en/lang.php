@@ -14,7 +14,7 @@ return [
         'access_denied' => [
             'label' => "Access denied",
             'help' => "You don't have the required permissions to view this page.",
-            'cms_link' => "Return to the backend",
+            'cms_link' => "Return to the back-end",
         ],
     ],
     'partial' => [
@@ -207,7 +207,7 @@ return [
     ],
     'editor' => [
         'menu_label' => 'Code Editor Preferences',
-        'menu_description' => 'Customize the code editor preferences, such as font size and color scheme.',
+        'menu_description' => 'Customize your code editor preferences, such as font size and color scheme.',
         'font_size' => 'Font size',
         'tab_size' => 'Tab size',
         'use_hard_tabs' => 'Indent using tabs',
@@ -230,9 +230,13 @@ return [
         'menu_description' => 'Update your account details such as name, email address and password.',
         'menu_keywords' => 'security login'
     ],
+    'backend_settings' => [
+        'menu_label' => 'Backend Settings',
+        'menu_description' => 'Customize the back-end area such as name, colors and logo.',
+    ],
     'backend_preferences' => [
         'menu_label' => 'Backend Preferences',
-        'menu_description' => 'Manage language preference and the appearance of the backend.',
+        'menu_description' => 'Manage your account preferences such as desired language.',
         'locale' => 'Language',
         'locale_comment' => 'Select your desired locale for language use.',
     ],

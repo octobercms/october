@@ -8451,16 +8451,16 @@ body.outer .layout > .layout-row.layout-head > .layout-cell {
   box-sizing: border-box;
   vertical-align: middle;
 }
-body.outer .layout > .layout-row.layout-head > .layout-cell h1 {
+body.outer .layout > .layout-row.layout-head > .layout-cell h1.oc-logo-white {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
   border: 0;
   display: inline-block;
-  background: transparent url(../images/october-logo-text.png) no-repeat left top;
-  width: 404px;
-  height: 65px;
+  width: 100%;
+  max-width: 410px;
+  height: 72px;
 }
 body.outer .layout > .layout-row > .layout-cell {
   vertical-align: middle;
@@ -11137,6 +11137,12 @@ html.cssanimations .cursor-loading-indicator.hide {
 .tooltip.in {
   opacity: 1;
   filter: alpha(opacity=100);
+}
+.oc-logo-white {
+  background-image: url(../images/october-logo-white.svg);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .oc-bg-logo {
   background-image: url(../images/october-logo-transparent.svg);
