@@ -3,6 +3,12 @@
 use Model;
 use System\Classes\ApplicationException;
 
+/**
+ * Mail layout
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class MailLayout extends Model
 {
     use \October\Rain\Database\Traits\Validation;

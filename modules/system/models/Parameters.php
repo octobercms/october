@@ -6,6 +6,9 @@ use October\Rain\Database\Model;
 /**
  * Parameters model
  * Used for storing internal application parameters.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
  */
 class Parameters extends Model
 {

@@ -5,6 +5,9 @@ use Request;
 
 /**
  * Model for logging access to the back-end
+ *
+ * @package october\backend
+ * @author Alexey Bobkov, Samuel Georges
  */
 class AccessLog extends Model
 {
