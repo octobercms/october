@@ -454,7 +454,7 @@ class PluginManager
     public static function pluginExists($id)
     {
         $pi = static::instance();
-        if (!$pi->findByIdentifier($id) || $pi->isDisabled($id) == 1){
+        if (!$pi->findByIdentifier($id) || $pi->isDisabled($id)){
             return false;
         }
         return true;
