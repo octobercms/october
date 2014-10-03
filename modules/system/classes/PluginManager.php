@@ -445,5 +445,20 @@ class PluginManager
 
         return true;
     }
+    
+    
+    
+     /**
+     * Check if a plugin exists and is enabled
+     * @param plugin ID Namespace.Pluginname
+     */
+    public static function pluginExists($id)
+    {
+        $pi = static::instance();
+        if (!$pi->findByIdentifier($id) || $pi->isDisabled($id)){
+            return false;
+        }
+        return true;
+    }
 
 }
