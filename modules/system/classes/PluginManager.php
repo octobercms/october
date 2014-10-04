@@ -9,6 +9,7 @@ use Config;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use Illuminate\Container\Container;
+use ApplicationException;
 
 /**
  * Plugin manager
@@ -106,34 +107,6 @@ class PluginManager
     }
 
     /**
-     * Cross checks all plugins and their dependancies, if not met plugins
-     * are disabled and vice versa.
-     */
-    protected function loadDependencies()
-    {
-        foreach ($this->plugins as $id => $plugin) {
-
-            if (!isset($plugin->require) || !$plugin->require)
-                continue;
-
-            $required = is_array($plugin->require) ? $plugin->require : [$plugin->require];
-            $disable = false;
-            foreach ($required as $require) {
-                if (!$this->hasPlugin($require))
-                    $disable = true;
-
-                elseif (($pluginObj = $this->findByIdentifier($require)) && $pluginObj->disabled)
-                    $disable = true;
-            }
-
-            if ($disable)
-                $this->disablePlugin($id);
-            else
-                $this->enablePlugin($id);
-        }
-    }
-
-    /**
      * Runs the register() method on all plugins. Can only be called once.
      */
     public function registerAll()
@@ -225,6 +198,18 @@ class PluginManager
             return null;
 
         return $this->pathMap[$classId];
+    }
+
+    /**
+     * Check if a plugin exists and is enabled.
+     * @param   string $id Plugin identifier, eg: Namespace.PluginName
+     * @return  boolean
+     */
+    public function exists($id)
+    {
+        return (!$this->findByIdentifier($id) || $this->isDisabled($id))
+            ? false
+            : true;
     }
 
     /**
@@ -446,17 +431,108 @@ class PluginManager
         return true;
     }
 
+    //
+    // Dependencies
+    //
+    
     /**
-     * Check if a plugin exists and is enabled.
-     * @param   string $id Plugin identifier, eg: Namespace.PluginName
-     * @return  boolean
+     * Cross checks all plugins and their dependancies, if not met plugins
+     * are disabled and vice versa.
      */
-    public static function pluginExists($id)
+    protected function loadDependencies()
     {
-        $instance = static::instance();
-        return (!$instance->findByIdentifier($id) || $instance->isDisabled($id))
-            ? false
-            : true;
+        foreach ($this->plugins as $id => $plugin) {
+            if (!$required = $this->getDependencies($plugin))
+                continue;
+
+            $disable = false;
+            foreach ($required as $require) {
+                if (!$this->hasPlugin($require))
+                    $disable = true;
+
+                elseif (($pluginObj = $this->findByIdentifier($require)) && $pluginObj->disabled)
+                    $disable = true;
+            }
+
+            if ($disable)
+                $this->disablePlugin($id);
+            else
+                $this->enablePlugin($id);
+        }
+    }
+
+    /**
+     * Returns the plugin identifiers that are required by the supplied plugin.
+     * @param  string $plugin Plugin identifier, object or class
+     * @return array
+     */
+    public function getDependencies($plugin)
+    {
+        if (is_string($plugin) && (!$plugin = $this->findByIdentifier($identifer)))
+            return false;
+
+        if (!isset($plugin->require) || !$plugin->require)
+            return null;
+
+        return is_array($plugin->require) ? $plugin->require : [$plugin->require];
+    }
+
+    /**
+     * Sorts a collection of plugins, in the order that they should be actioned,
+     * according to their given dependencies. Least dependent come first.
+     * @param  array $plugins Object collection to sort, or null to sort all.
+     * @return array Collection of sorted plugin identifiers
+     */
+    public function sortByDependencies($plugins = null)
+    {
+        if (!is_array($plugins))
+            $plugins = $this->getPlugins();
+
+        $result = [];
+        $checklist = $plugins;
+
+        $loopCount = 0;
+        while (count($checklist)) {
+
+            if (++$loopCount > 999)
+                throw new ApplicationException('Too much recursion');
+
+            foreach ($checklist as $code => $plugin) {
+
+                /*
+                 * Get dependencies and remove any aliens
+                 */
+                $depends = $this->getDependencies($plugin) ?: [];
+                $depends = array_filter($depends, function($pluginCode) use ($plugins) {
+                    return isset($plugins[$pluginCode]);
+                });
+
+                /*
+                 * No dependencies
+                 */
+                if (!$depends) {
+                    array_push($result, $code);
+                    unset($checklist[$code]);
+                    continue;
+                }
+
+                /*
+                 * Find dependencies that have not been checked
+                 */
+                $depends = array_diff($depends, $result);
+                if (count($depends) > 0)
+                    continue;
+
+                /*
+                 * All dependencies are checked
+                 */
+                array_push($result, $code);
+                unset($checklist[$code]);
+            }
+
+        }
+
+        return $result;
     }
 
 }
