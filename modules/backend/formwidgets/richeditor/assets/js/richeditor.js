@@ -54,7 +54,9 @@
          * Initialize Redactor editor
          */
         var redactorOptions = {
-            observeImages: false,
+            imageEditable: false,
+            imageResizable: false,
+            buttonSource: true,
             focusCallback: function() { self.$el.addClass('editor-focus') },
             blurCallback: function() { self.$el.removeClass('editor-focus') },
             initCallback: function() { self.build() },
@@ -72,10 +74,11 @@
             redactorOptions.fullpage = true
         }
 
-        // redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'image', 'quote', 'table']
-        // redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule', 'html'],
-        redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'quote', 'table']
-        redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'image', 'link', 'horizontalrule', 'html'],
+        redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'image', 'quote', 'table']
+        redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule', 'html'],
+        
+        // redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'quote', 'table']
+        // redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'image', 'link', 'horizontalrule', 'html'],
 
         this.$textarea.redactor(redactorOptions)
     }
@@ -87,9 +90,9 @@
     }
 
     RichEditor.prototype.updateLayout = function() {
-        var $editor = $('.redactor_editor', this.$el),
+        var $editor = $('.redactor-editor', this.$el),
             $codeEditor = $('textarea', this.$el),
-            $toolbar = $('.redactor_toolbar', this.$el)
+            $toolbar = $('.redactor-toolbar', this.$el)
 
         if (!$editor.length)
             return

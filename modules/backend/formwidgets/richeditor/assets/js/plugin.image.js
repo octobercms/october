@@ -114,71 +114,73 @@
         }
     }
 
-    window.RedactorPlugins.image = {
-        init: function () {
-            this.image = new Image(this)
+    window.RedactorPlugins.image = function() {
+        return {
+            init: function () {
+                this.image = new Image(this)
 
-            // This is a work in progress
-            this.buttonAddBefore('video', 'image', 'Image', $.proxy(function () {
+                // This is a work in progress
+
+                var button = this.button.addBefore('video', 'image', 'Image')
+                this.button.addCallback(button, $.proxy(function () {
+
+                    /*
+                     * Maintain undo history
+                     */
+                    this.buffer.set()
+
+                    /*
+                     * Remember the cursor pos
+                     */
+                    var cursor = this.selection.getBlock() || this.selection.getCurrent()
+
+                    /*
+                     * Display the image upload modal
+                     */
+
+                    /*
+                     * Add button
+                     */
+                    var url = 'http://placehold.it/100x100'
+
+                    var data = '<figure data-type="image"><a href="' + url + '"><img src="' + url + '"></a><figcaption></figcaption></figure>'
+
+                    this.selection.restore()
+
+                    if (cursor) {
+                        $(cursor).after(data)
+                    }
+                    else {
+                        this.insertHtmlAdvanced(data, false);
+                    }
+
+                    this.selection.restore()
+                    this.code.sync()
+
+                }, this))
 
                 /*
-                 * Maintain undo history
+                 * Detect resize command, update the image src
                  */
-                this.bufferSet()
+                this.$editor.on('imageCommand', 'figure', function (event, command) {
+                    var size = null
 
-                /*
-                 * Remember the cursor pos
-                 */
-                var cursor = this.getBlock() || this.getCurrent()
+                    if (command == 'small')
+                        size = 300
+                    else if (command == 'medium')
+                        size = 600
+                    else if (command == 'large')
+                        size = 900
+                    else
+                        return
 
-                /*
-                 * Display the image upload modal
-                 */
+                    // @todo
+                    var newUrl, $img = $(this).find('img')
+                    $img.attr('src', newUrl)
+                })
 
-                /*
-                 * Add button
-                 */
-                var url = 'http://placehold.it/100x100'
-
-                var data = '<figure data-type="image"><a href="' + url + '"><img src="' + url + '"></a><figcaption></figcaption></figure>'
-
-                this.selectionRestore()
-
-                if (cursor) {
-                    $(cursor).after(data)
-                }
-                else {
-                    this.insertHtmlAdvanced(data, false);
-                }
-
-                this.selectionRestore()
-                this.sync()
-
-            }, this))
-
-            /*
-             * Detect resize command, update the image src
-             */
-            this.$editor.on('imageCommand', 'figure', function (event, command) {
-                var size = null
-
-                if (command == 'small')
-                    size = 300
-                else if (command == 'medium')
-                    size = 600
-                else if (command == 'large')
-                    size = 900
-                else
-                    return
-
-                // @todo
-                var newUrl, $img = $(this).find('img')
-                $img.attr('src', newUrl)
-            })
-
-            this.buttonGet('image')
-                .addClass('redactor_btn_image')
-                .removeClass('redactor-btn-image')
+                button.addClass('redactor_btn_image').removeClass('redactor-btn-image')
+            }
         }
     }
 

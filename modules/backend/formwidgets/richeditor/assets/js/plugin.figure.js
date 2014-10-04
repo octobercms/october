@@ -32,7 +32,7 @@
              */
             this.redactor.$editor.on('click', 'figcaption:empty, cite:empty', $.proxy(function (event) {
                 $(event.target).prepend('<br />')
-                this.redactor.selectionEnd(event.target)
+                this.redactor.caret.setEnd(event.target)
                 event.stopPropagation()
             }, this))
 
@@ -47,7 +47,7 @@
              * Prevent user from removing captions or citations with delete/backspace keys
              */
             this.redactor.$editor.on('keydown', $.proxy(function (event) {
-                var current       = this.redactor.getCurrent(),
+                var current       = this.redactor.selection.getCurrent(),
                     isEmpty       = !current.length,
                     isCaptionNode = !!$(current).closest('figcaption, cite').length,
                     isDeleteKey   = $.inArray(event.keyCode, [this.redactor.keyCode.BACKSPACE, this.redactor.keyCode.DELETE]) >= 0
@@ -71,14 +71,14 @@
             }).remove()
 
             if (this.redactor.opts.visual) {
-                this.redactor.sync()
+                this.redactor.code.sync()
             }
         },
 
         showToolbar: function (event) {
             var $figure = $(event.currentTarget),
                 type = $figure.data('type') || 'default',
-                $toolbar = this.getToolbar(type).data('figure', $figure).prependTo($figure)
+                $toolbar = this.getToolbar(type).data('figure', $figure).prependTo($figure).show()
 
             if (this.redactor[type] && this.redactor[type].onShow) {
                 this.redactor[type].onShow($figure, $toolbar)
@@ -86,7 +86,7 @@
         },
 
         hideToolbar: function (event) {
-            $(event.currentTarget).find('.oc-figure-controls').appendTo(this.redactor.$box)
+            $(event.currentTarget).find('.oc-figure-controls').appendTo(this.redactor.$box).hide()
         },
 
         observeToolbars: function () {
@@ -94,9 +94,9 @@
             /*
              * Before clicking a command, make sure we save the current node within the editor
              */
-            this.redactor.$editor.on('mousedown', '.oc-figure-controls', $.proxy(function () {
+            this.redactor.$editor.on('mousedown', '.oc-figure-controls', $.proxy(function (event) {
                 event.preventDefault()
-                this.current = this.redactor.getCurrent()
+                this.current = this.redactor.selection.getCurrent()
             }, this))
 
             this.redactor.$editor.on('click', '.oc-figure-controls span, .oc-figure-controls a', $.proxy(function (event) {
@@ -116,7 +116,7 @@
             /*
              * Mobile
              */
-            if (this.redactor.isMobile()) {
+            if (this.redactor.utils.isMobile()) {
 
                 /*
                  * If $editor is focused, click doesn't seem to fire
@@ -244,7 +244,7 @@
             /*
              * Maintain undo history
              */
-            this.redactor.bufferSet(this.redactor.$editor.html())
+            this.redactor.buffer.set(this.redactor.$editor.html())
 
             /*
              * Shared functions
@@ -269,7 +269,7 @@
                     break
             }
 
-            this.redactor.sync()
+            this.redactor.code.sync()
 
         },
 
@@ -279,21 +279,28 @@
                 /*
                  * Node at cursor
                  */
-                var currentNode = redactor.getBlock()
+                var currentNode = redactor.selection.getBlock()
 
                 /*
                  * Delete key
                  */
-                if (event.keyCode === 8 && !redactor.getCaretOffset(currentNode) && currentNode.previousSibling && currentNode.previousSibling.nodeName === 'FIGURE') {
+                if (
+                        event.keyCode === 8
+                        && !redactor.caret.getOffset(currentNode)
+                        && currentNode.previousSibling
+                        && currentNode.previousSibling.nodeName === 'FIGURE'
+                    ) {
                     event.preventDefault()
                 }
             })
         }
     }
 
-    window.RedactorPlugins.figure = {
-        init: function () {
-            this.figure = new Figure(this)
+    window.RedactorPlugins.figure = function() {
+        return {
+            init: function () {
+                this.figure = new Figure(this)
+            }
         }
     }
 
