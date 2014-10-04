@@ -151,7 +151,7 @@
                         $(cursor).after(data)
                     }
                     else {
-                        this.insertHtmlAdvanced(data, false);
+                        this.insert.html(data)
                     }
 
                     this.selection.restore()

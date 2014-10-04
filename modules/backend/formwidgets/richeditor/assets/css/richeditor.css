@@ -3,7 +3,7 @@
 */
 @font-face {
   font-family: 'RedactorFont';
-  src: url('redactor-font.eot');
+  src: url('../vendor/redactor/redactor-font.eot');
 }
 @font-face {
   font-family: 'RedactorFont';
