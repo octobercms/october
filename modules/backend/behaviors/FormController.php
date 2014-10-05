@@ -572,6 +572,20 @@ class FormController extends ControllerBehavior
      */
     public function formExtendQuery($query) {}
 
+    /**
+     * Static helper for extending form fields.
+     * @param  callable $callback
+     * @return void
+     */
+    public static function extendFormFields($callback)
+    {
+        $calledClass = self::getCalledExtensionClass();
+        Event::listen('backend.form.extendFields', function($widget) use ($calledClass, $callback) {
+            if (!is_a($widget->getController(), $calledClass)) return;
+            $callback($widget, $widget->model, $widget->getContext());
+        });
+    }
+
     //
     // Internals
     //

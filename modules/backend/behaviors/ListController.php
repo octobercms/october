@@ -313,4 +313,18 @@ class ListController extends ControllerBehavior
      */
     public function listOverrideHeaderValue($columnName, $definition = null) {}
 
+    /**
+     * Static helper for extending form fields.
+     * @param  callable $callback
+     * @return void
+     */
+    public static function extendListColumns($callback)
+    {
+        $calledClass = self::getCalledExtensionClass();
+        Event::listen('backend.list.extendColumns', function($widget) use ($calledClass, $callback) {
+            if (!is_a($widget->getController(), $calledClass)) return;
+            $callback($widget, $widget->model, $widget->getContext());
+        });
+    }
+
 }
