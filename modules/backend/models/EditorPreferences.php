@@ -4,6 +4,12 @@ use App;
 use Model;
 use DirectoryIterator;
 
+/**
+ * Code editor preferences for the backend user\
+ *
+ * @package october\backend
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class EditorPreferences extends Model
 {
     public $implement = ['Backend.Behaviors.UserPreferencesModel'];

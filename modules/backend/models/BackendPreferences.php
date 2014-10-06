@@ -6,6 +6,12 @@ use Model;
 use Session;
 use DirectoryIterator;
 
+/**
+ * Backend preferences for the backend user
+ *
+ * @package october\backend
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class BackendPreferences extends Model
 {
     public $implement = ['Backend.Behaviors.UserPreferencesModel'];

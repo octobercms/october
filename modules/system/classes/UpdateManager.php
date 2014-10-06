@@ -104,9 +104,9 @@ class UpdateManager
         /*
          * Update plugins
          */
-        $plugins = $this->pluginManager->getPlugins();
-        foreach ($plugins as $name => $plugin) {
-            $this->updatePlugin($name);
+        $plugins = $this->pluginManager->sortByDependencies();
+        foreach ($plugins as $plugin) {
+            $this->updatePlugin($plugin);
         }
 
         Parameters::set('system::update.count', 0);

@@ -7,6 +7,12 @@ use Model;
 use October\Rain\Mail\MailParser;
 use System\Classes\PluginManager;
 
+/**
+ * Mail template
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class MailTemplate extends Model
 {
     use \October\Rain\Database\Traits\Validation;

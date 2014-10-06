@@ -3,6 +3,12 @@
 use App;
 use Model;
 
+/**
+ * Mail settings
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class MailSettings extends Model
 {
     public $implement = ['System.Behaviors.SettingsModel'];

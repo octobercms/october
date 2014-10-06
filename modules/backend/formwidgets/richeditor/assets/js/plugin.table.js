@@ -34,7 +34,7 @@
 
         insertTable: function (rows, columns) {
 
-            this.redactor.bufferSet(false)
+            this.redactor.buffer.set(false)
 
             var $tableBox = $('<div></div>'),
                 tableId = Math.floor(Math.random() * 99999),
@@ -72,25 +72,25 @@
             $('<figure data-type="table">').addClass('oc-table oc-table-bordered-rows').append($table).appendTo($tableBox)
             var html = $tableBox.html()
 
-            this.redactor.modalClose()
-            this.redactor.selectionRestore()
+            this.redactor.modal.close()
+            this.redactor.selection.restore()
 
-            var current = this.redactor.getBlock() || this.redactor.getCurrent()
+            var current = this.redactor.selection.getBlock() || this.redactor.selection.getCurrent()
             if (current) {
                 $(current).after(html)
             }
             else {
-                this.redactor.insertHtmlAdvanced(html, false)
+                this.redactor.insert.html(html)
             }
 
-            this.redactor.selectionRestore()
+            this.redactor.selection.restore()
 
             var table = this.redactor.$editor.find('#table' + tableId)
 
             table.find('span#selection-marker-1').remove()
             table.removeAttr('id')
 
-            this.redactor.sync()
+            this.redactor.code.sync()
 
         },
 
@@ -183,52 +183,51 @@
         }
     }
 
-    window.RedactorPlugins.table = {
-        init: function () {
-            this.table = new Table(this)
-            this.buttonAddBefore('link', 'table', 'Table', $.proxy(function () {
+    window.RedactorPlugins.table = function() {
+        return {
+            init: function () {
+                this.table = new Table(this)
 
-                /*
-                 * Save cursor position
-                 */
-                this.selectionSave()
+                var button = this.button.addBefore('link', 'table', 'Table')
+                this.button.addCallback(button, $.proxy(function () {
 
-                var callback = $.proxy(function () {
+                    /*
+                     * Save cursor position
+                     */
+                    this.selection.save()
 
-                    $('#redactor_insert_table_btn').on('click', $.proxy(function () {
+                    var callback = $.proxy(function () {
+                        setTimeout(function () {
+                            $('#redactor_table_rows').trigger('focus')
+                        }, 200)
+
+                    }, this)
+
+                    var insert = $.proxy(function () {
                         this.table.insertTable($('#redactor_table_rows').val(), $('#redactor_table_columns').val())
-                        this.buttonInactive('table')
-                    }, this))
+                        this.button.setInactive('table')
+                    }, this)
 
-                    $('.redactor_btn_modal_close').on('click', $.proxy(function () {
-                        this.buttonInactive('table')
-                    }, this))
+                    var modal = String()
+                        + '<section id="redactor-modal-table-insert">'
+                            + '<label>' + this.opts.curLang.rows + '</label>'
+                            + '<input type="text" size="5" value="2" id="redactor_table_rows" class="redactor_input">'
+                            + '<label>' + this.opts.curLang.columns + '</label>'
+                            + '<input type="text" size="5" value="3" id="redactor_table_columns" class="redactor_input">'
+                        + '</section>'
 
-                    setTimeout(function () {
-                        $('#redactor_table_rows').trigger('focus')
-                    }, 200)
+                    this.modal.addTemplate('insert-table', modal)
+                    this.modal.addCallback('insert-table', callback)
+                    this.modal.load('insert-table', 'Insert Table', 500)
 
-                }, this)
+                    this.modal.createCancelButton()
+                    this.modal.createActionButton(this.lang.get('insert')).on('click', insert)
+                    this.modal.show()
 
-                var modal = String() +
-                    '<section>' +
-                        '<label>' + this.opts.curLang.rows + '</label>' +
-                        '<input type="text" size="5" value="2" id="redactor_table_rows" class="redactor_input">' +
-                        '<label>' + this.opts.curLang.columns + '</label>' +
-                        '<input type="text" size="5" value="3" id="redactor_table_columns" class="redactor_input">' +
-                    '</section>' +
-                    '<footer>' +
-                        '<button type="button" class="redactor_modal_btn redactor_btn_modal_close">' + this.opts.curLang.cancel + '</button>' +
-                        '<button type="button" class="redactor_modal_btn redactor_modal_action_btn" id="redactor_insert_table_btn">' + this.opts.curLang.insert + '</button>' +
-                    '</footer>'
+                }, this))
 
-                this.modalInit('Insert Table', modal, 500, callback)
-
-            }, this))
-
-            this.buttonGet('table')
-                .addClass('redactor_btn_table')
-                .removeClass('redactor-btn-image')
+                button.addClass('redactor_btn_table').removeClass('redactor-btn-image')
+            }
         }
     }
 

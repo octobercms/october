@@ -2,7 +2,7 @@
 // Figures
 //
 
-.redactor_editor {
+.redactor-editor {
 
     figure {
         position: relative;
@@ -121,11 +121,7 @@
 
 }
 
-.redactor_box {
-
-    figure:hover .oc-figure-controls {
-        display: block
-    }
+.redactor-box {
 
     figcaption {
         &:empty:before {
@@ -151,6 +147,10 @@
         font-style: normal;
         z-index: @richeditor-zindex + 500;
         text-align: center;
+    }
+
+    figure:hover .oc-figure-controls {
+        display: block;
     }
 
     .oc-figure-controls span {
