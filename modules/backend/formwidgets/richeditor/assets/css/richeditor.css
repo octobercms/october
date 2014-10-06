@@ -1312,6 +1312,8 @@ body .redactor-box-fullscreen {
 }
 .redactor-toolbar {
   background: #dddddd;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 .redactor-toolbar li.redactor-btn-right {
   float: right;
@@ -1338,6 +1340,7 @@ body .redactor-box-fullscreen {
 body .redactor-box-fullscreen {
   background: #f9f9f9;
   overflow-y: scroll !important;
+  width: 100%!important;
 }
 body .redactor-box-fullscreen .redactor-editor {
   background: #fff;
@@ -1350,9 +1353,15 @@ body .redactor-box-fullscreen .redactor-editor {
   position: relative;
   height: 100% !important;
   width: 100% !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
   overflow: hidden;
 }
 .field-richeditor.stretch .redactor-box .redactor-toolbar {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
   display: block;
   border-bottom: none;
   position: absolute;

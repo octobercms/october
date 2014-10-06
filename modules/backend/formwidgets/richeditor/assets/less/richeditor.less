@@ -61,6 +61,7 @@
 
 .redactor-toolbar {
     background: @color-richeditor-toolbar;
+    .box-shadow(none);
 
     & li.redactor-btn-right {
         float: right;
@@ -93,6 +94,7 @@
 body .redactor-box-fullscreen {
     background: @color-body-bg;
     overflow-y: scroll !important;
+    width: 100%!important;
     .redactor-editor {
         background: #fff;
         max-width: 960px;
@@ -111,9 +113,12 @@ body .redactor-box-fullscreen {
         position: relative;
         height: 100% !important;
         width: 100% !important;
+        .border-radius(0)!important;
         overflow: hidden;
 
         .redactor-toolbar {
+            .border-radius(0)!important;
+
             display: block;
             border-bottom: none;
             position: absolute;

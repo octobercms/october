@@ -87,6 +87,7 @@
         this.updateLayout()
 
         $(window).resize($.proxy(this.updateLayout, this))
+        $(window).on('oc.updateUi', $.proxy(this.updateLayout, this))
     }
 
     RichEditor.prototype.updateLayout = function() {
