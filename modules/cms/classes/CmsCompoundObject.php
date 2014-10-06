@@ -8,6 +8,10 @@ use October\Rain\Support\ValidationException;
 use Cms\Classes\ViewBag;
 use Cache;
 use Config;
+use Twig_Environment;
+use System\Twig\Extension as SystemTwigExtension;
+use Cms\Twig\Extension as CmsTwigExtension;
+use Cms\Twig\Loader as TwigLoader;
 
 /**
  * This is a base class for CMS objects that have multiple sections - pages, partials and layouts.
@@ -330,6 +334,24 @@ class CmsCompoundObject extends CmsObject
     {
         $key = crc32($theme->getPath()).'component-properties';
         Cache::forget($key);
+    }
+
+    /**
+     * Returns Twig node tree generated from the object's markup.
+     * This method is used by the system internally and shouldn't
+     * participate in the front-end request processing.
+     * @link http://twig.sensiolabs.org/doc/internals.html Twig internals
+     * @return Twig_Node_Module A node tree
+     */
+    public function getTwigNodeTree()
+    {
+        $loader = new TwigLoader();
+        $twig = new Twig_Environment($loader, []);
+        $twig->addExtension(new CmsTwigExtension());
+        $twig->addExtension(new SystemTwigExtension);
+
+        $stream = $twig->tokenize($this->markup, 'getTwigNodeTree');
+        return $twig->parse($stream);
     }
 
     /**

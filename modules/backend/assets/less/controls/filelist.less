@@ -3,9 +3,7 @@
 // --------------------------------------------------
 
 .control-filelist {
-    .listPaddings (@level) when (@level > 0) {
-        @offset-base: 27px;
-
+    .listPaddings (@level, @offset-base) when (@level > 0) {
         > li.group {
             > ul {
                 > li > a {
@@ -13,11 +11,11 @@
                     margin-left: -1*@level*@offset-base;
                 }
 
-                .listPaddings(@level - 1);
+                .listPaddings(@level - 1, @offset-base);
             }
         }
     }
-    .listPaddings (0) {}
+    .listPaddings (0, 27px) {}
 
     p.no-data {
         padding: 18px 0;
@@ -136,7 +134,7 @@
 
                     > li.group {padding-left: 20px;}
 
-                    .listPaddings(10);
+                    .listPaddings(10, 27px);
                 }
 
                 &[data-status=collapsed] {
@@ -170,11 +168,12 @@
         ul {
             li {
                 background: @color-filelist-hero-item-bg;
-                border-bottom: 1px solid @color-panel-light;
+                border-bottom: none;
 
-                a {
+                > a {
                     padding: 16px 45px 15px 50px;
                     font-size: 13px;
+                    border-bottom: 1px solid @color-panel-light;
 
                     span.title {
                         font-size: 13px;
@@ -184,6 +183,7 @@
 
                     &:hover {
                         background: @color-filelist-hero-hover-bg;
+                        border-bottom: 1px solid @color-filelist-hero-hover-bg!important;
                         span.title, span.description {
                             color: @color-filelist-hero-hover-text!important;
                         }
@@ -196,7 +196,9 @@
                 }
 
                 &.active {
-                    a {
+                    > a {
+                        border-bottom: 1px solid @color-list-active;
+
                         &:after {
                             top: -1px;
                             bottom: -1px;
@@ -204,7 +206,7 @@
                         }
 
                         > span.borders {
-                            &:before, &:after {
+                            &:before {
                                 content: ' ';
                                 position: absolute;
                                 width: 100%;
@@ -215,11 +217,24 @@
                             }
 
                             &:before {top: -1px;}
-                            &:after {bottom: -1px;}
                         }
 
-
+                        &:hover > span.borders:before {
+                            background-color: @color-filelist-hero-hover-bg;
+                        }
                     }
+                }
+
+                > h4 {
+                    padding-top: 7px;
+                    padding-bottom: 6px;
+                    border-bottom: 1px solid @color-panel-light;
+                }
+            }
+
+            > li.group {
+                > ul > li > a {
+                    padding-left: 66px;
                 }
             }
         }

@@ -10857,35 +10857,39 @@ html.cssanimations .cursor-loading-indicator.hide {
 }
 .control-filelist.hero ul li {
   background: #ffffff;
-  border-bottom: 1px solid #ecf0f1;
+  border-bottom: none;
 }
-.control-filelist.hero ul li a {
+.control-filelist.hero ul li > a {
   padding: 16px 45px 15px 50px;
   font-size: 13px;
+  border-bottom: 1px solid #ecf0f1;
 }
-.control-filelist.hero ul li a span.title {
+.control-filelist.hero ul li > a span.title {
   font-size: 13px;
   font-weight: 600;
   color: #2b3e50;
 }
-.control-filelist.hero ul li a:hover {
+.control-filelist.hero ul li > a:hover {
   background: #58b6f7;
+  border-bottom: 1px solid #58b6f7 !important;
 }
-.control-filelist.hero ul li a:hover span.title,
-.control-filelist.hero ul li a:hover span.description {
+.control-filelist.hero ul li > a:hover span.title,
+.control-filelist.hero ul li > a:hover span.description {
   color: #ffffff !important;
 }
 .control-filelist.hero ul li .checkbox {
   top: 17px;
   right: 17px;
 }
-.control-filelist.hero ul li.active a:after {
+.control-filelist.hero ul li.active > a {
+  border-bottom: 1px solid #dddddd;
+}
+.control-filelist.hero ul li.active > a:after {
   top: -1px;
   bottom: -1px;
   height: auto;
 }
-.control-filelist.hero ul li.active a > span.borders:before,
-.control-filelist.hero ul li.active a > span.borders:after {
+.control-filelist.hero ul li.active > a > span.borders:before {
   content: ' ';
   position: absolute;
   width: 100%;
@@ -10894,11 +10898,19 @@ html.cssanimations .cursor-loading-indicator.hide {
   left: 0;
   background-color: #dddddd;
 }
-.control-filelist.hero ul li.active a > span.borders:before {
+.control-filelist.hero ul li.active > a > span.borders:before {
   top: -1px;
 }
-.control-filelist.hero ul li.active a > span.borders:after {
-  bottom: -1px;
+.control-filelist.hero ul li.active > a:hover > span.borders:before {
+  background-color: #58b6f7;
+}
+.control-filelist.hero ul li > h4 {
+  padding-top: 7px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #ecf0f1;
+}
+.control-filelist.hero ul > li.group > ul > li > a {
+  padding-left: 66px;
 }
 .touch .control-filelist li:not(.active) a:hover {
   background: transparent;
@@ -11443,8 +11455,6 @@ body.dropdown-open .dropdown-overlay {
   color: #cccccc;
   background: #f9f9f9;
   font-weight: 400;
-  max-width: 150px;
-  text-overflow: ellipsis;
   overflow: hidden;
 }
 .control-tabs > ul.nav-tabs > li a:hover,
@@ -11457,6 +11467,16 @@ body.dropdown-open .dropdown-overlay {
 .control-tabs > div > ul.nav-tabs > li a:before,
 .control-tabs > div > div > ul.nav-tabs > li a:before {
   font-size: 14px;
+}
+.control-tabs > ul.nav-tabs > li a > span.title > span,
+.control-tabs > div > ul.nav-tabs > li a > span.title > span,
+.control-tabs > div > div > ul.nav-tabs > li a > span.title > span {
+  max-width: 150px;
+  height: 16px;
+  margin-bottom: -4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
 }
 .control-tabs > ul.nav-tabs > li span.tab-close,
 .control-tabs > div > ul.nav-tabs > li span.tab-close,
