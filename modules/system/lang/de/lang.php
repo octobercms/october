@@ -17,6 +17,7 @@ return [
         'it' => 'Italian',
         'ro' => 'Romana',
         'pt-br' => 'Brazilian Portuguese',
+        'fa' => 'Persian',
     ],
     'directory' => [
         'create_fail' => "Konnte Verzeichnis: :name nicht erstellen",
