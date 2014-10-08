@@ -1,6 +1,9 @@
-* **Build 15x** (2014-10-xx)
+* **Build 153** (2014-10-09)
   - Plugins are now updated in order of their dependency definitions.
   - Moved `ViewMaker` trait now lives under system, it can be useful for Models too.
+  - Mailgun support added to Mail settings.
+  - Form fields can now be marked as **hidden** (see Backend > Forms docs).
+  - Added Controller behavior extension helpers `extendFormFields` and `extendListColumns`.
 
 * **Build 149** (2014-09-29)
   - Added new `hint` form field type (see Backend > Forms docs).
