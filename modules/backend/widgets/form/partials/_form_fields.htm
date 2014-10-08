@@ -1,3 +1,4 @@
 <?php foreach ($fields as $field): ?>
+    <?php if ($field->hidden) continue; ?>
     <?= $this->makePartial('field-container', ['field' => $field]) ?>
 <?php endforeach ?>

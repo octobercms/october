@@ -84,6 +84,11 @@ class FormField
     public $disabled = false;
 
     /**
+     * @var bool Specify if the field is hidden. Hiddens fields are not included in postbacks.
+     */
+    public $hidden = false;
+
+    /**
      * @var bool Specifies if this field stretch to fit the page height.
      */
     public $stretch = false;
@@ -245,6 +250,7 @@ class FormField
 
         if (array_key_exists('required', $config)) $this->required = $config['required'];
         if (array_key_exists('disabled', $config)) $this->disabled = $config['disabled'];
+        if (array_key_exists('hidden', $config)) $this->hidden = $config['hidden'];
         if (array_key_exists('stretch', $config)) $this->stretch = $config['stretch'];
 
         if (isset($config['valueFrom'])) $this->valueFrom = $config['valueFrom'];
