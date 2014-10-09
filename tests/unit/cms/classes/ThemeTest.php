@@ -8,6 +8,7 @@ class ThemeTest extends TestCase
     {
         Config::set('cms.activeTheme', 'test');
         Event::flush('cms.activeTheme');
+        Theme::resetCache();
     }
 
     protected function countThemePages($path)

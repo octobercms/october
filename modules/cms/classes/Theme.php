@@ -32,9 +32,18 @@ class Theme
      */
     protected $configCache = null;
 
+    /**
+     * @var mixed Active theme cache in memory
+     */
     protected static $activeThemeCache = false;
 
+    /**
+     * @var mixed Edit theme cache in memory
+     */
     protected static $editThemeCache = false;
+
+    const ACTIVE_KEY = 'cms::theme.active';
+    const EDIT_KEY = 'cms::theme.edit';
 
     /**
      * Loads the theme.
@@ -102,12 +111,11 @@ class Theme
         if (self::$activeThemeCache !== false)
             return self::$activeThemeCache;
 
-        $paramKey = 'cms::theme.active';
         $activeTheme = Config::get('cms.activeTheme');
 
         if (DbDongle::hasDatabase()) {
-            $dbResult = Parameters::findRecord($paramKey)
-                ->remember(1440, $paramKey)
+            $dbResult = Parameters::findRecord(self::ACTIVE_KEY)
+                ->remember(1440, self::ACTIVE_KEY)
                 ->pluck('value')
             ;
 
@@ -137,12 +145,8 @@ class Theme
      */
     public static function setActiveTheme($code)
     {
-        self::$activeThemeCache = false;
-        self::$editThemeCache = false;
-
-        $paramKey = 'cms::theme.active';
-        Parameters::set($paramKey, $code);
-        Cache::forget($paramKey);
+        self::resetCache();
+        Parameters::set(self::ACTIVE_KEY, $code);
     }
 
     /**
@@ -246,5 +250,17 @@ class Theme
             return URL::asset('modules/cms/assets/images/default-theme-preview.png');
 
         return URL::asset('themes/'.$this->getDirName().$previewPath);
+    }
+
+    /**
+     * Resets any memory or cache involved with the active or edit theme.
+     * @return void
+     */
+    public static function resetCache()
+    {
+        self::$activeThemeCache = false;
+        self::$editThemeCache = false;
+        Cache::forget(self::ACTIVE_KEY);
+        Cache::forget(self::EDIT_KEY);
     }
 }
