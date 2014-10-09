@@ -3,6 +3,7 @@
 use URL;
 use Flash;
 use Block;
+use Lang;
 use Twig_Extension;
 use Twig_TokenParser;
 use Twig_SimpleFilter;
@@ -69,6 +70,7 @@ class Extension extends Twig_Extension
         return [
             new Twig_SimpleFilter('page', [$this, 'pageFilter'], ['is_safe' => ['html']]),
             new Twig_SimpleFilter('theme', [$this, 'themeFilter'], ['is_safe' => ['html']]),
+            new Twig_SimpleFilter('trans', [$this, 'transFilter'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -169,6 +171,18 @@ class Extension extends Twig_Extension
         return $this->controller->themeUrl($url);
     }
 
+    /**
+     * Get the translation for the given key.
+     *
+     * @param  string  $key
+     * @param  array   $replace
+     * @param  string  $locale
+     * @return string
+     */
+    public function transFilter($key, array $replace = array(), $locale = null)
+    {
+        return Lang::get($key, $replace, $locale);
+    }
     /**
      * Looks up the URL for a supplied page and returns it relative to the website root.
      * @param mixed $name Specifies the Cms Page file name.
