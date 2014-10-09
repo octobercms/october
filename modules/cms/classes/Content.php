@@ -37,8 +37,8 @@ class Content extends CmsCompoundObject
      */
     public static function load($theme, $fileName)
     {
-        $obj = parent::load($theme, $fileName);
-        $obj->parsedMarkup = $obj->parseMarkup();
+        if ($obj = parent::load($theme, $fileName))
+            $obj->parsedMarkup = $obj->parseMarkup();
 
         return $obj;
     }
@@ -51,9 +51,9 @@ class Content extends CmsCompoundObject
     {
         parent::initFromCache($cached);
 
-        $this->parsedMarkup = array_key_exists('parsed-markup', $cached) ? 
-            $cached['parsed-markup'] :
-            $this->parseMarkup($this->markup);
+        $this->parsedMarkup = array_key_exists('parsed-markup', $cached)
+            ? $cached['parsed-markup']
+            : $this->parseMarkup($this->markup);
     }
 
     /**
