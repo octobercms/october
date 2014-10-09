@@ -32,6 +32,7 @@ The theme is based on the Twitter Bootstrap framework and uses LESS language for
 
 * [LESS.app](http://incident57.com/less/) for Mac
 * [WinLess](http://winless.org/) for Windows
+* [Koala](http://koala-app.com/) for Linux
 
 ### Contact
 
