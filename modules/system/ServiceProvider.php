@@ -61,6 +61,15 @@ class ServiceProvider extends ModuleServiceProvider
         App::singleton('backend.auth', function() { return \Backend\Classes\AuthManager::instance(); });
 
         /*
+         * Check for CLI or system/updates route and disable any plugin initialization
+         * @todo This should be moved to middleware
+         */
+        $requestPath = \October\Rain\Router\Helper::normalizeUrl(\Request::path());
+        $systemPath = \October\Rain\Router\Helper::normalizeUrl(Config::get('cms.backendUri') . '/system/updates');
+        if (App::runningInConsole() || stripos($requestPath, $systemPath) === 0)
+            PluginManager::$noInit = true;
+
+        /*
          * Register all plugins
          */
         $pluginManager = PluginManager::instance();
