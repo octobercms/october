@@ -59,8 +59,9 @@ class ComponentPartial extends CmsObject
         if (!File::isFile($path)) {
             $sharedDir = dirname($component->getPath()).'/partials';
             $sharedPath = $sharedDir.'/'.$fileName;
-            if (File::isFile($sharedPath))
+            if (File::isFile($sharedPath)) {
                 return $sharedPath;
+            }
         }
 
         return $path;

@@ -27,7 +27,10 @@ class CmsPropertyHelper
      */
     public static function listPages()
     {
-        Flash::warning("CmsPropertyHelper::listPages() is deprecated, use Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName') instead.");
+        Flash::warning(
+            "CmsPropertyHelper::listPages() is deprecated, use Page::sortBy('baseFileName')->lists('baseFileName',
+            'baseFileName') instead."
+        );
         return Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
 }

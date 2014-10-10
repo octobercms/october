@@ -41,8 +41,9 @@ class Asset extends CmsObject
         $defaultTypes =  ['css','js','less','sass','scss'];
 
         $configTypes = Config::get('cms.editableAssetTypes');
-        if (!$configTypes)
+        if (!$configTypes) {
             return $defaultTypes;
+        }
 
         return $configTypes;
     }
@@ -64,5 +65,4 @@ class Asset extends CmsObject
     {
         return null;
     }
-
 }

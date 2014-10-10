@@ -28,8 +28,9 @@ class ViewBag extends ComponentBase
 
     public function __call($method, $parameters)
     {
-        if (array_key_exists($method, $this->properties) && !method_exists($this, $method))
+        if (array_key_exists($method, $this->properties) && !method_exists($this, $method)) {
             return $this->properties[$method];
+        }
 
         return parent::__call($method, $parameters);
     }
@@ -38,7 +39,7 @@ class ViewBag extends ComponentBase
     {
         $result = [];
 
-        foreach ($this->properties as $name=>$value) {
+        foreach ($this->properties as $name => $value) {
             $result[$name] = [
                 'title' => $name,
                 'type' => 'string'

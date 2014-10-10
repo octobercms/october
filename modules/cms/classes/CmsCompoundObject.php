@@ -67,8 +67,9 @@ class CmsCompoundObject extends CmsObject
      */
     public static function load($theme, $fileName)
     {
-        if (($obj = parent::load($theme, $fileName)) === null)
+        if (($obj = parent::load($theme, $fileName)) === null) {
             return null;
+        }
 
         CmsException::mask($obj, 200);
         $parsedData = SectionParser::parse($obj->content);
@@ -89,8 +90,9 @@ class CmsCompoundObject extends CmsObject
      */
     public function __get($name)
     {
-        if (is_array($this->settings) && array_key_exists($name, $this->settings))
+        if (is_array($this->settings) && array_key_exists($name, $this->settings)) {
             return $this->settings[$name];
+        }
 
         return parent::__get($name);
     }
@@ -103,8 +105,9 @@ class CmsCompoundObject extends CmsObject
      */
     public function __isset($key)
     {
-        if (parent::__isset($key) === true)
+        if (parent::__isset($key) === true) {
             return true;
+        }
 
         return isset($this->settings[$key]);
     }
@@ -124,8 +127,9 @@ class CmsCompoundObject extends CmsObject
     public function runComponents()
     {
         foreach ($this->components as $component) {
-            if ($result = $component->onRun())
+            if ($result = $component->onRun()) {
                 return $result;
+            }
         }
     }
 
@@ -139,13 +143,15 @@ class CmsCompoundObject extends CmsObject
         $manager = ComponentManager::instance();
         $components = [];
         foreach ($this->settings as $setting => $value) {
-            if (!is_array($value))
+            if (!is_array($value)) {
                 continue;
+            }
 
             $settingParts = explode(' ', $setting);
             $settingName = $settingParts[0];
-            // if (!$manager->hasComponent($settingName))
+            // if (!$manager->hasComponent($settingName)) {
             //     continue;
+            // }
 
             $components[$setting] = $value;
             unset($this->settings[$setting]);
@@ -182,25 +188,29 @@ class CmsCompoundObject extends CmsObject
         $this->code = trim($this->code);
         $this->markup = trim($this->markup);
 
-        $trim = function(&$values) use (&$trim) {
+        $trim = function (&$values) use (&$trim) {
             foreach ($values as &$value) {
-                if (!is_array($value))
+                if (!is_array($value)) {
                     $value = trim($value);
-                else $trim($value);
+                } else {
+                    $trim($value);
+                }
             }
         };
 
         $trim($this->settings);
 
-        if (array_key_exists('components', $this->settings) && count($this->settings['components']) == 0)
+        if (array_key_exists('components', $this->settings) && count($this->settings['components']) == 0) {
             unset($this->settings['components']);
+        }
 
         $this->validate();
 
         $content = [];
 
-        if ($this->settings)
+        if ($this->settings) {
             $content[] = FileHelper::formatIniString($this->settings);
+        }
 
         if ($this->code) {
             $code = preg_replace('/^\<\?php/', '', $this->code);
@@ -224,8 +234,9 @@ class CmsCompoundObject extends CmsObject
      */
     public function getViewBag()
     {
-        if ($this->viewBagCache !== false)
+        if ($this->viewBagCache !== false) {
             return $this->viewBagCache;
+        }
 
         $componentName = 'viewBag';
 
@@ -248,13 +259,15 @@ class CmsCompoundObject extends CmsObject
      */
     public function getComponent($componentName)
     {
-        if (!$this->hasComponent($componentName))
+        if (!$this->hasComponent($componentName)) {
             return null;
+        }
 
         return ComponentManager::instance()->makeComponent(
-            $componentName, 
-            null, 
-            $this->settings['components'][$componentName]);
+            $componentName,
+            null,
+            $this->settings['components'][$componentName]
+        );
     }
 
     /**
@@ -283,31 +296,35 @@ class CmsCompoundObject extends CmsObject
             $cached = Cache::get($key, false);
             $unserialized = $cached ? @unserialize($cached) : false;
             $objectComponentMap = $unserialized ? $unserialized : [];
-            if ($objectComponentMap)
+            if ($objectComponentMap) {
                 self::$objectComponentPropertyMap = $objectComponentMap;
+            }
         }
 
         $objectCode = $this->getBaseFileName();
 
         if (array_key_exists($objectCode, $objectComponentMap)) {
-            if (array_key_exists($componentName, $objectComponentMap[$objectCode]))
+            if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
                 return $objectComponentMap[$objectCode][$componentName];
+            }
 
             return [];
         }
 
-        if (!isset($this->settings['components']))
+        if (!isset($this->settings['components'])) {
             $objectComponentMap[$objectCode] = [];
-        else {
-            foreach ($this->settings['components'] as $componentName=>$componentSettings) {
+        } else {
+            foreach ($this->settings['components'] as $componentName => $componentSettings) {
                 $component = $this->getComponent($componentName);
-                if (!$component)
+                if (!$component) {
                     continue;
+                }
 
                 $componentProperties = [];
                 $propertyDefinitions = $component->defineProperties();
-                foreach ($propertyDefinitions as $propertyName=>$propertyInfo)
+                foreach ($propertyDefinitions as $propertyName => $propertyInfo) {
                     $componentProperties[$propertyName] = $component->property($propertyName);
+                }
 
                 $objectComponentMap[$objectCode][$componentName] = $componentProperties;
             }
@@ -317,8 +334,9 @@ class CmsCompoundObject extends CmsObject
 
         Cache::put($key, serialize($objectComponentMap), Config::get('cms.parsedPageCacheTTL', 10));
 
-        if (array_key_exists($componentName, $objectComponentMap[$objectCode]))
+        if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
             return $objectComponentMap[$objectCode][$componentName];
+        }
 
         return [];
     }
@@ -338,7 +356,9 @@ class CmsCompoundObject extends CmsObject
      * the content of the $settings property after the object
      * is loaded from a file.
      */
-    protected function parseSettings() {}
+    protected function parseSettings()
+    {
+    }
 
     /**
      * Initializes the object properties from the cached data.
@@ -368,14 +388,24 @@ class CmsCompoundObject extends CmsObject
      */
     protected function validate()
     {
-        $validation = Validator::make($this->settings, $this->settingsValidationRules, $this->settingsValidationMessages);
-        if ($validation->fails())
+        $validation = Validator::make(
+            $this->settings,
+            $this->settingsValidationRules,
+            $this->settingsValidationMessages
+        );
+        if ($validation->fails()) {
             throw new ValidationException($validation);
+        }
 
         if ($this->viewBagValidationRules && isset($this->settings['viewBag'])) {
-            $validation = Validator::make($this->settings['viewBag'], $this->viewBagValidationRules, $this->viewBagValidationMessages);
-            if ($validation->fails())
+            $validation = Validator::make(
+                $this->settings['viewBag'],
+                $this->viewBagValidationRules,
+                $this->viewBagValidationMessages
+            );
+            if ($validation->fails()) {
                 throw new ValidationException($validation);
+            }
         }
     }
 }

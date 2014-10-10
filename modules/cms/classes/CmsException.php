@@ -50,8 +50,9 @@ class CmsException extends ApplicationException
             $message = '';
         }
 
-        if (isset(static::$errorCodes[$code]))
+        if (isset(static::$errorCodes[$code])) {
             $this->errorType = static::$errorCodes[$code];
+        }
 
         parent::__construct($message, $code, $previous);
     }
@@ -104,9 +105,15 @@ class CmsException extends ApplicationException
         /*
          * Expecting: syntax error, unexpected '!' in Unknown on line 4
          */
-        if (!starts_with($message, 'syntax error')) return false;
-        if (strpos($message, 'Unknown') === false) return false;
-        if (strpos($exception->getFile(), 'SectionParser.php') === false) return false;
+        if (!starts_with($message, 'syntax error')) {
+            return false;
+        }
+        if (strpos($message, 'Unknown') === false) {
+            return false;
+        }
+        if (strpos($exception->getFile(), 'SectionParser.php') === false) {
+            return false;
+        }
 
         /*
          * Line number from parse_ini_string() error.
@@ -143,23 +150,28 @@ class CmsException extends ApplicationException
             $check = false;
 
             // Expected: */modules/cms/classes/CodeParser.php(165) : eval()'d code line 7
-            if (strpos($exception->getFile(), 'CodeParser.php')) $check = true;
+            if (strpos($exception->getFile(), 'CodeParser.php')) {
+                $check = true;
+            }
 
-            // Expected: */app/storage/cache/39/05/home.htm.php 
-            if (strpos($exception->getFile(), $this->compoundObject->getFileName() . '.php')) $check = true;
+            // Expected: */app/storage/cache/39/05/home.htm.php
+            if (strpos($exception->getFile(), $this->compoundObject->getFileName() . '.php')) {
+                $check = true;
+            }
 
-            if (!$check)
+            if (!$check) {
                 return false;
-        }
+            }
         /*
          * Errors occurring the PHP code base class (Cms\Classes\CodeBase)
          */
-        else {
+        } else {
             $trace = $exception->getTrace();
             if (isset($trace[1]['class'])) {
                 $class = $trace[1]['class'];
-                if (!is_subclass_of($class, 'Cms\Classes\CodeBase'))
+                if (!is_subclass_of($class, 'Cms\Classes\CodeBase')) {
                     return false;
+                }
             }
         }
 
@@ -187,8 +199,9 @@ class CmsException extends ApplicationException
     protected function processTwig(Exception $exception)
     {
         // Must be a Twig related exception
-        if (!$exception instanceof Twig_Error)
+        if (!$exception instanceof Twig_Error) {
             return false;
+        }
 
         $this->message = $exception->getRawMessage();
         $this->line = $exception->getTemplateLine();
@@ -220,5 +233,4 @@ class CmsException extends ApplicationException
             return;
         }
     }
-
 }

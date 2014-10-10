@@ -80,27 +80,32 @@ class CmsObject implements ArrayAccess
      */
     public static function loadCached($theme, $fileName)
     {
-        if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting()))
+        if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting())) {
             throw new SystemException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
+        }
 
-        if (!strlen(File::extension($fileName)))
+        if (!strlen(File::extension($fileName))) {
             $fileName .= '.'.static::$defaultExtension;
+        }
 
         $filePath = static::getFilePath($theme, $fileName);
-        if (array_key_exists($filePath, ObjectMemoryCache::$cache))
+        if (array_key_exists($filePath, ObjectMemoryCache::$cache)) {
             return ObjectMemoryCache::$cache[$filePath];
+        }
 
         $key = self::getObjectTypeDirName().crc32($filePath);
 
         clearstatcache($filePath);
         $cached = Cache::get($key, false);
         if ($cached !== false && ($cached = @unserialize($cached)) !== false) {
-            if ($cached['mtime'] != @File::lastModified($filePath))
+            if ($cached['mtime'] != @File::lastModified($filePath)) {
                 $cached = false;
+            }
         }
 
-        if ($cached && !File::isFile($filePath))
+        if ($cached && !File::isFile($filePath)) {
             $cached = false;
+        }
 
         if ($cached !== false) {
             /*
@@ -151,19 +156,23 @@ class CmsObject implements ArrayAccess
      */
     public static function load($theme, $fileName)
     {
-        if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting()))
+        if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting())) {
             throw new SystemException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
+        }
 
-        if (!strlen(File::extension($fileName)))
+        if (!strlen(File::extension($fileName))) {
             $fileName .= '.'.static::$defaultExtension;
+        }
 
         $fullPath = static::getFilePath($theme, $fileName);
 
-        if (!File::isFile($fullPath))
+        if (!File::isFile($fullPath)) {
             return null;
+        }
 
-        if (($content = @File::get($fullPath)) === false)
+        if (($content = @File::get($fullPath)) === false) {
             return null;
+        }
 
         $obj = new static($theme);
         $obj->fileName = $fileName;
@@ -209,8 +218,9 @@ class CmsObject implements ArrayAccess
     public function getBaseFileName()
     {
         $pos = strrpos($this->fileName, '.');
-        if ($pos === false)
+        if ($pos === false) {
             return $this->fileName;
+        }
 
         return substr($this->fileName, 0, $pos);
     }
@@ -258,8 +268,9 @@ class CmsObject implements ArrayAccess
             ]);
         }
 
-        if (!strlen(File::extension($fileName)))
+        if (!strlen(File::extension($fileName))) {
             $fileName .= '.htm';
+        }
 
         $this->fileName = $fileName;
         return $this;
@@ -298,15 +309,20 @@ class CmsObject implements ArrayAccess
      */
     public function fill(array $attributes)
     {
-        foreach ($attributes as $key=>$value) {
-            if (!in_array($key, static::$fillable))
-                throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_property', ['name'=>$key]));
+        foreach ($attributes as $key => $value) {
+            if (!in_array($key, static::$fillable)) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.cms_object.invalid_property',
+                    ['name' => $key]
+                ));
+            }
 
             $methodName = 'set'.ucfirst($key);
-            if (method_exists($this, $methodName))
+            if (method_exists($this, $methodName)) {
                 $this->$methodName($value);
-            else
+            } else {
                 $this->$key = $value;
+            }
         }
     }
 
@@ -317,31 +333,48 @@ class CmsObject implements ArrayAccess
     {
         $fullPath = static::getFilePath($this->theme, $this->fileName);
 
-        if (File::isFile($fullPath) && $this->originalFileName !== $this->fileName)
-            throw new ApplicationException(Lang::get('cms::lang.cms_object.file_already_exists', ['name'=>$this->fileName]));
+        if (File::isFile($fullPath) && $this->originalFileName !== $this->fileName) {
+            throw new ApplicationException(Lang::get(
+                'cms::lang.cms_object.file_already_exists',
+                ['name'=>$this->fileName]
+            ));
+        }
 
         $dirPath = rtrim(static::getFilePath($this->theme, ''), '/');
         if (!file_exists($dirPath) || !is_dir($dirPath)) {
-            if (!File::makeDirectory($dirPath, 0777, true, true))
-                throw new ApplicationException(Lang::get('cms::lang.cms_object.error_creating_directory', ['name'=>$dirPath]));
+            if (!File::makeDirectory($dirPath, 0777, true, true)) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.cms_object.error_creating_directory',
+                    ['name'=>$dirPath]
+                ));
+            }
         }
 
         if (($pos = strpos($this->fileName, '/')) !== false) {
             $dirPath = static::getFilePath($this->theme, dirname($this->fileName));
 
-            if (!is_dir($dirPath) && !File::makeDirectory($dirPath, 0777, true, true))
-                throw new ApplicationException(Lang::get('cms::lang.cms_object.error_creating_directory', ['name'=>$dirPath]));
+            if (!is_dir($dirPath) && !File::makeDirectory($dirPath, 0777, true, true)) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.cms_object.error_creating_directory',
+                    ['name'=>$dirPath]
+                ));
+            }
         }
 
         $newFullPath = $fullPath;
-        if (@File::put($fullPath, $this->content) === false)
-            throw new ApplicationException(Lang::get('cms::lang.cms_object.error_saving', ['name'=>$this->fileName]));
+        if (@File::put($fullPath, $this->content) === false) {
+            throw new ApplicationException(Lang::get(
+                'cms::lang.cms_object.error_saving',
+                ['name'=>$this->fileName]
+            ));
+        }
 
         if (strlen($this->originalFileName) && $this->originalFileName !== $this->fileName) {
             $fullPath = static::getFilePath($this->theme, $this->originalFileName);
 
-            if (File::isFile($fullPath))
+            if (File::isFile($fullPath)) {
                 @unlink($fullPath);
+            }
         }
 
         clearstatcache();
@@ -378,24 +411,27 @@ class CmsObject implements ArrayAccess
      */
     public static function listInTheme($theme, $skipCache = false)
     {
-        if (!$theme)
+        if (!$theme) {
             throw new ApplicationException(Lang::get('cms::lang.theme.active.not_set'));
+        }
 
         $dirPath = $theme->getPath().'/'.static::getObjectTypeDirName();
         $result = [];
 
-        if (!File::isDirectory($dirPath))
+        if (!File::isDirectory($dirPath)) {
             return $result;
+        }
 
         $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirPath));
         $it->setMaxDepth(1); // Support only a single level of subdirectories
         $it->rewind();
 
-        while($it->valid()) {
+        while ($it->valid()) {
             if ($it->isFile() && in_array($it->getExtension(), static::$allowedExtensions)) {
                 $filePath = $it->getBasename();
-                if ($it->getDepth() > 0)
+                if ($it->getDepth() > 0) {
                     $filePath = basename($it->getPath()).'/'.$filePath;
+                }
 
                 $page = $skipCache ? static::load($theme, $filePath) : static::loadCached($theme, $filePath);
                 $result[] = $page;
@@ -426,8 +462,9 @@ class CmsObject implements ArrayAccess
     public function __get($name)
     {
         $methodName = 'get'.ucfirst($name);
-        if (method_exists($this, $methodName))
+        if (method_exists($this, $methodName)) {
             return $this->$methodName();
+        }
 
         return null;
     }
@@ -440,8 +477,9 @@ class CmsObject implements ArrayAccess
     public function __isset($key)
     {
         $methodName = 'get'.ucfirst($key);
-        if (method_exists($this, $methodName))
+        if (method_exists($this, $methodName)) {
             return true;
+        }
 
         return false;
     }
@@ -540,18 +578,24 @@ class CmsObject implements ArrayAccess
      * Initializes the object properties from the cached data.
      * @param array $cached The cached data array.
      */
-    protected function initFromCache($cached) {}
+    protected function initFromCache($cached)
+    {
+    }
 
     /**
      * Initializes a cache item.
      * @param array &$item The cached item array.
      */
-    protected function initCacheItem(&$item) {}
+    protected function initCacheItem(&$item)
+    {
+    }
 
     /**
      * Returns the directory name corresponding to the object type.
      * For pages the directory name is "pages", for layouts - "layouts", etc.
      * @return string
      */
-    public static function getObjectTypeDirName() {}
+    public static function getObjectTypeDirName()
+    {
+    }
 }

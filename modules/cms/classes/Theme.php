@@ -60,8 +60,9 @@ class Theme
      */
     public function getPath($dirName = null)
     {
-        if (!$dirName)
+        if (!$dirName) {
             $dirName = $this->getDirName();
+        }
 
         return base_path().Config::get('cms.themesDir').'/'.$dirName;
     }
@@ -108,8 +109,9 @@ class Theme
      */
     public static function getActiveTheme()
     {
-        if (self::$activeThemeCache !== false)
+        if (self::$activeThemeCache !== false) {
             return self::$activeThemeCache;
+        }
 
         $activeTheme = Config::get('cms.activeTheme');
 
@@ -119,21 +121,25 @@ class Theme
                 ->pluck('value')
             ;
 
-            if ($dbResult !== null)
+            if ($dbResult !== null) {
                 $activeTheme = $dbResult;
+            }
         }
 
         $apiResult = Event::fire('cms.activeTheme', [], true);
-        if ($apiResult !== null)
+        if ($apiResult !== null) {
             $activeTheme = $apiResult;
+        }
 
-        if (!strlen($activeTheme))
+        if (!strlen($activeTheme)) {
             throw new SystemException(Lang::get('cms::lang.theme.active.not_set'));
+        }
 
         $theme = new static;
         $theme->load($activeTheme);
-        if (!File::isDirectory($theme->getPath()))
+        if (!File::isDirectory($theme->getPath())) {
             return self::$activeThemeCache = null;
+        }
 
         return self::$activeThemeCache = $theme;
     }
@@ -160,24 +166,29 @@ class Theme
      */
     public static function getEditTheme()
     {
-        if (self::$editThemeCache !== false)
+        if (self::$editThemeCache !== false) {
             return self::$editThemeCache;
+        }
 
         $editTheme = Config::get('cms.editTheme');
-        if (!$editTheme)
+        if (!$editTheme) {
             $editTheme = static::getActiveTheme()->getDirName();
+        }
 
         $apiResult = Event::fire('cms.editTheme', [], true);
-        if ($apiResult !== null)
+        if ($apiResult !== null) {
             $editTheme = $apiResult;
+        }
 
-        if (!strlen($editTheme))
+        if (!strlen($editTheme)) {
             throw new SystemException(Lang::get('cms::lang.theme.edit.not_set'));
+        }
 
         $theme = new static;
         $theme->load($editTheme);
-        if (!File::isDirectory($theme->getPath()))
+        if (!File::isDirectory($theme->getPath())) {
             return self::$editThemeCache = null;
+        }
 
         return self::$editThemeCache = $theme;
     }
@@ -195,8 +206,9 @@ class Theme
 
         $result = [];
         foreach ($it as $fileinfo) {
-            if (!$fileinfo->isDir() || $fileinfo->isDot())
+            if (!$fileinfo->isDir() || $fileinfo->isDot()) {
                 continue;
+            }
 
             $theme = new static;
             $theme->load($fileinfo->getFilename());
@@ -212,12 +224,14 @@ class Theme
      */
     public function getConfig()
     {
-        if ($this->configCache !== null)
+        if ($this->configCache !== null) {
             return $this->configCache;
+        }
 
         $path = $this->getPath().'/theme.yaml';
-        if (!File::exists($path))
+        if (!File::exists($path)) {
             return $this->configCache = [];
+        }
 
         return $this->configCache = Yaml::parseFile($path);
     }
@@ -225,14 +239,16 @@ class Theme
     /**
      * Returns a value from the theme configuration file by its name.
      * @param string $name Specifies the configuration parameter name.
-     * @param mixed $default Specifies the default value to return in case if the parameter doesn't exist in the configuration file.
+     * @param mixed $default Specifies the default value to return in case if the parameter
+     *                       doesn't exist in the configuration file.
      * @return mixed Returns the parameter value or a default value
-     */ 
-    public function getConfigValue($name, $default = null) 
+     */
+    public function getConfigValue($name, $default = null)
     {
         $config = $this->getConfig();
-        if (isset($config[$name]))
+        if (isset($config[$name])) {
             return $config[$name];
+        }
 
         return $default;
     }
@@ -246,8 +262,9 @@ class Theme
     {
         $previewPath = '/assets/images/theme-preview.png';
         $path = $this->getPath().$previewPath;
-        if (!File::exists($path))
+        if (!File::exists($path)) {
             return URL::asset('modules/cms/assets/images/default-theme-preview.png');
+        }
 
         return URL::asset('themes/'.$this->getDirName().$previewPath);
     }

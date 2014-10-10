@@ -38,7 +38,9 @@ class ComponentHelpers
             ];
 
             foreach ($params as $name => $value) {
-                if (isset($property[$name])) continue;
+                if (isset($property[$name])) {
+                    continue;
+                }
                 $property[$name] = $value;
             }
 
@@ -47,7 +49,9 @@ class ComponentHelpers
              */
             $translate = ['title', 'description'];
             foreach ($property as $name => $value) {
-                if (!in_array($name, $translate)) continue;
+                if (!in_array($name, $translate)) {
+                    continue;
+                }
                 $property[$name] = Lang::get($value);
             }
 
@@ -69,8 +73,9 @@ class ComponentHelpers
         $result['oc.alias'] = $component->alias;
 
         $properties = $component->defineProperties();
-        foreach ($properties as $name => $params)
+        foreach ($properties as $name => $params) {
             $result[$name] = $component->property($name);
+        }
 
         return json_encode($result);
     }

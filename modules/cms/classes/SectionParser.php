@@ -33,8 +33,9 @@ class SectionParser
     {
         $sections = preg_split('/^={2,}\s*/m', $content, -1);
         $count = count($sections);
-        foreach ($sections as &$section)
+        foreach ($sections as &$section) {
             $section = trim($section);
+        }
 
         $result = [
             'settings' => [],
@@ -51,13 +52,12 @@ class SectionParser
             $result['code'] = preg_replace('/\?\>\s*$/', '', $result['code']);
 
             $result['markup'] = $sections[2];
-        }
-        elseif ($count == 2) {
+        } elseif ($count == 2) {
             $result['settings'] = parse_ini_string($sections[0], true);
             $result['markup'] = $sections[1];
-        }
-        elseif ($count == 1)
+        } elseif ($count == 1) {
             $result['markup'] = $sections[0];
+        }
 
         return $result;
     }
@@ -83,12 +83,10 @@ class SectionParser
             $result['settings'] = self::adjustLinePosition($content);
             $result['code'] = self::calculateLinePosition($content);
             $result['markup'] = self::calculateLinePosition($content, 2);
-        }
-        elseif ($count == 2) {
+        } elseif ($count == 2) {
             $result['settings'] = self::adjustLinePosition($content);
             $result['markup'] = self::calculateLinePosition($content);
-        }
-        elseif ($count == 1) {
+        } elseif ($count == 1) {
             $result['markup'] = 1;
         }
 
@@ -106,11 +104,13 @@ class SectionParser
         $count = 0;
         $lines = explode(PHP_EOL, $content);
         foreach ($lines as $number => $line) {
-            if (trim($line) == self::SECTION_SEPARATOR)
+            if (trim($line) == self::SECTION_SEPARATOR) {
                 $count++;
+            }
 
-            if ($count == $instance)
+            if ($count == $instance) {
                 return static::adjustLinePosition($content, $number);
+            }
         }
 
         return null;
@@ -150,10 +150,11 @@ class SectionParser
             }
 
             /*
-             * PHP namespaced line (use x;)
+             * PHP namespaced line (use x;) {
              * Don't increase the line count, it will be rewritten by Cms\Classes\CodeParser
              */
-            if (preg_match_all('/(use\s+[a-z0-9_\\\\]+;\n?)/mi', $line) == 1) {
+            if (preg_match_all('/(use\s+[a-z0-9_\\\\]+;
+        }\n?)/mi', $line) == 1) {
                 continue;
             }
 
