@@ -12,5 +12,8 @@ class Backend extends Facade
      * 
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'backend.helper'; }
+    protected static function getFacadeAccessor()
+    {
+        return 'backend.helper';
+    }
 }

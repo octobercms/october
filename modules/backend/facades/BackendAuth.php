@@ -12,5 +12,8 @@ class BackendAuth extends Facade
      * 
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'backend.auth'; }
+    protected static function getFacadeAccessor()
+    {
+        return 'backend.auth';
+    }
 }
