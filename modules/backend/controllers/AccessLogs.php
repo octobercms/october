@@ -37,5 +37,4 @@ class AccessLogs extends Controller
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('October.Backend', 'access_logs');
     }
-
 }

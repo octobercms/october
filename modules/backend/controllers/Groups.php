@@ -45,8 +45,9 @@ class Groups extends Controller
                 'type' => 'checkbox',
             ];
 
-            if (isset($permission->tab))
+            if (isset($permission->tab)) {
                 $fieldConfig['tab'] = $permission->tab;
+            }
 
             $permissionFields[$fieldName] = $fieldConfig;
         }
