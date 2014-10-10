@@ -15,7 +15,9 @@ class SeedSetupAdmin extends Seeder
 
     public function setDefaults($values)
     {
-        if (!is_array($values)) return;
+        if (!is_array($values)) {
+            return;
+        }
         foreach ($values as $attribute => $value) {
             static::$$attribute = $value;
         }
@@ -40,5 +42,4 @@ class SeedSetupAdmin extends Seeder
 
         $user->addGroup($group);
     }
-
 }

@@ -5,11 +5,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class DbBackendUsers extends Migration
 {
-
     public function up()
     {
-        Schema::create('backend_users', function(Blueprint $table)
-        {
+        Schema::create('backend_users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('first_name')->nullable();
@@ -32,5 +30,4 @@ class DbBackendUsers extends Migration
     {
         Schema::dropIfExists('backend_users');
     }
-
 }
