@@ -17,24 +17,28 @@ trait InspectableContainer
     public function onInspectableGetOptions()
     {
         $property = trim(Request::input('inspectorProperty'));
-        if (!$property)
+        if (!$property) {
             throw new ApplicationException('The property name is not specified.');
+        }
 
         $className = trim(Request::input('inspectorClassName'));
-        if (!$className)
+        if (!$className) {
             throw new ApplicationException('The inspectable class name is not specified.');
+        }
 
         $traitFound = in_array('System\Traits\PropertyContainer', class_uses_recursive($className));
-        if (!$traitFound)
+        if (!$traitFound) {
             throw new ApplicationException('The options cannot be loaded for the specified class.');
+        }
 
         $obj = new $className(null);
 
         $methodName = 'get'.ucfirst($property).'Options';
-        if (method_exists($obj, $methodName))
+        if (method_exists($obj, $methodName)) {
             $options = $obj->$methodName();
-        else
+        } else {
             $options = $obj->getPropertyOptions($property);
+        }
 
         /*
          * Convert to array to retain the sort order in JavaScript

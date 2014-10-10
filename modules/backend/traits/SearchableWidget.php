@@ -33,11 +33,13 @@ trait SearchableWidget
     {
         foreach ($words as $word) {
             $word = trim($word);
-            if (!strlen($word))
+            if (!strlen($word)) {
                 continue;
+            }
 
-            if (Str::contains(Str::lower($text), $word))
+            if (Str::contains(Str::lower($text), $word)) {
                 return true;
+            }
         }
 
         return false;
