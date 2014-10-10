@@ -51,32 +51,32 @@ class Index extends Controller
         BackendMenu::setContext('October.Cms', 'cms', 'pages');
 
         try {
-            if (!($theme = Theme::getEditTheme()))
+            if (!($theme = Theme::getEditTheme())) {
                 throw new ApplicationException(Lang::get('cms::lang.theme.edit.not_found'));
+            }
 
             $this->theme = $theme;
 
-            new TemplateList($this, 'pageList', function() use ($theme) {
+            new TemplateList($this, 'pageList', function () use ($theme) {
                 return Page::listInTheme($theme, true);
             });
 
-            new TemplateList($this, 'partialList', function() use ($theme) {
+            new TemplateList($this, 'partialList', function () use ($theme) {
                 return Partial::listInTheme($theme, true);
             });
 
-            new TemplateList($this, 'layoutList', function() use ($theme) {
+            new TemplateList($this, 'layoutList', function () use ($theme) {
                 return Layout::listInTheme($theme, true);
             });
 
-            new TemplateList($this, 'contentList', function() use ($theme) {
+            new TemplateList($this, 'contentList', function () use ($theme) {
                 return Content::listInTheme($theme, true);
             });
 
             new ComponentList($this, 'componentList');
 
             new AssetList($this, 'assetList');
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->handleError($ex);
         }
     }
@@ -97,8 +97,9 @@ class Index extends Controller
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/vendor/ace/ace.js', 'core');
 
         $aceModes = ['markdown', 'plain_text', 'html', 'less', 'css', 'scss', 'sass', 'javascript'];
-        foreach ($aceModes as $mode)
+        foreach ($aceModes as $mode) {
             $this->addJs('/modules/backend/formwidgets/codeeditor/assets/vendor/ace/mode-'.$mode.'.js', 'core');
+        }
 
         $this->bodyClass = 'compact-container side-panel-not-fixed';
         $this->pageTitle = Lang::get('cms::lang.cms.menu_label');
@@ -142,13 +143,15 @@ class Index extends Controller
         $settings = $this->upgradeSettings($settings);
 
         $templateData = [];
-        if ($settings)
+        if ($settings) {
             $templateData['settings'] = $settings;
+        }
 
         $fields = ['markup', 'code', 'fileName', 'content'];
         foreach ($fields as $field) {
-            if (array_key_exists($field, $_POST))
+            if (array_key_exists($field, $_POST)) {
                 $templateData[$field] = Request::input($field);
+            }
         }
 
         if (!empty($templateData['markup']) && Config::get('cms.convertLineEndings', false) === true) {
@@ -156,8 +159,9 @@ class Index extends Controller
         }
 
         if (!Request::input('templateForceSave') && $template->mtime) {
-            if (Request::input('templateMtime') != $template->mtime)
+            if (Request::input('templateMtime') != $template->mtime) {
                 throw new ApplicationException('mtime-mismatch');
+            }
         }
 
         $template->fill($templateData);
@@ -197,8 +201,9 @@ class Index extends Controller
         $type = Request::input('type');
         $template = $this->createTemplate($type);
 
-        if ($type == 'asset')
+        if ($type == 'asset') {
             $template->setInitialPath($this->widget->assetList->getCurrentRelativePath());
+        }
 
         $widget = $this->makeTemplateFormWidget($type, $template);
 
@@ -225,14 +230,13 @@ class Index extends Controller
         $deleted = [];
 
         try {
-            foreach ($templates as $path=>$selected) {
+            foreach ($templates as $path => $selected) {
                 if ($selected) {
                     $this->loadTemplate($type, $path)->delete();
                     $deleted[] = $path;
                 }
             }
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $error = $ex->getMessage();
         }
 
@@ -276,21 +280,26 @@ class Index extends Controller
 
     public function onExpandMarkupToken()
     {
-        if (!$alias = post('tokenName'))
+        if (!$alias = post('tokenName')) {
             throw new ApplicationException(trans('cms::lang.component.no_records'));
+        }
 
         // Can only expand components at this stage
-        if ((!$type = post('tokenType')) && $type != 'component')
+        if ((!$type = post('tokenType')) && $type != 'component') {
             return;
+        }
 
-        if (!($names = (array) post('component_names')) || !($aliases = (array) post('component_aliases')))
+        if (!($names = (array) post('component_names')) || !($aliases = (array) post('component_aliases'))) {
             throw new ApplicationException(trans('cms::lang.component.not_found', ['name' => $alias]));
+        }
 
-        if (($index = array_get(array_flip($aliases), $alias, false)) === false)
+        if (($index = array_get(array_flip($aliases), $alias, false)) === false) {
             throw new ApplicationException(trans('cms::lang.component.not_found', ['name' => $alias]));
+        }
 
-        if (!$componentName = array_get($names, $index))
+        if (!$componentName = array_get($names, $index)) {
             throw new ApplicationException(trans('cms::lang.component.not_found', ['name' => $alias]));
+        }
 
         $manager = ComponentManager::instance();
         $componentObj = $manager->makeComponent($componentName);
@@ -306,8 +315,9 @@ class Index extends Controller
 
     protected function validateRequestTheme()
     {
-        if ($this->theme->getDirName() != Request::input('theme'))
+        if ($this->theme->getDirName() != Request::input('theme')) {
             throw new ApplicationException(trans('cms::lang.theme.edit.not_match'));
+        }
     }
 
     protected function resolveTypeClassName($type)
@@ -320,8 +330,9 @@ class Index extends Controller
             'asset'   => '\Cms\Classes\Asset',
         ];
 
-        if (!array_key_exists($type, $types))
+        if (!array_key_exists($type, $types)) {
             throw new ApplicationException(trans('cms::lang.template.invalid_type'));
+        }
 
         return $types[$type];
     }
@@ -330,8 +341,9 @@ class Index extends Controller
     {
         $class = $this->resolveTypeClassName($type);
 
-        if (!($template = call_user_func(array($class, 'load'), $this->theme, $path)))
+        if (!($template = call_user_func(array($class, 'load'), $this->theme, $path))) {
             throw new ApplicationException(trans('cms::lang.template.not_found'));
+        }
 
         return $template;
     }
@@ -340,8 +352,9 @@ class Index extends Controller
     {
         $class = $this->resolveTypeClassName($type);
 
-        if (!($template = new $class($this->theme)))
+        if (!($template = new $class($this->theme))) {
             throw new ApplicationException(trans('cms::lang.template.not_found'));
+        }
 
         return $template;
     }
@@ -350,16 +363,18 @@ class Index extends Controller
     {
         if ($type == 'page') {
             $result = $template->title ?: $template->getFileName();
-            if (!$result)
+            if (!$result) {
                 $result = trans('cms::lang.page.new');
+            }
 
             return $result;
         }
 
         if ($type == 'partial' || $type == 'layout' || $type == 'content' || $type == 'asset') {
             $result = in_array($type, ['asset', 'content']) ? $template->getFileName() : $template->getBaseFileName();
-            if (!$result)
+            if (!$result) {
                 $result = trans('cms::lang.'.$type.'.new');
+            }
 
             return $result;
         }
@@ -377,8 +392,9 @@ class Index extends Controller
             'asset'   => '@/modules/cms/classes/asset/fields.yaml',
         ];
 
-        if (!array_key_exists($type, $formConfigs))
+        if (!array_key_exists($type, $formConfigs)) {
             throw new ApplicationException(trans('cms::lang.template.not_found'));
+        }
 
         $widgetConfig = $this->makeConfig($formConfigs[$type]);
         $widgetConfig->model = $template;
@@ -391,23 +407,27 @@ class Index extends Controller
 
     protected function upgradeSettings($settings)
     {
-        if (!array_key_exists('component_properties', $_POST))
+        if (!array_key_exists('component_properties', $_POST)) {
             return $settings;
+        }
 
-        if (!array_key_exists('component_names', $_POST) || !array_key_exists('component_aliases', $_POST))
+        if (!array_key_exists('component_names', $_POST) || !array_key_exists('component_aliases', $_POST)) {
             throw new ApplicationException(trans('cms::lang.component.invalid_request'));
+        }
 
         $count = count($_POST['component_properties']);
-        if (count($_POST['component_names']) != $count || count($_POST['component_aliases']) != $count)
+        if (count($_POST['component_names']) != $count || count($_POST['component_aliases']) != $count) {
             throw new ApplicationException(trans('cms::lang.component.invalid_request'));
+        }
 
         for ($index = 0; $index < $count; $index ++) {
             $componentName = $_POST['component_names'][$index];
             $componentAlias = $_POST['component_aliases'][$index];
 
             $section = $componentName;
-            if ($componentAlias != $componentName)
+            if ($componentAlias != $componentName) {
                 $section .= ' '.$componentAlias;
+            }
 
             $properties = json_decode($_POST['component_properties'][$index], true);
             unset($properties['oc.alias']);
@@ -431,5 +451,4 @@ class Index extends Controller
         $markup = str_replace("\r", "\n", $markup);
         return $markup;
     }
-
 }
