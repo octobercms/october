@@ -40,6 +40,6 @@ class PutNode extends Twig_Node
             ->write("echo \$this->env->getExtension('CMS')->endBlock(")
             ->raw($isOverwrite ? 'false' : 'true')
             ->write(");\n")
-        ; 
+        ;
     }
 }
