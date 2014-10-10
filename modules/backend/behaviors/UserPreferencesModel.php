@@ -35,8 +35,9 @@ class UserPreferencesModel extends SettingsModel
      */
     public function instance()
     {
-        if (isset(self::$instances[$this->recordCode]))
+        if (isset(self::$instances[$this->recordCode])) {
             return self::$instances[$this->recordCode];
+        }
 
         $item = UserPreferences::forUser();
         $item = $item->scopeFindRecord($this->model, $this->recordCode, $item->userContext)->first();
@@ -44,10 +45,11 @@ class UserPreferencesModel extends SettingsModel
         if (!$item) {
             $this->model->initSettingsData();
 
-            if (method_exists($this->model, 'forceSave'))
+            if (method_exists($this->model, 'forceSave')) {
                 $this->model->forceSave();
-            else
+            } else {
                 $this->model->save();
+            }
 
             $this->model->reload();
             $item = $this->model;
@@ -77,8 +79,9 @@ class UserPreferencesModel extends SettingsModel
         $this->model->namespace = $namespace;
         $this->model->user_id = $preferences->userContext->id;
 
-        if ($this->fieldValues)
+        if ($this->fieldValues) {
             $this->model->value = $this->fieldValues;
+        }
     }
 
     /**
@@ -90,9 +93,10 @@ class UserPreferencesModel extends SettingsModel
         /*
          * Let the core columns through
          */
-        if ($key == 'namespace' || $key == 'group')
+        if ($key == 'namespace' || $key == 'group') {
             return true;
+        }
 
         return parent::isKeyAllowed($key);
     }
-} 
+}

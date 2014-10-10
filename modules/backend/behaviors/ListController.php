@@ -68,8 +68,7 @@ class ListController extends ControllerBehavior
         if (is_array($controller->listConfig)) {
             $this->listDefinitions = $controller->listConfig;
             $this->primaryDefinition = key($this->listDefinitions);
-        }
-        else {
+        } else {
             $this->listDefinitions = ['list' => $controller->listConfig];
             $this->primaryDefinition = 'list';
         }
@@ -99,8 +98,9 @@ class ListController extends ControllerBehavior
      */
     public function makeList($definition = null)
     {
-        if (!$definition || !isset($this->listDefinitions[$definition]))
+        if (!$definition || !isset($this->listDefinitions[$definition])) {
             $definition = $this->primaryDefinition;
+        }
 
         $listConfig = $this->makeConfig($this->listDefinitions[$definition], $this->requiredConfig);
 
@@ -117,39 +117,59 @@ class ListController extends ControllerBehavior
         $columnConfig = $this->makeConfig($listConfig->list);
         $columnConfig->model = $model;
         $columnConfig->alias = $definition;
-        if (isset($listConfig->recordUrl)) $columnConfig->recordUrl = $listConfig->recordUrl;
-        if (isset($listConfig->recordOnClick)) $columnConfig->recordOnClick = $listConfig->recordOnClick;
-        if (isset($listConfig->recordsPerPage)) $columnConfig->recordsPerPage = $listConfig->recordsPerPage;
-        if (isset($listConfig->noRecordsMessage)) $columnConfig->noRecordsMessage = $listConfig->noRecordsMessage;
-        if (isset($listConfig->defaultSort)) $columnConfig->defaultSort = $listConfig->defaultSort;
-        if (isset($listConfig->showSorting)) $columnConfig->showSorting = $listConfig->showSorting;
-        if (isset($listConfig->showSetup)) $columnConfig->showSetup = $listConfig->showSetup;
-        if (isset($listConfig->showCheckboxes)) $columnConfig->showCheckboxes = $listConfig->showCheckboxes;
-        if (isset($listConfig->showTree)) $columnConfig->showTree = $listConfig->showTree;
-        if (isset($listConfig->treeExpanded)) $columnConfig->treeExpanded = $listConfig->treeExpanded;
+        if (isset($listConfig->recordUrl)) {
+            $columnConfig->recordUrl = $listConfig->recordUrl;
+        }
+        if (isset($listConfig->recordOnClick)) {
+            $columnConfig->recordOnClick = $listConfig->recordOnClick;
+        }
+        if (isset($listConfig->recordsPerPage)) {
+            $columnConfig->recordsPerPage = $listConfig->recordsPerPage;
+        }
+        if (isset($listConfig->noRecordsMessage)) {
+            $columnConfig->noRecordsMessage = $listConfig->noRecordsMessage;
+        }
+        if (isset($listConfig->defaultSort)) {
+            $columnConfig->defaultSort = $listConfig->defaultSort;
+        }
+        if (isset($listConfig->showSorting)) {
+            $columnConfig->showSorting = $listConfig->showSorting;
+        }
+        if (isset($listConfig->showSetup)) {
+            $columnConfig->showSetup = $listConfig->showSetup;
+        }
+        if (isset($listConfig->showCheckboxes)) {
+            $columnConfig->showCheckboxes = $listConfig->showCheckboxes;
+        }
+        if (isset($listConfig->showTree)) {
+            $columnConfig->showTree = $listConfig->showTree;
+        }
+        if (isset($listConfig->treeExpanded)) {
+            $columnConfig->treeExpanded = $listConfig->treeExpanded;
+        }
         $widget = $this->makeWidget('Backend\Widgets\Lists', $columnConfig);
         $widget->bindToController();
 
         /*
          * Extensibility helpers
          */
-        $widget->bindEvent('list.extendQueryBefore', function($query) use ($definition) {
+        $widget->bindEvent('list.extendQueryBefore', function ($query) use ($definition) {
             $this->controller->listExtendQueryBefore($query, $definition);
         });
 
-        $widget->bindEvent('list.extendQuery', function($query) use ($definition) {
+        $widget->bindEvent('list.extendQuery', function ($query) use ($definition) {
             $this->controller->listExtendQuery($query, $definition);
         });
 
-        $widget->bindEvent('list.injectRowClass', function($record) use ($definition) {
+        $widget->bindEvent('list.injectRowClass', function ($record) use ($definition) {
             return $this->controller->listInjectRowClass($record, $definition);
         });
 
-        $widget->bindEvent('list.overrideColumnValue', function($record, $column, $value) use ($definition) {
+        $widget->bindEvent('list.overrideColumnValue', function ($record, $column, $value) use ($definition) {
             return $this->controller->listOverrideColumnValue($record, $column->columnName, $definition);
         });
 
-        $widget->bindEvent('list.overrideHeaderValue', function($column, $value) use ($definition) {
+        $widget->bindEvent('list.overrideHeaderValue', function ($column, $value) use ($definition) {
             return $this->controller->listOverrideHeaderValue($column->columnName, $definition);
         });
 
@@ -167,7 +187,7 @@ class ListController extends ControllerBehavior
              * Link the Search Widget to the List Widget
              */
             if ($searchWidget = $toolbarWidget->getSearchWidget()) {
-                $searchWidget->bindEvent('search.submit', function() use ($widget, $searchWidget) {
+                $searchWidget->bindEvent('search.submit', function () use ($widget, $searchWidget) {
                     $widget->setSearchTerm($searchWidget->getActiveTerm());
                     return $widget->onRefresh();
                 });
@@ -193,7 +213,7 @@ class ListController extends ControllerBehavior
             /*
              * Filter the list when the scopes are changed
              */
-            $filterWidget->bindEvent('filter.update', function() use ($widget, $filterWidget){
+            $filterWidget->bindEvent('filter.update', function () use ($widget, $filterWidget) {
                 $widget->addFilter([$filterWidget, 'applyAllScopesToQuery']);
                 return $widget->onRefresh();
             });
@@ -213,7 +233,10 @@ class ListController extends ControllerBehavior
      */
     public function index()
     {
-        $this->controller->pageTitle = $this->controller->pageTitle ?: trans($this->getConfig('title', 'backend::lang.list.default_title'));
+        $this->controller->pageTitle = $this->controller->pageTitle ?: trans($this->getConfig(
+            'title',
+            'backend::lang.list.default_title'
+        ));
         $this->controller->bodyClass = 'slim-container';
         $this->makeLists();
     }
@@ -225,19 +248,23 @@ class ListController extends ControllerBehavior
      */
     public function listRender($definition = null)
     {
-        if (!count($this->listWidgets))
+        if (!count($this->listWidgets)) {
             throw new SystemException(Lang::get('backend::lang.list.behavior_not_ready'));
+        }
 
-        if (!$definition || !isset($this->listDefinitions[$definition]))
+        if (!$definition || !isset($this->listDefinitions[$definition])) {
             $definition = $this->primaryDefinition;
+        }
 
         $collection = [];
 
-        if (isset($this->toolbarWidgets[$definition]))
+        if (isset($this->toolbarWidgets[$definition])) {
             $collection[] = $this->toolbarWidgets[$definition]->render();
+        }
 
-        if (isset($this->filterWidgets[$definition]))
+        if (isset($this->filterWidgets[$definition])) {
             $collection[] = $this->filterWidgets[$definition]->render();
+        }
 
         $collection[] = $this->listWidgets[$definition]->render();
 
@@ -251,11 +278,13 @@ class ListController extends ControllerBehavior
      */
     public function listRefresh($definition = null)
     {
-        if (!count($this->listWidgets))
+        if (!count($this->listWidgets)) {
             $this->makeLists();
+        }
 
-        if (!$definition || !isset($this->listDefinitions[$definition]))
+        if (!$definition || !isset($this->listDefinitions[$definition])) {
             $definition = $this->primaryDefinition;
+        }
 
         return $this->listWidgets[$definition]->onRefresh();
     }
@@ -279,14 +308,18 @@ class ListController extends ControllerBehavior
      * before the default query is processed.
      * @param October\Rain\Database\Builder $query
      */
-    public function listExtendQueryBefore($query, $definition = null) {}
+    public function listExtendQueryBefore($query, $definition = null)
+    {
+    }
 
     /**
      * Controller override: Extend the query used for populating the list
      * after the default query is processed.
      * @param October\Rain\Database\Builder $query
      */
-    public function listExtendQuery($query, $definition = null) {}
+    public function listExtendQuery($query, $definition = null)
+    {
+    }
 
     /**
      * Returns a CSS class name for a list row (<tr class="...">).
@@ -294,7 +327,9 @@ class ListController extends ControllerBehavior
      * @param  string $definition List definition (optional)
      * @return string HTML view
      */
-    public function listInjectRowClass($record, $definition = null) {}
+    public function listInjectRowClass($record, $definition = null)
+    {
+    }
 
     /**
      * Replace a table column value (<td>...</td>)
@@ -303,7 +338,9 @@ class ListController extends ControllerBehavior
      * @param  string $definition List definition (optional)
      * @return string HTML view
      */
-    public function listOverrideColumnValue($record, $columnName, $definition = null) {}
+    public function listOverrideColumnValue($record, $columnName, $definition = null)
+    {
+    }
 
     /**
      * Replace the entire table header contents (<th>...</th>) with custom HTML
@@ -311,7 +348,9 @@ class ListController extends ControllerBehavior
      * @param  string $definition List definition (optional)
      * @return string HTML view
      */
-    public function listOverrideHeaderValue($columnName, $definition = null) {}
+    public function listOverrideHeaderValue($columnName, $definition = null)
+    {
+    }
 
     /**
      * Static helper for extending form fields.
@@ -321,10 +360,11 @@ class ListController extends ControllerBehavior
     public static function extendListColumns($callback)
     {
         $calledClass = self::getCalledExtensionClass();
-        Event::listen('backend.list.extendColumns', function($widget) use ($calledClass, $callback) {
-            if (!is_a($widget->getController(), $calledClass)) return;
+        Event::listen('backend.list.extendColumns', function ($widget) use ($calledClass, $callback) {
+            if (!is_a($widget->getController(), $calledClass)) {
+                return;
+            }
             $callback($widget, $widget->model);
         });
     }
-
 }
