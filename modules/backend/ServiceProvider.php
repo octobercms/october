@@ -24,7 +24,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register widgets
          */
-        WidgetManager::instance()->registerFormWidgets(function($manager){
+        WidgetManager::instance()->registerFormWidgets(function ($manager) {
             $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', [
                 'label' => 'Code editor',
                 'alias' => 'codeeditor'
@@ -59,7 +59,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register navigation
          */
-        BackendMenu::registerCallback(function($manager) {
+        BackendMenu::registerCallback(function ($manager) {
             $manager->registerMenuItems('October.Backend', [
                 'dashboard' => [
                     'label'       => 'backend::lang.dashboard.menu_label',
@@ -74,7 +74,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register settings
          */
-        SettingsManager::instance()->registerCallback(function($manager){
+        SettingsManager::instance()->registerCallback(function ($manager) {
             $manager->registerSettingItems('October.Backend', [
                 'editor' => [
                     'label'       => 'backend::lang.editor.menu_label',
@@ -119,17 +119,23 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register permissions
          */
-        BackendAuth::registerCallback(function($manager) {
+        BackendAuth::registerCallback(function ($manager) {
             $manager->registerPermissions('October.Backend', [
-                'backend.access_dashboard' => ['label' => 'system::lang.permissions.view_the_dashboard', 'tab' => 'System'],
-                'backend.manage_users'     => ['label' => 'system::lang.permissions.manage_other_administrators', 'tab' => 'System'],
+                'backend.access_dashboard' => [
+                    'label' => 'system::lang.permissions.view_the_dashboard',
+                    'tab' => 'System'
+                ],
+                'backend.manage_users'     => [
+                    'label' => 'system::lang.permissions.manage_other_administrators',
+                    'tab' => 'System'
+                ],
             ]);
         });
 
         /*
          * Register mail templates
          */
-        MailTemplate::registerCallback(function($template){
+        MailTemplate::registerCallback(function ($template) {
             $template->registerMailTemplates([
                 'backend::mail.invite'  => 'Invitation for newly created administrators.',
                 'backend::mail.restore' => 'Password reset instructions for backend-end administrators.',
@@ -146,5 +152,4 @@ class ServiceProvider extends ModuleServiceProvider
     {
         parent::boot('backend');
     }
-
 }
