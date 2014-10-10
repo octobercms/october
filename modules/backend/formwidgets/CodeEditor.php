@@ -118,5 +118,4 @@ class CodeEditor extends FormWidgetBase
         $this->addJs('vendor/ace/ace.js', 'core');
         $this->addJs('js/codeeditor.js', 'core');
     }
-
 }

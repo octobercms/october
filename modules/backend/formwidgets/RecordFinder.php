@@ -84,11 +84,21 @@ class RecordFinder extends FormWidgetBase
         $this->nameFrom = $this->getConfig('nameFrom', $this->nameFrom);
         $this->descriptionFrom = $this->getConfig('descriptionFrom', $this->descriptionFrom);
 
-        /* @todo Remove line if year >= 2015 */ if ($this->getConfig('nameColumn')) $this->nameFrom = $this->getConfig('nameColumn');
-        /* @todo Remove line if year >= 2015 */ if ($this->getConfig('descriptionColumn')) $this->descriptionFrom = $this->getConfig('descriptionColumn');
+        /* @todo Remove lines if year >= 2015 */
+        if ($this->getConfig('nameColumn')) {
+            $this->nameFrom = $this->getConfig('nameColumn');
+        }
+        /* @todo Remove lines if year >= 2015 */
+        if ($this->getConfig('descriptionColumn')) {
+            $this->descriptionFrom = $this->getConfig('descriptionColumn');
+        }
 
-        if (!$this->model->hasRelation($this->relationName))
-            throw new SystemException(Lang::get('backend::lang.model.missing_relation', ['class'=>get_class($this->controller), 'relation'=>$this->relationName]));
+        if (!$this->model->hasRelation($this->relationName)) {
+            throw new SystemException(Lang::get('backend::lang.model.missing_relation', [
+                'class' => get_class($this->controller),
+                'relation' => $this->relationName
+            ]));
+        }
 
         if (post('recordfinder_flag')) {
             $this->listWidget = $this->makeListWidget();
@@ -100,7 +110,7 @@ class RecordFinder extends FormWidgetBase
             /*
              * Link the Search Widget to the List Widget
              */
-            $this->searchWidget->bindEvent('search.submit', function() {
+            $this->searchWidget->bindEvent('search.submit', function () {
                 $this->listWidget->setSearchTerm($this->searchWidget->getActiveTerm());
                 return $this->listWidget->onRefresh();
             });
@@ -162,24 +172,27 @@ class RecordFinder extends FormWidgetBase
 
     public function getKeyValue()
     {
-        if (!$this->relationModel)
+        if (!$this->relationModel) {
             return null;
+        }
 
         return $this->relationModel->{$this->keyFrom};
     }
 
     public function getNameValue()
     {
-        if (!$this->relationModel || !$this->nameFrom)
+        if (!$this->relationModel || !$this->nameFrom) {
             return null;
+        }
 
         return $this->relationModel->{$this->nameFrom};
     }
 
     public function getDescriptionValue()
     {
-        if (!$this->relationModel || !$this->descriptionFrom)
+        if (!$this->relationModel || !$this->descriptionFrom) {
             return null;
+        }
 
         return $this->relationModel->{$this->descriptionFrom};
     }

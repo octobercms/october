@@ -99,16 +99,19 @@ class DataGrid extends FormWidgetBase
     {
         $methodName = 'get'.studly_case($this->fieldName).'AutocompleteValues';
 
-        if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getGridAutocompleteValues'))
+        if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getGridAutocompleteValues')) {
             throw new ApplicationException('Model :model does not contain a method getGridAutocompleteValues()');
+        }
 
-        if ($this->model->methodExists($methodName))
+        if ($this->model->methodExists($methodName)) {
             $result = $this->model->$methodName($field, $value, $data);
-        else
+        } else {
             $result = $this->model->getGridAutocompleteValues($this->fieldName, $field, $value, $data);
+        }
 
-        if (!is_array($result))
+        if (!is_array($result)) {
             $result = [];
+        }
 
         return $result;
     }
@@ -122,16 +125,19 @@ class DataGrid extends FormWidgetBase
     {
         $methodName = 'get'.studly_case($this->fieldName).'DataSourceValues';
 
-        if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getGridDataSourceValues'))
+        if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getGridDataSourceValues')) {
             throw new ApplicationException('Model :model does not contain a method getGridDataSourceValues()');
+        }
 
-        if ($this->model->methodExists($methodName))
+        if ($this->model->methodExists($methodName)) {
             $result = $this->model->$methodName();
-        else
+        } else {
             $result = $this->model->getGridDataSourceValues($this->fieldName);
+        }
 
-        if (!is_array($result))
+        if (!is_array($result)) {
             $result = [];
+        }
 
         return $result;
     }

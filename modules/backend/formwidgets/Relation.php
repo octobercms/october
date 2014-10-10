@@ -61,11 +61,21 @@ class Relation extends FormWidgetBase
         $this->descriptionFrom = $this->getConfig('descriptionFrom', $this->descriptionFrom);
         $this->emptyOption = $this->getConfig('emptyOption');
 
-        /* @todo Remove line if year >= 2015 */ if ($this->getConfig('nameColumn')) $this->nameFrom = $this->getConfig('nameColumn');
-        /* @todo Remove line if year >= 2015 */ if ($this->getConfig('descriptionColumn')) $this->descriptionFrom = $this->getConfig('descriptionColumn');
+        /* @todo Remove lines if year >= 2015 */
+        if ($this->getConfig('nameColumn')) {
+            $this->nameFrom = $this->getConfig('nameColumn');
+        }
+        /* @todo Remove lines if year >= 2015 */
+        if ($this->getConfig('descriptionColumn')) {
+            $this->descriptionFrom = $this->getConfig('descriptionColumn');
+        }
 
-        if (!$this->model->hasRelation($this->relationName))
-            throw new SystemException(Lang::get('backend::lang.model.missing_relation', ['class'=>get_class($this->controller), 'relation'=>$this->relationName]));
+        if (!$this->model->hasRelation($this->relationName)) {
+            throw new SystemException(Lang::get(
+                'backend::lang.model.missing_relation',
+                ['class'=>get_class($this->controller), 'relation'=>$this->relationName]
+            ));
+        }
     }
 
     /**
@@ -90,7 +100,7 @@ class Relation extends FormWidgetBase
      */
     protected function makeRenderFormField()
     {
-        return $this->renderFormField = RelationBase::noConstraints(function() {
+        return $this->renderFormField = RelationBase::noConstraints(function () {
 
             $field = clone $this->formField;
 
@@ -100,13 +110,12 @@ class Relation extends FormWidgetBase
 
             if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany'])) {
                 $field->type = 'checkboxlist';
-            }
-            else if ($this->relationType == 'belongsTo') {
+            } elseif ($this->relationType == 'belongsTo') {
                 $field->type = 'dropdown';
                 $field->placeholder = $this->emptyOption;
             }
 
-            // It is safe to assume that if the model and related model are of 
+            // It is safe to assume that if the model and related model are of
             // the exact same class, then it cannot be related to itself
             if ($model->exists && (get_class($model) == get_class($relatedObj))) {
                 $query->where($relatedObj->getKeyName(), '<>', $model->getKey());
@@ -117,10 +126,11 @@ class Relation extends FormWidgetBase
             $query->getQuery()->getQuery()->joins = [];
 
             $treeTraits = ['October\Rain\Database\Traits\NestedTree', 'October\Rain\Database\Traits\SimpleTree'];
-            if (count(array_intersect($treeTraits, class_uses($relatedObj))) > 0)
+            if (count(array_intersect($treeTraits, class_uses($relatedObj))) > 0) {
                 $field->options = $query->listsNested($this->nameFrom, $relatedObj->getKeyName());
-            else
+            } else {
                 $field->options = $query->lists($this->nameFrom, $relatedObj->getKeyName());
+            }
 
             return $field;
         });
@@ -131,11 +141,13 @@ class Relation extends FormWidgetBase
      */
     public function getSaveData($value)
     {
-        if (is_string($value) && !strlen($value))
+        if (is_string($value) && !strlen($value)) {
             return null;
+        }
 
-        if (is_array($value) && !count($value))
+        if (is_array($value) && !count($value)) {
             return null;
+        }
 
         return $value;
     }

@@ -39,7 +39,10 @@ class FileUpload extends FormWidgetBase
     {
         $this->imageHeight = $this->getConfig('imageHeight', 100);
         $this->imageWidth = $this->getConfig('imageWidth', 100);
-        $this->previewNoFilesMessage = $this->getConfig('previewNoFilesMessage', 'backend::lang.form.preview_no_files_message');
+        $this->previewNoFilesMessage = $this->getConfig(
+            'previewNoFilesMessage',
+            'backend::lang.form.preview_no_files_message'
+        );
         $this->checkUploadPostback();
     }
 
@@ -87,8 +90,9 @@ class FileUpload extends FormWidgetBase
     {
         $mode = $this->getConfig('mode', 'image');
 
-        if (str_contains($mode, '-'))
+        if (str_contains($mode, '-')) {
             return $mode;
+        }
 
         $relationType = $this->getRelationType();
         $mode .= ($relationType == 'attachMany' || $relationType == 'morphMany') ? '-multi' : '-single';
@@ -171,8 +175,7 @@ class FileUpload extends FormWidgetBase
             }
 
             throw new SystemException('Unable to find file, it may no longer exist');
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             return json_encode(['error' => $ex->getMessage()]);
         }
     }
@@ -200,8 +203,9 @@ class FileUpload extends FormWidgetBase
      */
     protected function checkUploadPostback()
     {
-        if (!($uniqueId = post('X_OCTOBER_FILEUPLOAD')) || $uniqueId != $this->getId())
+        if (!($uniqueId = post('X_OCTOBER_FILEUPLOAD')) || $uniqueId != $this->getId()) {
             return;
+        }
 
         try {
             $uploadedFile = Input::file('file_data');
@@ -209,19 +213,22 @@ class FileUpload extends FormWidgetBase
             $isImage = starts_with($this->getDisplayMode(), 'image');
 
             $validationRules = ['max:'.File::getMaxFilesize()];
-            if ($isImage)
+            if ($isImage) {
                 $validationRules[] = 'mimes:jpg,jpeg,bmp,png,gif';
+            }
 
             $validation = Validator::make(
                 ['file_data' => $uploadedFile],
                 ['file_data' => $validationRules]
             );
 
-            if ($validation->fails())
+            if ($validation->fails()) {
                 throw new ValidationException($validation);
+            }
 
-            if (!$uploadedFile->isValid())
+            if (!$uploadedFile->isValid()) {
                 throw new SystemException('File is not valid');
+            }
 
             $fileRelation = $this->getRelationObject();
 
@@ -235,8 +242,7 @@ class FileUpload extends FormWidgetBase
             $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, ['mode' => 'crop']);
             $result = $file;
 
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $result = json_encode(['error' => $ex->getMessage()]);
         }
 
