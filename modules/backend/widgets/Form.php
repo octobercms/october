@@ -218,7 +218,7 @@ class Form extends WidgetBase
     }
 
     /**
-     * Prepares the list data
+     * Prepares the form data
      */
     protected function prepareVars()
     {
