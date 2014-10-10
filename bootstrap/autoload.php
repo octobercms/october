@@ -68,5 +68,3 @@ October\Rain\Support\ClassLoader::addDirectories(array(__DIR__.'/../modules', __
 */
 
 Illuminate\Support\ClassLoader::register();
-
-
