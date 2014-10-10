@@ -40,11 +40,11 @@ class BackendHelper
         $backendUri = Config::get('cms.backendUri');
         $baseUrl = Request::getBaseUrl();
 
-        if ($path === null)
+        if ($path === null) {
             return $baseUrl . '/' . $backendUri;
+        }
 
         $path = RouterHelper::normalizeUrl($path);
         return $baseUrl . '/' . $backendUri . $path;
     }
-
 }

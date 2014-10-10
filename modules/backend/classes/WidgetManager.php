@@ -84,8 +84,9 @@ class WidgetManager
         /*
          * Build configuration
          */
-        if ($configuration === null)
+        if ($configuration === null) {
             $configuration = [];
+        }
 
         /*
          * Create widget object
@@ -125,11 +126,13 @@ class WidgetManager
             $plugins = $this->pluginManager->getPlugins();
 
             foreach ($plugins as $plugin) {
-                if (!is_array($widgets = $plugin->registerFormWidgets()))
+                if (!is_array($widgets = $plugin->registerFormWidgets())) {
                     continue;
+                }
 
-                foreach ($widgets as $className => $widgetInfo)
+                foreach ($widgets as $className => $widgetInfo) {
                     $this->registerFormWidget($className, $widgetInfo);
+                }
             }
         }
 
@@ -145,8 +148,9 @@ class WidgetManager
     public function registerFormWidget($className, $widgetInfo = null)
     {
         $widgetAlias = isset($widgetInfo['alias']) ? $widgetInfo['alias'] : null;
-        if (!$widgetAlias)
+        if (!$widgetAlias) {
             $widgetAlias = Str::getClassId($className);
+        }
 
         $this->formWidgets[$className] = $widgetInfo;
         $this->formWidgetAliases[$widgetAlias] = $className;
@@ -175,17 +179,20 @@ class WidgetManager
      */
     public function resolveFormWidget($name)
     {
-        if ($this->formWidgets === null)
+        if ($this->formWidgets === null) {
             $this->listFormWidgets();
+        }
 
         $aliases = $this->formWidgetAliases;
 
-        if (isset($aliases[$name]))
+        if (isset($aliases[$name])) {
             return $aliases[$name];
+        }
 
         $_name = Str::normalizeClassName($name);
-        if (isset($this->formWidgets[$_name]))
+        if (isset($this->formWidgets[$_name])) {
             return $_name;
+        }
 
         return $name;
     }
@@ -216,11 +223,13 @@ class WidgetManager
             $plugins = $this->pluginManager->getPlugins();
 
             foreach ($plugins as $plugin) {
-                if (!is_array($widgets = $plugin->registerReportWidgets()))
+                if (!is_array($widgets = $plugin->registerReportWidgets())) {
                     continue;
+                }
 
-                foreach ($widgets as $className => $widgetInfo)
+                foreach ($widgets as $className => $widgetInfo) {
                     $this->registerReportWidget($className, $widgetInfo);
+                }
             }
         }
 

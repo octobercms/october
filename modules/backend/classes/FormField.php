@@ -193,15 +193,13 @@ class FormField
         if ($value === null) {
             if (is_array($this->options)) {
                 return $this->options;
-            }
-            elseif (is_callable($this->options)) {
+            } elseif (is_callable($this->options)) {
                 $callable = $this->options;
                 return $callable();
             }
 
             return [];
-        }
-        else {
+        } else {
             $this->options = $value;
         }
 
@@ -233,28 +231,67 @@ class FormField
      */
     protected function evalConfig($config)
     {
-        if (isset($config['options'])) $this->options($config['options']);
-        if (isset($config['span'])) $this->span($config['span']);
-        if (isset($config['context'])) $this->context = $config['context'];
-        if (isset($config['size'])) $this->size($config['size']);
-        if (isset($config['tab'])) $this->tab($config['tab']);
-        if (isset($config['commentAbove'])) $this->comment($config['commentAbove'], 'above');
-        if (isset($config['comment'])) $this->comment($config['comment']);
-        if (isset($config['placeholder'])) $this->placeholder = $config['placeholder'];
-        if (isset($config['default'])) $this->defaults = $config['default'];
-        if (isset($config['cssClass'])) $this->cssClass = $config['cssClass'];
-        if (isset($config['attributes'])) $this->attributes($config['attributes']);
-        if (isset($config['containerAttributes'])) $this->attributes($config['containerAttributes'], 'container');
-        if (isset($config['depends'])) $this->depends = $config['depends'];
-        if (isset($config['path'])) $this->path = $config['path'];
+        if (isset($config['options'])) {
+            $this->options($config['options']);
+        }
+        if (isset($config['span'])) {
+            $this->span($config['span']);
+        }
+        if (isset($config['context'])) {
+            $this->context = $config['context'];
+        }
+        if (isset($config['size'])) {
+            $this->size($config['size']);
+        }
+        if (isset($config['tab'])) {
+            $this->tab($config['tab']);
+        }
+        if (isset($config['commentAbove'])) {
+            $this->comment($config['commentAbove'], 'above');
+        }
+        if (isset($config['comment'])) {
+            $this->comment($config['comment']);
+        }
+        if (isset($config['placeholder'])) {
+            $this->placeholder = $config['placeholder'];
+        }
+        if (isset($config['default'])) {
+            $this->defaults = $config['default'];
+        }
+        if (isset($config['cssClass'])) {
+            $this->cssClass = $config['cssClass'];
+        }
+        if (isset($config['attributes'])) {
+            $this->attributes($config['attributes']);
+        }
+        if (isset($config['containerAttributes'])) {
+            $this->attributes($config['containerAttributes'], 'container');
+        }
+        if (isset($config['depends'])) {
+            $this->depends = $config['depends'];
+        }
+        if (isset($config['path'])) {
+            $this->path = $config['path'];
+        }
 
-        if (array_key_exists('required', $config)) $this->required = $config['required'];
-        if (array_key_exists('disabled', $config)) $this->disabled = $config['disabled'];
-        if (array_key_exists('hidden', $config)) $this->hidden = $config['hidden'];
-        if (array_key_exists('stretch', $config)) $this->stretch = $config['stretch'];
+        if (array_key_exists('required', $config)) {
+            $this->required = $config['required'];
+        }
+        if (array_key_exists('disabled', $config)) {
+            $this->disabled = $config['disabled'];
+        }
+        if (array_key_exists('hidden', $config)) {
+            $this->hidden = $config['hidden'];
+        }
+        if (array_key_exists('stretch', $config)) {
+            $this->stretch = $config['stretch'];
+        }
 
-        if (isset($config['valueFrom'])) $this->valueFrom = $config['valueFrom'];
-        else $this->valueFrom = $this->fieldName;
+        if (isset($config['valueFrom'])) {
+            $this->valueFrom = $config['valueFrom'];
+        } else {
+            $this->valueFrom = $this->fieldName;
+        }
 
         return $config;
     }
@@ -284,8 +321,9 @@ class FormField
      */
     public function attributes($items, $position = 'field')
     {
-        if (!is_array($items))
+        if (!is_array($items)) {
             return;
+        }
 
         $multiArray = array_filter($items, 'is_array');
         if (!$multiArray) {
@@ -316,13 +354,15 @@ class FormField
      */
     public function getName($arrayName = null)
     {
-        if ($arrayName === null)
+        if ($arrayName === null) {
             $arrayName = $this->arrayName;
+        }
 
-        if ($arrayName)
+        if ($arrayName) {
             return $arrayName.'['.implode('][', Str::evalHtmlArray($this->fieldName)).']';
-        else
+        } else {
             return $this->fieldName;
+        }
     }
 
     /**
@@ -331,16 +371,19 @@ class FormField
     public function getId($suffix = null)
     {
         $id = 'field';
-        if ($this->arrayName)
+        if ($this->arrayName) {
             $id .= '-'.$this->arrayName;
+        }
 
         $id .= '-'.$this->fieldName;
 
-        if ($suffix)
+        if ($suffix) {
             $id .= '-'.$suffix;
+        }
 
-        if ($this->idPrefix)
+        if ($this->idPrefix) {
             $id = $this->idPrefix . '-' . $id;
+        }
 
         return Str::evalHtmlId($id);
     }

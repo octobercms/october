@@ -83,8 +83,9 @@ class NavigationManager
 
         foreach ($plugins as $id => $plugin) {
             $items = $plugin->registerNavigation();
-            if (!is_array($items))
+            if (!is_array($items)) {
                 continue;
+            }
 
             $this->registerMenuItems($id, $items);
         }
@@ -97,9 +98,10 @@ class NavigationManager
         /*
          * Sort menu items
          */
-        usort($this->items, function($a, $b) {
-            if ($a->order == $b->order)
+        usort($this->items, function ($a, $b) {
+            if ($a->order == $b->order) {
                 return 0;
+            }
 
             return $a->order > $b->order ? 1 : -1;
         });
@@ -111,8 +113,9 @@ class NavigationManager
         $this->items = $this->filterItemPermissions($user, $this->items);
 
         foreach ($this->items as $item) {
-            if (!$item->sideMenu || !count($item->sideMenu))
+            if (!$item->sideMenu || !count($item->sideMenu)) {
                 continue;
+            }
 
             $item->sideMenu = $this->filterItemPermissions($user, $item->sideMenu);
         }
@@ -161,8 +164,9 @@ class NavigationManager
      */
     public function registerMenuItems($owner, array $definitions)
     {
-        if (!$this->items)
+        if (!$this->items) {
             $this->items = [];
+        }
 
         foreach ($definitions as $code => $definition) {
             $item = (object) array_merge(self::$mainItemDefaults, array_merge($definition, [
@@ -192,8 +196,9 @@ class NavigationManager
      */
     public function addMainMenuItems($owner, array $definitions)
     {
-        foreach ($definitions as $code => $definition)
+        foreach ($definitions as $code => $definition) {
             $this->addMainMenuItem($owner, $code, $definition);
+        }
     }
 
     /**
@@ -207,8 +212,9 @@ class NavigationManager
         $sideMenu = isset($definition['sideMenu']) ? $definition['sideMenu'] : null;
 
         $itemKey = $this->makeItemKey($owner, $code);
-        if (isset($this->items[$itemKey]))
+        if (isset($this->items[$itemKey])) {
             $definition = array_merge((array) $this->items[$itemKey], $definition);
+        }
 
         $item = (object) array_merge(self::$mainItemDefaults, array_merge($definition, [
             'code'  => $code,
@@ -217,8 +223,9 @@ class NavigationManager
 
         $this->items[$itemKey] = $item;
 
-        if ($sideMenu !== null)
+        if ($sideMenu !== null) {
             $this->addSideMenuItems($sideMenu);
+        }
     }
 
     /**
@@ -229,8 +236,9 @@ class NavigationManager
      */
     public function addSideMenuItems($owner, $code, array $definitions)
     {
-        foreach ($definitions as $sideCode => $definition)
+        foreach ($definitions as $sideCode => $definition) {
             $this->addSideMenuItem($owner, $code, $sideCode, $definition);
+        }
     }
 
     /**
@@ -243,12 +251,14 @@ class NavigationManager
     public function addSideMenuItem($owner, $code, $sideCode, array $definition)
     {
         $itemKey = $this->makeItemKey($owner, $code);
-        if (!isset($this->items[$itemKey]))
+        if (!isset($this->items[$itemKey])) {
             return false;
+        }
 
         $mainItem = $this->items[$itemKey];
-        if (isset($mainItem->sideMenu[$sideCode]))
+        if (isset($mainItem->sideMenu[$sideCode])) {
             $definition = array_merge((array) $mainItem->sideMenu[$sideCode], $definition);
+        }
 
         $item = (object) array_merge(self::$sideItemDefaults, $definition);
         $this->items[$itemKey]->sideMenu[$sideCode] = $item;
@@ -260,8 +270,9 @@ class NavigationManager
      */
     public function listMainMenuItems()
     {
-        if ($this->items === null)
+        if ($this->items === null) {
             $this->loadItems();
+        }
 
         return $this->items;
     }
@@ -281,14 +292,16 @@ class NavigationManager
             }
         }
 
-        if (!$activeItem)
+        if (!$activeItem) {
             return [];
+        }
 
         $items = $activeItem->sideMenu;
 
         foreach ($items as $item) {
-            if ($item->counter !== null && is_callable($item->counter))
+            if ($item->counter !== null && is_callable($item->counter)) {
                 $item->counter = call_user_func($item->counter, $item);
+            }
         }
 
         return $items;
@@ -339,7 +352,7 @@ class NavigationManager
         return (object)[
             'mainMenuCode' => $this->contextMainMenuItemCode,
             'sideMenuCode' => $this->contextSideMenuItemCode,
-            'owner' => $this->contextOwner 
+            'owner' => $this->contextOwner
         ];
     }
 
@@ -369,8 +382,9 @@ class NavigationManager
     public function getActiveMainMenuItem()
     {
         foreach ($this->listMainMenuItems() as $item) {
-            if ($this->isMainMenuItemActive($item))
+            if ($this->isMainMenuItemActive($item)) {
                 return $item;
+            }
         }
 
         return null;
@@ -399,7 +413,9 @@ class NavigationManager
     }
 
     /**
-     * Returns the side navigation partial for a specific main menu previously registered with the registerContextSidenavPartial() method.
+     * Returns the side navigation partial for a specific main menu previously registered
+     * with the registerContextSidenavPartial() method.
+     *
      * @param string $owner Specifies the navigation owner in the format Vendor/Module.
      * @param string $mainMenuItemCode Specifies the main menu item code.
      * @return mixed Returns the partial name or null.
@@ -408,7 +424,7 @@ class NavigationManager
     {
         $key = $owner.$mainMenuItemCode;
 
-        return array_key_exists($key, $this->contextSidenavPartials) ? 
+        return array_key_exists($key, $this->contextSidenavPartials) ?
             $this->contextSidenavPartials[$key] :
             null;
     }
@@ -421,9 +437,10 @@ class NavigationManager
      */
     protected function filterItemPermissions($user, array $items)
     {
-        $items = array_filter($items, function($item) use ($user) {
-            if (!$item->permissions || !count($item->permissions))
+        $items = array_filter($items, function ($item) use ($user) {
+            if (!$item->permissions || !count($item->permissions)) {
                 return true;
+            }
 
             return $user->hasAnyAccess($item->permissions);
         });
