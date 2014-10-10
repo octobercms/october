@@ -166,7 +166,7 @@ return [
         'concurrency-file-changed-title' => 'Datei wurde geändert',
         'concurrency-file-changed-description' => 'Die Datei, welche Sie bearbeiten, wurde auf von einem anderen Benutzer geändert. Sie können die Datei entweder erneut laden, wodurch Ihre Änderungen verloren gehen oder Sie überschreiben die Datei auf dem Server',
         'reload' => 'Erneut laden',
-    ],    
+    ],
     'relation' => [
         'missing_definition' => "Verhalten (behaviour) der Verbindung umfasst keine Definition für ':field'.",
         'missing_model' => "Verhalten (behaviour) der Verbindung, die in :class benutzt wird, hat kein definiertes Model",
