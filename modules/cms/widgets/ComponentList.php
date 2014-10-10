@@ -47,7 +47,9 @@ class ComponentList extends WidgetBase
     /**
      * Returns information about this widget, including name and description.
      */
-    public function widgetDetails() {}
+    public function widgetDetails()
+    {
+    }
 
     /*
      * Event handlers
@@ -73,8 +75,9 @@ class ComponentList extends WidgetBase
     {
         $searchTerm = Str::lower($this->getSearchTerm());
         $searchWords = [];
-        if (strlen($searchTerm))
+        if (strlen($searchTerm)) {
             $searchWords = explode(' ', $searchTerm);
+        }
 
         $pluginManager = PluginManager::instance();
         $plugins = $pluginManager->getPlugins();
@@ -84,13 +87,20 @@ class ComponentList extends WidgetBase
         $items = [];
         foreach ($plugins as $plugin) {
             $components = $this->getPluginComponents($plugin);
-            if (!is_array($components))
+            if (!is_array($components)) {
                 continue;
+            }
 
             $pluginDetails = $plugin->pluginDetails();
-            $pluginName = isset($pluginDetails['name']) ? $pluginDetails['name'] : Lang::get('system::lang.plugin.unnamed');
-            $pluginIcon = isset($pluginDetails['icon']) ? $pluginDetails['icon'] : 'icon-puzzle-piece';
-            $pluginDescription = isset($pluginDetails['description']) ? $pluginDetails['description'] : null;
+            $pluginName = isset($pluginDetails['name']) ?
+                $pluginDetails['name'] :
+                Lang::get('system::lang.plugin.unnamed');
+            $pluginIcon = isset($pluginDetails['icon']) ?
+                $pluginDetails['icon'] :
+                'icon-puzzle-piece';
+            $pluginDescription = isset($pluginDetails['description']) ?
+                $pluginDetails['description'] :
+                null;
             $pluginClass = get_class($plugin);
 
             $pluginItems = [];
@@ -110,11 +120,14 @@ class ComponentList extends WidgetBase
                     'className'      => get_class($component),
                     'pluginIcon'     => $pluginIcon,
                     'alias'          => $alias,
-                    'name'           => $componentInfo->duplicateAlias ? $componentInfo->className : $componentInfo->alias
+                    'name'           => $componentInfo->duplicateAlias ?
+                        $componentInfo->className :
+                        $componentInfo->alias
                 ];
 
-                if ($searchWords && !$this->itemMatchesSearch($searchWords, $item))
+                if ($searchWords && !$this->itemMatchesSearch($searchWords, $item)) {
                     continue;
+                }
 
                 if (!array_key_exists($pluginClass, $items)) {
                     $group = (object)[
@@ -131,15 +144,16 @@ class ComponentList extends WidgetBase
                 $pluginItems[] = $item;
             }
 
-            usort($pluginItems, function($a, $b) {
+            usort($pluginItems, function ($a, $b) {
                 return strcmp($a->title, $b->title);
             });
 
-            if (isset($items[$pluginClass]))
+            if (isset($items[$pluginClass])) {
                 $items[$pluginClass]->items = $pluginItems;
+            }
         }
 
-        uasort($items, function($a, $b) {
+        uasort($items, function ($a, $b) {
             return strcmp($a->title, $b->title);
         });
 
@@ -154,8 +168,9 @@ class ComponentList extends WidgetBase
         $componentList = [];
         foreach ($plugins as $plugin) {
             $components = $plugin->registerComponents();
-            if (!is_array($components))
+            if (!is_array($components)) {
                 continue;
+            }
 
             foreach ($components as $className => $alias) {
                 $duplicateAlias = false;
@@ -183,8 +198,9 @@ class ComponentList extends WidgetBase
         $result = array();
         $pluginClass = get_class($plugin);
         foreach ($this->pluginComponentList as $componentInfo) {
-            if ($componentInfo->pluginClass == $pluginClass)
+            if ($componentInfo->pluginClass == $pluginClass) {
                 $result[] = $componentInfo;
+            }
         }
 
         return $result;
@@ -210,11 +226,13 @@ class ComponentList extends WidgetBase
     {
         foreach ($words as $word) {
             $word = trim($word);
-            if (!strlen($word))
+            if (!strlen($word)) {
                 continue;
+            }
 
-            if (!$this->itemContainsWord($word, $item))
+            if (!$this->itemContainsWord($word, $item)) {
                 return false;
+            }
         }
 
         return true;
@@ -222,26 +240,31 @@ class ComponentList extends WidgetBase
 
     protected function itemContainsWord($word, $item)
     {
-        if (Str::contains(Str::lower($item->title), $word))
+        if (Str::contains(Str::lower($item->title), $word)) {
             return true;
+        }
 
-        if (Str::contains(Str::lower($item->description), $word) && strlen($item->description))
+        if (Str::contains(Str::lower($item->description), $word) && strlen($item->description)) {
             return true;
+        }
 
-        if (Str::contains(Str::lower($item->plugin), $word) && strlen($item->plugin))
+        if (Str::contains(Str::lower($item->plugin), $word) && strlen($item->plugin)) {
             return true;
+        }
 
         return false;
     }
 
     protected function getGroupStatuses()
     {
-        if ($this->groupStatusCache !== false)
+        if ($this->groupStatusCache !== false) {
             return $this->groupStatusCache;
+        }
 
         $groups = $this->getSession('groups');
-        if (!is_array($groups))
+        if (!is_array($groups)) {
             return $this->groupStatusCache = [];
+        }
 
         return $this->groupStatusCache = $groups;
     }
@@ -258,8 +281,9 @@ class ComponentList extends WidgetBase
     protected function getGroupStatus($group)
     {
         $statuses = $this->getGroupStatuses();
-        if (array_key_exists($group, $statuses))
+        if (array_key_exists($group, $statuses)) {
             return $statuses[$group];
+        }
 
         return false;
     }

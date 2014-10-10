@@ -46,7 +46,7 @@ class TemplateList extends WidgetBase
     /**
      * @var string Message to display when there are no records in the list.
      */
-    public $noRecordsMessage = 'No records found'; 
+    public $noRecordsMessage = 'No records found';
 
     /**
      * @var string Message to display when the Delete button is clicked.
@@ -70,15 +70,17 @@ class TemplateList extends WidgetBase
 
         parent::__construct($controller, []);
 
-        if (!Request::isXmlHttpRequest())
+        if (!Request::isXmlHttpRequest()) {
             $this->resetSelection();
+        }
 
         $configFile = 'config_' . snake_case($alias) .'.yaml';
         $config = $this->makeConfig($configFile);
 
-        foreach ($config as $field=>$value) {
-            if (property_exists($this, $field))
+        foreach ($config as $field => $value) {
+            if (property_exists($this, $field)) {
                 $this->$field = $value;
+            }
         }
 
         $this->bindToController();
@@ -134,10 +136,11 @@ class TemplateList extends WidgetBase
         $items = call_user_func($this->dataSource);
 
         $normalizedItems = [];
-        foreach ($items as $item)
+        foreach ($items as $item) {
             $normalizedItems[] = $this->normalizeItem($item);
+        }
 
-        usort($normalizedItems, function($a, $b) {
+        usort($normalizedItems, function ($a, $b) {
             return strcmp($a->title, $b->title);
         });
 
@@ -150,11 +153,13 @@ class TemplateList extends WidgetBase
             $words = explode(' ', $searchTerm);
 
             foreach ($normalizedItems as $item) {
-                if ($this->itemMatchesSearch($words, $item))
+                if ($this->itemMatchesSearch($words, $item)) {
                     $filteredItems[] = $item;
+                }
             }
-        } else
+        } else {
             $filteredItems = $normalizedItems;
+        }
 
         // Group the items
         $result = [];
@@ -174,12 +179,14 @@ class TemplateList extends WidgetBase
                 }
 
                 $foundGroups[$group]->items[] = $itemData;
-            } else
+            } else {
                 $result[] = $itemData;
+            }
         }
 
-        foreach ($foundGroups as $group)
+        foreach ($foundGroups as $group) {
             $result[] = $group;
+        }
 
         return $result;
     }
@@ -187,13 +194,15 @@ class TemplateList extends WidgetBase
     protected function normalizeItem($item)
     {
         $description = null;
-        if ($descriptionProperty = $this->descriptionProperty)
+        if ($descriptionProperty = $this->descriptionProperty) {
             $description = $item->$descriptionProperty;
+        }
 
         $descriptions = [];
-        foreach ($this->descriptionProperties as $property=>$title) {
-            if ($item->$property)
+        foreach ($this->descriptionProperties as $property => $title) {
+            if ($item->$property) {
                 $descriptions[$title] = $item->$property;
+            }
         }
 
         $result = [
@@ -210,8 +219,9 @@ class TemplateList extends WidgetBase
     {
         $titleProperty = $this->titleProperty;
 
-        if ($titleProperty)
+        if ($titleProperty) {
             return $item->$titleProperty ?: $item->getFileName();
+        }
 
         return $item->getFileName();
     }
@@ -236,11 +246,13 @@ class TemplateList extends WidgetBase
     {
         foreach ($words as $word) {
             $word = trim($word);
-            if (!strlen($word))
+            if (!strlen($word)) {
                 continue;
+            }
 
-            if (!$this->itemContainsWord($word, $item))
+            if (!$this->itemContainsWord($word, $item)) {
                 return false;
+            }
         }
 
         return true;
@@ -249,18 +261,24 @@ class TemplateList extends WidgetBase
     protected function itemContainsWord($word, $item)
     {
         if (strlen($item->title)) {
-            if (Str::contains(Str::lower($item->title), $word))
+            if (Str::contains(Str::lower($item->title), $word)) {
                 return true;
-        } else
-            if (Str::contains(Str::lower($item->fileName), $word))
+            }
+        } else {
+            if (Str::contains(Str::lower($item->fileName), $word)) {
                 return true;
+            }
+        }
 
-        if (Str::contains(Str::lower($item->description), $word) && strlen($item->description))
+        if (Str::contains(Str::lower($item->description), $word) && strlen($item->description)) {
             return true;
+        }
 
-        foreach ($item->descriptions as $value) 
-            if (Str::contains(Str::lower($value), $word) && strlen($value))
+        foreach ($item->descriptions as $value) {
+            if (Str::contains(Str::lower($value), $word) && strlen($value)) {
                 return true;
+            }
+        }
 
         return false;
     }
@@ -268,8 +286,9 @@ class TemplateList extends WidgetBase
     protected function getGroupStatus($group)
     {
         $statuses = $this->getGroupStatuses();
-        if (array_key_exists($group, $statuses))
+        if (array_key_exists($group, $statuses)) {
             return $statuses[$group];
+        }
 
         return false;
     }
@@ -281,12 +300,14 @@ class TemplateList extends WidgetBase
 
     protected function getGroupStatuses()
     {
-        if ($this->groupStatusCache !== false)
+        if ($this->groupStatusCache !== false) {
             return $this->groupStatusCache;
+        }
 
         $groups = $this->getSession($this->getThemeSessionKey('groups'), []);
-        if (!is_array($groups))
+        if (!is_array($groups)) {
             return $this->groupStatusCache = [];
+        }
 
         return $this->groupStatusCache = $groups;
     }
@@ -301,12 +322,14 @@ class TemplateList extends WidgetBase
 
     protected function getSelectedTemplates()
     {
-        if ($this->selectedTemplatesCache !== false)
+        if ($this->selectedTemplatesCache !== false) {
             return $this->selectedTemplatesCache;
+        }
 
         $templates = $this->getSession($this->getThemeSessionKey('selected'), []);
-        if (!is_array($templates))
+        if (!is_array($templates)) {
             return $this->selectedTemplatesCache = [];
+        }
 
         return $this->selectedTemplatesCache = $templates;
     }
@@ -327,8 +350,9 @@ class TemplateList extends WidgetBase
     protected function isTemplateSelected($item)
     {
         $selectedTemplates = $this->getSelectedTemplates();
-        if (!is_array($selectedTemplates) || !isset($selectedTemplates[$item->fileName]))
+        if (!is_array($selectedTemplates) || !isset($selectedTemplates[$item->fileName])) {
             return false;
+        }
 
         return $selectedTemplates[$item->fileName];
     }
