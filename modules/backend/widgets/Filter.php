@@ -102,8 +102,9 @@ class Filter extends WidgetBase
     {
         $this->defineFilterScopes();
 
-        if (!$scope = post('scopeName'))
+        if (!$scope = post('scopeName')) {
             return;
+        }
 
         $scope = $this->getScope($scope);
 
@@ -124,8 +125,9 @@ class Filter extends WidgetBase
          */
         $params = func_get_args();
         $result = $this->fireEvent('filter.update', [$params]);
-        if ($result && is_array($result))
+        if ($result && is_array($result)) {
             return Util::arrayMerge($result);
+        }
     }
 
     /**
@@ -137,8 +139,9 @@ class Filter extends WidgetBase
         $this->defineFilterScopes();
 
         $searchQuery = post('search');
-        if (!$scopeName = post('scopeName'))
+        if (!$scopeName = post('scopeName')) {
             return;
+        }
 
         $scope = $this->getScope($scopeName);
         $activeKeys = $scope->value ? array_keys($scope->value) : [];
@@ -188,8 +191,9 @@ class Filter extends WidgetBase
     {
         $active = [];
         foreach ($availableOptions as $id => $option) {
-            if (!in_array($id, $activeKeys))
+            if (!in_array($id, $activeKeys)) {
                 continue;
+            }
 
             $active[$id] = $option;
             unset($availableOptions[$id]);
@@ -204,8 +208,9 @@ class Filter extends WidgetBase
     protected function getOptionsFromModel($scope, $searchQuery = null)
     {
         $model = $this->scopeModels[$scope->scopeName];
-        if (!$searchQuery)
+        if (!$searchQuery) {
             return $model->all();
+        }
 
         $searchFields = [$model->getKeyName(), $this->getScopeNameColumn($scope)];
         return $model->searchWhere($searchQuery, $searchFields)->get();
@@ -216,8 +221,9 @@ class Filter extends WidgetBase
      */
     protected function defineFilterScopes()
     {
-        if ($this->scopesDefined)
+        if ($this->scopesDefined) {
             return;
+        }
 
         /*
          * Extensibility
@@ -228,8 +234,9 @@ class Filter extends WidgetBase
         /*
          * All scopes
          */
-        if (!isset($this->config->scopes) || !is_array($this->config->scopes))
+        if (!isset($this->config->scopes) || !is_array($this->config->scopes)) {
             $this->config->scopes = [];
+        }
 
         $this->addScopes($this->config->scopes);
 
@@ -256,8 +263,9 @@ class Filter extends WidgetBase
              */
             if ($scopeObj->context !== null) {
                 $context = (is_array($scopeObj->context)) ? $scopeObj->context : [$scopeObj->context];
-                if (!in_array($this->getContext(), $context))
+                if (!in_array($this->getContext(), $context)) {
                     continue;
+                }
             }
 
             /*
@@ -318,11 +326,13 @@ class Filter extends WidgetBase
      */
     public function applyScopeToQuery($scope, $query)
     {
-        if (is_string($scope))
+        if (is_string($scope)) {
             $scope = $this->getScope($scope);
+        }
 
-        if (!$scope->value)
+        if (!$scope->value) {
             return;
+        }
 
         $value = is_array($scope->value) ? array_keys($scope->value) : $scope->value;
 
@@ -331,11 +341,10 @@ class Filter extends WidgetBase
          */
         if ($scopeConditions = $scope->conditions) {
             if (is_array($value)) {
-                $filtered = implode(',', array_build($value, function($key, $_value){
+                $filtered = implode(',', array_build($value, function ($key, $_value) {
                     return [$key, Db::getPdo()->quote($_value)];
                 }));
-            }
-            else {
+            } else {
                 $filtered = Db::getPdo()->quote($value);
             }
 
@@ -361,8 +370,9 @@ class Filter extends WidgetBase
      */
     public function getScopeValue($scope, $default = null)
     {
-        if (is_string($scope))
+        if (is_string($scope)) {
             $scope = $this->getScope($scope);
+        }
 
         $cacheKey = 'scope-'.$scope->scopeName;
         return $this->getSession($cacheKey, $default);
@@ -373,8 +383,9 @@ class Filter extends WidgetBase
      */
     public function setScopeValue($scope, $value)
     {
-        if (is_string($scope))
+        if (is_string($scope)) {
             $scope = $this->getScope($scope);
+        }
 
         $cacheKey = 'scope-'.$scope->scopeName;
         $this->putSession($cacheKey, $value);
@@ -398,8 +409,9 @@ class Filter extends WidgetBase
      */
     public function getScope($scope)
     {
-        if (!isset($this->allScopes[$scope]))
+        if (!isset($this->allScopes[$scope])) {
             throw new ApplicationException('No definition for scope ' . $scope);
+        }
 
         return $this->allScopes[$scope];
     }
@@ -411,8 +423,9 @@ class Filter extends WidgetBase
      */
     public function getScopeNameColumn($scope)
     {
-        if (is_string($scope))
+        if (is_string($scope)) {
             $scope = $this->getScope($scope);
+        }
 
         return $scope->nameFrom;
     }
@@ -451,14 +464,16 @@ class Filter extends WidgetBase
     protected function optionsFromAjax($options)
     {
         $processed = [];
-        if (!is_array($options))
+        if (!is_array($options)) {
             return $processed;
+        }
 
         foreach ($options as $option) {
-            if (!$id = array_get($option, 'id')) continue;
+            if (!$id = array_get($option, 'id')) {
+                continue;
+            }
             $processed[$id] = array_get($option, 'name');
         }
         return $processed;
     }
-
 }

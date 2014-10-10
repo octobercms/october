@@ -117,8 +117,9 @@ class Grid extends WidgetBase
 
     protected function makeToolbarWidget()
     {
-        if ($this->disableToolbar)
+        if ($this->disableToolbar) {
             return;
+        }
 
         $defaultConfig = [
             'buttons' => $this->getViewPath('_toolbar.htm'),
@@ -148,8 +149,9 @@ class Grid extends WidgetBase
 
     public function onDataChanged()
     {
-        if (!$this->monitorChanges)
+        if (!$this->monitorChanges) {
             return;
+        }
 
         /*
          * Changes array, each array item will contain:
@@ -168,16 +170,19 @@ class Grid extends WidgetBase
 
     public function onDataSource()
     {
-        if (!$this->useDataSource)
+        if (!$this->useDataSource) {
             return;
+        }
 
         $result = [];
 
-        if ($_result = $this->fireEvent('grid.dataSource', [], true))
+        if ($_result = $this->fireEvent('grid.dataSource', [], true)) {
             $result = $_result;
+        }
 
-        if (!is_array($result))
+        if (!is_array($result)) {
             $result = [];
+        }
 
         return ['result' => $result];
     }
@@ -188,8 +193,9 @@ class Grid extends WidgetBase
 
     protected function getColumnHeaders()
     {
-        if (!$this->showHeader)
+        if (!$this->showHeader) {
             return false;
+        }
 
         $headers = [];
         foreach ($this->columns as $key => $column) {
@@ -214,8 +220,9 @@ class Grid extends WidgetBase
             $item = [];
             $item['data'] = $key;
 
-            if (isset($column['readOnly']))
+            if (isset($column['readOnly'])) {
                 $item['readOnly'] =  $column['readOnly'];
+            }
 
             $item = $this->evalColumnType($column, $item);
             $definitions[] = $item;
@@ -225,8 +232,9 @@ class Grid extends WidgetBase
 
     protected function evalColumnType($column, $item)
     {
-        if (!isset($column['type']))
+        if (!isset($column['type'])) {
             return $item;
+        }
 
         switch ($column['type']) {
             case 'number':
@@ -244,8 +252,12 @@ class Grid extends WidgetBase
 
             case 'autocomplete':
                 $item['type'] = 'autocomplete';
-                if (isset($column['options'])) $item['source'] = $column['options'];
-                if (isset($column['strict'])) $item['strict'] = $column['strict'];
+                if (isset($column['options'])) {
+                    $item['source'] = $column['options'];
+                }
+                if (isset($column['strict'])) {
+                    $item['strict'] = $column['strict'];
+                }
                 break;
         }
 
@@ -266,5 +278,4 @@ class Grid extends WidgetBase
         $this->addJs('vendor/handsontable/jquery.handsontable.js', 'core');
         $this->addJs('js/datagrid.js', 'core');
     }
-
 }
