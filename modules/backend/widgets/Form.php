@@ -759,7 +759,7 @@ class Form extends WidgetBase
          * Number fields should be converted to integers
          */
         foreach ($this->fields as $field) {
-            if ($field->type != 'number')
+            if ($field->type != 'number') {
                 continue;
             }
 
