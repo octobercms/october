@@ -248,23 +248,36 @@ class CmsCompoundObject extends CmsObject
      */
     public function getComponent($componentName)
     {
-        if (!$this->hasComponent($componentName))
+        if (!($componentSection = $this->hasComponent($componentName)))
             return null;
 
         return ComponentManager::instance()->makeComponent(
             $componentName, 
             null, 
-            $this->settings['components'][$componentName]);
+            $this->settings['components'][$componentSection]);
     }
 
     /**
      * Checks if the object has a component with the specified name.
      * @param string $componentName Specifies the component name.
-     * @return boolean Returns true if the component exists.
+     * @return mixed Return false or the full component name used on the page (it could include the alias).
      */
     public function hasComponent($componentName)
     {
-        return isset($this->settings['components'][$componentName]);
+        foreach ($this->settings['components'] as $sectionName=>$values) {
+            if ($sectionName == $componentName)
+                return $componentName;
+
+            $parts = explode(' ', $sectionName);
+
+            if (count($parts) < 2)
+                continue;
+
+            if (trim($parts[0]) == $componentName)
+                return $sectionName;
+        }
+
+        return false;
     }
 
     /**
@@ -300,6 +313,10 @@ class CmsCompoundObject extends CmsObject
             $objectComponentMap[$objectCode] = [];
         else {
             foreach ($this->settings['components'] as $componentName=>$componentSettings) {
+                $nameParts = explode(' ', $componentName);
+                if (count($nameParts > 1))
+                    $componentName = trim($nameParts[0]);
+
                 $component = $this->getComponent($componentName);
                 if (!$component)
                     continue;
