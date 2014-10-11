@@ -3,7 +3,6 @@
 use App;
 use Str;
 use Lang;
-use Model;
 use Form as FormHelper;
 use Input;
 use Event;
@@ -12,6 +11,7 @@ use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
 use System\Classes\ApplicationException;
 use Backend\Classes\FormWidgetBase;
+use October\Rain\Database\Model;
 
 /**
  * Form Widget
