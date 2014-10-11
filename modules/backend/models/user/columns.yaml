@@ -22,4 +22,5 @@ columns:
     groups:
         label: backend::lang.user.groups
         relation: groups
-        select: @name
+        select: name
+        sortable: false

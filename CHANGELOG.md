@@ -1,3 +1,6 @@
+* **Build 15x** (2014-10-x)
+  - Added twig filters `|trans` for `Lang::get(...)` and `|transchoice` for `Lang::choice(...)`.
+
 * **Build 153** (2014-10-09)
   - Plugins are now updated in order of their dependency definitions.
   - Moved `ViewMaker` trait now lives under system, it can be useful for Models too.

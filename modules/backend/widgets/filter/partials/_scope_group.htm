@@ -3,6 +3,6 @@
     class="filter-scope <?= $scope->value ? 'active' : '' ?>"
     href="javascript:;"
     data-scope-name="<?= $scope->scopeName ?>">
-    <span class="filter-label"><?= e($scope->label) ?>:</span>
+    <span class="filter-label"><?= e(trans($scope->label)) ?>:</span>
     <span class="filter-setting"><?= $scope->value ? count($scope->value) : e(trans('backend::lang.filter.all')) ?></span>
 </a>

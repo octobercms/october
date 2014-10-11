@@ -3,7 +3,6 @@
 use App;
 use Str;
 use Lang;
-use Model;
 use Form as FormHelper;
 use Input;
 use Event;
@@ -12,6 +11,7 @@ use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
 use System\Classes\ApplicationException;
 use Backend\Classes\FormWidgetBase;
+use October\Rain\Database\Model;
 
 /**
  * Form Widget
@@ -241,7 +241,7 @@ class Form extends WidgetBase
     }
 
     /**
-     * Prepares the list data
+     * Prepares the form data
      */
     protected function prepareVars()
     {
@@ -756,11 +756,10 @@ class Form extends WidgetBase
         }
 
         /*
-         * Boolean fields (checkbox, switch) won't be present value FALSE
          * Number fields should be converted to integers
          */
         foreach ($this->fields as $field) {
-            if (!in_array($field->type, ['switch', 'checkbox', 'number'])) {
+            if ($field->type != 'number')
                 continue;
             }
 
@@ -769,11 +768,10 @@ class Form extends WidgetBase
              */
             $parts = Str::evalHtmlArray($field->fieldName);
             $dotted = implode('.', $parts);
-            $value = array_get($data, $dotted, 0);
-            if ($field->type == 'number') {
+            if (($value = array_get($data, $dotted)) !== null) {
                 $value = !strlen(trim($value)) ? null : (float) $value;
+                array_set($data, $dotted, $value);
             }
-            array_set($data, $dotted, $value);
         }
 
         /*

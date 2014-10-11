@@ -47,12 +47,17 @@ class ComponentHelpers
             /*
              * Translate human values
              */
-            $translate = ['title', 'description'];
+            $translate = ['title', 'description', 'options'];
             foreach ($property as $name => $value) {
                 if (!in_array($name, $translate)) {
                     continue;
                 }
-                $property[$name] = Lang::get($value);
+
+                if (is_array($value)) {
+                    array_walk($property[$name], function(&$_value, $key) { $_value = Lang::get($_value); });
+                } else {
+                    $property[$name] = Lang::get($value);
+                }
             }
 
             $result[] = $property;

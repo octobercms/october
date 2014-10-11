@@ -45,6 +45,9 @@ class Components extends FormWidgetBase
                 $componentObj->alias = $alias;
                 $componentObj->pluginIcon = 'icon-puzzle-piece';
 
+                /*
+                 * Look up the plugin hosting this component
+                 */
                 $plugin = $manager->findComponentPlugin($componentObj);
                 if ($plugin) {
                     $pluginDetails = $plugin->pluginDetails();

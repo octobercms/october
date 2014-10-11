@@ -27,7 +27,7 @@ class AuthManager extends RainAuthManager
     // Permission management
     //
 
-    static $permissionDefaults = [
+    protected static $permissionDefaults = [
         'code'    => null,
         'label'   => null,
         'comment' => null,
