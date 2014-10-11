@@ -693,12 +693,10 @@ class Form extends WidgetBase
             $data = [];
 
         /*
-         * Boolean fields (checkbox, switch) won't be present value FALSE
          * Number fields should be converted to integers
          */
         foreach ($this->fields as $field) {
-
-            if (!in_array($field->type, ['switch', 'checkbox', 'number']))
+            if ($field->type != 'number')
                 continue;
 
             /*
@@ -706,11 +704,10 @@ class Form extends WidgetBase
              */
             $parts = Str::evalHtmlArray($field->fieldName);
             $dotted = implode('.', $parts);
-            $value = array_get($data, $dotted, 0);
-            if ($field->type == 'number') {
+            if (($value = array_get($data, $dotted)) !== null) {
                 $value = !strlen(trim($value)) ? null : (float) $value;
+                array_set($data, $dotted, $value);
             }
-            array_set($data, $dotted, $value);
         }
 
         /*
