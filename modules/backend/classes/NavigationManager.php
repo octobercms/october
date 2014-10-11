@@ -30,7 +30,7 @@ class NavigationManager
     protected $contextMainMenuItemCode;
     protected $contextSideMenuItemCode;
 
-    static $mainItemDefaults = [
+    protected static $mainItemDefaults = [
         'code'        => null,
         'label'       => null,
         'icon'        => null,
@@ -40,7 +40,7 @@ class NavigationManager
         'sideMenu'    => []
     ];
 
-    static $sideItemDefaults = [
+    protected static $sideItemDefaults = [
         'code'        => null,
         'label'       => null,
         'icon'        => null,

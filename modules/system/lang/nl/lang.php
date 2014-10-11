@@ -17,6 +17,7 @@ return [
         'it' => 'Italiaans',
         'ro' => 'Roemeens',
         'pt-br' => 'Braziliaans Portugees',
+        'fa' => 'Persian',
     ],
     'directory' => [
         'create_fail' => "Map aanmaken mislukt: :name",

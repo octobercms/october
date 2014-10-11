@@ -15,6 +15,7 @@ return [
         'ru' => 'Russe',
         'fr' => 'Français',
         'pt-br' => 'Portugais-Brésilien',
+        'fa' => 'Persian',
     ],
     'directory' => [
         'create_fail' => "Impossible de créer le répertoire : :name",

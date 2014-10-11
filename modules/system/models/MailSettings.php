@@ -19,6 +19,7 @@ class MailSettings extends Model
     const MODE_MAIL     = 'mail';
     const MODE_SENDMAIL = 'sendmail';
     const MODE_SMTP     = 'smtp';
+    const MODE_MAILGUN  = 'mailgun';
 
     public function initSettingsData()
     {
@@ -40,6 +41,7 @@ class MailSettings extends Model
             static::MODE_MAIL     => 'PHP mail',
             static::MODE_SENDMAIL => 'Sendmail',
             static::MODE_SMTP     => 'SMTP',
+            static::MODE_MAILGUN  => 'Mailgun',
         ];
     }
 
@@ -68,6 +70,11 @@ class MailSettings extends Model
 
             case self::MODE_SENDMAIL:
                 $config->set('mail.sendmail', $settings->sendmail_path);
+                break;
+
+            case self::MODE_MAILGUN:
+                $config->set('services.mailgun.domain', $settings->mailgun_domain);
+                $config->set('services.mailgun.secret', $settings->mailgun_secret);
                 break;
         }
     }

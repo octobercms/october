@@ -323,7 +323,7 @@ class ListController extends ControllerBehavior
         $calledClass = self::getCalledExtensionClass();
         Event::listen('backend.list.extendColumns', function($widget) use ($calledClass, $callback) {
             if (!is_a($widget->getController(), $calledClass)) return;
-            $callback($widget, $widget->model, $widget->getContext());
+            $callback($widget, $widget->model);
         });
     }
 

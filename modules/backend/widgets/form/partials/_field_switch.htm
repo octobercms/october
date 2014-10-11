@@ -5,7 +5,14 @@
         <p class="help-block"><?= e(trans($field->comment)) ?></p>
     <?php endif ?>
 </div>
-<label class="custom-switch" onclick="">
+
+<input
+    type="hidden"
+    name="<?= $field->getName() ?>"
+    value="0"
+    <?= $this->previewMode ? 'disabled="disabled"' : '' ?>>
+
+<label class="custom-switch">
     <input
         type="checkbox"
         id="<?= $field->getId() ?>"

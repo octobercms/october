@@ -163,8 +163,8 @@ return [
         'select_placeholder' => 'Bitte auswählen',
         'insert_row' => 'Reihe einfügen',
         'delete_row' => 'Reihe löschen',
-        'concurrency-file-changed-title' => 'Datei wurde geändert',
-        'concurrency-file-changed-description' => 'Die Datei, welche Sie bearbeiten, wurde auf von einem anderen Benutzer geändert. Sie können die Datei entweder erneut laden, wodurch Ihre Änderungen verloren gehen oder Sie überschreiben die Datei auf dem Server',
+        'concurrency_file_changed_title' => 'Datei wurde geändert',
+        'concurrency_file_changed_description' => 'Die Datei, welche Sie bearbeiten, wurde auf von einem anderen Benutzer geändert. Sie können die Datei entweder erneut laden, wodurch Ihre Änderungen verloren gehen oder Sie überschreiben die Datei auf dem Server',
         'reload' => 'Erneut laden',
     ],    
     'relation' => [

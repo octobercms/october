@@ -44,12 +44,16 @@ class Components extends FormWidgetBase
                 $componentObj->alias = $alias;
                 $componentObj->pluginIcon = 'icon-puzzle-piece';
 
+                /*
+                 * Look up the plugin hosting this component
+                 */
                 $plugin = $manager->findComponentPlugin($componentObj);
                 if ($plugin) {
                     $pluginDetails = $plugin->pluginDetails();
                     if (isset($pluginDetails['icon']))
                         $componentObj->pluginIcon = $pluginDetails['icon'];
                 }
+
             }
             catch (Exception $ex) {
                 $componentObj = new UnknownComponent(null, $properties, $ex->getMessage());

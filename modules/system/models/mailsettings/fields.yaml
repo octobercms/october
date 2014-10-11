@@ -53,3 +53,13 @@ tabs:
       label: system::lang.mail.sendmail_path
       commentAbove: system::lang.mail.sendmail_path_comment
       tab: system::lang.mail.sendmail
+
+    mailgun_domain:
+      label: system::lang.mail.mailgun_domain
+      commentAbove: system::lang.mail.mailgun_domain_comment
+      tab: system::lang.mail.mailgun
+
+    mailgun_secret:
+      label: system::lang.mail.mailgun_secret
+      commentAbove: system::lang.mail.mailgun_domain_secret
+      tab: system::lang.mail.mailgun

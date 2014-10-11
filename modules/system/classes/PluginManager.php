@@ -57,6 +57,11 @@ class PluginManager
     protected $disabledPlugins = [];
 
     /**
+     * @var boolean Prevent all plugins from registering or booting
+     */
+    public static $noInit = false;
+
+    /**
      * Initializes the plugin manager
      */
     protected function init()
@@ -111,7 +116,7 @@ class PluginManager
      */
     public function registerAll()
     {
-        if ($this->registered)
+        if ($this->registered || self::$noInit)
             return;
 
         foreach ($this->plugins as $pluginId => $plugin) {
@@ -166,7 +171,7 @@ class PluginManager
      */
     public function bootAll()
     {
-        if ($this->booted)
+        if ($this->booted || self::$noInit)
             return;
 
         foreach ($this->plugins as $plugin) {
