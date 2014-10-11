@@ -107,6 +107,17 @@ class FormController extends ControllerBehavior
          */
         if ($this->controller->isClassExtendedWith('Backend.Behaviors.RelationController'))
             $this->controller->initRelation($model);
+
+        $this->prepareVars($model);
+    }
+
+    /**
+     * Prepares common form data
+     */
+    protected function prepareVars($model)
+    {
+        $this->controller->vars['formModel'] = $model;
+        $this->controller->vars['formRecordName'] = Lang::get($this->getConfig('name', 'backend::lang.model.name'));
     }
 
     //
@@ -124,9 +135,8 @@ class FormController extends ControllerBehavior
             $this->context = strlen($context) ? $context : $this->getConfig('create[context]', 'create');
             $this->controller->pageTitle = $this->controller->pageTitle ?: $this->getLang('create[title]', 'backend::lang.form.create_title');
             $model = $this->controller->formCreateModelObject();
-            $this->initForm($model);
 
-            $this->controller->vars['formModel'] = $model;
+            $this->initForm($model);
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -176,9 +186,8 @@ class FormController extends ControllerBehavior
             $this->context = strlen($context) ? $context : $this->getConfig('update[context]', 'update');
             $this->controller->pageTitle = $this->controller->pageTitle ?: $this->getLang('update[title]', 'backend::lang.form.update_title');
             $model = $this->controller->formFindModelObject($recordId);
-            $this->initForm($model);
 
-            $this->controller->vars['formModel'] = $model;
+            $this->initForm($model);
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -250,9 +259,8 @@ class FormController extends ControllerBehavior
             $this->context = strlen($context) ? $context : $this->getConfig('preview[context]', 'preview');
             $this->controller->pageTitle = $this->controller->pageTitle ?: $this->getLang('preview[title]', 'backend::lang.form.preview_title');
             $model = $this->controller->formFindModelObject($recordId);
-            $this->initForm($model);
 
-            $this->controller->vars['formModel'] = $model;
+            $this->initForm($model);
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -353,10 +361,10 @@ class FormController extends ControllerBehavior
     {
         $name = $this->getConfig($name, $default);
         $vars = [
-            'name' => Lang::get($this->getConfig('name', trans('backend::lang.model.name')))
+            'name' => Lang::get($this->getConfig('name', 'backend::lang.model.name'))
         ];
         $vars = array_merge($vars, $extras);
-        return trans($name, $vars);
+        return Lang::get($name, $vars);
     }
 
     //

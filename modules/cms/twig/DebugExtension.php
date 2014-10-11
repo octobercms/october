@@ -7,7 +7,7 @@ use Cms\Classes\Controller;
 use Cms\Classes\ComponentBase;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use Model;
+use October\Rain\Database\Model;
 
 class DebugExtension extends Twig_Extension
 {

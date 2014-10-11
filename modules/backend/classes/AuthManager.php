@@ -27,7 +27,7 @@ class AuthManager extends RainAuthManager
     // Permission management
     //
 
-    static $permissionDefaults = [
+    protected static $permissionDefaults = [
         'code'    => null,
         'label'   => null,
         'comment' => null,
@@ -82,8 +82,8 @@ class AuthManager extends RainAuthManager
     {
         foreach ($definitions as $code=>$definition) {
             $permission = (object)array_merge(self::$permissionDefaults, array_merge($definition, [
-                'code'=>$code,
-                'owner'=>$owner
+                'code'  => $code,
+                'owner' => $owner
             ]));
 
             $this->permissions[] = $permission;

@@ -84,9 +84,9 @@ class Users extends Controller
     /**
      * Add available permission fields to the User form.
      */
-    protected function formExtendFields($host)
+    protected function formExtendFields($form)
     {
-        if ($host->getContext() == 'myaccount')
+        if ($form->getContext() == 'myaccount')
             return;
 
         $permissionFields = [];
@@ -116,6 +116,6 @@ class Users extends Controller
             $permissionFields[$fieldName] = $fieldConfig;
         }
 
-        $host->addTabFields($permissionFields);
+        $form->addTabFields($permissionFields);
     }
 }
