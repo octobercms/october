@@ -259,7 +259,7 @@ class CmsCompoundObject extends CmsObject
      */
     public function getComponent($componentName)
     {
-        if (!($componentSection = $this->hasComponent($componentName)))
+        if (!($componentSection = $this->hasComponent($componentName))) {
             return null;
         }
 
@@ -277,7 +277,7 @@ class CmsCompoundObject extends CmsObject
      */
     public function hasComponent($componentName)
     {
-        foreach ($this->settings['components'] as $sectionName=>$values) {
+        foreach ($this->settings['components'] as $sectionName => $values) {
             if ($sectionName == $componentName) {
                 return $componentName;
             }
