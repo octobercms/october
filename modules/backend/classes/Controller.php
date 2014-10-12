@@ -172,10 +172,9 @@ class Controller extends Extendable
 
             // Not logged in, redirect to login screen or show ajax error
             if (!BackendAuth::check()) {
-                return Request::ajax() {
+                return Request::ajax()
                     ? Response::make(Lang::get('backend::lang.page.access_denied.label'), 403)
                     : Redirect::guest(Backend::url('backend/auth'));
-                }
             }
 
             // Check his access groups against the page definition
