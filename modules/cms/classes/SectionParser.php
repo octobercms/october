@@ -153,8 +153,7 @@ class SectionParser
              * PHP namespaced line (use x;) {
              * Don't increase the line count, it will be rewritten by Cms\Classes\CodeParser
              */
-            if (preg_match_all('/(use\s+[a-z0-9_\\\\]+;
-        }\n?)/mi', $line) == 1) {
+            if (preg_match_all('/(use\s+[a-z0-9_\\\\]+;\n?)/mi', $line) == 1) {
                 continue;
             }
 
