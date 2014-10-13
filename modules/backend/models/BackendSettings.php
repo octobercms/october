@@ -1,7 +1,9 @@
 <?php namespace Backend\Models;
 
+use File;
 use Lang;
 use Model;
+use Less_Parser;
 
 /**
  * Backend settings that affect all users
@@ -11,6 +13,7 @@ use Model;
  */
 class BackendSettings extends Model
 {
+    use \System\Traits\ViewMaker;
     use \October\Rain\Database\Traits\Validation;
 
     public $implement = ['System.Behaviors.SettingsModel'];
@@ -50,6 +53,20 @@ class BackendSettings extends Model
             return null;
 
         return $settings->logo->getPath();
+    }
+
+    public function renderCss()
+    {
+        $parser = new Less_Parser(['compress' => true]);
+
+        $parser->ModifyVars([
+            'logo' => "'".self::getLogo()."'"
+        ]);
+
+        $parser->parse(File::get(__DIR__.'/backendsettings/custom.less'));
+
+        $css = $parser->getCss();
+        return $css;
     }
 
 }

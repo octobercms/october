@@ -6,6 +6,7 @@
     $logo = Backend\Models\BackendSettings::getLogo();
 ?>
 
+<?php /*
     <style>
         .oc-bg-logo {
             background-image: linear-gradient(to bottom, rgba(249,249,249,0.7) 0%,rgba(249,249,249,0.7) 100%), url(<?= \Backend\Models\BackendSettings::getLogo() ?>);
@@ -14,6 +15,10 @@
             background-image: url(<?= $logo ?>);
             height: 170px !important;
         }
-    </style>
+*/ ?>
+
+<style>
+    <?= BackendSettings::instance()->renderCss() ?>
+</style>
 
 <?php endif ?>
