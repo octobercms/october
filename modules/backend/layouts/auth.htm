@@ -12,7 +12,7 @@
         <script src="<?= URL::to('modules/backend/assets/js/vendor/modernizr.min.js') ?>"></script>
         <script src="<?= URL::to('modules/backend/assets/js/october.flashmessage.js') ?>"></script>
         <script src="<?= URL::to('modules/backend/assets/js/auth/auth.js') ?>"></script>
-        
+
         <script>
         <!--
             backendBasePath = '<?= Backend::baseUrl() ?>';
@@ -20,10 +20,12 @@
         </script>
         <?= $this->makeAssets() ?>
         <?= Block::placeholder('head') ?>
+        <?= $this->makeLayoutPartial('custom_styles') ?>
     </head>
     <body class="outer <?= $this->bodyClass ?>">
         <div id="layout-canvas">
             <div class="layout">
+
                 <div class="layout-row min-size layout-head">
                     <div class="layout-cell">
                         <h1 class="oc-logo-white"><?= e(trans('system::lang.app.name')) ?></h1>
@@ -41,15 +43,6 @@
 
             </div>
         </div><!-- /layout-canvas -->
-
-        <?php if ($logo = \Backend\Models\BackendSettings::getLogo()): ?>
-            <style>
-                .oc-logo-white {
-                    background-image: url(<?= $logo ?>);
-                    height: 170px !important;
-                }
-            </style>
-        <?php endif ?>
     </body>
 </html>
 

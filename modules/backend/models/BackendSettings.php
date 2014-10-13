@@ -35,7 +35,11 @@ class BackendSettings extends Model
     {
         $this->app_name = Lang::get('system::lang.app.name');
         $this->app_motto = Lang::get('system::lang.app.motto');
+
+        // Carrot
         $this->primary_color = '#e67e22';
+
+        // Midnight Blue
         $this->secondary_color = '#2b3e50';
     }
 

@@ -1,0 +1,19 @@
+<?php
+    use Backend\Models\BackendSettings;
+?>
+<?php if (BackendSettings::isConfigured()): ?>
+<?php
+    $logo = Backend\Models\BackendSettings::getLogo();
+?>
+
+    <style>
+        .oc-bg-logo {
+            background-image: linear-gradient(to bottom, rgba(249,249,249,0.7) 0%,rgba(249,249,249,0.7) 100%), url(<?= \Backend\Models\BackendSettings::getLogo() ?>);
+        }
+        .oc-logo-white {
+            background-image: url(<?= $logo ?>);
+            height: 170px !important;
+        }
+    </style>
+
+<?php endif ?>
