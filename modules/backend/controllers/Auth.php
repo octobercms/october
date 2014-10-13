@@ -9,7 +9,7 @@ use BackendAuth;
 use Backend\Models\User;
 use Backend\Models\AccessLog;
 use Backend\Classes\Controller;
-use System\Classes\VersionManager;
+use System\Classes\UpdateManager;
 use System\Classes\ApplicationException;
 use October\Rain\Support\ValidationException;
 use Exception;
@@ -75,7 +75,7 @@ class Auth extends Controller
         ], true);
 
         // Load version updates
-        VersionManager::instance()->updateAll();
+        UpdateManager::instance()->update();
 
         // Log the sign in event
         AccessLog::add($user);

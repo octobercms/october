@@ -118,9 +118,9 @@
 
         toggle: function () {
 
-                this.redactor.formatQuote()
+                this.redactor.block.format('blockquote')
 
-                var $target = $(this.redactor.getBlock() || this.redactor.getCurrent())
+                var $target = $(this.redactor.selection.getBlock() || this.redactor.selection.getCurrent())
 
                 if ($target.is('blockquote')) {
                     $target.append($('<cite />'))
@@ -131,17 +131,20 @@
                     $target.closest('figure').before($target).remove()
                 }
 
-                this.redactor.sync()
+                this.redactor.code.sync()
 
             }
     }
 
-    window.RedactorPlugins.quote = {
-        init: function () {
-            this.quote = new Quote(this)
+    window.RedactorPlugins.quote = function() {
+        return {
+            init: function () {
+                this.quote = new Quote(this)
 
-            this.buttonAddBefore('link', 'quote', 'Quote', $.proxy(this.quote.toggle, this.quote))
-            this.buttonGet('quote').addClass('redactor_btn_quote').removeClass('redactor-btn-image')
+                var button = this.button.addBefore('link', 'quote', 'Quote')
+                this.button.addCallback(button, $.proxy(this.quote.toggle, this.quote))
+                button.addClass('redactor_btn_quote').removeClass('redactor-btn-image')
+            }
         }
     }
 

@@ -43,7 +43,10 @@ class User extends UserBase
      */
     protected $purgeable = ['password_confirmation', 'send_invite'];
 
-    protected static $loginAttribute = 'login';
+    /**
+     * @var string Login attribute
+     */
+    public static $loginAttribute = 'login';
 
     /**
      * @return string Returns the user's full name.

@@ -260,6 +260,18 @@ class ListController extends ControllerBehavior
         return $this->listWidgets[$definition]->onRefresh();
     }
 
+    /**
+     * Returns the widget used by this behavior.
+     * @return Backend\Classes\WidgetBase
+     */
+    public function listGetWidget($definition = null)
+    {
+        if (!$definition)
+            $definition = $this->primaryDefinition;
+
+        return array_get($this->listWidgets, $definition);
+    }
+
     //
     // Overrides
     //
@@ -312,5 +324,19 @@ class ListController extends ControllerBehavior
      * @return string HTML view
      */
     public function listOverrideHeaderValue($columnName, $definition = null) {}
+
+    /**
+     * Static helper for extending form fields.
+     * @param  callable $callback
+     * @return void
+     */
+    public static function extendListColumns($callback)
+    {
+        $calledClass = self::getCalledExtensionClass();
+        Event::listen('backend.list.extendColumns', function($widget) use ($calledClass, $callback) {
+            if (!is_a($widget->getController(), $calledClass)) return;
+            $callback($widget, $widget->model);
+        });
+    }
 
 }

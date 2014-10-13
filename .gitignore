@@ -11,3 +11,5 @@ nginx-ssl.error.log
 php-errors.log
 sftp-config.json
 selenium.php
+.env.*.php
+.env.php

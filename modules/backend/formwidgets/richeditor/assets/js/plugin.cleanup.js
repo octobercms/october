@@ -26,9 +26,11 @@
 
     }
 
-    window.RedactorPlugins.cleanup = {
-        init: function () {
-            this.cleanup = new Cleanup(this)
+    window.RedactorPlugins.cleanup = function() {
+        return {
+            init: function () {
+                this.cleanup = new Cleanup(this)
+            }
         }
     }
 

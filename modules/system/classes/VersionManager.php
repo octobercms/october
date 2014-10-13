@@ -68,21 +68,6 @@ class VersionManager
     }
 
     /**
-     * Performs the update for all plugins
-     */
-    public function updateAll()
-    {
-        $plugins = $this->pluginManager->getPlugins();
-
-        foreach ($plugins as $code => $plugin) {
-            if (!$this->hasVersionFile($code))
-                continue;
-
-            $this->updatePlugin($code);
-        }
-    }
-
-    /**
      * Updates a single plugin by its code or object with it's latest changes.
      */
     public function updatePlugin($plugin)

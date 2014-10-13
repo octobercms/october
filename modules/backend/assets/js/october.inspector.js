@@ -587,7 +587,7 @@
 
     // DROPDOWN EDITOR
     // ==================
-    
+
     var InspectorEditorDropdown = function(editorId, inspector, fieldDef) {
         this.inspector = inspector
         this.fieldDef = fieldDef

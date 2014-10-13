@@ -16,6 +16,7 @@ return [
         'fr' => 'Franceza',
         'ro' => 'Romana',
         'pt-br' => 'Portugheza (Brazilia)',
+        'fa' => 'Persian',
     ],
     'directory' => [
         'create_fail' => "Nu se poate crea directorul: :name",
