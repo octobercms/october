@@ -25,6 +25,9 @@ return [
     'file' => [
         'create_fail' => "Dosya oluşturulamıyor: :name",
     ],
+    'combiner' => [
+        'not_found' => "The combiner file ':name' is not found.",
+    ],
     'system' => [
         'name' => 'Sistem',
         'menu_label' => 'Sistem',

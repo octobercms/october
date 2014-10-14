@@ -25,6 +25,9 @@ return [
     'file' => [
         'create_fail' => "Kunde inte skapa fil: :name",
     ],
+    'combiner' => [
+        'not_found' => "Kombinationsfilen ':name' kunde ej hittas",
+    ],
     'system' => [
         'name' => 'System',
         'menu_label' => 'System',

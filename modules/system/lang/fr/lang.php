@@ -23,6 +23,9 @@ return [
     'file' => [
         'create_fail' => "Impossible de créer le fichier : :name",
     ],
+    'combiner' => [
+        'not_found' => "Le fichier combiner ':name' est introuvable.",
+    ],
     'system' => [
         'name' => 'Système',
         'menu_label' => 'Système',

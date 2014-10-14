@@ -25,6 +25,9 @@ return [
     'file' => [
         'create_fail' => "ファイルが作成できません： :name",
     ],
+    'combiner' => [
+        'not_found' => "':name'コンバイナーファイルが見つかりません。",
+    ],
     'system' => [
         'name' => 'システム',
         'menu_label' => 'システム',

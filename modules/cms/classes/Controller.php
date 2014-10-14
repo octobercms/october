@@ -20,6 +20,7 @@ use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Classes\FileHelper as CmsFileHelper;
 use System\Models\RequestLog;
 use System\Classes\ErrorHandler;
+use System\Classes\CombineAssets;
 use System\Classes\ApplicationException;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Support\ValidationException;
@@ -885,28 +886,6 @@ class Controller extends BaseController
     public function param($name, $default = null)
     {
         return $this->router->getParameter($name, $default);
-    }
-
-    /**
-     * Combines JavaScript and StyleSheet assets.
-     * @param string $name Combined file code
-     * @return string Combined content.
-     */
-    public function combine($name)
-    {
-       try {
-           if (!strpos($name, '-'))
-               throw new CmsException(Lang::get('cms::lang.combiner.not_found', ['name'=>$name]));
-
-           $parts = explode('-', $name);
-           $cacheId = $parts[0];
-
-           $combiner = new CombineAssets;
-           return $combiner->getContents($cacheId);
-       }
-       catch (Exception $ex) {
-           return '/* '.$ex->getMessage().' */';
-       }
     }
 
     /**

@@ -24,6 +24,9 @@ return [
     'file' => [
         'create_fail' => "Nu se poate crea fisierul: :name",
     ],
+    'combiner' => [
+        'not_found' => "Fisierul compus ':name' nu a fost gasit.",
+    ],
     'system' => [
         'name' => 'Sistem',
         'menu_label' => 'Sistem',

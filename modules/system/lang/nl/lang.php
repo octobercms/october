@@ -25,6 +25,9 @@ return [
     'file' => [
         'create_fail' => "Bestand aanmaken mislukt: :name",
     ],
+    'combiner' => [
+        'not_found' => "Het samenvoegbestand ':name' is niet gevonden.",
+    ],
     'system' => [
         'name' => 'Systeem',
         'menu_label' => 'Systeem',

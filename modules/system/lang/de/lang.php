@@ -25,6 +25,9 @@ return [
     'file' => [
         'create_fail' => "Konnte Datei :name nicht erstellen",
     ],
+    'combiner' => [
+        'not_found' => "Die combiner Datei ':name' wurde nicht gefunden.",
+    ],
     'system' => [
         'name' => 'System',
         'menu_label' => 'System',

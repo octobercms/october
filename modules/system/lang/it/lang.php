@@ -24,6 +24,9 @@ return [
     'file' => [
         'create_fail' => "Impossibile creare il file: :name",
     ],
+    'combiner' => [
+        'not_found' => "Il file combinatore ':name' non è stato trovato.",
+    ],
     'system' => [
         'name' => 'Sistema',
         'menu_label' => 'Sistema',

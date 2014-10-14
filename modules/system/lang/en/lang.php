@@ -25,6 +25,9 @@ return [
     'file' => [
         'create_fail' => "Cannot create file: :name",
     ],
+    'combiner' => [
+        'not_found' => "The combiner file ':name' is not found.",
+    ],
     'system' => [
         'name' => 'System',
         'menu_label' => 'System',
