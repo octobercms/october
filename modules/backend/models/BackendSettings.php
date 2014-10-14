@@ -40,10 +40,16 @@ class BackendSettings extends Model
         $this->app_motto = Lang::get('system::lang.app.motto');
 
         // Carrot
-        $this->primary_color = '#e67e22';
+        $this->primary_color_dark = '#d35400';
+
+        // Pumpkin
+        $this->primary_color_light = '#e67e22';
 
         // Midnight Blue
-        $this->secondary_color = '#2b3e50';
+        $this->secondary_color_dark = '#2b3e50';
+
+        // Wet Asphalt
+        $this->secondary_color_light = '#34495e';
     }
 
     public static function getLogo()
@@ -60,7 +66,11 @@ class BackendSettings extends Model
         $parser = new Less_Parser(['compress' => true]);
 
         $parser->ModifyVars([
-            'logo' => "'".self::getLogo()."'"
+            'logo-image' => "'".self::getLogo()."'",
+            'primary-color-light' => $this->primary_color_light,
+            'primary-color-dark' => $this->primary_color_dark,
+            'secondary-color-light' => $this->secondary_color_light,
+            'secondary-color-dark' => $this->secondary_color_dark,
         ]);
 
         $parser->parse(File::get(__DIR__.'/backendsettings/custom.less'));

@@ -20,13 +20,24 @@ fields:
         label: App Motto
         commentAbove: This name is shown on the sign in screen for the back-end.
 
-    primary_color:
-        label: Primary color
+    primary_color_light:
+        label: Primary color light
         type: colorpicker
         span: auto
 
-    secondary_color:
-        label: Secondary color
+    primary_color_dark:
+        label: Primary color dark
         type: colorpicker
         span: auto
+
+    secondary_color_light:
+        label: Secondary color light
+        type: colorpicker
+        span: auto
+
+    secondary_color_dark:
+        label: Secondary color dark
+        type: colorpicker
+        span: auto
+
 

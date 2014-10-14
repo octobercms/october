@@ -12694,7 +12694,7 @@ div.popover-overlay {
   top: 4px;
   right: 1px;
   color: rgba(255, 255, 255, 0.3) !important;
-  font: 14px bold "Helvetica Neue", Helvetica, Arial, sans-seri8;
+  font: 14px bold "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li span.tab-close i:hover,
 .fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li span.tab-close i:hover {
@@ -13130,7 +13130,7 @@ div.popover-overlay {
   filter: alpha(opacity=100);
 }
 .fancy-layout .field-codeeditor {
-  border: none!important;
+  border: none !important;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
