@@ -2,6 +2,7 @@
 
 use Controller as BaseController;
 use System\Classes\ApplicationException;
+use System\Classes\CombineAssets;
 use Exception;
 
 /**

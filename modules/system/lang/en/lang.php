@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'motto' => 'Getting back to basics',
+        'tagline' => 'Getting back to basics',
     ],
     'locale' => [
         'en' => 'English',
@@ -87,13 +87,14 @@ return [
     ],
     'settings' => [
         'menu_label' => 'Settings',
+        'not_found' => 'Unable to find the specified settings.',
         'missing_model' => 'The settings page is missing a Model definition.',
         'update_success' => 'Settings for :name have been updated successfully.',
         'return' => 'Return to system settings',
         'search' => 'Search'
     ],
     'mail' => [
-        'menu_label' => 'Mail Configuration',
+        'menu_label' => 'Mail configuration',
         'menu_description' => 'Manage email configuration.',
         'general' => 'General',
         'method' => 'Mail Method',
@@ -112,7 +113,7 @@ return [
         'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
     ],
     'mail_templates' => [
-        'menu_label' => 'Mail Templates',
+        'menu_label' => 'Mail templates',
         'menu_description' => 'Modify the mail templates that are sent to users and administrators, manage email layouts.',
         'new_template' => 'New Template',
         'new_layout' => 'New Layout',
@@ -203,7 +204,7 @@ return [
     ],
     'event_log' => [
         'hint' => 'This log displays a list of potential errors that occur in the application, such as exceptions and debugging information.',
-        'menu_label' => 'Event Log',
+        'menu_label' => 'Event log',
         'menu_description' => 'View system log messages with their recorded time and details.',
         'empty_link' => 'Empty event log',
         'empty_loading' => 'Emptying event log...',
@@ -217,7 +218,7 @@ return [
     ],
     'request_log' => [
         'hint' => 'This log displays a list of browser requests that may require attention. For example, if a visitor opens a CMS page that cannot be found, a record is created with the status code 404.',
-        'menu_label' => 'Request Log',
+        'menu_label' => 'Request log',
         'menu_description' => 'View bad or redirected requests, such as Page not found (404).',
         'empty_link' => 'Empty request log',
         'empty_loading' => 'Emptying request log...',

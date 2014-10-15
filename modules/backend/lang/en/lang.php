@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'auth' => [
+        'title' => 'Administration Area',
+    ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
         'options_method_not_exists' => 'The model class :model must define a method :method() returning options for the ":field" form field.',
@@ -211,7 +214,7 @@ return [
         'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.'
     ],
     'editor' => [
-        'menu_label' => 'Code Editor Preferences',
+        'menu_label' => 'Code editor preferences',
         'menu_description' => 'Customize your code editor preferences, such as font size and color scheme.',
         'font_size' => 'Font size',
         'tab_size' => 'Tab size',
@@ -231,23 +234,23 @@ return [
         'menu_description' => 'Settings relate to your administration account',
     ],
     'myaccount' => [
-        'menu_label' => 'My Account',
+        'menu_label' => 'My account',
         'menu_description' => 'Update your account details such as name, email address and password.',
         'menu_keywords' => 'security login'
     ],
-    'backend_settings' => [
-        'menu_label' => 'Backend Settings',
-        'menu_description' => 'Customize the back-end area such as name, colors and logo.',
+    'branding' => [
+        'menu_label' => 'Customize back-end',
+        'menu_description' => 'Customize the administration area such as name, colors and logo.',
     ],
     'backend_preferences' => [
-        'menu_label' => 'Backend Preferences',
+        'menu_label' => 'Back-end preferences',
         'menu_description' => 'Manage your account preferences such as desired language.',
         'locale' => 'Language',
         'locale_comment' => 'Select your desired locale for language use.',
     ],
     'access_log' => [
         'hint' => 'This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.',
-        'menu_label' => 'Access Log',
+        'menu_label' => 'Access log',
         'menu_description' => 'View a list of successful back-end user sign ins.',
         'created_at' => 'Date & Time',
         'login' => 'Login',

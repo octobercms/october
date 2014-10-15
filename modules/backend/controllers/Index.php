@@ -37,7 +37,7 @@ class Index extends Controller
 
     public function index()
     {
-        $this->pageTitle = trans('backend::lang.dashboard.menu_label');
+        $this->pageTitle = 'backend::lang.dashboard.menu_label';
         BackendMenu::setContextMainMenu('dashboard');
     }
 }

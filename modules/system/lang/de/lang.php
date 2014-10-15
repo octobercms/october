@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'motto' => 'Zurück zum Wesentlichen',
+        'tagline' => 'Zurück zum Wesentlichen',
     ],
     'locale' => [
         'en' => 'English',

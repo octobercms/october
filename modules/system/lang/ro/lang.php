@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'motto' => 'Intoarcerea la elementele de baza',
+        'tagline' => 'Intoarcerea la elementele de baza',
     ],
     'locale' => [
         'en' => 'Engleza',

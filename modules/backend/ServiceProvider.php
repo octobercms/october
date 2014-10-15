@@ -79,12 +79,12 @@ class ServiceProvider extends ModuleServiceProvider
          */
         SettingsManager::instance()->registerCallback(function($manager){
             $manager->registerSettingItems('October.Backend', [
-                'backend_settings' => [
-                    'label'       => 'backend::lang.backend_settings.menu_label',
-                    'description' => 'backend::lang.backend_settings.menu_description',
+                'branding' => [
+                    'label'       => 'backend::lang.branding.menu_label',
+                    'description' => 'backend::lang.branding.menu_description',
                     'category'    => SettingsManager::CATEGORY_SYSTEM,
                     'icon'        => 'icon-paint-brush',
-                    'class'       => 'Backend\Models\BackendSettings',
+                    'class'       => 'Backend\Models\BrandSettings',
                     'order'       => 500,
                 ],
                 'editor' => [

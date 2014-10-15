@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'motto' => 'Basitliğe dönüş...',
+        'tagline' => 'Basitliğe dönüş...',
     ],
     'locale' => [
         'en' => 'English',
