@@ -254,5 +254,8 @@ return [
     ],
     'filter' => [
       'all' => 'all'
+    ],
+    'plugins' => [
+        'disble_confirm' => 'Are you sure you want to make these changes?'
     ]
 ];
