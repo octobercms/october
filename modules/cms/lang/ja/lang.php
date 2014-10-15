@@ -68,9 +68,6 @@ return [
         'invalid_name' => "正しくないAJAXハンドラー名：:name。",
         'not_found' => "':name' AJAXハンドラーが見つかりません。",
     ],
-    'combiner' => [
-        'not_found' => "':name'コンバイナーファイルが見つかりません。",
-    ],
     'cms' => [
         'menu_label' => "ＣＭＳ"
     ],

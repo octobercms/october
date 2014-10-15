@@ -68,9 +68,6 @@ return [
         'invalid_name' => "Felaktig AJAX-hanterare: :name",
         'not_found' => "AJAX-hanterare ':name' kunde ej hittas",
     ],
-    'combiner' => [
-        'not_found' => "Kombinationsfilen ':name' kunde ej hittas",
-    ],
     'cms' => [
         'menu_label' => "CMS"
     ],

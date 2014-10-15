@@ -1,6 +1,5 @@
 <?php namespace Backend\Controllers;
 
-use Lang;
 use Backend;
 use Redirect;
 use BackendMenu;
@@ -59,7 +58,7 @@ class Users extends Controller
     {
         SettingsManager::setContext('October.Backend', 'myaccount');
 
-        $this->pageTitle = Lang::get('backend::lang.myaccount.menu_label');
+        $this->pageTitle = 'backend::lang.myaccount.menu_label';
         return $this->update($this->user->id, 'myaccount');
     }
 

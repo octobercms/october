@@ -31,7 +31,7 @@ class WidgetManagerTest extends TestCase
         $this->assertArrayHasKey('Backend\FormWidgets\RichEditor', $widgets);
         $this->assertArrayHasKey('Backend\FormWidgets\FileUpload', $widgets);
         $this->assertArrayHasKey('Backend\FormWidgets\Relation', $widgets);
-        $this->assertArrayHasKey('Backend\FormWidgets\Datepicker', $widgets);
+        $this->assertArrayHasKey('Backend\FormWidgets\DatePicker', $widgets);
         $this->assertArrayHasKey('Cms\FormWidgets\Components', $widgets);
     }
 

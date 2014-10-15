@@ -67,7 +67,7 @@ class Updates extends Controller
      */
     public function manage()
     {
-        $this->pageTitle = Lang::get('system::lang.plugins.manage');
+        $this->pageTitle = 'system::lang.plugins.manage';
         PluginManager::instance()->clearDisabledCache();
         return $this->asExtension('ListController')->index();
     }

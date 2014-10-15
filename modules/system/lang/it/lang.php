@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'motto' => 'Getting back to basics',
+        'tagline' => 'Getting back to basics',
     ],
     'locale' => [
         'en' => 'Inglese',
@@ -23,6 +23,9 @@ return [
     ],
     'file' => [
         'create_fail' => "Impossibile creare il file: :name",
+    ],
+    'combiner' => [
+        'not_found' => "Il file combinatore ':name' non è stato trovato.",
     ],
     'system' => [
         'name' => 'Sistema',

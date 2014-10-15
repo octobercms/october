@@ -38,10 +38,7 @@ class UserPreferencesModel extends SettingsModel
         if (isset(self::$instances[$this->recordCode]))
             return self::$instances[$this->recordCode];
 
-        $item = UserPreferences::forUser();
-        $item = $item->scopeFindRecord($this->model, $this->recordCode, $item->userContext)->first();
-
-        if (!$item) {
+        if (!$item = $this->getSettingsRecord()) {
             $this->model->initSettingsData();
 
             if (method_exists($this->model, 'forceSave'))
@@ -61,7 +58,21 @@ class UserPreferencesModel extends SettingsModel
      */
     public function isConfigured()
     {
-        return UserPreferences::forUser()->findRecord($this->recordCode, $item->userContext)->count() > 0;
+        return $this->getSettingsRecord() !== null;
+    }
+
+    /**
+     * Returns the raw Model record that stores the settings.
+     * @return Model
+     */
+    public function getSettingsRecord()
+    {
+        $item = UserPreferences::forUser();
+        $record = $item->scopeFindRecord($this->model, $this->recordCode, $item->userContext)
+            ->remember(1440, $this->getCacheKey())
+            ->first();
+
+        return $record ?: null;
     }
 
     /**
@@ -95,4 +106,12 @@ class UserPreferencesModel extends SettingsModel
 
         return parent::isKeyAllowed($key);
     }
-} 
+
+    /**
+     * Returns a cache key for this record.
+     */
+    protected function getCacheKey()
+    {
+        return 'backend::userpreferences.'.$this->recordCode;
+    }
+}

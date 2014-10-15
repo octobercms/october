@@ -2,7 +2,7 @@
     <ul>
         <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
         <li><a href="<?= Backend::url('backend/groups') ?>"><?= e(trans('backend::lang.user.group.menu_label')) ?></a></li>
-        <li><?= e($this->pageTitle) ?></li>
+        <li><?= e(trans($this->pageTitle)) ?></li>
     </ul>
 <?php Block::endPut() ?>
 
@@ -46,6 +46,6 @@
     <?= Form::close() ?>
 
 <?php else: ?>
-    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
     <p><a href="<?= Backend::url('backend/groups') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.group.return')) ?></a></p>
 <?php endif ?>

@@ -101,8 +101,8 @@ class Index extends Controller
             $this->addJs('/modules/backend/formwidgets/codeeditor/assets/vendor/ace/mode-'.$mode.'.js', 'core');
 
         $this->bodyClass = 'compact-container side-panel-not-fixed';
-        $this->pageTitle = Lang::get('cms::lang.cms.menu_label');
-        $this->pageTitleTemplate = '%s CMS | October';
+        $this->pageTitle = 'cms::lang.cms.menu_label';
+        $this->pageTitleTemplate = '%s CMS';
     }
 
     public function index_onOpenTemplate()

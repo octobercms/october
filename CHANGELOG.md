@@ -1,5 +1,6 @@
 * **Build 15x** (2014-10-x)
   - Added twig filters `|trans` for `Lang::get(...)` and `|transchoice` for `Lang::choice(...)`.
+  - `SettingsModel` behavior now uses a cached database query.
 
 * **Build 153** (2014-10-09)
   - Plugins are now updated in order of their dependency definitions.

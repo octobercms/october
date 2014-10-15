@@ -1,0 +1,8 @@
+<?php
+    use Backend\Models\BrandSettings;
+?>
+<?php if (BrandSettings::isConfigured()): ?>
+    <style>
+        <?= BrandSettings::renderCss() ?>
+    </style>
+<?php endif ?>

@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'motto' => 'Возвращение к истокам',
+        'tagline' => 'Возвращение к истокам',
     ],
     'locale' => [
         'en' => 'English',
@@ -24,6 +24,9 @@ return [
     ],
     'file' => [
         'create_fail' => "Невозможно создать файл: :name",
+    ],
+    'combiner' => [
+        'not_found' => "Сборщик ресурсов не может найти файл ':name'.",
     ],
     'system' => [
         'name' => 'Система',

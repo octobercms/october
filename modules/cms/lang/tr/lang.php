@@ -68,9 +68,6 @@ return [
         'invalid_name' => "Hatalı AJAX işleyici adı: :name.",
         'not_found' => "':name' isimli AJAX işleyici bulunamadı.",
     ],
-    'combiner' => [
-        'not_found' => "The combiner file ':name' is not found.",
-    ],
     'cms' => [
         'menu_label' => "CMS"
     ],
