@@ -1,4 +1,4 @@
-* **Build 15x** (2014-10-x)
+* **Build 155** (2014-10-16)
   - Back-end area can now be customized with colors and logo, via System > Customize Back-end.
   - Added twig filters `|trans` for `Lang::get(...)` and `|transchoice` for `Lang::choice(...)`.
   - `SettingsModel` behavior now uses a cached database query.
