@@ -57,6 +57,11 @@ class BrandSettings extends Model
         $this->secondary_color_dark = self::SECONDARY_DARK;
     }
 
+    public function beforeValidate()
+    {
+        $this->rendered_css = self::renderCss();
+    }
+
     public static function getLogo()
     {
         $settings = self::instance();
@@ -78,7 +83,7 @@ class BrandSettings extends Model
             'secondary-color-dark'  => self::get('secondary_color_dark', self::SECONDARY_DARK),
         ]);
 
-        $parser->parse(File::get(__DIR__.'/brandsettings/custom.less'));
+        $parser->parse(File::get(__DIR__.'/brandsettings/custom.less').self::get('custom_css'));
         $css = $parser->getCss();
 
         return $css;

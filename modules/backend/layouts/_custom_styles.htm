@@ -3,6 +3,6 @@
 ?>
 <?php if (BrandSettings::isConfigured()): ?>
     <style>
-        <?= BrandSettings::renderCss() ?>
+        <?= BrandSettings::get('rendered_css') ?>
     </style>
 <?php endif ?>

@@ -54,5 +54,6 @@ tabs:
             type: codeeditor
             tab: Styles
             size: giant
+            language: css
 
 
