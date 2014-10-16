@@ -44,7 +44,7 @@
         <?= Block::placeholder('breadcrumb') ?>
     </div>
     <div class="padded-container">
-        <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+        <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
         <p><a href="<?= Backend::url('backend/users') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.return')) ?></a></p>
     </div>
 <?php endif ?>

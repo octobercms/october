@@ -9,7 +9,7 @@ use Backend\Classes\FormWidgetBase;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class Datepicker extends FormWidgetBase
+class DatePicker extends FormWidgetBase
 {
     /**
      * {@inheritDoc}

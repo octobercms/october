@@ -2,8 +2,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0, minimal-ui">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="icon" type="image/png" href="<?= Backend::skinAsset('assets/images/favicon.png') ?>">
-<title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s | October CMS' : e($this->pageTitleTemplate) ?>">
-    <?= $this->pageTitle ?> | October CMS
+<title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s' : e($this->pageTitleTemplate) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?>">
+    <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?>
 </title>
 
 <link href="<?= Backend::skinAsset('assets/vendor/select2/select2.css') ?>" rel="stylesheet">
@@ -81,3 +81,4 @@
 </script>
 <?= $this->makeAssets() ?>
 <?= Block::placeholder('head') ?>
+<?= $this->makeLayoutPartial('custom_styles') ?>

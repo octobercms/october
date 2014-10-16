@@ -74,9 +74,6 @@ return [
         'invalid_name' => "Nom de gestionnaire AJAX invalide: :name.",
         'not_found' => "Le gestionnaire AJAX ':name' est introuvable.",
     ],
-    'combiner' => [
-        'not_found' => "Le fichier combiner ':name' est introuvable.",
-    ],
     'cms' => [
         'menu_label' => "CMS"
     ],

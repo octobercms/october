@@ -116,14 +116,16 @@ class PluginManager
      */
     public function registerAll()
     {
-        if ($this->registered || self::$noInit)
+        if ($this->registered)
             return;
 
         foreach ($this->plugins as $pluginId => $plugin) {
             if ($plugin->disabled)
                 continue;
 
-            $plugin->register();
+            if (!self::$noInit)
+                $plugin->register();
+
             $pluginPath = $this->getPluginPath($plugin);
             $pluginNamespace = strtolower($pluginId);
 
@@ -171,14 +173,15 @@ class PluginManager
      */
     public function bootAll()
     {
-        if ($this->booted || self::$noInit)
+        if ($this->booted)
             return;
 
         foreach ($this->plugins as $plugin) {
             if ($plugin->disabled)
                 continue;
 
-            $plugin->boot();
+            if (!self::$noInit)
+                $plugin->boot();
         }
 
         $this->booted = true;

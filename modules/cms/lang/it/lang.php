@@ -74,9 +74,6 @@ return [
         'invalid_name' => "Nome del gestore AJAX non valido: :name.",
         'not_found' => "Il gestore AJAX ':name' non è stato trovato.",
     ],
-    'combiner' => [
-        'not_found' => "Il file combinatore ':name' non è stato trovato.",
-    ],
     'cms' => [
         'menu_label' => "CMS"
     ],

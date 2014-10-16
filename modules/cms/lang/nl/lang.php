@@ -74,9 +74,6 @@ return [
         'invalid_name' => "Ongeldige AJAX handlernaam: :name.",
         'not_found' => "AJAX handler ':name' is niet gevonden.",
     ],
-    'combiner' => [
-        'not_found' => "Het samenvoegbestand ':name' is niet gevonden.",
-    ],
     'cms' => [
         'menu_label' => "CMS"
     ],

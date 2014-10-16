@@ -1,0 +1,59 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+
+tabs:
+    fields:
+
+        logo:
+            label: Logo
+            type: fileupload
+            commentAbove: Upload a custom logo to use in the back-end.
+            mode: image
+            imageHeight: 170
+            imageWidth: 170
+            tab: Brand
+
+        app_name:
+            label: App Name
+            commentAbove: This name is shown in the title area of the back-end.
+            tab: Brand
+
+        app_tagline:
+            label: App Tagline
+            commentAbove: This name is shown on the sign in screen for the back-end.
+            tab: Brand
+
+        primary_color_light:
+            label: Primary (Light)
+            type: colorpicker
+            tab: Colors
+            availableColors: [#1abc9c, #2ecc71, #3498db, #9b59b6, #34495e, #f1c40f, #e67e22, #e74c3c, #ecf0f1, #95a5a6]
+
+        primary_color_dark:
+            label: Primary (Dark)
+            type: colorpicker
+            tab: Colors
+            availableColors: [#16a085, #27ae60, #2980b9, #8e44ad, #2b3e50, #f39c12, #d35400, #c0392b, #bdc3c7, #7f8c8d]
+
+        secondary_color_light:
+            label: Secondary (Light)
+            type: colorpicker
+            tab: Colors
+            availableColors: [#1abc9c, #2ecc71, #3498db, #9b59b6, #34495e, #f1c40f, #e67e22, #e74c3c, #ecf0f1, #95a5a6]
+
+        secondary_color_dark:
+            label: Secondary (Dark)
+            type: colorpicker
+            tab: Colors
+            availableColors: [#16a085, #27ae60, #2980b9, #8e44ad, #2b3e50, #f39c12, #d35400, #c0392b, #bdc3c7, #7f8c8d]
+
+        custom_css:
+            label: Custom stylesheet
+            type: codeeditor
+            tab: Styles
+            size: giant
+            language: css
+
+

@@ -5,6 +5,7 @@ use Lang;
 use Event;
 use Config;
 use Backend;
+use Request;
 use DbDongle;
 use BackendMenu;
 use BackendAuth;
@@ -66,7 +67,11 @@ class ServiceProvider extends ModuleServiceProvider
          */
         $requestPath = \October\Rain\Router\Helper::normalizeUrl(\Request::path());
         $systemPath = \October\Rain\Router\Helper::normalizeUrl(Config::get('cms.backendUri') . '/system/updates');
-        if (App::runningInConsole() || stripos($requestPath, $systemPath) === 0)
+        if (stripos($requestPath, $systemPath) === 0)
+            PluginManager::$noInit = true;
+
+        $updateCommands = ['october:up', 'october:update'];
+        if (App::runningInConsole() && count(array_intersect($updateCommands, Request::server('argv'))) > 0)
             PluginManager::$noInit = true;
 
         /*

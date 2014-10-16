@@ -8257,7 +8257,7 @@ body.mainmenu-open .mainmenu-collapsed ul {
   padding: 13px;
   display: block;
   font-size: 12px;
-  color: #808b93;
+  color: rgba(255, 255, 255, 0.35);
   font-weight: normal;
 }
 #layout-sidenav ul li a:hover {
@@ -8268,7 +8268,7 @@ body.mainmenu-open .mainmenu-collapsed ul {
   background: transparent;
 }
 #layout-sidenav ul li a i {
-  color: #808b93;
+  color: rgba(255, 255, 255, 0.35);
   display: block;
   margin-bottom: 5px;
   font-size: 28px;
@@ -8331,7 +8331,7 @@ body.mainmenu-open .mainmenu-collapsed ul {
   top: 0;
   height: 9px;
   font-size: 10px;
-  color: #808b93;
+  color: rgba(255, 255, 255, 0.35);
 }
 #layout-sidenav .scroll-marker.before {
   top: 0;
@@ -8350,11 +8350,11 @@ body.mainmenu-open .mainmenu-collapsed ul {
 }
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,
 .touch #layout-sidenav.layout-sidenav li:not(.active) a:hover {
-  color: #808b93 !important;
+  color: rgba(255, 255, 255, 0.35) !important;
 }
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover i,
 .touch #layout-sidenav.layout-sidenav li:not(.active) a:hover i {
-  color: #808b93 !important;
+  color: rgba(255, 255, 255, 0.35) !important;
 }
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover:after,
 .touch #layout-sidenav.layout-sidenav li:not(.active) a:hover:after {
@@ -8418,7 +8418,7 @@ body.side-panel-fix-shadow #layout-side-panel {
   border-top: 1px solid #dfdfdf;
 }
 #layout-footer .brand,
-#layout-footer .motto {
+#layout-footer .tagline {
   margin: 10px;
   height: 40px;
   line-height: 40px;
@@ -8430,10 +8430,10 @@ body.side-panel-fix-shadow #layout-side-panel {
 #layout-footer .brand .logo {
   margin: 0 10px;
 }
-#layout-footer .motto {
+#layout-footer .tagline {
   float: right;
 }
-#layout-footer .motto p {
+#layout-footer .tagline p {
   color: #999999;
 }
 body.outer {
@@ -8451,16 +8451,16 @@ body.outer .layout > .layout-row.layout-head > .layout-cell {
   box-sizing: border-box;
   vertical-align: middle;
 }
-body.outer .layout > .layout-row.layout-head > .layout-cell h1 {
+body.outer .layout > .layout-row.layout-head > .layout-cell h1.oc-logo-white {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
   border: 0;
   display: inline-block;
-  background: transparent url(../images/october-logo-text.png) no-repeat left top;
-  width: 404px;
-  height: 65px;
+  width: 100%;
+  max-width: 410px;
+  height: 72px;
 }
 body.outer .layout > .layout-row > .layout-cell {
   vertical-align: middle;
@@ -8513,10 +8513,10 @@ body.outer .layout > .layout-row > .layout-cell .outer-form-container .forgot-pa
   top: 8px;
 }
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .forgot-password a {
-  color: #8d969d;
+  color: rgba(255, 255, 255, 0.44);
 }
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .forgot-password:before {
-  color: #8d969d;
+  color: rgba(255, 255, 255, 0.44);
   font-size: 14px;
   position: relative;
   margin-right: 5px;
@@ -11138,11 +11138,17 @@ html.cssanimations .cursor-loading-indicator.hide {
   opacity: 1;
   filter: alpha(opacity=100);
 }
+.oc-logo-white {
+  background-image: url(../images/october-logo-white.svg);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 .oc-bg-logo {
   background-image: url(../images/october-logo-transparent.svg);
   background-position: 50% 50%;
   background-repeat: no-repeat;
-  background-size: 50% auto;
+  background-size: 50% contain;
 }
 .dropdown-menu {
   padding: 0;
@@ -12644,7 +12650,7 @@ div.popover-overlay {
 .fancy-layout.control-tabs.master:after {
   top: 7px;
   font-size: 14px;
-  color: #e39664;
+  color: rgba(255, 255, 255, 0.35);
 }
 .fancy-layout .control-tabs.master:before,
 .fancy-layout.control-tabs.master:before {
@@ -12688,7 +12694,7 @@ div.popover-overlay {
   top: 4px;
   right: 1px;
   color: rgba(255, 255, 255, 0.3) !important;
-  font: 14px bold "Helvetica Neue", Helvetica, Arial, sans-seri8;
+  font: 14px bold "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li span.tab-close i:hover,
 .fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li span.tab-close i:hover {
@@ -12699,7 +12705,7 @@ div.popover-overlay {
   border-bottom: none;
   background: transparent;
   font-size: 14px;
-  color: #e39664;
+  color: rgba(255, 255, 255, 0.35);
   padding: 6px 0 0 0;
   overflow: visible;
 }
@@ -13001,7 +13007,7 @@ div.popover-overlay {
 }
 .fancy-layout .form-tabless-fields label {
   text-transform: uppercase;
-  color: #f4c69e;
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 0;
 }
 .fancy-layout .form-tabless-fields input[type=text] {
@@ -13087,7 +13093,7 @@ div.popover-overlay {
 .fancy-layout .form-tabless-fields .loading-indicator-container .loading-indicator {
   background-color: #e67e22;
   padding: 0 0 0 30px;
-  color: #f4c69e;
+  color: rgba(255, 255, 255, 0.5);
   margin-top: 1px;
   height: 90%;
   font-size: 12px;
@@ -13124,7 +13130,7 @@ div.popover-overlay {
   filter: alpha(opacity=100);
 }
 .fancy-layout .field-codeeditor {
-  border: none!important;
+  border: none !important;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -14432,7 +14438,7 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   padding: 15px 15px 15px 40px;
   background: #3d5265;
   margin-bottom: 1px;
-  color: #808c8d;
+  color: rgba(255, 255, 255, 0.26);
   text-decoration: none!important;
 }
 .sidenav-tree ul.top-level > li > ul li a:hover {
@@ -14449,24 +14455,24 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   line-height: 150%;
 }
 .sidenav-tree ul.top-level > li > ul li a span.header {
-  color: #cad5d8;
+  color: rgba(255, 255, 255, 0.74);
   font-size: 14px;
   margin-bottom: 5px;
 }
 .sidenav-tree ul.top-level > li > ul li a span.description {
-  color: #bdc3c7;
+  color: rgba(255, 255, 255, 0.64);
   font-size: 12px;
   font-weight: 100;
 }
 .sidenav-tree ul.top-level > li > ul li.active a {
   background: #34495e;
-  color: #ecf0f1;
+  color: rgba(255, 255, 255, 0.91);
 }
 .sidenav-tree ul.top-level > li > ul li.active a:before {
   content: ' ';
   position: absolute;
   width: 4px;
-  background: #e6802b;
+  background: #e67e22;
   left: 0;
   top: 0;
   height: 100%;
@@ -14475,7 +14481,7 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   color: #ffffff;
 }
 .sidenav-tree ul.top-level > li > ul li.active a span.description {
-  color: #ecf0f1;
+  color: rgba(255, 255, 255, 0.91);
 }
 .sidenav-tree ul.top-level > li > ul li:last-child a {
   margin-bottom: 0;
@@ -14489,34 +14495,34 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
 @media (max-width: 768px) {
   .sidenav-tree {
     width: 100%;
-    height: auto!important;
-    display: block!important;
+    height: auto !important;
+    display: block !important;
   }
   .sidenav-tree > .layout {
     display: none;
   }
   .sidenav-tree-root .sidenav-tree {
-    width: 100%!important;
-    height: 100%!important;
+    width: 100% !important;
+    height: 100% !important;
     display: table-cell !important;
   }
   .sidenav-tree-root .sidenav-tree .back-link {
-    display: none!important;
+    display: none !important;
   }
   .sidenav-tree-root .sidenav-tree > .layout {
-    display: table!important;
+    display: table !important;
   }
   .sidenav-tree-root #layout-body {
     display: none;
   }
   body.has-sidenav-tree .sidenav-tree .back-link {
     display: block;
-    background: #2b3e50;
     padding: 13px 15px;
+    background: #2b3e50;
     color: #bdc3c7;
     font-size: 14px;
-    text-transform: uppercase;
     line-height: 14px;
+    text-transform: uppercase;
   }
   body.has-sidenav-tree .sidenav-tree .back-link i {
     display: inline-block;
@@ -14526,6 +14532,6 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
     text-decoration: none;
   }
   body.has-sidenav-tree #layout-body {
-    display: block!important;
+    display: block !important;
   }
 }

@@ -1,6 +1,5 @@
 <?php namespace Backend\Controllers;
 
-use Lang;
 use BackendMenu;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager;
@@ -56,7 +55,7 @@ class EditorPreferences extends Controller
         $this->vars['margin'] = 0;
 
         $this->asExtension('FormController')->update();
-        $this->pageTitle = Lang::get('backend::lang.editor.menu_label');
+        $this->pageTitle = 'backend::lang.editor.menu_label';
     }
 
     public function index_onSave()

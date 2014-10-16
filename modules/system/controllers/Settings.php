@@ -37,7 +37,7 @@ class Settings extends Controller
 
     public function index()
     {
-        $this->pageTitle = Lang::get('system::lang.settings.menu_label');
+        $this->pageTitle = 'system::lang.settings.menu_label';
         $this->vars['items'] = SettingsManager::instance()->listItems('system');
         $this->bodyClass = 'compact-container sidenav-tree-root';
     }
@@ -45,7 +45,7 @@ class Settings extends Controller
     public function mysettings()
     {
         BackendMenu::setContextSideMenu('mysettings');
-        $this->pageTitle = Lang::get('backend::lang.mysettings.menu_label');
+        $this->pageTitle = 'backend::lang.mysettings.menu_label';
         $this->vars['items'] = SettingsManager::instance()->listItems('mysettings');
         $this->bodyClass = 'compact-container';
     }
@@ -58,17 +58,18 @@ class Settings extends Controller
     {
         SettingsManager::setContext($author.'.'.$plugin, $code);
 
+        $this->vars['parentLink'] = Backend::url('system/settings');
+        $this->vars['parentLabel'] = Lang::get('system::lang.settings.menu_label');
+
         try {
-            $item = $this->findSettingItem($author, $plugin, $code);
+            if (!$item = $this->findSettingItem($author, $plugin, $code))
+                throw new ApplicationException(Lang::get('system::lang.settings.not_found'));
+
             $this->pageTitle = $item->label;
 
             if ($item->context == 'mysettings') {
                 $this->vars['parentLink'] = Backend::url('system/settings/mysettings');
                 $this->vars['parentLabel'] = Lang::get('backend::lang.mysettings.menu_label');
-            }
-            else {
-                $this->vars['parentLink'] = Backend::url('system/settings');
-                $this->vars['parentLabel'] = Lang::get('system::lang.settings.menu_label');
             }
 
             $model = $this->createModel($item);

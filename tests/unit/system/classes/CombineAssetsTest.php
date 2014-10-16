@@ -1,7 +1,7 @@
 <?php
 
 use Cms\Classes\Theme;
-use Cms\Classes\CombineAssets;
+use System\Classes\CombineAssets;
 
 class CombineAssetsTest extends TestCase 
 {

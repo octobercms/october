@@ -74,9 +74,6 @@ return [
         'invalid_name' => "Ошибка в имени обработчика AJAX: :name.",
         'not_found' => "Обработчик AJAX не найден: ':name'.",
     ],
-    'combiner' => [
-        'not_found' => "Сборщик ресурсов не может найти файл ':name'.",
-    ],
     'cms' => [
         'menu_label' => "CMS"
     ],

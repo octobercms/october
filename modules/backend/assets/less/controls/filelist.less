@@ -42,6 +42,7 @@
             a:hover {
                 background: @color-list-hover;
             }
+
             &.active a {
                 background: @color-list-active;
                 position: relative;
@@ -100,7 +101,7 @@
                         position: relative;
                         outline: none;
 
-                        &:hover {background: transparent;}
+                        &:hover { background: transparent; }
 
                         &:before, &:after {
                             width: 10px;
@@ -134,14 +135,16 @@
                         padding-left: 52px;
                     }
 
-                    > li.group {padding-left: 20px;}
+                    > li.group {
+                        padding-left: 20px;
+                    }
 
                     .listPaddings(10);
                 }
 
                 &[data-status=collapsed] {
                     > h4 a:before, > div.group > h4 a:before {
-                        .transform( ~'rotate(0deg) translate(3px, 0)' );
+                        .transform(~'rotate(0deg) translate(3px, 0)');
                     }
 
                     & > ul, & > div.subitems {
@@ -214,10 +217,9 @@
                                 background-color: @color-list-active;
                             }
 
-                            &:before {top: -1px;}
-                            &:after {bottom: -1px;}
+                            &:before { top: -1px; }
+                            &:after { bottom: -1px; }
                         }
-
 
                     }
                 }

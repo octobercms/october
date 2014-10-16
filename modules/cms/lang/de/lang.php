@@ -68,9 +68,6 @@ return [
         'invalid_name' => "Ungültiger Name für AJAX Handler: :name.",
         'not_found' => "AJAX Handler ':name' wurde nicht gefunden.",
     ],
-    'combiner' => [
-        'not_found' => "Die combiner Datei ':name' wurde nicht gefunden.",
-    ],
     'cms' => [
         'menu_label' => "CMS"
     ],

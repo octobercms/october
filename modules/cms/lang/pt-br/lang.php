@@ -74,9 +74,6 @@ return [
         'invalid_name' => "O nome do Manipulador AJAX é inválido: :name.",
         'not_found' => "Manipulador AJAX ':name' não foi encontrado.",
     ],
-    'combiner' => [
-        'not_found' => "O arquivo combinador ':name' não foi encontrado.",
-    ],
     'cms' => [
         'menu_label' => "Design"
     ],
