@@ -1,4 +1,4 @@
-[October](http://octobercms.com) is a Content Management System (CMS) and web platform whose sole purpose is to make your development workflow simple again.We feel building websites has become a convoluted and confusing process that leaves developers unsatisfied, we want to turn you around to the simpler side and get back to basics.
+[October](http://octobercms.com) is a Content Management System (CMS) and web platform whose sole purpose is to make your development workflow simple again. We feel building websites has become a convoluted and confusing process that leaves developers unsatisfied, we want to turn you around to the simpler side and get back to basics.
 
 October's mission is to show the world that web development is not rocket science.
 
@@ -42,7 +42,7 @@ You can communicate with us using the following mediums:
 * [Follow us on Facebook](http://facebook.com/octobercms) for announcements and updates.
 * [Join us on IRC](https://kiwiirc.com/client/irc.freenode.net/?nick=Octonaut|?#october) to chat with us.
 
-### Licence
+### License
 
 The OctoberCMS platform is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
