@@ -111,6 +111,10 @@ return [
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail Path',
         'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
+        'mailgun_domain' => 'Mailgun Domain',
+        'mailgun_domain_comment' => 'Please specify the Mailgun domain name.',
+        'mailgun_secret' => 'mailgun_secret',
+        'mailgun_domain_secret' => 'Enter your Mailgun API key.',
     ],
     'mail_templates' => [
         'menu_label' => 'Mail templates',
