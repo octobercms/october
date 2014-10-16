@@ -40,13 +40,6 @@ class UserPreferencesModel extends SettingsModel
 
         if (!$item = $this->getSettingsRecord()) {
             $this->model->initSettingsData();
-
-            if (method_exists($this->model, 'forceSave'))
-                $this->model->forceSave();
-            else
-                $this->model->save();
-
-            $this->model->reload();
             $item = $this->model;
         }
 
