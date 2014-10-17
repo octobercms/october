@@ -32,7 +32,7 @@ class WidgetManager
     /**
      * @var array An array of report widgets.
      */
-    protected $formWidgetAliases;
+    protected $formWidgetHints;
 
     /**
      * @var array An array of report widgets.
@@ -43,21 +43,6 @@ class WidgetManager
      * @var array Cache of report widget registration callbacks.
      */
     protected $reportWidgetCallbacks = [];
-
-    /**
-     * @var array An array where keys are aliases and values are class names.
-     */
-    protected $aliasMap;
-
-    /**
-     * @var array An array where keys are class names and values are aliases.
-     */
-    protected $classMap;
-
-    /**
-     * @var array A cached array of widget details.
-     */
-    protected $detailsCache;
 
     /**
      * @var System\Classes\PluginManager
@@ -139,17 +124,20 @@ class WidgetManager
     /**
      * Registers a single form form widget.
      * @param string $className Widget class name.
-     * @param array $widgetInfo Registration information, can contain an 'alias' key.
+     * @param array $widgetInfo Registration information, can contain an 'code' key.
      * @return void
      */
     public function registerFormWidget($className, $widgetInfo = null)
     {
-        $widgetAlias = isset($widgetInfo['alias']) ? $widgetInfo['alias'] : null;
-        if (!$widgetAlias)
-            $widgetAlias = Str::getClassId($className);
+        $widgetCode = isset($widgetInfo['code']) ? $widgetInfo['code'] : null;
+
+        /* @todo Remove line if year >= 2015 */ if (!$widgetCode) $widgetCode = isset($widgetInfo['alias']) ? $widgetInfo['alias'] : null;
+
+        if (!$widgetCode)
+            $widgetCode = Str::getClassId($className);
 
         $this->formWidgets[$className] = $widgetInfo;
-        $this->formWidgetAliases[$widgetAlias] = $className;
+        $this->formWidgetHints[$widgetCode] = $className;
     }
 
     /**
@@ -157,8 +145,10 @@ class WidgetManager
      * Usage:
      * <pre>
      *   WidgetManager::registerFormWidgets(function($manager){
-     *       $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', 'codeeditor');
-     *       $manager->registerFormWidget('Backend\FormWidgets\RichEditor', 'richeditor');
+     *       $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', [
+     *           'name' => 'Code editor',
+     *           'code'  => 'codeeditor'
+     *       ]);
      *   });
      * </pre>
      */
@@ -168,9 +158,9 @@ class WidgetManager
     }
 
     /**
-     * Returns a class name from a form widget alias
-     * Normalizes a class name or converts an alias to it's class name.
-     * @param string $name Class name or form widget alias.
+     * Returns a class name from a form widget code
+     * Normalizes a class name or converts an code to it's class name.
+     * @param string $name Class name or form widget code.
      * @return string The class name resolved, or the original name.
      */
     public function resolveFormWidget($name)
@@ -178,10 +168,10 @@ class WidgetManager
         if ($this->formWidgets === null)
             $this->listFormWidgets();
 
-        $aliases = $this->formWidgetAliases;
+        $hints = $this->formWidgetHints;
 
-        if (isset($aliases[$name]))
-            return $aliases[$name];
+        if (isset($hints[$name]))
+            return $hints[$name];
 
         $_name = Str::normalizeClassName($name);
         if (isset($this->formWidgets[$_name]))
