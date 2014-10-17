@@ -150,6 +150,8 @@
             return false
         }))
 
+        pane.data('tab', li)
+
         this.$el.trigger('initTab.oc.tab', [{'pane': pane, 'tab': li}])
     }
 

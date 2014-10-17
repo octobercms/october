@@ -1,7 +1,9 @@
 <?php namespace Cms\Twig;
 
+use Twig_Node;
 use Twig_Token;
 use Twig_TokenParser;
+use Twig_Error_Syntax;
 
 /**
  * Parser for the {% placeholder %} Twig tag.
@@ -33,22 +35,52 @@ class PlaceholderTokenParser extends Twig_TokenParser
         $stream = $this->parser->getStream();
         $name = $stream->expect(Twig_Token::NAME_TYPE)->getValue();
         $body = null;
+        $params = [];
 
         if ($stream->test(Twig_Token::NAME_TYPE, 'default')) {
             $stream->next();
-            $stream->expect(Twig_Token::BLOCK_END_TYPE);
+            $params = $this->loadParams($stream);
+
             $body = $this->parser->subparse([$this, 'decidePlaceholderEnd'], true);
             $stream->expect(Twig_Token::BLOCK_END_TYPE);
-        } else {
-            $stream->expect(Twig_Token::BLOCK_END_TYPE);
-        }
+        } else
+            $params = $this->loadParams($stream);
 
-        return new PlaceholderNode($name, $body, $token->getLine(), $this->getTag());
+        return new PlaceholderNode($name, $params, $body, $token->getLine(), $this->getTag());
     }
 
     public function decidePlaceholderEnd(Twig_Token $token)
     {
         return $token->test('endplaceholder');
+    }
+
+    protected function loadParams($stream)
+    {
+        $params = [];
+
+        $end = false;
+        while (!$end) {
+            $current = $stream->next();
+
+            switch ($current->getType()) {
+                case Twig_Token::NAME_TYPE:
+                    $paramName = $current->getValue();
+                    $stream->expect(Twig_Token::OPERATOR_TYPE, '=');
+                    $current = $stream->next();
+                    $params[$paramName] = $current->getValue();
+                    break;
+
+                case Twig_Token::BLOCK_END_TYPE:
+                    $end = true;
+                    break;
+
+                default:
+                    throw new Twig_Error_Syntax(sprintf('Invalid syntax in the placeholder tag. Line %s', $lineno), $stream->getCurrent()->getLine(), $stream->getFilename());
+                    break;
+            }
+        }
+
+        return $params;
     }
 
     /**

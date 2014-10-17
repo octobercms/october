@@ -13,6 +13,11 @@ use Lang;
  */
 class Page extends CmsCompoundObject
 {
+    /**
+     * @var array The API bag allows the API handler code to bind arbitrary data to the page object.
+     */
+    public $apiBag = [];
+
     protected $settingsValidationRules = [
         'title' => 'required',
         'url'   => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|\.]*$/i']

@@ -88,7 +88,7 @@ class CodeEditor extends FormWidgetBase
     }
 
     /**
-     * Prepares the list data
+     * Prepares the widget data
      */
     public function prepareVars()
     {

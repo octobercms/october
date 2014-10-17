@@ -12894,6 +12894,99 @@ div.popover-overlay {
   -o-transform: scale(1, 1);
   transform: scale(1, 1);
 }
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs {
+  background: #f9f9f9;
+}
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li {
+  margin-left: -19px;
+}
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li:first-child,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li:first-child {
+  margin-left: 0;
+  padding-left: 8px;
+}
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a {
+  padding: 8px 16px 0 16px;
+  font-weight: 400;
+  color: #2b3e50;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title {
+  position: relative;
+  display: inline-block;
+  padding: 4px 5px 9px 5px;
+  font-size: 13px;
+  z-index: 100;
+  height: 25px!important;
+  background-color: transparent;
+}
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title:before,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title:before,
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title:after,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title:after {
+  content: ' ';
+  position: absolute;
+  background: transparent url(../images/secondary-tab-shape-content.svg) no-repeat left top;
+  width: 15px;
+  height: 25px;
+  top: 0;
+  z-index: 100;
+  display: none;
+}
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title:before,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title:before {
+  left: -15px;
+}
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title:after,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title:after {
+  right: -15px;
+  background-position: -60px 0;
+}
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title span,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li a > span.title span {
+  height: 18px;
+  font-size: 12px;
+}
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li.active a,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li.active a {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li.active a > span.title,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li.active a > span.title {
+  background-color: white;
+}
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li.active a > span.title:before,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li.active a > span.title:before,
+.fancy-layout .control-tabs.secondary.content-tabs > div > ul.nav-tabs > li.active a > span.title:after,
+.fancy-layout.control-tabs.secondary.content-tabs > div > ul.nav-tabs > li.active a > span.title:after {
+  display: block;
+}
+.fancy-layout .control-tabs.secondary.content-tabs .tab-collapse-icon.primary,
+.fancy-layout.control-tabs.secondary.content-tabs .tab-collapse-icon.primary {
+  color: #808c8d;
+}
+.fancy-layout .control-tabs.secondary.content-tabs.primary-collapsed .tab-collapse-icon.primary,
+.fancy-layout.control-tabs.secondary.content-tabs.primary-collapsed .tab-collapse-icon.primary {
+  color: white;
+}
+.fancy-layout .control-tabs.secondary.content-tabs.primary-collapsed > div > ul.nav-tabs,
+.fancy-layout.control-tabs.secondary.content-tabs.primary-collapsed > div > ul.nav-tabs {
+  background: #e67e22;
+}
+.fancy-layout .control-tabs.secondary.content-tabs.primary-collapsed > div > ul.nav-tabs > li a,
+.fancy-layout.control-tabs.secondary.content-tabs.primary-collapsed > div > ul.nav-tabs > li a {
+  color: white;
+}
+.fancy-layout .control-tabs.secondary.content-tabs.primary-collapsed > div > ul.nav-tabs > li.active a,
+.fancy-layout.control-tabs.secondary.content-tabs.primary-collapsed > div > ul.nav-tabs > li.active a {
+  color: #2b3e50;
+}
 .fancy-layout .control-tabs.primary > div > ul.nav-tabs,
 .fancy-layout.control-tabs.primary > div > ul.nav-tabs {
   background: #7f8c8d;
@@ -13166,6 +13259,12 @@ div.popover-overlay {
   border-radius: 0;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
+}
+.fancy-layout .content-tabs .field-richeditor .redactor-box .redactor-toolbar {
+  margin: 20px 20px 0 20px!important;
+  -webkit-border-radius: 3px !important;
+  -moz-border-radius: 3px !important;
+  border-radius: 3px !important;
 }
 body.side-panel-not-fixed .fancy-layout .field-richeditor {
   border-left: none;
