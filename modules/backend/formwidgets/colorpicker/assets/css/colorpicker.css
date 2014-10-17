@@ -1,0 +1,59 @@
+.field-colorpicker > ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-top: -8px;
+}
+.field-colorpicker > ul li {
+  float: left;
+  text-indent: -9999px;
+  padding: 3px;
+  margin: 14px 14px 0 0;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.field-colorpicker > ul li span {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #cecece;
+}
+.field-colorpicker > ul li:hover,
+.field-colorpicker > ul li.active {
+  background-color: #cecece;
+}
+.field-colorpicker > ul li:hover span,
+.field-colorpicker > ul li.active span {
+  border: 1px solid #ffffff;
+}
+.field-colorpicker > ul li.custom-color {
+  position: relative;
+}
+.field-colorpicker > ul li.custom-color span {
+  border-style: dashed;
+}
+.field-colorpicker > ul li.custom-color:hover span,
+.field-colorpicker > ul li.custom-color.active span {
+  border-style: solid;
+}
+.field-colorpicker > ul li.custom-color:before {
+  text-indent: 0;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f0d8";
+  display: block;
+  text-align: center;
+  color: #000;
+  background: #e0e0e0;
+  font-size: 9px;
+  height: 9px;
+  line-height: 9px;
+  width: 9px;
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+}

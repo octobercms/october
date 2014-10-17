@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'motto' => '基本に戻ろう！',
+        'tagline' => '基本に戻ろう！',
     ],
     'locale' => [
         'en' => 'English',
@@ -24,6 +24,9 @@ return [
     ],
     'file' => [
         'create_fail' => "ファイルが作成できません： :name",
+    ],
+    'combiner' => [
+        'not_found' => "':name'コンバイナーファイルが見つかりません。",
     ],
     'system' => [
         'name' => 'システム',

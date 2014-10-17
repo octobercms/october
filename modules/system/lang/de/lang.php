@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'motto' => 'Zurück zum Wesentlichen',
+        'tagline' => 'Zurück zum Wesentlichen',
     ],
     'locale' => [
         'en' => 'English',
@@ -24,6 +24,9 @@ return [
     ],
     'file' => [
         'create_fail' => "Konnte Datei :name nicht erstellen",
+    ],
+    'combiner' => [
+        'not_found' => "Die combiner Datei ':name' wurde nicht gefunden.",
     ],
     'system' => [
         'name' => 'System',

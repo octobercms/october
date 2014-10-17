@@ -1,4 +1,4 @@
-<?php namespace Cms\Classes;
+<?php namespace System\Classes;
 
 use URL;
 use File;
@@ -13,9 +13,10 @@ use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCache;
 use Assetic\Cache\FilesystemCache;
+use System\Classes\ApplicationException;
 
 /**
- * Class used for combining JavaScript and StyleSheet 
+ * Class used for combining JavaScript and StyleSheet
  * files.
  *
  * @package october\system
@@ -32,7 +33,7 @@ class CombineAssets
      * @var array A list of known JavaScript extensions.
      */
     protected static $jsExtensions = ['js'];
-    
+
     /**
      * @var array A list of known StyleSheet extensions.
      */
@@ -129,7 +130,7 @@ class CombineAssets
     {
         $cacheInfo = $this->getCache($cacheId);
         if (!$cacheInfo)
-            throw new CmsException(Lang::get('cms::lang.combiner.not_found', ['name'=>$cacheId]));
+            throw new ApplicationException(Lang::get('cms::lang.combiner.not_found', ['name'=>$cacheId]));
 
         $this->path = $cacheInfo['path'];
         $this->storagePath = storage_path().'/combiner/cms';
@@ -355,7 +356,7 @@ class CombineAssets
      */
     protected function getCombinedUrl($outputFilename = 'undefined.css')
     {
-        $combineAction = 'Cms\Classes\Controller@combine';
+        $combineAction = 'System\Classes\Controller@combine';
         $actionExists = Route::getRoutes()->getByAction($combineAction) !== null;
 
         if ($actionExists)

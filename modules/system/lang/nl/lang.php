@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'motto' => 'Terug naar de basis',
+        'tagline' => 'Terug naar de basis',
     ],
     'locale' => [
         'en' => 'Engels',
@@ -24,6 +24,9 @@ return [
     ],
     'file' => [
         'create_fail' => "Bestand aanmaken mislukt: :name",
+    ],
+    'combiner' => [
+        'not_found' => "Het samenvoegbestand ':name' is niet gevonden.",
     ],
     'system' => [
         'name' => 'Systeem',

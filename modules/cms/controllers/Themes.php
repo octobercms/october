@@ -1,6 +1,5 @@
 <?php namespace Cms\Controllers;
 
-use Lang;
 use Config;
 use BackendMenu;
 use Input;
@@ -30,7 +29,7 @@ class Themes extends Controller
 
         $this->addCss('/modules/cms/assets/css/october.theme-selector.css', 'core');
 
-        $this->pageTitle = Lang::get('cms::lang.theme.settings_menu');
+        $this->pageTitle = 'cms::lang.theme.settings_menu';
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('October.Cms', 'theme');
     }

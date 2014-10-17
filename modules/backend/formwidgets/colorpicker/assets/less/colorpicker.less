@@ -1,0 +1,72 @@
+@import "../../../../assets/less/core/boot.less";
+
+
+@color-colorpicker-border: #cecece;
+@color-colorpicker-active-border: #fff;
+@color-colorpicker-active: #5fb6f5;
+
+.field-colorpicker {
+
+    > ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        margin-top: -8px;
+
+        li {
+            float: left;
+            text-indent: -9999px;
+            padding: 3px;
+            margin: 14px 14px 0 0;
+            cursor: pointer;
+            border-radius: @border-radius-base;
+
+            span {
+                display: block;
+                width: 25px;
+                height: 25px;
+                border: 1px solid @color-colorpicker-border;
+            }
+
+            &:hover,
+            &.active {
+                background-color: @color-colorpicker-border;
+                span {
+                    border: 1px solid @color-colorpicker-active-border;
+                }
+            }
+
+            &.custom-color {
+                position: relative;
+                span {
+                    border-style: dashed;
+                }
+                &:hover,
+                &.active {
+                    span {
+                        border-style: solid;
+                    }
+                }
+
+                &:before {
+                    text-indent: 0;
+                    .icon-FontAutumn();
+                    content: @caret-up;
+                    display: block;
+                    text-align: center;
+                    color: #000;
+                    background: #e0e0e0;
+                    font-size: 9px;
+                    height: 9px;
+                    line-height: 9px;
+                    width: 9px;
+                    position: absolute;
+                    bottom: 3px;
+                    right: 3px;
+                }
+            }
+        }
+
+    }
+
+}

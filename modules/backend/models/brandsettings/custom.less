@@ -1,0 +1,166 @@
+//
+// Coded variables
+//
+// @logo-image
+// @primary-color-light   - #e67e22
+// @primary-color-dark    - #d35400
+// @secondary-color-light - #34495e
+// @secondary-color-dark  - #2b3e50
+//
+
+//
+// Logos
+//
+
+.oc-bg-logo {
+    background-image: linear-gradient(to bottom, rgba(249,249,249,0.7) 0%,rgba(249,249,249,0.7) 100%), url('@{logo-image}');
+}
+.oc-logo-white {
+    background-image: url('@{logo-image}');
+    height: 170px !important;
+}
+
+//
+// Outside Layout
+//
+
+@color-outer-bg: @secondary-color-dark;
+@color-outer-header: mix(black, saturate(@secondary-color-dark, 5%), 27%);
+
+body.outer {
+    background: @color-outer-bg;
+}
+
+body.outer .layout > .layout-row.layout-head {
+    background: @color-outer-header;
+}
+
+//
+// Side navigation bar
+//
+
+@color-sidebarnav-bg: @secondary-color-light;
+
+#layout-sidenav {
+    background-color: @color-sidebarnav-bg;
+}
+
+//
+// Breadcrumb
+//
+
+@color-breadcrumb-background: mix(rgb(43,43,43), @secondary-color-dark, 50%);
+
+.control-breadcrumb {
+    background-color: @color-breadcrumb-background;
+}
+
+//
+// Fancy layout
+//
+
+@color-fancy-form-tabless-fields-bg: @primary-color-light;
+@color-fancy-master-tabs-bg: @primary-color-dark;
+@color-fancy-form-inactive-tab: mix(black, desaturate(@primary-color-dark, 14.5%), 5%);
+@tab-svg: escape('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="100px" height="110px" viewBox="0 0 100 110" enable-background="new 0 0 100 110" xml:space="preserve"><path d="M0,30C5,30,10,0,20,0c5,0,60,0,65,0c10,0,10,30,15,30"/><path fill="@{color-fancy-form-tabless-fields-bg}" d="M0,70c5,0,10-30,20-30c0,10,0,15,0,15v15"/><path fill="@{color-fancy-form-tabless-fields-bg}" d="M100,70c-5,0-10-30-20-30c0,10,0,15,0,15v15"/><path fill="@{color-fancy-form-inactive-tab}" d="M0,110c5,0,10-30,20-30c0,10,0,15,0,15v15"/><path fill="@{color-fancy-form-inactive-tab}" d="M100,110c-5,0-10-30-20-30c0,10,0,15,0,15v15"/></svg>');
+
+.fancy-layout {
+    .control-tabs, &.control-tabs {
+        &.master {
+            > div > div.tabs-container {
+                background: @color-fancy-master-tabs-bg;
+            }
+        }
+
+        &.primary {
+            > div > ul.nav-tabs {
+                &.master-area {
+                    background: @color-fancy-form-tabless-fields-bg;
+                }
+            }
+        }
+
+        &.master {
+            > div > div.tabs-container > ul.nav-tabs > li {
+                a > span.title {
+                    background-color: @color-fancy-form-inactive-tab;
+                    &:before, &:after {
+                        background-image: url(~'data:image/svg+xml;charset=UTF-8,@{tab-svg}');
+                    }
+                }
+                &.active {
+                    a > span.title {
+                        background-color: @color-fancy-form-tabless-fields-bg;
+                    }
+                }
+            }
+        }
+    }
+
+    .form-tabless-fields {
+        background: @color-fancy-form-tabless-fields-bg;
+    }
+}
+
+//
+// Component List
+//
+
+@color-component-list-bg: @secondary-color-dark;
+
+div.control-componentlist {
+    background-color: @color-component-list-bg;
+
+    &.droppable {
+        background-color: lighten(@color-component-list-bg, 20%);
+    }
+}
+
+//
+// File List
+//
+
+@color-list-active-border: @primary-color-light;
+
+.control-filelist {
+    ul li.active a:after {
+        background: @color-list-active-border;
+    }
+}
+
+//
+// Sidenav Tree
+//
+
+@color-sidebarnav-bg: @secondary-color-light;
+@color-sidebarnav-tree-group-bg: @secondary-color-dark;
+@color-sidebarnav-tree-inactive-bg: mix(white, @secondary-color-light, 7%);
+@color-sidebarnav-tree-active-bg: @secondary-color-light;
+@color-sidebarnav-tree-active-marker: @primary-color-light;
+
+.sidenav-tree {
+    background: @color-sidebarnav-bg;
+
+    ul.top-level > li {
+        > div.group h3 {
+            background: @color-sidebarnav-tree-group-bg;
+        }
+
+        > ul li {
+            a {
+                background: @color-sidebarnav-tree-inactive-bg;
+            }
+            &.active a {
+                background: @color-sidebarnav-tree-active-bg;
+
+                &:before {
+                    background: @color-sidebarnav-tree-active-marker;
+                }
+            }
+
+            &:hover a {
+                background: @color-sidebarnav-tree-active-bg;
+            }
+        }
+    }
+}

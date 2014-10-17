@@ -1,5 +1,6 @@
 <?php namespace System\Behaviors;
 
+use Cache;
 use System\Classes\ModelBehavior;
 use System\Classes\ApplicationException;
 
@@ -54,6 +55,7 @@ class SettingsModel extends ModelBehavior
          */
         $this->model->bindEvent('model.afterFetch', [$this, 'afterModelFetch']);
         $this->model->bindEvent('model.beforeSave', [$this, 'beforeModelSave']);
+        $this->model->bindEvent('model.afterSave', [$this, 'afterModelSave']);
         $this->model->bindEvent('model.setAttribute', [$this, 'setModelAttribute']);
         $this->model->bindEvent('model.saveInternal', [$this, 'saveModelInternal']);
 
@@ -72,17 +74,8 @@ class SettingsModel extends ModelBehavior
         if (isset(self::$instances[$this->recordCode]))
             return self::$instances[$this->recordCode];
 
-        $item = $this->model->where('item', $this->recordCode)->first();
-
-        if (!$item) {
+        if (!$item = $this->getSettingsRecord()) {
             $this->model->initSettingsData();
-
-            if (method_exists($this->model, 'forceSave'))
-                $this->model->forceSave();
-            else
-                $this->model->save();
-
-            $this->model->reload();
             $item = $this->model;
         }
 
@@ -94,7 +87,21 @@ class SettingsModel extends ModelBehavior
      */
     public function isConfigured()
     {
-        return $this->model->where('item', $this->recordCode)->count() > 0;
+        return $this->getSettingsRecord() !== null;
+    }
+
+    /**
+     * Returns the raw Model record that stores the settings.
+     * @return Model
+     */
+    public function getSettingsRecord()
+    {
+        $record = $this->model
+            ->where('item', $this->recordCode)
+            ->remember(1440, $this->getCacheKey())
+            ->first();
+
+        return $record ?: null;
     }
 
     /**
@@ -108,17 +115,17 @@ class SettingsModel extends ModelBehavior
     }
 
     /**
-     * Helper for getValue, intended as a static method
+     * Helper for getSettingsValue, intended as a static method
      */
     public function get($key, $default = null)
     {
-        return $this->instance()->getValue($key, $default);
+        return $this->instance()->getSettingsValue($key, $default);
     }
 
     /**
      * Get a single setting value, or return a default value
      */
-    public function getValue($key, $default = null)
+    public function getSettingsValue($key, $default = null)
     {
         if (array_key_exists($key, $this->fieldValues))
             return $this->fieldValues[$key];
@@ -162,6 +169,15 @@ class SettingsModel extends ModelBehavior
     }
 
     /**
+     * After the model is saved, clear the cached query entry.
+     * @return void
+     */
+    public function afterModelSave()
+    {
+        Cache::forget($this->getCacheKey());
+    }
+
+    /**
      * Adulterate the model setter to use our field values instead.
      */
     public function setModelAttribute($key, $value)
@@ -199,5 +215,13 @@ class SettingsModel extends ModelBehavior
     public function getFieldConfig()
     {
         return $this->fieldConfig;
+    }
+
+    /**
+     * Returns a cache key for this record.
+     */
+    protected function getCacheKey()
+    {
+        return 'system::settings.'.$this->recordCode;
     }
 }

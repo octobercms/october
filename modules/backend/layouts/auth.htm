@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
-        <title>Administration Area</title>
+        <title><?= e(trans('backend::lang.auth.title')) ?></title>
         <link href="<?= URL::to('modules/backend/assets/css/october.css') ?>" rel="stylesheet">
 
         <script src="<?= URL::to('modules/backend/assets/js/vendor/jquery-2.0.3.min.js') ?>"></script>
@@ -12,7 +12,7 @@
         <script src="<?= URL::to('modules/backend/assets/js/vendor/modernizr.min.js') ?>"></script>
         <script src="<?= URL::to('modules/backend/assets/js/october.flashmessage.js') ?>"></script>
         <script src="<?= URL::to('modules/backend/assets/js/auth/auth.js') ?>"></script>
-        
+
         <script>
         <!--
             backendBasePath = '<?= Backend::baseUrl() ?>';
@@ -20,13 +20,15 @@
         </script>
         <?= $this->makeAssets() ?>
         <?= Block::placeholder('head') ?>
+        <?= $this->makeLayoutPartial('custom_styles') ?>
     </head>
     <body class="outer <?= $this->bodyClass ?>">
         <div id="layout-canvas">
             <div class="layout">
+
                 <div class="layout-row min-size layout-head">
                     <div class="layout-cell">
-                        <h1><?= e(trans('system::lang.app.name')) ?></h1>
+                        <h1 class="oc-logo-white"><?= e(Backend\Models\BrandSettings::get('app_name')) ?></h1>
                     </div>
                 </div>
                 <div class="layout-row">

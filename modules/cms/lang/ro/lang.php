@@ -74,9 +74,6 @@ return [
         'invalid_name' => "Nume Functie AJAX invalid: :name.",
         'not_found' => "Functia AJAX ':name' nu a fost gasita.",
     ],
-    'combiner' => [
-        'not_found' => "Fisierul compus ':name' nu a fost gasit.",
-    ],
     'cms' => [
         'menu_label' => "CMS"
     ],

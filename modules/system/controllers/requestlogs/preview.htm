@@ -1,7 +1,7 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
         <li><a href="<?= Backend::url('system/requestlogs') ?>"><?= e(trans('system::lang.request_log.menu_label')) ?></a></li>
-        <li><?= e($this->pageTitle) ?></li>
+        <li><?= e(trans($this->pageTitle)) ?></li>
     </ul>
 <?php Block::endPut() ?>
 
@@ -34,7 +34,7 @@
 
 <?php else: ?>
 
-    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
 
 <?php endif ?>
 

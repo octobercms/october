@@ -1,7 +1,7 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
         <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
-        <li><?= e($this->pageTitle) ?></li>
+        <li><?= e(trans($this->pageTitle)) ?></li>
     </ul>
 <?php Block::endPut() ?>
 
@@ -54,7 +54,7 @@
         <?= Block::placeholder('breadcrumb') ?>
     </div>
     <div class="padded-container">
-        <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+        <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
         <p><a href="<?= Backend::url('backend/users') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.return')) ?></a></p>
     </div>
 <?php endif ?>

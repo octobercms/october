@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'motto' => 'Intoarcerea la elementele de baza',
+        'tagline' => 'Intoarcerea la elementele de baza',
     ],
     'locale' => [
         'en' => 'Engleza',
@@ -23,6 +23,9 @@ return [
     ],
     'file' => [
         'create_fail' => "Nu se poate crea fisierul: :name",
+    ],
+    'combiner' => [
+        'not_found' => "Fisierul compus ':name' nu a fost gasit.",
     ],
     'system' => [
         'name' => 'Sistem',

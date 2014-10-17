@@ -260,6 +260,18 @@ class ListController extends ControllerBehavior
         return $this->listWidgets[$definition]->onRefresh();
     }
 
+    /**
+     * Returns the widget used by this behavior.
+     * @return Backend\Classes\WidgetBase
+     */
+    public function listGetWidget($definition = null)
+    {
+        if (!$definition)
+            $definition = $this->primaryDefinition;
+
+        return array_get($this->listWidgets, $definition);
+    }
+
     //
     // Overrides
     //

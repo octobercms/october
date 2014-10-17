@@ -20,10 +20,10 @@
         background: #2b3e50!important;
     }
 
-    ul.top-level > li { 
+    ul.top-level > li {
         &[data-status=collapsed] {
             > div.group h3:before {
-                .transform( ~'rotate(0deg) translate(3px, 0)' );
+                .transform(~'rotate(0deg) translate(3px, 0)');
             }
 
             ul {
@@ -55,7 +55,7 @@
                     top: 15px;
                     color: @color-list-arrow;
                     .icon(@caret-right);
-                    .transform( ~'rotate(90deg) translate(5px, 0)' );
+                    .transform(~'rotate(90deg) translate(5px, 0)');
                     .transition(all 0.1s ease);
                 }
             }
@@ -137,16 +137,14 @@
 
     .back-link {
         display: none;
-
-
     }
 }
 
 @media (max-width: @screen-sm) {
     .sidenav-tree {
         width: 100%;
-        height: auto!important;
-        display: block!important;
+        height: auto !important;
+        display: block !important;
 
         > .layout {
             display: none;
@@ -155,16 +153,16 @@
 
     .sidenav-tree-root {
         .sidenav-tree {
-            width: 100%!important;
-            height: 100%!important;
-            display: table-cell!important;
+            width: 100% !important;
+            height: 100% !important;
+            display: table-cell !important;
 
             .back-link {
-                display: none!important;
+                display: none !important;
             }
 
             > .layout {
-                display: table!important;
+                display: table !important;
             }
         }
 
@@ -177,12 +175,12 @@
         .sidenav-tree {
             .back-link {
                 display: block;
-                background: @color-sidebarnav-back-link-bg;
                 padding: 13px 15px;
+                background: @color-sidebarnav-back-link-bg;
                 color: @color-sidebarnav-back-link-text;
                 font-size: 14px;
-                text-transform: uppercase;
                 line-height: 14px;
+                text-transform: uppercase;
                 i {
                     display: inline-block;
                     margin-right: 10px;
@@ -194,7 +192,7 @@
         }
 
         #layout-body {
-            display: block!important;
+            display: block !important;
         }
     }
 }

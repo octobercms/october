@@ -276,10 +276,9 @@ class Controller extends Extendable
         if ($result instanceof RedirectResponse)
             return $result;
 
-        // Translate the page title
-        $this->pageTitle = $this->pageTitle
-            ? Lang::get($this->pageTitle)
-            : Lang::get('backend::lang.page.untitled');
+        // No page title
+        if (!$this->pageTitle)
+            $this->pageTitle = 'backend::lang.page.untitled';
 
         // Load the view
         if (!$this->suppressView && is_null($result))

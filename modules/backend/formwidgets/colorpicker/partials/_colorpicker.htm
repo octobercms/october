@@ -1,0 +1,34 @@
+<?php if ($this->previewMode): ?>
+    <div class="form-control"><?= $value ?></div>
+<?php else: ?>
+    <div
+        id="<?= $this->getId() ?>"
+        class="field-colorpicker"
+        data-control="colorpicker"
+        data-data-locker="#<?= $this->getId('input') ?>">
+
+        <ul>
+            <?php foreach ($availableColors as $index => $color): ?>
+                <li
+                    class="<?= $color == $value ? 'active' : null ?>"
+                    data-hex-color="<?= $color ?>">
+                    <span style="background: <?= $color ?>"><?= $color ?></span>
+                </li>
+            <?php endforeach ?>
+
+            <li
+                class="custom-color <?= $isCustomColor == $value ? 'active' : null ?>"
+                data-hex-color="<?= $isCustomColor ? $value : '#ffffff' ?>"
+                data-custom-color>
+                <span style="background: <?= $isCustomColor ? $value : '#ffffff' ?>"></span>
+            </li>
+        </ul>
+
+        <input
+            type="hidden"
+            id="<?= $this->getId('input') ?>"
+            name="<?= $name ?>"
+            value="<?= $value ?>" />
+    </div>
+
+<?php endif ?>

@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'motto' => 'Basitliğe dönüş...',
+        'tagline' => 'Basitliğe dönüş...',
     ],
     'locale' => [
         'en' => 'English',
@@ -24,6 +24,9 @@ return [
     ],
     'file' => [
         'create_fail' => "Dosya oluşturulamıyor: :name",
+    ],
+    'combiner' => [
+        'not_found' => "The combiner file ':name' is not found.",
     ],
     'system' => [
         'name' => 'Sistem',

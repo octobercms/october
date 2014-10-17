@@ -562,7 +562,9 @@ class Lists extends WidgetBase
         if ($columnOrder = $this->getSession('order', null)) {
             $orderedDefinitions = [];
             foreach ($columnOrder as $column) {
-                $orderedDefinitions[$column] = $this->columns[$column];
+                if (isset($this->columns[$column])) {
+                    $orderedDefinitions[$column] = $this->columns[$column];
+                }
             }
 
             $this->columns = array_merge($orderedDefinitions, $this->columns);
