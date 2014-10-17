@@ -200,7 +200,7 @@ class Extension extends Twig_Extension
     public function displayBlock($name, $default = null)
     {
         if (($result = Block::placeholder($name)) === null)
-            return null;
+            return $default;
 
         $result = str_replace('<!-- X_OCTOBER_DEFAULT_BLOCK_CONTENT -->', trim($default), $result);
         return $result;
