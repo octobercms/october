@@ -58,6 +58,16 @@ class TemplateList extends WidgetBase
      */
     public $itemType;
 
+    /**
+     * @var string Extra CSS class name to apply to the control.
+     */
+    public $controlClass = null;
+
+    /**
+     * @var string A list of directories to suppress / hide.
+     */
+    public $suppressDirectories = [];
+
     /*
      * Public methods
      */
@@ -137,6 +147,15 @@ class TemplateList extends WidgetBase
 
         $normalizedItems = [];
         foreach ($items as $item) {
+            if ($this->suppressDirectories) {
+                $filelName = $item->getBaseFileName();
+                $dir = dirname($filelName);
+
+                if (in_array($dir, $this->suppressDirectories)) {
+                    continue;
+                }
+            }
+
             $normalizedItems[] = $this->normalizeItem($item);
         }
 
@@ -206,13 +225,13 @@ class TemplateList extends WidgetBase
         }
 
         $result = [
-            'title' => $this->getItemTitle($item),
-            'fileName' => $item->getFileName(),
-            'description' => $description,
+            'title'        => $this->getItemTitle($item),
+            'fileName'     => $item->getFileName(),
+            'description'  => $description,
             'descriptions' => $descriptions
         ];
 
-        return (object)$result;
+        return (object) $result;
     }
 
     protected function getItemTitle($item)
@@ -220,10 +239,10 @@ class TemplateList extends WidgetBase
         $titleProperty = $this->titleProperty;
 
         if ($titleProperty) {
-            return $item->$titleProperty ?: $item->getFileName();
+            return $item->$titleProperty ?: basename($item->getFileName());
         }
 
-        return $item->getFileName();
+        return basename($item->getFileName());
     }
 
     protected function setSearchTerm($term)

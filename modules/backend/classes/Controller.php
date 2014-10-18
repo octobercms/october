@@ -304,8 +304,9 @@ class Controller extends Extendable
         }
 
         // No page title
-        if (!$this->pageTitle)
+        if (!$this->pageTitle) {
             $this->pageTitle = 'backend::lang.page.untitled';
+        }
 
         // Load the view
         if (!$this->suppressView && is_null($result)) {

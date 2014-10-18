@@ -142,13 +142,15 @@
         var html = $a.html()
 
         $a.html('')
-        $a.append($('<span class="title"></span>').html(html))
+        $a.append($('<span class="title"></span>').append($('<span></span>').html(html)))
 
         var pane = $('> .tab-pane', this.$pagesContainer).eq(tabIndex).attr('id', targetId)
         $(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){
             $(this).trigger('close.oc.tab')
             return false
         }))
+
+        pane.data('tab', li)
 
         this.$el.trigger('initTab.oc.tab', [{'pane': pane, 'tab': li}])
     }

@@ -1303,12 +1303,12 @@ body .redactor-box-fullscreen {
 }
 .redactor-toolbar,
 .redactor-dropdown {
-  z-index: 1350 !important;
+  z-index: 410 !important;
 }
 #redactor-modal-overlay,
 #redactor-modal-box,
 #redactor-modal {
-  z-index: 1351 !important;
+  z-index: 420 !important;
 }
 .redactor-toolbar {
   background: #dddddd;

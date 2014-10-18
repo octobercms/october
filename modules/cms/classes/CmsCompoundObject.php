@@ -8,6 +8,10 @@ use October\Rain\Support\ValidationException;
 use Cms\Classes\ViewBag;
 use Cache;
 use Config;
+use Twig_Environment;
+use System\Twig\Extension as SystemTwigExtension;
+use Cms\Twig\Extension as CmsTwigExtension;
+use Cms\Twig\Loader as TwigLoader;
 
 /**
  * This is a base class for CMS objects that have multiple sections - pages, partials and layouts.
@@ -56,6 +60,8 @@ class CmsCompoundObject extends CmsObject
 
     protected $viewBagCache = false;
 
+    protected $originalData = [];
+
     protected static $objectComponentPropertyMap = null;
 
     /**
@@ -78,6 +84,10 @@ class CmsCompoundObject extends CmsObject
         $obj->settings = $parsedData['settings'];
         $obj->code = $parsedData['code'];
         $obj->markup = $parsedData['markup'];
+
+        $obj->originalData['settings'] = $obj->settings;
+        $obj->originalData['code'] = $obj->code;
+        $obj->originalData['markup'] = $obj->markup;
 
         $obj->parseComponentSettings();
         $obj->parseSettings();
@@ -213,11 +223,14 @@ class CmsCompoundObject extends CmsObject
         }
 
         if ($this->code) {
-            $code = preg_replace('/^\<\?php/', '', $this->code);
-            $code = preg_replace('/^\<\?/', '', $code);
-            $code = preg_replace('/\?>$/', '', $code);
+            if ($this->wrapCodeToPhpTags() && $this->originalData['code'] != $this->code) {
+                $code = preg_replace('/^\<\?php/', '', $this->code);
+                $code = preg_replace('/^\<\?/', '', $code);
+                $code = preg_replace('/\?>$/', '', $code);
 
-            $content[] = '<?php'.PHP_EOL.$this->code.PHP_EOL.'?>';
+                $content[] = '<?php'.PHP_EOL.$this->code.PHP_EOL.'?>';
+            } else {
+                $content[] = $this->code;
         }
 
         $content[] = $this->markup;
@@ -372,6 +385,26 @@ class CmsCompoundObject extends CmsObject
     }
 
     /**
+     * Returns Twig node tree generated from the object's markup.
+     * This method is used by the system internally and shouldn't
+     * participate in the front-end request processing.
+     * @link http://twig.sensiolabs.org/doc/internals.html Twig internals
+     * @param mixed $markup Specifies the markup content. 
+     * Use FALSE to load the content from the markup section.
+     * @return Twig_Node_Module A node tree
+     */
+    public function getTwigNodeTree($markup = false)
+    {
+        $loader = new TwigLoader();
+        $twig = new Twig_Environment($loader, []);
+        $twig->addExtension(new CmsTwigExtension());
+        $twig->addExtension(new SystemTwigExtension);
+
+        $stream = $twig->tokenize($markup === false ? $this->markup : $markup, 'getTwigNodeTree');
+        return $twig->parse($stream);
+    }
+
+    /**
      * Parses the settings array.
      * Child classes can override this method in order to update
      * the content of the $settings property after the object
@@ -428,5 +461,14 @@ class CmsCompoundObject extends CmsObject
                 throw new ValidationException($validation);
             }
         }
+    }
+
+    /**
+     * Determines if the content of the code section should be wrapped to PHP tags.
+     * @return boolean
+     */
+    protected function wrapCodeToPhpTags()
+    {
+        return true;
     }
 }

@@ -389,16 +389,7 @@
                 parts = fileName.split('.'),
                 extension = 'txt',
                 mode = 'plain_text',
-                modes = {
-                    'htm': 'html',
-                    'md': 'markdown',
-                    'txt': 'plain_text',
-                    'js': 'javascript',
-                    'less': 'less',
-                    'scss': 'scss',
-                    'sass': 'sass',
-                    'css': 'css'
-                },
+                modes = $.oc.codeEditorExtensionModes,
                 editor = $('[data-control=codeeditor]', pane)
 
             if (parts.length >= 2)

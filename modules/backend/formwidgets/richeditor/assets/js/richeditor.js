@@ -99,7 +99,7 @@
             return
 
         if (this.$el.hasClass('stretch')) {
-            var height = $toolbar.height()
+            var height = $toolbar.outerHeight(true)
             $editor.css('top', height+1)
             $codeEditor.css('top', height)
         }

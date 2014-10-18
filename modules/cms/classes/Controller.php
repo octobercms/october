@@ -269,11 +269,17 @@ class Controller extends BaseController
         /*
          * Render the page
          */
-        CmsException::mask($this->page, 400);
-        $this->loader->setObject($this->page);
-        $template = $this->twig->loadTemplate($this->page->getFullPath());
-        $this->pageContents = $template->render($this->vars);
-        CmsException::unmask();
+        Event::fire('cms.page.beforeTwigRender', [$page, $this->loader, $this->twig], true);
+
+        $apiResult = Event::fire('cms.page.getRenderedContents', [$this->page], true);
+        if (!strlen($apiResult)) {
+            CmsException::mask($this->page, 400);
+            $this->loader->setObject($this->page);
+            $template = $this->twig->loadTemplate($this->page->getFullPath());
+            $this->pageContents = $template->render($this->vars);
+            CmsException::unmask();
+        } else
+            $this->pageContents = $apiResult;
 
         /*
          * Render the layout

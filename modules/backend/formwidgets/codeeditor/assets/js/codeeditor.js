@@ -267,6 +267,21 @@
 
     $.fn.codeEditor.Constructor = CodeEditor
 
+    if ($.oc === undefined)
+        $.oc = {}
+
+    $.oc.codeEditorExtensionModes = {
+        'htm': 'html',
+        'html': 'html',
+        'md': 'markdown',
+        'txt': 'plain_text',
+        'js': 'javascript',
+        'less': 'less',
+        'scss': 'scss',
+        'sass': 'sass',
+        'css': 'css'
+    }
+
     // CODEEDITOR NO CONFLICT
     // =================
 

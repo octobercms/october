@@ -28,7 +28,7 @@ class Extension extends Twig_Extension
      * Creates the extension instance.
      * @param \Cms\Classes\Controller $controller The CMS controller object.
      */
-    public function __construct(Controller $controller)
+    public function __construct(Controller $controller = null)
     {
         $this->controller = $controller;
     }
@@ -201,7 +201,7 @@ class Extension extends Twig_Extension
     public function displayBlock($name, $default = null)
     {
         if (($result = Block::placeholder($name)) === null) {
-            return null;
+            return $default;
         }
 
         $result = str_replace('<!-- X_OCTOBER_DEFAULT_BLOCK_CONTENT -->', trim($default), $result);

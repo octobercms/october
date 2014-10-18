@@ -47,8 +47,6 @@
                 background: @color-body-bg;
                 font-weight: 400;
 
-                max-width: 150px;
-                text-overflow: ellipsis;
                 overflow: hidden;
 
                 &:hover {
@@ -58,6 +56,15 @@
 
                 &:before {
                     font-size: 14px;
+                }
+
+                > span.title > span {
+                    max-width: 150px;
+                    height: 16px;
+                    margin-bottom: -4px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: inline-block;
                 }
             }
 
