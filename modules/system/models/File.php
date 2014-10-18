@@ -27,10 +27,11 @@ class File extends FileBase
     public function getStorageDirectory()
     {
         $uploadsDir = Config::get('cms.uploadsDir');
-        if ($this->isPublic())
+        if ($this->isPublic()) {
             return base_path() . $uploadsDir . '/public/';
-        else
+        } else {
             return base_path() . $uploadsDir . '/protected/';
+        }
     }
 
     /**
@@ -39,9 +40,10 @@ class File extends FileBase
     public function getPublicDirectory()
     {
         $uploadsDir = Config::get('cms.uploadsDir');
-        if ($this->isPublic())
+        if ($this->isPublic()) {
             return Request::getBasePath() . $uploadsDir . '/public/';
-        else
+        } else {
             return Request::getBasePath() . $uploadsDir . '/protected/';
+        }
     }
 }

@@ -49,16 +49,18 @@ trait ViewMaker
      */
     public function makePartial($partial, $params = [], $throwException = true)
     {
-        if (!File::isPathSymbol($partial) && realpath($partial) === false)
+        if (!File::isPathSymbol($partial) && realpath($partial) === false) {
             $partial = '_' . strtolower($partial) . '.htm';
+        }
 
         $partialPath = $this->getViewPath($partial);
 
         if (!File::isFile($partialPath)) {
-            if ($throwException)
+            if ($throwException) {
                 throw new SystemException(Lang::get('backend::lang.partial.not_found', ['name' => $partialPath]));
-            else
+            } else {
                 return false;
+            }
         }
 
         return $this->makeFileContents($partialPath, $params);
@@ -85,8 +87,9 @@ trait ViewMaker
      */
     public function makeViewContent($contents, $layout = null)
     {
-        if ($this->suppressLayout || $this->layout == '')
+        if ($this->suppressLayout || $this->layout == '') {
             return $contents;
+        }
 
         // Append any undefined block content to the body block
         Block::set('undefinedBlock', $contents);
@@ -105,16 +108,18 @@ trait ViewMaker
     public function makeLayout($name = null, $params = [], $throwException = true)
     {
         $layout = ($name === null) ? $this->layout : $name;
-        if ($layout == '')
+        if ($layout == '') {
             return;
+        }
 
         $layoutPath = $this->getViewPath($layout . '.htm', $this->layoutPath);
 
         if (!File::isFile($layoutPath)) {
-            if ($throwException)
+            if ($throwException) {
                 throw new SystemException(Lang::get('cms::lang.layout.not_found', ['name' => $layoutPath]));
-            else
+            } else {
                 return false;
+            }
         }
 
         return $this->makeFileContents($layoutPath, $params);
@@ -128,8 +133,9 @@ trait ViewMaker
      */
     public function makeLayoutPartial($partial, $params = [])
     {
-        if (!File::isLocalPath($partial) && !File::isPathSymbol($partial))
+        if (!File::isLocalPath($partial) && !File::isPathSymbol($partial)) {
             $partial = '_' . strtolower($partial);
+        }
 
         return $this->makeLayout($partial, $params);
     }
@@ -144,24 +150,29 @@ trait ViewMaker
      */
     public function getViewPath($fileName, $viewPath = null)
     {
-        if (!isset($this->viewPath))
+        if (!isset($this->viewPath)) {
             $this->viewPath = $this->guessViewPath();
+        }
 
-        if (!$viewPath)
+        if (!$viewPath) {
             $viewPath = $this->viewPath;
+        }
 
         $fileName = File::symbolizePath($fileName, $fileName);
 
-        if (File::isLocalPath($fileName) || realpath($fileName) !== false)
+        if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
             return $fileName;
+        }
 
-        if (!is_array($viewPath))
+        if (!is_array($viewPath)) {
             $viewPath = [$viewPath];
+        }
 
         foreach ($viewPath as $path) {
             $_fileName = $path . '/' . $fileName;
-            if (File::isFile($_fileName))
+            if (File::isFile($_fileName)) {
                 break;
+            }
         }
 
         return $_fileName;
@@ -176,11 +187,13 @@ trait ViewMaker
      */
     public function makeFileContents($filePath, $extraParams = [])
     {
-        if (!strlen($filePath) || !File::isFile($filePath))
+        if (!strlen($filePath) || !File::isFile($filePath)) {
             return;
+        }
 
-        if (!is_array($extraParams))
+        if (!is_array($extraParams)) {
             $extraParams = [];
+        }
 
         $vars = array_merge($this->vars, $extraParams);
 

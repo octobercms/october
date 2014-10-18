@@ -35,8 +35,9 @@ class OctoberUp extends Command
 
         $this->output->writeln('<info>Migrating application and plugins...</info>');
 
-        foreach ($manager->getNotes() as $note)
+        foreach ($manager->getNotes() as $note) {
             $this->output->writeln($note);
+        }
     }
 
     /**
@@ -54,5 +55,4 @@ class OctoberUp extends Command
     {
         return [];
     }
-
 }

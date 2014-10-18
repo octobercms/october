@@ -60,12 +60,14 @@ class MarkupManager
 
         foreach ($plugins as $id => $plugin) {
             $items = $plugin->registerMarkupTags();
-            if (!is_array($items))
+            if (!is_array($items)) {
                 continue;
+            }
 
             foreach ($items as $type => $definitions) {
-                if (!is_array($definitions))
+                if (!is_array($definitions)) {
                     continue;
+                }
 
                 $this->registerExtensions($type, $definitions);
             }
@@ -103,23 +105,24 @@ class MarkupManager
      */
     public function registerExtensions($type, array $definitions)
     {
-        if (is_null($this->items))
+        if (is_null($this->items)) {
             $this->items = [];
+        }
 
-        if (!array_key_exists($type, $this->items))
+        if (!array_key_exists($type, $this->items)) {
             $this->items[$type] = [];
+        }
 
         foreach ($definitions as $name => $definition) {
 
             switch ($type) {
                 case self::EXTENSION_TOKEN_PARSER:
                     $this->items[$type][] = $definition;
-                break;
-
+                    break;
                 case self::EXTENSION_FILTER:
                 case self::EXTENSION_FUNCTION:
                     $this->items[$type][$name] = $definition;
-                break;
+                    break;
             }
         }
     }
@@ -158,11 +161,13 @@ class MarkupManager
      */
     public function listExtensions($type)
     {
-        if ($this->items === null)
+        if ($this->items === null) {
             $this->loadExtensions();
+        }
 
-        if (!isset($this->items[$type]) || !is_array($this->items[$type]))
+        if (!isset($this->items[$type]) || !is_array($this->items[$type])) {
             return [];
+        }
 
         return $this->items[$type];
     }
@@ -201,8 +206,9 @@ class MarkupManager
      */
     public function makeTwigFunctions($functions = [])
     {
-        if (!is_array($functions))
+        if (!is_array($functions)) {
             $functions = [];
+        }
 
         foreach ($this->listFunctions() as $name => $callable) {
 
@@ -210,15 +216,16 @@ class MarkupManager
              * Handle a wildcard function
              */
             if (strpos($name, '*') !== false && $this->isWildCallable($callable)) {
-                $callable = function($name) use ($callable) {
+                $callable = function ($name) use ($callable) {
                     $arguments = array_slice(func_get_args(), 1);
                     $method = $this->isWildCallable($callable, Str::camel($name));
                     return call_user_func_array($method, $arguments);
                 };
             }
 
-            if (!is_callable($callable))
+            if (!is_callable($callable)) {
                 throw new ApplicationException(sprintf('The markup function for %s is not callable.', $name));
+            }
 
             $functions[] = new Twig_SimpleFunction($name, $callable, ['is_safe' => ['html']]);
         }
@@ -233,8 +240,9 @@ class MarkupManager
      */
     public function makeTwigFilters($filters = [])
     {
-        if (!is_array($filters))
+        if (!is_array($filters)) {
             $filters = [];
+        }
 
         foreach ($this->listFilters() as $name => $callable) {
 
@@ -242,15 +250,16 @@ class MarkupManager
              * Handle a wildcard function
              */
             if (strpos($name, '*') !== false && $this->isWildCallable($callable)) {
-                $callable = function($name) use ($callable) {
+                $callable = function ($name) use ($callable) {
                     $arguments = array_slice(func_get_args(), 1);
                     $method = $this->isWildCallable($callable, Str::camel($name));
                     return call_user_func_array($method, $arguments);
                 };
             }
 
-            if (!is_callable($callable))
+            if (!is_callable($callable)) {
                 throw new ApplicationException(sprintf('The markup filter for %s is not callable.', $name));
+            }
 
             $filters[] = new Twig_SimpleFilter($name, $callable, ['is_safe' => ['html']]);
         }
@@ -265,13 +274,15 @@ class MarkupManager
      */
     public function makeTwigTokenParsers($parsers = [])
     {
-        if (!is_array($parsers))
+        if (!is_array($parsers)) {
             $parsers = [];
+        }
 
         $extraParsers = $this->listTokenParsers();
         foreach ($extraParsers as $obj) {
-            if (!$obj instanceof Twig_TokenParser)
+            if (!$obj instanceof Twig_TokenParser) {
                 continue;
+            }
 
             $parsers[] = $obj;
         }
@@ -290,30 +301,30 @@ class MarkupManager
     {
         $isWild = false;
 
-        if (is_string($callable) && strpos($callable, '*') !== false)
+        if (is_string($callable) && strpos($callable, '*') !== false) {
             $isWild = $replaceWith ? str_replace('*', $replaceWith, $callable) : true;
+        }
 
         if (is_array($callable)) {
             if (is_string($callable[0]) && strpos($callable[0], '*') !== false) {
                 if ($replaceWith) {
                     $isWild = $callable;
                     $isWild[0] = str_replace('*', $replaceWith, $callable[0]);
-                }
-                else
+                } else {
                     $isWild = true;
+                }
             }
 
             if (!empty($callable[1]) && strpos($callable[1], '*') !== false) {
                 if ($replaceWith) {
                     $isWild = $isWild ?: $callable;
                     $isWild[1] = str_replace('*', $replaceWith, $callable[1]);
-                }
-                else
+                } else {
                     $isWild = true;
+                }
             }
         }
 
         return $isWild;
     }
-
 }

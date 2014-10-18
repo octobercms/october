@@ -36,12 +36,14 @@ class Parameters extends Model
      */
     public static function get($key, $default = null)
     {
-        if (array_key_exists($key, static::$cache))
+        if (array_key_exists($key, static::$cache)) {
             return static::$cache[$key];
+        }
 
         $record = static::findRecord($key)->first();
-        if (!$record)
+        if (!$record) {
             return static::$cache[$key] = $default;
+        }
 
         return static::$cache[$key] = $record->value;
     }
@@ -93,5 +95,4 @@ class Parameters extends Model
 
         return $query;
     }
-
 }

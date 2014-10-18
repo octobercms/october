@@ -48,5 +48,4 @@ class RequestLogs extends Controller
         Flash::success(Lang::get('system::lang.request_log.empty_success'));
         return $this->listRefresh();
     }
-
 }

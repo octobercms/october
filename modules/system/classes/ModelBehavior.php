@@ -39,5 +39,4 @@ class ModelBehavior extends ModelBehaviorBase
             }
         }
     }
-
 }

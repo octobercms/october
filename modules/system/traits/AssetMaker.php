@@ -35,22 +35,27 @@ trait AssetMaker
      */
     public function makeAssets($type = null)
     {
-        if ($type != null) $type = strtolower($type);
+        if ($type != null) {
+            $type = strtolower($type);
+        }
         $result = null;
         $reserved = ['build'];
         $pathCache = [];
 
-        if ($type == null || $type == 'css'){
+        if ($type == null || $type == 'css') {
             foreach ($this->assets['css'] as $asset) {
 
                 /*
                  * Prevent duplicates
                  */
                 $path = $this->getAssetEntryBuildPath($asset);
-                if (isset($pathCache[$path])) continue;
+                if (isset($pathCache[$path])) {
+                    continue;
+                }
                 $pathCache[$path] = true;
 
-                $attributes = HTML::attributes(array_merge([
+                $attributes = HTML::attributes(array_merge(
+                    [
                         'rel'  => 'stylesheet',
                         'href' => $path
                     ],
@@ -61,17 +66,20 @@ trait AssetMaker
             }
         }
 
-        if ($type == null || $type == 'rss'){
+        if ($type == null || $type == 'rss') {
             foreach ($this->assets['rss'] as $asset) {
 
                 /*
                  * Prevent duplicates
                  */
                 $path = $this->getAssetEntryBuildPath($asset);
-                if (isset($pathCache[$path])) continue;
+                if (isset($pathCache[$path])) {
+                    continue;
+                }
                 $pathCache[$path] = true;
 
-                $attributes = HTML::attributes(array_merge([
+                $attributes = HTML::attributes(array_merge(
+                    [
                         'rel'   => 'alternate',
                         'href'  => $path,
                         'title' => 'RSS',
@@ -91,10 +99,13 @@ trait AssetMaker
                  * Prevent duplicates
                  */
                 $path = $this->getAssetEntryBuildPath($asset);
-                if (isset($pathCache[$path])) continue;
+                if (isset($pathCache[$path])) {
+                    continue;
+                }
                 $pathCache[$path] = true;
 
-                $attributes = HTML::attributes(array_merge([
+                $attributes = HTML::attributes(array_merge(
+                    [
                         'src' => $path
                     ],
                     array_except($asset['attributes'], $reserved)
@@ -118,16 +129,19 @@ trait AssetMaker
     {
         $jsPath = $this->getAssetPath($name);
 
-        if (isset($this->controller))
+        if (isset($this->controller)) {
             $this->controller->addJs($jsPath, $attributes);
+        }
 
-        if (is_string($attributes))
+        if (is_string($attributes)) {
             $attributes = ['build' => $attributes];
+        }
 
         $jsPath = $this->getAssetScheme($jsPath);
 
-        if (!in_array($jsPath, $this->assets['js']))
+        if (!in_array($jsPath, $this->assets['js'])) {
             $this->assets['js'][] = ['path' => $jsPath, 'attributes' => $attributes];
+        }
     }
 
     /**
@@ -141,16 +155,19 @@ trait AssetMaker
     {
         $cssPath = $this->getAssetPath($name);
 
-        if (isset($this->controller))
+        if (isset($this->controller)) {
             $this->controller->addCss($cssPath, $attributes);
+        }
 
-        if (is_string($attributes))
+        if (is_string($attributes)) {
             $attributes = ['build' => $attributes];
+        }
 
         $cssPath = $this->getAssetScheme($cssPath);
 
-        if (!in_array($cssPath, $this->assets['css']))
+        if (!in_array($cssPath, $this->assets['css'])) {
             $this->assets['css'][] = ['path' => $cssPath, 'attributes' => $attributes];
+        }
     }
 
     /**
@@ -164,16 +181,19 @@ trait AssetMaker
     {
         $rssPath = $this->getAssetPath($name);
 
-        if (isset($this->controller))
+        if (isset($this->controller)) {
             $this->controller->addRss($rssPath, $attributes);
+        }
 
-        if (is_string($attributes))
+        if (is_string($attributes)) {
             $attributes = ['build' => $attributes];
+        }
 
         $rssPath = $this->getAssetScheme($rssPath);
 
-        if (!in_array($rssPath, $this->assets['rss']))
+        if (!in_array($rssPath, $this->assets['rss'])) {
             $this->assets['rss'][] = ['path' => $rssPath, 'attributes' => $attributes];
+        }
     }
 
     /**
@@ -202,22 +222,27 @@ trait AssetMaker
      */
     public function getAssetPath($fileName, $assetPath = null)
     {
-        if (preg_match("/(\/\/|http|https)/", $fileName))
+        if (preg_match("/(\/\/|http|https)/", $fileName)) {
             return $fileName;
+        }
 
-        if (!$assetPath)
+        if (!$assetPath) {
             $assetPath = $this->assetPath;
+        }
 
-        if (substr($fileName, 0, 1) == '/' || $assetPath === null)
+        if (substr($fileName, 0, 1) == '/' || $assetPath === null) {
             return $fileName;
+        }
 
-        if (!is_array($assetPath))
+        if (!is_array($assetPath)) {
             $assetPath = [$assetPath];
+        }
 
         foreach ($assetPath as $path) {
             $_fileName = $path . '/' . $fileName;
-            if (File::isFile(PATH_BASE . '/' . $_fileName))
+            if (File::isFile(PATH_BASE . '/' . $_fileName)) {
                 break;
+            }
         }
 
         return $_fileName;
@@ -243,10 +268,11 @@ trait AssetMaker
         if (isset($asset['attributes']['build'])) {
             $build = $asset['attributes']['build'];
 
-            if ($build == 'core')
+            if ($build == 'core') {
                 $build = 'v' . Parameters::get('system::core.build', 1);
-            elseif ($pluginVersion = PluginVersion::getVersion($build))
+            } elseif ($pluginVersion = PluginVersion::getVersion($build)) {
                 $build = 'v' . $pluginVersion;
+            }
 
             $path .= '?' . $build;
         }
@@ -261,13 +287,14 @@ trait AssetMaker
      */
     protected function getAssetScheme($asset)
     {
-        if (preg_match("/(\/\/|http|https)/", $asset))
+        if (preg_match("/(\/\/|http|https)/", $asset)) {
             return $asset;
+        }
 
-        if (substr($asset, 0, 1) == '/')
+        if (substr($asset, 0, 1) == '/') {
             $asset = Request::getBasePath() . $asset;
+        }
 
         return $asset;
     }
-
 }

@@ -48,5 +48,4 @@ class EventLogs extends Controller
         Flash::success(Lang::get('system::lang.event_log.empty_success'));
         return $this->listRefresh();
     }
-
 }

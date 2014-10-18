@@ -3,7 +3,7 @@
 /*
  * Register System routes before all user routes.
  */
-App::before(function($request) {
+App::before(function ($request) {
 
     /*
      * Combine JavaScript and StyleSheet assets

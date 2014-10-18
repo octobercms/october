@@ -8,8 +8,7 @@ class DbSystemPluginVersions extends Migration
 
     public function up()
     {
-        Schema::create('system_plugin_versions', function(Blueprint $table)
-        {
+        Schema::create('system_plugin_versions', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('code')->index();
@@ -22,5 +21,4 @@ class DbSystemPluginVersions extends Migration
     {
         Schema::dropIfExists('system_plugin_versions');
     }
-
 }

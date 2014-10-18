@@ -57,8 +57,9 @@ class PluginInstall extends Command
         PluginManager::instance()->loadPlugins();
         $manager->updatePlugin($code);
 
-        foreach ($manager->getNotes() as $note)
+        foreach ($manager->getNotes() as $note) {
             $this->output->writeln($note);
+        }
     }
 
     /**
@@ -80,5 +81,4 @@ class PluginInstall extends Command
     {
         return [];
     }
-
 }

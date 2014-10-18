@@ -37,5 +37,4 @@ class MailLayouts extends Controller
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('October.System', 'mail_templates');
     }
-
 }

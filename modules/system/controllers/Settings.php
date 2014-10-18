@@ -62,8 +62,9 @@ class Settings extends Controller
         $this->vars['parentLabel'] = Lang::get('system::lang.settings.menu_label');
 
         try {
-            if (!$item = $this->findSettingItem($author, $plugin, $code))
+            if (!$item = $this->findSettingItem($author, $plugin, $code)) {
                 throw new ApplicationException(Lang::get('system::lang.settings.not_found'));
+            }
 
             $this->pageTitle = $item->label;
 
@@ -74,8 +75,7 @@ class Settings extends Controller
 
             $model = $this->createModel($item);
             $this->initWidgets($model);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->handleError($ex);
         }
     }
@@ -111,8 +111,9 @@ class Settings extends Controller
      */
     public function formRender($options = [])
     {
-        if (!$this->formWidget)
+        if (!$this->formWidget) {
             throw new ApplicationException(Lang::get('backend::lang.form.behavior_not_ready'));
+        }
 
         return $this->formWidget->render($options);
     }
@@ -138,9 +139,9 @@ class Settings extends Controller
      */
     protected function createModel($item)
     {
-        if (!isset($item->class) || !strlen($item->class))
+        if (!isset($item->class) || !strlen($item->class)) {
             throw new ApplicationException(Lang::get('system::lang.settings.missing_model'));
-
+        }
 
         $class = $item->class;
         $model = $class::instance();
@@ -166,5 +167,4 @@ class Settings extends Controller
 
         return $item;
     }
-
 }

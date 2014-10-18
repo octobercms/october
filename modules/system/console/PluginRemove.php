@@ -43,11 +43,13 @@ class PluginRemove extends Command
         $pluginName = $this->argument('name');
         $pluginName = $pluginManager->normalizeIdentifier($pluginName);
 
-        if (!$pluginManager->hasPlugin($pluginName))
+        if (!$pluginManager->hasPlugin($pluginName)) {
             return $this->error(sprintf('Unable to find a registered plugin called "%s"', $pluginName));
+        }
 
-        if (!$this->confirmToProceed(sprintf('This will DELETE "%s" from the filesystem and database.', $pluginName)))
+        if (!$this->confirmToProceed(sprintf('This will DELETE "%s" from the filesystem and database.', $pluginName))) {
             return;
+        }
 
         /*
          * Rollback plugin
@@ -55,8 +57,9 @@ class PluginRemove extends Command
         $manager = UpdateManager::instance()->resetNotes();
         $manager->rollbackPlugin($pluginName);
 
-        foreach ($manager->getNotes() as $note)
+        foreach ($manager->getNotes() as $note) {
             $this->output->writeln($note);
+        }
 
         /*
          * Delete from file system
@@ -95,7 +98,8 @@ class PluginRemove extends Command
      */
     protected function getDefaultConfirmCallback()
     {
-        return function() { return true; };
+        return function () {
+            return true;
+        };
     }
-
 }

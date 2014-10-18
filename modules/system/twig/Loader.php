@@ -32,15 +32,18 @@ class Loader implements Twig_LoaderInterface
     {
         $finder = App::make('view')->getFinder();
 
-        if (isset($this->cache[$name]))
+        if (isset($this->cache[$name])) {
             return $this->cache[$name];
+        }
 
-        if (File::isFile($name))
+        if (File::isFile($name)) {
             return $this->cache[$name] = $name;
+        }
 
         $view = $name;
-        if (File::extension($view) == $this->extension)
+        if (File::extension($view) == $this->extension) {
             $view = substr($view, 0, -strlen($this->extension));
+        }
 
         $path = $finder->find($view);
         return $this->cache[$name] = $path;
@@ -71,8 +74,7 @@ class Loader implements Twig_LoaderInterface
         try {
             $this->findTemplate($name);
             return true;
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             return false;
         }
     }

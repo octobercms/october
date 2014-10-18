@@ -75,5 +75,4 @@ This is an automatic message. Please do not reply to it.
             'content_text' => $text,
         ]);
     }
-
 }
