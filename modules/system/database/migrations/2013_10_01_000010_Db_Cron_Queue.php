@@ -8,8 +8,7 @@ class DbCronQueue extends Migration
 
     public function up()
     {
-        Schema::create('cron_queue', function(Blueprint $table)
-        {
+        Schema::create('cron_queue', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('delay')->default(0);
@@ -24,5 +23,4 @@ class DbCronQueue extends Migration
     {
         Schema::dropIfExists('cron_queue');
     }
-
 }

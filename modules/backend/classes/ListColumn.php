@@ -108,19 +108,39 @@ class ListColumn
      */
     protected function evalConfig($config)
     {
-        if (isset($config['cssClass'])) $this->cssClass = $config['cssClass'];
-        if (isset($config['searchable'])) $this->searchable = $config['searchable'];
-        if (isset($config['sortable'])) $this->sortable = $config['sortable'];
-        if (isset($config['invisible'])) $this->invisible = $config['invisible'];
-        if (isset($config['valueFrom'])) $this->valueFrom = $config['valueFrom'];
-        if (isset($config['select'])) $this->sqlSelect = $config['select'];
-        if (isset($config['relation'])) $this->relation = $config['relation'];
-        if (isset($config['format'])) $this->format = $config['format'];
-        if (isset($config['path'])) $this->path = $config['path'];
+        if (isset($config['cssClass'])) {
+            $this->cssClass = $config['cssClass'];
+        }
+        if (isset($config['searchable'])) {
+            $this->searchable = $config['searchable'];
+        }
+        if (isset($config['sortable'])) {
+            $this->sortable = $config['sortable'];
+        }
+        if (isset($config['invisible'])) {
+            $this->invisible = $config['invisible'];
+        }
+        if (isset($config['valueFrom'])) {
+            $this->valueFrom = $config['valueFrom'];
+        }
+        if (isset($config['select'])) {
+            $this->sqlSelect = $config['select'];
+        }
+        if (isset($config['relation'])) {
+            $this->relation = $config['relation'];
+        }
+        if (isset($config['format'])) {
+            $this->format = $config['format'];
+        }
+        if (isset($config['path'])) {
+            $this->path = $config['path'];
+        }
 
-        /* @todo Remove line if year >= 2015 */ if (isset($config['nameFrom'])) $this->valueFrom = $config['nameFrom'];
+        // @todo Remove lines if year >= 2015
+        if (isset($config['nameFrom'])) {
+            $this->valueFrom = $config['nameFrom'];
+        }
 
         return $config;
     }
-
 }

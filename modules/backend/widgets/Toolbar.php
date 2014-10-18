@@ -43,10 +43,10 @@ class Toolbar extends WidgetBase
          */
         if (isset($this->config->search)) {
 
-            if (is_string($this->config->search))
+            $searchConfig = $this->makeConfig($this->config->search);
+            if (is_string($this->config->search)) {
                 $searchConfig = $this->makeConfig(['partial' => $this->config->search]);
-            else
-                $searchConfig = $this->makeConfig($this->config->search);
+            }
 
             $searchConfig->alias = $this->alias . 'Search';
             $this->searchWidget = $this->makeWidget('Backend\Widgets\Search', $searchConfig);
@@ -80,8 +80,9 @@ class Toolbar extends WidgetBase
 
     public function makeControlPanel()
     {
-        if (!isset($this->config->buttons))
+        if (!isset($this->config->buttons)) {
             return false;
+        }
 
         return $this->controller->makePartial($this->config->buttons, $this->vars);
     }

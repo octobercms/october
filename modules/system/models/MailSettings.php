@@ -61,8 +61,7 @@ class MailSettings extends Model
                 if ($settings->smtp_authorization) {
                     $config->set('mail.username', $settings->smtp_user);
                     $config->set('mail.password', $settings->smtp_password);
-                }
-                else {
+                } else {
                     $config->set('mail.username', null);
                     $config->set('mail.password', null);
                 }

@@ -17,5 +17,4 @@ class DatabaseSeeder extends Seeder
 
         $this->call('System\Database\Seeds\SeedSetupMailLayouts');
     }
-
 }

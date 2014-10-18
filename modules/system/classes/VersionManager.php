@@ -74,8 +74,9 @@ class VersionManager
     {
         $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
-        if (!$this->hasVersionFile($code))
+        if (!$this->hasVersionFile($code)) {
             return false;
+        }
 
         $currentVersion = $this->getLatestFileVersion($code);
         $databaseVersion = $this->getDatabaseVersion($code);
@@ -102,8 +103,7 @@ class VersionManager
         if (is_array($details)) {
             $comment = array_shift($details);
             $scripts = $details;
-        }
-        else {
+        } else {
             $comment = $details;
             $scripts = [];
         }
@@ -112,8 +112,9 @@ class VersionManager
          * Apply scripts, if any
          */
         foreach ($scripts as $script) {
-            if ($this->hasDatabaseHistory($code, $version, $script))
+            if ($this->hasDatabaseHistory($code, $version, $script)) {
                 continue;
+            }
 
             $this->applyDatabaseScript($code, $version, $script);
         }
@@ -121,8 +122,9 @@ class VersionManager
         /*
          * Register the comment and update the version
          */
-        if (!$this->hasDatabaseHistory($code, $version))
+        if (!$this->hasDatabaseHistory($code, $version)) {
             $this->applyDatabaseComment($code, $version, $comment);
+        }
 
         $this->setDatabaseVersion($code, $version);
 
@@ -136,24 +138,32 @@ class VersionManager
     {
         $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
-        if (!$this->hasVersionFile($code))
+        if (!$this->hasVersionFile($code)) {
             return false;
+        }
 
         $pluginHistory = $this->getDatabaseHistory($code);
         $pluginHistory = array_reverse($pluginHistory);
 
         foreach ($pluginHistory as $history) {
-            if ($history->type == self::HISTORY_TYPE_COMMENT)
+            if ($history->type == self::HISTORY_TYPE_COMMENT) {
                 $this->removeDatabaseComment($code, $history->version);
-            elseif ($history->type == self::HISTORY_TYPE_SCRIPT)
+            } elseif ($history->type == self::HISTORY_TYPE_SCRIPT) {
                 $this->removeDatabaseScript($code, $history->version, $history->detail);
+            }
         }
 
         $this->setDatabaseVersion($code);
 
-        if (isset($this->fileVersions[$code])) unset($this->fileVersions[$code]);
-        if (isset($this->databaseVersions[$code])) unset($this->databaseVersions[$code]);
-        if (isset($this->databaseHistory[$code])) unset($this->databaseHistory[$code]);
+        if (isset($this->fileVersions[$code])) {
+            unset($this->fileVersions[$code]);
+        }
+        if (isset($this->databaseVersions[$code])) {
+            unset($this->databaseVersions[$code]);
+        }
+        if (isset($this->databaseHistory[$code])) {
+            unset($this->databaseHistory[$code]);
+        }
         return true;
     }
 
@@ -165,12 +175,14 @@ class VersionManager
     public function purgePlugin($pluginCode)
     {
         $versions = Db::table('system_plugin_versions')->where('code', $pluginCode);
-        if ($countVersions = $versions->count())
+        if ($countVersions = $versions->count()) {
             $versions->delete();
+        }
 
         $history = Db::table('system_plugin_history')->where('code', $pluginCode);
-        if ($countHistory = $history->count())
+        if ($countHistory = $history->count()) {
             $history->delete();
+        }
 
         return (($countHistory + $countVersions) > 0) ? true : false;
     }
@@ -185,10 +197,11 @@ class VersionManager
     protected function getLatestFileVersion($code)
     {
         $versionInfo = $this->getFileVersions($code);
-        if (!$versionInfo)
+        if (!$versionInfo) {
             return self::NO_VERSION_VALUE;
+        }
 
-        $latest = trim(key(array_slice($versionInfo, -1 , 1)));
+        $latest = trim(key(array_slice($versionInfo, -1, 1)));
         return $latest;
     }
 
@@ -197,8 +210,9 @@ class VersionManager
      */
     protected function getNewFileVersions($code, $version = null)
     {
-        if ($version === null)
+        if ($version === null) {
             $version = self::NO_VERSION_VALUE;
+        }
 
         $versions = $this->getFileVersions($code);
         $position = array_search($version, array_keys($versions));
@@ -210,14 +224,15 @@ class VersionManager
      */
     protected function getFileVersions($code)
     {
-        if ($this->fileVersions !== null && array_key_exists($code, $this->fileVersions))
+        if ($this->fileVersions !== null && array_key_exists($code, $this->fileVersions)) {
             return $this->fileVersions[$code];
+        }
 
         $versionFile = $this->getVersionFile($code);
         $versionInfo = Yaml::parseFile($versionFile);
 
         if ($versionInfo) {
-            uksort($versionInfo, function($a, $b){
+            uksort($versionInfo, function ($a, $b) {
                 return version_compare($a, $b);
             });
         }
@@ -257,7 +272,10 @@ class VersionManager
         }
 
         if (!isset($this->databaseVersions[$code])) {
-            $this->databaseVersions[$code] = Db::table('system_plugin_versions')->where('code', $code)->pluck('version');
+            $this->databaseVersions[$code] = Db::table('system_plugin_versions')
+                ->where('code', $code)
+                ->pluck('version')
+            ;
         }
 
         return (isset($this->databaseVersions[$code]))
@@ -278,14 +296,12 @@ class VersionManager
                 'version' => $version,
                 'created_at' => new Carbon
             ]);
-        }
-        elseif ($version && $currentVersion){
+        } elseif ($version && $currentVersion) {
             Db::table('system_plugin_versions')->where('code', $code)->update([
                 'version' => $version,
                 'created_at' => new Carbon
             ]);
-        }
-        elseif ($currentVersion) {
+        } elseif ($currentVersion) {
             Db::table('system_plugin_versions')->where('code', $code)->delete();
         }
 
@@ -362,8 +378,9 @@ class VersionManager
      */
     protected function getDatabaseHistory($code)
     {
-        if ($this->databaseHistory !== null && array_key_exists($code, $this->databaseHistory))
+        if ($this->databaseHistory !== null && array_key_exists($code, $this->databaseHistory)) {
             return $this->databaseHistory[$code];
+        }
 
         $historyInfo = Db::table('system_plugin_history')->where('code', $code)->get();
         return $this->databaseHistory[$code] = $historyInfo;
@@ -375,18 +392,22 @@ class VersionManager
     protected function hasDatabaseHistory($code, $version, $script = null)
     {
         $historyInfo = $this->getDatabaseHistory($code);
-        if (!$historyInfo)
+        if (!$historyInfo) {
             return false;
+        }
 
         foreach ($historyInfo as $history) {
-            if ($history->version != $version)
+            if ($history->version != $version) {
                 continue;
+            }
 
-            if ($history->type == self::HISTORY_TYPE_COMMENT && !$script)
+            if ($history->type == self::HISTORY_TYPE_COMMENT && !$script) {
                 return true;
+            }
 
-            if ($history->type == self::HISTORY_TYPE_SCRIPT && $history->detail == $script)
+            if ($history->type == self::HISTORY_TYPE_SCRIPT && $history->detail == $script) {
                 return true;
+            }
         }
 
         return false;

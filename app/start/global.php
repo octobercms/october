@@ -46,8 +46,7 @@ Log::useFiles(storage_path().'/logs/system.log');
 |
 */
 
-App::error(function(Exception $exception, $code)
-{
+App::error(function (Exception $exception, $code) {
     /*
      * October uses a custom error handler, see
      * System\Classes\ErrorHandler::handleException
@@ -65,8 +64,7 @@ App::error(function(Exception $exception, $code)
 |
 */
 
-App::down(function()
-{
+App::down(function () {
     return Response::make("Be right back!", 503);
 });
 

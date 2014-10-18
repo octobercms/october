@@ -88,12 +88,14 @@ class PluginManager
             $pluginClassName = $className.'\Plugin';
 
             // Autoloader failed?
-            if (!class_exists($pluginClassName))
+            if (!class_exists($pluginClassName)) {
                 include_once $classPath.'/Plugin.php';
+            }
 
             // Not a valid plugin!
-            if (!class_exists($pluginClassName))
+            if (!class_exists($pluginClassName)) {
                 continue;
+            }
 
             $classObj = new $pluginClassName($this->app);
             $classId = $this->getIdentifier($classObj);
@@ -101,8 +103,9 @@ class PluginManager
             /*
              * Check for disabled plugins
              */
-            if ($this->isDisabled($classId))
+            if ($this->isDisabled($classId)) {
                 $classObj->disabled = true;
+            }
 
             $this->plugins[$classId] = $classObj;
             $this->pathMap[$classId] = $classPath;
@@ -116,15 +119,18 @@ class PluginManager
      */
     public function registerAll()
     {
-        if ($this->registered)
+        if ($this->registered) {
             return;
+        }
 
         foreach ($this->plugins as $pluginId => $plugin) {
-            if ($plugin->disabled)
+            if ($plugin->disabled) {
                 continue;
+            }
 
-            if (!self::$noInit)
+            if (!self::$noInit) {
                 $plugin->register();
+            }
 
             $pluginPath = $this->getPluginPath($plugin);
             $pluginNamespace = strtolower($pluginId);
@@ -133,36 +139,41 @@ class PluginManager
              * Register plugin class autoloaders
              */
             $autoloadPath = $pluginPath . '/vendor/autoload.php';
-            if (File::isFile($autoloadPath))
+            if (File::isFile($autoloadPath)) {
                 require_once $autoloadPath;
+            }
 
             /*
              * Register language namespaces
              */
             $langPath = $pluginPath . '/lang';
-            if (File::isDirectory($langPath))
+            if (File::isDirectory($langPath)) {
                 Lang::addNamespace($pluginNamespace, $langPath);
+            }
 
             /*
              * Register configuration path
              */
             $configPath = $pluginPath . '/config';
-            if (File::isDirectory($configPath))
+            if (File::isDirectory($configPath)) {
                 Config::package($pluginNamespace, $configPath, $pluginNamespace);
+            }
 
             /*
              * Register views path
              */
             $viewsPath = $pluginPath . '/views';
-            if (File::isDirectory($viewsPath))
+            if (File::isDirectory($viewsPath)) {
                 View::addNamespace($pluginNamespace, $viewsPath);
+            }
 
             /*
              * Add routes, if available
              */
             $routesFile = $pluginPath . '/routes.php';
-            if (File::exists($routesFile))
+            if (File::exists($routesFile)) {
                 require $routesFile;
+            }
         }
 
         $this->registered = true;
@@ -173,15 +184,18 @@ class PluginManager
      */
     public function bootAll()
     {
-        if ($this->booted)
+        if ($this->booted) {
             return;
+        }
 
         foreach ($this->plugins as $plugin) {
-            if ($plugin->disabled)
+            if ($plugin->disabled) {
                 continue;
+            }
 
-            if (!self::$noInit)
+            if (!self::$noInit) {
                 $plugin->boot();
+            }
         }
 
         $this->booted = true;
@@ -202,8 +216,9 @@ class PluginManager
     public function getPluginPath($id)
     {
         $classId = $this->getIdentifier($id);
-        if (!isset($this->pathMap[$classId]))
+        if (!isset($this->pathMap[$classId])) {
             return null;
+        }
 
         return $this->pathMap[$classId];
     }
@@ -234,8 +249,9 @@ class PluginManager
      */
     public function findByNamespace($namespace)
     {
-        if (!$this->hasPlugin($namespace))
+        if (!$this->hasPlugin($namespace)) {
             return null;
+        }
 
         $classId = $this->getIdentifier($namespace);
         return $this->plugins[$classId];
@@ -246,11 +262,13 @@ class PluginManager
      */
     public function findByIdentifier($identifier)
     {
-        if (!isset($this->plugins[$identifier]))
+        if (!isset($this->plugins[$identifier])) {
             $identifier = $this->normalizeIdentifier($identifier);
+        }
 
-        if (!isset($this->plugins[$identifier]))
+        if (!isset($this->plugins[$identifier])) {
             return null;
+        }
 
         return $this->plugins[$identifier];
     }
@@ -290,8 +308,9 @@ class PluginManager
         $plugins = [];
 
         $dirPath = $this->getPath();
-        if (!File::isDirectory($dirPath))
+        if (!File::isDirectory($dirPath)) {
             return $plugins;
+        }
 
         $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirPath));
         $it->setMaxDepth(2);
@@ -319,8 +338,9 @@ class PluginManager
     public function getIdentifier($namespace)
     {
         $namespace = Str::normalizeClassName($namespace);
-        if (strpos($namespace, '\\') === null)
+        if (strpos($namespace, '\\') === null) {
             return $namespace;
+        }
 
         $parts = explode('\\', $namespace);
         $slice = array_slice($parts, 1, 2);
@@ -336,8 +356,9 @@ class PluginManager
     public function normalizeIdentifier($identifier)
     {
         foreach ($this->plugins as $id => $object) {
-            if (strtolower($id) == strtolower($identifier))
+            if (strtolower($id) == strtolower($identifier)) {
                 return $id;
+            }
         }
 
         return $identifier;
@@ -361,15 +382,15 @@ class PluginManager
         $path = $this->metaPath.'/disabled.json';
 
         if (($configDisabled = Config::get('cms.disablePlugins')) && is_array($configDisabled)) {
-            foreach ($configDisabled as $disabled)
+            foreach ($configDisabled as $disabled) {
                 $this->disabledPlugins[$disabled] = true;
+            }
         }
 
         if (File::exists($path)) {
             $disabled = json_decode(File::get($path), true);
             $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
-        }
-        else {
+        } else {
             $this->writeDisabled();
         }
     }
@@ -382,8 +403,9 @@ class PluginManager
     public function isDisabled($id)
     {
         $code = $this->getIdentifier($id);
-        if (array_key_exists($code, $this->disabledPlugins))
+        if (array_key_exists($code, $this->disabledPlugins)) {
             return true;
+        }
     }
 
     /**
@@ -403,14 +425,16 @@ class PluginManager
     public function disablePlugin($id, $isUser = false)
     {
         $code = $this->getIdentifier($id);
-        if (array_key_exists($code, $this->disabledPlugins))
+        if (array_key_exists($code, $this->disabledPlugins)) {
             return false;
+        }
 
         $this->disabledPlugins[$code] = $isUser;
         $this->writeDisabled();
 
-        if ($pluginObj = $this->findByIdentifier($code))
+        if ($pluginObj = $this->findByIdentifier($code)) {
             $pluginObj->disabled = true;
+        }
 
         return true;
     }
@@ -423,18 +447,21 @@ class PluginManager
     public function enablePlugin($id, $isUser = false)
     {
         $code = $this->getIdentifier($id);
-        if (!array_key_exists($code, $this->disabledPlugins))
+        if (!array_key_exists($code, $this->disabledPlugins)) {
             return false;
+        }
 
         // Prevent system from enabling plugins disabled by the user
-        if (!$isUser && $this->disabledPlugins[$code] === true)
+        if (!$isUser && $this->disabledPlugins[$code] === true) {
             return false;
+        }
 
         unset($this->disabledPlugins[$code]);
         $this->writeDisabled();
 
-        if ($pluginObj = $this->findByIdentifier($code))
+        if ($pluginObj = $this->findByIdentifier($code)) {
             $pluginObj->disabled = false;
+        }
 
         return true;
     }
@@ -450,22 +477,24 @@ class PluginManager
     protected function loadDependencies()
     {
         foreach ($this->plugins as $id => $plugin) {
-            if (!$required = $this->getDependencies($plugin))
+            if (!$required = $this->getDependencies($plugin)) {
                 continue;
+            }
 
             $disable = false;
             foreach ($required as $require) {
-                if (!$this->hasPlugin($require))
+                if (!$this->hasPlugin($require)) {
                     $disable = true;
-
-                elseif (($pluginObj = $this->findByIdentifier($require)) && $pluginObj->disabled)
+                } elseif (($pluginObj = $this->findByIdentifier($require)) && $pluginObj->disabled) {
                     $disable = true;
+                }
             }
 
-            if ($disable)
+            if ($disable) {
                 $this->disablePlugin($id);
-            else
+            } else {
                 $this->enablePlugin($id);
+            }
         }
     }
 
@@ -476,11 +505,13 @@ class PluginManager
      */
     public function getDependencies($plugin)
     {
-        if (is_string($plugin) && (!$plugin = $this->findByIdentifier($identifer)))
+        if (is_string($plugin) && (!$plugin = $this->findByIdentifier($identifer))) {
             return false;
+        }
 
-        if (!isset($plugin->require) || !$plugin->require)
+        if (!isset($plugin->require) || !$plugin->require) {
             return null;
+        }
 
         return is_array($plugin->require) ? $plugin->require : [$plugin->require];
     }
@@ -493,8 +524,9 @@ class PluginManager
      */
     public function sortByDependencies($plugins = null)
     {
-        if (!is_array($plugins))
+        if (!is_array($plugins)) {
             $plugins = $this->getPlugins();
+        }
 
         $result = [];
         $checklist = $plugins;
@@ -502,8 +534,9 @@ class PluginManager
         $loopCount = 0;
         while (count($checklist)) {
 
-            if (++$loopCount > 999)
+            if (++$loopCount > 999) {
                 throw new ApplicationException('Too much recursion');
+            }
 
             foreach ($checklist as $code => $plugin) {
 
@@ -511,7 +544,7 @@ class PluginManager
                  * Get dependencies and remove any aliens
                  */
                 $depends = $this->getDependencies($plugin) ?: [];
-                $depends = array_filter($depends, function($pluginCode) use ($plugins) {
+                $depends = array_filter($depends, function ($pluginCode) use ($plugins) {
                     return isset($plugins[$pluginCode]);
                 });
 
@@ -528,8 +561,9 @@ class PluginManager
                  * Find dependencies that have not been checked
                  */
                 $depends = array_diff($depends, $result);
-                if (count($depends) > 0)
+                if (count($depends) > 0) {
                     continue;
+                }
 
                 /*
                  * All dependencies are checked
@@ -542,5 +576,4 @@ class PluginManager
 
         return $result;
     }
-
 }

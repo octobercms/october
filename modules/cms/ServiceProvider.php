@@ -25,7 +25,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register navigation
          */
-        BackendMenu::registerCallback(function($manager) {
+        BackendMenu::registerCallback(function ($manager) {
             $manager->registerMenuItems('October.Cms', [
                 'cms' => [
                     'label'       => 'cms::lang.cms.menu_label',
@@ -86,7 +86,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register permissions
          */
-        BackendAuth::registerCallback(function($manager) {
+        BackendAuth::registerCallback(function ($manager) {
             $manager->registerPermissions('October.Cms', [
                 'cms.manage_content'   => ['label' => 'cms::lang.permissions.manage_content', 'tab' => 'Cms'],
                 'cms.manage_assets'    => ['label' => 'cms::lang.permissions.manage_assets', 'tab' => 'Cms'],
@@ -100,14 +100,14 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register widgets
          */
-        WidgetManager::instance()->registerFormWidgets(function($manager){
+        WidgetManager::instance()->registerFormWidgets(function ($manager) {
             $manager->registerFormWidget('Cms\FormWidgets\Components');
         });
 
         /*
          * Register settings
          */
-        SettingsManager::instance()->registerCallback(function($manager){
+        SettingsManager::instance()->registerCallback(function ($manager) {
             $manager->registerSettingItems('October.Cms', [
                 'theme' => [
                     'label'       => 'cms::lang.theme.settings_menu',
@@ -123,7 +123,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register components
          */
-        ComponentManager::instance()->registerComponents(function($manager){
+        ComponentManager::instance()->registerComponents(function ($manager) {
             $manager->registerComponent('Cms\Classes\ViewBag', 'viewBag');
         });
     }
@@ -137,21 +137,22 @@ class ServiceProvider extends ModuleServiceProvider
     {
         parent::boot('cms');
 
-        Event::listen('pages.menuitem.listTypes', function() {
+        Event::listen('pages.menuitem.listTypes', function () {
             return [
-                'cms-page'=>'CMS Page '
+                'cms-page' => 'CMS Page '
             ];
         });
 
-        Event::listen('pages.menuitem.getTypeInfo', function($type) {
-            if ($type == 'cms-page')
+        Event::listen('pages.menuitem.getTypeInfo', function ($type) {
+            if ($type == 'cms-page') {
                 return CmsPage::getMenuTypeInfo($type);
+            }
         });
 
-        Event::listen('pages.menuitem.resolveItem', function($type, $item, $url, $theme) {
-            if ($type == 'cms-page')
+        Event::listen('pages.menuitem.resolveItem', function ($type, $item, $url, $theme) {
+            if ($type == 'cms-page') {
                 return CmsPage::resolveMenuItem($item, $url, $theme);
+            }
         });
     }
-
 }

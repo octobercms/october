@@ -56,18 +56,18 @@ class PluginVersion extends Model
                 $this->{$attribute} = Lang::get($info);
             }
 
-            if ($this->is_disabled)
+            if ($this->is_disabled) {
                 $manager->disablePlugin($this->code, true);
-            else
+            } else {
                 $manager->enablePlugin($this->code, true);
+            }
 
             $this->disabledBySystem = $pluginObj->disabled;
 
             if (($configDisabled = Config::get('cms.disablePlugins')) && is_array($configDisabled)) {
                 $this->disabledByConfig = in_array($this->code, $configDisabled);
             }
-        }
-        else {
+        } else {
             $this->name = $this->code;
             $this->description = Lang::get('system::lang.plugins.unknown_plugin');
             $this->orphaned = true;
@@ -90,5 +90,4 @@ class PluginVersion extends Model
             ? self::$versionCache[$pluginCode]
             : null;
     }
-
 }

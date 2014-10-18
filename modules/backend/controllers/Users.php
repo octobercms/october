@@ -32,8 +32,9 @@ class Users extends Controller
     {
         parent::__construct();
 
-        if ($this->action == 'myaccount')
+        if ($this->action == 'myaccount') {
             $this->requiredPermissions = null;
+        }
 
         BackendMenu::setContext('October.System', 'system', 'users');
         SettingsManager::setContext('October.System', 'administrators');
@@ -45,8 +46,9 @@ class Users extends Controller
     public function update($recordId, $context = null)
     {
         // Users cannot edit themselves, only use My Settings
-        if ($context != 'myaccount' && $recordId == $this->user->id)
+        if ($context != 'myaccount' && $recordId == $this->user->id) {
             return Redirect::to(Backend::url('backend/users/myaccount'));
+        }
 
         return $this->asExtension('FormController')->update($recordId, $context);
     }
@@ -74,8 +76,9 @@ class Users extends Controller
          */
         $loginChanged = $this->user->login != post('User[login]');
         $passwordChanged = strlen(post('User[password]'));
-        if ($loginChanged || $passwordChanged)
+        if ($loginChanged || $passwordChanged) {
             BackendAuth::login($this->user->reload(), true);
+        }
 
         return $result;
     }
@@ -85,8 +88,9 @@ class Users extends Controller
      */
     protected function formExtendFields($form)
     {
-        if ($form->getContext() == 'myaccount')
+        if ($form->getContext() == 'myaccount') {
             return;
+        }
 
         $permissionFields = [];
         foreach (BackendAuth::listPermissions() as $permission) {
@@ -109,8 +113,9 @@ class Users extends Controller
                 'span' => 'auto',
             ];
 
-            if (isset($permission->tab))
+            if (isset($permission->tab)) {
                 $fieldConfig['tab'] = $permission->tab;
+            }
 
             $permissionFields[$fieldName] = $fieldConfig;
         }

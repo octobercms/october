@@ -12,5 +12,8 @@ class BackendMenu extends Facade
      * 
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'backend.menu'; }
+    protected static function getFacadeAccessor()
+    {
+        return 'backend.menu';
+    }
 }

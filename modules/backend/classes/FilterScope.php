@@ -113,18 +113,39 @@ class FilterScope
      */
     protected function evalConfig($config)
     {
-        if (isset($config['options'])) $this->options($config['options']);
-        if (isset($config['context'])) $this->context = $config['context'];
-        if (isset($config['default'])) $this->defaults = $config['default'];
-        if (isset($config['conditions'])) $this->conditions = $config['conditions'];
-        if (isset($config['scope'])) $this->scope = $config['scope'];
-        if (isset($config['cssClass'])) $this->cssClass = $config['cssClass'];
-        if (isset($config['nameFrom'])) $this->nameFrom = $config['nameFrom'];
-        if (isset($config['descriptionFrom'])) $this->descriptionFrom = $config['descriptionFrom'];
+        if (isset($config['options'])) {
+            $this->options($config['options']);
+        }
+        if (isset($config['context'])) {
+            $this->context = $config['context'];
+        }
+        if (isset($config['default'])) {
+            $this->defaults = $config['default'];
+        }
+        if (isset($config['conditions'])) {
+            $this->conditions = $config['conditions'];
+        }
+        if (isset($config['scope'])) {
+            $this->scope = $config['scope'];
+        }
+        if (isset($config['cssClass'])) {
+            $this->cssClass = $config['cssClass'];
+        }
+        if (isset($config['nameFrom'])) {
+            $this->nameFrom = $config['nameFrom'];
+        }
+        if (isset($config['descriptionFrom'])) {
+            $this->descriptionFrom = $config['descriptionFrom'];
+        }
 
-        /* @todo Remove line if year >= 2015 */ if (isset($config['nameColumn'])) $this->nameFrom = $config['nameColumn'];
+        // @todo Remove line if year >= 2015
+        if (isset($config['nameColumn'])) {
+            $this->nameFrom = $config['nameColumn'];
+        }
 
-        if (array_key_exists('disabled', $config)) $this->disabled = $config['disabled'];
+        if (array_key_exists('disabled', $config)) {
+            $this->disabled = $config['disabled'];
+        }
         return $config;
     }
 
@@ -136,13 +157,14 @@ class FilterScope
         $id = 'scope';
         $id .= '-'.$this->scopeName;
 
-        if ($suffix)
+        if ($suffix) {
             $id .= '-'.$suffix;
+        }
 
-        if ($this->idPrefix)
+        if ($this->idPrefix) {
             $id = $this->idPrefix . '-' . $id;
+        }
 
         return Str::evalHtmlId($id);
     }
-
 }

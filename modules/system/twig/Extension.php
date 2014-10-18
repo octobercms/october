@@ -102,5 +102,4 @@ class Extension extends Twig_Extension
     {
         return URL::to($url);
     }
-
 }

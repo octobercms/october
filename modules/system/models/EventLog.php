@@ -35,8 +35,9 @@ class EventLog extends Model
         $record->message = $message;
         $record->level = $level;
 
-        if ($details !== null)
+        if ($details !== null) {
             $record->details = (array) $details;
+        }
 
         $record->save();
 
@@ -60,10 +61,10 @@ class EventLog extends Model
      */
     public function getSummaryAttribute()
     {
-        if (preg_match("/with message '(.+)' in/", $this->message, $match))
+        if (preg_match("/with message '(.+)' in/", $this->message, $match)) {
             return $match[1];
+        }
 
         return Str::limit($this->message, 100);
     }
-
 }

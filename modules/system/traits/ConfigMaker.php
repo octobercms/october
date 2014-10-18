@@ -33,27 +33,28 @@ trait ConfigMaker
          */
         if (is_object($configFile)) {
             $config = $configFile;
-        }
-
         /*
          * Embedded config
          */
-        elseif (is_array($configFile)) {
+        } elseif (is_array($configFile)) {
             $config = $this->makeConfigFromArray($configFile);
-        }
-
         /*
          * Process config from file contents
          */
-        else {
+        } else {
 
-            if (isset($this->controller) && method_exists($this->controller, 'getConfigPath'))
+            if (isset($this->controller) && method_exists($this->controller, 'getConfigPath')) {
                 $configFile = $this->controller->getConfigPath($configFile);
-            else
+            } else {
                 $configFile = $this->getConfigPath($configFile);
+            }
 
-            if (!File::isFile($configFile))
-                throw new SystemException(Lang::get('system::lang.config.not_found', ['file' => $configFile, 'location' => get_called_class()]));
+            if (!File::isFile($configFile)) {
+                throw new SystemException(Lang::get(
+                    'system::lang.config.not_found',
+                    ['file' => $configFile, 'location' => get_called_class()]
+                ));
+            }
 
             $config = Yaml::parse(File::get($configFile));
 
@@ -63,7 +64,9 @@ trait ConfigMaker
             $publicFile = File::localToPublic($configFile);
             if ($results = Event::fire('system.extendConfigFile', [$publicFile, $config])) {
                 foreach ($results as $result) {
-                    if (!is_array($result)) continue;
+                    if (!is_array($result)) {
+                        continue;
+                    }
                     $config = array_merge($config, $result);
                 }
             }
@@ -75,8 +78,12 @@ trait ConfigMaker
          * Validate required configuration
          */
         foreach ($requiredConfig as $property) {
-            if (!property_exists($config, $property))
-                throw new SystemException(Lang::get('system::lang.config.required', ['property' => $property, 'location' => get_called_class()]));
+            if (!property_exists($config, $property)) {
+                throw new SystemException(Lang::get(
+                    'system::lang.config.required',
+                    ['property' => $property, 'location' => get_called_class()]
+                ));
+            }
         }
 
         return $config;
@@ -92,8 +99,9 @@ trait ConfigMaker
     {
         $object = new stdClass();
 
-        if (!is_array($configArray))
+        if (!is_array($configArray)) {
             return $object;
+        }
 
         foreach ($configArray as $name => $value) {
             $_name = camel_case($name);
@@ -113,24 +121,29 @@ trait ConfigMaker
      */
     public function getConfigPath($fileName, $configPath = null)
     {
-        if (!isset($this->configPath))
+        if (!isset($this->configPath)) {
             $this->configPath = $this->guessConfigPath();
+        }
 
-        if (!$configPath)
+        if (!$configPath) {
             $configPath = $this->configPath;
+        }
 
         $fileName = File::symbolizePath($fileName, $fileName);
 
-        if (File::isLocalPath($fileName) || realpath($fileName) !== false)
+        if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
             return $fileName;
+        }
 
-        if (!is_array($configPath))
+        if (!is_array($configPath)) {
             $configPath = [$configPath];
+        }
 
         foreach ($configPath as $path) {
             $_fileName = $path . '/' . $fileName;
-            if (File::isFile($_fileName))
+            if (File::isFile($_fileName)) {
                 break;
+            }
         }
 
         return $_fileName;
@@ -160,5 +173,4 @@ trait ConfigMaker
         $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
         return $guessedPath;
     }
-
 }

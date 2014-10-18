@@ -69,13 +69,15 @@ class CmsObjectQuery
      */
     public function find($fileName)
     {
-        if (!$this->theme)
+        if (!$this->theme) {
             $this->inEditTheme();
+        }
 
-        if ($this->useCache)
+        if ($this->useCache) {
             return forward_static_call([$this->cmsObject, 'loadCached'], $this->theme, $fileName);
-        else
+        } else {
             return forward_static_call([$this->cmsObject, 'load'], $this->theme, $fileName);
+        }
     }
 
     /**
@@ -84,8 +86,9 @@ class CmsObjectQuery
      */
     public function all()
     {
-        if (!$this->theme)
+        if (!$this->theme) {
             $this->inEditTheme();
+        }
 
         $collection = forward_static_call([$this->cmsObject, 'listInTheme'], $this->theme, !$this->useCache);
         $collection = new CmsObjectCollection($collection);
@@ -108,5 +111,4 @@ class CmsObjectQuery
         $className = get_class($this);
         throw new \BadMethodCallException("Call to undefined method {$className}::{$method}()");
     }
-
 }

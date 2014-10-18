@@ -53,7 +53,11 @@ class PartialTokenParser extends Twig_TokenParser
                     break;
 
                 default:
-                    throw new Twig_Error_Syntax(sprintf('Invalid syntax in the partial tag. Line %s', $lineno), $stream->getCurrent()->getLine(), $stream->getFilename());
+                    throw new Twig_Error_Syntax(
+                        sprintf('Invalid syntax in the partial tag. Line %s', $lineno),
+                        $stream->getCurrent()->getLine(),
+                        $stream->getFilename()
+                    );
                     break;
             }
         }

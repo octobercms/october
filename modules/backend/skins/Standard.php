@@ -54,5 +54,4 @@ class Standard extends Skin
     {
         return [$this->skinPath.'/layouts'];
     }
-
 }

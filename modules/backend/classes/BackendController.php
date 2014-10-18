@@ -46,8 +46,9 @@ class BackendController extends ControllerBase
         self::$action = $action = isset($params[2]) ? $this->parseAction($params[2]) : 'index';
         self::$params = $controllerParams = array_slice($params, 3);
         $controllerClass = '\\'.$module.'\Controllers\\'.$controller;
-        if ($controllerObj = $this->findController($controllerClass, $action, '/modules'))
+        if ($controllerObj = $this->findController($controllerClass, $action, '/modules')) {
             return $controllerObj->run($action, $controllerParams);
+        }
 
         /*
          * Look for a Plugin controller
@@ -58,8 +59,13 @@ class BackendController extends ControllerBase
             self::$action = $action = isset($params[3]) ? $this->parseAction($params[3]) : 'index';
             self::$params = $controllerParams = array_slice($params, 4);
             $controllerClass = '\\'.$author.'\\'.$plugin.'\Controllers\\'.$controller;
-            if ($controllerObj = $this->findController($controllerClass, $action, Config::get('cms.pluginsDir', '/plugins')))
+            if ($controllerObj = $this->findController(
+                $controllerClass,
+                $action,
+                Config::get('cms.pluginsDir', '/plugins')
+            )) {
                 return $controllerObj->run($action, $controllerParams);
+            }
         }
 
         /*
@@ -83,17 +89,20 @@ class BackendController extends ControllerBase
         if (!class_exists($controller)) {
             $controller = Str::normalizeClassName($controller);
             $controllerFile = PATH_BASE.$dirPrefix.strtolower(str_replace('\\', '/', $controller)) . '.php';
-            if ($controllerFile = File::existsInsensitive($controllerFile))
+            if ($controllerFile = File::existsInsensitive($controllerFile)) {
                 include_once($controllerFile);
+            }
         }
 
-        if (!class_exists($controller))
+        if (!class_exists($controller)) {
             return false;
+        }
 
         $controllerObj = App::make($controller);
 
-        if ($controllerObj->actionExists($action))
+        if ($controllerObj->actionExists($action)) {
             return $controllerObj;
+        }
 
         return false;
     }
@@ -105,8 +114,9 @@ class BackendController extends ControllerBase
      */
     protected function parseAction($actionName)
     {
-        if (strpos($actionName, '-') !== false)
+        if (strpos($actionName, '-') !== false) {
             return camel_case($actionName);
+        }
 
         return $actionName;
     }

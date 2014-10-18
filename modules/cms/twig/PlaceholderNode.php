@@ -15,9 +15,9 @@ class PlaceholderNode extends Twig_Node
     public function __construct($name, $paramValues, $body, $lineno, $tag = 'placeholder')
     {
         $nodes = [];
-        if ($body)
+        if ($body) {
             $nodes['default'] = $body;
-    
+        }
         $attributes = $paramValues;
         $attributes['name'] = $name;
 
@@ -52,11 +52,11 @@ class PlaceholderNode extends Twig_Node
         $isText = $this->hasAttribute('type') && $this->getAttribute('type') == 'text';
 
         $compiler->addDebugInfo($this);
-
-        if (!$isText)
+        if (!$isText) {
             $compiler->write("echo \$this->env->getExtension('CMS')->displayBlock(");
-        else
+        } else {
             $compiler->write("echo twig_escape_filter(\$this->env, \$this->env->getExtension('CMS')->displayBlock(");
+        }
 
         $compiler
             ->raw("'".$this->getAttribute('name')."', ")
@@ -65,11 +65,11 @@ class PlaceholderNode extends Twig_Node
             ->raw("]")
             ->raw(")");
 
-        if (!$isText)
+        if (!$isText) {
             $compiler->raw(";\n");
-        else
+        } else {
             $compiler->raw(");\n");
-        ;
+        }
 
         $compiler
             ->addDebugInfo($this)

@@ -36,7 +36,6 @@ class Themes extends Controller
 
     public function index()
     {
-
     }
 
     public function index_onSetActiveTheme()

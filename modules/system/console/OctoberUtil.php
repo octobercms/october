@@ -79,11 +79,13 @@ class OctoberUtil extends Command
 
     protected function utilPurgeThumbs()
     {
-        if (!$uploadsDir = Config::get('cms.uploadsDir'))
+        if (!$uploadsDir = Config::get('cms.uploadsDir')) {
             return $this->error('No uploads directory defined in config (cms.uploadsDir)');
+        }
 
-        if (!$this->confirmToProceed('This will PERMANENTLY DELETE all thumbs in the uploads directory.'))
+        if (!$this->confirmToProceed('This will PERMANENTLY DELETE all thumbs in the uploads directory.')) {
             return;
+        }
 
         $uploadsDir = base_path() . $uploadsDir;
         $totalCount = 0;
@@ -92,7 +94,7 @@ class OctoberUtil extends Command
          * Recursive function to scan the directory for files beginning
          * with "thumb_" and repeat itself on directories.
          */
-        $purgeFunc = function($targetDir) use (&$purgeFunc, &$totalCount) {
+        $purgeFunc = function ($targetDir) use (&$purgeFunc, &$totalCount) {
             if ($files = File::glob($targetDir.'/thumb_*')) {
                 foreach ($files as $file) {
                     $this->info('Purged: '. basename($file));
@@ -110,10 +112,10 @@ class OctoberUtil extends Command
 
         $purgeFunc($uploadsDir);
 
-        if ($totalCount > 0)
+        if ($totalCount > 0) {
             $this->comment(sprintf('Successfully deleted %s thumbs', $totalCount));
-        else
+        } else {
             $this->comment('No thumbs found to delete');
+        }
     }
-
 }

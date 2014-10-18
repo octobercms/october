@@ -26,12 +26,14 @@ trait CollapsableWidget
 
     protected function getGroupStatuses()
     {
-        if ($this->groupStatusCache !== false)
+        if ($this->groupStatusCache !== false) {
             return $this->groupStatusCache;
+        }
 
         $groups = $this->getSession('groups', []);
-        if (!is_array($groups))
+        if (!is_array($groups)) {
             return $this->groupStatusCache = [];
+        }
 
         return $this->groupStatusCache = $groups;
     }
@@ -47,8 +49,9 @@ trait CollapsableWidget
     protected function getGroupStatus($group)
     {
         $statuses = $this->getGroupStatuses();
-        if (array_key_exists($group, $statuses))
+        if (array_key_exists($group, $statuses)) {
             return $statuses[$group];
+        }
 
         return true;
     }

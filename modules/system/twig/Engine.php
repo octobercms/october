@@ -29,5 +29,4 @@ class Engine implements EngineInterface
         $template = $this->environment->loadTemplate($path);
         return $template->render($vars);
     }
-
 }

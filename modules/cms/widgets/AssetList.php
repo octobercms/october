@@ -53,7 +53,24 @@ class AssetList extends WidgetBase
      * @var array A list of default allowed file types.
      * This parameter can be overridden with the cms.allowedAssetTypes configuration option.
      */
-    public $allowedAssetTypes = ['jpg','jpeg','bmp','png','gif','css','js','woff','svg','ttf','eot','json','md','less','sass','scss'];
+    public $allowedAssetTypes = [
+        'jpg',
+        'jpeg',
+        'bmp',
+        'png',
+        'gif',
+        'css',
+        'js',
+        'woff',
+        'svg',
+        'ttf',
+        'eot',
+        'json',
+        'md',
+        'less',
+        'sass',
+        'scss'
+    ];
 
     public function __construct($controller, $alias)
     {
@@ -103,12 +120,14 @@ class AssetList extends WidgetBase
     public function onOpenDirectory()
     {
         $path = Input::get('path');
-        if (!$this->validatePath($path))
+        if (!$this->validatePath($path)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_path'));
+        }
 
         $delay = Input::get('delay');
-        if ($delay)
+        if ($delay) {
             usleep(1000000*$delay);
+        }
 
         $this->putSession('currentPath', $path);
         return [
@@ -141,23 +160,36 @@ class AssetList extends WidgetBase
         try {
             $assetsPath = $this->getAssetsPath();
 
-            foreach ($fileList as $path=>$selected) {
+            foreach ($fileList as $path => $selected) {
                 if ($selected) {
-                    if (!$this->validatePath($path))
+                    if (!$this->validatePath($path)) {
                         throw new ApplicationException(Lang::get('cms::lang.asset.invalid_path'));
+                    }
 
                     $fullPath = $assetsPath.'/'.$path;
                     if (File::exists($fullPath)) {
                         if (!File::isDirectory($fullPath)) {
-                            if (!@File::delete($fullPath))
-                                throw new ApplicationException(Lang::get('cms::lang.asset.error_deleting_file', ['name'=>$path]));
+                            if (!@File::delete($fullPath)) {
+                                throw new ApplicationException(Lang::get(
+                                    'cms::lang.asset.error_deleting_file',
+                                    ['name'=>$path]
+                                ));
+                            }
                         } else {
                             $empty = File::isDirectoryEmpty($fullPath);
-                            if ($empty === false)
-                                throw new ApplicationException(Lang::get('cms::lang.asset.error_deleting_dir_not_empty', ['name'=>$path]));
+                            if ($empty === false) {
+                                throw new ApplicationException(Lang::get(
+                                    'cms::lang.asset.error_deleting_dir_not_empty',
+                                    ['name'=>$path]
+                                ));
+                            }
 
-                            if (!@rmdir($fullPath))
-                                throw new ApplicationException(Lang::get('cms::lang.asset.error_deleting_dir', ['name'=>$path]));
+                            if (!@rmdir($fullPath)) {
+                                throw new ApplicationException(Lang::get(
+                                    'cms::lang.asset.error_deleting_dir',
+                                    ['name'=>$path]
+                                ));
+                            }
                         }
 
                         $deleted[] = $path;
@@ -165,8 +197,7 @@ class AssetList extends WidgetBase
                     }
                 }
             }
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $error = $ex->getMessage();
         }
 
@@ -182,8 +213,9 @@ class AssetList extends WidgetBase
         $this->validateRequestTheme();
 
         $path = Input::get('renamePath');
-        if (!$this->validatePath($path))
+        if (!$this->validatePath($path)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_path'));
+        }
 
         $this->vars['originalPath'] = $path;
         $this->vars['name'] = basename($path);
@@ -195,29 +227,36 @@ class AssetList extends WidgetBase
         $this->validateRequestTheme();
 
         $newName = trim(Input::get('name'));
-        if (!strlen($newName))
+        if (!strlen($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
+        }
 
-        if (!$this->validatePath($newName))
+        if (!$this->validatePath($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_path'));
+        }
 
-        if (!$this->validateName($newName))
+        if (!$this->validateName($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
+        }
 
         $originalPath = Input::get('originalPath');
-        if (!$this->validatePath($originalPath))
+        if (!$this->validatePath($originalPath)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_path'));
+        }
 
         $originalFullPath = $this->getFullPath($originalPath);
-        if (!file_exists($originalFullPath))
+        if (!file_exists($originalFullPath)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.original_not_found'));
+        }
 
         $newFullPath = $this->getFullPath(dirname($originalPath).'/'.$newName);
-        if (file_exists($newFullPath) && $newFullPath !== $originalFullPath)
+        if (file_exists($newFullPath) && $newFullPath !== $originalFullPath) {
             throw new ApplicationException(Lang::get('cms::lang.asset.already_exists'));
+        }
 
-        if (!@rename($originalFullPath, $newFullPath))
+        if (!@rename($originalFullPath, $newFullPath)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.error_renaming'));
+        }
 
         return [
             '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
@@ -236,21 +275,29 @@ class AssetList extends WidgetBase
         $this->validateRequestTheme();
 
         $newName = trim(Input::get('name'));
-        if (!strlen($newName))
+        if (!strlen($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
+        }
 
-        if (!$this->validatePath($newName))
+        if (!$this->validatePath($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_path'));
+        }
 
-        if (!$this->validateName($newName))
+        if (!$this->validateName($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
+        }
 
         $newFullPath = $this->getCurrentPath().'/'.$newName;
-        if (file_exists($newFullPath))
+        if (file_exists($newFullPath)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.already_exists'));
+        }
 
-        if (!@mkdir($newFullPath))
-            throw new ApplicationException(Lang::get('cms::lang.cms_object.error_creating_directory', ['name'=>$newName]));
+        if (!@mkdir($newFullPath)) {
+            throw new ApplicationException(Lang::get(
+                'cms::lang.cms_object.error_creating_directory',
+                ['name' => $newName]
+            ));
+        }
 
         return [
             '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
@@ -264,7 +311,7 @@ class AssetList extends WidgetBase
         $fileList = Request::input('file');
         $directories = [];
 
-        $selectedList = array_filter($fileList, function($value){
+        $selectedList = array_filter($fileList, function ($value) {
             return $value == 1;
         });
 
@@ -280,49 +327,74 @@ class AssetList extends WidgetBase
         $this->validateRequestTheme();
 
         $selectedList = Input::get('selectedList');
-        if (!strlen($selectedList))
+        if (!strlen($selectedList)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.selected_files_not_found'));
+        }
 
         $destinationDir = Input::get('dest');
-        if (!strlen($destinationDir))
+        if (!strlen($destinationDir)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.select_destination_dir'));
+        }
 
         $destinationFullPath = $this->getFullPath($destinationDir);
-        if (!file_exists($destinationFullPath) || !is_dir($destinationFullPath))
+        if (!file_exists($destinationFullPath) || !is_dir($destinationFullPath)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.destination_not_found'));
+        }
 
         $list = @unserialize($selectedList);
-        if ($list === false)
+        if ($list === false) {
             throw new ApplicationException(Lang::get('cms::lang.asset.selected_files_not_found'));
+        }
 
         foreach ($list as $path) {
-            if (!$this->validatePath($path))
+            if (!$this->validatePath($path)) {
                 throw new ApplicationException(Lang::get('cms::lang.asset.invalid_path'));
+            }
 
             $basename = basename($path);
             $originalFullPath = $this->getFullPath($path);
             $newFullPath = rtrim($destinationFullPath, '/').'/'.$basename;
             $safeDir = $this->getAssetsPath();
 
-            if ($originalFullPath == $newFullPath)
+            if ($originalFullPath == $newFullPath) {
                 continue;
+            }
 
             if (is_file($originalFullPath)) {
-                if (!@File::move($originalFullPath, $newFullPath))
-                    throw new ApplicationException(Lang::get('cms::lang.asset.error_moving_file', ['file'=>$basename]));
-            }
-            elseif (is_dir($originalFullPath)) {
-                if (!@File::copyDirectory($originalFullPath, $newFullPath))
-                    throw new ApplicationException(Lang::get('cms::lang.asset.error_moving_directory', ['dir'=>$basename]));
+                if (!@File::move($originalFullPath, $newFullPath)) {
+                    throw new ApplicationException(Lang::get(
+                        'cms::lang.asset.error_moving_file',
+                        ['file'=>$basename]
+                    ));
+                }
+            } elseif (is_dir($originalFullPath)) {
+                if (!@File::copyDirectory($originalFullPath, $newFullPath)) {
+                    throw new ApplicationException(Lang::get(
+                        'cms::lang.asset.error_moving_directory',
+                        ['dir'=>$basename]
+                    ));
+                }
 
-                if (strpos($originalFullPath, '../') !== false)
-                    throw new ApplicationException(Lang::get('cms::lang.asset.error_deleting_directory', ['dir'=>$basename]));
+                if (strpos($originalFullPath, '../') !== false) {
+                    throw new ApplicationException(Lang::get(
+                        'cms::lang.asset.error_deleting_directory',
+                        ['dir'=>$basename]
+                    ));
+                }
 
-                if (strpos($originalFullPath, $safeDir) !== 0)
-                    throw new ApplicationException(Lang::get('cms::lang.asset.error_deleting_directory', ['dir'=>$basename]));
+                if (strpos($originalFullPath, $safeDir) !== 0) {
+                    throw new ApplicationException(Lang::get(
+                        'cms::lang.asset.error_deleting_directory',
+                        ['dir'=>$basename]
+                    ));
+                }
 
-                if (!@File::deleteDirectory($originalFullPath, $directory))
-                    throw new ApplicationException(Lang::get('cms::lang.asset.error_deleting_directory', ['dir'=>$basename]));
+                if (!@File::deleteDirectory($originalFullPath, $directory)) {
+                    throw new ApplicationException(Lang::get(
+                        'cms::lang.asset.error_deleting_directory',
+                        ['dir'=>$basename]
+                    ));
+                }
             }
         }
 
@@ -348,8 +420,12 @@ class AssetList extends WidgetBase
         $assetsPath = $this->getAssetsPath();
 
         if (!file_exists($assetsPath) || !is_dir($assetsPath)) {
-            if (!@mkdir($assetsPath))
-                throw new ApplicationException(Lang::get('cms::lang.cms_object.error_creating_directory', ['name'=>$assetsPath]));
+            if (!@mkdir($assetsPath)) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.cms_object.error_creating_directory',
+                    ['name'=>$assetsPath]
+                ));
+            }
         }
 
         $searchTerm = Str::lower($this->getSearchTerm());
@@ -378,11 +454,13 @@ class AssetList extends WidgetBase
     {
         $path = $this->getSession('currentPath', '/');
 
-        if (!$this->validatePath($path))
+        if (!$this->validatePath($path)) {
             return null;
+        }
 
-        if ($path == '.')
+        if ($path == '.') {
             return null;
+        }
 
         return ltrim($path, '/');
     }
@@ -392,8 +470,9 @@ class AssetList extends WidgetBase
         $assetsPath = $this->getAssetsPath();
 
         $path = $assetsPath.'/'.$this->getCurrentRelativePath();
-        if (!is_dir($path))
+        if (!is_dir($path)) {
             return $assetsPath;
+        }
 
         return $path;
     }
@@ -402,8 +481,9 @@ class AssetList extends WidgetBase
     {
         $prefix = $this->getAssetsPath();
 
-        if (substr($path, 0, strlen($prefix)) == $prefix)
+        if (substr($path, 0, strlen($prefix)) == $prefix) {
             $path = substr($path, strlen($prefix));
+        }
 
         return $path;
     }
@@ -415,22 +495,26 @@ class AssetList extends WidgetBase
 
     protected function validatePath($path)
     {
-        if (!preg_match('/^[0-9a-z\.\s_\-\/]+$/i', $path))
+        if (!preg_match('/^[0-9a-z\.\s_\-\/]+$/i', $path)) {
             return false;
+        }
 
-        if (strpos($path, '..') !== false || strpos($path, './') !== false)
+        if (strpos($path, '..') !== false || strpos($path, './') !== false) {
             return false;
+        }
 
         return true;
     }
 
     protected function validateName($name)
     {
-        if (!preg_match('/^[0-9a-z\.\s_\-]+$/i', $name))
+        if (!preg_match('/^[0-9a-z\.\s_\-]+$/i', $name)) {
             return false;
+        }
 
-        if (strpos($name, '..') !== false)
+        if (strpos($name, '..') !== false) {
             return false;
+        }
 
         return true;
     }
@@ -443,8 +527,9 @@ class AssetList extends WidgetBase
         $files = [];
 
         foreach ($dir as $node) {
-            if (substr($node->getFileName(), 0, 1) == '.')
+            if (substr($node->getFileName(), 0, 1) == '.') {
                 continue;
+            }
 
             if ($node->isDir() && !$node->isDot()) {
                 $result[$node->getFilename()] = (object)[
@@ -453,8 +538,7 @@ class AssetList extends WidgetBase
                     'name'     => $node->getFilename(),
                     'editable' => false
                 ];
-            }
-            elseif ($node->isFile()) {
+            } elseif ($node->isFile()) {
                 $files[] = (object)[
                     'type'     => 'file',
                     'path'     => File::normalizePath($this->getRelativePath($node->getPathname())),
@@ -464,8 +548,9 @@ class AssetList extends WidgetBase
             }
         }
 
-        foreach ($files as $file)
+        foreach ($files as $file) {
             $result[] = $file;
+        }
 
         return $result;
     }
@@ -481,14 +566,16 @@ class AssetList extends WidgetBase
 
         $dirs = new DirectoryIterator($startDir);
         foreach ($dirs as $node) {
-            if (substr($node->getFileName(), 0, 1) == '.')
+            if (substr($node->getFileName(), 0, 1) == '.') {
                 continue;
+            }
 
             if ($node->isDir() && !$node->isDot()) {
                 $fullPath = $node->getPathname();
                 $relativePath = $this->getRelativePath($fullPath);
-                if (array_key_exists($relativePath, $excludeList))
+                if (array_key_exists($relativePath, $excludeList)) {
                     continue;
+                }
 
                 $result[$relativePath] = str_repeat('&nbsp;', $level*4).$node->getFilename();
 
@@ -514,12 +601,14 @@ class AssetList extends WidgetBase
 
     protected function getSelectedFiles()
     {
-        if ($this->selectedFilesCache !== false)
+        if ($this->selectedFilesCache !== false) {
             return $this->selectedFilesCache;
+        }
 
         $files = $this->getSession($this->getThemeSessionKey('selected'), []);
-        if (!is_array($files))
+        if (!is_array($files)) {
             return $this->selectedFilesCache = [];
+        }
 
         return $this->selectedFilesCache = $files;
     }
@@ -527,8 +616,9 @@ class AssetList extends WidgetBase
     protected function isFileSelected($item)
     {
         $selectedFiles = $this->getSelectedFiles();
-        if (!is_array($selectedFiles) || !isset($selectedFiles[$item->path]))
+        if (!is_array($selectedFiles) || !isset($selectedFiles[$item->path])) {
             return false;
+        }
 
         return $selectedFiles[$item->path];
     }
@@ -536,8 +626,9 @@ class AssetList extends WidgetBase
     protected function getUpPath()
     {
         $path = $this->getCurrentRelativePath();
-        if (!strlen(rtrim(ltrim($path, '/'), '/')))
+        if (!strlen(rtrim(ltrim($path, '/'), '/'))) {
             return null;
+        }
 
         return dirname($path);
     }
@@ -561,8 +652,9 @@ class AssetList extends WidgetBase
 
     protected function validateRequestTheme()
     {
-        if ($this->theme->getDirName() != Request::input('theme'))
+        if ($this->theme->getDirName() != Request::input('theme')) {
             throw new ApplicationException(trans('cms::lang.theme.edit.not_match'));
+        }
     }
 
     /**
@@ -576,35 +668,45 @@ class AssetList extends WidgetBase
         try {
             $uploadedFile = Input::file('file_data');
 
-            if (!is_object($uploadedFile))
+            if (!is_object($uploadedFile)) {
                 return;
+            }
 
             $fileName = $uploadedFile->getClientOriginalName();
 
             // Don't rely on Symfony's mime guessing implementation, it's not accurate enough.
             // Use the simple extension validation.
-            $allowedAssetTypes = Config::get('cms.allowedAssetTypes'); 
-            if (!$allowedAssetTypes)
+            $allowedAssetTypes = Config::get('cms.allowedAssetTypes');
+            if (!$allowedAssetTypes) {
                 $allowedAssetTypes = $this->allowedAssetTypes;
+            }
 
             $maxSize = UploadedFile::getMaxFilesize();
-            if ($uploadedFile->getSize() > $maxSize)
-                throw new ApplicationException(Lang::get('cms::lang.asset.too_large', ['max_size'=>File::sizeToString($maxSize)]));
+            if ($uploadedFile->getSize() > $maxSize) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.asset.too_large',
+                    ['max_size '=> File::sizeToString($maxSize)]
+                ));
+            }
 
             $ext = strtolower(pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_EXTENSION));
-            if (!in_array($ext, $allowedAssetTypes))
-                throw new ApplicationException(Lang::get('cms::lang.asset.type_not_allowed', ['allowed_types'=>implode(', ', $allowedAssetTypes)]));
+            if (!in_array($ext, $allowedAssetTypes)) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.asset.type_not_allowed',
+                    ['allowed_types' => implode(', ', $allowedAssetTypes)]
+                ));
+            }
 
-            if (!$uploadedFile->isValid())
+            if (!$uploadedFile->isValid()) {
                 throw new ApplicationException(Lang::get('cms::lang.asset.file_not_valid'));
+            }
 
             $uploadedFile->move($this->getCurrentPath(), $uploadedFile->getClientOriginalName());
 
             die('success');
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $message = $fileName !== null
-                ? Lang::get('cms::lang.asset.error_uploading_file', ['name'=>$fileName, 'error'=>$ex->getMessage()]) 
+                ? Lang::get('cms::lang.asset.error_uploading_file', ['name' => $fileName, 'error' => $ex->getMessage()])
                 : $ex->getMessage();
 
             die($message);
@@ -632,8 +734,9 @@ class AssetList extends WidgetBase
         $result = [];
         foreach ($iterator as $item) {
             if (!$item->isDir()) {
-                if (substr($item->getFileName(), 0, 1) == '.')
+                if (substr($item->getFileName(), 0, 1) == '.') {
                     continue;
+                }
 
                 $path = $this->getRelativePath($item->getPathname());
 
@@ -655,11 +758,13 @@ class AssetList extends WidgetBase
     {
         foreach ($words as $word) {
             $word = trim($word);
-            if (!strlen($word))
+            if (!strlen($word)) {
                 continue;
+            }
 
-            if (!Str::contains(Str::lower($path), $word))
+            if (!Str::contains(Str::lower($path), $word)) {
                 return false;
+            }
         }
 
         return true;

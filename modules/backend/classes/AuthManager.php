@@ -78,11 +78,11 @@ class AuthManager extends RainAuthManager
      * @param string $owner Specifies the menu items owner plugin or module in the format Vendor/Module.
      * @param array $definitions An array of the menu item definitions.
      */
-    public function registerPermissions($owner, array $definitions) 
+    public function registerPermissions($owner, array $definitions)
     {
-        foreach ($definitions as $code=>$definition) {
+        foreach ($definitions as $code => $definition) {
             $permission = (object)array_merge(self::$permissionDefaults, array_merge($definition, [
-                'code'  => $code,
+                'code' => $code,
                 'owner' => $owner
             ]));
 
@@ -96,8 +96,9 @@ class AuthManager extends RainAuthManager
      */
     public function listPermissions()
     {
-        if ($this->permissionCache !== false)
+        if ($this->permissionCache !== false) {
             return $this->permissionCache;
+        }
 
         /*
          * Load module items
@@ -113,8 +114,9 @@ class AuthManager extends RainAuthManager
 
         foreach ($plugins as $id => $plugin) {
             $items = $plugin->registerPermissions();
-            if (!is_array($items))
+            if (!is_array($items)) {
                 continue;
+            }
 
             $this->registerPermissions($id, $items);
         }
@@ -122,14 +124,14 @@ class AuthManager extends RainAuthManager
         /*
          * Sort permission items
          */
-        usort($this->permissions, function($a, $b) {
-            if ($a->order == $b->order)
+        usort($this->permissions, function ($a, $b) {
+            if ($a->order == $b->order) {
                 return 0;
+            }
 
             return $a->order > $b->order ? 1 : -1;
         });
 
         return $this->permissionCache = $this->permissions;
     }
-
 }

@@ -28,12 +28,16 @@ abstract class PluginBase extends ServiceProviderBase
     /**
      * Register method, called when the plugin is first registered.
      */
-    public function register() {}
+    public function register()
+    {
+    }
 
     /**
      * Boot method, called right before the request route.
      */
-    public function boot() {}
+    public function boot()
+    {
+    }
 
     /**
      * Registers CMS markup tags introduced by this plugin.
@@ -125,7 +129,7 @@ abstract class PluginBase extends ServiceProviderBase
     public function registerConsoleCommand($key, $class)
     {
         $key = 'command.'.$key;
-        $this->app[$key] = $this->app->share(function($app) use ($class){
+        $this->app[$key] = $this->app->share(function ($app) use ($class) {
             return new $class;
         });
 

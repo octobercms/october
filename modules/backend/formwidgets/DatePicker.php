@@ -60,10 +60,11 @@ class DatePicker extends FormWidgetBase
         $value = $this->getLoadData();
 
         if ($this->mode != 'datetime' && $value) {
-            if (is_string($value))
+            if (is_string($value)) {
                 $value = substr($value, 0, 10);
-            elseif (is_object($value))
+            } elseif (is_object($value)) {
                 $value = $value->toDateString();
+            }
         }
 
         $this->vars['value'] = $value ?: '';

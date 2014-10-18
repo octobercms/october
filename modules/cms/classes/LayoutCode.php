@@ -12,5 +12,7 @@ class LayoutCode extends CodeBase
      * This event is triggered after the layout components are executed, 
      * but before the page's onStart event.
      */
-    public function onBeforePageStart() {}
+    public function onBeforePageStart()
+    {
+    }
 }

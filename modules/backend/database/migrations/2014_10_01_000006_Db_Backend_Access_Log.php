@@ -5,11 +5,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class DbBackendAccessLog extends Migration
 {
-
     public function up()
     {
-        Schema::create('backend_access_log', function(Blueprint $table)
-        {
+        Schema::create('backend_access_log', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned();
@@ -22,5 +20,4 @@ class DbBackendAccessLog extends Migration
     {
         Schema::dropIfExists('backend_access_log');
     }
-
 }

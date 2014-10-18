@@ -8,8 +8,7 @@ class DbSystemMailLayouts extends Migration
 
     public function up()
     {
-        Schema::create('system_mail_layouts', function(Blueprint $table)
-        {
+        Schema::create('system_mail_layouts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name')->nullable();
@@ -26,5 +25,4 @@ class DbSystemMailLayouts extends Migration
     {
         Schema::dropIfExists('system_mail_layouts');
     }
-
 }

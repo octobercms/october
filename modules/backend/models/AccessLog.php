@@ -37,5 +37,4 @@ class AccessLog extends Model
 
         return $record;
     }
-
 }

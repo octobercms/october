@@ -5,11 +5,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class DbBackendUserThrottle extends Migration
 {
-
     public function up()
     {
-        Schema::create('backend_user_throttle', function($table)
-        {
+        Schema::create('backend_user_throttle', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned();
@@ -27,5 +25,4 @@ class DbBackendUserThrottle extends Migration
     {
         Schema::dropIfExists('backend_user_throttle');
     }
-
 }

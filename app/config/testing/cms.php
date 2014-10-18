@@ -100,7 +100,7 @@ return array(
     |
     */
 
-    'enableAssetCache' => false, 
+    'enableAssetCache' => false,
 
     /*
     |--------------------------------------------------------------------------

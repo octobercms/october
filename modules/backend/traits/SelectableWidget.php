@@ -28,12 +28,14 @@ trait SelectableWidget
 
     protected function getSelectedItems()
     {
-        if ($this->selectedItemsCache !== false)
+        if ($this->selectedItemsCache !== false) {
             return $this->selectedItemsCache;
+        }
 
         $items = $this->getSession('selected', []);
-        if (!is_array($items))
+        if (!is_array($items)) {
             return $this->selectedItemsCache = [];
+        }
 
         return $this->selectedItemsCache = $items;
     }
@@ -54,8 +56,9 @@ trait SelectableWidget
     protected function isItemSelected($itemId)
     {
         $selectedItems = $this->getSelectedItems();
-        if (!is_array($selectedItems) || !isset($selectedItems[$itemId]))
+        if (!is_array($selectedItems) || !isset($selectedItems[$itemId])) {
             return false;
+        }
 
         return $selectedItems[$itemId];
     }

@@ -43,8 +43,7 @@ class FlashNode extends Twig_Node
                 ->outdent()
                 ->write('}'.PHP_EOL)
             ;
-        }
-        else {
+        } else {
             $compiler
                 ->addDebugInfo($this)
                 ->write('$context["type"] = ')

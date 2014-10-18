@@ -3,7 +3,7 @@
 /*
  * Register CMS routes before all user routes.
  */
-App::before(function($request) {
+App::before(function ($request) {
 
     /*
      * The CMS module intercepts all URLs that were not 

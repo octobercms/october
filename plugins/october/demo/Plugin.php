@@ -25,5 +25,4 @@ class Plugin extends PluginBase
             '\October\Demo\Components\Todo' => 'demoTodo'
         ];
     }
-
 }

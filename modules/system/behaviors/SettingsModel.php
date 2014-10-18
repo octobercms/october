@@ -71,8 +71,9 @@ class SettingsModel extends ModelBehavior
      */
     public function instance()
     {
-        if (isset(self::$instances[$this->recordCode]))
+        if (isset(self::$instances[$this->recordCode])) {
             return self::$instances[$this->recordCode];
+        }
 
         if (!$item = $this->getSettingsRecord()) {
             $this->model->initSettingsData();
@@ -127,8 +128,9 @@ class SettingsModel extends ModelBehavior
      */
     public function getSettingsValue($key, $default = null)
     {
-        if (array_key_exists($key, $this->fieldValues))
+        if (array_key_exists($key, $this->fieldValues)) {
             return $this->fieldValues[$key];
+        }
 
         return $default;
     }
@@ -136,7 +138,9 @@ class SettingsModel extends ModelBehavior
     /**
      * Default values to set for this model, override
      */
-    public function initSettingsData(){}
+    public function initSettingsData()
+    {
+    }
 
     /**
      * Populate the field values from the database record.
@@ -164,8 +168,9 @@ class SettingsModel extends ModelBehavior
     public function beforeModelSave()
     {
         $this->model->item = $this->recordCode;
-        if ($this->fieldValues)
+        if ($this->fieldValues) {
             $this->model->value = $this->fieldValues;
+        }
     }
 
     /**
@@ -182,8 +187,9 @@ class SettingsModel extends ModelBehavior
      */
     public function setModelAttribute($key, $value)
     {
-        if ($this->isKeyAllowed($key))
+        if ($this->isKeyAllowed($key)) {
             return;
+        }
 
         $this->fieldValues[$key] = $value;
     }
@@ -197,14 +203,16 @@ class SettingsModel extends ModelBehavior
         /*
          * Let the core columns through
          */
-        if ($key == 'id' || $key == 'value' || $key == 'item')
+        if ($key == 'id' || $key == 'value' || $key == 'item') {
             return true;
+        }
 
         /*
          * Let relations through
          */
-        if ($this->model->hasRelation($key))
+        if ($this->model->hasRelation($key)) {
             return true;
+        }
 
         return false;
     }

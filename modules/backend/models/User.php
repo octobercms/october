@@ -66,8 +66,9 @@ class User extends UserBase
         // return parent::getPersistCode();
 
         // Option B:
-        if (!$this->persist_code)
+        if (!$this->persist_code) {
             return parent::getPersistCode();
+        }
 
         return $this->persist_code;
     }
@@ -77,18 +78,23 @@ class User extends UserBase
      */
     public function getAvatarThumb($size = 25, $default = null)
     {
-        if ($this->avatar)
+        if ($this->avatar) {
             return $this->avatar->getThumb($size, $size);
-        else
-            return '//www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?s='.$size.'&d='.urlencode($default);
+        } else {
+            return '//www.gravatar.com/avatar/'.
+                md5(strtolower(trim($this->email))) .
+                '?s='. $size .
+                '&d='. urlencode($default);
+        }
     }
 
     public function afterCreate()
     {
         $this->restorePurgedValues();
 
-        if ($this->send_invite)
+        if ($this->send_invite) {
             $this->sendInvitation();
+        }
     }
 
     public function sendInvitation()
@@ -100,10 +106,8 @@ class User extends UserBase
             'link' => Backend::url('backend'),
         ];
 
-        Mail::send('backend::mail.invite', $data, function($message)
-        {
+        Mail::send('backend::mail.invite', $data, function ($message) {
             $message->to($this->email, $this->full_name);
         });
     }
-
 }

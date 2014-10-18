@@ -30,8 +30,9 @@ class FileHelper
     public static function validateExtension($fileName, $allowedExtensions, $allowEmpty = true)
     {
         $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        if (!strlen($extension))
+        if (!strlen($extension)) {
             return $allowEmpty;
+        }
 
         return in_array($extension, $allowedExtensions);
     }
@@ -46,19 +47,24 @@ class FileHelper
      */
     public static function validatePath($filePath, $maxNesting = 2)
     {
-        if (strpos($filePath, '..') !== false)
+        if (strpos($filePath, '..') !== false) {
             return false;
+        }
 
-        if (strpos($filePath, './') !== false || strpos($filePath, '//') !== false)
+        if (strpos($filePath, './') !== false || strpos($filePath, '//') !== false) {
             return false;
+        }
 
         $segments = explode('/', $filePath);
-        if ($maxNesting !== null && count($segments) > $maxNesting)
+        if ($maxNesting !== null && count($segments) > $maxNesting) {
             return false;
+        }
 
-        foreach ($segments as $segment)
-            if (!self::validateName($segment))
+        foreach ($segments as $segment) {
+            if (!self::validateName($segment)) {
                 return false;
+            }
+        }
 
         return true;
     }
@@ -74,20 +80,23 @@ class FileHelper
         $content = null;
 
         $sections = [];
-        foreach ($data as $key=>$value) {
+        foreach ($data as $key => $value) {
             if (is_array($value)) {
-                if ($level == 1)
+                if ($level == 1) {
                     $sections[$key] = self::formatIniString($value, $level+1);
-                else {
-                    foreach ($value as $val)
+                } else {
+                    foreach ($value as $val) {
                         $content .= $key.'[] = "'.self::escapeIniString($val).'"'.PHP_EOL;
+                    }
                 }
-            } elseif (strlen($value))
+            } elseif (strlen($value)) {
                 $content .= $key.' = "'.self::escapeIniString($value).'"'.PHP_EOL;
+            }
         }
 
-        foreach ($sections as $key=>$section)
+        foreach ($sections as $key => $section) {
             $content .= PHP_EOL.'['.$key.']'.PHP_EOL.$section.PHP_EOL;
+        }
 
         return trim($content);
     }

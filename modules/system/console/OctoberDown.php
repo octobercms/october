@@ -33,13 +33,15 @@ class OctoberDown extends Command
      */
     public function fire()
     {
-        if (!$this->confirmToProceed('This will DESTROY all database tables.'))
+        if (!$this->confirmToProceed('This will DESTROY all database tables.')) {
             return;
+        }
 
         $manager = UpdateManager::instance()->resetNotes()->uninstall();
 
-        foreach ($manager->getNotes() as $note)
+        foreach ($manager->getNotes() as $note) {
             $this->output->writeln($note);
+        }
     }
 
     /**
@@ -66,7 +68,8 @@ class OctoberDown extends Command
      */
     protected function getDefaultConfirmCallback()
     {
-        return function() { return true; };
+        return function () {
+            return true;
+        };
     }
-
 }

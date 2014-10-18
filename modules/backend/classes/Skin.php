@@ -79,8 +79,7 @@ abstract class Skin
             return $isPublic
                 ? $this->publicSkinPath . $path
                 : $this->skinPath . $path;
-        }
-        else {
+        } else {
             return $isPublic
                 ? $this->defaultPublicSkinPath . $path
                 : $this->defaultSkinPath . $path;
@@ -101,8 +100,9 @@ abstract class Skin
      */
     public static function getActive()
     {
-        if (self::$skinCache !== null)
+        if (self::$skinCache !== null) {
             return self::$skinCache;
+        }
 
         $skinClass = Config::get('cms.backendSkin');
         $skinObject = new $skinClass();

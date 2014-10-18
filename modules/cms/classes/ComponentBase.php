@@ -113,19 +113,29 @@ abstract class ComponentBase extends Extendable
     /**
      * Executed when this component is first initialized, before AJAX requests.
      */
-    public function init() {}
-    public function onInit() {} // Deprecated: Remove ithis line if year >= 2015
+    public function init()
+    {
+    }
+    
+    // @deprecated: Remove this line if year >= 2015
+    public function onInit()
+    {
+    }
 
     /**
      * Executed when this component is bound to a page or layout, part of 
      * the page life cycle.
      */
-    public function onRun() {}
+    public function onRun()
+    {
+    }
 
     /**
      * Executed when this component is rendered on a page or layout.
      */
-    public function onRender() {}
+    public function onRender()
+    {
+    }
 
     /**
      * Dynamically handle calls into the controller instance.
@@ -135,11 +145,13 @@ abstract class ComponentBase extends Extendable
      */
     public function __call($method, $parameters)
     {
-        if (method_exists($this, $method))
+        if (method_exists($this, $method)) {
             return call_user_func_array([$this, $method], $parameters);
+        }
 
-        if (method_exists($this->controller, $method))
+        if (method_exists($this->controller, $method)) {
             return call_user_func_array([$this->controller, $method], $parameters);
+        }
 
         throw new CmsException(Lang::get('cms::lang.component.method_not_found', [
             'name' => get_class($this),
@@ -161,12 +173,13 @@ abstract class ComponentBase extends Extendable
      * @param $default A default value to return if no value is found.
      * @return string
      */
-    public function propertyOrParam($name, $default =  null)
+    public function propertyOrParam($name, $default = null)
     {
         $value = $this->property($name, $default);
 
-        if (substr($value, 0, 1) == ':')
+        if (substr($value, 0, 1) == ':') {
             return $this->param(substr($value, 1), $default);
+        }
 
         return $value;
     }
@@ -202,5 +215,4 @@ abstract class ComponentBase extends Extendable
 
     //     return $this->pageUrl($page, $params);
     // }
-
 }

@@ -37,8 +37,9 @@ class Content extends CmsCompoundObject
      */
     public static function load($theme, $fileName)
     {
-        if ($obj = parent::load($theme, $fileName))
+        if ($obj = parent::load($theme, $fileName)) {
             $obj->parsedMarkup = $obj->parseMarkup();
+        }
 
         return $obj;
     }
@@ -70,8 +71,9 @@ class Content extends CmsCompoundObject
     {
         $result = $this->markup;
 
-        if (strtolower(File::extension($this->fileName)) == 'md')
+        if (strtolower(File::extension($this->fileName)) == 'md') {
             $result = Markdown::parse($this->markup);
+        }
 
         return $result;
     }

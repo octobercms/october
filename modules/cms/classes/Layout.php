@@ -10,7 +10,9 @@ class Layout extends CmsCompoundObject
 {
     const FALLBACK_FILE_NAME = 'fallback';
 
-    protected function parseSettings() {}
+    protected function parseSettings()
+    {
+    }
 
     /**
      * Returns the directory name corresponding to the object type.

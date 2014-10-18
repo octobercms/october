@@ -24,8 +24,8 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(function(){
-	return isset($_SERVER['CMS_ENV']) ? $_SERVER['CMS_ENV'] : 'production';
+$env = $app->detectEnvironment(function () {
+    return isset($_SERVER['CMS_ENV']) ? $_SERVER['CMS_ENV'] : 'production';
 });
 
 /*
@@ -63,13 +63,13 @@ require $framework.'/Illuminate/Foundation/start.php';
 */
 
 if (!isset($unitTesting) || !$unitTesting) {
-	header('Cache-Control: no-store, private, no-cache, must-revalidate');                  // HTTP/1.1
-	header('Cache-Control: pre-check=0, post-check=0, max-age=0, max-stale = 0', false);    // HTTP/1.1
-	header('Pragma: public');
-	header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');                                       // Date in the past  
-	header('Expires: 0', false);
-	header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-	header('Pragma: no-cache');
+    header('Cache-Control: no-store, private, no-cache, must-revalidate');                  // HTTP/1.1
+    header('Cache-Control: pre-check=0, post-check=0, max-age=0, max-stale = 0', false);    // HTTP/1.1
+    header('Pragma: public');
+    header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');                                       // Date in the past
+    header('Expires: 0', false);
+    header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+    header('Pragma: no-cache');
 }
 
 /*
