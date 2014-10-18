@@ -43,8 +43,9 @@ class PlaceholderTokenParser extends Twig_TokenParser
 
             $body = $this->parser->subparse([$this, 'decidePlaceholderEnd'], true);
             $stream->expect(Twig_Token::BLOCK_END_TYPE);
-        } else
+        } else {
             $params = $this->loadParams($stream);
+        }
 
         return new PlaceholderNode($name, $params, $body, $token->getLine(), $this->getTag());
     }
@@ -75,7 +76,11 @@ class PlaceholderTokenParser extends Twig_TokenParser
                     break;
 
                 default:
-                    throw new Twig_Error_Syntax(sprintf('Invalid syntax in the placeholder tag. Line %s', $lineno), $stream->getCurrent()->getLine(), $stream->getFilename());
+                    throw new Twig_Error_Syntax(
+                        sprintf('Invalid syntax in the placeholder tag. Line %s', $lineno),
+                        $stream->getCurrent()->getLine(),
+                        $stream->getFilename()
+                    );
                     break;
             }
         }

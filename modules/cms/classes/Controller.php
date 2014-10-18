@@ -278,8 +278,9 @@ class Controller extends BaseController
             $template = $this->twig->loadTemplate($this->page->getFullPath());
             $this->pageContents = $template->render($this->vars);
             CmsException::unmask();
-        } else
+        } else {
             $this->pageContents = $apiResult;
+        }
 
         /*
          * Render the layout

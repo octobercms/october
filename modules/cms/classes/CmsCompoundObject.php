@@ -231,6 +231,7 @@ class CmsCompoundObject extends CmsObject
                 $content[] = '<?php'.PHP_EOL.$this->code.PHP_EOL.'?>';
             } else {
                 $content[] = $this->code;
+            }
         }
 
         $content[] = $this->markup;
