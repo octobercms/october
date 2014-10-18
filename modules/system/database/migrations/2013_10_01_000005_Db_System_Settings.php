@@ -11,9 +11,8 @@ class DbSystemSettings extends Migration
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('item');
-            $table->text('value')->nullable();
-            $table->index(['item']);
+            $table->string('item')->nullable()->index();
+            $table->mediumtext('value')->nullable();
         });
     }
 

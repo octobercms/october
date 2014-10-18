@@ -83,7 +83,7 @@ class BrandSettings extends Model
             'secondary-color-dark'  => self::get('secondary_color_dark', self::SECONDARY_DARK),
         ]);
 
-        $parser->parse(File::get(__DIR__.'/brandsettings/custom.less').self::get('custom_css'));
+        $parser->parse(File::get(PATH_BASE.'/modules/backend/models/brandsettings/custom.less').self::get('custom_css'));
         $css = $parser->getCss();
 
         return $css;
