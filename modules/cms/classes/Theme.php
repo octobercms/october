@@ -227,8 +227,8 @@ class Theme
      * @param string $name Specifies the configuration parameter name.
      * @param mixed $default Specifies the default value to return in case if the parameter doesn't exist in the configuration file.
      * @return mixed Returns the parameter value or a default value
-     */ 
-    public function getConfigValue($name, $default = null) 
+     */
+    public function getConfigValue($name, $default = null)
     {
         $config = $this->getConfig();
         if (isset($config[$name]))
