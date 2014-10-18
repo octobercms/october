@@ -46,7 +46,7 @@ class TemplateList extends WidgetBase
     /**
      * @var string Message to display when there are no records in the list.
      */
-    public $noRecordsMessage = 'No records found'; 
+    public $noRecordsMessage = 'No records found';
 
     /**
      * @var string Message to display when the Delete button is clicked.
@@ -216,13 +216,13 @@ class TemplateList extends WidgetBase
         }
 
         $result = [
-            'title' => $this->getItemTitle($item),
-            'fileName' => $item->getFileName(),
-            'description' => $description,
+            'title'        => $this->getItemTitle($item),
+            'fileName'     => $item->getFileName(),
+            'description'  => $description,
             'descriptions' => $descriptions
         ];
 
-        return (object)$result;
+        return (object) $result;
     }
 
     protected function getItemTitle($item)
@@ -270,16 +270,19 @@ class TemplateList extends WidgetBase
         if (strlen($item->title)) {
             if (Str::contains(Str::lower($item->title), $word))
                 return true;
-        } else
-            if (Str::contains(Str::lower($item->fileName), $word))
-                return true;
-
-        if (Str::contains(Str::lower($item->description), $word) && strlen($item->description))
+        }
+        else if (Str::contains(Str::lower($item->fileName), $word)) {
             return true;
+        }
 
-        foreach ($item->descriptions as $value) 
+        if (Str::contains(Str::lower($item->description), $word) && strlen($item->description)) {
+            return true;
+        }
+
+        foreach ($item->descriptions as $value) {
             if (Str::contains(Str::lower($value), $word) && strlen($value))
                 return true;
+        }
 
         return false;
     }

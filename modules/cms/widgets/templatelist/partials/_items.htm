@@ -8,14 +8,15 @@
                         <?= $this->makePartial('items', ['items'=>$item->items, 'nested'=>true]) ?>
                     </li>
                 <?php endif ?>
-            <?php else: 
+            <?php else: ?>
+            <?php
                 $dataId = $this->itemType.'-'.$this->theme->getDirName().'-'.$item->fileName;
             ?>
                 <li class="item" data-item-path="<?= e($item->fileName) ?>" data-item-theme="<?= e($this->theme->getDirName()) ?>" data-item-type="<?= $this->itemType ?>" data-id="<?= e($dataId) ?>">
                     <a href="#">
                         <span class="title"><?= e($item->title) ?></span>
                         <span class="description">
-                            <?php foreach ($item->descriptions as $title=>$value): ?>
+                            <?php foreach ($item->descriptions as $title => $value): ?>
                                 <?php if (strlen($value)): ?>
                                     <?= e($title) ?>: <strong><?= e($value) ?></strong>
                                 <?php endif ?>
@@ -29,11 +30,11 @@
                     <input type="hidden" name="template[<?= e($item->fileName) ?>]" value="0"/>
                     <div class="checkbox custom-checkbox nolabel">
                         <?php $cbId = 'cb'.md5($item->fileName) ?>
-                        <input 
+                        <input
                             id="<?= $cbId ?>" 
                             type="checkbox"
-                            name="template[<?= e($item->fileName) ?>]" 
-                            <?= $this->isTemplateSelected($item) ? 'checked' : null ?> 
+                            name="template[<?= e($item->fileName) ?>]"
+                            <?= $this->isTemplateSelected($item) ? 'checked' : null ?>
                             data-request="<?= $this->getEventHandler('onSelect') ?>"
                             value="1">
                         <label for="<?= $cbId ?>">Select</label>
