@@ -22,15 +22,17 @@ class Controller extends BaseController
     public function combine($name)
     {
         try {
+
             if (!strpos($name, '-')) {
                 throw new ApplicationException(Lang::get('system::lang.combiner.not_found', ['name' => $name]));
             }
-            
+
             $parts = explode('-', $name);
             $cacheId = $parts[0];
-            
+
             $combiner = new CombineAssets;
             return $combiner->getContents($cacheId);
+
         } catch (Exception $ex) {
             return '/* '.$ex->getMessage().' */';
         }

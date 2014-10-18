@@ -283,10 +283,8 @@ class TemplateList extends WidgetBase
             if (Str::contains(Str::lower($item->title), $word)) {
                 return true;
             }
-        } else {
-            if (Str::contains(Str::lower($item->fileName), $word)) {
-                return true;
-            }
+        } elseif (Str::contains(Str::lower($item->fileName), $word)) {
+            return true;
         }
 
         if (Str::contains(Str::lower($item->description), $word) && strlen($item->description)) {

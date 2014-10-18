@@ -76,7 +76,7 @@ abstract class FormWidgetBase extends WidgetBase
          * This step should be removed if year >= 2015.
          */
         if (isset($configuration->options)) {
-            $configuration = array_merge($configuration->options, (array)$configuration);
+            $configuration = array_merge($configuration->options, (array) $configuration);
         }
 
         parent::__construct($controller, $configuration);

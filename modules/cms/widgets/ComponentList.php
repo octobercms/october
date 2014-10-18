@@ -92,15 +92,19 @@ class ComponentList extends WidgetBase
             }
 
             $pluginDetails = $plugin->pluginDetails();
-            $pluginName = isset($pluginDetails['name']) ?
-                $pluginDetails['name'] :
-                Lang::get('system::lang.plugin.unnamed');
-            $pluginIcon = isset($pluginDetails['icon']) ?
-                $pluginDetails['icon'] :
-                'icon-puzzle-piece';
-            $pluginDescription = isset($pluginDetails['description']) ?
-                $pluginDetails['description'] :
-                null;
+
+            $pluginName = isset($pluginDetails['name'])
+                ? $pluginDetails['name']
+                : Lang::get('system::lang.plugin.unnamed');
+
+            $pluginIcon = isset($pluginDetails['icon'])
+                ? $pluginDetails['icon']
+                : 'icon-puzzle-piece';
+
+            $pluginDescription = isset($pluginDetails['description'])
+                ? $pluginDetails['description']
+                : null;
+
             $pluginClass = get_class($plugin);
 
             $pluginItems = [];
@@ -120,9 +124,9 @@ class ComponentList extends WidgetBase
                     'className'      => get_class($component),
                     'pluginIcon'     => $pluginIcon,
                     'alias'          => $alias,
-                    'name'           => $componentInfo->duplicateAlias ?
-                        $componentInfo->className :
-                        $componentInfo->alias
+                    'name'           => $componentInfo->duplicateAlias
+                        ? $componentInfo->className
+                        : $componentInfo->alias
                 ];
 
                 if ($searchWords && !$this->itemMatchesSearch($searchWords, $item)) {

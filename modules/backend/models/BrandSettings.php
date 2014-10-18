@@ -85,8 +85,10 @@ class BrandSettings extends Model
         ]);
 
         $parser->parse(
-            File::get(PATH_BASE.'/modules/backend/models/brandsettings/custom.less').self::get('custom_css')
+            File::get(PATH_BASE.'/modules/backend/models/brandsettings/custom.less')
+            . self::get('custom_css')
         );
+
         $css = $parser->getCss();
 
         return $css;

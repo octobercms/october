@@ -502,15 +502,18 @@ class Form extends WidgetBase
          * Simple field type
          */
         if (is_string($config)) {
+
             if ($this->isFormWidget($config) !== false) {
                 $field->displayAs('widget', ['widget' => $config]);
             } else {
                 $field->displayAs($config);
             }
+
         /*
          * Defined field type
          */
         } else {
+
             $fieldType = isset($config['type']) ? $config['type'] : null;
             if (!is_string($fieldType) && !is_null($fieldType)) {
                 throw new ApplicationException(Lang::get(
@@ -528,6 +531,7 @@ class Form extends WidgetBase
             }
 
             $field->displayAs($fieldType, $config);
+
         }
 
         /*

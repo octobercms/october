@@ -495,10 +495,12 @@ class Controller extends BaseController
                     return Response::make($ex->getMessage(), 500);
                 }
 
-                return Response::make(
-                    sprintf('"%s" on line %s of %s', $ex->getMessage(), $ex->getLine(), $ex->getFile()),
-                    500
-                );
+                return Response::make(sprintf(
+                    '"%s" on line %s of %s',
+                    $ex->getMessage(),
+                    $ex->getLine(),
+                    $ex->getFile()
+                ), 500);
             }
         }
 

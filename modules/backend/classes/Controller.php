@@ -456,7 +456,7 @@ class Controller extends Extendable
             }
         } else {
             /*
-             * Process page specific handler (index_onSomething) {
+             * Process page specific handler (index_onSomething)
              */
             $pageHandler = $this->action . '_' . $handler;
 
@@ -466,7 +466,7 @@ class Controller extends Extendable
             }
 
             /*
-             * Process page global handler (onSomething) {
+             * Process page global handler (onSomething)
              */
             if ($this->methodExists($handler)) {
                 $result = call_user_func_array([$this, $handler], $this->params);
