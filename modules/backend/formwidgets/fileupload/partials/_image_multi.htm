@@ -2,7 +2,6 @@
     id="<?= $this->getId() ?>"
     class="field-fileupload is-multi <?= count($fileList) ? 'has-attachments' : '' ?> is-sortable"
     data-control="fileupload"
-    data-upload-input="#<?= $this->getId('uploadInput') ?>"
     data-unique-id="<?= $this->getId() ?>"
     data-sort-handler="<?= $this->getEventHandler('onSortAttachments') ?>"
     data-image-width="<?= $imageWidth ?>"
@@ -27,14 +26,6 @@
             <div class="no-data" style="height: <?= $imageHeight.'px' ?>"><?= e(trans($this->previewNoFilesMessage)) ?></div>
         <?php endif ?>
     </div>
-
-    <!-- Upload form -->
-    <input
-        id="<?= $this->getId('uploadInput') ?>"
-        type="file"
-        multiple="true"
-        name="file_data"
-        class="attachment-input" />
 
     <!-- Populated Image -->
     <script type="text/template" id="<?= $this->getId('template') ?>">

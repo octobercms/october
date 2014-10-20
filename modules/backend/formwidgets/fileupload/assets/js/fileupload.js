@@ -28,13 +28,13 @@
         this.editor    = null
         this.dataCache = null
         this.locked    = false
+        this.dropzone  = null
         var self = this
 
         /*
          * Validate requirements
          */
         this.isMulti = this.$el.hasClass('is-multi');
-        this.inputField = $(this.options.uploadInput)
         this.templateHtml = $('#' + this.options.itemTemplate).html()
         this.uploadLink = $(this.options.uploadLink, this.$el)
 
@@ -58,15 +58,6 @@
          * Set up the progress bar
          */
         this.progressBar = $(this.options.progressBar, this.$el).find('>.progress-bar')
-
-        /*
-         * Find and bind upload trigger
-         */
-        this.$el.on('click', this.options.uploadLink, function(){
-            if (self.locked) return
-
-            self.inputField.val('').trigger('click')
-        })
 
         /*
          * Bind remove link
@@ -109,6 +100,8 @@
 
             this.$el.find('ul, ol').sortable({
                 itemSelector: 'li:not(.attachment-uploader)',
+                vertical: false,
+                tolerance: -100,
                 placeholder: placeholderEl,
                 onDrop: function ($item, container, _super) {
                     _super($item, container)
@@ -126,38 +119,42 @@
          * Build uploader options
          */
         var uploaderOptions = {
-            start: $.proxy(self.onUploadStart, self),
-            done: $.proxy(self.onUploadComplete, self),
-            progressall: $.proxy(self.onUploadProgress, self),
-            fail: $.proxy(self.onUploadFail, self),
-            dataType: 'json',
-            type: 'POST',
             url: this.options.url,
-            paramName: this.inputField.attr('name')
-        }
-
-        /*
-         * Splice in extraData with any form data
-         */
-        if (this.options.extraData) {
-            uploaderOptions.formData = function(form) {
-                if (self.dataCache)
-                    return self.dataCache
-
-                var data = form.serializeArray()
-                $.each(self.options.extraData, function (name, value) {
-                    data.push({name: name, value: value})
-                })
-
-                return self.dataCache = data
-            }
+            clickable: this.uploadLink.get(0),
+            paramName: this.options.paramName,
+            previewsContainer: $('<div />').get(0),
+            maxFiles: !this.isMulti ? 1 : null,
+            method: 'POST'
         }
 
         /*
          * Bind uploader
          */
-        this.inputField.fileupload(uploaderOptions)
+        this.dropzone = new Dropzone(this.$el.get(0), uploaderOptions)
+        this.dropzone.on('error', $.proxy(self.onUploadFail, self))
+        this.dropzone.on('success', $.proxy(self.onUploadComplete, self))
+        this.dropzone.on('uploadprogress', $.proxy(self.onUploadProgress, self))
+        this.dropzone.on('thumbnail', $.proxy(self.onUploadThumbnail, self))
+        this.dropzone.on('sending', function(file, xhr, formData) {
+            self.addExtraFormData(formData)
+            self.onUploadStart()
+        })
 
+    }
+
+    FileUpload.prototype.addExtraFormData = function(formData) {
+        if (this.options.extraData) {
+            $.each(this.options.extraData, function (name, value) {
+                formData.append(name, value)
+            })
+        }
+
+        var $form = this.$el.closest('form')
+        if ($form.length > 0) {
+            $.each($form.serializeArray(), function (index, field) {
+                formData.append(field.name, field.value)
+            })
+        }
     }
 
     FileUpload.prototype.removeItem = function(item) {
@@ -170,10 +167,14 @@
             item.find('.active-image, .active-file, .uploader-toolbar').remove()
             this.uploadLink.show()
             this.toggleLoading(false, item)
+
+            // Reset the file counter
+            this.dropzone.removeAllFiles()
         }
     }
 
     FileUpload.prototype.renderItem = function(item, replaceItem) {
+
         var newItem = $(Mustache.to_html(this.templateHtml, item))
 
         if (this.isMulti) {
@@ -216,20 +217,24 @@
         }
     }
 
-    FileUpload.prototype.onUploadStart = function(event, data) {
+    FileUpload.prototype.onUploadStart = function() {
         this.locked = true
         this.toggleLoading(true, this.progressBar.closest('.attachment-item'))
 
         this.options.onStart && this.options.onStart()
     }
 
-    FileUpload.prototype.onUploadComplete = function(event, data) {
-        if (data.result.error)
-            return this.onUploadFail(event, $.extend(data, { errorThrown: data.result.error }))
+    FileUpload.prototype.onUploadThumbnail = function(file, thumbUrl) {
+        // @todo
+    }
+
+    FileUpload.prototype.onUploadComplete = function(file, data) {
+        if (data.error)
+            return this.onUploadFail(null, data.error)
 
         this.options.onComplete && this.options.onComplete()
 
-        var newItem = this.renderItem(data.result)
+        var newItem = this.renderItem(data)
 
         newItem.css({ opacity: 0 })
             .animate({ opacity: 1}, 500)
@@ -237,23 +242,19 @@
         this.resetAll()
     }
 
-    FileUpload.prototype.onUploadFail = function(event, data) {
-        alert('Error uploading file: ' + data.errorThrown)
+    FileUpload.prototype.onUploadFail = function(file, error) {
+        alert('Error uploading file: ' + error)
         this.options.onFail && this.options.onFail()
         this.resetAll()
     }
 
-    FileUpload.prototype.onUploadProgress = function(event, data) {
-        var progress = parseInt(data.loaded / data.total * 100, 10)
+    FileUpload.prototype.onUploadProgress = function(file, progress, bytesSent) {
         this.progressBar.css('width', progress + '%')
     }
 
     FileUpload.prototype.resetAll = function() {
         this.toggleLoading(false, this.progressBar.closest('.attachment-item'))
         this.locked = false
-
-        // Rebind the uploader since the input has been cloned
-        this.bindUploader()
     }
 
     FileUpload.prototype.toggleLoading = function(isLoading, el) {
@@ -275,11 +276,10 @@
     }
 
     FileUpload.DEFAULTS = {
-        url: null,
+        url: window.location,
         uniqueId: null,
         extraData: {},
         sortHandler: null,
-        uploadInput: null,
         loadingClass: 'loading',
         removeLink: '.uploader-remove',
         uploadLink: '.uploader-link',
@@ -290,7 +290,8 @@
         onFail: null,
         imageWidth: 100,
         imageHeight: 100,
-        itemTemplate: null
+        itemTemplate: null,
+        paramName: 'file_data'
     }
 
     // FILEUPLOAD PLUGIN DEFINITION

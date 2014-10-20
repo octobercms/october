@@ -43,6 +43,7 @@ class FileUpload extends FormWidgetBase
             'previewNoFilesMessage',
             'backend::lang.form.preview_no_files_message'
         );
+
         $this->checkUploadPostback();
     }
 
@@ -246,6 +247,7 @@ class FileUpload extends FormWidgetBase
             $result = json_encode(['error' => $ex->getMessage()]);
         }
 
+        header('Content-Type: application/json');
         die($result);
     }
 }

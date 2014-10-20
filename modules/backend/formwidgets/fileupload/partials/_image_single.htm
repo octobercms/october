@@ -2,7 +2,6 @@
     id="<?= $this->getId() ?>"
     class="field-fileupload <?= $singleFile ? 'has-attachments' : '' ?>"
     data-control="fileupload"
-    data-upload-input="#<?= $this->getId('uploadInput') ?>"
     data-unique-id="<?= $this->getId() ?>"
     data-image-width="<?= $imageWidth ?>"
     data-image-height="<?= $imageHeight ?>"
@@ -26,13 +25,6 @@
         </div>
         <div class="uploader-loading"></div>
     </div>
-
-    <!-- Upload form -->
-    <input
-        id="<?= $this->getId('uploadInput') ?>"
-        type="file"
-        name="file_data"
-        class="attachment-input" />
 
     <!-- Populated Image -->
     <script type="text/template" id="<?= $this->getId('template') ?>">

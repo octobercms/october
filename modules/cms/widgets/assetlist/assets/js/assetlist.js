@@ -79,23 +79,23 @@
         this.updateUi()
     }
 
-    AssetList.prototype.onUploadFail = function(event, data, more) {
-        alert('Error uploading file: ' + data.errorThrown)
+    AssetList.prototype.onUploadFail = function(file, error) {
+        alert('Error uploading file: ' + error)
         this.refresh()
     }
 
-    AssetList.prototype.onUploadComplete = function(event, data, more) {
-        if (data.result !== 'success')
-            alert(data.result)
+    AssetList.prototype.onUploadSuccess = function(file, data) {
+        if (data !== 'success')
+            alert(data)
     }
 
-    AssetList.prototype.onUploadStop = function(event, data, more) {
+    AssetList.prototype.onUploadComplete = function(file, data) {
         $.oc.stripeLoadIndicator.hide()
         this.refresh()
     }
 
-    AssetList.prototype.onUploadStart = function(event, data, more) {
-        $.oc.stripeLoadIndicator.show(event)
+    AssetList.prototype.onUploadStart = function() {
+        $.oc.stripeLoadIndicator.show()
     }
 
     AssetList.prototype.onFileClick = function(event) {
@@ -133,22 +133,25 @@
     }
 
     AssetList.prototype.setupUploader = function() {
-        var field = $('.asset-list-upload-field', this.$form),
+        var self = this,
             $link = $('[data-control="upload-assets"]', this.$form),
             uploaderOptions = {
-                fail: $.proxy(this.onUploadFail, this),
-                type: 'POST',
+                method: 'POST',
+                url: window.location,
                 paramName: 'file_data',
-                formData: this.$form.serializeArray(),
-                replaceFileInput: false,
-                stop: $.proxy(this.onUploadStop, this),
-                start: $.proxy(this.onUploadStart, this),
-                done: $.proxy(this.onUploadComplete, this)
+                previewsContainer: $('<div />').get(0),
+                clickable: $link.get(0)
             }
 
-        field.fileupload(uploaderOptions)
-        $link.click(function(event) {
-            field.trigger('click')
+        var dropzone = new Dropzone($('<div />').get(0), uploaderOptions)
+        dropzone.on('error', $.proxy(self.onUploadFail, self))
+        dropzone.on('success', $.proxy(self.onUploadSuccess, self))
+        dropzone.on('complete', $.proxy(self.onUploadComplete, self))
+        dropzone.on('sending', function(file, xhr, formData) {
+            $.each(self.$form.serializeArray(), function (index, field) {
+                formData.append(field.name, field.value)
+            })
+            self.onUploadStart()
         })
     }
 
