@@ -58,7 +58,7 @@ class SettingsManager
     /**
      * @var array Settings item defaults.
      */
-    static $itemDefaults = [
+    protected static $itemDefaults = [
         'code'        => null,
         'label'       => null,
         'category'    => null,
