@@ -43,9 +43,11 @@ class Toolbar extends WidgetBase
          */
         if (isset($this->config->search)) {
 
-            $searchConfig = $this->makeConfig($this->config->search);
             if (is_string($this->config->search)) {
                 $searchConfig = $this->makeConfig(['partial' => $this->config->search]);
+            }
+            else {
+                $searchConfig = $this->makeConfig($this->config->search);
             }
 
             $searchConfig->alias = $this->alias . 'Search';
