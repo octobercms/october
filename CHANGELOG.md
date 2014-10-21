@@ -1,3 +1,7 @@
+* **Build 15x** (2014-10-x)
+  - Fixes an issue where new Themes attached to a project were not being installed on update.
+  - Fixes issue where XDebug aborts the thread for maximum function count.
+
 * **Build 155** (2014-10-16)
   - Back-end area can now be customized with colors and logo, via System > Customize Back-end.
   - Added twig filters `|trans` for `Lang::get(...)` and `|transchoice` for `Lang::choice(...)`.
