@@ -1,4 +1,4 @@
-* **Build 15x** (2014-10-x)
+* **Build 158** (2014-10-23)
   - Fixes an issue where new Themes attached to a project were not being installed on update.
   - Fixes issue where XDebug aborts the thread for maximum function count.
 
