@@ -178,7 +178,7 @@ class ServiceProvider extends ModuleServiceProvider
         BackendMenu::registerCallback(function ($manager) {
             $manager->registerMenuItems('October.System', [
                 'system' => [
-                    'label'       => 'system::lang.system.menu_label',
+                    'label'       => 'system::lang.settings.menu_label',
                     'icon'        => 'icon-tune',
                     'url'         => Backend::url('system/settings'),
                     'permissions' => ['backend.manage_users', 'system.*'],
