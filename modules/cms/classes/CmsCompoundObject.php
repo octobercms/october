@@ -223,7 +223,7 @@ class CmsCompoundObject extends CmsObject
         }
 
         if ($this->code) {
-            if ($this->wrapCodeToPhpTags() && $this->originalData['code'] != $this->code) {
+            if ($this->wrapCodeToPhpTags() && array_get($this->originalData, 'code') != $this->code) {
                 $code = preg_replace('/^\<\?php/', '', $this->code);
                 $code = preg_replace('/^\<\?/', '', $code);
                 $code = preg_replace('/\?>$/', '', $code);
