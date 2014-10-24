@@ -117,42 +117,38 @@ class ListController extends ControllerBehavior
         $columnConfig = $this->makeConfig($listConfig->list);
         $columnConfig->model = $model;
         $columnConfig->alias = $definition;
-        if (isset($listConfig->recordUrl)) {
-            $columnConfig->recordUrl = $listConfig->recordUrl;
-        }
-        if (isset($listConfig->recordOnClick)) {
-            $columnConfig->recordOnClick = $listConfig->recordOnClick;
-        }
-        if (isset($listConfig->recordsPerPage)) {
-            $columnConfig->recordsPerPage = $listConfig->recordsPerPage;
-        }
-        if (isset($listConfig->noRecordsMessage)) {
-            $columnConfig->noRecordsMessage = $listConfig->noRecordsMessage;
-        }
-        if (isset($listConfig->defaultSort)) {
-            $columnConfig->defaultSort = $listConfig->defaultSort;
-        }
-        if (isset($listConfig->showSorting)) {
-            $columnConfig->showSorting = $listConfig->showSorting;
-        }
-        if (isset($listConfig->showSetup)) {
-            $columnConfig->showSetup = $listConfig->showSetup;
-        }
-        if (isset($listConfig->showCheckboxes)) {
-            $columnConfig->showCheckboxes = $listConfig->showCheckboxes;
-        }
-        if (isset($listConfig->showTree)) {
-            $columnConfig->showTree = $listConfig->showTree;
-        }
-        if (isset($listConfig->treeExpanded)) {
-            $columnConfig->treeExpanded = $listConfig->treeExpanded;
-        }
-        $widget = $this->makeWidget('Backend\Widgets\Lists', $columnConfig);
-        $widget->bindToController();
 
         /*
-         * Extensibility helpers
+         * Prepare the columns configuration
          */
+        $configFieldsToTransfer = [
+            'recordUrl',
+            'recordOnClick',
+            'recordsPerPage',
+            'noRecordsMessage',
+            'defaultSort',
+            'showSorting',
+            'showSetup',
+            'showCheckboxes',
+            'showTree',
+            'treeExpanded',
+        ];
+
+        foreach ($configFieldsToTransfer as $field) {
+            if (isset($listConfig->{$field})) {
+                $columnConfig->{$field} = $listConfig->{$field};
+            }
+        }
+
+        /*
+         * List Widget with extensibility
+         */
+        $widget = $this->makeWidget('Backend\Widgets\Lists', $columnConfig);
+
+        $widget->bindEvent('list.extendColumns', function () use ($widget) {
+            $this->controller->listExtendColumns($widget);
+        });
+
         $widget->bindEvent('list.extendQueryBefore', function ($query) use ($definition) {
             $this->controller->listExtendQueryBefore($query, $definition);
         });
@@ -172,6 +168,8 @@ class ListController extends ControllerBehavior
         $widget->bindEvent('list.overrideHeaderValue', function ($column, $value) use ($definition) {
             return $this->controller->listOverrideHeaderValue($column->columnName, $definition);
         });
+
+        $widget->bindToController();
 
         /*
          * Prepare the toolbar widget (optional)
@@ -307,6 +305,24 @@ class ListController extends ControllerBehavior
     //
 
     /**
+     * Called before the list columns are defined.
+     * @param Backend\Widgets\List $host The hosting list widget
+     * @return void
+     */
+    // public function listExtendColumnsBefore($host)
+    // {
+    // }
+
+    /**
+     * Called after the list columns are defined.
+     * @param Backend\Widgets\List $host The hosting list widget
+     * @return void
+     */
+    public function listExtendColumns($host)
+    {
+    }
+
+    /**
      * Controller override: Extend supplied model
      * @param Model $model
      * @return Model
@@ -366,7 +382,7 @@ class ListController extends ControllerBehavior
     }
 
     /**
-     * Static helper for extending form fields.
+     * Static helper for extending list columns.
      * @param  callable $callback
      * @return void
      */
