@@ -103,16 +103,16 @@ class DebugExtension extends Twig_Extension
                 $var = func_get_arg($i);
                 $subcaption = null;
 
-                if ( $var instanceof ComponentBase )
+                if ($var instanceof ComponentBase) {
                     $caption = static::COMPONENT_CAPTION;
-                elseif ( is_array($var) )
+                }
+                elseif (is_array($var)) {
                     $caption = static::ARRAY_CAPTION;
-                else
-                {
+                }
+                else {
                     $caption = static::OBJECT_CAPTION;
                     $subcaption = get_class($var);
                 }
-
 
                 $result .= $this->dump($var, $caption, $subcaption);
             }
@@ -184,8 +184,11 @@ class DebugExtension extends Twig_Extension
         $output[] = '<tr>';
         $output[] = '<th colspan="3" colspan="100" style="'.$this->getHeaderCss().'">';
         $output[] = $caption;
-        if ($subcaption)
+
+        if ($subcaption) {
             $output[] = '<div style="'.$this->getSubheaderCss().'">'.$subcaption.'</div>';
+        }
+
         $output[] = '</td>';
         $output[] = '</tr>';
         return implode(PHP_EOL, $output);
