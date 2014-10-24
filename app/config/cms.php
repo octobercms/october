@@ -26,7 +26,7 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Sepcific plugins to disable
+    | Specific plugins to disable
     |--------------------------------------------------------------------------
     |
     | Specify plugin codes which will always be disabled in the application.
