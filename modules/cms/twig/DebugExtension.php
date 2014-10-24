@@ -12,6 +12,7 @@ use October\Rain\Database\Model;
 class DebugExtension extends Twig_Extension
 {
     const PAGE_CAPTION = 'Page variables';
+    const ARRAY_CAPTION = 'Array variables';
     const OBJECT_CAPTION = 'Object variables';
     const COMPONENT_CAPTION = 'Component variables';
 
@@ -100,11 +101,20 @@ class DebugExtension extends Twig_Extension
             $this->variablePrefix = false;
             for ($i = 2; $i < $count; $i++) {
                 $var = func_get_arg($i);
-                $caption = $var instanceof ComponentBase
-                    ? static::COMPONENT_CAPTION
-                    : static::OBJECT_CAPTION;
+                $subcaption = null;
 
-                $result .= $this->dump($var, $caption);
+                if ( $var instanceof ComponentBase )
+                    $caption = static::COMPONENT_CAPTION;
+                elseif ( is_array($var) )
+                    $caption = static::ARRAY_CAPTION;
+                else
+                {
+                    $caption = static::OBJECT_CAPTION;
+                    $subcaption = get_class($var);
+                }
+
+
+                $result .= $this->dump($var, $caption, $subcaption);
             }
         }
 
@@ -126,9 +136,10 @@ class DebugExtension extends Twig_Extension
      *
      * @param mixed $variable Variable to dump
      * @param string $caption Caption of the dump
+     * @param string $subcaption Subcaption of the dump
      * @return void
      */
-    public function dump($variables = null, $caption = null)
+    public function dump($variables = null, $caption = null, $subcaption = null)
     {
         $this->commentMap = [];
         $this->zebra = 1;
@@ -148,7 +159,7 @@ class DebugExtension extends Twig_Extension
         $output[] = '<table>';
 
         if ($caption) {
-            $output[] = $this->makeTableHeader($caption);
+            $output[] = $this->makeTableHeader($caption, $subcaption);
         }
 
         foreach ($variables as $key => $item) {
@@ -164,13 +175,18 @@ class DebugExtension extends Twig_Extension
     /**
      * Builds the HTML used for the table header.
      * @param  string $caption
+     * @param  string $subcaption
      * @return string
      */
-    protected function makeTableHeader($caption)
+    protected function makeTableHeader($caption, $subcaption = null)
     {
         $output = [];
         $output[] = '<tr>';
-        $output[] = '<th colspan="100" style="'.$this->getHeaderCss().'">'.$caption.'</td>';
+        $output[] = '<th colspan="3" colspan="100" style="'.$this->getHeaderCss().'">';
+        $output[] = $caption;
+        if ($subcaption)
+            $output[] = '<div style="'.$this->getSubheaderCss().'">'.$subcaption.'</div>';
+        $output[] = '</td>';
         $output[] = '</tr>';
         return implode(PHP_EOL, $output);
     }
@@ -494,6 +510,24 @@ class DebugExtension extends Twig_Extension
             'font-weight'      => 'normal',
             'margin'           => '0',
             'padding'          => '10px',
+            'background-color' => '#7B8892',
+            'color'            => '#FFF',
+        ]);
+    }
+
+    /**
+     * Get the CSS string for the output subheader
+     *
+     * @return string
+     */
+    protected function getSubheaderCss()
+    {
+        return $this->arrayToCss([
+            'font-size'        => '12px',
+            'font-weight'      => 'normal',
+            'font-style'       => 'italic',
+            'margin'           => '0',
+            'padding'          => '0',
             'background-color' => '#7B8892',
             'color'            => '#FFF',
         ]);
