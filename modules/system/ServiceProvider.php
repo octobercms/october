@@ -179,7 +179,7 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerMenuItems('October.System', [
                 'system' => [
                     'label'       => 'system::lang.settings.menu_label',
-                    'icon'        => 'icon-tune',
+                    'icon'        => 'icon-cog',
                     'url'         => Backend::url('system/settings'),
                     'permissions' => ['backend.manage_users', 'system.*'],
                     'order'       => 1000
