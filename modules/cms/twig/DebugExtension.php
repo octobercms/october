@@ -107,7 +107,7 @@ class DebugExtension extends Twig_Extension
                 $var = func_get_arg($i);
 
                 if ($var instanceof ComponentBase) {
-                    $caption = static::COMPONENT_CAPTION;
+                    $caption = [static::COMPONENT_CAPTION, get_class($var)];
                 } elseif (is_array($var)) {
                     $caption = static::ARRAY_CAPTION;
                 } else {
