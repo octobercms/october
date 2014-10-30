@@ -768,7 +768,7 @@
         if (isChecked == '0' || isChecked == 'false')
             isChecked = false
         
-        $(this.selector).prop(checked, isChecked)
+        $(this.selector).prop('checked', isChecked)
     }
 
     InspectorEditorCheckbox.prototype.focus = function() {
