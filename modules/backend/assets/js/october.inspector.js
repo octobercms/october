@@ -290,7 +290,7 @@
                     .click(function() {
                         return self.toggleExternalParameterEditor($(this))
                     })
-                    .attr('title', 'Click to enter a partial variable or URL parameter to load the property value from')
+                    .attr('title', 'Click to enter the external parameter name to load the property value from')
                     .tooltip({'container': 'body', delay: 500})
 
                 var $input = $editor.find('input'),
@@ -369,7 +369,7 @@
                 $container.removeClass('editor-visible')
                 $container.closest('td').removeClass('active')
             }, 200)
-            $editorLink.attr('data-original-title', 'Click to enter a partial variable or URL parameter to load the property value from')
+            $editorLink.attr('data-original-title', 'Click to enter the external parameter name to load the property value from')
             $editor.find('input').attr('tabindex', -1)
             self.toggleCellEditorVisibility($cell, true)
         }
