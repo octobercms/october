@@ -5,8 +5,8 @@
         'data-window-close-confirm' => e(trans('backend::lang.form.confirm_tab_close')),
         'data-inspector-external-parameters' => true
     ];
-
-echo Form::open($formConfig) ?>
+?>
+<?= Form::open($formConfig) ?>
     <?= $form->render() ?>
 
     <input type="hidden" value="<?= ($templateType) ?>" name="templateType" />

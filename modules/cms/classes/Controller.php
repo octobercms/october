@@ -368,15 +368,19 @@ class Controller extends BaseController
     {
         if (!$this->layout->isFallBack()) {
             foreach ($this->layout->settings['components'] as $component => $properties) {
-                list($name, $alias) = strpos($component, ' ') ?
-                    explode(' ', $component) : array($component, $component);
+                list($name, $alias) = strpos($component, ' ')
+                    ? explode(' ', $component)
+                    : [$component, $component];
+
                 $this->addComponent($name, $alias, $properties, true);
             }
         }
 
         foreach ($this->page->settings['components'] as $component => $properties) {
-            list($name, $alias) = strpos($component, ' ') ?
-                explode(' ', $component) : array($component, $component);
+            list($name, $alias) = strpos($component, ' ')
+                ? explode(' ', $component)
+                : [$component, $component];
+
             $this->addComponent($name, $alias, $properties);
         }
     }
@@ -755,23 +759,25 @@ class Controller extends BaseController
         }
 
         /*
-         * Run partial functions (only for real partials)
+         * Run functions for CMS partials only (Cms\Classes\Partial)
          */
 
-        if ($partial instanceof \Cms\Classes\Partial) {
+        if ($partial instanceof Partial) {
             $manager = ComponentManager::instance();
 
             foreach ($partial->settings['components'] as $component => $properties) {
-                list($name, $alias) = strpos($component, ' ') ?
-                    explode(' ', $component) : array($component, $component);
+                list($name, $alias) = strpos($component, ' ')
+                    ? explode(' ', $component)
+                    : [$component, $component];
 
                 $properties = $this->setComponentPropertiesFromParameters($properties, $parameters, []);
 
-                if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties))
+                if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
                     throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
+                }
 
                 $componentObj->alias = $alias;
-                $parameters[$alias] = $partial->components[$alias] =  $componentObj;
+                $parameters[$alias] = $partial->components[$alias] = $componentObj;
 
                 array_push($this->partialComponentStack, [
                     'name' => $alias,
@@ -800,11 +806,10 @@ class Controller extends BaseController
         CmsException::mask($partial, 400);
         $this->loader->setObject($partial);
         $template = $this->twig->loadTemplate($partial->getFullPath());
-
         $result = $template->render(array_merge($this->vars, $parameters));
-        CmsException::unmask($this->partialComponentStack);
+        CmsException::unmask();
 
-        if ($partial instanceof \Cms\Classes\Partial) {
+        if ($partial instanceof Partial) {
             if ($this->partialComponentStack) {
                 array_pop($this->partialComponentStack);
             }
@@ -1091,18 +1096,26 @@ class Controller extends BaseController
 
         $routerParameters = $this->router->getParameters();
 
-        foreach ($properties as $propertyName=>$propertyValue) {
+        foreach ($properties as $propertyName => $propertyValue) {
             $matches = [];
             if (preg_match('/^\{\{([^\}]+)\}\}$/', $propertyValue, $matches)) {
                 $paramName = trim($matches[1]);
 
-                if ( substr($paramName, 0, 1) == ':' ) {
+                if (substr($paramName, 0, 1) == ':') {
                     $paramName = substr($paramName, 1);
-                    $result[$propertyName] = array_key_exists($paramName, $routerParameters) ? $routerParameters[$paramName] : null;
-                } else
-                    $result[$propertyName] = array_key_exists($paramName, $parameters) ? $parameters[$paramName] : null;
-            } else
+                    $result[$propertyName] = array_key_exists($paramName, $routerParameters)
+                        ? $routerParameters[$paramName]
+                        : null;
+                }
+                else {
+                    $result[$propertyName] = array_key_exists($paramName, $parameters)
+                        ? $parameters[$paramName]
+                        : null;
+                }
+            }
+            else {
                 $result[$propertyName] = $propertyValue;
+            }
         }
 
         return $result;
