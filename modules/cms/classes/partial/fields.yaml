@@ -14,6 +14,8 @@ fields:
     path: partial_toolbar
     cssClass: collapse-visible
 
+  components: Cms\FormWidgets\Components
+
 secondaryTabs:
   stretch: true
   fields:
@@ -22,3 +24,9 @@ secondaryTabs:
       stretch: true
       type: codeeditor
       language: twig
+
+    code:
+      tab: cms::lang.editor.code
+      stretch: true
+      type: codeeditor
+      language: php

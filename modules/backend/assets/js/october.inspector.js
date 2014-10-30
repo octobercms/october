@@ -29,12 +29,17 @@
  *   - placeholder - placholder text, for text and dropdown properties
  *   - depends - a list of properties the property depend on, for dropdown lists
  *   - options - an option list for dropdown lists, optional. If not provided the options are loaded with AJAX.
+ *   - noExternalParameter - disables the external parameter feature for the property.
  *   Example of the configuration string (a single property): 
  *   [{"property":"max-width","title":"Max width","type":"string"}]
  *
  * The Inspector requires the inspectable element to contain a hidden input element with the attribute "data-inspector-values".
  * The inspector uses this field to read and write field values. The field value is a JSON string, an object with keys matching property
  * names and values matching property values.
+ *
+ * Any HTML element that wraps the inspectable element can have the data-inspector-external-parameters property that enables the external 
+ * parameters support. External parameters saved with the special syntax {{paramName}}. The external parameter feature can be disabled
+ * on per-property basis with the noExternalParameter option.
  *
  * Events
  * - change - the event is triggered on the inspectable element when it's properties are updated.
@@ -96,10 +101,10 @@
                         data-dismiss="popover"                                                                        \
                         aria-hidden="true">&times;</button>                                                           \
                 </div>                                                                                                \
-                <form>                                                                                                \
+                <form autocomplete="off">                                                                             \
                     <table class="inspector-fields {{#tableClass}}{{/tableClass}}">                                   \
                         {{#properties}}                                                                               \
-                            <tr id="{{#propFormat}}{{property}}{{/propFormat}}"                                       \
+                            <tr id="{{#propFormat}}{{property}}{{/propFormat}}" data-property="{{property}}"          \
                                 {{#dataGroupIndex}}{{/dataGroupIndex}}                                                \
                                 class="{{#cellClass}}{{/cellClass}}">                                                 \
                                 <th {{#colspan}}{{/colspan}}><div><div><span class="title-element" title="{{title}}"> \
@@ -156,6 +161,9 @@
                         if (this.itemType == 'property' && this.groupIndex !== undefined)
                             result += self.groupExpanded(this.group) ? ' expanded' : ' collapsed'
 
+                        if (this.itemType == 'property' && this.noExternalParameter)
+                            result += ' no-external-parameter'
+
                         return result
                     }
                 },
@@ -211,7 +219,7 @@
                 width: 400
             })
 
-            self.$el.on('hiding.oc.popover', function(e){self.onBeforeHide(e)})
+            self.$el.on('hiding.oc.popover', function(e){return self.onBeforeHide(e)})
             self.$el.on('hide.oc.popover', function(){self.cleanup()})
             self.$el.addClass('inspector-open')
 
@@ -225,12 +233,15 @@
                     self.editors[0].focus()
             }
 
+            if (self.$el.closest('[data-inspector-external-parameters]').length > 0)
+                self.initExternalParameterEditor(self.$el.data('oc.popover').$container)
+
             $.each(self.editors, function(){
                 if (this.init !== undefined)
                     this.init()
             })
 
-            $('[data-toggle=tooltip]', self.$el.data('oc.popover').$container).tooltip({placement: 'auto right', container: 'body'})
+            $('[data-toggle=tooltip]', self.$el.data('oc.popover').$container).tooltip({placement: 'auto right', container: 'body', delay: 500})
 
             var $container = self.$el.data('oc.popover').$container
             $container.on('click', 'tr.group', function(){
@@ -246,6 +257,145 @@
 
         if (!e.isPropagationStopped())
             displayPopover()
+    }
+
+    /*
+     * Initializes the external parameter editors for properties that support this feature.
+     */
+    Inspector.prototype.initExternalParameterEditor = function($container) {
+        var self = this
+
+        $('table.inspector-fields tr', $container).each(function(){
+            if (!$(this).hasClass('no-external-parameter')) {
+                var property = $(this).data('property'),
+                    $td = $('td', this),
+                    $editorContainer = $('<div class="external-param-editor-container"></div>'),
+                    $editor = $(
+                        '<div class="external-editor">                  \
+                            <div class="controls">                      \
+                                <input type="text" tabindex="-1"/>      \
+                                <a href="#" tabindex="-1">              \
+                                    <i class="oc-icon-terminal"></i>    \
+                                </a>                                    \
+                            </div>                                      \
+                        </div>')
+
+                $editorContainer.append($td.children())
+                $editorContainer.append($editor)
+                $td.append($editorContainer)
+
+                var $editorLink = $('a', $editor)
+
+                $editorLink.click(function() {
+                    return self.toggleExternalParameterEditor($(this))
+                })
+                    .attr('title', 'Click to enter the external parameter name to load the property value from')
+                    .tooltip({'container': 'body', delay: 500})
+
+                var $input = $editor.find('input'),
+                    propertyValue = self.propertyValues[property]
+
+                $input.on('focus', function(){
+                    var $field = $(this)
+
+                    $('td', $field.closest('table')).removeClass('active')
+                    $field.closest('td').addClass('active')
+                })
+
+                $input.on('change', function(){
+                    self.markPropertyChanged(property, true)
+                })
+
+                var matches = []
+                if (matches = propertyValue.match(/^\{\{([^\}]+)\}\}$/)) {
+                    var value = $.trim(matches[1])
+
+                    if (value.length > 0) {
+                        self.showExternalParameterEditor($editorContainer, $editor, $editorLink, $td, true)
+                        $editor.find('input').val(value)
+                        self.writeProperty(property, null, true)
+                    }
+                }
+            }
+        })
+    }
+
+    Inspector.prototype.showExternalParameterEditor = function($container, $editor, $editorLink, $cell, noAnimation) {
+        var position = $editor.position()
+        $('input', $editor).focus()
+
+        if (!noAnimation) {
+            $editor.css({
+                'left': position.left + 'px',
+                'right': 0
+            })
+        } else
+            $editor.css('right', 0)
+
+        setTimeout(function(){
+            $editor.css('left', 0)
+            $cell.scrollTop(0)
+        }, 0)
+
+        $container.addClass('editor-visible')
+        $editorLink.attr('data-original-title', 'Click to enter the property value')
+        this.toggleCellEditorVisibility($cell, false)
+        $editor.find('input').attr('tabindex', 0)
+    }
+
+    Inspector.prototype.toggleExternalParameterEditor = function($editorLink) {
+        var $container = $editorLink.closest('.external-param-editor-container'),
+            $editor = $('.external-editor', $container),
+            $cell = $editorLink.closest('td'),
+            self = this
+
+        $editorLink.tooltip('hide')
+
+        if (!$container.hasClass('editor-visible')) {
+            self.showExternalParameterEditor($container, $editor, $editorLink, $cell)
+        } else {
+            var left = $container.width()
+
+            $editor.css('left', left + 'px')
+            setTimeout(function(){
+                $editor.css({
+                    'left': 'auto',
+                    'right': '30px'
+                })
+                $container.removeClass('editor-visible')
+                $container.closest('td').removeClass('active')
+            }, 200)
+            $editorLink.attr('data-original-title', 'Click to enter the external parameter name to load the property value from')
+            $editor.find('input').attr('tabindex', -1)
+            self.toggleCellEditorVisibility($cell, true)
+        }
+
+        return false
+    }
+
+    Inspector.prototype.toggleCellEditorVisibility = function($cell, show) {
+        var $container = $('.external-param-editor-container', $cell)
+
+        $container.children().each(function(){
+            var $el = $(this)
+
+            if ($el.hasClass('external-editor'))
+                return
+
+            if (show)
+                $el.removeClass('hide')
+            else {
+                var height = $cell.data('inspector-cell-height')
+
+                if (!height) {
+                    height = $cell.height()
+                    $cell.data('inspector-cell-height', height)
+                }
+
+                $container.css('height', height + 'px')
+                $el.addClass('hide')
+            }
+        })
     }
 
     /*
@@ -379,17 +529,22 @@
         return null
     }
 
-    Inspector.prototype.writeProperty = function(property, value) {
+    Inspector.prototype.writeProperty = function(property, value, noChangedStatusUpdate) {
         this.propertyValues[property] = value
         this.propertyValuesField.val(JSON.stringify(this.propertyValues))
 
         if (this.originalPropertyValues[property] === undefined || this.originalPropertyValues[property] != value) {
-            this.$el.trigger('change')
-            this.markPropertyChanged(property, true)
-        } else
-            this.markPropertyChanged(property, false)
+            if (!noChangedStatusUpdate) {
+                this.$el.trigger('change')
+                this.markPropertyChanged(property, true)
+            }
+        } else {
+            if (!noChangedStatusUpdate)
+                this.markPropertyChanged(property, false)
+        }
 
-        this.$el.trigger('propertyChanged.oc.Inspector', [property])
+        if (!noChangedStatusUpdate)
+            this.$el.trigger('propertyChanged.oc.Inspector', [property])
 
         return value
     }
@@ -412,6 +567,7 @@
 
         var editor = new $.oc.inspector.editors[editorClass](editorId, this, data)
         this.editors.push(editor)
+        editor.inspectorCellId = editorId
 
         return editor.renderEditor()
     }
@@ -429,11 +585,40 @@
     }
 
     Inspector.prototype.onBeforeHide = function(e) {
+        var $container = this.$el.data('inspector-container'),
+            externalParamErrorFound = false,
+            self = this
+
         $.each(this.editors, function() {
-            this.applyValue()
+            if (!self.editorExternalPropertyEnabled(this))
+                this.applyValue()
+            else {
+                var $cell = $('#'+this.inspectorCellId, $container),
+                    $extPropEditorContainer = $cell.find('.external-param-editor-container'),
+                    $input = $extPropEditorContainer.find('.external-editor input'),
+                    val = $.trim($input.val())
+
+                if (val.length == 0) {
+                    alert('Please enter external parameter name for the '+this.fieldDef.title+' property.')
+                    externalParamErrorFound = true
+                    setTimeout(function(){
+                        $input.focus()
+                    }, 0)
+                    return false
+                }
+
+                self.writeProperty(this.fieldDef.property, '{{ '+val+' }}')
+            }
         })
 
-        var eH = $.Event('hiding.oc.inspector')
+        if (externalParamErrorFound) {
+            e.preventDefault()
+            return false
+        }
+
+        var eH = $.Event('hiding.oc.inspector'),
+            ispector = this
+
         this.$el.trigger(eH, [{values: this.propertyValues}])
         if (eH.isDefaultPrevented()) {
             e.preventDefault()
@@ -441,6 +626,9 @@
         }
 
         $.each(this.editors, function() {
+            if (ispector.editorExternalPropertyEnabled(this))
+                return true
+
             if (this.validate === undefined)
                 return true
 
@@ -458,8 +646,15 @@
             return false
         })
 
-        var $contianer = this.$el.data('inspector-container')
         $('[data-toggle=tooltip]', this.$el.data('oc.popover').$container).tooltip('hide')
+    }
+
+    Inspector.prototype.editorExternalPropertyEnabled = function(editor) {
+        var $container = this.$el.data('inspector-container'),
+            $cell = $('#'+editor.inspectorCellId, $container),
+            $extPropEditorContainer = $cell.find('.external-param-editor-container')
+
+        return $extPropEditorContainer.hasClass('editor-visible')
     }
 
     //
@@ -474,6 +669,7 @@
      * - validate(), optional, validates the value and returns the validation error message
      * - applyValue(), applies the editor value
      * - focus(), focuses the editor input element, if applicable
+     * - init(), sets the initial editor value
      */
 
     // STRING EDITOR
@@ -483,7 +679,7 @@
         this.inspector = inspector
         this.fieldDef = fieldDef
         this.editorId = editorId
-        this.selector = '#'+this.editorId+' input'
+        this.selector = '#'+this.editorId+' input.string-editor'
 
         var self = this
         $(document).on('focus', this.selector, function() {
@@ -498,6 +694,11 @@
         })
     }
 
+    InspectorEditorString.prototype.init = function() {
+        var value = $.trim(this.inspector.readProperty(this.fieldDef.property))
+        $(this.selector).val(value)
+    }
+
     InspectorEditorString.prototype.applyValue = function() {
         this.inspector.writeProperty(this.fieldDef.property, $.trim($(this.selector).val()))
     }
@@ -505,11 +706,10 @@
     InspectorEditorString.prototype.renderEditor = function() {
         var data = {
             id: this.editorId,
-            value: $.trim(this.inspector.readProperty(this.fieldDef.property)),
             placeholder: this.fieldDef.placeholder !== undefined ? this.fieldDef.placeholder : ''
         }
 
-        return Mustache.render('<td class="text" id="{{id}}"><input type="text" value="{{value}}" placeholder="{{placeholder}}"/></td>', data)
+        return Mustache.render('<td class="text" id="{{id}}"><input type="text" class="string-editor" placeholder="{{placeholder}}"/></td>', data)
     }
 
     InspectorEditorString.prototype.validate = function() {
@@ -525,6 +725,7 @@
 
     InspectorEditorString.prototype.focus = function() {
         $(this.selector).focus()
+        $(this.selector).closest('td').scrollLeft(0)
     }
 
     $.oc.inspector.editors.inspectorEditorString = InspectorEditorString;
@@ -550,19 +751,22 @@
     }
 
     InspectorEditorCheckbox.prototype.renderEditor = function() {
-        var isChecked =  this.inspector.readProperty(this.fieldDef.property)
-
-        if (isChecked == '0' || isChecked == 'false')
-            isChecked = false
-
         var data = {
                 id: this.editorId,
-                checked: isChecked ? 'checked' : null,
                 cbId: this.editorId + '-cb',
                 title: this.fieldDef.title
             }
 
         return Mustache.render(this.getTemplate(), data)
+    }
+
+    InspectorEditorCheckbox.prototype.init = function() {
+       var isChecked =  this.inspector.readProperty(this.fieldDef.property)
+
+        if (isChecked == '0' || isChecked == 'false')
+            isChecked = false
+        
+        $(this.selector).prop(checked, isChecked)
     }
 
     InspectorEditorCheckbox.prototype.focus = function() {
@@ -576,7 +780,7 @@
                     custom-checkbox nolabel">                 \
                     <input type="checkbox"                    \
                         value="1"                             \
-                        {{checked}} id="{{cbId}}"/>           \
+                        id="{{cbId}}"/>                       \
                     <label for="{{cbId}}">{{title}}</label>   \
                 </div>                                        \
             </td>                                             \
@@ -594,6 +798,7 @@
         this.editorId = editorId
         this.selector = '#'+this.editorId+' select'
         this.dynamicOptions = this.fieldDef.options ? false : true
+        this.initialization = false
 
         var self = this
 
@@ -603,7 +808,7 @@
     }
 
     InspectorEditorDropdown.prototype.applyValue = function() {
-        this.inspector.writeProperty(this.fieldDef.property, $(this.selector).val())
+        this.inspector.writeProperty(this.fieldDef.property, $(this.selector).val(), this.initialization)
     }
 
     InspectorEditorDropdown.prototype.renderEditor = function() {
@@ -678,7 +883,7 @@
                 this.indicatorContainer.addClass('loading-indicator-container').addClass('size-small').addClass('transparent')
             }
 
-            this.loadOptions()
+            this.loadOptions(true)
         }
 
         if (this.fieldDef.depends)
@@ -721,7 +926,7 @@
             this.indicatorContainer.loadIndicator('hide')
     }
 
-    InspectorEditorDropdown.prototype.loadOptions = function() {
+    InspectorEditorDropdown.prototype.loadOptions = function(initialization) {
         var $form = $(this.selector).closest('form'),
             data = this.inspector.propertyValues,
             $select = $(this.selector),
@@ -755,7 +960,9 @@
                 else
                     $('option:first-child', $select).attr("selected", "selected");
 
+                self.initialization = initialization
                 $select.trigger('change')
+                self.initialization = false
 
                 self.hideLoadingIndicator()
             },

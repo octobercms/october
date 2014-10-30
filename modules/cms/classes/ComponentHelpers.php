@@ -20,12 +20,13 @@ class ComponentHelpers
         $result = [];
 
         $property = [
-            'property'          => 'oc.alias',
-            'title'             => Lang::get('cms::lang.component.alias'),
-            'description'       => Lang::get('cms::lang.component.alias_description'),
-            'type'              => 'string',
-            'validationPattern' => '^[a-zA-Z]+[0-9a-z\_]*$',
-            'validationMessage' => Lang::get('cms::lang.component.validation_message')
+            'property'            => 'oc.alias',
+            'title'               => Lang::get('cms::lang.component.alias'),
+            'description'         => Lang::get('cms::lang.component.alias_description'),
+            'type'                => 'string',
+            'validationPattern'   => '^[a-zA-Z]+[0-9a-z\_]*$',
+            'validationMessage'   => Lang::get('cms::lang.component.validation_message'),
+            'noExternalParameter' => true
         ];
         $result[] = $property;
 

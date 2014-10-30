@@ -13618,6 +13618,71 @@ html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-contain
 .inspector-fields td select {
   width: 90%;
 }
+.inspector-fields td div.external-param-editor-container {
+  position: relative;
+  padding-right: 30px;
+}
+.inspector-fields td div.external-param-editor-container div.external-editor {
+  bottom: 0;
+  margin: -5px -12px;
+  right: 30px;
+  left: auto;
+  top: 0;
+  position: absolute;
+  -webkit-transition: left 0.2s;
+  transition: left 0.2s;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+}
+.inspector-fields td div.external-param-editor-container div.external-editor div.controls {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.inspector-fields td div.external-param-editor-container div.external-editor div.controls a {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-block;
+  height: 100%;
+  width: 30px;
+  color: #2b3e50;
+  outline: none;
+}
+.inspector-fields td div.external-param-editor-container div.external-editor div.controls a i {
+  display: inline-block;
+  position: relative;
+  left: 10px;
+  top: 4px;
+  font-size: 15px;
+}
+.inspector-fields td div.external-param-editor-container div.external-editor div.controls input {
+  position: absolute;
+  display: block;
+  border: none;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  padding-left: 30px;
+  padding-right: 12px;
+  background: transparent;
+}
+.inspector-fields td div.external-param-editor-container.editor-visible div.external-editor div.controls input {
+  background: #f2f2f2;
+}
+.inspector-fields td.active div.external-param-editor-container div.external-editor div.controls input {
+  background: white;
+}
+.inspector-fields td.dropdown div.external-param-editor-container div.external-editor {
+  height: 100%;
+  margin: 0;
+  bottom: auto;
+}
 .inspector-fields th {
   font-weight: 500;
 }

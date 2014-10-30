@@ -17,4 +17,13 @@ class Partial extends CmsCompoundObject
     {
         return 'partials';
     }
+
+    /**
+     * Returns name of a PHP class to us a parent for the PHP class created for the object's PHP section.
+     * @return mixed Returns the class name or null.
+     */
+    public function getCodeClassParent()
+    {
+        return '\Cms\Classes\PartialCode';
+    }
 }

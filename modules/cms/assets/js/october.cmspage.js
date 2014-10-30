@@ -580,7 +580,7 @@
 
             var $componentList = $('#cms-master-tabs > div.tab-content > .tab-pane.active .control-componentlist .layout')
             if ($componentList.length == 0) {
-                alert('Components can be added only to pages and layouts.')
+                alert('Components can be added only to pages, partials and layouts.')
                 return;
             }
 
