@@ -66,7 +66,7 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerMenuItems('October.Backend', [
                 'dashboard' => [
                     'label'       => 'backend::lang.dashboard.menu_label',
-                    'icon'        => 'icon-home',
+                    'icon'        => 'icon-dashboard',
                     'url'         => Backend::url('backend'),
                     'permissions' => ['backend.access_dashboard'],
                     'order'       => 1

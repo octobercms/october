@@ -87,6 +87,7 @@ return [
     ],
     'settings' => [
         'menu_label'     => 'تنظیمات',
+        'not_found' => 'تنظیمات مورد نظر یافت نشد.',
         'missing_model'  => 'صفحه تنظیمات شامل یک مدل تعریف نشده می باشد.',
         'update_success' => 'تنظیمات برای :name با موفقیت تغییر یافتند.',
         'return'         => 'بازگشت به تنظیمات سیستم',
@@ -110,6 +111,10 @@ return [
         'sendmail'                   => 'Sendmail',
         'sendmail_path'              => 'محل Sendmail',
         'sendmail_path_comment'      => 'لطفا محل ذخیره نرم افزار sendmail را مشخص نمایید.',
+        'mailgun_domain' => 'دامنه ی Mailgun',
+        'mailgun_domain_comment' => 'لطفا نام دامنه ی Mailgun را وارد نمایید.',
+        'mailgun_secret' => 'امنیت mailgun',
+        'mailgun_domain_secret' => 'کلید API ی مربوط به Mailgun را وارد نمایید.',        
     ],
     'mail_templates' => [
         'menu_label'         => 'قالب های نامه الکترونیکی',

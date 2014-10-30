@@ -221,6 +221,12 @@ class UpdateManager
         }
         $result['themes'] = $themes;
 
+        /*
+         * There are updates if update count is empty
+         * or if uninstalled themes are found.
+         */
+        $result['hasUpdates'] = array_get($result, 'update') || count($themes);
+
         Parameters::set('system::update.count', array_get($result, 'update', 0));
 
         return $result;

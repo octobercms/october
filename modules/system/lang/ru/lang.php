@@ -110,6 +110,7 @@ return [
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail Путь',
         'sendmail_path_comment' => 'Пожалуйста, укажите путь к sendmail.',
+        'mailgun' => 'Mailgun',
     ],
     'mail_templates' => [
         'menu_label' => 'Шаблоны почты',
