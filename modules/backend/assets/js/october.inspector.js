@@ -307,13 +307,15 @@
                 })
 
                 var matches = []
-                if (matches = propertyValue.match(/^\{\{([^\}]+)\}\}$/)) {
-                    var value = $.trim(matches[1])
+                if (propertyValue) {
+                    if (matches = propertyValue.match(/^\{\{([^\}]+)\}\}$/)) {
+                        var value = $.trim(matches[1])
 
-                    if (value.length > 0) {
-                        self.showExternalParameterEditor($editorContainer, $editor, $editorLink, $td, true)
-                        $editor.find('input').val(value)
-                        self.writeProperty(property, null, true)
+                        if (value.length > 0) {
+                            self.showExternalParameterEditor($editorContainer, $editor, $editorLink, $td, true)
+                            $editor.find('input').val(value)
+                            self.writeProperty(property, null, true)
+                        }
                     }
                 }
             }
