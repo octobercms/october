@@ -12,10 +12,10 @@
 // Logos
 //
 
-.oc-bg-logo {
+.oc-bg-logo when not (@logo-image = '') {
     background-image: linear-gradient(to bottom, rgba(249,249,249,0.7) 0%,rgba(249,249,249,0.7) 100%), url('@{logo-image}');
 }
-.oc-logo-white {
+.oc-logo-white when not (@logo-image = '') {
     background-image: url('@{logo-image}');
     height: 170px !important;
 }
