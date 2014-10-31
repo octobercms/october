@@ -1,3 +1,6 @@
+* **Build 160** (2014-11-01)
+  - Various fixes to the Backend Brand settings page.
+
 * **Build 158** (2014-10-23)
   - Fixes an issue where new Themes attached to a project were not being installed on update.
   - Fixes issue where XDebug aborts the thread for maximum function count.

@@ -3,6 +3,7 @@
 use File;
 use Lang;
 use Model;
+use Cache;
 use Less_Parser;
 
 /**
@@ -25,6 +26,8 @@ class BrandSettings extends Model
     public $attachOne = [
         'logo' => ['System\Models\File']
     ];
+
+    const CACHE_KEY = 'backend::brand.custom_css';
 
     // Pumpkin
     const PRIMARY_LIGHT = '#e67e22';
@@ -57,9 +60,9 @@ class BrandSettings extends Model
         $this->secondary_color_dark = self::SECONDARY_DARK;
     }
 
-    public function beforeValidate()
+    public function afterSave()
     {
-        $this->rendered_css = self::renderCss();
+        Cache::forget(self::CACHE_KEY);
     }
 
     public static function getLogo()
@@ -73,6 +76,17 @@ class BrandSettings extends Model
     }
 
     public static function renderCss()
+    {
+        if (Cache::has(self::CACHE_KEY)) {
+            return Cache::get(self::CACHE_KEY);
+        }
+
+        $customCss = self::compileCss();
+        Cache::forever(self::CACHE_KEY, $customCss);
+        return $customCss;
+    }
+
+    public static function compileCss()
     {
         $parser = new Less_Parser(['compress' => true]);
 
