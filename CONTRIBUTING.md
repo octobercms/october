@@ -4,13 +4,17 @@ Thank you for your contributions!
 
 ## Reporting a bug with OctoberCMS
 
-We work hard to process bugs that are reporting, to assist with this please ensure the following details are always included:
+We work hard to process bugs that are reported, to assist with this please ensure the following details are always included:
 
-1. **Bug Summary**: Make sure your summary is reflecting what the problem is and where it is.
-2. **Request Location**: Enter the URL where this bug occurs, if applicable.
-3. **Reproduce steps**: Clearly mention the steps to reproduce the bug.
-4. **Expected result**: How OctoberCMS should behave on above mentioned steps.
-5. **Actual result**: What is the actual result on running above steps i.e. the bug behavior - **include any error messages**.
+- **Bug summary**: Make sure your summary reflects what the problem is and where it is.
+
+- **Request location**: Enter the URL where this bug occurs, if applicable.
+
+- **Reproduce steps**: Clearly mention the steps to reproduce the bug.
+
+- **Expected result**: How OctoberCMS should behave on above mentioned steps.
+
+- **Actual result**: What is the actual result on running above steps i.e. the bug behavior - **include any error messages**.
 
 #### Here's how to report a bug on Github
 
@@ -20,8 +24,7 @@ We work hard to process bugs that are reporting, to assist with this please ensu
 
 3. **Create a new bug.** If you don't find any similar issues, you can report your bug via the "new issue" tab once you've logged in.
 
-4. **Monitor your issue and respond to questions.** It may be necessary to provide additional information
-    upon request or you might be asked if the bug still occurs after an update.
+4. **Monitor your issue and respond to questions.** It may be necessary to provide additional information upon request or you might be asked if the bug still occurs after an update.
 
 5. **Close your bug.** In case you notice that the bug doesn't occur anymore, you can close the issue yourself (don't forget to add a note saying the issue is resolved).
 
