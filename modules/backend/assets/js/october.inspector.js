@@ -368,6 +368,12 @@
                 })
                 $container.removeClass('editor-visible')
                 $container.closest('td').removeClass('active')
+
+                var property = $container.closest('tr').data('property'),
+                    propertyEditor = self.findEditor(property)
+
+                if (propertyEditor && propertyEditor.onHideExternalParameterEditor !== undefined)
+                    propertyEditor.onHideExternalParameterEditor()
             }, 200)
             $editorLink.attr('data-original-title', 'Click to enter the external parameter name to load the property value from')
             $editor.find('input').attr('tabindex', -1)
@@ -661,6 +667,17 @@
         return $extPropEditorContainer.hasClass('editor-visible')
     }
 
+    Inspector.prototype.findEditor = function(property) {
+        var count = this.editors.length
+
+        for (var i=0; i < count; i++) {
+            if (this.editors[i].fieldDef.property == property)
+                return this.editors[i]
+        }
+
+        return null
+    }
+
     //
     // EDITOR DEFINITIONS 
     // ==================
@@ -674,6 +691,8 @@
      * - applyValue(), applies the editor value
      * - focus(), focuses the editor input element, if applicable
      * - init(), sets the initial editor value
+     * - onHideExternalParameterEditor(), optional handler, triggered when a user hides the 
+     *   external parameter editor on the Inspector field.
      */
 
     // STRING EDITOR
@@ -975,6 +994,10 @@
                 self.hideLoadingIndicator()
             }
         })
+    }
+
+    InspectorEditorDropdown.prototype.onHideExternalParameterEditor = function() {
+        this.loadOptions(false)
     }
 
     $.oc.inspector.editors.inspectorEditorDropdown = InspectorEditorDropdown;
