@@ -4,6 +4,8 @@ Thank you for your contributions!
 
 ## Reporting a bug with OctoberCMS
 
+**Please don't use the main Github for reporting bugs with plugins.** If you have found a bug in a plugin, the best place to report it is with the [plugin author](http://octobercms.com/plugins).
+
 We work hard to process bugs that are reported, to assist with this please ensure the following details are always included:
 
 - **Bug summary**: Make sure your summary reflects what the problem is and where it is.
