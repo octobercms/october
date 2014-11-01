@@ -62,13 +62,13 @@ class ErrorHandler
         // If the exception is already our brand, use it.
         if ($proposedException instanceof BaseException) {
             $exception = $proposedException;
-        // If there is an active mask prepared, use that.
         }
+        // If there is an active mask prepared, use that.
         elseif (static::$activeMask !== null) {
             $exception = static::$activeMask;
             $exception->setMask($proposedException);
-        // Otherwise we should mask it with our own default scent.
         }
+        // Otherwise we should mask it with our own default scent.
         else {
             $exception = new ApplicationException($proposedException->getMessage(), 0);
             $exception->setMask($proposedException);
