@@ -38,7 +38,7 @@ If you wish to contact us privately about any security exploits in OctoberCMS yo
 
 **Please don't use Github issues for suggesting a new feature.** If you have a feature idea, the best place to suggest it is the [OctoberCMS website forum](http://octobercms.com/forum/chan/feature-requests).
 
-Only use Github if you are planning on contributing a new feature and developing it. If want to discuss your idea first, before "officially" posting it anywhere, you can always join us on [IRC](http://octobercms.com/chat).
+Only use Github if you are planning on contributing a new feature and developing it. If you want to discuss your idea first, before "officially" posting it anywhere, you can always join us on [IRC](http://octobercms.com/chat).
 
 #### Github feature requests
 
