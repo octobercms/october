@@ -48,10 +48,10 @@ class Updates extends Controller
      */
     public function index()
     {
-        $this->vars['core_build'] = Parameters::get('system::core.build', '???');
-        $this->vars['project_id'] = Parameters::get('system::project.id');
-        $this->vars['project_name'] = Parameters::get('system::project.name');
-        $this->vars['project_owner'] = Parameters::get('system::project.owner');
+        $this->vars['coreBuild'] = Parameters::get('system::core.build');
+        $this->vars['projectId'] = Parameters::get('system::project.id');
+        $this->vars['projectName'] = Parameters::get('system::project.name');
+        $this->vars['projectOwner'] = Parameters::get('system::project.owner');
         return $this->asExtension('ListController')->index();
     }
 
