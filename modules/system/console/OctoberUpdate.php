@@ -52,10 +52,6 @@ class OctoberUpdate extends Command
             $disableThemes = true;
         }
 
-        if (Config::get('cms.disableCoreUpdates', false)) {
-            $disableCore = true;
-        }
-
         /*
          * Perform update
          */

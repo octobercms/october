@@ -33,11 +33,6 @@ class Updates extends Controller
 
     public $listConfig = ['list' => 'config_list.yaml', 'manage' => 'config_manage_list.yaml'];
 
-    /**
-     * @var boolean If set to true, core updates will not be downloaded or extracted.
-     */
-    protected $disableCoreUpdates = false;
-
     public function __construct()
     {
         parent::__construct();
@@ -46,8 +41,6 @@ class Updates extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'updates');
         SettingsManager::setContext('October.System', 'updates');
-
-        $this->disableCoreUpdates = Config::get('cms.disableCoreUpdates', false);
     }
 
     /**
@@ -113,16 +106,10 @@ class Updates extends Controller
 
         switch ($stepCode) {
             case 'downloadCore':
-                if ($this->disableCoreUpdates) {
-                    return;
-                }
                 $manager->downloadCore(post('hash'));
                 break;
 
             case 'extractCore':
-                if ($this->disableCoreUpdates) {
-                    return;
-                }
                 $manager->extractCore(post('hash'), post('build'));
                 break;
 

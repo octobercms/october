@@ -64,6 +64,11 @@ class UpdateManager
     protected $secret;
 
     /**
+     * @var boolean If set to true, core updates will not be downloaded or extracted.
+     */
+    protected $disableCoreUpdates = false;
+
+    /**
      * Initialize this singleton.
      */
     protected function init()
@@ -74,6 +79,7 @@ class UpdateManager
         $this->repository = App::make('migration.repository');
         $this->tempDirectory = Config::get('cms.tempDir', sys_get_temp_dir());
         $this->baseDirectory = PATH_BASE;
+        $this->disableCoreUpdates = Config::get('cms.disableCoreUpdates', false);
 
         /*
          * Ensure temp directory exists
@@ -190,6 +196,7 @@ class UpdateManager
         }
 
         $result = $this->requestServerData('core/update', $params);
+        $updateCount = (int) array_get($result, 'update', 0);
 
         /*
          * Inject known core build
@@ -222,12 +229,21 @@ class UpdateManager
         $result['themes'] = $themes;
 
         /*
-         * There are updates if update count is empty
-         * or if uninstalled themes are found.
+         * If there is a core update and core updates are disabled,
+         * remove the entry and discount an update unit.
          */
-        $result['hasUpdates'] = array_get($result, 'update') || count($themes);
+        if (array_get($result, 'core') && $this->disableCoreUpdates) {
+            $updateCount = max(0, --$updateCount);
+            unset($result['core']);
+        }
 
-        Parameters::set('system::update.count', array_get($result, 'update', 0));
+        /*
+         * Recalculate the update counter
+         */
+        $updateCount += count($themes);
+        $result['hasUpdates'] = $updateCount > 0;
+        $result['update'] = $updateCount;
+        Parameters::set('system::update.count', $updateCount);
 
         return $result;
     }

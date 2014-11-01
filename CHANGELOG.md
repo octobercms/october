@@ -1,5 +1,6 @@
 * **Build 160** (2014-11-01)
   - Various fixes to the Backend Brand settings page.
+  - When `cms.disableCoreUpdates` is set to **true** the Backend will no longer display updates for the core.
 
 * **Build 158** (2014-10-23)
   - Fixes an issue where new Themes attached to a project were not being installed on update.
