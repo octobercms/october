@@ -63,11 +63,13 @@ class ErrorHandler
         if ($proposedException instanceof BaseException) {
             $exception = $proposedException;
         // If there is an active mask prepared, use that.
-        } elseif (static::$activeMask !== null) {
+        }
+        elseif (static::$activeMask !== null) {
             $exception = static::$activeMask;
             $exception->setMask($proposedException);
         // Otherwise we should mask it with our own default scent.
-        } else {
+        }
+        else {
             $exception = new ApplicationException($proposedException->getMessage(), 0);
             $exception->setMask($proposedException);
         }
@@ -100,7 +102,8 @@ class ErrorHandler
     {
         if (count(static::$maskLayers) > 0) {
             static::$activeMask = array_pop(static::$maskLayers);
-        } else {
+        }
+        else {
             static::$activeMask = null;
         }
     }

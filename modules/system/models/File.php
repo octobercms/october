@@ -29,7 +29,8 @@ class File extends FileBase
         $uploadsDir = Config::get('cms.uploadsDir');
         if ($this->isPublic()) {
             return base_path() . $uploadsDir . '/public/';
-        } else {
+        }
+        else {
             return base_path() . $uploadsDir . '/protected/';
         }
     }
@@ -42,7 +43,8 @@ class File extends FileBase
         $uploadsDir = Config::get('cms.uploadsDir');
         if ($this->isPublic()) {
             return Request::getBasePath() . $uploadsDir . '/public/';
-        } else {
+        }
+        else {
             return Request::getBasePath() . $uploadsDir . '/protected/';
         }
     }

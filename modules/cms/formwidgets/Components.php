@@ -36,6 +36,7 @@ class Components extends FormWidgetBase
 
         $manager = ComponentManager::instance();
         $manager->listComponents();
+
         foreach ($this->model->settings['components'] as $name => $properties) {
             list($name, $alias) = strpos($name, ' ') ? explode(' ', $name) : [$name, $name];
 
@@ -55,7 +56,8 @@ class Components extends FormWidgetBase
                         $componentObj->pluginIcon = $pluginDetails['icon'];
                     }
                 }
-            } catch (Exception $ex) {
+            }
+            catch (Exception $ex) {
                 $componentObj = new UnknownComponent(null, $properties, $ex->getMessage());
                 $componentObj->alias = $alias;
                 $componentObj->pluginIcon = 'icon-bug';

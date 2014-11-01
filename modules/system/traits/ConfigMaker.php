@@ -33,19 +33,22 @@ trait ConfigMaker
          */
         if (is_object($configFile)) {
             $config = $configFile;
+        }
         /*
          * Embedded config
          */
-        } elseif (is_array($configFile)) {
+        elseif (is_array($configFile)) {
             $config = $this->makeConfigFromArray($configFile);
+        }
         /*
          * Process config from file contents
          */
-        } else {
+        else {
 
             if (isset($this->controller) && method_exists($this->controller, 'getConfigPath')) {
                 $configFile = $this->controller->getConfigPath($configFile);
-            } else {
+            }
+            else {
                 $configFile = $this->getConfigPath($configFile);
             }
 

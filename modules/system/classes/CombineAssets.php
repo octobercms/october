@@ -178,7 +178,8 @@ class CombineAssets
     {
         if ($extension === null) {
             $this->aliases = [];
-        } else {
+        }
+        else {
             $this->aliases[$extension] = [];
         }
 
@@ -194,9 +195,11 @@ class CombineAssets
     {
         if ($extension === null) {
             return $this->aliases;
-        } elseif (isset($this->aliases[$extension])) {
+        }
+        elseif (isset($this->aliases[$extension])) {
             return $this->aliases[$extension];
-        } else {
+        }
+        else {
             return null;
         }
     }
@@ -238,7 +241,8 @@ class CombineAssets
     {
         if ($extension === null) {
             $this->filters = [];
-        } else {
+        }
+        else {
             $this->filters[$extension] = [];
         }
 
@@ -254,9 +258,11 @@ class CombineAssets
     {
         if ($extension === null) {
             return $this->filters;
-        } elseif (isset($this->filters[$extension])) {
+        }
+        elseif (isset($this->filters[$extension])) {
             return $this->filters[$extension];
-        } else {
+        }
+        else {
             return null;
         }
     }
@@ -316,7 +322,8 @@ class CombineAssets
         if (count($combineCss) > count($combineJs)) {
             $extension = 'css';
             $assets = $combineCss;
-        } else {
+        }
+        else {
             $extension = 'js';
             $assets = $combineJs;
         }
@@ -373,7 +380,8 @@ class CombineAssets
 
         if ($actionExists) {
             return URL::action($combineAction, [$outputFilename], false);
-        } else {
+        }
+        else {
             return Request::getBasePath().'/combine/'.$outputFilename;
         }
     }

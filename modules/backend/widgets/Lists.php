@@ -209,7 +209,8 @@ class Lists extends WidgetBase
             $this->vars['pageLast'] = $this->records->getLastPage();
             $this->vars['pageFrom'] = $this->records->getFrom();
             $this->vars['pageTo'] = $this->records->getTo();
-        } else {
+        }
+        else {
             $this->vars['recordTotal'] = $this->records->count();
             $this->vars['pageCurrent'] = 1;
         }
@@ -305,10 +306,11 @@ class Lists extends WidgetBase
                         : $table . '.' . $column->valueFrom;
 
                     $relationSearchable[$column->relation][] = $columnName;
+                }
                 /*
                  * Primary
                  */
-                } else {
+                else {
                     $columnName = isset($column->sqlSelect)
                         ? DbDongle::raw($this->parseTableName($column->sqlSelect, $primaryTable))
                         : $primaryTable . '.' . $column->columnName;
@@ -391,10 +393,11 @@ class Lists extends WidgetBase
                 $joinSql = $countQuery->select($joinSql)->toSql();
 
                 $selects[] = Db::raw("(".$joinSql.") as ".$alias);
+            }
             /*
              * Primary column
              */
-            } else {
+            else {
                 $sqlSelect = $this->parseTableName($column->sqlSelect, $primaryTable);
                 $selects[] = DbDongle::raw($sqlSelect . ' as '. $alias);
             }
@@ -449,7 +452,8 @@ class Lists extends WidgetBase
     {
         if ($this->showTree) {
             $records = $this->model->getAllRoot();
-        } else {
+        }
+        else {
             $model = $this->prepareModel();
             $records = ($this->showPagination)
                 ? $model->paginate($this->recordsPerPage)
@@ -544,10 +548,11 @@ class Lists extends WidgetBase
                 $definitions[$columnName]->invisible = false;
                 $columns[$columnName] = $definitions[$columnName];
             }
+        }
         /*
          * Use default column list
          */
-        } else {
+        else {
             foreach ($definitions as $columnName => $column) {
                 if ($column->invisible) {
                     continue;
@@ -617,9 +622,11 @@ class Lists extends WidgetBase
     {
         if (is_string($config)) {
             $label = $config;
-        } elseif (isset($config['label'])) {
+        }
+        elseif (isset($config['label'])) {
             $label = $config['label'];
-        } else {
+        }
+        else {
             $label = studly_case($name);
         }
 
@@ -683,11 +690,14 @@ class Lists extends WidgetBase
         if ($column->valueFrom) {
             if (!array_key_exists($columnName, $record->getRelations())) {
                 $value = null;
-            } elseif ($this->isColumnRelated($column, true)) {
+            }
+            elseif ($this->isColumnRelated($column, true)) {
                 $value = implode(', ', $record->{$columnName}->lists($column->valueFrom));
-            } elseif ($this->isColumnRelated($column)) {
+            }
+            elseif ($this->isColumnRelated($column)) {
                 $value = $record->{$columnName}->{$column->valueFrom};
-            } else {
+            }
+            else {
                 $value = $record->{$column->valueFrom};
             }
         /*
@@ -695,10 +705,12 @@ class Lists extends WidgetBase
          * so prevent the Model from attempting to load the relation
          * if the value is NULL.
          */
-        } else {
+        }
+        else {
             if ($record->hasRelation($columnName) && array_key_exists($columnName, $record->attributes)) {
                 $value = $record->attributes[$columnName];
-            } else {
+            }
+            else {
                 $value = $record->{$columnName};
             }
         }
@@ -881,7 +893,8 @@ class Lists extends WidgetBase
     {
         if (empty($term)) {
             $this->showTree = $this->getConfig('showTree', $this->showTree);
-        } else {
+        }
+        else {
             $this->showTree = false;
         }
 
@@ -926,7 +939,8 @@ class Lists extends WidgetBase
 
             if ($column != $sortOptions['column'] || $sortOptions['direction'] == 'asc') {
                 $this->sortDirection = $sortOptions['direction'] = 'desc';
-            } else {
+            }
+            else {
                 $this->sortDirection = $sortOptions['direction'] = 'asc';
             }
 
@@ -962,15 +976,16 @@ class Lists extends WidgetBase
         if ($this->showSorting && ($sortOptions = $this->getSession('sort'))) {
             $this->sortColumn = $sortOptions['column'];
             $this->sortDirection = $sortOptions['direction'];
-            
+        }
         /*
          * Supplied default
          */
-        } else {
+        else {
             if (is_string($this->defaultSort)) {
                 $this->sortColumn = $this->defaultSort;
                 $this->sortDirection = 'desc';
-            } elseif (is_array($this->defaultSort) && isset($this->defaultSort['column'])) {
+            }
+            elseif (is_array($this->defaultSort) && isset($this->defaultSort['column'])) {
                 $this->sortColumn = $this->defaultSort['column'];
                 $this->sortDirection = (isset($this->defaultSort['direction'])) ?
                     $this->defaultSort['direction'] :
@@ -997,7 +1012,8 @@ class Lists extends WidgetBase
     {
         if ($column === null) {
             return (count($this->getSortableColumns()) > 0);
-        } else {
+        }
+        else {
             return array_key_exists($column, $this->getSortableColumns());
         }
     }

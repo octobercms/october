@@ -75,7 +75,8 @@ class CmsObjectQuery
 
         if ($this->useCache) {
             return forward_static_call([$this->cmsObject, 'loadCached'], $this->theme, $fileName);
-        } else {
+        }
+        else {
             return forward_static_call([$this->cmsObject, 'load'], $this->theme, $fileName);
         }
     }

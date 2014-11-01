@@ -114,7 +114,8 @@ class OctoberUtil extends Command
 
         if ($totalCount > 0) {
             $this->comment(sprintf('Successfully deleted %s thumbs', $totalCount));
-        } else {
+        }
+        else {
             $this->comment('No thumbs found to delete');
         }
     }

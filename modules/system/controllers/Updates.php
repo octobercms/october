@@ -166,7 +166,8 @@ class Updates extends Controller
             $this->vars['hasUpdates'] = array_get($result, 'hasUpdates', false);
             $this->vars['pluginList'] = array_get($result, 'plugins', []);
             $this->vars['themeList'] = array_get($result, 'themes', []);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
         }
 
@@ -212,7 +213,8 @@ class Updates extends Controller
             ];
 
             $this->vars['updateSteps'] = $updateSteps;
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
         }
 
@@ -253,7 +255,8 @@ class Updates extends Controller
             ];
 
             $this->vars['updateSteps'] = $updateSteps;
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
         }
 
@@ -371,7 +374,8 @@ class Updates extends Controller
             ]);
 
             return $this->onForceUpdate();
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
             return $this->makePartial('project_form');
         }
@@ -430,7 +434,8 @@ class Updates extends Controller
             $this->vars['updateSteps'] = $updateSteps;
 
             return $this->makePartial('execute');
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
             return $this->makePartial('plugin_form');
         }
@@ -502,7 +507,8 @@ class Updates extends Controller
     {
         try {
             $this->vars['checked'] = post('checked');
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
         }
         return $this->makePartial('disable_form');
@@ -522,7 +528,8 @@ class Updates extends Controller
 
                 if ($disable) {
                     $manager->disablePlugin($object->code, true);
-                } else {
+                }
+                else {
                     $manager->enablePlugin($object->code, true);
                 }
 
@@ -534,7 +541,8 @@ class Updates extends Controller
 
         if ($disable) {
             Flash::success(Lang::get('system::lang.plugins.disable_success'));
-        } else {
+        }
+        else {
             Flash::success(Lang::get('system::lang.plugins.enable_success'));
         }
 

@@ -33,7 +33,8 @@ class Controller extends BaseController
             $combiner = new CombineAssets;
             return $combiner->getContents($cacheId);
 
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             return '/* '.$ex->getMessage().' */';
         }
     }

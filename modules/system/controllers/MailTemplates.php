@@ -77,7 +77,8 @@ class MailTemplates extends Controller
             });
 
             Flash::success('The test message has been successfully sent.');
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
     }

@@ -390,7 +390,8 @@ class PluginManager
         if (File::exists($path)) {
             $disabled = json_decode(File::get($path), true);
             $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
-        } else {
+        }
+        else {
             $this->writeDisabled();
         }
     }
@@ -485,14 +486,16 @@ class PluginManager
             foreach ($required as $require) {
                 if (!$this->hasPlugin($require)) {
                     $disable = true;
-                } elseif (($pluginObj = $this->findByIdentifier($require)) && $pluginObj->disabled) {
+                }
+                elseif (($pluginObj = $this->findByIdentifier($require)) && $pluginObj->disabled) {
                     $disable = true;
                 }
             }
 
             if ($disable) {
                 $this->disablePlugin($id);
-            } else {
+            }
+            else {
                 $this->enablePlugin($id);
             }
         }

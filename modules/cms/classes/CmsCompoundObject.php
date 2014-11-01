@@ -202,7 +202,8 @@ class CmsCompoundObject extends CmsObject
             foreach ($values as &$value) {
                 if (!is_array($value)) {
                     $value = trim($value);
-                } else {
+                }
+                else {
                     $trim($value);
                 }
             }
@@ -229,7 +230,8 @@ class CmsCompoundObject extends CmsObject
                 $code = preg_replace('/\?>$/', '', $code);
 
                 $content[] = '<?php'.PHP_EOL.$this->code.PHP_EOL.'?>';
-            } else {
+            }
+            else {
                 $content[] = $this->code;
             }
         }
@@ -322,7 +324,8 @@ class CmsCompoundObject extends CmsObject
 
         if (self::$objectComponentPropertyMap !== null) {
             $objectComponentMap = self::$objectComponentPropertyMap;
-        } else {
+        }
+        else {
             $cached = Cache::get($key, false);
             $unserialized = $cached ? @unserialize($cached) : false;
             $objectComponentMap = $unserialized ? $unserialized : [];
@@ -343,7 +346,8 @@ class CmsCompoundObject extends CmsObject
 
         if (!isset($this->settings['components'])) {
             $objectComponentMap[$objectCode] = [];
-        } else {
+        }
+        else {
             foreach ($this->settings['components'] as $componentName => $componentSettings) {
                 $nameParts = explode(' ', $componentName);
                 if (count($nameParts > 1)) {

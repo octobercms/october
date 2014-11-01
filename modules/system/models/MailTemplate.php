@@ -107,7 +107,8 @@ class MailTemplate extends Model
             }
 
             self::$cache[$code] = $template;
-        } else {
+        }
+        else {
             $template = self::$cache[$code];
         }
 

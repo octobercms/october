@@ -320,7 +320,8 @@ class CmsObject implements ArrayAccess
             $methodName = 'set'.ucfirst($key);
             if (method_exists($this, $methodName)) {
                 $this->$methodName($value);
-            } else {
+            }
+            else {
                 $this->$key = $value;
             }
         }

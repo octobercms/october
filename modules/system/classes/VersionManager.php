@@ -103,7 +103,8 @@ class VersionManager
         if (is_array($details)) {
             $comment = array_shift($details);
             $scripts = $details;
-        } else {
+        }
+        else {
             $comment = $details;
             $scripts = [];
         }
@@ -148,7 +149,8 @@ class VersionManager
         foreach ($pluginHistory as $history) {
             if ($history->type == self::HISTORY_TYPE_COMMENT) {
                 $this->removeDatabaseComment($code, $history->version);
-            } elseif ($history->type == self::HISTORY_TYPE_SCRIPT) {
+            }
+            elseif ($history->type == self::HISTORY_TYPE_SCRIPT) {
                 $this->removeDatabaseScript($code, $history->version, $history->detail);
             }
         }
@@ -296,12 +298,14 @@ class VersionManager
                 'version' => $version,
                 'created_at' => new Carbon
             ]);
-        } elseif ($version && $currentVersion) {
+        }
+        elseif ($version && $currentVersion) {
             Db::table('system_plugin_versions')->where('code', $code)->update([
                 'version' => $version,
                 'created_at' => new Carbon
             ]);
-        } elseif ($currentVersion) {
+        }
+        elseif ($currentVersion) {
             Db::table('system_plugin_versions')->where('code', $code)->delete();
         }
 

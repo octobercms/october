@@ -165,7 +165,8 @@ class CmsException extends ApplicationException
         /*
          * Errors occurring the PHP code base class (Cms\Classes\CodeBase)
          */
-        } else {
+        }
+        else {
             $trace = $exception->getTrace();
             if (isset($trace[1]['class'])) {
                 $class = $trace[1]['class'];

@@ -234,7 +234,8 @@ class SettingsManager
                     list($author, $plugin) = explode('.', $owner);
                     $uri[] = strtolower($author);
                     $uri[] = strtolower($plugin);
-                } else {
+                }
+                else {
                     $uri[] = strtolower($owner);
                 }
 

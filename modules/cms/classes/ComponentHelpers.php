@@ -59,7 +59,8 @@ class ComponentHelpers
                     array_walk($property[$name], function (&$_value, $key) {
                         $_value = Lang::get($_value);
                     });
-                } else {
+                }
+                else {
                     $property[$name] = Lang::get($value);
                 }
             }

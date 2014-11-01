@@ -270,7 +270,8 @@ trait AssetMaker
 
             if ($build == 'core') {
                 $build = 'v' . Parameters::get('system::core.build', 1);
-            } elseif ($pluginVersion = PluginVersion::getVersion($build)) {
+            }
+            elseif ($pluginVersion = PluginVersion::getVersion($build)) {
                 $build = 'v' . $pluginVersion;
             }
 

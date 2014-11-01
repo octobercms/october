@@ -51,7 +51,8 @@
 
             if (checked) {
                 $el.closest('tr').addClass('active')
-            } else {
+            }
+            else {
                 $('.list-checkbox input[type="checkbox"]', head).prop('checked', false)
                 $el.closest('tr').removeClass('active')
             }

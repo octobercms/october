@@ -47,7 +47,8 @@ class RequestLog extends Model
         if (!$record->exists) {
             $record->count = 1;
             $record->save();
-        } else {
+        }
+        else {
             $record->increment('count');
         }
 

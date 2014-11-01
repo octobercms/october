@@ -194,7 +194,8 @@ class Controller extends BaseController
          */
         if (!$page->layout) {
             $layout = Layout::initFallback($this->theme);
-        } elseif (($layout = Layout::loadCached($this->theme, $page->layout)) === null) {
+        }
+        elseif (($layout = Layout::loadCached($this->theme, $page->layout)) === null) {
             throw new CmsException(Lang::get('cms::lang.layout.not_found', ['name'=>$page->layout]));
         }
 
@@ -280,7 +281,8 @@ class Controller extends BaseController
             $template = $this->twig->loadTemplate($this->page->getFullPath());
             $this->pageContents = $template->render($this->vars);
             CmsException::unmask();
-        } else {
+        }
+        else {
             $this->pageContents = $apiResult;
         }
 
@@ -406,7 +408,8 @@ class Controller extends BaseController
 
             $componentObj->alias = $alias;
             $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
-        } else {
+        }
+        else {
             if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
                 throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
             }
@@ -446,7 +449,8 @@ class Controller extends BaseController
                             throw new CmsException(Lang::get('cms::lang.partial.invalid_name', ['name'=>$partial]));
                         }
                     }
-                } else {
+                }
+                else {
                     $partialList = [];
                 }
 
@@ -465,7 +469,8 @@ class Controller extends BaseController
                  */
                 if (is_array($result)) {
                     $responseContents = array_merge($responseContents, $result);
-                } elseif (is_string($result)) {
+                }
+                elseif (is_string($result)) {
                     $responseContents['result'] = $result;
                 }
 
@@ -485,16 +490,19 @@ class Controller extends BaseController
                 }
 
                 return Response::make()->setContent($responseContents);
-            } catch (ValidationException $ex) {
+            }
+            catch (ValidationException $ex) {
                 /*
                  * Handle validation errors
                  */
                 $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
                 $responseContents['X_OCTOBER_ERROR_MESSAGE'] = $ex->getMessage();
                 return Response::make($responseContents, 406);
-            } catch (ApplicationException $ex) {
+            }
+            catch (ApplicationException $ex) {
                 return Response::make($ex->getMessage(), 500);
-            } catch (Exception $ex) {
+            }
+            catch (Exception $ex) {
                 /*
                  * Display a "dumbed down" error if custom page is activated
                  * otherwise display a more detailed error.
@@ -535,10 +543,11 @@ class Controller extends BaseController
                 $result = $componentObj->$handlerName();
                 return ($result) ?: true;
             }
+        }
         /*
          * Process code section handler
          */
-        } else {
+        else {
             if (method_exists($this->pageObj, $handler)) {
                 $result = $this->pageObj->$handler();
                 return ($result) ?: true;
@@ -694,21 +703,25 @@ class Controller extends BaseController
             if (!strlen($componentAlias)) {
                 if ($this->componentContext !== null) {
                     $componentObj = $this->componentContext;
-                } elseif (($componentObj = $this->findComponentByPartial($partialName)) === null) {
+                }
+                elseif (($componentObj = $this->findComponentByPartial($partialName)) === null) {
                     if ($throwException) {
                         throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
-                    } else {
+                    }
+                    else {
                         return false;
                     }
                 }
             /*
              * Component alias is supplied
              */
-            } else {
+            }
+            else {
                 if (($componentObj = $this->findComponentByName($componentAlias)) === null) {
                     if ($throwException) {
                         throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$componentAlias]));
-                    } else {
+                    }
+                    else {
                         return false;
                     }
                 }
@@ -736,7 +749,8 @@ class Controller extends BaseController
             if ($partial === null) {
                 if ($throwException) {
                     throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
-                } else {
+                }
+                else {
                     return false;
                 }
             }
@@ -745,14 +759,16 @@ class Controller extends BaseController
              * Set context for self access
              */
             $this->vars['__SELF__'] = $componentObj;
-        } else {
+        }
+        else {
             /*
              * Process theme partial
              */
             if (($partial = Partial::loadCached($this->theme, $name)) === null) {
                 if ($throwException) {
                     throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
-                } else {
+                }
+                else {
                     return false;
                 }
             }
@@ -831,12 +847,14 @@ class Controller extends BaseController
          */
         if ($event = $this->fireEvent('page.beforeRenderContent', [$name], true)) {
             $content = $event;
-        } elseif ($event = Event::fire('cms.page.beforeRenderContent', [$this, $name], true)) {
+        }
+        elseif ($event = Event::fire('cms.page.beforeRenderContent', [$this, $name], true)) {
             $content = $event;
+        }
         /*
          * Load content from theme
          */
-        } elseif (($content = Content::loadCached($this->theme, $name)) === null) {
+        elseif (($content = Content::loadCached($this->theme, $name)) === null) {
             throw new CmsException(Lang::get('cms::lang.content.not_found', ['name'=>$name]));
         }
 
@@ -988,7 +1006,8 @@ class Controller extends BaseController
         if (is_array($url)) {
             $_url = Request::getBaseUrl();
             $_url .= CombineAssets::combine($url, $themePath);
-        } else {
+        }
+        else {
             $_url = Request::getBasePath().$themePath;
             if ($url !== null) {
                 $_url .= '/'.$url;

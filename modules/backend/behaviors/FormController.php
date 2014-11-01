@@ -141,7 +141,8 @@ class FormController extends ControllerBehavior
             $model = $this->controller->formCreateModelObject();
             $this->initForm($model);
             $this->controller->vars['formModel'] = $model;
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
     }
@@ -196,7 +197,8 @@ class FormController extends ControllerBehavior
             $this->initForm($model);
             
             $this->controller->vars['formModel'] = $model;
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
     }
@@ -274,7 +276,8 @@ class FormController extends ControllerBehavior
             $this->initForm($model);
             
             $this->controller->vars['formModel'] = $model;
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
     }

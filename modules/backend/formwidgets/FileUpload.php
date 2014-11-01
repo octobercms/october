@@ -176,7 +176,8 @@ class FileUpload extends FormWidgetBase
             }
 
             throw new SystemException('Unable to find file, it may no longer exist');
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             return json_encode(['error' => $ex->getMessage()]);
         }
     }
@@ -243,7 +244,8 @@ class FileUpload extends FormWidgetBase
             $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, ['mode' => 'crop']);
             $result = $file;
 
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $result = json_encode(['error' => $ex->getMessage()]);
         }
 

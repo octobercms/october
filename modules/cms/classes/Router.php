@@ -208,7 +208,8 @@ class Router
         $cacheable = Config::get('cms.enableRoutesCache');
         if ($cacheable) {
             $cached = Cache::get($key, false);
-        } else {
+        }
+        else {
             $cached = false;
         }
 

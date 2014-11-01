@@ -98,11 +98,10 @@
                         success: function(data){
                             setTimeout(function() { deferred.resolve() }, 600)
 
-                            if (step.code == 'completeUpdate' || step.code == 'completeInstall') {
+                            if (step.code == 'completeUpdate' || step.code == 'completeInstall')
                                 this.success(data)
-                            } else {
+                            else
                                 setLoadingBar(false)
-                            }
                         },
                         error: function(data){
                             setLoadingBar(false)
@@ -121,12 +120,10 @@
             var loadingBar = $('#executeLoadingBar'),
                 messageDiv = $('#executeMessage')
 
-            if (state) {
+            if (state)
                 loadingBar.removeClass('bar-loaded')
-            }
-            else {
+            else
                 loadingBar.addClass('bar-loaded')
-            }
 
             if (message)
                 messageDiv.text(message)

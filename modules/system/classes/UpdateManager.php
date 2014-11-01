@@ -161,7 +161,8 @@ class UpdateManager
         try {
             $result = $this->requestUpdateList();
             $newCount = array_get($result, 'update', 0);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $newCount = 0;
         }
 
@@ -594,7 +595,8 @@ class UpdateManager
 
         try {
             $resultData = @json_decode($result->body, true);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
         }
 

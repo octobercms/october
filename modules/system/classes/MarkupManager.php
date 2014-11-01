@@ -310,7 +310,8 @@ class MarkupManager
                 if ($replaceWith) {
                     $isWild = $callable;
                     $isWild[0] = str_replace('*', $replaceWith, $callable[0]);
-                } else {
+                }
+                else {
                     $isWild = true;
                 }
             }
@@ -319,7 +320,8 @@ class MarkupManager
                 if ($replaceWith) {
                     $isWild = $isWild ?: $callable;
                     $isWild[1] = str_replace('*', $replaceWith, $callable[1]);
-                } else {
+                }
+                else {
                     $isWild = true;
                 }
             }

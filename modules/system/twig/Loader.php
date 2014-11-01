@@ -74,7 +74,8 @@ class Loader implements Twig_LoaderInterface
         try {
             $this->findTemplate($name);
             return true;
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception) {
             return false;
         }
     }

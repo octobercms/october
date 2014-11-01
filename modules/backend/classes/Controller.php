@@ -346,7 +346,8 @@ class Controller extends Extendable
                     //         ));
                     //     }
                     // }
-                } else {
+                }
+                else {
                     $partialList = [];
                 }
 
@@ -385,7 +386,8 @@ class Controller extends Extendable
                 /*
                  * No redirect is used, look for any flash messages
                  */
-                } elseif (Flash::check()) {
+                }
+                elseif (Flash::check()) {
                     $responseContents['#layout-flash-messages'] = $this->makeLayoutPartial('flash_messages');
                 }
 
@@ -397,7 +399,8 @@ class Controller extends Extendable
                 }
 
                 return Response::make()->setContent($responseContents);
-            } catch (ValidationException $ex) {
+            }
+            catch (ValidationException $ex) {
                 /*
                  * Handle validation error gracefully
                  */
@@ -406,14 +409,17 @@ class Controller extends Extendable
                 $responseContents['#layout-flash-messages'] = $this->makeLayoutPartial('flash_messages');
                 $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
                 return Response::make($responseContents, 406);
-            } catch (MassAssignmentException $ex) {
+            }
+            catch (MassAssignmentException $ex) {
                 return Response::make(
                     Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]),
                     500
                 );
-            } catch (ApplicationException $ex) {
+            }
+            catch (ApplicationException $ex) {
                 return Response::make($ex->getMessage(), 500);
-            } catch (Exception $ex) {
+            }
+            catch (Exception $ex) {
                 return Response::make(
                     sprintf('"%s" on line %s of %s', $ex->getMessage(), $ex->getLine(), $ex->getFile()),
                     500
@@ -454,7 +460,8 @@ class Controller extends Extendable
                 $result = call_user_func_array([$widget, $handlerName], $this->params);
                 return ($result) ?: true;
             }
-        } else {
+        }
+        else {
             /*
              * Process page specific handler (index_onSomething)
              */

@@ -176,7 +176,8 @@ class TemplateList extends WidgetBase
                     $filteredItems[] = $item;
                 }
             }
-        } else {
+        }
+        else {
             $filteredItems = $normalizedItems;
         }
 
@@ -198,7 +199,8 @@ class TemplateList extends WidgetBase
                 }
 
                 $foundGroups[$group]->items[] = $itemData;
-            } else {
+            }
+            else {
                 $result[] = $itemData;
             }
         }
@@ -283,7 +285,8 @@ class TemplateList extends WidgetBase
             if (Str::contains(Str::lower($item->title), $word)) {
                 return true;
             }
-        } elseif (Str::contains(Str::lower($item->fileName), $word)) {
+        }
+        elseif (Str::contains(Str::lower($item->fileName), $word)) {
             return true;
         }
 

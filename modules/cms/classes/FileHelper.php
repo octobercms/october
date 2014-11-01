@@ -78,18 +78,20 @@ class FileHelper
     public static function formatIniString($data, $level = 1)
     {
         $content = null;
-
         $sections = [];
+
         foreach ($data as $key => $value) {
             if (is_array($value)) {
                 if ($level == 1) {
                     $sections[$key] = self::formatIniString($value, $level+1);
-                } else {
+                }
+                else {
                     foreach ($value as $val) {
                         $content .= $key.'[] = "'.self::escapeIniString($val).'"'.PHP_EOL;
                     }
                 }
-            } elseif (strlen($value)) {
+            }
+            elseif (strlen($value)) {
                 $content .= $key.' = "'.self::escapeIniString($value).'"'.PHP_EOL;
             }
         }

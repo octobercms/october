@@ -43,7 +43,8 @@ class PlaceholderTokenParser extends Twig_TokenParser
 
             $body = $this->parser->subparse([$this, 'decidePlaceholderEnd'], true);
             $stream->expect(Twig_Token::BLOCK_END_TYPE);
-        } else {
+        }
+        else {
             $params = $this->loadParams($stream);
         }
 

@@ -336,7 +336,8 @@ if (window.jQuery === undefined)
 
         try {
             return JSON.parse(JSON.stringify(eval("({" + value + "})")))
-        } catch (e) {
+        }
+        catch (e) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)
         }
     }

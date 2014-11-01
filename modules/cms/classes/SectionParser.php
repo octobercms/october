@@ -52,10 +52,12 @@ class SectionParser
             $result['code'] = preg_replace('/\?\>\s*$/', '', $result['code']);
 
             $result['markup'] = $sections[2];
-        } elseif ($count == 2) {
+        }
+        elseif ($count == 2) {
             $result['settings'] = parse_ini_string($sections[0], true);
             $result['markup'] = $sections[1];
-        } elseif ($count == 1) {
+        }
+        elseif ($count == 1) {
             $result['markup'] = $sections[0];
         }
 
@@ -83,10 +85,12 @@ class SectionParser
             $result['settings'] = self::adjustLinePosition($content);
             $result['code'] = self::calculateLinePosition($content);
             $result['markup'] = self::calculateLinePosition($content, 2);
-        } elseif ($count == 2) {
+        }
+        elseif ($count == 2) {
             $result['settings'] = self::adjustLinePosition($content);
             $result['markup'] = self::calculateLinePosition($content);
-        } elseif ($count == 1) {
+        }
+        elseif ($count == 1) {
             $result['markup'] = 1;
         }
 
