@@ -54,7 +54,7 @@ return array(
     |
     */
 
-    'from' => array('address' => 'noreply@site.com', 'name' => 'October'),
+    'from' => array('address' => 'noreply@domain.tld', 'name' => 'OctoberCMS'),
 
     /*
     |--------------------------------------------------------------------------
