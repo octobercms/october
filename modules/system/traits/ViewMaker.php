@@ -58,7 +58,8 @@ trait ViewMaker
         if (!File::isFile($partialPath)) {
             if ($throwException) {
                 throw new SystemException(Lang::get('backend::lang.partial.not_found', ['name' => $partialPath]));
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -117,7 +118,8 @@ trait ViewMaker
         if (!File::isFile($layoutPath)) {
             if ($throwException) {
                 throw new SystemException(Lang::get('cms::lang.layout.not_found', ['name' => $layoutPath]));
-            } else {
+            }
+            else {
                 return false;
             }
         }
