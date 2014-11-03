@@ -241,6 +241,20 @@ return [
     'branding' => [
         'menu_label' => 'Customize back-end',
         'menu_description' => 'Customize the administration area such as name, colors and logo.',
+        'brand' => 'Brand',
+        'logo' => 'Logo',
+        'logo_description' => 'Upload a custom logo to use in the back-end.',
+        'app_name' => 'App Name',
+        'app_name_description' => 'This name is shown in the title area of the back-end.',
+        'app_tagline' => 'App Tagline',
+        'app_tagline_description' => 'This name is shown on the sign in screen for the back-end.',
+        'colors' => 'Colors',
+        'primary_light' => 'Primary (Light)',
+        'primary_dark' => 'Primary (Dark)',
+        'secondary_light' => 'Secondary (Light)',
+        'secondary_dark' => 'Secondary (Dark)',
+        'styles' => 'Styles',
+        'custom_stylesheet' => 'Custom stylesheet'
     ],
     'backend_preferences' => [
         'menu_label' => 'Back-end preferences',

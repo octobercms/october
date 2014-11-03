@@ -7,52 +7,52 @@ tabs:
     fields:
 
         logo:
-            label: Logo
+            label: backend::lang.branding.logo
             type: fileupload
-            commentAbove: Upload a custom logo to use in the back-end.
+            commentAbove: backend::lang.branding.logo_description
             mode: image
             imageHeight: 170
             imageWidth: 170
-            tab: Brand
+            tab: backend::lang.branding.brand
 
         app_name:
-            label: App Name
-            commentAbove: This name is shown in the title area of the back-end.
-            tab: Brand
+            label: backend::lang.branding.app_name
+            commentAbove: backend::lang.branding.app_name_description
+            tab: backend::lang.branding.brand
 
         app_tagline:
-            label: App Tagline
-            commentAbove: This name is shown on the sign in screen for the back-end.
-            tab: Brand
+            label: backend::lang.branding.app_tagline
+            commentAbove: backend::lang.branding.app_tagline_description
+            tab: backend::lang.branding.brand
 
         primary_color_light:
-            label: Primary (Light)
+            label: backend::lang.branding.primary_light
             type: colorpicker
-            tab: Colors
+            tab: backend::lang.branding.colors
             availableColors: [#1abc9c, #2ecc71, #3498db, #9b59b6, #34495e, #f1c40f, #e67e22, #e74c3c, #ecf0f1, #95a5a6]
 
         primary_color_dark:
-            label: Primary (Dark)
+            label: backend::lang.branding.primary_dark
             type: colorpicker
-            tab: Colors
+            tab: backend::lang.branding.colors
             availableColors: [#16a085, #27ae60, #2980b9, #8e44ad, #2b3e50, #f39c12, #d35400, #c0392b, #bdc3c7, #7f8c8d]
 
         secondary_color_light:
-            label: Secondary (Light)
+            label: backend::lang.branding.secondary_light
             type: colorpicker
-            tab: Colors
+            tab: backend::lang.branding.colors
             availableColors: [#1abc9c, #2ecc71, #3498db, #9b59b6, #34495e, #f1c40f, #e67e22, #e74c3c, #ecf0f1, #95a5a6]
 
         secondary_color_dark:
-            label: Secondary (Dark)
+            label: backend::lang.branding.secondary_dark
             type: colorpicker
-            tab: Colors
+            tab: backend::lang.branding.colors
             availableColors: [#16a085, #27ae60, #2980b9, #8e44ad, #2b3e50, #f39c12, #d35400, #c0392b, #bdc3c7, #7f8c8d]
 
         custom_css:
-            label: Custom stylesheet
+            label: backend::lang.branding.custom_stylesheet
             type: codeeditor
-            tab: Styles
+            tab: backend::lang.branding.styles
             size: giant
             language: css
 
