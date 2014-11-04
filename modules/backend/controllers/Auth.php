@@ -49,7 +49,8 @@ class Auth extends Controller
         try {
             if (post('postback')) {
                 return $this->signin_onSubmit();
-            } else {
+            }
+            else {
                 $this->bodyClass .= ' preload';
             }
         }

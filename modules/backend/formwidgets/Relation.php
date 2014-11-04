@@ -129,7 +129,8 @@ class Relation extends FormWidgetBase
             $treeTraits = ['October\Rain\Database\Traits\NestedTree', 'October\Rain\Database\Traits\SimpleTree'];
             if (count(array_intersect($treeTraits, class_uses($relatedObj))) > 0) {
                 $field->options = $query->listsNested($this->nameFrom, $relatedObj->getKeyName());
-            } else {
+            }
+            else {
                 $field->options = $query->lists($this->nameFrom, $relatedObj->getKeyName());
             }
 
