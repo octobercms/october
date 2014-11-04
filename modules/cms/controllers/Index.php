@@ -440,6 +440,9 @@ class Index extends Controller
             $settings[$section] = $properties;
         }
 
+        if (array_key_exists('viewBag', $_POST))
+            $settings['viewBag'] = $_POST['viewBag'];
+
         return $settings;
     }
 

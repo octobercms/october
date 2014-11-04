@@ -43,6 +43,12 @@ class CmsCompoundObject extends CmsObject
      */
     public $markup;
 
+    /**
+     * @var array Contains the view bag properties.
+     * This property is used by the page editor internally.
+     */
+    public $viewBag = [];
+
     protected static $fillable = [
         'markup',
         'settings',
@@ -417,6 +423,18 @@ class CmsCompoundObject extends CmsObject
      */
     protected function parseSettings()
     {
+        $this->fillViewBagArray();
+    }
+
+    /*
+     * Copies view bag properties to the view bag array.
+     * This is required for the back-end editors.
+     */
+    protected function fillViewBagArray()
+    {
+        $viewBag = $this->getViewBag();
+        foreach ($viewBag->getProperties() as $name=>$value)
+            $this->viewBag[$name] = $value;
     }
 
     /**
