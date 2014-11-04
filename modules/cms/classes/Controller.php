@@ -399,8 +399,6 @@ class Controller extends BaseController
     {
         $manager = ComponentManager::instance();
 
-        $properties = $this->setComponentPropertiesFromParameters($properties, []);
-
         if ($addToLayout) {
             if (!$componentObj = $manager->makeComponent($name, $this->layoutObj, $properties)) {
                 throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
@@ -418,6 +416,7 @@ class Controller extends BaseController
             $this->vars[$alias] = $this->page->components[$alias] = $componentObj;
         }
 
+        $this->setComponentPropertiesFromParameters($componentObj);
         $componentObj->init();
         $componentObj->onInit(); // Deprecated: Remove ithis line if year >= 2015
         return $componentObj;
@@ -786,8 +785,6 @@ class Controller extends BaseController
                     ? explode(' ', $component)
                     : [$component, $component];
 
-                $properties = $this->setComponentPropertiesFromParameters($properties, $parameters, []);
-
                 if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
                     throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
                 }
@@ -800,6 +797,7 @@ class Controller extends BaseController
                     'obj' => $componentObj
                 ]);
 
+                $this->setComponentPropertiesFromParameters($componentObj, $parameters);
                 $componentObj->init();
                 $componentObj->onInit(); // Deprecated: Remove ithis line if year >= 2015
             }
@@ -1103,16 +1101,15 @@ class Controller extends BaseController
     }
 
     /**
-     * Sets component property values from partial parameters. 
+     * Sets component property values from partial parameters.
      * The property values should be defined as {{ param }}.
-     * @param array &$properties Specifies the component properties loaded from the partial.
+     * @param ComponentBase $component The component object.
      * @param array $parameters Specifies the partial parameters.
      * @return Returns updated properties.
      */
-    protected function setComponentPropertiesFromParameters(&$properties, $parameters)
+    protected function setComponentPropertiesFromParameters($component, $parameters = [])
     {
-        $result = [];
-
+        $properties = $component->getProperties();
         $routerParameters = $this->router->getParameters();
 
         foreach ($properties as $propertyName => $propertyValue) {
@@ -1122,21 +1119,19 @@ class Controller extends BaseController
 
                 if (substr($paramName, 0, 1) == ':') {
                     $paramName = substr($paramName, 1);
-                    $result[$propertyName] = array_key_exists($paramName, $routerParameters)
+                    $newPropertyValue = array_key_exists($paramName, $routerParameters)
                         ? $routerParameters[$paramName]
                         : null;
+
                 }
                 else {
-                    $result[$propertyName] = array_key_exists($paramName, $parameters)
+                    $newPropertyValue = array_key_exists($paramName, $parameters)
                         ? $parameters[$paramName]
                         : null;
                 }
-            }
-            else {
-                $result[$propertyName] = $propertyValue;
+
+                $component->setProperty($propertyName, $newPropertyValue);
             }
         }
-
-        return $result;
     }
 }
