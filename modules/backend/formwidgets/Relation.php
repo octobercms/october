@@ -108,9 +108,10 @@ class Relation extends FormWidgetBase
             $relatedObj = $model->makeRelation($attribute);
             $query = $model->{$attribute}()->newQuery();
 
-            if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany'])) {
+            if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany', 'hasMany'])) {
                 $field->type = 'checkboxlist';
-            } elseif ($this->relationType == 'belongsTo') {
+            }
+            elseif (in_array($this->relationType, ['belongsTo', 'hasOne'])) {
                 $field->type = 'dropdown';
                 $field->placeholder = $this->emptyOption;
             }
