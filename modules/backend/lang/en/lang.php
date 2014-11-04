@@ -247,6 +247,8 @@ return [
         'menu_description' => 'Manage your account preferences such as desired language.',
         'locale' => 'Language',
         'locale_comment' => 'Select your desired locale for language use.',
+        'timezone'  => 'Timezone',
+        'timezone_comment'  => 'Select the default timezone',
     ],
     'access_log' => [
         'hint' => 'This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.',
