@@ -67,7 +67,7 @@
         })
 
         this.$modal.on('close.oc.popup', function(){
-            self.$modal.modal('hide')
+            self.hide()
             return false
         })
 
