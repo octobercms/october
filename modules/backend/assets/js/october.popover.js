@@ -20,6 +20,8 @@
  *   If specified, overrides the offset property for the bottom and top popover placement.
  * - offsetY - Y offset in pixels to add to the calculated position, to make the position more "random". 
  *   If specified, overrides the offset property for the left and right popover placement.
+ * - useAnimation: adds animation to the open and close sequence, the equivalent of adding 
+ *   the CSS class 'fade' to the containerClass.
  *
  * Methods:
  * - hide
@@ -59,6 +61,18 @@
         if (e.isDefaultPrevented())
             return
 
+        this.$container.removeClass('in')
+        this.$overlay.removeClass('in')
+
+        $.support.transition && this.$container.hasClass('fade')
+            ? this.$container
+                .one($.support.transition.end, $.proxy(this.hidePopover, this))
+                .emulateTransitionEnd(300)
+            : this.hidePopover()
+    }
+
+    Popover.prototype.hidePopover = function() {
+
         if (this.$container) this.$container.remove()
         if (this.$overlay) this.$overlay.remove()
 
@@ -80,7 +94,7 @@
         /*
          * Trigger the show event
          */
-        var e = $.Event('showing.oc.popover', {relatedTarget: this.$el})
+        var e = $.Event('showing.oc.popover', { relatedTarget: this.$el })
         this.$el.trigger(e, this)
         if (e.isDefaultPrevented())
             return
@@ -88,12 +102,13 @@
         /*
          * Create the popover container and overlay
          */
-        this.$container = $('<div />')
-            .addClass('control-popover')
-            .css('visibility', 'hidden')
+        this.$container = $('<div />').addClass('control-popover')
 
         if (this.options.containerClass)
             this.$container.addClass(this.options.containerClass)
+
+        if (this.options.useAnimation)
+            this.$container.addClass('fade')
 
         var $content = $('<div />').html(this.getContent())
         this.$container.append($content)
@@ -113,16 +128,16 @@
         }
 
         if (this.options.container)
-            $(this.options.container).append(this.$container);
+            $(this.options.container).append(this.$container)
         else
-            $(document.body).append(this.$container);
+            $(document.body).append(this.$container)
 
         /*
          * Determine the popover position
          */
         var
             placement = this.calcPlacement(),
-            position = this.calcPosition(placement);
+            position = this.calcPosition(placement)
 
         this.$container.css({
             left: position.x,
@@ -132,9 +147,11 @@
         /*
          * Display the popover
          */
-        this.$container.css('visibility', 'visible')
+        this.$container.addClass('in')
+        this.$overlay.addClass('in')
+
         $(document.body).addClass('popover-open')
-        var showEvent = jQuery.Event( "show.oc.popover", { relatedTarget: this.$container.get(0) } );
+        var showEvent = jQuery.Event('show.oc.popover', { relatedTarget: this.$container.get(0) })
         this.$el.trigger(showEvent)
 
         /*
@@ -150,7 +167,7 @@
 
          this.$container.on('click', '[data-dismiss=popover]', function(e){
             self.hide()
-            return false;
+            return false
          })
 
          this.docClickHandler = $.proxy(this.onDocumentClick, this)
@@ -170,9 +187,9 @@
     }
 
     Popover.prototype.getContent = function () {
-        return typeof this.options.content == 'function' ?
-            this.options.content.call(this.$el[0], this) :
-            this.options.content
+        return typeof this.options.content == 'function'
+            ? this.options.content.call(this.$el[0], this)
+            : this.options.content
     }
 
     Popover.prototype.calcDimensions = function() {
@@ -308,7 +325,8 @@
         closeOnEsc: true,
         container: false,
         containerClass: null,
-        offset: 15
+        offset: 15,
+        useAnimation: false
     }
 
     // POPOVER PLUGIN DEFINITION
