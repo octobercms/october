@@ -139,7 +139,7 @@ class ServiceProvider extends ModuleServiceProvider
 
         Event::listen('pages.menuitem.listTypes', function () {
             return [
-                'cms-page' => 'CMS Page '
+                'cms-page' => 'CMS Page'
             ];
         });
 
