@@ -13,7 +13,9 @@
                 <ul class="nav">
                     <?php foreach (BackendMenu::listMainMenuItems() as $item): ?>
                         <li class="<?= BackendMenu::isMainMenuItemActive($item) ? 'active' : null ?>">
-                            <a href="<?= $item->url ?>"><i class="<?= $item->icon ?>"></i><?= e(trans($item->label)) ?></a>
+                            <a href="<?= $item->url ?>">
+                                <i class="<?= $item->icon ?>"></i><?= e(trans($item->label)) ?>
+                            </a>
                         </li>
                     <?php endforeach ?>
                 </ul>
