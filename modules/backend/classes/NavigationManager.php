@@ -358,6 +358,7 @@ class NavigationManager
 
     /**
      * Specifies a code of the side menu item in the current navigation context.
+     * If the code is set to TRUE, the first item will be flagged as active.
      * @param string $sideMenuItemCode Specifies the side menu item code
      */
     public function setContextSideMenu($sideMenuItemCode)
@@ -397,6 +398,11 @@ class NavigationManager
      */
     public function isSideMenuItemActive($item)
     {
+        if ($this->contextSideMenuItemCode === true) {
+            $this->contextSideMenuItemCode = null;
+            return true;
+        }
+
         return $this->contextOwner == $item->owner && $this->contextSideMenuItemCode == $item->code;
     }
 
@@ -424,9 +430,9 @@ class NavigationManager
     {
         $key = $owner.$mainMenuItemCode;
 
-        return array_key_exists($key, $this->contextSidenavPartials) ?
-            $this->contextSidenavPartials[$key] :
-            null;
+        return array_key_exists($key, $this->contextSidenavPartials)
+            ? $this->contextSidenavPartials[$key]
+            : null;
     }
 
     /**

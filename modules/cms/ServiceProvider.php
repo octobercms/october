@@ -75,7 +75,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'icon'        => 'icon-puzzle-piece',
                             'url'         => 'javascript:;',
                             'attributes'  => ['data-menu-item'=>'components'],
-                            'permissions' => ['cms.manage_pages', 'cms:manage_layouts']
+                            'permissions' => ['cms.manage_pages', 'cms.manage_layouts', 'cms.manage_partials']
                         ]
                     ]
 

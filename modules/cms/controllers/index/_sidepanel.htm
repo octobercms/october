@@ -1,24 +1,74 @@
+<?php
+    $visibleCount = 0;
+?>
 <div class="layout control-scrollpanel" id="cms-side-panel">
     <div class="layout-cell">
         <div class="layout-relative fix-button-container">
-            <form class="layout" data-content-id="pages" data-template-type="page" data-type-icon="oc-icon-copy" onsubmit="return false">
-                <?= $this->widget->pageList->render() ?>
-            </form>
-            <form class="layout hide" data-content-id="partials" data-template-type="partial" data-type-icon="oc-icon-tags" onsubmit="return false">
-                <?= $this->widget->partialList->render() ?>
-            </form>
-            <form class="layout hide" data-content-id="layouts" data-template-type="layout" data-type-icon="oc-icon-th-large" onsubmit="return false">
-                <?= $this->widget->layoutList->render() ?>
-            </form>
-            <form class="layout hide" data-content-id="content" data-template-type="content" data-type-icon="oc-icon-file-text-o" onsubmit="return false">
-                <?= $this->widget->contentList->render() ?>
-            </form>
-            <form class="layout hide" data-content-id="assets" data-template-type="asset" data-type-icon="oc-icon-file-text-o" onsubmit="return false">
-                <?= $this->widget->assetList->render() ?>
-            </form>
-            <form class="layout hide" data-content-id="components" onsubmit="return false" id="cms-component-list">
-                <?= $this->widget->componentList->render() ?>
-            </form>
+            <?php if ($this->user->hasAccess('cms.manage_pages')): ?>
+                <!-- Pages -->
+                <form
+                    class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
+                    data-content-id="pages"
+                    data-template-type="page"
+                    data-type-icon="oc-icon-copy"
+                    onsubmit="return false">
+                    <?= $this->widget->pageList->render() ?>
+                </form>
+            <?php endif ?>
+            <?php if ($this->user->hasAccess('cms.manage_partials')): ?>
+                <!-- Partials -->
+                <form
+                    class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
+                    data-content-id="partials"
+                    data-template-type="partial"
+                    data-type-icon="oc-icon-tags"
+                    onsubmit="return false">
+                    <?= $this->widget->partialList->render() ?>
+                </form>
+            <?php endif ?>
+            <?php if ($this->user->hasAccess('cms.manage_layouts')): ?>
+                <!-- Layouts -->
+                <form
+                    class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
+                    data-content-id="layouts"
+                    data-template-type="layout"
+                    data-type-icon="oc-icon-th-large"
+                    onsubmit="return false">
+                    <?= $this->widget->layoutList->render() ?>
+                </form>
+            <?php endif ?>
+            <?php if ($this->user->hasAccess('cms.manage_content')): ?>
+                <!-- Content -->
+                <form
+                    class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
+                    data-content-id="content"
+                    data-template-type="content"
+                    data-type-icon="oc-icon-file-text-o"
+                    onsubmit="return false">
+                    <?= $this->widget->contentList->render() ?>
+                </form>
+            <?php endif ?>
+            <?php if ($this->user->hasAccess('cms.manage_assets')): ?>
+                <!-- Assets -->
+                <form
+                    class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
+                    data-content-id="assets"
+                    data-template-type="asset"
+                    data-type-icon="oc-icon-file-text-o"
+                    onsubmit="return false">
+                    <?= $this->widget->assetList->render() ?>
+                </form>
+            <?php endif ?>
+            <?php if ($this->user->hasAccess(['cms.manage_pages', 'cms.manage_layouts', 'cms.manage_partials'])): ?>
+                <!-- Components -->
+                <form
+                    class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
+                    data-content-id="components"
+                    onsubmit="return false"
+                    id="cms-component-list">
+                    <?= $this->widget->componentList->render() ?>
+                </form>
+            <?php endif ?>
         </div>
     </div>
 </div>
