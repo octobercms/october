@@ -44,6 +44,7 @@ class Status extends ReportWidgetBase
     protected function loadData()
     {
         $manager = UpdateManager::instance();
+        $this->vars['showUpdates'] = $this->controller->user->hasAccess('system.manage_updates');
         $this->vars['updates'] = $manager->check();
     }
 }

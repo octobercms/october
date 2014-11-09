@@ -7,12 +7,14 @@
                 <span class="status circle success"></span>
                 <?= e(trans('backend::lang.dashboard.status.online')) ?>
             </li>
-            <li>
-                <a href="<?= Backend::url('system/updates') ?>">
-                    <span class="status primary"><?= $updates ?></span>
-                    <?= e(trans_choice('backend::lang.dashboard.status.update_available', $updates)) ?>
-                </a>
-            </li>
+            <?php if ($showUpdates): ?>
+                <li>
+                    <a href="<?= Backend::url('system/updates') ?>">
+                        <span class="status primary"><?= $updates ?></span>
+                        <?= e(trans_choice('backend::lang.dashboard.status.update_available', $updates)) ?>
+                    </a>
+                </li>
+            <?php endif ?>
         </ul>
     <?php else: ?>
         <p class="flash-message static warning"><?= e($error) ?></p>
