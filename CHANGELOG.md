@@ -1,6 +1,12 @@
+* **Build 162** (2014-11-10)
+  - Fixes an issue where the *Pages* tab is shown in the CMS when permission is denied.
+  - Updates are no longer shown on the Dashboard if permission is denied.
+  - Added Maintenance mode settings to the front-end, available via Settings > CMS.
+
 * **Build 160** (2014-11-01)
   - Various fixes to the Backend Brand settings page.
   - When `cms.disableCoreUpdates` is set to **true** the Backend will no longer display updates for the core.
+  - Partials can support using Components (see CMS > Partials docs).
 
 * **Build 158** (2014-10-23)
   - Fixes an issue where new Themes attached to a project were not being installed on update.
