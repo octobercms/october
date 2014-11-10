@@ -2,6 +2,7 @@
 
 use System\Models\Parameters;
 use System\Classes\UpdateManager;
+use Cms\Models\MaintenanceSettings;
 use Backend\Classes\ReportWidgetBase;
 use Exception;
 
@@ -44,6 +45,7 @@ class Status extends ReportWidgetBase
     protected function loadData()
     {
         $manager = UpdateManager::instance();
+        $this->vars['inMaintenance'] = MaintenanceSettings::get('is_enabled');
         $this->vars['showUpdates'] = $this->controller->user->hasAccess('system.manage_updates');
         $this->vars['updates'] = $manager->check();
     }

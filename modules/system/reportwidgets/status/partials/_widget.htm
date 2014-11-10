@@ -4,8 +4,15 @@
     <?php if (!isset($error)): ?>
         <ul class="status-list">
             <li>
-                <span class="status circle success"></span>
-                <?= e(trans('backend::lang.dashboard.status.online')) ?>
+                <a href="<?= Backend::url('system/settings/update/october/cms/maintenance_settings') ?>">
+                    <?php if ($inMaintenance): ?>
+                        <span class="status circle warning"></span>
+                        <?= e(trans('backend::lang.dashboard.status.maintenance')) ?>
+                    <?php else: ?>
+                        <span class="status circle success"></span>
+                        <?= e(trans('backend::lang.dashboard.status.online')) ?>
+                    <?php endif ?>
+                </a>
             </li>
             <?php if ($showUpdates): ?>
                 <li>

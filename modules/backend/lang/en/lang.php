@@ -65,6 +65,7 @@ return [
         'status' => [
             'widget_title_default' => 'System status',
             'online' => 'online',
+            'maintenance' => 'in maintenance',
             'update_available' => '{0} updates available!|{1} update available!|[2,Inf] updates available!',
         ]
     ],
