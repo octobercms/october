@@ -28,6 +28,12 @@ return [
         'activate_button' => 'Aktiválás',
         'active_button' => 'Aktiválás',
     ],
+    'maintenance' => [
+        'settings_menu' => 'Karbantartás mód',
+        'settings_menu_description' => 'A karbantartás mód lap konfigurálása, és a beűllítás ki-/bekapcsolása.',
+        'is_enabled' => 'A karbantartás mód engedélyezése',
+        'is_enabled_comment' => 'Aktiválása esetén a webhely látogatói az alább bejelölt lapot fogják látni.',
+    ],
     'page' => [
         'not_found' => [
             'label' => "A lap nem található",
@@ -38,6 +44,7 @@ return [
             'help' => "Sajnos valami elromlott, és a lap nem jeleníthető meg.",
         ],
         'menu_label' => 'Lapok',
+        'unsaved_label' => 'Nem mentett lap(ok)',
         'no_list_records' => 'Nem találhatók lapok',
         'new' => 'Új lap',
         'invalid_url' => 'Érvénytelen URL-címformátum. Az URL-címnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő számokat tartalmazhatja: ._-[]:?|/+*',
@@ -48,6 +55,7 @@ return [
     'layout' => [
         'not_found' => "A(z) ':name' elrendezés nem található",
         'menu_label' => 'Elrendezések',
+        'unsaved_label' => 'Nem mentett elrendezés(ek)',
         'no_list_records' => 'Nem találhatók elrendezések',
         'new' => 'Új elrendezés',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt elrendezéseket?',
@@ -57,6 +65,7 @@ return [
         'invalid_name' => "Érvénytelen részlapnév: :name.",
         'not_found' => "A(z) ':name' részlap nem található.",
         'menu_label' => 'Részlapok',
+        'unsaved_label' => 'Nem mentett részlap(ok)',
         'no_list_records' => 'Nem találhatók részlapok',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt részlapokat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a részlapot?',
@@ -65,6 +74,7 @@ return [
     'content' => [
         'not_found' => "A(z) ':name' tartalomfájl nem található.",
         'menu_label' => 'Tartalom',
+        'unsaved_label' => 'Nem mentett tartalom',
         'no_list_records' => 'Nem találhatók tartalomfájlok',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt tartalomfájlokat vagy könyvtárakat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a tartalomfájlt?',
@@ -103,6 +113,7 @@ return [
     ],
     'asset' => [
         'menu_label' => "Eszközök",
+        'unsaved_label' => 'Nem mentett eszköz(ök)',
         'drop_down_add_title' => 'Hozzáadás...',
         'drop_down_operation_title' => 'Művelet...',
         'upload_files' => 'Fájl(ok) feltöltése',

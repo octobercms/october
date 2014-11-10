@@ -21,7 +21,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "A(z) ':name' rézlap nem található.",
+        'not_found' => "A(z) ':name' részlap nem található.",
     ],
     'account' => [
         'sign_out' => 'Kijelentkezés',
@@ -65,6 +65,7 @@ return [
         'status' => [
             'widget_title_default' => 'Rendszer állapota',
             'online' => 'online',
+            'maintenance' => 'karbantartás',
             'update_available' => '{0} frissítés érhető el!|{1} frissítés érhető el!|[2,Inf] frissítés érhető el!',
         ]
     ],
@@ -241,6 +242,20 @@ return [
     'branding' => [
         'menu_label' => 'Kiszolgáló oldal testreszabása',
         'menu_description' => 'Az adminisztrációs oldal testreszabása, úgymint név, színek és embléma.',
+        'brand' => 'Márka',
+        'logo' => 'Embléma',
+        'logo_description' => 'Töltsön fel egy emblémát a kiszolgáló oldalon való használathoz.',
+        'app_name' => 'Alkalmazás neve',
+        'app_name_description' => 'Ez a név látható a kiszolgáló oldal címterületén.',
+        'app_tagline' => 'Alkalmazás jelmondata',
+        'app_tagline_description' => 'Ez a jelmondat látható a kiszolgáló oldal bejelentkezési képernyőjén.',
+        'colors' => 'Színek',
+        'primary_light' => 'Alap (világos)',
+        'primary_dark' => 'Alap (sötét)',
+        'secondary_light' => 'Másodlagos (világos)',
+        'secondary_dark' => 'Másodlagos (sötét)',
+        'styles' => 'Stílusok',
+        'custom_stylesheet' => 'Egyéni stíluslap'
     ],
     'backend_preferences' => [
         'menu_label' => 'Kiszolgáló oldal beállításai',
