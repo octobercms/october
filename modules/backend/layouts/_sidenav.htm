@@ -1,13 +1,13 @@
 <?php
     $context = BackendMenu::getContext();
-
     $contextSidenav = BackendMenu::getContextSidenavPartial($context->owner, $context->mainMenuCode);
-
-    if (!$contextSidenav):
-        $sideMenuItems = BackendMenu::listSideMenuItems();
-        if ($sideMenuItems):
 ?>
-        <div class="layout-cell width-120" >
+<?php if (!$contextSidenav): ?>
+    <?php
+        $sideMenuItems = BackendMenu::listSideMenuItems();
+    ?>
+    <?php if ($sideMenuItems): ?>
+        <div class="layout-cell width-120">
             <div class="layout-relative">
                 <nav class="layout-sidenav" id="layout-sidenav" data-control="sidenav">
                     <ul class="nav">
@@ -22,6 +22,7 @@
                                 <span
                                     class="counter <?= $item->counter === null ? 'empty' : null ?>"
                                     data-menu-id="<?= e($context->mainMenuCode.'/'.$sideItemCode) ?>"
+                                    <?php if ($item->counterLabel): ?>title="<?= e(trans($item->counterLabel)) ?>"<?php endif ?>
                                     >
                                     <?= e($item->counter) ?>
                                 </span>

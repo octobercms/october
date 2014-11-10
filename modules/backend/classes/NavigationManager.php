@@ -46,6 +46,7 @@ class NavigationManager
         'icon'        => null,
         'url'         => null,
         'counter'     => null,
+        'counterLabel'=> null,
         'attributes'  => [],
         'permissions' => []
     ];
@@ -159,6 +160,7 @@ class NavigationManager
      * - permissions - an array of permissions the back-end user should have, optional.
      * - counter - an optional numeric value to output near the menu icon. The value should be
      *   a number or a callable returning a number.
+     * - counterLabel - an optional string value to describe the numeric reference in counter.
      * @param string $owner Specifies the menu items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the menu item definitions.
      */
