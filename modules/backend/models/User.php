@@ -80,7 +80,8 @@ class User extends UserBase
     {
         if ($this->avatar) {
             return $this->avatar->getThumb($size, $size);
-        } else {
+        }
+        else {
             return '//www.gravatar.com/avatar/'.
                 md5(strtolower(trim($this->email))) .
                 '?s='. $size .

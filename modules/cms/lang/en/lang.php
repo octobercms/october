@@ -28,6 +28,12 @@ return [
         'activate_button' => 'Activate',
         'active_button' => 'Activate',
     ],
+    'maintenance' => [
+        'settings_menu' => 'Maintenance mode',
+        'settings_menu_description' => 'Configure the maintenance mode page and toggle the setting.',
+        'is_enabled' => 'Enable maintenance mode',
+        'is_enabled_comment' => 'When activated website visitors will see the page chosen below.',
+    ],
     'page' => [
         'not_found' => [
             'label' => "Page not found",
@@ -38,6 +44,7 @@ return [
             'help' => "We're sorry, but something went wrong and the page cannot be displayed.",
         ],
         'menu_label' => 'Pages',
+        'unsaved_label' => 'Unsaved page(s)',
         'no_list_records' => 'No pages found',
         'new' => 'New page',
         'invalid_url' => 'Invalid URL format. The URL should start with the forward slash symbol and can contain digits, Latin letters and the following symbols: ._-[]:?|/+*',
@@ -48,6 +55,7 @@ return [
     'layout' => [
         'not_found' => "The layout ':name' is not found",
         'menu_label' => 'Layouts',
+        'unsaved_label' => 'Unsaved layout(s)',
         'no_list_records' => 'No layouts found',
         'new' => 'New layout',
         'delete_confirm_multiple' => 'Do you really want to delete selected layouts?',
@@ -57,6 +65,7 @@ return [
         'invalid_name' => "Invalid partial name: :name.",
         'not_found' => "The partial ':name' is not found.",
         'menu_label' => 'Partials',
+        'unsaved_label' => 'Unsaved partial(s)',
         'no_list_records' => 'No partials found',
         'delete_confirm_multiple' => 'Do you really want to delete selected partials?',
         'delete_confirm_single' => 'Do you really want delete this partial?',
@@ -65,6 +74,7 @@ return [
     'content' => [
         'not_found' => "The content file ':name' is not found.",
         'menu_label' => 'Content',
+        'unsaved_label' => 'Unsaved content',
         'no_list_records' => 'No content files found',
         'delete_confirm_multiple' => 'Do you really want to delete selected content files or directories?',
         'delete_confirm_single' => 'Do you really want delete this content file?',
@@ -103,6 +113,7 @@ return [
     ],
     'asset' => [
         'menu_label' => "Assets",
+        'unsaved_label' => 'Unsaved asset(s)',
         'drop_down_add_title' => 'Add...',
         'drop_down_operation_title' => 'Action...',
         'upload_files' => 'Upload file(s)',

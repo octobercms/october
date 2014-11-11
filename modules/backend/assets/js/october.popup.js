@@ -1,6 +1,9 @@
 /*
  * Ajax Popup plugin
  *
+ * Options:
+ * - content: content HTML string or callback
+ * 
  * Data attributes:
  * - data-control="popup" - enables the ajax popup plugin
  * - data-ajax="popup-content.htm" - ajax content to load
@@ -23,25 +26,23 @@
 
     var Popup = function(element, options) {
         var self = this
-        this.options   = options
-        this.$el       = $(element)
-        this.$target   = null
-        this.$modal    = null
-        this.$backdrop = null
-        this.isOpen    = false
-        this.isAjax    = false
-        this.firstDiv  = null
-        this.allowHide = true
+        this.options    = options
+        this.$el        = $(element)
+        this.$container = null
+        this.$modal     = null
+        this.$backdrop  = null
+        this.isOpen     = false
+        this.firstDiv   = null
+        this.allowHide  = true
 
-        this.$target = this.createPopupContainer()
-        this.$content = this.$target.find('.modal-content:first')
-        this.$modal = this.$target.modal({ show: false, backdrop: false, keyboard: this.options.keyboard })
-        this.isAjax = this.options.handler || this.options.ajax
+        this.$container = this.createPopupContainer()
+        this.$content = this.$container.find('.modal-content:first')
+        this.$modal = this.$container.modal({ show: false, backdrop: false, keyboard: this.options.keyboard })
 
         /*
          * Duplicate the popup reference on the .control-popup container
          */
-        this.$target.data('oc.popup', this)
+        this.$container.data('oc.popup', this)
 
         /*
          * Hook in to BS Modal events
@@ -49,11 +50,11 @@
         this.$modal.on('hide.bs.modal', function(){
             self.isOpen = false
             self.setBackdrop(false)
+        })
 
-            if (self.isAjax) {
-                // Wait for animation to complete
-                setTimeout(function() { self.$content.empty() }, 500)
-            }
+        this.$modal.on('hidden.bs.modal', function(){
+            self.$container.remove()
+            self.$el.data('oc.popup', null)
         })
 
         this.$modal.on('show.bs.modal', function(){
@@ -61,8 +62,12 @@
             self.setBackdrop(true)
         })
 
+        this.$modal.on('shown.bs.modal', function(){
+            self.triggerEvent('shown.oc.popup')
+        })
+
         this.$modal.on('close.oc.popup', function(){
-            self.$modal.modal('hide')
+            self.hide()
             return false
         })
 
@@ -73,7 +78,8 @@
         ajax: null,
         handler: null,
         keyboard: true,
-        extraData: {}
+        extraData: {},
+        content: null
     }
 
     Popup.prototype.init = function(){
@@ -89,7 +95,9 @@
          * Show loading panel
          */
         this.setBackdrop(true)
-        this.setLoading(true)
+
+        if (!this.options.content)
+            this.setLoading(true)
 
         /*
          * October AJAX
@@ -102,14 +110,16 @@
                     this.success(data, textStatus, jqXHR).done(function(){
                         self.setContent(data.result)
                         $(window).trigger('ajaxUpdateComplete', [this, data, textStatus, jqXHR])
-                        self.triggerEvent('popupComplete')
+                        self.triggerEvent('popupComplete') // Deprecated
+                        self.triggerEvent('complete.oc.popup')
                     })
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     this.error(jqXHR, textStatus, errorThrown).done(function(){
                         alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
                         self.hide()
-                        self.triggerEvent('popupError')
+                        self.triggerEvent('popupError') // Deprecated
+                        self.triggerEvent('error.oc.popup')
                     })
                 }
             })
@@ -128,8 +138,20 @@
                     self.setContent(data)
                 },
                 cache: false
-            });
+            })
 
+        }
+
+        /*
+         * Specified content
+         */
+        else if (this.options.content) {
+
+            var content = typeof this.options.content == 'function'
+                ? this.options.content.call(this.$el[0], this)
+                : this.options.content
+
+            this.setContent(content)
         }
     }
 
@@ -147,9 +169,9 @@
     }
 
     Popup.prototype.setContent = function(contents) {
-        this.show()
-        this.setLoading(false)
         this.$content.html(contents)
+        this.setLoading(false)
+        this.show()
 
         // Duplicate the popup object reference on to the first div
         // inside the popup. Eg: $('#firstDiv').popup('hide')
@@ -164,12 +186,11 @@
                 .appendTo(document.body)
 
             this.$backdrop.addClass('in')
-
             this.$backdrop.append($('<div class="modal-content popup-loading-indicator" />'))
         }
         else if (!val && this.$backdrop) {
             this.$backdrop.remove()
-            this.$backdrop = null;
+            this.$backdrop = null
         }
     }
 
@@ -199,10 +220,12 @@
         if (!params)
             params = [this.$el, this.$modal]
 
-        this.$el.trigger(eventName, params)
+        var eventObject = jQuery.Event(eventName, { relatedTarget: this.$container.get(0) })
+
+        this.$el.trigger(eventObject, params)
 
         if (this.firstDiv)
-            this.firstDiv.trigger(eventName, params)
+            this.firstDiv.trigger(eventObject, params)
     }
 
     Popup.prototype.reload = function() {
@@ -210,14 +233,16 @@
     }
 
     Popup.prototype.show = function() {
-        this.$modal.on('click.dismiss.popup', '[data-dismiss="popup"]', $.proxy(this.hide, this))
-        this.triggerEvent('popupShow')
-
         this.$modal.modal('show')
+
+        this.$modal.on('click.dismiss.popup', '[data-dismiss="popup"]', $.proxy(this.hide, this))
+        this.triggerEvent('popupShow') // Deprecated
+        this.triggerEvent('show.oc.popup')
     }
 
     Popup.prototype.hide = function() {
-        this.triggerEvent('popupHide')
+        this.triggerEvent('popupHide') // Deprecated
+        this.triggerEvent('hide.oc.popup')
 
         if (this.allowHide)
             this.$modal.modal('hide')
@@ -236,7 +261,9 @@
     }
 
     Popup.prototype.toggle = function() {
-        this.triggerEvent('popupToggle', [this.$modal])
+        this.triggerEvent('popupToggle', [this.$modal]) // Deprecated
+        this.triggerEvent('toggle.oc.popup', [this.$modal])
+
         this.$modal.modal('toggle')
     }
 

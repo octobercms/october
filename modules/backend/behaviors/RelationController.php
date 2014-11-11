@@ -541,7 +541,8 @@ class RelationController extends ControllerBehavior
 
                 if ($this->model->exists) {
                     $this->relationObject->add($model);
-                } else {
+                }
+                else {
                     $this->relationObject->add($model, $this->relationGetSessionKey());
                 }
             }
@@ -702,10 +703,11 @@ class RelationController extends ControllerBehavior
                     $searchWidget->setActiveTerm(null);
                 }
             }
+        }
         /*
          * Single (belongs to, has one)
          */
-        } elseif ($this->viewMode == 'single') {
+        elseif ($this->viewMode == 'single') {
             $config = $this->makeConfig($this->config->form);
             $config->model = $this->relationModel;
             $config->arrayName = class_basename($this->relationModel);
@@ -735,10 +737,11 @@ class RelationController extends ControllerBehavior
                 $this->relationGetSessionKey()
             );
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
+        }
         /*
          * List
          */
-        } elseif ($this->manageMode == 'list' && isset($this->config->list)) {
+        elseif ($this->manageMode == 'list' && isset($this->config->list)) {
             $config = $this->makeConfig($this->config->list);
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ManageList';
@@ -762,10 +765,11 @@ class RelationController extends ControllerBehavior
 
                 $this->searchWidget->setActiveTerm(null);
             }
+        }
         /*
          * Form
          */
-        } elseif ($this->manageMode == 'form' && isset($this->config->form)) {
+        elseif ($this->manageMode == 'form' && isset($this->config->form)) {
             $config = $this->makeConfig($this->config->form);
             $config->model = $this->relationModel;
             $config->arrayName = class_basename($this->relationModel);

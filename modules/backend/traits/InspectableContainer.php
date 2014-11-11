@@ -36,7 +36,8 @@ trait InspectableContainer
         $methodName = 'get'.ucfirst($property).'Options';
         if (method_exists($obj, $methodName)) {
             $options = $obj->$methodName();
-        } else {
+        }
+        else {
             $options = $obj->getPropertyOptions($property);
         }
 

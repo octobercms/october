@@ -1,6 +1,6 @@
 <?php if ($relationManageId): ?>
 
-    <?= Form::ajax('onRelationManageUpdate', ['data-stripe-load-indicator' => true, 'sessionKey' => $newSessionKey]) ?>
+    <?= Form::ajax('onRelationManageUpdate', ['data-popup-load-indicator' => true, 'sessionKey' => $newSessionKey]) ?>
 
         <!-- Passable fields -->
         <input type="hidden" name="manage_id" value="<?= $relationManageId ?>" />
@@ -21,8 +21,7 @@
         <div class="modal-footer">
             <button
                 type="submit"
-                class="btn btn-primary"
-                data-dismiss="popup">
+                class="btn btn-primary">
                 <?= e(trans('backend::lang.relation.update')) ?>
             </button>
             <button
@@ -36,7 +35,7 @@
 
 <?php else: ?>
 
-    <?= Form::ajax('onRelationManageCreate', ['data-stripe-load-indicator' => true, 'sessionKey' => $newSessionKey]) ?>
+    <?= Form::ajax('onRelationManageCreate', ['data-popup-load-indicator' => true, 'sessionKey' => $newSessionKey]) ?>
 
         <!-- Passable fields -->
         <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
@@ -56,8 +55,7 @@
         <div class="modal-footer">
             <button
                 type="submit"
-                class="btn btn-primary"
-                data-dismiss="popup">
+                class="btn btn-primary">
                 <?= e(trans('backend::lang.relation.create')) ?>
             </button>
             <button

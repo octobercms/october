@@ -36,46 +36,51 @@ class ServiceProvider extends ModuleServiceProvider
 
                     'sideMenu' => [
                         'pages' => [
-                            'label'       => 'cms::lang.page.menu_label',
-                            'icon'        => 'icon-copy',
-                            'url'         => 'javascript:;',
-                            'attributes'  => ['data-menu-item'=>'pages'],
-                            'permissions' => ['cms.manage_pages']
+                            'label'        => 'cms::lang.page.menu_label',
+                            'icon'         => 'icon-copy',
+                            'url'          => 'javascript:;',
+                            'attributes'   => ['data-menu-item'=>'pages'],
+                            'permissions'  => ['cms.manage_pages'],
+                            'counterLabel' => 'cms::lang.page.unsaved_label',
                         ],
                         'partials' => [
-                            'label'       => 'cms::lang.partial.menu_label',
-                            'icon'        => 'icon-tags',
-                            'url'         => 'javascript:;',
-                            'attributes'  => ['data-menu-item'=>'partials'],
-                            'permissions' => ['cms.manage_partials']
+                            'label'        => 'cms::lang.partial.menu_label',
+                            'icon'         => 'icon-tags',
+                            'url'          => 'javascript:;',
+                            'attributes'   => ['data-menu-item'=>'partials'],
+                            'permissions'  => ['cms.manage_partials'],
+                            'counterLabel' => 'cms::lang.partial.unsaved_label',
                         ],
                         'layouts' => [
-                            'label'       => 'cms::lang.layout.menu_label',
-                            'icon'        => 'icon-th-large',
-                            'url'         => 'javascript:;',
-                            'attributes'  => ['data-menu-item'=>'layouts'],
-                            'permissions' => ['cms.manage_layouts']
+                            'label'        => 'cms::lang.layout.menu_label',
+                            'icon'         => 'icon-th-large',
+                            'url'          => 'javascript:;',
+                            'attributes'   => ['data-menu-item'=>'layouts'],
+                            'permissions'  => ['cms.manage_layouts'],
+                            'counterLabel' => 'cms::lang.layout.unsaved_label',
                         ],
                         'content' => [
-                            'label'       => 'cms::lang.content.menu_label',
-                            'icon'        => 'icon-file-text-o',
-                            'url'         => 'javascript:;',
-                            'attributes'  => ['data-menu-item'=>'content'],
-                            'permissions' => ['cms.manage_content']
+                            'label'        => 'cms::lang.content.menu_label',
+                            'icon'         => 'icon-file-text-o',
+                            'url'          => 'javascript:;',
+                            'attributes'   => ['data-menu-item'=>'content'],
+                            'permissions'  => ['cms.manage_content'],
+                            'counterLabel' => 'cms::lang.content.unsaved_label',
                         ],
                         'assets' => [
-                            'label'       => 'cms::lang.asset.menu_label',
-                            'icon'        => 'icon-picture-o',
-                            'url'         => 'javascript:;',
-                            'attributes'  => ['data-menu-item'=>'assets'],
-                            'permissions' => ['cms.manage_assets']
+                            'label'        => 'cms::lang.asset.menu_label',
+                            'icon'         => 'icon-picture-o',
+                            'url'          => 'javascript:;',
+                            'attributes'   => ['data-menu-item'=>'assets'],
+                            'permissions'  => ['cms.manage_assets'],
+                            'counterLabel' => 'cms::lang.asset.unsaved_label',
                         ],
                         'components' => [
                             'label'       => 'cms::lang.component.menu_label',
                             'icon'        => 'icon-puzzle-piece',
                             'url'         => 'javascript:;',
                             'attributes'  => ['data-menu-item'=>'components'],
-                            'permissions' => ['cms.manage_pages', 'cms:manage_layouts']
+                            'permissions' => ['cms.manage_pages', 'cms.manage_layouts', 'cms.manage_partials']
                         ]
                     ]
 
@@ -116,7 +121,15 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-picture-o',
                     'url'         => Backend::URL('cms/themes'),
                     'order'       => 200
-                ]
+                ],
+                'maintenance_settings' => [
+                    'label'       => 'cms::lang.maintenance.settings_menu',
+                    'description' => 'cms::lang.maintenance.settings_menu_description',
+                    'category'    => SettingsManager::CATEGORY_CMS,
+                    'icon'        => 'icon-plug',
+                    'class'       => 'Cms\Models\MaintenanceSettings',
+                    'order'       => 400,
+                ],
             ]);
         });
 
@@ -139,7 +152,7 @@ class ServiceProvider extends ModuleServiceProvider
 
         Event::listen('pages.menuitem.listTypes', function () {
             return [
-                'cms-page' => 'CMS Page '
+                'cms-page' => 'CMS Page'
             ];
         });
 

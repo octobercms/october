@@ -18,6 +18,7 @@ use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Classes\FileHelper as CmsFileHelper;
+use Cms\Models\MaintenanceSettings;
 use System\Models\RequestLog;
 use System\Classes\ErrorHandler;
 use System\Classes\CombineAssets;
@@ -150,13 +151,24 @@ class Controller extends BaseController
         }
 
         /*
-         * Handle hidden pages
+         * Hidden page
          */
         $page = $this->router->findByUrl($url);
         if ($page && $page->hidden) {
             if (!BackendAuth::getUser()) {
                 $page = null;
             }
+        }
+
+        /*
+         * Maintenance mode
+         */
+        if (
+            MaintenanceSettings::isConfigured()
+            && MaintenanceSettings::get('is_enabled', false)
+            && !BackendAuth::getUser()
+        ) {
+            $page = Page::loadCached($this->theme, MaintenanceSettings::get('cms_page'));
         }
 
         /*

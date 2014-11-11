@@ -1,0 +1,14 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    is_enabled:
+        label: cms::lang.maintenance.is_enabled
+        comment: cms::lang.maintenance.is_enabled_comment
+        type: checkbox
+
+    cms_page:
+        type: dropdown
+        cssClass: checkbox-align

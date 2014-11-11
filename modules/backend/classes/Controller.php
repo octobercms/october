@@ -188,7 +188,8 @@ class Controller extends Extendable
          */
         if (Session::has('locale')) {
             App::setLocale(Session::get('locale'));
-        } elseif ($this->user && $locale = BackendPreferences::get('locale')) {
+        }
+        elseif ($this->user && ($locale = BackendPreferences::get('locale'))) {
             Session::put('locale', $locale);
             App::setLocale($locale);
         }
@@ -366,7 +367,8 @@ class Controller extends Extendable
                  */
                 if (is_array($result)) {
                     $responseContents = array_merge($responseContents, $result);
-                } elseif (is_string($result)) {
+                }
+                elseif (is_string($result)) {
                     $responseContents['result'] = $result;
                 }
 

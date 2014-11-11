@@ -673,7 +673,8 @@ class FormController extends ControllerBehavior
                 in_array($model->getRelationType($attribute), $singularTypes)
             ) {
                 $this->setModelAttributes($model->{$attribute}, $value);
-            } else {
+            }
+            else {
                 $model->{$attribute} = $value;
             }
         }

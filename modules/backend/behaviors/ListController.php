@@ -68,7 +68,8 @@ class ListController extends ControllerBehavior
         if (is_array($controller->listConfig)) {
             $this->listDefinitions = $controller->listConfig;
             $this->primaryDefinition = key($this->listDefinitions);
-        } else {
+        }
+        else {
             $this->listDefinitions = ['list' => $controller->listConfig];
             $this->primaryDefinition = 'list';
         }

@@ -48,7 +48,7 @@ class Index extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('October.Cms', 'cms', 'pages');
+        BackendMenu::setContext('October.Cms', 'cms', true);
 
         try {
             if (!($theme = Theme::getEditTheme())) {

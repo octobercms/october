@@ -46,6 +46,7 @@ class NavigationManager
         'icon'        => null,
         'url'         => null,
         'counter'     => null,
+        'counterLabel'=> null,
         'attributes'  => [],
         'permissions' => []
     ];
@@ -159,6 +160,7 @@ class NavigationManager
      * - permissions - an array of permissions the back-end user should have, optional.
      * - counter - an optional numeric value to output near the menu icon. The value should be
      *   a number or a callable returning a number.
+     * - counterLabel - an optional string value to describe the numeric reference in counter.
      * @param string $owner Specifies the menu items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the menu item definitions.
      */
@@ -358,6 +360,7 @@ class NavigationManager
 
     /**
      * Specifies a code of the side menu item in the current navigation context.
+     * If the code is set to TRUE, the first item will be flagged as active.
      * @param string $sideMenuItemCode Specifies the side menu item code
      */
     public function setContextSideMenu($sideMenuItemCode)
@@ -397,6 +400,11 @@ class NavigationManager
      */
     public function isSideMenuItemActive($item)
     {
+        if ($this->contextSideMenuItemCode === true) {
+            $this->contextSideMenuItemCode = null;
+            return true;
+        }
+
         return $this->contextOwner == $item->owner && $this->contextSideMenuItemCode == $item->code;
     }
 
@@ -424,9 +432,9 @@ class NavigationManager
     {
         $key = $owner.$mainMenuItemCode;
 
-        return array_key_exists($key, $this->contextSidenavPartials) ?
-            $this->contextSidenavPartials[$key] :
-            null;
+        return array_key_exists($key, $this->contextSidenavPartials)
+            ? $this->contextSidenavPartials[$key]
+            : null;
     }
 
     /**

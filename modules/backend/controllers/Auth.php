@@ -6,6 +6,7 @@ use Backend;
 use Redirect;
 use Validator;
 use BackendAuth;
+use BackendMenu;
 use Backend\Models\User;
 use Backend\Models\AccessLog;
 use Backend\Classes\Controller;
@@ -49,7 +50,8 @@ class Auth extends Controller
         try {
             if (post('postback')) {
                 return $this->signin_onSubmit();
-            } else {
+            }
+            else {
                 $this->bodyClass .= ' preload';
             }
         }
@@ -81,6 +83,14 @@ class Auth extends Controller
 
         // Log the sign in event
         AccessLog::add($user);
+
+        // User cannot access the dashboard
+        if (!$user->hasAccess('backend.access_dashboard')) {
+            $true = function(){ return true; };
+            if ($first = array_first(BackendMenu::listMainMenuItems(), $true)) {
+                return Redirect::intended($first->url);
+            }
+        }
 
         // Redirect to the intended page after successful sign in
         return Redirect::intended(Backend::url('backend'));

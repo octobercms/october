@@ -420,7 +420,8 @@ class Form extends WidgetBase
             if (strtolower($field->span) == 'auto') {
                 if ($prevSpan == 'left') {
                     $field->span = 'right';
-                } else {
+                }
+                else {
                     $field->span = 'left';
                 }
             }
@@ -439,9 +440,11 @@ class Form extends WidgetBase
             $defaultTab = Lang::get('backend::lang.form.undefined_tab');
             if (!is_array($config)) {
                 $tab = $defaultTab;
-            } elseif (!isset($config['tab'])) {
+            }
+            elseif (!isset($config['tab'])) {
                 $tab = $config['tab'] = $defaultTab;
-            } else {
+            }
+            else {
                 $tab = $config['tab'];
             }
 
@@ -505,14 +508,16 @@ class Form extends WidgetBase
 
             if ($this->isFormWidget($config) !== false) {
                 $field->displayAs('widget', ['widget' => $config]);
-            } else {
+            }
+            else {
                 $field->displayAs($config);
             }
 
+        }
         /*
          * Defined field type
          */
-        } else {
+        else {
 
             $fieldType = isset($config['type']) ? $config['type'] : null;
             if (!is_string($fieldType) && !is_null($fieldType)) {
@@ -711,15 +716,18 @@ class Form extends WidgetBase
             if ($result instanceof Model && $result->hasRelation($key)) {
                 if ($key == $lastField) {
                     $result = $result->getRelationValue($key) ?: $defaultValue;
-                } else {
+                }
+                else {
                     $result = $result->{$key};
                 }
-            } elseif (is_array($result)) {
+            }
+            elseif (is_array($result)) {
                 if (!array_key_exists($key, $result)) {
                     return $defaultValue;
                 }
                 $result = $result[$key];
-            } else {
+            }
+            else {
                 if (!isset($result->{$key})) {
                     return $defaultValue;
                 }
@@ -855,13 +863,15 @@ class Form extends WidgetBase
 
             if ($this->methodExists($this->model, $methodName)) {
                 $fieldOptions = $this->model->$methodName($field->value);
-            } else {
+            }
+            else {
                 $fieldOptions = $this->model->getDropdownOptions($field->fieldName, $field->value);
             }
+        }
         /*
          * Field options are an explicit method reference
          */
-        } elseif (is_string($fieldOptions)) {
+        elseif (is_string($fieldOptions)) {
             if (!$this->methodExists($this->model, $fieldOptions)) {
                 throw new ApplicationException(Lang::get(
                     'backend::lang.field.options_method_not_exists',

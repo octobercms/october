@@ -105,7 +105,8 @@ class DataGrid extends FormWidgetBase
 
         if ($this->model->methodExists($methodName)) {
             $result = $this->model->$methodName($field, $value, $data);
-        } else {
+        }
+        else {
             $result = $this->model->getGridAutocompleteValues($this->fieldName, $field, $value, $data);
         }
 
@@ -131,7 +132,8 @@ class DataGrid extends FormWidgetBase
 
         if ($this->model->methodExists($methodName)) {
             $result = $this->model->$methodName();
-        } else {
+        }
+        else {
             $result = $this->model->getGridDataSourceValues($this->fieldName);
         }
 

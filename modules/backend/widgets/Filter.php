@@ -344,7 +344,8 @@ class Filter extends WidgetBase
                 $filtered = implode(',', array_build($value, function ($key, $_value) {
                     return [$key, Db::getPdo()->quote($_value)];
                 }));
-            } else {
+            }
+            else {
                 $filtered = Db::getPdo()->quote($value);
             }
 

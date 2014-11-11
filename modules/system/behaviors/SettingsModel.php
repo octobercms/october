@@ -56,7 +56,7 @@ class SettingsModel extends ModelBehavior
         $this->model->bindEvent('model.afterFetch', [$this, 'afterModelFetch']);
         $this->model->bindEvent('model.beforeSave', [$this, 'beforeModelSave']);
         $this->model->bindEvent('model.afterSave', [$this, 'afterModelSave']);
-        $this->model->bindEvent('model.setAttribute', [$this, 'setModelAttribute']);
+        $this->model->bindEvent('model.setAttribute', [$this, 'setSettingsValue']);
         $this->model->bindEvent('model.saveInternal', [$this, 'saveModelInternal']);
 
         /*
@@ -136,6 +136,18 @@ class SettingsModel extends ModelBehavior
     }
 
     /**
+     * Set a single setting value, if allowed.
+     */
+    public function setSettingsValue($key, $value)
+    {
+        if ($this->isKeyAllowed($key)) {
+            return;
+        }
+
+        $this->fieldValues[$key] = $value;
+    }
+
+    /**
      * Default values to set for this model, override
      */
     public function initSettingsData()
@@ -180,18 +192,6 @@ class SettingsModel extends ModelBehavior
     public function afterModelSave()
     {
         Cache::forget($this->getCacheKey());
-    }
-
-    /**
-     * Adulterate the model setter to use our field values instead.
-     */
-    public function setModelAttribute($key, $value)
-    {
-        if ($this->isKeyAllowed($key)) {
-            return;
-        }
-
-        $this->fieldValues[$key] = $value;
     }
 
     /**
