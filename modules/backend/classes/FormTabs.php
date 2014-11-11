@@ -115,13 +115,17 @@ class FormTabs implements IteratorAggregate, ArrayAccess
         return $tablessFields;
     }
 
+    /**
+     * Returns true if any fields have been registered for these tabs
+     * @return boolean
+     */
     public function hasFields()
     {
         return count($this->fields) > 0;
     }
 
     /**
-     * Returns an array of the registered fields.
+     * Returns an array of the registered fields, including tabs.
      * @return array
      */
     public function getTabs()
