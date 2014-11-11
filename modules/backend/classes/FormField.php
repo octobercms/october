@@ -275,7 +275,6 @@ class FormField
         if (isset($config['path'])) {
             $this->path = $config['path'];
         }
-
         if (array_key_exists('required', $config)) {
             $this->required = $config['required'];
         }

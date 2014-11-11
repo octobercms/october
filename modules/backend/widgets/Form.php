@@ -6,6 +6,7 @@ use Lang;
 use Form as FormHelper;
 use Input;
 use Event;
+use Backend\Classes\FormTabs;
 use Backend\Classes\FormField;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
@@ -54,19 +55,19 @@ class Form extends WidgetBase
     protected $formWidgets = [];
 
     /**
-     * @var array Collection of fields not contained in a tab.
+     * @var Backend\Classes\FormTabs Collection of fields not contained in a tab.
      */
-    protected $outsideFields = [];
+    protected $outsideTabs;
 
     /**
-     * @var array Collection of fields inside the primary tabs.
+     * @var Backend\Classes\FormTabs Collection of fields inside the primary tabs.
      */
-    protected $primaryTabs = [];
+    protected $primaryTabs;
 
     /**
-     * @var array Collection of fields inside the secondary tabs.
+     * @var Backend\Classes\FormTabs Collection of fields inside the secondary tabs.
      */
-    protected $secondaryTabs = [];
+    protected $secondaryTabs;
 
     /**
      * @var string If the field element names should be contained in an array.
@@ -133,9 +134,9 @@ class Form extends WidgetBase
      *  - preview: Render this form as an uneditable preview. Default: false
      *  - useContainer: Wrap the result in a container, used by AJAX. Default: true
      *  - section: Which form section to render. Default: null
-     *     - outside: Renders the Outside Fields area.
-     *     - primary: Renders the Primary Tabs area.
-     *     - secondary: Renders the Secondary Tabs area.
+     *     - outside: Renders the Outside Fields section.
+     *     - primary: Renders the Primary Tabs section.
+     *     - secondary: Renders the Secondary Tabs section.
      *     - null: Renders all sections
      */
     public function render($options = [])
@@ -160,19 +161,17 @@ class Form extends WidgetBase
 
             switch (strtolower($section)) {
                 case 'outside':
-                    $sectionPartial = 'section_outside-fields';
+                    $extraVars['tabs'] = $this->outsideTabs;
                     break;
                 case 'primary':
-                    $sectionPartial = 'section_primary-tabs';
+                    $extraVars['tabs'] = $this->primaryTabs;
                     break;
                 case 'secondary':
-                    $sectionPartial = 'section_secondary-tabs';
-                    break;
-                default:
+                    $extraVars['tabs'] = $this->secondaryTabs;
                     break;
             }
 
-            $targetPartial = $sectionPartial;
+            $targetPartial = 'section';
             $extraVars['renderSection'] = $section;
         }
 
@@ -247,7 +246,7 @@ class Form extends WidgetBase
     {
         $this->defineFormFields();
         $this->vars['sessionKey'] = $this->getSessionKey();
-        $this->vars['outsideFields'] = $this->outsideFields;
+        $this->vars['outsideTabs'] = $this->outsideTabs;
         $this->vars['primaryTabs'] = $this->primaryTabs;
         $this->vars['secondaryTabs'] = $this->secondaryTabs;
     }
@@ -355,6 +354,7 @@ class Form extends WidgetBase
             $this->config->fields = [];
         }
 
+        $this->outsideTabs = new FormTabs(FormTabs::SECTION_OUTSIDE, $this->config);
         $this->addFields($this->config->fields);
 
         /*
@@ -364,7 +364,8 @@ class Form extends WidgetBase
             $this->config->tabs['fields'] = [];
         }
 
-        $this->addFields($this->config->tabs['fields'], 'primary');
+        $this->primaryTabs = new FormTabs(FormTabs::SECTION_PRIMARY, $this->config->tabs);
+        $this->addFields($this->config->tabs['fields'], FormTabs::SECTION_PRIMARY);
 
         /*
          * Secondary Tabs + Fields
@@ -373,7 +374,8 @@ class Form extends WidgetBase
             $this->config->secondaryTabs['fields'] = [];
         }
 
-        $this->addFields($this->config->secondaryTabs['fields'], 'secondary');
+        $this->secondaryTabs = new FormTabs(FormTabs::SECTION_SECONDARY, $this->config->secondaryTabs);
+        $this->addFields($this->config->secondaryTabs['fields'], FormTabs::SECTION_SECONDARY);
 
         /*
          * Extensibility
@@ -384,14 +386,35 @@ class Form extends WidgetBase
         /*
          * Convert automatic spanned fields
          */
-        $this->processAutoSpan($this->outsideFields);
-
-        foreach ($this->primaryTabs as $fields) {
+        foreach ($this->outsideTabs->getTabs() as $fields) {
             $this->processAutoSpan($fields);
         }
 
-        foreach ($this->secondaryTabs as $fields) {
+        foreach ($this->primaryTabs->getTabs() as $fields) {
             $this->processAutoSpan($fields);
+        }
+
+        foreach ($this->secondaryTabs->getTabs() as $fields) {
+            $this->processAutoSpan($fields);
+        }
+
+        /*
+         * At least one tab section should stretch
+         */
+        if (
+            $this->secondaryTabs->stretch === null
+            && $this->primaryTabs->stretch === null
+            && $this->outsideTabs->stretch === null
+        ) {
+            if ($this->secondaryTabs->hasFields()) {
+                $this->secondaryTabs->stretch = true;
+            }
+            elseif ($this->primaryTabs->hasFields()) {
+                $this->primaryTabs->stretch = true;
+            }
+            else {
+                $this->outsideTabs->stretch = true;
+            }
         }
 
         /*
@@ -437,18 +460,8 @@ class Form extends WidgetBase
     {
         foreach ($fields as $name => $config) {
 
-            $defaultTab = Lang::get('backend::lang.form.undefined_tab');
-            if (!is_array($config)) {
-                $tab = $defaultTab;
-            }
-            elseif (!isset($config['tab'])) {
-                $tab = $config['tab'] = $defaultTab;
-            }
-            else {
-                $tab = $config['tab'];
-            }
-
             $fieldObj = $this->makeFormField($name, $config);
+            $fieldTab = is_array($config) ? array_get($config, 'tab') : null;
 
             /*
              * Check that the form field matches the active context
@@ -463,14 +476,14 @@ class Form extends WidgetBase
             $this->fields[$name] = $fieldObj;
 
             switch (strtolower($addToArea)) {
-                case 'primary':
-                    $this->primaryTabs[$tab][$name] = $fieldObj;
+                case FormTabs::SECTION_PRIMARY:
+                    $this->primaryTabs->addField($name, $fieldObj, $fieldTab);
                     break;
-                case 'secondary':
-                    $this->secondaryTabs[$tab][$name] = $fieldObj;
+                case FormTabs::SECTION_SECONDARY:
+                    $this->secondaryTabs->addField($name, $fieldObj, $fieldTab);
                     break;
                 default:
-                    $this->outsideFields[$name] = $fieldObj;
+                    $this->outsideTabs->addField($name, $fieldObj, $fieldTab);
                     break;
             }
         }

@@ -7,20 +7,24 @@
 
 <?php if (!$this->fatalError): ?>
 
-    <div class="scoreboard">
-        <div data-control="toolbar">
-            <div class="scoreboard-item title-value">
-                <h4><?= e(trans('system::lang.mail_templates.layout')) ?></h4>
-                <p><?= $formModel->code ?></p>
+    <?= Form::open(['class'=>'layout']) ?>
+
+        <div class="layout-row min-size">
+            <div class="scoreboard">
+                <div data-control="toolbar">
+                    <div class="scoreboard-item title-value">
+                        <h4><?= e(trans('system::lang.mail_templates.layout')) ?></h4>
+                        <p><?= $formModel->code ?></p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <?= Form::open(['class'=>'layout-item stretch layout-column']) ?>
+        <div class="layout-row">
+            <?= $this->formRender() ?>
+        </div>
 
-        <?= $this->formRender() ?>
-
-        <div class="form-buttons layout-item fix">
+        <div class="form-buttons">
             <div class="loading-indicator-container">
                 <button
                     type="submit"

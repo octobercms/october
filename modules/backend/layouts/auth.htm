@@ -34,15 +34,17 @@
                 <div class="layout-row">
                     <div class="layout-cell">
                         <div class="outer-form-container">
-                            <div id="layout-flash-messages"><?= $this->makeLayoutPartial('flash_messages') ?></div>
-
                             <?= Block::placeholder('body') ?>
                         </div>
                     </div>
                 </div>
 
             </div>
-        </div><!-- /layout-canvas -->
+        </div>
+
+        <!-- Flash Messages -->
+        <div id="layout-flash-messages"><?= $this->makeLayoutPartial('flash_messages') ?></div>
+
     </body>
 </html>
 

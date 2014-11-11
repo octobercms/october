@@ -62,7 +62,7 @@
             return
 
         this.$container.removeClass('in')
-        this.$overlay.removeClass('in')
+        if (this.$overlay) this.$overlay.removeClass('in')
 
         $.support.transition && this.$container.hasClass('fade')
             ? this.$container
@@ -148,7 +148,7 @@
          * Display the popover
          */
         this.$container.addClass('in')
-        this.$overlay.addClass('in')
+        if (this.$overlay) this.$overlay.addClass('in')
 
         $(document.body).addClass('popover-open')
         var showEvent = jQuery.Event('show.oc.popover', { relatedTarget: this.$container.get(0) })

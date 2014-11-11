@@ -3,5 +3,8 @@
 # ===================================
 
 fields:
-  name:
-    label: backend::lang.user.group.name_field
+    name:
+        label: backend::lang.user.group.name_field
+
+tabs:
+    stretch: true

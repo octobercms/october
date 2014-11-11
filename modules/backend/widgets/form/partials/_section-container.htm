@@ -6,15 +6,15 @@
     id="<?= $this->getId($renderSection.'Container') ?>">
 
     <?php if ($renderSection == 'outside'): ?>
-        <?= $this->makePartial('section_outside-fields') ?>
+        <?= $this->makePartial('section', ['tabs' => $outsideTabs]) ?>
     <?php endif ?>
 
     <?php if ($renderSection == 'primary'): ?>
-        <?= $this->makePartial('section_primary-tabs') ?>
+        <?= $this->makePartial('section', ['tabs' => $primaryTabs]) ?>
     <?php endif ?>
 
     <?php if ($renderSection == 'secondary'): ?>
-        <?= $this->makePartial('section_secondary-tabs') ?>
+        <?= $this->makePartial('section', ['tabs' => $secondaryTabs]) ?>
     <?php endif ?>
 
 </div>

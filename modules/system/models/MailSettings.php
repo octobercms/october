@@ -38,10 +38,10 @@ class MailSettings extends Model
     public function getSendModeOptions()
     {
         return [
-            static::MODE_MAIL     => 'PHP mail',
-            static::MODE_SENDMAIL => 'Sendmail',
-            static::MODE_SMTP     => 'SMTP',
-            static::MODE_MAILGUN  => 'Mailgun',
+            static::MODE_MAIL     => 'system::lang.mail.php_mail',
+            static::MODE_SENDMAIL => 'system::lang.mail.sendmail',
+            static::MODE_SMTP     => 'system::lang.mail.smtp',
+            static::MODE_MAILGUN  => 'system::lang.mail.mailgun',
         ];
     }
 

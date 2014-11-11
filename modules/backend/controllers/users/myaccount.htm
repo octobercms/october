@@ -1,31 +1,36 @@
 <?php if (!$this->fatalError): ?>
 
     <?php Block::put('form-contents') ?>
+        <div class="layout">
 
-        <?= $this->formRenderOutsideFields() ?>
-        <?= $this->formRenderPrimaryTabs() ?>
-
-        <div class="form-buttons layout-item fix">
-            <div class="loading-indicator-container">
-                <button
-                    type="submit"
-                    data-request="onSave"
-                    data-request-data="redirect:0"
-                    data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
-                    class="btn btn-primary">
-                    <?= e(trans('backend::lang.form.save')) ?>
-                </button>
-                <button
-                    type="button"
-                    data-request="onSave"
-                    data-request-data="close:1"
-                    data-hotkey="ctrl+enter, cmd+enter"
-                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
-                    class="btn btn-default">
-                    <?= e(trans('backend::lang.form.save_and_close')) ?>
-                </button>
+            <div class="layout-row">
+                <?= $this->formRenderOutsideFields() ?>
+                <?= $this->formRenderPrimaryTabs() ?>
             </div>
+
+            <div class="form-buttons">
+                <div class="loading-indicator-container">
+                    <button
+                        type="submit"
+                        data-request="onSave"
+                        data-request-data="redirect:0"
+                        data-hotkey="ctrl+s, cmd+s"
+                        data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                        class="btn btn-primary">
+                        <?= e(trans('backend::lang.form.save')) ?>
+                    </button>
+                    <button
+                        type="button"
+                        data-request="onSave"
+                        data-request-data="close:1"
+                        data-hotkey="ctrl+enter, cmd+enter"
+                        data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                        class="btn btn-default">
+                        <?= e(trans('backend::lang.form.save_and_close')) ?>
+                    </button>
+                </div>
+            </div>
+
         </div>
     <?php Block::endPut() ?>
 

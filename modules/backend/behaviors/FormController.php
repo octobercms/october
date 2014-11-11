@@ -432,7 +432,7 @@ class FormController extends ControllerBehavior
      * Helper for custom layouts. Renders Secondary Tabs.
      * @return string The tab HTML markup.
      */
-    public function formRenderSecondaryTabs($suppressTabs = false)
+    public function formRenderSecondaryTabs()
     {
         return $this->formRender(['section' => 'secondary']);
     }
