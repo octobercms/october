@@ -103,6 +103,8 @@ return [
         'method' => 'Levelezési módszer',
         'sender_name' => 'Feladó neve',
         'sender_email' => 'Feladó e-mail címe',
+        'php_mail' => 'PHP mail',
+        'sendmail' => 'Sendmail',
         'smtp' => 'SMTP',
         'smtp_address' => 'SMTP címe',
         'smtp_authorization' => 'SMTP hitelesítés szükséges',
@@ -117,7 +119,7 @@ return [
 		'mailgun' => 'Mailgun',
         'mailgun_domain' => 'Mailgun tartomány',
         'mailgun_domain_comment' => 'Adja meg a Mailgun tartománynevét.',
-        'mailgun_secret' => 'mailgun_secret',
+        'mailgun_secret' => 'Mailgun Secret',
         'mailgun_domain_secret' => 'Adja meg Mailgun API-kulcsát.',
     ],
     'mail_templates' => [
