@@ -10815,6 +10815,14 @@ html.cssanimations .cursor-loading-indicator.hide {
   position: relative;
   overflow: hidden;
   height: 100%;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.control-scrollbar > div {
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .control-scrollbar > .scrollbar-scrollbar {
   position: absolute;
