@@ -1,38 +1,40 @@
 <?php if (!$this->fatalError): ?>
 
-    <?= Form::open(['class'=>'layout-item stretch layout-column']) ?>
+    <?= Form::open(['class'=>'layout']) ?>
 
-        <div class="row">
-            <div class="col-md-5" id="editorSettingsForm">
-                <div class="form-preview">
-                    <?= $this->formRender() ?>
+        <div class="layout-row">
+            <div class="row">
+                <div class="col-md-5" id="editorSettingsForm">
+                    <div class="form-preview">
+                        <?= $this->formRender() ?>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-7">
+                <div class="col-md-7">
 
-                <div
-                    id="editorpreferencesCodeeditor"
-                    class="field-codeeditor size-large layout-relative"
-                    data-control="codeeditor"
-                    data-font-size="<?= $fontSize ?>"
-                    data-word-wrap="<?= $wordWrap ?>"
-                    data-code-folding="<?= $codeFolding ?>"
-                    data-tab-size="<?= $tabSize ?>"
-                    data-theme="<?= $theme ?>"
-                    data-show-invisibles="<?= $showInvisibles ?>"
-                    data-highlight-active-line="<?= $highlightActiveLine ?>"
-                    data-use-soft-tabs="<?= $useSoftTabs ?>"
-                    data-show-gutter="<?= $showGutter ? 'true' : 'false' ?>"
-                    data-language="<?= $language ?>"
-                    data-margin="<?= $margin ?>"
-                    data-vendor-path="<?= URL::to('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>/">
-                    <textarea name="editorpreferences_codeeditor"><?= e($this->makePartial('example_code')) ?></textarea>
+                    <div
+                        id="editorpreferencesCodeeditor"
+                        class="field-codeeditor size-large layout-relative"
+                        data-control="codeeditor"
+                        data-font-size="<?= $fontSize ?>"
+                        data-word-wrap="<?= $wordWrap ?>"
+                        data-code-folding="<?= $codeFolding ?>"
+                        data-tab-size="<?= $tabSize ?>"
+                        data-theme="<?= $theme ?>"
+                        data-show-invisibles="<?= $showInvisibles ?>"
+                        data-highlight-active-line="<?= $highlightActiveLine ?>"
+                        data-use-soft-tabs="<?= $useSoftTabs ?>"
+                        data-show-gutter="<?= $showGutter ? 'true' : 'false' ?>"
+                        data-language="<?= $language ?>"
+                        data-margin="<?= $margin ?>"
+                        data-vendor-path="<?= URL::to('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>/">
+                        <textarea name="editorpreferences_codeeditor"><?= e($this->makePartial('example_code')) ?></textarea>
+                    </div>
+
                 </div>
-
             </div>
         </div>
 
-        <div class="form-buttons layout-item fix">
+        <div class="form-buttons">
             <div class="loading-indicator-container">
                 <button
                     type="submit"

@@ -1,12 +1,12 @@
 
-<?php if ($outsideFields): ?>
-    <?= $this->makePartial('section_outside-fields') ?>
+<?php if ($outsideTabs->hasFields()): ?>
+    <?= $this->makePartial('section', ['tabs' => $outsideTabs]) ?>
 <?php endif ?>
 
-<?php if ($primaryTabs): ?>
-    <?= $this->makePartial('section_primary-tabs') ?>
+<?php if ($primaryTabs->hasFields()): ?>
+    <?= $this->makePartial('section', ['tabs' => $primaryTabs]) ?>
 <?php endif ?>
 
-<?php if ($secondaryTabs): ?>
-    <?= $this->makePartial('section_secondary-tabs') ?>
+<?php if ($secondaryTabs->hasFields()): ?>
+    <?= $this->makePartial('section', ['tabs' => $secondaryTabs]) ?>
 <?php endif ?>

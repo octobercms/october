@@ -44,7 +44,9 @@
         margin-top: -20px;
     }
 
-    &.no-bottom-margin {
+    // Breadcrumb to sit flush to the element below
+    &.no-bottom-margin, // @deprecated remove if year >= 2015
+    &.breadcrumb-flush {
         margin-bottom: 0;
     }
 }
