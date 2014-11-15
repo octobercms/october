@@ -505,8 +505,9 @@ class RelationController extends ControllerBehavior
         $this->beforeAjax();
 
         if (($checkedIds = post('checked')) && is_array($checkedIds)) {
-            foreach ($checkedIds as $relationId) {
-                if (!$obj = $this->relationObject->find($relationId)) {
+            $relatedModel = $this->relationObject->getRelated();
+             foreach ($checkedIds as $relationId) {
+                if (!$obj = $relatedModel->find($relationId)) {
                     continue;
                 }
 
