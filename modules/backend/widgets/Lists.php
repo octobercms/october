@@ -407,9 +407,19 @@ class Lists extends WidgetBase
          * Apply a supplied search term for primary columns
          */
         if (count($primarySearchable) > 0) {
-            $query->orWhere(function ($innerQuery) use ($primarySearchable) {
+            $whereBool = 'or';
+            $wheres = $query->getQuery()->wheres;
+            if(is_array($wheres) && count($wheres)) {
+                $lastWhere = array_pop($wheres);
+                if(is_string($lastWhere['column'])){
+                    if(strstr($lastWhere['column'], 'deleted_at')){
+                        $whereBool = 'and';
+                    }
+                }
+            }
+            $query->where(function ($innerQuery) use ($primarySearchable) {
                 $innerQuery->searchWhere($this->searchTerm, $primarySearchable);
-            });
+            }, null, null, $whereBool);
         }
 
         /*
