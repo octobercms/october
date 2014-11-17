@@ -114,7 +114,7 @@
 
     Table.prototype.unregisterHandlers = function() {
         this.el.removeEventListener('click', this.clickHandler);
-        this.el.removeEventListener('keydown', this.clickHandler);
+        this.el.removeEventListener('keydown', this.keydownHandler);
     }
 
     Table.prototype.initCellProcessors = function() {
@@ -293,6 +293,114 @@
         cellElement.parentNode.setAttribute('data-dirty', 1)
     }
 
+    Table.prototype.navigateDown = function(ev) {
+        if (!this.activeCell)
+            return
+
+        if (this.activeCellProcessor && !this.activeCellProcessor.keyNavigationAllowed(ev, 'down'))
+            return
+
+        var row = this.activeCell.parentNode,
+            newRow = !ev.shiftKey ? 
+                row.nextElementSibling :
+                row.parentNode.children[row.parentNode.children.length - 1]
+
+        if (!newRow)
+            return
+        
+        var cell = newRow.children[this.activeCell.cellIndex]
+
+        if (cell)
+            this.focusCell(cell)
+    }
+
+    Table.prototype.navigateUp = function(ev) {
+        if (!this.activeCell)
+            return
+
+        if (this.activeCellProcessor && !this.activeCellProcessor.keyNavigationAllowed(ev, 'up'))
+            return
+
+        var row = this.activeCell.parentNode,
+            newRow = !ev.shiftKey ? 
+                row.previousElementSibling :
+                row.parentNode.children[0]
+
+        if (!newRow)
+            return
+
+        var cell = newRow.children[this.activeCell.cellIndex]
+
+        if (cell)
+            this.focusCell(cell)
+    }
+
+    Table.prototype.navigateLeft = function(ev) {
+        if (!this.activeCell)
+            return
+
+        if (this.activeCellProcessor && !this.activeCellProcessor.keyNavigationAllowed(ev, 'left'))
+            return
+
+        var row = this.activeCell.parentNode,
+            newIndex = !ev.shiftKey ? 
+                this.activeCell.cellIndex-1 :
+                0
+
+        var cell = row.children[newIndex]
+
+        if (cell)
+            this.focusCell(cell)
+    }
+
+    Table.prototype.navigateRight = function(ev) {
+        if (!this.activeCell)
+            return
+
+        if (this.activeCellProcessor && !this.activeCellProcessor.keyNavigationAllowed(ev, 'right'))
+            return
+
+        var row = this.activeCell.parentNode,
+            newIndex = !ev.shiftKey ? 
+                this.activeCell.cellIndex+1 :
+                row.children.length-1
+
+        var cell = row.children[newIndex]
+
+        if (cell)
+            this.focusCell(cell)
+    }
+
+    Table.prototype.navigateNext = function(ev) {
+        if (!this.activeCell)
+            return
+
+        if (this.activeCellProcessor && !this.activeCellProcessor.keyNavigationAllowed(ev, 'tab'))
+            return
+
+        var row = this.activeCell.parentNode,
+            cellCount = row.children.length,
+            cellIndex = this.activeCell.cellIndex
+
+        if (!ev.shiftKey) {
+            if (cellIndex < cellCount-1)
+                this.focusCell(row.children[cellIndex+1])
+            else {
+                if (row.nextElementSibling)
+                    this.focusCell(row.nextElementSibling.children[0])
+            }
+        } else {
+            if (cellIndex > 0)
+                this.focusCell(row.children[cellIndex-1])
+            else {
+                if (row.previousElementSibling)
+                    this.focusCell(row.previousElementSibling.children[cellCount-1])
+            }
+        }
+
+        this.stopEvent(ev)
+    }
+
     // EVENT HANDLERS
     // ============================
 
@@ -309,7 +417,21 @@
     }
 
     Table.prototype.onKeydown = function(ev) {
-        
+        // Handle keyboard navigation events.
+        // Cell processor editors should stop the keydown event
+        // bubbling if they handle the up/down/left/right
+        // keys by themselves.
+
+        if (ev.keyCode == 40)
+            return this.navigateDown(ev)
+        else if (ev.keyCode == 38)
+            return this.navigateUp(ev)
+        else if (ev.keyCode == 37)
+            return this.navigateLeft(ev)
+        if (ev.keyCode == 39)
+            return this.navigateRight(ev)
+        if (ev.keyCode == 9)
+            return this.navigateNext(ev)
     }
 
     // PUBLIC METHODS
@@ -367,6 +489,18 @@
         }
 
         return target
+    }
+
+    Table.prototype.stopEvent = function(ev) {
+        if (ev.stopPropagation)
+            ev.stopPropagation()
+        else
+            ev.cancelBubble = true
+
+        if(ev.preventDefault)
+            ev.preventDefault()
+        else
+            ev.returnValue = false
     }
 
     Table.prototype.getCellValue = function(cellElement) {

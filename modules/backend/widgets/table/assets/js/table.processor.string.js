@@ -25,6 +25,8 @@
         // State properties
         //
 
+        this.focusTimeoutHandler = this.onFocusTimeout.bind(this)
+
         //
         // Parent constructor
         //
@@ -34,6 +36,11 @@
 
     StringProcessor.prototype = Object.create(BaseProto)
     StringProcessor.prototype.constructor = StringProcessor
+
+    StringProcessor.prototype.dispose = function() {
+        BaseProto.dispose.call(this)
+        this.focusTimeoutHandler = null
+    }
 
     /*
      * Renders the cell in the normal (no edit) mode
@@ -65,11 +72,11 @@
         input.value = this.tableObj.getCellValue(cellElement)
         cellElement.appendChild(input)
 
+        this.setCaretPosition(input, 0)
+
         // Focus the element in the next frame. 
         // http://stackoverflow.com/questions/779379/why-is-settimeoutfn-0-sometimes-useful
-        window.setTimeout(function focusInput(){
-            input.focus()
-        }, 0)
+        window.setTimeout(this.focusTimeoutHandler, 0)
     }
 
     /*
@@ -90,6 +97,78 @@
 
         this.showViewContainer(this.activeCell)
         this.activeCell = null
+    }
+
+    /*
+     * Determines if the keyboard navigation in the specified direction is allowed
+     * by the cell processor. Some processors could reject the navigation, for example
+     * the string processor could cancel the left array navigation if the caret 
+     * in the text input is not in the beginning of the text.
+     */
+    StringProcessor.prototype.keyNavigationAllowed = function(ev, direction) {
+        if (direction != 'left' && direction != 'right')
+            return true
+
+        if (!this.activeCell)
+            return true
+
+        var editor = this.activeCell.querySelector('.string-input')
+        if (!editor)
+            return true
+
+        var caretPosition = this.getCaretPosition(editor)
+
+        if (direction == 'left')
+            return caretPosition == 0
+
+        if (direction == 'right')
+            return caretPosition == editor.value.length
+
+        return true
+    }
+
+    StringProcessor.prototype.onFocusTimeout = function() {
+        if (!this.activeCell)
+            return
+
+        var editor = this.activeCell.querySelector('.string-input')
+        if (!editor)
+            return
+
+        editor.focus()
+        this.setCaretPosition(editor, 0)
+    }
+
+    StringProcessor.prototype.getCaretPosition = function(input) {
+        if (document.selection) { 
+           var selection = document.selection.createRange()
+
+           selection.moveStart('character', -input.value.length)
+           return selection.text.length
+        }
+
+        if (input.selectionStart !== undefined)
+           return input.selectionStart
+
+        return 0
+    }
+
+    StringProcessor.prototype.setCaretPosition = function(input, position) {
+        if (document.selection) { 
+            var range = input.createTextRange()
+
+            range.collapse(true)
+            range.moveStart("character", position)
+            range.moveEnd("character", 0)
+            range.select()
+        }
+
+        if (input.selectionStart !== undefined) {
+           input.selectionStart = position
+           input.selectionEnd = position
+       }
+
+        return 0
     }
 
     $.oc.table.processor.string = StringProcessor;
