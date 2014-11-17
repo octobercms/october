@@ -10610,20 +10610,17 @@ html.cssanimations .cursor-loading-indicator.hide {
 }
 .stripe-loading-indicator .stripe-loaded {
   width: 0;
-  opacity: 0;
-  filter: alpha(opacity=0);
+  display: none;
 }
 .stripe-loading-indicator.loaded {
-  opacity: 0;
-  filter: alpha(opacity=0);
+  display: none;
   -webkit-transition: opacity 0.4s linear;
   transition: opacity 0.4s linear;
   -webkit-transition-delay: 0.3s;
   transition-delay: 0.3s;
 }
 .stripe-loading-indicator.loaded .stripe-loaded {
-  opacity: 1;
-  filter: alpha(opacity=100);
+  display: block;
   -webkit-transition: width 0.3s linear;
   transition: width 0.3s linear;
   width: 100% !important;

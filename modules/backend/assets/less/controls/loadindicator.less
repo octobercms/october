@@ -173,15 +173,22 @@ html.cssanimations {
 
     .stripe-loaded {
         width: 0;
-        .opacity(0);
+
+        // Opacity replaced with display. Leaving the animated indicator element
+        // in the rendering tree, even invisible, affects the performance.
+        // .opacity(0);
+        display: none;
     }
 
     &.loaded {
-        .opacity(0);
+        // .opacity(0);
+        display: none;
+
         .transition(opacity .4s linear);
         .transition-delay(.3s);
         .stripe-loaded {
-            .opacity(1);
+            display: block;
+            // .opacity(1);
             .transition(width .3s linear);
             width: 100% !important;
         }

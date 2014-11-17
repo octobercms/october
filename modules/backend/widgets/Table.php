@@ -32,6 +32,7 @@ class Table extends WidgetBase
      */
     public function init()
     {
+        $this->columns = $this->getConfig('columns', []);
     }
 
     /**
@@ -48,7 +49,7 @@ class Table extends WidgetBase
      */
     public function prepareVars()
     {
-
+        $this->vars['columns'] = $this->prepareColumnsArray();
     }
 
     //
@@ -64,5 +65,26 @@ class Table extends WidgetBase
         $this->addJs('js/table.js', 'core');
         $this->addJs('js/table.datasource.base.js', 'core');
         $this->addJs('js/table.datasource.client.js', 'core');
+        $this->addJs('js/table.processor.base.js', 'core');
+        $this->addJs('js/table.processor.string.js', 'core');
+    }
+
+    /**
+     * Converts the columns associative array to a regular array.
+     * Working with regular arrays is much faster in JavaScript.
+     * References: 
+     * - http://www.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
+     * - http://jsperf.com/performance-of-array-vs-object/3
+     */
+    protected function prepareColumnsArray()
+    {
+        $result = [];
+
+        foreach ($this->columns as $key=>$data) {
+            $data['key'] = $key;
+            $result[] = $data;
+        }
+
+        return $result;
     }
 }
