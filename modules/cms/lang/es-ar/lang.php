@@ -40,7 +40,7 @@ return [
         'menu_label' => 'Páginas',
         'no_list_records' => 'No se encontraron páginas',
         'new' => 'Nueva página',
-        'invalid_url' => 'Formato de URL inválido. El URL debe comenzar con el símbolo de barra diagonal y puede contener dígitos, letras latinas y los siguientes símbolos: _-[]:?|/+*',
+        'invalid_url' => 'Formato de URL inválido. El URL debe comenzar con el símbolo de barra diagonal y puede contener dígitos, letras latinas y los siguientes símbolos: _-[]:?|/+*^$',
         'delete_confirm_multiple' => '¿Realmente quiere eliminar las páginas seleccionadas?',
         'delete_confirm_single' => '¿Realmente quieres eliminar esta página?',
         'no_layout' => '-- ninguna disposición --'
