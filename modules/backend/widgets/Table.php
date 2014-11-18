@@ -63,6 +63,7 @@ class Table extends WidgetBase
     {
         $this->addCss('css/table.css', 'core');
         $this->addJs('js/table.js', 'core');
+        $this->addJs('js/table.helper.navigation.js', 'core');
         $this->addJs('js/table.datasource.base.js', 'core');
         $this->addJs('js/table.datasource.client.js', 'core');
         $this->addJs('js/table.processor.base.js', 'core');

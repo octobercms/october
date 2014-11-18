@@ -157,15 +157,19 @@
         if (document.selection) { 
             var range = input.createTextRange()
 
-            range.collapse(true)
-            range.moveStart("character", position)
-            range.moveEnd("character", 0)
-            range.select()
+            setTimeout(function(){
+                range.collapse(true)
+                range.moveStart("character", position)
+                range.moveEnd("character", 0)
+                range.select()
+            }, 0)
         }
 
         if (input.selectionStart !== undefined) {
-           input.selectionStart = position
-           input.selectionEnd = position
+            setTimeout(function(){
+                input.selectionStart = position
+                input.selectionEnd = position
+            }, 0)
        }
 
         return 0
