@@ -40,7 +40,7 @@ return [
         'menu_label' => 'Pagina\'s',
         'no_list_records' => 'Geen pagina\'s gevonden',
         'new' => 'Nieuwe pagina',
-        'invalid_url' => 'Ongeldig URL formaat. De URL moet beginnen met een schuine streep en mag enkel bestaan uit letters, cijfers en de volgende tekens: ._-[]:?|/+*',
+        'invalid_url' => 'Ongeldig URL formaat. De URL moet beginnen met een schuine streep en mag enkel bestaan uit letters, cijfers en de volgende tekens: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Weet je zeker dat je de geselecteerde pagina\'s wilt verwijderen?',
         'delete_confirm_single' => 'Weet je zeker dat je deze pagina wilt verwijderen?',
         'no_layout' => '-- geen layout --'
