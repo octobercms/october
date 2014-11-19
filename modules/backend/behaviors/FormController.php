@@ -50,6 +50,11 @@ class FormController extends ControllerBehavior
     protected $modelsToSave = [];
 
     /**
+     * @var Model The initialized model used by the form.
+     */
+    protected $model;
+
+    /**
      * Behavior constructor
      * @param Backend\Classes\Controller $controller
      * @return void
@@ -110,6 +115,7 @@ class FormController extends ControllerBehavior
         }
 
         $this->prepareVars($model);
+        $this->model = $model;
     }
 
     /**
@@ -138,9 +144,9 @@ class FormController extends ControllerBehavior
                 'create[title]',
                 'backend::lang.form.create_title'
             );
+
             $model = $this->controller->formCreateModelObject();
             $this->initForm($model);
-            $this->controller->vars['formModel'] = $model;
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -193,10 +199,9 @@ class FormController extends ControllerBehavior
                 'update[title]',
                 'backend::lang.form.update_title'
             );
+
             $model = $this->controller->formFindModelObject($recordId);
             $this->initForm($model);
-            
-            $this->controller->vars['formModel'] = $model;
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -272,10 +277,9 @@ class FormController extends ControllerBehavior
                 'preview[title]',
                 'backend::lang.form.preview_title'
             );
+
             $model = $this->controller->formFindModelObject($recordId);
             $this->initForm($model);
-            
-            $this->controller->vars['formModel'] = $model;
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -298,6 +302,15 @@ class FormController extends ControllerBehavior
         }
 
         return $this->formWidget->render($options);
+    }
+
+    /**
+     * Returns the model initialized by this form behavior.
+     * @return Model
+     */
+    public function formGetModel()
+    {
+        return $this->model;
     }
 
     /**
