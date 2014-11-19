@@ -40,7 +40,7 @@ return [
         'menu_label' => 'Pagine',
         'no_list_records' => 'Pagine non trovate',
         'new' => 'Nuova pagina',
-        'invalid_url' => 'Formato URL non valido. L\'URL deve iniziare con una barra e può contenere numeri, lettere e i seguenti simboli: ._-[]:?|/+*',
+        'invalid_url' => 'Formato URL non valido. L\'URL deve iniziare con una barra e può contenere numeri, lettere e i seguenti simboli: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Sei sicuro di voler eliminare le pagine selezionate?',
         'delete_confirm_single' => 'Sei sicuro di voler eliminare questa pagina?',
         'no_layout' => '-- nessun layout --'

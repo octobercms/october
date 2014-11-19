@@ -40,7 +40,7 @@ return [
         'menu_label' => 'Pagini',
         'no_list_records' => 'Nu au fost gasite pagini',
         'new' => 'Pagina noua',
-        'invalid_url' => 'Format URL invalid. URL-ul ar trebui sa inceapa cu un slash ( / ) si poate sa contina cifre, caractere latine si urmatoarele simboluri: ._-[]:?|/+*',
+        'invalid_url' => 'Format URL invalid. URL-ul ar trebui sa inceapa cu un slash ( / ) si poate sa contina cifre, caractere latine si urmatoarele simboluri: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Vreti sa stergeti paginile selectate?',
         'delete_confirm_single' => 'Vreti sa stergeti aceasta pagina?',
         'no_layout' => '-- fara macheta --'
