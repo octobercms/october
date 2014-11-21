@@ -61,6 +61,27 @@
         this.buildEditor(cellElement)
     }
 
+    /*
+     * Forces the processor to hide the editor when the user navigates
+     * away from the cell. Processors can update the sell value in this method.
+     * Processors must clear the reference to the active cell in this method.
+     */
+    StringProcessor.prototype.onUnfocus = function() {
+        if (!this.activeCell)
+            return
+
+        var editor = this.activeCell.querySelector('.string-input')
+        if (editor) {
+            // Update the cell value and remove the editor
+            this.tableObj.setCellValue(this.activeCell, editor.value)
+            this.setViewContainerValue(this.activeCell, editor.value)
+            editor.parentNode.removeChild(editor)
+        }
+
+        this.showViewContainer(this.activeCell)
+        this.activeCell = null
+    }
+    
     StringProcessor.prototype.buildEditor = function(cellElement) {
         // Hide the view container
         this.hideViewContainer(this.activeCell)
@@ -77,26 +98,6 @@
         // Focus the element in the next frame. 
         // http://stackoverflow.com/questions/779379/why-is-settimeoutfn-0-sometimes-useful
         window.setTimeout(this.focusTimeoutHandler, 0)
-    }
-
-    /*
-     * Forces the processor to hide the editor when the user navigates
-     * away from the cell.
-     */
-    StringProcessor.prototype.onUnfocus = function() {
-        if (!this.activeCell)
-            return
-
-        var editor = this.activeCell.querySelector('.string-input')
-        if (editor) {
-            // Update the cell value and remove the editor
-            this.tableObj.setCellValue(this.activeCell, editor.value)
-            this.setViewContainerValue(this.activeCell, editor.value)
-            editor.parentNode.removeChild(editor)
-        }
-
-        this.showViewContainer(this.activeCell)
-        this.activeCell = null
     }
 
     /*
@@ -157,7 +158,8 @@
         if (document.selection) { 
             var range = input.createTextRange()
 
-            setTimeout(function(){
+            setTimeout(function() {
+                // Asynchronous layout update, better performance
                 range.collapse(true)
                 range.moveStart("character", position)
                 range.moveEnd("character", 0)
@@ -166,7 +168,8 @@
         }
 
         if (input.selectionStart !== undefined) {
-            setTimeout(function(){
+            setTimeout(function() {
+                // Asynchronous layout update
                 input.selectionStart = position
                 input.selectionEnd = position
             }, 0)

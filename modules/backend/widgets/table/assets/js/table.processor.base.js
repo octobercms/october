@@ -72,6 +72,7 @@
     /*
      * Forces the processor to hide the editor when the user navigates
      * away from the cell. Processors can update the sell value in this method.
+     * Processors must clear the reference to the active cell in this method.
      */
     Base.prototype.onUnfocus = function() {
     }

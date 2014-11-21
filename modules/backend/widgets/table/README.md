@@ -1,5 +1,3 @@
-# Documentation drafr for the Table widget
-
 # Client-side table widget (table.xxx.js)
 
 ## Code organization
@@ -38,7 +36,11 @@ SubClass.prototype.someMethod = function() {
 
 ### Namespaces
 
-All classes for the table widget are be defined in the **$.oc.table** namespace. Cell processors are be defined in the **$.oc.table.processor** namespace. The client and server memory data sources are defined in the **$.oc.table.datasource** namespace.
+All classes for the table widget are be defined in the **$.oc.table** namespace. There are several namespaces in this namespace:
+
+- **$.oc.table.processor** - cell processors
+- **$.oc.table.datasource** - data sources
+- **$.oc.table.helper** - helper classes
 
 ### Client-side performance and memory usage considerations
 
@@ -68,14 +70,31 @@ Any `DIV` elements that have the `data-control="table"` attributes are automatic
 
 ### Options
 
-The options below are listed in the JavaScript notation. Corresponding data attribtues would look like `data-client-data-source-class`. 
+The options below are listed in the JavaScript notation. Corresponding data attributes would look like `data-client-data-source-class`. 
 
 - `clientDataSourceСlass` (default is **client**)- specifies the client-side data source class. There are two data source classes supported on the client side - **client** and **server**.
 - `data` - specifies the data in JSON format for the **client**.
-- `recordsPerPage` - specifies how many records per page to display. If the value is not defined or `false` or `null`, the pagination feature is disabled and all records are displayed.
+- `recordsPerPage` - specifies how many records per page to display. If the value is not defined or `false` or `null`, the pagination feature is disabled and all records are displayed. Pagination and `rowSorting` cannot be used in the same time.
 - `columns` - column definitions in JSON format, see the server-side column definition format below.
+- `rowSorting` - enables the drag & drop row sorting. The sorting cannot be used with the pagination (`recordsPerPage` is not `null` or `false`).
+
+## Client-side helper classes
+
+Some auxiliary code is factored out from the table class to helper classes. The helper classes are defined in the **$.oc.table.helper** namespace.
+
+    - **table.helper.navigation.js** - implements the keyboard navigation within the table and pagination.
 
 ## Data sources ($.oc.table.datasource)
+
+### Adding and removing records
+
+Adding and removing records is an asynchronous process that involves updating records in the dataset.
+
+When a user adds a record, the table object calls the `addRecord(data, offset, count, onSuccess)` method of the data source. The data source adds an empty record to the underlying data set and calls the `onSuccess` callback parameter passed to the method. In the `onSuccess` handler the table object rebuilds the table and focuses a field in the new row.
+
+When user deletes a record, the table object calls the `deleteRecord(index, offset, count, onSuccess)` method of the data source. The data source removes the record from the underlying dataset and calls the `onSuccess` callback parameter, passing records of the current page (determined with the `offset` and `count` parameters) to the callback.
+
+The `onSuccess` callback parameters are: data (records), count.
 
 ### Client memory data source ($.oc.table.datasource.client)
 
@@ -107,8 +126,8 @@ The table object calls the `onFocus()` method of the cell processors when a cell
 
 Columns are defined as array with the `columns` property. The array keys correspond the column identifiers. The array elements are associative arrays with the following keys:
 
-- title
-- type (string, checkbox, dropdown, autocomplete)
-- width
-- readonly
-- options (for drop-down elements and autocomplete types)
+- `title`
+- `type` (string, checkbox, dropdown, autocomplete)
+- `width`
+- `readonly`
+- `options` (for drop-down elements and autocomplete types)

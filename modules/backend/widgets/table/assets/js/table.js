@@ -35,11 +35,6 @@
         // A reference to the currently active table cell
         this.activeCell = null
 
-        // The current first record index.
-        // This index is zero based and has nothing to do 
-        // with the database identifiers or any underlying data.
-        this.offset = 0
-
         // The index of the row which is being edited at the moment.
         // This index corresponds the data source row index which 
         // uniquely identifies the row in the data set. When the
@@ -47,7 +42,7 @@
         // the previously edited record to the data source.
         this.editedRowIndex = null
 
-        // A reference to the data table.
+        // A reference to the data table
         this.dataTable = null
 
         // Event handlers
@@ -172,21 +167,19 @@
         return headersTable
     }
 
-    Table.prototype.updateDataTable = function() {
+    Table.prototype.updateDataTable = function(onSuccess) {
         var self = this;
 
-        this.getRecords(function onSuccess(records){
-            self.buildDataTable(records)
+        this.fetchRecords(function onSuccessClosure(records, totalCount){
+            self.buildDataTable(records, totalCount)
+
+            if (onSuccess)
+                onSuccess()
         })
     }
 
-    Table.prototype.buildDataTable = function(records) {
-        // Completely remove the existing data table. By convention there should 
-        // be no event handlers or references bound to it.
-        if (this.dataTable !== null)
-            this.dataTable.parentNode.removeChild(this.dataTable);
-
-        this.dataTable = document.createElement('table')
+    Table.prototype.buildDataTable = function(records, totalCount) {
+        var dataTable = document.createElement('table')
 
         for (var i = 0, len = records.length; i < len; i++) {
             var row = document.createElement('tr')
@@ -213,16 +206,24 @@
                 row.appendChild(cell)
             }
 
-            this.dataTable.appendChild(row)
+            dataTable.appendChild(row)
         }
 
-        // Build the data table
-        this.el.appendChild(this.dataTable)
+        // Inject the data table to the DOM or replace the existing table
+        if (this.dataTable !== null)
+            this.el.replaceChild(dataTable, this.dataTable)
+        else
+            this.el.appendChild(dataTable)
+
+        this.dataTable = dataTable
+
+        // Update the pagination links
+        this.navigation.buildPagination(totalCount)
     }
 
-    Table.prototype.getRecords = function(onSuccess) {
-        return this.dataSource.getRecords(
-            this.offset, 
+    Table.prototype.fetchRecords = function(onSuccess) {
+        this.dataSource.getRecords(
+            this.navigation.getPageFirstRowOffset(), 
             this.options.recordsPerPage,
             onSuccess)
     }
@@ -260,6 +261,18 @@
 
         this.dataSource.updateRecord(this.editedRowIndex, data)
         editedRow.setAttribute('data-dirty', 0)
+    }
+
+    /*
+     * Removes editor from the currently edited cell and commits the row if needed.
+     */
+    Table.prototype.unfocusTable = function() {
+        if (this.activeCellProcessor)
+            this.activeCellProcessor.onUnfocus()
+
+        this.commitEditedRow()
+        this.activeCellProcessor = null
+        this.activeCell = null
     }
 
     /*
@@ -302,6 +315,9 @@
     // ============================
 
     Table.prototype.onClick = function(ev) {
+        if (this.navigation.onClick(ev) === false)
+            return
+
         var target = this.getEventTarget(ev, 'TD')
 
         if (!target)
@@ -317,6 +333,9 @@
     // ============================
 
     Table.prototype.dispose = function() {
+        // Remove an editor and commit the data if needed
+        this.unfocusTable()
+
         // Dispose the data source and clean up the reference
         this.dataSource.dispose()
         this.dataSource = null

@@ -30,35 +30,48 @@
     /*
      * Fetches records from the underlying data source and
      * passes them to the onSuccess callback function.
+     * The onSuccess callback parameters: records, totalCount.
      */
     Base.prototype.getRecords = function(offset, count, onSuccess) {
         onSuccess([])
     }
 
     /*
-     * Returns the total number of records in the underlying set
+     * Creates a record with the passed data and returns the updated page records
+     * to the onSuccess callback function.
+     * 
+     * - recordData - the record fields
+     * - offset - the current page's first record index (zero-based)
+     * - count - number of records to return
+     * - onSuccess - a callback function to execute when the updated data gets available.
+     *
+     * The onSuccess callback parameters: records, totalCount.
      */
-    Base.prototype.count = function() {
-        return 0
-    }
-
-    /*
-     * Creates a record with the passed data and returns the new record index.
-     */
-    Base.prototype.createRecord = function(recordData) {
-        return 0
+    Base.prototype.createRecord = function(recordData, offset, count, onSuccess) {
+        onSuccess([], 0)
     }
 
     /*
      * Updates a record with the specified index with the passed data
+     *
+     * - index - the record index in the dataset (primary key, etc)
+     * - recordData - the record fields.
      */
     Base.prototype.updateRecord = function(index, recordData) {
     }
 
     /*
-     * Deletes a record with the specified index
+     * Deletes a record with the specified index.
+     *
+     * - index - the record index in the dataset (primary key, etc).
+     * - offset - the current page's first record index (zero-based)
+     * - count - number of records to return
+     * - onSuccess - a callback function to execute when the updated data gets available.
+     *
+     * The onSuccess callback parameters: records, totalCount.
      */
-    Base.prototype.deleteRecord = function(index) {
+    Base.prototype.deleteRecord = function(index, offset, count, onSuccess) {
+        onSuccess([], 0)
     }
 
     $.oc.table.datasource.base = Base;

@@ -37,33 +37,28 @@
         this.data = null
     }
 
-    /*
-     * Fetches records from the underlying data source and
-     * passes them to the onSuccess callback function.
-     */
     Client.prototype.getRecords = function(offset, count, onSuccess) {
-        onSuccess(this.data)
-    }
-
-    /*
-     * Returns the total number of records in the underlying set
-     */
-    Client.prototype.count = function() {
-        return this.data.length
+        if (!count) {
+            // Return all records
+            onSuccess(this.data, this.data.length)
+        } else {
+            // Return a subset of records
+            onSuccess(this.data.slice(offset, offset+count), this.data.length)
+        }
     }
 
     /*
      * Creates a record with the passed data and returns the new record index.
      */
-    Client.prototype.createRecord = function(recordData) {
-        return 0;
+    Client.prototype.createRecord = function(recordData, offset, count, onSuccess) {
+        
     }
 
     /*
      * Updates a record with the specified index with the passed data
      */
     Client.prototype.updateRecord = function(index, recordData) {
-// console.log('Update recird', index, recordData)
+
     }
 
     $.oc.table.datasource.client = Client
