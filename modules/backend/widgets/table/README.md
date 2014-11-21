@@ -58,7 +58,7 @@ There are several articles that provide a good insight into the high performance
 
 * http://www.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
 * http://www.toptal.com/javascript/javascript-prototypes-scopes-and-performance-what-you-need-to-know
-* http://developer.nokia.com/community/wiki/JavaScript_Performance_Best_Practices (the suggestion about the code comments is doubtful JS engines now compile code).
+* http://developer.nokia.com/community/wiki/JavaScript_Performance_Best_Practices (the suggestion about the code comments is doubtful as JS engines compile code now).
 
 ## Widget usage
 

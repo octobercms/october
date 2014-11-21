@@ -181,7 +181,7 @@
             if (cell)
                 this.tableObj.focusCell(cell)
         } else {
-            // Try to switch to the previous page if that's possible
+            // Try to switch to the next page if that's possible
 
             if (!this.paginationEnabled())
                 return
