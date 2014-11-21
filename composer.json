@@ -36,16 +36,7 @@
             "tests/UiTestCase.php"
         ]
     },
-    "___scripts": {
-        "post-install-cmd": [
-            "php artisan optimize"
-        ],
-        "pre-update-cmd": [
-            "php artisan clear-compiled"
-        ],
-        "post-update-cmd": [
-            "php artisan optimize"
-        ],
+    "scripts": {
         "post-create-project-cmd": [
             "php artisan key:generate"
         ]
