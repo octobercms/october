@@ -6,7 +6,7 @@
 <?php foreach ($themes as $index => $theme): ?>
     <?php
         $isLast = $index == $cnt-1;
-        $isActive = $activeTheme->getDirName() == $theme->getDirName();
+        $isActive = $activeTheme && $activeTheme->getDirName() == $theme->getDirName();
         $author = $theme->getConfigValue('author');
     ?>
     <div class="layout-row <?= $isLast ? 'last' : null ?> min-size <?= $isActive ? 'active' : null ?>">

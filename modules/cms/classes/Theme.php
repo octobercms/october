@@ -95,8 +95,8 @@ class Theme
      */
     public static function exists($dirName)
     {
-        $theme = new static;
-        $path = $theme->getPath($dirName);
+        $theme = static::load($dirName);
+        $path = $theme->getPath();
 
         return File::isDirectory($path);
     }
@@ -133,7 +133,7 @@ class Theme
                 ->pluck('value')
             ;
 
-            if ($dbResult !== null) {
+            if ($dbResult !== null && static::exists($dbResult)) {
                 $activeTheme = $dbResult;
             }
         }
