@@ -223,7 +223,9 @@ class ServiceProvider extends ModuleServiceProvider
         MarkupManager::instance()->registerCallback(function ($manager) {
             $manager->registerFunctions([
                 // Functions
+                'input'          => 'input',
                 'post'           => 'post',
+                'get'            => 'get',
                 'link_to'        => 'link_to',
                 'link_to_asset'  => 'link_to_asset',
                 'link_to_route'  => 'link_to_route',
