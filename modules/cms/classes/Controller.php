@@ -182,6 +182,10 @@ class Controller extends BaseController
             return $event;
         }
 
+        if ($event = Event::fire('cms.page.preInit', [$this,$page], true)) {
+            $page = $event;
+        }
+
         /*
          * If the page was not found, render the 404 page - either provided by the theme or the built-in one.
          */
