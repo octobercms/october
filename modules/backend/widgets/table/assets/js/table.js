@@ -35,21 +35,25 @@
         // A reference to the currently active table cell
         this.activeCell = null
 
-        // The index of the row which is being edited at the moment.
-        // This index corresponds the data source row index which 
+        // The key of the row which is being edited at the moment.
+        // This key corresponds the data source row key which 
         // uniquely identifies the row in the data set. When the
         // table grid notices that a cell in another row is edited it commits
         // the previously edited record to the data source.
-        this.editedRowIndex = null
+        this.editedRowKey = null
 
         // A reference to the data table
         this.dataTable = null
 
         // Event handlers
         this.clickHandler = this.onClick.bind(this)
+        this.keydownHandler = this.onKeydown.bind(this)
 
         // Navigation helper
         this.navigation = null
+
+        // Number of records added during the session
+        this.recordsAdded = 0
 
         //
         // Initialization
@@ -109,12 +113,15 @@
 
     Table.prototype.registerHandlers = function() {
         this.el.addEventListener('click', this.clickHandler)
+        this.el.addEventListener('keydown', this.keydownHandler)
     }
 
     Table.prototype.unregisterHandlers = function() {
         this.el.removeEventListener('click', this.clickHandler);
-
         this.clickHandler = null
+
+        this.el.removeEventListener('keydown', this.keydownHandler);
+        this.keydownHandler = null
     }
 
     Table.prototype.initCellProcessors = function() {
@@ -168,13 +175,17 @@
     }
 
     Table.prototype.updateDataTable = function(onSuccess) {
-        var self = this;
+        var self = this
 
-        this.fetchRecords(function onSuccessClosure(records, totalCount){
+        this.unfocusTable()
+
+        this.fetchRecords(function onUpdateDataTableSuccess(records, totalCount){
             self.buildDataTable(records, totalCount)
 
             if (onSuccess)
                 onSuccess()
+
+            self = null
         })
     }
 
@@ -184,8 +195,10 @@
         for (var i = 0, len = records.length; i < len; i++) {
             var row = document.createElement('tr')
 
-            row.setAttribute('data-row', i)
+            if (records[i].__key === undefined)
+                throw new Error('The row attribute __key is not set for the row #'+i);
 
+            row.setAttribute('data-row', records[i].__key)
             for (var j = 0, colsLen = this.options.columns.length; j < colsLen; j++) {
                 var cell = document.createElement('td'),
                     dataContainer = document.createElement('input'),
@@ -198,7 +211,9 @@
 
                 dataContainer.setAttribute('type', 'hidden')
                 dataContainer.setAttribute('data-container', 'data-container')
-                dataContainer.value = records[i][columnName]
+                dataContainer.value = records[i][columnName] !== undefined ?
+                    records[i][columnName] :
+                    ""
 
                 cellProcessor.renderCell(records[i][columnName], cell)
 
@@ -240,10 +255,10 @@
     }
 
     Table.prototype.commitEditedRow = function() {
-        if (this.editedRowIndex === null)
+        if (this.editedRowKey === null)
             return
 
-        var editedRow = this.dataTable.querySelector('tr[data-row="'+this.editedRowIndex+'"]')
+        var editedRow = this.dataTable.querySelector('tr[data-row="'+this.editedRowKey+'"]')
         if (!editedRow)
             return
 
@@ -259,7 +274,7 @@
             data[cell.getAttribute('data-column')] = this.getCellValue(cell)
         }
 
-        this.dataSource.updateRecord(this.editedRowIndex, data)
+        this.dataSource.updateRecord(this.editedRowKey, data)
         editedRow.setAttribute('data-dirty', 0)
     }
 
@@ -296,19 +311,50 @@
 
         // If the cell belongs to other row than the currently edited, 
         // commit currently edited row to the data source. Update the
-        // currently edited row index.
-        var rowIndex = this.getCellRowIndex(cellElement)
+        // currently edited row key.
+        var rowKey = this.getCellRowKey(cellElement)
 
-        if (this.editedRowIndex !== null && rowIndex != this.editedRowIndex)
+        if (this.editedRowKey !== null && rowKey != this.editedRowKey)
             this.commitEditedRow()
 
-        this.editedRowIndex = rowIndex
+        this.editedRowKey = rowKey
 
         processor.onFocus(cellElement, true)
     }
 
     Table.prototype.markCellRowDirty = function(cellElement) {
         cellElement.parentNode.setAttribute('data-dirty', 1)
+    }
+
+    Table.prototype.addRecord = function(placement) {
+        // If there is no active cell, or the pagination is enabled or 
+        // row sorting is disabled, add the record to the bottom of 
+        // the table (last page).
+
+        if (!this.activeCell || this.navigation.paginationEnabled() || !this.options.rowSorting)
+            placement = 'bottom'
+
+        this.navigation.pageIndex = this.navigation.getNewRowPage(placement, null)
+
+        this.unfocusTable()
+
+        this.recordsAdded++
+
+        // New records have negative keys
+        var recordData = {
+                __key: -1*this.recordsAdded
+            },
+            self = this
+
+        this.dataSource.createRecord(recordData, placement, null,
+            this.navigation.getPageFirstRowOffset(), 
+            this.options.recordsPerPage,
+            function onAddRecordDataTableSuccess(records, totalCount) {
+                self.buildDataTable(records, totalCount)
+                self.navigation.focusCell('bottom', 0)
+                self = null
+            }
+        )
     }
 
     // EVENT HANDLERS
@@ -327,6 +373,20 @@
             return
 
         this.focusCell(target)
+    }
+
+    Table.prototype.onKeydown = function(ev) {
+        if (ev.keyCode == 65 && ev.altKey) {
+            // alt+a - add record below
+
+            this.addRecord('below')
+
+            this.stopEvent(ev)
+            return
+        }
+
+        if (this.navigation.onKeydown(ev) === false)
+            return
     }
 
     // PUBLIC METHODS
@@ -409,8 +469,8 @@
         return cellElement.querySelector('[data-container]').value
     }
 
-    Table.prototype.getCellRowIndex = function(cellElement) {
-        return cellElement.parentNode.getAttribute('data-row')
+    Table.prototype.getCellRowKey = function(cellElement) {
+        return parseInt(cellElement.parentNode.getAttribute('data-row'))
     }
 
     Table.prototype.setCellValue = function(cellElement, value) {

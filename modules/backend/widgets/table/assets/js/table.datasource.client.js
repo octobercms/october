@@ -37,6 +37,13 @@
         this.data = null
     }
 
+    /*
+     * Fetches records from the underlying data source and
+     * passes them to the onSuccess callback function.
+     * The onSuccess callback parameters: records, totalCount.
+     * Each record contains the __key field which uniquely identifies 
+     * the record.
+     */
     Client.prototype.getRecords = function(offset, count, onSuccess) {
         if (!count) {
             // Return all records
@@ -48,17 +55,48 @@
     }
 
     /*
-     * Creates a record with the passed data and returns the new record index.
+     * Creates a record with the passed data and returns the updated page records
+     * to the onSuccess callback function.
+     * 
+     * - recordData - the record fields
+     * - placement - "bottom" (the end of the data set), "above", "below"
+     * - relativeToKey - a row key, required if the placement is not "bottom"
+     * - offset - the current page's first record index (zero-based)
+     * - count - number of records to return
+     * - onSuccess - a callback function to execute when the updated data gets available.
+     *
+     * The onSuccess callback parameters: records, totalCount.
      */
-    Client.prototype.createRecord = function(recordData, offset, count, onSuccess) {
-        
+    Client.prototype.createRecord = function(recordData, placement, relatoveToKey, offset, count, onSuccess) {
+        if (placement === 'bottom') {
+            // Add record to the bottom of the dataset
+
+            this.data.push(recordData)
+        }
+
+        this.getRecords(offset, count, onSuccess)
     }
 
     /*
-     * Updates a record with the specified index with the passed data
+     * Updates a record with the specified key with the passed data
+     *
+     * - key - the record key in the dataset (primary key, etc)
+     * - recordData - the record fields.
      */
-    Client.prototype.updateRecord = function(index, recordData) {
+    Client.prototype.updateRecord = function(key, recordData) {
+        var recordIndex = this.getIndexOfKey(key)
 
+        if (recordIndex !== -1) {
+            recordData.__key = key
+            this.data[recordIndex] = recordData
+        } else
+            throw new Error('Record with they key '+key+ ' is not found in the data set')
+    }
+
+    Client.prototype.getIndexOfKey = function(key) {
+        return this.data.map(function(record) {
+            return record.__key 
+        }).indexOf(parseInt(key))
     }
 
     $.oc.table.datasource.client = Client

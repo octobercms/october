@@ -25,7 +25,6 @@
         this.pageIndex = 0
 
         // Event handlers
-        this.keydownHandler = this.onKeydown.bind(this)
 
         // Number of pages in the pagination
         this.pageCount = 0
@@ -34,24 +33,11 @@
     };
 
     Navigation.prototype.init = function() {
-        this.registerHandlers()
     }
 
     Navigation.prototype.dispose = function() {
-        // Unregister event handlers
-        this.unregisterHandlers()
-
         // Remove the reference to the table object
         this.tableObj = null
-    }
-
-    Navigation.prototype.registerHandlers = function() {
-        this.tableObj.el.addEventListener('keydown', this.keydownHandler)
-    }
-
-    Navigation.prototype.unregisterHandlers = function() {
-        this.tableObj.el.removeEventListener('keydown', this.keydownHandler);
-        this.keydownHandler = null
     }
 
     // PAGINATION
@@ -70,7 +56,7 @@
         if (!this.paginationEnabled())
             return
 
-        var paginationContainer = this.tableObj.el.querySelector('.pagination'),
+        var paginationContainer = this.tableObj.getElement().querySelector('.pagination'),
             newPaginationContainer = false,
             curRecordCount = 0
 
@@ -81,7 +67,7 @@
             paginationContainer.setAttribute('class', 'pagination')
             newPaginationContainer = true
         } else
-            curRecordCount = paginationContainer.getAttribute('data-record-count')
+            curRecordCount = this.getRecordCount(paginationContainer)
 
         // Generate the new page list only if the record count has changed
         if (newPaginationContainer || curRecordCount != recordCount) {
@@ -92,10 +78,10 @@
                     this.pageIndex)
 
             if (!newPaginationContainer)
-                paginationContainer.replaceChild(paginationContainer.children[0], pageList)
+                paginationContainer.replaceChild(pageList, paginationContainer.children[0])
             else {
                 paginationContainer.appendChild(pageList)
-                this.tableObj.el.appendChild(paginationContainer)
+                this.tableObj.getElement().appendChild(paginationContainer)
             }
         } else {
             // Do not re-generate the pages if the record count hasn't changed,
@@ -113,6 +99,12 @@
 
         return pageCount
     }
+
+    Navigation.prototype.getRecordCount = function(paginationContainer) {
+        var container = paginationContainer ? paginationContainer : this.tableObj.getElement().querySelector('.pagination')
+
+        return parseInt(container.getAttribute('data-record-count'))
+    } 
 
     Navigation.prototype.buildPaginationLinkList = function(recordCount, recordsPerPage, pageIndex) {
         // This method could be refactored and moved to a pagination
@@ -160,10 +152,17 @@
         this.tableObj.updateDataTable(onSuccess)
     }
 
+    Navigation.prototype.getNewRowPage = function(placement, currentRowIndex) {
+        var curRecordCount = this.getRecordCount()
+
+        if (placement === 'bottom')
+            return this.calculatePageCount(curRecordCount+1, this.tableObj.options.recordsPerPage)-1
+    }
+
     // KEYBOARD NAVIGATION
     // ============================
 
-    Navigation.prototype.navigateDown = function(ev) {
+    Navigation.prototype.navigateDown = function(ev, forceCellIndex) {
         if (!this.tableObj.activeCell)
             return
 
@@ -173,10 +172,13 @@
         var row = this.tableObj.activeCell.parentNode,
             newRow = !ev.shiftKey ? 
                 row.nextElementSibling :
-                row.parentNode.children[row.parentNode.children.length - 1]
+                row.parentNode.children[row.parentNode.children.length - 1],
+            cellIndex = forceCellIndex !== undefined ? 
+                forceCellIndex :
+                this.tableObj.activeCell.cellIndex
 
         if (newRow) {
-            var cell = newRow.children[this.tableObj.activeCell.cellIndex]
+            var cell = newRow.children[cellIndex]
 
             if (cell)
                 this.tableObj.focusCell(cell)
@@ -187,10 +189,9 @@
                 return
 
             if (this.pageIndex < this.pageCount-1) {
-                var cellIndex = this.tableObj.activeCell.cellIndex,
-                    self = this
+                var self = this
 
-                this.gotoPage(this.pageIndex+1, function navUpPageSuccess(){
+                this.gotoPage(this.pageIndex+1, function navDownPageSuccess(){
                     self.focusCell('top', cellIndex)
                     self = null
                 })
@@ -198,7 +199,7 @@
         }
     }
 
-    Navigation.prototype.navigateUp = function(ev) {
+    Navigation.prototype.navigateUp = function(ev, forceCellIndex, isTab) {
         if (!this.tableObj.activeCell)
             return
 
@@ -206,12 +207,15 @@
             return
 
         var row = this.tableObj.activeCell.parentNode,
-            newRow = !ev.shiftKey ? 
+            newRow = (!ev.shiftKey || isTab) ? 
                 row.previousElementSibling :
-                row.parentNode.children[0]
+                row.parentNode.children[0],
+            cellIndex = forceCellIndex !== undefined ? 
+                forceCellIndex :
+                this.tableObj.activeCell.cellIndex
 
         if (newRow) {
-            var cell = newRow.children[this.tableObj.activeCell.cellIndex]
+            var cell = newRow.children[cellIndex]
 
             if (cell)
                 this.tableObj.focusCell(cell)
@@ -222,8 +226,7 @@
                 return
 
             if (this.pageIndex > 0) {
-                var cellIndex = this.tableObj.activeCell.cellIndex,
-                    self = this
+                var self = this
 
                 this.gotoPage(this.pageIndex-1, function navUpPageSuccess(){
                     self.focusCell('bottom', cellIndex)
@@ -233,15 +236,15 @@
         }
     }
 
-    Navigation.prototype.navigateLeft = function(ev) {
+    Navigation.prototype.navigateLeft = function(ev, isTab) {
         if (!this.tableObj.activeCell)
             return
 
-        if (this.tableObj.activeCellProcessor && !this.tableObj.activeCellProcessor.keyNavigationAllowed(ev, 'left'))
+        if (!isTab && this.tableObj.activeCellProcessor && !this.tableObj.activeCellProcessor.keyNavigationAllowed(ev, 'left'))
             return
 
         var row = this.tableObj.activeCell.parentNode,
-            newIndex = !ev.shiftKey ? 
+            newIndex = (!ev.shiftKey || isTab) ? 
                 this.tableObj.activeCell.cellIndex-1 :
                 0
 
@@ -249,13 +252,17 @@
 
         if (cell)
             this.tableObj.focusCell(cell)
+        else {
+            // Try to navigate up if that's possible
+            this.navigateUp(ev, row.children.length-1, isTab)
+        }
     }
 
-    Navigation.prototype.navigateRight = function(ev) {
+    Navigation.prototype.navigateRight = function(ev, isTab) {
         if (!this.tableObj.activeCell)
             return
 
-        if (this.tableObj.activeCellProcessor && !this.tableObj.activeCellProcessor.keyNavigationAllowed(ev, 'right'))
+        if (!isTab && this.tableObj.activeCellProcessor && !this.tableObj.activeCellProcessor.keyNavigationAllowed(ev, 'right'))
             return
 
         var row = this.tableObj.activeCell.parentNode,
@@ -267,6 +274,10 @@
 
         if (cell)
             this.tableObj.focusCell(cell)
+        else {
+            // Try to navigate down if that's possible
+            this.navigateDown(ev, 0)
+        }
     }
 
     Navigation.prototype.navigateNext = function(ev) {
@@ -276,25 +287,10 @@
         if (this.tableObj.activeCellProcessor && !this.tableObj.activeCellProcessor.keyNavigationAllowed(ev, 'tab'))
             return
 
-        var row = this.tableObj.activeCell.parentNode,
-            cellCount = row.children.length,
-            cellIndex = this.tableObj.activeCell.cellIndex
-
-        if (!ev.shiftKey) {
-            if (cellIndex < cellCount-1)
-                this.tableObj.focusCell(row.children[cellIndex+1])
-            else {
-                if (row.nextElementSibling)
-                    this.tableObj.focusCell(row.nextElementSibling.children[0])
-            }
-        } else {
-            if (cellIndex > 0)
-                this.tableObj.focusCell(row.children[cellIndex-1])
-            else {
-                if (row.previousElementSibling)
-                    this.tableObj.focusCell(row.previousElementSibling.children[cellCount-1])
-            }
-        }
+        if (!ev.shiftKey)
+            this.navigateRight(ev, true)
+        else
+            this.navigateLeft(ev, true)
 
         this.tableObj.stopEvent(ev)
     }
@@ -322,7 +318,8 @@
     // ============================
 
     Navigation.prototype.onKeydown = function(ev) {
-        // Handle keyboard navigation events.
+        // The navigation object uses the table's keydown handler
+        // and doesn't register own handler.
 
         if (ev.keyCode == 40)
             return this.navigateDown(ev)
@@ -345,7 +342,7 @@
         if (!target)
             return
 
-        var pageIndex = target.getAttribute('data-page-index')
+        var pageIndex = parseInt(target.getAttribute('data-page-index'))
 
         if (pageIndex === null)
             return

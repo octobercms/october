@@ -31,6 +31,8 @@
      * Fetches records from the underlying data source and
      * passes them to the onSuccess callback function.
      * The onSuccess callback parameters: records, totalCount.
+     * Each record contains the __key field which uniquely identifies 
+     * the record.
      */
     Base.prototype.getRecords = function(offset, count, onSuccess) {
         onSuccess([])
@@ -41,36 +43,38 @@
      * to the onSuccess callback function.
      * 
      * - recordData - the record fields
+     * - placement - "bottom" (the end of the data set), "above", "below"
+     * - relativeToKey - a row key, required if the placement is not "bottom"
      * - offset - the current page's first record index (zero-based)
      * - count - number of records to return
      * - onSuccess - a callback function to execute when the updated data gets available.
      *
      * The onSuccess callback parameters: records, totalCount.
      */
-    Base.prototype.createRecord = function(recordData, offset, count, onSuccess) {
+    Base.prototype.createRecord = function(recordData, placement, relatoveToKey, offset, count, onSuccess) {
         onSuccess([], 0)
     }
 
     /*
-     * Updates a record with the specified index with the passed data
+     * Updates a record with the specified key with the passed data
      *
-     * - index - the record index in the dataset (primary key, etc)
+     * - key - the record key in the dataset (primary key, etc)
      * - recordData - the record fields.
      */
-    Base.prototype.updateRecord = function(index, recordData) {
+    Base.prototype.updateRecord = function(key, recordData) {
     }
 
     /*
-     * Deletes a record with the specified index.
+     * Deletes a record with the specified key.
      *
-     * - index - the record index in the dataset (primary key, etc).
-     * - offset - the current page's first record index (zero-based)
+     * - key - the record key in the dataset (primary key, etc).
+     * - offset - the current page's first record key (zero-based)
      * - count - number of records to return
      * - onSuccess - a callback function to execute when the updated data gets available.
      *
      * The onSuccess callback parameters: records, totalCount.
      */
-    Base.prototype.deleteRecord = function(index, offset, count, onSuccess) {
+    Base.prototype.deleteRecord = function(key, offset, count, onSuccess) {
         onSuccess([], 0)
     }
 
