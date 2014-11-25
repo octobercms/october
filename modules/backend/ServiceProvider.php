@@ -45,6 +45,10 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Date picker',
                 'code'  => 'datepicker'
             ]);
+            $manager->registerFormWidget('Backend\FormWidgets\TimePicker', [
+                'label' => 'Time picker',
+                'code'  => 'timepicker'
+            ]);
             $manager->registerFormWidget('Backend\FormWidgets\ColorPicker', [
                 'label' => 'Color picker',
                 'code'  => 'colorpicker'
