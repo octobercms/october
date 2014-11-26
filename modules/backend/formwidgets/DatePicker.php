@@ -11,6 +11,8 @@ use Backend\Classes\FormWidgetBase;
  */
 class DatePicker extends FormWidgetBase
 {
+    const TIME_PREFIX = '___time_';
+
     /**
      * {@inheritDoc}
      */
@@ -57,6 +59,8 @@ class DatePicker extends FormWidgetBase
     {
         $this->vars['name'] = $this->formField->getName();
 
+        $this->vars['timeName'] = self::TIME_PREFIX.$this->formField->getName(false);
+
         $value = $this->getLoadData();
 
         if ($this->mode != 'datetime' && $value) {
@@ -95,6 +99,17 @@ class DatePicker extends FormWidgetBase
      */
     public function getSaveData($value)
     {
-        return strlen($value) ? $value : null;
+        if (!strlen($value)) {
+            return null;
+        }
+
+        if ($this->mode == 'datetime') {
+            $value .= ' ' . post(self::TIME_PREFIX.$this->formField->getName(false)) . ':00';
+        }
+        elseif ($this->mode == 'time') {
+            $value .= ':00';
+        }
+
+        return $value;
     }
 }
