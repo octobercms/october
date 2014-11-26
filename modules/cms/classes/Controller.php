@@ -178,7 +178,7 @@ class Controller extends BaseController
             ($event = $this->fireEvent('page.beforeDisplay', [$url, $page], true)) ||
             ($event = Event::fire('cms.page.beforeDisplay', [$this, $url, $page], true))
         ) {
-            if ($page instanceof Page) {
+            if ($event instanceof Page) {
                 $page = $event;
             }
             else {
