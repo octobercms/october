@@ -190,7 +190,8 @@
     }
 
     Table.prototype.buildDataTable = function(records, totalCount) {
-        var dataTable = document.createElement('table')
+        var dataTable = document.createElement('table'),
+            tbody = document.createElement('tbody')
 
         for (var i = 0, len = records.length; i < len; i++) {
             var row = document.createElement('tr')
@@ -221,8 +222,10 @@
                 row.appendChild(cell)
             }
 
-            dataTable.appendChild(row)
+            tbody.appendChild(row)
         }
+
+        dataTable.appendChild(tbody)
 
         // Inject the data table to the DOM or replace the existing table
         if (this.dataTable !== null)
@@ -334,7 +337,16 @@
         if (!this.activeCell || this.navigation.paginationEnabled() || !this.options.rowSorting)
             placement = 'bottom'
 
-        this.navigation.pageIndex = this.navigation.getNewRowPage(placement, null)
+        var relativeToKey = null,
+            currentRowIndex = null
+
+        if (placement == 'above' || placement == 'below') {
+            relativeToKey = this.getCellRowKey(this.activeCell)
+            currentRowIndex = this.getCellRowIndex(this.activeCell)
+        }
+
+        if (this.navigation.paginationEnabled())
+            this.navigation.pageIndex = this.navigation.getNewRowPage(placement, currentRowIndex)
 
         this.unfocusTable()
 
@@ -346,12 +358,19 @@
             },
             self = this
 
-        this.dataSource.createRecord(recordData, placement, null,
+        this.dataSource.createRecord(recordData, placement, relativeToKey,
             this.navigation.getPageFirstRowOffset(), 
             this.options.recordsPerPage,
             function onAddRecordDataTableSuccess(records, totalCount) {
                 self.buildDataTable(records, totalCount)
                 self.navigation.focusCell('bottom', 0)
+
+                var row = self.findRowByKey(recordData.__key)
+                if (!row)
+                    throw new Error('New row is not found in the updated table: '+recordData.__key)
+
+                self.navigation.focusCell(row, 0)
+
                 self = null
             }
         )
@@ -377,9 +396,13 @@
 
     Table.prototype.onKeydown = function(ev) {
         if (ev.keyCode == 65 && ev.altKey) {
-            // alt+a - add record below
-
-            this.addRecord('below')
+            if (!ev.shiftKey) {
+                // alt+a - add record below
+                this.addRecord('below')
+            } else {    
+                // alt+shift+a - add record above
+                this.addRecord('above')
+            }
 
             this.stopEvent(ev)
             return
@@ -433,6 +456,10 @@
         return this.el
     }
 
+    Table.prototype.getDataTableBody = function() {
+        return this.dataTable.children[0]
+    }
+
     Table.prototype.getEventTarget = function(ev, tag) {
         var target = ev.target ? ev.target : ev.srcElement
 
@@ -471,6 +498,14 @@
 
     Table.prototype.getCellRowKey = function(cellElement) {
         return parseInt(cellElement.parentNode.getAttribute('data-row'))
+    }
+
+    Table.prototype.findRowByKey = function(key) {
+        return this.dataTable.querySelector('tbody tr[data-row="'+key+'"]')
+    }
+
+    Table.prototype.getCellRowIndex = function(cellElement) {
+        return parseInt(cellElement.parentNode.rowIndex)
     }
 
     Table.prototype.setCellValue = function(cellElement, value) {

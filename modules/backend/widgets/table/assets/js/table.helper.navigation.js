@@ -157,6 +157,20 @@
 
         if (placement === 'bottom')
             return this.calculatePageCount(curRecordCount+1, this.tableObj.options.recordsPerPage)-1
+
+        // When a row is added above a current row, the current row just moves down,
+        // so it's safe to return the current page index
+        if (placement == 'above')
+            return this.pageIndex
+
+        if (placement == 'below') {
+            if (currentRowIndex == (this.tableObj.options.recordsPerPage-1))
+                return this.pageIndex+1
+
+            return this.pageIndex
+        }
+
+        return this.pageIndex
     }
 
     // KEYBOARD NAVIGATION
@@ -297,13 +311,17 @@
 
     Navigation.prototype.focusCell = function(rowReference, cellIndex) {
         var row = null,
-            dataTable = this.tableObj.dataTable
+            tbody = this.tableObj.getDataTableBody()
 
-        if (rowReference == 'bottom') {
-            row = dataTable.children[dataTable.children.length-1]
-        } 
-        else if (rowReference == 'top') {
-            row = dataTable.children[0]
+        if (typeof rowReference === 'object')
+            row = rowReference
+        else {
+            if (rowReference == 'bottom') {
+                row = tbody.children[tbody.children.length-1]
+            } 
+            else if (rowReference == 'top') {
+                row = tbody.children[0]
+            }
         }
 
         if (!row)

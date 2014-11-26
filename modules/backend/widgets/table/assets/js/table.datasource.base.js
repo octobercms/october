@@ -51,7 +51,7 @@
      *
      * The onSuccess callback parameters: records, totalCount.
      */
-    Base.prototype.createRecord = function(recordData, placement, relatoveToKey, offset, count, onSuccess) {
+    Base.prototype.createRecord = function(recordData, placement, relativeToKey, offset, count, onSuccess) {
         onSuccess([], 0)
     }
 

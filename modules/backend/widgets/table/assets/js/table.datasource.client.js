@@ -67,11 +67,19 @@
      *
      * The onSuccess callback parameters: records, totalCount.
      */
-    Client.prototype.createRecord = function(recordData, placement, relatoveToKey, offset, count, onSuccess) {
+    Client.prototype.createRecord = function(recordData, placement, relativeToKey, offset, count, onSuccess) {
         if (placement === 'bottom') {
             // Add record to the bottom of the dataset
 
             this.data.push(recordData)
+        } else if (placement == 'above' || placement == 'below') {
+            // Add record above or below the passed record key
+            
+            var recordIndex = this.getIndexOfKey(relativeToKey)
+            if (placement == 'below')
+                recordIndex ++
+
+            this.data.splice(recordIndex, 0, recordData)
         }
 
         this.getRecords(offset, count, onSuccess)
