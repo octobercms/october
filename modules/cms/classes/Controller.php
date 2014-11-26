@@ -164,9 +164,9 @@ class Controller extends BaseController
          * Maintenance mode
          */
         if (
-            MaintenanceSettings::isConfigured()
-            && MaintenanceSettings::get('is_enabled', false)
-            && !BackendAuth::getUser()
+            MaintenanceSettings::isConfigured() &&
+            MaintenanceSettings::get('is_enabled', false) &&
+            !BackendAuth::getUser()
         ) {
             $page = Page::loadCached($this->theme, MaintenanceSettings::get('cms_page'));
         }
@@ -174,12 +174,16 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if ($event = $this->fireEvent('page.beforeDisplay', [$url, $page], true)) {
-            return $event;
-        }
-
-        if ($event = Event::fire('cms.page.beforeDisplay', [$this, $url, $page], true)) {
-            return $event;
+        if (
+            ($event = $this->fireEvent('page.beforeDisplay', [$url, $page], true)) ||
+            ($event = Event::fire('cms.page.beforeDisplay', [$this, $url, $page], true))
+        ) {
+            if ($page instanceof Page) {
+                $page = $event;
+            }
+            else {
+                return $event;
+            }
         }
 
         /*
@@ -248,11 +252,10 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if ($event = $this->fireEvent('page.init', [$url, $page], true)) {
-            return $event;
-        }
-
-        if ($event = Event::fire('cms.page.init', [$this, $url, $page], true)) {
+        if (
+            ($event = $this->fireEvent('page.init', [$url, $page], true)) ||
+            ($event = Event::fire('cms.page.init', [$this, $url, $page], true))
+        ) {
             return $event;
         }
 
@@ -310,11 +313,10 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if ($event = $this->fireEvent('page.display', [$url, $page], true)) {
-            return $event;
-        }
-
-        if ($event = Event::fire('cms.page.display', [$this, $url, $page], true)) {
+        if (
+            ($event = $this->fireEvent('page.display', [$url, $page], true)) ||
+            ($event = Event::fire('cms.page.display', [$this, $url, $page], true))
+        ) {
             return $event;
         }
 
@@ -601,11 +603,10 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if ($event = $this->fireEvent('page.start', [], true)) {
-            return $event;
-        }
-
-        if ($event = Event::fire('cms.page.start', [$this], true)) {
+        if (
+            ($event = $this->fireEvent('page.start', [], true)) ||
+            ($event = Event::fire('cms.page.start', [$this], true))
+        ) {
             return $event;
         }
 
@@ -614,9 +615,9 @@ class Controller extends BaseController
          */
         if ($this->layoutObj) {
             CmsException::mask($this->layout, 300);
-            $response = (($result = $this->layoutObj->onStart())
-                || ($result = $this->layout->runComponents())
-                || ($result = $this->layoutObj->onBeforePageStart())) ? $result: null;
+            $response = (($result = $this->layoutObj->onStart()) ||
+                ($result = $this->layout->runComponents()) ||
+                ($result = $this->layoutObj->onBeforePageStart())) ? $result: null;
             CmsException::unmask();
 
             if ($response) {
@@ -628,9 +629,9 @@ class Controller extends BaseController
          * Run page functions
          */
         CmsException::mask($this->page, 300);
-        $response = (($result = $this->pageObj->onStart())
-            || ($result = $this->page->runComponents())
-            || ($result = $this->pageObj->onEnd())) ? $result : null;
+        $response = (($result = $this->pageObj->onStart()) || 
+            ($result = $this->page->runComponents()) || 
+            ($result = $this->pageObj->onEnd())) ? $result : null;
         CmsException::unmask();
 
         if ($response) {
@@ -649,11 +650,10 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if ($event = $this->fireEvent('page.end', [], true)) {
-            return $event;
-        }
-
-        if ($event = Event::fire('cms.page.end', [$this], true)) {
+        if (
+            ($event = $this->fireEvent('page.end', [], true)) ||
+            ($event = Event::fire('cms.page.end', [$this], true))
+        ) {
             return $event;
         }
 
@@ -671,11 +671,10 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if ($event = $this->fireEvent('page.render', [$contents], true)) {
-            return $event;
-        }
-
-        if ($event = Event::fire('cms.page.render', [$this, $contents], true)) {
+        if (
+            ($event = $this->fireEvent('page.render', [$contents], true)) ||
+            ($event = Event::fire('cms.page.render', [$this, $contents], true))
+        ) {
             return $event;
         }
 
@@ -855,10 +854,10 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if ($event = $this->fireEvent('page.beforeRenderContent', [$name], true)) {
-            $content = $event;
-        }
-        elseif ($event = Event::fire('cms.page.beforeRenderContent', [$this, $name], true)) {
+        if (
+            ($event = $this->fireEvent('page.beforeRenderContent', [$name], true)) ||
+            ($event = Event::fire('cms.page.beforeRenderContent', [$this, $name], true))
+        ) {
             $content = $event;
         }
         /*
@@ -873,11 +872,10 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-        if ($event = $this->fireEvent('page.renderContent', [$name, $fileContent], true)) {
-            return $event;
-        }
-
-        if ($event = Event::fire('cms.page.renderContent', [$this, $name, $fileContent], true)) {
+        if (
+            ($event = $this->fireEvent('page.renderContent', [$name, $fileContent], true)) ||
+            ($event = Event::fire('cms.page.renderContent', [$this, $name, $fileContent], true))
+        ) {
             return $event;
         }
 
