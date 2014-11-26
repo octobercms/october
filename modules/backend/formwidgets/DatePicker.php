@@ -36,7 +36,7 @@ class DatePicker extends FormWidgetBase
      */
     public function init()
     {
-        $this->mode = $this->getConfig('mode', $this->mode);
+        $this->mode = strtolower($this->getConfig('mode', $this->mode));
         $this->minDate = $this->getConfig('minDate', $this->minDate);
         $this->maxDate = $this->getConfig('maxDate', $this->maxDate);
     }
@@ -69,7 +69,7 @@ class DatePicker extends FormWidgetBase
         }
 
         $this->vars['value'] = $value ?: '';
-        $this->vars['showTime'] = $this->mode == 'datetime' || $this->mode == 'time';
+        $this->vars['mode'] = $this->mode;
         $this->vars['minDate'] = $this->minDate;
         $this->vars['maxDate'] = $this->maxDate;
     }
@@ -80,11 +80,14 @@ class DatePicker extends FormWidgetBase
     public function loadAssets()
     {
         $this->addCss('vendor/pikaday/css/pikaday.css', 'core');
+        $this->addCss('vendor/clockpicker/css/jquery-clockpicker.css', 'core');
         $this->addCss('css/datepicker.css', 'core');
         $this->addJs('vendor/moment/moment.js', 'core');
         $this->addJs('vendor/pikaday/js/pikaday.js', 'core');
         $this->addJs('vendor/pikaday/js/pikaday.jquery.js', 'core');
+        $this->addJs('vendor/clockpicker/js/jquery-clockpicker.js', 'core');
         $this->addJs('js/datepicker.js', 'core');
+        $this->addJs('js/timepicker.js', 'core');
     }
 
     /**
