@@ -68,13 +68,15 @@
      * Deletes a record with the specified key.
      *
      * - key - the record key in the dataset (primary key, etc).
+     * - newRecordData - replacement record to add to the dataset if the deletion
+     *   empties it.
      * - offset - the current page's first record key (zero-based)
      * - count - number of records to return
      * - onSuccess - a callback function to execute when the updated data gets available.
      *
      * The onSuccess callback parameters: records, totalCount.
      */
-    Base.prototype.deleteRecord = function(key, offset, count, onSuccess) {
+    Base.prototype.deleteRecord = function(key, newRecordData, offset, count, onSuccess) {
         onSuccess([], 0)
     }
 

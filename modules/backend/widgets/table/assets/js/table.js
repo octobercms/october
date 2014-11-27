@@ -52,8 +52,8 @@
         // Navigation helper
         this.navigation = null
 
-        // Number of records added during the session
-        this.recordsAdded = 0
+        // Number of records added or deleted during the session
+        this.recordsAddedOrDeleted = 0
 
         //
         // Initialization
@@ -350,11 +350,11 @@
 
         this.unfocusTable()
 
-        this.recordsAdded++
+        this.recordsAddedOrDeleted++
 
         // New records have negative keys
         var recordData = {
-                __key: -1*this.recordsAdded
+                __key: -1*this.recordsAddedOrDeleted
             },
             self = this
 
@@ -363,13 +363,64 @@
             this.options.recordsPerPage,
             function onAddRecordDataTableSuccess(records, totalCount) {
                 self.buildDataTable(records, totalCount)
-                self.navigation.focusCell('bottom', 0)
 
                 var row = self.findRowByKey(recordData.__key)
                 if (!row)
                     throw new Error('New row is not found in the updated table: '+recordData.__key)
 
                 self.navigation.focusCell(row, 0)
+
+                self = null
+            }
+        )
+    }
+
+    Table.prototype.deleteRecord = function() {
+        if (!this.activeCell)
+            return
+
+        var currentRowIndex = this.getCellRowIndex(this.activeCell),
+            key = this.getCellRowKey(this.activeCell),
+            self = this,
+            paginationEnabled = this.navigation.paginationEnabled(),
+            currentPageIndex = this.navigation.pageIndex,
+            currentCellIndex = this.activeCell.cellIndex
+
+        if (paginationEnabled)
+            this.navigation.pageIndex = this.navigation.getPageAfterDeletion(currentRowIndex)
+
+        this.recordsAddedOrDeleted++
+
+        // New records have negative keys
+        var newRecordData = {
+                __key: -1*this.recordsAddedOrDeleted
+            }
+
+        this.dataSource.deleteRecord(key, 
+            newRecordData,
+            this.navigation.getPageFirstRowOffset(), 
+            this.options.recordsPerPage,
+            function onDeleteRecordDataTableSuccess(records, totalCount) {
+                self.buildDataTable(records, totalCount)
+
+                if (!paginationEnabled) {
+                    if (currentRowIndex == 0)
+                       self.navigation.focusCell('top', currentCellIndex)
+                    else {
+                        var focusRow = self.findRowByIndex(currentRowIndex)
+
+                        if (!focusRow)
+                            focusRow = self.findRowByIndex(currentRowIndex-1)
+
+                        if (focusRow)
+                            self.navigation.focusCell(focusRow, currentCellIndex)
+                        else
+                            self.navigation.focusCell('top', currentCellIndex)
+                   }
+                }
+
+                // TODO - implement focusing for the pagination
+                // TODO - profile memory usage
 
                 self = null
             }
@@ -403,6 +454,14 @@
                 // alt+shift+a - add record above
                 this.addRecord('above')
             }
+
+            this.stopEvent(ev)
+            return
+        }
+
+        if (ev.keyCode == 68 && ev.altKey) {
+            // alt+d - delete record
+            this.deleteRecord('above')
 
             this.stopEvent(ev)
             return
@@ -502,6 +561,10 @@
 
     Table.prototype.findRowByKey = function(key) {
         return this.dataTable.querySelector('tbody tr[data-row="'+key+'"]')
+    }
+
+    Table.prototype.findRowByIndex = function(index) {
+        return this.getDataTableBody().children[index]
     }
 
     Table.prototype.getCellRowIndex = function(cellElement) {

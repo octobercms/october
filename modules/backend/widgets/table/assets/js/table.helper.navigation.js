@@ -152,6 +152,10 @@
         this.tableObj.updateDataTable(onSuccess)
     }
 
+    Navigation.prototype.getRowCountOnPage = function(cellElement) {
+        return this.tableObj.getDataTableBody().children.length
+    }
+
     Navigation.prototype.getNewRowPage = function(placement, currentRowIndex) {
         var curRecordCount = this.getRecordCount()
 
@@ -169,6 +173,13 @@
 
             return this.pageIndex
         }
+
+        return this.pageIndex
+    }
+
+    Navigation.prototype.getPageAfterDeletion = function(currentRowIndex) {
+        if (currentRowIndex == 0 && this.getRowCountOnPage() == 1)
+            return this.pageIndex == 0 ? 0 : this.pageIndex-1
 
         return this.pageIndex
     }

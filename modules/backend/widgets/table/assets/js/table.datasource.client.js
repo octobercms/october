@@ -101,6 +101,32 @@
             throw new Error('Record with they key '+key+ ' is not found in the data set')
     }
 
+    /*
+     * Deletes a record with the specified key.
+     *
+     * - key - the record key in the dataset (primary key, etc).
+     * - newRecordData - replacement record to add to the dataset if the deletion
+     *   empties it.
+     * - offset - the current page's first record key (zero-based)
+     * - count - number of records to return
+     * - onSuccess - a callback function to execute when the updated data gets available.
+     *
+     * The onSuccess callback parameters: records, totalCount.
+     */
+    Base.prototype.deleteRecord = function(key, newRecordData, offset, count, onSuccess) {
+        var recordIndex = this.getIndexOfKey(key)
+
+        if (recordIndex !== -1) {
+            this.data.splice(recordIndex, 1)
+
+            if (this.data.length == 0)
+                this.data.push(newRecordData)
+
+            this.getRecords(offset, count, onSuccess)
+        } else
+            throw new Error('Record with they key '+key+ ' is not found in the data set')
+    }
+
     Client.prototype.getIndexOfKey = function(key) {
         return this.data.map(function(record) {
             return record.__key 
