@@ -1,4 +1,4 @@
-* **Build 16x** (2014-11-xx)
+* **Build 166** (2014-11-27)
   - Plugin details method now support "homepage" property (see Plugins > Registration & Versions docs).
   - Fixes a bug in the Datepicker using `time` mode.
 
