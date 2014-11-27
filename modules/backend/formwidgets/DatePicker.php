@@ -61,21 +61,38 @@ class DatePicker extends FormWidgetBase
 
         $this->vars['timeName'] = self::TIME_PREFIX.$this->formField->getName(false);
 
-        $value = $this->getLoadData();
+        if ($value = $this->getLoadData()) {
 
-        if ($this->mode != 'datetime' && $value) {
-            if (is_string($value)) {
-                $value = substr($value, 0, 10);
+            /*
+             * Date / Time
+             */
+            if ($this->mode == 'datetime') {
+                if (is_string($value)) {
+                    $dateTime = explode(' ', $value);
+                }
+                elseif (is_object($value)) {
+                    $value = $value->toDateTimeString();
+                }
+                $value = $dateTime[0];
+                $this->vars['timeValue'] = isset($dateTime[1]) ? substr($dateTime[1], 0, 5) : '';
             }
-            elseif (is_object($value)) {
-                $value = $value->toDateString();
+            /*
+             * Date
+             */
+            elseif ($this->mode == 'date') {
+                if (is_string($value)) {
+                    $value = substr($value, 0, 10);
+                }
+                elseif (is_object($value)) {
+                    $value = $value->toDateString();
+                }
             }
-        } elseif ($this->mode == 'datetime') {
-            if ($value) {
-                $dateTime = explode(' ', $value);
+            elseif ($this->mode == 'time') {
+                if (is_object($value)) {
+                    $value = $value->toTimeString();
+                }
             }
-            $this->vars['valueDate'] = isset($dateTime[1]) ? $dateTime[0] : '';
-            $this->vars['valueTime'] = isset($dateTime[1]) ? substr($dateTime[1], 0, 5) : '';
+
         }
 
         $this->vars['value'] = $value ?: '';
