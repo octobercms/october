@@ -60,6 +60,7 @@ class DatePicker extends FormWidgetBase
         $this->vars['name'] = $this->formField->getName();
 
         $this->vars['timeName'] = self::TIME_PREFIX.$this->formField->getName(false);
+        $this->vars['timeValue'] = null;
 
         if ($value = $this->getLoadData()) {
 
@@ -67,12 +68,11 @@ class DatePicker extends FormWidgetBase
              * Date / Time
              */
             if ($this->mode == 'datetime') {
-                if (is_string($value)) {
-                    $dateTime = explode(' ', $value);
-                }
-                elseif (is_object($value)) {
+                if (is_object($value)) {
                     $value = $value->toDateTimeString();
                 }
+
+                $dateTime = explode(' ', $value);
                 $value = $dateTime[0];
                 $this->vars['timeValue'] = isset($dateTime[1]) ? substr($dateTime[1], 0, 5) : '';
             }
