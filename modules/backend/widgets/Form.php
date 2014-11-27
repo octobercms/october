@@ -803,13 +803,15 @@ class Form extends WidgetBase
          * Give widgets an opportunity to process the data.
          */
         foreach ($this->formWidgets as $field => $widget) {
-            $widgetValue = array_key_exists($field, $data)
-                ? $data[$field]
-                : null;
+            $parts = Str::evalHtmlArray($field);
+            $dotted = implode('.', $parts);
 
-            $data[$field] = $widget->getSaveData($widgetValue);
-            if ($data[$field] === FormWidgetBase::NO_SAVE_DATA) {
-                unset($data[$field]);
+            $widgetValue = $widget->getSaveData(array_get($data, $dotted));
+            if ($widgetValue === FormWidgetBase::NO_SAVE_DATA) {
+                array_forget($data, $dotted);
+            }
+            else {
+                array_set($data, $dotted, $widgetValue);
             }
         }
 
