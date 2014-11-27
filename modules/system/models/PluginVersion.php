@@ -25,7 +25,7 @@ class PluginVersion extends Model
     /**
      * @var array List of attribute names which should not be saved to the database.
      */
-    protected $purgeable = ['name', 'description', 'orphaned', 'author', 'icon'];
+    protected $purgeable = ['name', 'description', 'orphaned', 'author', 'icon', 'homepage'];
 
     public $timestamps = false;
 

@@ -1,3 +1,7 @@
+* **Build 16x** (2014-11-xx)
+  - Plugin details method now support "homepage" property (see Plugins > Registration & Versions docs).
+  - Fixes a bug in the Datepicker using `time` mode.
+
 * **Build 162** (2014-11-10)
   - Fixes an issue where the *Pages* tab is shown in the CMS when permission is denied.
   - Updates are no longer shown on the Dashboard if permission is denied.

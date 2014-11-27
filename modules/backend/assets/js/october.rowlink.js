@@ -28,7 +28,7 @@
         tr.each(function(){
 
             var link = $(this).find(options.target).filter(function(){
-                return !$(this).closest('td').hasClass(options.excludeClass)
+                return !$(this).closest('td').hasClass(options.excludeClass) && !$(this).hasClass(options.excludeClass)
             }).first()
 
             if (!link.length) return
