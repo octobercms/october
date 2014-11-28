@@ -403,25 +403,15 @@
             function onDeleteRecordDataTableSuccess(records, totalCount) {
                 self.buildDataTable(records, totalCount)
 
-                if (!paginationEnabled) {
-                    if (currentRowIndex == 0)
-                       self.navigation.focusCell('top', currentCellIndex)
-                    else {
-                        var focusRow = self.findRowByIndex(currentRowIndex)
-
-                        if (!focusRow)
-                            focusRow = self.findRowByIndex(currentRowIndex-1)
-
-                        if (focusRow)
-                            self.navigation.focusCell(focusRow, currentCellIndex)
-                        else
-                            self.navigation.focusCell('top', currentCellIndex)
-                   }
+                if (!paginationEnabled)
+                    self.navigation.focusCellInReplacedRow(currentRowIndex, currentCellIndex)
+                else {
+                    if (currentPageIndex != self.navigation.pageIndex)
+                        self.navigation.focusCell('bottom', currentCellIndex)
+                    else
+                        self.navigation.focusCellInReplacedRow(currentRowIndex, currentCellIndex)
                 }
-
-                // TODO - implement focusing for the pagination
-                // TODO - profile memory usage
-
+                
                 self = null
             }
         )

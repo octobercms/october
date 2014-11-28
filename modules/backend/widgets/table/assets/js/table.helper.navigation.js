@@ -343,6 +343,22 @@
             this.tableObj.focusCell(cell)
     }
 
+    Navigation.prototype.focusCellInReplacedRow = function(rowIndex, cellIndex) {
+        if (rowIndex == 0)
+           this.focusCell('top', cellIndex)
+        else {
+            var focusRow = this.tableObj.findRowByIndex(rowIndex)
+
+            if (!focusRow)
+                focusRow = this.tableObj.findRowByIndex(rowIndex-1)
+
+            if (focusRow)
+                this.focusCell(focusRow, cellIndex)
+            else
+                this.focusCell('top', cellIndex)
+        }
+    }
+
     // EVENT HANDLERS
     // ============================
 
