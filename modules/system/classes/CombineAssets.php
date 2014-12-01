@@ -103,7 +103,7 @@ class CombineAssets
         /*
          * Common Aliases
          */
-        $this->registerAlias('js', 'jquery', '~/modules/backend/assets/js/vendor/jquery-2.0.3.min.js');
+        $this->registerAlias('js', 'jquery', '~/modules/backend/assets/js/vendor/jquery.min.js');
         $this->registerAlias('js', 'framework', '~/modules/system/assets/js/framework.js');
         $this->registerAlias('js', 'framework.extras', '~/modules/system/assets/js/framework.extras.js');
         $this->registerAlias('css', 'framework.extras', '~/modules/system/assets/css/framework.extras.css');
