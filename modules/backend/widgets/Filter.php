@@ -209,7 +209,11 @@ class Filter extends WidgetBase
     {
         $model = $this->scopeModels[$scope->scopeName];
         if (!$searchQuery) {
-            return $model->all();
+            if (method_exists($model, 'getFilterOptions')) {
+                return $model->getFilterOptions();
+            } else {
+                return $model->all();
+            }
         }
 
         $searchFields = [$model->getKeyName(), $this->getScopeNameColumn($scope)];
