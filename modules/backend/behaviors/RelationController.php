@@ -682,6 +682,10 @@ class RelationController extends ControllerBehavior
              */
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
             $widget->bindEvent('list.extendQuery', function ($query) {
+                if (method_exists($this->controller, $this->alias .'_listExtendQuery')) {
+                    call_user_func_array([$this->controller, $this->alias .'_listExtendQuery'], [$query]);
+                }
+                
                 $this->relationObject->setQuery($query);
                 if ($this->model->exists) {
                     $this->relationObject->addConstraints();
@@ -801,6 +805,9 @@ class RelationController extends ControllerBehavior
          */
         if ($this->manageMode == 'pivot' || $this->manageMode == 'list') {
             $widget->bindEvent('list.extendQuery', function ($query) {
+                if (method_exists($this->controller, $this->alias .'_listExtendQuery')) {
+                    call_user_func_array([$this->controller, $this->alias .'_listExtendQuery'], [$query]);
+                }
 
                 /*
                  * Where not in the current list of related records
