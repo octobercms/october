@@ -672,6 +672,10 @@ class RelationController extends ControllerBehavior
                 );
                 $config->showCheckboxes = true;
             }
+            
+            if ($showCheckboxes = $this->getConfig('showCheckboxes')) {
+                $config->showCheckboxes = $showCheckboxes;
+            }
 
             if ($emptyMessage = $this->getConfig('emptyMessage')) {
                 $config->noRecordsMessage = $emptyMessage;
