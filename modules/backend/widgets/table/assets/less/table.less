@@ -1,0 +1,143 @@
+@import "../../../../../backend/assets/less/core/boot.less";
+
+/*
+ * General control styling
+ */
+
+.table-control {
+    .table-container {
+        border: 1px solid #808c8d;
+        .border-radius(4px);
+        overflow: hidden;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+
+        td, th {
+            padding: 0;
+            font-size: 13px;
+            color: #555555;
+        }
+
+        [data-view-container] {
+            padding: 5px 10px;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    table.headers {
+        &:after {
+            content: ' ';
+            display: block;
+            position: absolute;
+            left: 1px;
+            right: 1px;
+            border-bottom: 1px solid #bdc3c7;
+        }
+    
+        th {
+            padding: 7px 10px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #333333;
+            background: white;
+            border-right: 1px solid #ecf0f1;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+    }
+
+    table.data {
+        td {
+            border: 1px solid #ecf0f1;
+
+            .content-container {
+                position: relative;
+                padding: 1px;
+            }
+
+            &.active {
+                border-color: #2f99da;
+
+                .content-container {
+                    padding: 0;
+                    border: 1px solid #2f99da;
+
+                    &:before, &:after {
+                        content: ' ';
+                        background: #2f99da;
+                        position: absolute;
+                        left: -2px;
+                        top: -2px;
+                    }
+
+                    &:before {
+                        width: 1px;
+                        bottom: -2px;
+                    }
+
+                    &:after {
+                        right: -2px;
+                        height: 1px;
+                    }
+                }
+            }
+        }
+
+        tr { 
+            background-color: white;
+        }
+
+        tr:nth-child(2n) { 
+            background-color: #fbfbfb;
+        }
+    }
+
+    /* TODO: this should be applied only when the control is active */
+    table.data { 
+        tr:first-child td {
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        td:first-child {
+            border-left: none;
+        }
+
+        td:last-child {
+            border-right: none;
+        }
+    }
+}
+
+/*
+ * String editor
+ */
+
+.table-control {
+    td[data-column-type=string] {
+        input[type=text] {
+            width: 100%;
+            height: 100%;
+            display: block;
+            outline: none;
+            border: none;
+            padding: 5px 10px;
+        }
+    }
+}

@@ -35,6 +35,9 @@
         // A reference to the currently active table cell
         this.activeCell = null
 
+        // A reference to the tables container
+        this.tableContainer = null
+
         // The key of the row which is being edited at the moment.
         // This key corresponds the data source row key which 
         // uniquely identifies the row in the data set. When the
@@ -44,6 +47,9 @@
 
         // A reference to the data table
         this.dataTable = null
+
+        // A reference to the header table
+        this.headerTable = null
 
         // Event handlers
         this.clickHandler = this.onClick.bind(this)
@@ -148,8 +154,14 @@
     }
 
     Table.prototype.buildTables = function() {
+        this.tableContainer = document.createElement('div')
+        this.tableContainer.setAttribute('class', 'table-container')
+
         // Build the headers table
-        this.el.appendChild(this.buildHeaderTable())
+        this.tableContainer.appendChild(this.buildHeaderTable())
+
+        // Append the table container to the element
+        this.el.insertBefore(this.tableContainer, this.el.children[0])
 
         // Build the data table
         this.updateDataTable()
@@ -164,12 +176,18 @@
 
         for (var i = 0, len = this.options.columns.length; i < len; i++) {
             var header = document.createElement('th')
+
+            if (this.options.columns[i].width)
+                header.setAttribute('style', 'width: '+this.options.columns[i].width)
+
             header.textContent !== undefined ? 
                 header.textContent = this.options.columns[i].title :
                 header.innerText = this.options.columns[i].title
 
             row.appendChild(header)
         }
+
+        this.headerTable = headersTable
 
         return headersTable
     }
@@ -189,9 +207,21 @@
         })
     }
 
+    Table.prototype.updateColumnWidth = function() {
+        var headerCells = this.headerTable.querySelectorAll('th'),
+            dataCells = this.dataTable.querySelectorAll('tr:first-child td')
+
+        for (var i = 0, len = headerCells.length; i < len; i++) {
+            if (dataCells[i])
+                dataCells[i].setAttribute('style', headerCells[i].getAttribute('style'))
+        }
+    }
+
     Table.prototype.buildDataTable = function(records, totalCount) {
         var dataTable = document.createElement('table'),
             tbody = document.createElement('tbody')
+
+        dataTable.setAttribute('class', 'data')
 
         for (var i = 0, len = records.length; i < len; i++) {
             var row = document.createElement('tr')
@@ -203,6 +233,7 @@
             for (var j = 0, colsLen = this.options.columns.length; j < colsLen; j++) {
                 var cell = document.createElement('td'),
                     dataContainer = document.createElement('input'),
+                    cellContentContainer = document.createElement('div'),
                     column = this.options.columns[j],
                     columnName = column.key,
                     cellProcessor = this.getCellProcessor(columnName)
@@ -216,7 +247,11 @@
                     records[i][columnName] :
                     ""
 
-                cellProcessor.renderCell(records[i][columnName], cell)
+                cellContentContainer.setAttribute('class', 'content-container')
+
+                cellProcessor.renderCell(records[i][columnName], cellContentContainer)
+
+                cell.appendChild(cellContentContainer)
 
                 cell.appendChild(dataContainer)
                 row.appendChild(cell)
@@ -229,11 +264,14 @@
 
         // Inject the data table to the DOM or replace the existing table
         if (this.dataTable !== null)
-            this.el.replaceChild(dataTable, this.dataTable)
+            this.tableContainer.replaceChild(dataTable, this.dataTable)
         else
-            this.el.appendChild(dataTable)
+            this.tableContainer.appendChild(dataTable)
 
         this.dataTable = dataTable
+
+        // Update column widths
+        this.updateColumnWidth()
 
         // Update the pagination links
         this.navigation.buildPagination(totalCount)
@@ -307,9 +345,13 @@
         if (!processor)
             throw new Error("Cell processor not found for the column "+columnName)
 
+        if (this.activeCell)
+            this.activeCell.setAttribute('class', '')
+
         if (this.activeCell !== cellElement) {
             this.setActiveProcessor(processor)
             this.activeCell = cellElement
+            this.activeCell.setAttribute('class', 'active')
         }
 
         // If the cell belongs to other row than the currently edited, 
@@ -477,6 +519,7 @@
 
         // Remove references to DOM elements
         this.dataTable = null
+        this.headerTable = null
 
         // Dispose cell processors
         this.disposeCellProcessors()
@@ -485,13 +528,14 @@
         this.navigation.dispose()
         this.navigation = null
 
-        // Delete the reference to the control HTML element.
+        // Delete references to the control HTML elements.
         // The script doesn't remove any DOM elements themselves.
         // If it's needed it should be done by the outer script,
         // we only make sure that the table widget doesn't hold 
         // references to the detached DOM tree so that the garbage
         // collector can delete the elements if needed.
         this.el = null
+        this.tableContainer = null
 
         // Delete references to other DOM elements
         this.activeCell = null
@@ -503,6 +547,10 @@
 
     Table.prototype.getElement = function() {
         return this.el
+    }
+
+    Table.prototype.getTableContainer = function() {
+        return this.tableContainer
     }
 
     Table.prototype.getDataTableBody = function() {

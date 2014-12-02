@@ -45,8 +45,8 @@
     /*
      * Renders the cell in the normal (no edit) mode
      */
-    StringProcessor.prototype.renderCell = function(value, cellElement) {
-        this.createViewContainer(cellElement, value)
+    StringProcessor.prototype.renderCell = function(value, cellContentContainer) {
+        this.createViewContainer(cellContentContainer, value)
     }
 
     /*
@@ -58,7 +58,7 @@
             return
 
         this.activeCell = cellElement
-        this.buildEditor(cellElement)
+        this.buildEditor(cellElement, this.getCellContentContainer(cellElement))
     }
 
     /*
@@ -82,7 +82,7 @@
         this.activeCell = null
     }
     
-    StringProcessor.prototype.buildEditor = function(cellElement) {
+    StringProcessor.prototype.buildEditor = function(cellElement, cellContentContainer) {
         // Hide the view container
         this.hideViewContainer(this.activeCell)
 
@@ -91,7 +91,7 @@
         input.setAttribute('type', 'text')
         input.setAttribute('class', 'string-input')
         input.value = this.tableObj.getCellValue(cellElement)
-        cellElement.appendChild(input)
+        cellContentContainer.appendChild(input)
 
         this.setCaretPosition(input, 0)
 

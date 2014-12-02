@@ -43,7 +43,7 @@
     /*
      * Renders the cell in the normal (no edit) mode
      */
-    Base.prototype.renderCell = function(value, cellElement) {
+    Base.prototype.renderCell = function(value, cellContentContainer) {
     }
 
     /*
@@ -88,17 +88,24 @@
     }
 
     /*
+     * Returns the content container element of a cell
+     */
+    Base.prototype.getCellContentContainer = function(cellElement) {
+        return cellElement.querySelector('.content-container')
+    }
+
+    /*
      * Creates a cell view data container (a DIV element that contains 
      * the current cell value). This functionality is required for most
      * of the processors, perhaps except the checkbox cell processor.
      */
-    Base.prototype.createViewContainer = function(cellElement, value) {
+    Base.prototype.createViewContainer = function(cellContentContainer, value) {
         var viewContainer = document.createElement('div')
 
         viewContainer.setAttribute('data-view-container', 'data-view-container')
         viewContainer.textContent = value
 
-        cellElement.appendChild(viewContainer)
+        cellContentContainer.appendChild(viewContainer)
     }
 
     /*
