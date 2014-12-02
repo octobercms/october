@@ -450,6 +450,21 @@ class RelationController extends ControllerBehavior
 
         return $results->lists($foreignKeyName);
     }
+    
+    //
+    // Overrides
+    //
+    
+    /**
+     * Controller override: Extend the query used for populating the list
+     * after the default query is processed.
+     * @param October\Rain\Database\Builder $query
+     * @param string $field
+     * @param string $manageMode
+     */
+    public function relationExtendQuery($query, $field, $manageMode) 
+    {
+    }
 
     //
     // AJAX
@@ -682,6 +697,8 @@ class RelationController extends ControllerBehavior
              */
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
             $widget->bindEvent('list.extendQuery', function ($query) {
+                $this->controller->relationExtendQuery($query, $this->field, $this->manageMode);
+                
                 $this->relationObject->setQuery($query);
                 if ($this->model->exists) {
                     $this->relationObject->addConstraints();
@@ -801,6 +818,7 @@ class RelationController extends ControllerBehavior
          */
         if ($this->manageMode == 'pivot' || $this->manageMode == 'list') {
             $widget->bindEvent('list.extendQuery', function ($query) {
+                $this->controller->relationExtendQuery($query, $this->field, $this->manageMode);
 
                 /*
                  * Where not in the current list of related records
