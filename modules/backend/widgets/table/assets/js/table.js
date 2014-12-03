@@ -26,8 +26,8 @@
         // The data source object
         this.dataSource = null
 
-        // The cell processors array
-        this.cellProcessors = []
+        // The cell processors list
+        this.cellProcessors = {}
 
         // A reference to the currently active cell processor
         this.activeCellProcessor = null
@@ -351,7 +351,9 @@
         if (this.activeCell !== cellElement) {
             this.setActiveProcessor(processor)
             this.activeCell = cellElement
-            this.activeCell.setAttribute('class', 'active')
+
+            if (processor.isCellFocusable())
+                this.activeCell.setAttribute('class', 'active')
         }
 
         // If the cell belongs to other row than the currently edited, 
@@ -466,6 +468,12 @@
         if (this.navigation.onClick(ev) === false)
             return
 
+        for (var i = 0, len = this.options.columns.length; i < len; i++) {
+            var column = this.options.columns[i].key
+
+            this.cellProcessors[column].onClick(ev)
+        }
+
         var target = this.getEventTarget(ev, 'TD')
 
         if (!target)
@@ -497,6 +505,12 @@
 
             this.stopEvent(ev)
             return
+        }
+
+        for (var i = 0, len = this.options.columns.length; i < len; i++) {
+            var column = this.options.columns[i].key
+
+            this.cellProcessors[column].onKeyDown(ev)
         }
 
         if (this.navigation.onKeydown(ev) === false)

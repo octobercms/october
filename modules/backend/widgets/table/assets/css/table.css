@@ -28,6 +28,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-height: 28px;
 }
 .table-control table.headers:after {
   content: ' ';
@@ -60,16 +61,16 @@
   padding: 1px;
 }
 .table-control table.data td.active {
-  border-color: #2f99da;
+  border-color: #5fb6f5;
 }
 .table-control table.data td.active .content-container {
   padding: 0;
-  border: 1px solid #2f99da;
+  border: 1px solid #5fb6f5;
 }
 .table-control table.data td.active .content-container:before,
 .table-control table.data td.active .content-container:after {
   content: ' ';
-  background: #2f99da;
+  background: #5fb6f5;
   position: absolute;
   left: -2px;
   top: -2px;
@@ -107,4 +108,44 @@
   outline: none;
   border: none;
   padding: 5px 10px;
+}
+/*
+ * Checkbox editor
+ */
+.table-control td[data-column-type=checkbox] div[data-checkbox-element] {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  border: 1px solid #999999;
+  margin: 5px 5px 5px 10px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.table-control td[data-column-type=checkbox] div[data-checkbox-element]:hover {
+  border-color: #808080;
+  color: #4d4d4d;
+}
+.table-control td[data-column-type=checkbox] div[data-checkbox-element].checked {
+  border-width: 2px;
+}
+.table-control td[data-column-type=checkbox] div[data-checkbox-element].checked:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f00c";
+  font-size: 10px;
+  position: relative;
+  left: 1px;
+  top: -4px;
+}
+.table-control td[data-column-type=checkbox] div[data-checkbox-element]:focus {
+  border-color: #5fb6f5;
+  outline: none;
 }

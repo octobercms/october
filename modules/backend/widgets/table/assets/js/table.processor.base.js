@@ -78,12 +78,33 @@
     }
 
     /*
+     * Event handler for the keydown event. The table class calls this method
+     * for all processors.
+     */
+    Base.prototype.onKeyDown = function(ev) {
+    }
+
+    /*
+     * Event handler for the click event. The table class calls this method
+     * for all processors.
+     */
+    Base.prototype.onClick = function(ev) {
+    }
+
+    /*
      * Determines if the keyboard navigation in the specified direction is allowed
      * by the cell processor. Some processors could reject the navigation, for example
      * the string processor could cancel the left array navigation if the caret 
      * in the text input is not in the beginning of the text.
      */
     Base.prototype.keyNavigationAllowed = function(ev, direction) {
+        return true
+    }
+
+    /*
+     * Determines if the processor's cell is focusable.
+     */
+    Base.prototype.isCellFocusable = function() {
         return true
     }
 

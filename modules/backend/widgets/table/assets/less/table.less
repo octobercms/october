@@ -28,6 +28,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            min-height: 28px;
         }
     }
 
@@ -70,15 +71,15 @@
             }
 
             &.active {
-                border-color: #2f99da;
+                border-color: @color-focus;
 
                 .content-container {
                     padding: 0;
-                    border: 1px solid #2f99da;
+                    border: 1px solid @color-focus;
 
                     &:before, &:after {
                         content: ' ';
-                        background: #2f99da;
+                        background: @color-focus;
                         position: absolute;
                         left: -2px;
                         top: -2px;
@@ -138,6 +139,48 @@
             outline: none;
             border: none;
             padding: 5px 10px;
+        }
+    }
+}
+
+/*
+ * Checkbox editor
+ */
+
+.table-control {
+    td[data-column-type=checkbox] {
+        div[data-checkbox-element] {
+            width: 16px;
+            height: 16px;
+            border-radius: @border-radius-base;
+            background-color: #FFFFFF;
+            border: 1px solid @color-custom-input-border;
+            margin: 5px 5px 5px 10px;
+            cursor: pointer;
+
+            .user-select(none);
+
+            &:hover {
+                border-color: darken(@color-custom-input-border, 10%);
+                color: darken(@color-custom-input-icon, 10%);
+            }
+
+            &.checked {
+                border-width: 2px;
+
+                &:before {
+                    .icon(@check);
+                    font-size: 10px;
+                    position: relative;
+                    left: 1px;
+                    top: -4px;
+                }
+            }
+
+            &:focus {
+                border-color: @color-focus;
+                outline: none;
+            }
         }
     }
 }

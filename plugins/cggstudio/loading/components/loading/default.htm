@@ -1,0 +1,23 @@
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status">&nbsp;</div>
+</div>
+
+
+<script>
+(function(){
+	$('#status').fadeOut(); // will first fade out the loading animation
+	$('#preloader').delay({{ loading.speed }}).fadeOut('slow'); // will fade out the white DIV that covers the website.
+	$('body').delay({{ loading.speed }}).css({'overflow':'visible'});
+})();
+</script>
+
+<style>
+
+	#preloader {
+		background-color:{{ preload.backgroundColor }}; /* Seleccionar el color */
+	}
+
+
+
+</style>

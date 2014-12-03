@@ -1,0 +1,26 @@
+body {
+    overflow: hidden;
+}
+
+#preloader {
+    
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#fff; /* Seleccionar el color */
+    z-index:999; /* Poner en la capa superior */
+	position:fixed;
+}
+
+#status {
+	background-image:url('../img/loading.gif');
+    width:200px;
+    height:200px;
+    position:absolute;
+    left:50%; 
+    top:50%; 
+    background-repeat:no-repeat;
+    background-position:center;
+    margin:-100px 0 0 -100px;
+}
