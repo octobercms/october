@@ -82,7 +82,7 @@ The options below are listed in the JavaScript notation. Corresponding data attr
 
 Some auxiliary code is factored out from the table class to helper classes. The helper classes are defined in the **$.oc.table.helper** namespace.
 
-    - **table.helper.navigation.js** - implements the keyboard navigation within the table and pagination.
+- **table.helper.navigation.js** - implements the keyboard navigation within the table and pagination.
 
 ## Data sources ($.oc.table.datasource)
 
@@ -110,7 +110,7 @@ Cell processors are responsible for rendering the cell content, creating the cel
 
 Cell processors should use the table's `setCellValue()` method to update the value in the table. The table class, in turn, will commit the changes to the data source when the user navigates to another row, on the pagination event, search or form submit. The `setCellValue()` should be the only way to update the table data by cell processors.
 
-Cell processors should register delegated events to detect user's interaction with the cells they responsible for. The processors should unregister any event handlers in the `dispose()` method. The even handlers should be registered for the widgwet's top element, not for the table, as the table could be rebuilt completely on pagination, search, and other cases.
+Cell processors should register delegated events to detect user's interaction with the cells they responsible for. The processors should unregister any event handlers in the `dispose()` method. The even handlers should be registered for the widgwet's top element, not for the table, as the table could be rebuilt completely on pagination, search, and other cases. The `click` and `keydown` events are dispatched to cell processors by the table class automatically and don't require extra handlers.
 
 ### Removing editors from the table
 
@@ -119,6 +119,27 @@ The table keeps a reference to the currently active cell processor. The cell pro
 ### Showing editors
 
 The table object calls the `onFocus()` method of the cell processors when a cell is clicked or navigated (with the keyboard). The cell processor can build a cell editor when this method is called, if it's required.
+
+### Drop-down cell processor
+
+The drop-down column type can load options from the column configuration or with AJAX. Example column configuration:
+
+    color:
+        title: Color
+        type: dropdown
+        options:
+            red: Red
+            green: Green
+            blue: Blue
+        width: 15%
+
+If the `options` element is not presented in the configuration, the options will be loaded with AJAX. 
+
+**TODO:** Document the AJAX interface
+
+**TODO:** Plan the option caching. Requirements:
+ - a) options could depend on other values in the current row. 
+ - b) options could always be cached regardless of other values in the row.
 
 # Server-side table widget (Backend\Widgets\Table)
 
