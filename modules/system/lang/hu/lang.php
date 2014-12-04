@@ -53,7 +53,7 @@ return [
         'unnamed' => 'Névtelen bővítmény',
         'name' => [
             'label' => 'Bővítmény neve',
-            'help' => 'Nevezze meg a bővítményt egyedi kódja alapján. Például: RainLab.Blog',
+            'help' => 'Nevezze meg egyedi kódja alapján a bővítményt. Például: RainLab.Blog',
         ],
     ],
     'plugins' => [
@@ -166,7 +166,7 @@ return [
         'plugin_author' => 'Szerző',
         'core_build' => 'Jelenlegi build',
         'core_build_old' => 'Jelenlegi :build build',
-        'core_build_new' => ':build build',
+        'core_build_new' => 'Build :build',
         'core_build_new_help' => 'Elérhető a legújabb build.',
         'core_downloading' => 'Alkalmazásfájlok letöltése...',
         'core_extracting' => 'Alkalmazásfájlok kicsomagolása...',
