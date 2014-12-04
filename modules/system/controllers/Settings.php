@@ -111,6 +111,16 @@ class Settings extends Controller
         }
     }
 
+    public function update_onResetDefault($author, $plugin, $code = null)
+    {
+        $item = $this->findSettingItem($author, $plugin, $code);
+        $model = $this->createModel($item);
+        $model->resetDefault();
+
+        $redirectUrl = Backend::url('system/settings/update/'.$author.'/'.$plugin.'/'.$code);
+        return Redirect::to($redirectUrl);
+    }
+
     /**
      * Render the form.
      */

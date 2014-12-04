@@ -257,12 +257,7 @@ class Theme
      */
     public function getConfigValue($name, $default = null)
     {
-        $config = $this->getConfig();
-        if (isset($config[$name])) {
-            return $config[$name];
-        }
-
-        return $default;
+        return array_get($this->getConfig(), $name, $default);
     }
 
     /**

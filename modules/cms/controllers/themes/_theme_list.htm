@@ -7,6 +7,7 @@
     <?php
         $isLast = $index == $cnt-1;
         $isActive = $activeTheme && $activeTheme->getDirName() == $theme->getDirName();
+        $hasForm = $theme->getConfigValue('form');
         $author = $theme->getConfigValue('author');
     ?>
     <div class="layout-row <?= $isLast ? 'last' : null ?> min-size <?= $isActive ? 'active' : null ?>">
@@ -16,7 +17,7 @@
         <div class="layout-cell min-height theme-description">
             <h3><?= e($theme->getConfigValue('name', $theme->getDirName())) ?></h3>
             <?php if (strlen($author)): ?>
-                <p class="author">by <a href="<?= e($theme->getConfigValue('authorUrl', '#')) ?>"><?= e($author) ?></a></p>
+                <p class="author">by <a href="<?= e($theme->getConfigValue('homepage', '#')) ?>"><?= e($author) ?></a></p>
             <?php endif ?>
             <p class="description"><?= e($theme->getConfigValue('description', 'The theme description is not provided.')) ?></p>
             <div class="controls">
@@ -35,8 +36,17 @@
                         data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
                         data-stripe-load-indicator
                         class="btn btn-primary">
+                        <i class="icon-check"></i>
                         <?= e(trans('cms::lang.theme.activate_button')) ?>
                     </button>
+                <?php endif ?>
+                <?php if ($hasForm): ?>
+                    <a
+                        href="<?= Backend::url('cms/themes/update/'.$theme->getDirName()) ?>"
+                        class="btn btn-default">
+                        <i class="icon-pencil"></i>
+                        <?= e(trans('cms::lang.theme.customize_button')) ?>
+                    </a>
                 <?php endif ?>
             </div>
         </div>

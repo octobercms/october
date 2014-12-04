@@ -1,3 +1,8 @@
+* **Build 16x** (2014-12-xx)
+  - Settings pages now have a *Reset to default* button.
+  - The field `authorUrl` has been renamed to `homepage` in theme.yaml files.
+  - Adds Theme customization feature (see Themes > Development docs).
+
 * **Build 166** (2014-11-27)
   - Plugin details method now support "homepage" property (see Plugins > Registration & Versions docs).
   - Fixes a bug in the Datepicker using `time` mode.

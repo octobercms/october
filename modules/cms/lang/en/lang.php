@@ -27,6 +27,7 @@ return [
         'find_more_themes' => 'Find more themes on OctoberCMS Theme Marketplace.',
         'activate_button' => 'Activate',
         'active_button' => 'Activate',
+        'customize_button' => 'Customize',
     ],
     'maintenance' => [
         'settings_menu' => 'Maintenance mode',

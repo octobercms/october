@@ -1,3 +1,10 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('cms/themes') ?>">Themes</a></li>
+        <li><?= e(trans($this->pageTitle)) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
 <?php if (!$this->fatalError): ?>
 
     <?= Form::open(['class'=>'layout']) ?>
@@ -13,21 +20,22 @@
                     data-request="onSave"
                     data-request-data="redirect:0"
                     data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    data-load-indicator="Saving theme..."
                     class="btn btn-primary">
-                    <?= e(trans('backend::lang.form.save')) ?>
+                    <u>S</u>ave
                 </button>
                 <button
                     type="button"
                     data-request="onSave"
                     data-request-data="close:1"
                     data-hotkey="ctrl+enter, cmd+enter"
-                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    data-load-indicator="Saving theme..."
                     class="btn btn-default">
-                    <?= e(trans('backend::lang.form.save_and_close')) ?>
+                    Save and Close
                 </button>
+
                 <span class="btn-text">
-                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('system/settings') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                    or <a href="<?= Backend::url('cms/themes') ?>">Cancel</a>
                 </span>
 
                 <button
@@ -40,9 +48,12 @@
                 </button>
             </div>
         </div>
+
     <?= Form::close() ?>
 
 <?php else: ?>
-    <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
-    <p><a href="<?= $parentLink ?>" class="btn btn-default"><?= e(trans('system::lang.settings.return')) ?></a></p>
+
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('cms/themes') ?>" class="btn btn-default">Return to themes list</a></p>
+
 <?php endif ?>
