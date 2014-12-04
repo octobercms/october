@@ -132,10 +132,11 @@
 
     Table.prototype.initCellProcessors = function() {
         for (var i = 0, len = this.options.columns.length; i < len; i++) {
-            var column = this.options.columns[i].key,
-                columnType = this.options.columns[i].type
+            var columnConfiguration = this.options.columns[i],
+                column = columnConfiguration.key,
+                columnType = columnConfiguration.type
 
-            // Resolve the default column type string
+            // Resolve the default column type to string
             if (columnType === undefined) {
                 columnType = 'string'
                 this.options.columns[i].type = columnType
@@ -145,7 +146,7 @@
                 throw new Error('The table cell processor for the column type "'+columnType+'" is not ' +
                     'found in the $.oc.table.processor namespace.')
 
-            this.cellProcessors[column] = new $.oc.table.processor[columnType](this, column)
+            this.cellProcessors[column] = new $.oc.table.processor[columnType](this, column, columnConfiguration)
         }
     }
 

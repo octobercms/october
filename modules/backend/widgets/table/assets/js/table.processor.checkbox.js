@@ -18,12 +18,12 @@
     var Base = $.oc.table.processor.base,
         BaseProto = Base.prototype
 
-    var CheckboxProcessor = function(tableObj, columnName) {
+    var CheckboxProcessor = function(tableObj, columnName, columnConfiguration) {
         //
         // Parent constructor
         //
 
-        Base.call(this, tableObj, columnName)
+        Base.call(this, tableObj, columnName, columnConfiguration)
     }
 
     CheckboxProcessor.prototype = Object.create(BaseProto)

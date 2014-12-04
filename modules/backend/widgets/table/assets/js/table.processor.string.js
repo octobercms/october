@@ -20,7 +20,7 @@
     var Base = $.oc.table.processor.base,
         BaseProto = Base.prototype
 
-    var StringProcessor = function(tableObj, columnName) {
+    var StringProcessor = function(tableObj, columnName, columnConfiguration) {
         //
         // State properties
         //
@@ -31,7 +31,7 @@
         // Parent constructor
         //
 
-        Base.call(this, tableObj, columnName)
+        Base.call(this, tableObj, columnName, columnConfiguration)
     }
 
     StringProcessor.prototype = Object.create(BaseProto)

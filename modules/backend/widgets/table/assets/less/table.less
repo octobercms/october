@@ -184,3 +184,35 @@
         }
     }
 }
+
+/*
+ * Dropdown editor
+ */
+
+.table-control {
+    td[data-column-type=dropdown] {
+        [data-view-container] {
+            padding-right: 20px;
+            position: relative;
+            cursor: pointer;
+
+            &:after {
+                .icon(@angle-down);
+                font-size: 13px;
+                line-height: 100%;
+                color: #95a5a6;
+                position: absolute;
+                top: 8px;
+                right: 10px;
+            }
+
+            &:hover:after {
+                color: @color-link;
+            }
+
+            select {
+                display: none;
+            }
+        }
+    }
+}

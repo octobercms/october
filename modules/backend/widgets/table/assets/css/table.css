@@ -149,3 +149,32 @@
   border-color: #5fb6f5;
   outline: none;
 }
+/*
+ * Dropdown editor
+ */
+.table-control td[data-column-type=dropdown] [data-view-container] {
+  padding-right: 20px;
+  position: relative;
+  cursor: pointer;
+}
+.table-control td[data-column-type=dropdown] [data-view-container]:after {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f107";
+  font-size: 13px;
+  line-height: 100%;
+  color: #95a5a6;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+.table-control td[data-column-type=dropdown] [data-view-container]:hover:after {
+  color: #0181b9;
+}
+.table-control td[data-column-type=dropdown] [data-view-container] select {
+  display: none;
+}

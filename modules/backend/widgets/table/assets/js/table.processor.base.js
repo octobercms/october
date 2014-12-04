@@ -15,7 +15,7 @@
     // CLASS DEFINITION
     // ============================
 
-    var Base = function(tableObj, columnName) {
+    var Base = function(tableObj, columnName, columnConfiguration) {
         //
         // State properties
         //
@@ -23,6 +23,8 @@
         this.tableObj = tableObj
 
         this.columnName = columnName
+
+        this.columnConfiguration = columnConfiguration
 
         this.activeCell = null
 

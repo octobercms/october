@@ -69,6 +69,7 @@ class Table extends WidgetBase
         $this->addJs('js/table.processor.base.js', 'core');
         $this->addJs('js/table.processor.string.js', 'core');
         $this->addJs('js/table.processor.checkbox.js', 'core');
+        $this->addJs('js/table.processor.dropdown.js', 'core');
     }
 
     /**
