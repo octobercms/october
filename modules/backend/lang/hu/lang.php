@@ -155,6 +155,9 @@ return [
         'delete' => 'Törlés',
         'deleting' => 'Törlés...',
         'deleting_name' => 'A(z) :name törlése...',
+        'reset_default' => 'Alaphelyzet',
+        'resetting' => 'Visszaállítás',
+        'resetting_name' => 'A(z) :name visszaállítása',
         'undefined_tab' => 'Egyebek',
         'field_off' => 'Ki',
         'field_on' => 'Be',
@@ -210,8 +213,8 @@ return [
     ],
     'warnings' => [
         'tips' => 'Rendszerkonfigurációs tippek',
-        'tips_description' => 'Vannak olyan problémák, melyekre a rendszer megfelelő konfigurálása érdekében oda kell figyelnie.',
-        'permissions'  => 'A(z) :name nevű könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a webkiszolgálónak erre a könyvtárra.',
+        'tips_description' => 'Olyan problémák vannak, melyekre figyeljen oda a rendszer megfelelő konfigurálása érdekében.',
+        'permissions'  => 'A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a webkiszolgálónak erre a könyvtárra.',
         'extension' => 'A(z) :name PHP-kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat, és aktiválja a kiterjesztést.'
     ],
     'editor' => [

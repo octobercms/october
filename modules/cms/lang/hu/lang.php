@@ -27,6 +27,7 @@ return [
         'find_more_themes' => 'További témák az OctoberCMS témák piacterén.',
         'activate_button' => 'Aktiválás',
         'active_button' => 'Aktiválás',
+        'customize_button' => 'Testreszabás',
     ],
     'maintenance' => [
         'settings_menu' => 'Karbantartás mód',
