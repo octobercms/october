@@ -18,6 +18,12 @@
             <div class="control-scrollbar" data-control="scrollbar">
     <?php endif ?>
 
+    <input
+        type="hidden"
+        name="<?= $field->getName() ?>"
+        value="0"
+        <?= $this->previewMode ? 'disabled="disabled"' : '' ?>>
+
     <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
         <?php
             $index++;
