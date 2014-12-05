@@ -807,12 +807,7 @@ class Form extends WidgetBase
             $dotted = implode('.', $parts);
 
             $widgetValue = $widget->getSaveData(array_get($data, $dotted));
-            if ($widgetValue === FormField::NO_SAVE_DATA) {
-                array_forget($data, $dotted);
-            }
-            else {
-                array_set($data, $dotted, $widgetValue);
-            }
+            array_set($data, $dotted, $widgetValue);
         }
 
         /*
