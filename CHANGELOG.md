@@ -1,4 +1,4 @@
-* **Build 16x** (2014-12-xx)
+* **Build 167** (2014-12-06)
   - Settings pages now have a *Reset to default* button.
   - The field `authorUrl` has been renamed to `homepage` in theme.yaml files.
   - Adds Theme customization feature (see Themes > Development docs).
