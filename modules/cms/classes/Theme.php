@@ -10,6 +10,7 @@ use DbDongle;
 use October\Rain\Support\Yaml;
 use System\Models\Parameters;
 use System\Classes\SystemException;
+use Cms\Models\ThemeData;
 use DirectoryIterator;
 
 /**
@@ -287,4 +288,44 @@ class Theme
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
     }
+
+    /**
+     * Returns true if this theme has form fields that supply customization data.
+     * @return bool
+     */
+    public function hasCustomData()
+    {
+        return $this->getConfigValue('form', false);
+    }
+
+    /**
+     * Implements the getter functionality.
+     * @param  string  $name
+     * @return void
+     */
+    public function __get($name)
+    {
+        if ($this->hasCustomData()) {
+            $theme = ThemeData::forTheme($this);
+            return $theme->{$name};
+        }
+
+        return null;
+    }
+
+    /**
+     * Determine if an attribute exists on the object.
+     * @param  string  $key
+     * @return void
+     */
+    public function __isset($key)
+    {
+        if ($this->hasCustomData()) {
+            $theme = ThemeData::forTheme($this);
+            return isset($theme->{$key});
+        }
+
+        return false;
+    }
+
 }

@@ -92,7 +92,7 @@ class Themes extends Controller
         if (!$theme = CmsTheme::load($dirName))
             throw new Exception(Lang::get('Unable to find theme with name :name', $dirName));
 
-        $model = ThemeData::firstOrCreate(['theme' => $theme->getDirName()]);
+        $model = ThemeData::forTheme($theme);
         return $model;
     }
 
@@ -104,7 +104,7 @@ class Themes extends Controller
         $model = $form->model;
 
         if (!$theme = CmsTheme::load($model->theme))
-            throw new Exception(Lang::get('Unable to find theme with name :name', $dirName));
+            throw new Exception(Lang::get('Unable to find theme with name :name', $this->theme));
 
         if ($fields = $theme->getConfigValue('form.fields')) {
             $form->addFields($fields);

@@ -221,10 +221,11 @@ class Controller extends BaseController
          * The 'this' variable is reserved for default variables.
          */
         $this->vars['this'] = [
-            'controller'  => $this,
-            'layout'      => $this->layout,
             'page'        => $this->page,
+            'layout'      => $this->layout,
+            'theme'       => $this->theme,
             'param'       => $this->router->getParameters(),
+            'controller'  => $this,
             'environment' => App::environment(),
         ];
 

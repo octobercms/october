@@ -7,7 +7,6 @@
     <?php
         $isLast = $index == $cnt-1;
         $isActive = $activeTheme && $activeTheme->getDirName() == $theme->getDirName();
-        $hasForm = $theme->getConfigValue('form');
         $author = $theme->getConfigValue('author');
     ?>
     <div class="layout-row <?= $isLast ? 'last' : null ?> min-size <?= $isActive ? 'active' : null ?>">
@@ -40,7 +39,7 @@
                         <?= e(trans('cms::lang.theme.activate_button')) ?>
                     </button>
                 <?php endif ?>
-                <?php if ($hasForm): ?>
+                <?php if ($theme->hasCustomData()): ?>
                     <a
                         href="<?= Backend::url('cms/themes/update/'.$theme->getDirName()) ?>"
                         class="btn btn-default">
