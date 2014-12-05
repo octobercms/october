@@ -13,6 +13,11 @@ use HTML;
 class FormField
 {
     /**
+     * @var int Value returned when the form field should not contribute any save data.
+     */
+    const NO_SAVE_DATA = -1;
+
+    /**
      * @var string Form field name.
      */
     public $fieldName;
