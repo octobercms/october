@@ -34,13 +34,6 @@
     }
 
     /*
-     * Determines if the processor's cell is focusable.
-     */
-    DropdownProcessor.prototype.isCellFocusable = function() {
-        return false
-    }
-
-    /*
      * Renders the cell in the normal (no edit) mode
      */
     DropdownProcessor.prototype.renderCell = function(value, cellContentContainer) {
@@ -78,16 +71,20 @@
 
         var select = this.activeCell.querySelector('select')
         if (select) {
-            // Update the cell value and remove the select element
-            $(select).select2('destroy')
+            //Update the cell value and remove the select element
+            var $select = $(select)
+            $select.select2('destroy')
+            $select.data('select2', null)
+            $select = null
 
-            var value = select.options[select.selectedIndex].value,
-                text = select.options[select.selectedIndex].text
+            // var value = select.options[select.selectedIndex].value,
+            //     text = select.options[select.selectedIndex].text
 
-            this.tableObj.setCellValue(this.activeCell, value)
-            this.setViewContainerValue(this.activeCell, text)
+            // this.tableObj.setCellValue(this.activeCell, value)
+            // this.setViewContainerValue(this.activeCell, text)
 
             select.parentNode.removeChild(select)
+            select = null
         }
 
         this.showViewContainer(this.activeCell)
@@ -115,10 +112,19 @@
             }
 
             cellContentContainer.appendChild(select)
-            $(select).select2()
+            $(select).select2({
+                dropdownCssClass: 'table-widget-dropdown-container'
+            })
+            // .on('select2-open', function tableDropdownOpen(param){
+            //     var dropdown = $(this).data('select2').dropdown
+
+            //     dropdown.width(dropdown.width()+2)
+            // })
+
             cellContentContainer = null
             select = null
         })
+
     }
 
     DropdownProcessor.prototype.fetchOptions = function(onSuccess) {

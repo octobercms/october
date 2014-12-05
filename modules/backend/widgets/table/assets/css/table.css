@@ -178,3 +178,62 @@
 .table-control td[data-column-type=dropdown] [data-view-container] select {
   display: none;
 }
+.table-control td[data-column-type=dropdown] .select2-container {
+  display: block;
+}
+.table-control td[data-column-type=dropdown] .select2-choice {
+  background: white;
+  border: none;
+  height: 28px;
+  line-height: 28px;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  padding-left: 10px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.table-control td[data-column-type=dropdown] .select2-choice .select2-chosen {
+  margin-right: 20px;
+}
+.table-control td[data-column-type=dropdown] .select2-arrow {
+  background: transparent;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+  border-left: none;
+}
+.table-control td[data-column-type=dropdown] .select2-arrow b {
+  background: none;
+}
+.table-control td[data-column-type=dropdown] .select2-arrow b:after {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f107";
+  font-size: 13px;
+  line-height: 100%;
+  color: #95a5a6;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+.table-control td[data-column-type=dropdown] .select2-dropdown-open .select2-arrow b:after {
+  font-family: FontAwesome !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  text-decoration: inherit !important;
+  -webkit-font-smoothing: antialiased !important;
+  *margin-right: .3em !important;
+  content: "\f106" !important;
+}
+.table-widget-dropdown-container {
+  margin-left: -1px;
+  font-size: 13px;
+}
+.table-widget-dropdown-container.select2-drop-above {
+  margin-top: -4px;
+}

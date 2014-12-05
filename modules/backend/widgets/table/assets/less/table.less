@@ -191,19 +191,24 @@
 
 .table-control {
     td[data-column-type=dropdown] {
+
+        .dropdown-arrow() {
+            .icon(@angle-down);
+            font-size: 13px;
+            line-height: 100%;
+            color: #95a5a6;
+            position: absolute;
+            top: 8px;
+            right: 10px;
+        }
+
         [data-view-container] {
             padding-right: 20px;
             position: relative;
             cursor: pointer;
 
             &:after {
-                .icon(@angle-down);
-                font-size: 13px;
-                line-height: 100%;
-                color: #95a5a6;
-                position: absolute;
-                top: 8px;
-                right: 10px;
+                .dropdown-arrow();
             }
 
             &:hover:after {
@@ -214,5 +219,52 @@
                 display: none;
             }
         }
+
+        .select2-container {
+            display: block;
+        }
+
+        .select2-choice {
+            background: white;
+            border: none;
+            height: 28px;
+            line-height: 28px;
+            .box-shadow(none)!important;
+            padding-left: 10px;
+            .border-radius(0);
+
+            .select2-chosen {
+                margin-right: 20px;
+            }
+        }
+
+        .select2-arrow {
+            background: transparent;
+            .border-radius(0)!important;
+            border-left: none;
+
+            b {
+                background: none;
+
+                &:after {
+                    .dropdown-arrow();
+                }
+            }
+        }
+
+        .select2-dropdown-open {
+            .select2-arrow b:after {
+                .icon(@angle-up)!important;
+            }
+        }
+    }
+}
+
+.table-widget-dropdown-container {
+    margin-left: -1px;
+    font-size: 13px;
+
+    &.select2-drop-above {
+        margin-top: -4px;
     }
 }
