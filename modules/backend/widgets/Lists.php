@@ -273,7 +273,7 @@ class Lists extends WidgetBase
     /**
      * Applies any filters to the model.
      */
-    protected function prepareModel()
+    public function prepareModel()
     {
         $query = $this->model->newQuery();
         $primaryTable = $this->model->getTable();
