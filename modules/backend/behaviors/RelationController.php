@@ -678,6 +678,7 @@ class RelationController extends ControllerBehavior
             $config->showSorting = $this->getConfig('view[showSorting]', true);
             $config->defaultSort = $this->getConfig('view[defaultSort]');
             $config->recordsPerPage = $this->getConfig('view[recordsPerPage]');
+            $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', false);
 
             if (!$this->readOnly) {
                 $config->recordOnClick = sprintf(
