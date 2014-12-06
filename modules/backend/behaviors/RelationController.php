@@ -641,24 +641,41 @@ class RelationController extends ControllerBehavior
 
     protected function makeToolbarWidget()
     {
-        if ($this->readOnly) {
-            return;
+        $defaultConfig = [];
+
+        /*
+         * Add buttons to toolbar
+         */
+        $defaultButtons = null;
+
+        if (!$this->readOnly) {
+            $defaultButtons = '~/modules/backend/behaviors/relationcontroller/partials/_toolbar.htm';
         }
 
-        $defaultConfig = [
-            'buttons' => '@/modules/backend/behaviors/relationcontroller/partials/_toolbar.htm',
-        ];
+        $defaultConfig['buttons'] = $this->getConfig('view[toolbarButtons]', $defaultButtons);
+
+        /*
+         * Make config
+         */
         $toolbarConfig = $this->makeConfig($this->getConfig('toolbar', $defaultConfig));
         $toolbarConfig->alias = $this->alias . 'Toolbar';
 
         /*
          * Add search to toolbar
          */
-        if ($this->viewMode == 'multi' && $this->getConfig('view[showSearch]')) {
+        $useSearch = $this->viewMode == 'multi' && $this->getConfig('view[showSearch]');
+
+        if ($useSearch) {
             $toolbarConfig->search = [
                 'prompt' => 'backend::lang.list.search_prompt'
             ];
         }
+
+        /*
+         * No buttons, no search should mean no toolbar
+         */
+        if (empty($toolbarConfig->search) && empty($toolbarConfig->buttons))
+            return;
 
         $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
         $toolbarWidget->cssClasses[] = 'list-header';
@@ -680,14 +697,19 @@ class RelationController extends ControllerBehavior
             $config->recordsPerPage = $this->getConfig('view[recordsPerPage]');
             $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', false);
 
+            $defaultOnClick = null;
+
             if (!$this->readOnly) {
-                $config->recordOnClick = sprintf(
+                $defaultOnClick = sprintf(
                     "$.oc.relationBehavior.clickManageListRecord(:id, '%s', '%s')",
                     $this->field,
                     $this->relationGetSessionKey()
                 );
-                $config->showCheckboxes = true;
+                $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', true);
             }
+
+            $config->recordOnClick = $this->getConfig('view[recordOnClick]', $defaultOnClick);
+            $config->recordUrl = $this->getConfig('view[recordUrl]', null);
 
             if ($emptyMessage = $this->getConfig('emptyMessage')) {
                 $config->noRecordsMessage = $emptyMessage;
@@ -699,7 +721,7 @@ class RelationController extends ControllerBehavior
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
             $widget->bindEvent('list.extendQuery', function ($query) {
                 $this->controller->relationExtendQuery($query, $this->field, $this->manageMode);
-                
+
                 $this->relationObject->setQuery($query);
                 if ($this->model->exists) {
                     $this->relationObject->addConstraints();

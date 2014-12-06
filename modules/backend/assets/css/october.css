@@ -8865,6 +8865,9 @@ label {
 .form-preview > .form-group:last-child {
   padding-bottom: 0;
 }
+.form-preview.form-flush {
+  border-top: none;
+}
 .form-elements:before,
 .form-tabless-fields:before,
 .form-elements:after,
