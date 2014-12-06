@@ -131,12 +131,13 @@ return array(
     |--------------------------------------------------------------------------
     |
     | If the minification is enabled, combined assets are compressed (minified).
-    | It is recommended to disable the minification during the development, and
-    | enable it in the production mode.
+    | It is recommended to disable the minification during development, and
+    | enable it in production mode. If set to null, assets are minified
+    | when debug mode (app.debug) is disabled.
     |
     */
 
-    'enableAssetMinify' => false,
+    'enableAssetMinify' => null,
 
     /*
     |--------------------------------------------------------------------------

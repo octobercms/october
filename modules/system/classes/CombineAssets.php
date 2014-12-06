@@ -75,10 +75,14 @@ class CombineAssets
     public function __construct()
     {
         /*
-         * Register cache preference
+         * Register preferences
          */
         $this->useCache = Config::get('cms.enableAssetCache', false);
-        $this->useMinify = Config::get('cms.enableAssetMinify', false);
+        $this->useMinify = Config::get('cms.enableAssetMinify', null);
+
+        if ($this->useMinify === null) {
+            $this->useMinify = !Config::get('app.debug', false);
+        }
 
         /*
          * Register JavaScript filters

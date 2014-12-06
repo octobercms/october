@@ -1,5 +1,6 @@
 * **Build 16x** (2014-12-xx)
   - Config item `cms.customErrorPage` is deprecated, the setting `app.debug` should be used instead.
+  - Config item `cms.enableAssetMinify` can now be set to **null**, in which case assets are only minified if debug mode (`app.debug`) is disabled.
 
 * **Build 167** (2014-12-06)
   - Settings pages now have a *Reset to default* button.
