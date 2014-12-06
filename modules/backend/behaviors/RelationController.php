@@ -695,18 +695,13 @@ class RelationController extends ControllerBehavior
             $config->showSorting = $this->getConfig('view[showSorting]', true);
             $config->defaultSort = $this->getConfig('view[defaultSort]');
             $config->recordsPerPage = $this->getConfig('view[recordsPerPage]');
-            $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', false);
+            $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', !$this->readOnly);
 
-            $defaultOnClick = null;
-
-            if (!$this->readOnly) {
-                $defaultOnClick = sprintf(
-                    "$.oc.relationBehavior.clickManageListRecord(:id, '%s', '%s')",
-                    $this->field,
-                    $this->relationGetSessionKey()
-                );
-                $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', true);
-            }
+            $defaultOnClick = sprintf(
+                "$.oc.relationBehavior.clickManageListRecord(:id, '%s', '%s')",
+                $this->field,
+                $this->relationGetSessionKey()
+            );
 
             $config->recordOnClick = $this->getConfig('view[recordOnClick]', $defaultOnClick);
             $config->recordUrl = $this->getConfig('view[recordUrl]', null);
