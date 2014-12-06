@@ -1,3 +1,6 @@
+* **Build 16x** (2014-12-xx)
+  - Config item `cms.customErrorPage` is deprecated, the setting `app.debug` should be used instead.
+
 * **Build 167** (2014-12-06)
   - Settings pages now have a *Reset to default* button.
   - The field `authorUrl` has been renamed to `homepage` in theme.yaml files.

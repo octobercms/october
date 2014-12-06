@@ -113,19 +113,6 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Determines if a friendly error page should be used.
-    |--------------------------------------------------------------------------
-    |
-    | If this value is set to true, a friendly error page is used when an
-    | exception is encountered. You must create a CMS page with route "/error"
-    | to set the contents of this page. Otherwise the default error page is shown.
-    |
-    */
-
-    'customErrorPage' => false,
-
-    /*
-    |--------------------------------------------------------------------------
     | Determines if the asset caching is enabled.
     |--------------------------------------------------------------------------
     |

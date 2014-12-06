@@ -518,19 +518,18 @@ class Controller extends BaseController
             }
             catch (Exception $ex) {
                 /*
-                 * Display a "dumbed down" error if custom page is activated
-                 * otherwise display a more detailed error.
+                 * Display a more detailed error if debug mode is activated.
                  */
-                if (Config::get('cms.customErrorPage', false)) {
-                    return Response::make($ex->getMessage(), 500);
+                if (Config::get('app.debug', false)) {
+                    return Response::make(sprintf(
+                        '"%s" on line %s of %s',
+                        $ex->getMessage(),
+                        $ex->getLine(),
+                        $ex->getFile()
+                    ), 500);
                 }
 
-                return Response::make(sprintf(
-                    '"%s" on line %s of %s',
-                    $ex->getMessage(),
-                    $ex->getLine(),
-                    $ex->getFile()
-                ), 500);
+                return Response::make($ex->getMessage(), 500);
             }
         }
 
