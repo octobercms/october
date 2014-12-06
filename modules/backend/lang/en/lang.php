@@ -178,7 +178,7 @@ return [
         'select_placeholder' => 'please select',
         'insert_row' => 'Insert Row',
         'delete_row' => 'Delete Row',
-        'concurrency_file_changed_title' => "File was changed",
+        'concurrency_file_changed_title' => 'File was changed',
         'concurrency_file_changed_description' => "The file you're editing has been changed on disk by another user. You can either reload the file and lose your changes or override the file on the disk.",
     ],
     'relation' => [
@@ -201,7 +201,7 @@ return [
         'remove_name' => "Remove :name",
         'delete' => "Delete",
         'delete_name' => "Delete :name",
-        'delete_confirm' => "Are you sure?",
+        'delete_confirm' => 'Are you sure?',
     ],
     'model' => [
         'name' => "Model",
@@ -265,6 +265,7 @@ return [
         'menu_description' => 'Manage your account preferences such as desired language.',
         'locale' => 'Language',
         'locale_comment' => 'Select your desired locale for language use.',
+        'sidebar_description' => 'Show description in slidebar.',
     ],
     'access_log' => [
         'hint' => 'This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.',

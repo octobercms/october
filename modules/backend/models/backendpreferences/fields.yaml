@@ -3,8 +3,15 @@
 # ===================================
 
 fields:
+
     locale:
         label: backend::lang.backend_preferences.locale
         comment: backend::lang.backend_preferences.locale_comment
         type: dropdown
         span: left
+
+    sidebar_description:
+        label: backend::lang.backend_preferences.sidebar_description
+        type: switch
+        span: left
+        default: true

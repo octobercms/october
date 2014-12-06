@@ -5,6 +5,8 @@
         isset($_COOKIE['sidenav_treegroupStatus']) ? $_COOKIE['sidenav_treegroupStatus'] : null
     );
 
+    use Backend\Models\UserPreferences;
+    $preferences = UserPreferences::forUser()->get('backend::backend.preferences');
 ?>
 <ul class="top-level">
     <?php foreach ($items as $category => $items):
@@ -21,7 +23,9 @@
                         <a href="<?= $item->url ?>">
                             <i class="<?= $item->icon ?>"></i>
                             <span class="header"><?= e(trans($item->label)) ?></span>
+                            <?php if (!isset($preferences['sidebar_description']) || $preferences['sidebar_description']): ?>
                             <span class="description"><?= e(trans($item->description)) ?></span>
+                            <?php endif ?>
                         </a>
                     </li>
                 <?php endforeach ?>
