@@ -503,7 +503,7 @@ class Controller extends BaseController
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
                 }
 
-                return Response::make()->setContent($responseContents);
+                return Response::make($responseContents, $this->statusCode);
             }
             catch (ValidationException $ex) {
                 /*
