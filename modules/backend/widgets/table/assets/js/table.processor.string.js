@@ -141,6 +141,8 @@
     }
 
     StringProcessor.prototype.getCaretPosition = function(input) {
+        // TODO: refactor to a core library
+
         if (document.selection) { 
            var selection = document.selection.createRange()
 
@@ -155,6 +157,8 @@
     }
 
     StringProcessor.prototype.setCaretPosition = function(input, position) {
+        // TODO: refactor to a core library
+
         if (document.selection) { 
             var range = input.createTextRange()
 

@@ -337,7 +337,7 @@
      * newly focused cell. Commit the previous edited row to the data source
      * if needed.
      */
-    Table.prototype.focusCell = function(cellElement) {
+    Table.prototype.focusCell = function(cellElement, isClick) {
         var columnName = cellElement.getAttribute('data-column')
         if (columnName === null)
             return
@@ -346,10 +346,10 @@
         if (!processor)
             throw new Error("Cell processor not found for the column "+columnName)
 
-        if (this.activeCell)
-            this.activeCell.setAttribute('class', '')
-
         if (this.activeCell !== cellElement) {
+            if (this.activeCell)
+                this.activeCell.setAttribute('class', '')
+
             this.setActiveProcessor(processor)
             this.activeCell = cellElement
 
@@ -367,7 +367,7 @@
 
         this.editedRowKey = rowKey
 
-        processor.onFocus(cellElement, true)
+        processor.onFocus(cellElement, isClick)
     }
 
     Table.prototype.markCellRowDirty = function(cellElement) {
@@ -483,7 +483,7 @@
         if (target.tagName != 'TD')
             return
 
-        this.focusCell(target)
+        this.focusCell(target, true)
     }
 
     Table.prototype.onKeydown = function(ev) {
@@ -573,6 +573,8 @@
     }
 
     Table.prototype.getEventTarget = function(ev, tag) {
+        // TODO: refactor to a core library
+
         var target = ev.target ? ev.target : ev.srcElement
 
         if (tag === undefined)
@@ -593,6 +595,8 @@
     }
 
     Table.prototype.stopEvent = function(ev) {
+        // TODO: refactor to a core library
+
         if (ev.stopPropagation)
             ev.stopPropagation()
         else

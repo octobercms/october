@@ -191,6 +191,7 @@
 
 .table-control {
     td[data-column-type=dropdown] {
+        .user-select(none);
 
         .dropdown-arrow() {
             .icon(@angle-down);
@@ -214,57 +215,51 @@
             &:hover:after {
                 color: @color-link;
             }
-
-            select {
-                display: none;
-            }
         }
 
-        .select2-container {
-            display: block;
-        }
-
-        .select2-choice {
+        [data-dropdown-open=true] {
             background: white;
-            border: none;
-            height: 28px;
-            line-height: 28px;
-            .box-shadow(none)!important;
-            padding-left: 10px;
-            .border-radius(0);
-
-            .select2-chosen {
-                margin-right: 20px;
+            [data-view-container]:after {
+                .icon(@angle-up);
             }
         }
 
-        .select2-arrow {
-            background: transparent;
-            .border-radius(0)!important;
-            border-left: none;
-
-            b {
-                background: none;
-
-                &:after {
-                    .dropdown-arrow();
-                }
-            }
-        }
-
-        .select2-dropdown-open {
-            .select2-arrow b:after {
-                .icon(@angle-up)!important;
-            }
+        .content-container {
+            outline: none;
         }
     }
 }
 
-.table-widget-dropdown-container {
-    margin-left: -1px;
-    font-size: 13px;
+.table-control-dropdown-list {
+    .user-select(none);
+    position: absolute;
+    background: white;
+    border: 1px solid #808c8d;
+    border-top: none;
+    padding-top: 1px;
+    overflow: hidden;
+    .box-sizing(border-box);
+    .border-bottom-radius(4px);
 
-    &.select2-drop-above {
-        margin-top: -4px;
+    ul {
+        border-top: 1px solid #ecf0f1;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        list-style: none;
+        font-size: 13px;
+        color: #555555;
+        padding: 5px 10px;
+        cursor: pointer;
+        outline: none;
+
+        &:hover,
+        &:focus,
+        &.selected {
+            background: @color-focus;
+            color: white;
+        }
     }
 }
