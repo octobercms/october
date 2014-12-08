@@ -65,6 +65,7 @@ return [
         'status' => [
             'widget_title_default' => 'Статус системы',
             'online' => 'Онлайн',
+            'maintenance' => 'в разработке',
             'update_available' => '{0} нет новый обновлений!|{1} доступно новое обновление!|[2,Inf] доступны новые обновления!',
         ]
     ],
@@ -154,6 +155,9 @@ return [
         'delete' => 'Удалить',
         'deleting' => 'Удаление...',
         'deleting_name' => 'Удаление :name...',
+        'reset_default' => 'Сбросить настройки',
+        'resetting' => 'Сброс',
+        'resetting_name' => 'Сброс :name',
         'undefined_tab' => 'Разное',
         'field_off' => 'Выкл',
         'field_on' => 'Вкл',

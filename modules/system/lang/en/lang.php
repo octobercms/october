@@ -105,7 +105,6 @@ return [
         'sender_name' => 'Sender Name',
         'sender_email' => 'Sender Email',
         'php_mail' => 'PHP mail',
-        'sendmail' => 'Sendmail',
         'smtp' => 'SMTP',
         'smtp_address' => 'SMTP Address',
         'smtp_authorization' => 'SMTP authorization required',
