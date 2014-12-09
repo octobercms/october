@@ -223,8 +223,10 @@
                 this.cachedOptionPromises[cachingKey] = this.tableObj.$el.request(handlerName, {data: requestData})
             }
 
-            this.cachedOptionPromises[cachingKey].done(function(data){
+            this.cachedOptionPromises[cachingKey].done(function onDropDownLoadOptionsSuccess(data){
                 onSuccess(data.options)
+
+                row = null
             })
         }
     }
