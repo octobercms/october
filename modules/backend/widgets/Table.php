@@ -1,5 +1,6 @@
 <?php namespace Backend\Widgets;
 
+use Input;
 use Backend\Classes\WidgetBase;
 
 /**
@@ -89,5 +90,28 @@ class Table extends WidgetBase
         }
 
         return $result;
+    }
+
+    /*
+     * Event handlers
+     */
+
+    public function onGetDropdownOptions()
+    {
+        $columnName = Input::get('column');
+        $rowData = Input::get('rowData');
+
+        traceLog($columnName);
+        traceLog($rowData);
+
+        $options = [
+            'string'=>'String',
+            'checkbox'=>'Checkbox',
+            'dropdown'=>'Dropdown'
+        ];
+
+        return [
+            'options' => $options
+        ];
     }
 }

@@ -17,6 +17,8 @@
 
     var Table = function(element, options) {
         this.el = element
+        this.$el = $(element)
+
         this.options = options
 
         //
@@ -250,12 +252,11 @@
 
                 cellContentContainer.setAttribute('class', 'content-container')
 
-                cellProcessor.renderCell(records[i][columnName], cellContentContainer)
-
                 cell.appendChild(cellContentContainer)
-
-                cell.appendChild(dataContainer)
                 row.appendChild(cell)
+                cell.appendChild(dataContainer)
+
+                cellProcessor.renderCell(records[i][columnName], cellContentContainer)
             }
 
             tbody.appendChild(row)
@@ -551,6 +552,7 @@
         // collector can delete the elements if needed.
         this.el = null
         this.tableContainer = null
+        this.$el = null
 
         // Delete references to other DOM elements
         this.activeCell = null
@@ -562,6 +564,10 @@
 
     Table.prototype.getElement = function() {
         return this.el
+    }
+
+    Table.prototype.getAlias = function() {
+        return this.options.alias
     }
 
     Table.prototype.getTableContainer = function() {
@@ -626,6 +632,26 @@
 
     Table.prototype.getCellRowIndex = function(cellElement) {
         return parseInt(cellElement.parentNode.rowIndex)
+    }
+
+    Table.prototype.getRowCellValueByColumnName = function(row, columnName) {
+        var cell = row.querySelector('td[data-column="'+columnName+'"]')
+
+        if (!cell)
+            return cell
+
+        return this.getCellValue(cell)
+    }
+
+    Table.prototype.getRowData = function(row) {
+        var result = {}
+
+        for (var i = 0, len = row.children.length; i < len; i++) {
+            var cell = row.children[i]
+            result[cell.getAttribute('data-column')] = this.getCellValue(cell)
+        }
+
+        return result
     }
 
     Table.prototype.setCellValue = function(cellElement, value) {

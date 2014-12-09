@@ -217,6 +217,8 @@
   border-top: 1px solid #ecf0f1;
   padding: 0;
   margin: 0;
+  max-height: 200px;
+  overflow: auto;
 }
 .table-control-dropdown-list li {
   list-style: none;

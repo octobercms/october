@@ -1,6 +1,11 @@
 /*
  * Drop-down cell processor for the table control.
  */
+
+/*
+ * TODO: implement the search
+ */
+
 +function ($) { "use strict";
 
     // NAMESPACE CHECK
@@ -25,6 +30,10 @@
 
         this.itemListElement = null
 
+        this.optionsCache = {}
+
+        this.cachedOptionPromises = {}
+
         // Event handlers
         this.itemClickHandler = this.onItemClick.bind(this)
         this.itemKeyDownHandler = this.onItemKeyDown.bind(this)
@@ -42,8 +51,9 @@
     DropdownProcessor.prototype.dispose = function() {
         this.unregisterListHandlers()
         this.itemClickHandler = null
-
         this.itemListElement = null
+        this.optionsCache = null
+        this.cachedOptionPromises = null
 
         BaseProto.dispose.call(this)
     }
@@ -66,7 +76,7 @@
     DropdownProcessor.prototype.renderCell = function(value, cellContentContainer) {
         var self = this
 
-        this.fetchOptions(function renderCellFetchOptions(options) {
+        this.fetchOptions(cellContentContainer.parentNode, function renderCellFetchOptions(options) {
             if ( options[value] !== undefined )
                 value = options[value]
 
@@ -127,7 +137,7 @@
         this.itemListElement.style.left = containerPosition.left + 'px'
         this.itemListElement.style.top = containerPosition.top - 1 + cellContentContainer.offsetHeight + 'px'
 
-        this.fetchOptions(function renderCellFetchOptions(options) {
+        this.fetchOptions(cellElement, function renderCellFetchOptions(options) {
             var listElement = document.createElement('ul')
     
             for (var value  in options) {
@@ -173,17 +183,65 @@
             var activeItemElement = this.itemListElement.querySelector('ul li.selected')
 
             if (activeItemElement) {
-                activeItemElement.focus()
+                window.setTimeout(function(){
+                    activeItemElement.focus()
+                }, 0)
             }
         }
     }
 
-    DropdownProcessor.prototype.fetchOptions = function(onSuccess) {
-        // TODO: implement caching and AJAX support,
-        // loading indicator is required here for AJAX-based options.
-        //
-        if ( this.columnConfiguration.options )
+    DropdownProcessor.prototype.fetchOptions = function(cellElement, onSuccess) {
+        if (this.columnConfiguration.options)
             onSuccess(this.columnConfiguration.options)
+        else {
+            // If options are not provided and not found in the cache,
+            // request them from the server. For dependent drop-downs 
+            // the caching key contains the master column values.
+
+            var row = cellElement.parentNode,
+                cachingKey = this.createOptionsCachingKey(row)
+
+            if (this.optionsCache[cachingKey] !== undefined) {
+                onSuccess(this.optionsCache[cachingKey])
+                return
+            }
+
+            // Request options from the server. When the table widget builds,
+            // multiple cells in the column could require loading the options.
+            // The AJAX promises are cached here so that we have a single
+            // request per caching key.
+
+            // TODO: Loading indicator
+
+            if (!this.cachedOptionPromises[cachingKey]) {
+                var requestData = {
+                       column: this.columnName,
+                        rowData: this.tableObj.getRowData(row)
+                    },
+                    handlerName = this.tableObj.getAlias()+'::onGetDropdownOptions'
+
+                this.cachedOptionPromises[cachingKey] = this.tableObj.$el.request(handlerName, {data: requestData})
+            }
+
+            this.cachedOptionPromises[cachingKey].done(function(data){
+                onSuccess(data.options)
+            })
+        }
+    }
+
+    DropdownProcessor.prototype.createOptionsCachingKey = function(row) {
+        var cachingKey = 'non-dependent',
+            dependsOn = this.columnConfiguration.depends_on
+
+        if (dependsOn) {
+            if (typeof this.columnConfiguration.depends_on == 'object') {
+                for (var i = 0, len = dependsOn.length; i < len; i++ )
+                    cachingKey += dependsOn[i] + this.tableObj.getRowCellValueByColumnName(row, dependsOn[i])
+            } else
+                cachingKey = dependsOn + this.tableObj.getRowCellValueByColumnName(row, dependsOn)
+        }
+
+        return cachingKey
     }
 
     DropdownProcessor.prototype.getAbsolutePosition = function(element) {
@@ -259,7 +317,6 @@
             this.updateCellFromSelectedItem(this.findSelectedItem())
 
             this.hideDropdown()
-
             return
         }
 
@@ -268,6 +325,11 @@
             this.updateCellFromSelectedItem(this.findSelectedItem())
             this.tableObj.navigation.navigateNext(ev)
             this.tableObj.stopEvent(ev)
+        }
+
+        if (ev.keyCode == 27) {
+            // Esc - hide the drop-down
+            this.hideDropdown()
         }
     }
 
