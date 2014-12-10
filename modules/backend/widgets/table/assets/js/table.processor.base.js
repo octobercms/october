@@ -94,6 +94,12 @@
     }
 
     /*
+     * This method is called when a cell value in the row changes.
+     */
+    Base.prototype.onRowValueChanged = function(columnName, cellElement) {
+    }
+
+    /*
      * Determines if the keyboard navigation in the specified direction is allowed
      * by the cell processor. Some processors could reject the navigation, for example
      * the string processor could cancel the left array navigation if the caret 
@@ -129,6 +135,8 @@
         viewContainer.textContent = value
 
         cellContentContainer.appendChild(viewContainer)
+
+        return viewContainer
     }
 
     /*

@@ -30,8 +30,6 @@
 
         this.itemListElement = null
 
-        this.optionsCache = {}
-
         this.cachedOptionPromises = {}
 
         // Event handlers
@@ -51,10 +49,9 @@
     DropdownProcessor.prototype.dispose = function() {
         this.unregisterListHandlers()
         this.itemClickHandler = null
+        this.itemKeyDownHandler = null
         this.itemListElement = null
-        this.optionsCache = null
         this.cachedOptionPromises = null
-
         BaseProto.dispose.call(this)
     }
 
@@ -74,15 +71,14 @@
      * Renders the cell in the normal (no edit) mode
      */
     DropdownProcessor.prototype.renderCell = function(value, cellContentContainer) {
-        var self = this
+        var viewContainer = this.createViewContainer(cellContentContainer, '...')
 
         this.fetchOptions(cellContentContainer.parentNode, function renderCellFetchOptions(options) {
-            if ( options[value] !== undefined )
+            if (options[value] !== undefined)
                 value = options[value]
 
-            self.createViewContainer(cellContentContainer, value)
+            viewContainer.textContent = value
             cellContentContainer.setAttribute('tabindex', 0)
-            self = null
         })
     }
 
@@ -199,19 +195,15 @@
             // the caching key contains the master column values.
 
             var row = cellElement.parentNode,
-                cachingKey = this.createOptionsCachingKey(row)
-
-            if (this.optionsCache[cachingKey] !== undefined) {
-                onSuccess(this.optionsCache[cachingKey])
-                return
-            }
+                cachingKey = this.createOptionsCachingKey(row),
+                viewContainer = this.getViewContainer(cellElement)
 
             // Request options from the server. When the table widget builds,
             // multiple cells in the column could require loading the options.
             // The AJAX promises are cached here so that we have a single
             // request per caching key.
 
-            // TODO: Loading indicator
+            viewContainer.setAttribute('class', 'loading')
 
             if (!this.cachedOptionPromises[cachingKey]) {
                 var requestData = {
@@ -225,8 +217,8 @@
 
             this.cachedOptionPromises[cachingKey].done(function onDropDownLoadOptionsSuccess(data){
                 onSuccess(data.options)
-
-                row = null
+            }).always(function onDropDownLoadOptionsAlways(){
+                viewContainer.setAttribute('class', '')
             })
         }
     }
@@ -236,7 +228,7 @@
             dependsOn = this.columnConfiguration.depends_on
 
         if (dependsOn) {
-            if (typeof this.columnConfiguration.depends_on == 'object') {
+            if (typeof dependsOn == 'object') {
                 for (var i = 0, len = dependsOn.length; i < len; i++ )
                     cachingKey += dependsOn[i] + this.tableObj.getRowCellValueByColumnName(row, dependsOn[i])
             } else
@@ -342,6 +334,45 @@
     DropdownProcessor.prototype.onKeyDown = function(ev) {
         if (ev.keyCode == 32)
             this.showDropdown()
+    }
+
+        /*
+     * This method is called when a cell value in the row changes.
+     */
+    Base.prototype.onRowValueChanged = function(columnName, cellElement) {
+        // Determine if this drop-down depends on the changed column
+        // and update the option list if necessary
+
+        if (!this.columnConfiguration.depends_on)
+            return
+
+        var dependsOnColumn = false,
+            dependsOn = this.columnConfiguration.depends_on
+
+        if (typeof dependsOn == 'object') {
+            for (var i = 0, len = dependsOn.length; i < len; i++ ) {
+                if (dependsOn[i] == columnName) {
+                    dependsOnColumn = true
+                    break
+                }
+            }
+        } else 
+            dependsOnColumn = dependsOn == columnName
+
+        if (!dependsOnColumn)
+            return
+
+        var currentValue = this.tableObj.getCellValue(cellElement),
+            viewContainer = this.getViewContainer(cellElement)
+
+        this.fetchOptions(cellElement, function rowValueChangedFetchOptions(options) {
+            var value = options[currentValue] !== undefined ?
+                options[currentValue] :
+                '...'
+
+            viewContainer.textContent = value
+            viewContainer = null
+        })
     }
 
     $.oc.table.processor.dropdown = DropdownProcessor;

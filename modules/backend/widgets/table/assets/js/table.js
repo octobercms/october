@@ -519,6 +519,17 @@
             return
     }
 
+    Table.prototype.notifyRowProcessorsOnChange = function(cellElement) {
+        var columnName = cellElement.getAttribute('data-column'),
+            row = cellElement.parentNode
+
+        for (var i = 0, len = row.children.length; i < len; i++) {
+            var column = this.options.columns[i].key
+
+            this.cellProcessors[column].onRowValueChanged(columnName, row.children[i])
+        }
+    }
+
     // PUBLIC METHODS
     // ============================
 
@@ -557,7 +568,6 @@
         // Delete references to other DOM elements
         this.activeCell = null
     }
-
 
     // HELPER METHODS
     // ============================
@@ -661,6 +671,8 @@
             dataContainer.value = value
 
             this.markCellRowDirty(cellElement)
+
+            this.notifyRowProcessorsOnChange(cellElement)
         }
     }
 

@@ -104,11 +104,19 @@ class Table extends WidgetBase
         traceLog($columnName);
         traceLog($rowData);
 
-        $options = [
-            'string'=>'String',
-            'checkbox'=>'Checkbox',
-            'dropdown'=>'Dropdown'
-        ];
+        if ($rowData['billable'] == 'yes' || $rowData['billable'] == 'no') {
+            $options = [
+                'string'=>'String - '.$rowData['billable'],
+                'checkbox'=>'Checkbox - '.$rowData['billable'],
+                'dropdown'=>'Dropdown - '.$rowData['billable']
+            ];
+        } else {
+            $options = [
+                'who-knows'=>'Who knows?',
+                'whatever'=>'Whatever',
+                'sometimes'=>'Sometimes'
+            ];
+        }
 
         return [
             'options' => $options
