@@ -167,8 +167,7 @@ class CombineAssetsTest extends TestCase
     {
         $this->markTestIncomplete('Unfinished.');
 
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/combine/xxxxxxxxx');
 

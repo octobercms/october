@@ -28,8 +28,7 @@ class CmsCompoundObjectTest extends TestCase
 {
     public function testLoadFile()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $obj = TestCmsCompoundObject::load($theme, 'compound.htm');
         $this->assertContains("\$controller->data['something'] = 'some value'", $obj->code);
@@ -53,8 +52,7 @@ class CmsCompoundObjectTest extends TestCase
 
     public function testParseComponentSettings()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $obj = TestCmsCompoundObject::load($theme, 'component.htm');
         $this->assertArrayHasKey('components', $obj->settings);
@@ -66,8 +64,7 @@ class CmsCompoundObjectTest extends TestCase
 
     public function testCache()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $themePath = $theme->getPath();
 
         /*
@@ -138,8 +135,7 @@ class CmsCompoundObjectTest extends TestCase
 
     public function testUndefinedProperty()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $obj = new TestCmsCompoundObject($theme);
         $this->assertNull($obj->something);
@@ -147,8 +143,7 @@ class CmsCompoundObjectTest extends TestCase
 
     public function testSaveMarkup()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $destFilePath = $theme->getPath().'/testobjects/compound-markup.htm';
         if (file_exists($destFilePath))
@@ -172,8 +167,7 @@ class CmsCompoundObjectTest extends TestCase
 
     public function testSaveMarkupAndSettings()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $destFilePath = $theme->getPath().'/testobjects/compound-markup-settings.htm';
         if (file_exists($destFilePath))
@@ -198,8 +192,7 @@ class CmsCompoundObjectTest extends TestCase
 
     public function testSaveFull()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $destFilePath = $theme->getPath().'/testobjects/compound.htm';
         if (file_exists($destFilePath))

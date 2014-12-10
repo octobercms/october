@@ -30,16 +30,14 @@ class ThemeTest extends TestCase
 
     public function testGetPath()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $this->assertEquals(base_path().'/tests/fixtures/cms/themes/test', $theme->getPath());
     }
 
     public function testListPages()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $pages = $theme->listPages();
         $this->assertInternalType('array', $pages);

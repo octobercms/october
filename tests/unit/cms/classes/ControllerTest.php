@@ -10,8 +10,7 @@ class ControllerTest extends TestCase
         /*
          * Test the built-in 404 page
          */
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
         $controller = new Controller($theme);
         $response = $controller->run('/some-page-that-doesnt-exist');
         $this->assertNotEmpty($response);
@@ -25,8 +24,7 @@ class ControllerTest extends TestCase
         /*
          * Test the theme 404 page
          */
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/some-page-that-doesnt-exist');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
@@ -40,8 +38,7 @@ class ControllerTest extends TestCase
         /*
          * Test the / route and the fallback layout
          */
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
@@ -56,8 +53,7 @@ class ControllerTest extends TestCase
      */
     public function testLayoutNotFound()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/no-layout');
     }
@@ -67,8 +63,7 @@ class ControllerTest extends TestCase
         /*
          * Test existing layout
          */
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-layout');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
@@ -81,8 +76,7 @@ class ControllerTest extends TestCase
         /*
          * Test partials referred in the layout and page
          */
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-partials')->getContent();
         $this->assertEquals('<div>LAYOUT PARTIAL<p>Hey PAGE PARTIAL Homer Simpson A partial</p></div>', $response);
@@ -90,8 +84,7 @@ class ControllerTest extends TestCase
 
     public function testContent()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-content')->getContent();
         $this->assertEquals('<div>LAYOUT CONTENT<p>Hey PAGE CONTENT A content</p></div>', $response);
@@ -99,8 +92,7 @@ class ControllerTest extends TestCase
 
     public function testBlocks()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-placeholder')->getContent();
         $this->assertEquals("<div>LAYOUT CONTENT <span>BLOCK\n  DEFAULT</span> <p>Hey PAGE CONTENT</p></div>SECOND BLOCK", $response);
@@ -108,8 +100,7 @@ class ControllerTest extends TestCase
 
     public function testLayoutInSubdirectory()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/apage')->getContent();
         $this->assertEquals("<div>LAYOUT CONTENT <h1>This page is a subdirectory</h1></div>", $response);
@@ -121,16 +112,14 @@ class ControllerTest extends TestCase
      */
     public function testPartialNotFound()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/no-partial')->getContent();
     }
 
     public function testPageLifeCycle()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/cycle-test')->getContent();
         $this->assertEquals('12345', $response);
@@ -158,8 +147,7 @@ class ControllerTest extends TestCase
     {
         App::instance('request', $this->configAjaxRequestMock('onNoHandler', ''));
 
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/ajax-test');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
@@ -173,8 +161,7 @@ class ControllerTest extends TestCase
     {
         App::instance('request', $this->configAjaxRequestMock('delete'));
 
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/ajax-test');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
@@ -188,8 +175,7 @@ class ControllerTest extends TestCase
     {
         App::instance('request', $this->configAjaxRequestMock('onTest', 'p:artial'));
 
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/ajax-test');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
@@ -203,8 +189,7 @@ class ControllerTest extends TestCase
     {
         App::instance('request', $this->configAjaxRequestMock('onTest', 'partial'));
 
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/ajax-test');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
@@ -218,8 +203,7 @@ class ControllerTest extends TestCase
     {
         App::instance('request', $this->configAjaxRequestMock('onTest', 'ajax-result'));
 
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/ajax-test');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
@@ -236,8 +220,7 @@ class ControllerTest extends TestCase
     {
         App::instance('request', $this->configAjaxRequestMock('onTestLayout', 'ajax-result'));
 
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/ajax-test');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
@@ -254,8 +237,7 @@ class ControllerTest extends TestCase
     {
         App::instance('request', $this->configAjaxRequestMock('onTest', 'ajax-result&ajax-second-result'));
 
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/ajax-test');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
@@ -272,8 +254,7 @@ class ControllerTest extends TestCase
 
     public function testBasicComponents()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-component')->getContent();
         $page = PHPUnit_Framework_Assert::readAttribute($controller, 'page');
@@ -301,8 +282,7 @@ ESC;
     {
         include_once base_path() . '/tests/fixtures/system/plugins/october/tester/components/Archive.php';
 
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-components')->getContent();
         $page = PHPUnit_Framework_Assert::readAttribute($controller, 'page');
@@ -331,8 +311,7 @@ ESC;
     {
         App::instance('request', $this->configAjaxRequestMock('testArchive::onTestAjax', 'ajax-result'));
 
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-component');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
@@ -347,8 +326,7 @@ ESC;
 
     public function testThemeUrl()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $controller = new Controller($theme);
 
         $url = $controller->themeUrl();
