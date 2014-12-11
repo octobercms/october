@@ -217,3 +217,20 @@ $dataSource->initRecords($records);
 ```
 
 Note that initializing records in the data source is required only once, when the widget object is first created and not required on the subsequent AJAX calls.
+
+The `initRecords()` method can be called multiple times. Each call adds records to the data source and doesn't replace the existing records.
+
+## Emptying the data source
+
+The `purge` method removes all records from the data source. This method should always be used with server memory data sources. Nonetheless, server side data sources should take care about providing the automatic ways of cleaning data with using the time-to-live mechanisms. 
+
+```
+$table = new Table($this, $config);
+$dataSource = $table->getDataSource();
+$dataSource->purge();
+```
+
+
+## Reading data from the data source
+
+TODO
