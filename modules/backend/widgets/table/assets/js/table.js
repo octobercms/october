@@ -222,17 +222,18 @@
 
     Table.prototype.buildDataTable = function(records, totalCount) {
         var dataTable = document.createElement('table'),
-            tbody = document.createElement('tbody')
+            tbody = document.createElement('tbody'),
+            keyColumn = this.options.keyColumn
 
         dataTable.setAttribute('class', 'data')
 
         for (var i = 0, len = records.length; i < len; i++) {
             var row = document.createElement('tr')
 
-            if (records[i].__key === undefined)
-                throw new Error('The row attribute __key is not set for the row #'+i);
+            if (records[i][keyColumn] === undefined)
+                throw new Error('The row attribute '+keyColumn+' is not set for the row #'+i);
 
-            row.setAttribute('data-row', records[i].__key)
+            row.setAttribute('data-row', records[i][keyColumn])
             for (var j = 0, colsLen = this.options.columns.length; j < colsLen; j++) {
                 var cell = document.createElement('td'),
                     dataContainer = document.createElement('input'),
@@ -399,10 +400,11 @@
         this.recordsAddedOrDeleted++
 
         // New records have negative keys
-        var recordData = {
-                __key: -1*this.recordsAddedOrDeleted
-            },
+        var keyColumn = this.options.keyColumn,
+            recordData = {},
             self = this
+
+        recordData[keyColumn] = -1*this.recordsAddedOrDeleted
 
         this.dataSource.createRecord(recordData, placement, relativeToKey,
             this.navigation.getPageFirstRowOffset(), 
@@ -410,9 +412,9 @@
             function onAddRecordDataTableSuccess(records, totalCount) {
                 self.buildDataTable(records, totalCount)
 
-                var row = self.findRowByKey(recordData.__key)
+                var row = self.findRowByKey(recordData[keyColumn])
                 if (!row)
-                    throw new Error('New row is not found in the updated table: '+recordData.__key)
+                    throw new Error('New row is not found in the updated table: '+recordData[keyColumn])
 
                 self.navigation.focusCell(row, 0)
 
@@ -438,9 +440,10 @@
         this.recordsAddedOrDeleted++
 
         // New records have negative keys
-        var newRecordData = {
-                __key: -1*this.recordsAddedOrDeleted
-            }
+        var keyColumn = this.options.keyColumn,
+            newRecordData = {}
+
+        newRecordData[keyColumn] = -1*this.recordsAddedOrDeleted
 
         this.dataSource.deleteRecord(key, 
             newRecordData,
@@ -678,6 +681,7 @@
 
     Table.DEFAULTS = {
         clientDataSourceClass: 'client',
+        keyColumn: 'id',
         recordsPerPage: false,
         data: null
     }

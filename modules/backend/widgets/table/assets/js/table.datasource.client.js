@@ -41,8 +41,9 @@
      * Fetches records from the underlying data source and
      * passes them to the onSuccess callback function.
      * The onSuccess callback parameters: records, totalCount.
-     * Each record contains the __key field which uniquely identifies 
-     * the record.
+     * Each record contains the key field which uniquely identifies 
+     * the record. The name of the key field is defined with the table 
+     * widget options.
      */
     Client.prototype.getRecords = function(offset, count, onSuccess) {
         if (!count) {
@@ -95,7 +96,7 @@
         var recordIndex = this.getIndexOfKey(key)
 
         if (recordIndex !== -1) {
-            recordData.__key = key
+            recordData[this.tableObj.options.keyColumn] = key
             this.data[recordIndex] = recordData
         } else
             throw new Error('Record with they key '+key+ ' is not found in the data set')
@@ -128,8 +129,10 @@
     }
 
     Client.prototype.getIndexOfKey = function(key) {
+        var keyColumn = this.tableObj.options.keyColumn
+
         return this.data.map(function(record) {
-            return record.__key 
+            return record[keyColumn]
         }).indexOf(parseInt(key))
     }
 

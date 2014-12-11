@@ -31,8 +31,9 @@
      * Fetches records from the underlying data source and
      * passes them to the onSuccess callback function.
      * The onSuccess callback parameters: records, totalCount.
-     * Each record contains the __key field which uniquely identifies 
-     * the record.
+     * Each record contains the key field which uniquely identifies 
+     * the record. The name of the key field is defined with the table 
+     * widget options.
      */
     Base.prototype.getRecords = function(offset, count, onSuccess) {
         onSuccess([])

@@ -2,6 +2,7 @@
 
 use Input;
 use Backend\Classes\WidgetBase;
+use System\Classes\SystemException;
 
 /**
  * Table Widget.
@@ -28,12 +29,43 @@ class Table extends WidgetBase
      */
     protected $showHeader = true;
 
+    protected $dataSource = null;
+
+    protected $recordsKeyColumn;
+
+    protected $dataSourceAliases = [
+        'client' => '\Backend\Classes\TableClientMemoryDataSource'
+    ];
+
     /**
      * Initialize the widget, called by the constructor and free from its parameters.
      */
     public function init()
     {
         $this->columns = $this->getConfig('columns', []);
+
+        $this->recordsKeyColumn = $this->getConfig('key_column', 'id');
+
+        $dataSourceClass = $this->getConfig('data_source');
+        if (!strlen($dataSourceClass))
+            throw new SystemException('The Table widget data source is not specified in the configuration.');
+
+        if (array_key_exists($dataSourceClass, $this->dataSourceAliases))
+            $dataSourceClass = $this->dataSourceAliases[$dataSourceClass];
+
+        if (!class_exists($dataSourceClass))
+            throw new SystemException(sprintf('The Table widget data source class "%s" is could not be found.', $dataSourceClass));
+
+        $this->dataSource = new $dataSourceClass($this->recordsKeyColumn);
+    }
+
+    /**
+     * Returns the data source object.
+     * @return \Backend\Classes\TableDataSourceBase 
+     */
+    public function getDataSource()
+    {
+        return $this->dataSource;
     }
 
     /**
@@ -51,6 +83,14 @@ class Table extends WidgetBase
     public function prepareVars()
     {
         $this->vars['columns'] = $this->prepareColumnsArray();
+        $this->vars['recordsKeyColumn'] = $this->recordsKeyColumn;
+
+        $isClientDataSource = $this->dataSource instanceof \Backend\Classes\TableClientMemoryDataSource;
+
+        $this->vars['clientDataSourceClass'] = $isClientDataSource ? 'client' : 'server';
+        $this->vars['data'] = $isClientDataSource ? 
+            json_encode($this->dataSource->getAllRecords()) :
+            [];
     }
 
     //

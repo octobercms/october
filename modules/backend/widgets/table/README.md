@@ -77,6 +77,7 @@ The options below are listed in the JavaScript notation. Corresponding data attr
 - `recordsPerPage` - specifies how many records per page to display. If the value is not defined or `false` or `null`, the pagination feature is disabled and all records are displayed. Pagination and `rowSorting` cannot be used in the same time.
 - `columns` - column definitions in JSON format, see the server-side column definition format below.
 - `rowSorting` - enables the drag & drop row sorting. The sorting cannot be used with the pagination (`recordsPerPage` is not `null` or `false`).
+- `keyColumn` - specifies the name of the key column. The default value is **id**. 
 
 ## Client-side helper classes
 
@@ -155,7 +156,19 @@ Multiple fields are allowed as well:
 
 # Server-side table widget (Backend\Widgets\Table)
 
-## Column definitions
+## Configuration
+
+The widget is configured with YAML file. Required parameters:
+
+* `columns` - the columns definitions, see below
+* `data_source` - The data source class. Should specify the full qualified data source class name or alias. See the data source aliases below.
+* `key_column` - name of the key column. The default value is **id**.
+
+The `data_source` parameter can take aliases for some data source classes for the simpler configuration syntax. Known aliases are:
+
+* `client` = \Backend\Classes\TableClientMemoryDataSource
+
+### Column definitions
 
 Columns are defined as array with the `columns` property. The array keys correspond the column identifiers. The array elements are associative arrays with the following keys:
 
@@ -177,8 +190,30 @@ table.getDropdownOptions - triggered when drop-down options are requested by the
 
 Example event handler:
 
-    $table->bindEvent('table.getDropdownOptions', function ($columnName, $rowData) {
+```
+$table->bindEvent('table.getDropdownOptions', 
+    function ($columnName, $rowData) {
         if ($columnName == 'state')
             return ['ca'=>'California', 'wa'=>'Washington'];
         ...
-    });
+    }
+);
+```
+
+## Initializing the data
+
+After the table widget is created, its data source optionally could be filled with records. Example code:
+
+```
+$table = new Table($this, $config);
+$dataSource = $table->getDataSource();
+
+$records = [
+    ['id'=>1, 'first_name'=>'John', 'last_name'=>'Smith'],
+    ['id'=>2, 'last_name'=>'John', 'last_name'=>'Doe']
+];
+
+$dataSource->initRecords($records);
+```
+
+Note that initializing records in the data source is required only once, when the widget object is first created and not required on the subsequent AJAX calls.
