@@ -137,9 +137,21 @@ If the `options` element is not presented in the configuration, the options will
 
 **TODO:** Document the AJAX interface
 
-**TODO:** Plan the option caching. Requirements:
- - a) options could depend on other values in the current row. 
- - b) options could always be cached regardless of other values in the row.
+The drop-down options could depend on other columns. This works only with AJAX-based drop-downs. The column a drop-down depends on are defined with the `depends_on` property:
+
+    state:
+        title: State
+        type: dropdown
+        depends_on: country
+
+Multiple fields are allowed as well: 
+
+    state:
+        title: State
+        type: dropdown
+        depends_on: [country, language]
+
+**Note:** Dependent drop-down should always be defined after their master columns.
 
 # Server-side table widget (Backend\Widgets\Table)
 
@@ -152,3 +164,21 @@ Columns are defined as array with the `columns` property. The array keys corresp
 - `width` - sets the column width, can be specified in percents (10%) or pixels (50px). There could be a single column without the width specified. It will be stretched to take the available space.
 - `readonly`
 - `options` (for drop-down elements and autocomplete types)
+- `depends_on` (from drop-down elements)
+
+## Events 
+
+### table.getDropdownOptions
+
+table.getDropdownOptions - triggered when drop-down options are requested by the client. Parameters: 
+
+- `$columnName` - specifies the drop-down column name.
+- `$rowData` - an array containing values of all columns in the table row.
+
+Example event handler:
+
+    $table->bindEvent('table.getDropdownOptions', function ($columnName, $rowData) {
+        if ($columnName == 'state')
+            return ['ca'=>'California', 'wa'=>'Washington'];
+        ...
+    });

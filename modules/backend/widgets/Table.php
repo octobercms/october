@@ -101,22 +101,11 @@ class Table extends WidgetBase
         $columnName = Input::get('column');
         $rowData = Input::get('rowData');
 
-        traceLog($columnName);
-        traceLog($rowData);
+        $eventResults = $this->fireEvent('table.getDropdownOptions', [$columnName, $rowData]);
 
-        if ($rowData['billable'] == 'yes' || $rowData['billable'] == 'no') {
-            $options = [
-                'string'=>'String - '.$rowData['billable'],
-                'checkbox'=>'Checkbox - '.$rowData['billable'],
-                'dropdown'=>'Dropdown - '.$rowData['billable']
-            ];
-        } else {
-            $options = [
-                'who-knows'=>'Who knows?',
-                'whatever'=>'Whatever',
-                'sometimes'=>'Sometimes'
-            ];
-        }
+        $options = [];
+        if (count($eventResults))
+            $options = $eventResults[0];
 
         return [
             'options' => $options
