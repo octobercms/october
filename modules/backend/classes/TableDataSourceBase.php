@@ -6,9 +6,14 @@
 abstract class TableDataSourceBase
 {
     /**
-     * @var Specifies a name of record's key column 
+     * @var string Specifies a name of record's key column 
      */
     protected $keyColumn;
+
+    /**
+     * @var integer Internal record offset
+     */
+    protected $offset = 0;
 
     /**
      * Class constructor.
@@ -43,7 +48,31 @@ abstract class TableDataSourceBase
      * Return records from the data source.
      * @param integer $offset Specifies the offset of the first record to return, zero-based.
      * @param integer $count Specifies the number of records to return.
-     * @return array
+     * @return array Returns the records. 
+     * If there are no more records, returns an empty array.
      */
     abstract public function getRecords($offset, $count);
+
+    /**
+     * Rewinds the the data source to the first record.
+     * Use this method with the readRecords() method.
+     */
+    public function reset()
+    {
+        $this->offset = 0;
+    }
+
+    /**
+     * Returns a set of records from the data source.
+     * @param integer $count Specifies the number of records to return.
+     * @return array Returns the records. 
+     * If there are no more records, returns an empty array.
+     */
+    public function readRecords($count = 10)
+    {
+        $result = $this->getRecords($this->offset, $count);
+        $this->offset += count($result);
+        
+        return $result;
+    }
 }

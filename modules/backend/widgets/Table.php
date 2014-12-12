@@ -1,6 +1,7 @@
 <?php namespace Backend\Widgets;
 
 use Input;
+use Request;
 use Backend\Classes\WidgetBase;
 use System\Classes\SystemException;
 
@@ -57,6 +58,16 @@ class Table extends WidgetBase
             throw new SystemException(sprintf('The Table widget data source class "%s" is could not be found.', $dataSourceClass));
 
         $this->dataSource = new $dataSourceClass($this->recordsKeyColumn);
+
+        if (Request::method() == 'POST' && $this->isClientDataSource()) {
+            $requestDataField = $this->alias.'TableData';
+
+            if (Request::exists($requestDataField)) {
+                // Load data into the client memory data source on POST
+                $this->dataSource->purge();
+                $this->dataSource->initRecords(Request::input($requestDataField));
+            }
+        }
     }
 
     /**
@@ -85,7 +96,7 @@ class Table extends WidgetBase
         $this->vars['columns'] = $this->prepareColumnsArray();
         $this->vars['recordsKeyColumn'] = $this->recordsKeyColumn;
 
-        $isClientDataSource = $this->dataSource instanceof \Backend\Classes\TableClientMemoryDataSource;
+        $isClientDataSource = $this->isClientDataSource();
 
         $this->vars['clientDataSourceClass'] = $isClientDataSource ? 'client' : 'server';
         $this->vars['data'] = $isClientDataSource ? 
@@ -130,6 +141,11 @@ class Table extends WidgetBase
         }
 
         return $result;
+    }
+
+    protected function isClientDataSource() 
+    {
+        return $this->dataSource instanceof \Backend\Classes\TableClientMemoryDataSource;
     }
 
     /*

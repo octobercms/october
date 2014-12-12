@@ -75,9 +75,8 @@
 
         this.fetchOptions(cellContentContainer.parentNode, function renderCellFetchOptions(options) {
             if (options[value] !== undefined)
-                value = options[value]
+                viewContainer.textContent = options[value]
 
-            viewContainer.textContent = value
             cellContentContainer.setAttribute('tabindex', 0)
         })
     }
@@ -113,7 +112,6 @@
 
         this.hideDropdown()
         this.itemListElement = null
-
         this.activeCell = null
     }
 
@@ -177,6 +175,13 @@
             document.body.appendChild(this.itemListElement)
 
             var activeItemElement = this.itemListElement.querySelector('ul li.selected')
+
+            if (!activeItemElement) {
+                activeItemElement = this.itemListElement.querySelector('ul li:first-child')
+
+                if (activeItemElement)
+                    activeItemElement.setAttribute('class', 'selected')
+            }
 
             if (activeItemElement) {
                 window.setTimeout(function(){

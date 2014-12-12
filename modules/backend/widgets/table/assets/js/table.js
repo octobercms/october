@@ -57,6 +57,9 @@
         this.clickHandler = this.onClick.bind(this)
         this.keydownHandler = this.onKeydown.bind(this)
 
+        if (this.options.postback && this.options.clientDataSourceClass == 'client')
+            this.formSubmitHandler = this.onFormSubmit.bind(this)
+
         // Navigation helper
         this.navigation = null
 
@@ -122,6 +125,9 @@
     Table.prototype.registerHandlers = function() {
         this.el.addEventListener('click', this.clickHandler)
         this.el.addEventListener('keydown', this.keydownHandler)
+
+        if (this.options.postback && this.options.clientDataSourceClass == 'client')
+            this.$el.closest('form').bind('oc.beforeRequest', this.formSubmitHandler)
     }
 
     Table.prototype.unregisterHandlers = function() {
@@ -130,6 +136,11 @@
 
         this.el.removeEventListener('keydown', this.keydownHandler);
         this.keydownHandler = null
+
+        if (this.formSubmitHandler) {
+            this.$el.closest('form').unbind('oc.beforeRequest', this.formSubmitHandler)
+            this.formSubmitHandler = null
+        }
     }
 
     Table.prototype.initCellProcessors = function() {
@@ -331,6 +342,10 @@
 
         this.commitEditedRow()
         this.activeCellProcessor = null
+
+        if (this.activeCell)
+            this.activeCell.setAttribute('class', '')
+
         this.activeCell = null
     }
 
@@ -466,6 +481,17 @@
         )
     }
 
+    Table.prototype.notifyRowProcessorsOnChange = function(cellElement) {
+        var columnName = cellElement.getAttribute('data-column'),
+            row = cellElement.parentNode
+
+        for (var i = 0, len = row.children.length; i < len; i++) {
+            var column = this.options.columns[i].key
+
+            this.cellProcessors[column].onRowValueChanged(columnName, row.children[i])
+        }
+    }
+
     // EVENT HANDLERS
     // ============================
 
@@ -522,14 +548,10 @@
             return
     }
 
-    Table.prototype.notifyRowProcessorsOnChange = function(cellElement) {
-        var columnName = cellElement.getAttribute('data-column'),
-            row = cellElement.parentNode
-
-        for (var i = 0, len = row.children.length; i < len; i++) {
-            var column = this.options.columns[i].key
-
-            this.cellProcessors[column].onRowValueChanged(columnName, row.children[i])
+    Table.prototype.onFormSubmit = function(ev, data) {
+        if (data.handler == this.options.postbackHandlerName) {
+            this.unfocusTable()
+            data.options.data[this.options.alias + 'TableData'] = this.dataSource.getAllData()
         }
     }
 
@@ -683,7 +705,9 @@
         clientDataSourceClass: 'client',
         keyColumn: 'id',
         recordsPerPage: false,
-        data: null
+        data: null,
+        postback: true,
+        postbackHandlerName: 'onSave'
     }
 
     // TABLE PLUGIN DEFINITION

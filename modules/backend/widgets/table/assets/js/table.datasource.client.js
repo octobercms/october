@@ -136,5 +136,9 @@
         }).indexOf(parseInt(key))
     }
 
+    Client.prototype.getAllData = function() {
+        return this.data
+    }
+
     $.oc.table.datasource.client = Client
 }(window.jQuery);

@@ -78,6 +78,8 @@ The options below are listed in the JavaScript notation. Corresponding data attr
 - `columns` - column definitions in JSON format, see the server-side column definition format below.
 - `rowSorting` - enables the drag & drop row sorting. The sorting cannot be used with the pagination (`recordsPerPage` is not `null` or `false`).
 - `keyColumn` - specifies the name of the key column. The default value is **id**. 
+- `postback` - post the client-memory data source data to the server automatically when the parent form gets submitted. The default value is `true`. The option is used only with client-memory data sources. When enabled, the data source data  is available in the widget's server-side data source: `$table->getDataSource()->getRecords();` The data postback occurs only of the request handler name matches the `postbackHandlerName` option value.
+- `postbackHandlerName` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**. 
 
 ## Client-side helper classes
 
@@ -233,4 +235,22 @@ $dataSource->purge();
 
 ## Reading data from the data source
 
-TODO
+The server-side data sources (PHP) automatically maintain the actual data, but that mechanism for the client-memory and server-memory data sources is different. 
+
+In case of the client-memory data source, the table widget adds the data records to the POST, when the form is saved (see `postback` and `postbackHandlerName` options). On the server side the data is inserted to the data source by the table widget.
+
+The server-memory data source always automatically maintain its contents in synch with the client using AJAX, and POSTing data is not required.
+
+In PHP reading data from a data source of any type looks like this (it should be in the AJAX handler that saves the data, for the client-memory data source the handler name should match the `postbackHandlerName` option value):
+
+```
+public function onSave()
+{
+    // Assuming that the widget was initialized in the 
+    // controller constructor with the "table" alias.
+    $dataSource = $this->widget->table->getDataSource();
+
+    while ($records = $dataSource->readRecords(5)) {
+        traceLog($records);
+    }
+```
