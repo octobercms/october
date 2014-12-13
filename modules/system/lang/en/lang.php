@@ -114,7 +114,6 @@ return [
         'smtp_password' => 'Password',
         'smtp_port' => 'SMTP Port',
         'smtp_ssl' => 'SSL connection required',
-        'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail Path',
         'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
         'mailgun' => 'Mailgun',
