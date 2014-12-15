@@ -53,9 +53,13 @@
         // A reference to the header table
         this.headerTable = null
 
+        // A reference to the toolbar
+        this.toolbar = null
+
         // Event handlers
         this.clickHandler = this.onClick.bind(this)
         this.keydownHandler = this.onKeydown.bind(this)
+        this.toolbarClickHandler = this.onToolbarClick.bind(this)
 
         if (this.options.postback && this.options.clientDataSourceClass == 'client')
             this.formSubmitHandler = this.onFormSubmit.bind(this)
@@ -86,8 +90,8 @@
         // Initialize helpers
         this.navigation = new $.oc.table.helper.navigation(this)
 
-        // Create header and data tables
-        this.buildTables()
+        // Create the UI
+        this.buildUi()
 
         // Register event handlers
         this.registerHandlers()
@@ -128,6 +132,10 @@
 
         if (this.options.postback && this.options.clientDataSourceClass == 'client')
             this.$el.closest('form').bind('oc.beforeRequest', this.formSubmitHandler)
+
+        var toolbar = this.getToolbar()
+        if (toolbar)
+            toolbar.addEventListener('click', this.toolbarClickHandler);
     }
 
     Table.prototype.unregisterHandlers = function() {
@@ -136,6 +144,12 @@
 
         this.el.removeEventListener('keydown', this.keydownHandler);
         this.keydownHandler = null
+
+        var toolbar = this.getToolbar()
+        if (toolbar)
+            toolbar.removeEventListener('click', this.toolbarClickHandler);
+
+        this.toolbarClickHandler = null
 
         if (this.formSubmitHandler) {
             this.$el.closest('form').unbind('oc.beforeRequest', this.formSubmitHandler)
@@ -167,9 +181,13 @@
         return this.cellProcessors[columnName]
     }
 
-    Table.prototype.buildTables = function() {
+    Table.prototype.buildUi = function() {
         this.tableContainer = document.createElement('div')
         this.tableContainer.setAttribute('class', 'table-container')
+
+        // Build the toolbar
+        if (this.options.toolbar)
+            this.buildToolbar()
 
         // Build the headers table
         this.tableContainer.appendChild(this.buildHeaderTable())
@@ -179,6 +197,46 @@
 
         // Build the data table
         this.updateDataTable()
+    }
+
+    Table.prototype.buildToolbar = function() {
+        if (!this.options.adding && !this.options.deleting)
+            return
+
+        this.toolbar = document.createElement('div')
+        this.toolbar.setAttribute('class', 'toolbar')
+
+        if (this.options.adding) {
+            var addBelowButton = document.createElement('a')
+            addBelowButton.setAttribute('class', 'btn add-table-row-below')
+            addBelowButton.setAttribute('data-cmd', 'record-add-below')
+            this.toolbar.appendChild(addBelowButton)
+
+            if (this.navigation.paginationEnabled() || !this.options.rowSorting) {
+                // When the pagination is enabled, or sorting is disabled,
+                // new records can only be added to the bottom of the
+                // table.
+                addBelowButton.textContent = 'Add row'
+            } else {
+                addBelowButton.textContent = 'Add row below'
+
+                var addAboveButton = document.createElement('a')
+                addAboveButton.setAttribute('class', 'btn add-table-row-above')
+                addAboveButton.textContent = 'Add row above'
+                addAboveButton.setAttribute('data-cmd', 'record-add-above')
+                this.toolbar.appendChild(addAboveButton)
+            }
+        }
+
+        if (this.options.deleting) {
+            var deleteButton = document.createElement('a')
+            deleteButton.setAttribute('class', 'btn delete-table-row')
+            deleteButton.textContent = 'Delete row'
+            deleteButton.setAttribute('data-cmd', 'record-delete')
+            this.toolbar.appendChild(deleteButton)
+        }
+
+        this.tableContainer.appendChild(this.toolbar)
     }
 
     Table.prototype.buildHeaderTable = function() {
@@ -492,6 +550,10 @@
         }
     }
 
+    Table.prototype.getToolbar = function() {
+        return this.tableContainer.querySelector('div.toolbar')
+    }    
+
     // EVENT HANDLERS
     // ============================
 
@@ -517,7 +579,7 @@
     }
 
     Table.prototype.onKeydown = function(ev) {
-        if (ev.keyCode == 65 && ev.altKey) {
+        if (ev.keyCode == 65 && ev.altKey && this.options.adding) {
             if (!ev.shiftKey) {
                 // alt+a - add record below
                 this.addRecord('below')
@@ -530,9 +592,9 @@
             return
         }
 
-        if (ev.keyCode == 68 && ev.altKey) {
+        if (ev.keyCode == 68 && ev.altKey && this.options.deleting) {
             // alt+d - delete record
-            this.deleteRecord('above')
+            this.deleteRecord()
 
             this.stopEvent(ev)
             return
@@ -555,6 +617,25 @@
         }
     }
 
+    Table.prototype.onToolbarClick = function(ev) {
+        var target = this.getEventTarget(ev),
+            cmd = target.getAttribute('data-cmd')
+
+        switch (cmd) {
+            case 'record-add-below': 
+                this.addRecord('below')
+            break
+            case 'record-add-above': 
+                this.addRecord('above')
+            break
+            case 'record-delete': 
+                this.deleteRecord()
+            break
+        }
+
+        this.stopEvent(ev)
+    }
+
     // PUBLIC METHODS
     // ============================
 
@@ -572,6 +653,7 @@
         // Remove references to DOM elements
         this.dataTable = null
         this.headerTable = null
+        this.toolbar = null
 
         // Dispose cell processors
         this.disposeCellProcessors()
@@ -707,7 +789,11 @@
         recordsPerPage: false,
         data: null,
         postback: true,
-        postbackHandlerName: 'onSave'
+        postbackHandlerName: 'onSave',
+        adding: true,
+        deleting: true,
+        toolbar: true,
+        rowSorting: false
     }
 
     // TABLE PLUGIN DEFINITION

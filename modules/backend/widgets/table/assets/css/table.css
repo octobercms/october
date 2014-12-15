@@ -98,6 +98,50 @@
 .table-control table.data td:last-child {
   border-right: none;
 }
+.table-control .toolbar {
+  background: white;
+  border-bottom: 1px solid #bdc3c7;
+}
+.table-control .toolbar a {
+  color: #323e50;
+  padding: 10px;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+.table-control .toolbar a:hover {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+.table-control .toolbar a:before {
+  display: inline-block;
+  content: ' ';
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  position: relative;
+  top: 3px;
+  background: transparent url(../images/table-icons.gif) no-repeat;
+  background-position: 0 0;
+  background-size: 32px auto;
+}
+.table-control .toolbar a.add-table-row-above:before {
+  background-position: 0 -56px;
+}
+.table-control .toolbar a.delete-table-row:before {
+  background-position: 0 -113px;
+}
+@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
+  .table-control .toolbar a:before {
+    background-position: 0px -9px;
+    background-size: 16px auto;
+  }
+  .table-control .toolbar a.add-table-row-above:before {
+    background-position: 0 -39px;
+  }
+  .table-control .toolbar a.delete-table-row:before {
+    background-position: 0 -66px;
+  }
+}
 /*
  * String editor
  */
