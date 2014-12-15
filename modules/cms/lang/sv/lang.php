@@ -24,7 +24,7 @@ return [
     ],
     'page' => [
         'not_found' => [
-            'label' => "Sidan kunde ej hittas",s
+            'label' => "Sidan kunde ej hittas",
             'help' => "Den begärda sidan kunde ej hittas",
         ],
         'custom_error' => [
