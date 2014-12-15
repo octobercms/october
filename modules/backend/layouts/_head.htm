@@ -6,6 +6,7 @@
     <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?>
 </title>
 
+<link href="<?= Backend::skinAsset('assets/vendor/sweet-alert/sweet-alert.css') ?>" rel="stylesheet">
 <link href="<?= Backend::skinAsset('assets/vendor/select2/select2.css') ?>" rel="stylesheet">
 <link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>" rel="stylesheet">
 
@@ -23,6 +24,7 @@
 <script src="<?= Backend::skinAsset('assets/vendor/select2/select2.js') ?>"></script>
 <script src="<?= Backend::skinAsset('assets/vendor/mustache/mustache.min.js') ?>"></script>
 <script src="<?= Backend::skinAsset('assets/vendor/dropzone/dropzone.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/vendor/sweet-alert/sweet-alert.js') ?>"></script>
 
 <script src="<?= URL::asset('modules/system/assets/vendor/bootstrap/js/tooltip.js') ?>"></script>
 <script src="<?= URL::asset('modules/system/assets/vendor/bootstrap/js/modal.js') ?>"></script>
