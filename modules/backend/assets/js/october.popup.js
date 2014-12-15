@@ -116,7 +116,6 @@
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     this.error(jqXHR, textStatus, errorThrown).done(function(){
-                        alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
                         self.hide()
                         self.triggerEvent('popupError') // Deprecated
                         self.triggerEvent('error.oc.popup')
