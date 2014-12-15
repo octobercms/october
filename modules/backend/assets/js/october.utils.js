@@ -9,10 +9,9 @@
 $(window).on('ajaxErrorMessage', function(event, message){
 
     swal({
-        title: '',
-        text: message,
-        type: 'error',
-        confirmButtonClass: 'btn-danger'
+        title: message,
+        // type: 'error',
+        confirmButtonClass: 'btn-default'
     })
 
     // Prevent the default alert() message
@@ -23,9 +22,8 @@ $(window).on('ajaxErrorMessage', function(event, message){
 $(window).on('ajaxConfirmMessage', function(event, message){
 
     swal({
-        title: '',
-        text: message,
-        type: 'warning',
+        title: message,
+        // type: 'warning',
         showCancelButton: true,
         confirmButtonClass: 'btn-primary'
     }, function(isConfirm){
