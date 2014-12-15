@@ -15350,7 +15350,7 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   top: 0;
   bottom: 0;
   display: none;
-  z-index: 1050;
+  z-index: 8050;
 }
 .sweet-alert {
   background-color: #ffffff;
@@ -15365,7 +15365,7 @@ div[data-control="balloon-selector"]:not(.control-disabled) ul li:hover {
   margin-top: -200px;
   overflow: hidden;
   display: none;
-  z-index: 2000;
+  z-index: 9050;
 }
 .sweet-alert h4 {
   margin: 30px 0;
