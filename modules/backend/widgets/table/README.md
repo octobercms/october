@@ -79,7 +79,10 @@ The options below are listed in the JavaScript notation. Corresponding data attr
 - `rowSorting` - enables the drag & drop row sorting. The sorting cannot be used with the pagination (`recordsPerPage` is not `null` or `false`).
 - `keyColumn` - specifies the name of the key column. The default value is **id**. 
 - `postback` - post the client-memory data source data to the server automatically when the parent form gets submitted. The default value is `true`. The option is used only with client-memory data sources. When enabled, the data source data  is available in the widget's server-side data source: `$table->getDataSource()->getRecords();` The data postback occurs only of the request handler name matches the `postbackHandlerName` option value.
-- `postbackHandlerName` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**. 
+- `postbackHandlerName` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**.
+- `adding` - determines whether users can add new records. Default value is **true**.
+- `deleting` - determines whether users can delete records. Default value is **true**.
+- `toolbar` - determines whether the toolbar is visible. The default value is **true**.
 
 ## Client-side helper classes
 
