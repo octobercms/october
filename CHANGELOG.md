@@ -1,3 +1,6 @@
+* **Build 16x** (2014-12-x)
+  - Native `alert` and `confirm` functions have been styled in the back-end.
+
 * **Build 168** (2014-12-14)
   - Config item `cms.customErrorPage` is deprecated, the setting `app.debug` should be used instead.
   - Config item `cms.enableAssetMinify` can now be set to **null**, in which case assets are only minified if debug mode (`app.debug`) is disabled.
