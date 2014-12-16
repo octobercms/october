@@ -8,7 +8,7 @@ class DbBackendAddDescriptionField extends Migration
     public function up()
     {
         Schema::table('backend_user_groups', function (Blueprint $table) {
-            $table->string('code')->index();
+            $table->string('code')->nullable()->index();
             $table->text('description')->nullable();
             $table->boolean('is_new_user_default')->default(false);
         });
