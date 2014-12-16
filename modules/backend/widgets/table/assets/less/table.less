@@ -9,6 +9,7 @@
         border: 1px solid #808c8d;
         .border-radius(4px);
         overflow: hidden;
+        margin-bottom: 15px;
     }
 
     table {
@@ -157,6 +158,35 @@
 
             &.delete-table-row:before {
                 background-position: 0 -113px;
+            }
+        }
+    }
+
+    .pagination {
+        ul {
+            padding: 0;
+            margin-bottom: 15px;
+
+            li {
+                list-style: none;
+                padding: 4px 6px;
+                .border-radius(2px);
+                display: inline-block;
+                margin-right: 5px;
+                font-size: 12px;
+                background: #ecf0f1;
+                line-height: 100%;
+
+                a {
+                    text-decoration: none;
+                    color: #95a5a6;
+                }
+
+                &.active {
+                    background: @brand-primary;
+
+                    a {color: #ffffff;}
+                }
             }
         }
     }

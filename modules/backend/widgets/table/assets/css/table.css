@@ -10,6 +10,7 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
   overflow: hidden;
+  margin-bottom: 15px;
 }
 .table-control table {
   width: 100%;
@@ -129,6 +130,32 @@
 }
 .table-control .toolbar a.delete-table-row:before {
   background-position: 0 -113px;
+}
+.table-control .pagination ul {
+  padding: 0;
+  margin-bottom: 15px;
+}
+.table-control .pagination ul li {
+  list-style: none;
+  padding: 4px 6px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-right: 5px;
+  font-size: 12px;
+  background: #ecf0f1;
+  line-height: 100%;
+}
+.table-control .pagination ul li a {
+  text-decoration: none;
+  color: #95a5a6;
+}
+.table-control .pagination ul li.active {
+  background: #5fb6f5;
+}
+.table-control .pagination ul li.active a {
+  color: #ffffff;
 }
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
   .table-control .toolbar a:before {
