@@ -4,6 +4,7 @@ use Backend;
 use Redirect;
 use BackendMenu;
 use BackendAuth;
+use Backend\Models\UserGroup;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager;
 
@@ -85,6 +86,7 @@ class Users extends Controller
 
     /**
      * Add available permission fields to the User form.
+     * Mark default groups as checked for new Users.
      */
     protected function formExtendFields($form)
     {
@@ -121,5 +123,15 @@ class Users extends Controller
         }
 
         $form->addTabFields($permissionFields);
+
+        /*
+         * Mark default groups
+         */
+        if (!$form->model->exists) {
+            $defaultGroupIds = UserGroup::where('is_new_user_default', true)->lists('id');
+
+            $groupField = $form->getField('groups');
+            $groupField->value = $defaultGroupIds;
+        }
     }
 }

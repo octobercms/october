@@ -52,7 +52,7 @@ tabs:
       span: right
       label: backend::lang.user.groups
       commentAbove: backend::lang.user.groups_comment
-      type: relation
+      type: checkboxlist
 
 secondaryTabs:
   fields:

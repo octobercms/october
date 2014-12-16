@@ -97,6 +97,8 @@ return [
         'group' => [
             'name' => 'Group',
             'name_field' => 'Name',
+            'description_field' => 'Description',
+            'is_new_user_default_field' => 'Add new administrators to this group by default',
             'menu_label' => 'Groups',
             'list_title' => 'Manage Groups',
             'new' => 'New Administrator Group',

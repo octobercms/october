@@ -28,4 +28,22 @@ class UserGroup extends GroupBase
     public $belongsToMany = [
         'users' => ['Backend\Models\User', 'table' => 'backend_users_groups']
     ];
+
+    public function afterCreate()
+    {
+        if ($this->is_new_user_default) {
+            $this->addAllUsersToGroup();
+        }
+    }
+
+    public function addAllUsersToGroup()
+    {
+        $this->users()->sync(User::lists('id'));
+    }
+
+    public static function addUserToDefaultGroups($user, $detaching = false)
+    {
+        $user->groups()->sync(self::where('is_new_user_default', true)->lists('id'), $detaching);
+    }
+
 }

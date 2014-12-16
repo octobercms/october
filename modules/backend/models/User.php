@@ -96,6 +96,8 @@ class User extends UserBase
         if ($this->send_invite) {
             $this->sendInvitation();
         }
+
+        UserGroup::addUserToDefaultGroups($this);
     }
 
     public function sendInvitation()
@@ -110,5 +112,14 @@ class User extends UserBase
         Mail::send('backend::mail.invite', $data, function ($message) {
             $message->to($this->email, $this->full_name);
         });
+    }
+
+    public function getGroupsOptions()
+    {
+        $result = [];
+        foreach (UserGroup::all() as $group) {
+            $result[$group->id] = [$group->name, $group->description];
+        }
+        return $result;
     }
 }

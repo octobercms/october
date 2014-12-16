@@ -1,5 +1,6 @@
 * **Build 16x** (2014-12-x)
   - Native `alert` and `confirm` functions have been styled in the back-end.
+  - Back-end user groups can now be marked to add new administrators by default. This affects when a group is created (if checked, all administrators are added to the group) and creating a new administrator (the default groups are checked by default).
 
 * **Build 168** (2014-12-14)
   - Config item `cms.customErrorPage` is deprecated, the setting `app.debug` should be used instead.
