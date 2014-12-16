@@ -513,23 +513,8 @@ class Controller extends BaseController
                 $responseContents['X_OCTOBER_ERROR_MESSAGE'] = $ex->getMessage();
                 return Response::make($responseContents, 406);
             }
-            catch (ApplicationException $ex) {
-                return Response::make($ex->getMessage(), 500);
-            }
             catch (Exception $ex) {
-                /*
-                 * Display a more detailed error if debug mode is activated.
-                 */
-                if (Config::get('app.debug', false)) {
-                    return Response::make(sprintf(
-                        '"%s" on line %s of %s',
-                        $ex->getMessage(),
-                        $ex->getLine(),
-                        $ex->getFile()
-                    ), 500);
-                }
-
-                return Response::make($ex->getMessage(), 500);
+                return Response::make(ApplicationException::getDetailedMessage($ex), 500);
             }
         }
 
