@@ -96,8 +96,6 @@ class User extends UserBase
         if ($this->send_invite) {
             $this->sendInvitation();
         }
-
-        UserGroup::addUserToDefaultGroups($this);
     }
 
     public function sendInvitation()

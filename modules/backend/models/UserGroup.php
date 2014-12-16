@@ -40,10 +40,4 @@ class UserGroup extends GroupBase
     {
         $this->users()->sync(User::lists('id'));
     }
-
-    public static function addUserToDefaultGroups($user, $detaching = false)
-    {
-        $user->groups()->sync(self::where('is_new_user_default', true)->lists('id'), $detaching);
-    }
-
 }
