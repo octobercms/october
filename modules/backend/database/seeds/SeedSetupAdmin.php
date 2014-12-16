@@ -27,7 +27,7 @@ class SeedSetupAdmin extends Seeder
     {
         $group = UserGroup::create([
             'name' => 'Admins',
-            'description' => 'Default group for new administrators',
+            'description' => 'Default group for administrators',
             'is_new_user_default' => true
         ]);
 
