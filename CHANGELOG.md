@@ -1,5 +1,6 @@
-* **Build 16x** (2014-12-x)
+* **Build 169** (2014-12-16)
   - Native `alert` and `confirm` functions have been styled in the back-end.
+  - Back-end user groups have a new description field, this is shown in the group list and when creating a new administrator.
   - Back-end user groups can now be marked to add new administrators by default. This affects when a group is created (if checked, all administrators are added to the group) and creating a new administrator (the default groups are checked by default).
 
 * **Build 168** (2014-12-14)
