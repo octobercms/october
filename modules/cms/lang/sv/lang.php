@@ -14,12 +14,12 @@ return [
     ],
     'theme' => [
         'active' => [
-            'not_set' => "Ett aktivt tema är ej satt",
+            'not_set' => "Ett aktivt tema är ej valt",
         ],
         'edit' => [
-            'not_set' => "Redigeringstemat är ej satt",
+            'not_set' => "Redigeringstemat är ej valt",
             'not_found' => "Redigeringstemat kunde ej hittas",
-            'not_match' => "Objketet du försöker komma åt tillhör inte det tema som för håller på att redigeras. Var god ladda om sidan",
+            'not_match' => "Objektet du försöker komma åt tillhör inte det tema som för håller på att redigeras. Var god ladda om sidan",
         ]
     ],
     'page' => [
