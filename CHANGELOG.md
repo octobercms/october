@@ -1,4 +1,4 @@
-* **Build 171** (2014-12-xx)
+* **Build 171** (2014-12-17)
   - Add new methods `propertyName()` and `paramName()` to Component base class for accessing names of external properties.
 
 * **Build 169** (2014-12-16)
