@@ -19,7 +19,7 @@ class UserGroup extends GroupBase
      * @var array Validation rules
      */
     public $rules = [
-        'name' => 'required|between:2,16|unique:backend_user_groups',
+        'name' => 'required|between:2,128|unique:backend_user_groups',
     ];
 
     /**
