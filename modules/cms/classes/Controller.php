@@ -431,7 +431,7 @@ class Controller extends BaseController
             $this->vars[$alias] = $this->page->components[$alias] = $componentObj;
         }
 
-        $this->setComponentPropertiesFromParameters($componentObj);
+        $this->setComponentPropertiesFromParams($componentObj);
         $componentObj->init();
         $componentObj->onInit(); // Deprecated: Remove ithis line if year >= 2015
         return $componentObj;
@@ -793,7 +793,7 @@ class Controller extends BaseController
                     'obj' => $componentObj
                 ]);
 
-                $this->setComponentPropertiesFromParameters($componentObj, $parameters);
+                $this->setComponentPropertiesFromParams($componentObj, $parameters);
                 $componentObj->init();
                 $componentObj->onInit(); // Deprecated: Remove ithis line if year >= 2015
             }
@@ -1102,7 +1102,7 @@ class Controller extends BaseController
      * @param array $parameters Specifies the partial parameters.
      * @return Returns updated properties.
      */
-    protected function setComponentPropertiesFromParameters($component, $parameters = [])
+    protected function setComponentPropertiesFromParams($component, $parameters = [])
     {
         $properties = $component->getProperties();
         $routerParameters = $this->router->getParameters();
