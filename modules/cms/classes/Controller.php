@@ -1126,6 +1126,7 @@ class Controller extends BaseController
                 }
 
                 $component->setProperty($propertyName, $newPropertyValue);
+                $component->setExternalPropertyName($propertyName, $paramName);
             }
         }
     }

@@ -1,3 +1,6 @@
+* **Build 171** (2014-12-xx)
+  - Add new methods `propertyName()` and `paramName()` to Component base class for accessing names of external properties.
+
 * **Build 169** (2014-12-16)
   - Native `alert` and `confirm` functions have been styled in the back-end.
   - Back-end user groups have a new description field, this is shown in the group list and when creating a new administrator.
