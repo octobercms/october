@@ -604,7 +604,7 @@ class RelationController extends ControllerBehavior
         /*
          * Check for existing relation
          */
-        $foreignKeyName = $this->relationModel->getKeyName();
+        $foreignKeyName = $this->relationModel->getQualifiedKeyName();
         $existing = $this->relationObject->where($foreignKeyName, $foreignId)->count();
 
         if (!$existing) {
