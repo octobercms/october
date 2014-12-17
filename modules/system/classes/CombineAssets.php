@@ -154,19 +154,10 @@ class CombineAssets
         /*
          * Set 304 Not Modified header, if necessary
          */
-        if ($this->useCache) {
-            $lastModifiedTime = gmdate("D, d M Y H:i:s \G\M\T", array_get($cacheInfo, 'lastMod'));
-            $response->setLastModified(new DateTime($lastModifiedTime));
-            $response->setEtag(array_get($cacheInfo, 'etag'));
-            $response->isNotModified(App::make('request'));
-        }
-        /*
-         * The request has always expired
-         */
-        else {
-            $response->header('Cache-Control', 'max-age=31536000, public');
-            $response->header('Expires', gmdate('D, d M Y H:i:s \G\M\T', time() + 2678400));
-        }
+        $lastModifiedTime = gmdate("D, d M Y H:i:s \G\M\T", array_get($cacheInfo, 'lastMod'));
+        $response->setLastModified(new DateTime($lastModifiedTime));
+        $response->setEtag(array_get($cacheInfo, 'etag'));
+        $response->isNotModified(App::make('request'));
 
         return $response;
     }
