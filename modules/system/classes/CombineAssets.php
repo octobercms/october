@@ -1,5 +1,6 @@
 <?php namespace System\Classes;
 
+use App;
 use URL;
 use File;
 use Lang;
@@ -14,6 +15,7 @@ use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCache;
 use Assetic\Cache\FilesystemCache;
 use System\Classes\ApplicationException;
+use DateTime;
 
 /**
  * Class used for combining JavaScript and StyleSheet
@@ -148,8 +150,23 @@ class CombineAssets
         header_remove();
         $response = Response::make($contents);
         $response->header('Content-Type', $mime);
-        $response->header('Cache-Control', 'max-age=31536000, public');
-        $response->header('Expires', gmdate('D, d M Y H:i:s \G\M\T', time() + 2678400));
+
+        /*
+         * Set 304 Not Modified header, if necessary
+         */
+        if ($this->useCache) {
+            $lastModifiedTime = gmdate("D, d M Y H:i:s \G\M\T", array_get($cacheInfo, 'lastMod'));
+            $response->setLastModified(new DateTime($lastModifiedTime));
+            $response->setEtag(array_get($cacheInfo, 'etag'));
+            $response->isNotModified(App::make('request'));
+        }
+        /*
+         * The request has always expired
+         */
+        else {
+            $response->header('Cache-Control', 'max-age=31536000, public');
+            $response->header('Expires', gmdate('D, d M Y H:i:s \G\M\T', time() + 2678400));
+        }
 
         return $response;
     }
@@ -356,11 +373,12 @@ class CombineAssets
 
         if (!$cacheInfo) {
             $combiner = $this->prepareCombiner($assets);
-            $version = $combiner->getLastModified();
+            $lastMod = $combiner->getLastModified();
 
             $cacheInfo = [
-                'output'    => $cacheId.'-'.$version,
-                'version'   => $version,
+                'version'   => $cacheId.'-'.$lastMod,
+                'etag'      => $cacheId,
+                'lastMod'   => $lastMod,
                 'files'     => $assets,
                 'path'      => $this->path,
                 'extension' => $extension
@@ -369,7 +387,7 @@ class CombineAssets
             $this->putCache($cacheId, $cacheInfo);
         }
 
-        return $this->getCombinedUrl($cacheInfo['output']);
+        return $this->getCombinedUrl($cacheInfo['version']);
     }
 
     /**

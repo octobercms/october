@@ -1,3 +1,6 @@
+* **Build 17x** (2014-12-xx)
+  - Improved asset caching (`cms.enableAssetCache`), when enabled the server will send a *304 Not Modified* header.
+
 * **Build 171** (2014-12-17)
   - Add new methods `propertyName()` and `paramName()` to Component base class for accessing names of external properties.
 
