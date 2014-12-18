@@ -1,11 +1,14 @@
-
-<!-- <div data-control="table" data-row-sorting="1" data-columns="<?= e(json_encode($columns)) ?>" data-data="<?= e(json_encode($data)) ?>"></div> -->
-
 <div 
     data-control="table"
     class="table-control"
     data-columns="<?= e(json_encode($columns)) ?>"
     data-data="<?= e($data) ?>"
-    data-records-per-page="10"
+    data-postback-handler-name="<?= e($postbackHandlerName) ?>"
+    data-adding="<?= e($adding) ?>"
+    data-deleting="<?= e($deleting) ?>"
+    data-toolbar="<?= e($toolbar) ?>"
+    data-height="<?= e($height) ?>"
+    data-records-per-page="<?= e($recordsPerPage) ?>"
     data-key-column="<?= e($recordsKeyColumn) ?>"
+    data-client-data-source-class="<?= e($clientDataSourceClass) ?>"
     data-alias="<?= e($this->alias) ?>"></div>

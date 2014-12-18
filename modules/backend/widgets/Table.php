@@ -96,6 +96,13 @@ class Table extends WidgetBase
         $this->vars['columns'] = $this->prepareColumnsArray();
         $this->vars['recordsKeyColumn'] = $this->recordsKeyColumn;
 
+        $this->vars['recordsPerPage'] = $this->getConfig('records_per_page', false) ?: 'false';
+        $this->vars['postbackHandlerName'] = $this->getConfig('postback_handler_name', 'onSave');
+        $this->vars['adding'] = $this->getConfig('adding', true);
+        $this->vars['deleting'] = $this->getConfig('deleting', true);
+        $this->vars['toolbar'] = $this->getConfig('toolbar', true);
+        $this->vars['height'] = $this->getConfig('height', false) ?: 'false';
+
         $isClientDataSource = $this->isClientDataSource();
 
         $this->vars['clientDataSourceClass'] = $isClientDataSource ? 'client' : 'server';

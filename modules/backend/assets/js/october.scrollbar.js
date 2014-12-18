@@ -205,6 +205,7 @@
     Scrollbar.DEFAULTS = {
         vertical: true,
         scrollSpeed: 2,
+        animation: true,
         start: function() {},
         drag: function() {},
         stop: function() {}
@@ -308,14 +309,24 @@
         } else {
             offset = $el.get(0).offsetTop - this.$el.scrollTop()
 
-            if (offset < 0) {
-                this.$el.animate({'scrollTop': $el.get(0).offsetTop}, params)
-                animated = true
-            } else {
-                offset = $el.get(0).offsetTop - (this.$el.scrollTop() + this.$el.outerHeight())
-                if (offset > 0) {
-                    this.$el.animate({'scrollTop': $el.get(0).offsetTop + $el.outerHeight() - this.$el.outerHeight()}, params)
+            if (this.options.animation) {
+                if (offset < 0) {
+                    this.$el.animate({'scrollTop': $el.get(0).offsetTop}, params)
                     animated = true
+                } else {
+                    offset = $el.get(0).offsetTop - (this.$el.scrollTop() + this.$el.outerHeight())
+                    if (offset > 0) {
+                        this.$el.animate({'scrollTop': $el.get(0).offsetTop + $el.outerHeight() - this.$el.outerHeight()}, params)
+                        animated = true
+                    }
+                }
+            } else {
+                if (offset < 0) {
+                    this.$el.scrollTop($el.get(0).offsetTop)
+                } else {
+                    offset = $el.get(0).offsetTop - (this.$el.scrollTop() + this.$el.outerHeight())
+                    if (offset > 0)
+                        this.$el.scrollTop($el.get(0).offsetTop + $el.outerHeight() - this.$el.outerHeight())
                 }
             }
         }
@@ -324,6 +335,13 @@
             callback()
 
         return this
+    }
+
+    Scrollbar.prototype.dispose = function() {
+        this.$el = null
+        this.$scrollbar = null
+        this.$track = null
+        this.$thumb = null
     }
 
     // SCROLLBAR PLUGIN DEFINITION

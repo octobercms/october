@@ -83,6 +83,7 @@ The options below are listed in the JavaScript notation. Corresponding data attr
 - `adding` - determines whether users can add new records. Default value is **true**.
 - `deleting` - determines whether users can delete records. Default value is **true**.
 - `toolbar` - determines whether the toolbar is visible. The default value is **true**.
+- `height` - specifies the maximum height of the data table  (not including the header, toolbar and pagination). If the table contains more rows than the height could fit, the data table becomes scrollable. The default value is **false** (height is not limited).
 
 ## Client-side helper classes
 
@@ -168,6 +169,12 @@ The widget is configured with YAML file. Required parameters:
 * `columns` - the columns definitions, see below
 * `data_source` - The data source class. Should specify the full qualified data source class name or alias. See the data source aliases below.
 * `key_column` - name of the key column. The default value is **id**.
+* `records_per_page` - number of records per page. If not specified, the pagination will be disabled.
+* `postback_handler_name` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**. This parameter is applicable only with client-memory data sources.
+* `adding` - indicates if record deleting is allowed, default is **true**.
+* `deleting` - indicates if record deleting is allowed, default is **true**.
+* `toolbar` - specifies if the toolbar should be visible, default is **true**.
+* `height` - specifies the data table height, in pixels. The default value is **false** - the height is not limited.
 
 The `data_source` parameter can take aliases for some data source classes for the simpler configuration syntax. Known aliases are:
 

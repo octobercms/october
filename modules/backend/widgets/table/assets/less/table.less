@@ -40,6 +40,7 @@
             position: absolute;
             left: 1px;
             right: 1px;
+            margin-top: -1px;
             border-bottom: 1px solid #bdc3c7;
         }
     
@@ -51,6 +52,9 @@
             color: #333333;
             background: white;
             border-right: 1px solid #ecf0f1;
+            [data-view-container] {
+                padding-bottom: 6px;
+            }
 
             white-space: nowrap;
             overflow: hidden;
@@ -71,8 +75,9 @@
                 padding: 1px;
             }
 
+            /* TODO: this should be applied only when the control is active */
             &.active {
-                border-color: @color-focus;
+                border-color: @color-focus!important;
 
                 .content-container {
                     padding: 0;
@@ -108,9 +113,9 @@
         }
     }
 
-    /* TODO: this should be applied only when the control is active */
     table.data { 
         tr:first-child td {
+            border-top: none;
         }
 
         tr:last-child td {
@@ -123,6 +128,19 @@
 
         td:last-child {
             border-right: none;
+        }
+    }
+
+    .control-scrollbar {
+        > div {
+            .border-bottom-radius(4px);
+            overflow: hidden;
+        }
+
+        table.data {
+            tr:last-child td {
+                border-bottom: 1px solid #ecf0f1;
+            }
         }
     }
 

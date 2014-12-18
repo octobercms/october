@@ -250,7 +250,8 @@
             left = 0
 
         do {
-            top += element.offsetTop  || 0;
+            top += element.offsetTop || 0;
+            top -= element.scrollTop || 0;
             left += element.offsetLeft || 0;
             element = element.offsetParent;
         } while(element)

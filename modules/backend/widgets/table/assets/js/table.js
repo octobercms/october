@@ -1,5 +1,8 @@
 /*
  * Table control class
+ *
+ * Dependences:
+ * - Scrollbar (october.scrollbar.js)
  */
 +function ($) { "use strict";
 
@@ -39,6 +42,9 @@
 
         // A reference to the tables container
         this.tableContainer = null
+
+        // A reference to the data table container
+        this.dataTableContainer = null
 
         // The key of the row which is being edited at the moment.
         // This key corresponds the data source row key which 
@@ -195,6 +201,11 @@
         // Append the table container to the element
         this.el.insertBefore(this.tableContainer, this.el.children[0])
 
+        if (!this.options.height)
+            this.dataTableContainer = this.tableContainer
+        else 
+            this.dataTableContainer = this.buildScrollbar()
+
         // Build the data table
         this.updateDataTable()
     }
@@ -237,6 +248,21 @@
         }
 
         this.tableContainer.appendChild(this.toolbar)
+    }
+
+    Table.prototype.buildScrollbar = function() {
+        var scrollbar = document.createElement('div'),
+            scrollbarContent = document.createElement('div')
+
+        scrollbar.setAttribute('class', 'control-scrollbar')
+        scrollbar.setAttribute('style', 'height: ' + this.options.height + 'px')
+
+        scrollbar.appendChild(scrollbarContent)
+        this.tableContainer.appendChild(scrollbar)
+
+        $(scrollbar).scrollbar({animation: false})
+
+        return scrollbarContent
     }
 
     Table.prototype.buildHeaderTable = function() {
@@ -336,14 +362,17 @@
 
         // Inject the data table to the DOM or replace the existing table
         if (this.dataTable !== null)
-            this.tableContainer.replaceChild(dataTable, this.dataTable)
+            this.dataTableContainer.replaceChild(dataTable, this.dataTable)
         else
-            this.tableContainer.appendChild(dataTable)
+            this.dataTableContainer.appendChild(dataTable)
 
         this.dataTable = dataTable
 
         // Update column widths
         this.updateColumnWidth()
+
+        // Update the scrollbar
+        this.updateScrollbar()
 
         // Update the pagination links
         this.navigation.buildPagination(totalCount)
@@ -354,6 +383,28 @@
             this.navigation.getPageFirstRowOffset(), 
             this.options.recordsPerPage,
             onSuccess)
+    }
+
+    Table.prototype.updateScrollbar = function() {
+        if (!this.options.height)
+            return
+    
+        $(this.dataTableContainer.parentNode).data('oc.scrollbar').update()
+    }
+
+    Table.prototype.scrollCellIntoView = function() {
+        if (!this.options.height || !this.activeCell)
+            return
+    
+        $(this.dataTableContainer.parentNode).data('oc.scrollbar').gotoElement(this.activeCell)
+    }
+
+    Table.prototype.disposeScrollbar = function() {
+        if (!this.options.height)
+            return
+
+        $(this.dataTableContainer.parentNode).data('oc.scrollbar').dispose()
+        $(this.dataTableContainer.parentNode).data('oc.scrollbar', null)
     }
 
     /*
@@ -443,6 +494,8 @@
         this.editedRowKey = rowKey
 
         processor.onFocus(cellElement, isClick)
+
+        this.scrollCellIntoView()
     }
 
     Table.prototype.markCellRowDirty = function(cellElement) {
@@ -668,9 +721,11 @@
         // we only make sure that the table widget doesn't hold 
         // references to the detached DOM tree so that the garbage
         // collector can delete the elements if needed.
+        this.disposeScrollbar()
         this.el = null
         this.tableContainer = null
         this.$el = null
+        this.dataTableContainer = null
 
         // Delete references to other DOM elements
         this.activeCell = null
@@ -793,7 +848,8 @@
         adding: true,
         deleting: true,
         toolbar: true,
-        rowSorting: false
+        rowSorting: false,
+        height: false
     }
 
     // TABLE PLUGIN DEFINITION
