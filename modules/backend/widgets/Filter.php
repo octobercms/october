@@ -208,11 +208,17 @@ class Filter extends WidgetBase
     protected function getOptionsFromModel($scope, $searchQuery = null)
     {
         $model = $this->scopeModels[$scope->scopeName];
+        $primaryKey = $model->getKeyName();
+
+        if (method_exists($model, 'scopeExtendQueryFilterOptions')) {
+            $model = $model->extendQueryFilterOptions();
+        }
+        
         if (!$searchQuery) {
-            return $model->all();
+            return $model->get();
         }
 
-        $searchFields = [$model->getKeyName(), $this->getScopeNameColumn($scope)];
+        $searchFields = [$primaryKey, $this->getScopeNameColumn($scope)];
         return $model->searchWhere($searchQuery, $searchFields)->get();
     }
 
