@@ -273,7 +273,7 @@ class Lists extends WidgetBase
     /**
      * Applies any filters to the model.
      */
-    protected function prepareModel()
+    public function prepareModel()
     {
         $query = $this->model->newQuery();
         $primaryTable = $this->model->getTable();
@@ -416,8 +416,8 @@ class Lists extends WidgetBase
          * Apply sorting
          */
         if ($sortColumn = $this->getSortColumn()) {
-            if (($column = array_get($this->columns, $sortColumn)) && $column->sqlSelect) {
-                $sortColumn = $column->sqlSelect;
+            if (($column = array_get($this->columns, $sortColumn)) && $column->valueFrom) {
+                $sortColumn = $column->valueFrom;
             }
 
             $query->orderBy($sortColumn, $this->sortDirection);
@@ -681,13 +681,14 @@ class Lists extends WidgetBase
      */
     public function getColumnValue($record, $column)
     {
-
         $columnName = $column->columnName;
 
         /*
-         * Handle taking name from model attribute.
+         * Handle taking value from model relation.
          */
-        if ($column->valueFrom) {
+        if ($column->valueFrom && $column->relation) {
+            $columnName = $column->relation;
+
             if (!array_key_exists($columnName, $record->getRelations())) {
                 $value = null;
             }
@@ -698,14 +699,20 @@ class Lists extends WidgetBase
                 $value = $record->{$columnName}->{$column->valueFrom};
             }
             else {
-                $value = $record->{$column->valueFrom};
+                $value = null;
             }
+        }
+        /*
+         * Handle taking value from model attribute.
+         */
+        elseif ($column->valueFrom) {
+            $value = $record->{$column->valueFrom};
+        }
         /*
          * Otherwise, if the column is a relation, it will be a custom select,
          * so prevent the Model from attempting to load the relation
          * if the value is NULL.
          */
-        }
         else {
             if ($record->hasRelation($columnName) && array_key_exists($columnName, $record->attributes)) {
                 $value = $record->attributes[$columnName];

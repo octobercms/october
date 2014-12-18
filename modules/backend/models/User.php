@@ -111,4 +111,13 @@ class User extends UserBase
             $message->to($this->email, $this->full_name);
         });
     }
+
+    public function getGroupsOptions()
+    {
+        $result = [];
+        foreach (UserGroup::all() as $group) {
+            $result[$group->id] = [$group->name, $group->description];
+        }
+        return $result;
+    }
 }

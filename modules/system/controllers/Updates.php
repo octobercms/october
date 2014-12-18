@@ -97,9 +97,7 @@ class Updates extends Controller
         /*
          * Address timeout limits
          */
-        if (!ini_get('safe_mode')) {
-            set_time_limit(3600);
-        }
+        @set_time_limit(3600);
 
         $manager = UpdateManager::instance();
         $stepCode = post('code');

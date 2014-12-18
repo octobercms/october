@@ -53,7 +53,7 @@ return [
         'unnamed' => 'Névtelen bővítmény',
         'name' => [
             'label' => 'Bővítmény neve',
-            'help' => 'Nevezze meg a bővítményt egyedi kódja alapján. Például: RainLab.Blog',
+            'help' => 'Nevezze meg egyedi kódja alapján a bővítményt. Például: RainLab.Blog',
         ],
     ],
     'plugins' => [
@@ -103,6 +103,8 @@ return [
         'method' => 'Levelezési módszer',
         'sender_name' => 'Feladó neve',
         'sender_email' => 'Feladó e-mail címe',
+        'php_mail' => 'PHP mail',
+        'sendmail' => 'Sendmail',
         'smtp' => 'SMTP',
         'smtp_address' => 'SMTP címe',
         'smtp_authorization' => 'SMTP hitelesítés szükséges',
@@ -117,7 +119,7 @@ return [
 		'mailgun' => 'Mailgun',
         'mailgun_domain' => 'Mailgun tartomány',
         'mailgun_domain_comment' => 'Adja meg a Mailgun tartománynevét.',
-        'mailgun_secret' => 'mailgun_secret',
+        'mailgun_secret' => 'Mailgun Secret',
         'mailgun_domain_secret' => 'Adja meg Mailgun API-kulcsát.',
     ],
     'mail_templates' => [
@@ -164,7 +166,7 @@ return [
         'plugin_author' => 'Szerző',
         'core_build' => 'Jelenlegi build',
         'core_build_old' => 'Jelenlegi :build build',
-        'core_build_new' => ':build build',
+        'core_build_new' => 'Build :build',
         'core_build_new_help' => 'Elérhető a legújabb build.',
         'core_downloading' => 'Alkalmazásfájlok letöltése...',
         'core_extracting' => 'Alkalmazásfájlok kicsomagolása...',

@@ -14,12 +14,12 @@ return [
     ],
     'theme' => [
         'active' => [
-            'not_set' => "Ett aktivt tema är ej satt",
+            'not_set' => "Ett aktivt tema är ej valt",
         ],
         'edit' => [
-            'not_set' => "Redigeringstemat är ej satt",
+            'not_set' => "Redigeringstemat är ej valt",
             'not_found' => "Redigeringstemat kunde ej hittas",
-            'not_match' => "Objketet du försöker komma åt tillhör inte det tema som för håller på att redigeras. Var god ladda om sidan",
+            'not_match' => "Objektet du försöker komma åt tillhör inte det tema som för håller på att redigeras. Var god ladda om sidan",
         ]
     ],
     'page' => [
@@ -34,7 +34,7 @@ return [
         'menu_label' => 'Sidor',
         'no_list_records' => 'Inga sidor funna',
         'new' => 'Ny sida',
-        'invalid_url' => 'Felaktigt URL-format. URLen skall starta med ett / och kan innehålla siffror, bokstäver och följande tecken: ._-[]:?|/+*',
+        'invalid_url' => 'Felaktigt URL-format. URLen skall starta med ett / och kan innehålla siffror, bokstäver och följande tecken: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Vill du verkligen radera markerade sidor?',
         'delete_confirm_single' => 'Vill du verkligen radera denna sida?',
         'no_layout' => '-- ingen layout --'

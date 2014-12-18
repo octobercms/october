@@ -16,6 +16,7 @@ class MailSettings extends Model
     public $settingsCode = 'system_mail_settings';
     public $settingsFields = 'fields.yaml';
 
+    const MODE_LOG      = 'log';
     const MODE_MAIL     = 'mail';
     const MODE_SENDMAIL = 'sendmail';
     const MODE_SMTP     = 'smtp';
@@ -38,6 +39,7 @@ class MailSettings extends Model
     public function getSendModeOptions()
     {
         return [
+            static::MODE_LOG      => 'system::lang.mail.log_file',
             static::MODE_MAIL     => 'system::lang.mail.php_mail',
             static::MODE_SENDMAIL => 'system::lang.mail.sendmail',
             static::MODE_SMTP     => 'system::lang.mail.smtp',

@@ -5,7 +5,6 @@ use Lang;
 use Cache;
 use Config;
 use Validator;
-use System\Classes\SystemException;
 use System\Classes\ApplicationException;
 use October\Rain\Support\ValidationException;
 use RecursiveDirectoryIterator;
@@ -81,7 +80,7 @@ class CmsObject implements ArrayAccess
     public static function loadCached($theme, $fileName)
     {
         if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting())) {
-            throw new SystemException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
+            throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
         }
 
         if (!strlen(File::extension($fileName))) {
@@ -157,7 +156,7 @@ class CmsObject implements ArrayAccess
     public static function load($theme, $fileName)
     {
         if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting())) {
-            throw new SystemException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
+            throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
         }
 
         if (!strlen(File::extension($fileName))) {
@@ -391,7 +390,7 @@ class CmsObject implements ArrayAccess
     {
         $fullPath = static::getFilePath($this->theme, $this->fileName);
         if (File::isFile($fullPath) && !is_dir($fullPath) && !@unlink($fullPath)) {
-            throw new SystemException(Lang::get('cms::lang.cms_object.error_deleting', ['name'=>$this->fileName]));
+            throw new ApplicationException(Lang::get('cms::lang.cms_object.error_deleting', ['name'=>$this->fileName]));
         }
     }
 

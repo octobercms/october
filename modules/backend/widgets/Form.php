@@ -710,7 +710,7 @@ class Form extends WidgetBase
         }
 
         $fieldName = $field->fieldName;
-        $defaultValue = (!$this->model->exists) && strlen($field->defaults) ? $field->defaults : null;
+        $defaultValue = (!$this->model->exists) && !empty($field->defaults) ? $field->defaults : null;
 
         /*
          * Array field name, eg: field[key][key2][key3]
@@ -803,14 +803,11 @@ class Form extends WidgetBase
          * Give widgets an opportunity to process the data.
          */
         foreach ($this->formWidgets as $field => $widget) {
-            $widgetValue = array_key_exists($field, $data)
-                ? $data[$field]
-                : null;
+            $parts = Str::evalHtmlArray($field);
+            $dotted = implode('.', $parts);
 
-            $data[$field] = $widget->getSaveData($widgetValue);
-            if ($data[$field] === FormWidgetBase::NO_SAVE_DATA) {
-                unset($data[$field]);
-            }
+            $widgetValue = $widget->getSaveData(array_get($data, $dotted));
+            array_set($data, $dotted, $widgetValue);
         }
 
         /*

@@ -1,0 +1,26 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: backend::lang.user.group.name_field
+        span: auto
+
+    code:
+        label: backend::lang.user.group.code_field
+        comment: backend::lang.user.group.code_comment
+        span: auto
+
+    description:
+        label: backend::lang.user.group.description_field
+        type: textarea
+        size: tiny
+
+    is_new_user_default:
+        label: backend::lang.user.group.is_new_user_default_field
+        type: checkbox
+
+tabs:
+    stretch: true

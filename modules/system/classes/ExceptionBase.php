@@ -2,7 +2,9 @@
 
 use URL;
 use File;
+use Config;
 use Exception;
+use System\Classes\ApplicationException;
 
 /**
  * The base exception class.
@@ -65,6 +67,29 @@ class ExceptionBase extends Exception
         }
 
         parent::__construct($message, $code, $previous);
+    }
+
+    /**
+     * Returns a more descriptive error message if application
+     * debug mode is turned on.
+     * @param Exception $exception
+     * @return string
+     */
+    public static function getDetailedMessage($exception)
+    {
+        /*
+         * Application Exceptions never display a detailed error
+         */
+        if (!($exception instanceof ApplicationException) && Config::get('app.debug', false)) {
+            return sprintf('"%s" on line %s of %s',
+                $exception->getMessage(),
+                $exception->getLine(),
+                $exception->getFile()
+            );
+        }
+        else {
+            return $exception->getMessage();
+        }
     }
 
     /**

@@ -11,7 +11,7 @@ use Backend\Classes\Controller;
  * @author Alexey Bobkov, Samuel Georges
  *
  */
-class Groups extends Controller
+class UserGroups extends Controller
 {
     public $implement = [
         'Backend.Behaviors.FormController',

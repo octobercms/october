@@ -19,8 +19,7 @@ class CodeParserTest extends TestCase
 
     public function testParser()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $layout = Layout::load($theme, 'php-parser-test.htm');
         $this->assertNotEmpty($layout);
@@ -110,8 +109,7 @@ class CodeParserTest extends TestCase
 
     public function testParseNoPhp()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $layout = Layout::load($theme, 'no-php.htm');
         $this->assertNotEmpty($layout);
@@ -137,8 +135,7 @@ class CodeParserTest extends TestCase
 
     public function testParsePage()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $page = Page::load($theme, 'cycle-test.htm');
         $this->assertNotEmpty($page);
@@ -168,8 +165,7 @@ class CodeParserTest extends TestCase
 
     public function testOptionalPhpTags()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         /*
          * Test short PHP tags
@@ -237,8 +233,7 @@ class CodeParserTest extends TestCase
 
     public function testNamespaces()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $page = Page::load($theme, 'code-namespaces.htm');
         $this->assertNotEmpty($page);

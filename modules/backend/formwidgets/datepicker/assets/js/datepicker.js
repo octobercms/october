@@ -3,7 +3,6 @@
  * 
  * Data attributes:
  * - data-control="datepicker" - enables the plugin on an element
- * - data-show-time="value" - allow the time to be chosen
  * - data-min-date="value" - minimum date to allow
  * - data-max-date="value" - maximum date to allow
  * - data-year-range="value" - range of years to display
@@ -11,7 +10,7 @@
  * JavaScript API:
  * $('a#someElement').datePicker({ option: 'value' })
  *
- * Dependences: 
+ * Dependences:
  * - Pikaday plugin (pikaday.js)
  * - Pikaday jQuery addon (pikaday.jquery.js)
  */
@@ -36,7 +35,6 @@
             changeMonitor.pause()
 
         this.$input.pikaday({
-            showTime: options.showTime,
             minDate: new Date(options.minDate),
             maxDate: new Date(options.maxDate),
             yearRange: options.yearRange,
@@ -56,7 +54,6 @@
     }
 
     DatePicker.DEFAULTS = {
-        showTime: false,
         minDate: '2000-01-01',
         maxDate: '2020-12-31',
         yearRange: 10

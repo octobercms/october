@@ -43,11 +43,6 @@ abstract class FormWidgetBase extends WidgetBase
     public $previewMode = false;
 
     /**
-     * @var int Value returned when the widget should not contribute any save data.
-     */
-    const NO_SAVE_DATA = -1;
-
-    /**
      * Constructor
      * @param $controller Controller Active controller object.
      * @param $model Model The relevant model to reference.
@@ -110,7 +105,12 @@ abstract class FormWidgetBase extends WidgetBase
     public function getLoadData()
     {
         list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
-        return $model->{$attribute};
+
+        if (!is_null($model)) {
+            return $model->{$attribute};
+        }
+
+        return null;
     }
 
     /**

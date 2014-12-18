@@ -33,10 +33,30 @@ if (window.jQuery === undefined)
         $(window).on('beforeunload', function() { isUnloading = true })
 
         /*
+         * Custom function, requests confirmation from the user
+         */
+
+        function handleConfirmMessage(message) {
+            var _event = jQuery.Event('ajaxConfirmMessage')
+
+            _event.promise = $.Deferred()
+            if ($(window).triggerHandler(_event, [message]) !== undefined) {
+                _event.promise.done(function(){
+                    options.confirm = null
+                    new Request(element, handler, options)
+                })
+                return false
+            }
+
+            if (_event.isDefaultPrevented()) return
+            if (message) return confirm(message)
+        }
+
+        /*
          * Initiate request
          */
 
-        if (options.confirm !== undefined && options.confirm.length && !confirm(options.confirm))
+        if (options.confirm && !handleConfirmMessage(options.confirm))
             return
 
         var

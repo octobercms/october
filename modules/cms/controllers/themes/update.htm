@@ -1,7 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
-        <li><a href="<?= Backend::url('backend/groups') ?>"><?= e(trans('backend::lang.user.group.menu_label')) ?></a></li>
+        <li><a href="<?= Backend::url('cms/themes') ?>">Themes</a></li>
         <li><?= e(trans($this->pageTitle)) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -21,26 +20,31 @@
                     data-request="onSave"
                     data-request-data="redirect:0"
                     data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    data-load-indicator="Saving theme..."
                     class="btn btn-primary">
-                    <?= e(trans('backend::lang.form.save')) ?>
+                    <u>S</u>ave
                 </button>
                 <button
                     type="button"
                     data-request="onSave"
                     data-request-data="close:1"
                     data-hotkey="ctrl+enter, cmd+enter"
-                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    data-load-indicator="Saving theme..."
                     class="btn btn-default">
-                    <?= e(trans('backend::lang.form.save_and_close')) ?>
+                    Save and Close
                 </button>
+
+                <span class="btn-text">
+                    or <a href="<?= Backend::url('cms/themes') ?>">Cancel</a>
+                </span>
+
                 <button
                     type="button"
                     class="btn btn-danger pull-right"
-                    data-request="onDelete"
-                    data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
-                    data-request-confirm="<?= e(trans('backend::lang.user.group.delete_confirm')) ?>">
-                    <?= e(trans('backend::lang.form.delete')) ?>
+                    data-request="onResetDefault"
+                    data-load-indicator="<?= e(trans('backend::lang.form.resetting')) ?>"
+                    data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>">
+                    <?= e(trans('backend::lang.form.reset_default')) ?>
                 </button>
             </div>
         </div>
@@ -48,6 +52,8 @@
     <?= Form::close() ?>
 
 <?php else: ?>
-    <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
-    <p><a href="<?= Backend::url('backend/groups') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.group.return')) ?></a></p>
+
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('cms/themes') ?>" class="btn btn-default">Return to themes list</a></p>
+
 <?php endif ?>

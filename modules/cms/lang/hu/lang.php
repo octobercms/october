@@ -27,6 +27,7 @@ return [
         'find_more_themes' => 'További témák az OctoberCMS témák piacterén.',
         'activate_button' => 'Aktiválás',
         'active_button' => 'Aktiválás',
+        'customize_button' => 'Testreszabás',
     ],
     'maintenance' => [
         'settings_menu' => 'Karbantartás mód',
@@ -47,7 +48,7 @@ return [
         'unsaved_label' => 'Nem mentett lap(ok)',
         'no_list_records' => 'Nem találhatók lapok',
         'new' => 'Új lap',
-        'invalid_url' => 'Érvénytelen URL-címformátum. Az URL-címnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő számokat tartalmazhatja: ._-[]:?|/+*',
+        'invalid_url' => 'Érvénytelen URL-címformátum. Az URL-címnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő számokat tartalmazhatja: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt lapokat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a lapot?',
         'no_layout' => '-- nincs elrendezés --'

@@ -29,6 +29,15 @@
                 <span class="btn-text">
                     <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('system/settings') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
+
+                <button
+                    type="button"
+                    class="btn btn-danger pull-right"
+                    data-request="onResetDefault"
+                    data-load-indicator="<?= e(trans('backend::lang.form.resetting')) ?>"
+                    data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>">
+                    <?= e(trans('backend::lang.form.reset_default')) ?>
+                </button>
             </div>
         </div>
     <?= Form::close() ?>

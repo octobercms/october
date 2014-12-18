@@ -23,8 +23,7 @@ class CmsObjectTest extends TestCase
 {
     public function testLoad()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $obj = TestCmsObject::load($theme, 'plain.html');
         $this->assertEquals('<p>This is a test HTML content file.</p>', $obj->getContent());
@@ -37,8 +36,7 @@ class CmsObjectTest extends TestCase
 
     public function testLoadFromSubdirectory()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $obj = TestCmsObject::load($theme, 'subdir/obj.html');
         $this->assertEquals('<p>This is an object in a subdirectory.</p>', $obj->getContent());
@@ -51,24 +49,21 @@ class CmsObjectTest extends TestCase
 
     public function testValidateLoadInvalidTheme()
     {
-        $theme = new Theme();
-        $theme->load('none');
+        $theme = Theme::load('none');
 
         $this->assertNull(TestCmsObject::load($theme, 'plain.html'));
     }
 
     public function testValidateLoadInvalidFile()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
 
         $this->assertNull(TestCmsObject::load($theme, 'none'));
     }
 
     public function testCache()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $themePath = $theme->getPath();
 
         $filePath = $themePath .= '/temporary/test.htm';
@@ -131,8 +126,7 @@ class CmsObjectTest extends TestCase
 
     public function testFillFillable()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
         $obj = new TestCmsObject($theme);
@@ -151,8 +145,7 @@ class CmsObjectTest extends TestCase
      */
     public function testFillNotFillable()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
         $obj = new TestCmsObject($theme);
@@ -168,8 +161,7 @@ class CmsObjectTest extends TestCase
      */
     public function testFillInvalidFileNameSymbol()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
         $obj = new TestCmsObject($theme);
@@ -184,8 +176,7 @@ class CmsObjectTest extends TestCase
      */
     public function testFillInvalidFileNamePath()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
         $obj = new TestCmsObject($theme);
@@ -201,8 +192,7 @@ class CmsObjectTest extends TestCase
      */
     public function testFillInvalidFileSlash()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
         $obj = new TestCmsObject($theme);
@@ -217,8 +207,7 @@ class CmsObjectTest extends TestCase
      */
     public function testFillEmptyFileName()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
         $obj = new TestCmsObject($theme);
@@ -229,8 +218,7 @@ class CmsObjectTest extends TestCase
 
     public function testSave()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $destFilePath = $theme->getPath().'/testobjects/mytestobj.htm';
         if (file_exists($destFilePath))
@@ -255,8 +243,7 @@ class CmsObjectTest extends TestCase
      */
     public function testRename()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $srcFilePath = $theme->getPath().'/testobjects/mytestobj.htm';
         $this->assertFileExists($srcFilePath);
@@ -286,8 +273,7 @@ class CmsObjectTest extends TestCase
      */
     public function testRenameToExistingFile()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $srcFilePath = $theme->getPath().'/testobjects/anotherobj.htm';
         $this->assertFileExists($srcFilePath);
@@ -307,8 +293,7 @@ class CmsObjectTest extends TestCase
      */
     public function testSaveSameName()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $filePath = $theme->getPath().'/testobjects/anotherobj.htm';
         $this->assertFileExists($filePath);
@@ -328,8 +313,7 @@ class CmsObjectTest extends TestCase
 
     public function testSaveNewDir()
     {
-        $theme = new Theme();
-        $theme->load('apitest');
+        $theme = Theme::load('apitest');
 
         $destFilePath = $theme->getPath().'/testobjects/testsubdir/mytestobj.htm';
         if (file_exists($destFilePath))

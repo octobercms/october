@@ -55,7 +55,7 @@ class ErrorHandler
         }
 
         // Friendly error pages are used
-        if (Config::get('cms.customErrorPage')) {
+        if (!Config::get('app.debug', false)) {
             return $this->handleCustomError();
         }
 

@@ -3,6 +3,42 @@
  */
 
 /*
+ * Implement "Sweet Alert"
+ */
+
+$(window).on('ajaxErrorMessage', function(event, message){
+
+    swal({
+        title: message,
+        // type: 'error',
+        confirmButtonClass: 'btn-default'
+    })
+
+    // Prevent the default alert() message
+    event.preventDefault()
+
+})
+
+$(window).on('ajaxConfirmMessage', function(event, message){
+
+    swal({
+        title: message,
+        // type: 'warning',
+        showCancelButton: true,
+        confirmButtonClass: 'btn-primary'
+    }, function(isConfirm){
+        isConfirm
+            ? event.promise.resolve()
+            : event.promise.reject()
+    })
+
+    // Prevent the default confirm() message
+    event.preventDefault()
+    return true
+
+})
+
+/*
  * Path helpers
  */
 

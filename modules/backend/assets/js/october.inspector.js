@@ -29,7 +29,7 @@
  *   - placeholder - placholder text, for text and dropdown properties
  *   - depends - a list of properties the property depend on, for dropdown lists
  *   - options - an option list for dropdown lists, optional. If not provided the options are loaded with AJAX.
- *   - showExternalParameter - specifies the visibility of the external parameter feature for the property. Default: true.
+ *   - showExternalParam - specifies the visibility of the external parameter feature for the property. Default: true.
  *   Example of the configuration string (a single property):
  *   [{"property":"max-width","title":"Max width","type":"string"}]
  *
@@ -39,7 +39,7 @@
  *
  * Any HTML element that wraps the inspectable element can have the data-inspector-external-parameters property that enables the external 
  * parameters support. External parameters saved with the special syntax {{ paramName }}. The external parameter feature can be toggled
- * on per-property basis with the showExternalParameter option, visible by default.
+ * on per-property basis with the showExternalParam option, visible by default.
  *
  * Events
  * - change - the event is triggered on the inspectable element when it's properties are updated.
@@ -161,7 +161,7 @@
                         if (this.itemType == 'property' && this.groupIndex !== undefined)
                             result += self.groupExpanded(this.group) ? ' expanded' : ' collapsed'
 
-                        if (this.itemType == 'property' && !this.showExternalParameter)
+                        if (this.itemType == 'property' && !this.showExternalParam)
                             result += ' no-external-parameter'
 
                         return result

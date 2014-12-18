@@ -26,7 +26,10 @@ class SeedSetupAdmin extends Seeder
     public function run()
     {
         $group = UserGroup::create([
-            'name' => 'Admins'
+            'name' => 'Admins',
+            'code' => 'admins',
+            'description' => 'Default group for administrators',
+            'is_new_user_default' => true
         ]);
 
         $user = User::create([
@@ -42,4 +45,5 @@ class SeedSetupAdmin extends Seeder
 
         $user->addGroup($group);
     }
+
 }

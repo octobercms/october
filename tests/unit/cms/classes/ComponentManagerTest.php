@@ -104,8 +104,7 @@ class ComponentManagerTest extends TestCase
     private function spoofPageCode()
     {
         // Spoof all the objects we need to make a page object
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $page = Page::load($theme, 'index.htm');
         $layout = Layout::load($theme, 'content.htm');
         $controller = new Controller($theme);

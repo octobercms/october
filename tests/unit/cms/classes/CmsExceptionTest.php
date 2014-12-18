@@ -82,8 +82,7 @@ class CmsExceptionTest extends TestCase
 
     public function testCmsExceptionPhp()
     {
-        $theme = new Theme();
-        $theme->load('test');
+        $theme = Theme::load('test');
         $router = new Router($theme);
         $page = $router->findByUrl('/throw-php');
 

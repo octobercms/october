@@ -21,6 +21,7 @@ $requiredExtensions = [
     'fileinfo' => extension_loaded('fileinfo'),
     'Zip' => class_exists('ZipArchive'),
     'cURL' => function_exists('curl_init') && defined('CURLOPT_FOLLOWLOCATION'),
+    'OpenSSL' => function_exists('openssl_random_pseudo_bytes'),
 ];
 
 foreach ($writablePaths as $path) {

@@ -418,14 +418,8 @@ class Controller extends Extendable
                     500
                 );
             }
-            catch (ApplicationException $ex) {
-                return Response::make($ex->getMessage(), 500);
-            }
             catch (Exception $ex) {
-                return Response::make(
-                    sprintf('"%s" on line %s of %s', $ex->getMessage(), $ex->getLine(), $ex->getFile()),
-                    500
-                );
+                return Response::make(ApplicationException::getDetailedMessage($ex));
             }
         }
 
@@ -527,8 +521,9 @@ class Controller extends Extendable
      */
     public function handleError($exception)
     {
-        $this->fatalError = $exception->getMessage();
-        $this->vars['fatalError'] = $exception->getMessage();
+        $errorMessage = ApplicationException::getDetailedMessage($exception);
+        $this->fatalError = $errorMessage;
+        $this->vars['fatalError'] = $errorMessage;
     }
 
     //

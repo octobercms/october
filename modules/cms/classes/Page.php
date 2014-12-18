@@ -20,7 +20,7 @@ class Page extends CmsCompoundObject
 
     protected $settingsValidationRules = [
         'title' => 'required',
-        'url'   => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|\.]*$/i']
+        'url'   => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|\.\^\$]*$/i']
     ];
 
     /**
@@ -104,7 +104,7 @@ class Page extends CmsCompoundObject
     public static function url($page, $params = [], $absolute = true)
     {
         /*
-         * Reuse existing controller or create a new one, 
+         * Reuse existing controller or create a new one,
          * assuming that the method is called not during the front-end
          * request processing.
          */
@@ -181,11 +181,13 @@ class Page extends CmsCompoundObject
                 return;
             }
 
+            $page = self::loadCached($theme, $item->reference);
             $pageUrl = self::url($item->reference);
 
             $result = [];
             $result['url'] = $pageUrl;
             $result['isActive'] = $pageUrl == $url;
+            $result['mtime'] = $page ? $page->mtime : null;
         }
 
         return $result;

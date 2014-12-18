@@ -40,7 +40,7 @@ return [
         'menu_label' => 'Pages',
         'no_list_records' => 'Aucune page trouvée',
         'new' => 'Nouvelle page',
-        'invalid_url' => 'Format d\'URL invalide. L\'URL doit commencer par un / et peut contenit des chiffres, des lettres et les symboles suivants: ._-[]:?|/+*',
+        'invalid_url' => 'Format d\'URL invalide. L\'URL doit commencer par un / et peut contenit des chiffres, des lettres et les symboles suivants: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Voulez-vous vraiment supprimer les pages sélectionnées ?',
         'delete_confirm_single' => 'Voulez-vous vraiment supprimer cette page ?',
         'no_layout' => '-- aucun layout --'

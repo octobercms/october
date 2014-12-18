@@ -1,3 +1,27 @@
+* **Build 17x** (2014-12-xx)
+  - Improved asset caching (`cms.enableAssetCache`), when enabled the server will send a *304 Not Modified* header.
+
+* **Build 171** (2014-12-17)
+  - Add new methods `propertyName()` and `paramName()` to Component base class for accessing names of external properties.
+
+* **Build 169** (2014-12-16)
+  - Native `alert` and `confirm` functions have been styled in the back-end.
+  - Back-end user groups have a new description field, this is shown in the group list and when creating a new administrator.
+  - Back-end user groups can now be marked to add new administrators by default. This affects when a group is created (if checked, all administrators are added to the group) and creating a new administrator (the default groups are checked by default).
+
+* **Build 168** (2014-12-14)
+  - Config item `cms.customErrorPage` is deprecated, the setting `app.debug` should be used instead.
+  - Config item `cms.enableAssetMinify` can now be set to **null**, in which case assets are only minified if debug mode (`app.debug`) is disabled.
+
+* **Build 167** (2014-12-06)
+  - Settings pages now have a *Reset to default* button.
+  - The field `authorUrl` has been renamed to `homepage` in theme.yaml files.
+  - Adds Theme customization feature (see Themes > Development docs).
+
+* **Build 166** (2014-11-27)
+  - Plugin details method now support "homepage" property (see Plugins > Registration & Versions docs).
+  - Fixes a bug in the Datepicker using `time` mode.
+
 * **Build 162** (2014-11-10)
   - Fixes an issue where the *Pages* tab is shown in the CMS when permission is denied.
   - Updates are no longer shown on the Dashboard if permission is denied.

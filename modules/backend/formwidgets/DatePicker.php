@@ -11,6 +11,8 @@ use Backend\Classes\FormWidgetBase;
  */
 class DatePicker extends FormWidgetBase
 {
+    const TIME_PREFIX = '___time_';
+
     /**
      * {@inheritDoc}
      */
@@ -36,7 +38,7 @@ class DatePicker extends FormWidgetBase
      */
     public function init()
     {
-        $this->mode = $this->getConfig('mode', $this->mode);
+        $this->mode = strtolower($this->getConfig('mode', $this->mode));
         $this->minDate = $this->getConfig('minDate', $this->minDate);
         $this->maxDate = $this->getConfig('maxDate', $this->maxDate);
     }
@@ -57,19 +59,44 @@ class DatePicker extends FormWidgetBase
     {
         $this->vars['name'] = $this->formField->getName();
 
-        $value = $this->getLoadData();
+        $this->vars['timeName'] = self::TIME_PREFIX.$this->formField->getName(false);
+        $this->vars['timeValue'] = null;
 
-        if ($this->mode != 'datetime' && $value) {
-            if (is_string($value)) {
-                $value = substr($value, 0, 10);
+        if ($value = $this->getLoadData()) {
+
+            /*
+             * Date / Time
+             */
+            if ($this->mode == 'datetime') {
+                if (is_object($value)) {
+                    $value = $value->toDateTimeString();
+                }
+
+                $dateTime = explode(' ', $value);
+                $value = $dateTime[0];
+                $this->vars['timeValue'] = isset($dateTime[1]) ? substr($dateTime[1], 0, 5) : '';
             }
-            elseif (is_object($value)) {
-                $value = $value->toDateString();
+            /*
+             * Date
+             */
+            elseif ($this->mode == 'date') {
+                if (is_string($value)) {
+                    $value = substr($value, 0, 10);
+                }
+                elseif (is_object($value)) {
+                    $value = $value->toDateString();
+                }
             }
+            elseif ($this->mode == 'time') {
+                if (is_object($value)) {
+                    $value = $value->toTimeString();
+                }
+            }
+
         }
 
         $this->vars['value'] = $value ?: '';
-        $this->vars['showTime'] = $this->mode == 'datetime' || $this->mode == 'time';
+        $this->vars['mode'] = $this->mode;
         $this->vars['minDate'] = $this->minDate;
         $this->vars['maxDate'] = $this->maxDate;
     }
@@ -80,11 +107,14 @@ class DatePicker extends FormWidgetBase
     public function loadAssets()
     {
         $this->addCss('vendor/pikaday/css/pikaday.css', 'core');
+        $this->addCss('vendor/clockpicker/css/jquery-clockpicker.css', 'core');
         $this->addCss('css/datepicker.css', 'core');
         $this->addJs('vendor/moment/moment.js', 'core');
         $this->addJs('vendor/pikaday/js/pikaday.js', 'core');
         $this->addJs('vendor/pikaday/js/pikaday.jquery.js', 'core');
+        $this->addJs('vendor/clockpicker/js/jquery-clockpicker.js', 'core');
         $this->addJs('js/datepicker.js', 'core');
+        $this->addJs('js/timepicker.js', 'core');
     }
 
     /**
@@ -92,6 +122,17 @@ class DatePicker extends FormWidgetBase
      */
     public function getSaveData($value)
     {
-        return strlen($value) ? $value : null;
+        if (!strlen($value)) {
+            return null;
+        }
+
+        if ($this->mode == 'datetime') {
+            $value .= ' ' . post(self::TIME_PREFIX.$this->formField->getName(false)) . ':00';
+        }
+        elseif ($this->mode == 'time') {
+            $value .= ':00';
+        }
+
+        return $value;
     }
 }

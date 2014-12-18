@@ -508,7 +508,7 @@ class PluginManager
      */
     public function getDependencies($plugin)
     {
-        if (is_string($plugin) && (!$plugin = $this->findByIdentifier($identifer))) {
+        if (is_string($plugin) && (!$plugin = $this->findByIdentifier($plugin))) {
             return false;
         }
 

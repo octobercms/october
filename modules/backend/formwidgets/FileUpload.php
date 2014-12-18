@@ -5,6 +5,7 @@ use Input;
 use Validator;
 use System\Models\File;
 use System\Classes\SystemException;
+use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 use October\Rain\Support\ValidationException;
 use Exception;
@@ -196,7 +197,7 @@ class FileUpload extends FormWidgetBase
      */
     public function getSaveData($value)
     {
-        return FormWidgetBase::NO_SAVE_DATA;
+        return FormField::NO_SAVE_DATA;
     }
 
     /**

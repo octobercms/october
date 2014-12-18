@@ -12,6 +12,8 @@
 
     SidePanelTab.prototype.init = function() {
         var self = this
+        this.tabOpenDelay = 200
+        this.tabOpenTimeout = undefined
         this.$sideNavItems = $('#layout-sidenav ul li')
         this.$sidePanelItems = $('[data-content-id]', this.$el)
         this.sideNavWidth = $('#layout-sidenav ul li').outerWidth()
@@ -51,9 +53,18 @@
             })
 
             self.$sideNavItems.mouseenter(function(){
-                if ($(window).width() < self.options.breakpoint || !self.panelFixed())
-                    self.displayTab(this)
+                if ($(window).width() < self.options.breakpoint || !self.panelFixed()) {
+                    var _this = this
+                    self.tabOpenTimeout = setTimeout(function () {
+                        self.displayTab(_this)
+                    }, self.tabOpenDelay)
+                }
             })
+
+            self.$sideNavItems.mouseleave(function (){
+                clearTimeout(self.tabOpenTimeout)
+            })
+
 
             $(window).resize(function() {
                 self.updatePanelPosition()

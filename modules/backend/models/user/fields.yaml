@@ -41,7 +41,6 @@ tabs:
     permissions[superuser]:
       context: [create, update]
       tab: Permissions
-      span: left
       label: backend::lang.user.superuser
       type: checkbox
       comment: backend::lang.user.superuser_comment
@@ -49,10 +48,9 @@ tabs:
     groups:
       context: [create, update]
       tab: Permissions
-      span: right
       label: backend::lang.user.groups
       commentAbove: backend::lang.user.groups_comment
-      type: relation
+      type: checkboxlist
 
 secondaryTabs:
   fields:

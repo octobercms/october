@@ -67,14 +67,7 @@ class MailTemplates extends Controller
             $model = $this->formFindModelObject($recordId);
             $user = BackendAuth::getUser();
 
-            $vars = [
-                'email' => $user->email,
-                'name'  => $user->full_name,
-            ];
-            Mail::send($model->code, [], function ($message) use ($vars) {
-                extract($vars);
-                $message->to($email, $name);
-            });
+            Mail::sendTo([$user->email => $user->full_name], $model->code);
 
             Flash::success('The test message has been successfully sent.');
         }

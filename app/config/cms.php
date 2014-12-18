@@ -113,19 +113,6 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Determines if a friendly error page should be used.
-    |--------------------------------------------------------------------------
-    |
-    | If this value is set to true, a friendly error page is used when an
-    | exception is encountered. You must create a CMS page with route "/error"
-    | to set the contents of this page. Otherwise the default error page is shown.
-    |
-    */
-
-    'customErrorPage' => false,
-
-    /*
-    |--------------------------------------------------------------------------
     | Determines if the asset caching is enabled.
     |--------------------------------------------------------------------------
     |
@@ -144,12 +131,13 @@ return array(
     |--------------------------------------------------------------------------
     |
     | If the minification is enabled, combined assets are compressed (minified).
-    | It is recommended to disable the minification during the development, and
-    | enable it in the production mode.
+    | It is recommended to disable the minification during development, and
+    | enable it in production mode. If set to null, assets are minified
+    | when debug mode (app.debug) is disabled.
     |
     */
 
-    'enableAssetMinify' => false,
+    'enableAssetMinify' => null,
 
     /*
     |--------------------------------------------------------------------------

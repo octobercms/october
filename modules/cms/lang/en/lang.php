@@ -27,6 +27,7 @@ return [
         'find_more_themes' => 'Find more themes on OctoberCMS Theme Marketplace.',
         'activate_button' => 'Activate',
         'active_button' => 'Activate',
+        'customize_button' => 'Customize',
     ],
     'maintenance' => [
         'settings_menu' => 'Maintenance mode',
@@ -47,7 +48,7 @@ return [
         'unsaved_label' => 'Unsaved page(s)',
         'no_list_records' => 'No pages found',
         'new' => 'New page',
-        'invalid_url' => 'Invalid URL format. The URL should start with the forward slash symbol and can contain digits, Latin letters and the following symbols: ._-[]:?|/+*',
+        'invalid_url' => 'Invalid URL format. The URL should start with the forward slash symbol and can contain digits, Latin letters and the following symbols: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Do you really want to delete selected pages?',
         'delete_confirm_single' => 'Do you really want delete this page?',
         'no_layout' => '-- no layout --'
