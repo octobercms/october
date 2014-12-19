@@ -39,7 +39,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'label'        => 'cms::lang.page.menu_label',
                             'icon'         => 'icon-copy',
                             'url'          => 'javascript:;',
-                            'attributes'   => ['data-menu-item'=>'pages'],
+                            'attributes'   => ['data-menu-item' => 'pages'],
                             'permissions'  => ['cms.manage_pages'],
                             'counterLabel' => 'cms::lang.page.unsaved_label',
                         ],
@@ -47,7 +47,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'label'        => 'cms::lang.partial.menu_label',
                             'icon'         => 'icon-tags',
                             'url'          => 'javascript:;',
-                            'attributes'   => ['data-menu-item'=>'partials'],
+                            'attributes'   => ['data-menu-item' => 'partials'],
                             'permissions'  => ['cms.manage_partials'],
                             'counterLabel' => 'cms::lang.partial.unsaved_label',
                         ],
@@ -55,7 +55,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'label'        => 'cms::lang.layout.menu_label',
                             'icon'         => 'icon-th-large',
                             'url'          => 'javascript:;',
-                            'attributes'   => ['data-menu-item'=>'layouts'],
+                            'attributes'   => ['data-menu-item' => 'layouts'],
                             'permissions'  => ['cms.manage_layouts'],
                             'counterLabel' => 'cms::lang.layout.unsaved_label',
                         ],
@@ -63,7 +63,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'label'        => 'cms::lang.content.menu_label',
                             'icon'         => 'icon-file-text-o',
                             'url'          => 'javascript:;',
-                            'attributes'   => ['data-menu-item'=>'content'],
+                            'attributes'   => ['data-menu-item' => 'content'],
                             'permissions'  => ['cms.manage_content'],
                             'counterLabel' => 'cms::lang.content.unsaved_label',
                         ],
@@ -71,7 +71,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'label'        => 'cms::lang.asset.menu_label',
                             'icon'         => 'icon-picture-o',
                             'url'          => 'javascript:;',
-                            'attributes'   => ['data-menu-item'=>'assets'],
+                            'attributes'   => ['data-menu-item' => 'assets'],
                             'permissions'  => ['cms.manage_assets'],
                             'counterLabel' => 'cms::lang.asset.unsaved_label',
                         ],
@@ -79,7 +79,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'label'       => 'cms::lang.component.menu_label',
                             'icon'        => 'icon-puzzle-piece',
                             'url'         => 'javascript:;',
-                            'attributes'  => ['data-menu-item'=>'components'],
+                            'attributes'  => ['data-menu-item' => 'components'],
                             'permissions' => ['cms.manage_pages', 'cms.manage_layouts', 'cms.manage_partials']
                         ]
                     ]
@@ -93,12 +93,30 @@ class ServiceProvider extends ModuleServiceProvider
          */
         BackendAuth::registerCallback(function ($manager) {
             $manager->registerPermissions('October.Cms', [
-                'cms.manage_content'   => ['label' => 'cms::lang.permissions.manage_content', 'tab' => 'Cms'],
-                'cms.manage_assets'    => ['label' => 'cms::lang.permissions.manage_assets', 'tab' => 'Cms'],
-                'cms.manage_pages'     => ['label' => 'cms::lang.permissions.manage_pages', 'tab' => 'Cms'],
-                'cms.manage_layouts'   => ['label' => 'cms::lang.permissions.manage_layouts', 'tab' => 'Cms'],
-                'cms.manage_partials'  => ['label' => 'cms::lang.permissions.manage_partials', 'tab' => 'Cms'],
-                'cms.manage_themes'    => ['label' => 'cms::lang.permissions.manage_themes', 'tab' => 'Cms']
+                'cms.manage_content' => [
+                    'label' => 'cms::lang.permissions.manage_content',
+                    'tab' => 'cms::lang.permissions.name'
+                ],
+                'cms.manage_assets' => [
+                    'label' => 'cms::lang.permissions.manage_assets',
+                    'tab' => 'cms::lang.permissions.name'
+                ],
+                'cms.manage_pages' => [
+                    'label' => 'cms::lang.permissions.manage_pages',
+                    'tab' => 'cms::lang.permissions.name'
+                ],
+                'cms.manage_layouts' => [
+                    'label' => 'cms::lang.permissions.manage_layouts',
+                    'tab' => 'cms::lang.permissions.name'
+                ],
+                'cms.manage_partials' => [
+                    'label' => 'cms::lang.permissions.manage_partials',
+                    'tab' => 'cms::lang.permissions.name'
+                ],
+                'cms.manage_themes' => [
+                    'label' => 'cms::lang.permissions.manage_themes',
+                    'tab' => 'cms::lang.permissions.name'
+                ]
             ]);
         });
 

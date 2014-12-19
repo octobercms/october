@@ -23,10 +23,10 @@ return [
         'tr' => 'Turkish',
     ],
     'directory' => [
-        'create_fail' => "Cannot create directory: :name",
+        'create_fail' => 'Cannot create directory: :name',
     ],
     'file' => [
-        'create_fail' => "Cannot create file: :name",
+        'create_fail' => 'Cannot create file: :name',
     ],
     'combiner' => [
         'not_found' => "The combiner file ':name' is not found.",
@@ -66,13 +66,13 @@ return [
         'disabled_help' => 'Plugins that are disabled are ignored by the application.',
         'selected_amount' => 'Plugins selected: :amount',
         'remove_confirm' => 'Are you sure?',
-        'remove_success' => "Successfully removed those plugins from the system.",
+        'remove_success' => 'Successfully removed those plugins from the system.',
         'refresh_confirm' => 'Are you sure?',
-        'refresh_success' => "Successfully refreshed those plugins in the system.",
+        'refresh_success' => 'Successfully refreshed those plugins in the system.',
         'disable_confirm' => 'Are you sure?',
-        'disable_success' => "Successfully disabled those plugins.",
-        'enable_success' => "Successfully enabled those plugins.",
-        'unknown_plugin' => "Plugin has been removed from the file system.",
+        'disable_success' => 'Successfully disabled those plugins.',
+        'enable_success' => 'Successfully enabled those plugins.',
+        'unknown_plugin' => 'Plugin has been removed from the file system.',
     ],
     'project' => [
         'name' => 'Project',
@@ -114,6 +114,7 @@ return [
         'smtp_password' => 'Password',
         'smtp_port' => 'SMTP Port',
         'smtp_ssl' => 'SSL connection required',
+        'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail Path',
         'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
         'mailgun' => 'Mailgun',
@@ -242,6 +243,7 @@ return [
         'status_code' => 'Status',
     ],
     'permissions' => [
+        'name' => 'System',
         'manage_system_settings' => 'Manage system settings',
         'manage_software_updates' => 'Manage software updates',
         'manage_mail_templates' => 'Manage mail templates',
