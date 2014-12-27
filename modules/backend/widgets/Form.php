@@ -710,7 +710,7 @@ class Form extends WidgetBase
         }
 
         $fieldName = $field->fieldName;
-        $defaultValue = (!$this->model->exists) && !empty($field->defaults) ? $field->defaults : null;
+        $defaultValue = (!$this->model->exists && $field->defaults !== '') ? $field->defaults : null;
 
         /*
          * Array field name, eg: field[key][key2][key3]
