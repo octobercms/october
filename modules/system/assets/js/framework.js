@@ -366,34 +366,10 @@ if (window.jQuery === undefined)
         $(this).request()
     })
 
-    document.addEventListener('click', function nativeClickListener(ev){
-        // Faster native click listener. This implementation doesn't use 
-        // jQuery until it's really necessary.
-        var target = ev.target ? ev.target : ev.srcElement
-
-        if (target.getAttribute('data-request') == null)
-            return
-
-        var tagName = target.tagName
-        if (tagName == 'A' || tagName == 'BUTTON') {
-            $(target).request()
-            return false;
-        }
-
-        if (tagName == 'INPUT') {
-            var type = target.getAttribute('type').toLowerCase()
-
-            if (type == 'button' || type == 'submit') {
-                $(target).request()
-                return false;
-            }
-        }
-    });
-
-    // $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function(){
-    //     $(this).request()
-    //     return false
-    // })
+    $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function(){
+        $(this).request()
+        return false
+    })
 
     $(document).on('keydown', 'input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]', function(e){
         if (e.keyCode == 13) {
