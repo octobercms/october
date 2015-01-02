@@ -144,19 +144,19 @@ If the `options` element is not presented in the configuration, the options will
 
 **TODO:** Document the AJAX interface
 
-The drop-down options could depend on other columns. This works only with AJAX-based drop-downs. The column a drop-down depends on are defined with the `depends_on` property:
+The drop-down options could depend on other columns. This works only with AJAX-based drop-downs. The column a drop-down depends on are defined with the `dependsOn` property:
 
     state:
         title: State
         type: dropdown
-        depends_on: country
+        dependsOn: country
 
 Multiple fields are allowed as well: 
 
     state:
         title: State
         type: dropdown
-        depends_on: [country, language]
+        dependsOn: [country, language]
 
 **Note:** Dependent drop-down should always be defined after their master columns.
 
@@ -187,9 +187,9 @@ Columns are defined as array with the `columns` property. The array keys corresp
 - `title`
 - `type` (string, checkbox, dropdown, autocomplete)
 - `width` - sets the column width, can be specified in percents (10%) or pixels (50px). There could be a single column without the width specified. It will be stretched to take the available space.
-- `readonly`
+- `readOnly`
 - `options` (for drop-down elements and autocomplete types)
-- `depends_on` (from drop-down elements)
+- `dependsOn` (from drop-down elements)
 
 ## Events 
 

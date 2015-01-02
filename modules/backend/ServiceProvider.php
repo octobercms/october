@@ -56,6 +56,10 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\DataGrid', [
                 'label' => 'Data Grid',
                 'code'  => 'datagrid'
+            ]); // @drepcated
+            $manager->registerFormWidget('Backend\FormWidgets\DataTable', [
+                'label' => 'Data Table',
+                'code'  => 'datatable'
             ]);
             $manager->registerFormWidget('Backend\FormWidgets\RecordFinder', [
                 'label' => 'Record Finder',
