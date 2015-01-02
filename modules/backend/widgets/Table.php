@@ -32,7 +32,7 @@ class Table extends WidgetBase
 
     protected $dataSource = null;
 
-    protected $recordsKeyColumn;
+    protected $recordsKeyFrom;
 
     protected $dataSourceAliases = [
         'client' => '\Backend\Classes\TableClientMemoryDataSource'
@@ -45,7 +45,7 @@ class Table extends WidgetBase
     {
         $this->columns = $this->getConfig('columns', []);
 
-        $this->recordsKeyColumn = $this->getConfig('key_column', 'id');
+        $this->recordsKeyFrom = $this->getConfig('keyFrom', 'id');
 
         $dataSourceClass = $this->getConfig('dataSource');
         if (!strlen($dataSourceClass)) {
@@ -60,7 +60,7 @@ class Table extends WidgetBase
             throw new SystemException(sprintf('The Table widget data source class "%s" is could not be found.', $dataSourceClass));
         }
 
-        $this->dataSource = new $dataSourceClass($this->recordsKeyColumn);
+        $this->dataSource = new $dataSourceClass($this->recordsKeyFrom);
 
         if (Request::method() == 'POST' && $this->isClientDataSource()) {
             $requestDataField = $this->alias.'TableData';
@@ -97,7 +97,7 @@ class Table extends WidgetBase
     public function prepareVars()
     {
         $this->vars['columns'] = $this->prepareColumnsArray();
-        $this->vars['recordsKeyColumn'] = $this->recordsKeyColumn;
+        $this->vars['recordsKeyFrom'] = $this->recordsKeyFrom;
 
         $this->vars['recordsPerPage'] = $this->getConfig('recordsPerPage', false) ?: 'false';
         $this->vars['handler'] = $this->getConfig('handler', 'onSave');

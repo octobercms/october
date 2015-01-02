@@ -168,7 +168,7 @@ The widget is configured with YAML file. Required parameters:
 
 * `columns` - the columns definitions, see below.
 * `dataSource` - The data source class. Should specify the full qualified data source class name or alias. See the data source aliases below.
-* `key_column` - name of the key column. The default value is **id**.
+* `keyFrom` - name of the key column. The default value is **id**.
 * `recordsPerPage` - number of records per page. If not specified, the pagination will be disabled.
 * `handler` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**. This parameter is applicable only with client-memory data sources.
 * `adding` - indicates if record deleting is allowed, default is **true**.
