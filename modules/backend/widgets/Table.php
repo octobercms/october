@@ -48,14 +48,17 @@ class Table extends WidgetBase
         $this->recordsKeyColumn = $this->getConfig('key_column', 'id');
 
         $dataSourceClass = $this->getConfig('data_source');
-        if (!strlen($dataSourceClass))
+        if (!strlen($dataSourceClass)) {
             throw new SystemException('The Table widget data source is not specified in the configuration.');
+        }
 
-        if (array_key_exists($dataSourceClass, $this->dataSourceAliases))
+        if (array_key_exists($dataSourceClass, $this->dataSourceAliases)) {
             $dataSourceClass = $this->dataSourceAliases[$dataSourceClass];
+        }
 
-        if (!class_exists($dataSourceClass))
+        if (!class_exists($dataSourceClass)) {
             throw new SystemException(sprintf('The Table widget data source class "%s" is could not be found.', $dataSourceClass));
+        }
 
         $this->dataSource = new $dataSourceClass($this->recordsKeyColumn);
 
@@ -106,9 +109,9 @@ class Table extends WidgetBase
         $isClientDataSource = $this->isClientDataSource();
 
         $this->vars['clientDataSourceClass'] = $isClientDataSource ? 'client' : 'server';
-        $this->vars['data'] = $isClientDataSource ? 
-            json_encode($this->dataSource->getAllRecords()) :
-            [];
+        $this->vars['data'] = $isClientDataSource
+            ? json_encode($this->dataSource->getAllRecords())
+            : [];
     }
 
     //
@@ -167,8 +170,9 @@ class Table extends WidgetBase
         $eventResults = $this->fireEvent('table.getDropdownOptions', [$columnName, $rowData]);
 
         $options = [];
-        if (count($eventResults))
+        if (count($eventResults)) {
             $options = $eventResults[0];
+        }
 
         return [
             'options' => $options

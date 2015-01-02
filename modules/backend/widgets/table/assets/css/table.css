@@ -1,7 +1,7 @@
 /*
  * General control styling
  */
-.table-control .table-container {
+.control-table .table-container {
   border: 1px solid #808c8d;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -9,18 +9,18 @@
   overflow: hidden;
   margin-bottom: 15px;
 }
-.table-control table {
+.control-table table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
 }
-.table-control table td,
-.table-control table th {
+.control-table table td,
+.control-table table th {
   padding: 0;
   font-size: 13px;
   color: #555555;
 }
-.table-control table [data-view-container] {
+.control-table table [data-view-container] {
   padding: 5px 10px;
   width: 100%;
   white-space: nowrap;
@@ -28,7 +28,7 @@
   text-overflow: ellipsis;
   min-height: 28px;
 }
-.table-control table.headers:after {
+.control-table table.headers:after {
   content: ' ';
   display: block;
   position: absolute;
@@ -37,7 +37,7 @@
   margin-top: -1px;
   border-bottom: 1px solid #bdc3c7;
 }
-.table-control table.headers th {
+.control-table table.headers th {
   padding: 7px 10px;
   font-size: 13px;
   text-transform: uppercase;
@@ -49,84 +49,84 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.table-control table.headers th [data-view-container] {
+.control-table table.headers th [data-view-container] {
   padding-bottom: 6px;
 }
-.table-control table.headers th:last-child {
+.control-table table.headers th:last-child {
   border-right: none;
 }
-.table-control table.data td {
+.control-table table.data td {
   border: 1px solid #ecf0f1;
   /* TODO: this should be applied only when the control is active */
 }
-.table-control table.data td .content-container {
+.control-table table.data td .content-container {
   position: relative;
   padding: 1px;
 }
-.table-control table.data td.active {
+.control-table table.data td.active {
   border-color: #5fb6f5 !important;
 }
-.table-control table.data td.active .content-container {
+.control-table table.data td.active .content-container {
   padding: 0;
   border: 1px solid #5fb6f5;
 }
-.table-control table.data td.active .content-container:before,
-.table-control table.data td.active .content-container:after {
+.control-table table.data td.active .content-container:before,
+.control-table table.data td.active .content-container:after {
   content: ' ';
   background: #5fb6f5;
   position: absolute;
   left: -2px;
   top: -2px;
 }
-.table-control table.data td.active .content-container:before {
+.control-table table.data td.active .content-container:before {
   width: 1px;
   bottom: -2px;
 }
-.table-control table.data td.active .content-container:after {
+.control-table table.data td.active .content-container:after {
   right: -2px;
   height: 1px;
 }
-.table-control table.data tr {
+.control-table table.data tr {
   background-color: white;
 }
-.table-control table.data tr:nth-child(2n) {
+.control-table table.data tr:nth-child(2n) {
   background-color: #fbfbfb;
 }
-.table-control table.data tr:first-child td {
+.control-table table.data tr:first-child td {
   border-top: none;
 }
-.table-control table.data tr:last-child td {
+.control-table table.data tr:last-child td {
   border-bottom: none;
 }
-.table-control table.data td:first-child {
+.control-table table.data td:first-child {
   border-left: none;
 }
-.table-control table.data td:last-child {
+.control-table table.data td:last-child {
   border-right: none;
 }
-.table-control .control-scrollbar > div {
+.control-table .control-scrollbar > div {
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   overflow: hidden;
 }
-.table-control .control-scrollbar table.data tr:last-child td {
+.control-table .control-scrollbar table.data tr:last-child td {
   border-bottom: 1px solid #ecf0f1;
 }
-.table-control .toolbar {
+.control-table .toolbar {
   background: white;
   border-bottom: 1px solid #bdc3c7;
 }
-.table-control .toolbar a {
+.control-table .toolbar a {
   color: #323e50;
   padding: 10px;
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
-.table-control .toolbar a:hover {
+.control-table .toolbar a:hover {
   opacity: 1;
   filter: alpha(opacity=100);
 }
-.table-control .toolbar a:before {
+.control-table .toolbar a:before {
   display: inline-block;
   content: ' ';
   width: 16px;
@@ -138,17 +138,17 @@
   background-position: 0 0;
   background-size: 32px auto;
 }
-.table-control .toolbar a.add-table-row-above:before {
+.control-table .toolbar a.add-table-row-above:before {
   background-position: 0 -56px;
 }
-.table-control .toolbar a.delete-table-row:before {
+.control-table .toolbar a.delete-table-row:before {
   background-position: 0 -113px;
 }
-.table-control .pagination ul {
+.control-table .pagination ul {
   padding: 0;
   margin-bottom: 15px;
 }
-.table-control .pagination ul li {
+.control-table .pagination ul li {
   list-style: none;
   padding: 4px 6px;
   -webkit-border-radius: 2px;
@@ -160,32 +160,32 @@
   background: #ecf0f1;
   line-height: 100%;
 }
-.table-control .pagination ul li a {
+.control-table .pagination ul li a {
   text-decoration: none;
   color: #95a5a6;
 }
-.table-control .pagination ul li.active {
+.control-table .pagination ul li.active {
   background: #5fb6f5;
 }
-.table-control .pagination ul li.active a {
+.control-table .pagination ul li.active a {
   color: #ffffff;
 }
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
-  .table-control .toolbar a:before {
+  .control-table .toolbar a:before {
     background-position: 0px -9px;
     background-size: 16px auto;
   }
-  .table-control .toolbar a.add-table-row-above:before {
+  .control-table .toolbar a.add-table-row-above:before {
     background-position: 0 -39px;
   }
-  .table-control .toolbar a.delete-table-row:before {
+  .control-table .toolbar a.delete-table-row:before {
     background-position: 0 -66px;
   }
 }
 /*
  * String editor
  */
-.table-control td[data-column-type=string] input[type=text] {
+.control-table td[data-column-type=string] input[type=text] {
   width: 100%;
   height: 100%;
   display: block;
@@ -196,7 +196,7 @@
 /*
  * Checkbox editor
  */
-.table-control td[data-column-type=checkbox] div[data-checkbox-element] {
+.control-table td[data-column-type=checkbox] div[data-checkbox-element] {
   width: 16px;
   height: 16px;
   border-radius: 2px;
@@ -209,14 +209,14 @@
   -ms-user-select: none;
   user-select: none;
 }
-.table-control td[data-column-type=checkbox] div[data-checkbox-element]:hover {
+.control-table td[data-column-type=checkbox] div[data-checkbox-element]:hover {
   border-color: #808080;
   color: #4d4d4d;
 }
-.table-control td[data-column-type=checkbox] div[data-checkbox-element].checked {
+.control-table td[data-column-type=checkbox] div[data-checkbox-element].checked {
   border-width: 2px;
 }
-.table-control td[data-column-type=checkbox] div[data-checkbox-element].checked:before {
+.control-table td[data-column-type=checkbox] div[data-checkbox-element].checked:before {
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
@@ -229,25 +229,25 @@
   left: 1px;
   top: -4px;
 }
-.table-control td[data-column-type=checkbox] div[data-checkbox-element]:focus {
+.control-table td[data-column-type=checkbox] div[data-checkbox-element]:focus {
   border-color: #5fb6f5;
   outline: none;
 }
 /*
  * Dropdown editor
  */
-.table-control td[data-column-type=dropdown] {
+.control-table td[data-column-type=dropdown] {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
-.table-control td[data-column-type=dropdown] [data-view-container] {
+.control-table td[data-column-type=dropdown] [data-view-container] {
   padding-right: 20px;
   position: relative;
   cursor: pointer;
 }
-.table-control td[data-column-type=dropdown] [data-view-container]:after {
+.control-table td[data-column-type=dropdown] [data-view-container]:after {
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
@@ -262,13 +262,13 @@
   top: 8px;
   right: 10px;
 }
-.table-control td[data-column-type=dropdown] [data-view-container]:hover:after {
+.control-table td[data-column-type=dropdown] [data-view-container]:hover:after {
   color: #0181b9;
 }
-.table-control td[data-column-type=dropdown] [data-dropdown-open=true] {
+.control-table td[data-column-type=dropdown] [data-dropdown-open=true] {
   background: white;
 }
-.table-control td[data-column-type=dropdown] [data-dropdown-open=true] [data-view-container]:after {
+.control-table td[data-column-type=dropdown] [data-dropdown-open=true] [data-view-container]:after {
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
@@ -277,10 +277,10 @@
   *margin-right: .3em;
   content: "\f106";
 }
-.table-control td[data-column-type=dropdown] .content-container {
+.control-table td[data-column-type=dropdown] .content-container {
   outline: none;
 }
-html.cssanimations .table-control td[data-column-type=dropdown] [data-view-container].loading:after {
+html.cssanimations .control-table td[data-column-type=dropdown] [data-view-container].loading:after {
   background-image: url(../../../../assets/images/loading-indicator-transparent.svg);
   background-size: 15px 15px;
   background-position: 50% 50%;

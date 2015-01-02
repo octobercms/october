@@ -166,7 +166,7 @@ Multiple fields are allowed as well:
 
 The widget is configured with YAML file. Required parameters:
 
-* `columns` - the columns definitions, see below
+* `columns` - the columns definitions, see below.
 * `data_source` - The data source class. Should specify the full qualified data source class name or alias. See the data source aliases below.
 * `key_column` - name of the key column. The default value is **id**.
 * `records_per_page` - number of records per page. If not specified, the pagination will be disabled.
