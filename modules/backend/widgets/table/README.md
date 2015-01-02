@@ -78,8 +78,8 @@ The options below are listed in the JavaScript notation. Corresponding data attr
 - `columns` - column definitions in JSON format, see the server-side column definition format below.
 - `rowSorting` - enables the drag & drop row sorting. The sorting cannot be used with the pagination (`recordsPerPage` is not `null` or `false`).
 - `keyColumn` - specifies the name of the key column. The default value is **id**. 
-- `postback` - post the client-memory data source data to the server automatically when the parent form gets submitted. The default value is `true`. The option is used only with client-memory data sources. When enabled, the data source data  is available in the widget's server-side data source: `$table->getDataSource()->getRecords();` The data postback occurs only of the request handler name matches the `postbackHandlerName` option value.
-- `postbackHandlerName` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**.
+- `postback` - post the client-memory data source data to the server automatically when the parent form gets submitted. The default value is `true`. The option is used only with client-memory data sources. When enabled, the data source data  is available in the widget's server-side data source: `$table->getDataSource()->getRecords();` The data postback occurs only of the request handler name matches the `handler` option value.
+- `handler` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**.
 - `adding` - determines whether users can add new records. Default value is **true**.
 - `deleting` - determines whether users can delete records. Default value is **true**.
 - `toolbar` - determines whether the toolbar is visible. The default value is **true**.
@@ -170,7 +170,7 @@ The widget is configured with YAML file. Required parameters:
 * `data_source` - The data source class. Should specify the full qualified data source class name or alias. See the data source aliases below.
 * `key_column` - name of the key column. The default value is **id**.
 * `recordsPerPage` - number of records per page. If not specified, the pagination will be disabled.
-* `postback_handler_name` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**. This parameter is applicable only with client-memory data sources.
+* `handler` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**. This parameter is applicable only with client-memory data sources.
 * `adding` - indicates if record deleting is allowed, default is **true**.
 * `deleting` - indicates if record deleting is allowed, default is **true**.
 * `toolbar` - specifies if the toolbar should be visible, default is **true**.
@@ -247,11 +247,11 @@ $dataSource->purge();
 
 The server-side data sources (PHP) automatically maintain the actual data, but that mechanism for the client-memory and server-memory data sources is different. 
 
-In case of the client-memory data source, the table widget adds the data records to the POST, when the form is saved (see `postback` and `postbackHandlerName` options). On the server side the data is inserted to the data source by the table widget.
+In case of the client-memory data source, the table widget adds the data records to the POST, when the form is saved (see `postback` and `handler` options). On the server side the data is inserted to the data source by the table widget.
 
 The server-memory data source always automatically maintain its contents in synch with the client using AJAX, and POSTing data is not required.
 
-In PHP reading data from a data source of any type looks like this (it should be in the AJAX handler that saves the data, for the client-memory data source the handler name should match the `postbackHandlerName` option value):
+In PHP reading data from a data source of any type looks like this (it should be in the AJAX handler that saves the data, for the client-memory data source the handler name should match the `handler` option value):
 
 ```
 public function onSave()
