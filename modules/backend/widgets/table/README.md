@@ -167,7 +167,7 @@ Multiple fields are allowed as well:
 The widget is configured with YAML file. Required parameters:
 
 * `columns` - the columns definitions, see below.
-* `data_source` - The data source class. Should specify the full qualified data source class name or alias. See the data source aliases below.
+* `dataSource` - The data source class. Should specify the full qualified data source class name or alias. See the data source aliases below.
 * `key_column` - name of the key column. The default value is **id**.
 * `recordsPerPage` - number of records per page. If not specified, the pagination will be disabled.
 * `handler` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**. This parameter is applicable only with client-memory data sources.
@@ -176,7 +176,7 @@ The widget is configured with YAML file. Required parameters:
 * `toolbar` - specifies if the toolbar should be visible, default is **true**.
 * `height` - specifies the data table height, in pixels. The default value is **false** - the height is not limited.
 
-The `data_source` parameter can take aliases for some data source classes for the simpler configuration syntax. Known aliases are:
+The `dataSource` parameter can take aliases for some data source classes for the simpler configuration syntax. Known aliases are:
 
 * `client` = \Backend\Classes\TableClientMemoryDataSource
 
