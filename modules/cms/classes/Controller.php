@@ -85,11 +85,6 @@ class Controller extends BaseController
     protected $pageContents;
 
     /**
-     * @var string Alias name of an executing component.
-     */
-    protected $componentContext;
-
-    /**
      * @var array A list of variables to pass to the page.
      */
     public $vars = [];
@@ -99,8 +94,19 @@ class Controller extends BaseController
      */
     protected $statusCode = 200;
 
+    /**
+     * @var self Cache of self
+     */
     protected static $instance = null;
 
+    /**
+     * @var Cms\Classes\ComponentBase Object of the active component, used internally.
+     */
+    protected $componentContext;
+
+    /**
+     * @var array Component partial stack, used internally.
+     */
     protected $partialComponentStack = [];
 
     /**
@@ -701,7 +707,7 @@ class Controller extends BaseController
                 }
                 elseif (($componentObj = $this->findComponentByPartial($partialName)) === null) {
                     if ($throwException) {
-                        throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
+                        throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$partialName]));
                     }
                     else {
                         return false;
@@ -1093,6 +1099,16 @@ class Controller extends BaseController
         }
 
         return null;
+    }
+
+    /**
+     * Set the component context manually, used by Components when calling renderPartial.
+     * @param ComponentBase $component
+     * @return void
+     */
+    public function setComponentContext(ComponentBase $component)
+    {
+        $this->componentContext = $component;
     }
 
     /**

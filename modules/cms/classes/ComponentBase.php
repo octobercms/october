@@ -169,6 +169,16 @@ abstract class ComponentBase extends Extendable
     }
 
     /**
+     * Renders a requested partial in context of this component,
+     * see Cms\Classes\Controller@renderPartial for usage.
+     */
+    public function renderPartial()
+    {
+        $this->controller->setComponentContext($this);
+        return call_user_func_array([$this->controller, 'renderPartial'], func_get_args());
+    }
+
+    /**
      * Executes the event cycle when running an AJAX handler.
      * @return boolean Returns true if the handler was found. Returns false otherwise.
      */
