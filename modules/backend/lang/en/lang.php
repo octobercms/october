@@ -215,6 +215,7 @@ return [
         'not_found' => "Model ':class' with an ID of :id could not be found",
         'missing_id' => "There is no ID specified for looking up the model record.",
         'missing_relation' => "Model ':class' does not contain a definition for ':relation'.",
+        'missing_method' => "Model ':class' does not contain a method ':method'.",
         'invalid_class' => "Model :model used in :class is not valid, it must inherit the \Model class.",
         'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
     ],
