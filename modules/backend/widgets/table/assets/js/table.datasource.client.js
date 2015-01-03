@@ -135,8 +135,8 @@
         var keyColumn = this.tableObj.options.keyColumn
 
         return this.data.map(function(record) {
-            return record[keyColumn]
-        }).indexOf(parseInt(key))
+            return record[keyColumn] + ""
+        }).indexOf(key + "")
     }
 
     Client.prototype.getAllData = function() {
