@@ -13,7 +13,6 @@ use Session;
  */
 abstract class WidgetBase
 {
-
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
     use \System\Traits\ViewMaker;

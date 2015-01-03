@@ -11,7 +11,6 @@ use Str;
  */
 abstract class FormWidgetBase extends WidgetBase
 {
-
     /**
      * @var FormField Object containing general form field information.
      */

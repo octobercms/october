@@ -11,7 +11,6 @@ use Request;
  */
 class RequestLog extends Model
 {
-
     /**
      * @var string The database table used by the model.
      */

@@ -16,7 +16,6 @@ use ArrayAccess;
  */
 class FormTabs implements IteratorAggregate, ArrayAccess
 {
-
     const SECTION_OUTSIDE = 'outside';
     const SECTION_PRIMARY = 'primary';
     const SECTION_SECONDARY = 'secondary';
@@ -176,5 +175,4 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     {
         return isset($this->fields[$offset]) ? $this->fields[$offset] : null;
     }
-
 }

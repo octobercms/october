@@ -13,7 +13,6 @@ use October\Rain\Router\Helper as RouterHelper;
  */
 class BackendHelper
 {
-
     /**
      * Returns a URL in context of the Backend
      */

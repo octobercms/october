@@ -1,10 +1,9 @@
 <?php
 
-/*
+/**
  * Register Backend routes before all user routes.
  */
 App::before(function ($request) {
-
     /*
      * Other pages
      */
@@ -16,5 +15,4 @@ App::before(function ($request) {
      * Entry point
      */
     Route::any(Config::get('cms.backendUri', 'backend'), 'Backend\Classes\BackendController@run');
-
 });
