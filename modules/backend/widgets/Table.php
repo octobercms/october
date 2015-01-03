@@ -100,7 +100,7 @@ class Table extends WidgetBase
         $this->vars['recordsKeyFrom'] = $this->recordsKeyFrom;
 
         $this->vars['recordsPerPage'] = $this->getConfig('recordsPerPage', false) ?: 'false';
-        $this->vars['handler'] = $this->getConfig('handler', 'onSave');
+        $this->vars['postbackHandlerName'] = $this->getConfig('postbackHandlerName', 'onSave');
         $this->vars['adding'] = $this->getConfig('adding', true);
         $this->vars['deleting'] = $this->getConfig('deleting', true);
         $this->vars['toolbar'] = $this->getConfig('toolbar', true);
@@ -153,7 +153,7 @@ class Table extends WidgetBase
         return $result;
     }
 
-    protected function isClientDataSource() 
+    protected function isClientDataSource()
     {
         return $this->dataSource instanceof \Backend\Classes\TableClientMemoryDataSource;
     }

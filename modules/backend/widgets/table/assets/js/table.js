@@ -664,7 +664,7 @@
     }
 
     Table.prototype.onFormSubmit = function(ev, data) {
-        if (data.handler == this.options.handler) {
+        if (data.handler == this.options.postbackHandlerName) {
             this.unfocusTable()
             data.options.data[this.options.alias + 'TableData'] = this.dataSource.getAllData()
         }
@@ -844,7 +844,7 @@
         recordsPerPage: false,
         data: null,
         postback: true,
-        handler: 'onSave',
+        postbackHandlerName: 'onSave',
         adding: true,
         deleting: true,
         toolbar: true,
