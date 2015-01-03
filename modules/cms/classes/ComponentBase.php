@@ -2,6 +2,7 @@
 
 use Str;
 use Lang;
+use Event;
 use Config;
 use Cms\Classes\CodeBase;
 use Cms\Classes\CmsException;
@@ -165,6 +166,37 @@ abstract class ComponentBase extends Extendable
     public function __toString()
     {
         return $this->alias;
+    }
+
+    /**
+     * Executes the event cycle when running an AJAX handler.
+     * @return boolean Returns true if the handler was found. Returns false otherwise.
+     */
+    public function runAjaxHandler($handler)
+    {
+        /*
+         * Extensibility
+         */
+        if (
+            ($event = $this->fireEvent('component.beforeRunAjaxHandler', [$handler], true)) ||
+            ($event = Event::fire('cms.component.beforeRunAjaxHandler', [$this, $handler], true))
+        ) {
+            return $event;
+        }
+
+        $result = $this->$handler();
+
+        /*
+         * Extensibility
+         */
+        if (
+            ($event = $this->fireEvent('component.runAjaxHandler', [$handler, $result], true)) ||
+            ($event = Event::fire('cms.component.runAjaxHandler', [$this, $handler, $result], true))
+        ) {
+            return $event;
+        }
+
+        return $result;
     }
 
     //

@@ -538,7 +538,7 @@ class Controller extends BaseController
 
             if ($componentObj && method_exists($componentObj, $handlerName)) {
                 $this->componentContext = $componentObj;
-                $result = $componentObj->$handlerName();
+                $result = $componentObj->runAjaxHandler($handlerName);
                 return ($result) ?: true;
             }
         }
@@ -561,7 +561,7 @@ class Controller extends BaseController
              */
             if (($componentObj = $this->findComponentByHandler($handler)) !== null) {
                 $this->componentContext = $componentObj;
-                $result = $componentObj->$handler();
+                $result = $componentObj->runAjaxHandler($handler);
                 return ($result) ?: true;
             }
         }
