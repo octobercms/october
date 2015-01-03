@@ -88,7 +88,6 @@ class DataTable extends FormWidgetBase
     {
         $dataSource = $this->table->getDataSource();
         $records = $this->getLoadData() ?: [];
-        traceLog($records);
         $dataSource->initRecords((array) $records);
     }
 
