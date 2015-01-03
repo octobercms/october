@@ -2,26 +2,26 @@
 
 return [
     'auth' => [
-        'title' => 'Administration Area',
+        'title' => 'Administration Area'
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
-        'options_method_not_exists' => 'The model class :model must define a method :method() returning options for the ":field" form field.',
+        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field."
     ],
     'widget' => [
         'not_registered' => "A widget class name ':name' has not been registered",
-        'not_bound' => "A widget with class name ':name' has not been bound to the controller",
+        'not_bound' => "A widget with class name ':name' has not been bound to the controller"
     ],
     'page' => [
-        'untitled' => "Untitled",
+        'untitled' => 'Untitled',
         'access_denied' => [
-            'label' => "Access denied",
+            'label' => 'Access denied',
             'help' => "You don't have the required permissions to view this page.",
-            'cms_link' => "Return to the back-end",
-        ],
+            'cms_link' => 'Return to the back-end'
+        ]
     ],
     'partial' => [
-        'not_found' => "The partial ':name' is not found.",
+        'not_found' => "The partial ':name' is not found."
     ],
     'account' => [
         'sign_out' => 'Sign out',
@@ -30,21 +30,21 @@ return [
         'restore' => 'Restore',
         'login_placeholder' => 'login',
         'password_placeholder' => 'password',
-        'forgot_password' => "Forgot your password?",
-        'enter_email' => "Enter your email",
-        'enter_login' => "Enter your login",
-        'email_placeholder' => "email",
-        'enter_new_password' => "Enter a new password",
-        'password_reset' => "Password Reset",
-        'restore_success' => "An email has been sent to your email address with password restore instructions.",
+        'forgot_password' => 'Forgot your password?',
+        'enter_email' => 'Enter your email',
+        'enter_login' => 'Enter your login',
+        'email_placeholder' => 'email',
+        'enter_new_password' => 'Enter a new password',
+        'password_reset' => 'Password Reset',
+        'restore_success' => 'An email has been sent to your email address with password restore instructions.',
         'restore_error' => "A user could not be found with a login value of ':login'",
-        'reset_success' => "Your password has been successfully reset. You may now sign in.",
-        'reset_error' => "Invalid password reset data supplied. Please try again!",
-        'reset_fail' => "Unable to reset your password!",
+        'reset_success' => 'Your password has been successfully reset. You may now sign in.',
+        'reset_error' => 'Invalid password reset data supplied. Please try again!',
+        'reset_fail' => 'Unable to reset your password!',
         'apply' => 'Apply',
         'cancel' => 'Cancel',
         'delete' => 'Delete',
-        'ok' => 'OK',
+        'ok' => 'OK'
     ],
     'dashboard' => [
         'menu_label' => 'Dashboard',
@@ -66,7 +66,7 @@ return [
             'widget_title_default' => 'System status',
             'online' => 'online',
             'maintenance' => 'in maintenance',
-            'update_available' => '{0} updates available!|{1} update available!|[2,Inf] updates available!',
+            'update_available' => '{0} updates available!|{1} update available!|[2,Inf] updates available!'
         ]
     ],
     'user' => [
@@ -75,18 +75,19 @@ return [
         'menu_description' => 'Manage back-end administrator users, groups and permissions.',
         'list_title' => 'Manage Administrators',
         'new' => 'New Administrator',
-        'login' => "Login",
-        'first_name' => "First Name",
-        'last_name' => "Last Name",
-        'full_name' => "Full Name",
-        'email' => "Email",
-        'groups' => "Groups",
-        'groups_comment' => "Specify which groups this person belongs to.",
-        'avatar' => "Avatar",
-        'password' => "Password",
-        'password_confirmation' => "Confirm Password",
-        'superuser' => "Super User",
-        'superuser_comment' => "Check this box to allow this person to access all areas.",
+        'login' => 'Login',
+        'first_name' => 'First Name',
+        'last_name' => 'Last Name',
+        'full_name' => 'Full Name',
+        'email' => 'Email',
+        'groups' => 'Groups',
+        'groups_comment' => 'Specify which groups this person belongs to.',
+        'avatar' => 'Avatar',
+        'password' => 'Password',
+        'password_confirmation' => 'Confirm Password',
+        'permissions' => 'Permissions',
+        'superuser' => 'Super User',
+        'superuser_comment' => 'Check this box to allow this person to access all areas.',
         'send_invite' => 'Send invitation by email',
         'send_invite_comment' => 'Use this checkbox to send an invitation to the user by email',
         'delete_confirm' => 'Do you really want to delete this administrator?',
@@ -97,15 +98,11 @@ return [
         'group' => [
             'name' => 'Group',
             'name_field' => 'Name',
-            'description_field' => 'Description',
-            'is_new_user_default_field' => 'Add new administrators to this group by default',
-            'code_field' => 'Code',
-            'code_comment' => 'Enter a unique code if you want to access it with the API.',
             'menu_label' => 'Groups',
             'list_title' => 'Manage Groups',
             'new' => 'New Administrator Group',
             'delete_confirm' => 'Do you really want to delete this administrator group?',
-            'return' => 'Return to the group list',
+            'return' => 'Return to the group list'
         ],
         'preferences' => [
             'not_authenticated' => 'There is no an authenticated user to load or save preferences for.'
@@ -137,17 +134,17 @@ return [
         'description_label' => 'Description'
     ],
     'form' => [
-        'create_title' => "New :name",
-        'update_title' => "Edit :name",
-        'preview_title' => "Preview :name",
+        'create_title' => 'New :name',
+        'update_title' => 'Edit :name',
+        'preview_title' => 'Preview :name',
         'create_success' => 'The :name has been created successfully',
         'update_success' => 'The :name has been updated successfully',
         'delete_success' => 'The :name has been deleted successfully',
-        'missing_id' => "Form record ID has not been specified.",
+        'missing_id' => 'Form record ID has not been specified.',
         'missing_model' => 'Form behavior used in :class does not have a model defined.',
         'missing_definition' => "Form behavior does not contain a field for ':field'.",
         'not_found' => 'Form record with an ID of :id could not be found.',
-        'action_confirm' => "Are you sure?",
+        'action_confirm' => 'Are you sure?',
         'create' => 'Create',
         'create_and_close' => 'Create and close',
         'creating' => 'Creating...',
@@ -159,9 +156,6 @@ return [
         'delete' => 'Delete',
         'deleting' => 'Deleting...',
         'deleting_name' => 'Deleting :name...',
-        'reset_default' => 'Reset to default',
-        'resetting' => 'Resetting',
-        'resetting_name' => 'Resetting :name',
         'undefined_tab' => 'Misc',
         'field_off' => 'Off',
         'field_on' => 'On',
@@ -182,42 +176,39 @@ return [
         'select_placeholder' => 'please select',
         'insert_row' => 'Insert Row',
         'delete_row' => 'Delete Row',
-        'concurrency_file_changed_title' => "File was changed",
-        'concurrency_file_changed_description' => "The file you're editing has been changed on disk by another user. You can either reload the file and lose your changes or override the file on the disk.",
+        'concurrency_file_changed_title' => 'File was changed',
+        'concurrency_file_changed_description' => "The file you're editing has been changed on disk by another user. You can either reload the file and lose your changes or override the file on the disk."
     ],
     'relation' => [
         'missing_definition' => "Relation behavior does not contain a definition for ':field'.",
-        'missing_model' => "Relation behavior used in :class does not have a model defined.",
-        'invalid_action_single' => "This action cannot be performed on a singular relationship.",
-        'invalid_action_multi' => "This action cannot be performed on a multiple relationship.",
-        'help' => "Click on an item to add",
-        'related_data' => "Related :name data",
-        'add' => "Add",
-        'add_selected' => "Add selected",
-        'add_a_new' => "Add a new :name",
-        'cancel' => "Cancel",
-        'close' => "Close",
-        'add_name' => "Add :name",
-        'create' => "Create",
-        'create_name' => "Create :name",
-        'update' => "Update",
-        'update_name' => "Update :name",
-        'preview' => "Preview",
-        'preview_name' => "Preview :name",
-        'remove' => "Remove",
-        'remove_name' => "Remove :name",
-        'delete' => "Delete",
-        'delete_name' => "Delete :name",
-        'delete_confirm' => "Are you sure?",
+        'missing_model' => 'Relation behavior used in :class does not have a model defined.',
+        'invalid_action_single' => 'This action cannot be performed on a singular relationship.',
+        'invalid_action_multi' => 'This action cannot be performed on a multiple relationship.',
+        'help' => 'Click on an item to add',
+        'related_data' => 'Related :name data',
+        'add' => 'Add',
+        'add_selected' => 'Add selected',
+        'add_a_new' => 'Add a new :name',
+        'cancel' => 'Cancel',
+        'add_name' => 'Add :name',
+        'create' => 'Create',
+        'create_name' => 'Create :name',
+        'update' => 'Update',
+        'update_name' => 'Update :name',
+        'remove' => 'Remove',
+        'remove_name' => 'Remove :name',
+        'delete' => 'Delete',
+        'delete_name' => 'Delete :name',
+        'delete_confirm' => 'Are you sure?'
     ],
     'model' => [
-        'name' => "Model",
+        'name' => 'Model',
         'not_found' => "Model ':class' with an ID of :id could not be found",
-        'missing_id' => "There is no ID specified for looking up the model record.",
+        'missing_id' => 'There is no ID specified for looking up the model record.',
         'missing_relation' => "Model ':class' does not contain a definition for ':relation'.",
         'missing_method' => "Model ':class' does not contain a method ':method'.",
         'invalid_class' => "Model :model used in :class is not valid, it must inherit the \Model class.",
-        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
+        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'."
     ],
     'warnings' => [
         'tips' => 'System configuration tips',
@@ -236,14 +227,14 @@ return [
         'highlight_active_line' => 'Highlight active line',
         'show_invisibles' => 'Show invisible characters',
         'show_gutter' => 'Show gutter',
-        'theme' => 'Color scheme',
+        'theme' => 'Color scheme'
     ],
     'tooltips' => [
         'preview_website' => 'Preview the website'
     ],
     'mysettings' => [
         'menu_label' => 'My Settings',
-        'menu_description' => 'Settings relate to your administration account',
+        'menu_description' => 'Settings relate to your administration account'
     ],
     'myaccount' => [
         'menu_label' => 'My account',
@@ -272,7 +263,7 @@ return [
         'menu_label' => 'Back-end preferences',
         'menu_description' => 'Manage your account preferences such as desired language.',
         'locale' => 'Language',
-        'locale_comment' => 'Select your desired locale for language use.',
+        'locale_comment' => 'Select your desired locale for language use.'
     ],
     'access_log' => [
         'hint' => 'This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.',
@@ -283,7 +274,7 @@ return [
         'ip_address' => 'IP address',
         'first_name' => 'First name',
         'last_name' => 'Last name',
-        'email' => 'Email',
+        'email' => 'Email'
     ],
     'filter' => [
       'all' => 'all'

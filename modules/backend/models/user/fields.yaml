@@ -40,14 +40,14 @@ tabs:
 
     permissions[superuser]:
       context: [create, update]
-      tab: Permissions
+      tab: backend::lang.user.permissions
       label: backend::lang.user.superuser
       type: checkbox
       comment: backend::lang.user.superuser_comment
 
     groups:
       context: [create, update]
-      tab: Permissions
+      tab: backend::lang.user.permissions
       label: backend::lang.user.groups
       commentAbove: backend::lang.user.groups_comment
       type: checkboxlist
