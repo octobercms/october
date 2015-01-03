@@ -1025,7 +1025,7 @@ class Controller extends BaseController
      * Searches the layout and page components by an alias
      * @return ComponentBase The component object, if found
      */
-    protected function findComponentByName($name)
+    public function findComponentByName($name)
     {
         if (isset($this->page->components[$name])) {
             return $this->page->components[$name];
@@ -1047,7 +1047,7 @@ class Controller extends BaseController
      * Searches the layout and page components by an AJAX handler
      * @return ComponentBase The component object, if found
      */
-    protected function findComponentByHandler($handler)
+    public function findComponentByHandler($handler)
     {
         foreach ($this->page->components as $component) {
             if (method_exists($component, $handler)) {
@@ -1068,7 +1068,7 @@ class Controller extends BaseController
      * Searches the layout and page components by a partial file
      * @return ComponentBase The component object, if found
      */
-    protected function findComponentByPartial($partial)
+    public function findComponentByPartial($partial)
     {
         foreach ($this->page->components as $component) {
             $fileName = ComponentPartial::getFilePath($component, $partial);
