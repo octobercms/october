@@ -2,6 +2,7 @@
   - Improved asset caching (`cms.enableAssetCache`), when enabled the server will send a *304 Not Modified* header.
   - Introduced new *Table* widget and *DataTable* form widget.
   - There is now a simpler way for sending mail via `Mail::sendTo()`.
+  - The List Filter query can now be extended with controller override `listFilterExtendQuery()`.
 
 * **Build 171** (2014-12-17)
   - Add new methods `propertyName()` and `paramName()` to Component base class for accessing names of external properties.
