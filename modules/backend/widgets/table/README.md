@@ -245,9 +245,9 @@ $dataSource->purge();
 
 ## Reading data from the data source
 
-The server-side data sources (PHP) automatically maintain the actual data, but that mechanism for the client-memory and server-memory data sources is different. 
+The server-side data sources (PHP) automatically maintain the actual data, but that mechanism for the client-memory and server-memory data sources is different.
 
-In case of the client-memory data source, the table widget adds the data records to the POST, when the form is saved (see `postback` and `postbackHandlerName` options). On the server side the data is inserted to the data source by the table widget.
+In case of the client-memory data source, the table widget adds the data records to the POST, when the form is saved using the AJAX Framework (see `postback` and `postbackHandlerName` options). The table data will be injected automatically to the AJAX request when the `postback` value is `true` and the `postbackHandlerName` matches the exact handler name of the request. On the server side the data is inserted to the data source and can be accessed using the PHP example below.
 
 The server-memory data source always automatically maintain its contents in synch with the client using AJAX, and POSTing data is not required.
 
