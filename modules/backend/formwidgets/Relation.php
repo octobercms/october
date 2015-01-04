@@ -141,7 +141,7 @@ class Relation extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function getSaveData($value)
+    public function getSaveValue($value)
     {
         if (is_string($value) && !strlen($value)) {
             return null;

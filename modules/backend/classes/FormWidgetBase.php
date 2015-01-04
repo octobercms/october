@@ -87,11 +87,11 @@ abstract class FormWidgetBase extends WidgetBase
     }
 
     /**
-     * Process the postback data for this widget.
+     * Process the postback value for this widget.
      * @param $value The existing value for this widget.
      * @return string The new value for this widget.
      */
-    public function getSaveData($value)
+    public function getSaveValue($value)
     {
         return $value;
     }
@@ -131,4 +131,5 @@ abstract class FormWidgetBase extends WidgetBase
 
         return [$model, $last];
     }
+
 }

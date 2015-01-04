@@ -69,7 +69,7 @@ class DataTable extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function getSaveData($value)
+    public function getSaveValue($value)
     {
         $dataSource = $this->table->getDataSource();
 

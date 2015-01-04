@@ -120,7 +120,7 @@ class DatePicker extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function getSaveData($value)
+    public function getSaveValue($value)
     {
         if (!strlen($value)) {
             return null;
