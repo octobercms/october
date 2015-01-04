@@ -79,7 +79,7 @@ The options below are listed in the JavaScript notation. Corresponding data attr
 - `rowSorting` - enables the drag & drop row sorting. The sorting cannot be used with the pagination (`recordsPerPage` is not `null` or `false`).
 - `keyColumn` - specifies the name of the key column. The default value is **id**. 
 - `postback` - post the client-memory data source data to the server automatically when the parent form gets submitted. The default value is `true`. The option is used only with client-memory data sources. When enabled, the data source data  is available in the widget's server-side data source: `$table->getDataSource()->getRecords();` The data postback occurs only of the request handler name matches the `postbackHandlerName` option value.
-- `postbackHandlerName` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**.
+- `postbackHandlerName` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX request posts data matching this handler name. The default value is **onSave**.
 - `adding` - determines whether users can add new records. Default value is **true**.
 - `deleting` - determines whether users can delete records. Default value is **true**.
 - `toolbar` - determines whether the toolbar is visible. The default value is **true**.
@@ -144,19 +144,19 @@ If the `options` element is not presented in the configuration, the options will
 
 **TODO:** Document the AJAX interface
 
-The drop-down options could depend on other columns. This works only with AJAX-based drop-downs. The column a drop-down depends on are defined with the `depends_on` property:
+The drop-down options could depend on other columns. This works only with AJAX-based drop-downs. The column a drop-down depends on are defined with the `dependsOn` property:
 
     state:
         title: State
         type: dropdown
-        depends_on: country
+        dependsOn: country
 
 Multiple fields are allowed as well: 
 
     state:
         title: State
         type: dropdown
-        depends_on: [country, language]
+        dependsOn: [country, language]
 
 **Note:** Dependent drop-down should always be defined after their master columns.
 
@@ -166,17 +166,17 @@ Multiple fields are allowed as well:
 
 The widget is configured with YAML file. Required parameters:
 
-* `columns` - the columns definitions, see below
-* `data_source` - The data source class. Should specify the full qualified data source class name or alias. See the data source aliases below.
-* `key_column` - name of the key column. The default value is **id**.
-* `records_per_page` - number of records per page. If not specified, the pagination will be disabled.
-* `postback_handler_name` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**. This parameter is applicable only with client-memory data sources.
+* `columns` - the columns definitions, see below.
+* `dataSource` - The data source class. Should specify the full qualified data source class name or alias. See the data source aliases below.
+* `keyFrom` - name of the key column. The default value is **id**.
+* `recordsPerPage` - number of records per page. If not specified, the pagination will be disabled.
+* `postbackHandlerName` - AJAX data handler name for the automatic data postback. The data will be posted only when the AJAX requests posts data to this handler. The default value is **onSave**. This parameter is applicable only with client-memory data sources.
 * `adding` - indicates if record deleting is allowed, default is **true**.
 * `deleting` - indicates if record deleting is allowed, default is **true**.
 * `toolbar` - specifies if the toolbar should be visible, default is **true**.
 * `height` - specifies the data table height, in pixels. The default value is **false** - the height is not limited.
 
-The `data_source` parameter can take aliases for some data source classes for the simpler configuration syntax. Known aliases are:
+The `dataSource` parameter can take aliases for some data source classes for the simpler configuration syntax. Known aliases are:
 
 * `client` = \Backend\Classes\TableClientMemoryDataSource
 
@@ -187,9 +187,9 @@ Columns are defined as array with the `columns` property. The array keys corresp
 - `title`
 - `type` (string, checkbox, dropdown, autocomplete)
 - `width` - sets the column width, can be specified in percents (10%) or pixels (50px). There could be a single column without the width specified. It will be stretched to take the available space.
-- `readonly`
+- `readOnly`
 - `options` (for drop-down elements and autocomplete types)
-- `depends_on` (from drop-down elements)
+- `dependsOn` (from drop-down elements)
 
 ## Events 
 
@@ -245,9 +245,9 @@ $dataSource->purge();
 
 ## Reading data from the data source
 
-The server-side data sources (PHP) automatically maintain the actual data, but that mechanism for the client-memory and server-memory data sources is different. 
+The server-side data sources (PHP) automatically maintain the actual data, but that mechanism for the client-memory and server-memory data sources is different.
 
-In case of the client-memory data source, the table widget adds the data records to the POST, when the form is saved (see `postback` and `postbackHandlerName` options). On the server side the data is inserted to the data source by the table widget.
+In case of the client-memory data source, the table widget adds the data records to the POST, when the form is saved using the AJAX Framework (see `postback` and `postbackHandlerName` options). The table data will be injected automatically to the AJAX request when the `postback` value is `true` and the `postbackHandlerName` matches the exact handler name of the request. On the server side the data is inserted to the data source and can be accessed using the PHP example below.
 
 The server-memory data source always automatically maintain its contents in synch with the client using AJAX, and POSTing data is not required.
 

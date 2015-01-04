@@ -33,7 +33,7 @@ return [
         'settings_menu' => 'Karbantartás mód',
         'settings_menu_description' => 'A karbantartás mód lap konfigurálása, és a beűllítás ki-/bekapcsolása.',
         'is_enabled' => 'A karbantartás mód engedélyezése',
-        'is_enabled_comment' => 'Aktiválása esetén a webhely látogatói az alább bejelölt lapot fogják látni.',
+        'is_enabled_comment' => 'Aktiválása esetén a webhely látogatói az alább kiválasztott lapot fogják látni.',
     ],
     'page' => [
         'not_found' => [

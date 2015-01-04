@@ -85,11 +85,6 @@ class Controller extends BaseController
     protected $pageContents;
 
     /**
-     * @var string Alias name of an executing component.
-     */
-    protected $componentContext;
-
-    /**
      * @var array A list of variables to pass to the page.
      */
     public $vars = [];
@@ -99,8 +94,19 @@ class Controller extends BaseController
      */
     protected $statusCode = 200;
 
+    /**
+     * @var self Cache of self
+     */
     protected static $instance = null;
 
+    /**
+     * @var Cms\Classes\ComponentBase Object of the active component, used internally.
+     */
+    protected $componentContext;
+
+    /**
+     * @var array Component partial stack, used internally.
+     */
     protected $partialComponentStack = [];
 
     /**
@@ -538,7 +544,7 @@ class Controller extends BaseController
 
             if ($componentObj && method_exists($componentObj, $handlerName)) {
                 $this->componentContext = $componentObj;
-                $result = $componentObj->$handlerName();
+                $result = $componentObj->runAjaxHandler($handlerName);
                 return ($result) ?: true;
             }
         }
@@ -561,7 +567,7 @@ class Controller extends BaseController
              */
             if (($componentObj = $this->findComponentByHandler($handler)) !== null) {
                 $this->componentContext = $componentObj;
-                $result = $componentObj->$handler();
+                $result = $componentObj->runAjaxHandler($handler);
                 return ($result) ?: true;
             }
         }
@@ -701,7 +707,7 @@ class Controller extends BaseController
                 }
                 elseif (($componentObj = $this->findComponentByPartial($partialName)) === null) {
                     if ($throwException) {
-                        throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
+                        throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$partialName]));
                     }
                     else {
                         return false;
@@ -1032,7 +1038,7 @@ class Controller extends BaseController
      * Searches the layout and page components by an alias
      * @return ComponentBase The component object, if found
      */
-    protected function findComponentByName($name)
+    public function findComponentByName($name)
     {
         if (isset($this->page->components[$name])) {
             return $this->page->components[$name];
@@ -1054,7 +1060,7 @@ class Controller extends BaseController
      * Searches the layout and page components by an AJAX handler
      * @return ComponentBase The component object, if found
      */
-    protected function findComponentByHandler($handler)
+    public function findComponentByHandler($handler)
     {
         foreach ($this->page->components as $component) {
             if (method_exists($component, $handler)) {
@@ -1075,7 +1081,7 @@ class Controller extends BaseController
      * Searches the layout and page components by a partial file
      * @return ComponentBase The component object, if found
      */
-    protected function findComponentByPartial($partial)
+    public function findComponentByPartial($partial)
     {
         foreach ($this->page->components as $component) {
             $fileName = ComponentPartial::getFilePath($component, $partial);
@@ -1100,6 +1106,16 @@ class Controller extends BaseController
         }
 
         return null;
+    }
+
+    /**
+     * Set the component context manually, used by Components when calling renderPartial.
+     * @param ComponentBase $component
+     * @return void
+     */
+    public function setComponentContext(ComponentBase $component)
+    {
+        $this->componentContext = $component;
     }
 
     /**

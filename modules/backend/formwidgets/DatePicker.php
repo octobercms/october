@@ -126,8 +126,9 @@ class DatePicker extends FormWidgetBase
             return null;
         }
 
-        if ($this->mode == 'datetime') {
-            $value .= ' ' . post(self::TIME_PREFIX.$this->formField->getName(false)) . ':00';
+        $timeValue = post(self::TIME_PREFIX . $this->formField->getName(false));
+        if ($this->mode == 'datetime' && $timeValue) {
+            $value .= ' ' . $timeValue . ':00';
         }
         elseif ($this->mode == 'time') {
             $value .= ':00';

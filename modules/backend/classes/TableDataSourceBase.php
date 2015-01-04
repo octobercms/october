@@ -65,14 +65,14 @@ abstract class TableDataSourceBase
     /**
      * Returns a set of records from the data source.
      * @param integer $count Specifies the number of records to return.
-     * @return array Returns the records. 
+     * @return array Returns the records.
      * If there are no more records, returns an empty array.
      */
     public function readRecords($count = 10)
     {
         $result = $this->getRecords($this->offset, $count);
         $this->offset += count($result);
-        
+
         return $result;
     }
 }

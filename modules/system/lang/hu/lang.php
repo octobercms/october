@@ -97,6 +97,7 @@ return [
         'search' => 'Keresés'
     ],
     'mail' => [
+        'log_file' => 'Naplófájl',
         'menu_label' => 'Levelezés konfigurálása',
         'menu_description' => 'Az e-mail küldés konfigurációjának kezelése.',
         'general' => 'Általános',
@@ -113,7 +114,6 @@ return [
         'smtp_password' => 'Jelszó',
         'smtp_port' => 'SMTP port',
         'smtp_ssl' => 'SSL-kapcsolat szükséges',
-        'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail elérési útja',
         'sendmail_path_comment' => 'Adja meg a Sendmail program elérési útját.',
 		'mailgun' => 'Mailgun',
@@ -191,7 +191,7 @@ return [
         ],
         'none' => [
             'label' => 'Nincsenek frissítések',
-            'help' => 'Nem találhatók új frissítések.',
+            'help' => 'Nem található új frissítés.',
         ],
     ],
     'server' => [

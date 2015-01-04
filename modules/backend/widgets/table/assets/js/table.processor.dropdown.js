@@ -230,7 +230,7 @@
 
     DropdownProcessor.prototype.createOptionsCachingKey = function(row) {
         var cachingKey = 'non-dependent',
-            dependsOn = this.columnConfiguration.depends_on
+            dependsOn = this.columnConfiguration.dependsOn
 
         if (dependsOn) {
             if (typeof dependsOn == 'object') {
@@ -277,8 +277,7 @@
     DropdownProcessor.prototype.onItemClick = function(ev) {
         var target = this.tableObj.getEventTarget(ev)
 
-        if (target.tagName == 'LI')
-        {
+        if (target.tagName == 'LI') {
             this.updateCellFromSelectedItem(target)
 
             var selected = this.findSelectedItem()
@@ -349,11 +348,11 @@
         // Determine if this drop-down depends on the changed column
         // and update the option list if necessary
 
-        if (!this.columnConfiguration.depends_on)
+        if (!this.columnConfiguration.dependsOn)
             return
 
         var dependsOnColumn = false,
-            dependsOn = this.columnConfiguration.depends_on
+            dependsOn = this.columnConfiguration.dependsOn
 
         if (typeof dependsOn == 'object') {
             for (var i = 0, len = dependsOn.length; i < len; i++ ) {
@@ -362,8 +361,10 @@
                     break
                 }
             }
-        } else 
+        }
+        else {
             dependsOnColumn = dependsOn == columnName
+        }
 
         if (!dependsOnColumn)
             return
@@ -372,9 +373,9 @@
             viewContainer = this.getViewContainer(cellElement)
 
         this.fetchOptions(cellElement, function rowValueChangedFetchOptions(options) {
-            var value = options[currentValue] !== undefined ?
-                options[currentValue] :
-                '...'
+            var value = options[currentValue] !== undefined
+                ? options[currentValue]
+                : '...'
 
             viewContainer.textContent = value
             viewContainer = null

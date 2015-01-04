@@ -1,6 +1,7 @@
-<div 
+<div
+    id="<?= $this->getId() ?>"
     data-control="table"
-    class="table-control"
+    class="control-table"
     data-columns="<?= e(json_encode($columns)) ?>"
     data-data="<?= e($data) ?>"
     data-postback-handler-name="<?= e($postbackHandlerName) ?>"
@@ -9,6 +10,6 @@
     data-toolbar="<?= e($toolbar) ?>"
     data-height="<?= e($height) ?>"
     data-records-per-page="<?= e($recordsPerPage) ?>"
-    data-key-column="<?= e($recordsKeyColumn) ?>"
+    data-key-column="<?= e($recordsKeyFrom) ?>"
     data-client-data-source-class="<?= e($clientDataSourceClass) ?>"
     data-alias="<?= e($this->alias) ?>"></div>

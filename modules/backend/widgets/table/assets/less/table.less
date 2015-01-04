@@ -4,7 +4,7 @@
  * General control styling
  */
 
-.table-control {
+.control-table {
     .table-container {
         border: 1px solid #808c8d;
         .border-radius(4px);
@@ -43,7 +43,7 @@
             margin-top: -1px;
             border-bottom: 1px solid #bdc3c7;
         }
-    
+
         th {
             padding: 7px 10px;
             font-size: 13px;
@@ -108,12 +108,12 @@
             background-color: white;
         }
 
-        tr:nth-child(2n) { 
+        tr:nth-child(2n) {
             background-color: #fbfbfb;
         }
     }
 
-    table.data { 
+    table.data {
         tr:first-child td {
             border-top: none;
         }
@@ -211,7 +211,7 @@
 }
 
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
-    .table-control .toolbar {
+    .control-table .toolbar {
         a {
             &:before {
                 background-position: 0px -9px;
@@ -233,7 +233,7 @@
  * String editor
  */
 
-.table-control {
+.control-table {
     td[data-column-type=string] {
         input[type=text] {
             width: 100%;
@@ -250,7 +250,7 @@
  * Checkbox editor
  */
 
-.table-control {
+.control-table {
     td[data-column-type=checkbox] {
         div[data-checkbox-element] {
             width: 16px;
@@ -292,7 +292,7 @@
  * Dropdown editor
  */
 
-.table-control {
+.control-table {
     td[data-column-type=dropdown] {
         .user-select(none);
 
@@ -334,7 +334,7 @@
 }
 
 html.cssanimations {
-    .table-control td[data-column-type=dropdown] {
+    .control-table td[data-column-type=dropdown] {
         [data-view-container].loading:after {
             background-image:url(../../../../assets/images/loading-indicator-transparent.svg);
             background-size: 15px 15px;

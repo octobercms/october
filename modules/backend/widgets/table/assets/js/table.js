@@ -278,9 +278,9 @@
             if (this.options.columns[i].width)
                 header.setAttribute('style', 'width: '+this.options.columns[i].width)
 
-            header.textContent !== undefined ? 
-                header.textContent = this.options.columns[i].title :
-                header.innerText = this.options.columns[i].title
+            header.textContent !== undefined
+                ? header.textContent = this.options.columns[i].title
+                : header.innerText = this.options.columns[i].title
 
             row.appendChild(header)
         }
@@ -395,7 +395,7 @@
     Table.prototype.scrollCellIntoView = function() {
         if (!this.options.height || !this.activeCell)
             return
-    
+
         $(this.dataTableContainer.parentNode).data('oc.scrollbar').gotoElement(this.activeCell)
     }
 
@@ -605,7 +605,7 @@
 
     Table.prototype.getToolbar = function() {
         return this.tableContainer.querySelector('div.toolbar')
-    }    
+    }
 
     // EVENT HANDLERS
     // ============================
@@ -675,13 +675,13 @@
             cmd = target.getAttribute('data-cmd')
 
         switch (cmd) {
-            case 'record-add-below': 
+            case 'record-add-below':
                 this.addRecord('below')
             break
-            case 'record-add-above': 
+            case 'record-add-above':
                 this.addRecord('above')
             break
-            case 'record-delete': 
+            case 'record-delete':
                 this.deleteRecord()
             break
         }

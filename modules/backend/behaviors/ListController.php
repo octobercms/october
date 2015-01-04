@@ -217,6 +217,13 @@ class ListController extends ControllerBehavior
                 return $widget->onRefresh();
             });
 
+            /*
+             * Extend the query of the list of options
+             */
+            $filterWidget->bindEvent('filter.extendQuery', function($query, $scope) {
+                $this->controller->listFilterExtendQuery($query, $scope);
+            });
+
             // Apply predefined filter values
             $widget->addFilter([$filterWidget, 'applyAllScopesToQuery']);
 
@@ -348,6 +355,16 @@ class ListController extends ControllerBehavior
      * @param October\Rain\Database\Builder $query
      */
     public function listExtendQuery($query, $definition = null)
+    {
+    }
+
+    /**
+     * Controller override: Extend the query used for populating the filter 
+     * options before the default query is processed.
+     * @param October\Rain\Database\Builder $query
+     * @param array $scope
+     */
+    public function listFilterExtendQuery($query, $scope)
     {
     }
 

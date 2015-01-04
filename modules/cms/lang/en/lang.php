@@ -3,23 +3,23 @@
 return [
     'cms_object' => [
         'invalid_file' => 'Invalid file name: :name. File names can contain only alphanumeric symbols, underscores, dashes and dots. Some examples of correct file names: page.htm, page, subdirectory/page',
-        'invalid_property' => 'The property ":name" cannot be set',
-        'file_already_exists' => 'File ":name" already exists.',
-        'error_saving' => 'Error saving file ":name". Please check write permissions.',
+        'invalid_property' => "The property ':name' cannot be set",
+        'file_already_exists' => "File ':name' already exists.",
+        'error_saving' => "Error saving file ':name'. Please check write permissions.",
         'error_creating_directory' => 'Error creating directory :name. Please check write permissions.',
         'invalid_file_extension'=>'Invalid file extension: :invalid. Allowed extensions are: :allowed.',
-        'error_deleting' => 'Error deleting the template file ":name". Please check write permissions.',
+        'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
         'delete_success' => 'Templates were successfully deleted: :count.',
         'file_name_required' => 'The File Name field is required.'
     ],
     'theme' => [
         'active' => [
-            'not_set' => "The active theme is not set.",
-            'not_found' => "The active theme is not found.",
+            'not_set' => 'The active theme is not set.',
+            'not_found' => 'The active theme is not found.'
         ],
         'edit' => [
-            'not_set' => "The edit theme is not set.",
-            'not_found' => "The edit theme is not found.",
+            'not_set' => 'The edit theme is not set.',
+            'not_found' => 'The edit theme is not found.',
             'not_match' => "The object you're trying to access doesn't belong to the theme being edited. Please reload the page."
         ],
         'settings_menu' => 'Front-end theme',
@@ -27,22 +27,22 @@ return [
         'find_more_themes' => 'Find more themes on OctoberCMS Theme Marketplace.',
         'activate_button' => 'Activate',
         'active_button' => 'Activate',
-        'customize_button' => 'Customize',
+        'customize_button' => 'Customize'
     ],
     'maintenance' => [
         'settings_menu' => 'Maintenance mode',
         'settings_menu_description' => 'Configure the maintenance mode page and toggle the setting.',
         'is_enabled' => 'Enable maintenance mode',
-        'is_enabled_comment' => 'When activated website visitors will see the page chosen below.',
+        'is_enabled_comment' => 'When activated website visitors will see the page chosen below.'
     ],
     'page' => [
         'not_found' => [
-            'label' => "Page not found",
-            'help' => "The requested page cannot be found.",
+            'label' => 'Page not found',
+            'help' => 'The requested page cannot be found.'
         ],
         'custom_error' => [
-            'label' => "Page error",
-            'help' => "We're sorry, but something went wrong and the page cannot be displayed.",
+            'label' => 'Page error',
+            'help' => "We're sorry, but something went wrong and the page cannot be displayed."
         ],
         'menu_label' => 'Pages',
         'unsaved_label' => 'Unsaved page(s)',
@@ -63,7 +63,7 @@ return [
         'delete_confirm_single' => 'Do you really want delete this layout?'
     ],
     'partial' => [
-        'invalid_name' => "Invalid partial name: :name.",
+        'invalid_name' => 'Invalid partial name: :name.',
         'not_found' => "The partial ':name' is not found.",
         'menu_label' => 'Partials',
         'unsaved_label' => 'Unsaved partial(s)',
@@ -82,11 +82,11 @@ return [
         'new' => 'New content file'
     ],
     'ajax_handler' => [
-        'invalid_name' => "Invalid AJAX handler name: :name.",
-        'not_found' => "AJAX handler ':name' was not found.",
+        'invalid_name' => 'Invalid AJAX handler name: :name.',
+        'not_found' => "AJAX handler ':name' was not found."
     ],
     'cms' => [
-        'menu_label' => "CMS"
+        'menu_label' => 'CMS'
     ],
     'sidebar' => [
         'add' => 'Add',
@@ -113,7 +113,7 @@ return [
         'exit_fullscreen' => 'Exit fullscreen mode'
     ],
     'asset' => [
-        'menu_label' => "Assets",
+        'menu_label' => 'Assets',
         'unsaved_label' => 'Unsaved asset(s)',
         'drop_down_add_title' => 'Add...',
         'drop_down_operation_title' => 'Action...',
@@ -141,7 +141,7 @@ return [
         'too_large' => 'The uploaded file is too large. The maximum allowed file size is :max_size',
         'type_not_allowed' => 'Only the following file types are allowed: :allowed_types',
         'file_not_valid' => 'File is not valid',
-        'error_uploading_file' => 'Error uploading file ":name": :error',
+        'error_uploading_file' => "Error uploading file ':name': :error",
         'move_please_select' => 'please select',
         'move_destination' => 'Destination directory',
         'move_popup_title' => 'Move assets',
@@ -155,23 +155,24 @@ return [
         'path' => 'Path'
     ],
     'component' => [
-        'menu_label' => "Components",
-        'unnamed' => "Unnamed",
-        'no_description' => "No description provided",
-        'alias' => "Alias",
-        'alias_description' => "A unique name given to this component when using it in the page or layout code.",
-        'validation_message' => "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.",
-        'invalid_request' => "The template cannot be saved because of invalid component data.",
+        'menu_label' => 'Components',
+        'unnamed' => 'Unnamed',
+        'no_description' => 'No description provided',
+        'alias' => 'Alias',
+        'alias_description' => 'A unique name given to this component when using it in the page or layout code.',
+        'validation_message' => 'Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.',
+        'invalid_request' => 'The template cannot be saved because of invalid component data.',
         'no_records' => 'No components found',
         'not_found' => "The component ':name' is not found.",
-        'method_not_found' => "The component ':name' does not contain a method ':method'.",
+        'method_not_found' => "The component ':name' does not contain a method ':method'."
     ],
     'template' => [
-        'invalid_type' => "Unknown template type.",
-        'not_found' => "The requested template was not found.",
-        'saved'=> "The template has been successfully saved."
+        'invalid_type' => 'Unknown template type.',
+        'not_found' => 'The requested template was not found.',
+        'saved'=> 'The template has been successfully saved.'
     ],
     'permissions' => [
+        'name' => 'Cms',
         'manage_content' => 'Manage content',
         'manage_assets' => 'Manage assets',
         'manage_pages' => 'Manage pages',

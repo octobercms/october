@@ -56,6 +56,10 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\DataGrid', [
                 'label' => 'Data Grid',
                 'code'  => 'datagrid'
+            ]); // @deprecated if year >= 2015
+            $manager->registerFormWidget('Backend\FormWidgets\DataTable', [
+                'label' => 'Data Table',
+                'code'  => 'datatable'
             ]);
             $manager->registerFormWidget('Backend\FormWidgets\RecordFinder', [
                 'label' => 'Record Finder',
@@ -138,11 +142,11 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerPermissions('October.Backend', [
                 'backend.access_dashboard' => [
                     'label' => 'system::lang.permissions.view_the_dashboard',
-                    'tab' => 'System'
+                    'tab' => 'system::lang.permissions.name'
                 ],
-                'backend.manage_users'     => [
+                'backend.manage_users' => [
                     'label' => 'system::lang.permissions.manage_other_administrators',
-                    'tab' => 'System'
+                    'tab' => 'system::lang.permissions.name'
                 ],
             ]);
         });

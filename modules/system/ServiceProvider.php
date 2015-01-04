@@ -204,15 +204,15 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerPermissions('October.System', [
                 'system.manage_settings' => [
                     'label' => 'system::lang.permissions.manage_system_settings',
-                    'tab' => 'System'
+                    'tab' => 'system::lang.permissions.name'
                 ],
                 'system.manage_updates' => [
                     'label' => 'system::lang.permissions.manage_software_updates',
-                    'tab' => 'System'
+                    'tab' => 'system::lang.permissions.name'
                 ],
                 'system.manage_mail_templates' => [
                     'label' => 'system::lang.permissions.manage_mail_templates',
-                    'tab' => 'System'
+                    'tab' => 'system::lang.permissions.name'
                 ],
             ]);
         });

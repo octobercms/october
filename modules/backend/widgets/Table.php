@@ -32,7 +32,7 @@ class Table extends WidgetBase
 
     protected $dataSource = null;
 
-    protected $recordsKeyColumn;
+    protected $recordsKeyFrom;
 
     protected $dataSourceAliases = [
         'client' => '\Backend\Classes\TableClientMemoryDataSource'
@@ -45,19 +45,22 @@ class Table extends WidgetBase
     {
         $this->columns = $this->getConfig('columns', []);
 
-        $this->recordsKeyColumn = $this->getConfig('key_column', 'id');
+        $this->recordsKeyFrom = $this->getConfig('keyFrom', 'id');
 
-        $dataSourceClass = $this->getConfig('data_source');
-        if (!strlen($dataSourceClass))
+        $dataSourceClass = $this->getConfig('dataSource');
+        if (!strlen($dataSourceClass)) {
             throw new SystemException('The Table widget data source is not specified in the configuration.');
+        }
 
-        if (array_key_exists($dataSourceClass, $this->dataSourceAliases))
+        if (array_key_exists($dataSourceClass, $this->dataSourceAliases)) {
             $dataSourceClass = $this->dataSourceAliases[$dataSourceClass];
+        }
 
-        if (!class_exists($dataSourceClass))
+        if (!class_exists($dataSourceClass)) {
             throw new SystemException(sprintf('The Table widget data source class "%s" is could not be found.', $dataSourceClass));
+        }
 
-        $this->dataSource = new $dataSourceClass($this->recordsKeyColumn);
+        $this->dataSource = new $dataSourceClass($this->recordsKeyFrom);
 
         if (Request::method() == 'POST' && $this->isClientDataSource()) {
             $requestDataField = $this->alias.'TableData';
@@ -94,10 +97,10 @@ class Table extends WidgetBase
     public function prepareVars()
     {
         $this->vars['columns'] = $this->prepareColumnsArray();
-        $this->vars['recordsKeyColumn'] = $this->recordsKeyColumn;
+        $this->vars['recordsKeyFrom'] = $this->recordsKeyFrom;
 
-        $this->vars['recordsPerPage'] = $this->getConfig('records_per_page', false) ?: 'false';
-        $this->vars['postbackHandlerName'] = $this->getConfig('postback_handler_name', 'onSave');
+        $this->vars['recordsPerPage'] = $this->getConfig('recordsPerPage', false) ?: 'false';
+        $this->vars['postbackHandlerName'] = $this->getConfig('postbackHandlerName', 'onSave');
         $this->vars['adding'] = $this->getConfig('adding', true);
         $this->vars['deleting'] = $this->getConfig('deleting', true);
         $this->vars['toolbar'] = $this->getConfig('toolbar', true);
@@ -106,9 +109,9 @@ class Table extends WidgetBase
         $isClientDataSource = $this->isClientDataSource();
 
         $this->vars['clientDataSourceClass'] = $isClientDataSource ? 'client' : 'server';
-        $this->vars['data'] = $isClientDataSource ? 
-            json_encode($this->dataSource->getAllRecords()) :
-            [];
+        $this->vars['data'] = $isClientDataSource
+            ? json_encode($this->dataSource->getAllRecords())
+            : [];
     }
 
     //
@@ -150,7 +153,7 @@ class Table extends WidgetBase
         return $result;
     }
 
-    protected function isClientDataSource() 
+    protected function isClientDataSource()
     {
         return $this->dataSource instanceof \Backend\Classes\TableClientMemoryDataSource;
     }
@@ -167,8 +170,9 @@ class Table extends WidgetBase
         $eventResults = $this->fireEvent('table.getDropdownOptions', [$columnName, $rowData]);
 
         $options = [];
-        if (count($eventResults))
+        if (count($eventResults)) {
             $options = $eventResults[0];
+        }
 
         return [
             'options' => $options
