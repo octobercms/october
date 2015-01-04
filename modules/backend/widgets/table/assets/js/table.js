@@ -301,6 +301,9 @@
             if (onSuccess)
                 onSuccess()
 
+            if (totalCount == 0)
+                self.addRecord('above', true)
+
             self = null
         })
     }
@@ -502,7 +505,7 @@
         cellElement.parentNode.setAttribute('data-dirty', 1)
     }
 
-    Table.prototype.addRecord = function(placement) {
+    Table.prototype.addRecord = function(placement, noFocus) {
         // If there is no active cell, or the pagination is enabled or 
         // row sorting is disabled, add the record to the bottom of 
         // the table (last page).
@@ -542,7 +545,8 @@
                 if (!row)
                     throw new Error('New row is not found in the updated table: '+recordData[keyColumn])
 
-                self.navigation.focusCell(row, 0)
+                if (!noFocus)
+                    self.navigation.focusCell(row, 0)
 
                 self = null
             }
