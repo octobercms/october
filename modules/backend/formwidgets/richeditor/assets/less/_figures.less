@@ -107,7 +107,7 @@
         cite {
             display: block;
             text-align: left;
-            font-weight: bold;
+            font-weight: normal;
             &:before {
                 content: "\2014\00a0";
             }
@@ -132,21 +132,40 @@
     }
 
     .oc-figure-controls {
-        background: @color-richeditor-toolbar !important;
+        background: #2b3e50 !important;
         padding: 0;
+        .border-radius(4px);
         position: absolute;
         display: none;
-        min-width: 100%;
+        // min-width: 100%;
         white-space: nowrap;
-        left: 0;
-        height: 30px;
-        top: -30px;
+        left: 10px;
+        top: -50px;
         margin: 0 auto;
         font-family: @font-family-base;
         line-height: @line-height-computed;
         font-style: normal;
         z-index: @richeditor-zindex + 500;
         text-align: center;
+
+        &:after {
+            content: ' ';
+            left: 0;
+            position: absolute;
+            display: block;
+            height: 10px;
+            background: rgba(0,0,0,0.1);
+            width: 100%;
+            bottom: -10px;
+            .opacity(0.1);
+        }
+
+        &:before {
+            .triangle(down, 17px, 9px, #2b3e50);
+            position: absolute;
+            left: 14px;
+            bottom: -8px;
+        }
     }
 
     figure:hover .oc-figure-controls {
@@ -157,28 +176,32 @@
         display: inline-block;
         border: none;
         background: none;
-        color: @color-richeditor-toolbar-btn-color;
+        color: #ffffff;
         vertical-align: top;
         font-size: 14px;
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
         text-align: center;
         cursor: pointer;
         &:before {
             line-height: 24px;
         }
         &:hover {
-            background: rgba(255,255,255,.3);
             color: #fff;
-            background: @color-richeditor-toolbar-btn-bg-hover;
-            color: @color-richeditor-toolbar-btn-color-hover;
+            background: rgba(255, 255, 255, 0.1);
         }
         &.on {
             background: #fff;
             color: @gray;
-            background-color: @color-richeditor-toolbar-btn-bg-active;
-            color: @color-richeditor-toolbar-btn-color-hover;
+            background-color: #1f9e84;
+            color: white;
+        }
+        &:last-child {
+            .border-right-radius(4px);
+        }
+        &:first-child {
+            .border-right-radius(4px);
         }
     }
 

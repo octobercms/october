@@ -12663,7 +12663,7 @@ div.control-popover {
   background-clip: content-box;
   left: 0;
   top: 0;
-  z-index: 170;
+  z-index: 570;
   visibility: hidden;
 }
 div.control-popover.in,
@@ -12701,10 +12701,10 @@ div.control-popover > div:before {
   position: absolute;
 }
 div.control-popover > div:after {
-  z-index: 201;
+  z-index: 601;
 }
 div.control-popover > div:before {
-  z-index: 200;
+  z-index: 600;
 }
 div.control-popover.placement-bottom > div:after {
   content: '';
@@ -12814,7 +12814,7 @@ div.control-popover .popover-head {
   border-top-left-radius: 2px;
 }
 div.control-popover .popover-head:before {
-  z-index: 202;
+  z-index: 602;
   position: absolute;
 }
 div.control-popover .popover-head h3 {
@@ -12877,12 +12877,12 @@ div.control-popover.placement-right .popover-head:before {
 }
 .popover-highlight {
   position: relative;
-  z-index: 162 !important;
+  z-index: 562 !important;
 }
 .popover-highlight:hover,
 .popover-highlight:active,
 .popover-highlight:focus {
-  z-index: 162 !important;
+  z-index: 562 !important;
 }
 div.popover-overlay {
   position: fixed;
@@ -12891,7 +12891,7 @@ div.popover-overlay {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.3);
-  z-index: 160;
+  z-index: 560;
 }
 @media (max-width: 480px) {
   body.popover-open {
@@ -12904,7 +12904,7 @@ div.popover-overlay {
     margin: 0;
     padding: 10px;
     width: 100% !important;
-    z-index: 209;
+    z-index: 609;
     top: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
@@ -13562,6 +13562,12 @@ div.popover-overlay {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
+.fancy-layout .field-richeditor .redactor-box textarea {
+  background: white;
+  padding: 20px!important;
+  color: #333333;
+  font-size: 14px;
+}
 .fancy-layout .content-tabs .field-richeditor .redactor-box .redactor-toolbar {
   margin: 20px 20px 0 20px!important;
   -webkit-border-radius: 3px !important;
@@ -13853,6 +13859,15 @@ div.control-popover.control-inspector > div {
 div.control-popover.control-inspector > div:before,
 div.control-popover.control-inspector > div:after {
   display: none;
+}
+div.control-popover.hero .inspector-fields th,
+div.control-popover.hero .inspector-fields td {
+  padding: 9px 12px;
+  font-weight: 600!important;
+  font-size: 13px;
+}
+div.control-popover.hero .inspector-fields td {
+  font-weight: 400!important;
 }
 .select2-drop.ocInspectorDropdown {
   font-size: 12px;

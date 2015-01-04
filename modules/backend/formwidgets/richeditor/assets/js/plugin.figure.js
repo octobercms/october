@@ -147,7 +147,7 @@
                 /*
                  * Remove toolbar from figure on mouseleave
                  */
-                this.redactor.$editor.on('mouseleave', 'figure', $.proxy(this.hideToolbar, this))
+               this.redactor.$editor.on('mouseleave', 'figure', $.proxy(this.hideToolbar, this))
             }
 
         },

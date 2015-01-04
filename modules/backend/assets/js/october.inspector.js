@@ -7,8 +7,9 @@
  * - data-inspectable - makes a control inspectable.
  * - data-inspector-title - title for the inspector popup
  * - data-inspector-description - optional description for the inspector popup
- * - data-inspector-class - class name of the inspectable object. Required for drop-down 
+ * - data-inspector-class - PHP class name of the inspectable object. Required for drop-down 
  *   fields with dynamic options.
+ * - data-inspector-css-class - CSS class name to apply to the Inspector container element.
  * - data-inspector-container - specifies a CSS selector for the inspector container. The default container
  *   is the document body. The container element should be relative positioned. The 'self' container value
  *   allows to inject the inspector to the inspectable element.
@@ -65,17 +66,56 @@
     var Inspector = function(element, options) {
         this.options   = options
         this.$el       = $(element)
-        this.loadConfiguration()
+
+        this.title = false
+        this.description = false
     }
 
-    Inspector.prototype.loadConfiguration = function() {
-        var jsonString = this.$el.data('inspector-config')
+    Inspector.prototype.loadConfiguration = function(onSuccess) {
+        var configString = this.$el.data('inspector-config')
+        if (configString !== undefined) {
+            // If the data-inspector-config attribute is provided,
+            // load the configuration from it
+            this.parseConfiguration(configString)
 
+            if (onSuccess !== undefined)
+                onSuccess();
+        } else {
+            // If the data-inspector-config attribute is not provided,
+            // request the configuration from the server.
+            var $form = $(this.selector).closest('form'),
+                data = this.$el.data(),
+                self = this
+
+            $.oc.stripeLoadIndicator.show()
+
+            var request = $form.request('onGetInspectorConfiguration', {
+                data: data
+            }).done(function(data) {
+                self.parseConfiguration(data.configuration.properties)
+
+                if (data.configuration.title !== undefined)
+                    self.title = data.configuration.title
+
+                if (data.configuration.description !== undefined)
+                    self.description = data.configuration.description
+
+                $.oc.stripeLoadIndicator.hide()
+
+                if (onSuccess !== undefined)
+                    onSuccess();
+            }).always(function() {
+                $.oc.stripeLoadIndicator.hide()
+            })
+        }
+    }
+
+    Inspector.prototype.parseConfiguration = function(jsonString) {
         if (jsonString === undefined)
             throw new Error('The Inspector cannot be initialized because the Inspector configuration ' + 
                 'attribute is not defined on the inspectable element.');
 
-        if (!$.isArray(jsonString)) {
+        if (!$.isArray(jsonString) && !$.isPlainObject(jsonString)) {
             try {
                 this.config = $.parseJSON(jsonString)
             } catch(err) {
@@ -85,9 +125,13 @@
             this.config = jsonString
 
         this.propertyValuesField = $('input[data-inspector-values]', this.$el)
-        if (this.propertyValuesField.length === 0)
-            throw new Error('Error initializing the Inspector: the inspectable element should contain ' +
-                'an hidden input element with the data-inspector-values property.')
+
+        // Inspector saves property values to data-property-xxx attributes if the input[data-inspector-values] 
+        // doesn't exist, so the condition is not required.
+        //
+        // if (this.propertyValuesField.length === 0)
+        //     throw new Error('Error initializing the Inspector: the inspectable element should contain ' +
+        //         'an hidden input element with the data-inspector-values property.')
     }
 
     Inspector.prototype.getPopoverTemplate = function() {
@@ -121,11 +165,15 @@
     }
 
     Inspector.prototype.init = function() {
+        // Exit if there are no properties
+        if (this.config.length == 0)
+            return
+
         var self = this,
             fieldsConfig = this.preprocessConfig(),
             data = {
-                title: this.$el.data('inspector-title'),
-                description: this.$el.data('inspector-description'),
+                title: this.title ? this.title : this.$el.data('inspector-title'),
+                description: this.description ? this.description : this.$el.data('inspector-description'),
                 properties: fieldsConfig.properties,
                 editor: function() {
                     return function(text, render) {
@@ -248,6 +296,11 @@
                 self.toggleGroup($('a.expandControl', this), $container)
                 return false
             })
+
+            var cssClass = self.options.inspectorCssClass
+
+            if (cssClass !== undefined)
+                $container.addClass(cssClass)
         }
 
         var e = $.Event('showing.oc.inspector')
@@ -522,10 +575,27 @@
     }
 
     Inspector.prototype.initProperties = function() {
-        var propertyValuesStr = $.trim(this.propertyValuesField.val())
+        if (!this.propertyValuesField.length) {
+            // Load property valies from data-property-xxx attributes
+            var properties = {},
+                attributes = this.$el.get(0).attributes
+
+            for (var i=0, len = attributes.length; i < len; i++) {
+                var attribute = attributes[i],
+                    matches = []
+
+                if (matches = attribute.name.match(/^data-property-(.*)$/))
+                    properties[matches[1]] = attribute.value
+            }
+
+            this.propertyValues = properties
+        } else {
+            // Load property values from the hidden input
+            var propertyValuesStr = $.trim(this.propertyValuesField.val())
+            this.propertyValues = propertyValuesStr.length === 0 ? {} : $.parseJSON(propertyValuesStr)
+        }
 
         try {
-            this.propertyValues = propertyValuesStr.length === 0 ? {} : $.parseJSON(propertyValuesStr)
             this.originalPropertyValues = $.extend(true, {}, this.propertyValues)
         } catch(err) {
             throw new Error('Error parsing the Inspector property values string. ' + err)
@@ -541,7 +611,16 @@
 
     Inspector.prototype.writeProperty = function(property, value, noChangedStatusUpdate) {
         this.propertyValues[property] = value
-        this.propertyValuesField.val(JSON.stringify(this.propertyValues))
+
+        if (this.propertyValuesField.length)
+            this.propertyValuesField.val(JSON.stringify(this.propertyValues))
+        else {
+            var self = this
+
+            $.each(this.propertyValues, function(propertyName) {
+                self.$el.attr('data-property-' + propertyName, this)
+            })
+        }
 
         if (this.originalPropertyValues[property] === undefined || this.originalPropertyValues[property] != value) {
             if (!noChangedStatusUpdate) {
@@ -1002,22 +1081,41 @@
 
     $.oc.inspector.editors.inspectorEditorDropdown = InspectorEditorDropdown;
 
+    // INSPECTOR PLUGIN DEFINITION
+    // ============================
+
+    function initInspector($element) {
+        var inspector = $element.data('oc.inspector')
+
+        if (inspector === undefined) {
+            inspector = new Inspector($element.get(0), $element.data())
+
+            inspector.loadConfiguration(function(){
+                inspector.init()
+            })
+
+            $element.data('oc.inspector', inspector)
+        } else
+            inspector.init()
+    }
+
+    $.fn.inspector = function (option) {
+        return this.each(function () {
+            initInspector($(this))
+        })
+    }
+
     // INSPECTOR DATA-API
     // ==================
 
     $(document).on('click', '[data-inspectable]', function(){
-        var $this = $(this),
-            inspector = $this.data('oc.inspector')
+        var $this = $(this)
 
         if ($this.data('oc.inspectorVisible'))
             return false
 
-        if (inspector === undefined) {
-            inspector = new Inspector(this, $this.data())
-            $this.data('oc.inspector', inspector)
-        }
+        initInspector($this)
 
-        inspector.init()
         return false
     })
 }(window.jQuery);

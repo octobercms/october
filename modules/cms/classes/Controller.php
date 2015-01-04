@@ -777,6 +777,13 @@ class Controller extends BaseController
             $manager = ComponentManager::instance();
 
             foreach ($partial->settings['components'] as $component => $properties) {
+                // Do not inject the viewBag component to the environment.
+                // Not sure if they're needed there by the requirements,
+                // but there were problems with array-typed properties used by Static Pages 
+                // snippets and setComponentPropertiesFromParams(). --ab
+                if ($component == 'viewBag')
+                    continue;
+
                 list($name, $alias) = strpos($component, ' ')
                     ? explode(' ', $component)
                     : [$component, $component];

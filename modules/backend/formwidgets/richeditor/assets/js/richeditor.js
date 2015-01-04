@@ -57,8 +57,12 @@
             imageEditable: false,
             imageResizable: false,
             buttonSource: true,
+            removeDataAttr: false,
+            syncBeforeCallback: function(html) { return self.syncBefore(html) },
             focusCallback: function() { self.$el.addClass('editor-focus') },
             blurCallback: function() { self.$el.removeClass('editor-focus') },
+            keydownCallback: function(e) { return self.keydown(e, this.$editor) },
+            enterCallback: function(e) { return self.enter(e, this.$editor) },
             initCallback: function() { self.build() },
             changeCallback: function() {
                 self.sanityCheckContent(this.$editor)
@@ -66,7 +70,7 @@
                 self.$form.trigger('change')
 
                 if (self.$dataLocker)
-                    self.$dataLocker.val(this.$editor.html())
+                    self.$dataLocker.val(self.syncBefore(this.$editor.html()))
             }
         }
 
@@ -88,6 +92,8 @@
 
         $(window).resize($.proxy(this.updateLayout, this))
         $(window).on('oc.updateUi', $.proxy(this.updateLayout, this))
+
+        this.$textarea.trigger('init.oc.richeditor', [this.$el])
     }
 
     RichEditor.prototype.updateLayout = function() {
@@ -106,8 +112,8 @@
     }
 
     RichEditor.prototype.sanityCheckContent = function($editor) {
-        // First and last elements should always be paragraphs
-        var safeElements = 'p, h1, h2, h3, h4, h5';
+        // First and last elements should always be paragraphs or pre
+        var safeElements = 'p, h1, h2, h3, h4, h5, pre, figure';
 
         if (!$editor.children(':last-child').is(safeElements)) {
             $editor.append('<p><br></p>')
@@ -116,6 +122,31 @@
         if (!$editor.children(':first-child').is(safeElements)) {
             $editor.prepend('<p><br></p>')
         }
+
+        this.$textarea.trigger('sanitize.oc.richeditor', [$editor])
+    }
+
+    RichEditor.prototype.syncBefore = function(html) {
+        var container = {
+            html: html
+        }
+
+        this.$textarea.trigger('syncBefore.oc.richeditor', [container])
+        return container.html
+    }
+
+    RichEditor.prototype.keydown = function(e, $editor) {
+        this.$textarea.trigger('keydown.oc.richeditor', [e, $editor, this.$textarea])
+
+        if (e.isDefaultPrevented())
+            return false
+    }
+
+    RichEditor.prototype.enter = function(e, $editor) {
+        this.$textarea.trigger('enter.oc.richeditor', [e, $editor, this.$textarea])
+
+        if (e.isDefaultPrevented())
+            return false
     }
 
     // RICHEDITOR PLUGIN DEFINITION

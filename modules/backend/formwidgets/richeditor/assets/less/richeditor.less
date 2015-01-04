@@ -74,6 +74,8 @@
         width: 20px;
         line-height: 20px;
 
+        .user-select(none);
+
         &:hover {
             background-color: @color-richeditor-toolbar-btn-bg-hover;
             color: @color-richeditor-toolbar-btn-color-hover;
@@ -132,6 +134,7 @@ body .redactor-box-fullscreen {
             top: 0;
             bottom: 0;
             position: absolute;
+            height: auto !important;
         }
 
         .redactor-editor {

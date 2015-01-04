@@ -788,6 +788,7 @@ body .redactor-box-fullscreen {
   padding-left: 0;
   color: #777;
   font-style: italic;
+  line-height: 160%;
 }
 .redactor-editor ul,
 .redactor-editor ol {
@@ -963,7 +964,7 @@ body .redactor-box-fullscreen {
 .redactor-editor figure[data-type=quote] cite {
   display: block;
   text-align: left;
-  font-weight: bold;
+  font-weight: normal;
 }
 .redactor-editor figure[data-type=quote] cite:before {
   content: "\2014\00a0";
@@ -977,21 +978,50 @@ body .redactor-box-fullscreen {
   content: "Type to add caption (optional)";
 }
 .redactor-box .oc-figure-controls {
-  background: #dddddd !important;
+  background: #2b3e50 !important;
   padding: 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   position: absolute;
   display: none;
-  min-width: 100%;
   white-space: nowrap;
-  left: 0;
-  height: 30px;
-  top: -30px;
+  left: 10px;
+  top: -50px;
   margin: 0 auto;
   font-family: 'Open Sans', Arial, sans-serif;
   line-height: 20px;
   font-style: normal;
   z-index: 800;
   text-align: center;
+}
+.redactor-box .oc-figure-controls:after {
+  content: ' ';
+  left: 0;
+  position: absolute;
+  display: block;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  bottom: -10px;
+  opacity: 0.1;
+  filter: alpha(opacity=10);
+  filter: alpha(opacity=0.1);
+  -moz-opacity: 0.001;
+  opacity: 0.001;
+}
+.redactor-box .oc-figure-controls:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 8.5px solid transparent;
+  border-right: 8.5px solid transparent;
+  border-top: 9px solid #2b3e50;
+  border-bottom-width: 0;
+  position: absolute;
+  left: 14px;
+  bottom: -8px;
 }
 .redactor-box figure:hover .oc-figure-controls {
   display: block;
@@ -1000,12 +1030,12 @@ body .redactor-box-fullscreen {
   display: inline-block;
   border: none;
   background: none;
-  color: #404040;
+  color: #ffffff;
   vertical-align: top;
   font-size: 14px;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
   text-align: center;
   cursor: pointer;
 }
@@ -1013,16 +1043,22 @@ body .redactor-box-fullscreen {
   line-height: 24px;
 }
 .redactor-box .oc-figure-controls span:hover {
-  background: rgba(255, 255, 255, 0.3);
   color: #fff;
-  background: #999999;
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
 }
 .redactor-box .oc-figure-controls span.on {
   background: #fff;
   color: #555555;
-  background-color: #404040;
-  color: #ffffff;
+  background-color: #1f9e84;
+  color: white;
+}
+.redactor-box .oc-figure-controls span:last-child {
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.redactor-box .oc-figure-controls span:first-child {
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
 }
 .redactor-box .oc-figure-controls span.oc-figure-controls-divider {
   width: 1px;
@@ -1324,6 +1360,10 @@ body .redactor-box-fullscreen {
   font-size: 14px;
   width: 20px;
   line-height: 20px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .redactor-toolbar li a:hover {
   background-color: #999999;
@@ -1375,6 +1415,7 @@ body .redactor-box-fullscreen .redactor-editor {
   top: 0;
   bottom: 0;
   position: absolute;
+  height: auto !important;
 }
 .field-richeditor.stretch .redactor-box .redactor-editor {
   height: auto !important;
