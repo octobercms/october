@@ -21,7 +21,6 @@ use Exception;
  */
 class AccessLogs extends Controller
 {
-
     public $implement = [
         'Backend.Behaviors.ListController'
     ];

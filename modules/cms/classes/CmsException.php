@@ -16,7 +16,6 @@ use Exception;
  */
 class CmsException extends ApplicationException
 {
-
     /**
      * @var Cms\Classes\CmsCompoundObject A reference to a CMS object used for masking errors.
      */

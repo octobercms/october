@@ -11,7 +11,6 @@ use Model;
  */
 class EventLog extends Model
 {
-
     /**
      * @var string The database table used by the model.
      */

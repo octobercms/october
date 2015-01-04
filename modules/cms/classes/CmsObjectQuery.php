@@ -10,7 +10,6 @@ use System\Classes\ApplicationException;
  */
 class CmsObjectQuery
 {
-
     protected $useCache = false;
 
     protected $cmsObject;

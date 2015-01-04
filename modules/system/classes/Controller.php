@@ -13,7 +13,6 @@ use Exception;
  */
 class Controller extends BaseController
 {
-
     /**
      * Combines JavaScript and StyleSheet assets.
      * @param string $name Combined file code
