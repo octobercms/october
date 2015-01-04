@@ -143,7 +143,7 @@ class RecordFinder extends FormWidgetBase
     public function prepareVars()
     {
         // This should be a relation and return a Model
-        $this->relationModel = $this->getLoadData();
+        $this->relationModel = $this->getLoadValue();
 
         $this->vars['value'] = $this->getKeyValue();
         $this->vars['field'] = $this->formField;

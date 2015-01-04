@@ -87,7 +87,7 @@ class DataTable extends FormWidgetBase
     protected function populateTableWidget()
     {
         $dataSource = $this->table->getDataSource();
-        $records = $this->getLoadData() ?: [];
+        $records = $this->getLoadValue() ?: [];
         $dataSource->initRecords((array) $records);
     }
 

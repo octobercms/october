@@ -101,7 +101,7 @@ abstract class FormWidgetBase extends WidgetBase
      * supports nesting via HTML array.
      * @return string
      */
-    public function getLoadData()
+    public function getLoadValue()
     {
         list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
 

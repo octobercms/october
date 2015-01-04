@@ -55,7 +55,7 @@ class ColorPicker extends FormWidgetBase
     public function prepareVars()
     {
         $this->vars['name'] = $this->formField->getName();
-        $this->vars['value'] = $value = $this->getLoadData();
+        $this->vars['value'] = $value = $this->getLoadValue();
         $this->vars['availableColors'] = $this->availableColors;
         $this->vars['isCustomColor'] = !in_array($value, $this->availableColors);
     }
