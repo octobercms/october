@@ -71,6 +71,10 @@ class DataTable extends FormWidgetBase
      */
     public function getSaveData($value)
     {
+        // TODO: provide a streaming implementation of saving 
+        // data to the model. The current implementation returns 
+        // all records at once. -ab
+
         $dataSource = $this->table->getDataSource();
 
         $result = [];
@@ -87,6 +91,11 @@ class DataTable extends FormWidgetBase
     protected function populateTableWidget()
     {
         $dataSource = $this->table->getDataSource();
+
+        // TODO: provide a streaming implementation of loading 
+        // data from the model. The current implementation loads
+        // all records at once. -ab
+
         $records = $this->getLoadData() ?: [];
         $dataSource->initRecords((array) $records);
     }
