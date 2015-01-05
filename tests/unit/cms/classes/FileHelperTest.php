@@ -85,10 +85,7 @@ class FileHelperTest extends TestCase
    protected function getContents($path)
    {
         $content = file_get_contents($path);
-
-        // Normalize EOL
-        $content = preg_replace('~\R~u', PHP_EOL, $content);
-
+        $content = preg_replace('~\R~u', PHP_EOL, $content); // Normalize EOL
         return $content;
    }
 
