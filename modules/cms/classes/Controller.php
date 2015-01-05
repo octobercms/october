@@ -236,6 +236,13 @@ class Controller extends BaseController
         ];
 
         /*
+         * Check for the presence of validation errors in the session.
+         */
+        $this->vars['errors'] = (Config::get('session.driver') && \Session::has('errors'))
+            ? \Session::get('errors')
+            : new \Illuminate\Support\ViewErrorBag;
+
+        /*
          * Handle AJAX requests and execute the life cycle functions
          */
         $this->initCustomObjects();
