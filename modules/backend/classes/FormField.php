@@ -395,4 +395,54 @@ class FormField
 
         return Str::evalHtmlId($id);
     }
+
+    /**
+     * Returns this fields value from a supplied data set, which can be
+     * an array or a model or another generic collection.
+     * @param mixed $data
+     * @return mixed
+     */
+    public function getValueFromData($data, $default = null)
+    {
+        $fieldName = $this->fieldName;
+
+        /*
+         * Array field name, eg: field[key][key2][key3]
+         */
+        $keyParts = Str::evalHtmlArray($fieldName);
+        $lastField = end($keyParts);
+        $result = $data;
+
+        /*
+         * Loop the field key parts and build a value.
+         * To support relations only the last field should return the
+         * relation value, all others will look up the relation object as normal.
+         */
+        foreach ($keyParts as $key) {
+
+            if ($result instanceof Model && $result->hasRelation($key)) {
+                if ($key == $lastField) {
+                    $result = $result->getRelationValue($key) ?: $default;
+                }
+                else {
+                    $result = $result->{$key};
+                }
+            }
+            elseif (is_array($result)) {
+                if (!array_key_exists($key, $result)) {
+                    return $default;
+                }
+                $result = $result[$key];
+            }
+            else {
+                if (!isset($result->{$key})) {
+                    return $default;
+                }
+                $result = $result->{$key};
+            }
+
+        }
+
+        return $result;
+    }
 }

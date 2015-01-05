@@ -103,13 +103,7 @@ abstract class FormWidgetBase extends WidgetBase
      */
     public function getLoadValue()
     {
-        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-
-        if (!is_null($model)) {
-            return $model->{$attribute};
-        }
-
-        return null;
+        return $this->formField->getValueFromData($this->model);
     }
 
     /**

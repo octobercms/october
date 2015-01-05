@@ -142,7 +142,6 @@ class RecordFinder extends FormWidgetBase
      */
     public function prepareVars()
     {
-        // This should be a relation and return a Model
         $this->relationModel = $this->getLoadValue();
 
         $this->vars['value'] = $this->getKeyValue();
@@ -168,6 +167,20 @@ class RecordFinder extends FormWidgetBase
     public function getSaveValue($value)
     {
         return strlen($value) ? $value : null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLoadValue()
+    {
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+
+        if (!is_null($model)) {
+            return $model->{$attribute};
+        }
+
+        return null;
     }
 
     public function getKeyValue()
