@@ -72,7 +72,8 @@ class PluginManagerTest extends TestCase
     {
         $manager = PluginManager::instance();
         $result = $manager->getPluginPath('October\Tester');
-        $this->assertEquals(base_path() . '/tests/fixtures/system/plugins/october/tester', $result);
+        $basePath = str_replace('\\', '/', base_path());
+        $this->assertEquals($basePath . '/tests/fixtures/system/plugins/october/tester', $result);
     }
 
     public function testGetPlugins()
