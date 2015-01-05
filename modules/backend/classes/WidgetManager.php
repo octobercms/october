@@ -2,12 +2,10 @@
 
 use Str;
 use File;
-use Lang;
 use Closure;
 use October\Rain\Support\Yaml;
 use Illuminate\Container\Container;
 use System\Classes\PluginManager;
-use System\Classes\SystemException;
 
 /**
  * Widget manager
@@ -55,34 +53,6 @@ class WidgetManager
     protected function init()
     {
         $this->pluginManager = PluginManager::instance();
-    }
-
-    /**
-     * Makes a widget object with configuration set.
-     * @param string $className A widget class name.
-     * @param Controller $controller The Backend controller that spawned this widget.
-     * @param array $configuration Configuration values.
-     * @return WidgetBase The widget object.
-     */
-    public function makeWidget($className, $controller = null, $configuration = null)
-    {
-        /*
-         * Build configuration
-         */
-        if ($configuration === null) {
-            $configuration = [];
-        }
-
-        /*
-         * Create widget object
-         */
-        if (!class_exists($className)) {
-            throw new SystemException(Lang::get('backend::lang.widget.not_registered', [
-                'name' => $className
-            ]));
-        }
-
-        return new $className($controller, $configuration);
     }
 
     //
