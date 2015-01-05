@@ -24,7 +24,9 @@ trait WidgetMaker
      */
     public function makeWidget($class, $configuration = [])
     {
-        $controller = ($this->controller) ?: $this;
+        $controller = property_exists($this, 'controller') && $this->controller
+            ? $this->controller
+            : $this;
 
         if (!class_exists($class)) {
             throw new SystemException(Lang::get('backend::lang.widget.not_registered', [
