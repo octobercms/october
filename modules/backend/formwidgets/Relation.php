@@ -104,7 +104,7 @@ class Relation extends FormWidgetBase
 
             $field = clone $this->formField;
 
-            list($model, $attribute) = $this->getModelArrayAttribute($this->relationName);
+            list($model, $attribute) = $this->resolveModelAttribute($this->relationName);
             $relatedObj = $model->makeRelation($attribute);
             $query = $model->{$attribute}()->newQuery();
 

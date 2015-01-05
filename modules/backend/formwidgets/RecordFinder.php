@@ -130,7 +130,7 @@ class RecordFinder extends FormWidgetBase
 
     public function onRefresh()
     {
-        list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
         $model->{$attribute} = post($this->formField->getName());
 
         $this->prepareVars();

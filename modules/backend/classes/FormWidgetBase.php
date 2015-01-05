@@ -103,7 +103,7 @@ abstract class FormWidgetBase extends WidgetBase
      */
     public function getLoadValue()
     {
-        list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
 
         if (!is_null($model)) {
             return $model->{$attribute};
@@ -115,11 +115,11 @@ abstract class FormWidgetBase extends WidgetBase
     /**
      * Returns the final model and attribute name of
      * a nested HTML array attribute.
-     * Eg: list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+     * Eg: list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
      * @param  string $attribute.
      * @return array
      */
-    public function getModelArrayAttribute($attribute)
+    public function resolveModelAttribute($attribute)
     {
         $model = $this->model;
         $parts = Str::evalHtmlArray($attribute);
