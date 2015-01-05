@@ -162,7 +162,7 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertFileExists($referenceFilePath);
 
         $this->assertFileExists($destFilePath);
-        $this->assertFileEquals($referenceFilePath, $destFilePath);
+        $this->assertFileEqualsNormalized($referenceFilePath, $destFilePath);
     }
 
     public function testSaveMarkupAndSettings()
@@ -187,7 +187,7 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertFileExists($referenceFilePath);
 
         $this->assertFileExists($destFilePath);
-        $this->assertFileEquals($referenceFilePath, $destFilePath);
+        $this->assertFileEqualsNormalized($referenceFilePath, $destFilePath);
     }
 
     public function testSaveFull()
@@ -195,8 +195,9 @@ class CmsCompoundObjectTest extends TestCase
         $theme = Theme::load('apitest');
 
         $destFilePath = $theme->getPath().'/testobjects/compound.htm';
-        if (file_exists($destFilePath))
+        if (file_exists($destFilePath)) {
             unlink($destFilePath);
+        }
 
         $this->assertFileNotExists($destFilePath);
 
@@ -213,6 +214,22 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertFileExists($referenceFilePath);
 
         $this->assertFileExists($destFilePath);
-        $this->assertFileEquals($referenceFilePath, $destFilePath);
+        $this->assertFileEqualsNormalized($referenceFilePath, $destFilePath);
     }
+
+   //
+   // Helpers
+   //
+
+   protected function assertFileEqualsNormalized($expected, $actual)
+   {
+        $expected = file_get_contents($expected);
+        $expected = preg_replace('~\R~u', PHP_EOL, $expected); // Normalize EOL
+
+        $actual = file_get_contents($actual);
+        $actual = preg_replace('~\R~u', PHP_EOL, $actual); // Normalize EOL
+
+        $this->assertEquals($expected, $actual);
+   }
+
 }

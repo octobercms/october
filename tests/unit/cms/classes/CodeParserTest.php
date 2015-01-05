@@ -253,10 +253,22 @@ class CodeParserTest extends TestCase
 
         $referenceFilePath = base_path().'/tests/fixtures/cms/reference/namespaces.php';
         $this->assertFileExists($referenceFilePath);
-        $referenceContents = file_get_contents($referenceFilePath);
+        $referenceContents = $this->getContents($referenceFilePath);
 
         $referenceContents = str_replace('{className}', $info['className'], $referenceContents);
 
-        $this->assertEquals($referenceContents, file_get_contents($info['filePath']));
+        $this->assertEquals($referenceContents, $this->getContents($info['filePath']));
     }
+
+   //
+   // Helpers
+   //
+
+   protected function getContents($path)
+   {
+        $content = file_get_contents($path);
+        $content = preg_replace('~\R~u', PHP_EOL, $content); // Normalize EOL
+        return $content;
+   }
+
 }

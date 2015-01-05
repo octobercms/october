@@ -1,5 +1,6 @@
 <?php namespace System\Classes;
 
+use App;
 use Log;
 
 /**
@@ -14,6 +15,12 @@ class SystemException extends ExceptionBase
     public function __construct($message = "", $code = 0, \Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
-        Log::error($this);
+
+        /*
+         * Log the exception
+         */
+        if (!App::runningUnitTests()) {
+            Log::error($this);
+        }
     }
 }
