@@ -217,7 +217,7 @@ class FileUpload extends FormWidgetBase
 
             $validationRules = ['max:'.File::getMaxFilesize()];
             if ($isImage) {
-                $validationRules[] = 'mimes:jpg,jpeg,bmp,png,gif';
+                $validationRules[] = 'mimes:jpg,jpeg,bmp,png,gif,svg';
             }
 
             $validation = Validator::make(
