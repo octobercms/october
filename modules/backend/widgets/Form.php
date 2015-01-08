@@ -855,6 +855,11 @@ class Form extends WidgetBase
          * Field options are an explicit method reference
          */
         elseif (is_string($fieldOptions)) {
+            if (strpos($fieldOptions, '::') !== false) {
+                list($model, $fieldOptions) = explode('::', $fieldOptions);
+                $this->model = new $model;
+            } 
+
             if (!$this->methodExists($this->model, $fieldOptions)) {
                 throw new ApplicationException(Lang::get(
                     'backend::lang.field.options_method_not_exists',
