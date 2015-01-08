@@ -8,3 +8,8 @@ fields:
         comment: backend::lang.backend_preferences.locale_comment
         type: dropdown
         span: left
+    timezone:
+        label: backend::lang.backend_preferences.timezone
+        comment: backend::lang.backend_preferences.timezone_comment
+        type: dropdown
+        span: right

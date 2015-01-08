@@ -22,6 +22,7 @@ class BackendPreferences extends Model
     {
         $config = App::make('config');
         $this->locale = $config->get('app.locale', 'en');
+        $this->timezone = $config->get('app.timezone', 'UTC');
     }
 
     public static function applyConfigValues()
@@ -29,6 +30,7 @@ class BackendPreferences extends Model
         $config = App::make('config');
         $settings = self::instance();
         $config->set('app.locale', $settings->locale);
+        $config->set('app.timezone', $settings->timezone);
     }
 
     /**
@@ -61,8 +63,20 @@ class BackendPreferences extends Model
         return $locales;
     }
 
+    /**
+     * Returns available timezones
+     * @return array
+     */
+    public function getTimezoneOptions()
+    {
+        $timezones = timezone_identifiers_list();
+
+        return $timezones;
+    }
+
     public function afterSave()
     {
         Session::put('locale', $this->locale);
+        Session::put('timezone', $this->timezone);
     }
 }
