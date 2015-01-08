@@ -96,4 +96,16 @@ return array(
     */
 
     'twigNoCache' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Convert Line Endings
+    |--------------------------------------------------------------------------
+    |
+    | Determines if October should convert line endings from the windows style
+    | \r\n to the unix style \n.
+    |
+    */
+
+    'convertLineEndings' => true,
 );

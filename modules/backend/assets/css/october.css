@@ -9013,6 +9013,7 @@ label {
 }
 .help-block {
   font-size: 12px;
+  margin-bottom: 0;
 }
 .help-block.before-field {
   margin-top: 0;

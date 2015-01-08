@@ -9,7 +9,6 @@
  */
 class ListColumn
 {
-
     /**
      * @var string List column name.
      */

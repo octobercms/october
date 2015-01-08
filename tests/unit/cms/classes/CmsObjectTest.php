@@ -141,7 +141,7 @@ class CmsObjectTest extends TestCase
 
     /**
      * @expectedException        \System\Classes\ApplicationException
-     * @expectedExceptionMessage The property "something" cannot be set
+     * @expectedExceptionMessage The property 'something' cannot be set
      */
     public function testFillNotFillable()
     {

@@ -1,4 +1,7 @@
-* **Build 17x** (2014-12-xx)
+* **Build 17x** (2015-01-xx)
+  - The variable `errors` will be included in a CMS page when redirecting via `Redirect::withErrors($validator)`.
+
+* **Build 174** (2015-01-05)
   - Improved asset caching (`cms.enableAssetCache`), when enabled the server will send a *304 Not Modified* header.
   - Introduced new *Table* widget and *DataTable* form widget.
   - There is now a simpler way for sending mail via `Mail::sendTo()`.

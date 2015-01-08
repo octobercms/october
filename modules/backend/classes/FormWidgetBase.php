@@ -11,7 +11,6 @@ use Str;
  */
 abstract class FormWidgetBase extends WidgetBase
 {
-
     /**
      * @var FormField Object containing general form field information.
      */
@@ -88,11 +87,11 @@ abstract class FormWidgetBase extends WidgetBase
     }
 
     /**
-     * Process the postback data for this widget.
+     * Process the postback value for this widget.
      * @param $value The existing value for this widget.
      * @return string The new value for this widget.
      */
-    public function getSaveData($value)
+    public function getSaveValue($value)
     {
         return $value;
     }
@@ -102,25 +101,19 @@ abstract class FormWidgetBase extends WidgetBase
      * supports nesting via HTML array.
      * @return string
      */
-    public function getLoadData()
+    public function getLoadValue()
     {
-        list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
-
-        if (!is_null($model)) {
-            return $model->{$attribute};
-        }
-
-        return null;
+        return $this->formField->getValueFromData($this->model);
     }
 
     /**
      * Returns the final model and attribute name of
      * a nested HTML array attribute.
-     * Eg: list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+     * Eg: list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
      * @param  string $attribute.
      * @return array
      */
-    public function getModelArrayAttribute($attribute)
+    public function resolveModelAttribute($attribute)
     {
         $model = $this->model;
         $parts = Str::evalHtmlArray($attribute);
@@ -132,4 +125,5 @@ abstract class FormWidgetBase extends WidgetBase
 
         return [$model, $last];
     }
+
 }

@@ -104,7 +104,7 @@ class Relation extends FormWidgetBase
 
             $field = clone $this->formField;
 
-            list($model, $attribute) = $this->getModelArrayAttribute($this->relationName);
+            list($model, $attribute) = $this->resolveModelAttribute($this->relationName);
             $relatedObj = $model->makeRelation($attribute);
             $query = $model->{$attribute}()->newQuery();
 
@@ -141,7 +141,7 @@ class Relation extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function getSaveData($value)
+    public function getSaveValue($value)
     {
         if (is_string($value) && !strlen($value)) {
             return null;

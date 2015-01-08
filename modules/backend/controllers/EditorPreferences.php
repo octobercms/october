@@ -14,7 +14,6 @@ use Backend\Models\EditorPreferences as EditorPreferencesModel;
  */
 class EditorPreferences extends Controller
 {
-
     public $implement = [
         'Backend.Behaviors.FormController',
     ];

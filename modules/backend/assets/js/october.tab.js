@@ -250,8 +250,7 @@
         if ($('> li > a', this.$tabsContainer).length == 0)
             this.$el.trigger('afterAllClosed.oc.tab')
 
-
-        this.$el.trigger('closed.oc.tab')
+        this.$el.trigger('closed.oc.tab', [$tab])
 
         $(window).trigger('resize')
         this.updateClasses()

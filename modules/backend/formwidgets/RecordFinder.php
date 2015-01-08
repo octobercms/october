@@ -130,7 +130,7 @@ class RecordFinder extends FormWidgetBase
 
     public function onRefresh()
     {
-        list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
         $model->{$attribute} = post($this->formField->getName());
 
         $this->prepareVars();
@@ -142,8 +142,7 @@ class RecordFinder extends FormWidgetBase
      */
     public function prepareVars()
     {
-        // This should be a relation and return a Model
-        $this->relationModel = $this->getLoadData();
+        $this->relationModel = $this->getLoadValue();
 
         $this->vars['value'] = $this->getKeyValue();
         $this->vars['field'] = $this->formField;
@@ -165,9 +164,23 @@ class RecordFinder extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function getSaveData($value)
+    public function getSaveValue($value)
     {
         return strlen($value) ? $value : null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLoadValue()
+    {
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+
+        if (!is_null($model)) {
+            return $model->{$attribute};
+        }
+
+        return null;
     }
 
     public function getKeyValue()

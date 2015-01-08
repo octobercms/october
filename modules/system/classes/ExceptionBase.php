@@ -16,7 +16,6 @@ use System\Classes\ApplicationException;
  */
 class ExceptionBase extends Exception
 {
-
     /**
      * @var Exception If this exception is acting as a mask, this property stores the face exception.
      */

@@ -211,7 +211,6 @@ class PluginManager
 
     /**
      * Returns the directory path to a plugin
-     * 
      */
     public function getPluginPath($id)
     {
@@ -220,7 +219,7 @@ class PluginManager
             return null;
         }
 
-        return $this->pathMap[$classId];
+        return File::normalizePath($this->pathMap[$classId]);
     }
 
     /**

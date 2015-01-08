@@ -15,7 +15,6 @@ use Backend\Classes\ControllerBehavior;
  */
 class ListController extends ControllerBehavior
 {
-
     /**
      * @var array List definitions, keys for alias and value for configuration.
      */

@@ -167,5 +167,13 @@
         return this.getViewContainer(cellElement).textContent = value
     }
 
+    /*
+     * Determines whether the specified element is some element created by the 
+     * processor. 
+     */
+    Base.prototype.elementBelongsToProcessor = function(element) {
+        return false
+    }
+
     $.oc.table.processor.base = Base
 }(window.jQuery);

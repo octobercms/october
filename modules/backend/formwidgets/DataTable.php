@@ -69,7 +69,7 @@ class DataTable extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function getSaveData($value)
+    public function getSaveValue($value)
     {
         // TODO: provide a streaming implementation of saving 
         // data to the model. The current implementation returns 
@@ -96,7 +96,7 @@ class DataTable extends FormWidgetBase
         // data from the model. The current implementation loads
         // all records at once. -ab
 
-        $records = $this->getLoadData() ?: [];
+        $records = $this->getLoadValue() ?: [];
         $dataSource->initRecords((array) $records);
     }
 
@@ -104,7 +104,13 @@ class DataTable extends FormWidgetBase
     {
         $config = $this->makeConfig((array) $this->config);
         $config->dataSource = 'client';
-        $config->alias = $this->alias . 'Table';
+
+        // It's safe to use the field name as an alias
+        // as field names do not repeat in forms. This
+        // approach lets to access the table data by the 
+        // field name in POST requests directly (required
+        // in some edge cases).
+        $config->alias = $this->fieldName;
 
         $table = new Table($this->controller, $config);
 

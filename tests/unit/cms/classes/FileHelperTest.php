@@ -28,7 +28,7 @@ class FileHelperTest extends TestCase
 
         $str = FileHelper::formatIniString($data);
         $this->assertNotEmpty($str);
-        $this->assertEquals(file_get_contents($path), $str);
+        $this->assertEquals($this->getContents($path), $str);
 
         $data = [
             'section' => [
@@ -47,7 +47,7 @@ class FileHelperTest extends TestCase
         $this->assertFileExists($path);
 
         $str = FileHelper::formatIniString($data);
-        $this->assertEquals(file_get_contents($path), $str);
+        $this->assertEquals($this->getContents($path), $str);
 
         $data = [
             'section' => [
@@ -75,6 +75,18 @@ class FileHelperTest extends TestCase
         $this->assertFileExists($path);
 
         $str = FileHelper::formatIniString($data);
-        $this->assertEquals(file_get_contents($path), $str);
+        $this->assertEquals($this->getContents($path), $str);
    }
+
+   //
+   // Helpers
+   //
+
+   protected function getContents($path)
+   {
+        $content = file_get_contents($path);
+        $content = preg_replace('~\R~u', PHP_EOL, $content); // Normalize EOL
+        return $content;
+   }
+
 }

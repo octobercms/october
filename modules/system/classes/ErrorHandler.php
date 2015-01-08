@@ -19,7 +19,6 @@ use System\Classes\ApplicationException;
  */
 class ErrorHandler
 {
-
     /**
      * @var System\Classes\ExceptionBase A prepared mask exception used to mask any exception fired.
      */

@@ -18,11 +18,9 @@ use Exception;
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
- *
  */
 class RequestLogs extends Controller
 {
-
     public $implement = [
         'Backend.Behaviors.FormController',
         'Backend.Behaviors.ListController'

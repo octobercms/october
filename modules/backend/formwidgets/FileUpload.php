@@ -109,7 +109,7 @@ class FileUpload extends FormWidgetBase
      */
     protected function getRelationObject()
     {
-        list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
         return $model->{$attribute}();
     }
 
@@ -120,7 +120,7 @@ class FileUpload extends FormWidgetBase
      */
     protected function getRelationType()
     {
-        list($model, $attribute) = $this->getModelArrayAttribute($this->valueFrom);
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
         return $model->getRelationType($attribute);
     }
 
@@ -195,7 +195,7 @@ class FileUpload extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function getSaveData($value)
+    public function getSaveValue($value)
     {
         return FormField::NO_SAVE_DATA;
     }

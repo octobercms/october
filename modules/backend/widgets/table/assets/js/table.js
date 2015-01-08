@@ -65,6 +65,7 @@
         // Event handlers
         this.clickHandler = this.onClick.bind(this)
         this.keydownHandler = this.onKeydown.bind(this)
+        this.documentClickHandler = this.onDocumentClick.bind(this)
         this.toolbarClickHandler = this.onToolbarClick.bind(this)
 
         if (this.options.postback && this.options.clientDataSourceClass == 'client')
@@ -135,6 +136,7 @@
     Table.prototype.registerHandlers = function() {
         this.el.addEventListener('click', this.clickHandler)
         this.el.addEventListener('keydown', this.keydownHandler)
+        document.addEventListener('click', this.documentClickHandler)
 
         if (this.options.postback && this.options.clientDataSourceClass == 'client')
             this.$el.closest('form').bind('oc.beforeRequest', this.formSubmitHandler)
@@ -146,6 +148,8 @@
 
     Table.prototype.unregisterHandlers = function() {
         this.el.removeEventListener('click', this.clickHandler);
+        document.removeEventListener('click', this.documentClickHandler)
+
         this.clickHandler = null
 
         this.el.removeEventListener('keydown', this.keydownHandler);
@@ -449,6 +453,8 @@
      * Removes editor from the currently edited cell and commits the row if needed.
      */
     Table.prototype.unfocusTable = function() {
+        this.elementRemoveClass(this.el, 'active')
+
         if (this.activeCellProcessor)
             this.activeCellProcessor.onUnfocus()
 
@@ -462,6 +468,13 @@
     }
 
     /*
+     * Makes the table focused in the UI
+     */
+    Table.prototype.focusTable = function() {
+        this.elementAddClass(this.el, 'active')
+    }
+
+    /*
      * Calls the onFocus() method for the cell processor responsible for the
      * newly focused cell. Commit the previous edited row to the data source
      * if needed.
@@ -470,6 +483,8 @@
         var columnName = cellElement.getAttribute('data-column')
         if (columnName === null)
             return
+
+        this.focusTable()
 
         var processor = this.getCellProcessor(columnName)
         if (!processor)
@@ -615,6 +630,8 @@
     // ============================
 
     Table.prototype.onClick = function(ev) {
+        this.focusTable()
+
         if (this.navigation.onClick(ev) === false)
             return
 
@@ -670,7 +687,12 @@
     Table.prototype.onFormSubmit = function(ev, data) {
         if (data.handler == this.options.postbackHandlerName) {
             this.unfocusTable()
-            data.options.data[this.options.alias + 'TableData'] = this.dataSource.getAllData()
+
+            var fieldName = this.options.alias.indexOf('[') > -1 ? 
+                this.options.alias + '[TableData]' :
+                this.options.alias + 'TableData';
+
+            data.options.data[fieldName] = this.dataSource.getAllData()
         }
     }
 
@@ -691,6 +713,24 @@
         }
 
         this.stopEvent(ev)
+    }
+
+    Table.prototype.onDocumentClick = function(ev) {
+        var target = this.getEventTarget(ev)
+
+        // Determine if the click was inside the table element
+        // and just exit if so
+        if (this.parentContainsElement(this.el, target))
+            return
+
+        // Request the active cell processor if the clicked 
+        // element belongs to any extra-table element created
+        // by the processor
+
+        if (this.activeCellProcessor && this.activeCellProcessor.elementBelongsToProcessor(target))
+            return
+
+        this.unfocusTable()
     }
 
     // PUBLIC METHODS
@@ -788,6 +828,44 @@
             ev.preventDefault()
         else
             ev.returnValue = false
+    }
+
+    Table.prototype.elementHasClass = function(el, className) {
+        // TODO: refactor to a core library
+
+        if (el.classList)
+            return el.classList.contains(className);
+        
+        return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+    }
+
+    Table.prototype.elementAddClass = function(el, className) {
+        // TODO: refactor to a core library
+
+        if (this.elementHasClass(el, className))
+            return
+
+        if (el.classList)
+            el.classList.add(className);
+        else
+            el.className += ' ' + className;
+    }
+
+    Table.prototype.elementRemoveClass = function(el, className) {
+        // TODO: refactor to a core library
+
+        if (el.classList)
+            el.classList.remove(className);
+        else
+            el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    }
+
+    Table.prototype.parentContainsElement = function(parent, element) {
+        while (element && element != parent) {
+            element = element.parentNode
+        }
+
+        return element ? true : false
     }
 
     Table.prototype.getCellValue = function(cellElement) {

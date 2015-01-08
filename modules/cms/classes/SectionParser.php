@@ -1,5 +1,7 @@
 <?php namespace Cms\Classes;
 
+use Str;
+
 /**
  * This class parses CMS object files (pages, partials and layouts).
  * Returns the structured file information.
@@ -72,6 +74,7 @@ class SectionParser
      */
     public static function parseOffset($content)
     {
+        $content = Str::normalizeEol($content);
         $sections = preg_split('/^={2,}\s*/m', $content, -1);
         $count = count($sections);
 

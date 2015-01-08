@@ -246,7 +246,7 @@
     DropdownProcessor.prototype.getAbsolutePosition = function(element) {
         // TODO: refactor to a core library
 
-        var top = 0,
+        var top = document.body.scrollTop,
             left = 0
 
         do {
@@ -344,7 +344,7 @@
         /*
      * This method is called when a cell value in the row changes.
      */
-    Base.prototype.onRowValueChanged = function(columnName, cellElement) {
+    DropdownProcessor.prototype.onRowValueChanged = function(columnName, cellElement) {
         // Determine if this drop-down depends on the changed column
         // and update the option list if necessary
 
@@ -380,6 +380,17 @@
             viewContainer.textContent = value
             viewContainer = null
         })
+    }
+
+    /*
+     * Determines whether the specified element is some element created by the 
+     * processor. 
+     */
+    DropdownProcessor.prototype.elementBelongsToProcessor = function(element) {
+        if (!this.itemListElement)
+            return false
+
+        return this.tableObj.parentContainsElement(this.itemListElement, element)
     }
 
     $.oc.table.processor.dropdown = DropdownProcessor;

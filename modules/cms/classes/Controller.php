@@ -8,6 +8,7 @@ use View;
 use Lang;
 use Event;
 use Config;
+use Session;
 use Request;
 use Response;
 use Exception;
@@ -234,6 +235,13 @@ class Controller extends BaseController
             'controller'  => $this,
             'environment' => App::environment(),
         ];
+
+        /*
+         * Check for the presence of validation errors in the session.
+         */
+        $this->vars['errors'] = (Config::get('session.driver') && Session::has('errors'))
+            ? Session::get('errors')
+            : new \Illuminate\Support\ViewErrorBag;
 
         /*
          * Handle AJAX requests and execute the life cycle functions

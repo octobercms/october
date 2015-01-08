@@ -709,47 +709,11 @@ class Form extends WidgetBase
             $field = $this->fields[$field];
         }
 
-        $fieldName = $field->fieldName;
-        $defaultValue = (!$this->model->exists && $field->defaults !== '') ? $field->defaults : null;
+        $defaultValue = (!$this->model->exists && $field->defaults !== '')
+            ? $field->defaults
+            : null;
 
-        /*
-         * Array field name, eg: field[key][key2][key3]
-         */
-        $keyParts = Str::evalHtmlArray($fieldName);
-        $lastField = end($keyParts);
-        $result = $this->data;
-
-        /*
-         * Loop the field key parts and build a value.
-         * To support relations only the last field should return the
-         * relation value, all others will look up the relation object as normal.
-         */
-        foreach ($keyParts as $key) {
-
-            if ($result instanceof Model && $result->hasRelation($key)) {
-                if ($key == $lastField) {
-                    $result = $result->getRelationValue($key) ?: $defaultValue;
-                }
-                else {
-                    $result = $result->{$key};
-                }
-            }
-            elseif (is_array($result)) {
-                if (!array_key_exists($key, $result)) {
-                    return $defaultValue;
-                }
-                $result = $result[$key];
-            }
-            else {
-                if (!isset($result->{$key})) {
-                    return $defaultValue;
-                }
-                $result = $result->{$key};
-            }
-
-        }
-
-        return $result;
+        return $field->getValueFromData($this->data, $defaultValue);
     }
 
     /**
@@ -806,7 +770,16 @@ class Form extends WidgetBase
             $parts = Str::evalHtmlArray($field);
             $dotted = implode('.', $parts);
 
-            $widgetValue = $widget->getSaveData(array_get($data, $dotted));
+            $widgetValue = $widget->getSaveValue(array_get($data, $dotted));
+
+            /*
+             * @deprecated Remove if year >= 2016
+             */
+            if (method_exists($widget, 'getSaveData')) {
+                traceLog('Method getSaveData() is deprecated, use getSaveValue() instead. Found in: ' . get_class($widget), 'warning');
+                $widgetValue = $widget->getSaveData(array_get($data, $dotted));
+            }
+
             array_set($data, $dotted, $widgetValue);
         }
 
