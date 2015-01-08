@@ -234,6 +234,7 @@ class Controller extends BaseController
             'param'       => $this->router->getParameters(),
             'controller'  => $this,
             'environment' => App::environment(),
+            'session'     => App::make('session'),
         ];
 
         /*
