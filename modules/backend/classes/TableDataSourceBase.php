@@ -19,7 +19,7 @@ abstract class TableDataSourceBase
      * Class constructor.
      * @param string $keyColumn Specifies a name of the key column.
      */
-    public static function construct($keyColumn = 'id')
+    public function construct($keyColumn = 'id')
     {
         $this->keyColumn = $keyColumn;
     }

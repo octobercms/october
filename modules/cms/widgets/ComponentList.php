@@ -112,11 +112,11 @@ class ComponentList extends WidgetBase
                 $className = $componentInfo->className;
                 $alias = $componentInfo->alias;
                 $component = new $className();
-                
+
                 if ($component->isHidden) {
                     continue;
                 }
-                
+
                 $componentDetails = $component->componentDetails();
                 $component->alias = '--alias--';
 
