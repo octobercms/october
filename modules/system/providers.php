@@ -39,6 +39,7 @@ return [
     'October\Rain\Support\Scaffold\ScaffoldServiceProvider',
     'October\Rain\Support\FlashServiceProvider',
     'October\Rain\Mail\MailServiceProvider',
+    'October\Rain\Support\MarkdownServiceProvider',
 
     /*
      * Vendor providers
