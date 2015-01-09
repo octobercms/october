@@ -30,6 +30,10 @@
                 <p><?= $coreBuild ?></p>
             </div>
         <?php endif ?>
+            <div class="scoreboard-item title-value">
+                <h4><?= e(trans('system::lang.updates.plugins')) ?></h4>
+                <p><?= DB::table('system_plugin_versions')->count() ?></p>
+            </div>
     </div>
 </div>
 
