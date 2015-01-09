@@ -190,6 +190,7 @@ Columns are defined as array with the `columns` property. The array keys corresp
 - `readOnly`
 - `options` (for drop-down elements and autocomplete types)
 - `dependsOn` (from drop-down elements)
+- validation - defines the column client-side validation rules. See the **Client-side validation** section below.
 
 ## Events 
 
@@ -264,3 +265,45 @@ public function onSave()
         traceLog($records);
     }
 ```
+
+
+## Validation
+
+There are two ways to validate the table data - with the client-side and server-side validation.
+
+### Client-side validation
+
+The client-side validation is performed before the data is sent to the server, or before the user navigates to another page (if the pagination is enabled). Client-side validation is a fast, but simple validation implementation. It can't be used for complex cases like finding duplicating records, or comparing data with records existing in the database.
+
+The client-side validation is configured in the widget configuration file in the column definition with the `validation` key. Example:
+
+    state:
+        title: State
+        type: dropdown
+        validation:
+            required:
+                message: Please select the state
+                apply_if_has: country
+
+Currently implemented client-side validation rules:
+
+- required
+
+Validation rules can be configured with extra parameters, which depend on a specific validator. 
+
+#### required validator
+
+Checks if the user has provided a value for the cell. Parameters:
+
+- message - optional, error message if the message was not provided. If the error message is not provided, the default error message will be displayed.
+- apply_if_has - optional, allows to specify a column name which should have a value in order the validator to run. If the column doesn't have a value, the validation won't be performed. If the parameter is omitted, the validation always runs.
+
+### Server-side validation
+
+TODO: document.
+
+Draft. In case of a validation error the AJAX response should contain the following information:
+
+- row key
+- row offset in the data set
+- error message

@@ -129,7 +129,7 @@
         this.itemListElement.setAttribute('class', 'table-control-dropdown-list')
         this.itemListElement.style.width = cellContentContainer.offsetWidth + 'px'
         this.itemListElement.style.left = containerPosition.left + 'px'
-        this.itemListElement.style.top = containerPosition.top - 1 + cellContentContainer.offsetHeight + 'px'
+        this.itemListElement.style.top = containerPosition.top - 2 + cellContentContainer.offsetHeight + 'px'
 
         this.fetchOptions(cellElement, function renderCellFetchOptions(options) {
             var listElement = document.createElement('ul')
