@@ -85,6 +85,13 @@
         redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'image', 'link', 'horizontalrule', 'html'],
 
         this.$textarea.redactor(redactorOptions)
+        
+        // Allows to overrite redactor content
+        this.$textarea.on('codeSet.oc.richeditor', function(e, code){
+            if (typeof code === 'string') {
+                this.$textarea.redactor('code.set', code);
+            }
+        }.bind(this));
     }
 
     RichEditor.prototype.build = function() {
