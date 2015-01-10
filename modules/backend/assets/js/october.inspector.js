@@ -817,8 +817,8 @@
     InspectorEditorString.prototype.validate = function() {
         var val = $.trim($(this.selector).val())
 
-        if (this.fieldDef.required && !val)
-            return this.fieldDef.requiredMessage || 'Required fields were left blank.'
+        if (this.fieldDef.required && val.length === 0)
+            return this.fieldDef.validationMessage || 'Required fields were left blank.'
 
         if (this.fieldDef.validationPattern === undefined)
             return
