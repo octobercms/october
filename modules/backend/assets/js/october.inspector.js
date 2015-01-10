@@ -815,11 +815,15 @@
     }
 
     InspectorEditorString.prototype.validate = function() {
+        var val = $.trim($(this.selector).val())
+
+        if (this.fieldDef.required && val.length === 0)
+            return this.fieldDef.validationMessage || 'Required fields were left blank.'
+
         if (this.fieldDef.validationPattern === undefined)
             return
 
-        var val = $.trim($(this.selector).val()),
-            re = new RegExp(this.fieldDef.validationPattern, 'm')
+        var re = new RegExp(this.fieldDef.validationPattern, 'm')
 
         if (!val.match(re))
             return this.fieldDef.validationMessage
