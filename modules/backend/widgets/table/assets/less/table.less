@@ -120,6 +120,21 @@
 
         tr { 
             background-color: white;
+
+            &.error {
+                background-color: #fbecec!important;
+
+                td.active.error {
+                    border-color: #ec0000!important;
+    
+                    .content-container {
+                        border-color: #ec0000!important;
+                        &:before, &:after {
+                            background-color: #ec0000!important;
+                        }
+                    }
+                }
+            }
         }
 
         tr:nth-child(2n) {

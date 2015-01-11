@@ -127,6 +127,14 @@ class Table extends WidgetBase
     public function loadAssets()
     {
         $this->addCss('css/table.css', 'core');
+
+        // Include a combined and minified script.
+        // TODO: At the moment the files are combined with 
+        // CodeKit 2, but we should have a method to
+        // combine files without external dependencies. -ab
+        $this->addJs('js/table-min.js', 'core');
+
+        /*
         $this->addJs('js/table.js', 'core');
         $this->addJs('js/table.helper.navigation.js', 'core');
         $this->addJs('js/table.datasource.base.js', 'core');
@@ -135,6 +143,14 @@ class Table extends WidgetBase
         $this->addJs('js/table.processor.string.js', 'core');
         $this->addJs('js/table.processor.checkbox.js', 'core');
         $this->addJs('js/table.processor.dropdown.js', 'core');
+        $this->addJs('js/table.validator.base.js', 'core');
+        $this->addJs('js/table.validator.required.js', 'core');
+        $this->addJs('js/table.validator.basenumber.js', 'core');
+        $this->addJs('js/table.validator.integer.js', 'core');
+        $this->addJs('js/table.validator.float.js', 'core');
+        $this->addJs('js/table.validator.length.js', 'core');
+        $this->addJs('js/table.validator.regex.js', 'core');
+        */
     }
 
     /**

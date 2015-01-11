@@ -97,6 +97,19 @@
 .control-table table.data tr {
   background-color: white;
 }
+.control-table table.data tr.error {
+  background-color: #fbecec!important;
+}
+.control-table table.data tr.error td.active.error {
+  border-color: #ec0000!important;
+}
+.control-table table.data tr.error td.active.error .content-container {
+  border-color: #ec0000!important;
+}
+.control-table table.data tr.error td.active.error .content-container:before,
+.control-table table.data tr.error td.active.error .content-container:after {
+  background-color: #ec0000!important;
+}
 .control-table table.data tr:nth-child(2n) {
   background-color: #fbfbfb;
 }

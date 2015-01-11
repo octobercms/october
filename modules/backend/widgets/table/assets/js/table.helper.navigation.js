@@ -147,6 +147,11 @@
     }
 
     Navigation.prototype.gotoPage = function(pageIndex, onSuccess) {
+        this.tableObj.unfocusTable()
+
+        if (!this.tableObj.validate())
+            return
+
         this.pageIndex = pageIndex
 
         this.tableObj.updateDataTable(onSuccess)

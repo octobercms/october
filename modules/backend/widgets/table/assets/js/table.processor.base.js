@@ -28,8 +28,13 @@
 
         this.activeCell = null
 
+        this.validators = []
+
         // Register event handlers
         this.registerHandlers()
+
+        // Initialize validators
+        this.initValidators()
     }
 
     Base.prototype.dispose = function() {
@@ -173,6 +178,32 @@
      */
     Base.prototype.elementBelongsToProcessor = function(element) {
         return false
+    }
+
+    Base.prototype.initValidators = function() {
+        if (this.columnConfiguration.validation === undefined)
+            return
+
+        for (var validatorName in this.columnConfiguration.validation) {
+            if ($.oc.table.validator === undefined || $.oc.table.validator[validatorName] == undefined)
+                throw new Error('The table cell validator "'+validatorName+'" for the column "'+this.columnName+'" is not ' +
+                    'found in the $.oc.table.validator namespace.')
+
+            var validator = new $.oc.table.validator[validatorName](
+                    this.columnConfiguration.validation[validatorName]
+                )
+
+            this.validators.push(validator)
+        }
+    }
+
+    Base.prototype.validate = function(value, rowData) {
+        for (var i=0, len=this.validators.length; i<len; i++) {
+            var message = this.validators[i].validate(value, rowData)
+
+            if (message !== undefined)
+                return message
+        }
     }
 
     $.oc.table.processor.base = Base

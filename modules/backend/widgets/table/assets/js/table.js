@@ -428,7 +428,7 @@
     Table.prototype.commitEditedRow = function() {
         if (this.editedRowKey === null)
             return
-
+        
         var editedRow = this.dataTable.querySelector('tr[data-row="'+this.editedRowKey+'"]')
         if (!editedRow)
             return
@@ -492,13 +492,13 @@
 
         if (this.activeCell !== cellElement) {
             if (this.activeCell)
-                this.activeCell.setAttribute('class', '')
+                this.elementRemoveClass(this.activeCell, 'active')
 
             this.setActiveProcessor(processor)
             this.activeCell = cellElement
 
             if (processor.isCellFocusable())
-                this.activeCell.setAttribute('class', 'active')
+                this.elementAddClass(this.activeCell, 'active')
         }
 
         // If the cell belongs to other row than the currently edited, 
@@ -536,10 +536,20 @@
             currentRowIndex = this.getCellRowIndex(this.activeCell)
         }
 
-        if (this.navigation.paginationEnabled())
-            this.navigation.pageIndex = this.navigation.getNewRowPage(placement, currentRowIndex)
-
         this.unfocusTable()
+
+        if (this.navigation.paginationEnabled()) {
+            var newPageIndex = this.navigation.getNewRowPage(placement, currentRowIndex)
+
+            if (newPageIndex != this.navigation.pageIndex) {
+                // Validate data on the current page if adding a new record
+                // is going to create another page.
+                if (!this.validate())
+                    return
+            }
+
+            this.navigation.pageIndex = newPageIndex
+        }
 
         this.recordsAddedOrDeleted++
 
@@ -626,6 +636,52 @@
         return this.tableContainer.querySelector('div.toolbar')
     }
 
+    /*
+     * Validaates data on the current page
+     */
+    Table.prototype.validate = function() {
+        var rows = this.dataTable.querySelectorAll('tbody tr[data-row]')
+
+        for (var i = 0, len = rows.length; i < len; i++) {
+            var row = rows[i]
+
+            this.elementRemoveClass(row, 'error')
+        }
+
+        for (var i = 0, rowsLen = rows.length; i < rowsLen; i++) {
+            var row = rows[i],
+                rowData = this.getRowData(row)
+
+            for (var j = 0, colsLen = row.children.length; j < colsLen; j++)
+                this.elementRemoveClass(row.children[j], 'error')
+
+            for (var columnName in rowData) {
+                var cellProcessor = this.getCellProcessor(columnName),
+                    message = cellProcessor.validate(rowData[columnName], rowData)
+
+                if (message !== undefined) {
+                    var cell = row.querySelector('td[data-column="'+columnName+'"]'),
+                        self = this
+
+                    this.elementAddClass(row, 'error')
+                    this.elementAddClass(cell, 'error')
+
+                    $.oc.flashMsg({text: message, 'class': 'error'})
+
+                    window.setTimeout(function(){
+                        self.focusCell(cell, false)
+                        cell = null
+                        self = null
+                        cellProcessor = null
+                    }, 100)
+                    return false
+                }
+            }
+        }
+
+        return true
+    }
+
     // EVENT HANDLERS
     // ============================
 
@@ -687,6 +743,11 @@
     Table.prototype.onFormSubmit = function(ev, data) {
         if (data.handler == this.options.postbackHandlerName) {
             this.unfocusTable()
+
+            if (!this.validate()) {
+                ev.preventDefault()
+                return
+            }
 
             var fieldName = this.options.alias.indexOf('[') > -1 ? 
                 this.options.alias + '[TableData]' :

@@ -41,6 +41,7 @@ All classes for the table widget are be defined in the **$.oc.table** namespace.
 - **$.oc.table.processor** - cell processors
 - **$.oc.table.datasource** - data sources
 - **$.oc.table.helper** - helper classes
+- **$.oc.table.validator** - validation classes
 
 ### Client-side performance and memory usage considerations
 
@@ -271,7 +272,7 @@ public function onSave()
 
 There are two ways to validate the table data - with the client-side and server-side validation.
 
-### Client-side validation
+### Client-side validation ($.oc.table.validator)
 
 The client-side validation is performed before the data is sent to the server, or before the user navigates to another page (if the pagination is enabled). Client-side validation is a fast, but simple validation implementation. It can't be used for complex cases like finding duplicating records, or comparing data with records existing in the database.
 
@@ -283,20 +284,107 @@ The client-side validation is configured in the widget configuration file in the
         validation:
             required:
                 message: Please select the state
-                apply_if_has: country
+                applyIfNotEmpty: country
+
+If a validator doesn't have any options (or default option values should be used), the declaration could look like this:
+
+    state:
+        title: State
+        type: dropdown
+        validation:
+            required: {}
+
+The `applyIfNotEmpty` and `message` parameters are common for all validators.
 
 Currently implemented client-side validation rules:
 
 - required
+- integer
+- float
+- length
+- regex
 
 Validation rules can be configured with extra parameters, which depend on a specific validator. 
 
-#### required validator
+#### required validator ($.oc.table.validator.required)
 
-Checks if the user has provided a value for the cell. Parameters:
+Checks if the user has provided a value for the cell. 
 
-- message - optional, error message if the message was not provided. If the error message is not provided, the default error message will be displayed.
-- apply_if_has - optional, allows to specify a column name which should have a value in order the validator to run. If the column doesn't have a value, the validation won't be performed. If the parameter is omitted, the validation always runs.
+#### integer validator ($.oc.table.validator.integer)
+
+Checks if the value is integer. Parameters:
+
+* `allowNegative` - optional, determines if negative values are allowed.
+* `min` - optional object, defines the minimum allowed value and error message. Object fields:
+    * `value` - defines the minimum value.
+    * `message` - optional, defines the error message.
+* `max` - optional object, defines the maximum allowed value and error message. Object fields:
+    * `value` - defines the maximum value.
+    * `message` - optional, defines the error message.
+
+Example of defining the integer validator with the `min` parameter: 
+
+    length:
+        title: Length
+        type: string
+        validation:
+            integer:
+                min:
+                    value: 3
+                    message: "The length cannot be less than 3"
+
+#### float validator ($.oc.table.validator.float)
+
+Checks if the value is a floating point number. The parameters for this validator match the parameters of the **integer** validator.
+
+Valid floating point number formats:
+
+* 10
+* 10.302
+* -10 (if `allowNegative` is `true`)
+* -10.84 (if `allowNegative` is `true`)
+
+#### length validator ($.oc.table.validator.length)
+
+Checks if a string is not shorter or longer than specified values.  Parameters:
+
+* `min` - optional object, defines the minimum length and error message. Object fields:
+    * `value` - defines the minimum length.
+    * `message` - optional, defines the error message.
+* `max` - optional object, defines the maximum length and error message. Object fields:
+    * `value` - defines the maximum length.
+    * `message` - optional, defines the error message.
+
+Example column definition:
+
+    name:
+        title: Name
+        type: string
+        validation:
+            length:
+                min:
+                    value: 3
+                    message: "The name is too short."
+
+#### regex validator ($.oc.table.validator.regex)
+
+Checks a string against a provided regular expression:
+
+* `pattern` - specifies the regular expression pattern string. Example: **^[0-9a-z]+$**
+* `modifiers` - optional, a string containing regular expression modifiers (https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp), for example **i** for "case insensitive". 
+
+Example:
+
+    login:
+        title: Login
+        type: string
+        validation:
+            regex:
+                pattern: "^[a-z0-9]+$"
+                modifiers: "i"
+                message: "The login name can contain only Latin letters and numbers."
+
+Although the `message` parameter is optional for all validators it's highly recommended to provide a message for the regular expression validator as the default message "Invalid value format." is not descriptive and can be confusing.
 
 ### Server-side validation
 
