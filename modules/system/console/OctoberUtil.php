@@ -5,6 +5,7 @@ use Config;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use System\Classes\CombineAssets;
 
 /**
  * Utility command
@@ -76,6 +77,46 @@ class OctoberUtil extends Command
     //
     // Utilties
     //
+
+    protected function utilCompileJs()
+    {
+        $this->utilCompileAssets('js');
+    }
+
+    protected function utilCompileLess()
+    {
+        $this->utilCompileAssets('less');
+    }
+
+    protected function utilCompileAssets($type = null)
+    {
+        $this->comment('Compiling registered asset bundles...');
+
+        Config::set('cms.enableAssetMinify', true);
+        $combiner = CombineAssets::instance();
+        $bundles = $combiner->getBundles($type);
+
+        if (!$bundles){
+            $this->comment('Nothing to compile!');
+            return;
+        }
+
+        if ($type) {
+            $bundles = [$bundles];
+        }
+
+        foreach ($bundles as $bundleType) {
+            foreach ($bundleType as $destination => $assets) {
+                $destination = File::symbolizePath($destination);
+                $publicDest = File::localToPublic(realpath(dirname($destination))) . '/' . basename($destination);
+
+                $combiner->combineToFile($assets, $destination);
+                $shortAssets = implode(', ', array_map('basename', $assets));
+                $this->comment($shortAssets);
+                $this->comment(sprintf(' -> %s', $publicDest));
+            }
+        }
+    }
 
     protected function utilPurgeThumbs()
     {

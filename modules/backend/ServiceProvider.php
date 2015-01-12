@@ -6,9 +6,10 @@ use Backend;
 use BackendMenu;
 use BackendAuth;
 use Backend\Classes\WidgetManager;
-use October\Rain\Support\ModuleServiceProvider;
 use System\Models\MailTemplate;
+use System\Classes\CombineAssets;
 use System\Classes\SettingsManager;
+use October\Rain\Support\ModuleServiceProvider;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -159,6 +160,16 @@ class ServiceProvider extends ModuleServiceProvider
                 'backend::mail.invite'  => 'Invitation for newly created administrators.',
                 'backend::mail.restore' => 'Password reset instructions for backend-end administrators.',
             ]);
+        });
+
+        /*
+         * Register asset bundles
+         */
+        CombineAssets::registerCallback(function($combiner){
+            $combiner->registerBundle('~/modules/backend/assets/less/october.less');
+            $combiner->registerBundle('~/modules/backend/assets/js/october.js');
+            $combiner->registerBundle('~/modules/backend/assets/js/vendor/vendor.js');
+            $combiner->registerBundle('~/modules/backend/widgets/table/assets/js/build.js');
         });
     }
 

@@ -47,7 +47,7 @@ class CombineAssetsTest extends TestCase
 
     public function testCombiner()
     {
-        $combiner = new CombineAssets;
+        $combiner = CombineAssets::instance();
 
         /*
          * Supported file extensions should exist
@@ -67,7 +67,7 @@ class CombineAssetsTest extends TestCase
 
     public function testCombine()
     {
-        $combiner = new CombineAssets;
+        $combiner = CombineAssets::instance();
         $url = $combiner->combine(['assets/css/style1.css', 'assets/css/style2.css'], '/tests/fixtures/cms/themes/test');
         $this->assertNotNull($url);
         $this->assertRegExp('/\w+[-]\d+/i', $url);      // Must contain hash-number
@@ -103,7 +103,7 @@ class CombineAssetsTest extends TestCase
         $sampleStore = ['version' => 12345678];
         $samplePath = '/tests/fixtures/Cms/themes/test';
 
-        $combiner = new CombineAssets;
+        $combiner = CombineAssets::instance();
         $value = self::callProtectedMethod($combiner, 'putCache', [$sampleId, $sampleStore]);
 
         $this->assertTrue($value);
@@ -116,7 +116,7 @@ class CombineAssetsTest extends TestCase
 
     public function testGetTargetPath()
     {
-        $combiner = new CombineAssets;
+        $combiner = CombineAssets::instance();
 
         $value = self::callProtectedMethod($combiner, 'getTargetPath', ['/combine']);
         $this->assertEquals('combine/', $value);
@@ -130,7 +130,7 @@ class CombineAssetsTest extends TestCase
         $sampleResources = ['assets/css/style1.css', 'assets/css/style2.css'];
         $samplePath = '/tests/fixtures/Cms/themes/test';
 
-        $combiner = new CombineAssets;
+        $combiner = CombineAssets::instance();
         self::setProtectedProperty($combiner, 'path', $samplePath);
 
         $value = self::callProtectedMethod($combiner, 'makeCacheId', [$sampleResources]);
@@ -139,7 +139,7 @@ class CombineAssetsTest extends TestCase
 
     public function testResetCache()
     {
-        $combiner = new CombineAssets;
+        $combiner = CombineAssets::instance();
         $this->assertNull($combiner->resetCache());
     }
 

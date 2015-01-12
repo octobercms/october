@@ -29,7 +29,7 @@ class Controller extends BaseController
             $parts = explode('-', $name);
             $cacheId = $parts[0];
 
-            $combiner = new CombineAssets;
+            $combiner = CombineAssets::instance();
             return $combiner->getContents($cacheId);
 
         }

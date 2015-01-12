@@ -26,10 +26,7 @@ use DateTime;
  */
 class CombineAssets
 {
-    /**
-     * @var Self Instance for multi cycle execution.
-     */
-    private static $instance;
+    use \October\Rain\Support\Traits\Singleton;
 
     /**
      * @var array A list of known JavaScript extensions.
@@ -45,6 +42,11 @@ class CombineAssets
      * @var array Aliases for asset file paths.
      */
     protected $aliases = [];
+
+    /**
+     * @var array Bundles that are compiled to the filesystem.
+     */
+    protected $bundles = [];
 
     /**
      * @var array Filters to apply to each file.
@@ -72,9 +74,14 @@ class CombineAssets
     public $useMinify = false;
 
     /**
+     * @var array Cache of registration callbacks.
+     */
+    private static $callbacks = [];
+
+    /**
      * Constructor
      */
-    public function __construct()
+    public function init()
     {
         /*
          * Register preferences
@@ -109,10 +116,17 @@ class CombineAssets
         /*
          * Common Aliases
          */
-        $this->registerAlias('js', 'jquery', '~/modules/backend/assets/js/vendor/jquery.min.js');
-        $this->registerAlias('js', 'framework', '~/modules/system/assets/js/framework.js');
-        $this->registerAlias('js', 'framework.extras', '~/modules/system/assets/js/framework.extras.js');
-        $this->registerAlias('css', 'framework.extras', '~/modules/system/assets/css/framework.extras.css');
+        $this->registerAlias('jquery', '~/modules/backend/assets/js/vendor/jquery.min.js');
+        $this->registerAlias('framework', '~/modules/system/assets/js/framework.js');
+        $this->registerAlias('framework.extras', '~/modules/system/assets/js/framework.extras.js');
+        $this->registerAlias('framework.extras', '~/modules/system/assets/css/framework.extras.css');
+
+        /*
+         * Deferred registration
+         */
+        foreach (static::$callbacks as $callback) {
+            $callback($this);
+        }
     }
 
     /**
@@ -120,13 +134,29 @@ class CombineAssets
      * to produce a page relative URL to the combined contents.
      * @return string URL to contents.
      */
-    public static function combine($assets = [], $path = null)
+    public static function combine($assets = [], $prefixPath = null)
     {
-        if (static::$instance === null) {
-            static::$instance = new self();
-        }
+        return self::instance()->prepareRequest($assets, $prefixPath);
+    }
 
-        return static::$instance->prepareRequest($assets, $path);
+    /**
+     * Combines a collection of assets files to a destination file
+     * @param array $assets
+     * @param string $destination
+     * @return void
+     */
+    public function combineToFile($assets = [], $destination)
+    {
+        // Disable cache always
+        $this->storagePath = null;
+
+        list($assets, $extension) = $this->prepareAssets($assets);
+
+        $rewritePath = File::localToPublic(dirname($destination));
+        $combiner = $this->prepareCombiner($assets, $rewritePath);
+
+        $contents = $combiner->dump();
+        File::put($destination, $contents);
     }
 
     /**
@@ -163,58 +193,213 @@ class CombineAssets
     }
 
     /**
-     * Register an alias to use for a longer file reference.
-     * @param string $extension Extension name. Eg: css
-     * @param object $filter Collection of files to combine
-     * @return Self
+     * Prepares an array of assets by normalizing the collection
+     * and processing aliases.
+     * @param $assets array
+     * @return array
      */
-    public function registerAlias($extension, $alias, $file)
+    protected function prepareAssets(array $assets)
     {
-        $extension = strtolower($extension);
-
-        if (!isset($this->aliases[$extension])) {
-            $this->aliases[$extension] = [];
+        if (!is_array($assets)) {
+            $assets = [$assets];
         }
 
-        $this->aliases[$extension][$alias] = $file;
+        /*
+         * Split assets in to groups.
+         */
+        $combineJs = [];
+        $combineCss = [];
 
-        return $this;
+        foreach ($assets as $asset) {
+            /*
+             * Allow aliases to go through without an extension
+             */
+            if (substr($asset, 0, 1) == '@') {
+                $combineJs[] = $asset;
+                $combineCss[] = $asset;
+                continue;
+            }
+
+            $extension = File::extension($asset);
+
+            if (in_array($extension, self::$jsExtensions)) {
+                $combineJs[] = $asset;
+                continue;
+            }
+
+            if (in_array($extension, self::$cssExtensions)) {
+                $combineCss[] = $asset;
+                continue;
+            }
+        }
+
+        /*
+         * Determine which group of assets to combine.
+         */
+        if (count($combineCss) > count($combineJs)) {
+            $extension = 'css';
+            $assets = $combineCss;
+        }
+        else {
+            $extension = 'js';
+            $assets = $combineJs;
+        }
+
+        /*
+         * Apply registered aliases
+         */
+        if ($aliasMap = $this->getAliases($extension)) {
+            foreach ($assets as $key => $asset) {
+                if (substr($asset, 0, 1) !== '@') {
+                    continue;
+                }
+                $_asset = substr($asset, 1);
+
+                if (isset($aliasMap[$_asset])) {
+                    $assets[$key] = $aliasMap[$_asset];
+                }
+            }
+        }
+
+        return [$assets, $extension];
     }
 
     /**
-     * Clears any registered aliases.
-     * @param string $extension Extension name. Eg: css
-     * @return Self
+     * Combines asset file references of a single type to produce 
+     * a URL reference to the combined contents.
+     * @var array List of asset files.
+     * @var string File extension, used for aesthetic purposes only.
+     * @return string URL to contents.
      */
-    public function resetAliases($extension = null)
+    protected function prepareRequest(array $assets, $path = null)
     {
-        if ($extension === null) {
-            $this->aliases = [];
-        }
-        else {
-            $this->aliases[$extension] = [];
+        if (substr($path, -1) != '/') {
+            $path = $path.'/';
         }
 
-        return $this;
+        $this->path = public_path().$path;
+        $this->storagePath = storage_path().'/combiner/cms';
+
+        list($assets, $extension) = $this->prepareAssets($assets);
+
+        /*
+         * Cache and process
+         */
+        $cacheId = $this->makeCacheId($assets);
+        $cacheInfo = $this->useCache ? $this->getCache($cacheId) : false;
+
+        if (!$cacheInfo) {
+            $combiner = $this->prepareCombiner($assets);
+            $lastMod = $combiner->getLastModified();
+
+            $cacheInfo = [
+                'version'   => $cacheId.'-'.$lastMod,
+                'etag'      => $cacheId,
+                'lastMod'   => $lastMod,
+                'files'     => $assets,
+                'path'      => $this->path,
+                'extension' => $extension
+            ];
+
+            $this->putCache($cacheId, $cacheInfo);
+        }
+
+        return $this->getCombinedUrl($cacheInfo['version']);
     }
 
     /**
-     * Returns aliases.
-     * @param string $extension Extension name. Eg: css
-     * @return Self
+     * Returns the combined contents from a prepared cache identifier.
+     * @return string Combined file contents.
      */
-    public function getAliases($extension = null)
+    protected function prepareCombiner(array $assets, $rewritePath = null)
     {
-        if ($extension === null) {
-            return $this->aliases;
+        $files = [];
+        $filesSalt = null;
+        foreach ($assets as $asset) {
+            $filters = $this->getFilters(File::extension($asset)) ?: [];
+            $path = File::symbolizePath($asset) ?: $this->path . $asset;
+            $files[] = new FileAsset($path, $filters, public_path());
+            $filesSalt .= $this->path . $asset;
         }
-        elseif (isset($this->aliases[$extension])) {
-            return $this->aliases[$extension];
+        $filesSalt = md5($filesSalt);
+
+        $collection = new AssetCollection($files, [], $filesSalt);
+        $collection->setTargetPath($this->getTargetPath($rewritePath));
+
+        if ($this->storagePath === null)
+            return $collection;
+
+        $cache = new FilesystemCache($this->storagePath);
+        $cachedCollection = new AssetCache($collection, $cache);
+        return $cachedCollection;
+    }
+
+    /**
+     * Returns the URL used for accessing the combined files.
+     * @param string $outputFilename A custom file name to use.
+     * @return string
+     */
+    protected function getCombinedUrl($outputFilename = 'undefined.css')
+    {
+        $combineAction = 'System\Classes\Controller@combine';
+        $actionExists = Route::getRoutes()->getByAction($combineAction) !== null;
+
+        if ($actionExists) {
+            return URL::action($combineAction, [$outputFilename], false);
         }
         else {
-            return null;
+            return Request::getBasePath().'/combine/'.$outputFilename;
         }
     }
+
+    /**
+     * Returns the target path for use with the combiner. The target
+     * path helps generate relative links within CSS.
+     *
+     * /combine              returns combine/
+     * /index.php/combine    returns index-php/combine/
+     *
+     * @return string The new target path
+     */
+    protected function getTargetPath($path = null)
+    {
+        if ($path === null) {
+            $baseUri = substr(Request::getBaseUrl(), strlen(Request::getBasePath()));
+            $path = $baseUri.'/combine';
+        }
+
+        if (strpos($path, '/') === 0) {
+            $path = substr($path, 1);
+        }
+
+        $path = str_replace('.', '-', $path).'/';
+        return $path;
+    }
+
+    //
+    // Registration
+    //
+
+    /**
+     * Registers a callback function that defines bundles.
+     * The callback function should register bundles by calling the manager's
+     * registerBundle() function. Thi instance is passed to the
+     * callback function as an argument. Usage:
+     * <pre>
+     *   CombineAssets::registerCallback(function($combiner){
+     *       $combiner->registerBundle('~/modules/backend/assets/less/october.less');
+     *   });
+     * </pre>
+     * @param callable $callback A callable function.
+     */
+    public static function registerCallback(callable $callback)
+    {
+        self::$callbacks[] = $callback;
+    }
+
+    //
+    // Filters
+    //
 
     /**
      * Register a filter to apply to the combining process.
@@ -279,177 +464,136 @@ class CombineAssets
         }
     }
 
+    //
+    // Bundles
+    //
+
     /**
-     * Combines asset file references of a single type to produce 
-     * a URL reference to the combined contents.
-     * @var array List of asset files.
-     * @var string File extension, used for aesthetic purposes only.
-     * @return string URL to contents.
+     * Registers an alias to use for a longer file reference.
+     * @param string $alias Alias name. Eg: framework
+     * @param object $filter Collection of files to combine
+     * @param string $extension Extension name. Eg: css
+     * @return Self
      */
-    protected function prepareRequest(array $assets, $path = null)
+    public function registerBundle($files, $destination = null, $extension = null)
     {
-        if (substr($path, -1) != '/') {
-            $path = $path.'/';
+        if (!is_array($files)) {
+            $files = [$files];
         }
 
-        $this->path = public_path().$path;
-        $this->storagePath = storage_path().'/combiner/cms';
+        $firstFile = array_values($files)[0];
 
-        if (!is_array($assets)) {
-            $assets = [$assets];
+        if ($extension === null) {
+            $extension = File::extension($firstFile);
         }
 
-        /*
-         * Split assets in to groups.
-         */
-        $combineJs = [];
-        $combineCss = [];
+        $extension = strtolower(trim($extension));
 
-        foreach ($assets as $asset) {
-            /*
-             * Allow aliases to go through without an extension
-             */
-            if (substr($asset, 0, 1) == '@') {
-                $combineJs[] = $asset;
-                $combineCss[] = $asset;
-                continue;
+        if ($destination === null) {
+            $file = File::name($firstFile);
+            $path = dirname($firstFile);
+
+            if ($extension == 'less') {
+                $cssPath = $path.'/../css';
+                if (File::isDirectory(File::symbolizePath($cssPath))) {
+                    $path = $cssPath;
+                }
+                $destination = $path.'/'.$file.'.css';
             }
-
-            $extension = File::extension($asset);
-
-            if (in_array($extension, self::$jsExtensions)) {
-                $combineJs[] = $asset;
-                continue;
-            }
-
-            if (in_array($extension, self::$cssExtensions)) {
-                $combineCss[] = $asset;
-                continue;
+            else {
+                $destination = $path.'/'.$file.'-min.'.$extension;
             }
         }
 
-        /*
-         * Determine which group of assets to combine.
-         */
-        if (count($combineCss) > count($combineJs)) {
-            $extension = 'css';
-            $assets = $combineCss;
+        $this->bundles[$extension][$destination] = $files;
+
+        return $this;
+    }
+
+    /**
+     * Returns bundles.
+     * @param string $extension Extension name. Eg: css
+     * @return Self
+     */
+    public function getBundles($extension = null)
+    {
+        if ($extension === null) {
+            return $this->bundles;
+        }
+        elseif (isset($this->bundles[$extension])) {
+            return $this->bundles[$extension];
         }
         else {
-            $extension = 'js';
-            $assets = $combineJs;
+            return null;
+        }
+    }
+
+    //
+    // Aliases
+    //
+
+    /**
+     * Register an alias to use for a longer file reference.
+     * @param string $alias Alias name. Eg: framework
+     * @param string $file Path to file to use for alias
+     * @param string $extension Extension name. Eg: css
+     * @return Self
+     */
+    public function registerAlias($alias, $file, $extension = null)
+    {
+        if ($extension === null) {
+            $extension = File::extension($file);
         }
 
-        /*
-         * Apply registered aliases
-         */
-        if ($aliasMap = $this->getAliases($extension)) {
-            foreach ($assets as $key => $asset) {
-                if (substr($asset, 0, 1) !== '@') {
-                    continue;
-                }
-                $_asset = substr($asset, 1);
+        $extension = strtolower($extension);
 
-                if (isset($aliasMap[$_asset])) {
-                    $assets[$key] = $aliasMap[$_asset];
-                }
-            }
+        if (!isset($this->aliases[$extension])) {
+            $this->aliases[$extension] = [];
         }
 
-        /*
-         * Cache and process
-         */
-        $cacheId = $this->makeCacheId($assets);
-        $cacheInfo = $this->useCache ? $this->getCache($cacheId) : false;
+        $this->aliases[$extension][$alias] = $file;
 
-        if (!$cacheInfo) {
-            $combiner = $this->prepareCombiner($assets);
-            $lastMod = $combiner->getLastModified();
-
-            $cacheInfo = [
-                'version'   => $cacheId.'-'.$lastMod,
-                'etag'      => $cacheId,
-                'lastMod'   => $lastMod,
-                'files'     => $assets,
-                'path'      => $this->path,
-                'extension' => $extension
-            ];
-
-            $this->putCache($cacheId, $cacheInfo);
-        }
-
-        return $this->getCombinedUrl($cacheInfo['version']);
+        return $this;
     }
 
     /**
-     * Returns the URL used for accessing the combined files.
-     * @param string $outputFilename A custom file name to use.
-     * @return string
+     * Clears any registered aliases.
+     * @param string $extension Extension name. Eg: css
+     * @return Self
      */
-    protected function getCombinedUrl($outputFilename = 'undefined.css')
+    public function resetAliases($extension = null)
     {
-        $combineAction = 'System\Classes\Controller@combine';
-        $actionExists = Route::getRoutes()->getByAction($combineAction) !== null;
-
-        if ($actionExists) {
-            return URL::action($combineAction, [$outputFilename], false);
+        if ($extension === null) {
+            $this->aliases = [];
         }
         else {
-            return Request::getBasePath().'/combine/'.$outputFilename;
+            $this->aliases[$extension] = [];
         }
+
+        return $this;
     }
 
     /**
-     * Returns the combined contents from a prepared cache identifier.
-     * @return string Combined file contents.
+     * Returns aliases.
+     * @param string $extension Extension name. Eg: css
+     * @return Self
      */
-    protected function prepareCombiner(array $assets)
+    public function getAliases($extension = null)
     {
-        $files = [];
-        $filesSalt = null;
-        foreach ($assets as $asset) {
-            $filters = $this->getFilters(File::extension($asset));
-            $path = File::symbolizePath($asset) ?: $this->path . $asset;
-            $files[] = new FileAsset($path, $filters, public_path());
-            $filesSalt .= $this->path . $asset;
+        if ($extension === null) {
+            return $this->aliases;
         }
-        $filesSalt = md5($filesSalt);
-
-        $cache = new FilesystemCache($this->storagePath);
-        $collection = new AssetCollection($files, [], $filesSalt);
-        $collection->setTargetPath($this->getTargetPath());
-
-        // @todo - Remove, this cache step is too hardcore.
-        // if (!$this->useCache)
-        //     return $collection;
-
-        $cachedCollection = new AssetCache($collection, $cache);
-        return $cachedCollection;
+        elseif (isset($this->aliases[$extension])) {
+            return $this->aliases[$extension];
+        }
+        else {
+            return null;
+        }
     }
 
-    /**
-     * Returns the target path for use with the combiner. The target
-     * path helps generate relative links within CSS.
-     *
-     * /combine              returns combine/
-     * /index.php/combine    returns index-php/combine/
-     *
-     * @return string The new target path
-     */
-    protected function getTargetPath($path = null)
-    {
-        if ($path === null) {
-            $baseUri = substr(Request::getBaseUrl(), strlen(Request::getBasePath()));
-            $path = $baseUri.'/combine';
-        }
-
-        if (strpos($path, '/') === 0) {
-            $path = substr($path, 1);
-        }
-
-        $path = str_replace('.', '-', $path).'/';
-        return $path;
-    }
+    //
+    // Cache
+    //
 
     /**
      * Stores information about a asset collection against
