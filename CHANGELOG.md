@@ -1,5 +1,6 @@
-* **Build 17x** (2015-01-xx)
+* **Build 175** (2015-01-13)
   - The variable `errors` will be included in a CMS page when redirecting via `Redirect::withErrors($validator)`.
+  - Added new utility command for compiling back-end assets `october:util compile [assets|js|less]`.
 
 * **Build 174** (2015-01-05)
   - Improved asset caching (`cms.enableAssetCache`), when enabled the server will send a *304 Not Modified* header.
