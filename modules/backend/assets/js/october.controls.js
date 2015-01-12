@@ -46,7 +46,10 @@
             return state.text
         }
 
-        $('select.custom-select').select2({
+        $('select.custom-select:not([data-no-auto-update-on-render=true])').select2({
+            // The data-no-auto-update-on-render attribute allows to disable the 
+            // selec2 automatic initialization for edge cases.
+
             formatResult: formatSelectOption,
             formatSelection: formatSelectOption,
             escapeMarkup: function(m) { return m; }

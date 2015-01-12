@@ -166,7 +166,7 @@
 
     Inspector.prototype.init = function() {
         // Exit if there are no properties
-        if (this.config.length == 0)
+        if (!this.config || this.config.length == 0)
             return
 
         var self = this,
@@ -736,6 +736,13 @@
         })
 
         $('[data-toggle=tooltip]', this.$el.data('oc.popover').$container).tooltip('hide')
+
+        if (!e.isDefaultPrevented())  {
+            $.each(this.editors, function() {
+                if (this.cleanup)
+                    this.cleanup()
+            })
+        }
     }
 
     Inspector.prototype.editorExternalPropertyEnabled = function(editor) {
@@ -970,6 +977,8 @@
         var value = this.inspector.readProperty(this.fieldDef.property),
             self = this
 
+        $(this.selector).attr('data-no-auto-update-on-render', 'true')
+
         $(this.selector).val(value)
 
         if (!Modernizr.touch) {
@@ -1081,6 +1090,10 @@
 
     InspectorEditorDropdown.prototype.onHideExternalParameterEditor = function() {
         this.loadOptions(false)
+    }
+
+    InspectorEditorDropdown.prototype.cleanup = function() {
+        $(this.selector).select2('destroy')
     }
 
     $.oc.inspector.editors.inspectorEditorDropdown = InspectorEditorDropdown;

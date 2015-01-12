@@ -212,6 +212,9 @@
     }
 
     Scrollbar.prototype.update = function() {
+        if (!this.$scrollbar)
+            return
+
         this.$scrollbar.hide()
         this.setThumbSize()
         this.setThumbPosition()

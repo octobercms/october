@@ -13833,12 +13833,20 @@ html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-contain
   line-height: 29px;
   padding-left: 12px;
   padding-right: 3px;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
 }
 .inspector-fields div.custom-select.select2-container .select2-choice.select2-default {
-  font-weight: normal!Important;
+  font-weight: normal!important;
 }
 .inspector-fields div.custom-select.select2-container .loading-indicator > span {
   top: 15px;
+}
+.inspector-fields div.custom-select.select2-container.select2-dropdown-open {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
 }
 .inspector-fields div.custom-select.select2-container.select2-dropdown-open .select2-choice {
   background: white;

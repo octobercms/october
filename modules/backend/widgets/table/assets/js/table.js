@@ -259,7 +259,11 @@
             scrollbarContent = document.createElement('div')
 
         scrollbar.setAttribute('class', 'control-scrollbar')
-        scrollbar.setAttribute('style', 'height: ' + this.options.height + 'px')
+
+        if (this.options.dynamicHeight)
+            scrollbar.setAttribute('style', 'max-height: ' + this.options.height + 'px')
+        else
+            scrollbar.setAttribute('style', 'height: ' + this.options.height + 'px')
 
         scrollbar.appendChild(scrollbarContent)
         this.tableContainer.appendChild(scrollbar)
@@ -992,7 +996,8 @@
         deleting: true,
         toolbar: true,
         rowSorting: false,
-        height: false
+        height: false,
+        dynamicHeight: false
     }
 
     // TABLE PLUGIN DEFINITION

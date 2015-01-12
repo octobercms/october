@@ -176,6 +176,7 @@ The widget is configured with YAML file. Required parameters:
 * `deleting` - indicates if record deleting is allowed, default is **true**.
 * `toolbar` - specifies if the toolbar should be visible, default is **true**.
 * `height` - specifies the data table height, in pixels. The default value is **false** - the height is not limited.
+* `dynamicHeight` - determines if the `height` parameter should work as a max height. When this option is enabled and the table height is less than the `height` value, it won't be scrollable.
 
 The `dataSource` parameter can take aliases for some data source classes for the simpler configuration syntax. Known aliases are:
 

@@ -108,6 +108,7 @@ class Table extends WidgetBase
         $this->vars['deleting'] = $this->getConfig('deleting', true);
         $this->vars['toolbar'] = $this->getConfig('toolbar', true);
         $this->vars['height'] = $this->getConfig('height', false) ?: 'false';
+        $this->vars['dynamicHeight'] = $this->getConfig('dynamicHeight', false) ?: 'false';
 
         $isClientDataSource = $this->isClientDataSource();
 
