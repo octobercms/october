@@ -95,6 +95,9 @@ this.toolbar.appendChild(deleteButton)}
 this.tableContainer.appendChild(this.toolbar)}
 Table.prototype.buildScrollbar=function(){var scrollbar=document.createElement('div'),scrollbarContent=document.createElement('div')
 scrollbar.setAttribute('class','control-scrollbar')
+if(this.options.dynamicHeight)
+scrollbar.setAttribute('style','max-height: '+this.options.height+'px')
+else
 scrollbar.setAttribute('style','height: '+this.options.height+'px')
 scrollbar.appendChild(scrollbarContent)
 this.tableContainer.appendChild(scrollbar)
@@ -364,7 +367,7 @@ Table.prototype.setCellValue=function(cellElement,value){var dataContainer=cellE
 if(dataContainer.value!=value){dataContainer.value=value
 this.markCellRowDirty(cellElement)
 this.notifyRowProcessorsOnChange(cellElement)}}
-Table.DEFAULTS={clientDataSourceClass:'client',keyColumn:'id',recordsPerPage:false,data:null,postback:true,postbackHandlerName:'onSave',adding:true,deleting:true,toolbar:true,rowSorting:false,height:false}
+Table.DEFAULTS={clientDataSourceClass:'client',keyColumn:'id',recordsPerPage:false,data:null,postback:true,postbackHandlerName:'onSave',adding:true,deleting:true,toolbar:true,rowSorting:false,height:false,dynamicHeight:false}
 var old=$.fn.table
 $.fn.table=function(option){var args=Array.prototype.slice.call(arguments,1),result=undefined
 this.each(function(){var $this=$(this)
