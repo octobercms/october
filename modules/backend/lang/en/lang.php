@@ -102,7 +102,11 @@ return [
             'list_title' => 'Manage Groups',
             'new' => 'New Administrator Group',
             'delete_confirm' => 'Do you really want to delete this administrator group?',
-            'return' => 'Return to the group list'
+            'return' => 'Return to the group list',
+            'description_field' => 'Description',
+            'is_new_user_default_field' => 'Add new administrators to this group by default',
+            'code_field' => 'Code',
+            'code_comment' => 'Enter a unique code if you want to access it with the API.'
         ],
         'preferences' => [
             'not_authenticated' => 'There is no an authenticated user to load or save preferences for.'
