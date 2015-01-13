@@ -40,7 +40,8 @@ trait AssetMaker
         }
         $result = null;
         $reserved = ['build'];
-        $pathCache = [];
+
+        $this->removeDuplicates();
 
         if ($type == null || $type == 'css') {
             foreach ($this->assets['css'] as $asset) {
@@ -48,16 +49,10 @@ trait AssetMaker
                 /*
                  * Prevent duplicates
                  */
-                $path = $this->getAssetEntryBuildPath($asset);
-                if (isset($pathCache[$path])) {
-                    continue;
-                }
-                $pathCache[$path] = true;
-
                 $attributes = HTML::attributes(array_merge(
                     [
                         'rel'  => 'stylesheet',
-                        'href' => $path
+                        'href' => $this->getAssetEntryBuildPath($asset)
                     ],
                     array_except($asset['attributes'], $reserved)
                 ));
@@ -68,20 +63,10 @@ trait AssetMaker
 
         if ($type == null || $type == 'rss') {
             foreach ($this->assets['rss'] as $asset) {
-
-                /*
-                 * Prevent duplicates
-                 */
-                $path = $this->getAssetEntryBuildPath($asset);
-                if (isset($pathCache[$path])) {
-                    continue;
-                }
-                $pathCache[$path] = true;
-
                 $attributes = HTML::attributes(array_merge(
                     [
                         'rel'   => 'alternate',
-                        'href'  => $path,
+                        'href'  => $this->getAssetEntryBuildPath($asset),
                         'title' => 'RSS',
                         'type'  => 'application/rss+xml'
                     ],
@@ -94,19 +79,9 @@ trait AssetMaker
 
         if ($type == null || $type == 'js') {
             foreach ($this->assets['js'] as $asset) {
-
-                /*
-                 * Prevent duplicates
-                 */
-                $path = $this->getAssetEntryBuildPath($asset);
-                if (isset($pathCache[$path])) {
-                    continue;
-                }
-                $pathCache[$path] = true;
-
                 $attributes = HTML::attributes(array_merge(
                     [
-                        'src' => $path
+                        'src' => $this->getAssetEntryBuildPath($asset)
                     ],
                     array_except($asset['attributes'], $reserved)
                 ));
@@ -202,6 +177,8 @@ trait AssetMaker
      */
     public function getAssetPaths()
     {
+        $this->removeDuplicates();
+
         $assets = [];
         foreach ($this->assets as $type => $collection) {
             $assets[$type] = [];
@@ -209,6 +186,7 @@ trait AssetMaker
                 $assets[$type][] = $this->getAssetEntryBuildPath($asset);
             }
         }
+
         return $assets;
     }
 
@@ -297,5 +275,31 @@ trait AssetMaker
         }
 
         return $asset;
+    }
+
+    /**
+     * Removes duplicate assets from the entire collection.
+     * @return void
+     */
+    protected function removeDuplicates()
+    {
+        foreach ($this->assets as $type => &$collection) {
+
+            $pathCache = [];
+            foreach ($collection as $key => $asset) {
+
+                if (!$path = array_get($asset, 'path')) {
+                    continue;
+                }
+
+                if (isset($pathCache[$path])) {
+                    array_forget($collection, $key);
+                    continue;
+                }
+
+                $pathCache[$path] = true;
+            }
+
+        }
     }
 }
