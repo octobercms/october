@@ -91,7 +91,9 @@
 
         $('#cms-master-tabs').on('beforeClose.oc.tab', function(event){
             // Dispose data table widgets
-            $('[data-control=table]', event.relatedTarget).table('dispose')
+
+            if ($.fn.table !== undefined)
+                $('[data-control=table]', event.relatedTarget).table('dispose')
         })
 
         /*
