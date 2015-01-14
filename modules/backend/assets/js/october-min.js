@@ -17,7 +17,7 @@ return'<i class="select-icon '+iconClass+'"></i> '+state.text
 if(imageSrc)
 return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+state.text
 return state.text}
-$('select.custom-select').select2({formatResult:formatSelectOption,formatSelection:formatSelectOption,escapeMarkup:function(m){return m;}})})
+$('select.custom-select:not([data-no-auto-update-on-render=true])').select2({formatResult:formatSelectOption,formatSelection:formatSelectOption,escapeMarkup:function(m){return m;}})})
 $(document).on('disable','select.custom-select',function(event,status){$(this).select2('enable',!status)})
 $(document).on('focus','select.custom-select',function(event){setTimeout($.proxy(function(){$(this).select2('focus')},this),10)})})(jQuery);$(window).on('ajaxErrorMessage',function(event,message){swal({title:message,confirmButtonClass:'btn-default'})
 event.preventDefault()})
@@ -765,7 +765,9 @@ self.endScrollTimeout=undefined},50)}else{$el.trigger('oc.scrollEnd')}
 return scrolled}
 setTimeout(function(){self.update()},1);}
 Scrollbar.DEFAULTS={vertical:true,scrollSpeed:2,animation:true,start:function(){},drag:function(){},stop:function(){}}
-Scrollbar.prototype.update=function(){this.$scrollbar.hide()
+Scrollbar.prototype.update=function(){if(!this.$scrollbar)
+return
+this.$scrollbar.hide()
 this.setThumbSize()
 this.setThumbPosition()
 this.$scrollbar.show()}
@@ -1381,7 +1383,7 @@ Inspector.prototype.getPopoverTemplate=function(){return'                       
                     </table>                                                                                          \
                 <form>                                                                                                \
             '}
-Inspector.prototype.init=function(){if(this.config.length==0)
+Inspector.prototype.init=function(){if(!this.config||this.config.length==0)
 return
 var self=this,fieldsConfig=this.preprocessConfig(),data={title:this.title?this.title:this.$el.data('inspector-title'),description:this.description?this.description:this.$el.data('inspector-description'),properties:fieldsConfig.properties,editor:function(){return function(text,render){if(this.itemType=='property')
 return self.renderEditor(this,render)}},info:function(){return function(text,render){if(this.description!==undefined&&this.description!=null)
@@ -1589,7 +1591,9 @@ e.preventDefault()
 var self=this
 setTimeout(function(){self.focus()},0)
 return false})
-$('[data-toggle=tooltip]',this.$el.data('oc.popover').$container).tooltip('hide')}
+$('[data-toggle=tooltip]',this.$el.data('oc.popover').$container).tooltip('hide')
+if(!e.isDefaultPrevented()){$.each(this.editors,function(){if(this.cleanup)
+this.cleanup()})}}
 Inspector.prototype.editorExternalPropertyEnabled=function(editor){var $container=this.$el.data('inspector-container'),$cell=$('#'+editor.inspectorCellId,$container),$extPropEditorContainer=$cell.find('.external-param-editor-container')
 return $extPropEditorContainer.hasClass('editor-visible')}
 Inspector.prototype.findEditor=function(property){var count=this.editors.length
@@ -1678,6 +1682,7 @@ InspectorEditorDropdown.prototype.getTemplate=function(){return'                
             </td>                                                   \
         ';}
 InspectorEditorDropdown.prototype.init=function(){var value=this.inspector.readProperty(this.fieldDef.property),self=this
+$(this.selector).attr('data-no-auto-update-on-render','true')
 $(this.selector).val(value)
 if(!Modernizr.touch){var options={dropdownCssClass:'ocInspectorDropdown'}
 if(this.fieldDef.placeholder!==undefined)
@@ -1722,6 +1727,7 @@ self.initialization=false
 self.hideLoadingIndicator()},error:function(jqXHR,textStatus,errorThrown){alert(jqXHR.responseText.length?jqXHR.responseText:jqXHR.statusText)
 self.hideLoadingIndicator()}})}
 InspectorEditorDropdown.prototype.onHideExternalParameterEditor=function(){this.loadOptions(false)}
+InspectorEditorDropdown.prototype.cleanup=function(){$(this.selector).select2('destroy')}
 $.oc.inspector.editors.inspectorEditorDropdown=InspectorEditorDropdown;function initInspector($element){var inspector=$element.data('oc.inspector')
 if(inspector===undefined){inspector=new Inspector($element.get(0),$element.data())
 inspector.loadConfiguration(function(){inspector.init()})
