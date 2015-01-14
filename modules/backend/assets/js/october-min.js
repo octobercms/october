@@ -1073,9 +1073,11 @@ this.init()}
 SidePanelTab.prototype.init=function(){var self=this
 this.tabOpenDelay=200
 this.tabOpenTimeout=undefined
-this.$sideNavItems=$('#layout-sidenav ul li')
+this.panelOpenTimeout=undefined
+this.$sideNav=$('#layout-sidenav')
+this.$sideNavItems=$('ul li',this.$sideNav)
 this.$sidePanelItems=$('[data-content-id]',this.$el)
-this.sideNavWidth=$('#layout-sidenav ul li').outerWidth()
+this.sideNavWidth=this.$sideNavItems.outerWidth()
 this.mainNavHeight=$('#layout-mainmenu').outerHeight()
 this.panelVisible=false
 this.visibleItemId=false
@@ -1088,8 +1090,8 @@ return}else
 self.displaySidePanel()}
 self.displayTab(this)
 return false})
-if(!Modernizr.touch){$('#layout-sidenav').mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed())
-self.displaySidePanel()})
+if(!Modernizr.touch){self.$sideNav.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){self.panelOpenTimeout=setTimeout(function(){self.displaySidePanel()},self.tabOpenDelay)}})
+self.$sideNav.mouseleave(function(){clearTimeout(self.panelOpenTimeout)})
 self.$el.mouseleave(function(){self.hideSidePanel()})
 self.$sideNavItems.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){var _this=this
 self.tabOpenTimeout=setTimeout(function(){self.displayTab(_this)},self.tabOpenDelay)}})
