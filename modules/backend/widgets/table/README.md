@@ -285,7 +285,7 @@ The client-side validation is configured in the widget configuration file in the
         validation:
             required:
                 message: Please select the state
-                applyIfNotEmpty: country
+                requiredWith: country
 
 If a validator doesn't have any options (or default option values should be used), the declaration could look like this:
 
@@ -295,7 +295,7 @@ If a validator doesn't have any options (or default option values should be used
         validation:
             required: {}
 
-The `applyIfNotEmpty` and `message` parameters are common for all validators.
+The `requiredWith` and `message` parameters are common for all validators.
 
 Currently implemented client-side validation rules:
 

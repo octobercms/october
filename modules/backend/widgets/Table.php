@@ -129,11 +129,7 @@ class Table extends WidgetBase
     {
         $this->addCss('css/table.css', 'core');
 
-        // Include a combined and minified script.
-        // TODO: At the moment the files are combined with 
-        // CodeKit 2, but we should have a method to
-        // combine files without external dependencies. -ab
-        $this->addJs('js/table-min.js', 'core');
+        $this->addJs('js/build-min.js', 'core');
 
         /*
         $this->addJs('js/table.js', 'core');

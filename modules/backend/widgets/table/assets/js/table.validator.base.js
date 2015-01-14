@@ -30,7 +30,7 @@
      * target row.
      */
     Base.prototype.validate = function(value, rowData) {
-        if (this.options.applyIfNotEmpty !== undefined && !this.rowHasValue(this.options.applyIfNotEmpty, rowData))
+        if (this.options.requiredWith !== undefined && !this.rowHasValue(this.options.requiredWith, rowData))
             return
 
         return this.validateValue(value, rowData)
