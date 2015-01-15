@@ -172,6 +172,7 @@ return [
         'saved'=> "A sablon mentése sikerült."
     ],
     'permissions' => [
+        'name' => 'CMS',
         'manage_content' => 'Tartalom kezelése',
         'manage_assets' => 'Eszközök kezelése',
         'manage_pages' => 'Lapok kezelése',
