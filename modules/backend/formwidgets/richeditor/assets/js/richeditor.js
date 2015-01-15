@@ -63,7 +63,7 @@
             blurCallback: function() { self.$el.removeClass('editor-focus') },
             keydownCallback: function(e) { return self.keydown(e, this.$editor) },
             enterCallback: function(e) { return self.enter(e, this.$editor) },
-            initCallback: function() { self.build() },
+            initCallback: function() { self.build(this) },
             changeCallback: function() {
                 self.sanityCheckContent(this.$editor)
                 this.$editor.trigger('mutate')
@@ -87,13 +87,20 @@
         this.$textarea.redactor(redactorOptions)
     }
 
-    RichEditor.prototype.build = function() {
+    RichEditor.prototype.build = function(redactor) {
         this.updateLayout()
 
         $(window).resize($.proxy(this.updateLayout, this))
         $(window).on('oc.updateUi', $.proxy(this.updateLayout, this))
 
         this.$textarea.trigger('init.oc.richeditor', [this.$el])
+
+        var self = this
+        redactor.default = {
+            onShow: function($figure, $toolbar) {
+                self.onShowFigureToolbar($figure, $toolbar)
+            }
+        }
     }
 
     RichEditor.prototype.updateLayout = function() {
@@ -147,6 +154,14 @@
 
         if (e.isDefaultPrevented())
             return false
+    }
+
+    RichEditor.prototype.onShowFigureToolbar = function($figure, $toolbar) {
+        // Deal with the case when the toolbar top has negative 
+        // value
+        var toolbarTop = $figure.position().top - $toolbar.height() - 10
+
+        $toolbar.toggleClass('bottom', toolbarTop < 0)
     }
 
     // RICHEDITOR PLUGIN DEFINITION

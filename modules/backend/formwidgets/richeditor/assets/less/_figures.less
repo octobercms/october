@@ -172,6 +172,22 @@
         display: block;
     }
 
+    .oc-figure-controls.bottom {
+        bottom: -50px;
+        top: auto;
+
+        &:after {
+            bottom: auto;
+            top: -10px;
+        }
+
+        &:before {
+            .triangle(up, 17px, 9px, #2b3e50)!important;
+            border-top: none;
+            top: -8px;
+        }
+    }
+
     .oc-figure-controls span {
         display: inline-block;
         border: none;

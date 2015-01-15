@@ -1026,6 +1026,25 @@ body .redactor-box-fullscreen {
 .redactor-box figure:hover .oc-figure-controls {
   display: block;
 }
+.redactor-box .oc-figure-controls.bottom {
+  bottom: -50px;
+  top: auto;
+}
+.redactor-box .oc-figure-controls.bottom:after {
+  bottom: auto;
+  top: -10px;
+}
+.redactor-box .oc-figure-controls.bottom:before {
+  content: '' !important;
+  display: block !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-left: 8.5px solid transparent !important;
+  border-right: 8.5px solid transparent !important;
+  border-bottom: 9px solid #2b3e50 !important;
+  border-top: none;
+  top: -8px;
+}
 .redactor-box .oc-figure-controls span {
   display: inline-block;
   border: none;

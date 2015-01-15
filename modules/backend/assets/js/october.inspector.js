@@ -602,11 +602,11 @@
         }
     }
 
-    Inspector.prototype.readProperty = function(property) {
+    Inspector.prototype.readProperty = function(property, returnUndefined) {
         if (this.propertyValues[property] !== undefined)
             return this.propertyValues[property]
 
-        return null
+        return returnUndefined ? undefined : null
     }
 
     Inspector.prototype.writeProperty = function(property, value, noChangedStatusUpdate) {
@@ -864,7 +864,8 @@
     }
 
     InspectorEditorCheckbox.prototype.renderEditor = function() {
-        var data = {
+        var self = this,
+            data = {
                 id: this.editorId,
                 cbId: this.editorId + '-cb',
                 title: this.fieldDef.title
@@ -874,12 +875,24 @@
     }
 
     InspectorEditorCheckbox.prototype.init = function() {
-       var isChecked =  this.inspector.readProperty(this.fieldDef.property)
+        var isChecked = this.inspector.readProperty(this.fieldDef.property, true)
 
-        if (isChecked == '0' || isChecked == 'false')
-            isChecked = false
+        if (isChecked === undefined) {
+            if (this.fieldDef.placeholder !== undefined) {
+                isChecked = this.normalizeCheckedValue(this.fieldDef.placeholder)
+            }
+        } else {
+            isChecked = this.normalizeCheckedValue(isChecked)
+        }
         
         $(this.selector).prop('checked', isChecked)
+    }
+
+    InspectorEditorCheckbox.prototype.normalizeCheckedValue = function(value) {
+         if (value == '0' || value == 'false')
+            return false
+
+        return value
     }
 
     InspectorEditorCheckbox.prototype.focus = function() {

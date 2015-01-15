@@ -86,7 +86,7 @@
         },
 
         hideToolbar: function (event) {
-            $(event.currentTarget).find('.oc-figure-controls').appendTo(this.redactor.$box).hide()
+           $(event.currentTarget).find('.oc-figure-controls').appendTo(this.redactor.$box).hide()
         },
 
         observeToolbars: function () {

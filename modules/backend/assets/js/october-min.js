@@ -1532,9 +1532,9 @@ properties[matches[1]]=attribute.value}
 this.propertyValues=properties}else{var propertyValuesStr=$.trim(this.propertyValuesField.val())
 this.propertyValues=propertyValuesStr.length===0?{}:$.parseJSON(propertyValuesStr)}
 try{this.originalPropertyValues=$.extend(true,{},this.propertyValues)}catch(err){throw new Error('Error parsing the Inspector property values string. '+err)}}
-Inspector.prototype.readProperty=function(property){if(this.propertyValues[property]!==undefined)
+Inspector.prototype.readProperty=function(property,returnUndefined){if(this.propertyValues[property]!==undefined)
 return this.propertyValues[property]
-return null}
+return returnUndefined?undefined:null}
 Inspector.prototype.writeProperty=function(property,value,noChangedStatusUpdate){this.propertyValues[property]=value
 if(this.propertyValuesField.length)
 this.propertyValuesField.val(JSON.stringify(this.propertyValues))
@@ -1631,12 +1631,14 @@ this.selector='#'+this.editorId+' input'
 var self=this
 $(document).on('change',this.selector,function(){self.applyValue()})}
 InspectorEditorCheckbox.prototype.applyValue=function(){this.inspector.writeProperty(this.fieldDef.property,$(this.selector).get(0).checked?1:0)}
-InspectorEditorCheckbox.prototype.renderEditor=function(){var data={id:this.editorId,cbId:this.editorId+'-cb',title:this.fieldDef.title}
+InspectorEditorCheckbox.prototype.renderEditor=function(){var self=this,data={id:this.editorId,cbId:this.editorId+'-cb',title:this.fieldDef.title}
 return Mustache.render(this.getTemplate(),data)}
-InspectorEditorCheckbox.prototype.init=function(){var isChecked=this.inspector.readProperty(this.fieldDef.property)
-if(isChecked=='0'||isChecked=='false')
-isChecked=false
+InspectorEditorCheckbox.prototype.init=function(){var isChecked=this.inspector.readProperty(this.fieldDef.property,true)
+if(isChecked===undefined){if(this.fieldDef.placeholder!==undefined){isChecked=this.normalizeCheckedValue(this.fieldDef.placeholder)}}else{isChecked=this.normalizeCheckedValue(isChecked)}
 $(this.selector).prop('checked',isChecked)}
+InspectorEditorCheckbox.prototype.normalizeCheckedValue=function(value){if(value=='0'||value=='false')
+return false
+return value}
 InspectorEditorCheckbox.prototype.focus=function(){$(this.selector).closest('div').focus()}
 InspectorEditorCheckbox.prototype.getTemplate=function(){return'                                              \
             <td id="{{id}}">                                  \
