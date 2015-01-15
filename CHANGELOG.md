@@ -1,3 +1,6 @@
+* **Build 17x** (2015-01-xx)
+  - The collapsed back-end side navigation now has a less annoying 200ms delay.
+
 * **Build 175** (2015-01-13)
   - The variable `errors` will be included in a CMS page when redirecting via `Redirect::withErrors($validator)`.
   - Added new utility command for compiling back-end assets `october:util compile [assets|js|less]`.
