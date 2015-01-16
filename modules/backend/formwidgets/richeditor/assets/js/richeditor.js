@@ -139,7 +139,27 @@
         }
 
         this.$textarea.trigger('syncBefore.oc.richeditor', [container])
-        return container.html
+
+        var $domTree = $('<div>'+container.html+'</div>')
+
+        // This code removes Redactor-specific attributes and tags from the code.
+        // It seems to be a known problem with Redactor, try googling for 
+        // "data-redactor-tag" or "redactor-invisible-space" (with quotes)
+        $('*', $domTree).removeAttr('data-redactor-tag')
+
+        $domTree.find('span[data-redactor-class="redactor-invisible-space"]').each(function(){
+            $(this).children().insertBefore(this)
+            $(this).remove()
+        })
+
+        $domTree.find('span.redactor-invisible-space').each(function(){
+            $(this).children().insertBefore(this)
+            $(this).remove()
+        })
+
+        $domTree.find('div.oc-figure-controls').remove()
+
+        return $domTree.html()
     }
 
     RichEditor.prototype.keydown = function(e, $editor) {
