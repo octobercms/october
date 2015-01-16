@@ -1005,6 +1005,7 @@ class Lists extends WidgetBase
          */
         if ($this->sortColumn === null || !$this->isSortable($this->sortColumn)) {
             $columns = $this->visibleColumns ?: $this->getVisibleListColumns();
+            $columns = array_filter($columns, function($column){ return $column->sortable; });
             $this->sortColumn = key($columns);
             $this->sortDirection = 'desc';
         }
@@ -1035,15 +1036,9 @@ class Lists extends WidgetBase
         }
 
         $columns = $this->getColumns();
-        $sortable = [];
-
-        foreach ($columns as $column) {
-            if (!$column->sortable) {
-                continue;
-            }
-
-            $sortable[$column->columnName] = $column;
-        }
+        $sortable = array_filter($columns, function($column){
+            return $column->sortable;
+        });
 
         return $this->sortableColumns = $sortable;
     }
