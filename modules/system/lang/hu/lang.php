@@ -114,6 +114,7 @@ return [
         'smtp_password' => 'Jelszó',
         'smtp_port' => 'SMTP port',
         'smtp_ssl' => 'SSL-kapcsolat szükséges',
+        'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail elérési útja',
         'sendmail_path_comment' => 'Adja meg a Sendmail program elérési útját.',
 		'mailgun' => 'Mailgun',
@@ -170,6 +171,7 @@ return [
         'core_build_new_help' => 'Elérhető a legújabb build.',
         'core_downloading' => 'Alkalmazásfájlok letöltése...',
         'core_extracting' => 'Alkalmazásfájlok kicsomagolása...',
+        'plugins' => 'Bővítmények',
         'plugin_downloading' => 'Bővítmény letöltése: :name',
         'plugin_extracting' => 'Bővítmény kicsomagolása: :name',
         'plugin_version_none' => 'Új bővítmény',
@@ -242,6 +244,7 @@ return [
         'status_code' => 'Állapot',
     ],
     'permissions' => [
+        'name' => 'Rendszer',
         'manage_system_settings' => 'Rendszerbeállítások kezelése',
         'manage_software_updates' => 'Szoftverfrissítések kezelése',
         'manage_mail_templates' => 'Levélsablonok kezelése',
