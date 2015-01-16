@@ -1,4 +1,4 @@
-* **Build 17x** (2015-01-xx)
+* **Build 178** (2015-01-16)
   - The collapsed back-end side navigation now has a less annoying 200ms delay.
 
 * **Build 175** (2015-01-13)
