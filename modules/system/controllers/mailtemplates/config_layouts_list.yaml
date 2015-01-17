@@ -7,7 +7,8 @@ list: @/modules/system/models/maillayout/columns.yaml
 modelClass: System\Models\MailLayout
 recordUrl: system/maillayouts/update/:id
 noRecordsMessage: backend::lang.list.no_records
-showSetup: false
+recordsPerPage: 20
+showSetup: true
 
 toolbar:
     buttons: list_layouts_toolbar
