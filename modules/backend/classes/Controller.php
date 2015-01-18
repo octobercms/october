@@ -158,6 +158,16 @@ class Controller extends Extendable
         $this->params = $params;
 
         /*
+         * Extensibility
+         */
+        if (
+            ($event = $this->fireEvent('page.beforeDisplay', [$action, $params], true)) ||
+            ($event = Event::fire('backend.page.beforeDisplay', [$this, $action, $params], true))
+        ) {
+            return $event;
+        }
+
+        /*
          * Determine if this request is a public action.
          */
         $isPublicAction = in_array($action, $this->publicActions);
