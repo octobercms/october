@@ -329,16 +329,6 @@ class Controller extends BaseController
         $result = $template->render($this->vars);
         CmsException::unmask();
 
-        /*
-         * Extensibility
-         */
-        if (
-            ($event = $this->fireEvent('page.display', [$url, $page], true)) ||
-            ($event = Event::fire('cms.page.display', [$this, $url, $page], true))
-        ) {
-            return $event;
-        }
-
         if (!is_string($result)) {
             return $result;
         }
