@@ -301,20 +301,23 @@ class Controller extends BaseController
         }
 
         /*
-         * Render the page
+         * Extensibility
          */
-        Event::fire('cms.page.beforeTwigRender', [$page, $this->loader, $this->twig], true);
-
-        $apiResult = Event::fire('cms.page.getRenderedContents', [$this->page], true);
-        if (!strlen($apiResult)) {
+        if (
+            ($event = $this->fireEvent('page.beforeRenderPage', [$page], true)) ||
+            ($event = Event::fire('cms.page.beforeRenderPage', [$this, $page], true))
+        ) {
+            $this->pageContents = $event;
+        }
+        else {
+            /*
+             * Render the page
+             */
             CmsException::mask($this->page, 400);
             $this->loader->setObject($this->page);
             $template = $this->twig->loadTemplate($this->page->getFullPath());
             $this->pageContents = $template->render($this->vars);
             CmsException::unmask();
-        }
-        else {
-            $this->pageContents = $apiResult;
         }
 
         /*
@@ -932,6 +935,15 @@ class Controller extends BaseController
     public function getTwig()
     {
         return $this->twig;
+    }
+
+    /**
+     * Returns the Twig loader.
+     * @return Cms\Twig\Loader
+     */
+    public function getLoader()
+    {
+        return $this->loader;
     }
 
     /**
