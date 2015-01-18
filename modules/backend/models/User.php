@@ -78,6 +78,10 @@ class User extends UserBase
      */
     public function getAvatarThumb($size = 25, $default = null)
     {
+        if (!$default) {
+            $default = 'mm'; // Mystery man
+        }
+
         if ($this->avatar) {
             return $this->avatar->getThumb($size, $size);
         }
