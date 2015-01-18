@@ -423,7 +423,7 @@ class Controller extends Extendable
                 );
             }
             catch (Exception $ex) {
-                return Response::make(ApplicationException::getDetailedMessage($ex));
+                return Response::make(ApplicationException::getDetailedMessage($ex), 500);
             }
         }
 
