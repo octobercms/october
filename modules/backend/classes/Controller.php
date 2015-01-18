@@ -5,6 +5,7 @@ use Log;
 use Lang;
 use View;
 use Flash;
+use Event;
 use Request;
 use Backend;
 use Session;
