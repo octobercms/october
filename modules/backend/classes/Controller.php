@@ -170,14 +170,18 @@ class Controller extends Extendable
          */
         if (!$isPublicAction) {
 
-            // Not logged in, redirect to login screen or show ajax error
+            /*
+             * Not logged in, redirect to login screen or show ajax error.
+             */
             if (!BackendAuth::check()) {
                 return Request::ajax()
                     ? Response::make(Lang::get('backend::lang.page.access_denied.label'), 403)
                     : Redirect::guest(Backend::url('backend/auth'));
             }
 
-            // Check his access groups against the page definition
+            /*
+             * Check access groups against the page definition
+             */
             if ($this->requiredPermissions && !$this->user->hasAnyAccess($this->requiredPermissions)) {
                 return Response::make(View::make('backend::access_denied'), 403);
             }

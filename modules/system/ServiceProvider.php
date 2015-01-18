@@ -202,12 +202,12 @@ class ServiceProvider extends ModuleServiceProvider
          */
         BackendAuth::registerCallback(function ($manager) {
             $manager->registerPermissions('October.System', [
-                'system.manage_settings' => [
-                    'label' => 'system::lang.permissions.manage_system_settings',
-                    'tab' => 'system::lang.permissions.name'
-                ],
                 'system.manage_updates' => [
                     'label' => 'system::lang.permissions.manage_software_updates',
+                    'tab' => 'system::lang.permissions.name'
+                ],
+                'system.manage_mail_settings' => [
+                    'label' => 'system::lang.permissions.manage_mail_settings',
                     'tab' => 'system::lang.permissions.name'
                 ],
                 'system.manage_mail_templates' => [
@@ -307,6 +307,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_MAIL,
                     'icon'        => 'icon-envelope',
                     'class'       => 'System\Models\MailSettings',
+                    'permissions' => ['system.manage_mail_settings'],
                     'order'       => 400,
                 ],
                 'mail_templates' => [
@@ -315,6 +316,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_MAIL,
                     'icon'        => 'icon-envelope-square',
                     'url'         => Backend::url('system/mailtemplates'),
+                    'permissions' => ['system.manage_mail_templates'],
                     'order'       => 500,
                 ],
             ]);
