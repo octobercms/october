@@ -1,3 +1,6 @@
+* **Build 179** (2015-01-18)
+  - The Settings page is no longer governed by a global permission, each settings entry should have its own permission definition.
+
 * **Build 178** (2015-01-16)
   - The collapsed back-end side navigation now has a less annoying 200ms delay.
 
