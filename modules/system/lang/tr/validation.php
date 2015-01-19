@@ -11,14 +11,6 @@ return array(
     | the validator class. Some of these rules have multiple versions such
     | such as the size rules. Feel free to tweak each of these messages.
     |
-
-    **
-     * Laravel - A PHP Framework For Web Artisans
-     *
-     * @package  Language
-     * @version  4.x
-     * @author   Sinan Eldem <sinan@sinaneldem.com.tr>
-     * @link     http://sinaneldem.com.tr
     */
 
     "accepted"       => ":attribute kabul edilmelidir.",
@@ -66,9 +58,7 @@ return array(
     "required"       => ":attribute alanı gereklidir.",
     "required_if"      => ":attribute alanı, :other :value değerine sahip olduğunda zorunludur.",
     "required_with"   => ":attribute alanı :values varken zorunludur.",
-    "required_with_all" => ":attribute alanı :values varken zorunludur.",
     "required_without" => ":attribute alanı :values yokken zorunludur.",
-    "required_without_all" => ":attribute alanı :values yokken zorunludur.",
     "same"           => ":attribute ile :other eşleşmelidir.",
     "size"           => array(
         "numeric" => ":attribute :size olmalıdır.",
