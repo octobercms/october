@@ -8,7 +8,7 @@ modelClass: System\Models\MailTemplate
 recordUrl: system/mailtemplates/update/:id
 noRecordsMessage: backend::lang.list.no_records
 recordsPerPage: 20
-showSetup: false
+showSetup: true
 
 toolbar:
     buttons: list_templates_toolbar

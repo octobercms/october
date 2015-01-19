@@ -84,14 +84,6 @@ class Auth extends Controller
         // Log the sign in event
         AccessLog::add($user);
 
-        // User cannot access the dashboard
-        if (!$user->hasAccess('backend.access_dashboard')) {
-            $true = function(){ return true; };
-            if ($first = array_first(BackendMenu::listMainMenuItems(), $true)) {
-                return Redirect::intended($first->url);
-            }
-        }
-
         // Redirect to the intended page after successful sign in
         return Redirect::intended(Backend::url('backend'));
     }

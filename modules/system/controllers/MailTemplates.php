@@ -43,12 +43,6 @@ class MailTemplates extends Controller
 
     public function index()
     {
-        /* @todo Remove lines if year >= 2015 */
-        if (!\System\Models\MailLayout::whereCode('default')->count()) {
-            \Eloquent::unguard();
-            with(new \System\Database\Seeds\SeedSetupMailLayouts)->run();
-        }
-
         MailTemplate::syncAll();
         $this->asExtension('ListController')->index();
         $this->bodyClass = 'compact-container';

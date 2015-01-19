@@ -24,7 +24,7 @@ class Settings extends Controller
      */
     protected $formWidget;
 
-    public $requiredPermissions = ['system.manage_settings'];
+    public $requiredPermissions = [];
 
     public function __construct()
     {
