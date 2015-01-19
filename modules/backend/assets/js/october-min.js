@@ -1537,6 +1537,12 @@ try{this.originalPropertyValues=$.extend(true,{},this.propertyValues)}catch(err)
 Inspector.prototype.readProperty=function(property,returnUndefined){if(this.propertyValues[property]!==undefined)
 return this.propertyValues[property]
 return returnUndefined?undefined:null}
+Inspector.prototype.getDefaultValue=function(property){for(var index in this.config){var propertyInfo=this.config[index]
+if(propertyInfo.itemType!=='property')
+continue
+if(propertyInfo.property==property)
+return propertyInfo.default}
+return undefined}
 Inspector.prototype.writeProperty=function(property,value,noChangedStatusUpdate){this.propertyValues[property]=value
 if(this.propertyValuesField.length)
 this.propertyValuesField.val(JSON.stringify(this.propertyValues))
@@ -1685,7 +1691,9 @@ InspectorEditorDropdown.prototype.getTemplate=function(){return'                
                 </select>                                           \
             </td>                                                   \
         ';}
-InspectorEditorDropdown.prototype.init=function(){var value=this.inspector.readProperty(this.fieldDef.property),self=this
+InspectorEditorDropdown.prototype.init=function(){var value=this.inspector.readProperty(this.fieldDef.property,true),self=this
+if(value===undefined)
+value=this.inspector.getDefaultValue(this.fieldDef.property)
 $(this.selector).attr('data-no-auto-update-on-render','true')
 $(this.selector).val(value)
 if(!Modernizr.touch){var options={dropdownCssClass:'ocInspectorDropdown'}
@@ -1710,7 +1718,12 @@ InspectorEditorDropdown.prototype.showLoadingIndicator=function(){if(!Modernizr.
 this.indicatorContainer.loadIndicator({'opaque':true})}
 InspectorEditorDropdown.prototype.hideLoadingIndicator=function(){if(!Modernizr.touch)
 this.indicatorContainer.loadIndicator('hide')}
-InspectorEditorDropdown.prototype.loadOptions=function(initialization){var $form=$(this.selector).closest('form'),data=this.inspector.propertyValues,$select=$(this.selector),currentValue=this.inspector.readProperty(this.fieldDef.property),self=this
+InspectorEditorDropdown.prototype.loadOptions=function(initialization){var $form=$(this.selector).closest('form'),data=this.inspector.propertyValues,$select=$(this.selector),currentValue=this.inspector.readProperty(this.fieldDef.property,true),self=this
+if(currentValue===undefined)
+currentValue=this.inspector.getDefaultValue(this.fieldDef.property)
+for(var index in this.inspector.config){var propertyInfo=this.inspector.config[index]
+if(propertyInfo.itemType=='property'){if(data[propertyInfo.property]===undefined)
+data[propertyInfo.property]=this.inspector.getDefaultValue(propertyInfo.property)}}
 if(this.fieldDef.depends)
 this.saveDependencyValues()
 data.inspectorProperty=this.fieldDef.property

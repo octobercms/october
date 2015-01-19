@@ -28,6 +28,7 @@
  *   - validationPattern (regex pattern for for validating the value, supported by the text editor)
  *   - validationMessage (a message to display if the validation fails)
  *   - placeholder - placholder text, for text and dropdown properties
+ *   - default - default option for dropdown properties
  *   - depends - a list of properties the property depend on, for dropdown lists
  *   - options - an option list for dropdown lists, optional. If not provided the options are loaded with AJAX.
  *   - showExternalParam - specifies the visibility of the external parameter feature for the property. Default: true.
@@ -609,6 +610,20 @@
         return returnUndefined ? undefined : null
     }
 
+    Inspector.prototype.getDefaultValue = function(property) {
+        for (var index in this.config) {
+            var propertyInfo = this.config[index]
+
+            if (propertyInfo.itemType !== 'property')
+                continue
+
+            if (propertyInfo.property == property)
+                return propertyInfo.default
+        }
+
+        return undefined
+    }
+
     Inspector.prototype.writeProperty = function(property, value, noChangedStatusUpdate) {
         this.propertyValues[property] = value
 
@@ -987,8 +1002,11 @@
     }
 
     InspectorEditorDropdown.prototype.init = function() {
-        var value = this.inspector.readProperty(this.fieldDef.property),
+        var value = this.inspector.readProperty(this.fieldDef.property, true),
             self = this
+
+        if (value === undefined)
+            value = this.inspector.getDefaultValue(this.fieldDef.property)
 
         $(this.selector).attr('data-no-auto-update-on-render', 'true')
 
@@ -1058,8 +1076,20 @@
         var $form = $(this.selector).closest('form'),
             data = this.inspector.propertyValues,
             $select = $(this.selector),
-            currentValue = this.inspector.readProperty(this.fieldDef.property),
+            currentValue = this.inspector.readProperty(this.fieldDef.property, true),
             self = this
+
+        if (currentValue === undefined)
+            currentValue = this.inspector.getDefaultValue(this.fieldDef.property)
+
+        for (var index in this.inspector.config) {
+            var propertyInfo = this.inspector.config[index]
+
+            if (propertyInfo.itemType == 'property') {
+                if (data[propertyInfo.property] === undefined)
+                    data[propertyInfo.property] = this.inspector.getDefaultValue(propertyInfo.property)
+            }
+        }
 
         if (this.fieldDef.depends)
             this.saveDependencyValues()

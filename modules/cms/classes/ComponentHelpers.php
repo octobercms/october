@@ -13,22 +13,25 @@ class ComponentHelpers
     /**
      * Returns a component property configuration as a JSON string.
      * @param mixed $component The component object
+     * @param boolean $addAliasProperty Determines if the Alias property should be added to the result.
      * @return string 
      */
-    public static function getComponentsPropertyConfig($component)
+    public static function getComponentsPropertyConfig($component, $addAliasProperty = true)
     {
         $result = [];
 
-        $property = [
-            'property'              => 'oc.alias',
-            'title'                 => Lang::get('cms::lang.component.alias'),
-            'description'           => Lang::get('cms::lang.component.alias_description'),
-            'type'                  => 'string',
-            'validationPattern'     => '^[a-zA-Z]+[0-9a-z\_]*$',
-            'validationMessage'     => Lang::get('cms::lang.component.validation_message'),
-            'showExternalParam'     => false
-        ];
-        $result[] = $property;
+        if ($addAliasProperty) {
+            $property = [
+                'property'              => 'oc.alias',
+                'title'                 => Lang::get('cms::lang.component.alias'),
+                'description'           => Lang::get('cms::lang.component.alias_description'),
+                'type'                  => 'string',
+                'validationPattern'     => '^[a-zA-Z]+[0-9a-z\_]*$',
+                'validationMessage'     => Lang::get('cms::lang.component.validation_message'),
+                'showExternalParam'     => false
+            ];
+            $result[] = $property;
+        }
 
         $properties = $component->defineProperties();
         foreach ($properties as $name => $params) {
