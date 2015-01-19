@@ -2,6 +2,7 @@
 
 use Str;
 use HTML;
+use Model;
 
 /**
  * Form Field definition
@@ -102,7 +103,7 @@ class FormField
      * @var string Specifies a comment to accompany the field
      */
     public $comment;
-    
+
     /**
      * @var string Specifies the comment position.
      */
