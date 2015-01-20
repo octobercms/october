@@ -81,7 +81,6 @@ return array(
     |
     */
 
-    'key' => 'raErOH3b5yOHtpSK',
     //'key' => 'CHANGE_ME!!!',
 
     'cipher' => MCRYPT_RIJNDAEL_128,
