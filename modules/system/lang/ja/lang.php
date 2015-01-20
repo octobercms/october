@@ -18,6 +18,7 @@ return [
         'ro' => 'Romana',
         'pt-br' => 'Brazilian Portuguese',
         'fa' => 'Persian',
+        'pl' => 'Polish',
     ],
     'directory' => [
         'create_fail' => "ディレクトリーが作成できません： :name",
