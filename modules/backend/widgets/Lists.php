@@ -544,7 +544,8 @@ class Lists extends WidgetBase
                 ));
             }
 
-            foreach ($this->columnOverride as $columnName) {
+            $availableColumns = array_intersect($this->columnOverride, array_keys($definitions));
+            foreach ($availableColumns as $columnName) {
                 $definitions[$columnName]->invisible = false;
                 $columns[$columnName] = $definitions[$columnName];
             }
