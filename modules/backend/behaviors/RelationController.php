@@ -375,7 +375,9 @@ class RelationController extends ControllerBehavior
         $this->vars['relationType'] = $this->relationType;
         $this->vars['relationSearchWidget'] = $this->searchWidget;
         $this->vars['relationToolbarWidget'] = $this->toolbarWidget;
+        $this->vars['relationManageMode'] = $this->manageMode;
         $this->vars['relationManageWidget'] = $this->manageWidget;
+        $this->vars['relationViewMode'] = $this->viewMode;
         $this->vars['relationViewWidget'] = $this->viewWidget;
         $this->vars['relationPivotWidget'] = $this->pivotWidget;
         $this->vars['relationSessionKey'] = $this->relationGetSessionKey();
@@ -454,16 +456,44 @@ class RelationController extends ControllerBehavior
     //
     // Overrides
     //
-    
+
     /**
      * Controller override: Extend the query used for populating the list
      * after the default query is processed.
      * @param October\Rain\Database\Builder $query
      * @param string $field
-     * @param string $manageMode
      */
-    public function relationExtendQuery($query, $field, $manageMode) 
+    public function relationExtendQuery($query, $field)
     {
+    }
+
+    //
+    // AJAX (Buttons)
+    //
+
+    public function onRelationButtonAdd()
+    {
+        return $this->onRelationManageForm();
+    }
+
+    public function onRelationButtonCreate()
+    {
+        return $this->onRelationManageForm();
+    }
+
+    public function onRelationButtonDelete()
+    {
+        return $this->onRelationManageDelete();
+    }
+
+    public function onRelationButtonRemove()
+    {
+        return $this->onRelationManageRemove();
+    }
+
+    public function onRelationButtonUpdate()
+    {
+        return $this->onRelationManageForm();
     }
 
     //
@@ -491,12 +521,23 @@ class RelationController extends ControllerBehavior
     public function onRelationManageCreate()
     {
         $this->beforeAjax();
-
         $saveData = $this->manageWidget->getSaveData();
-        $newModel = $this->relationObject->create($saveData, $this->relationGetSessionKey(true));
-        $newModel->commitDeferred($this->manageWidget->getSessionKey());
 
-        return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
+        if ($this->viewMode == 'multi') {
+            $newModel = $this->relationObject->create($saveData, $this->relationGetSessionKey(true));
+            $newModel->commitDeferred($this->manageWidget->getSessionKey());
+        }
+        elseif ($this->viewMode == 'single') {
+            $this->viewWidget->setFormValues($saveData);
+            $this->viewWidget->model->save();
+        }
+
+        $result = ['#'.$this->relationGetId('view') => $this->relationRenderView()];
+        if ($toolbar = $this->relationRenderToolbar()) {
+            $result['#'.$this->relationGetId('toolbar')] = $toolbar;
+        }
+
+        return $result;
     }
 
     /**
@@ -505,9 +546,16 @@ class RelationController extends ControllerBehavior
     public function onRelationManageUpdate()
     {
         $this->beforeAjax();
-
         $saveData = $this->manageWidget->getSaveData();
-        $this->relationObject->find($this->manageId)->save($saveData, $this->manageWidget->getSessionKey());
+
+        if ($this->viewMode == 'multi') {
+            $model = $this->relationObject->find($this->manageId);
+            $model->save($saveData, $this->manageWidget->getSessionKey());
+        }
+        elseif ($this->viewMode == 'single') {
+            $this->viewWidget->setFormValues($saveData);
+            $this->viewWidget->model->save();
+        }
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
@@ -519,18 +567,40 @@ class RelationController extends ControllerBehavior
     {
         $this->beforeAjax();
 
-        if (($checkedIds = post('checked')) && is_array($checkedIds)) {
-            $relatedModel = $this->relationObject->getRelated();
-             foreach ($checkedIds as $relationId) {
-                if (!$obj = $relatedModel->find($relationId)) {
-                    continue;
-                }
+        /*
+         * Multiple (has many, belongs to many)
+         */
+        if ($this->viewMode == 'multi') {
+            if (($checkedIds = post('checked')) && is_array($checkedIds)) {
+                $relatedModel = $this->relationObject->getRelated();
+                 foreach ($checkedIds as $relationId) {
+                    if (!$obj = $relatedModel->find($relationId)) {
+                        continue;
+                    }
 
-                $obj->delete();
+                    $obj->delete();
+                }
             }
         }
+        /*
+         * Single (belongs to, has one)
+         */
+        elseif ($this->viewMode == 'single') {
+            $relatedModel = $this->viewWidget->model;
+            if ($relatedModel->exists) {
+                $relatedModel->delete();
+            }
 
-        return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
+            $this->viewWidget->setFormValues([]);
+            $this->viewWidget->model = $this->relationModel;
+        }
+
+        $result = ['#'.$this->relationGetId('view') => $this->relationRenderView()];
+        if ($toolbar = $this->relationRenderToolbar()) {
+            $result['#'.$this->relationGetId('toolbar')] = $toolbar;
+        }
+
+        return $result;
     }
 
     /**
@@ -715,7 +785,7 @@ class RelationController extends ControllerBehavior
              */
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
             $widget->bindEvent('list.extendQuery', function ($query) {
-                $this->controller->relationExtendQuery($query, $this->field, $this->manageMode);
+                $this->controller->relationExtendQuery($query, $this->field);
 
                 $this->relationObject->setQuery($query);
                 if ($this->model->exists) {
@@ -744,13 +814,18 @@ class RelationController extends ControllerBehavior
          * Single (belongs to, has one)
          */
         elseif ($this->viewMode == 'single') {
+            $query = $this->relationObject;
+            $this->controller->relationExtendQuery($query, $this->field);
+            $model = $query->getResults() ?: $this->relationModel;
+
             $config = $this->makeConfig($this->config->form);
-            $config->model = $this->relationModel;
+            $config->model = $model;
             $config->arrayName = class_basename($this->relationModel);
             $config->context = 'relation';
             $config->alias = $this->alias . 'ViewForm';
 
             $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+            $widget->previewMode = true;
         }
 
         return $widget;
@@ -836,7 +911,7 @@ class RelationController extends ControllerBehavior
          */
         if ($this->manageMode == 'pivot' || $this->manageMode == 'list') {
             $widget->bindEvent('list.extendQuery', function ($query) {
-                $this->controller->relationExtendQuery($query, $this->field, $this->manageMode);
+                $this->controller->relationExtendQuery($query, $this->field);
 
                 /*
                  * Where not in the current list of related records
