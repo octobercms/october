@@ -422,8 +422,8 @@ class Controller extends BaseController
         /*
          * Extensibility
          */
-
-        Event::fire('cms.page.initComponents', [$this, $this->page]);
+        $this->fireEvent('page.initComponents', [$this->page, $this->layout]);
+        Event::fire('cms.page.initComponents', [$this, $this->page, $this->layout]);
     }
 
     /**
