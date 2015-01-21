@@ -408,6 +408,12 @@ class Controller extends BaseController
 
             $this->addComponent($name, $alias, $properties);
         }
+
+        /*
+         * Extensibility
+         */
+
+        Event::fire('cms.page.initComponents', [$this, $this->page]);
     }
 
     /**
@@ -747,7 +753,6 @@ class Controller extends BaseController
             if ($partial === null) {
                 $partial = ComponentPartial::loadCached($componentObj, $partialName);
             }
-
 
             if ($partial === null) {
                 if ($throwException) {

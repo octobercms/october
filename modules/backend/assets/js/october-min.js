@@ -1527,10 +1527,14 @@ Inspector.prototype.groupExpanded=function(title){var statuses=this.loadGroupExp
 if(statuses[title]!==undefined)
 return statuses[title]
 return false}
+Inspector.prototype.normalizePropertyCode=function(code){var lowerCaseCode=code.toLowerCase()
+for(var index in this.config){var propertyInfo=this.config[index]
+if(propertyInfo.property.toLowerCase()==lowerCaseCode)
+return propertyInfo.property}
+return code}
 Inspector.prototype.initProperties=function(){if(!this.propertyValuesField.length){var properties={},attributes=this.$el.get(0).attributes
 for(var i=0,len=attributes.length;i<len;i++){var attribute=attributes[i],matches=[]
-if(matches=attribute.name.match(/^data-property-(.*)$/))
-properties[matches[1]]=attribute.value}
+if(matches=attribute.name.match(/^data-property-(.*)$/)){properties[this.normalizePropertyCode(matches[1])]=attribute.value}}
 this.propertyValues=properties}else{var propertyValuesStr=$.trim(this.propertyValuesField.val())
 this.propertyValues=propertyValuesStr.length===0?{}:$.parseJSON(propertyValuesStr)}
 try{this.originalPropertyValues=$.extend(true,{},this.propertyValues)}catch(err){throw new Error('Error parsing the Inspector property values string. '+err)}}
@@ -1617,8 +1621,10 @@ $(document).on('focus',this.selector,function(){var $field=$(this)
 $('td',$field.closest('table')).removeClass('active')
 $field.closest('td').addClass('active')})
 $(document).on('change',this.selector,function(){self.applyValue()})}
-InspectorEditorString.prototype.init=function(){var value=$.trim(this.inspector.readProperty(this.fieldDef.property))
-$(this.selector).val(value)}
+InspectorEditorString.prototype.init=function(){var value=this.inspector.readProperty(this.fieldDef.property,true)
+if(value===undefined)
+value=this.inspector.getDefaultValue(this.fieldDef.property)
+$(this.selector).val($.trim(value))}
 InspectorEditorString.prototype.applyValue=function(){this.inspector.writeProperty(this.fieldDef.property,$.trim($(this.selector).val()))}
 InspectorEditorString.prototype.renderEditor=function(){var data={id:this.editorId,placeholder:this.fieldDef.placeholder!==undefined?this.fieldDef.placeholder:''}
 return Mustache.render('<td class="text" id="{{id}}"><input type="text" class="string-editor" placeholder="{{placeholder}}"/></td>',data)}
@@ -1642,7 +1648,7 @@ InspectorEditorCheckbox.prototype.applyValue=function(){this.inspector.writeProp
 InspectorEditorCheckbox.prototype.renderEditor=function(){var self=this,data={id:this.editorId,cbId:this.editorId+'-cb',title:this.fieldDef.title}
 return Mustache.render(this.getTemplate(),data)}
 InspectorEditorCheckbox.prototype.init=function(){var isChecked=this.inspector.readProperty(this.fieldDef.property,true)
-if(isChecked===undefined){if(this.fieldDef.placeholder!==undefined){isChecked=this.normalizeCheckedValue(this.fieldDef.placeholder)}}else{isChecked=this.normalizeCheckedValue(isChecked)}
+if(isChecked===undefined){if(this.fieldDef.default!==undefined){isChecked=this.normalizeCheckedValue(this.fieldDef.default)}}else{isChecked=this.normalizeCheckedValue(isChecked)}
 $(this.selector).prop('checked',isChecked)}
 InspectorEditorCheckbox.prototype.normalizeCheckedValue=function(value){if(value=='0'||value=='false')
 return false

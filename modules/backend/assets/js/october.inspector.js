@@ -28,7 +28,7 @@
  *   - validationPattern (regex pattern for for validating the value, supported by the text editor)
  *   - validationMessage (a message to display if the validation fails)
  *   - placeholder - placholder text, for text and dropdown properties
- *   - default - default option for dropdown properties
+ *   - default - default value
  *   - depends - a list of properties the property depend on, for dropdown lists
  *   - options - an option list for dropdown lists, optional. If not provided the options are loaded with AJAX.
  *   - showExternalParam - specifies the visibility of the external parameter feature for the property. Default: true.
@@ -575,6 +575,19 @@
         return false
     }
 
+    Inspector.prototype.normalizePropertyCode = function(code) {
+        var lowerCaseCode = code.toLowerCase()
+
+        for (var index in this.config) {
+            var propertyInfo = this.config[index]
+
+            if (propertyInfo.property.toLowerCase() == lowerCaseCode)
+                return propertyInfo.property
+        }
+
+        return code
+    }
+
     Inspector.prototype.initProperties = function() {
         if (!this.propertyValuesField.length) {
             // Load property valies from data-property-xxx attributes
@@ -585,8 +598,9 @@
                 var attribute = attributes[i],
                     matches = []
 
-                if (matches = attribute.name.match(/^data-property-(.*)$/))
-                    properties[matches[1]] = attribute.value
+                if (matches = attribute.name.match(/^data-property-(.*)$/)) {
+                    properties[this.normalizePropertyCode(matches[1])] = attribute.value
+                }
             }
 
             this.propertyValues = properties
@@ -819,8 +833,12 @@
     }
 
     InspectorEditorString.prototype.init = function() {
-        var value = $.trim(this.inspector.readProperty(this.fieldDef.property))
-        $(this.selector).val(value)
+        var value = this.inspector.readProperty(this.fieldDef.property, true)
+
+        if (value === undefined) 
+            value = this.inspector.getDefaultValue(this.fieldDef.property)
+
+        $(this.selector).val($.trim(value))
     }
 
     InspectorEditorString.prototype.applyValue = function() {
@@ -893,8 +911,8 @@
         var isChecked = this.inspector.readProperty(this.fieldDef.property, true)
 
         if (isChecked === undefined) {
-            if (this.fieldDef.placeholder !== undefined) {
-                isChecked = this.normalizeCheckedValue(this.fieldDef.placeholder)
+            if (this.fieldDef.default !== undefined) {
+                isChecked = this.normalizeCheckedValue(this.fieldDef.default)
             }
         } else {
             isChecked = this.normalizeCheckedValue(isChecked)

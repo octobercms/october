@@ -11,12 +11,13 @@ use Lang;
 class ComponentHelpers
 {
     /**
-     * Returns a component property configuration as a JSON string.
+     * Returns a component property configuration as a JSON string or array.
      * @param mixed $component The component object
      * @param boolean $addAliasProperty Determines if the Alias property should be added to the result.
+     * @param boolean $returnArray Determines if the method should return an array.
      * @return string 
      */
-    public static function getComponentsPropertyConfig($component, $addAliasProperty = true)
+    public static function getComponentsPropertyConfig($component, $addAliasProperty = true, $returnArray = false)
     {
         $result = [];
 
@@ -70,6 +71,9 @@ class ComponentHelpers
 
             $result[] = $property;
         }
+
+        if ($returnArray)
+            return $result;
 
         return json_encode($result);
     }
