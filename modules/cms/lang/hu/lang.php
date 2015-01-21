@@ -3,23 +3,23 @@
 return [
     'cms_object' => [
         'invalid_file' => 'Érvénytelen fájlnév. A fájlnevek csak alfanumerikus szimbólumokat, aláhúzásjeleket, kötőjeleket és pontokat tartalmazhatnak. Néhány példa a megfelelő fájlnévre: page.htm, page, subdirectory/page',
-        'invalid_property' => 'A(z) ":name" tulajdonság nem állítható be',
-        'file_already_exists' => 'Már létezik ":name" nevű fájl.',
-        'error_saving' => 'Hiba a(z) ":name" fájl mentésekor. Ellenőrizze az írási engedélyeket.',
+        'invalid_property' => "A(z) ':name' tulajdonság nem állítható be",
+        'file_already_exists' => "Már létezik ':name' nevű fájl.",
+        'error_saving' => "Hiba a(z) ':name' fájl mentésekor. Ellenőrizze az írási engedélyeket.",
         'error_creating_directory' => 'Hiba a(z) :name könyvtár létrehozásakor. Ellenőrizze az írási engedélyeket.',
         'invalid_file_extension'=>'Érvénytelen fájlkiterjesztés: :invalid. Az engedélyezett kiterjesztések: :allowed.',
-        'error_deleting' => 'Hiba a(z) ":name" sablonfájl törlésekor. Ellenőrizze az írási engedélyeket.',
+        'error_deleting' => "Hiba a(z) ':name' sablonfájl törlésekor. Ellenőrizze az írási engedélyeket.",
         'delete_success' => 'A sablonok törlése sikerült: :count.',
         'file_name_required' => 'A Fájlnév mező kitöltése kötelező.'
     ],
     'theme' => [
         'active' => [
-            'not_set' => "Nincs beállítva az aktív téma.",
-            'not_found' => "Az aktív téma nem található.",
+            'not_set' => 'Nincs beállítva az aktív téma.',
+            'not_found' => 'Az aktív téma nem található.',
         ],
         'edit' => [
-            'not_set' => "Nincs beállítva a szerkesztés alatt lévő téma.",
-            'not_found' => "A szerkesztés alatt lévő téma nem található.",
+            'not_set' => 'Nincs beállítva a szerkesztés alatt lévő téma.',
+            'not_found' => 'A szerkesztés alatt lévő téma nem található.',
             'not_match' => "Az objektum, melyhez hozzáférni próbál, nem a szerkesztés alatt lévő témához tartozik. Töltse újra a lapot."
         ],
         'settings_menu' => 'Felhasználói oldal témája',
@@ -37,12 +37,12 @@ return [
     ],
     'page' => [
         'not_found' => [
-            'label' => "A lap nem található",
-            'help' => "A kért lap nem található.",
+            'label' => 'A lap nem található',
+            'help' => 'A kért lap nem található.',
         ],
         'custom_error' => [
-            'label' => "Laphiba",
-            'help' => "Sajnos valami elromlott, és a lap nem jeleníthető meg.",
+            'label' => 'Laphiba',
+            'help' => 'Sajnos valami elromlott, és a lap nem jeleníthető meg.',
         ],
         'menu_label' => 'Lapok',
         'unsaved_label' => 'Nem mentett lap(ok)',
@@ -63,7 +63,7 @@ return [
         'delete_confirm_single' => 'Valóban törölni akarja ezt az elrendezést?'
     ],
     'partial' => [
-        'invalid_name' => "Érvénytelen részlapnév: :name.",
+        'invalid_name' => 'Érvénytelen részlapnév: :name.',
         'not_found' => "A(z) ':name' részlap nem található.",
         'menu_label' => 'Részlapok',
         'unsaved_label' => 'Nem mentett részlap(ok)',
@@ -82,11 +82,11 @@ return [
         'new' => 'Új tartalomfájl'
     ],
     'ajax_handler' => [
-        'invalid_name' => "Érvénytelen AJAX-kezelő név: :name.",
+        'invalid_name' => 'Érvénytelen AJAX-kezelő név: :name.',
         'not_found' => "A(z) ':name' AJAX-kezelő nem található.",
     ],
     'cms' => [
-        'menu_label' => "CMS"
+        'menu_label' => 'CMS'
     ],
     'sidebar' => [
         'add' => 'Hozzáadás',
@@ -113,7 +113,7 @@ return [
         'exit_fullscreen' => 'Kilépés a teljes képernyős módból'
     ],
     'asset' => [
-        'menu_label' => "Eszközök",
+        'menu_label' => 'Eszközök',
         'unsaved_label' => 'Nem mentett eszköz(ök)',
         'drop_down_add_title' => 'Hozzáadás...',
         'drop_down_operation_title' => 'Művelet...',
@@ -141,7 +141,7 @@ return [
         'too_large' => 'A feltöltött fájl túl nagy. A maximálisan engedélyezett fájlméret :max_size',
         'type_not_allowed' => 'Csak a következő fájltípusok engedélyezettek: :allowed_types',
         'file_not_valid' => 'A fájl nem érvényes',
-        'error_uploading_file' => 'Hiba a(z) ":name" fájl feltöltésekor: :error',
+        'error_uploading_file' => "Hiba a(z) ':name' fájl feltöltésekor: :error",
         'move_please_select' => 'válasszon',
         'move_destination' => 'Célkönyvtár',
         'move_popup_title' => 'Eszközök áthelyezése',
@@ -155,21 +155,21 @@ return [
         'path' => 'Elérési út'
     ],
     'component' => [
-        'menu_label' => "Komponensek",
-        'unnamed' => "Névtelen",
-        'no_description' => "Nincs megadott leírás",
+        'menu_label' => 'Komponensek',
+        'unnamed' => 'Névtelen',
+        'no_description' => 'Nincs megadott leírás',
         'alias' => "Alias",
-        'alias_description' => "Ennek a komponensnek a lap vagy az elrendezés kódjában való használatkor adott egyedi név.",
-        'validation_message' => "A komponens aliasok kötelezőek, és csak latin szimbólumokat, számokat, valamint aláhúzásjeleket tartalmazhatnak. Az aliasoknak latin szimbólummal kell kezdődniük.",
-        'invalid_request' => "A sablon érvénytelen komponensadatok miatt nem menthető.",
+        'alias_description' => 'Ennek a komponensnek a lap vagy az elrendezés kódjában való használatkor adott egyedi név.',
+        'validation_message' => 'A komponens aliasok kötelezőek, és csak latin szimbólumokat, számokat, valamint aláhúzásjeleket tartalmazhatnak. Az aliasoknak latin szimbólummal kell kezdődniük.',
+        'invalid_request' => 'A sablon érvénytelen komponensadatok miatt nem menthető.',
         'no_records' => 'Nem találhatók komponensek',
         'not_found' => "A(z) ':name' komponens nem található.",
         'method_not_found' => "A(z) ':name' komponens nem tartalmaz egy ':method' metódust.",
     ],
     'template' => [
-        'invalid_type' => "Ismeretlen sablontípus.",
-        'not_found' => "A kért sablon nem található.",
-        'saved'=> "A sablon mentése sikerült."
+        'invalid_type' => 'Ismeretlen sablontípus.',
+        'not_found' => 'A kért sablon nem található.',
+        'saved'=> 'A sablon mentése sikerült.'
     ],
     'permissions' => [
         'name' => 'CMS',
