@@ -95,7 +95,7 @@ class RecordFinder extends FormWidgetBase
 
         if (!$this->model->hasRelation($this->relationName)) {
             throw new SystemException(Lang::get('backend::lang.model.missing_relation', [
-                'class' => get_class($this->controller),
+                'class' => get_class($this->model),
                 'relation' => $this->relationName
             ]));
         }
