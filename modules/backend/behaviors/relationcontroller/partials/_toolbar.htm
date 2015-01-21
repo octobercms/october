@@ -10,7 +10,7 @@
         <?= $this->relationMakePartial('button_add') ?>
         <?= $this->relationMakePartial('button_remove') ?>
 
-    <?php elseif ($relationType == 'belongsToTODO'): ?>
+    <?php elseif ($relationType == 'belongsTo'): ?>
 
         <?= $this->relationMakePartial('button_link') ?>
         <?= $this->relationMakePartial('button_unlink') ?>

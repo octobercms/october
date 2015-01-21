@@ -1,5 +1,5 @@
-<?= Form::open() ?>
-    <div data-request-data="_relation_field: '<?= $relationField ?>'">
+<div id="relationManagePopup" data-request-data="_relation_field: '<?= $relationField ?>'">
+    <?= Form::open() ?>
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="popup">&times;</button>
             <h4 class="modal-title"><?= e(trans('backend::lang.relation.add_a_new', ['name'=>$relationLabel])) ?></h4>
@@ -13,14 +13,16 @@
         </div>
 
         <div class="modal-footer">
-            <button
-                type="button"
-                class="btn btn-primary"
-                data-request="onRelationManageAdd"
-                data-dismiss="popup"
-                data-stripe-load-indicator>
-                <?= e(trans('backend::lang.relation.add_selected')) ?>
-            </button>
+            <?php if ($relationManageWidget->showCheckboxes): ?>
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-request="onRelationManageAdd"
+                    data-dismiss="popup"
+                    data-stripe-load-indicator>
+                    <?= e(trans('backend::lang.relation.add_selected')) ?>
+                </button>
+            <?php endif ?>
             <button
                 type="button"
                 class="btn btn-default"
@@ -28,5 +30,5 @@
                 <?= e(trans('backend::lang.relation.cancel')) ?>
             </button>
         </div>
-    </div>
-<?= Form::close() ?>
+    <?= Form::close() ?>
+</div>

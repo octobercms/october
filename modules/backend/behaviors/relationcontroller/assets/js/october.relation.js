@@ -6,6 +6,20 @@
     var RelationBehavior = function() {
 
         this.clickManageListRecord = function(recordId, relationField, sessionKey) {
+            var oldPopup = $('#relationManagePopup')
+
+            $.request('onRelationManageAdd', {
+                data: {
+                    'record_id': recordId,
+                    '_relation_field': relationField,
+                    '_session_key': sessionKey
+                }
+            })
+
+            oldPopup.popup('hide')
+        }
+
+        this.clickViewListRecord = function(recordId, relationField, sessionKey) {
             var newPopup = $('<a />')
 
             newPopup.popup({
