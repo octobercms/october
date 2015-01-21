@@ -1,3 +1,6 @@
+* **Build 18x** (2015-01-xx)
+  - Relation Controller now supports *has one* and *belongs to* relations (see Backend > Relations docs).
+
 * **Build 179** (2015-01-18)
   - The Settings page is no longer governed by a global permission, each settings entry should have its own permission definition.
 
