@@ -3,61 +3,61 @@
 # ===================================
 
 fields:
-  first_name:
-    span: left
-    label: backend::lang.user.first_name
+    first_name:
+        span: left
+        label: backend::lang.user.first_name
 
-  last_name:
-    span: right
-    label: backend::lang.user.last_name
+    last_name:
+        span: right
+        label: backend::lang.user.last_name
 
-  login:
-    span: left
-    label: backend::lang.user.login
+    login:
+        span: left
+        label: backend::lang.user.login
 
-  email:
-    span: right
-    label: backend::lang.user.email
+    email:
+        span: right
+        label: backend::lang.user.email
 
-  password:
-    type: password
-    span: left
-    label: backend::lang.user.password
+    password:
+        type: password
+        span: left
+        label: backend::lang.user.password
 
-  password_confirmation:
-    type: password
-    span: right
-    label: backend::lang.user.password_confirmation
+    password_confirmation:
+        type: password
+        span: right
+        label: backend::lang.user.password_confirmation
 
-  send_invite:
-    context: create
-    type: checkbox
-    label: backend::lang.user.send_invite
-    comment: backend::lang.user.send_invite_comment
+    send_invite:
+        context: create
+        type: checkbox
+        label: backend::lang.user.send_invite
+        comment: backend::lang.user.send_invite_comment
 
 tabs:
-  fields:
+    fields:
 
-    permissions[superuser]:
-      context: [create, update]
-      tab: backend::lang.user.permissions
-      label: backend::lang.user.superuser
-      type: checkbox
-      comment: backend::lang.user.superuser_comment
+        permissions[superuser]:
+            context: [create, update]
+            tab: backend::lang.user.permissions
+            label: backend::lang.user.superuser
+            type: checkbox
+            comment: backend::lang.user.superuser_comment
 
-    groups:
-      context: [create, update]
-      tab: backend::lang.user.permissions
-      label: backend::lang.user.groups
-      commentAbove: backend::lang.user.groups_comment
-      type: checkboxlist
+        groups:
+            context: [create, update]
+            tab: backend::lang.user.permissions
+            label: backend::lang.user.groups
+            commentAbove: backend::lang.user.groups_comment
+            type: checkboxlist
 
 secondaryTabs:
-  fields:
+    fields:
 
-    avatar:
-      label: backend::lang.user.avatar
-      type: fileupload
-      mode: image
-      imageHeight: 260
-      imageWidth: 260
+        avatar:
+            label: backend::lang.user.avatar
+            type: fileupload
+            mode: image
+            imageHeight: 260
+            imageWidth: 260
