@@ -960,6 +960,17 @@ class Controller extends BaseController
     }
 
     /**
+     * Returns the CMS page object being processed by the controller.
+     * The object is not available on the early stages of the controller
+     * initialization.
+     * @return \Cms\Classes\Page Returns the Page object or null.
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
+
+    /**
      * Intended to be called from the page, returns the layout code base object.
      * @return \Cms\Classes\CodeBase
      */
