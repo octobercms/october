@@ -10,17 +10,22 @@
         <?= $this->relationMakePartial('button_add') ?>
         <?= $this->relationMakePartial('button_remove') ?>
 
-    <?php elseif ($relationType == 'belongsToTODO'): ?>
+    <?php elseif ($relationType == 'belongsTo'): ?>
 
         <?= $this->relationMakePartial('button_link') ?>
         <?= $this->relationMakePartial('button_unlink') ?>
 
-    <?php elseif ($relationType == 'hasOneTODO'): ?>
+    <?php elseif ($relationType == 'hasOne'): ?>
 
-        <?= $this->relationMakePartial('button_create') ?>
-        <?= $this->relationMakePartial('button_update') ?>
-        <?= $this->relationMakePartial('button_delete') ?>
+        <?php if ($relationViewWidget->model->exists): ?>
+            <?= $this->relationMakePartial('button_update', ['relationManageId' => $relationViewWidget->model->id]) ?>
+            <?= $this->relationMakePartial('button_delete') ?>
+        <?php else: ?>
+            <?= $this->relationMakePartial('button_create') ?>
+        <?php endif ?>
 
     <?php endif ?>
+
+
 
 </div>

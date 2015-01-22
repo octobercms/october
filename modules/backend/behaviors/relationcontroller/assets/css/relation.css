@@ -11,6 +11,9 @@
 .relation-behavior .control-list:last-child > table {
   margin-bottom: 0;
 }
+.relation-behavior.relation-view-single {
+  padding: 0 20px;
+}
 .relation-flush .relation-behavior {
   border-top: 0;
 }

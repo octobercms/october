@@ -1,6 +1,6 @@
 <div
     data-request-data="_relation_field: '<?= $relationField ?>'" id="<?= $this->relationGetId() ?>"
-    class="relation-behavior">
+    class="relation-behavior relation-view-<?= $relationViewMode ?>">
 
     <?php if ($toolbar = $this->relationRenderToolbar()): ?>
         <!-- Relation Toolbar -->
