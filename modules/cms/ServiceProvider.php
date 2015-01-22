@@ -41,7 +41,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'url'          => 'javascript:;',
                             'attributes'   => ['data-menu-item' => 'pages'],
                             'permissions'  => ['cms.manage_pages'],
-                            'counterLabel' => 'cms::lang.page.unsaved_label',
+                            'counterLabel' => 'cms::lang.page.unsaved_label'
                         ],
                         'partials' => [
                             'label'        => 'cms::lang.partial.menu_label',
@@ -49,7 +49,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'url'          => 'javascript:;',
                             'attributes'   => ['data-menu-item' => 'partials'],
                             'permissions'  => ['cms.manage_partials'],
-                            'counterLabel' => 'cms::lang.partial.unsaved_label',
+                            'counterLabel' => 'cms::lang.partial.unsaved_label'
                         ],
                         'layouts' => [
                             'label'        => 'cms::lang.layout.menu_label',
@@ -57,7 +57,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'url'          => 'javascript:;',
                             'attributes'   => ['data-menu-item' => 'layouts'],
                             'permissions'  => ['cms.manage_layouts'],
-                            'counterLabel' => 'cms::lang.layout.unsaved_label',
+                            'counterLabel' => 'cms::lang.layout.unsaved_label'
                         ],
                         'content' => [
                             'label'        => 'cms::lang.content.menu_label',
@@ -65,7 +65,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'url'          => 'javascript:;',
                             'attributes'   => ['data-menu-item' => 'content'],
                             'permissions'  => ['cms.manage_content'],
-                            'counterLabel' => 'cms::lang.content.unsaved_label',
+                            'counterLabel' => 'cms::lang.content.unsaved_label'
                         ],
                         'assets' => [
                             'label'        => 'cms::lang.asset.menu_label',
@@ -73,7 +73,7 @@ class ServiceProvider extends ModuleServiceProvider
                             'url'          => 'javascript:;',
                             'attributes'   => ['data-menu-item' => 'assets'],
                             'permissions'  => ['cms.manage_assets'],
-                            'counterLabel' => 'cms::lang.asset.unsaved_label',
+                            'counterLabel' => 'cms::lang.asset.unsaved_label'
                         ],
                         'components' => [
                             'label'       => 'cms::lang.component.menu_label',
@@ -146,7 +146,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_CMS,
                     'icon'        => 'icon-plug',
                     'class'       => 'Cms\Models\MaintenanceSettings',
-                    'order'       => 400,
+                    'order'       => 400
                 ],
             ]);
         });
