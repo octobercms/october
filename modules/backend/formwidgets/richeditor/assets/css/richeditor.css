@@ -19,6 +19,7 @@
   overflow: visible;
   background: #fff;
   margin-bottom: 24px;
+  color: #000;
 }
 .redactor-box iframe,
 .redactor-box textarea {
