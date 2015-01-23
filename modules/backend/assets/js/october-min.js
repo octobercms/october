@@ -110,7 +110,7 @@ if(!data)$this.data('oc.triggerOn',(data=new TriggerOn(this,options)))})}
 $.fn.triggerOn.Constructor=TriggerOn
 $.fn.triggerOn.noConflict=function(){$.fn.triggerOn=old
 return this}
-$(document).ready(function(){$('[data-trigger]').triggerOn()})}(window.jQuery);+function($){"use strict";var DragScroll=function(element,options){this.options=$.extend({},DragScroll.DEFAULTS,options)
+$(document).render(function(){$('[data-trigger]').triggerOn()})}(window.jQuery);+function($){"use strict";var DragScroll=function(element,options){this.options=$.extend({},DragScroll.DEFAULTS,options)
 var
 $el=$(element),el=$el.get(0),dragStart=0,startOffset=0,self=this,dragging=false,eventElementName=this.options.vertical?'pageY':'pageX';this.el=$el
 this.scrollClassContainer=this.options.scrollClassContainer?$(this.options.scrollClassContainer):$el

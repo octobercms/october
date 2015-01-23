@@ -133,7 +133,7 @@
     // TRIGGERON DATA-API
     // ===============
 
-    $(document).ready(function(){
+    $(document).render(function(){
         $('[data-trigger]').triggerOn()
     })
 
