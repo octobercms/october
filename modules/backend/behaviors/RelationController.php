@@ -266,7 +266,7 @@ class RelationController extends ControllerBehavior
         switch ($this->relationType) {
             case 'hasMany':
             case 'belongsToMany':
-                return ['add', 'create', 'delete', 'remove'];
+                return ['create', 'add', 'delete', 'remove'];
 
             case 'hasOne':
             case 'belongsTo':
