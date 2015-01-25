@@ -6,8 +6,10 @@
         </div>
 
         <!-- List Search -->
-        <div class="layout-cell toolbar-item width-fix">
-            <?= $search ?>
-        </div>
+        <?php if ($search): ?>
+            <div class="layout-cell toolbar-item width-fix">
+                <?= $search ?>
+            </div>
+        <?php endif ?>
     </div>
 </div>
