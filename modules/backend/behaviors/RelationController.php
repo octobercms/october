@@ -23,6 +23,11 @@ class RelationController extends ControllerBehavior
     const PARAM_FIELD = '_relation_field';
 
     /**
+     * @var const Postback parameter for the active management mode.
+     */
+    const PARAM_MODE = '_relation_mode';
+
+    /**
      * @var Backend\Classes\WidgetBase Reference to the search widget object.
      */
     protected $searchWidget;
@@ -106,6 +111,16 @@ class RelationController extends ControllerBehavior
      * @var string A unique alias to pass to widgets.
      */
     protected $alias;
+
+    /**
+     * @var array The set of buttons to display in view mode.
+     */
+    protected $toolbarButtons;
+
+    /**
+     * @var Model Reference to the model used for viewing (form only).
+     */
+    protected $viewModel;
 
     /**
      * @var string Relation has many (multi) or has one (single).
@@ -200,8 +215,9 @@ class RelationController extends ControllerBehavior
         $this->relationModel = $this->relationObject->getRelated();
 
         $this->readOnly = $this->getConfig('readOnly');
-        $this->viewMode = $this->evalViewMode();
-        $this->manageMode = $this->evalManageMode();
+        $this->toolbarButtons = $this->evalToolbarButtons();
+        $this->viewMode = $this->viewMode ?: $this->evalViewMode();
+        $this->manageMode = $this->manageMode ?: $this->evalManageMode();
         $this->manageId = post('manage_id');
 
         /*
@@ -236,6 +252,33 @@ class RelationController extends ControllerBehavior
     }
 
     /**
+     * Determine the default buttons based on the model relationship type.
+     * @return string
+     */
+    protected function evalToolbarButtons()
+    {
+        if ($buttons = $this->getConfig('view[toolbarButtons]')) {
+            return is_array($buttons)
+                ? $buttons
+                : array_map('trim', explode('|', $buttons));
+        }
+
+        switch ($this->relationType) {
+            case 'hasMany':
+                return ['add', 'create', 'delete', 'remove'];
+
+            case 'belongsToMany':
+                return ['create', 'add', 'remove'];
+
+            case 'belongsTo':
+                return ['create', 'update', 'link', 'delete', 'unlink'];
+
+            case 'hasOne':
+                return ['create', 'update', 'link', 'delete', 'unlink'];
+        }
+    }
+
+    /**
      * Determine the view mode based on the model relationship type.
      * @return string
      */
@@ -258,6 +301,10 @@ class RelationController extends ControllerBehavior
      */
     protected function evalManageMode()
     {
+        if ($mode = post(self::PARAM_MODE)) {
+            return $mode;
+        }
+
         switch ($this->relationType) {
             case 'belongsTo':
                 $mode = 'list';
@@ -386,8 +433,10 @@ class RelationController extends ControllerBehavior
         $this->vars['relationToolbarWidget'] = $this->toolbarWidget;
         $this->vars['relationManageMode'] = $this->manageMode;
         $this->vars['relationManageWidget'] = $this->manageWidget;
+        $this->vars['relationToolbarButtons'] = $this->toolbarButtons;
         $this->vars['relationViewMode'] = $this->viewMode;
         $this->vars['relationViewWidget'] = $this->viewWidget;
+        $this->vars['relationViewModel'] = $this->viewModel;
         $this->vars['relationPivotWidget'] = $this->pivotWidget;
         $this->vars['relationSessionKey'] = $this->relationGetSessionKey();
     }
@@ -482,11 +531,13 @@ class RelationController extends ControllerBehavior
 
     public function onRelationButtonAdd()
     {
+        $this->manageMode = 'list';
         return $this->onRelationManageForm();
     }
 
     public function onRelationButtonCreate()
     {
+        $this->manageMode = 'form';
         return $this->onRelationManageForm();
     }
 
@@ -497,6 +548,7 @@ class RelationController extends ControllerBehavior
 
     public function onRelationButtonLink()
     {
+        $this->manageMode = 'list';
         return $this->onRelationManageForm();
     }
 
@@ -512,6 +564,7 @@ class RelationController extends ControllerBehavior
 
     public function onRelationButtonUpdate()
     {
+        $this->manageMode = 'form';
         return $this->onRelationManageForm();
     }
 
@@ -539,16 +592,32 @@ class RelationController extends ControllerBehavior
      */
     public function onRelationManageCreate()
     {
+        $this->manageMode = 'form';
         $this->beforeAjax();
         $saveData = $this->manageWidget->getSaveData();
 
         if ($this->viewMode == 'multi') {
-            $newModel = $this->relationObject->create($saveData, $this->relationGetSessionKey(true));
+            if ($this->relationType == 'hasMany') {
+                $newModel = $this->relationObject->create($saveData, $this->relationGetSessionKey(true));
+            }
+            elseif ($this->relationType == 'belongsToMany') {
+                $newModel = $this->relationObject->create($saveData, [], $this->relationGetSessionKey(true));
+            }
+
             $newModel->commitDeferred($this->manageWidget->getSessionKey());
         }
         elseif ($this->viewMode == 'single') {
+            $newModel = $this->viewModel;
             $this->viewWidget->setFormValues($saveData);
-            $this->viewWidget->model->save();
+
+            if ($this->relationType == 'belongsTo') {
+                $newModel->save();
+                $this->relationObject->associate($newModel);
+                $this->relationObject->getParent()->save();
+            }
+            elseif ($this->relationType == 'hasOne') {
+                $this->relationObject->add($newModel);
+            }
         }
 
         return $this->relationRefresh();
@@ -559,6 +628,7 @@ class RelationController extends ControllerBehavior
      */
     public function onRelationManageUpdate()
     {
+        $this->manageMode = 'form';
         $this->beforeAjax();
         $saveData = $this->manageWidget->getSaveData();
 
@@ -568,7 +638,7 @@ class RelationController extends ControllerBehavior
         }
         elseif ($this->viewMode == 'single') {
             $this->viewWidget->setFormValues($saveData);
-            $this->viewWidget->model->save();
+            $this->viewModel->save();
         }
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
@@ -600,13 +670,13 @@ class RelationController extends ControllerBehavior
          * Single (belongs to, has one)
          */
         elseif ($this->viewMode == 'single') {
-            $relatedModel = $this->viewWidget->model;
+            $relatedModel = $this->viewModel;
             if ($relatedModel->exists) {
                 $relatedModel->delete();
             }
 
             $this->viewWidget->setFormValues([]);
-            $this->viewWidget->model = $this->relationModel;
+            $this->viewModel = $this->relationModel;
         }
 
         return $this->relationRefresh();
@@ -654,9 +724,16 @@ class RelationController extends ControllerBehavior
          */
         elseif ($this->viewMode == 'single') {
             if ($recordId && ($model = $this->relationModel->find($recordId))) {
-                $this->relationObject->associate($model);
-                $this->relationObject->getParent()->save();
+
+                if ($this->relationType == 'belongsTo') {
+                    $this->relationObject->associate($model);
+                    $this->relationObject->getParent()->save();
+                }
+                elseif ($this->relationType == 'hasOne') {
+                    $this->relationObject->add($model);
+                }
                 $this->viewWidget->setFormValues($model->attributes);
+
             }
         }
 
@@ -664,7 +741,7 @@ class RelationController extends ControllerBehavior
     }
 
     /**
-     * Remove an existing related model from the primary model (join table only)
+     * Remove an existing related model from the primary model
      */
     public function onRelationManageRemove()
     {
@@ -680,15 +757,38 @@ class RelationController extends ControllerBehavior
             $checkedIds = $recordId ? [$recordId] : post('checked');
 
             if (is_array($checkedIds)) {
-                $this->relationObject->detach($checkedIds);
+
+                if ($this->relationType == 'belongsToMany') {
+                    $this->relationObject->detach($checkedIds);
+                }
+                elseif ($this->relationType == 'hasMany') {
+                    $relatedModel = $this->relationObject->getRelated();
+                    foreach ($checkedIds as $relationId) {
+                        if ($obj = $relatedModel->find($relationId)) {
+                            $this->relationObject->remove($obj);
+                        }
+                    }
+                }
+
             }
         }
         /*
          * Unlink
          */
         elseif ($this->viewMode == 'single') {
-            $this->relationObject->dissociate();
-            $this->relationObject->getParent()->save();
+            if ($this->relationType == 'belongsTo') {
+                $this->relationObject->dissociate();
+                $this->relationObject->getParent()->save();
+            }
+            elseif ($this->relationType == 'hasOne') {
+                if ($obj = $this->relationModel->find($recordId)) {
+                    $this->relationObject->remove($obj);
+                }
+                elseif ($this->viewModel->exists) {
+                    $this->relationObject->remove($this->viewModel);
+                }
+            }
+
             $this->viewWidget->setFormValues([]);
         }
 
@@ -762,7 +862,7 @@ class RelationController extends ControllerBehavior
             $defaultButtons = '~/modules/backend/behaviors/relationcontroller/partials/_toolbar.htm';
         }
 
-        $defaultConfig['buttons'] = $this->getConfig('view[toolbarButtons]', $defaultButtons);
+        $defaultConfig['buttons'] = $this->getConfig('view[toolbarPartial]', $defaultButtons);
 
         /*
          * Make config
@@ -856,10 +956,10 @@ class RelationController extends ControllerBehavior
         elseif ($this->viewMode == 'single') {
             $query = $this->relationObject;
             $this->controller->relationExtendQuery($query, $this->field);
-            $model = $query->getResults() ?: $this->relationModel;
+            $this->viewModel = $query->getResults() ?: $this->relationModel;
 
             $config = $this->makeConfig($this->config->form);
-            $config->model = $model;
+            $config->model = $this->viewModel;
             $config->arrayName = class_basename($this->relationModel);
             $config->context = 'relation';
             $config->alias = $this->alias . 'ViewForm';

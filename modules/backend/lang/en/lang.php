@@ -187,6 +187,7 @@ return [
         'concurrency_file_changed_description' => "The file you're editing has been changed on disk by another user. You can either reload the file and lose your changes or override the file on the disk."
     ],
     'relation' => [
+        'missing_config' => "Relation behavior does not have any configuration for ':config'.",
         'missing_definition' => "Relation behavior does not contain a definition for ':field'.",
         'missing_model' => "Relation behavior used in :class does not have a model defined.",
         'invalid_action_single' => "This action cannot be performed on a singular relationship.",

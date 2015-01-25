@@ -1,5 +1,18 @@
 <div data-control="toolbar">
 
+    <?php foreach ($relationToolbarButtons as $button): ?>
+
+        <?php if ($button == 'update'): ?>
+            <?= $this->relationMakePartial('button_update', [
+                'relationManageId' => $relationViewModel->id
+            ]) ?>
+        <?php else: ?>
+            <?= $this->relationMakePartial('button_'.$button) ?>
+        <?php endif ?>
+
+    <?php endforeach ?>
+
+<?php /*
     <?php if ($relationType == 'hasMany'): ?>
 
         <?= $this->relationMakePartial('button_create') ?>
@@ -25,7 +38,7 @@
         <?php endif ?>
 
     <?php endif ?>
-
+*/ ?>
 
 
 </div>
