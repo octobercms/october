@@ -928,11 +928,11 @@ class RelationController extends ControllerBehavior
                 $this->controller->relationExtendQuery($query, $this->field);
 
                 $this->relationObject->setQuery($query);
-                if ($this->model->exists) {
-                    $this->relationObject->addConstraints();
-                }
                 if ($sessionKey = $this->relationGetSessionKey()) {
                     $this->relationObject->withDeferred($sessionKey);
+                }
+                elseif ($this->model->exists) {
+                    $this->relationObject->addConstraints();
                 }
             });
 
