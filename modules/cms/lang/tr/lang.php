@@ -15,12 +15,25 @@ return [
     'theme' => [
         'active' => [
             'not_set' => "Aktif tema belirtilmedi.",
+            'not_found' => 'Aktif tema bulunamadı.'
         ],
         'edit' => [
             'not_set' => "Düzenlenecek tema belirtilmedi.",
             'not_found' => "Düzenlenecek tema bulunamadı.",
             'not_match' => "Ulaşmaya çalıştığınız nesne düzenlenecek temaya ait değil. Lütfen sayfayı yenileyin."
-        ]
+        ],
+        'settings_menu' => 'Temalar',
+        'settings_menu_description' => 'Yüklü temalar listesini önizleyebilir, bir tema seçip aktifleştirebilirsiniz.',
+        'find_more_themes' => 'Medanis Tema Marketi\'nden başka tema alabilirsiniz.',
+        'activate_button' => 'Aktifleştir',
+        'active_button' => 'Aktifleştir',
+        'customize_button' => 'Düzenle'
+    ],
+    'maintenance' => [
+        'settings_menu' => 'Bakım modu',
+        'settings_menu_description' => 'Bakım modu ayarlarını düzenleyip bakım sayfasını yapılandırabilirsiniz.',
+        'is_enabled' => 'Bakım modunu aktifleştir',
+        'is_enabled_comment' => 'Aktifleştirildiğinde, web sitesi ziyaretçileri aşağıdaki seçtiğiniz sayfayı görecektir.'
     ],
     'page' => [
         'not_found' => [
@@ -32,6 +45,7 @@ return [
             'help' => "Üzgünüz, bir şeyler ters gitti ve sayfa görüntülenemiyor.",
         ],
         'menu_label' => 'Sayfalar',
+        'unsaved_label' => 'Kaydedilmemiş sayfa(lar)',
         'no_list_records' => 'Hiç sayfa yok.',
         'new' => 'Sayfa oluştur',
         'invalid_url' => 'Hatalı URL formatı. URL eğik çizgi ile başlamalı ve sayı, Latin harfleri ve aşağıdaki sembolleri içerebilir: ._-[]:?|/+*^$',
@@ -42,6 +56,7 @@ return [
     'layout' => [
         'not_found' => "':name' isimli şablon bulunamadı",
         'menu_label' => 'Şablonlar',
+        'unsaved_label' => 'Kaydedilmemiş şablon(lar)',
         'no_list_records' => 'Şablon bulunamadı',
         'new' => 'Şablon oluştur',
         'delete_confirm_multiple' => 'Seçili şablonları silmek istediğinize emin misiniz?',
@@ -51,16 +66,18 @@ return [
         'invalid_name' => "Hatalı bölüm adı: :name.",
         'not_found' => "':name' bölümü bulunamadı.",
         'menu_label' => 'Bölümler',
+        'unsaved_label' => 'Kaydedilmemiş bölüm(ler)',
         'no_list_records' => 'Bölüm bulunamadı.',
-        'delete_confirm_multiple' => 'Seçili bölümleri silmek istediğinize gerçekten emin misiniz?',
+        'delete_confirm_multiple' => 'Seçili bölümleri silmek istediğinize emin misiniz?',
         'delete_confirm_single' => 'Bu bölümü silmek istediğinize emin misiniz?',
         'new' => 'Bölüm Oluştur'
     ],
     'content' => [
         'not_found' => "':name' isminde içerik dosyası bulunamadı.",
         'menu_label' => 'İçerik',
+        'unsaved_label' => 'Kaydedilmemiş içerik',
         'no_list_records' => 'İçerik dosyası bulunamadı.',
-        'delete_confirm_multiple' => 'Seçili içerik dosyaları veya klasörlerini silmek istediğinize gerçekten emin misiniz?',
+        'delete_confirm_multiple' => 'Seçili içerik dosyaları veya klasörlerini silmek istediğinize emin misiniz?',
         'delete_confirm_single' => 'Bu içerik dosyasını silmek istediğinize emin misiniz?',
         'new' => 'Yeni İçerik'
     ],
@@ -69,7 +86,7 @@ return [
         'not_found' => "':name' isimli AJAX işleyici bulunamadı.",
     ],
     'cms' => [
-        'menu_label' => "CMS"
+        'menu_label' => "Tasarım Ayarları"
     ],
     'sidebar' => [
         'add' => 'Ekle',
@@ -90,17 +107,25 @@ return [
         'markup' => 'Biçimlendirme',
         'code' => 'Kod',
         'content' => 'İçerik',
+        'hidden' => 'Gizli',
+        'hidden_comment' => 'Gizli sayfalara yalnızca Yönetim Paneline giriş yapmış kullanıcılar erişilebilir.',
+        'enter_fullscreen' => 'Tam Ekran moduna geç',
+        'exit_fullscreen' => 'Tam Ekran modundan çık'
     ],
     'asset' => [
         'menu_label' => "Dosyalar",
+        'unsaved_label' => 'Kaydedilmemiş dosya(lar)',
         'drop_down_add_title' => 'Ekle...',
         'drop_down_operation_title' => 'İşlemler...',
         'upload_files' => 'Dosya(lar) yükle',
         'create_file' => 'Dosya oluştur',
         'create_directory' => 'Klasör oluştur',
+        'directory_popup_title' => 'Yeni klasör',
+        'directory_name' => 'Klasör ismi',
         'rename' => 'Yeniden isimlendir',
         'delete' => 'Sil',
         'move' => 'Taşı',
+        'select' => 'Seç',
         'new' => 'Yeni dosya',
         'rename_popup_title' => 'Yeniden isimlendir',
         'rename_new_name' => 'Yeni isim',
@@ -145,5 +170,14 @@ return [
         'invalid_type' => "Hatalı şablon tipi.",
         'not_found' => "İstenilen şablon bulunamadı.",
         'saved'=> "Şablon başarıyla kaydedildi."
+    ],
+    'permissions' => [
+        'name' => 'CMS Sistemi',
+        'manage_content' => 'İçerikleri düzenleyebilsin',
+        'manage_assets' => 'Dosyaları düzenleyebilsin',
+        'manage_pages' => 'Sayfaları düzenleyebilsin',
+        'manage_layouts' => 'Şablonları düzenleyebilsin',
+        'manage_partials' => 'Parça Kodları düzenleyebilsin',
+        'manage_themes' => 'Temaları düzenleyebilsin'
     ]
 ];
