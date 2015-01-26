@@ -2,98 +2,109 @@
 
 return array(
 
-    /*
-    |--------------------------------------------------------------------------
-    | バリデーション言語行
-    |--------------------------------------------------------------------------
-    |
-    | 以下の言語行はバリデタークラスにより使用されるデフォルトのエラー
-    | メッセージです。サイズルールのようにいくつかのバリデーションを
-    | 持っているものもあります。メッセージはご自由に調整してください。
-    |
-    */
+	/*
+	|--------------------------------------------------------------------------
+	| Validation Language Lines
+	|--------------------------------------------------------------------------
+	|
+	| The following language lines contain the default error messages used by
+	| the validator class. Some of these rules have multiple versions such
+	| such as the size rules. Feel free to tweak each of these messages.
+	|
+	*/
 
-    "accepted"             => ":attributeを承認してください。",
-    "active_url"           => ":attributeが有効なURLではありません。",
-    "after"                => ":attributeには、:date以降の日付を指定してください。",
-    "alpha"                => ":attributeはアルファベッドのみがご利用できます。",
-    "alpha_dash"           => ":attributeは英数字とダッシュ(-)及び下線(_)がご利用できます。",
-    "alpha_num"            => ":attributeは英数字がご利用できます。.",
-    "array"                => ":attributeは配列でなくてはなりません。",
-    "before"               => ":attributeには、:date以前の日付をご利用ください。",
-    "between"              => array(
-        "numeric" => ":attributeは、:minから:maxの間で指定してください。",
-        "file"    => ":attributeは、:min kBから、:max kBの間で指定してください。",
-        "string"  => ":attributeは、:min文字から、:max文字の間で指定してください。",
-        "array"   => ":attributeは、:min個から:max個の間で指定してください。",
-    ),
-    "confirmed"            => ":attributeと、確認フィールドとが、一致していません。",
-    "date"                 => ":attributeには有効な日付を指定してください。",
-    "date_format"          => ":attributeは:format形式で指定してください。",
-    "different"            => ":attributeと:otherには、異なった内容を指定してください。",
-    "digits"               => ":attributeは:digits桁で指定してください。",
-    "digits_between"       => ":attributeは:min桁から:max桁の間で指定してください。",
-    "email"                => "The :attribute must be a valid email address.",
-    "exists"               => "選択された:attributeは正しくありません。",
-    "image"                => ":attributeには画像ファイルを指定してください。",
-    "in"                   => "選択された:attributeは正しくありません。",
-    "integer"              => ":attributeは整数でご指定ください。",
-    "ip"                   => ":attributeには、有効なIPアドレスをご指定ください。",
-    "max"                  => array(
-        "numeric" => ":attributeには、:max以下の数字をご指定ください。",
-        "file"    => ":attributeには、:max kB以下のファイルをご指定ください。",
-        "string"  => ":attributeは、:max文字以下でご指定ください。",
-        "array"   => ":attributeは:max個以下ご指定ください。",
-    ),
-    "mimes"                => ":attributeには:valuesタイプのファイルを指定してください。",
-    "min"                  => array(
-        "numeric" => ":attributeには、:min以上の数字をご指定ください。",
-        "file"    => ":attributeには、:min kB以上のファイルをご指定ください。",
-        "string"  => ":attributeは、:min文字以上でご指定ください。",
-        "array"   => ":attributeは:min個以上ご指定ください。",
-    ),
-    "not_in"               => "選択された:attributeは正しくありません。",
-    "numeric"              => ":attributeには、数字を指定してください。",
-    "regex"                => ":attributeに正しい形式をご指定ください。",
-    "required"             => ":attributeは必ず指定してください。",
-    "required_if"          => ":otherが:valueの場合、:attributeも指定してください。",
-    "required_with"        => ":valuesを指定する場合は、:attributeも指定してください。",
-    "required_without"     => ":valuesを指定しない場合は、:attributeを指定してください。",
-    "required_without_all" => "The :attribute field is required when none of :values are present.",
-    "same"                 => ":attributeと:otherには同じ値を指定してください。",
-    "size"                 => array(
-        "numeric" => ":attributeは:sizeを指定してください。",
-        "file"    => ":attributeのファイルは、:sizeキロバイトでなくてはなりません。",
-        "string"  => ":attributeは:size文字で指定してください。",
-        "array"   => ":attributeは:size個ご指定ください。",
-    ),
-    "unique"               => ":attributeの値は既に存在しています。",
-    "url"                  => ":attributeに正しい形式をご指定ください。",
+	"accepted"             => ":attributeを承認してください。",
+	"active_url"           => ":attributeは、有効なURLではありません。",
+	"after"                => ":attributeには、:date以降の日付を指定してください。",
+	"alpha"                => ":attributeには、アルファベッドのみ使用できます。",
+	"alpha_dash"           => ":attributeには、英数字('A-Z','a-z','0-9')とハイフンと下線('-','_')が使用できます。",
+	"alpha_num"            => ":attributeには、英数字('A-Z','a-z','0-9')が使用できます。",
+	"array"                => ":attributeには、配列を指定してください。",
+	"before"               => ":attributeには、:date以前の日付を指定してください。",
+	"between"              => array(
+		"numeric" => ":attributeには、:minから、:maxまでの数字を指定してください。",
+		"file"    => ":attributeには、:min KBから:max KBまでのサイズのファイルを指定してください。",
+		"string"  => ":attributeは、:min文字から:max文字にしてください。",
+		"array"   => ":attributeの項目は、:min個から:max個にしてください。",
+	),
+	"boolean"              => ":attributeには、'true'か'false'を指定してください。",
+	"confirmed"            => ":attributeと:attribute確認が一致しません。",
+	"date"                 => ":attributeは、正しい日付ではありません。",
+	"date_format"          => ":attributeの形式は、':format'と合いません。",
+	"different"            => ":attributeと:otherには、異なるものを指定してください。",
+	"digits"               => ":attributeは、:digits桁にしてください。",
+	"digits_between"       => ":attributeは、:min桁から:max桁にしてください。",
+	"email"                => ":attributeは、有効なメールアドレス形式で指定してください。",
+	"exists"               => "選択された:attributeは、有効ではありません。",
+	"image"                => ":attributeには、画像を指定してください。",
+	"in"                   => "選択された:attributeは、有効ではありません。",
+	"integer"              => ":attributeには、整数を指定してください。",
+	"ip"                   => ":attributeには、有効なIPアドレスを指定してください。",
+	"max"                  => array(
+		"numeric" => ":attributeには、:max以下の数字を指定してください。",
+		"file"    => ":attributeには、:max KB以下のファイルを指定してください。",
+		"string"  => ":attributeは、:max文字以下にしてください。",
+		"array"   => ":attributeの項目は、:max個以下にしてください。",
+	),
+	"mimes"                => ":attributeには、:valuesタイプのファイルを指定してください。",
+	"min"                  => array(
+		"numeric" => ":attributeには、:min以上の数字を指定してください。",
+		"file"    => ":attributeには、:min KB以上のファイルを指定してください。",
+		"string"  => ":attributeは、:min文字以上にしてください。",
+		"array"   => ":attributeの項目は、:max個以上にしてください。",
+	),
+	"not_in"               => "選択された:attributeは、有効ではありません。",
+	"numeric"              => ":attributeには、数字を指定してください。",
+	"regex"                => ":attributeには、有効な正規表現を指定してください。",
+	"required"             => ":attributeは、必ず指定してください。",
+	"required_if"          => ":otherが:valueの場合、:attributeを指定してください",
+	"required_with"        => ":valuesが指定されている場合、:attributeも指定してください。",
+	"required_with_all"    => ":valuesが全て指定されている場合、:attributeも指定してください。",
+	"required_without"     => ":valuesが指定されていない場合、:attributeを指定してください。",
+	"required_without_all" => ":valuesが全て指定されていない場合、:attributeを指定してください。",
+	"same"                 => ":attributeと:otherが一致しません。",
+	"size"                 => array(
+		"numeric" => ":attributeには、:sizeを指定してください。",
+		"file"    => ":attributeには、:size KBのファイルを指定してください。",
+		"string"  => ":attributeは、:size文字にしてください。",
+		"array"   => ":attributeの項目は、:size個にしてください。",
+	),
+	"unique"               => "指定の:attributeは既に使用されています。",
+	"url"                  => ":attributeは、有効なURL形式で指定してください。",
+	"timezone"             => ":attributeには、有効なタイムゾーンを指定してください。",
 
-    /*
-    |--------------------------------------------------------------------------
-    | カスタムバリデーション言語行
-    |--------------------------------------------------------------------------
-    |
-    | "属性.ルール"の規約でキーを指定することでカスタムバリデーション
-    | メッセージを定義できます。指定した属性ルールに対する特定の
-    | カスタム言語行を手早く指定できます。
-    |
-    */
+	/*
+	|--------------------------------------------------------------------------
+	| Custom Validation Language Lines
+	|--------------------------------------------------------------------------
+	|
+	| Here you may specify custom validation messages for attributes using the
+	| convention "attribute.rule" to name the lines. This makes it quick to
+	| specify a specific custom language line for a given attribute rule.
+	|
+	*/
 
-    'custom' => array(),
+	'custom' => array(
+		'phone.regex' => '電話番号の形式が正しくありません。',
+	),
 
-    /*
-    |--------------------------------------------------------------------------
-    | カスタムバリデーション属性名
-    |--------------------------------------------------------------------------
-    |
-    | 以下の言語行は、例えば"email"の代わりに「メールアドレス」のように、
-    | 読み手にフレンドリーな表現でプレースホルダーを置き換えるために指定する
-    | 言語行です。これはメッセージをよりきれいに表示するために役に立ちます。
-    |
-    */
+	/*
+	|--------------------------------------------------------------------------
+	| Custom Validation Attributes
+	|--------------------------------------------------------------------------
+	|
+	| The following language lines are used to swap attribute place-holders
+	| with something more reader friendly such as E-Mail Address instead
+	| of "email". This simply helps us make messages a little cleaner.
+	|
+	*/
 
-    'attributes' => array(),
+	'attributes' => array(
+		'name' => '名前',
+		'email' => 'メールアドレス',
+		'phone' => '電話番号',
+		'subject' => 'お申し込み・お問い合わせ内容',
+		'body' => 'メッセージ',
+	),
 
 );
