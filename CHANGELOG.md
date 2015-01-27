@@ -1,3 +1,6 @@
+* **Build 18x** (2015-01-xx)
+  - Lists now support exporting to CSV format via the default **export** controller action.
+
 * **Build 183** (2015-01-22)
   - Relation Controller now supports *has one* and *belongs to* relations (see Backend > Relations docs).
 

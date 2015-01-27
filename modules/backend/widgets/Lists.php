@@ -190,7 +190,7 @@ class Lists extends WidgetBase
     public function prepareVars()
     {
         $this->vars['cssClasses'] = implode(' ', $this->cssClasses);
-        $this->vars['columns'] = $this->getVisibleListColumns();
+        $this->vars['columns'] = $this->getVisibleColumns();
         $this->vars['columnTotal'] = $this->getTotalColumns();
         $this->vars['records'] = $this->getRecords();
         $this->vars['noRecordsMessage'] = trans($this->noRecordsMessage);
@@ -323,7 +323,7 @@ class Lists extends WidgetBase
         /*
          * Prepare related eager loads (withs) and custom selects (joins)
          */
-        foreach ($this->getVisibleListColumns() as $column) {
+        foreach ($this->getVisibleColumns() as $column) {
 
             if (!$this->isColumnRelated($column) || (!isset($column->sqlSelect) && !isset($column->valueFrom))) {
                 continue;
@@ -365,7 +365,7 @@ class Lists extends WidgetBase
         /*
          * Custom select queries
          */
-        foreach ($this->getVisibleListColumns() as $column) {
+        foreach ($this->getVisibleColumns() as $column) {
             if (!isset($column->sqlSelect)) {
                 continue;
             }
@@ -522,7 +522,7 @@ class Lists extends WidgetBase
     /**
      * Returns the list columns that are visible by list settings or default
      */
-    protected function getVisibleListColumns()
+    public function getVisibleColumns()
     {
         $definitions = $this->defineListColumns();
         $columns = [];
@@ -645,7 +645,7 @@ class Lists extends WidgetBase
      */
     protected function getTotalColumns()
     {
-        $columns = $this->visibleColumns ?: $this->getVisibleListColumns();
+        $columns = $this->visibleColumns ?: $this->getVisibleColumns();
         $total = count($columns);
         if ($this->showCheckboxes) {
             $total++;
@@ -1005,7 +1005,7 @@ class Lists extends WidgetBase
          * First available column
          */
         if ($this->sortColumn === null || !$this->isSortable($this->sortColumn)) {
-            $columns = $this->visibleColumns ?: $this->getVisibleListColumns();
+            $columns = $this->visibleColumns ?: $this->getVisibleColumns();
             $columns = array_filter($columns, function($column){ return $column->sortable; });
             $this->sortColumn = key($columns);
             $this->sortDirection = 'desc';
@@ -1101,7 +1101,7 @@ class Lists extends WidgetBase
             $column->invisible = true;
         }
 
-        return array_merge($columns, $this->getVisibleListColumns());
+        return array_merge($columns, $this->getVisibleColumns());
     }
 
     //

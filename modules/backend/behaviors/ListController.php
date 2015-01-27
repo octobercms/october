@@ -5,6 +5,8 @@ use Lang;
 use Event;
 use System\Classes\SystemException;
 use Backend\Classes\ControllerBehavior;
+use League\Csv\Writer;
+use SplTempFileObject;
 
 /**
  * List Controller Behavior
@@ -247,6 +249,15 @@ class ListController extends ControllerBehavior
     }
 
     /**
+     * Export Controller action.
+     * @return void
+     */
+    public function export()
+    {
+        return $this->listExportCsv();
+    }
+
+    /**
      * Renders the widget collection.
      * @param  string $definition Optional list definition.
      * @return string Rendered HTML for the list.
@@ -305,6 +316,70 @@ class ListController extends ControllerBehavior
         }
 
         return array_get($this->listWidgets, $definition);
+    }
+
+    /**
+     * Returns the list results as a CSV export.
+     */
+    public function listExportCsv($options = [], $definition = null)
+    {
+        /*
+         * Locate widget
+         */
+        if (!count($this->listWidgets)) {
+            $this->makeLists();
+        }
+
+        if (!$definition || !isset($this->listDefinitions[$definition])) {
+            $definition = $this->primaryDefinition;
+        }
+
+        $widget = $this->listWidgets[$definition];
+
+        /*
+         * Parse options
+         */
+        $defaultOptions = [
+            'filename' => 'export.csv'
+        ];
+
+        $options = array_merge($defaultOptions, $options);
+        extract($options);
+
+        /*
+         * Prepare CSV
+         */
+        $csv = Writer::createFromFileObject(new SplTempFileObject);
+        $csv->setNullHandlingMode(Writer::NULL_AS_EMPTY);
+
+        /*
+         * Add headers
+         */
+        $headers = [];
+        $columns = $widget->getVisibleColumns();
+        foreach ($columns as $column) {
+            $headers[] = $column->label;
+        }
+        $csv->insertOne($headers);
+
+        /*
+         * Add records
+         */
+        $model = $widget->prepareModel();
+        $results = $model->get();
+        foreach ($results as $result) {
+            $record = [];
+            foreach ($columns as $column) {
+                $record[] = $widget->getColumnValue($result, $column);
+            }
+            $csv->insertOne($record);
+        }
+
+        /*
+         * Output
+         */
+        $csv->output($filename);
+        exit;
     }
 
     //

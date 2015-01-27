@@ -253,7 +253,9 @@ abstract class WidgetBase
     {
         // Removes Class name and "Controllers" directory
         $rootNamespace = Str::getClassId(Str::getClassNamespace(Str::getClassNamespace($this->controller)));
-        return 'widget.' . $rootNamespace . '-' . $this->controller->getId() . '-' . $this->getId();
+
+        // The controller action is intentionally omitted, session should be shared for all actions
+        return 'widget.' . $rootNamespace . '-' . class_basename($this->controller) . '-' . $this->getId();
     }
 
     /**
