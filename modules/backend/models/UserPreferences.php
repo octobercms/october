@@ -3,7 +3,7 @@
 use Exception;
 use BackendAuth;
 use October\Rain\Database\Model;
-use System\Classes\SystemException;
+use SystemException;
 use October\Rain\Auth\Models\Preferences as PreferencesBase;
 
 /**

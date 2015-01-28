@@ -1,7 +1,7 @@
 <?php namespace System\Models;
 
 use Model;
-use System\Classes\ApplicationException;
+use ApplicationException;
 
 /**
  * Mail layout

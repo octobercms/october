@@ -3,7 +3,7 @@
 use File;
 use Lang;
 use Block;
-use System\Classes\SystemException;
+use SystemException;
 
 /**
  * View Maker Trait

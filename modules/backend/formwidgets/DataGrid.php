@@ -2,7 +2,7 @@
 
 use Backend\Widgets\Grid;
 use Backend\Classes\FormWidgetBase;
-use System\Classes\ApplicationException;
+use ApplicationException;
 
 /**
  * Grid

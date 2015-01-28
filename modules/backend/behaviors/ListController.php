@@ -3,7 +3,7 @@
 use Str;
 use Lang;
 use Event;
-use System\Classes\SystemException;
+use SystemException;
 use Backend\Classes\ControllerBehavior;
 use League\Csv\Writer;
 use SplTempFileObject;

@@ -1,7 +1,7 @@
 <?php namespace System\Classes;
 
 use Controller as BaseController;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use System\Classes\CombineAssets;
 use Exception;
 

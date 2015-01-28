@@ -2,7 +2,7 @@
 
 use Str;
 use Lang;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use October\Rain\Extension\ExtensionBase;
 use System\Traits\ViewMaker;
 

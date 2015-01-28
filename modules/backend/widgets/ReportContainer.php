@@ -6,7 +6,7 @@ use Request;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
 use Backend\Models\UserPreferences;
-use System\Classes\ApplicationException;
+use ApplicationException;
 
 /**
  * Report Container Widget

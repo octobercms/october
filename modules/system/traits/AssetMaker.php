@@ -5,7 +5,7 @@ use File;
 use Request;
 use System\Models\Parameters;
 use System\Models\PluginVersion;
-use System\Classes\SystemException;
+use SystemException;
 
 /**
  * Asset Maker Trait

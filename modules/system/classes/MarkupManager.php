@@ -4,7 +4,7 @@ use Str;
 use Twig_TokenParser;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use System\Classes\PluginManager;
 
 /**

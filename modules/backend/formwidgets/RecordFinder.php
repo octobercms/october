@@ -2,7 +2,7 @@
 
 use Lang;
 use Backend\Classes\FormWidgetBase;
-use System\Classes\SystemException;
+use SystemException;
 
 /**
  * Record Finder

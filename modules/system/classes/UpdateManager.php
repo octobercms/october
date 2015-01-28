@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use System\Models\Parameters;
 use System\Models\PluginVersion;
 use System\Console\CacheClear;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use October\Rain\Filesystem\Zip;
 use Exception;
 

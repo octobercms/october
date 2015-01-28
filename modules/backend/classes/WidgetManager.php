@@ -2,8 +2,8 @@
 
 use Str;
 use File;
+use Yaml;
 use Closure;
-use October\Rain\Support\Yaml;
 use Illuminate\Container\Container;
 use System\Classes\PluginManager;
 

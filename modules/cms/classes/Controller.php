@@ -23,9 +23,9 @@ use Cms\Models\MaintenanceSettings;
 use System\Models\RequestLog;
 use System\Classes\ErrorHandler;
 use System\Classes\CombineAssets;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use System\Twig\Extension as SystemTwigExtension;
-use October\Rain\Support\ValidationException;
+use ValidationException;
 use Illuminate\Http\RedirectResponse;
 
 /**

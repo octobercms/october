@@ -256,7 +256,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'studly'         => ['Str', 'studly'],
                 'trans'          => ['Lang', 'get'],
                 'transchoice'    => ['Lang', 'choice'],
-                'md'             => ['October\Rain\Support\Markdown', 'parse'],
+                'md'             => ['Markdown', 'parse'],
             ]);
         });
 

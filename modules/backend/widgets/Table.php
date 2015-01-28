@@ -3,7 +3,7 @@
 use Input;
 use Request;
 use Backend\Classes\WidgetBase;
-use System\Classes\SystemException;
+use SystemException;
 
 /**
  * Table Widget.

@@ -5,7 +5,7 @@ use Lang;
 use Event;
 use Form as FormHelper;
 use Backend\Classes\ControllerBehavior;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use October\Rain\Database\Model;
 
 /**

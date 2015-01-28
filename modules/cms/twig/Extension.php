@@ -10,7 +10,7 @@ use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 use Cms\Classes\Controller;
 use Cms\Classes\CmsException;
-use System\Classes\ApplicationException;
+use ApplicationException;
 
 /**
  * The CMS Twig extension class implements the basic CMS Twig functions and filters.

@@ -4,7 +4,7 @@ use DB as Db;
 use Event;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\FilterScope;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use October\Rain\Support\Util;
 
 /**

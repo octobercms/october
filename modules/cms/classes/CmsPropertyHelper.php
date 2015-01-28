@@ -11,7 +11,7 @@
 
 use Flash;
 use Cms\Classes\Page;
-use System\Classes\ApplicationException;
+use ApplicationException;
 
 /**
  * This class provides helper methods for inspectable properties.

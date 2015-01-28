@@ -15,7 +15,7 @@ use System\Console\CacheClear;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
 use System\Classes\SettingsManager;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use Exception;
 
 /**

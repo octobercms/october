@@ -60,7 +60,7 @@ class ThemeTest extends TestCase
     }
 
     /**
-     * @expectedException        \System\Classes\SystemException
+     * @expectedException        \October\Rain\Exception\SystemException
      * @expectedExceptionMessage The active theme is not set.
      */
     public function testNoActiveTheme()

@@ -7,7 +7,7 @@ use Redirect;
 use BackendMenu;
 use System\Classes\SettingsManager;
 use Backend\Classes\Controller;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use Exception;
 
 /**

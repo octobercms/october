@@ -1,7 +1,7 @@
 <?php namespace Cms\Classes;
 
 use Illuminate\Support\Collection as CollectionBase;
-use System\Classes\ApplicationException;
+use ApplicationException;
 
 /**
  * This class represents a collection of Cms Objects.

@@ -1,15 +1,14 @@
 <?php namespace Cms\Widgets;
 
-use Backend\Classes\WidgetBase;
+use Str;
+use Lang;
+use Input;
+use Request;
+use Response;
 use Cms\Classes\Theme;
 use System\Classes\PluginManager;
 use Cms\Classes\ComponentHelpers;
-use October\Rain\Support\Inflector;
-use Input;
-use Response;
-use Request;
-use Str;
-use Lang;
+use Backend\Classes\WidgetBase;
 
 /**
  * Component list widget.

@@ -3,7 +3,7 @@
 use Cache;
 use DbDongle;
 use System\Classes\ModelBehavior;
-use System\Classes\ApplicationException;
+use ApplicationException;
 
 /**
  * Settings model extension

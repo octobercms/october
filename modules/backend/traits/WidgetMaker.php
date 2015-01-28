@@ -2,7 +2,7 @@
 
 use Lang;
 use Backend\Classes\WidgetManager;
-use System\Classes\SystemException;
+use SystemException;
 
 /**
  * Config Maker Trait

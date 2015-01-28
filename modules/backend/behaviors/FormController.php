@@ -11,7 +11,7 @@ use Backend\Classes\FormField;
 use Backend\Classes\ControllerBehavior;
 use October\Rain\Support\Util;
 use October\Rain\Router\Helper as RouterHelper;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use Exception;
 
 /**

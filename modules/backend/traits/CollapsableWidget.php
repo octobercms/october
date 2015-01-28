@@ -5,7 +5,7 @@ use File;
 use Lang;
 use Input;
 use Block;
-use System\Classes\SystemException;
+use SystemException;
 
 /**
  * Collapsable Widget Trait

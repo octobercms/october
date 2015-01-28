@@ -3,7 +3,7 @@
 use Lang;
 use Backend\Widgets\Table;
 use Backend\Classes\FormWidgetBase;
-use System\Classes\ApplicationException;
+use ApplicationException;
 
 /**
  * Data Table

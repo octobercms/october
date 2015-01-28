@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use October\Rain\Router\Helper as RouterHelper;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use October\Rain\Database\Model;
 use DateTime;
 

@@ -11,7 +11,7 @@ use BackendMenu;
 use BackendAuth;
 use Backend\Classes\Controller;
 use System\Models\MailTemplate;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use System\Classes\SettingsManager;
 use Exception;
 

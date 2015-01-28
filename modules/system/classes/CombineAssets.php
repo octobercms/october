@@ -14,7 +14,7 @@ use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCache;
 use Assetic\Cache\FilesystemCache;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use DateTime;
 
 /**

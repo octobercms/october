@@ -1,15 +1,11 @@
 <?php namespace System\Classes;
 
-use App;
 use View;
 use Config;
-use Request;
-use Response;
 use Cms\Classes\Theme;
 use Cms\Classes\Router;
 use Cms\Classes\Controller;
-use System\Classes\BaseException;
-use System\Classes\ApplicationException;
+use October\Rain\Exception\ErrorHandler as ErrorHandlerBase;
 
 /**
  * System Error Handler, this class handles application exception events.
@@ -17,96 +13,8 @@ use System\Classes\ApplicationException;
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-class ErrorHandler
+class ErrorHandler extends ErrorHandlerBase
 {
-    /**
-     * @var System\Classes\ExceptionBase A prepared mask exception used to mask any exception fired.
-     */
-    protected static $activeMask;
-
-    /**
-     * @var array A collection of masks, so multiples can be applied in order.
-     */
-    protected static $maskLayers = [];
-
-    /**
-     * All exceptions are piped through this method from the framework workflow. This method will mask
-     * any foreign exceptions with a "scent" of the native application's exception, so it can render
-     * correctly when displayed on the error page.
-     * @param Exception $proposedException The exception candidate that has been thrown.
-     * @return View Object containing the error page.
-     */
-    public function handleException(\Exception $proposedException, $httpCode = 500)
-    {
-        // Disable the error handler for test and CLI environment
-        if (App::runningUnitTests() || App::runningInConsole()) {
-            return;
-        }
-
-        // Detect AJAX request and use error 500
-        if (Request::ajax()) {
-            return Response::make($proposedException->getMessage(), $httpCode);
-        }
-
-        // Clear the output buffer
-        while (ob_get_level()) {
-            ob_end_clean();
-        }
-
-        // Friendly error pages are used
-        if (!Config::get('app.debug', false)) {
-            return $this->handleCustomError();
-        }
-
-        // If the exception is already our brand, use it.
-        if ($proposedException instanceof BaseException) {
-            $exception = $proposedException;
-        }
-        // If there is an active mask prepared, use that.
-        elseif (static::$activeMask !== null) {
-            $exception = static::$activeMask;
-            $exception->setMask($proposedException);
-        }
-        // Otherwise we should mask it with our own default scent.
-        else {
-            $exception = new ApplicationException($proposedException->getMessage(), 0);
-            $exception->setMask($proposedException);
-        }
-
-        // Ensure System view path is registered
-        View::addNamespace('system', base_path().'/modules/system/views');
-
-        return View::make('system::exception', ['exception' => $exception]);
-    }
-
-    /**
-     * Prepares a mask exception to be used when any exception fires.
-     * @param Exception $exception The mask exception.
-     * @return void
-     */
-    public static function applyMask(\Exception $exception)
-    {
-        if (static::$activeMask !== null) {
-            array_push(static::$maskLayers, static::$activeMask);
-        }
-
-        static::$activeMask = $exception;
-    }
-
-    /**
-     * Destroys the prepared mask by applyMask()
-     * @return void
-     */
-    public static function removeMask()
-    {
-        if (count(static::$maskLayers) > 0) {
-            static::$activeMask = array_pop(static::$maskLayers);
-        }
-        else {
-            static::$activeMask = null;
-        }
-    }
-
     /**
      * Looks up an error page using the CMS route "/error". If the route does not
      * exist, this function will use the error view found in the Cms module.
@@ -114,6 +22,9 @@ class ErrorHandler
      */
     public function handleCustomError()
     {
+        if (Config::get('app.debug', false))
+            return null;
+
         $theme = Theme::getActiveTheme();
 
         // Use the default view if no "/error" URL is found.
@@ -125,5 +36,17 @@ class ErrorHandler
         // Route to the CMS error page.
         $controller = new Controller($theme);
         return $controller->run('/error');
+    }
+
+    /**
+     * Displays the detailed system exception page.
+     * @return View Object containing the error page.
+     */
+    public function handleDetailedError($exception)
+    {
+        // Ensure System view path is registered
+        View::addNamespace('system', base_path().'/modules/system/views');
+
+        return View::make('system::exception', ['exception' => $exception]);
     }
 }

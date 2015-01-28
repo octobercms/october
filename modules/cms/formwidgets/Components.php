@@ -1,10 +1,10 @@
 <?php namespace Cms\FormWidgets;
 
+use Lang;
 use Backend\Classes\FormWidgetBase;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentHelpers;
 use Cms\Classes\UnknownComponent;
-use Lang;
 use Exception;
 
 /**

@@ -4,7 +4,7 @@ use Str;
 use File;
 use Lang;
 use Block;
-use System\Classes\SystemException;
+use SystemException;
 
 /**
  * Searchable Widget Trait

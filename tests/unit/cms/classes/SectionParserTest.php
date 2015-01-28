@@ -310,12 +310,12 @@ setting = "test"
 ==
 
 use October\Rain\Support\Str; // This will be removed (-1 line)
-use October\Rain\Support\FlashBag; // This will be removed (-1 line)
+use October\Rain\Flash\FlashBag; // This will be removed (-1 line)
 
 function onStart() { // Line 7
 
     use October\Rain\Support\Str; // And placed here
-    use October\Rain\Support\FlashBag; // And placed here
+    use October\Rain\Flash\FlashBag; // And placed here
 
 }
 ==

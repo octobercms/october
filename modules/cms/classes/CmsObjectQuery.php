@@ -1,6 +1,6 @@
 <?php namespace Cms\Classes;
 
-use System\Classes\ApplicationException;
+use ApplicationException;
 
 /**
  * This class provides helper methods to make the CmsObject behave like a Model

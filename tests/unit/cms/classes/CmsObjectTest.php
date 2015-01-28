@@ -140,7 +140,7 @@ class CmsObjectTest extends TestCase
     }
 
     /**
-     * @expectedException        \System\Classes\ApplicationException
+     * @expectedException        \October\Rain\Exception\ApplicationException
      * @expectedExceptionMessage The property 'something' cannot be set
      */
     public function testFillNotFillable()
@@ -156,7 +156,7 @@ class CmsObjectTest extends TestCase
     }
 
     /**
-     * @expectedException        \October\Rain\Support\ValidationException
+     * @expectedException        \October\Rain\Exception\ValidationException
      * @expectedExceptionMessage Invalid file name
      */
     public function testFillInvalidFileNameSymbol()
@@ -171,7 +171,7 @@ class CmsObjectTest extends TestCase
     }
 
     /**
-     * @expectedException        \October\Rain\Support\ValidationException
+     * @expectedException        \October\Rain\Exception\ValidationException
      * @expectedExceptionMessage Invalid file name
      */
     public function testFillInvalidFileNamePath()
@@ -187,7 +187,7 @@ class CmsObjectTest extends TestCase
 
 
     /**
-     * @expectedException        \October\Rain\Support\ValidationException
+     * @expectedException        \October\Rain\Exception\ValidationException
      * @expectedExceptionMessage Invalid file name
      */
     public function testFillInvalidFileSlash()
@@ -202,7 +202,7 @@ class CmsObjectTest extends TestCase
     }
 
     /**
-     * @expectedException        \October\Rain\Support\ValidationException
+     * @expectedException        \October\Rain\Exception\ValidationException
      * @expectedExceptionMessage The File Name field is required
      */
     public function testFillEmptyFileName()
@@ -268,7 +268,7 @@ class CmsObjectTest extends TestCase
 
     /**
      * @depends testRename
-     * @expectedException        \System\Classes\ApplicationException
+     * @expectedException        \October\Rain\Exception\ApplicationException
      * @expectedExceptionMessage already exists
      */
     public function testRenameToExistingFile()

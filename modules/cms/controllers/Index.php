@@ -23,7 +23,7 @@ use Cms\Classes\Content;
 use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use Backend\Traits\InspectableContainer;
 use October\Rain\Router\Router as RainRouter;
 

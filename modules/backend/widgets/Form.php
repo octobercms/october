@@ -10,7 +10,7 @@ use Backend\Classes\FormTabs;
 use Backend\Classes\FormField;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use Backend\Classes\FormWidgetBase;
 use October\Rain\Database\Model;
 

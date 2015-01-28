@@ -11,8 +11,8 @@ use Backend\Models\User;
 use Backend\Models\AccessLog;
 use Backend\Classes\Controller;
 use System\Classes\UpdateManager;
-use System\Classes\ApplicationException;
-use October\Rain\Support\ValidationException;
+use ApplicationException;
+use ValidationException;
 use Exception;
 
 /**

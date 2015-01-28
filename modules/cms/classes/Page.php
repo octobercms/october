@@ -1,7 +1,7 @@
 <?php namespace Cms\Classes;
 
 use Cms\Classes\Theme;
-use System\Classes\ApplicationException;
+use ApplicationException;
 use Cms\Classes\Layout;
 use Lang;
 

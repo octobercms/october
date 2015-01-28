@@ -3,7 +3,7 @@
 use Str;
 use Illuminate\Container\Container;
 use System\Classes\PluginManager;
-use System\Classes\SystemException;
+use SystemException;
 
 /**
  * Component manager

@@ -1,7 +1,7 @@
 <?php namespace Cms\Classes;
 
 use File;
-use October\Rain\Support\Markdown;
+use Markdown;
 
 /**
  * The CMS content file class.

@@ -15,10 +15,10 @@ use Exception;
 use BackendAuth;
 use Backend\Models\UserPreferences;
 use Backend\Models\BackendPreferences;
-use System\Classes\SystemException;
-use System\Classes\ApplicationException;
+use SystemException;
+use ApplicationException;
 use October\Rain\Extension\Extendable;
-use October\Rain\Support\ValidationException;
+use ValidationException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Http\RedirectResponse;
 

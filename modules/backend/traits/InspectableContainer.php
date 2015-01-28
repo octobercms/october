@@ -1,8 +1,8 @@
 <?php namespace Backend\Traits;
 
 use Request;
-use System\Classes\SystemException;
-use System\Classes\ApplicationException;
+use SystemException;
+use ApplicationException;
 
 /**
  * Inspectable Container Trait

@@ -36,9 +36,10 @@ return [
     'October\Rain\Html\HtmlServiceProvider',
     'October\Rain\Network\NetworkServiceProvider',
     'October\Rain\Translation\TranslationServiceProvider',
-    'October\Rain\Support\Scaffold\ScaffoldServiceProvider',
-    'October\Rain\Support\FlashServiceProvider',
+    'October\Rain\Scaffold\ScaffoldServiceProvider',
+    'October\Rain\Flash\FlashServiceProvider',
     'October\Rain\Mail\MailServiceProvider',
+    'October\Rain\Parse\ParseServiceProvider',
 
     /*
      * Vendor providers
