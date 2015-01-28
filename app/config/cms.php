@@ -51,6 +51,19 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
+    | Bleeding edge updates
+    |--------------------------------------------------------------------------
+    |
+    | If you are developing with October, it is important to have the latest
+    | code base, set this value to 'true' to tell the platform to download
+    | and use the development copies of core files and plugins.
+    |
+    */
+
+    'edgeUpdates' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Back-end URI prefix
     |--------------------------------------------------------------------------
     |
@@ -205,5 +218,22 @@ return array(
     */
 
     'convertLineEndings' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Linking policy
+    |--------------------------------------------------------------------------
+    |
+    | Controls how URL links are generated throughout the application.
+    |
+    | relative - relative to the application, schema and hostname is omitted
+    | detect   - detect hostname and use the current schema
+    | secure   - detect hostname and force HTTPS schema
+    | insecure - detect hostname and force HTTP schema
+    | force    - force hostname and schema using app.url config value
+    |
+    */
+
+    'linkPolicy' => 'relative',
 
 );

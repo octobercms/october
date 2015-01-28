@@ -1,5 +1,18 @@
+* **Build !!!** (2015-!!-!!)
+  - **Upgraded framework to Laravel version 5**
+  - Renamed classes:
+  ```
+  October\Rain\Support\Yaml -> Yaml
+  October\Rain\Support\Markdown -> Markdown
+  System\Classes\ApplicationException -> ApplicationException
+  System\Classes\SystemException -> SystemException
+  October\Rain\Support\ValidationException -> ValidationException
+  ```
+  - Introduced a linking policy to control the way URLs are generated globally (see config cms.linkPolicy).
+
 * **Build 18x** (2015-01-xx)
   - Lists now support exporting to CSV format via the default **export** controller action.
+  - Platforms can *opt-in* for bleeding edge updates by enabling a config setting (`cms.edgeUpdates`), this helps perform testing before a stable version is deployed.
 
 * **Build 183** (2015-01-22)
   - Relation Controller now supports *has one* and *belongs to* relations (see Backend > Relations docs).
