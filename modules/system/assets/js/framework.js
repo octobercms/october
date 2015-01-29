@@ -268,8 +268,8 @@ if (window.jQuery === undefined)
 
         if (loading) loading.show()
 
-        $(window).trigger('ajaxBeforeSend')
-        $el.trigger('ajaxPromise')
+        $(window).trigger('ajaxBeforeSend', [context])
+        $el.trigger('ajaxPromise', [context])
         return $.ajax(requestOptions)
             .fail(function(jqXHR, textStatus, errorThrown){
                 if (!isRedirect) {
