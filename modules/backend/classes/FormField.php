@@ -147,7 +147,7 @@ class FormField
     /**
      * @var array Other field names this field depends on, when the other fields are modified, this field will update.
      */
-    public $depends;
+    public $dependsOn;
 
     /**
      * Constructor.
@@ -275,8 +275,12 @@ class FormField
         if (isset($config['containerAttributes'])) {
             $this->attributes($config['containerAttributes'], 'container');
         }
-        if (isset($config['depends'])) {
-            $this->depends = $config['depends'];
+        if (isset($config['dependsOn'])) {
+            $this->dependsOn = $config['dependsOn'];
+        }
+        /* @deprecated remove if year >= 2016 */
+        elseif (isset($config['depends'])) {
+            $this->dependsOn = $config['depends'];
         }
         if (isset($config['path'])) {
             $this->path = $config['path'];
