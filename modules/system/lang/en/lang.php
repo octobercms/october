@@ -121,7 +121,10 @@ return [
         'mailgun_domain' => 'Mailgun Domain',
         'mailgun_domain_comment' => 'Please specify the Mailgun domain name.',
         'mailgun_secret' => 'Mailgun Secret',
-        'mailgun_domain_secret' => 'Enter your Mailgun API key.'
+        'mailgun_domain_secret' => 'Enter your Mailgun API key.',
+        'mandrill' => 'Mandrill',
+        'mandrill_secret' => 'Mandrill Secret',
+        'mandrill_secret_comment' => 'Enter your Mandrill API key.'
     ],
     'mail_templates' => [
         'menu_label' => 'Mail templates',
