@@ -29,9 +29,25 @@ class FileUpload extends FormWidgetBase
      */
     public $defaultAlias = 'fileupload';
 
+    /**
+     * @var int Preview image width
+     */
     public $imageWidth;
+
+    /**
+     * @var int Preview image height
+     */
     public $imageHeight;
+
+    /**
+     * @var string Text to display when no file is associated
+     */
     public $previewNoFilesMessage;
+
+    /**
+     * @var mixed Collection of acceptable file types.
+     */
+    public $acceptedFileTypes;
 
     /**
      * {@inheritDoc}
@@ -40,6 +56,7 @@ class FileUpload extends FormWidgetBase
     {
         $this->imageHeight = $this->getConfig('imageHeight', 100);
         $this->imageWidth = $this->getConfig('imageWidth', 100);
+        $this->acceptedFileTypes = $this->getConfig('fileTypes');
         $this->previewNoFilesMessage = $this->getConfig(
             'previewNoFilesMessage',
             'backend::lang.form.preview_no_files_message'
@@ -68,6 +85,7 @@ class FileUpload extends FormWidgetBase
         $this->vars['emptyIcon'] = $this->getConfig('emptyIcon', 'icon-plus');
         $this->vars['imageHeight'] = $this->imageHeight;
         $this->vars['imageWidth'] = $this->imageWidth;
+        $this->vars['acceptedFileTypes'] = $this->getAcceptedFileTypes(true);
     }
 
     protected function getFileList()
@@ -100,6 +118,41 @@ class FileUpload extends FormWidgetBase
         $mode .= ($relationType == 'attachMany' || $relationType == 'morphMany') ? '-multi' : '-single';
 
         return $mode;
+    }
+
+    /**
+     * Returns the specified accepted file types, or the default
+     * based on the mode. Image mode will return:
+     * - jpg,jpeg,bmp,png,gif,svg
+     * @return string
+     */
+    public function getAcceptedFileTypes($includeDot = false)
+    {
+        if (!$types = $this->acceptedFileTypes) {
+            $types = starts_with($this->getDisplayMode(), 'image')
+                ? 'jpg,jpeg,bmp,png,gif,svg'
+                : null;
+        }
+
+        if (!is_array($types)) {
+            $types = explode(',', $types);
+        }
+
+        $types = array_map(function($value) use ($includeDot) {
+            $value = trim($value);
+
+            if (substr($value, 0, 1) == '.') {
+                $value = substr($value, 1);
+            }
+
+            if ($includeDot) {
+                $value = '.'.$value;
+            }
+
+            return $value;
+        }, $types);
+
+        return implode(',', $types);
     }
 
     /**
@@ -213,11 +266,9 @@ class FileUpload extends FormWidgetBase
         try {
             $uploadedFile = Input::file('file_data');
 
-            $isImage = starts_with($this->getDisplayMode(), 'image');
-
             $validationRules = ['max:'.File::getMaxFilesize()];
-            if ($isImage) {
-                $validationRules[] = 'mimes:jpg,jpeg,bmp,png,gif,svg';
+            if ($fileTypes = $this->getAcceptedFileTypes()) {
+                $validationRules[] = 'mimes:'.$fileTypes;
             }
 
             $validation = Validator::make(

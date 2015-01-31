@@ -3,6 +3,7 @@
     class="field-fileupload <?= $singleFile ? 'has-attachments' : '' ?>"
     data-control="fileupload"
     data-unique-id="<?= $this->getId() ?>"
+    <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
     data-item-template="<?= $this->getId('template') ?>">
 
     <div class="file-single attachment-item" data-attachment-id="<?= $singleFile ? $singleFile->id : '' ?>">

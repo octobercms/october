@@ -6,6 +6,7 @@
     data-sort-handler="<?= $this->getEventHandler('onSortAttachments') ?>"
     data-image-width="<?= $imageWidth ?>"
     data-image-height="<?= $imageHeight ?>"
+    <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
     data-item-template="<?= $this->getId('template') ?>">
 
     <div class="image-multi">

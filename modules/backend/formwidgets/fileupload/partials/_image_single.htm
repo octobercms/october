@@ -5,6 +5,7 @@
     data-unique-id="<?= $this->getId() ?>"
     data-image-width="<?= $imageWidth ?>"
     data-image-height="<?= $imageHeight ?>"
+    <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
     data-item-template="<?= $this->getId('template') ?>">
 
     <div
