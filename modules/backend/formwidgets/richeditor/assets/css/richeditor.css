@@ -1355,7 +1355,7 @@ body .redactor-box-fullscreen {
   border: none;
 }
 .redactor-box-fullscreen {
-  z-index: 399 !important;
+  z-index: 415 !important;
 }
 .redactor-toolbar,
 .redactor-dropdown {
