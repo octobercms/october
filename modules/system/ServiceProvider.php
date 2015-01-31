@@ -213,7 +213,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'system.manage_mail_templates' => [
                     'label' => 'system::lang.permissions.manage_mail_templates',
                     'tab' => 'system::lang.permissions.name'
-                ],
+                ]
             ]);
         });
 
@@ -242,7 +242,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'url_*'          => ['URL', '*'],
                 'html_*'         => ['HTML', '*'],
                 'form_*'         => ['Form', '*'],
-                'form_macro'     => ['Form', '__call'],
+                'form_macro'     => ['Form', '__call']
             ]);
 
             $manager->registerFilters([
@@ -256,7 +256,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'studly'         => ['Str', 'studly'],
                 'trans'          => ['Lang', 'get'],
                 'transchoice'    => ['Lang', 'choice'],
-                'md'             => ['October\Rain\Support\Markdown', 'parse'],
+                'md'             => ['October\Rain\Support\Markdown', 'parse']
             ]);
         });
 
@@ -308,7 +308,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-envelope',
                     'class'       => 'System\Models\MailSettings',
                     'permissions' => ['system.manage_mail_settings'],
-                    'order'       => 400,
+                    'order'       => 400
                 ],
                 'mail_templates' => [
                     'label'       => 'system::lang.mail_templates.menu_label',
@@ -317,8 +317,8 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-envelope-square',
                     'url'         => Backend::url('system/mailtemplates'),
                     'permissions' => ['system.manage_mail_templates'],
-                    'order'       => 500,
-                ],
+                    'order'       => 500
+                ]
             ]);
         });
 
