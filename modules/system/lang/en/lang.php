@@ -20,7 +20,8 @@ return [
         'ro' => 'Romanian',
         'ru' => 'Russian',
         'se' => 'Swedish',
-        'tr' => 'Turkish'
+        'tr' => 'Turkish',
+        'pl' => 'Polish',
     ],
     'directory' => [
         'create_fail' => 'Cannot create directory: :name'
