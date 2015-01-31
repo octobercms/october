@@ -161,7 +161,7 @@ class TemplateList extends WidgetBase
         }
 
         usort($normalizedItems, function ($a, $b) {
-            return strcmp($a->title, $b->title);
+            return strcmp($a->fileName, $b->fileName);
         });
 
         /*
