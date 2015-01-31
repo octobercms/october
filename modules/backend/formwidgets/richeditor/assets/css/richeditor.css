@@ -40,7 +40,7 @@
   box-shadow: none;
   color: #ccc;
   font-size: 13px;
-  font-family: Menlo, Monaco, monospace, sans-serif;
+  font-family: Menlo, Monaco, monospace, sans-serif !important;
   resize: none;
 }
 .redactor-box textarea:focus {
@@ -102,7 +102,7 @@ body .redactor-box-fullscreen {
   outline: none;
   white-space: normal;
   border: 1px solid #eee;
-  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
+  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif !important;
   font-size: 14px;
   line-height: 1.6em;
 }
@@ -358,7 +358,7 @@ body .redactor-box-fullscreen {
   color: #fff;
   padding: 5px 8px;
   line-height: 1;
-  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
+  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif !important;
   font-size: 12px;
   border-radius: 2px;
 }
@@ -376,7 +376,7 @@ body .redactor-box-fullscreen {
   background-color: #fff;
   box-shadow: 0 1px 7px rgba(0, 0, 0, 0.25);
   font-size: 14px;
-  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
+  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif !important;
   line-height: 1.6em;
 }
 .redactor-dropdown a {
@@ -409,7 +409,7 @@ body .redactor-box-fullscreen {
 .redactor-link-tooltip,
 .redactor-link-tooltip a {
   font-size: 12px;
-  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
+  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif !important;
 }
 .redactor-link-tooltip a {
   color: #ccc;
@@ -522,7 +522,7 @@ body .redactor-box-fullscreen {
   background: #fff;
   color: #000;
   font-size: 14px !important;
-  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
+  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif !important;
   box-shadow: 0 1px 70px rgba(0, 0, 0, 0.5);
 }
 #redactor-modal header {
@@ -564,7 +564,7 @@ body .redactor-box-fullscreen {
   color: #333;
   width: 100%;
   font-size: 14px;
-  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
+  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif !important;
   -webkit-transition: border 0.3s ease-in;
   -moz-transition: border 0.3s ease-in;
   transition: border 0.3s ease-in;
@@ -672,7 +672,7 @@ body .redactor-box-fullscreen {
   text-decoration: none;
   font-weight: normal;
   font-size: 12px;
-  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
+  font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif !important;
   line-height: 1;
   cursor: pointer;
 }
