@@ -10,7 +10,7 @@
   ```
   - Introduced a linking policy to control the way URLs are generated globally (see config cms.linkPolicy).
 
-* **Build 18x** (2015-01-xx)
+* **Build 184** (2015-01-31)
   - Lists now support exporting to CSV format via the default **export** controller action.
   - Platforms can *opt-in* for bleeding edge updates by enabling a config setting (`cms.edgeUpdates`), this helps perform testing before a stable version is deployed.
 
