@@ -1435,7 +1435,6 @@ body .redactor-box-fullscreen .redactor-editor {
   top: 0;
   bottom: 0;
   position: absolute;
-  height: auto !important;
 }
 .field-richeditor.stretch .redactor-box .redactor-editor {
   height: auto !important;
