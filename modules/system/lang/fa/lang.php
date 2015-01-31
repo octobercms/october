@@ -114,7 +114,7 @@ return [
         'mailgun_domain' => 'دامنه ی Mailgun',
         'mailgun_domain_comment' => 'لطفا نام دامنه ی Mailgun را وارد نمایید.',
         'mailgun_secret' => 'امنیت mailgun',
-        'mailgun_domain_secret' => 'کلید API ی مربوط به Mailgun را وارد نمایید.',        
+        'mailgun_secret_comment' => 'کلید API ی مربوط به Mailgun را وارد نمایید.',
     ],
     'mail_templates' => [
         'menu_label'         => 'قالب های نامه الکترونیکی',

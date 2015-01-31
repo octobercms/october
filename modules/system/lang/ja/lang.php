@@ -121,7 +121,7 @@ return [
         'mailgun_domain' => 'Mailgunドメイン',
         'mailgun_domain_comment' => 'Mailgunドメイン名を指定してください。',
         'mailgun_secret' => 'Mailgun APIキー',
-        'mailgun_domain_secret' => 'Mailgun APIキーを指定してください。'
+        'mailgun_secret_comment' => 'Mailgun APIキーを指定してください。'
     ],
     'mail_templates' => [
         'menu_label' => 'メールテンプレート',
