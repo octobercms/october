@@ -1,17 +1,17 @@
 <?php namespace Cms\Classes;
 
-use Validator;
-use Cms\Classes\CodeBase;
-use System\Classes\SystemException;
-use Cms\Classes\FileHelper;
-use October\Rain\Support\ValidationException;
-use Cms\Classes\ViewBag;
 use Cache;
 use Config;
-use Twig_Environment;
-use System\Twig\Extension as SystemTwigExtension;
+use Validator;
+use Cms\Classes\CodeBase;
+use Cms\Classes\FileHelper;
+use Cms\Classes\ViewBag;
 use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Twig\Loader as TwigLoader;
+use System\Twig\Extension as SystemTwigExtension;
+use System\Classes\SystemException;
+use October\Rain\Support\ValidationException;
+use Twig_Environment;
 
 /**
  * This is a base class for CMS objects that have multiple sections - pages, partials and layouts.
