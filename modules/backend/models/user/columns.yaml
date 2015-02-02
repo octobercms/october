@@ -14,7 +14,6 @@ columns:
         searchable: true
     full_name:
         label: backend::lang.user.full_name
-        select: concat(first_name, ' ', last_name)
         searchable: true
     email:
         label: backend::lang.user.email
