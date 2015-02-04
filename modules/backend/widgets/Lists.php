@@ -1,6 +1,6 @@
 <?php namespace Backend\Widgets;
 
-use DB as Db;
+use Db;
 use HTML as Html;
 use App;
 use Lang;

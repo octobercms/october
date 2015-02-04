@@ -1,7 +1,6 @@
 <?php namespace Backend\Classes;
 
 use Str;
-use HTML;
 use Lang;
 use IteratorAggregate;
 use ArrayIterator;

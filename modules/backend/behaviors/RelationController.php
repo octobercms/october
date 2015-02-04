@@ -1,6 +1,6 @@
 <?php namespace Backend\Behaviors;
 
-use DB;
+use Db;
 use Lang;
 use Event;
 use Form as FormHelper;

@@ -3,7 +3,7 @@
 use Str;
 use File;
 use Yaml;
-use DB as Db;
+use Db;
 use Carbon\Carbon;
 use October\Rain\Database\Updater;
 

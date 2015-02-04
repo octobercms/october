@@ -1,6 +1,6 @@
 <?php namespace Backend\Widgets;
 
-use DB as Db;
+use Db;
 use Event;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\FilterScope;

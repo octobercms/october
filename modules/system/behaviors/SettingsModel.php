@@ -110,7 +110,6 @@ class SettingsModel extends ModelBehavior
      */
     public function getSettingsRecord()
     {
-
         $record = Cache::remember($this->getCacheKey(), 1440, function() {
             return $this->model
                 ->where('item', $this->recordCode)

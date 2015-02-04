@@ -5,7 +5,8 @@
     System\Classes\ApplicationException -> ApplicationException
     System\Classes\SystemException -> SystemException
     October\Rain\Support\ValidationException -> ValidationException
-
+    DB -> Db
+    HTML -> Html
 
 ### File system changes
 

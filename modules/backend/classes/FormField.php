@@ -1,7 +1,7 @@
 <?php namespace Backend\Classes;
 
 use Str;
-use HTML;
+use Html;
 use Model;
 
 /**
@@ -356,7 +356,7 @@ class FormField
     public function getAttributes($position = 'field', $htmlBuild = true)
     {
         $result = array_get($this->attributes, $position, []);
-        return $htmlBuild ? HTML::attributes($result) : $result;
+        return $htmlBuild ? Html::attributes($result) : $result;
     }
 
     /**

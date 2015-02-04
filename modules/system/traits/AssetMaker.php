@@ -1,6 +1,6 @@
 <?php namespace System\Traits;
 
-use HTML;
+use Html;
 use File;
 use Request;
 use System\Models\Parameters;
@@ -49,7 +49,7 @@ trait AssetMaker
                 /*
                  * Prevent duplicates
                  */
-                $attributes = HTML::attributes(array_merge(
+                $attributes = Html::attributes(array_merge(
                     [
                         'rel'  => 'stylesheet',
                         'href' => $this->getAssetEntryBuildPath($asset)
@@ -63,7 +63,7 @@ trait AssetMaker
 
         if ($type == null || $type == 'rss') {
             foreach ($this->assets['rss'] as $asset) {
-                $attributes = HTML::attributes(array_merge(
+                $attributes = Html::attributes(array_merge(
                     [
                         'rel'   => 'alternate',
                         'href'  => $this->getAssetEntryBuildPath($asset),
@@ -79,7 +79,7 @@ trait AssetMaker
 
         if ($type == null || $type == 'js') {
             foreach ($this->assets['js'] as $asset) {
-                $attributes = HTML::attributes(array_merge(
+                $attributes = Html::attributes(array_merge(
                     [
                         'src' => $this->getAssetEntryBuildPath($asset)
                     ],
