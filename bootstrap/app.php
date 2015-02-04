@@ -11,22 +11,35 @@
 |
 */
 
-$app = new Illuminate\Foundation\Application;
+$app = new October\Rain\Foundation\Application(
+    realpath(__DIR__.'/../')
+);
 
 /*
 |--------------------------------------------------------------------------
-| Detect The Application Environment
+| Bind Important Interfaces
 |--------------------------------------------------------------------------
 |
-| Laravel takes a dead simple approach to your application environments
-| so you can just specify a machine name or HTTP host that matches a
-| given environment, then we will automatically detect it for you.
+| Next, we need to bind some important interfaces into the container so
+| we will be able to resolve them when needed. The kernels serve the
+| incoming requests to this application from both the web and CLI.
 |
 */
 
-$env = $app->detectEnvironment(function () {
-    return getenv('CMS_ENV') ?: 'production';
-});
+$app->singleton(
+    'Illuminate\Contracts\Http\Kernel',
+    'October\Rain\Foundation\Http\Kernel'
+);
+
+$app->singleton(
+    'Illuminate\Contracts\Console\Kernel',
+    'October\Rain\Foundation\Console\Kernel'
+);
+
+$app->singleton(
+    'Illuminate\Contracts\Debug\ExceptionHandler',
+    'October\Rain\Foundation\Exceptions\Handler'
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +52,7 @@ $env = $app->detectEnvironment(function () {
 |
 */
 
-$app->bindInstallPaths(require __DIR__.'/paths.php');
+// $app->bindInstallPaths(require __DIR__.'/paths.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -52,9 +65,9 @@ $app->bindInstallPaths(require __DIR__.'/paths.php');
 |
 */
 
-$framework = $app['path.base'].'/vendor/laravel/framework/src';
+// $framework = $app['path.base'].'/vendor/laravel/framework/src';
 
-require $framework.'/Illuminate/Foundation/start.php';
+// require $framework.'/Illuminate/Foundation/start.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -62,15 +75,15 @@ require $framework.'/Illuminate/Foundation/start.php';
 |--------------------------------------------------------------------------
 */
 
-if (!isset($unitTesting) || !$unitTesting) {
-    header('Cache-Control: no-store, private, no-cache, must-revalidate');                  // HTTP/1.1
-    header('Cache-Control: pre-check=0, post-check=0, max-age=0, max-stale = 0', false);    // HTTP/1.1
-    header('Pragma: public');
-    header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');                                       // Date in the past
-    header('Expires: 0', false);
-    header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-    header('Pragma: no-cache');
-}
+// if (!isset($unitTesting) || !$unitTesting) {
+//     header('Cache-Control: no-store, private, no-cache, must-revalidate');                  // HTTP/1.1
+//     header('Cache-Control: pre-check=0, post-check=0, max-age=0, max-stale = 0', false);    // HTTP/1.1
+//     header('Pragma: public');
+//     header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');                                       // Date in the past
+//     header('Expires: 0', false);
+//     header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+//     header('Pragma: no-cache');
+// }
 
 /*
 |--------------------------------------------------------------------------

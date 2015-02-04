@@ -57,7 +57,7 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\DataGrid', [
                 'label' => 'Data Grid',
                 'code'  => 'datagrid'
-            ]); // @deprecated if year >= 2015
+            ]); // @deprecated if year >= 2016
             $manager->registerFormWidget('Backend\FormWidgets\DataTable', [
                 'label' => 'Data Table',
                 'code'  => 'datatable'

@@ -1,13 +1,5 @@
 * **Build !!!** (2015-!!-!!)
   - **Upgraded framework to Laravel version 5**
-  - Renamed classes:
-  ```
-  October\Rain\Support\Yaml -> Yaml
-  October\Rain\Support\Markdown -> Markdown
-  System\Classes\ApplicationException -> ApplicationException
-  System\Classes\SystemException -> SystemException
-  October\Rain\Support\ValidationException -> ValidationException
-  ```
   - Introduced a linking policy to control the way URLs are generated globally (see config cms.linkPolicy).
 
 * **Build 18x** (2015-01-xx)

@@ -4,7 +4,7 @@ use Str;
 use App;
 use File;
 use Config;
-use Controller as ControllerBase;
+use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
 
 /**

@@ -41,7 +41,6 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register core providers
          */
-        App::register('October\Rain\Config\ConfigServiceProvider');
         App::register('October\Rain\Translation\TranslationServiceProvider');
 
         /*
@@ -103,10 +102,10 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Error handling for uncaught Exceptions
          */
-        App::error(function (\Exception $exception, $httpCode) {
-            $handler = new ErrorHandler;
-            return $handler->handleException($exception, $httpCode);
-        });
+        // App::error(function (\Exception $exception, $httpCode) {
+        //     $handler = new ErrorHandler;
+        //     return $handler->handleException($exception, $httpCode);
+        // });
 
         /*
          * Write all log events to the database
