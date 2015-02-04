@@ -124,12 +124,16 @@ class FormController extends ControllerBehavior
             $this->controller->formExtendFieldsBefore($this->formWidget);
         });
 
-        $this->formWidget->bindEvent('form.extendFields', function () {
-            $this->controller->formExtendFields($this->formWidget);
+        $this->formWidget->bindEvent('form.extendFields', function ($fields) {
+            $this->controller->formExtendFields($this->formWidget, $fields);
         });
 
         $this->formWidget->bindEvent('form.beforeRefresh', function ($saveData) {
             return $this->controller->formExtendRefreshData($this->formWidget, $saveData);
+        });
+
+        $this->formWidget->bindEvent('form.refreshFields', function ($fields) {
+            return $this->controller->formExtendRefreshFields($this->formWidget, $fields);
         });
 
         $this->formWidget->bindEvent('form.refresh', function ($result) {
@@ -623,7 +627,7 @@ class FormController extends ControllerBehavior
      * @param Backend\Widgets\Form $host The hosting form widget
      * @return void
      */
-    public function formExtendFields($host)
+    public function formExtendFields($host, $fields)
     {
     }
 
@@ -634,6 +638,16 @@ class FormController extends ControllerBehavior
      * @return array
      */
     public function formExtendRefreshData($host, $saveData)
+    {
+    }
+
+    /**
+     * Called when the form is refreshed, giving the opportunity to modify the form fields.
+     * @param Backend\Widgets\Form $host The hosting form widget
+     * @param array $fields Current form fields
+     * @return array
+     */
+    public function formExtendRefreshFields($host, $fields)
     {
     }
 

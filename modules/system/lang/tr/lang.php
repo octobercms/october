@@ -121,7 +121,7 @@ return [
         'mailgun_domain' => 'Mailgun Domain',
         'mailgun_domain_comment' => 'Mailgun domain belirtin.',
         'mailgun_secret' => 'Mailgun Gizli Anahtarı',
-        'mailgun_domain_secret' => 'Mailgun API anahtarını girin.'
+        'mailgun_secret_comment' => 'Mailgun API anahtarını girin.'
     ],
     'mail_templates' => [
         'menu_label' => 'Mail şablonları',

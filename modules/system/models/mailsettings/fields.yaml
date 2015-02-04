@@ -61,5 +61,10 @@ tabs:
 
     mailgun_secret:
       label: system::lang.mail.mailgun_secret
-      commentAbove: system::lang.mail.mailgun_domain_secret
+      commentAbove: system::lang.mail.mailgun_secret_comment
       tab: system::lang.mail.mailgun
+      
+    mandrill_secret:
+      label: system::lang.mail.mandrill_secret
+      commentAbove: system::lang.mail.mandrill_secret_comment
+      tab: system::lang.mail.mandrill

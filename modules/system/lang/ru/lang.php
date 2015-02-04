@@ -120,7 +120,7 @@ return [
         'mailgun_domain' => 'Mailgun домен',
         'mailgun_domain_comment' => 'Пожалуйста, укажите Mailgun домен.',
         'mailgun_secret' => 'Секретный API-ключ',
-        'mailgun_domain_secret' => 'Введите ваш Mailgun API-ключ.',
+        'mailgun_secret_comment' => 'Введите ваш Mailgun API-ключ.',
     ],
     'mail_templates' => [
         'menu_label' => 'Шаблоны почты',

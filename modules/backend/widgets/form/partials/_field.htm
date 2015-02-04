@@ -1,23 +1,27 @@
-<?php if (in_array($field->type, ['checkbox', 'switch'])): ?>
+<?php if (!$field->hidden): ?>
 
-    <?= $this->makePartial('field_'.$field->type, ['field' => $field]) ?>
+    <?php if (in_array($field->type, ['checkbox', 'switch'])): ?>
 
-<?php else: ?>
+        <?= $this->makePartial('field_'.$field->type, ['field' => $field]) ?>
 
-    <?php if ($field->label): ?>
-        <label for="<?= $field->getId() ?>">
-            <?= e(trans($field->label)) ?>
-        </label>
-    <?php endif ?>
+    <?php else: ?>
 
-    <?php if ($field->comment && $field->commentPosition == 'above'): ?>
-        <p class="help-block before-field"><?= e(trans($field->comment)) ?></p>
-    <?php endif ?>
+        <?php if ($field->label): ?>
+            <label for="<?= $field->getId() ?>">
+                <?= e(trans($field->label)) ?>
+            </label>
+        <?php endif ?>
 
-    <?= $this->renderFieldElement($field) ?>
+        <?php if ($field->comment && $field->commentPosition == 'above'): ?>
+            <p class="help-block before-field"><?= e(trans($field->comment)) ?></p>
+        <?php endif ?>
 
-    <?php if ($field->comment && $field->commentPosition == 'below'): ?>
-        <p class="help-block"><?= e(trans($field->comment)) ?></p>
+        <?= $this->renderFieldElement($field) ?>
+
+        <?php if ($field->comment && $field->commentPosition == 'below'): ?>
+            <p class="help-block"><?= e(trans($field->comment)) ?></p>
+        <?php endif ?>
+
     <?php endif ?>
 
 <?php endif ?>

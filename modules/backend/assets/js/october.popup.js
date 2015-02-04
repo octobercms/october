@@ -309,14 +309,20 @@
         return false
     });
 
+    /*
+     * Only use the popup loading indicator if the handlers are an exact match.
+     */
     $(document)
-        .on('ajaxPromise', '[data-popup-load-indicator]', function() {
+        .on('ajaxPromise', '[data-popup-load-indicator]', function(event, context) {
+            if ($(this).data('request') != context.handler) return
             $(this).closest('.control-popup').removeClass('in').popup('setLoading', true)
         })
-        .on('ajaxFail', '[data-popup-load-indicator]', function() {
+        .on('ajaxFail', '[data-popup-load-indicator]', function(event, context) {
+            if ($(this).data('request') != context.handler) return
             $(this).closest('.control-popup').addClass('in').popup('setLoading', false)
         })
-        .on('ajaxDone', '[data-popup-load-indicator]', function() {
+        .on('ajaxDone', '[data-popup-load-indicator]', function(event, context) {
+            if ($(this).data('request') != context.handler) return
             $(this).closest('.control-popup').popup('hideLoading')
         })
 

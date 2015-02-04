@@ -21,6 +21,7 @@ class MailSettings extends Model
     const MODE_SENDMAIL = 'sendmail';
     const MODE_SMTP     = 'smtp';
     const MODE_MAILGUN  = 'mailgun';
+    const MODE_MANDRILL = 'mandrill';
 
     public function initSettingsData()
     {
@@ -44,6 +45,7 @@ class MailSettings extends Model
             static::MODE_SENDMAIL => 'system::lang.mail.sendmail',
             static::MODE_SMTP     => 'system::lang.mail.smtp',
             static::MODE_MAILGUN  => 'system::lang.mail.mailgun',
+            static::MODE_MANDRILL => 'system::lang.mail.mandrill',
         ];
     }
 
@@ -77,6 +79,10 @@ class MailSettings extends Model
             case self::MODE_MAILGUN:
                 $config->set('services.mailgun.domain', $settings->mailgun_domain);
                 $config->set('services.mailgun.secret', $settings->mailgun_secret);
+                break;
+
+            case self::MODE_MANDRILL:
+                $config->set('services.mandrill.secret', $settings->mandrill_secret);
                 break;
         }
 

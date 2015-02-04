@@ -285,7 +285,7 @@ class Form extends WidgetBase
          */
         $eventResults = $this->fireEvent('form.beforeRefresh', [$saveData]) +
             Event::fire('backend.form.beforeRefresh', [$this, $saveData]);
-        
+
         foreach ($eventResults as $eventResult) {
             $saveData = $eventResult + $saveData;
         }
@@ -295,6 +295,12 @@ class Form extends WidgetBase
          */
         $this->setFormValues($saveData);
         $this->prepareVars();
+
+        /*
+         * Extensibility
+         */
+        $this->fireEvent('form.refreshFields', [$this->fields]);
+        Event::fire('backend.form.refreshFields', [$this, $this->fields]);
 
         /*
          * If an array of fields is supplied, update specified fields individually.
@@ -323,7 +329,7 @@ class Form extends WidgetBase
          */
         $eventResults = $this->fireEvent('form.refresh', [$result]) +
             Event::fire('backend.form.refresh', [$this, $result]);
-        
+
         foreach ($eventResults as $eventResult) {
             $result = $eventResult + $result;
         }
@@ -380,8 +386,8 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        Event::fire('backend.form.extendFields', [$this]);
-        $this->fireEvent('form.extendFields');
+        $this->fireEvent('form.extendFields', [$this->fields]);
+        Event::fire('backend.form.extendFields', [$this, $this->fields]);
 
         /*
          * Convert automatic spanned fields
@@ -724,13 +730,13 @@ class Form extends WidgetBase
      */
     public function getFieldDepends($field)
     {
-        if (!$field->depends) {
+        if (!$field->dependsOn) {
             return;
         }
 
-        $depends = is_array($field->depends) ? $field->depends : [$field->depends];
-        $depends = htmlspecialchars(json_encode($depends), ENT_QUOTES, 'UTF-8');
-        return $depends;
+        $dependsOn = is_array($field->dependsOn) ? $field->dependsOn : [$field->dependsOn];
+        $dependsOn = htmlspecialchars(json_encode($dependsOn), ENT_QUOTES, 'UTF-8');
+        return $dependsOn;
     }
 
     /**

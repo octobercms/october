@@ -3,6 +3,7 @@
     <?php if ($depends = $this->getFieldDepends($field)): ?>data-field-depends="<?= $depends ?>"<?php endif ?>
     data-field-name="<?= $field->fieldName ?>"
     <?= $field->getAttributes('container') ?>
-    id="<?= $field->getId('group') ?>">
-    <?= $this->makePartial('field', ['field' => $field]) ?>
-</div>
+    id="<?= $field->getId('group') ?>"><?=
+    /* Must be on the same line for :empty selector */
+    $this->makePartial('field', ['field' => $field])
+?></div>

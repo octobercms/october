@@ -684,6 +684,9 @@ class UpdateManager
     protected function applyHttpAttributes($http, $postData)
     {
         $postData['url'] = base64_encode(URL::to('/'));
+        if (Config::get('cms.edgeUpdates', false)) {
+            $postData['edge'] = 1;
+        }
 
         if ($this->key && $this->secret) {
             $postData['nonce'] = $this->createNonce();

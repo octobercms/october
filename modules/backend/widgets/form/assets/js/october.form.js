@@ -13,6 +13,7 @@
         this.options = options || {};
 
         this.bindDependants()
+        this.toggleEmptyTabs()
     }
 
     FormWidget.DEFAULTS = {
@@ -51,14 +52,28 @@
                 .on('change', 'select, input', function(){
                     formEl.request(self.options.refreshHandler, {
                         data: toRefresh
+                    }).success(function(){
+                        self.toggleEmptyTabs()
                     })
 
                     $.each(toRefresh.fields, function(index, field){
-                        form.find('[data-field-name="'+field+'"]')
+                        form.find('[data-field-name="'+field+'"]:visible')
                             .addClass('loading-indicator-container size-form-field')
                             .loadIndicator()
                     })
                 })
+        })
+    }
+
+    FormWidget.prototype.toggleEmptyTabs = function() {
+        var tabControl = $('[data-control=tab]', this.$el)
+
+        if (!tabControl.length)
+            return
+
+        $('.tab-pane', tabControl).each(function(){
+            $('[data-target="#' + $(this).attr('id') + '"]', tabControl)
+                .toggle(!!$('.form-group:not(:empty)', $(this)).length)
         })
 
     }

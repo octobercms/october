@@ -95,6 +95,10 @@ label {
 .form-group {
     position: relative;
 
+    &:empty {
+        display: none;
+    }
+
     &, &.layout-item {
         padding-bottom: 20px;
         margin-bottom: 0;
@@ -526,7 +530,7 @@ label {
 
         &.in-progress {
             .select2-choice .select2-arrow {
-                display: none!important;
+                display: none !important;
             }
         }
     }

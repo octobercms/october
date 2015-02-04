@@ -1,5 +1,5 @@
 /*
- * Tab control. 
+ * Tab control.
  *
  * This plugin is a wrapper for the Twitter Bootstrap Tab component. It provides the following features:
  * - Adding tabs
@@ -55,7 +55,7 @@
  *   preventDefault() method to cancel the action.
  * - afterAllClosed.oc.tab - triggered after all tabs have been closed
  * 
- * Dependences: 
+ * Dependences:
  * - DragScroll (october.dragscroll.js)
  * - Toolbar (october.toolbar.js)
  * - Touchwipe (jquery.touchwipe.min.js)
@@ -208,8 +208,7 @@
         this.updateClasses()
     }
 
-    Tab.prototype.generateTitleText = function(title, tabIndex)
-    {
+    Tab.prototype.generateTitleText = function(title, tabIndex) {
         var newTitle = title
         if (this.options.titleAsFileNames)
             newTitle = title.replace(/^.*[\\\/]/, '')
@@ -225,7 +224,7 @@
         if (tabIndex == -1)
             return
 
-        var 
+        var
             $tab = $('> li', this.$tabsContainer).eq(tabIndex),
             $pane = $('> div', this.$pagesContainer).eq(tabIndex),
             isActive = $tab.hasClass('active'),

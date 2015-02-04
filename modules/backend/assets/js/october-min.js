@@ -379,8 +379,7 @@ $link.text(processedTitle).attr('title',title)
 $pane.html(content)
 this.initTab($tab)
 this.updateClasses()}
-Tab.prototype.generateTitleText=function(title,tabIndex)
-{var newTitle=title
+Tab.prototype.generateTitleText=function(title,tabIndex){var newTitle=title
 if(this.options.titleAsFileNames)
 newTitle=title.replace(/^.*[\\\/]/,'')
 if(this.options.maxTitleSymbols&&newTitle.length>this.options.maxTitleSymbols)
@@ -696,7 +695,10 @@ $.fn.popup.Constructor=Popup
 $.fn.popup.noConflict=function(){$.fn.popup=old
 return this}
 $(document).on('click.oc.popup','[data-control="popup"]',function(){$(this).popup()
-return false});$(document).on('ajaxPromise','[data-popup-load-indicator]',function(){$(this).closest('.control-popup').removeClass('in').popup('setLoading',true)}).on('ajaxFail','[data-popup-load-indicator]',function(){$(this).closest('.control-popup').addClass('in').popup('setLoading',false)}).on('ajaxDone','[data-popup-load-indicator]',function(){$(this).closest('.control-popup').popup('hideLoading')})}(window.jQuery);+function($){"use strict";var GoalMeter=function(element,options){var
+return false});$(document).on('ajaxPromise','[data-popup-load-indicator]',function(event,context){if($(this).data('request')!=context.handler)return
+$(this).closest('.control-popup').removeClass('in').popup('setLoading',true)}).on('ajaxFail','[data-popup-load-indicator]',function(event,context){if($(this).data('request')!=context.handler)return
+$(this).closest('.control-popup').addClass('in').popup('setLoading',false)}).on('ajaxDone','[data-popup-load-indicator]',function(event,context){if($(this).data('request')!=context.handler)return
+$(this).closest('.control-popup').popup('hideLoading')})}(window.jQuery);+function($){"use strict";var GoalMeter=function(element,options){var
 $el=this.$el=$(element),self=this;this.options=options||{};this.$indicatorBar=$('<span/>').text(this.options.value+'%')
 this.$indicatorOuter=$('<span/>').addClass('goal-meter-indicator').append(this.$indicatorBar)
 $('p',this.$el).first().before(this.$indicatorOuter)

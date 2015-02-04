@@ -121,7 +121,7 @@ return [
         'mailgun_domain' => 'Mailgun tartomány',
         'mailgun_domain_comment' => 'Adja meg a Mailgun tartománynevét.',
         'mailgun_secret' => 'Mailgun Secret',
-        'mailgun_domain_secret' => 'Adja meg Mailgun API-kulcsát.',
+        'mailgun_secret_comment' => 'Adja meg Mailgun API-kulcsát.',
     ],
     'mail_templates' => [
         'menu_label' => 'Levélsablonok',

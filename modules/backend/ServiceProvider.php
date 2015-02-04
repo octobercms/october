@@ -94,7 +94,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_SYSTEM,
                     'icon'        => 'icon-paint-brush',
                     'class'       => 'Backend\Models\BrandSettings',
-                    'order'       => 500,
+                    'order'       => 500
                 ],
                 'editor' => [
                     'label'       => 'backend::lang.editor.menu_label',
@@ -122,7 +122,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'url'         => Backend::URL('backend/users/myaccount'),
                     'order'       => 400,
                     'context'     => 'mysettings',
-                    'keywords'    => 'backend::lang.myaccount.menu_keywords',
+                    'keywords'    => 'backend::lang.myaccount.menu_keywords'
                 ],
                 'access_logs' => [
                     'label'       => 'backend::lang.access_log.menu_label',
@@ -132,7 +132,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'url'         => Backend::url('backend/accesslogs'),
                     'permissions' => ['backend.access_admin_logs'],
                     'order'       => 800
-                ],
+                ]
             ]);
         });
 
@@ -143,12 +143,12 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerPermissions('October.Backend', [
                 'backend.access_dashboard' => [
                     'label' => 'system::lang.permissions.view_the_dashboard',
-                    'tab' => 'system::lang.permissions.name'
+                    'tab'   => 'system::lang.permissions.name'
                 ],
                 'backend.manage_users' => [
                     'label' => 'system::lang.permissions.manage_other_administrators',
-                    'tab' => 'system::lang.permissions.name'
-                ],
+                    'tab'   => 'system::lang.permissions.name'
+                ]
             ]);
         });
 
@@ -165,7 +165,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register asset bundles
          */
-        CombineAssets::registerCallback(function($combiner){
+        CombineAssets::registerCallback(function($combiner) {
             $combiner->registerBundle('~/modules/backend/assets/less/october.less');
             $combiner->registerBundle('~/modules/backend/assets/js/october.js');
             $combiner->registerBundle('~/modules/backend/assets/js/vendor/vendor.js');

@@ -4,6 +4,7 @@
     data-control="fileupload"
     data-unique-id="<?= $this->getId() ?>"
     data-sort-handler="<?= $this->getEventHandler('onSortAttachments') ?>"
+    <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
     data-item-template="<?= $this->getId('template') ?>">
 
     <div class="file-multi">

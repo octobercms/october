@@ -15,7 +15,7 @@ use SystemException;
 class CodeParser
 {
     /**
-     * @var \Cms\Classes\CmsCompoundObject A reference to the CMS object being parsed.
+     * @var Cms\Classes\CmsCompoundObject A reference to the CMS object being parsed.
      */
     protected $object;
 
@@ -57,7 +57,6 @@ class CodeParser
         /*
          * If the object has already been parsed in this request return the cached data.
          */
-
         if (array_key_exists($this->filePath, self::$cache)) {
             self::$cache[$this->filePath]['source'] = 'request-cache';
             return self::$cache[$this->filePath];
@@ -66,7 +65,6 @@ class CodeParser
         /*
          * Try to load the parsed data from the file cache
          */
-
         $path = $this->getFilePath();
         $result = [
             'filePath' => $path,
@@ -86,7 +84,6 @@ class CodeParser
         /*
          * If the file was not found, or the cache is stale, prepare the new file and cache information about it
          */
-
         $uniqueName = uniqid().'_'.abs(crc32(md5(mt_rand())));
         $className = 'Cms'.$uniqueName.'Class';
 
@@ -144,20 +141,20 @@ class CodeParser
 
     /**
      * Runs the object's PHP file and returns the corresponding object.
-     * @param \Cms\Classes\Page $page Specifies the CMS page.
-     * @param \Cms\Classes\Layout $layout Specifies the CMS layout.
-     * @param \Cms\Classes\Controller $controller Specifies the CMS controller.
+     * @param Cms\Classes\Page $page Specifies the CMS page.
+     * @param Cms\Classes\Layout $layout Specifies the CMS layout.
+     * @param Cms\Classes\Controller $controller Specifies the CMS controller.
      * @return mixed
      */
     public function source($page, $layout, $controller)
     {
         $data = $this->parse();
+        $className = $data['className'];
 
-        if (!class_exists($data['className'])) {
+        if (!class_exists($className)) {
             require_once $data['filePath'];
         }
-        
-        $className = $data['className'];
+
         return new $className($page, $layout, $controller);
     }
 

@@ -127,6 +127,10 @@
             method: 'POST'
         }
 
+        if (this.options.fileTypes) {
+            uploaderOptions.acceptedFiles = this.options.fileTypes
+        }
+
         /*
          * Bind uploader
          */
@@ -225,7 +229,8 @@
     }
 
     FileUpload.prototype.onUploadThumbnail = function(file, thumbUrl) {
-        // @todo
+        // Provides a thumbnail preview, could be useful
+        // but not used at this point in time.
     }
 
     FileUpload.prototype.onUploadComplete = function(file, data) {
@@ -290,6 +295,7 @@
         onFail: null,
         imageWidth: 100,
         imageHeight: 100,
+        fileTypes: null,
         itemTemplate: null,
         paramName: 'file_data'
     }
