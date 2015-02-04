@@ -78,6 +78,16 @@ class PluginVersion extends Model
     }
 
     /**
+     * Only include enabled plugins
+     * @param $query
+     * @return mixed
+     */
+    public function scopeEnabled($query)
+    {
+        return $query->where('is_disabled', '!=', 1);
+    }
+
+    /**
      * Returns the current version for a plugin
      * @param  string $pluginCode Plugin code. Eg: Acme.Blog
      * @return string
