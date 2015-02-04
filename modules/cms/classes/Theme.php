@@ -129,10 +129,9 @@ class Theme
         $activeTheme = Config::get('cms.activeTheme');
 
         if (DbDongle::hasDatabase()) {
-            $dbResult = Parameters::findRecord(self::ACTIVE_KEY)
-                ->remember(1440, self::ACTIVE_KEY)
-                ->pluck('value')
-            ;
+            $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function() {
+                return Parameters::findRecord(self::ACTIVE_KEY)->pluck('value');
+            });
 
             if ($dbResult !== null && static::exists($dbResult)) {
                 $activeTheme = $dbResult;
