@@ -14,7 +14,6 @@ use Response;
 use Exception;
 use BackendAuth;
 use Twig_Environment;
-use Controller as BaseController;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
@@ -35,7 +34,7 @@ use Illuminate\Http\RedirectResponse;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class Controller extends BaseController
+class Controller
 {
     use \System\Traits\AssetMaker;
     use \October\Rain\Support\Traits\Emitter;
@@ -1189,5 +1188,51 @@ class Controller extends BaseController
                 $component->setExternalPropertyName($propertyName, $paramName);
             }
         }
+    }
+
+    //
+    // Keep Laravel Happy
+    //
+
+    /**
+     * Get the middleware assigned to the controller.
+     *
+     * @return array
+     */
+    public function getMiddleware()
+    {
+        return [];
+    }
+
+    /**
+     * Get the registered "before" filters.
+     *
+     * @return array
+     */
+    public function getBeforeFilters()
+    {
+        return [];
+    }
+
+    /**
+     * Get the registered "after" filters.
+     *
+     * @return array
+     */
+    public function getAfterFilters()
+    {
+        return [];
+    }
+
+    /**
+     * Execute an action on the controller.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function callAction($method, $parameters)
+    {
+        return call_user_func_array(array($this, $method), $parameters);
     }
 }

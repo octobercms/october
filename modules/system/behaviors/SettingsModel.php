@@ -110,11 +110,18 @@ class SettingsModel extends ModelBehavior
      */
     public function getSettingsRecord()
     {
-        $record = Cache::remember($this->getCacheKey(), 1440, function() {
-            return $this->model
-                ->where('item', $this->recordCode)
-                ->first();
-        });
+        //
+        // @todo L5 disabled until bug is fixed
+        //
+        // $record = Cache::remember($this->getCacheKey(), 1440, function() {
+        //     return $this->model
+        //         ->where('item', $this->recordCode)
+        //         ->first();
+        // });
+
+        $record = $this->model
+            ->where('item', $this->recordCode)
+            ->first();
 
         return $record ?: null;
     }

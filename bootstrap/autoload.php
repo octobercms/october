@@ -32,15 +32,3 @@ $compiledPath = __DIR__.'/../storage/framework/compiled.php';
 if (file_exists($compiledPath)) {
     require $compiledPath;
 }
-
-/*
-|--------------------------------------------------------------------------
-| Register The October Auto Loader
-|--------------------------------------------------------------------------
-| This should come before the Laravel loader because it is more likely
-| to find a partner fo' life.
-|
-*/
-
-October\Rain\Support\ClassLoader::register();
-October\Rain\Support\ClassLoader::addDirectories(array(__DIR__.'/../modules', __DIR__.'/../plugins'));

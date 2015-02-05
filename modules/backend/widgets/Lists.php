@@ -204,11 +204,11 @@ class Lists extends WidgetBase
         $this->vars['treeLevel'] = 0;
 
         if ($this->showPagination) {
-            $this->vars['recordTotal'] = $this->records->getTotal();
-            $this->vars['pageCurrent'] = $this->records->getCurrentPage();
-            $this->vars['pageLast'] = $this->records->getLastPage();
-            $this->vars['pageFrom'] = $this->records->getFrom();
-            $this->vars['pageTo'] = $this->records->getTo();
+            $this->vars['recordTotal'] = $this->records->total();
+            $this->vars['pageCurrent'] = $this->records->currentPage();
+            $this->vars['pageLast'] = $this->records->lastPage();
+            $this->vars['pageFrom'] = $this->records->firstItem();
+            $this->vars['pageTo'] = $this->records->lastItem();
         }
         else {
             $this->vars['recordTotal'] = $this->records->count();

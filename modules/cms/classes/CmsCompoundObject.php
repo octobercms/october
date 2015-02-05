@@ -11,8 +11,6 @@ use Cms\Classes\ViewBag;
 use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Twig\Loader as TwigLoader;
 use System\Twig\Extension as SystemTwigExtension;
-use System\Classes\SystemException;
-use October\Rain\Support\ValidationException;
 use Twig_Environment;
 
 /**

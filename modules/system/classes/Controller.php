@@ -1,6 +1,6 @@
 <?php namespace System\Classes;
 
-use Controller as BaseController;
+use Illuminate\Routing\Controller as ControllerBase;
 use ApplicationException;
 use System\Classes\CombineAssets;
 use Exception;
@@ -11,7 +11,7 @@ use Exception;
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-class Controller extends BaseController
+class Controller extends ControllerBase
 {
     /**
      * Combines JavaScript and StyleSheet assets.

@@ -41,7 +41,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register core providers
          */
-        App::register('October\Rain\Translation\TranslationServiceProvider');
+        // App::register('October\Rain\Translation\TranslationServiceProvider');
 
         /*
          * Define path constants
