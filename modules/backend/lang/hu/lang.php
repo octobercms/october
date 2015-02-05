@@ -187,6 +187,7 @@ return [
         'concurrency_file_changed_description' => "Az Ön által szerkesztett fájlt egy máik felhasználó módosította a lemezen. Vagy újratöltheti a fájlt, és elveszti a változtatásait, vagy felülbírálja a lemezen lévő fájlt.",
     ],
     'relation' => [
+        'missing_config' => "A relációviselkedésnek nincs semmilyen konfigurációja a következőhöz: ':config'.",
         'missing_definition' => "A relációviselkedés nem tartalmazza a(z) ':field' mező definícióját.",
         'missing_model' => "A(z) :class osztályban használt relációviselkedésnek nincs definiált modellje.",
         'invalid_action_single' => "Ez a művelet nem hajtható végre egyetlen kapcsolaton.",
@@ -196,6 +197,8 @@ return [
         'add' => "Hozzáadás",
         'add_selected' => "Kijelöltek hozzáadása",
         'add_a_new' => "Új :name hozzáadása",
+        'link_selected' => "Kijelöltek csatolása",
+        'link_a_new' => "Új :name csatolása",
         'cancel' => "Mégse",
         'close' => "Bezárás",
         'add_name' => ":name hozzáadása",
@@ -210,6 +213,11 @@ return [
         'delete' => "Törlés",
         'delete_name' => "A(z) :name törlése",
         'delete_confirm' => "Biztos benne?",
+        'link' => "Csatolás",
+        'link_name' => ":name csatolása",
+        'unlink' => "Csatolás megszüntetése",
+        'unlink_name' => ":name csatolásának megszüntetése",
+        'unlink_confirm' => "Biztos benne?",
     ],
     'model' => [
         'name' => 'Modell',
