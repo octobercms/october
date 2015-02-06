@@ -474,7 +474,7 @@ class Form extends WidgetBase
              */
             if ($fieldObj->context !== null) {
                 $context = (is_array($fieldObj->context)) ? $fieldObj->context : [$fieldObj->context];
-                if (!in_array($this->getContext(), $context)) {
+                if (!array_intersect((array)$this->getContext(), $context)) {
                     continue;
                 }
             }
