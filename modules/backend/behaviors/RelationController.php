@@ -506,7 +506,7 @@ class RelationController extends ControllerBehavior
 
         return $results->lists($foreignKeyName);
     }
-    
+
     //
     // Overrides
     //
@@ -1030,7 +1030,7 @@ class RelationController extends ControllerBehavior
             $config = $this->makeConfig($this->config->form);
             $config->model = $this->relationModel;
             $config->arrayName = class_basename($this->relationModel);
-            $config->context = ['relation', $config->model->exists ? 'update' : 'create'];
+            $config->context = ['relation'];
             $config->alias = $this->alias . 'ManageForm';
 
             /*
@@ -1043,6 +1043,12 @@ class RelationController extends ControllerBehavior
                         'class' => get_class($config->model), 'id' => $this->manageId
                     ]));
                 }
+                else {
+                    $config->context[] = 'update';
+                }
+            }
+            else {
+                $config->context[] = 'create';
             }
 
             $widget = $this->makeWidget('Backend\Widgets\Form', $config);
