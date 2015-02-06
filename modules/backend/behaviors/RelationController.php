@@ -1030,7 +1030,7 @@ class RelationController extends ControllerBehavior
             $config = $this->makeConfig($this->config->form);
             $config->model = $this->relationModel;
             $config->arrayName = class_basename($this->relationModel);
-            $config->context = 'relation';
+            $config->context = ['relation', $config->model->exists ? 'update' : 'create'];
             $config->alias = $this->alias . 'ManageForm';
 
             /*
