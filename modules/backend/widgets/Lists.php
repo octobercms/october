@@ -71,6 +71,11 @@ class Lists extends WidgetBase
     public $recordsPerPage;
 
     /**
+     * @var int Current page number.
+     */
+    protected $currentPageNumber;
+
+    /**
      * @var string Message to display when there are no records in the list.
      */
     public $noRecordsMessage = 'No records found';
@@ -230,7 +235,7 @@ class Lists extends WidgetBase
      */
     public function onPaginate()
     {
-        App::make('paginator')->setCurrentPage(post('page'));
+        $this->currentPageNumber = post('page');
         return $this->onRefresh();
     }
 
@@ -456,7 +461,7 @@ class Lists extends WidgetBase
         else {
             $model = $this->prepareModel();
             $records = ($this->showPagination)
-                ? $model->paginate($this->recordsPerPage)
+                ? $model->paginate($this->recordsPerPage, $this->currentPageNumber)
                 : $model->get();
 
         }
@@ -959,7 +964,7 @@ class Lists extends WidgetBase
             /*
              * Persist the page number
              */
-            App::make('paginator')->setCurrentPage(post('page'));
+            $this->currentPageNumber = post('page');
 
             return $this->onRefresh();
         }

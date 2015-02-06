@@ -1,6 +1,5 @@
 <?php namespace Backend\Behaviors;
 
-use Cache;
 use System\Behaviors\SettingsModel;
 use Backend\Models\UserPreferences;
 
@@ -63,13 +62,9 @@ class UserPreferencesModel extends SettingsModel
     public function getSettingsRecord()
     {
         $item = UserPreferences::forUser();
-        $record = Cache::remember($this->getCacheKey(), 1440, function() use ($item) {
-            return $item->scopeFindRecord(
-                $this->model,
-                $this->recordCode,
-                $item->userContext
-            )->first();
-        });
+        $record = $item->scopeFindRecord($this->model, $this->recordCode, $item->userContext)
+            ->remember(1440, $this->getCacheKey())
+            ->first();
 
         return $record ?: null;
     }

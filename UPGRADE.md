@@ -31,10 +31,22 @@ Optional things you can delete, if they do not contain anything custom.
 
 ### Breaking code changes
 
-**Model->remember() has been removed**
-**App::make('paginator')->setCurrentPage(5);** should no longer be used
+#### Paginator / setCurrentPage
+
+**App::make('paginator')->setCurrentPage(5);** should no longer be used, instead pass as the second argument with the `paginate()` method `$model->paginate(25, 5);`
+
+Old code:
+
+    App::make('paginator')->setCurrentPage($page);
+    $model->paginate($perPage);
+
+New code:
+
+    $model->paginate($perPage, $page);
 
 ##### Paginator API changes
+
+The following methods have changed:
 
     getTotal() -> total()
     getCurrentPage() -> currentPage()
