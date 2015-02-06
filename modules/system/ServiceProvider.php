@@ -111,7 +111,7 @@ class ServiceProvider extends ModuleServiceProvider
          * Write all log events to the database
          */
         Event::listen('illuminate.log', function ($level, $message, $context) {
-            if (!DbDongle::hasDatabase()) {
+            if (!DbDongle::hasDatabase() || defined('OCTOBER_NO_EVENT_LOGGING')) {
                 return;
             }
 
