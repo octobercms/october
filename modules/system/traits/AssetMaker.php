@@ -218,7 +218,7 @@ trait AssetMaker
 
         foreach ($assetPath as $path) {
             $_fileName = $path . '/' . $fileName;
-            if (File::isFile(PATH_BASE . '/' . $_fileName)) {
+            if (File::isFile(base_path() . '/' . $_fileName)) {
                 break;
             }
         }

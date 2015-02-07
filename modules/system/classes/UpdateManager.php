@@ -279,7 +279,7 @@ class UpdateManager
          */
         $modules = Config::get('cms.loadModules', []);
         foreach ($modules as $module) {
-            $path = PATH_BASE . '/modules/'.strtolower($module).'/database/migrations';
+            $path = base_path() . '/modules/'.strtolower($module).'/database/migrations';
             $this->migrator->requireFiles($path, $this->migrator->getMigrationFiles($path));
         }
 
@@ -323,7 +323,7 @@ class UpdateManager
      */
     public function migrateModule($module)
     {
-        $this->migrator->run(PATH_BASE . '/modules/'.strtolower($module).'/database/migrations');
+        $this->migrator->run(base_path() . '/modules/'.strtolower($module).'/database/migrations');
 
         $this->note($module);
         foreach ($this->migrator->getNotes() as $note) {
