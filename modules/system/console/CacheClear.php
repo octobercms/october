@@ -4,14 +4,39 @@ use App;
 use Config;
 use Illuminate\Cache\Console\ClearCommand;
 use Symfony\Component\Console\Output\NullOutput;
+use Illuminate\Cache\CacheManager;
+use Illuminate\Filesystem\Filesystem;
 
 class CacheClear extends ClearCommand
 {
+    /**
+     * The file system instance.
+     *
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected $files;
+
+    /**
+     * Create a new cache clear command instance.
+     *
+     * @param  \Illuminate\Cache\CacheManager  $cache
+     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @return void
+     */
+    public function __construct(CacheManager $cache, Filesystem $files)
+    {
+        parent::__construct($cache);
+
+        $this->files = $files;
+    }
+
     /**
      * Execute the console command.
      */
     public function fire()
     {
+        $storagePath = $this->laravel->storagePath();
+
         /*
          * Allow this command to be executed internally
          */
@@ -22,16 +47,24 @@ class CacheClear extends ClearCommand
         /*
          * Combiner
          */
-        foreach ($this->files->directories(storage_path().'/combiner') as $directory) {
+        foreach ($this->files->directories($storagePath.'/cms/combiner') as $directory) {
             $this->files->deleteDirectory($directory);
         }
         $this->info('Combiner cache cleared!');
 
         /*
+         * Combiner
+         */
+        foreach ($this->files->directories($storagePath.'/cms/cache') as $directory) {
+            $this->files->deleteDirectory($directory);
+        }
+        $this->info('CMS cache cleared!');
+
+        /*
          * Twig
          */
         if (!Config::get('cms.twigNoCache')) {
-            foreach ($this->files->directories(storage_path().'/twig') as $directory) {
+            foreach ($this->files->directories($storagePath.'/cms/twig') as $directory) {
                 $this->files->deleteDirectory($directory);
             }
             $this->info('Twig cache cleared!');
@@ -40,7 +73,7 @@ class CacheClear extends ClearCommand
         /*
          * Meta
          */
-        $this->files->delete($this->laravel['config']['app.manifest'].'/disabled.json');
+        $this->files->delete($storagePath.'/cms/disabled.json');
 
         parent::fire();
     }

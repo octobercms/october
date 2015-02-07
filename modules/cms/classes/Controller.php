@@ -361,7 +361,7 @@ class Controller
             'debug' => $isDebugMode,
         ];
         if (!Config::get('cms.twigNoCache')) {
-            $options['cache'] =  storage_path().'/twig';
+            $options['cache'] =  storage_path().'/cms/twig';
         }
 
         $this->twig = new Twig_Environment($this->loader, $options);

@@ -39,11 +39,6 @@ class ServiceProvider extends ModuleServiceProvider
         parent::register('system');
 
         /*
-         * Register core providers
-         */
-        // App::register('October\Rain\Translation\TranslationServiceProvider');
-
-        /*
          * Define path constants
          */
         if (!defined('PATH_APP')) {
@@ -121,7 +116,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register basic Twig
          */
-        App::bindShared('twig', function ($app) {
+        App::singleton('twig', function ($app) {
             $twig = new Twig_Environment(new TwigLoader(), ['auto_reload' => true]);
             $twig->addExtension(new TwigExtension);
             return $twig;
@@ -137,7 +132,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register Twig that will parse strings
          */
-        App::bindShared('twig.string', function ($app) {
+        App::singleton('twig.string', function ($app) {
             $twig = $app['twig'];
             $twig->setLoader(new Twig_Loader_String);
             return $twig;
@@ -322,6 +317,13 @@ class ServiceProvider extends ModuleServiceProvider
         });
 
         /*
+         * Override clear cache command
+         */
+        App::singleton('command.cache.clear', function ($app) {
+            return new \System\Console\CacheClear($app['cache'], $app['files']);
+        });
+
+        /*
          * Register console commands
          */
         $this->registerConsoleCommand('october.up', 'System\Console\OctoberUp');
@@ -331,13 +333,6 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsoleCommand('plugin.install', 'System\Console\PluginInstall');
         $this->registerConsoleCommand('plugin.remove', 'System\Console\PluginRemove');
         $this->registerConsoleCommand('plugin.refresh', 'System\Console\PluginRefresh');
-
-        /*
-         * Override clear cache command
-         */
-        App::bindShared('command.cache.clear', function ($app) {
-            return new \System\Console\CacheClear($app['cache'], $app['files']);
-        });
 
         /*
          * Register the sidebar for the System main menu

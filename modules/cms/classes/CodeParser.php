@@ -174,7 +174,7 @@ class CodeParser
     protected function getFilePath()
     {
         $hash = abs(crc32($this->filePath));
-        $result = storage_path().'/cache/';
+        $result = storage_path().'/cms/cache/';
         $result .= substr($hash, 0, 2).'/';
         $result .= substr($hash, 2, 2).'/';
         $result .= basename($this->filePath).'.php';

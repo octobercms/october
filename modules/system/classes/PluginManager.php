@@ -49,7 +49,7 @@ class PluginManager
     /**
      * @var string Path to the disarm file.
      */
-    protected $metaPath;
+    protected $metaFile;
 
     /**
      * @var array Collection of disabled plugins
@@ -67,7 +67,7 @@ class PluginManager
     protected function init()
     {
         $this->app = App::make('app');
-        $this->metaPath = Config::get('app.manifest');
+        $this->metaFile = storage_path() . '/cms/disabled.json';
         $this->loadDisabled();
         $this->loadPlugins();
         $this->loadDependencies();
@@ -369,7 +369,7 @@ class PluginManager
 
     public function clearDisabledCache()
     {
-        File::delete($this->metaPath.'/disabled.json');
+        File::delete($this->metaFile);
         $this->disabledPlugins = [];
     }
 
@@ -378,7 +378,7 @@ class PluginManager
      */
     protected function loadDisabled()
     {
-        $path = $this->metaPath.'/disabled.json';
+        $path = $this->metaFile;
 
         if (($configDisabled = Config::get('cms.disablePlugins')) && is_array($configDisabled)) {
             foreach ($configDisabled as $disabled) {
@@ -413,7 +413,7 @@ class PluginManager
      */
     protected function writeDisabled()
     {
-        $path = $this->metaPath.'/disabled.json';
+        $path = $this->metaFile;
         File::put($path, json_encode($this->disabledPlugins));
     }
 
