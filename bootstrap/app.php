@@ -38,7 +38,7 @@ $app->singleton(
 
 $app->singleton(
     'Illuminate\Contracts\Debug\ExceptionHandler',
-    'October\Rain\Foundation\Exceptions\Handler'
+    'October\Rain\Foundation\Exception\Handler'
 );
 
 /*

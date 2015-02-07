@@ -75,10 +75,10 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Error handling for uncaught Exceptions
          */
-        // App::error(function (\Exception $exception, $httpCode) {
-        //     $handler = new ErrorHandler;
-        //     return $handler->handleException($exception, $httpCode);
-        // });
+        Event::listen('exception.beforeRender', function ($exception, $httpCode, $request){
+            $handler = new ErrorHandler;
+            return $handler->handleException($exception, $httpCode);
+        });
 
         /*
          * Write all log events to the database

@@ -35,6 +35,14 @@ Optional things you can delete, if they do not contain anything custom.
 
 ### Breaking code changes
 
+#### Removed PATH_* constants
+
+PATH_APP - use app_path()
+PATH_BASE - use base_path()
+PATH_PUBLIC - use public_path()
+PATH_STORAGE - use storage_path()
+PATH_PLUGINS  - use plugins_path()
+
 #### Paginator / setCurrentPage
 
 **App::make('paginator')->setCurrentPage(5);** should no longer be used, instead pass as the second argument with the `paginate()` method `$model->paginate(25, 5);`
@@ -60,7 +68,6 @@ The following methods have changed:
 
 ### Things to do
 
-- Custom Exception Handler needs attention
 - Fix unit tests
 - Dispatcher now native?
 - Cron queue type now native?
