@@ -21,7 +21,7 @@ class Standard extends Skin
      */
     public function __construct()
     {
-        $this->skinPath = $this->defaultSkinPath = PATH_BASE . '/modules/backend';
+        $this->skinPath = $this->defaultSkinPath = base_path() . '/modules/backend';
         $this->publicSkinPath = $this->defaultPublicSkinPath = File::localToPublic($this->skinPath);
     }
 

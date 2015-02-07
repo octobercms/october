@@ -29,6 +29,10 @@ Optional things you can delete, if they do not contain anything custom.
     [DELETE] /app
     [DELETE] /storage/cache
 
+### Remmoved config
+
+    cms.tempDir - use temp_path()
+
 ### Breaking code changes
 
 #### Paginator / setCurrentPage

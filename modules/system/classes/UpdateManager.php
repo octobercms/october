@@ -77,8 +77,8 @@ class UpdateManager
         $this->versionManager = VersionManager::instance();
         $this->migrator = App::make('migrator');
         $this->repository = App::make('migration.repository');
-        $this->tempDirectory = Config::get('cms.tempDir', sys_get_temp_dir());
-        $this->baseDirectory = PATH_BASE;
+        $this->tempDirectory = temp_path();
+        $this->baseDirectory = base_path();
         $this->disableCoreUpdates = Config::get('cms.disableCoreUpdates', false);
 
         /*
