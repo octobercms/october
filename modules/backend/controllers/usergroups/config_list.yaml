@@ -3,7 +3,7 @@
 # ===================================
 
 title: backend::lang.user.group.list_title
-list: @/modules/backend/models/usergroup/columns.yaml
+list: ~/modules/backend/models/usergroup/columns.yaml
 modelClass: Backend\Models\UserGroup
 recordUrl: backend/usergroups/update/:id
 noRecordsMessage: backend::lang.list.no_records

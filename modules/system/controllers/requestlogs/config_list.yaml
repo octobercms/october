@@ -3,7 +3,7 @@
 # ===================================
 
 title: system::lang.request_log.menu_label
-list: @/modules/system/models/requestlog/columns.yaml
+list: ~/modules/system/models/requestlog/columns.yaml
 modelClass: System\Models\RequestLog
 recordUrl: system/requestlogs/preview/:id
 noRecordsMessage: backend::lang.list.no_records

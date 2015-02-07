@@ -3,7 +3,7 @@
 # ===================================
 
 title: backend::lang.access_log.menu_label
-list: @/modules/backend/models/accesslog/columns.yaml
+list: ~/modules/backend/models/accesslog/columns.yaml
 modelClass: Backend\Models\AccessLog
 noRecordsMessage: backend::lang.list.no_records
 recordsPerPage: 30

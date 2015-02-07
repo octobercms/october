@@ -3,7 +3,7 @@
 # ===================================
 
 name: system::lang.mail_templates.layout
-form: @/modules/system/models/maillayout/fields.yaml
+form: ~/modules/system/models/maillayout/fields.yaml
 modelClass: System\Models\MailLayout
 defaultRedirect: system/mailtemplates
 

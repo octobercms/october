@@ -391,11 +391,11 @@ class Index extends Controller
     protected function makeTemplateFormWidget($type, $template)
     {
         $formConfigs = [
-            'page'    => '@/modules/cms/classes/page/fields.yaml',
-            'partial' => '@/modules/cms/classes/partial/fields.yaml',
-            'layout'  => '@/modules/cms/classes/layout/fields.yaml',
-            'content' => '@/modules/cms/classes/content/fields.yaml',
-            'asset'   => '@/modules/cms/classes/asset/fields.yaml',
+            'page'    => '~/modules/cms/classes/page/fields.yaml',
+            'partial' => '~/modules/cms/classes/partial/fields.yaml',
+            'layout'  => '~/modules/cms/classes/layout/fields.yaml',
+            'content' => '~/modules/cms/classes/content/fields.yaml',
+            'asset'   => '~/modules/cms/classes/asset/fields.yaml',
         ];
 
         if (!array_key_exists($type, $formConfigs)) {

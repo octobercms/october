@@ -10,11 +10,14 @@
 
     [MOVE] /app/config -> /config
     [MOVE] /app/storage -> /storage
-    [CREATE] /storage/framework
     [DELETE] /bootstrap/start.php
     [DELETE] /bootstrap/autoload.php
+    [DELETE] /artisan
     [SPAWN] /bootstrap/app.php
     [SPAWN] /bootstrap/autoload.php
+    [SPAWN] /artisan
+    [SPAWN] /storage/cms/*.*
+    [SPAWN] /storage/framework/*.*
 
 *SPAWN* means to create a file using the git source.
 

@@ -318,7 +318,7 @@ class ServiceProvider extends ModuleServiceProvider
         BackendMenu::registerContextSidenavPartial(
             'October.System',
             'system',
-            '@/modules/system/partials/_system_sidebar.htm'
+            '~/modules/system/partials/_system_sidebar.htm'
         );
     }
 

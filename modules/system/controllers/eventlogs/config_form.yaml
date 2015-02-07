@@ -6,7 +6,7 @@
 name: Log
 
 # Model Form Field configuration
-form: @/modules/system/models/eventlog/fields.yaml
+form: ~/modules/system/models/eventlog/fields.yaml
 
 # Model Class name
 modelClass: System\Models\EventLog

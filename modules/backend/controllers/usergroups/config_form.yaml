@@ -3,7 +3,7 @@
 # ===================================
 
 name: backend::lang.user.group.name
-form: @/modules/backend/models/usergroup/fields.yaml
+form: ~/modules/backend/models/usergroup/fields.yaml
 modelClass: Backend\Models\UserGroup
 defaultRedirect: backend/usergroups
 
