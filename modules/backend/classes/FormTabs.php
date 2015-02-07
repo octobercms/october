@@ -85,6 +85,26 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     }
 
     /**
+     * Remove a field from all tabs by name.
+     * @param string    $name
+     * @return True on success, False on failure
+     */
+    public function removeField($name)
+    {
+        foreach ($this->fields as $tab => $fields) {
+            foreach ($fields as $fieldName => $field) {
+                if ($fieldName == $name) {
+                    unset($this->fields[$tab][$fieldName]);
+
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Add a field to the collection of tabs.
      * @param string    $name
      * @param FormField $field
