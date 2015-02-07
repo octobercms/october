@@ -62,7 +62,7 @@ class BackendController extends ControllerBase
             if ($controllerObj = $this->findController(
                 $controllerClass,
                 $action,
-                Config::get('cms.pluginsDir', '/plugins')
+                plugins_path()
             )) {
                 return $controllerObj->run($action, $controllerParams);
             }
@@ -81,14 +81,17 @@ class BackendController extends ControllerBase
      * @param string $action Specifies a method name to execute.
      * @return ControllerBase Returns the backend controller object
      */
-    protected function findController($controller, $action, $dirPrefix = null)
+    protected function findController($controller, $action, $inPath = null)
     {
         /*
          * Workaround: Composer does not support case insensitivity.
          */
         if (!class_exists($controller)) {
+            if (!$inPath) {
+                $inPath = base_path();
+            }
             $controller = Str::normalizeClassName($controller);
-            $controllerFile = PATH_BASE.$dirPrefix.strtolower(str_replace('\\', '/', $controller)) . '.php';
+            $controllerFile = $inPath.strtolower(str_replace('\\', '/', $controller)) . '.php';
             if ($controllerFile = File::existsInsensitive($controllerFile)) {
                 include_once($controllerFile);
             }

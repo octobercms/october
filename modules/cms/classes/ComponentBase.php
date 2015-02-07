@@ -108,7 +108,7 @@ abstract class ComponentBase extends Extendable
      */
     public function getPath()
     {
-        return base_path().Config::get('cms.pluginsDir').$this->dirName;
+        return plugins_path().$this->dirName;
     }
 
     /**

@@ -202,14 +202,6 @@ class PluginManager
     }
 
     /**
-     * Returns the absolute plugin path.
-     */
-    public function getPath()
-    {
-        return base_path() . Config::get('cms.pluginsDir');
-    }
-
-    /**
      * Returns the directory path to a plugin
      */
     public function getPluginPath($id)
@@ -306,7 +298,7 @@ class PluginManager
     {
         $plugins = [];
 
-        $dirPath = $this->getPath();
+        $dirPath = plugins_path();
         if (!File::isDirectory($dirPath)) {
             return $plugins;
         }

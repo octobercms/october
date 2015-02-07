@@ -48,7 +48,7 @@ abstract class Skin
      */
     public function __construct()
     {
-        $this->defaultSkinPath = PATH_BASE . '/modules/backend';
+        $this->defaultSkinPath = base_path() . '/modules/backend';
 
         /*
          * Guess the skin path
