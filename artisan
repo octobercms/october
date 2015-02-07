@@ -17,17 +17,6 @@ require __DIR__.'/bootstrap/autoload.php';
 
 $app = require_once __DIR__.'/bootstrap/app.php';
 
-
-
-// !!!!!
-// @todo L5 temporary code to share the Request facade
-$app->bindShared('request', function(){
-    return Illuminate\Http\Request::capture();
-});
-// !!!!!
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Run The Artisan Application
@@ -45,8 +34,6 @@ $status = $kernel->handle(
     $input = new Symfony\Component\Console\Input\ArgvInput,
     new Symfony\Component\Console\Output\ConsoleOutput
 );
-
-
 
 /*
 |--------------------------------------------------------------------------
