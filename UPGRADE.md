@@ -21,6 +21,17 @@
 
 *SPAWN* means to create a file using the git source.
 
+### Cron job changes
+
+Remove old cron jobs:
+
+    * * * * * php /path/to/artisan queue:cron 1>> /dev/null 2>&1
+    * * * * * php /path/to/artisan scheduled:run 1>> /dev/null 2>&1
+
+Add new cron job:
+
+    * * * * * php /path/to/artisan schedule:run 1>> /dev/null 2>&1
+
 ### Clean up
 
 Optional things you can delete, if they do not contain anything custom.
@@ -37,6 +48,10 @@ Optional things you can delete, if they do not contain anything custom.
     cms.tempDir - use temp_path()
 
 ### Breaking code changes
+
+#### Dispatcher has been removed
+
+Dispatcher functionality is now baked in to Laravel, check the Plugin registration documentation for more information.
 
 #### Removed PATH_* constants
 

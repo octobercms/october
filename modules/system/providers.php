@@ -33,16 +33,9 @@ return [
     'October\Rain\Filesystem\FilesystemServiceProvider',
     'October\Rain\Html\HtmlServiceProvider',
     'October\Rain\Network\NetworkServiceProvider',
-    // 'October\Rain\Translation\TranslationServiceProvider',
     'October\Rain\Scaffold\ScaffoldServiceProvider',
     'October\Rain\Flash\FlashServiceProvider',
     'October\Rain\Mail\MailServiceProvider',
     'October\Rain\Parse\ParseServiceProvider',
-
-    /*
-     * Vendor providers
-     */
-    // @todo L5 Dispatcher broken
-    // 'Indatus\Dispatcher\ServiceProvider',
 
 ];
