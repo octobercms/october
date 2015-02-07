@@ -42,8 +42,10 @@ Optional things you can delete, if they do not contain anything custom.
     [DELETE] /app/routes.php
     [DELETE] /app
     [DELETE] /storage/cache
+    [DELETE] /storage/combiner
+    [DELETE] /storage/twig
 
-### Remmoved config
+### Removed config
 
     cms.tempDir - use temp_path()
 
@@ -55,11 +57,11 @@ Dispatcher functionality is now baked in to Laravel, check the Plugin registrati
 
 #### Removed PATH_* constants
 
-PATH_APP - use app_path()
-PATH_BASE - use base_path()
-PATH_PUBLIC - use public_path()
-PATH_STORAGE - use storage_path()
-PATH_PLUGINS  - use plugins_path()
+- PATH_APP - use app_path()
+- PATH_BASE - use base_path()
+- PATH_PUBLIC - use public_path()
+- PATH_STORAGE - use storage_path()
+- PATH_PLUGINS  - use plugins_path()
 
 #### Paginator / setCurrentPage
 
@@ -86,6 +88,6 @@ The following methods have changed:
 
 ### Things to do
 
+- Remove "Cron" package, drop + create relevant tables
+- Implement registerSchedule() in PluginBase
 - Fix unit tests
-- Dispatcher now native?
-- Cron queue type now native?

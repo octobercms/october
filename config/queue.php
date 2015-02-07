@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -11,11 +11,12 @@ return array(
     | API, giving you convenient access to each back-end using the same
     | syntax for each one. Here you may set the default queue driver.
     |
-    | Supported: "cron", "sync", "beanstalkd", "sqs", "iron"
+    | Supported: "null", "sync", "database", "beanstalkd",
+    |            "sqs", "iron", "redis"
     |
     */
 
-    'default' => 'cron',
+    'default' => 'sync',
 
     /*
     |--------------------------------------------------------------------------
@@ -28,43 +29,50 @@ return array(
     |
     */
 
-    'connections' => array(
+    'connections' => [
 
-        'cron' => array(
-            'driver' => 'cron',
-        ),
-
-        'sync' => array(
+        'sync' => [
             'driver' => 'sync',
-        ),
+        ],
 
-        'beanstalkd' => array(
+        'database' => [
+            'driver' => 'database',
+            'table' => 'jobs',
+            'queue' => 'default',
+            'expire' => 60,
+        ],
+
+        'beanstalkd' => [
             'driver' => 'beanstalkd',
             'host'   => 'localhost',
             'queue'  => 'default',
-        ),
+            'ttr'    => 60,
+        ],
 
-        'sqs' => array(
+        'sqs' => [
             'driver' => 'sqs',
             'key'    => 'your-public-key',
             'secret' => 'your-secret-key',
             'queue'  => 'your-queue-url',
             'region' => 'us-east-1',
-        ),
+        ],
 
-        'iron' => array(
+        'iron' => [
             'driver'  => 'iron',
-            'project' => 'your-project-id',
+            'host'    => 'mq-aws-us-east-1.iron.io',
             'token'   => 'your-token',
+            'project' => 'your-project-id',
             'queue'   => 'your-queue-name',
-        ),
+            'encrypt' => true,
+        ],
 
-        'redis' => array(
+        'redis' => [
             'driver' => 'redis',
             'queue'  => 'default',
-        ),
+            'expire' => 60,
+        ],
 
-    ),
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -77,10 +85,8 @@ return array(
     |
     */
 
-    'failed' => array(
-
+    'failed' => [
         'database' => 'mysql', 'table' => 'failed_jobs',
+    ],
 
-    ),
-
-);
+];
