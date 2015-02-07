@@ -42,6 +42,7 @@ return [
     /*
      * Vendor providers
      */
-    'Indatus\Dispatcher\ServiceProvider',
+    // @todo L5 Dispatcher broken
+    // 'Indatus\Dispatcher\ServiceProvider',
 
 ];
