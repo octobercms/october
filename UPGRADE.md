@@ -45,6 +45,10 @@ Optional things you can delete, if they do not contain anything custom.
     [DELETE] /storage/combiner
     [DELETE] /storage/twig
 
+Tables that can be deleted:
+
+    Schema::dropIfExists('cron_queue');
+
 ### Removed config
 
     cms.tempDir - use temp_path()
