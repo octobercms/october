@@ -1,6 +1,6 @@
 <?php namespace Backend\Classes;
 
-use URL;
+use Url;
 use Config;
 use Request;
 use October\Rain\Router\Helper as RouterHelper;
@@ -19,7 +19,7 @@ class BackendHelper
     public function url($path = null, $parameters = array(), $secure = null)
     {
         $backendUri = Config::get('cms.backendUri');
-        return URL::to($backendUri . '/' . $path, $parameters, $secure);
+        return Url::to($backendUri . '/' . $path, $parameters, $secure);
     }
 
     /**
@@ -28,7 +28,7 @@ class BackendHelper
     public function skinAsset($path = null)
     {
         $skinPath = Skin::getActive()->getPath($path, true);
-        return URL::asset($skinPath);
+        return Url::asset($skinPath);
     }
 
     /**

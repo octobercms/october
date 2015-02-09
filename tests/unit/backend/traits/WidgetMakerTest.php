@@ -30,6 +30,8 @@ class WidgetMakerTest extends TestCase
      */
     public function setUp()
     {
+        parent::setUp();
+
         $traitName = 'Backend\Traits\WidgetMaker';
         $this->traitObject = $this->getObjectForTrait($traitName);
     }

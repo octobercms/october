@@ -1,8 +1,8 @@
 <?php namespace System\Traits;
 
+use Url;
 use Html;
 use File;
-use Request;
 use System\Models\Parameters;
 use System\Models\PluginVersion;
 use SystemException;
@@ -271,7 +271,7 @@ trait AssetMaker
         }
 
         if (substr($asset, 0, 1) == '/') {
-            $asset = Request::getBasePath() . $asset;
+            $asset = Url::asset($asset);
         }
 
         return $asset;

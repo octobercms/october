@@ -1046,14 +1046,14 @@ class Controller
         $themePath = Config::get('cms.themesDir').'/'.$this->getTheme()->getDirName();
 
         if (is_array($url)) {
-            $_url = Request::getBaseUrl();
-            $_url .= CombineAssets::combine($url, $themePath);
+            $_url = URL::to(CombineAssets::combine($url, $themePath));
         }
         else {
-            $_url = Request::getBasePath().$themePath;
+            $_url = $themePath;
             if ($url !== null) {
                 $_url .= '/'.$url;
             }
+            $_url = URL::asset($_url);
         }
 
         return $_url;
@@ -1085,8 +1085,9 @@ class Controller
         }
 
         foreach ($this->partialComponentStack as $componentInfo) {
-            if ($componentInfo['name'] == $name)
+            if ($componentInfo['name'] == $name) {
                 return $componentInfo['obj'];
+            }
         }
 
         return null;

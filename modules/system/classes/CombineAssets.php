@@ -348,7 +348,7 @@ class CombineAssets
             return URL::action($combineAction, [$outputFilename], false);
         }
         else {
-            return Request::getBasePath().'/combine/'.$outputFilename;
+            return '/combine/'.$outputFilename;
         }
     }
 

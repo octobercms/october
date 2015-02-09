@@ -92,6 +92,7 @@ The following methods have changed:
 
 ### Things to do
 
-- Remove "Cron" package, drop + create relevant tables
-- Implement registerSchedule() in PluginBase
+- Remove "Cron" package, test new "jobs" table
+- Test scheduler
+- Remove deprecated code
 - Fix unit tests
