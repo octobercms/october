@@ -74,7 +74,7 @@ class ControllerBehavior extends ExtensionBase
      * @param mixed $config   Config object or array
      * @param array $required Required config items
      */
-    public function setConfig($config, $required = null)
+    public function setConfig($config, $required = [])
     {
         $this->config = $this->makeConfig($config, $required);
     }
