@@ -1,8 +1,8 @@
 <?php
 
-use Cms\Classes\CmsCompoundObject;
-use Cms\Classes\CmsObject;
 use Cms\Classes\Theme;
+use Cms\Classes\CmsObject;
+use Cms\Classes\CmsCompoundObject;
 
 class TestCmsCompoundObject extends CmsCompoundObject
 {
