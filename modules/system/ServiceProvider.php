@@ -73,6 +73,19 @@ class ServiceProvider extends ModuleServiceProvider
         $pluginManager->registerAll();
 
         /*
+         * Allow plugins to use the scheduler
+         */
+        Event::listen('console.schedule', function($schedule) use ($pluginManager) {
+            foreach ($pluginManager->getPlugins() as $plugin) {
+                if (!method_exists($plugin, 'registerSchedule')) {
+                    continue;
+                }
+
+                $plugin->registerSchedule($schedule);
+            }
+        });
+
+        /*
          * Error handling for uncaught Exceptions
          */
         Event::listen('exception.beforeRender', function ($exception, $httpCode, $request){
