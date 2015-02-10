@@ -1,5 +1,5 @@
-* **Build !!!** (2015-!!-!!)
-  - **Upgraded framework to Laravel version 5**
+* **Build 18x** (2015-02-xx)
+  - **Upgraded framework to Laravel version 5**, see the [end of beta page](http://octobercms.com/beta#advanced-upgrade) for information on how to upgrade.
   - Introduced a linking policy to control the way URLs are generated globally (see config cms.linkPolicy).
 
 * **Build 186** (2015-02-03)
