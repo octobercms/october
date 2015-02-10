@@ -185,10 +185,12 @@ class UpdateManager
         $installed = PluginVersion::all();
         $versions = $installed->lists('version', 'code');
         $names = $installed->lists('name', 'code');
+        $build = Parameters::get('system::core.build');
 
         $params = [
             'core' => $this->getHash(),
             'plugins' => serialize($versions),
+            'build' => $build,
             'force' => $force
         ];
 
