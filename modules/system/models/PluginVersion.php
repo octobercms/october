@@ -82,7 +82,7 @@ class PluginVersion extends Model
      * @param $query
      * @return mixed
      */
-    public function scopeEnabled($query)
+    public function scopeIsEnabled($query)
     {
         return $query->where('is_disabled', '!=', 1);
     }
