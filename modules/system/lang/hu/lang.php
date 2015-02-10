@@ -21,6 +21,7 @@ return [
         'ru' => 'Orosz',
         'se' => 'Svéd',
         'tr' => 'Török',
+        'pl' => 'Lengyel',
     ],
     'directory' => [
         'create_fail' => 'Nem hozható létre a könyvtár: :name',
@@ -122,6 +123,9 @@ return [
         'mailgun_domain_comment' => 'Adja meg a Mailgun tartománynevét.',
         'mailgun_secret' => 'Mailgun Secret',
         'mailgun_secret_comment' => 'Adja meg Mailgun API-kulcsát.',
+        'mandrill' => 'Mandrill',
+        'mandrill_secret' => 'Mandrill Secret',
+        'mandrill_secret_comment' => 'Adja meg Mandrill API-kulcsát.'
     ],
     'mail_templates' => [
         'menu_label' => 'Levélsablonok',
