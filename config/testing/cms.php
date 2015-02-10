@@ -22,7 +22,7 @@ return array(
     |
     */
 
-    'pluginsDir' => '/tests/fixtures/system/plugins',
+    'pluginsDir' => '/tests/fixtures/plugins',
 
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ return array(
     |
     */
 
-    'themesDir' => '/tests/fixtures/cms/themes',
+    'themesDir' => '/tests/fixtures/themes',
 
     /*
     |--------------------------------------------------------------------------
@@ -108,4 +108,21 @@ return array(
     */
 
     'convertLineEndings' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Linking policy
+    |--------------------------------------------------------------------------
+    |
+    | Controls how URL links are generated throughout the application.
+    |
+    | relative - relative to the application, schema and hostname is omitted
+    | detect   - detect hostname and use the current schema
+    | secure   - detect hostname and force HTTPS schema
+    | insecure - detect hostname and force HTTP schema
+    | force    - force hostname and schema using app.url config value
+    |
+    */
+
+    'linkPolicy' => 'relative',
 );

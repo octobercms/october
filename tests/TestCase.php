@@ -13,7 +13,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app = require __DIR__.'/../bootstrap/app.php';
         $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
-        $app['config']->set('cache.default', 'array');
+        $app['cache']->setDefaultDriver('array');
 
         $app->setLocale('en');
 

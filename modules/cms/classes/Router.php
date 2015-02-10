@@ -84,9 +84,10 @@ class Router
             $urlList = [];
 
             $cacheable = Config::get('cms.enableRoutesCache') && in_array(
-                Config::get('cache.driver'),
+                Cache::getDefaultDriver(),
                 ['apc', 'memcached', 'redis', 'array']
             );
+
             if ($cacheable) {
                 $fileName = $this->getCachedUrlFileName($url, $urlList);
             }
