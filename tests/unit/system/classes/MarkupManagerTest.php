@@ -7,7 +7,9 @@ class MarkupManagerTest extends TestCase
 
     public function setUp()
     {
-        include_once base_path().'/tests/fixtures/system/plugins/october/tester/Plugin.php';
+        parent::setUp();
+
+        include_once base_path().'/tests/fixtures/plugins/october/tester/Plugin.php';
     }
 
     //

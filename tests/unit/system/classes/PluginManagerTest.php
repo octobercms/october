@@ -7,7 +7,9 @@ class PluginManagerTest extends TestCase
 
     public function setUp()
     {
-        include_once base_path().'/tests/fixtures/system/plugins/october/tester/Plugin.php';
+        parent::setUp();
+
+        include_once base_path().'/tests/fixtures/plugins/october/tester/Plugin.php';
     }
 
     //
@@ -62,18 +64,12 @@ class PluginManagerTest extends TestCase
         $this->assertInstanceOf('TestVendor\Test\Plugin', $result['TestVendor.Test']);
     }
 
-    public function testGetPath()
-    {
-        $manager = PluginManager::instance();
-        $this->assertEquals(base_path().'/tests/fixtures/system/plugins', $manager->getPath());
-    }
-
     public function testGetPluginPath()
     {
         $manager = PluginManager::instance();
         $result = $manager->getPluginPath('October\Tester');
         $basePath = str_replace('\\', '/', base_path());
-        $this->assertEquals($basePath . '/tests/fixtures/system/plugins/october/tester', $result);
+        $this->assertEquals($basePath . '/tests/fixtures/plugins/october/tester', $result);
     }
 
     public function testGetPlugins()

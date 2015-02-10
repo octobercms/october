@@ -6,6 +6,8 @@ class ThemeTest extends TestCase
 {
     public function setUp()
     {
+        parent::setUp();
+
         Config::set('cms.activeTheme', 'test');
         Event::flush('cms.activeTheme');
         Theme::resetCache();
@@ -32,7 +34,7 @@ class ThemeTest extends TestCase
     {
         $theme = Theme::load('test');
 
-        $this->assertEquals(base_path().'/tests/fixtures/cms/themes/test', $theme->getPath());
+        $this->assertEquals(base_path().'/tests/fixtures/themes/test', $theme->getPath());
     }
 
     public function testListPages()
@@ -42,7 +44,7 @@ class ThemeTest extends TestCase
         $pages = $theme->listPages();
         $this->assertInternalType('array', $pages);
 
-        $expectedPageNum = $this->countThemePages(base_path().'/tests/fixtures/cms/themes/test/pages');
+        $expectedPageNum = $this->countThemePages(base_path().'/tests/fixtures/themes/test/pages');
         $this->assertEquals($expectedPageNum, count($pages));
 
         $this->assertInstanceOf('\Cms\Classes\Page', $pages[0]);

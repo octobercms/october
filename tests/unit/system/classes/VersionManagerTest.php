@@ -7,9 +7,11 @@ class VersionManagerTest extends TestCase
 
     public function setUp()
     {
-        include_once base_path().'/tests/fixtures/system/plugins/october/tester/Plugin.php';
-        include_once base_path().'/tests/fixtures/system/plugins/october/sample/Plugin.php';
-        include_once base_path().'/tests/fixtures/system/plugins/october/noupdates/Plugin.php';
+        parent::setUp();
+
+        include_once base_path().'/tests/fixtures/plugins/october/tester/Plugin.php';
+        include_once base_path().'/tests/fixtures/plugins/october/sample/Plugin.php';
+        include_once base_path().'/tests/fixtures/plugins/october/noupdates/Plugin.php';
     }
 
     //

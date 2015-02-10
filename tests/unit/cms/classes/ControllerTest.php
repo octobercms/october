@@ -129,26 +129,28 @@ class ControllerTest extends TestCase
     {
         $requestMock = $this->getMock('Illuminate\Http\Request', array('header'));
 
-        $requestMock->expects($this->at(0))->
-            method('header')->
-            with($this->stringContains('X_OCTOBER_REQUEST_HANDLER'), $this->anything())->
-            will($this->returnValue($handler));
+        $requestMock->expects($this->at(0))
+            ->method('header')
+            ->with($this->stringContains('X_OCTOBER_REQUEST_HANDLER'), $this->anything())
+            ->will($this->returnValue($handler));
 
-        if ($partials !== false)
-            $requestMock->expects($this->at(1))->
-                method('header')->
-                with($this->stringContains('X_OCTOBER_REQUEST_PARTIALS'), $this->anything())->
-                will($this->returnValue($partials));
+        if ($partials !== false) {
+            $requestMock->expects($this->at(1))
+                ->method('header')
+                ->with($this->stringContains('X_OCTOBER_REQUEST_PARTIALS'), $this->anything())
+                ->will($this->returnValue($partials));
+        }
 
         return $requestMock;
     }
 
     public function testAjaxHandlerNotFound()
     {
-        App::instance('request', $this->configAjaxRequestMock('onNoHandler', ''));
+        Request::swap($this->configAjaxRequestMock('onNoHandler', ''));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
+
         $response = $controller->run('/ajax-test');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
 
@@ -159,7 +161,7 @@ class ControllerTest extends TestCase
 
     public function testAjaxInvalidHandlerName()
     {
-        App::instance('request', $this->configAjaxRequestMock('delete'));
+        Request::swap($this->configAjaxRequestMock('delete'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
@@ -173,7 +175,7 @@ class ControllerTest extends TestCase
 
     public function testAjaxInvalidPartial()
     {
-        App::instance('request', $this->configAjaxRequestMock('onTest', 'p:artial'));
+        Request::swap($this->configAjaxRequestMock('onTest', 'p:artial'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
@@ -187,7 +189,7 @@ class ControllerTest extends TestCase
 
     public function testAjaxPartialNotFound()
     {
-        App::instance('request', $this->configAjaxRequestMock('onTest', 'partial'));
+        Request::swap($this->configAjaxRequestMock('onTest', 'partial'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
@@ -201,7 +203,7 @@ class ControllerTest extends TestCase
 
     public function testPageAjax()
     {
-        App::instance('request', $this->configAjaxRequestMock('onTest', 'ajax-result'));
+        Request::swap($this->configAjaxRequestMock('onTest', 'ajax-result'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
@@ -218,7 +220,7 @@ class ControllerTest extends TestCase
 
     public function testLayoutAjax()
     {
-        App::instance('request', $this->configAjaxRequestMock('onTestLayout', 'ajax-result'));
+        Request::swap($this->configAjaxRequestMock('onTestLayout', 'ajax-result'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
@@ -235,7 +237,7 @@ class ControllerTest extends TestCase
 
     public function testAjaxMultiplePartials()
     {
-        App::instance('request', $this->configAjaxRequestMock('onTest', 'ajax-result&ajax-second-result'));
+        Request::swap($this->configAjaxRequestMock('onTest', 'ajax-result&ajax-second-result'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
@@ -280,7 +282,7 @@ ESC;
 
     public function testComponentAliases()
     {
-        include_once base_path() . '/tests/fixtures/system/plugins/october/tester/components/Archive.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Archive.php';
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
@@ -309,7 +311,7 @@ ESC;
 
     public function testComponentAjax()
     {
-        App::instance('request', $this->configAjaxRequestMock('testArchive::onTestAjax', 'ajax-result'));
+        Request::swap($this->configAjaxRequestMock('testArchive::onTestAjax', 'ajax-result'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
@@ -330,10 +332,10 @@ ESC;
         $controller = new Controller($theme);
 
         $url = $controller->themeUrl();
-        $this->assertEquals('/tests/fixtures/cms/themes/test', $url);
+        $this->assertEquals('/tests/fixtures/themes/test', $url);
 
         $url = $controller->themeUrl('foo/bar.css');
-        $this->assertEquals('/tests/fixtures/cms/themes/test/foo/bar.css', $url);
+        $this->assertEquals('/tests/fixtures/themes/test/foo/bar.css', $url);
 
         //
         // These tests seem to bear different results
