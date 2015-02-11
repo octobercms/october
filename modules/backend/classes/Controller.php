@@ -15,10 +15,10 @@ use Exception;
 use BackendAuth;
 use Backend\Models\UserPreferences;
 use Backend\Models\BackendPreferences;
-use SystemException;
-use ApplicationException;
+use October\Rain\Exception\SystemException;
+use October\Rain\Exception\ValidationException;
+use October\Rain\Exception\ApplicationException;
 use October\Rain\Extension\Extendable;
-use ValidationException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Http\RedirectResponse;
 
@@ -187,7 +187,7 @@ class Controller extends Extendable
             if (!BackendAuth::check()) {
                 return Request::ajax()
                     ? Response::make(Lang::get('backend::lang.page.access_denied.label'), 403)
-                    : Redirect::guest(Backend::url('backend/auth'));
+                    : Backend::redirectGuest('backend/auth');
             }
 
             /*

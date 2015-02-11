@@ -2,6 +2,12 @@
 // Popup
 // --------------------------------------------------
 
+@popup-size-giant: 982px;
+@popup-size-huge: 900px;
+@popup-size-large: 750px;
+@popup-size-small: 400px;
+@popup-size-tiny: 300px;
+
 .modal-content {
     .box-shadow(none);
     .border-radius(2px);
@@ -33,6 +39,18 @@
 
     > p:last-child {
         margin-bottom: 20px;
+    }
+}
+
+.modal-dialog {
+    @media (min-width: @screen-sm-min) {
+        &.size-tiny  { width: @popup-size-tiny; }
+        &.size-small { width: @popup-size-small; }
+    }
+    @media (min-width: @screen-md-min) {
+        &.size-large { width: @popup-size-large; }
+        &.size-huge  { width: @popup-size-huge; }
+        &.size-giant { width: @popup-size-giant; }
     }
 }
 

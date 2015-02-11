@@ -83,8 +83,7 @@ class Themes extends Controller
         $model = $this->getThemeData($dirName);
         $model->delete();
 
-        $redirectUrl = Backend::url('cms/themes/update/'.$dirName);
-        return Redirect::to($redirectUrl);
+        return Backend::redirect('cms/themes/update/'.$dirName);
     }
 
     protected function getThemeData($dirName)

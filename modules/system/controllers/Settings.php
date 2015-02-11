@@ -104,10 +104,10 @@ class Settings extends Controller
          */
         if ($redirectUrl = post('redirect', true)) {
             $redirectUrl = ($item->context == 'mysettings')
-                ? Backend::url('system/settings/mysettings')
-                : Backend::url('system/settings');
+                ? 'system/settings/mysettings'
+                : 'system/settings';
 
-            return Redirect::to($redirectUrl);
+            return Backend::redirect($redirectUrl);
         }
     }
 
@@ -117,8 +117,7 @@ class Settings extends Controller
         $model = $this->createModel($item);
         $model->resetDefault();
 
-        $redirectUrl = Backend::url('system/settings/update/'.$author.'/'.$plugin.'/'.$code);
-        return Redirect::to($redirectUrl);
+        return Backend::redirect('system/settings/update/'.$author.'/'.$plugin.'/'.$code);
     }
 
     /**

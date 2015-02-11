@@ -37,7 +37,7 @@ class Auth extends Controller
      */
     public function index()
     {
-        return Redirect::to(Backend::url('backend/auth/signin'));
+        return Backend::redirect('backend/auth/signin');
     }
 
     /**
@@ -85,7 +85,7 @@ class Auth extends Controller
         AccessLog::add($user);
 
         // Redirect to the intended page after successful sign in
-        return Redirect::intended(Backend::url('backend'));
+        return Backend::redirectIntended('backend');
     }
 
     /**
@@ -94,7 +94,7 @@ class Auth extends Controller
     public function signout()
     {
         BackendAuth::logout();
-        return Redirect::to(Backend::url('backend'));
+        return Backend::redirect('backend');
     }
     
     /**
@@ -144,7 +144,7 @@ class Auth extends Controller
             $message->to($user->email, $user->full_name)->subject(trans('backend::lang.account.password_reset'));
         });
 
-        return Redirect::to(Backend::url('backend/auth/signin'));
+        return Backend::redirect('backend/auth/signin');
     }
 
     /**
@@ -199,6 +199,6 @@ class Auth extends Controller
 
         Flash::success(trans('backend::lang.account.reset_success'));
 
-        return Redirect::to(Backend::url('backend/auth/signin'));
+        return Backend::redirect('backend/auth/signin');
     }
 }

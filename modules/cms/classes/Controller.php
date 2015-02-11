@@ -22,9 +22,10 @@ use Cms\Models\MaintenanceSettings;
 use System\Models\RequestLog;
 use System\Classes\ErrorHandler;
 use System\Classes\CombineAssets;
-use ApplicationException;
 use System\Twig\Extension as SystemTwigExtension;
-use ValidationException;
+use October\Rain\Exception\SystemException;
+use October\Rain\Exception\ValidationException;
+use October\Rain\Exception\ApplicationException;
 use Illuminate\Http\RedirectResponse;
 
 /**

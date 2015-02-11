@@ -1,6 +1,8 @@
 * **Build 187** (2015-03-31)
   - **Upgraded framework to Laravel version 5**, see the [end of beta page](http://octobercms.com/beta#advanced-upgrade) for information on how to upgrade.
   - Introduced a linking policy to control the way URLs are generated globally (see config cms.linkPolicy).
+  - Popup control now supports several sizes via `data-size` attribute: giant, huge, large, small, tiny.
+  - Added new scaffold command for creating form widgets `create:formwidget Acme.Blog PostSelector`.
 
 * **Build 186** (2015-02-03)
   - File Upload form widget can now specify `fileTypes` for restricting which file extensions can be uploaded.

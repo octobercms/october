@@ -79,7 +79,8 @@
         handler: null,
         keyboard: true,
         extraData: {},
-        content: null
+        content: null,
+        size: null
     }
 
     Popup.prototype.init = function(){
@@ -163,6 +164,9 @@
             }),
             modalDialog = $('<div />').addClass('modal-dialog'),
             modalContent = $('<div />').addClass('modal-content')
+
+        if (this.options.size)
+            modalDialog.addClass('size-' + this.options.size)
 
         return modal.append(modalDialog.append(modalContent))
     }

@@ -159,6 +159,7 @@ class FormController extends ControllerBehavior
     protected function prepareVars($model)
     {
         $this->controller->vars['formModel'] = $model;
+        $this->controller->vars['formContext'] = $this->formGetContext();
         $this->controller->vars['formRecordName'] = Lang::get($this->getConfig('name', 'backend::lang.model.name'));
     }
 
@@ -384,14 +385,14 @@ class FormController extends ControllerBehavior
         }
 
         if (post('redirect', true)) {
-            $redirectUrl = Backend::url($this->getRedirectUrl($context));
+            $redirectUrl = $this->getRedirectUrl($context);
         }
 
         if ($model && $redirectUrl) {
             $redirectUrl = RouterHelper::parseValues($model, array_keys($model->getAttributes()), $redirectUrl);
         }
 
-        return ($redirectUrl) ? Redirect::to($redirectUrl) : null;
+        return ($redirectUrl) ? Backend::redirect($redirectUrl) : null;
     }
 
     /**
