@@ -1,12 +1,7 @@
 <?php namespace System\Helpers;
 
-use App;
 use File;
 use Config;
-use Illuminate\Cache\Console\ClearCommand;
-use Symfony\Component\Console\Output\NullOutput;
-use Illuminate\Cache\CacheManager;
-use Illuminate\Filesystem\Filesystem;
 
 class Cache
 {
@@ -40,7 +35,7 @@ class Cache
     }
 
     /*
-     * Combiner
+     * Cache
      */
     public function clearCache()
     {
