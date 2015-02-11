@@ -85,8 +85,15 @@ class ControllerBehavior extends ExtensionBase
      * @param $default Default value if nothing is found
      * @return string
      */
-    public function getConfig($name, $default = null)
+    public function getConfig($name = null, $default = null)
     {
+        /*
+         * Return all config
+         */
+        if (is_null($name)) {
+            return $this->config;
+        }
+
         /*
          * Array field name, eg: field[key][key2][key3]
          */
