@@ -42,7 +42,7 @@ class ServiceProvider extends ModuleServiceProvider
          * Register singletons
          */
         App::singleton('backend.helper', function () {
-            return new \Backend\Classes\BackendHelper;
+            return new \Backend\Helpers\Backend;
         });
         App::singleton('backend.menu', function () {
             return \Backend\Classes\NavigationManager::instance();
