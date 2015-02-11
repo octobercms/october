@@ -1,10 +1,10 @@
 <?= Form::open(['onsubmit'=>'return false']) ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
-        <h4 class="modal-title">File was changed</h4>
+        <h4 class="modal-title"><?= e(trans('cms::lang.form.concurrency_file_changed_title')) ?></h4>
     </div>
     <div class="modal-body">
-        <p>The file you're editing has been changed on disk by another user. You can either reload the file and lose your changes or override the file on the disk.</p>
+        <p><?= e(trans('cms::lang.form.concurrency_file_changed_description')) ?></p>
     </div>
     <div class="modal-footer">
         <button
