@@ -10,8 +10,8 @@ use Config;
 use Carbon\Carbon;
 use System\Models\Parameters;
 use System\Models\PluginVersion;
-use System\Console\CacheClear;
 use ApplicationException;
+use System\Helpers\Cache as CacheHelper;
 use October\Rain\Filesystem\Zip;
 use Exception;
 
@@ -118,7 +118,7 @@ class UpdateManager
         }
 
         Parameters::set('system::update.count', 0);
-        CacheClear::fireInternal();
+        CacheHelper::clear();
 
         /*
          * Seed modules

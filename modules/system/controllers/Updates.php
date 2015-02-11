@@ -11,7 +11,6 @@ use BackendMenu;
 use Backend\Classes\Controller;
 use System\Models\Parameters;
 use System\Models\PluginVersion;
-use System\Console\CacheClear;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
 use System\Classes\SettingsManager;

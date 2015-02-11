@@ -308,10 +308,10 @@ class ServiceProvider extends ModuleServiceProvider
         });
 
         /*
-         * Override clear cache command
+         * Add CMS based cache clearing to native command
          */
-        App::singleton('command.cache.clear', function ($app) {
-            return new \System\Console\CacheClear($app['cache'], $app['files']);
+        Event::listen('cache:cleared', function() {
+            \System\Helpers\Cache::clear();
         });
 
         /*
