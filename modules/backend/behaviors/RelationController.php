@@ -1045,14 +1045,16 @@ class RelationController extends ControllerBehavior
                         'class' => get_class($config->model), 'id' => $this->manageId
                     ]));
                 }
-
-                if (is_array($context) && isset($context['create'])) {
-                    $config->context = $context['create'];
+                else {
+                    if (is_array($context) && isset($context['update'])) {
+                        $config->context = $context['update'];
+                    }
                 }
+
             }
             else {
-                if (is_array($context) && isset($context['update'])) {
-                    $config->context = $context['update'];
+                if (is_array($context) && isset($context['create'])) {
+                    $config->context = $context['create'];
                 }
             }
 
