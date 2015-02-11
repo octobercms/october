@@ -460,27 +460,6 @@ class Form extends WidgetBase
     }
 
     /**
-     * Programatically remove a field.
-     * @return True on success, False on failure
-     */
-    public function removeField($name)
-    {
-        if (!isset($this->fields[$name])) {
-            return false;
-        }
-
-        // Remove from tabs
-        $this->primaryTabs->removeField($name);
-        $this->secondaryTabs->removeField($name);
-        $this->outsideTabs->removeField($name);
-
-        // Remove from form
-        unset($this->fields[$name]);
-
-        return true;
-    }
-
-    /**
      * Programatically add fields, used internally and for extensibility.
      */
     public function addFields(array $fields, $addToArea = null)
@@ -524,6 +503,31 @@ class Form extends WidgetBase
     public function addSecondaryTabFields(array $fields)
     {
         return $this->addFields($fields, 'secondary');
+    }
+
+    /**
+     * Programatically remove a field.
+     * @return boolean
+     */
+    public function removeField($name)
+    {
+        if (!isset($this->fields[$name])) {
+            return false;
+        }
+
+        /*
+         * Remove from tabs
+         */
+        $this->primaryTabs->removeField($name);
+        $this->secondaryTabs->removeField($name);
+        $this->outsideTabs->removeField($name);
+
+        /*
+         * Remove from main collection
+         */
+        unset($this->fields[$name]);
+
+        return true;
     }
 
     /**

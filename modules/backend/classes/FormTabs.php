@@ -84,9 +84,24 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     }
 
     /**
+     * Add a field to the collection of tabs.
+     * @param string    $name
+     * @param FormField $field
+     * @param string    $tab
+     */
+    public function addField($name, FormField $field, $tab = null)
+    {
+        if (!$tab) {
+            $tab = Lang::get('backend::lang.form.undefined_tab');
+        }
+
+        $this->fields[$tab][$name] = $field;
+    }
+
+    /**
      * Remove a field from all tabs by name.
      * @param string    $name
-     * @return True on success, False on failure
+     * @return boolean
      */
     public function removeField($name)
     {
@@ -101,21 +116,6 @@ class FormTabs implements IteratorAggregate, ArrayAccess
         }
 
         return false;
-    }
-
-    /**
-     * Add a field to the collection of tabs.
-     * @param string    $name
-     * @param FormField $field
-     * @param string    $tab
-     */
-    public function addField($name, FormField $field, $tab = null)
-    {
-        if (!$tab) {
-            $tab = Lang::get('backend::lang.form.undefined_tab');
-        }
-
-        $this->fields[$tab][$name] = $field;
     }
 
     /**
