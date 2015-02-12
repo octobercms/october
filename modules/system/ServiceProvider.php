@@ -77,11 +77,9 @@ class ServiceProvider extends ModuleServiceProvider
          */
         Event::listen('console.schedule', function($schedule) use ($pluginManager) {
             foreach ($pluginManager->getPlugins() as $plugin) {
-                if (!method_exists($plugin, 'registerSchedule')) {
-                    continue;
+                if (method_exists($plugin, 'registerSchedule')) {
+                    $plugin->registerSchedule($schedule);
                 }
-
-                $plugin->registerSchedule($schedule);
             }
         });
 
@@ -97,11 +95,9 @@ class ServiceProvider extends ModuleServiceProvider
          * Write all log events to the database
          */
         Event::listen('illuminate.log', function ($level, $message, $context) {
-            if (!DbDongle::hasDatabase() || defined('OCTOBER_NO_EVENT_LOGGING')) {
-                return;
+            if (DbDongle::hasDatabase() && !defined('OCTOBER_NO_EVENT_LOGGING')) {
+                EventLog::add($message, $level);
             }
-
-            EventLog::add($message, $level);
         });
 
         /*

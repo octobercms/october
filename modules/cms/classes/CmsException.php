@@ -153,7 +153,7 @@ class CmsException extends ApplicationException
                 $check = true;
             }
 
-            // Expected: */app/storage/cache/39/05/home.htm.php
+            // Expected: */storage/cms/cache/39/05/home.htm.php
             if (strpos($exception->getFile(), $this->compoundObject->getFileName() . '.php')) {
                 $check = true;
             }

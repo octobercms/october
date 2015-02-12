@@ -1,4 +1,4 @@
-* **Build 187** (2015-03-31)
+* **Build 187** (2015-02-12)
   - **Upgraded framework to Laravel version 5**, see the [end of beta page](http://octobercms.com/beta#advanced-upgrade) for information on how to upgrade.
   - Introduced a linking policy to control the way URLs are generated globally (see config cms.linkPolicy).
   - Popup control now supports several sizes via `data-size` attribute: giant, huge, large, small, tiny.
