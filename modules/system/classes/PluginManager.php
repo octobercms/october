@@ -75,6 +75,7 @@ class PluginManager
 
     /**
      * Finds all available plugins and loads them in to the $plugins array.
+     * @return array
      */
     public function loadPlugins()
     {
@@ -83,39 +84,53 @@ class PluginManager
         /**
          * Locate all plugins and binds them to the container
          */
-        foreach ($this->getPluginNamespaces() as $className => $classPath) {
-
-            $pluginClassName = $className.'\Plugin';
-
-            // Autoloader failed?
-            if (!class_exists($pluginClassName)) {
-                include_once $classPath.'/Plugin.php';
-            }
-
-            // Not a valid plugin!
-            if (!class_exists($pluginClassName)) {
-                continue;
-            }
-
-            $classObj = new $pluginClassName($this->app);
-            $classId = $this->getIdentifier($classObj);
-
-            /*
-             * Check for disabled plugins
-             */
-            if ($this->isDisabled($classId)) {
-                $classObj->disabled = true;
-            }
-
-            $this->plugins[$classId] = $classObj;
-            $this->pathMap[$classId] = $classPath;
+        foreach ($this->getPluginNamespaces() as $namespace => $path) {
+            $this->loadPlugin($namespace, $path);
         }
 
         return $this->plugins;
     }
 
     /**
+     * Loads a single plugin in to the manager.
+     * @param string $namespace Eg: Acme\Blog
+     * @param string $path Eg: plugins_path().'/acme/blog';
+     * @return void
+     */
+    public function loadPlugin($namespace, $path)
+    {
+        $className = $namespace.'\Plugin';
+        $classPath = $path.'/Plugin.php';
+
+        // Autoloader failed?
+        if (!class_exists($className)) {
+            include_once $classPath;
+        }
+
+        // Not a valid plugin!
+        if (!class_exists($className)) {
+            return;
+        }
+
+        $classObj = new $className($this->app);
+        $classId = $this->getIdentifier($classObj);
+
+        /*
+         * Check for disabled plugins
+         */
+        if ($this->isDisabled($classId)) {
+            $classObj->disabled = true;
+        }
+
+        $this->plugins[$classId] = $classObj;
+        $this->pathMap[$classId] = $path;
+
+        return $classObj;
+    }
+
+    /**
      * Runs the register() method on all plugins. Can only be called once.
+     * @return void
      */
     public function registerAll()
     {
@@ -124,59 +139,74 @@ class PluginManager
         }
 
         foreach ($this->plugins as $pluginId => $plugin) {
-            if ($plugin->disabled) {
-                continue;
-            }
-
-            if (!self::$noInit) {
-                $plugin->register();
-            }
-
-            $pluginPath = $this->getPluginPath($plugin);
-            $pluginNamespace = strtolower($pluginId);
-
-            /*
-             * Register plugin class autoloaders
-             */
-            $autoloadPath = $pluginPath . '/vendor/autoload.php';
-            if (File::isFile($autoloadPath)) {
-                require_once $autoloadPath;
-            }
-
-            /*
-             * Register language namespaces
-             */
-            $langPath = $pluginPath . '/lang';
-            if (File::isDirectory($langPath)) {
-                Lang::addNamespace($pluginNamespace, $langPath);
-            }
-
-            /*
-             * Register configuration path
-             */
-            $configPath = $pluginPath . '/config';
-            if (File::isDirectory($configPath)) {
-                Config::package($pluginNamespace, $configPath, $pluginNamespace);
-            }
-
-            /*
-             * Register views path
-             */
-            $viewsPath = $pluginPath . '/views';
-            if (File::isDirectory($viewsPath)) {
-                View::addNamespace($pluginNamespace, $viewsPath);
-            }
-
-            /*
-             * Add routes, if available
-             */
-            $routesFile = $pluginPath . '/routes.php';
-            if (File::exists($routesFile)) {
-                require $routesFile;
-            }
+            $this->registerPlugin($plugin, $pluginId);
         }
 
         $this->registered = true;
+    }
+
+    /**
+     * Registers a single plugin object.
+     * @param PluginBase $plugin
+     * @param string $pluginId
+     * @return void
+     */
+    public function registerPlugin($plugin, $pluginId = null)
+    {
+        if (!$pluginId) {
+            $pluginId = $this->getIdentifier($plugin);
+        }
+
+        if (!$plugin || $plugin->disabled) {
+            return;
+        }
+
+        if (!self::$noInit) {
+            $plugin->register();
+        }
+
+        $pluginPath = $this->getPluginPath($plugin);
+        $pluginNamespace = strtolower($pluginId);
+
+        /*
+         * Register plugin class autoloaders
+         */
+        $autoloadPath = $pluginPath . '/vendor/autoload.php';
+        if (File::isFile($autoloadPath)) {
+            require_once $autoloadPath;
+        }
+
+        /*
+         * Register language namespaces
+         */
+        $langPath = $pluginPath . '/lang';
+        if (File::isDirectory($langPath)) {
+            Lang::addNamespace($pluginNamespace, $langPath);
+        }
+
+        /*
+         * Register configuration path
+         */
+        $configPath = $pluginPath . '/config';
+        if (File::isDirectory($configPath)) {
+            Config::package($pluginNamespace, $configPath, $pluginNamespace);
+        }
+
+        /*
+         * Register views path
+         */
+        $viewsPath = $pluginPath . '/views';
+        if (File::isDirectory($viewsPath)) {
+            View::addNamespace($pluginNamespace, $viewsPath);
+        }
+
+        /*
+         * Add routes, if available
+         */
+        $routesFile = $pluginPath . '/routes.php';
+        if (File::exists($routesFile)) {
+            require $routesFile;
+        }
     }
 
     /**
@@ -189,16 +219,26 @@ class PluginManager
         }
 
         foreach ($this->plugins as $plugin) {
-            if ($plugin->disabled) {
-                continue;
-            }
-
-            if (!self::$noInit) {
-                $plugin->boot();
-            }
+            $this->bootPlugin($plugin);
         }
 
         $this->booted = true;
+    }
+
+    /**
+     * Registers a single plugin object.
+     * @param PluginBase $plugin
+     * @return void
+     */
+    public function bootPlugin($plugin)
+    {
+        if (!$plugin || $plugin->disabled) {
+            return;
+        }
+
+        if (!self::$noInit) {
+            $plugin->boot();
+        }
     }
 
     /**
