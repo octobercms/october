@@ -46,7 +46,11 @@ class BackendController extends ControllerBase
         self::$action = $action = isset($params[2]) ? $this->parseAction($params[2]) : 'index';
         self::$params = $controllerParams = array_slice($params, 3);
         $controllerClass = '\\'.$module.'\Controllers\\'.$controller;
-        if ($controllerObj = $this->findController($controllerClass, $action, '/modules')) {
+        if ($controllerObj = $this->findController(
+            $controllerClass,
+            $action,
+            base_path().'/modules'
+        )) {
             return $controllerObj->run($action, $controllerParams);
         }
 
@@ -79,17 +83,15 @@ class BackendController extends ControllerBase
      * Finds a backend controller with a callable action method.
      * @param string $controller Specifies a method name to execute.
      * @param string $action Specifies a method name to execute.
+     * @param string $inPath Base path for class file location.
      * @return ControllerBase Returns the backend controller object
      */
-    protected function findController($controller, $action, $inPath = null)
+    protected function findController($controller, $action, $inPath)
     {
         /*
          * Workaround: Composer does not support case insensitivity.
          */
         if (!class_exists($controller)) {
-            if (!$inPath) {
-                $inPath = base_path();
-            }
             $controller = Str::normalizeClassName($controller);
             $controllerFile = $inPath.strtolower(str_replace('\\', '/', $controller)) . '.php';
             if ($controllerFile = File::existsInsensitive($controllerFile)) {
