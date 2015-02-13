@@ -1,9 +1,9 @@
 <?php namespace System\Traits;
 
+use Yaml;
 use File;
 use Lang;
 use Event;
-use Yaml;
 use SystemException;
 use Backend\Classes\Controller;
 use stdClass;

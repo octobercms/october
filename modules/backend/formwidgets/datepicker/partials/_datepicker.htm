@@ -10,13 +10,16 @@
             data-control="datepicker"
             data-min-date="<?= $minDate ?>"
             data-max-date="<?= $maxDate ?>">
-            <input
-                type="text"
-                id="<?= $this->getId('input') ?>"
-                name="<?= $name ?>"
-                value="<?= $value ?>"
-                class="form-control align-right"
-                autocomplete="off" />
+            <div class="input-with-icon right-align">
+                <i class="icon icon-calendar-o"></i>
+                <input
+                    type="text"
+                    id="<?= $this->getId('input') ?>"
+                    name="<?= $name ?>"
+                    value="<?= $value ?>"
+                    class="form-control align-right"
+                    autocomplete="off" />
+            </div>
         </div>
 
     <?php elseif ($mode == 'datetime'): ?>
@@ -30,13 +33,16 @@
                     data-control="datepicker"
                     data-min-date="<?= $minDate ?>"
                     data-max-date="<?= $maxDate ?>">
-                    <input
-                        type="text"
-                        id="<?= $this->getId('input') ?>"
-                        name="<?= $name ?>"
-                        value="<?= $value ?>"
-                        class="form-control align-right"
-                        autocomplete="off" />
+                    <div class="input-with-icon right-align">
+                        <i class="icon icon-calendar-o"></i>
+                        <input
+                            type="text"
+                            id="<?= $this->getId('input') ?>"
+                            name="<?= $name ?>"
+                            value="<?= $value ?>"
+                            class="form-control align-right"
+                            autocomplete="off" />
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -45,16 +51,19 @@
                     id="<?= $this->getId() ?>-time"
                     data-control="timepicker"
                     class="field-timepicker clockpicker">
-                    <input
-                        type="text"
-                        id="<?= $this->getId('input') ?>-time"
-                        name="<?= $timeName ?>"
-                        value="<?= $timeValue ?>"
-                        class="form-control align-right"
-                        autocomplete="off"
-                        data-autoclose="true"
-                        data-placement="bottom"
-                        data-align="right" />
+                    <div class="input-with-icon right-align">
+                        <i class="icon icon-clock-o"></i>
+                        <input
+                            type="text"
+                            id="<?= $this->getId('input') ?>-time"
+                            name="<?= $timeName ?>"
+                            value="<?= $timeValue ?>"
+                            class="form-control align-right"
+                            autocomplete="off"
+                            data-autoclose="true"
+                            data-placement="bottom"
+                            data-align="right" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,16 +74,19 @@
             id="<?= $this->getId() ?>"
             data-control="timepicker"
             class="field-timepicker clockpicker">
-            <input
-                type="text"
-                id="<?= $this->getId('input') ?>"
-                name="<?= $name ?>"
-                value="<?= $value ?>"
-                class="form-control align-right"
-                autocomplete="off"
-                data-autoclose="true"
-                data-placement="bottom"
-                data-align="right" />
+            <div class="input-with-icon right-align">
+                <i class="icon icon-clock-o"></i>
+                <input
+                    type="text"
+                    id="<?= $this->getId('input') ?>"
+                    name="<?= $name ?>"
+                    value="<?= $value ?>"
+                    class="form-control align-right"
+                    autocomplete="off"
+                    data-autoclose="true"
+                    data-placement="bottom"
+                    data-align="right" />
+            </div>
         </div>
 
     <?php endif ?>

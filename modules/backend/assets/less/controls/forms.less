@@ -157,6 +157,10 @@ label {
         }
     }
 
+    &.field-indent {
+        padding-left: 23px;
+    }
+
     &.input-sidebar-control {
         padding-right: 35px;
 
@@ -195,6 +199,29 @@ label {
     &.before-field {
         margin-top: 0;
         margin-bottom: 10px;
+    }
+}
+
+.input-with-icon {
+    position: relative;
+
+    > .icon {
+        position: absolute;
+        z-index: 2;
+        padding: 13px;
+        pointer-events: none;
+        color: @color-form-field-icon;
+        font-size: 15px;
+    }
+
+    &.right-align {
+        > .icon { right: 0; }
+        input { padding-right: 32px !important; }
+    }
+
+    &.left-align {
+        > .icon { left: 0; }
+        input { padding-left: 32px !important; }
     }
 }
 
