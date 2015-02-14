@@ -170,6 +170,7 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/backend/assets/js/october.js');
             $combiner->registerBundle('~/modules/backend/assets/js/vendor/vendor.js');
             $combiner->registerBundle('~/modules/backend/widgets/table/assets/js/build.js');
+            $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
         });
     }
 
