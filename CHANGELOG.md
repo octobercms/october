@@ -1,3 +1,6 @@
+* **Build 19x** (2015-02-xx)
+  - Added "Auto close tags and special characters" to Code editor preferences.
+
 * **Build 190** (2015-02-14)
   - For security reasons a vague error message is shown when a user tries to sign in unsuccessfully and the setting `app.debug` is disabled.
 

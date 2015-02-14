@@ -23,37 +23,48 @@ class CodeEditor extends FormWidgetBase
     public $language = 'php';
 
     /**
-     * @var boolean Determines whether the gutter is visible
+     * @var boolean Determines whether the gutter is visible.
      */
     public $showGutter = true;
 
     /**
-     * @var boolean Indicates whether the the word wrapping is enabled
+     * @var boolean Indicates whether the the word wrapping is enabled.
      */
     public $wordWrap = true;
 
     /**
-     * @var boolean Indicates whether the the editor uses spaces for indentation
+     * @var string Cold folding mode: manual, markbegin, markbeginend.
+     */
+    public $codeFolding = 'manual';
+
+    /**
+     * @var boolean Automatically close tags and special characters,
+     * like quotation marks, parenthesis, or brackets.
+     */
+    public $autoClosing = true;
+
+    /**
+     * @var boolean Indicates whether the the editor uses spaces for indentation.
      */
     public $useSoftTabs = true;
 
     /**
-     * @var boolean Sets the size of the indentation
+     * @var boolean Sets the size of the indentation.
      */
     public $tabSize = 4;
 
     /**
-     * @var integer Sets the font size
+     * @var integer Sets the font size.
      */
     public $fontSize = 12;
 
     /**
-     * @var integer Sets the editor margin size
+     * @var integer Sets the editor margin size.
      */
     public $margin = 10;
 
     /**
-     * @var $theme Ace Editor theme to use
+     * @var $theme Ace Editor theme to use.
      */
     public $theme = 'twilight';
 
@@ -68,6 +79,7 @@ class CodeEditor extends FormWidgetBase
         $this->fontSize = $this->getConfig('fontSize', $editorSettings->font_size);
         $this->wordWrap = $this->getConfig('wordWrap', $editorSettings->word_wrap);
         $this->codeFolding = $this->getConfig('codeFolding', $editorSettings->code_folding);
+        $this->autoClosing = $this->getConfig('autoClosing', $editorSettings->auto_closing);
         $this->tabSize = $this->getConfig('tabSize', $editorSettings->tab_size);
         $this->theme = $this->getConfig('theme', $editorSettings->theme);
         $this->showInvisibles = $this->getConfig('showInvisibles', $editorSettings->show_invisibles);
@@ -95,6 +107,7 @@ class CodeEditor extends FormWidgetBase
         $this->vars['fontSize'] = $this->fontSize;
         $this->vars['wordWrap'] = $this->wordWrap;
         $this->vars['codeFolding'] = $this->codeFolding;
+        $this->vars['autoClosing'] = $this->autoClosing;
         $this->vars['tabSize'] = $this->tabSize;
         $this->vars['theme'] = $this->theme;
         $this->vars['showInvisibles'] = $this->showInvisibles;

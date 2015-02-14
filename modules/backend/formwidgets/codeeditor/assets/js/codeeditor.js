@@ -44,6 +44,7 @@
         showInvisibles: true,
         highlightActiveLine: true,
         useSoftTabs: true,
+        autoCloseTags: true,
         showGutter: true,
         language: 'php',
         margin: 0,
@@ -122,6 +123,7 @@
          */
         editor.wrapper = this
         editor.setShowInvisibles(options.showInvisibles)
+        editor.setBehavioursEnabled(options.autoCloseTags)
         editor.setHighlightActiveLine(options.highlightActiveLine)
         editor.renderer.setShowGutter(options.showGutter)
         editor.renderer.setShowPrintMargin(options.showPrintMargin)

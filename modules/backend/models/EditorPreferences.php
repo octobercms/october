@@ -30,6 +30,7 @@ class EditorPreferences extends Model
         $this->highlight_active_line = $config->get('editor.highlight_active_line', true);
         $this->use_hard_tabs = $config->get('editor.use_hard_tabs', false);
         $this->show_gutter = $config->get('editor.show_gutter', true);
+        $this->auto_closing = $config->get('editor.auto_closing', true);
     }
 
     public static function applyConfigValues()
@@ -45,6 +46,7 @@ class EditorPreferences extends Model
         $config->set('editor.highlight_active_line', $settings->highlight_active_line);
         $config->set('editor.use_hard_tabs', $settings->use_hard_tabs);
         $config->set('editor.show_gutter', $settings->show_gutter);
+        $config->set('editor.auto_closing', $settings->auto_closing);
     }
 
     public function getThemeOptions()
