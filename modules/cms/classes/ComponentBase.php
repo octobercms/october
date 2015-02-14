@@ -277,23 +277,4 @@ abstract class ComponentBase extends Extendable
 
         return $default;
     }
-
-    /**
-     * @deprecated Returns a defined property or parameter value.
-     * @todo Remove this method if year >= 2015
-     * @see Docs: Components > External Parameters
-     * @param $name The property or parameter name to look for.
-     * @param $default A default value to return if no value is found.
-     * @return string
-     */
-    public function propertyOrParam($name, $default = null)
-    {
-        $value = $this->property($name, $default);
-
-        if (substr($value, 0, 1) == ':') {
-            return $this->param(substr($value, 1), $default);
-        }
-
-        return $value;
-    }
 }
