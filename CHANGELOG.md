@@ -1,3 +1,6 @@
+* **Build 190** (2015-02-14)
+  - For security reasons a vague error message is shown when a user tries to sign in unsuccessfully and the setting `app.debug` is disabled.
+
 * **Build 187** (2015-02-12)
   - **Upgraded framework to Laravel version 5**, see the [end of beta page](http://octobercms.com/beta#advanced-upgrade) for information on how to upgrade.
   - Introduced a linking policy to control the way URLs are generated globally (see config cms.linkPolicy).
