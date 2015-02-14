@@ -116,7 +116,6 @@ return array(
     |
     | Controls how URL links are generated throughout the application.
     |
-    | relative - relative to the application, schema and hostname is omitted
     | detect   - detect hostname and use the current schema
     | secure   - detect hostname and force HTTPS schema
     | insecure - detect hostname and force HTTP schema
@@ -124,5 +123,5 @@ return array(
     |
     */
 
-    'linkPolicy' => 'relative',
+    'linkPolicy' => 'detect',
 );
