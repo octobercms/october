@@ -117,11 +117,6 @@ abstract class ComponentBase extends Extendable
     public function init()
     {
     }
-    
-    // @deprecated: Remove this line if year >= 2015
-    public function onInit()
-    {
-    }
 
     /**
      * Executed when this component is bound to a page or layout, part of 

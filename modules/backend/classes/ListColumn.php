@@ -135,11 +135,6 @@ class ListColumn
             $this->path = $config['path'];
         }
 
-        // @todo Remove lines if year >= 2015
-        if (isset($config['nameFrom'])) {
-            $this->valueFrom = $config['nameFrom'];
-        }
-
         return $config;
     }
 }

@@ -278,10 +278,6 @@ class FormField
         if (isset($config['dependsOn'])) {
             $this->dependsOn = $config['dependsOn'];
         }
-        /* @deprecated remove if year >= 2016 */
-        elseif (isset($config['depends'])) {
-            $this->dependsOn = $config['depends'];
-        }
         if (isset($config['path'])) {
             $this->path = $config['path'];
         }

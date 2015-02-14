@@ -61,15 +61,6 @@ class Relation extends FormWidgetBase
         $this->descriptionFrom = $this->getConfig('descriptionFrom', $this->descriptionFrom);
         $this->emptyOption = $this->getConfig('emptyOption');
 
-        /* @todo Remove lines if year >= 2015 */
-        if ($this->getConfig('nameColumn')) {
-            $this->nameFrom = $this->getConfig('nameColumn');
-        }
-        /* @todo Remove lines if year >= 2015 */
-        if ($this->getConfig('descriptionColumn')) {
-            $this->descriptionFrom = $this->getConfig('descriptionColumn');
-        }
-
         if (!$this->model->hasRelation($this->relationName)) {
             throw new SystemException(Lang::get(
                 'backend::lang.model.missing_relation',

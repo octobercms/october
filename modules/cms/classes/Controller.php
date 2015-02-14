@@ -457,7 +457,6 @@ class Controller
 
         $this->setComponentPropertiesFromParams($componentObj);
         $componentObj->init();
-        $componentObj->onInit(); // Deprecated: Remove ithis line if year >= 2015
         return $componentObj;
     }
 
@@ -825,7 +824,6 @@ class Controller
 
                 $this->setComponentPropertiesFromParams($componentObj, $parameters);
                 $componentObj->init();
-                $componentObj->onInit(); // Deprecated: Remove ithis line if year >= 2015
             }
 
             CmsException::mask($this->page, 300);

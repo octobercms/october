@@ -137,12 +137,6 @@ class FilterScope
         if (isset($config['descriptionFrom'])) {
             $this->descriptionFrom = $config['descriptionFrom'];
         }
-
-        // @todo Remove line if year >= 2015
-        if (isset($config['nameColumn'])) {
-            $this->nameFrom = $config['nameColumn'];
-        }
-
         if (array_key_exists('disabled', $config)) {
             $this->disabled = $config['disabled'];
         }

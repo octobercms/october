@@ -803,14 +803,6 @@ class Form extends WidgetBase
 
             $widgetValue = $widget->getSaveValue(array_get($data, $dotted));
 
-            /*
-             * @deprecated Remove if year >= 2016
-             */
-            if (method_exists($widget, 'getSaveData')) {
-                traceLog('Method getSaveData() is deprecated, use getSaveValue() instead. Found in: ' . get_class($widget), 'warning');
-                $widgetValue = $widget->getSaveData(array_get($data, $dotted));
-            }
-
             array_set($data, $dotted, $widgetValue);
         }
 

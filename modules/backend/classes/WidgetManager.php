@@ -104,11 +104,6 @@ class WidgetManager
     {
         $widgetCode = isset($widgetInfo['code']) ? $widgetInfo['code'] : null;
 
-        /* @todo Remove line if year >= 2015 */
-        if (!$widgetCode) {
-            $widgetCode = isset($widgetInfo['alias']) ? $widgetInfo['alias'] : null;
-        }
-
         if (!$widgetCode) {
             $widgetCode = Str::getClassId($className);
         }

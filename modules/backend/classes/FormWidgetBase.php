@@ -55,22 +55,11 @@ abstract class FormWidgetBase extends WidgetBase
         $this->valueFrom = $formField->valueFrom;
         $this->model = $model;
 
-        // @todo Remove line if year >= 2015
-        $this->columnName = $formField->valueFrom;
-
         if (isset($configuration->sessionKey)) {
             $this->sessionKey = $configuration->sessionKey;
         }
         if (isset($configuration->previewMode)) {
             $this->previewMode = $configuration->previewMode;
-        }
-
-        /*
-         * Form fields originally passed their configuration via the options index.
-         * This step should be removed if year >= 2015.
-         */
-        if (isset($configuration->options)) {
-            $configuration = array_merge($configuration->options, (array) $configuration);
         }
 
         parent::__construct($controller, $configuration);
