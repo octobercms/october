@@ -1172,9 +1172,9 @@ class Controller
                 $paramName = trim($matches[1]);
 
                 if (substr($paramName, 0, 1) == ':') {
-                    $paramName = substr($paramName, 1);
-                    $newPropertyValue = array_key_exists($paramName, $routerParameters)
-                        ? $routerParameters[$paramName]
+                    $routeParamName = substr($paramName, 1);
+                    $newPropertyValue = array_key_exists($routeParamName, $routerParameters)
+                        ? $routerParameters[$routeParamName]
                         : null;
 
                 }
