@@ -413,38 +413,51 @@ class Index extends Controller
 
     protected function upgradeSettings($settings)
     {
-        if (!array_key_exists('component_properties', $_POST)) {
-            return $settings;
-        }
+        /*
+         * Handle component usage
+         */
+        $componentProperties = post('component_properties');
+        $componentNames = post('component_names');
+        $componentAliases = post('component_aliases');
 
-        if (!array_key_exists('component_names', $_POST) || !array_key_exists('component_aliases', $_POST)) {
-            throw new ApplicationException(trans('cms::lang.component.invalid_request'));
-        }
-
-        $count = count($_POST['component_properties']);
-        if (count($_POST['component_names']) != $count || count($_POST['component_aliases']) != $count) {
-            throw new ApplicationException(trans('cms::lang.component.invalid_request'));
-        }
-
-        for ($index = 0; $index < $count; $index ++) {
-            $componentName = $_POST['component_names'][$index];
-            $componentAlias = $_POST['component_aliases'][$index];
-
-            $section = $componentName;
-            if ($componentAlias != $componentName) {
-                $section .= ' '.$componentAlias;
+        if ($componentProperties !== null) {
+            if ($componentNames === null || $componentAliases === null) {
+                throw new ApplicationException(trans('cms::lang.component.invalid_request'));
             }
 
-            $properties = json_decode($_POST['component_properties'][$index], true);
-            unset($properties['oc.alias']);
-            unset($properties['inspectorProperty']);
-            unset($properties['inspectorClassName']);
-            $settings[$section] = $properties;
+            $count = count($componentProperties);
+            if (count($componentNames) != $count || count($componentAliases) != $count) {
+                throw new ApplicationException(trans('cms::lang.component.invalid_request'));
+            }
+
+            for ($index = 0; $index < $count; $index ++) {
+                $componentName = $componentNames[$index];
+                $componentAlias = $componentAliases[$index];
+
+                $section = $componentName;
+                if ($componentAlias != $componentName) {
+                    $section .= ' '.$componentAlias;
+                }
+
+                $properties = json_decode($componentProperties[$index], true);
+                unset($properties['oc.alias']);
+                unset($properties['inspectorProperty']);
+                unset($properties['inspectorClassName']);
+                $settings[$section] = $properties;
+            }
         }
 
-        if (array_key_exists('viewBag', $_POST))
-            $settings['viewBag'] = $_POST['viewBag'];
+        /*
+         * Handle view bag
+         */
+        $viewBag = post('viewBag');
+        if ($viewBag !== null) {
+            $settings['viewBag'] = $viewBag;
+        }
 
+        /*
+         * Extensibility
+         */
         $dataHolder = (object)[
             'settings' => $settings
         ];
