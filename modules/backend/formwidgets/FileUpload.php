@@ -47,7 +47,7 @@ class FileUpload extends FormWidgetBase
     /**
      * @var mixed Collection of acceptable file types.
      */
-    public $acceptedFileTypes;
+    public $acceptedFileTypes = false;
 
     /**
      * {@inheritDoc}
@@ -128,10 +128,13 @@ class FileUpload extends FormWidgetBase
      */
     public function getAcceptedFileTypes($includeDot = false)
     {
-        if (!$types = $this->acceptedFileTypes) {
-            $types = starts_with($this->getDisplayMode(), 'image')
-                ? 'jpg,jpeg,bmp,png,gif,svg'
-                : null;
+        $types = $this->acceptedFileTypes;
+        if ($types === false && starts_with($this->getDisplayMode(), 'image')) {
+            $types = 'jpg,jpeg,bmp,png,gif,svg';
+        }
+
+        if (is_null($types)) {
+            return null;
         }
 
         if (!is_array($types)) {
