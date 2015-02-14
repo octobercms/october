@@ -133,7 +133,7 @@ class FileUpload extends FormWidgetBase
             $types = 'jpg,jpeg,bmp,png,gif,svg';
         }
 
-        if (is_null($types)) {
+        if (!$types) {
             return null;
         }
 
