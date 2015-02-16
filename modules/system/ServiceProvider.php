@@ -88,7 +88,7 @@ class ServiceProvider extends ModuleServiceProvider
          */
         Event::listen('exception.beforeRender', function ($exception, $httpCode, $request){
             $handler = new ErrorHandler;
-            return $handler->handleException($exception, $httpCode);
+            return $handler->handleException($exception);
         });
 
         /*

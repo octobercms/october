@@ -85,7 +85,7 @@ self.onConditionChanged()})
 self.onConditionChanged()}
 TriggerOn.prototype.onConditionChanged=function(){if(this.triggerCondition=='checked'){this.updateTarget($(this.options.trigger+':checked').length>0)}
 else if(this.triggerCondition=='value'){this.updateTarget($(this.options.trigger).val()==this.triggerConditionValue)}}
-TriggerOn.prototype.updateTarget=function(status){if(this.options.triggerType=='display')
+TriggerOn.prototype.updateTarget=function(status){if(this.options.triggerType=='show')
 this.$el.toggleClass('hide',!status).trigger('hide',[!status])
 else if(this.options.triggerType=='hide')
 this.$el.toggleClass('hide',status).trigger('hide',[status])
@@ -95,7 +95,7 @@ else if(this.options.triggerType=='disable')
 this.$el.prop('disabled',status).trigger('disable',[status]).toggleClass('control-disabled',status)
 else if(this.options.triggerType=='empty'&&status)
 this.$el.trigger('empty').val('')
-if(this.options.triggerType=='display'||this.options.triggerType=='hide')
+if(this.options.triggerType=='show'||this.options.triggerType=='hide')
 this.fixButtonClasses()
 $(window).trigger('resize')}
 TriggerOn.prototype.fixButtonClasses=function(){var group=this.$el.closest('.btn-group')

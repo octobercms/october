@@ -15,6 +15,7 @@ use Exception;
 use BackendAuth;
 use Backend\Models\UserPreferences;
 use Backend\Models\BackendPreferences;
+use System\Classes\ErrorHandler;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
@@ -434,7 +435,7 @@ class Controller extends Extendable
                 );
             }
             catch (Exception $ex) {
-                return Response::make(ApplicationException::getDetailedMessage($ex), 500);
+                throw $ex;
             }
         }
 
@@ -536,7 +537,7 @@ class Controller extends Extendable
      */
     public function handleError($exception)
     {
-        $errorMessage = ApplicationException::getDetailedMessage($exception);
+        $errorMessage = ErrorHandler::getDetailedMessage($exception);
         $this->fatalError = $errorMessage;
         $this->vars['fatalError'] = $errorMessage;
     }

@@ -6,7 +6,7 @@
  * element is checked.
  * 
  * Supported data attributes:
- * - data-trigger-type, values: display, hide, enable, disable, empty
+ * - data-trigger-type, values: show, hide, enable, disable, empty
  * - data-trigger: a CSS selector for elements that trigger the action (checkboxes)
  * - data-trigger-condition, values:
  *       - checked: determines the condition the elements specified in the data-trigger
@@ -75,7 +75,7 @@
     }
 
     TriggerOn.prototype.updateTarget = function(status) {
-        if (this.options.triggerType == 'display')
+        if (this.options.triggerType == 'show')
             this.$el.toggleClass('hide', !status).trigger('hide', [!status])
         else if (this.options.triggerType == 'hide')
             this.$el.toggleClass('hide', status).trigger('hide', [status])
@@ -86,7 +86,7 @@
         else if (this.options.triggerType == 'empty' && status)
             this.$el.trigger('empty').val('')
 
-        if (this.options.triggerType == 'display' || this.options.triggerType == 'hide')
+        if (this.options.triggerType == 'show' || this.options.triggerType == 'hide')
             this.fixButtonClasses()
 
         $(window).trigger('resize')

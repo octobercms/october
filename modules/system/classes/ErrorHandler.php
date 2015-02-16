@@ -1,11 +1,13 @@
 <?php namespace System\Classes;
 
+use Log;
 use View;
 use Config;
 use Cms\Classes\Theme;
 use Cms\Classes\Router;
 use Cms\Classes\Controller;
 use October\Rain\Exception\ErrorHandler as ErrorHandlerBase;
+use October\Rain\Exception\ApplcationException;
 
 /**
  * System Error Handler, this class handles application exception events.
@@ -15,6 +17,18 @@ use October\Rain\Exception\ErrorHandler as ErrorHandlerBase;
  */
 class ErrorHandler extends ErrorHandlerBase
 {
+    /**
+     * We are about to display an error page to the user,
+     * if it is an ApplcationException, this event should be logged.
+     * @return void
+     */
+    public function beforeHandleError($exception)
+    {
+        if ($exception instanceof ApplcationException) {
+            Log::error($exception);
+        }
+    }
+
     /**
      * Looks up an error page using the CMS route "/error". If the route does not
      * exist, this function will use the error view found in the Cms module.

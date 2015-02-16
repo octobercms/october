@@ -537,7 +537,7 @@ class Controller
                 return Response::make($responseContents, 406);
             }
             catch (Exception $ex) {
-                return Response::make(ApplicationException::getDetailedMessage($ex), 500);
+                throw $ex;
             }
         }
 
