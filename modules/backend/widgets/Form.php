@@ -245,6 +245,7 @@ class Form extends WidgetBase
     protected function prepareVars()
     {
         $this->defineFormFields();
+        $this->applyFiltersFromModel();
         $this->vars['sessionKey'] = $this->getSessionKey();
         $this->vars['outsideTabs'] = $this->outsideTabs;
         $this->vars['primaryTabs'] = $this->primaryTabs;
@@ -838,6 +839,16 @@ class Form extends WidgetBase
         }
 
         return $data;
+    }
+
+    /*
+     * Allow the model to filter fields.
+     */
+    protected function applyFiltersFromModel()
+    {
+        if (method_exists($this->model, 'filterFields')) {
+            $this->model->filterFields((object) $this->fields);
+        }
     }
 
     /**

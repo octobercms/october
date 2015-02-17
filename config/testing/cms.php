@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -12,28 +12,6 @@ return array(
     */
 
     'activeTheme' => 'test',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Plugins directory
-    |--------------------------------------------------------------------------
-    |
-    | Specifies the plugins directory relative to the application root directory.
-    |
-    */
-
-    'pluginsDir' => '/tests/fixtures/plugins',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Themes directory
-    |--------------------------------------------------------------------------
-    |
-    | Specifies the themes directory relative to the application root directory.
-    |
-    */
-
-    'themesDir' => '/tests/fixtures/themes',
 
     /*
     |--------------------------------------------------------------------------
@@ -109,19 +87,4 @@ return array(
 
     'convertLineEndings' => true,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Linking policy
-    |--------------------------------------------------------------------------
-    |
-    | Controls how URL links are generated throughout the application.
-    |
-    | detect   - detect hostname and use the current schema
-    | secure   - detect hostname and force HTTPS schema
-    | insecure - detect hostname and force HTTP schema
-    | force    - force hostname and schema using app.url config value
-    |
-    */
-
-    'linkPolicy' => 'detect',
-);
+];

@@ -54,9 +54,9 @@ class CombineAssets
     protected $filters = [];
 
     /**
-     * @var string The directory path context to find assets.
+     * @var string The local path context to find assets.
      */
-    protected $path;
+    protected $localPath;
 
     /**
      * @var string The output folder for storing combined files.
@@ -134,9 +134,9 @@ class CombineAssets
      * to produce a page relative URL to the combined contents.
      * @return string URL to contents.
      */
-    public static function combine($assets = [], $prefixPath = null)
+    public static function combine($assets = [], $localPath = null)
     {
-        return self::instance()->prepareRequest($assets, $prefixPath);
+        return self::instance()->prepareRequest($assets, $localPath);
     }
 
     /**
@@ -170,7 +170,7 @@ class CombineAssets
             throw new ApplicationException(Lang::get('cms::lang.combiner.not_found', ['name'=>$cacheId]));
         }
 
-        $this->path = $cacheInfo['path'];
+        $this->localPath = $cacheInfo['path'];
         $this->storagePath = storage_path().'/cms/combiner/assets';
 
         $combiner = $this->prepareCombiner($cacheInfo['files']);
@@ -271,13 +271,13 @@ class CombineAssets
      * @var string File extension, used for aesthetic purposes only.
      * @return string URL to contents.
      */
-    protected function prepareRequest(array $assets, $path = null)
+    protected function prepareRequest(array $assets, $localPath = null)
     {
-        if (substr($path, -1) != '/') {
-            $path = $path.'/';
+        if (substr($localPath, -1) != '/') {
+            $localPath = $localPath.'/';
         }
 
-        $this->path = public_path().$path;
+        $this->localPath = $localPath;
         $this->storagePath = storage_path().'/cms/combiner/assets';
 
         list($assets, $extension) = $this->prepareAssets($assets);
@@ -297,7 +297,7 @@ class CombineAssets
                 'etag'      => $cacheId,
                 'lastMod'   => $lastMod,
                 'files'     => $assets,
-                'path'      => $this->path,
+                'path'      => $this->localPath,
                 'extension' => $extension
             ];
 
@@ -317,9 +317,9 @@ class CombineAssets
         $filesSalt = null;
         foreach ($assets as $asset) {
             $filters = $this->getFilters(File::extension($asset)) ?: [];
-            $path = File::symbolizePath($asset) ?: $this->path . $asset;
+            $path = File::symbolizePath($asset) ?: $this->localPath . $asset;
             $files[] = new FileAsset($path, $filters, public_path());
-            $filesSalt .= $this->path . $asset;
+            $filesSalt .= $this->localPath . $asset;
         }
         $filesSalt = md5($filesSalt);
 
@@ -638,7 +638,7 @@ class CombineAssets
      */
     protected function makeCacheId(array $assets)
     {
-        return md5($this->path . implode('|', $assets));
+        return md5($this->localPath . implode('|', $assets));
     }
 
     /**

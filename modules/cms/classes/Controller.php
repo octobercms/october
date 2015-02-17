@@ -122,7 +122,7 @@ class Controller
             throw new CmsException(Lang::get('cms::lang.theme.active.not_found'));
         }
 
-        $this->assetPath = Config::get('cms.themesDir').'/'.$this->theme->getDirName();
+        $this->assetPath = Config::get('cms.themesPath', '/themes').'/'.$this->theme->getDirName();
         $this->router = new Router($this->theme);
         $this->initTwigEnvironment();
 
@@ -1042,13 +1042,13 @@ class Controller
      */
     public function themeUrl($url = null)
     {
-        $themePath = Config::get('cms.themesDir').'/'.$this->getTheme()->getDirName();
+        $themeDir = $this->getTheme()->getDirName();
 
         if (is_array($url)) {
-            $_url = URL::to(CombineAssets::combine($url, $themePath));
+            $_url = URL::to(CombineAssets::combine($url, themes_path().'/'.$themeDir));
         }
         else {
-            $_url = $themePath;
+            $_url = Config::get('cms.themesPath', '/themes').'/'.$themeDir;
             if ($url !== null) {
                 $_url .= '/'.$url;
             }

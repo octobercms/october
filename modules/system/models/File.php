@@ -26,12 +26,11 @@ class File extends FileBase
      */
     public function getStorageDirectory()
     {
-        $uploadsDir = Config::get('cms.uploadsDir');
         if ($this->isPublic()) {
-            return base_path() . $uploadsDir . '/public/';
+            return uploads_path() . '/public/';
         }
         else {
-            return base_path() . $uploadsDir . '/protected/';
+            return uploads_path() . '/protected/';
         }
     }
 
@@ -40,12 +39,17 @@ class File extends FileBase
      */
     public function getPublicDirectory()
     {
-        $uploadsDir = Config::get('cms.uploadsDir');
+        $uploadsPath = Config::get('cms.uploadsPath', '/uploads');
+
+        if (!preg_match("/(\/\/|http|https)/", $uploadsPath)) {
+            $uploadsPath = Request::getBasePath() . $uploadsPath;
+        }
+
         if ($this->isPublic()) {
-            return Request::getBasePath() . $uploadsDir . '/public/';
+            return $uploadsPath . '/public/';
         }
         else {
-            return Request::getBasePath() . $uploadsDir . '/protected/';
+            return $uploadsPath . '/protected/';
         }
     }
 }

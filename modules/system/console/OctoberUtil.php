@@ -120,15 +120,10 @@ class OctoberUtil extends Command
 
     protected function utilPurgeThumbs()
     {
-        if (!$uploadsDir = Config::get('cms.uploadsDir')) {
-            return $this->error('No uploads directory defined in config (cms.uploadsDir)');
-        }
-
         if (!$this->confirmToProceed('This will PERMANENTLY DELETE all thumbs in the uploads directory.')) {
             return;
         }
 
-        $uploadsDir = base_path() . $uploadsDir;
         $totalCount = 0;
 
         /*
@@ -151,7 +146,7 @@ class OctoberUtil extends Command
             }
         };
 
-        $purgeFunc($uploadsDir);
+        $purgeFunc(uploads_path());
 
         if ($totalCount > 0) {
             $this->comment(sprintf('Successfully deleted %s thumbs', $totalCount));

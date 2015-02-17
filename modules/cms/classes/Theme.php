@@ -68,7 +68,7 @@ class Theme
             $dirName = $this->getDirName();
         }
 
-        return base_path().Config::get('cms.themesDir').'/'.$dirName;
+        return themes_path().'/'.$dirName;
     }
 
     /**
@@ -211,9 +211,7 @@ class Theme
      */
     public static function all()
     {
-        $path = base_path().Config::get('cms.themesDir');
-
-        $it = new DirectoryIterator($path);
+        $it = new DirectoryIterator(themes_path());
         $it->rewind();
 
         $result = [];

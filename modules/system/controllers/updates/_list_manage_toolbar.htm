@@ -8,7 +8,7 @@
             })"
             data-control="popup"
             data-handler="onLoadDisableForm"
-            data-trigger-type="enable"
+            data-trigger-action="enable"
             data-trigger=".control-list input[type=checkbox]"
             data-trigger-condition="checked"
             data-stripe-load-indicator>
@@ -23,7 +23,7 @@
             })"
             data-request="onRefreshPlugins"
             data-request-confirm="<?= e(trans('system::lang.plugins.refresh_confirm')) ?>"
-            data-trigger-type="enable"
+            data-trigger-action="enable"
             data-trigger=".control-list input[type=checkbox]"
             data-trigger-condition="checked"
             data-stripe-load-indicator>
@@ -38,7 +38,7 @@
             })"
             data-request="onRemovePlugins"
             data-request-confirm="<?= e(trans('system::lang.plugins.remove_confirm')) ?>"
-            data-trigger-type="enable"
+            data-trigger-action="enable"
             data-trigger=".control-list input[type=checkbox]"
             data-trigger-condition="checked"
             data-stripe-load-indicator>

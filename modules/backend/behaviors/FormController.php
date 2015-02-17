@@ -9,7 +9,6 @@ use Redirect;
 use Backend;
 use Backend\Classes\FormField;
 use Backend\Classes\ControllerBehavior;
-use October\Rain\Support\Util;
 use October\Rain\Router\Helper as RouterHelper;
 use ApplicationException;
 use Exception;

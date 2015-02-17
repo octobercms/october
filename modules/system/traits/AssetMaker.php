@@ -195,7 +195,7 @@ trait AssetMaker
      * a forward slash, it will be returned in context of the application public path,
      * otherwise it will be returned in context of the asset path.
      * @param string $fileName File to load.
-     * @param mixed $assetPath Explicitly define an asset path.
+     * @param string $assetPath Explicitly define an asset path.
      * @return string Relative path to the asset file.
      */
     public function getAssetPath($fileName, $assetPath = null)
@@ -212,18 +212,7 @@ trait AssetMaker
             return $fileName;
         }
 
-        if (!is_array($assetPath)) {
-            $assetPath = [$assetPath];
-        }
-
-        foreach ($assetPath as $path) {
-            $_fileName = $path . '/' . $fileName;
-            if (File::isFile(base_path() . '/' . $_fileName)) {
-                break;
-            }
-        }
-
-        return $_fileName;
+        return $assetPath . '/' . $fileName;
     }
 
     /**

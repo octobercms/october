@@ -1,7 +1,6 @@
 <?php namespace Backend\Widgets;
 
 use Input;
-use October\Rain\Support\Util;
 use Backend\Classes\WidgetBase;
 
 /**
@@ -116,7 +115,7 @@ class Search extends WidgetBase
         $params = func_get_args();
         $result = $this->fireEvent('search.submit', [$params]);
         if ($result && is_array($result)) {
-            return Util::arrayMerge($result);
+            return call_user_func_array('array_merge', $result);
         }
     }
 

@@ -48,16 +48,6 @@ abstract class WidgetBase
     public function __construct($controller, $configuration = [])
     {
         $this->controller = $controller;
-
-        // Option A: (@todo Determine which is faster by benchmark)
-        // $relativePath = strtolower(str_replace('\\', '/', get_called_class()));
-        // $this->viewPath = $this->configPath = [
-        //     'modules/' . $relativePath . '/partials',
-        //     'plugins/' . $relativePath . '/partials'
-        // ];
-        // $this->assetPath = ['modules/' . $relativePath . '/assets', 'plugins/' . $relativePath . '/assets'];
-
-        // Option B:
         $this->viewPath = $this->configPath = $this->guessViewPath('/partials');
         $this->assetPath = $this->guessViewPath('/assets', true);
 

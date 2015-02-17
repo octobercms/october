@@ -154,36 +154,39 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Plugins directory
+    | Public plugins path
     |--------------------------------------------------------------------------
     |
-    | Specifies the plugins directory relative to the application root directory.
+    | Specifies the public plugins path relative to the application base URL,
+    | or you can specify a full URL path.
     |
     */
 
-    'pluginsDir' => '/plugins',
+    'pluginsPath' => '/plugins',
 
     /*
     |--------------------------------------------------------------------------
-    | Themes directory
+    | Public themes path
     |--------------------------------------------------------------------------
     |
-    | Specifies the themes directory relative to the application root directory.
+    | Specifies the public themes path relative to the application base URL,
+    | or you can specify a full URL path.
     |
     */
 
-    'themesDir' => '/themes',
+    'themesPath' => '/themes',
 
     /*
     |--------------------------------------------------------------------------
-    | Uploads directory
+    | Public uploads path
     |--------------------------------------------------------------------------
     |
-    | Specifies the uploads directory relative to the application root directory.
+    | Specifies the public uploads path relative to the application base URL,
+    | or you can specify a full URL path.
     |
     */
 
-    'uploadsDir' => '/uploads',
+    'uploadsPath' => '/uploads',
 
     /*
     |--------------------------------------------------------------------------

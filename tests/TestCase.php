@@ -16,6 +16,8 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app['cache']->setDefaultDriver('array');
 
         $app->setLocale('en');
+        $app->setPluginsPath(base_path().'/tests/fixtures/plugins');
+        $app->setThemesPath(base_path().'/tests/fixtures/themes');
 
         return $app;
     }

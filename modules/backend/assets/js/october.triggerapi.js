@@ -6,7 +6,7 @@
  * element is checked.
  * 
  * Supported data attributes:
- * - data-trigger-type, values: show, hide, enable, disable, empty
+ * - data-trigger-action, values: show, hide, enable, disable, empty
  * - data-trigger: a CSS selector for elements that trigger the action (checkboxes)
  * - data-trigger-condition, values:
  *       - checked: determines the condition the elements specified in the data-trigger
@@ -15,7 +15,7 @@
  *                           the condition is considered "true".
  *
  * Example: <input type="button" class="btn disabled"
- *             data-trigger-type="enable"
+ *             data-trigger-action="enable"
  *             data-trigger="#cblist input[type=checkbox]"
  *             data-trigger-condition="checked" ... >
  *
@@ -24,7 +24,7 @@
  *   force it to check the condition and update itself. This is useful when the page content is updated with AJAX.
  *
  * JavaScript API:
- * $('#mybutton').triggerOn({triggerCondition: 'checked', trigger: '#cblist input[type=checkbox]', triggerType: 'enable'})
+ * $('#mybutton').triggerOn({ triggerCondition: 'checked', trigger: '#cblist input[type=checkbox]', triggerAction: 'enable' })
  */
 +function ($) { "use strict";
 
@@ -34,14 +34,17 @@
 
         this.options = options || {};
 
+        // @deprecated remove if year >= 2016
+        if (this.options.triggerType !== false && this.options.triggerAction === false) this.options.triggerAction = this.options.triggerType
+
         if (this.options.triggerCondition === false)
             throw new Error('Trigger condition is not specified.')
 
         if (this.options.trigger === false)
             throw new Error('Trigger selector is not specified.')
 
-        if (this.options.triggerType === false)
-            throw new Error('Trigger type is not specified.')
+        if (this.options.triggerAction === false)
+            throw new Error('Trigger action is not specified.')
 
         this.triggerCondition = this.options.triggerCondition
 
@@ -75,18 +78,18 @@
     }
 
     TriggerOn.prototype.updateTarget = function(status) {
-        if (this.options.triggerType == 'show')
+        if (this.options.triggerAction == 'show')
             this.$el.toggleClass('hide', !status).trigger('hide', [!status])
-        else if (this.options.triggerType == 'hide')
+        else if (this.options.triggerAction == 'hide')
             this.$el.toggleClass('hide', status).trigger('hide', [status])
-        else if (this.options.triggerType == 'enable')
+        else if (this.options.triggerAction == 'enable')
             this.$el.prop('disabled', !status).trigger('disable', [!status]).toggleClass('control-disabled', !status)
-        else if (this.options.triggerType == 'disable')
+        else if (this.options.triggerAction == 'disable')
             this.$el.prop('disabled', status).trigger('disable', [status]).toggleClass('control-disabled', status)
-        else if (this.options.triggerType == 'empty' && status)
+        else if (this.options.triggerAction == 'empty' && status)
             this.$el.trigger('empty').val('')
 
-        if (this.options.triggerType == 'show' || this.options.triggerType == 'hide')
+        if (this.options.triggerAction == 'show' || this.options.triggerAction == 'hide')
             this.fixButtonClasses()
 
         $(window).trigger('resize')
@@ -100,9 +103,9 @@
     }
 
     TriggerOn.DEFAULTS = {
+        triggerAction: false,
         triggerCondition: false,
-        trigger: false,
-        triggerType: false
+        trigger: false
     }
 
     // TRIGGERON PLUGIN DEFINITION

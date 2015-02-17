@@ -108,8 +108,8 @@ class Users extends Controller
                     -1 => 'backend::lang.user.deny',
                 ],
                 'attributes' => [
+                    'data-trigger-action' => 'disable',
                     'data-trigger' => "input[name='User[permissions][superuser]']",
-                    'data-trigger-type' => 'disable',
                     'data-trigger-condition' => 'checked',
                 ],
                 'span' => 'auto',

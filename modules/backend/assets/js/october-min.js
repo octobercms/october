@@ -67,12 +67,13 @@ if($.oc===undefined)
 $.oc={}
 $.oc.escapeHtmlString=function(string){var htmlEscapes={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;','/':'&#x2F;'},htmlEscaper=/[&<>"'\/]/g
 return(''+string).replace(htmlEscaper,function(match){return htmlEscapes[match];})}
-+function($){"use strict";var TriggerOn=function(element,options){var $el=this.$el=$(element);this.options=options||{};if(this.options.triggerCondition===false)
++function($){"use strict";var TriggerOn=function(element,options){var $el=this.$el=$(element);this.options=options||{};if(this.options.triggerType!==false&&this.options.triggerAction===false)this.options.triggerAction=this.options.triggerType
+if(this.options.triggerCondition===false)
 throw new Error('Trigger condition is not specified.')
 if(this.options.trigger===false)
 throw new Error('Trigger selector is not specified.')
-if(this.options.triggerType===false)
-throw new Error('Trigger type is not specified.')
+if(this.options.triggerAction===false)
+throw new Error('Trigger action is not specified.')
 this.triggerCondition=this.options.triggerCondition
 if(this.options.triggerCondition.indexOf('value')==0){var match=this.options.triggerCondition.match(/[^[\]]+(?=])/g)
 if(match){this.triggerConditionValue=match
@@ -85,23 +86,23 @@ self.onConditionChanged()})
 self.onConditionChanged()}
 TriggerOn.prototype.onConditionChanged=function(){if(this.triggerCondition=='checked'){this.updateTarget($(this.options.trigger+':checked').length>0)}
 else if(this.triggerCondition=='value'){this.updateTarget($(this.options.trigger).val()==this.triggerConditionValue)}}
-TriggerOn.prototype.updateTarget=function(status){if(this.options.triggerType=='show')
+TriggerOn.prototype.updateTarget=function(status){if(this.options.triggerAction=='show')
 this.$el.toggleClass('hide',!status).trigger('hide',[!status])
-else if(this.options.triggerType=='hide')
+else if(this.options.triggerAction=='hide')
 this.$el.toggleClass('hide',status).trigger('hide',[status])
-else if(this.options.triggerType=='enable')
+else if(this.options.triggerAction=='enable')
 this.$el.prop('disabled',!status).trigger('disable',[!status]).toggleClass('control-disabled',!status)
-else if(this.options.triggerType=='disable')
+else if(this.options.triggerAction=='disable')
 this.$el.prop('disabled',status).trigger('disable',[status]).toggleClass('control-disabled',status)
-else if(this.options.triggerType=='empty'&&status)
+else if(this.options.triggerAction=='empty'&&status)
 this.$el.trigger('empty').val('')
-if(this.options.triggerType=='show'||this.options.triggerType=='hide')
+if(this.options.triggerAction=='show'||this.options.triggerAction=='hide')
 this.fixButtonClasses()
 $(window).trigger('resize')}
 TriggerOn.prototype.fixButtonClasses=function(){var group=this.$el.closest('.btn-group')
 if(group.length>0&&this.$el.is(':last-child'))
 this.$el.prev().toggleClass('last',this.$el.hasClass('hide'))}
-TriggerOn.DEFAULTS={triggerCondition:false,trigger:false,triggerType:false}
+TriggerOn.DEFAULTS={triggerAction:false,triggerCondition:false,trigger:false}
 var old=$.fn.triggerOn
 $.fn.triggerOn=function(option){return this.each(function(){var $this=$(this)
 var data=$this.data('oc.triggerOn')
