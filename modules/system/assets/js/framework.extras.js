@@ -43,7 +43,7 @@
             return
 
         this.indicator.removeClass('loaded')
-        $(document.body).addClass('loading')
+        $(document.body).addClass('oc-loading')
     }
 
     StripeLoadIndicator.prototype.hide = function(force) {
@@ -53,7 +53,7 @@
 
         if (this.counter <= 0) {
             this.indicator.addClass('loaded')
-            $(document.body).removeClass('loading')
+            $(document.body).removeClass('oc-loading')
         }
     }
 
