@@ -150,6 +150,11 @@ class FormField
     public $dependsOn;
 
     /**
+     * @var array Other field names this field can be triggered by, see the Trigger API documentation.
+     */
+    public $trigger;
+
+    /**
      * Constructor.
      * @param string $fieldName
      * @param string $label
@@ -278,6 +283,9 @@ class FormField
         if (isset($config['dependsOn'])) {
             $this->dependsOn = $config['dependsOn'];
         }
+        if (isset($config['trigger'])) {
+            $this->trigger = $config['trigger'];
+        }
         if (isset($config['path'])) {
             $this->path = $config['path'];
         }
@@ -352,7 +360,49 @@ class FormField
     public function getAttributes($position = 'field', $htmlBuild = true)
     {
         $result = array_get($this->attributes, $position, []);
+        $result = $this->filterAttributes($result, $position);
         return $htmlBuild ? Html::attributes($result) : $result;
+    }
+
+    /**
+     * Adds any circumstantial attributes to the field based on other
+     * settings, such as the 'trigger' option.
+     * @param  array $attributes
+     * @param  string $position
+     * @return array
+     */
+    protected function filterAttributes($attributes, $position = 'field')
+    {
+        if (!$this->trigger || !is_array($this->trigger))
+            return $attributes;
+
+        $triggerAction = array_get($this->trigger, 'action');
+        $triggerField = array_get($this->trigger, 'field');
+        $triggerCondition = array_get($this->trigger, 'condition');
+
+        // Apply these to container
+        if (in_array($triggerAction, ['hide', 'show']) && $position != 'container')
+            return $attributes;
+
+        // Apply these to field/input
+        if (in_array($triggerAction, ['enable', 'disable', 'empty']) && $position != 'field')
+            return $attributes;
+
+        if ($this->arrayName) {
+            $fullTriggerField = $this->arrayName.'['.implode('][', Str::evalHtmlArray($triggerField)).']';
+        }
+        else {
+            $fullTriggerField = $triggerField;
+        }
+
+        $newAttributes = [
+            'data-trigger' => '[name="'.$fullTriggerField.'"]',
+            'data-trigger-action' => $triggerAction,
+            'data-trigger-condition' => $triggerCondition
+        ];
+
+        $attributes = $attributes + $newAttributes;
+        return $attributes;
     }
 
     /**
