@@ -11,12 +11,9 @@ return [
     'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
     'Illuminate\Routing\ControllerServiceProvider',
     'Illuminate\Cookie\CookieServiceProvider',
-    // 'Illuminate\Database\DatabaseServiceProvider',**
     'Illuminate\Encryption\EncryptionServiceProvider',
-    // 'Illuminate\Filesystem\FilesystemServiceProvider',**
     'Illuminate\Foundation\Providers\FoundationServiceProvider',
     'Illuminate\Hashing\HashServiceProvider',
-    // 'Illuminate\Mail\MailServiceProvider',**
     'Illuminate\Pagination\PaginationServiceProvider',
     'Illuminate\Pipeline\PipelineServiceProvider',
     'Illuminate\Queue\QueueServiceProvider',
