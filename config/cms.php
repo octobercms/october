@@ -186,7 +186,7 @@ return array(
     |
     */
 
-    'uploadsPath' => '/uploads',
+    'uploadsPath' => '/storage/app/uploads',
 
     /*
     |--------------------------------------------------------------------------
