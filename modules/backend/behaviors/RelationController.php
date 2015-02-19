@@ -1027,12 +1027,22 @@ class RelationController extends ControllerBehavior
          * Form
          */
         elseif ($this->manageMode == 'form' && isset($this->config->form)) {
-            $context = !empty($this->config->manage['context']) ? $this->config->manage['context'] : 'relation';
+
+            /*
+             * Determine supplied form context
+             */
+            if ($context = array_get($this->config->manage, 'context')) {
+                if (is_array($context)) {
+                    $context = $this->manageId
+                        ? array_get($context, 'update')
+                        : array_get($context, 'create');
+                }
+            }
 
             $config = $this->makeConfig($this->config->form);
             $config->model = $this->relationModel;
             $config->arrayName = class_basename($this->relationModel);
-            $config->context = is_string($context) ? $context : 'relation';
+            $config->context = $context ?: 'relation';
             $config->alias = $this->alias . 'ManageForm';
 
             /*
@@ -1044,17 +1054,6 @@ class RelationController extends ControllerBehavior
                     throw new ApplicationException(Lang::get('backend::lang.model.not_found', [
                         'class' => get_class($config->model), 'id' => $this->manageId
                     ]));
-                }
-                else {
-                    if (is_array($context) && isset($context['update'])) {
-                        $config->context = $context['update'];
-                    }
-                }
-
-            }
-            else {
-                if (is_array($context) && isset($context['create'])) {
-                    $config->context = $context['create'];
                 }
             }
 
