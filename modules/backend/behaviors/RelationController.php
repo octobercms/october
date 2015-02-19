@@ -1031,7 +1031,9 @@ class RelationController extends ControllerBehavior
             /*
              * Determine supplied form context
              */
-            if ($context = array_get($this->config->manage, 'context')) {
+            $manageConfig = isset($this->config->manage) ? $this->config->manage : [];
+
+            if ($context = array_get($manageConfig, 'context')) {
                 if (is_array($context)) {
                     $context = $this->manageId
                         ? array_get($context, 'update')
