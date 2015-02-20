@@ -62,6 +62,11 @@ class FileUpload extends FormWidgetBase
             'backend::lang.form.preview_no_files_message'
         );
 
+        $this->thumbOptions = [
+            'mode' => 'crop',
+            'extension' => 'auto'
+        ];
+
         $this->checkUploadPostback();
     }
 
@@ -96,7 +101,7 @@ class FileUpload extends FormWidgetBase
          * Set the thumb for each file
          */
         foreach ($list as $file) {
-            $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, ['mode' => 'crop']);
+            $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
         }
 
         return $list;
@@ -228,7 +233,7 @@ class FileUpload extends FormWidgetBase
                 $file->description = post('description');
                 $file->save();
 
-                $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, ['mode' => 'crop']);
+                $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
                 return ['item' => $file->toArray()];
             }
 
@@ -296,7 +301,7 @@ class FileUpload extends FormWidgetBase
 
             $fileRelation->add($file, $this->sessionKey);
 
-            $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, ['mode' => 'crop']);
+            $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
             $result = $file;
 
         }
