@@ -511,7 +511,32 @@ class PluginManager
     //
     // Dependencies
     //
-    
+
+    /**
+     * Scans the system plugins to locate any dependencies
+     * that are not currently installed.
+     */
+    public function findMissingDependencies()
+    {
+        $missing = [];
+
+        foreach ($this->plugins as $id => $plugin) {
+            if (!$required = $this->getDependencies($plugin)) {
+                continue;
+            }
+
+            foreach ($required as $require) {
+                if ($this->hasPlugin($require)) {
+                    continue;
+                }
+
+                $missing[] = $require;
+            }
+        }
+
+        return $missing;
+    }
+
     /**
      * Cross checks all plugins and their dependancies, if not met plugins
      * are disabled and vice versa.

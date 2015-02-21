@@ -49,85 +49,10 @@
 
     <script>
 
-        var updateSteps = <?= json_encode($updateSteps) ?>,
-            activeStep = null
-
         $('#executePopup').on('popupComplete', function(){
-            runUpdate()
+            $.oc.updateProcess.execute(<?= json_encode($updateSteps) ?>)
         })
 
-        function runUpdate(fromStep) {
-            $.waterfall.apply(this, buildEventChain(updateSteps, fromStep))
-                .fail(function(reason){
-                    var
-                        template = $('#executeFailed').html(),
-                        html = Mustache.to_html(template, { reason: reason })
-
-                    $('#executeActivity').hide()
-                    $('#executeStatus').html(html)
-                })
-        }
-
-        function retryUpdate() {
-            $('#executeActivity').show()
-            $('#executeStatus').html('')
-
-            runUpdate(activeStep)
-        }
-
-        function buildEventChain(steps, fromStep) {
-            var eventChain = [],
-                skipStep = fromStep ? true : false
-
-            $.each(steps, function(index, step){
-
-                if (step == fromStep)
-                    skipStep = false
-
-                if (skipStep)
-                    return true // Continue
-
-                eventChain.push(function(){
-                    var deferred = $.Deferred()
-
-                    activeStep = step
-                    setLoadingBar(true, step.label)
-
-                    $.request('onExecuteStep', {
-                        data: step,
-                        success: function(data){
-                            setTimeout(function() { deferred.resolve() }, 600)
-
-                            if (step.code == 'completeUpdate' || step.code == 'completeInstall')
-                                this.success(data)
-                            else
-                                setLoadingBar(false)
-                        },
-                        error: function(data){
-                            setLoadingBar(false)
-                            deferred.reject(data.responseText)
-                        }
-                    })
-
-                    return deferred
-                })
-            })
-
-            return eventChain
-        }
-
-        function setLoadingBar(state, message) {
-            var loadingBar = $('#executeLoadingBar'),
-                messageDiv = $('#executeMessage')
-
-            if (state)
-                loadingBar.removeClass('bar-loaded')
-            else
-                loadingBar.addClass('bar-loaded')
-
-            if (message)
-                messageDiv.text(message)
-        }
     </script>
 
 <?php else: ?>
