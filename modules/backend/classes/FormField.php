@@ -385,7 +385,7 @@ class FormField
     }
 
     /**
-     * Adds attribues used specifically by the TriggerAPI
+     * Adds attributes used specifically by the TriggerAPI
      * @param  array $attributes
      * @param  string $position
      * @return array

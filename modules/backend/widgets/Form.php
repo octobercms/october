@@ -713,7 +713,7 @@ class Form extends WidgetBase
 
     /**
      * Parses a field's name
-     * @param stirng $field Field name
+     * @param string $field Field name
      * @return array [columnName, context]
      */
     public function getFieldName($field)
