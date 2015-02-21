@@ -88,6 +88,11 @@ class UpdateManager
         }
     }
 
+    /**
+     * These objects are "soft singletons" and may be lost when
+     * the IoC container reboots. This provides a way to rebuild
+     * for the purposes of unit testing.
+     */
     public function bindSoftDependencies()
     {
         $this->migrator = App::make('migrator');
