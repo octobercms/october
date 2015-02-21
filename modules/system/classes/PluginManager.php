@@ -66,11 +66,21 @@ class PluginManager
      */
     protected function init()
     {
-        $this->app = App::make('app');
+        $this->bindSoftDependencies();
         $this->metaFile = storage_path() . '/cms/disabled.json';
         $this->loadDisabled();
         $this->loadPlugins();
         $this->loadDependencies();
+    }
+
+    /**
+     * These objects are "soft singletons" and may be lost when
+     * the IoC container reboots. This provides a way to rebuild
+     * for the purposes of unit testing.
+     */
+    public function bindSoftDependencies()
+    {
+        $this->app = App::make('app');
     }
 
     /**

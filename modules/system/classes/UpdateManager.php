@@ -75,11 +75,10 @@ class UpdateManager
     {
         $this->pluginManager = PluginManager::instance();
         $this->versionManager = VersionManager::instance();
-        $this->migrator = App::make('migrator');
-        $this->repository = App::make('migration.repository');
         $this->tempDirectory = temp_path();
         $this->baseDirectory = base_path();
         $this->disableCoreUpdates = Config::get('cms.disableCoreUpdates', false);
+        $this->bindSoftDependencies();
 
         /*
          * Ensure temp directory exists
@@ -87,6 +86,12 @@ class UpdateManager
         if (!File::isDirectory($this->tempDirectory)) {
             File::makeDirectory($this->tempDirectory, 0777, true);
         }
+    }
+
+    public function bindSoftDependencies()
+    {
+        $this->migrator = App::make('migrator');
+        $this->repository = App::make('migration.repository');
     }
 
     /**
