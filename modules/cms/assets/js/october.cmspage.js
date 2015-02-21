@@ -7,7 +7,7 @@
          * Listen for the "open.oc.list" event in the template lists
          */
         $(document).on('open.oc.list', '#cms-side-panel', function(e) {
-            var 
+            var
                 $item = $(e.relatedTarget),
                 $form = $item.closest('[data-template-type]'),
                 data = {
@@ -26,14 +26,12 @@
             /*
              * Find if the tab is already opened
              */
-
              if ($('#cms-master-tabs').data('oc.tab').goTo(tabId))
                 return false
 
             /*
              * Open a new tab
              */
-
             $.oc.stripeLoadIndicator.show()
             $form.request('onOpenTemplate', {
                 data: data,
@@ -57,7 +55,7 @@
         /*
          * Detect invalid fields, uncollapse the panel
          */
-        $(window).on('ajaxInvalidField', function(ev, element, name, messages, isFirst){
+        $(window).on('ajaxInvalidField', function(event, element, name, messages, isFirst){
             if (!isFirst) return
             event.preventDefault()
 
