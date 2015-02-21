@@ -1,3 +1,7 @@
+* **Build 206** (2015-02-21)
+  - The back-end code editor now supports the use of [Emmet](http://emmet.io/).
+  - Added the ability to prune Event and Request log records.
+
 * **Build 199** (2015-02-19)
   - The **/uploads** directory has been moved to **/storage/app/uploads** to make way for CDN support. This directory should be moved on the file system and the config (`cms.uploadsPath`) updated.
 
