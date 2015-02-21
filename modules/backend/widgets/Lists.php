@@ -774,7 +774,15 @@ class Lists extends WidgetBase
     //
 
     /**
-     * Process as boolean switch
+     * Process as text, escape the value
+     */
+    protected function evalTextTypeValue($record, $column, $value)
+    {
+        return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
+    }
+
+    /**
+     * Process as partial reference
      */
     protected function evalPartialTypeValue($record, $column, $value)
     {
