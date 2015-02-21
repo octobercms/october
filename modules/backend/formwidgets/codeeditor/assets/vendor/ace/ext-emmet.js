@@ -1141,7 +1141,7 @@ var onChangeMode = function(e, target) {
     if (!editor)
         return;
     var modeId = editor.session.$modeId;
-    var enabled = modeId && /css|less|scss|sass|stylus|html|php/.test(modeId);
+    var enabled = modeId && /css|less|scss|sass|stylus|twig|html|php/.test(modeId);
     if (e.enableEmmet === false)
         enabled = false;
     if (enabled)

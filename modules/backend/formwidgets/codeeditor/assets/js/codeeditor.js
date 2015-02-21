@@ -46,6 +46,7 @@
         useSoftTabs: true,
         autoCloseTags: true,
         showGutter: true,
+        enableEmmet: true,
         language: 'php',
         margin: 0,
         vendorPath: '/',
@@ -129,6 +130,7 @@
         editor.renderer.setShowPrintMargin(options.showPrintMargin)
         editor.setHighlightSelectedWord(options.highlightSelectedWord)
         editor.renderer.setHScrollBarAlwaysVisible(options.hScrollBarAlwaysVisible)
+        editor.setOption('enableEmmet', options.enableEmmet)
         editor.getSession().setUseSoftTabs(options.useSoftTabs)
         editor.getSession().setTabSize(options.tabSize)
         editor.setReadOnly(options.readOnly)
