@@ -58,6 +58,9 @@ class EventLogs extends Controller
 
             Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
         }
+        else {
+            Flash::error(Lang::get('backend::lang.list.delete_selected_empty'));
+        }
 
         return $this->listRefresh();
     }
