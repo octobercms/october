@@ -51,6 +51,7 @@ class Updates extends Controller
         $this->vars['projectId'] = Parameters::get('system::project.id');
         $this->vars['projectName'] = Parameters::get('system::project.name');
         $this->vars['projectOwner'] = Parameters::get('system::project.owner');
+        $this->vars['pluginsActiveCount'] = PluginVersion::isEnabled()->count();
         $this->vars['pluginsCount'] = PluginVersion::count();
         return $this->asExtension('ListController')->index();
     }

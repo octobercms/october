@@ -32,7 +32,11 @@
         <?php endif ?>
         <div class="scoreboard-item title-value">
             <h4><?= e(trans('system::lang.updates.plugins')) ?></h4>
-            <p><?= $pluginsCount ?></p>
+            <?php if ( $pluginsCount == $pluginsActiveCount ): ?>
+                <p><?= $pluginsCount ?></p>
+            <?php else: ?>
+                <p><?= $pluginsActiveCount, ' (', $pluginsCount, ')' ?></p>
+            <?php endif; ?>
         </div>
     </div>
 </div>
