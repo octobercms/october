@@ -3,7 +3,22 @@
         href="javascript:;"
         data-request="onEmptyLog"
         data-load-indicator="<?= e(trans('system::lang.event_log.empty_loading')) ?>"
-        class="btn btn-default oc-icon-trash-o">
+        class="btn btn-default oc-icon-eraser">
         <?= e(trans('system::lang.event_log.empty_link')) ?>
     </a>
+    <button
+        class="btn btn-default oc-icon-trash-o"
+        disabled="disabled"
+        onclick="$(this).data('request-data', {
+            checked: $('.control-list').listWidget('getChecked')
+        })"
+        data-request="onDelete"
+        data-request-confirm="<?= e(trans('backend::lang.list.delete_selected_confirm')) ?>"
+        data-trigger-action="enable"
+        data-trigger=".control-list input[type=checkbox]"
+        data-trigger-condition="checked"
+        data-request-success="$el.prop('disabled', false)"
+        data-stripe-load-indicator>
+        <?= e(trans('backend::lang.list.delete_selected')) ?>
+    </button>
 </div>

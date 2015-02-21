@@ -16,7 +16,10 @@
 
     <?php foreach ($columns as $key => $column): ?>
         <?php if ($showSorting && $column->sortable): ?>
-            <th class="<?= $this->sortColumn==$column->columnName?'sort-'.$this->sortDirection.' active':'sort-desc' ?> list-cell-name-<?= $column->columnName ?>">
+            <th
+                <?php if ($column->width): ?>style="width: <?= $column->width ?>"<?php endif ?>
+                class="<?= $this->sortColumn==$column->columnName?'sort-'.$this->sortDirection.' active':'sort-desc' ?> list-cell-name-<?= $column->columnName ?>"
+                >
                 <a
                     href="javascript:;"
                     data-request="<?= $this->getEventHandler('onSort') ?>"

@@ -188,7 +188,7 @@ Columns are defined as array with the `columns` property. The array keys corresp
 
 - `title`
 - `type` (string, checkbox, dropdown, autocomplete)
-- `width` - sets the column width, can be specified in percents (10%) or pixels (50px). There could be a single column without the width specified. It will be stretched to take the available space.
+- `width` - sets the column width, can be specified in percents (10%) or pixels (50px). There could be a single column without width specified, it will be stretched to take the available space.
 - `readOnly`
 - `options` (for drop-down elements and autocomplete types)
 - `dependsOn` (from drop-down elements)

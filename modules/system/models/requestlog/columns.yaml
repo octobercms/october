@@ -10,6 +10,7 @@ columns:
     url:
         label: system::lang.request_log.url
         searchable: yes
+        cssClass: column-break-word
 
     count:
         label: system::lang.request_log.count

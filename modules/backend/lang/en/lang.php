@@ -129,7 +129,10 @@ return [
         'setup_title' => 'List Setup',
         'setup_help' => 'Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.',
         'records_per_page' => 'Records per page',
-        'records_per_page_help' => 'Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.'
+        'records_per_page_help' => 'Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.',
+        'delete_selected' => 'Delete selected',
+        'delete_selected_confirm' => 'Delete the selected records?',
+        'delete_selected_success' => 'Successfully deleted the selected records.',
     ],
     'fileupload' => [
         'attachment' => 'Attachment',
