@@ -78,7 +78,7 @@ class UpdateManager
         $this->tempDirectory = temp_path();
         $this->baseDirectory = base_path();
         $this->disableCoreUpdates = Config::get('cms.disableCoreUpdates', false);
-        $this->bindSoftDependencies();
+        $this->bindContainerObjects();
 
         /*
          * Ensure temp directory exists
@@ -93,7 +93,7 @@ class UpdateManager
      * the IoC container reboots. This provides a way to rebuild
      * for the purposes of unit testing.
      */
-    public function bindSoftDependencies()
+    public function bindContainerObjects()
     {
         $this->migrator = App::make('migrator');
         $this->repository = App::make('migration.repository');

@@ -66,7 +66,7 @@ class PluginManager
      */
     protected function init()
     {
-        $this->bindSoftDependencies();
+        $this->bindContainerObjects();
         $this->metaFile = storage_path() . '/cms/disabled.json';
         $this->loadDisabled();
         $this->loadPlugins();
@@ -78,7 +78,7 @@ class PluginManager
      * the IoC container reboots. This provides a way to rebuild
      * for the purposes of unit testing.
      */
-    public function bindSoftDependencies()
+    public function bindContainerObjects()
     {
         $this->app = App::make('app');
     }
