@@ -170,6 +170,10 @@ class Filter extends WidgetBase
      */
     protected function getAvailableOptions($scope, $searchQuery = null)
     {
+        if (count($scope->options)) {
+            return $scope->options;
+        }
+
         $available = [];
         $nameColumn = $this->getScopeNameColumn($scope);
         $options = $this->getOptionsFromModel($scope, $searchQuery);
@@ -210,7 +214,7 @@ class Filter extends WidgetBase
         $query = $model->newQuery();
 
         $this->fireEvent('filter.extendQuery', [$query, $scope]);
-        
+
         if (!$searchQuery) {
             return $query->get();
         }
