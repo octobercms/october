@@ -125,6 +125,8 @@ class OctoberUtil extends Command
         }
 
         $totalCount = 0;
+        $uploadsPath = Config::get('filesystems.disks.local.root', storage_path().'/app');
+        $uploadsPath .= '/uploads';
 
         /*
          * Recursive function to scan the directory for files beginning
@@ -146,7 +148,7 @@ class OctoberUtil extends Command
             }
         };
 
-        $purgeFunc(uploads_path());
+        $purgeFunc($uploadsPath);
 
         if ($totalCount > 0) {
             $this->comment(sprintf('Successfully deleted %s thumbs', $totalCount));
@@ -154,5 +156,23 @@ class OctoberUtil extends Command
         else {
             $this->comment('No thumbs found to delete');
         }
+    }
+
+    protected function utilPurgeUploads()
+    {
+        if (!$this->confirmToProceed('This will PERMANENTLY DELETE files in the uploads directory that do not exist in the "system_files" table.')) {
+            return;
+        }
+
+        // @todo
+    }
+
+    protected function utilPurgeOrphans()
+    {
+        if (!$this->confirmToProceed('This will PERMANENTLY DELETE files in "system_files" that do not belong to any other model.')) {
+            return;
+        }
+
+        // @todo
     }
 }

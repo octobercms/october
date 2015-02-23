@@ -30,7 +30,7 @@ class File extends FileBase
      */
     public function getPublicPath()
     {
-        $uploadsPath = Config::get('cms.uploadsPath', '/storage/app/uploads');
+        $uploadsPath = Config::get('cms.storage.uploads.path', '/storage/app/uploads');
 
         if (!preg_match("/(\/\/|http|https)/", $uploadsPath)) {
             $uploadsPath = Request::getBasePath() . $uploadsPath;

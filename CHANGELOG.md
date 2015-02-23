@@ -3,7 +3,7 @@
   - Added the ability to prune Event and Request log records.
 
 * **Build 199** (2015-02-19)
-  - The **/uploads** directory has been moved to **/storage/app/uploads** to make way for CDN support. This directory should be moved on the file system and the config (`cms.uploadsPath`) updated.
+  - The **/uploads** directory has been moved to **/storage/app/uploads** to make way for CDN support. This directory should be moved on the file system and the config (`cms.storage.uploads.path`) updated.
 
 * **Build 192** (2015-02-14)
   - For security reasons a vague error message is shown when a user tries to sign in unsuccessfully and the setting `app.debug` is disabled.

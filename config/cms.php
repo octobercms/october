@@ -4,53 +4,6 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Specifies the default CMS theme.
-    |--------------------------------------------------------------------------
-    |
-    | This parameter value can be overridden by the CMS back-end settings.
-    |
-    */
-
-    'activeTheme' => 'demo',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Determines which modules to load
-    |--------------------------------------------------------------------------
-    |
-    | Specify which modules should be registered when using the application.
-    |
-    */
-
-    'loadModules' => ['System', 'Backend', 'Cms'],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Specific plugins to disable
-    |--------------------------------------------------------------------------
-    |
-    | Specify plugin codes which will always be disabled in the application.
-    |
-    */
-
-    'disablePlugins' => [],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Prevents application updates
-    |--------------------------------------------------------------------------
-    |
-    | If using composer or git to download updates to the core files, set this
-    | value to 'true' to prevent the update gateway from trying to download
-    | these files again as part of the application update process. Plugins
-    | and themes will still be downloaded.
-    |
-    */
-
-    'disableCoreUpdates' => false,
-
-    /*
-    |--------------------------------------------------------------------------
     | Bleeding edge updates
     |--------------------------------------------------------------------------
     |
@@ -61,6 +14,17 @@ return array(
     */
 
     'edgeUpdates' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Specifies the default CMS theme.
+    |--------------------------------------------------------------------------
+    |
+    | This parameter value can be overridden by the CMS back-end settings.
+    |
+    */
+
+    'activeTheme' => 'demo',
 
     /*
     |--------------------------------------------------------------------------
@@ -86,16 +50,39 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Time to live for parsed CMS objects.
+    | Determines which modules to load
     |--------------------------------------------------------------------------
     |
-    | Specifies the number of minutes the CMS object cache lives. After the interval 
-    | is expired item are re-cached. Note that items are re-cached automatically when 
-    | the corresponding template file is modified.
+    | Specify which modules should be registered when using the application.
     |
     */
 
-    'parsedPageCacheTTL' => 10,
+    'loadModules' => ['System', 'Backend', 'Cms'],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Prevents application updates
+    |--------------------------------------------------------------------------
+    |
+    | If using composer or git to download updates to the core files, set this
+    | value to 'true' to prevent the update gateway from trying to download
+    | these files again as part of the application update process. Plugins
+    | and themes will still be downloaded.
+    |
+    */
+
+    'disableCoreUpdates' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Specific plugins to disable
+    |--------------------------------------------------------------------------
+    |
+    | Specify plugin codes which will always be disabled in the application.
+    |
+    */
+
+    'disablePlugins' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -123,6 +110,19 @@ return array(
     */
 
     'urlCacheTtl' => 10,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Time to live for parsed CMS objects.
+    |--------------------------------------------------------------------------
+    |
+    | Specifies the number of minutes the CMS object cache lives. After the interval 
+    | is expired item are re-cached. Note that items are re-cached automatically when 
+    | the corresponding template file is modified.
+    |
+    */
+
+    'parsedPageCacheTTL' => 10,
 
     /*
     |--------------------------------------------------------------------------
@@ -178,26 +178,38 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Public uploads path
+    | Resource storage
     |--------------------------------------------------------------------------
     |
-    | Specifies the public uploads path relative to the application base URL,
-    | or you can specify a full URL path.
+    | Specifies the configuration for resource storage, such as media and
+    | upload files. These resources are used:
     |
+    | media   - generated by the media manager.
+    | uploads - generated by attachment model relationships.
+    |
+    | For each resource you can specify:
+    |
+    | disk   - filesystem disk, as specified in filesystems.php config.
+    | folder - a folder prefix for storing all generated files inside.
+    | path   - the public path relative to the application base URL,
+    |          or you can specify a full URL path.
     */
 
-    'uploadsPath' => '/storage/app/uploads',
+    'storage' => [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Default permission mask
-    |--------------------------------------------------------------------------
-    |
-    | Specifies a default file and folder permission for newly created objects.
-    |
-    */
+        'uploads' => [
+            'disk'   => 'local',
+            'folder' => 'uploads',
+            'path'   => '/storage/app/uploads',
+        ],
 
-    'defaultMask' => ['file' => null, 'folder' => null],
+        'media' => [
+            'disk'   => 'local',
+            'folder' => 'media',
+            'path'   => '/storage/app/media',
+        ],
+
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -226,5 +238,16 @@ return array(
     */
 
     'linkPolicy' => 'detect',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default permission mask
+    |--------------------------------------------------------------------------
+    |
+    | Specifies a default file and folder permission for newly created objects.
+    |
+    */
+
+    'defaultMask' => ['file' => null, 'folder' => null],
 
 );
