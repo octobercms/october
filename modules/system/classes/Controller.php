@@ -1,8 +1,9 @@
 <?php namespace System\Classes;
 
-use Illuminate\Routing\Controller as ControllerBase;
+use Lang;
 use ApplicationException;
 use System\Classes\CombineAssets;
+use Illuminate\Routing\Controller as ControllerBase;
 use Exception;
 
 /**
