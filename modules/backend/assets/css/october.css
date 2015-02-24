@@ -2423,12 +2423,15 @@ label{font-size:12px}
 .input-with-icon.right-align input{padding-right:32px !important}
 .input-with-icon.left-align > .icon{left:0}
 .input-with-icon.left-align input{padding-left:32px !important}
+.field-section{border-bottom:1px solid #e0e0e0;padding-top:3px;padding-bottom:7px}
+.field-section > p:first-child,.field-section > h4:first-child{margin:0}
 .field-textarea{resize:vertical}
 .field-textarea.size-tiny{min-height:50px}
 .field-textarea.size-small{min-height:100px}
 .field-textarea.size-large{min-height:200px}
 .field-textarea.size-huge{min-height:250px}
 .field-textarea.size-giant{min-height:350px}
+.field-checkboxlist .checkbox:last-of-type{margin-bottom:0}
 .field-checkboxlist-scrollable{background:white;border:1px solid #e2e2e2;padding-left:15px;height:300px}
 .field-checkboxlist-scrollable .checkbox{margin-top:15px;margin-bottom:5px}
 .field-checkboxlist-scrollable .checkbox ~ .checkbox{margin-top:0}
