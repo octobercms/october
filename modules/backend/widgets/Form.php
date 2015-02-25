@@ -3,9 +3,9 @@
 use App;
 use Str;
 use Lang;
-use Form as FormHelper;
 use Input;
 use Event;
+use Form as FormHelper;
 use Backend\Classes\FormTabs;
 use Backend\Classes\FormField;
 use Backend\Classes\WidgetBase;
@@ -23,7 +23,6 @@ use October\Rain\Database\Model;
  */
 class Form extends WidgetBase
 {
-
     /**
      * {@inheritDoc}
      */

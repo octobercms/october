@@ -1,3 +1,6 @@
+* **Build 209** (2015-02-25)
+  - Added new form field type `section` for dividing groups of other fields (see Backend > Forms docs).
+  
 * **Build 206** (2015-02-21)
   - The back-end code editor now supports the use of [Emmet](http://emmet.io/).
   - Added the ability to prune Event and Request log records.
