@@ -80,6 +80,13 @@ abstract class PluginBase extends ServiceProviderBase
     }
 
     /**
+     * Registers scheduled tasks that are executed on a regular basis.
+     */
+    public function registerSchedule($schedule)
+    {
+    }
+
+    /**
      * Registers any report widgets provided by this plugin.
      * The widgets must be returned in the following format:
      * [
