@@ -16,7 +16,7 @@ return array(
     |
     */
 
-    'debug' => true,
+    'debug' => env('APP_DEBUG'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return array(
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => env('APP_URL'),
 
     /*
     |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return array(
     |
     */
 
-    'key' => 'CHANGE_ME!!!!!!!',
+    'key' => env('APP_KEY', 'SomeRandomString'),
 
     'cipher' => MCRYPT_RIJNDAEL_128,
 

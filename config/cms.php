@@ -13,7 +13,7 @@ return array(
     |
     */
 
-    'edgeUpdates' => false,
+    'edgeUpdates' => env('CMS_EDGE_UPDATES', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ return array(
     |
     */
 
-    'activeTheme' => 'demo',
+    'activeTheme' => env('CMS_THEME', 'demo'),
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +71,7 @@ return array(
     |
     */
 
-    'disableCoreUpdates' => false,
+    'disableCoreUpdates' => !env('CMS_CORE_UPDATES', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -90,7 +90,7 @@ return array(
     |--------------------------------------------------------------------------
     |
     | If the caching is enabled, the page URL map is saved in the cache. If a page
-    | URL was changed on the disk, the old URL value could be still saved in the cache. 
+    | URL was changed on the disk, the old URL value could be still saved in the cache.
     | To update the cache the back-end Clear Cache feature should be used. It is recommended
     | to disable the caching during the development, and enable it in the production mode.
     |
@@ -116,8 +116,8 @@ return array(
     | Time to live for parsed CMS objects.
     |--------------------------------------------------------------------------
     |
-    | Specifies the number of minutes the CMS object cache lives. After the interval 
-    | is expired item are re-cached. Note that items are re-cached automatically when 
+    | Specifies the number of minutes the CMS object cache lives. After the interval
+    | is expired item are re-cached. Note that items are re-cached automatically when
     | the corresponding template file is modified.
     |
     */
@@ -248,6 +248,6 @@ return array(
     |
     */
 
-    'defaultMask' => ['file' => null, 'folder' => null],
+    'defaultMask' => ['file' => env('CMS_FILE_MASK', null), 'folder' => env('CMS_FOLDER_MASK', null)],
 
 );
