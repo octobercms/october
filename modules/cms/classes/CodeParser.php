@@ -155,7 +155,29 @@ class CodeParser
             require_once $data['filePath'];
         }
 
+        if (!class_exists($className) && ($data = $this->handleCorruptCache())) {
+            $className = $data['className'];
+        }
+
         return new $className($page, $layout, $controller);
+    }
+
+    /**
+     * In some rare cases the cache file will not contain the class
+     * name we expect. When this happens, destroy the corrupt file,
+     * flush the request cache, and repeat the cycle.
+     * @return void
+     */
+    protected function handleCorruptCache()
+    {
+        $path = $this->getFilePath();
+        if (File::isFile($path)) {
+            File::delete($path);
+        }
+
+        unset(self::$cache[$this->filePath]);
+
+        return $this->parse();
     }
 
     /**

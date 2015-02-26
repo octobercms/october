@@ -846,7 +846,7 @@ class Form extends WidgetBase
     protected function applyFiltersFromModel()
     {
         if (method_exists($this->model, 'filterFields')) {
-            $this->model->filterFields((object) $this->fields);
+            $this->model->filterFields((object) $this->fields, $this->getContext());
         }
     }
 
