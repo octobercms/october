@@ -1,6 +1,9 @@
+* **Build 210** (2015-02-28)
+  - Fixes an intermittent issue where a `CmsXXX_XXXClass` cache class cannot be found and throws a fatal error.
+
 * **Build 209** (2015-02-25)
   - Added new form field type `section` for dividing groups of other fields (see Backend > Forms docs).
-  
+
 * **Build 206** (2015-02-21)
   - The back-end code editor now supports the use of [Emmet](http://emmet.io/).
   - Added the ability to prune Event and Request log records.
