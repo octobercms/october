@@ -119,7 +119,9 @@ class CodeEditor extends FormWidgetBase
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->formField->getName();
-        $this->vars['value'] = $this->getLoadValue();
+
+        // Double encode when escaping
+        $this->vars['value'] = htmlentities($this->getLoadValue(), ENT_QUOTES, 'UTF-8', true);
     }
 
     /**
