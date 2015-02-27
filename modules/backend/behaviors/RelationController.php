@@ -148,6 +148,11 @@ class RelationController extends ControllerBehavior
     public $readOnly = false;
 
     /**
+     * @var bool Defers all binding actions using a session key when it is available.
+     */
+    public $deferredBinding = false;
+
+    /**
      * Behavior constructor
      * @param Backend\Classes\Controller $controller
      * @return void
@@ -215,6 +220,7 @@ class RelationController extends ControllerBehavior
         $this->relationModel = $this->relationObject->getRelated();
 
         $this->readOnly = $this->getConfig('readOnly');
+        $this->deferredBinding = $this->getConfig('deferredBinding');
         $this->toolbarButtons = $this->evalToolbarButtons();
         $this->viewMode = $this->viewMode ?: $this->evalViewMode();
         $this->manageMode = $this->manageMode ?: $this->evalManageMode();
@@ -705,12 +711,14 @@ class RelationController extends ControllerBehavior
                 $models = $this->relationModel->whereIn($foreignKeyName, $checkedIds)->get();
                 foreach ($models as $model) {
 
-                    if ($this->model->exists) {
-                        $this->relationObject->add($model);
-                    }
-                    else {
+                    $useDefer = $this->deferredBinding || !$this->model->exists;
+                    if ($useDefer) {
                         $this->relationObject->add($model, $this->relationGetSessionKey());
                     }
+                    else {
+                        $this->relationObject->add($model);
+                    }
+
                 }
             }
 
