@@ -1138,16 +1138,14 @@ class RelationController extends ControllerBehavior
          * Existing record
          */
         if ($this->manageId) {
-            $relations = $this->model->{$this->field};
-            $config->model = $relations->find($this->manageId);
+            $config->model = $this->relationModel->find($this->manageId);
+            $config->data = $this->relationObject->newPivotStatementForId($this->manageId)->first();
 
-            if (!$config->model) {
+            if (!$config->model || !$config->data) {
                 throw new ApplicationException(Lang::get('backend::lang.model.not_found', [
                     'class' => get_class($config->model), 'id' => $this->manageId
                 ]));
             }
-
-            $config->data = $config->model->pivot;
         }
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);
