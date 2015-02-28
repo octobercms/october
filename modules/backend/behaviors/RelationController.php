@@ -220,7 +220,7 @@ class RelationController extends ControllerBehavior
         $this->relationModel = $this->relationObject->getRelated();
 
         $this->readOnly = $this->getConfig('readOnly');
-        $this->deferredBinding = $this->getConfig('deferredBinding');
+        $this->deferredBinding = $this->getConfig('deferredBinding') || !$this->model->exists;
         $this->toolbarButtons = $this->evalToolbarButtons();
         $this->viewMode = $this->viewMode ?: $this->evalViewMode();
         $this->manageMode = $this->manageMode ?: $this->evalManageMode();
@@ -599,11 +599,13 @@ class RelationController extends ControllerBehavior
         $saveData = $this->manageWidget->getSaveData();
 
         if ($this->viewMode == 'multi') {
+            $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey(true) : null;
+
             if ($this->relationType == 'hasMany') {
-                $newModel = $this->relationObject->create($saveData, $this->relationGetSessionKey(true));
+                $newModel = $this->relationObject->create($saveData, $sessionKey);
             }
             elseif ($this->relationType == 'belongsToMany') {
-                $newModel = $this->relationObject->create($saveData, [], $this->relationGetSessionKey(true));
+                $newModel = $this->relationObject->create($saveData, [], $sessionKey);
             }
 
             $newModel->commitDeferred($this->manageWidget->getSessionKey());
@@ -711,14 +713,11 @@ class RelationController extends ControllerBehavior
                 $models = $this->relationModel->whereIn($foreignKeyName, $checkedIds)->get();
                 foreach ($models as $model) {
 
-                    $useDefer = $this->deferredBinding || !$this->model->exists;
-                    if ($useDefer) {
-                        $this->relationObject->add($model, $this->relationGetSessionKey());
-                    }
-                    else {
-                        $this->relationObject->add($model);
-                    }
+                    $sessionKey = $this->deferredBinding
+                        ? $this->relationGetSessionKey()
+                        : null;
 
+                    $this->relationObject->add($model, $sessionKey);
                 }
             }
 
