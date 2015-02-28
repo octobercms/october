@@ -8,7 +8,7 @@
         this.clickManageListRecord = function(recordId, relationField, sessionKey) {
             var oldPopup = $('#relationManagePopup')
 
-            $.request('onRelationManageAdd', {
+            $.request('onRelationClickManageList', {
                 data: {
                     'record_id': recordId,
                     '_relation_field': relationField,
@@ -23,7 +23,8 @@
             var newPopup = $('<a />')
 
             newPopup.popup({
-                handler: 'onRelationManageForm',
+                handler: 'onRelationClickViewList',
+                size: 'huge',
                 extraData: {
                     'manage_id': recordId,
                     '_relation_field': relationField,
@@ -36,10 +37,13 @@
             var oldPopup = $('#relationManagePivotPopup'),
                 newPopup = $('<a />')
 
-            oldPopup.popup('hide')
+            if (oldPopup.length) {
+                oldPopup.popup('hide')
+            }
 
             newPopup.popup({
-                handler: 'onRelationManagePivotForm',
+                handler: 'onRelationClickManageListPivot',
+                size: 'huge',
                 extraData: {
                     'foreign_id': foreignId,
                     '_relation_field': relationField,

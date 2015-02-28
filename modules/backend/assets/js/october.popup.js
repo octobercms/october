@@ -10,6 +10,7 @@
  * - data-handler="widget:pluginName" - October ajax request name
  * - data-keyboard="false" - Allow popup to be closed with the keyboard
  * - data-request-data="file_id: 1" - October ajax request data
+ * - data-size="large" - Popup size, available sizes: giant, huge, large, small, tiny
  *
  * JavaScript API:
  * $('a#someLink').popup({ ajax: 'popup-content.htm' })

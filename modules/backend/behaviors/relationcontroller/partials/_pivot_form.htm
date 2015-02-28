@@ -10,21 +10,30 @@
             <h4 class="modal-title"><?= e(trans('backend::lang.relation.related_data', ['name'=>$relationLabel])) ?></h4>
         </div>
         <div class="modal-body">
-            <?= $relationPivotWidget->render() ?>
+            <?= $relationPivotWidget->render(['preview' => $this->readOnly]) ?>
         </div>
         <div class="modal-footer">
-            <button
-                type="submit"
-                class="btn btn-primary"
-                data-dismiss="popup">
-                <?= e(trans('backend::lang.relation.update')) ?>
-            </button>
-            <button
-                type="button"
-                class="btn btn-default"
-                data-dismiss="popup">
-                <?= e(trans('backend::lang.relation.cancel')) ?>
-            </button>
+            <?php if ($this->readOnly): ?>
+                <button
+                    type="button"
+                    class="btn btn-default"
+                    data-dismiss="popup">
+                    <?= e(trans('backend::lang.relation.close')) ?>
+                </button>
+            <?php else: ?>
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    data-dismiss="popup">
+                    <?= e(trans('backend::lang.relation.update')) ?>
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-default"
+                    data-dismiss="popup">
+                    <?= e(trans('backend::lang.relation.cancel')) ?>
+                </button>
+            <?php endif ?>
         </div>
 
     <?= Form::close() ?>
