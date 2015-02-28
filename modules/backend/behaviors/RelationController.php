@@ -970,6 +970,9 @@ class RelationController extends ControllerBehavior
                     $this->relationObject->addConstraints();
                 }
 
+                /*
+                 * Allows pivot data to enter the fray
+                 */
                 if ($this->relationType == 'belongsToMany') {
                     $this->relationObject->setQuery($query->getQuery());
                     return $this->relationObject;
