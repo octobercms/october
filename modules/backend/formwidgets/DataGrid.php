@@ -8,6 +8,11 @@ use ApplicationException;
  * Grid
  * Renders a grid field.
  *
+ * !!!
+ * !!! WARNING: This class and widget is scheduled for destruction.
+ * !!! Please use DataTable form widget instead
+ * !!!
+ *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
