@@ -26,6 +26,37 @@ use DateTime;
 class Lists extends WidgetBase
 {
     /**
+     * @var array Expected configuration:
+     *
+     * - columns: list column definitions
+     * - model: object or class name, data is loaded from this model
+     * - recordUrl: link each list record to another page
+     * - recordOnClick: custom JavaScript code to execute when clicking on a record
+     * - noRecordsMessage: a message to display when no records are found
+     * - recordsPerPage: records to display per page, use 0 for no pages
+     * - showSorting: displays the sorting link on each column
+     * - defaultSort: sets a default sorting column and direction
+     * - showCheckboxes: displays checkboxes next to each record
+     * - showSetup: displays the list column set up button
+     * - showTree: displays a tree hierarchy for parent/child records
+     * - treeExpanded: if tree nodes should be expanded by default
+     */
+    public $config = [
+        'model'            => null,
+        'columns'          => [],
+        'recordUrl'        => null,
+        'recordOnClick'    => null,
+        'noRecordsMessage' => null,
+        'recordsPerPage'   => 0,
+        'showSorting'      => true,
+        'defaultSort'      => ['column' => null, 'direction' => null],
+        'showCheckboxes'   => false,
+        'showSetup'        => false,
+        'showTree'         => false,
+        'treeExpanded'     => false,
+    ];
+
+    /**
      * {@inheritDoc}
      */
     public $defaultAlias = 'list';

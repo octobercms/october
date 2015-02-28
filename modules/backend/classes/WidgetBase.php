@@ -13,14 +13,14 @@ use Session;
  */
 abstract class WidgetBase
 {
+    use \System\Traits\ViewMaker;
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
-    use \System\Traits\ViewMaker;
     use \Backend\Traits\WidgetMaker;
     use \October\Rain\Support\Traits\Emitter;
 
     /**
-     * @var array Supplied configuration.
+     * @var object Supplied configuration.
      */
     public $config;
 

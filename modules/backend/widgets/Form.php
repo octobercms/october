@@ -24,6 +24,23 @@ use October\Rain\Database\Model;
 class Form extends WidgetBase
 {
     /**
+     * @var array Expected configuration:
+     *
+     * - fields: outside form field definitions
+     * - tabs: primary tab form field definitions
+     * - secondaryTabs: secondary tab form field definitions
+     * - arrayName: a HTML array name to use for each element
+     * - context: apply a context to this form and its fields
+     */
+    public $config = [
+        'fields'        => [],
+        'tabs'          => [],
+        'secondaryTabs' => [],
+        'arrayName'     => null,
+        'context'       => null,
+    ];
+
+    /**
      * {@inheritDoc}
      */
     public $defaultAlias = 'form';
