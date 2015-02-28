@@ -16,6 +16,11 @@ abstract class PluginBase extends ServiceProviderBase
     public $require = [];
 
     /**
+     * @var boolean Determine if this plugin should have elevated privileges.
+     */
+    public $elevated = false;
+
+    /**
      * @var boolean Determine if this plugin should be loaded (false) or not (true).
      */
     public $disabled = false;

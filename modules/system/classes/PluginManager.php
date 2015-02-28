@@ -171,7 +171,7 @@ class PluginManager
             return;
         }
 
-        if (!self::$noInit) {
+        if (!self::$noInit || $plugin->elevated) {
             $plugin->register();
         }
 
@@ -246,7 +246,7 @@ class PluginManager
             return;
         }
 
-        if (!self::$noInit) {
+        if (!self::$noInit || $plugin->elevated) {
             $plugin->boot();
         }
     }
