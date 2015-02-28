@@ -1,3 +1,6 @@
+* **Build 21x** (2015-02-xx)
+  - Report Widgets now support the use of AJAX event handlers.
+
 * **Build 210** (2015-02-28)
   - Fixes an intermittent issue where a `CmsXXX_XXXClass` cache class cannot be found and throws a fatal error.
 
