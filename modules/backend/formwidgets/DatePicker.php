@@ -13,10 +13,9 @@ class DatePicker extends FormWidgetBase
 {
     const TIME_PREFIX = '___time_';
 
-    /**
-     * {@inheritDoc}
-     */
-    protected $defaultAlias = 'datepicker';
+    //
+    // Configurable properties
+    //
 
     /**
      * @var bool Display mode: datetime, date, time.
@@ -33,14 +32,27 @@ class DatePicker extends FormWidgetBase
      */
     public $maxDate = '2020-12-31';
 
+    //
+    // Object properties
+    //
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $defaultAlias = 'datepicker';
+
     /**
      * {@inheritDoc}
      */
     public function init()
     {
-        $this->mode = strtolower($this->getConfig('mode', $this->mode));
-        $this->minDate = $this->getConfig('minDate', $this->minDate);
-        $this->maxDate = $this->getConfig('maxDate', $this->maxDate);
+        $this->fillFromConfig([
+            'mode',
+            'minDate',
+            'maxDate',
+        ]);
+
+        $this->mode = strtolower($this->mode);
     }
 
     /**

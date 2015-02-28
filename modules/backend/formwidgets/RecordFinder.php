@@ -21,6 +21,34 @@ use SystemException;
  */
 class RecordFinder extends FormWidgetBase
 {
+    //
+    // Configurable properties
+    //
+
+    /**
+     * @var string Field name to use for key.
+     */
+    public $keyFrom = 'id';
+
+    /**
+     * @var string Relation column to display for the name
+     */
+    public $nameFrom;
+
+    /**
+     * @var string Relation column to display for the description
+     */
+    public $descriptionFrom;
+
+    /**
+     * @var string Prompt to display if no record is selected.
+     */
+    public $prompt = 'Click the %s button to find a record';
+
+    //
+    // Object properties
+    //
+
     /**
      * {@inheritDoc}
      */
@@ -42,26 +70,6 @@ class RecordFinder extends FormWidgetBase
     public $relationModel;
 
     /**
-     * @var string Field name to use for key.
-     */
-    public $keyFrom = 'id';
-
-    /**
-     * @var string Relation column to display for the name
-     */
-    public $nameFrom;
-
-    /**
-     * @var string Relation column to display for the description
-     */
-    public $descriptionFrom;
-
-    /**
-     * @var string Prompt to display if no record is selected.
-     */
-    public $prompt;
-
-    /**
      * @var Backend\Classes\WidgetBase Reference to the widget used for viewing (list or form).
      */
     protected $listWidget;
@@ -76,13 +84,15 @@ class RecordFinder extends FormWidgetBase
      */
     public function init()
     {
-        $this->relationName = $this->formField->valueFrom;
-        $this->relationType = $this->model->getRelationType($this->relationName);
+        $this->fillFromConfig([
+            'prompt',
+            'keyFrom',
+            'nameFrom',
+            'descriptionFrom',
+        ]);
 
-        $this->prompt = $this->getConfig('prompt', 'Click the %s button to find a record');
-        $this->keyFrom = $this->getConfig('keyFrom', $this->keyFrom);
-        $this->nameFrom = $this->getConfig('nameFrom', $this->nameFrom);
-        $this->descriptionFrom = $this->getConfig('descriptionFrom', $this->descriptionFrom);
+        $this->relationName = $this->valueFrom;
+        $this->relationType = $this->model->getRelationType($this->relationName);
 
         if (!$this->model->hasRelation($this->relationName)) {
             throw new SystemException(Lang::get('backend::lang.model.missing_relation', [
