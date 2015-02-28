@@ -81,6 +81,26 @@ abstract class WidgetBase
     }
 
     /**
+     * Transfers config values stored inside the $config property directly
+     * on to the root object properties. If no properties are defined
+     * all config will be transferred if finds a match.
+     * @param array $properties
+     * @return void
+     */
+    protected function fillFromConfig($properties = null)
+    {
+        if ($properties === null) {
+            $properties = array_keys((array) $this->config);
+        }
+
+        foreach ($properties as $property) {
+            if (property_exists($this, $property)) {
+                $this->{$property} = $this->getConfig($property, $this->{$property});
+            }
+        }
+    }
+
+    /**
      * Initialize the widget, called by the constructor and free from its parameters.
      * @return void
      */

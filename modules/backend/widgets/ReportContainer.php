@@ -40,13 +40,14 @@ class ReportContainer extends WidgetBase
      * @var array A list of default widgets to load.
      * This structure could be defined in the widget configuration file (for example config_report_container.yaml).
      * Example YAML structure:
+     *
      * defaultWidgets:
-     *   trafficOverview:
-     *     class: RainLab\GoogleAnalytics\ReportWidgets\TrafficOverview
-     *     sortOrder: 1
-     *     configuration: 
-     *       title: 'Traffic overview'
-     *       ocWidgetWidth: 10
+     *     trafficOverview:
+     *         class: RainLab\GoogleAnalytics\ReportWidgets\TrafficOverview
+     *         sortOrder: 1
+     *         configuration:
+     *             title: 'Traffic overview'
+     *             ocWidgetWidth: 10
      */
     public $defaultWidgets = [];
 
@@ -74,9 +75,19 @@ class ReportContainer extends WidgetBase
      */
     public function __construct($controller)
     {
-        parent::__construct($controller, []);
+        $configFile = 'config_' . snake_case($this->alias) . '.yaml';
+        $path = $controller->getConfigPath($configFile);
+        if (File::isFile($path)) {
+            $config = $this->makeConfig($configFile);
+        }
+        else {
+            $config = [];
+        }
+
+        parent::__construct($controller, $config);
+
         $this->bindToController();
-        $this->applyConfigToSelf();
+        $this->fillFromConfig();
     }
 
     /**
@@ -88,26 +99,6 @@ class ReportContainer extends WidgetBase
     {
         $this->defineReportWidgets();
         parent::bindToController();
-    }
-
-    /**
-     * Most widgets store their configuration inside the $config class
-     * property, this container stores it against the root object.
-     */
-    protected function applyConfigToSelf()
-    {
-        $configFile = 'config_' . snake_case($this->alias) . '.yaml';
-
-        $path = $this->controller->getConfigPath($configFile);
-        if (!File::isFile($path)) return;
-
-        $config = $this->makeConfig($configFile);
-
-        foreach ($config as $field => $value) {
-            if (property_exists($this, $field)) {
-                $this->$field = $value;
-            }
-        }
     }
 
     /**
