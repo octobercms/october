@@ -22,6 +22,7 @@ return [
         'se' => 'Swedish',
         'tr' => 'Turkish',
         'pl' => 'Polish',
+	    'sk' => 'Slovak (Slovakia)',
     ],
     'directory' => [
         'create_fail' => 'Cannot create directory: :name'
