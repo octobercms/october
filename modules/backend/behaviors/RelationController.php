@@ -969,6 +969,11 @@ class RelationController extends ControllerBehavior
                 elseif ($this->model->exists) {
                     $this->relationObject->addConstraints();
                 }
+
+                if ($this->relationType == 'belongsToMany') {
+                    $this->relationObject->setQuery($query->getQuery());
+                    return $this->relationObject;
+                }
             });
 
             /*
