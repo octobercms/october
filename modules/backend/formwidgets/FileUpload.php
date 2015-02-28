@@ -27,7 +27,7 @@ class FileUpload extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'fileupload';
+    protected $defaultAlias = 'fileupload';
 
     /**
      * @var int Preview image width

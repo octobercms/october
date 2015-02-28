@@ -15,7 +15,7 @@ class Search extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'search';
+    protected $defaultAlias = 'search';
 
     /**
      * @var string Search placeholder text.

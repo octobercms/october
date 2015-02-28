@@ -18,7 +18,7 @@ class Filter extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'filter';
+    protected $defaultAlias = 'filter';
 
     /**
      * @var boolean Determines if scope definitions have been created.

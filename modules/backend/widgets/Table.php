@@ -18,7 +18,7 @@ class Table extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'table';
+    protected $defaultAlias = 'table';
 
     /**
      * @var array Table columns

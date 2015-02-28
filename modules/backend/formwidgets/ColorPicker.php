@@ -14,7 +14,7 @@ class ColorPicker extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'colorpicker';
+    protected $defaultAlias = 'colorpicker';
 
     /**
      * @var array Default available colors

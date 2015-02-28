@@ -56,6 +56,11 @@ class ReportContainer extends WidgetBase
     //
 
     /**
+     * {@inheritDoc}
+     */
+    protected $defaultAlias = 'reportContainer';
+
+    /**
      * @var array Collection of all report widgets used by this container.
      */
     protected $reportWidgets = [];
@@ -64,11 +69,6 @@ class ReportContainer extends WidgetBase
      * @var boolean Determines if report widgets have been created.
      */
     protected $reportsDefined = false;
-
-    /**
-     * {@inheritDoc}
-     */
-    public $defaultAlias = 'reportContainer';
 
     /**
      * Constructor.

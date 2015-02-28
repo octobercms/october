@@ -23,7 +23,7 @@ class Grid extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'grid';
+    protected $defaultAlias = 'grid';
 
     /**
      * @var array Grid columns

@@ -30,14 +30,14 @@ abstract class WidgetBase
     protected $controller;
 
     /**
-     * @var string A unique alias to identify this widget.
-     */
-    public $defaultAlias = 'widget';
-
-    /**
      * @var string Defined alias used for this widget.
      */
     public $alias;
+
+    /**
+     * @var string A unique alias to identify this widget.
+     */
+    protected $defaultAlias = 'widget';
 
     /**
      * Constructor
@@ -81,26 +81,6 @@ abstract class WidgetBase
     }
 
     /**
-     * Transfers config values stored inside the $config property directly
-     * on to the root object properties. If no properties are defined
-     * all config will be transferred if finds a match.
-     * @param array $properties
-     * @return void
-     */
-    protected function fillFromConfig($properties = null)
-    {
-        if ($properties === null) {
-            $properties = array_keys((array) $this->config);
-        }
-
-        foreach ($properties as $property) {
-            if (property_exists($this, $property)) {
-                $this->{$property} = $this->getConfig($property, $this->{$property});
-            }
-        }
-    }
-
-    /**
      * Initialize the widget, called by the constructor and free from its parameters.
      * @return void
      */
@@ -136,6 +116,26 @@ abstract class WidgetBase
         }
 
         $this->controller->widget->{$this->alias} = $this;
+    }
+
+    /**
+     * Transfers config values stored inside the $config property directly
+     * on to the root object properties. If no properties are defined
+     * all config will be transferred if it finds a matching property.
+     * @param array $properties
+     * @return void
+     */
+    protected function fillFromConfig($properties = null)
+    {
+        if ($properties === null) {
+            $properties = array_keys((array) $this->config);
+        }
+
+        foreach ($properties as $property) {
+            if (property_exists($this, $property)) {
+                $this->{$property} = $this->getConfig($property, $this->{$property});
+            }
+        }
     }
 
     /**

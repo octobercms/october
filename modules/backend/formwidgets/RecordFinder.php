@@ -24,7 +24,7 @@ class RecordFinder extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'recordfinder';
+    protected $defaultAlias = 'recordfinder';
 
     /**
      * @var string Relationship type

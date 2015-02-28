@@ -16,7 +16,7 @@ class DatePicker extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'datepicker';
+    protected $defaultAlias = 'datepicker';
 
     /**
      * @var bool Display mode: datetime, date, time.

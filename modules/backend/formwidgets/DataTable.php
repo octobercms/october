@@ -17,7 +17,7 @@ class DataTable extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'datatable';
+    protected $defaultAlias = 'datatable';
 
     /**
      * @var string Table size

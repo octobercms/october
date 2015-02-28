@@ -14,7 +14,7 @@ class RichEditor extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'richeditor';
+    protected $defaultAlias = 'richeditor';
 
     /**
      * @var boolean Determines whether content has HEAD and HTML tags.

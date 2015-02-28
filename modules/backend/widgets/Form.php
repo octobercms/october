@@ -43,7 +43,7 @@ class Form extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'form';
+    protected $defaultAlias = 'form';
 
     /**
      * @var Model Form model object.

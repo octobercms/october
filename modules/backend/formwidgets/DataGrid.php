@@ -16,7 +16,7 @@ class DataGrid extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'datagrid';
+    protected $defaultAlias = 'datagrid';
 
     /**
      * @var string Grid size

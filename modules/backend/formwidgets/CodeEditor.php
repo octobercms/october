@@ -15,7 +15,7 @@ class CodeEditor extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'codeeditor';
+    protected $defaultAlias = 'codeeditor';
 
     /**
      * @var string Code language to display (php, twig)

@@ -17,7 +17,7 @@ class Relation extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'relation';
+    protected $defaultAlias = 'relation';
 
     /**
      * @var string Relationship type
