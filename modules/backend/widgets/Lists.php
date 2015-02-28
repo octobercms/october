@@ -25,66 +25,19 @@ use DateTime;
  */
 class Lists extends WidgetBase
 {
-    /**
-     * @var array Expected configuration:
-     *
-     * - columns: list column definitions
-     * - model: object or class name, data is loaded from this model
-     * - recordUrl: link each list record to another page
-     * - recordOnClick: custom JavaScript code to execute when clicking on a record
-     * - noRecordsMessage: a message to display when no records are found
-     * - recordsPerPage: records to display per page, use 0 for no pages
-     * - showSorting: displays the sorting link on each column
-     * - defaultSort: sets a default sorting column and direction
-     * - showCheckboxes: displays checkboxes next to each record
-     * - showSetup: displays the list column set up button
-     * - showTree: displays a tree hierarchy for parent/child records
-     * - treeExpanded: if tree nodes should be expanded by default
-     */
-    public $config = [
-        'model'            => null,
-        'columns'          => [],
-        'recordUrl'        => null,
-        'recordOnClick'    => null,
-        'noRecordsMessage' => null,
-        'recordsPerPage'   => 0,
-        'showSorting'      => true,
-        'defaultSort'      => ['column' => null, 'direction' => null],
-        'showCheckboxes'   => false,
-        'showSetup'        => false,
-        'showTree'         => false,
-        'treeExpanded'     => false,
-    ];
+    //
+    // Configurable properties
+    //
 
     /**
-     * {@inheritDoc}
+     * @var array List column configuration.
      */
-    public $defaultAlias = 'list';
+    public $columns;
 
     /**
      * @var Model List model object.
      */
     public $model;
-
-    /**
-     * @var array Override default columns with supplied key names.
-     */
-    public $columnOverride;
-
-    /**
-     * @var array Columns to display and their order.
-     */
-    protected $visibleColumns;
-
-    /**
-     * @var array Collection of all list columns used in this list.
-     */
-    protected $columns;
-
-    /**
-     * @var array Model data collection.
-     */
-    protected $records;
 
     /**
      * @var string Link for each record row. Replace :id with the record id.
@@ -97,29 +50,14 @@ class Lists extends WidgetBase
     public $recordOnClick;
 
     /**
-     * @var int Maximum rows to display for each page.
-     */
-    public $recordsPerPage;
-
-    /**
-     * @var int Current page number.
-     */
-    protected $currentPageNumber;
-
-    /**
      * @var string Message to display when there are no records in the list.
      */
     public $noRecordsMessage = 'No records found';
 
     /**
-     * @var string Filter the records by a search term.
+     * @var int Maximum rows to display for each page.
      */
-    protected $searchTerm;
-
-    /**
-     * @var array Collection of functions to apply to each list query.
-     */
-    protected $filterCallbacks = [];
+    public $recordsPerPage;
 
     /**
      * @var bool Shows the sorting options for each column.
@@ -127,24 +65,9 @@ class Lists extends WidgetBase
     public $showSorting = true;
 
     /**
-     * @var array All sortable columns.
-     */
-    protected $sortableColumns;
-
-    /**
      * @var mixed A default sort column to look for.
      */
     public $defaultSort;
-
-    /**
-     * @var string Sets the list sorting column.
-     */
-    public $sortColumn;
-
-    /**
-     * @var string Sets the list sorting direction (asc, desc)
-     */
-    public $sortDirection;
 
     /**
      * @var bool Display a checkbox next to each record row.
@@ -157,11 +80,6 @@ class Lists extends WidgetBase
     public $showSetup = false;
 
     /**
-     * @var bool Display pagination when limiting records per page.
-     */
-    public $showPagination = false;
-
-    /**
      * @var bool Display parent/child relationships in the list.
      */
     public $showTree = false;
@@ -170,6 +88,71 @@ class Lists extends WidgetBase
      * @var bool Expand the tree nodes by default.
      */
     public $treeExpanded = false;
+
+    /**
+     * @var bool|string Display pagination when limiting records per page.
+     */
+    public $showPagination = 'auto';
+
+    //
+    // Object properties
+    //
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $defaultAlias = 'list';
+
+    /**
+     * @var array Collection of all list columns used in this list.
+     * @see Backend\Classes\ListColumn
+     */
+    protected $allColumns;
+
+    /**
+     * @var array Override default columns with supplied key names.
+     */
+    protected $columnOverride;
+
+    /**
+     * @var array Columns to display and their order.
+     */
+    protected $visibleColumns;
+
+    /**
+     * @var array Model data collection.
+     */
+    protected $records;
+
+    /**
+     * @var int Current page number.
+     */
+    protected $currentPageNumber;
+
+    /**
+     * @var string Filter the records by a search term.
+     */
+    protected $searchTerm;
+
+    /**
+     * @var array Collection of functions to apply to each list query.
+     */
+    protected $filterCallbacks = [];
+
+    /**
+     * @var array All sortable columns.
+     */
+    protected $sortableColumns;
+
+    /**
+     * @var string Sets the list sorting column.
+     */
+    protected $sortColumn;
+
+    /**
+     * @var string Sets the list sorting direction (asc, desc)
+     */
+    protected $sortDirection;
 
     /**
      * @var array List of CSS classes to apply to the list container element
@@ -181,25 +164,32 @@ class Lists extends WidgetBase
      */
     public function init()
     {
-        $this->validateModel();
+        $this->fillFromConfig([
+            'columns',
+            'model',
+            'recordUrl',
+            'recordOnClick',
+            'noRecordsMessage',
+            'recordsPerPage',
+            'showSorting',
+            'defaultSort',
+            'showCheckboxes',
+            'showSetup',
+            'showTree',
+            'treeExpanded',
+            'showPagination',
+        ]);
 
         /*
          * Configure the list widget
          */
-        $this->recordUrl = $this->getConfig('recordUrl', $this->recordUrl);
-        $this->recordOnClick = $this->getConfig('recordOnClick', $this->recordOnClick);
-        $this->recordsPerPage = $this->getSession(
-            'per_page',
-            $this->getConfig('recordsPerPage', $this->recordsPerPage)
-        );
-        $this->noRecordsMessage = $this->getConfig('noRecordsMessage', $this->noRecordsMessage);
-        $this->defaultSort = $this->getConfig('defaultSort', $this->defaultSort);
-        $this->showSorting = $this->getConfig('showSorting', $this->showSorting);
-        $this->showSetup = $this->getConfig('showSetup', $this->showSetup);
-        $this->showCheckboxes = $this->getConfig('showCheckboxes', $this->showCheckboxes);
-        $this->showTree = $this->getConfig('showTree', $this->showTree);
-        $this->treeExpanded = $this->getConfig('treeExpanded', $this->treeExpanded);
-        $this->showPagination = $this->recordsPerPage && $this->recordsPerPage > 0;
+        $this->recordsPerPage = $this->getSession('per_page', $this->recordsPerPage);
+
+        if ($this->showPagination == 'auto') {
+            $this->showPagination = $this->recordsPerPage && $this->recordsPerPage > 0;
+        }
+
+        $this->validateModel();
         $this->validateTree();
     }
 
@@ -276,8 +266,6 @@ class Lists extends WidgetBase
      */
     protected function validateModel()
     {
-        $this->model = $this->getConfig('model');
-
         if (!$this->model) {
             throw new ApplicationException(Lang::get(
                 'backend::lang.list.missing_model',
@@ -452,7 +440,7 @@ class Lists extends WidgetBase
          * Apply sorting
          */
         if ($sortColumn = $this->getSortColumn()) {
-            if (($column = array_get($this->columns, $sortColumn)) && $column->valueFrom) {
+            if (($column = array_get($this->allColumns, $sortColumn)) && $column->valueFrom) {
                 $sortColumn = $column->valueFrom;
             }
 
@@ -542,7 +530,7 @@ class Lists extends WidgetBase
      */
     public function getColumns()
     {
-        return $this->columns ?: $this->defineListColumns();
+        return $this->allColumns ?: $this->defineListColumns();
     }
 
     /**
@@ -552,7 +540,7 @@ class Lists extends WidgetBase
      */
     public function getColumn($column)
     {
-        return $this->columns[$column];
+        return $this->allColumns[$column];
     }
 
     /**
@@ -607,14 +595,14 @@ class Lists extends WidgetBase
      */
     protected function defineListColumns()
     {
-        if (!isset($this->config->columns) || !is_array($this->config->columns) || !count($this->config->columns)) {
+        if (!isset($this->columns) || !is_array($this->columns) || !count($this->columns)) {
             throw new ApplicationException(Lang::get(
                 'backend::lang.list.missing_columns',
                 ['class'=>get_class($this->controller)]
             ));
         }
 
-        $this->addColumns($this->config->columns);
+        $this->addColumns($this->columns);
 
         /*
          * Extensibility
@@ -628,15 +616,15 @@ class Lists extends WidgetBase
         if ($columnOrder = $this->getSession('order', null)) {
             $orderedDefinitions = [];
             foreach ($columnOrder as $column) {
-                if (isset($this->columns[$column])) {
-                    $orderedDefinitions[$column] = $this->columns[$column];
+                if (isset($this->allColumns[$column])) {
+                    $orderedDefinitions[$column] = $this->allColumns[$column];
                 }
             }
 
-            $this->columns = array_merge($orderedDefinitions, $this->columns);
+            $this->allColumns = array_merge($orderedDefinitions, $this->allColumns);
         }
 
-        return $this->columns;
+        return $this->allColumns;
     }
 
     /**
@@ -648,7 +636,7 @@ class Lists extends WidgetBase
          * Build a final collection of list column objects
          */
         foreach ($columns as $columnName => $config) {
-            $this->columns[$columnName] = $this->makeListColumn($columnName, $config);
+            $this->allColumns[$columnName] = $this->makeListColumn($columnName, $config);
         }
     }
 
@@ -943,10 +931,7 @@ class Lists extends WidgetBase
      */
     public function setSearchTerm($term)
     {
-        if (empty($term)) {
-            $this->showTree = $this->getConfig('showTree', $this->showTree);
-        }
-        else {
+        if (!empty($term)) {
             $this->showTree = false;
         }
 
