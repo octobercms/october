@@ -2,6 +2,7 @@
 
 use Db;
 use HTML as Html;
+use Str;
 use App;
 use Lang;
 use Input;
@@ -462,8 +463,12 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        Event::fire('backend.list.extendQuery', [$this, $query]);
-        $this->fireEvent('list.extendQuery', [$query]);
+        if (
+            ($event = $this->fireEvent('list.extendQuery', [$query], true)) ||
+            ($event = Event::fire('backend.list.extendQuery', [$this, $query], true))
+        ) {
+            return $event;
+        }
 
         return $query;
     }
@@ -731,7 +736,11 @@ class Lists extends WidgetBase
          * Handle taking value from model attribute.
          */
         elseif ($column->valueFrom) {
-            $value = $record->{$column->valueFrom};
+            $keyParts = Str::evalHtmlArray($column->valueFrom);
+            $value = $record;
+            foreach ($keyParts as $key) {
+                $value = $value->{$key};
+            }
         }
         /*
          * Otherwise, if the column is a relation, it will be a custom select,
