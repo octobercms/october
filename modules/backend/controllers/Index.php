@@ -1,6 +1,7 @@
 <?php namespace Backend\Controllers;
 
 use Redirect;
+use BackendAuth;
 use BackendMenu;
 use Backend\Classes\Controller;
 use Backend\Widgets\ReportContainer;
@@ -29,7 +30,9 @@ class Index extends Controller
         parent::__construct();
 
         BackendMenu::setContextOwner('October.Backend');
-        new ReportContainer($this);
+        if (BackendAuth::check()) {
+            new ReportContainer($this);
+        }
     }
 
     public function index()
