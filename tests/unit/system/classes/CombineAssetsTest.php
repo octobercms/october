@@ -70,13 +70,24 @@ class CombineAssetsTest extends TestCase
     public function testCombine()
     {
         $combiner = CombineAssets::instance();
-        $url = $combiner->combine(['assets/css/style1.css', 'assets/css/style2.css'], '/tests/fixtures/themes/test');
-        $this->assertNotNull($url);
-        $this->assertRegExp('/\w+[-]\d+/i', $url);      // Must contain hash-number
 
-        $url = $combiner->combine(['assets/js/script1.js', 'assets/js/script2.js'], '/tests/fixtures/themes/test');
+        $url = $combiner->combine([
+                'assets/css/style1.css',
+                'assets/css/style2.css'
+            ],
+            base_path().'/tests/fixtures/themes/test'
+        );
         $this->assertNotNull($url);
-        $this->assertRegExp('/\w+[-]\d+/i', $url);      // Must contain hash-number
+        $this->assertRegExp('/\w+[-]\d+/i', $url); // Must contain hash-number
+
+        $url = $combiner->combine([
+            'assets/js/script1.js',
+            'assets/js/script2.js'
+            ],
+            base_path().'/tests/fixtures/themes/test'
+        );
+        $this->assertNotNull($url);
+        $this->assertRegExp('/\w+[-]\d+/i', $url); // Must contain hash-number
     }
 
     public function testPrepareRequest()
@@ -130,10 +141,10 @@ class CombineAssetsTest extends TestCase
     public function testMakeCacheId()
     {
         $sampleResources = ['assets/css/style1.css', 'assets/css/style2.css'];
-        $samplePath = '/tests/fixtures/Cms/themes/test';
+        $samplePath = base_path().'/tests/fixtures/cms/themes/test';
 
         $combiner = CombineAssets::instance();
-        self::setProtectedProperty($combiner, 'path', $samplePath);
+        self::setProtectedProperty($combiner, 'localPath', $samplePath);
 
         $value = self::callProtectedMethod($combiner, 'makeCacheId', [$sampleResources]);
         $this->assertEquals(md5($samplePath.implode('|', $sampleResources)), $value);

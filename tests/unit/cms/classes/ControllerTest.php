@@ -144,61 +144,67 @@ class ControllerTest extends TestCase
         return $requestMock;
     }
 
+    /**
+     * @expectedException        Cms\Classes\CmsException
+     * @expectedExceptionMessage AJAX handler 'onNoHandler' was not found.
+     */
     public function testAjaxHandlerNotFound()
     {
         Request::swap($this->configAjaxRequestMock('onNoHandler', ''));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
+        $controller->run('/ajax-test');
 
-        $response = $controller->run('/ajax-test');
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+        //
+        // This was the old approach, can remove this comment block if year >= 2017
+        //
 
-        $this->assertInternalType('string', $response->getOriginalContent());
-        $this->assertEquals(500, $response->getStatusCode());
-        $this->assertEquals("AJAX handler 'onNoHandler' was not found.", $response->getOriginalContent());
+        // $response = $controller->run('/ajax-test');
+        // $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+
+        // $this->assertInternalType('string', $response->getOriginalContent());
+        // $this->assertEquals(500, $response->getStatusCode());
+        // $this->assertEquals("AJAX handler 'onNoHandler' was not found.", $response->getOriginalContent());
     }
 
+    /**
+     * @expectedException        Cms\Classes\CmsException
+     * @expectedExceptionMessage Invalid AJAX handler name: delete.
+     */
     public function testAjaxInvalidHandlerName()
     {
         Request::swap($this->configAjaxRequestMock('delete'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
-        $response = $controller->run('/ajax-test');
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
-
-        $this->assertInternalType('string', $response->getOriginalContent());
-        $this->assertEquals(500, $response->getStatusCode());
-        $this->assertEquals('Invalid AJAX handler name: delete.', $response->getOriginalContent());
+        $controller->run('/ajax-test');
     }
 
+    /**
+     * @expectedException        Cms\Classes\CmsException
+     * @expectedExceptionMessage Invalid partial name: p:artial.
+     */
     public function testAjaxInvalidPartial()
     {
         Request::swap($this->configAjaxRequestMock('onTest', 'p:artial'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
-        $response = $controller->run('/ajax-test');
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
-
-        $this->assertInternalType('string', $response->getOriginalContent());
-        $this->assertEquals(500, $response->getStatusCode());
-        $this->assertEquals('Invalid partial name: p:artial.', $response->getOriginalContent());
+        $controller->run('/ajax-test');
     }
 
+    /**
+     * @expectedException        Cms\Classes\CmsException
+     * @expectedExceptionMessage The partial 'partial' is not found.
+     */
     public function testAjaxPartialNotFound()
     {
         Request::swap($this->configAjaxRequestMock('onTest', 'partial'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
-        $response = $controller->run('/ajax-test');
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
-
-        $this->assertInternalType('string', $response->getOriginalContent());
-        $this->assertEquals(500, $response->getStatusCode());
-        $this->assertEquals("The partial 'partial' is not found.", $response->getOriginalContent());
+        $controller->run('/ajax-test');
     }
 
     public function testPageAjax()
@@ -332,10 +338,10 @@ ESC;
         $controller = new Controller($theme);
 
         $url = $controller->themeUrl();
-        $this->assertEquals('/tests/fixtures/themes/test', $url);
+        $this->assertEquals('http://localhost/themes/test', $url);
 
         $url = $controller->themeUrl('foo/bar.css');
-        $this->assertEquals('/tests/fixtures/themes/test/foo/bar.css', $url);
+        $this->assertEquals('http://localhost/themes/test/foo/bar.css', $url);
 
         //
         // These tests seem to bear different results
