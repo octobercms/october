@@ -28,7 +28,7 @@ class AuthTest extends UiTestCase
 
         try {
             $this->assertTitle('Dashboard | October CMS');
-            $this->assertTrue($this->isElementPresent('css=a[title="Sign out"]'));
+            $this->assertTrue($this->isElementPresent('css=a[data-original-title="Sign out"]'));
         }
         catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
@@ -37,7 +37,7 @@ class AuthTest extends UiTestCase
         /*
          * Log out
          */
-        $this->click('css=a[title="Sign out"]');
+        $this->click('css=a[data-original-title="Sign out"]');
         $this->waitForPageToLoad("30000");
 
         try {

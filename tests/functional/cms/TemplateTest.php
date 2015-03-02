@@ -40,7 +40,8 @@ class TemplateTest extends UiTestCase
 
         // Delete the page
         $this->click("xpath=(//button[@data-request='onDelete'])[1]");
-        $this->assertTrue((bool)preg_match('/^Do you really want delete this page[\s\S]$/',$this->getConfirmation()));
+        $this->getSweetConfirmation('Do you really want delete this page?');
+        // $this->assertTrue((bool)preg_match('/^Do you really want delete this page[\s\S]$/',$this->getConfirmation()));
         $this->waitForElementNotPresent("name=settings[title]");
 
         /*
@@ -73,7 +74,7 @@ class TemplateTest extends UiTestCase
 
         // Delete the partial
         $this->click("xpath=(//button[@data-request='onDelete'])[1]");
-        $this->assertTrue((bool)preg_match('/^Do you really want delete this partial[\s\S]$/',$this->getConfirmation()));
+        $this->getSweetConfirmation('Do you really want delete this partial?');
         $this->waitForElementNotPresent("name=fileName");
 
         /*
@@ -106,7 +107,7 @@ class TemplateTest extends UiTestCase
 
         // Delete the layout
         $this->click("xpath=(//button[@data-request='onDelete'])[1]");
-        $this->assertTrue((bool)preg_match('/^Do you really want delete this layout[\s\S]$/',$this->getConfirmation()));
+        $this->getSweetConfirmation('Do you really want delete this layout?');
         $this->waitForElementNotPresent("name=fileName");
 
         /*
@@ -138,7 +139,7 @@ class TemplateTest extends UiTestCase
 
         // Delete the content
         $this->click("xpath=(//button[@data-request='onDelete'])[1]");
-        $this->assertTrue((bool)preg_match('/^Do you really want delete this content file[\s\S]$/',$this->getConfirmation()));
+        $this->getSweetConfirmation('Do you really want delete this content file?');
         $this->waitForElementNotPresent("name=fileName");
 
     }

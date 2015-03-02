@@ -23,6 +23,10 @@ class UiTestCase extends PHPUnit_Extensions_SeleniumTestCase
         $this->setBrowserUrl(TEST_SELENIUM_URL);
     }
 
+    //
+    // OctoberCMS Helpers
+    //
+
     protected function signInToBackend()
     {
         $this->open('backend');
@@ -31,6 +35,28 @@ class UiTestCase extends PHPUnit_Extensions_SeleniumTestCase
         $this->click("//button[@type='submit']");
         $this->waitForPageToLoad("30000");
     }
+
+    /**
+     * Similar to the native getConfirmation() function
+     */
+    protected function getSweetConfirmation($expectedText = null, $clickOk = true)
+    {
+        $this->waitForElementPresent("xpath=(//div[@class='sweet-alert showSweetAlert visible'])[1]");
+
+        if ($expectedText) {
+            $this->verifyText("//div[@class='sweet-alert showSweetAlert visible']//h4", $expectedText);
+        }
+
+        $this->verifyText("//div[@class='sweet-alert showSweetAlert visible']//button[@class='confirm btn btn-primary']", "OK");
+
+        if ($clickOk) {
+            $this->click("xpath=(//div[@class='sweet-alert showSweetAlert visible']//button[@class='confirm btn btn-primary'])[1]");
+        }
+    }
+
+    //
+    // Selenium helpers
+    //
 
     protected function waitForElementPresent($target, $timeout = 60)
     {
@@ -61,6 +87,5 @@ class UiTestCase extends PHPUnit_Extensions_SeleniumTestCase
             sleep(1);
         }
     }
-
 
 }
