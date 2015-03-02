@@ -226,10 +226,10 @@ class CodeParserTest extends TestCase
         $this->assertEquals($expectedContent, file_get_contents($info['filePath']));
     }
 
-    public function testSyntaxErrors()
-    {
-        $this->markTestIncomplete('Test PHP parsing errors here.');
-    }
+    // public function testSyntaxErrors()
+    // {
+    //     $this->markTestIncomplete('Test PHP parsing errors here.');
+    // }
 
     public function testNamespaces()
     {

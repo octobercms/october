@@ -46,31 +46,6 @@ class CmsExceptionTest extends TestCase
     // Tests
     //
 
-    public function testProcessCompoundObject()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testProcessIni()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testProcessPhp()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testProcessTwig()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testApplyMask()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
     public function testExceptionMask()
     {
         $foreignException = new \Exception('This is a general error');

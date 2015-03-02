@@ -90,26 +90,6 @@ class CombineAssetsTest extends TestCase
         $this->assertRegExp('/\w+[-]\d+/i', $url); // Must contain hash-number
     }
 
-    public function testPrepareRequest()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testGetCombinedUrl()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testGetContents()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testPrepareCombiner()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
     public function testPutCache()
     {
         $sampleId = md5('testhash');
@@ -120,11 +100,6 @@ class CombineAssetsTest extends TestCase
         $value = self::callProtectedMethod($combiner, 'putCache', [$sampleId, $sampleStore]);
 
         $this->assertTrue($value);
-    }
-
-    public function testGetCache()
-    {
-        $this->markTestIncomplete('TODO');
     }
 
     public function testGetTargetPath()
@@ -156,34 +131,4 @@ class CombineAssetsTest extends TestCase
         $this->assertNull($combiner->resetCache());
     }
 
-    public function testPutCacheIndex()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testRegisterFilter()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testResetFilter()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testGetFilters()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testCombinerNotFound()
-    {
-        $this->markTestIncomplete('Unfinished.');
-
-        $theme = Theme::load('test');
-        $controller = new Controller($theme);
-        $response = $controller->run('/combine/xxxxxxxxx');
-
-        $this->assertEquals("The combiner file 'xxx' is not found.", $response->getOriginalContent());
-    }
 }
