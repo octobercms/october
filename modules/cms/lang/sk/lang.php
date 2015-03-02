@@ -1,9 +1,5 @@
 <?php
-/**
- * Initial translation
- * @package unfinished
- * @todo translate
- */
+
 return [
     'cms_object' => [
         'invalid_file' => 'Invalid file name: :name. File names can contain only alphanumeric symbols, underscores, dashes and dots. Some examples of correct file names: page.htm, page, subdirectory/page',
