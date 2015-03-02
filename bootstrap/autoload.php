@@ -4,6 +4,19 @@ define('LARAVEL_START', microtime(true));
 
 /*
 |--------------------------------------------------------------------------
+| Register Core Helpers
+|--------------------------------------------------------------------------
+|
+| We cannot rely on Composer's load order when calculating the weight of
+| each package. This line ensures that the core global helpers are
+| always given priority one status.
+|
+*/
+
+require __DIR__.'/../vendor/october/rain/src/Support/helpers.php';
+
+/*
+|--------------------------------------------------------------------------
 | Register The Composer Auto Loader
 |--------------------------------------------------------------------------
 |
