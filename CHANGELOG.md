@@ -1,3 +1,6 @@
+* **Build 214** (2015-03-03)
+  - Introduce `AjaxException` that allows response contents to be sent to framework.js and still be treated as an error.
+
 * **Build 211** (2015-02-29)
   - Report Widgets now support the use of AJAX event handlers.
 
