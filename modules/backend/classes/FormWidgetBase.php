@@ -42,6 +42,11 @@ abstract class FormWidgetBase extends WidgetBase
     public $previewMode = false;
 
     /**
+     * @var bool Determines if this form field should display comments and labels.
+     */
+    public $showLabels = true;
+
+    /**
      * Constructor
      * @param $controller Controller Active controller object.
      * @param $model Model The relevant model to reference.

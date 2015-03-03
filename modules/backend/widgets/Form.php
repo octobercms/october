@@ -738,7 +738,7 @@ class Form extends WidgetBase
      * @param string $field Field name
      * @return array [columnName, context]
      */
-    public function getFieldName($field)
+    protected function getFieldName($field)
     {
         if (strpos($field, '@') === false) {
             return [$field, null];
@@ -748,9 +748,11 @@ class Form extends WidgetBase
     }
 
     /**
-     * Looks up the column
+     * Looks up the field value.
+     * @param  use Backend\Classes\FormField $field
+     * @return string
      */
-    public function getFieldValue($field)
+    protected function getFieldValue($field)
     {
         if (is_string($field)) {
             if (!isset($this->allFields[$field])) {
@@ -776,7 +778,7 @@ class Form extends WidgetBase
      * @param  use Backend\Classes\FormField $field
      * @return string
      */
-    public function getFieldDepends($field)
+    protected function getFieldDepends($field)
     {
         if (!$field->dependsOn) {
             return;
@@ -785,6 +787,26 @@ class Form extends WidgetBase
         $dependsOn = is_array($field->dependsOn) ? $field->dependsOn : [$field->dependsOn];
         $dependsOn = htmlspecialchars(json_encode($dependsOn), ENT_QUOTES, 'UTF-8');
         return $dependsOn;
+    }
+
+    /**
+     * Helper method to determine if field should be rendered
+     * with label and comments.
+     * @param  use Backend\Classes\FormField $field
+     * @return boolean
+     */
+    protected function showFieldLabels($field)
+    {
+        if (in_array($field->type, ['checkbox', 'switch', 'section'])) {
+            return false;
+        }
+
+        if ($field->type == 'widget') {
+            $widget = $this->makeFormWidget($field);
+            return $widget->showLabels;
+        }
+
+        return true;
     }
 
     /**

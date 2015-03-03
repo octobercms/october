@@ -1,8 +1,8 @@
 <?php if (!$field->hidden): ?>
 
-    <?php if (in_array($field->type, ['checkbox', 'switch', 'section'])): ?>
+    <?php if (!$this->showFieldLabels($field)): ?>
 
-        <?= $this->makePartial('field_'.$field->type, ['field' => $field]) ?>
+        <?= $this->renderFieldElement($field) ?>
 
     <?php else: ?>
 
