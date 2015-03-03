@@ -23,6 +23,7 @@ use System\Models\MailSettings;
 use System\Models\MailTemplate;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
+use October\Rain\Router\Helper as RouterHelper;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -51,20 +52,7 @@ class ServiceProvider extends ModuleServiceProvider
             return \Backend\Classes\AuthManager::instance();
         });
 
-        /*
-         * Check for CLI or system/updates route and disable any plugin initialization
-         * @todo This should be moved to middleware
-         */
-        $requestPath = \October\Rain\Router\Helper::normalizeUrl(\Request::path());
-        $systemPath = \October\Rain\Router\Helper::normalizeUrl(Config::get('cms.backendUri') . '/system/updates');
-        if (stripos($requestPath, $systemPath) === 0) {
-            PluginManager::$noInit = true;
-        }
-
-        $updateCommands = ['october:up', 'october:update'];
-        if (App::runningInConsole() && count(array_intersect($updateCommands, Request::server('argv'))) > 0) {
-            PluginManager::$noInit = true;
-        }
+        $this->registerPrivilegedActions();
 
         /*
          * Register all plugins
@@ -346,4 +334,36 @@ class ServiceProvider extends ModuleServiceProvider
 
         parent::boot('system');
     }
+
+    /**
+     * Check for CLI or system/updates route and disable any plugin initialization
+     */
+    protected function registerPrivilegedActions()
+    {
+        $requests = ['/combine', '@/system/updates', '@/backend/auth'];
+        $commands = ['october:up', 'october:update'];
+
+        /*
+         * Requests
+         */
+        $path = RouterHelper::normalizeUrl(Request::path());
+        foreach ($requests as $request) {
+            if (substr($request, 0, 1) == '@') {
+                $request = Config::get('cms.backendUri') . substr($request, 1);
+            }
+
+            if (stripos($path, $request) === 0) {
+                PluginManager::$noInit = true;
+            }
+        }
+
+        /*
+         * CLI
+         */
+        if (App::runningInConsole() && count(array_intersect($commands, Request::server('argv'))) > 0) {
+            PluginManager::$noInit = true;
+        }
+
+    }
+
 }
