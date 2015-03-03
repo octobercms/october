@@ -171,10 +171,6 @@ class PluginManager
             return;
         }
 
-        if (!self::$noInit || $plugin->elevated) {
-            $plugin->register();
-        }
-
         $pluginPath = $this->getPluginPath($plugin);
         $pluginNamespace = strtolower($pluginId);
 
@@ -184,6 +180,10 @@ class PluginManager
         $autoloadPath = $pluginPath . '/vendor/autoload.php';
         if (File::isFile($autoloadPath)) {
             require_once $autoloadPath;
+        }
+
+        if (!self::$noInit || $plugin->elevated) {
+            $plugin->register();
         }
 
         /*
