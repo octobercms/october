@@ -23,6 +23,7 @@ use System\Models\RequestLog;
 use System\Classes\ErrorHandler;
 use System\Classes\CombineAssets;
 use System\Twig\Extension as SystemTwigExtension;
+use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
@@ -534,7 +535,7 @@ class Controller
                  */
                 $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
                 $responseContents['X_OCTOBER_ERROR_MESSAGE'] = $ex->getMessage();
-                return Response::make($responseContents, 406);
+                throw new AjaxException($responseContents);
             }
             catch (Exception $ex) {
                 throw $ex;

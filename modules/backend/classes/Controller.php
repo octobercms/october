@@ -16,6 +16,7 @@ use BackendAuth;
 use Backend\Models\UserPreferences;
 use Backend\Models\BackendPreferences;
 use System\Classes\ErrorHandler;
+use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
@@ -426,13 +427,10 @@ class Controller extends Extendable
                 $responseContents = [];
                 $responseContents['#layout-flash-messages'] = $this->makeLayoutPartial('flash_messages');
                 $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
-                return Response::make($responseContents, 406);
+                throw new AjaxException($responseContents);
             }
             catch (MassAssignmentException $ex) {
-                return Response::make(
-                    Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]),
-                    500
-                );
+                throw new ApplicationException(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]));
             }
             catch (Exception $ex) {
                 throw $ex;
