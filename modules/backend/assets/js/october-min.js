@@ -19,9 +19,11 @@ return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+state.text
 return state.text}
 $('select.custom-select:not([data-no-auto-update-on-render=true])').select2({formatResult:formatSelectOption,formatSelection:formatSelectOption,escapeMarkup:function(m){return m;}})})
 $(document).on('disable','select.custom-select',function(event,status){$(this).select2('enable',!status)})
-$(document).on('focus','select.custom-select',function(event){setTimeout($.proxy(function(){$(this).select2('focus')},this),10)})})(jQuery);$(window).on('ajaxErrorMessage',function(event,message){swal({title:message,confirmButtonClass:'btn-default'})
+$(document).on('focus','select.custom-select',function(event){setTimeout($.proxy(function(){$(this).select2('focus')},this),10)})})(jQuery);$(window).on('ajaxErrorMessage',function(event,message){if(!message)return
+swal({title:message,type:'error',confirmButtonClass:'btn-default'})
 event.preventDefault()})
-$(window).on('ajaxConfirmMessage',function(event,message){swal({title:message,showCancelButton:true,confirmButtonClass:'btn-primary'},function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
+$(window).on('ajaxConfirmMessage',function(event,message){if(!message)return
+swal({title:message,type:'error',showCancelButton:true,confirmButtonClass:'btn-primary'},function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
 event.preventDefault()
 return true})
 function backendUrl(url){if(typeof backendBasePath==='undefined'||!backendBasePath)

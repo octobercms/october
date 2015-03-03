@@ -7,6 +7,7 @@
  */
 
 $(window).on('ajaxErrorMessage', function(event, message){
+    if (!message) return
 
     swal({
         title: message,
@@ -16,17 +17,18 @@ $(window).on('ajaxErrorMessage', function(event, message){
 
     // Prevent the default alert() message
     event.preventDefault()
-
 })
 
 $(window).on('ajaxConfirmMessage', function(event, message){
+    if (!message) return
 
     swal({
         title: message,
         // type: 'warning',
         showCancelButton: true,
         confirmButtonClass: 'btn-primary'
-    }, function(isConfirm){
+    },
+    function(isConfirm){
         isConfirm
             ? event.promise.resolve()
             : event.promise.reject()
@@ -35,7 +37,6 @@ $(window).on('ajaxConfirmMessage', function(event, message){
     // Prevent the default confirm() message
     event.preventDefault()
     return true
-
 })
 
 /*
