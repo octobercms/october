@@ -690,6 +690,8 @@ class Form extends WidgetBase
         }
 
         $widget = new $widgetClass($this->controller, $this->model, $field, $widgetConfig);
+        $widget->previewMode = $this->previewMode;
+
         return $this->formWidgets[$field->fieldName] = $widget;
     }
 
