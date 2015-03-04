@@ -25,11 +25,14 @@ Create a new file `selenium.php` in the root directory, add the following conten
     // Selenium server details
     define('TEST_SELENIUM_HOST', '127.0.0.1');
     define('TEST_SELENIUM_PORT', 4444);
-    define('TEST_SELENIUM_URL', 'http://localhost/backend/');
     define('TEST_SELENIUM_BROWSER', '*firefox');
 
+    // Back-end URL
+    define('TEST_SELENIUM_URL', 'http://localhost/backend/');
 
-    // OctoberCMS details
+    // Active Theme
     define('TEST_SELENIUM_THEME', 'demo');
+
+    // Back-end credentials
     define('TEST_SELENIUM_USER', 'admin');
     define('TEST_SELENIUM_PASS', 'admin');
