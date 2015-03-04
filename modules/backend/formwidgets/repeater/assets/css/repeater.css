@@ -1,0 +1,95 @@
+.field-repeater {
+  padding-top: 5px;
+}
+.field-repeater .field-repeater-item {
+  position: relative;
+  margin-left: 5px;
+  padding-left: 15px;
+  border-left: 1px solid #dbdee0;
+}
+.field-repeater .field-repeater-item:before {
+  color: #bdc3c7;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f111";
+  font-size: 8px;
+  position: absolute;
+  left: -4px;
+  top: -2px;
+}
+.field-repeater .field-repeater-item .field-repeater-form {
+  position: relative;
+  top: -7px;
+}
+.field-repeater .field-repeater-item .repeater-item-handle {
+  position: absolute;
+  top: -6px;
+  left: -10px;
+  color: #bdc3c7;
+  background: #f9f9f9;
+  cursor: move;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+.field-repeater .field-repeater-item .repeater-item-handle:hover {
+  color: #999;
+}
+.field-repeater .field-repeater-item .repeater-item-remove {
+  position: absolute;
+  top: -10px;
+  right: 0;
+  z-index: 90;
+}
+.field-repeater .field-repeater-item .repeater-item-handle,
+.field-repeater .field-repeater-item .repeater-item-remove {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+.field-repeater .field-repeater-item:hover .repeater-item-handle,
+.field-repeater .field-repeater-item:active .repeater-item-handle,
+.field-repeater .field-repeater-item:hover .repeater-item-remove,
+.field-repeater .field-repeater-item:active .repeater-item-remove {
+  opacity: 1;
+}
+.field-repeater .field-repeater-add-item {
+  position: relative;
+  margin-top: 10px;
+  margin-left: 20px;
+  border: 2px dotted #e0e0e0;
+}
+.field-repeater .field-repeater-add-item:before {
+  color: #bdc3c7;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f067";
+  font-size: 16px;
+  position: absolute;
+  left: -23px;
+  top: -11px;
+}
+.field-repeater .field-repeater-add-item > a {
+  color: #bdc3c7;
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  padding: 20px 10px;
+}
+.field-repeater .field-repeater-add-item:hover {
+  border: 2px dotted rgba(0, 0, 0, 0.1);
+}
+.field-repeater .field-repeater-add-item:hover:before {
+  color: #999;
+}
+.field-repeater .field-repeater-add-item:hover > a {
+  color: #bdc3c7;
+}

@@ -1,0 +1,28 @@
+<div class="field-repeater-item">
+
+    <div class="repeater-item-handle">
+        <i class="icon-bars"></i>
+    </div>
+
+    <div class="repeater-item-remove">
+        <button
+            type="button"
+            class="close"
+            aria-label="Remove"
+            data-request="<?= $this->getEventHandler('onRemoveItem') ?>"
+            data-request-data="'index': '<?= $indexValue ?>'"
+            data-request-success="$el.closest('.field-repeater-item').remove()"
+            data-request-confirm="Are you sure?">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="field-repeater-form">
+        <?= $widget->render([
+            'useContainer' => false
+        ]) ?>
+    </div>
+
+    <input type="hidden" name="<?= $indexName ?>" value="<?= $indexValue ?>" />
+
+</div> 

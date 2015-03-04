@@ -1,0 +1,15 @@
+<div class="field-repeater">
+
+    <div id="<?= $this->getId('items') ?>" class="field-repeater-items">
+    </div>
+
+    <div class="field-repeater-add-item loading-indicator-container indicator-center">
+        <a
+            href="javascript:;"
+            data-load-indicator
+            data-request="<?= $this->getEventHandler('onAddItem') ?>">
+            Add new item
+        </a>
+    </div>
+</div>
+

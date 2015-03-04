@@ -1,0 +1,96 @@
+@import "../../../../assets/less/core/boot.less";
+
+.field-repeater {
+
+    padding-top: 5px;
+
+    .field-repeater-item {
+        position: relative;
+        margin-left: 5px;
+        padding-left: 15px;
+        border-left: 1px solid #dbdee0;
+
+        &:before {
+            color: #bdc3c7;
+            .icon(@circle);
+            font-size: 8px;
+            position: absolute;
+            left: -4px;
+            top: -2px;
+        }
+
+        .field-repeater-form {
+            position: relative;
+            top: -7px;
+        }
+
+        .repeater-item-handle {
+            position: absolute;
+            top: -6px;
+            left: -10px;
+            color: #bdc3c7;
+            background: @color-body-bg;
+            cursor: move;
+            opacity: 0;
+            .transition(~'opacity 0.5s');
+            &:hover {
+                color: #999;
+            }
+        }
+
+        .repeater-item-remove {
+            position: absolute;
+            top: -10px;
+            right: 0;
+            z-index: 90;
+        }
+
+        .repeater-item-handle,
+        .repeater-item-remove {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+        }
+
+        &:hover, &:active {
+            .repeater-item-handle,
+            .repeater-item-remove {
+                opacity: 1;
+            }
+        }
+    }
+
+    .field-repeater-add-item {
+        position: relative;
+        margin-top: 10px;
+        margin-left: 20px;
+        border: 2px dotted #e0e0e0;
+
+        &:before {
+            color: #bdc3c7;
+            .icon(@plus);
+            font-size: 16px;
+            position: absolute;
+            left: -23px;
+            top: -11px;
+        }
+
+        > a {
+            color: #bdc3c7;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            padding: 20px 10px;
+        }
+
+        &:hover {
+            border: 2px dotted rgba(0,0,0,.1);
+            &:before {
+                color: #999;
+            }
+
+            > a { color: #bdc3c7;}
+        }
+    }
+
+}

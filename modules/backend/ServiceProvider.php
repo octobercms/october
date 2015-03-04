@@ -66,6 +66,10 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Record Finder',
                 'code'  => 'recordfinder'
             ]);
+            $manager->registerFormWidget('Backend\FormWidgets\Repeater', [
+                'label' => 'Repeater',
+                'code'  => 'repeater'
+            ]);
         });
 
         /*
