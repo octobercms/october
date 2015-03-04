@@ -80,7 +80,7 @@ class Repeater extends FormWidgetBase
 
     protected function processExistingItems()
     {
-        $itemIndexes = post(self::INDEX_PREFIX.$this->formField->getName(false), $this->getLoadValue());
+        $itemIndexes = post(self::INDEX_PREFIX.$this->formField->getName(false), array_keys($this->getLoadValue()));
 
         if (!is_array($itemIndexes)) return;
 
