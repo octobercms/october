@@ -80,7 +80,12 @@ class Repeater extends FormWidgetBase
 
     protected function processExistingItems()
     {
-        $itemIndexes = post(self::INDEX_PREFIX.$this->formField->getName(false), array_keys($this->getLoadValue()));
+        $loadValue = $this->getLoadValue();
+        if (is_array($loadValue)) {
+            $loadValue = array_keys($loadValue);
+        }
+
+        $itemIndexes = post(self::INDEX_PREFIX.$this->formField->getName(false), $loadValue);
 
         if (!is_array($itemIndexes)) return;
 
@@ -92,8 +97,12 @@ class Repeater extends FormWidgetBase
 
     protected function makeFormWidget($index = 0)
     {
+        $loadValue = $this->getLoadValue();
+        if (!is_array($loadValue)) $loadValue = [];
+
         $config = $this->makeConfig($this->form);
         $config->model = $this->model;
+        $config->data = array_get($loadValue, $index);
         $config->alias = $this->alias . 'Form'.$index;
         $config->arrayName = $this->formField->getName().'['.$index.']';
 
