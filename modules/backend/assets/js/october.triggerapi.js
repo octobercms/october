@@ -50,10 +50,8 @@
 
         if (this.options.triggerCondition.indexOf('value') == 0) {
             var match = this.options.triggerCondition.match(/[^[\]]+(?=])/g)
-            if (match) {
-                this.triggerConditionValue = match
-                this.triggerCondition = 'value'
-            }
+            this.triggerCondition = 'value'
+            this.triggerConditionValue = (match) ? match : ""
         }
 
         if (this.triggerCondition == 'checked' || this.triggerCondition == 'value')
