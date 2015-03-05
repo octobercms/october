@@ -19,6 +19,16 @@ class Repeater extends FormWidgetBase
      */
     public $form;
 
+    /**
+     * @var string Prompt text for adding new items.
+     */
+    public $prompt = 'Add new item';
+
+    /**
+     * @var bool Items can be sorted.
+     */
+    public $sortable = false;
+
     //
     // Object properties
     //
@@ -39,6 +49,8 @@ class Repeater extends FormWidgetBase
     {
         $this->fillFromConfig([
             'form',
+            'prompt',
+            'sortable',
         ]);
 
         $this->processExistingItems();
@@ -59,6 +71,8 @@ class Repeater extends FormWidgetBase
     public function prepareVars()
     {
         $this->vars['indexName'] = self::INDEX_PREFIX.$this->formField->getName(false).'[]';
+        $this->vars['prompt'] = $this->prompt;
+        $this->vars['formWidgets'] = $this->formWidgets;
     }
 
     /**
@@ -75,7 +89,7 @@ class Repeater extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
-        return array_values($value);
+        return (array) $value;
     }
 
     protected function processExistingItems()
