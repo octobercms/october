@@ -126,8 +126,9 @@
 
     SidePanelTab.prototype.hideSidePanel = function() {
         $(document.body).removeClass('display-side-panel')
-        if (this.$el.next('#layout-body').length == 0)
+        if (this.$el.next('#layout-body').length == 0) {
             $('#layout-body').before(this.$el)
+        }
 
         this.panelVisible = false
 
@@ -135,25 +136,30 @@
     }
 
     SidePanelTab.prototype.updatePanelPosition = function() {
-        if (!this.panelFixed() || Modernizr.touch)
+        if (!this.panelFixed() || Modernizr.touch) {
             this.$el.height($(document).height() - this.mainNavHeight)
-        else 
+        }
+        else {
             this.$el.css('height', '')
+        }
 
-        if (this.panelVisible && $(window).width() > this.options.breakpoint && this.panelFixed())
+        if (this.panelVisible && $(window).width() > this.options.breakpoint && this.panelFixed()) {
             this.hideSidePanel()
+        }
     }
 
     SidePanelTab.prototype.updateActiveTab = function() {
-        if (!this.panelVisible && ($(window).width() < this.options.breakpoint || !this.panelFixed()))
+        if (!this.panelVisible && ($(window).width() < this.options.breakpoint || !this.panelFixed())) {
             this.$sideNavItems.removeClass('active')
+        }
         else {
             this.$sideNavItems.filter('[data-menu-item='+this.visibleItemId+']').addClass('active')
         }
     }
 
     SidePanelTab.prototype.panelFixed = function() {
-        return !$(document.body).hasClass('side-panel-not-fixed')
+        return !($(window).width() < this.options.breakpoint) &&
+            !$(document.body).hasClass('side-panel-not-fixed')
     }
 
     SidePanelTab.prototype.fixPanel = function() {

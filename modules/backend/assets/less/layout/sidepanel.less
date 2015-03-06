@@ -46,9 +46,11 @@ body.display-side-panel {
     }
 }
 
-body.side-panel-fix-shadow {
-    #layout-side-panel {
-        .box-shadow(none);
+@media (min-width: @screen-md-min) {
+    body.side-panel-fix-shadow {
+        #layout-side-panel {
+            .box-shadow(none);
+        }
     }
 }
 

@@ -37,8 +37,8 @@
 
         this.$list.dragScroll({
             vertical: true,
-            start: function(){self.$list.addClass('drag')},
-            stop: function(){self.$list.removeClass('drag')},
+            start: function(){ self.$list.addClass('drag') },
+            stop: function(){ self.$list.removeClass('drag') },
             scrollClassContainer: self.$el,
             scrollMarkerContainer: self.$el
         })
