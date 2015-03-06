@@ -350,7 +350,6 @@ class ListController extends ControllerBehavior
          * Prepare CSV
          */
         $csv = Writer::createFromFileObject(new SplTempFileObject);
-        $csv->setNullHandlingMode(Writer::NULL_AS_EMPTY);
 
         /*
          * Add headers
