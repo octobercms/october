@@ -2295,8 +2295,8 @@ nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu.active{display:block}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu:after{content:'';display:block;width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-bottom:12px solid #3d3d3d;right:101px;top:-12px;position:absolute}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu ul{padding:12px 30px;float:none;display:block}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li{padding:0;font-weight:200;text-align:left;display:block}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li a{display:block;padding:9px 0;text-align:left;opacity:.65}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li a:hover{opacity:1}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li a{display:block;padding:9px 0;text-align:left;opacity:.9}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li a:hover{opacity:.6}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li.divider{height:1px;width:100%;margin:9px 0;overflow:hidden;background-color:transparent;border-top:1px solid #343434}
 @media (max-width:768px){nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu:after{right:71px}
 }
