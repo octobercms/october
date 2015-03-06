@@ -297,6 +297,10 @@
 
     $.fn.popup.Constructor = Popup
 
+    $.popup = function (option) {
+        return $('<a />').popup(option)
+    }
+
     // POPUP NO CONFLICT
     // =================
 
