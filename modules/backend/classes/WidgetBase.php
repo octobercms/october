@@ -52,13 +52,12 @@ abstract class WidgetBase
         $this->assetPath = $this->guessViewPath('/assets', true);
 
         /*
-         * Apply configuration values to a new config object.
+         * Apply configuration values to a new config object, if a parent
+         * consutrctor hasn't done it already.
          */
-        if (!$configuration) {
-            $configuration = [];
+        if ($this->config === null) {
+            $this->config = $this->makeConfig($configuration);
         }
-
-        $this->config = $this->makeConfig($configuration);
 
         /*
          * If no alias is set by the configuration.

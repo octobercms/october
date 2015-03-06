@@ -1,3 +1,8 @@
+* **Build 217** (2015-03-06)
+  - Added new form field widget called `repeater` for repeatable fields (see Backend > Forms docs).
+  - Made some UI improvements to the Rich Editor.
+  - Form widget base class no longer takes a model as the 2nd argument, it should be passed as `model` in the configuration instead.
+
 * **Build 214** (2015-03-03)
   - Introduce `AjaxException` that allows response contents to be sent to framework.js and still be treated as an error.
 

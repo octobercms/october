@@ -28,6 +28,10 @@ trait ConfigMaker
      */
     public function makeConfig($configFile = [], $requiredConfig = [])
     {
+        if (!$configFile) {
+            $configFile = [];
+        }
+
         /*
          * Config already made
          */

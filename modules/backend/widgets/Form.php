@@ -679,6 +679,9 @@ class Form extends WidgetBase
         $widgetConfig = $this->makeConfig($field->config);
         $widgetConfig->alias = $this->alias . studly_case(Str::evalHtmlId($field->fieldName));
         $widgetConfig->sessionKey = $this->getSessionKey();
+        $widgetConfig->previewMode = $this->previewMode;
+        $widgetConfig->model = $this->model;
+        $widgetConfig->data = $this->data;
 
         $widgetName = $widgetConfig->widget;
         $widgetClass = $this->widgetManager->resolveFormWidget($widgetName);
@@ -689,8 +692,7 @@ class Form extends WidgetBase
             ));
         }
 
-        $widget = new $widgetClass($this->controller, $this->model, $field, $widgetConfig);
-        $widget->previewMode = $this->previewMode;
+        $widget = new $widgetClass($this->controller, $field, $widgetConfig);
 
         return $this->formWidgets[$field->fieldName] = $widget;
     }
