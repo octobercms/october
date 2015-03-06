@@ -913,7 +913,9 @@ class Form extends WidgetBase
          * Refer to the model method or any of its behaviors
          */
         if (!is_array($fieldOptions) && !$fieldOptions) {
-            $methodName = 'get'.studly_case($field->fieldName).'Options';
+            $fieldName = str_replace('[', '', $field->fieldName);
+            $fieldName = str_replace(']', '', $fieldName);
+            $methodName = 'get'.studly_case($fieldName).'Options';
             if (
                 !$this->methodExists($this->model, $methodName) &&
                 !$this->methodExists($this->model, 'getDropdownOptions')
