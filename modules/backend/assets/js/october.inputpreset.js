@@ -1,7 +1,8 @@
 /*
  * An input preset converter.
  *
- * The API allows to convert text entered into an element to an URL or file name value in another input element.
+ * The API allows to convert text entered into an element to a URL, slug or file name
+ * value in another input element.
  *
  * Supported data attributes:
  * - data-input-preset: specifies a CSS selector for a source input element
