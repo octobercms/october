@@ -13,6 +13,8 @@
  *                  should satisfy in order the condition to be considered as "true".
  *       - value[somevalue]: determines if the value of data-trigger equals the specified value (somevalue)
  *                           the condition is considered "true".
+ * - data-trigger-closest-parent: optional, specifies a CSS selector for a closest common parent
+ *   for the source and destination input elements.
  *
  * Example: <input type="button" class="btn disabled"
  *             data-trigger-action="enable"
@@ -34,9 +36,6 @@
 
         this.options = options || {};
 
-        // @deprecated remove if year >= 2016
-        if (this.options.triggerType !== false && this.options.triggerAction === false) this.options.triggerAction = this.options.triggerType
-
         if (this.options.triggerCondition === false)
             throw new Error('Trigger condition is not specified.')
 
@@ -54,8 +53,13 @@
             this.triggerConditionValue = (match) ? match : ""
         }
 
-        if (this.triggerCondition == 'checked' || this.triggerCondition == 'value')
+        this.triggerParent = this.options.triggerClosestParent !== undefined
+            ? $el.closest(this.options.triggerClosestParent)
+            : undefined
+
+        if (this.triggerCondition == 'checked' || this.triggerCondition == 'value') {
             $(document).on('change', this.options.trigger, $.proxy(this.onConditionChanged, this))
+        }
 
         var self = this
         $el.on('oc.triggerOn.update', function(e){
@@ -68,10 +72,10 @@
 
     TriggerOn.prototype.onConditionChanged = function() {
         if (this.triggerCondition == 'checked') {
-            this.updateTarget($(this.options.trigger + ':checked').length > 0)
+            this.updateTarget($(this.options.trigger + ':checked', this.triggerParent).length > 0)
         }
         else if (this.triggerCondition == 'value') {
-            this.updateTarget($(this.options.trigger).val() == this.triggerConditionValue)
+            this.updateTarget($(this.options.trigger, this.triggerParent).val() == this.triggerConditionValue)
         }
     }
 
@@ -103,6 +107,7 @@
     TriggerOn.DEFAULTS = {
         triggerAction: false,
         triggerCondition: false,
+        triggerClosestParent: undefined,
         trigger: false
     }
 

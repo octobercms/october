@@ -191,9 +191,9 @@
         this.options = options || {}
         this.cancelled = false
 
-        var parent = options.inputPresetClosestParent !== undefined ?
-                $el.closest(options.inputPresetClosestParent) :
-                undefined,
+        var parent = options.inputPresetClosestParent !== undefined
+                ? $el.closest(options.inputPresetClosestParent)
+                : undefined,
             self = this,
             prefix = ''
 
