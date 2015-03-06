@@ -11,6 +11,7 @@
 =require october.utils.js
 =require october.triggerapi.js
 =require october.dragscroll.js
+=require october.dragvalue.js
 =require october.toolbar.js
 =require october.verticalmenu.js
 =require october.navbar.js

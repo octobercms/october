@@ -78,8 +78,8 @@ if(this.options.triggerAction===false)
 throw new Error('Trigger action is not specified.')
 this.triggerCondition=this.options.triggerCondition
 if(this.options.triggerCondition.indexOf('value')==0){var match=this.options.triggerCondition.match(/[^[\]]+(?=])/g)
-if(match){this.triggerConditionValue=match
-this.triggerCondition='value'}}
+this.triggerCondition='value'
+this.triggerConditionValue=(match)?match:""}
 if(this.triggerCondition=='checked'||this.triggerCondition=='value')
 $(document).on('change',this.options.trigger,$.proxy(this.onConditionChanged,this))
 var self=this
@@ -223,7 +223,64 @@ methodArgs.push(args[i])
 data[option].apply(data,methodArgs)}})}
 $.fn.dragScroll.Constructor=DragScroll
 $.fn.dragScroll.noConflict=function(){$.fn.dragScroll=old
-return this}}(window.jQuery);+function($){"use strict";var Toolbar=function(element,options){var
+return this}}(window.jQuery);+function($){"use strict";var DragValue=function(element,options){this.options=options
+this.$el=$(element)
+this.init()}
+DragValue.DEFAULTS={dragClick:false}
+DragValue.prototype.init=function(){this.$el.prop('draggable',true)
+this.textValue=this.$el.data('textValue')
+this.$el.on('dragstart',$.proxy(this.handleDragStart,this))
+this.$el.on('drop',$.proxy(this.handleDrop,this))
+this.$el.on('dragend',$.proxy(this.handleDragEnd,this))
+if(this.options.dragClick){this.$el.on('click',$.proxy(this.handleClick,this))
+this.$el.on('mouseover',$.proxy(this.handleMouseOver,this))}}
+DragValue.prototype.handleDragStart=function(event){var e=event.originalEvent
+e.dataTransfer.effectAllowed='all'
+e.dataTransfer.setData('text/plain',this.textValue)
+this.$el.css({opacity:0.5}).addClass('dragvalue-dragging')}
+DragValue.prototype.handleDrop=function(event){event.stopPropagation()
+return false}
+DragValue.prototype.handleDragEnd=function(event){this.$el.css({opacity:1}).removeClass('dragvalue-dragging')}
+DragValue.prototype.handleMouseOver=function(event){var el=document.activeElement
+if(!el)return
+if(el.isContentEditable||(el.tagName.toLowerCase()=='input'&&el.type=='text'||el.tagName.toLowerCase()=='textarea')){this.lastElement=el}}
+DragValue.prototype.handleClick=function(event){if(!this.lastElement)return
+var $el=$(this.lastElement)
+if($el.hasClass('ace_text-input'))
+return this.handleClickCodeEditor(event,$el)
+if(this.lastElement.isContentEditable)
+return this.handleClickContentEditable()
+this.insertAtCaret(this.lastElement,this.textValue)}
+DragValue.prototype.handleClickCodeEditor=function(event,$el){var $editorArea=$el.closest('[data-control=codeeditor]')
+if(!$editorArea.length)return
+$editorArea.codeEditor('getEditorObject').insert(this.textValue)}
+DragValue.prototype.handleClickContentEditable=function(){var sel,range,html;if(window.getSelection){sel=window.getSelection();if(sel.getRangeAt&&sel.rangeCount){range=sel.getRangeAt(0);range.deleteContents();range.insertNode(document.createTextNode(this.textValue));}}
+else if(document.selection&&document.selection.createRange){document.selection.createRange().text=this.textValue;}}
+DragValue.prototype.insertAtCaret=function(el,insertValue){if(document.selection){el.focus()
+sel=document.selection.createRange()
+sel.text=insertValue
+el.focus()}
+else if(el.selectionStart||el.selectionStart=='0'){var startPos=el.selectionStart,endPos=el.selectionEnd,scrollTop=el.scrollTop
+el.value=el.value.substring(0,startPos)+insertValue+el.value.substring(endPos,el.value.length)
+el.focus()
+el.selectionStart=startPos+insertValue.length
+el.selectionEnd=startPos+insertValue.length
+el.scrollTop=scrollTop}
+else{el.value+=insertValue
+el.focus()}}
+var old=$.fn.dragValue
+$.fn.dragValue=function(option){var args=Array.prototype.slice.call(arguments,1),result
+this.each(function(){var $this=$(this)
+var data=$this.data('oc.dragvalue')
+var options=$.extend({},DragValue.DEFAULTS,$this.data(),typeof option=='object'&&option)
+if(!data)$this.data('oc.dragvalue',(data=new DragValue(this,options)))
+if(typeof option=='string')result=data[option].apply(data,args)
+if(typeof result!='undefined')return false})
+return result?result:this}
+$.fn.dragValue.Constructor=DragValue
+$.fn.dragValue.noConflict=function(){$.fn.dragValue=old
+return this}
+$(document).render(function(){$('[data-control="dragvalue"]').dragValue()});}(window.jQuery);+function($){"use strict";var Toolbar=function(element,options){var
 $el=this.$el=$(element),$toolbar=$el.closest('.control-toolbar')
 this.options=options||{};var scrollClassContainer=options.scrollClassContainer!==undefined?options.scrollClassContainer:$el.parent()
 $el.dragScroll({scrollClassContainer:scrollClassContainer})
@@ -697,6 +754,7 @@ if(!data)$this.data('oc.popup',(data=new Popup(this,options)))
 else if(typeof option=='string')data[option].apply(data,args)
 else data.reload()})}
 $.fn.popup.Constructor=Popup
+$.popup=function(option){return $('<a />').popup(option)}
 $.fn.popup.noConflict=function(){$.fn.popup=old
 return this}
 $(document).on('click.oc.popup','[data-control="popup"]',function(){$(this).popup()
@@ -1058,7 +1116,7 @@ if(!data)$this.data('oc.inputPreset',(data=new InputPreset(this,options)))})}
 $.fn.inputPreset.Constructor=InputPreset
 $.fn.inputPreset.noConflict=function(){$.fn.inputPreset=old
 return this}
-$(document).render(function(){$('[data-input-preset]').inputPreset()})}(window.jQuery);(function($){var OctoberLayout=function(){}
+$(document).render(function(){$('[data-input-preset]').inputPreset()})}(window.jQuery);(function($){var OctoberLayout=function(){this.$accountMenuOverlay=null}
 OctoberLayout.prototype.setPageTitle=function(title){var $title=$('title')
 if(this.pageTitleTemplate===undefined)
 this.pageTitleTemplate=$title.data('titleTemplate')
@@ -1067,6 +1125,14 @@ OctoberLayout.prototype.updateLayout=function(title){$('.layout-cell.width-fix')
 $el.data('oc.layoutMargin',margin)}
 $(this).width($el.get(0).offsetWidth+margin)
 $(this).trigger('oc.widthFixed')}})}
+OctoberLayout.prototype.toggleAccountMenu=function(el){var self=this,$menu=$(el).next()
+if($menu.hasClass('active')){self.$accountMenuOverlay.remove()
+$menu.removeClass('active')}
+else{self.$accountMenuOverlay=$('<div />').addClass('popover-overlay')
+$(document.body).append(self.$accountMenuOverlay)
+$menu.addClass('active')
+self.$accountMenuOverlay.one('click',function(){self.$accountMenuOverlay.remove()
+$menu.removeClass('active')})}}
 if($.oc===undefined)
 $.oc={}
 $.oc.layout=new OctoberLayout()
@@ -1121,20 +1187,15 @@ this.$el.css({left:this.sideNavWidth,top:this.mainNavHeight})
 this.updatePanelPosition()
 $(window).trigger('resize')}
 SidePanelTab.prototype.hideSidePanel=function(){$(document.body).removeClass('display-side-panel')
-if(this.$el.next('#layout-body').length==0)
-$('#layout-body').before(this.$el)
+if(this.$el.next('#layout-body').length==0){$('#layout-body').before(this.$el)}
 this.panelVisible=false
 this.updateActiveTab()}
-SidePanelTab.prototype.updatePanelPosition=function(){if(!this.panelFixed()||Modernizr.touch)
-this.$el.height($(document).height()-this.mainNavHeight)
-else
-this.$el.css('height','')
-if(this.panelVisible&&$(window).width()>this.options.breakpoint&&this.panelFixed())
-this.hideSidePanel()}
-SidePanelTab.prototype.updateActiveTab=function(){if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed()))
-this.$sideNavItems.removeClass('active')
+SidePanelTab.prototype.updatePanelPosition=function(){if(!this.panelFixed()||Modernizr.touch){this.$el.height($(document).height()-this.mainNavHeight)}
+else{this.$el.css('height','')}
+if(this.panelVisible&&$(window).width()>this.options.breakpoint&&this.panelFixed()){this.hideSidePanel()}}
+SidePanelTab.prototype.updateActiveTab=function(){if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed())){this.$sideNavItems.removeClass('active')}
 else{this.$sideNavItems.filter('[data-menu-item='+this.visibleItemId+']').addClass('active')}}
-SidePanelTab.prototype.panelFixed=function(){return!$(document.body).hasClass('side-panel-not-fixed')}
+SidePanelTab.prototype.panelFixed=function(){return!($(window).width()<this.options.breakpoint)&&!$(document.body).hasClass('side-panel-not-fixed')}
 SidePanelTab.prototype.fixPanel=function(){$(document.body).toggleClass('side-panel-not-fixed')
 var self=this
 window.setTimeout(function(){var fixed=self.panelFixed()

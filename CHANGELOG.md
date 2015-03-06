@@ -1,4 +1,5 @@
 * **Build 217** (2015-03-06)
+  - Improvements made to the user menu in the back-end: clicking your avatar will display a popover with settings links from the `mysettings` context.
   - Added new form field widget called `repeater` for repeatable fields (see Backend > Forms docs).
   - Made some UI improvements to the Rich Editor.
   - Form widget base class no longer takes a model as the 2nd argument, it should be passed as `model` in the configuration instead.
