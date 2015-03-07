@@ -125,15 +125,8 @@ abstract class FormWidgetBase extends WidgetBase
      */
     public function resolveModelAttribute($attribute)
     {
-        $model = $this->model;
         $parts = Str::evalHtmlArray($attribute);
-        $last = array_pop($parts);
-
-        foreach ($parts as $part) {
-            $model = $model->{$part};
-        }
-
-        return [$model, $last];
+        return $this->model->resolveAttribute($parts);
     }
 
 }
