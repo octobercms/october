@@ -14,10 +14,9 @@ fields:
         span: right
         placeholder: /
         label: cms::lang.editor.url
-        attributes:
-            data-input-preset: 'input[name="settings[title]"]'
-            data-input-preset-type: url
-            data-input-preset-closest-parent: form
+        preset:
+            field: settings[title]
+            type: url
 
     toolbar:
         type: partial
@@ -32,10 +31,9 @@ tabs:
             tab: cms::lang.editor.settings
             span: left
             label: cms::lang.editor.filename
-            attributes:
-                data-input-preset: 'input[name="settings[title]"]'
-                data-input-preset-type: file
-                data-input-preset-closest-parent: form
+            preset:
+                field: settings[title]
+                type: file
 
         settings[layout]:
             tab: cms::lang.editor.settings

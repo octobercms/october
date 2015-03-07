@@ -69,7 +69,8 @@ if($.oc===undefined)
 $.oc={}
 $.oc.escapeHtmlString=function(string){var htmlEscapes={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;','/':'&#x2F;'},htmlEscaper=/[&<>"'\/]/g
 return(''+string).replace(htmlEscaper,function(match){return htmlEscapes[match];})}
-+function($){"use strict";var TriggerOn=function(element,options){var $el=this.$el=$(element);this.options=options||{};if(this.options.triggerCondition===false)
++function($){"use strict";var TriggerOn=function(element,options){var $el=this.$el=$(element);this.options=options||{};if(this.options.triggerType!==false&&this.options.triggerAction===false)this.options.triggerAction=this.options.triggerType
+if(this.options.triggerCondition===false)
 throw new Error('Trigger condition is not specified.')
 if(this.options.trigger===false)
 throw new Error('Trigger selector is not specified.')
