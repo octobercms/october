@@ -177,7 +177,7 @@ return [
         'core_downloading' => 'Downloading application files',
         'core_extracting' => 'Unpacking application files',
         'plugins' => 'Plugins',
-        'disabled' => 'Disabled:',
+        'disabled' => 'Disabled',
         'plugin_downloading' => 'Downloading plugin: :name',
         'plugin_extracting' => 'Unpacking plugin: :name',
         'plugin_version_none' => 'New plugin',
