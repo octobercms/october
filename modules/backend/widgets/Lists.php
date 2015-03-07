@@ -763,11 +763,11 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if ($response = Event::fire('backend.list.overrideColumnValue', [$this, $record, $column, $value], true)) {
+        if (!is_null($response = Event::fire('backend.list.overrideColumnValue', [$this, $record, $column, $value], true))) {
             $value = $response;
         }
 
-        if ($response = $this->fireEvent('list.overrideColumnValue', [$record, $column, $value], true)) {
+        if (!is_null($response = $this->fireEvent('list.overrideColumnValue', [$record, $column, $value], true))) {
             $value = $response;
         }
 
