@@ -1,6 +1,6 @@
 <?php namespace Backend\Classes;
 
-use Str;
+use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * Filter scope definition
@@ -159,6 +159,6 @@ class FilterScope
             $id = $this->idPrefix . '-' . $id;
         }
 
-        return Str::evalHtmlId($id);
+        return HtmlHelper::nameToId($id);
     }
 }

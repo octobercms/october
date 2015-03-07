@@ -1,7 +1,6 @@
 <?php namespace Backend\Widgets;
 
 use App;
-use Str;
 use Lang;
 use Input;
 use Event;
@@ -13,6 +12,7 @@ use Backend\Classes\WidgetManager;
 use ApplicationException;
 use Backend\Classes\FormWidgetBase;
 use October\Rain\Database\Model;
+use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * Form Widget
@@ -677,7 +677,7 @@ class Form extends WidgetBase
         }
 
         $widgetConfig = $this->makeConfig($field->config);
-        $widgetConfig->alias = $this->alias . studly_case(Str::evalHtmlId($field->fieldName));
+        $widgetConfig->alias = $this->alias . studly_case(HtmlHelper::nameToId($field->fieldName));
         $widgetConfig->sessionKey = $this->getSessionKey();
         $widgetConfig->previewMode = $this->previewMode;
         $widgetConfig->model = $this->model;
@@ -833,7 +833,7 @@ class Form extends WidgetBase
             /*
              * Handle HTML array, eg: item[key][another]
              */
-            $parts = Str::evalHtmlArray($field->fieldName);
+            $parts = HtmlHelper::nameToArray($field->fieldName);
             $dotted = implode('.', $parts);
             if (($value = array_get($data, $dotted)) !== null) {
                 $value = !strlen(trim($value)) ? null : (float) $value;
@@ -845,7 +845,7 @@ class Form extends WidgetBase
          * Give widgets an opportunity to process the data.
          */
         foreach ($this->formWidgets as $field => $widget) {
-            $parts = Str::evalHtmlArray($field);
+            $parts = HtmlHelper::nameToArray($field);
             $dotted = implode('.', $parts);
 
             $widgetValue = $widget->getSaveValue(array_get($data, $dotted));
@@ -865,7 +865,7 @@ class Form extends WidgetBase
             /*
              * Get the value, remove it from the data collection
              */
-            $parts = Str::evalHtmlArray($field->fieldName);
+            $parts = HtmlHelper::nameToArray($field->fieldName);
             $dotted = implode('.', $parts);
             $value = array_get($data, $dotted);
             array_forget($data, $dotted);
@@ -873,7 +873,7 @@ class Form extends WidgetBase
             /*
              * Set the new value to the data collection
              */
-            $parts = Str::evalHtmlArray($field->valueFrom);
+            $parts = HtmlHelper::nameToArray($field->valueFrom);
             $dotted = implode('.', $parts);
             array_set($remappedFields, $dotted, $value);
         }

@@ -2,8 +2,9 @@
 
 use Str;
 use File;
-use stdClass;
 use Session;
+use October\Rain\Html\Helper as HtmlHelper;
+use stdClass;
 
 /**
  * Widget base class.
@@ -154,7 +155,7 @@ abstract class WidgetBase
             $id .= '-' . $suffix;
         }
 
-        return Str::evalHtmlId($id);
+        return HtmlHelper::nameToId($id);
     }
 
     /**
@@ -178,7 +179,7 @@ abstract class WidgetBase
         /*
          * Array field name, eg: field[key][key2][key3]
          */
-        $keyParts = Str::evalHtmlArray($name);
+        $keyParts = HtmlHelper::nameToArray($name);
 
         /*
          * First part will be the field name, pop it off

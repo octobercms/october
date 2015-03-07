@@ -2,7 +2,6 @@
 
 use Db;
 use HTML as Html;
-use Str;
 use App;
 use Lang;
 use Input;
@@ -10,6 +9,7 @@ use Event;
 use Backend;
 use DbDongle;
 use Carbon\Carbon;
+use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
@@ -736,7 +736,7 @@ class Lists extends WidgetBase
          * Handle taking value from model attribute.
          */
         elseif ($column->valueFrom) {
-            $keyParts = Str::evalHtmlArray($column->valueFrom);
+            $keyParts = HtmlHelper::nameToArray($column->valueFrom);
             $value = $record;
             foreach ($keyParts as $key) {
                 $value = $value->{$key};

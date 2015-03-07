@@ -1,8 +1,8 @@
 <?php namespace Backend\Classes;
 
-use Str;
 use Html;
 use Model;
+use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * Form Field definition
@@ -410,7 +410,7 @@ class FormField
             return $attributes;
 
         if ($this->arrayName) {
-            $fullTriggerField = $this->arrayName.'['.implode('][', Str::evalHtmlArray($triggerField)).']';
+            $fullTriggerField = $this->arrayName.'['.implode('][', HtmlHelper::nameToArray($triggerField)).']';
         }
         else {
             $fullTriggerField = $triggerField;
@@ -446,7 +446,7 @@ class FormField
         $presetType = array_get($this->preset, 'type');
 
         if ($this->arrayName) {
-            $fullPresetField = $this->arrayName.'['.implode('][', Str::evalHtmlArray($presetField)).']';
+            $fullPresetField = $this->arrayName.'['.implode('][', HtmlHelper::nameToArray($presetField)).']';
         }
         else {
             $fullPresetField = $presetField;
@@ -478,7 +478,7 @@ class FormField
         }
 
         if ($arrayName) {
-            return $arrayName.'['.implode('][', Str::evalHtmlArray($this->fieldName)).']';
+            return $arrayName.'['.implode('][', HtmlHelper::nameToArray($this->fieldName)).']';
         }
         else {
             return $this->fieldName;
@@ -505,7 +505,7 @@ class FormField
             $id = $this->idPrefix . '-' . $id;
         }
 
-        return Str::evalHtmlId($id);
+        return HtmlHelper::nameToId($id);
     }
 
     /**
@@ -521,7 +521,7 @@ class FormField
         /*
          * Array field name, eg: field[key][key2][key3]
          */
-        $keyParts = Str::evalHtmlArray($fieldName);
+        $keyParts = HtmlHelper::nameToArray($fieldName);
         $lastField = end($keyParts);
         $result = $data;
 

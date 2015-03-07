@@ -1,6 +1,6 @@
 <?php namespace Backend\Classes;
 
-use Str;
+use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * Form Widget base class
@@ -93,7 +93,7 @@ abstract class FormWidgetBase extends WidgetBase
     {
         $id = parent::getId($suffix);
         $id .= '-' . $this->fieldName;
-        return Str::evalHtmlId($id);
+        return HtmlHelper::nameToId($id);
     }
 
     /**
@@ -125,7 +125,7 @@ abstract class FormWidgetBase extends WidgetBase
      */
     public function resolveModelAttribute($attribute)
     {
-        $parts = Str::evalHtmlArray($attribute);
+        $parts = HtmlHelper::nameToArray($attribute);
         return $this->model->resolveAttribute($parts);
     }
 
