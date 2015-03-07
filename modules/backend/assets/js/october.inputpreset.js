@@ -10,6 +10,8 @@
  *   for the source and destination input elements.
  * - data-input-preset-type: specifies the conversion type. Supported values are:
  *   url, file, slug, camel.
+ * - data-input-preset-prefix-input: optional, prefixes the converted value with the value found
+ *   in the supplied input element using a CSS selector.
  *
  * Example: <input type="text" id="name" value=""/>
  *          <input type="text"

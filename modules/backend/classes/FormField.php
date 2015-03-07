@@ -458,6 +458,10 @@ class FormField
             'data-input-preset-closest-parent' => 'form'
         ];
 
+        if ($prefixInput = array_get($this->preset, 'prefixInput')) {
+            $newAttributes['data-input-preset-prefix-input'] = $prefixInput;
+        }
+
         $attributes = $attributes + $newAttributes;
         return $attributes;
     }
