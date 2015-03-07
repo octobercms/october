@@ -1,3 +1,6 @@
+* **Build 21x** (2015-03-xx)
+  - Form fields can now use a simpler interface for using the Input preset converter (see Backend > Forms docs).
+
 * **Build 217** (2015-03-06)
   - Improvements made to the user menu in the back-end: clicking your avatar will display a popover with settings links from the `mysettings` context.
   - Added new form field widget called `repeater` for repeatable fields (see Backend > Forms docs).

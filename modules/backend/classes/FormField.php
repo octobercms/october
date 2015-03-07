@@ -435,8 +435,12 @@ class FormField
      */
     protected function filterPresetAttributes($attributes, $position = 'field')
     {
-        if (!$this->preset || !is_array($this->preset) || $position != 'field')
+        if (!$this->preset || $position != 'field')
             return $attributes;
+
+        if (!is_array($this->preset)) {
+            $this->preset = ['field' => $this->preset, 'type' => 'slug'];
+        }
 
         $presetField = array_get($this->preset, 'field');
         $presetType = array_get($this->preset, 'type');
