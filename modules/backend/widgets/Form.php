@@ -913,22 +913,25 @@ class Form extends WidgetBase
          * Refer to the model method or any of its behaviors
          */
         if (!is_array($fieldOptions) && !$fieldOptions) {
-            $methodName = 'get'.studly_case($field->fieldName).'Options';
+            $htmlArray = HtmlHelper::nameToArray($field->fieldName);
+            list($model, $attribute) = $this->model->resolveAttribute($htmlArray);
+
+            $methodName = 'get'.studly_case($attribute).'Options';
             if (
-                !$this->methodExists($this->model, $methodName) &&
-                !$this->methodExists($this->model, 'getDropdownOptions')
+                !$this->methodExists($model, $methodName) &&
+                !$this->methodExists($model, 'getDropdownOptions')
             ) {
                 throw new ApplicationException(Lang::get(
                     'backend::lang.field.options_method_not_exists',
-                    ['model'=>get_class($this->model), 'method'=>$methodName, 'field'=>$field->fieldName]
+                    ['model'=>get_class($model), 'method'=>$methodName, 'field'=>$field->fieldName]
                 ));
             }
 
-            if ($this->methodExists($this->model, $methodName)) {
-                $fieldOptions = $this->model->$methodName($field->value);
+            if ($this->methodExists($model, $methodName)) {
+                $fieldOptions = $model->$methodName($field->value);
             }
             else {
-                $fieldOptions = $this->model->getDropdownOptions($field->fieldName, $field->value);
+                $fieldOptions = $model->getDropdownOptions($attribute, $field->value);
             }
         }
         /*
