@@ -557,4 +557,26 @@ class FormField
 
         return $result;
     }
+
+    /**
+     * Returns the final model and attribute name of a nested attribute.
+     * Eg: list($model, $attribute) = $this->resolveAttribute('person[phone]');
+     * @param  string $attribute.
+     * @return array
+     */
+    public function resolveModelAttribute($model, $attribute = null)
+    {
+        if ($attribute === null) {
+            $attribute = $this->valueFrom ?: $this->fieldName;
+        }
+
+        $parts = is_array($attribute) ? $attribute : HtmlHelper::nameToArray($attribute);
+        $last = array_pop($parts);
+
+        foreach ($parts as $part) {
+            $model = $model->{$part};
+        }
+
+        return [$model, $last];
+    }
 }

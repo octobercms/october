@@ -125,8 +125,7 @@ abstract class FormWidgetBase extends WidgetBase
      */
     public function resolveModelAttribute($attribute)
     {
-        $parts = HtmlHelper::nameToArray($attribute);
-        return $this->model->resolveAttribute($parts);
+        return $this->formField->resolveModelAttribute($this->model, $attribute);
     }
 
 }

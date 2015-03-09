@@ -913,8 +913,7 @@ class Form extends WidgetBase
          * Refer to the model method or any of its behaviors
          */
         if (!is_array($fieldOptions) && !$fieldOptions) {
-            $htmlArray = HtmlHelper::nameToArray($field->fieldName);
-            list($model, $attribute) = $this->model->resolveAttribute($htmlArray);
+            list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
 
             $methodName = 'get'.studly_case($attribute).'Options';
             if (
