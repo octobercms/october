@@ -42,6 +42,11 @@ class Router
     protected $theme;
 
     /**
+     * @var string The last URL to be looked up using findByUrl().
+     */
+    protected $url;
+
+    /**
      * @var array A list of parameters names and values extracted from the URL pattern and URL string.
      */
     protected $parameters = [];
@@ -49,12 +54,12 @@ class Router
     /**
      * @var array Contains the URL map - the list of page file names and corresponding URL patterns.
      */
-    private static $urlMap = [];
+    protected static $urlMap = [];
 
     /**
      * October\Rain\Router\Router Router object with routes preloaded.
      */
-    private static $routerObj;
+    protected static $routerObj;
 
     /**
      * Creates the router instance.
@@ -72,6 +77,7 @@ class Router
      */
     public function findByUrl($url)
     {
+        $this->url = $url;
         $url = RouterHelper::normalizeUrl($url);
 
         $apiResult = Event::fire('cms.router.beforeRoute', [$url], true);
@@ -266,6 +272,15 @@ class Router
     public function getParameters()
     {
         return $this->parameters;
+    }
+
+    /**
+     * Returns the last URL to be looked up.
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 
     /**

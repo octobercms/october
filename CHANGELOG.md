@@ -1,5 +1,6 @@
 * **Build 21x** (2015-03-xx)
   - Form fields can now use a simpler interface for using the Input preset converter (see Backend > Forms docs).
+  - The event `cms.page.init` no longer passes the URL as the third parameter, `$controller->getRouter()->getUrl()` should be used instead.
 
 * **Build 217** (2015-03-06)
   - Improvements made to the user menu in the back-end: clicking your avatar will display a popover with settings links from the `mysettings` context.
