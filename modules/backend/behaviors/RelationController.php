@@ -943,7 +943,7 @@ class RelationController extends ControllerBehavior
             $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', !$this->readOnly);
 
             $defaultOnClick = sprintf(
-                "$.oc.relationBehavior.clickViewListRecord(:id, '%s', '%s')",
+                "$.oc.relationBehavior.clickViewListRecord(':id', '%s', '%s')",
                 $this->field,
                 $this->relationGetSessionKey()
             );
