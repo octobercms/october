@@ -3,6 +3,7 @@
 composer.lock
 composer.phar
 .DS_Store
+.idea
 php_errors.log
 nginx-error.log
 nginx-access.log

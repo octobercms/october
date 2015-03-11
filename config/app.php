@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -111,12 +111,12 @@ return array(
     |
     */
 
-    'providers' => array_merge(include(base_path().'/modules/system/providers.php'), array(
+    'providers' => array_merge(include(base_path().'/modules/system/providers.php'), [
 
         // 'Illuminate\Html\HtmlServiceProvider', // Example
 
         'System\ServiceProvider',
-    )),
+    ]),
 
     /*
     |--------------------------------------------------------------------------
@@ -129,10 +129,10 @@ return array(
     |
     */
 
-    'aliases' => array_merge(include(base_path().'/modules/system/aliases.php'), array(
+    'aliases' => array_merge(include(base_path().'/modules/system/aliases.php'), [
 
         // 'Str' => 'Illuminate\Support\Str', // Example
 
-    )),
+    ]),
 
-);
+];
