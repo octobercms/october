@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -250,4 +250,4 @@ return array(
 
     'defaultMask' => ['file' => null, 'folder' => null],
 
-);
+];
