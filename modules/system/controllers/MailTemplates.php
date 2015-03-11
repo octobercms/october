@@ -8,7 +8,6 @@ use Flash;
 use Backend;
 use Redirect;
 use BackendMenu;
-use BackendAuth;
 use Backend\Classes\Controller;
 use System\Models\MailTemplate;
 use ApplicationException;
@@ -57,7 +56,7 @@ class MailTemplates extends Controller
     {
         try {
             $model = $this->formFindModelObject($recordId);
-            $user = BackendAuth::getUser();
+            $user = $this->user;
 
             Mail::sendTo([$user->email => $user->full_name], $model->code);
 
