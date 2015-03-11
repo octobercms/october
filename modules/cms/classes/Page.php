@@ -99,10 +99,16 @@ class Page extends CmsCompoundObject
     /**
      * Helper that makes a URL for a page in the active theme.
      * @param mixed $page Specifies the Cms Page file name.
+     * @param array $params Route parameters to consider in the URL.
      * @return string
      */
     public static function url($page, $params = [], $absolute = true)
     {
+        /* @deprecated remove if year >= 2016 -- remove 3rd argument */
+        if ($absolute !== true) {
+            traceLog('Deprecated warning: Third argument of Page::url() has no affect, consider removing it.');
+        }
+
         /*
          * Reuse existing controller or create a new one,
          * assuming that the method is called not during the front-end
@@ -113,7 +119,7 @@ class Page extends CmsCompoundObject
             $controller = new Controller;
         }
 
-        return $controller->pageUrl($page, $params, true, $absolute);
+        return $controller->pageUrl($page, $params, true);
     }
 
     /**

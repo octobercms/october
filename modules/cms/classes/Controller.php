@@ -6,6 +6,7 @@ use App;
 use File;
 use View;
 use Lang;
+use Route;
 use Event;
 use Config;
 use Session;
@@ -203,7 +204,7 @@ class Controller
         /*
          * Run the page
          */
-        $result = $this->runPage($page, $this->router->getParameters());
+        $result = $this->runPage($page);
 
         /*
          * Extensibility
@@ -226,27 +227,27 @@ class Controller
      * Renders a page in its entirety, including component initialization.
      * AJAX will be disabled for this process.
      * @param string $pageFile Specifies the CMS page file name to run.
-     * @param array  $params  Routing parameters. 
+     * @param array  $parameters  Routing parameters. 
      * @param \Cms\Classes\Theme  $theme  Theme object
      */
-    public static function render($pageFile, $params = [], $theme = null)
+    public static function render($pageFile, $parameters = [], $theme = null)
     {
         if (!$theme && (!$theme = Theme::getActiveTheme())) {
             throw new CmsException(Lang::get('cms::lang.theme.active.not_found'));
         }
 
         $controller = new static($theme);
+        $controller->getRouter()->setParameters($parameters);
         $page = Page::load($theme, $pageFile);
-        return $controller->runPage($page, $params, false);
+        return $controller->runPage($page, false);
     }
 
     /**
      * Runs a page directly from its object and supplied parameters.
      * @param \Cms\Classes\Page $page Specifies the CMS page to run.
-     * @param array  $params  Routing parameters.
      * @return string
      */
-    public function runPage($page, $params = [], $useAjax = true)
+    public function runPage($page, $useAjax = true)
     {
         $this->page = $page;
 
@@ -270,7 +271,7 @@ class Controller
             'page'        => $this->page,
             'layout'      => $this->layout,
             'theme'       => $this->theme,
-            'param'       => $params,
+            'param'       => $this->router->getParameters(),
             'controller'  => $this,
             'environment' => App::environment(),
             'session'     => App::make('session'),
@@ -697,7 +698,7 @@ class Controller
      * Renders a requested partial.
      * The framework uses this method internally.
      * @param string $partial The view to load.
-     * @param array $params Parameter variables to pass to the view.
+     * @param array $parameters Parameter variables to pass to the view.
      * @param bool $throwException Throw an exception if the partial is not found.
      * @return mixed Partial contents or false if not throwing an exception.
      */
@@ -1019,11 +1020,9 @@ class Controller
      * @param mixed $name Specifies the Cms Page file name.
      * @param array $parameters Route parameters to consider in the URL.
      * @param bool $routePersistence By default the existing routing parameters will be included
-     * @param bool $absolute If True - create absolute URL path, if False - create relative URL path
-     * when creating the URL, set to false to disable this feature.
      * @return string
      */
-    public function pageUrl($name, $parameters = [], $routePersistence = true, $absolute = true)
+    public function pageUrl($name, $parameters = [], $routePersistence = true)
     {
         if (!$name) {
             return null;
@@ -1049,7 +1048,15 @@ class Controller
             $url = substr($url, 1);
         }
 
-        return URL::action('Cms\Classes\Controller@run', ['slug' => $url], $absolute);
+        $routeAction = 'Cms\Classes\Controller@run';
+        $actionExists = Route::getRoutes()->getByAction($routeAction) !== null;
+
+        if ($actionExists) {
+            return URL::action($routeAction, ['slug' => $url]);
+        }
+        else {
+            return URL::to($url);
+        }
     }
 
     /**
