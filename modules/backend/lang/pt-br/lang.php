@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'auth' => [
+        'title' => 'Área de Administração'
+    ],
     'field' => [
         'invalid_type' => 'Tipo de campo inválido utilizado :type.',
         'options_method_not_exists' => 'A classe do modelo :model deve definir um método :method() retornando opções pro campo ":field".',
@@ -62,6 +65,7 @@ return [
         'status' => [
             'widget_title_default' => 'Condição do Sistema',
             'online' => 'online',
+            'maintenance' => 'em manutenção',
             'update_available' => '{0} atualizações disponíveis!|{1} atualização disponível!|[2,Inf] atualizações disponíveis!',
         ]
     ],
@@ -81,6 +85,7 @@ return [
         'avatar' => "Foto",
         'password' => "Senha",
         'password_confirmation' => "Confirme a senha",
+        'permissions' => 'Permissões',
         'superuser' => "Super Usuário",
         'superuser_comment' => "Marque essa caixa para liberar o acesso completo para este usuário.",
         'send_invite' => 'Enviar convite por e-mail',
@@ -93,6 +98,10 @@ return [
         'group' => [
             'name' => 'Grupo',
             'name_field' => 'Nome',
+            'description_field' => 'Descrição',
+            'is_new_user_default_field' => 'Adicionar novos administradores para este grupo por padrão',
+            'code_field' => 'Código',
+            'code_comment' => 'Insira um código único, se você quiser acessá-lo com a API.',
             'menu_label' => 'Grupos',
             'list_title' => 'Gerenciar grupos',
             'new' => 'Novo grupo administrador',
@@ -120,7 +129,11 @@ return [
         'setup_title' => 'Configuração da Lista',
         'setup_help' => 'Utilize as caixas para selecionar as colunas que deseja ver na lista. Você pode alterar as posições das colunas arrastando-as para cima ou para baixo.',
         'records_per_page' => 'Registros por página',
-        'records_per_page_help' => 'Selecione o número de registros por página a serem exibidos. Mas, atenção! Números elevados podem prejudicar a performance do sistema.'
+        'records_per_page_help' => 'Selecione o número de registros por página a serem exibidos. Mas, atenção! Números elevados podem prejudicar a performance do sistema.',
+        'delete_selected' => 'Deletar selecionado',
+        'delete_selected_empty' => 'Não há registros selecionados para excluir.',
+        'delete_selected_confirm' => 'Excluir os registros selecionados?',
+        'delete_selected_success' => 'Registros selecionados excluidos com sucesso.',
     ],
     'fileupload' => [
         'attachment' => 'Anexo',
@@ -139,21 +152,30 @@ return [
         'missing_model' => 'Formulário utilizado na classe :class não tem um modelo definido.',
         'missing_definition' => "Formulário não contém um campo ':field'.",
         'not_found' => 'Nenhum registro encontrado com o ID :id',
+        'action_confirm' => 'Você tem certeza?',
         'create' => 'Criar',
         'create_and_close' => 'Criar e sair',
         'creating' => 'Criando...',
+        'creating_name' => 'Criando :name...',
         'save' => 'Salvar',
         'save_and_close' => 'Salvar e fechar',
         'saving' => 'Salvando...',
+        'saving_name' => 'Salvando :name...',
         'delete' => 'Apagar',
         'deleting' => 'Apagando...',
+        'deleting_name' => 'Apagando :name...',
+        'reset_default' => 'Redefinir para o padrão',
+        'resetting' => 'Redefinindo',
+        'resetting_name' => 'Redefinindo :name',
         'undefined_tab' => 'Outros',
-        'field_off' => 'Off',
-        'field_on' => 'On',
+        'field_off' => 'Desligado',
+        'field_on' => 'Ligado',
         'add' => 'Adicionar',
         'apply' => 'Aplicar',
         'cancel' => 'Cancelar',
         'close' => 'Fechar',
+        'confirm' => 'Confirmar',
+        'reload' => 'Recarregar',
         'ok' => 'Ok',
         'or' => 'ou',
         'confirm_tab_close' => 'Tem certeza que deseja fechar essa aba? As alterações que não foram salvas serão perdidas',
@@ -164,9 +186,12 @@ return [
         'select_none' => 'nenhum',
         'select_placeholder' => 'por favor, selecione',
         'insert_row' => 'Inserir linha',
-        'delete_row' => 'Excluir linha'
+        'delete_row' => 'Excluir linha',
+        'concurrency_file_changed_title' => 'O arquivo foi alterado',
+        'concurrency_file_changed_description' => "O arquivo que você está editando foi alterado por outro usuário. Você pode recarregar o arquivo e perder suas alterações ou substituir o arquivo."
     ],
     'relation' => [
+        'missing_config' => "Comportamento de relação não tem qualquer configuração ':config'.",
         'missing_definition' => "Relacionamento não contém uma definição para ':field'.",
         'missing_model' => "Relacionamento utilizado na classe :class não possui um modelo definido.",
         'invalid_action_single' => "Essa ação não pode ser realizada num relacionamento singular.",
@@ -176,23 +201,34 @@ return [
         'add' => "Adicionar",
         'add_selected' => "Adicionar seleção",
         'add_a_new' => "Adicionar um(a) novo(a) :name",
+        'link_selected' => "Vincular selecionado",
+        'link_a_new' => "Vincular um novo :name",
         'cancel' => "Cancelar",
+        'close' => "Fechar",
         'add_name' => "Adicionar :name",
         'create' => "Criar",
         'create_name' => "Criar :name",
         'update' => "Atualizar",
         'update_name' => "Atualizar :name",
+        'preview' => "Visualizar",
+        'preview_name' => "Visualizar :name",
         'remove' => "Remover",
         'remove_name' => "Remover :name",
         'delete' => "Excluir",
         'delete_name' => "Excluir :name",
         'delete_confirm' => "Você tem certeza?",
+        'link' => "Vincular",
+        'link_name' => "Vincular :name",
+        'unlink' => "Desvincular",
+        'unlink_name' => "Desvincular :name",
+        'unlink_confirm' => "Você tem certeza?",
     ],
     'model' => [
         'name' => "Modelo",
         'not_found' => "Modelo ':class' com ID :id não foi encontrado",
         'missing_id' => "ID do registro não especificado.",
         'missing_relation' => "Modelo ':class' não contém uma definição para o relacionamento ':relation'.",
+        'missing_method' => "Modelo ':class' não contém o método ':method'.",
         'invalid_class' => "Modelo :model utilizado na classe :class não é válido. É necessário herdar a classe \Model.",
         'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
     ],
@@ -227,6 +263,24 @@ return [
         'menu_description' => 'Atualize os detalhes da sua conta, como nome, endereço de e-mail e senha.',
         'menu_keywords' => 'login de segurança'
     ],
+    'branding' => [
+        'menu_label' => 'Personalize back-end',
+        'menu_description' => 'Personalize a área de administração, tais como nome, cores e logo.',
+        'brand' => 'Marca',
+        'logo' => 'Logo',
+        'logo_description' => 'Fazer upload de um logo personalizada para usar no back-end.',
+        'app_name' => 'Nome do Aplicativo',
+        'app_name_description' => 'Este nome é mostrado no título da área no back-end.',
+        'app_tagline' => 'Slogan do Aplicativo',
+        'app_tagline_description' => 'Esta frase é mostrada na tela de login do back-end.',
+        'colors' => 'Cores',
+        'primary_light' => 'Primária (Clara)',
+        'primary_dark' => 'Primária (Escura)',
+        'secondary_light' => 'Secundária (Clara)',
+        'secondary_dark' => 'Secundária (Escura)',
+        'styles' => 'Estilos',
+        'custom_stylesheet' => 'Personalização do estilo CSS'
+    ],
     'backend_preferences' => [
         'menu_label' => 'Preferências da Administração',
         'menu_description' => 'Gerencie as preferências de idiomas e aparência da administração.',
@@ -245,6 +299,6 @@ return [
         'email' => 'E-mail',
     ],
     'filter' => [
-      'all' => 'todos'
+        'all' => 'todos'
     ]
 ];
