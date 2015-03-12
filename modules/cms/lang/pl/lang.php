@@ -54,7 +54,7 @@ return [
         'no_layout' => '-- brak układu --'
     ],
     'layout' => [
-        'not_found' => "Nie znaleziono układu ':name'",
+        'not_found_name' => "Nie znaleziono układu ':name'",
         'menu_label' => 'Układy',
         'unsaved_label' => 'Niezapisane układy',
         'no_list_records' => 'Nie znaleziono układów',
@@ -63,8 +63,8 @@ return [
         'delete_confirm_single' => 'Czy na pewno chcesz skasować ten układ?'
     ],
     'partial' => [
+        'not_found_name' => "Fragment ':name' nie został znaleziony.",
         'invalid_name' => 'Nieprawidłowa nazwa fragmentu: :name.',
-        'not_found' => "Fragment ':name' nie został znaleziony.",
         'menu_label' => 'Fragmenty',
         'unsaved_label' => 'Niezapisane fragmenty',
         'no_list_records' => 'Nie znaleziono fragmentów',
@@ -73,7 +73,7 @@ return [
         'new' => 'Nowy fragment'
     ],
     'content' => [
-        'not_found' => "Plik treści ':name' nie został znaleziony.",
+        'not_found_name' => "Plik treści ':name' nie został znaleziony.",
         'menu_label' => 'Treść',
         'unsaved_label' => 'Niezapisana treść',
         'no_list_records' => 'Nie znaleziono plików treści',

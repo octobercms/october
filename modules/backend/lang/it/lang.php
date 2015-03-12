@@ -18,7 +18,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "La vista parziale ':name' non è stata trovata.",
+        'not_found_name' => "La vista parziale ':name' non è stata trovata.",
     ],
     'account' => [
         'sign_out' => 'Esci',

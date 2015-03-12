@@ -46,7 +46,7 @@ return [
         'no_layout' => '-- ninguna disposición --'
     ],
     'layout' => [
-        'not_found' => "El diseño ':name' no se encuentra",
+        'not_found_name' => "El diseño ':name' no se encuentra",
         'menu_label' => 'Diseños',
         'no_list_records' => 'No se ecnontraron diseños',
         'new' => 'Nuevo diseño',
@@ -54,8 +54,8 @@ return [
         'delete_confirm_single' => 'Realmente quiere borrar este diseño?'
     ],
     'partial' => [
+        'not_found_name' => "El nombre parcial ':name' no se encuentra.",
         'invalid_name' => "Nombre parcial inválido: :name.",
-        'not_found' => "El nombre parcial ':name' no se encuentra.",
         'menu_label' => 'Parciales',
         'no_list_records' => 'No se encontraron parciales',
         'delete_confirm_multiple' => 'Realmente quiere borrar los parciales seleccionados?',
@@ -63,7 +63,7 @@ return [
         'new' => 'Nuevo parcial'
     ],
     'content' => [
-        'not_found' => "El contenido del archivo ':name' no se encuentra.",
+        'not_found_name' => "El contenido del archivo ':name' no se encuentra.",
         'menu_label' => 'Contenido',
         'no_list_records' => 'No se encuentra el conteinod de los archivos',
         'delete_confirm_multiple' => 'Realmente desea borrar los contenidos seleccionados de los archivos o directorios?',

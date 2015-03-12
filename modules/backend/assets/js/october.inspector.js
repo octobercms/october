@@ -185,7 +185,7 @@
                 info: function() {
                     return function(text, render) {
                         if (this.description !== undefined && this.description != null)
-                            return render('<span data-toggle="tooltip" title="{{description}}" class="info oc-icon-info"></span>', this)
+                            return render('<span title="{{description}}" class="info oc-icon-info with-tooltip"></span>', this)
                     }
                 },
                 propFormat: function() {
@@ -290,7 +290,8 @@
                     this.init()
             })
 
-            $('[data-toggle=tooltip]', self.$el.data('oc.popover').$container).tooltip({placement: 'auto right', container: 'body', delay: 500})
+            $('.with-tooltip', self.$el.data('oc.popover').$container)
+                .tooltip({ placement: 'auto right', container: 'body', delay: 500 })
 
             var $container = self.$el.data('oc.popover').$container
             $container.on('click', 'tr.group', function(){
@@ -764,7 +765,7 @@
             return false
         })
 
-        $('[data-toggle=tooltip]', this.$el.data('oc.popover').$container).tooltip('hide')
+        $('.with-tooltip', this.$el.data('oc.popover').$container).tooltip('hide')
 
         if (!e.isDefaultPrevented())  {
             $.each(this.editors, function() {
@@ -1044,7 +1045,7 @@
         if (this.dynamicOptions) {
             if (!Modernizr.touch) {
                 this.indicatorContainer = $('.select2-container', $(this.selector).closest('td'))
-                this.indicatorContainer.addClass('loading-indicator-container').addClass('size-small').addClass('transparent')
+                this.indicatorContainer.addClass('loading-indicator-container').addClass('size-small')
             }
 
             this.loadOptions(true)
@@ -1082,7 +1083,7 @@
 
     InspectorEditorDropdown.prototype.showLoadingIndicator = function() {
         if (!Modernizr.touch)
-            this.indicatorContainer.loadIndicator({'opaque': true})
+            this.indicatorContainer.loadIndicator()
     }
 
     InspectorEditorDropdown.prototype.hideLoadingIndicator = function() {

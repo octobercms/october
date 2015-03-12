@@ -46,7 +46,7 @@ return [
         'no_layout' => '-- aucun layout --'
     ],
     'layout' => [
-        'not_found' => "Le layout ':name' est introuvable",
+        'not_found_name' => "Le layout ':name' est introuvable",
         'menu_label' => 'Layouts',
         'no_list_records' => 'Aucun layout trouvé',
         'new' => 'Nouveau layout',
@@ -54,8 +54,8 @@ return [
         'delete_confirm_single' => 'Voulez-vous vraiment supprimer ce layout ?'
     ],
     'partial' => [
+        'not_found_name' => "Le partial ':name' est introuvable.",
         'invalid_name' => "nom de partial invalide: :name.",
-        'not_found' => "Le partial ':name' est introuvable.",
         'menu_label' => 'Partials',
         'no_list_records' => 'Aucun partial trouvé',
         'delete_confirm_multiple' => 'Voulez-vous vraiment supprimer les partials sélectionnés ?',
@@ -63,7 +63,7 @@ return [
         'new' => 'Nouveau partial'
     ],
     'content' => [
-        'not_found' => "Le fichier de contenu ':name' est introuvable.",
+        'not_found_name' => "Le fichier de contenu ':name' est introuvable.",
         'menu_label' => 'Contenu',
         'no_list_records' => 'Aucun fichier de contenu trouvé',
         'delete_confirm_multiple' => 'Voulez-vous vraiment supprimer les fichiers de contenu ou répertoires sélectionnés ?',

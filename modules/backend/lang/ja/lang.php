@@ -21,7 +21,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "':name'パーシャルは見つかりません。",
+        'not_found_name' => "':name'パーシャルは見つかりません。",
     ],
     'account' => [
         'sign_out' => 'ログアウト',

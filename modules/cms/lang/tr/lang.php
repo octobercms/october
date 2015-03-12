@@ -54,7 +54,7 @@ return [
         'no_layout' => '-- şablon yok --'
     ],
     'layout' => [
-        'not_found' => "':name' isimli şablon bulunamadı",
+        'not_found_name' => "':name' isimli şablon bulunamadı",
         'menu_label' => 'Şablonlar',
         'unsaved_label' => 'Kaydedilmemiş şablon(lar)',
         'no_list_records' => 'Şablon bulunamadı',
@@ -63,8 +63,8 @@ return [
         'delete_confirm_single' => 'Seçili şablonu silmek istediğinize emin misiniz?'
     ],
     'partial' => [
+        'not_found_name' => "':name' bölümü bulunamadı.",
         'invalid_name' => "Hatalı bölüm adı: :name.",
-        'not_found' => "':name' bölümü bulunamadı.",
         'menu_label' => 'Bölümler',
         'unsaved_label' => 'Kaydedilmemiş bölüm(ler)',
         'no_list_records' => 'Bölüm bulunamadı.',
@@ -73,7 +73,7 @@ return [
         'new' => 'Bölüm Oluştur'
     ],
     'content' => [
-        'not_found' => "':name' isminde içerik dosyası bulunamadı.",
+        'not_found_name' => "':name' isminde içerik dosyası bulunamadı.",
         'menu_label' => 'İçerik',
         'unsaved_label' => 'Kaydedilmemiş içerik',
         'no_list_records' => 'İçerik dosyası bulunamadı.',

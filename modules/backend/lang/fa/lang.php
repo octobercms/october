@@ -21,7 +21,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "بخشی با نام ':name' یافت نشد.",
+        'not_found_name' => "بخشی با نام ':name' یافت نشد.",
     ],
     'account' => [
         'sign_out'             => 'خروج',

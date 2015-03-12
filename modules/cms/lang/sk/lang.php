@@ -54,7 +54,7 @@ return [
         'no_layout' => '-- no layout --'
     ],
     'layout' => [
-        'not_found' => "The layout ':name' is not found",
+        'not_found_name' => "The layout ':name' is not found",
         'menu_label' => 'Layouts',
         'unsaved_label' => 'Unsaved layout(s)',
         'no_list_records' => 'No layouts found',
@@ -63,8 +63,8 @@ return [
         'delete_confirm_single' => 'Do you really want delete this layout?'
     ],
     'partial' => [
+        'not_found_name' => "The partial ':name' is not found.",
         'invalid_name' => 'Invalid partial name: :name.',
-        'not_found' => "The partial ':name' is not found.",
         'menu_label' => 'Partials',
         'unsaved_label' => 'Unsaved partial(s)',
         'no_list_records' => 'No partials found',
@@ -73,7 +73,7 @@ return [
         'new' => 'New partial'
     ],
     'content' => [
-        'not_found' => "The content file ':name' is not found.",
+        'not_found_name' => "The content file ':name' is not found.",
         'menu_label' => 'Content',
         'unsaved_label' => 'Unsaved content',
         'no_list_records' => 'No content files found',

@@ -46,7 +46,7 @@ return [
         'no_layout' => '-- sem layout --'
     ],
     'layout' => [
-        'not_found' => "O layout ':name' não foi encontrado",
+        'not_found_name' => "O layout ':name' não foi encontrado",
         'menu_label' => 'Layouts',
         'no_list_records' => 'Nenhum layout foi encontrado',
         'new' => 'Novo layout',
@@ -54,8 +54,8 @@ return [
         'delete_confirm_single' => 'Você realmente quer excluir este layout?'
     ],
     'partial' => [
+        'not_found_name' => "O bloco ':name' não foi encontrado.",
         'invalid_name' => "Nome bloco inválido: :name.",
-        'not_found' => "O bloco ':name' não foi encontrado.",
         'menu_label' => 'Blocos',
         'no_list_records' => 'Nenhum bloco foi encontrado',
         'delete_confirm_multiple' => 'Você realmente quer apagar os blocos selecionados?',
@@ -63,7 +63,7 @@ return [
         'new' => 'Novo bloco'
     ],
     'content' => [
-        'not_found' => "O arquivo de conteúdo ':name' não foi encontrado.",
+        'not_found_name' => "O arquivo de conteúdo ':name' não foi encontrado.",
         'menu_label' => 'Conteúdo',
         'no_list_records' => 'Nenhum arquivo de conteúdo foi encontrado',
         'delete_confirm_multiple' => 'Você realmente quer apagar arquivos de conteúdo selecionados ou diretórios?',

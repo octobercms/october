@@ -18,7 +18,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "O bloco ':name' não foi encontrado.",
+        'not_found_name' => "O bloco ':name' não foi encontrado.",
     ],
     'account' => [
         'sign_out' => 'Sair',

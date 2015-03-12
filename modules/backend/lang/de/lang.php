@@ -18,7 +18,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "Das Partial ':name' wurde nicht gefunden.",
+        'not_found_name' => "Das Partial ':name' wurde nicht gefunden.",
     ],
     'account' => [
         'sign_out' => 'Abmelden',

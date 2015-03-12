@@ -46,7 +46,7 @@ return [
         'no_layout' => '-- fara macheta --'
     ],
     'layout' => [
-        'not_found' => "Macheta ':name' nu a fost gasita",
+        'not_found_name' => "Macheta ':name' nu a fost gasita",
         'menu_label' => 'Machete',
         'no_list_records' => 'Nu au fost gasite machete',
         'new' => 'Macheta noua',
@@ -54,8 +54,8 @@ return [
         'delete_confirm_single' => 'Vreti sa stergeti macheta selectata?'
     ],
     'partial' => [
+        'not_found_name' => "Componenta partiala ':name' nu a fost gasita.",
         'invalid_name' => "Nume invalid pentru componenta partiala: :name.",
-        'not_found' => "Componenta partiala ':name' nu a fost gasita.",
         'menu_label' => 'Componente partiale',
         'no_list_records' => 'Nu au fost gasite componente partiale',
         'delete_confirm_multiple' => 'Vreti sa stergeti componentele partiale selectate?',
@@ -63,7 +63,7 @@ return [
         'new' => 'Componenta partiala noua'
     ],
     'content' => [
-        'not_found' => "Fisierul de continut ':name' nu a fost gasit.",
+        'not_found_name' => "Fisierul de continut ':name' nu a fost gasit.",
         'menu_label' => 'Continut',
         'no_list_records' => 'Nu au fost gasite fisiere de continut',
         'delete_confirm_multiple' => 'Vreti sa stergeti fisierele si directoarele cu continut?',

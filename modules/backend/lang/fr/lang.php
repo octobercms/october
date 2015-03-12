@@ -18,7 +18,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "Le partial ':name' est introuvable.",
+        'not_found_name' => "Le partial ':name' est introuvable.",
     ],
     'account' => [
         'sign_out' => 'Déconnexion',

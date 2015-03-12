@@ -46,7 +46,7 @@ return [
         'no_layout' => '-- nessun layout --'
     ],
     'layout' => [
-        'not_found' => "Il layout ':name' non è stato trovato",
+        'not_found_name' => "Il layout ':name' non è stato trovato",
         'menu_label' => 'Layouts',
         'no_list_records' => 'Nessun layout trovato',
         'new' => 'Nuovo layout',
@@ -54,8 +54,8 @@ return [
         'delete_confirm_single' => 'Sei sicuro di voler eliminare questo layout?'
     ],
     'partial' => [
+        'not_found_name' => "La vista parziale ':name' non è stata trovata.",
         'invalid_name' => "Nome della vista parziale non valido: :name.",
-        'not_found' => "La vista parziale ':name' non è stata trovata.",
         'menu_label' => 'Viste parziali',
         'no_list_records' => 'Nessuna vista parziale trovata',
         'delete_confirm_multiple' => 'Sei sicuro di voler eliminare le viste parziali selezionate?',
@@ -63,7 +63,7 @@ return [
         'new' => 'Nuova vista parziale'
     ],
     'content' => [
-        'not_found' => "Il file di contenuto ':name' non è stato trovato.",
+        'not_found_name' => "Il file di contenuto ':name' non è stato trovato.",
         'menu_label' => 'Contenuti',
         'no_list_records' => 'Nessun file di contenuto trovato',
         'delete_confirm_multiple' => 'Sei sicuro di voler eliminare i file o le cartelle di contenuti selezionate?',

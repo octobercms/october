@@ -29,7 +29,7 @@ return true})
 function backendUrl(url){if(typeof backendBasePath==='undefined'||!backendBasePath)
 return url;if(url.substr(0,1)=='/')
 url=url.substr(1);return backendBasePath+url;}
-LockManager=function(){var o={locks:{},set:function(name){o.locks[name]=true;},get:function(name){return(o.locks[name]);},remove:function(name){o.locks[name]=null;}};return o;};lockManager=new LockManager();AssetManager=function(){var o={load:function(collection,callback){var jsList=(collection.js)?collection.js:[],cssList=(collection.css)?collection.css:[],imgList=(collection.img)?collection.img:[]
+AssetManager=function(){var o={load:function(collection,callback){var jsList=(collection.js)?collection.js:[],cssList=(collection.css)?collection.css:[],imgList=(collection.img)?collection.img:[]
 jsList=$.grep(jsList,function(item){return $('head script[src="'+item+'"]').length==0})
 cssList=$.grep(cssList,function(item){return $('head link[href="'+item+'"]').length==0})
 var cssCounter=0,jsLoaded=false,imgLoaded=false
@@ -296,7 +296,7 @@ if(!data)$this.data('oc.toolbar',(data=new Toolbar(this,options)))})}
 $.fn.toolbar.Constructor=Toolbar
 $.fn.toolbar.noConflict=function(){$.fn.toolbar=old
 return this}
-$(document).on('render',function(){$('[data-control=toolbar]').toolbar()})}(window.jQuery);+function($){"use strict";var VerticalMenu=function(element,toggle,options){this.body=$('body')
+$(document).on('render',function(){$('[data-control=toolbar]').toolbar()})}(window.jQuery);(function($){$(document).render(function(){$('[data-toggle="tooltip"]').tooltip()})})(jQuery);+function($){"use strict";var VerticalMenu=function(element,toggle,options){this.body=$('body')
 this.toggle=$(toggle)
 this.options=options||{}
 this.options=$.extend({},VerticalMenu.DEFAULTS,this.options)
@@ -339,7 +339,7 @@ $.fn.verticalMenu.noConflict=function(){$.fn.verticalMenu=old
 return this}}(window.jQuery);(function($){$(window).load(function(){$('nav.navbar').each(function(){var
 navbar=$(this),nav=$('ul.nav',navbar)
 nav.verticalMenu($('a.menu-toggle',navbar))
-$('[data-toggle="tooltip"]',navbar).tooltip({'container':'body'})
+$('li.with-tooltip > a',navbar).tooltip({container:'body',placement:'bottom'})
 $('.layout-cell.width-fix',navbar).one('oc.widthFixed',function(){var dragScroll=$('[data-control=toolbar]',navbar).data('oc.dragScroll')
 if(dragScroll)
 dragScroll.goToElement($('ul.nav > li.active',navbar),undefined,{'duration':0})})})})})(jQuery);+function($){"use strict";if($.oc===undefined)
@@ -997,7 +997,7 @@ this.hide()
 var indicator=$('<div class="loading-indicator"></div>')
 indicator.append($('<div></div>').text(this.options.text))
 indicator.append($('<span></span>'))
-if(this.options.opaque!==undefined){indicator.addClass('is-opaque')}
+if(this.options.opaque!==undefined&&this.options.opaque){indicator.addClass('is-opaque')}
 this.$el.prepend(indicator)
 this.$el.addClass('in-progress')
 this.tally++}
@@ -1456,7 +1456,7 @@ Inspector.prototype.init=function(){if(!this.config||this.config.length==0)
 return
 var self=this,fieldsConfig=this.preprocessConfig(),data={title:this.title?this.title:this.$el.data('inspector-title'),description:this.description?this.description:this.$el.data('inspector-description'),properties:fieldsConfig.properties,editor:function(){return function(text,render){if(this.itemType=='property')
 return self.renderEditor(this,render)}},info:function(){return function(text,render){if(this.description!==undefined&&this.description!=null)
-return render('<span data-toggle="tooltip" title="{{description}}" class="info oc-icon-info"></span>',this)}},propFormat:function(){return function(text,render){return'prop-'+render(text).replace('.','-')}},colspan:function(){return function(text,render){return this.itemType=='group'?'colspan="2"':null}},tableClass:function(){return function(text,render){return fieldsConfig.hasGroups?'has-groups':null}},cellClass:function(){return function(text,render){var result=this.itemType+((this.itemType=='property'&&this.groupIndex!==undefined)?' grouped':'')
+return render('<span title="{{description}}" class="info oc-icon-info with-tooltip"></span>',this)}},propFormat:function(){return function(text,render){return'prop-'+render(text).replace('.','-')}},colspan:function(){return function(text,render){return this.itemType=='group'?'colspan="2"':null}},tableClass:function(){return function(text,render){return fieldsConfig.hasGroups?'has-groups':null}},cellClass:function(){return function(text,render){var result=this.itemType+((this.itemType=='property'&&this.groupIndex!==undefined)?' grouped':'')
 if(this.itemType=='property'&&this.groupIndex!==undefined)
 result+=self.groupExpanded(this.group)?' expanded':' collapsed'
 if(this.itemType=='property'&&!this.showExternalParam)
@@ -1488,7 +1488,7 @@ if(self.$el.closest('[data-inspector-external-parameters]').length>0)
 self.initExternalParameterEditor(self.$el.data('oc.popover').$container)
 $.each(self.editors,function(){if(this.init!==undefined)
 this.init()})
-$('[data-toggle=tooltip]',self.$el.data('oc.popover').$container).tooltip({placement:'auto right',container:'body',delay:500})
+$('.with-tooltip',self.$el.data('oc.popover').$container).tooltip({placement:'auto right',container:'body',delay:500})
 var $container=self.$el.data('oc.popover').$container
 $container.on('click','tr.group',function(){self.toggleGroup($('a.expandControl',this),$container)
 return false})
@@ -1670,7 +1670,7 @@ e.preventDefault()
 var self=this
 setTimeout(function(){self.focus()},0)
 return false})
-$('[data-toggle=tooltip]',this.$el.data('oc.popover').$container).tooltip('hide')
+$('.with-tooltip',this.$el.data('oc.popover').$container).tooltip('hide')
 if(!e.isDefaultPrevented()){$.each(this.editors,function(){if(this.cleanup)
 this.cleanup()})}}
 Inspector.prototype.editorExternalPropertyEnabled=function(editor){var $container=this.$el.data('inspector-container'),$cell=$('#'+editor.inspectorCellId,$container),$extPropEditorContainer=$cell.find('.external-param-editor-container')
@@ -1774,7 +1774,7 @@ if(this.fieldDef.placeholder!==undefined)
 options.placeholder=this.fieldDef.placeholder
 $(this.selector).select2(options)}
 if(this.dynamicOptions){if(!Modernizr.touch){this.indicatorContainer=$('.select2-container',$(this.selector).closest('td'))
-this.indicatorContainer.addClass('loading-indicator-container').addClass('size-small').addClass('transparent')}
+this.indicatorContainer.addClass('loading-indicator-container').addClass('size-small')}
 this.loadOptions(true)}
 if(this.fieldDef.depends)
 this.inspector.$el.on('propertyChanged.oc.Inspector',$.proxy(this.onDependencyChanged,this))}
@@ -1788,7 +1788,7 @@ InspectorEditorDropdown.prototype.getDependencyValues=function(){var dependencyV
 $.each(this.fieldDef.depends,function(index,masterProperty){dependencyValues+=masterProperty+':'+self.inspector.readProperty(masterProperty)+'-'})
 return dependencyValues}
 InspectorEditorDropdown.prototype.showLoadingIndicator=function(){if(!Modernizr.touch)
-this.indicatorContainer.loadIndicator({'opaque':true})}
+this.indicatorContainer.loadIndicator()}
 InspectorEditorDropdown.prototype.hideLoadingIndicator=function(){if(!Modernizr.touch)
 this.indicatorContainer.loadIndicator('hide')}
 InspectorEditorDropdown.prototype.loadOptions=function(initialization){var $form=$(this.selector).closest('form'),data=this.inspector.propertyValues,$select=$(this.selector),currentValue=this.inspector.readProperty(this.fieldDef.property,true),self=this

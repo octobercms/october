@@ -21,7 +21,7 @@ return [
         ]
     ],
     'partial' => [
-        'not_found' => "A(z) ':name' részlap nem található."
+        'not_found_name' => "A(z) ':name' részlap nem található."
     ],
     'account' => [
         'sign_out' => 'Kijelentkezés',

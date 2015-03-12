@@ -40,7 +40,7 @@ return [
         'no_layout' => '-- ingen layout --'
     ],
     'layout' => [
-        'not_found' => "Layouten ':name' hittades ej",
+        'not_found_name' => "Layouten ':name' hittades ej",
         'menu_label' => 'Layouter',
         'no_list_records' => 'Inga layouter funna',
         'new' => 'Ny layout',
@@ -48,8 +48,8 @@ return [
         'delete_confirm_single' => 'Vill du verkligen radera denna layouter?'
     ],
     'partial' => [
+        'not_found_name' => "En partial med namnet ':name' kunde ej hittas",
         'invalid_name' => "Felaktigt partialnamn: :name",
-        'not_found' => "En partial med namnet ':name' kunde ej hittas",
         'menu_label' => 'Partials',
         'no_list_records' => 'Inga partials funna',
         'delete_confirm_multiple' => 'Vill du verkligen radera markerade partials?',
@@ -57,7 +57,7 @@ return [
         'new' => 'Ny partial'
     ],
     'content' => [
-        'not_found' => "Innehållet ':name' kunde ej hittas",
+        'not_found_name' => "Innehållet ':name' kunde ej hittas",
         'menu_label' => 'Innehåll',
         'no_list_records' => 'Inga innehållsfiler funna',
         'delete_confirm_multiple' => 'Vill du verkligen radera markerade filer eller mappar?',

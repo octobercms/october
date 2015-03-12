@@ -238,7 +238,11 @@ class Controller
 
         $controller = new static($theme);
         $controller->getRouter()->setParameters($parameters);
-        $page = Page::load($theme, $pageFile);
+
+        if (($page = Page::load($theme, $pageFile)) === null) {
+            throw new CmsException(Lang::get('cms::lang.page.not_found_name', ['name'=>$pageFile]));
+        }
+
         return $controller->runPage($page, false);
     }
 
@@ -259,7 +263,7 @@ class Controller
             $layout = Layout::initFallback($this->theme);
         }
         elseif (($layout = Layout::loadCached($this->theme, $page->layout)) === null) {
-            throw new CmsException(Lang::get('cms::lang.layout.not_found', ['name'=>$page->layout]));
+            throw new CmsException(Lang::get('cms::lang.layout.not_found_name', ['name'=>$page->layout]));
         }
 
         $this->layout = $layout;
@@ -729,7 +733,7 @@ class Controller
                 }
                 elseif (($componentObj = $this->findComponentByPartial($partialName)) === null) {
                     if ($throwException) {
-                        throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$partialName]));
+                        throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$partialName]));
                     }
                     else {
                         return false;
@@ -770,7 +774,7 @@ class Controller
 
             if ($partial === null) {
                 if ($throwException) {
-                    throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
+                    throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$name]));
                 }
                 else {
                     return false;
@@ -788,7 +792,7 @@ class Controller
              */
             if (($partial = Partial::loadCached($this->theme, $name)) === null) {
                 if ($throwException) {
-                    throw new CmsException(Lang::get('cms::lang.partial.not_found', ['name'=>$name]));
+                    throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$name]));
                 }
                 else {
                     return false;
@@ -882,7 +886,7 @@ class Controller
          * Load content from theme
          */
         elseif (($content = Content::loadCached($this->theme, $name)) === null) {
-            throw new CmsException(Lang::get('cms::lang.content.not_found', ['name'=>$name]));
+            throw new CmsException(Lang::get('cms::lang.content.not_found_name', ['name'=>$name]));
         }
 
         $fileContent = $content->parsedMarkup;

@@ -54,33 +54,6 @@ function backendUrl(url) {
 }
 
 /*
- * Lock Manager
- */
-
-LockManager = function() {
-
-    var o = {
-        locks: {},
-
-        set: function(name) {
-            o.locks[name] = true;
-        },
-        
-        get: function(name) {
-            return (o.locks[name]);
-        },
-
-        remove: function(name) {
-            o.locks[name] = null;
-        }
-    };
-
-    return o;
-};
-
-lockManager = new LockManager();
-
-/*
  * Asset Manager
  *
  * Usage: assetManager.load({ css:[], js:[], img:[] }, onLoadedCallback)

@@ -54,7 +54,7 @@ return [
         'no_layout' => '-- nincs elrendezés --'
     ],
     'layout' => [
-        'not_found' => "A(z) ':name' elrendezés nem található",
+        'not_found_name' => "A(z) ':name' elrendezés nem található",
         'menu_label' => 'Elrendezések',
         'unsaved_label' => 'Nem mentett elrendezés(ek)',
         'no_list_records' => 'Nem találhatók elrendezések',
@@ -63,8 +63,8 @@ return [
         'delete_confirm_single' => 'Valóban törölni akarja ezt az elrendezést?'
     ],
     'partial' => [
+        'not_found_name' => "A(z) ':name' részlap nem található.",
         'invalid_name' => 'Érvénytelen részlapnév: :name.',
-        'not_found' => "A(z) ':name' részlap nem található.",
         'menu_label' => 'Részlapok',
         'unsaved_label' => 'Nem mentett részlap(ok)',
         'no_list_records' => 'Nem találhatók részlapok',
@@ -73,7 +73,7 @@ return [
         'new' => 'Új részlap'
     ],
     'content' => [
-        'not_found' => "A(z) ':name' tartalomfájl nem található.",
+        'not_found_name' => "A(z) ':name' tartalomfájl nem található.",
         'menu_label' => 'Tartalom',
         'unsaved_label' => 'Nem mentett tartalom',
         'no_list_records' => 'Nem találhatók tartalomfájlok',

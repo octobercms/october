@@ -13,6 +13,7 @@
 =require october.dragscroll.js
 =require october.dragvalue.js
 =require october.toolbar.js
+=require october.tooltip.js
 =require october.verticalmenu.js
 =require october.navbar.js
 =require october.sidenav.js

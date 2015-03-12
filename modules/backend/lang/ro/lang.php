@@ -18,7 +18,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "Partialul ':name' nu a fost gasit.",
+        'not_found_name' => "Partialul ':name' nu a fost gasit.",
     ],
     'account' => [
         'sign_out' => 'Deconectare',

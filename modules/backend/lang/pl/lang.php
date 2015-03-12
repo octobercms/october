@@ -21,7 +21,7 @@ return [
         ]
     ],
     'partial' => [
-        'not_found' => "Blok ':name' nie zostały odnaleziony."
+        'not_found_name' => "Blok ':name' nie zostały odnaleziony."
     ],
     'account' => [
         'sign_out' => 'Wyloguj',
