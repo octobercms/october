@@ -70,6 +70,7 @@ label{font-size:12px}
 .form-buttons .btn{margin-right:10px}
 .form-buttons .pull-right{margin-right:0;margin-left:10px}
 .form-buttons.buttons-offset{padding-left:20px}
+body.slim-container .form-buttons{padding:0 20px 20px}
 @media (max-width:769px){.form-group.span-left,.form-group.span-right{width:100%;clear:none}
 }
 .custom-checkbox,.custom-radio{padding-left:23px;margin-top:0}
@@ -704,6 +705,7 @@ div.scoreboard .control-chart ul{margin-left:77px;top:-2px}
 div.scoreboard .control-chart ul li{padding-left:18px}
 div.scoreboard .control-chart ul li > i{margin-left:-18px}
 div.scoreboard .control-chart .canvas + ul{margin-left:0}
+div.scoreboard .scoreboard-offset{padding-left:20px}
 body.slim-container div.scoreboard{padding:0 20px}
 .control-chart{text-align:left}
 .control-chart div.canvas{display:inline-block;margin-right:20px;margin-bottom:20px;position:relative}
