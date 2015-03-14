@@ -78,7 +78,12 @@
             this.updateTarget($(this.options.trigger + ':checked', this.triggerParent).length > 0)
         }
         else if (this.triggerCondition == 'value') {
-            this.updateTarget($(this.options.trigger, this.triggerParent).val() == this.triggerConditionValue)
+            var trigger = $(this.options.trigger + ':checked', this.triggerParent);
+            if (trigger.length) {
+                this.updateTarget(trigger.val() == this.triggerConditionValue)
+            } else {
+                this.updateTarget($(this.options.trigger, this.triggerParent).val() == this.triggerConditionValue)
+            }
         }
     }
 
