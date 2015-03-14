@@ -48,7 +48,7 @@ return [
 
         'sqlite' => [
             'driver'   => 'sqlite',
-            'database' => 'database/production.sqlite',
+            'database' => 'storage/database.sqlite',
             'prefix'   => '',
         ],
 
