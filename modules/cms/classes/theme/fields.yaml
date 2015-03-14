@@ -1,0 +1,39 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+tabs:
+    defaultTab: Properties
+    fields:
+
+        name:
+            label: Name
+            placeholder: New theme name
+            span: auto
+            attributes:
+                default-focus: 1
+
+        directory_name:
+            label: Directory name
+            disabled: true
+            span: auto
+
+        description:
+            label: Description
+            placeholder: Theme description
+            type: textarea
+            size: tiny
+
+        author:
+            label: Author
+            placeholder: Person or company name
+            span: auto
+
+        homepage:
+            label: Homepage
+            placeholder: Website URL
+            span: auto
+
+        code:
+            label: Code
+            placeholder: A unique code for this theme used for distribution

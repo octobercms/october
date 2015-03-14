@@ -13,6 +13,7 @@ return [
         'file_name_required' => 'The File Name field is required.'
     ],
     'theme' => [
+        'not_found_name' => "The theme ':name' is not found.",
         'active' => [
             'not_set' => 'The active theme is not set.',
             'not_found' => 'The active theme is not found.'

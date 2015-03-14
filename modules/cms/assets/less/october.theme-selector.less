@@ -9,7 +9,7 @@
     .theme-thumbnail {
         width: 288px;
         background: #ecf0f1;
-        border-bottom: 1px solid #e3e7e9;
+        border-top: 1px solid #e3e7e9;
 
         img {
             .opacity(0.6);
@@ -18,7 +18,7 @@
     }
 
     .theme-description {
-        border-bottom: 1px solid #f2f3f4;
+        border-top: 1px solid #f2f3f4;
 
         h3, p {
             .opacity(0.6);
@@ -45,11 +45,19 @@
         }
 
         .controls {
-            button i.icon-star {
+            .btn > i {
                 margin-right: 5px;
-                color: #f1a84e;
                 font-size: 16px;
-                vertical-align: middle;
+                position: relative;
+                top: 1px;
+
+                &.icon-star {
+                    color: #f1a84e;
+                }
+            }
+
+            .dropdown {
+                display: inline-block;
             }
         }
     }
@@ -57,8 +65,7 @@
     .layout-row.active {
         .theme-thumbnail {
             background: #bdc3c7;
-            border-bottom-color: #bdc3c7;
-
+            border-top-color: #bdc3c7;
        }
 
        .thumbnail-container {
@@ -74,7 +81,7 @@
        }
     }
 
-    .layout-row { 
+    .layout-row {
         &.active, &:hover {
             .theme-description {
                 h3, p {
@@ -89,9 +96,18 @@
             }
         }
 
-        &.last {
+        &:first-child, &.links {
             .theme-description, .theme-thumbnail {
-                border-bottom: none!important;
+                border-top: none;
+            }
+        }
+
+        &.links {
+            .theme-thumbnail {
+                border-bottom: 1px solid #e3e7e9;
+            }
+            .theme-description {
+                border-bottom: 1px solid #f2f3f4;
             }
         }
     }

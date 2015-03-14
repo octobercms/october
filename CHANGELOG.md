@@ -1,3 +1,7 @@
+* **Build 22x** (2015-03-xx)
+  - Form Tabs now support specifying a default tab using the `defaultTab` option (see Backend > Forms docs).
+  - Improved the Theme management features: Edit properties, download, duplicate and delete.
+
 * **Build 222** (2015-03-11)
   - Form fields can now use a simpler interface for using the Input preset converter (see Backend > Forms docs).
   - The event `cms.page.init` no longer passes the URL as the third parameter, `$controller->getRouter()->getUrl()` should be used instead.

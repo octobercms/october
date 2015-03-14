@@ -496,7 +496,7 @@ class Controller extends Extendable
             $this->suppressView = true;
             $this->execPageAction($this->action, $this->params);
 
-            foreach ($this->widget as $widget) {
+            foreach ((array) $this->widget as $widget) {
                 if (method_exists($widget, $handler)) {
                     $result = call_user_func_array([$widget, $handler], $this->params);
                     return ($result) ?: true;
