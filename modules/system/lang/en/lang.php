@@ -13,6 +13,7 @@ return [
         'fa' => 'Persian',
         'fr' => 'French',
         'hu' => 'Hungarian',
+        'id' => 'Bahasa Indonesia',
         'it' => 'Italian',
         'ja' => 'Japanese',
         'nl' => 'Dutch',
