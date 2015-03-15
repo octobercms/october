@@ -1,0 +1,21 @@
+<?= $this->makePartial('item-sidebar-preview') ?>
+
+<div class="panel hide" data-control="sidebar-labels">
+    <label><?= e(trans('cms::lang.media.title')) ?></label>
+    <p data-label="title"></p>
+
+    <table class="name-value-list">
+        <tr>
+            <th><?= e(trans('cms::lang.media.size')) ?></th>
+            <td data-label="size"></td>
+        </tr>
+        <tr>
+            <th><?= e(trans('cms::lang.media.public_url')) ?></th>
+            <td><a href="#" data-label="public-url" target="_blank"><?= e(trans('cms::lang.media.click_here')) ?></a></td>
+        </tr>
+        <tr>
+            <th><?= e(trans('cms::lang.media.last_modified')) ?></th>
+            <td data-label="last-modified"></td>
+        </tr>
+    </table>
+</div>

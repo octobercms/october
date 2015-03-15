@@ -1,0 +1,32 @@
+<table class="table data">
+    <tbody class="icons clickable">
+        <?php if (count($items) > 0 || !$isRootFolder): ?>
+            <?php if (!$isRootFolder): ?>
+                <tr data-type="media-item" data-item-type="folder" data-root data-path="<?= e(dirname($currentFolder)) ?>">
+                    <td><i class="icon-folder"></i>..</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            <?php endif ?>
+
+            <?php foreach ($items as $item): 
+                $itemType = $item->getFileType();
+            ?>
+                <tr data-type="media-item" 
+                    data-item-type="<?= $item->type ?>" 
+                    data-path="<?= e($item->path) ?>" 
+                    data-title="<?= e(basename($item->path)) ?>" 
+                    data-size="<?= e($item->sizeToString()) ?>"
+                    data-last-modified="<?= e($item->lastModifiedAsString()) ?>"
+                    data-last-modified-ts="<?= $item->lastModified ?>"
+                    data-public-url="<?= e($item->publicUrl) ?>"
+                    data-document-type="<?= e($itemType) ?>"
+                >
+                    <td><i class="<?= $this->itemTypeToIconClass($item, $itemType) ?>"></i> <?= e(basename($item->path)) ?></td>
+                    <td><?= e($item->sizeToString()) ?></td>
+                    <td><?= e($item->lastModifiedAsString()) ?></td>
+                </tr>
+            <?php endforeach ?>
+        <?php endif ?>
+    </tbody>
+</table>

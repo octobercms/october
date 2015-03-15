@@ -1,0 +1,10 @@
+<!-- Section -->
+<div class="field-section">
+    <?php if ($field->label): ?>
+        <h4><?= e(trans($field->label)) ?></h4>
+    <?php endif ?>
+
+    <?php if ($field->comment): ?>
+        <p class="help-block"><?= e(trans($field->comment)) ?></p>
+    <?php endif ?>
+</div>

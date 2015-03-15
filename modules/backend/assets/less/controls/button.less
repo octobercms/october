@@ -28,6 +28,11 @@
     }
 }
 
+.btn-default.on {
+    background-color: #95a5a6;
+    color: #f9f9f9;
+}
+
 .btn-group {
     .btn{
         border-right: 1px solid rgba(0,0,0,0.09);
@@ -62,6 +67,12 @@
     }
 }
 
+.btn, .btn-group {
+    &.offset-right {
+        margin-right: 10px;
+    }
+}
+
 .btn-icon {
     display: inline-block;
     height: 36px;
@@ -76,11 +87,31 @@
     }
 
     &:hover:before {
+        color: @color-link;
+    }
+
+    &.danger:hover:before {
         color: @color-btn-danger;
     }
 
     &.pull-right:before {
         margin-right: 0;
+    }
+
+    &.margin-left {
+        margin-left: 5px;
+    }
+
+    &.small {
+        font-size: 17px;
+        height: 17px;
+        line-height: 15px;
+    }
+
+    &.larger {
+        font-size: 21px;
+        height: 21px;
+        line-height: 17px;
     }
 }
 

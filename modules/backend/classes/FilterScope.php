@@ -114,7 +114,7 @@ class FilterScope
     protected function evalConfig($config)
     {
         if (isset($config['options'])) {
-            $this->options($config['options']);
+            $this->options = $config['options'];
         }
         if (isset($config['context'])) {
             $this->context = $config['context'];

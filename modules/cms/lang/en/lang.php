@@ -181,6 +181,27 @@ return [
         'manage_themes' => 'Manage themes'
     ],
     'media' => [
-        'invalid_path' => "Invalid file path specified: ':path'."
+        'invalid_path' => "Invalid file path specified: ':path'.",
+        'menu_label' => 'Media',
+        'upload' => 'Upload',
+        'add_folder' => 'Add folder',
+        'search' => 'Search',
+        'filter_everything' => 'Everything',
+        'filter_images' => 'Images',
+        'filter_video' => 'Video',
+        'filter_audio' => 'Audio',
+        'filter_documents' => 'Documents',
+        'library' => 'Library',
+        'folder_size_items' => 'item(s)',
+        'size' => 'Size',
+        'title' => 'Title',
+        'last_modified' => 'Last modified',
+        'public_url' => 'Public URL',
+        'click_here' => 'Click here',
+        'thumbnail_error' => 'Error generating thumbnail.',
+        'return_to_parent' => 'Return to the parent folder',
+        'return_to_parent_label' => 'Go up ..',
+        'nothing_selected' => 'Nothing is selected.',
+        'multiple_selected' => 'Multiple items selected.'
     ]
 ];

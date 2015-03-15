@@ -83,7 +83,13 @@ class ServiceProvider extends ModuleServiceProvider
                             'permissions' => ['cms.manage_pages', 'cms.manage_layouts', 'cms.manage_partials']
                         ]
                     ]
-
+                ],
+                'media' => [
+                    'label'       => 'cms::lang.media.menu_label',
+                    'icon'        => 'icon-folder',
+                    'url'         => Backend::url('cms/media'),
+                    'permissions' => ['cms.*'],
+                    'order'       => 20
                 ]
             ]);
         });

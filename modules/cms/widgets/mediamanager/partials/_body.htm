@@ -1,0 +1,46 @@
+<div data-control="media-manager" class="layout" data-alias="<?= $this->alias ?>">
+    <?= $this->makePartial('toolbar') ?>
+
+    <div class="layout-row whiteboard">
+        <div class="layout">
+            <div class="layout-row">
+                <div class="layout-cell width-200 panel border-right">
+                    <?= $this->makePartial('left-sidebar') ?>
+                </div>
+                <div class="layout-cell">
+                    <div class="layout">
+
+                        <div class="layout-row min-size">
+                            <?= $this->makePartial('folder-toolbar') ?>
+                        </div>
+                        <div class="layout-row">
+                            <!-- Main area -->
+                            <div class="layout">
+                                <div class="layout-cell ">
+                                    <div class="layout">
+                                        <div class="layout-row">
+                                            <!-- Main area - list -->
+                                            <div data-control="item-list">
+                                                <div id="<?= $this->getId('item-list') ?>" >
+                                                    <?= $this->makePartial('item-list') ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layout-row min-size">
+                                            <!-- Main area - bottom toolbar -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layout-cell width-300 panel border-left no-padding" data-control="preview-sidebar">
+                                    <!-- Right sidebar -->
+                                    <?= $this->makePartial('right-sidebar') ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

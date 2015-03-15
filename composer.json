@@ -29,7 +29,8 @@
         "october/system": "~1.0",
         "october/backend": "~1.0",
         "october/cms": "~1.0",
-        "october/rain": "~1.0"
+        "october/rain": "~1.0",
+        "league/flysystem-aws-s3-v2": "~1.0"
     },
     "autoload-dev": {
         "classmap": [

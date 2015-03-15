@@ -1,0 +1,36 @@
+<ul class="media-list <?= $listClass ?>">
+    <?php if (count($items) > 0 || !$isRootFolder): ?>
+        <?php if (!$isRootFolder): ?>
+            <li data-type="media-item" data-item-type="folder" data-root data-path="<?= e(dirname($currentFolder)) ?>">
+                <div class="icon-container folder">
+                    <div class="icon-wrapper"><i class="icon-folder"></i></div>
+                </div>
+                <div class="info">
+                    <h4 title="<?= e(trans('cms::lang.media.return_to_parent')) ?>"><?= e(trans('cms::lang.media.return_to_parent_label')) ?></h4>
+                </div>
+            </li>
+        <?php endif ?>
+
+        <?php foreach ($items as $item): 
+            $itemType = $item->getFileType();
+        ?>
+            <li data-type="media-item" 
+                data-item-type="<?= $item->type ?>" 
+                data-path="<?= e($item->path) ?>" 
+                data-title="<?= e(basename($item->path)) ?>" 
+                data-size="<?= e($item->sizeToString()) ?>"
+                data-last-modified="<?= e($item->lastModifiedAsString()) ?>"
+                data-last-modified-ts="<?= $item->lastModified ?>"
+                data-public-url="<?= e($item->publicUrl) ?>"
+                data-document-type="<?= e($itemType) ?>"
+            >
+                <?= $this->makePartial('item-icon', ['itemType'=>$itemType, 'item'=>$item]) ?>
+
+                <div class="info">
+                    <h4 title="<?= e(basename($item->path)) ?>"><?= e(basename($item->path)) ?></h4>
+                    <p class="size"><?= e($item->sizeToString()) ?></p>
+                </div>
+            </li>
+        <?php endforeach ?>
+    <?php endif ?>
+</ul>

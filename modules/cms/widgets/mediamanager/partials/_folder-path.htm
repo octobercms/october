@@ -1,0 +1,9 @@
+<ul class="tree-path">
+    <li class="root"><a href="#" data-type="media-item" data-item-type="folder" data-path="/"><?= e(trans('cms::lang.media.library')) ?></a></li>
+
+    <?php foreach ($pathSegments as $segment): ?>
+        <?php if ($segment != '/'): ?>
+            <li><a href="#" data-type="media-item" data-item-type="folder" data-path="<?= e($segment) ?>"><?= basename($segment) ?></a></li>
+        <?php endif ?>
+    <?php endforeach?>
+</ul>

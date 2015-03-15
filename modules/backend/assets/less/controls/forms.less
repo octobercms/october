@@ -224,6 +224,17 @@ label {
     }
 }
 
+.field-section {
+    border-bottom: 1px solid @color-form-field-border;
+    padding-top: 3px;
+    padding-bottom: 7px;
+
+    > p:first-child,
+    > h4:first-child {
+        margin: 0;
+    }
+}
+
 .field-textarea {
     resize: vertical;
     &.size-tiny { min-height: @size-tiny; }
@@ -231,6 +242,12 @@ label {
     &.size-large { min-height: @size-large; }
     &.size-huge { min-height: @size-huge; }
     &.size-giant { min-height: @size-giant; }
+}
+
+.field-checkboxlist {
+    .checkbox:last-of-type {
+        margin-bottom: 0;
+    }
 }
 
 .field-checkboxlist-scrollable {

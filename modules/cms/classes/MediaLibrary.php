@@ -56,10 +56,8 @@ class MediaLibrary
      */
     protected function init()
     {
-        $this->storagePath = Config::get('cms.storage.media.path', '/storage/app/media');
-        $this->storageDisk = Storage::disk(
-            Config::get('cms.storage.media.disk', 'local'));
-        $this->storageFolder = $this->validatePath(
+        $this->storagePath = rtrim(Config::get('cms.storage.media.path', '/storage/app/media'), '/');
+        $this->storageFolder = self::validatePath(
             Config::get('cms.storage.media.folder', 'media'), true);
         $this->ignoreNames = Config::get('cms.storage.media.ignore', $this->defaultIgnoreNames);
 
@@ -74,7 +72,7 @@ class MediaLibrary
      */
     public function listFolderContents($folder = '/', $sortBy = 'title')
     {
-        $folder = $this->validatePath($folder);
+        $folder = self::validatePath($folder);
         $fullFolderPath = $this->getMediaPath($folder);
 
         /*
@@ -109,12 +107,28 @@ class MediaLibrary
     }
 
     /**
-     * Returns URL of a Library file.
-     * @param string $path Specifies a file path relative to the Library root.
+     * Determines if a file with the specified path exists in the library.
+     * @param string $path Specifies the file path relative the the Library root.
+     * @return boolean Returns TRUE if the file exists.
      */
-    public function url($path)
+    public function exists($path)
     {
-        
+        $path = self::validatePath($path);
+        $fullPath = $this->getMediaPath($path);
+
+        return $this->getStorageDisk()->exists($fullPath);
+    }
+
+    /**
+     * Returns a file contents.
+     * @param string $path Specifies the file path relative the the Library root.
+     * @return string Returns the file contents
+     */
+    public function get($path)
+    {
+        $path = self::validatePath($path);
+        $fullPath = $this->getMediaPath($path);
+        return $this->getStorageDisk()->get($fullPath);
     }
 
     /**
@@ -137,7 +151,7 @@ class MediaLibrary
      * @param boolean $normalizeOnly Specifies if only the normalization, without validation should be performed.
      * @return string Returns a normalized path.
      */
-    protected function validatePath($path, $normalizeOnly = false)
+    public static function validatePath($path, $normalizeOnly = false)
     {
         $path = str_replace('\\', '/', $path);
         $path = '/'.trim($path, '/');
@@ -171,7 +185,7 @@ class MediaLibrary
      */
     protected function getMediaRelativePath($path)
     {
-        $path = $this->validatePath($path, true);
+        $path = self::validatePath($path, true);
 
         if (substr($path, 0, $this->storageFolderNameLength) == $this->storageFolder)
             return substr($path, $this->storageFolderNameLength);
@@ -202,10 +216,18 @@ class MediaLibrary
         if (!$this->isVisible($relativePath))
             return;
 
-        $lastModified = $this->storageDisk->lastModified($path);
-        $size = $itemType == MediaLibraryItem::TYPE_FILE ? $this->storageDisk->size($path) : $this->getFolderItemCount($path);
+        /*
+         * S3 doesn't allow getting the last modified timestamp for folders,
+         * so this feature is disabled - folders timestamp is always NULL.
+         */
+        $lastModified = $itemType == MediaLibraryItem::TYPE_FILE ? 
+            $this->getStorageDisk()->lastModified($path) : null;
 
-        return new MediaLibraryItem($relativePath, $size, $lastModified, $itemType);
+        $size = $itemType == MediaLibraryItem::TYPE_FILE ? 
+            $this->getStorageDisk()->size($path) : $this->getFolderItemCount($path);
+
+        $publicUrl = $this->storagePath.$relativePath;
+        return new MediaLibraryItem($relativePath, $size, $lastModified, $itemType, $publicUrl);
     }
 
     /**
@@ -216,8 +238,8 @@ class MediaLibrary
     protected function getFolderItemCount($path)
     {
         $folderItems = array_merge(
-            $this->storageDisk->files($path),
-            $this->storageDisk->directories($path));
+            $this->getStorageDisk()->files($path),
+            $this->getStorageDisk()->directories($path));
 
         $size = 0;
         foreach ($folderItems as $folderItem) {
@@ -240,13 +262,13 @@ class MediaLibrary
             'folders' => []
         ];
 
-        $files = $this->storageDisk->files($fullFolderPath);
+        $files = $this->getStorageDisk()->files($fullFolderPath);
         foreach ($files as $file) {
             if ($libraryItem = $this->initLibraryItem($file, MediaLibraryItem::TYPE_FILE))
                 $result['files'][] = $libraryItem;
         }
 
-        $folders = $this->storageDisk->directories($fullFolderPath);
+        $folders = $this->getStorageDisk()->directories($fullFolderPath);
         foreach ($folders as $folder) {
             if ($libraryItem = $this->initLibraryItem($folder, MediaLibraryItem::TYPE_FOLDER))
                 $result['folders'][] = $libraryItem;
@@ -283,5 +305,21 @@ class MediaLibrary
                 break;
             }
         });
+    }
+
+    /**
+     * Initializes and returns the Media Library disk.
+     * This method should always be used instead of trying to access the 
+     * $storageDisk property directly as initializing the disc requires
+     * communicating with the remote storage.
+     * @return mixed Returns the storage disk object.
+     */
+    protected function getStorageDisk()
+    {
+        if ($this->storageDisk)
+            return $this->storageDisk;
+
+        return $this->storageDisk = Storage::disk(
+            Config::get('cms.storage.media.disk', 'local'));
     }
 }

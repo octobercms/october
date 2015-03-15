@@ -120,7 +120,7 @@ if (window.jQuery === undefined)
                 var errorMsg,
                     updatePromise = $.Deferred()
 
-                if (isUnloading)
+                if (isUnloading || errorThrown == 'abort')
                     return
 
                 /*

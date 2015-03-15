@@ -1,0 +1,7 @@
+<?= Block::put('head') ?><?= Block::endPut() ?>
+
+<?= Block::put('body') ?>
+    <div class="layout">
+        <?= $this->widget->manager->render() ?>
+    </div>
+<?= Block::endPut() ?>

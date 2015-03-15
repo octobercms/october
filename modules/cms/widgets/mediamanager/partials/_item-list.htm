@@ -1,0 +1,12 @@
+<div class="panel no-padding padding-top">
+    <input type="hidden" data-type="current-folder" value="<?= e($currentFolder) ?>"/>
+    <div class="list-container">
+        <?php if ($viewMode == Cms\Widgets\MediaManager::VIEW_MODE_GRID): ?>
+            <?= $this->makePartial('list-grid') ?>
+        <?php elseif ($viewMode == Cms\Widgets\MediaManager::VIEW_MODE_LIST): ?>
+            <?= $this->makePartial('list-list') ?>
+        <?php else: ?>
+            <?= $this->makePartial('list-tiles') ?>
+        <?php endif ?>
+    </div>
+</div>
