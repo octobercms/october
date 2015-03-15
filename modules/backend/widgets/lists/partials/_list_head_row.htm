@@ -29,7 +29,10 @@
                 </a>
             </th>
         <?php else: ?>
-            <th class="list-cell-name-<?= $column->columnName ?>">
+            <th
+                <?php if ($column->width): ?>style="width: <?= $column->width ?>"<?php endif ?>
+                class="list-cell-name-<?= $column->columnName ?>"
+                >
                 <span><?= $this->getHeaderValue($column) ?></span>
             </th>
         <?php endif ?>

@@ -19,15 +19,17 @@ return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+state.text
 return state.text}
 $('select.custom-select:not([data-no-auto-update-on-render=true])').select2({formatResult:formatSelectOption,formatSelection:formatSelectOption,escapeMarkup:function(m){return m;}})})
 $(document).on('disable','select.custom-select',function(event,status){$(this).select2('enable',!status)})
-$(document).on('focus','select.custom-select',function(event){setTimeout($.proxy(function(){$(this).select2('focus')},this),10)})})(jQuery);$(window).on('ajaxErrorMessage',function(event,message){swal({title:message,confirmButtonClass:'btn-default'})
+$(document).on('focus','select.custom-select',function(event){setTimeout($.proxy(function(){$(this).select2('focus')},this),10)})})(jQuery);$(window).on('ajaxErrorMessage',function(event,message){if(!message)return
+swal({title:message,confirmButtonClass:'btn-default'})
 event.preventDefault()})
-$(window).on('ajaxConfirmMessage',function(event,message){swal({title:message,showCancelButton:true,confirmButtonClass:'btn-primary'},function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
+$(window).on('ajaxConfirmMessage',function(event,message){if(!message)return
+swal({title:message,showCancelButton:true,confirmButtonClass:'btn-primary'},function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
 event.preventDefault()
 return true})
 function backendUrl(url){if(typeof backendBasePath==='undefined'||!backendBasePath)
 return url;if(url.substr(0,1)=='/')
 url=url.substr(1);return backendBasePath+url;}
-LockManager=function(){var o={locks:{},set:function(name){o.locks[name]=true;},get:function(name){return(o.locks[name]);},remove:function(name){o.locks[name]=null;}};return o;};lockManager=new LockManager();AssetManager=function(){var o={load:function(collection,callback){var jsList=(collection.js)?collection.js:[],cssList=(collection.css)?collection.css:[],imgList=(collection.img)?collection.img:[]
+AssetManager=function(){var o={load:function(collection,callback){var jsList=(collection.js)?collection.js:[],cssList=(collection.css)?collection.css:[],imgList=(collection.img)?collection.img:[]
 jsList=$.grep(jsList,function(item){return $('head script[src="'+item+'"]').length==0})
 cssList=$.grep(cssList,function(item){return $('head link[href="'+item+'"]').length==0})
 var cssCounter=0,jsLoaded=false,imgLoaded=false
@@ -76,16 +78,16 @@ if(this.options.triggerAction===false)
 throw new Error('Trigger action is not specified.')
 this.triggerCondition=this.options.triggerCondition
 if(this.options.triggerCondition.indexOf('value')==0){var match=this.options.triggerCondition.match(/[^[\]]+(?=])/g)
-if(match){this.triggerConditionValue=match
-this.triggerCondition='value'}}
-if(this.triggerCondition=='checked'||this.triggerCondition=='value')
-$(document).on('change',this.options.trigger,$.proxy(this.onConditionChanged,this))
+this.triggerCondition='value'
+this.triggerConditionValue=(match)?match:""}
+this.triggerParent=this.options.triggerClosestParent!==undefined?$el.closest(this.options.triggerClosestParent):undefined
+if(this.triggerCondition=='checked'||this.triggerCondition=='value'){$(document).on('change',this.options.trigger,$.proxy(this.onConditionChanged,this))}
 var self=this
 $el.on('oc.triggerOn.update',function(e){e.stopPropagation()
 self.onConditionChanged()})
 self.onConditionChanged()}
-TriggerOn.prototype.onConditionChanged=function(){if(this.triggerCondition=='checked'){this.updateTarget($(this.options.trigger+':checked').length>0)}
-else if(this.triggerCondition=='value'){this.updateTarget($(this.options.trigger).val()==this.triggerConditionValue)}}
+TriggerOn.prototype.onConditionChanged=function(){if(this.triggerCondition=='checked'){this.updateTarget($(this.options.trigger+':checked',this.triggerParent).length>0)}
+else if(this.triggerCondition=='value'){var trigger=$(this.options.trigger+':checked',this.triggerParent);if(trigger.length){this.updateTarget(trigger.val()==this.triggerConditionValue)}else{this.updateTarget($(this.options.trigger,this.triggerParent).val()==this.triggerConditionValue)}}}
 TriggerOn.prototype.updateTarget=function(status){if(this.options.triggerAction=='show')
 this.$el.toggleClass('hide',!status).trigger('hide',[!status])
 else if(this.options.triggerAction=='hide')
@@ -102,7 +104,7 @@ $(window).trigger('resize')}
 TriggerOn.prototype.fixButtonClasses=function(){var group=this.$el.closest('.btn-group')
 if(group.length>0&&this.$el.is(':last-child'))
 this.$el.prev().toggleClass('last',this.$el.hasClass('hide'))}
-TriggerOn.DEFAULTS={triggerAction:false,triggerCondition:false,trigger:false}
+TriggerOn.DEFAULTS={triggerAction:false,triggerCondition:false,triggerClosestParent:undefined,trigger:false}
 var old=$.fn.triggerOn
 $.fn.triggerOn=function(option){return this.each(function(){var $this=$(this)
 var data=$this.data('oc.triggerOn')
@@ -221,7 +223,64 @@ methodArgs.push(args[i])
 data[option].apply(data,methodArgs)}})}
 $.fn.dragScroll.Constructor=DragScroll
 $.fn.dragScroll.noConflict=function(){$.fn.dragScroll=old
-return this}}(window.jQuery);+function($){"use strict";var Toolbar=function(element,options){var
+return this}}(window.jQuery);+function($){"use strict";var DragValue=function(element,options){this.options=options
+this.$el=$(element)
+this.init()}
+DragValue.DEFAULTS={dragClick:false}
+DragValue.prototype.init=function(){this.$el.prop('draggable',true)
+this.textValue=this.$el.data('textValue')
+this.$el.on('dragstart',$.proxy(this.handleDragStart,this))
+this.$el.on('drop',$.proxy(this.handleDrop,this))
+this.$el.on('dragend',$.proxy(this.handleDragEnd,this))
+if(this.options.dragClick){this.$el.on('click',$.proxy(this.handleClick,this))
+this.$el.on('mouseover',$.proxy(this.handleMouseOver,this))}}
+DragValue.prototype.handleDragStart=function(event){var e=event.originalEvent
+e.dataTransfer.effectAllowed='all'
+e.dataTransfer.setData('text/plain',this.textValue)
+this.$el.css({opacity:0.5}).addClass('dragvalue-dragging')}
+DragValue.prototype.handleDrop=function(event){event.stopPropagation()
+return false}
+DragValue.prototype.handleDragEnd=function(event){this.$el.css({opacity:1}).removeClass('dragvalue-dragging')}
+DragValue.prototype.handleMouseOver=function(event){var el=document.activeElement
+if(!el)return
+if(el.isContentEditable||(el.tagName.toLowerCase()=='input'&&el.type=='text'||el.tagName.toLowerCase()=='textarea')){this.lastElement=el}}
+DragValue.prototype.handleClick=function(event){if(!this.lastElement)return
+var $el=$(this.lastElement)
+if($el.hasClass('ace_text-input'))
+return this.handleClickCodeEditor(event,$el)
+if(this.lastElement.isContentEditable)
+return this.handleClickContentEditable()
+this.insertAtCaret(this.lastElement,this.textValue)}
+DragValue.prototype.handleClickCodeEditor=function(event,$el){var $editorArea=$el.closest('[data-control=codeeditor]')
+if(!$editorArea.length)return
+$editorArea.codeEditor('getEditorObject').insert(this.textValue)}
+DragValue.prototype.handleClickContentEditable=function(){var sel,range,html;if(window.getSelection){sel=window.getSelection();if(sel.getRangeAt&&sel.rangeCount){range=sel.getRangeAt(0);range.deleteContents();range.insertNode(document.createTextNode(this.textValue));}}
+else if(document.selection&&document.selection.createRange){document.selection.createRange().text=this.textValue;}}
+DragValue.prototype.insertAtCaret=function(el,insertValue){if(document.selection){el.focus()
+sel=document.selection.createRange()
+sel.text=insertValue
+el.focus()}
+else if(el.selectionStart||el.selectionStart=='0'){var startPos=el.selectionStart,endPos=el.selectionEnd,scrollTop=el.scrollTop
+el.value=el.value.substring(0,startPos)+insertValue+el.value.substring(endPos,el.value.length)
+el.focus()
+el.selectionStart=startPos+insertValue.length
+el.selectionEnd=startPos+insertValue.length
+el.scrollTop=scrollTop}
+else{el.value+=insertValue
+el.focus()}}
+var old=$.fn.dragValue
+$.fn.dragValue=function(option){var args=Array.prototype.slice.call(arguments,1),result
+this.each(function(){var $this=$(this)
+var data=$this.data('oc.dragvalue')
+var options=$.extend({},DragValue.DEFAULTS,$this.data(),typeof option=='object'&&option)
+if(!data)$this.data('oc.dragvalue',(data=new DragValue(this,options)))
+if(typeof option=='string')result=data[option].apply(data,args)
+if(typeof result!='undefined')return false})
+return result?result:this}
+$.fn.dragValue.Constructor=DragValue
+$.fn.dragValue.noConflict=function(){$.fn.dragValue=old
+return this}
+$(document).render(function(){$('[data-control="dragvalue"]').dragValue()});}(window.jQuery);+function($){"use strict";var Toolbar=function(element,options){var
 $el=this.$el=$(element),$toolbar=$el.closest('.control-toolbar')
 this.options=options||{};var scrollClassContainer=options.scrollClassContainer!==undefined?options.scrollClassContainer:$el.parent()
 $el.dragScroll({scrollClassContainer:scrollClassContainer})
@@ -237,7 +296,7 @@ if(!data)$this.data('oc.toolbar',(data=new Toolbar(this,options)))})}
 $.fn.toolbar.Constructor=Toolbar
 $.fn.toolbar.noConflict=function(){$.fn.toolbar=old
 return this}
-$(document).on('render',function(){$('[data-control=toolbar]').toolbar()})}(window.jQuery);+function($){"use strict";var VerticalMenu=function(element,toggle,options){this.body=$('body')
+$(document).on('render',function(){$('[data-control=toolbar]').toolbar()})}(window.jQuery);(function($){$(document).render(function(){$('[data-toggle="tooltip"]').tooltip()})})(jQuery);+function($){"use strict";var VerticalMenu=function(element,toggle,options){this.body=$('body')
 this.toggle=$(toggle)
 this.options=options||{}
 this.options=$.extend({},VerticalMenu.DEFAULTS,this.options)
@@ -280,7 +339,7 @@ $.fn.verticalMenu.noConflict=function(){$.fn.verticalMenu=old
 return this}}(window.jQuery);(function($){$(window).load(function(){$('nav.navbar').each(function(){var
 navbar=$(this),nav=$('ul.nav',navbar)
 nav.verticalMenu($('a.menu-toggle',navbar))
-$('[data-toggle="tooltip"]',navbar).tooltip({'container':'body'})
+$('li.with-tooltip > a',navbar).tooltip({container:'body',placement:'bottom'})
 $('.layout-cell.width-fix',navbar).one('oc.widthFixed',function(){var dragScroll=$('[data-control=toolbar]',navbar).data('oc.dragScroll')
 if(dragScroll)
 dragScroll.goToElement($('ul.nav > li.active',navbar),undefined,{'duration':0})})})})})(jQuery);+function($){"use strict";if($.oc===undefined)
@@ -695,6 +754,7 @@ if(!data)$this.data('oc.popup',(data=new Popup(this,options)))
 else if(typeof option=='string')data[option].apply(data,args)
 else data.reload()})}
 $.fn.popup.Constructor=Popup
+$.popup=function(option){return $('<a />').popup(option)}
 $.fn.popup.noConflict=function(){$.fn.popup=old
 return this}
 $(document).on('click.oc.popup','[data-control="popup"]',function(){$(this).popup()
@@ -937,8 +997,7 @@ this.hide()
 var indicator=$('<div class="loading-indicator"></div>')
 indicator.append($('<div></div>').text(this.options.text))
 indicator.append($('<span></span>'))
-if(this.options.opaque==undefined)
-indicator.addClass('transparent')
+if(this.options.opaque!==undefined&&this.options.opaque){indicator.addClass('is-opaque')}
 this.$el.prepend(indicator)
 this.$el.addClass('in-progress')
 this.tally++}
@@ -1057,7 +1116,7 @@ if(!data)$this.data('oc.inputPreset',(data=new InputPreset(this,options)))})}
 $.fn.inputPreset.Constructor=InputPreset
 $.fn.inputPreset.noConflict=function(){$.fn.inputPreset=old
 return this}
-$(document).render(function(){$('[data-input-preset]').inputPreset()})}(window.jQuery);(function($){var OctoberLayout=function(){}
+$(document).render(function(){$('[data-input-preset]').inputPreset()})}(window.jQuery);(function($){var OctoberLayout=function(){this.$accountMenuOverlay=null}
 OctoberLayout.prototype.setPageTitle=function(title){var $title=$('title')
 if(this.pageTitleTemplate===undefined)
 this.pageTitleTemplate=$title.data('titleTemplate')
@@ -1066,6 +1125,14 @@ OctoberLayout.prototype.updateLayout=function(title){$('.layout-cell.width-fix')
 $el.data('oc.layoutMargin',margin)}
 $(this).width($el.get(0).offsetWidth+margin)
 $(this).trigger('oc.widthFixed')}})}
+OctoberLayout.prototype.toggleAccountMenu=function(el){var self=this,$menu=$(el).next()
+if($menu.hasClass('active')){self.$accountMenuOverlay.remove()
+$menu.removeClass('active')}
+else{self.$accountMenuOverlay=$('<div />').addClass('popover-overlay')
+$(document.body).append(self.$accountMenuOverlay)
+$menu.addClass('active')
+self.$accountMenuOverlay.one('click',function(){self.$accountMenuOverlay.remove()
+$menu.removeClass('active')})}}
 if($.oc===undefined)
 $.oc={}
 $.oc.layout=new OctoberLayout()
@@ -1120,20 +1187,15 @@ this.$el.css({left:this.sideNavWidth,top:this.mainNavHeight})
 this.updatePanelPosition()
 $(window).trigger('resize')}
 SidePanelTab.prototype.hideSidePanel=function(){$(document.body).removeClass('display-side-panel')
-if(this.$el.next('#layout-body').length==0)
-$('#layout-body').before(this.$el)
+if(this.$el.next('#layout-body').length==0){$('#layout-body').before(this.$el)}
 this.panelVisible=false
 this.updateActiveTab()}
-SidePanelTab.prototype.updatePanelPosition=function(){if(!this.panelFixed()||Modernizr.touch)
-this.$el.height($(document).height()-this.mainNavHeight)
-else
-this.$el.css('height','')
-if(this.panelVisible&&$(window).width()>this.options.breakpoint&&this.panelFixed())
-this.hideSidePanel()}
-SidePanelTab.prototype.updateActiveTab=function(){if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed()))
-this.$sideNavItems.removeClass('active')
+SidePanelTab.prototype.updatePanelPosition=function(){if(!this.panelFixed()||Modernizr.touch){this.$el.height($(document).height()-this.mainNavHeight)}
+else{this.$el.css('height','')}
+if(this.panelVisible&&$(window).width()>this.options.breakpoint&&this.panelFixed()){this.hideSidePanel()}}
+SidePanelTab.prototype.updateActiveTab=function(){if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed())){this.$sideNavItems.removeClass('active')}
 else{this.$sideNavItems.filter('[data-menu-item='+this.visibleItemId+']').addClass('active')}}
-SidePanelTab.prototype.panelFixed=function(){return!$(document.body).hasClass('side-panel-not-fixed')}
+SidePanelTab.prototype.panelFixed=function(){return!($(window).width()<this.options.breakpoint)&&!$(document.body).hasClass('side-panel-not-fixed')}
 SidePanelTab.prototype.fixPanel=function(){$(document.body).toggleClass('side-panel-not-fixed')
 var self=this
 window.setTimeout(function(){var fixed=self.panelFixed()
@@ -1394,7 +1456,7 @@ Inspector.prototype.init=function(){if(!this.config||this.config.length==0)
 return
 var self=this,fieldsConfig=this.preprocessConfig(),data={title:this.title?this.title:this.$el.data('inspector-title'),description:this.description?this.description:this.$el.data('inspector-description'),properties:fieldsConfig.properties,editor:function(){return function(text,render){if(this.itemType=='property')
 return self.renderEditor(this,render)}},info:function(){return function(text,render){if(this.description!==undefined&&this.description!=null)
-return render('<span data-toggle="tooltip" title="{{description}}" class="info oc-icon-info"></span>',this)}},propFormat:function(){return function(text,render){return'prop-'+render(text).replace('.','-')}},colspan:function(){return function(text,render){return this.itemType=='group'?'colspan="2"':null}},tableClass:function(){return function(text,render){return fieldsConfig.hasGroups?'has-groups':null}},cellClass:function(){return function(text,render){var result=this.itemType+((this.itemType=='property'&&this.groupIndex!==undefined)?' grouped':'')
+return render('<span title="{{description}}" class="info oc-icon-info with-tooltip"></span>',this)}},propFormat:function(){return function(text,render){return'prop-'+render(text).replace('.','-')}},colspan:function(){return function(text,render){return this.itemType=='group'?'colspan="2"':null}},tableClass:function(){return function(text,render){return fieldsConfig.hasGroups?'has-groups':null}},cellClass:function(){return function(text,render){var result=this.itemType+((this.itemType=='property'&&this.groupIndex!==undefined)?' grouped':'')
 if(this.itemType=='property'&&this.groupIndex!==undefined)
 result+=self.groupExpanded(this.group)?' expanded':' collapsed'
 if(this.itemType=='property'&&!this.showExternalParam)
@@ -1426,7 +1488,7 @@ if(self.$el.closest('[data-inspector-external-parameters]').length>0)
 self.initExternalParameterEditor(self.$el.data('oc.popover').$container)
 $.each(self.editors,function(){if(this.init!==undefined)
 this.init()})
-$('[data-toggle=tooltip]',self.$el.data('oc.popover').$container).tooltip({placement:'auto right',container:'body',delay:500})
+$('.with-tooltip',self.$el.data('oc.popover').$container).tooltip({placement:'auto right',container:'body',delay:500})
 var $container=self.$el.data('oc.popover').$container
 $container.on('click','tr.group',function(){self.toggleGroup($('a.expandControl',this),$container)
 return false})
@@ -1608,7 +1670,7 @@ e.preventDefault()
 var self=this
 setTimeout(function(){self.focus()},0)
 return false})
-$('[data-toggle=tooltip]',this.$el.data('oc.popover').$container).tooltip('hide')
+$('.with-tooltip',this.$el.data('oc.popover').$container).tooltip('hide')
 if(!e.isDefaultPrevented()){$.each(this.editors,function(){if(this.cleanup)
 this.cleanup()})}}
 Inspector.prototype.editorExternalPropertyEnabled=function(editor){var $container=this.$el.data('inspector-container'),$cell=$('#'+editor.inspectorCellId,$container),$extPropEditorContainer=$cell.find('.external-param-editor-container')
@@ -1712,7 +1774,7 @@ if(this.fieldDef.placeholder!==undefined)
 options.placeholder=this.fieldDef.placeholder
 $(this.selector).select2(options)}
 if(this.dynamicOptions){if(!Modernizr.touch){this.indicatorContainer=$('.select2-container',$(this.selector).closest('td'))
-this.indicatorContainer.addClass('loading-indicator-container').addClass('size-small').addClass('transparent')}
+this.indicatorContainer.addClass('loading-indicator-container').addClass('size-small')}
 this.loadOptions(true)}
 if(this.fieldDef.depends)
 this.inspector.$el.on('propertyChanged.oc.Inspector',$.proxy(this.onDependencyChanged,this))}
@@ -1726,7 +1788,7 @@ InspectorEditorDropdown.prototype.getDependencyValues=function(){var dependencyV
 $.each(this.fieldDef.depends,function(index,masterProperty){dependencyValues+=masterProperty+':'+self.inspector.readProperty(masterProperty)+'-'})
 return dependencyValues}
 InspectorEditorDropdown.prototype.showLoadingIndicator=function(){if(!Modernizr.touch)
-this.indicatorContainer.loadIndicator({'opaque':true})}
+this.indicatorContainer.loadIndicator()}
 InspectorEditorDropdown.prototype.hideLoadingIndicator=function(){if(!Modernizr.touch)
 this.indicatorContainer.loadIndicator('hide')}
 InspectorEditorDropdown.prototype.loadOptions=function(initialization){var $form=$(this.selector).closest('form'),data=this.inspector.propertyValues,$select=$(this.selector),currentValue=this.inspector.readProperty(this.fieldDef.property,true),self=this

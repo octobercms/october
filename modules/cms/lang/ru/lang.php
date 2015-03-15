@@ -54,7 +54,7 @@ return [
         'no_layout' => '-- без шаблона --'
     ],
     'layout' => [
-        'not_found' => "Не удалось найти шаблон (layout) с именем :name.",
+        'not_found_name' => "Не удалось найти шаблон (layout) с именем :name.",
         'menu_label' => 'Шаблоны',
         'unsaved_label' => 'Несохранённый(е) макет(ы)',
         'no_list_records' => 'Шаблоны не найдены',
@@ -63,8 +63,8 @@ return [
         'delete_confirm_single' => 'Вы действительно хотите удалить этот шаблон?'
     ],
     'partial' => [
+        'not_found_name' => "Не удалось найти шаблон (partial) с именем :name.",
         'invalid_name' => "Ошибка в имени шаблона (partial) :name.",
-        'not_found' => "Не удалось найти шаблон (partial) с именем :name.",
         'menu_label' => 'Фрагменты',
         'unsaved_label' => 'Несохранённый(е) фрагмент(ы)',
         'no_list_records' => 'Фрагменты не найдены',
@@ -73,7 +73,7 @@ return [
         'new' => 'Новый фрагмент'
     ],
     'content' => [
-        'not_found' => "Не удалось найти файл содержимого (content file): ':name'.",
+        'not_found_name' => "Не удалось найти файл содержимого (content file): ':name'.",
         'menu_label' => 'Содержимое',
         'unsaved_label' => 'Несохранённое содержимое',
         'no_list_records' => 'Файлы с содержимым не найдены',

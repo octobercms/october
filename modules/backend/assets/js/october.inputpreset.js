@@ -1,7 +1,8 @@
 /*
  * An input preset converter.
  *
- * The API allows to convert text entered into an element to an URL or file name value in another input element.
+ * The API allows to convert text entered into an element to a URL, slug or file name
+ * value in another input element.
  *
  * Supported data attributes:
  * - data-input-preset: specifies a CSS selector for a source input element
@@ -9,6 +10,8 @@
  *   for the source and destination input elements.
  * - data-input-preset-type: specifies the conversion type. Supported values are:
  *   url, file, slug, camel.
+ * - data-input-preset-prefix-input: optional, prefixes the converted value with the value found
+ *   in the supplied input element using a CSS selector.
  *
  * Example: <input type="text" id="name" value=""/>
  *          <input type="text"
@@ -191,9 +194,9 @@
         this.options = options || {}
         this.cancelled = false
 
-        var parent = options.inputPresetClosestParent !== undefined ?
-                $el.closest(options.inputPresetClosestParent) :
-                undefined,
+        var parent = options.inputPresetClosestParent !== undefined
+                ? $el.closest(options.inputPresetClosestParent)
+                : undefined,
             self = this,
             prefix = ''
 

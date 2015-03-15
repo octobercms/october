@@ -90,13 +90,22 @@ class BrandSettings extends Model
     {
         $parser = new Less_Parser(['compress' => true]);
 
-        $parser->ModifyVars([
+        $svgHead  = 'data:image/svg+xml;charset=UTF-8,';
+        $svgOpen  = static::cssEscape('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="100px" height="110px" viewBox="0 0 100 110" enable-background="new 0 0 100 110" xml:space="preserve">');
+        $svgClose = static::cssEscape('</svg>');
+
+        $vars = [
             'logo-image'            => "'".self::getLogo()."'",
             'primary-color-light'   => self::get('primary_color_light', self::PRIMARY_LIGHT),
             'primary-color-dark'    => self::get('primary_color_dark', self::PRIMARY_DARK),
             'secondary-color-light' => self::get('secondary_color_light', self::SECONDARY_LIGHT),
             'secondary-color-dark'  => self::get('secondary_color_dark', self::SECONDARY_DARK),
-        ]);
+            'svg-head'              => "'".$svgHead."'",
+            'svg-open'              => "'".$svgOpen."'",
+            'svg-close'             => "'".$svgClose."'"
+        ];
+
+        $parser->ModifyVars($vars);
 
         $parser->parse(
             File::get(base_path().'/modules/backend/models/brandsettings/custom.less')
@@ -106,5 +115,16 @@ class BrandSettings extends Model
         $css = $parser->getCss();
 
         return $css;
+    }
+
+    /**
+     * Escape for RFC 3986, generally good for CSS
+     * @param string $string
+     */
+    protected static function cssEscape($string)
+    {
+        $entities = array('%21', '%2A', '%27', '%28', '%29', '%3B', '%3A', '%40', '%26', '%3D', '%2B', '%24', '%2C', '%2F', '%3F', '%25', '%23', '%5B', '%5D');
+        $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]");
+        return str_replace($entities, $replacements, rawurlencode($string));
     }
 }

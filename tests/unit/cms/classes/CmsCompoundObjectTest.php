@@ -62,6 +62,30 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertEquals(10, $obj->settings['components']['testArchive']['posts-per-page']);
     }
 
+    public function testHasComponent()
+    {
+        $theme = Theme::load('test');
+
+        $obj = TestCmsCompoundObject::load($theme, 'components.htm');
+        $this->assertArrayHasKey('components', $obj->settings);
+
+        $this->assertInternalType('array', $obj->settings['components']);
+        $this->assertArrayHasKey('testArchive firstAlias', $obj->settings['components']);
+        $this->assertArrayHasKey('October\Tester\Components\Post secondAlias', $obj->settings['components']);
+
+        // Explicit
+        $this->assertEquals('testArchive firstAlias', $obj->hasComponent('testArchive'));
+        $this->assertEquals('October\Tester\Components\Post secondAlias', $obj->hasComponent('October\Tester\Components\Post'));
+
+        // Resolved
+        $this->assertEquals('testArchive firstAlias', $obj->hasComponent('October\Tester\Components\Archive'));
+        $this->assertEquals('October\Tester\Components\Post secondAlias', $obj->hasComponent('testPost'));
+
+        // Negative test
+        $this->assertFalse($obj->hasComponent('yooHooBigSummerBlowOut'));
+        $this->assertFalse($obj->hasComponent('October\Tester\Components\BigSummer'));
+    }
+
     public function testCache()
     {
         $theme = Theme::load('test');

@@ -240,7 +240,7 @@ class ListController extends ControllerBehavior
      */
     public function index()
     {
-        $this->controller->pageTitle = $this->controller->pageTitle ?: trans($this->getConfig(
+        $this->controller->pageTitle = $this->controller->pageTitle ?: Lang::get($this->getConfig(
             'title',
             'backend::lang.list.default_title'
         ));
@@ -350,7 +350,6 @@ class ListController extends ControllerBehavior
          * Prepare CSV
          */
         $csv = Writer::createFromFileObject(new SplTempFileObject);
-        $csv->setNullHandlingMode(Writer::NULL_AS_EMPTY);
 
         /*
          * Add headers
@@ -358,7 +357,7 @@ class ListController extends ControllerBehavior
         $headers = [];
         $columns = $widget->getVisibleColumns();
         foreach ($columns as $column) {
-            $headers[] = $column->label;
+            $headers[] = Lang::get($column->label);
         }
         $csv->insertOne($headers);
 

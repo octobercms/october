@@ -8,8 +8,9 @@ use Cache;
 use Event;
 use Config;
 use DbDongle;
-use System\Models\Parameters;
 use SystemException;
+use ApplicationException;
+use System\Models\Parameters;
 use Cms\Models\ThemeData;
 use DirectoryIterator;
 
@@ -90,6 +91,16 @@ class Theme
     }
 
     /**
+     * Helper for {{ theme.id }} twig vars
+     * Returns a unique string for this theme.
+     * @return string
+     */
+    public function getId()
+    {
+        return snake_case(str_replace('/', '-', $this->getDirName()));
+    }
+
+    /**
      * Determines if a theme with given directory name exists
      * @param string $dirName The theme directory
      * @return bool
@@ -111,6 +122,15 @@ class Theme
     public function listPages($skipCache = false)
     {
         return Page::listInTheme($this, $skipCache);
+    }
+
+    /**
+     * Returns true if this theme is the chosen active theme.
+     */
+    public function isActiveTheme()
+    {
+        $activeTheme = self::getActiveTheme();
+        return $activeTheme && $activeTheme->getDirName() == $this->getDirName();
     }
 
     /**
@@ -256,6 +276,28 @@ class Theme
     public function getConfigValue($name, $default = null)
     {
         return array_get($this->getConfig(), $name, $default);
+    }
+
+    /**
+     * Writes to the theme.yaml file with the supplied array values.
+     * @param array $values Data to write
+     * @param array $overwrite If true, undefined values are removed.
+     * @return void
+     */
+    public function writeConfig($values = [], $overwrite = false)
+    {
+        if (!$overwrite) {
+            $values = $values + $this->getConfig();
+        }
+
+        $path = $this->getPath().'/theme.yaml';
+        if (!File::exists($path)) {
+            throw new ApplicationException('Path does not exist: '.$path);
+        }
+
+        $contents = Yaml::render($values);
+        File::put($path, $contents);
+        $this->configCache = $values;
     }
 
     /**

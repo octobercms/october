@@ -46,6 +46,57 @@ body.outer .layout > .layout-row.layout-head {
 }
 
 //
+// Popover
+//
+
+@color-popover-head-bg: @primary-color-dark;
+
+div.control-popover {
+    .popover-head {
+        background: @color-popover-head-bg;
+    }
+
+    &.placement-bottom .popover-head:before {
+        border-bottom-color: @color-popover-head-bg;
+    }
+
+    &.placement-left .popover-head:before {
+        border-left-color: @color-popover-head-bg;
+    }
+
+    &.placement-right .popover-head:before {
+        border-right-color: @color-popover-head-bg;
+    }
+}
+
+//
+// Popup
+//
+
+@color-popup-header-bg: @primary-color-dark;
+
+.modal-header {
+    background: @color-popup-header-bg;
+}
+
+//
+// List
+//
+
+@color-list-stripe-active: @primary-color-light;
+@color-list-active-sort: @primary-color-dark;
+
+table.table.data {
+    tbody {
+        tr.active td {
+            &:first-child {
+                border-left: 3px solid @color-list-stripe-active;
+            }
+        }
+    }
+}
+
+//
 // Breadcrumb
 //
 
@@ -63,14 +114,11 @@ body.outer .layout > .layout-row.layout-head {
 @color-fancy-master-tabs-bg: @primary-color-dark;
 @color-fancy-form-inactive-tab: mix(black, desaturate(@primary-color-dark, 14.5%), 5%);
 
-@tab-svg-part1: 'data:image/svg+xml;charset=UTF-8,';
-@tab-svg-part2: escape('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="100px" height="110px" viewBox="0 0 100 110" enable-background="new 0 0 100 110" xml:space="preserve">');
-@tab-svg-part3: escape('<path d="M0,30C5,30,10,0,20,0c5,0,60,0,65,0c10,0,10,30,15,30"/>');
-@tab-svg-part4: escape('<path fill="@{color-fancy-form-tabless-fields-bg}" d="M0,70c5,0,10-30,20-30c0,10,0,15,0,15v15"/>');
-@tab-svg-part5: escape('<path fill="@{color-fancy-form-tabless-fields-bg}" d="M100,70c-5,0-10-30-20-30c0,10,0,15,0,15v15"/>');
-@tab-svg-part6: escape('<path fill="@{color-fancy-form-inactive-tab}" d="M0,110c5,0,10-30,20-30c0,10,0,15,0,15v15"/>');
-@tab-svg-part7: escape('<path fill="@{color-fancy-form-inactive-tab}" d="M100,110c-5,0-10-30-20-30c0,10,0,15,0,15v15"/>');
-@tab-svg-part8: escape('</svg>');
+@tab-svg-part1: escape('<path d="M0,30C5,30,10,0,20,0c5,0,60,0,65,0c10,0,10,30,15,30"/>');
+@tab-svg-part2: escape('<path fill="@{color-fancy-form-tabless-fields-bg}" d="M0,70c5,0,10-30,20-30c0,10,0,15,0,15v15"/>');
+@tab-svg-part3: escape('<path fill="@{color-fancy-form-tabless-fields-bg}" d="M100,70c-5,0-10-30-20-30c0,10,0,15,0,15v15"/>');
+@tab-svg-part4: escape('<path fill="@{color-fancy-form-inactive-tab}" d="M0,110c5,0,10-30,20-30c0,10,0,15,0,15v15"/>');
+@tab-svg-part5: escape('<path fill="@{color-fancy-form-inactive-tab}" d="M100,110c-5,0-10-30-20-30c0,10,0,15,0,15v15"/>');
 
 .fancy-layout {
     .control-tabs, &.control-tabs {
@@ -93,7 +141,7 @@ body.outer .layout > .layout-row.layout-head {
                 a > span.title {
                     background-color: @color-fancy-form-inactive-tab;
                     &:before, &:after {
-                        background-image: url(~'@{tab-svg-part1}@{tab-svg-part2}@{tab-svg-part3}@{tab-svg-part4}@{tab-svg-part5}@{tab-svg-part6}@{tab-svg-part7}@{tab-svg-part8}');
+                        background-image: url(~'@{svg-head}@{svg-open}@{tab-svg-part1}@{tab-svg-part2}@{tab-svg-part3}@{tab-svg-part4}@{tab-svg-part5}@{svg-close}');
                     }
                 }
                 &.active {
@@ -145,6 +193,12 @@ div.control-componentlist {
 
 .control-filelist {
     ul li.active a:after {
+        background: @color-list-active-border;
+    }
+}
+
+.control-assetlist {
+    ul li.active a.link:after {
         background: @color-list-active-border;
     }
 }

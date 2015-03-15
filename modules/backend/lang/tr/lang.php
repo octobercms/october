@@ -21,7 +21,7 @@ return [
         ]
     ],
     'partial' => [
-        'not_found' => "':name' bölümü bulunamadı."
+        'not_found_name' => "':name' bölümü bulunamadı."
     ],
     'account' => [
         'sign_out' => 'Çıkış',

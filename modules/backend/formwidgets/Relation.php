@@ -14,10 +14,33 @@ use Illuminate\Database\Eloquent\Relations\Relation as RelationBase;
  */
 class Relation extends FormWidgetBase
 {
+    //
+    // Configurable properties
+    //
+
+    /**
+     * @var string Model column to use for the name reference
+     */
+    public $nameFrom = 'name';
+
+    /**
+     * @var string Model column to use for the description reference
+     */
+    public $descriptionFrom = 'description';
+
+    /**
+     * @var string Empty value to use if the relation is singluar (belongsTo)
+     */
+    public $emptyOption;
+
+    //
+    // Object properties
+    //
+
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'relation';
+    protected $defaultAlias = 'relation';
 
     /**
      * @var string Relationship type
@@ -35,31 +58,18 @@ class Relation extends FormWidgetBase
     public $renderFormField;
 
     /**
-     * @var string Model column to use for the name reference
-     */
-    public $nameFrom = 'name';
-
-    /**
-     * @var string Model column to use for the description reference
-     */
-    public $descriptionFrom = 'description';
-
-    /**
-     * @var string Empty value to use if the relation is singluar (belongsTo)
-     */
-    public $emptyOption;
-
-    /**
      * {@inheritDoc}
      */
     public function init()
     {
+        $this->fillFromConfig([
+            'nameFrom',
+            'descriptionFrom',
+            'emptyOption',
+        ]);
+
         $this->relationName = $this->valueFrom;
         $this->relationType = $this->model->getRelationType($this->relationName);
-
-        $this->nameFrom = $this->getConfig('nameFrom', $this->nameFrom);
-        $this->descriptionFrom = $this->getConfig('descriptionFrom', $this->descriptionFrom);
-        $this->emptyOption = $this->getConfig('emptyOption');
 
         if (!$this->model->hasRelation($this->relationName)) {
             throw new SystemException(Lang::get(

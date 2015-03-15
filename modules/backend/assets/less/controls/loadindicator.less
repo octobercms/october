@@ -25,6 +25,7 @@
 
 .loading-indicator-container {
     position: relative;
+    min-height: 40px;
 
     .loading-indicator {
         position: absolute;
@@ -34,39 +35,77 @@
         height: 100%;
         padding-top: 0;
 
-        div {
+        > div {
             position: absolute;
             top: 50%;
-            margin-top: -0.5em;
+            margin-top: -0.65em;
         }
     }
 }
 
 html.cssanimations {
     .loading-indicator > span {
-        background-image: url(../images/loading-indicator.svg);
+        background-image: url(../images/loading-indicator-transparent.svg);
         background-size: 35px 35px;
         background-position: 50% 50%;
         .animation(spin 1s linear infinite);
     }
 
-    .loading-indicator.transparent > span {
-        background-image:url(../images/loading-indicator-transparent.svg);
+    .loading-indicator.is-opaque,
+    .loading-indicator-container.is-opaque .loading-indicator {
+        > span {
+            background-image: url(../images/loading-indicator.svg);
+        }
     }
+}
+
+// Sizes
+
+.loading-indicator-container.size-small {
+    min-height: 20px;
 }
 
 .loading-indicator.size-small,
 .loading-indicator-container.size-small .loading-indicator {
     padding: 16px 16px 16px 30px;
     font-size: 11px;
-    & > span {
+    > span {
         height: 20px;
         width: 20px;
         margin-top: -10px;
-        background-size: 20px 20px;
     }
 }
 
+html.cssanimations {
+    .loading-indicator.size-small,
+    .loading-indicator-container.size-small .loading-indicator {
+        > span {
+            background-size: 20px 20px;
+        }
+    }
+}
+
+// Centered
+
+.loading-indicator.indicator-center,
+.loading-indicator-container.indicator-center .loading-indicator {
+    padding: 20px;
+
+    > span {
+        left: 50%;
+        margin-left: -20px;
+        margin-top: -20px;
+    }
+
+    > div {
+        top: auto;
+        text-align: center;
+        position: relative;
+    }
+}
+
+
+// Form fields
 
 .loading-indicator-container.size-form-field .loading-indicator,
 .loading-indicator-container.size-input-text .loading-indicator {

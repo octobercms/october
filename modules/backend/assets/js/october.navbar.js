@@ -18,8 +18,9 @@
 
             nav.verticalMenu($('a.menu-toggle', navbar))
 
-            $('[data-toggle="tooltip"]', navbar).tooltip({
-                'container': 'body'
+            $('li.with-tooltip > a', navbar).tooltip({
+                container: 'body',
+                placement: 'bottom'
             })
 
             $('.layout-cell.width-fix', navbar).one('oc.widthFixed', function(){

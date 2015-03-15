@@ -46,7 +46,7 @@ return [
         'no_layout' => '-- بدون طرح بندی --'
     ],
     'layout' => [
-        'not_found' => "طرح بندی ی ':name' یافت نشد",
+        'not_found_name' => "طرح بندی ی ':name' یافت نشد",
         'menu_label' => 'طرح بندی ها',
         'no_list_records' => 'طرحبندی یافت نشد',
         'new' => 'طرح بندی جدید',
@@ -54,8 +54,8 @@ return [
         'delete_confirm_single' => 'آیا از حذف این طرحبندی اطمینان دارید؟'
     ],
     'partial' => [
+        'not_found_name' => "بخشی با نام ':name' یافت نشد.",
         'invalid_name' => "نام بخش نا معتبر است: :name.",
-        'not_found' => "بخشی با نام ':name' یافت نشد.",
         'menu_label' => 'بخش ها',
         'no_list_records' => 'بخشی وجود ندارد',
         'delete_confirm_multiple' => 'آیا از حذف بخش های انتخاب شده اطمینان دارید؟',
@@ -63,7 +63,7 @@ return [
         'new' => 'بخش بندی جدید'
     ],
     'content' => [
-        'not_found' => "فایل محتوای ':name' یافت نشد.",
+        'not_found_name' => "فایل محتوای ':name' یافت نشد.",
         'menu_label' => 'محتوا',
         'no_list_records' => 'هیچ فایل محتوایی وجود ندارد',
         'delete_confirm_multiple' => 'آیا از خذف فایل ها و یا پوشه های انتخاب شده اطمینان دارید؟',

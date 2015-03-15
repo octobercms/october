@@ -7,6 +7,8 @@ class AuthTest extends UiTestCase
     {
         $this->open('backend');
 
+        $cssLogoutLink = '#layout-mainmenu .mainmenu-accountmenu > ul > li:first-child > a';
+
         try {
             $this->assertTitle('Administration Area');
             $this->assertTrue($this->isElementPresent("name=login"));
@@ -28,16 +30,18 @@ class AuthTest extends UiTestCase
 
         try {
             $this->assertTitle('Dashboard | October CMS');
-            $this->assertTrue($this->isElementPresent('css=a[title="Sign out"]'));
+            $this->assertTrue($this->isElementPresent('css='.$cssLogoutLink));
         }
         catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
         }
 
+        $this->verifyText('css='.$cssLogoutLink, "Sign out");
+
         /*
          * Log out
          */
-        $this->click('css=a[title="Sign out"]');
+        $this->click('css='.$cssLogoutLink);
         $this->waitForPageToLoad("30000");
 
         try {

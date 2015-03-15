@@ -1,10 +1,10 @@
 <?php namespace Backend\Classes;
 
-use Str;
 use Lang;
 use ApplicationException;
 use October\Rain\Extension\ExtensionBase;
 use System\Traits\ViewMaker;
+use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * Controller Behavior base class
@@ -87,7 +87,7 @@ class ControllerBehavior extends ExtensionBase
         /*
          * Array field name, eg: field[key][key2][key3]
          */
-        $keyParts = Str::evalHtmlArray($name);
+        $keyParts = HtmlHelper::nameToArray($name);
 
         /*
          * First part will be the field name, pop it off

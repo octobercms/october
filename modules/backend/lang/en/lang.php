@@ -21,7 +21,7 @@ return [
         ]
     ],
     'partial' => [
-        'not_found' => "The partial ':name' is not found."
+        'not_found_name' => "The partial ':name' is not found."
     ],
     'account' => [
         'sign_out' => 'Sign out',

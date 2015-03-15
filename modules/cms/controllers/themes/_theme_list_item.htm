@@ -1,0 +1,99 @@
+<?php
+    $author = $theme->getConfigValue('author');
+?>
+
+<div class="layout-cell min-height theme-thumbnail">
+    <div class="thumbnail-container"><img src="<?= $theme->getPreviewImageUrl() ?>"/></div>
+</div>
+<div class="layout-cell min-height theme-description">
+    <h3><?= e($theme->getConfigValue('name', $theme->getDirName())) ?></h3>
+    <?php if (strlen($author)): ?>
+        <p class="author">by <a href="<?= e($theme->getConfigValue('homepage', '#')) ?>"><?= e($author) ?></a></p>
+    <?php endif ?>
+    <p class="description">
+        <?= e($theme->getConfigValue('description', 'The theme description is not provided.')) ?>
+    </p>
+    <div class="controls">
+
+        <?php if ($theme->isActiveTheme()): ?>
+            <button
+                type="submit"
+                disabled
+                class="btn btn-disabled">
+                <i class="icon-star"></i>
+                <?= e(trans('cms::lang.theme.active_button')) ?>
+            </button>
+        <?php else: ?>
+            <button
+                type="submit"
+                data-request="onSetActiveTheme"
+                data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
+                data-stripe-load-indicator
+                class="btn btn-primary">
+                <i class="icon-check"></i>
+                <?= e(trans('cms::lang.theme.activate_button')) ?>
+            </button>
+        <?php endif ?>
+        <?php if ($theme->hasCustomData()): ?>
+            <a
+                href="<?= Backend::url('cms/themes/update/'.$theme->getDirName()) ?>"
+                class="btn btn-default">
+                <i class="icon-paint-brush"></i>
+                <?= e(trans('cms::lang.theme.customize_button')) ?>
+            </a>
+        <?php endif ?>
+        <div class="dropdown">
+            <button
+                data-toggle="dropdown"
+                class="btn btn-default">
+                <i class="icon-wrench"></i>
+                Manage
+            </button>
+            <ul class="dropdown-menu" role="menu" data-dropdown-title="Manage theme">
+                <li role="presentation">
+                    <a
+                        role="menuitem"
+                        tabindex="-1"
+                        data-control="popup"
+                        data-size="huge"
+                        data-handler="onLoadThemeFieldsForm"
+                        data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
+                        href="javascript:;"
+                        class="oc-icon-pencil">
+                        Edit properties
+                    </a>
+                </li>
+                <!--
+                <li role="presentation">
+                    <a
+                        role="menuitem"
+                        tabindex="-1"
+                        href="javascript:;"
+                        class="oc-icon-download">
+                        Download
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a
+                        role="menuitem"
+                        tabindex="-1"
+                        href="javascript:;"
+                        class="oc-icon-copy">
+                        Duplicate
+                    </a>
+                </li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation">
+                    <a
+                        role="menuitem"
+                        tabindex="-1"
+                        href="javascript:;"
+                        class="oc-icon-trash">
+                        Delete
+                    </a>
+                </li>
+                -->
+            </ul>
+        </div>
+    </div>
+</div>

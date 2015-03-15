@@ -45,6 +45,7 @@ class BackendPreferences extends Model
             'fa' => [Lang::get('system::lang.locale.fa'), 'flag-ir'],
             'fr' => [Lang::get('system::lang.locale.fr'), 'flag-fr'],
             'hu' => [Lang::get('system::lang.locale.hu'), 'flag-hu'],
+            'id' => [Lang::get('system::lang.locale.id'), 'flag-id'],
             'it' => [Lang::get('system::lang.locale.it'), 'flag-it'],
             'ja' => [Lang::get('system::lang.locale.ja'), 'flag-jp'],
             'nl' => [Lang::get('system::lang.locale.nl'), 'flag-nl'],
@@ -54,6 +55,7 @@ class BackendPreferences extends Model
             'se' => [Lang::get('system::lang.locale.se'), 'flag-se'],
             'tr' => [Lang::get('system::lang.locale.tr'), 'flag-tr'],
             'pl' => [Lang::get('system::lang.locale.pl'), 'flag-pl'],
+            'sk' => [Lang::get('system::lang.locale.sk'), 'flag-sk'],
         ];
 
         // Sort locales alphabetically

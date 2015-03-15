@@ -54,7 +54,7 @@ return [
         'no_layout' => '-- レイアウト無し --',
     ],
     'layout' => [
-        'not_found' => "レイアウト':name'が見つかりません。",
+        'not_found_name' => "レイアウト':name'が見つかりません。",
         'menu_label' => 'レイアウト',
         'unsaved_label' => '保存されていないレイアウト',
         'no_list_records' => 'レイアウトが見つかりません',
@@ -63,8 +63,8 @@ return [
         'delete_confirm_single' => '本当にこのページを削除しますか？',
     ],
     'partial' => [
+        'not_found_name' => "':name'パーシャルが見つかりません。",
         'invalid_name' => "正しくないパーシャル名：:name。",
-        'not_found' => "':name'パーシャルが見つかりません。",
         'menu_label' => 'パーシャル',
         'unsaved_label' => '保存されていないパーシャル(s)',
         'no_list_records' => 'パーシャルが見つかりません。',
@@ -73,7 +73,7 @@ return [
         'new' => '新パーシャル',
     ],
     'content' => [
-        'not_found' => "':name'コンテンツファイルが見つかりません。",
+        'not_found_name' => "':name'コンテンツファイルが見つかりません。",
         'menu_label' => 'コンテンツ',
         'unsaved_label' => '保存されていないコンテンツ',
         'no_list_records' => 'コンテンツファイルが見つかりません',

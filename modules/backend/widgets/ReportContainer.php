@@ -17,6 +17,10 @@ use ApplicationException;
  */
 class ReportContainer extends WidgetBase
 {
+    //
+    // Configurable properties
+    //
+
     /**
      * @var string The unique report context name
      * Defines the context where the container is used.
@@ -36,46 +40,74 @@ class ReportContainer extends WidgetBase
      * @var array A list of default widgets to load.
      * This structure could be defined in the widget configuration file (for example config_report_container.yaml).
      * Example YAML structure:
+     *
      * defaultWidgets:
-     *   trafficOverview:
-     *     class: RainLab\GoogleAnalytics\ReportWidgets\TrafficOverview
-     *     sortOrder: 1
-     *     configuration: 
-     *       title: 'Traffic overview'
-     *       ocWidgetWidth: 10
+     *     trafficOverview:
+     *         class: RainLab\GoogleAnalytics\ReportWidgets\TrafficOverview
+     *         sortOrder: 1
+     *         configuration:
+     *             title: 'Traffic overview'
+     *             ocWidgetWidth: 10
      */
     public $defaultWidgets = [];
+
+    //
+    // Object properties
+    //
 
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'reportContainer';
+    protected $defaultAlias = 'reportContainer';
 
+    /**
+     * @var array Collection of all report widgets used by this container.
+     */
+    protected $reportWidgets = [];
+
+    /**
+     * @var boolean Determines if report widgets have been created.
+     */
+    protected $reportsDefined = false;
+
+    /**
+     * Constructor.
+     */
     public function __construct($controller)
     {
-        parent::__construct($controller, []);
-        $this->bindToController();
-
         $configFile = 'config_' . snake_case($this->alias) . '.yaml';
-
         $path = $controller->getConfigPath($configFile);
         if (File::isFile($path)) {
             $config = $this->makeConfig($configFile);
-
-            foreach ($config as $field => $value) {
-                if (property_exists($this, $field)) {
-                    $this->$field = $value;
-                }
-            }
         }
+        else {
+            $config = [];
+        }
+
+        parent::__construct($controller, $config);
+
+        $this->bindToController();
+        $this->fillFromConfig();
     }
 
     /**
-     * Renders the widget.
+     * Ensure report widgets are registered so they can also be bound to 
+     * the controller this allows their AJAX features to operate.
+     * @return void
+     */
+    public function bindToController()
+    {
+        $this->defineReportWidgets();
+        parent::bindToController();
+    }
+
+    /**
+     * Renders this widget along with its collection of report widgets.
      */
     public function render()
     {
-        $this->vars['widgets'] = $this->loadWidgets();
+        $this->defineReportWidgets();
+        $this->vars['widgets'] = $this->reportWidgets;
         return $this->makePartial('container');
     }
 
@@ -164,7 +196,8 @@ class ReportContainer extends WidgetBase
         do {
             $num++;
             $alias = 'report_container_'.$this->context.'_'.$num;
-        } while (array_key_exists($alias, $widgets));
+        }
+        while (array_key_exists($alias, $widgets));
 
         $sortOrder = 0;
         foreach ($widgets as $widgetInfo) {
@@ -182,7 +215,11 @@ class ReportContainer extends WidgetBase
         ];
 
         $this->setWidgetsToUserPreferences($widgets);
-        return ['alias'=>$alias, 'sortOrder'=>$widgets[$alias]['sortOrder']];
+
+        return [
+            'alias'     => $alias,
+            'sortOrder' => $widgets[$alias]['sortOrder']
+        ];
     }
 
     public function onSetWidgetOrders()
@@ -219,36 +256,64 @@ class ReportContainer extends WidgetBase
     // Methods for the internal use
     //
 
-    protected function loadWidgets()
+    /**
+     * Registers the report widgets that will be included in this container.
+     * The chosen widgets are based on the user preferences.
+     */
+    protected function defineReportWidgets()
     {
-        $widgets = $this->getWidgetsFromUserPreferences();
+        if ($this->reportsDefined) {
+            return;
+        }
 
         $result = [];
+        $widgets = $this->getWidgetsFromUserPreferences();
+
         foreach ($widgets as $alias => $widgetInfo) {
-            $configuration = $widgetInfo['configuration'];
-            $configuration['alias'] = $alias;
-
-            $className = $widgetInfo['class'];
-            if (!class_exists($className)) {
-                continue;
+            if ($widget = $this->makeReportWidget($alias, $widgetInfo)) {
+                $result[$alias] = $widget;
             }
-
-            $widget = new $className($this->controller, $configuration);
-            $widget->bindToController();
-
-            $result[$alias] = ['widget' => $widget, 'sortOrder' => $widgetInfo['sortOrder']];
         }
 
         uasort($result, function ($a, $b) {
             return $a['sortOrder'] - $b['sortOrder'];
         });
 
-        return $result;
+        $this->reportWidgets = $result;
+
+        $this->reportsDefined = true;
+    }
+
+    /**
+     * Makes a single report widget object, returned array index:
+     * - widget: The widget object (Backend\Classes\ReportWidgetBase)
+     * - sortOrder: The current sort order
+     *
+     * @param  string $alias
+     * @param  array $widgetInfo
+     * @return array
+     */
+    protected function makeReportWidget($alias, $widgetInfo)
+    {
+        $configuration = $widgetInfo['configuration'];
+        $configuration['alias'] = $alias;
+
+        $className = $widgetInfo['class'];
+        if (!class_exists($className)) {
+            return;
+        }
+
+        $widget = new $className($this->controller, $configuration);
+        $widget->bindToController();
+
+        return ['widget' => $widget, 'sortOrder' => $widgetInfo['sortOrder']];
     }
 
     protected function getWidgetsFromUserPreferences()
     {
-        $widgets = UserPreferences::forUser()->get($this->getUserPreferencesKey(), $this->defaultWidgets);
+        $widgets = UserPreferences::forUser()
+            ->get($this->getUserPreferencesKey(), $this->defaultWidgets);
+
         if (!is_array($widgets)) {
             return [];
         }
@@ -284,7 +349,9 @@ class ReportContainer extends WidgetBase
 
     protected function findWidgetByAlias($alias)
     {
-        $widgets = $this->loadWidgets();
+        $this->defineReportWidgets();
+
+        $widgets = $this->reportWidgets;
         if (!isset($widgets[$alias])) {
             throw new ApplicationException('The specified widget is not found.');
         }
@@ -329,9 +396,9 @@ class ReportContainer extends WidgetBase
         foreach ($properties as $name => $params) {
 
             $property = [
-                'property'          => $name,
-                'title'             => isset($params['title']) ? Lang::get($params['title']) : $name,
-                'type'              => isset($params['type']) ? $params['type'] : 'string'
+                'property' => $name,
+                'title'    => isset($params['title']) ? Lang::get($params['title']) : $name,
+                'type'     => isset($params['type']) ? $params['type'] : 'string'
             ];
 
             foreach ($params as $name => $value) {

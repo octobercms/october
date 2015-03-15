@@ -17,34 +17,4 @@ class WidgetManagerTest extends TestCase
         $this->assertArrayHasKey('Backend\FormWidgets\DatePicker', $widgets);
         $this->assertArrayHasKey('Cms\FormWidgets\Components', $widgets);
     }
-
-    public function testRegisterFormWidget()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testRegisterFormWidgets()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testResolveFormWidget()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testListReportWidgets()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testRegisterReportWidget()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testRegisterReportWidgets()
-    {
-        $this->markTestIncomplete('TODO');
-    }
 }

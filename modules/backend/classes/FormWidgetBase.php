@@ -1,6 +1,6 @@
 <?php namespace Backend\Classes;
 
-use Str;
+use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * Form Widget base class
@@ -11,25 +11,20 @@ use Str;
  */
 abstract class FormWidgetBase extends WidgetBase
 {
-    /**
-     * @var FormField Object containing general form field information.
-     */
-    public $formField;
+
+    //
+    // Configurable properties
+    //
 
     /**
-     * @var string Form field name.
-     */
-    public $fieldName;
-
-    /**
-     * @var string Model attribute to get/set value from.
-     */
-    public $valueFrom;
-
-    /**
-     * @var mixed Model object.
+     * @var Model Form model object.
      */
     public $model;
+
+    /**
+     * @var array Dataset containing field values, if none supplied model should be used.
+     */
+    public $data;
 
     /**
      * @var string Active session key, used for editing forms and deferred bindings.
@@ -42,25 +37,51 @@ abstract class FormWidgetBase extends WidgetBase
     public $previewMode = false;
 
     /**
+     * @var bool Determines if this form field should display comments and labels.
+     */
+    public $showLabels = true;
+
+    //
+    // Object properties
+    //
+
+    /**
+     * @var FormField Object containing general form field information.
+     */
+    protected $formField;
+
+    /**
+     * @var string Form field name.
+     */
+    protected $fieldName;
+
+    /**
+     * @var string Model attribute to get/set value from.
+     */
+    protected $valueFrom;
+
+    /**
      * Constructor
      * @param $controller Controller Active controller object.
      * @param $model Model The relevant model to reference.
      * @param $formField FormField Object containing general form field information.
      * @param $configuration array Configuration the relates to this widget.
      */
-    public function __construct($controller, $model, $formField, $configuration = [])
+    public function __construct($controller, $formField, $configuration = [])
     {
         $this->formField = $formField;
         $this->fieldName = $formField->fieldName;
         $this->valueFrom = $formField->valueFrom;
-        $this->model = $model;
 
-        if (isset($configuration->sessionKey)) {
-            $this->sessionKey = $configuration->sessionKey;
-        }
-        if (isset($configuration->previewMode)) {
-            $this->previewMode = $configuration->previewMode;
-        }
+        $this->config = $this->makeConfig($configuration);
+
+        $this->fillFromConfig([
+            'model',
+            'data',
+            'sessionKey',
+            'previewMode',
+            'showLabels'
+        ]);
 
         parent::__construct($controller, $configuration);
     }
@@ -72,7 +93,7 @@ abstract class FormWidgetBase extends WidgetBase
     {
         $id = parent::getId($suffix);
         $id .= '-' . $this->fieldName;
-        return Str::evalHtmlId($id);
+        return HtmlHelper::nameToId($id);
     }
 
     /**
@@ -92,7 +113,7 @@ abstract class FormWidgetBase extends WidgetBase
      */
     public function getLoadValue()
     {
-        return $this->formField->getValueFromData($this->model);
+        return $this->formField->getValueFromData($this->data ?: $this->model);
     }
 
     /**
@@ -104,15 +125,7 @@ abstract class FormWidgetBase extends WidgetBase
      */
     public function resolveModelAttribute($attribute)
     {
-        $model = $this->model;
-        $parts = Str::evalHtmlArray($attribute);
-        $last = array_pop($parts);
-
-        foreach ($parts as $part) {
-            $model = $model->{$part};
-        }
-
-        return [$model, $last];
+        return $this->formField->resolveModelAttribute($this->model, $attribute);
     }
 
 }

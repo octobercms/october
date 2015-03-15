@@ -70,33 +70,24 @@ class CombineAssetsTest extends TestCase
     public function testCombine()
     {
         $combiner = CombineAssets::instance();
-        $url = $combiner->combine(['assets/css/style1.css', 'assets/css/style2.css'], '/tests/fixtures/themes/test');
+
+        $url = $combiner->combine([
+                'assets/css/style1.css',
+                'assets/css/style2.css'
+            ],
+            base_path().'/tests/fixtures/themes/test'
+        );
         $this->assertNotNull($url);
-        $this->assertRegExp('/\w+[-]\d+/i', $url);      // Must contain hash-number
+        $this->assertRegExp('/\w+[-]\d+/i', $url); // Must contain hash-number
 
-        $url = $combiner->combine(['assets/js/script1.js', 'assets/js/script2.js'], '/tests/fixtures/themes/test');
+        $url = $combiner->combine([
+            'assets/js/script1.js',
+            'assets/js/script2.js'
+            ],
+            base_path().'/tests/fixtures/themes/test'
+        );
         $this->assertNotNull($url);
-        $this->assertRegExp('/\w+[-]\d+/i', $url);      // Must contain hash-number
-    }
-
-    public function testPrepareRequest()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testGetCombinedUrl()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testGetContents()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testPrepareCombiner()
-    {
-        $this->markTestIncomplete('TODO');
+        $this->assertRegExp('/\w+[-]\d+/i', $url); // Must contain hash-number
     }
 
     public function testPutCache()
@@ -109,11 +100,6 @@ class CombineAssetsTest extends TestCase
         $value = self::callProtectedMethod($combiner, 'putCache', [$sampleId, $sampleStore]);
 
         $this->assertTrue($value);
-    }
-
-    public function testGetCache()
-    {
-        $this->markTestIncomplete('TODO');
     }
 
     public function testGetTargetPath()
@@ -130,10 +116,10 @@ class CombineAssetsTest extends TestCase
     public function testMakeCacheId()
     {
         $sampleResources = ['assets/css/style1.css', 'assets/css/style2.css'];
-        $samplePath = '/tests/fixtures/Cms/themes/test';
+        $samplePath = base_path().'/tests/fixtures/cms/themes/test';
 
         $combiner = CombineAssets::instance();
-        self::setProtectedProperty($combiner, 'path', $samplePath);
+        self::setProtectedProperty($combiner, 'localPath', $samplePath);
 
         $value = self::callProtectedMethod($combiner, 'makeCacheId', [$sampleResources]);
         $this->assertEquals(md5($samplePath.implode('|', $sampleResources)), $value);
@@ -145,34 +131,4 @@ class CombineAssetsTest extends TestCase
         $this->assertNull($combiner->resetCache());
     }
 
-    public function testPutCacheIndex()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testRegisterFilter()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testResetFilter()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testGetFilters()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testCombinerNotFound()
-    {
-        $this->markTestIncomplete('Unfinished.');
-
-        $theme = Theme::load('test');
-        $controller = new Controller($theme);
-        $response = $controller->run('/combine/xxxxxxxxx');
-
-        $this->assertEquals("The combiner file 'xxx' is not found.", $response->getOriginalContent());
-    }
 }

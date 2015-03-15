@@ -1,3 +1,30 @@
+* **Build 22x** (2015-03-xx)
+  - Form Tabs now support specifying a default tab using the `defaultTab` option (see Backend > Forms docs).
+  - Improved the Theme management features: Edit properties, download, duplicate and delete.
+
+* **Build 222** (2015-03-11)
+  - Form fields can now use a simpler interface for using the Input preset converter (see Backend > Forms docs).
+  - The event `cms.page.init` no longer passes the URL as the third parameter, `$controller->getRouter()->getUrl()` should be used instead.
+  - `Page::url()` no longer takes a third argument for `$absolute`, generated URLs with this method are always absolute.
+
+* **Build 217** (2015-03-06)
+  - Improvements made to the user menu in the back-end: clicking your avatar will display a popover with settings links from the `mysettings` context.
+  - Added new form field widget called `repeater` for repeatable fields (see Backend > Forms docs).
+  - Made some UI improvements to the Rich Editor.
+  - Form widget base class no longer takes a model as the 2nd argument, it should be passed as `model` in the configuration instead.
+
+* **Build 214** (2015-03-03)
+  - Introduce `AjaxException` that allows response contents to be sent to framework.js and still be treated as an error.
+
+* **Build 211** (2015-02-29)
+  - Report Widgets now support the use of AJAX event handlers.
+
+* **Build 210** (2015-02-28)
+  - Fixes an intermittent issue where a `CmsXXX_XXXClass` cache class cannot be found and throws a fatal error.
+
+* **Build 209** (2015-02-25)
+  - Added new form field type `section` for dividing groups of other fields (see Backend > Forms docs).
+
 * **Build 206** (2015-02-21)
   - The back-end code editor now supports the use of [Emmet](http://emmet.io/).
   - Added the ability to prune Event and Request log records.

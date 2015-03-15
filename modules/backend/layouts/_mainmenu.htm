@@ -1,13 +1,14 @@
+<?php
+    $activeItem = BackendMenu::getActiveMainMenuItem();
+    $mySettings = System\Classes\SettingsManager::instance()->listItems('mysettings');
+?>
 <nav class="navbar layout control-toolbar" id="layout-mainmenu" role="navigation">
     <div class="layout-cell">
         <div class="toolbar-item">
             <div data-control="toolbar">
                 <a class="menu-toggle" href="javascript:;">
                     <i class="icon-bars"></i>
-                    <?php
-                        $activeItem = BackendMenu::getActiveMainMenuItem();
-                        echo $activeItem ? e(trans($activeItem->label)) : 'CMS';
-                    ?>
+                    <?= $activeItem ? e(trans($activeItem->label)) : 'CMS' ?>
                 </a>
 
                 <ul class="nav">
@@ -24,38 +25,42 @@
     </div>
     <div class="layout-cell width-fix">
         <ul>
-            <?php 
-                /* @todo Context help system 
-                    <li class="icon"><a href="#"><i class="icon-question"></i></a></li>
-                */
-            ?>
-            <li class="icon preview">
-                <a
-                    href="<?= URL::to('/') ?>"
-                    target="_blank"
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
-                    <i class="icon-crosshairs"></i>
-                </a>
-            </li>
             <li class="highlight account">
-                <a href="<?= Backend::url('system/settings/mysettings') ?>">
+                <a href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)">
                     <img src="<?= $this->user->getAvatarThumb() ?>">
                     <span class="hidden-xs">
                         <?= e($this->user->first_name.' '.$this->user->last_name) ?>
                     </span>
                 </a>
+                <div class="mainmenu-accountmenu">
+                    <ul>
+                        <li>
+                            <a href="<?= Backend::url('backend/auth/signout') ?>">
+                                <?= e(trans('backend::lang.account.sign_out')) ?>
+                            </a>
+                        </li>
+                        <?php foreach ($mySettings as $category => $items): ?>
+                            <li class="divider"></li>
+                            <?php foreach ($items as $item): ?>
+                                <li>
+                                    <a href="<?= $item->url ?>">
+                                        <?= e(trans($item->label)) ?>
+                                    </a>
+                                </li>
+                            <?php endforeach ?>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
             </li>
-            <li class="icon power-off">
+            <li class="icon preview with-tooltip">
                 <a
-                    data-toggle="tooltip"
-                    data-placement="left"
-                    href="<?= Backend::url('backend/auth/signout') ?>"
-                    title="<?= e(trans('backend::lang.account.sign_out')) ?>">
-                    <i class="icon-power-off"></i>
+                    href="<?= URL::to('/') ?>"
+                    target="_blank"
+                    title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
+                    <i class="icon-crosshairs"></i>
                 </a>
             </li>
+
         </ul>
     </div>
 </nav>

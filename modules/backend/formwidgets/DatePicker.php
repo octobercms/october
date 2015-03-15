@@ -13,10 +13,9 @@ class DatePicker extends FormWidgetBase
 {
     const TIME_PREFIX = '___time_';
 
-    /**
-     * {@inheritDoc}
-     */
-    public $defaultAlias = 'datepicker';
+    //
+    // Configurable properties
+    //
 
     /**
      * @var bool Display mode: datetime, date, time.
@@ -33,14 +32,27 @@ class DatePicker extends FormWidgetBase
      */
     public $maxDate = '2020-12-31';
 
+    //
+    // Object properties
+    //
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $defaultAlias = 'datepicker';
+
     /**
      * {@inheritDoc}
      */
     public function init()
     {
-        $this->mode = strtolower($this->getConfig('mode', $this->mode));
-        $this->minDate = $this->getConfig('minDate', $this->minDate);
-        $this->maxDate = $this->getConfig('maxDate', $this->maxDate);
+        $this->fillFromConfig([
+            'mode',
+            'minDate',
+            'maxDate',
+        ]);
+
+        $this->mode = strtolower($this->mode);
     }
 
     /**
@@ -109,12 +121,7 @@ class DatePicker extends FormWidgetBase
         $this->addCss('vendor/pikaday/css/pikaday.css', 'core');
         $this->addCss('vendor/clockpicker/css/jquery-clockpicker.css', 'core');
         $this->addCss('css/datepicker.css', 'core');
-        $this->addJs('vendor/moment/moment.js', 'core');
-        $this->addJs('vendor/pikaday/js/pikaday.js', 'core');
-        $this->addJs('vendor/pikaday/js/pikaday.jquery.js', 'core');
-        $this->addJs('vendor/clockpicker/js/jquery-clockpicker.js', 'core');
-        $this->addJs('js/datepicker.js', 'core');
-        $this->addJs('js/timepicker.js', 'core');
+        $this->addJs('js/build-min.js', 'core');
     }
 
     /**

@@ -360,7 +360,7 @@ class Updates extends Controller
     public function onAttachProject()
     {
         try {
-            if (!$projectId = post('project_id')) {
+            if (!$projectId = trim(post('project_id'))) {
                 throw new ApplicationException(Lang::get('system::lang.project.id.missing'));
             }
 
@@ -403,7 +403,7 @@ class Updates extends Controller
     public function onInstallPlugin()
     {
         try {
-            if (!$code = post('code')) {
+            if (!$code = trim(post('code'))) {
                 throw new ApplicationException(Lang::get('system::lang.install.missing_plugin_name'));
             }
 

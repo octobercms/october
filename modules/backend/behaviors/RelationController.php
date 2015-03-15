@@ -133,6 +133,11 @@ class RelationController extends ControllerBehavior
     protected $manageMode;
 
     /**
+     * @var string The target that triggered an AJAX event (button, list)
+     */
+    protected $eventTarget;
+
+    /**
      * @var int Primary id of an existing relation record.
      */
     protected $manageId;
@@ -146,6 +151,11 @@ class RelationController extends ControllerBehavior
      * @var bool Disables the ability to add, update, delete or create relations.
      */
     public $readOnly = false;
+
+    /**
+     * @var bool Defers all binding actions using a session key when it is available.
+     */
+    public $deferredBinding = false;
 
     /**
      * Behavior constructor
@@ -215,6 +225,7 @@ class RelationController extends ControllerBehavior
         $this->relationModel = $this->relationObject->getRelated();
 
         $this->readOnly = $this->getConfig('readOnly');
+        $this->deferredBinding = $this->getConfig('deferredBinding') || !$this->model->exists;
         $this->toolbarButtons = $this->evalToolbarButtons();
         $this->viewMode = $this->viewMode ?: $this->evalViewMode();
         $this->manageMode = $this->manageMode ?: $this->evalManageMode();
@@ -301,22 +312,29 @@ class RelationController extends ControllerBehavior
             return $mode;
         }
 
+        switch ($this->eventTarget) {
+            case 'button-create':
+            case 'button-update':
+                return 'form';
+
+            case 'button-link':
+                return 'list';
+        }
+
         switch ($this->relationType) {
             case 'belongsTo':
-                $mode = 'list';
-                break;
+                return 'list';
 
             case 'belongsToMany':
-                $mode = (isset($this->config->pivot)) ? 'pivot' : 'list';
-                break;
+                if (isset($this->config->pivot)) return 'pivot';
+                elseif ($this->eventTarget == 'list') return 'form';
+                else return 'list';
 
             case 'hasOne':
             case 'hasMany':
-                $mode = 'form';
-                break;
+                if ($this->eventTarget == 'button-add') return 'list';
+                else return 'form';
         }
-
-        return $mode;
     }
 
     /**
@@ -527,13 +545,13 @@ class RelationController extends ControllerBehavior
 
     public function onRelationButtonAdd()
     {
-        $this->manageMode = 'list';
+        $this->eventTarget = 'button-add';
         return $this->onRelationManageForm();
     }
 
     public function onRelationButtonCreate()
     {
-        $this->manageMode = 'form';
+        $this->eventTarget = 'button-create';
         return $this->onRelationManageForm();
     }
 
@@ -544,7 +562,7 @@ class RelationController extends ControllerBehavior
 
     public function onRelationButtonLink()
     {
-        $this->manageMode = 'list';
+        $this->eventTarget = 'button-link';
         return $this->onRelationManageForm();
     }
 
@@ -560,7 +578,27 @@ class RelationController extends ControllerBehavior
 
     public function onRelationButtonUpdate()
     {
-        $this->manageMode = 'form';
+        $this->eventTarget = 'button-update';
+        return $this->onRelationManageForm();
+    }
+
+    //
+    // AJAX (List events)
+    //
+
+    public function onRelationClickManageList()
+    {
+        return $this->onRelationManageAdd();
+    }
+
+    public function onRelationClickManageListPivot()
+    {
+        return $this->onRelationManagePivotForm();
+    }
+
+    public function onRelationClickViewList()
+    {
+        $this->eventTarget = 'list';
         return $this->onRelationManageForm();
     }
 
@@ -593,11 +631,13 @@ class RelationController extends ControllerBehavior
         $saveData = $this->manageWidget->getSaveData();
 
         if ($this->viewMode == 'multi') {
+            $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey(true) : null;
+
             if ($this->relationType == 'hasMany') {
-                $newModel = $this->relationObject->create($saveData, $this->relationGetSessionKey(true));
+                $newModel = $this->relationObject->create($saveData, $sessionKey);
             }
             elseif ($this->relationType == 'belongsToMany') {
-                $newModel = $this->relationObject->create($saveData, [], $this->relationGetSessionKey(true));
+                $newModel = $this->relationObject->create($saveData, [], $sessionKey);
             }
 
             $newModel->commitDeferred($this->manageWidget->getSessionKey());
@@ -705,12 +745,11 @@ class RelationController extends ControllerBehavior
                 $models = $this->relationModel->whereIn($foreignKeyName, $checkedIds)->get();
                 foreach ($models as $model) {
 
-                    if ($this->model->exists) {
-                        $this->relationObject->add($model);
-                    }
-                    else {
-                        $this->relationObject->add($model, $this->relationGetSessionKey());
-                    }
+                    $sessionKey = $this->deferredBinding
+                        ? $this->relationGetSessionKey()
+                        : null;
+
+                    $this->relationObject->add($model, $sessionKey);
                 }
             }
 
@@ -904,7 +943,7 @@ class RelationController extends ControllerBehavior
             $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', !$this->readOnly);
 
             $defaultOnClick = sprintf(
-                "$.oc.relationBehavior.clickViewListRecord(:id, '%s', '%s')",
+                "$.oc.relationBehavior.clickViewListRecord(':id', '%s', '%s')",
                 $this->field,
                 $this->relationGetSessionKey()
             );
@@ -929,6 +968,14 @@ class RelationController extends ControllerBehavior
                 }
                 elseif ($this->model->exists) {
                     $this->relationObject->addConstraints();
+                }
+
+                /*
+                 * Allows pivot data to enter the fray
+                 */
+                if ($this->relationType == 'belongsToMany') {
+                    $this->relationObject->setQuery($query->getQuery());
+                    return $this->relationObject;
                 }
             });
 
@@ -1099,16 +1146,14 @@ class RelationController extends ControllerBehavior
          * Existing record
          */
         if ($this->manageId) {
-            $relations = $this->model->{$this->field};
-            $config->model = $relations->find($this->manageId);
+            $config->model = $this->relationModel->find($this->manageId);
+            $config->data = $this->relationObject->newPivotStatementForId($this->manageId)->first();
 
-            if (!$config->model) {
+            if (!$config->model || !$config->data) {
                 throw new ApplicationException(Lang::get('backend::lang.model.not_found', [
                     'class' => get_class($config->model), 'id' => $this->manageId
                 ]));
             }
-
-            $config->data = $config->model->pivot;
         }
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);

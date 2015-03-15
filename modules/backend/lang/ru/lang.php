@@ -21,7 +21,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "Не удалось найти шаблон (partial) с именем :name.",
+        'not_found_name' => "Не удалось найти шаблон (partial) с именем :name.",
     ],
     'account' => [
         'sign_out' => 'Выйти',

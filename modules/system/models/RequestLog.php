@@ -2,6 +2,7 @@
 
 use Model;
 use Request;
+use DbDongle;
 
 /**
  * Model for logging 404 errors
@@ -32,6 +33,8 @@ class RequestLog extends Model
      */
     public static function add($statusCode = 404)
     {
+        if (!DbDongle::hasDatabase()) return;
+
         $record = static::firstOrNew([
             'url' => Request::fullUrl(),
             'status_code' => $statusCode,

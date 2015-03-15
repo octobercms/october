@@ -90,8 +90,11 @@ class FormController extends ControllerBehavior
      * @param Model $model
      * @return void
      */
-    public function initForm($model)
+    public function initForm($model, $context = null)
     {
+        if ($context !== null)
+            $this->context = $context;
+
         $context = $this->formGetContext();
 
         /*

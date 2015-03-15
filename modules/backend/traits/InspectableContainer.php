@@ -45,7 +45,7 @@ trait InspectableContainer
          * Convert to array to retain the sort order in JavaScript
          */
         $optionsArray = [];
-        foreach ($options as $value => $title) {
+        foreach ((array) $options as $value => $title) {
             $optionsArray[] = ['value' => $value, 'title' => $title];
         }
 

@@ -24,13 +24,16 @@
     },
     "require": {
         "php": ">=5.4",
-        "laravel/framework": "5.0.*",
-        "illuminate/html": "5.0.*",
+        "october/rain": "~1.0",
         "october/system": "~1.0",
         "october/backend": "~1.0",
         "october/cms": "~1.0",
-        "october/rain": "~1.0",
-        "league/flysystem-aws-s3-v2": "~1.0"
+        "laravel/framework": "5.0.*",
+        "illuminate/html": "5.0.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "phpunit/phpunit-selenium": ">=1.2"
     },
     "autoload-dev": {
         "classmap": [

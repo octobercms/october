@@ -18,7 +18,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "Het sjabloon (partial) ':name' is niet gevonden.",
+        'not_found_name' => "Het sjabloon (partial) ':name' is niet gevonden.",
     ],
     'account' => [
         'sign_out' => 'Uitloggen',

@@ -40,7 +40,7 @@ return [
         'no_layout' => '-- Kein Layout --'
     ],
     'layout' => [
-        'not_found' => "Das Layout ':name' wurde nicht gefunden",
+        'not_found_name' => "Das Layout ':name' wurde nicht gefunden",
         'menu_label' => 'Layouts',
         'no_list_records' => 'Keine Layouts gefunden',
         'new' => 'Neues Layout',
@@ -48,8 +48,8 @@ return [
         'delete_confirm_single' => 'Wollen Sie das ausgewählte Layout wirklich löschen?'
     ],
     'partial' => [
+        'not_found_name' => "Das Partial ':name' wurde nicht gefunden.",
         'invalid_name' => "Ungültiger Partial-Name: :name.",
-        'not_found' => "Das Partial ':name' wurde nicht gefunden.",
         'menu_label' => 'Partials',
         'no_list_records' => 'Keine Partials gefunden',
         'delete_confirm_multiple' => 'Wollen Sie die ausgewählten Partials wirklich löschen?',
@@ -57,7 +57,7 @@ return [
         'new' => 'Neues Partial'
     ],
     'content' => [
-        'not_found' => "Die Inhaltsdatei ':name' wurde nicht gefundne.",
+        'not_found_name' => "Die Inhaltsdatei ':name' wurde nicht gefundne.",
         'menu_label' => 'Inhalt',
         'no_list_records' => 'Keine Inhaltsdateien gefunden',
         'delete_confirm_multiple' => 'Wollen Sie die ausgewählten Inhalte und Verzeichnisse wirklich löschen?',

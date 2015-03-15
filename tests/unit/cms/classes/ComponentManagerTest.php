@@ -51,11 +51,6 @@ class ComponentManagerTest extends TestCase
 
     }
 
-    public function testResolveAlias()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
     public function testHasComponent()
     {
         $manager = ComponentManager::instance();

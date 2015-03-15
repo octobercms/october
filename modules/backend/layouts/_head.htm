@@ -3,24 +3,20 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="icon" type="image/png" href="<?= Backend::skinAsset('assets/images/favicon.png') ?>">
 <title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s' : e($this->pageTitleTemplate) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?>">
-    <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?>
+    <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?> 
 </title>
-
-<link href="<?= Backend::skinAsset('assets/vendor/select2/select2.css') ?>" rel="stylesheet">
-<link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>" rel="stylesheet">
-
-<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>"></script>
-<script src="<?= URL::asset('modules/system/assets/js/framework.js') ?>"></script>
-<script src="<?= Backend::skinAsset('assets/js/vendor/modernizr.min.js') ?>"></script>
-
-<script src="<?= Backend::skinAsset('assets/js/vendor/vendor-min.js') ?>"></script>
-<script src="<?= Backend::skinAsset('assets/js/october-min.js') ?>"></script>
-
 <script>
 <!--
     backendBasePath = '<?= Backend::baseUrl() ?>';
 // -->
 </script>
+<link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>" rel="stylesheet">
+<link href="<?= Backend::skinAsset('assets/css/controls.css') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>" rel="stylesheet">
+<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>"></script>
+<script src="<?= URL::asset('modules/system/assets/js/framework.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/modernizr.min.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/vendor/vendor-min.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october-min.js') ?>"></script>
 <?= $this->makeAssets() ?>
 <?= Block::placeholder('head') ?>
 <?= $this->makeLayoutPartial('custom_styles') ?>

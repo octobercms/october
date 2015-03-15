@@ -18,7 +18,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "En partial med namn ':name' kunde ej hittas",
+        'not_found_name' => "En partial med namn ':name' kunde ej hittas",
     ],
     'account' => [
         'sign_out' => 'Logga ut',

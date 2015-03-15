@@ -46,7 +46,7 @@ return [
         'no_layout' => '-- geen layout --'
     ],
     'layout' => [
-        'not_found' => "De layout ':name' is niet gevonden",
+        'not_found_name' => "De layout ':name' is niet gevonden",
         'menu_label' => 'Layouts',
         'no_list_records' => 'Geen layouts gevonden',
         'new' => 'Nieuwe layout',
@@ -54,8 +54,8 @@ return [
         'delete_confirm_single' => 'Weet je zeker dat je deze layout wilt verwijderen?'
     ],
     'partial' => [
+        'not_found_name' => "Het sjabloon (partial) ':name' is niet gevonden.",
         'invalid_name' => "Ongeldige naam voor sjabloon (partial): :name.",
-        'not_found' => "Het sjabloon (partial) ':name' is niet gevonden.",
         'menu_label' => 'Sjablonen',
         'no_list_records' => 'Geen sjablonen (partial) gevonden',
         'delete_confirm_multiple' => 'Weet je zeker dat je de geselecteerde sjablonen wilt verwijderen?',
@@ -63,7 +63,7 @@ return [
         'new' => 'Nieuw sjabloon'
     ],
     'content' => [
-        'not_found' => "Het tekstblok (content) ':name' is niet gevonden.",
+        'not_found_name' => "Het tekstblok (content) ':name' is niet gevonden.",
         'menu_label' => 'Tekstblokken',
         'no_list_records' => 'Geen tekstblokken (content) gevonden',
         'delete_confirm_multiple' => 'Weet je zeker dat je de geselecteerde tekstblokken of mappen wilt verwijderen?',

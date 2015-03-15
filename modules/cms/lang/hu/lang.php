@@ -2,7 +2,7 @@
 
 return [
     'cms_object' => [
-        'invalid_file' => 'Érvénytelen fájlnév. A fájlnevek csak alfanumerikus szimbólumokat, aláhúzásjeleket, kötőjeleket és pontokat tartalmazhatnak. Néhány példa a megfelelő fájlnévre: page.htm, page, subdirectory/page',
+        'invalid_file' => 'Érvénytelen fájlnév. Csak alfanumerikus szimbólumokat, aláhúzásjeleket, kötőjeleket és pontokat tartalmazhat. Néhány példa a megfelelő fájlnévre: kapcsolat.htm, impresszum, mappa/oldalnev',
         'invalid_property' => "A(z) ':name' tulajdonság nem állítható be",
         'file_already_exists' => "Már létezik ':name' nevű fájl.",
         'error_saving' => "Hiba a(z) ':name' fájl mentésekor. Ellenőrizze az írási engedélyeket.",
@@ -15,25 +15,25 @@ return [
     'theme' => [
         'active' => [
             'not_set' => 'Nincs beállítva az aktív téma.',
-            'not_found' => 'Az aktív téma nem található.',
+            'not_found' => 'Az aktív téma nem található.'
         ],
         'edit' => [
             'not_set' => 'Nincs beállítva a szerkesztés alatt lévő téma.',
             'not_found' => 'A szerkesztés alatt lévő téma nem található.',
-            'not_match' => "Az objektum, melyhez hozzáférni próbál, nem a szerkesztés alatt lévő témához tartozik. Töltse újra a lapot."
+            'not_match' => 'Az objektum melyhez hozzáférni próbál, nem a szerkesztés alatt lévő témához tartozik. Töltse be újra a lapot.'
         ],
-        'settings_menu' => 'Felhasználói oldal témája',
-        'settings_menu_description' => 'Tekintse meg a telepített témák listáját, és válasszon egy aktív témát.',
-        'find_more_themes' => 'További témák az OctoberCMS témák piacterén.',
+        'settings_menu' => 'Dizájn',
+        'settings_menu_description' => 'Telepített témák és további választható sablonok listája.',
+        'find_more_themes' => 'További témák az October CMS piacterén.',
         'activate_button' => 'Aktiválás',
-        'active_button' => 'Aktiválás',
-        'customize_button' => 'Testreszabás',
+        'active_button' => 'Aktiválva',
+        'customize_button' => 'Testreszabás'
     ],
     'maintenance' => [
-        'settings_menu' => 'Karbantartás mód',
-        'settings_menu_description' => 'A karbantartás mód lap konfigurálása, és a beűllítás ki-/bekapcsolása.',
-        'is_enabled' => 'A karbantartás mód engedélyezése',
-        'is_enabled_comment' => 'Aktiválása esetén a webhely látogatói az alább kiválasztott lapot fogják látni.',
+        'settings_menu' => 'Karbantartás',
+        'settings_menu_description' => 'Szolgáltatás be / ki kapcsolása és testreszabása.',
+        'is_enabled' => 'Karbantartási mód engedélyezése',
+        'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói az alább kiválasztott lapot fogják látni.'
     ],
     'page' => [
         'not_found' => [
@@ -42,19 +42,19 @@ return [
         ],
         'custom_error' => [
             'label' => 'Laphiba',
-            'help' => 'Sajnos valami elromlott, és a lap nem jeleníthető meg.',
+            'help' => 'Sajnos valami elromlott, és a lap nem jeleníthető meg.'
         ],
         'menu_label' => 'Lapok',
         'unsaved_label' => 'Nem mentett lap(ok)',
         'no_list_records' => 'Nem találhatók lapok',
         'new' => 'Új lap',
-        'invalid_url' => 'Érvénytelen URL-címformátum. Az URL-címnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő számokat tartalmazhatja: ._-[]:?|/+*^$',
+        'invalid_url' => 'Érvénytelen URL címformátum. Az URL címnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő számokat tartalmazhatja: ._-[]:?|/+*',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt lapokat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a lapot?',
         'no_layout' => '-- nincs elrendezés --'
     ],
     'layout' => [
-        'not_found' => "A(z) ':name' elrendezés nem található",
+        'not_found_name' => "A(z) ':name' elrendezés nem található",
         'menu_label' => 'Elrendezések',
         'unsaved_label' => 'Nem mentett elrendezés(ek)',
         'no_list_records' => 'Nem találhatók elrendezések',
@@ -63,8 +63,8 @@ return [
         'delete_confirm_single' => 'Valóban törölni akarja ezt az elrendezést?'
     ],
     'partial' => [
+        'not_found_name' => "A(z) ':name' részlap nem található.",
         'invalid_name' => 'Érvénytelen részlapnév: :name.',
-        'not_found' => "A(z) ':name' részlap nem található.",
         'menu_label' => 'Részlapok',
         'unsaved_label' => 'Nem mentett részlap(ok)',
         'no_list_records' => 'Nem találhatók részlapok',
@@ -73,7 +73,7 @@ return [
         'new' => 'Új részlap'
     ],
     'content' => [
-        'not_found' => "A(z) ':name' tartalomfájl nem található.",
+        'not_found_name' => "A(z) ':name' tartalomfájl nem található.",
         'menu_label' => 'Tartalom',
         'unsaved_label' => 'Nem mentett tartalom',
         'no_list_records' => 'Nem találhatók tartalomfájlok',
@@ -82,11 +82,11 @@ return [
         'new' => 'Új tartalomfájl'
     ],
     'ajax_handler' => [
-        'invalid_name' => 'Érvénytelen AJAX-kezelő név: :name.',
-        'not_found' => "A(z) ':name' AJAX-kezelő nem található.",
+        'invalid_name' => 'Érvénytelen AJAX kezelő név: :name.',
+        'not_found' => "A(z) ':name' AJAX kezelő nem található."
     ],
     'cms' => [
-        'menu_label' => 'CMS'
+        'menu_label' => 'Testreszabás'
     ],
     'sidebar' => [
         'add' => 'Hozzáadás',
@@ -96,7 +96,7 @@ return [
         'settings' => 'Beállítások',
         'title' => 'Cím',
         'new_title' => 'Új lap címe',
-        'url' => 'URL-cím',
+        'url' => 'URL cím',
         'filename' => 'Fájlnév',
         'layout' => 'Elrendezés',
         'description' => 'Leírás',
@@ -108,13 +108,13 @@ return [
         'code' => 'Kód',
         'content' => 'Tartalom',
         'hidden' => 'Rejtett',
-        'hidden_comment' => 'A rejtett lapok csak a bejelentkezett kiszolgáló oldali felhasználók által hozzáférhetők.',
+        'hidden_comment' => 'A rejtett lapok csak a bejelentkezett felhasználók által hozzáférhetők.',
         'enter_fullscreen' => 'Váltás teljes képernyős módra',
         'exit_fullscreen' => 'Kilépés a teljes képernyős módból'
     ],
     'asset' => [
-        'menu_label' => 'Eszközök',
-        'unsaved_label' => 'Nem mentett eszköz(ök)',
+        'menu_label' => 'Fájlok',
+        'unsaved_label' => 'Nem mentett fájl(ok)',
         'drop_down_add_title' => 'Hozzáadás...',
         'drop_down_operation_title' => 'Művelet...',
         'upload_files' => 'Fájl(ok) feltöltése',
@@ -144,7 +144,7 @@ return [
         'error_uploading_file' => "Hiba a(z) ':name' fájl feltöltésekor: :error",
         'move_please_select' => 'válasszon',
         'move_destination' => 'Célkönyvtár',
-        'move_popup_title' => 'Eszközök áthelyezése',
+        'move_popup_title' => 'Fájl(ok) áthelyezése',
         'move_button' => 'Áthelyezés',
         'selected_files_not_found' => 'A kijelölt fájlok nem találhatók',
         'select_destination_dir' => 'Válasszon egy célkönyvtárat',
@@ -158,13 +158,13 @@ return [
         'menu_label' => 'Komponensek',
         'unnamed' => 'Névtelen',
         'no_description' => 'Nincs megadott leírás',
-        'alias' => "Alias",
+        'alias' => 'Alias',
         'alias_description' => 'Ennek a komponensnek a lap vagy az elrendezés kódjában való használatkor adott egyedi név.',
         'validation_message' => 'A komponens aliasok kötelezőek, és csak latin szimbólumokat, számokat, valamint aláhúzásjeleket tartalmazhatnak. Az aliasoknak latin szimbólummal kell kezdődniük.',
         'invalid_request' => 'A sablon érvénytelen komponensadatok miatt nem menthető.',
         'no_records' => 'Nem találhatók komponensek',
         'not_found' => "A(z) ':name' komponens nem található.",
-        'method_not_found' => "A(z) ':name' komponens nem tartalmaz egy ':method' metódust.",
+        'method_not_found' => "A(z) ':name' komponens nem tartalmaz egy ':method' metódust."
     ],
     'template' => [
         'invalid_type' => 'Ismeretlen sablontípus.',
@@ -172,9 +172,9 @@ return [
         'saved'=> 'A sablon mentése sikerült.'
     ],
     'permissions' => [
-        'name' => 'CMS',
+        'name' => 'Testreszabás',
         'manage_content' => 'Tartalom kezelése',
-        'manage_assets' => 'Eszközök kezelése',
+        'manage_assets' => 'Fájlok kezelése',
         'manage_pages' => 'Lapok kezelése',
         'manage_layouts' => 'Elrendezések kezelése',
         'manage_partials' => 'Részlapok kezelése',

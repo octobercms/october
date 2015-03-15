@@ -18,7 +18,7 @@ return [
         ],
     ],
     'partial' => [
-        'not_found' => "Das Partial ':name' wurde nicht gefunden.",
+        'not_found_name' => "Das Partial ':name' wurde nicht gefunden.",
     ],
     'account' => [
         'sign_out' => 'Abmelden',
@@ -201,8 +201,8 @@ return [
         'extension' => 'Die PHP Erweiterung :name ist nicht installiert. Bitte installieren Sie diese Library und aktivieren Sie die Erweiterung.'
     ],
     'editor' => [
-        'menu_label' => 'Editor Bevorzugungen',
-        'menu_description' => 'Verwalten von Code Editor Bevorzugungen.',
+        'menu_label' => 'Editor Einstellungen',
+        'menu_description' => 'Verwalten der Code-Editor Einstellungen.',
         'font_size' => 'Schriftgrösse',
         'tab_size' => 'Tabgrösse',
         'use_hard_tabs' => 'Gedankenstrich bei Tabs',
@@ -226,8 +226,8 @@ return [
         'menu_keywords' => 'Sicheres Anmelden'
     ],
     'backend_preferences' => [
-        'menu_label' => 'Backend Bevorzugungen',
-        'menu_description' => 'Verwalten der Spracheinstellungen und der Darstellung des Backend.',
+        'menu_label' => 'Backend Einstellungen',
+        'menu_description' => 'Verwalten der Spracheinstellungen und der Backenddarstellung.',
         'locale' => 'Sprache',
         'locale_comment' => 'Wählen Sie Ihre gewünschte Sprache für das Backend.',
     ],

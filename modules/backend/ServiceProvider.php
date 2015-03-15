@@ -66,6 +66,10 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Record Finder',
                 'code'  => 'recordfinder'
             ]);
+            $manager->registerFormWidget('Backend\FormWidgets\Repeater', [
+                'label' => 'Repeater',
+                'code'  => 'repeater'
+            ]);
         });
 
         /*
@@ -166,10 +170,13 @@ class ServiceProvider extends ModuleServiceProvider
          * Register asset bundles
          */
         CombineAssets::registerCallback(function($combiner) {
+            $combiner->registerBundle('~/modules/backend/assets/less/controls.less');
             $combiner->registerBundle('~/modules/backend/assets/less/october.less');
             $combiner->registerBundle('~/modules/backend/assets/js/october.js');
             $combiner->registerBundle('~/modules/backend/assets/js/vendor/vendor.js');
             $combiner->registerBundle('~/modules/backend/widgets/table/assets/js/build.js');
+            $combiner->registerBundle('~/modules/backend/formwidgets/datepicker/assets/js/build.js');
+            $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/less/richeditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
         });
     }

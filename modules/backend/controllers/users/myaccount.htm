@@ -1,3 +1,12 @@
+<?php if ($this->user->hasAccess('backend.manage_users')): ?>
+    <?php Block::put('breadcrumb') ?>
+        <ul>
+            <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
+            <li><?= e(trans($this->pageTitle)) ?></li>
+        </ul>
+    <?php Block::endPut() ?>
+<?php endif ?>
+
 <?php if (!$this->fatalError): ?>
 
     <?php Block::put('form-contents') ?>

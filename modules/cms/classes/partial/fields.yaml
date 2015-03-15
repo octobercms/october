@@ -1,32 +1,36 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
 fields:
-  fileName:
-    span: left
-    label: cms::lang.editor.filename
-    attributes:
-      default-focus: 1
+    fileName:
+        span: left
+        label: cms::lang.editor.filename
+        attributes:
+            default-focus: 1
 
-  settings[description]:
-    span: right
-    label: cms::lang.editor.description
+    settings[description]:
+        span: right
+        label: cms::lang.editor.description
 
-  toolbar:
-    type: partial
-    path: partial_toolbar
-    cssClass: collapse-visible
+    toolbar:
+        type: partial
+        path: partial_toolbar
+        cssClass: collapse-visible
 
-  components: Cms\FormWidgets\Components
+    components: Cms\FormWidgets\Components
 
 secondaryTabs:
-  stretch: true
-  fields:
-    markup:
-      tab: cms::lang.editor.markup
-      stretch: true
-      type: codeeditor
-      language: twig
+    stretch: true
+    fields:
+        markup:
+            tab: cms::lang.editor.markup
+            stretch: true
+            type: codeeditor
+            language: twig
 
-    code:
-      tab: cms::lang.editor.code
-      stretch: true
-      type: codeeditor
-      language: php
+        code:
+            tab: cms::lang.editor.code
+            stretch: true
+            type: codeeditor
+            language: php

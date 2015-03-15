@@ -55,9 +55,9 @@ trait ViewMaker
 
         $partialPath = $this->getViewPath($partial);
 
-        if (!File::isFile($partialPath)) {
+        if (!File::exists($partialPath)) {
             if ($throwException) {
-                throw new SystemException(Lang::get('backend::lang.partial.not_found', ['name' => $partialPath]));
+                throw new SystemException(Lang::get('backend::lang.partial.not_found_name', ['name' => $partialPath]));
             }
             else {
                 return false;
@@ -115,9 +115,9 @@ trait ViewMaker
 
         $layoutPath = $this->getViewPath($layout . '.htm', $this->layoutPath);
 
-        if (!File::isFile($layoutPath)) {
+        if (!File::exists($layoutPath)) {
             if ($throwException) {
-                throw new SystemException(Lang::get('cms::lang.layout.not_found', ['name' => $layoutPath]));
+                throw new SystemException(Lang::get('cms::lang.layout.not_found_name', ['name' => $layoutPath]));
             }
             else {
                 return false;

@@ -11,10 +11,9 @@ use Backend\Classes\FormWidgetBase;
  */
 class ColorPicker extends FormWidgetBase
 {
-    /**
-     * {@inheritDoc}
-     */
-    public $defaultAlias = 'colorpicker';
+    //
+    // Configurable properties
+    //
 
     /**
      * @var array Default available colors
@@ -32,12 +31,23 @@ class ColorPicker extends FormWidgetBase
         '#95a5a6', '#7f8c8d',
     ];
 
+    //
+    // Object properties
+    //
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $defaultAlias = 'colorpicker';
+
     /**
      * {@inheritDoc}
      */
     public function init()
     {
-        $this->availableColors = $this->getConfig('availableColors', $this->availableColors);
+        $this->fillFromConfig([
+            'availableColors',
+        ]);
     }
 
     /**

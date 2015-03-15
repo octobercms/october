@@ -49,48 +49,48 @@ return [
         'no_list_records' => 'Nie znaleziono stron',
         'new' => 'Nowa strona',
         'invalid_url' => 'Nieprawidłowy format URL. Powinien rozpoczynać się od slasha / może zawierać cyfry, znaki oraz symbole: ._-[]:?|/+*^$',
-        'delete_confirm_multiple' => 'Czy jesteś pewny, że chcesz skasować wszystkie wybrane strony?',
-        'delete_confirm_single' => 'Czy jesteś pewny, że chcesz skasować tą stronę?',
+        'delete_confirm_multiple' => 'Czy na pewno chcesz chcesz skasować wszystkie wybrane strony?',
+        'delete_confirm_single' => 'Czy na pewno chcesz chcesz skasować tą stronę?',
         'no_layout' => '-- brak układu --'
     ],
     'layout' => [
-        'not_found' => "Nie znaleziono układu ':name'",
+        'not_found_name' => "Nie znaleziono układu ':name'",
         'menu_label' => 'Układy',
         'unsaved_label' => 'Niezapisane układy',
         'no_list_records' => 'Nie znaleziono układów',
         'new' => 'Nowy układ',
-        'delete_confirm_multiple' => 'Czy jesteś pewny, że chcesz skasować wszystkie wybrane układy?',
-        'delete_confirm_single' => 'Czy jesteś pewny, że chcesz skasować ten układ?'
+        'delete_confirm_multiple' => 'Czy na pewno chcesz skasować wszystkie wybrane układy?',
+        'delete_confirm_single' => 'Czy na pewno chcesz skasować ten układ?'
     ],
     'partial' => [
-        'invalid_name' => 'Invalid partial name: :name.',
-        'not_found' => "The partial ':name' is not found.",
-        'menu_label' => 'Partials',
-        'unsaved_label' => 'Unsaved partial(s)',
-        'no_list_records' => 'No partials found',
-        'delete_confirm_multiple' => 'Do you really want to delete selected partials?',
-        'delete_confirm_single' => 'Do you really want delete this partial?',
-        'new' => 'New partial'
+        'not_found_name' => "Fragment ':name' nie został znaleziony.",
+        'invalid_name' => 'Nieprawidłowa nazwa fragmentu: :name.',
+        'menu_label' => 'Fragmenty',
+        'unsaved_label' => 'Niezapisane fragmenty',
+        'no_list_records' => 'Nie znaleziono fragmentów',
+        'delete_confirm_multiple' => 'Czy na pewno chcesz skasować wszystkie wybrane fragmenty?',
+        'delete_confirm_single' => 'Czy na pewno chcesz skasować ten fragment?',
+        'new' => 'Nowy fragment'
     ],
     'content' => [
-        'not_found' => "The content file ':name' is not found.",
-        'menu_label' => 'Content',
-        'unsaved_label' => 'Unsaved content',
-        'no_list_records' => 'No content files found',
-        'delete_confirm_multiple' => 'Do you really want to delete selected content files or directories?',
-        'delete_confirm_single' => 'Do you really want delete this content file?',
-        'new' => 'New content file'
+        'not_found_name' => "Plik treści ':name' nie został znaleziony.",
+        'menu_label' => 'Treść',
+        'unsaved_label' => 'Niezapisana treść',
+        'no_list_records' => 'Nie znaleziono plików treści',
+        'delete_confirm_multiple' => 'Czy na pewno chcesz skasować wszystkie wybrane pliki treści?',
+        'delete_confirm_single' => 'Czy na pewno chcesz skasować ten plik treści?',
+        'new' => 'Nowy plik treści'
     ],
     'ajax_handler' => [
-        'invalid_name' => 'Invalid AJAX handler name: :name.',
-        'not_found' => "AJAX handler ':name' was not found."
+        'invalid_name' => 'Nieprawidłowa nazwa handlera AJAX: :name.',
+        'not_found' => "Handler AJAX ':name' nie został znaleziony."
     ],
     'cms' => [
         'menu_label' => 'CMS'
     ],
     'sidebar' => [
-        'add' => 'Add',
-        'search' => 'Search...'
+        'add' => 'Dodaj',
+        'search' => 'Szukaj...'
     ],
     'editor' => [
         'settings' => 'Ustawienia',
@@ -113,8 +113,8 @@ return [
         'exit_fullscreen' => 'Wyłącz tryb pełnoekranowy'
     ],
     'asset' => [
-        'menu_label' => 'Assets',
-        'unsaved_label' => 'Unsaved asset(s)',
+        'menu_label' => 'Zasoby',
+        'unsaved_label' => 'Niezapisane zasoby',
         'drop_down_add_title' => 'Dodaj...',
         'drop_down_operation_title' => 'Akcja...',
         'upload_files' => 'Wyślij plik(i)',
@@ -143,8 +143,8 @@ return [
         'file_not_valid' => 'Plik jest nieprawidłowy',
         'error_uploading_file' => "Błąd przy wysyłaniu pliku ':name': :error",
         'move_please_select' => 'proszę wybierz',
-        'move_destination' => 'Destination directory',
-        'move_popup_title' => 'Move assets',
+        'move_destination' => 'Katalog docelowy',
+        'move_popup_title' => 'Przenieś zasoby',
         'move_button' => 'Przenieś',
         'selected_files_not_found' => 'Nie znaleziono wybranych plików',
         'select_destination_dir' => 'Proszę wybrać folder docelowy',
@@ -152,7 +152,7 @@ return [
         'error_moving_file' => 'Błąd przy przenoszeniu pliku :file',
         'error_moving_directory' => 'Błąd przy przenoszeniu folderu :dir',
         'error_deleting_directory' => 'Błąd przy usuwaniu oryginalnego folderu :dir',
-        'path' => 'Path'
+        'path' => 'Ścieżka'
     ],
     'component' => [
         'menu_label' => 'Komponenty',
@@ -174,7 +174,7 @@ return [
     'permissions' => [
         'name' => 'Cms',
         'manage_content' => 'Zarządzaj treścią',
-        'manage_assets' => 'Manage assets',
+        'manage_assets' => 'Zarządzaj zasobami',
         'manage_pages' => 'Zarządzaj stronami',
         'manage_layouts' => 'Zarządzaj układami',
         'manage_partials' => 'Zarządzaj blokami',

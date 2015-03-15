@@ -11,8 +11,8 @@
  *
  * JavaScript API:
  *
- * $('#buttons').loadIndicator({text: 'Saving...', opaque: true}) - display the indicator in a solid (opaque) state
- * $('#buttons').loadIndicator({text: 'Saving...'}) - display the indicator in a transparent state
+ * $('#buttons').loadIndicator({ text: 'Saving...', opaque: true }) - display the indicator in a solid (opaque) state
+ * $('#buttons').loadIndicator({ text: 'Saving...' }) - display the indicator in a transparent state
  * $('#buttons').loadIndicator('hide') - display the indicator
  */
 +function ($) { "use strict";
@@ -44,8 +44,9 @@
         var indicator = $('<div class="loading-indicator"></div>')
         indicator.append($('<div></div>').text(this.options.text))
         indicator.append($('<span></span>'))
-        if (this.options.opaque == undefined)
-            indicator.addClass('transparent')
+        if (this.options.opaque !== undefined && this.options.opaque) {
+            indicator.addClass('is-opaque')
+        }
 
         this.$el.prepend(indicator)
         this.$el.addClass('in-progress')

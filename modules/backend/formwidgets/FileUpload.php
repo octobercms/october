@@ -24,48 +24,59 @@ use Exception;
  */
 class FileUpload extends FormWidgetBase
 {
-    /**
-     * {@inheritDoc}
-     */
-    public $defaultAlias = 'fileupload';
+    //
+    // Configurable properties
+    //
 
     /**
      * @var int Preview image width
      */
-    public $imageWidth;
+    public $imageWidth = 100;
 
     /**
      * @var int Preview image height
      */
-    public $imageHeight;
+    public $imageHeight = 100;
 
     /**
      * @var string Text to display when no file is associated
      */
-    public $previewNoFilesMessage;
+    public $previewNoFilesMessage = 'backend::lang.form.preview_no_files_message';
 
     /**
      * @var mixed Collection of acceptable file types.
      */
-    public $acceptedFileTypes = false;
+    public $fileTypes = false;
+
+    /**
+     * @var array Options used for generating thumbnails.
+     */
+    public $thumbOptions = [
+        'mode'      => 'crop',
+        'extension' => 'auto'
+    ];
+
+    //
+    // Object properties
+    //
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $defaultAlias = 'fileupload';
 
     /**
      * {@inheritDoc}
      */
     public function init()
     {
-        $this->imageHeight = $this->getConfig('imageHeight', 100);
-        $this->imageWidth = $this->getConfig('imageWidth', 100);
-        $this->acceptedFileTypes = $this->getConfig('fileTypes');
-        $this->previewNoFilesMessage = $this->getConfig(
+        $this->fillFromConfig([
+            'imageWidth',
+            'imageHeight',
             'previewNoFilesMessage',
-            'backend::lang.form.preview_no_files_message'
-        );
-
-        $this->thumbOptions = [
-            'mode' => 'crop',
-            'extension' => 'auto'
-        ];
+            'fileTypes',
+            'thumbOptions'
+        ]);
 
         $this->checkUploadPostback();
     }
@@ -133,7 +144,7 @@ class FileUpload extends FormWidgetBase
      */
     public function getAcceptedFileTypes($includeDot = false)
     {
-        $types = $this->acceptedFileTypes;
+        $types = $this->fileTypes;
         if ($types === false && starts_with($this->getDisplayMode(), 'image')) {
             $types = 'jpg,jpeg,bmp,png,gif,svg';
         }

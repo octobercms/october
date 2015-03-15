@@ -13,7 +13,7 @@ nav#layout-mainmenu.navbar {
     padding: 0 0 0 20px;
     line-height: 0;
     white-space: nowrap;
-    
+
     a {
         text-decoration: none;
         &:focus {
@@ -36,7 +36,7 @@ nav#layout-mainmenu.navbar {
             margin-right: 30px;
             position: relative;
 
-            &:last-child {margin-right: 0;}
+            &:last-child { margin-right: 0; }
 
             &.active {
                 &:after {
@@ -50,18 +50,25 @@ nav#layout-mainmenu.navbar {
 
             &.icon {
                 margin-right: 0;
-                i {margin-right: 0;}
-                a {padding: 14px;}
+                i { margin-right: 0; }
+                a { padding: 14px; }
             }
 
             &.power-off, &.preview {
-                i {font-size: 20px;}
-                a {padding: 22px 20px 20px 20px;}
+                i { font-size: 20px; }
+                a { padding: 22px 20px 20px 20px; }
             }
 
             &.account {
                 margin-right: 0;
                 line-height: 23px;
+
+                a {
+                    padding-left: 35px;
+                    padding-right: 5px;
+                    position: relative;
+                    z-index: 900;
+                }
 
                 img {
                     width: 25px;
@@ -72,19 +79,78 @@ nav#layout-mainmenu.navbar {
             }
         }
 
-        &.nav {display: inline-block;}
+        &.nav { display: inline-block; }
     }
     .menu-toggle { display: none; }
 
     .toolbar-item {
         margin-right: 0;
 
-        &:before, &:after {margin-top: 0;}
-        &:before {left: -12px;}
-        &:after {right: -12px;}
+        &:before, &:after { margin-top: 0; }
+        &:before { left: -12px; }
+        &:after { right: -12px; }
 
-        &.scroll-active-before:before {color: @color-mainmenu-active;}
-        &.scroll-active-after:after {color: @color-mainmenu-active;}
+        &.scroll-active-before:before { color: @color-mainmenu-active; }
+        &.scroll-active-after:after { color: @color-mainmenu-active; }
+    }
+}
+
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu {
+    position: fixed;
+    top: 63px;
+    right: 0;
+    width: 225px;
+    background: @color-accountmenu-bg;
+    z-index: 900;
+    display: none;
+
+    &.active {
+        display: block;
+    }
+
+    &:after {
+        .triangle(up, 22px, 12px, @color-accountmenu-bg);
+        right: 101px;
+        top: -12px;
+        position: absolute;
+    }
+
+    ul {
+        padding: 12px 30px;
+        float: none;
+        display: block;
+    }
+
+    li {
+        padding: 0;
+        font-weight: 200;
+        text-align: left;
+        display: block;
+
+        a {
+            display: block;
+            padding: 9px 0;
+            text-align: left;
+            opacity: .9;
+            &:hover {
+                opacity: .6;
+            }
+        }
+    }
+
+    li.divider {
+        height: 1px;
+        width: 100%;
+        margin: 9px 0;
+        overflow: hidden;
+        background-color: transparent;
+        border-top: 1px solid @color-accountmenu-divider;
+    }
+
+    @media (max-width: @screen-sm) {
+        &:after {
+            right: 71px;
+        }
     }
 }
 
@@ -98,7 +164,7 @@ nav#layout-mainmenu .menu-toggle,
     outline: none;
 
     &:hover {
-        background-color: transparent!important;
+        background-color: transparent !important;
     }
 
     &:active, &:focus {
@@ -107,6 +173,7 @@ nav#layout-mainmenu .menu-toggle,
     }
 
     i {
+        line-height: 1;
         font-size: 35px;
         vertical-align: middle;
         margin-right: 10px;
@@ -123,7 +190,7 @@ nav#layout-mainmenu.navbar ul li:hover,
 .mainmenu-collapsed li:hover {
     a {
         &:active, &:focus {
-            color: @color-mainmenu-active!important;
+            color: @color-mainmenu-active !important;
         }
     }
 }
@@ -133,10 +200,10 @@ nav#layout-mainmenu.navbar ul li:hover,
 nav#layout-mainmenu.navbar ul li,
 .mainmenu-collapsed li {
     &.active, &.highlight {
-        color: @color-mainmenu-active!important;
+        color: @color-mainmenu-active !important;
         font-weight: 600;
 
-        a {color: @color-mainmenu-active!important;}
+        a {color: @color-mainmenu-active !important;}
     }
 
     &:hover {
@@ -148,7 +215,7 @@ nav#layout-mainmenu.navbar ul li,
 body.drag {
     nav#layout-mainmenu.navbar ul.nav,
     .mainmenu-collapsed ul {
-        li:hover {color: @color-mainmenu-inactive;}
+        li:hover { color: @color-mainmenu-inactive; }
     }
 }
 

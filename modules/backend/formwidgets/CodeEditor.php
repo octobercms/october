@@ -12,10 +12,9 @@ use Backend\Classes\FormWidgetBase;
  */
 class CodeEditor extends FormWidgetBase
 {
-    /**
-     * {@inheritDoc}
-     */
-    public $defaultAlias = 'codeeditor';
+    //
+    // Configurable properties
+    //
 
     /**
      * @var string Code language to display (php, twig)
@@ -61,33 +60,41 @@ class CodeEditor extends FormWidgetBase
     /**
      * @var integer Sets the editor margin size.
      */
-    public $margin = 10;
+    public $margin = 0;
 
     /**
      * @var $theme Ace Editor theme to use.
      */
     public $theme = 'twilight';
 
+    //
+    // Object properties
+    //
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $defaultAlias = 'codeeditor';
+
     /**
      * {@inheritDoc}
      */
     public function init()
     {
-        // Load the editor system settings
-        $editorSettings = EditorPreferences::instance();
+        $this->applyEditorPreferences();
 
-        $this->fontSize = $this->getConfig('fontSize', $editorSettings->font_size);
-        $this->wordWrap = $this->getConfig('wordWrap', $editorSettings->word_wrap);
-        $this->codeFolding = $this->getConfig('codeFolding', $editorSettings->code_folding);
-        $this->autoClosing = $this->getConfig('autoClosing', $editorSettings->auto_closing);
-        $this->tabSize = $this->getConfig('tabSize', $editorSettings->tab_size);
-        $this->theme = $this->getConfig('theme', $editorSettings->theme);
-        $this->showInvisibles = $this->getConfig('showInvisibles', $editorSettings->show_invisibles);
-        $this->highlightActiveLine = $this->getConfig('highlightActiveLine', $editorSettings->highlight_active_line);
-        $this->useSoftTabs = $this->getConfig('useSoftTabs', !$editorSettings->use_hard_tabs);
-        $this->showGutter = $this->getConfig('showGutter', $editorSettings->show_gutter);
-        $this->language = $this->getConfig('language', 'php');
-        $this->margin = $this->getConfig('margin', 0);
+        $this->fillFromConfig([
+            'language',
+            'showGutter',
+            'wordWrap',
+            'codeFolding',
+            'autoClosing',
+            'useSoftTabs',
+            'tabSize',
+            'fontSize',
+            'margin',
+            'theme',
+        ]);
     }
 
     /**
@@ -119,7 +126,9 @@ class CodeEditor extends FormWidgetBase
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->formField->getName();
-        $this->vars['value'] = $this->getLoadValue();
+
+        // Double encode when escaping
+        $this->vars['value'] = htmlentities($this->getLoadValue(), ENT_QUOTES, 'UTF-8', true);
     }
 
     /**
@@ -133,4 +142,26 @@ class CodeEditor extends FormWidgetBase
         $this->addJs('vendor/ace/ext-emmet.js', 'core');
         $this->addJs('js/codeeditor.js', 'core');
     }
+
+    /**
+     * Looks at the user preferences and overrides any set values.
+     * @return void
+     */
+    protected function applyEditorPreferences()
+    {
+        // Load the editor system settings
+        $editorSettings = EditorPreferences::instance();
+
+        $this->fontSize = $editorSettings->font_size;
+        $this->wordWrap = $editorSettings->word_wrap;
+        $this->codeFolding = $editorSettings->code_folding;
+        $this->autoClosing = $editorSettings->auto_closing;
+        $this->tabSize = $editorSettings->tab_size;
+        $this->theme = $editorSettings->theme;
+        $this->showInvisibles = $editorSettings->show_invisibles;
+        $this->highlightActiveLine = $editorSettings->highlight_active_line;
+        $this->useSoftTabs = !$editorSettings->use_hard_tabs;
+        $this->showGutter = $editorSettings->show_gutter;
+    }
+
 }

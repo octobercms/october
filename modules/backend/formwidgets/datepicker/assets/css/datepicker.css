@@ -34,3 +34,6 @@
 .pika-single .pika-footer .pika-label {
   font-size: 12px;
 }
+.clockpicker-popover {
+    z-index: 9999;
+}

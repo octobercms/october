@@ -18,7 +18,7 @@ class Table extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'table';
+    protected $defaultAlias = 'table';
 
     /**
      * @var array Table columns
@@ -63,7 +63,7 @@ class Table extends WidgetBase
         $this->dataSource = new $dataSourceClass($this->recordsKeyFrom);
 
         if (Request::method() == 'POST' && $this->isClientDataSource()) {
-            if ( strpos($this->alias, '[') === false )
+            if (strpos($this->alias, '[') === false)
                 $requestDataField = $this->alias.'TableData';
             else
                 $requestDataField = $this->alias.'[TableData]';
@@ -128,26 +128,7 @@ class Table extends WidgetBase
     public function loadAssets()
     {
         $this->addCss('css/table.css', 'core');
-
         $this->addJs('js/build-min.js', 'core');
-
-        /*
-        $this->addJs('js/table.js', 'core');
-        $this->addJs('js/table.helper.navigation.js', 'core');
-        $this->addJs('js/table.datasource.base.js', 'core');
-        $this->addJs('js/table.datasource.client.js', 'core');
-        $this->addJs('js/table.processor.base.js', 'core');
-        $this->addJs('js/table.processor.string.js', 'core');
-        $this->addJs('js/table.processor.checkbox.js', 'core');
-        $this->addJs('js/table.processor.dropdown.js', 'core');
-        $this->addJs('js/table.validator.base.js', 'core');
-        $this->addJs('js/table.validator.required.js', 'core');
-        $this->addJs('js/table.validator.basenumber.js', 'core');
-        $this->addJs('js/table.validator.integer.js', 'core');
-        $this->addJs('js/table.validator.float.js', 'core');
-        $this->addJs('js/table.validator.length.js', 'core');
-        $this->addJs('js/table.validator.regex.js', 'core');
-        */
     }
 
     /**

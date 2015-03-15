@@ -11,10 +11,28 @@ use Backend\Classes\WidgetBase;
  */
 class Toolbar extends WidgetBase
 {
+    //
+    // Configurable properties
+    //
+
+    /**
+     * @var string Partial name containing the toolbar buttons
+     */
+    public $buttons;
+
+    /**
+     * @var array|string Search widget configuration or partial name, optional.
+     */
+    public $search;
+
+    //
+    // Object properties
+    //
+
     /**
      * {@inheritDoc}
      */
-    public $defaultAlias = 'toolbar';
+    protected $defaultAlias = 'toolbar';
 
     /**
      * @var WidgetBase Reference to the search widget object.
@@ -22,32 +40,30 @@ class Toolbar extends WidgetBase
     protected $searchWidget;
 
     /**
-     * @var string Name of partial containing control panel.
-     */
-    public $controlPanel;
-
-    /**
      * @var array List of CSS classes to apply to the toolbar container element
      */
     public $cssClasses = [];
 
     /**
-     * Constructor.
+     * Initialize the widget, called by the constructor and free from its parameters.
      */
-    public function __construct($controller, $configuration = [])
+    public function init()
     {
-        parent::__construct($controller, $configuration);
+        $this->fillFromConfig([
+            'buttons',
+            'search',
+        ]);
 
         /*
          * Prepare the search widget (optional)
          */
-        if (isset($this->config->search)) {
+        if (isset($this->search)) {
 
-            if (is_string($this->config->search)) {
-                $searchConfig = $this->makeConfig(['partial' => $this->config->search]);
+            if (is_string($this->search)) {
+                $searchConfig = $this->makeConfig(['partial' => $this->search]);
             }
             else {
-                $searchConfig = $this->makeConfig($this->config->search);
+                $searchConfig = $this->makeConfig($this->search);
             }
 
             $searchConfig->alias = $this->alias . 'Search';
@@ -82,10 +98,10 @@ class Toolbar extends WidgetBase
 
     public function makeControlPanel()
     {
-        if (!isset($this->config->buttons)) {
+        if (!isset($this->buttons)) {
             return false;
         }
 
-        return $this->controller->makePartial($this->config->buttons, $this->vars);
+        return $this->controller->makePartial($this->buttons, $this->vars);
     }
 }

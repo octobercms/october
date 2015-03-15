@@ -11,23 +11,39 @@ use Backend\Classes\FormWidgetBase;
  */
 class RichEditor extends FormWidgetBase
 {
-    /**
-     * {@inheritDoc}
-     */
-    public $defaultAlias = 'richeditor';
+    //
+    // Configurable properties
+    //
 
     /**
      * @var boolean Determines whether content has HEAD and HTML tags.
      */
     public $fullPage = false;
 
+    //
+    // Object properties
+    //
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $defaultAlias = 'richeditor';
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init()
+    {
+        $this->fillFromConfig([
+            'fullPage',
+        ]);
+    }
+
     /**
      * {@inheritDoc}
      */
     public function render()
     {
-        $this->fullPage = $this->getConfig('fullPage', $this->fullPage);
-
         $this->prepareVars();
         return $this->makePartial('richeditor');
     }

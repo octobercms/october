@@ -87,4 +87,26 @@ return [
 
     'convertLineEndings' => true,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Local plugins path
+    |--------------------------------------------------------------------------
+    |
+    | Specifies the absolute local plugins path.
+    |
+    */
+
+    'pluginsPathLocal' => base_path().'/tests/fixtures/plugins',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Local themes path
+    |--------------------------------------------------------------------------
+    |
+    | Specifies the absolute local themes path.
+    |
+    */
+
+    'themesPathLocal' => base_path().'/tests/fixtures/themes',
+
 ];

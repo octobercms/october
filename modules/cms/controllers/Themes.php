@@ -1,15 +1,15 @@
 <?php namespace Cms\Controllers;
 
-use Lang;
-use Input;
+use Yaml;
 use Config;
 use Backend;
 use Redirect;
 use BackendMenu;
-use Backend\Classes\Controller;
-use System\Classes\SettingsManager;
+use ApplicationException;
 use Cms\Models\ThemeData;
+use Backend\Classes\Controller;
 use Cms\Classes\Theme as CmsTheme;
+use System\Classes\SettingsManager;
 use Exception;
 
 /**
@@ -50,11 +50,46 @@ class Themes extends Controller
 
     public function index_onSetActiveTheme()
     {
-        CmsTheme::setActiveTheme(Input::get('theme'));
+        CmsTheme::setActiveTheme(post('theme'));
 
         return [
             '#theme-list' => $this->makePartial('theme_list')
         ];
+    }
+
+    //
+    // Theme properties
+    //
+
+    public function index_onLoadThemeFieldsForm()
+    {
+        $theme = $this->findThemeObject();
+        $this->vars['widget'] = $this->makeThemeFieldsFormWidget($theme);
+        $this->vars['themeDir'] = $theme->getDirName();
+
+        return $this->makePartial('theme_fields_form');
+    }
+
+    public function index_onSaveThemeFields()
+    {
+        $theme = $this->findThemeObject();
+        $widget = $this->makeThemeFieldsFormWidget($theme);
+        $theme->writeConfig($widget->getSaveData());
+
+        return ['#themeListItem-'.$theme->getId() => $this->makePartial('theme_list_item', ['theme' => $theme])];
+    }
+
+    protected function makeThemeFieldsFormWidget($theme)
+    {
+        $widgetConfig = $this->makeConfig('~/modules/cms/classes/theme/fields.yaml');
+        $widgetConfig->alias = 'form'.studly_case($theme->getDirName());
+        $widgetConfig->model = $theme;
+        $widgetConfig->data = $theme->getConfig();
+        $widgetConfig->data['directory_name'] = $theme->getDirName();
+        $widgetConfig->arrayName = 'Theme';
+
+        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
+        return $widget;
     }
 
     //
@@ -88,9 +123,7 @@ class Themes extends Controller
 
     protected function getThemeData($dirName)
     {
-        if (!$theme = CmsTheme::load($dirName))
-            throw new Exception(Lang::get('Unable to find theme with name :name', $dirName));
-
+        $theme = $this->findThemeObject($dirName);
         $model = ThemeData::forTheme($theme);
         return $model;
     }
@@ -101,9 +134,7 @@ class Themes extends Controller
     protected function formExtendFields($form)
     {
         $model = $form->model;
-
-        if (!$theme = CmsTheme::load($model->theme))
-            throw new Exception(Lang::get('Unable to find theme with name :name', $this->theme));
+        $theme = $this->findThemeObject($model->theme);
 
         if ($fields = $theme->getConfigValue('form.fields')) {
             $form->addFields($fields);
@@ -116,6 +147,23 @@ class Themes extends Controller
         if ($fields = $theme->getConfigValue('form.secondaryTabs.fields')) {
             $form->addSecondaryTabFields($fields);
         }
+    }
+
+    //
+    // Helpers
+    //
+
+    protected function findThemeObject($name = null)
+    {
+        if ($name === null) {
+            $name = post('theme');
+        }
+
+        if (!$name || (!$theme = CmsTheme::load($name))) {
+            throw new ApplicationException(trans('cms::lang.theme.not_found_name', ['name' => $name]));
+        }
+
+        return $theme;
     }
 
 }

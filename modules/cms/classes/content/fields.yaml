@@ -1,21 +1,25 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
 fields:
-  fileName:
-    label: cms::lang.editor.filename
-    attributes:
-      default-focus: 1
+    fileName:
+        label: cms::lang.editor.filename
+        attributes:
+            default-focus: 1
 
-  toolbar:
-    type: partial
-    path: content_toolbar
-    cssClass: collapse-visible
+    toolbar:
+        type: partial
+        path: content_toolbar
+        cssClass: collapse-visible
 
-  components: Cms\FormWidgets\Components
+    components: Cms\FormWidgets\Components
 
 secondaryTabs:
-  stretch: true
-  fields:
-    markup:
-      tab: cms::lang.editor.content
-      stretch: true
-      type: codeeditor
-      language: html
+    stretch: true
+    fields:
+        markup:
+            tab: cms::lang.editor.content
+            stretch: true
+            type: codeeditor
+            language: html

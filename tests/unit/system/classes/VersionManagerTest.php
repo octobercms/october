@@ -49,16 +49,6 @@ class VersionManagerTest extends TestCase
     // Tests
     //
 
-    public function testUpdateAll()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
-    public function testUpdatePlugin()
-    {
-        $this->markTestIncomplete('TODO');
-    }
-
     public function testGetLatestFileVersion()
     {
         $manager = VersionManager::instance();
