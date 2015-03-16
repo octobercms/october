@@ -74,7 +74,7 @@ class Themes extends Controller
         $theme = $this->findThemeObject();
 
         if ($theme->isActiveTheme()) {
-            throw new ApplicationException('Cannot delete the active theme, try making another theme active first.');
+            throw new ApplicationException(trans('cms::lang.theme.delete_active_theme_failed'));
         }
 
         $themePath = $theme->getPath();
@@ -82,7 +82,7 @@ class Themes extends Controller
             File::deleteDirectory($themePath);
         }
 
-        Flash::success('Deleted theme successfully!');
+        Flash::success(trans('cms::lang.theme.delete_theme_success'));
         return Redirect::refresh();
     }
 
@@ -142,15 +142,15 @@ class Themes extends Controller
         $data = array_except($data, 'dir_name');
 
         if (!strlen(trim(array_get($data, 'name')))) {
-            throw new ValidationException(['name' => 'Please specify a name for the theme.']);
+            throw new ValidationException(['name' => trans('cms::lang.theme.create_theme_required_name')]);
         }
 
         if (!preg_match('/^[a-z0-9\_\-]+$/i', $newDirName)) {
-            throw new ValidationException(['dir_name' => 'Name can contain only digits, Latin letters and the following symbols: _-']);
+            throw new ValidationException(['dir_name' => trans('cms::lang.theme.dir_name_invalid')]);
         }
 
         if (File::isDirectory($destinationPath)) {
-            throw new ValidationException(['dir_name' => 'Desired theme directory already exists.']);
+            throw new ValidationException(['dir_name' => trans('cms::lang.theme.dir_name_taken')]);
         }
 
         File::makeDirectory($destinationPath);
@@ -164,7 +164,7 @@ class Themes extends Controller
         $theme = CmsTheme::load($newDirName);
         $theme->writeConfig($data);
 
-        Flash::success('Created theme successfully!');
+        Flash::success(trans('cms::lang.theme.create_theme_success'));
         return Redirect::refresh();
     }
 
@@ -200,11 +200,11 @@ class Themes extends Controller
         $destinationPath = themes_path().'/'.$newDirName;
 
         if (!preg_match('/^[a-z0-9\_\-]+$/i', $newDirName)) {
-            throw new ValidationException(['new_dir_name' => 'Name can contain only digits, Latin letters and the following symbols: _-']);
+            throw new ValidationException(['new_dir_name' => trans('cms::lang.theme.dir_name_invalid')]);
         }
 
         if (File::isDirectory($destinationPath)) {
-            throw new ValidationException(['new_dir_name' => 'Duplicate theme directory already exists.']);
+            throw new ValidationException(['new_dir_name' => trans('cms::lang.theme.dir_name_taken')]);
         }
 
         File::copyDirectory($sourcePath, $destinationPath);
@@ -212,7 +212,7 @@ class Themes extends Controller
         $newName = $newTheme->getConfigValue('name') . ' - Copy';
         $newTheme->writeConfig(['name' => $newName]);
 
-        Flash::success('Duplicated theme successfully!');
+        Flash::success(trans('cms::lang.theme.duplicate_theme_success'));
         return Redirect::refresh();
     }
 
@@ -341,7 +341,7 @@ class Themes extends Controller
         $model = new ThemeImport;
         $model->import($theme, $widget->getSaveData(), $widget->getSessionKey());
 
-        Flash::success('Imported theme successfully!');
+        Flash::success(trans('cms::lang.theme.import_theme_success'));
         return Redirect::refresh();
     }
 

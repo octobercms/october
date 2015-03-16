@@ -7,7 +7,7 @@
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
-        <h4 class="modal-title">Duplicate theme: <?= $themeDir ?></h4>
+        <h4 class="modal-title"><?= e(trans('cms::lang.theme.duplicate_title')) ?>: <?= $themeDir ?></h4>
     </div>
 
     <?php if (!$this->fatalError): ?>
@@ -16,7 +16,7 @@
 
             <div class="form-group text-field span-full">
                 <label for="Form-ThemeDuplicate-newDirName">
-                    Theme directory
+                    <?= e(trans('cms::lang.theme.new_directory_name_label')) ?>
                 </label>
                 <input
                     type="text"
@@ -29,7 +29,7 @@
                     maxlength="255" />
 
                 <p class="help-block">
-                    Provide a new directory name for the duplicated theme.
+                    <?= e(trans('cms::lang.theme.new_directory_name_comment')) ?>
                 </p>
             </div>
 
@@ -38,7 +38,7 @@
             <button
                 type="submit"
                 class="btn btn-success">
-                Duplicate
+                <?= e(trans('cms::lang.theme.duplicate_button')) ?>
             </button>
 
             <button

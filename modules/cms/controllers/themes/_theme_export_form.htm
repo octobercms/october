@@ -8,7 +8,7 @@
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
-        <h4 class="modal-title">Export theme</h4>
+        <h4 class="modal-title"><?= e(trans('cms::lang.theme.export_title')) ?></h4>
     </div>
 
     <?php if (!$this->fatalError): ?>
@@ -20,7 +20,7 @@
             <button
                 type="submit"
                 class="btn btn-success">
-                Export
+                <?= e(trans('cms::lang.theme.export_button')) ?>
             </button>
 
             <button

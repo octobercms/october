@@ -5,21 +5,21 @@
 fields:
 
     themeName:
-        label: Theme
+        label: cms::lang.theme.theme_label
         disabled: true
 
     uploaded_file:
-        label: Theme archive file
+        label: cms::lang.theme.import_uploaded_file
         type: fileupload
         mode: file
         fileTypes: zip
 
     overwrite:
-        label: Overwrite existing files
-        comment: Untick this box to only import new files
+        label: cms::lang.theme.import_overwrite_label
+        comment: cms::lang.theme.import_overwrite_comment
         type: checkbox
 
     folders:
-        label: Folders
-        commentAbove: Please select the theme folders you would like to import
+        label: cms::lang.theme.import_folders_label
+        commentAbove: cms::lang.theme.import_folders_comment
         type: checkboxlist
