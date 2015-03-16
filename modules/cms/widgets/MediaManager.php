@@ -197,13 +197,14 @@ class MediaManager extends WidgetBase
     protected function splitPathToSegments($path)
     {
         $path = MediaLibrary::validatePath($path, true);
-        $result = [];
 
-        do {
-            $result[] = $path;
-        } while (($path = dirname($path)) != '/');
+        $path = ltrim($path, '/');
 
-        return array_reverse($result);
+        $result = explode('/', $path);
+        if (count($result) == 1 && $result[0] == '')
+            $result = [];
+
+        return $result;
     }
 
     /**
