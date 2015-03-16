@@ -499,6 +499,7 @@
             method: 'POST',
             url: window.location,
             paramName: 'file_data',
+            createImageThumbnails: false
             // fallback: implement method that would set a flag that the uploader is not supported by the browser
         }
 
