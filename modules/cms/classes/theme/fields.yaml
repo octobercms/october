@@ -10,10 +10,18 @@ tabs:
             label: Name
             placeholder: New theme name
             span: auto
+            required: true
             attributes:
                 default-focus: 1
 
-        directory_name:
+        dir_name@create:
+            label: Directory name
+            span: auto
+            placeholder: The destination theme directory
+            preset: name
+            required: true
+
+        dir_name@update:
             label: Directory name
             disabled: true
             span: auto

@@ -1,0 +1,25 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    themeName:
+        label: Theme
+        disabled: true
+
+    uploaded_file:
+        label: Theme archive file
+        type: fileupload
+        mode: file
+        fileTypes: zip
+
+    overwrite:
+        label: Overwrite existing files
+        comment: Untick this box to only import new files
+        type: checkbox
+
+    folders:
+        label: Folders
+        commentAbove: Please select the theme folders you would like to import
+        type: checkboxlist

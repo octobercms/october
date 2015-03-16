@@ -56,30 +56,47 @@
                         tabindex="-1"
                         data-control="popup"
                         data-size="huge"
-                        data-handler="onLoadThemeFieldsForm"
+                        data-handler="onLoadFieldsForm"
                         data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
                         href="javascript:;"
                         class="oc-icon-pencil">
                         Edit properties
                     </a>
                 </li>
-                <!--
                 <li role="presentation">
                     <a
                         role="menuitem"
                         tabindex="-1"
+                        data-control="popup"
+                        data-handler="onLoadDuplicateForm"
+                        data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
                         href="javascript:;"
-                        class="oc-icon-download">
-                        Download
+                        class="oc-icon-copy">
+                        Duplicate
                     </a>
                 </li>
                 <li role="presentation">
                     <a
                         role="menuitem"
                         tabindex="-1"
+                        data-control="popup"
+                        data-handler="onLoadImportForm"
+                        data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
                         href="javascript:;"
-                        class="oc-icon-copy">
-                        Duplicate
+                        class="oc-icon-upload">
+                        Import
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a
+                        role="menuitem"
+                        tabindex="-1"
+                        data-control="popup"
+                        data-handler="onLoadExportForm"
+                        data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
+                        href="javascript:;"
+                        class="oc-icon-download">
+                        Export
                     </a>
                 </li>
                 <li role="presentation" class="divider"></li>
@@ -87,12 +104,14 @@
                     <a
                         role="menuitem"
                         tabindex="-1"
+                        data-request="onDelete"
+                        data-request-confirm="Are you sure you want to delete this theme? It cannot be undone!"
+                        data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
                         href="javascript:;"
                         class="oc-icon-trash">
                         Delete
                     </a>
                 </li>
-                -->
             </ul>
         </div>
     </div>

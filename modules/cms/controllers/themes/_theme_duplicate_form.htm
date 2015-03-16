@@ -1,25 +1,44 @@
-<?= Form::ajax('onSaveFields', [
-    'id' => 'themeFieldsForm',
-    'data-popup-load-indicator' => true
+<?= Form::ajax('onDuplicateTheme', [
+    'id' => 'themeDuplicateForm',
+    'data-popup-load-indicator' => true,
 ]) ?>
 
     <input type="hidden" name="theme" value="<?= $themeDir ?>" />
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
-        <h4 class="modal-title">Theme: <?= $themeDir ?></h4>
+        <h4 class="modal-title">Duplicate theme: <?= $themeDir ?></h4>
     </div>
 
     <?php if (!$this->fatalError): ?>
 
         <div class="modal-body">
-            <?= $widget->render() ?>
+
+            <div class="form-group text-field span-full">
+                <label for="Form-ThemeDuplicate-newDirName">
+                    Theme directory
+                </label>
+                <input
+                    type="text"
+                    name="new_dir_name"
+                    id="Form-ThemeDuplicate-newDirName"
+                    value="<?= $themeDir ?>"
+                    placeholder=""
+                    class="form-control"
+                    autocomplete="off"
+                    maxlength="255" />
+
+                <p class="help-block">
+                    Provide a new directory name for the duplicated theme.
+                </p>
+            </div>
+
         </div>
         <div class="modal-footer">
             <button
                 type="submit"
-                class="btn btn-primary">
-                Save properties
+                class="btn btn-success">
+                Duplicate
             </button>
 
             <button
@@ -48,7 +67,7 @@
 
     <script>
         setTimeout(
-            function(){ $('#themeFieldsForm input.form-control:first').focus() },
+            function(){ $('#themeDuplicateForm input.form-control:first').focus() },
             310
         )
     </script>
