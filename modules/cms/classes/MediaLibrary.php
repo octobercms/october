@@ -132,6 +132,19 @@ class MediaLibrary
     }
 
     /**
+     * Puts a file to the library.
+     * @param string $path Specifies the file path relative the the Library root.
+     * @param string $contents Specifies the file contents.
+     * @return boolean
+     */
+    public function put($path, $contents)
+    {
+        $path = self::validatePath($path);
+        $fullPath = $this->getMediaPath($path);
+        return $this->getStorageDisk()->put($fullPath, $contents);
+    }
+
+    /**
      * Resets the Library cache.
      *
      * The cache stores the library table of contents locally in order to optimize

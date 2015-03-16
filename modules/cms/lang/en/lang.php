@@ -204,6 +204,8 @@ return [
         'return_to_parent' => 'Return to the parent folder',
         'return_to_parent_label' => 'Go up ..',
         'nothing_selected' => 'Nothing is selected.',
-        'multiple_selected' => 'Multiple items selected.'
+        'multiple_selected' => 'Multiple items selected.',
+        'uploading_file_num' => 'Uploading :number file(s)...',
+        'uploading_complete' => 'Upload complete'
     ]
 ];

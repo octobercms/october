@@ -36,6 +36,8 @@ class MediaManager extends WidgetBase
 
         parent::__construct($controller, []);
         $this->bindToController();
+
+        $this->handleUploads();
     }
 
     /**
@@ -49,9 +51,9 @@ class MediaManager extends WidgetBase
         return $this->makePartial('body');
     }
 
-    /*
-     * Event handlers
-     */
+    //
+    // Event handlers
+    //
 
     public function onSearch()
     {
@@ -140,9 +142,9 @@ class MediaManager extends WidgetBase
         ];
     }
 
-    /*
-     * Methods for th internal use
-     */
+    //
+    // Methods for th internal use
+    //
 
     protected function prepareVars()
     {
@@ -439,6 +441,39 @@ class MediaManager extends WidgetBase
         }
         catch (Exception $ex) {
             return $originalDimensions;
+        }
+    }
+
+    protected function handleUploads()
+    {
+        $fileName = null;
+
+        try {
+            $uploadedFile = Input::file('file_data');
+
+            if (!is_object($uploadedFile)) {
+                return;
+            }
+
+            $fileName = $uploadedFile->getClientOriginalName();
+
+            // See mime type handling in the asset manager
+
+            if (!$uploadedFile->isValid())
+                throw new ApplicationException($uploadedFile->getErrorMessage());
+
+            $path = Input::get('path');
+            $path = MediaLibrary::validatePath($path);
+
+            MediaLibrary::instance()->put($path.'/'.$fileName, 
+                File::get($uploadedFile->getRealPath()));
+
+            die('success');
+        }
+        catch (Exception $ex) {
+            Response::make($ex->getMessage(), 406)->send();
+
+            die();
         }
     }
 }

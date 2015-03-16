@@ -256,11 +256,53 @@ div[data-control="media-manager"] .list-container {
 }
 div[data-control="media-manager"] [data-control="item-list"] {
   position: relative;
+  display: table-cell;
 }
 div[data-control="media-manager"] div[data-control="selection-marker"] {
   position: absolute;
   z-index: 50;
   border: 1px dashed #95a5a6;
+}
+div[data-control="media-manager"] .upload-progress {
+  background: #f9f9f9;
+  padding: 0 20px;
+}
+div[data-control="media-manager"] .upload-progress h5 {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #2b3e50;
+  font-weight: 600;
+}
+div[data-control="media-manager"] .upload-progress h5 span {
+  display: inline-block;
+  margin-left: 10px;
+  color: #95a5a6;
+  font-size: 15px;
+}
+div[data-control="media-manager"] .upload-progress .progress-controls {
+  padding-right: 30px;
+  position: relative;
+}
+div[data-control="media-manager"] .upload-progress .progress-controls .controls {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+div[data-control="media-manager"] .upload-progress .progress-controls .controls a {
+  display: block;
+  position: relative;
+  top: 7px;
+  right: 3px;
+  color: #95a5a6;
+  font-size: 16px;
+  cursor: pointer!important;
+}
+div[data-control="media-manager"] .upload-progress .progress-controls .controls a:hover {
+  text-decoration: none;
+  color: #0181b9;
+}
+div[data-control="media-manager"] .dz-preview {
+  display: none;
 }
 body:not(.no-select) div[data-control="media-manager"] .media-list.tiles li:hover .icon-container {
   background: #4da7e8 !important;

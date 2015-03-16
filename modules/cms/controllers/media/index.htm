@@ -1,7 +1,7 @@
 <?= Block::put('head') ?><?= Block::endPut() ?>
 
 <?= Block::put('body') ?>
-    <div class="layout">
+    <?= Form::open(['class'=>'layout']) ?>
         <?= $this->widget->manager->render() ?>
-    </div>
+    <?= Form::close() ?>
 <?= Block::endPut() ?>

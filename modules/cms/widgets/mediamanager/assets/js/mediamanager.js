@@ -30,6 +30,11 @@
         this.afterNavigateBound = this.afterNavigate.bind(this)
         this.releaseSidebarThumbnailAjaxBound = this.releaseSidebarThumbnailAjax.bind(this)
         this.replaceSidebarPlaceholderBound = this.replaceSidebarPlaceholder.bind(this)
+        this.uploadFileAddedBound = this.uploadFileAdded.bind(this)
+        this.uploadUpdateTotalProgressBound = this.uploadUpdateTotalProgress.bind(this)
+        this.uploadQueueCompleteBound = this.uploadQueueComplete.bind(this)
+        this.uploadSendingBound = this.uploadSending.bind(this)
+        this.uploadErrorBound = this.uploadError.bind(this)
 
         // State properties
         this.selectTimer = null
@@ -51,16 +56,24 @@
     MediaManager.prototype.dispose = function() {
         this.unregisterHandlers()
         this.clearSelectTimer()
+        this.disableUploader()
 
         this.$el = null
         this.$form = null
         this.updateSidebarPreviewBound = null
         this.replacePlaceholderBound = null
         this.placeholdersUpdatedBound = null
-        this.sidebarPreviewElement = null
-        this.itemListElement = null
         this.afterNavigateBound = null
         this.replaceSidebarPlaceholderBound = null
+        this.uploadFileAddedBound = null
+        this.releaseSidebarThumbnailAjaxBound = null
+        this.uploadUpdateTotalProgressBound = null
+        this.uploadQueueCompleteBound = null
+        this.uploadSendingBound = null
+        this.uploadErrorBound = null
+
+        this.sidebarPreviewElement = null
+        this.itemListElement = null
         this.sidebarThumbnailAjax = null
         this.selectionMarker = null
         this.thumbnailQueue = []
@@ -123,9 +136,9 @@
         }).done(this.afterNavigateBound)
     }
 
-    /*
-     * Selecting
-     */
+    //
+    // Selecting
+    //
 
     MediaManager.prototype.clearSelectTimer = function() {
         if (this.selectTimer == null)
@@ -162,9 +175,9 @@
         }
     }
 
-    /*
-     * Navigation
-     */
+    //
+    // Navigation
+    //
 
     MediaManager.prototype.gotoFolder = function(path, clearCache) {
         var data = {
@@ -187,9 +200,16 @@
         this.updateSidebarPreview(true)
     }
 
-    /*
-     * Sidebar
-     */
+    MediaManager.prototype.refresh = function() {
+        this.gotoFolder(
+            this.$el.find('[data-type="current-folder"]').val(),
+            true
+        )
+    }
+
+    //
+    // Sidebar
+    //
 
     MediaManager.prototype.isPreviewSidebarVisible = function() {
         return true
@@ -308,9 +328,9 @@
         this.sidebarThumbnailAjax = null
     }
 
-    /*
-     * Thumbnails
-     */
+    //
+    // Thumbnails
+    //
 
     MediaManager.prototype.generateThumbnails = function() {
         this.thumbnailQueue = []
@@ -393,9 +413,9 @@
         this.handleThumbnailQueue()
     }
 
-    /*
-     * Drag-select
-     */
+    //
+    // Drag-select
+    //
 
     MediaManager.prototype.getAbsolutePosition = function(element) {
         // TODO: refactor to a core library
@@ -466,26 +486,108 @@
         )
     }
 
-    /*
-     * Uploading
-     */
+    //
+    // Uploading
+    //
 
     MediaManager.prototype.initUploader = function() {
-        if (this.itemListElement) {
-            // this.dropzone = new Dropzone(this.itemListElement, uploaderOptions)
+        if (!this.itemListElement)
+            return
+
+        var uploaderOptions = {
+            clickable: this.$el.find('[data-control="upload"]').get(0),
+            method: 'POST',
+            url: window.location,
+            paramName: 'file_data',
+            // fallback: implement method that would set a flag that the uploader is not supported by the browser
         }
 
+        this.dropzone = new Dropzone(this.$el.get(0), uploaderOptions)
+        this.dropzone.on('addedfile', this.uploadFileAddedBound)
+        this.dropzone.on('totaluploadprogress', this.uploadUpdateTotalProgressBound)
+        this.dropzone.on('queuecomplete', this.uploadQueueCompleteBound)
+        this.dropzone.on('sending', this.uploadSendingBound)
+        this.dropzone.on('error', this.uploadErrorBound)
+    }
 
-// disable
-//         dropzone.on('error', $.proxy(self.onUploadFail, self))
-//         dropzone.on('success', $.proxy(self.onUploadSuccess, self))
-//         dropzone.on('complete', $.proxy(self.onUploadComplete, self))
-//         dropzone.on('sending', function(file, xhr, formData) {
-//             $.each(self.$form.serializeArray(), function (index, field) {
-//                 formData.append(field.name, field.value)
-//             })
-//             self.onUploadStart()
-//         })
+    MediaManager.prototype.disableUploader = function() {
+        if (!this.dropzone)
+            return
+
+        this.dropzone.disable()
+        this.dropzone = null
+    }
+
+    MediaManager.prototype.uploadFileAdded = function() {
+        this.showUploadUi()
+        this.setUploadProgress(0)
+
+        this.$el.find('[data-command="cancel-uploading"]').removeClass('hide')
+        this.$el.find('[data-command="close-uploader"]').addClass('hide')
+    }
+
+    MediaManager.prototype.showUploadUi = function() {
+        this.$el.find('[data-control="upload-ui"]').removeClass('hide')
+    }
+
+    MediaManager.prototype.hideUploadUi = function() {
+        this.$el.find('[data-control="upload-ui"]').addClass('hide')
+    }
+
+    MediaManager.prototype.uploadUpdateTotalProgress = function(uploadProgress, totalBytes, totalBytesSent) {
+        this.setUploadProgress(uploadProgress)
+
+        var fileNumberLabel = this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),
+            messageTemplate = fileNumberLabel.getAttribute('data-message-template'),
+            fileNumber = this.dropzone.getUploadingFiles().length + this.dropzone.getQueuedFiles().length
+
+        // Don't confuse users with displaying 100% 
+        // until the operation finishes. We consider the operation
+        // finished when the Dropzone's 'compete' event triggers - 
+        // when the response is received from the server.
+        if (uploadProgress >= 100)
+            uploadProgress = 99
+
+        fileNumberLabel.innerHTML = messageTemplate.replace(':number', fileNumber).replace(':percents', Math.round(uploadProgress) + '%')
+    }
+
+    MediaManager.prototype.setUploadProgress = function(value) {
+        var progresBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
+        
+        progresBar.setAttribute('style', 'width: ' + value + '%')
+        progresBar.setAttribute('class', 'progress-bar')
+    }
+
+    MediaManager.prototype.uploadQueueComplete = function() {
+        var fileNumberLabel = this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),
+            completeTemplate = fileNumberLabel.getAttribute('data-complete-template'),
+            progresBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
+
+        fileNumberLabel.innerHTML = completeTemplate;
+        progresBar.setAttribute('class', 'progress-bar progress-bar-success')
+
+        this.$el.find('[data-command="cancel-uploading"]').addClass('hide')
+        this.$el.find('[data-command="close-uploader"]').removeClass('hide')
+
+        this.refresh()
+    }
+
+    MediaManager.prototype.uploadSending = function(file, xhr, formData) {
+        formData.append('path', this.$el.find('[data-type="current-folder"]').val())
+    }
+
+    MediaManager.prototype.uploadCancelAll = function() {
+        this.dropzone.removeAllFiles(true)
+        this.hideUploadUi()
+    }
+
+    MediaManager.prototype.uploadError = function(file, message) {
+        swal({
+            title: 'Error uploading file',
+            text: message,
+            // type: 'error',
+            confirmButtonClass: 'btn-default'
+        })
     }
 
     // EVENT HANDLERS
@@ -504,17 +606,20 @@
     }
 
     MediaManager.prototype.onCommandClick = function(ev) {
-        var command = $(ev.target).data('command')
+        var command = $(ev.currentTarget).data('command')
 
         switch (command) {
             case 'refresh' : 
-                this.gotoFolder(
-                    this.$el.find('[data-type="current-folder"]').val(),
-                    true
-                )
+                this.refresh()
             break;
             case 'change-view' :
                 this.changeView($(ev.target).data('view'))
+            break;
+            case 'cancel-uploading' :
+                this.uploadCancelAll()
+            break;
+            case 'close-uploader':
+                this.hideUploadUi()
             break;
         }
 

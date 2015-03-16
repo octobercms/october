@@ -298,12 +298,62 @@ div[data-control="media-manager"] {
 
     [data-control="item-list"] {
         position: relative;
+        display: table-cell;
     }
 
     div[data-control="selection-marker"] {
         position: absolute;
         z-index: 50;
         border: 1px dashed #95a5a6;
+    }
+
+    .upload-progress {
+        background: @color-body-bg;
+        padding: 0 20px;
+
+        h5 {
+            margin: 0 0 10px 0;
+            font-size: 13px;
+            color: #2b3e50;
+            font-weight: 600;
+
+            span {
+                display: inline-block;
+                margin-left: 10px;
+                color: #95a5a6;
+                font-size: 15px;
+            }
+        }
+
+        .progress-controls {
+            padding-right: 30px;
+            position: relative;
+
+            .controls {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+
+                a {
+                    display: block;
+                    position: relative;
+                    top: 7px;
+                    right: 3px;
+                    color: #95a5a6;
+                    font-size: 16px;
+                    cursor: pointer!important;
+
+                    &:hover {
+                        text-decoration: none;
+                        color: @color-link;
+                    }
+                }
+            }
+        }
+    }
+
+    .dz-preview {
+        display: none;
     }
 }
 
