@@ -161,6 +161,22 @@ class MediaManager extends WidgetBase
         ];
     }
 
+    public function onSetSorting()
+    {
+        $sortBy = Input::get('sortBy');
+        $path = Input::get('path');
+
+        $this->setSortBy($sortBy);
+        $this->setCurrentFolder($path);
+
+        $this->prepareVars();
+
+        return [
+            '#'.$this->getId('item-list') => $this->makePartial('item-list'),
+            '#'.$this->getId('folder-path') => $this->makePartial('folder-path')
+        ];
+    }
+
     //
     // Methods for th internal use
     //
@@ -172,21 +188,23 @@ class MediaManager extends WidgetBase
         $folder = $this->getCurrentFolder();
         $viewMode = $this->getViewMode();
         $filter = $this->getFilter();
+        $sortBy = $this->getSortBy();
 
-        $this->vars['items'] = $this->listFolderItems($folder, $filter);
+        $this->vars['items'] = $this->listFolderItems($folder, $filter, $sortBy);
         $this->vars['currentFolder'] = $folder;
         $this->vars['isRootFolder'] = $folder == self::FOLDER_ROOT;
         $this->vars['pathSegments'] = $this->splitPathToSegments($folder);
         $this->vars['viewMode'] = $viewMode;
         $this->vars['thumbnailParams'] = $this->getThumbnailParams($viewMode);
         $this->vars['currentFilter'] = $filter;
+        $this->vars['sortBy'] = $sortBy;
     }
 
-    protected function listFolderItems($folder, $filter)
+    protected function listFolderItems($folder, $filter, $sortBy)
     {
         $filter = $filter !== self::FILTER_EVERYTHING ? $filter : null;
 
-        return MediaLibrary::instance()->listFolderContents($folder, null, $filter);
+        return MediaLibrary::instance()->listFolderContents($folder, $sortBy, $filter);
     }
 
     protected function getCurrentFolder()
@@ -212,6 +230,22 @@ class MediaManager extends WidgetBase
             throw new SystemException('Invalid input data');
 
         return $this->putSession('media_filter', $filter);
+    }
+
+    protected function getSortBy()
+    {
+        return $this->getSession('media_sort_by', MediaLibrary::SORT_BY_TITLE);
+    }
+
+    protected function setSortBy($sortBy)
+    {
+        if (!in_array($sortBy, [
+                MediaLibrary::SORT_BY_TITLE,
+                MediaLibrary::SORT_BY_SIZE,
+                MediaLibrary::SORT_BY_MODIFIED]))
+            throw new SystemException('Invalid input data');
+
+        return $this->putSession('media_sort_by', $sortBy);
     }
 
     protected function setCurrentFolder($path)

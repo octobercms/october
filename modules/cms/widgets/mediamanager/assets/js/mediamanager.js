@@ -22,6 +22,7 @@
         this.listMouseDownHandler = this.onListMouseDown.bind(this)
         this.listMouseUpHandler = this.onListMouseUp.bind(this)
         this.listMouseMoveHandler = this.onListMouseMove.bind(this)
+        this.sortingChangedHandler = this.onSortingChanged.bind(this)
 
         // Instance-bound methods
         this.updateSidebarPreviewBound = this.updateSidebarPreview.bind(this)
@@ -96,6 +97,7 @@
         this.$el.on('click.tree-path', 'ul.tree-path', this.navigateHandler)
         this.$el.on('click.command', '[data-command]', this.commandClickHandler)
         this.$el.on('click.item', '[data-type="media-item"]', this.itemClickHandler)
+        this.$el.on('change', '[data-control="sorting"]', this.sortingChangedHandler)
 
         if (this.itemListElement)
             this.itemListElement.addEventListener('mousedown', this.listMouseDownHandler)
@@ -106,6 +108,7 @@
         this.$el.off('click.tree-path', this.navigateHandler)
         this.$el.off('click.command', this.commandClickHandler)
         this.$el.off('click.item', this.itemClickHandler)
+        this.$el.off('change', '[data-control="sorting"]', this.sortingChangedHandler)
 
         if (this.itemListElement) {
             this.itemListElement.removeEventListener('mousedown', this.listMouseDownHandler)
@@ -119,6 +122,7 @@
         this.listMouseDownHandler = null
         this.listMouseUpHandler = null
         this.listMouseMoveHandler = null
+        this.sortingChangedHandler = null
     }
 
     MediaManager.prototype.changeView = function(view) {
@@ -742,6 +746,21 @@
                 this.selectionMarker.style.height = Math.abs(deltaY) + 'px'
             }
         }
+    }
+
+    MediaManager.prototype.onSortingChanged = function(ev) {
+        $.oc.stripeLoadIndicator.show()
+
+        var data = {
+            sortBy: $(ev.target).val(),
+            path: this.$el.find('[data-type="current-folder"]').val()
+        }
+
+        this.$form.request(this.options.alias+'::onSetSorting', {
+            data: data
+        }).always(function() {
+            $.oc.stripeLoadIndicator.hide()
+        }).done(this.afterNavigateBound)
     }
 
     // MEDIA MANAGER PLUGIN DEFINITION

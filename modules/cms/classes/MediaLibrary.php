@@ -240,6 +240,12 @@ class MediaLibrary
         $lastModified = $itemType == MediaLibraryItem::TYPE_FILE ? 
             $this->getStorageDisk()->lastModified($path) : null;
 
+        /*
+         * The folder size (number of items) doesn't respect filters. That
+         * could be confusing for users, but that's safer than displaying
+         * zero items for a folder that contains files not visible with a
+         * currently applied filter. -ab
+         */
         $size = $itemType == MediaLibraryItem::TYPE_FILE ? 
             $this->getStorageDisk()->size($path) : $this->getFolderItemCount($path);
 
@@ -307,18 +313,18 @@ class MediaLibrary
 
         usort($itemList, function($a, $b) use ($sortBy) {
             switch ($sortBy) {
-                case self::SORT_BY_TITLE : return strcmp($a->path, $b->path);
+                case self::SORT_BY_TITLE : return strcasecmp($a->path, $b->path);
                 case self::SORT_BY_SIZE : 
                     if ($a->size > $b->size)
-                        return 1;
+                        return -1;
 
-                    return $a->size < $b->size ? -1 : 0;
+                    return $a->size < $b->size ? 1 : 0;
                 break;
                 case self::SORT_BY_MODIFIED :
                     if ($a->lastModified > $b->lastModified)
-                        return 1;
+                        return -1;
 
-                    return $a->lastModified < $b->lastModified ? -1 : 0;
+                    return $a->lastModified < $b->lastModified ? 1 : 0;
                 break;
             }
         });

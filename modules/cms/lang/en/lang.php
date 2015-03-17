@@ -206,6 +206,7 @@ return [
         'nothing_selected' => 'Nothing is selected.',
         'multiple_selected' => 'Multiple items selected.',
         'uploading_file_num' => 'Uploading :number file(s)...',
-        'uploading_complete' => 'Upload complete'
+        'uploading_complete' => 'Upload complete',
+        'order_by' => 'Order by',
     ]
 ];

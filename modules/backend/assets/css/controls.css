@@ -137,7 +137,7 @@ body.slim-container .form-buttons{padding:0 20px 20px}
 .select2-drop.select2-drop-above.select2-drop-active{border-top:1px solid #b2b9be;border-bottom-right-radius:0;border-bottom-left-radius:0}
 .select2-drop .select2-search{padding:0;min-height:36px}
 .select2-drop .select2-search input{min-height:36px;border:none;border-bottom:1px solid #b2b9be;background:transparent url('../images/bitmap-icons.png') no-repeat 100% -84px !important}
-.select2-drop .select2-results{padding:0;margin:0}
+.select2-drop .select2-results{padding:0;margin:0;font-size:13px}
 .select2-drop .select2-results .select2-no-results,.select2-drop .select2-results .select2-searching,.select2-drop .select2-results .select2-selection-limit{background:#FFFFFF}
 .select2-drop .select2-results .select2-no-results{padding:7px !important}
 .select2-drop .select2-results .select2-highlighted{background:#4da7e8}
@@ -1127,12 +1127,12 @@ div.panel.triangle-down:after{content:'';display:block;width:0;height:0;border-l
 div.panel.triangle-down:before{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-top:9px solid #e8eaeb;border-bottom-width:0;position:absolute;left:14px;bottom:-9px;z-index:100}
 div.panel h3.section,div.panel > label{text-transform:uppercase;color:#95a5a6;font-size:13px;font-weight:600;margin:0 0 15px 0}
 div.panel > label{margin-bottom:5px}
-.nav.selector-group{font-size:13px;letter-spacing:0.01em}
+.nav.selector-group{font-size:13px;letter-spacing:0.01em;margin-bottom:20px}
 .nav.selector-group li a{padding:7px 20px 7px 23px;color:#95a5a6}
 .nav.selector-group li.active{border-left:3px solid #e6802b;padding-left:0}
 .nav.selector-group li.active a{padding-left:20px;color:#2b3e50}
 .nav.selector-group li i[class^="icon-"]{font-size:17px;margin-right:6px;position:relative;top:1px}
-div.panel .nav.selector-group{margin:0 -20px 0 -20px}
+div.panel .nav.selector-group{margin:0 -20px 20px -20px}
 ul.tree-path{list-style:none;padding:0;margin-bottom:0}
 ul.tree-path li{display:inline-block;margin-right:1px;font-size:13px}
 ul.tree-path li:after{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105";display:inline-block;font-size:13px;margin-left:5px;position:relative;top:1px;color:#95a5a6}
