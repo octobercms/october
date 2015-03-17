@@ -44,7 +44,7 @@
         var indicator = $('<div class="loading-indicator"></div>')
         indicator.append($('<div></div>').text(this.options.text))
         indicator.append($('<span></span>'))
-        if (this.options.opaque !== undefined && this.options.opaque) {
+        if (this.options.opaque !== undefined) {
             indicator.addClass('is-opaque')
         }
 

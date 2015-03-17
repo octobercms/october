@@ -6,6 +6,7 @@ use Model;
 use ApplicationException;
 use October\Rain\Filesystem\Zip;
 use Cms\Classes\Theme as CmsTheme;
+use FilesystemIterator;
 use Exception;
 
 /**
@@ -110,12 +111,12 @@ class ThemeImport extends Model
             // }
 
             if (File::isDirectory($tempPath.'/meta')) {
-                File::copyDirectory($tempPath.'/meta', $themePath.'/meta');
+                $this->copyDirectory($tempPath.'/meta', $themePath.'/meta');
             }
 
             foreach ($this->folders as $folder) {
                 if (!array_key_exists($folder, $this->getFoldersOptions())) continue;
-                File::copyDirectory($tempPath.'/'.$folder, $themePath.'/'.$folder);
+                $this->copyDirectory($tempPath.'/'.$folder, $themePath.'/'.$folder);
             }
 
             File::deleteDirectory($tempPath);
@@ -134,6 +135,50 @@ class ThemeImport extends Model
 
             throw $ex;
         }
+    }
+
+    /**
+     * Helper for copying directories that supports the ability
+     * to not overwrite existing files. Inherited from File::copyDirectory
+     *
+     * @param  string  $directory
+     * @param  string  $destination
+     * @return bool
+     */
+    protected function copyDirectory($directory, $destination)
+    {
+        // Preference is to overwrite existing files
+        if ($this->overwrite) {
+            return File::copyDirectory($directory, $destination);
+        }
+
+        if (!File::isDirectory($directory)) return false;
+
+        $options = FilesystemIterator::SKIP_DOTS;
+
+        if (!File::isDirectory($destination)) {
+            File::makeDirectory($destination, 0777, true);
+        }
+
+        $items = new FilesystemIterator($directory, $options);
+
+        foreach ($items as $item) {
+            $target = $destination.'/'.$item->getBasename();
+
+            if ($item->isDir()) {
+                $path = $item->getPathname();
+
+                if (!$this->copyDirectory($path, $target)) return false;
+            }
+            else {
+                // Do not overwrite existing files
+                if (File::isFile($target)) continue;
+
+                if (!File::copy($item->getPathname(), $target)) return false;
+            }
+        }
+
+        return true;
     }
 
 }
