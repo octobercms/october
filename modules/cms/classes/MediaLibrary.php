@@ -69,8 +69,11 @@ class MediaLibrary
      * @param string $folder Specifies the folder path relative the the Library root.
      * @param string $sortBy Determines the sorting preference. 
      * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants).
+     * @param string $filter Determines the document type filtering preference. 
+     * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
+     * @return array Returns an array of MediaLibraryItem objects.
      */
-    public function listFolderContents($folder = '/', $sortBy = 'title')
+    public function listFolderContents($folder = '/', $sortBy = 'title', $filter = null)
     {
         $folder = self::validatePath($folder);
         $fullFolderPath = $this->getMediaPath($folder);
@@ -100,6 +103,7 @@ class MediaLibrary
 
         $this->sortItemList($folderContents['files'], $sortBy);
         $this->sortItemList($folderContents['folders'], $sortBy);
+        $this->filterItemList($folderContents['files'], $filter);
 
         $folderContents = array_merge($folderContents['folders'], $folderContents['files']);
 
@@ -318,6 +322,26 @@ class MediaLibrary
                 break;
             }
         });
+    }
+
+    /**
+     * Filters item list by file type.
+     * @param array $itemList Specifies the item list to sort.
+     * @param string $filter Determines the document type filtering preference. 
+     * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
+     */
+    protected function filterItemList(&$itemList, $filter)
+    {
+        if (!$filter)
+            return;
+
+        $result = [];
+        foreach ($itemList as $item) {
+            if ($item->getFileType() == $filter)
+                $result[] = $item;
+        }
+
+        $itemList = $result;
     }
 
     /**

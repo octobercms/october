@@ -1,39 +1,5 @@
 <h3 class="section">Display</h3>
 
-<ul class="nav nav-stacked selector-group">
-    <li role="presentation" class="active">
-        <a href="#">
-            <i class="icon-recycle"></i>
-
-            <?= e(trans('cms::lang.media.filter_everything')) ?>
-        </a>
-    </li>
-    <li role="presentation">
-        <a href="#">
-            <i class="icon-picture-o"></i>
-
-            <?= e(trans('cms::lang.media.filter_images')) ?>
-        </a>
-    </li>
-    <li role="presentation">
-        <a href="#">
-            <i class="icon-video-camera"></i>
-
-            <?= e(trans('cms::lang.media.filter_video')) ?>
-        </a>
-    </li>
-    <li role="presentation">
-        <a href="#">
-            <i class="icon-volume-up"></i>
-
-            <?= e(trans('cms::lang.media.filter_audio')) ?>
-        </a>
-    </li>
-    <li role="presentation">
-        <a href="#">
-            <i class="icon-file"></i>
-
-            <?= e(trans('cms::lang.media.filter_documents')) ?>
-        </a>
-    </li>
-</ul>
+<div id="<?= $this->getId('filters') ?>">
+    <?= $this->makePartial('filters') ?>
+</div>

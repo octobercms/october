@@ -28,6 +28,8 @@ class MediaManager extends WidgetBase
     const VIEW_MODE_LIST = 'list';
     const VIEW_MODE_TILES = 'tiles';
 
+    const FILTER_EVERYTHING = 'everything';
+
     protected $brokenImageHash = null;
 
     public function __construct($controller, $alias)
@@ -142,6 +144,23 @@ class MediaManager extends WidgetBase
         ];
     }
 
+    public function onSetFilter()
+    {
+        $filter = Input::get('filter');
+        $path = Input::get('path');
+
+        $this->setFilter($filter);
+        $this->setCurrentFolder($path);
+
+        $this->prepareVars();
+
+        return [
+            '#'.$this->getId('item-list') => $this->makePartial('item-list'),
+            '#'.$this->getId('folder-path') => $this->makePartial('folder-path'),
+            '#'.$this->getId('filters') => $this->makePartial('filters')
+        ];
+    }
+
     //
     // Methods for th internal use
     //
@@ -152,19 +171,22 @@ class MediaManager extends WidgetBase
 
         $folder = $this->getCurrentFolder();
         $viewMode = $this->getViewMode();
+        $filter = $this->getFilter();
 
-        $this->vars['items'] = $this->listFolderItems($folder);
+        $this->vars['items'] = $this->listFolderItems($folder, $filter);
         $this->vars['currentFolder'] = $folder;
         $this->vars['isRootFolder'] = $folder == self::FOLDER_ROOT;
         $this->vars['pathSegments'] = $this->splitPathToSegments($folder);
         $this->vars['viewMode'] = $viewMode;
-
         $this->vars['thumbnailParams'] = $this->getThumbnailParams($viewMode);
+        $this->vars['currentFilter'] = $filter;
     }
 
-    protected function listFolderItems($folder)
+    protected function listFolderItems($folder, $filter)
     {
-        return MediaLibrary::instance()->listFolderContents($folder);
+        $filter = $filter !== self::FILTER_EVERYTHING ? $filter : null;
+
+        return MediaLibrary::instance()->listFolderContents($folder, null, $filter);
     }
 
     protected function getCurrentFolder()
@@ -172,6 +194,24 @@ class MediaManager extends WidgetBase
         $folder = $this->getSession('media_folder', self::FOLDER_ROOT);
 
         return $folder;
+    }
+
+    protected function getFilter()
+    {
+        return $this->getSession('media_filter', self::FILTER_EVERYTHING);
+    }
+
+    protected function setFilter($filter)
+    {
+        if (!in_array($filter, [
+                self::FILTER_EVERYTHING, 
+                MediaLibraryItem::FILE_TYPE_IMAGE,
+                MediaLibraryItem::FILE_TYPE_AUDIO,
+                MediaLibraryItem::FILE_TYPE_DOCUMENT,
+                MediaLibraryItem::FILE_TYPE_VIDEO]))
+            throw new SystemException('Invalid input data');
+
+        return $this->putSession('media_filter', $filter);
     }
 
     protected function setCurrentFolder($path)

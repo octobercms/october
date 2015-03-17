@@ -136,6 +136,21 @@
         }).done(this.afterNavigateBound)
     }
 
+    MediaManager.prototype.setFilter = function(filter) {
+        $.oc.stripeLoadIndicator.show()
+
+        var data = {
+            filter: filter,
+            path: this.$el.find('[data-type="current-folder"]').val()
+        }
+
+        this.$form.request(this.options.alias+'::onSetFilter', {
+            data: data
+        }).always(function() {
+            $.oc.stripeLoadIndicator.hide()
+        }).done(this.afterNavigateBound)
+    }
+
     //
     // Selecting
     //
@@ -614,13 +629,16 @@
                 this.refresh()
             break;
             case 'change-view' :
-                this.changeView($(ev.target).data('view'))
+                this.changeView($(ev.currentTarget).data('view'))
             break;
             case 'cancel-uploading' :
                 this.uploadCancelAll()
             break;
             case 'close-uploader':
                 this.hideUploadUi()
+            break;
+            case 'set-filter':
+                this.setFilter($(ev.currentTarget).data('filter'))
             break;
         }
 
