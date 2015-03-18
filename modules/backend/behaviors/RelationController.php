@@ -133,6 +133,16 @@ class RelationController extends ControllerBehavior
     protected $manageMode;
 
     /**
+     * @var string Force a certain view mode.
+     */
+    protected $forceViewMode;
+
+    /**
+     * @var string Force a certain manage mode.
+     */
+    protected $forceManageMode;
+
+    /**
      * @var string The target that triggered an AJAX event (button, list)
      */
     protected $eventTarget;
@@ -227,8 +237,8 @@ class RelationController extends ControllerBehavior
         $this->readOnly = $this->getConfig('readOnly');
         $this->deferredBinding = $this->getConfig('deferredBinding') || !$this->model->exists;
         $this->toolbarButtons = $this->evalToolbarButtons();
-        $this->viewMode = $this->viewMode ?: $this->evalViewMode();
-        $this->manageMode = $this->manageMode ?: $this->evalManageMode();
+        $this->viewMode = $this->evalViewMode();
+        $this->manageMode = $this->evalManageMode();
         $this->manageId = post('manage_id');
 
         /*
@@ -291,6 +301,10 @@ class RelationController extends ControllerBehavior
      */
     protected function evalViewMode()
     {
+        if ($this->forceViewMode) {
+            return $this->forceViewMode;
+        }
+
         switch ($this->relationType) {
             case 'hasMany':
             case 'belongsToMany':
@@ -310,6 +324,10 @@ class RelationController extends ControllerBehavior
     {
         if ($mode = post(self::PARAM_MODE)) {
             return $mode;
+        }
+
+        if ($this->forceManageMode) {
+            return $this->forceManageMode;
         }
 
         switch ($this->eventTarget) {
@@ -385,9 +403,13 @@ class RelationController extends ControllerBehavior
     {
         $field = $this->validateField($field);
 
-        $result = ['#'.$this->relationGetId('view') => $this->relationRenderView()];
-        if ($toolbar = $this->relationRenderToolbar()) {
+        $result = ['#'.$this->relationGetId('view') => $this->relationRenderView($field)];
+        if ($toolbar = $this->relationRenderToolbar($field)) {
             $result['#'.$this->relationGetId('toolbar')] = $toolbar;
+        }
+
+        if ($eventResult = $this->controller->relationExtendRefreshResults($field)) {
+            $result = $eventResult + $result;
         }
 
         return $result;
@@ -539,6 +561,10 @@ class RelationController extends ControllerBehavior
     {
     }
 
+    public function relationExtendRefreshResults($field)
+    {
+    }
+
     //
     // AJAX (Buttons)
     //
@@ -626,7 +652,7 @@ class RelationController extends ControllerBehavior
      */
     public function onRelationManageCreate()
     {
-        $this->manageMode = 'form';
+        $this->forceManageMode = 'form';
         $this->beforeAjax();
         $saveData = $this->manageWidget->getSaveData();
 
@@ -664,7 +690,7 @@ class RelationController extends ControllerBehavior
      */
     public function onRelationManageUpdate()
     {
-        $this->manageMode = 'form';
+        $this->forceManageMode = 'form';
         $this->beforeAjax();
         $saveData = $this->manageWidget->getSaveData();
 
@@ -1025,12 +1051,29 @@ class RelationController extends ControllerBehavior
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ManagePivotList';
             $config->showSetup = false;
+            $config->defaultSort = $this->getConfig('pivot[defaultSort]');
+            $config->recordsPerPage = $this->getConfig('pivot[recordsPerPage]');
             $config->recordOnClick = sprintf(
                 "$.oc.relationBehavior.clickManagePivotListRecord(:id, '%s', '%s')",
                 $this->field,
                 $this->relationGetSessionKey()
             );
+
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
+
+            /*
+             * Link the Search Widget to the List Widget
+             */
+            if ($this->getConfig('pivot[showSearch]')) {
+                $this->searchWidget = $this->makeSearchWidget();
+                $this->searchWidget->bindToController();
+                $this->searchWidget->bindEvent('search.submit', function () use ($widget) {
+                    $widget->setSearchTerm($this->searchWidget->getActiveTerm());
+                    return $widget->onRefresh();
+                });
+
+                $this->searchWidget->setActiveTerm(null);
+            }
         }
         /*
          * List

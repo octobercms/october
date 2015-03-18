@@ -291,6 +291,8 @@ table.table.data tr.list-tree-level-25 td.list-cell-index-1{padding-left:275px}
 .control-simplelist.is-selectable li:hover,.control-simplelist.is-selectable li:hover a{color:white}
 .control-simplelist.is-selectable li:hover a{text-decoration:none}
 .control-simplelist.is-selectable li:last-child{border-bottom:none}
+.control-simplelist.is-selectable li.active a{background:#f0f0f0}
+.control-simplelist.is-selectable li.active a:hover{background:#4da7e8}
 .list-preview .control-simplelist.is-selectable ul{margin-bottom:0}
 .control-filter{padding:0 10px;font-size:13px;color:#949ea6;background-color:#f3f3f3;border-top:1px solid #949ea6;border-bottom:1px solid #949ea6}
 .control-filter a{text-decoration:none;color:#949ea6}

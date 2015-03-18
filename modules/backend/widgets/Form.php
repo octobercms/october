@@ -203,6 +203,14 @@ class Form extends WidgetBase
         }
 
         $this->prepareVars();
+
+        /*
+         * Apply preview mode to widgets
+         */
+        foreach ($this->formWidgets as $widget) {
+            $widget->previewMode = $this->previewMode;
+        }
+
         return $this->makePartial($targetPartial, $extraVars);
     }
 

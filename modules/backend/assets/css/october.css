@@ -2225,6 +2225,7 @@ body{webkit-font-smoothing:antialiased;background:#f9f9f9}
 .layout > .layout-row > .layout-cell.width-200{width:200px}
 .layout > .layout-row > .layout-cell.width-300{width:300px}
 .layout > .layout-row > .layout-cell.layout-container,.layout > .layout-row > .layout-cell .layout-container,.layout > .layout-row > .layout-cell.padded-container,.layout > .layout-row > .layout-cell .padded-container{padding:20px 20px 0 20px}
+.layout > .layout-row > .layout-cell.layout-container .container-flush,.layout > .layout-row > .layout-cell .layout-container .container-flush,.layout > .layout-row > .layout-cell.padded-container .container-flush,.layout > .layout-row > .layout-cell .padded-container .container-flush{padding-top:0}
 .layout > .layout-row > .layout-cell .layout-relative{position:relative;height:100%}
 .layout > .layout-row > .layout-cell .layout-absolute{position:absolute;height:100%;width:100%}
 .layout > .layout-row > .layout-cell.min-size{width:0}
@@ -2237,6 +2238,7 @@ body{webkit-font-smoothing:antialiased;background:#f9f9f9}
 .layout > .layout-row > .layout-cell.width-200{width:200px}
 .layout > .layout-row > .layout-cell.width-300{width:300px}
 .layout > .layout-row > .layout-cell.layout-container,.layout > .layout-row > .layout-cell .layout-container,.layout > .layout-row > .layout-cell.padded-container,.layout > .layout-row > .layout-cell .padded-container{padding:20px 20px 0 20px}
+.layout > .layout-row > .layout-cell.layout-container .container-flush,.layout > .layout-row > .layout-cell .layout-container .container-flush,.layout > .layout-row > .layout-cell.padded-container .container-flush,.layout > .layout-row > .layout-cell .padded-container .container-flush{padding-top:0}
 .layout > .layout-row > .layout-cell .layout-relative{position:relative;height:100%}
 .layout > .layout-row > .layout-cell .layout-absolute{position:absolute;height:100%;width:100%}
 .layout > .layout-row > .layout-cell.min-size{width:0}
@@ -2251,6 +2253,7 @@ body{webkit-font-smoothing:antialiased;background:#f9f9f9}
 .layout > .layout-cell.width-200{width:200px}
 .layout > .layout-cell.width-300{width:300px}
 .layout > .layout-cell.layout-container,.layout > .layout-cell .layout-container,.layout > .layout-cell.padded-container,.layout > .layout-cell .padded-container{padding:20px 20px 0 20px}
+.layout > .layout-cell.layout-container .container-flush,.layout > .layout-cell .layout-container .container-flush,.layout > .layout-cell.padded-container .container-flush,.layout > .layout-cell .padded-container .container-flush{padding-top:0}
 .layout > .layout-cell .layout-relative{position:relative;height:100%}
 .layout > .layout-cell .layout-absolute{position:absolute;height:100%;width:100%}
 .layout > .layout-cell.min-size{width:0}

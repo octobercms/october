@@ -4,11 +4,17 @@
             <button type="button" class="close" data-dismiss="popup">&times;</button>
             <h4 class="modal-title"><?= e(trans('backend::lang.relation.add_a_new', ['name'=>$relationLabel])) ?></h4>
         </div>
-        <div class="modal-body">
-            <p><?= e(trans('backend::lang.relation.help')) ?></p>
+        <?php if (!$relationSearchWidget): ?>
+            <div class="modal-body">
+                <p><?= e(trans('backend::lang.relation.help')) ?></p>
+            </div>
+        <?php endif ?>
+        <div class="list-flush">
+            <?php if ($relationSearchWidget): ?>
+                <?= $relationSearchWidget->render() ?>
+            <?php endif ?>
+            <?= $relationManageWidget->render() ?>
         </div>
-
-        <?= $relationManageWidget->render() ?>
 
         <div class="modal-footer">
             <button
