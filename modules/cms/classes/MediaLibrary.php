@@ -5,6 +5,7 @@ use SystemException;
 use Config;
 use Storage;
 use Cache;
+use Str;
 
 /**
  * Provides abstraction level for the Media Library operations.
@@ -68,7 +69,7 @@ class MediaLibrary
      * Returns a list of folders and files in a Library folder.
      * @param string $folder Specifies the folder path relative the the Library root.
      * @param string $sortBy Determines the sorting preference. 
-     * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants).
+     * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants) and FALSE.
      * @param string $filter Determines the document type filtering preference. 
      * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
      * @return array Returns an array of MediaLibraryItem objects.
@@ -101,13 +102,48 @@ class MediaLibrary
          * Sort the result and combine the file and folder lists
          */
 
-        $this->sortItemList($folderContents['files'], $sortBy);
-        $this->sortItemList($folderContents['folders'], $sortBy);
+        if ($sortBy !== false) {
+            $this->sortItemList($folderContents['files'], $sortBy);
+            $this->sortItemList($folderContents['folders'], $sortBy);
+        }
+
         $this->filterItemList($folderContents['files'], $filter);
 
         $folderContents = array_merge($folderContents['folders'], $folderContents['files']);
 
         return $folderContents;
+    }
+
+    /**
+     * Finds files in the Library.
+     * @param string $searchTerm Specifies the search term.
+     * @param string $sortBy Determines the sorting preference. 
+     * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants).
+     * @param string $filter Determines the document type filtering preference. 
+     * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
+     * @return array Returns an array of MediaLibraryItem objects.
+     */
+    public function findFiles($searchTerm, $sortBy = 'title', $filter = null)
+    {
+        $words = explode(' ', Str::lower($searchTerm));
+        $result = [];
+
+        $findInFolder = function($folder) use (&$findInFolder, $words, &$result, $sortBy, $filter) {
+            $folderContents = $this->listFolderContents($folder, $sortBy, $filter);
+
+            foreach ($folderContents as $item) {
+                if ($item->type == MediaLibraryItem::TYPE_FOLDER)
+                    $findInFolder($item->path);
+                else
+                    if ($this->pathMatchesSearch($item->path, $words))
+                        $result[] = $item;
+            }
+        };
+
+        $findInFolder('/');
+
+        $this->sortItemList($result, $sortBy);
+        return $result;
     }
 
     /**
@@ -364,5 +400,27 @@ class MediaLibrary
 
         return $this->storageDisk = Storage::disk(
             Config::get('cms.storage.media.disk', 'local'));
+    }
+
+    /**
+     * Determines if file path contains all words form the search term.
+     * @param string $path Specifies a path to examine.
+     * @param array $words A list of words to check against.
+     * @return boolean
+     */
+    protected function pathMatchesSearch($path, $words)
+    {
+        $path = Str::lower($path);
+
+        foreach ($words as $word) {
+            $word = trim($word);
+            if (!strlen($word))
+                continue;
+
+            if (!Str::contains($path, $word))
+                return false;
+        }
+
+        return true;
     }
 }

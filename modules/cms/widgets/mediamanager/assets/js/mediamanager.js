@@ -23,6 +23,7 @@
         this.listMouseUpHandler = this.onListMouseUp.bind(this)
         this.listMouseMoveHandler = this.onListMouseMove.bind(this)
         this.sortingChangedHandler = this.onSortingChanged.bind(this)
+        this.searchChangedHandler = this.onSearchChanged.bind(this)
 
         // Instance-bound methods
         this.updateSidebarPreviewBound = this.updateSidebarPreview.bind(this)
@@ -36,6 +37,8 @@
         this.uploadQueueCompleteBound = this.uploadQueueComplete.bind(this)
         this.uploadSendingBound = this.uploadSending.bind(this)
         this.uploadErrorBound = this.uploadError.bind(this)
+        this.updateSearchResultsBound = this.updateSearchResults.bind(this)
+        this.releaseNavigationAjaxBound = this.releaseNavigationAjax.bind(this)
 
         // State properties
         this.selectTimer = null
@@ -46,6 +49,8 @@
         this.sidebarThumbnailAjax = null
         this.selectionMarker = null
         this.dropzone = null
+        this.searchTrackInputTimer = null
+        this.navigationAjax = null
 
         //
         // Initialization
@@ -58,6 +63,8 @@
         this.unregisterHandlers()
         this.clearSelectTimer()
         this.disableUploader()
+        this.clearSearchTrackInputTimer()
+        this.releaseNavigationAjax()
 
         this.$el = null
         this.$form = null
@@ -72,12 +79,15 @@
         this.uploadQueueCompleteBound = null
         this.uploadSendingBound = null
         this.uploadErrorBound = null
+        this.updateSearchResultsBound = null
+        this.releaseNavigationAjaxBound = null
 
         this.sidebarPreviewElement = null
         this.itemListElement = null
         this.sidebarThumbnailAjax = null
         this.selectionMarker = null
         this.thumbnailQueue = []
+        this.navigationAjax = null
     }
 
     // MEDIA MANAGER INTERNAL METHODS
@@ -94,10 +104,11 @@
 
     MediaManager.prototype.registerHandlers = function() {
         this.$el.on('dblclick', this.navigateHandler)
-        this.$el.on('click.tree-path', 'ul.tree-path', this.navigateHandler)
+        this.$el.on('click.tree-path', 'ul.tree-path, [data-control="sidebar-labels"]', this.navigateHandler)
         this.$el.on('click.command', '[data-command]', this.commandClickHandler)
         this.$el.on('click.item', '[data-type="media-item"]', this.itemClickHandler)
         this.$el.on('change', '[data-control="sorting"]', this.sortingChangedHandler)
+        this.$el.on('keyup', '[data-control="search"]', this.searchChangedHandler)
 
         if (this.itemListElement)
             this.itemListElement.addEventListener('mousedown', this.listMouseDownHandler)
@@ -109,6 +120,7 @@
         this.$el.off('click.command', this.commandClickHandler)
         this.$el.off('click.item', this.itemClickHandler)
         this.$el.off('change', '[data-control="sorting"]', this.sortingChangedHandler)
+        this.$el.off('keyup', '[data-control="search"]', this.searchChangedHandler)
 
         if (this.itemListElement) {
             this.itemListElement.removeEventListener('mousedown', this.listMouseDownHandler)
@@ -123,36 +135,29 @@
         this.listMouseUpHandler = null
         this.listMouseMoveHandler = null
         this.sortingChangedHandler = null
+        this.searchChangedHandler = null
     }
 
     MediaManager.prototype.changeView = function(view) {
-        $.oc.stripeLoadIndicator.show()
-
         var data = {
             view: view,
             path: this.$el.find('[data-type="current-folder"]').val()
         }
 
-        this.$form.request(this.options.alias+'::onChangeView', {
-            data: data
-        }).always(function() {
-            $.oc.stripeLoadIndicator.hide()
-        }).done(this.afterNavigateBound)
+        this.execNavigationRequest('onChangeView', data)
     }
 
     MediaManager.prototype.setFilter = function(filter) {
-        $.oc.stripeLoadIndicator.show()
-
         var data = {
             filter: filter,
             path: this.$el.find('[data-type="current-folder"]').val()
         }
 
-        this.$form.request(this.options.alias+'::onSetFilter', {
-            data: data
-        }).always(function() {
-            $.oc.stripeLoadIndicator.hide()
-        }).done(this.afterNavigateBound)
+        this.execNavigationRequest('onSetFilter', data)
+    }
+
+    MediaManager.prototype.isSearchMode = function() {
+        return this.$el.find('[data-type="search-mode"]').val() == 'true' 
     }
 
     //
@@ -160,7 +165,7 @@
     //
 
     MediaManager.prototype.clearSelectTimer = function() {
-        if (this.selectTimer == null)
+        if (this.selectTimer === null)
             return
 
         clearTimeout(this.selectTimer)
@@ -198,20 +203,13 @@
     // Navigation
     //
 
-    MediaManager.prototype.gotoFolder = function(path, clearCache) {
+    MediaManager.prototype.gotoFolder = function(path, resetSearch) {
         var data = {
-                path: path
+                path: path,
+                resetSearch: resetSearch !== undefined ? 1 : 0
             }
 
-        if (clearCache)
-            data.clearCache = true
-
-        $.oc.stripeLoadIndicator.show()
-        this.$form.request(this.options.alias+'::onGoToFolder', {
-            data: data
-        }).always(function() {
-            $.oc.stripeLoadIndicator.hide()
-        }).done(this.afterNavigateBound)
+        this.execNavigationRequest('onGoToFolder', data)
     }
 
     MediaManager.prototype.afterNavigate = function() {
@@ -220,10 +218,39 @@
     }
 
     MediaManager.prototype.refresh = function() {
-        this.gotoFolder(
-            this.$el.find('[data-type="current-folder"]').val(),
-            true
-        )
+        var data = {
+                path: this.$el.find('[data-type="current-folder"]').val(),
+                clearCache: true
+            }
+
+        this.execNavigationRequest('onGoToFolder', data)
+    }
+
+    MediaManager.prototype.execNavigationRequest = function(handler, data, element)
+    {
+        if (element === undefined)
+            element = this.$form
+
+        if (this.navigationAjax !== null) {
+            try {
+                this.navigationAjax.abort()
+            }
+            catch (e) {}
+            this.releaseNavigationAjax()
+        }
+
+        $.oc.stripeLoadIndicator.show()
+        this.navigationAjax = element.request(this.options.alias+'::' + handler, {
+            data: data
+        }).always(function() {
+            $.oc.stripeLoadIndicator.hide()
+        })
+            .done(this.afterNavigateBound)
+            .always(this.releaseNavigationAjaxBound)
+    }
+
+    MediaManager.prototype.releaseNavigationAjax = function() {
+        this.navigationAjax = null
     }
 
     //
@@ -297,6 +324,14 @@
             previewPanel.querySelector('[data-label="title"]').textContent = item.getAttribute('data-title')
             previewPanel.querySelector('[data-label="last-modified"]').textContent = item.getAttribute('data-last-modified')
             previewPanel.querySelector('[data-label="public-url"]').setAttribute('href', item.getAttribute('data-public-url'))
+
+            if (this.isSearchMode()) {
+                previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class', '')
+                var folderNode = previewPanel.querySelector('[data-label="folder"]')
+                folderNode.textContent = item.getAttribute('data-folder')
+                folderNode.setAttribute('data-path', item.getAttribute('data-folder'))
+            } else
+                previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class', 'hide')
         }
         else {
             // Multiple items are selected
@@ -610,6 +645,31 @@
         })
     }
 
+    //
+    // Search
+    //
+
+    MediaManager.prototype.clearSearchTrackInputTimer = function() {
+        if (this.searchTrackInputTimer === null)
+            return
+
+        clearTimeout(this.searchTrackInputTimer)
+        this.searchTrackInputTimer = null
+    }
+
+    MediaManager.prototype.updateSearchResults = function() {
+        var $searchField = this.$el.find('[data-control="search"]'),
+            data = {
+                search: $searchField.val()
+            }
+
+        this.execNavigationRequest('onSearch', data, $searchField)
+    }
+
+    MediaManager.prototype.resetSearch = function() {
+        this.$el.find('[data-control="search"]').val('')
+    }
+
     // EVENT HANDLERS
     // ============================
 
@@ -619,8 +679,14 @@
         if (!$item.length || !$item.data('path').length)
             return
 
-        if ($item.data('item-type') == 'folder')
-            this.gotoFolder($item.data('path'))
+        if ($item.data('item-type') == 'folder') {
+            if (!$item.data('clear-search'))
+                this.gotoFolder($item.data('path'))
+            else {
+                this.resetSearch()
+                this.gotoFolder($item.data('path'), true)
+            }
+        }
 
         return false
     }
@@ -749,18 +815,25 @@
     }
 
     MediaManager.prototype.onSortingChanged = function(ev) {
-        $.oc.stripeLoadIndicator.show()
-
         var data = {
             sortBy: $(ev.target).val(),
             path: this.$el.find('[data-type="current-folder"]').val()
         }
 
-        this.$form.request(this.options.alias+'::onSetSorting', {
-            data: data
-        }).always(function() {
-            $.oc.stripeLoadIndicator.hide()
-        }).done(this.afterNavigateBound)
+        this.execNavigationRequest('onSetSorting', data)
+    }
+
+    MediaManager.prototype.onSearchChanged = function(ev) {
+        var value = ev.currentTarget.value
+
+        if (this.lastSearchValue !== undefined && this.lastSearchValue == value)
+            return
+
+        this.lastSearchValue = value
+
+        this.clearSearchTrackInputTimer()
+
+        this.searchTrackInputTimer = window.setTimeout(this.updateSearchResultsBound, 300)
     }
 
     // MEDIA MANAGER PLUGIN DEFINITION

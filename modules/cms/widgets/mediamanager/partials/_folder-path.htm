@@ -1,9 +1,13 @@
 <ul class="tree-path">
-    <li class="root"><a href="#" data-type="media-item" data-item-type="folder" data-path="/"><?= e(trans('cms::lang.media.library')) ?></a></li>
+    <li class="root"><a href="#" data-type="media-item" data-item-type="folder" data-path="/" data-clear-search="true"><?= e(trans('cms::lang.media.library')) ?></a></li>
 
-    <?php foreach ($pathSegments as $segment): ?>
-        <?php if ($segment != '/'): ?>
-            <li><a href="#" data-type="media-item" data-item-type="folder" data-path="<?= e($segment) ?>"><?= basename($segment) ?></a></li>
-        <?php endif ?>
-    <?php endforeach?>
+    <?php if (!$searchMode): ?>
+        <?php foreach ($pathSegments as $segment): ?>
+            <?php if ($segment != '/'): ?>
+                <li><a href="#" data-type="media-item" data-item-type="folder" data-path="<?= e($segment) ?>"><?= basename($segment) ?></a></li>
+            <?php endif ?>
+        <?php endforeach?>
+    <?php else: ?>
+        <li><a href="#" data-type="media-item"><?= e(trans('cms::lang.media.search')) ?></a></li>
+    <?php endif ?>
 </ul>

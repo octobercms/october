@@ -1,6 +1,6 @@
 <ul class="media-list <?= $listClass ?>">
     <?php if (count($items) > 0 || !$isRootFolder): ?>
-        <?php if (!$isRootFolder): ?>
+        <?php if (!$isRootFolder && !$searchMode): ?>
             <li data-type="media-item" data-item-type="folder" data-root data-path="<?= e(dirname($currentFolder)) ?>">
                 <div class="icon-container folder">
                     <div class="icon-wrapper"><i class="icon-folder"></i></div>
@@ -23,6 +23,7 @@
                 data-last-modified-ts="<?= $item->lastModified ?>"
                 data-public-url="<?= e($item->publicUrl) ?>"
                 data-document-type="<?= e($itemType) ?>"
+                data-folder="<?= e(dirname($item->path)) ?>"
             >
                 <?= $this->makePartial('item-icon', ['itemType'=>$itemType, 'item'=>$item]) ?>
 
@@ -32,5 +33,11 @@
                 </div>
             </li>
         <?php endforeach ?>
+    <?php endif ?>
+
+    <?php if (count($items) == 0 && $searchMode): ?>
+        <li class="no-data">
+            <?= e(trans('cms::lang.media.no_files_found')) ?>
+        </li>
     <?php endif ?>
 </ul>

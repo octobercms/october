@@ -1146,10 +1146,10 @@ ul.tree-path li.root a{font-weight:600;color:#405261}
 ul.tree-path li a{color:#95a5a6}
 ul.tree-path li a:hover{text-decoration:none}
 table.name-value-list{border-collapse:collapse;font-size:13px}
-table.name-value-list th,table.name-value-list td{padding:4px 0 4px 0}
+table.name-value-list th,table.name-value-list td{padding:4px 0 4px 0;vertical-align:top}
 table.name-value-list tr:first-child th,table.name-value-list tr:first-child td{padding-top:0}
 table.name-value-list th{font-weight:600;color:#95a5a6;padding-right:15px;text-transform:uppercase}
-table.name-value-list td{color:#2b3e50}
+table.name-value-list td{color:#2b3e50;word-wrap:break-word}
 div.progress{height:9px;-webkit-box-shadow:none;box-shadow:none;background:#d9dee0}
 .progress-bar{line-height:9px;-webkit-box-shadow:none;box-shadow:none;background-color:#2f99da}
 .progress-bar.progress-bar-success{background-color:#31ac5f}

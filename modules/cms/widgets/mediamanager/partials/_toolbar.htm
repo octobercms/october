@@ -16,12 +16,12 @@
         </div>
         <div class="layout-cell width-fix">
             <div class="relative toolbar-item loading-indicator-container size-input-text last">
-                <input placeholder="<?= e(trans('cms::lang.media.search')) ?>" type="text" name="search" value="" 
-                    class="form-control icon search" autocomplete="off"
-                    data-track-input
+                <input placeholder="<?= e(trans('cms::lang.media.search')) ?>" type="text" name="search" value="<?= e($searchTerm) ?>" 
+                    class="form-control icon search" 
+                    data-control="search"
+                    autocomplete="off"
                     data-load-indicator
                     data-load-indicator-opaque
-                    data-request="<?= $this->getEventHandler('onSearch') ?>" 
                 />
             </div>
         </div>

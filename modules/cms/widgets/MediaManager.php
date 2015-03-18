@@ -59,6 +59,14 @@ class MediaManager extends WidgetBase
 
     public function onSearch()
     {
+        $this->setSearchTerm(Input::get('search'));
+
+        $this->prepareVars();
+
+        return [
+            '#'.$this->getId('item-list') => $this->makePartial('item-list'),
+            '#'.$this->getId('folder-path') => $this->makePartial('folder-path')
+        ];
     }
 
     public function onGoToFolder()
@@ -67,6 +75,9 @@ class MediaManager extends WidgetBase
 
         if (Input::get('clearCache'))
             MediaLibrary::instance()->resetCache();
+
+        if (Input::get('resetSearch'))
+            $this->setSearchTerm(null);
 
         $this->setCurrentFolder($path);
         $this->prepareVars();
@@ -189,8 +200,14 @@ class MediaManager extends WidgetBase
         $viewMode = $this->getViewMode();
         $filter = $this->getFilter();
         $sortBy = $this->getSortBy();
+        $searchTerm = $this->getSearchTerm();
+        $searchMode = strlen($searchTerm) > 0;
 
-        $this->vars['items'] = $this->listFolderItems($folder, $filter, $sortBy);
+        if (!$searchMode)
+            $this->vars['items'] = $this->listFolderItems($folder, $filter, $sortBy);
+        else
+            $this->vars['items'] = $this->findFiles($searchTerm, $filter, $sortBy);
+
         $this->vars['currentFolder'] = $folder;
         $this->vars['isRootFolder'] = $folder == self::FOLDER_ROOT;
         $this->vars['pathSegments'] = $this->splitPathToSegments($folder);
@@ -198,6 +215,8 @@ class MediaManager extends WidgetBase
         $this->vars['thumbnailParams'] = $this->getThumbnailParams($viewMode);
         $this->vars['currentFilter'] = $filter;
         $this->vars['sortBy'] = $sortBy;
+        $this->vars['searchMode'] = $searchMode;
+        $this->vars['searchTerm'] = $searchTerm;
     }
 
     protected function listFolderItems($folder, $filter, $sortBy)
@@ -207,16 +226,25 @@ class MediaManager extends WidgetBase
         return MediaLibrary::instance()->listFolderContents($folder, $sortBy, $filter);
     }
 
+    protected function findFiles($searchTerm, $filter, $sortBy)
+    {
+        $filter = $filter !== self::FILTER_EVERYTHING ? $filter : null;
+
+        return MediaLibrary::instance()->findFiles($searchTerm, $sortBy, $filter);
+    }
+
+    protected function setCurrentFolder($path)
+    {
+        $path = MediaLibrary::validatePath($path);
+
+        $this->putSession('media_folder', $path);
+    }
+
     protected function getCurrentFolder()
     {
         $folder = $this->getSession('media_folder', self::FOLDER_ROOT);
 
         return $folder;
-    }
-
-    protected function getFilter()
-    {
-        return $this->getSession('media_filter', self::FILTER_EVERYTHING);
     }
 
     protected function setFilter($filter)
@@ -232,9 +260,19 @@ class MediaManager extends WidgetBase
         return $this->putSession('media_filter', $filter);
     }
 
-    protected function getSortBy()
+    protected function getFilter()
     {
-        return $this->getSession('media_sort_by', MediaLibrary::SORT_BY_TITLE);
+        return $this->getSession('media_filter', self::FILTER_EVERYTHING);
+    }
+
+    protected function setSearchTerm($searchTerm)
+    {
+        $this->putSession('media_search', trim($searchTerm));
+    }
+
+    protected function getSearchTerm()
+    {
+        return $this->getSession('media_search', null);
     }
 
     protected function setSortBy($sortBy)
@@ -248,11 +286,9 @@ class MediaManager extends WidgetBase
         return $this->putSession('media_sort_by', $sortBy);
     }
 
-    protected function setCurrentFolder($path)
+    protected function getSortBy()
     {
-        $path = MediaLibrary::validatePath($path);
-
-        $this->putSession('media_folder', $path);
+        return $this->getSession('media_sort_by', MediaLibrary::SORT_BY_TITLE);
     }
 
     protected function itemTypeToIconClass($item, $itemType)
@@ -292,17 +328,17 @@ class MediaManager extends WidgetBase
         $this->addJs('js/mediamanager.js', 'core');
     }
 
-    protected function getViewMode()
-    {
-        return $this->getSession('view_mode', self::VIEW_MODE_GRID);
-    }
-
     protected function setViewMode($viewMode)
     {
         if (!in_array($viewMode, [self::VIEW_MODE_GRID, self::VIEW_MODE_LIST, self::VIEW_MODE_TILES]))
             throw new SystemException('Invalid input data');
 
         return $this->putSession('view_mode', $viewMode);
+    }
+
+    protected function getViewMode()
+    {
+        return $this->getSession('view_mode', self::VIEW_MODE_GRID);
     }
 
     protected function getThumbnailParams($viewMode = null)

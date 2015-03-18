@@ -1,7 +1,7 @@
 <table class="table data">
     <tbody class="icons clickable">
         <?php if (count($items) > 0 || !$isRootFolder): ?>
-            <?php if (!$isRootFolder): ?>
+            <?php if (!$isRootFolder && !$searchMode): ?>
                 <tr data-type="media-item" data-item-type="folder" data-root data-path="<?= e(dirname($currentFolder)) ?>">
                     <td><i class="icon-folder"></i>..</td>
                     <td></td>
@@ -21,12 +21,22 @@
                     data-last-modified-ts="<?= $item->lastModified ?>"
                     data-public-url="<?= e($item->publicUrl) ?>"
                     data-document-type="<?= e($itemType) ?>"
+                    data-folder="<?= e(dirname($item->path)) ?>"
                 >
                     <td><i class="<?= $this->itemTypeToIconClass($item, $itemType) ?>"></i> <?= e(basename($item->path)) ?></td>
                     <td><?= e($item->sizeToString()) ?></td>
                     <td><?= e($item->lastModifiedAsString()) ?></td>
+                    <?php if ($searchMode): ?>
+                        <td><?= e(dirname($item->path)) ?></td>
+                    <?php endif ?>
                 </tr>
             <?php endforeach ?>
         <?php endif ?>
     </tbody>
 </table>
+
+<?php if (count($items) == 0 && $searchMode): ?>
+    <p class="no-data">
+        <?= e(trans('cms::lang.media.no_files_found')) ?>
+    </p>
+<?php endif ?>

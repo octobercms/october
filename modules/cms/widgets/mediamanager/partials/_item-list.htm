@@ -1,5 +1,6 @@
 <div class="panel no-padding padding-top">
     <input type="hidden" data-type="current-folder" value="<?= e($currentFolder) ?>"/>
+    <input type="hidden" data-type="search-mode" value="<?= $searchMode ? 'true' : 'false' ?>"/>
     <div class="list-container">
         <?php if ($viewMode == Cms\Widgets\MediaManager::VIEW_MODE_GRID): ?>
             <?= $this->makePartial('list-grid') ?>
