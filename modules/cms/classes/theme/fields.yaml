@@ -7,33 +7,41 @@ tabs:
     fields:
 
         name:
-            label: Name
-            placeholder: New theme name
+            label: cms::lang.theme.name_label
+            placeholder: cms::lang.theme.name_create_placeholder
             span: auto
+            required: true
             attributes:
                 default-focus: 1
 
-        directory_name:
-            label: Directory name
+        dir_name@create:
+            label: cms::lang.theme.dir_name_label
+            placeholder: cms::lang.theme.dir_name_create_label
+            span: auto
+            preset: name
+            required: true
+
+        dir_name@update:
+            label: cms::lang.theme.dir_name_label
             disabled: true
             span: auto
 
         description:
-            label: Description
-            placeholder: Theme description
+            label: cms::lang.theme.description_label
+            placeholder: cms::lang.theme.description_placeholder
             type: textarea
             size: tiny
 
         author:
-            label: Author
-            placeholder: Person or company name
+            label: cms::lang.theme.author_label
+            placeholder: cms::lang.theme.author_placeholder
             span: auto
 
         homepage:
-            label: Homepage
-            placeholder: Website URL
+            label: cms::lang.theme.homepage_label
+            placeholder: cms::lang.theme.homepage_placeholder
             span: auto
 
         code:
-            label: Code
-            placeholder: A unique code for this theme used for distribution
+            label: cms::lang.theme.code_label
+            placeholder: cms::lang.theme.code_placeholder

@@ -1,13 +1,11 @@
-<?= Form::ajax('onSaveFields', [
-    'id' => 'themeFieldsForm',
+<?= Form::ajax('onCreate', [
+    'id' => 'themeCreateForm',
     'data-popup-load-indicator' => true
 ]) ?>
 
-    <input type="hidden" name="theme" value="<?= $themeDir ?>" />
-
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
-        <h4 class="modal-title"><?= e(trans('cms::lang.theme.edit_properties_title')) ?>: <?= $themeDir ?></h4>
+        <h4 class="modal-title"><?= e(trans('cms::lang.theme.create_title')) ?></h4>
     </div>
 
     <?php if (!$this->fatalError): ?>
@@ -19,7 +17,7 @@
             <button
                 type="submit"
                 class="btn btn-primary">
-                <?= e(trans('cms::lang.theme.save_properties')) ?>
+                <?= e(trans('cms::lang.theme.create_button')) ?>
             </button>
 
             <button
@@ -48,7 +46,7 @@
 
     <script>
         setTimeout(
-            function(){ $('#themeFieldsForm input.form-control:first').focus() },
+            function(){ $('#themeCreateForm input.form-control:first').focus() },
             310
         )
     </script>

@@ -15,6 +15,15 @@
     </div>
     <div class="layout-cell theme-description">
         <a
+            class="create-new-theme"
+            data-control="popup"
+            data-handler="onLoadCreateForm"
+            data-size="huge"
+            href="javascript:;"
+            target="_blank">
+            <?= e(trans('cms::lang.theme.create_new_blank_theme')) ?>
+        </a>
+        <a
             class="find-more-themes"
             href="http://octobercms.com/themes"
             target="_blank">

@@ -1,0 +1,25 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    themeName:
+        label: cms::lang.theme.theme_label
+        disabled: true
+
+    uploaded_file:
+        label: cms::lang.theme.import_uploaded_file
+        type: fileupload
+        mode: file
+        fileTypes: zip
+
+    overwrite:
+        label: cms::lang.theme.import_overwrite_label
+        comment: cms::lang.theme.import_overwrite_comment
+        type: checkbox
+
+    folders:
+        label: cms::lang.theme.import_folders_label
+        commentAbove: cms::lang.theme.import_folders_comment
+        type: checkboxlist

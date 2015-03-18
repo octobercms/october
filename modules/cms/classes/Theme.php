@@ -287,7 +287,7 @@ class Theme
     public function writeConfig($values = [], $overwrite = false)
     {
         if (!$overwrite) {
-            $values = $values + $this->getConfig();
+            $values = $values + (array) $this->getConfig();
         }
 
         $path = $this->getPath().'/theme.yaml';

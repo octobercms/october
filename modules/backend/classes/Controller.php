@@ -317,7 +317,8 @@ class Controller extends Extendable
         // Execute the action
         $result = call_user_func_array([$this, $actionName], $parameters);
 
-        if ($result instanceof RedirectResponse) {
+        // Expecting \Response and \RedirectResponse
+        if ($result instanceof \Symfony\Component\HttpFoundation\Response) {
             return $result;
         }
 
@@ -402,10 +403,10 @@ class Controller extends Extendable
                  */
                 if ($result instanceof RedirectResponse) {
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
+                }
                 /*
                  * No redirect is used, look for any flash messages
                  */
-                }
                 elseif (Flash::check()) {
                     $responseContents['#layout-flash-messages'] = $this->makeLayoutPartial('flash_messages');
                 }

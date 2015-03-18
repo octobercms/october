@@ -47,39 +47,57 @@
                 data-toggle="dropdown"
                 class="btn btn-default">
                 <i class="icon-wrench"></i>
-                Manage
+                <?= e(trans('cms::lang.theme.manage_button')) ?>
             </button>
-            <ul class="dropdown-menu" role="menu" data-dropdown-title="Manage theme">
+            <ul class="dropdown-menu" role="menu" data-dropdown-title="<?= e(trans('cms::lang.theme.manage_title')) ?>">
                 <li role="presentation">
                     <a
                         role="menuitem"
                         tabindex="-1"
                         data-control="popup"
                         data-size="huge"
-                        data-handler="onLoadThemeFieldsForm"
+                        data-handler="onLoadFieldsForm"
                         data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
                         href="javascript:;"
                         class="oc-icon-pencil">
-                        Edit properties
-                    </a>
-                </li>
-                <!--
-                <li role="presentation">
-                    <a
-                        role="menuitem"
-                        tabindex="-1"
-                        href="javascript:;"
-                        class="oc-icon-download">
-                        Download
+                        <?= e(trans('cms::lang.theme.edit_properties_button')) ?>
                     </a>
                 </li>
                 <li role="presentation">
                     <a
                         role="menuitem"
                         tabindex="-1"
+                        data-control="popup"
+                        data-handler="onLoadDuplicateForm"
+                        data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
                         href="javascript:;"
                         class="oc-icon-copy">
-                        Duplicate
+                        <?= e(trans('cms::lang.theme.duplicate_button')) ?>
+                        
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a
+                        role="menuitem"
+                        tabindex="-1"
+                        data-control="popup"
+                        data-handler="onLoadImportForm"
+                        data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
+                        href="javascript:;"
+                        class="oc-icon-upload">
+                        <?= e(trans('cms::lang.theme.import_button')) ?>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a
+                        role="menuitem"
+                        tabindex="-1"
+                        data-control="popup"
+                        data-handler="onLoadExportForm"
+                        data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
+                        href="javascript:;"
+                        class="oc-icon-download">
+                        <?= e(trans('cms::lang.theme.export_button')) ?>
                     </a>
                 </li>
                 <li role="presentation" class="divider"></li>
@@ -87,12 +105,14 @@
                     <a
                         role="menuitem"
                         tabindex="-1"
+                        data-request="onDelete"
+                        data-request-confirm="<?= e(trans('cms::lang.theme.delete_confirm')) ?>"
+                        data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
                         href="javascript:;"
                         class="oc-icon-trash">
-                        Delete
+                        <?= e(trans('cms::lang.theme.delete_button')) ?>
                     </a>
                 </li>
-                -->
             </ul>
         </div>
     </div>

@@ -1,6 +1,6 @@
-* **Build 22x** (2015-03-xx)
+* **Build 226** (2015-03-16)
   - Form Tabs now support specifying a default tab using the `defaultTab` option (see Backend > Forms docs).
-  - Improved the Theme management features: Edit properties, download, duplicate and delete.
+  - Improved the Theme management features: Edit properties, import, export, duplicate and delete.
 
 * **Build 222** (2015-03-11)
   - Form fields can now use a simpler interface for using the Input preset converter (see Backend > Forms docs).

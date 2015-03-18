@@ -1,0 +1,14 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    themeName:
+        label: cms::lang.theme.theme_label
+        disabled: true
+
+    folders:
+        label: cms::lang.theme.export_folders_label
+        commentAbove: cms::lang.theme.export_folders_comment
+        type: checkboxlist
