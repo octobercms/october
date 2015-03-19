@@ -25,6 +25,14 @@
     </div>
     <div class="layout-cell width-fix">
         <ul>
+            <li class="icon preview with-tooltip">
+                <a
+                    href="<?= URL::to('/') ?>"
+                    target="_blank"
+                    title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
+                    <i class="icon-crosshairs"></i>
+                </a>
+            </li>
             <li class="highlight account">
                 <a href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)">
                     <img src="<?= $this->user->getAvatarThumb() ?>">
@@ -34,13 +42,7 @@
                 </a>
                 <div class="mainmenu-accountmenu">
                     <ul>
-                        <li>
-                            <a href="<?= Backend::url('backend/auth/signout') ?>">
-                                <?= e(trans('backend::lang.account.sign_out')) ?>
-                            </a>
-                        </li>
                         <?php foreach ($mySettings as $category => $items): ?>
-                            <li class="divider"></li>
                             <?php foreach ($items as $item): ?>
                                 <li>
                                     <a href="<?= $item->url ?>">
@@ -48,19 +50,17 @@
                                     </a>
                                 </li>
                             <?php endforeach ?>
+                            <li class="divider"></li>
                         <?php endforeach ?>
+
+                        <li>
+                            <a href="<?= Backend::url('backend/auth/signout') ?>">
+                                <?= e(trans('backend::lang.account.sign_out')) ?>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
-            <li class="icon preview with-tooltip">
-                <a
-                    href="<?= URL::to('/') ?>"
-                    target="_blank"
-                    title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
-                    <i class="icon-crosshairs"></i>
-                </a>
-            </li>
-
         </ul>
     </div>
 </nav>
