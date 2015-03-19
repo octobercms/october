@@ -39,6 +39,7 @@
         this.uploadErrorBound = this.uploadError.bind(this)
         this.updateSearchResultsBound = this.updateSearchResults.bind(this)
         this.releaseNavigationAjaxBound = this.releaseNavigationAjax.bind(this)
+        this.deleteConfirmationBound = this.deleteConfirmation.bind(this)
 
         // State properties
         this.selectTimer = null
@@ -81,6 +82,7 @@
         this.uploadErrorBound = null
         this.updateSearchResultsBound = null
         this.releaseNavigationAjaxBound = null
+        this.deleteConfirmationBound = null
 
         this.sidebarPreviewElement = null
         this.itemListElement = null
@@ -670,6 +672,55 @@
         this.$el.find('[data-control="search"]').val('')
     }
 
+    //
+    // File operations
+    //
+
+    MediaManager.prototype.deleteFiles = function() {
+        var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
+
+        if (!items.length) {
+            swal({
+                title: this.options.deleteEmpty,
+                confirmButtonClass: 'btn-default'
+            })
+
+            return
+        }
+
+        swal({
+            title: this.options.deleteConfirm,
+            confirmButtonClass: 'btn-default',
+            showCancelButton: true
+        }, this.deleteConfirmationBound)
+    }
+
+    MediaManager.prototype.deleteConfirmation = function(confirmed) {
+        if (!confirmed)
+            return
+
+        var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
+            paths = []
+
+        for (var i=0, len=items.length; i<len; i++) {
+            paths.push({
+                'path': items[i].getAttribute('data-path'),
+                'type': items[i].getAttribute('data-item-type')
+            })
+        }
+
+        var data = {
+                paths: paths
+            }
+
+        $.oc.stripeLoadIndicator.show()
+        this.$form.request(this.options.alias+'::onDelete', {
+            data: data
+        }).always(function() {
+            $.oc.stripeLoadIndicator.hide()
+        }).done(this.afterNavigateBound)
+    }
+
     // EVENT HANDLERS
     // ============================
 
@@ -709,6 +760,8 @@
             break;
             case 'set-filter':
                 this.setFilter($(ev.currentTarget).data('filter'))
+            case 'delete':
+                this.deleteFiles()
             break;
         }
 
@@ -840,7 +893,9 @@
     // ============================
 
     MediaManager.DEFAULTS = {
-        alias: ''
+        alias: '',
+        deleteEmpty: 'Please select files to delete',
+        deleteConfirm: 'Do you really want to delete the selected file(s)?'
     }
 
     var old = $.fn.mediaManager

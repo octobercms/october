@@ -233,6 +233,8 @@ return [
         'invalid_path' => "Invalid file path specified: ':path'.",
         'menu_label' => 'Media',
         'upload' => 'Upload',
+        'move' => 'Move',
+        'delete' => 'Delete',
         'add_folder' => 'Add folder',
         'search' => 'Search',
         'filter_everything' => 'Everything',
@@ -257,6 +259,8 @@ return [
         'order_by' => 'Order by',
         'search' => 'Search',
         'folder' => 'Folder',
-        'no_files_found' => 'No files found by your request.'
+        'no_files_found' => 'No files found by your request.',
+        'delete_empty' => 'Please select files to delete.',
+        'delete_confirm' => 'Do you really want to delete the selected file(s)?',
     ]
 ];

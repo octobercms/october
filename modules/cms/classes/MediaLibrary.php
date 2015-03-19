@@ -147,6 +147,33 @@ class MediaLibrary
     }
 
     /**
+     * Deletes a file from the Library.
+     * @param array $paths A list of file paths relative to the Library root to delete.
+     */
+    public function deleteFiles($paths)
+    {
+        $fullPaths = [];
+        foreach ($paths as $path) {
+            $path = self::validatePath($path);
+            $fullPaths[] = $this->getMediaPath($path);
+        }
+
+        return $this->getStorageDisk()->delete($fullPaths);
+    }
+
+    /**
+     * Deletes a folder from the Library.
+     * @param string $path Specifies the folder path relative to the Library root.
+     */
+    public function deleteFolder($path)
+    {
+        $path = self::validatePath($path);
+        $fullPaths = $this->getMediaPath($path);
+
+        return $this->getStorageDisk()->deleteDirectory($fullPaths);
+    }
+
+    /**
      * Determines if a file with the specified path exists in the library.
      * @param string $path Specifies the file path relative the the Library root.
      * @return boolean Returns TRUE if the file exists.

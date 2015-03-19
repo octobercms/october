@@ -188,6 +188,37 @@ class MediaManager extends WidgetBase
         ];
     }
 
+    public function onDelete()
+    {
+        $paths = Input::get('paths');
+
+        if (!is_array($paths))
+            throw new SystemException('Invalid input data');
+
+        $library = MediaLibrary::instance();
+
+        $filesToDelete = [];
+        foreach ($paths as $pathInfo) {
+            if (!isset($pathInfo['path']) || !isset($pathInfo['type']))
+                throw new SystemException('Invalid input data');
+
+            if ($pathInfo['type'] == 'file')
+                $filesToDelete[] = $pathInfo['path'];
+            else if ($pathInfo['type'] == 'folder')
+                $library->deleteFolder($pathInfo['path']);
+        }
+
+        if (count($filesToDelete) > 0)
+            $library->deleteFiles($filesToDelete);
+
+        MediaLibrary::instance()->resetCache();
+        $this->prepareVars();
+
+        return [
+            '#'.$this->getId('item-list') => $this->makePartial('item-list')
+        ];
+    }
+
     //
     // Methods for th internal use
     //

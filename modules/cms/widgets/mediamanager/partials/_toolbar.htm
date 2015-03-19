@@ -10,6 +10,13 @@
 
             <button type="button" class="btn btn-default oc-icon-refresh empty offset-right" data-command="refresh"></button>
 
+            <div class="btn-group offset-right">
+                <button type="button" class="btn btn-default oc-icon-reply-all" data-command="move"
+                    ><?= e(trans('cms::lang.media.move')) ?></button>
+                <button type="button" class="btn btn-default oc-icon-trash" data-command="delete"
+                    ><?= e(trans('cms::lang.media.delete')) ?></button>
+            </div>
+
             <div class="btn-group offset-right" id="<?= $this->getId('view-mode-buttons') ?>">
                 <?= $this->makePartial('view-mode-buttons') ?>
             </div>
