@@ -1,4 +1,4 @@
-* **Build 22x** (2015-03-xx)
+* **Build 229** (2015-03-19)
   - Belongs-to-many model relations now support defining a custom pivot model with the `pivotModel` option (see Database > Model docs).
   - The config definitions for behavior `RelationController` have been refactored. When using `pivot` mode all columns and fields should now reside in a `pivot[]` array (see Backend > Relations docs).
   - Record Finder form widget now supports nested attributes for relations.
