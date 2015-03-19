@@ -64,8 +64,7 @@ nav#layout-mainmenu.navbar {
                 line-height: 23px;
 
                 a {
-                    padding-left: 35px;
-                    padding-right: 5px;
+                    padding-right: 20px;
                     position: relative;
                     z-index: 900;
                 }
@@ -110,41 +109,38 @@ nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu {
 
     &:after {
         .triangle(up, 22px, 12px, @color-accountmenu-bg);
-        right: 101px;
+        right: 40px;
         top: -12px;
         position: absolute;
     }
 
     ul {
-        padding: 12px 30px;
         float: none;
         display: block;
     }
 
     li {
         padding: 0;
-        font-weight: 200;
+        margin: 0;
+        font-weight: 400;
         text-align: left;
         display: block;
 
         a {
             display: block;
-            padding: 9px 0;
+            padding: 12px 30px;
             text-align: left;
-            opacity: .9;
-            &:hover {
-                opacity: .6;
-            }
+        }
+
+        &:hover {
+            background: #3d5265!important;
         }
     }
 
     li.divider {
         height: 1px;
         width: 100%;
-        margin: 9px 0;
-        overflow: hidden;
-        background-color: transparent;
-        border-top: 1px solid @color-accountmenu-divider;
+        background-color: @color-accountmenu-divider;
     }
 
     @media (max-width: @screen-sm) {

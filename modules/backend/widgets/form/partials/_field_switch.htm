@@ -12,7 +12,7 @@
     value="0"
     <?= $this->previewMode ? 'disabled="disabled"' : '' ?>>
 
-<label class="custom-switch">
+<label class="custom-switch" <?= $this->previewMode ? 'onclick="return false"' : '' ?>>
     <input
         type="checkbox"
         id="<?= $field->getId() ?>"
