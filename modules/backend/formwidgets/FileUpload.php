@@ -4,7 +4,7 @@ use Str;
 use Input;
 use Validator;
 use System\Models\File;
-use SystemException;
+use ApplicationException;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 use ValidationException;
@@ -182,6 +182,14 @@ class FileUpload extends FormWidgetBase
     protected function getRelationObject()
     {
         list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+
+        if (!$model->hasRelation($attribute)) {
+            throw new ApplicationException(Lang::get('backend::lang.model.missing_relation', [
+                'class' => get_class($model),
+                'relation' => $attribute
+            ]));
+        }
+
         return $model->{$attribute}();
     }
 
@@ -230,7 +238,7 @@ class FileUpload extends FormWidgetBase
             return $this->makePartial('config_form');
         }
 
-        throw new SystemException('Unable to find file, it may no longer exist');
+        throw new ApplicationException('Unable to find file, it may no longer exist');
     }
 
     /**
@@ -248,7 +256,7 @@ class FileUpload extends FormWidgetBase
                 return ['item' => $file->toArray()];
             }
 
-            throw new SystemException('Unable to find file, it may no longer exist');
+            throw new ApplicationException('Unable to find file, it may no longer exist');
         }
         catch (Exception $ex) {
             return json_encode(['error' => $ex->getMessage()]);
@@ -300,7 +308,7 @@ class FileUpload extends FormWidgetBase
             }
 
             if (!$uploadedFile->isValid()) {
-                throw new SystemException('File is not valid');
+                throw new ApplicationException('File is not valid');
             }
 
             $fileRelation = $this->getRelationObject();

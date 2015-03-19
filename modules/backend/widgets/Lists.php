@@ -660,6 +660,12 @@ class Lists extends WidgetBase
             $label = studly_case($name);
         }
 
+        if (strpos($name, '[') !== false && strpos($name, ']') !== false) {
+            $config['valueFrom'] = $name;
+            $config['sortable'] = false;
+            $config['searchable'] = false;
+        }
+
         $columnType = isset($config['type']) ? $config['type'] : null;
 
         $column = new ListColumn($name, $label);
