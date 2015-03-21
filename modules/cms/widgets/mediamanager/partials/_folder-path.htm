@@ -2,9 +2,9 @@
     <li class="root"><a href="#" data-type="media-item" data-item-type="folder" data-path="/" data-clear-search="true"><?= e(trans('cms::lang.media.library')) ?></a></li>
 
     <?php if (!$searchMode): ?>
-        <?php foreach ($pathSegments as $segment): ?>
-            <?php if ($segment != '/'): ?>
-                <li><a href="#" data-type="media-item" data-item-type="folder" data-path="<?= e($segment) ?>"><?= basename($segment) ?></a></li>
+        <?php foreach ($pathSegments as $folder=>$path): ?>
+            <?php if ($path != '/'): ?>
+                <li><a href="#" data-type="media-item" data-item-type="folder" data-path="<?= e($path) ?>"><?= basename($folder) ?></a></li>
             <?php endif ?>
         <?php endforeach?>
     <?php else: ?>

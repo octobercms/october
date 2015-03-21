@@ -212,6 +212,79 @@ class MediaLibrary
     }
 
     /**
+     * Moves a file to another location.
+     * @param string $oldPath Specifies the original path of the file.
+     * @param string $newPath Specifies the new path of the file.
+     * @return boolean
+     */
+    public function moveFile($oldPath, $newPath, $isRename = false)
+    {
+        $oldPath = self::validatePath($oldPath);
+        $fullOldPath = $this->getMediaPath($oldPath);
+
+        $newPath = self::validatePath($newPath);
+        $fullNewPath = $this->getMediaPath($newPath);
+
+        return $this->getStorageDisk()->move($fullOldPath, $fullNewPath);
+    }
+
+    /**
+     * Copies a folder.
+     * @param string $originalPath Specifies the original path of the folder.
+     * @param string $newPath Specifies the new path of the folder.
+     * @return boolean
+     */
+    public function copyFolder($originalPath, $newPath)
+    {
+        $disk = $this->getStorageDisk();
+
+        $copyDirectory = function($srcPath, $destPath) use (&$copyDirectory, $disk) {
+            $srcPath = self::validatePath($srcPath);
+            $fullSrcPath = $this->getMediaPath($srcPath);
+
+            $destPath = self::validatePath($destPath);
+            $fullDestPath = $this->getMediaPath($destPath);
+
+            if (!$disk->makeDirectory($fullDestPath))
+                return false;
+
+            $folderContents = $this->scanFolderContents($fullSrcPath);
+
+            foreach ($folderContents['folders'] as $dirInfo) {
+                if (!$copyDirectory($dirInfo->path, $destPath.'/'.basename($dirInfo->path)))
+                    return false;
+            }
+
+            foreach ($folderContents['files'] as $fileInfo) {
+                $fullFileSrcPath = $this->getMediaPath($fileInfo->path);
+
+                if (!$disk->copy($fullFileSrcPath, $fullDestPath.'/'.basename($fileInfo->path)))
+                    return false;
+            }
+
+            return true;
+        };
+
+        return $copyDirectory($originalPath, $newPath);
+    }
+
+    /**
+     * Moves a folder.
+     * @param string $originalPath Specifies the original path of the folder.
+     * @param string $newPath Specifies the new path of the folder.
+     * @return boolean
+     */
+    public function moveFolder($originalPath, $newPath)
+    {
+        if (!$this->copyFolder($originalPath, $newPath))
+            return false;
+
+        $this->deleteFolder($originalPath);
+
+        return true;
+    }
+
+    /**
      * Resets the Library cache.
      *
      * The cache stores the library table of contents locally in order to optimize

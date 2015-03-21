@@ -1,3 +1,7 @@
+<?php
+    $listElementId = $this->getId('item-list');
+?>
+
 <ul class="media-list <?= $listClass ?>">
     <?php if (count($items) > 0 || !$isRootFolder): ?>
         <?php if (!$isRootFolder && !$searchMode): ?>
@@ -28,7 +32,17 @@
                 <?= $this->makePartial('item-icon', ['itemType'=>$itemType, 'item'=>$item]) ?>
 
                 <div class="info">
-                    <h4 title="<?= e(basename($item->path)) ?>"><?= e(basename($item->path)) ?></h4>
+                    <h4 title="<?= e(basename($item->path)) ?>">
+                        <?= e(basename($item->path)) ?>
+
+                        <a 
+                            href="#" 
+                            data-rename
+                            data-control="popup"
+                            data-request-data="path: '<?= e($item->path) ?>', listId: '<?= $listElementId ?>', type: '<?= $item->type ?>'"
+                            data-handler="<?= $this->getEventHandler('onLoadRenamePopup') ?>"
+                        ><i class="icon-terminal"></i></a>
+                    </h4>
                     <p class="size"><?= e($item->sizeToString()) ?></p>
                 </div>
             </li>

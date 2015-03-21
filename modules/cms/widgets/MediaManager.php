@@ -211,12 +211,48 @@ class MediaManager extends WidgetBase
         if (count($filesToDelete) > 0)
             $library->deleteFiles($filesToDelete);
 
-        MediaLibrary::instance()->resetCache();
+        $library->resetCache();
         $this->prepareVars();
 
         return [
             '#'.$this->getId('item-list') => $this->makePartial('item-list')
         ];
+    }
+
+    public function onLoadRenamePopup()
+    {
+        $path = Input::get('path');
+        $path = MediaLibrary::validatePath($path);
+
+        $this->vars['originalPath'] = $path;
+        $this->vars['name'] = basename($path);
+        $this->vars['listId'] = Input::get('listId');
+        $this->vars['type'] = Input::get('type');
+        return $this->makePartial('rename_form');
+    }
+
+    public function onApplyName()
+    {
+        $newName = trim(Input::get('name'));
+        if (!strlen($newName))
+            throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
+
+        if (!$this->validateFileName($newName))
+            throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
+
+        $originalPath = Input::get('originalPath');
+        $originalPath = MediaLibrary::validatePath($originalPath);
+
+        $newPath = dirname($originalPath).'/'.$newName;
+
+        $type = Input::get('type');
+
+        if ($type == MediaLibraryItem::TYPE_FILE)
+            MediaLibrary::instance()->moveFile($originalPath, $newPath);
+        else
+            MediaLibrary::instance()->moveFolder($originalPath, $newPath);
+
+        MediaLibrary::instance()->resetCache();
     }
 
     //
@@ -338,14 +374,18 @@ class MediaManager extends WidgetBase
     protected function splitPathToSegments($path)
     {
         $path = MediaLibrary::validatePath($path, true);
+        $path = explode('/', ltrim($path, '/'));
 
-        $path = ltrim($path, '/');
+        $result = [];
+        while (count($path) > 0) {
+            $folder = array_pop($path);
 
-        $result = explode('/', $path);
-        if (count($result) == 1 && $result[0] == '')
-            $result = [];
+            $result[$folder] = implode('/', $path).'/'.$folder;
+            if (substr($result[$folder], 0, 1) != '/')
+                $result[$folder] = '/'.$result[$folder];
+        }
 
-        return $result;
+        return array_reverse($result);
     }
 
     /**
@@ -617,5 +657,16 @@ class MediaManager extends WidgetBase
 
             die();
         }
+    }
+
+    protected function validateFileName($name)
+    {
+        if (!preg_match('/^[0-9a-z\.\s_\-]+$/i', $name))
+            return false;
+
+        if (strpos($name, '..') !== false)
+            return false;
+ 
+        return true;
     }
 }

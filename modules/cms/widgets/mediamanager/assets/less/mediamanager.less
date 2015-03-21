@@ -119,9 +119,30 @@ div[data-control="media-manager"] {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis; 
-                padding-right: 15px;
                 line-height: 150%;
                 margin: 15px 0 5px 0;
+                padding-right: 0;
+                .transition(padding 0.1s);
+
+                position: relative;
+
+                a {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    font-size: 15px;
+                    color: #2b3e50;
+                    display: none;
+
+                    &:hover {
+                        color: @color-link;
+                        text-decoration: none;
+                    }
+                }
+            }
+
+            &:hover h4 a {
+                display: block;
             }
 
             p.size {
@@ -205,6 +226,18 @@ div[data-control="media-manager"] {
             li.selected {
                 .media-selected-list();
             }
+
+            h4 {
+                padding-right: 15px;
+
+                a {
+                    right: 15px;
+                }
+            }
+
+            li:hover h4 {
+                padding-right: 35px;
+            }
         }
 
         &.tiles {
@@ -247,6 +280,10 @@ div[data-control="media-manager"] {
                 .media-selected-tiles();
             }
 
+            li:hover h4 {
+                padding-right: 20px;
+            }
+
             i.icon-chain-broken {
                 margin-top: 47px;
             }
@@ -255,6 +292,10 @@ div[data-control="media-manager"] {
                 margin-bottom: 0;
             }
         }
+    }
+
+    [data-control="sidebar-labels"] {
+        word-wrap: break-word;
     }
 
     .sidebar-image-placeholder-container {
@@ -316,6 +357,37 @@ div[data-control="media-manager"] {
     [data-control="item-list"] {
         position: relative;
         display: table-cell;
+    }
+
+    table.table {
+        table-layout: fixed;
+        white-space: nowrap;
+
+        div.no-wrap-text {
+            overflow: hidden;
+            text-overflow: ellipsis; 
+        }
+
+        div.item-title {
+            position: relative;
+            padding-right: 0;
+            .transition(padding 0.1s);
+
+            a {
+                position: absolute;
+                right: 0;
+                top: 0;
+                display: none;
+            }
+        }
+
+        tr:hover div.item-title{
+            padding-right: 25px;
+
+            a {
+                display: block;
+            }
+        }
     }
 
     div[data-control="selection-marker"] {

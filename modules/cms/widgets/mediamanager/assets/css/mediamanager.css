@@ -60,9 +60,27 @@ div[data-control="media-manager"] .media-list li h4 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-right: 15px;
   line-height: 150%;
   margin: 15px 0 5px 0;
+  padding-right: 0;
+  -webkit-transition: padding 0.1s;
+  transition: padding 0.1s;
+  position: relative;
+}
+div[data-control="media-manager"] .media-list li h4 a {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 15px;
+  color: #2b3e50;
+  display: none;
+}
+div[data-control="media-manager"] .media-list li h4 a:hover {
+  color: #0181b9;
+  text-decoration: none;
+}
+div[data-control="media-manager"] .media-list li:hover h4 a {
+  display: block;
 }
 div[data-control="media-manager"] .media-list li p.size {
   font-size: 12px;
@@ -147,6 +165,15 @@ div[data-control="media-manager"] .media-list.list li.selected h4 {
 div[data-control="media-manager"] .media-list.list li.selected .icon-container {
   border-right-color: #4da7e8 !important;
 }
+div[data-control="media-manager"] .media-list.list h4 {
+  padding-right: 15px;
+}
+div[data-control="media-manager"] .media-list.list h4 a {
+  right: 15px;
+}
+div[data-control="media-manager"] .media-list.list li:hover h4 {
+  padding-right: 35px;
+}
 div[data-control="media-manager"] .media-list.tiles li {
   width: 167px;
   margin-bottom: 25px;
@@ -200,11 +227,17 @@ div[data-control="media-manager"] .media-list.tiles li.selected .icon-container 
 div[data-control="media-manager"] .media-list.tiles li.selected h4 {
   color: #2581b8;
 }
+div[data-control="media-manager"] .media-list.tiles li:hover h4 {
+  padding-right: 20px;
+}
 div[data-control="media-manager"] .media-list.tiles i.icon-chain-broken {
   margin-top: 47px;
 }
 div[data-control="media-manager"] .media-list.tiles p.size {
   margin-bottom: 0;
+}
+div[data-control="media-manager"] [data-control="sidebar-labels"] {
+  word-wrap: break-word;
 }
 div[data-control="media-manager"] .sidebar-image-placeholder-container {
   display: table;
@@ -271,6 +304,32 @@ div[data-control="media-manager"] .list-container li.no-data {
 div[data-control="media-manager"] [data-control="item-list"] {
   position: relative;
   display: table-cell;
+}
+div[data-control="media-manager"] table.table {
+  table-layout: fixed;
+  white-space: nowrap;
+}
+div[data-control="media-manager"] table.table div.no-wrap-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div[data-control="media-manager"] table.table div.item-title {
+  position: relative;
+  padding-right: 0;
+  -webkit-transition: padding 0.1s;
+  transition: padding 0.1s;
+}
+div[data-control="media-manager"] table.table div.item-title a {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: none;
+}
+div[data-control="media-manager"] table.table tr:hover div.item-title {
+  padding-right: 25px;
+}
+div[data-control="media-manager"] table.table tr:hover div.item-title a {
+  display: block;
 }
 div[data-control="media-manager"] div[data-control="selection-marker"] {
   position: absolute;

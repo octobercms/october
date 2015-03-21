@@ -40,6 +40,7 @@
         this.updateSearchResultsBound = this.updateSearchResults.bind(this)
         this.releaseNavigationAjaxBound = this.releaseNavigationAjax.bind(this)
         this.deleteConfirmationBound = this.deleteConfirmation.bind(this)
+        this.refreshBound = this.refresh.bind(this)
 
         // State properties
         this.selectTimer = null
@@ -83,6 +84,7 @@
         this.updateSearchResultsBound = null
         this.releaseNavigationAjaxBound = null
         this.deleteConfirmationBound = null
+        this.refreshBound = null
 
         this.sidebarPreviewElement = null
         this.itemListElement = null
@@ -111,6 +113,7 @@
         this.$el.on('click.item', '[data-type="media-item"]', this.itemClickHandler)
         this.$el.on('change', '[data-control="sorting"]', this.sortingChangedHandler)
         this.$el.on('keyup', '[data-control="search"]', this.searchChangedHandler)
+        this.$el.on('mediarefresh', this.refreshBound)
 
         if (this.itemListElement)
             this.itemListElement.addEventListener('mousedown', this.listMouseDownHandler)
@@ -760,6 +763,7 @@
             break;
             case 'set-filter':
                 this.setFilter($(ev.currentTarget).data('filter'))
+            break;
             case 'delete':
                 this.deleteFiles()
             break;
@@ -769,7 +773,8 @@
     }
 
     MediaManager.prototype.onItemClick = function(ev) {
-        if (ev.currentTarget.hasAttribute('data-root'))
+        // Don't select "Go up" folders and don't select items when the rename icon is clicked
+        if (ev.currentTarget.hasAttribute('data-root') || ev.target.tagName == 'I')
             return
 
         this.selectItem(ev.currentTarget, ev.shiftKey)
