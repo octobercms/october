@@ -27,6 +27,9 @@
         this.folderPopupShownHandler = this.onFolderPopupShown.bind(this)
         this.newFolderSubmitHandler = this.onNewFolderSubmit.bind(this)
         this.folderPopupHiddenHandler = this.onFolderPopupHidden.bind(this)
+        this.movePopupShownHandler = this.onMovePopupShown.bind(this)
+        this.moveItemsSubmitHandler = this.onMoveItemsSubmit.bind(this)
+        this.movePopupHiddenHandler = this.onMovePopupHidden.bind(this)
 
         // Instance-bound methods
         this.updateSidebarPreviewBound = this.updateSidebarPreview.bind(this)
@@ -45,6 +48,7 @@
         this.deleteConfirmationBound = this.deleteConfirmation.bind(this)
         this.refreshBound = this.refresh.bind(this)
         this.folderCreatedBound = this.folderCreated.bind(this)
+        this.itemsMovedBound = this.itemsMoved.bind(this)
 
         // State properties
         this.selectTimer = null
@@ -90,6 +94,7 @@
         this.deleteConfirmationBound = null
         this.refreshBound = null
         this.folderCreatedBound = null
+        this.itemsMovedBound = null
 
         this.sidebarPreviewElement = null
         this.itemListElement = null
@@ -121,6 +126,8 @@
         this.$el.on('mediarefresh', this.refreshBound)
         this.$el.on('shown.oc.popup', '[data-command="create-folder"]', this.folderPopupShownHandler)
         this.$el.on('hidden.oc.popup', '[data-command="create-folder"]', this.folderPopupHiddenHandler)
+        this.$el.on('shown.oc.popup', '[data-command="move"]', this.movePopupShownHandler)
+        this.$el.on('hidden.oc.popup', '[data-command="move"]', this.movePopupHiddenHandler)
 
         if (this.itemListElement)
             this.itemListElement.addEventListener('mousedown', this.listMouseDownHandler)
@@ -135,6 +142,8 @@
         this.$el.off('keyup', '[data-control="search"]', this.searchChangedHandler)
         this.$el.off('shown.oc.popup', '[data-command="create-folder"]', this.folderPopupShownHandler)
         this.$el.off('hidden.oc.popup', '[data-command="create-folder"]', this.folderPopupHiddenHandler)
+        this.$el.off('shown.oc.popup', '[data-command="move"]', this.movePopupShownHandler)
+        this.$el.off('hidden.oc.popup', '[data-command="move"]', this.movePopupHiddenHandler)
 
         if (this.itemListElement) {
             this.itemListElement.removeEventListener('mousedown', this.listMouseDownHandler)
@@ -153,6 +162,9 @@
         this.folderPopupShownHandler = null
         this.folderPopupHiddenHandler = null
         this.newFolderSubmitHandler = null
+        this.movePopupShownHandler = null
+        this.moveItemsSubmitHandler = null
+        this.movePopupHiddenHandler = null
     }
 
     MediaManager.prototype.changeView = function(view) {
@@ -710,7 +722,7 @@
     // File and folder operations
     //
 
-    MediaManager.prototype.deleteFiles = function() {
+    MediaManager.prototype.deleteItems = function() {
         var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
 
         if (!items.length) {
@@ -793,6 +805,81 @@
         this.afterNavigateBound
     }
 
+    MediaManager.prototype.moveItems = function(ev) {
+        var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
+
+        if (!items.length) {
+            swal({
+                title: this.options.moveEmpty,
+                confirmButtonClass: 'btn-default'
+            })
+
+            return
+        }
+
+        var data = {
+            exclude: [],
+            path: this.$el.find('[data-type="current-folder"]').val()
+        }
+
+        for (var i = 0, len = items.length; i < len; i++) {
+            var item = items[i],
+                path = item.getAttribute('data-path')
+
+            if (item.getAttribute('data-item-type') == 'folder')
+                data.exclude.push(path)
+        }
+
+        $(ev.target).popup({
+            handler: this.options.alias+'::onLoadMovePopup',
+            extraData: data
+        })
+    }
+
+    MediaManager.prototype.onMovePopupShown = function(ev, button, popup) {
+        $(popup).on('submit.media', 'form', this.moveItemsSubmitHandler)
+    }
+
+    MediaManager.prototype.onMoveItemsSubmit = function(ev) {
+        var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
+            data = {
+                dest: $(ev.target).find('select[name=dest]').val(),
+                originalPath: $(ev.target).find('input[name=originalPath]').val(),
+                files: [],
+                folders: []
+            } 
+
+        for (var i = 0, len = items.length; i < len; i++) {
+            var item = items[i],
+                path = item.getAttribute('data-path')
+
+            if (item.getAttribute('data-item-type') == 'folder')
+                data.folders.push(path)
+            else
+                data.files.push(path)
+        }
+
+        $.oc.stripeLoadIndicator.show()
+        this.$form.request(this.options.alias+'::onMoveItems', {
+            data: data
+        }).always(function() {
+            $.oc.stripeLoadIndicator.hide()
+        }).done(this.itemsMovedBound)
+
+        ev.preventDefault()
+        return false
+    }
+
+    MediaManager.prototype.onMovePopupHidden = function(ev, button, popup) {
+        $(popup).off('.media', 'form')
+    }
+
+    MediaManager.prototype.itemsMoved = function() {
+        this.$el.find('button[data-command="move"]').popup('hide')
+
+        this.afterNavigateBound
+    }
+
     // EVENT HANDLERS
     // ============================
 
@@ -834,10 +921,13 @@
                 this.setFilter($(ev.currentTarget).data('filter'))
             break;
             case 'delete':
-                this.deleteFiles()
+                this.deleteItems()
             break;
             case 'create-folder':
                 this.createFolder(ev)
+            break;
+            case 'move':
+                this.moveItems(ev)
             break;
         }
 
@@ -958,8 +1048,9 @@
 
     MediaManager.DEFAULTS = {
         alias: '',
-        deleteEmpty: 'Please select files to delete',
-        deleteConfirm: 'Do you really want to delete the selected file(s)?'
+        deleteEmpty: 'Please select files to delete.',
+        deleteConfirm: 'Do you really want to delete the selected file(s)?',
+        moveEmpty: 'Please select files to move.'
     }
 
     var old = $.fn.mediaManager

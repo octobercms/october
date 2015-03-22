@@ -260,12 +260,17 @@ return [
         'search' => 'Search',
         'folder' => 'Folder',
         'no_files_found' => 'No files found by your request.',
-        'delete_empty' => 'Please select files to delete.',
+        'delete_empty' => 'Please select items to delete.',
         'delete_confirm' => 'Do you really want to delete the selected item(s)?',
-        'error_renaming_file' => 'Error renaming file.',
+        'error_renaming_file' => 'Error renaming the item.',
         'new_folder_title' => 'New folder',
         'folder_name' => 'Folder name',
         'error_creating_folder' => 'Error creating folder',
-        'folder_or_file_exist' => 'A folder or file with the specified name already exists.'
+        'folder_or_file_exist' => 'A folder or file with the specified name already exists.',
+        'move_empty' => 'Please select items to move.',
+        'move_popup_title' => 'Move files or folders',
+        'move_destination' => 'Destination folder',
+        'please_select_move_dest' => 'Please select a destination folder.',
+        'move_dest_src_match' => 'Please select another destination folder.'
     ]
 ];

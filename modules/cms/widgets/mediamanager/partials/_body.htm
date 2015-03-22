@@ -3,7 +3,9 @@
     class="layout"
     data-alias="<?= $this->alias ?>"
     data-delete-empty="<?= e(trans('cms::lang.media.delete_empty')) ?>"
-    data-delete-confirm="<?= e(trans('cms::lang.media.delete_confirm')) ?>">
+    data-delete-confirm="<?= e(trans('cms::lang.media.delete_confirm')) ?>"
+    data-move-empty="<?= e(trans('cms::lang.media.move_empty')) ?>"
+>
 
     <?= $this->makePartial('toolbar') ?>
     <?= $this->makePartial('upload-progress') ?>

@@ -209,6 +209,35 @@ class MediaLibrary
     }
 
     /**
+     * Returns a list of all directories in the Library, optionally excluding some of them.
+     * @param array $exclude A list of folders to exclude from the result list/
+     * The folder paths should be specified relative to the Library root.
+     * @return array
+     */
+    public function listAllDirectories($exclude = [])
+    {
+        $fullPath = $this->getMediaPath('/');
+
+        $folders = $this->getStorageDisk()->allDirectories($fullPath);
+        $folders = array_unique($folders, SORT_LOCALE_STRING);
+
+        $result = [];
+
+        foreach ($folders as $folder) {
+            $folder = $this->getMediaRelativePath($folder);
+            if (!strlen($folder))
+                $folder = '/';
+
+            if (Str::startsWith($folder, $exclude))
+                continue;
+
+            $result[] = $folder;
+        }
+
+        return $result;
+    }
+
+    /**
      * Returns a file contents.
      * @param string $path Specifies the file path relative the the Library root.
      * @return string Returns the file contents

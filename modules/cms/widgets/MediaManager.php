@@ -286,6 +286,69 @@ class MediaManager extends WidgetBase
         ];
     }
 
+    public function onLoadMovePopup()
+    {
+        $exclude = Input::get('exclude', []);
+        if (!is_array($exclude))
+            throw new SystemException('Invalid input data');
+
+        $folders = MediaLibrary::instance()->listAllDirectories($exclude);
+
+        $folderList = [];
+        foreach ($folders as $folder) {
+            $path = $folder;
+
+            if ($folder == '/') 
+                $name = Lang::get('cms::lang.media.library');
+            else {
+                $segments = explode('/', $folder);
+                $name = str_repeat('&nbsp;', (count($segments)-1)*4).basename($folder);
+            }
+
+            $folderList[$path] = $name;
+        }
+
+        $this->vars['folders'] = $folderList;
+        $this->vars['originalPath'] = Input::get('path');
+
+        return $this->makePartial('move-form');
+    }
+
+    public function onMoveItems()
+    {
+        $dest = trim(Input::get('dest'));
+        if (!strlen($dest))
+            throw new ApplicationException(Lang::get('cms::lang.media.please_select_move_dest'));
+
+        $dest = MediaLibrary::validatePath($dest);
+        if ($dest == Input::get('originalPath'))
+            throw new ApplicationException(Lang::get('cms::lang.media.move_dest_src_match'));
+
+        $files = Input::get('files', []);
+        if (!is_array($files))
+            throw new SystemException('Invalid input data');
+
+        $folders = Input::get('folders', []);
+        if (!is_array($folders))
+            throw new SystemException('Invalid input data');
+
+        $library = MediaLibrary::instance();
+
+        foreach ($files as $path)
+            $library->moveFile($path, $dest.'/'.basename($path));
+
+        foreach ($folders as $path)
+            $library->moveFolder($path, $dest.'/'.basename($path));
+
+        $library->resetCache();
+
+        $this->prepareVars();
+
+        return [
+            '#'.$this->getId('item-list') => $this->makePartial('item-list')
+        ];
+    }
+
     //
     // Methods for th internal use
     //
