@@ -448,6 +448,12 @@ div[data-control="media-manager"] {
     .dz-preview {
         display: none;
     }
+
+    button[data-command="toggle-sidebar"] {
+        &.sidebar-hidden {
+            .transform( ~'rotate(180deg) translate(0, 0)' );
+        }
+    }
 }
 
 body:not(.no-select) {
@@ -461,6 +467,18 @@ body:not(.no-select) {
         .list {
             li:hover {
                 .media-selected-list();
+            }
+        }
+    }
+}
+
+@media (max-width: 1280px) {
+    div[data-control="media-manager"] {
+        .media-list {
+            &.list {
+                li {
+                    width: 230px;
+                }
             }
         }
     }

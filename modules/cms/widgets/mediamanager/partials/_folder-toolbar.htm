@@ -8,7 +8,8 @@
         <div class="layout-cell">
             <button
                 type="button"
-                class="oc-icon-sign-out btn-icon pull-right larger">
+                data-command="toggle-sidebar"
+                class="oc-icon-sign-out btn-icon pull-right larger <?= !$sidebarVisible ? 'sidebar-hidden' : null ?>">
             </button>
         </div>
     </div>

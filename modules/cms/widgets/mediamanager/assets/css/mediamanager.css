@@ -380,6 +380,11 @@ div[data-control="media-manager"] .upload-progress .progress-controls .controls 
 div[data-control="media-manager"] .dz-preview {
   display: none;
 }
+div[data-control="media-manager"] button[data-command="toggle-sidebar"].sidebar-hidden {
+  -webkit-transform: rotate(180deg) translate(0, 0);
+  -ms-transform: rotate(180deg) translate(0, 0);
+  transform: rotate(180deg) translate(0, 0);
+}
 body:not(.no-select) div[data-control="media-manager"] .media-list.tiles li:hover .icon-container {
   background: #4da7e8 !important;
   border-color: #2581b8;
@@ -403,4 +408,9 @@ body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hove
 }
 body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover .icon-container {
   border-right-color: #4da7e8 !important;
+}
+@media (max-width: 1280px) {
+  div[data-control="media-manager"] .media-list.list li {
+    width: 230px;
+  }
 }

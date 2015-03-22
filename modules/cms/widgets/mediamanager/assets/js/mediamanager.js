@@ -287,7 +287,29 @@
     //
 
     MediaManager.prototype.isPreviewSidebarVisible = function() {
-        return true
+        return !this.$el.find('[data-control="preview-sidebar"]').hasClass('hide')
+    }
+
+    MediaManager.prototype.toggleSidebar = function(ev) {
+        var isVisible = this.isPreviewSidebarVisible(),
+            $sidebar = this.$el.find('[data-control="preview-sidebar"]'),
+            $button = $(ev.target)
+
+        if (!isVisible) {
+            $sidebar.removeClass('hide')
+            this.updateSidebarPreview()
+            $button.removeClass('sidebar-hidden')
+        } 
+        else {
+            $sidebar.addClass('hide')
+            $button.addClass('sidebar-hidden')
+        }
+
+        this.$form.request(this.options.alias+'::onSetSidebarVisible', {
+            data: {
+                visible: (isVisible ? 0 : 1)
+            }
+        })
     }
 
     MediaManager.prototype.updateSidebarMediaPreview = function(items) {
@@ -928,6 +950,9 @@
             break;
             case 'move':
                 this.moveItems(ev)
+            break;
+            case 'toggle-sidebar':
+                this.toggleSidebar(ev)
             break;
         }
 

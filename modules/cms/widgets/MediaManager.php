@@ -349,6 +349,13 @@ class MediaManager extends WidgetBase
         ];
     }
 
+    public function onSetSidebarVisible()
+    {
+        $visible = Input::get('visible');
+
+        $this->setSidebarVisible($visible);
+    }
+
     //
     // Methods for th internal use
     //
@@ -378,6 +385,7 @@ class MediaManager extends WidgetBase
         $this->vars['sortBy'] = $sortBy;
         $this->vars['searchMode'] = $searchMode;
         $this->vars['searchTerm'] = $searchTerm;
+        $this->vars['sidebarVisible'] = $this->getSidebarVisible();
     }
 
     protected function listFolderItems($folder, $filter, $sortBy)
@@ -450,6 +458,16 @@ class MediaManager extends WidgetBase
     protected function getSortBy()
     {
         return $this->getSession('media_sort_by', MediaLibrary::SORT_BY_TITLE);
+    }
+
+    protected function setSidebarVisible($visible)
+    {
+        return $this->putSession('sideba_visible', !!$visible);
+    }
+
+    protected function getSidebarVisible()
+    {
+        return $this->getSession('sideba_visible', true);
     }
 
     protected function itemTypeToIconClass($item, $itemType)
