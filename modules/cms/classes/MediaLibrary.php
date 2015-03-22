@@ -187,6 +187,28 @@ class MediaLibrary
     }
 
     /**
+     * Determines if a folder with the specified path exists in the library.
+     * @param string $path Specifies the folder path relative the the Library root.
+     * @return boolean Returns TRUE if the folder exists.
+     */
+    public function folderExists($path)
+    {
+        $folderName = basename($path);
+        $folderPath = dirname($path);
+
+        $path = self::validatePath($folderPath);
+        $fullPath = $this->getMediaPath($path);
+
+        $folders = $this->getStorageDisk()->directories($fullPath);
+        foreach ($folders as $folder) {
+            if (basename($folder) == $folderName)
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Returns a file contents.
      * @param string $path Specifies the file path relative the the Library root.
      * @return string Returns the file contents
@@ -282,6 +304,19 @@ class MediaLibrary
         $this->deleteFolder($originalPath);
 
         return true;
+    }
+
+    /**
+     * Creates a folder.
+     * @param string $path Specifies the folder path.
+     * @return boolean
+     */
+    public function makeFolder($path)
+    {
+        $path = self::validatePath($path);
+        $fullPath = $this->getMediaPath($path);
+
+        return $this->getStorageDisk()->makeDirectory($fullPath);
     }
 
     /**

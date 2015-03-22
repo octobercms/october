@@ -54,6 +54,7 @@
         })
 
         this.$modal.on('hidden.bs.modal', function(){
+            self.triggerEvent('hidden.oc.popup')
             self.$container.remove()
             self.$el.data('oc.popup', null)
         })

@@ -261,7 +261,11 @@ return [
         'folder' => 'Folder',
         'no_files_found' => 'No files found by your request.',
         'delete_empty' => 'Please select files to delete.',
-        'delete_confirm' => 'Do you really want to delete the selected file(s)?',
-        'error_renaming_file' => 'Error renaming file.'
+        'delete_confirm' => 'Do you really want to delete the selected item(s)?',
+        'error_renaming_file' => 'Error renaming file.',
+        'new_folder_title' => 'New folder',
+        'folder_name' => 'Folder name',
+        'error_creating_folder' => 'Error creating folder',
+        'folder_or_file_exist' => 'A folder or file with the specified name already exists.'
     ]
 ];

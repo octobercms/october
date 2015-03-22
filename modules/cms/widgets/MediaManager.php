@@ -228,7 +228,7 @@ class MediaManager extends WidgetBase
         $this->vars['name'] = basename($path);
         $this->vars['listId'] = Input::get('listId');
         $this->vars['type'] = Input::get('type');
-        return $this->makePartial('rename_form');
+        return $this->makePartial('rename-form');
     }
 
     public function onApplyName()
@@ -253,6 +253,37 @@ class MediaManager extends WidgetBase
             MediaLibrary::instance()->moveFolder($originalPath, $newPath);
 
         MediaLibrary::instance()->resetCache();
+    }
+
+    public function onCreateFolder()
+    {
+        $name = trim(Input::get('name'));
+        if (!strlen($name))
+            throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
+
+        if (!$this->validateFileName($name))
+            throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
+
+        $path = Input::get('path');
+        $path = MediaLibrary::validatePath($path);
+
+        $newFolderPath = $path.'/'.$name;
+
+        $library = MediaLibrary::instance();
+
+        if ($library->folderExists($newFolderPath))
+            throw new ApplicationException(Lang::get('cms::lang.media.folder_or_file_exist'));
+
+        if (!$library->makeFolder($newFolderPath))
+            throw new ApplicationException(Lang::get('cms::lang.media.error_creating_folder'));
+
+        $library->resetCache();
+
+        $this->prepareVars();
+
+        return [
+            '#'.$this->getId('item-list') => $this->makePartial('item-list')
+        ];
     }
 
     //

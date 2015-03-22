@@ -673,7 +673,8 @@ this.$modal=this.$container.modal({show:false,backdrop:false,keyboard:this.optio
 this.$container.data('oc.popup',this)
 this.$modal.on('hide.bs.modal',function(){self.isOpen=false
 self.setBackdrop(false)})
-this.$modal.on('hidden.bs.modal',function(){self.$container.remove()
+this.$modal.on('hidden.bs.modal',function(){self.triggerEvent('hidden.oc.popup')
+self.$container.remove()
 self.$el.data('oc.popup',null)})
 this.$modal.on('show.bs.modal',function(){self.isOpen=true
 self.setBackdrop(true)})

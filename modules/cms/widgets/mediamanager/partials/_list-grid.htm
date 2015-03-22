@@ -41,7 +41,7 @@
                                 data-control="popup"
                                 data-request-data="path: '<?= e($item->path) ?>', listId: '<?= $listElementId ?>', type: '<?= $item->type ?>'"
                                 data-handler="<?= $this->getEventHandler('onLoadRenamePopup') ?>"
-                            ><i class="icon-terminal"></i></a>
+                            ><i data-rename-control class="icon-terminal"></i></a>
                         </div>
                     </td>
                     <td><?= e($item->sizeToString()) ?></td>

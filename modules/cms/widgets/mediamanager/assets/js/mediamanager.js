@@ -24,6 +24,9 @@
         this.listMouseMoveHandler = this.onListMouseMove.bind(this)
         this.sortingChangedHandler = this.onSortingChanged.bind(this)
         this.searchChangedHandler = this.onSearchChanged.bind(this)
+        this.folderPopupShownHandler = this.onFolderPopupShown.bind(this)
+        this.newFolderSubmitHandler = this.onNewFolderSubmit.bind(this)
+        this.folderPopupHiddenHandler = this.onFolderPopupHidden.bind(this)
 
         // Instance-bound methods
         this.updateSidebarPreviewBound = this.updateSidebarPreview.bind(this)
@@ -41,6 +44,7 @@
         this.releaseNavigationAjaxBound = this.releaseNavigationAjax.bind(this)
         this.deleteConfirmationBound = this.deleteConfirmation.bind(this)
         this.refreshBound = this.refresh.bind(this)
+        this.folderCreatedBound = this.folderCreated.bind(this)
 
         // State properties
         this.selectTimer = null
@@ -85,6 +89,7 @@
         this.releaseNavigationAjaxBound = null
         this.deleteConfirmationBound = null
         this.refreshBound = null
+        this.folderCreatedBound = null
 
         this.sidebarPreviewElement = null
         this.itemListElement = null
@@ -114,6 +119,8 @@
         this.$el.on('change', '[data-control="sorting"]', this.sortingChangedHandler)
         this.$el.on('keyup', '[data-control="search"]', this.searchChangedHandler)
         this.$el.on('mediarefresh', this.refreshBound)
+        this.$el.on('shown.oc.popup', '[data-command="create-folder"]', this.folderPopupShownHandler)
+        this.$el.on('hidden.oc.popup', '[data-command="create-folder"]', this.folderPopupHiddenHandler)
 
         if (this.itemListElement)
             this.itemListElement.addEventListener('mousedown', this.listMouseDownHandler)
@@ -126,6 +133,8 @@
         this.$el.off('click.item', this.itemClickHandler)
         this.$el.off('change', '[data-control="sorting"]', this.sortingChangedHandler)
         this.$el.off('keyup', '[data-control="search"]', this.searchChangedHandler)
+        this.$el.off('shown.oc.popup', '[data-command="create-folder"]', this.folderPopupShownHandler)
+        this.$el.off('hidden.oc.popup', '[data-command="create-folder"]', this.folderPopupHiddenHandler)
 
         if (this.itemListElement) {
             this.itemListElement.removeEventListener('mousedown', this.listMouseDownHandler)
@@ -141,6 +150,9 @@
         this.listMouseMoveHandler = null
         this.sortingChangedHandler = null
         this.searchChangedHandler = null
+        this.folderPopupShownHandler = null
+        this.folderPopupHiddenHandler = null
+        this.newFolderSubmitHandler = null
     }
 
     MediaManager.prototype.changeView = function(view) {
@@ -323,12 +335,18 @@
             this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class', 'panel')
 
             // One item is selected - display the details
-            var item = items[0]
+            var item = items[0],
+                lastModified = item.getAttribute('data-last-modified')
 
             previewPanel.querySelector('[data-label="size"]').textContent = item.getAttribute('data-size')
             previewPanel.querySelector('[data-label="title"]').textContent = item.getAttribute('data-title')
-            previewPanel.querySelector('[data-label="last-modified"]').textContent = item.getAttribute('data-last-modified')
+            previewPanel.querySelector('[data-label="last-modified"]').textContent = lastModified
             previewPanel.querySelector('[data-label="public-url"]').setAttribute('href', item.getAttribute('data-public-url'))
+
+            if (lastModified)
+                previewPanel.querySelector('[data-control="last-modified"]').setAttribute('class', '')
+            else
+                previewPanel.querySelector('[data-control="last-modified"]').setAttribute('class', 'hide')
 
             if (this.isSearchMode()) {
                 previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class', '')
@@ -675,8 +693,21 @@
         this.$el.find('[data-control="search"]').val('')
     }
 
+    MediaManager.prototype.onSearchChanged = function(ev) {
+        var value = ev.currentTarget.value
+
+        if (this.lastSearchValue !== undefined && this.lastSearchValue == value)
+            return
+
+        this.lastSearchValue = value
+
+        this.clearSearchTrackInputTimer()
+
+        this.searchTrackInputTimer = window.setTimeout(this.updateSearchResultsBound, 300)
+    }
+
     //
-    // File operations
+    // File and folder operations
     //
 
     MediaManager.prototype.deleteFiles = function() {
@@ -724,6 +755,44 @@
         }).done(this.afterNavigateBound)
     }
 
+    MediaManager.prototype.createFolder = function(ev) {
+        $(ev.target).popup({
+            content: this.$el.find('[data-control="new-folder-template"]').html()
+        })
+    }
+
+    MediaManager.prototype.onFolderPopupShown = function(ev, button, popup) {
+        $(popup).find('input[name=name]').focus()
+        $(popup).on('submit.media', 'form', this.newFolderSubmitHandler)
+    }
+
+    MediaManager.prototype.onFolderPopupHidden = function(ev, button, popup) {
+        $(popup).off('.media', 'form')
+    }
+
+    MediaManager.prototype.onNewFolderSubmit = function(ev) {
+        var data = {
+                name: $(ev.target).find('input[name=name]').val(),
+                path: this.$el.find('[data-type="current-folder"]').val()
+            } 
+
+        $.oc.stripeLoadIndicator.show()
+        this.$form.request(this.options.alias+'::onCreateFolder', {
+            data: data
+        }).always(function() {
+            $.oc.stripeLoadIndicator.hide()
+        }).done(this.folderCreatedBound)
+
+        ev.preventDefault()
+        return false
+    }
+
+    MediaManager.prototype.folderCreated = function() {
+        this.$el.find('button[data-command="create-folder"]').popup('hide')
+
+        this.afterNavigateBound
+    }
+
     // EVENT HANDLERS
     // ============================
 
@@ -767,6 +836,9 @@
             case 'delete':
                 this.deleteFiles()
             break;
+            case 'create-folder':
+                this.createFolder(ev)
+            break;
         }
 
         return false
@@ -774,7 +846,7 @@
 
     MediaManager.prototype.onItemClick = function(ev) {
         // Don't select "Go up" folders and don't select items when the rename icon is clicked
-        if (ev.currentTarget.hasAttribute('data-root') || ev.target.tagName == 'I')
+        if (ev.currentTarget.hasAttribute('data-root') || (ev.target.tagName == 'I' && ev.target.hasAttribute('data-rename-control')))
             return
 
         this.selectItem(ev.currentTarget, ev.shiftKey)
@@ -879,19 +951,6 @@
         }
 
         this.execNavigationRequest('onSetSorting', data)
-    }
-
-    MediaManager.prototype.onSearchChanged = function(ev) {
-        var value = ev.currentTarget.value
-
-        if (this.lastSearchValue !== undefined && this.lastSearchValue == value)
-            return
-
-        this.lastSearchValue = value
-
-        this.clearSearchTrackInputTimer()
-
-        this.searchTrackInputTimer = window.setTimeout(this.updateSearchResultsBound, 300)
     }
 
     // MEDIA MANAGER PLUGIN DEFINITION
