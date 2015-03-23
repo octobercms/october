@@ -16,6 +16,10 @@ div[data-control="media-manager"] .media-player-fallback.panel-embedded {
   padding: 20px;
   margin: -20px -20px 0 -20px;
 }
+div[data-control="media-manager"] .empty-library {
+  padding: 20px;
+  text-align: center;
+}
 div[data-control="media-manager"] p.thumbnail-error-message {
   font-size: 12px;
   margin-top: 25px;
