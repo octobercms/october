@@ -1,13 +1,13 @@
-<div class="field-repeater">
+<div class="field-repeater" data-control="fieldrepeater">
 
-    <div id="<?= $this->getId('items') ?>" class="field-repeater-items">
+    <ul id="<?= $this->getId('items') ?>" class="field-repeater-items">
         <?php foreach ($this->formWidgets as $index => $widget): ?>
             <?= $this->makePartial('repeater_item', [
                 'widget' => $widget,
                 'indexValue' => $index
             ]) ?>
         <?php endforeach ?>
-    </div>
+    </ul>
 
     <div class="field-repeater-add-item loading-indicator-container indicator-center">
         <a

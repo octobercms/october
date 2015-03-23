@@ -30,14 +30,24 @@
     }
 
     Repeater.prototype.init = function() {
-        // Public properties
-        this.something  = false
-
         // Init with no arguments
+        this.bindSorting()
     }
 
-    Repeater.prototype.someFunction = function() {
-        // Do stuff
+    Repeater.prototype.bindSorting = function() {
+
+        var sortableOptions = {
+            // useAnimation: true,
+            handle: '.repeater-item-handle',
+            nested: false
+        }
+
+        $('ul.field-repeater-items', this.$el).sortable(sortableOptions)
+    }
+
+    Repeater.prototype.unbind = function() {
+        this.$el.find('ul.field-repeater-items').sortable('destroy')
+        this.$el.removeData('oc.repeater')
     }
 
     // FIELD REPEATER PLUGIN DEFINITION
@@ -55,7 +65,7 @@
             if (typeof option == 'string') result = data[option].apply(data, args)
             if (typeof result != 'undefined') return false
         })
-        
+
         return result ? result : this
     }
 
@@ -72,8 +82,8 @@
     // FIELD REPEATER DATA-API
     // ===============
 
-    $(document).on('click.oc.myplugin', '[data-control="fieldrepeater"]', function() {
-        $(this).fieldRepeater()
+    $(document).render(function() {
+        $('[data-control="fieldrepeater"]').fieldRepeater()
     });
 
 }(window.jQuery);
