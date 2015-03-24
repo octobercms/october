@@ -1,13 +1,52 @@
 .field-repeater {
   padding-top: 5px;
 }
-.field-repeater .field-repeater-item {
+.field-repeater ul.field-repeater-items,
+.field-repeater li.field-repeater-item {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.field-repeater ul.field-repeater-items > li.dragged {
+  opacity: .7;
+  position: absolute;
+  padding-top: 15px;
+  padding-right: 15px;
+  z-index: 2000;
+  background-color: #ffffff;
+  border: 1px dashed #dbdee0;
+}
+.field-repeater ul.field-repeater-items > li.dragged .repeater-item-remove {
+  opacity: 0;
+}
+.field-repeater ul.field-repeater-items > li.placeholder {
+  display: block;
+  position: relative;
+  height: 25px;
+  margin-bottom: 5px;
+}
+.field-repeater ul.field-repeater-items > li.placeholder:before {
+  display: block;
+  position: absolute;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f054";
+  color: #d35714;
+  left: -10px;
+  top: 8px;
+  z-index: 2000;
+}
+.field-repeater li.field-repeater-item {
   position: relative;
   margin-left: 5px;
   padding-left: 15px;
   border-left: 1px solid #dbdee0;
 }
-.field-repeater .field-repeater-item:before {
+.field-repeater li.field-repeater-item:before {
   color: #bdc3c7;
   font-family: FontAwesome;
   font-weight: normal;
@@ -21,11 +60,11 @@
   left: -4px;
   top: -2px;
 }
-.field-repeater .field-repeater-item .field-repeater-form {
+.field-repeater li.field-repeater-item .field-repeater-form {
   position: relative;
   top: -7px;
 }
-.field-repeater .field-repeater-item .repeater-item-handle {
+.field-repeater li.field-repeater-item .repeater-item-handle {
   position: absolute;
   top: -6px;
   left: -10px;
@@ -33,28 +72,29 @@
   background: #f9f9f9;
   cursor: move;
   opacity: 0;
+  border-radius: 999px;
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-.field-repeater .field-repeater-item .repeater-item-handle:hover {
+.field-repeater li.field-repeater-item .repeater-item-handle:hover {
   color: #999;
 }
-.field-repeater .field-repeater-item .repeater-item-remove {
+.field-repeater li.field-repeater-item .repeater-item-remove {
   position: absolute;
   top: -10px;
   right: 0;
   z-index: 90;
 }
-.field-repeater .field-repeater-item .repeater-item-handle,
-.field-repeater .field-repeater-item .repeater-item-remove {
+.field-repeater li.field-repeater-item .repeater-item-handle,
+.field-repeater li.field-repeater-item .repeater-item-remove {
   width: 20px;
   height: 20px;
   text-align: center;
 }
-.field-repeater .field-repeater-item:hover .repeater-item-handle,
-.field-repeater .field-repeater-item:active .repeater-item-handle,
-.field-repeater .field-repeater-item:hover .repeater-item-remove,
-.field-repeater .field-repeater-item:active .repeater-item-remove {
+.field-repeater li.field-repeater-item:hover .repeater-item-handle,
+.field-repeater li.field-repeater-item:active .repeater-item-handle,
+.field-repeater li.field-repeater-item:hover .repeater-item-remove,
+.field-repeater li.field-repeater-item:active .repeater-item-remove {
   opacity: 1;
 }
 .field-repeater .field-repeater-add-item {

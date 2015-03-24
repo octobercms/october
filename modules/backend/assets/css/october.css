@@ -2225,6 +2225,7 @@ body{webkit-font-smoothing:antialiased;background:#f9f9f9}
 .layout > .layout-row > .layout-cell.width-200{width:200px}
 .layout > .layout-row > .layout-cell.width-300{width:300px}
 .layout > .layout-row > .layout-cell.layout-container,.layout > .layout-row > .layout-cell .layout-container,.layout > .layout-row > .layout-cell.padded-container,.layout > .layout-row > .layout-cell .padded-container{padding:20px 20px 0 20px}
+.layout > .layout-row > .layout-cell.layout-container .container-flush,.layout > .layout-row > .layout-cell .layout-container .container-flush,.layout > .layout-row > .layout-cell.padded-container .container-flush,.layout > .layout-row > .layout-cell .padded-container .container-flush{padding-top:0}
 .layout > .layout-row > .layout-cell .layout-relative{position:relative;height:100%}
 .layout > .layout-row > .layout-cell .layout-absolute{position:absolute;height:100%;width:100%}
 .layout > .layout-row > .layout-cell.min-size{width:0}
@@ -2237,6 +2238,7 @@ body{webkit-font-smoothing:antialiased;background:#f9f9f9}
 .layout > .layout-row > .layout-cell.width-200{width:200px}
 .layout > .layout-row > .layout-cell.width-300{width:300px}
 .layout > .layout-row > .layout-cell.layout-container,.layout > .layout-row > .layout-cell .layout-container,.layout > .layout-row > .layout-cell.padded-container,.layout > .layout-row > .layout-cell .padded-container{padding:20px 20px 0 20px}
+.layout > .layout-row > .layout-cell.layout-container .container-flush,.layout > .layout-row > .layout-cell .layout-container .container-flush,.layout > .layout-row > .layout-cell.padded-container .container-flush,.layout > .layout-row > .layout-cell .padded-container .container-flush{padding-top:0}
 .layout > .layout-row > .layout-cell .layout-relative{position:relative;height:100%}
 .layout > .layout-row > .layout-cell .layout-absolute{position:absolute;height:100%;width:100%}
 .layout > .layout-row > .layout-cell.min-size{width:0}
@@ -2251,6 +2253,7 @@ body{webkit-font-smoothing:antialiased;background:#f9f9f9}
 .layout > .layout-cell.width-200{width:200px}
 .layout > .layout-cell.width-300{width:300px}
 .layout > .layout-cell.layout-container,.layout > .layout-cell .layout-container,.layout > .layout-cell.padded-container,.layout > .layout-cell .padded-container{padding:20px 20px 0 20px}
+.layout > .layout-cell.layout-container .container-flush,.layout > .layout-cell .layout-container .container-flush,.layout > .layout-cell.padded-container .container-flush,.layout > .layout-cell .padded-container .container-flush{padding-top:0}
 .layout > .layout-cell .layout-relative{position:relative;height:100%}
 .layout > .layout-cell .layout-absolute{position:absolute;height:100%;width:100%}
 .layout > .layout-cell.min-size{width:0}
@@ -2280,7 +2283,7 @@ nav#layout-mainmenu.navbar ul li.icon a{padding:14px}
 nav#layout-mainmenu.navbar ul li.power-off i,nav#layout-mainmenu.navbar ul li.preview i{font-size:20px}
 nav#layout-mainmenu.navbar ul li.power-off a,nav#layout-mainmenu.navbar ul li.preview a{padding:22px 20px 20px 20px}
 nav#layout-mainmenu.navbar ul li.account{margin-right:0;line-height:23px}
-nav#layout-mainmenu.navbar ul li.account a{padding-left:35px;padding-right:5px;position:relative;z-index:900}
+nav#layout-mainmenu.navbar ul li.account a{padding-right:20px;position:relative;z-index:900}
 nav#layout-mainmenu.navbar ul li.account img{width:25px;margin-right:7px;position:relative;top:-2px}
 nav#layout-mainmenu.navbar ul.nav{display:inline-block}
 nav#layout-mainmenu.navbar .menu-toggle{display:none}
@@ -2290,14 +2293,14 @@ nav#layout-mainmenu.navbar .toolbar-item:before{left:-12px}
 nav#layout-mainmenu.navbar .toolbar-item:after{right:-12px}
 nav#layout-mainmenu.navbar .toolbar-item.scroll-active-before:before{color:#ffffff}
 nav#layout-mainmenu.navbar .toolbar-item.scroll-active-after:after{color:#ffffff}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu{position:fixed;top:63px;right:0;width:225px;background:#3d3d3d;z-index:900;display:none}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu{position:fixed;top:63px;right:0;width:225px;background:#2b3e50;z-index:900;display:none}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu.active{display:block}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu:after{content:'';display:block;width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-bottom:12px solid #3d3d3d;right:101px;top:-12px;position:absolute}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu ul{padding:12px 30px;float:none;display:block}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li{padding:0;font-weight:200;text-align:left;display:block}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li a{display:block;padding:9px 0;text-align:left;opacity:.9}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li a:hover{opacity:.6}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li.divider{height:1px;width:100%;margin:9px 0;overflow:hidden;background-color:transparent;border-top:1px solid #343434}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu:after{content:'';display:block;width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-bottom:12px solid #2b3e50;right:40px;top:-12px;position:absolute}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu ul{float:none;display:block}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li{padding:0;margin:0;font-weight:400;text-align:left;display:block}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li a{display:block;padding:12px 30px;text-align:left}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li:hover{background:#3d5265 !important}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li.divider{height:1px;width:100%;background-color:#4b6372}
 @media (max-width:768px){nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu:after{right:71px}
 }
 nav#layout-mainmenu.navbar ul li a,nav#layout-mainmenu .menu-toggle,.mainmenu-collapsed li a{padding:14px 0;display:inline-block;font-size:14px;color:inherit;outline:none}
