@@ -432,7 +432,7 @@ class Lists extends WidgetBase
          * Apply a supplied search term for primary columns
          */
         if (count($primarySearchable) > 0) {
-            $query->orWhere(function ($innerQuery) use ($primarySearchable) {
+            $query->where(function ($innerQuery) use ($primarySearchable) {
                 $innerQuery->searchWhere($this->searchTerm, $primarySearchable);
             });
         }
