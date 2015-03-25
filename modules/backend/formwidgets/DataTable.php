@@ -138,6 +138,8 @@ class DataTable extends FormWidgetBase
         // all records at once. -ab
 
         $records = $this->getLoadValue() ?: [];
+
+        $dataSource->purge();
         $dataSource->initRecords((array) $records);
     }
 
