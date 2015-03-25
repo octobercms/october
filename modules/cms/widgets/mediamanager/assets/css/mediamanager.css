@@ -26,7 +26,8 @@ div[data-control="media-manager"] p.thumbnail-error-message {
   color: #bdc3c7;
 }
 div[data-control="media-manager"] .media-list {
-  padding: 0 0 20px 20px;
+  padding: 0 0 0 20px;
+  margin: 0;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -311,6 +312,7 @@ div[data-control="media-manager"] [data-control="item-list"] {
 }
 div[data-control="media-manager"] table.table {
   table-layout: fixed;
+  margin-bottom: 0;
   white-space: nowrap;
 }
 div[data-control="media-manager"] table.table div.no-wrap-text {
@@ -340,7 +342,7 @@ div[data-control="media-manager"] table.table tr[data-item-type=folder] i.icon-f
 }
 div[data-control="media-manager"] div[data-control="selection-marker"] {
   position: absolute;
-  z-index: 50;
+  z-index: 250;
   border: 1px dashed #95a5a6;
 }
 div[data-control="media-manager"] .upload-progress {
@@ -400,21 +402,50 @@ body:not(.no-select) div[data-control="media-manager"] .media-list.tiles li:hove
 body:not(.no-select) div[data-control="media-manager"] .media-list.tiles li:hover h4 {
   color: #2581b8;
 }
-body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover {
+body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover:not(:active) {
   background: #4da7e8 !important;
 }
-body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover i,
-body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover p.size {
+body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover:not(:active) i,
+body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover:not(:active) p.size {
   color: #ecf0f1;
 }
-body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover h4 {
+body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover:not(:active) h4 {
   color: white;
 }
-body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover .icon-container {
+body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover:not(:active) .icon-container {
   border-right-color: #4da7e8 !important;
 }
 @media (max-width: 1280px) {
   div[data-control="media-manager"] .media-list.list li {
     width: 230px;
+  }
+}
+@media (max-width: 1024px) {
+  div[data-control="media-manager"] .media-list.list li {
+    display: block;
+    width: auto;
+  }
+}
+@media (max-width: 768px) {
+  div[data-control="media-manager"] [data-control="preview-sidebar"],
+  div[data-control="media-manager"] [data-command="toggle-sidebar"] {
+    display: none!important;
+  }
+  div[data-control="media-manager"] .media-list.list {
+    padding: 0;
+  }
+  div[data-control="media-manager"] .media-list.list li {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    margin: 0;
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
+  }
+}
+@media (max-width: 480px) {
+  div[data-control="media-manager"] [data-control="left-sidebar"] {
+    display: none!important;
   }
 }

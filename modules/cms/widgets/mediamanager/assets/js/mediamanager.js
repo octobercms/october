@@ -6,6 +6,9 @@
  */
 +function ($) { "use strict";
 
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
+
     // MEDIA MANAGER CLASS DEFINITION
     // ============================
 
@@ -15,40 +18,7 @@
 
         this.options = options
 
-        // Event handlers
-        this.navigateHandler = this.onNavigate.bind(this)
-        this.commandClickHandler = this.onCommandClick.bind(this)
-        this.itemClickHandler = this.onItemClick.bind(this)
-        this.listMouseDownHandler = this.onListMouseDown.bind(this)
-        this.listMouseUpHandler = this.onListMouseUp.bind(this)
-        this.listMouseMoveHandler = this.onListMouseMove.bind(this)
-        this.sortingChangedHandler = this.onSortingChanged.bind(this)
-        this.searchChangedHandler = this.onSearchChanged.bind(this)
-        this.folderPopupShownHandler = this.onFolderPopupShown.bind(this)
-        this.newFolderSubmitHandler = this.onNewFolderSubmit.bind(this)
-        this.folderPopupHiddenHandler = this.onFolderPopupHidden.bind(this)
-        this.movePopupShownHandler = this.onMovePopupShown.bind(this)
-        this.moveItemsSubmitHandler = this.onMoveItemsSubmit.bind(this)
-        this.movePopupHiddenHandler = this.onMovePopupHidden.bind(this)
-
-        // Instance-bound methods
-        this.updateSidebarPreviewBound = this.updateSidebarPreview.bind(this)
-        this.replacePlaceholderBound = this.replacePlaceholder.bind(this)
-        this.placeholdersUpdatedBound = this.placeholdersUpdated.bind(this)
-        this.afterNavigateBound = this.afterNavigate.bind(this)
-        this.releaseSidebarThumbnailAjaxBound = this.releaseSidebarThumbnailAjax.bind(this)
-        this.replaceSidebarPlaceholderBound = this.replaceSidebarPlaceholder.bind(this)
-        this.uploadFileAddedBound = this.uploadFileAdded.bind(this)
-        this.uploadUpdateTotalProgressBound = this.uploadUpdateTotalProgress.bind(this)
-        this.uploadQueueCompleteBound = this.uploadQueueComplete.bind(this)
-        this.uploadSendingBound = this.uploadSending.bind(this)
-        this.uploadErrorBound = this.uploadError.bind(this)
-        this.updateSearchResultsBound = this.updateSearchResults.bind(this)
-        this.releaseNavigationAjaxBound = this.releaseNavigationAjax.bind(this)
-        this.deleteConfirmationBound = this.deleteConfirmation.bind(this)
-        this.refreshBound = this.refresh.bind(this)
-        this.folderCreatedBound = this.folderCreated.bind(this)
-        this.itemsMovedBound = this.itemsMoved.bind(this)
+        Base.call(this)
 
         // State properties
         this.selectTimer = null
@@ -61,6 +31,8 @@
         this.dropzone = null
         this.searchTrackInputTimer = null
         this.navigationAjax = null
+        this.dblTouchTimer = null
+        this.dblTouchFlag = null
 
         //
         // Initialization
@@ -69,32 +41,19 @@
         this.init()
     }
 
+    MediaManager.prototype = Object.create(BaseProto)
+    MediaManager.prototype.constructor = MediaManager
+
     MediaManager.prototype.dispose = function() {
         this.unregisterHandlers()
         this.clearSelectTimer()
         this.disableUploader()
         this.clearSearchTrackInputTimer()
         this.releaseNavigationAjax()
+        this.clearDblTouchTimer()
 
         this.$el = null
         this.$form = null
-        this.updateSidebarPreviewBound = null
-        this.replacePlaceholderBound = null
-        this.placeholdersUpdatedBound = null
-        this.afterNavigateBound = null
-        this.replaceSidebarPlaceholderBound = null
-        this.uploadFileAddedBound = null
-        this.releaseSidebarThumbnailAjaxBound = null
-        this.uploadUpdateTotalProgressBound = null
-        this.uploadQueueCompleteBound = null
-        this.uploadSendingBound = null
-        this.uploadErrorBound = null
-        this.updateSearchResultsBound = null
-        this.releaseNavigationAjaxBound = null
-        this.deleteConfirmationBound = null
-        this.refreshBound = null
-        this.folderCreatedBound = null
-        this.itemsMovedBound = null
 
         this.sidebarPreviewElement = null
         this.itemListElement = null
@@ -102,6 +61,8 @@
         this.selectionMarker = null
         this.thumbnailQueue = []
         this.navigationAjax = null
+
+        BaseProto.dispose.call(this)
     }
 
     // MEDIA MANAGER INTERNAL METHODS
@@ -117,54 +78,54 @@
     }
 
     MediaManager.prototype.registerHandlers = function() {
-        this.$el.on('dblclick', this.navigateHandler)
-        this.$el.on('click.tree-path', 'ul.tree-path, [data-control="sidebar-labels"]', this.navigateHandler)
-        this.$el.on('click.command', '[data-command]', this.commandClickHandler)
-        this.$el.on('click.item', '[data-type="media-item"]', this.itemClickHandler)
-        this.$el.on('change', '[data-control="sorting"]', this.sortingChangedHandler)
-        this.$el.on('keyup', '[data-control="search"]', this.searchChangedHandler)
-        this.$el.on('mediarefresh', this.refreshBound)
-        this.$el.on('shown.oc.popup', '[data-command="create-folder"]', this.folderPopupShownHandler)
-        this.$el.on('hidden.oc.popup', '[data-command="create-folder"]', this.folderPopupHiddenHandler)
-        this.$el.on('shown.oc.popup', '[data-command="move"]', this.movePopupShownHandler)
-        this.$el.on('hidden.oc.popup', '[data-command="move"]', this.movePopupHiddenHandler)
+        this.$el.on('dblclick', this.proxy(this.onNavigate))
+        this.$el.on('click.tree-path', 'ul.tree-path, [data-control="sidebar-labels"]', this.proxy(this.onNavigate))
+
+        this.$el.on('click.command', '[data-command]', this.proxy(this.onCommandClick))
+        
+        // Touch devices use double-tap for the navigation and single tap for selecting.
+        // Another option is checkboxes visible only on touch devices, but this approach
+        // will require more significant changes in the code for the touch device support.
+        if (!Modernizr.touch)
+            this.$el.on('click.item', '[data-type="media-item"]', this.proxy(this.onItemClick))
+        else 
+            this.$el.on('touchend', '[data-type="media-item"]', this.proxy(this.onItemTouch))
+
+        this.$el.on('change', '[data-control="sorting"]', this.proxy(this.onSortingChanged))
+        this.$el.on('keyup', '[data-control="search"]', this.proxy(this.onSearchChanged))
+        this.$el.on('mediarefresh', this.proxy(this.refresh))
+        this.$el.on('shown.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupShown))
+        this.$el.on('hidden.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupHidden))
+        this.$el.on('shown.oc.popup', '[data-command="move"]', this.proxy(this.onMovePopupShown))
+        this.$el.on('hidden.oc.popup', '[data-command="move"]', this.proxy(this.onMovePopupHidden))
 
         if (this.itemListElement)
-            this.itemListElement.addEventListener('mousedown', this.listMouseDownHandler)
+            this.itemListElement.addEventListener('mousedown', this.proxy(this.onListMouseDown))
     }
 
     MediaManager.prototype.unregisterHandlers = function() {
-        this.$el.off('dblclick', this.navigateHandler)
-        this.$el.off('click.tree-path', this.navigateHandler)
-        this.$el.off('click.command', this.commandClickHandler)
-        this.$el.off('click.item', this.itemClickHandler)
-        this.$el.off('change', '[data-control="sorting"]', this.sortingChangedHandler)
-        this.$el.off('keyup', '[data-control="search"]', this.searchChangedHandler)
-        this.$el.off('shown.oc.popup', '[data-command="create-folder"]', this.folderPopupShownHandler)
-        this.$el.off('hidden.oc.popup', '[data-command="create-folder"]', this.folderPopupHiddenHandler)
-        this.$el.off('shown.oc.popup', '[data-command="move"]', this.movePopupShownHandler)
-        this.$el.off('hidden.oc.popup', '[data-command="move"]', this.movePopupHiddenHandler)
+        this.$el.off('dblclick', this.proxy(this.onNavigate))
+        this.$el.off('click.tree-path', this.proxy(this.onNavigate))
+        this.$el.off('click.command', this.proxy(this.onCommandClick))
+        
+        if (!Modernizr.touch)
+            this.$el.off('click.item', this.proxy(this.onItemClick))
+        else
+            this.$el.off('touchend', '[data-type="media-item"]', this.proxy(this.onItemTouch))
+
+        this.$el.off('change', '[data-control="sorting"]', this.proxy(this.onSortingChanged))
+        this.$el.off('keyup', '[data-control="search"]', this.proxy(this.onSearchChanged))
+        this.$el.off('shown.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupShown))
+        this.$el.off('hidden.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupHidden))
+        this.$el.off('shown.oc.popup', '[data-command="move"]', this.proxy(this.onMovePopupShown))
+        this.$el.off('hidden.oc.popup', '[data-command="move"]', this.proxy(this.onMovePopupHidden))
 
         if (this.itemListElement) {
-            this.itemListElement.removeEventListener('mousedown', this.listMouseDownHandler)
-            this.itemListElement.removeEventListener('mousemove', this.listMouseMoveHandler)
+            this.itemListElement.removeEventListener('mousedown', this.proxy(this.onListMouseDown))
+            this.itemListElement.removeEventListener('mousemove', this.proxy(this.onListMouseMove))
         }
-        document.removeEventListener('mouseup', this.listMouseUpHandler)
 
-        this.navigateHandler = null
-        this.commandClickHandler = null
-        this.itemClickHandler = null
-        this.listMouseDownHandler = null
-        this.listMouseUpHandler = null
-        this.listMouseMoveHandler = null
-        this.sortingChangedHandler = null
-        this.searchChangedHandler = null
-        this.folderPopupShownHandler = null
-        this.folderPopupHiddenHandler = null
-        this.newFolderSubmitHandler = null
-        this.movePopupShownHandler = null
-        this.moveItemsSubmitHandler = null
-        this.movePopupHiddenHandler = null
+        document.removeEventListener('mouseup', this.proxy(this.onListMouseUp))
     }
 
     MediaManager.prototype.changeView = function(view) {
@@ -224,8 +185,20 @@
         if (this.isPreviewSidebarVisible()) {
             // Use the timeout to prevent too many AJAX requests
             // when the selection changes too quickly (with the keyboard arrows)
-            this.selectTimer = setTimeout(this.updateSidebarPreviewBound, 100) 
+            this.selectTimer = setTimeout(this.proxy(this.updateSidebarPreview), 100) 
         }
+    }
+
+    MediaManager.prototype.clearDblTouchTimer = function() {
+        if (this.dblTouchTimer === null)
+            return
+
+        clearTimeout(this.dblTouchTimer)
+        this.dblTouchTimer = null
+    }
+
+    MediaManager.prototype.clearDblTouchFlag = function() {
+        this.dblTouchFlag = false
     }
 
     //
@@ -274,8 +247,8 @@
         }).always(function() {
             $.oc.stripeLoadIndicator.hide()
         })
-            .done(this.afterNavigateBound)
-            .always(this.releaseNavigationAjaxBound)
+            .done(this.proxy(this.afterNavigate))
+            .always(this.proxy(this.releaseNavigationAjax))
     }
 
     MediaManager.prototype.releaseNavigationAjax = function() {
@@ -419,8 +392,8 @@
         this.sidebarThumbnailAjax = this.$form.request(this.options.alias+'::onGetSidebarThumbnail', {
             data: data
         })
-            .done(this.replaceSidebarPlaceholderBound)
-            .always(this.releaseSidebarThumbnailAjaxBound)
+            .done(this.proxy(this.replaceSidebarPlaceholder))
+            .always(this.proxy(this.releaseSidebarThumbnailAjax))
     }
 
     MediaManager.prototype.replaceSidebarPlaceholder = function(response) {
@@ -474,7 +447,7 @@
 
             this.activeThumbnailQueueLength++
 
-            this.handleThumbnailBatch(batch).always(this.placeholdersUpdatedBound)
+            this.handleThumbnailBatch(batch).always(this.proxy(this.placeholdersUpdated))
         }
     }
 
@@ -493,7 +466,7 @@
             data: data
         })
 
-        promise.done(this.replacePlaceholderBound)
+        promise.done(this.proxy(this.replacePlaceholder))
 
         return promise
     }
@@ -615,11 +588,11 @@
         }
 
         this.dropzone = new Dropzone(this.$el.get(0), uploaderOptions)
-        this.dropzone.on('addedfile', this.uploadFileAddedBound)
-        this.dropzone.on('totaluploadprogress', this.uploadUpdateTotalProgressBound)
-        this.dropzone.on('queuecomplete', this.uploadQueueCompleteBound)
-        this.dropzone.on('sending', this.uploadSendingBound)
-        this.dropzone.on('error', this.uploadErrorBound)
+        this.dropzone.on('addedfile', this.proxy(this.uploadFileAdded))
+        this.dropzone.on('totaluploadprogress', this.proxy(this.uploadUpdateTotalProgress))
+        this.dropzone.on('queuecomplete', this.proxy(this.uploadQueueComplete))
+        this.dropzone.on('sending', this.proxy(this.uploadSending))
+        this.dropzone.on('error', this.proxy(this.uploadError))
     }
 
     MediaManager.prototype.disableUploader = function() {
@@ -737,7 +710,7 @@
 
         this.clearSearchTrackInputTimer()
 
-        this.searchTrackInputTimer = window.setTimeout(this.updateSearchResultsBound, 300)
+        this.searchTrackInputTimer = window.setTimeout(this.proxy(this.updateSearchResults), 300)
     }
 
     //
@@ -760,7 +733,7 @@
             title: this.options.deleteConfirm,
             confirmButtonClass: 'btn-default',
             showCancelButton: true
-        }, this.deleteConfirmationBound)
+        }, this.proxy(this.deleteConfirmation))
     }
 
     MediaManager.prototype.deleteConfirmation = function(confirmed) {
@@ -786,7 +759,7 @@
             data: data
         }).always(function() {
             $.oc.stripeLoadIndicator.hide()
-        }).done(this.afterNavigateBound)
+        }).done(this.proxy(this.afterNavigate))
     }
 
     MediaManager.prototype.createFolder = function(ev) {
@@ -797,7 +770,7 @@
 
     MediaManager.prototype.onFolderPopupShown = function(ev, button, popup) {
         $(popup).find('input[name=name]').focus()
-        $(popup).on('submit.media', 'form', this.newFolderSubmitHandler)
+        $(popup).on('submit.media', 'form', this.proxy(this.onNewFolderSubmit))
     }
 
     MediaManager.prototype.onFolderPopupHidden = function(ev, button, popup) {
@@ -815,7 +788,7 @@
             data: data
         }).always(function() {
             $.oc.stripeLoadIndicator.hide()
-        }).done(this.folderCreatedBound)
+        }).done(this.proxy(this.folderCreated))
 
         ev.preventDefault()
         return false
@@ -824,7 +797,7 @@
     MediaManager.prototype.folderCreated = function() {
         this.$el.find('button[data-command="create-folder"]').popup('hide')
 
-        this.afterNavigateBound
+        this.afterNavigate()
     }
 
     MediaManager.prototype.moveItems = function(ev) {
@@ -859,7 +832,7 @@
     }
 
     MediaManager.prototype.onMovePopupShown = function(ev, button, popup) {
-        $(popup).on('submit.media', 'form', this.moveItemsSubmitHandler)
+        $(popup).on('submit.media', 'form', this.proxy(this.onMoveItemsSubmit))
     }
 
     MediaManager.prototype.onMoveItemsSubmit = function(ev) {
@@ -886,7 +859,7 @@
             data: data
         }).always(function() {
             $.oc.stripeLoadIndicator.hide()
-        }).done(this.itemsMovedBound)
+        }).done(this.proxy(this.itemsMoved))
 
         ev.preventDefault()
         return false
@@ -899,7 +872,7 @@
     MediaManager.prototype.itemsMoved = function() {
         this.$el.find('button[data-command="move"]').popup('hide')
 
-        this.afterNavigateBound
+        this.afterNavigate()
     }
 
     // EVENT HANDLERS
@@ -967,9 +940,24 @@
         this.selectItem(ev.currentTarget, ev.shiftKey)
     }
 
+    MediaManager.prototype.onItemTouch = function(ev) {
+        this.onItemClick(ev)
+
+        if (this.dblTouchFlag) {
+            this.onNavigate(ev)
+            this.dblTouchFlag = null
+        }
+        else
+            this.dblTouchFlag = true
+
+        this.clearDblTouchTimer()
+
+        this.dblTouchTimer = setTimeout(this.proxy(this.clearDblTouchFlag), 300) 
+    }
+
     MediaManager.prototype.onListMouseDown = function(ev) {
-        this.itemListElement.addEventListener('mousemove', this.listMouseMoveHandler)
-        document.addEventListener('mouseup', this.listMouseUpHandler)
+        this.itemListElement.addEventListener('mousemove', this.proxy(this.onListMouseMove))
+        document.addEventListener('mouseup', this.proxy(this.onListMouseUp))
 
         var pagePosition = this.getEventPagePosition(ev),
             relativePosition = this.getRelativePosition(this.itemListElement, pagePosition.x, pagePosition.y)
@@ -979,8 +967,8 @@
     }
 
     MediaManager.prototype.onListMouseUp = function(ev) {
-        this.itemListElement.removeEventListener('mousemove', this.listMouseMoveHandler)
-        document.removeEventListener('mouseup', this.listMouseUpHandler)
+        this.itemListElement.removeEventListener('mousemove', this.proxy(this.onListMouseMove))
+        document.removeEventListener('mouseup', this.proxy(this.onListMouseUp))
         $(document.body).removeClass('no-select')
 
         if (this.selectionStarted) {

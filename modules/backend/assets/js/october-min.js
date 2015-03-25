@@ -69,7 +69,24 @@ if($.oc===undefined)
 $.oc={}
 $.oc.escapeHtmlString=function(string){var htmlEscapes={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;','/':'&#x2F;'},htmlEscaper=/[&<>"'\/]/g
 return(''+string).replace(htmlEscaper,function(match){return htmlEscapes[match];})}
-+function($){"use strict";var TriggerOn=function(element,options){var $el=this.$el=$(element);this.options=options||{};if(this.options.triggerType!==false&&this.options.triggerAction===false)this.options.triggerAction=this.options.triggerType
++function($){"use strict";if($.oc===undefined)
+$.oc={}
+if($.oc.foundation===undefined)
+$.oc.foundation={}
+var Base=function(){this.proxiedMethods=[]
+this.proxyCounter=0}
+Base.prototype.dispose=function()
+{for(var index in this.proxiedMethods)
+this.proxiedMethods[index]=null
+this.proxiedMethods=null}
+Base.prototype.proxy=function(method){if(method.ocProxyId!==undefined){if(this.proxiedMethods[method.ocProxyId]===undefined)
+throw new Error('Proxied method is not found in the proxy method scope.')
+return this.proxiedMethods[method.ocProxyId]}
+this.proxyCounter++
+method.ocProxyId=this.proxyCounter
+this.proxiedMethods[method.ocProxyId]=method.bind(this)
+return this.proxiedMethods[method.ocProxyId]}
+$.oc.foundation.base=Base;}(window.jQuery);+function($){"use strict";var TriggerOn=function(element,options){var $el=this.$el=$(element);this.options=options||{};if(this.options.triggerType!==false&&this.options.triggerAction===false)this.options.triggerAction=this.options.triggerType
 if(this.options.triggerCondition===false)
 throw new Error('Trigger condition is not specified.')
 if(this.options.trigger===false)

@@ -2,17 +2,11 @@
  * Base class for OctoberCMS back-end classes.
  *
  * The class defines base functionality for dealing with memory management
- * and cleaning up bound (proxied) methods, references to the DOM elements
- * and timers.
+ * and cleaning up bound (proxied) methods.
  *
- * The class should be used as a parent class for JavaScript classes that
- * handle DOM events and require binding and unbinding methods to the events.
- * That is especially important for classes that should free the memory during
- * a single page execution.
- *
- * The base class defines the dispose method that cleans up references to the DOM
- * elements and proxied methods. If child classes implement their own dispose()
- * method, they should call the base class dispose method (see the example below).
+ * The base class defines the dispose method that cleans up proxied methods. 
+ * If child classes implement their own dispose() method, they should call 
+ * the base class dispose method (see the example below).
  *
  * Use the simple parasitic combination inheritance pattern to create child classes:
  * 
@@ -21,7 +15,7 @@
  *
  * var SubClass = function(params) {
  *     // Call the parent constructor
- *     Base.call()
+ *     Base.call(this)
  * }
  *
  * SubClass.prototype = Object.create(BaseProto)
@@ -51,45 +45,34 @@
 
     var Base = function() {
         this.proxiedMethods = []
-        this.domReferences = []
-        this.timers = []
+
+        this.proxyCounter = 0
     }
 
     Base.prototype.dispose = function()
     {
-        for (var proxyName in this.proxiedMethods)
-            this.proxiedMethods[proxyName] = null
+        for (var index in this.proxiedMethods)
+            this.proxiedMethods[index] = null
 
-        for (var domReference in this.domReferences)
-            this.domReferences[domReference] = null
-
-        for (var timer in this.timers) {
-            clearTimeout(this.timers[timer])
-            this.timers[timer] = null
-        }
+        this.proxiedMethods = null
     }
 
     /*
      * Creates a proxied method reference or returns an existing proxied method.
      */
-    Base.prototype.proxyMethod = function(method, proxyName) {
-        if (this.proxiedMethods[proxyName] === undefined)
-            return this.proxiedMethods[proxyName] = method.bind(this)
+    Base.prototype.proxy = function(method) {
+        if (method.ocProxyId !== undefined) {
+            if (this.proxiedMethods[method.ocProxyId] === undefined)
+                throw new Error('Proxied method is not found in the proxy method scope.')
 
-        return this.proxiedMethods[proxyName]
-    }
-
-    Base.prototype.setTimeout = function(timerName, method, delay) {
-        this.clearTimeout(timerName)
-
-        this.timers[timerName] = setTimeout(method, delay)
-    }
-
-    Base.prototype.clearTimeout = function(timerName) {
-        if (this.timers[timerName] !== undefined) {
-            clearTimeout(this.timers[timerName])
-            this.timers[timerName] = null
+            return this.proxiedMethods[method.ocProxyId]
         }
+
+        this.proxyCounter++
+        method.ocProxyId = this.proxyCounter
+        this.proxiedMethods[method.ocProxyId] = method.bind(this)
+
+        return this.proxiedMethods[method.ocProxyId]
     }
 
     $.oc.foundation.base = Base;

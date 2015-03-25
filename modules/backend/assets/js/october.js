@@ -9,6 +9,7 @@
 
 =require october.controls.js
 =require october.utils.js
+=require october.foundation.baseclass.js
 =require october.triggerapi.js
 =require october.dragscroll.js
 =require october.dragvalue.js
@@ -45,5 +46,4 @@
 =require october.autocomplete.js
 =require october.callout.js
 =require october.sidenav-tree.js
-
 */
