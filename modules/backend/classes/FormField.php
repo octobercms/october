@@ -487,6 +487,8 @@ class FormField
 
     /**
      * Returns a value suitable for the field id property.
+     * @param  string $suffix Specify a suffix string
+     * @return string
      */
     public function getId($suffix = null)
     {
