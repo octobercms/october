@@ -120,7 +120,7 @@ this.scrollClassContainer=this.options.scrollClassContainer?$(this.options.scrol
 if(this.options.scrollMarkerContainer)
 $(this.options.scrollMarkerContainer).append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))
 $el.mousewheel(function(event){if(!self.options.allowScroll)
-return;var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):((event.deltaFactor*event.deltaX)*-1)
+return;var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):(event.deltaFactor*event.deltaX)
 return!scrollWheel(offset)})
 $el.on('mousedown',function(event){startDrag(event)
 return false})
@@ -788,7 +788,7 @@ if(isTouch){this.$el.on('touchstart',function(event){var touchEvent=event.origin
 event.stopPropagation()}})}
 else{this.$thumb.on('mousedown',function(event){startDrag(event)})
 this.$track.on('mouseup',function(event){moveDrag(event)})}
-$el.mousewheel(function(event){var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):((event.deltaFactor*event.deltaX)*-1)
+$el.mousewheel(function(event){var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):(event.deltaFactor*event.deltaX)
 return!scrollWheel(offset*self.options.scrollSpeed)})
 $el.on('oc.scrollbar.gotoStart',function(event){self.options.vertical?$el.scrollTop(0):$el.scrollLeft(0)
 self.update()
