@@ -971,7 +971,7 @@ class RelationController extends ControllerBehavior
         /*
          * Pivot
          */
-        if ($this->manageMode == 'pivot' && isset($this->config->pivot)) {
+        if ($this->manageMode == 'pivot') {
             $config = $this->makeConfigForMode('manage', 'list');
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ManagePivotList';
@@ -1004,7 +1004,7 @@ class RelationController extends ControllerBehavior
         /*
          * List
          */
-        elseif ($this->manageMode == 'list' && isset($this->config->list)) {
+        elseif ($this->manageMode == 'list') {
             $config = $this->makeConfigForMode('manage', 'list');
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ManageList';
@@ -1042,7 +1042,7 @@ class RelationController extends ControllerBehavior
         /*
          * Form
          */
-        elseif ($this->manageMode == 'form' && isset($this->config->form)) {
+        elseif ($this->manageMode == 'form') {
 
             /*
              * Determine supplied form context
