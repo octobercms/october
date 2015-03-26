@@ -21,6 +21,7 @@ return [
         'ru' => 'Russian',
         'se' => 'Swedish',
         'tr' => 'Turkish',
+        'nb-no' => 'Norwegian (Bokmål)'
     ],
     'directory' => [
         'create_fail' => "Невозможно создать директорию: :name",

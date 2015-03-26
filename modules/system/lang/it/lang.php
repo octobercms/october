@@ -17,6 +17,7 @@ return [
         'it' => 'Italiano',
         'pt-br' => 'Portoghese (Brasile)',
         'fa' => 'Persian',
+        'nb-no' => 'Norvegese (Bokmål)'
     ],
     'directory' => [
         'create_fail' => "Impossibile creare la cartella: :name",

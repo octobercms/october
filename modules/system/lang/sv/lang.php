@@ -18,6 +18,7 @@ return [
         'ro' => 'Romana',
         'pt-br' => 'Brazilian Portuguese',
         'fa' => 'Persian',
+        'nb-no' => 'Norska (Bokmål)'
     ],
     'directory' => [
         'create_fail' => "Kunde inte skapa mapp: :name",

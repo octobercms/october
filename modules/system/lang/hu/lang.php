@@ -22,7 +22,8 @@ return [
         'ro' => 'Román',
         'ru' => 'Orosz',
         'se' => 'Svéd',
-        'tr' => 'Török'
+        'tr' => 'Török',
+        'nb-no' => 'Norvég (Bokmål)'
     ],
     'directory' => [
         'create_fail' => 'Nem hozható létre a könyvtár: :name'
