@@ -98,6 +98,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_SYSTEM,
                     'icon'        => 'icon-paint-brush',
                     'class'       => 'Backend\Models\BrandSettings',
+                    'permissions' => ['backend.manage_branding'],
                     'order'       => 500
                 ],
                 'editor' => [
@@ -134,7 +135,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_LOGS,
                     'icon'        => 'icon-lock',
                     'url'         => Backend::url('backend/accesslogs'),
-                    'permissions' => ['backend.access_admin_logs'],
+                    'permissions' => ['system.access_logs'],
                     'order'       => 800
                 ]
             ]);
@@ -151,6 +152,10 @@ class ServiceProvider extends ModuleServiceProvider
                 ],
                 'backend.manage_users' => [
                     'label' => 'system::lang.permissions.manage_other_administrators',
+                    'tab'   => 'system::lang.permissions.name'
+                ],
+                'backend.manage_branding' => [
+                    'label' => 'system::lang.permissions.manage_branding',
                     'tab'   => 'system::lang.permissions.name'
                 ]
             ]);

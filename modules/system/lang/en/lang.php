@@ -254,9 +254,11 @@ return [
         'name' => 'System',
         'manage_system_settings' => 'Manage system settings',
         'manage_software_updates' => 'Manage software updates',
+        'access_logs' => 'View system logs',
         'manage_mail_templates' => 'Manage mail templates',
         'manage_mail_settings' => 'Manage mail settings',
         'manage_other_administrators' => 'Manage other administrators',
-        'view_the_dashboard' => 'View the dashboard'
+        'view_the_dashboard' => 'View the dashboard',
+        'manage_branding' => 'Customize the back-end'
     ]
 ];
