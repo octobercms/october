@@ -432,7 +432,7 @@ class Lists extends WidgetBase
          * Apply a supplied search term for primary columns
          */
         if (count($primarySearchable) > 0) {
-            $query->orWhere(function ($innerQuery) use ($primarySearchable) {
+            $query->where(function ($innerQuery) use ($primarySearchable) {
                 $innerQuery->searchWhere($this->searchTerm, $primarySearchable);
             });
         }
@@ -658,6 +658,12 @@ class Lists extends WidgetBase
         }
         else {
             $label = studly_case($name);
+        }
+
+        if (strpos($name, '[') !== false && strpos($name, ']') !== false) {
+            $config['valueFrom'] = $name;
+            $config['sortable'] = false;
+            $config['searchable'] = false;
         }
 
         $columnType = isset($config['type']) ? $config['type'] : null;

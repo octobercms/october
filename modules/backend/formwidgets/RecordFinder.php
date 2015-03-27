@@ -1,8 +1,8 @@
 <?php namespace Backend\FormWidgets;
 
 use Lang;
+use ApplicationException;
 use Backend\Classes\FormWidgetBase;
-use SystemException;
 
 /**
  * Record Finder
@@ -55,16 +55,6 @@ class RecordFinder extends FormWidgetBase
     protected $defaultAlias = 'recordfinder';
 
     /**
-     * @var string Relationship type
-     */
-    public $relationType;
-
-    /**
-     * @var string Relationship name
-     */
-    public $relationName;
-
-    /**
      * @var Model Relationship model
      */
     public $relationModel;
@@ -91,16 +81,6 @@ class RecordFinder extends FormWidgetBase
             'descriptionFrom',
         ]);
 
-        $this->relationName = $this->valueFrom;
-        $this->relationType = $this->model->getRelationType($this->relationName);
-
-        if (!$this->model->hasRelation($this->relationName)) {
-            throw new SystemException(Lang::get('backend::lang.model.missing_relation', [
-                'class' => get_class($this->model),
-                'relation' => $this->relationName
-            ]));
-        }
-
         if (post('recordfinder_flag')) {
             $this->listWidget = $this->makeListWidget();
             $this->listWidget->bindToController();
@@ -118,6 +98,25 @@ class RecordFinder extends FormWidgetBase
 
             $this->searchWidget->setActiveTerm(null);
         }
+    }
+
+    /**
+     * Returns the model of a relation type,
+     * supports nesting via HTML array.
+     * @return Relation
+     */
+    protected function getRelationModel()
+    {
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+
+        if (!$model->hasRelation($attribute)) {
+            throw new ApplicationException(Lang::get('backend::lang.model.missing_relation', [
+                'class' => get_class($model),
+                'relation' => $attribute
+            ]));
+        }
+
+        return $model->makeRelation($attribute);
     }
 
     /**
@@ -220,7 +219,7 @@ class RecordFinder extends FormWidgetBase
     protected function makeListWidget()
     {
         $config = $this->makeConfig($this->getConfig('list'));
-        $config->model = $this->model->makeRelation($this->relationName);
+        $config->model = $this->getRelationModel();
         $config->alias = $this->alias . 'List';
         $config->showSetup = false;
         $config->showCheckboxes = false;

@@ -7,7 +7,6 @@ use Event;
 use Input;
 use Redirect;
 use Backend;
-use Backend\Classes\FormField;
 use Backend\Classes\ControllerBehavior;
 use October\Rain\Router\Helper as RouterHelper;
 use ApplicationException;
@@ -22,6 +21,8 @@ use Exception;
  */
 class FormController extends ControllerBehavior
 {
+    use \Backend\Traits\FormModelSaver;
+
     /**
      * @var string Default context for "create" pages.
      */
@@ -58,11 +59,6 @@ class FormController extends ControllerBehavior
      * @var string The context to pass to the form widget.
      */
     protected $context;
-
-    /**
-     * @var array List of prepared models that require saving.
-     */
-    protected $modelsToSave = [];
 
     /**
      * @var Model The initialized model used by the form.
@@ -701,43 +697,4 @@ class FormController extends ControllerBehavior
         });
     }
 
-    //
-    // Internals
-    //
-
-    protected function prepareModelsToSave($model, $saveData)
-    {
-        $this->modelsToSave = [];
-        $this->setModelAttributes($model, $saveData);
-        return $this->modelsToSave;
-    }
-
-    /**
-     * Sets a data collection to a model attributes, relations will also be set.
-     * @param array $saveData Data to save.
-     * @param Model $model Model to save to
-     * @return array The collection of models to save.
-     */
-    protected function setModelAttributes($model, $saveData)
-    {
-        $this->modelsToSave[] = $model;
-
-        if (!is_array($saveData)) {
-            return;
-        }
-
-        $singularTypes = ['belongsTo', 'hasOne', 'morphOne'];
-        foreach ($saveData as $attribute => $value) {
-            if (
-                is_array($value) &&
-                $model->hasRelation($attribute) &&
-                in_array($model->getRelationType($attribute), $singularTypes)
-            ) {
-                $this->setModelAttributes($model->{$attribute}, $value);
-            }
-            elseif ($value !== FormField::NO_SAVE_DATA) {
-                $model->{$attribute} = $value;
-            }
-        }
-    }
 }
