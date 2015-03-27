@@ -89,15 +89,15 @@ self.onConditionChanged()}
 TriggerOn.prototype.onConditionChanged=function(){if(this.triggerCondition=='checked'){this.updateTarget($(this.options.trigger+':checked',this.triggerParent).length>0)}
 else if(this.triggerCondition=='value'){var trigger=$(this.options.trigger+':checked',this.triggerParent);if(trigger.length){this.updateTarget(trigger.val()==this.triggerConditionValue)}else{this.updateTarget($(this.options.trigger,this.triggerParent).val()==this.triggerConditionValue)}}}
 TriggerOn.prototype.updateTarget=function(status){if(this.options.triggerAction=='show')
-this.$el.toggleClass('hide',!status).trigger('hide',[!status])
+this.$el.toggleClass('hide',!status).trigger('hide.oc.triggerapi',[!status])
 else if(this.options.triggerAction=='hide')
-this.$el.toggleClass('hide',status).trigger('hide',[status])
+this.$el.toggleClass('hide',status).trigger('hide.oc.triggerapi',[status])
 else if(this.options.triggerAction=='enable')
-this.$el.prop('disabled',!status).trigger('disable',[!status]).toggleClass('control-disabled',!status)
+this.$el.prop('disabled',!status).trigger('disable.oc.triggerapi',[!status]).toggleClass('control-disabled',!status)
 else if(this.options.triggerAction=='disable')
-this.$el.prop('disabled',status).trigger('disable',[status]).toggleClass('control-disabled',status)
+this.$el.prop('disabled',status).trigger('disable.oc.triggerapi',[status]).toggleClass('control-disabled',status)
 else if(this.options.triggerAction=='empty'&&status)
-this.$el.trigger('empty').val('')
+this.$el.trigger('empty.oc.triggerapi').val('')
 if(this.options.triggerAction=='show'||this.options.triggerAction=='hide')
 this.fixButtonClasses()
 $(window).trigger('resize')}
