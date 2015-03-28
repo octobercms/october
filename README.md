@@ -12,7 +12,7 @@ The best place to learn October is by [reading the documentation](http://october
 
 ### Installing October
 
-Instructions on how to install October can be found at the [installation guide](http://octobercms.com/docs/help/install).
+Instructions on how to install October can be found at the [installation guide](http://octobercms.com/docs/help/install) or the [resources page](http://octobercms.com/resources).
 
 ### Development Team
 
