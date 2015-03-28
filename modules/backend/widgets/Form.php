@@ -775,9 +775,17 @@ class Form extends WidgetBase
             $field = $this->allFields[$field];
         }
 
-        $defaultValue = (!$this->model->exists && $field->defaults !== '')
-            ? $field->defaults
-            : null;
+        $defaultValue = null;
+
+        if (!$this->model->exists) {
+            if ($field->defaultFrom) {
+                list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->defaultFrom);
+                $defaultValue = $model->{$attribute};
+            }
+            elseif ($field->defaults !== '') {
+                $defaultValue = $field->defaults;
+            }
+        }
 
         return $field->getValueFromData($this->data, $defaultValue);
     }
@@ -863,34 +871,35 @@ class Form extends WidgetBase
 
         /*
          * Handle fields that differ by fieldName and valueFrom
+         * @todo @deprecated / Not needed? Remove if year >= 2016
          */
-        $remappedFields = [];
-        foreach ($this->allFields as $field) {
-            if ($field->fieldName == $field->valueFrom) {
-                continue;
-            }
+        // $remappedFields = [];
+        // foreach ($this->allFields as $field) {
+        //     if ($field->fieldName == $field->valueFrom) {
+        //         continue;
+        //     }
 
-            /*
-             * Get the value, remove it from the data collection
-             */
-            $parts = HtmlHelper::nameToArray($field->fieldName);
-            $dotted = implode('.', $parts);
-            $value = array_get($data, $dotted);
-            array_forget($data, $dotted);
+        //     /*
+        //      * Get the value, remove it from the data collection
+        //      */
+        //     $parts = HtmlHelper::nameToArray($field->fieldName);
+        //     $dotted = implode('.', $parts);
+        //     $value = array_get($data, $dotted);
+        //     array_forget($data, $dotted);
 
-            /*
-             * Set the new value to the data collection
-             */
-            $parts = HtmlHelper::nameToArray($field->valueFrom);
-            $dotted = implode('.', $parts);
-            array_set($remappedFields, $dotted, $value);
-        }
+        //     /*
+        //      * Set the new value to the data collection
+        //      */
+        //     $parts = HtmlHelper::nameToArray($field->valueFrom);
+        //     $dotted = implode('.', $parts);
+        //     array_set($remappedFields, $dotted, $value);
+        // }
 
-        if (count($remappedFields) > 0) {
-            $data = array_merge($remappedFields, $data);
-            // Could be useful one day for field name collisions
-            // $data['X_OCTOBER_REMAPPED_FIELDS'] = $remappedFields;
-        }
+        // if (count($remappedFields) > 0) {
+        //     $data = array_merge($remappedFields, $data);
+        //     // Could be useful one day for field name collisions
+        //     // $data['X_OCTOBER_REMAPPED_FIELDS'] = $remappedFields;
+        // }
 
         return $data;
     }

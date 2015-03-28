@@ -155,6 +155,11 @@ class RelationController extends ControllerBehavior
     protected $manageId;
 
     /**
+     * @var int Foeign id of a selected pivot record.
+     */
+    protected $foreignId;
+
+    /**
      * @var string Active session key, used for deferred bindings.
      */
     public $sessionKey;
@@ -305,6 +310,7 @@ class RelationController extends ControllerBehavior
         $this->viewMode = $this->evalViewMode();
         $this->manageMode = $this->evalManageMode();
         $this->manageId = post('manage_id');
+        $this->foreignId = post('foreign_id');
 
         /*
          * Toolbar widget
@@ -676,23 +682,10 @@ class RelationController extends ControllerBehavior
          */
         elseif ($this->manageMode == 'form') {
 
-            /*
-             * Determine supplied form context
-             */
-            $manageConfig = isset($this->config->manage) ? $this->config->manage : [];
-
-            if ($context = array_get($manageConfig, 'context')) {
-                if (is_array($context)) {
-                    $context = $this->manageId
-                        ? array_get($context, 'update')
-                        : array_get($context, 'create');
-                }
-            }
-
             $config = $this->makeConfigForMode('manage', 'form');
             $config->model = $this->relationModel;
             $config->arrayName = class_basename($this->relationModel);
-            $config->context = $context ?: 'relation';
+            $config->context = $this->evalFormContext('manage', !!$this->manageId);
             $config->alias = $this->alias . 'ManageForm';
 
             /*
@@ -740,7 +733,7 @@ class RelationController extends ControllerBehavior
         $config = $this->makeConfigForMode('pivot', 'form');
         $config->model = $this->relationModel;
         $config->arrayName = class_basename($this->relationModel);
-        $config->context = 'relation';
+        $config->context = $this->evalFormContext('pivot', !!$this->manageId);
         $config->alias = $this->alias . 'ManagePivotForm';
 
         /*
@@ -758,6 +751,11 @@ class RelationController extends ControllerBehavior
             }
         }
         else {
+            if ($this->foreignId && ($foreignModel = $this->relationModel->find($this->foreignId))) {
+                $foreignModel->exists = false;
+                $config->model = $foreignModel;
+            }
+
             $pivotModel = $this->relationObject->newPivot();
             $config->model->setRelation('pivot', $pivotModel);
         }
@@ -1069,7 +1067,7 @@ class RelationController extends ControllerBehavior
     {
         $this->beforeAjax();
 
-        $this->vars['foreignId'] = post('foreign_id', post('checked'));
+        $this->vars['foreignId'] = $this->foreignId ?: post('checked');
         return $this->relationMakePartial('pivot_form');
     }
 
@@ -1077,8 +1075,7 @@ class RelationController extends ControllerBehavior
     {
         $this->beforeAjax();
 
-        $foreignIds = (array) post('foreign_id');
-        foreach ($foreignIds as $foreignId) {
+        foreach ((array) $this->foreignId as $foreignId) {
 
             /*
              * Check for existing relation
@@ -1239,6 +1236,28 @@ class RelationController extends ControllerBehavior
                 if ($this->eventTarget == 'button-add') return 'list';
                 else return 'form';
         }
+    }
+
+    /**
+     * Determine supplied form context.
+     */
+    protected function evalFormContext($mode = 'manage', $exists = false)
+    {
+        $config = isset($this->config->{$mode}) ? $this->config->{$mode} : [];
+
+        if ($context = array_get($config, 'context')) {
+            if (is_array($context)) {
+                $context = $exists
+                    ? array_get($context, 'update')
+                    : array_get($context, 'create');
+            }
+        }
+
+        if (!$context) {
+            $context = $exists ? 'update' : 'create';
+        }
+
+        return $context;
     }
 
     /**
