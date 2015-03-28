@@ -34,6 +34,7 @@
         this.navigationAjax = null
         this.dblTouchTimer = null
         this.dblTouchFlag = null
+        this.itemListPosition = null
 
         //
         // Initialization
@@ -157,15 +158,15 @@
     }
 
     MediaManager.prototype.initScroll = function() {
-        this.$el.find('[data-control="item-list"]').scrollpad()
+        this.$el.find('.control-scrollpad').scrollpad()
     }
 
     MediaManager.prototype.removeScroll = function() {
-        this.$el.find('[data-control="item-list"]').scrollpad('dispose')
+        this.$el.find('.control-scrollpad').scrollpad('dispose')
     }
 
     MediaManager.prototype.scrollToTop = function() {
-        this.$el.find('[data-control="item-list"]').scrollpad('scrollToStart')
+        this.$el.find('.control-scrollpad').scrollpad('scrollToStart')
     }
 
     //
@@ -520,11 +521,11 @@
     // Drag-select
     //
 
-    MediaManager.prototype.getRelativePosition = function(element, pageX, pageY) {
-        var absolutePosition = $.oc.foundation.element.absolutePosition(element)
+    MediaManager.prototype.getRelativePosition = function(element, pageX, pageY, startPosition) {
+        var absolutePosition = startPosition !== undefined ? startPosition : $.oc.foundation.element.absolutePosition(element, true)
 
         return {
-            x: (pageX - absolutePosition.left + this.scrollContentElement.scrollLeft),
+            x: (pageX - absolutePosition.left), // There is no horizontal scroll
             y: (pageY - absolutePosition.top + this.scrollContentElement.scrollTop)
         }
     }
@@ -937,8 +938,10 @@
         this.itemListElement.addEventListener('mousemove', this.proxy(this.onListMouseMove))
         document.addEventListener('mouseup', this.proxy(this.onListMouseUp))
 
+        this.itemListPosition = $.oc.foundation.element.absolutePosition(this.itemListElement, true)
+
         var pagePosition = $.oc.foundation.event.pageCoordinates(ev),
-            relativePosition = this.getRelativePosition(this.itemListElement, pagePosition.x, pagePosition.y)
+            relativePosition = this.getRelativePosition(this.itemListElement, pagePosition.x, pagePosition.y, this.itemListPosition)
 
         this.selectionStartPoint = relativePosition
         this.selectionStarted = false
@@ -951,11 +954,11 @@
 
         if (this.selectionStarted) {
             var items = this.itemListElement.querySelectorAll('[data-type="media-item"]:not([data-root])'),
-                selectionPosition = $.oc.foundation.element.absolutePosition(this.selectionMarker)
+                selectionPosition = $.oc.foundation.element.absolutePosition(this.selectionMarker, true)
 
             for (var index = 0, len = items.length; index < len; index++) {
                 var item = items[index],
-                    itemPosition = $.oc.foundation.element.absolutePosition(item)
+                    itemPosition = $.oc.foundation.element.absolutePosition(item, true)
 
                 if (this.doObjectsCollide(
                         selectionPosition.top,
@@ -989,7 +992,7 @@
 
     MediaManager.prototype.onListMouseMove = function(ev) {
         var pagePosition = $.oc.foundation.event.pageCoordinates(ev),
-            relativePosition = this.getRelativePosition(this.itemListElement, pagePosition.x, pagePosition.y)
+            relativePosition = this.getRelativePosition(this.itemListElement, pagePosition.x, pagePosition.y, this.itemListPosition)
 
         var deltaX = relativePosition.x - this.selectionStartPoint.x,
             deltaY = relativePosition.y - this.selectionStartPoint.y

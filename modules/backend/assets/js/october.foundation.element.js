@@ -42,15 +42,23 @@
                 el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
         },
 
-        absolutePosition: function(element) {
-            var top = document.body.scrollTop,
+        /*
+         * Returns element absolution position.
+         * If the second parameter value is false, the scrolling
+         * won't be added to the result (which could improve the performance).
+         */
+        absolutePosition: function(element, ignoreScrolling) {
+            var top = ignoreScrolling === true ? 0 : document.body.scrollTop,
                 left = 0
 
             do {
                 top += element.offsetTop || 0;
-                top -= element.scrollTop || 0;
-                left += element.offsetLeft || 0;
-                element = element.offsetParent;
+
+                if (ignoreScrolling !== true)
+                    top -= element.scrollTop || 0
+
+                left += element.offsetLeft || 0
+                element = element.offsetParent
             } while(element)
 
             return {

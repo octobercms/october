@@ -84,9 +84,6 @@ div[data-control="media-manager"] .media-list li h4 a:hover {
   color: #0181b9;
   text-decoration: none;
 }
-div[data-control="media-manager"] .media-list li:hover h4 a {
-  display: block;
-}
 div[data-control="media-manager"] .media-list li p.size {
   font-size: 12px;
   color: #95a5a6;
@@ -176,9 +173,6 @@ div[data-control="media-manager"] .media-list.list h4 {
 div[data-control="media-manager"] .media-list.list h4 a {
   right: 15px;
 }
-div[data-control="media-manager"] .media-list.list li:hover h4 {
-  padding-right: 35px;
-}
 div[data-control="media-manager"] .media-list.tiles li {
   width: 167px;
   margin-bottom: 25px;
@@ -231,9 +225,6 @@ div[data-control="media-manager"] .media-list.tiles li.selected .icon-container 
 }
 div[data-control="media-manager"] .media-list.tiles li.selected h4 {
   color: #2581b8;
-}
-div[data-control="media-manager"] .media-list.tiles li:hover h4 {
-  padding-right: 20px;
 }
 div[data-control="media-manager"] .media-list.tiles i.icon-chain-broken {
   margin-top: 47px;
@@ -309,6 +300,11 @@ div[data-control="media-manager"] .list-container li.no-data {
 div[data-control="media-manager"] [data-control="item-list"] {
   position: relative;
   display: table-cell;
+}
+div[data-control="media-manager"] .control-scrollpad {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 div[data-control="media-manager"] .scroll-wrapper {
   position: relative;
@@ -405,18 +401,27 @@ body:not(.no-select) div[data-control="media-manager"] .media-list.tiles li:hove
 body:not(.no-select) div[data-control="media-manager"] .media-list.tiles li:hover h4 {
   color: #2581b8;
 }
-body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover:not(:active) {
+body:not(.no-select) div[data-control="media-manager"] .media-list.tiles li:hover h4 {
+  padding-right: 20px!important;
+}
+body:not(.no-select) div[data-control="media-manager"] .media-list.list li:hover:not(:active) {
   background: #4da7e8 !important;
 }
-body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover:not(:active) i,
-body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover:not(:active) p.size {
+body:not(.no-select) div[data-control="media-manager"] .media-list.list li:hover:not(:active) i,
+body:not(.no-select) div[data-control="media-manager"] .media-list.list li:hover:not(:active) p.size {
   color: #ecf0f1;
 }
-body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover:not(:active) h4 {
+body:not(.no-select) div[data-control="media-manager"] .media-list.list li:hover:not(:active) h4 {
   color: white;
 }
-body:not(.no-select) div[data-control="media-manager"] .media-list .list li:hover:not(:active) .icon-container {
+body:not(.no-select) div[data-control="media-manager"] .media-list.list li:hover:not(:active) .icon-container {
   border-right-color: #4da7e8 !important;
+}
+body:not(.no-select) div[data-control="media-manager"] .media-list.list li:hover h4 {
+  padding-right: 35px!important;
+}
+body:not(.no-select) div[data-control="media-manager"] .media-list li:hover h4 a {
+  display: block;
 }
 @media (max-width: 1280px) {
   div[data-control="media-manager"] .media-list.list li {

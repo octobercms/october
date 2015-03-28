@@ -96,8 +96,11 @@ if(el.classList)
 el.classList.add(className);else
 el.className+=' '+className;},removeClass:function(el,className){if(el.classList)
 el.classList.remove(className);else
-el.className=el.className.replace(new RegExp('(^|\\b)'+className.split(' ').join('|')+'(\\b|$)','gi'),' ');},absolutePosition:function(element){var top=document.body.scrollTop,left=0
-do{top+=element.offsetTop||0;top-=element.scrollTop||0;left+=element.offsetLeft||0;element=element.offsetParent;}while(element)
+el.className=el.className.replace(new RegExp('(^|\\b)'+className.split(' ').join('|')+'(\\b|$)','gi'),' ');},absolutePosition:function(element,ignoreScrolling){var top=ignoreScrolling===true?0:document.body.scrollTop,left=0
+do{top+=element.offsetTop||0;if(ignoreScrolling!==true)
+top-=element.scrollTop||0
+left+=element.offsetLeft||0
+element=element.offsetParent}while(element)
 return{top:top,left:left}},getCaretPosition:function(input){if(document.selection){var selection=document.selection.createRange()
 selection.moveStart('character',-input.value.length)
 return selection.text.length}

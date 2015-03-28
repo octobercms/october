@@ -147,10 +147,6 @@ div[data-control="media-manager"] {
                 }
             }
 
-            &:hover h4 a {
-                display: block;
-            }
-
             p.size {
                 font-size: 12px;
                 color: #95a5a6;
@@ -240,10 +236,6 @@ div[data-control="media-manager"] {
                     right: 15px;
                 }
             }
-
-            li:hover h4 {
-                padding-right: 35px;
-            }
         }
 
         &.tiles {
@@ -284,10 +276,6 @@ div[data-control="media-manager"] {
 
             li.selected {
                 .media-selected-tiles();
-            }
-
-            li:hover h4 {
-                padding-right: 20px;
             }
 
             i.icon-chain-broken {
@@ -363,6 +351,12 @@ div[data-control="media-manager"] {
     [data-control="item-list"] {
         position: relative;
         display: table-cell;
+    }
+
+    .control-scrollpad {
+        position: absolute;
+        left: 0;
+        top: 0;
     }
 
     .scroll-wrapper {
@@ -473,11 +467,25 @@ body:not(.no-select) {
             li:hover {
                 .media-selected-tiles();
             }
+
+            li:hover h4 {
+                padding-right: 20px!important;
+            }
         }
 
-        .list {
+        &.list {
             li:hover:not(:active) {
                 .media-selected-list();
+            }
+
+            li:hover h4 {
+                padding-right: 35px!important;
+            }
+        }
+
+        li {
+            &:hover h4 a {
+                display: block;
             }
         }
     }
