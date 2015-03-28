@@ -310,6 +310,9 @@ div[data-control="media-manager"] [data-control="item-list"] {
   position: relative;
   display: table-cell;
 }
+div[data-control="media-manager"] .scroll-wrapper {
+  position: relative;
+}
 div[data-control="media-manager"] table.table {
   table-layout: fixed;
   margin-bottom: 0;

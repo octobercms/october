@@ -244,7 +244,7 @@
     }
 
     DropdownProcessor.prototype.getAbsolutePosition = function(element) {
-        // TODO: refactor to a core library
+        // TODO: use the foundation library
 
         var top = document.body.scrollTop,
             left = 0

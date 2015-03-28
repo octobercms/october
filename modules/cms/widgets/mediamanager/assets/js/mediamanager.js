@@ -2,7 +2,7 @@
  * Media manager control class
  *
  * Dependences:
- * - Scrollbar (october.scrollbar.js)
+ * - Scrollpad (october.scrollpad.js)
  */
 +function ($) { "use strict";
 
@@ -24,6 +24,7 @@
         this.selectTimer = null
         this.sidebarPreviewElement = null
         this.itemListElement = null
+        this.scrollContentElement = null
         this.thumbnailQueue = []
         this.activeThumbnailQueueLength = 0
         this.sidebarThumbnailAjax = null
@@ -51,12 +52,15 @@
         this.clearSearchTrackInputTimer()
         this.releaseNavigationAjax()
         this.clearDblTouchTimer()
+        this.removeScroll()
 
+        this.$el.removeData('oc.mediaManager')
         this.$el = null
         this.$form = null
 
         this.sidebarPreviewElement = null
         this.itemListElement = null
+        this.scrollContentElement = null
         this.sidebarThumbnailAjax = null
         this.selectionMarker = null
         this.thumbnailQueue = []
@@ -70,11 +74,13 @@
 
     MediaManager.prototype.init = function() {
         this.itemListElement = this.$el.find('[data-control="item-list"]').get(0)
+        this.scrollContentElement = this.itemListElement.querySelector('.scroll-wrapper')
         this.registerHandlers()
 
         this.updateSidebarPreview()
         this.generateThumbnails()
         this.initUploader()
+        this.initScroll()
     }
 
     MediaManager.prototype.registerHandlers = function() {
@@ -150,6 +156,18 @@
         return this.$el.find('[data-type="search-mode"]').val() == 'true' 
     }
 
+    MediaManager.prototype.initScroll = function() {
+        this.$el.find('[data-control="item-list"]').scrollpad()
+    }
+
+    MediaManager.prototype.removeScroll = function() {
+        this.$el.find('[data-control="item-list"]').scrollpad('dispose')
+    }
+
+    MediaManager.prototype.scrollToTop = function() {
+        this.$el.find('[data-control="item-list"]').scrollpad('scrollToStart')
+    }
+
     //
     // Selecting
     //
@@ -215,6 +233,7 @@
     }
 
     MediaManager.prototype.afterNavigate = function() {
+        this.scrollToTop()
         this.generateThumbnails()
         this.updateSidebarPreview(true)
     }
@@ -501,53 +520,12 @@
     // Drag-select
     //
 
-    MediaManager.prototype.getAbsolutePosition = function(element) {
-        // TODO: refactor to a core library
-
-        var top = document.body.scrollTop,
-            left = 0
-
-        do {
-            top += element.offsetTop || 0;
-            top -= element.scrollTop || 0;
-            left += element.offsetLeft || 0;
-            element = element.offsetParent;
-        } while(element)
-
-        return {
-            top: top,
-            left: left
-        }
-    }
-
-    MediaManager.prototype.getEventPagePosition = function(ev) {
-        // TODO: refactor to a core library
-
-        if (ev.pageX || ev.pageY) {
-            return {
-                x: ev.pageX,
-                y: ev.pageY
-            }
-        }
-        else if (ev.clientX || ev.clientY) {
-            return {
-                x: (ev.clientX + document.body.scrollLeft + document.documentElement.scrollLeft),
-                y: (ev.clientY + document.body.scrollTop + document.documentElement.scrollTop)
-            }
-        }
-
-        return {
-            x: 0,
-            y: 0
-        }
-    }
-
     MediaManager.prototype.getRelativePosition = function(element, pageX, pageY) {
-        var absolutePosition = this.getAbsolutePosition(element)
+        var absolutePosition = $.oc.foundation.element.absolutePosition(element)
 
         return {
-            x: (pageX - absolutePosition.left),
-            y: (pageY - absolutePosition.top)
+            x: (pageX - absolutePosition.left + this.scrollContentElement.scrollLeft),
+            y: (pageY - absolutePosition.top + this.scrollContentElement.scrollTop)
         }
     }
 
@@ -558,7 +536,7 @@
         this.selectionMarker = document.createElement('div')
         this.selectionMarker.setAttribute('data-control', 'selection-marker')
 
-        this.itemListElement.insertBefore(this.selectionMarker, this.itemListElement.firstChild)
+        this.scrollContentElement.insertBefore(this.selectionMarker, this.scrollContentElement.firstChild)
     }
 
     MediaManager.prototype.doObjectsCollide = function(aTop, aLeft, aWidth, aHeight, bTop, bLeft, bWidth, bHeight) {
@@ -959,7 +937,7 @@
         this.itemListElement.addEventListener('mousemove', this.proxy(this.onListMouseMove))
         document.addEventListener('mouseup', this.proxy(this.onListMouseUp))
 
-        var pagePosition = this.getEventPagePosition(ev),
+        var pagePosition = $.oc.foundation.event.pageCoordinates(ev),
             relativePosition = this.getRelativePosition(this.itemListElement, pagePosition.x, pagePosition.y)
 
         this.selectionStartPoint = relativePosition
@@ -973,11 +951,11 @@
 
         if (this.selectionStarted) {
             var items = this.itemListElement.querySelectorAll('[data-type="media-item"]:not([data-root])'),
-                selectionPosition = this.getAbsolutePosition(this.selectionMarker)
+                selectionPosition = $.oc.foundation.element.absolutePosition(this.selectionMarker)
 
             for (var index = 0, len = items.length; index < len; index++) {
                 var item = items[index],
-                    itemPosition = this.getAbsolutePosition(item)
+                    itemPosition = $.oc.foundation.element.absolutePosition(item)
 
                 if (this.doObjectsCollide(
                         selectionPosition.top,
@@ -1010,7 +988,7 @@
     }
 
     MediaManager.prototype.onListMouseMove = function(ev) {
-        var pagePosition = this.getEventPagePosition(ev),
+        var pagePosition = $.oc.foundation.event.pageCoordinates(ev),
             relativePosition = this.getRelativePosition(this.itemListElement, pagePosition.x, pagePosition.y)
 
         var deltaX = relativePosition.x - this.selectionStartPoint.x,

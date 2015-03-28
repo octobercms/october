@@ -1,0 +1,98 @@
+.scrollpad-scrollbar-size-tester {
+    width: 50px;
+    height: 50px;
+    overflow-y: scroll;
+    position: absolute;
+    top: -200px;
+    left: -200px;
+
+    div {
+        height: 100px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+}
+
+div.control-scrollpad {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    > div {
+        overflow: hidden;
+        overflow-y: scroll;
+        height: 100%;
+
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+    }
+
+    &[data-direction=horizontal] > div {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        width: 100%;
+
+        &::-webkit-scrollbar {
+            width: auto;
+            height: 0;
+        }
+    }
+
+    > .scrollpad-scrollbar {
+        z-index: 199; // Be careful here
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 11px;
+        background-color: @color-scrollbar-track;
+        opacity: 0;
+        overflow: hidden;
+        .border-radius(5px);
+        .transition(opacity 0.3s);
+
+        .drag-handle {
+            position: absolute;
+            right: 2px;
+            min-height: 10px;
+            width: 7px;
+            background-color: @color-scrollbar-thumb;
+            .border-radius(5px);
+        }
+
+        &:hover {
+            opacity: 0.7;
+            .transition(opacity 0 linear);
+        }
+
+        &[data-visible] {
+            opacity: 0.7;
+        }
+
+        &[data-hidden] {
+            display: none;
+        }
+    }
+
+    &[data-direction=horizontal] > .scrollpad-scrollbar {
+        top: auto;
+        left: 0;
+        width: auto;
+        height: 11px;
+
+        .drag-handle {
+            right: auto;
+            top: 2px;
+            height: 7px;
+            min-height: 0;
+            min-width: 10px;
+            width: auto;
+        }
+    }
+}

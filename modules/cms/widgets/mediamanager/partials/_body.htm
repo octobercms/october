@@ -29,9 +29,11 @@
                                     <div class="layout">
                                         <div class="layout-row">
                                             <!-- Main area - list -->
-                                            <div data-control="item-list">
-                                                <div id="<?= $this->getId('item-list') ?>" >
-                                                    <?= $this->makePartial('item-list') ?>
+                                            <div data-control="item-list" class="control-scrollpad">
+                                                <div class="scroll-wrapper"> <!-- This element is required for the scrollpad control -->
+                                                    <div id="<?= $this->getId('item-list') ?>" >
+                                                        <?= $this->makePartial('item-list') ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -1,4 +1,6 @@
 /*
+ * October JavaScript foundation library.
+ * 
  * Base class for OctoberCMS back-end classes.
  *
  * The class defines base functionality for dealing with memory management
@@ -61,17 +63,15 @@
      * Creates a proxied method reference or returns an existing proxied method.
      */
     Base.prototype.proxy = function(method) {
-        if (method.ocProxyId !== undefined) {
-            if (this.proxiedMethods[method.ocProxyId] === undefined)
-                throw new Error('Proxied method is not found in the proxy method scope.')
-
-            return this.proxiedMethods[method.ocProxyId]
+        if (method.ocProxyId === undefined) {
+            this.proxyCounter++
+            method.ocProxyId = this.proxyCounter
         }
 
-        this.proxyCounter++
-        method.ocProxyId = this.proxyCounter
-        this.proxiedMethods[method.ocProxyId] = method.bind(this)
+        if (this.proxiedMethods[method.ocProxyId] !== undefined)
+            return this.proxiedMethods[method.ocProxyId]
 
+        this.proxiedMethods[method.ocProxyId] = method.bind(this)
         return this.proxiedMethods[method.ocProxyId]
     }
 
