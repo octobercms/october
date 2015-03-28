@@ -27,8 +27,14 @@
  *
  * JavaScript API:
  * $('#area').scrollpad({direction: 'vertical'})
- # $('#area').scrollpad('dispose')
- # $('#area').scrollpad('scrollToStart')
+ * $('#area').scrollpad('dispose')
+ * $('#area').scrollpad('scrollToStart')
+ *
+ * TODO: In FireFox the control in the horizontal mode displays the native scrollbars,
+ * because negative margin-bottom in the scrollable element doesn't work for some reason.
+ * Try to align the scrollable element with absolute positioning (negative right and bottom)
+ * instead of negative margins.
+ *
  */
 +function ($) { "use strict";
 
