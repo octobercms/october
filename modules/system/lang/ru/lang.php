@@ -13,20 +13,23 @@ return [
         'fa' => 'Persian',
         'fr' => 'French',
         'hu' => 'Hungarian',
+        'id' => 'Bahasa Indonesia',
         'it' => 'Italian',
         'ja' => 'Japanese',
         'nl' => 'Dutch',
+        'pl' => 'Polish',
         'pt-br' => 'Brazilian Portuguese',
         'ro' => 'Romanian',
         'ru' => 'Russian',
         'se' => 'Swedish',
-        'tr' => 'Turkish',
+        'sk' => 'Slovak (Slovakia)',
+        'tr' => 'Turkish'
     ],
     'directory' => [
-        'create_fail' => "Невозможно создать директорию: :name",
+        'create_fail' => 'Невозможно создать директорию: :name',
     ],
     'file' => [
-        'create_fail' => "Невозможно создать файл: :name",
+        'create_fail' => 'Невозможно создать файл: :name',
     ],
     'combiner' => [
         'not_found' => "Сборщик ресурсов не может найти файл ':name'.",
@@ -66,13 +69,13 @@ return [
         'disabled_help' => 'Отключенные плагины будут игнорироваться.',
         'selected_amount' => 'Выбрано плагинов: :amount',
         'remove_confirm' => 'Вы уверены?',
-        'remove_success' => "Выбранные плагины успешно удалены.",
+        'remove_success' => 'Выбранные плагины успешно удалены.',
         'refresh_confirm' => 'Вы уверены?',
-        'refresh_success' => "Выбранные плагины успешно обновлены.",
+        'refresh_success' => 'Выбранные плагины успешно обновлены.',
         'disable_confirm' => 'Вы уверены?',
-        'disable_success' => "Плагин успешно отключен.",
-        'enable_success' => "Плагин успешно включен.",
-        'unknown_plugin' => "Плагин был удален из файловой системы.",
+        'disable_success' => 'Плагин успешно отключен.',
+        'enable_success' => 'Плагин успешно включен.',
+        'unknown_plugin' => 'Плагин был удален из файловой системы.',
     ],
     'project' => [
         'name' => 'Проект',
@@ -114,6 +117,7 @@ return [
         'smtp_password' => 'SMTP пароль',
         'smtp_port' => 'SMTP порт',
         'smtp_ssl' => 'Использовать SSL',
+        'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail Путь',
         'sendmail_path_comment' => 'Пожалуйста, укажите путь к sendmail.',
         'mailgun' => 'Mailgun',
@@ -121,6 +125,9 @@ return [
         'mailgun_domain_comment' => 'Пожалуйста, укажите Mailgun домен.',
         'mailgun_secret' => 'Секретный API-ключ',
         'mailgun_secret_comment' => 'Введите ваш Mailgun API-ключ.',
+        'mandrill' => 'Mandrill',
+        'mandrill_secret' => 'Секретный ключ Mandrill',
+        'mandrill_secret_comment' => 'Введите ваш Mandrill API-ключ.'
     ],
     'mail_templates' => [
         'menu_label' => 'Шаблоны почты',
@@ -170,6 +177,8 @@ return [
         'core_build_new_help' => 'Последняя доступная сборка.',
         'core_downloading' => 'Загрузка файлов приложения',
         'core_extracting' => 'Распаковка файлов приложения',
+        'plugins' => 'Плагины',
+        'disabled' => 'Отключено',
         'plugin_downloading' => 'Загрузка плагина: :name',
         'plugin_extracting' => 'Распаковка плагина: :name',
         'plugin_version_none' => 'Новый плагин',
@@ -207,7 +216,7 @@ return [
     ],
     'config' => [
         'not_found' => 'Не удалось найти конфигурационный файл :file, ожидаемый для :location.',
-        'required' => 'Для конфигурации, используемой в :location не указано свойство $:property.',
+        'required' => "Для конфигурации, используемой в :location не указано свойство ':property'.",
     ],
     'zip' => [
         'extract_failed' => "Невозможно извлечь файл ':file'.",
@@ -242,9 +251,11 @@ return [
         'status_code' => 'Статус',
     ],
     'permissions' => [
+        'name' => 'Система',
         'manage_system_settings' => 'Настройка системных параметров',
         'manage_software_updates' => 'Управлять обновлениями',
         'manage_mail_templates' => 'Управление почтовыми шаблонами',
+        'manage_mail_settings' => 'Управление настройками почты',
         'manage_other_administrators' => 'Управление другими администраторами',
         'view_the_dashboard' => 'Просмотр приборной панели'
     ]
