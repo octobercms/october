@@ -49,10 +49,11 @@
     MediaManager.prototype.dispose = function() {
         this.unregisterHandlers()
         this.clearSelectTimer()
-        this.disableUploader()
+        this.destroyUploader()
         this.clearSearchTrackInputTimer()
         this.releaseNavigationAjax()
         this.clearDblTouchTimer()
+        this.removeAttachedControls()
         this.removeScroll()
 
         this.$el.removeData('oc.mediaManager')
@@ -167,6 +168,15 @@
 
     MediaManager.prototype.scrollToTop = function() {
         this.$el.find('.control-scrollpad').scrollpad('scrollToStart')
+    }
+
+    //
+    // Disposing
+    //
+
+    MediaManager.prototype.removeAttachedControls = function() {
+        this.$el.find('[data-control=toolbar]').toolbar('dispose')
+        this.$el.find('[data-control=sorting]').select2('destroy')
     }
 
     //
@@ -574,11 +584,11 @@
         this.dropzone.on('error', this.proxy(this.uploadError))
     }
 
-    MediaManager.prototype.disableUploader = function() {
+    MediaManager.prototype.destroyUploader = function() {
         if (!this.dropzone)
             return
 
-        this.dropzone.disable()
+        this.dropzone.destroy()
         this.dropzone = null
     }
 

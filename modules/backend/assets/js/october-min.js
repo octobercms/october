@@ -288,23 +288,25 @@ if(!data)$this.data('oc.triggerOn',(data=new TriggerOn(this,options)))})}
 $.fn.triggerOn.Constructor=TriggerOn
 $.fn.triggerOn.noConflict=function(){$.fn.triggerOn=old
 return this}
-$(document).render(function(){$('[data-trigger]').triggerOn()})}(window.jQuery);+function($){"use strict";var DragScroll=function(element,options){this.options=$.extend({},DragScroll.DEFAULTS,options)
+$(document).render(function(){$('[data-trigger]').triggerOn()})}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var DragScroll=function(element,options){this.options=$.extend({},DragScroll.DEFAULTS,options)
 var
 $el=$(element),el=$el.get(0),dragStart=0,startOffset=0,self=this,dragging=false,eventElementName=this.options.vertical?'pageY':'pageX';this.el=$el
 this.scrollClassContainer=this.options.scrollClassContainer?$(this.options.scrollClassContainer):$el
+Base.call(this)
 if(this.options.scrollMarkerContainer)
 $(this.options.scrollMarkerContainer).append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))
 $el.mousewheel(function(event){if(!self.options.allowScroll)
 return;var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):(event.deltaFactor*event.deltaX)
 return!scrollWheel(offset)})
-$el.on('mousedown',function(event){startDrag(event)
+$el.on('mousedown.dragScroll',function(event){startDrag(event)
 return false})
-$el.on('touchstart',function(event){var touchEvent=event.originalEvent;if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
+$el.on('touchstart.dragScroll',function(event){var touchEvent=event.originalEvent;if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
 event.stopPropagation()}})
-$el.on('click',function(){if($(document.body).hasClass('drag'))
+$el.on('click.dragScroll',function(){if($(document.body).hasClass('drag'))
 return false})
-$(document).on('ready',$.proxy(this.fixScrollClasses,this))
-$(window).on('resize',$.proxy(this.fixScrollClasses,this))
+$(document).on('ready',this.proxy(this.fixScrollClasses))
+$(window).on('resize',this.proxy(this.fixScrollClasses))
 function startDrag(event){dragStart=event[eventElementName]
 startOffset=self.options.vertical?$el.scrollTop():$el.scrollLeft()
 if(Modernizr.touch){$(window).on('touchmove.dragScroll',function(event){var touchEvent=event.originalEvent
@@ -342,6 +344,8 @@ if(scrolled){if(self.wheelUpdateTimer!==undefined&&self.wheelUpdateTimer!==false
 window.clearInterval(self.wheelUpdateTimer);self.wheelUpdateTimer=window.setTimeout(function(){self.wheelUpdateTimer=false;self.fixScrollClasses()},100);}
 return scrolled}
 this.fixScrollClasses();}
+DragScroll.prototype=Object.create(BaseProto)
+DragScroll.prototype.constructor=DragScroll
 DragScroll.DEFAULTS={vertical:false,allowScroll:true,scrollClassContainer:false,scrollMarkerContainer:false,dragClass:'drag',start:function(){},drag:function(){},stop:function(){}}
 DragScroll.prototype.fixScrollClasses=function(){this.scrollClassContainer.toggleClass('scroll-before',!this.isStart())
 this.scrollClassContainer.toggleClass('scroll-after',!this.isEnd())
@@ -388,6 +392,12 @@ if(offset>0){this.el.animate({'scrollTop':$el.get(0).offsetTop+$el.height()-this
 animated=true}}}
 if(!animated&&callback!==undefined)
 callback()}
+DragScroll.prototype.dispose=function(){$(document).off('ready',this.proxy(this.fixScrollClasses))
+$(window).off('resize',this.proxy(this.fixScrollClasses))
+this.el.off('.dragScroll')
+this.scrollClassContainer=null
+this.el.removeData('oc.dragScroll')
+BaseProto.dispose.call(this)}
 var old=$.fn.dragScroll
 $.fn.dragScroll=function(option){var args=arguments;return this.each(function(){var $this=$(this)
 var data=$this.data('oc.dragScroll')
@@ -462,12 +472,17 @@ $el.dragScroll({scrollClassContainer:scrollClassContainer})
 $('.form-control.growable',$toolbar).on('focus',function(){update()})
 $('.form-control.growable',$toolbar).on('blur',function(){update()})
 function update(){$(window).trigger('resize')}}
+Toolbar.prototype.dispose=function(){this.$el.dragScroll('dispose')
+this.$el.removeData('oc.toolbar')
+this.$el=null}
 Toolbar.DEFAULTS={}
 var old=$.fn.toolbar
-$.fn.toolbar=function(option){return this.each(function(){var $this=$(this)
+$.fn.toolbar=function(option){var args=Array.prototype.slice.call(arguments,1)
+return this.each(function(){var $this=$(this)
 var data=$this.data('oc.toolbar')
 var options=$.extend({},Toolbar.DEFAULTS,$this.data(),typeof option=='object'&&option)
-if(!data)$this.data('oc.toolbar',(data=new Toolbar(this,options)))})}
+if(!data)$this.data('oc.toolbar',(data=new Toolbar(this,options)))
+if(typeof option=='string')data[option].apply(data,args)})}
 $.fn.toolbar.Constructor=Toolbar
 $.fn.toolbar.noConflict=function(){$.fn.toolbar=old
 return this}
