@@ -14,7 +14,6 @@ if (window.jQuery === undefined)
     var Request = function (element, handler, options) {
         var $el = this.$el = $(element);
         this.options = options || {};
-
         /*
          * Validate handler name
          */
@@ -24,13 +23,6 @@ if (window.jQuery === undefined)
 
         if (!handler.match(/^(?:\w+\:{2})?on*/))
             throw new Error('Invalid handler name. The correct handler name format is: "onEvent".')
-
-        /*
-         * Detect if page is refreshed to stop any active ajax errors
-         */
-
-        var isUnloading = false
-        $(window).on('beforeunload', function() { isUnloading = true })
 
         /*
          * Custom function, requests confirmation from the user
@@ -59,6 +51,10 @@ if (window.jQuery === undefined)
         if (options.confirm && !handleConfirmMessage(options.confirm))
             return
 
+        /*
+         * Prepare the options and execute the request
+         */
+
         var
             form = $el.closest('form'),
             context = { handler: handler, options: options },
@@ -71,7 +67,7 @@ if (window.jQuery === undefined)
 
         var data = [form.serialize()]
 
-        $.each($el.parents('[data-request-data]').toArray().reverse(), function(){
+        $.each($el.parents('[data-request-data]').toArray().reverse(), function extendReque(){
             data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
         })
 
@@ -120,7 +116,7 @@ if (window.jQuery === undefined)
                 var errorMsg,
                     updatePromise = $.Deferred()
 
-                if (isUnloading || errorThrown == 'abort')
+                if ((window.ocUnloading !== undefined && window.ocUnloading) || errorThrown == 'abort')
                     return
 
                 /*
@@ -227,7 +223,7 @@ if (window.jQuery === undefined)
                  */
                 if (data['X_OCTOBER_ERROR_FIELDS']) {
                     var isFirstInvalidField = true
-                    $.each(data['X_OCTOBER_ERROR_FIELDS'], function(fieldName, fieldMessages){
+                    $.each(data['X_OCTOBER_ERROR_FIELDS'], function focusErrorField(fieldName, fieldMessages){
                         var fieldElement = form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
                         if (fieldElement.length > 0) {
 
@@ -246,7 +242,7 @@ if (window.jQuery === undefined)
                  * Handle asset injection
                  */
                  if (data['X_OCTOBER_ASSETS']) {
-                    assetManager.load(data['X_OCTOBER_ASSETS'], function(){
+                    assetManager.load(data['X_OCTOBER_ASSETS'], function assetsLoaded(){
                         updatePromise.resolve()
                     })
                  }
@@ -362,16 +358,16 @@ if (window.jQuery === undefined)
         }
     }
 
-    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function(){
+    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function documentOnChange(){
         $(this).request()
     })
 
-    $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function(){
+    $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function documentOnClick(){
         $(this).request()
         return false
     })
 
-    $(document).on('keydown', 'input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]', function(e){
+    $(document).on('keydown', 'input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]', function documentOnKeydown(e){
         if (e.keyCode == 13) {
             if (this.dataTrackInputTimer !== undefined)
                 window.clearTimeout(this.dataTrackInputTimer)
@@ -381,7 +377,7 @@ if (window.jQuery === undefined)
         }
     })
 
-    $(document).on('keyup', 'input[type=text][data-request][data-track-input], input[type=password][data-request][data-track-input]', function(e){
+    $(document).on('keyup', 'input[type=text][data-request][data-track-input], input[type=password][data-request][data-track-input]', function documentOnKeyup(e){
         var
             $el = $(this),
             lastValue = $el.data('oc.lastvalue')
@@ -404,9 +400,13 @@ if (window.jQuery === undefined)
         }, interval)
     })
 
-    $(document).on('submit', '[data-request]', function(){
+    $(document).on('submit', '[data-request]', function documentOnsubmit(){
         $(this).request()
         return false
+    })
+
+    $(window).on('beforeunload', function documentOnBeforeunload() {
+        window.ocUnloading = true
     })
 
     /*
@@ -416,11 +416,11 @@ if (window.jQuery === undefined)
      * $(document).on('render', function(){ })
      */
 
-    $(document).ready(function(){
+    $(document).ready(function triggerRenderOnReady(){
         $(document).trigger('render')
     })
 
-    $(window).on('ajaxUpdateComplete', function() {
+    $(window).on('ajaxUpdateComplete', function triggerRenderOnAjaxUpdateComplete() {
         $(document).trigger('render')
     })
 

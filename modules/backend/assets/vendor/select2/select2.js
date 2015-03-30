@@ -878,6 +878,16 @@ the specific language governing permissions and limitations under the Apache Lic
                 element.show();
             }
 
+            // Hack. This removes the mask element from the DOM when a select2 element is destroyed.
+            // That prevents DOM leakage as the mask element keeps a reference to the select2 object
+            // through the bound event. It should be safe to remove the mask as other select2 objects
+            // will create a new mask element if needed.
+            var mask = $("#select2-drop-mask");
+            if (mask.length !== 0) {
+                mask.off("mousedown touchstart click");
+                mask.remove();
+            }
+
             cleanupJQueryElements.call(this,
                 "container",
                 "liveRegion",

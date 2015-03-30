@@ -272,6 +272,8 @@ return [
         'move_destination' => 'Destination folder',
         'please_select_move_dest' => 'Please select a destination folder.',
         'move_dest_src_match' => 'Please select another destination folder.',
-        'empty_library' => 'The Media Library is empty. Upload files or create folders to get started.'
+        'empty_library' => 'The Media Library is empty. Upload files or create folders to get started.',
+        'insert' => 'Insert',
+        'crop_and_insert' => 'Crop & Insert'
     ]
 ];

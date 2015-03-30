@@ -872,7 +872,7 @@ this.$modal.on('shown.bs.modal',function(){self.triggerEvent('shown.oc.popup')})
 this.$modal.on('close.oc.popup',function(){self.hide()
 return false})
 this.init()}
-Popup.DEFAULTS={ajax:null,handler:null,keyboard:true,extraData:{},content:null,size:null}
+Popup.DEFAULTS={ajax:null,handler:null,keyboard:true,extraData:{},content:null,size:null,adaptiveHeight:false}
 Popup.prototype.init=function(){var self=this
 if(self.isOpen)
 return
@@ -892,6 +892,8 @@ Popup.prototype.createPopupContainer=function(){var
 modal=$('<div />').prop({class:'control-popup modal fade',role:'dialog',tabindex:-1}),modalDialog=$('<div />').addClass('modal-dialog'),modalContent=$('<div />').addClass('modal-content')
 if(this.options.size)
 modalDialog.addClass('size-'+this.options.size)
+if(this.options.adaptiveHeight)
+modalDialog.addClass('adaptive-height')
 return modal.append(modalDialog.append(modalContent))}
 Popup.prototype.setContent=function(contents){this.$content.html(contents)
 this.setLoading(false)

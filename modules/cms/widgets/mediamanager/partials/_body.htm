@@ -25,9 +25,8 @@
                         <div class="layout-row">
                             <!-- Main area -->
                             <div class="layout">
-                                <div class="layout-cell ">
+                                <div class="layout-row">
                                     <div class="layout">
-                                        <div class="layout-row">
                                             <!-- Main area - list -->
                                             <div data-control="item-list">
                                                 <div class="control-scrollpad">
@@ -38,16 +37,43 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="layout-row min-size">
-                                            <!-- Main area - bottom toolbar -->
+                                        
 
+                                        <div class="layout-cell width-300 panel border-left no-padding <?= !$sidebarVisible ? 'hide' : null ?>" data-control="preview-sidebar">
+                                            <!-- Right sidebar -->
+                                            <?= $this->makePartial('right-sidebar') ?>
                                         </div>
+
                                     </div>
                                 </div>
-                                <div class="layout-cell width-300 panel border-left no-padding <?= !$sidebarVisible ? 'hide' : null ?>" data-control="preview-sidebar">
-                                    <!-- Right sidebar -->
-                                    <?= $this->makePartial('right-sidebar') ?>
+
+                                <div class="layout-row min-size hide" data-control="bottom-toolbar">
+                                    <div class="panel no-padding-bottom border-top">
+                                        <div class="form-buttons">
+                                            <div class="pull-right">
+                                                <button
+                                                    type="button"
+                                                    data-command="insert"
+                                                    class="btn btn-primary">
+                                                    <?= e(trans('cms::lang.media.insert')) ?>
+                                                </button>
+
+                                                <button
+                                                    type="button"
+                                                    data-command="crop-and-insert"
+                                                    class="btn btn-primary hide">
+                                                    <?= e(trans('cms::lang.media.crop_and_insert')) ?>
+                                                </button>
+
+                                                <button
+                                                    type="button"
+                                                    data-command="insert"
+                                                    class="btn btn-default no-margin-right">
+                                                    <?= e(trans('backend::lang.form.cancel')) ?>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

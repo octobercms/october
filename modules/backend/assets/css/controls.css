@@ -68,6 +68,7 @@ label{font-size:12px}
 .form-buttons:before,.form-buttons:after{content:" ";display:table}
 .form-buttons:after{clear:both}
 .form-buttons .btn{margin-right:10px}
+.form-buttons .btn.no-margin-right{margin-right:0}
 .form-buttons .pull-right{margin-right:0;margin-left:10px}
 .form-buttons.buttons-offset{padding-left:20px}
 body.slim-container .form-buttons{padding:0 20px 20px}
@@ -339,12 +340,17 @@ table.table.data tr.list-tree-level-25 td.list-cell-index-1{padding-left:275px}
 .modal-footer{background:transparent;border:none;margin-top:0;padding:0 20px 20px 20px}
 .modal-body{padding-bottom:0}
 .modal-body > p:last-child{margin-bottom:20px}
+.modal-dialog.size-adaptive{width:100%;padding-right:50px;padding-left:50px}
+.modal-dialog.adaptive-height{height:100%;min-height:600px;margin-top:0;margin-bottom:0;padding-top:50px;padding-bottom:50px}
+.modal-dialog.adaptive-height .modal-content{height:100%}
 @media (min-width:768px){.modal-dialog.size-tiny{width:300px}
 .modal-dialog.size-small{width:400px}
 }
 @media (min-width:992px){.modal-dialog.size-large{width:750px}
 .modal-dialog.size-huge{width:900px}
 .modal-dialog.size-giant{width:982px}
+}
+@media (max-width:768px){.modal-dialog.size-adaptive{width:auto;padding:5px 0;margin:0}
 }
 .control-popup.fade .modal-dialog{opacity:0;filter:alpha(opacity=0);-webkit-transition:all 0.3s,width 0s;transition:all 0.3s,width 0s;-webkit-transform:scale(0.7);-ms-transform:scale(0.7);transform:scale(0.7)}
 .control-popup.fade.in .modal-dialog{opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}
@@ -1125,6 +1131,7 @@ div.panel.transparent{background:transparent}
 div.panel.border-left{border-left:1px solid #e8eaeb}
 div.panel.border-right{border-right:1px solid #e8eaeb}
 div.panel.border-bottom{border-bottom:1px solid #e8eaeb}
+div.panel.border-top{border-top:1px solid #e8eaeb}
 div.panel.triangle-down{position:relative}
 div.panel.triangle-down:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #ffffff;border-bottom-width:0;position:absolute;left:15px;bottom:-8px;z-index:101}
 div.panel.triangle-down:before{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-top:9px solid #e8eaeb;border-bottom-width:0;position:absolute;left:14px;bottom:-9px;z-index:100}

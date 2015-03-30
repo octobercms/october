@@ -6,6 +6,8 @@
  */
 +function ($) { "use strict";
 
+    $.oc.mediaManager = {}
+
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype
 
@@ -77,6 +79,14 @@
     MediaManager.prototype.init = function() {
         this.itemListElement = this.$el.find('[data-control="item-list"]').get(0)
         this.scrollContentElement = this.itemListElement.querySelector('.scroll-wrapper')
+
+        if (this.options.bottomToolbar) {
+            this.$el.find('[data-control="bottom-toolbar"]').removeClass('hide')
+
+            if (this.options.cropAndInsertButton)
+                this.$el.find('[data-command="crop-and-insert"]').removeClass('hide')
+        }
+
         this.registerHandlers()
 
         this.updateSidebarPreview()
@@ -1054,7 +1064,9 @@
         alias: '',
         deleteEmpty: 'Please select files to delete.',
         deleteConfirm: 'Do you really want to delete the selected file(s)?',
-        moveEmpty: 'Please select files to move.'
+        moveEmpty: 'Please select files to move.',
+        bottomToolbar: false,
+        cropAndInsertButton: false
     }
 
     var old = $.fn.mediaManager

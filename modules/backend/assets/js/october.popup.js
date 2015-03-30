@@ -82,7 +82,8 @@
         keyboard: true,
         extraData: {},
         content: null,
-        size: null
+        size: null,
+        adaptiveHeight: false
     }
 
     Popup.prototype.init = function(){
@@ -169,6 +170,9 @@
 
         if (this.options.size)
             modalDialog.addClass('size-' + this.options.size)
+
+        if (this.options.adaptiveHeight)
+            modalDialog.addClass('adaptive-height')
 
         return modal.append(modalDialog.append(modalContent))
     }

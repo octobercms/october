@@ -356,6 +356,11 @@ class MediaManager extends WidgetBase
         $this->setSidebarVisible($visible);
     }
 
+    public function onLoadPopup()
+    {
+        return $this->makePartial('popup-body');
+    }
+
     //
     // Methods for th internal use
     //
@@ -508,7 +513,10 @@ class MediaManager extends WidgetBase
     protected function loadAssets()
     {
         $this->addCss('css/mediamanager.css', 'core');
+
+        // TODO: combine and load combined
         $this->addJs('js/mediamanager.js', 'core');
+        $this->addJs('js/mediamanager.popup.js', 'core');
     }
 
     protected function setViewMode($viewMode)

@@ -43,6 +43,25 @@
 }
 
 .modal-dialog {
+    &.size-adaptive {
+        width: 100%;
+        padding-right: 50px;
+        padding-left: 50px;
+    }
+
+    &.adaptive-height {
+        height: 100%;
+        min-height: 600px;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 50px;
+        padding-bottom: 50px;
+
+        .modal-content {
+            height: 100%;
+        }
+    }
+
     @media (min-width: @screen-sm-min) {
         &.size-tiny  { width: @popup-size-tiny; }
         &.size-small { width: @popup-size-small; }
@@ -51,6 +70,13 @@
         &.size-large { width: @popup-size-large; }
         &.size-huge  { width: @popup-size-huge; }
         &.size-giant { width: @popup-size-giant; }
+    }
+    @media (max-width: @screen-sm) {
+        &.size-adaptive { 
+            width: auto;
+            padding: 5px 0;
+            margin: 0;
+        }
     }
 }
 
