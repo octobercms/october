@@ -550,6 +550,7 @@ class RelationController extends ControllerBehavior
             $config->defaultSort = $this->getConfig('view[defaultSort]');
             $config->recordsPerPage = $this->getConfig('view[recordsPerPage]');
             $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', !$this->readOnly);
+            $config->recordUrl = $this->getConfig('view[recordUrl]', null);
 
             $defaultOnClick = sprintf(
                 "$.oc.relationBehavior.clickViewListRecord(':id', '%s', '%s')",
@@ -557,8 +558,11 @@ class RelationController extends ControllerBehavior
                 $this->relationGetSessionKey()
             );
 
+            if ($config->recordUrl) {
+                $defaultOnClick = null;
+            }
+
             $config->recordOnClick = $this->getConfig('view[recordOnClick]', $defaultOnClick);
-            $config->recordUrl = $this->getConfig('view[recordUrl]', null);
 
             if ($emptyMessage = $this->getConfig('emptyMessage')) {
                 $config->noRecordsMessage = $emptyMessage;
