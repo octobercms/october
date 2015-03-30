@@ -1075,25 +1075,24 @@ class RelationController extends ControllerBehavior
     {
         $this->beforeAjax();
 
-        foreach ((array) $this->foreignId as $foreignId) {
+        /*
+         * Add the checked IDs to the pivot table
+         */
+        $foreignIds = (array) $this->foreignId;
+        $this->relationObject->sync($foreignIds, false);
 
-            /*
-             * Check for existing relation
-             */
-            $foreignKeyName = $this->relationModel->getQualifiedKeyName();
-            $existing = $this->relationObject->where($foreignKeyName, $foreignId)->count();
+        /*
+         * Save data to models
+         */
+        $foreignKeyName = $this->relationModel->getQualifiedKeyName();
+        $hyrdatedModels = $this->relationObject->whereIn($foreignKeyName, $foreignIds)->get();
+        $saveData = $this->pivotWidget->getSaveData();
 
-            if (!$existing) {
-                /*
-                 * Add related model to the parent model
-                 */
-                $saveData = $this->pivotWidget->getSaveData();
-                $pivotData = array_get($saveData, 'pivot', []);
-
-                $foreignModel = $this->relationModel->find($foreignId);
-                $this->relationObject->add($foreignModel, null, $pivotData);
+        foreach ($hyrdatedModels as $hydratedModel) {
+            $modelsToSave = $this->prepareModelsToSave($hydratedModel, $saveData);
+            foreach ($modelsToSave as $modelToSave) {
+                $modelToSave->save();
             }
-
         }
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
