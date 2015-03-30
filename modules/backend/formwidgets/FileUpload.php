@@ -9,6 +9,7 @@ use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 use ValidationException;
 use Exception;
+use Lang;
 
 /**
  * File upload field
