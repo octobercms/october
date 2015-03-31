@@ -15,7 +15,7 @@
     ## Black list protected files
     ##
     RewriteRule ^themes/.*/(layouts|pages|partials)/.*.htm index.php [L,NC]
-    RewriteRule ^uploads/protected/.* index.php [L,NC]
+    RewriteRule ^app/storage/uploads/protected/.* index.php [L,NC]
     RewriteRule ^bootstrap/.* index.php [L,NC]
     RewriteRule ^config/.* index.php [L,NC]
     RewriteRule ^vendor/.* index.php [L,NC]
