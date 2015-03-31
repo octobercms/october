@@ -45,16 +45,17 @@
     if ($.oc.foundation === undefined)
         $.oc.foundation = {}
 
-    var Base = function() {
-        this.proxiedMethods = []
+    $.oc.foundation._proxyCounter = 0
 
-        this.proxyCounter = 0
+    var Base = function() {
+        this.proxiedMethods = {}
     }
 
     Base.prototype.dispose = function()
     {
-        for (var index in this.proxiedMethods)
-            this.proxiedMethods[index] = null
+        for (var key in this.proxiedMethods) {
+            this.proxiedMethods[key] = null
+        }
 
         this.proxiedMethods = null
     }
@@ -62,10 +63,10 @@
     /*
      * Creates a proxied method reference or returns an existing proxied method.
      */
-    Base.prototype.proxy = function(method) {
+    Base.prototype.proxy = function(method, name) {
         if (method.ocProxyId === undefined) {
-            this.proxyCounter++
-            method.ocProxyId = this.proxyCounter
+            $.oc.foundation._proxyCounter++
+            method.ocProxyId = $.oc.foundation._proxyCounter
         }
 
         if (this.proxiedMethods[method.ocProxyId] !== undefined)

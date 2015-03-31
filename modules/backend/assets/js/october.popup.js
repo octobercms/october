@@ -49,6 +49,7 @@
          * Hook in to BS Modal events
          */
         this.$modal.on('hide.bs.modal', function(){
+            self.triggerEvent('hide.oc.popup')
             self.isOpen = false
             self.setBackdrop(false)
         })

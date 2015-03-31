@@ -73,14 +73,13 @@ return(''+string).replace(htmlEscaper,function(match){return htmlEscapes[match];
 $.oc={}
 if($.oc.foundation===undefined)
 $.oc.foundation={}
-var Base=function(){this.proxiedMethods=[]
-this.proxyCounter=0}
+$.oc.foundation._proxyCounter=0
+var Base=function(){this.proxiedMethods={}}
 Base.prototype.dispose=function()
-{for(var index in this.proxiedMethods)
-this.proxiedMethods[index]=null
+{for(var key in this.proxiedMethods){this.proxiedMethods[key]=null}
 this.proxiedMethods=null}
-Base.prototype.proxy=function(method){if(method.ocProxyId===undefined){this.proxyCounter++
-method.ocProxyId=this.proxyCounter}
+Base.prototype.proxy=function(method,name){if(method.ocProxyId===undefined){$.oc.foundation._proxyCounter++
+method.ocProxyId=$.oc.foundation._proxyCounter}
 if(this.proxiedMethods[method.ocProxyId]!==undefined)
 return this.proxiedMethods[method.ocProxyId]
 this.proxiedMethods[method.ocProxyId]=method.bind(this)
@@ -861,7 +860,8 @@ this.$container=this.createPopupContainer()
 this.$content=this.$container.find('.modal-content:first')
 this.$modal=this.$container.modal({show:false,backdrop:false,keyboard:this.options.keyboard})
 this.$container.data('oc.popup',this)
-this.$modal.on('hide.bs.modal',function(){self.isOpen=false
+this.$modal.on('hide.bs.modal',function(){self.triggerEvent('hide.oc.popup')
+self.isOpen=false
 self.setBackdrop(false)})
 this.$modal.on('hidden.bs.modal',function(){self.triggerEvent('hidden.oc.popup')
 self.$container.remove()
