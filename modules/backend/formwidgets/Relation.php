@@ -2,6 +2,7 @@
 
 use Lang;
 use Backend\Classes\FormWidgetBase;
+use ApplicationException;
 use SystemException;
 use Illuminate\Database\Eloquent\Relations\Relation as RelationBase;
 
