@@ -1,7 +1,7 @@
 <?php namespace Backend\Classes;
 
 use Html;
-use Model;
+use October\Rain\Database\Model;
 use October\Rain\Html\Helper as HtmlHelper;
 
 /**
