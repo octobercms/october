@@ -74,7 +74,7 @@ return [
         'new_directory_name_comment' => 'Provide a new directory name for the duplicated theme.',
         'dir_name_invalid' => 'Name can contain only digits, Latin letters and the following symbols: _-',
         'dir_name_taken' => 'Desired theme directory already exists.',
-        'find_more_themes' => 'Find more themes on OctoberCMS Theme Marketplace',
+        'find_more_themes' => 'Find more themes',
         'return' => 'Return to themes list',
     ],
     'maintenance' => [

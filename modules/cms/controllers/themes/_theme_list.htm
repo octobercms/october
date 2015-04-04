@@ -19,14 +19,12 @@
             data-control="popup"
             data-handler="onLoadCreateForm"
             data-size="huge"
-            href="javascript:;"
-            target="_blank">
+            href="javascript:;">
             <?= e(trans('cms::lang.theme.create_new_blank_theme')) ?>
         </a>
         <a
             class="find-more-themes"
-            href="http://octobercms.com/themes"
-            target="_blank">
+            href="<?= Backend::url('system/updates/install/themes') ?>">
             <?= e(trans('cms::lang.theme.find_more_themes')) ?>
         </a>
     </div>

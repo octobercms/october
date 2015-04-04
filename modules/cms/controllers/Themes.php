@@ -13,6 +13,7 @@ use Cms\Models\ThemeData;
 use Cms\Models\ThemeExport;
 use Cms\Models\ThemeImport;
 use Cms\Classes\Theme as CmsTheme;
+use Cms\Classes\ThemeManager;
 use System\Classes\SettingsManager;
 use Backend\Classes\Controller;
 use Exception;
@@ -71,16 +72,7 @@ class Themes extends Controller
 
     public function index_onDelete()
     {
-        $theme = $this->findThemeObject();
-
-        if ($theme->isActiveTheme()) {
-            throw new ApplicationException(trans('cms::lang.theme.delete_active_theme_failed'));
-        }
-
-        $themePath = $theme->getPath();
-        if (File::isDirectory($themePath)) {
-            File::deleteDirectory($themePath);
-        }
+        ThemeManager::instance()->deleteTheme(post('theme'));
 
         Flash::success(trans('cms::lang.theme.delete_theme_success'));
         return Redirect::refresh();

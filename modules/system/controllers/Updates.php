@@ -7,7 +7,9 @@ use Flash;
 use Config;
 use Backend;
 use Redirect;
+use Response;
 use BackendMenu;
+use Cms\Classes\ThemeManager;
 use Backend\Classes\Controller;
 use System\Models\Parameters;
 use System\Models\PluginVersion;
@@ -37,7 +39,7 @@ class Updates extends Controller
         parent::__construct();
 
         $this->addJs('/modules/system/assets/js/updates/updates.js', 'core');
-        $this->addCss('/modules/system/assets/css/updates.css', 'core');
+        $this->addCss('/modules/system/assets/css/updates/updates.css', 'core');
 
         BackendMenu::setContext('October.System', 'system', 'updates');
         SettingsManager::setContext('October.System', 'updates');
@@ -65,6 +67,31 @@ class Updates extends Controller
         $this->pageTitle = 'system::lang.plugins.manage';
         PluginManager::instance()->clearDisabledCache();
         return $this->asExtension('ListController')->index();
+    }
+
+    /**
+     * Install new plugins / themes
+     */
+    public function install($tab = null)
+    {
+        if (get('search')) {
+            return Response::make($this->onSearchProducts());
+        }
+
+        try {
+            $this->bodyClass = 'compact-container breadcrumb-flush';
+            $this->pageTitle = 'Install products';
+
+            $this->addJs('/modules/system/assets/js/updates/install.js', 'core');
+            $this->addCss('/modules/system/assets/css/updates/install.css', 'core');
+
+            $this->vars['activeTab'] = $tab ?: 'plugins';
+            $this->vars['installedPlugins'] = $this->getInstalledPlugins();
+            $this->vars['installedThemes'] = $this->getInstalledThemes();
+        }
+        catch (Exception $ex) {
+            $this->handleError($ex);
+        }
     }
 
     /**
@@ -132,12 +159,12 @@ class Updates extends Controller
             case 'completeUpdate':
                 $manager->update();
                 Flash::success(Lang::get('system::lang.updates.update_success'));
-                return Backend::redirect('system/updates');
+                return Redirect::refresh();
 
             case 'completeInstall':
                 $manager->update();
                 Flash::success(Lang::get('system::lang.install.install_success'));
-                return Backend::redirect('system/updates');
+                return Redirect::refresh();
         }
     }
 
@@ -442,7 +469,7 @@ class Updates extends Controller
     }
 
     /**
-     * Removes or purges plugins from the system.
+     * Rollback and remove plugins from the system.
      * @return void
      */
     public function onRemovePlugins()
@@ -454,24 +481,29 @@ class Updates extends Controller
                     continue;
                 }
 
-                /*
-                 * Rollback plugin
-                 */
-                $pluginCode = $object->code;
-                UpdateManager::instance()->rollbackPlugin($pluginCode);
-
-                /*
-                 * Delete from file system
-                 */
-                if ($pluginPath = PluginManager::instance()->getPluginPath($pluginCode)) {
-                    File::deleteDirectory($pluginPath);
-                }
+                PluginManager::instance()->deletePlugin($object->code);
             }
 
             Flash::success(Lang::get('system::lang.plugins.remove_success'));
         }
 
         return $this->listRefresh('manage');
+    }
+
+    /**
+     * Rollback and remove a single plugin from the system.
+     * @return void
+     */
+    public function onRemovePlugin()
+    {
+        if ($pluginCode = post('code')) {
+
+            PluginManager::instance()->deletePlugin($pluginCode);
+
+            Flash::success(Lang::get('system::lang.plugins.remove_success'));
+        }
+
+        return Redirect::refresh();
     }
 
     /**
@@ -482,19 +514,12 @@ class Updates extends Controller
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
 
-            $manager = UpdateManager::instance();
-
             foreach ($checkedIds as $objectId) {
                 if (!$object = PluginVersion::find($objectId)) {
                     continue;
                 }
 
-                /*
-                 * Refresh plugin
-                 */
-                $pluginCode = $object->code;
-                $manager->rollbackPlugin($pluginCode);
-                $manager->updatePlugin($pluginCode);
+                PluginManager::instance()->refreshPlugin($object->code);
             }
 
             Flash::success(Lang::get('system::lang.plugins.refresh_success'));
@@ -548,4 +573,145 @@ class Updates extends Controller
 
         return Backend::redirect('system/updates/manage');
     }
+
+    //
+    // Theme management
+    //
+
+    /**
+     * Validate the theme code and execute the theme installation
+     */
+    public function onInstallTheme()
+    {
+        try {
+            if (!$code = trim(post('code'))) {
+                throw new ApplicationException(Lang::get('system::lang.install.missing_theme_name'));
+            }
+
+            $manager = UpdateManager::instance();
+            $result = $manager->requestThemeDetails($code);
+
+            if (!isset($result['code']) || !isset($result['hash'])) {
+                throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
+            }
+
+            $name = $result['code'];
+            $hash = $result['hash'];
+            $themes = [$name => $hash];
+            $plugins = [];
+
+            /*
+             * Update steps
+             */
+            $updateSteps = $this->buildUpdateSteps(null, $plugins, $themes);
+
+            /*
+             * Finish up
+             */
+            $updateSteps[] = [
+                'code'  => 'completeInstall',
+                'label' => Lang::get('system::lang.install.install_completing'),
+            ];
+
+            $this->vars['updateSteps'] = $updateSteps;
+
+            return $this->makePartial('execute');
+        }
+        catch (Exception $ex) {
+            $this->handleError($ex);
+            return $this->makePartial('theme_form');
+        }
+    }
+
+    /**
+     * Deletes a single theme from the system.
+     * @return void
+     */
+    public function onRemoveTheme()
+    {
+        if ($themeCode = post('code')) {
+
+            ThemeManager::instance()->deleteTheme($themeCode);
+
+            Flash::success(trans('cms::lang.theme.delete_theme_success'));
+        }
+
+        return Redirect::refresh();
+    }
+
+    //
+    // Product install
+    //
+
+    public function install_onSearchProducts()
+    {
+        $searchType = get('search', 'plugins');
+        $serverUri = $searchType == 'plugins' ? 'plugin/search' : 'theme/search';
+
+        $manager = UpdateManager::instance();
+        return $manager->requestServerData($serverUri, ['query' => get('query')]);
+    }
+
+    public function install_onGetPopularPlugins()
+    {
+        $installed = $this->getInstalledPlugins();
+        $popular = UpdateManager::instance()->requestPopularProducts('plugin');
+        $popular = $this->filterPopularProducts($popular, $installed);
+
+        return ['result' => $popular];
+    }
+
+    public function install_onGetPopularThemes()
+    {
+        $installed = $this->getInstalledThemes();
+        $popular = UpdateManager::instance()->requestPopularProducts('theme');
+        $popular = $this->filterPopularProducts($popular, $installed);
+
+        return ['result' => $popular];
+    }
+
+    protected function getInstalledPlugins()
+    {
+        $installed = PluginVersion::lists('code');
+        $manager = UpdateManager::instance();
+        return $manager->requestProductDetails($installed, 'plugin');
+    }
+
+    protected function getInstalledThemes()
+    {
+        $history = Parameters::get('system::theme.history', []);
+        $manager = UpdateManager::instance();
+        $installed = $manager->requestProductDetails(array_keys($history), 'theme');
+
+        /*
+         * Splice in the directory names
+         */
+        foreach ($installed as $key => $data) {
+            $code = array_get($data, 'code');
+            $installed[$key]['dirName'] = array_get($history, $code, $code);
+        }
+
+        return $installed;
+    }
+
+    /*
+     * Remove installed products from the collection
+     */
+    protected function filterPopularProducts($popular, $installed)
+    {
+        $installedArray = [];
+        foreach ($installed as $product) {
+            $installedArray[] = array_get($product, 'code', -1);
+        }
+
+        foreach ($popular as $key => $product) {
+            $code = array_get($product, 'code');
+            if (in_array($code, $installedArray)) {
+                unset($popular[$key]);
+            }
+        }
+
+        return $popular;
+    }
+
 }
