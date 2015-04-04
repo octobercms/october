@@ -643,7 +643,7 @@ class Updates extends Controller
     // Product install
     //
 
-    public function install_onSearchProducts()
+    public function onSearchProducts()
     {
         $searchType = get('search', 'plugins');
         $serverUri = $searchType == 'plugins' ? 'plugin/search' : 'theme/search';
@@ -652,7 +652,7 @@ class Updates extends Controller
         return $manager->requestServerData($serverUri, ['query' => get('query')]);
     }
 
-    public function install_onGetPopularPlugins()
+    public function onGetPopularPlugins()
     {
         $installed = $this->getInstalledPlugins();
         $popular = UpdateManager::instance()->requestPopularProducts('plugin');
@@ -661,7 +661,7 @@ class Updates extends Controller
         return ['result' => $popular];
     }
 
-    public function install_onGetPopularThemes()
+    public function onGetPopularThemes()
     {
         $installed = $this->getInstalledThemes();
         $popular = UpdateManager::instance()->requestPopularProducts('theme');
