@@ -114,7 +114,7 @@ class DataTable extends FormWidgetBase
 
         $result = [];
         while ($records = $dataSource->readRecords()) {
-            $result += $records;
+            $result = array_merge($result, $records);
         }
 
         // We should be dealing with a simple array, so

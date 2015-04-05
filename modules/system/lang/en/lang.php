@@ -52,6 +52,12 @@ return [
             'my_settings' => 'My Settings'
         ]
     ],
+    'theme' => [
+        'name' => [
+            'label' => 'Theme Name',
+            'help' => 'Name the theme by its unique code. For example, RainLab.Vanilla'
+        ]
+    ],
     'plugin' => [
         'unnamed' => 'Unnamed plugin',
         'name' => [
@@ -156,7 +162,9 @@ return [
     'install' => [
         'project_label' => 'Attach to Project',
         'plugin_label' => 'Install Plugin',
+        'theme_label' => 'Install Theme',
         'missing_plugin_name' => 'Please specify a Plugin name to install.',
+        'missing_theme_name' => 'Please specify a Theme name to install.',
         'install_completing' => 'Finishing installation process',
         'install_success' => 'The plugin has been installed successfully.'
     ],

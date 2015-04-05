@@ -791,8 +791,7 @@ ul.status-list li span.status.info{background:#5bc0de}
 .control-breadcrumb li a:hover{color:#ecf0f1}
 .control-breadcrumb li:after{font-size:14px;line-height:14px;display:inline-block;margin-left:6px;margin-right:2px;vertical-align:baseline;color:#9da3a7;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105"}
 .control-breadcrumb li:last-child:after{content:''}
-.control-breadcrumb + .content-tabs,.control-breadcrumb + .padded-container{margin-top:-20px}
-.control-breadcrumb.breadcrumb-flush{margin-bottom:0}
+body.breadcrumb-flush .control-breadcrumb,.control-breadcrumb.breadcrumb-flush{margin-bottom:0}
 body.slim-container .control-breadcrumb{margin-left:0;margin-right:0}
 body.compact-container .control-breadcrumb{margin-top:0;margin-left:0;margin-right:0}
 div.control-popover{position:absolute;background-clip:content-box;left:0;top:0;z-index:570;visibility:hidden}
