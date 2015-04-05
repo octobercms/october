@@ -32,6 +32,10 @@
 }
 
 div[data-control="media-manager"] {
+    &:focus {
+        outline: none;
+    }
+
     .loading-indicator-pseudo-absolute(@size) {
         background-image: url(../../../../../../modules/backend/assets/images/loading-indicator-transparent.svg);
         background-position: 50% 50%;
@@ -403,6 +407,7 @@ div[data-control="media-manager"] {
         position: absolute;
         z-index: 250;
         border: 1px dashed #95a5a6;
+        background: rgba(0,0,0,0.1);
     }
 
     .upload-progress {

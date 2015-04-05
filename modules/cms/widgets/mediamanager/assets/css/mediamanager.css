@@ -1,3 +1,6 @@
+div[data-control="media-manager"]:focus {
+  outline: none;
+}
 div[data-control="media-manager"] audio,
 div[data-control="media-manager"] video {
   width: 100%;
@@ -343,6 +346,7 @@ div[data-control="media-manager"] div[data-control="selection-marker"] {
   position: absolute;
   z-index: 250;
   border: 1px dashed #95a5a6;
+  background: rgba(0, 0, 0, 0.1);
 }
 div[data-control="media-manager"] .upload-progress {
   background: #f9f9f9;

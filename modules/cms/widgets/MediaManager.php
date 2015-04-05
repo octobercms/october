@@ -32,6 +32,16 @@ class MediaManager extends WidgetBase
 
     protected $brokenImageHash = null;
 
+    /**
+     * @var boolean Determines whether the bottom toolbar is visible.
+     */
+    public $bottomToolbar = false;
+
+    /**
+     * @var boolean Determines whether the Crop & Insert button is visible.
+     */
+    public $cropAndInsertButton = false;
+
     public function __construct($controller, $alias)
     {
         $this->alias = $alias;
@@ -358,7 +368,15 @@ class MediaManager extends WidgetBase
 
     public function onLoadPopup()
     {
+        $this->bottomToolbar = Input::get('bottomToolbar', $this->bottomToolbar);
+        $this->cropAndInsertButton = Input::get('cropAndInsertButton', $this->cropAndInsertButton);
+
         return $this->makePartial('popup-body');
+    }
+
+    public function onLoadImageCropPopup()
+    {
+        return $this->makePartial('image-crop-popup-body');
     }
 
     //
@@ -514,9 +532,9 @@ class MediaManager extends WidgetBase
     {
         $this->addCss('css/mediamanager.css', 'core');
 
-        // TODO: combine and load combined
+        // TODO: combine and minify
         $this->addJs('js/mediamanager.js', 'core');
-        $this->addJs('js/mediamanager.popup.js', 'core');
+        $this->addJs('js/mediamanager.imagecroppopup.js', 'core');
     }
 
     protected function setViewMode($viewMode)

@@ -63,7 +63,7 @@
     /*
      * Creates a proxied method reference or returns an existing proxied method.
      */
-    Base.prototype.proxy = function(method, name) {
+    Base.prototype.proxy = function(method) {
         if (method.ocProxyId === undefined) {
             $.oc.foundation._proxyCounter++
             method.ocProxyId = $.oc.foundation._proxyCounter

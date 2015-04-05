@@ -1877,8 +1877,8 @@ self.$form.trigger('change')
 if(self.$dataLocker)
 self.$dataLocker.val(self.syncBefore(this.$editor.html()))}}
 if(this.options.fullpage){redactorOptions.fullpage=true}
-redactorOptions.plugins=['cleanup','fullscreen','figure','quote','table']
-redactorOptions.buttons=['formatting','bold','italic','unorderedlist','orderedlist','image','link','horizontalrule','html'],this.$textarea.redactor(redactorOptions)}
+redactorOptions.plugins=['cleanup','fullscreen','figure','quote','table','mediamanager','image']
+redactorOptions.buttons=['formatting','bold','italic','unorderedlist','orderedlist','link','horizontalrule','html'],this.$textarea.redactor(redactorOptions)}
 RichEditor.prototype.build=function(redactor){this.updateLayout()
 $(window).resize($.proxy(this.updateLayout,this))
 $(window).on('oc.updateUi',$.proxy(this.updateLayout,this))

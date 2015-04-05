@@ -6,7 +6,8 @@
  */
 +function ($) { "use strict";
 
-    $.oc.mediaManager = {}
+    if ($.oc.mediaManager === undefined)
+        $.oc.mediaManager = {}
 
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype
@@ -19,7 +20,6 @@
         this.$form = this.$el.closest('form')
 
         this.options = options
-
         Base.call(this)
 
         // State properties
@@ -73,6 +73,30 @@
         BaseProto.dispose.call(this)
     }
 
+    MediaManager.prototype.getSelectedItems = function(returnNotProcessed) {
+        var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
+            result = []
+
+        if (returnNotProcessed === true)
+            return items
+
+        for (var i=0, len=items.length; i < len; i++) {
+            var item = items[i],
+                itemDetails = {
+                    itemType: item.getAttribute('data-item-type'),
+                    path: item.getAttribute('data-path'),
+                    title: item.getAttribute('data-title'),
+                    documentType: item.getAttribute('data-document-type'),
+                    folder: item.getAttribute('data-folder'),
+                    publicUrl: item.getAttribute('data-public-url')
+                }
+
+            result.push(itemDetails)
+        }
+
+        return result
+    }
+
     // MEDIA MANAGER INTERNAL METHODS
     // ============================
 
@@ -84,7 +108,7 @@
             this.$el.find('[data-control="bottom-toolbar"]').removeClass('hide')
 
             if (this.options.cropAndInsertButton)
-                this.$el.find('[data-command="crop-and-insert"]').removeClass('hide')
+                this.$el.find('[data-popup-command="crop-and-insert"]').removeClass('hide')
         }
 
         this.registerHandlers()
@@ -116,6 +140,7 @@
         this.$el.on('hidden.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupHidden))
         this.$el.on('shown.oc.popup', '[data-command="move"]', this.proxy(this.onMovePopupShown))
         this.$el.on('hidden.oc.popup', '[data-command="move"]', this.proxy(this.onMovePopupHidden))
+        this.$el.on('keydown', this.proxy(this.onKeyDown))
 
         if (this.itemListElement)
             this.itemListElement.addEventListener('mousedown', this.proxy(this.onListMouseDown))
@@ -137,6 +162,7 @@
         this.$el.off('hidden.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupHidden))
         this.$el.off('shown.oc.popup', '[data-command="move"]', this.proxy(this.onMovePopupShown))
         this.$el.off('hidden.oc.popup', '[data-command="move"]', this.proxy(this.onMovePopupHidden))
+        this.$el.off('keydown', this.proxy(this.onKeyDown))
 
         if (this.itemListElement) {
             this.itemListElement.removeEventListener('mousedown', this.proxy(this.onListMouseDown))
@@ -437,6 +463,9 @@
     }
 
     MediaManager.prototype.replaceSidebarPlaceholder = function(response) {
+        if (!this.sidebarPreviewElement)
+            return
+
         var sidebarThumbnail = this.sidebarPreviewElement.querySelector('[data-control="sidebar-thumbnail"]')
         if (!sidebarThumbnail)
             return
@@ -675,6 +704,33 @@
     }
 
     //
+    // Cropping images
+    //
+
+    MediaManager.prototype.cropSelectedImage = function(callback) {
+        var selectedItems = this.getSelectedItems(true)
+
+        if (selectedItems.length != 1) {
+            alert(this.options.selectSingleImage)
+            return
+        }
+
+        if (selectedItems[0].getAttribute('data-document-type') !== 'image') {
+            alert(this.options.selectionNotImage)
+            return
+        }
+
+        new $.oc.mediaManager.imageCropPopup(
+            selectedItems[0].getAttribute('data-path'), {
+                alias: this.options.alias
+            })
+    }
+
+    MediaManager.prototype.onImageCropped = function(imageItem) {
+
+    }
+
+    //
     // Search
     //
 
@@ -890,6 +946,11 @@
                 this.resetSearch()
                 this.gotoFolder($item.data('path'), true)
             }
+        } 
+        else if ($item.data('item-type') == 'file') {
+            // Trigger the Insert popup command if a file item 
+            // was double clicked.
+            this.$el.trigger('popupcommand', ['insert'])
         }
 
         return false
@@ -925,6 +986,14 @@
             break;
             case 'toggle-sidebar':
                 this.toggleSidebar(ev)
+            break;
+            case 'popup-command':
+                var popupCommand = $(ev.currentTarget).data('popup-command')
+
+                if (popupCommand !== 'crop-and-insert')
+                    this.$el.trigger('popupcommand', [popupCommand])
+                else
+                    this.cropSelectedImage(this.proxy(this.onImageCropped))
             break;
         }
 
@@ -1057,6 +1126,23 @@
         this.execNavigationRequest('onSetSorting', data)
     }
 
+    MediaManager.prototype.onKeyDown = function(ev) {
+        var eventHandled = false
+
+        if (ev.which == 13) {
+            // Trigger the Insert popup command when Enter
+            // key is pressed
+            this.$el.trigger('popupcommand', ['insert'])
+
+            eventHandled = true
+        }
+
+        if (eventHandled) {
+            ev.preventDefault()
+            ev.stopPropagation()
+        }
+    }
+
     // MEDIA MANAGER PLUGIN DEFINITION
     // ============================
 
@@ -1065,6 +1151,8 @@
         deleteEmpty: 'Please select files to delete.',
         deleteConfirm: 'Do you really want to delete the selected file(s)?',
         moveEmpty: 'Please select files to move.',
+        selectSingleImage: 'Please select a single image.',
+        selectionNotImage: 'The selected item is not an image.',
         bottomToolbar: false,
         cropAndInsertButton: false
     }

@@ -86,6 +86,25 @@
             background-color: @color-richeditor-toolbar-btn-bg-active;
             color: @color-richeditor-toolbar-btn-color-hover;
         }
+
+        // For some reasin the line height for fa- buttons was set to 1
+        // and padding was not matching other buttons. -ab Apr 01 2015
+        &.fa-redactor-btn {
+            padding: 9px 10px;
+            line-height: 20px;
+        }
+
+        &.oc-redactor-button i:before {
+            font-size: 16px!important;
+        }
+
+        &.oc-autumn-button {
+            color: #c03f31;
+
+            &:hover {
+                color: white!important;
+            }
+        }
     }
 }
 

@@ -5,6 +5,11 @@
     data-delete-empty="<?= e(trans('cms::lang.media.delete_empty')) ?>"
     data-delete-confirm="<?= e(trans('cms::lang.media.delete_confirm')) ?>"
     data-move-empty="<?= e(trans('cms::lang.media.move_empty')) ?>"
+    data-select-single-image="<?= e(trans('cms::lang.media.select_single_image')) ?>"
+    data-selection-not-image="<?= e(trans('cms::lang.media.selection_not_image')) ?>"
+    data-bottom-toolbar="<?= $this->bottomToolbar ? 'true' : 'false' ?>"
+    data-crop-and-insert-button="<?= $this->cropAndInsertButton ? 'true' : 'false' ?>"
+    tabindex="0"
 >
 
     <?= $this->makePartial('toolbar') ?>
@@ -48,32 +53,7 @@
                                 </div>
 
                                 <div class="layout-row min-size hide" data-control="bottom-toolbar">
-                                    <div class="panel no-padding-bottom border-top">
-                                        <div class="form-buttons">
-                                            <div class="pull-right">
-                                                <button
-                                                    type="button"
-                                                    data-command="insert"
-                                                    class="btn btn-primary">
-                                                    <?= e(trans('cms::lang.media.insert')) ?>
-                                                </button>
-
-                                                <button
-                                                    type="button"
-                                                    data-command="crop-and-insert"
-                                                    class="btn btn-primary hide">
-                                                    <?= e(trans('cms::lang.media.crop_and_insert')) ?>
-                                                </button>
-
-                                                <button
-                                                    type="button"
-                                                    data-command="insert"
-                                                    class="btn btn-default no-margin-right">
-                                                    <?= e(trans('backend::lang.form.cancel')) ?>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?= $this->makePartial('bottom-toolbar') ?>
                                 </div>
                             </div>
                         </div>

@@ -78,7 +78,7 @@ var Base=function(){this.proxiedMethods={}}
 Base.prototype.dispose=function()
 {for(var key in this.proxiedMethods){this.proxiedMethods[key]=null}
 this.proxiedMethods=null}
-Base.prototype.proxy=function(method,name){if(method.ocProxyId===undefined){$.oc.foundation._proxyCounter++
+Base.prototype.proxy=function(method){if(method.ocProxyId===undefined){$.oc.foundation._proxyCounter++
 method.ocProxyId=$.oc.foundation._proxyCounter}
 if(this.proxiedMethods[method.ocProxyId]!==undefined)
 return this.proxiedMethods[method.ocProxyId]
