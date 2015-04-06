@@ -711,7 +711,7 @@ class Updates extends Controller
             }
         }
 
-        return $popular;
+        return array_values($popular);
     }
 
 }
