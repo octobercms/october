@@ -561,6 +561,12 @@ class RelationController extends ControllerBehavior
             if ($config->recordUrl) {
                 $defaultOnClick = null;
             }
+            elseif (
+                !$this->makeConfigForMode('manage', 'form', false) &&
+                !$this->makeConfigForMode('pivot', 'form', false)
+            ) {
+                $defaultOnClick = null;
+            }
 
             $config->recordOnClick = $this->getConfig('view[recordOnClick]', $defaultOnClick);
 
@@ -1267,7 +1273,7 @@ class RelationController extends ControllerBehavior
      * Returns the configuration for a mode (view, manage, pivot) for an
      * expected type (list, form). Uses fallback configuration.
      */
-    protected function makeConfigForMode($mode = 'view', $type = 'list')
+    protected function makeConfigForMode($mode = 'view', $type = 'list', $throwException = true)
     {
         $config = null;
 
@@ -1293,12 +1299,16 @@ class RelationController extends ControllerBehavior
          * - view.list => manage.list
          */
         if (!$config) {
-
             if ($mode == 'manage' && $type == 'list') {
                 return $this->makeConfigForMode('view', $type);
             }
 
-            throw new ApplicationException('Missing configuration for '.$mode.'.'.$type.' in RelationController definition '.$this->field);
+            if ($throwException) {
+                throw new ApplicationException('Missing configuration for '.$mode.'.'.$type.' in RelationController definition '.$this->field);
+            }
+            else {
+                return false;
+            }
         }
 
         return $this->makeConfig($config);
