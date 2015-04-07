@@ -1,6 +1,6 @@
 <?= Form::open([
     'data-request' => $this->getEventHandler('onAddWidget'),
-    'data-request-success' => "\$el.trigger('close.oc.popup'); \$(window).trigger('oc.report-widget-added')",
+    'data-request-success' => "\$(this).trigger('close.oc.popup'); \$(window).trigger('oc.report-widget-added')",
     'data-popup-load-indicator' => 1
 ]) ?>
     <div class="modal-header">

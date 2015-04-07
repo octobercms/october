@@ -95,7 +95,7 @@ if (window.jQuery === undefined)
                  * Halt here if beforeUpdate() or data-request-before-update returns false
                  */
                 if (this.options.beforeUpdate.apply(this, [data, textStatus, jqXHR]) === false) return
-                if (options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}($el, context, data, textStatus, jqXHR))') === false) return
+                if (options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))') === false) return
 
                 /*
                  * Trigger 'ajaxBeforeUpdate' on the form, halt if event.preventDefault() is called
@@ -111,7 +111,7 @@ if (window.jQuery === undefined)
 
                 updatePromise.done(function(){
                     form.trigger('ajaxSuccess', [context, data, textStatus, jqXHR])
-                    options.evalSuccess && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalSuccess+'}($el, context, data, textStatus, jqXHR))')
+                    options.evalSuccess && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalSuccess+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')
                 })
 
                 return updatePromise
@@ -158,7 +158,7 @@ if (window.jQuery === undefined)
                     /*
                      * Halt here if the data-request-error attribute returns false
                      */
-                    if (options.evalError && eval('(function($el, context, textStatus, jqXHR) {'+options.evalError+'}($el, context, textStatus, jqXHR))') === false)
+                    if (options.evalError && eval('(function($el, context, textStatus, jqXHR) {'+options.evalError+'}.call($el.get(0), $el, context, textStatus, jqXHR))') === false)
                         return
 
                     requestOptions.handleErrorMessage(errorMsg)
@@ -167,10 +167,8 @@ if (window.jQuery === undefined)
                 return updatePromise
             },
             complete: function(data, textStatus, jqXHR) {
-
                 form.trigger('ajaxComplete', [context, data, textStatus, jqXHR])
-                options.evalComplete && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalComplete+'}($el, context, data, textStatus, jqXHR))')
-
+                options.evalComplete && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalComplete+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')
             },
 
             /*

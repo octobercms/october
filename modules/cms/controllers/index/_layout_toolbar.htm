@@ -13,6 +13,6 @@
         class="btn btn-default empty oc-icon-trash-o <?php if (!$templatePath): ?>hide<?php endif ?>"
         data-request="onDelete"
         data-request-confirm="<?= e(trans('cms::lang.layout.delete_confirm_single')) ?>"
-        data-request-success="$.oc.cmsPage.updateTemplateList('layout'); $(element).trigger('close.oc.tab', [{force: true}])"
+        data-request-success="$.oc.cmsPage.updateTemplateList('layout'); $(this).trigger('close.oc.tab', [{force: true}])"
         data-control="delete-button"></button>
 </div>
