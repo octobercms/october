@@ -150,7 +150,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'label'       => 'system::lang.settings.menu_label',
                     'icon'        => 'icon-cog',
                     'url'         => Backend::url('system/settings'),
-                    'permissions' => ['backend.manage_users', 'system.*'],
+                    'permissions' => [],
                     'order'       => 1000
                 ]
             ]);
@@ -173,6 +173,10 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerPermissions('October.System', [
                 'system.manage_updates' => [
                     'label' => 'system::lang.permissions.manage_software_updates',
+                    'tab' => 'system::lang.permissions.name'
+                ],
+                'system.access_logs' => [
+                    'label' => 'system::lang.permissions.access_logs',
                     'tab' => 'system::lang.permissions.name'
                 ],
                 'system.manage_mail_settings' => [
@@ -258,7 +262,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_LOGS,
                     'icon'        => 'icon-exclamation-triangle',
                     'url'         => Backend::url('system/eventlogs'),
-                    'permissions' => ['system.access_event_logs'],
+                    'permissions' => ['system.access_logs'],
                     'order'       => 800
                 ],
                 'request_logs' => [
@@ -267,7 +271,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_LOGS,
                     'icon'        => 'icon-file-o',
                     'url'         => Backend::url('system/requestlogs'),
-                    'permissions' => ['system.access_request_logs'],
+                    'permissions' => ['system.access_logs'],
                     'order'       => 800
                 ],
                 'mail_settings' => [

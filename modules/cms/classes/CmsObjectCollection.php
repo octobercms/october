@@ -1,7 +1,7 @@
 <?php namespace Cms\Classes;
 
-use Illuminate\Support\Collection as CollectionBase;
 use ApplicationException;
+use Illuminate\Support\Collection as CollectionBase;
 
 /**
  * This class represents a collection of Cms Objects.
@@ -11,4 +11,24 @@ use ApplicationException;
  */
 class CmsObjectCollection extends CollectionBase
 {
+    /**
+     * Returns objects that use the supplied component.
+     * @param  string|array  $components
+     * @return static
+     */
+    public function withComponent($components)
+    {
+        return $this->filter(function($object) use ($components) {
+
+            $hasComponent = false;
+
+            foreach ((array) $components as $component) {
+                if ($object->hasComponent($component)) {
+                    $hasComponent = true;
+                }
+            }
+
+            return $hasComponent;
+        });
+    }
 }

@@ -1,6 +1,6 @@
 <?= Form::open([
     'data-request'=>$this->getEventHandler('onNewDirectory'),
-    'data-request-success'=>"\$el.trigger('close.oc.popup')",
+    'data-request-success'=>"\$(this).trigger('close.oc.popup')",
     'data-stripe-load-indicator'=>1,
     'id'=>'asset-new-dir-popup-form'
 ]) ?>

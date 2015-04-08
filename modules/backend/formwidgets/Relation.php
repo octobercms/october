@@ -2,6 +2,7 @@
 
 use Lang;
 use Backend\Classes\FormWidgetBase;
+use ApplicationException;
 use SystemException;
 use Illuminate\Database\Eloquent\Relations\Relation as RelationBase;
 
@@ -43,16 +44,6 @@ class Relation extends FormWidgetBase
     protected $defaultAlias = 'relation';
 
     /**
-     * @var string Relationship type
-     */
-    public $relationType;
-
-    /**
-     * @var string Relationship name
-     */
-    public $relationName;
-
-    /**
      * @var FormField Object used for rendering a simple field type
      */
     public $renderFormField;
@@ -67,16 +58,6 @@ class Relation extends FormWidgetBase
             'descriptionFrom',
             'emptyOption',
         ]);
-
-        $this->relationName = $this->valueFrom;
-        $this->relationType = $this->model->getRelationType($this->relationName);
-
-        if (!$this->model->hasRelation($this->relationName)) {
-            throw new SystemException(Lang::get(
-                'backend::lang.model.missing_relation',
-                ['class'=>get_class($this->model), 'relation'=>$this->relationName]
-            ));
-        }
     }
 
     /**
@@ -104,15 +85,17 @@ class Relation extends FormWidgetBase
         return $this->renderFormField = RelationBase::noConstraints(function () {
 
             $field = clone $this->formField;
+            $relationObject = $this->getRelationObject();
+            $query = $relationObject->newQuery();
 
-            list($model, $attribute) = $this->resolveModelAttribute($this->relationName);
-            $relatedObj = $model->makeRelation($attribute);
-            $query = $model->{$attribute}()->newQuery();
+            list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+            $relationType = $model->getRelationType($attribute);
+            $relationModel = $model->makeRelation($attribute);
 
-            if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany', 'hasMany'])) {
+            if (in_array($relationType, ['belongsToMany', 'morphToMany', 'morphedByMany', 'hasMany'])) {
                 $field->type = 'checkboxlist';
             }
-            elseif (in_array($this->relationType, ['belongsTo', 'hasOne'])) {
+            elseif (in_array($relationType, ['belongsTo', 'hasOne'])) {
                 $field->type = 'dropdown';
             }
 
@@ -120,8 +103,8 @@ class Relation extends FormWidgetBase
 
             // It is safe to assume that if the model and related model are of
             // the exact same class, then it cannot be related to itself
-            if ($model->exists && (get_class($model) == get_class($relatedObj))) {
-                $query->where($relatedObj->getKeyName(), '<>', $model->getKey());
+            if ($model->exists && (get_class($model) == get_class($relationModel))) {
+                $query->where($relationModel->getKeyName(), '<>', $model->getKey());
             }
 
             // Even though "no constraints" is applied, belongsToMany constrains the query
@@ -129,11 +112,11 @@ class Relation extends FormWidgetBase
             $query->getQuery()->getQuery()->joins = [];
 
             $treeTraits = ['October\Rain\Database\Traits\NestedTree', 'October\Rain\Database\Traits\SimpleTree'];
-            if (count(array_intersect($treeTraits, class_uses($relatedObj))) > 0) {
-                $field->options = $query->listsNested($this->nameFrom, $relatedObj->getKeyName());
+            if (count(array_intersect($treeTraits, class_uses($relationModel))) > 0) {
+                $field->options = $query->listsNested($this->nameFrom, $relationModel->getKeyName());
             }
             else {
-                $field->options = $query->lists($this->nameFrom, $relatedObj->getKeyName());
+                $field->options = $query->lists($this->nameFrom, $relationModel->getKeyName());
             }
 
             return $field;
@@ -155,4 +138,25 @@ class Relation extends FormWidgetBase
 
         return $value;
     }
+
+
+    /**
+     * Returns the value as a relation object from the model,
+     * supports nesting via HTML array.
+     * @return Relation
+     */
+    protected function getRelationObject()
+    {
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+
+        if (!$model->hasRelation($attribute)) {
+            throw new ApplicationException(Lang::get('backend::lang.model.missing_relation', [
+                'class' => get_class($model),
+                'relation' => $attribute
+            ]));
+        }
+
+        return $model->{$attribute}();
+    }
+
 }

@@ -181,6 +181,7 @@ table.table.data tbody td.column-slim{padding-left:0;padding-right:0}
 table.table.data tbody td.column-compact{padding:0}
 table.table.data tfoot a{color:#666666;text-decoration:none}
 table.table.data tfoot td,table.table.data tfoot th{border-color:#e2e2e2;padding:10px 15px}
+table.table.data th.list-cell-type-switch,table.table.data td.list-cell-type-switch{text-align:center}
 table.table.data .list-checkbox{padding-left:16px;padding-right:8px;width:52px;vertical-align:top;border-right:1px solid #eeeeee}
 table.table.data .list-checkbox .checkbox{margin:0}
 table.table.data .list-checkbox .custom-checkbox{position:relative;top:5px;left:-2px}
@@ -774,8 +775,7 @@ ul.status-list li span.status.info{background:#5bc0de}
 .control-breadcrumb li a:hover{color:#ecf0f1}
 .control-breadcrumb li:after{font-size:14px;line-height:14px;display:inline-block;margin-left:6px;margin-right:2px;vertical-align:baseline;color:#9da3a7;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105"}
 .control-breadcrumb li:last-child:after{content:''}
-.control-breadcrumb + .content-tabs,.control-breadcrumb + .padded-container{margin-top:-20px}
-.control-breadcrumb.breadcrumb-flush{margin-bottom:0}
+body.breadcrumb-flush .control-breadcrumb,.control-breadcrumb.breadcrumb-flush{margin-bottom:0}
 body.slim-container .control-breadcrumb{margin-left:0;margin-right:0}
 body.compact-container .control-breadcrumb{margin-top:0;margin-left:0;margin-right:0}
 div.control-popover{position:absolute;background-clip:content-box;left:0;top:0;z-index:570;visibility:hidden}

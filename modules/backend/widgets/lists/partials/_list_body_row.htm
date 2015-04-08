@@ -19,7 +19,7 @@
 
     <?php $index = 0; foreach ($columns as $key => $column): ?>
         <?php $index++; ?>
-        <td data-title="<?= e(trans($column->label)) ?>" class="list-cell-index-<?= $index ?> list-cell-name-<?= $column->columnName ?> list-cell-type-<?= $column->type ?> <?= $column->cssClass ?>">
+        <td data-title="<?= e(trans($column->label)) ?>" class="list-cell-index-<?= $index ?> list-cell-name-<?= $column->getName() ?> list-cell-type-<?= $column->type ?> <?= $column->cssClass ?>">
             <?php if ($index == 1 && ($url = $this->getRecordUrl($record))): ?>
                 <a <?= $this->getRecordOnClick($record) ?> href="<?= $url ?>">
                     <?= $this->getColumnValue($record, $column) ?>

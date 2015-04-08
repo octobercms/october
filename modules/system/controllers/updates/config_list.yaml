@@ -9,4 +9,3 @@ noRecordsMessage: backend::lang.list.no_records
 
 toolbar:
     buttons: list_toolbar
-    search: list_search

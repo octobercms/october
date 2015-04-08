@@ -1,7 +1,7 @@
 <?php namespace Backend\Classes;
 
 use Html;
-use Model;
+use October\Rain\Database\Model;
 use October\Rain\Html\Helper as HtmlHelper;
 
 /**
@@ -48,6 +48,16 @@ class FormField
      * @var string Model attribute to use for the display value.
      */
     public $valueFrom;
+
+    /**
+     * @var string Specifies a default value for supported fields.
+     */
+    public $defaults;
+
+    /**
+     * @var string Model attribute to use for the default value.
+     */
+    public $defaultFrom;
 
     /**
      * @var string Specifies if this field belongs to a tab.
@@ -113,11 +123,6 @@ class FormField
      * @var string Specifies if the comment is in HTML format.
      */
     public $commentHtml = false;
-
-    /**
-     * @var string Specifies a default value for supported fields.
-     */
-    public $defaults;
 
     /**
      * @var string Specifies a message to display when there is no value supplied (placeholder).
@@ -295,6 +300,9 @@ class FormField
         }
         if (isset($config['default'])) {
             $this->defaults = $config['default'];
+        }
+        if (isset($config['defaultFrom'])) {
+            $this->defaultFrom = $config['defaultFrom'];
         }
         if (isset($config['attributes'])) {
             $this->attributes($config['attributes']);
@@ -487,6 +495,8 @@ class FormField
 
     /**
      * Returns a value suitable for the field id property.
+     * @param  string $suffix Specify a suffix string
+     * @return string
      */
     public function getId($suffix = null)
     {
@@ -516,7 +526,7 @@ class FormField
      */
     public function getValueFromData($data, $default = null)
     {
-        $fieldName = $this->fieldName;
+        $fieldName = $this->valueFrom ?: $this->fieldName;
 
         /*
          * Array field name, eg: field[key][key2][key3]

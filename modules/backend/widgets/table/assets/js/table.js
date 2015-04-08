@@ -353,9 +353,9 @@
 
                 dataContainer.setAttribute('type', 'hidden')
                 dataContainer.setAttribute('data-container', 'data-container')
-                dataContainer.value = records[i][columnName] !== undefined ?
-                    records[i][columnName] :
-                    ""
+                dataContainer.value = records[i][columnName] !== undefined
+                    ? records[i][columnName]
+                    : ""
 
                 cellContentContainer.setAttribute('class', 'content-container')
 
@@ -391,9 +391,10 @@
 
     Table.prototype.fetchRecords = function(onSuccess) {
         this.dataSource.getRecords(
-            this.navigation.getPageFirstRowOffset(), 
+            this.navigation.getPageFirstRowOffset(),
             this.options.recordsPerPage,
-            onSuccess)
+            onSuccess
+        )
     }
 
     Table.prototype.updateScrollbar = function() {

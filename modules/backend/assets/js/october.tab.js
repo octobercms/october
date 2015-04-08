@@ -107,8 +107,13 @@
         })
 
         this.$tabsContainer.on('shown.bs.tab', 'li', function(){
-           // self.$tabsContainer.dragScroll('fixScrollClasses')
-           $(window).trigger('oc.updateUi')
+            // self.$tabsContainer.dragScroll('fixScrollClasses')
+            $(window).trigger('oc.updateUi')
+
+            var tabUrl = $('> a', this).data('tabUrl')
+            if (tabUrl) {
+                window.history.replaceState({}, 'Tab link reference', tabUrl)
+            }
         })
 
         if (this.options.slidable) {

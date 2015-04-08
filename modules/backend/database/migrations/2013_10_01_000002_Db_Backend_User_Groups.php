@@ -10,7 +10,7 @@ class DbBackendUserGroups extends Migration
         Schema::create('backend_user_groups', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name')->unique('name_unique');
             $table->text('permissions')->nullable();
             $table->timestamps();
         });

@@ -26,7 +26,7 @@ class EventLogs extends Controller
         'Backend.Behaviors.ListController'
     ];
 
-    public $requiredPermissions = ['system.access_event_logs'];
+    public $requiredPermissions = ['system.access_logs'];
 
     public $formConfig = 'config_form.yaml';
 

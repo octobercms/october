@@ -95,7 +95,7 @@ if (window.jQuery === undefined)
                  * Halt here if beforeUpdate() or data-request-before-update returns false
                  */
                 if (this.options.beforeUpdate.apply(this, [data, textStatus, jqXHR]) === false) return
-                if (options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}($el, context, data, textStatus, jqXHR))') === false) return
+                if (options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))') === false) return
 
                 /*
                  * Trigger 'ajaxBeforeUpdate' on the form, halt if event.preventDefault() is called
@@ -111,7 +111,7 @@ if (window.jQuery === undefined)
 
                 updatePromise.done(function(){
                     form.trigger('ajaxSuccess', [context, data, textStatus, jqXHR])
-                    options.evalSuccess && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalSuccess+'}($el, context, data, textStatus, jqXHR))')
+                    options.evalSuccess && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalSuccess+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')
                 })
 
                 return updatePromise
@@ -158,13 +158,17 @@ if (window.jQuery === undefined)
                     /*
                      * Halt here if the data-request-error attribute returns false
                      */
-                    if (options.evalError && eval('(function($el, context, textStatus, jqXHR) {'+options.evalError+'}($el, context, textStatus, jqXHR))') === false)
+                    if (options.evalError && eval('(function($el, context, textStatus, jqXHR) {'+options.evalError+'}.call($el.get(0), $el, context, textStatus, jqXHR))') === false)
                         return
 
                     requestOptions.handleErrorMessage(errorMsg)
                 })
 
                 return updatePromise
+            },
+            complete: function(data, textStatus, jqXHR) {
+                form.trigger('ajaxComplete', [context, data, textStatus, jqXHR])
+                options.evalComplete && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalComplete+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')
             },
 
             /*
@@ -189,7 +193,7 @@ if (window.jQuery === undefined)
                 var updatePromise = $.Deferred().done(function(){
                     for (var partial in data) {
                         /*
-                         * If a partial has been supplied on the client side that matches the server supplied key, look up 
+                         * If a partial has been supplied on the client side that matches the server supplied key, look up
                          * it's selector and use that. If not, we assume it is an explicit selector reference.
                          */
                         var selector = (options.update[partial]) ? options.update[partial] : partial
@@ -262,6 +266,7 @@ if (window.jQuery === undefined)
          */
         context.success = requestOptions.success
         context.error = requestOptions.error
+        context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
 
         requestOptions.data = data.join('&')
@@ -294,7 +299,8 @@ if (window.jQuery === undefined)
         beforeUpdate: function(data, textStatus, jqXHR) {},
         evalBeforeUpdate: null,
         evalSuccess: null,
-        evalError: null
+        evalError: null,
+        evalComplete: null,
     }
 
     /*
@@ -322,6 +328,7 @@ if (window.jQuery === undefined)
             evalBeforeUpdate: $this.data('request-before-update'),
             evalSuccess: $this.data('request-success'),
             evalError: $this.data('request-error'),
+            evalComplete: $this.data('request-complete'),
             confirm: $this.data('request-confirm'),
             redirect: $this.data('request-redirect'),
             loading: $this.data('request-loading'),
@@ -411,7 +418,7 @@ if (window.jQuery === undefined)
 
     /*
      * Invent our own event that unifies document.ready with window.ajaxUpdateComplete
-     * 
+     *
      * $(document).render(function() { })
      * $(document).on('render', function(){ })
      */
