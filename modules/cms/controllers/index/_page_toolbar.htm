@@ -24,6 +24,6 @@
         class="btn btn-default empty oc-icon-trash-o <?php if (!$templatePath): ?>hide<?php endif ?>"
         data-request="onDelete"
         data-request-confirm="<?= e(trans('cms::lang.page.delete_confirm_single')) ?>"
-        data-request-success="$.oc.cmsPage.updateTemplateList('page'); $(element).trigger('close.oc.tab', [{force: true}])"
+        data-request-success="$.oc.cmsPage.updateTemplateList('page'); $(this).trigger('close.oc.tab', [{force: true}])"
         data-control="delete-button"></button>
 </div>

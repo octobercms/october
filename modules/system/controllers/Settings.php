@@ -34,7 +34,7 @@ class Settings extends Controller
             $this->requiredPermissions = null;
         }
 
-        $this->addCss('/modules/system/assets/css/settings.css', 'core');
+        $this->addCss('/modules/system/assets/css/settings/settings.css', 'core');
 
         BackendMenu::setContext('October.System', 'system', 'settings');
     }

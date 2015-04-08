@@ -2,13 +2,14 @@
     <div class="layout-cell">
 
         <div class="layout">
-            <!-- Breadcrumb -->
             <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
+                <!-- Breadcrumb -->
                 <div class="control-breadcrumb breadcrumb-flush">
                     <?= $breadcrumbContent ?>
                 </div>
             <?php endif ?>
 
+            <!-- Content -->
             <div class="layout-row">
                 <div class="padded-container layout">
                     <?= Block::placeholder('form-contents') ?>

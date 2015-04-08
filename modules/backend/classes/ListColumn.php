@@ -1,5 +1,7 @@
 <?php namespace Backend\Classes;
 
+use October\Rain\Html\Helper as HtmlHelper;
+
 /**
  * List Columns definition
  * A translation of the list column configuration
@@ -146,5 +148,32 @@ class ListColumn
         }
 
         return $config;
+    }
+
+    /**
+     * Returns a HTML valid name for the column name.
+     * @return string
+     */
+    public function getName()
+    {
+        return HtmlHelper::nameToId($this->columnName);
+    }
+
+    /**
+     * Returns a value suitable for the column id property.
+     * @param  string $suffix Specify a suffix string
+     * @return string
+     */
+    public function getId($suffix = null)
+    {
+        $id = 'column';
+
+        $id .= '-'.$this->columnName;
+
+        if ($suffix) {
+            $id .= '-'.$suffix;
+        }
+
+        return HtmlHelper::nameToId($id);
     }
 }

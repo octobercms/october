@@ -12,12 +12,12 @@ class DbBackendUsers extends Migration
             $table->increments('id');
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('login')->unique()->index();
-            $table->string('email')->unique();
+            $table->string('login')->unique('login_unique')->index('login_index');
+            $table->string('email')->unique('email_unique');
             $table->string('password');
-            $table->string('activation_code')->nullable()->index();
+            $table->string('activation_code')->nullable()->index('act_code_index');
             $table->string('persist_code')->nullable();
-            $table->string('reset_password_code')->nullable()->index();
+            $table->string('reset_password_code')->nullable()->index('reset_code_index');
             $table->text('permissions')->nullable();
             $table->boolean('is_activated')->default(0);
             $table->timestamp('activated_at')->nullable();

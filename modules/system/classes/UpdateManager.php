@@ -5,14 +5,16 @@ use URL;
 use File;
 use Lang;
 use Http;
+use Cache;
 use Schema;
 use Config;
-use Carbon\Carbon;
+use ApplicationException;
+use Cms\Classes\ThemeManager;
 use System\Models\Parameters;
 use System\Models\PluginVersion;
-use ApplicationException;
 use System\Helpers\Cache as CacheHelper;
 use October\Rain\Filesystem\Zip;
+use Carbon\Carbon;
 use Exception;
 
 /**
@@ -49,6 +51,11 @@ class UpdateManager
     protected $pluginManager;
 
     /**
+     * @var Cms\Classes\ThemeManager
+     */
+    protected $themeManager;
+
+    /**
      * @var System\Classes\VersionManager
      */
     protected $versionManager;
@@ -69,11 +76,17 @@ class UpdateManager
     protected $disableCoreUpdates = false;
 
     /**
+     * @var array Cache of gateway products
+     */
+    protected $productCache;
+
+    /**
      * Initialize this singleton.
      */
     protected function init()
     {
         $this->pluginManager = PluginManager::instance();
+        $this->themeManager = ThemeManager::instance();
         $this->versionManager = VersionManager::instance();
         $this->tempDirectory = temp_path();
         $this->baseDirectory = base_path();
@@ -235,7 +248,7 @@ class UpdateManager
          */
         $themes = [];
         foreach (array_get($result, 'themes', []) as $code => $info) {
-            if (!$this->isThemeInstalled($code)) {
+            if (!$this->themeManager->isInstalled($code)) {
                 $themes[$code] = $info;
             }
         }
@@ -493,6 +506,17 @@ class UpdateManager
     //
 
     /**
+     * Looks up a theme from the update server.
+     * @param string $name Theme name.
+     * @return array Details about the theme.
+     */
+    public function requestThemeDetails($name)
+    {
+        $result = $this->requestServerData('theme/detail', ['name' => $name]);
+        return $result;
+    }
+
+    /**
      * Downloads a theme from the update server.
      * @param string $name Theme name.
      * @param string $hash Expected file hash.
@@ -516,29 +540,118 @@ class UpdateManager
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
-        $this->setThemeInstalled($name);
+        $this->themeManager->setInstalled($name);
         @unlink($filePath);
     }
 
-    /**
-     * Checks if a theme has ever been installed before.
-     * @param  string  $name Theme code
-     * @return boolean
-     */
-    public function isThemeInstalled($name)
+    //
+    // Products
+    //
+
+    public function requestProductDetails($codes, $type = null)
     {
-        return array_key_exists($name, Parameters::get('system::theme.history', []));
+        if ($type != 'plugin' && $type != 'theme')
+            $type = 'plugin';
+
+        $codes = (array) $codes;
+        $this->loadProductDetailCache();
+
+        /*
+         * New products requested
+         */
+        $newCodes = array_diff($codes, array_keys($this->productCache[$type]));
+        if (count($newCodes)) {
+            $dataCodes = [];
+            $data = $this->requestServerData($type.'/details', ['names' => $newCodes]);
+            foreach ($data as $product) {
+                $code = array_get($product, 'code', -1);
+                $this->cacheProductDetail($type, $code, $product);
+                $dataCodes[] = $code;
+            }
+
+            /*
+             * Cache unknown products
+             */
+            $unknownCodes = array_diff($newCodes, $dataCodes);
+            foreach ($unknownCodes as $code) {
+                $this->cacheProductDetail($type, $code, -1);
+            }
+
+            $this->saveProductDetailCache();
+        }
+
+        /*
+         * Build details from cache
+         */
+        $result = [];
+        $requestedDetails = array_intersect_key($this->productCache[$type], array_flip($codes));
+
+        foreach ($requestedDetails as $detail) {
+            if ($detail === -1) continue;
+            $result[] = $detail;
+        }
+
+        return $result;
     }
 
     /**
-     * Flags a theme as being installed, so it is not downloaded twice.
-     * @param string $name Theme code
+     * Returns popular themes found on the marketplace.
      */
-    public function setThemeInstalled($name)
+    public function requestPopularProducts($type = null)
     {
-        $history = Parameters::get('system::theme.history', []);
-        $history[$name] = Carbon::now()->timestamp;
-        Parameters::set('system::theme.history', $history);
+        if ($type != 'plugin' && $type != 'theme')
+            $type = 'plugin';
+
+        $cacheKey = 'system-updates-popular-'.$type;
+
+        if (Cache::has($cacheKey)) {
+            return @unserialize(Cache::get($cacheKey)) ?: [];
+        }
+
+        $data = $this->requestServerData($type.'/popular');
+        Cache::put($cacheKey, serialize($data), 60);
+
+        foreach ($data as $product) {
+            $code = array_get($product, 'code', -1);
+            $this->cacheProductDetail($type, $code, $product);
+        }
+
+        $this->saveProductDetailCache();
+
+        return $data;
+    }
+
+    protected function loadProductDetailCache()
+    {
+        $defaultCache = ['theme' => [], 'plugin' => []];
+        $cacheKey = 'system-updates-product-details';
+
+        if (Cache::has($cacheKey)) {
+            $this->productCache = @unserialize(Cache::get($cacheKey)) ?: $defaultCache;
+        }
+        else {
+            $this->productCache = $defaultCache;
+        }
+    }
+
+    protected function saveProductDetailCache()
+    {
+        if ($this->productCache === null) {
+            $this->loadProductDetailCache();
+        }
+
+        $cacheKey = 'system-updates-product-details';
+        $expiresAt = Carbon::now()->addDays(2);
+        Cache::put($cacheKey, serialize($this->productCache), $expiresAt);
+    }
+
+    protected function cacheProductDetail($type, $code, $data)
+    {
+        if ($this->productCache === null) {
+            $this->loadProductDetailCache();
+        }
+
+        $this->productCache[$type][$code] = $data;
     }
 
     //

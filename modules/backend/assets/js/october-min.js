@@ -87,17 +87,18 @@ $el.on('oc.triggerOn.update',function(e){e.stopPropagation()
 self.onConditionChanged()})
 self.onConditionChanged()}
 TriggerOn.prototype.onConditionChanged=function(){if(this.triggerCondition=='checked'){this.updateTarget($(this.options.trigger+':checked',this.triggerParent).length>0)}
-else if(this.triggerCondition=='value'){var trigger=$(this.options.trigger+':checked',this.triggerParent);if(trigger.length){this.updateTarget(trigger.val()==this.triggerConditionValue)}else{this.updateTarget($(this.options.trigger,this.triggerParent).val()==this.triggerConditionValue)}}}
+else if(this.triggerCondition=='value'){var trigger=$(this.options.trigger+':checked',this.triggerParent);if(trigger.length){this.updateTarget(trigger.val()==this.triggerConditionValue)}
+else{this.updateTarget($(this.options.trigger,this.triggerParent).val()==this.triggerConditionValue)}}}
 TriggerOn.prototype.updateTarget=function(status){if(this.options.triggerAction=='show')
-this.$el.toggleClass('hide',!status).trigger('hide',[!status])
+this.$el.toggleClass('hide',!status).trigger('hide.oc.triggerapi',[!status])
 else if(this.options.triggerAction=='hide')
-this.$el.toggleClass('hide',status).trigger('hide',[status])
+this.$el.toggleClass('hide',status).trigger('hide.oc.triggerapi',[status])
 else if(this.options.triggerAction=='enable')
-this.$el.prop('disabled',!status).trigger('disable',[!status]).toggleClass('control-disabled',!status)
+this.$el.prop('disabled',!status).trigger('disable.oc.triggerapi',[!status]).toggleClass('control-disabled',!status)
 else if(this.options.triggerAction=='disable')
-this.$el.prop('disabled',status).trigger('disable',[status]).toggleClass('control-disabled',status)
+this.$el.prop('disabled',status).trigger('disable.oc.triggerapi',[status]).toggleClass('control-disabled',status)
 else if(this.options.triggerAction=='empty'&&status)
-this.$el.trigger('empty').val('')
+this.$el.trigger('empty.oc.triggerapi').val('')
 if(this.options.triggerAction=='show'||this.options.triggerAction=='hide')
 this.fixButtonClasses()
 $(window).trigger('resize')}
@@ -120,7 +121,7 @@ this.scrollClassContainer=this.options.scrollClassContainer?$(this.options.scrol
 if(this.options.scrollMarkerContainer)
 $(this.options.scrollMarkerContainer).append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))
 $el.mousewheel(function(event){if(!self.options.allowScroll)
-return;var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):((event.deltaFactor*event.deltaX)*-1)
+return;var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):(event.deltaFactor*event.deltaX)
 return!scrollWheel(offset)})
 $el.on('mousedown',function(event){startDrag(event)
 return false})
@@ -394,7 +395,9 @@ this.$el.on('modified.oc.tab',function(ev){ev.preventDefault()
 self.modifyTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'))})
 this.$el.on('unmodified.oc.tab',function(ev){ev.preventDefault()
 self.unmodifyTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'))})
-this.$tabsContainer.on('shown.bs.tab','li',function(){$(window).trigger('oc.updateUi')})
+this.$tabsContainer.on('shown.bs.tab','li',function(){$(window).trigger('oc.updateUi')
+var tabUrl=$('> a',this).data('tabUrl')
+if(tabUrl){window.history.replaceState({},'Tab link reference',tabUrl)}})
 if(this.options.slidable){this.$pagesContainer.touchwipe({wipeRight:function(){self.prev();},wipeLeft:function(){self.next();},preventDefaultEvents:false,min_move_x:60});}
 this.$tabsContainer.toolbar({scrollClassContainer:this.$el})
 this.updateClasses()}
@@ -788,7 +791,7 @@ if(isTouch){this.$el.on('touchstart',function(event){var touchEvent=event.origin
 event.stopPropagation()}})}
 else{this.$thumb.on('mousedown',function(event){startDrag(event)})
 this.$track.on('mouseup',function(event){moveDrag(event)})}
-$el.mousewheel(function(event){var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):((event.deltaFactor*event.deltaX)*-1)
+$el.mousewheel(function(event){var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):(event.deltaFactor*event.deltaX)
 return!scrollWheel(offset*self.options.scrollSpeed)})
 $el.on('oc.scrollbar.gotoStart',function(event){self.options.vertical?$el.scrollTop(0):$el.scrollLeft(0)
 self.update()

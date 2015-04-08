@@ -14,15 +14,29 @@ use ApplicationException;
  */
 class DataTable extends FormWidgetBase
 {
-    /**
-     * {@inheritDoc}
-     */
-    protected $defaultAlias = 'datatable';
+    //
+    // Configurable properties
+    //
 
     /**
      * @var string Table size
      */
-    protected $size = 'large';
+    public $size = 'large';
+
+    /**
+     * @var bool Allow rows to be sorted
+     * @todo Not implemented...
+     */
+    public $rowSorting = false;
+
+    //
+    // Object properties
+    //
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $defaultAlias = 'datatable';
 
     /**
      * @var Backend\Widgets\Table Table widget
@@ -34,7 +48,11 @@ class DataTable extends FormWidgetBase
      */
     public function init()
     {
-        $this->size = $this->getConfig('size', $this->size);
+        $this->fillFromConfig([
+            'size',
+            'rowSorting',
+        ]);
+
         $this->table = $this->makeTableWidget();
         $this->table->bindToController();
     }
@@ -64,6 +82,23 @@ class DataTable extends FormWidgetBase
         $this->populateTableWidget();
         $this->vars['table'] = $this->table;
         $this->vars['size'] = $this->size;
+        $this->vars['rowSorting'] = $this->rowSorting;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLoadValue()
+    {
+        $value = (array) parent::getLoadValue();
+
+        // Sync the array keys as the ID to make the
+        // table widget happy!
+        foreach ($value as $key => $_value) {
+            $value[$key] = ['id' => $key] + (array) $_value;
+        }
+
+        return $value;
     }
 
     /**
@@ -79,7 +114,13 @@ class DataTable extends FormWidgetBase
 
         $result = [];
         while ($records = $dataSource->readRecords()) {
-            $result += $records;
+            $result = array_merge($result, $records);
+        }
+
+        // We should be dealing with a simple array, so
+        // strip out the id columns in the final array.
+        foreach ($result as $key => $_result) {
+            unset($result[$key]['id']);
         }
 
         return $result;
@@ -97,6 +138,8 @@ class DataTable extends FormWidgetBase
         // all records at once. -ab
 
         $records = $this->getLoadValue() ?: [];
+
+        $dataSource->purge();
         $dataSource->initRecords((array) $records);
     }
 

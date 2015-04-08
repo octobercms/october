@@ -60,7 +60,7 @@
 
             var offset = self.options.vertical
                 ? ((event.deltaFactor * event.deltaY) * -1)
-                : ((event.deltaFactor * event.deltaX) * -1)
+                : (event.deltaFactor * event.deltaX)
 
             return !scrollWheel(offset)
         })

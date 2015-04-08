@@ -25,7 +25,7 @@ class AccessLogs extends Controller
         'Backend.Behaviors.ListController'
     ];
 
-    public $requiredPermissions = ['system.access_access_logs'];
+    public $requiredPermissions = ['system.access_logs'];
 
     public $listConfig = 'config_list.yaml';
 

@@ -8,7 +8,7 @@ October's mission is to show the world that web development is not rocket scienc
 
 ### Learning October
 
-The best place to learn October is by [reading the documentation](http://octobercms.com/docs).
+The best place to learn October is by [reading the documentation](http://octobercms.com/docs) or [the resources page](http://octobercms.com/resources).
 
 ### Installing October
 

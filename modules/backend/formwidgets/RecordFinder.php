@@ -101,11 +101,11 @@ class RecordFinder extends FormWidgetBase
     }
 
     /**
-     * Returns the value as a relation object from the model,
+     * Returns the model of a relation type,
      * supports nesting via HTML array.
      * @return Relation
      */
-    protected function getRelationObject()
+    protected function getRelationModel()
     {
         list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
 
@@ -116,17 +116,6 @@ class RecordFinder extends FormWidgetBase
             ]));
         }
 
-        return $model->{$attribute}();
-    }
-
-    /**
-     * Returns the model of a relation type,
-     * supports nesting via HTML array.
-     * @return Relation
-     */
-    protected function getRelationModel()
-    {
-        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
         return $model->makeRelation($attribute);
     }
 

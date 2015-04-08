@@ -5,6 +5,18 @@ use ApplicationException;
 /**
  * This class provides helper methods to make the CmsObject behave like a Model
  *
+ * Some examples:
+ *
+ * Page::find('blog/post');
+ *
+ * Page::all();
+ *
+ * Page::inEditTheme()->useCache()->all();
+ *
+ * Page::withComponent('blogPost')
+ *   ->sortBy('baseFileName')
+ *   ->lists('baseFileName', 'baseFileName');
+ *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */

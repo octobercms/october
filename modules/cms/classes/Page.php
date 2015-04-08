@@ -114,10 +114,7 @@ class Page extends CmsCompoundObject
          * assuming that the method is called not during the front-end
          * request processing.
          */
-        $controller = Controller::getController();
-        if (!$controller) {
-            $controller = new Controller;
-        }
+        $controller = Controller::getController() ?: new Controller;
 
         return $controller->pageUrl($page, $params, true);
     }
@@ -188,7 +185,8 @@ class Page extends CmsCompoundObject
             }
 
             $page = self::loadCached($theme, $item->reference);
-            $pageUrl = self::url($item->reference);
+            $controller = Controller::getController() ?: new Controller;
+            $pageUrl = $controller->pageUrl($item->reference, [], false);
 
             $result = [];
             $result['url'] = $pageUrl;
