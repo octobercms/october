@@ -139,7 +139,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-picture-o',
                     'url'         => Backend::URL('cms/themes'),
                     'permissions' => ['system.manage_themes'],
-                    'order'       => 200
+                    'order'       => 300
                 ],
                 'maintenance_settings' => [
                     'label'       => 'cms::lang.maintenance.settings_menu',
