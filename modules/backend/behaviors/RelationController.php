@@ -904,7 +904,7 @@ class RelationController extends ControllerBehavior
         $saveData = $this->manageWidget->getSaveData();
 
         if ($this->viewMode == 'multi') {
-            $model = $this->relationObject->find($this->manageId);
+            $model = $this->relationModel->find($this->manageId);
             $model->save($saveData, $this->manageWidget->getSessionKey());
         }
         elseif ($this->viewMode == 'single') {
