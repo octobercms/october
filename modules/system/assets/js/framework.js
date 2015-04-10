@@ -388,7 +388,7 @@ if (window.jQuery === undefined)
         }
     })
 
-    $(document).on('keyup', 'input[type=text][data-request][data-track-input], input[type=password][data-request][data-track-input]', function(e){
+    $(document).on('keyup', 'input[type=text][data-request][data-track-input], input[type=password][data-request][data-track-input], input[type=number][data-request][data-track-input]', function(e){
         var
             $el = $(this),
             lastValue = $el.data('oc.lastvalue')
