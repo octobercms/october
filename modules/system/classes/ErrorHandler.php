@@ -49,7 +49,7 @@ class ErrorHandler extends ErrorHandlerBase
 
         // Route to the CMS error page.
         $controller = new Controller($theme);
-        return $controller->run('/error');
+        return $controller->run('/error')->getContent();
     }
 
     /**
