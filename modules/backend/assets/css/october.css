@@ -2293,7 +2293,7 @@ nav#layout-mainmenu.navbar .toolbar-item:before{left:-12px}
 nav#layout-mainmenu.navbar .toolbar-item:after{right:-12px}
 nav#layout-mainmenu.navbar .toolbar-item.scroll-active-before:before{color:#ffffff}
 nav#layout-mainmenu.navbar .toolbar-item.scroll-active-after:after{color:#ffffff}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu{position:fixed;top:63px;right:0;width:225px;background:#2b3e50;z-index:590;display:none}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu{position:fixed;top:63px;right:0;background:#2b3e50;z-index:590;display:none}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu.active{display:block}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu:after{content:'';display:block;width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-bottom:12px solid #2b3e50;right:40px;top:-12px;position:absolute}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu ul{float:none;display:block}
