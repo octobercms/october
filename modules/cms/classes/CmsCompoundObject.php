@@ -329,10 +329,10 @@ class CmsCompoundObject extends CmsObject
     /**
      * Returns component property names and values.
      * This method implements caching and can be used in the run-time on the front-end.
-     * @param string $componentName Specifies the component name.
+     * @param string $requestedComponentName Specifies the component name.
      * @return array Returns an associative array with property names in the keys and property values in the values.
      */
-    public function getComponentProperties($componentName)
+    public function getComponentProperties($requestedComponentName)
     {
         $key = crc32($this->theme->getPath()).'component-properties';
 
@@ -351,8 +351,8 @@ class CmsCompoundObject extends CmsObject
         $objectCode = $this->getBaseFileName();
 
         if (array_key_exists($objectCode, $objectComponentMap)) {
-            if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
-                return $objectComponentMap[$objectCode][$componentName];
+            if (array_key_exists($requestedComponentName, $objectComponentMap[$objectCode])) {
+                return $objectComponentMap[$objectCode][$requestedComponentName];
             }
 
             return [];
@@ -387,8 +387,8 @@ class CmsCompoundObject extends CmsObject
 
         Cache::put($key, serialize($objectComponentMap), Config::get('cms.parsedPageCacheTTL', 10));
 
-        if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
-            return $objectComponentMap[$objectCode][$componentName];
+        if (array_key_exists($requestedComponentName, $objectComponentMap[$objectCode])) {
+            return $objectComponentMap[$objectCode][$requestedComponentName];
         }
 
         return [];
