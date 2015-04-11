@@ -329,10 +329,10 @@ class CmsCompoundObject extends CmsObject
     /**
      * Returns component property names and values.
      * This method implements caching and can be used in the run-time on the front-end.
-     * @param string $requestedComponentName Specifies the component name.
+     * @param string $componentName Specifies the component name.
      * @return array Returns an associative array with property names in the keys and property values in the values.
      */
-    public function getComponentProperties($requestedComponentName)
+    public function getComponentProperties($componentName)
     {
         $key = crc32($this->theme->getPath()).'component-properties';
 
@@ -351,8 +351,8 @@ class CmsCompoundObject extends CmsObject
         $objectCode = $this->getBaseFileName();
 
         if (array_key_exists($objectCode, $objectComponentMap)) {
-            if (array_key_exists($requestedComponentName, $objectComponentMap[$objectCode])) {
-                return $objectComponentMap[$objectCode][$requestedComponentName];
+            if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
+                return $objectComponentMap[$objectCode][$componentName];
             }
 
             return [];
@@ -362,13 +362,13 @@ class CmsCompoundObject extends CmsObject
             $objectComponentMap[$objectCode] = [];
         }
         else {
-            foreach ($this->settings['components'] as $componentName => $componentSettings) {
-                $nameParts = explode(' ', $componentName);
+            foreach ($this->settings['components'] as $name => $settings) {
+                $nameParts = explode(' ', $name);
                 if (count($nameParts > 1)) {
-                    $componentName = trim($nameParts[0]);
+                    $name = trim($nameParts[0]);
                 }
 
-                $component = $this->getComponent($componentName);
+                $component = $this->getComponent($name);
                 if (!$component) {
                     continue;
                 }
@@ -379,7 +379,7 @@ class CmsCompoundObject extends CmsObject
                     $componentProperties[$propertyName] = $component->property($propertyName);
                 }
 
-                $objectComponentMap[$objectCode][$componentName] = $componentProperties;
+                $objectComponentMap[$objectCode][$name] = $componentProperties;
             }
         }
 
@@ -387,8 +387,8 @@ class CmsCompoundObject extends CmsObject
 
         Cache::put($key, serialize($objectComponentMap), Config::get('cms.parsedPageCacheTTL', 10));
 
-        if (array_key_exists($requestedComponentName, $objectComponentMap[$objectCode])) {
-            return $objectComponentMap[$objectCode][$requestedComponentName];
+        if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
+            return $objectComponentMap[$objectCode][$componentName];
         }
 
         return [];
@@ -441,8 +441,9 @@ class CmsCompoundObject extends CmsObject
     protected function fillViewBagArray()
     {
         $viewBag = $this->getViewBag();
-        foreach ($viewBag->getProperties() as $name=>$value)
+        foreach ($viewBag->getProperties() as $name => $value) {
             $this->viewBag[$name] = $value;
+        }
     }
 
     /**
