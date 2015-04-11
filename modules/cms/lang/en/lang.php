@@ -60,7 +60,7 @@ return [
         'export_button' => 'Export',
         'export_title' => 'Export theme',
         'export_folders_label' => 'Folders',
-        'export_folders_comment' => 'Please select the theme folders you would like to import',
+        'export_folders_comment' => 'Please select the theme folders you would like to export',
         'delete_button' => 'Delete',
         'delete_confirm' => 'Are you sure you want to delete this theme? It cannot be undone!',
         'delete_active_theme_failed' => 'Cannot delete the active theme, try making another theme active first.',

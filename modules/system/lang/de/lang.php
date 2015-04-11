@@ -18,6 +18,7 @@ return [
         'ro' => 'Romana',
         'pt-br' => 'Brazilian Portuguese',
         'fa' => 'Persian',
+        'nb-no' => 'Norwegisch (Bokmål)'
     ],
     'directory' => [
         'create_fail' => "Konnte Verzeichnis: :name nicht erstellen",

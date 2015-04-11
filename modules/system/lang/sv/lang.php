@@ -24,6 +24,7 @@ return [
         'se' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish'
+        'nb-no' => 'Norska (Bokmål)'
     ],
     'directory' => [
         'create_fail' => "Kunde inte skapa mapp: :name",

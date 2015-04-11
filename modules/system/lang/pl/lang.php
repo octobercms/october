@@ -21,7 +21,8 @@ return [
         'ru' => 'Rosyjski',
         'se' => 'Szwedzki',
         'tr' => 'Turecki',
-        'pl' => 'Polski'
+        'pl' => 'Polski',
+        'nb-no' => 'Norweski (Bokmål)'
     ],
     'directory' => [
         'create_fail' => 'Nie można stworzyć katalogu: :name'

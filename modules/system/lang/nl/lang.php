@@ -18,6 +18,7 @@ return [
         'ro' => 'Roemeens',
         'pt-br' => 'Braziliaans Portugees',
         'fa' => 'Persian',
+        'nb-no' => 'Noors (Bokmål)'
     ],
     'directory' => [
         'create_fail' => "Map aanmaken mislukt: :name",
