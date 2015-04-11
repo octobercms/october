@@ -13,11 +13,34 @@
         this.options = options || {};
 
         this.bindDependants()
+        this.bindCheckboxlist()
         this.toggleEmptyTabs()
     }
 
     FormWidget.DEFAULTS = {
         refreshHandler: null
+    }
+
+    /*
+     * Logic for checkboxlist
+     */
+    FormWidget.prototype.bindCheckboxlist = function() {
+
+        var checkAllBoxes = function($field, flag) {
+            $('input[type=checkbox]', $field)
+                .prop('checked', flag)
+                .first()
+                .trigger('change')
+        }
+
+        this.$el.on('click', '[data-field-checkboxlist-all]', function() {
+            checkAllBoxes($(this).closest('.field-checkboxlist'), true)
+        })
+
+        this.$el.on('click', '[data-field-checkboxlist-none]', function() {
+            checkAllBoxes($(this).closest('.field-checkboxlist'), false)
+        })
+
     }
 
     /*
