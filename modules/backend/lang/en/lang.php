@@ -299,6 +299,6 @@ return [
         'email' => 'Email'
     ],
     'filter' => [
-      'all' => 'all'
-    ]
+        'all' => 'all',
+    ],
 ];
