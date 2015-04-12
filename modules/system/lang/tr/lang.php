@@ -20,7 +20,8 @@ return [
         'ro' => 'Română (România)',
         'ru' => 'Русский (Россия - Russia)',
         'se' => 'Svenska (Sverige)',
-        'tr' => 'Türkçe (Türkiye)'
+        'tr' => 'Türkçe (Türkiye)',
+        'nb-no' => 'Norwegian (Bokmål)'
     ],
     'directory' => [
         'create_fail' => "Klasör oluşturulamıyor: :name"

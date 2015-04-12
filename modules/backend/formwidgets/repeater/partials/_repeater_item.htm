@@ -11,7 +11,7 @@
             aria-label="Remove"
             data-request="<?= $this->getEventHandler('onRemoveItem') ?>"
             data-request-data="'index': '<?= $indexValue ?>'"
-            data-request-success="$el.closest('.field-repeater-item').remove()"
+            data-request-success="$(this).closest('.field-repeater-item').remove()"
             data-request-confirm="Are you sure?">
             <span aria-hidden="true">&times;</span>
         </button>

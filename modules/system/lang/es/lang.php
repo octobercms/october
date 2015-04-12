@@ -20,6 +20,7 @@
             'pt-br' => 'Portugués Brasilero',
             'es-ar' => 'Español Argentino',
             'es'    => 'Español',
+            'nb-no' => 'Noruego (Bokmål)'
         ],
         'directory'      => [
             'create_fail' => "No es posible crear el directorio: :name",

@@ -23,7 +23,8 @@ return [
         'ru' => 'Rusia',
         'se' => 'Swedia',
         'sk' => 'Slowakia (Slovakia)',
-        'tr' => 'Turki'
+        'tr' => 'Turki',
+        'nb-no' => 'Norwegian (Bokmål)'
     ],
     'directory' => [
         'create_fail' => 'Tidak dapat membuat direktori: :name'

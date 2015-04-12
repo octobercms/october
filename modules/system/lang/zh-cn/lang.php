@@ -24,7 +24,8 @@ return [
         'se' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
-        'zh-cn' => 'Chinese (China)'
+        'zh-cn' => 'Chinese (China)',
+        'nb-no' => 'Norwegian (Bokmål)'
     ],
     'directory' => [
         'create_fail' => '不能创建目录: :name'
@@ -226,8 +227,8 @@ return [
         'hint' => '日志显示了程序中的潜在错误, 比如异常和调试信息.',
         'menu_label' => '事件日志',
         'menu_description' => '查看系统日志信息, 包括时间和详细信息.',
-        'empty_link' => '空事件日志',
-        'empty_loading' => '空事件日志...',
+        'empty_link' => '清空事件日志',
+        'empty_loading' => '清空事件日志...',
         'empty_success' => '成功清空时间日志.',
         'return_link' => '返回时间日志',
         'id' => 'ID',
@@ -240,8 +241,8 @@ return [
         'hint' => '这个日志显示了需要注意的浏览器请求. 比如如果一个访问者打开一个没有的CMS页面, 一条返回状态404的记录被创建.',
         'menu_label' => '请求日志',
         'menu_description' => '查看坏的或者重定向的请求, 比如页面找不到(404).',
-        'empty_link' => '空请求日志',
-        'empty_loading' => '空请求日志...',
+        'empty_link' => '清空请求日志',
+        'empty_loading' => '清空请求日志...',
         'empty_success' => '成功清空请求日志.',
         'return_link' => '返回请求日志',
         'id' => 'ID',

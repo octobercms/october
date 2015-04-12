@@ -20,7 +20,8 @@ return [
         'ro' => 'Romanian',
         'ru' => 'Russian',
         'se' => 'Swedish',
-        'tr' => 'Turkish'
+        'tr' => 'Turkish',
+        'nb-no' => 'Norwegian (Bokmål)'
     ],
     'directory' => [
         'create_fail' => "ディレクトリ':name'を作成できません。",

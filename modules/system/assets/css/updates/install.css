@@ -7,14 +7,6 @@
   margin: 0;
   padding: 10px 0;
   overflow: hidden;
-  /* clearfix */
-}
-.product-list li button,
-.product-list li .image,
-.product-list li .details {
-  -webkit-transition: opacity .2s linear;
-  -moz-transition: opacity .2s linear;
-  transition: opacity .2s linear;
 }
 .product-list li button {
   position: absolute;
@@ -24,6 +16,13 @@
   height: 20px;
   opacity: 0;
   outline: none;
+}
+.product-list li button,
+.product-list li .image,
+.product-list li .details {
+  -webkit-transition: opacity .2s linear;
+  -moz-transition: opacity .2s linear;
+  transition: opacity .2s linear;
 }
 .product-list li:hover button {
   opacity: .3;

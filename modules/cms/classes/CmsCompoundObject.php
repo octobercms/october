@@ -362,13 +362,13 @@ class CmsCompoundObject extends CmsObject
             $objectComponentMap[$objectCode] = [];
         }
         else {
-            foreach ($this->settings['components'] as $componentName => $componentSettings) {
-                $nameParts = explode(' ', $componentName);
+            foreach ($this->settings['components'] as $name => $settings) {
+                $nameParts = explode(' ', $name);
                 if (count($nameParts > 1)) {
-                    $componentName = trim($nameParts[0]);
+                    $name = trim($nameParts[0]);
                 }
 
-                $component = $this->getComponent($componentName);
+                $component = $this->getComponent($name);
                 if (!$component) {
                     continue;
                 }
@@ -379,7 +379,7 @@ class CmsCompoundObject extends CmsObject
                     $componentProperties[$propertyName] = $component->property($propertyName);
                 }
 
-                $objectComponentMap[$objectCode][$componentName] = $componentProperties;
+                $objectComponentMap[$objectCode][$name] = $componentProperties;
             }
         }
 
@@ -441,8 +441,9 @@ class CmsCompoundObject extends CmsObject
     protected function fillViewBagArray()
     {
         $viewBag = $this->getViewBag();
-        foreach ($viewBag->getProperties() as $name=>$value)
+        foreach ($viewBag->getProperties() as $name => $value) {
             $this->viewBag[$name] = $value;
+        }
     }
 
     /**

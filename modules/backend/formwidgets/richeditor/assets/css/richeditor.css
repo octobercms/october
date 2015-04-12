@@ -173,7 +173,7 @@ to{background-position:0 0}
 .redactor-editor figure[data-type=quote] cite:before{content:"\2014\00a0"}
 .redactor-editor figure[data-type=quote] cite:empty:before{opacity:0.4;content:"\2014 Type to add citation (optional)"}
 .redactor-box figcaption:empty:before{opacity:.4;content:"Type to add caption (optional)"}
-.redactor-box .oc-figure-controls{background:#2b3e50 !important;padding:0;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;position:absolute;display:none;white-space:nowrap;left:10px;top:-50px;margin:0 auto;font-family:'Open Sans',Arial,sans-serif;line-height:20px;font-style:normal;z-index:800;text-align:center}
+.redactor-box .oc-figure-controls{background:#2b3e50 !important;padding:0;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;position:absolute;display:none;white-space:nowrap;left:10px;top:-50px;margin:0 auto;font-family:'Open Sans',Arial,sans-serif;line-height:20px;font-style:normal;z-index:1100;text-align:center}
 .redactor-box .oc-figure-controls:after{content:' ';left:0;position:absolute;display:block;height:10px;background:rgba(0,0,0,0.1);width:100%;bottom:-10px;opacity:0.1;filter:alpha(opacity=10);filter:alpha(opacity=0.1);-moz-opacity:0.001;opacity:0.001}
 .redactor-box .oc-figure-controls:before{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-top:9px solid #2b3e50;border-bottom-width:0;position:absolute;left:14px;bottom:-8px}
 .redactor-box figure:hover .oc-figure-controls{display:block}
@@ -246,9 +246,9 @@ to{background-position:0 0}
 .field-richeditor.size-giant .redactor-editor{height:320px !important}
 .redactor-box{margin-bottom:0}
 .redactor-box iframe{border:none}
-.redactor-box-fullscreen{z-index:415 !important}
-.redactor-toolbar,.redactor-dropdown{z-index:410 !important}
-#redactor-modal-overlay,#redactor-modal-box,#redactor-modal{z-index:420 !important}
+.redactor-box-fullscreen{z-index:715 !important}
+.redactor-toolbar,.redactor-dropdown{z-index:710 !important}
+#redactor-modal-overlay,#redactor-modal-box,#redactor-modal{z-index:720 !important}
 .redactor-toolbar{background:#dddddd;-webkit-box-shadow:none;box-shadow:none}
 .redactor-toolbar li.redactor-btn-right{float:right;margin-right:2px}
 .redactor-toolbar li a{color:#404040;font-size:14px;width:20px;line-height:20px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}

@@ -101,14 +101,15 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['backend.manage_branding'],
                     'order'       => 500
                 ],
-                'editor' => [
-                    'label'       => 'backend::lang.editor.menu_label',
-                    'description' => 'backend::lang.editor.menu_description',
+                'myaccount' => [
+                    'label'       => 'backend::lang.myaccount.menu_label',
+                    'description' => 'backend::lang.myaccount.menu_description',
                     'category'    => SettingsManager::CATEGORY_MYSETTINGS,
-                    'icon'        => 'icon-code',
-                    'url'         => Backend::URL('backend/editorpreferences'),
-                    'order'       => 600,
-                    'context'     => 'mysettings'
+                    'icon'        => 'icon-user',
+                    'url'         => Backend::URL('backend/users/myaccount'),
+                    'order'       => 500,
+                    'context'     => 'mysettings',
+                    'keywords'    => 'backend::lang.myaccount.menu_keywords'
                 ],
                 'backend_preferences' => [
                     'label'       => 'backend::lang.backend_preferences.menu_label',
@@ -116,18 +117,17 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_MYSETTINGS,
                     'icon'        => 'icon-laptop',
                     'class'       => 'Backend\Models\BackendPreferences',
-                    'order'       => 500,
+                    'order'       => 510,
                     'context'     => 'mysettings'
                 ],
-                'myaccount' => [
-                    'label'       => 'backend::lang.myaccount.menu_label',
-                    'description' => 'backend::lang.myaccount.menu_description',
+                'editor' => [
+                    'label'       => 'backend::lang.editor.menu_label',
+                    'description' => 'backend::lang.editor.menu_description',
                     'category'    => SettingsManager::CATEGORY_MYSETTINGS,
-                    'icon'        => 'icon-user',
-                    'url'         => Backend::URL('backend/users/myaccount'),
-                    'order'       => 400,
-                    'context'     => 'mysettings',
-                    'keywords'    => 'backend::lang.myaccount.menu_keywords'
+                    'icon'        => 'icon-code',
+                    'url'         => Backend::URL('backend/editorpreferences'),
+                    'order'       => 520,
+                    'context'     => 'mysettings'
                 ],
                 'access_logs' => [
                     'label'       => 'backend::lang.access_log.menu_label',
@@ -136,7 +136,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-lock',
                     'url'         => Backend::url('backend/accesslogs'),
                     'permissions' => ['system.access_logs'],
-                    'order'       => 800
+                    'order'       => 920
                 ]
             ]);
         });
@@ -183,6 +183,7 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/backend/formwidgets/datepicker/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/less/richeditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
+            $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/less/codeeditor.less');
         });
     }
 

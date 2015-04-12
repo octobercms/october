@@ -40,12 +40,12 @@
                 <!-- Quick selection -->
                 <small>
                     <?= e(trans('backend::lang.form.select')) ?>:
-                    <a href="javascript:;" onclick="jQuery('#<?= $field->getId('scrollable') ?> input[type=checkbox]').prop('checked', true)"><?= e(trans('backend::lang.form.select_all')) ?></a>,
-                    <a href="javascript:;" onclick="jQuery('#<?= $field->getId('scrollable') ?> input[type=checkbox]').prop('checked', false)"><?= e(trans('backend::lang.form.select_none')) ?></a>
+                    <a href="javascript:;" data-field-checkboxlist-all><?= e(trans('backend::lang.form.select_all')) ?></a>,
+                    <a href="javascript:;" data-field-checkboxlist-none><?= e(trans('backend::lang.form.select_none')) ?></a>
                 </small>
 
                 <!-- Scrollable Checkbox list -->
-                <div class="field-checkboxlist-scrollable" id="<?= $field->getId('scrollable') ?>">
+                <div class="field-checkboxlist-scrollable">
                     <div class="control-scrollbar" data-control="scrollbar">
             <?php endif ?>
 

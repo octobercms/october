@@ -56,6 +56,20 @@
             })
         }
 
+        /*
+         * This function transfers the supplied variables as hidden form inputs,
+         * to any popup that is spawned within the supplied container. The spawned 
+         * popup must contain a form element.
+         */
+        this.bindToPopups = function(container, vars) {
+            $(container).on('show.oc.popup', function(event, $trigger, $modal){
+                var $form = $('form', $modal)
+                $.each(vars, function(name, value){
+                    $form.prepend($('<input />').attr({ type: 'hidden', name: name, value: value }))
+                })
+            })
+        }
+
     }
 
     $.oc.relationBehavior = new RelationBehavior;

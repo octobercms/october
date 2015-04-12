@@ -49,7 +49,14 @@ class ErrorHandler extends ErrorHandlerBase
 
         // Route to the CMS error page.
         $controller = new Controller($theme);
-        return $controller->run('/error');
+        $result = $controller->run('/error');
+
+        // Extract content from response object
+        if ($result instanceof \Symfony\Component\HttpFoundation\Response) {
+            $result = $result->getContent();
+        }
+
+        return $result;
     }
 
     /**

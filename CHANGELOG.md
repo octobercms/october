@@ -1,3 +1,6 @@
+* **Build 239** (2015-04-06)
+  - Installing plugins has a new interface and themes can now be installed using the back-end.
+
 * **Build 236** (2015-03-28)
   - Default context of `manage` and `pivot` forms is now *create* and *update* respectively, instead of the old value *relation*. Use the `context` option to set it back to the old value (see Backend > Relations docs).
 

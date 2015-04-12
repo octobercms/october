@@ -29,7 +29,7 @@
 
                 <h4 class="section-header">
                     <a href="<?= Backend::url('cms/themes') ?>">Installed themes</a>
-                    <small>(<span class="product-counter">0</span>)</small>
+                    <small>(<span class="product-counter"><?= count($installedThemes) ?></span>)</small>
                 </h4>
 
                 <?php if (!count($installedThemes)): ?>
