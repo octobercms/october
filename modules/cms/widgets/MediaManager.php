@@ -4,6 +4,7 @@ use URL;
 use Str;
 use Lang;
 use File;
+use Form;
 use Input;
 use Request;
 use Response;
@@ -24,9 +25,14 @@ use October\Rain\Database\Attach\Resizer;
 class MediaManager extends WidgetBase
 {
     const FOLDER_ROOT = '/';
+
     const VIEW_MODE_GRID = 'grid';
     const VIEW_MODE_LIST = 'list';
     const VIEW_MODE_TILES = 'tiles';
+
+    const SELECTION_MODE_NORMAL = 'normal';
+    const SELECTION_MODE_FIXED_RATIO = 'fixed-ratio';
+    const SELECTION_MODE_FIXED_SIZE = 'fixed-size';
 
     const FILTER_EVERYTHING = 'everything';
 
@@ -203,14 +209,14 @@ class MediaManager extends WidgetBase
         $paths = Input::get('paths');
 
         if (!is_array($paths))
-            throw new SystemException('Invalid input data');
+            throw new ApplicationException('Invalid input data');
 
         $library = MediaLibrary::instance();
 
         $filesToDelete = [];
         foreach ($paths as $pathInfo) {
             if (!isset($pathInfo['path']) || !isset($pathInfo['type']))
-                throw new SystemException('Invalid input data');
+                throw new ApplicationException('Invalid input data');
 
             if ($pathInfo['type'] == 'file')
                 $filesToDelete[] = $pathInfo['path'];
@@ -300,7 +306,7 @@ class MediaManager extends WidgetBase
     {
         $exclude = Input::get('exclude', []);
         if (!is_array($exclude))
-            throw new SystemException('Invalid input data');
+            throw new ApplicationException('Invalid input data');
 
         $folders = MediaLibrary::instance()->listAllDirectories($exclude);
 
@@ -336,11 +342,11 @@ class MediaManager extends WidgetBase
 
         $files = Input::get('files', []);
         if (!is_array($files))
-            throw new SystemException('Invalid input data');
+            throw new ApplicationException('Invalid input data');
 
         $folders = Input::get('folders', []);
         if (!is_array($folders))
-            throw new SystemException('Invalid input data');
+            throw new ApplicationException('Invalid input data');
 
         $library = MediaLibrary::instance();
 
@@ -376,7 +382,89 @@ class MediaManager extends WidgetBase
 
     public function onLoadImageCropPopup()
     {
+        $path = Input::get('path');
+        $path = MediaLibrary::validatePath($path);
+
+        $selectionParams = $this->getSelectionParams();
+        $this->vars['currentSelectionMode'] = $selectionParams['mode'];
+        $this->vars['currentSelectionWidth'] = $selectionParams['width'];
+        $this->vars['currentSelectionHeight'] = $selectionParams['height'];
+
+        $this->vars['cropSessionKey'] = $cropSessionKey = md5(Form::getSessionKey());
+
+        $urlAndSize = $this->getCropEditImageUrlAndSize($path, $cropSessionKey);
+        $this->vars['imageUrl'] = $urlAndSize['url'];
+        $this->vars['dimensions'] = $urlAndSize['dimensions'];
+
+        $width = $urlAndSize['dimensions'][0];
+        $height = $urlAndSize['dimensions'][1] ? $urlAndSize['dimensions'][1] : 1;
+
+        $this->vars['originalRatio'] = round($width/$height, 5);
+        $this->vars['path'] = $path;
+
         return $this->makePartial('image-crop-popup-body');
+    }
+
+    public function onEndCroppingSession()
+    {
+        $cropSessionKey = Input::get('cropSessionKey');
+        if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey))
+            throw new ApplicationException('Invalid input data');
+
+        $this->removeCropEditDir($cropSessionKey);
+    }
+
+    public function onCropImage()
+    {
+        $imageSrcPath = trim(Input::get('img'));
+        $selectionData = Input::get('selection');
+        $cropSessionKey = Input::get('cropSessionKey');
+        $path = Input::get('path');
+        $path = MediaLibrary::validatePath($path);
+
+        if (!strlen($imageSrcPath))
+            throw new ApplicationException('Invalid input data');
+
+        if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey))
+            throw new ApplicationException('Invalid input data');
+
+        if (!is_array($selectionData))
+            throw new ApplicationException('Invalid input data');
+
+        $result = $this->cropImage($imageSrcPath, $selectionData, $cropSessionKey, $path);
+
+        $selectionMode = Input::get('selectionMode');
+        $selectionWidth = Input::get('selectionWidth');
+        $selectionHeight = Input::get('selectionHeight');
+
+        $this->setSelectionParams($selectionMode, $selectionWidth, $selectionHeight);
+
+        return $result;
+    }
+
+    public function onResizeImage()
+    {
+        $cropSessionKey = Input::get('cropSessionKey');
+        if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey))
+            throw new ApplicationException('Invalid input data');
+
+        $width = trim(Input::get('width'));
+        if (!strlen($width) || !ctype_digit($width))
+            throw new ApplicationException('Invalid input data');
+
+        $height = trim(Input::get('height'));
+        if (!strlen($height) || !ctype_digit($height))
+            throw new ApplicationException('Invalid input data');
+
+        $path = Input::get('path');
+        $path = MediaLibrary::validatePath($path);
+
+        $params = array(
+            'width' => $width,
+            'height' => $height
+        );
+
+        return $this->getCropEditImageUrlAndSize($path, $cropSessionKey, $params);
     }
 
     //
@@ -447,7 +535,7 @@ class MediaManager extends WidgetBase
                 MediaLibraryItem::FILE_TYPE_AUDIO,
                 MediaLibraryItem::FILE_TYPE_DOCUMENT,
                 MediaLibraryItem::FILE_TYPE_VIDEO]))
-            throw new SystemException('Invalid input data');
+            throw new ApplicationException('Invalid input data');
 
         return $this->putSession('media_filter', $filter);
     }
@@ -473,7 +561,7 @@ class MediaManager extends WidgetBase
                 MediaLibrary::SORT_BY_TITLE,
                 MediaLibrary::SORT_BY_SIZE,
                 MediaLibrary::SORT_BY_MODIFIED]))
-            throw new SystemException('Invalid input data');
+            throw new ApplicationException('Invalid input data');
 
         return $this->putSession('media_sort_by', $sortBy);
     }
@@ -481,6 +569,51 @@ class MediaManager extends WidgetBase
     protected function getSortBy()
     {
         return $this->getSession('media_sort_by', MediaLibrary::SORT_BY_TITLE);
+    }
+
+    protected function getSelectionParams()
+    {
+        $result = $this->getSession('media_crop_selection_params');
+
+        if ($result) {
+            if (!isset($result['mode']))
+                $result['mode'] = MediaManager::SELECTION_MODE_NORMAL;
+
+            if (!isset($result['width']))
+                $result['width'] = null;
+
+            if (!isset($result['height']))
+                $result['height'] = null;
+
+            return $result;
+        }
+
+        return [
+            'mode'=>MediaManager::SELECTION_MODE_NORMAL,
+            'width'=>null,
+            'height'=>null
+        ];
+    }
+
+    protected function setSelectionParams($selectionMode, $selectionWidth, $selectionHeight)
+    {
+        if (!in_array($selectionMode, [
+                MediaManager::SELECTION_MODE_NORMAL,
+                MediaManager::SELECTION_MODE_FIXED_RATIO,
+                MediaManager::SELECTION_MODE_FIXED_SIZE]))
+            throw new ApplicationException('Invalid input data');
+
+        if (strlen($selectionWidth) && !ctype_digit($selectionWidth))
+            throw new ApplicationException('Invalid input data');
+
+        if (strlen($selectionHeight) && !ctype_digit($selectionHeight))
+            throw new ApplicationException('Invalid input data');
+
+        return $this->putSession('media_crop_selection_params', [
+            'mode'=>$selectionMode,
+            'width'=>$selectionWidth,
+            'height'=>$selectionHeight
+        ]);
     }
 
     protected function setSidebarVisible($visible)
@@ -540,7 +673,7 @@ class MediaManager extends WidgetBase
     protected function setViewMode($viewMode)
     {
         if (!in_array($viewMode, [self::VIEW_MODE_GRID, self::VIEW_MODE_LIST, self::VIEW_MODE_TILES]))
-            throw new SystemException('Invalid input data');
+            throw new ApplicationException('Invalid input data');
 
         return $this->putSession('view_mode', $viewMode);
     }
@@ -807,4 +940,151 @@ class MediaManager extends WidgetBase
  
         return true;
     }
+
+    //
+    // Cropping
+    //
+
+    protected function getCropSessionDirPath($cropSessionKey)
+    {
+        return $this->getThumbnailDirectory().'edit-crop-'.$cropSessionKey;
+    }
+
+    protected function getCropEditImageUrlAndSize($path, $cropSessionKey, $params = null)
+    {
+        $sessionDirectoryPath = $this->getCropSessionDirPath($cropSessionKey);
+        $fullSessionDirectoryPath = temp_path($sessionDirectoryPath);
+        $sessionDirectoryCreated = false;
+
+        if (!File::isDirectory($fullSessionDirectoryPath)) {
+            File::makeDirectory($fullSessionDirectoryPath, 0777, true, true);
+            $sessionDirectoryCreated = true;
+        }
+
+        $tempFilePath = null;
+
+        try {
+            $extension = pathinfo($path, PATHINFO_EXTENSION);
+            $library = MediaLibrary::instance();
+            $originalThumbFileName = 'original.'.$extension;
+
+            if (!$params) {
+                // If the target dimensions are not provided, save the original image to the 
+                // crop session directory and return its URL.
+
+                $tempFilePath = $fullSessionDirectoryPath.'/'.$originalThumbFileName;
+
+                if (!@File::put($tempFilePath, $library->get($path)))
+                    throw new SystemException('Error saving remote file to a temporary location.');
+
+                $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$originalThumbFileName);
+                $dimensions = getimagesize($tempFilePath);
+                
+                return [
+                    'url' => $url,
+                    'dimensions' => $dimensions
+                ];
+            } else {
+                // If the target dimensions are provided, resize the original image and return its URL
+                // and dimensions.
+
+                $originalFilePath = $fullSessionDirectoryPath.'/'.$originalThumbFileName;
+                if (!File::isFile($originalFilePath))
+                    throw new SystemException('The original image is not found in the cropping session directory.');
+
+                $resizedThumbFileName = 'resized-'.$params['width'].'-'.$params['height'].'.'.$extension;
+                $tempFilePath = $fullSessionDirectoryPath.'/'.$resizedThumbFileName;
+
+                $resizer = Resizer::open($originalFilePath);
+
+                $resizer->resize($params['width'], $params['height'], 'exact');
+                $resizer->save($tempFilePath, 95);
+
+                $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$resizedThumbFileName);
+                $dimensions = getimagesize($tempFilePath);
+
+                return [
+                    'url' => $url,
+                    'dimensions' => $dimensions
+                ];
+            }
+        } catch (Exception $ex) {
+            if ($sessionDirectoryCreated)
+                @File::deleteDirectory($fullSessionDirectoryPath);
+
+            if ($tempFilePath)
+                File::delete($tempFilePath);
+
+            throw $ex;
+        }
+    }
+
+    protected function removeCropEditDir($cropSessionKey)
+    {
+        $sessionDirectoryPath = $this->getCropSessionDirPath($cropSessionKey);
+        $fullSessionDirectoryPath = temp_path($sessionDirectoryPath);
+
+        if (File::isDirectory($fullSessionDirectoryPath))
+            @File::deleteDirectory($fullSessionDirectoryPath);
+    }
+
+    protected function cropImage($imageSrcPath, $selectionData, $cropSessionKey, $path)
+    {
+        $originalFileName = basename($path);
+
+        $path = rtrim(dirname($path), '/').'/';
+        $fileName = basename($imageSrcPath);
+
+        if (strpos($fileName, '..') !== false || strpos($fileName, '/') !== false || strpos($fileName, '\\') !== false)
+            throw new SystemException('Invalid image file name.');
+
+        $selectionParams = ['x', 'y', 'w', 'h'];
+
+        foreach ($selectionParams as $paramName) {
+            if (!array_key_exists($paramName, $selectionData))
+                throw new SystemException('Invalid selection data.');
+
+            if (!ctype_digit($selectionData[$paramName]))
+                throw new SystemException('Invalid selection data.');
+        }
+
+        $sessionDirectoryPath = $this->getCropSessionDirPath($cropSessionKey);
+        $fullSessionDirectoryPath = temp_path($sessionDirectoryPath);
+
+        if (!File::isDirectory($fullSessionDirectoryPath))
+            throw new SystemException('The image editing session is not found.');
+
+        // Find the image on the disk and resize it
+        $imagePath = $fullSessionDirectoryPath.'/'.$fileName;
+        if (!File::isFile($imagePath))
+            throw new SystemException('The image is not found on the disk.');
+
+        $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+        $targetImageName = basename($originalFileName, '.'.$extension).'-'.$selectionData['x']
+            .'-'.$selectionData['y'].'-'.$selectionData['w'].'-'.$selectionData['h'].'-';
+        $targetImageName .= time();
+        $targetImageName .= '.'.$extension;
+
+        $targetTmpPath = $fullSessionDirectoryPath.'/'.$targetImageName;
+
+        if ($selectionData['w'] == 0 || $selectionData['h'] == 0) {
+            // If cropping is not required, copy the oiginal image to the target destination.
+            File::copy($imagePath, $targetTmpPath);
+        }
+        else {
+            $resizer = Resizer::open($imagePath);
+
+            $resizer->resample($selectionData['x'], $selectionData['y'], $selectionData['w'], $selectionData['h'], $selectionData['w'], $selectionData['h']);
+            $resizer->save($targetTmpPath, 95);
+        }
+
+        // Upload the cropped file to the Library
+        $targetPath = $path.'cropped-images/'.$targetImageName;
+
+        $library = MediaLibrary::instance();
+
+        $library->put($targetPath, file_get_contents($targetTmpPath));
+        return $library->getPathUrl($targetPath);
+   }
 }

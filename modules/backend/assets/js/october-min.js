@@ -299,7 +299,9 @@ $(this.options.scrollMarkerContainer).append($('<span class="before scroll-marke
 $el.mousewheel(function(event){if(!self.options.allowScroll)
 return;var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):(event.deltaFactor*event.deltaX)
 return!scrollWheel(offset)})
-$el.on('mousedown.dragScroll',function(event){startDrag(event)
+$el.on('mousedown.dragScroll',function(event){if(event.target&&event.target.tagName==='INPUT')
+return
+startDrag(event)
 return false})
 $el.on('touchstart.dragScroll',function(event){var touchEvent=event.originalEvent;if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
 event.stopPropagation()}})
@@ -397,6 +399,7 @@ $(window).off('resize',this.proxy(this.fixScrollClasses))
 this.el.off('.dragScroll')
 this.scrollClassContainer=null
 this.el.removeData('oc.dragScroll')
+this.el=null
 BaseProto.dispose.call(this)}
 var old=$.fn.dragScroll
 $.fn.dragScroll=function(option){var args=arguments;return this.each(function(){var $this=$(this)
@@ -875,7 +878,7 @@ this.$modal.on('shown.bs.modal',function(){self.triggerEvent('shown.oc.popup')})
 this.$modal.on('close.oc.popup',function(){self.hide()
 return false})
 this.init()}
-Popup.DEFAULTS={ajax:null,handler:null,keyboard:true,extraData:{},content:null,size:null,adaptiveHeight:false}
+Popup.DEFAULTS={ajax:null,handler:null,keyboard:true,extraData:{},content:null,size:null,adaptiveHeight:false,zIndex:null}
 Popup.prototype.init=function(){var self=this
 if(self.isOpen)
 return
@@ -897,6 +900,8 @@ if(this.options.size)
 modalDialog.addClass('size-'+this.options.size)
 if(this.options.adaptiveHeight)
 modalDialog.addClass('adaptive-height')
+if(this.options.zIndex!==null)
+modal.css('z-index',this.options.zIndex+20)
 return modal.append(modalDialog.append(modalContent))}
 Popup.prototype.setContent=function(contents){this.$content.html(contents)
 this.setLoading(false)
@@ -904,7 +909,10 @@ this.show()
 this.firstDiv=this.$content.find('>div:first')
 if(this.firstDiv.length>0)
 this.firstDiv.data('oc.popup',this)}
-Popup.prototype.setBackdrop=function(val){if(val&&!this.$backdrop){this.$backdrop=$('<div class="popup-backdrop fade" />').appendTo(document.body)
+Popup.prototype.setBackdrop=function(val){if(val&&!this.$backdrop){this.$backdrop=$('<div class="popup-backdrop fade" />')
+if(this.options.zIndex!==null)
+this.$backdrop.css('z-index',this.options.zIndex)
+this.$backdrop.appendTo(document.body)
 this.$backdrop.addClass('in')
 this.$backdrop.append($('<div class="modal-content popup-loading-indicator" />'))}
 else if(!val&&this.$backdrop){this.$backdrop.remove()

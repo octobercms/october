@@ -84,7 +84,8 @@
         extraData: {},
         content: null,
         size: null,
-        adaptiveHeight: false
+        adaptiveHeight: false,
+        zIndex: null
     }
 
     Popup.prototype.init = function(){
@@ -175,6 +176,9 @@
         if (this.options.adaptiveHeight)
             modalDialog.addClass('adaptive-height')
 
+        if (this.options.zIndex !== null)
+            modal.css('z-index', this.options.zIndex + 20)
+
         return modal.append(modalDialog.append(modalContent))
     }
 
@@ -193,7 +197,11 @@
     Popup.prototype.setBackdrop = function(val) {
         if (val && !this.$backdrop) {
             this.$backdrop = $('<div class="popup-backdrop fade" />')
-                .appendTo(document.body)
+
+            if (this.options.zIndex !== null)
+                this.$backdrop.css('z-index', this.options.zIndex)
+
+            this.$backdrop.appendTo(document.body)
 
             this.$backdrop.addClass('in')
             this.$backdrop.append($('<div class="modal-content popup-loading-indicator" />'))

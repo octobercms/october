@@ -71,6 +71,9 @@
         })
 
         $el.on('mousedown.dragScroll', function(event){
+            if (event.target && event.target.tagName === 'INPUT')
+                return // Don't prevent clicking inputs in the toolbar
+
             startDrag(event)
             return false
         })
@@ -337,6 +340,8 @@
 
         this.scrollClassContainer = null
         this.el.removeData('oc.dragScroll')
+
+        this.el = null
 
         BaseProto.dispose.call(this)
     }

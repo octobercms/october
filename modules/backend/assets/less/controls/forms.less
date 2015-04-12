@@ -761,3 +761,54 @@ body.slim-container {
         }
     }
 }
+
+//
+// Controls inside toolbar
+//
+
+[data-control=toolbar] {
+    .form-control {
+        display: inline-block;
+        margin-right: 15px;
+
+        &.width-50 {
+            width: 50px;
+        }
+
+        &.width-100 {
+            width: 100px;
+        }
+
+        &.width-150 {
+            width: 150px;
+        }
+    }
+
+    input[type=text].form-control, label {
+        position: relative;
+        top: 5px;
+    }
+
+    label {
+        margin-right: 7px;
+
+        &.standalone {
+            margin-right: 15px;
+        }
+    }
+
+    .select2-container {
+        display: inline-block;
+        width: auto;
+        height: 36px;
+
+        .select2-choice {
+            height: 34px;
+            line-height: 34px;
+        }
+    }
+
+    select.form-control.custom-select {
+        display: none;
+    }
+}

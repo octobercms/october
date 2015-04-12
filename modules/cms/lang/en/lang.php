@@ -276,6 +276,17 @@ return [
         'insert' => 'Insert',
         'crop_and_insert' => 'Crop & Insert',
         'select_single_image' => 'Please select a single image.',
-        'selection_not_image' => 'The selected item is not an image.'
+        'selection_not_image' => 'The selected item is not an image.',
+        'restore' => 'Undo all changes',
+        'resize' => 'Resize...',
+        'selection_mode_normal' => 'Normal',
+        'selection_mode_fixed_ratio' => 'Fixed ratio',
+        'selection_mode_fixed_size' => 'Fixed size',
+        'height' => 'Height',
+        'width' => 'Width',
+        'selection_mode' => 'Selection mode',
+        'resize_image' => 'Resize image',
+        'image_size' => 'Image size:',
+        'selected_size' => 'Selected:'
     ]
 ];

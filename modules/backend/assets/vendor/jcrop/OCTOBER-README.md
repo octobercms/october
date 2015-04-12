@@ -1,0 +1,1 @@
+There's a hack in line 1090 in jquery.Jcrop.js. The hack prevents DOM element leakage through the event that is not unbound in the destroy() method. --ab Apr 08 2015

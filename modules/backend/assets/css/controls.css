@@ -143,6 +143,16 @@ body.slim-container .form-buttons{padding:0 20px 20px}
 .select2-drop .select2-results .select2-no-results{padding:7px !important}
 .select2-drop .select2-results .select2-highlighted{background:#4da7e8}
 .select2-drop .select2-results > li > div{padding:5px 7px 5px}
+[data-control=toolbar] .form-control{display:inline-block;margin-right:15px}
+[data-control=toolbar] .form-control.width-50{width:50px}
+[data-control=toolbar] .form-control.width-100{width:100px}
+[data-control=toolbar] .form-control.width-150{width:150px}
+[data-control=toolbar] input[type=text].form-control,[data-control=toolbar] label{position:relative;top:5px}
+[data-control=toolbar] label{margin-right:7px}
+[data-control=toolbar] label.standalone{margin-right:15px}
+[data-control=toolbar] .select2-container{display:inline-block;width:auto;height:36px}
+[data-control=toolbar] .select2-container .select2-choice{height:34px;line-height:34px}
+[data-control=toolbar] select.form-control.custom-select{display:none}
 table.table.data{font-size:12px}
 table.table.data thead{background:#ffffff}
 table.table.data thead td,table.table.data thead th{border-width:1px;border-top:1px solid #e2e2e2 !important;border-color:#e2e2e2;padding:0;font-weight:normal}
@@ -566,6 +576,7 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .control-toolbar .toolbar-item.layout-cell:last-child{padding-right:0}
 .control-toolbar .toolbar-item .btn,.control-toolbar .toolbar-item .btn-group,.control-toolbar .toolbar-item .dropdown{white-space:nowrap;float:none;display:inline-block;margin-right:10px}
 .control-toolbar .toolbar-item .btn:last-child,.control-toolbar .toolbar-item .btn-group:last-child,.control-toolbar .toolbar-item .dropdown:last-child{margin-right:0}
+.control-toolbar .toolbar-item .btn.standalone,.control-toolbar .toolbar-item .btn-group.standalone,.control-toolbar .toolbar-item .dropdown.standalone{margin-right:15px}
 .control-toolbar .toolbar-item .btn-group > .btn,.control-toolbar .toolbar-item .btn-group > .dropdown{margin-right:0;display:inline-block;float:none}
 .control-toolbar .toolbar-item .btn-group .dropdown > .btn{margin-right:0;border-bottom-right-radius:0;border-top-right-radius:0}
 .control-toolbar .toolbar-item .btn-group .dropdown.last > .btn{border-bottom-right-radius:2px !important;border-top-right-radius:2px !important}

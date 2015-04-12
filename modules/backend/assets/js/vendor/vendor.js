@@ -31,4 +31,6 @@
 =require ../../vendor/flot/jquery.flot.resize.js
 =require ../../vendor/flot/jquery.flot.time.js
 
+=require ../../vendor/jcrop/js/jquery.Jcrop.js
+
 */

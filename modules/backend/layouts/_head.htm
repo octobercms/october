@@ -17,6 +17,11 @@
 <script src="<?= Backend::skinAsset('assets/js/vendor/modernizr.min.js') ?>"></script>
 <script src="<?= Backend::skinAsset('assets/js/vendor/vendor-min.js') ?>"></script>
 <script src="<?= Backend::skinAsset('assets/js/october-min.js') ?>"></script>
+
+<!-- TODO: combine and load combined -->
+<script src="<?= Backend::skinAsset('../cms/widgets/mediamanager/assets/js/mediamanager.popup.js') ?>"></script>
+<script src="<?= Backend::skinAsset('../cms/widgets/mediamanager/assets/js/mediamanager.redactor.js') ?>"></script>
+
 <?= $this->makeAssets() ?>
 <?= Block::placeholder('head') ?>
 <?= $this->makeLayoutPartial('custom_styles') ?>

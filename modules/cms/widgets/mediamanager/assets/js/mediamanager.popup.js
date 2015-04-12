@@ -56,7 +56,7 @@
             bottomToolbar: this.options.bottomToolbar ? 1 : 0,
             cropAndInsertButton: this.options.cropAndInsertButton ? 1 : 0
         }
-console.log(data)
+
         this.$popupRootElement.popup({
             extraData: data,
             size: 'adaptive',
@@ -79,6 +79,11 @@ console.log(data)
 
         if (this.options.onInsert !== undefined)
             this.options.onInsert.call(this, items)
+    }
+
+    MediaManagerPopup.prototype.insertCroppedImage = function(imageItem) {
+        if (this.options.onInsert !== undefined)
+            this.options.onInsert.call(this, [imageItem])
     }
 
     // EVENT HANDLERS
@@ -110,10 +115,13 @@ console.log(data)
         this.getMediaManagerElement().find('[data-control="sorting"]').focus().blur()
     }
 
-    MediaManagerPopup.prototype.onPopupCommand = function(ev, command) {
+    MediaManagerPopup.prototype.onPopupCommand = function(ev, command, param) {
         switch (command) {
             case 'insert' : 
                 this.insertMedia()
+            break;
+            case 'insert-cropped' : 
+                this.insertCroppedImage(param)
             break;
         }
 

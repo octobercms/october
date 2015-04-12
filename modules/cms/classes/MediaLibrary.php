@@ -4,6 +4,7 @@ use ApplicationException;
 use SystemException;
 use Config;
 use Storage;
+use Lang;
 use Cache;
 use Str;
 
@@ -383,6 +384,18 @@ class MediaLibrary
             throw new ApplicationException(Lang::get('cms::lang.media.invalid_path', ['path'=>$path]));
 
         return $path;
+    }
+
+    /**
+     * Returns a public file URL.
+     * @param string $path Specifies the file path relative the the Library root.
+     * @return string
+     */
+    public function getPathUrl($path)
+    {
+        $path = $this->validatePath($path);
+
+        return $this->storagePath.$path;
     }
 
     /**

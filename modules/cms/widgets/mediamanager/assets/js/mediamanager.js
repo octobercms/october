@@ -720,14 +720,21 @@
             return
         }
 
-        new $.oc.mediaManager.imageCropPopup(
-            selectedItems[0].getAttribute('data-path'), {
-                alias: this.options.alias
+        var path = selectedItems[0].getAttribute('data-path')
+
+        new $.oc.mediaManager.imageCropPopup(path, {
+                alias: this.options.alias,
+                onDone: callback
             })
     }
 
-    MediaManager.prototype.onImageCropped = function(imageItem) {
+    MediaManager.prototype.onImageCropped = function(imageUrl) {
+        var item = {
+            documentType: 'image',
+            publicUrl: imageUrl
+        }
 
+        this.$el.trigger('popupcommand', ['insert-cropped', item])
     }
 
     //
@@ -819,7 +826,8 @@
 
     MediaManager.prototype.createFolder = function(ev) {
         $(ev.target).popup({
-            content: this.$el.find('[data-control="new-folder-template"]').html()
+            content: this.$el.find('[data-control="new-folder-template"]').html(),
+            zIndex: 1200 // Media Manager can be opened in a popup, so this new popup should have a higher z-index
         })
     }
 
@@ -882,7 +890,8 @@
 
         $(ev.target).popup({
             handler: this.options.alias+'::onLoadMovePopup',
-            extraData: data
+            extraData: data,
+            zIndex: 1200 // Media Manager can be opened in a popup, so this new popup should have a higher z-index
         })
     }
 
