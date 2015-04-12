@@ -293,6 +293,9 @@ class FileUpload extends FormWidgetBase
 
         try {
             $uploadedFile = Input::file('file_data');
+            if (!$uploadedFile) {
+                throw new ApplicationException('File missing from request');
+            }
 
             $validationRules = ['max:'.File::getMaxFilesize()];
             if ($fileTypes = $this->getAcceptedFileTypes()) {
