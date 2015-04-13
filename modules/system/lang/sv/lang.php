@@ -23,7 +23,7 @@ return [
         'ru' => 'Russian',
         'se' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
-        'tr' => 'Turkish'
+        'tr' => 'Turkish',
         'nb-no' => 'Norska (Bokmål)'
     ],
     'directory' => [
