@@ -1964,6 +1964,7 @@ RichEditor.prototype.build=function(redactor){this.updateLayout()
 $(window).resize($.proxy(this.updateLayout,this))
 $(window).on('oc.updateUi',$.proxy(this.updateLayout,this))
 this.$textarea.trigger('init.oc.richeditor',[this.$el])
+this.initUiBlocks()
 var self=this
 redactor.default={onShow:function($figure,$toolbar){self.onShowFigureToolbar($figure,$toolbar)}}}
 RichEditor.prototype.updateLayout=function(){var $editor=$('.redactor-editor',this.$el),$codeEditor=$('textarea',this.$el),$toolbar=$('.redactor-toolbar',this.$el)
@@ -1983,22 +1984,82 @@ $domTree.find('span[data-redactor-class="redactor-invisible-space"]').each(funct
 $(this).remove()})
 $domTree.find('span.redactor-invisible-space').each(function(){$(this).children().insertBefore(this)
 $(this).remove()})
+$domTree.find('[data-video], [data-audio]').each(function(){$(this).removeAttr('contenteditable data-ui-block tabindex')})
 $domTree.find('div.oc-figure-controls').remove()
 return $domTree.html()}
 RichEditor.prototype.keydown=function(e,$editor){this.$textarea.trigger('keydown.oc.richeditor',[e,$editor,this.$textarea])
 if(e.isDefaultPrevented())
+return false
+this.handleUiBlocksKeydown(e,$editor,this.$textarea)
+if(e.isDefaultPrevented())
 return false}
 RichEditor.prototype.enter=function(e,$editor){this.$textarea.trigger('enter.oc.richeditor',[e,$editor,this.$textarea])
+if(e.isDefaultPrevented())
+return false
+this.handleUiBlocksKeydown(e,$editor,this.$textarea)
 if(e.isDefaultPrevented())
 return false}
 RichEditor.prototype.onShowFigureToolbar=function($figure,$toolbar){var toolbarTop=$figure.position().top-$toolbar.height()-10
 $toolbar.toggleClass('bottom',toolbarTop<0)}
+RichEditor.prototype.insertUiBlock=function($node){var redactor=this.$textarea.redactor('core.getObject'),current=redactor.selection.getCurrent(),inserted=false
+if(current===false)
+redactor.focus.setStart()
+current=redactor.selection.getCurrent()
+if(current!==false){var $paragraph=$(current).closest('p')
+if($paragraph.length>0){redactor.caret.setAfter($paragraph.get(0))
+if($.trim($paragraph.text()).length==0)
+$paragraph.remove()}else{var $closestBlock=$(current).closest('[data-ui-block]')
+if($closestBlock.length>0){$node.insertBefore($closestBlock.get(0))
+inserted=true}}}
+if(!inserted)
+redactor.insert.node($node)}
+RichEditor.prototype.initUiBlocks=function(){$('.redactor-editor [data-video], .redactor-editor [data-audio]',this.$el).each(function(){$(this).attr({'data-ui-block':true,'tabindex':'0'})
+this.contentEditable=false})}
+RichEditor.prototype.handleUiBlocksKeydown=function(originalEv,$editor,$textarea){if($textarea===undefined)
+return
+var redactor=$textarea.redactor('core.getObject')
+if(originalEv.target&&$(originalEv.target).attr('data-ui-block')!==undefined){this.uiBlockKeyDown(originalEv,originalEv.target)
+originalEv.preventDefault()
+return}
+switch(originalEv.which){case 38:var block=redactor.selection.getBlock()
+if(block)
+this.handleUiBlockCaretIn($(block).prev(),redactor)
+break
+case 40:var block=redactor.selection.getBlock()
+if(block)
+this.handleUiBlockCaretIn($(block).next(),redactor)
+break}}
+RichEditor.prototype.handleUiBlockCaretIn=function($block,redactor){if($block.attr('data-ui-block')!==undefined){$block.focus()
+redactor.selection.remove()
+return true}
+return false}
+RichEditor.prototype.uiBlockKeyDown=function(ev,block){if(ev.which==40||ev.which==38||ev.which==13||ev.which==8){var $textarea=$(block).closest('.redactor-box').find('textarea'),redactor=$textarea.redactor('core.getObject')
+switch(ev.which){case 40:this.focusUiBlockOrText(redactor,$(block).next(),true)
+break
+case 38:this.focusUiBlockOrText(redactor,$(block).prev(),false)
+break
+case 13:var $paragraph=$('<p><br/></p>')
+$paragraph.insertAfter(block)
+redactor.caret.setStart($paragraph.get(0))
+break
+case 8:var $nextFocus=$(block).next(),gotoStart=true
+if($nextFocus.length==0){$nextFocus=$(block).prev()
+gotoStart=false}
+this.focusUiBlockOrText(redactor,$nextFocus,gotoStart)
+$(block).remove()
+break}}}
+RichEditor.prototype.focusUiBlockOrText=function(redactor,$block,gotoStart){if($block.length>0){if(!this.handleUiBlockCaretIn($block,redactor)){if(gotoStart)
+redactor.caret.setStart($block.get(0))
+else
+redactor.caret.setEnd($block.get(0))}}}
 var old=$.fn.richEditor
-$.fn.richEditor=function(option){return this.each(function(){var $this=$(this)
+$.fn.richEditor=function(option){var args=arguments;return this.each(function(){var $this=$(this)
 var data=$this.data('oc.richEditor')
 var options=$.extend({},RichEditor.DEFAULTS,$this.data(),typeof option=='object'&&option)
 if(!data)$this.data('oc.richEditor',(data=new RichEditor(this,options)))
-if(typeof option=='string')data[option].call($this)})}
+if(typeof option=='string'){var methodArgs=[];for(var i=1;i<args.length;i++)
+methodArgs.push(args[i])
+data[option].apply(data,methodArgs)}})}
 $.fn.richEditor.Constructor=RichEditor
 $.fn.richEditor.noConflict=function(){$.fn.richEditor=old
 return this}
