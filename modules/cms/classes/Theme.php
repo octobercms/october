@@ -308,12 +308,11 @@ class Theme
     public function getPreviewImageUrl()
     {
         $previewPath = '/assets/images/theme-preview.png';
-        $path = $this->getPath().$previewPath;
-        if (!File::exists($path)) {
-            return URL::asset('modules/cms/assets/images/default-theme-preview.png');
+        if (File::exists($this->getPath().$previewPath)) {
+            return URL::asset('themes/'.$this->getDirName().$previewPath);
         }
 
-        return URL::asset('themes/'.$this->getDirName().$previewPath);
+        return URL::asset('modules/cms/assets/images/default-theme-preview.png');
     }
 
     /**
