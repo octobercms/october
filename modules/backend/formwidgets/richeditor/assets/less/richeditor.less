@@ -205,4 +205,29 @@ body .redactor-box-fullscreen {
     figure[data-ui-block] {
         .richeditor-snippet();
     }
+
+    figure[data-video], figure[data-audio] {
+        padding-left: 13px;
+
+        &:after {
+            content: attr(data-label);
+        }
+
+        &:before {
+            position: static;
+            margin-right: 8px;
+        }
+    }
+
+    figure[data-video] {
+        &:before {
+            .icon(@video-camera);
+        }
+    }
+
+    figure[data-audio] {
+        &:before {
+            .icon(@volume-up);
+        }
+    }
 }

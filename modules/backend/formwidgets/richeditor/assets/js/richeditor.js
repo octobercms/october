@@ -234,6 +234,10 @@
 
         if (!inserted)
             redactor.insert.node($node)
+
+        redactor.code.sync()
+
+        $node.focus()
     }
 
     RichEditor.prototype.initUiBlocks = function() {

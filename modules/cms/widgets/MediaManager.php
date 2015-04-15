@@ -664,10 +664,7 @@ class MediaManager extends WidgetBase
     protected function loadAssets()
     {
         $this->addCss('css/mediamanager.css', 'core');
-
-        // TODO: combine and minify
-        $this->addJs('js/mediamanager.js', 'core');
-        $this->addJs('js/mediamanager.imagecroppopup.js', 'core');
+        $this->addJs('js/mediamanager-browser-min.js', 'core');
     }
 
     protected function setViewMode($viewMode)

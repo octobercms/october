@@ -25,6 +25,18 @@ RedactorPlugins.mediamanager = function()
             buttonInsertImage.addClass('re-image oc-autumn-button')
             buttonInsertImage.removeClass('redactor-btn-image')
             this.button.addCallback(buttonInsertImage, this.mediamanager.onInsertImage);
+
+            // Insert video button
+            var buttonInsertVideo = this.button.add('mmInsertVideoLink', 'Insert Media Video');
+            buttonInsertVideo.addClass('re-video oc-autumn-button')
+            buttonInsertVideo.removeClass('redactor-btn-image')
+            this.button.addCallback(buttonInsertVideo, this.mediamanager.onInsertVideo);
+
+            // Insert audio button
+            var buttonInsertAudio = this.button.add('mmInsertAudioLink', 'Insert Media Audio');
+            this.button.setAwesome('mmInsertAudioLink', 'icon-volume-up');
+            buttonInsertAudio.addClass('oc-redactor-button oc-autumn-button')
+            this.button.addCallback(buttonInsertAudio, this.mediamanager.onInsertAudio);
         },
 
         onInsertLink: function(buttonName)
@@ -40,7 +52,7 @@ RedactorPlugins.mediamanager = function()
                 cropAndInsertButton: false, 
                 onInsert: function(items) {
                     if (!items.length) {
-                        alert('Please select files to insert links to.')
+                        alert('Please select file to insert a links to.')
                         return
                     }
 
@@ -68,7 +80,7 @@ RedactorPlugins.mediamanager = function()
             hideLinkTooltips()
 
             if (!this.selection.getCurrent())
-                this.focus.setStart();
+                this.focus.setStart()
 
             this.selection.save()
 
@@ -124,6 +136,100 @@ RedactorPlugins.mediamanager = function()
 
                     if (imagesInserted !== 0)
                         this.hide()
+                }
+            })
+        },
+
+        onInsertVideo: function(buttonName) {
+            hideLinkTooltips()
+
+            var that = this
+            hideLinkTooltips()
+
+            this.selection.save()
+            this.link.getData()
+
+            new $.oc.mediaManager.popup({
+                alias: 'ocmediamanager', 
+                cropAndInsertButton: false, 
+                onInsert: function(items) {
+                    if (!items.length) {
+                        alert('Please select a video file to insert.')
+                        return
+                    }
+
+                    if (items.length > 1) {
+                        alert('Please select a single file.')
+                        return
+                    }
+
+                    var item = items[0]
+
+                    if (item.documentType !== 'video') {
+                        alert('The file "'+item.title+'" is not a video.')
+                        return
+                    }
+
+                    var $richEditorNode = that.core.getTextarea().closest('[data-control="richeditor"]'),
+                        $videoNode = $('<figure contenteditable="false" tabindex="0" data-ui-block="true"/>')
+
+                    $videoNode.get(0).contentEditable = false
+
+                    $videoNode.attr('data-video', item.publicUrl)
+                    $videoNode.attr('data-label', item.title)
+
+                    that.selection.restore()
+
+                    $richEditorNode.richEditor('insertUiBlock', $videoNode)
+
+                    this.hide()
+                }
+            })
+        },
+
+        onInsertAudio: function(buttonName) {
+            hideLinkTooltips()
+
+            var that = this
+            hideLinkTooltips()
+
+            this.selection.save()
+            this.link.getData()
+
+            new $.oc.mediaManager.popup({
+                alias: 'ocmediamanager', 
+                cropAndInsertButton: false, 
+                onInsert: function(items) {
+                    if (!items.length) {
+                        alert('Please select an audio file to insert.')
+                        return
+                    }
+
+                    if (items.length > 1) {
+                        alert('Please select a single file.')
+                        return
+                    }
+
+                    var item = items[0]
+
+                    if (item.documentType !== 'audio') {
+                        alert('The file "'+item.title+'" is not an audio file.')
+                        return
+                    }
+
+                    var $richEditorNode = that.core.getTextarea().closest('[data-control="richeditor"]'),
+                        $videoNode = $('<figure contenteditable="false" tabindex="0" data-ui-block="true"/>')
+
+                    $videoNode.get(0).contentEditable = false
+
+                    $videoNode.attr('data-audio', item.publicUrl)
+                    $videoNode.attr('data-label', item.title)
+
+                    that.selection.restore()
+
+                    $richEditorNode.richEditor('insertUiBlock', $videoNode)
+
+                    this.hide()
                 }
             })
         }

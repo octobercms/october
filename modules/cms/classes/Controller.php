@@ -207,6 +207,12 @@ class Controller
         $result = $this->runPage($page);
 
         /*
+         * Post-processing
+         */
+
+        $result = $this->postProcessResult($page, $url, $result);
+
+        /*
          * Extensibility
          */
         if (
@@ -451,6 +457,24 @@ class Controller
         }
 
         return $response;
+    }
+
+    /**
+     * Post-processes page HTML code before it's sent to the client.
+     * @param \Cms\Classes\Page $page Specifies the current CMS page.
+     * @param string $url Specifies the current URL.
+     * @param string $html The page markup to post processs.
+     * @return string Returns the updated result string.
+     */
+    protected function postProcessResult($page, $url, $html)
+    {
+        $html = MediaViewHelper::instance()->processHtml($html);
+
+        $holder = (object)['html'=>$html];
+
+        Event::fire('cms.page.postprocess', [$this, $url, $page, $holder]);
+
+        return $holder->html;
     }
 
     //

@@ -8,6 +8,7 @@ use BackendAuth;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use System\Classes\SettingsManager;
+use System\Classes\CombineAssets;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\Page as CmsPage;
 
@@ -164,6 +165,14 @@ class ServiceProvider extends ModuleServiceProvider
          */
         ComponentManager::instance()->registerComponents(function ($manager) {
             $manager->registerComponent('Cms\Classes\ViewBag', 'viewBag');
+        });
+
+        /*
+         * Register asset bundles
+         */
+        CombineAssets::registerCallback(function($combiner) {
+            $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-global.js');
+            $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-browser.js');
         });
     }
 

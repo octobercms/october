@@ -2012,7 +2012,9 @@ $paragraph.remove()}else{var $closestBlock=$(current).closest('[data-ui-block]')
 if($closestBlock.length>0){$node.insertBefore($closestBlock.get(0))
 inserted=true}}}
 if(!inserted)
-redactor.insert.node($node)}
+redactor.insert.node($node)
+redactor.code.sync()
+$node.focus()}
 RichEditor.prototype.initUiBlocks=function(){$('.redactor-editor [data-video], .redactor-editor [data-audio]',this.$el).each(function(){$(this).attr({'data-ui-block':true,'tabindex':'0'})
 this.contentEditable=false})}
 RichEditor.prototype.handleUiBlocksKeydown=function(originalEv,$editor,$textarea){if($textarea===undefined)
