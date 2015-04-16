@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use Request;
 use ApplicationException;
 use SystemException;
 use Config;
@@ -58,9 +59,12 @@ class MediaLibrary
      */
     protected function init()
     {
+        $this->storageFolder = self::validatePath(Config::get('cms.storage.media.folder', 'media'), true);
         $this->storagePath = rtrim(Config::get('cms.storage.media.path', '/storage/app/media'), '/');
-        $this->storageFolder = self::validatePath(
-            Config::get('cms.storage.media.folder', 'media'), true);
+        if (!preg_match("/(\/\/|http|https)/", $this->storagePath)) {
+            $this->storagePath = Request::getBasePath() . $this->storagePath;
+        }
+
         $this->ignoreNames = Config::get('cms.storage.media.ignore', $this->defaultIgnoreNames);
 
         $this->storageFolderNameLength = strlen($this->storageFolder);
