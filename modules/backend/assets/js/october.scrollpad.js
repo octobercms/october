@@ -87,6 +87,10 @@
         this.scrollContentElement[scrollAttr] = 0
     }
 
+    Scrollpad.prototype.update = function() {
+        this.updateScrollbarSize()
+    }
+
     // SCROLLPAD INTERNAL METHODS
     // ============================
 
@@ -156,6 +160,8 @@
     }
 
     Scrollpad.prototype.updateScrollbarSize = function() {
+        this.scrollbarElement.removeAttribute('data-hidden')
+
         var contentSize = this.options.direction == 'vertical' ? this.contentElement.scrollHeight : this.contentElement.scrollWidth,
             scrollOffset = this.options.direction == 'vertical' ? this.scrollContentElement.scrollTop : this.scrollContentElement.scrollLeft,
             scrollbarSize = this.options.direction == 'vertical' ? this.scrollbarElement.offsetHeight : this.scrollbarElement.offsetWidth,

@@ -73,9 +73,21 @@
         BaseProto.dispose.call(this)
     }
 
-    MediaManager.prototype.getSelectedItems = function(returnNotProcessed) {
+    MediaManager.prototype.getSelectedItems = function(returnNotProcessed, allowRootItem) {
         var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
             result = []
+
+        if (!allowRootItem) {
+            var filteredItems = []
+
+            for (var i=0, len=items.length; i < len; i++) {
+                var item = items[i]
+                if (!item.hasAttribute('data-root'))
+                    filteredItems.push(item)
+            }
+
+            items = filteredItems
+        }
 
         if (returnNotProcessed === true)
             return items
@@ -198,6 +210,10 @@
         this.$el.find('.control-scrollpad').scrollpad()
     }
 
+    MediaManager.prototype.updateScroll = function() {
+        this.$el.find('.control-scrollpad').scrollpad('update')
+    }
+
     MediaManager.prototype.removeScroll = function() {
         this.$el.find('.control-scrollpad').scrollpad('dispose')
     }
@@ -234,6 +250,12 @@
             // The class attribute is used only for selecting, it's safe to clear it
             for (var i = 0, len = items.length; i < len; i++)
                 items[i].setAttribute('class', '')
+        } 
+        else {
+            var rootItem = this.$el.get(0).querySelector('[data-type="media-item"][data-root].selected')
+
+            if (rootItem)
+                rootItem.setAttribute('class', '')
         }
 
         if (!expandSelection)
@@ -244,6 +266,8 @@
             else
                 node.setAttribute('class', 'selected')
         }
+
+        node.focus()
 
         this.clearSelectTimer()
 
@@ -266,6 +290,39 @@
         this.dblTouchFlag = false
     }
 
+    MediaManager.prototype.selectFirstItem = function() {
+        var firstItem = this.itemListElement.querySelector('[data-type="media-item"]:first-child')
+        if (firstItem)
+            this.selectItem(firstItem)
+    }
+
+    MediaManager.prototype.selectRelative = function(next, expandSelection) {
+        var currentSelection = this.getSelectedItems(true, true)
+
+        if (currentSelection.length == 0) {
+            this.selectFirstItem()
+
+            return
+        }
+
+        var itemToSelect = null
+        if (next) {
+            var lastItem = currentSelection[currentSelection.length-1]
+
+            if (lastItem)
+                itemToSelect = lastItem.nextElementSibling
+        }
+        else {
+            var firstItem = currentSelection[0]
+
+            if (firstItem)
+                itemToSelect = firstItem.previousElementSibling
+        }
+
+        if (itemToSelect)
+            this.selectItem(itemToSelect, expandSelection)
+    }
+
     //
     // Navigation
     //
@@ -283,6 +340,8 @@
         this.scrollToTop()
         this.generateThumbnails()
         this.updateSidebarPreview(true)
+        this.selectFirstItem()
+        this.updateScroll()
     }
 
     MediaManager.prototype.refresh = function() {
@@ -319,6 +378,25 @@
 
     MediaManager.prototype.releaseNavigationAjax = function() {
         this.navigationAjax = null
+    }
+
+    MediaManager.prototype.navigateToItem = function($item) {
+        if (!$item.length || !$item.data('path').length)
+            return
+
+        if ($item.data('item-type') == 'folder') {
+            if (!$item.data('clear-search'))
+                this.gotoFolder($item.data('path'))
+            else {
+                this.resetSearch()
+                this.gotoFolder($item.data('path'), true)
+            }
+        } 
+        else if ($item.data('item-type') == 'file') {
+            // Trigger the Insert popup command if a file item 
+            // was double clicked.
+            this.$el.trigger('popupcommand', ['insert'])
+        }
     }
 
     //
@@ -945,24 +1023,10 @@
     MediaManager.prototype.onNavigate = function(ev) {
         var $item = $(ev.target).closest('[data-type="media-item"]')
 
-        if (!$item.length || !$item.data('path').length)
-            return
+        this.navigateToItem($item)
 
-        if ($item.data('item-type') == 'folder') {
-            if (!$item.data('clear-search'))
-                this.gotoFolder($item.data('path'))
-            else {
-                this.resetSearch()
-                this.gotoFolder($item.data('path'), true)
-            }
-        } 
-        else if ($item.data('item-type') == 'file') {
-            // Trigger the Insert popup command if a file item 
-            // was double clicked.
-            this.$el.trigger('popupcommand', ['insert'])
-        }
-
-        return false
+        if ($(ev.target).data('label') != 'public-url')
+            return false
     }
 
     MediaManager.prototype.onCommandClick = function(ev) {
@@ -1138,12 +1202,24 @@
     MediaManager.prototype.onKeyDown = function(ev) {
         var eventHandled = false
 
-        if (ev.which == 13) {
-            // Trigger the Insert popup command when Enter
-            // key is pressed
-            this.$el.trigger('popupcommand', ['insert'])
+        switch (ev.which) {
+            case 13:
+                var items = this.getSelectedItems(true, true)
+                if (items.length > 0)
+                    this.navigateToItem($(items[0]))
 
-            eventHandled = true
+                eventHandled = true
+            break;
+            case 39:
+            case 40:
+                this.selectRelative(true, ev.shiftKey)
+                eventHandled = true
+            break;
+            case 37:
+            case 38:
+                this.selectRelative(false, ev.shiftKey)
+                eventHandled = true
+            break;
         }
 
         if (eventHandled) {

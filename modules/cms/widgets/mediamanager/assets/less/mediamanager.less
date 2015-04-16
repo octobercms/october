@@ -102,6 +102,10 @@ div[data-control="media-manager"] {
             cursor: pointer;
             .border-radius(3px);
 
+            &:focus {
+                outline: none;
+            }
+
             .icon-container {
                 display: table;
 
@@ -402,6 +406,10 @@ div[data-control="media-manager"] {
 
         tr[data-item-type=folder] i.icon-folder {
             color: @color-list-hover-bg;
+        }
+
+        tr:focus {
+            outline: none;
         }
     }
 

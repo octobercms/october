@@ -5,7 +5,7 @@
 <ul class="media-list <?= $listClass ?>">
     <?php if (count($items) > 0 || !$isRootFolder): ?>
         <?php if (!$isRootFolder && !$searchMode): ?>
-            <li data-type="media-item" data-item-type="folder" data-root data-path="<?= e(dirname($currentFolder)) ?>">
+            <li tabindex="0" data-type="media-item" data-item-type="folder" data-root data-path="<?= e(dirname($currentFolder)) ?>">
                 <div class="icon-container folder">
                     <div class="icon-wrapper"><i class="icon-folder"></i></div>
                 </div>
@@ -28,6 +28,7 @@
                 data-public-url="<?= e($item->publicUrl) ?>"
                 data-document-type="<?= e($itemType) ?>"
                 data-folder="<?= e(dirname($item->path)) ?>"
+                tabindex="0"
             >
                 <?= $this->makePartial('item-icon', ['itemType'=>$itemType, 'item'=>$item]) ?>
 

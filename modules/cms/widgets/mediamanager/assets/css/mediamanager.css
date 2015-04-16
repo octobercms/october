@@ -47,6 +47,9 @@ div[data-control="media-manager"] .media-list li {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
+div[data-control="media-manager"] .media-list li:focus {
+  outline: none;
+}
 div[data-control="media-manager"] .media-list li .icon-container {
   display: table;
 }
@@ -344,6 +347,9 @@ div[data-control="media-manager"] table.table tr:hover div.item-title a {
 }
 div[data-control="media-manager"] table.table tr[data-item-type=folder] i.icon-folder {
   color: #4da7e8;
+}
+div[data-control="media-manager"] table.table tr:focus {
+  outline: none;
 }
 div[data-control="media-manager"] div[data-control="selection-marker"] {
   position: absolute;

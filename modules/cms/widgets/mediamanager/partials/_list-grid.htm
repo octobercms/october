@@ -4,13 +4,13 @@
 
 <table class="table data">
     <col />
-    <col width="100px" />
-    <col width="100px" />
+    <col width="130px" />
+    <col width="130px" />
 
     <tbody class="icons clickable">
         <?php if (count($items) > 0 || !$isRootFolder): ?>
             <?php if (!$isRootFolder && !$searchMode): ?>
-                <tr data-type="media-item" data-item-type="folder" data-root data-path="<?= e(dirname($currentFolder)) ?>">
+                <tr data-type="media-item" data-item-type="folder" data-root data-path="<?= e(dirname($currentFolder)) ?>" tabindex="0">
                     <td><i class="icon-folder"></i>..</td>
                     <td></td>
                     <td></td>
@@ -30,6 +30,7 @@
                     data-public-url="<?= e($item->publicUrl) ?>"
                     data-document-type="<?= e($itemType) ?>"
                     data-folder="<?= e(dirname($item->path)) ?>"
+                    tabindex="0"
                 >
                     <td>
                         <div class="item-title no-wrap-text">

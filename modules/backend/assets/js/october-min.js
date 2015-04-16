@@ -162,6 +162,7 @@ this.contentElement=null
 BaseProto.dispose.call(this)}
 Scrollpad.prototype.scrollToStart=function(){var scrollAttr=this.options.direction=='vertical'?'scrollTop':'scrollLeft'
 this.scrollContentElement[scrollAttr]=0}
+Scrollpad.prototype.update=function(){this.updateScrollbarSize()}
 Scrollpad.prototype.init=function(){this.build()
 this.setScrollContentSize()
 this.registerHandlers()}
@@ -197,7 +198,8 @@ document.body.removeChild(testerElement)
 if(width===innerWidth&&navigator.userAgent.toLowerCase().indexOf('firefox')>-1)
 return this.scrollbarSize=17
 return this.scrollbarSize=width-innerWidth}
-Scrollpad.prototype.updateScrollbarSize=function(){var contentSize=this.options.direction=='vertical'?this.contentElement.scrollHeight:this.contentElement.scrollWidth,scrollOffset=this.options.direction=='vertical'?this.scrollContentElement.scrollTop:this.scrollContentElement.scrollLeft,scrollbarSize=this.options.direction=='vertical'?this.scrollbarElement.offsetHeight:this.scrollbarElement.offsetWidth,scrollbarRatio=scrollbarSize/contentSize,handleOffset=Math.round(scrollbarRatio*scrollOffset)+2,handleSize=Math.floor(scrollbarRatio*(scrollbarSize-2))-2;if(scrollbarSize<contentSize){if(this.options.direction=='vertical')
+Scrollpad.prototype.updateScrollbarSize=function(){this.scrollbarElement.removeAttribute('data-hidden')
+var contentSize=this.options.direction=='vertical'?this.contentElement.scrollHeight:this.contentElement.scrollWidth,scrollOffset=this.options.direction=='vertical'?this.scrollContentElement.scrollTop:this.scrollContentElement.scrollLeft,scrollbarSize=this.options.direction=='vertical'?this.scrollbarElement.offsetHeight:this.scrollbarElement.offsetWidth,scrollbarRatio=scrollbarSize/contentSize,handleOffset=Math.round(scrollbarRatio*scrollOffset)+2,handleSize=Math.floor(scrollbarRatio*(scrollbarSize-2))-2;if(scrollbarSize<contentSize){if(this.options.direction=='vertical')
 this.dragHandleElement.setAttribute('style','top: '+handleOffset+'px; height: '+handleSize+'px')
 else
 this.dragHandleElement.setAttribute('style','left: '+handleOffset+'px; width: '+handleSize+'px')

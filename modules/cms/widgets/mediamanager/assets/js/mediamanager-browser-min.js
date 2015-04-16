@@ -42,7 +42,12 @@ this.selectionMarker=null
 this.thumbnailQueue=[]
 this.navigationAjax=null
 BaseProto.dispose.call(this)}
-MediaManager.prototype.getSelectedItems=function(returnNotProcessed){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),result=[]
+MediaManager.prototype.getSelectedItems=function(returnNotProcessed,allowRootItem){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),result=[]
+if(!allowRootItem){var filteredItems=[]
+for(var i=0,len=items.length;i<len;i++){var item=items[i]
+if(!item.hasAttribute('data-root'))
+filteredItems.push(item)}
+items=filteredItems}
 if(returnNotProcessed===true)
 return items
 for(var i=0,len=items.length;i<len;i++){var item=items[i],itemDetails={itemType:item.getAttribute('data-item-type'),path:item.getAttribute('data-path'),title:item.getAttribute('data-title'),documentType:item.getAttribute('data-document-type'),folder:item.getAttribute('data-folder'),publicUrl:item.getAttribute('data-public-url')}
@@ -98,6 +103,7 @@ MediaManager.prototype.setFilter=function(filter){var data={filter:filter,path:t
 this.execNavigationRequest('onSetFilter',data)}
 MediaManager.prototype.isSearchMode=function(){return this.$el.find('[data-type="search-mode"]').val()=='true'}
 MediaManager.prototype.initScroll=function(){this.$el.find('.control-scrollpad').scrollpad()}
+MediaManager.prototype.updateScroll=function(){this.$el.find('.control-scrollpad').scrollpad('update')}
 MediaManager.prototype.removeScroll=function(){this.$el.find('.control-scrollpad').scrollpad('dispose')}
 MediaManager.prototype.scrollToTop=function(){this.$el.find('.control-scrollpad').scrollpad('scrollToStart')}
 MediaManager.prototype.removeAttachedControls=function(){this.$el.find('[data-control=toolbar]').toolbar('dispose')
@@ -109,12 +115,16 @@ this.selectTimer=null}
 MediaManager.prototype.selectItem=function(node,expandSelection){if(!expandSelection){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
 for(var i=0,len=items.length;i<len;i++)
 items[i].setAttribute('class','')}
+else{var rootItem=this.$el.get(0).querySelector('[data-type="media-item"][data-root].selected')
+if(rootItem)
+rootItem.setAttribute('class','')}
 if(!expandSelection)
 node.setAttribute('class','selected')
 else{if(node.getAttribute('class')=='selected')
 node.setAttribute('class','')
 else
 node.setAttribute('class','selected')}
+node.focus()
 this.clearSelectTimer()
 if(this.isPreviewSidebarVisible()){this.selectTimer=setTimeout(this.proxy(this.updateSidebarPreview),100)}}
 MediaManager.prototype.clearDblTouchTimer=function(){if(this.dblTouchTimer===null)
@@ -122,11 +132,28 @@ return
 clearTimeout(this.dblTouchTimer)
 this.dblTouchTimer=null}
 MediaManager.prototype.clearDblTouchFlag=function(){this.dblTouchFlag=false}
+MediaManager.prototype.selectFirstItem=function(){var firstItem=this.itemListElement.querySelector('[data-type="media-item"]:first-child')
+if(firstItem)
+this.selectItem(firstItem)}
+MediaManager.prototype.selectRelative=function(next,expandSelection){var currentSelection=this.getSelectedItems(true,true)
+if(currentSelection.length==0){this.selectFirstItem()
+return}
+var itemToSelect=null
+if(next){var lastItem=currentSelection[currentSelection.length-1]
+if(lastItem)
+itemToSelect=lastItem.nextElementSibling}
+else{var firstItem=currentSelection[0]
+if(firstItem)
+itemToSelect=firstItem.previousElementSibling}
+if(itemToSelect)
+this.selectItem(itemToSelect,expandSelection)}
 MediaManager.prototype.gotoFolder=function(path,resetSearch){var data={path:path,resetSearch:resetSearch!==undefined?1:0}
 this.execNavigationRequest('onGoToFolder',data)}
 MediaManager.prototype.afterNavigate=function(){this.scrollToTop()
 this.generateThumbnails()
-this.updateSidebarPreview(true)}
+this.updateSidebarPreview(true)
+this.selectFirstItem()
+this.updateScroll()}
 MediaManager.prototype.refresh=function(){var data={path:this.$el.find('[data-type="current-folder"]').val(),clearCache:true}
 this.execNavigationRequest('onGoToFolder',data)}
 MediaManager.prototype.execNavigationRequest=function(handler,data,element)
@@ -138,6 +165,13 @@ this.releaseNavigationAjax()}
 $.oc.stripeLoadIndicator.show()
 this.navigationAjax=element.request(this.options.alias+'::'+handler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.afterNavigate)).always(this.proxy(this.releaseNavigationAjax))}
 MediaManager.prototype.releaseNavigationAjax=function(){this.navigationAjax=null}
+MediaManager.prototype.navigateToItem=function($item){if(!$item.length||!$item.data('path').length)
+return
+if($item.data('item-type')=='folder'){if(!$item.data('clear-search'))
+this.gotoFolder($item.data('path'))
+else{this.resetSearch()
+this.gotoFolder($item.data('path'),true)}}
+else if($item.data('item-type')=='file'){this.$el.trigger('popupcommand',['insert'])}}
 MediaManager.prototype.isPreviewSidebarVisible=function(){return!this.$el.find('[data-control="preview-sidebar"]').hasClass('hide')}
 MediaManager.prototype.toggleSidebar=function(ev){var isVisible=this.isPreviewSidebarVisible(),$sidebar=this.$el.find('[data-control="preview-sidebar"]'),$button=$(ev.target)
 if(!isVisible){$sidebar.removeClass('hide')
@@ -344,13 +378,8 @@ MediaManager.prototype.onMovePopupHidden=function(ev,button,popup){$(popup).off(
 MediaManager.prototype.itemsMoved=function(){this.$el.find('button[data-command="move"]').popup('hide')
 this.afterNavigate()}
 MediaManager.prototype.onNavigate=function(ev){var $item=$(ev.target).closest('[data-type="media-item"]')
-if(!$item.length||!$item.data('path').length)
-return
-if($item.data('item-type')=='folder'){if(!$item.data('clear-search'))
-this.gotoFolder($item.data('path'))
-else{this.resetSearch()
-this.gotoFolder($item.data('path'),true)}}
-else if($item.data('item-type')=='file'){this.$el.trigger('popupcommand',['insert'])}
+this.navigateToItem($item)
+if($(ev.target).data('label')!='public-url')
 return false}
 MediaManager.prototype.onCommandClick=function(ev){var command=$(ev.currentTarget).data('command')
 switch(command){case'refresh':this.refresh()
@@ -418,8 +447,15 @@ this.selectionMarker.style.height=Math.abs(deltaY)+'px'}}}
 MediaManager.prototype.onSortingChanged=function(ev){var data={sortBy:$(ev.target).val(),path:this.$el.find('[data-type="current-folder"]').val()}
 this.execNavigationRequest('onSetSorting',data)}
 MediaManager.prototype.onKeyDown=function(ev){var eventHandled=false
-if(ev.which==13){this.$el.trigger('popupcommand',['insert'])
-eventHandled=true}
+switch(ev.which){case 13:var items=this.getSelectedItems(true,true)
+if(items.length>0)
+this.navigateToItem($(items[0]))
+eventHandled=true
+break;case 39:case 40:this.selectRelative(true,ev.shiftKey)
+eventHandled=true
+break;case 37:case 38:this.selectRelative(false,ev.shiftKey)
+eventHandled=true
+break;}
 if(eventHandled){ev.preventDefault()
 ev.stopPropagation()}}
 MediaManager.DEFAULTS={alias:'',deleteEmpty:'Please select files to delete.',deleteConfirm:'Do you really want to delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false}

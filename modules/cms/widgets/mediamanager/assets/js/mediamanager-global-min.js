@@ -123,7 +123,7 @@ if(this.options.onClose!==undefined)
 this.options.onClose.call(this)}
 MediaManagerPopup.prototype.onPopupShown=function(event,element,popup){this.$popupElement=popup
 this.$popupElement.on('popupcommand',this.proxy(this.onPopupCommand))
-this.getMediaManagerElement().find('[data-control="sorting"]').focus().blur()}
+this.getMediaManagerElement().mediaManager('selectFirstItem')}
 MediaManagerPopup.prototype.onPopupCommand=function(ev,command,param){switch(command){case'insert':this.insertMedia()
 break;case'insert-cropped':this.insertCroppedImage(param)
 break;}

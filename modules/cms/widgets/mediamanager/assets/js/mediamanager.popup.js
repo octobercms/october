@@ -112,7 +112,7 @@
 
         // Unfocus the Redactor field, otherwise all keyboard commands
         // in the Media Manager popup translate to Redactor.
-        this.getMediaManagerElement().find('[data-control="sorting"]').focus().blur()
+        this.getMediaManagerElement().mediaManager('selectFirstItem')
     }
 
     MediaManagerPopup.prototype.onPopupCommand = function(ev, command, param) {
