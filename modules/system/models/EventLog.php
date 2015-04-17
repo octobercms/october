@@ -2,6 +2,7 @@
 
 use Str;
 use Model;
+use Exception;
 
 /**
  * Model for logging system errors and debug trace messages
@@ -38,7 +39,10 @@ class EventLog extends Model
             $record->details = (array) $details;
         }
 
-        $record->save();
+        try {
+            $record->save();
+        }
+        catch (Exception $ex) {}
 
         return $record;
     }
