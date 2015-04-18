@@ -247,9 +247,9 @@ to{background-position:0 0}
 .redactor-box{margin-bottom:0}
 .redactor-box iframe{border:none}
 .redactor-box-fullscreen{z-index:715 !important}
-.redactor-toolbar,.redactor-dropdown{z-index:710 !important}
+.redactor-dropdown{z-index:725 !important}
 #redactor-modal-overlay,#redactor-modal-box,#redactor-modal{z-index:720 !important}
-.redactor-toolbar{background:#dddddd;-webkit-box-shadow:none;box-shadow:none}
+.redactor-toolbar{background:#dddddd;-webkit-box-shadow:none;box-shadow:none;z-index:410 !important}
 .redactor-toolbar li.redactor-btn-right{float:right;margin-right:2px}
 .redactor-toolbar li a{color:#404040;font-size:14px;width:20px;line-height:20px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .redactor-toolbar li a:hover{background-color:#999999;color:#ffffff}

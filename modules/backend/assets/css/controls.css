@@ -786,6 +786,7 @@ div.control-popover > div{position:relative;background:#ffffff;-webkit-box-shado
 div.control-popover > div:after,div.control-popover > div:before{position:absolute}
 div.control-popover > div:after{z-index:601}
 div.control-popover > div:before{z-index:600}
+div.control-popover.placement-bottom > div{border:1px solid #949ea6}
 div.control-popover.placement-bottom > div:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:8px solid #ffffff;left:15px;top:-8px}
 div.control-popover.placement-bottom > div:before{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:9px solid #949ea6;left:14px;top:-9px}
 div.control-popover.placement-top > div:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #ffffff;border-bottom-width:0;left:15px;bottom:-8px}
