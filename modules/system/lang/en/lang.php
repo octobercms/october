@@ -54,10 +54,16 @@ return [
         ]
     ],
     'theme' => [
+        'title' => 'Themes',
         'name' => [
             'label' => 'Theme Name',
             'help' => 'Name the theme by its unique code. For example, RainLab.Vanilla'
-        ]
+        ],
+        'search' => 'search themes to install...',
+        'installed' => 'Installed themes',
+        'no_themes' => 'There are no themes installed from the marketplace.',
+        'remove_theme' => 'Are you sure you want to remove this?',
+        'recommended' => 'Recommended'
     ],
     'plugin' => [
         'unnamed' => 'Unnamed plugin',
@@ -70,6 +76,11 @@ return [
         'manage' => 'Manage plugins',
         'enable_or_disable' => 'Enable or disable',
         'enable_or_disable_title' => 'Enable or Disable Plugins',
+        'install' => 'Install plugins',
+        'search' => 'search plugins to install...',
+        'installed' => 'Installed plugins',
+        'no_plugins' => 'There are no plugins installed from the marketplace.',
+        'recommended' => 'Recommended',
         'remove' => 'Remove',
         'refresh' => 'Refresh',
         'disabled_label' => 'Disabled',

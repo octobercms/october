@@ -13,14 +13,14 @@
                 <a
                     href="#tabPlugins"
                     data-tab-url="<?= Backend::url('system/updates/install/plugins') ?>">
-                    Plugins
+                    <?= e(trans('system::lang.updates.plugins')) ?>
                 </a>
             </li>
             <li class="<?= $activeTab == 'themes' ? 'active' : '' ?>">
                 <a
                     href="#tabThemes"
                     data-tab-url="<?= Backend::url('system/updates/install/themes') ?>">
-                    Themes
+                    <?= e(trans('system::lang.theme.title')) ?>
                 </a>
             </li>
         </ul>
