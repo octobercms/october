@@ -115,9 +115,8 @@ this.selectTimer=null}
 MediaManager.prototype.selectItem=function(node,expandSelection){if(!expandSelection){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
 for(var i=0,len=items.length;i<len;i++)
 items[i].setAttribute('class','')}
-else{var rootItem=this.$el.get(0).querySelector('[data-type="media-item"][data-root].selected')
-if(rootItem)
-rootItem.setAttribute('class','')}
+else
+this.unselectRoot()
 if(!expandSelection)
 node.setAttribute('class','selected')
 else{if(node.getAttribute('class')=='selected')
@@ -127,6 +126,9 @@ node.setAttribute('class','selected')}
 node.focus()
 this.clearSelectTimer()
 if(this.isPreviewSidebarVisible()){this.selectTimer=setTimeout(this.proxy(this.updateSidebarPreview),100)}}
+MediaManager.prototype.unselectRoot=function(){var rootItem=this.$el.get(0).querySelector('[data-type="media-item"][data-root].selected')
+if(rootItem)
+rootItem.setAttribute('class','')}
 MediaManager.prototype.clearDblTouchTimer=function(){if(this.dblTouchTimer===null)
 return
 clearTimeout(this.dblTouchTimer)
@@ -417,7 +419,8 @@ this.selectionStarted=false}
 MediaManager.prototype.onListMouseUp=function(ev){this.itemListElement.removeEventListener('mousemove',this.proxy(this.onListMouseMove))
 document.removeEventListener('mouseup',this.proxy(this.onListMouseUp))
 $(document.body).removeClass('no-select')
-if(this.selectionStarted){var items=this.itemListElement.querySelectorAll('[data-type="media-item"]:not([data-root])'),selectionPosition=$.oc.foundation.element.absolutePosition(this.selectionMarker,true)
+if(this.selectionStarted){this.unselectRoot()
+var items=this.itemListElement.querySelectorAll('[data-type="media-item"]:not([data-root])'),selectionPosition=$.oc.foundation.element.absolutePosition(this.selectionMarker,true)
 for(var index=0,len=items.length;index<len;index++){var item=items[index],itemPosition=$.oc.foundation.element.absolutePosition(item,true)
 if(this.doObjectsCollide(selectionPosition.top,selectionPosition.left,this.selectionMarker.offsetWidth,this.selectionMarker.offsetHeight,itemPosition.top,itemPosition.left,item.offsetWidth,item.offsetHeight)){if(!ev.shiftKey)
 item.setAttribute('class','selected')

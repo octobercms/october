@@ -251,12 +251,8 @@
             for (var i = 0, len = items.length; i < len; i++)
                 items[i].setAttribute('class', '')
         } 
-        else {
-            var rootItem = this.$el.get(0).querySelector('[data-type="media-item"][data-root].selected')
-
-            if (rootItem)
-                rootItem.setAttribute('class', '')
-        }
+        else 
+            this.unselectRoot()
 
         if (!expandSelection)
             node.setAttribute('class', 'selected')
@@ -276,6 +272,13 @@
             // when the selection changes too quickly (with the keyboard arrows)
             this.selectTimer = setTimeout(this.proxy(this.updateSidebarPreview), 100) 
         }
+    }
+
+    MediaManager.prototype.unselectRoot = function() {
+        var rootItem = this.$el.get(0).querySelector('[data-type="media-item"][data-root].selected')
+
+        if (rootItem)
+            rootItem.setAttribute('class', '')
     }
 
     MediaManager.prototype.clearDblTouchTimer = function() {
@@ -1115,6 +1118,8 @@
         $(document.body).removeClass('no-select')
 
         if (this.selectionStarted) {
+            this.unselectRoot()
+
             var items = this.itemListElement.querySelectorAll('[data-type="media-item"]:not([data-root])'),
                 selectionPosition = $.oc.foundation.element.absolutePosition(this.selectionMarker, true)
 
