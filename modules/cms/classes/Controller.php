@@ -640,7 +640,7 @@ class Controller
             list($componentName, $handlerName) = explode('::', $handler);
             $componentObj = $this->findComponentByName($componentName);
 
-            if ($componentObj && method_exists($componentObj, $handlerName)) {
+            if ($componentObj && $componentObj->methodExists($handlerName)) {
                 $this->componentContext = $componentObj;
                 $result = $componentObj->runAjaxHandler($handlerName);
                 return ($result) ?: true;
