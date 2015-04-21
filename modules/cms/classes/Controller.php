@@ -1052,7 +1052,7 @@ class Controller
             $url = substr($url, 1);
         }
 
-        $routeAction = 'Cms\Classes\Controller@run';
+        $routeAction = 'Cms\Classes\CmsController@run';
         $actionExists = Route::getRoutes()->getByAction($routeAction) !== null;
 
         if ($actionExists) {
@@ -1263,51 +1263,5 @@ class Controller
                 $component->setExternalPropertyName($propertyName, $paramName);
             }
         }
-    }
-
-    //
-    // Keep Laravel Happy
-    //
-
-    /**
-     * Get the middleware assigned to the controller.
-     *
-     * @return array
-     */
-    public function getMiddleware()
-    {
-        return [];
-    }
-
-    /**
-     * Get the registered "before" filters.
-     *
-     * @return array
-     */
-    public function getBeforeFilters()
-    {
-        return [];
-    }
-
-    /**
-     * Get the registered "after" filters.
-     *
-     * @return array
-     */
-    public function getAfterFilters()
-    {
-        return [];
-    }
-
-    /**
-     * Execute an action on the controller.
-     *
-     * @param  string  $method
-     * @param  array   $parameters
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function callAction($method, $parameters)
-    {
-        return call_user_func_array(array($this, $method), $parameters);
     }
 }

@@ -345,16 +345,17 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerPrivilegedActions()
     {
-        $requests = ['/combine', '@/system/updates', '@/backend/auth'];
+        $requests = ['/combine', '@/system/updates', '@/system/install', '@/backend/auth'];
         $commands = ['october:up', 'october:update'];
 
         /*
          * Requests
          */
         $path = RouterHelper::normalizeUrl(Request::path());
+        $backendUri = RouterHelper::normalizeUrl(Config::get('cms.backendUri'));
         foreach ($requests as $request) {
             if (substr($request, 0, 1) == '@') {
-                $request = Config::get('cms.backendUri') . substr($request, 1);
+                $request = $backendUri . substr($request, 1);
             }
 
             if (stripos($path, $request) === 0) {

@@ -211,6 +211,14 @@ class PluginManager
         }
 
         /*
+         * Add init, if available
+         */
+        $initFile = $pluginPath . '/init.php';
+        if (!self::$noInit && File::exists($initFile)) {
+            require $initFile;
+        }
+
+        /*
          * Add routes, if available
          */
         $routesFile = $pluginPath . '/routes.php';
