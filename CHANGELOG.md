@@ -1,3 +1,6 @@
+* **Build 246** (2015-04-21)
+  - Various performance improvements.
+
 * **Build 239** (2015-04-06)
   - Installing plugins has a new interface and themes can now be installed using the back-end.
 
