@@ -1860,11 +1860,11 @@ return false}
 self.writeProperty(this.fieldDef.property,'{{ '+val+' }}')}})
 if(externalParamErrorFound){e.preventDefault()
 return false}
-var eH=$.Event('hiding.oc.inspector'),ispector=this
+var eH=$.Event('hiding.oc.inspector'),inspector=this
 this.$el.trigger(eH,[{values:this.propertyValues}])
 if(eH.isDefaultPrevented()){e.preventDefault()
 return false}
-$.each(this.editors,function(){if(ispector.editorExternalPropertyEnabled(this))
+$.each(this.editors,function(){if(inspector.editorExternalPropertyEnabled(this))
 return true
 if(this.validate===undefined)
 return true

@@ -736,7 +736,7 @@
         }
 
         var eH = $.Event('hiding.oc.inspector'),
-            ispector = this
+            inspector = this
 
         this.$el.trigger(eH, [{values: this.propertyValues}])
         if (eH.isDefaultPrevented()) {
@@ -745,7 +745,7 @@
         }
 
         $.each(this.editors, function() {
-            if (ispector.editorExternalPropertyEnabled(this))
+            if (inspector.editorExternalPropertyEnabled(this))
                 return true
 
             if (this.validate === undefined)
