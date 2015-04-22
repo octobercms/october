@@ -63,12 +63,12 @@
     // EVENT HANDLERS
     // ============================
 
-    CmsPage.prototype.onOpenDocument = function(e) {
+    CmsPage.prototype.onOpenDocument = function(event) {
         /*
          * Open a document when it's clicked in the sidebar
          */
 
-        var $item = $(e.relatedTarget),
+        var $item = $(event.relatedTarget),
             $form = $item.closest('[data-template-type]'),
             data = {
                 type: $form.data('template-type'),
@@ -93,32 +93,30 @@
          * Open a new tab
          */
         $.oc.stripeLoadIndicator.show()
+
         $form.request('onOpenTemplate', {
-            data: data,
-            success: function(data) {
-                this.success(data).done(function(){
-                    $.oc.stripeLoadIndicator.hide()
-                    $('#cms-master-tabs').ocTab('addTab', data.tabTitle, data.tab, tabId, $form.data('type-icon'))
-                }).always(function(){
-                    $.oc.stripeLoadIndicator.hide()
-                })
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
-                $.oc.stripeLoadIndicator.hide()
-            }
+            data: data
+        }).done(function(data) {
+            $.oc.stripeLoadIndicator.hide()
+            $('#cms-master-tabs').ocTab('addTab', data.tabTitle, data.tab, tabId, $form.data('type-icon'))
+        }).always(function() {
+            $.oc.stripeLoadIndicator.hide()
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
+            $.oc.stripeLoadIndicator.hide()
         })
 
         return false
     }
 
-    CmsPage.prototype.ajaxInvalidField = function(event, element, name, messages, isFirst) {
+    CmsPage.prototype.ajaxInvalidField = function(ev, element, name, messages, isFirst) {
         /*
          * Detect invalid fields, uncollapse the panel
          */
+        if (!isFirst)
+            return
 
-        if (!isFirst) return
-        event.preventDefault()
+        ev.preventDefault()
 
         var $panel = element.closest('.form-tabless-fields.collapsed'),
             $primaryPanel = element.closest('.control-tabs.primary.collapsed')
@@ -138,55 +136,59 @@
         element.focus()
     }
 
-    CmsPage.prototype.onTabClosed = function(event) {
+    CmsPage.prototype.onTabClosed = function(ev) {
         this.updateModifiedCounter()
 
         if ($('> div.tab-content > div.tab-pane', '#cms-master-tabs').length == 0)
             this.setPageTitle('')
     }
 
-    CmsPage.prototype.onBeforeTabClose = function(event) {
+    CmsPage.prototype.onBeforeTabClose = function(ev) {
         if ($.fn.table !== undefined)
-            $('[data-control=table]', event.relatedTarget).table('dispose')
+            $('[data-control=table]', ev.relatedTarget).table('dispose')
     }
 
-    CmsPage.prototype.onBeforeRequest = function(event) {
-        var $form = $(event.target)
+    CmsPage.prototype.onBeforeRequest = function(ev) {
+        var $form = $(ev.target)
 
         if ($('.components .layout-cell.error-component', $form).length > 0) {
             if (!confirm('The form contains unknown components. Their properties will be lost on save. Do you want to save the form?'))
-                event.preventDefault()
+                ev.preventDefault()
         }
     }
 
-    CmsPage.prototype.onTabShown = function(event) {
+    CmsPage.prototype.onTabShown = function(ev) {
         /*
          * Listen for the tabs "shown" event to track the current template in the list
          */
 
-        if ($(event.target).closest('[data-control=tab]').attr('id') != 'cms-master-tabs')
+        var $target = $(ev.target)
+
+        if ($target.closest('[data-control=tab]').attr('id') != 'cms-master-tabs')
             return
 
-        var dataId = $(event.target).closest('li').attr('data-tab-id')
-
-        var title = $(event.target).attr('title')
+        var dataId = $target.closest('li').attr('data-tab-id'),
+            title = $target.attr('title'),
+            $sidePanel = $('#cms-side-panel')
+        
         if (title)
             this.setPageTitle(title)
 
-        $('#cms-side-panel [data-control=filelist]').fileList('markActive', dataId)
-        $('#cms-side-panel form').trigger('oc.list.setActiveItem', [dataId])
+        $sidePanel.find('[data-control=filelist]').fileList('markActive', dataId)
+        $sidePanel.find('form').trigger('oc.list.setActiveItem', [dataId])
     }
 
-    CmsPage.prototype.onInitTab = function(event, data) {
+    CmsPage.prototype.onInitTab = function(ev, data) {
         /*
          * Listen for the tabs "initTab" event to inject extra controls to the tab
          */
 
-        if ($(event.target).attr('id') != 'cms-master-tabs')
+        if ($(ev.target).attr('id') != 'cms-master-tabs')
             return
 
-        var $collapseIcon = $('<a href="javascript:;" class="tab-collapse-icon tabless"><i class="icon-chevron-up"></i></a>')
-        var $panel = $('.form-tabless-fields', data.pane)
+        var $collapseIcon = $('<a href="javascript:;" class="tab-collapse-icon tabless"><i class="icon-chevron-up"></i></a>'),
+            $panel = $('.form-tabless-fields', data.pane)
+
         $panel.append($collapseIcon);
 
         $collapseIcon.click(function(){
@@ -202,10 +204,10 @@
             return false
         })
 
-        var $primaryCollapseIcon = $('<a href="javascript:;" class="tab-collapse-icon primary"><i class="icon-chevron-down"></i></a>')
-        var $primaryPanel = $('.control-tabs.primary', data.pane)
-        var $secondaryPanel = $('.control-tabs.secondary', data.pane)
-        var $primaryTabContainer = $('.nav-tabs', $primaryPanel)
+        var $primaryCollapseIcon = $('<a href="javascript:;" class="tab-collapse-icon primary"><i class="icon-chevron-down"></i></a>'),
+            $primaryPanel = $('.control-tabs.primary', data.pane),
+            $secondaryPanel = $('.control-tabs.secondary', data.pane),
+            $primaryTabContainer = $('.nav-tabs', $primaryPanel)
 
         $primaryTabContainer.addClass('master-area')
 
@@ -259,19 +261,23 @@
         this.addTokenExpanderToEditor(data.pane, $form)
     }
 
-    CmsPage.prototype.onAfterAllTabsClosed = function(event) {
-        $('#cms-side-panel [data-control=filelist]').fileList('markActive', null)
-        $('#cms-side-panel form').trigger('oc.list.setActiveItem', [null])
+    CmsPage.prototype.onAfterAllTabsClosed = function(ev) {
+        var $sidePanel = $('#cms-side-panel')
+
+        $sidePanel.find('[data-control=filelist]').fileList('markActive', null)
+        $sidePanel.find('form').trigger('oc.list.setActiveItem', [null])
     }
 
-    CmsPage.prototype.onAjaxUpdate = function(event) {
-        var dataId = $('#cms-master-tabs .nav-tabs li.active').attr('data-tab-id')
-        $('#cms-side-panel [data-control=filelist]').fileList('markActive', dataId)
-        $('#cms-side-panel form').trigger('oc.list.setActiveItem', [dataId])
+    CmsPage.prototype.onAjaxUpdate = function(ev) {
+        var dataId = $('#cms-master-tabs .nav-tabs li.active').attr('data-tab-id'),
+            $sidePanel = $('#cms-side-panel')
+
+        $sidePanel.find('[data-control=filelist]').fileList('markActive', dataId)
+        $sidePanel.find('form').trigger('oc.list.setActiveItem', [dataId])
     }
 
-    CmsPage.prototype.onAjaxSuccess = function(event, context, data) {
-        var element = event.target
+    CmsPage.prototype.onAjaxSuccess = function(ev, context, data) {
+        var element = ev.target
 
         if (data.templatePath !== undefined) {
             $('input[name=templatePath]', element).val(data.templatePath)
@@ -309,68 +315,62 @@
         }
     }
 
-    CmsPage.prototype.onAjaxError = function(event, context, data, jqXHR) {
+    CmsPage.prototype.onAjaxError = function(ev, context, data, jqXHR) {
         if (context.handler == 'onSave') {
             if (jqXHR.responseText == 'mtime-mismatch') {
-                event.preventDefault()
-                this.handleMtimeMismatch(event.target)
+                ev.preventDefault()
+                this.handleMtimeMismatch(ev.target)
             }
         }
     }
 
-    CmsPage.prototype.onCreateTemplateClick = function(event) {
-       var 
-            $form = $(event.target).closest('[data-template-type]'),
+    CmsPage.prototype.onCreateTemplateClick = function(ev) {
+       var  $form = $(ev.target).closest('[data-template-type]'),
             type = $form.data('template-type'),
             tabId = type + Math.random(),
             self = this
 
         $.oc.stripeLoadIndicator.show()
+
         $form.request('onCreateTemplate', {
-           data: {
-               type: type
-           },
-           success: function(data) {
-                this.success(data).done(function(){
-                    $('#cms-master-tabs').ocTab('addTab', data.tabTitle, data.tab, tabId, $form.data('type-icon') + ' new-template')
-                    $('#layout-side-panel').trigger('close.oc.sidePanel')
-                    self.setPageTitle(data.tabTitle)
-                }).always(function(){
-                    $.oc.stripeLoadIndicator.hide()
-                })
-           }
-       })
+           data: {type: type}
+        }).done(function(data) {
+            $('#cms-master-tabs').ocTab('addTab', data.tabTitle, data.tab, tabId, $form.data('type-icon') + ' new-template')
+            $('#layout-side-panel').trigger('close.oc.sidePanel')
+            self.setPageTitle(data.tabTitle)
+        }).always(function(){
+            $.oc.stripeLoadIndicator.hide()
+        })
     }
 
-    CmsPage.prototype.onDeleteTemplateClick = function(event) {
-        var
-            $el = $(this),
+    CmsPage.prototype.onDeleteTemplateClick = function(ev) {
+        var $el = $(ev.currentTarget),
             $form = $el.closest('form'),
-            templateType = $form.data('template-type')
+            templateType = $form.data('template-type'),
+            self = this
 
         if (!confirm($el.data('confirmation')))
             return
 
+        $.oc.stripeLoadIndicator.show()
+
         $form.request('onDeleteTemplates', {
-            data: {
-                type: templateType
-            },
-            success: function(data) {
-                var tabs = $('#cms-master-tabs').data('oc.tab');
-                $.each(data.deleted, function(index, path){
-                    var 
-                        tabId = templateType + '-' + data.theme + '-' + path,
-                        tab = tabs.findByIdentifier(tabId)
+            data: {type: templateType}
+        }).done(function(data) {
+            var tabs = $('#cms-master-tabs').data('oc.tab');
+            $.each(data.deleted, function(index, path){
+                var 
+                    tabId = templateType + '-' + data.theme + '-' + path,
+                    tab = tabs.findByIdentifier(tabId)
 
-                    $('#cms-master-tabs').ocTab('closeTab', tab, true)
-                })
+                $('#cms-master-tabs').ocTab('closeTab', tab, true)
+            })
 
-                if (data.error !== undefined && $.type(data.error) === 'string' && data.error.length)
-                    $.oc.flashMsg({text: data.error, 'class': 'error'})
-            },
-            complete: function() {
-                $.oc.cmsPage.updateTemplateList(templateType)
-            }
+            if (data.error !== undefined && $.type(data.error) === 'string' && data.error.length)
+                $.oc.flashMsg({text: data.error, 'class': 'error'})
+        }).always(function(){
+            self.updateTemplateList(templateType)
+            $.oc.stripeLoadIndicator.hide()
         })
     }
 
@@ -388,29 +388,29 @@
         $('span.alias', element).text(values['oc.alias'])
     }
 
-    CmsPage.prototype.onInspectorHiding = function(e, values) {
-        var element = e.target,
+    CmsPage.prototype.onInspectorHiding = function(ev, values) {
+        var element = ev.target,
             values = $.parseJSON($('[data-inspector-values]', element).val()),
             alias = values['oc.alias'],
             $componentList = $('#cms-master-tabs > div.tab-content > .tab-pane.active .control-componentlist .layout'),
-            $cell = $(e.target).parent()
+            $cell = $(ev.target).parent()
 
         $('div.layout-cell', $componentList).each(function(){
             if ($cell.get(0) == this)
                 return true
 
-            var $input = $('input[name="component_aliases[]"]', element)
+            var $input = $('input[name="component_aliases[]"]', this)
 
             if ($input.val() == alias) {
-                e.preventDefault()
+                ev.preventDefault()
                 alert('The component alias "'+alias+'" is already used.')
                 return false
            }
         })
     }
 
-    CmsPage.prototype.onComponentRemove = function(e) {
-        var element = e.currentTarget
+    CmsPage.prototype.onComponentRemove = function(ev) {
+        var element = ev.currentTarget
 
         $(element).trigger('change')
         var pane = $(element).closest('.tab-pane'),
@@ -436,7 +436,7 @@
         return false
     }
 
-    CmsPage.prototype.onComponentClick = function(e) {
+    CmsPage.prototype.onComponentClick = function(ev) {
         /*
          * Determine if a page or layout is open in the master tabs
          */
@@ -447,7 +447,7 @@
             return;
         }
 
-        var $component = $(e.currentTarget).clone(),
+        var $component = $(ev.currentTarget).clone(),
             $iconInput = $component.find('[data-component-icon]'),
             $componentContainer = $('.layout-relative', $component),
             $configInput = $component.find('[data-inspector-config]'),
@@ -470,22 +470,24 @@
         }
 
         // Set the last alias used so dragComponents can use it
-        $('input[name="component_aliases[]"]', $(e.currentTarget)).val(alias)
+        $('input[name="component_aliases[]"]', $(ev.currentTarget)).val(alias)
 
         $component.attr('data-component-attached', true)
         $componentContainer.addClass($iconInput.val())
         $iconInput.remove()
-        $componentContainer.attr('data-inspectable', '')
-        $componentContainer.attr('data-inspector-title', $component.find('span.name').text())
-        $componentContainer.attr('data-inspector-description', $component.find('span.description').text())
-        $componentContainer.attr('data-inspector-config', $configInput.val())
-        $componentContainer.attr('data-inspector-class', $classInput.val())
+
+        $componentContainer.attr({
+            'data-inspectable': '',
+            'data-inspector-title': $component.find('span.name').text(),
+            'data-inspector-description': $component.find('span.description').text(),
+            'data-inspector-config': $configInput.val(),
+            'data-inspector-class': $classInput.val()
+        })
 
         $configInput.remove()
         $('input[name="component_names[]"]', $component).val($nameInput.val())
         $nameInput.remove()
         $('input[name="component_aliases[]"]', $component).val(alias)
-        $component.find('span.alias').text(alias)
         $component.find('span.alias').text(alias)
         $valuesInput.val($valuesInput.val().replace('--alias--', alias))
         $aliasInput.remove()
@@ -601,8 +603,8 @@
                 canExpand = false
                 breakButton.hide()
             })
-            .on('dblclick', function(e){
-                if ((e.metaKey || e.ctrlKey) && canExpand) {
+            .on('dblclick', function(ev){
+                if ((ev.metaKey || ev.ctrlKey) && canExpand) {
                     self.handleExpandToken(editor, $form)
                 }
             })
@@ -655,22 +657,17 @@
          */
 
         $.oc.stripeLoadIndicator.show()
+
         $form.request('onOpenTemplate', {
-            data: data,
-            success: function(data) {
-                this.success(data).done(function(){
-                    $.oc.stripeLoadIndicator.hide()
-                    $('#cms-master-tabs').ocTab('updateTab', tab, data.tabTitle, data.tab)
-                    $('#cms-master-tabs').ocTab('unmodifyTab', tab)
-                    self.updateModifiedCounter()
-                }).always(function(){
-                    $.oc.stripeLoadIndicator.hide()
-                })
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
-                $.oc.stripeLoadIndicator.hide()
-            }
+            data: data
+        }).done(function(data) {
+            $('#cms-master-tabs').ocTab('updateTab', tab, data.tabTitle, data.tab)
+            $('#cms-master-tabs').ocTab('unmodifyTab', tab)
+            self.updateModifiedCounter()
+        }).always(function() {
+            $.oc.stripeLoadIndicator.hide()
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
         })
     }
 

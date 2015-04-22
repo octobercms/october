@@ -1641,7 +1641,7 @@ Inspector.prototype.getPopoverTemplate=function(){return'                       
                         data-dismiss="popover"                                                                        \
                         aria-hidden="true">&times;</button>                                                           \
                 </div>                                                                                                \
-                <form autocomplete="off">                                                                             \
+                <form autocomplete="off" onsubmit="return false">                                                     \
                     <table class="inspector-fields {{#tableClass}}{{/tableClass}}">                                   \
                         {{#properties}}                                                                               \
                             <tr id="{{#propFormat}}{{property}}{{/propFormat}}" data-property="{{property}}"          \
