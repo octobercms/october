@@ -42,6 +42,12 @@
         }
     }
 
+    Toolbar.prototype.dispose = function() {
+        this.$el.dragScroll('dispose')
+        this.$el.removeData('oc.toolbar')
+        this.$el = null
+    }
+
     Toolbar.DEFAULTS = {}
 
     // TOOLBAR PLUGIN DEFINITION
@@ -50,12 +56,15 @@
     var old = $.fn.toolbar
 
     $.fn.toolbar = function (option) {
+        var args = Array.prototype.slice.call(arguments, 1)
+
         return this.each(function () {
             var $this = $(this)
             var data  = $this.data('oc.toolbar')
             var options = $.extend({}, Toolbar.DEFAULTS, $this.data(), typeof option == 'object' && option)
 
             if (!data) $this.data('oc.toolbar', (data = new Toolbar(this, options)))
+            if (typeof option == 'string') data[option].apply(data, args)
         })
       }
 

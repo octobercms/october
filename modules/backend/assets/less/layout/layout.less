@@ -17,6 +17,11 @@ body.loading, body.loading * {
     cursor: wait !important;
 }
 
+body.no-select {
+    .user-select(none);
+    cursor: default!important;
+}
+
 //
 // Layout canvas
 //
@@ -117,6 +122,10 @@ body {
     > .layout-cell {
         .layout-cell();
     }
+}
+
+.whiteboard {
+    background: white;
 }
 
 //

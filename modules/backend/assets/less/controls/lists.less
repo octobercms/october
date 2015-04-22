@@ -169,11 +169,11 @@ table.table.data {
                 border-left: 3px solid @color-list-stripe-active;
             }
         }
-        tr:not(.no-data):hover td {
+        tr:not(.no-data):hover td, tr:not(.no-data).selected td, {
            background: @color-list-hover-bg !important;
            color: white;
 
-            a, span {
+            a, span, i[class^="icon-"] {
                color: white;
             }
         }
@@ -241,6 +241,22 @@ table.table.data {
         td.column-slim {
             padding-left: 0;
             padding-right: 0;
+        }
+
+        &.icons {
+            td i[class^="icon-"] {
+                display: inline-block;
+                margin-right: 7px;
+                font-size: 15px;
+                color: #95a5a6;
+                position: relative;
+                top: 1px;
+            }
+        }
+
+        &.clickable {
+            cursor: pointer;
+            .user-select(none);
         }
 
         td.column-compact {

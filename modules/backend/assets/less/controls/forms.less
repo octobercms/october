@@ -324,6 +324,10 @@ label {
 
     .btn {
         margin-right: 10px;
+
+        &.no-margin-right {
+            margin-right: 0;
+        }
     }
 
     .pull-right {
@@ -737,6 +741,7 @@ body.slim-container {
     .select2-results {
         padding: 0;
         margin: 0;
+        font-size: 13px;
         .select2-no-results,
         .select2-searching,
         .select2-selection-limit {
@@ -754,5 +759,56 @@ body.slim-container {
         > li > div {
             padding: 5px 7px 5px;
         }
+    }
+}
+
+//
+// Controls inside toolbar
+//
+
+[data-control=toolbar] {
+    .form-control {
+        display: inline-block;
+        margin-right: 15px;
+
+        &.width-50 {
+            width: 50px;
+        }
+
+        &.width-100 {
+            width: 100px;
+        }
+
+        &.width-150 {
+            width: 150px;
+        }
+    }
+
+    input[type=text].form-control, label {
+        position: relative;
+        top: 5px;
+    }
+
+    label {
+        margin-right: 7px;
+
+        &.standalone {
+            margin-right: 15px;
+        }
+    }
+
+    .select2-container {
+        display: inline-block;
+        width: auto;
+        height: 36px;
+
+        .select2-choice {
+            height: 34px;
+            line-height: 34px;
+        }
+    }
+
+    select.form-control.custom-select {
+        display: none;
     }
 }

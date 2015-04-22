@@ -3,7 +3,6 @@
  * 
  * Note the element must have a height set for vertical,
  * and a width set for horizontal.
- *
  * 
  * Data attributes:
  * - data-control="scrollbar" - enables the scrollbar plugin

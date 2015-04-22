@@ -8,6 +8,10 @@
     position: relative;
     .horizontal-scroll-indicators(@color-scroll-indicator);
 
+    &.standalone-paddings {
+        padding: 20px;
+    }
+
     &:before {
         left: -10px;
     }
@@ -21,6 +25,10 @@
 
         white-space: nowrap;
         margin-right: 20px;
+
+        &.last {
+            margin-right: 0;
+        }
 
         .horizontal-scroll-indicators(@color-scroll-indicator);
 
@@ -43,6 +51,10 @@
             margin-right:  10px;
             &:last-child {
                 margin-right: 0;
+            }
+
+            &.standalone {
+                margin-right: 15px;
             }
         }
 

@@ -1,0 +1,37 @@
+<div class="layout-row min-size">
+    <div class="layout control-toolbar standalone-paddings">
+        <div class="layout-cell toolbar-item">
+            <div data-control="toolbar">
+                <div class="btn-group offset-right">
+                    <button type="button" class="btn btn-primary oc-icon-upload" data-control="upload"
+                        ><?= e(trans('cms::lang.media.upload')) ?></button>
+                    <button type="button" class="btn btn-primary oc-icon-folder" data-command="create-folder"><?= e(trans('cms::lang.media.add_folder')) ?></button>
+                </div>
+
+                <button type="button" class="btn btn-default oc-icon-refresh empty offset-right" data-command="refresh"></button>
+
+                <div class="btn-group offset-right">
+                    <button type="button" class="btn btn-default oc-icon-reply-all" data-command="move"
+                        ><?= e(trans('cms::lang.media.move')) ?></button>
+                    <button type="button" class="btn btn-default oc-icon-trash" data-command="delete"
+                        ><?= e(trans('cms::lang.media.delete')) ?></button>
+                </div>
+
+                <div class="btn-group offset-right" id="<?= $this->getId('view-mode-buttons') ?>">
+                    <?= $this->makePartial('view-mode-buttons') ?>
+                </div>
+            </div>
+        </div>
+        <div class="layout-cell toolbar-item width-fix">
+            <div class="relative loading-indicator-container size-input-text">
+                <input placeholder="<?= e(trans('cms::lang.media.search')) ?>" type="text" name="search" value="<?= e($searchTerm) ?>" 
+                    class="form-control icon search growable" 
+                    data-control="search"
+                    autocomplete="off"
+                    data-load-indicator
+                    data-load-indicator-opaque
+                />
+            </div>
+        </div>
+    </div>
+</div>
