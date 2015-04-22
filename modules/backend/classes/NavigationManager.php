@@ -47,6 +47,7 @@ class NavigationManager
         'url'         => null,
         'counter'     => null,
         'counterLabel'=> null,
+        'order'       => 100,
         'attributes'  => [],
         'permissions' => []
     ];
@@ -99,13 +100,7 @@ class NavigationManager
         /*
          * Sort menu items
          */
-        usort($this->items, function ($a, $b) {
-            if ($a->order == $b->order) {
-                return 0;
-            }
-
-            return $a->order > $b->order ? 1 : -1;
-        });
+        usort($this->items, 'self::sortMenu');
 
         /*
          * Filter items user lacks permission for
@@ -118,8 +113,26 @@ class NavigationManager
                 continue;
             }
 
+            usort($item->sideMenu, 'self::sortMenu');
+
             $item->sideMenu = $this->filterItemPermissions($user, $item->sideMenu);
         }
+    }
+
+    /**
+     * Callback method used by usort() to compare menu items.
+     * Should be referenced with 'self::sortMenu' as the second parameter to usort().
+     * @param object $a First menu item to compare
+     * @param object $b Second menu item to compare
+     * @return integer Returns 1, 0 or -1 depending on order
+     */
+    protected static function sortMenu($a, $b)
+    {
+        if ($a->order < $b->order) {
+            return -1;
+        }
+
+        return (int) $a->order > $b->order;
     }
 
     /**
@@ -141,8 +154,8 @@ class NavigationManager
 
     /**
      * Registers the back-end menu items.
-     * The argument is an array of the main menu items. The array keys represent the 
-     * menu item codes, specific for the plugin/module. Each element in the 
+     * The argument is an array of the main menu items. The array keys represent the
+     * menu item codes, specific for the plugin/module. Each element in the
      * array should be an associative array with the following keys:
      * - label - specifies the menu label localization string key, required.
      * - icon - an icon name from the Font Awesome icon collection, required.
@@ -151,7 +164,7 @@ class NavigationManager
      *   The item will be displayed if the user has any of the specified permissions.
      * - order - a position of the item in the menu, optional.
      * - sideMenu - an array of side menu items, optional. If provided, the array items
-     *   should represent the side menu item code, and each value should be an associative 
+     *   should represent the side menu item code, and each value should be an associative
      *   array with the following keys:
      * - label - specifies the menu label localization string key, required.
      * - icon - an icon name from the Font Awesome icon collection, required.
