@@ -16,10 +16,15 @@
 
 +function ($) { "use strict";
 
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
+
     // CODEEDITOR CLASS DEFINITION
     // ============================
 
     var CodeEditor = function(element, options) {
+        Base.call(this)
+
         this.options   = options
         this.$el       = $(element)
         this.$textarea = this.$el.find('>textarea:first')
@@ -34,6 +39,9 @@
 
         this.init();
     }
+
+    CodeEditor.prototype = Object.create(BaseProto)
+    CodeEditor.prototype.constructor = CodeEditor
 
     CodeEditor.DEFAULTS = {
         fontSize: 12,
@@ -136,8 +144,8 @@
         editor.setReadOnly(options.readOnly)
         editor.getSession().setFoldStyle(options.codeFolding)
         editor.setFontSize(options.fontSize)
-        editor.on('blur', function(){ self.$el.removeClass('editor-focus') })
-        editor.on('focus', function(){ self.$el.addClass('editor-focus') })
+        editor.on('blur.codeeditor', function(){ self.$el.removeClass('editor-focus') })
+        editor.on('focus.codeeditor', function(){ self.$el.addClass('editor-focus') })
         this.setWordWrap(options.wordWrap)
 
         editor.renderer.setScrollMargin(options.margin, options.margin, 0, 0)
@@ -164,8 +172,8 @@
         ;
 
         this.$fullscreenDisable.hide()
-        this.$fullscreenEnable.on('click', '>a', $.proxy(this.toggleFullscreen, this))
-        this.$fullscreenDisable.on('click', '>a', $.proxy(this.toggleFullscreen, this))
+        this.$fullscreenEnable.on('click.codeeditor', '>a', $.proxy(this.toggleFullscreen, this))
+        this.$fullscreenDisable.on('click.codeeditor', '>a', $.proxy(this.toggleFullscreen, this))
 
         /*
          * Hotkeys
@@ -180,6 +188,24 @@
             exec: $.proxy(this.toggleFullscreen, this),
             readOnly: true
         })
+    }
+
+    CodeEditor.prototype.dispose = function() {
+        this.editor.off('.codeeditor')
+        this.editor.destroy()
+
+        this.$fullscreenEnable.off('.codeeditor')
+        this.$fullscreenDisable.off('.codeeditor')
+
+        this.$el = null
+        this.$textarea = null
+        this.$toolbar = null
+        this.$code = null
+        this.editor = null
+        this.$fullscreenEnable = null
+        this.$fullscreenDisable = null
+
+        BaseProto.dispose.call(this)
     }
 
     CodeEditor.prototype.setWordWrap = function(mode) {

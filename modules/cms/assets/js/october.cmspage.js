@@ -146,6 +146,8 @@
     CmsPage.prototype.onBeforeTabClose = function(ev) {
         if ($.fn.table !== undefined)
             $('[data-control=table]', ev.relatedTarget).table('dispose')
+
+        $('[data-control=codeeditor]', ev.relatedTarget).codeEditor('dispose')
     }
 
     CmsPage.prototype.onBeforeRequest = function(ev) {
