@@ -1,3 +1,6 @@
+* **Build 247** (2015-04-23)
+  - Added Media Manager feature.
+
 * **Build 246** (2015-04-21)
   - Adds experimental command `october:mirror` for generating symbolic links in a public directory.
   - Various performance improvements.
