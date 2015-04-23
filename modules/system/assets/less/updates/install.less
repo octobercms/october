@@ -205,6 +205,25 @@
     margin: 0 auto 0 auto;
     text-align: left;
     padding-bottom: 15px;
+
+    > i.icon {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        font-size: 24px;
+        margin-top: -20px;
+        color: rgba(0,0,0,.35);
+    }
+
+    > i.icon.loading {
+        display: block;
+        width: 24px;
+        height: 24px;
+        background-image: url(../../../../backend/assets/images/loading-indicator-transparent.svg);
+        background-size: 24px 24px;
+        background-position: 50% 50%;
+        .animation(spin 1s linear infinite);
+    }
 }
 .twitter-typeahead {
     width: 100%;
@@ -247,11 +266,9 @@
 .tt-suggestion {
     font-size: 14px;
     line-height: 18px;
-    + {
-        .tt-suggestion {
-            font-size: 14px;
-            border-top: 1px solid #ccc;
-        }
+    + .tt-suggestion {
+        font-size: 14px;
+        border-top: 1px solid #ccc;
     }
 }
 .tt-suggestions {

@@ -53,7 +53,21 @@
         var engine = new Bloodhound({
             name: 'products',
             method: 'POST',
-            remote: window.location.pathname + '?search=' + searchType + '&query=%QUERY',
+            remote: {
+                url: window.location.pathname + '?search=' + searchType + '&query=%QUERY',
+                ajax: {
+                    beforeSend: function() {
+                        $('.icon', $form).hide()
+                        $('.icon.loading', $form).show()
+                        $el.data('searchReady', false)
+                    },
+                    complete: function() {
+                        $('.icon', $form).show()
+                        $('.icon.loading', $form).hide()
+                        $el.data('searchReady', true)
+                    }
+                }
+            },
             datumTokenizer: function(d) {
                 return Bloodhound.tokenizers.whitespace(d.val)
             },
@@ -91,6 +105,9 @@
         var
             $el = $(el),
             $input = $el.find('.product-search-input.tt-input:first')
+
+        if (!$input.data('searchReady'))
+            return
 
         $el.popup()
 

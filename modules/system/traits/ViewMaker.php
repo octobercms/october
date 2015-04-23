@@ -50,7 +50,8 @@ trait ViewMaker
     public function makePartial($partial, $params = [], $throwException = true)
     {
         if (!File::isPathSymbol($partial) && realpath($partial) === false) {
-            $partial = '_' . strtolower($partial) . '.htm';
+            $folder = strpos($partial, '/') !== false ? dirname($partial) . '/' : '';
+            $partial = $folder . '_' . strtolower(basename($partial)).'.htm';
         }
 
         $partialPath = $this->getViewPath($partial);
@@ -136,7 +137,8 @@ trait ViewMaker
     public function makeLayoutPartial($partial, $params = [])
     {
         if (!File::isLocalPath($partial) && !File::isPathSymbol($partial)) {
-            $partial = '_' . strtolower($partial);
+            $folder = strpos($partial, '/') !== false ? dirname($partial) . '/' : '';
+            $partial = $folder . '_' . strtolower(basename($partial));
         }
 
         return $this->makeLayout($partial, $params);

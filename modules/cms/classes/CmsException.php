@@ -3,7 +3,7 @@
 use File;
 use Twig_Error;
 use Cms\Classes\SectionParser;
-use ApplicationException;
+use October\Rain\Exception\ApplicationException;
 use Exception;
 
 /**
