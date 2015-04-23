@@ -128,6 +128,16 @@ table.table.data {
             }
         }
 
+        &.secondary {
+            &.content-tabs {
+                &.primary-collapsed {
+                    > div > ul.nav-tabs {
+                        background: @color-fancy-form-tabless-fields-bg;
+                    }
+                }
+            }
+        }
+
         &.primary {
             > div > ul.nav-tabs {
                 &.master-area {
@@ -200,6 +210,32 @@ div.control-componentlist {
 .control-assetlist {
     ul li.active a.link:after {
         background: @color-list-active-border;
+    }
+}
+
+.nav.selector-group {
+    li {
+        &.active {
+            border-color: @color-list-active-border;
+        }
+    }
+}
+
+//
+// TreeView
+//
+
+.control-treeview {
+    ol {
+        > li {
+            &.active {
+                > div {
+                    &:after {
+                        background: @color-list-active-border;
+                    }
+                }
+            }
+        }
     }
 }
 
