@@ -48,8 +48,8 @@ RedactorPlugins.mediamanager = function()
             this.link.getData()
 
             new $.oc.mediaManager.popup({
-                alias: 'ocmediamanager', 
-                cropAndInsertButton: false, 
+                alias: 'ocmediamanager',
+                cropAndInsertButton: false,
                 onInsert: function(items) {
                     if (!items.length) {
                         alert('Please select file to insert a links to.')
@@ -87,8 +87,8 @@ RedactorPlugins.mediamanager = function()
             var that = this
 
             new $.oc.mediaManager.popup({
-                alias: 'ocmediamanager', 
-                cropAndInsertButton: true, 
+                alias: 'ocmediamanager',
+                cropAndInsertButton: true,
                 onInsert: function(items) {
                     if (!items.length) {
                         alert('Please select image(s) to insert.')
@@ -132,7 +132,7 @@ RedactorPlugins.mediamanager = function()
                             if (that.opts.linebreaks)
                                 $image.before('<br>').after('<br>')
                         }
-                    } 
+                    }
 
                     if (imagesInserted !== 0)
                         this.hide()
@@ -150,8 +150,8 @@ RedactorPlugins.mediamanager = function()
             this.link.getData()
 
             new $.oc.mediaManager.popup({
-                alias: 'ocmediamanager', 
-                cropAndInsertButton: false, 
+                alias: 'ocmediamanager',
+                cropAndInsertButton: false,
                 onInsert: function(items) {
                     if (!items.length) {
                         alert('Please select a video file to insert.')
@@ -197,8 +197,8 @@ RedactorPlugins.mediamanager = function()
             this.link.getData()
 
             new $.oc.mediaManager.popup({
-                alias: 'ocmediamanager', 
-                cropAndInsertButton: false, 
+                alias: 'ocmediamanager',
+                cropAndInsertButton: false,
                 onInsert: function(items) {
                     if (!items.length) {
                         alert('Please select an audio file to insert.')

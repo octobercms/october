@@ -768,6 +768,7 @@
 
     MediaManager.prototype.uploadSending = function(file, xhr, formData) {
         formData.append('path', this.$el.find('[data-type="current-folder"]').val())
+        formData.append('X_OCTOBER_FILEUPLOAD', this.options.uniqueId)
     }
 
     MediaManager.prototype.uploadCancelAll = function() {
@@ -1238,6 +1239,7 @@
 
     MediaManager.DEFAULTS = {
         alias: '',
+        uniqueId: null,
         deleteEmpty: 'Please select files to delete.',
         deleteConfirm: 'Do you really want to delete the selected file(s)?',
         moveEmpty: 'Please select files to move.',

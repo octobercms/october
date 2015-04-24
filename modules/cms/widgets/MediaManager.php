@@ -55,7 +55,7 @@ class MediaManager extends WidgetBase
         parent::__construct($controller, []);
         $this->bindToController();
 
-        $this->handleUploads();
+        $this->checkUploadPostback();
     }
 
     /**
@@ -881,11 +881,13 @@ class MediaManager extends WidgetBase
 
         try {
             $dimensions = getimagesize($originalImagePath);
-            if (!$dimensions)
+            if (!$dimensions) {
                 return $originalDimensions;
+            }
 
-            if ($dimensions[0] > $width  || $dimensions[1] > $height)
+            if ($dimensions[0] > $width || $dimensions[1] > $height) {
                 return $originalDimensions;
+            }
 
             return $dimensions;
         }
@@ -894,47 +896,56 @@ class MediaManager extends WidgetBase
         }
     }
 
-    protected function handleUploads()
+    protected function checkUploadPostback()
     {
         $fileName = null;
 
-        try {
-            $uploadedFile = Input::file('file_data');
+        if (!($uniqueId = post('X_OCTOBER_FILEUPLOAD')) || $uniqueId != $this->getId()) {
+            return;
+        }
 
-            if (!is_object($uploadedFile)) {
+        try {
+
+            if (!Input::hasFile('file_data')) {
                 return;
             }
+
+            $uploadedFile = Input::file('file_data');
 
             $fileName = $uploadedFile->getClientOriginalName();
 
             // See mime type handling in the asset manager
 
-            if (!$uploadedFile->isValid())
+            if (!$uploadedFile->isValid()) {
                 throw new ApplicationException($uploadedFile->getErrorMessage());
+            }
 
             $path = Input::get('path');
             $path = MediaLibrary::validatePath($path);
 
-            MediaLibrary::instance()->put($path.'/'.$fileName, 
-                File::get($uploadedFile->getRealPath()));
+            MediaLibrary::instance()->put(
+                $path.'/'.$fileName,
+                File::get($uploadedFile->getRealPath())
+            );
 
             die('success');
         }
         catch (Exception $ex) {
             Response::make($ex->getMessage(), 406)->send();
-
             die();
         }
     }
 
     protected function validateFileName($name)
     {
-        if (!preg_match('/^[0-9a-z\.\s_\-]+$/i', $name))
+        if (!preg_match('/^[0-9a-z\.\s_\-]+$/i', $name)) {
             return false;
+        }
 
-        if (strpos($name, '..') !== false)
+        if (strpos($name, '..') !== false) {
             return false;
- 
+        }
+
         return true;
     }
 

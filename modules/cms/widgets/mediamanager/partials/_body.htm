@@ -1,7 +1,8 @@
-<div 
+<div
     data-control="media-manager"
     class="layout"
     data-alias="<?= $this->alias ?>"
+    data-unique-id="<?= $this->getId() ?>"
     data-delete-empty="<?= e(trans('cms::lang.media.delete_empty')) ?>"
     data-delete-confirm="<?= e(trans('cms::lang.media.delete_confirm')) ?>"
     data-move-empty="<?= e(trans('cms::lang.media.move_empty')) ?>"
@@ -32,17 +33,16 @@
                             <div class="layout">
                                 <div class="layout-row">
                                     <div class="layout">
-                                            <!-- Main area - list -->
-                                            <div data-control="item-list">
-                                                <div class="control-scrollpad">
-                                                    <div class="scroll-wrapper"> <!-- This element is required for the scrollpad control -->
-                                                        <div id="<?= $this->getId('item-list') ?>" >
-                                                            <?= $this->makePartial('item-list') ?>
-                                                        </div>
+                                        <!-- Main area - list -->
+                                        <div data-control="item-list">
+                                            <div class="control-scrollpad">
+                                                <div class="scroll-wrapper"> <!-- This element is required for the scrollpad control -->
+                                                    <div id="<?= $this->getId('item-list') ?>" >
+                                                        <?= $this->makePartial('item-list') ?>
                                                     </div>
                                                 </div>
                                             </div>
-                                        
+                                        </div>
 
                                         <div class="layout-cell width-300 panel border-left no-padding <?= !$sidebarVisible ? 'hide' : null ?>" data-control="preview-sidebar">
                                             <!-- Right sidebar -->
@@ -57,6 +57,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

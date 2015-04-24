@@ -309,7 +309,8 @@ fileNumberLabel.innerHTML=completeTemplate;progresBar.setAttribute('class','prog
 this.$el.find('[data-command="cancel-uploading"]').addClass('hide')
 this.$el.find('[data-command="close-uploader"]').removeClass('hide')
 this.refresh()}
-MediaManager.prototype.uploadSending=function(file,xhr,formData){formData.append('path',this.$el.find('[data-type="current-folder"]').val())}
+MediaManager.prototype.uploadSending=function(file,xhr,formData){formData.append('path',this.$el.find('[data-type="current-folder"]').val())
+formData.append('X_OCTOBER_FILEUPLOAD',this.options.uniqueId)}
 MediaManager.prototype.uploadCancelAll=function(){this.dropzone.removeAllFiles(true)
 this.hideUploadUi()}
 MediaManager.prototype.uploadError=function(file,message){swal({title:'Error uploading file',text:message,confirmButtonClass:'btn-default'})}
@@ -461,7 +462,7 @@ eventHandled=true
 break;}
 if(eventHandled){ev.preventDefault()
 ev.stopPropagation()}}
-MediaManager.DEFAULTS={alias:'',deleteEmpty:'Please select files to delete.',deleteConfirm:'Do you really want to delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false}
+MediaManager.DEFAULTS={alias:'',uniqueId:null,deleteEmpty:'Please select files to delete.',deleteConfirm:'Do you really want to delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false}
 var old=$.fn.mediaManager
 $.fn.mediaManager=function(option){var args=Array.prototype.slice.call(arguments,1),result=undefined
 this.each(function(){var $this=$(this)
