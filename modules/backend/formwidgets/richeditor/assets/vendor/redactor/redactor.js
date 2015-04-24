@@ -1,6 +1,6 @@
 /*
-	Redactor v10.0.9
-	Updated: March 16, 2015
+	Redactor v10.1.0
+	Updated: April 16, 2015
 
 	http://imperavi.com/redactor/
 
@@ -27,9 +27,6 @@
 	}
 
 	var uuid = 0;
-
-	var reUrlYoutube = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube\.com\S*[^\w\-\s])([\w\-]{11})(?=[^\w\-]|$)(?![?=&+%\w.\-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
-	var reUrlVimeo = /https?:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/;
 
 	// Plugin
 	$.fn.redactor = function(options)
@@ -94,13 +91,13 @@
 
 	// Functionality
 	$.Redactor = Redactor;
-	$.Redactor.VERSION = '10.0.9';
+	$.Redactor.VERSION = '10.1.0';
 	$.Redactor.modules = ['alignment', 'autosave', 'block', 'buffer', 'build', 'button',
 						  'caret', 'clean', 'code', 'core', 'dropdown', 'file', 'focus',
 						  'image', 'indent', 'inline', 'insert', 'keydown', 'keyup',
 						  'lang', 'line', 'link', 'list', 'modal', 'observe', 'paragraphize',
 						  'paste', 'placeholder', 'progress', 'selection', 'shortcuts',
-						  'tabifier', 'tidy',  'toolbar', 'upload', 'utils'];
+						  'tabifier', 'tidy',  'toolbar', 'upload', 'utils', 'linkify'];
 
 	$.Redactor.opts = {
 
@@ -328,7 +325,18 @@
 				upload_label: 'Drop file here or '
 
 			}
-		}
+		},
+
+		linkify: {
+			regexps: {
+				youtube: /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube\.com\S*[^\w\-\s])([\w\-]{11})(?=[^\w\-]|$)(?![?=&+%\w.\-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig,
+				vimeo: /https?:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/,
+				image: /((https?|www)[^\s]+\.)(jpe?g|png|gif)(\?[^\s-]+)?/ig,
+				url: /((?:http[s]?:\/\/(?:www\.)?|www\.){1}(?:[0-9A-Za-z\-%_]+\.)+[a-zA-Z]{2,}(?::[0-9]+)?(?:(?:\/[0-9A-Za-z\-#\.%\+_]*)+)?(?:\?(?:[0-9A-Za-z\-\.%_]+(?:=[0-9A-Za-z\-\.%_\+]*)?)?(?:&(?:[0-9A-Za-z\-\.%_]+(?:=[0-9A-Za-z\-\.%_\+]*)?)?)*)?(?:#[0-9A-Za-z\-\.%_\+=\?&;]*)?)/ig,
+			}
+		},
+
+		codemirror: false
 	};
 
 	// Functionality
@@ -529,11 +537,11 @@
 		autosave: function()
 		{
 			return {
+				html: false,
 				enable: function()
 				{
 					if (!this.opts.autosave) return;
 
-					this.autosave.html = false;
 					this.autosave.name = (this.opts.autosaveName) ? this.opts.autosaveName : this.$textarea.attr('name');
 
 					if (this.opts.autosaveOnChange) return;
@@ -549,7 +557,7 @@
 					this.autosave.source = this.code.get();
 
 					if (this.autosave.html === this.autosave.source) return;
-					if (this.utils.isEmpty(this.autosave.source)) return;
+					//if (this.utils.isEmpty(this.autosave.source)) return;
 
 					// data
 					var data = {};
@@ -940,7 +948,7 @@
 				},
 				formatListToBlockquote: function()
 				{
-					var block = $(this.block.blocks[0]).closest('ul, ol');
+					var block = $(this.block.blocks[0]).closest('ul, ol', this.$editor[0]);
 
 					$(block).find('ul, ol').contents().unwrap();
 					$(block).find('li').append($('<br>')).contents().unwrap();
@@ -1033,10 +1041,10 @@
 				},
 				formatTableWrapping: function($formatted)
 				{
-					if ($formatted.closest('table').length === 0) return;
+					if ($formatted.closest('table', this.$editor[0]).length === 0) return;
 
-					if ($formatted.closest('tr').length === 0) $formatted.wrap('<tr>');
-					if ($formatted.closest('td').length === 0 && $formatted.closest('th').length === 0)
+					if ($formatted.closest('tr', this.$editor[0]).length === 0) $formatted.wrap('<tr>');
+					if ($formatted.closest('td', this.$editor[0]).length === 0 && $formatted.closest('th').length === 0)
 					{
 						$formatted.wrap('<td>');
 					}
@@ -1395,8 +1403,11 @@
 				},
 				setHelpers: function()
 				{
-					// autosave
-					this.autosave.enable();
+					// linkify
+					if (this.linkify.isEnabled())
+					{
+						this.linkify.format();
+					}
 
 					// placeholder
 					this.placeholder.enable();
@@ -1974,13 +1985,13 @@
 					html = html.replace(new RegExp('<br\\s?/?></li>', 'gi'), '</li>');
 					html = html.replace(new RegExp('</li><br\\s?/?>', 'gi'), '</li>');
 					// remove verified
-					html = html.replace(new RegExp('<div(.*?[^>]) data-tagblock="redactor"(.*?[^>])>', 'gi'), '<div$1$2>');
-					html = html.replace(new RegExp('<(.*?) data-verified="redactor"(.*?[^>])>', 'gi'), '<$1$2>');
-					html = html.replace(new RegExp('<span(.*?[^>])\srel="(.*?[^>])"(.*?[^>])>', 'gi'), '<span$1$3>');
-					html = html.replace(new RegExp('<img(.*?[^>])\srel="(.*?[^>])"(.*?[^>])>', 'gi'), '<img$1$3>');
-					html = html.replace(new RegExp('<img(.*?[^>])\sstyle="" (.*?[^>])>', 'gi'), '<img$1 $2>');
-					html = html.replace(new RegExp('<img(.*?[^>])\sstyle (.*?[^>])>', 'gi'), '<img$1 $2>');
-					html = html.replace(new RegExp('<span class="redactor-invisible-space">(.*?)</span>', 'gi'), '$1');
+					html = html.replace(/<div(.*?[^>]) data-tagblock="redactor"(.*?[^>])>/gi, '<div$1$2>');
+					html = html.replace(/<(.*?) data-verified="redactor"(.*?[^>])>/gi, '<$1$2>');
+					html = html.replace(/<span(.*?[^>])\srel="(.*?[^>])"(.*?[^>])>/gi, '<span$1$3>');
+					html = html.replace(/<img(.*?[^>])\srel="(.*?[^>])"(.*?[^>])>/gi, '<img$1$3>');
+					html = html.replace(/<img(.*?[^>])\sstyle="" (.*?[^>])>'/gi, '<img$1 $2>');
+					html = html.replace(/<img(.*?[^>])\sstyle (.*?[^>])>'/gi, '<img$1 $2>');
+					html = html.replace(/<span class="redactor-invisible-space">(.*?)<\/span>/gi, '$1');
 					html = html.replace(/ data-save-url="(.*?[^>])"/gi, '');
 
 					// remove image resize
@@ -2498,6 +2509,15 @@
 					});
 
 				},
+				cleanEmptyParagraph: function()
+				{
+					var p = this.$editor.find("p").first();
+
+					if (this.utils.isEmpty(p.html()))
+					{
+						p.remove();
+					}
+				},
 				setVerified: function(html)
 				{
 					if (this.utils.browser('msie')) return html;
@@ -2684,8 +2704,14 @@
 
 					this.start = false;
 
-					// autosave on change
+					if (this.autosave.html == false)
+					{
+						this.autosave.html = this.code.get();
+					}
+
+					//autosave
 					this.autosave.onChange();
+					this.autosave.enable();
 				},
 				toggle: function()
 				{
@@ -2703,7 +2729,8 @@
 					this.code.offset = this.caret.getOffset();
 					var scroll = $(window).scrollTop();
 
-					var height = this.$editor.innerHeight();
+					var	width = this.$editor.innerWidth(),
+						height = this.$editor.innerHeight();
 
 					this.$editor.hide();
 
@@ -2713,17 +2740,33 @@
 					// indent code
 					html = this.tabifier.get(html);
 
-					this.$textarea.val(html).height(height).show().focus();
-					this.$textarea.on('keydown.redactor-textarea-indenting', this.code.textareaIndenting);
+					this.$textarea.val(html);
 
-					$(window).scrollTop(scroll);
-
-					if (this.$textarea[0].setSelectionRange)
+					if (this.opts.codemirror)
 					{
-						this.$textarea[0].setSelectionRange(0, 0);
+						this.$textarea.next('.CodeMirror').each(function(i, el)
+						{
+							$(el).show();
+							el.CodeMirror.setValue(html);
+							el.CodeMirror.setSize(width, height);
+							el.CodeMirror.refresh();
+							el.CodeMirror.focus();
+						});
 					}
+					else
+					{
+						this.$textarea.height(height).show().focus();
+						this.$textarea.on('keydown.redactor-textarea-indenting', this.code.textareaIndenting);
 
-					this.$textarea[0].scrollTop = 0;
+						$(window).scrollTop(scroll);
+
+						if (this.$textarea[0].setSelectionRange)
+						{
+							this.$textarea[0].setSelectionRange(0, 0);
+						}
+
+						this.$textarea[0].scrollTop = 0;
+					}
 
 					this.opts.visual = false;
 
@@ -2733,13 +2776,30 @@
 				},
 				showVisual: function()
 				{
+					var html;
+
 					if (this.opts.visual) return;
 
-					var html = this.$textarea.hide().val();
+					if (this.opts.codemirror)
+					{
+						this.$textarea.next('.CodeMirror').each(function(i, el)
+						{
+							html = el.CodeMirror.getValue();
+						});
+					}
+					else
+					{
+						html = this.$textarea.hide().val();
+					}
 
 					if (this.modified !== this.clean.removeSpaces(html))
 					{
 						this.code.set(html);
+					}
+
+					if (this.opts.codemirror)
+					{
+						this.$textarea.next('.CodeMirror').hide();
 					}
 
 					this.$editor.show();
@@ -2890,14 +2950,24 @@
 					{
 						$.each(this.opts.formattingAdd, $.proxy(function(i,s)
 						{
-							var name = s.tag;
+							var name = s.tag,
+								func;
+
 							if (typeof s['class'] != 'undefined')
 							{
 								name = name + '-' + s['class'];
 							}
 
 							s.type = (this.utils.isBlockTag(s.tag)) ? 'block' : 'inline';
-							var func = (s.type == 'inline') ? 'inline.formatting' : 'block.formatting';
+
+							if (typeof s.func !== "undefined")
+							{
+								func = s.func;
+							}
+							else
+							{
+								func = (s.type == 'inline') ? 'inline.formatting' : 'block.formatting';
+							}
 
 							if (this.opts.linebreaks && s.type == 'block' && s.tag == 'p') return;
 
@@ -3215,7 +3285,7 @@
 				},
 				showEdit: function($image)
 				{
-					var $link = $image.closest('a');
+					var $link = $image.closest('a', this.$editor[0]);
 
 					this.modal.load('imageEdit', this.lang.get('edit'), 705);
 
@@ -3292,7 +3362,7 @@
 					this.image.hideResize();
 					this.buffer.set();
 
-					var $link = $image.closest('a');
+					var $link = $image.closest('a', this.$editor[0]);
 
 					$image.attr('alt', $('#redactor-image-title').val());
 
@@ -3465,7 +3535,7 @@
 				},
 				hideResize: function(e)
 				{
-					if (e && $(e.target).closest('#redactor-image-box').length !== 0) return;
+					if (e && $(e.target).closest('#redactor-image-box', this.$editor[0]).length !== 0) return;
 					if (e && e.target.tagName == 'IMG')
 					{
 						var $image = $(e.target);
@@ -3577,8 +3647,8 @@
 				remove: function(image)
 				{
 					var $image = $(image);
-					var $link = $image.closest('a');
-					var $figure = $image.closest('figure');
+					var $link = $image.closest('a', this.$editor[0]);
+					var $figure = $image.closest('figure', this.$editor[0]);
 					var $parent = $image.parent();
 					if ($('#redactor-image-box').length !== 0)
 					{
@@ -3763,7 +3833,7 @@
 
 					var current = this.selection.getCurrent();
 
-					var $item = $(current).closest('li');
+					var $item = $(current).closest('li', this.$editor[0]);
 					var $parent = $item.parent();
 					if ($item.length !== 0 && $parent.length !== 0 && $parent[0].tagName == 'LI')
 					{
@@ -3871,7 +3941,7 @@
 				formatCollapsed: function(tag)
 				{
 					var current = this.selection.getCurrent();
-					var $parent = $(current).closest(tag + '[data-redactor-tag=' + tag + ']');
+					var $parent = $(current).closest(tag + '[data-redactor-tag=' + tag + ']', this.$editor[0]);
 
 					// inline there is
 					if ($parent.length !== 0 && (this.inline.type != 'style' && $parent[0].tagName != 'SPAN'))
@@ -4527,7 +4597,7 @@
 						var $table = false;
 						if (this.keydown.block && this.keydown.block.tagName === 'TD')
 						{
-							$table = $(this.keydown.block).closest('table');
+							$table = $(this.keydown.block).closest('table', this.$editor[0]);
 						}
 
 						if ($table && $table.find('td').last()[0] === this.keydown.block)
@@ -4642,11 +4712,13 @@
 							else
 							{
 								current = this.selection.getCurrent();
-								var $parent = $(current).closest('li');
-								var $list = $parent.closest('ul,ol');
+								var $parent = $(current).closest('li', this.$editor[0]);
+								var $list = $parent.closest('ul,ol', this.$editor[0]);
 
-								if ($parent.length !== 0 && this.utils.isEmpty($parent.html()) && $list.next().length === 0)
+								if ($parent.length !== 0 && this.utils.isEmpty($parent.html()) && $list.next().length === 0 && this.utils.isEmpty($list.find("li").last().html()))
 								{
+									$list.find("li").last().remove();
+
 									var node = $(this.opts.emptyHtml);
 									$list.after(node);
 									this.caret.setStart(node);
@@ -5053,9 +5125,9 @@
 				{
 					var $current = $(this.keydown.current);
 					var $parent = $(this.keydown.parent);
-					var td = $current.closest('td');
+					var td = $current.closest('td', this.$editor[0]);
 
-					if (td.length !== 0 && $current.closest('li') && $parent.children('li').length === 1)
+					if (td.length !== 0 && $current.closest('li', this.$editor[0]) && $parent.children('li').length === 1)
 					{
 						if (!this.utils.isEmpty($current.text())) return;
 
@@ -5110,13 +5182,8 @@
 					}
 
 					// linkify
-					if (this.keyup.isLinkify(key))
-					{
-						this.formatLinkify(this.opts.linkProtocol, this.opts.convertLinks, this.opts.convertUrlLinks, this.opts.convertImageLinks, this.opts.convertVideoLinks, this.opts.linkSize);
-
-						this.observe.load();
-						this.code.sync();
-					}
+					if (this.linkify.isEnabled() && this.linkify.isKey(key))
+						this.linkify.format();
 
 					if (key === this.keyCode.DELETE || key === this.keyCode.BACKSPACE)
 					{
@@ -5150,10 +5217,6 @@
 						// if empty
 						return this.keyup.formatEmpty(e);
 					}
-				},
-				isLinkify: function(key)
-				{
-					return this.opts.convertLinks && (this.opts.convertUrlLinks || this.opts.convertImageLinks || this.opts.convertVideoLinks) && key === this.keyCode.ENTER && !this.utils.isCurrentOrParent('PRE');
 				},
 				replaceToParagraph: function(clone)
 				{
@@ -5351,7 +5414,7 @@
 				{
 					this.link.$node = false;
 
-					var $el = $(this.selection.getCurrent()).closest('a');
+					var $el = $(this.selection.getCurrent()).closest('a', this.$editor[0]);
 					if ($el.length !== 0 && $el[0].tagName === 'A')
 					{
 						this.link.$node = $el;
@@ -5370,6 +5433,8 @@
 				},
 				insert: function()
 				{
+					this.placeholder.remove();
+
 					var target = '';
 					var link = this.link.$inputUrl.val();
 					var text = this.link.$inputText.val();
@@ -5426,15 +5491,36 @@
 					{
 						this.buffer.set();
 
-						this.link.$node.text(text).attr('href', link);
-						if (target !== '')
+						var $link = this.link.$node,
+							$el   = $link.children();
+
+						if ($el.length > 0)
 						{
-							this.link.$node.attr('target', target);
+							while ($el.length)
+							{
+								$el = $el.children();
+							}
+
+							$el = $el.end();
 						}
 						else
 						{
-							this.link.$node.removeAttr('target');
+							$el = $link;
 						}
+
+						$link.attr('href', link);
+						$el.text(text);
+
+						if (target !== '')
+						{
+							$link.attr('target', target);
+						}
+						else
+						{
+							$link.removeAttr('target');
+						}
+
+						this.selection.selectElement($link);
 
 						this.code.sync();
 					}
@@ -5457,13 +5543,19 @@
 								if (target !== '') $a.attr('target', target);
 
 								$a = $(this.insert.node($a));
+
+								if (this.selection.getText().match(/\s$/))
+								{
+									$a.after(" ");
+								}
+
 								this.selection.selectElement($a);
 							}
 							else
 							{
 								document.execCommand('createLink', false, link);
 
-								$a = $(this.selection.getCurrent()).closest('a');
+								$a = $(this.selection.getCurrent()).closest('a', this.$editor[0]);
 								if (this.utils.browser('mozilla'))
 								{
 									$a = $('a[_moz_dirty=""]');
@@ -5472,10 +5564,15 @@
 								if (target !== '') $a.attr('target', target);
 								$a.removeAttr('style').removeAttr('_moz_dirty');
 
+								if (this.selection.getText().match(/\s$/))
+								{
+									$a.after(" ");
+								}
+
 								if (this.link.text !== '' || this.link.text != text)
 								{
-
 									$a.text(text);
+
 									this.selection.selectElement($a);
 								}
 							}
@@ -5508,7 +5605,7 @@
 					var len = nodes.length;
 					for (var i = 0; i < len; i++)
 					{
-						var $node = $(nodes[i]).closest('a');
+						var $node = $(nodes[i]).closest('a', this.$editor[0]);
 						$node.replaceWith($node.contents());
 					}
 
@@ -5554,7 +5651,7 @@
 					this.selection.save();
 
 					var parent = this.selection.getParent();
-					var $list = $(parent).closest('ol, ul');
+					var $list = $(parent).closest('ol, ul', this.$editor[0]);
 
 					if (!this.utils.isRedactorParent($list) && $list.length !== 0)
 					{
@@ -5592,7 +5689,6 @@
 						}
 					}
 
-
 					this.selection.restore();
 					this.code.sync();
 				},
@@ -5600,7 +5696,7 @@
 				{
 					var parent = this.selection.getParent();
 					var current = this.selection.getCurrent();
-					var $td = $(current).closest('td, th');
+					var $td = $(current).closest('td, th', this.$editor[0]);
 
 					if (this.utils.browser('msie') && this.opts.linebreaks)
 					{
@@ -5611,7 +5707,7 @@
 						document.execCommand('insert' + cmd);
 					}
 
-					var $list = $(this.selection.getParent()).closest('ol, ul');
+					var $list = $(this.selection.getParent()).closest('ol, ul', this.$editor[0]);
 
 					if ($td.length !== 0)
 					{
@@ -5698,13 +5794,13 @@
 
 					this.indent.fixEmptyIndent();
 
-					if (!this.opts.linebreaks && $current.closest('li, th, td').length === 0)
+					if (!this.opts.linebreaks && $current.closest('li, th, td', this.$editor[0]).length === 0)
 					{
 						document.execCommand('formatblock', false, 'p');
 						this.$editor.find('ul, ol, blockquote').each($.proxy(this.utils.removeEmpty, this));
 					}
 
-					var $table = $(this.selection.getCurrent()).closest('table');
+					var $table = $(this.selection.getCurrent()).closest('table', this.$editor[0]);
 					var $prev = $table.prev();
 					if (!this.opts.linebreaks && $table.length !== 0 && $prev.length !== 0 && $prev[0].tagName == 'BR')
 					{
@@ -6085,19 +6181,19 @@
 
 					$.each(this.opts.activeButtonsStates, $.proxy(function(key, value)
 					{
-						var parentEl = $(parent).closest(key);
-						var currentEl = $(current).closest(key);
+						var parentEl = $(parent).closest(key, this.$editor[0]);
+						var currentEl = $(current).closest(key, this.$editor[0]);
 
 						if (parentEl.length !== 0 && !this.utils.isRedactorParent(parentEl)) return;
 						if (!this.utils.isRedactorParent(currentEl)) return;
-						if (parentEl.length !== 0 || currentEl.closest(key).length !== 0)
+						if (parentEl.length !== 0 || currentEl.closest(key, this.$editor[0]).length !== 0)
 						{
 							this.button.setActive(value);
 						}
 
 					}, this));
 
-					var $parent = $(parent).closest(this.opts.alignmentTags.toString().toLowerCase());
+					var $parent = $(parent).closest(this.opts.alignmentTags.toString().toLowerCase(), this.$editor[0]);
 					if (this.utils.isRedactorParent(parent) && $parent.length)
 					{
 						var align = ($parent.css('text-align') === '') ? 'left' : $parent.css('text-align');
@@ -6116,7 +6212,7 @@
 						var $img = $(img);
 
 						// IE fix (when we clicked on an image and then press backspace IE does goes to image's url)
-						$img.closest('a').on('click', function(e) { e.preventDefault(); });
+						$img.closest('a', this.$editor[0]).on('click', function(e) { e.preventDefault(); });
 
 						if (this.utils.browser('msie')) $img.attr('unselectable', 'on');
 
@@ -6149,20 +6245,18 @@
 				},
 				showTooltip: function(e)
 				{
-					var $link = $(e.target);
-					var $parent = $link.closest('a');
-					var tag = ($link.length !== 0) ? $link[0].tagName : false;
+					var $el = $(e.target);
 
-					if ($parent[0].tagName === 'A')
-					{
-						if (tag === 'IMG') return;
-						else if (tag !== 'A') $link = $parent;
-					}
-
-					if (tag !== 'A')
-					{
+					if ($el[0].tagName == 'IMG')
 						return;
-					}
+
+					if ($el[0].tagName !== 'A')
+						$el = $el.closest('a', this.$editor[0]);
+
+					if ($el[0].tagName !== 'A')
+						return;
+
+					var $link = $el;
 
 					var pos = this.observe.getTooltipPosition($link);
 					var tooltip = $('<span class="redactor-link-tooltip"></span>');
@@ -6193,7 +6287,7 @@
 					e = e.originalEvent || e;
 
 					var target = e.target;
-					var $parent = $(target).closest('a');
+					var $parent = $(target).closest('a', this.$editor[0]);
 					if ($parent.length !== 0 && $parent[0].tagName === 'A' && target.tagName !== 'A')
 					{
 						return;
@@ -6382,8 +6476,10 @@
 
 						$(window).off('scroll.redactor-freeze');
 
-					}, this), 1);
+						if (this.linkify.isEnabled())
+							this.linkify.format();
 
+					}, this), 1);
 				},
 				createPasteBox: function()
 				{
@@ -7805,6 +7901,9 @@
 						left: left
 					});
 
+					if (scrollTop > end)
+						$('.redactor-dropdown-' + this.uuid + ':visible').hide();
+
 					this.toolbar.setDropdownsFixed();
 					this.$toolbar.css('visibility', (scrollTop < end) ? 'visible' : 'hidden');
 				},
@@ -7820,8 +7919,6 @@
 
 					this.toolbar.unsetDropdownsFixed();
 					this.$toolbar.removeClass('toolbar-fixed-box');
-
-
 				},
 				setDropdownsFixed: function()
 				{
@@ -7971,6 +8068,7 @@
 
 					var xhr = new XMLHttpRequest();
 					xhr.open('POST', this.upload.url);
+					xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
 					// complete
 					xhr.onreadystatechange = $.proxy(function()
@@ -8406,7 +8504,7 @@
 				// tag detection
 				isTag: function(current, tag)
 				{
-					var element = $(current).closest(tag);
+					var element = $(current).closest(tag, this.$editor[0]);
 					if (element.length == 1)
 					{
 						return element[0];
@@ -8514,6 +8612,122 @@
 					return browser == match[1];
 				}
 			};
+		},
+		linkify: function()
+		{
+			return {
+				isKey: function(key)
+				{
+					return key == this.keyCode.ENTER || key == this.keyCode.SPACE;
+				},
+				isEnabled: function()
+				{
+					return this.opts.convertLinks && (this.opts.convertUrlLinks || this.opts.convertImageLinks || this.opts.convertVideoLinks) && !this.utils.isCurrentOrParent('PRE');
+				},
+				format: function()
+				{
+					var linkify = this.linkify,
+						opts    = this.opts;
+
+					this.$editor
+						.find(":not(iframe,img,a,pre)")
+						.addBack()
+						.contents()
+						.filter(function()
+						{
+							return this.nodeType === 3 && $.trim(this.nodeValue) != "" && !$(this).parent().is("pre") && (this.nodeValue.match(opts.linkify.regexps.youtube) || this.nodeValue.match(opts.linkify.regexps.vimeo) || this.nodeValue.match(opts.linkify.regexps.image) || this.nodeValue.match(opts.linkify.regexps.url));
+						})
+						.each(function()
+						{
+							var text = $(this).text(),
+								html = text;
+
+
+							if (opts.convertImageLinks && html.match(opts.linkify.regexps.image))
+							{
+								html = linkify.convertImages(html);
+							}
+							else if (opts.convertUrlLinks && !html.match(opts.linkify.regexps.youtube) && !html.match(opts.linkify.regexps.vimeo))
+							{
+								html = linkify.convertLinks(html);
+							}
+
+							if (opts.convertVideoLinks)
+							{
+								html = linkify.convertVideoLinks(html);
+							}
+
+							$(this).before(text.replace(text, html))
+								   .remove();
+						});
+
+					this.linkify.after();
+				},
+				convertVideoLinks: function(html)
+				{
+					var iframeStart = '<iframe width="500" height="281" src="',
+						iframeEnd = '" frameborder="0" allowfullscreen></iframe>';
+
+					if (html.match(this.opts.linkify.regexps.youtube))
+					{
+						html = html.replace(this.opts.linkify.regexps.youtube, iframeStart + '//www.youtube.com/embed/$1' + iframeEnd);
+					}
+
+					if (html.match(this.opts.linkify.regexps.vimeo))
+					{
+						html = html.replace(this.opts.linkify.regexps.vimeo, iframeStart + '//player.vimeo.com/video/$2' + iframeEnd);
+					}
+
+					return html;
+				},
+				convertImages: function(html)
+				{
+					var matches = html.match(this.opts.linkify.regexps.image);
+
+					if (matches)
+						html = html.replace(html, '<img src="' + matches + '" />');
+
+					return html;
+				},
+				convertLinks: function(html)
+				{
+					var matches = html.match(this.opts.linkify.regexps.url);
+
+					if (matches)
+					{
+						matches = $.grep(matches, function(v, k) { return $.inArray(v, matches) === k; });
+
+						var length = matches.length;
+
+						for (var i = 0; i < length; i++)
+						{
+							var href = matches[i],
+								text = href,
+								linkProtocol = this.opts.linkProtocol + '://';
+
+							if (href.match(/(https?|ftp):\/\//i) !== null)
+								linkProtocol = "";
+
+							if (text.length > this.opts.linkSize)
+								text = text.substring(0, this.opts.linkSize) + '...';
+
+							text = decodeURIComponent(text);
+
+							// escaping url
+							var regexp = new RegExp('(' + href.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") + ')\\b', 'g');
+
+							html = html.replace(regexp, '<a href="' + linkProtocol + $.trim(href) + '">' + $.trim(text) + '</a>');
+						}
+					}
+
+					return html;
+				},
+				after: function()
+				{
+					this.observe.load();
+					this.code.sync();
+				}
+			}
 		}
 	};
 
@@ -8524,106 +8738,4 @@
 
 	// constructor
 	Redactor.prototype.init.prototype = Redactor.prototype;
-
-	// LINKIFY
-	$.Redactor.fn.formatLinkify = function(protocol, convertLinks, convertUrlLinks, convertImageLinks, convertVideoLinks, linkSize)
-	{
-		var urlCheck = '((?:http[s]?:\\/\\/(?:www\\.)?|www\\.){1}(?:[0-9A-Za-z\\-%_]+\\.)+[a-zA-Z]{2,}(?::[0-9]+)?(?:(?:/[0-9A-Za-z\\-#\\.%\+_]*)+)?(?:\\?(?:[0-9A-Za-z\\-\\.%_]+(?:=[0-9A-Za-z\\-\\.%_\\+]*)?)?(?:&(?:[0-9A-Za-z\\-\\.%_]+(?:=[0-9A-Za-z\\-\\.%_\\+]*)?)?)*)?(?:#[0-9A-Za-z\\-\\.%_\\+=\\?&;]*)?)';
-		var regex = new RegExp(urlCheck, 'gi');
-		var rProtocol = /(https?|ftp):\/\//i;
-		var urlImage = new RegExp('(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\\.(?:jpg|gif|png))(?:\\?([^#]*))?(?:#(.*))?', 'gi');
-
-		var childNodes = (this.$editor ? this.$editor[0] : this).childNodes, i = childNodes.length;
-		while (i--)
-		{
-			var n = childNodes[i];
-
-			if (n.nodeType === 3 && n.parentNode !== 'PRE')
-			{
-				var html = n.nodeValue;
-
-				// youtube & vimeo
-				if (convertVideoLinks && html)
-				{
-					var iframeStart = '<iframe width="500" height="281" src="',
-						iframeEnd = '" frameborder="0" allowfullscreen></iframe>';
-
-					if (html.match(reUrlYoutube))
-					{
-						html = html.replace(reUrlYoutube, iframeStart + '//www.youtube.com/embed/$1' + iframeEnd);
-						$(n).after(html).remove();
-					}
-					else if (html.match(reUrlVimeo))
-					{
-						html = html.replace(reUrlVimeo, iframeStart + '//player.vimeo.com/video/$2' + iframeEnd);
-						$(n).after(html).remove();
-					}
-				}
-
-				// image
-				if (convertImageLinks && html && html.match(urlImage))
-				{
-					var matches = html.match(urlImage);
-					html = html.replace(urlImage, '<img src="' + matches + '" />');
-
-					$(n).after(html).remove();
-					return;
-				}
-
-				// link
-				if (html.search(/\$/g) != -1) html = html.replace(/\$/g, '&#36;');
-
-				var matches = html.match(regex);
-				if (convertUrlLinks && html && matches)
-				{
-					var len = matches.length;
-					for (var z = 0; z < len; z++)
-					{
-						// remove dot in the end
-						if (matches[z].match(/\.$/) !== null) matches[z] = matches[z].replace(/\.$/, '');
-
-						var href = matches[z];
-						var text = href;
-
-						var space = '';
-						if (href.match(/\s$/) !== null) space = ' ';
-
-						var addProtocol = protocol + '://';
-						if (href.match(rProtocol) !== null) addProtocol = '';
-
-						if (text.length > linkSize) text = text.substring(0, linkSize) + '...';
-						text = text.replace(/&#36;/g, '$').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-						// buffer
-						var buffer = [];
-						var links = html.match('<a(.*?)</a>');
-						if (links !== null)
-						{
-							var len = links.length;
-							for (i = 0; i < len; i++)
-							{
-								buffer[i] = links[i];
-								html = html.replace(links[i], '{abuffer' + i + '}');
-							}
-						}
-
-						html = html.replace(href, '<a href=\"' + addProtocol + $.trim(href) + '\">' + $.trim(text) + '</a>' + space);
-
-						// rebuffer
-						$.each(buffer, function(i,s)
-						{
-							html = html.replace('{abuffer' + i + '}', s);
-						});
-					}
-
-					$(n).after(html).remove();
-				}
-			}
-			else if (n.nodeType === 1 && !/^(pre|a|button|textarea)$/i.test(n.tagName))
-			{
-				$.Redactor.fn.formatLinkify.call(n, protocol, convertLinks, convertUrlLinks, convertImageLinks, convertVideoLinks, linkSize);
-			}
-		}
-	};
-
 })(jQuery);
