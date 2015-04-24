@@ -4,9 +4,7 @@
 @richeditor-zindex: 600;
 @richeditor-gutter: 20px;
 
-@import "_redactor.less";
-@import "_figures.less";
-@import "_shared.less";
+@import "../vendor/redactor/redactor.less";
 
 .field-flush .field-richeditor {
     &, &.editor-focus {
@@ -49,9 +47,9 @@
 .redactor-box-fullscreen {
     z-index: @richeditor-zindex + 115 !important;
 }
-.redactor-toolbar,
+
 .redactor-dropdown {
-    z-index: @richeditor-zindex + 110 !important;
+    z-index: @richeditor-zindex + 125 !important;
 }
 #redactor-modal-overlay,
 #redactor-modal-box,
@@ -62,6 +60,7 @@
 .redactor-toolbar {
     background: @color-richeditor-toolbar;
     .box-shadow(none);
+    z-index: 410 !important;
 
     & li.redactor-btn-right {
         float: right;

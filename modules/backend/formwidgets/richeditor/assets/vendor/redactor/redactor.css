@@ -228,6 +228,12 @@ body .redactor-box-fullscreen {
   cursor: default;
 }
 /*
+	CodeMirror
+*/
+.redactor-box .CodeMirror {
+  display: none;
+}
+/*
 	Icons
 */
 .re-icon {
@@ -844,6 +850,12 @@ body .redactor-box-fullscreen {
   padding: 0;
   padding-left: 2em;
   border: none;
+}
+.redactor-editor ol ol li {
+  list-style-type: lower-alpha;
+}
+.redactor-editor ol ol ol li {
+  list-style-type: lower-roman;
 }
 .redactor-editor dl dt {
   font-weight: bold;

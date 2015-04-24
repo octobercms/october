@@ -54,8 +54,8 @@
          * Initialize Redactor editor
          */
         var redactorOptions = {
-            imageEditable: false,
-            imageResizable: false,
+            imageEditable: true,
+            imageResizable: true,
             buttonSource: true,
             removeDataAttr: false,
             syncBeforeCallback: function(html) { return self.syncBefore(html) },
@@ -78,10 +78,7 @@
             redactorOptions.fullpage = true
         }
 
-        // redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'image', 'quote', 'table']
-        // redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule', 'html'],
-
-        redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'quote', 'table', 'mediamanager']
+        redactorOptions.plugins = ['fullscreen', 'table', 'mediamanager']
         redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule', 'html'],
 
         this.$textarea.redactor(redactorOptions)
