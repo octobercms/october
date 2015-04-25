@@ -1,13 +1,19 @@
 <?php namespace Cms\Twig;
 
+use Twig_Node;
 use Twig_Token;
 use Twig_TokenParser;
+use Twig_Error_Syntax;
 
 /**
  * Parser for the {% content %} Twig tag.
  *
  * <pre>
  *  {% content "intro.htm" %}
+ *
+ *  {% content "intro.md" name='John' %}
+ *
+ *  {% content "intro/txt" name='John', year=2013 %}
  * </pre>
  *
  * @package october\cms
@@ -24,10 +30,39 @@ class ContentTokenParser extends Twig_TokenParser
      */
     public function parse(Twig_Token $token)
     {
+        $lineno = $token->getLine();
         $stream = $this->parser->getStream();
+
         $name = $this->parser->getExpressionParser()->parseExpression();
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
-        return new ContentNode($name, $token->getLine(), $this->getTag());
+        $paramNames = [];
+        $nodes = [$name];
+
+        $end = false;
+        while (!$end) {
+            $current = $stream->next();
+
+            switch ($current->getType()) {
+                case Twig_Token::NAME_TYPE:
+                    $paramNames[] = $current->getValue();
+                    $stream->expect(Twig_Token::OPERATOR_TYPE, '=');
+                    $nodes[] = $this->parser->getExpressionParser()->parseExpression();
+                    break;
+
+                case Twig_Token::BLOCK_END_TYPE:
+                    $end = true;
+                    break;
+
+                default:
+                    throw new Twig_Error_Syntax(
+                        sprintf('Invalid syntax in the content tag. Line %s', $lineno),
+                        $stream->getCurrent()->getLine(),
+                        $stream->getFilename()
+                    );
+                    break;
+            }
+        }
+
+        return new ContentNode(new Twig_Node($nodes), $paramNames, $token->getLine(), $this->getTag());
     }
 
     /**
