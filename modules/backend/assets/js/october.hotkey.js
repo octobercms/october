@@ -32,6 +32,9 @@
     HotKey.prototype.constructor = HotKey
 
     HotKey.prototype.dispose = function() {
+        if (this.$el === null)
+            return
+
         this.unregisterHandlers()
 
         this.$el.removeData('oc.hotkey')
@@ -58,7 +61,7 @@
         }
 
         this.$target.on('keydown', this.proxy(this.onKeyDown))
-        this.$el.on('dispose-control', this.proxy(this.dispose))
+        this.$el.one('dispose-control', this.proxy(this.dispose))
     }
 
     HotKey.prototype.unregisterHandlers = function() {

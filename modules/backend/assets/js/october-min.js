@@ -1150,7 +1150,9 @@ Base.call(this)
 this.init()}
 HotKey.prototype=Object.create(BaseProto)
 HotKey.prototype.constructor=HotKey
-HotKey.prototype.dispose=function(){this.unregisterHandlers()
+HotKey.prototype.dispose=function(){if(this.$el===null)
+return
+this.unregisterHandlers()
 this.$el.removeData('oc.hotkey')
 this.$target=null
 this.$el=null
@@ -1165,7 +1167,7 @@ var keys=this.options.hotkey.toLowerCase().split(',')
 for(var i=0,len=keys.length;i<len;i++){var keysTrimmed=this.trim(keys[i])
 this.keyConditions.push(this.makeCondition(keysTrimmed))}
 this.$target.on('keydown',this.proxy(this.onKeyDown))
-this.$el.on('dispose-control',this.proxy(this.dispose))}
+this.$el.one('dispose-control',this.proxy(this.dispose))}
 HotKey.prototype.unregisterHandlers=function(){this.$target.off('keydown',this.proxy(this.onKeyDown))
 this.$el.off('dispose-control',this.proxy(this.dispose))}
 HotKey.prototype.makeCondition=function(keyBind){var condition={shift:false,ctrl:false,cmd:false,alt:false,specific:-1},keys=keyBind.split('+')

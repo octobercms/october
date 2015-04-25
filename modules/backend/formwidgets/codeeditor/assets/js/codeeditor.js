@@ -31,6 +31,7 @@
         this.$toolbar  = this.$el.find('>.editor-toolbar:first')
         this.$code     = null
         this.editor    = null
+        this.$form     = null
 
         // Toolbar links
         this.isFullscreen = false
@@ -97,21 +98,16 @@
             options = this.options,
             $form = this.$el.closest('form');
 
+        this.$form = $form
+
         this.$textarea.hide();
         editor.getSession().setValue(this.$textarea.val())
 
-        $form.on('oc.beforeRequest', function(){
-            self.$textarea.val(editor.getSession().getValue())
-        })
-
-        editor.on('change', function() {
-            $form.trigger('change')
-            self.$textarea.trigger('oc.codeEditorChange')
-        })
-
-        $(window).on('resize, oc.updateUi', function() {
-            editor.resize()
-        })
+        editor.on('change', this.proxy(this.onChange))
+        $form.on('oc.beforeRequest', this.proxy(this.onBeforeRequest))
+        $(window).on('resize', this.proxy(this.onResize))
+        $(window).on('oc.updateUi', this.proxy(this.onResize))
+        this.$el.on('dispose-control', this.proxy(this.dispose))
 
         /*
          * Set language and theme
@@ -144,8 +140,8 @@
         editor.setReadOnly(options.readOnly)
         editor.getSession().setFoldStyle(options.codeFolding)
         editor.setFontSize(options.fontSize)
-        editor.on('blur.codeeditor', function(){ self.$el.removeClass('editor-focus') })
-        editor.on('focus.codeeditor', function(){ self.$el.addClass('editor-focus') })
+        editor.on('blur', this.proxy(this.onBlur))
+        editor.on('focus', this.proxy(this.onFocus))
         this.setWordWrap(options.wordWrap)
 
         editor.renderer.setScrollMargin(options.margin, options.margin, 0, 0)
@@ -178,9 +174,11 @@
         /*
          * Hotkeys
          */
-        this.$el.hotKey({ hotkey: 'esc', hotkeyMac: 'esc', callback: function() {
-            self.isFullscreen && self.toggleFullscreen.apply(self)
-        }})
+        this.$el.hotKey({
+            hotkey: 'esc',
+            hotkeyMac: 'esc',
+            callback: this.proxy(this.onEscape)
+        })
 
         editor.commands.addCommand({
             name: 'toggleFullscreen',
@@ -191,21 +189,88 @@
     }
 
     CodeEditor.prototype.dispose = function() {
-        this.editor.off('.codeeditor')
-        this.editor.destroy()
+        // Currently it's not possible to dispose Ace Editor
+        // completely because of the internal organization of 
+        // because of the internal organization of the class.
+        // The class instance contains multiple references to 
+        // DOM elements in closures and event handlers.
+        // See https://github.com/ajaxorg/ace/issues/2469
+        // --ab 2015-04-23
 
-        this.$fullscreenEnable.off('.codeeditor')
-        this.$fullscreenDisable.off('.codeeditor')
+        if (this.$el === null)
+            return
+
+        this.unregisterHandlers()
+        this.disposeAttachedControls()
 
         this.$el = null
         this.$textarea = null
         this.$toolbar = null
         this.$code = null
-        this.editor = null
         this.$fullscreenEnable = null
         this.$fullscreenDisable = null
+        this.$form = null
+        this.options = null
 
         BaseProto.dispose.call(this)
+    }
+
+    CodeEditor.prototype.disposeAttachedControls = function() {
+        this.editor.destroy()
+
+        var keys = Object.keys(this.editor.renderer)
+        for (var i=0, len=keys.length; i<len; i++)
+            this.editor.renderer[keys[i]] = null
+
+        keys = Object.keys(this.editor)
+        for (var i=0, len=keys.length; i<len; i++)
+            this.editor[keys[i]] = null
+
+        this.editor = null
+
+        this.$toolbar.find('>ul>li>a').tooltip('destroy')
+        this.$el.removeData('oc.codeEditor')
+        this.$el.hotKey('dispose')
+    }
+
+    CodeEditor.prototype.unregisterHandlers = function() {
+        this.editor.off('change', this.proxy(this.onChange))
+        this.editor.off('blur', this.proxy(this.onBlur))
+        this.editor.off('focus', this.proxy(this.onFocus))
+
+        this.$fullscreenEnable.off('.codeeditor')
+        this.$fullscreenDisable.off('.codeeditor')
+        this.$form.off('oc.beforeRequest', this.proxy(this.onBeforeRequest))
+
+        this.$el.off('dispose-control', this.proxy(this.dispose))
+
+        $(window).off('resize', this.proxy(this.onResize))
+        $(window).off('oc.updateUi', this.proxy(this.onResize))
+    }
+
+    CodeEditor.prototype.onBeforeRequest = function() {
+        this.$textarea.val(this.editor.getSession().getValue())
+    }
+
+    CodeEditor.prototype.onChange = function() {
+        this.$form.trigger('change')
+        this.$textarea.trigger('oc.codeEditorChange')
+    }
+
+    CodeEditor.prototype.onResize = function() {
+        this.editor.resize()
+    }
+
+    CodeEditor.prototype.onBlur = function() {
+        this.$el.removeClass('editor-focus')
+    }
+
+    CodeEditor.prototype.onFocus = function() {
+        this.$el.addClass('editor-focus')
+    }
+
+    CodeEditor.prototype.onEscape = function() {
+        this.isFullscreen && this.toggleFullscreen()
     }
 
     CodeEditor.prototype.setWordWrap = function(mode) {

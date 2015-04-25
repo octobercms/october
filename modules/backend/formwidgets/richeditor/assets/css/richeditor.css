@@ -170,7 +170,7 @@ to{background-position:0 0}
 .field-richeditor.size-large .redactor-editor{height:170px !important}
 .field-richeditor.size-huge .redactor-editor{height:220px !important}
 .field-richeditor.size-giant .redactor-editor{height:320px !important}
-.redactor-box{margin-bottom:0}
+.redactor-box{margin-bottom:0;overflow:hidden}
 .redactor-box iframe{border:none}
 .redactor-box-fullscreen{z-index:715 !important}
 .redactor-dropdown{z-index:725 !important}
