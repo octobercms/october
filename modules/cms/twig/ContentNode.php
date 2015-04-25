@@ -1,8 +1,8 @@
 <?php namespace Cms\Twig;
 
 use Twig_Node;
-use Twig_Node_Expression;
 use Twig_Compiler;
+use Twig_NodeInterface;
 
 /**
  * Represents a content node
@@ -12,9 +12,9 @@ use Twig_Compiler;
  */
 class ContentNode extends Twig_Node
 {
-    public function __construct(Twig_Node_Expression $name, $lineno, $tag = 'content')
+    public function __construct(Twig_NodeInterface $nodes, $paramNames, $lineno, $tag = 'content')
     {
-        parent::__construct(['name' => $name], [], $lineno, $tag);
+        parent::__construct(['nodes' => $nodes], ['names' => $paramNames], $lineno, $tag);
     }
 
     /**
@@ -24,11 +24,25 @@ class ContentNode extends Twig_Node
      */
     public function compile(Twig_Compiler $compiler)
     {
+        $compiler->addDebugInfo($this);
+
+        $compiler->write("\$context['__cms_content_params'] = [];\n");
+
+        for ($i = 1; $i < count($this->getNode('nodes')); $i++) {
+            $compiler->write("\$context['__cms_content_params']['".$this->getAttribute('names')[$i-1]."'] = ");
+            $compiler->write('twig_escape_filter($this->env, ');
+            $compiler->subcompile($this->getNode('nodes')->getNode($i));
+            $compiler->write(")");
+            $compiler->write(";\n");
+        }
+
         $compiler
-            ->addDebugInfo($this)
             ->write("echo \$this->env->getExtension('CMS')->contentFunction(")
-            ->subcompile($this->getNode('name'))
+            ->subcompile($this->getNode('nodes')->getNode(0))
+            ->write(", \$context['__cms_content_params']")
             ->write(");\n")
         ;
+
+        $compiler->write("unset(\$context['__cms_content_params']);\n");
     }
 }

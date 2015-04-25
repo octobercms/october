@@ -28,6 +28,7 @@ use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
+use October\Rain\Parse\Template as TextParser;
 use Illuminate\Http\RedirectResponse;
 
 /**
@@ -894,8 +895,11 @@ class Controller
     /**
      * Renders a requested content file.
      * The framework uses this method internally.
+     * @param string $name The content view to load.
+     * @param array $parameters Parameter variables to pass to the view.
+     * @return string
      */
-    public function renderContent($name)
+    public function renderContent($name, $parameters = [])
     {
         /*
          * Extensibility
@@ -914,6 +918,13 @@ class Controller
         }
 
         $fileContent = $content->parsedMarkup;
+
+        /*
+         * Parse basic template variables
+         */
+        if (!empty($parameters)) {
+            $fileContent = TextParser::parse($fileContent, $parameters);
+        }
 
         /*
          * Extensibility

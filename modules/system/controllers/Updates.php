@@ -296,12 +296,12 @@ class Updates extends Controller
             $core = [null, null];
         }
 
-        if (!is_array($plugins)) {
-            $plugins = [];
-        }
-
         if (!is_array($themes)) {
             $themes = [];
+        }
+
+        if (!is_array($plugins)) {
+            $plugins = [];
         }
 
         $updateSteps = [];
@@ -318,19 +318,19 @@ class Updates extends Controller
             ];
         }
 
-        foreach ($plugins as $name => $hash) {
+        foreach ($themes as $name => $hash) {
             $updateSteps[] = [
-                'code'  => 'downloadPlugin',
-                'label' => Lang::get('system::lang.updates.plugin_downloading', compact('name')),
+                'code'  => 'downloadTheme',
+                'label' => Lang::get('system::lang.updates.theme_downloading', compact('name')),
                 'name'  => $name,
                 'hash'  => $hash
             ];
         }
 
-        foreach ($themes as $name => $hash) {
+        foreach ($plugins as $name => $hash) {
             $updateSteps[] = [
-                'code'  => 'downloadTheme',
-                'label' => Lang::get('system::lang.updates.theme_downloading', compact('name')),
+                'code'  => 'downloadPlugin',
+                'label' => Lang::get('system::lang.updates.plugin_downloading', compact('name')),
                 'name'  => $name,
                 'hash'  => $hash
             ];
@@ -348,19 +348,19 @@ class Updates extends Controller
             ];
         }
 
-        foreach ($plugins as $name => $hash) {
+        foreach ($themes as $name => $hash) {
             $updateSteps[] = [
-                'code' => 'extractPlugin',
-                'label' => Lang::get('system::lang.updates.plugin_extracting', compact('name')),
+                'code' => 'extractTheme',
+                'label' => Lang::get('system::lang.updates.theme_extracting', compact('name')),
                 'name' => $name,
                 'hash' => $hash
             ];
         }
 
-        foreach ($themes as $name => $hash) {
+        foreach ($plugins as $name => $hash) {
             $updateSteps[] = [
-                'code' => 'extractTheme',
-                'label' => Lang::get('system::lang.updates.theme_extracting', compact('name')),
+                'code' => 'extractPlugin',
+                'label' => Lang::get('system::lang.updates.plugin_extracting', compact('name')),
                 'name' => $name,
                 'hash' => $hash
             ];
@@ -599,6 +599,15 @@ class Updates extends Controller
             $hash = $result['hash'];
             $themes = [$name => $hash];
             $plugins = [];
+
+            foreach ((array) array_get($result, 'require') as $plugin) {
+                if (
+                    ($name = array_get($plugin, 'code')) &&
+                    ($hash = array_get($plugin, 'hash'))
+                ) {
+                    $plugins[$name] = $hash;
+                }
+            }
 
             /*
              * Update steps

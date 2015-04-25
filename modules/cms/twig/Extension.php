@@ -118,11 +118,13 @@ class Extension extends Twig_Extension
 
     /**
      * Renders a content file.
+     * @param string $name Specifies the content block name.
+     * @param array $parameters A optional list of parameters to pass to the content.
      * @return string Returns the file contents.
      */
-    public function contentFunction($name)
+    public function contentFunction($name, $parameters = [])
     {
-        return $this->controller->renderContent($name);
+        return $this->controller->renderContent($name, $parameters);
     }
 
     /**

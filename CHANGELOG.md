@@ -1,3 +1,7 @@
+* **Build 24x** (2015-04-xx)
+  - Protected files can now be downloaded by administrators using the `fileupload` form widget.
+  - The `{% content %}` tag now supports passing parameters, parsed by a basic template engine (see Cms > Content block docs).
+
 * **Build 247** (2015-04-23)
   - Added Media Manager feature.
 
