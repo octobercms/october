@@ -94,7 +94,7 @@ class FileUpload extends FormWidgetBase
     /**
      * Prepares the view data
      */
-    public function prepareVars()
+    protected function prepareVars()
     {
         $this->vars['fileList'] = $this->getFileList();
         $this->vars['singleFile'] = array_get($this->vars['fileList'], 0, null);
@@ -107,14 +107,19 @@ class FileUpload extends FormWidgetBase
 
     protected function getFileList()
     {
-        $list = $this->getRelationObject()->withDeferred($this->sessionKey)->orderBy('sort_order')->get();
+        $list = $this
+            ->getRelationObject()
+            ->withDeferred($this->sessionKey)
+            ->orderBy('sort_order')
+            ->get()
+        ;
 
         /*
-         * Set the thumb for each file
+         * Decorate each file with thumb and custom download path
          */
-        foreach ($list as $file) {
-            $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
-        }
+        $list->each(function($file){
+            $this->decorateFileAttributes($file);
+        });
 
         return $list;
     }
@@ -325,8 +330,7 @@ class FileUpload extends FormWidgetBase
 
             $fileRelation->add($file, $this->sessionKey);
 
-            $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
-            $result = $file;
+            $result = $this->decorateFileAttributes($file);
 
         }
         catch (Exception $ex) {
@@ -335,5 +339,21 @@ class FileUpload extends FormWidgetBase
 
         header('Content-Type: application/json');
         die($result);
+    }
+
+    /**
+     * Adds the bespoke thumb and path property used by this widget.
+     * @return System\Models\File
+     */
+    protected function decorateFileAttributes($file)
+    {
+        $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
+
+        // Internal download link
+        if (!$file->isImage() || !$file->isPublic()) {
+            $file->path = \Backend\Controllers\Files::getDownloadUrl($file);
+        }
+
+        return $file;
     }
 }

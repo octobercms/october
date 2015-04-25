@@ -1,3 +1,6 @@
+* **Build 24x** (2015-04-xx)
+  - Protected files can now be downloaded by administrators using the `fileupload` form widget.
+
 * **Build 247** (2015-04-23)
   - Added Media Manager feature.
 
