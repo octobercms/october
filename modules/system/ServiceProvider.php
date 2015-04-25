@@ -310,7 +310,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsoleCommand('october.update', 'System\Console\OctoberUpdate');
         $this->registerConsoleCommand('october.util', 'System\Console\OctoberUtil');
         $this->registerConsoleCommand('october.mirror', 'System\Console\OctoberMirror');
-        $this->registerConsoleCommand('october.mirror', 'System\Console\OctoberFresh');
+        $this->registerConsoleCommand('october.fresh', 'System\Console\OctoberFresh');
 
         $this->registerConsoleCommand('plugin.install', 'System\Console\PluginInstall');
         $this->registerConsoleCommand('plugin.remove', 'System\Console\PluginRemove');
