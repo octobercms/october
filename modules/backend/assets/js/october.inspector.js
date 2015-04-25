@@ -146,7 +146,7 @@
                         data-dismiss="popover"                                                                        \
                         aria-hidden="true">&times;</button>                                                           \
                 </div>                                                                                                \
-                <form autocomplete="off">                                                                             \
+                <form autocomplete="off" onsubmit="return false">                                                     \
                     <table class="inspector-fields {{#tableClass}}{{/tableClass}}">                                   \
                         {{#properties}}                                                                               \
                             <tr id="{{#propFormat}}{{property}}{{/propFormat}}" data-property="{{property}}"          \
@@ -736,7 +736,7 @@
         }
 
         var eH = $.Event('hiding.oc.inspector'),
-            ispector = this
+            inspector = this
 
         this.$el.trigger(eH, [{values: this.propertyValues}])
         if (eH.isDefaultPrevented()) {
@@ -745,7 +745,7 @@
         }
 
         $.each(this.editors, function() {
-            if (ispector.editorExternalPropertyEnabled(this))
+            if (inspector.editorExternalPropertyEnabled(this))
                 return true
 
             if (this.validate === undefined)

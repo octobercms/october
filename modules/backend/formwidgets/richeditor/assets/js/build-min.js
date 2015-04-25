@@ -1816,27 +1816,103 @@ this.code.sync();},addColumn:function(type)
 {var $current=$(elem).find('td, th').eq(index);var td=$current.clone();td.html(this.opts.invisibleSpace);if(type=='after')
 {$current.after(td);}
 else
-{$current.before(td);}},this));this.code.sync();}};};})(jQuery);+function($){"use strict";var RichEditor=function(element,options){this.options=options
+{$current.before(td);}},this));this.code.sync();}};};})(jQuery);(function($){'use strict';window.RedactorPlugins=window.RedactorPlugins||{}
+var Figure=function(redactor){this.redactor=redactor
+this.toolbar={}
+this.init()}
+Figure.prototype={control:{up:{classSuffix:'arrow-up'},down:{classSuffix:'arrow-down'},'|':{classSuffix:'divider'},remove:{classSuffix:'delete'}},controlGroup:['up','down','remove'],init:function(){this.observeCaptions()
+this.observeToolbars()
+this.observeKeyboard()},observeCaptions:function(){this.redactor.$editor.on('click','figcaption:empty, cite:empty',$.proxy(function(event){$(event.target).prepend('<br />')
+this.redactor.caret.setEnd(event.target)
+event.stopPropagation()},this))
+$(window).on('click',$.proxy(this.cleanCaptions,this))
+this.redactor.$editor.on('blur',$.proxy(this.cleanCaptions,this))
+this.redactor.$editor.closest('form').one('submit',$.proxy(this.clearCaptions,this))
+this.redactor.$editor.on('keydown',$.proxy(function(event){var current=this.redactor.selection.getCurrent(),isEmpty=!current.length,isCaptionNode=!!$(current).closest('figcaption, cite').length,isDeleteKey=$.inArray(event.keyCode,[this.redactor.keyCode.BACKSPACE,this.redactor.keyCode.DELETE])>=0
+if(isEmpty&&isDeleteKey&&isCaptionNode){event.preventDefault()}},this))},cleanCaptions:function(){this.redactor.$editor.find('figcaption, cite').filter(function(){return $(this).text()==''}).empty()},clearCaptions:function(){this.redactor.$editor.find('figcaption, cite').filter(function(){return $(this).text()==''}).remove()
+if(this.redactor.opts.visual){this.redactor.code.sync()}},showToolbar:function(event){var $figure=$(event.currentTarget),type=$figure.data('type')||'default',$toolbar=this.getToolbar(type).data('figure',$figure).prependTo($figure).show()
+if(this.redactor[type]&&this.redactor[type].onShow){this.redactor[type].onShow($figure,$toolbar)}},hideToolbar:function(event){$(event.currentTarget).find('.oc-figure-controls').appendTo(this.redactor.$box).hide()},observeToolbars:function(){this.redactor.$editor.on('mousedown','.oc-figure-controls',$.proxy(function(event){event.preventDefault()
+this.current=this.redactor.selection.getCurrent()},this))
+this.redactor.$editor.on('click','.oc-figure-controls span, .oc-figure-controls a',$.proxy(function(event){event.stopPropagation()
+var $target=$(event.currentTarget),command=$target.data('command'),$figure=$target.closest('figure'),plugin=this.redactor[$figure.data('type')]
+this.command(command,$figure,plugin)},this))
+this.redactor.$editor.on('keydown',function(){$(this).find('figure').triggerHandler('mouseleave')})
+if(this.redactor.utils.isMobile()){this.redactor.$editor.on('touchstart','figure',function(event){if(event.target.nodeName!=='FIGCAPTION'&&$(event.target).parents('.oc-figure-controls').length){$(this).trigger('click',event)}})
+this.redactor.$editor.on('click','figure',$.proxy(function(event){if(event.target.nodeName!=='FIGCAPTION'){this.redactor.$editor.trigger('blur')}
+this.showToolbar(event)},this))}
+else{this.redactor.$editor.on('mouseenter','figure',$.proxy(this.showToolbar,this))
+this.redactor.$editor.on('mouseleave','figure',$.proxy(this.hideToolbar,this))}},getToolbar:function(type){if(this.toolbar[type])
+return this.toolbar[type]
+var controlGroup=(this.redactor[type]&&this.redactor[type].controlGroup)||this.controlGroup,controls=$.extend({},this.control,(this.redactor[type]&&this.redactor[type].control)||{}),$controls=this.buildControls(controlGroup,controls),$toolbar=$('<div class="oc-figure-controls">').append($controls)
+this.toolbar[type]=$toolbar
+return $toolbar},buildControls:function(controlGroup,controls){var $controls=$()
+$.each(controlGroup,$.proxy(function(index,command){var control
+if(typeof command==='string'){control=controls[command]
+$controls=$controls.add($('<span>',{'class':'oc-figure-controls-'+control.classSuffix,'text':control.text}).data({command:command,control:control}))}
+else if(typeof command==='object'){$.each(command,$.proxy(function(text,commands){var $button=$('<span>').text(' '+text).addClass('oc-figure-controls-table dropdown'),$dropdown=$('<ul class="dropdown-menu open oc-dropdown-menu" />'),container=$('<li class="dropdown-container" />'),list=$('<ul />'),listItem
+$dropdown.append(container.append(list))
+$button.append($dropdown)
+$button.on('mouseover',function(){$dropdown.show()})
+$button.on('mouseout',function(){$dropdown.hide()})
+$.each(commands,$.proxy(function(index,command){control=controls[command]
+if(command==='|'){$('<li class="divider" />').appendTo(list)}
+else{listItem=$('<li />')
+$('<a />',{text:control.text}).data({command:command,control:control}).appendTo(listItem)
+if(index==0)listItem.addClass('first-item')
+listItem.appendTo(list)}},this))
+$controls=$controls.add($button)},this))}},this))
+return $controls},command:function(command,$figure,plugin){$figure.find('.oc-figure-controls').appendTo(this.redactor.$box)
+this.redactor.buffer.set(this.redactor.$editor.html())
+switch(command){case'up':$figure.prev().before($figure)
+break
+case'down':$figure.next().after($figure)
+break
+case'remove':$figure.remove()
+break
+default:if(plugin&&plugin.command){plugin.command(command,$figure,$(this.current))}
+break}
+this.redactor.code.sync()},observeKeyboard:function(){var redactor=this.redactor
+redactor.$editor.on('keydown',function(event){var currentNode=redactor.selection.getBlock()
+if(event.keyCode===8&&!redactor.caret.getOffset(currentNode)&&currentNode.previousSibling&&currentNode.previousSibling.nodeName==='FIGURE'){event.preventDefault()}})}}
+window.RedactorPlugins.figure=function(){return{init:function(){this.figure=new Figure(this)}}}}(jQuery));+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var RichEditor=function(element,options){this.options=options
 this.$el=$(element)
 this.$textarea=this.$el.find('>textarea:first')
 this.$form=this.$el.closest('form')
 this.$dataLocker=null
+this.$editor=null
+this.redactor=null
+Base.call(this)
 this.init();}
+RichEditor.prototype=Object.create(BaseProto)
+RichEditor.prototype.constructor=RichEditor
 RichEditor.DEFAULTS={stylesheet:null,fullpage:false}
-RichEditor.prototype.init=function(){var self=this;if(this.options.dataLocker){this.$dataLocker=$(this.options.dataLocker)
+RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
+if(this.options.dataLocker){this.$dataLocker=$(this.options.dataLocker)
 this.$textarea.val(this.$dataLocker.val())}
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
-var redactorOptions={imageEditable:true,imageResizable:true,buttonSource:true,removeDataAttr:false,syncBeforeCallback:function(html){return self.syncBefore(html)},focusCallback:function(){self.$el.addClass('editor-focus')},blurCallback:function(){self.$el.removeClass('editor-focus')},keydownCallback:function(e){return self.keydown(e,this.$editor)},enterCallback:function(e){return self.enter(e,this.$editor)},initCallback:function(){self.build(this)},changeCallback:function(){self.sanityCheckContent(this.$editor)
-this.$editor.trigger('mutate')
-self.$form.trigger('change')
-if(self.$dataLocker)
-self.$dataLocker.val(self.syncBefore(this.$editor.html()))}}
+var redactorOptions={imageEditable:true,imageResizable:true,buttonSource:true,removeDataAttr:false,syncBeforeCallback:this.proxy(this.onSyncBefore),focusCallback:this.proxy(this.onFocus),blurCallback:this.proxy(this.onBlur),keydownCallback:this.proxy(this.onKeydown),enterCallback:this.proxy(this.onEnter),changeCallback:this.proxy(this.onChange),initCallback:function(){self.build(this)}}
 if(this.options.fullpage){redactorOptions.fullpage=true}
-redactorOptions.plugins=['fullscreen','table','mediamanager']
-redactorOptions.buttons=['formatting','bold','italic','unorderedlist','orderedlist','link','horizontalrule','html'],this.$textarea.redactor(redactorOptions)}
+redactorOptions.plugins=['fullscreen','figure','table','mediamanager']
+redactorOptions.buttons=['formatting','bold','italic','unorderedlist','orderedlist','link','horizontalrule','html'],this.$textarea.redactor(redactorOptions)
+this.redactor=this.$textarea.redactor('core.getObject')
+this.$editor=this.redactor.$editor}
+RichEditor.prototype.dispose=function(){this.unregisterHandlers()
+this.$textarea.redactor('core.destroy');this.$el.removeData('oc.richEditor')
+this.options=null
+this.$el=null
+this.$textarea=null
+this.$form=null
+this.$dataLocker=null
+this.$editor=null
+this.redactor=null
+BaseProto.dispose.call(this)}
+RichEditor.prototype.unregisterHandlers=function(){$(window).off('resize',this.proxy(this.updateLayout))
+$(window).off('oc.updateUi',this.proxy(this.updateLayout))
+this.$el.off('dispose-control',this.proxy(this.dispose))}
 RichEditor.prototype.build=function(redactor){this.updateLayout()
-$(window).resize($.proxy(this.updateLayout,this))
-$(window).on('oc.updateUi',$.proxy(this.updateLayout,this))
+$(window).on('resize',this.proxy(this.updateLayout))
+$(window).on('oc.updateUi',this.proxy(this.updateLayout))
 this.$textarea.trigger('init.oc.richeditor',[this.$el])
 this.initUiBlocks()
 var self=this
@@ -1847,9 +1923,9 @@ return
 if(this.$el.hasClass('stretch')){var height=$toolbar.outerHeight(true)
 $editor.css('top',height+1)
 $codeEditor.css('top',height)}}
-RichEditor.prototype.sanityCheckContent=function($editor){var safeElements='p, h1, h2, h3, h4, h5, pre, figure';if(!$editor.children(':last-child').is(safeElements)){$editor.append('<p><br></p>')}
-if(!$editor.children(':first-child').is(safeElements)){$editor.prepend('<p><br></p>')}
-this.$textarea.trigger('sanitize.oc.richeditor',[$editor])}
+RichEditor.prototype.sanityCheckContent=function(){var safeElements='p, h1, h2, h3, h4, h5, pre, figure';if(!this.$editor.children(':last-child').is(safeElements)){this.$editor.append('<p><br></p>')}
+if(!this.$editor.children(':first-child').is(safeElements)){this.$editor.prepend('<p><br></p>')}
+this.$textarea.trigger('sanitize.oc.richeditor',[this.$editor])}
 RichEditor.prototype.syncBefore=function(html){var container={html:html}
 this.$textarea.trigger('syncBefore.oc.richeditor',[container])
 var $domTree=$('<div>'+container.html+'</div>')
@@ -1861,73 +1937,79 @@ $(this).remove()})
 $domTree.find('[data-video], [data-audio]').each(function(){$(this).removeAttr('contenteditable data-ui-block tabindex')})
 $domTree.find('div.oc-figure-controls').remove()
 return $domTree.html()}
-RichEditor.prototype.keydown=function(e,$editor){this.$textarea.trigger('keydown.oc.richeditor',[e,$editor,this.$textarea])
-if(e.isDefaultPrevented())
-return false
-this.handleUiBlocksKeydown(e,$editor,this.$textarea)
-if(e.isDefaultPrevented())
-return false}
-RichEditor.prototype.enter=function(e,$editor){this.$textarea.trigger('enter.oc.richeditor',[e,$editor,this.$textarea])
-if(e.isDefaultPrevented())
-return false
-this.handleUiBlocksKeydown(e,$editor,this.$textarea)
-if(e.isDefaultPrevented())
-return false}
 RichEditor.prototype.onShowFigureToolbar=function($figure,$toolbar){var toolbarTop=$figure.position().top-$toolbar.height()-10
 $toolbar.toggleClass('bottom',toolbarTop<0)}
-RichEditor.prototype.insertUiBlock=function($node){var redactor=this.$textarea.redactor('core.getObject'),current=redactor.selection.getCurrent(),inserted=false
+RichEditor.prototype.insertUiBlock=function($node){var current=this.redactor.selection.getCurrent(),inserted=false
 if(current===false)
-redactor.focus.setStart()
-current=redactor.selection.getCurrent()
+this.redactor.focus.setStart()
+current=this.redactor.selection.getCurrent()
 if(current!==false){var $paragraph=$(current).closest('p')
-if($paragraph.length>0){redactor.caret.setAfter($paragraph.get(0))
+if($paragraph.length>0){this.redactor.caret.setAfter($paragraph.get(0))
 if($.trim($paragraph.text()).length==0)
 $paragraph.remove()}else{var $closestBlock=$(current).closest('[data-ui-block]')
 if($closestBlock.length>0){$node.insertBefore($closestBlock.get(0))
 inserted=true}}}
 if(!inserted)
-redactor.insert.node($node)
-redactor.code.sync()
+this.redactor.insert.node($node)
+this.redactor.code.sync()
 $node.focus()}
 RichEditor.prototype.initUiBlocks=function(){$('.redactor-editor [data-video], .redactor-editor [data-audio]',this.$el).each(function(){$(this).attr({'data-ui-block':true,'tabindex':'0'})
 this.contentEditable=false})}
-RichEditor.prototype.handleUiBlocksKeydown=function(originalEv,$editor,$textarea){if($textarea===undefined)
+RichEditor.prototype.handleUiBlocksKeydown=function(ev){if(this.$textarea===undefined)
 return
-var redactor=$textarea.redactor('core.getObject')
-if(originalEv.target&&$(originalEv.target).attr('data-ui-block')!==undefined){this.uiBlockKeyDown(originalEv,originalEv.target)
-originalEv.preventDefault()
+if(ev.target&&$(ev.target).attr('data-ui-block')!==undefined){this.uiBlockKeyDown(ev,ev.target)
+ev.preventDefault()
 return}
-switch(originalEv.which){case 38:var block=redactor.selection.getBlock()
+switch(ev.which){case 38:var block=this.redactor.selection.getBlock()
 if(block)
-this.handleUiBlockCaretIn($(block).prev(),redactor)
+this.handleUiBlockCaretIn($(block).prev())
 break
-case 40:var block=redactor.selection.getBlock()
+case 40:var block=this.redactor.selection.getBlock()
 if(block)
-this.handleUiBlockCaretIn($(block).next(),redactor)
+this.handleUiBlockCaretIn($(block).next())
 break}}
-RichEditor.prototype.handleUiBlockCaretIn=function($block,redactor){if($block.attr('data-ui-block')!==undefined){$block.focus()
-redactor.selection.remove()
+RichEditor.prototype.handleUiBlockCaretIn=function($block){if($block.attr('data-ui-block')!==undefined){$block.focus()
+this.redactor.selection.remove()
 return true}
 return false}
-RichEditor.prototype.uiBlockKeyDown=function(ev,block){if(ev.which==40||ev.which==38||ev.which==13||ev.which==8){var $textarea=$(block).closest('.redactor-box').find('textarea'),redactor=$textarea.redactor('core.getObject')
-switch(ev.which){case 40:this.focusUiBlockOrText(redactor,$(block).next(),true)
+RichEditor.prototype.uiBlockKeyDown=function(ev,block){if(ev.which==40||ev.which==38||ev.which==13||ev.which==8){switch(ev.which){case 40:this.focusUiBlockOrText($(block).next(),true)
 break
-case 38:this.focusUiBlockOrText(redactor,$(block).prev(),false)
+case 38:this.focusUiBlockOrText($(block).prev(),false)
 break
 case 13:var $paragraph=$('<p><br/></p>')
 $paragraph.insertAfter(block)
-redactor.caret.setStart($paragraph.get(0))
+this.redactor.caret.setStart($paragraph.get(0))
 break
 case 8:var $nextFocus=$(block).next(),gotoStart=true
 if($nextFocus.length==0){$nextFocus=$(block).prev()
 gotoStart=false}
-this.focusUiBlockOrText(redactor,$nextFocus,gotoStart)
+this.focusUiBlockOrText($nextFocus,gotoStart)
 $(block).remove()
 break}}}
-RichEditor.prototype.focusUiBlockOrText=function(redactor,$block,gotoStart){if($block.length>0){if(!this.handleUiBlockCaretIn($block,redactor)){if(gotoStart)
-redactor.caret.setStart($block.get(0))
+RichEditor.prototype.focusUiBlockOrText=function($block,gotoStart){if($block.length>0){if(!this.handleUiBlockCaretIn($block,this.redactor)){if(gotoStart)
+this.redactor.caret.setStart($block.get(0))
 else
-redactor.caret.setEnd($block.get(0))}}}
+this.redactor.caret.setEnd($block.get(0))}}}
+RichEditor.prototype.onSyncBefore=function(html){return this.syncBefore(html)}
+RichEditor.prototype.onFocus=function(){this.$el.addClass('editor-focus')}
+RichEditor.prototype.onBlur=function(){this.$el.removeClass('editor-focus')}
+RichEditor.prototype.onKeydown=function(ev){this.$textarea.trigger('keydown.oc.richeditor',[ev,this.$editor,this.$textarea])
+if(ev.isDefaultPrevented())
+return false
+this.handleUiBlocksKeydown(ev)
+if(ev.isDefaultPrevented())
+return false}
+RichEditor.prototype.onEnter=function(ev){this.$textarea.trigger('enter.oc.richeditor',[ev,this.$editor,this.$textarea])
+if(ev.isDefaultPrevented())
+return false
+this.handleUiBlocksKeydown(ev)
+if(ev.isDefaultPrevented())
+return false}
+RichEditor.prototype.onChange=function(ev){this.sanityCheckContent()
+this.$editor.trigger('mutate')
+this.$form.trigger('change')
+if(this.$dataLocker)
+this.$dataLocker.val(this.syncBefore(this.$editor.html()))}
 var old=$.fn.richEditor
 $.fn.richEditor=function(option){var args=arguments;return this.each(function(){var $this=$(this)
 var data=$this.data('oc.richEditor')
