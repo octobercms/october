@@ -11,6 +11,7 @@
 =require plugin.cleanup.js
 =require plugin.fullscreen.js
 =require plugin.table.js
+=require plugin.figure.js
 =require richeditor.js
 
 */

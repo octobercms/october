@@ -82,7 +82,7 @@
             redactorOptions.fullpage = true
         }
 
-        redactorOptions.plugins = ['fullscreen', 'table', 'mediamanager']
+        redactorOptions.plugins = ['fullscreen', 'figure', 'table', 'mediamanager']
         redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule', 'html'],
 
         this.$textarea.redactor(redactorOptions)
