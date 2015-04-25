@@ -75,7 +75,7 @@ class ThemeInstall extends Command
                 $dirName = $argDirName;
             }
 
-            $this->info(sprintf('The theme %s has been installed. (now %s)', $dirName));
+            $this->info(sprintf('The theme %s has been installed. (now %s)', $themeDetails['code'], $dirName));
         }
         catch (\October\Rain\Exception\ApplicationException $e) {
             $this->error($e->getMessage());
