@@ -99,4 +99,4 @@ return [
 
     'attributes' => [],
 
-);
+];
