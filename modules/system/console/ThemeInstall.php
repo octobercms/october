@@ -4,6 +4,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use System\Classes\UpdateManager;
 use Cms\Classes\ThemeManager;
+use Cms\Classes\Theme;
 use File;
 
 class ThemeInstall extends Command
@@ -35,21 +36,35 @@ class ThemeInstall extends Command
      */
     public function fire()
     {
+        $themeName = $this->argument('name');
         $argDirName = $this->argument('dirName');
 
-        if ($argDirName && !preg_match('/^[a-z0-9\_\-]+$/i', $argDirName)) {
-            return $this->error('Invalid destination directory name.');
+        if ($argDirName && $themeName == $argDirName) {
+            $argDirName = null;
         }
 
-        $themeName = $this->argument('name');
-        $updateManager = UpdateManager::instance();
+        if ($argDirName) {
+            if (!preg_match('/^[a-z0-9\_\-]+$/i', $argDirName)) {
+                return $this->error('Invalid destination directory name.');
+            }
+
+            if (Theme::exists($argDirName)) {
+                return $this->error('A theme named '.$argDirName.' already exists.');
+            }
+        }
 
         try {
+            $themeManager = ThemeManager::instance();
+            $updateManager = UpdateManager::instance();
+
             $themeDetails = $updateManager->requestThemeDetails($themeName);
 
-            if (ThemeManager::instance()->isInstalled($themeDetails['code'])) {
-                $this->error(sprintf('The theme %s is already installed.', $themeDetails['code']));
-                return;
+            if ($themeManager->isInstalled($themeDetails['code'])) {
+                return $this->error(sprintf('The theme %s is already installed.', $themeDetails['code']));
+            }
+
+            if (Theme::exists($themeDetails['code'])) {
+                return $this->error('A theme named '.$themeDetails['code'].' already exists.');
             }
 
             $this->info(sprintf(
@@ -70,8 +85,20 @@ class ThemeInstall extends Command
             $updateManager->extractTheme($themeDetails['code'], $themeDetails['hash']);
 
             $dirName = $this->themeCodeToDir($themeDetails['code']);
+
             if ($argDirName) {
+                /*
+                 * Move downloaded theme to a new directory.
+                 * Basically we're renaming it.
+                 */
                 File::move(themes_path().'/'.$dirName, themes_path().'/'.$argDirName);
+
+                /*
+                 * Let's make sure to unflag the 'old' theme as
+                 * installed so it can be re-installed later.
+                 */
+                $themeManager->setUninstalled($themeDetails['code']);
+
                 $dirName = $argDirName;
             }
 

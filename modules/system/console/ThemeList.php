@@ -68,7 +68,7 @@ class ThemeList extends Command
     protected function getOptions()
     {
         return [
-            ['include-marketplace', 'm', InputOption::VALUE_NONE, 'Whether or not to include downloadable themes from the October marketplace.']
+            ['include-marketplace', 'm', InputOption::VALUE_NONE, 'Include downloadable themes from the October marketplace.']
         ];
     }
 }
