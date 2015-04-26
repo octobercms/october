@@ -53,6 +53,12 @@ return [
             'my_settings' => 'Mine innstillinger'
         ]
     ],
+    'theme' => [
+        'name' => [
+            'label' => 'Tema-navn',
+            'help' => 'Navngi temaet ved et unikt navn. For eksempel, RainLab.Vanilla'
+        ]
+    ],
     'plugin' => [
         'unnamed' => 'Navnløs plugin',
         'name' => [
@@ -157,7 +163,9 @@ return [
     'install' => [
         'project_label' => 'Tilkoble prosjekt',
         'plugin_label' => 'Installér',
+        'theme_label' => 'Installér tema',
         'missing_plugin_name' => 'Vennligst oppgi pluginens navn.',
+        'missing_theme_name' => 'Oppgi tema-navn for å installere.',
         'install_completing' => 'Fullfører installasjonen',
         'install_success' => 'Plugin har blitt installert.'
     ],
@@ -165,7 +173,7 @@ return [
         'title' => 'Håndtere oppdateringer',
         'name' => 'Programvareoppdateringer',
         'menu_label' => 'Oppdateringer',
-        'menu_description' => 'Oppdatere systemet, håndtere og installere plugins og themes.',
+        'menu_description' => 'Oppdatere systemet, håndtere og installere plugins og temaer.',
         'check_label' => 'Se etter oppdateringer',
         'retry_label' => 'Prøv igjen',
         'plugin_name' => 'Navn',
@@ -185,10 +193,10 @@ return [
         'plugin_version_none' => 'Ny plugin',
         'plugin_version_old' => 'Nåværende v:version',
         'plugin_version_new' => 'v:version',
-        'theme_label' => 'Theme',
-        'theme_new_install' => 'New theme installation.', # ---
-        'theme_downloading' => 'Laster ned theme: :name',
-        'theme_extracting' => 'Pakker opp theme: :name',
+        'theme_label' => 'Tema',
+        'theme_new_install' => 'Ny tema-installasjon.',
+        'theme_downloading' => 'Laster ned tema: :name',
+        'theme_extracting' => 'Pakker opp tema: :name',
         'update_label' => 'Oppdatér programvare',
         'update_completing' => 'Ferdiggjør oppdatering',
         'update_loading' => 'Henter tilgjengelige oppdateringer...',
@@ -255,9 +263,11 @@ return [
         'name' => 'System',
         'manage_system_settings' => 'Håndtere systeminnstillinger',
         'manage_software_updates' => 'Håndtere programvareoppdateringer',
+        'access_logs' => 'Se systemlogger',
         'manage_mail_templates' => 'Håndtere e-postmaler',
         'manage_mail_settings' => 'Håndtere e-postinnstillinger',
         'manage_other_administrators' => 'Håndtere andre administratorer',
-        'view_the_dashboard' => 'Se dashboard'
+        'view_the_dashboard' => 'Se dashboard',
+        'manage_branding' => 'Tilpasse backend'
     ]
 ];
