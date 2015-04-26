@@ -14,12 +14,20 @@
  */
 +function ($) { "use strict";
 
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
+
     var Toolbar = function (element, options) {
         var
             $el = this.$el = $(element),
             $toolbar = $el.closest('.control-toolbar')
 
+        $.oc.foundation.controlUtils.markDisposable(element)
+        this.$toolbar = $toolbar
+
         this.options = options || {};
+
+        Base.call(this)
 
         var scrollClassContainer = options.scrollClassContainer !== undefined ?
             options.scrollClassContainer :
@@ -29,23 +37,32 @@
             scrollClassContainer: scrollClassContainer
         })
 
-        $('.form-control.growable', $toolbar).on('focus', function(){
+        $('.form-control.growable', $toolbar).on('focus.toolbar', function(){
             update()
         })
 
-        $('.form-control.growable', $toolbar).on('blur', function(){
+        $('.form-control.growable', $toolbar).on('blur.toolbar', function(){
             update()
         })
+
+        this.$el.one('dispose-control', this.proxy(this.dispose))
 
         function update() {
             $(window).trigger('resize')
         }
     }
 
+    Toolbar.prototype = Object.create(BaseProto)
+    Toolbar.prototype.constructor = Toolbar
+
     Toolbar.prototype.dispose = function() {
+        this.$el.off('dispose-control', this.proxy(this.dispose))
+        $('.form-control.growable', this.$toolbar).off('.toolbar')
         this.$el.dragScroll('dispose')
         this.$el.removeData('oc.toolbar')
         this.$el = null
+
+        BaseProto.dispose.call(this)
     }
 
     Toolbar.DEFAULTS = {}

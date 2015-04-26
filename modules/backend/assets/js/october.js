@@ -12,6 +12,7 @@
 =require october.foundation.baseclass.js
 =require october.foundation.element.js
 =require october.foundation.event.js
+=require october.foundation.controlutils.js
 =require october.scrollpad.js
 =require october.triggerapi.js
 =require october.dragscroll.js

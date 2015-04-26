@@ -147,7 +147,7 @@
         if ($.fn.table !== undefined)
             $('[data-control=table]', ev.relatedTarget).table('dispose')
 
-        $('[data-control=codeeditor]', ev.relatedTarget).codeEditor('dispose')
+        $.oc.foundation.controlUtils.disposeControls(ev.relatedTarget.get(0))
     }
 
     CmsPage.prototype.onBeforeRequest = function(ev) {

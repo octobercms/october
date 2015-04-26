@@ -27,6 +27,8 @@
         this.$editor     = null
         this.redactor    = null
 
+        $.oc.foundation.controlUtils.markDisposable(element)
+
         Base.call(this)
 
         this.init();

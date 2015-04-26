@@ -1882,6 +1882,7 @@ this.$form=this.$el.closest('form')
 this.$dataLocker=null
 this.$editor=null
 this.redactor=null
+$.oc.foundation.controlUtils.markDisposable(element)
 Base.call(this)
 this.init();}
 RichEditor.prototype=Object.create(BaseProto)

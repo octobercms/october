@@ -137,7 +137,13 @@ else
 ev.returnValue=false},pageCoordinates:function(ev){if(ev.pageX||ev.pageY){return{x:ev.pageX,y:ev.pageY}}
 else if(ev.clientX||ev.clientY){return{x:(ev.clientX+document.body.scrollLeft+document.documentElement.scrollLeft),y:(ev.clientY+document.body.scrollTop+document.documentElement.scrollTop)}}
 return{x:0,y:0}}}
-$.oc.foundation.event=Event;}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+$.oc.foundation.event=Event;}(window.jQuery);+function($){"use strict";if($.oc===undefined)
+$.oc={}
+if($.oc.foundation===undefined)
+$.oc.foundation={}
+var ControlUtils={markDisposable:function(el){el.setAttribute('data-disposable','')},disposeControls:function(container){var controls=container.querySelectorAll('[data-disposable]')
+for(var i=0,len=controls.length;i<len;i++){$(controls[i]).triggerHandler('dispose-control')}}}
+$.oc.foundation.controlUtils=ControlUtils;}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var Scrollpad=function(element,options){this.$el=$(element)
 this.scrollbarElement=null
 this.dragHandleElement=null
@@ -396,10 +402,10 @@ if(offset>0){this.el.animate({'scrollTop':$el.get(0).offsetTop+$el.height()-this
 animated=true}}}
 if(!animated&&callback!==undefined)
 callback()}
-DragScroll.prototype.dispose=function(){$(document).off('ready',this.proxy(this.fixScrollClasses))
+DragScroll.prototype.dispose=function(){this.scrollClassContainer=null
+$(document).off('ready',this.proxy(this.fixScrollClasses))
 $(window).off('resize',this.proxy(this.fixScrollClasses))
 this.el.off('.dragScroll')
-this.scrollClassContainer=null
 this.el.removeData('oc.dragScroll')
 this.el=null
 BaseProto.dispose.call(this)}
@@ -470,16 +476,26 @@ return result?result:this}
 $.fn.dragValue.Constructor=DragValue
 $.fn.dragValue.noConflict=function(){$.fn.dragValue=old
 return this}
-$(document).render(function(){$('[data-control="dragvalue"]').dragValue()});}(window.jQuery);+function($){"use strict";var Toolbar=function(element,options){var
+$(document).render(function(){$('[data-control="dragvalue"]').dragValue()});}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var Toolbar=function(element,options){var
 $el=this.$el=$(element),$toolbar=$el.closest('.control-toolbar')
-this.options=options||{};var scrollClassContainer=options.scrollClassContainer!==undefined?options.scrollClassContainer:$el.parent()
+$.oc.foundation.controlUtils.markDisposable(element)
+this.$toolbar=$toolbar
+this.options=options||{};Base.call(this)
+var scrollClassContainer=options.scrollClassContainer!==undefined?options.scrollClassContainer:$el.parent()
 $el.dragScroll({scrollClassContainer:scrollClassContainer})
-$('.form-control.growable',$toolbar).on('focus',function(){update()})
-$('.form-control.growable',$toolbar).on('blur',function(){update()})
+$('.form-control.growable',$toolbar).on('focus.toolbar',function(){update()})
+$('.form-control.growable',$toolbar).on('blur.toolbar',function(){update()})
+this.$el.one('dispose-control',this.proxy(this.dispose))
 function update(){$(window).trigger('resize')}}
-Toolbar.prototype.dispose=function(){this.$el.dragScroll('dispose')
+Toolbar.prototype=Object.create(BaseProto)
+Toolbar.prototype.constructor=Toolbar
+Toolbar.prototype.dispose=function(){this.$el.off('dispose-control',this.proxy(this.dispose))
+$('.form-control.growable',this.$toolbar).off('.toolbar')
+this.$el.dragScroll('dispose')
 this.$el.removeData('oc.toolbar')
-this.$el=null}
+this.$el=null
+BaseProto.dispose.call(this)}
 Toolbar.DEFAULTS={}
 var old=$.fn.toolbar
 $.fn.toolbar=function(option){var args=Array.prototype.slice.call(arguments,1)
@@ -1146,6 +1162,7 @@ this.$target=$(options.hotkeyTarget)
 this.options=options||{}
 this.keyConditions=[]
 this.keyMap=null
+$.oc.foundation.controlUtils.markDisposable(element)
 Base.call(this)
 this.init()}
 HotKey.prototype=Object.create(BaseProto)
@@ -2076,17 +2093,38 @@ $(document.body).prepend($('<div/>').addClass('dropdown-overlay'));})
 $(document).on('hidden.bs.dropdown','.dropdown',function(){var dropdown=$(this).data('oc.dropdown')
 if(dropdown!==undefined){dropdown.css('display','none')
 $(this).append(dropdown)}
-$(document.body).removeClass('dropdown-open');})}(window.jQuery);+function($){"use strict";var ChangeMonitor=function(element,options){var $el=this.$el=$(element);this.paused=false
+$(document.body).removeClass('dropdown-open');})}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var ChangeMonitor=function(element,options){var $el=this.$el=$(element);this.paused=false
 this.options=options||{}
+$.oc.foundation.controlUtils.markDisposable(element)
+Base.call(this)
 this.init()}
-ChangeMonitor.prototype.init=function(){this.$el.on('change',$.proxy(this.change,this))
-this.$el.on('unchange.oc.changeMonitor',$.proxy(this.unchange,this))
-this.$el.on('pause.oc.changeMonitor ',$.proxy(this.pause,this))
-this.$el.on('resume.oc.changeMonitor ',$.proxy(this.resume,this))
-this.$el.on('keyup input paste','input, textarea:not(.ace_text-input)',$.proxy(this.onInputChange,this))
+ChangeMonitor.prototype=Object.create(BaseProto)
+ChangeMonitor.prototype.constructor=ChangeMonitor
+ChangeMonitor.prototype.init=function(){this.$el.on('change',this.proxy(this.change))
+this.$el.on('unchange.oc.changeMonitor',this.proxy(this.unchange))
+this.$el.on('pause.oc.changeMonitor ',this.proxy(this.pause))
+this.$el.on('resume.oc.changeMonitor ',this.proxy(this.resume))
+this.$el.on('keyup input paste','input, textarea:not(.ace_text-input)',this.proxy(this.onInputChange))
 $('input:not([type=hidden]), textarea:not(.ace_text-input)',this.$el).each(function(){$(this).data('oldval.oc.changeMonitor',$(this).val());})
 if(this.options.windowCloseConfirm)
-$(window).on('beforeunload',$.proxy(this.onBeforeUnload,this))}
+$(window).on('beforeunload',this.proxy(this.onBeforeUnload))
+this.$el.one('dispose-control',this.proxy(this.dispose))}
+ChangeMonitor.prototype.dispose=function(){if(this.$el===null)
+return
+this.unregisterHandlers()
+this.$el.removeData('oc.changeMonitor')
+this.$el=null
+this.options=null
+BaseProto.dispose.call(this)}
+ChangeMonitor.prototype.unregisterHandlers=function(){this.$el.off('change',this.proxy(this.change))
+this.$el.off('unchange.oc.changeMonitor',this.proxy(this.unchange))
+this.$el.off('pause.oc.changeMonitor ',this.proxy(this.pause))
+this.$el.off('resume.oc.changeMonitor ',this.proxy(this.resume))
+this.$el.off('keyup input paste','input, textarea:not(.ace_text-input)',this.proxy(this.onInputChange))
+this.$el.off('dispose-control',this.proxy(this.dispose))
+if(this.options.windowCloseConfirm)
+$(window).off('beforeunload',this.proxy(this.onBeforeUnload))}
 ChangeMonitor.prototype.change=function(ev,inputChange){if(this.paused)
 return
 if(!inputChange){var type=$(ev.target).attr('type')

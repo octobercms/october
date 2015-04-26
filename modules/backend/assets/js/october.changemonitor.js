@@ -33,28 +33,65 @@
  */
 +function ($) { "use strict";
 
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
+
     var ChangeMonitor = function (element, options) {
         var $el = this.$el = $(element);
 
         this.paused = false
-            
         this.options = options || {}
+
+        $.oc.foundation.controlUtils.markDisposable(element)
+
+        Base.call(this)
+
         this.init()
     }
 
-    ChangeMonitor.prototype.init = function() {
-        this.$el.on('change', $.proxy(this.change, this))
-        this.$el.on('unchange.oc.changeMonitor', $.proxy(this.unchange, this))
-        this.$el.on('pause.oc.changeMonitor ', $.proxy(this.pause, this))
-        this.$el.on('resume.oc.changeMonitor ', $.proxy(this.resume, this))
+    ChangeMonitor.prototype = Object.create(BaseProto)
+    ChangeMonitor.prototype.constructor = ChangeMonitor
 
-        this.$el.on('keyup input paste', 'input, textarea:not(.ace_text-input)', $.proxy(this.onInputChange, this))
+    ChangeMonitor.prototype.init = function() {
+        this.$el.on('change', this.proxy(this.change))
+        this.$el.on('unchange.oc.changeMonitor', this.proxy(this.unchange))
+        this.$el.on('pause.oc.changeMonitor ', this.proxy(this.pause))
+        this.$el.on('resume.oc.changeMonitor ', this.proxy(this.resume))
+
+        this.$el.on('keyup input paste', 'input, textarea:not(.ace_text-input)', this.proxy(this.onInputChange))
         $('input:not([type=hidden]), textarea:not(.ace_text-input)', this.$el).each(function() {
             $(this).data('oldval.oc.changeMonitor', $(this).val());
         })
 
         if (this.options.windowCloseConfirm)
-            $(window).on('beforeunload', $.proxy(this.onBeforeUnload, this))
+            $(window).on('beforeunload', this.proxy(this.onBeforeUnload))
+
+        this.$el.one('dispose-control', this.proxy(this.dispose))
+    }
+
+    ChangeMonitor.prototype.dispose = function() {
+        if (this.$el === null)
+            return
+
+        this.unregisterHandlers()
+
+        this.$el.removeData('oc.changeMonitor')
+        this.$el = null
+        this.options = null
+
+        BaseProto.dispose.call(this)
+    }
+
+    ChangeMonitor.prototype.unregisterHandlers = function() {
+        this.$el.off('change', this.proxy(this.change))
+        this.$el.off('unchange.oc.changeMonitor', this.proxy(this.unchange))
+        this.$el.off('pause.oc.changeMonitor ', this.proxy(this.pause))
+        this.$el.off('resume.oc.changeMonitor ', this.proxy(this.resume))
+        this.$el.off('keyup input paste', 'input, textarea:not(.ace_text-input)', this.proxy(this.onInputChange))
+        this.$el.off('dispose-control', this.proxy(this.dispose))
+
+        if (this.options.windowCloseConfirm)
+            $(window).off('beforeunload', this.proxy(this.onBeforeUnload))
     }
 
     ChangeMonitor.prototype.change = function(ev, inputChange) {

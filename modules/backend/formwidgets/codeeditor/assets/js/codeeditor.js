@@ -38,6 +38,8 @@
         this.$fullscreenEnable = this.$toolbar.find('li.fullscreen-enable')
         this.$fullscreenDisable = this.$toolbar.find('li.fullscreen-disable')
 
+        $.oc.foundation.controlUtils.markDisposable(element)
+
         this.init();
     }
 
@@ -107,7 +109,7 @@
         $form.on('oc.beforeRequest', this.proxy(this.onBeforeRequest))
         $(window).on('resize', this.proxy(this.onResize))
         $(window).on('oc.updateUi', this.proxy(this.onResize))
-        this.$el.on('dispose-control', this.proxy(this.dispose))
+        this.$el.one('dispose-control', this.proxy(this.dispose))
 
         /*
          * Set language and theme
