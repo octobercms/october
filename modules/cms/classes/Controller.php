@@ -210,7 +210,6 @@ class Controller
         /*
          * Post-processing
          */
-
         $result = $this->postProcessResult($page, $url, $result);
 
         /*
@@ -234,7 +233,7 @@ class Controller
      * Renders a page in its entirety, including component initialization.
      * AJAX will be disabled for this process.
      * @param string $pageFile Specifies the CMS page file name to run.
-     * @param array  $parameters  Routing parameters. 
+     * @param array  $parameters  Routing parameters.
      * @param \Cms\Classes\Theme  $theme  Theme object
      */
     public static function render($pageFile, $parameters = [], $theme = null)
@@ -429,8 +428,8 @@ class Controller
          * Run page functions
          */
         CmsException::mask($this->page, 300);
-        $response = (($result = $this->pageObj->onStart()) || 
-            ($result = $this->page->runComponents()) || 
+        $response = (($result = $this->pageObj->onStart()) ||
+            ($result = $this->page->runComponents()) ||
             ($result = $this->pageObj->onEnd())) ? $result : null;
         CmsException::unmask();
 
@@ -471,7 +470,7 @@ class Controller
     {
         $html = MediaViewHelper::instance()->processHtml($html);
 
-        $holder = (object)['html'=>$html];
+        $holder = (object) ['html' => $html];
 
         Event::fire('cms.page.postprocess', [$this, $url, $page, $holder]);
 

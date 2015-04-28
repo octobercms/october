@@ -19,11 +19,14 @@ class MediaViewHelper
      */
     public function processHtml($html)
     {
+        if (!is_string($html)) {
+            return $html;
+        }
+
         $mediaTags = $this->extractMediaTags($html);
         foreach ($mediaTags as $tagInfo) {
             $pattern = preg_quote($tagInfo['declaration']);
             $generatedMarkup = $this->generateMediaTagaMarkup($tagInfo['type'], $tagInfo['src']);
-
             $html = mb_ereg_replace($pattern, $generatedMarkup, $html);
         }
 
@@ -42,7 +45,7 @@ class MediaViewHelper
 
         if (preg_match_all('/\<figure\s+[^\>]+\>[^\<]*\<\/figure\>/i', $html, $matches)) {
             foreach ($matches[0] as $mediaDeclaration) {
-                foreach ($tagDefinitions as $type=>$pattern) {
+                foreach ($tagDefinitions as $type => $pattern) {
                     $nameMatch = [];
                     if (preg_match($pattern, $mediaDeclaration, $nameMatch)) {
                         $result[] = [
@@ -62,20 +65,23 @@ class MediaViewHelper
     {
         $partialName = $type == 'audio' ? 'oc-audio-player' : 'oc-video-player';
 
-        if ($this->playerPartialExists($partialName))
-            return Controller::getController()->renderPartial($partialName, ['src'=>$src]);
+        if ($this->playerPartialExists($partialName)) {
+            return Controller::getController()->renderPartial($partialName, ['src' => $src]);
+        }
 
         return $this->getDefaultPlayerMarkup($type, $src);
     }
 
     protected function playerPartialExists($name)
     {
-        if (array_key_exists($name, $this->playerPartialFlags))
+        if (array_key_exists($name, $this->playerPartialFlags)) {
             return $this->playerPartialFlags[$name];
+        }
 
         $controller = Controller::getController();
-        if (!$controller)
+        if (!$controller) {
             throw new Phpr_ApplicationException('Media tags can only be processed for front-end requests.');
+        }
 
         $partial = Partial::loadCached($controller->getTheme(), $name);
 
@@ -85,10 +91,11 @@ class MediaViewHelper
     protected function getDefaultPlayerMarkup($type, $src)
     {
         switch ($type) {
-            case 'video' : 
+            case 'video':
                 return '<video src="'.e($src).'" controls></video>';
             break;
-            case 'audio' : 
+
+            case 'audio':
                 return '<audio src="'.e($src).'" controls></audio>';
             break;
         }
