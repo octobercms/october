@@ -351,7 +351,7 @@ class FileUpload extends FormWidgetBase
 
         // Internal download link
         if (!$file->isImage() || !$file->isPublic()) {
-            $file->path = \Backend\Controllers\Files::getDownloadUrl($file);
+            $file->pathOverride = \Backend\Controllers\Files::getDownloadUrl($file);
         }
 
         return $file;
