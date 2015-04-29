@@ -102,13 +102,8 @@ class Page extends CmsCompoundObject
      * @param array $params Route parameters to consider in the URL.
      * @return string
      */
-    public static function url($page, $params = [], $absolute = true)
+    public static function url($page, $params = [])
     {
-        /* @deprecated remove if year >= 2016 -- remove 3rd argument */
-        if ($absolute !== true) {
-            traceLog('Deprecated warning: Third argument of Page::url() has no affect, consider removing it.');
-        }
-
         /*
          * Reuse existing controller or create a new one,
          * assuming that the method is called not during the front-end

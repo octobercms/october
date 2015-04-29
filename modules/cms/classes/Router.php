@@ -96,6 +96,9 @@ class Router
 
             if ($cacheable) {
                 $fileName = $this->getCachedUrlFileName($url, $urlList);
+                if (is_array($fileName)) {
+                    list($fileName, $this->parameters) = $fileName;
+                }
             }
 
             /*
@@ -113,7 +116,9 @@ class Router
                             $urlList = [];
                         }
 
-                        $urlList[$url] = $fileName;
+                        $urlList[$url] = !empty($this->parameters)
+                            ? [$fileName, $this->parameters]
+                            : $fileName;
 
                         $key = $this->getUrlListCacheKey();
                         Cache::put($key, serialize($urlList), Config::get('cms.urlCacheTtl', 1));
