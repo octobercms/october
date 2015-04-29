@@ -1,3 +1,6 @@
+* **Build 252** (2015-04-29)
+  - Optimized many JavaScript libraries used in the back-end to reduce memory leaks.
+
 * **Build 250** (2015-04-28)
   - Protected files can now be downloaded by administrators using the `fileupload` form widget.
   - The `{% content %}` tag now supports passing parameters, parsed by a basic template engine (see Cms > Content block docs).
