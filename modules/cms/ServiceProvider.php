@@ -146,7 +146,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-picture-o',
                     'url'         => Backend::URL('cms/themes'),
                     'permissions' => ['system.manage_themes'],
-                    'order'       => 300
+                    'order'       => 200
                 ],
                 'maintenance_settings' => [
                     'label'       => 'cms::lang.maintenance.settings_menu',
@@ -155,7 +155,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-plug',
                     'class'       => 'Cms\Models\MaintenanceSettings',
                     'permissions' => ['system.manage_themes'],
-                    'order'       => 400
+                    'order'       => 300
                 ],
             ]);
         });

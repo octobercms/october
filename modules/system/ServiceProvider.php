@@ -212,8 +212,8 @@ class ServiceProvider extends ModuleServiceProvider
 
                 // Classes
                 'str_*'          => ['Str', '*'],
-                'url_*'          => ['URL', '*'],
-                'html_*'         => ['HTML', '*'],
+                'url_*'          => ['Url', '*'],
+                'html_*'         => ['Html', '*'],
                 'form_*'         => ['Form', '*'],
                 'form_macro'     => ['Form', '__call']
             ]);

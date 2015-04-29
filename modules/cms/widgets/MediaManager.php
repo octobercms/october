@@ -53,9 +53,19 @@ class MediaManager extends WidgetBase
         $this->alias = $alias;
 
         parent::__construct($controller, []);
-        $this->bindToController();
 
         $this->checkUploadPostback();
+    }
+
+    /**
+     * Adds widget specific asset files. Use $this->addJs() and $this->addCss()
+     * to register new assets to include on the page.
+     * @return void
+     */
+    protected function loadAssets()
+    {
+        $this->addCss('css/mediamanager.css', 'core');
+        $this->addJs('js/mediamanager-browser-min.js', 'core');
     }
 
     /**
@@ -89,11 +99,13 @@ class MediaManager extends WidgetBase
     {
         $path = Input::get('path');
 
-        if (Input::get('clearCache'))
+        if (Input::get('clearCache')) {
             MediaLibrary::instance()->resetCache();
+        }
 
-        if (Input::get('resetSearch'))
+        if (Input::get('resetSearch')) {
             $this->setSearchTerm(null);
+        }
 
         $this->setCurrentFolder($path);
         $this->prepareVars();
@@ -107,12 +119,14 @@ class MediaManager extends WidgetBase
     public function onGenerateThumbnails()
     {
         $batch = Input::get('batch');
-        if (!is_array($batch))
+        if (!is_array($batch)) {
             return;
+        }
 
         $result = [];
-        foreach ($batch as $thumbnailInfo)
+        foreach ($batch as $thumbnailInfo) {
             $result[] = $this->generateThumbnail($thumbnailInfo);
+        }
 
         return [
             'generatedThumbnails'=>$result
@@ -131,19 +145,20 @@ class MediaManager extends WidgetBase
 
         $path = MediaLibrary::validatePath($path);
 
-        if (!is_numeric($lastModified))
+        if (!is_numeric($lastModified)) {
             throw new ApplicationException('Invalid input data');
+        }
 
         // If the thumbnail file exists - just return the thumbnail marup,
         // otherwise generate a new thumbnail.
         $thumbnailPath = $this->thumbnailExists($thumbnailParams, $path, $lastModified);
         if ($thumbnailPath) {
             return [
-                'markup'=>$this->makePartial('thumbnail-image', [
+                'markup' => $this->makePartial('thumbnail-image', [
                     'isError' => $this->thumbnailIsError($thumbnailPath),
                     'imageUrl' => $this->getThumbnailImageUrl($thumbnailPath)
-                    ])
-                ];
+                ])
+            ];
         }
 
         $thumbnailInfo = $thumbnailParams;
@@ -208,20 +223,24 @@ class MediaManager extends WidgetBase
     {
         $paths = Input::get('paths');
 
-        if (!is_array($paths))
+        if (!is_array($paths)) {
             throw new ApplicationException('Invalid input data');
+        }
 
         $library = MediaLibrary::instance();
 
         $filesToDelete = [];
         foreach ($paths as $pathInfo) {
-            if (!isset($pathInfo['path']) || !isset($pathInfo['type']))
+            if (!isset($pathInfo['path']) || !isset($pathInfo['type'])) {
                 throw new ApplicationException('Invalid input data');
+            }
 
-            if ($pathInfo['type'] == 'file')
+            if ($pathInfo['type'] == 'file') {
                 $filesToDelete[] = $pathInfo['path'];
-            else if ($pathInfo['type'] == 'folder')
+            }
+            else if ($pathInfo['type'] == 'folder') {
                 $library->deleteFolder($pathInfo['path']);
+            }
         }
 
         if (count($filesToDelete) > 0)
@@ -250,11 +269,13 @@ class MediaManager extends WidgetBase
     public function onApplyName()
     {
         $newName = trim(Input::get('name'));
-        if (!strlen($newName))
+        if (!strlen($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
+        }
 
-        if (!$this->validateFileName($newName))
+        if (!$this->validateFileName($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
+        }
 
         $originalPath = Input::get('originalPath');
         $originalPath = MediaLibrary::validatePath($originalPath);
@@ -263,10 +284,12 @@ class MediaManager extends WidgetBase
 
         $type = Input::get('type');
 
-        if ($type == MediaLibraryItem::TYPE_FILE)
+        if ($type == MediaLibraryItem::TYPE_FILE) {
             MediaLibrary::instance()->moveFile($originalPath, $newPath);
-        else
+        }
+        else {
             MediaLibrary::instance()->moveFolder($originalPath, $newPath);
+        }
 
         MediaLibrary::instance()->resetCache();
     }
@@ -274,11 +297,13 @@ class MediaManager extends WidgetBase
     public function onCreateFolder()
     {
         $name = trim(Input::get('name'));
-        if (!strlen($name))
+        if (!strlen($name)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
+        }
 
-        if (!$this->validateFileName($name))
+        if (!$this->validateFileName($name)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
+        }
 
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
@@ -287,11 +312,13 @@ class MediaManager extends WidgetBase
 
         $library = MediaLibrary::instance();
 
-        if ($library->folderExists($newFolderPath))
+        if ($library->folderExists($newFolderPath)) {
             throw new ApplicationException(Lang::get('cms::lang.media.folder_or_file_exist'));
+        }
 
-        if (!$library->makeFolder($newFolderPath))
+        if (!$library->makeFolder($newFolderPath)) {
             throw new ApplicationException(Lang::get('cms::lang.media.error_creating_folder'));
+        }
 
         $library->resetCache();
 
@@ -305,8 +332,9 @@ class MediaManager extends WidgetBase
     public function onLoadMovePopup()
     {
         $exclude = Input::get('exclude', []);
-        if (!is_array($exclude))
+        if (!is_array($exclude)) {
             throw new ApplicationException('Invalid input data');
+        }
 
         $folders = MediaLibrary::instance()->listAllDirectories($exclude);
 
@@ -314,8 +342,9 @@ class MediaManager extends WidgetBase
         foreach ($folders as $folder) {
             $path = $folder;
 
-            if ($folder == '/') 
+            if ($folder == '/') {
                 $name = Lang::get('cms::lang.media.library');
+            }
             else {
                 $segments = explode('/', $folder);
                 $name = str_repeat('&nbsp;', (count($segments)-1)*4).basename($folder);
@@ -333,28 +362,34 @@ class MediaManager extends WidgetBase
     public function onMoveItems()
     {
         $dest = trim(Input::get('dest'));
-        if (!strlen($dest))
+        if (!strlen($dest)) {
             throw new ApplicationException(Lang::get('cms::lang.media.please_select_move_dest'));
+        }
 
         $dest = MediaLibrary::validatePath($dest);
-        if ($dest == Input::get('originalPath'))
+        if ($dest == Input::get('originalPath')) {
             throw new ApplicationException(Lang::get('cms::lang.media.move_dest_src_match'));
+        }
 
         $files = Input::get('files', []);
-        if (!is_array($files))
+        if (!is_array($files)) {
             throw new ApplicationException('Invalid input data');
+        }
 
         $folders = Input::get('folders', []);
-        if (!is_array($folders))
+        if (!is_array($folders)) {
             throw new ApplicationException('Invalid input data');
+        }
 
         $library = MediaLibrary::instance();
 
-        foreach ($files as $path)
+        foreach ($files as $path) {
             $library->moveFile($path, $dest.'/'.basename($path));
+        }
 
-        foreach ($folders as $path)
+        foreach ($folders as $path) {
             $library->moveFolder($path, $dest.'/'.basename($path));
+        }
 
         $library->resetCache();
 
@@ -408,8 +443,9 @@ class MediaManager extends WidgetBase
     public function onEndCroppingSession()
     {
         $cropSessionKey = Input::get('cropSessionKey');
-        if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey))
+        if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey)) {
             throw new ApplicationException('Invalid input data');
+        }
 
         $this->removeCropEditDir($cropSessionKey);
     }
@@ -422,14 +458,17 @@ class MediaManager extends WidgetBase
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
 
-        if (!strlen($imageSrcPath))
+        if (!strlen($imageSrcPath)) {
             throw new ApplicationException('Invalid input data');
+        }
 
-        if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey))
+        if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey)) {
             throw new ApplicationException('Invalid input data');
+        }
 
-        if (!is_array($selectionData))
+        if (!is_array($selectionData)) {
             throw new ApplicationException('Invalid input data');
+        }
 
         $result = $this->cropImage($imageSrcPath, $selectionData, $cropSessionKey, $path);
 
@@ -445,16 +484,19 @@ class MediaManager extends WidgetBase
     public function onResizeImage()
     {
         $cropSessionKey = Input::get('cropSessionKey');
-        if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey))
+        if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey)) {
             throw new ApplicationException('Invalid input data');
+        }
 
         $width = trim(Input::get('width'));
-        if (!strlen($width) || !ctype_digit($width))
+        if (!strlen($width) || !ctype_digit($width)) {
             throw new ApplicationException('Invalid input data');
+        }
 
         $height = trim(Input::get('height'));
-        if (!strlen($height) || !ctype_digit($height))
+        if (!strlen($height) || !ctype_digit($height)) {
             throw new ApplicationException('Invalid input data');
+        }
 
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
@@ -530,12 +572,14 @@ class MediaManager extends WidgetBase
     protected function setFilter($filter)
     {
         if (!in_array($filter, [
-                self::FILTER_EVERYTHING, 
-                MediaLibraryItem::FILE_TYPE_IMAGE,
-                MediaLibraryItem::FILE_TYPE_AUDIO,
-                MediaLibraryItem::FILE_TYPE_DOCUMENT,
-                MediaLibraryItem::FILE_TYPE_VIDEO]))
+            self::FILTER_EVERYTHING,
+            MediaLibraryItem::FILE_TYPE_IMAGE,
+            MediaLibraryItem::FILE_TYPE_AUDIO,
+            MediaLibraryItem::FILE_TYPE_DOCUMENT,
+            MediaLibraryItem::FILE_TYPE_VIDEO
+        ])) {
             throw new ApplicationException('Invalid input data');
+        }
 
         return $this->putSession('media_filter', $filter);
     }
@@ -558,10 +602,12 @@ class MediaManager extends WidgetBase
     protected function setSortBy($sortBy)
     {
         if (!in_array($sortBy, [
-                MediaLibrary::SORT_BY_TITLE,
-                MediaLibrary::SORT_BY_SIZE,
-                MediaLibrary::SORT_BY_MODIFIED]))
+            MediaLibrary::SORT_BY_TITLE,
+            MediaLibrary::SORT_BY_SIZE,
+            MediaLibrary::SORT_BY_MODIFIED
+        ])) {
             throw new ApplicationException('Invalid input data');
+        }
 
         return $this->putSession('media_sort_by', $sortBy);
     }
@@ -576,38 +622,45 @@ class MediaManager extends WidgetBase
         $result = $this->getSession('media_crop_selection_params');
 
         if ($result) {
-            if (!isset($result['mode']))
+            if (!isset($result['mode'])) {
                 $result['mode'] = MediaManager::SELECTION_MODE_NORMAL;
+            }
 
-            if (!isset($result['width']))
+            if (!isset($result['width'])) {
                 $result['width'] = null;
+            }
 
-            if (!isset($result['height']))
+            if (!isset($result['height'])) {
                 $result['height'] = null;
+            }
 
             return $result;
         }
 
         return [
-            'mode'=>MediaManager::SELECTION_MODE_NORMAL,
-            'width'=>null,
-            'height'=>null
+            'mode'   => MediaManager::SELECTION_MODE_NORMAL,
+            'width'  => null,
+            'height' => null
         ];
     }
 
     protected function setSelectionParams($selectionMode, $selectionWidth, $selectionHeight)
     {
         if (!in_array($selectionMode, [
-                MediaManager::SELECTION_MODE_NORMAL,
-                MediaManager::SELECTION_MODE_FIXED_RATIO,
-                MediaManager::SELECTION_MODE_FIXED_SIZE]))
+            MediaManager::SELECTION_MODE_NORMAL,
+            MediaManager::SELECTION_MODE_FIXED_RATIO,
+            MediaManager::SELECTION_MODE_FIXED_SIZE
+        ])) {
             throw new ApplicationException('Invalid input data');
+        }
 
-        if (strlen($selectionWidth) && !ctype_digit($selectionWidth))
+        if (strlen($selectionWidth) && !ctype_digit($selectionWidth)) {
             throw new ApplicationException('Invalid input data');
+        }
 
-        if (strlen($selectionHeight) && !ctype_digit($selectionHeight))
+        if (strlen($selectionHeight) && !ctype_digit($selectionHeight)) {
             throw new ApplicationException('Invalid input data');
+        }
 
         return $this->putSession('media_crop_selection_params', [
             'mode'=>$selectionMode,
@@ -654,17 +707,6 @@ class MediaManager extends WidgetBase
         }
 
         return array_reverse($result);
-    }
-
-    /**
-     * Adds widget specific asset files. Use $this->addJs() and $this->addCss()
-     * to register new assets to include on the page.
-     * @return void
-     */
-    protected function loadAssets()
-    {
-        $this->addCss('css/mediamanager.css', 'core');
-        $this->addJs('js/mediamanager-browser-min.js', 'core');
     }
 
     protected function setViewMode($viewMode)

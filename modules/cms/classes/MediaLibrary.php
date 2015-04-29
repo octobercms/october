@@ -73,9 +73,9 @@ class MediaLibrary
     /**
      * Returns a list of folders and files in a Library folder.
      * @param string $folder Specifies the folder path relative the the Library root.
-     * @param string $sortBy Determines the sorting preference. 
+     * @param string $sortBy Determines the sorting preference.
      * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants) and FALSE.
-     * @param string $filter Determines the document type filtering preference. 
+     * @param string $filter Determines the document type filtering preference.
      * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
      * @return array Returns an array of MediaLibraryItem objects.
      */
