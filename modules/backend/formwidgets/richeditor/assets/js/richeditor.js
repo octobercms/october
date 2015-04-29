@@ -14,7 +14,6 @@
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype
 
-
     // RICHEDITOR CLASS DEFINITION
     // ============================
 
@@ -31,7 +30,7 @@
 
         Base.call(this)
 
-        this.init();
+        this.init()
     }
 
     RichEditor.prototype = Object.create(BaseProto)
@@ -96,7 +95,19 @@
     RichEditor.prototype.dispose = function() {
         this.unregisterHandlers()
 
-        this.$textarea.redactor('core.destroy');
+        // Release clickedElement reference inside redactor.js
+        $(document).trigger('mousedown')
+
+        this.redactor.core.destroy()
+
+        // The figure plugin keeps references to the editor,
+        // DOM elements and event handlers. It was hacked and
+        // extended with the destroy() method.
+        if (this.redactor.figure) {
+            this.redactor.figure.destroy()
+            this.redactor.figure = null
+        }
+
         this.$el.removeData('oc.richEditor')
 
         this.options = null
@@ -105,6 +116,10 @@
         this.$form = null
         this.$dataLocker = null
         this.$editor = null
+
+        this.redactor.$textarea = null
+        this.redactor.$element = null
+
         this.redactor = null
 
         BaseProto.dispose.call(this)

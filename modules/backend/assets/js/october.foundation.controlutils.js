@@ -29,11 +29,22 @@
         disposeControls: function(container) {
             var controls = container.querySelectorAll('[data-disposable]')
 
-            for (var i=0, len=controls.length; i<len; i++) {
+            for (var i=0, len=controls.length; i<len; i++)
                 $(controls[i]).triggerHandler('dispose-control')
-            }
+
+            if (container.hasAttribute('data-disposable'))
+                $(container).triggerHandler('dispose-control')
         }
     }
 
     $.oc.foundation.controlUtils = ControlUtils;
+
+    $(document).on('ajaxBeforeReplace', function(ev){
+        // Automatically displose controls in an element
+        // before the element contents is replaced.
+        // The ajaxBeforeReplace event is triggered in 
+        // framework.js
+
+        $.oc.foundation.controlUtils.disposeControls(ev.target)
+    })
 }(window.jQuery);

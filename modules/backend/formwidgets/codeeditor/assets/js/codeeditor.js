@@ -191,14 +191,6 @@
     }
 
     CodeEditor.prototype.dispose = function() {
-        // Currently it's not possible to dispose Ace Editor
-        // completely because of the internal organization of 
-        // because of the internal organization of the class.
-        // The class instance contains multiple references to 
-        // DOM elements in closures and event handlers.
-        // See https://github.com/ajaxorg/ace/issues/2469
-        // --ab 2015-04-23
-
         if (this.$el === null)
             return
 

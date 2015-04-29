@@ -1,0 +1,1 @@
+There's a hack in plugin.figure.js script. Added method destory(). The figure plugin keeps a reference to the editor and toolba which can't be cleaned up after the Editor is destroyed. Also, the figure plugin binds event handlers that are never unbound. --ab Apr 08 2015

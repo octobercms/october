@@ -197,8 +197,10 @@ if (window.jQuery === undefined)
                             $(selector.substring(1)).append(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
                         } else if (jQuery.type(selector) == 'string' && selector.charAt(0) == '^') {
                             $(selector.substring(1)).prepend(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
-                        } else
+                        } else {
+                            $(selector).trigger('ajaxBeforeReplace')
                             $(selector).html(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
+                        }
                     }
 
                     /*
@@ -246,9 +248,7 @@ if (window.jQuery === undefined)
                  * Handle asset injection
                  */
                  if (data['X_OCTOBER_ASSETS']) {
-                    assetManager.load(data['X_OCTOBER_ASSETS'], function assetsLoaded(){
-                        updatePromise.resolve()
-                    })
+                    assetManager.load(data['X_OCTOBER_ASSETS'], $.proxy(updatePromise.resolve, updatePromise))
                  }
                  else
                     updatePromise.resolve()
