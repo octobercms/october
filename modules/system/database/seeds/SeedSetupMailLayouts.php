@@ -31,11 +31,11 @@ $html = '<html>
         </style>
     </head>
     <body>
-        {{ message|raw }}
+        {{ content|raw }}
     </body>
 </html>';
 
-$text = '{{ message|raw }}';
+$text = '{{ content|raw }}';
 
         MailLayout::create([
             'is_locked'    => true,
@@ -53,13 +53,13 @@ $html = '<html>
         </style>
     </head>
     <body>
-        {{ message|raw }}
+        {{ content|raw }}
         <hr />
         <p>This is an automatic message. Please do not reply to it.</p>
     </body>
 </html>';
 
-$text = '{{ message|raw }}
+$text = '{{ content|raw }}
 
 
 ---
