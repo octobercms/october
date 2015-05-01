@@ -651,6 +651,18 @@ class Lists extends WidgetBase
     }
 
     /**
+     * Programatically remove a column, used for extensibility.
+     *
+     * @param string $column Column Column name
+     */
+    public function removeColumn($columnName)
+    {
+        if (isset($this->allColumns[$columnName])) {
+            unset($this->allColumns[$columnName]);
+        }
+    }
+
+    /**
      * Creates a list column object from it's name and configuration.
      */
     protected function makeListColumn($name, $config)
