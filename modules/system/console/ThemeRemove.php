@@ -6,13 +6,13 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Exception;
 
-class ThemeDelete extends Command
+class ThemeRemove extends Command
 {
     /**
      * The console command name.
      * @var string
      */
-    protected $name = 'theme:delete';
+    protected $name = 'theme:remove';
 
     /**
      * The console command description.

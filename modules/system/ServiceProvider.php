@@ -316,10 +316,10 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsoleCommand('plugin.remove', 'System\Console\PluginRemove');
         $this->registerConsoleCommand('plugin.refresh', 'System\Console\PluginRefresh');
 
-        $this->registerConsoleCommand('theme.use', 'System\Console\ThemeUse');
-        $this->registerConsoleCommand('theme.list', 'System\Console\ThemeList');
         $this->registerConsoleCommand('theme.install', 'System\Console\ThemeInstall');
-        $this->registerConsoleCommand('theme.delete', 'System\Console\ThemeDelete');
+        $this->registerConsoleCommand('theme.remove', 'System\Console\ThemeRemove');
+        $this->registerConsoleCommand('theme.list', 'System\Console\ThemeList');
+        $this->registerConsoleCommand('theme.use', 'System\Console\ThemeUse');
 
         /*
          * Register the sidebar for the System main menu
