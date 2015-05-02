@@ -47,7 +47,7 @@ class NavigationManager
         'url'         => null,
         'counter'     => null,
         'counterLabel'=> null,
-        'order'       => 100,
+        'order'       => -1,
         'attributes'  => [],
         'permissions' => []
     ];
@@ -100,7 +100,9 @@ class NavigationManager
         /*
          * Sort menu items
          */
-        usort($this->items, 'self::sortMenu');
+        usort($this->items, function ($a, $b) {
+            return $a->order - $b->order;
+        });
 
         /*
          * Filter items user lacks permission for
@@ -113,26 +115,27 @@ class NavigationManager
                 continue;
             }
 
-            usort($item->sideMenu, 'self::sortMenu');
+            /*
+             * Apply incremental default orders
+             */
+            $orderCount = 0;
+            foreach ($item->sideMenu as $sideMenuItem) {
+                if ($sideMenuItem->order !== -1) continue;
+                $sideMenuItem->order = ($orderCount += 100);
+            }
 
+            /*
+             * Sort side menu items
+             */
+            usort($item->sideMenu, function ($a, $b) {
+                return $a->order - $b->order;
+            });
+
+            /*
+             * Filter items user lacks permission for
+             */
             $item->sideMenu = $this->filterItemPermissions($user, $item->sideMenu);
         }
-    }
-
-    /**
-     * Callback method used by usort() to compare menu items.
-     * Should be referenced with 'self::sortMenu' as the second parameter to usort().
-     * @param object $a First menu item to compare
-     * @param object $b Second menu item to compare
-     * @return integer Returns 1, 0 or -1 depending on order
-     */
-    protected static function sortMenu($a, $b)
-    {
-        if ($a->order < $b->order) {
-            return -1;
-        }
-
-        return (int) $a->order > $b->order;
     }
 
     /**
