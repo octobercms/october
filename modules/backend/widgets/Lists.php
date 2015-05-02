@@ -639,6 +639,7 @@ class Lists extends WidgetBase
 
     /**
      * Programatically add columns, used internally and for extensibility.
+     * @param array $columns Column definitions
      */
     public function addColumns(array $columns)
     {
@@ -652,8 +653,7 @@ class Lists extends WidgetBase
 
     /**
      * Programatically remove a column, used for extensibility.
-     *
-     * @param string $column Column Column name
+     * @param string $column Column name
      */
     public function removeColumn($columnName)
     {
