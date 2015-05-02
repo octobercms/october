@@ -1,13 +1,13 @@
 <?php namespace System\Console;
 
-use Illuminate\Console\Command;
-use Illuminate\Console\ConfirmableTrait;
-use Symfony\Component\Console\Input\InputArgument;
 use Cms\Classes\Theme;
+use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 
 class ThemeUse extends Command
 {
-    use ConfirmableTrait;
+    use \Illuminate\Console\ConfirmableTrait;
 
     /**
      * The console command name.
@@ -76,6 +76,8 @@ class ThemeUse extends Command
      */
     protected function getOptions()
     {
-        return [];
+        return [
+            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run.'],
+        ];
     }
 }

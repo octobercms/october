@@ -1,11 +1,12 @@
 <?php namespace System\Console;
 
+use File;
+use Cms\Classes\Theme;
+use Cms\Classes\ThemeManager;
+use System\Classes\UpdateManager;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use System\Classes\UpdateManager;
-use Cms\Classes\ThemeManager;
-use Cms\Classes\Theme;
-use File;
+use Exception;
 
 class ThemeInstall extends Command
 {
@@ -49,7 +50,7 @@ class ThemeInstall extends Command
             }
 
             if (Theme::exists($argDirName)) {
-                return $this->error('A theme named '.$argDirName.' already exists.');
+                return $this->error(sprintf('A theme named %s already exists.', $argDirName));
             }
         }
 
@@ -64,15 +65,18 @@ class ThemeInstall extends Command
             }
 
             if (Theme::exists($themeDetails['code'])) {
-                return $this->error('A theme named '.$themeDetails['code'].' already exists.');
+                return $this->error(sprintf('A theme named %s already exists.', $themeDetails['code']));
             }
 
+            $fields = ['Name', 'Description', 'Author', 'URL', ''];
+
             $this->info(sprintf(
-                "Name: %s\nDescription: %s\nAuthor: %s\nURL: %s\n",
+                implode(': %s'.PHP_EOL, $fields),
                 $themeDetails['code'],
                 $themeDetails['description'],
                 $themeDetails['author'],
-                $themeDetails['product_url']));
+                $themeDetails['product_url']
+            ));
 
             if (!$this->confirm('Do you wish to continue? [Y|n]', true)) {
                 return;
@@ -104,8 +108,8 @@ class ThemeInstall extends Command
 
             $this->info(sprintf('The theme %s has been installed. (now %s)', $themeDetails['code'], $dirName));
         }
-        catch (\October\Rain\Exception\ApplicationException $e) {
-            $this->error($e->getMessage());
+        catch (Exception $ex) {
+            $this->error($ex->getMessage());
         }
     }
 

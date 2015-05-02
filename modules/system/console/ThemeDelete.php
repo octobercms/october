@@ -1,9 +1,10 @@
 <?php namespace System\Console;
 
-use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Cms\Classes\Theme;
 use Cms\Classes\ThemeManager;
+use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Exception;
 
 class ThemeDelete extends Command
 {
@@ -34,9 +35,16 @@ class ThemeDelete extends Command
      */
     public function fire()
     {
+        $themeManager = ThemeManager::instance();
         $themeName = $this->argument('name');
+        $themeExists = Theme::exists($themeName);
 
-        if (!Theme::exists($themeName)) {
+        if (!$themeExists) {
+            $themeName = strtolower(str_replace('.', '-', $themeName));
+            $themeExists = Theme::exists($themeName);
+        }
+
+        if (!$themeExists) {
             return $this->error(sprintf('The theme %s does not exist.', $themeName));
         }
 
@@ -45,12 +53,12 @@ class ThemeDelete extends Command
         }
 
         try {
-            ThemeManager::instance()->deleteTheme($themeName);
+            $themeManager->deleteTheme($themeName);
 
             $this->info(sprintf('The theme %s has been deleted.', $themeName));
         }
-        catch (\October\Rain\Exception\ApplicationException $e) {
-            $this->error($e->getMessage());
+        catch (Exception $ex) {
+            $this->error($ex->getMessage());
         }
     }
 

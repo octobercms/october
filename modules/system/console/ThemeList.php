@@ -31,27 +31,30 @@ class ThemeList extends Command
      */
     public function fire()
     {
-        $loadedThemes = Theme::all();
-        for ($i = 0, $c = count($loadedThemes); $i < $c; $i++) {
-            $ln = $loadedThemes[$i]->isActiveTheme() ? '[*] ' : '[-] ';
-            $this->info($ln.$loadedThemes[$i]->getId());
+        $themeManager = ThemeManager::instance();
+        $updateManager = UpdateManager::instance();
+
+        foreach (Theme::all() as $theme) {
+            $flag = $theme->isActiveTheme() ? '[*] ' : '[-] ';
+            $themeId = $theme->getId();
+            $themeName = $themeManager->findByDirName($themeId) ?: $themeId;
+            $this->info($flag . $themeName);
         }
 
         if ($this->option('include-marketplace')) {
 
             // @todo List everything in the marketplace - not just popular.
 
-            $popularThemes = UpdateManager::instance()->requestPopularProducts('theme');
-            $themeManager = ThemeManager::instance();
+            $popularThemes = $updateManager->requestPopularProducts('theme');
 
-            for ($i = 0, $c = count($popularThemes); $i < $c; $i++) {
-                if (!$themeManager->isInstalled($popularThemes[$i]['code'])) {
-                    $this->info('[ ] '.$popularThemes[$i]['code']);
+            foreach ($popularThemes as $popularTheme) {
+                if (!$themeManager->isInstalled($popularTheme['code'])) {
+                    $this->info('[ ] '.$popularTheme['code']);
                 }
             }
         }
 
-        $this->info("\n[*] Active    [-] Installed    [ ] Not installed");
+        $this->info(PHP_EOL."[*] Active    [-] Installed    [ ] Not installed");
     }
 
     /**

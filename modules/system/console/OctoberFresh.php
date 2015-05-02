@@ -1,15 +1,15 @@
 <?php namespace System\Console;
 
-use Artisan;
 use File;
-use Illuminate\Console\Command;
-use Illuminate\Console\ConfirmableTrait;
+use Artisan;
 use Cms\Classes\Theme;
 use Cms\Classes\ThemeManager;
+use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 class OctoberFresh extends Command
 {
-    use ConfirmableTrait;
+    use \Illuminate\Console\ConfirmableTrait;
 
     /**
      * The console command name.
@@ -19,7 +19,7 @@ class OctoberFresh extends Command
     /**
      * The console command description.
      */
-    protected $description = 'Removes the demo included with October.';
+    protected $description = 'Removes the demo theme and plugin.';
 
     /**
      * Create a new command instance.
@@ -64,6 +64,8 @@ class OctoberFresh extends Command
      */
     protected function getOptions()
     {
-        return [];
+        return [
+            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run.'],
+        ];
     }
 }
