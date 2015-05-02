@@ -24,6 +24,7 @@ return [
         'se' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
+        'zh-cn' => 'Chinese (China)',
         'nb-no' => 'Norwegian (Bokmål)'
     ],
     'directory' => [
