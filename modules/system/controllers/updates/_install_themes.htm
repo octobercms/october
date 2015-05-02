@@ -11,7 +11,7 @@
                 name="code"
                 id="themeSearchInput"
                 class="product-search-input search-input-lg typeahead"
-                placeholder="search themes to install..."
+                placeholder="<?= e(trans('system::lang.theme.search')) ?>"
                 data-search-type="themes"
                 />
             <i class="icon icon-search"></i>
@@ -30,13 +30,13 @@
                 data-view="product/theme">
 
                 <h4 class="section-header">
-                    <a href="<?= Backend::url('cms/themes') ?>">Installed themes</a>
+                    <a href="<?= Backend::url('cms/themes') ?>"><?= e(trans('system::lang.theme.installed')) ?></a>
                     <small>(<span class="product-counter"><?= count($installedThemes) ?></span>)</small>
                 </h4>
 
                 <?php if (!count($installedThemes)): ?>
                     <div class="product-list-empty">
-                        <p>There are no themes installed from the marketplace.</p>
+                        <p><?= e(trans('system::lang.theme.no_themes')) ?></p>
                     </div>
                 <?php else: ?>
                     <ul class="product-list theme-list">
@@ -56,7 +56,7 @@
                                     aria-hidden="true"
                                     data-request="onRemoveTheme"
                                     data-request-data="code: '<?= $theme['dirName'] ?>'"
-                                    data-request-confirm="Are you sure you want to remove this?"
+                                    data-request-confirm="<?= e(trans('system::lang.theme.remove_theme')) ?>"
                                     data-stripe-load-indicator>
                                     &times;
                                 </button>
@@ -73,7 +73,7 @@
 
             <!-- Recommended extras -->
             <div class="suggested-products-container">
-                <h4 class="section-header">Recommended</h4>
+                <h4 class="section-header"><?= e(trans('system::lang.theme.recommended')) ?></h4>
                 <div class="scroll-panel">
                     <div
                         id="suggestedThemes"
