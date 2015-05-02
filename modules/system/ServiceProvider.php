@@ -310,9 +310,16 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsoleCommand('october.update', 'System\Console\OctoberUpdate');
         $this->registerConsoleCommand('october.util', 'System\Console\OctoberUtil');
         $this->registerConsoleCommand('october.mirror', 'System\Console\OctoberMirror');
+        $this->registerConsoleCommand('october.fresh', 'System\Console\OctoberFresh');
+
         $this->registerConsoleCommand('plugin.install', 'System\Console\PluginInstall');
         $this->registerConsoleCommand('plugin.remove', 'System\Console\PluginRemove');
         $this->registerConsoleCommand('plugin.refresh', 'System\Console\PluginRefresh');
+
+        $this->registerConsoleCommand('theme.use', 'System\Console\ThemeUse');
+        $this->registerConsoleCommand('theme.list', 'System\Console\ThemeList');
+        $this->registerConsoleCommand('theme.install', 'System\Console\ThemeInstall');
+        $this->registerConsoleCommand('theme.delete', 'System\Console\ThemeDelete');
 
         /*
          * Register the sidebar for the System main menu
