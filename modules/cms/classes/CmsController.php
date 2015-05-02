@@ -42,7 +42,7 @@ class CmsController extends ControllerBase
      * If the parameter is omitted, the current URL used.
      * @return string Returns the processed page content.
      */
-    public function run($url = null)
+    public function run($url = '/')
     {
         return App::make('Cms\Classes\Controller')->run($url);
     }
