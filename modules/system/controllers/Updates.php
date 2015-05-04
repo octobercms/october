@@ -80,7 +80,7 @@ class Updates extends Controller
 
         try {
             $this->bodyClass = 'compact-container breadcrumb-flush';
-            $this->pageTitle = 'Install products';
+            $this->pageTitle = 'system::lang.plugins.install_products';
 
             $this->addJs('/modules/system/assets/js/updates/install.js', 'core');
             $this->addCss('/modules/system/assets/css/updates/install.css', 'core');

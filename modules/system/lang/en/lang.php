@@ -16,16 +16,16 @@ return [
         'id' => 'Bahasa Indonesia',
         'it' => 'Italian',
         'ja' => 'Japanese',
+        'nb-no' => 'Norwegian (Bokmål)',
         'nl' => 'Dutch',
         'pl' => 'Polish',
-        'pt-br' => 'Brazilian Portuguese',
+        'pt-br' => 'Portuguese (Brazil)',
         'ro' => 'Romanian',
         'ru' => 'Russian',
         'se' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
-        'zh-cn' => 'Chinese (China)',
-        'nb-no' => 'Norwegian (Bokmål)'
+        'zh-cn' => 'Chinese (China)'
     ],
     'directory' => [
         'create_fail' => 'Cannot create directory: :name'
@@ -81,6 +81,7 @@ return [
         'enable_or_disable' => 'Enable or disable',
         'enable_or_disable_title' => 'Enable or Disable Plugins',
         'install' => 'Install plugins',
+        'install_products' => 'Install products',
         'search' => 'search plugins to install...',
         'installed' => 'Installed plugins',
         'no_plugins' => 'There are no plugins installed from the marketplace.',
