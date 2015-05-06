@@ -5,6 +5,7 @@ use Lang;
 use Model;
 use Cache;
 use Less_Parser;
+use Exception;
 
 /**
  * Backend settings that affect all users
@@ -81,8 +82,14 @@ class BrandSettings extends Model
             return Cache::get(self::CACHE_KEY);
         }
 
-        $customCss = self::compileCss();
-        Cache::forever(self::CACHE_KEY, $customCss);
+        try {
+            $customCss = self::compileCss();
+            Cache::forever(self::CACHE_KEY, $customCss);
+        }
+        catch (Exception $ex) {
+            $customCss = '/* ' . $ex->getMessage() . ' */';
+        }
+
         return $customCss;
     }
 
@@ -108,8 +115,8 @@ class BrandSettings extends Model
         $parser->ModifyVars($vars);
 
         $parser->parse(
-            File::get(base_path().'/modules/backend/models/brandsettings/custom.less')
-            . self::get('custom_css')
+            File::get(base_path().'/modules/backend/models/brandsettings/custom.less') .
+            self::get('custom_css')
         );
 
         $css = $parser->getCss();
