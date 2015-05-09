@@ -64,8 +64,6 @@ class MediaLibrary
 
         if (!preg_match("/(\/\/|http|https)/", $this->storagePath)) {
             $this->storagePath = Request::getBasePath() . $this->storagePath;
-        } else {
-            $this->storagePath .= '/';
         }
 
         $this->ignoreNames = Config::get('cms.storage.media.ignore', $this->defaultIgnoreNames);
