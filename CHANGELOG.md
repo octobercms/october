@@ -1,3 +1,6 @@
+* **Build 25x** (2015-05-xx)
+  - The hotkey for full screen mode is now Cmd+Shift+F or Ctrl+Shift+F in Windows.
+
 * **Build 252** (2015-04-29)
   - Optimized many JavaScript libraries used in the back-end to reduce memory leaks.
 
