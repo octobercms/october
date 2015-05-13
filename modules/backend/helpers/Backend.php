@@ -16,12 +16,19 @@ use Backend\Classes\Skin;
 class Backend
 {
     /**
+     * Returns the backend URI segment.
+     */
+    public function uri()
+    {
+        return Config::get('cms.backendUri', 'backend');
+    }
+
+    /**
      * Returns a URL in context of the Backend
      */
     public function url($path = null, $parameters = [], $secure = null)
     {
-        $backendUri = Config::get('cms.backendUri');
-        return Url::to($backendUri . '/' . $path, $parameters, $secure);
+        return Url::to($this->uri() . '/' . $path, $parameters, $secure);
     }
 
     /**
@@ -29,7 +36,7 @@ class Backend
      */
     public function baseUrl($path = null)
     {
-        $backendUri = Config::get('cms.backendUri');
+        $backendUri = $this->uri();
         $baseUrl = Request::getBaseUrl();
 
         if ($path === null) {
@@ -54,8 +61,7 @@ class Backend
      */
     public function redirect($path, $status = 302, $headers = [], $secure = null)
     {
-        $backendUri = Config::get('cms.backendUri');
-        return Redirect::to($backendUri . '/' . $path, $status, $headers, $secure);
+        return Redirect::to($this->uri() . '/' . $path, $status, $headers, $secure);
     }
 
     /**
@@ -63,8 +69,7 @@ class Backend
      */
     public function redirectGuest($path, $status = 302, $headers = [], $secure = null)
     {
-        $backendUri = Config::get('cms.backendUri');
-        return Redirect::guest($backendUri . '/' . $path, $status, $headers, $secure);
+        return Redirect::guest($this->uri() . '/' . $path, $status, $headers, $secure);
     }
 
     /**
@@ -72,7 +77,6 @@ class Backend
      */
     public function redirectIntended($path, $status = 302, $headers = [], $secure = null)
     {
-        $backendUri = Config::get('cms.backendUri');
-        return Redirect::intended($backendUri . '/' . $path, $status, $headers, $secure);
+        return Redirect::intended($this->uri() . '/' . $path, $status, $headers, $secure);
     }
 }

@@ -7,6 +7,7 @@
   margin: 0;
   padding: 10px 0;
   overflow: hidden;
+  /* clearfix */
 }
 .product-list li button {
   position: absolute;
@@ -38,9 +39,6 @@
   padding-bottom: 10px;
   overflow: hidden;
 }
-.plugin-list li:last-child {
-  border-bottom: none;
-}
 .plugin-list li .image {
   float: left;
   margin-right: 15px;
@@ -61,6 +59,9 @@
   color: #C03F31;
   font-weight: 400;
 }
+.plugin-list li:last-child {
+  border-bottom: none;
+}
 .theme-list li {
   float: left;
   padding: 0;
@@ -70,11 +71,6 @@
   background: #fff;
   position: relative;
   border-radius: 3px;
-}
-.theme-list li:hover {
-  border-color: transparent;
-}
-.theme-list li {
   -webkit-transition: border .2s linear;
   -moz-transition: border .2s linear;
   transition: border .2s linear;
@@ -86,9 +82,6 @@
   width: 210px;
   height: 140px;
 }
-.theme-list li:hover .image {
-  opacity: 0;
-}
 .theme-list li .details {
   position: absolute;
   bottom: 0;
@@ -96,9 +89,6 @@
   opacity: 0;
   padding: 10px;
   overflow: hidden;
-}
-.theme-list li:hover .details {
-  opacity: 1;
 }
 .theme-list li h4 {
   padding: 15px 0 0;
@@ -111,31 +101,33 @@
   text-transform: uppercase;
   font-size: 12px;
 }
+.theme-list li:hover {
+  border-color: transparent;
+}
+.theme-list li:hover .image {
+  opacity: 0;
+}
+.theme-list li:hover .details {
+  opacity: 1;
+}
 .suggested-products {
   padding: 0;
 }
 .suggested-products .product {
   padding: 0;
 }
+.suggested-products .image {
+  float: left;
+  position: relative;
+}
 .suggested-products .image img {
   width: 40px;
   height: 40px;
   margin-top: 10px;
 }
-.suggested-themes .image img {
-  width: 60px;
-  height: 40px;
-}
-.suggested-products .image {
-  float: left;
-  position: relative;
-}
 .suggested-products .details {
   margin-left: 50px;
   padding: 10px 0;
-}
-.suggested-themes .details {
-  margin-left: 70px;
 }
 .suggested-products .details h5 {
   margin: 0 0 3px;
@@ -175,6 +167,13 @@
 .suggested-products a:hover .image img {
   opacity: .5;
 }
+.suggested-themes .image img {
+  width: 60px;
+  height: 40px;
+}
+.suggested-themes .details {
+  margin-left: 70px;
+}
 /*!
  * Typeahead
  */
@@ -184,6 +183,24 @@
   margin: 0 auto 0 auto;
   text-align: left;
   padding-bottom: 15px;
+}
+.product-search > i.icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  font-size: 24px;
+  margin-top: -20px;
+  color: rgba(0, 0, 0, 0.35);
+}
+.product-search > i.icon.loading {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-image: url(../../../../backend/assets/images/loading-indicator-transparent.svg);
+  background-size: 24px 24px;
+  background-position: 50% 50%;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
 .twitter-typeahead {
   width: 100%;

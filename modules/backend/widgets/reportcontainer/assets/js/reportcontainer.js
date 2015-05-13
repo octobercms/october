@@ -40,7 +40,7 @@
         $(window).resize($.proxy(this.updateWidth, this))
         this.updateWidth()
 
-        if (!Modernizr.touch) 
+        if (!Modernizr.touch)
             this.$el.sortable({
                 vertical: false,
                 handle: '.drag-handle',
@@ -95,6 +95,7 @@
         })
 
         window.setTimeout(function(){
+            self.updateWidth();
             self.redraw();
         }, 200)
         this.setSortOrders()

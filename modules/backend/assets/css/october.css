@@ -1,4 +1,4 @@
-@import "../vendor/select2/select2.css";  html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+@import "../vendor/select2/select2.css";@import "../vendor/jcrop/css/jquery.Jcrop.min.css";  html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
 body{margin:0}
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
 audio,canvas,progress,video{display:inline-block;vertical-align:baseline}
@@ -2214,6 +2214,7 @@ table{border-collapse:separate}
 body.drag *{cursor:drag !important;cursor:-webkit-grab !important;cursor:-moz-grab !important}
 body.dragging,body.dragging *{cursor:move !important}
 body.loading,body.loading *{cursor:wait !important}
+body.no-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default !important}
 html,body{height:100%; }
 body{webkit-font-smoothing:antialiased;background:#f9f9f9}
 #layout-canvas{min-height:100%;height:100%}
@@ -2261,6 +2262,7 @@ body{webkit-font-smoothing:antialiased;background:#f9f9f9}
 .layout > .layout-cell.center{text-align:center}
 .layout > .layout-cell.middle{vertical-align:middle}
 .layout > .layout-cell.width-fix > form,.layout > .layout-cell.width-fix > div{display:inline-block}
+.whiteboard{background:white}
 body.compact-container .layout.layout-container,body.compact-container .layout .layout-container{padding:0 !important}
 body.slim-container .layout.layout-container,body.slim-container .layout .layout-container{padding-left:0 !important;padding-right:0 !important}
 @media (max-width:768px){.layout .hide-on-small{display:none}
@@ -2283,7 +2285,7 @@ nav#layout-mainmenu.navbar ul li.icon a{padding:14px}
 nav#layout-mainmenu.navbar ul li.power-off i,nav#layout-mainmenu.navbar ul li.preview i{font-size:20px}
 nav#layout-mainmenu.navbar ul li.power-off a,nav#layout-mainmenu.navbar ul li.preview a{padding:22px 20px 20px 20px}
 nav#layout-mainmenu.navbar ul li.account{margin-right:0;line-height:23px}
-nav#layout-mainmenu.navbar ul li.account a{padding-right:20px;position:relative;z-index:900}
+nav#layout-mainmenu.navbar ul li.account a{padding-right:20px;position:relative;z-index:590}
 nav#layout-mainmenu.navbar ul li.account img{width:25px;margin-right:7px;position:relative;top:-2px}
 nav#layout-mainmenu.navbar ul.nav{display:inline-block}
 nav#layout-mainmenu.navbar .menu-toggle{display:none}
@@ -2293,7 +2295,7 @@ nav#layout-mainmenu.navbar .toolbar-item:before{left:-12px}
 nav#layout-mainmenu.navbar .toolbar-item:after{right:-12px}
 nav#layout-mainmenu.navbar .toolbar-item.scroll-active-before:before{color:#ffffff}
 nav#layout-mainmenu.navbar .toolbar-item.scroll-active-after:after{color:#ffffff}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu{position:fixed;top:63px;right:0;width:225px;background:#2b3e50;z-index:900;display:none}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu{position:fixed;top:63px;right:0;background:#2b3e50;z-index:590;display:none}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu.active{display:block}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu:after{content:'';display:block;width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-bottom:12px solid #2b3e50;right:40px;top:-12px;position:absolute}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu ul{float:none;display:block}

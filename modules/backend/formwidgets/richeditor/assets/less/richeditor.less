@@ -1,12 +1,11 @@
 @import "../../../../assets/less/core/boot.less";
 
 @richeditor-toolbar-size: 30px;
-@richeditor-zindex: 300;
+@richeditor-zindex: 600;
 @richeditor-gutter: 20px;
 
-@import "_redactor.less";
 @import "_figures.less";
-@import "_shared.less";
+@import "../vendor/redactor/redactor.less";
 
 .field-flush .field-richeditor {
     &, &.editor-focus {
@@ -40,6 +39,7 @@
 
 .redactor-box {
     margin-bottom: 0;
+    overflow: hidden;
 
     & iframe {
         border: none; // Oc
@@ -49,9 +49,9 @@
 .redactor-box-fullscreen {
     z-index: @richeditor-zindex + 115 !important;
 }
-.redactor-toolbar,
+
 .redactor-dropdown {
-    z-index: @richeditor-zindex + 110 !important;
+    z-index: @richeditor-zindex + 125 !important;
 }
 #redactor-modal-overlay,
 #redactor-modal-box,
@@ -62,6 +62,7 @@
 .redactor-toolbar {
     background: @color-richeditor-toolbar;
     .box-shadow(none);
+    z-index: 410 !important;
 
     & li.redactor-btn-right {
         float: right;
@@ -85,6 +86,25 @@
         &.redactor-act {
             background-color: @color-richeditor-toolbar-btn-bg-active;
             color: @color-richeditor-toolbar-btn-color-hover;
+        }
+
+        // For some reasin the line height for fa- buttons was set to 1
+        // and padding was not matching other buttons. -ab Apr 01 2015
+        &.fa-redactor-btn {
+            padding: 9px 10px;
+            line-height: 20px;
+        }
+
+        &.oc-redactor-button i:before {
+            font-size: 16px!important;
+        }
+
+        &.oc-autumn-button {
+            color: #c03f31;
+
+            &:hover {
+                color: white!important;
+            }
         }
     }
 }
@@ -154,5 +174,61 @@ body .redactor-box-fullscreen {
         margin: @richeditor-gutter auto !important;
         padding: @richeditor-gutter;
         top: 0 !important;
+    }
+}
+
+//
+// Placeholders and snippets
+//
+
+.redactor-editor {
+    .richeditor-snippet() {
+        display: block;
+        margin: 0 0 15px 0;
+        padding: 10px 10px 10px 36px;
+        border: 2px dotted #bdc3c7;
+        background: white;
+        position: relative;
+        cursor: pointer;
+        color: #6c7071;
+        font: 15px @font-family-sans-serif;
+        font-weight: 500;
+        line-height: 150%;
+        .border-radius(3px);
+
+        &:focus, &.inspector-open {
+            border-color: #2581b8;
+            border-style: solid;
+            outline: none;
+        }
+    }
+
+    figure[data-ui-block] {
+        .richeditor-snippet();
+    }
+
+    figure[data-video], figure[data-audio] {
+        padding-left: 13px;
+
+        &:after {
+            content: attr(data-label);
+        }
+
+        &:before {
+            position: static;
+            margin-right: 8px;
+        }
+    }
+
+    figure[data-video] {
+        &:before {
+            .icon(@video-camera);
+        }
+    }
+
+    figure[data-audio] {
+        &:before {
+            .icon(@volume-up);
+        }
     }
 }

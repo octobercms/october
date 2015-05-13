@@ -1,105 +1,22 @@
-.field-codeeditor {
-  width: 100%;
-  position: relative;
-  border: 2px solid #e0e0e0;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-}
-.field-codeeditor textarea {
-  opacity: 0;
-  filter: alpha(opacity=0);
-}
-.field-codeeditor.editor-focus {
-  border: 2px solid #808c8d;
-}
-.field-codeeditor.size-tiny {
-  min-height: 50px;
-}
-.field-codeeditor.size-small {
-  min-height: 100px;
-}
-.field-codeeditor.size-large {
-  min-height: 200px;
-}
-.field-codeeditor.size-huge {
-  min-height: 250px;
-}
-.field-codeeditor.size-giant {
-  min-height: 350px;
-}
-.field-codeeditor .ace_search {
-  font-family: 'Open Sans', Arial, sans-serif;
-  font-size: 14px;
-  color: #333333;
-  z-index: 153;
-}
-.field-codeeditor .editor-code {
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-}
-.field-codeeditor .editor-toolbar {
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  z-index: 150;
-}
-.field-codeeditor .editor-toolbar > ul,
-.field-codeeditor .editor-toolbar ul > li {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-.field-codeeditor .editor-toolbar > ul > li {
-  float: left;
-}
-.field-codeeditor .editor-toolbar > ul > li > a {
-  display: block;
-  height: 25px;
-  width: 25px;
-  color: #666;
-  font-size: 20px;
-  text-align: center;
-  text-decoration: none;
-}
-.field-codeeditor .editor-toolbar > ul > li > a > abbr {
-  position: absolute;
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
-.field-codeeditor .editor-toolbar > ul > li > a > i {
-  opacity: 0.4;
-  filter: alpha(opacity=40);
-  display: block;
-}
-.field-codeeditor .editor-toolbar > ul > li > a > i:before {
-  font-size: 14px;
-}
-.field-codeeditor .editor-toolbar > ul > li > a:hover > i,
-.field-codeeditor .editor-toolbar > ul > li > a:focus > i {
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-.field-codeeditor.editor-fullscreen {
-  z-index: 151;
-  position: fixed!important;
-  top: 0;
-  left: 0;
-  height: 100%;
-  border-width: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-}
-.field-codeeditor.editor-fullscreen .editor-code {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-}
-.field-codeeditor.editor-fullscreen .editor-toolbar {
-  z-index: 152;
-}
+.field-codeeditor{width:100%;position:relative;border:2px solid #e0e0e0;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px}
+.field-codeeditor textarea{opacity:0;filter:alpha(opacity=0)}
+.field-codeeditor.editor-focus{border:2px solid #808c8d}
+.field-codeeditor.size-tiny{min-height:50px}
+.field-codeeditor.size-small{min-height:100px}
+.field-codeeditor.size-large{min-height:200px}
+.field-codeeditor.size-huge{min-height:250px}
+.field-codeeditor.size-giant{min-height:350px}
+.field-codeeditor .ace_search{font-family:'Open Sans',Arial,sans-serif;font-size:14px;color:#333333;z-index:603}
+.field-codeeditor .editor-code{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px}
+.field-codeeditor .editor-toolbar{position:absolute;top:10px;right:10px;z-index:600}
+.field-codeeditor .editor-toolbar > ul,.field-codeeditor .editor-toolbar ul > li{list-style-type:none;padding:0;margin:0}
+.field-codeeditor .editor-toolbar > ul > li{float:left}
+.field-codeeditor .editor-toolbar > ul > li .tooltip.left{margin-right:25px}
+.field-codeeditor .editor-toolbar > ul > li > a{display:block;height:25px;width:25px;color:#666;font-size:20px;text-align:center;text-decoration:none}
+.field-codeeditor .editor-toolbar > ul > li > a > abbr{position:absolute;font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}
+.field-codeeditor .editor-toolbar > ul > li > a > i{opacity:0.7;filter:alpha(opacity=70);display:block}
+.field-codeeditor .editor-toolbar > ul > li > a > i:before{font-size:15px}
+.field-codeeditor .editor-toolbar > ul > li > a:hover > i,.field-codeeditor .editor-toolbar > ul > li > a:focus > i{opacity:1;filter:alpha(opacity=100)}
+.field-codeeditor.editor-fullscreen{z-index:601;position:fixed !important;top:0;left:0;height:100%;border-width:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.field-codeeditor.editor-fullscreen .editor-code{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.field-codeeditor.editor-fullscreen .editor-toolbar{z-index:602}

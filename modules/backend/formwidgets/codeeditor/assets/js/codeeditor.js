@@ -16,24 +16,35 @@
 
 +function ($) { "use strict";
 
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
+
     // CODEEDITOR CLASS DEFINITION
     // ============================
 
     var CodeEditor = function(element, options) {
+        Base.call(this)
+
         this.options   = options
         this.$el       = $(element)
         this.$textarea = this.$el.find('>textarea:first')
         this.$toolbar  = this.$el.find('>.editor-toolbar:first')
         this.$code     = null
         this.editor    = null
+        this.$form     = null
 
         // Toolbar links
         this.isFullscreen = false
         this.$fullscreenEnable = this.$toolbar.find('li.fullscreen-enable')
         this.$fullscreenDisable = this.$toolbar.find('li.fullscreen-disable')
 
+        $.oc.foundation.controlUtils.markDisposable(element)
+
         this.init();
     }
+
+    CodeEditor.prototype = Object.create(BaseProto)
+    CodeEditor.prototype.constructor = CodeEditor
 
     CodeEditor.DEFAULTS = {
         fontSize: 12,
@@ -89,21 +100,16 @@
             options = this.options,
             $form = this.$el.closest('form');
 
+        this.$form = $form
+
         this.$textarea.hide();
         editor.getSession().setValue(this.$textarea.val())
 
-        $form.on('oc.beforeRequest', function(){
-            self.$textarea.val(editor.getSession().getValue())
-        })
-
-        editor.on('change', function() {
-            $form.trigger('change')
-            self.$textarea.trigger('oc.codeEditorChange')
-        })
-
-        $(window).on('resize, oc.updateUi', function() {
-            editor.resize()
-        })
+        editor.on('change', this.proxy(this.onChange))
+        $form.on('oc.beforeRequest', this.proxy(this.onBeforeRequest))
+        $(window).on('resize', this.proxy(this.onResize))
+        $(window).on('oc.updateUi', this.proxy(this.onResize))
+        this.$el.one('dispose-control', this.proxy(this.dispose))
 
         /*
          * Set language and theme
@@ -136,8 +142,8 @@
         editor.setReadOnly(options.readOnly)
         editor.getSession().setFoldStyle(options.codeFolding)
         editor.setFontSize(options.fontSize)
-        editor.on('blur', function(){ self.$el.removeClass('editor-focus') })
-        editor.on('focus', function(){ self.$el.addClass('editor-focus') })
+        editor.on('blur', this.proxy(this.onBlur))
+        editor.on('focus', this.proxy(this.onFocus))
         this.setWordWrap(options.wordWrap)
 
         editor.renderer.setScrollMargin(options.margin, options.margin, 0, 0)
@@ -158,28 +164,107 @@
             })
             .tooltip({
                 delay: 500,
-                placement: 'auto',
-                html: true 
+                placement: 'left',
+                html: true
             })
         ;
 
         this.$fullscreenDisable.hide()
-        this.$fullscreenEnable.on('click', '>a', $.proxy(this.toggleFullscreen, this))
-        this.$fullscreenDisable.on('click', '>a', $.proxy(this.toggleFullscreen, this))
+        this.$fullscreenEnable.on('click.codeeditor', '>a', $.proxy(this.toggleFullscreen, this))
+        this.$fullscreenDisable.on('click.codeeditor', '>a', $.proxy(this.toggleFullscreen, this))
 
         /*
          * Hotkeys
          */
-        this.$el.hotKey({ hotkey: 'esc', hotkeyMac: 'esc', callback: function() {
-            self.isFullscreen && self.toggleFullscreen.apply(self)
-        }})
+        this.$el.hotKey({
+            hotkey: 'esc',
+            hotkeyMac: 'esc',
+            callback: this.proxy(this.onEscape)
+        })
 
         editor.commands.addCommand({
             name: 'toggleFullscreen',
-            bindKey: { win: 'Ctrl+Alt+F', mac: 'Ctrl+Alt+F' },
+            bindKey: { win: 'Ctrl+Shift+F', mac: 'Ctrl+Shift+F' },
             exec: $.proxy(this.toggleFullscreen, this),
             readOnly: true
         })
+    }
+
+    CodeEditor.prototype.dispose = function() {
+        if (this.$el === null)
+            return
+
+        this.unregisterHandlers()
+        this.disposeAttachedControls()
+
+        this.$el = null
+        this.$textarea = null
+        this.$toolbar = null
+        this.$code = null
+        this.$fullscreenEnable = null
+        this.$fullscreenDisable = null
+        this.$form = null
+        this.options = null
+
+        BaseProto.dispose.call(this)
+    }
+
+    CodeEditor.prototype.disposeAttachedControls = function() {
+        this.editor.destroy()
+
+        var keys = Object.keys(this.editor.renderer)
+        for (var i=0, len=keys.length; i<len; i++)
+            this.editor.renderer[keys[i]] = null
+
+        keys = Object.keys(this.editor)
+        for (var i=0, len=keys.length; i<len; i++)
+            this.editor[keys[i]] = null
+
+        this.editor = null
+
+        this.$toolbar.find('>ul>li>a').tooltip('destroy')
+        this.$el.removeData('oc.codeEditor')
+        this.$el.hotKey('dispose')
+    }
+
+    CodeEditor.prototype.unregisterHandlers = function() {
+        this.editor.off('change', this.proxy(this.onChange))
+        this.editor.off('blur', this.proxy(this.onBlur))
+        this.editor.off('focus', this.proxy(this.onFocus))
+
+        this.$fullscreenEnable.off('.codeeditor')
+        this.$fullscreenDisable.off('.codeeditor')
+        this.$form.off('oc.beforeRequest', this.proxy(this.onBeforeRequest))
+
+        this.$el.off('dispose-control', this.proxy(this.dispose))
+
+        $(window).off('resize', this.proxy(this.onResize))
+        $(window).off('oc.updateUi', this.proxy(this.onResize))
+    }
+
+    CodeEditor.prototype.onBeforeRequest = function() {
+        this.$textarea.val(this.editor.getSession().getValue())
+    }
+
+    CodeEditor.prototype.onChange = function() {
+        this.$form.trigger('change')
+        this.$textarea.trigger('oc.codeEditorChange')
+    }
+
+    CodeEditor.prototype.onResize = function() {
+        this.editor.resize()
+    }
+
+    CodeEditor.prototype.onBlur = function() {
+        this.$el.removeClass('editor-focus')
+    }
+
+    CodeEditor.prototype.onFocus = function() {
+        this.$el.addClass('editor-focus')
+    }
+
+    CodeEditor.prototype.onEscape = function() {
+        this.isFullscreen && this.toggleFullscreen()
     }
 
     CodeEditor.prototype.setWordWrap = function(mode) {

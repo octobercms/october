@@ -1,3 +1,20 @@
+* **Build 258** (2015-05-09)
+  - The hotkey for full screen mode is now Cmd+Shift+F or Ctrl+Shift+F in Windows.
+
+* **Build 252** (2015-04-29)
+  - Optimized many JavaScript libraries used in the back-end to reduce memory leaks.
+
+* **Build 250** (2015-04-28)
+  - Protected files can now be downloaded by administrators using the `fileupload` form widget.
+  - The `{% content %}` tag now supports passing parameters, parsed by a basic template engine (see Cms > Content block docs).
+
+* **Build 247** (2015-04-23)
+  - Added Media Manager feature.
+
+* **Build 246** (2015-04-21)
+  - Adds experimental command `october:mirror` for generating symbolic links in a public directory.
+  - Various performance improvements.
+
 * **Build 239** (2015-04-06)
   - Installing plugins has a new interface and themes can now be installed using the back-end.
 

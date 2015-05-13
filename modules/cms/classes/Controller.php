@@ -28,6 +28,7 @@ use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
+use October\Rain\Parse\Template as TextParser;
 use Illuminate\Http\RedirectResponse;
 
 /**
@@ -207,6 +208,11 @@ class Controller
         $result = $this->runPage($page);
 
         /*
+         * Post-processing
+         */
+        $result = $this->postProcessResult($page, $url, $result);
+
+        /*
          * Extensibility
          */
         if (
@@ -227,7 +233,7 @@ class Controller
      * Renders a page in its entirety, including component initialization.
      * AJAX will be disabled for this process.
      * @param string $pageFile Specifies the CMS page file name to run.
-     * @param array  $parameters  Routing parameters. 
+     * @param array  $parameters  Routing parameters.
      * @param \Cms\Classes\Theme  $theme  Theme object
      */
     public static function render($pageFile, $parameters = [], $theme = null)
@@ -422,8 +428,8 @@ class Controller
          * Run page functions
          */
         CmsException::mask($this->page, 300);
-        $response = (($result = $this->pageObj->onStart()) || 
-            ($result = $this->page->runComponents()) || 
+        $response = (($result = $this->pageObj->onStart()) ||
+            ($result = $this->page->runComponents()) ||
             ($result = $this->pageObj->onEnd())) ? $result : null;
         CmsException::unmask();
 
@@ -451,6 +457,24 @@ class Controller
         }
 
         return $response;
+    }
+
+    /**
+     * Post-processes page HTML code before it's sent to the client.
+     * @param \Cms\Classes\Page $page Specifies the current CMS page.
+     * @param string $url Specifies the current URL.
+     * @param string $html The page markup to post processs.
+     * @return string Returns the updated result string.
+     */
+    protected function postProcessResult($page, $url, $html)
+    {
+        $html = MediaViewHelper::instance()->processHtml($html);
+
+        $holder = (object) ['html' => $html];
+
+        Event::fire('cms.page.postprocess', [$this, $url, $page, $holder]);
+
+        return $holder->html;
     }
 
     //
@@ -640,7 +664,7 @@ class Controller
             list($componentName, $handlerName) = explode('::', $handler);
             $componentObj = $this->findComponentByName($componentName);
 
-            if ($componentObj && method_exists($componentObj, $handlerName)) {
+            if ($componentObj && $componentObj->methodExists($handlerName)) {
                 $this->componentContext = $componentObj;
                 $result = $componentObj->runAjaxHandler($handlerName);
                 return ($result) ?: true;
@@ -870,8 +894,11 @@ class Controller
     /**
      * Renders a requested content file.
      * The framework uses this method internally.
+     * @param string $name The content view to load.
+     * @param array $parameters Parameter variables to pass to the view.
+     * @return string
      */
-    public function renderContent($name)
+    public function renderContent($name, $parameters = [])
     {
         /*
          * Extensibility
@@ -890,6 +917,13 @@ class Controller
         }
 
         $fileContent = $content->parsedMarkup;
+
+        /*
+         * Parse basic template variables
+         */
+        if (!empty($parameters)) {
+            $fileContent = TextParser::parse($fileContent, $parameters);
+        }
 
         /*
          * Extensibility
@@ -1052,7 +1086,7 @@ class Controller
             $url = substr($url, 1);
         }
 
-        $routeAction = 'Cms\Classes\Controller@run';
+        $routeAction = 'Cms\Classes\CmsController@run';
         $actionExists = Route::getRoutes()->getByAction($routeAction) !== null;
 
         if ($actionExists) {
@@ -1263,51 +1297,5 @@ class Controller
                 $component->setExternalPropertyName($propertyName, $paramName);
             }
         }
-    }
-
-    //
-    // Keep Laravel Happy
-    //
-
-    /**
-     * Get the middleware assigned to the controller.
-     *
-     * @return array
-     */
-    public function getMiddleware()
-    {
-        return [];
-    }
-
-    /**
-     * Get the registered "before" filters.
-     *
-     * @return array
-     */
-    public function getBeforeFilters()
-    {
-        return [];
-    }
-
-    /**
-     * Get the registered "after" filters.
-     *
-     * @return array
-     */
-    public function getAfterFilters()
-    {
-        return [];
-    }
-
-    /**
-     * Execute an action on the controller.
-     *
-     * @param  string  $method
-     * @param  array   $parameters
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function callAction($method, $parameters)
-    {
-        return call_user_func_array(array($this, $method), $parameters);
     }
 }

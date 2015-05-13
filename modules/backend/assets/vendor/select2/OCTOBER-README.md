@@ -1,0 +1,1 @@
+There's a hack in line 885 in select2.js. The hack prevents DOM element leakage through the event that is not unbound in the destroy() method. --ab Mar 29 2015

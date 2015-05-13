@@ -15,14 +15,14 @@
     ## Black list protected files
     ##
     RewriteRule ^themes/.*/(layouts|pages|partials)/.*.htm index.php [L,NC]
-    RewriteRule ^uploads/protected/.* index.php [L,NC]
     RewriteRule ^bootstrap/.* index.php [L,NC]
     RewriteRule ^config/.* index.php [L,NC]
     RewriteRule ^vendor/.* index.php [L,NC]
     RewriteRule ^storage/cms/.* index.php [L,NC]
     RewriteRule ^storage/logs/.* index.php [L,NC]
-    RewriteRule ^storage/temp/.* index.php [L,NC]
     RewriteRule ^storage/framework/.* index.php [L,NC]
+    RewriteRule ^storage/temp/protected/.* index.php [L,NC]
+    RewriteRule ^storage/app/uploads/protected/.* index.php [L,NC]
 
     ##
     ## White listed folders and files
@@ -49,6 +49,8 @@
     RewriteCond %{REQUEST_URI} !\.ttf
     RewriteCond %{REQUEST_URI} !\.svg
     RewriteCond %{REQUEST_URI} !\.wmv
+    RewriteCond %{REQUEST_URI} !\.mp3
+    RewriteCond %{REQUEST_URI} !\.wav
     RewriteCond %{REQUEST_URI} !\.avi
     RewriteCond %{REQUEST_URI} !\.mov
     RewriteCond %{REQUEST_URI} !\.mp4

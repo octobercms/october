@@ -53,6 +53,9 @@
  * - october.popover.js
  */
 +function ($) { "use strict";
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
+
     if ($.oc === undefined)
         $.oc = {}
 
@@ -70,7 +73,12 @@
 
         this.title = false
         this.description = false
+
+        Base.call(this)
     }
+
+    Inspector.prototype = Object.create(BaseProto)
+    Inspector.prototype.constructor = Inspector
 
     Inspector.prototype.loadConfiguration = function(onSuccess) {
         var configString = this.$el.data('inspector-config')
@@ -146,7 +154,7 @@
                         data-dismiss="popover"                                                                        \
                         aria-hidden="true">&times;</button>                                                           \
                 </div>                                                                                                \
-                <form autocomplete="off">                                                                             \
+                <form autocomplete="off" onsubmit="return false">                                                     \
                     <table class="inspector-fields {{#tableClass}}{{/tableClass}}">                                   \
                         {{#properties}}                                                                               \
                             <tr id="{{#propFormat}}{{property}}{{/propFormat}}" data-property="{{property}}"          \
@@ -170,16 +178,32 @@
         if (!this.config || this.config.length == 0)
             return
 
-        var self = this,
-            fieldsConfig = this.preprocessConfig(),
+        this.editors   = []
+        this.initProperties()
+
+        this.$el.data('oc.inspectorVisible', true)
+
+        var e = $.Event('showing.oc.inspector')
+        this.$el.trigger(e, [{callback: this.proxy(this.displayPopover)}])
+        if (e.isDefaultPrevented())
+            return
+
+        if (!e.isPropagationStopped())
+            this.displayPopover()
+    }
+
+    Inspector.prototype.displayPopover = function() {
+        var fieldsConfig = this.preprocessConfig(),
+            renderEditorBound = this.proxy(this.renderEditor),
+            groupExpandedBound = this.proxy(this.groupExpanded),
             data = {
                 title: this.title ? this.title : this.$el.data('inspector-title'),
                 description: this.description ? this.description : this.$el.data('inspector-description'),
                 properties: fieldsConfig.properties,
                 editor: function() {
                     return function(text, render) {
-                        if (this.itemType == 'property')
-                            return self.renderEditor(this, render)
+                       if (this.itemType == 'property')
+                           return renderEditorBound(this, render)
                     }
                 },
                 info: function() {
@@ -207,8 +231,8 @@
                     return function(text, render) {
                         var result = this.itemType + ((this.itemType == 'property' && this.groupIndex !== undefined) ? ' grouped' : '')
 
-                        if (this.itemType == 'property' && this.groupIndex !== undefined)
-                            result += self.groupExpanded(this.group) ? ' expanded' : ' collapsed'
+                       if (this.itemType == 'property' && this.groupIndex !== undefined)
+                           result += groupExpandedBound(this.group) ? ' expanded' : ' collapsed'
 
                         if (this.itemType == 'property' && !this.showExternalParam)
                             result += ' no-external-parameter'
@@ -219,7 +243,7 @@
                 expandControl: function() {
                     return function(text, render) {
                         if (this.itemType == 'group') {
-                            this.itemStatus = self.groupExpanded(this.title) ? 'expanded' : ''
+                            this.itemStatus = groupExpandedBound(this.title) ? 'expanded' : ''
 
                             return render('<a class="expandControl {{itemStatus}}" href="javascript:;" data-group-index="{{groupIndex}}"><span>Expand/collapse</span></a>', this)
                         }
@@ -233,85 +257,76 @@
                 }
             }
 
-        this.editors   = []
-        this.initProperties()
+        var offset = this.$el.data('inspector-offset')
+        if (offset === undefined)
+            offset = 15
 
-        this.$el.data('oc.inspectorVisible', true)
+        var offsetX = this.$el.data('inspector-offset-x'),
+            offsetY = this.$el.data('inspector-offset-y')
 
-        var displayPopover = function() {
-            var offset = self.$el.data('inspector-offset')
-            if (offset === undefined)
-                offset = 15
+        var placement = this.$el.data('inspector-placement')
+        if (placement === undefined)
+            placement = 'bottom'
 
-            var offsetX = self.$el.data('inspector-offset-x'),
-                offsetY = self.$el.data('inspector-offset-y')
+        var fallbackPlacement = this.$el.data('inspector-fallback-placement') 
+        if (fallbackPlacement === undefined)
+            fallbackPlacement = 'bottom'
 
-            var placement = self.$el.data('inspector-placement')
-            if (placement === undefined)
-                placement = 'bottom'
+        this.$el.ocPopover({
+            content: Mustache.render(this.getPopoverTemplate(), data),
+            highlightModalTarget: true,
+            modal: true,
+            placement: placement,
+            fallbackPlacement: fallbackPlacement,
+            containerClass: 'control-inspector',
+            container:  this.$el.data('inspector-container'),
+            offset: offset,
+            offsetX: offsetX,
+            offsetY: offsetY,
+            width: 400
+        })
 
-            var fallbackPlacement = self.$el.data('inspector-fallback-placement') 
-            if (fallbackPlacement === undefined)
-                fallbackPlacement = 'bottom'
+        this.$el.on('hiding.oc.popover', this.proxy(this.onBeforeHide))
+        this.$el.on('hide.oc.popover', this.proxy(this.cleanup))
+        this.$el.addClass('inspector-open')
 
-            self.$el.ocPopover({
-                content: Mustache.render(self.getPopoverTemplate(), data),
-                highlightModalTarget: true,
-                modal: true,
-                placement: placement,
-                fallbackPlacement: fallbackPlacement,
-                containerClass: 'control-inspector',
-                container:  self.$el.data('inspector-container'),
-                offset: offset,
-                offsetX: offsetX,
-                offsetY: offsetY,
-                width: 400
-            })
+        $(this.$el.data('oc.popover').$container).on('keydown', this.proxy(this.onPopoverKeyDown))
 
-            self.$el.on('hiding.oc.popover', function(e){return self.onBeforeHide(e)})
-            self.$el.on('hide.oc.popover', function(){self.cleanup()})
-            self.$el.addClass('inspector-open')
-
-            $(self.$el.data('oc.popover').$container).on('keydown', function(e){
-                if(e.keyCode == 13)
-                    $(this).trigger('close.oc.popover')
-            })
-
-            if (self.editors.length > 0) {
-                if (self.editors[0].focus !== undefined)
-                    self.editors[0].focus()
-            }
-
-            if (self.$el.closest('[data-inspector-external-parameters]').length > 0)
-                self.initExternalParameterEditor(self.$el.data('oc.popover').$container)
-
-            $.each(self.editors, function(){
-                if (this.init !== undefined)
-                    this.init()
-            })
-
-            $('.with-tooltip', self.$el.data('oc.popover').$container)
-                .tooltip({ placement: 'auto right', container: 'body', delay: 500 })
-
-            var $container = self.$el.data('oc.popover').$container
-            $container.on('click', 'tr.group', function(){
-                self.toggleGroup($('a.expandControl', this), $container)
-                return false
-            })
-
-            var cssClass = self.options.inspectorCssClass
-
-            if (cssClass !== undefined)
-                $container.addClass(cssClass)
+        if (this.editors.length > 0) {
+            if (this.editors[0].focus !== undefined)
+                this.editors[0].focus()
         }
 
-        var e = $.Event('showing.oc.inspector')
-        this.$el.trigger(e, [{callback: displayPopover}])
-        if (e.isDefaultPrevented())
-            return
+        if (this.$el.closest('[data-inspector-external-parameters]').length > 0)
+            this.initExternalParameterEditor(this.$el.data('oc.popover').$container)
 
-        if (!e.isPropagationStopped())
-            displayPopover()
+        for (var i=0, len = this.editors.length; i < len; i++) {
+            if (this.editors[i].init !== undefined)
+                this.editors[i].init()
+        }
+
+        $('.with-tooltip', this.$el.data('oc.popover').$container)
+            .tooltip({ placement: 'auto right', container: 'body', delay: 500 })
+
+        var $container = this.$el.data('oc.popover').$container
+        $container.on('click', 'tr.group', this.proxy(this.onGroupClick))
+
+        var cssClass = this.options.inspectorCssClass
+
+        if (cssClass !== undefined)
+            $container.addClass(cssClass)
+    }
+
+    Inspector.prototype.onPopoverKeyDown = function(ev) {
+        if(ev.keyCode == 13)
+            $(ev.currentTarget).trigger('close.oc.popover')
+    }
+
+    Inspector.prototype.onGroupClick = function(ev) {
+        var $container = this.$el.data('oc.popover').$container
+        this.toggleGroup($('a.expandControl', ev.target), $container)
+
+        return false
     }
 
     /*
@@ -701,6 +716,26 @@
         this.$el.trigger(e)
 
         this.$el.data('oc.inspectorVisible', false)
+
+        this.dispose()
+    }
+
+    Inspector.prototype.dispose = function() {
+        for (var i=0, len=this.editors.length; i<len; i++) {
+            this.editors[i].dispose()
+            this.editors[i] = null
+        }
+
+        var $popoverContainer = $(this.$el.data('oc.popover').$container)
+        $popoverContainer.off('keydown', this.proxy(this.onPopoverKeyDown))
+        $('.with-tooltip', $popoverContainer).tooltip('destroy')
+        this.$el.removeData('oc.inspector')
+
+        this.editors = null
+        this.options = null
+        this.$el = null
+
+        BaseProto.dispose.call(this)
     }
 
     Inspector.prototype.onBeforeHide = function(e) {
@@ -736,7 +771,7 @@
         }
 
         var eH = $.Event('hiding.oc.inspector'),
-            ispector = this
+            inspector = this
 
         this.$el.trigger(eH, [{values: this.propertyValues}])
         if (eH.isDefaultPrevented()) {
@@ -745,7 +780,7 @@
         }
 
         $.each(this.editors, function() {
-            if (ispector.editorExternalPropertyEnabled(this))
+            if (inspector.editorExternalPropertyEnabled(this))
                 return true
 
             if (this.validate === undefined)
@@ -766,13 +801,6 @@
         })
 
         $('.with-tooltip', this.$el.data('oc.popover').$container).tooltip('hide')
-
-        if (!e.isDefaultPrevented())  {
-            $.each(this.editors, function() {
-                if (this.cleanup)
-                    this.cleanup()
-            })
-        }
     }
 
     Inspector.prototype.editorExternalPropertyEnabled = function(editor) {
@@ -809,6 +837,10 @@
      * - init(), sets the initial editor value
      * - onHideExternalParameterEditor(), optional handler, triggered when a user hides the 
      *   external parameter editor on the Inspector field.
+     * - dispose(), disposes the editor and cleans its references to the DOM elements and event handlers.
+     *
+     * All editors should extend the $.oc.foundation.base class
+     *
      */
 
     // STRING EDITOR
@@ -820,18 +852,14 @@
         this.editorId = editorId
         this.selector = '#'+this.editorId+' input.string-editor'
 
-        var self = this
-        $(document).on('focus', this.selector, function() {
-            var $field = $(this)
+        Base.call(this)
 
-            $('td', $field.closest('table')).removeClass('active')
-            $field.closest('td').addClass('active')
-        })
-
-        $(document).on('change', this.selector, function() {
-            self.applyValue()
-        })
+        $(document).on('focus', this.selector, this.proxy(this.onFocus))
+        $(document).on('change', this.selector, this.proxy(this.applyValue))
     }
+
+    InspectorEditorString.prototype = Object.create(BaseProto)
+    InspectorEditorString.prototype.constructor = InspectorEditorString
 
     InspectorEditorString.prototype.init = function() {
         var value = this.inspector.readProperty(this.fieldDef.property, true)
@@ -840,6 +868,25 @@
             value = this.inspector.getDefaultValue(this.fieldDef.property)
 
         $(this.selector).val($.trim(value))
+    }
+
+    InspectorEditorString.prototype.dispose = function() {
+        $(document).off('change', this.selector, this.proxy(this.applyValue))
+        $(document).off('focus', this.selector, this.proxy(this.onFocus))
+
+        this.inspector = null
+        this.fieldDef = null
+        this.editorId = null
+        this.selector = null
+
+        BaseProto.dispose.call(this)
+    }
+
+    InspectorEditorString.prototype.onFocus = function(ev) {
+        var $field = $(ev.currentTarget)
+
+        $('td', $field.closest('table')).removeClass('active')
+        $field.closest('td').addClass('active')
     }
 
     InspectorEditorString.prototype.applyValue = function() {
@@ -886,11 +933,23 @@
         this.editorId = editorId
         this.selector = '#'+this.editorId+' input'
 
-        var self = this
+        Base.call(this)
 
-        $(document).on('change', this.selector, function() {
-            self.applyValue()
-        })
+        $(document).on('change', this.selector, this.proxy(this.applyValue))
+    }
+
+    InspectorEditorCheckbox.prototype = Object.create(BaseProto)
+    InspectorEditorCheckbox.prototype.constructor = InspectorEditorCheckbox
+
+    InspectorEditorCheckbox.prototype.dispose = function() {
+        $(document).off('change', this.selector, this.proxy(this.applyValue))
+
+        this.inspector = null
+        this.fieldDef = null
+        this.editorId = null
+        this.selector = null
+
+        BaseProto.dispose.call(this)
     }
 
     InspectorEditorCheckbox.prototype.applyValue = function() {
@@ -960,11 +1019,25 @@
         this.dynamicOptions = this.fieldDef.options ? false : true
         this.initialization = false
 
-        var self = this
+        Base.call(this)
 
-        $(document).on('change', this.selector, function() {
-            self.applyValue()
-        })
+        $(document).on('change', this.selector, this.proxy(this.applyValue))
+    }
+
+    InspectorEditorDropdown.prototype = Object.create(BaseProto)
+    InspectorEditorDropdown.prototype.constructor = InspectorEditorDropdown
+
+    InspectorEditorDropdown.prototype.dispose = function() {
+        $(document).off('change', this.selector, this.proxy(this.applyValue))
+
+        $(this.selector).select2('destroy')
+
+        this.inspector = null
+        this.fieldDef = null
+        this.editorId = null
+        this.selector = null
+
+        BaseProto.dispose.call(this)
     }
 
     InspectorEditorDropdown.prototype.applyValue = function() {
@@ -1021,8 +1094,7 @@
     }
 
     InspectorEditorDropdown.prototype.init = function() {
-        var value = this.inspector.readProperty(this.fieldDef.property, true),
-            self = this
+        var value = this.inspector.readProperty(this.fieldDef.property, true)
 
         if (value === undefined)
             value = this.inspector.getDefaultValue(this.fieldDef.property)
@@ -1154,16 +1226,14 @@
         this.loadOptions(false)
     }
 
-    InspectorEditorDropdown.prototype.cleanup = function() {
-        $(this.selector).select2('destroy')
-    }
-
     $.oc.inspector.editors.inspectorEditorDropdown = InspectorEditorDropdown;
 
     // INSPECTOR PLUGIN DEFINITION
     // ============================
 
     function initInspector($element) {
+        // For now the inspector configuration is not retained in the element's data,
+        // fix later (see #83) -ab Apr 27 2015
         var inspector = $element.data('oc.inspector')
 
         if (inspector === undefined) {
@@ -1174,8 +1244,9 @@
             })
 
             $element.data('oc.inspector', inspector)
-        } else
-            inspector.init()
+        } 
+        // else
+        //     inspector.init()
     }
 
     $.fn.inspector = function (option) {

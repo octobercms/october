@@ -467,7 +467,17 @@
         destroy: function () {
             // TODO iterate over subgroups and destroy them
             // TODO remove all events
-            containerGroups[this.options.group] = undefined
+
+            var group = this.options.group
+            containerGroups[group].options = null
+            containerGroups[group] = undefined
+
+            for (var i in containerGroups) {
+                if (containerGroups[i]) {
+                    containerGroups[i] = undefined
+                }
+            }
+
         }
     }
 
@@ -656,6 +666,7 @@
         },
         destroy: function () {
             this.rootGroup.destroy()
+            $(this.el).data('oc.sortable')
         }
     }
 
@@ -675,8 +686,9 @@
 
             if (object && API[option])
                 return API[option].apply(object, args) || this
-            else if (!object && (option === undefined ||typeof option === "object"))
+            else if (!object && (option === undefined ||typeof option === "object")) {
                 $this.data('oc.sortable', new Container($this, option))
+            }
 
             return this
         });

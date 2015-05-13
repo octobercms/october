@@ -76,17 +76,23 @@ class User extends UserBase
     /**
      * Returns the public image file path to this user's avatar.
      */
-    public function getAvatarThumb($size = 25, $default = null)
+    public function getAvatarThumb($size = 25, $options = null)
     {
-        if (!$default) {
-            $default = 'mm'; // Mystery man
+        if (is_string($options)) {
+            $options = ['default' => $options];
+        }
+        elseif (!is_array($options)) {
+            $options = [];
         }
 
+        // Default is "mm" (Mystery man)
+        $default = array_get($options, 'default', 'mm');
+
         if ($this->avatar) {
-            return $this->avatar->getThumb($size, $size);
+            return $this->avatar->getThumb($size, $size, $options);
         }
         else {
-            return '//www.gravatar.com/avatar/'.
+            return '//www.gravatar.com/avatar/' .
                 md5(strtolower(trim($this->email))) .
                 '?s='. $size .
                 '&d='. urlencode($default);

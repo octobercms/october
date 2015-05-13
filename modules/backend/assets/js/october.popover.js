@@ -76,15 +76,16 @@
         if (this.$container) this.$container.remove()
         if (this.$overlay) this.$overlay.remove()
 
+        this.$el.removeClass('popover-highlight')
+        this.$el.trigger('hide.oc.popover')
+
         this.$overlay = false
         this.$container = false
 
-        this.$el.removeClass('popover-highlight')
         this.$el.data('oc.popover', null)
         $(document.body).removeClass('popover-open')
 
         $(document).unbind('mousedown', this.docClickHandler);
-        this.$el.trigger('hide.oc.popover')
         $(document).off('.oc.popover')
     }
 

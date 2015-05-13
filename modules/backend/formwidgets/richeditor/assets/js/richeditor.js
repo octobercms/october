@@ -11,6 +11,8 @@
  * - Redactor Editor (redactor.js)
  */
 +function ($) { "use strict";
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
 
     // RICHEDITOR CLASS DEFINITION
     // ============================
@@ -21,9 +23,18 @@
         this.$textarea   = this.$el.find('>textarea:first')
         this.$form       = this.$el.closest('form')
         this.$dataLocker = null
+        this.$editor     = null
+        this.redactor    = null
 
-        this.init();
+        $.oc.foundation.controlUtils.markDisposable(element)
+
+        Base.call(this)
+
+        this.init()
     }
+
+    RichEditor.prototype = Object.create(BaseProto)
+    RichEditor.prototype.constructor = RichEditor
 
     RichEditor.DEFAULTS = {
         stylesheet: null,
@@ -31,8 +42,9 @@
     }
 
     RichEditor.prototype.init = function (){
-
         var self = this;
+
+        this.$el.one('dispose-control', this.proxy(this.dispose))
 
         /*
          * Sync all changes to a data locker, since fullscreen mode
@@ -54,46 +66,80 @@
          * Initialize Redactor editor
          */
         var redactorOptions = {
-            imageEditable: false,
-            imageResizable: false,
+            imageEditable: true,
+            imageResizable: true,
             buttonSource: true,
             removeDataAttr: false,
-            syncBeforeCallback: function(html) { return self.syncBefore(html) },
-            focusCallback: function() { self.$el.addClass('editor-focus') },
-            blurCallback: function() { self.$el.removeClass('editor-focus') },
-            keydownCallback: function(e) { return self.keydown(e, this.$editor) },
-            enterCallback: function(e) { return self.enter(e, this.$editor) },
-            initCallback: function() { self.build(this) },
-            changeCallback: function() {
-                self.sanityCheckContent(this.$editor)
-                this.$editor.trigger('mutate')
-                self.$form.trigger('change')
-
-                if (self.$dataLocker)
-                    self.$dataLocker.val(self.syncBefore(this.$editor.html()))
-            }
+            syncBeforeCallback: this.proxy(this.onSyncBefore),
+            focusCallback: this.proxy(this.onFocus),
+            blurCallback: this.proxy(this.onBlur),
+            keydownCallback: this.proxy(this.onKeydown),
+            enterCallback: this.proxy(this.onEnter),
+            changeCallback: this.proxy(this.onChange),
+            initCallback: function() { self.build(this) }
         }
 
         if (this.options.fullpage) {
             redactorOptions.fullpage = true
         }
 
-        // redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'image', 'quote', 'table']
-        // redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule', 'html'],
-
-        redactorOptions.plugins = ['cleanup', 'fullscreen', 'figure', 'quote', 'table']
-        redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'image', 'link', 'horizontalrule', 'html'],
+        redactorOptions.plugins = ['fullscreen', 'figure', 'table', 'mediamanager']
+        redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule', 'html'],
 
         this.$textarea.redactor(redactorOptions)
+
+        this.redactor = this.$textarea.redactor('core.getObject')
+        this.$editor = this.redactor.$editor
+    }
+
+    RichEditor.prototype.dispose = function() {
+        this.unregisterHandlers()
+
+        // Release clickedElement reference inside redactor.js
+        $(document).trigger('mousedown')
+
+        this.redactor.core.destroy()
+
+        // The figure plugin keeps references to the editor,
+        // DOM elements and event handlers. It was hacked and
+        // extended with the destroy() method.
+        if (this.redactor.figure) {
+            this.redactor.figure.destroy()
+            this.redactor.figure = null
+        }
+
+        this.$el.removeData('oc.richEditor')
+
+        this.options = null
+        this.$el = null
+        this.$textarea = null
+        this.$form = null
+        this.$dataLocker = null
+        this.$editor = null
+
+        this.redactor.$textarea = null
+        this.redactor.$element = null
+
+        this.redactor = null
+
+        BaseProto.dispose.call(this)
+    }
+
+    RichEditor.prototype.unregisterHandlers = function() {
+        $(window).off('resize', this.proxy(this.updateLayout))
+        $(window).off('oc.updateUi', this.proxy(this.updateLayout))
+        this.$el.off('dispose-control', this.proxy(this.dispose))
     }
 
     RichEditor.prototype.build = function(redactor) {
         this.updateLayout()
 
-        $(window).resize($.proxy(this.updateLayout, this))
-        $(window).on('oc.updateUi', $.proxy(this.updateLayout, this))
+        $(window).on('resize', this.proxy(this.updateLayout))
+        $(window).on('oc.updateUi', this.proxy(this.updateLayout))
 
         this.$textarea.trigger('init.oc.richeditor', [this.$el])
+
+        this.initUiBlocks()
 
         var self = this
         redactor.default = {
@@ -118,19 +164,19 @@
         }
     }
 
-    RichEditor.prototype.sanityCheckContent = function($editor) {
+    RichEditor.prototype.sanityCheckContent = function() {
         // First and last elements should always be paragraphs or pre
         var safeElements = 'p, h1, h2, h3, h4, h5, pre, figure';
 
-        if (!$editor.children(':last-child').is(safeElements)) {
-            $editor.append('<p><br></p>')
+        if (!this.$editor.children(':last-child').is(safeElements)) {
+            this.$editor.append('<p><br></p>')
         }
 
-        if (!$editor.children(':first-child').is(safeElements)) {
-            $editor.prepend('<p><br></p>')
+        if (!this.$editor.children(':first-child').is(safeElements)) {
+            this.$editor.prepend('<p><br></p>')
         }
 
-        this.$textarea.trigger('sanitize.oc.richeditor', [$editor])
+        this.$textarea.trigger('sanitize.oc.richeditor', [this.$editor])
     }
 
     RichEditor.prototype.syncBefore = function(html) {
@@ -157,23 +203,13 @@
             $(this).remove()
         })
 
+        $domTree.find('[data-video], [data-audio]').each(function(){
+            $(this).removeAttr('contenteditable data-ui-block tabindex')
+        })
+
         $domTree.find('div.oc-figure-controls').remove()
 
         return $domTree.html()
-    }
-
-    RichEditor.prototype.keydown = function(e, $editor) {
-        this.$textarea.trigger('keydown.oc.richeditor', [e, $editor, this.$textarea])
-
-        if (e.isDefaultPrevented())
-            return false
-    }
-
-    RichEditor.prototype.enter = function(e, $editor) {
-        this.$textarea.trigger('enter.oc.richeditor', [e, $editor, this.$textarea])
-
-        if (e.isDefaultPrevented())
-            return false
     }
 
     RichEditor.prototype.onShowFigureToolbar = function($figure, $toolbar) {
@@ -184,18 +220,208 @@
         $toolbar.toggleClass('bottom', toolbarTop < 0)
     }
 
+    /*
+     * Inserts non-editable block (used for snippets, audio and video)
+     */
+    RichEditor.prototype.insertUiBlock = function($node) {
+        var current = this.redactor.selection.getCurrent(),
+            inserted = false
+
+        if (current === false)
+            this.redactor.focus.setStart()
+
+        current = this.redactor.selection.getCurrent()
+
+        if (current !== false) {
+            // If the block is inserted into a paragraph, insert it after the paragraph.
+            var $paragraph = $(current).closest('p')
+            if ($paragraph.length > 0) {
+                this.redactor.caret.setAfter($paragraph.get(0))
+
+                // If the paragraph is empty, remove it.
+                if ($.trim($paragraph.text()).length == 0)
+                    $paragraph.remove()
+            } else {
+                // If block is inserted into another UI block, insert it after the existing block.
+                var $closestBlock = $(current).closest('[data-ui-block]')
+                if ($closestBlock.length > 0) {
+                    $node.insertBefore($closestBlock.get(0))
+                    inserted = true
+                }
+            }
+        }
+
+        if (!inserted)
+            this.redactor.insert.node($node)
+
+        this.redactor.code.sync()
+
+        $node.focus()
+    }
+
+    RichEditor.prototype.initUiBlocks = function() {
+        $('.redactor-editor [data-video], .redactor-editor [data-audio]', this.$el).each(function() {
+            $(this).attr({
+                'data-ui-block': true,
+                'tabindex': '0'
+            })
+            this.contentEditable = false
+        })
+    }
+
+    RichEditor.prototype.handleUiBlocksKeydown = function(ev) {
+        if (this.$textarea === undefined)
+            return
+
+        if (ev.target && $(ev.target).attr('data-ui-block') !== undefined) {
+            this.uiBlockKeyDown(ev, ev.target)
+
+            ev.preventDefault()
+            return
+        }
+
+        switch (ev.which) {
+            case 38:
+                // Up arrow
+                var block = this.redactor.selection.getBlock()
+                if (block)
+                    this.handleUiBlockCaretIn($(block).prev())
+            break
+            case 40:
+                // Down arrow
+                var block = this.redactor.selection.getBlock()
+                if (block)
+                    this.handleUiBlockCaretIn($(block).next())
+            break
+        }
+    }
+
+    RichEditor.prototype.handleUiBlockCaretIn = function($block) {
+        if ($block.attr('data-ui-block') !== undefined) {
+            $block.focus()
+            this.redactor.selection.remove()
+
+            return true
+        }
+
+        return false
+    }
+
+    RichEditor.prototype.uiBlockKeyDown = function(ev, block) {
+        if (ev.which == 40 || ev.which == 38 || ev.which == 13 || ev.which == 8) {
+            switch (ev.which) {
+                case 40:
+                    // Down arrow
+                    this.focusUiBlockOrText($(block).next(), true)
+                break
+                case 38:
+                    // Up arrow
+                    this.focusUiBlockOrText($(block).prev(), false)
+                break
+                case 13:
+                    // Enter key
+                    var $paragraph = $('<p><br/></p>')
+                    $paragraph.insertAfter(block)
+                    this.redactor.caret.setStart($paragraph.get(0))
+                break
+                case 8:
+                    // Backspace key
+                    var $nextFocus = $(block).next(),
+                        gotoStart = true
+
+                    if ($nextFocus.length == 0) {
+                        $nextFocus = $(block).prev()
+                        gotoStart = false
+                    }
+
+                    this.focusUiBlockOrText($nextFocus, gotoStart)
+
+                    $(block).remove()
+                break
+            }
+        }
+    }
+
+    RichEditor.prototype.focusUiBlockOrText = function($block, gotoStart) {
+        if ($block.length > 0) {
+            if (!this.handleUiBlockCaretIn($block, this.redactor)) {
+                if (gotoStart)
+                    this.redactor.caret.setStart($block.get(0))
+                else
+                    this.redactor.caret.setEnd($block.get(0))
+            }
+        }
+    }
+
+    // EVENT HANDLERS
+    // ============================
+
+    RichEditor.prototype.onSyncBefore = function(html) {
+        return this.syncBefore(html)
+    }
+
+    RichEditor.prototype.onFocus = function() {
+        this.$el.addClass('editor-focus') 
+    }
+
+    RichEditor.prototype.onBlur = function() {
+        this.$el.removeClass('editor-focus') 
+    }
+
+    RichEditor.prototype.onKeydown = function(ev) {
+        this.$textarea.trigger('keydown.oc.richeditor', [ev, this.$editor, this.$textarea])
+
+        if (ev.isDefaultPrevented())
+            return false
+
+        this.handleUiBlocksKeydown(ev)
+
+        if (ev.isDefaultPrevented())
+            return false
+    }
+
+    RichEditor.prototype.onEnter = function(ev) {
+        this.$textarea.trigger('enter.oc.richeditor', [ev, this.$editor, this.$textarea])
+
+        if (ev.isDefaultPrevented())
+            return false
+
+        this.handleUiBlocksKeydown(ev)
+
+        if (ev.isDefaultPrevented())
+            return false
+    }
+
+    RichEditor.prototype.onChange = function(ev) {
+        this.sanityCheckContent()
+        this.$editor.trigger('mutate')
+        this.$form.trigger('change')
+
+        if (this.$dataLocker)
+            this.$dataLocker.val(this.syncBefore(this.$editor.html()))
+    }
+
     // RICHEDITOR PLUGIN DEFINITION
     // ============================
 
     var old = $.fn.richEditor
 
     $.fn.richEditor = function (option) {
+        var args = arguments;
+
         return this.each(function () {
             var $this   = $(this)
             var data    = $this.data('oc.richEditor')
             var options = $.extend({}, RichEditor.DEFAULTS, $this.data(), typeof option == 'object' && option)
             if (!data) $this.data('oc.richEditor', (data = new RichEditor(this, options)))
-            if (typeof option == 'string') data[option].call($this)
+
+            if (typeof option == 'string') {
+                var methodArgs = [];
+                for (var i=1; i<args.length; i++)
+                    methodArgs.push(args[i])
+
+                data[option].apply(data, methodArgs)
+            }
         })
     }
 

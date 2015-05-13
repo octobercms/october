@@ -6,6 +6,7 @@ use File;
 use Config;
 use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
+use Closure;
 
 /**
  * The Backend controller class.
@@ -16,6 +17,13 @@ use October\Rain\Router\Helper as RouterHelper;
  */
 class BackendController extends ControllerBase
 {
+    use \October\Rain\Extension\ExtendableTrait;
+
+    /**
+     * @var array Behaviors implemented by this controller.
+     */
+    public $implement;
+
     /**
      * @var string Allows early access to page action.
      */
@@ -25,6 +33,22 @@ class BackendController extends ControllerBase
      * @var array Allows early access to page parameters.
      */
     public static $params;
+
+    /**
+     * Instantiate a new BackendController instance.
+     */
+    public function __construct()
+    {
+        $this->extendableConstruct();
+    }
+
+    /**
+     * Extend this object properties upon construction.
+     */
+    public static function extend(Closure $callback)
+    {
+        self::extendableExtendCallback($callback);
+    }
 
     /**
      * Finds and serves the requested backend controller.

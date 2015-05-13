@@ -746,11 +746,12 @@ class RelationController extends ControllerBehavior
         $config->context = $this->evalFormContext('pivot', !!$this->manageId);
         $config->alias = $this->alias . 'ManagePivotForm';
 
+        $foreignKeyName = $this->relationModel->getQualifiedKeyName();
+
         /*
          * Existing record
          */
         if ($this->manageId) {
-            $foreignKeyName = $this->relationModel->getQualifiedKeyName();
             $hydratedModel = $this->relationObject->where($foreignKeyName, $this->manageId)->first();
 
             $config->model = $hydratedModel;
@@ -760,10 +761,19 @@ class RelationController extends ControllerBehavior
                 ]));
             }
         }
+        /*
+         * New record
+         */
         else {
-            if ($this->foreignId && ($foreignModel = $this->relationModel->find($this->foreignId))) {
-                $foreignModel->exists = false;
-                $config->model = $foreignModel;
+            if ($this->foreignId) {
+                $foreignModel = $this->relationModel
+                    ->whereIn($foreignKeyName, (array) $this->foreignId)
+                    ->first();
+
+                if ($foreignModel) {
+                    $foreignModel->exists = false;
+                    $config->model = $foreignModel;
+                }
             }
 
             $pivotModel = $this->relationObject->newPivot();
@@ -904,7 +914,7 @@ class RelationController extends ControllerBehavior
         $saveData = $this->manageWidget->getSaveData();
 
         if ($this->viewMode == 'multi') {
-            $model = $this->relationObject->find($this->manageId);
+            $model = $this->relationModel->find($this->manageId);
             $model->save($saveData, $this->manageWidget->getSessionKey());
         }
         elseif ($this->viewMode == 'single') {

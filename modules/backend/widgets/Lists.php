@@ -639,6 +639,7 @@ class Lists extends WidgetBase
 
     /**
      * Programatically add columns, used internally and for extensibility.
+     * @param array $columns Column definitions
      */
     public function addColumns(array $columns)
     {
@@ -647,6 +648,17 @@ class Lists extends WidgetBase
          */
         foreach ($columns as $columnName => $config) {
             $this->allColumns[$columnName] = $this->makeListColumn($columnName, $config);
+        }
+    }
+
+    /**
+     * Programatically remove a column, used for extensibility.
+     * @param string $column Column name
+     */
+    public function removeColumn($columnName)
+    {
+        if (isset($this->allColumns[$columnName])) {
+            unset($this->allColumns[$columnName]);
         }
     }
 

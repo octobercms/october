@@ -30,6 +30,9 @@
  */
 +function ($) { "use strict";
 
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
+
     var DragScroll = function (element, options) {
         this.options = $.extend({}, DragScroll.DEFAULTS, options)
 
@@ -44,6 +47,8 @@
 
         this.el = $el
         this.scrollClassContainer = this.options.scrollClassContainer ? $(this.options.scrollClassContainer) : $el
+
+        Base.call(this)
 
         /*
          * Inject scroll markers
@@ -65,12 +70,15 @@
             return !scrollWheel(offset)
         })
 
-        $el.on('mousedown', function(event){
+        $el.on('mousedown.dragScroll', function(event){
+            if (event.target && event.target.tagName === 'INPUT')
+                return // Don't prevent clicking inputs in the toolbar
+
             startDrag(event)
             return false
         })
 
-        $el.on('touchstart', function(event){
+        $el.on('touchstart.dragScroll', function(event){
             var touchEvent = event.originalEvent;
             if (touchEvent.touches.length == 1) {
                 startDrag(touchEvent.touches[0])
@@ -78,14 +86,14 @@
             }
         })
 
-        $el.on('click', function() {
+        $el.on('click.dragScroll', function() {
             // Do not handle item clicks while dragging
             if ($(document.body).hasClass('drag'))
                 return false
         })
 
-        $(document).on('ready', $.proxy(this.fixScrollClasses, this))
-        $(window).on('resize', $.proxy(this.fixScrollClasses, this))
+        $(document).on('ready', this.proxy(this.fixScrollClasses))
+        $(window).on('resize', this.proxy(this.fixScrollClasses))
 
         /*
          * Internal event, drag has started
@@ -198,6 +206,9 @@
 
         this.fixScrollClasses();
     }
+
+    DragScroll.prototype = Object.create(BaseProto)
+    DragScroll.prototype.constructor = DragScroll
 
     DragScroll.DEFAULTS = {
         vertical: false,
@@ -320,6 +331,19 @@
 
         if (!animated && callback !== undefined)
             callback()
+    }
+
+    DragScroll.prototype.dispose = function() {
+        this.scrollClassContainer = null
+
+        $(document).off('ready', this.proxy(this.fixScrollClasses))
+        $(window).off('resize', this.proxy(this.fixScrollClasses))
+        this.el.off('.dragScroll')
+
+        this.el.removeData('oc.dragScroll')
+
+        this.el = null
+        BaseProto.dispose.call(this)
     }
 
     // DRAGSCROLL PLUGIN DEFINITION

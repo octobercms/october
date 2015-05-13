@@ -113,8 +113,11 @@ class DebugExtension extends Twig_Extension
                 elseif (is_array($var)) {
                     $caption = static::ARRAY_CAPTION;
                 }
-                else {
+                elseif (is_object($var)) {
                     $caption = [static::OBJECT_CAPTION, get_class($var)];
+                }
+                else {
+                    $caption = [static::OBJECT_CAPTION, gettype($var)];
                 }
 
                 $result .= $this->dump($var, $caption);
@@ -443,6 +446,9 @@ class DebugExtension extends Twig_Extension
 
         $vars = [];
         foreach ($info->getProperties() as $property) {
+            if ($property->isStatic()) {
+                continue; // Only non-static
+            }
             if (!$property->isPublic()) {
                 continue; // Only public
             }

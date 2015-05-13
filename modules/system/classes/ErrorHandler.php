@@ -6,8 +6,11 @@ use Config;
 use Cms\Classes\Theme;
 use Cms\Classes\Router;
 use Cms\Classes\Controller;
+use Cms\Classes\CmsException;
 use October\Rain\Exception\ErrorHandler as ErrorHandlerBase;
 use October\Rain\Exception\ApplicationException;
+use Twig_Error_Runtime;
+use Exception;
 
 /**
  * System Error Handler, this class handles application exception events.
@@ -17,6 +20,23 @@ use October\Rain\Exception\ApplicationException;
  */
 class ErrorHandler extends ErrorHandlerBase
 {
+    /**
+     * {@inheritDoc}
+     */
+    public function handleException(Exception $proposedException)
+    {
+        // The Twig runtime error is not very useful
+        if (
+            $proposedException instanceof Twig_Error_Runtime &&
+            ($previousException = $proposedException->getPrevious()) &&
+            (!$previousException instanceof CmsException)
+        ) {
+            $proposedException = $previousException;
+        }
+
+        return parent::handleException($proposedException);
+    }
+
     /**
      * We are about to display an error page to the user,
      * if it is an ApplicationException, this event should be logged.
@@ -49,7 +69,14 @@ class ErrorHandler extends ErrorHandlerBase
 
         // Route to the CMS error page.
         $controller = new Controller($theme);
-        return $controller->run('/error');
+        $result = $controller->run('/error');
+
+        // Extract content from response object
+        if ($result instanceof \Symfony\Component\HttpFoundation\Response) {
+            $result = $result->getContent();
+        }
+
+        return $result;
     }
 
     /**
