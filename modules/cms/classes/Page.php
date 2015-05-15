@@ -140,7 +140,7 @@ class Page extends CmsCompoundObject
             $pages = self::listInTheme($theme, true);
 
             foreach ($pages as $page) {
-                $references[$page->getBaseFileName()] = $page->title;
+                $references[$page->getBaseFileName()] = $page->title . ' ['.$page->getBaseFileName().']';
             }
 
             $result = [
