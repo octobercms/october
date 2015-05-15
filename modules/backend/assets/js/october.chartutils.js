@@ -1,5 +1,5 @@
 /*
- * October charting utilities. 
+ * October charting utilities.
  */
 
 +function ($) { "use strict";
@@ -8,11 +8,11 @@
     ChartUtils.prototype.defaultValueColor = '#b8b8b8';
 
     ChartUtils.prototype.getColor = function(index) {
-        var 
+        var
             colors = [
-                '#95b753', '#cc3300', '#e5a91a', '#3366ff', '#ff0f00', '#ff6600', 
-                '#ff9e01', '#fcd202', '#f8ff01', '#b0de09', '#04d215', '#0d8ecf', '#0d52d1', 
-                '#2a0cd0', '#8a0ccf', '#cd0d74', '#754deb', '#dddddd', '#999999', '#333333', 
+                '#95b753', '#cc3300', '#e5a91a', '#3366ff', '#ff0f00', '#ff6600',
+                '#ff9e01', '#fcd202', '#f8ff01', '#b0de09', '#04d215', '#0d8ecf', '#0d52d1',
+                '#2a0cd0', '#8a0ccf', '#cd0d74', '#754deb', '#dddddd', '#999999', '#333333',
                 '#000000', '#57032a', '#ca9726', '#990000', '#4b0c25'
             ],
             colorIndex = index % (colors.length-1);
@@ -28,7 +28,9 @@
         }
 
         $('> li', $list).each(function(){
-            var value = parseFloat($('span', this).text());
+            var value = $(this).data('value')
+                ? parseFloat($(this).data('value'))
+                : parseFloat($('span', this).text());
             result.total += value
             result.values.push({value: value, color: $(this).data('color')})
             result.max = Math.max(result.max, value)
@@ -54,7 +56,7 @@
     }
 
     ChartUtils.prototype.createLegend = function($list) {
-        var 
+        var
             $legend = $('<div>').addClass('chart-legend'),
             $table = $('<table>')
 
