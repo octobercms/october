@@ -1063,7 +1063,7 @@ class Controller
     public function pageUrl($name, $parameters = [], $routePersistence = true)
     {
         if (!$name) {
-            return null;
+            return $this->currentPageUrl($parameters, $routePersistence);
         }
 
         /*

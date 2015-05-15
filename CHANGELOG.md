@@ -1,3 +1,6 @@
+* **Build 25x** (2015-05-xx)
+  - The `|page` filter now supports passing an empty string to generate a link to the current page.
+
 * **Build 258** (2015-05-09)
   - The hotkey for full screen mode is now Cmd+Shift+F or Ctrl+Shift+F in Windows.
 
