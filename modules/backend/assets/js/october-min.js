@@ -2213,7 +2213,7 @@ $(document).render(function(){$('[data-change-monitor]').changeMonitor()})}(wind
 ChartUtils.prototype.defaultValueColor='#b8b8b8';ChartUtils.prototype.getColor=function(index){var
 colors=['#95b753','#cc3300','#e5a91a','#3366ff','#ff0f00','#ff6600','#ff9e01','#fcd202','#f8ff01','#b0de09','#04d215','#0d8ecf','#0d52d1','#2a0cd0','#8a0ccf','#cd0d74','#754deb','#dddddd','#999999','#333333','#000000','#57032a','#ca9726','#990000','#4b0c25'],colorIndex=index%(colors.length-1);return colors[colorIndex];}
 ChartUtils.prototype.loadListValues=function($list){var result={values:[],total:0,max:0}
-$('> li',$list).each(function(){var value=parseFloat($('span',this).text());result.total+=value
+$('> li',$list).each(function(){var value=$(this).data('value')?parseFloat($(this).data('value')):parseFloat($('span',this).text());result.total+=value
 result.values.push({value:value,color:$(this).data('color')})
 result.max=Math.max(result.max,value)})
 return result;}
