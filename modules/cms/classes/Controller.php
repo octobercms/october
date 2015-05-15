@@ -952,7 +952,7 @@ class Controller
             }
         }
 
-        return $this->renderPartial($name.'::default', [], false);
+        return $this->renderPartial($name.'::default', $componentObj->getVars(), false);
     }
 
     //

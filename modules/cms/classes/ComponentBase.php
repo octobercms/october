@@ -6,6 +6,7 @@ use Event;
 use Config;
 use Cms\Classes\CodeBase;
 use Cms\Classes\CmsException;
+use Cms\Classes\ComponentPage;
 use October\Rain\Extension\Extendable;
 
 /**
@@ -69,7 +70,7 @@ abstract class ComponentBase extends Extendable
     protected $controller;
 
     /**
-     * @var Cms\Classes\PageCode Page object object.
+     * @var Cms\Classes\ComponentPage Page proxy object.
      */
     protected $page;
 
@@ -86,7 +87,7 @@ abstract class ComponentBase extends Extendable
     {
         if ($cmsObject !== null) {
             $this->controller = $cmsObject->controller;
-            $this->page = $cmsObject;
+            $this->page = new ComponentPage($cmsObject);
         }
 
         $this->properties = $this->validateProperties($properties);
@@ -108,7 +109,16 @@ abstract class ComponentBase extends Extendable
      */
     public function getPath()
     {
-        return plugins_path().$this->dirName;
+        return plugins_path() . $this->dirName;
+    }
+
+    /**
+     * Get any variables set via $this->page, exclusively for this component.
+     * @return array
+     */
+    public function getVars()
+    {
+        return $this->page->vars;
     }
 
     /**
