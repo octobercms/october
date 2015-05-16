@@ -1,4 +1,4 @@
-* **Build 25x** (2015-05-xx)
+* **Build 260** (2015-05-16)
   - The `|page` filter now supports passing an empty string to generate a link to the current page.
   - Component variables set with `$this->page` no longer leech in to other component partials.
   - The application will now perform redirects to prevent duplicate content and enforce the linking policy (see config `cms.enableRedirects`).
