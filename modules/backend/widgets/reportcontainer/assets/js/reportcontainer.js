@@ -87,6 +87,7 @@
 
             $(this).closest('li').remove()
             self.redraw()
+            self.setSortOrders()
         })
 
         $(window).on('oc.report-widget-added', function(){
@@ -95,8 +96,8 @@
         })
 
         window.setTimeout(function(){
-            self.updateWidth();
-            self.redraw();
+            self.updateWidth()
+            self.redraw()
         }, 200)
         this.setSortOrders()
     }
