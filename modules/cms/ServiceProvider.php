@@ -140,7 +140,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'label'       => 'cms::lang.media.menu_label',
                     'icon'        => 'icon-folder',
                     'url'         => Backend::url('cms/media'),
-                    'permissions' => ['cms.*'],
+                    'permissions' => ['cms.manage_media'],
                     'order'       => 20
                 ]
             ]);
@@ -176,6 +176,10 @@ class ServiceProvider extends ModuleServiceProvider
                 ],
                 'cms.manage_themes' => [
                     'label' => 'cms::lang.permissions.manage_themes',
+                    'tab' => 'cms::lang.permissions.name'
+                ],
+                'cms.manage_media' => [
+                    'label' => 'cms::lang.permissions.manage_media',
                     'tab' => 'cms::lang.permissions.name'
                 ]
             ]);

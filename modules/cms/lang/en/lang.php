@@ -227,7 +227,8 @@ return [
         'manage_pages' => 'Manage pages',
         'manage_layouts' => 'Manage layouts',
         'manage_partials' => 'Manage partials',
-        'manage_themes' => 'Manage themes'
+        'manage_themes' => 'Manage themes',
+        'manage_media' => 'Manage media'
     ],
     'media' => [
         'invalid_path' => "Invalid file path specified: ':path'.",
