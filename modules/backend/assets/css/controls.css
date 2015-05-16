@@ -728,7 +728,7 @@ div.scoreboard.scroll-after:after{display:block}
 div.scoreboard:before,div.scoreboard:after{margin-top:-10px}
 div.scoreboard:before{left:7px}
 div.scoreboard:after{right:10px}
-div.scoreboard div.scoreboard-item{display:inline-block;margin-right:40px;margin-bottom:20px;vertical-align:top}
+div.scoreboard div.scoreboard-item{float:left;margin-right:40px;margin-bottom:20px;vertical-align:top}
 div.scoreboard div.scoreboard-item:last-child{margin-right:0}
 div.scoreboard .control-chart{height:67px}
 div.scoreboard .control-chart ul{margin-left:77px;top:-2px}
