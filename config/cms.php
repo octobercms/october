@@ -241,6 +241,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Determines if the application should redirect URLs.
+    |--------------------------------------------------------------------------
+    |
+    | If enabled, the application middleware will redirect URLs with trailing
+    | and duplicat slashes. It will also redirect based on the linking policy
+    | defined in linkPolicy.
+    |
+    */
+
+    'enableRedirects' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Default permission mask
     |--------------------------------------------------------------------------
     |

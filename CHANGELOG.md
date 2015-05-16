@@ -1,6 +1,7 @@
 * **Build 25x** (2015-05-xx)
   - The `|page` filter now supports passing an empty string to generate a link to the current page.
   - Component variables set with `$this->page` no longer leech in to other component partials.
+  - The application will now perform redirects to prevent duplicate content and enforce the linking policy (see config `cms.enableRedirects`).
 
 * **Build 258** (2015-05-09)
   - The hotkey for full screen mode is now Cmd+Shift+F or Ctrl+Shift+F in Windows.
@@ -71,7 +72,7 @@
 
 * **Build 187** (2015-02-12)
   - **Upgraded framework to Laravel version 5**, see the [end of beta page](http://octobercms.com/beta#advanced-upgrade) for information on how to upgrade.
-  - Introduced a linking policy to control the way URLs are generated globally (see config cms.linkPolicy).
+  - Introduced a linking policy to control the way URLs are generated globally (see config `cms.linkPolicy`).
   - Popup control now supports several sizes via `data-size` attribute: giant, huge, large, small, tiny.
   - Added new scaffold command for creating form widgets `create:formwidget Acme.Blog PostSelector`.
 
