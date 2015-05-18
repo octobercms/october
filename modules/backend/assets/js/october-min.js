@@ -1590,10 +1590,7 @@ this.clearOffsetParent()},toggleListeners:function(method,events){var self=this
 events=events||['drag','drop','scroll']
 $.each(events,function(i,event){self.$document[method](eventNames[event],self[event+'Proxy'])})},clearOffsetParent:function(){this.offsetParent=undefined},clearDimensions:function(){this.containerDimensions=undefined
 var i=this.containers.length
-while(i--){this.containers[i].clearDimensions()}},destroy:function(){var group=this.options.group
-containerGroups[group].options=null
-containerGroups[group]=undefined
-for(var i in containerGroups){if(containerGroups[i]){containerGroups[i]=undefined}}}}
+while(i--){this.containers[i].clearDimensions()}},destroy:function(){containerGroups[this.options.group]=undefined}}
 function Container(element,options){this.el=element
 this.options=$.extend({},containerDefaults,options)
 this.group=ContainerGroup.get(this.options)
@@ -2407,9 +2404,11 @@ this.$el.removeData('oc.treelist')
 this.$el=null
 this.options=null}
 TreeListWidget.DEFAULTS={handle:null,nested:true}
-TreeListWidget.prototype.onDrop=function($item,container,_super){this.$el.trigger('move.oc.treelist',{item:$item,container:container})
+TreeListWidget.prototype.onDrop=function($item,container,_super){if(!this.$el){return}
+this.$el.trigger('move.oc.treelist',{item:$item,container:container})
 _super($item,container)}
-TreeListWidget.prototype.onAfterMove=function($placeholder,container,$closestEl){this.$el.trigger('aftermove.oc.treelist',{placeholder:$placeholder,container:container,closestEl:$closestEl})}
+TreeListWidget.prototype.onAfterMove=function($placeholder,container,$closestEl){if(!this.$el){return}
+this.$el.trigger('aftermove.oc.treelist',{placeholder:$placeholder,container:container,closestEl:$closestEl})}
 var old=$.fn.treeListWidget
 $.fn.treeListWidget=function(option){var args=arguments,result
 this.each(function(){var $this=$(this)

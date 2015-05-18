@@ -74,11 +74,21 @@
     // ============================
 
     TreeListWidget.prototype.onDrop = function($item, container, _super) {
+        // The event handler could be registered after the
+        // sortable is destroyed. This should be fixed later.
+        if (!this.$el) {
+            return
+        }
+
         this.$el.trigger('move.oc.treelist', { item: $item, container: container })
         _super($item, container)
     }
 
     TreeListWidget.prototype.onAfterMove = function($placeholder, container, $closestEl) {
+        if (!this.$el) {
+            return
+        }
+
         this.$el.trigger('aftermove.oc.treelist', { placeholder: $placeholder, container: container, closestEl: $closestEl })
     }
 

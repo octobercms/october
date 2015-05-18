@@ -228,15 +228,15 @@
     // instead of updating it. Remove later if nothing weird is noticed. 
     // -ab Apr 26 2015
     //
-    // TreeView.prototype.update = function() {
-    //     this.$allItems = $('li', this.$el)
-    //     this.createItemControls()
-    //     this.initSortable()
+    TreeView.prototype.update = function() {
+        this.$allItems = $('li', this.$el)
+        this.createItemControls()
+        //this.initSortable()
 
-    //     var dataId = this.$el.data('oc.active-item')
-    //     if (dataId !== undefined)
-    //         this.markActive(dataId)
-    // }
+        var dataId = this.$el.data('oc.active-item')
+        if (dataId !== undefined)
+            this.markActive(dataId)
+    }
 
     TreeView.prototype.handleMovedNode = function() {
         this.$el.trigger('change')

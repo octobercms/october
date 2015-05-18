@@ -468,16 +468,22 @@
             // TODO iterate over subgroups and destroy them
             // TODO remove all events
 
+            containerGroups[this.options.group] = undefined
+/*
+
+            if (!this.options) {
+                return
+            }
+
             var group = this.options.group
             containerGroups[group].options = null
             containerGroups[group] = undefined
-
             for (var i in containerGroups) {
                 if (containerGroups[i]) {
                     containerGroups[i] = undefined
                 }
             }
-
+*/
         }
     }
 
