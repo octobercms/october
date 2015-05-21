@@ -45,7 +45,12 @@ label{font-size:12px}
 .input-with-icon.left-align > .icon{left:0}
 .input-with-icon.left-align input{padding-left:32px !important}
 .field-section{border-bottom:1px solid #e0e0e0;padding-top:3px;padding-bottom:7px}
+.field-section > h4{color:rgba(0,0,0,0.6)}
 .field-section > p:first-child,.field-section > h4:first-child{margin:0}
+.field-section.is-collapsible{cursor:pointer}
+.field-section.is-collapsible > h4:before{display:inline-block;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;vertical-align:baseline;content:"\f0d7";margin:0 8px;float:right;color:rgba(0,0,0,0.4)}
+.field-section.is-collapsible:hover{border-bottom:1px solid #c7c7c7}
+.field-section.is-collapsible:hover > h4:before{color:inherit}
 .field-textarea{resize:vertical}
 .field-textarea.size-tiny{min-height:50px}
 .field-textarea.size-small{min-height:100px}

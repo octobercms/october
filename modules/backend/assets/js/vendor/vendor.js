@@ -25,6 +25,7 @@
 =require ../../../../../modules/system/assets/vendor/bootstrap/js/tab.js
 =require ../../../../../modules/system/assets/vendor/bootstrap/js/transition.js
 =require ../../../../../modules/system/assets/vendor/bootstrap/js/dropdown.js
+=require ../../../../../modules/system/assets/vendor/bootstrap/js/collapse.js
 
 =require ../../vendor/flot/jquery.flot.js
 =require ../../vendor/flot/jquery.flot.tooltip.js

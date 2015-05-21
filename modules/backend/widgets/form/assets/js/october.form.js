@@ -10,11 +10,13 @@
 
         var $el = this.$el = $(element);
 
+        this.$form = $el.closest('form')
         this.options = options || {};
 
         this.bindDependants()
         this.bindCheckboxlist()
         this.toggleEmptyTabs()
+        this.bindCollapsibleSections()
     }
 
     FormWidget.DEFAULTS = {
@@ -49,7 +51,7 @@
     FormWidget.prototype.bindDependants = function() {
         var self = this,
             form = this.$el,
-            formEl = form.closest('form'),
+            formEl = this.$form,
             fieldMap = {}
 
         /*
@@ -88,6 +90,9 @@
         })
     }
 
+    /*
+     * Hides tabs that have no content
+     */
     FormWidget.prototype.toggleEmptyTabs = function() {
         var tabControl = $('[data-control=tab]', this.$el)
 
@@ -98,7 +103,24 @@
             $('[data-target="#' + $(this).attr('id') + '"]', tabControl)
                 .toggle(!!$('.form-group:not(:empty)', $(this)).length)
         })
+    }
 
+    /*
+     * Makes sections collapsible by targeting every field after
+     * up until the next section
+     */
+    FormWidget.prototype.bindCollapsibleSections = function() {
+        $('.section-field[data-field-collapsible]', this.$form)
+            .addClass('collapsed')
+            .find('.field-section:first')
+                .addClass('is-collapsible')
+                .end()
+            .on('click', function() {
+                $(this)
+                    .toggleClass('collapsed')
+                    .nextUntil('.section-field').toggle()
+            })
+            .nextUntil('.section-field').hide()
     }
 
     // FORM WIDGET PLUGIN DEFINITION
