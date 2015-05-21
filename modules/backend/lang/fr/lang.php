@@ -25,7 +25,7 @@ return [
     ],
     'account' => [
         'sign_out' => 'Déconnexion',
-        'login' => 'Identifiant',
+        'login' => 'OK',
         'reset' => 'Réinitialiser',
         'restore' => 'Restaurer',
         'login_placeholder' => 'identifiant',
