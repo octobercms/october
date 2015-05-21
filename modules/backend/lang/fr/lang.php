@@ -283,7 +283,7 @@ return [
     ],
     'backend_preferences' => [
         'menu_label' => 'Préférences d’administration',
-        'menu_description' => 'Gérer les préférence de votre compte telle que la langue utilisée.',
+        'menu_description' => 'Gérer les préférences de votre compte telle que la langue utilisée.',
         'locale' => 'Langue',
         'locale_comment' => 'Choisir une langue.'
     ],
