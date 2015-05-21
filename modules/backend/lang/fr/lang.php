@@ -288,7 +288,7 @@ return [
         'locale_comment' => 'Choisir une langue.'
     ],
     'access_log' => [
-        'hint' => 'Ce journal affiche la liste des inscriptions en attente d’approbation par les administrateurs. Les données sont sauvegardés pendant :days jours.',
+        'hint' => 'Ce journal affiche la liste des accès à l’administration par les administrateurs. Les données sont sauvegardées pendant :days jours.',
         'menu_label' => 'Journal des accès',
         'menu_description' => 'Affiche la liste des utilisateurs s’étant connectés à l’administration avec succès.',
         'created_at' => 'Date & heure',
