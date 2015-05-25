@@ -237,6 +237,7 @@ return [
         'delete' => 'Slett',
         'add_folder' => 'Ny mappe',
         'search' => 'Søk',
+        'display' => 'Vis',
         'filter_everything' => 'Alle filer',
         'filter_images' => 'Bilder',
         'filter_video' => 'Video',
