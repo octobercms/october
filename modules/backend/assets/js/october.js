@@ -7,9 +7,11 @@
  * @see october-min.js
  *
 
+=require ../../../system/assets/ui/js/foundation.js
+=require ../../../system/assets/ui/js/flashmessage.js
+
 =require october.controls.js
 =require october.utils.js
-=require ../../../system/assets/ui/js/foundation.js
 =require october.scrollpad.js
 =require october.triggerapi.js
 =require october.dragscroll.js
@@ -28,7 +30,6 @@
 =require october.hotkey.js
 =require october.loadindicator.js
 =require october.stripeloadindicator.js
-=require october.flashmessage.js
 =require october.inputpreset.js
 =require october.layout.js
 =require october.sidepaneltab.js

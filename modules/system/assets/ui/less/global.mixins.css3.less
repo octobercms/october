@@ -199,3 +199,23 @@
   @opacity-ie: (@opacity * 100);
   filter: ~"alpha(opacity=@{opacity-ie})";
 }
+
+// Universal transform
+// --------------------------------------------------
+
+.transform(@transform) {
+  -webkit-transform: @transform;
+      -ms-transform: @transform; // IE9+
+          transform: @transform;
+}
+
+// Transformations
+// 
+
+.scaleAxes(@x, @y) {
+  -webkit-transform: scale(@x, @y);
+     -moz-transform: scale(@x, @y);
+      -ms-transform: scale(@x, @y);
+       -o-transform: scale(@x, @y);
+          transform: scale(@x, @y);
+}
