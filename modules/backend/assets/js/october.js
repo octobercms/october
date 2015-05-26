@@ -9,6 +9,7 @@
 
 =require ../../../system/assets/ui/js/foundation.js
 =require ../../../system/assets/ui/js/flashmessage.js
+=require ../../../system/assets/ui/js/dropdown.js
 
 =require october.controls.js
 =require october.utils.js
