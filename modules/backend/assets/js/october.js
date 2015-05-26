@@ -10,6 +10,7 @@
 =require ../../../system/assets/ui/js/foundation.js
 =require ../../../system/assets/ui/js/flashmessage.js
 =require ../../../system/assets/ui/js/dropdown.js
+=require ../../../system/assets/ui/js/list.js
 
 =require october.controls.js
 =require october.utils.js
@@ -37,14 +38,12 @@
 =require october.simplelist.js
 =require october.sortable.js
 =require october.inspector.js
-=require october.dropdown.js
 =require october.changemonitor.js
 =require october.chartutils.js
 =require october.chartpie.js
 =require october.chartbar.js
 =require october.chartline.js
 =require october.balloonselector.js
-=require october.rowlink.js
 =require october.treelist.js
 =require october.autocomplete.js
 =require october.callout.js
