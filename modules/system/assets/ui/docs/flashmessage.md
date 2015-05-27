@@ -1,3 +1,5 @@
+Displays a floating flash message on the screen.
+
 # Example
 
     <p data-control="flash-message" data-interval="5" class="success">This message is created from a static element. It will go away in 5 seconds.</p>
