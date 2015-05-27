@@ -1,7 +1,9 @@
+Renders a form
+
 # Example
 
     <!-- Form Elements -->
-    <fieldset class="form-elements" role="form">
+    <form class="form-elements" role="form">
 
         <!-- Text Input (Left) -->
         <div class="form-group text-field span-left is-required">
@@ -156,9 +158,6 @@
             </div>
         </div>
 
-        <!-- Rich text editor -->
-        <? include('fields/field-richeditor.php'); ?>
-
         <!-- Textarea -->
         <div class="form-group textarea-field span-right is-required">
             <label>Textarea</label>
@@ -166,7 +165,4 @@
             <textarea autocomplete="off" class="form-control field-textarea size-large" name="comment" placeholder=""></textarea>
         </div>
 
-        <!-- Code editors -->
-        <? include('fields/field-codeeditor.php'); ?>
-
-    </fieldset>
+    </form>

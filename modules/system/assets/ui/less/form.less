@@ -532,14 +532,16 @@ body.slim-container {
     input {
         z-index: 5;
         position: absolute;
+        left: 0;
+        top: 0;
         .opacity(0);
         &:checked {
-            ~ .slide-button { 
-                right: 2px; 
+            ~ .slide-button {
+                right: 2px;
             }
             ~ span { background-color: @color-switch-input-on; }
             ~ span span {
-                &:first-of-type { 
+                &:first-of-type {
                     color: #FFFFFF;
                     display: block;
                 }

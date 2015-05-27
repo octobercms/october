@@ -1,3 +1,4 @@
+Renders a list
 
 # Example
 
