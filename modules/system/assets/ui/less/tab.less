@@ -1,7 +1,51 @@
 //
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "icon.less";
+
+//
 // Tabs control
 // - The control supports 3 basic CSS classes: master, primary and secondary.
 // --------------------------------------------------
+
+@import "tab.base.less";
+
+@color-scroll-indicator:                     #bbbbbb;
+
+@color-tab-border:                           #d7d7d7;
+@color-tab-inactive-text:                    #cccccc;
+@color-tab-active-text:                      @color-text-title;
+@color-tab-active-border:                    #5fb6f5;
+@color-tab-bg:                               #ffffff;
+@color-tab-active-marker:                    #ec8017;
+@color-tab-content-active-bg:                #ffffff;
+@color-tab-content-border:                   #e3e5e7;
+
+@nav-link-padding:                          10px 15px;
+@nav-link-hover-bg:                         @gray-lighter;
+
+@nav-disabled-link-color:                   @gray-light;
+@nav-disabled-link-hover-color:             @gray-light;
+
+@nav-open-link-hover-color:                 #fff;
+
+@nav-tabs-border-color:                     #ddd;
+
+@nav-tabs-link-hover-border-color:          @gray-lighter;
+
+@nav-tabs-active-link-hover-bg:             @body-bg;
+@nav-tabs-active-link-hover-color:          @gray;
+@nav-tabs-active-link-hover-border-color:   #ddd;
+
+@nav-tabs-justified-link-border-color:            #ddd;
+@nav-tabs-justified-active-link-border-color:     @body-bg;
+
+@nav-pills-border-radius:                   @border-radius-base;
+@nav-pills-active-link-hover-bg:            @component-active-bg;
+@nav-pills-active-link-hover-color:         @component-active-color;
+
 
 .control-tabs {
     position: relative;
@@ -14,8 +58,8 @@
 
     .horizontal-scroll-indicators(@color-scroll-indicator);
 
-    &.scroll-active-before:before {color: @color-tab-active-border;}
-    &.scroll-active-after:after {color: @color-tab-active-border;}
+    &.scroll-active-before:before { color: @color-tab-active-border; }
+    &.scroll-active-after:after { color: @color-tab-active-border; }
 
     &:before, &:after {
         top: 5px;
@@ -194,7 +238,7 @@
                 height: 1px;
                 width: 100%;
                 content: ' ';
-                border-bottom: 1px solid @color-ui-border;
+                border-bottom: 1px solid @color-tab-border;
             }
 
             > li {
@@ -307,7 +351,7 @@
             > li {
                 padding-right: 10px;
                 margin-right: 10px;
-                border-right: 1px solid @color-ui-border;
+                border-right: 1px solid @color-tab-border;
 
                 a {
                     font-size: 12px;

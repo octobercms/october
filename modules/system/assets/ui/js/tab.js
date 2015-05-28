@@ -1,4 +1,9 @@
 /*
+=require ../vendor/bootstrap/js/transition.js
+=require ../vendor/bootstrap/js/tab.js
+*/
+
+/*
  * Tab control.
  *
  * This plugin is a wrapper for the Twitter Bootstrap Tab component. It provides the following features:
@@ -60,6 +65,7 @@
  * - Toolbar (october.toolbar.js)
  * - Touchwipe (jquery.touchwipe.min.js)
  */
+
 +function ($) { "use strict";
 
     var Tab = function (element, options) {
@@ -106,7 +112,7 @@
             self.unmodifyTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'))
         })
 
-        this.$tabsContainer.on('shown.bs.tab', 'li', function(){
+        this.$tabsContainer.on('shown.oc.tab', 'li', function(){
             // self.$tabsContainer.dragScroll('fixScrollClasses')
             $(window).trigger('oc.updateUi')
 
