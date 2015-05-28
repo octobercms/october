@@ -10,7 +10,12 @@
 =require ../../../system/assets/ui/js/foundation.js
 =require ../../../system/assets/ui/js/flashmessage.js
 =require ../../../system/assets/ui/js/dropdown.js
+=require ../../../system/assets/ui/js/tooltip.js
+=require ../../../system/assets/ui/js/loader.js
+=require ../../../system/assets/ui/js/popover.js
+=require ../../../system/assets/ui/js/popup.js
 =require ../../../system/assets/ui/js/list.js
+=require ../../../system/assets/ui/js/tab.js
 
 =require october.controls.js
 =require october.utils.js
@@ -19,19 +24,13 @@
 =require october.dragscroll.js
 =require october.dragvalue.js
 =require october.toolbar.js
-=require october.tooltip.js
 =require october.verticalmenu.js
 =require october.navbar.js
 =require october.sidenav.js
-=require october.tab.js
-=require october.popover.js
-=require october.popup.js
 =require october.goalmeter.js
 =require october.scrollbar.js
 =require october.filelist.js
 =require october.hotkey.js
-=require october.loadindicator.js
-=require october.stripeloadindicator.js
 =require october.inputpreset.js
 =require october.layout.js
 =require october.sidepaneltab.js

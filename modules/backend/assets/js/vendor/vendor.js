@@ -20,12 +20,6 @@
 =require ../../vendor/dropzone/dropzone.js
 =require ../../vendor/sweet-alert/sweet-alert.js
 
-=require ../../../../../modules/system/assets/vendor/bootstrap/js/tooltip.js
-=require ../../../../../modules/system/assets/vendor/bootstrap/js/modal.js
-=require ../../../../../modules/system/assets/vendor/bootstrap/js/tab.js
-=require ../../../../../modules/system/assets/vendor/bootstrap/js/transition.js
-=require ../../../../../modules/system/assets/vendor/bootstrap/js/dropdown.js
-
 =require ../../vendor/flot/jquery.flot.js
 =require ../../vendor/flot/jquery.flot.tooltip.js
 =require ../../vendor/flot/jquery.flot.resize.js
