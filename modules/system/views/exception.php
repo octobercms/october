@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8">
         <title>Exception</title>
-        <link href="<?= Url::asset('/modules/system/assets/vendor/font-autumn/css/font-autumn.css') ?>" rel="stylesheet">
         <link href="<?= Url::asset('/modules/system/assets/css/styles.css') ?>" rel="stylesheet">
         <script src="<?= Url::asset('/modules/system/assets/vendor/syntaxhighlighter/scripts/shCore.js') ?>"></script>
         <script src="<?= Url::asset('/modules/system/assets/vendor/syntaxhighlighter/scripts/shBrushPhp.js') ?>"></script>

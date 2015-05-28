@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8">
         <title><?= Lang::get('cms::lang.page.not_found.label') ?></title>
-        <link href="<?= Url::asset('/modules/system/assets/vendor/font-autumn/css/font-autumn.css') ?>" rel="stylesheet">
         <link href="<?= Url::asset('/modules/system/assets/css/styles.css') ?>" rel="stylesheet">
     </head>
     <body>

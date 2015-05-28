@@ -1,4 +1,8 @@
 /*
+=require ../vendor/bootstrap/js/transition.js
+*/
+
+/*
  * The flash message. 
  * 
  * The default hide interval is 2 seconds. The interval option is not required.
