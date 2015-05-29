@@ -1,5 +1,5 @@
 /*
- * The pie chart plugin. 
+ * The pie chart plugin.
  * 
  * Data attributes:
  * - data-control="chart-pie" - enables the pie chart plugin

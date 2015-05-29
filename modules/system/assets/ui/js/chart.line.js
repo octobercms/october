@@ -1,4 +1,10 @@
 /*
+=require ../vendor/flot/jquery.flot.js
+=require ../vendor/flot/jquery.flot.tooltip.js
+=require ../vendor/flot/jquery.flot.resize.js
+=require ../vendor/flot/jquery.flot.time.js
+*/
+/*
  * Line Chart Plugin
  *
  * Data attributes:
@@ -38,8 +44,8 @@
          * Flot options
          */
         this.chartOptions = {
-            xaxis: { 
-                mode: "time", 
+            xaxis: {
+                mode: "time",
                 tickLength: 5
             },
             selection: { mode: "x" },

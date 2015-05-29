@@ -1,5 +1,5 @@
 /*
- * The bar chart plugin. 
+ * The bar chart plugin.
  * 
  * Data attributes:
  * - data-control="chart-bar" - enables the bar chart plugin

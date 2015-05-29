@@ -1,4 +1,26 @@
 
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "icon.less";
+
+//
+// Chart
+// --------------------------------------------------
+
+@color-status-list-text:                     #7e8c8d;
+
+@color-chart-tooltip-bg:                     #000000;
+@color-chart-tooltip-text:                   #ffffff;
+
+@color-scoreboard-title:                     #666666;
+@color-scoreboard-description:               #999999;
+@color-scoreboard-body:                      #666666;
+@color-scoreboard-icon:                      #e5a91a;
+@color-scoreboard-positive:                  #95b753;
+@color-scoreboard-negative:                  #cc3300;
 
 .control-chart-non-centered() {
     text-align: left;
@@ -8,6 +30,10 @@
         display: inline-block;
     }
 }
+
+//
+// Chart
+// --------------------------------------------------
 
 .control-chart {
     div.canvas {
@@ -315,7 +341,7 @@ ul.status-list {
     top: -2px;
 }
 
-.report-container { 
+.report-container {
     ul.status-list {
         margin-top: -10px;
     }

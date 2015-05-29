@@ -17,6 +17,7 @@
 =require ../../../system/assets/ui/js/loader.js
 =require ../../../system/assets/ui/js/popover.js
 =require ../../../system/assets/ui/js/popup.js
+=require ../../../system/assets/ui/js/chart.js
 =require ../../../system/assets/ui/js/list.js
 =require ../../../system/assets/ui/js/tab.js
 
@@ -29,7 +30,6 @@
 =require october.verticalmenu.js
 =require october.navbar.js
 =require october.sidenav.js
-=require october.goalmeter.js
 =require october.scrollbar.js
 =require october.filelist.js
 =require october.hotkey.js
@@ -39,10 +39,6 @@
 =require october.simplelist.js
 =require october.sortable.js
 =require october.changemonitor.js
-=require october.chartutils.js
-=require october.chartpie.js
-=require october.chartbar.js
-=require october.chartline.js
 =require october.balloonselector.js
 =require october.treelist.js
 =require october.autocomplete.js
