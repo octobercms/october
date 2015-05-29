@@ -7,6 +7,17 @@
  * @see october-min.js
  *
 
+=require vendor/mousewheel.js
+=require vendor/jquery.touchwipe.js
+=require vendor/moment.js
+=require vendor/jquery.autoellipsis.js
+=require vendor/jquery.waterfall.js
+=require vendor/jquery.cookie.js
+=require ../vendor/select2/select2.js
+=require ../vendor/dropzone/dropzone.js
+=require ../vendor/sweet-alert/sweet-alert.js
+=require ../vendor/jcrop/js/jquery.Jcrop.js
+
 =require ../../../system/assets/ui/js/foundation.js
 =require ../../../system/assets/ui/js/flashmessage.js
 =require ../../../system/assets/ui/js/inspector.js

@@ -65,7 +65,6 @@ class ServiceProvider extends ModuleServiceProvider
         CombineAssets::registerCallback(function($combiner) {
             $combiner->registerBundle('~/modules/backend/assets/less/october.less');
             $combiner->registerBundle('~/modules/backend/assets/js/october.js');
-            $combiner->registerBundle('~/modules/backend/assets/js/vendor/vendor.js');
             $combiner->registerBundle('~/modules/backend/widgets/table/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/datepicker/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/less/richeditor.less');
