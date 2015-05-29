@@ -12,6 +12,7 @@
 =require ../../../system/assets/ui/js/inspector.js
 =require ../../../system/assets/ui/js/dropdown.js
 =require ../../../system/assets/ui/js/tooltip.js
+=require ../../../system/assets/ui/js/toolbar.js
 =require ../../../system/assets/ui/js/filter.js
 =require ../../../system/assets/ui/js/loader.js
 =require ../../../system/assets/ui/js/popover.js
@@ -25,7 +26,6 @@
 =require october.triggerapi.js
 =require october.dragscroll.js
 =require october.dragvalue.js
-=require october.toolbar.js
 =require october.verticalmenu.js
 =require october.navbar.js
 =require october.sidenav.js

@@ -2,24 +2,24 @@
 =require ../vendor/bootstrap/js/dropdown.js
 */
 /*
- * Dropdown menus. 
+ * Dropdown menus.
  *
  * This script customizes the Twitter Bootstrap drop-downs.
  *
  */
 +function ($) { "use strict";
 
-    $(document).on('shown.bs.dropdown', '.dropdown', function(){
+    $(document).on('shown.bs.dropdown', '.dropdown', function() {
         $(document.body).addClass('dropdown-open')
 
         var dropdown = $('.dropdown-menu', this),
             dropdownContainer = $(this).data('dropdown-container')
 
         if ($('.dropdown-container', dropdown).length == 0) {
-            var
-                title = $('[data-toggle=dropdown]', this).text(),
+
+            var title = $('[data-toggle=dropdown]', this).text(),
                 titleAttr = dropdown.data('dropdown-title'),
-                timer = null;
+                timer = null
 
             if (titleAttr !== undefined)
                 title = titleAttr
@@ -27,8 +27,7 @@
             $('li:first-child', dropdown).addClass('first-item')
             dropdown.prepend($('<li/>').addClass('dropdown-title').text(title))
 
-            var
-                container = $('<li/>').addClass('dropdown-container'),
+            var container = $('<li/>').addClass('dropdown-container'),
                 ul = $('<ul/>')
 
             container.prepend(ul)
@@ -78,8 +77,10 @@
             if ((dropdownHeight + position.y) > $(document).height()) {
                 position.y = targetOffset.top - dropdownHeight - 12
                 dropdown.addClass('top')
-            } else
+            }
+            else {
                 dropdown.removeClass('top')
+            }
 
             dropdown.css({
                 'left': position.x + leftOffset,
@@ -88,8 +89,9 @@
             })
         }
 
-        if ($('.dropdown-overlay', document.body).length == 0)
+        if ($('.dropdown-overlay', document.body).length == 0) {
             $(document.body).prepend($('<div/>').addClass('dropdown-overlay'));
+        }
     })
 
     $(document).on('hidden.bs.dropdown', '.dropdown', function(){
