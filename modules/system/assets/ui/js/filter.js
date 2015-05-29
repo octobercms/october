@@ -1,10 +1,13 @@
 /*
+=require popover.js
+*/
+/*
  * Filter Widget
  *
  * Data attributes:
  * - data-behavior="filter" - enables the filter plugin
  *
- * Dependences: 
+ * Dependences:
  * - October Popover (october.popover.js)
  */
 +function ($) { "use strict";

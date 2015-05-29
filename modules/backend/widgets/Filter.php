@@ -71,14 +71,6 @@ class Filter extends WidgetBase
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function loadAssets()
-    {
-        $this->addJs('js/october.filter.js', 'core');
-    }
-
-    /**
      * Renders the widget.
      */
     public function render()
