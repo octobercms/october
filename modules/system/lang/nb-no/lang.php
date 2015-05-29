@@ -24,7 +24,8 @@ return [
         'se' => 'Svensk',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Tyrkisk',
-        'nb-no' => 'Norwegian (Bokmål)'
+        'nb-no' => 'Norsk (Bokmål)',
+        'zh-cn' => 'Kinesisk (Kina)'
     ],
     'directory' => [
         'create_fail' => 'Kan ikke opprette mappen: :name'
@@ -54,10 +55,19 @@ return [
         ]
     ],
     'theme' => [
+        'unnamed' => 'Navnløst tema',
         'name' => [
             'label' => 'Tema-navn',
             'help' => 'Navngi temaet ved et unikt navn. For eksempel, RainLab.Vanilla'
         ]
+    ],
+    'themes' => [
+        'install' => 'Installer tema',
+        'search' => 'søk etter temaer å installere...',
+        'installed' => 'Installerte temaer',
+        'no_themes' => 'Det er ingen installerte temaer fra markedsplassen.',
+        'recommended' => 'Anbefalt',
+        'remove_confirm' => 'Vil du virkelig slette dette temaet?'
     ],
     'plugin' => [
         'unnamed' => 'Navnløs plugin',
@@ -67,9 +77,15 @@ return [
         ]
     ],
     'plugins' => [
-        'manage' => 'Håndtere plugins',
+        'manage' => 'Administrer plugins',
         'enable_or_disable' => 'Aktivere eller deaktivere',
         'enable_or_disable_title' => 'Aktivere eller deaktivere plugins',
+        'install' => 'Installer plugins',
+        'install_products' => 'Installer produkter',
+        'search' => 'søk etter plugins å installere...',
+        'installed' => 'Installerte plugins',
+        'no_plugins' => 'Det er ingen installerte plugins fra markedsplassen.',
+        'recommended' => 'Anbefalt',
         'remove' => 'Fjern',
         'refresh' => 'Oppdater',
         'disabled_label' => 'Deaktivert',
@@ -138,7 +154,7 @@ return [
     ],
     'mail_templates' => [
         'menu_label' => 'E-postmaler',
-        'menu_description' => 'Modifisere e-postmalene som blir sendt til brukere og administratorer, håndtere e-postlayouts.',
+        'menu_description' => 'Modifisere e-postmalene som blir sendt til brukere og administratorer, administrere e-postlayouts.',
         'new_template' => 'Ny mal',
         'new_layout' => 'Ny layout',
         'template' => 'Mal',
@@ -170,10 +186,10 @@ return [
         'install_success' => 'Plugin har blitt installert.'
     ],
     'updates' => [
-        'title' => 'Håndtere oppdateringer',
+        'title' => 'Administrer oppdateringer',
         'name' => 'Programvareoppdateringer',
         'menu_label' => 'Oppdateringer',
-        'menu_description' => 'Oppdatere systemet, håndtere og installere plugins og temaer.',
+        'menu_description' => 'Oppdatere systemet, administrer og installere plugins og temaer.',
         'check_label' => 'Se etter oppdateringer',
         'retry_label' => 'Prøv igjen',
         'plugin_name' => 'Navn',
@@ -187,6 +203,7 @@ return [
         'core_downloading' => 'Laster ned applikasjonsfiler',
         'core_extracting' => 'Pakker opp applikasjonsfiler',
         'plugins' => 'Plugins',
+        'themes' => 'Teamer',
         'disabled' => 'Deaktivert',
         'plugin_downloading' => 'Laster ned plugin: :name',
         'plugin_extracting' => 'Pakker opp plugin: :name',
@@ -261,12 +278,12 @@ return [
     ],
     'permissions' => [
         'name' => 'System',
-        'manage_system_settings' => 'Håndtere systeminnstillinger',
-        'manage_software_updates' => 'Håndtere programvareoppdateringer',
+        'manage_system_settings' => 'Administrer systeminnstillinger',
+        'manage_software_updates' => 'Administrer programvareoppdateringer',
         'access_logs' => 'Se systemlogger',
-        'manage_mail_templates' => 'Håndtere e-postmaler',
-        'manage_mail_settings' => 'Håndtere e-postinnstillinger',
-        'manage_other_administrators' => 'Håndtere andre administratorer',
+        'manage_mail_templates' => 'Administrer e-postmaler',
+        'manage_mail_settings' => 'Administrer e-postinnstillinger',
+        'manage_other_administrators' => 'Administrer andre administratorer',
         'view_the_dashboard' => 'Se dashboard',
         'manage_branding' => 'Tilpasse backend'
     ]
