@@ -12,6 +12,10 @@
  *
  * Dependences:
  * - October Popover (october.popover.js)
+ *
+ * Notes:
+ *   Ideally this control would not depend on loader or the AJAX framework,
+ *   then the Filter widget can use events to handle this business logic.
  */
 +function ($) { "use strict";
 
@@ -192,11 +196,12 @@
     FilterWidget.prototype.displayPopover = function($scope) {
         var self = this,
             scopeName = $scope.data('scope-name'),
-            data = this.scopeValues[scopeName]
+            data = this.scopeValues[scopeName],
+            isLoaded = true
 
         if (!data) {
-            self.loadOptions(scopeName)
             data = { loading: true }
+            isLoaded = false
         }
 
         data.scopeName = scopeName
@@ -212,11 +217,48 @@
             closeOnPageClick: true,
             placement: 'bottom'
         })
+
+        // Load options for the first time
+        if (!isLoaded) {
+            self.loadOptions(scopeName)
+        }
+    }
+
+    /*
+     * Returns false if loading options is instant,
+     * otherwise returns a deferred promise object.
+     */
+    FilterWidget.prototype.loadOptions = function(scopeName) {
+        var $form = this.$el.closest('form'),
+            self = this,
+            data = { scopeName: scopeName }
+
+        /*
+         * Dataset provided manually
+         */
+        var populated = this.$el.data('filterScopes')
+        if (populated && populated[scopeName]) {
+            self.fillOptions(scopeName, populated[scopeName])
+            return false
+        }
+
+        /*
+         * Request options from server
+         */
+        return $form.request(this.options.optionsHandler, {
+            data: data,
+            success: function(data) {
+                self.fillOptions(scopeName, data.options)
+            }
+        })
     }
 
     FilterWidget.prototype.fillOptions = function(scopeName, data) {
         if (this.scopeValues[scopeName])
             return
+
+        if (!data.active) data.active = []
+        if (!data.available) data.available = []
 
         this.scopeValues[scopeName] = data
 
@@ -227,43 +269,14 @@
         /*
          * Inject available
          */
-        if (data.available) {
-            var container = $('#controlFilterPopover .filter-items > ul').empty()
-            this.addItemsToListElement(container, data.available)
-        }
+        var container = $('#controlFilterPopover .filter-items > ul').empty()
+        this.addItemsToListElement(container, data.available)
 
         /*
          * Inject active
          */
-        if (data.active) {
-            var container = $('#controlFilterPopover .filter-active-items > ul')
-            this.addItemsToListElement(container, data.active)
-        }
-    }
-
-    FilterWidget.prototype.loadOptions = function(scopeName) {
-        var $form = this.$el.closest('form'),
-            self = this,
-            data = { scopeName: scopeName }
-
-        /*
-         * Dataset provided manually
-         */
-        var populated = this.$el.data('filterOptions')
-        if (populated && populated[scopeName]) {
-            self.fillOptions(scopeName, populated[scopeName])
-            return
-        }
-
-        /*
-         * Request options from server
-         */
-        $form.request(this.options.optionsHandler, {
-            data: data,
-            success: function(data) {
-                self.fillOptions(scopeName, data.options)
-            }
-        })
+        var container = $('#controlFilterPopover .filter-active-items > ul')
+        this.addItemsToListElement(container, data.active)
     }
 
     FilterWidget.prototype.filterAvailable = function(scopeName, available) {
@@ -310,8 +323,11 @@
         })
     }
 
+    /*
+     * Saves the options to the update handler
+     */
     FilterWidget.prototype.pushOptions = function(scopeName) {
-        if (!this.isActiveScopeDirty)
+        if (!this.isActiveScopeDirty || !this.options.updateHandler)
             return
 
         var $form = this.$el.closest('form'),
@@ -329,6 +345,9 @@
     }
 
     FilterWidget.prototype.checkboxToggle = function(scopeName, isChecked) {
+        if (!this.options.updateHandler)
+            return
+
         var $form = this.$el.closest('form'),
             data = {
                 scopeName: scopeName,
