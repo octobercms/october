@@ -1,6 +1,7 @@
 /*
 =require ../vendor/modernizr/modernizr.js
 =require ../vendor/mustache/mustache.js
+=require foundation.js
 =require popover.js
 */
 

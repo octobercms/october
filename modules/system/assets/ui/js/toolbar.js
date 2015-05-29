@@ -1,4 +1,8 @@
 /*
+=require foundation.js
+*/
+
+/*
  * Toolbar control.
  *
  * Makes toolbars drag/scrollable.
@@ -9,7 +13,7 @@
  * JavaScript API:
  * $('#toolbar').toolbar()
  *
- * Dependences: 
+ * Dependences:
  * - Drag Scroll (october.dragscroll.js)
  */
 +function ($) { "use strict";
@@ -29,9 +33,9 @@
 
         Base.call(this)
 
-        var scrollClassContainer = options.scrollClassContainer !== undefined ?
-            options.scrollClassContainer :
-            $el.parent()
+        var scrollClassContainer = options.scrollClassContainer !== undefined 
+            ? options.scrollClassContainer
+            : $el.parent()
 
         $el.dragScroll({
             scrollClassContainer: scrollClassContainer
