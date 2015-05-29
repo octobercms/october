@@ -1,6 +1,6 @@
 /*
- * The bar chart plugin. 
- * 
+ * The bar chart plugin.
+ *
  * Data attributes:
  * - data-control="chart-bar" - enables the bar chart plugin
  * - data-height="200" - optional, height of the graph
@@ -9,7 +9,7 @@
  * JavaScript API:
  * $('.scoreboard .chart').barChart()
  *
- * Dependences: 
+ * Dependences:
  * - Raphaël (raphael-min.js)
  * - October chart utilities (october.chartutils.js)
  */
@@ -18,7 +18,7 @@
     var BarChart = function (element, options) {
         this.options = options || {};
 
-        var 
+        var
             $el = this.$el = $(element),
             size = this.size = $el.height(),
             total = 0,
@@ -42,10 +42,10 @@
             self.paper.customAttributes.bar = function (start, height) {
                 return {
                     path: [
-                        ["M", start, chartWidth], 
+                        ["M", start, chartHeight],
                         ["L", start, chartHeight-height],
                         ["L", start + barWidth, chartHeight-height],
-                        ["L", start + barWidth, chartWidth],
+                        ["L", start + barWidth, chartHeight],
                         ["Z"]
                     ]
                 }
@@ -62,7 +62,7 @@
                 start += barWidth + self.options.gap
 
                 path.hover(function(ev){
-                    $.oc.chartUtils.showTooltip(ev.pageX, ev.pageY, 
+                    $.oc.chartUtils.showTooltip(ev.pageX, ev.pageY,
                         $.trim($.oc.chartUtils.getLegendLabel($legend, index)) + ': <strong>'+valueInfo.value+'</stong>')
                 }, function() {
                     $.oc.chartUtils.hideTooltip()
