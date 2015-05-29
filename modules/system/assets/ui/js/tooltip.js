@@ -1,6 +1,6 @@
 /*
 =require ../vendor/bootstrap/js/transition.js
-=require ../vendor/bootstrap/js/tab.js
+=require ../vendor/bootstrap/js/tooltip.js
 */
 
 /*
