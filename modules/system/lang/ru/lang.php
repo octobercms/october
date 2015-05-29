@@ -281,6 +281,6 @@ return [
         'manage_mail_templates' => 'Управление почтовыми шаблонами',
         'manage_mail_settings' => 'Управление настройками почты',
         'manage_other_administrators' => 'Управление другими администраторами',
-        'view_the_dashboard' => 'Просмотр приборной панели'
+        'view_the_dashboard' => 'Просмотр панели управления'
     ]
 ];
