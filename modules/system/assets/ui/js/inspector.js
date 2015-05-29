@@ -1,4 +1,8 @@
 /*
+=require popover.js
+*/
+
+/*
  * Inspector control
  * 
  * Manages properties of inspectable controls.

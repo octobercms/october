@@ -9,6 +9,7 @@
 
 =require ../../../system/assets/ui/js/foundation.js
 =require ../../../system/assets/ui/js/flashmessage.js
+=require ../../../system/assets/ui/js/inspector.js
 =require ../../../system/assets/ui/js/dropdown.js
 =require ../../../system/assets/ui/js/tooltip.js
 =require ../../../system/assets/ui/js/loader.js
@@ -36,7 +37,6 @@
 =require october.sidepaneltab.js
 =require october.simplelist.js
 =require october.sortable.js
-=require october.inspector.js
 =require october.changemonitor.js
 =require october.chartutils.js
 =require october.chartpie.js
