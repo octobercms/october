@@ -1,6 +1,9 @@
 /*
+=require ../vendor/modernizr/modernizr.js
+=require ../vendor/mustache/mustache.js
 =require popover.js
 */
+
 /*
  * Filter Widget
  *
@@ -211,43 +214,56 @@
         })
     }
 
+    FilterWidget.prototype.fillOptions = function(scopeName, data) {
+        if (this.scopeValues[scopeName])
+            return
+
+        this.scopeValues[scopeName] = data
+
+        // Do not render if scope has changed
+        if (scopeName != this.activeScopeName)
+            return
+
+        /*
+         * Inject available
+         */
+        if (data.available) {
+            var container = $('#controlFilterPopover .filter-items > ul').empty()
+            this.addItemsToListElement(container, data.available)
+        }
+
+        /*
+         * Inject active
+         */
+        if (data.active) {
+            var container = $('#controlFilterPopover .filter-active-items > ul')
+            this.addItemsToListElement(container, data.active)
+        }
+    }
+
     FilterWidget.prototype.loadOptions = function(scopeName) {
         var $form = this.$el.closest('form'),
             self = this,
             data = { scopeName: scopeName }
 
+        /*
+         * Dataset provided manually
+         */
+        var populated = this.$el.data('filterOptions')
+        if (populated && populated[scopeName]) {
+            self.fillOptions(scopeName, populated[scopeName])
+            return
+        }
+
+        /*
+         * Request options from server
+         */
         $form.request(this.options.optionsHandler, {
             data: data,
             success: function(data) {
-
-                if (self.scopeValues[scopeName])
-                    return
-
-                self.scopeValues[scopeName] = data.options
-
-                // Do not render if scope has changed
-                if (scopeName != self.activeScopeName)
-                    return
-
-                /*
-                 * Inject available
-                 */
-                if (data.options.available) {
-                    var container = $('#controlFilterPopover .filter-items > ul').empty()
-                    self.addItemsToListElement(container, data.options.available)
-                }
-
-                /*
-                 * Inject active
-                 */
-                if (data.options.active) {
-                    var container = $('#controlFilterPopover .filter-active-items > ul')
-                    self.addItemsToListElement(container, data.options.active)
-                }
-
+                self.fillOptions(scopeName, data.options)
             }
         })
-
     }
 
     FilterWidget.prototype.filterAvailable = function(scopeName, available) {
