@@ -3,54 +3,55 @@
 # ===================================
 
 fields:
-    first_name:
-        span: left
-        label: backend::lang.user.first_name
-
-    last_name:
-        span: right
-        label: backend::lang.user.last_name
-
-    login:
-        span: left
-        label: backend::lang.user.login
-
-    email:
-        span: right
-        label: backend::lang.user.email
-
-    password:
-        type: password
-        span: left
-        label: backend::lang.user.password
-
-    password_confirmation:
-        type: password
-        span: right
-        label: backend::lang.user.password_confirmation
-
-    send_invite:
-        context: create
-        type: checkbox
-        label: backend::lang.user.send_invite
-        comment: backend::lang.user.send_invite_comment
+    permissions[superuser]:
+        context: [create, update]
+        tab: backend::lang.user.permissions
+        label: backend::lang.user.superuser
+        type: switch
+        comment: backend::lang.user.superuser_comment
 
 tabs:
+    defaultTab: backend::lang.user.account
     fields:
+        login:
+            span: left
+            label: backend::lang.user.login
 
-        permissions[superuser]:
-            context: [create, update]
-            tab: backend::lang.user.permissions
-            label: backend::lang.user.superuser
+        email:
+            span: right
+            label: backend::lang.user.email
+
+        send_invite:
+            context: create
             type: checkbox
-            comment: backend::lang.user.superuser_comment
+            label: backend::lang.user.send_invite
+            comment: backend::lang.user.send_invite_comment
+            default: true
+
+        first_name:
+            span: left
+            label: backend::lang.user.first_name
+
+        last_name:
+            span: right
+            label: backend::lang.user.last_name
+
+        password:
+            type: password
+            span: left
+            label: backend::lang.user.password
+
+        password_confirmation:
+            type: password
+            span: right
+            label: backend::lang.user.password_confirmation
 
         groups:
             context: [create, update]
-            tab: backend::lang.user.permissions
             label: backend::lang.user.groups
             commentAbove: backend::lang.user.groups_comment
             type: checkboxlist
+
 
 secondaryTabs:
     fields:
@@ -61,3 +62,4 @@ secondaryTabs:
             mode: image
             imageHeight: 260
             imageWidth: 260
+

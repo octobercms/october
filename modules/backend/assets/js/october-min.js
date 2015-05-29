@@ -1590,10 +1590,7 @@ this.clearOffsetParent()},toggleListeners:function(method,events){var self=this
 events=events||['drag','drop','scroll']
 $.each(events,function(i,event){self.$document[method](eventNames[event],self[event+'Proxy'])})},clearOffsetParent:function(){this.offsetParent=undefined},clearDimensions:function(){this.containerDimensions=undefined
 var i=this.containers.length
-while(i--){this.containers[i].clearDimensions()}},destroy:function(){var group=this.options.group
-containerGroups[group].options=null
-containerGroups[group]=undefined
-for(var i in containerGroups){if(containerGroups[i]){containerGroups[i]=undefined}}}}
+while(i--){this.containers[i].clearDimensions()}},destroy:function(){containerGroups[this.options.group]=undefined}}
 function Container(element,options){this.el=element
 this.options=$.extend({},containerDefaults,options)
 this.group=ContainerGroup.get(this.options)
@@ -2213,7 +2210,7 @@ $(document).render(function(){$('[data-change-monitor]').changeMonitor()})}(wind
 ChartUtils.prototype.defaultValueColor='#b8b8b8';ChartUtils.prototype.getColor=function(index){var
 colors=['#95b753','#cc3300','#e5a91a','#3366ff','#ff0f00','#ff6600','#ff9e01','#fcd202','#f8ff01','#b0de09','#04d215','#0d8ecf','#0d52d1','#2a0cd0','#8a0ccf','#cd0d74','#754deb','#dddddd','#999999','#333333','#000000','#57032a','#ca9726','#990000','#4b0c25'],colorIndex=index%(colors.length-1);return colors[colorIndex];}
 ChartUtils.prototype.loadListValues=function($list){var result={values:[],total:0,max:0}
-$('> li',$list).each(function(){var value=parseFloat($('span',this).text());result.total+=value
+$('> li',$list).each(function(){var value=$(this).data('value')?parseFloat($(this).data('value')):parseFloat($('span',this).text());result.total+=value
 result.values.push({value:value,color:$(this).data('color')})
 result.max=Math.max(result.max,value)})
 return result;}
@@ -2407,9 +2404,11 @@ this.$el.removeData('oc.treelist')
 this.$el=null
 this.options=null}
 TreeListWidget.DEFAULTS={handle:null,nested:true}
-TreeListWidget.prototype.onDrop=function($item,container,_super){this.$el.trigger('move.oc.treelist',{item:$item,container:container})
+TreeListWidget.prototype.onDrop=function($item,container,_super){if(!this.$el){return}
+this.$el.trigger('move.oc.treelist',{item:$item,container:container})
 _super($item,container)}
-TreeListWidget.prototype.onAfterMove=function($placeholder,container,$closestEl){this.$el.trigger('aftermove.oc.treelist',{placeholder:$placeholder,container:container,closestEl:$closestEl})}
+TreeListWidget.prototype.onAfterMove=function($placeholder,container,$closestEl){if(!this.$el){return}
+this.$el.trigger('aftermove.oc.treelist',{placeholder:$placeholder,container:container,closestEl:$closestEl})}
 var old=$.fn.treeListWidget
 $.fn.treeListWidget=function(option){var args=arguments,result
 this.each(function(){var $this=$(this)

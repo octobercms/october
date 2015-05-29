@@ -94,35 +94,10 @@ class Users extends Controller
             return;
         }
 
-        $permissionFields = [];
-        foreach (BackendAuth::listPermissions() as $permission) {
-
-            $fieldName = 'permissions['.$permission->code.']';
-            $fieldConfig = [
-                'label' => $permission->label,
-                'comment' => $permission->comment,
-                'type' => 'balloon-selector',
-                'options' => [
-                    1 => 'backend::lang.user.allow',
-                    0 => 'backend::lang.user.inherit',
-                    -1 => 'backend::lang.user.deny',
-                ],
-                'attributes' => [
-                    'data-trigger-action' => 'disable',
-                    'data-trigger' => "input[name='User[permissions][superuser]']",
-                    'data-trigger-condition' => 'checked',
-                ],
-                'span' => 'auto',
-            ];
-
-            if (isset($permission->tab)) {
-                $fieldConfig['tab'] = $permission->tab;
-            }
-
-            $permissionFields[$fieldName] = $fieldConfig;
-        }
-
-        $form->addTabFields($permissionFields);
+        /*
+         * Add permissions tab
+         */
+        $form->addTabFields($this->generatePermissionFields());
 
         /*
          * Mark default groups
@@ -133,5 +108,55 @@ class Users extends Controller
             $groupField = $form->getField('groups');
             $groupField->value = $defaultGroupIds;
         }
+    }
+
+    /**
+     * Generates an array of form fields to assign permissions provided
+     * by the system.
+     * @return array
+     */
+    protected function generatePermissionFields()
+    {
+        $permissionFields = [];
+
+        foreach (BackendAuth::listTabbedPermissions() as $tab => $permissions) {
+
+            $fieldName = 'permissions_'.snake_case($tab).'_section';
+            $fieldConfig = [
+                'label' => $tab,
+                'type' => 'section',
+                'tab' => 'backend::lang.user.permissions',
+                'containerAttributes' => [
+                    'data-field-collapsible' => 1
+                ],
+            ];
+
+            $permissionFields[$fieldName] = $fieldConfig;
+
+            foreach ($permissions as $permission) {
+                $fieldName = 'permissions['.$permission->code.']';
+                $fieldConfig = [
+                    'label' => $permission->label,
+                    'comment' => $permission->comment,
+                    'type' => 'balloon-selector',
+                    'options' => [
+                        1 => 'backend::lang.user.allow',
+                        0 => 'backend::lang.user.inherit',
+                        -1 => 'backend::lang.user.deny',
+                    ],
+                    'trigger' => [
+                        'action' => 'disable',
+                        'field' => 'permissions[superuser]',
+                        'condition' => 'checked'
+                    ],
+                    'span' => 'auto',
+                    'tab' => 'backend::lang.user.permissions',
+                ];
+
+                $permissionFields[$fieldName] = $fieldConfig;
+            }
+        }
+
+        return $permissionFields;
     }
 }

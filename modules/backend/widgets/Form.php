@@ -518,7 +518,7 @@ class Form extends WidgetBase
                     $this->allTabs->secondary->addField($name, $fieldObj, $fieldTab);
                     break;
                 default:
-                    $this->allTabs->outside->addField($name, $fieldObj, $fieldTab);
+                    $this->allTabs->outside->addField($name, $fieldObj);
                     break;
             }
         }

@@ -944,15 +944,17 @@ class Controller
      */
     public function renderComponent($name, $parameters = [])
     {
+        $componentVars = [];
         if ($componentObj = $this->findComponentByName($name)) {
             $componentObj->id = uniqid($name);
             $componentObj->setProperties(array_merge($componentObj->getProperties(), $parameters));
+            $componentVars = $componentObj->getVars();
             if ($result = $componentObj->onRender()) {
                 return $result;
             }
         }
 
-        return $this->renderPartial($name.'::default', [], false);
+        return $this->renderPartial($name.'::default', $componentVars, false);
     }
 
     //
@@ -1063,7 +1065,7 @@ class Controller
     public function pageUrl($name, $parameters = [], $routePersistence = true)
     {
         if (!$name) {
-            return null;
+            return $this->currentPageUrl($parameters, $routePersistence);
         }
 
         /*

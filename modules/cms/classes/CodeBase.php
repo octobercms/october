@@ -105,7 +105,7 @@ class CodeBase extends Extendable implements ArrayAccess
      */
     public function __call($method, $parameters)
     {
-        if (method_exists($this, $method)) {
+        if ($this->methodExists($method)) {
             return call_user_func_array([$this, $method], $parameters);
         }
 
@@ -113,28 +113,18 @@ class CodeBase extends Extendable implements ArrayAccess
     }
 
     /**
-     * This object is referenced as $this->page in Cms\Classes\ComponentBase,
-     * so to avoid $this->page->page this method will proxy there. This is also
-     * used as a helper for accessing controller variables/components easier
-     * in the page code, eg. $this->foo instead of $this['foo']
+     * This is used as a helper for accessing controller variables/components
+     * easier in the page code, eg. $this->foo instead of $this['foo']
      * @param  string  $name
      * @return void
      */
     public function __get($name)
     {
-        if (($value = $this->page->{$name}) !== null) {
-            return $value;
-        }
-
-        if (array_key_exists($name, $this->controller->vars)) {
-            return $this[$name];
-        }
-
-        return null;
+        return $this[$name];
     }
 
     /**
-     * As per __get, this will set a variable instead.
+     * This will set a property on the CMS Page object.
      * @param  string  $name
      * @param  mixed   $value
      * @return void
@@ -145,7 +135,7 @@ class CodeBase extends Extendable implements ArrayAccess
     }
 
     /**
-     * As per __get, this will check if a variable isset instead.
+     * This will check if a property isset on the CMS Page object.
      * @param  string  $name
      * @return void
      */

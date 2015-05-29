@@ -114,12 +114,6 @@ table.table.data {
 @color-fancy-master-tabs-bg: @primary-color-dark;
 @color-fancy-form-inactive-tab: mix(black, desaturate(@primary-color-dark, 14.5%), 5%);
 
-@tab-svg-part1: escape('<path d="M0,30C5,30,10,0,20,0c5,0,60,0,65,0c10,0,10,30,15,30"/>');
-@tab-svg-part2: escape('<path fill="@{color-fancy-form-tabless-fields-bg}" d="M0,70c5,0,10-30,20-30c0,10,0,15,0,15v15"/>');
-@tab-svg-part3: escape('<path fill="@{color-fancy-form-tabless-fields-bg}" d="M100,70c-5,0-10-30-20-30c0,10,0,15,0,15v15"/>');
-@tab-svg-part4: escape('<path fill="@{color-fancy-form-inactive-tab}" d="M0,110c5,0,10-30,20-30c0,10,0,15,0,15v15"/>');
-@tab-svg-part5: escape('<path fill="@{color-fancy-form-inactive-tab}" d="M100,110c-5,0-10-30-20-30c0,10,0,15,0,15v15"/>');
-
 .fancy-layout {
     .control-tabs, &.control-tabs {
         &.master {
@@ -150,9 +144,14 @@ table.table.data {
             > div > div.tabs-container > ul.nav-tabs > li {
                 a > span.title {
                     background-color: @color-fancy-form-inactive-tab;
-                    &:before, &:after {
-                        background-image: url(~'@{svg-head}@{svg-open}@{tab-svg-part1}@{tab-svg-part2}@{tab-svg-part3}@{tab-svg-part4}@{tab-svg-part5}@{svg-close}');
-                    }
+
+                    //
+                    // Disabled: See BrandSettings::makeTabSvg()
+                    //
+                    //&:before, &:after {
+                    //    background-image: url(~'@{tab-svg}');
+                    //}
+
                 }
                 &.active {
                     a > span.title {

@@ -31,7 +31,7 @@ class AuthManager extends RainAuthManager
         'code'    => null,
         'label'   => null,
         'comment' => null,
-        'order'   => 100,
+        'order'   => 500
     ];
 
     /**
@@ -91,7 +91,7 @@ class AuthManager extends RainAuthManager
     }
 
     /**
-     * Returns a list of the main menu items.
+     * Returns a list of the registered permissions items.
      * @return array 
      */
     public function listPermissions()
@@ -133,5 +133,25 @@ class AuthManager extends RainAuthManager
         });
 
         return $this->permissionCache = $this->permissions;
+    }
+
+    /**
+     * Returns an array of registered permissions, grouped by tabs.
+     * @return array
+     */
+    public function listTabbedPermissions()
+    {
+        $tabs = [];
+
+        foreach ($this->listPermissions() as $permission) {
+            $tab = isset($permission->tab) ? $permission->tab : null;
+            if (!array_key_exists($tab, $tabs)) {
+                $tabs[$tab] = [];
+            }
+
+            $tabs[$tab][] = $permission;
+        }
+
+        return $tabs;
     }
 }

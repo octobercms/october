@@ -47,7 +47,7 @@ class PluginRemove extends Command
             return $this->error(sprintf('Unable to find a registered plugin called "%s"', $pluginName));
         }
 
-        if (!$this->confirmToProceed(sprintf('This will DELETE "%s" from the filesystem and database.', $pluginName))) {
+        if (!$this->confirmToProceed(sprintf('This will DELETE plugin "%s" from the filesystem and database.', $pluginName))) {
             return;
         }
 

@@ -156,27 +156,33 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerPermissions('October.Cms', [
                 'cms.manage_content' => [
                     'label' => 'cms::lang.permissions.manage_content',
-                    'tab' => 'cms::lang.permissions.name'
+                    'tab' => 'cms::lang.permissions.name',
+                    'order' => 100
                 ],
                 'cms.manage_assets' => [
                     'label' => 'cms::lang.permissions.manage_assets',
-                    'tab' => 'cms::lang.permissions.name'
+                    'tab' => 'cms::lang.permissions.name',
+                    'order' => 100
                 ],
                 'cms.manage_pages' => [
                     'label' => 'cms::lang.permissions.manage_pages',
-                    'tab' => 'cms::lang.permissions.name'
+                    'tab' => 'cms::lang.permissions.name',
+                    'order' => 100
                 ],
                 'cms.manage_layouts' => [
                     'label' => 'cms::lang.permissions.manage_layouts',
-                    'tab' => 'cms::lang.permissions.name'
+                    'tab' => 'cms::lang.permissions.name',
+                    'order' => 100
                 ],
                 'cms.manage_partials' => [
                     'label' => 'cms::lang.permissions.manage_partials',
-                    'tab' => 'cms::lang.permissions.name'
+                    'tab' => 'cms::lang.permissions.name',
+                    'order' => 100
                 ],
                 'cms.manage_themes' => [
                     'label' => 'cms::lang.permissions.manage_themes',
-                    'tab' => 'cms::lang.permissions.name'
+                    'tab' => 'cms::lang.permissions.name',
+                    'order' => 100
                 ]
             ]);
         });
