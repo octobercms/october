@@ -12,6 +12,7 @@
 =require ../../../system/assets/ui/js/inspector.js
 =require ../../../system/assets/ui/js/dropdown.js
 =require ../../../system/assets/ui/js/tooltip.js
+=require ../../../system/assets/ui/js/filter.js
 =require ../../../system/assets/ui/js/loader.js
 =require ../../../system/assets/ui/js/popover.js
 =require ../../../system/assets/ui/js/popup.js

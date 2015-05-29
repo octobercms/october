@@ -16,7 +16,6 @@
 =require jquery.cookie.js
 
 =require ../../vendor/select2/select2.js
-=require ../../vendor/mustache/mustache.min.js
 =require ../../vendor/dropzone/dropzone.js
 =require ../../vendor/sweet-alert/sweet-alert.js
 
