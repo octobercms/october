@@ -4,7 +4,6 @@ Allows the dragging of things.
 
 # Example
 
-    <!---------------------------------------------------------------------->
     <h4>Example: drag.value</h4>
 
     <input placeholder="Drag a button to me" />
@@ -14,15 +13,15 @@ Allows the dragging of things.
         data-text-value="Foo">
         Drop "Foo"
     </button>
+
     <button
         data-control="dragvalue"
         data-text-value="Bar">
         Drop "Bar"
     </button>
 
-    <hr />
+    <!----------------------------------------------------------------------><hr />
 
-    <!---------------------------------------------------------------------->
     <h4>Example: drag.scroll</h4>
 
     <div id="scrollExample">
@@ -42,7 +41,31 @@ Allows the dragging of things.
     </style>
 
     <script>
-        $('#scrollExample').dragScroll({
-            vertical: false
-        });
+        $('#scrollExample').dragScroll();
     </script>
+
+    <!----------------------------------------------------------------------><hr />
+
+    <h4>Example: drag.sort</h4>
+
+    <ol id="sortExample">
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+    </ol>
+
+    <script>
+        $('#sortExample').sortable()
+    </script>
+
+    <style>
+        body.dragging, body.dragging * {
+            cursor: move !important
+        }
+        .dragged {
+            position: absolute; opacity: 0.5; z-index: 2000;
+        }
+        #sortExample li.placeholder {
+            position: relative;
+        }
+    </style>
