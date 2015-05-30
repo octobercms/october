@@ -16,6 +16,7 @@ return [
         'id' => 'Bahasa Indonesia',
         'it' => 'Italian',
         'ja' => 'Japanese',
+        'lv' => 'Latvian',
         'nl' => 'Dutch',
         'pl' => 'Polish',
         'pt-br' => 'Brazilian Portuguese',
