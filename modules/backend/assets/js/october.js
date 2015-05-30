@@ -7,7 +7,6 @@
  * @see october-min.js
  *
 
-=require vendor/mousewheel.js
 =require vendor/jquery.touchwipe.js
 =require vendor/moment.js
 =require vendor/jquery.autoellipsis.js
@@ -18,26 +17,12 @@
 =require ../vendor/sweet-alert/sweet-alert.js
 =require ../vendor/jcrop/js/jquery.Jcrop.js
 
-=require ../../../system/assets/ui/js/foundation.js
-=require ../../../system/assets/ui/js/flashmessage.js
-=require ../../../system/assets/ui/js/inspector.js
-=require ../../../system/assets/ui/js/dropdown.js
-=require ../../../system/assets/ui/js/tooltip.js
-=require ../../../system/assets/ui/js/toolbar.js
-=require ../../../system/assets/ui/js/filter.js
-=require ../../../system/assets/ui/js/loader.js
-=require ../../../system/assets/ui/js/popover.js
-=require ../../../system/assets/ui/js/popup.js
-=require ../../../system/assets/ui/js/chart.js
-=require ../../../system/assets/ui/js/list.js
-=require ../../../system/assets/ui/js/tab.js
+=require ../../../system/assets/ui/storm.js
 
 =require october.controls.js
 =require october.utils.js
 =require october.scrollpad.js
 =require october.triggerapi.js
-=require october.dragscroll.js
-=require october.dragvalue.js
 =require october.verticalmenu.js
 =require october.navbar.js
 =require october.sidenav.js
@@ -48,7 +33,6 @@
 =require october.layout.js
 =require october.sidepaneltab.js
 =require october.simplelist.js
-=require october.sortable.js
 =require october.changemonitor.js
 =require october.balloonselector.js
 =require october.treelist.js
