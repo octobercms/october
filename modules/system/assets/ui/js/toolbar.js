@@ -1,5 +1,6 @@
 /*
 =require foundation.js
+=require scroll.drag.js
 */
 
 /*
@@ -33,7 +34,7 @@
 
         Base.call(this)
 
-        var scrollClassContainer = options.scrollClassContainer !== undefined 
+        var scrollClassContainer = options.scrollClassContainer !== undefined
             ? options.scrollClassContainer
             : $el.parent()
 

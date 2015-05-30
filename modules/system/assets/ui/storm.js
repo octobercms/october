@@ -4,18 +4,18 @@
   \__/\__ | \__/|__)|__| \   __) | \__/| \ |  |
 
 
-=require ../../../system/assets/ui/js/foundation.js
-=require ../../../system/assets/ui/js/flashmessage.js
-=require ../../../system/assets/ui/js/inspector.js
-=require ../../../system/assets/ui/js/dropdown.js
-=require ../../../system/assets/ui/js/tooltip.js
-=require ../../../system/assets/ui/js/toolbar.js
-=require ../../../system/assets/ui/js/filter.js
-=require ../../../system/assets/ui/js/loader.js
-=require ../../../system/assets/ui/js/popover.js
-=require ../../../system/assets/ui/js/popup.js
-=require ../../../system/assets/ui/js/chart.js
-=require ../../../system/assets/ui/js/list.js
-=require ../../../system/assets/ui/js/drag.js
-=require ../../../system/assets/ui/js/tab.js
+=require js/foundation.js
+=require js/flashmessage.js
+=require js/inspector.js
+=require js/dropdown.js
+=require js/tooltip.js
+=require js/toolbar.js
+=require js/filter.js
+=require js/loader.js
+=require js/popover.js
+=require js/popup.js
+=require js/chart.js
+=require js/list.js
+=require js/drag.js
+=require js/tab.js
 */

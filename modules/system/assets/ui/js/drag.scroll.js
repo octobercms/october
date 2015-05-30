@@ -1,4 +1,9 @@
 /*
+=require ../vendor/modernizr/modernizr.js
+=require ../vendor/mousewheel/mousewheel.js
+=require foundation.js
+*/
+/*
  * Allows to scroll an element content in the horizontal or horizontal directions. This script doesn't use
  * absolute positioning and rely on the scrollLeft/scrollTop DHTML properties. The element width should be
  * fixed with the CSS or JavaScript.
@@ -25,7 +30,7 @@
  * - goToStart - moves the scrollable area to the start (left or top)
  * - goToElement - moves the scrollable area to an element
  *
- * Dependences: 
+ * Dependences:
  * - Mouse Wheel plugin (mousewheel.js)
  */
 +function ($) { "use strict";
@@ -39,7 +44,7 @@
         var
             $el = $(element),
             el = $el.get(0),
-            dragStart= 0,
+            dragStart = 0,
             startOffset = 0,
             self = this,
             dragging = false,
@@ -53,8 +58,10 @@
         /*
          * Inject scroll markers
          */
-        if (this.options.scrollMarkerContainer)
-            $(this.options.scrollMarkerContainer).append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))
+        if (this.options.scrollMarkerContainer) {
+            $(this.options.scrollMarkerContainer)
+                .append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))
+        }
 
         /*
          * Bind events
