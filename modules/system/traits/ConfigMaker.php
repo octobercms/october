@@ -136,7 +136,7 @@ trait ConfigMaker
             $configPath = $this->configPath;
         }
 
-        $fileName = File::symbolizePath($fileName, $fileName);
+        $fileName = File::symbolizePath($fileName);
 
         if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
             return $fileName;

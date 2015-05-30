@@ -137,19 +137,22 @@ class Controller extends Extendable
         /*
          * Define layout and view paths
          */
-        $this->layout = 'default';
+        $this->layout = $this->layout ?: 'default';
         $this->layoutPath = Skin::getActive()->getLayoutPaths();
-
-        // Option A: (@todo Determine which is faster by benchmark)
-        // $relativePath = strtolower(str_replace('\\', '/', get_called_class()));
-        // $this->viewPath = $this->configPath = ['modules/' . $relativePath, 'plugins/' . $relativePath];
-
-        // Option B:
         $this->viewPath = $this->configPath = $this->guessViewPath();
+
+        /*
+         * Add layout paths from the plugin / module context
+         */
+        $relativePath = dirname(dirname(strtolower(str_replace('\\', '/', get_called_class()))));
+        $this->layoutPath[] = '~/modules/' . $relativePath . '/layouts';
+        $this->layoutPath[] = '~/plugins/' . $relativePath . '/layouts';
 
         parent::__construct();
 
-        // Media Manager widget is available on all back-end pages
+        /*
+         * Media Manager widget is available on all back-end pages
+         */
         $manager = new MediaManager($this, 'ocmediamanager');
         $manager->bindToController();
     }
