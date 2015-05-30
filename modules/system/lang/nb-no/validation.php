@@ -1,9 +1,5 @@
 <?php
 
-/*
- * Status: NOT complete.
- */
-
 return [
 
     /*

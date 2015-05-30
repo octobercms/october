@@ -42,10 +42,10 @@
             self.paper.customAttributes.bar = function (start, height) {
                 return {
                     path: [
-                        ["M", start, chartWidth], 
+                        ["M", start, chartHeight],
                         ["L", start, chartHeight-height],
                         ["L", start + barWidth, chartHeight-height],
-                        ["L", start + barWidth, chartWidth],
+                        ["L", start + barWidth, chartHeight],
                         ["Z"]
                     ]
                 }

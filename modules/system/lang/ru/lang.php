@@ -16,6 +16,7 @@ return [
         'id' => 'Bahasa Indonesia',
         'it' => 'Italian',
         'ja' => 'Japanese',
+        'lv' => 'Latvian',
         'nl' => 'Dutch',
         'pl' => 'Polish',
         'pt-br' => 'Brazilian Portuguese',
@@ -53,6 +54,21 @@ return [
             'my_settings' => 'Мои настройки',
         ],
     ],
+    'theme' => [
+        'unnamed' => 'Безымянная тема',
+        'name' => [
+            'label' => 'Название темы',
+            'help' => 'Название темы по ее уникальному коду. Например, RainLab.Vanilla'
+        ],
+    ],
+    'themes' => [
+        'install' => 'Установить темы',
+        'search' => 'поиск тем для установки...',
+        'installed' => 'Установленные темы',
+        'no_themes' => 'Нет тем, установленных из магазина.',
+        'recommended' => 'Рекомендуется',
+        'remove_confirm' => 'Вы уверены, что хотите удалить выбранную тему?'
+    ],
     'plugin' => [
         'unnamed' => 'Безымянный плагин',
         'name' => [
@@ -64,12 +80,18 @@ return [
         'manage' => 'Управление плагинами',
         'enable_or_disable' => 'Включить или выключить',
         'enable_or_disable_title' => 'Включение или отключение плагинов',
+        'install' => 'Установить плагины',
+        'install_products' => 'Установка расширений',
+        'search' => 'поиск плагинов для установки...',
+        'installed' => 'Установленные плагины',
+        'no_plugins' => 'Нет плагинов, установленных из магазина.',
+        'recommended' => 'Рекомендуется',
         'remove' => 'Удалить',
         'refresh' => 'Обновить',
         'disabled_label' => 'Отключить',
         'disabled_help' => 'Отключенные плагины будут игнорироваться.',
         'selected_amount' => 'Выбрано плагинов: :amount',
-        'remove_confirm' => 'Вы уверены?',
+        'remove_confirm' => 'Вы уверены, что хотите удалить этот плагин?',
         'remove_success' => 'Выбранные плагины успешно удалены.',
         'refresh_confirm' => 'Вы уверены?',
         'refresh_success' => 'Выбранные плагины успешно обновлены.',
@@ -109,7 +131,6 @@ return [
         'sender_name' => 'Имя отправителя',
         'sender_email' => 'Адрес отправителя',
         'php_mail' => 'PHP mail',
-        'sendmail' => 'Sendmail',
         'smtp' => 'SMTP',
         'smtp_address' => 'Сервер исходящей почты',
         'smtp_authorization' => 'Использовать SMTP авторизацию',
@@ -157,7 +178,9 @@ return [
     'install' => [
         'project_label' => 'Присоединить к проекту',
         'plugin_label' => 'Установить плагин',
+        'theme_label' => 'Установить тему',
         'missing_plugin_name' => 'Пожалуйста, укажите название плагина для установки.',
+        'missing_theme_name' => 'Пожалуйста, укажите название темы для установки.',
         'install_completing' => 'Завершение процесса установки',
         'install_success' => 'Плагин был успешно установлен.',
     ],
@@ -179,6 +202,7 @@ return [
         'core_downloading' => 'Загрузка файлов приложения',
         'core_extracting' => 'Распаковка файлов приложения',
         'plugins' => 'Плагины',
+        'themes' => 'Темы',
         'disabled' => 'Отключено',
         'plugin_downloading' => 'Загрузка плагина: :name',
         'plugin_extracting' => 'Распаковка плагина: :name',
@@ -247,7 +271,7 @@ return [
         'id' => 'ID',
         'id_label' => 'ID записи',
         'count' => 'Счетчик',
-        'referer' => 'Иточник запроса',
+        'referer' => 'Источник запроса',
         'url' => 'Адрес',
         'status_code' => 'Статус',
     ],
@@ -258,6 +282,6 @@ return [
         'manage_mail_templates' => 'Управление почтовыми шаблонами',
         'manage_mail_settings' => 'Управление настройками почты',
         'manage_other_administrators' => 'Управление другими администраторами',
-        'view_the_dashboard' => 'Просмотр приборной панели'
+        'view_the_dashboard' => 'Просмотр панели управления'
     ]
 ];
