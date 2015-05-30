@@ -52,7 +52,7 @@ class FlashNode extends Twig_Node
                 ->write(';')
                 ->write('foreach (Flash::')
                 ->raw($attrib)
-                ->write('() as $messages) {'.PHP_EOL)
+                ->write('() as $message) {'.PHP_EOL)
                 ->indent()
                     ->write('$context["message"] = $message;')
                     ->subcompile($this->getNode('body'))
