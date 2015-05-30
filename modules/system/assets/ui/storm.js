@@ -16,6 +16,7 @@
 =require js/popup.js
 =require js/chart.js
 =require js/list.js
+=require js/input.js
 =require js/drag.js
 =require js/tab.js
 */

@@ -16,10 +16,24 @@ Components are a mixture of CSS and JavaScript (Controls), or can be solely styl
 
 Each component has a *strong name*, for example the loading indicator has the name `loader`. For complex components, they can be broken in to child components, for example `loader.stripe`. Not all child components can be used independently of their parents, but this is certainly possible and a nice idea.
 
+These Scripts are available:
+
+- Foundation (`foundation`)
+- Drag (`drag`)
+- Input (`input`)
+
+These Styles are available:
+
+- Site (`site`)
+- Flag (`flag`)
+- Icon (`icon`)
+- Breadcrumb (`breadcrumb`)
+- Pagination (`pagination`)
+- Progress Bar (`progressbar`)
+
 These Controls are available:
 
 - Form (`form`)
-- Drag (`drag`)
 - List (`list`)
 - Button (`button`)
 - Chart (`chart`)
@@ -34,19 +48,6 @@ These Controls are available:
 - Popover (`popover`)
 - Popup (`popup`)
 - Tab (`tab`)
-
-These Styles are available:
-
-- Site (`site`)
-- Flag (`flag`)
-- Icon (`icon`)
-- Breadcrumb (`breadcrumb`)
-- Pagination (`pagination`)
-- Progress Bar (`progressbar`)
-
-These Scripts are available:
-
-- Foundation (`foundation`)
 
 > *Note*: Documentation for each component can be found in the **docs/** directory.
 
