@@ -1104,7 +1104,11 @@ class Controller
      */
     public function currentPageUrl($parameters = [], $routePersistence = true)
     {
-        return $this->pageUrl($this->page->getFileName(), $parameters, $routePersistence);
+        if (!$currentFile = $this->page->getFileName()) {
+            return null;
+        }
+
+        return $this->pageUrl($currentFile, $parameters, $routePersistence);
     }
 
     /**
