@@ -37,6 +37,7 @@ These Controls are available:
 - List (`list`)
 - Button (`button`)
 - Chart (`chart`)
+- Callout (`callout`)
 - Scoreboard (`scoreboard`)
 - Dropdown (`dropdown`)
 - Inspector (`inspector`)

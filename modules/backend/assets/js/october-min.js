@@ -1771,7 +1771,29 @@ if($('.dropdown-overlay',document.body).length==0){$(document.body).prepend($('<
 $(document).on('hidden.bs.dropdown','.dropdown',function(){var dropdown=$(this).data('oc.dropdown')
 if(dropdown!==undefined){dropdown.css('display','none')
 $(this).append(dropdown)}
-$(document.body).removeClass('dropdown-open');})}(window.jQuery);+function($){'use strict';var Tooltip=function(element,options){this.type=this.options=this.enabled=this.timeout=this.hoverState=this.$element=null
+$(document.body).removeClass('dropdown-open');})}(window.jQuery);+function($){'use strict';var dismiss='[data-dismiss="callout"]'
+var Callout=function(el){$(el).on('click',dismiss,this.close)}
+Callout.prototype.close=function(e){var $this=$(this)
+var selector=$this.attr('data-target')
+if(!selector){selector=$this.attr('href')
+selector=selector&&selector.replace(/.*(?=#[^\s]*$)/,'')}
+var $parent=$(selector)
+if(e)e.preventDefault()
+if(!$parent.length){$parent=$this.hasClass('callout')?$this:$this.parent()}
+$parent.trigger(e=$.Event('close.oc.callout'))
+if(e.isDefaultPrevented())return
+$parent.removeClass('in')
+function removeElement(){$parent.trigger('closed.oc.callout').remove()}
+$.support.transition&&$parent.hasClass('fade')?$parent.one($.support.transition.end,removeElement).emulateTransitionEnd(500):removeElement()}
+var old=$.fn.callout
+$.fn.callout=function(option){return this.each(function(){var $this=$(this)
+var data=$this.data('oc.callout')
+if(!data)$this.data('oc.callout',(data=new Callout(this)))
+if(typeof option=='string')data[option].call($this)})}
+$.fn.callout.Constructor=Callout
+$.fn.callout.noConflict=function(){$.fn.callout=old
+return this}
+$(document).on('click.oc.callout.data-api',dismiss,Callout.prototype.close)}(jQuery);+function($){'use strict';var Tooltip=function(element,options){this.type=this.options=this.enabled=this.timeout=this.hoverState=this.$element=null
 this.init('tooltip',element,options)}
 Tooltip.DEFAULTS={animation:true,placement:'top',selector:false,template:'<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',trigger:'hover focus',title:'',delay:0,html:false,container:false}
 Tooltip.prototype.init=function(type,element,options){this.enabled=true
@@ -5011,29 +5033,7 @@ $.fn.autocomplete.noConflict=function(){$.fn.autocomplete=old
 return this}
 $(document).on('focus.autocomplete.data-api','[data-control="autocomplete"]',function(e){var $this=$(this)
 if($this.data('autocomplete'))return
-$this.autocomplete($this.data())})}(window.jQuery);+function($){'use strict';var dismiss='[data-dismiss="callout"]'
-var Callout=function(el){$(el).on('click',dismiss,this.close)}
-Callout.prototype.close=function(e){var $this=$(this)
-var selector=$this.attr('data-target')
-if(!selector){selector=$this.attr('href')
-selector=selector&&selector.replace(/.*(?=#[^\s]*$)/,'')}
-var $parent=$(selector)
-if(e)e.preventDefault()
-if(!$parent.length){$parent=$this.hasClass('callout')?$this:$this.parent()}
-$parent.trigger(e=$.Event('close.oc.callout'))
-if(e.isDefaultPrevented())return
-$parent.removeClass('in')
-function removeElement(){$parent.trigger('closed.oc.callout').remove()}
-$.support.transition&&$parent.hasClass('fade')?$parent.one($.support.transition.end,removeElement).emulateTransitionEnd(500):removeElement()}
-var old=$.fn.callout
-$.fn.callout=function(option){return this.each(function(){var $this=$(this)
-var data=$this.data('oc.callout')
-if(!data)$this.data('oc.callout',(data=new Callout(this)))
-if(typeof option=='string')data[option].call($this)})}
-$.fn.callout.Constructor=Callout
-$.fn.callout.noConflict=function(){$.fn.callout=old
-return this}
-$(document).on('click.oc.callout.data-api',dismiss,Callout.prototype.close)}(jQuery);+function($){"use strict";var SidenavTree=function(element,options){this.options=options
+$this.autocomplete($this.data())})}(window.jQuery);+function($){"use strict";var SidenavTree=function(element,options){this.options=options
 this.$el=$(element)
 this.init();}
 SidenavTree.DEFAULTS={treeName:'sidenav_tree'}
