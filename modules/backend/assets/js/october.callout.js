@@ -47,11 +47,11 @@
             $parent.trigger('closed.oc.callout').remove()
         }
 
-        $.support.transition && $parent.hasClass('fade') ?
-            $parent
+        $.support.transition && $parent.hasClass('fade')
+            ? $parent
                 .one($.support.transition.end, removeElement)
-                .emulateTransitionEnd(500) :
-            removeElement()
+                .emulateTransitionEnd(500)
+            : removeElement()
     }
 
     // CALLOUT PLUGIN DEFINITION

@@ -425,7 +425,7 @@ table{border-collapse:collapse;border-spacing:0}
 td,th{padding:0}
 *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 html{font-size:62.5%;-webkit-tap-highlight-color:rgba(0,0,0,0)}
-body{font-family:'Open Sans',Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333333;background-color:#ffffff}
+body{font-family:'Open Sans',Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333333;background-color:#f9f9f9}
 input,button,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
 button,input,select[multiple],textarea{background-image:none}
 a{color:#1795f1;text-decoration:none}
@@ -2031,7 +2031,7 @@ body.slim-container .form-buttons{padding:0 20px 20px}
 .custom-select.select2-container{padding:0px}
 .custom-select.select2-container .select2-choices{border:0 !important;border-radius:2px}
 .custom-select.select2-container .loading-indicator{background:transparent}
-.custom-select.select2-container .loading-indicator > span{background-image:url(../images/loading-indicator-transparent.svg);left:auto;right:10px;top:19px;background-size:17px 17px}
+.custom-select.select2-container .loading-indicator > span{background-image:url(../images/loader-transparent.svg);left:auto;right:10px;top:19px;background-size:17px 17px}
 .custom-select.select2-container.in-progress .select2-choice .select2-arrow{display:none !important}
 .custom-select.select2-container.select2-dropdown-open{border-color:#808c8d}
 .custom-select.select2-container.select2-dropdown-open,.custom-select.select2-container.select2-dropdown-open .select2-choices{border-radius:2px 2px 0 0}
@@ -2087,7 +2087,7 @@ th{text-align:left}
 .table > thead > tr > th{vertical-align:bottom;border-bottom:2px solid #dddddd}
 .table > caption + thead > tr:first-child > th,.table > colgroup + thead > tr:first-child > th,.table > thead:first-child > tr:first-child > th,.table > caption + thead > tr:first-child > td,.table > colgroup + thead > tr:first-child > td,.table > thead:first-child > tr:first-child > td{border-top:0}
 .table > tbody + tbody{border-top:2px solid #dddddd}
-.table .table{background-color:#ffffff}
+.table .table{background-color:#f9f9f9}
 .table-condensed > thead > tr > th,.table-condensed > tbody > tr > th,.table-condensed > tfoot > tr > th,.table-condensed > thead > tr > td,.table-condensed > tbody > tr > td,.table-condensed > tfoot > tr > td{padding:5px}
 .table-bordered{border:1px solid #dddddd}
 .table-bordered > thead > tr > th,.table-bordered > tbody > tr > th,.table-bordered > tfoot > tr > th,.table-bordered > thead > tr > td,.table-bordered > tbody > tr > td,.table-bordered > tfoot > tr > td{border:1px solid #dddddd}
@@ -2528,6 +2528,21 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 90%{width:99.7475567%}
 100%{width:99.94237615%}
 }
+@-moz-keyframes spin{0%{-moz-transform:rotate(0deg)}
+100%{-moz-transform:rotate(359deg)}
+}
+@-webkit-keyframes spin{0%{-webkit-transform:rotate(0deg)}
+100%{-webkit-transform:rotate(359deg)}
+}
+@-o-keyframes spin{0%{-o-transform:rotate(0deg)}
+100%{-o-transform:rotate(359deg)}
+}
+@-ms-keyframes spin{0%{-ms-transform:rotate(0deg)}
+100%{-ms-transform:rotate(359deg)}
+}
+@keyframes spin{0%{transform:rotate(0deg)}
+100%{transform:rotate(359deg)}
+}
 .control-filter{padding:0 10px;font-size:13px;color:#949ea6;background-color:#f3f3f3;border-top:1px solid #949ea6;border-bottom:1px solid #949ea6}
 .control-filter a{text-decoration:none;color:#949ea6}
 .control-filter > .filter-scope{display:inline-block;padding:15px}
@@ -2623,7 +2638,7 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .nav-tabs > li{float:left;margin-bottom:-1px}
 .nav-tabs > li > a{margin-right:2px;line-height:1.42857143;border:1px solid transparent;border-radius:2px 2px 0 0}
 .nav-tabs > li > a:hover{border-color:#eeeeee #eeeeee #dddddd}
-.nav-tabs > li.active > a,.nav-tabs > li.active > a:hover,.nav-tabs > li.active > a:focus{color:#555555;background-color:#ffffff;border:1px solid #dddddd;border-bottom-color:transparent;cursor:default}
+.nav-tabs > li.active > a,.nav-tabs > li.active > a:hover,.nav-tabs > li.active > a:focus{color:#555555;background-color:#f9f9f9;border:1px solid #dddddd;border-bottom-color:transparent;cursor:default}
 .nav-tabs.nav-justified{width:100%;border-bottom:0}
 .nav-tabs.nav-justified > li{float:none}
 .nav-tabs.nav-justified > li > a{text-align:center;margin-bottom:5px}
@@ -2634,7 +2649,7 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .nav-tabs.nav-justified > li > a{margin-right:0;border-radius:2px}
 .nav-tabs.nav-justified > .active > a,.nav-tabs.nav-justified > .active > a:hover,.nav-tabs.nav-justified > .active > a:focus{border:1px solid #dddddd}
 @media (min-width:768px){.nav-tabs.nav-justified > li > a{border-bottom:1px solid #dddddd;border-radius:2px 2px 0 0}
-.nav-tabs.nav-justified > .active > a,.nav-tabs.nav-justified > .active > a:hover,.nav-tabs.nav-justified > .active > a:focus{border-bottom-color:#ffffff}
+.nav-tabs.nav-justified > .active > a,.nav-tabs.nav-justified > .active > a:hover,.nav-tabs.nav-justified > .active > a:focus{border-bottom-color:#f9f9f9}
 }
 .nav-pills > li{float:left}
 .nav-pills > li > a{border-radius:2px}
@@ -2653,7 +2668,7 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .nav-tabs-justified > li > a{margin-right:0;border-radius:2px}
 .nav-tabs-justified > .active > a,.nav-tabs-justified > .active > a:hover,.nav-tabs-justified > .active > a:focus{border:1px solid #dddddd}
 @media (min-width:768px){.nav-tabs-justified > li > a{border-bottom:1px solid #dddddd;border-radius:2px 2px 0 0}
-.nav-tabs-justified > .active > a,.nav-tabs-justified > .active > a:hover,.nav-tabs-justified > .active > a:focus{border-bottom-color:#ffffff}
+.nav-tabs-justified > .active > a,.nav-tabs-justified > .active > a:hover,.nav-tabs-justified > .active > a:focus{border-bottom-color:#f9f9f9}
 }
 .tab-content > .tab-pane{display:none}
 .tab-content > .active{display:block}
@@ -3209,7 +3224,7 @@ html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-contain
 }
 .pulseWarningIns{-webkit-animation:pulseWarningIns 0.75s infinite alternate;animation:pulseWarningIns 0.75s infinite alternate}
 .sweet-overlay{background-color:rgba(0,0,0,0.4);position:fixed;left:0;right:0;top:0;bottom:0;display:none;z-index:8050}
-.sweet-alert{background-color:#ffffff;width:478px;padding:17px;border-radius:5px;text-align:center;position:fixed;left:50%;top:50%;margin-left:-256px;margin-top:-200px;overflow:hidden;display:none;z-index:9050}
+.sweet-alert{background-color:#f9f9f9;width:478px;padding:17px;border-radius:5px;text-align:center;position:fixed;left:50%;top:50%;margin-left:-256px;margin-top:-200px;overflow:hidden;display:none;z-index:9050}
 .sweet-alert h4{margin:30px 0;word-wrap:break-word}
 @media all and (max-width:767px){.sweet-alert{width:auto;margin-left:0;margin-right:0;left:15px;right:15px}
 }
@@ -3230,7 +3245,7 @@ html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-contain
 .sweet-alert .icon.success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:60px 60px;transform-origin:60px 60px}
 .sweet-alert .icon.success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:0px 60px;transform-origin:0px 60px}
 .sweet-alert .icon.success .placeholder{width:80px;height:80px;border:4px solid rgba(92,184,92,0.2);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}
-.sweet-alert .icon.success .fix{width:5px;height:90px;background-color:#ffffff;position:absolute;left:28px;top:8px;z-index:1;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}
+.sweet-alert .icon.success .fix{width:5px;height:90px;background-color:#f9f9f9;position:absolute;left:28px;top:8px;z-index:1;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}
 .sweet-alert .icon.success .line{height:5px;background-color:#5cb85c;display:block;border-radius:2px;position:absolute;z-index:2}
 .sweet-alert .icon.success .line.tip{width:25px;left:14px;top:46px;-webkit-transform:rotate(45deg);transform:rotate(45deg)}
 .sweet-alert .icon.success .line.long{width:47px;right:8px;top:38px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}

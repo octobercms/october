@@ -189,7 +189,7 @@
   filter: alpha(opacity=50);
 }
 .field-fileupload .loading .uploader-loading {
-  background-image: url(../../../../assets/images/loading-indicator-transparent.svg);
+  background-image: url(../../../../assets/images/loader-transparent.svg);
   position: absolute;
   content: ' ';
   width: 40px;
