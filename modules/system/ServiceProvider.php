@@ -21,6 +21,7 @@ use System\Twig\Extension as TwigExtension;
 use System\Models\EventLog;
 use System\Models\MailSettings;
 use System\Models\MailTemplate;
+use System\Classes\CombineAssets;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use October\Rain\Router\Helper as RouterHelper;
@@ -50,6 +51,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerTwigParser();
         $this->registerMailer();
         $this->registerMarkupTags();
+        $this->registerAssetBundles();
 
         /*
          * Register other module providers
@@ -431,4 +433,18 @@ class ServiceProvider extends ModuleServiceProvider
             ]);
         });
     }
+
+    /**
+     * Register asset bundles
+     */
+    protected function registerAssetBundles()
+    {
+        /*
+         * Register asset bundles
+         */
+        CombineAssets::registerCallback(function($combiner) {
+            $combiner->registerBundle('~/modules/system/assets/less/styles.less');
+        });
+    }
+
 }
