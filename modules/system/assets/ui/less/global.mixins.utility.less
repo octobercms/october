@@ -114,3 +114,18 @@
     max-width: 100%; // Part 1: Set a maximum relative to the parent
     height: auto; // Part 2: Scale the height according to the width, otherwise you get stretching
 }
+
+// Responsive utilities
+// -------------------------
+// More easily include all the states for responsive-utilities.less.
+.responsive-visibility() {
+    display: block !important;
+    table&  { display: table; }
+    tr&     { display: table-row !important; }
+    th&,
+    td&     { display: table-cell !important; }
+}
+
+.responsive-invisibility() {
+    display: none !important;
+}

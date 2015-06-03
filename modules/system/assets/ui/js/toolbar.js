@@ -1,6 +1,6 @@
 /*
 =require foundation.js
-=require scroll.drag.js
+=require drag.scroll.js
 */
 
 /*

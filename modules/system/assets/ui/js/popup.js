@@ -1,4 +1,7 @@
 /*
+=require ../vendor/bootstrap/js/modal.js
+*/
+/*
  * Ajax Popup plugin
  *
  * Options:
