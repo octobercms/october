@@ -759,7 +759,7 @@ blockquote footer:before,blockquote small:before,blockquote .small:before{conten
 .blockquote-reverse footer:after,blockquote.pull-right footer:after,.blockquote-reverse small:after,blockquote.pull-right small:after,.blockquote-reverse .small:after,blockquote.pull-right .small:after{content:'\00A0 \2014'}
 blockquote:before,blockquote:after{content:""}
 address{margin-bottom:20px;font-style:normal;line-height:1.42857143}
-.btn{display:inline-block;margin-bottom:0;font-weight:normal;text-align:center;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;padding:9px 16.5px;padding:9px 11px;font-size:14px;line-height:1.42857143;border-radius:2px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.btn{display:inline-block;margin-bottom:0;font-weight:normal;text-align:center;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;padding:9px 16.5px;font-size:14px;line-height:1.42857143;border-radius:2px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .btn:focus,.btn:active:focus,.btn.active:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
 .btn:hover,.btn:focus{color:#666666;text-decoration:none}
 .btn:active,.btn.active{outline:0;background-image:none;-webkit-box-shadow:inset 0 3px 5px rgba(0,0,0,0.125);box-shadow:inset 0 3px 5px rgba(0,0,0,0.125)}
@@ -799,9 +799,9 @@ address{margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .btn-link,.btn-link:hover,.btn-link:focus,.btn-link:active{border-color:transparent}
 .btn-link:hover,.btn-link:focus{color:#063f68;text-decoration:underline;background-color:transparent}
 .btn-link[disabled]:hover,fieldset[disabled] .btn-link:hover,.btn-link[disabled]:focus,fieldset[disabled] .btn-link:focus{color:#999999;text-decoration:none}
-.btn-lg,.btn-group-lg > .btn{padding:10px 24px;padding:10px 16px;font-size:18px;line-height:1.3333333;border-radius:6px}
-.btn-sm,.btn-group-sm > .btn{padding:5px 15px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}
-.btn-xs,.btn-group-xs > .btn{padding:1px 7.5px;padding:1px 5px;font-size:12px;line-height:1.5;border-radius:3px}
+.btn-lg,.btn-group-lg > .btn{padding:10px 24px;font-size:18px;line-height:1.3333333;border-radius:6px}
+.btn-sm,.btn-group-sm > .btn{padding:5px 15px;font-size:12px;line-height:1.5;border-radius:3px}
+.btn-xs,.btn-group-xs > .btn{padding:1px 7.5px;font-size:12px;line-height:1.5;border-radius:3px}
 .btn-block{display:block;width:100%;padding-left:0;padding-right:0}
 .btn-block + .btn-block{margin-top:5px}
 input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"].btn-block{width:100%}
