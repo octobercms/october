@@ -9,6 +9,13 @@
 class Partial extends CmsCompoundObject
 {
     /**
+     * @var array These settings properties will be available as regular properties.
+     */
+    protected $settingsVisible = [
+        'description'
+    ];
+
+    /**
      * Returns the directory name corresponding to the object type.
      * For pages the directory name is "pages", for layouts - "layouts", etc.
      * @return string

@@ -56,9 +56,13 @@ class CmsCompoundObject extends CmsObject
         'fileName'
     ];
 
+    protected $settingsVisible = [];
+
     protected $settingsValidationRules = [];
 
     protected $settingsValidationMessages = [];
+
+    protected $viewBagVisible = [];
 
     protected $viewBagValidationRules = [];
 
@@ -106,8 +110,20 @@ class CmsCompoundObject extends CmsObject
      */
     public function __get($name)
     {
-        if (is_array($this->settings) && array_key_exists($name, $this->settings)) {
+        if (
+            is_array($this->settings) &&
+            array_key_exists($name, $this->settings) &&
+            array_key_exists($name, array_flip($this->settingsVisible))
+        ) {
             return $this->settings[$name];
+        }
+
+        if (
+            is_array($this->viewBag) &&
+            array_key_exists($name, $this->viewBag) &&
+            array_key_exists($name, array_flip($this->viewBagVisible))
+        ) {
+            return $this->viewBag[$name];
         }
 
         return parent::__get($name);
@@ -122,6 +138,10 @@ class CmsCompoundObject extends CmsObject
     public function __isset($key)
     {
         if (parent::__isset($key) === true) {
+            return true;
+        }
+
+        if (isset($this->viewBag[$key]) === true) {
             return true;
         }
 
@@ -452,9 +472,10 @@ class CmsCompoundObject extends CmsObject
      */
     protected function initFromCache($cached)
     {
-        $this->settings = $cached['settings'];
-        $this->code = $cached['code'];
-        $this->markup = $cached['markup'];
+        $this->viewBag = array_get($cached, 'viewBag', []);
+        $this->settings = array_get($cached, 'settings', []);
+        $this->code = array_get($cached, 'code');
+        $this->markup = array_get($cached, 'markup');
     }
 
     /**
@@ -463,6 +484,7 @@ class CmsCompoundObject extends CmsObject
      */
     protected function initCacheItem(&$item)
     {
+        $item['viewBag'] = $this->viewBag;
         $item['settings'] = $this->settings;
         $item['code'] = $this->code;
         $item['markup'] = $this->markup;
