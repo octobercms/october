@@ -1,12 +1,12 @@
 # October Storm
 
-Welcome to the front-end framework designed for the OctoberCMS back-end area, referred to as *October Storm*.
+Welcome to the client-side framework designed for the OctoberCMS back-end area, referred to as *October Storm*.
 
 ## Design consideration
 
 In this library, each component behaves a bit like PHP. If a component depends on another component, it will include the file using `@import` in LESS or `=require` in JavaScript. Think of it like a namespace `use` reference in PHP.
 
-Both compilers will exclude duplicates references, so the usage is designed to be compiled in one fell swoop. Meaning one build file per page. Using multiple builds may result in duplication of dependencies.
+Both compilers will exclude duplicates references (a la `require_once`), so the usage is designed to be compiled as one fell swoop. Meaning one build file per page. Using multiple builds may result in duplication of dependencies.
 
 > **Note**: Compiling JavaScript depends on October's asset combiner as the `=require` directive was invented here to emulate the LESS `@import` functionality.
 

@@ -49,7 +49,7 @@
             $(this).ocPopover({
                 content: $('#inspectorTemplate').html(),
                // highlightModalTarget: true,
-               // modal: true,
+                modal: true,
                 width: 220,
                 placement: 'bottom',
                 container: '#inspectorContainer',

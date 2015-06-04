@@ -1,13 +1,7 @@
 /*
  * Callout
  *
- * Supported options:
- *  - xxx - none
- * 
- * Events:
- * - close.oc.callout - triggered when a node on the tree is moved.
- * 
- * Dependences:
+ * - Documentation: ../docs/callout.md
  */
 +function ($) {
     'use strict';
