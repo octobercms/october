@@ -41,7 +41,7 @@
         if ($el.length == 0) return
 
         // Template for search results
-        var template = Mustache.compile([
+        var template = Mustache.render([
             '<div class="product-details">',
             '<div class="product-image"><img src="{{image}}" alt=""></div>',
             '<div class="product-name ">{{name}}</div>',
