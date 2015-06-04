@@ -4195,7 +4195,7 @@ this.$el.on('modified.oc.tab',function(ev){ev.preventDefault()
 self.modifyTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'))})
 this.$el.on('unmodified.oc.tab',function(ev){ev.preventDefault()
 self.unmodifyTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'))})
-this.$tabsContainer.on('shown.oc.tab','li',function(){$(window).trigger('oc.updateUi')
+this.$tabsContainer.on('shown.bs.tab','li',function(){$(window).trigger('oc.updateUi')
 var tabUrl=$('> a',this).data('tabUrl')
 if(tabUrl){window.history.replaceState({},'Tab link reference',tabUrl)}})
 if(this.options.slidable){this.$pagesContainer.touchwipe({wipeRight:function(){self.prev();},wipeLeft:function(){self.next();},preventDefaultEvents:false,min_move_x:60});}

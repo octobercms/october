@@ -112,7 +112,7 @@
             self.unmodifyTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'))
         })
 
-        this.$tabsContainer.on('shown.oc.tab', 'li', function(){
+        this.$tabsContainer.on('shown.bs.tab', 'li', function(){
             // self.$tabsContainer.dragScroll('fixScrollClasses')
             $(window).trigger('oc.updateUi')
 
