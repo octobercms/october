@@ -275,13 +275,15 @@ return [
         'url' => 'Адрес',
         'status_code' => 'Статус',
     ],
-    'permissions' => [
-        'name' => 'Система',
-        'manage_system_settings' => 'Настройка системных параметров',
-        'manage_software_updates' => 'Управлять обновлениями',
-        'manage_mail_templates' => 'Управление почтовыми шаблонами',
-        'manage_mail_settings' => 'Управление настройками почты',
+    'permissions'    => [
+        'name'                        => 'Система',
+        'manage_system_settings'      => 'Настройка системных параметров',
+        'manage_software_updates'     => 'Управлять обновлениями',
+        'access_logs'                 => 'Просмотр системного журнала',
+        'manage_mail_templates'       => 'Управление почтовыми шаблонами',
+        'manage_mail_settings'        => 'Управление настройками почты',
         'manage_other_administrators' => 'Управление другими администраторами',
-        'view_the_dashboard' => 'Просмотр панели управления'
+        'view_the_dashboard'          => 'Просмотр приборной панели',
+        'manage_branding'             => 'Изменение стилей бэкенда'
     ]
 ];
