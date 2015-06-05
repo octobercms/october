@@ -14,21 +14,23 @@ use Lang;
 class Page extends CmsCompoundObject
 {
     /**
-     * @var array The API bag allows the API handler code to bind arbitrary data to the page object.
+     * @var array The API bag allows the API handler code to bind arbitrary
+     * data to the page object.
      */
     public $apiBag = [];
 
     /**
-     * @var array These settings properties will be available as regular properties.
+     * @var array These properties will be available as regular properties,
+     * by looking the settings and viewBag values.
      */
-    protected $settingsVisible = [
+    protected $visible = [
         'title',
         'url',
         'layout',
         'description',
         'meta_title',
         'meta_description',
-        'hidden'
+        'is_hidden'
     ];
 
     protected $settingsValidationRules = [

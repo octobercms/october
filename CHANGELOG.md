@@ -1,5 +1,6 @@
 * **Build 26x** (2015-06-xx)
   - Improved the back-end administrator permissions UI.
+  - The page setting `hidden` has been renamed to `is_hidden`, this setting may need to be reapplied for some themes.
 
 * **Build 260** (2015-05-16)
   - The `|page` filter now supports passing an empty string to generate a link to the current page.

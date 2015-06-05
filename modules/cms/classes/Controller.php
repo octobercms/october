@@ -154,7 +154,7 @@ class Controller
          * Hidden page
          */
         $page = $this->router->findByUrl($url);
-        if ($page && $page->hidden) {
+        if ($page && $page->is_hidden) {
             if (!BackendAuth::getUser()) {
                 $page = null;
             }
@@ -461,20 +461,21 @@ class Controller
 
     /**
      * Post-processes page HTML code before it's sent to the client.
+     * Note for pre-processing see cms.template.processTwigContent event.
      * @param \Cms\Classes\Page $page Specifies the current CMS page.
      * @param string $url Specifies the current URL.
-     * @param string $html The page markup to post processs.
+     * @param string $content The page markup to post processs.
      * @return string Returns the updated result string.
      */
-    protected function postProcessResult($page, $url, $html)
+    protected function postProcessResult($page, $url, $content)
     {
-        $html = MediaViewHelper::instance()->processHtml($html);
+        $content = MediaViewHelper::instance()->processHtml($content);
 
-        $holder = (object) ['html' => $html];
+        $dataHolder = (object) ['content' => $content];
 
-        Event::fire('cms.page.postprocess', [$this, $url, $page, $holder]);
+        Event::fire('cms.page.postprocess', [$this, $url, $page, $dataHolder]);
 
-        return $holder->html;
+        return $dataHolder->content;
     }
 
     //

@@ -11,9 +11,10 @@ class Layout extends CmsCompoundObject
     const FALLBACK_FILE_NAME = 'fallback';
 
     /**
-     * @var array These settings properties will be available as regular properties.
+     * @var array These properties will be available as regular properties,
+     * by looking the settings and viewBag values.
      */
-    protected $settingsVisible = [
+    protected $visible = [
         'description'
     ];
 

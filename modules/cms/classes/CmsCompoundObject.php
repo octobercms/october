@@ -49,6 +49,9 @@ class CmsCompoundObject extends CmsObject
      */
     public $viewBag = [];
 
+    /**
+     * @var array Properties that can be set with fill()
+     */
     protected static $fillable = [
         'markup',
         'settings',
@@ -56,13 +59,15 @@ class CmsCompoundObject extends CmsObject
         'fileName'
     ];
 
-    protected $settingsVisible = [];
+    /**
+     * @var array These properties will be available as regular properties,
+     * by looking the settings and viewBag values.
+     */
+    protected $visible = [];
 
     protected $settingsValidationRules = [];
 
     protected $settingsValidationMessages = [];
-
-    protected $viewBagVisible = [];
 
     protected $viewBagValidationRules = [];
 
@@ -106,24 +111,26 @@ class CmsCompoundObject extends CmsObject
     }
 
     /**
-     * Implements getter functionality for properties defined in the settings section.
+     * Implements getter functionality for visible properties defined in
+     * the settings section or view bag array.
      */
     public function __get($name)
     {
-        if (
-            is_array($this->settings) &&
-            array_key_exists($name, $this->settings) &&
-            array_key_exists($name, array_flip($this->settingsVisible))
-        ) {
-            return $this->settings[$name];
-        }
+        $visibleKeys = array_flip($this->visible);
+        if (isset($visibleKeys[$name])) {
+            if (
+                is_array($this->settings) &&
+                array_key_exists($name, $this->settings)
+            ) {
+                return $this->settings[$name];
+            }
 
-        if (
-            is_array($this->viewBag) &&
-            array_key_exists($name, $this->viewBag) &&
-            array_key_exists($name, array_flip($this->viewBagVisible))
-        ) {
-            return $this->viewBag[$name];
+            if (
+                is_array($this->viewBag) &&
+                array_key_exists($name, $this->viewBag)
+            ) {
+                return $this->viewBag[$name];
+            }
         }
 
         return parent::__get($name);
