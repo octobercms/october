@@ -181,7 +181,7 @@ We already have a boilerplate code for jQuery code. Disposable controls approach
 
             // In some cases options could contain callbacks, 
             // so it's better to clean them up too.
-            this.options = null 
+            this.options = null
 
             BaseProto.dispose.call(this)
         }
