@@ -1,146 +1,22 @@
-.field-fileupload .attachment-input {
-  position: absolute;
-  visibility: hidden;
-  width: 10px;
-  opacity: 0;
-}
-.field-fileupload .attachment-item {
-  position: relative;
-}
-.field-fileupload .image-multi ul,
-.field-fileupload .file-multi ul {
-  padding: 0;
-  margin: 0;
-}
-.field-fileupload .image-multi ul:before,
-.field-fileupload .file-multi ul:before,
-.field-fileupload .image-multi ul:after,
-.field-fileupload .file-multi ul:after {
-  content: " ";
-  display: table;
-}
-.field-fileupload .image-multi ul:after,
-.field-fileupload .file-multi ul:after {
-  clear: both;
-}
-.field-fileupload .image-multi ul li,
-.field-fileupload .file-multi ul li {
-  list-style: none;
+.field-fileupload .upload-button {
+  display: block;
   float: left;
-  margin-right: 35px;
-  margin-bottom: 15px;
-}
-.field-fileupload .file-multi .attachment-item,
-.field-fileupload .file-single.attachment-item {
-  width: 100px;
-  height: 100px;
-}
-.field-fileupload .active-image,
-.field-fileupload .active-file {
-  display: block;
-  height: 100%;
-  width: 100%;
-  border: 1px solid #e0e0e0;
-  background: white;
-  position: relative;
-  outline: none;
-  overflow: hidden;
-  padding: 5px;
-}
-.field-fileupload .active-image .caption,
-.field-fileupload .active-file .caption {
-  position: absolute;
-  bottom: 0;
-  font-size: 11px;
-  background: rgba(0, 0, 0, 0.05);
-  color: #999;
-  padding: 2px 5px;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.field-fileupload .active-image img {
-  width: 100%;
-  height: 100%;
-}
-.field-fileupload .active-file {
-  padding: 0;
-}
-.field-fileupload .active-file .file-icon {
-  position: absolute;
-  top: 7px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
-.field-fileupload .active-file .file-icon i {
-  font-size: 64px;
-  color: #444;
-}
-.field-fileupload .active-file .file-icon b {
-  position: absolute;
-  left: 0;
-  bottom: 10px;
-  color: #FFF;
-  display: block;
-  width: 100%;
-  font-size: 12px;
-  font-weight: normal;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-align: center;
-  text-indent: 12px;
-}
-.field-fileupload .uploader-toolbar {
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s;
-  height: 100%;
-  background: #e0e0e0;
-  position: absolute;
-  top: 0;
-  right: -20px;
-  width: 20px;
-}
-.field-fileupload .uploader-toolbar h3,
-.field-fileupload .uploader-toolbar p {
-  display: none;
-}
-.field-fileupload .uploader-toolbar a {
-  text-decoration: none;
-  display: block;
-  padding: 3px 0 0 7px;
-  color: #999;
-  font-size: 15px;
-  margin-left: -4px;
-  text-align: center;
-}
-.field-fileupload .uploader-toolbar a:hover {
-  color: #666;
-}
-.field-fileupload .uploader-toolbar a.uploader-file-link {
-  display: none;
-}
-.field-fileupload .no-attachment {
-  display: block;
-  height: 100%;
-  width: 100%;
-  border: 2px dotted #e0e0e0;
+  border: 2px dotted rgba(0, 0, 0, 0.1);
   position: relative;
   outline: none;
 }
-.field-fileupload .no-attachment table {
+.field-fileupload .upload-button table {
   position: absolute;
   height: 100%;
   width: 100%;
 }
-.field-fileupload .no-attachment table td {
+.field-fileupload .upload-button table td {
   line-height: 16px;
   font-size: 11px;
   vertical-align: middle;
   height: 100%;
 }
-.field-fileupload .no-attachment table td:before {
+.field-fileupload .upload-button table td:before {
   text-align: center;
   width: 100%;
   display: block;
@@ -148,55 +24,108 @@
   color: rgba(0, 0, 0, 0.1);
   vertical-align: middle;
 }
-.field-fileupload .no-attachment table td span {
+.field-fileupload .upload-button table td span {
   display: block;
   padding: 10px;
   text-align: center;
 }
-.field-fileupload .no-attachment:hover {
-  /*background: #ffffdd;*/
-  border: 2px dotted rgba(0, 0, 0, 0.1);
+.field-fileupload .upload-button:hover {
+  border: 2px dotted rgba(0, 0, 0, 0.2);
 }
-.field-fileupload .no-attachment:focus {
-  border: 2px solid #ccc;
+.field-fileupload .upload-button:hover table td:before {
+  color: #5cb85c;
+  color: rgba(0, 0, 0, 0.2);
+}
+.field-fileupload .upload-button:focus {
+  border: 2px solid rgba(0, 0, 0, 0.3);
   background: transparent;
 }
-.field-fileupload .uploader-progress {
+.field-fileupload .upload-button:focus table td:before {
+  color: #5cb85c;
+  color: rgba(0, 0, 0, 0.2);
+}
+.field-fileupload .upload-object {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
   position: relative;
-  top: -7px;
-}
-.field-fileupload .uploader-progress {
-  margin: 0 2px;
-  visibility: hidden;
+  outline: none;
   overflow: hidden;
-  height: 5px;
-  margin-bottom: 20px;
-  background-color: #f5f5f5;
-  border-radius: 2px;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  vertical-align: top;
 }
-.field-fileupload .uploader-progress .progress-bar {
-  line-height: 5px;
-  color: #ffffff;
-  background-color: #ccc;
-  -webkit-box-shadow: none;
-  box-shadow: none;
+.field-fileupload .upload-object img {
+  width: 100%;
+  height: 100%;
 }
-.field-fileupload .loading img,
-.field-fileupload .loading .file-icon {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
+.field-fileupload .upload-object .icon-container {
+  display: table;
+  opacity: .6;
 }
-.field-fileupload .loading .uploader-loading {
-  background-image: url(../../../../assets/images/loader-transparent.svg);
+.field-fileupload .upload-object .icon-container i {
+  color: #95a5a6;
+  display: inline-block;
+}
+.field-fileupload .upload-object .icon-container div {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+.field-fileupload .upload-object .icon-container.image > div.icon-wrapper {
+  display: none;
+}
+.field-fileupload .upload-object h4 {
+  font-weight: 600;
+  font-size: 13px;
+  color: #2b3e50;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 150%;
+  margin: 15px 0 5px 0;
+  padding-right: 0;
+  -webkit-transition: padding 0.1s;
+  transition: padding 0.1s;
+  position: relative;
+}
+.field-fileupload .upload-object h4 a {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: none;
+}
+.field-fileupload .upload-object p.size {
+  font-size: 12px;
+  color: #95a5a6;
+}
+.field-fileupload .upload-object p.size strong {
+  font-weight: 400;
+}
+.field-fileupload .upload-object .meta .drag-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: move;
+}
+.field-fileupload .upload-object .info h4 a,
+.field-fileupload .upload-object .meta a.drag-handle {
+  color: #2b3e50;
+  display: none;
+  font-size: 15px;
+  text-decoration: none;
+}
+.field-fileupload .upload-object .icon-container {
+  position: relative;
+}
+.field-fileupload .upload-object .icon-container:after {
+  background-image: url('../../../../../system/assets/ui/images/loader-transparent.svg');
   position: absolute;
   content: ' ';
   width: 40px;
   height: 40px;
   left: 50%;
   top: 50%;
-  margin-top: -22.5px;
+  margin-top: -20px;
   margin-left: -20px;
   display: block;
   background-size: 40px 40px;
@@ -204,124 +133,231 @@
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
 }
-.field-fileupload .loading .no-attachment {
-  cursor: default;
-  border: 2px solid #ccc;
+.field-fileupload .upload-object.is-success .icon-container:after {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
 }
-.field-fileupload .loading .no-attachment table td:before {
+.field-fileupload .upload-object.is-error .icon-container:after {
+  content: "";
+  background: none;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f071";
+  -webkit-animation: none;
+  animation: none;
+  font-size: 40px;
+  color: #ab2a1c;
+  margin-top: -30px;
+  margin-left: -20px;
+  text-shadow: 2px 2px 0 #fff;
+}
+.field-fileupload .upload-object.is-success {
+  cursor: pointer;
+}
+.field-fileupload .upload-object.is-success .icon-container {
+  opacity: 1;
+}
+.field-fileupload .upload-object.is-success .progress-bar {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+.field-fileupload .upload-object.is-error {
+  cursor: pointer;
+}
+.field-fileupload .upload-object.is-error .icon-container {
+  opacity: .5;
+}
+.field-fileupload .upload-object.is-error .info h4 {
+  color: #ab2a1c;
+}
+.field-fileupload .upload-object.is-error .info h4 a {
   display: none;
 }
-.field-fileupload .loading .uploader-progress {
-  visibility: visible;
+.field-fileupload .upload-object.is-error .meta {
+  display: none;
 }
-.field-fileupload.is-sortable li.placeholder {
+.field-fileupload.is-sortable {
   position: relative;
-  border: 2px dotted #e0e0e0;
 }
-.field-fileupload.is-sortable li.dragged {
+.field-fileupload.is-sortable .upload-placeholder {
+  position: relative;
+  border: 1px dotted #e0e0e0 !important;
+}
+.field-fileupload.is-sortable .upload-object.dragged {
   position: absolute;
   opacity: 0.5;
   filter: alpha(opacity=50);
   z-index: 2000;
 }
-.field-fileupload.is-sortable li.dragged .uploader-toolbar {
+.field-fileupload.is-sortable .upload-object.dragged .uploader-toolbar {
   display: none;
 }
-.field-fileupload .no-data {
-  background: #f6f6f6;
-  border: 1px solid #e0e0e0;
-  color: #555555;
-  font-size: 13px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 10px;
+body:not(.no-select) .field-fileupload .upload-object:hover h4 a {
+  display: block;
 }
-.form-sidebar .field-fileupload .image-multi {
-  margin-right: -5px;
+body:not(.no-select) .field-fileupload .upload-object:hover .meta .drag-handle {
+  display: block;
 }
-.form-sidebar .field-fileupload .image-multi ul li {
-  margin-right: 5px;
-  margin-bottom: 5px;
+@media (max-width: 1024px) {
+  .field-fileupload .upload-object h4 a {
+    display: block !important;
+  }
+  .field-fileupload .upload-object .meta .drag-handle {
+    display: block !important;
+  }
 }
-html:not(.touch) .image-multi ul li,
-html:not(.touch) .file-multi ul li {
-  margin-right: 15px;
+.field-fileupload.style-image-multi .upload-button,
+.field-fileupload.style-image-multi .upload-object {
+  margin: 0 10px 10px 0;
 }
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar {
-  top: 0;
-  left: 0;
+.field-fileupload.style-image-multi .upload-button {
+  width: 76px;
+  height: 76px;
+}
+.field-fileupload.style-image-multi .upload-files-container {
+  margin-left: 90px;
+}
+.field-fileupload.style-image-multi .upload-object {
+  background: #fff;
+  border: 1px solid #ecf0f1;
+  width: 260px;
+}
+.field-fileupload.style-image-multi .upload-object .progress-bar {
+  display: block;
   width: 100%;
-  height: 100%;
-  background: white;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar a {
-  display: inline-block;
-  text-align: left;
-  padding: 0 0 5px 6px;
-  font-size: 16px;
-  color: #808b93;
-  margin-left: 5px;
-}
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar a:before {
-  margin-right: 0;
-}
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar a:hover {
-  color: #0181b9;
-}
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar a.uploader-remove {
+  overflow: hidden;
+  height: 5px;
+  background-color: #f5f5f5;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   position: absolute;
-  right: 5px;
-  top: 1px;
-  font-size: 13px;
+  bottom: 10px;
+  left: 0;
 }
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar a.uploader-remove:hover {
-  color: #c73f26;
+.field-fileupload.style-image-multi .upload-object .progress-bar .upload-progress {
+  float: left;
+  width: 0%;
+  height: 100%;
+  line-height: 5px;
+  color: #ffffff;
+  background-color: #5fb6f5;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: width 0.6s ease;
+  transition: width 0.6s ease;
 }
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar a.uploader-config,
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar a.uploader-file-link {
-  display: inline-block;
+.field-fileupload.style-image-multi .upload-object .icon-container {
+  border-right: 1px solid #f6f8f9;
+  float: left;
+  width: 75px;
+  height: 75px;
 }
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar div.controls {
+.field-fileupload.style-image-multi .upload-object .icon-container i {
+  font-size: 35px;
+}
+.field-fileupload.style-image-multi .upload-object .info {
+  margin-left: 90px;
+}
+.field-fileupload.style-image-multi .upload-object .info h4 {
+  padding-right: 15px;
+}
+.field-fileupload.style-image-multi .upload-object .info h4 a {
+  right: 15px;
+}
+.field-fileupload.style-image-multi .upload-object .meta {
   position: absolute;
   bottom: 0;
   left: 0;
+  right: 0;
+  margin: 0 15px 0 90px;
 }
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar h3,
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar p {
+.field-fileupload.style-image-multi .upload-object .meta a.drag-handle {
+  bottom: 15px;
+}
+.field-fileupload.style-image-multi .upload-object.upload-placeholder {
+  height: 75px;
+  background-color: transparent;
+}
+.field-fileupload.style-image-multi .upload-object.upload-placeholder:after {
+  opacity: 0;
+}
+body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover {
+  background: #4da7e8 !important;
+}
+body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover i,
+body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover p.size {
+  color: #ecf0f1;
+}
+body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover h4 {
+  color: white;
+}
+body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover .icon-container {
+  border-right-color: #4da7e8 !important;
+}
+body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover h4 {
+  padding-right: 35px !important;
+}
+@media (max-width: 1280px) {
+  .field-fileupload.style-image-multi .upload-object {
+    width: 230px;
+  }
+}
+@media (max-width: 1024px) {
+  .field-fileupload.style-image-multi .upload-button {
+    width: 100%;
+  }
+  .field-fileupload.style-image-multi .upload-files-container {
+    margin-left: 0;
+  }
+  .field-fileupload.style-image-multi .upload-object {
+    margin-right: 0;
+    display: block;
+    width: auto;
+  }
+}
+.field-fileupload.style-image-single.is-populated .upload-button {
+  display: none;
+}
+.field-fileupload.style-image-single .upload-object .icon-container {
+  border: 1px solid #f6f8f9;
+  background: rgba(255, 255, 255, 0.5);
+}
+.field-fileupload.style-image-single .upload-object .progress-bar {
   display: block;
-  padding: 15px 13px 0;
-  color: #7e8c8d;
-  margin-top: 0;
-  line-height: 140%;
-}
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar h3 {
-  word-wrap: break-word;
-  font-weight: 700;
-  font-size: 12px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar p {
-  font-size: 11px;
-  padding-top: 0;
-  white-space: normal;
-  position: absolute;
-  top: 35px;
-  bottom: 20px;
   width: 100%;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
+  overflow: hidden;
+  height: 5px;
+  background-color: #f5f5f5;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 10px;
+  left: 0;
 }
-html:not(.touch) .field-fileupload .attachment-item .uploader-toolbar p abbr {
-  border-bottom: none;
+.field-fileupload.style-image-single .upload-object .progress-bar .upload-progress {
+  float: left;
+  width: 0%;
+  height: 100%;
+  line-height: 5px;
+  color: #ffffff;
+  background-color: #5fb6f5;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: width 0.6s ease;
+  transition: width 0.6s ease;
 }
-html:not(.touch) .field-fileupload .attachment-item:hover .uploader-toolbar {
-  opacity: 1;
-  filter: alpha(opacity=100);
+.field-fileupload.style-image-single .upload-object .meta {
+  position: absolute;
+  bottom: 65px;
+  left: 0;
+  right: 0;
+  margin: 0 15px;
 }

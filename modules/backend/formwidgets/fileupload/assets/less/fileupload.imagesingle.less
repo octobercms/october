@@ -1,0 +1,36 @@
+//
+// Single Image
+//
+
+.field-fileupload.style-image-single {
+    &.is-populated {
+        .upload-button {
+            display: none;
+        }
+    }
+
+    .upload-object {
+        .icon-container {
+            border: 1px solid #f6f8f9;
+            background: rgba(255,255,255,.5);
+        }
+
+        .progress-bar {
+            .uploader-progress-bar();
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+        }
+
+        .meta {
+            position: absolute;
+            bottom: 65px;
+            left: 0;
+            right: 0;
+            margin: 0 15px;
+        }
+
+    }
+
+
+}
