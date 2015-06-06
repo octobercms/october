@@ -14,6 +14,7 @@
 @color-popover-border:                       @dropdown-border;
 @color-popover-head-bg:                      #d35400;
 @color-popover-head-text:                    #ffffff;
+@color-popover-danger-bg:                    #ab2a1c;
 
 div.control-popover {
     position: absolute;
@@ -184,6 +185,33 @@ div.control-popover {
         .triangle(left, 8px, 15px, @color-popover-head-bg);
         left: -8px;
         top: 7px;
+    }
+
+    &.popover-danger {
+        > div {
+            color: #fff;
+            background-color: @color-popover-danger-bg;
+        }
+
+        &.placement-bottom > div:after {
+            .triangle(up, 15px, 8px, @color-popover-danger-bg);
+        }
+
+        &.placement-top > div:after {
+            .triangle(down, 15px, 8px, @color-popover-danger-bg);
+        }
+
+        &.placement-left > div:after {
+            .triangle(right, 8px, 15px, @color-popover-danger-bg);
+        }
+
+        &.placement-right > div:after {
+            .triangle(left, 8px, 15px, @color-popover-danger-bg);
+        }
+
+        .popover-head {
+            background-color: @color-popover-danger-bg;
+        }
     }
 }
 

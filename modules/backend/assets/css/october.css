@@ -2443,6 +2443,12 @@ div.control-popover .popover-head .close:hover{opacity:1;filter:alpha(opacity=10
 div.control-popover.placement-bottom .popover-head:before{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:8px solid #d35400;left:15px;top:-8px}
 div.control-popover.placement-left .popover-head:before{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-left:8px solid #d35400;right:-8px;top:7px}
 div.control-popover.placement-right .popover-head:before{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-right:8px solid #d35400;left:-8px;top:7px}
+div.control-popover.popover-danger > div{color:#fff;background-color:#ab2a1c}
+div.control-popover.popover-danger.placement-bottom > div:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:8px solid #ab2a1c}
+div.control-popover.popover-danger.placement-top > div:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #ab2a1c;border-bottom-width:0}
+div.control-popover.popover-danger.placement-left > div:after{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-left:8px solid #ab2a1c}
+div.control-popover.popover-danger.placement-right > div:after{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-right:8px solid #ab2a1c}
+div.control-popover.popover-danger .popover-head{background-color:#ab2a1c}
 .popover-highlight{position:relative;z-index:562 !important}
 .popover-highlight:hover,.popover-highlight:active,.popover-highlight:focus{z-index:562 !important}
 div.popover-overlay{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:560}
