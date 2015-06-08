@@ -1,5 +1,7 @@
 <?php
     $fieldOptions = $field->options();
+    $fieldValueExists = array_key_exists($field->value, $fieldOptions);
+    $updateMode = ($this->controller->action === 'update');
 ?>
 <!-- Dropdown -->
 <?php if ($this->previewMode): ?>
@@ -10,6 +12,9 @@
         name="<?= $field->getName() ?>"
         class="form-control custom-select"
         <?= $field->getAttributes() ?>>
+        <?php if (!$fieldValueExists & $updateMode): ?>
+        <option value=""></option>
+        <?php endif ?>
         <?php if ($field->placeholder): ?>
             <option value=""><?= e(trans($field->placeholder)) ?></option>
         <?php endif ?>
