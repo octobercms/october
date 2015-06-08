@@ -54,9 +54,9 @@ class MediaLibraryItem
      * - cms.storage.media.audo_extensions
      */
     protected static $defaultTypeExtensions = [
-        'image' => ['gif', 'png', 'jpg', 'jpeg', 'bmp'],
-        'video' => ['mp4', 'avi', 'mov', 'mpg'],
-        'audio' => ['mp3', 'wav', 'wma', 'm4a']
+        'image' => ['gif', 'png', 'jpg', 'jpeg', 'bmp', 'ico'],
+        'video' => ['mp4', 'avi', 'mov', 'mpg', 'mpeg', 'mkv', 'flv'],
+        'audio' => ['mp3', 'wav', 'wma', 'm4a', 'webm', 'ogg']
     ];
 
     protected static $imageExtensions;
