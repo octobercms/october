@@ -1,48 +1,51 @@
 @import "../../../../assets/less/core/boot.less";
 
-@color-relation-bg: #fff;
-@color-relation-border: #ddd;
+@color-relation-border:      #eeeeee;
 
 .relation-behavior {
-    padding: 0;
     margin-bottom: 20px;
-    background: white;
-    background: @color-relation-bg;
-    border: 1px solid @color-relation-border;
 
-    .list-header:first-child {
-        padding-top: 20px;
+    .control-list {
+        border: 1px solid @color-relation-border;
+
+        thead > tr > th {
+            border-top: none !important;
+            border-color: @color-relation-border;
+        }
+    }
+
+    .control-toolbar {
+        padding: 0 20px 20px 20px;
+
+        .toolbar-item .form-control.search {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            background-position: right -86px;
+        }
+
+        .loading-indicator-container.size-input-text {
+            min-height: 0;
+            .loading-indicator > span {
+                top: 4px;
+            }
+        }
+    }
+
+    .list-header {
+        padding: 0;
     }
 
     .control-list:last-child > table {
         margin-bottom: 0;
     }
-
-    &.relation-view-single {
-        padding: 0 20px;
-    }
 }
 
 // Relation manager to sit flush to the element above
-.relation-flush {
-    .relation-behavior {
-        border-top: 0;
+.relation-flush { }
 
-        .relation-manager {
-            table.table.data {
-                thead tr th {
-                    border-top: none !important;
-                }
-            }
-        }
-
-        .relation-toolbar + .relation-manager {
-            table.table.data {
-                thead tr th {
-                    border-top: 1px solid @color-list-border !important;
-                }
-            }
-        }
-
+// Displayed in a form field
+.form-group > .relation-behavior {
+    .control-toolbar {
+        padding: 0 0 10px 0;
     }
 }
