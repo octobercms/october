@@ -9,6 +9,7 @@
     }
 
     .upload-button {
+        .uploader-block-button();
         width: 76px;
         height: 76px;
     }
@@ -37,6 +38,10 @@
 
             i {
                 font-size: 35px;
+            }
+
+            &.image img {
+                .border-left-radius(3px);
             }
         }
 
@@ -68,21 +73,17 @@
             background-color: transparent;
             &:after { opacity: 0; }
         }
+
+        &:hover {
+            .uploader-object-active();
+            h4 { padding-right: 35px; }
+        }
     }
 }
 
 //
 // Media
 //
-
-body:not(.no-select) {
-    .field-fileupload.style-image-multi {
-        .upload-object:hover {
-            .uploader-object-active();
-            h4 { padding-right: 35px !important; }
-        }
-    }
-}
 
 @media (max-width: 1280px) {
     .field-fileupload.style-image-multi {

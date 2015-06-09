@@ -2,14 +2,19 @@
     <input type="hidden" name="file_id" value="<?= $file->id ?>" />
 
     <div class="modal-header">
-        <!--<button type="button" class="close" data-dismiss="popup">&times;</button>-->
-        <a href="<?= $file->path ?>" target="_blank">
-            <img
-                src="<?= $file->path ?>"
-                class="img-responsive center-block"
-                alt=""
-                title="<?= e(trans('backend::lang.fileupload.attachment')) ?>: <?= e($file->file_name) ?>" />
-        </a>
+        <?php if (starts_with($displayMode, 'image')): ?>
+            <!--<button type="button" class="close" data-dismiss="popup">&times;</button>-->
+            <a href="<?= $file->path ?>" target="_blank">
+                <img
+                    src="<?= $file->path ?>"
+                    class="img-responsive center-block"
+                    alt=""
+                    title="<?= e(trans('backend::lang.fileupload.attachment')) ?>: <?= e($file->file_name) ?>" />
+            </a>
+        <?php else: ?>
+            <button type="button" class="close" data-dismiss="popup">&times;</button>
+            <h4 class="modal-title"><?= e(trans('backend::lang.fileupload.attachment')) ?>: <?= $file->file_name ?></h4>
+        <?php endif ?>
     </div>
     <div class="modal-body">
         <p><?= e(trans('backend::lang.fileupload.help')) ?></p>

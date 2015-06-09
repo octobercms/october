@@ -270,7 +270,10 @@ class FileUpload extends FormWidgetBase
     {
         if (($file_id = post('file_id')) && ($file = File::find($file_id))) {
             $file = $this->decorateFileAttributes($file);
+
             $this->vars['file'] = $file;
+            $this->vars['displayMode'] = $this->getDisplayMode();
+
             return $this->makePartial('config_form');
         }
 

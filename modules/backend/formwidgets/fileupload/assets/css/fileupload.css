@@ -1,49 +1,3 @@
-.field-fileupload .upload-button {
-  display: block;
-  float: left;
-  border: 2px dotted rgba(0, 0, 0, 0.1);
-  position: relative;
-  outline: none;
-}
-.field-fileupload .upload-button table {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-.field-fileupload .upload-button table td {
-  line-height: 16px;
-  font-size: 11px;
-  vertical-align: middle;
-  height: 100%;
-}
-.field-fileupload .upload-button table td:before {
-  text-align: center;
-  width: 100%;
-  display: block;
-  font-size: 22px;
-  color: rgba(0, 0, 0, 0.1);
-  vertical-align: middle;
-}
-.field-fileupload .upload-button table td span {
-  display: block;
-  padding: 10px;
-  text-align: center;
-}
-.field-fileupload .upload-button:hover {
-  border: 2px dotted rgba(0, 0, 0, 0.2);
-}
-.field-fileupload .upload-button:hover table td:before {
-  color: #5cb85c;
-  color: rgba(0, 0, 0, 0.2);
-}
-.field-fileupload .upload-button:focus {
-  border: 2px solid rgba(0, 0, 0, 0.3);
-  background: transparent;
-}
-.field-fileupload .upload-button:focus table td:before {
-  color: #5cb85c;
-  color: rgba(0, 0, 0, 0.2);
-}
 .field-fileupload .upload-object {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -93,6 +47,7 @@
   right: 0;
   top: 0;
   display: none;
+  font-weight: 400;
 }
 .field-fileupload .upload-object p.size {
   font-size: 12px;
@@ -106,6 +61,7 @@
   bottom: 0;
   right: 0;
   cursor: move;
+  display: block;
 }
 .field-fileupload .upload-object .info h4 a,
 .field-fileupload .upload-object .meta a.drag-handle {
@@ -133,6 +89,9 @@
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
 }
+.field-fileupload .upload-object.is-success .icon-container {
+  opacity: 1;
+}
 .field-fileupload .upload-object.is-success .icon-container:after {
   opacity: 0;
   -webkit-transition: opacity 0.3s ease;
@@ -156,16 +115,27 @@
   margin-left: -20px;
   text-shadow: 2px 2px 0 #fff;
 }
+.field-fileupload .upload-object.is-loading .icon-container {
+  opacity: .6;
+}
+.field-fileupload .upload-object.is-loading .icon-container:after {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
 .field-fileupload .upload-object.is-success {
   cursor: pointer;
-}
-.field-fileupload .upload-object.is-success .icon-container {
-  opacity: 1;
 }
 .field-fileupload .upload-object.is-success .progress-bar {
   opacity: 0;
   -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
+}
+.field-fileupload .upload-object.is-success:hover h4 a {
+  display: block;
+}
+.field-fileupload .upload-object.is-success:hover .meta .drag-handle {
+  display: block;
 }
 .field-fileupload .upload-object.is-error {
   cursor: pointer;
@@ -198,17 +168,11 @@
 .field-fileupload.is-sortable .upload-object.dragged .uploader-toolbar {
   display: none;
 }
-body:not(.no-select) .field-fileupload .upload-object:hover h4 a {
-  display: block;
-}
-body:not(.no-select) .field-fileupload .upload-object:hover .meta .drag-handle {
-  display: block;
-}
 @media (max-width: 1024px) {
-  .field-fileupload .upload-object h4 a {
+  .field-fileupload .upload-object.is-success h4 a {
     display: block !important;
   }
-  .field-fileupload .upload-object .meta .drag-handle {
+  .field-fileupload .upload-object.is-success .meta .drag-handle {
     display: block !important;
   }
 }
@@ -217,8 +181,52 @@ body:not(.no-select) .field-fileupload .upload-object:hover .meta .drag-handle {
   margin: 0 10px 10px 0;
 }
 .field-fileupload.style-image-multi .upload-button {
+  display: block;
+  float: left;
+  border: 2px dotted rgba(0, 0, 0, 0.1);
+  position: relative;
+  outline: none;
   width: 76px;
   height: 76px;
+}
+.field-fileupload.style-image-multi .upload-button table {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.field-fileupload.style-image-multi .upload-button table td {
+  line-height: 16px;
+  font-size: 11px;
+  vertical-align: middle;
+  height: 100%;
+}
+.field-fileupload.style-image-multi .upload-button table td:before {
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.1);
+  vertical-align: middle;
+}
+.field-fileupload.style-image-multi .upload-button table td span {
+  display: block;
+  padding: 10px;
+  text-align: center;
+}
+.field-fileupload.style-image-multi .upload-button:hover {
+  border: 2px dotted rgba(0, 0, 0, 0.2);
+}
+.field-fileupload.style-image-multi .upload-button:hover table td:before {
+  color: #5cb85c;
+  color: rgba(0, 0, 0, 0.2);
+}
+.field-fileupload.style-image-multi .upload-button:focus {
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  background: transparent;
+}
+.field-fileupload.style-image-multi .upload-button:focus table td:before {
+  color: #5cb85c;
+  color: rgba(0, 0, 0, 0.2);
 }
 .field-fileupload.style-image-multi .upload-files-container {
   margin-left: 90px;
@@ -262,6 +270,10 @@ body:not(.no-select) .field-fileupload .upload-object:hover .meta .drag-handle {
 .field-fileupload.style-image-multi .upload-object .icon-container i {
   font-size: 35px;
 }
+.field-fileupload.style-image-multi .upload-object .icon-container.image img {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
 .field-fileupload.style-image-multi .upload-object .info {
   margin-left: 90px;
 }
@@ -288,21 +300,21 @@ body:not(.no-select) .field-fileupload .upload-object:hover .meta .drag-handle {
 .field-fileupload.style-image-multi .upload-object.upload-placeholder:after {
   opacity: 0;
 }
-body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover {
+.field-fileupload.style-image-multi .upload-object:hover {
   background: #4da7e8 !important;
 }
-body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover i,
-body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover p.size {
+.field-fileupload.style-image-multi .upload-object:hover i,
+.field-fileupload.style-image-multi .upload-object:hover p.size {
   color: #ecf0f1;
 }
-body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover h4 {
+.field-fileupload.style-image-multi .upload-object:hover h4 {
   color: white;
 }
-body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover .icon-container {
+.field-fileupload.style-image-multi .upload-object:hover .icon-container {
   border-right-color: #4da7e8 !important;
 }
-body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover h4 {
-  padding-right: 35px !important;
+.field-fileupload.style-image-multi .upload-object:hover h4 {
+  padding-right: 35px;
 }
 @media (max-width: 1280px) {
   .field-fileupload.style-image-multi .upload-object {
@@ -325,9 +337,63 @@ body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover h4
 .field-fileupload.style-image-single.is-populated .upload-button {
   display: none;
 }
+.field-fileupload.style-image-single .upload-button {
+  display: block;
+  float: left;
+  border: 2px dotted rgba(0, 0, 0, 0.1);
+  position: relative;
+  outline: none;
+}
+.field-fileupload.style-image-single .upload-button table {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.field-fileupload.style-image-single .upload-button table td {
+  line-height: 16px;
+  font-size: 11px;
+  vertical-align: middle;
+  height: 100%;
+}
+.field-fileupload.style-image-single .upload-button table td:before {
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.1);
+  vertical-align: middle;
+}
+.field-fileupload.style-image-single .upload-button table td span {
+  display: block;
+  padding: 10px;
+  text-align: center;
+}
+.field-fileupload.style-image-single .upload-button:hover {
+  border: 2px dotted rgba(0, 0, 0, 0.2);
+}
+.field-fileupload.style-image-single .upload-button:hover table td:before {
+  color: #5cb85c;
+  color: rgba(0, 0, 0, 0.2);
+}
+.field-fileupload.style-image-single .upload-button:focus {
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  background: transparent;
+}
+.field-fileupload.style-image-single .upload-button:focus table td:before {
+  color: #5cb85c;
+  color: rgba(0, 0, 0, 0.2);
+}
+.field-fileupload.style-image-single .upload-object {
+  padding-bottom: 66px;
+}
 .field-fileupload.style-image-single .upload-object .icon-container {
   border: 1px solid #f6f8f9;
   background: rgba(255, 255, 255, 0.5);
+}
+.field-fileupload.style-image-single .upload-object .icon-container.image img {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 .field-fileupload.style-image-single .upload-object .progress-bar {
   display: block;
@@ -354,10 +420,173 @@ body:not(.no-select) .field-fileupload.style-image-multi .upload-object:hover h4
   -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
+.field-fileupload.style-image-single .upload-object .info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 66px;
+}
 .field-fileupload.style-image-single .upload-object .meta {
   position: absolute;
   bottom: 65px;
   left: 0;
   right: 0;
   margin: 0 15px;
+}
+.field-fileupload.style-image-single .upload-object:hover h4 {
+  padding-right: 20px;
+}
+.field-fileupload.style-file-multi .upload-button {
+  margin-bottom: 10px;
+}
+.field-fileupload.style-file-multi .upload-files-container {
+  border: 1px solid #eeeeee;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border-bottom: none;
+  display: none;
+}
+.field-fileupload.style-file-multi.is-populated .upload-files-container {
+  display: block;
+}
+.field-fileupload.style-file-multi .upload-object {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #eeeeee;
+  padding-left: 10px;
+}
+.field-fileupload.style-file-multi .upload-object:nth-child(even) {
+  background-color: #f5f5f5;
+}
+.field-fileupload.style-file-multi .upload-object .icon-container {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  width: 15px;
+  padding: 11px 7px;
+}
+.field-fileupload.style-file-multi .upload-object .icon-container i {
+  line-height: 150%;
+  font-size: 15px;
+}
+.field-fileupload.style-file-multi .upload-object .icon-container img {
+  display: none;
+}
+.field-fileupload.style-file-multi .upload-object .info {
+  margin-left: 35px;
+  margin-right: 15%;
+}
+.field-fileupload.style-file-multi .upload-object .info h4,
+.field-fileupload.style-file-multi .upload-object .info p {
+  margin: 0;
+  padding: 11px 0;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 150%;
+  color: #666666;
+}
+.field-fileupload.style-file-multi .upload-object .info h4 {
+  padding-right: 15px;
+}
+.field-fileupload.style-file-multi .upload-object .info h4 a {
+  padding: 10px 0;
+  right: 15px;
+}
+.field-fileupload.style-file-multi .upload-object .info p.size {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15%;
+  display: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.field-fileupload.style-file-multi .upload-object .progress-bar {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  height: 5px;
+  background-color: #f5f5f5;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 18px;
+  left: 0;
+}
+.field-fileupload.style-file-multi .upload-object .progress-bar .upload-progress {
+  float: left;
+  width: 0%;
+  height: 100%;
+  line-height: 5px;
+  color: #ffffff;
+  background-color: #5fb6f5;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: width 0.6s ease;
+  transition: width 0.6s ease;
+}
+.field-fileupload.style-file-multi .upload-object .meta {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 15px;
+  width: 15%;
+}
+.field-fileupload.style-file-multi .upload-object .meta a.drag-handle {
+  top: 0;
+  bottom: auto;
+  line-height: 150%;
+  padding: 10px 0;
+}
+.field-fileupload.style-file-multi .upload-object .icon-container:after {
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  background-size: 20px 20px;
+}
+.field-fileupload.style-file-multi .upload-object.is-success .info p.size {
+  display: block;
+}
+.field-fileupload.style-file-multi .upload-object.upload-placeholder {
+  height: 35px;
+  background-color: transparent;
+}
+.field-fileupload.style-file-multi .upload-object.upload-placeholder:after {
+  opacity: 0;
+}
+.field-fileupload.style-file-multi .upload-object:hover {
+  background: #4da7e8 !important;
+}
+.field-fileupload.style-file-multi .upload-object:hover i,
+.field-fileupload.style-file-multi .upload-object:hover p.size {
+  color: #ecf0f1;
+}
+.field-fileupload.style-file-multi .upload-object:hover h4 {
+  color: white;
+}
+.field-fileupload.style-file-multi .upload-object:hover .icon-container {
+  border-right-color: #4da7e8 !important;
+}
+.field-fileupload.style-file-multi .upload-object:hover h4 {
+  padding-right: 35px;
+}
+@media (max-width: 1024px) {
+  .field-fileupload .upload-object h4 {
+    padding-right: 35px !important;
+  }
+  .field-fileupload .info {
+    margin-right: 25% !important;
+  }
+  .field-fileupload .info p.size {
+    width: 25% !important;
+    padding-right: 35px !important;
+  }
+  .field-fileupload .meta {
+    width: 25% !important;
+  }
 }

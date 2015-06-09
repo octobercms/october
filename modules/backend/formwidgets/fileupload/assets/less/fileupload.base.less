@@ -35,69 +35,65 @@
     }
 }
 
+.uploader-block-button() {
+    display: block;
+    float: left;
+    border: 2px dotted rgba(0,0,0,.1);
+    position: relative;
+    outline: none;
+    table {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
+    table td {
+        line-height: 16px;
+        font-size: 11px;
+        vertical-align: middle;
+        height: 100%;
+
+        &:before {
+            text-align: center;
+            width: 100%;
+            display: block;
+            font-size: 22px;
+            color: rgba(0,0,0,.1);
+            vertical-align: middle;
+        }
+
+        span {
+            display: block;
+            padding: 10px;
+            text-align: center;
+        }
+    }
+
+    &:hover {
+        border: 2px dotted rgba(0,0,0,.2);
+
+        table td:before {
+            color: @brand-success;
+            color: rgba(0,0,0,.2);
+        }
+    }
+
+    &:focus {
+        border: 2px solid rgba(0,0,0,.3);
+        background: transparent;
+
+        table td:before {
+            color: @brand-success;
+            color: rgba(0,0,0,.2);
+        }
+    }
+}
+
 //
 // Shared
 //
 
 .field-fileupload {
-
-    //
-    // Upload button
-    //
-
-    .upload-button {
-        display: block;
-        float: left;
-        border: 2px dotted rgba(0,0,0,.1);
-        position: relative;
-        outline: none;
-        table {
-            position: absolute;
-            height: 100%;
-            width: 100%;
-        }
-
-        table td {
-            line-height: 16px;
-            font-size: 11px;
-            vertical-align: middle;
-            height: 100%;
-
-            &:before {
-                text-align: center;
-                width: 100%;
-                display: block;
-                font-size: 22px;
-                color: rgba(0,0,0,.1);
-                vertical-align: middle;
-            }
-
-            span {
-                display: block;
-                padding: 10px;
-                text-align: center;
-            }
-        }
-
-        &:hover {
-            border: 2px dotted rgba(0,0,0,.2);
-
-            table td:before {
-                color: @brand-success;
-                color: rgba(0,0,0,.2);
-            }
-        }
-
-        &:focus {
-            border: 2px solid rgba(0,0,0,.3);
-            background: transparent;
-
-            table td:before {
-                color: @brand-success;
-                color: rgba(0,0,0,.2);
-            }
-        }
-    }
 
     //
     // Uploaded item
@@ -158,6 +154,7 @@
                 right: 0;
                 top: 0;
                 display: none;
+                font-weight: 400;
             }
         }
 
@@ -173,6 +170,7 @@
                 bottom: 0;
                 right: 0;
                 cursor: move;
+                display: block;
             }
         }
 
@@ -212,6 +210,9 @@
         }
 
         &.is-success {
+            .icon-container {
+                opacity: 1;
+            }
             .icon-container:after {
                 opacity: 0;
                 .transition(opacity .3s ease);
@@ -232,6 +233,16 @@
                 text-shadow: 2px 2px 0 #fff;
             }
         }
+
+        &.is-loading {
+            .icon-container {
+                opacity: .6;
+            }
+            .icon-container:after {
+                opacity: 1;
+                .transition(opacity .3s ease);
+            }
+        }
     }
 
     //
@@ -240,13 +251,15 @@
 
     .upload-object.is-success {
         cursor: pointer;
-        .icon-container {
-            opacity: 1;
-        }
 
         .progress-bar {
             opacity: 0;
             .transition(opacity .3s ease);
+        }
+
+        &:hover {
+            h4 a { display: block; }
+            .meta .drag-handle { display: block; }
         }
     }
 
@@ -300,18 +313,9 @@
 // Media
 //
 
-body:not(.no-select) {
-    .field-fileupload {
-        .upload-object:hover {
-            h4 a { display: block; }
-            .meta .drag-handle { display: block; }
-        }
-    }
-}
-
 @media (max-width: 1024px) {
     .field-fileupload {
-        .upload-object {
+        .upload-object.is-success {
             h4 a { display: block !important; }
             .meta .drag-handle { display: block !important; }
         }

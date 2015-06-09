@@ -199,7 +199,7 @@
         $(ev.target)
             .closest('.upload-remove-button')
             .one('ajaxPromise', function(){
-                $object.removeClass('is-success')
+                $object.addClass('is-loading')
             })
             .one('ajaxDone', function(){
                 $object.remove()

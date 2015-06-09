@@ -9,10 +9,20 @@
         }
     }
 
+    .upload-button {
+        .uploader-block-button();
+    }
+
     .upload-object {
+        padding-bottom: 66px;
+
         .icon-container {
             border: 1px solid #f6f8f9;
             background: rgba(255,255,255,.5);
+
+            &.image img {
+                .border-radius(3px);
+            }
         }
 
         .progress-bar {
@@ -20,6 +30,14 @@
             position: absolute;
             bottom: 10px;
             left: 0;
+        }
+
+        .info {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 66px;
         }
 
         .meta {
@@ -30,7 +48,9 @@
             margin: 0 15px;
         }
 
+        &:hover {
+            h4 { padding-right: 20px; }
+        }
     }
-
 
 }
