@@ -12,13 +12,6 @@ use Backend\Classes\FormWidgetBase;
 use ValidationException;
 use Exception;
 
-/*
-Requirements for this new uploader
-
-- Fluid single image
-- Prevent uploading of PHP files, etc
-- Avatar mode
-*/
 
 /**
  * File upload field
@@ -41,12 +34,12 @@ class FileUpload extends FormWidgetBase
     /**
      * @var int Preview image width
      */
-    public $imageWidth = 100;
+    public $imageWidth = null;
 
     /**
      * @var int Preview image height
      */
-    public $imageHeight = 100;
+    public $imageHeight = null;
 
     /**
      * @var string Text to display when no file is associated
@@ -65,6 +58,11 @@ class FileUpload extends FormWidgetBase
         'mode'      => 'crop',
         'extension' => 'auto'
     ];
+
+    /**
+     * @var boolean Allow the user to set a caption.
+     */
+    public $useCaption = true;
 
     //
     // Object properties
@@ -85,7 +83,8 @@ class FileUpload extends FormWidgetBase
             'imageHeight',
             'previewNoFilesMessage',
             'fileTypes',
-            'thumbOptions'
+            'thumbOptions',
+            'useCaption'
         ]);
 
         $this->checkUploadPostback();
@@ -113,6 +112,7 @@ class FileUpload extends FormWidgetBase
         $this->vars['imageWidth'] = $this->imageWidth;
         $this->vars['acceptedFileTypes'] = $this->getAcceptedFileTypes(true);
         $this->vars['cssDimensions'] = $this->getCssDimensions();
+        $this->vars['useCaption'] = $this->useCaption;
     }
 
     protected function getFileList()
@@ -180,11 +180,13 @@ class FileUpload extends FormWidgetBase
     public function getAcceptedFileTypes($includeDot = false)
     {
         $types = $this->fileTypes;
-        if ($types === false && starts_with($this->getDisplayMode(), 'image')) {
-            $types = 'jpg,jpeg,bmp,png,gif,svg';
+
+        if ($types === false) {
+            $isImage = starts_with($this->getDisplayMode(), 'image');
+            $types = implode(',', File::getDefaultFileTypes($isImage));
         }
 
-        if (!$types) {
+        if (!$types || $types == '*') {
             return null;
         }
 
@@ -273,6 +275,7 @@ class FileUpload extends FormWidgetBase
 
             $this->vars['file'] = $file;
             $this->vars['displayMode'] = $this->getDisplayMode();
+            $this->vars['cssDimensions'] = $this->getCssDimensions();
 
             return $this->makePartial('config_form');
         }
@@ -364,7 +367,12 @@ class FileUpload extends FormWidgetBase
 
             $file = $this->decorateFileAttributes($file);
 
-            $result = ['id' => $file->id, 'thumb' => $file->thumb];
+            $result = [
+                'id' => $file->id,
+                'thumb' => $file->thumb,
+                'path' => $file->path
+            ];
+
             Response::json($result, 200)->send();
 
         }
@@ -381,7 +389,9 @@ class FileUpload extends FormWidgetBase
      */
     protected function decorateFileAttributes($file)
     {
-        $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
+        $file->thumb = ($this->imageWidth || $this->imageHeight)
+            ? $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions)
+            : $file->path;
 
         // Internal download link
         if (!$file->isImage() || !$file->isPublic()) {

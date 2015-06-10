@@ -89,6 +89,21 @@
     }
 }
 
+.uploader-small-loader() {
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    background-size: 20px 20px;
+}
+
+.uploader-vertical-align() {
+    position: absolute;
+    top: 50%;
+    margin-top: -44px;
+    height: 88px;
+}
+
 //
 // Shared
 //
@@ -175,6 +190,7 @@
         }
 
         .info h4 a,
+        .meta a.upload-remove-button,
         .meta a.drag-handle {
             color: #2b3e50;
             display: none;
@@ -228,7 +244,7 @@
                 .animation(none);
                 font-size: 40px;
                 color: #ab2a1c;
-                margin-top: -30px;
+                margin-top: -20px;
                 margin-left: -20px;
                 text-shadow: 2px 2px 0 #fff;
             }
@@ -258,7 +274,8 @@
         }
 
         &:hover {
-            h4 a { display: block; }
+            h4 a,
+            .meta .upload-remove-button,
             .meta .drag-handle { display: block; }
         }
     }
@@ -271,7 +288,10 @@
         cursor: pointer;
 
         .icon-container {
-            opacity: .5;
+            opacity: 1;
+            > img, > i {
+                opacity: .5;
+            }
         }
 
         .info h4 {
@@ -316,8 +336,52 @@
 @media (max-width: 1024px) {
     .field-fileupload {
         .upload-object.is-success {
-            h4 a { display: block !important; }
+            h4 a,
+            .meta .upload-remove-button,
             .meta .drag-handle { display: block !important; }
+        }
+    }
+}
+
+//
+// Config form
+//
+
+.fileupload-config-form {
+    .fileupload-url-button{
+        padding-left: 0;
+         > i {
+            color: #666;
+        }
+    }
+
+
+    .file-upload-modal-image-header {
+        // Alternative color if below doesn't look nice
+        //background-color: #5a6060;
+
+        // Photoshop transparent background
+        // Based on: http://lea.verou.me/css3patterns/#checkerboard
+        background-color: #FEFEFE;
+        background-image: -webkit-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB), -webkit-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB);
+        background-image: -moz-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB), -moz-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB);
+        background-image: -o-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB), -o-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB);
+        background-image: -ms-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB), -ms-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB);
+        background-image: linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB), linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB);
+        -webkit-background-size: 20px 20px;
+        -moz-background-size: 20px 20px;
+        background-size: 20px 20px;
+        background-position: 0 0, 10px 10px;
+
+
+        &, img {
+            .border-top-radius(2px);
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
         }
     }
 }

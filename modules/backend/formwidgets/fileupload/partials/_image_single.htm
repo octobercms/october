@@ -4,9 +4,10 @@
     data-control="fileupload"
     data-template="#<?= $this->getId('template') ?>"
     data-error-template="#<?= $this->getId('errorTemplate') ?>"
-    data-config-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"
     data-unique-id="<?= $this->getId() ?>"
-    <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>>
+    <?php if ($useCaption): ?>data-config-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"<?php endif ?>
+    <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
+>
 
     <!-- Add New Image -->
     <a
@@ -19,13 +20,13 @@
     <!-- Existing file -->
     <div class="upload-files-container">
         <?php if ($singleFile): ?>
-            <div class="upload-object is-success" data-id="<?= $singleFile->id ?>">
+            <div class="upload-object is-success" data-id="<?= $singleFile->id ?>" data-path="<?= $singleFile->path ?>">
                 <div class="icon-container image">
                     <img src="<?= $singleFile->thumb ?>" />
                 </div>
                 <div class="info">
                     <h4 class="filename">
-                        <span data-dz-name><?= $singleFile->title ?: $singleFile->disk_name ?></span>
+                        <span data-dz-name><?= $singleFile->title ?: $singleFile->file_name ?></span>
                         <a
                             href="javascript:;"
                             class="upload-remove-button"

@@ -99,18 +99,26 @@
         }
 
         this.dropzone = new Dropzone(this.$el.get(0), this.uploaderOptions)
-        this.dropzone.on('error', this.proxy(this.onUploadFail))
-        this.dropzone.on('success', this.proxy(this.onUploadComplete))
+        this.dropzone.on('addedfile', this.proxy(this.onUploadAddedFile))
         this.dropzone.on('sending', this.proxy(this.onUploadSending))
-        this.dropzone.on('addedfile', this.proxy(this.evalIsPopulated))
+        this.dropzone.on('success', this.proxy(this.onUploadSuccess))
+        this.dropzone.on('error', this.proxy(this.onUploadError))
     }
 
-    FileUpload.prototype.onUploadFail = function(file, error) {
-        var $preview = $(file.previewElement)
-        $preview.addClass('is-error')
+    FileUpload.prototype.onUploadAddedFile = function(file) {
+        // Remove any exisiting objects for single variety
+        if (!this.options.isMulti) {
+            $('> *', this.$filesContainer).not(file.previewElement).remove()
+        }
+
+        this.evalIsPopulated()
     }
 
-    FileUpload.prototype.onUploadComplete = function(file, response) {
+    FileUpload.prototype.onUploadSending = function(file, xhr, formData) {
+        this.addExtraFormData(formData)
+    }
+
+    FileUpload.prototype.onUploadSuccess = function(file, response) {
         var $preview = $(file.previewElement),
             $img = $('.image img', $preview)
 
@@ -118,13 +126,15 @@
 
         if (response.id) {
             $preview.data('id', response.id)
+            $preview.data('path', response.path)
             $('.upload-remove-button', $preview).data('request-data', { file_id: response.id })
             $img.attr('src', response.thumb)
         }
     }
 
-    FileUpload.prototype.onUploadSending = function(file, xhr, formData) {
-        this.addExtraFormData(formData)
+    FileUpload.prototype.onUploadError = function(file, error) {
+        var $preview = $(file.previewElement)
+        $preview.addClass('is-error')
     }
 
     FileUpload.prototype.addExtraFormData = function(formData) {
@@ -213,6 +223,11 @@
     FileUpload.prototype.onClickSuccessObject = function(ev) {
         var $target = $(ev.target).closest('.upload-object')
 
+        if (!this.options.configHandler) {
+            window.open($target.data('path'))
+            return
+        }
+
         $target.popup({
             handler: this.options.configHandler,
             extraData: { file_id: $target.data('id') }
@@ -257,7 +272,13 @@
     //
 
     FileUpload.prototype.evalIsPopulated = function() {
-        this.$el.toggleClass('is-populated', !!$('.upload-object', this.$filesContainer).length)
+        var isPopulated = !!$('.upload-object', this.$filesContainer).length
+        this.$el.toggleClass('is-populated', isPopulated)
+
+        // Reset maxFiles counter
+        if (!isPopulated) {
+            this.dropzone.removeAllFiles()
+        }
     }
 
     FileUpload.DEFAULTS = {

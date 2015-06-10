@@ -11,6 +11,10 @@
 
     .upload-button {
         .uploader-block-button();
+        &, > table {
+            min-height: 100px;
+            min-width: 100px;
+        }
     }
 
     .upload-object {
@@ -22,6 +26,7 @@
 
             &.image img {
                 .border-radius(3px);
+                .img-responsive();
             }
         }
 
@@ -53,4 +58,17 @@
         }
     }
 
+}
+
+
+//
+// Media
+//
+
+@media (max-width: 1024px) {
+    .field-fileupload.style-image-single {
+        .upload-object {
+            h4 { padding-right: 20px !important; }
+        }
+    }
 }

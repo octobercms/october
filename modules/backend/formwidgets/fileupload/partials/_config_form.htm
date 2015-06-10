@@ -1,54 +1,60 @@
-<?= Form::open() ?>
-    <input type="hidden" name="file_id" value="<?= $file->id ?>" />
+<div class="fileupload-config-form">
+    <?= Form::open() ?>
+        <input type="hidden" name="file_id" value="<?= $file->id ?>" />
 
-    <div class="modal-header">
         <?php if (starts_with($displayMode, 'image')): ?>
-            <!--<button type="button" class="close" data-dismiss="popup">&times;</button>-->
-            <a href="<?= $file->path ?>" target="_blank">
+            <div class="file-upload-modal-image-header">
+                <button type="button" class="close" data-dismiss="popup">&times;</button>
                 <img
-                    src="<?= $file->path ?>"
+                    src="<?= $file->thumb ?>"
                     class="img-responsive center-block"
                     alt=""
-                    title="<?= e(trans('backend::lang.fileupload.attachment')) ?>: <?= e($file->file_name) ?>" />
-            </a>
+                    title="<?= e(trans('backend::lang.fileupload.attachment')) ?>: <?= e($file->file_name) ?>"
+                    style="<?= $cssDimensions ?>" />
+            </div>
         <?php else: ?>
-            <button type="button" class="close" data-dismiss="popup">&times;</button>
-            <h4 class="modal-title"><?= e(trans('backend::lang.fileupload.attachment')) ?>: <?= $file->file_name ?></h4>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="popup">&times;</button>
+                <h4 class="modal-title"><?= e(trans('backend::lang.fileupload.attachment')) ?>: <?= $file->file_name ?></h4>
+            </div>
         <?php endif ?>
-    </div>
-    <div class="modal-body">
-        <p><?= e(trans('backend::lang.fileupload.help')) ?></p>
+        <div class="modal-body">
+            <p><?= e(trans('backend::lang.fileupload.help')) ?></p>
 
-        <div class="form-group">
-            <input
-                type="text"
-                name="title"
-                class="form-control"
-                value="<?= $file->title ?>"
-                placeholder="<?= e(trans('backend::lang.fileupload.title_label')) ?>"
-                />
-        </div>
-        <div class="form-group">
-            <textarea
-                name="description"
-                placeholder="<?= e(trans('backend::lang.fileupload.description_label')) ?>"
-                class="form-control"><?= $file->description ?></textarea>
-        </div>
+            <div class="form-group">
+                <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    value="<?= $file->title ?>"
+                    placeholder="<?= e(trans('backend::lang.fileupload.title_label')) ?>"
+                    />
+            </div>
+            <div class="form-group">
+                <textarea
+                    name="description"
+                    placeholder="<?= e(trans('backend::lang.fileupload.description_label')) ?>"
+                    class="form-control"><?= $file->description ?></textarea>
+            </div>
 
-    </div>
-    <div class="modal-footer">
-        <button
-            type="submit"
-            class="btn btn-primary"
-            data-request="<?= $this->getEventHandler('onSaveAttachmentConfig') ?>"
-            data-popup-load-indicator>
-            <?= e(trans('backend::lang.form.save')) ?>
-        </button> 
-        <button
-            type="button"
-            class="btn btn-default"
-            data-dismiss="popup">
-            <?= e(trans('backend::lang.form.cancel')) ?>
-        </button>
-    </div>
-<?= Form::close() ?>
+        </div>
+        <div class="modal-footer">
+            <a href="<?= $file->path ?>" class="pull-left btn btn-link fileupload-url-button" target="_blank">
+                <i class="oc-icon-link"></i>Attachment URL
+            </a>
+            <button
+                type="submit"
+                class="btn btn-primary"
+                data-request="<?= $this->getEventHandler('onSaveAttachmentConfig') ?>"
+                data-popup-load-indicator>
+                <?= e(trans('backend::lang.form.save')) ?>
+            </button>
+            <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="popup">
+                <?= e(trans('backend::lang.form.cancel')) ?>
+            </button>
+        </div>
+    <?= Form::close() ?>
+</div>

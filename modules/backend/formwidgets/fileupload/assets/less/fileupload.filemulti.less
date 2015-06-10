@@ -21,7 +21,6 @@
     .upload-object {
         display: block;
         width: 100%;
-        //background-color: #fff;
         border-bottom: 1px solid @fileupload-list-border-color;
         padding-left: 10px;
 
@@ -100,16 +99,12 @@
             }
         }
 
-        //
-        // Smaller Loader
-        //
-
         .icon-container:after {
-            width: 20px;
-            height: 20px;
-            margin-top: -10px;
-            margin-left: -10px;
-            background-size: 20px 20px;
+            .uploader-small-loader();
+        }
+
+        &.is-error .icon-container:after {
+            font-size: 20px;
         }
 
         //
@@ -133,6 +128,7 @@
         //
         // Hover
         //
+
         &:hover {
             .uploader-object-active();
             h4 { padding-right: 35px; }
@@ -145,7 +141,7 @@
 //
 
 @media (max-width: 1024px) {
-    .field-fileupload {
+    .field-fileupload.style-file-multi {
         .upload-object {
             h4 { padding-right: 35px !important; }
         }
