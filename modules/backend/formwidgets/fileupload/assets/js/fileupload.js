@@ -57,7 +57,11 @@
     }
 
     FileUpload.prototype.dispose = function() {
+
+        this.$el.off('click', '.upload-object.is-success', this.proxy(this.onClickSuccessObject))
         this.$el.off('click', '.upload-object.is-error', this.proxy(this.onClickErrorObject))
+        this.$el.off('click', '.upload-remove-button', this.proxy(this.onRemoveObject))
+
         this.$el.off('dispose-control', this.proxy(this.dispose))
         this.$el.removeData('oc.fileUpload')
 
