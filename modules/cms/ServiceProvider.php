@@ -195,6 +195,10 @@ class ServiceProvider extends ModuleServiceProvider
     {
         WidgetManager::instance()->registerFormWidgets(function ($manager) {
             $manager->registerFormWidget('Cms\FormWidgets\Components');
+            $manager->registerFormWidget('Cms\FormWidgets\MediaFinder', [
+                'label' => 'Media Finder',
+                'code'  => 'mediafinder'
+            ]);
         });
     }
 
