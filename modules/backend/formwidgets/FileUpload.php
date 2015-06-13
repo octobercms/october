@@ -32,6 +32,11 @@ class FileUpload extends FormWidgetBase
     //
 
     /**
+     * @var string Prompt to display if no record is selected.
+     */
+    public $prompt = 'Click the %s or drag a file here to upload';
+
+    /**
      * @var int Preview image width
      */
     public $imageWidth = null;
@@ -79,6 +84,7 @@ class FileUpload extends FormWidgetBase
     public function init()
     {
         $this->fillFromConfig([
+            'prompt',
             'imageWidth',
             'imageHeight',
             'previewNoFilesMessage',
@@ -113,6 +119,7 @@ class FileUpload extends FormWidgetBase
         $this->vars['acceptedFileTypes'] = $this->getAcceptedFileTypes(true);
         $this->vars['cssDimensions'] = $this->getCssDimensions();
         $this->vars['useCaption'] = $this->useCaption;
+        $this->vars['prompt'] = str_replace('%s', '<i class="icon-upload"></i>', $this->prompt);
     }
 
     protected function getFileList()
