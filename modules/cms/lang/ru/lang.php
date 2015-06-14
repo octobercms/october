@@ -25,6 +25,7 @@ return [
         ],
         'settings_menu' => 'Фронтенд темы',
         'settings_menu_description' => 'Просмотр списка установленных тем и выбор активной темы.',
+        'default_tab' => 'Свойства',
         'name_label' => 'Название',
         'name_create_placeholder' => 'Новое название темы',
         'author_label' => 'Автор',
