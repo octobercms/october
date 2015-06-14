@@ -222,8 +222,8 @@ class Filter extends WidgetBase
         $query = $model->newQuery();
 
         /*
-        * Extensibility
-        */
+         * Extensibility
+         */
         Event::fire('backend.filter.extendQuery', [$this, $query, $scope]);
         $this->fireEvent('filter.extendQuery', [$query, $scope]);
 
