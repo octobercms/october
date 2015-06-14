@@ -84,7 +84,7 @@
         }
 
         redactorOptions.plugins = ['fullscreen', 'figure', 'table', 'mediamanager']
-        redactorOptions.buttons = ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule', 'html'],
+        redactorOptions.buttons = ['html', 'formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
 
         this.$textarea.redactor(redactorOptions)
 
