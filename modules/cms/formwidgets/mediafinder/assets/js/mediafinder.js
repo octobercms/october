@@ -41,7 +41,7 @@
         this.$el.on('click', '.find-remove-button', this.proxy(this.onClickRemoveButton))
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
-        this.$findValue = $('input.find-value', this.$el)
+        this.$findValue = $('[data-find-value]', this.$el)
     }
 
     MediaFinder.prototype.dispose = function() {

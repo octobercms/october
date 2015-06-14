@@ -67,7 +67,16 @@
 
     .find-object {
 
+        .border-radius(3px);
+        position: relative;
+        outline: none;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: top;
+
         .icon-container {
+            display: table;
+
             i {
                 color: #95a5a6;
                 display: inline-block;
@@ -87,6 +96,14 @@
             .transition(padding 0.1s);
 
             position: relative;
+
+            a {
+                position: absolute;
+                right: 0;
+                top: 0;
+                display: none;
+                font-weight: 400;
+            }
         }
 
         .info h4 a,
@@ -99,7 +116,7 @@
     }
 
     &.is-populated {
-        &:hover {
+        .find-object:hover {
             h4 a,
             .meta .find-remove-button { display: block; }
         }
