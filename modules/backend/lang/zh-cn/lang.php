@@ -139,7 +139,8 @@ return [
         'attachment' => '附件',
         'help' => '给附件添加标题和描述.',
         'title_label' => '标题',
-        'description_label' => '描述'
+        'description_label' => '描述',
+        'sort_order_label' => '排序'
     ],
     'form' => [
         'create_title' => '新 :name',
