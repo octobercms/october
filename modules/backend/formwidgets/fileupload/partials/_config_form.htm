@@ -18,6 +18,15 @@
                 />
         </div>
         <div class="form-group">
+            <input
+                type="text"
+                name="sort_order"
+                class="form-control"
+                value="<?= $file->sort_order ?>"
+                placeholder="<?= e(trans('backend::lang.fileupload.sort_order_label')) ?>"
+                />
+        </div>
+        <div class="form-group">
             <label><?= e(trans('backend::lang.fileupload.description_label')) ?></label>
             <textarea name="description" class="form-control"><?= $file->description ?></textarea>
         </div>

@@ -256,6 +256,7 @@ class FileUpload extends FormWidgetBase
             if (($file_id = post('file_id')) && ($file = File::find($file_id))) {
                 $file->title = post('title');
                 $file->description = post('description');
+                $file->sort_order = post('sort_order');
                 $file->save();
 
                 $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);

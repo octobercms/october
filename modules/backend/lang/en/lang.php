@@ -140,7 +140,8 @@ return [
         'attachment' => 'Attachment',
         'help' => 'Add a title and description for this attachment.',
         'title_label' => 'Title',
-        'description_label' => 'Description'
+        'description_label' => 'Description',
+        'sort_order_label' => 'Order'
     ],
     'form' => [
         'create_title' => 'New :name',
