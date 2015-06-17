@@ -40,6 +40,41 @@ class Files extends Controller
             }
 
             echo $file->output();
+
+            exit;
+        }
+        catch (Exception $ex) {}
+
+        /*
+         * Fall back on Cms controller
+         */
+        return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
+    }
+
+    public function getthumb($code = null, $width = 100, $height = 100, $mode = 'auto', $extension = 'auto')
+    {
+        try {
+            if (!$code) {
+                throw new ApplicationException('Missing code');
+            }
+
+            $parts = explode('!', base64_decode($code));
+            if (count($parts) < 2) {
+                throw new ApplicationException('Invalid code');
+            }
+
+            list($id, $hash) = $parts;
+
+            if (!$file = FileModel::find((int) $id)) {
+                throw new ApplicationException('Unable to find file');
+            }
+
+            $verifyCode = self::getUniqueCode($file);
+            if ($code != $verifyCode) {
+                throw new ApplicationException('Invalid hash');
+            }
+            echo $file->outputThumb($width, $height, compact('mode','extension'));
+
             exit;
         }
         catch (Exception $ex) {}
@@ -53,6 +88,11 @@ class Files extends Controller
     public static function getDownloadUrl($file)
     {
         return Backend::url('backend/files/get/' . self::getUniqueCode($file));
+    }
+
+    public static function getThumbUrl($file, $width, $height, $options)
+    {
+        return Backend::url('backend/files/getthumb/' . self::getUniqueCode($file)) . '/' . $width . '/' . $height . '/' . $options['mode'] . '/' . $options['extension'];
     }
 
     public static function getUniqueCode($file)
