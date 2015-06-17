@@ -20,10 +20,10 @@ if (window.jQuery === undefined)
 
         cookies.forEach(function (cookieRow) {
             var cookie = cookieRow.split('=')
-            cookie[0] === 'XSRF-TOKEN' ? xsrfToken = cookie[1] : null
+            cookie[0] === 'XSRF-TOKEN' ? xsrfToken = (''+cookie[1]).trim() : null
         })
 
-        return xsrfToken
+        return decodeURIComponent(xsrfToken)
     }
 
     var Request = function (element, handler, options) {
