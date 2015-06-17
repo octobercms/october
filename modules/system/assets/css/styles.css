@@ -967,7 +967,7 @@ ul.indicators:after{clear:both}
 ul.indicators li{float:left;margin-right:50px}
 ul.indicators li:last-child{margin-right:0}
 ul.indicators li h3{font-weight:300;font-size:12px;line-height:100%;margin-bottom:7px}
-ul.indicators li p{font-size:20px;font-weight:400;word-wrap:break-word}
+ul.indicators li p{font-size:20px;font-weight:600;word-wrap:break-word}
  table.data-table{width:100%;font-size:12px;border-collapse:collapse;margin-bottom:20px}
 table.data-table tr:first-child th{border-top:0}
 table.data-table tr:last-child td{border-bottom:0}

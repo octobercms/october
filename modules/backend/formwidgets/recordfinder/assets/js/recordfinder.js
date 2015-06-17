@@ -1,6 +1,6 @@
 /*
  * RecordFinder plugin
- * 
+ *
  * Data attributes:
  * - data-control="recordfinder" - enables the plugin on an element
  * - data-option="value" - an option with a value
@@ -8,7 +8,7 @@
  * JavaScript API:
  * $('a#someElement').recordFinder({ option: 'value' })
  *
- * Dependences: 
+ * Dependences:
  * - Some other plugin (filename.js)
  */
 

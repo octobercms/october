@@ -1,0 +1,138 @@
+.finder-block-button() {
+    display: block;
+    float: left;
+    border: 2px dotted rgba(0,0,0,.1);
+    position: relative;
+    outline: none;
+    table {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
+    table td {
+        line-height: 16px;
+        font-size: 11px;
+        vertical-align: middle;
+        height: 100%;
+
+        &:before {
+            text-align: center;
+            width: 100%;
+            display: block;
+            font-size: 22px;
+            color: rgba(0,0,0,.1);
+            vertical-align: middle;
+        }
+
+        span {
+            display: block;
+            padding: 10px;
+            text-align: center;
+        }
+    }
+
+    &:hover {
+        border: 2px dotted rgba(0,0,0,.2);
+
+        table td:before {
+            color: @brand-success;
+            color: rgba(0,0,0,.2);
+        }
+    }
+
+    &:focus {
+        border: 2px solid rgba(0,0,0,.3);
+        background: transparent;
+
+        table td:before {
+            color: @brand-success;
+            color: rgba(0,0,0,.2);
+        }
+    }
+}
+
+.finder-vertical-align() {
+    position: absolute;
+    top: 50%;
+    margin-top: -44px;
+    height: 88px;
+}
+
+//
+// Shared
+//
+
+.field-mediafinder {
+
+    .find-object {
+
+        .border-radius(3px);
+        position: relative;
+        outline: none;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: top;
+
+        .icon-container {
+            display: table;
+
+            i {
+                color: #95a5a6;
+                display: inline-block;
+            }
+        }
+
+        h4 {
+            font-weight: 600;
+            font-size: 13px;
+            color: #2b3e50;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 150%;
+            margin: 15px 0 5px 0;
+            padding-right: 0;
+            .transition(padding 0.1s);
+
+            position: relative;
+
+            a {
+                position: absolute;
+                right: 0;
+                top: 0;
+                display: none;
+                font-weight: 400;
+            }
+        }
+
+        .info h4 a,
+        .meta a.find-remove-button {
+            color: #2b3e50;
+            display: none;
+            font-size: 15px;
+            text-decoration: none;
+        }
+    }
+
+    &.is-populated {
+        .find-object:hover {
+            h4 a,
+            .meta .find-remove-button { display: block; }
+        }
+    }
+
+}
+
+//
+// Media
+//
+
+@media (max-width: 1024px) {
+    .field-fileupload {
+        &.is-populated .find-object {
+            h4 a,
+            .meta .find-remove-button { display: block !important; }
+        }
+    }
+}

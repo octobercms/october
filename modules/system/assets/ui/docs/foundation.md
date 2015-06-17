@@ -215,7 +215,7 @@ We already have a boilerplate code for jQuery code. Disposable controls approach
         }
 
         // Add this only if required
-        $(document).render(function(){
+        $(document).render(function (){
             $('[data-some-disposable-control]').someDisposableControl()
         })
 

@@ -17,3 +17,15 @@
     <?php break ?>
 
 <?php endswitch ?>
+
+<!-- Error template -->
+<script type="text/template" id="<?= $this->getId('errorTemplate') ?>">
+    <div class="popover-head">
+        <h3>Upload error</h3>
+        <p>{{errorMsg}}</p>
+        <button type="button" class="close" data-dismiss="popover" aria-hidden="true">&times;</button>
+    </div>
+    <div class="popover-body">
+        <button class="btn btn-danger" data-remove-file>Remove file</button>
+    </div>
+</script>
