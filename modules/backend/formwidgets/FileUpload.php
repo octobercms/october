@@ -347,7 +347,12 @@ class FileUpload extends FormWidgetBase
      */
     protected function decorateFileAttributes($file)
     {
-        $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
+        if ($file->isPublic()) {
+            $file->thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
+        } else {
+            // Internal thumb link
+            $file->thumb = \Backend\Controllers\Files::getThumbUrl($file, $this->imageWidth, $this->imageHeight, $this->thumbOptions);
+        }
 
         // Internal download link
         if (!$file->isImage() || !$file->isPublic()) {
