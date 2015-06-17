@@ -2,6 +2,7 @@
 
 use Lang;
 use ApplicationException;
+use Cms\Classes\MediaLibrary;
 use Backend\Classes\FormWidgetBase;
 
 /**
@@ -66,7 +67,9 @@ class MediaFinder extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['value'] = $this->getLoadValue();
+        $value = $this->getLoadValue();
+        $this->vars['value'] = $value;
+        $this->vars['imageUrl'] = $value ? MediaLibrary::url($value) : '';
         $this->vars['field'] = $this->formField;
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-folder"></i>', $this->prompt);
         $this->vars['mode'] = $this->mode;

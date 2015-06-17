@@ -92,11 +92,13 @@ class MediaLibrary
         $cached = Cache::get('cms-media-library-contents', false);
         $cached = $cached ? @unserialize($cached) : [];
 
-        if (!is_array($cached))
+        if (!is_array($cached)) {
             $cached = [];
+        }
 
-        if (array_key_exists($fullFolderPath, $cached))
+        if (array_key_exists($fullFolderPath, $cached)) {
             $folderContents = $cached[$fullFolderPath];
+        }
         else {
             $folderContents = $this->scanFolderContents($fullFolderPath);
 
@@ -389,6 +391,16 @@ class MediaLibrary
             throw new ApplicationException(Lang::get('cms::lang.media.invalid_path', ['path'=>$path]));
 
         return $path;
+    }
+
+    /**
+     * Helper that makes a URL for a media file.
+     * @param string $file
+     * @return string
+     */
+    public static function url($file)
+    {
+        return static::instance()->getPathUrl($file);
     }
 
     /**
