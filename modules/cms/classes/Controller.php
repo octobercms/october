@@ -945,17 +945,15 @@ class Controller
      */
     public function renderComponent($name, $parameters = [])
     {
-        $componentVars = [];
         if ($componentObj = $this->findComponentByName($name)) {
             $componentObj->id = uniqid($name);
             $componentObj->setProperties(array_merge($componentObj->getProperties(), $parameters));
-            $componentVars = $componentObj->getVars();
             if ($result = $componentObj->onRender()) {
                 return $result;
             }
         }
 
-        return $this->renderPartial($name.'::default', $componentVars, false);
+        return $this->renderPartial($name.'::default', [], false);
     }
 
     //
@@ -1134,6 +1132,16 @@ class Controller
         }
 
         return $_url;
+    }
+
+    /**
+     * Converts supplied file to a URL relative to the media library.
+     * @param string $file Specifies the media-relative file
+     * @return string
+     */
+    public function mediaUrl($file = null)
+    {
+        return MediaLibrary::url($file);
     }
 
     /**

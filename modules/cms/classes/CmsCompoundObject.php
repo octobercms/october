@@ -156,14 +156,6 @@ class CmsCompoundObject extends CmsObject
     }
 
     /**
-     * Returns the Twig content string
-     */
-    public function getTwigContent()
-    {
-        return $this->markup;
-    }
-
-    /**
      * Runs components defined in the settings
      * Process halts if a component returns a value
      */
@@ -431,26 +423,6 @@ class CmsCompoundObject extends CmsObject
     }
 
     /**
-     * Returns Twig node tree generated from the object's markup.
-     * This method is used by the system internally and shouldn't
-     * participate in the front-end request processing.
-     * @link http://twig.sensiolabs.org/doc/internals.html Twig internals
-     * @param mixed $markup Specifies the markup content. 
-     * Use FALSE to load the content from the markup section.
-     * @return Twig_Node_Module A node tree
-     */
-    public function getTwigNodeTree($markup = false)
-    {
-        $loader = new TwigLoader();
-        $twig = new Twig_Environment($loader, []);
-        $twig->addExtension(new CmsTwigExtension());
-        $twig->addExtension(new SystemTwigExtension);
-
-        $stream = $twig->tokenize($markup === false ? $this->markup : $markup, 'getTwigNodeTree');
-        return $twig->parse($stream);
-    }
-
-    /**
      * Parses the settings array.
      * Child classes can override this method in order to update
      * the content of the $settings property after the object
@@ -531,5 +503,73 @@ class CmsCompoundObject extends CmsObject
     protected function wrapCodeToPhpTags()
     {
         return true;
+    }
+
+    //
+    // Twig
+    //
+
+    /**
+     * Returns the Twig content string
+     * @return string
+     */
+    public function getTwigContent()
+    {
+        return $this->markup;
+    }
+
+    /**
+     * Returns Twig node tree generated from the object's markup.
+     * This method is used by the system internally and shouldn't
+     * participate in the front-end request processing.
+     * @link http://twig.sensiolabs.org/doc/internals.html Twig internals
+     * @param mixed $markup Specifies the markup content.
+     * Use FALSE to load the content from the markup section.
+     * @return Twig_Node_Module A node tree
+     */
+    public function getTwigNodeTree($markup = false)
+    {
+        $loader = new TwigLoader();
+        $twig = new Twig_Environment($loader, []);
+        $twig->addExtension(new CmsTwigExtension());
+        $twig->addExtension(new SystemTwigExtension);
+
+        $stream = $twig->tokenize($markup === false ? $this->markup : $markup, 'getTwigNodeTree');
+        return $twig->parse($stream);
+    }
+
+    //
+    // Visibility
+    //
+
+    /**
+     * Get the visible attributes for the object.
+     * @return array
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Set the visible attributes for the object.
+     * @param  array  $visible
+     * @return void
+     */
+    public function setVisible(array $visible)
+    {
+        $this->visible = $visible;
+    }
+
+    /**
+     * Add visible attributes for the object.
+     * @param  array|string|null  $attributes
+     * @return void
+     */
+    public function addVisible($attributes = null)
+    {
+        $attributes = is_array($attributes) ? $attributes : func_get_args();
+
+        $this->visible = array_merge($this->visible, $attributes);
     }
 }
