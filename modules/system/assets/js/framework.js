@@ -26,6 +26,14 @@ if (window.jQuery === undefined)
         return decodeURIComponent(xsrfToken)
     }
 
+    $.ajaxPrefilter(function(options, originalOptions, xhr) {
+        var token = getXsrfToken()
+
+        if (token) {
+            return xhr.setRequestHeader('X-XSRF-TOKEN', token) // inject encoded CSRF token into AJAX requests as header
+        }
+    });
+
     var Request = function (element, handler, options) {
         var $el = this.$el = $(element);
         this.options = options || {};
@@ -99,8 +107,7 @@ if (window.jQuery === undefined)
             context: context,
             headers: {
                 'X-OCTOBER-REQUEST-HANDLER': handler,
-                'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update),
-                'X-XSRF-TOKEN': getXsrfToken() // inject encoded CSRF token into AJAX requests as header
+                'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update)
             },
             success: function(data, textStatus, jqXHR) {
                 /*
