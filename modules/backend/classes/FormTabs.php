@@ -118,6 +118,10 @@ class FormTabs implements IteratorAggregate, ArrayAccess
                 if ($fieldName == $name) {
                     unset($this->fields[$tab][$fieldName]);
 
+                    if (!sizeof($this->fields[$tab])) {
+                        unset($this->fields[$tab]);
+                    }
+
                     return true;
                 }
             }
