@@ -1,4 +1,4 @@
-* **Build 26x** (2015-06-xx)
+* **Build 270** (2015-06-18)
   - Introduced the October Storm client-side library.
   - Introduced new *MediaFinder* form widget.
   - Improved the back-end administrator permissions and `RelationController` UI.
