@@ -1,5 +1,8 @@
 <?php
     $fieldOptions = $field->options();
+    $fieldValueExists = array_key_exists($field->value, $fieldOptions);
+    $updateMode = ($this->controller->action === 'update');
+    $noEmptyOption = empty($field->config['emptyOption']);
 ?>
 <!-- Dropdown -->
 <?php if ($this->previewMode): ?>
@@ -12,6 +15,8 @@
         <?= $field->getAttributes() ?>>
         <?php if ($field->placeholder): ?>
             <option value=""><?= e(trans($field->placeholder)) ?></option>
+        <?php elseif (!$fieldValueExists & $updateMode & $noEmptyOption): ?>
+            <option value=""></option>
         <?php endif ?>
         <?php foreach ($fieldOptions as $value => $option): ?>
             <?php
