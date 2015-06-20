@@ -55,8 +55,8 @@ class MediaLibraryItem
      */
     protected static $defaultTypeExtensions = [
         'image' => ['gif', 'png', 'jpg', 'jpeg', 'bmp'],
-        'video' => ['mp4', 'avi', 'mov', 'mpg'],
-        'audio' => ['mp3', 'wav', 'wma', 'm4a']
+        'video' => ['mp4', 'avi', 'mov', 'mpg', 'mpeg', 'mkv', 'flv],
+        'audio' => ['mp3', 'wav', 'wma', 'm4a', 'webm', 'ogg']
     ];
 
     protected static $imageExtensions;
