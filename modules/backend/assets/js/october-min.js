@@ -5061,7 +5061,9 @@ data[option].apply(data,methodArgs)}})}
 $.fn.sidenavTree.Constructor=SidenavTree
 $.fn.sidenavTree.noConflict=function(){$.fn.sidenavTree=old
 return this}
-$(document).ready(function(){$('[data-control=sidenav-tree]').sidenavTree()})}(window.jQuery);$(window).on('ajaxErrorMessage',function(event,message){if(!message)return
+$(document).ready(function(){$('[data-control=sidenav-tree]').sidenavTree()})}(window.jQuery);$.ajaxPrefilter(function(options){var token=$('meta[name="csrf-token"]').attr('content')
+if(token){options.headers['X-CSRF-TOKEN']=token}})
+$(window).on('ajaxErrorMessage',function(event,message){if(!message)return
 swal({title:message,confirmButtonClass:'btn-default'})
 event.preventDefault()})
 $(window).on('ajaxConfirmMessage',function(event,message){if(!message)return

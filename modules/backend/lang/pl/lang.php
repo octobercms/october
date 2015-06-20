@@ -176,7 +176,6 @@ return [
         'or' => 'lub',
         'confirm_tab_close' => 'Czy naprawdę chcesz zamknąć tą kartę? Wszystkie niezapisane zmiany zostaną utracone.',
         'behavior_not_ready' => 'Zachowanie formularza nie zostało zainicjowane, sprawdź czy wywołałeś initForm() w swoim kontrolerze.',
-        'preview_no_files_message' => 'Pliki nie są wysyłane',
         'select' => 'Zaznacz',
         'select_all' => 'wszystkie',
         'select_none' => 'żadne',

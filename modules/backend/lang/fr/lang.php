@@ -180,7 +180,6 @@ return [
         'or' => 'ou',
         'confirm_tab_close' => 'Confirmer la fermeture de cet onglet ? Les modifications réalisées seront perdues.',
         'behavior_not_ready' => 'Le formulaire n’a pas encore été initialisé, vérifier que la méthode d’appel de initForm() a été soumise au contrôleur.',
-        'preview_no_files_message' => 'Les fichiers ne sont pas envoyés.',
         'select' => 'Sélectionner',
         'select_all' => 'tout',
         'select_none' => 'aucun',

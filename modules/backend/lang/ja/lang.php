@@ -176,7 +176,6 @@ return [
         'or' => 'または',
         'confirm_tab_close' => '本当にタブを閉じますか？ 保存されていない変更は消えてしまいます。',
         'behavior_not_ready' => 'フォームビヘイビアーは初期化されていません。コントローラーでinitForm()を呼び出しているか確認してください。',
-        'preview_no_files_message' => 'ファイルはアップロードされません。',
         'select' => '選択',
         'select_all' => 'すべて',
         'select_none' => 'なし',

@@ -180,7 +180,6 @@ return [
         'or' => 'ou',
         'confirm_tab_close' => 'Tem certeza que deseja fechar essa aba? As alterações que não foram salvas serão perdidas',
         'behavior_not_ready' => 'O formulário não foi inicializado. Confira se você chamou initForm() no controller.',
-        'preview_no_files_message' => 'Os arquivos não foram carregados',
         'select' => 'Selecionar',
         'select_all' => 'todos',
         'select_none' => 'nenhum',

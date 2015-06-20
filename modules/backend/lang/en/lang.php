@@ -143,7 +143,8 @@ return [
         'attachment' => 'Attachment',
         'help' => 'Add a title and description for this attachment.',
         'title_label' => 'Title',
-        'description_label' => 'Description'
+        'description_label' => 'Description',
+        'default_prompt' => 'Click the %s or drag a file here to upload'
     ],
     'form' => [
         'create_title' => 'New :name',
@@ -184,7 +185,6 @@ return [
         'or' => 'or',
         'confirm_tab_close' => 'Do you really want to close the tab? Unsaved changes will be lost.',
         'behavior_not_ready' => 'Form behavior has not been initialized, check that you have called initForm() in your controller.',
-        'preview_no_files_message' => 'Files are not uploaded',
         'select' => 'Select',
         'select_all' => 'all',
         'select_none' => 'none',

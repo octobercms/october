@@ -180,7 +180,6 @@ return [
         'or' => 'atau',
         'confirm_tab_close' => 'Anda yakin akan menutup tab? Perubahan belum tersimpan akan hilang.',
         'behavior_not_ready' => 'Behavior borang belum diinisialisasi, periksa apakah Anda telah memanggil initForm() pada controller Anda.',
-        'preview_no_files_message' => 'Berkas tidak terunggah',
         'select' => 'Pilih',
         'select_all' => 'semua',
         'select_none' => 'tiada',

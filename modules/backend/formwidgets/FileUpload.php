@@ -35,7 +35,7 @@ class FileUpload extends FormWidgetBase
     /**
      * @var string Prompt to display if no record is selected.
      */
-    public $prompt = 'Click the %s or drag a file here to upload';
+    public $prompt = 'backend::lang.fileupload.default_prompt';
 
     /**
      * @var int Preview image width
@@ -46,11 +46,6 @@ class FileUpload extends FormWidgetBase
      * @var int Preview image height
      */
     public $imageHeight = null;
-
-    /**
-     * @var string Text to display when no file is associated
-     */
-    public $previewNoFilesMessage = 'backend::lang.form.preview_no_files_message';
 
     /**
      * @var mixed Collection of acceptable file types.
@@ -93,7 +88,6 @@ class FileUpload extends FormWidgetBase
             'prompt',
             'imageWidth',
             'imageHeight',
-            'previewNoFilesMessage',
             'fileTypes',
             'mimeTypes',
             'thumbOptions',
@@ -126,7 +120,7 @@ class FileUpload extends FormWidgetBase
         $this->vars['acceptedFileTypes'] = $this->getAcceptedFileTypes(true);
         $this->vars['cssDimensions'] = $this->getCssDimensions();
         $this->vars['useCaption'] = $this->useCaption;
-        $this->vars['prompt'] = str_replace('%s', '<i class="icon-upload"></i>', $this->prompt);
+        $this->vars['prompt'] = str_replace('%s', '<i class="icon-upload"></i>', trans($this->prompt));
     }
 
     protected function getFileList()

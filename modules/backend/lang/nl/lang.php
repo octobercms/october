@@ -158,7 +158,6 @@ return [
         'or' => 'of',
         'confirm_tab_close' => 'Weet je zeker dat je dit tabblad wilt sluiten? Niet opgeslagen wijzigingen gaan verloren.',
         'behavior_not_ready' => 'Gedrag (behavior) van het formulier is niet geladen. Controleer of initForm() in de controller is aangeroepen.',
-        'preview_no_files_message' => 'Bestanden zijn niet geüploadet',
         'select' => 'Selecteer',
         'select_all' => 'alles',
         'select_none' => 'niets',

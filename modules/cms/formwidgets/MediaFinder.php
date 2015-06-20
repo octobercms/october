@@ -26,7 +26,7 @@ class MediaFinder extends FormWidgetBase
     /**
      * @var string Prompt to display if no record is selected.
      */
-    public $prompt = 'Click the %s button to find a media item';
+    public $prompt = 'cms::lang.mediafinder.default_prompt';
 
     /**
      * @var string Display mode for the selection. Values: file, image.
@@ -71,7 +71,7 @@ class MediaFinder extends FormWidgetBase
         $this->vars['value'] = $value;
         $this->vars['imageUrl'] = $value ? MediaLibrary::url($value) : '';
         $this->vars['field'] = $this->formField;
-        $this->vars['prompt'] = str_replace('%s', '<i class="icon-folder"></i>', $this->prompt);
+        $this->vars['prompt'] = str_replace('%s', '<i class="icon-folder"></i>', trans($this->prompt));
         $this->vars['mode'] = $this->mode;
     }
 

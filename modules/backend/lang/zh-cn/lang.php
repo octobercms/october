@@ -180,7 +180,6 @@ return [
         'or' => '或',
         'confirm_tab_close' => '你真的想要关闭这个标签吗? 未保存的改变会丢失.',
         'behavior_not_ready' => '表单还没初始化, 确保你调用了controller中的 initForm().',
-        'preview_no_files_message' => '文件没有上传',
         'select' => '选择',
         'select_all' => 'all',
         'select_none' => 'none',

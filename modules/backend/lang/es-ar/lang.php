@@ -159,7 +159,6 @@ return [
         'or' => 'o',
         'confirm_tab_close' => '¿Realmente desea cerrar la cuenta? Se perderán los cambios no guardados.',
         'behavior_not_ready' => 'Favor compruebe que ha llamado a la funcion initForm() en el controlador.',
-        'preview_no_files_message' => 'Los archivos no fueron cargados',
         'select' => 'Seleccionar',
         'select_all' => 'Todo',
         'select_none' => 'Nada',

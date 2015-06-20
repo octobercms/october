@@ -233,6 +233,9 @@ return [
         'manage_partials' => 'Manage partials',
         'manage_themes' => 'Manage themes'
     ],
+    'mediafinder' => [
+        'default_prompt' => 'Click the %s button to find a media item'
+    ],
     'media' => [
         'invalid_path' => "Invalid file path specified: ':path'.",
         'menu_label' => 'Media',
