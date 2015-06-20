@@ -3,7 +3,7 @@
  */
 
 /*
- * Implement "Sweet Alert"
+ * Implement "Sweet Alert" with AJAX framework
  */
 
 $(window).on('ajaxErrorMessage', function(event, message){
@@ -43,14 +43,19 @@ $(window).on('ajaxConfirmMessage', function(event, message){
  * Path helpers
  */
 
-function backendUrl(url) {
-    if (typeof backendBasePath === 'undefined' || !backendBasePath)
-        return url;
+if ($.oc === undefined)
+    $.oc = {}
 
-    if (url.substr(0,1) == '/')
-        url = url.substr(1);
+$.oc.backendUrl = function(url) {
+    var backendBasePath = $('meta[name="backend-base-path"]').attr('content')
 
-    return backendBasePath + url;
+    if (!backendBasePath)
+        return url
+
+    if (url.substr(0, 1) == '/')
+        url = url.substr(1)
+
+    return backendBasePath + '/' + url
 }
 
 /*
@@ -181,13 +186,13 @@ AssetManager = function() {
 assetManager = new AssetManager();
 
 /*
- * Inverse Click Event
+ * Inverse Click Event (not used)
  *
  * Calls the handler function if the user has clicked outside the object 
  * and not on any of the elements in the exception list.
  */
-
- $.fn.extend({
+/*
+$.fn.extend({
     clickOutside: function(handler, exceptions) {
         var $this = this;
 
@@ -204,11 +209,11 @@ assetManager = new AssetManager();
         return this;
     }
 })
-
+*/
 /*
- * String escape
+ * String escape (not used)
  */
-
+/*
 if ($.oc === undefined)
     $.oc = {}
 
@@ -227,3 +232,4 @@ $.oc.escapeHtmlString = function(string) {
         return htmlEscapes[match];
     })
 }
+*/

@@ -20,7 +20,6 @@
 =require ../../../system/assets/ui/storm.js
 
 =require october.controls.js
-=require october.utils.js
 =require october.scrollpad.js
 =require october.verticalmenu.js
 =require october.navbar.js
@@ -36,5 +35,4 @@
 =require october.sidenav-tree.js
 
 =require backend.js
-
 */

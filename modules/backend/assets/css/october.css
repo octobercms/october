@@ -217,6 +217,9 @@
 .tooltip.in{opacity:1;filter:alpha(opacity=100)}
 .oc-logo-white{background-image:url(../images/october-logo-white.svg);background-position:50% 50%;background-repeat:no-repeat;background-size:contain}
 .oc-bg-logo{background-image:url(../images/october-logo-transparent.svg);background-position:50% 50%;background-repeat:no-repeat;background-size:50% auto}
+.sweet-alert{text-align:left}
+.sweet-alert h4{margin:10px 0 20px 0;color:#2b3e50;font-size:18px}
+.sweet-alert p.text-muted{margin-bottom:20px;color:#555555}
 .control-balloon-selector ul{padding:0;margin-top:-5px}
 .control-balloon-selector ul li{list-style:none;display:inline-block;padding:6px 7px 5px;margin-right:5px;margin-top:6px;text-transform:uppercase;background:#bcc3c7;color:#ffffff;font-size:10px;line-height:100%;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;-webkit-transition:all 0.1s ease;transition:all 0.1s ease}
 .control-balloon-selector ul li.active{background:#da5700 !important}
@@ -448,9 +451,6 @@ table.name-value-list th,table.name-value-list td{padding:4px 0 4px 0;vertical-a
 table.name-value-list tr:first-child th,table.name-value-list tr:first-child td{padding-top:0}
 table.name-value-list th{font-weight:600;color:#95a5a6;padding-right:15px;text-transform:uppercase}
 table.name-value-list td{color:#2b3e50;word-wrap:break-word}
-.sweet-alert{text-align:left}
-.sweet-alert h4{margin:10px 0 20px 0;color:#2b3e50;font-size:18px}
-.sweet-alert p.text-muted{margin-bottom:20px;color:#555555}
 .scrollpad-scrollbar-size-tester{width:50px;height:50px;overflow-y:scroll;position:absolute;top:-200px;left:-200px}
 .scrollpad-scrollbar-size-tester div{height:100px}
 .scrollpad-scrollbar-size-tester::-webkit-scrollbar{width:0;height:0}

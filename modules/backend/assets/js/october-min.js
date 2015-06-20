@@ -4368,57 +4368,7 @@ return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+state.text
 return state.text}
 $('select.custom-select:not([data-no-auto-update-on-render=true])').select2({formatResult:formatSelectOption,formatSelection:formatSelectOption,escapeMarkup:function(m){return m;}})})
 $(document).on('disable','select.custom-select',function(event,status){$(this).select2('enable',!status)})
-$(document).on('focus','select.custom-select',function(event){setTimeout($.proxy(function(){$(this).select2('focus')},this),10)})})(jQuery);$(window).on('ajaxErrorMessage',function(event,message){if(!message)return
-swal({title:message,confirmButtonClass:'btn-default'})
-event.preventDefault()})
-$(window).on('ajaxConfirmMessage',function(event,message){if(!message)return
-swal({title:message,showCancelButton:true,confirmButtonClass:'btn-primary'},function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
-event.preventDefault()
-return true})
-function backendUrl(url){if(typeof backendBasePath==='undefined'||!backendBasePath)
-return url;if(url.substr(0,1)=='/')
-url=url.substr(1);return backendBasePath+url;}
-AssetManager=function(){var o={load:function(collection,callback){var jsList=(collection.js)?collection.js:[],cssList=(collection.css)?collection.css:[],imgList=(collection.img)?collection.img:[]
-jsList=$.grep(jsList,function(item){return $('head script[src="'+item+'"]').length==0})
-cssList=$.grep(cssList,function(item){return $('head link[href="'+item+'"]').length==0})
-var cssCounter=0,jsLoaded=false,imgLoaded=false
-if(jsList.length===0&&cssList.length===0&&imgList.length===0){callback&&callback()
-return}
-o.loadJavaScript(jsList,function(){jsLoaded=true
-checkLoaded()})
-$.each(cssList,function(index,source){o.loadStyleSheet(source,function(){cssCounter++
-checkLoaded()})})
-o.loadImage(imgList,function(){imgLoaded=true
-checkLoaded()})
-function checkLoaded(){if(!imgLoaded)
-return false
-if(!jsLoaded)
-return false
-if(cssCounter<cssList.length)
-return false
-callback&&callback()}},loadStyleSheet:function(source,callback){var cssElement=document.createElement('link')
-cssElement.setAttribute('rel','stylesheet')
-cssElement.setAttribute('type','text/css')
-cssElement.setAttribute('href',source)
-cssElement.addEventListener('load',callback,false)
-if(typeof cssElement!='undefined'){document.getElementsByTagName('head')[0].appendChild(cssElement)}
-return cssElement},loadJavaScript:function(sources,callback){if(sources.length<=0)
-return callback()
-var source=sources.shift(),jsElement=document.createElement('script');jsElement.setAttribute('type','text/javascript')
-jsElement.setAttribute('src',source)
-jsElement.addEventListener('load',function(){o.loadJavaScript(sources,callback)},false)
-if(typeof jsElement!='undefined'){document.getElementsByTagName('head')[0].appendChild(jsElement)}},loadImage:function(sources,callback){if(sources.length<=0)
-return callback()
-var loaded=0
-$.each(sources,function(index,source){var img=new Image()
-img.onload=function(){if(++loaded==sources.length&&callback)
-callback()}
-img.src=source})}};return o;};assetManager=new AssetManager();$.fn.extend({clickOutside:function(handler,exceptions){var $this=this;$('body').on('click',function(event){if(exceptions&&$.inArray(event.target,exceptions)>-1){return;}else if($.contains($this[0],event.target)){return;}else{handler(event,$this);}});return this;}})
-if($.oc===undefined)
-$.oc={}
-$.oc.escapeHtmlString=function(string){var htmlEscapes={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;','/':'&#x2F;'},htmlEscaper=/[&<>"'\/]/g
-return(''+string).replace(htmlEscaper,function(match){return htmlEscapes[match];})}
-+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+$(document).on('focus','select.custom-select',function(event){setTimeout($.proxy(function(){$(this).select2('focus')},this),10)})})(jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var Scrollpad=function(element,options){this.$el=$(element)
 this.scrollbarElement=null
 this.dragHandleElement=null
@@ -5111,4 +5061,54 @@ data[option].apply(data,methodArgs)}})}
 $.fn.sidenavTree.Constructor=SidenavTree
 $.fn.sidenavTree.noConflict=function(){$.fn.sidenavTree=old
 return this}
-$(document).ready(function(){$('[data-control=sidenav-tree]').sidenavTree()})}(window.jQuery);
+$(document).ready(function(){$('[data-control=sidenav-tree]').sidenavTree()})}(window.jQuery);$(window).on('ajaxErrorMessage',function(event,message){if(!message)return
+swal({title:message,confirmButtonClass:'btn-default'})
+event.preventDefault()})
+$(window).on('ajaxConfirmMessage',function(event,message){if(!message)return
+swal({title:message,showCancelButton:true,confirmButtonClass:'btn-primary'},function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
+event.preventDefault()
+return true})
+if($.oc===undefined)
+$.oc={}
+$.oc.backendUrl=function(url){var backendBasePath=$('meta[name="backend-base-path"]').attr('content')
+if(!backendBasePath)
+return url
+if(url.substr(0,1)=='/')
+url=url.substr(1)
+return backendBasePath+'/'+url}
+AssetManager=function(){var o={load:function(collection,callback){var jsList=(collection.js)?collection.js:[],cssList=(collection.css)?collection.css:[],imgList=(collection.img)?collection.img:[]
+jsList=$.grep(jsList,function(item){return $('head script[src="'+item+'"]').length==0})
+cssList=$.grep(cssList,function(item){return $('head link[href="'+item+'"]').length==0})
+var cssCounter=0,jsLoaded=false,imgLoaded=false
+if(jsList.length===0&&cssList.length===0&&imgList.length===0){callback&&callback()
+return}
+o.loadJavaScript(jsList,function(){jsLoaded=true
+checkLoaded()})
+$.each(cssList,function(index,source){o.loadStyleSheet(source,function(){cssCounter++
+checkLoaded()})})
+o.loadImage(imgList,function(){imgLoaded=true
+checkLoaded()})
+function checkLoaded(){if(!imgLoaded)
+return false
+if(!jsLoaded)
+return false
+if(cssCounter<cssList.length)
+return false
+callback&&callback()}},loadStyleSheet:function(source,callback){var cssElement=document.createElement('link')
+cssElement.setAttribute('rel','stylesheet')
+cssElement.setAttribute('type','text/css')
+cssElement.setAttribute('href',source)
+cssElement.addEventListener('load',callback,false)
+if(typeof cssElement!='undefined'){document.getElementsByTagName('head')[0].appendChild(cssElement)}
+return cssElement},loadJavaScript:function(sources,callback){if(sources.length<=0)
+return callback()
+var source=sources.shift(),jsElement=document.createElement('script');jsElement.setAttribute('type','text/javascript')
+jsElement.setAttribute('src',source)
+jsElement.addEventListener('load',function(){o.loadJavaScript(sources,callback)},false)
+if(typeof jsElement!='undefined'){document.getElementsByTagName('head')[0].appendChild(jsElement)}},loadImage:function(sources,callback){if(sources.length<=0)
+return callback()
+var loaded=0
+$.each(sources,function(index,source){var img=new Image()
+img.onload=function(){if(++loaded==sources.length&&callback)
+callback()}
+img.src=source})}};return o;};assetManager=new AssetManager();
