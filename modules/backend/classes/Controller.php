@@ -119,6 +119,11 @@ class Controller extends Extendable
     protected $statusCode = 200;
 
     /**
+     * @var bool Determine if submission requests use CSRF protection.
+     */
+    public $useSecurityToken = true;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -167,6 +172,13 @@ class Controller extends Extendable
     {
         $this->action = $action;
         $this->params = $params;
+
+        /*
+         * Check security token.
+         */
+        if ($this->useSecurityToken && !$this->verifyCsrfToken()) {
+            return Response::make(Lang::get('backend::lang.page.invalid_token.label'), 403);
+        }
 
         /*
          * Extensibility
@@ -595,5 +607,28 @@ class Controller extends Extendable
     {
         $hiddenHints = UserPreferences::forUser()->get('backend::hints.hidden', []);
         return array_key_exists($name, $hiddenHints);
+    }
+
+    //
+    // CSRF Protection
+    //
+
+    /**
+     * Checks the request data / headers for a valid CSRF token.
+     * Returns false if a valid token is not found.
+     * @return bool
+     */
+    protected function verifyCsrfToken()
+    {
+        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
+            return true;
+        }
+
+        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
+
+        return \Symfony\Component\Security\Core\Util\StringUtils::equals(
+            Session::getToken(),
+            $token
+        );
     }
 }

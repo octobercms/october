@@ -18,6 +18,9 @@ return [
             'label' => 'Access denied',
             'help' => "You don't have the required permissions to view this page.",
             'cms_link' => 'Return to the back-end'
+        ],
+        'invalid_token' => [
+            'label' => 'Invalid security token'
         ]
     ],
     'partial' => [

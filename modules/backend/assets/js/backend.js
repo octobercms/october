@@ -3,6 +3,18 @@
  */
 
 /*
+ * Ensure the CSRF token is added to all AJAX requests.
+ */
+
+$.ajaxPrefilter(function(options) {
+    var token = $('meta[name="csrf-token"]').attr('content')
+
+    if (token) {
+        options.headers['X-CSRF-TOKEN'] = token
+    }
+})
+
+/*
  * Implement "Sweet Alert" with AJAX framework
  */
 
