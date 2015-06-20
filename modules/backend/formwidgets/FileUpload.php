@@ -9,6 +9,7 @@ use System\Models\File;
 use ApplicationException;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
+use Backend\Controllers\Files as FilesController;
 use ValidationException;
 use Exception;
 
@@ -116,8 +117,8 @@ class FileUpload extends FormWidgetBase
      */
     protected function prepareVars()
     {
-        $this->vars['fileList'] = $this->getFileList();
-        $this->vars['singleFile'] = array_get($this->vars['fileList'], 0, null);
+        $this->vars['fileList'] = $fileList = $this->getFileList();
+        $this->vars['singleFile'] = $fileList->first();
         $this->vars['displayMode'] = $this->getDisplayMode();
         $this->vars['emptyIcon'] = $this->getConfig('emptyIcon', 'icon-plus');
         $this->vars['imageHeight'] = $this->imageHeight;
@@ -386,8 +387,8 @@ class FileUpload extends FormWidgetBase
 
             $result = [
                 'id' => $file->id,
-                'thumb' => $file->thumb,
-                'path' => $file->path
+                'thumb' => $file->thumbUrl,
+                'path' => $file->pathUrl
             ];
 
             Response::json($result, 200)->send();
@@ -401,19 +402,36 @@ class FileUpload extends FormWidgetBase
     }
 
     /**
-     * Adds the bespoke thumb and path property used by this widget.
+     * Adds the bespoke attributes used internally by this widget.
+     * - thumbUrl
+     * - pathUrl
      * @return System\Models\File
      */
     protected function decorateFileAttributes($file)
     {
-        $file->thumb = ($this->imageWidth || $this->imageHeight)
-            ? $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions)
-            : $file->path;
+        /*
+         * File is protected, create a secure public path
+         */
+        if (!$file->isPublic()) {
+            $path = $thumb = FilesController::getDownloadUrl($file);
 
-        // Internal download link
-        if (!$file->isImage() || !$file->isPublic()) {
-            $file->pathOverride = \Backend\Controllers\Files::getDownloadUrl($file);
+            if ($this->imageWidth || $this->imageHeight) {
+                $thumb = FilesController::getThumbUrl($file, $this->imageWidth, $this->imageHeight, $this->thumbOptions);
+            }
         }
+        /*
+         * Otherwise use public paths
+         */
+        else {
+            $path = $thumb = $file->getPath();
+
+            if ($this->imageWidth || $this->imageHeight) {
+                $thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
+            }
+        }
+
+        $file->pathUrl = $path;
+        $file->thumbUrl = $thumb;
 
         return $file;
     }

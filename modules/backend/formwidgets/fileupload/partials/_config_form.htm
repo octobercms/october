@@ -6,7 +6,7 @@
             <div class="file-upload-modal-image-header">
                 <button type="button" class="close" data-dismiss="popup">&times;</button>
                 <img
-                    src="<?= $file->thumb ?>"
+                    src="<?= $file->thumbUrl ?>"
                     class="img-responsive center-block"
                     alt=""
                     title="<?= e(trans('backend::lang.fileupload.attachment')) ?>: <?= e($file->file_name) ?>"
@@ -39,7 +39,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="<?= $file->path ?>" class="pull-left btn btn-link fileupload-url-button" target="_blank">
+            <a href="<?= $file->pathUrl ?>" class="pull-left btn btn-link fileupload-url-button" target="_blank">
                 <i class="oc-icon-link"></i>Attachment URL
             </a>
             <button
