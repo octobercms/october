@@ -34,4 +34,7 @@
 =require october.treelist.js
 =require october.autocomplete.js
 =require october.sidenav-tree.js
+
+=require backend.js
+
 */
