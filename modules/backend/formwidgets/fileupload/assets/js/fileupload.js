@@ -112,7 +112,7 @@
     FileUpload.prototype.onUploadAddedFile = function(file) {
         // Remove any exisiting objects for single variety
         if (!this.options.isMulti) {
-            $('> *', this.$filesContainer).not(file.previewElement).remove()
+            $(file.previewElement).siblings().remove()
         }
 
         this.evalIsPopulated()
@@ -253,6 +253,11 @@
             $target = $(ev.target).closest('.upload-object'),
             errorMsg = $('[data-dz-errormessage]', $target).text(),
             $template = $(this.options.errorTemplate)
+
+        // Remove any exisiting objects for single variety
+        if (!this.options.isMulti) {
+            $target.siblings().remove()
+        }
 
         $target.ocPopover({
             content: Mustache.render($template.html(), { errorMsg: errorMsg }),

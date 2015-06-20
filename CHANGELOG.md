@@ -1,3 +1,6 @@
+* **Build 271** (2015-06-20)
+  - File Upload form widget can now specify `mimeTypes` to define MIME types that are accepted by the uploader, either as file extension or fully qualified name.
+
 * **Build 270** (2015-06-18)
   - Introduced the October Storm client-side library.
   - Introduced new *MediaFinder* form widget.

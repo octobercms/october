@@ -7,6 +7,7 @@ use Config;
 use Backend;
 use Request;
 use DbDongle;
+use Validator;
 use BackendMenu;
 use BackendAuth;
 use Twig_Environment;
@@ -52,6 +53,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerMailer();
         $this->registerMarkupTags();
         $this->registerAssetBundles();
+        $this->registerValidator();
 
         /*
          * Register other module providers
@@ -444,6 +446,25 @@ class ServiceProvider extends ModuleServiceProvider
          */
         CombineAssets::registerCallback(function($combiner) {
             $combiner->registerBundle('~/modules/system/assets/less/styles.less');
+        });
+    }
+
+    /**
+     * Extends the validator with custom rules
+     */
+    protected function registerValidator()
+    {
+        /*
+         * Allowed file extensions, as opposed to mime types.
+         * - extensions: png,jpg,txt
+         */
+        Validator::extend('extensions', function($attribute, $value, $parameters) {
+            $extension = $value->getClientOriginalExtension();
+            return in_array($extension, $parameters);
+        });
+
+        Validator::replacer('extensions', function($message, $attribute, $rule, $parameters) {
+            return strtr($message, [':values' => implode(', ', $parameters)]);
         });
     }
 

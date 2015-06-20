@@ -57,6 +57,11 @@ class FileUpload extends FormWidgetBase
     public $fileTypes = false;
 
     /**
+     * @var mixed Collection of acceptable mime types.
+     */
+    public $mimeTypes = false;
+
+    /**
      * @var array Options used for generating thumbnails.
      */
     public $thumbOptions = [
@@ -89,6 +94,7 @@ class FileUpload extends FormWidgetBase
             'imageHeight',
             'previewNoFilesMessage',
             'fileTypes',
+            'mimeTypes',
             'thumbOptions',
             'useCaption'
         ]);
@@ -347,7 +353,11 @@ class FileUpload extends FormWidgetBase
 
             $validationRules = ['max:'.File::getMaxFilesize()];
             if ($fileTypes = $this->getAcceptedFileTypes()) {
-                $validationRules[] = 'mimes:'.$fileTypes;
+                $validationRules[] = 'extensions:'.$fileTypes;
+            }
+
+            if ($this->mimeTypes) {
+                $validationRules[] = 'mimes:'.$this->mimeTypes;
             }
 
             $validation = Validator::make(
