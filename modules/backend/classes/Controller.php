@@ -349,6 +349,10 @@ class Controller extends Extendable
      */
     protected function execAjaxHandlers()
     {
+        if (Request::method() != 'POST') {
+            return null;
+        }
+
         if ($handler = trim(Request::header('X_OCTOBER_REQUEST_HANDLER'))) {
             try {
                 /*
@@ -363,16 +367,6 @@ class Controller extends Extendable
                  */
                 if ($partialList = trim(Request::header('X_OCTOBER_REQUEST_PARTIALS'))) {
                     $partialList = explode('&', $partialList);
-
-                    // @todo Do we need to validate backend partials?
-                    // foreach ($partialList as $partial) {
-                    //     if (!preg_match('/^(?:\w+\:{2}|@)?[a-z0-9\_\-\.\/]+$/i', $partial)) {
-                    //         throw new SystemException(Lang::get(
-                    //             'cms::lang.partial.invalid_name',
-                    //             ['name' => $partial]
-                    //         ));
-                    //     }
-                    // }
                 }
                 else {
                     $partialList = [];

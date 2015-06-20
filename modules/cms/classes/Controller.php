@@ -572,6 +572,10 @@ class Controller
      */
     protected function execAjaxHandlers()
     {
+        if (Request::method() != 'POST') {
+            return null;
+        }
+
         if ($handler = trim(Request::header('X_OCTOBER_REQUEST_HANDLER'))) {
             try {
                 /*
