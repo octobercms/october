@@ -10,7 +10,9 @@
         placeholder="<?= e(trans($field->placeholder)) ?>"
         class="form-control"
         autocomplete="off"
-        maxlength="255"
-        <?= $field->getAttributes() ?>
+        <?php (strpos($field->getAttributes(), 'maxlength')) 
+                ? $field->getAttributes() 
+                : 'maxlength="255" '.$field->getAttributes()
+        ?>
     />
 <?php endif ?>
