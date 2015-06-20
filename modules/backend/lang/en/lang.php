@@ -100,6 +100,7 @@ return [
             'name' => 'Group',
             'name_field' => 'Name',
             'description_field' => 'Description',
+            'users_field' => 'Number of users',
             'is_new_user_default_field' => 'Add new administrators to this group by default.',
             'code_field' => 'Code',
             'code_comment' => 'Enter a unique code if you want to access it with the API.',
