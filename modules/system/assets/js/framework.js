@@ -234,7 +234,7 @@ if (window.jQuery === undefined)
                         if (fieldElement.length > 0) {
 
                             var _event = jQuery.Event('ajaxInvalidField')
-                            $(window).trigger(_event, [fieldElement, fieldName, fieldMessages, isFirstInvalidField])
+                            $(window).trigger(_event, [fieldElement.get(0), fieldName, fieldMessages, isFirstInvalidField])
 
                             if (isFirstInvalidField) {
                                 if (!_event.isDefaultPrevented()) fieldElement.focus()
