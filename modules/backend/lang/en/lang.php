@@ -140,7 +140,12 @@ return [
         'attachment' => 'Attachment',
         'help' => 'Add a title and description for this attachment.',
         'title_label' => 'Title',
-        'description_label' => 'Description'
+        'description_label' => 'Description',
+        'attachment_url' => 'Attachment URL',
+        'upload_file' => 'Upload file',
+        'confirm' => 'Are you sure?',
+        'upload_error' => 'Upload error',
+        'remove_file' => 'Remove file'
     ],
     'form' => [
         'create_title' => 'New :name',
