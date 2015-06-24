@@ -180,6 +180,7 @@ return [
         'or' => 'eller',
         'confirm_tab_close' => 'Vill du verkligen stänga fliken? Ej sparade ändringar kommer gå förlorade',
         'behavior_not_ready' => 'Formuläregenskap har ej blivit initierad, kontrollera att du anropat initForm() i din controller',
+        'preview_no_files_message' => 'Filen är inte uppladdad',
         'select' => 'Välj',
         'select_all' => 'alla',
         'select_none' => 'ingen',

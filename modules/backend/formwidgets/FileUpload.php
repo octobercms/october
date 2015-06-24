@@ -3,6 +3,7 @@
 use Str;
 use Lang;
 use Input;
+use Request;
 use Response;
 use Validator;
 use System\Models\File;
@@ -111,6 +112,12 @@ class FileUpload extends FormWidgetBase
      */
     protected function prepareVars()
     {
+        $this->previewMode = true;
+
+        if ($this->previewMode) {
+            $this->useCaption = false;
+        }
+
         $this->vars['fileList'] = $fileList = $this->getFileList();
         $this->vars['singleFile'] = $fileList->first();
         $this->vars['displayMode'] = $this->getDisplayMode();
@@ -335,7 +342,7 @@ class FileUpload extends FormWidgetBase
      */
     protected function checkUploadPostback()
     {
-        if (!($uniqueId = post('X_OCTOBER_FILEUPLOAD')) || $uniqueId != $this->getId()) {
+        if (!($uniqueId = Request::header('X-OCTOBER-FILEUPLOAD')) || $uniqueId != $this->getId()) {
             return;
         }
 

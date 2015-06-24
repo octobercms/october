@@ -41,6 +41,14 @@
             this.options.isMulti = this.$el.hasClass('is-multi')
         }
 
+        if (this.options.isPreview === null) {
+            this.options.isPreview = this.$el.hasClass('is-preview')
+        }
+
+        if (this.options.isSortable === null) {
+            this.options.isSortable = this.$el.hasClass('is-sortable')
+        }
+
         this.$el.one('dispose-control', this.proxy(this.dispose))
         this.$uploadButton = $('.upload-button', this.$el)
         this.$filesContainer = $('.upload-files-container', this.$el)
@@ -48,12 +56,19 @@
 
         this.$el.on('click', '.upload-object.is-success', this.proxy(this.onClickSuccessObject))
         this.$el.on('click', '.upload-object.is-error', this.proxy(this.onClickErrorObject))
+
+        // Stop here for preview mode
+        if (this.options.isPreview)
+            return
+
         this.$el.on('click', '.upload-remove-button', this.proxy(this.onRemoveObject))
 
         this.bindUploader()
-        if (this.$el.hasClass('is-sortable')) {
+
+        if (this.options.isSortable) {
             this.bindSortable()
         }
+
     }
 
     FileUpload.prototype.dispose = function() {
@@ -87,7 +102,8 @@
             paramName: this.options.paramName,
             clickable: this.$uploadButton.get(0),
             previewsContainer: this.$filesContainer.get(0),
-            maxFiles: !this.options.isMulti ? 1 : null
+            maxFiles: !this.options.isMulti ? 1 : null,
+            headers: {}
         }
 
         if (this.options.fileTypes) {
@@ -99,7 +115,15 @@
         }
 
         if (this.options.uniqueId) {
-            this.options.extraData = $.extend({}, this.options.extraData, { X_OCTOBER_FILEUPLOAD: this.options.uniqueId })
+            this.uploaderOptions.headers['X-OCTOBER-FILEUPLOAD'] = this.options.uniqueId
+        }
+
+        /*
+         * Add CSRF token to headers
+         */
+        var token = $('meta[name="csrf-token"]').attr('content')
+        if (token) {
+            this.uploaderOptions.headers['X-CSRF-TOKEN'] = token
         }
 
         this.dropzone = new Dropzone(this.$el.get(0), this.uploaderOptions)
@@ -300,7 +324,9 @@
         fileTypes: null,
         template: null,
         errorTemplate: null,
-        isMulti: null
+        isMulti: null,
+        isPreview: null,
+        isSortable: null
     }
 
     // FILEUPLOAD PLUGIN DEFINITION

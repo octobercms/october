@@ -172,6 +172,11 @@
 .field-fileupload.is-sortable .upload-object.dragged .uploader-toolbar {
   display: none;
 }
+.field-fileupload.is-preview .upload-button,
+.field-fileupload.is-preview .upload-remove-button,
+.field-fileupload.is-preview .meta a.drag-handle {
+  display: none !important;
+}
 @media (max-width: 1024px) {
   .field-fileupload .upload-object.is-success h4 a,
   .field-fileupload .upload-object.is-success .meta .upload-remove-button,

@@ -161,6 +161,7 @@ return [
         'or'                       => 'o',
         'confirm_tab_close'        => '¿Realmente desea cerrar la pestaña? Se perderán los cambios no guardados.',
         'behavior_not_ready'       => 'El comportamiento del formulario no se ha inicializado, compruebe que ha llamado initForm() en el controlador.',
+        'preview_no_files_message' => 'Los archivos no se han subido',
         'select'                   => 'Seleccionar',
         'select_all'               => 'todos',
         'select_none'              => 'ninguno',

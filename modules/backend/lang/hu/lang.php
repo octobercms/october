@@ -180,6 +180,7 @@ return [
         'or' => 'vagy',
         'confirm_tab_close' => 'Valóban be akarja zárni a fület? El fognak veszni a nem mentett módosítások.',
         'behavior_not_ready' => 'Nem történt meg az űrlapviselkedés inicializálása, ellenőrizze, hogy meghívta-e az initForm() függvényt a vezérlőben.',
+        'preview_no_files_message' => 'A fájlok nincsenek feltöltve',
         'select' => 'Válasszon',
         'select_all' => 'mind',
         'select_none' => 'egyik sem',

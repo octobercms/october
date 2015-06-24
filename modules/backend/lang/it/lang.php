@@ -145,6 +145,7 @@ return [
         'or' => 'o',
         'confirm_tab_close' => 'Vuoi davvero chiudere il tab? Le modifiche non salvate andranno perse.',
         'behavior_not_ready' => 'Il form non è stato inizializzato, verifica di aver chiamato il metodo initForm() nel controller.',
+        'preview_no_files_message' => 'I file non sono stati caricati',
         'select' => 'Seleziona',
         'select_all' => 'tutti',
         'select_none' => 'nessuno',

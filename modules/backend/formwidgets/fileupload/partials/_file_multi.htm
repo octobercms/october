@@ -1,6 +1,6 @@
 <div
     id="<?= $this->getId() ?>"
-    class="field-fileupload style-file-multi is-sortable is-multi <?= count($fileList) ? 'is-populated' : '' ?>"
+    class="field-fileupload style-file-multi is-sortable is-multi <?= count($fileList) ? 'is-populated' : '' ?> <?= $this->previewMode ? 'is-preview' : '' ?>"
     data-control="fileupload"
     data-template="#<?= $this->getId('template') ?>"
     data-error-template="#<?= $this->getId('errorTemplate') ?>"

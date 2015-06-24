@@ -180,6 +180,7 @@ return [
         'or' => 'vai',
         'confirm_tab_close' => 'Vai tiešām vēlaties aizvērt šo cilni? Nesaglabātās izmaiņas būs zudušas.',
         'behavior_not_ready' => 'Forma nav tikusi inicializēta, pārbaudiet vai izsaucāt initForm() savā kontrolierī.',
+        'preview_no_files_message' => 'Faili nav augšupielādēti',
         'select' => 'Izvēlēties',
         'select_all' => 'visus',
         'select_none' => 'nevienu',

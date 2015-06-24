@@ -176,6 +176,7 @@ return [
         'or' => 'veya',
         'confirm_tab_close' => 'Bu sekmeyi kapatmak istediğinize emin misiniz? Kaydedilmemiş değişiklikleri kaybedeceksiniz.',
         'behavior_not_ready' => 'Form oluşturulamadı, controller da initForm() metodunu kontrol edin.',
+        'preview_no_files_message' => 'Dosyalar yüklenmedi',
         'select' => 'Seç',
         'select_all' => 'tümü',
         'select_none' => 'hiçbiri',

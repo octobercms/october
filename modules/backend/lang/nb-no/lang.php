@@ -181,6 +181,7 @@ return [
         'or' => 'eller',
         'confirm_tab_close' => 'Vil du virkelig lukke fanen? Endringer som ikke er lagret vil gå tapt.',
         'behavior_not_ready' => 'Skjemaegenskap har ikke blitt initialisert, sjekk at du har kalt initForm() i kontrolleren.',
+        'preview_no_files_message' => 'Filer er ikke opplastet',
         'select' => 'Velg',
         'select_all' => 'alle',
         'select_none' => 'ingen',

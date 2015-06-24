@@ -156,6 +156,7 @@ return [
         'or' => 'or',
         'confirm_tab_close' => 'Wollen Sie den Tab wirklich schließen? Ungespeicherte Änderungen gehen verloren.',
         'behavior_not_ready' => 'Formularverhalten kann nicht initialisiert werden, überprüfen Sie den Aufruf von makeLists() in Ihrem Controller.',
+        'preview_no_files_message' => 'Keine Dateien wurden hochgeladen',
         'select' => 'Auswählen',
         'select_all' => 'Alle',
         'select_none' => 'Keine',
