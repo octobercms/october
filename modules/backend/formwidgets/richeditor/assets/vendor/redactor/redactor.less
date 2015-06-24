@@ -454,6 +454,10 @@ body .redactor-box-fullscreen {
 			color: #fff !important;
 			text-decoration: none;
 		}
+		&.selected {
+			background-color: #000;
+			color: #fff;
+		}
 	}
 }
 
@@ -603,6 +607,7 @@ body .redactor-box-fullscreen {
 	overflow-y: auto;
 }
 #redactor-modal {
+	outline:0;
 	position: relative;
 	margin: auto;
 	margin-bottom: 20px;
@@ -945,7 +950,6 @@ body .redactor-box-fullscreen {
 	  background-color: #d8d7d7;
 	}
 	pre {
-	  overflow: auto;
 	  padding: 1em;
 	  border: 1px solid #ddd;
 	  border-radius: 3px;
