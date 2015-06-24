@@ -137,10 +137,7 @@ class CodeEditor extends FormWidgetBase
     public function loadAssets()
     {
         $this->addCss('css/codeeditor.css', 'core');
-        $this->addJs('vendor/emmet/emmet.js', 'core');
-        $this->addJs('vendor/ace/ace.js', 'core');
-        $this->addJs('vendor/ace/ext-emmet.js', 'core');
-        $this->addJs('js/codeeditor.js', 'core');
+        $this->addJs('js/build-min.js', 'core');
     }
 
     /**
