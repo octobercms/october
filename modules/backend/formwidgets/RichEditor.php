@@ -60,6 +60,18 @@ class RichEditor extends FormWidgetBase
         $this->vars['value'] = $this->getLoadValue();
     }
 
+    public function onGetPageLinks()
+    {
+        $links = [
+            ['name' => 'Select a page...', 'url' => false],
+            ['name' => 'Some url', 'url' => 'some/url'],
+            ['name' => 'Other thing', 'url' => 'else/thing'],
+            ['name' => 'More', 'url' => 'more/thing']
+        ];
+
+        return ['links' => $links];
+    }
+
     /**
      * {@inheritDoc}
      */

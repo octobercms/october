@@ -37,6 +37,8 @@
     RichEditor.prototype.constructor = RichEditor
 
     RichEditor.DEFAULTS = {
+        dataLocker: null,
+        linksHandler: null,
         stylesheet: null,
         fullpage: false
     }
@@ -76,6 +78,7 @@
             keydownCallback: this.proxy(this.onKeydown),
             enterCallback: this.proxy(this.onEnter),
             changeCallback: this.proxy(this.onChange),
+            pageLinksHandler: this.options.linksHandler,
             initCallback: function() { self.build(this) }
         }
 
@@ -83,7 +86,7 @@
             redactorOptions.fullpage = true
         }
 
-        redactorOptions.plugins = ['fullscreen', 'figure', 'table', 'mediamanager']
+        redactorOptions.plugins = ['fullscreen', 'figure', 'table', 'pagelinks', 'mediamanager']
         redactorOptions.buttons = ['html', 'formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
 
         this.$textarea.redactor(redactorOptions)
@@ -241,7 +244,8 @@
                 // If the paragraph is empty, remove it.
                 if ($.trim($paragraph.text()).length == 0)
                     $paragraph.remove()
-            } else {
+            }
+            else {
                 // If block is inserted into another UI block, insert it after the existing block.
                 var $closestBlock = $(current).closest('[data-ui-block]')
                 if ($closestBlock.length > 0) {
@@ -361,11 +365,11 @@
     }
 
     RichEditor.prototype.onFocus = function() {
-        this.$el.addClass('editor-focus') 
+        this.$el.addClass('editor-focus')
     }
 
     RichEditor.prototype.onBlur = function() {
-        this.$el.removeClass('editor-focus') 
+        this.$el.removeClass('editor-focus')
     }
 
     RichEditor.prototype.onKeydown = function(ev) {
