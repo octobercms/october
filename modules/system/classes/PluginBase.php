@@ -96,11 +96,11 @@ abstract class PluginBase extends ServiceProviderBase
      * The widgets must be returned in the following format:
      * [
      *  'className1'=>[
-     *          'name'    => 'My widget 1',
+     *          'label'    => 'My widget 1',
      *          'context' => ['context-1', 'context-2'],
      *      ], 
      *  'className2' => [
-     *          'name'    => 'My widget 2',
+     *          'label'    => 'My widget 2',
      *          'context' => 'context-1'
      *      ]
      * ]
