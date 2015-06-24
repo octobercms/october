@@ -112,8 +112,6 @@ class FileUpload extends FormWidgetBase
      */
     protected function prepareVars()
     {
-        $this->previewMode = true;
-
         if ($this->previewMode) {
             $this->useCaption = false;
         }

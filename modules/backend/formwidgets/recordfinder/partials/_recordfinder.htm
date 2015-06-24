@@ -14,15 +14,18 @@
             <span class="text-muted"><?= $prompt ?></span>
         <?php endif ?>
     </span>
-    <button
-        class="btn btn-default"
-        data-control="popup"
-        data-size="huge"
-        data-handler="<?= $this->getEventHandler('onFindRecord') ?>"
-        data-request-data="recordfinder_flag: 1"
-        type="button">
-        <i class="icon-th-list"></i>
-    </button>
+
+    <?php if (!$this->previewMode): ?>
+        <button
+            class="btn btn-default"
+            data-control="popup"
+            data-size="huge"
+            data-handler="<?= $this->getEventHandler('onFindRecord') ?>"
+            data-request-data="recordfinder_flag: 1"
+            type="button">
+            <i class="icon-th-list"></i>
+        </button>
+    <?php endif ?>
 
     <input
         type="hidden"

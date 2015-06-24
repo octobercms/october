@@ -186,6 +186,7 @@ return [
         'confirm_tab_close' => 'Do you really want to close the tab? Unsaved changes will be lost.',
         'behavior_not_ready' => 'Form behavior has not been initialized, check that you have called initForm() in your controller.',
         'preview_no_files_message' => 'There are no files uploaded.',
+        'preview_no_record_message' => 'There is no record selected.',
         'select' => 'Select',
         'select_all' => 'all',
         'select_none' => 'none',
