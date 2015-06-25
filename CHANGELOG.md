@@ -1,6 +1,7 @@
 * **Build 27x** (2015-06-xx)
   - Protected images and their thumbnails are now supported in the back-end.
   - Editing CMS templates now support form fields that use AJAX.
+  - When inserting a new link the Rich Editor now shows a drop-down list with available pages.
 
 * **Build 271** (2015-06-20)
   - File Upload form widget can now specify `mimeTypes` to define MIME types that are accepted by the uploader, either as file extension or fully qualified name.
