@@ -1939,7 +1939,7 @@ else
 {return{init:function()
 {if(!this.opts.pageLinksHandler)return
 this.modal.addCallback('link',$.proxy(this.pagelinks.load,this))},load:function()
-{return;var $select=$('<select id="redactor-page-links" />')
+{var $select=$('<select id="redactor-page-links" />')
 $('#redactor-modal-link-insert').prepend($select)
 this.pagelinks.storage={};this.$editor.request(this.opts.pageLinksHandler,{success:$.proxy(function(data){$.each(data.links,$.proxy(function(key,val){this.pagelinks.storage[key]=val
 $select.append($('<option>').val(key).html(val.name))},this))
@@ -1950,7 +1950,7 @@ if(key!==0){name=this.pagelinks.storage[key].name
 url=this.pagelinks.storage[key].url}
 $('#redactor-link-url').val(url)
 var $el=$('#redactor-link-url-text')
-if($el.val()==='')$el.val(name)}};};})(jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+if($el.val()===''){$el.val($.trim($('<span />').html(name).text()))}}};};})(jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var RichEditor=function(element,options){this.options=options
 this.$el=$(element)
 this.$textarea=this.$el.find('>textarea:first')

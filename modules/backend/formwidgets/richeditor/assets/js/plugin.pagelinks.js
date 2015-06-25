@@ -13,8 +13,6 @@ if (!RedactorPlugins) var RedactorPlugins = {};
             },
             load: function()
             {
-                return; // Disabled for now
-
                 var $select = $('<select id="redactor-page-links" />')
                 $('#redactor-modal-link-insert').prepend($select)
 
@@ -45,7 +43,9 @@ if (!RedactorPlugins) var RedactorPlugins = {};
                 $('#redactor-link-url').val(url)
 
                 var $el = $('#redactor-link-url-text')
-                if ($el.val() === '') $el.val(name)
+                if ($el.val() === '') {
+                    $el.val($.trim($('<span />').html(name).text()))
+                }
             }
         };
     };

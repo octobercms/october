@@ -1,9 +1,9 @@
 <?php namespace Cms\Classes;
 
-use Cms\Classes\Theme;
-use ApplicationException;
-use Cms\Classes\Layout;
 use Lang;
+use Cms\Classes\Theme;
+use Cms\Classes\Layout;
+use ApplicationException;
 
 /**
  * The CMS page class.
@@ -202,6 +202,29 @@ class Page extends CmsCompoundObject
             $result['url'] = $pageUrl;
             $result['isActive'] = $pageUrl == $url;
             $result['mtime'] = $page ? $page->mtime : null;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Handler for the backend.richeditor.getTypeInfo event.
+     * Returns a menu item type information. The type information is returned as array
+     * @param string $type Specifies the page link type
+     * @return array
+     */
+    public static function getRichEditorTypeInfo($type)
+    {
+        $result = [];
+
+        if ($type == 'cms-page') {
+            $theme = Theme::getActiveTheme();
+            $pages = self::listInTheme($theme, true);
+
+            foreach ($pages as $page) {
+                $url = self::url($page->getBaseFileName());
+                $result[$url] = $page->title;
+            }
         }
 
         return $result;
