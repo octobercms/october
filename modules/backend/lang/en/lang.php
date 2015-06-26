@@ -144,7 +144,12 @@ return [
         'help' => 'Add a title and description for this attachment.',
         'title_label' => 'Title',
         'description_label' => 'Description',
-        'default_prompt' => 'Click the %s or drag a file here to upload'
+        'default_prompt' => 'Click the %s or drag a file here to upload',
+        'attachment_url' => 'Attachment URL',
+        'upload_file' => 'Upload file',
+        'upload_error' => 'Upload error',
+        'remove_confirm' => 'Are you sure?',
+        'remove_file' => 'Remove file'
     ],
     'form' => [
         'create_title' => 'New :name',
