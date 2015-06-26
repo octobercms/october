@@ -18,6 +18,9 @@ return [
             'label' => 'Access denied',
             'help' => "You don't have the required permissions to view this page.",
             'cms_link' => 'Return to the back-end'
+        ],
+        'invalid_token' => [
+            'label' => 'Invalid security token'
         ]
     ],
     'partial' => [
@@ -107,7 +110,7 @@ return [
             'list_title' => 'Manage Groups',
             'new' => 'New Administrator Group',
             'delete_confirm' => 'Do you really want to delete this administrator group?',
-            'return' => 'Return to the group list',
+            'return' => 'Return to the group list'
         ],
         'preferences' => [
             'not_authenticated' => 'There is no an authenticated user to load or save preferences for.'
@@ -134,13 +137,14 @@ return [
         'delete_selected' => 'Delete selected',
         'delete_selected_empty' => 'There are no selected records to delete.',
         'delete_selected_confirm' => 'Delete the selected records?',
-        'delete_selected_success' => 'Successfully deleted the selected records.',
+        'delete_selected_success' => 'Successfully deleted the selected records.'
     ],
     'fileupload' => [
         'attachment' => 'Attachment',
         'help' => 'Add a title and description for this attachment.',
         'title_label' => 'Title',
-        'description_label' => 'Description'
+        'description_label' => 'Description',
+        'default_prompt' => 'Click the %s or drag a file here to upload'
     ],
     'form' => [
         'create_title' => 'New :name',
@@ -181,7 +185,8 @@ return [
         'or' => 'or',
         'confirm_tab_close' => 'Do you really want to close the tab? Unsaved changes will be lost.',
         'behavior_not_ready' => 'Form behavior has not been initialized, check that you have called initForm() in your controller.',
-        'preview_no_files_message' => 'Files are not uploaded',
+        'preview_no_files_message' => 'There are no files uploaded.',
+        'preview_no_record_message' => 'There is no record selected.',
         'select' => 'Select',
         'select_all' => 'all',
         'select_none' => 'none',
@@ -194,35 +199,35 @@ return [
     'relation' => [
         'missing_config' => "Relation behavior does not have any configuration for ':config'.",
         'missing_definition' => "Relation behavior does not contain a definition for ':field'.",
-        'missing_model' => "Relation behavior used in :class does not have a model defined.",
-        'invalid_action_single' => "This action cannot be performed on a singular relationship.",
-        'invalid_action_multi' => "This action cannot be performed on a multiple relationship.",
-        'help' => "Click on an item to add",
-        'related_data' => "Related :name data",
-        'add' => "Add",
-        'add_selected' => "Add selected",
-        'add_a_new' => "Add a new :name",
-        'link_selected' => "Link selected",
-        'link_a_new' => "Link a new :name",
-        'cancel' => "Cancel",
-        'close' => "Close",
-        'add_name' => "Add :name",
-        'create' => "Create",
-        'create_name' => "Create :name",
-        'update' => "Update",
-        'update_name' => "Update :name",
-        'preview' => "Preview",
-        'preview_name' => "Preview :name",
-        'remove' => "Remove",
-        'remove_name' => "Remove :name",
-        'delete' => "Delete",
-        'delete_name' => "Delete :name",
-        'delete_confirm' => "Are you sure?",
-        'link' => "Link",
-        'link_name' => "Link :name",
-        'unlink' => "Unlink",
-        'unlink_name' => "Unlink :name",
-        'unlink_confirm' => "Are you sure?",
+        'missing_model' => 'Relation behavior used in :class does not have a model defined.',
+        'invalid_action_single' => 'This action cannot be performed on a singular relationship.',
+        'invalid_action_multi' => 'This action cannot be performed on a multiple relationship.',
+        'help' => 'Click on an item to add',
+        'related_data' => 'Related :name data',
+        'add' => 'Add',
+        'add_selected' => 'Add selected',
+        'add_a_new' => 'Add a new :name',
+        'link_selected' => 'Link selected',
+        'link_a_new' => 'Link a new :name',
+        'cancel' => 'Cancel',
+        'close' => 'Close',
+        'add_name' => 'Add :name',
+        'create' => 'Create',
+        'create_name' => 'Create :name',
+        'update' => 'Update',
+        'update_name' => 'Update :name',
+        'preview' => 'Preview',
+        'preview_name' => 'Preview :name',
+        'remove' => 'Remove',
+        'remove_name' => 'Remove :name',
+        'delete' => 'Delete',
+        'delete_name' => 'Delete :name',
+        'delete_confirm' => 'Are you sure?',
+        'link' => 'Link',
+        'link_name' => 'Link :name',
+        'unlink' => 'Unlink',
+        'unlink_name' => 'Unlink :name',
+        'unlink_confirm' => 'Are you sure?'
     ],
     'model' => [
         'name' => 'Model',
@@ -300,6 +305,6 @@ return [
         'email' => 'Email'
     ],
     'filter' => [
-        'all' => 'all',
-    ],
+        'all' => 'all'
+    ]
 ];

@@ -1,6 +1,20 @@
+* **Build 27x** (2015-06-xx)
+  - Protected images and their thumbnails are now supported in the back-end.
+  - Editing CMS templates now support form fields that use AJAX.
+  - When inserting a new link the Rich Editor now shows a drop-down list with available pages.
+
+* **Build 271** (2015-06-20)
+  - File Upload form widget can now specify `mimeTypes` to define MIME types that are accepted by the uploader, either as file extension or fully qualified name.
+
+* **Build 270** (2015-06-18)
+  - Introduced the October Storm client-side library.
+  - Introduced new *MediaFinder* form widget.
+  - Improved the back-end administrator permissions and `RelationController` UI.
+  - The page setting `hidden` has been renamed to `is_hidden`, this setting may need to be reapplied for some themes.
+  - `FileUpload` form widget has been rebuilt from scratch, it now uses an interface similar to the Media Manager (see Backend > Forms docs).
+
 * **Build 260** (2015-05-16)
   - The `|page` filter now supports passing an empty string to generate a link to the current page.
-  - Component variables set with `$this->page` no longer leech in to other component partials.
 
 * **Build 258** (2015-05-09)
   - The hotkey for full screen mode is now Cmd+Shift+F or Ctrl+Shift+F in Windows.
@@ -298,7 +312,6 @@
   - Fixes an issue where paid plugins could not be downloaded.
 
 * **Build 84** (2014-05-20)
-  - A temporary directory can now be specified in config (see config cms.tempDir).
   - Default AJAX error message can now be overridden (see `ajaxErrorMessage` jQuery event).
   - SQLite support has been improved using new `October\Rain\Database\Dongle` class.
   - Included `doctrine/dbal` for supporting SQLite.

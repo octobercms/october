@@ -75,6 +75,15 @@ class ThemeData extends Model
     public function afterFetch()
     {
         /*
+         * Repeater form fields store arrays and must be jsonable.
+         */
+        foreach ($this->getFormFields() as $id => $field) {
+            if (isset($field['type']) && $field['type'] == 'repeater') {
+                $this->jsonable[] = $id;
+            }
+        }
+
+        /*
          * Fill this model with the jsonable attributes kept in 'data'.
          */
         $this->setRawAttributes((array) $this->getAttributes() + (array) $this->data, true);

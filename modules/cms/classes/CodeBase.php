@@ -113,14 +113,24 @@ class CodeBase extends Extendable implements ArrayAccess
     }
 
     /**
-     * This is used as a helper for accessing controller variables/components
-     * easier in the page code, eg. $this->foo instead of $this['foo']
+     * This object is referenced as $this->page in Cms\Classes\ComponentBase,
+     * so to avoid $this->page->page this method will proxy there. This is also
+     * used as a helper for accessing controller variables/components easier
+     * in the page code, eg. $this->foo instead of $this['foo']
      * @param  string  $name
      * @return void
      */
     public function __get($name)
     {
-        return $this[$name];
+        if (($value = $this->page->{$name}) !== null) {
+            return $value;
+        }
+
+        if (array_key_exists($name, $this->controller->vars)) {
+            return $this[$name];
+        }
+
+        return null;
     }
 
     /**

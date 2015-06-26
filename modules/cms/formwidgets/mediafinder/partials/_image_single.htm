@@ -1,0 +1,35 @@
+<div
+    id="<?= $this->getId() ?>"
+    class="field-mediafinder style-image-single is-image <?= $value ? 'is-populated' : '' ?>"
+    data-control="mediafinder"
+>
+
+    <!-- Find Button -->
+    <a href="javascript:;" class="find-button">
+        <table><tr><td class="oc-icon-image"></td></tr></table>
+    </a>
+
+    <!-- Existing value -->
+    <div class="find-object">
+        <div class="icon-container">
+            <img data-find-image src="<?= $imageUrl ?>" alt="" />
+        </div>
+        <div class="info">
+            <h4 class="filename">
+                <span data-find-file-name><?= substr($value, 1) ?></span>
+                <a href="javascript:;" class="find-remove-button">
+                    <i class="icon-times"></i>
+                </a>
+            </h4>
+        </div>
+    </div>
+
+    <!-- Data locker -->
+    <input
+        type="hidden"
+        name="<?= $field->getName() ?>"
+        id="<?= $field->getId() ?>"
+        value="<?= e($value) ?>"
+        data-find-value
+        />
+</div>

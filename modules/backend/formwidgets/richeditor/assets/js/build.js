@@ -11,6 +11,7 @@
 =require plugin.fullscreen.js
 =require plugin.figure.js
 =require plugin.table.js
+=require plugin.pagelinks.js
 =require richeditor.js
 
 */

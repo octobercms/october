@@ -28,8 +28,7 @@ class EditorPreferences extends Controller
         parent::__construct();
 
         $this->addCss('/modules/backend/formwidgets/codeeditor/assets/css/codeeditor.css', 'core');
-        $this->addJs('/modules/backend/formwidgets/codeeditor/assets/vendor/ace/ace.js', 'core');
-        $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/codeeditor.js', 'core');
+        $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
         $this->addJs('/modules/backend/assets/js/editorpreferences/editorpreferences.js', 'core');
 
         BackendMenu::setContext('October.System', 'system', 'mysettings');

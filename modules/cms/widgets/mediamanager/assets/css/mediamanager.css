@@ -106,7 +106,7 @@ div[data-control="media-manager"] .media-list li .image-placeholder[data-loading
   display: none;
 }
 div[data-control="media-manager"] .media-list li .image-placeholder[data-loading]:after {
-  background-image: url(../../../../../../modules/backend/assets/images/loading-indicator-transparent.svg);
+  background-image: url(../../../../../../modules/system/assets/ui/images/loader-transparent.svg);
   background-position: 50% 50%;
   content: ' ';
   -webkit-animation: spin 1s linear infinite;
@@ -192,7 +192,7 @@ div[data-control="media-manager"] .media-list.tiles li .image-placeholder {
   height: 165px;
 }
 div[data-control="media-manager"] .media-list.tiles li .image-placeholder[data-loading]:after {
-  background-image: url(../../../../../../modules/backend/assets/images/loading-indicator-transparent.svg);
+  background-image: url(../../../../../../modules/system/assets/ui/images/loader-transparent.svg);
   background-position: 50% 50%;
   content: ' ';
   -webkit-animation: spin 1s linear infinite;
@@ -258,7 +258,7 @@ div[data-control="media-manager"] .sidebar-image-placeholder[data-loading] {
   background: #ecf0f1;
 }
 div[data-control="media-manager"] .sidebar-image-placeholder[data-loading]:after {
-  background-image: url(../../../../../../modules/backend/assets/images/loading-indicator-transparent.svg);
+  background-image: url(../../../../../../modules/system/assets/ui/images/loader-transparent.svg);
   background-position: 50% 50%;
   content: ' ';
   -webkit-animation: spin 1s linear infinite;

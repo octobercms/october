@@ -41,13 +41,22 @@
         if ($el.length == 0) return
 
         // Template for search results
-        var template = Mustache.compile([
+        var template = [
             '<div class="product-details">',
             '<div class="product-image"><img src="{{image}}" alt=""></div>',
             '<div class="product-name ">{{name}}</div>',
             '<div class="product-description text-overflow">{{description}}</div>',
             '</div>'
-        ].join(''))
+        ].join('')
+
+        // This operation parses the template and caches
+        // the resulting token tree. All future calls to
+        // mustache.render can now skip the parsing step.
+        Mustache.parse(template)
+
+        var mTemplate = function (view, partials) {
+            return Mustache.render(template, view, partials)
+        }
 
         // Source for product search
         var engine = new Bloodhound({
@@ -86,7 +95,7 @@
                 source: engine.ttAdapter(),
                 minLength: 3,
                 templates: {
-                    suggestion: template
+                    suggestion: mTemplate
                 }
             })
             .on('typeahead:opened', function(){

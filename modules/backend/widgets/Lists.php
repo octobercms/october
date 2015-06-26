@@ -338,7 +338,7 @@ class Lists extends WidgetBase
                 else {
                     $columnName = isset($column->sqlSelect)
                         ? DbDongle::raw($this->parseTableName($column->sqlSelect, $primaryTable))
-                        : $primaryTable . '.' . $column->columnName;
+                        : Db::getTablePrefix() . $primaryTable . '.' . $column->columnName;
 
                     $primarySearchable[] = $columnName;
                 }

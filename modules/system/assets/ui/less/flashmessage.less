@@ -1,0 +1,78 @@
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "icon.close.less";
+
+//
+// Flash Messages
+// --------------------------------------------------
+
+@color-flash-success-bg:                     #8da85e;
+@color-flash-error-bg:                       #cc3300;
+@color-flash-warning-bg:                     #f0ad4e;
+@color-flash-info-bg:                        #5fb6f5;
+@color-flash-text:                           #ffffff;
+
+#layout-canvas {
+    .flash-message{ display: none; }
+}
+
+.flash-message {
+    position: fixed;
+    width: 500px;
+    left: 50%;
+    top: 13px;
+    margin-left: -250px;
+    color: @color-flash-text;
+    font-size: 13px;
+    padding: 10px 30px 10px 15px;
+    z-index: 10000;
+    .border-radius(@border-radius-base);
+
+    &.fade {
+        .opacity(0);
+        .transition(~'all 0.5s, width 0s');
+        .transform(~'scale(0.9)');
+    }
+
+    &.fade.in {
+        .opacity(1);
+        .transform( ~'scale(1)');
+    }
+
+    &.success { background: @color-flash-success-bg; }
+    &.error { background: @color-flash-error-bg; }
+    &.warning { background: @color-flash-warning-bg; }
+    &.info { background: @color-flash-info-bg; }
+
+    button {
+        float: none;
+        position: absolute;
+        right: 10px;
+        top: 8px;
+        color: white;
+
+        &:hover {
+            color: white
+        }
+    }
+
+    &.static {
+        position: static!important;
+        width: auto!important;
+        display: block!important;
+        margin-left: 0!important;
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .flash-message {
+        left: 10px;
+        right: 10px;
+        top: 10px;
+        margin-left: 0;
+        width: auto;
+    }
+}

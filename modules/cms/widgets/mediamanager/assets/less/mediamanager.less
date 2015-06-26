@@ -37,7 +37,7 @@ div[data-control="media-manager"] {
     }
 
     .loading-indicator-pseudo-absolute(@size) {
-        background-image: url(../../../../../../modules/backend/assets/images/loading-indicator-transparent.svg);
+        background-image: url('../../../../../../modules/system/assets/ui/images/loader-transparent.svg');
         background-position: 50% 50%;
         content: ' ';
         .animation(spin 1s linear infinite);
@@ -133,7 +133,7 @@ div[data-control="media-manager"] {
                 color: #2b3e50;
                 white-space: nowrap;
                 overflow: hidden;
-                text-overflow: ellipsis; 
+                text-overflow: ellipsis;
                 line-height: 150%;
                 margin: 15px 0 5px 0;
                 padding-right: 0;
@@ -194,7 +194,7 @@ div[data-control="media-manager"] {
             li {
                 height: 75px;
                 width: 260px;
-                border: 1px solid #ecf0f1; 
+                border: 1px solid #ecf0f1;
                 background: #f6f8f9;
             }
 
@@ -350,11 +350,11 @@ div[data-control="media-manager"] {
 
         li.no-data {
             padding-top: 20px;
-            display: block!important;
-            width: 100%!important;
-            border: none!important;
-            background: transparent!important;
-            cursor: default!important;
+            display: block !important;
+            width: 100% !important;
+            border: none !important;
+            background: transparent !important;
+            cursor: default !important;
         }
     }
 
@@ -380,7 +380,7 @@ div[data-control="media-manager"] {
 
         div.no-wrap-text {
             overflow: hidden;
-            text-overflow: ellipsis; 
+            text-overflow: ellipsis;
         }
 
         div.item-title {
@@ -396,7 +396,7 @@ div[data-control="media-manager"] {
             }
         }
 
-        tr:hover div.item-title{
+        tr:hover div.item-title {
             padding-right: 25px;
 
             a {
@@ -421,7 +421,7 @@ div[data-control="media-manager"] {
     }
 
     .upload-progress {
-        background: @color-body-bg;
+        background: @body-bg;
         padding: 0 20px;
 
         h5 {
@@ -569,7 +569,7 @@ div[data-control="media-manager"] {
                 }
             }
         }
-        
+
         .ruler[data-control=v-ruler] {
             .transform(~'rotateZ(90deg)');
             .transform-origin(~'left top');
@@ -593,7 +593,7 @@ body:not(.no-select) {
             }
 
             li:hover h4 {
-                padding-right: 20px!important;
+                padding-right: 20px !important;
             }
         }
 
@@ -603,7 +603,7 @@ body:not(.no-select) {
             }
 
             li:hover h4 {
-                padding-right: 35px!important;
+                padding-right: 35px !important;
             }
         }
 

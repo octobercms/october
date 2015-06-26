@@ -1,4 +1,5 @@
 <IfModule mod_rewrite.c>
+
     <IfModule mod_negotiation.c>
         Options -MultiViews
     </IfModule>
@@ -33,12 +34,14 @@
     RewriteCond %{REQUEST_URI} !\.ico
     RewriteCond %{REQUEST_URI} !\.jpg
     RewriteCond %{REQUEST_URI} !\.jpeg
+    RewriteCond %{REQUEST_URI} !\.bmp
+    RewriteCond %{REQUEST_URI} !\.png
     RewriteCond %{REQUEST_URI} !\.gif
+    RewriteCond %{REQUEST_URI} !\.svg
     RewriteCond %{REQUEST_URI} !\.css
     RewriteCond %{REQUEST_URI} !\.less
     RewriteCond %{REQUEST_URI} !\.scss
     RewriteCond %{REQUEST_URI} !\.pdf
-    RewriteCond %{REQUEST_URI} !\.png
     RewriteCond %{REQUEST_URI} !\.swf
     RewriteCond %{REQUEST_URI} !\.txt
     RewriteCond %{REQUEST_URI} !\.xml
@@ -47,15 +50,17 @@
     RewriteCond %{REQUEST_URI} !\.woff
     RewriteCond %{REQUEST_URI} !\.woff2
     RewriteCond %{REQUEST_URI} !\.ttf
-    RewriteCond %{REQUEST_URI} !\.svg
+    RewriteCond %{REQUEST_URI} !\.flv
     RewriteCond %{REQUEST_URI} !\.wmv
     RewriteCond %{REQUEST_URI} !\.mp3
+    RewriteCond %{REQUEST_URI} !\.ogg
     RewriteCond %{REQUEST_URI} !\.wav
     RewriteCond %{REQUEST_URI} !\.avi
     RewriteCond %{REQUEST_URI} !\.mov
     RewriteCond %{REQUEST_URI} !\.mp4
+    RewriteCond %{REQUEST_URI} !\.mpeg
     RewriteCond %{REQUEST_URI} !\.webm
-    RewriteCond %{REQUEST_URI} !\.ogg
+    RewriteCond %{REQUEST_URI} !\.mkv
     RewriteCond %{REQUEST_URI} !docs/.*
     RewriteCond %{REQUEST_URI} !themes/.*
     RewriteRule ^ index.php [L,NC]

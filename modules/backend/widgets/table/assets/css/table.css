@@ -305,7 +305,7 @@
   outline: none;
 }
 html.cssanimations .control-table td[data-column-type=dropdown] [data-view-container].loading:after {
-  background-image: url(../../../../assets/images/loading-indicator-transparent.svg);
+  background-image: url('../../../../../../modules/system/assets/ui/images/loader-transparent.svg');
   background-size: 15px 15px;
   background-position: 50% 50%;
   position: absolute;

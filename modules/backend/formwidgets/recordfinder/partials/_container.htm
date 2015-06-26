@@ -1,3 +1,11 @@
-<div class="recordfinder-widget" id="<?= $this->getId('container') ?>">
-    <?= $this->makePartial('recordfinder') ?>
-</div>
+<?php if ($this->previewMode && !$value): ?>
+
+    <span class="form-control"><?= e(trans('backend::lang.form.preview_no_record_message')) ?></span>
+
+<?php else: ?>
+
+    <div class="recordfinder-widget" id="<?= $this->getId('container') ?>">
+        <?= $this->makePartial('recordfinder') ?>
+    </div>
+
+<?php endif ?>

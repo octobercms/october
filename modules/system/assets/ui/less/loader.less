@@ -1,0 +1,309 @@
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+
+//
+// Loading indicator
+// --------------------------------------------------
+
+@color-loading-indicator-text:               #999999;
+@color-stripe-loader:                        #0090c0;
+@loader-image-path:                          @image-path;
+
+.loading-indicator {
+    padding: 20px 20px 20px 60px;
+    color: @color-loading-indicator-text;
+    font-size: 14px;
+    font-weight: 500;
+    background: @body-bg;
+    text-align: left;
+    z-index: 100;
+
+    > span {
+        background: transparent url('@{loader-image-path}/loader.gif') no-repeat 0 50%;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        top: 50%;
+        margin-top: -20px;
+        left: 0;
+        display: block;
+    }
+}
+
+.loading-indicator-container {
+    position: relative;
+    min-height: 40px;
+
+    .loading-indicator {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        padding-top: 0;
+
+        > div {
+            position: absolute;
+            top: 50%;
+            margin-top: -0.65em;
+        }
+    }
+}
+
+html.cssanimations {
+    .loading-indicator > span {
+        background-image: url('@{loader-image-path}/loader-transparent.svg');
+        background-size: 35px 35px;
+        background-position: 50% 50%;
+        .animation(spin 1s linear infinite);
+    }
+
+    .loading-indicator.is-opaque,
+    .loading-indicator-container.is-opaque .loading-indicator {
+        > span {
+            background-image: url('@{loader-image-path}/loader.svg');
+        }
+    }
+}
+
+// Sizes
+
+.loading-indicator-container.size-small {
+    min-height: 20px;
+}
+
+.loading-indicator.size-small,
+.loading-indicator-container.size-small .loading-indicator {
+    padding: 16px 16px 16px 30px;
+    font-size: 11px;
+    > span {
+        height: 20px;
+        width: 20px;
+        margin-top: -10px;
+    }
+}
+
+html.cssanimations {
+    .loading-indicator.size-small,
+    .loading-indicator-container.size-small .loading-indicator {
+        > span {
+            background-size: 20px 20px;
+        }
+    }
+}
+
+// Centered
+
+.loading-indicator.indicator-center,
+.loading-indicator-container.indicator-center .loading-indicator {
+    padding: 20px;
+
+    > span {
+        left: 50%;
+        margin-left: -20px;
+        margin-top: -20px;
+    }
+
+    > div {
+        top: auto;
+        text-align: center;
+        position: relative;
+    }
+}
+
+
+// Form fields
+
+.loading-indicator-container.size-form-field .loading-indicator,
+.loading-indicator-container.size-input-text .loading-indicator {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+
+    > span {
+        padding: 0;
+        margin: 0;
+        left: auto;
+        right: 7px;
+        top: 6px;
+        width: 23px;
+        height: 23px;
+        background-size: 23px 23px;
+    }
+}
+
+.loading-indicator-container.size-form-field .loading-indicator > span {
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+}
+
+//
+// Cursor loading indicator
+// --------------------------------------------------
+
+html.cssanimations {
+    .cursor-loading-indicator {
+        background: transparent url('@{loader-image-path}/loader-transparent.svg') no-repeat 50% 50%;
+        .animation(spin 1s linear infinite);
+        background-size: 20px 20px;
+        position: fixed;
+        width: 20px;
+        height: 20px;
+
+        &.hide {
+            display: none;
+        }
+    }
+}
+
+//
+// Bar loading indicator
+//
+// Usage:
+//   <div class="progress bar-loading-indicator">
+//       <div class="progress-bar" role="progressbar"></div>
+//   </div>
+//
+// --------------------------------------------------
+
+.bar-loading-indicator {
+    .transition(opacity .4s linear);
+
+    .progress-bar {
+        .animation(infinite-loader 90s ease-in forwards);
+        .transition-duration(0s);
+    }
+
+    &.bar-loaded {
+        .opacity(0);
+        .transition-delay(.3s);
+
+        .progress-bar {
+            width: 100% !important;
+            .transition(width .3s linear);
+            .animation(none);
+        }
+    }
+}
+
+//
+// Stripe loading indicator
+// --------------------------------------------------
+
+@stripe-loader-height: 4px;
+.stripe-loading-indicator {
+
+    height: @stripe-loader-height;
+    background: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 2000;
+
+    .stripe, .stripe-loaded {
+        height: @stripe-loader-height;
+        display: block;
+        background: @color-stripe-loader;
+        position: absolute;
+        .box-shadow(~"inset 0 1px 1px -1px #FFF, inset 0 -1px 1px -1px #FFF");
+    }
+
+    .stripe {
+        width: 100%;
+        .animation(infinite-loader 60s linear);
+    }
+
+    .stripe-loaded {
+        width: 0;
+
+        // Opacity replaced with display. Leaving the animated indicator element
+        // in the rendering tree, even invisible, affects the performance.
+        // .opacity(0);
+        display: none;
+    }
+
+    &.loaded {
+        // .opacity(0);
+        display: none;
+
+        .transition(opacity .4s linear);
+        .transition-delay(.3s);
+        .stripe-loaded {
+            display: block;
+            // .opacity(1);
+            .transition(width .3s linear);
+            width: 100% !important;
+        }
+    }
+
+    &.hide {
+        display: none;
+    }
+}
+
+//
+// Infinite loading animation
+// --------------------------------------------------
+
+@startCount: 1;
+@startVal: 28%;
+@start: 0;
+.infinite-class (@index, @val, @count) when (@index = 0) {
+    @tmpSelector: ~"@{index}%";
+    @{tmpSelector} { width: 0%; }
+    .infinite-class(@index + 10, @val + (@val / (@count * 2)), @count + 1);
+}
+.infinite-class (@index, @val, @count) when (@index < 101) and (@index > 9) {
+    @tmpSelector: ~"@{index}%";
+    @{tmpSelector} { width: @val; }
+    .infinite-class(@index + 10, @val + (@val / @count), @count * 2);
+}
+
+@-moz-keyframes infinite-loader {
+    .infinite-class(@start, @startVal, @startCount);
+}
+@-webkit-keyframes infinite-loader {
+    .infinite-class(@start, @startVal, @startCount);
+}
+@-o-keyframes infinite-loader {
+    .infinite-class(@start, @startVal, @startCount);
+}
+@-ms-keyframes infinite-loader {
+    .infinite-class(@start, @startVal, @startCount);
+}
+@keyframes infinite-loader {
+    .infinite-class(@start, @startVal, @startCount);
+}
+
+//
+// Spin animation
+// --------------------------------------------------
+
+@-moz-keyframes spin {
+    0% { -moz-transform: rotate(0deg); }
+    100% { -moz-transform: rotate(359deg); }
+}
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(359deg); }
+}
+@-o-keyframes spin {
+    0% { -o-transform: rotate(0deg); }
+    100% { -o-transform: rotate(359deg); }
+}
+@-ms-keyframes spin {
+    0% { -ms-transform: rotate(0deg); }
+    100% { -ms-transform: rotate(359deg); }
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(359deg); }
+}
