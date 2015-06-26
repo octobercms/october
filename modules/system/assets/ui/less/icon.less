@@ -1,0 +1,71 @@
+//
+// Icon
+// --------------------------------------------------
+
+@import "icon.variables.less";
+@import "icon.mixins.less";
+@import "icon.icons.less";
+@import "icon.close.less";
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('@{icon-font-path}/fontawesome-webfont.eot?v=@{icon-font-version}');
+    src: url('@{icon-font-path}/fontawesome-webfont.eot?#iefix&v=@{icon-font-version}') format('embedded-opentype'),
+        url('@{icon-font-path}/fontawesome-webfont.woff?v=@{icon-font-version}') format('woff'),
+        url('@{icon-font-path}/fontawesome-webfont.ttf?v=@{icon-font-version}') format('truetype'),
+        url('@{icon-font-path}/fontawesome-webfont.svg#fontawesomeregular?v=@{icon-font-version}') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+//
+// Standard icons
+//
+
+[class^="icon-"],
+[class*=" icon-"] {
+    .icon-FontAutumn();
+    display: inline;
+    width: auto;
+    height: auto;
+    line-height: normal;
+    vertical-align: baseline;
+    background-image: none;
+    background-position: 0% 0%;
+    background-repeat: repeat;
+    margin-top: 0;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+    text-decoration: inherit;
+    display: inline-block;
+    speak: none;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+    &.pull-left {
+        margin-right: .3em;
+    }
+    &.pull-right {
+        margin-left: .3em;
+    }
+}
+
+//
+// Prefixed icons ("oc-")
+//
+
+[class^="oc-icon-"],
+[class*=" oc-icon-"] {
+    &:before {
+        display: inline-block;
+        margin-right: 8px;
+        .icon-FontAutumn();
+        vertical-align: baseline;
+    }
+    &.empty:before {
+        margin-right: 0;
+    }
+}

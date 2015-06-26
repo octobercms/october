@@ -3,7 +3,7 @@
 # ===================================
 
 tabs:
-    defaultTab: Properties
+    defaultTab: cms::lang.theme.default_tab
     fields:
 
         name:

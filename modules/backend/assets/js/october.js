@@ -7,47 +7,32 @@
  * @see october-min.js
  *
 
+=require vendor/jquery.touchwipe.js
+=require vendor/moment.js
+=require vendor/jquery.autoellipsis.js
+=require vendor/jquery.waterfall.js
+=require vendor/jquery.cookie.js
+=require ../vendor/select2/select2.js
+=require ../vendor/dropzone/dropzone.js
+=require ../vendor/sweet-alert/sweet-alert.js
+=require ../vendor/jcrop/js/jquery.Jcrop.js
+
+=require ../../../system/assets/ui/storm.js
+
 =require october.controls.js
-=require october.utils.js
-=require october.foundation.baseclass.js
-=require october.foundation.element.js
-=require october.foundation.event.js
-=require october.foundation.controlutils.js
 =require october.scrollpad.js
-=require october.triggerapi.js
-=require october.dragscroll.js
-=require october.dragvalue.js
-=require october.toolbar.js
-=require october.tooltip.js
 =require october.verticalmenu.js
 =require october.navbar.js
 =require october.sidenav.js
-=require october.tab.js
-=require october.popover.js
-=require october.popup.js
-=require october.goalmeter.js
 =require october.scrollbar.js
 =require october.filelist.js
-=require october.hotkey.js
-=require october.loadindicator.js
-=require october.stripeloadindicator.js
-=require october.flashmessage.js
-=require october.inputpreset.js
 =require october.layout.js
 =require october.sidepaneltab.js
 =require october.simplelist.js
-=require october.sortable.js
-=require october.inspector.js
-=require october.dropdown.js
-=require october.changemonitor.js
-=require october.chartutils.js
-=require october.chartpie.js
-=require october.chartbar.js
-=require october.chartline.js
 =require october.balloonselector.js
-=require october.rowlink.js
 =require october.treelist.js
 =require october.autocomplete.js
-=require october.callout.js
 =require october.sidenav-tree.js
+
+=require backend.js
 */

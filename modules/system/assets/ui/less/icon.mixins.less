@@ -1,0 +1,103 @@
+// Mixins
+// --------------------------
+
+.icon(@icon) {
+    .icon-FontAutumn();
+    content: @icon;
+}
+
+.icon-FontAutumn() {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+    -webkit-font-smoothing: antialiased;
+    *margin-right: .3em; // fixes ie7 issues
+}
+
+.icon-stack(@width: 2em, @height: 2em, @top-font-size: 1em, @base-font-size: 2em) {
+    .icon-stack {
+        position: relative;
+        display: inline-block;
+        width: @width;
+        height: @height;
+        line-height: @width;
+        vertical-align: -35%;
+        [class^="icon-"],
+        [class*=" icon-"] {
+            display: block;
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            font-size: @top-font-size;
+            line-height: inherit;
+            *line-height: @height;
+        }
+        .icon-stack-base {
+            font-size: @base-font-size;
+            *line-height: @height / @base-font-size;
+        }
+    }
+}
+
+// Scroll markers
+// --------------------------------------------------
+
+.vertical-scroll-marker(@color) {
+    .scroll-marker {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        display: none;
+
+        &:after {
+            .icon(@ellipsis-h);
+            display: block;
+            position: absolute;
+            left: 50%;
+            margin-left: -3px;
+            top: 0;
+            height: 9px;
+            font-size: 10px;
+            color: @color;
+        }
+
+        &.before {top: 0;}
+        &.after {
+            bottom: 3px;
+            &:after {
+                top: 2px;
+            }
+        }
+    }
+
+    &.scroll-before .scroll-marker.before { display: block; }
+    &.scroll-after .scroll-marker.after { display: block; }
+}
+
+.horizontal-scroll-indicators(@color) {
+    &:after, &:before {
+        display: none;
+        position: absolute;
+        top: 50%;
+        margin-top: -7px;
+        height: 9px;
+        font-size: 10px;
+        color: @color;
+    }
+
+    &:before {
+        left: -6px;
+        .icon(@angle-left);
+    }
+
+    &:after {
+        right: -8px;
+        .icon(@angle-right);
+    }
+
+    &.scroll-before:before { display: block; }
+    &.scroll-after:after { display: block; }
+}

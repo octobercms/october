@@ -397,6 +397,10 @@ body .redactor-box-fullscreen {
   color: #fff !important;
   text-decoration: none;
 }
+.redactor-dropdown a.selected {
+  background-color: #000;
+  color: #fff;
+}
 /*
 	IMAGE BOX
 */
@@ -552,6 +556,7 @@ body .redactor-box-fullscreen {
   overflow-y: auto;
 }
 #redactor-modal {
+  outline: 0;
   position: relative;
   margin: auto;
   margin-bottom: 20px;
@@ -883,7 +888,6 @@ body .redactor-box-fullscreen {
   background-color: #d8d7d7;
 }
 .redactor-editor pre {
-  overflow: auto;
   padding: 1em;
   border: 1px solid #ddd;
   border-radius: 3px;

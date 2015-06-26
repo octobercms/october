@@ -7,6 +7,7 @@ use Config;
 use Backend;
 use Request;
 use DbDongle;
+use Validator;
 use BackendMenu;
 use BackendAuth;
 use Twig_Environment;
@@ -21,6 +22,7 @@ use System\Twig\Extension as TwigExtension;
 use System\Models\EventLog;
 use System\Models\MailSettings;
 use System\Models\MailTemplate;
+use System\Classes\CombineAssets;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use October\Rain\Router\Helper as RouterHelper;
@@ -50,6 +52,8 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerTwigParser();
         $this->registerMailer();
         $this->registerMarkupTags();
+        $this->registerAssetBundles();
+        $this->registerValidator();
 
         /*
          * Register other module providers
@@ -431,4 +435,37 @@ class ServiceProvider extends ModuleServiceProvider
             ]);
         });
     }
+
+    /**
+     * Register asset bundles
+     */
+    protected function registerAssetBundles()
+    {
+        /*
+         * Register asset bundles
+         */
+        CombineAssets::registerCallback(function($combiner) {
+            $combiner->registerBundle('~/modules/system/assets/less/styles.less');
+        });
+    }
+
+    /**
+     * Extends the validator with custom rules
+     */
+    protected function registerValidator()
+    {
+        /*
+         * Allowed file extensions, as opposed to mime types.
+         * - extensions: png,jpg,txt
+         */
+        Validator::extend('extensions', function($attribute, $value, $parameters) {
+            $extension = $value->getClientOriginalExtension();
+            return in_array($extension, $parameters);
+        });
+
+        Validator::replacer('extensions', function($message, $attribute, $rule, $parameters) {
+            return strtr($message, [':values' => implode(', ', $parameters)]);
+        });
+    }
+
 }

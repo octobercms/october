@@ -1,9 +1,9 @@
 <?php namespace Cms\Classes;
 
-use Cms\Classes\Theme;
-use ApplicationException;
-use Cms\Classes\Layout;
 use Lang;
+use Cms\Classes\Theme;
+use Cms\Classes\Layout;
+use ApplicationException;
 
 /**
  * The CMS page class.
@@ -14,9 +14,24 @@ use Lang;
 class Page extends CmsCompoundObject
 {
     /**
-     * @var array The API bag allows the API handler code to bind arbitrary data to the page object.
+     * @var array The API bag allows the API handler code to bind arbitrary
+     * data to the page object.
      */
     public $apiBag = [];
+
+    /**
+     * @var array These properties will be available as regular properties,
+     * by looking the settings and viewBag values.
+     */
+    protected $visible = [
+        'title',
+        'url',
+        'layout',
+        'description',
+        'meta_title',
+        'meta_description',
+        'is_hidden'
+    ];
 
     protected $settingsValidationRules = [
         'title' => 'required',
@@ -187,6 +202,29 @@ class Page extends CmsCompoundObject
             $result['url'] = $pageUrl;
             $result['isActive'] = $pageUrl == $url;
             $result['mtime'] = $page ? $page->mtime : null;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Handler for the backend.richeditor.getTypeInfo event.
+     * Returns a menu item type information. The type information is returned as array
+     * @param string $type Specifies the page link type
+     * @return array
+     */
+    public static function getRichEditorTypeInfo($type)
+    {
+        $result = [];
+
+        if ($type == 'cms-page') {
+            $theme = Theme::getActiveTheme();
+            $pages = self::listInTheme($theme, true);
+
+            foreach ($pages as $page) {
+                $url = self::url($page->getBaseFileName());
+                $result[$url] = $page->title;
+            }
         }
 
         return $result;

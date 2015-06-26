@@ -162,7 +162,7 @@ trait ViewMaker
             $viewPath = $this->viewPath;
         }
 
-        $fileName = File::symbolizePath($fileName, $fileName);
+        $fileName = File::symbolizePath($fileName);
 
         if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
             return $fileName;
@@ -173,7 +173,7 @@ trait ViewMaker
         }
 
         foreach ($viewPath as $path) {
-            $_fileName = $path . '/' . $fileName;
+            $_fileName = File::symbolizePath($path) . '/' . $fileName;
             if (File::isFile($_fileName)) {
                 break;
             }

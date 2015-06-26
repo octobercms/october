@@ -1,0 +1,186 @@
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "popover.less";
+@import "loader.less";
+
+//
+// Filters
+// --------------------------------------------------
+
+@color-filter-bg:                            #f3f3f3;
+@color-filter-bg-active:                     #cc3300;
+@color-filter-border:                        #949ea6;
+@color-filter-text:                          #949ea6;
+@color-filter-items-bg:                      #fafafa;
+@color-filter-items-bg-hover:                #4da7e8;
+
+//
+// Filters
+// --------------------------------------------------
+
+.control-filter {
+    padding: 0 10px;
+    font-size: 13px;
+    color: @color-filter-text;
+    background-color: @color-filter-bg;
+    border-top: 1px solid @color-filter-border;
+    border-bottom: 1px solid @color-filter-border;
+    a {
+        text-decoration: none;
+        color: @color-filter-text;
+    }
+
+    > .filter-scope {
+        display: inline-block;
+        padding: 15px;
+        .filter-label {}
+        .filter-setting {
+            display: inline-block;
+            .transition(color 0.6s);
+        }
+
+        &:after {
+            font-size: 14px;
+            .icon(@angle-down);
+        }
+
+        &.active {
+            .filter-setting {
+                padding-left: 5px;
+                padding-right: 5px;
+                color: #FFF;
+                background-color: @color-filter-bg-active;
+                .border-radius(4px);
+                .transition(~'color 1s, background-color 1s');
+            }
+        }
+
+        &.checkbox {
+            padding-left: 35px;
+            &, label {
+                margin-bottom: 0;
+            }
+
+            &:after {
+                content: '';
+            }
+        }
+
+        &:hover {
+            color: #000;
+            .filter-label { color: @color-filter-text; }
+            &.active .filter-setting { background-color: darken(@color-filter-bg-active, 5%); }
+        }
+    }
+}
+
+.control-filter-popover {
+    min-width: 275px;
+
+    .filter-search {
+        min-height: 36px;
+        input {
+            min-height: 36px;
+            border: none;
+            border-bottom: 1px solid @color-filter-border;
+            .border-bottom-radius(0);
+            background-color: transparent;
+        }
+
+        .form-control.icon.search {
+            background-position: right -81px;
+        }
+
+        .close {
+            display: none;
+        }
+    }
+
+    .filter-items, .filter-active-items {
+        color: @color-filter-text;
+        font-size: 13px;
+        ul, li {
+            list-style-type: none;
+            margin:0;
+            padding:0;
+        }
+        li {
+            .transition(~'color 0.6s, background-color 0.3s');
+        }
+        a {
+            text-decoration: none;
+            color: @color-filter-text;
+            display: block;
+            padding: 7px 15px;
+
+            &:before {
+                margin-right: 8px;
+                display: inline-block;
+                vertical-align: baseline;
+            }
+
+            &:hover {
+                background-color: @color-filter-items-bg-hover;
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .filter-items {
+        height: 100px;
+        overflow: auto;
+
+        background-color: @color-filter-items-bg;
+        border-bottom: 1px solid @color-filter-border;
+        a:before { .icon(@plus); }
+
+        li.loading {
+            padding: 7px;
+            > span {
+                display: block;
+                height: 20px;
+                width: 20px;
+                background-image: url('@{loader-image-path}/loader-transparent.svg');
+                background-size: 20px 20px;
+                background-position: 50% 50%;
+                .animation(spin 1s linear infinite);
+            }
+        }
+
+        li.animate-enter { .animation(fadeInUp .5s); }
+    }
+
+    .filter-active-items {
+        a:before { .icon(@times); }
+        li.animate-enter { .animation(fadeInDown .5s); }
+    }
+}
+
+@media (max-width: @screen-xs) {
+    .control-filter-popover {
+        .filter-items {
+            height: 200px;
+        }
+        .filter-search {
+            input {
+                padding-left: 36px;
+                padding-right: 36px;
+            }
+            .form-control.icon.search {
+                background-position: 0 -81px;
+            }
+            .close {
+                width: 30px;
+                display: block;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                font-size: 28px;
+                z-index: 2;
+            }
+        }
+    }
+}

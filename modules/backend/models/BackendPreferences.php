@@ -48,6 +48,7 @@ class BackendPreferences extends Model
             'id' => [Lang::get('system::lang.locale.id'), 'flag-id'],
             'it' => [Lang::get('system::lang.locale.it'), 'flag-it'],
             'ja' => [Lang::get('system::lang.locale.ja'), 'flag-jp'],
+            'lv' => [Lang::get('system::lang.locale.lv'), 'flag-lv'],
             'nl' => [Lang::get('system::lang.locale.nl'), 'flag-nl'],
             'pt-br' => [Lang::get('system::lang.locale.pt-br'), 'flag-br'],
             'ro' => [Lang::get('system::lang.locale.ro'), 'flag-ro'],

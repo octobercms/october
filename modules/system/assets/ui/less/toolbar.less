@@ -1,0 +1,111 @@
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "icon.less";
+@import "button.less";
+
+//
+// Toolbars
+// --------------------------------------------------
+
+@color-scroll-indicator:                     #bbbbbb;
+
+//
+// Toolbars
+// --------------------------------------------------
+
+.control-toolbar {
+    font-size: 0; // Do not rely on the default spacing between inline-block elements
+    padding: 0 0 20px 0;
+    position: relative;
+    .horizontal-scroll-indicators(@color-scroll-indicator);
+
+    &.standalone-paddings {
+        padding: 20px;
+    }
+
+    &:before {
+        left: -10px;
+    }
+
+    &:after {
+        right: -8px;
+    }
+
+    .toolbar-item {
+        position: relative;
+
+        white-space: nowrap;
+        margin-right: 20px;
+
+        &.last {
+            margin-right: 0;
+        }
+
+        .horizontal-scroll-indicators(@color-scroll-indicator);
+
+        &:before { left: -10px; }
+
+        &.layout-cell {
+            padding-right: 20px;
+            margin-right: 0;
+            &:after { right: 6px; }
+
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+
+        .btn, .btn-group, .dropdown {
+            white-space: nowrap;
+            float: none;
+            display: inline-block;
+            margin-right:  10px;
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &.standalone {
+                margin-right: 15px;
+            }
+        }
+
+        .btn-group {
+            > .btn, > .dropdown {
+                margin-right: 0;
+                display: inline-block;
+                float: none;
+            }
+
+            .dropdown {
+                > .btn {
+                    margin-right: 0;
+                    .border-right-radius(0);
+                }
+
+                &.last > .btn {
+                    .border-right-radius(@border-radius-base) !important;
+                }
+            }
+        }
+    }
+
+    input.form-control[type=text] {
+        height: auto;
+        padding: 8px 10px;
+    }
+}
+
+[data-control=toolbar] {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+}
+
+#layout-side-panel {
+    .control-toolbar {
+        padding: 20px 0 20px 20px;
+    }
+}

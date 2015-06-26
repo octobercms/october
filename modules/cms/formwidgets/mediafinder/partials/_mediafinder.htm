@@ -1,0 +1,11 @@
+<?php switch ($mode):
+
+    case 'image': ?>
+        <?= $this->makePartial('image_single') ?>
+    <?php break ?>
+
+    <?php case 'file': ?>
+        <?= $this->makePartial('file_single') ?>
+    <?php break ?>
+
+<?php endswitch ?>

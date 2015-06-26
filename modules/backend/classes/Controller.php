@@ -119,6 +119,11 @@ class Controller extends Extendable
     protected $statusCode = 200;
 
     /**
+     * @var bool Determine if submission requests use CSRF protection.
+     */
+    public $useSecurityToken = true;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -137,19 +142,22 @@ class Controller extends Extendable
         /*
          * Define layout and view paths
          */
-        $this->layout = 'default';
+        $this->layout = $this->layout ?: 'default';
         $this->layoutPath = Skin::getActive()->getLayoutPaths();
-
-        // Option A: (@todo Determine which is faster by benchmark)
-        // $relativePath = strtolower(str_replace('\\', '/', get_called_class()));
-        // $this->viewPath = $this->configPath = ['modules/' . $relativePath, 'plugins/' . $relativePath];
-
-        // Option B:
         $this->viewPath = $this->configPath = $this->guessViewPath();
+
+        /*
+         * Add layout paths from the plugin / module context
+         */
+        $relativePath = dirname(dirname(strtolower(str_replace('\\', '/', get_called_class()))));
+        $this->layoutPath[] = '~/modules/' . $relativePath . '/layouts';
+        $this->layoutPath[] = '~/plugins/' . $relativePath . '/layouts';
 
         parent::__construct();
 
-        // Media Manager widget is available on all back-end pages
+        /*
+         * Media Manager widget is available on all back-end pages
+         */
         $manager = new MediaManager($this, 'ocmediamanager');
         $manager->bindToController();
     }
@@ -164,6 +172,13 @@ class Controller extends Extendable
     {
         $this->action = $action;
         $this->params = $params;
+
+        /*
+         * Check security token.
+         */
+        if ($this->useSecurityToken && !$this->verifyCsrfToken()) {
+            return Response::make(Lang::get('backend::lang.page.invalid_token.label'), 403);
+        }
 
         /*
          * Extensibility
@@ -346,6 +361,10 @@ class Controller extends Extendable
      */
     protected function execAjaxHandlers()
     {
+        if (Request::method() != 'POST') {
+            return null;
+        }
+
         if ($handler = trim(Request::header('X_OCTOBER_REQUEST_HANDLER'))) {
             try {
                 /*
@@ -360,16 +379,6 @@ class Controller extends Extendable
                  */
                 if ($partialList = trim(Request::header('X_OCTOBER_REQUEST_PARTIALS'))) {
                     $partialList = explode('&', $partialList);
-
-                    // @todo Do we need to validate backend partials?
-                    // foreach ($partialList as $partial) {
-                    //     if (!preg_match('/^(?:\w+\:{2}|@)?[a-z0-9\_\-\.\/]+$/i', $partial)) {
-                    //         throw new SystemException(Lang::get(
-                    //             'cms::lang.partial.invalid_name',
-                    //             ['name' => $partial]
-                    //         ));
-                    //     }
-                    // }
                 }
                 else {
                     $partialList = [];
@@ -598,5 +607,28 @@ class Controller extends Extendable
     {
         $hiddenHints = UserPreferences::forUser()->get('backend::hints.hidden', []);
         return array_key_exists($name, $hiddenHints);
+    }
+
+    //
+    // CSRF Protection
+    //
+
+    /**
+     * Checks the request data / headers for a valid CSRF token.
+     * Returns false if a valid token is not found.
+     * @return bool
+     */
+    protected function verifyCsrfToken()
+    {
+        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
+            return true;
+        }
+
+        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
+
+        return \Symfony\Component\Security\Core\Util\StringUtils::equals(
+            Session::getToken(),
+            $token
+        );
     }
 }

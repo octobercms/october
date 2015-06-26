@@ -10,15 +10,42 @@
 // 1200-9000 - Reserved for frequency manager
 //
 
+// Vendor
+@import "../vendor/sweet-alert/sweet-alert.less";
+@import "../vendor/select2/select2.css";
+@import "../vendor/jcrop/css/jquery.Jcrop.min.css";
+
+//
+// October Controls
+//
+
+@import "core/boot.less";
+@import "controls/simplelist.less";
+@import "controls/scrollbar.less";
+@import "controls/filelist.less";
+@import "controls/common.less";
+@import "controls/ballooncontrols.less";
+@import "controls/reportwidgets.less";
+@import "controls/treelist.less";
+@import "controls/treeview.less";
+@import "controls/sidenav-tree.less";
+@import "controls/panels.less";
+@import "controls/selector-group.less";
+@import "controls/tree-path.less";
+@import "controls/namevaluelist.less";
+@import "controls/scrollpad.less";
+
+//
+// October Storm UI
+//
+
+@import "../../../system/assets/ui/storm.less";
+
 //
 // Combines layout and vendor styles
 //
 
 // Core (shared elements)
-@import "core/bootstrap.less";
-@import "../../../system/assets/vendor/font-autumn/less/font-autumn.less";
-@import "core/icons.less";
-@import "core/flags.less";
 @import "core/fonts.less";
 @import "core/animations.less";
 
@@ -35,7 +62,3 @@
 @import "layout/outerlayout.less";
 @import "layout/fancylayout.less";
 
-// Vendor
-@import "../vendor/sweet-alert/sweet-alert.less";
-@import "../vendor/select2/select2.css";
-@import "../vendor/jcrop/css/jquery.Jcrop.min.css";
