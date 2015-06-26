@@ -231,7 +231,7 @@ return [
     ],
    'media' => [
         'invalid_path' => "不合法的路径: ':path'.",
-        'menu_label' => '视频',
+        'menu_label' => '媒体',
         'upload' => '上传',
         'move' => '移动',
         'delete' => '删除',
