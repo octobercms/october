@@ -1,4 +1,4 @@
-* **Build 27x** (2015-06-xx)
+* **Build 272** (2015-06-27)
   - Protected images and their thumbnails are now supported in the back-end.
   - Editing CMS templates now support form fields that use AJAX.
   - When inserting a new link the Rich Editor now shows a drop-down list with available pages.
