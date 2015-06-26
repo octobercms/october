@@ -589,7 +589,7 @@
   width: 15%;
 }
 .field-fileupload.style-file-multi .upload-object .meta a.drag-handle {
-  top: 0;
+  top: -2px;
   bottom: auto;
   line-height: 150%;
   padding: 10px 0;
@@ -630,7 +630,18 @@
 .field-fileupload.style-file-multi .upload-object:hover h4 {
   padding-right: 35px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
+  .field-fileupload.style-file-multi .info {
+    margin-right: 20% !important;
+  }
+  .field-fileupload.style-file-multi .info p.size {
+    width: 20% !important;
+  }
+  .field-fileupload.style-file-multi .meta {
+    width: 20% !important;
+  }
+}
+@media (max-width: 991px) {
   .field-fileupload.style-file-multi .upload-object h4 {
     padding-right: 35px !important;
   }
