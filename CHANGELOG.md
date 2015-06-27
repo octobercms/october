@@ -1,3 +1,6 @@
+* **Build 27x** (2015-06-xx)
+ - List columns now support specifying a `default` option used when the value would otherwise be null.
+
 * **Build 272** (2015-06-27)
   - Protected images and their thumbnails are now supported in the back-end.
   - Editing CMS templates now support form fields that use AJAX.

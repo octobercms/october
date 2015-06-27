@@ -784,6 +784,13 @@ class Lists extends WidgetBase
         }
 
         /*
+         * Apply default value.
+         */
+        if (empty($value)) {
+            $value = $column->defaults;
+        }
+
+        /*
          * Extensibility
          */
         if (($response = Event::fire('backend.list.overrideColumnValue', [$this, $record, $column, $value], true)) !== null) {
