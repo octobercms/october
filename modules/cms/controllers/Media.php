@@ -12,7 +12,7 @@ use Cms\Widgets\MediaManager;
  */
 class Media extends Controller
 {
-    public $requiredPermissions = ['cms.*'];
+    public $requiredPermissions = ['media.*'];
 
     /**
      * Constructor.
