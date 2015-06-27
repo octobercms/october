@@ -25,13 +25,15 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerMailer();
         $this->registerAssetBundles();
 
-        // Disabled for now
-        // if (App::runningInBackend()) {
+        /*
+         * Backend specific
+         */
+        if (App::runningInBackend()) {
             $this->registerBackendNavigation();
             $this->registerBackendWidgets();
             $this->registerBackendPermissions();
             $this->registerBackendSettings();
-        // }
+        }
     }
 
     /**

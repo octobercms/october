@@ -64,13 +64,15 @@ class ServiceProvider extends ModuleServiceProvider
             }
         }
 
-        // Disabled for now
-        // if (App::runningInBackend()) {
+        /*
+         * Backend specific
+         */
+        if (App::runningInBackend()) {
             $this->registerBackendNavigation();
             $this->registerBackendReportWidgets();
             $this->registerBackendPermissions();
             $this->registerBackendSettings();
-        // }
+        }
     }
 
     /**

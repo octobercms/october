@@ -27,13 +27,15 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerComponents();
         $this->registerAssetBundles();
 
-        // Disabled for now
-        // if (App::runningInBackend()) {
+        /*
+         * Backend specific
+         */
+        if (App::runningInBackend()) {
             $this->registerBackendNavigation();
             $this->registerBackendPermissions();
             $this->registerBackendWidgets();
             $this->registerBackendSettings();
-        // }
+        }
     }
 
     /**
