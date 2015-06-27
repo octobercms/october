@@ -172,6 +172,10 @@ class FileUpload extends FormWidgetBase
      */
     protected function getCssDimensions()
     {
+        if (!$this->imageWidth && !$this->imageHeight) {
+            return '';
+        }
+
         $cssDimensions = '';
         $cssDimensions .= ($this->imageWidth)
             ? 'width: '.$this->imageWidth.'px;'
