@@ -1,8 +1,8 @@
 <?php namespace Backend\Models;
 
-use App;
 use Lang;
 use Model;
+use Config;
 use Session;
 use DirectoryIterator;
 
@@ -20,15 +20,13 @@ class BackendPreferences extends Model
 
     public function initSettingsData()
     {
-        $config = App::make('config');
-        $this->locale = $config->get('app.locale', 'en');
+        $this->locale = Config::get('app.locale', 'en');
     }
 
     public static function applyConfigValues()
     {
-        $config = App::make('config');
         $settings = self::instance();
-        $config->set('app.locale', $settings->locale);
+        Config::set('app.locale', $settings->locale);
     }
 
     /**
@@ -37,7 +35,7 @@ class BackendPreferences extends Model
      */
     public function getLocaleOptions()
     {
-        $locales = [
+        $locales = Config::get('app.localeOptions', [
             'en' => [Lang::get('system::lang.locale.en'), 'flag-gb'],
             'de' => [Lang::get('system::lang.locale.de'), 'flag-de'],
             'es' => [Lang::get('system::lang.locale.es'), 'flag-es'],
@@ -59,7 +57,7 @@ class BackendPreferences extends Model
             'sk' => [Lang::get('system::lang.locale.sk'), 'flag-sk'],
             'zh-cn' => [Lang::get('system::lang.locale.zh-cn'), 'flag-cn'],
             'nb-no' => [Lang::get('system::lang.locale.nb-no'), 'flag-no'],
-        ];
+        ]);
 
         // Sort locales alphabetically
         asort($locales);
