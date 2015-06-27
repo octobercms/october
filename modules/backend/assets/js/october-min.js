@@ -4347,8 +4347,9 @@ return this}
 $(document).render(function(){$('[data-control=tab]').ocTab()})
 $(window).on('ajaxInvalidField',function(event,element,name,messages,isFirst){if(!isFirst)return
 event.preventDefault()
-element.closest('[data-control=tab]').ocTab('goToElement',element)
-element.focus()})}(window.jQuery);(function($){$(document).on('keydown','div.custom-checkbox',function(e){if(e.keyCode==32)
+var $el=$(element)
+$el.closest('[data-control=tab]').ocTab('goToElement',$el)
+$el.focus()})}(window.jQuery);(function($){$(document).on('keydown','div.custom-checkbox',function(e){if(e.keyCode==32)
 e.preventDefault()})
 $(document).on('keyup','div.custom-checkbox',function(e){if(e.keyCode==32){var $cb=$('input',this)
 if($cb.data('oc-space-timestamp')==e.timeStamp)

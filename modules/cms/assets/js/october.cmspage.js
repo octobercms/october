@@ -118,8 +118,9 @@
 
         ev.preventDefault()
 
-        var $panel = element.closest('.form-tabless-fields.collapsed'),
-            $primaryPanel = element.closest('.control-tabs.primary.collapsed')
+        var $el = $(element),
+            $panel = $el.closest('.form-tabless-fields.collapsed'),
+            $primaryPanel = $el.closest('.control-tabs.primary.collapsed')
 
         if ($panel.length > 0)
             $panel.removeClass('collapsed')
@@ -133,7 +134,7 @@
             $secondaryPanel.removeClass('primary-collapsed')
         }
 
-        element.focus()
+        $el.focus()
     }
 
     CmsPage.prototype.onTabClosed = function(ev) {

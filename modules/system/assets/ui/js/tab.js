@@ -446,9 +446,12 @@
      */
     $(window).on('ajaxInvalidField', function(event, element, name, messages, isFirst){
         if (!isFirst) return
+
         event.preventDefault()
-        element.closest('[data-control=tab]').ocTab('goToElement', element)
-        element.focus()
+
+        var $el = $(element)
+        $el.closest('[data-control=tab]').ocTab('goToElement', $el)
+        $el.focus()
     })
 
 }(window.jQuery);
