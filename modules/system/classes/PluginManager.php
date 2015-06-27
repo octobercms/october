@@ -178,7 +178,7 @@ class PluginManager
          */
         $autoloadPath = $pluginPath . '/vendor/autoload.php';
         if (File::isFile($autoloadPath)) {
-            require_once $autoloadPath;
+            ComposerManager::instance()->autoload($pluginPath . '/vendor');
         }
 
         if (!self::$noInit || $plugin->elevated) {
