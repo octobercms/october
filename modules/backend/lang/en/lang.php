@@ -110,7 +110,8 @@ return [
             'list_title' => 'Manage Groups',
             'new' => 'New Administrator Group',
             'delete_confirm' => 'Do you really want to delete this administrator group?',
-            'return' => 'Return to the group list'
+            'return' => 'Return to the group list',
+            'users_count' => 'Users'
         ],
         'preferences' => [
             'not_authenticated' => 'There is no an authenticated user to load or save preferences for.'
