@@ -59,35 +59,31 @@
   border: 2px dotted rgba(0, 0, 0, 0.1);
   position: relative;
   outline: none;
+  min-height: 100px;
+  min-width: 100px;
 }
-.field-mediafinder.style-image-single .find-button table {
+.field-mediafinder.style-image-single .find-button .find-button-icon {
   position: absolute;
-  height: 100%;
-  width: 100%;
+  width: 22px;
+  height: 22px;
+  top: 50%;
+  left: 50%;
+  margin-top: -11px;
+  margin-left: -11px;
 }
-.field-mediafinder.style-image-single .find-button table td {
-  line-height: 16px;
-  font-size: 11px;
-  vertical-align: middle;
-  height: 100%;
-}
-.field-mediafinder.style-image-single .find-button table td:before {
+.field-mediafinder.style-image-single .find-button .find-button-icon:before {
   text-align: center;
-  width: 100%;
   display: block;
   font-size: 22px;
+  height: 22px;
+  width: 22px;
+  line-height: 22px;
   color: rgba(0, 0, 0, 0.1);
-  vertical-align: middle;
-}
-.field-mediafinder.style-image-single .find-button table td span {
-  display: block;
-  padding: 10px;
-  text-align: center;
 }
 .field-mediafinder.style-image-single .find-button:hover {
   border: 2px dotted rgba(0, 0, 0, 0.2);
 }
-.field-mediafinder.style-image-single .find-button:hover table td:before {
+.field-mediafinder.style-image-single .find-button:hover .find-button-icon:before {
   color: #5cb85c;
   color: rgba(0, 0, 0, 0.2);
 }
@@ -95,14 +91,9 @@
   border: 2px solid rgba(0, 0, 0, 0.3);
   background: transparent;
 }
-.field-mediafinder.style-image-single .find-button:focus table td:before {
+.field-mediafinder.style-image-single .find-button:focus .find-button-icon:before {
   color: #5cb85c;
   color: rgba(0, 0, 0, 0.2);
-}
-.field-mediafinder.style-image-single .find-button,
-.field-mediafinder.style-image-single .find-button > table {
-  min-height: 100px;
-  min-width: 100px;
 }
 .field-mediafinder.style-image-single .find-object {
   display: none;
