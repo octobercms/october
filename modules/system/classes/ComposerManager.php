@@ -1,7 +1,5 @@
 <?php namespace System\Classes;
 
-use Composer\Autoload\ClassLoader as ComposerLoader;
-
 /**
  * Composer manager
  *

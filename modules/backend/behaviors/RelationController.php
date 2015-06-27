@@ -915,7 +915,8 @@ class RelationController extends ControllerBehavior
 
         if ($this->viewMode == 'multi') {
             $model = $this->relationModel->find($this->manageId);
-            $model->save($saveData, $this->manageWidget->getSessionKey());
+            $model->fill($saveData);
+            $model->save(null, $this->manageWidget->getSessionKey());
         }
         elseif ($this->viewMode == 'single') {
             $this->viewWidget->setFormValues($saveData);

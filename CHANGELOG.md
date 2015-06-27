@@ -1,6 +1,7 @@
 * **Build 27x** (2015-06-xx)
   - List columns now support specifying a `default` option used when the value would otherwise be null.
   - Implement a custom autoloader for plugins that use composer. Now only one instance of composer is used, all packages are now added to a global pool to prevent double loading and the load order is respected.
+  - The method signature of `Model::save()` has been fixed to match Eloquent.
 
 * **Build 272** (2015-06-27)
   - Protected images and their thumbnails are now supported in the back-end.
