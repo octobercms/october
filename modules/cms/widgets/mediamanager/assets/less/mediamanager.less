@@ -1,8 +1,10 @@
 @import "../../../../../backend/assets/less/core/boot.less";
 
+@color-media-list-hover-bg: #4da7e8;
+
 .media-selected-tiles() {
     .icon-container {
-        background: @color-list-hover-bg!important;
+        background: @color-media-list-hover-bg !important;
         border-color: #2581b8;
 
         i, p {
@@ -16,7 +18,7 @@
 }
 
 .media-selected-list() {
-    background: @color-list-hover-bg!important;
+    background: @color-media-list-hover-bg !important;
 
     i, p.size {
         color: #ecf0f1;
@@ -27,7 +29,7 @@
     }
 
     .icon-container {
-        border-right-color: @color-list-hover-bg!important;
+        border-right-color: @color-media-list-hover-bg !important;
     }
 }
 
@@ -186,7 +188,7 @@ div[data-control="media-manager"] {
             }
 
             &[data-item-type=folder] i {
-                color: @color-list-hover-bg;
+                color: @color-media-list-hover-bg;
             }
         }
 
@@ -367,6 +369,11 @@ div[data-control="media-manager"] {
         position: absolute;
         left: 0;
         top: 0;
+
+        // This is a fix for IE11 that is buggy and ignores 100%
+        // height on containers, so this will at least cause the
+        // media manager to fail gracefully instead of breaking.
+        min-height: 300px;
     }
 
     .scroll-wrapper {
@@ -405,7 +412,7 @@ div[data-control="media-manager"] {
         }
 
         tr[data-item-type=folder] i.icon-folder {
-            color: @color-list-hover-bg;
+            color: @color-media-list-hover-bg;
         }
 
         tr:focus {
