@@ -8,7 +8,6 @@ use View;
 use Config;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-use Illuminate\Container\Container;
 use ApplicationException;
 
 /**
