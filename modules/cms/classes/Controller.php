@@ -567,16 +567,29 @@ class Controller
     //
 
     /**
+     * Returns the AJAX handler for the current request, if available.
+     * @return string
+     */
+    public function getAjaxHandler()
+    {
+        if (!Request::ajax() || Request::method() != 'POST') {
+            return null;
+        }
+
+        if ($handler = Request::header('X_OCTOBER_REQUEST_HANDLER')) {
+            return trim($handler);
+        }
+
+        return null;
+    }
+
+    /**
      * Executes the page, layout, component and plugin AJAX handlers.
      * @return mixed Returns the AJAX Response object or null.
      */
     protected function execAjaxHandlers()
     {
-        if (Request::method() != 'POST') {
-            return null;
-        }
-
-        if ($handler = trim(Request::header('X_OCTOBER_REQUEST_HANDLER'))) {
+        if ($handler = $this->getAjaxHandler()) {
             try {
                 /*
                  * Validate the handler name

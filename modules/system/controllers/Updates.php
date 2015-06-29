@@ -43,6 +43,10 @@ class Updates extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'updates');
         SettingsManager::setContext('October.System', 'updates');
+
+        if ($this->getAjaxHandler() == 'onExecuteStep') {
+            $this->useSecurityToken = false;
+        }
     }
 
     /**
