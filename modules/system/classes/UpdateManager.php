@@ -208,6 +208,7 @@ class UpdateManager
         $installed = PluginVersion::all();
         $versions = $installed->lists('version', 'code');
         $names = $installed->lists('name', 'code');
+        $icons = $installed->lists('icon', 'code');
         $build = Parameters::get('system::core.build');
 
         $params = [
@@ -239,6 +240,7 @@ class UpdateManager
         foreach (array_get($result, 'plugins', []) as $code => $info) {
             $info['name'] = isset($names[$code]) ? $names[$code] : $code;
             $info['old_version'] = isset($versions[$code]) ? $versions[$code] : false;
+            $info['icon'] = isset($icons[$code]) ? $icons[$code] : false;
             $plugins[$code] = $info;
         }
         $result['plugins'] = $plugins;

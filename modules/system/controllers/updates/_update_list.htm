@@ -43,7 +43,7 @@
 
                     <?php foreach ($pluginList as $code => $plugin): ?>
                         <h5>
-                            <i class="icon-puzzle-piece"></i>
+                            <i class="<?= e($plugin['icon'] ?: 'icon-puzzle-piece') ?>"></i>
                             <?= e($plugin['name']) ?>
 
                             <?php if ($plugin['old_version']): ?>
