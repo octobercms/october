@@ -10,56 +10,67 @@
 
             <div class="control-updatelist">
                 <div class="control-scrollbar" style="height:300px" data-control="scrollbar">
-
                     <?php if ($core): ?>
-                        <h5>
-                            <i class="icon-cube"></i>
-                            <?= e(trans('system::lang.system.name')) ?>
-                            <?php if ($core['old_build']): ?>
-                                <small><?= e(trans('system::lang.updates.core_build_old', ['build'=>$core['old_build']])) ?></small>
-                            <?php endif ?>
-                        </h5>
-                        <dl>
-                            <dt><?= e(trans('system::lang.updates.core_build_new', ['build'=>$core['build']])) ?></dt>
-                            <dd><?= e(trans('system::lang.updates.core_build_new_help')) ?></dd>
-                        </dl>
-                        <input type="hidden" name="hash" value="<?= e($core['hash']) ?>" />
-                        <input type="hidden" name="build" value="<?= e($core['build']) ?>" />
+                        <div class="update-item">
+                            <div class="item-header">
+                                <h5>
+                                    <i class="icon-cube"></i>
+                                    <?= e(trans('system::lang.system.name')) ?>
+                                    <?php if ($core['old_build']): ?>
+                                        <small><?= e(trans('system::lang.updates.core_build_old', ['build'=>$core['old_build']])) ?></small>
+                                    <?php endif ?>
+                                </h5>
+                            </div>
+                            <dl>
+                                <dt><?= e(trans('system::lang.updates.core_build_new', ['build'=>$core['build']])) ?></dt>
+                                <dd><?= e(trans('system::lang.updates.core_build_new_help')) ?></dd>
+                            </dl>
+                            <input type="hidden" name="hash" value="<?= e($core['hash']) ?>" />
+                            <input type="hidden" name="build" value="<?= e($core['build']) ?>" />
+                        </div>
                     <?php endif ?>
 
                     <?php foreach ($themeList as $code => $theme): ?>
-                        <h5>
-                            <i class="icon-picture-o"></i>
-                            <?= e(array_get($theme, 'name', 'Unknown')) ?>
-                            <small><?= e(trans('system::lang.updates.theme_label')) ?></small>
-                        </h5>
-                        <dl>
-                            <dt><?= e(array_get($theme, 'version', 'v1.0.0')) ?></dt>
-                            <dd><?= e(trans('system::lang.updates.theme_new_install')) ?></dd>
-                        </dl>
+                        <div class="update-item">
+                            <div class="item-header">
+                                <h5>
+                                    <i class="icon-picture-o"></i>
+                                    <?= e(array_get($theme, 'name', 'Unknown')) ?>
+                                    <small><?= e(trans('system::lang.updates.theme_label')) ?></small>
+                                </h5>
+                            </div>
+                            <dl>
+                                <dt><?= e(array_get($theme, 'version', 'v1.0.0')) ?></dt>
+                                <dd><?= e(trans('system::lang.updates.theme_new_install')) ?></dd>
+                            </dl>
 
-                        <input type="hidden" name="themes[<?= e($code) ?>]" value="<?= e($theme['hash']) ?>" />
+                            <input type="hidden" name="themes[<?= e($code) ?>]" value="<?= e($theme['hash']) ?>" />
+                        </div>
                     <?php endforeach ?>
 
                     <?php foreach ($pluginList as $code => $plugin): ?>
-                        <h5>
-                            <i class="<?= e($plugin['icon'] ?: 'icon-puzzle-piece') ?>"></i>
-                            <?= e($plugin['name']) ?>
+                        <div class="update-item">
+                            <div class="item-header">
+                                <h5>
+                                    <i class="<?= e($plugin['icon'] ?: 'icon-puzzle-piece') ?>"></i>
+                                    <?= e($plugin['name']) ?>
 
-                            <?php if ($plugin['old_version']): ?>
-                                <small><?= e(trans('system::lang.updates.plugin_version_old', ['version'=>$plugin['old_version']])) ?></small>
-                            <?php else: ?>
-                                <small><?= e(trans('system::lang.updates.plugin_version_none')) ?></small>
-                            <?php endif ?>
-                        </h5>
-                        <dl>
-                            <?php foreach ($plugin['updates'] as $version => $description): ?>
-                                <dt><?= e(trans('system::lang.updates.plugin_version_new', compact('version'))) ?></dt>
-                                <dd><?= e($description) ?></dd>
-                            <?php endforeach ?>
-                        </dl>
+                                    <?php if ($plugin['old_version']): ?>
+                                        <small><?= e(trans('system::lang.updates.plugin_version_old', ['version'=>$plugin['old_version']])) ?></small>
+                                    <?php else: ?>
+                                        <small><?= e(trans('system::lang.updates.plugin_version_none')) ?></small>
+                                    <?php endif ?>
+                                </h5>
+                            </div>
+                            <dl>
+                                <?php foreach ($plugin['updates'] as $version => $description): ?>
+                                    <dt><?= e(trans('system::lang.updates.plugin_version_new', compact('version'))) ?></dt>
+                                    <dd><?= e($description) ?></dd>
+                                <?php endforeach ?>
+                            </dl>
 
-                        <input type="hidden" name="plugins[<?= e($code) ?>]" value="<?= e($plugin['hash']) ?>" />
+                            <input type="hidden" name="plugins[<?= e($code) ?>]" value="<?= e($plugin['hash']) ?>" />
+                        </div>
                     <?php endforeach ?>
 
                 </div>
