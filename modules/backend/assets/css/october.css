@@ -1606,6 +1606,7 @@ ul.status-list li span.status.info{background:#5bc0de}
 .callout > .content .action-panel{padding:10px 0 0 0}
 .callout.no-icon > .header h3,.callout.no-icon > .header p{margin-left:0}
 .callout.no-subheader > .header i{margin-top:-5px}
+.form-group > .callout{margin-bottom:0}
 .control-toolbar{font-size:0;padding:0 0 20px 0;position:relative}
 .control-toolbar:after,.control-toolbar:before{display:none;position:absolute;top:50%;margin-top:-7px;height:9px;font-size:10px;color:#bbbbbb}
 .control-toolbar:before{left:-6px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f104"}

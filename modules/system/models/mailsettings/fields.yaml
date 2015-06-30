@@ -20,6 +20,15 @@ tabs:
             type: dropdown
             tab: system::lang.mail.general
 
+        drivers_hint:
+            type: partial
+            path: ~/modules/system/models/mailsettings/_drivers_hint.htm
+            tab: system::lang.mail.general
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[mandrill][mailgun]
+
         smtp_address:
             label: system::lang.mail.smtp_address
             tab: system::lang.mail.general
