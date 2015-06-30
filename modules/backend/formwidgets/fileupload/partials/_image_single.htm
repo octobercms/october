@@ -5,6 +5,8 @@
     data-template="#<?= $this->getId('template') ?>"
     data-error-template="#<?= $this->getId('errorTemplate') ?>"
     data-unique-id="<?= $this->getId() ?>"
+    data-thumbnail-width="<?= $imageWidth ?: '0' ?>"
+    data-thumbnail-height="<?= $imageHeight ?: '0' ?>"
     <?php if ($useCaption): ?>data-config-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"<?php endif ?>
     <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
 >
@@ -12,7 +14,7 @@
     <!-- Add New Image -->
     <a
         href="javascript:;"
-        style="<?= $cssDimensions ?>"
+        style="<?= $cssBlockDimensions ?>"
         class="upload-button">
         <span class="upload-button-icon oc-<?= $emptyIcon ?>"></span>
     </a>

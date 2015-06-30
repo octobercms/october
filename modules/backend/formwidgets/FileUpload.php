@@ -124,6 +124,7 @@ class FileUpload extends FormWidgetBase
         $this->vars['imageWidth'] = $this->imageWidth;
         $this->vars['acceptedFileTypes'] = $this->getAcceptedFileTypes(true);
         $this->vars['cssDimensions'] = $this->getCssDimensions();
+        $this->vars['cssBlockDimensions'] = $this->getCssDimensions('block');
         $this->vars['useCaption'] = $this->useCaption;
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-upload"></i>', trans($this->prompt));
     }
@@ -168,22 +169,35 @@ class FileUpload extends FormWidgetBase
     /**
      * Returns the CSS dimensions for the uploaded image,
      * uses auto where no dimension is provided.
+     * @param string $mode
      * @return string
      */
-    protected function getCssDimensions()
+    protected function getCssDimensions($mode = null)
     {
         if (!$this->imageWidth && !$this->imageHeight) {
             return '';
         }
 
         $cssDimensions = '';
-        $cssDimensions .= ($this->imageWidth)
-            ? 'width: '.$this->imageWidth.'px;'
-            : 'width: auto;';
 
-        $cssDimensions .= ($this->imageHeight)
-            ? 'height: '.$this->imageHeight.'px;'
-            : 'height: auto;';
+        if ($mode == 'block') {
+            $cssDimensions .= ($this->imageWidth)
+                ? 'width: '.$this->imageWidth.'px;'
+                : 'width: '.$this->imageHeight.'px;';
+
+            $cssDimensions .= ($this->imageHeight)
+                ? 'height: '.$this->imageHeight.'px;'
+                : 'height: auto;';
+        }
+        else {
+            $cssDimensions .= ($this->imageWidth)
+                ? 'width: '.$this->imageWidth.'px;'
+                : 'width: auto;';
+
+            $cssDimensions .= ($this->imageHeight)
+                ? 'height: '.$this->imageHeight.'px;'
+                : 'height: auto;';
+        }
 
         return $cssDimensions;
     }

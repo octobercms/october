@@ -118,6 +118,12 @@
             this.uploaderOptions.headers['X-OCTOBER-FILEUPLOAD'] = this.options.uniqueId
         }
 
+        this.uploaderOptions.thumbnailWidth = this.options.thumbnailWidth
+            ? this.options.thumbnailWidth : null
+
+        this.uploaderOptions.thumbnailHeight = this.options.thumbnailHeight
+            ? this.options.thumbnailHeight : null
+
         /*
          * Add CSRF token to headers
          */
@@ -326,7 +332,9 @@
         errorTemplate: null,
         isMulti: null,
         isPreview: null,
-        isSortable: null
+        isSortable: null,
+        thumbnailWidth: 120,
+        thumbnailHeight: 120
     }
 
     // FILEUPLOAD PLUGIN DEFINITION
