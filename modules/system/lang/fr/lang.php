@@ -17,7 +17,7 @@ return [
         'it' => 'Italien',
         'ja' => 'Japonais',
         'lv' => 'Letton',
-        'nb-no' => 'Norvégien (Bokmål)'
+        'nb-no' => 'Norvégien (Bokmål)',
         'nl' => 'Néerlandais',
         'pl' => 'Polonais',
         'pt-br' => 'Portugais-Brésilien',
