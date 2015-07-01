@@ -34,14 +34,29 @@
             return state.text
         }
 
-        $('select.custom-select:not([data-no-auto-update-on-render=true])').select2({
-            // The data-no-auto-update-on-render attribute allows to disable the 
-            // select2 automatic initialization for edge cases.
+        var selectOptions = {
+            templateResult: formatSelectOption,
+            templateSelection: formatSelectOption,
+            escapeMarkup: function(m) { return m }
+        }
 
-            formatResult: formatSelectOption,
-            formatSelection: formatSelectOption,
-            // minimumResultsForSearch: Infinity,
-            escapeMarkup: function(m) { return m; }
+        /*
+         * Bind custom select
+         */
+        $('select.custom-select').each(function(){
+            var $element = $(this),
+                extraOptions = {}
+
+            // Prevent duplicate loading
+            if ($element.data('select2') != null) {
+                return true; // Continue
+            }
+
+            if ($element.hasClass('select-no-search')) {
+                extraOptions.minimumResultsForSearch = Infinity
+            }
+
+            $element.select2($.extend({}, selectOptions, extraOptions))
         })
     })
 

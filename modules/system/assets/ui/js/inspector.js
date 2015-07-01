@@ -1062,14 +1062,12 @@
         if (value === undefined)
             value = this.inspector.getDefaultValue(this.fieldDef.property)
 
-        $(this.selector).attr('data-no-auto-update-on-render', 'true')
-
         $(this.selector).val(value)
 
         if (!Modernizr.touch) {
             var options = {
-                    dropdownCssClass: 'ocInspectorDropdown'
-                }
+                dropdownCssClass: 'ocInspectorDropdown'
+            }
 
             if (this.fieldDef.placeholder !== undefined)
                 options.placeholder = this.fieldDef.placeholder
