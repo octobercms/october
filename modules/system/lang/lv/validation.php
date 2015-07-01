@@ -46,6 +46,7 @@ return array(
         "array"   => ":attribute nedrīkst pārsniegt :max objektus.",
     ),
     "mimes"            => ":attribute jabūt failam ar tipu: :values.",
+    "extensions"       => ":attribute jābūt ar paplašinājumu: :values.",
     "min"              => array(
         "numeric" => ":attribute jābūt vismaz :min.",
         "file"    => ":attribute jabūt vismaz :min kilobaitiem.",
