@@ -7,11 +7,13 @@
 =require js/foundation.js
 =require js/flashmessage.js
 =require js/inspector.js
+=require js/checkbox.js
 =require js/dropdown.js
 =require js/callout.js
 =require js/tooltip.js
 =require js/toolbar.js
 =require js/filter.js
+=require js/select.js
 =require js/loader.js
 =require js/popover.js
 =require js/popup.js

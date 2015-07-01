@@ -12,14 +12,12 @@
 =require vendor/jquery.autoellipsis.js
 =require vendor/jquery.waterfall.js
 =require vendor/jquery.cookie.js
-=require ../vendor/select2/select2.js
 =require ../vendor/dropzone/dropzone.js
 =require ../vendor/sweet-alert/sweet-alert.js
 =require ../vendor/jcrop/js/jquery.Jcrop.js
 
 =require ../../../system/assets/ui/storm.js
 
-=require october.controls.js
 =require october.scrollpad.js
 =require october.verticalmenu.js
 =require october.navbar.js

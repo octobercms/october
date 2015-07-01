@@ -1,26 +1,14 @@
 /*
- * Custom controls that could exist separately of the form widget
+=require ../vendor/modernizr/modernizr.js
+=require ../vendor/select2/select2.js
+*/
+
+/*
+ * Select control
+ *
  */
 
 (function($){
-    $(document).on('keydown', 'div.custom-checkbox', function(e){
-        if (e.keyCode == 32)
-            e.preventDefault()
-    })
-
-    $(document).on('keyup', 'div.custom-checkbox', function(e){
-        if (e.keyCode == 32) {
-            var $cb = $('input', this)
-
-            if ($cb.data('oc-space-timestamp') == e.timeStamp)
-                return
-
-            $cb.get(0).checked = !$cb.get(0).checked
-            $cb.data('oc-space-timestamp', e.timeStamp)
-            $cb.trigger('change')
-            return false
-        }
-    })
 
     /*
      * Custom drop downs (Desktop only)
@@ -48,10 +36,11 @@
 
         $('select.custom-select:not([data-no-auto-update-on-render=true])').select2({
             // The data-no-auto-update-on-render attribute allows to disable the 
-            // selec2 automatic initialization for edge cases.
+            // select2 automatic initialization for edge cases.
 
             formatResult: formatSelectOption,
             formatSelection: formatSelectOption,
+            // minimumResultsForSearch: Infinity,
             escapeMarkup: function(m) { return m; }
         })
     })
