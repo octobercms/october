@@ -107,7 +107,7 @@ Renders a form
                 <label>Would you like fries with that?</label>
                 <p class="help-block">Use this checkbox to enable the Googie Berry power-up specifically for this page. You can configure the Googie Berry power-up on the System Settings and Dashboard page.</p>
             </div>
-            <label class="custom-switch" onclick="">
+            <label class="custom-switch">
                 <input type="checkbox" />
                 <span><span>On</span><span>Off</span></span>
                 <a class="slide-button"></a>
@@ -118,7 +118,7 @@ Renders a form
         <div class="form-group radio-field span-left is-required">
             <label>Radio List</label>
             <p class="help-block before-field">Where should you propose to your beautiful girl?</p>
-            
+
             <div class="radio custom-radio">
                 <input name="radio" value="1" type="radio" id="radio_1">
                 <label for="radio_1">Paris</label>
