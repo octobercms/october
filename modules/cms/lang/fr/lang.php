@@ -161,7 +161,7 @@ return [
         'code' => 'Code',
         'content' => 'Contenu',
         'hidden' => 'Caché',
-        'hidden_comment' => 'Les pages cachées sont seulement accessibles aux administrateurs connectés.'
+        'hidden_comment' => 'Les pages cachées sont seulement accessibles aux administrateurs connectés.',
         'enter_fullscreen' => 'Activer le mode plein écran',
         'exit_fullscreen' => 'Annuler le mode plein écran'
     ],
