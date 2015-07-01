@@ -280,12 +280,12 @@ return [
     ],
     'permissions' => [
         'name' => 'Système',
-        'manage_system_settings' => 'Gestion des paramètres du système',
-        'manage_software_updates' => 'Gestion des mises à jour du logiciel',
+        'manage_system_settings' => 'Gérer les paramètres du système',
+        'manage_software_updates' => 'Gérer les mises à jour du logiciel',
         'access_logs' => 'Voir les journaux système',
-        'manage_mail_templates' => 'Gestion des modèles e-mail',
-        'manage_mail_settings' => 'Gestion des paramètres e-mail',
-        'manage_other_administrators' => 'Gestion des autres paramètres administrateur',
+        'manage_mail_templates' => 'Gérer les modèles des e-mails',
+        'manage_mail_settings' => 'Gérer les paramètres e-mail',
+        'manage_other_administrators' => 'Gérer les autres paramètres administrateur',
         'view_the_dashboard' => 'Voir le tableau de bord',
         'manage_branding' => 'Personnaliser l’interface d’administration'
     ]
