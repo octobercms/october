@@ -990,7 +990,10 @@
     InspectorEditorDropdown.prototype.dispose = function() {
         $(document).off('change', this.selector, this.proxy(this.applyValue))
 
-        $(this.selector).select2('destroy')
+        var $element = $(this.selector)
+        if ($element.data('select2') != null) {
+            $element.select2('destroy')
+        }
 
         this.inspector = null
         this.fieldDef = null
@@ -1005,7 +1008,7 @@
     }
 
     InspectorEditorDropdown.prototype.renderEditor = function() {
-        var 
+        var
             self = this,
             data = {
             id: this.editorId,

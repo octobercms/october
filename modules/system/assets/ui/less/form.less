@@ -22,27 +22,6 @@
 @import "checkbox.less";
 
 //
-// Resets to bootstrap
-//
-
-label {
-    font-weight: 600;
-}
-
-.form-control {
-    .transition(none);
-    .box-shadow(none);
-    .border-radius(3px);
-    &:focus {
-        .box-shadow(none);
-    }
-
-    &.align-right {
-        text-align: right;
-    }
-}
-
-//
 // Form containers
 //
 
@@ -71,15 +50,9 @@ label {
     .clearfix();
 }
 
-label {
-    font-size: 12px;
-}
-
 .form-control {
-    border: 1px solid @color-form-field-border;
     position: relative;
     -webkit-appearance: none;
-    font-size: 13px;
 
     &:focus {
         border: 1px solid @color-form-field-border-focus;
@@ -436,7 +409,7 @@ body.slim-container {
         width: auto;
         height: 36px;
 
-        .select2-choice {
+        .select2-selection {
             height: 34px;
             line-height: 34px;
         }

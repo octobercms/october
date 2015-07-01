@@ -35,6 +35,7 @@
         font-size: 12px;
         width: 50%;
         border-bottom: 1px solid @color-inspector-grid;
+        text-align: left;
     }
 
     tr:last-child {
@@ -288,35 +289,35 @@
         }
     }
 
-    div.custom-select {
-        width: 100%;
+    .select2-container {
+        width: 100% !important;
 
-        &.select2-container {
-            .select2-choice {
-                background: transparent;
-                height: 30px;
-                line-height: 29px;
-                padding-left: 12px;
-                padding-right: 3px;
-                .border-radius(0) !important;
+        .select2-selection {
+            background: transparent;
+            height: 30px;
+            line-height: 29px;
+            padding: 0 3px 0 12px;
+            .border-radius(0) !important;
+            border: none !important;
+            font-size: 12px;
 
-                &.select2-default {
-                    font-weight: normal !important;
-                }
+            &.select2-default {
+                font-weight: normal !important;
             }
+        }
 
-            .loading-indicator {
-                > span {
-                    top: 15px;
-                }
+        .loading-indicator {
+            > span {
+                top: 15px;
             }
+        }
 
-            &.select2-dropdown-open {
-                .border-radius(0) !important;
+        &.select2-container--open {
+            .border-radius(0) !important;
+            border: none !important;
 
-                .select2-choice {
-                    background: white;
-                }
+            .select2-selection {
+                background: white;
             }
         }
     }
@@ -328,7 +329,7 @@
                 font-weight: 600;
             }
 
-            div.custom-select.select2-container .select2-choice {
+            .select2-container .select2-selection {
                 font-weight: 600;
             }
         }
@@ -361,7 +362,7 @@ div.control-popover {
                 font-weight: 400!important;
             }
 
-            div.custom-select.select2-container .select2-choice {
+            div.custom-select.select2-container .select2-selection {
                 height: 36px;
                 line-height: 36px;
             }
@@ -369,13 +370,16 @@ div.control-popover {
     }
 }
 
-.select2-drop {
+.select2-dropdown {
     &.ocInspectorDropdown {
         font-size: 12px;
-        .border-radius(0)!important;
-        border: none!important;
+        .border-radius(0) !important;
+        border: none !important;
 
         > .select2-results {
+            > .select2-results__options {
+                font-size: 12px;
+            }
             > li > div {
                 padding: 5px 12px 5px;
             }
@@ -392,22 +396,16 @@ div.control-popover {
             &:after {
                 position: absolute;
                 .icon(@search);
-                right: 8px;
-                top: 5px;
+                right: 10px;
+                top: 10px;
                 color: #95a5a6;
             }
 
             input.select2-input {
                 min-height: 26px;
-                background: transparent!important;
+                background: transparent !important;
                 padding-left: 12px;
                 padding-right: 12px;
-            }
-        }
-
-        &.select2-drop-above {
-            .select2-search:after { 
-                top: 7px;
             }
         }
     }

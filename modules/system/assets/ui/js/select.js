@@ -1,6 +1,6 @@
 /*
 =require ../vendor/modernizr/modernizr.js
-=require ../vendor/select2/select2.js
+=require ../vendor/select2/js/select2.full.js
 */
 
 /*

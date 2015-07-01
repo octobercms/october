@@ -7,9 +7,9 @@
 @input-bg-disabled:              @gray-lighter;
 
 @input-color:                    @gray;
-@input-border:                   #ccc;
-@input-border-radius:            @border-radius-base;
-@input-border-focus:             #66afe9;
+@input-border:                   #e0e0e0;
+@input-border-focus:             #808c8d;
+@input-border-radius:            3px;
 
 @input-color-placeholder:        @gray-light;
 
@@ -23,14 +23,18 @@
 @input-group-addon-bg:           @gray-lighter;
 @input-group-addon-border-color: @input-border;
 
+@label-font-size: 12px;
+@input-font-size: 13px;
+
+@input-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 
 @form-breakpoint-min: 770px;
 @form-breakpoint-max: (@form-breakpoint-min - 1);
 
 @color-input-sidebar-control:                #C4C4C4;
 
-@color-form-field-border:                    #e0e0e0;
-@color-form-field-border-focus:              #808c8d;
+@color-form-field-border:                    @input-border;
+@color-form-field-border-focus:              @input-border-focus;
 @color-form-required-asterisk:               #ff0000;
 @color-form-sidebar:                         #ecf0f1;
 @color-form-field-preview:                   #f6f6f6;
@@ -39,4 +43,4 @@
 
 @color-form-field-recordfinder-btn:          #333333;
 
-@color-form-checkboxlist-border:              #e2e2e2;
+@color-form-checkboxlist-border:             #e2e2e2;
