@@ -42,3 +42,20 @@ Allows a user to select from a small set of binary options.
         <span><span>On</span><span>Off</span></span>
         <a class="slide-button"></a>
     </label>
+
+
+
+    <hr />
+
+
+
+    <h5>Balloon selector</h5>
+    <div data-control="balloon-selector" class="control-balloon-selector">
+        <ul>
+            <li data-value="1" class="active">One</li>
+            <li data-value="2">Two</li>
+            <li data-value="3">Three</li>
+        </ul>
+
+        <input type="hidden" name="balloonValue" value="1" />
+    </div>
