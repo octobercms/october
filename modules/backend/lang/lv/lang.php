@@ -20,7 +20,7 @@ return [
             'cms_link' => 'Atgriezties back-end'
         ],
         'invalid_token' => [
-            'label' => 'Nederīgas drošības atslēga'
+            'label' => 'Nederīga drošības atslēga'
         ]
     ],
     'partial' => [

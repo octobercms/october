@@ -78,7 +78,7 @@ return [
         'dir_name_invalid' => 'Nosaukums drīkst saturēt tikai skaitļus, Latīņu burtus un sekojošos simbolus: _-',
         'dir_name_taken' => 'Izvēlētā tēmas mape jau pastāv.',
         'find_more_themes' => 'Atrodast vairāk tēmas',
-	'saving' => 'Saglabājam tēmu...',
+        'saving' => 'Saglabājam tēmu...',
         'return' => 'Atgriezties tēmu sarakstā',
     ],
     'maintenance' => [
