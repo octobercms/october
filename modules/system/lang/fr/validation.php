@@ -23,7 +23,7 @@ return array(
     "before"           => "Le :attribute doit être une date avant le :date.",
     "between"          => array(
         "numeric" => "Le :attribute doit être compris entre :min - :max.",
-        "file"    => "Le :attribute doit être compris entre :min - :max kilobytes.",
+        "file"    => "Le :attribute doit être compris entre :min - :max kilooctets.",
         "string"  => "Le :attribute doit être compris entre :min - :max caractères.",
         "array"   => "Le :attribute doit être compris entre :min - :max objets.",
     ),
@@ -41,14 +41,14 @@ return array(
     "ip"               => "Le :attribute doit être une adresse IP valide.",
     "max"              => array(
         "numeric" => "Le :attribute ne peut pas être supérieure à :max.",
-        "file"    => "Le :attribute ne peut pas être supérieure à :max kilobytes.",
+        "file"    => "Le :attribute ne peut pas être supérieure à :max kilooctets.",
         "string"  => "Le :attribute ne peut pas être supérieure à :max caractères.",
         "array"   => "Le :attribute ne peut pas être supérieure à :max objets.",
     ),
     "mimes"            => "Le :attribute doit être un fichier de type: :values.",
     "min"              => array(
         "numeric" => "Le :attribute doit être au minimum de :min.",
-        "file"    => "Le :attribute doit être au minimum de :min kilobytes.",
+        "file"    => "Le :attribute doit être au minimum de :min kilooctets.",
         "string"  => "Le :attribute doit être au minimum de :min caractères.",
         "array"   => "Le :attribute doit être au minimum de :min objets.",
     ),
@@ -62,7 +62,7 @@ return array(
     "same"             => "Le :attribute et :other doivent correspondre.",
     "size"             => array(
         "numeric" => "Le :attribute doit être de :size.",
-        "file"    => "Le :attribute doit être de :size kilobytes.",
+        "file"    => "Le :attribute doit être de :size kilooctets.",
         "string"  => "Le :attribute doit être de :size caractères.",
         "array"   => "Le :attribute doit contenir :size objets.",
     ),
