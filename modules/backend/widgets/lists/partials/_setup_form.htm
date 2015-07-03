@@ -38,7 +38,7 @@
                 <p class="help-block">
                     <?= e(trans('backend::lang.list.records_per_page_help')) ?>
                 </p>
-                <select class="form-control custom-select" name="records_per_page">
+                <select class="form-control custom-select select-no-search" name="records_per_page">
                     <?php foreach ($perPageOptions as $optionValue): ?>
                         <option value="<?= $optionValue ?>" <?= $optionValue == $recordsPerPage ? 'selected="selected"' : '' ?>><?= $optionValue ?></option>
                     <?php endforeach ?>

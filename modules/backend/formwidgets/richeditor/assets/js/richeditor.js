@@ -168,8 +168,8 @@
     }
 
     RichEditor.prototype.sanityCheckContent = function() {
-        // First and last elements should always be paragraphs or pre
-        var safeElements = 'p, h1, h2, h3, h4, h5, pre, figure';
+        // First and last elements should always be paragraphs, lists or pre
+        var safeElements = 'p, h1, h2, h3, h4, h5, pre, figure, ol, ul';
 
         if (!this.$editor.children(':last-child').is(safeElements)) {
             this.$editor.append('<p><br></p>')

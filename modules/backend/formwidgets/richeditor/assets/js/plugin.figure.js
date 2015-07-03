@@ -20,59 +20,8 @@
         controlGroup: ['up', 'down', 'remove'],
 
         init: function () {
-            this.observeCaptions()
             this.observeToolbars()
             this.observeKeyboard()
-        },
-
-        observeCaptions: function () {
-
-            /*
-             * Adding a line-break to empty captions and citations on click will place the cursor in the expected place
-             */
-            this.redactor.$editor.on('click.figure', 'figcaption:empty, cite:empty', $.proxy(function (event) {
-                $(event.target).prepend('<br />')
-                this.redactor.caret.setEnd(event.target)
-                event.stopPropagation()
-            }, this))
-
-            /*
-             * Remove generated line-breaks empty figcaptions
-             */
-            $(window).on('click', $.proxy(this.cleanCaptions, this))
-            this.redactor.$editor.on('blur.figure', $.proxy(this.cleanCaptions, this))
-            this.redactor.$editor.closest('form').one('submit', $.proxy(this.clearCaptions, this))
-
-            /*
-             * Prevent user from removing captions or citations with delete/backspace keys
-             */
-            this.redactor.$editor.on('keydown.figure', $.proxy(function (event) {
-                var current       = this.redactor.selection.getCurrent(),
-                    isEmpty       = !current.length,
-                    isCaptionNode = !!$(current).closest('figcaption, cite').length,
-                    isDeleteKey   = $.inArray(event.keyCode, [this.redactor.keyCode.BACKSPACE, this.redactor.keyCode.DELETE]) >= 0
-
-                if (isEmpty && isDeleteKey && isCaptionNode) {
-                    event.preventDefault()
-                }
-            }, this))
-
-        },
-
-        cleanCaptions: function () {
-            this.redactor.$editor.find('figcaption, cite').filter(function () {
-                return $(this).text() == ''
-            }).empty()
-        },
-
-        clearCaptions: function () {
-            this.redactor.$editor.find('figcaption, cite').filter(function () {
-                return $(this).text() == ''
-            }).remove()
-
-            if (this.redactor.opts.visual) {
-                this.redactor.code.sync()
-            }
         },
 
         showToolbar: function (event) {
@@ -285,11 +234,11 @@
                  * Delete key
                  */
                 if (
-                        event.keyCode === 8
-                        && !redactor.caret.getOffset(currentNode)
-                        && currentNode.previousSibling
-                        && currentNode.previousSibling.nodeName === 'FIGURE'
-                    ) {
+                    event.keyCode === 8
+                    && !redactor.caret.getOffset(currentNode)
+                    && currentNode.previousSibling
+                    && currentNode.previousSibling.nodeName === 'FIGURE'
+                ) {
                     event.preventDefault()
                 }
             })
@@ -297,7 +246,6 @@
 
         destroy: function() {
             this.redactor.$editor.off('.figure')
-            $(window).off('click', $.proxy(this.cleanCaptions, this))
 
             for (var type in this.toolbar) {
                 this.toolbar[type].find('span').off('.figure')
