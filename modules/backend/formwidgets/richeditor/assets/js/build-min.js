@@ -1818,17 +1818,8 @@ this.$box.css('top',toolbarHeight+'px')}}}}}(jQuery));(function($){'use strict';
 var Figure=function(redactor){this.redactor=redactor
 this.toolbar={}
 this.init()}
-Figure.prototype={control:{up:{classSuffix:'arrow-up'},down:{classSuffix:'arrow-down'},'|':{classSuffix:'divider'},remove:{classSuffix:'delete'}},controlGroup:['up','down','remove'],init:function(){this.observeCaptions()
-this.observeToolbars()
-this.observeKeyboard()},observeCaptions:function(){this.redactor.$editor.on('click.figure','figcaption:empty, cite:empty',$.proxy(function(event){$(event.target).prepend('<br />')
-this.redactor.caret.setEnd(event.target)
-event.stopPropagation()},this))
-$(window).on('click',$.proxy(this.cleanCaptions,this))
-this.redactor.$editor.on('blur.figure',$.proxy(this.cleanCaptions,this))
-this.redactor.$editor.closest('form').one('submit',$.proxy(this.clearCaptions,this))
-this.redactor.$editor.on('keydown.figure',$.proxy(function(event){var current=this.redactor.selection.getCurrent(),isEmpty=!current.length,isCaptionNode=!!$(current).closest('figcaption, cite').length,isDeleteKey=$.inArray(event.keyCode,[this.redactor.keyCode.BACKSPACE,this.redactor.keyCode.DELETE])>=0
-if(isEmpty&&isDeleteKey&&isCaptionNode){event.preventDefault()}},this))},cleanCaptions:function(){this.redactor.$editor.find('figcaption, cite').filter(function(){return $(this).text()==''}).empty()},clearCaptions:function(){this.redactor.$editor.find('figcaption, cite').filter(function(){return $(this).text()==''}).remove()
-if(this.redactor.opts.visual){this.redactor.code.sync()}},showToolbar:function(event){var $figure=$(event.currentTarget),type=$figure.data('type')||'default',$toolbar=this.getToolbar(type).data('figure',$figure).prependTo($figure).show()
+Figure.prototype={control:{up:{classSuffix:'arrow-up'},down:{classSuffix:'arrow-down'},'|':{classSuffix:'divider'},remove:{classSuffix:'delete'}},controlGroup:['up','down','remove'],init:function(){this.observeToolbars()
+this.observeKeyboard()},showToolbar:function(event){var $figure=$(event.currentTarget),type=$figure.data('type')||'default',$toolbar=this.getToolbar(type).data('figure',$figure).prependTo($figure).show()
 if(this.redactor[type]&&this.redactor[type].onShow){this.redactor[type].onShow($figure,$toolbar)}},hideToolbar:function(event){$(event.currentTarget).find('.oc-figure-controls').appendTo(this.redactor.$box).hide()},observeToolbars:function(){this.redactor.$editor.on('mousedown.figure','.oc-figure-controls',$.proxy(function(event){event.preventDefault()
 this.current=this.redactor.selection.getCurrent()},this))
 this.redactor.$editor.on('click.figure','.oc-figure-controls span, .oc-figure-controls a',$.proxy(function(event){event.stopPropagation()
@@ -1872,7 +1863,6 @@ break}
 this.redactor.code.sync()},observeKeyboard:function(){var redactor=this.redactor
 redactor.$editor.on('keydown.figure',function(event){var currentNode=redactor.selection.getBlock()
 if(event.keyCode===8&&!redactor.caret.getOffset(currentNode)&&currentNode.previousSibling&&currentNode.previousSibling.nodeName==='FIGURE'){event.preventDefault()}})},destroy:function(){this.redactor.$editor.off('.figure')
-$(window).off('click',$.proxy(this.cleanCaptions,this))
 for(var type in this.toolbar){this.toolbar[type].find('span').off('.figure')}
 this.redactor=null
 this.toolbar=null}}
@@ -2006,7 +1996,7 @@ return
 if(this.$el.hasClass('stretch')){var height=$toolbar.outerHeight(true)
 $editor.css('top',height+1)
 $codeEditor.css('top',height)}}
-RichEditor.prototype.sanityCheckContent=function(){var safeElements='p, h1, h2, h3, h4, h5, pre, figure';if(!this.$editor.children(':last-child').is(safeElements)){this.$editor.append('<p><br></p>')}
+RichEditor.prototype.sanityCheckContent=function(){var safeElements='p, h1, h2, h3, h4, h5, pre, figure, ol, ul';if(!this.$editor.children(':last-child').is(safeElements)){this.$editor.append('<p><br></p>')}
 if(!this.$editor.children(':first-child').is(safeElements)){this.$editor.prepend('<p><br></p>')}
 this.$textarea.trigger('sanitize.oc.richeditor',[this.$editor])}
 RichEditor.prototype.syncBefore=function(html){var container={html:html}

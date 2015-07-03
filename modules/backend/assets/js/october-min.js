@@ -2663,7 +2663,8 @@ this.escape()
 $(document).off('focusin.bs.modal')
 this.$element.removeClass('in').attr('aria-hidden',true).off('click.dismiss.bs.modal')
 $.support.transition&&this.$element.hasClass('fade')?this.$element.one($.support.transition.end,$.proxy(this.hideModal,this)).emulateTransitionEnd(300):this.hideModal()}
-Modal.prototype.enforceFocus=function(){$(document).off('focusin.bs.modal').on('focusin.bs.modal',$.proxy(function(e){if(this.$element[0]!==e.target&&!this.$element.has(e.target).length){this.$element.focus()}},this))}
+Modal.prototype.enforceFocus=function(){$(document).off('focusin.bs.modal').on('focusin.bs.modal',$.proxy(function(e){if($(e.target).hasClass('select2-search__field')){return}
+if(this.$element[0]!==e.target&&!this.$element.has(e.target).length){this.$element.focus()}},this))}
 Modal.prototype.escape=function(){if(this.isShown&&this.options.keyboard){this.$element.on('keyup.dismiss.bs.modal',$.proxy(function(e){e.which==27&&this.hide()},this))}else if(!this.isShown){this.$element.off('keyup.dismiss.bs.modal')}}
 Modal.prototype.hideModal=function(){var that=this
 this.$element.hide()

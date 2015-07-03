@@ -95,7 +95,7 @@ return [
         'send_invite' => 'Send invitation by email',
         'send_invite_comment' => 'Sends a welcome message containing login and password information.',
         'delete_confirm' => 'Do you really want to delete this administrator?',
-        'return' => 'Return to the administrator list',
+        'return' => 'Return to admin list',
         'allow' => 'Allow',
         'inherit' => 'Inherit',
         'deny' => 'Deny',
@@ -108,9 +108,9 @@ return [
             'code_comment' => 'Enter a unique code if you want to access it with the API.',
             'menu_label' => 'Groups',
             'list_title' => 'Manage Groups',
-            'new' => 'New Administrator Group',
+            'new' => 'New Group',
             'delete_confirm' => 'Do you really want to delete this administrator group?',
-            'return' => 'Return to the group list',
+            'return' => 'Return to group list',
             'users_count' => 'Users'
         ],
         'preferences' => [
