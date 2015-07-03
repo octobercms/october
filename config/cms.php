@@ -250,4 +250,16 @@ return [
 
     'defaultMask' => ['file' => null, 'folder' => null],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cross Site Request Forgery (CSRF) Protection
+    |--------------------------------------------------------------------------
+    |
+    | If the CSRF protection is enabled, all "postback" requests are checked
+    | for a valid security token.
+    |
+    */
+
+    'enableCsrfProtection' => false,
+
 ];
