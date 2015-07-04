@@ -33,7 +33,7 @@ return [
         'description_label' => 'Leírás',
         'description_placeholder' => 'A téma ismertetője',
         'homepage_label' => 'Weboldal',
-        'homepage_placeholder' => 'A honlap URL címe',
+        'homepage_placeholder' => 'A honlap webcíme',
         'code_label' => 'Kód',
         'code_placeholder' => 'Egyedi azonosító ehhez a témához',
         'dir_name_label' => 'Könyvtár',
@@ -101,7 +101,7 @@ return [
         'unsaved_label' => 'Nem mentett lap(ok)',
         'no_list_records' => 'Nem találhatóak lapok',
         'new' => 'Új lap',
-        'invalid_url' => 'Érvénytelen az URL cím formátuma. Az URL címnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő karaktereket tartalmazhatja: ._-[]:?|/+*',
+        'invalid_url' => 'Érvénytelen a webcím formátuma. A webcímnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő karaktereket tartalmazhatja: ._-[]:?|/+*',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt lapokat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a lapot?',
         'no_layout' => '-- nincs elrendezés --'
@@ -149,7 +149,7 @@ return [
         'settings' => 'Beállítások',
         'title' => 'Cím',
         'new_title' => 'Új lap címe',
-        'url' => 'URL cím',
+        'url' => 'Webcím',
         'filename' => 'Fájlnév',
         'layout' => 'Elrendezés',
         'description' => 'Leírás',
@@ -187,24 +187,24 @@ return [
         'error_deleting_dir_not_empty' => 'Hiba a(z) :name könyvtár törlésekor. A könyvtár nem üres.',
         'error_deleting_dir' => 'Hiba a(z) :name fájl törlésekor.',
         'invalid_name' => 'A név csak számokat, latin betűket, szóközöket és a következő szimbólumokat tartalmazhatja: ._-',
-        'original_not_found' => 'Nem található az eredeti fájl vagy könyvtár',
-        'already_exists' => 'Már létezik ilyen nevű fájl vagy könyvtár',
-        'error_renaming' => 'Hiba a fájl vagy a könyvtár átnevezésekor',
-        'name_cant_be_empty' => 'A név nem lehet üres',
+        'original_not_found' => 'Nem található az eredeti fájl vagy könyvtár.',
+        'already_exists' => 'Már létezik ilyen nevű fájl vagy könyvtár.',
+        'error_renaming' => 'Hiba a fájl vagy a könyvtár átnevezésekor.',
+        'name_cant_be_empty' => 'A név nem lehet üres.',
         'too_large' => 'A feltöltött fájl túl nagy. A maximálisan engedélyezett fájlméret :max_size',
         'type_not_allowed' => 'Csak a következő fájltípusok engedélyezettek: :allowed_types',
-        'file_not_valid' => 'A fájl nem érvényes',
+        'file_not_valid' => 'A fájl nem érvényes.',
         'error_uploading_file' => "Hiba a(z) ':name' fájl feltöltésekor: :error",
         'move_please_select' => 'válasszon',
         'move_destination' => 'Célkönyvtár',
         'move_popup_title' => 'Fájl(ok) áthelyezése',
         'move_button' => 'Áthelyezés',
-        'selected_files_not_found' => 'A kijelölt fájlok nem találhatók',
-        'select_destination_dir' => 'Válasszon egy célkönyvtárat',
-        'destination_not_found' => 'A célkönyvtár nem található',
-        'error_moving_file' => 'Hiba a(z) :file fájl áthelyezésekor',
-        'error_moving_directory' => 'Hiba a(z) :dir könyvtár áthelyezésekor',
-        'error_deleting_directory' => 'Hiba a(z) :dir eredeti könyvtár áthelyezésekor',
+        'selected_files_not_found' => 'A kijelölt fájlok nem találhatók.',
+        'select_destination_dir' => 'Válasszon egy célkönyvtárat.',
+        'destination_not_found' => 'A célkönyvtár nem található.',
+        'error_moving_file' => 'Hiba a(z) :file fájl áthelyezésekor.',
+        'error_moving_directory' => 'Hiba a(z) :dir könyvtár áthelyezésekor.',
+        'error_deleting_directory' => 'Hiba a(z) :dir eredeti könyvtár áthelyezésekor.',
         'path' => 'Elérési út'
     ],
     'component' => [
@@ -214,7 +214,7 @@ return [
         'alias' => 'Alias',
         'alias_description' => 'Ennek a komponensnek a lap vagy az elrendezés kódjában való használatkor adott egyedi név.',
         'validation_message' => 'A komponens aliasok kötelezőek, és csak latin szimbólumokat, számokat, valamint aláhúzásjeleket tartalmazhatnak. Az aliasoknak latin szimbólummal kell kezdődniük.',
-        'invalid_request' => 'A sablon érvénytelen komponensadatok miatt nem menthető.',
+        'invalid_request' => 'A sablon érvénytelen komponens adatok miatt nem menthető.',
         'no_records' => 'Nem találhatók komponensek',
         'not_found' => "A(z) ':name' komponens nem található.",
         'method_not_found' => "A(z) ':name' komponens nem tartalmaz egy ':method' metódust."
@@ -222,7 +222,7 @@ return [
     'template' => [
         'invalid_type' => 'Ismeretlen sablontípus.',
         'not_found' => 'A kért sablon nem található.',
-        'saved'=> 'A sablon mentése sikerült.'
+        'saved' => 'A módosítások sikeresen mentésre kerültek.'
     ],
     'permissions' => [
         'name' => 'Testreszabás',
@@ -231,7 +231,11 @@ return [
         'manage_pages' => 'Lapok kezelése',
         'manage_layouts' => 'Elrendezések kezelése',
         'manage_partials' => 'Részlapok kezelése',
-        'manage_themes' => 'Témák kezelése'
+        'manage_themes' => 'Témák kezelése',
+        'manage_media' => 'Fájlok kezelése'
+    ],
+    'mediafinder' => [
+        'default_prompt' => 'Kattintson a(z) %s gombra új média fájl kereséséhez.'
     ],
     'media' => [
         'invalid_path' => "Érvénytelen elérési útvonal: ':path'",
