@@ -580,9 +580,11 @@ class RelationController extends ControllerBehavior
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
             $widget->bindEvent('list.extendQuery', function ($query) {
                 $this->controller->relationExtendQuery($query, $this->field);
-
                 $this->relationObject->setQuery($query);
-                if ($sessionKey = $this->relationGetSessionKey()) {
+
+                $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey() : null;
+
+                if ($sessionKey) {
                     $this->relationObject->withDeferred($sessionKey);
                 }
                 elseif ($this->model->exists) {
