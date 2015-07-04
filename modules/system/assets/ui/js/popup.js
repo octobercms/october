@@ -61,11 +61,13 @@
             self.triggerEvent('hidden.oc.popup')
             self.$container.remove()
             self.$el.data('oc.popup', null)
+            $(document.body).removeClass('modal-open')
         })
 
         this.$modal.on('show.bs.modal', function(){
             self.isOpen = true
             self.setBackdrop(true)
+            $(document.body).addClass('modal-open')
         })
 
         this.$modal.on('shown.bs.modal', function(){
