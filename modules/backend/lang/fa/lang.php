@@ -18,7 +18,7 @@ return [
             'label'    => "شما مجوز دسترسی ندارید",
             'help'     => "شما مجوز لازم براس دسترسی به این صفحه را ندارید.",
             'cms_link' => "بازگشت به مدیریت",
-        ],
+        ]
     ],
     'partial' => [
         'not_found_name' => "بخشی با نام ':name' یافت نشد.",
@@ -65,6 +65,7 @@ return [
         'status'                       => [
             'widget_title_default' => 'وضعیت سیستم',
             'online'               => 'online',
+            'maintenance' => 'در حال به روز رسانی',
             'update_available'     => '{0} به روز رسانی موجود است!|{1} به روز رسانی موجود است!|[2,Inf] به روز رسانی موجود است!',
         ]
     ],
@@ -84,6 +85,8 @@ return [
         'avatar'                => "نمایه",
         'password'              => "کلمه عبور",
         'password_confirmation' => "تکرار کلمه عبور",
+        'permissions' => 'مجوز های دسترسی',
+        'account' => 'حساب کاربری',
         'superuser'             => "کاربر ممتاز",
         'superuser_comment'     => "اگر میخواهید این شخص به تمام قسمت ها دسترسی داشته باشد این گزینه را فعال نمایید.",
         'send_invite'           => 'دعوت نامه توسط پست الکترونیکی ارسال شود',
@@ -96,7 +99,11 @@ return [
         'group'                 => [
             'name'           => 'گروه',
             'name_field'     => 'نام',
-            'menu_label'     => 'گروه ها',
+            'description_field' => 'توضیحات',
+            'is_new_user_default_field' => 'بطور پیشفرض مدیران جدید را در این گروه ایجاد کن.',
+            'code_field' => 'کد',
+            'code_comment' => 'کد یکتایی را جهت دسترسی به آن توسط API وارد نمایید.',
+            'menu_label' => 'گروه ها',
             'list_title'     => 'مدیریت گروه ها',
             'new'            => 'گروه مدیریت جدید',
             'delete_confirm' => 'آیا از حذف این گروه از مدیران اطمینان دارید?',
@@ -123,7 +130,11 @@ return [
         'setup_title'             => 'راه اندازی لیست',
         'setup_help'              => 'ستون هایی را که میخواهید مشاهده نمایید را انتخاب نمایید. میتوانید محل قرار گیری ستونها را با جابجا نمودن آنها به .',
         'records_per_page'        => 'مورد در هر صفحه',
-        'records_per_page_help'   => 'تعداد موارد نمایش داده شده در هر صفحه را انتخاب نمایید. لطفا توجه نمایید نمایش تعداد زیادی از موارد در هر صفحه از کارایی سیستم میکاهد.'
+        'records_per_page_help'   => 'تعداد موارد نمایش داده شده در هر صفحه را انتخاب نمایید. لطفا توجه نمایید نمایش تعداد زیادی از موارد در هر صفحه از کارایی سیستم میکاهد.',
+         'delete_selected' => 'حذف انتخاب شده ها',
+        'delete_selected_empty' => 'مورد جهت حذف انتخاب نشده است.',
+        'delete_selected_confirm' => 'آیا میخواهید موارد انتخابی را حذف کنید؟',
+        'delete_selected_success' => 'حدف موارد انخابی انجام شد.',
     ],
     'fileupload' => [
         'attachment'        => 'فایل ضمیمه',
@@ -154,6 +165,9 @@ return [
         'delete'                               => 'حذف',
         'deleting'                             => 'در حال حذف...',
         'deleting_name'                        => 'درحال حذف :name...',
+        'reset_default' => 'بازگشت به پیش فرض',
+        'resetting' => 'بازگذاری مجدد',
+        'resetting_name' => 'بارگذاری :name',
         'undefined_tab'                        => 'متفرقه',
         'field_off'                            => 'خاموش',
         'field_on'                             => 'روشن',
@@ -178,6 +192,7 @@ return [
         'concurrency_file_changed_description' => 'فایلی که شما ویرایش کردید توسط کاربر دیگری تغییر یافته و ذخیره شده است. شما میتوانید فایل را مجددا بارگذاری نمایید و تغییراتی که اعمال کرده اید را از دست بدهید و یا تغییرات اعمال شده توسط آن کاربر را بین برده و فایل را بازنویسی نمایید.',
     ],
     'relation' => [
+        'missing_config' => "Relation behavior does not have any configuration for ':config'.",
         'missing_definition'    => "در ارتباط مورد نظر فیلد ':field' وجود ندارد.",
         'missing_model'         => "مدلی برای ارتباط موجود در :class وجود ندارد.",
         'invalid_action_single' => "این عمل در ارتباط یک تعرفه نمبتواند اعمال شود.",
@@ -187,23 +202,34 @@ return [
         'add'                   => "افزودن",
         'add_selected'          => "افرودن انتخاب شده ها",
         'add_a_new'             => ":name جدید",
+        'link_selected' => "لینک انتخاب شده ها",
+        'link_a_new' => "لینک :name جدید",
         'cancel'                => "انصراف",
+        'close' => "بستن",
         'add_name'              => "افزودن :name",
         'create'                => "ایجاد",
         'create_name'           => "ایجاد :name",
         'update'                => "بروز رسانی",
         'update_name'           => "بروز رسانی :name",
+        'preview' => "پیش نمایش",
+        'preview_name' => "پیش نمایش :name",
         'remove'                => "حذف",
         'remove_name'           => "حذف :name",
         'delete'                => "حذف",
         'delete_name'           => "حذف :name",
         'delete_confirm'        => "آیا اطمینان دارید؟",
+        'link' => "لینک",
+        'link_name' => "لینک :name",
+        'unlink' => "حذف لینک",
+        'unlink_name' => "حذف لینک :name",
+        'unlink_confirm' => "آبا اطمینان دارید؟",
     ],
     'model' => [
         'name'                   => "مدل",
         'not_found'              => "مدل ':class' با مشخصه ی :id یافت نشد",
         'missing_id'             => "مشخصه ای برای مودل مورد نظر یافت نشد.",
         'missing_relation'       => "مدل ':class' شامل تعریفی از ':relation'.",
+        'missing_method' => "مدل ':class' متدی با نام ':method' ندارد.",
         'invalid_class'          => "مدل :model استفاده شده در :class معتبر نمی باشد، این مدل باید از کلاس \Model ارث برده باشد.",
         'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
     ],
@@ -241,6 +267,20 @@ return [
     'branding' => [
         'menu_label'       => 'شخصی سازی بخش مدیریت',
         'menu_description' => 'شخصی سازی بخش مدیریت مانند نام، رنگ ها  و لوگو.',
+        'brand' => 'برند',
+        'logo' => 'لوگو',
+        'logo_description' => 'لوگوی شخصی سازی شده خود را جهت استفاده در بخش مدیریت ارسال نمایید.',
+        'app_name' => 'نام برنامه',
+        'app_name_description' => 'این نام در بخش عنوان قسمت مدیریت نمایش داده می شود.',
+        'app_tagline' => 'شعار برنامه',
+        'app_tagline_description' => 'این شعار در قسمت ورود به بخش مدیریت نمایش داده می شود.',
+        'colors' => 'رنگ ها',
+        'primary_light' => 'اصلی (روشن)',
+        'primary_dark' => 'اصلی (تیره)',
+        'secondary_light' => 'ثانویه (روشن)',
+        'secondary_dark' => 'ثانویه (تیره)',
+        'styles' => 'شیوه نامه ها',
+        'custom_stylesheet' => 'شیوه نامه های سفارشی'
     ],
     'backend_preferences' => [
         'menu_label'       => 'تنظیمات مدیریت',
@@ -262,7 +302,4 @@ return [
     'filter' => [
         'all' => 'همه'
     ],
-    'layout' => [
-        'direction' => 'rtl'
-    ]
 ];
