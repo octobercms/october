@@ -340,7 +340,9 @@ class ListController extends ControllerBehavior
          * Parse options
          */
         $defaultOptions = [
-            'filename' => 'export.csv'
+            'filename' => 'export.csv',
+            'delimiter' => ',',
+            'enclosure' => '"'
         ];
 
         $options = array_merge($defaultOptions, $options);
@@ -350,6 +352,8 @@ class ListController extends ControllerBehavior
          * Prepare CSV
          */
         $csv = Writer::createFromFileObject(new SplTempFileObject);
+        $csv->setDelimiter($options['delimiter']);
+        $csv->setEnclosure($options['enclosure']);
 
         /*
          * Add headers
