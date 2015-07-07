@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'tagline' => '回到basics'
+        'tagline' => '登陆'
     ],
     'locale' => [
         'en' => 'English',
@@ -247,8 +247,8 @@ return [
         'return_link' => '返回请求日志',
         'id' => 'ID',
         'id_label' => '登录ID',
-        'count' => '柜台',
-        'referer' => 'Referers',
+        'count' => '次数',
+        'referer' => '来源',
         'url' => 'URL',
         'status_code' => '状态'
     ],
@@ -256,9 +256,11 @@ return [
         'name' => '系统',
         'manage_system_settings' => '管理系统设置',
         'manage_software_updates' => '管理软件更新',
+        'access_logs' => '查看访问日志',
         'manage_mail_templates' => '管理邮件模板',
         'manage_mail_settings' => '管理邮件设置',
         'manage_other_administrators' => '管理其他管理员',
-        'view_the_dashboard' => '查看dashboard'
+        'view_the_dashboard' => '查看仪表盘',
+        'manage_branding' => '自定义后台'
     ]
 ];
