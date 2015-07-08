@@ -2663,8 +2663,10 @@ this.escape()
 $(document).off('focusin.bs.modal')
 this.$element.removeClass('in').attr('aria-hidden',true).off('click.dismiss.bs.modal')
 $.support.transition&&this.$element.hasClass('fade')?this.$element.one($.support.transition.end,$.proxy(this.hideModal,this)).emulateTransitionEnd(300):this.hideModal()}
-Modal.prototype.enforceFocus=function(){$(document).off('focusin.bs.modal').on('focusin.bs.modal',$.proxy(function(e){if(this.$element[0]!==e.target&&!this.$element.has(e.target).length){this.$element.focus()}},this))}
-Modal.prototype.escape=function(){if(this.isShown&&this.options.keyboard){this.$element.on('keyup.dismiss.bs.modal',$.proxy(function(e){e.which==27&&this.hide()},this))}else if(!this.isShown){this.$element.off('keyup.dismiss.bs.modal')}}
+Modal.prototype.enforceFocus=function(){$(document).off('focusin.bs.modal').on('focusin.bs.modal',$.proxy(function(e){if($(e.target).hasClass('select2-search__field')){return}
+if(this.$element[0]!==e.target&&!this.$element.has(e.target).length){this.$element.focus()}},this))}
+Modal.prototype.escape=function(){if(this.isShown&&this.options.keyboard){this.$element.on('keyup.dismiss.bs.modal',$.proxy(function(e){e.which==27&&this.hide()},this))}
+else if(!this.isShown){this.$element.off('keyup.dismiss.bs.modal')}}
 Modal.prototype.hideModal=function(){var that=this
 this.$element.hide()
 this.backdrop(function(){that.removeBackdrop()
@@ -2679,8 +2681,10 @@ this.options.backdrop=='static'?this.$element[0].focus.call(this.$element[0]):th
 if(doAnimate)this.$backdrop[0].offsetWidth
 this.$backdrop.addClass('in')
 if(!callback)return
-doAnimate?this.$backdrop.one($.support.transition.end,callback).emulateTransitionEnd(150):callback()}else if(!this.isShown&&this.$backdrop){this.$backdrop.removeClass('in')
-$.support.transition&&this.$element.hasClass('fade')?this.$backdrop.one($.support.transition.end,callback).emulateTransitionEnd(150):callback()}else if(callback){callback()}}
+doAnimate?this.$backdrop.one($.support.transition.end,callback).emulateTransitionEnd(150):callback()}
+else if(!this.isShown&&this.$backdrop){this.$backdrop.removeClass('in')
+$.support.transition&&this.$element.hasClass('fade')?this.$backdrop.one($.support.transition.end,callback).emulateTransitionEnd(150):callback()}
+else if(callback){callback()}}
 var old=$.fn.modal
 $.fn.modal=function(option,_relatedTarget){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.modal')
@@ -2715,9 +2719,11 @@ self.isOpen=false
 self.setBackdrop(false)})
 this.$modal.on('hidden.bs.modal',function(){self.triggerEvent('hidden.oc.popup')
 self.$container.remove()
-self.$el.data('oc.popup',null)})
+self.$el.data('oc.popup',null)
+$(document.body).removeClass('modal-open')})
 this.$modal.on('show.bs.modal',function(){self.isOpen=true
-self.setBackdrop(true)})
+self.setBackdrop(true)
+$(document.body).addClass('modal-open')})
 this.$modal.on('shown.bs.modal',function(){self.triggerEvent('shown.oc.popup')})
 this.$modal.on('close.oc.popup',function(){self.hide()
 return false})

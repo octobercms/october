@@ -3,7 +3,7 @@
 ?>
 <!-- Dropdown -->
 <?php if ($this->previewMode): ?>
-    <div class="form-control"><?= (isset($fieldOptions[$field->value])) ? e($fieldOptions[$field->value]) : '' ?></div>
+    <div class="form-control"><?= (isset($fieldOptions[$field->value])) ? e(trans($fieldOptions[$field->value])) : '' ?></div>
 <?php else: ?>
     <select
         id="<?= $field->getId() ?>"

@@ -6,6 +6,7 @@ use Lang;
 use View;
 use Flash;
 use Event;
+use Config;
 use Request;
 use Backend;
 use Session;
@@ -34,9 +35,9 @@ use Illuminate\Http\RedirectResponse;
  */
 class Controller extends Extendable
 {
+    use \System\Traits\ViewMaker;
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
-    use \System\Traits\ViewMaker;
     use \Backend\Traits\WidgetMaker;
     use \October\Rain\Support\Traits\Emitter;
 
@@ -119,11 +120,6 @@ class Controller extends Extendable
     protected $statusCode = 200;
 
     /**
-     * @var bool Determine if submission requests use CSRF protection.
-     */
-    public $useSecurityToken = true;
-
-    /**
      * Constructor.
      */
     public function __construct()
@@ -176,7 +172,7 @@ class Controller extends Extendable
         /*
          * Check security token.
          */
-        if ($this->useSecurityToken && !$this->verifyCsrfToken()) {
+        if (!$this->verifyCsrfToken()) {
             return Response::make(Lang::get('backend::lang.page.invalid_token.label'), 403);
         }
 
@@ -629,11 +625,16 @@ class Controller extends Extendable
 
     /**
      * Checks the request data / headers for a valid CSRF token.
-     * Returns false if a valid token is not found.
+     * Returns false if a valid token is not found. Override this
+     * method to disable the check.
      * @return bool
      */
     protected function verifyCsrfToken()
     {
+        if (!Config::get('cms.enableCsrfProtection')) {
+            return true;
+        }
+
         if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
             return true;
         }

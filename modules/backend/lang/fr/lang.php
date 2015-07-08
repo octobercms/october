@@ -107,6 +107,7 @@ return [
             'new' => 'Ajouter un groupe d’administrateur',
             'delete_confirm' => 'Confirmer la suppression de ce groupe d’administrateurs ?',
             'return' => 'Retour à la liste des groupes',
+            'users_count' => 'Utilisateurs'
         ],
         'preferences' => [
             'not_authenticated' => 'Il n’y a aucun utilisateur identifié pour lequel il est possible de charger ou modifier les préférences.'
