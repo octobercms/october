@@ -86,6 +86,7 @@ return [
         'password' => '密码',
         'password_confirmation' => '确认密码',
         'permissions' => '权限',
+        'account' => '帐号',
         'superuser' => '超级用户',
         'superuser_comment' => '选中并允许这个人访问全部区域.',
         'send_invite' => '发送邀请邮件',
@@ -229,7 +230,7 @@ return [
         'missing_id' => '没有指定的ID查找model记录.',
         'missing_relation' => "Model ':class' 不包含 ':relation'.",
         'missing_method' => "Model ':class' 不包含 ':method'.",
-        'invalid_class' => "Model :model 在 :class 中是不合法的, 必须继承 \Model class.",
+        'invalid_class' => "Model :model 在 :class 中是不合法的, 必须继承 \\Model class.",
         'mass_assignment_failed' => "针对Model属性':attribute'的大量赋值失败."
     ],
     'warnings' => [
@@ -299,6 +300,6 @@ return [
         'email' => 'Email'
     ],
     'filter' => [
-      'all' => 'all'
+      'all' => '全部'
     ]
 ];
