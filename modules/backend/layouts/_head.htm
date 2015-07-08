@@ -14,6 +14,8 @@
 <script src="<?= Backend::skinAsset('assets/js/october-min.js') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>"></script>
 <script src="<?= URL::asset('modules/cms/widgets/mediamanager/assets/js/mediamanager-global-min.js') ?>"></script>
 
+<script src="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>"></script>
+
 <?= $this->makeAssets() ?>
 <?= Block::placeholder('head') ?>
 <?= $this->makeLayoutPartial('custom_styles') ?>
