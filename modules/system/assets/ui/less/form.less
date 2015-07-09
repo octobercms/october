@@ -370,6 +370,18 @@ body.slim-container {
 }
 
 //
+// Select2 
+//
+
+.form-group .select2-container {
+    width: 100%!important;
+}
+
+.select2-dropdown {
+    z-index: 10000; 
+}
+
+//
 // Controls inside toolbar
 //
 
@@ -408,10 +420,14 @@ body.slim-container {
         display: inline-block;
         width: auto;
         height: 36px;
+        margin-right: 15px;
 
-        .select2-selection {
-            height: 34px;
-            line-height: 34px;
+        .select2-selection__rendered {
+            line-height: 17px;
+        }
+
+        .select2-selection--single {
+            height: 36px;
         }
     }
 
