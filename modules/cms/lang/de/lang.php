@@ -72,24 +72,24 @@ return [
         'menu_label' => "CMS"
     ],
     'sidebar' => [
-        'add' => 'Add',
-        'search' => 'Search...'
+        'add' => 'Hinzufügen',
+        'search' => 'Suchen...'
     ],
     'editor' => [
-        'settings' => 'Settings',
-        'title' => 'Title',
-        'new_title' => 'New page title',
+        'settings' => 'Einstellungen',
+        'title' => 'Titel',
+        'new_title' => 'Neuer Seitentitel',
         'url' => 'URL',
-        'filename' => 'File Name',
+        'filename' => 'Dateiname',
         'layout' => 'Layout',
-        'description' => 'Description',
-        'preview' => 'Preview',
+        'description' => 'Beschreibung',
+        'preview' => 'Vorschau',
         'meta' => 'Meta',
-        'meta_title' => 'Meta Title',
-        'meta_description' => 'Meta Description',
+        'meta_title' => 'Meta Titel',
+        'meta_description' => 'Meta Beschreibung',
         'markup' => 'Markup',
         'code' => 'Code',
-        'content' => 'Content',
+        'content' => 'Inhalt',
     ],
     'asset' => [
         'menu_label' => "Assets",
