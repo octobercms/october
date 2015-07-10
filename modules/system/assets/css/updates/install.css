@@ -196,7 +196,7 @@
   display: block;
   width: 24px;
   height: 24px;
-  background-image: url(../../../../system/assets/ui/images/loader-transparent.svg);
+  background-image: url('../../../../system/assets/ui/images/loader-transparent.svg');
   background-size: 24px 24px;
   background-position: 50% 50%;
   -webkit-animation: spin 1s linear infinite;
