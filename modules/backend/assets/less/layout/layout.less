@@ -43,6 +43,25 @@ body {
 }
 
 //
+// Tabs override for Layout
+// Primary tabs should use inset by default, unless otherwise specified
+// --------------------------------------------------
+
+.control-tabs.primary-tabs {
+    > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+
+    &.tabs-no-inset {
+        > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}
+
+//
 // Flexible layout system
 // --------------------------------------------------
 

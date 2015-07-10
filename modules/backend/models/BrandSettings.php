@@ -172,10 +172,10 @@ class BrandSettings extends Model
          * Compile CSS
          */
         $css = '';
-        $css .= '.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:before,';
-        $css .= '.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:before,';
-        $css .= '.fancy-layout .control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:after,';
-        $css .= '.fancy-layout.control-tabs.master > div > div.tabs-container > ul.nav-tabs > li a > span.title:after {';
+        $css .= '.fancy-layout .control-tabs.master-tabs > div > div.tabs-container > ul.nav-tabs > li a > span.title:before,';
+        $css .= '.fancy-layout.control-tabs.master-tabs > div > div.tabs-container > ul.nav-tabs > li a > span.title:before,';
+        $css .= '.fancy-layout .control-tabs.master-tabs > div > div.tabs-container > ul.nav-tabs > li a > span.title:after,';
+        $css .= '.fancy-layout.control-tabs.master-tabs > div > div.tabs-container > ul.nav-tabs > li a > span.title:after {';
         $css .= "background-image: url('".$svg."')}";
 
         return $css;

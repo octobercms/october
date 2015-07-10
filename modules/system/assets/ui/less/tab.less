@@ -46,6 +46,7 @@
 @nav-pills-active-link-hover-bg:            @component-active-bg;
 @nav-pills-active-link-hover-color:         @component-active-color;
 
+@tab-image-path: @image-path;
 
 .control-tabs {
     position: relative;
@@ -206,7 +207,12 @@
         }
     }
 
-    &.master {
+    //
+    // Master tabs
+    //
+
+    &.master, // Deprecated
+    &.master-tabs {
         > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
             > li {
                 a {
@@ -224,13 +230,18 @@
         }
     }
 
-    &.primary {
+    //
+    // Primary tabs
+    //
+
+    &.primary, // Deprecated
+    &.primary-tabs {
         margin-bottom: 5px;
 
         > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
             position: relative;
-            margin-left: -20px;
-            margin-right: -20px;
+            margin-left: 0;
+            margin-right: 0;
 
             &:before {
                 position: absolute;
@@ -250,9 +261,9 @@
 
                 &:first-child {
                     margin-left: 0;
-                    padding-left: 15px!important;
+                    padding-left: 15px !important;
                 }
-                
+
                 a {
                     font-size: 12px;
                     padding-bottom: 3px;
@@ -274,7 +285,7 @@
                         &:before, &:after {
                             content: ' ';
                             position: absolute;
-                            background: transparent url(../images/primary-tab-shape.png?v2) no-repeat left -31px;
+                            background: transparent url('@{tab-image-path}/primary-tab-shape.png') no-repeat left -31px;
                             width: 16px;
                             height: 26px;
                             display: block;
@@ -337,16 +348,21 @@
         > div.tab-content {
         }
 
-        // Tabs to sit in by the standard offset (0px)
-        &.tabs-offset {
+        // Tab divider to sit inset the standard padding (20px)
+        &.tabs-inset {
             > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
-                margin-left: 0;
-                margin-right: 0;
+                margin-left: -20px;
+                margin-right: -20px;
             }
         }
     }
 
-    &.secondary {
+    //
+    // Secondary tabs
+    //
+
+    &.secondary, // Deprecated
+    &.secondary-tabs {
         > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
             > li {
                 padding-right: 10px;
@@ -367,6 +383,10 @@
             }
         }
     }
+
+    //
+    // Content tabs
+    //
 
     &.content-tabs {
 
@@ -422,6 +442,17 @@
             div.toolbar-widget {
                 background: @color-tab-content-active-bg;
                 padding-top: 20px;
+            }
+        }
+
+        // Tab divider to sit inset the standard padding (20px)
+        &.tabs-inset {
+            > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
+                margin-left: -20px;
+                margin-right: -20px;
+                li:first-child {
+                    margin-left: 20px;
+                }
             }
         }
 

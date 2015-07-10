@@ -326,8 +326,8 @@ div.control-componentlist div.components div.layout-cell.adding > div {
   text-shadow: 0 0 1px #475354 !important;
   color: #ffffff !important;
 }
-.fancy-layout .control-tabs.primary > div > ul.nav-tabs.component-area,
-.fancy-layout.control-tabs.primary > div > ul.nav-tabs.component-area {
+.fancy-layout .control-tabs.primary-tabs > div > ul.nav-tabs.component-area,
+.fancy-layout.control-tabs.primary-tabs > div > ul.nav-tabs.component-area {
   background: #2c3e50;
 }
 body.drag div.control-componentlist div.components div.layout-cell > div,
