@@ -1,5 +1,5 @@
 <?php
-/* Greek Language Updated on 2015-07-06 v1.02 */
+/* Greek Language Updated on 2015-07-11 v1.03 */
 return [
     'cms_object' => [
         'invalid_file' => 'Μη έγκυρο όνομα αρχείου: :name. Τα ονόματα αρχείων μπορούν να περιέχουν μόνο αλφαριθμητικά σύμβολα, κάτω παύλες, παύλες και τελείες. Μερικά παραδείγματα σωστών ονομάτων αρχείων: page.htm, page, subdirectory/page',
@@ -232,6 +232,7 @@ return [
         'manage_layouts' => 'Διαχείριση διατάξεων',
         'manage_partials' => 'Διαχείριση τμημάτων',
         'manage_themes' => 'Διαχείριση θεμάτων',
+        'manage_media' => 'Διαχείριση μέσων'
     ],
     'media' => [
         'invalid_path' => "Ορίστηκε μη έγκυρη διαδρομή αρχείου : ':path'.",
