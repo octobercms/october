@@ -91,6 +91,8 @@ return [
         'refresh' => 'Refresh',
         'disabled_label' => 'Disabled',
         'disabled_help' => 'Plugins that are disabled are ignored by the application.',
+        'frozen_label' => 'Freeze updates',
+        'frozen_help' => 'Plugins that are frozen will be ignored by the update process.',
         'selected_amount' => 'Plugins selected: :amount',
         'remove_confirm' => 'Are you sure you want to remove this plugin?',
         'remove_success' => 'Successfully removed those plugins from the system.',
@@ -195,6 +197,7 @@ return [
         'check_label' => 'Check for updates',
         'retry_label' => 'Try again',
         'plugin_name' => 'Name',
+        'plugin_code' => 'Code',
         'plugin_description' => 'Description',
         'plugin_version' => 'Version',
         'plugin_author' => 'Author',
@@ -210,8 +213,8 @@ return [
         'plugin_downloading' => 'Downloading plugin: :name',
         'plugin_extracting' => 'Unpacking plugin: :name',
         'plugin_version_none' => 'New plugin',
-        'plugin_version_old' => 'Current v:version',
-        'plugin_version_new' => 'v:version',
+        // 'plugin_version_old' => 'Current v:version',
+        // 'plugin_version_new' => 'v:version',
         'theme_label' => 'Theme',
         'theme_new_install' => 'New theme installation.',
         'theme_downloading' => 'Downloading theme: :name',
@@ -229,7 +232,8 @@ return [
         'none' => [
             'label' => 'No updates',
             'help' => 'No new updates were found.'
-        ]
+        ],
+        'return_link' => 'Return to system updates'
     ],
     'server' => [
         'connect_error' => 'Error connecting to the server.',

@@ -33,7 +33,7 @@
     }
 
     .control-tabs, &.control-tabs {
-        &.master {
+        &.master-tabs {
             overflow: hidden;
 
             &:before, &:after {
@@ -178,7 +178,7 @@
             }
         }
 
-        &.secondary {
+        &.secondary-tabs {
             > div > ul.nav-tabs {
                 background: @color-fancy-secondary-tabs-bg;
                 > li {
@@ -215,7 +215,7 @@
                 }
             }
 
-            &.content-tabs {
+            &.secondary-content-tabs {
                 > div > ul.nav-tabs {
                     background: @body-bg;
 
@@ -308,7 +308,7 @@
             }
         }
 
-        &.primary {
+        &.primary-tabs {
             > div > ul.nav-tabs {
                 background: @color-fancy-primary-tabs-bg;
                 margin-left: 0!important;
@@ -559,7 +559,7 @@
         }
     }
 
-    .content-tabs .field-richeditor {
+    .secondary-content-tabs .field-richeditor {
         .redactor-box .redactor-toolbar {
             margin: 20px 20px 0 20px!important;
             .border-radius(3px)!important;

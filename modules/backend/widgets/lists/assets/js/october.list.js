@@ -106,9 +106,21 @@
         return this
     }
 
+    // LIST WIDGET HELPERS
+    // =================
+
+    if ($.oc === undefined)
+        $.oc = {}
+
+    $.oc.listToggleChecked = function(el) {
+        $(el)
+            .closest('[data-control="listwidget"]')
+            .listWidget('toggleChecked', el)
+    }
+
     // LIST WIDGET DATA-API
     // ==============
-    
+
     $(document).render(function(){
         $('[data-control="listwidget"]').listWidget();
     })

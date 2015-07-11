@@ -4,7 +4,6 @@ Scoreboard
 
 # Example
 
-
 <script src="/assets/js/october.goalmeter.js"></script>
 <script src="/assets/js/vendor/raphael-min.js"></script>
 <script src="/assets/js/october.chartutils.js"></script>

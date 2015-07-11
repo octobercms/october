@@ -49,7 +49,6 @@ class PluginVersion extends Model
         $manager = PluginManager::instance();
         $pluginObj = $manager->findByIdentifier($this->code);
 
-
         if ($pluginObj) {
             $pluginInfo = $pluginObj->pluginDetails();
             foreach ($pluginInfo as $attribute => $info) {

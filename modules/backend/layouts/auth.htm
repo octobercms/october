@@ -3,21 +3,16 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="backend-base-path" content="<?= Backend::baseUrl() ?>">
+        <meta name="csrf-token" content="<?= csrf_token() ?>">
         <title><?= e(trans('backend::lang.auth.title')) ?></title>
         <link href="<?= URL::to('modules/backend/assets/css/october.css') ?>" rel="stylesheet">
 
         <script src="<?= URL::to('modules/backend/assets/js/vendor/jquery.min.js') ?>"></script>
         <script src="<?= URL::to('modules/system/assets/js/framework.js') ?>"></script>
-        <script src="<?= URL::to('modules/system/assets/ui/js/flashmessage.js') ?>"></script>
-        <script src="<?= URL::to('modules/system/assets/ui/vendor/modernizr/modernizr.js') ?>"></script>
-        <script src="<?= URL::to('modules/backend/assets/js/october.utils.js') ?>"></script>
+        <script src="<?= URL::to('modules/backend/assets/js/october-min.js') ?>"></script>
         <script src="<?= URL::to('modules/backend/assets/js/auth/auth.js') ?>"></script>
-
-        <script>
-        <!--
-            backendBasePath = '<?= Backend::baseUrl() ?>';
-        // -->
-        </script>
         <?= $this->makeAssets() ?>
         <?= Block::placeholder('head') ?>
         <?= $this->makeLayoutPartial('custom_styles') ?>

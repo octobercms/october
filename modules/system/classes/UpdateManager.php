@@ -209,6 +209,7 @@ class UpdateManager
         $versions = $installed->lists('version', 'code');
         $names = $installed->lists('name', 'code');
         $icons = $installed->lists('icon', 'code');
+        $frozen = $installed->lists('is_frozen', 'code');
         $build = Parameters::get('system::core.build');
 
         $params = [
@@ -241,7 +242,17 @@ class UpdateManager
             $info['name'] = isset($names[$code]) ? $names[$code] : $code;
             $info['old_version'] = isset($versions[$code]) ? $versions[$code] : false;
             $info['icon'] = isset($icons[$code]) ? $icons[$code] : false;
-            $plugins[$code] = $info;
+
+            /*
+             * If plugin has updates frozen, do not add it to the list
+             * and discount an update unit.
+             */
+            if (isset($frozen[$code]) && $frozen[$code]) {
+                $updateCount = max(0, --$updateCount);
+            }
+            else {
+                $plugins[$code] = $info;
+            }
         }
         $result['plugins'] = $plugins;
 

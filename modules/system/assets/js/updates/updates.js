@@ -19,6 +19,55 @@
         this.updateSteps = null
     }
 
+    UpdateProcess.prototype.check = function() {
+        var $form = $('#updateForm'),
+            self = this
+
+        $form.request('onCheckForUpdates').done(function() {
+            self.evalConfirmedUpdates()
+        })
+
+        $form.on('change', '[data-important-update-select]', function() {
+            var $el = $(this),
+                selectedValue = $el.val(),
+                $updateItem = $el.closest('.update-item')
+
+            $updateItem.removeClass('item-danger item-muted item-success')
+
+            if (selectedValue == 'confirm') {
+                $updateItem.addClass('item-success')
+            }
+            else if (selectedValue == 'ignore' || selectedValue == 'skip') {
+                $updateItem.addClass('item-muted')
+            }
+            else {
+                $updateItem.addClass('item-danger')
+            }
+
+            self.evalConfirmedUpdates()
+        })
+    }
+
+    UpdateProcess.prototype.evalConfirmedUpdates = function() {
+        var $form = $('#updateForm'),
+            hasConfirmed = false
+
+        $('[data-important-update-select]', $form).each(function() {
+            if ($(this).val() == '') {
+                hasConfirmed = true
+            }
+        })
+
+        if (hasConfirmed) {
+            $('#updateListUpdateButton').prop('disabled', true)
+            $('#updateListImportantLabel').show()
+        }
+        else {
+            $('#updateListUpdateButton').prop('disabled', false)
+            $('#updateListImportantLabel').hide()
+        }
+    }
+
     UpdateProcess.prototype.execute = function(steps) {
         this.updateSteps = steps
         this.runUpdate()
