@@ -4068,7 +4068,10 @@ this.$src=$(options.inputPreset,parent),this.$src.on('keyup',function(){if(self.
 return
 $el.val(prefix+self.formatValue())})
 this.$el.on('change',function(){self.cancelled=true})}
-InputPreset.prototype.formatValue=function(){if(this.options.inputPresetType=='camel')
+InputPreset.prototype.formatNamespace=function(){var value=toCamel(this.$src.val())
+return value.substr(0,1).toUpperCase()+value.substr(1)}
+InputPreset.prototype.formatValue=function(){if(this.options.inputPresetType=='namespace'){return this.formatNamespace()}
+if(this.options.inputPresetType=='camel')
 var value=toCamel(this.$src.val())
 else{var value=slugify(this.$src.val())}
 if(this.options.inputPresetType=='url')
