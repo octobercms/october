@@ -103,7 +103,7 @@ class Updates extends Controller
     public function details($urlCode = null, $tab = null)
     {
         try {
-            $this->pageTitle = 'Plugin details';
+            $this->pageTitle = 'system::lang.updates.details_title';
             $this->addCss('/modules/system/assets/css/updates/details.css', 'core');
 
             $readmeFiles = ['README.md', 'readme.md'];

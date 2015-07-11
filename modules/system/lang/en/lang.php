@@ -56,6 +56,7 @@ return [
         ]
     ],
     'theme' => [
+        'label' => 'Theme',
         'unnamed' => 'Unnamed theme',
         'name' => [
             'label' => 'Theme Name',
@@ -71,6 +72,7 @@ return [
         'remove_confirm' => 'Are you sure you want to remove this theme?'
     ],
     'plugin' => [
+        'label' => 'Plugin',
         'unnamed' => 'Unnamed plugin',
         'name' => [
             'label' => 'Plugin Name',
@@ -194,6 +196,7 @@ return [
         'name' => 'Software update',
         'menu_label' => 'Updates',
         'menu_description' => 'Update the system, manage and install plugins and themes.',
+        'return_link' => 'Return to system updates',
         'check_label' => 'Check for updates',
         'retry_label' => 'Try again',
         'plugin_name' => 'Name',
@@ -201,10 +204,9 @@ return [
         'plugin_description' => 'Description',
         'plugin_version' => 'Version',
         'plugin_author' => 'Author',
-        'core_build' => 'Current build',
-        'core_build_old' => 'Current build :build',
-        'core_build_new' => 'Build :build',
-        'core_build_new_help' => 'Latest build is available.',
+        'core_current_build' => 'Current build',
+        'core_build' => 'Build :build',
+        'core_build_help' => 'Latest build is available.',
         'core_downloading' => 'Downloading application files',
         'core_extracting' => 'Unpacking application files',
         'plugins' => 'Plugins',
@@ -213,9 +215,7 @@ return [
         'plugin_downloading' => 'Downloading plugin: :name',
         'plugin_extracting' => 'Unpacking plugin: :name',
         'plugin_version_none' => 'New plugin',
-        // 'plugin_version_old' => 'Current v:version',
-        // 'plugin_version_new' => 'v:version',
-        'theme_label' => 'Theme',
+        'plugin_current_version' => 'Current version',
         'theme_new_install' => 'New theme installation.',
         'theme_downloading' => 'Downloading theme: :name',
         'theme_extracting' => 'Unpacking theme: :name',
@@ -233,7 +233,23 @@ return [
             'label' => 'No updates',
             'help' => 'No new updates were found.'
         ],
-        'return_link' => 'Return to system updates'
+        'important_action' => [
+            'empty' => 'Select action',
+            'confirm' => 'Confirm update',
+            'skip' => 'Skip this plugin (once only)',
+            'ignore' => 'Skip this plugin (always)',
+        ],
+        'important_action_required' => 'Action required',
+        'important_view_guide' => 'View upgrade guide',
+        'important_alert_text' => 'Some updates need your attention.',
+        'details_title' => 'Plugin details',
+        'details_view_homepage' => 'View homepage',
+        'details_readme' => 'Documentation',
+        'details_readme_missing' => 'There is no documentation provided.',
+        'details_upgrades' => 'Upgrade Guide',
+        'details_upgrades_missing' => 'There are no upgrade instructions provided.',
+        'details_current_version' => 'Current version',
+        'details_author' => 'Author',
     ],
     'server' => [
         'connect_error' => 'Error connecting to the server.',

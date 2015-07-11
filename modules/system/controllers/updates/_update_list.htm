@@ -19,11 +19,11 @@
                                 </h5>
                             </div>
                             <dl>
-                                <dt><?= e(trans('system::lang.updates.core_build_new', ['build'=>$core['build']])) ?></dt>
-                                <dd><?= e(trans('system::lang.updates.core_build_new_help')) ?></dd>
+                                <dt><?= e(trans('system::lang.updates.core_build', ['build'=>$core['build']])) ?></dt>
+                                <dd><?= e(trans('system::lang.updates.core_build_help')) ?></dd>
                                 <?php if ($core['old_build']): ?>
-                                    <dt class="text-muted"><?= e(trans('system::lang.updates.core_build_new', ['build'=>$core['old_build']])) ?></dt>
-                                    <dd class="text-muted"><?= e(trans('system::lang.updates.core_build')) ?></dd>
+                                    <dt class="text-muted"><?= e(trans('system::lang.updates.core_build', ['build'=>$core['old_build']])) ?></dt>
+                                    <dd class="text-muted"><?= e(trans('system::lang.updates.core_current_build')) ?></dd>
                                 <?php endif ?>
                             </dl>
                             <input type="hidden" name="hash" value="<?= e($core['hash']) ?>" />
@@ -57,10 +57,10 @@
                                             name="plugin_actions[<?= e($this->encodeCode($code)) ?>]"
                                             class="form-control custom-select select-no-search"
                                             data-important-update-select>
-                                            <option value="">-- Select action --</option>
-                                            <option value="confirm">Confirm update</option>
-                                            <option value="skip">Skip this plugin (once only)</option>
-                                            <option value="ignore">Skip this plugin (always)</option>
+                                            <option value="">-- <?= e(trans('system::lang.updates.important_action.empty')) ?> --</option>
+                                            <option value="confirm"><?= e(trans('system::lang.updates.important_action.confirm')) ?></option>
+                                            <option value="skip"><?= e(trans('system::lang.updates.important_action.skip')) ?></option>
+                                            <option value="ignore"><?= e(trans('system::lang.updates.important_action.ignore')) ?></option>
                                         </select>
                                     </div>
                                 <?php endif ?>
@@ -83,10 +83,13 @@
                                         <dt><?= e($version) ?></dt>
                                         <?php if (is_array($description)): ?>
                                             <dd>
-                                                <span class="important-update-label">Action required</span>
+                                                <span class="important-update-label">
+                                                    <?= e(trans('system::lang.updates.important_action_required')) ?>
+                                                </span>
                                                 <?= e($description[0]) ?>
                                                 <a href="<?= $description[1] ?>" target="_blank">
-                                                    View upgrade guide <i class="icon-external-link"></i>
+                                                    <?= e(trans('system::lang.updates.important_view_guide')) ?>
+                                                    <i class="icon-external-link"></i>
                                                 </a>
                                             </dd>
                                         <?php else: ?>
@@ -98,7 +101,7 @@
                                         <?= e($plugin['old_version']) ?>
                                     </dt>
                                     <dd class="text-muted">
-                                        Current version
+                                        <?= e(trans('system::lang.updates.plugin_current_version')) ?>
                                     </dd>
                                 <?php endif ?>
                             </dl>
@@ -115,7 +118,7 @@
         <div class="modal-footer">
             <?php if ($hasImportantUpdates): ?>
                 <p class="text-danger pull-left oc-icon-exclamation important-update-label" id="updateListImportantLabel">
-                    Some updates need your attention.
+                    <?= e(trans('system::lang.updates.important_alert_text')) ?>
                 </p>
             <?php endif ?>
             <button
