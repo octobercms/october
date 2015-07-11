@@ -62,7 +62,7 @@ return [
         'export_button' => 'Exportieren',
         'export_title' => 'Exportiere Theme',
         'export_folders_label' => 'Ordner',
-        'export_folders_comment' => 'Bitte wählen Sie die Ordner des Themes, die Sie exportieren wollen, aus',
+        'export_folders_comment' => 'Bitte wählen Sie die Ordner des Themes, die Sie exportieren wollen, aus.',
         'delete_button' => 'Löschen',
         'delete_confirm' => 'Sind Sie sicher, dass Sie dieses Theme löschen wollen? Dies kann nicht rückgängig gemacht werden!',
         'delete_active_theme_failed' => 'Das aktive Theme kann nicht gelöscht werden, aktivieren Sie zunächst ein anderes Theme.',
