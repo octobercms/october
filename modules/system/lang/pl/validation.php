@@ -4,12 +4,12 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Validation Language Lines
+    | Tłumaczenia Walidacji
     |--------------------------------------------------------------------------
     |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | such as the size rules. Feel free to tweak each of these messages.
+	| Następujące tłumaczenia zawierają domyślne komunikaty błędów używane 
+	| przez klasę walidatora. Niektóre z nich mają wiele wersji, np. zasady 
+	| rozmiaru. Nie krępuj się modyfikować tych komunikatów.
     |
     */
 
@@ -46,6 +46,7 @@ return array(
         "array"   => ":attribute nie może mieć więcej niż :max elementów.",
     ),
     "mimes"            => ":attribute musi być plikiem typu :values.",
+	"extensions"       => ":attribute musi być rozszerzeniem :values.",
     "min"              => array(
         "numeric" => ":attribute musi być nie mniejszy od :min.",
         "file"    => ":attribute musi mieć przynajmniej :min kilobajtów.",
@@ -71,12 +72,12 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
+    | Własne Tłumaczenia Walidacji
     |--------------------------------------------------------------------------
     |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
+	| Tutaj możesz sprecyzować własne komunikaty walidacji dla atrybutów 
+	| używających konwencji "attribute.rule" do nazwania linii. To ułatwia  
+	| ustalenie specyficznego tłumaczenia dla wybranej zasady atrybutu.
     |
     */
 
@@ -84,12 +85,12 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Custom Validation Attributes
+    | Własne Atrybuty Walidacji
     |--------------------------------------------------------------------------
     |
-    | The following language lines are used to swap attribute place-holders
-    | with something more reader friendly such as E-Mail Address instead
-    | of "email". This simply helps us make messages a little cleaner.
+    | Następujące tłumaczenia są używane do zamiany atrybutów zastępczych 
+	| na coś bardziej przyjaznego czytelnikowi, np. "Adres email" zamiast
+	| "email". To pomaga nam stwarzać komunikaty czytelniejszymi.
     |
     */
 
