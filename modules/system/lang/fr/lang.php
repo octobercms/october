@@ -94,7 +94,7 @@ return [
         'disabled_label' => 'Désactivé',
         'disabled_help' => 'Les plugins désactivés sont ignorés par l’application.',
         'frozen_label' => 'Mises à jour bloquées',
-        'frozen_help' => 'Les plugins qui sont bloqués seront ignorés par le processus de mise à jour.',
+        'frozen_help' => 'Les plugins bloqués seront ignorés par le processus de mise à jour.',
         'selected_amount' => 'Plugins sélectionnés : :amount',
         'remove_confirm' => 'Confirmer la suppression de ce plugin ?',
         'remove_success' => "Les plugins ont été supprimés avec succès.",
