@@ -37,7 +37,7 @@ return [
         'code_label' => 'Kod',
         'code_placeholder' => 'Unikalny kod motywu używany do dystrybucji',
         'dir_name_label' => 'Nazwa katalogu',
-        'dir_name_create_label' => 'Docelog katalog motywu',
+        'dir_name_create_label' => 'Docelowy katalog motywu',
         'theme_label' => 'Motyw',
         'theme_title' => 'Motywy',
         'activate_button' => 'Aktywuj',
