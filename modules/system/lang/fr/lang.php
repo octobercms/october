@@ -196,7 +196,7 @@ return [
         'name' => 'Mise à jour',
         'menu_label' => 'Mise à jour',
         'menu_description' => 'Mise à jour du système, gestion et installation des plugins et thèmes.',
-        'return_link' => 'Retourner au mises à jour du système',
+        'return_link' => 'Retourner aux mises à jour du système',
         'check_label' => 'Vérifier les mises à jour',
         'retry_label' => 'Réessayer',
         'plugin_name' => 'Nom',
