@@ -73,8 +73,11 @@ class ReportContainer extends WidgetBase
     /**
      * Constructor.
      */
-    public function __construct($controller)
+    public function __construct($controller, $context=null)
     {
+        if($context){
+            $this->context = $context;
+        }
         $configFile = 'config_' . snake_case($this->alias) . '.yaml';
         $path = $controller->getConfigPath($configFile);
         if (File::isFile($path)) {
