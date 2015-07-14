@@ -1,3 +1,7 @@
+* **Build 279** (2015-07-14)
+  - Plugins can now be frozen to prevent them from receiving updates via the plugin management area.
+  - A plugin version can now be flagged as "Important" by prepending `!!!` to the version history comment.
+
 * **Build 275** (2015-07-04)
   - List columns now support specifying a `default` option used when the value would otherwise be null.
   - Implement a custom autoloader for plugins that use composer. Now only one instance of composer is used, all packages are now added to a global pool to prevent double loading and the load order is respected.
