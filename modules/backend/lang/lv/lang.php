@@ -144,7 +144,7 @@ return [
         'attachment' => 'Pielikums',
         'help' => 'Pievienojiet virsrakstu un aprakstu šim pielikumam.',
         'title_label' => 'Vrisraksts',
-        'description_label' => 'Apraksts'
+        'description_label' => 'Apraksts',
         'default_prompt' => 'Uzklikšķiniet uz %s vai nesiet failu šeit',
         'attachment_url' => 'Pielikuma URL',
         'upload_file' => 'Augšupielādēt failu',
