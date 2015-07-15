@@ -71,6 +71,7 @@ class OctoberUtil extends Command
     {
         return [
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
+            ['debug', null, InputOption::VALUE_NONE, 'Run the operation in debug / development mode.'],
         ];
     }
 
@@ -92,7 +93,7 @@ class OctoberUtil extends Command
     {
         $this->comment('Compiling registered asset bundles...');
 
-        Config::set('cms.enableAssetMinify', true);
+        Config::set('cms.enableAssetMinify', !$this->option('debug'));
         $combiner = CombineAssets::instance();
         $bundles = $combiner->getBundles($type);
 
