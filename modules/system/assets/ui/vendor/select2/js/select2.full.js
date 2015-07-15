@@ -1387,7 +1387,7 @@ S2.define('select2/selection/base',[
   BaseSelection.prototype._attachCloseHandler = function (container) {
     var self = this;
 
-    $(document.body).on('mousedown.select2.' + container.id, function (e) {
+    $(document.body).on('click.select2.' + container.id, function (e) {
       var $target = $(e.target);
 
       var $select = $target.closest('.select2');
@@ -1409,7 +1409,7 @@ S2.define('select2/selection/base',[
   };
 
   BaseSelection.prototype._detachCloseHandler = function (container) {
-    $(document.body).off('mousedown.select2.' + container.id);
+    $(document.body).off('click.select2.' + container.id);
   };
 
   BaseSelection.prototype.position = function ($selection, $container) {
