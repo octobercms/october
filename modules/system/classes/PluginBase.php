@@ -1,6 +1,9 @@
 <?php namespace System\Classes;
 
 use Illuminate\Support\ServiceProvider as ServiceProviderBase;
+use ReflectionClass;
+use SystemException;
+use Yaml;
 
 /**
  * Plugin base class
@@ -8,8 +11,10 @@ use Illuminate\Support\ServiceProvider as ServiceProviderBase;
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-abstract class PluginBase extends ServiceProviderBase
+class PluginBase extends ServiceProviderBase
 {
+    protected $loadedYamlConfigration = false;
+
     /**
      * @var array Plugin dependencies
      */
@@ -28,7 +33,20 @@ abstract class PluginBase extends ServiceProviderBase
     /**
      * Returns information about this plugin, including plugin name and developer name.
      */
-    abstract public function pluginDetails();
+    public function pluginDetails()
+    {
+        $thisClass = get_class($this);
+
+        $configuration = $this->getConfigurationFromYaml(sprintf('Plugin configuration file plugin.yaml is not '.
+            'found for the plugin class %s. Create the file or override pluginDetails() '.
+            'method in the plugin class.', $thisClass));
+
+        if (!array_key_exists('plugin', $configuration)) {
+            throw new SystemException('The plugin configuration file plugin.yaml should contain the "plugin" section: %s.', $thisClass);
+        }
+
+        return $configuration['plugin'];
+    }
 
     /**
      * Register method, called when the plugin is first registered.
@@ -146,5 +164,32 @@ abstract class PluginBase extends ServiceProviderBase
         });
 
         $this->commands($key);
+    }
+
+    protected function getConfigurationFromYaml($exceptionMessage = null)
+    {
+        if ($this->loadedYamlConfigration !== false) {
+            return $this->loadedYamlConfigration;
+        }
+
+        $reflection = new ReflectionClass(get_class($this));
+        $yamlFilePath = dirname($reflection->getFileName()).'/plugin.yaml';
+
+        if (!file_exists($yamlFilePath)) {
+            if ($exceptionMessage) {
+                throw new SystemException($exceptionMessage);
+            }
+            else {
+                $this->loadedYamlConfigration = [];
+            }
+        }
+        else {
+            $this->loadedYamlConfigration = Yaml::parse(file_get_contents($yamlFilePath));
+            if (!is_array($this->loadedYamlConfigration)) {
+                throw new SystemException('Invalid format of the plugin configuration file: %s. The file should define an array.', $filePath);
+            }
+        }
+
+        return $this->loadedYamlConfigration;
     }
 }

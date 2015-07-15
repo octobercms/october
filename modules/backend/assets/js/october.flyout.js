@@ -88,7 +88,7 @@
         var $toggleContainer = $(this.options.flyoutToggle),
             $toggle = $('<div class="flyout-toggle"><i class="icon-chevron-right"></i></div>')
 
-        $toggleContainer.on('click', this.proxy(this.show))
+        $toggle.on('click', this.proxy(this.show))
         $toggleContainer.append($toggle)
     }
 
