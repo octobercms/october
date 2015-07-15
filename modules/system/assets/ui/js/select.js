@@ -37,7 +37,8 @@
         var selectOptions = {
             templateResult: formatSelectOption,
             templateSelection: formatSelectOption,
-            escapeMarkup: function(m) { return m }
+            escapeMarkup: function(m) { return m },
+            width: 'style'
         }
 
         /*
