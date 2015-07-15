@@ -165,10 +165,6 @@
         /*
          * Bind events
          */
-         this.$container.on('mousedown', function(e){
-            e.stopPropagation();
-         })
-
          this.$container.on('close.oc.popover', function(e){
             self.hide()
          })
@@ -317,9 +313,14 @@
         return result
     }
 
-    Popover.prototype.onDocumentClick = function() {
-        if (this.options.closeOnPageClick)
-            this.hide();
+    Popover.prototype.onDocumentClick = function(e) {
+        if (!this.options.closeOnPageClick)
+            return
+
+        if ($.contains(this.$container.get(0), e.target))
+            return
+
+        this.hide();
     }
 
     Popover.DEFAULTS = {
