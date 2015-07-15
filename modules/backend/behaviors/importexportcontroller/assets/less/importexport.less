@@ -1,7 +1,8 @@
 @import "../../../../assets/less/core/boot.less";
 
-@color-import-column-bg: #f0f0f0;
+@color-import-column-bg: #e8eaeb;
 @color-import-column-border: #ccc;
+@color-import-bound-bg: #ddd;
 
 .import-behavior {
 
@@ -23,44 +24,66 @@
         }
     }
 
-    ul.import-file-columns,
-    ul.import-record-columns {
-        li {
-            background: @color-import-column-bg;
-            border: 1px solid @color-import-column-border;
-            border-radius: 3px;
-            margin-bottom: 5px;
+    ul li.dragged,
+    ul.import-file-columns > li,
+    ul.import-record-columns > li {
+        background: @color-import-column-bg;
+        border: 1px solid @color-import-column-border;
+        border-radius: 3px;
+        margin-bottom: 5px;
 
-            div.import-column-name > span,
-            > span {
-                display: block;
-                padding: 5px;
-            }
+        div.import-column-name > span,
+        > span {
+            display: block;
+            padding: 5px;
         }
     }
 
     ul.import-file-columns {
-        li {
+        > li {
             .clearfix;
         }
 
         div.import-column-name {
             float: left;
-            width: 50%;
+            width: 45%;
         }
 
         ul.import-column-bindings {
             float: right;
-            width: 50%;
+            width: 55%;
         }
     }
 
     ul.import-column-bindings {
-        background: #999;
-        padding: 5px 5px;
-        li {
-            background: transparent;
-            border-color: transparent;
+        background: @color-import-bound-bg;
+        padding: 0 5px 0 21px;
+        position: relative;
+        min-height: 30px;
+
+        &:after {
+            .triangle(right, 16px, 30px, @color-import-column-bg);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        &:before {
+            position: absolute;
+            padding: 5px;
+            content: attr(data-empty-text);
+            font-style: italic;
+            color: rgba(0,0,0,.5);
+        }
+
+        > li:not(.dragged) {
+            background: @color-import-bound-bg;
+            position: relative;
+
+            > span {
+                display: block;
+                padding: 5px;
+            }
         }
     }
 

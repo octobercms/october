@@ -13,41 +13,69 @@
   -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.075);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.075);
 }
-.import-behavior ul.import-file-columns li,
-.import-behavior ul.import-record-columns li {
-  background: #f0f0f0;
+.import-behavior ul li.dragged,
+.import-behavior ul.import-file-columns > li,
+.import-behavior ul.import-record-columns > li {
+  background: #e8eaeb;
   border: 1px solid #cccccc;
   border-radius: 3px;
   margin-bottom: 5px;
 }
-.import-behavior ul.import-file-columns li div.import-column-name > span,
-.import-behavior ul.import-record-columns li div.import-column-name > span,
-.import-behavior ul.import-file-columns li > span,
-.import-behavior ul.import-record-columns li > span {
+.import-behavior ul li.dragged div.import-column-name > span,
+.import-behavior ul.import-file-columns > li div.import-column-name > span,
+.import-behavior ul.import-record-columns > li div.import-column-name > span,
+.import-behavior ul li.dragged > span,
+.import-behavior ul.import-file-columns > li > span,
+.import-behavior ul.import-record-columns > li > span {
   display: block;
   padding: 5px;
 }
-.import-behavior ul.import-file-columns li:before,
-.import-behavior ul.import-file-columns li:after {
+.import-behavior ul.import-file-columns > li:before,
+.import-behavior ul.import-file-columns > li:after {
   content: " ";
   display: table;
 }
-.import-behavior ul.import-file-columns li:after {
+.import-behavior ul.import-file-columns > li:after {
   clear: both;
 }
 .import-behavior ul.import-file-columns div.import-column-name {
   float: left;
-  width: 50%;
+  width: 45%;
 }
 .import-behavior ul.import-file-columns ul.import-column-bindings {
   float: right;
-  width: 50%;
+  width: 55%;
 }
 .import-behavior ul.import-column-bindings {
-  background: #999;
-  padding: 5px 5px;
+  background: #dddddd;
+  padding: 0 5px 0 21px;
+  position: relative;
+  min-height: 30px;
 }
-.import-behavior ul.import-column-bindings li {
-  background: transparent;
-  border-color: transparent;
+.import-behavior ul.import-column-bindings:after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 16px solid #e8eaeb;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.import-behavior ul.import-column-bindings:before {
+  position: absolute;
+  padding: 5px;
+  content: attr(data-empty-text);
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.5);
+}
+.import-behavior ul.import-column-bindings > li:not(.dragged) {
+  background: #dddddd;
+  position: relative;
+}
+.import-behavior ul.import-column-bindings > li:not(.dragged) > span {
+  display: block;
+  padding: 5px;
 }
