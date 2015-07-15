@@ -177,7 +177,6 @@ class RelationController extends ControllerBehavior
     /**
      * Behavior constructor
      * @param Backend\Classes\Controller $controller
-     * @return void
      */
     public function __construct($controller)
     {
