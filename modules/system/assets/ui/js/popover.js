@@ -64,16 +64,23 @@
         this.$container.removeClass('in')
         if (this.$overlay) this.$overlay.removeClass('in')
 
+        this.disposeControls()
+
         $.support.transition && this.$container.hasClass('fade')
-            ? this.$container
-                .one($.support.transition.end, $.proxy(this.hidePopover, this))
-                .emulateTransitionEnd(300)
-            : this.hidePopover()
+         ? this.$container
+             .one($.support.transition.end, $.proxy(this.hidePopover, this))
+             .emulateTransitionEnd(300)
+         : this.hidePopover()
+    }
+
+    Popover.prototype.disposeControls = function() {
+        if (this.$container) {
+            $.oc.foundation.controlUtils.disposeControls(this.$container.get(0))
+        }
     }
 
     Popover.prototype.hidePopover = function() {
-
-        if (this.$container) this.$container.remove()
+        this.$container.remove();
         if (this.$overlay) this.$overlay.remove()
 
         this.$el.removeClass('popover-highlight')

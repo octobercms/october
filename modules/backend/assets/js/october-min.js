@@ -920,9 +920,10 @@ if(e.isDefaultPrevented())
 return
 this.$container.removeClass('in')
 if(this.$overlay)this.$overlay.removeClass('in')
+this.disposeControls()
 $.support.transition&&this.$container.hasClass('fade')?this.$container.one($.support.transition.end,$.proxy(this.hidePopover,this)).emulateTransitionEnd(300):this.hidePopover()}
-Popover.prototype.hidePopover=function(){if(this.$container)this.$container.remove()
-if(this.$overlay)this.$overlay.remove()
+Popover.prototype.disposeControls=function(){if(this.$container){$.oc.foundation.controlUtils.disposeControls(this.$container.get(0))}}
+Popover.prototype.hidePopover=function(){this.$container.remove();if(this.$overlay)this.$overlay.remove()
 this.$el.removeClass('popover-highlight')
 this.$el.trigger('hide.oc.popover')
 this.$overlay=false
@@ -1530,6 +1531,8 @@ return state.text}
 var selectOptions={templateResult:formatSelectOption,templateSelection:formatSelectOption,escapeMarkup:function(m){return m}}
 $('select.custom-select').each(function(){var $element=$(this),extraOptions={}
 if($element.data('select2')!=null){return true;}
+$element.attr('data-disposable','data-disposable')
+$element.one('dispose-control',function(){if($element.data('select2')){$element.select2('destroy')}})
 if($element.hasClass('select-no-search')){extraOptions.minimumResultsForSearch=Infinity}
 $element.select2($.extend({},selectOptions,extraOptions))})})
 $(document).on('disable','select.custom-select',function(event,status){$(this).select2('enable',!status)})
@@ -1783,9 +1786,7 @@ var e=$.Event('hidden.oc.inspector')
 this.$el.trigger(e)
 this.$el.data('oc.inspectorVisible',false)
 this.dispose()}
-Inspector.prototype.dispose=function(){for(var i=0,len=this.editors.length;i<len;i++){this.editors[i].dispose()
-this.editors[i]=null}
-var $popoverContainer=$(this.$el.data('oc.popover').$container)
+Inspector.prototype.dispose=function(){var $popoverContainer=$(this.$el.data('oc.popover').$container)
 $popoverContainer.off('keydown',this.proxy(this.onPopoverKeyDown))
 $('.with-tooltip',$popoverContainer).tooltip('destroy')
 this.$el.removeData('oc.inspector')
@@ -1820,7 +1821,9 @@ e.preventDefault()
 var self=this
 setTimeout(function(){self.focus()},0)
 return false})
-$('.with-tooltip',this.$el.data('oc.popover').$container).tooltip('hide')}
+$('.with-tooltip',this.$el.data('oc.popover').$container).tooltip('hide')
+if(!e.isDefaultPrevented()){for(var i=0,len=this.editors.length;i<len;i++){this.editors[i].dispose()
+this.editors[i]=null}}}
 Inspector.prototype.editorExternalPropertyEnabled=function(editor){var $container=this.$el.data('inspector-container'),$cell=$('#'+editor.inspectorCellId,$container),$extPropEditorContainer=$cell.find('.external-param-editor-container')
 return $extPropEditorContainer.hasClass('editor-visible')}
 Inspector.prototype.findEditor=function(property){var count=this.editors.length
@@ -1910,7 +1913,8 @@ InspectorEditorDropdown.prototype=Object.create(BaseProto)
 InspectorEditorDropdown.prototype.constructor=InspectorEditorDropdown
 InspectorEditorDropdown.prototype.dispose=function(){$(document).off('change',this.selector,this.proxy(this.applyValue))
 var $element=$(this.selector)
-if($element.data('select2')!=null){$element.select2('destroy')}
+if($element.data('select2')!=null){$element.select2('close')
+$element.select2('destroy')}
 this.inspector=null
 this.fieldDef=null
 this.editorId=null
@@ -2440,6 +2444,8 @@ return state.text}
 var selectOptions={templateResult:formatSelectOption,templateSelection:formatSelectOption,escapeMarkup:function(m){return m}}
 $('select.custom-select').each(function(){var $element=$(this),extraOptions={}
 if($element.data('select2')!=null){return true;}
+$element.attr('data-disposable','data-disposable')
+$element.one('dispose-control',function(){if($element.data('select2')){$element.select2('destroy')}})
 if($element.hasClass('select-no-search')){extraOptions.minimumResultsForSearch=Infinity}
 $element.select2($.extend({},selectOptions,extraOptions))})})
 $(document).on('disable','select.custom-select',function(event,status){$(this).select2('enable',!status)})
@@ -2531,9 +2537,10 @@ if(e.isDefaultPrevented())
 return
 this.$container.removeClass('in')
 if(this.$overlay)this.$overlay.removeClass('in')
+this.disposeControls()
 $.support.transition&&this.$container.hasClass('fade')?this.$container.one($.support.transition.end,$.proxy(this.hidePopover,this)).emulateTransitionEnd(300):this.hidePopover()}
-Popover.prototype.hidePopover=function(){if(this.$container)this.$container.remove()
-if(this.$overlay)this.$overlay.remove()
+Popover.prototype.disposeControls=function(){if(this.$container){$.oc.foundation.controlUtils.disposeControls(this.$container.get(0))}}
+Popover.prototype.hidePopover=function(){this.$container.remove();if(this.$overlay)this.$overlay.remove()
 this.$el.removeClass('popover-highlight')
 this.$el.trigger('hide.oc.popover')
 this.$overlay=false
