@@ -1,0 +1,53 @@
+.import-behavior ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.import-behavior ul li.placeholder {
+  display: block;
+  position: relative;
+}
+.import-behavior ul li.dragged {
+  position: absolute;
+  z-index: 2000;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.075);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.075);
+}
+.import-behavior ul.import-file-columns li,
+.import-behavior ul.import-record-columns li {
+  background: #f0f0f0;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  margin-bottom: 5px;
+}
+.import-behavior ul.import-file-columns li div.import-column-name > span,
+.import-behavior ul.import-record-columns li div.import-column-name > span,
+.import-behavior ul.import-file-columns li > span,
+.import-behavior ul.import-record-columns li > span {
+  display: block;
+  padding: 5px;
+}
+.import-behavior ul.import-file-columns li:before,
+.import-behavior ul.import-file-columns li:after {
+  content: " ";
+  display: table;
+}
+.import-behavior ul.import-file-columns li:after {
+  clear: both;
+}
+.import-behavior ul.import-file-columns div.import-column-name {
+  float: left;
+  width: 50%;
+}
+.import-behavior ul.import-file-columns ul.import-column-bindings {
+  float: right;
+  width: 50%;
+}
+.import-behavior ul.import-column-bindings {
+  background: #999;
+  padding: 5px 5px;
+}
+.import-behavior ul.import-column-bindings li {
+  background: transparent;
+  border-color: transparent;
+}

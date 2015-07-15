@@ -1,0 +1,40 @@
+
+
+<div class="row">
+    <div class="col-md-6">
+        File Columns
+
+        <ul class="import-file-columns">
+            <li>
+                <div class="import-column-name">
+                    <span>Name</span>
+                </div>
+                <ul class="import-column-bindings">
+                </ul>
+            </li>
+            <li>
+                <div class="import-column-name">
+                    <span>URL Name</span>
+                </div>
+                <ul class="import-column-bindings">
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        Record Columns
+
+        <ul class="import-record-columns">
+            <li><span>SKU</span></li>
+            <li><span>Title</span></li>
+            <li><span>Description</span></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    $('ul.import-record-columns, ul.import-column-bindings').sortable({
+        group: 'import-fields',
+        usePlaceholderClone: true
+    })
+</script>
