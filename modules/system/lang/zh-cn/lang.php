@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'tagline' => '回到basics'
+        'tagline' => '登陆'
     ],
     'locale' => [
         'en' => 'English',
@@ -16,16 +16,17 @@ return [
         'id' => 'Bahasa Indonesia',
         'it' => 'Italian',
         'ja' => 'Japanese',
+        'lv' => 'Latvian',
+        'nb-no' => 'Norwegian (Bokmål)',
         'nl' => 'Dutch',
         'pl' => 'Polish',
-        'pt-br' => 'Brazilian Portuguese',
+        'pt-br' => 'Portuguese (Brazil)',
         'ro' => 'Romanian',
         'ru' => 'Russian',
         'se' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
-        'zh-cn' => 'Chinese (China)',
-        'nb-no' => 'Norwegian (Bokmål)'
+        'zh-cn' => 'Chinese (China)'
     ],
     'directory' => [
         'create_fail' => '不能创建目录: :name'
@@ -40,31 +41,52 @@ return [
         'name' => '系统',
         'menu_label' => '系统',
         'categories' => [
-            'cms' => 'CMS',
-            'misc' => 'Misc',
-            'logs' => 'Logs',
-            'mail' => 'Mail',
-            'shop' => 'Shop',
-            'team' => 'Team',
-            'users' => 'Users',
-            'system' => 'System',
-            'social' => 'Social',
-            'events' => 'Events',
-            'customers' => 'Customers',
-            'my_settings' => 'My Settings'
+            'cms' => '内容管理',
+            'misc' => '杂项',
+            'logs' => '日志',
+            'mail' => '邮件',
+            'shop' => '商铺',
+            'team' => '团队',
+            'users' => '用户',
+            'system' => '系统',
+            'social' => '社交',
+            'events' => '事件',
+            'customers' => '自定义',
+            'my_settings' => '我的设置'
         ]
+    ],
+    'theme' => [
+        'unnamed' => '未命名主题',
+        'name' => [
+            'label' => '主题名称',
+            'help' => '主题的唯一名称，例如：RainLab.Vanilla'
+        ],
+    ],
+    'themes' => [
+        'install' => '安装主题',
+        'search' => '搜索主题...',
+        'installed' => '已安装主题',
+        'no_themes' => '市场上没有已安装的主题。',
+        'recommended' => '推荐',
+        'remove_confirm' => '你确定要删除这些主题吗？'
     ],
     'plugin' => [
         'unnamed' => '未命名的插件',
         'name' => [
             'label' => '插件名称',
-            'help' => '输入插件的唯一代码. 比如 RainLab.Blog'
+            'help' => '插件的唯一名称，例如：RainLab.Blog'
         ]
     ],
     'plugins' => [
         'manage' => '管理插件',
         'enable_or_disable' => '启用或禁用',
         'enable_or_disable_title' => '启用或禁用插件',
+        'install' => '安装插件',
+        'install_products' => '安装产品',
+        'search' => '搜索插件...',
+        'installed' => '已安装插件',
+        'no_plugins' => '市场中没有已安装的插件。',
+        'recommended' => '推荐',
         'remove' => '移除',
         'refresh' => '刷新',
         'disabled_label' => '禁用',
@@ -110,11 +132,10 @@ return [
         'sender_name' => '发送者名称',
         'sender_email' => '发送者邮件',
         'php_mail' => 'PHP mail',
-        'sendmail' => 'Sendmail',
         'smtp' => 'SMTP',
         'smtp_address' => 'SMTP 地址',
         'smtp_authorization' => '需要 SMTP 认证',
-        'smtp_authorization_comment' => '使用 checkbox 如果你的SMTP服务器需要认证.',
+        'smtp_authorization_comment' => '勾选这个多选框如果你的SMTP服务器需要认证.',
         'smtp_username' => '用户名',
         'smtp_password' => '密码',
         'smtp_port' => 'SMTP 端口',
@@ -158,9 +179,11 @@ return [
     'install' => [
         'project_label' => '加入项目',
         'plugin_label' => '安装插件',
-        'missing_plugin_name' => '请指明要安装的插件.',
+        'theme_label' => '安装主题',
+        'missing_plugin_name' => '请输入要安装的插件名称。',
+        'missing_theme_name' => '请输入要安装的主题名称。',
         'install_completing' => '完成安装过程',
-        'install_success' => '插件安装成功.'
+        'install_success' => '插件安装成功。'
     ],
     'updates' => [
         'title' => '管理更新',
@@ -173,20 +196,17 @@ return [
         'plugin_description' => '描述',
         'plugin_version' => '版本',
         'plugin_author' => '作者',
-        'core_build' => '当前build',
-        'core_build_old' => '当前build :build',
-        'core_build_new' => 'Build :build',
-        'core_build_new_help' => '新 build 可用.',
+        'core_current_build' => '当前版本',
+        'core_build' => '版本 :build',
+        'core_build_help' => '新的版本可用.',
         'core_downloading' => '下载应用程序',
         'core_extracting' => '解压应用程序',
         'plugins' => '插件',
+        'themes' => '主题',
         'disabled' => '禁用',
         'plugin_downloading' => '下载插件: :name',
         'plugin_extracting' => '解压插件: :name',
         'plugin_version_none' => '新插件',
-        'plugin_version_old' => '当前 v:version',
-        'plugin_version_new' => 'v:version',
-        'theme_label' => '主题',
         'theme_new_install' => '新主题安装.',
         'theme_downloading' => '下载主题: :name',
         'theme_extracting' => '解压主题: :name',
@@ -197,21 +217,21 @@ return [
         'update_failed_label' => '更新失败',
         'force_label' => '强制更新',
         'found' => [
-            'label' => '发现新更新!',
+            'label' => '发现新的更新!',
             'help' => '点击更新.'
         ],
         'none' => [
             'label' => '没有更新',
-            'help' => '没发现新更新.'
+            'help' => '没有发现新的更新.'
         ]
     ],
     'server' => [
         'connect_error' => '连接服务器失败.',
         'response_not_found' => '找不到更新服务器.',
-        'response_invalid' => '服务器的异常返回.',
-        'response_empty' => '服务器的空返回.',
-        'file_error' => '服务器发送失败.',
-        'file_corrupt' => '服务器文件被占用.'
+        'response_invalid' => '服务器返回异常.',
+        'response_empty' => '服务器返回为空.',
+        'file_error' => '服务器下载文件失败.',
+        'file_corrupt' => '服务器下载文件校验失败.'
     ],
     'behavior' => [
         'missing_property' => 'Class :class 必须定义属性 $:property 被 :behavior behavior 使用.'
@@ -247,8 +267,8 @@ return [
         'return_link' => '返回请求日志',
         'id' => 'ID',
         'id_label' => '登录ID',
-        'count' => '柜台',
-        'referer' => 'Referers',
+        'count' => '次数',
+        'referer' => '来源',
         'url' => 'URL',
         'status_code' => '状态'
     ],
@@ -256,9 +276,11 @@ return [
         'name' => '系统',
         'manage_system_settings' => '管理系统设置',
         'manage_software_updates' => '管理软件更新',
+        'access_logs' => '查看访问日志',
         'manage_mail_templates' => '管理邮件模板',
         'manage_mail_settings' => '管理邮件设置',
         'manage_other_administrators' => '管理其他管理员',
-        'view_the_dashboard' => '查看dashboard'
+        'view_the_dashboard' => '查看仪表盘',
+        'manage_branding' => '自定义后台'
     ]
 ];

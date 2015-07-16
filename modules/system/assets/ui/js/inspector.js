@@ -681,11 +681,6 @@
     }
 
     Inspector.prototype.dispose = function() {
-        for (var i=0, len=this.editors.length; i<len; i++) {
-            this.editors[i].dispose()
-            this.editors[i] = null
-        }
-
         var $popoverContainer = $(this.$el.data('oc.popover').$container)
         $popoverContainer.off('keydown', this.proxy(this.onPopoverKeyDown))
         $('.with-tooltip', $popoverContainer).tooltip('destroy')
@@ -761,6 +756,13 @@
         })
 
         $('.with-tooltip', this.$el.data('oc.popover').$container).tooltip('hide')
+
+        if (!e.isDefaultPrevented()) {
+            for (var i=0, len=this.editors.length; i<len; i++) {
+                this.editors[i].dispose()
+                this.editors[i] = null
+            }
+        }
     }
 
     Inspector.prototype.editorExternalPropertyEnabled = function(editor) {
@@ -992,6 +994,7 @@
 
         var $element = $(this.selector)
         if ($element.data('select2') != null) {
+            $element.select2('close')
             $element.select2('destroy')
         }
 

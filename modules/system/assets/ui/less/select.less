@@ -157,8 +157,9 @@
         // Make the dropdown arrow point up while the dropdown is visible.
         //
         .select2-selection .select2-selection__arrow b {
-            border-color: transparent transparent @color-select-icon transparent;
-            border-width: 0 @caret-width-base @caret-width-base @caret-width-base;
+            &:before {
+                .icon(@angle-up);
+            }
         }
 
         //
@@ -253,16 +254,17 @@
             width: @caret-width-base;
 
             b {
-                border-color: @color-select-icon transparent transparent transparent;
-                border-style: solid;
-                border-width: @caret-width-base @caret-width-base 0 @caret-width-base;
-                height: 0;
-                left: 0;
-                margin-left: -@caret-width-base;
-                margin-top: -@caret-width-base/2;
                 position: absolute;
                 top: 50%;
-                width: 0;
+                height: 9px;
+                width: 8px;
+                right: 3px;
+                margin-top: -5px;
+                line-height: 9px;
+                &:before {
+                    .icon(@angle-down);
+                    display: inline-block;
+                }
             }
         }
 

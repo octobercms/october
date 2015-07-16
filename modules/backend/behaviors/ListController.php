@@ -3,7 +3,7 @@
 use Str;
 use Lang;
 use Event;
-use SystemException;
+use ApplicationException;
 use Backend\Classes\ControllerBehavior;
 use League\Csv\Writer;
 use SplTempFileObject;
@@ -57,7 +57,6 @@ class ListController extends ControllerBehavior
     /**
      * Behavior constructor
      * @param Backend\Classes\Controller $controller
-     * @return void
      */
     public function __construct($controller)
     {
@@ -265,7 +264,7 @@ class ListController extends ControllerBehavior
     public function listRender($definition = null)
     {
         if (!count($this->listWidgets)) {
-            throw new SystemException(Lang::get('backend::lang.list.behavior_not_ready'));
+            throw new ApplicationException(Lang::get('backend::lang.list.behavior_not_ready'));
         }
 
         if (!$definition || !isset($this->listDefinitions[$definition])) {
@@ -340,7 +339,9 @@ class ListController extends ControllerBehavior
          * Parse options
          */
         $defaultOptions = [
-            'filename' => 'export.csv'
+            'filename' => 'export.csv',
+            'delimiter' => ',',
+            'enclosure' => '"'
         ];
 
         $options = array_merge($defaultOptions, $options);
@@ -350,6 +351,8 @@ class ListController extends ControllerBehavior
          * Prepare CSV
          */
         $csv = Writer::createFromFileObject(new SplTempFileObject);
+        $csv->setDelimiter($options['delimiter']);
+        $csv->setEnclosure($options['enclosure']);
 
         /*
          * Add headers

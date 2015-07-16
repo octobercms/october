@@ -32,6 +32,7 @@
 .control-updatelist .update-item .item-header .important-update {
   padding: 7px 0 0 0;
   float: right;
+  width: 200px;
 }
 .control-updatelist .update-item dl {
   padding: 10px;

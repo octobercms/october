@@ -52,6 +52,7 @@
 
         this.options = options || {};
         this.arrowSize = 15
+        this.docClickHandler = null
         this.show()
     }
 
@@ -64,16 +65,23 @@
         this.$container.removeClass('in')
         if (this.$overlay) this.$overlay.removeClass('in')
 
+        this.disposeControls()
+
         $.support.transition && this.$container.hasClass('fade')
-            ? this.$container
-                .one($.support.transition.end, $.proxy(this.hidePopover, this))
-                .emulateTransitionEnd(300)
-            : this.hidePopover()
+         ? this.$container
+             .one($.support.transition.end, $.proxy(this.hidePopover, this))
+             .emulateTransitionEnd(300)
+         : this.hidePopover()
+    }
+
+    Popover.prototype.disposeControls = function() {
+        if (this.$container) {
+            $.oc.foundation.controlUtils.disposeControls(this.$container.get(0))
+        }
     }
 
     Popover.prototype.hidePopover = function() {
-
-        if (this.$container) this.$container.remove()
+        this.$container.remove();
         if (this.$overlay) this.$overlay.remove()
 
         this.$el.removeClass('popover-highlight')
@@ -87,6 +95,8 @@
 
         $(document).unbind('mousedown', this.docClickHandler);
         $(document).off('.oc.popover')
+
+        this.docClickHandler = null
     }
 
     Popover.prototype.show = function(options) {
@@ -158,33 +168,29 @@
         /*
          * Bind events
          */
-         this.$container.on('mousedown', function(e){
-            e.stopPropagation();
-         })
+        this.$container.on('close.oc.popover', function(e){
+           self.hide()
+        })
 
-         this.$container.on('close.oc.popover', function(e){
-            self.hide()
-         })
+        this.$container.on('click', '[data-dismiss=popover]', function(e){
+           self.hide()
+           return false
+        })
 
-         this.$container.on('click', '[data-dismiss=popover]', function(e){
-            self.hide()
-            return false
-         })
+        this.docClickHandler = $.proxy(this.onDocumentClick, this)
+        $(document).bind('mousedown', this.docClickHandler);
 
-         this.docClickHandler = $.proxy(this.onDocumentClick, this)
-         $(document).bind('mousedown', this.docClickHandler);
+        if (this.options.closeOnEsc) {
+            $(document).on('keyup.oc.popover', function(e){
+               if ($(e.target).hasClass('select2-offscreen'))
+                   return false
 
-         if (this.options.closeOnEsc) {
-             $(document).on('keyup.oc.popover', function(e){
-                if ($(e.target).hasClass('select2-offscreen'))
-                    return false
-
-                if (e.keyCode == 27) {
-                    self.hide()
-                    return false
-                }
-             })
-         }
+               if (e.keyCode == 27) {
+                   self.hide()
+                   return false
+               }
+            })
+        }
     }
 
     Popover.prototype.getContent = function () {
@@ -310,9 +316,14 @@
         return result
     }
 
-    Popover.prototype.onDocumentClick = function() {
-        if (this.options.closeOnPageClick)
-            this.hide();
+    Popover.prototype.onDocumentClick = function(e) {
+        if (!this.options.closeOnPageClick)
+            return
+
+        if ($.contains(this.$container.get(0), e.target))
+            return
+
+        this.hide();
     }
 
     Popover.DEFAULTS = {

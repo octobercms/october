@@ -9531,9 +9531,14 @@ html.cssanimations .cursor-loading-indicator.hide {
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   border-color: #808c8d;
 }
-.select2-container--default.select2-container--open .select2-selection .select2-selection__arrow b {
-  border-color: transparent transparent #666666 transparent;
-  border-width: 0 4px 4px 4px;
+.select2-container--default.select2-container--open .select2-selection .select2-selection__arrow b:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f106";
 }
 .select2-container--default.select2-container--open.select2-container--below .select2-selection {
   border-bottom-right-radius: 0;
@@ -9602,16 +9607,23 @@ html.cssanimations .cursor-loading-indicator.hide {
   width: 4px;
 }
 .select2-container--default .select2-selection--single .select2-selection__arrow b {
-  border-color: #666666 transparent transparent transparent;
-  border-style: solid;
-  border-width: 4px 4px 0 4px;
-  height: 0;
-  left: 0;
-  margin-left: -4px;
-  margin-top: -2px;
   position: absolute;
   top: 50%;
-  width: 0;
+  height: 9px;
+  width: 8px;
+  right: 3px;
+  margin-top: -5px;
+  line-height: 9px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  content: "\f107";
+  display: inline-block;
 }
 .select2-container--default .select2-selection--single .select2-selection__rendered {
   color: #555555;
@@ -10472,8 +10484,8 @@ body.slim-container .form-buttons {
     clear: none;
   }
 }
-.form-group .select2-container {
-  width: 100%!important;
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  border: none;
 }
 .select2-dropdown {
   z-index: 10000;
@@ -12405,6 +12417,9 @@ div.popover-overlay {
 .inspector-fields .select2-container.select2-container--open .select2-selection {
   background: white;
 }
+.inspector-fields .select2-container .select2-selection__rendered {
+  padding: 0 22px 0 0;
+}
 .inspector-fields tr.changed td {
   font-weight: 600;
 }
@@ -12456,6 +12471,7 @@ div.control-popover.hero .inspector-fields div.custom-select.select2-container .
 .select2-dropdown.ocInspectorDropdown .select2-search {
   min-height: 26px;
   position: relative;
+  border-bottom: 1px solid #b2b9be;
 }
 .select2-dropdown.ocInspectorDropdown .select2-search:after {
   position: absolute;
@@ -12470,11 +12486,12 @@ div.control-popover.hero .inspector-fields div.custom-select.select2-container .
   top: 10px;
   color: #95a5a6;
 }
-.select2-dropdown.ocInspectorDropdown .select2-search input.select2-input {
+.select2-dropdown.ocInspectorDropdown .select2-search input.select2-search__field {
   min-height: 26px;
   background: transparent !important;
   padding-left: 12px;
   padding-right: 12px;
+  border: none;
 }
 @-webkit-keyframes progress-bar-stripes {
   from {
@@ -14947,7 +14964,7 @@ body.outer .layout > .layout-row > .layout-cell {
 }
 body.outer .layout > .layout-row > .layout-cell .outer-form-container {
   margin: 0 auto;
-  width: 404px;
+  width: 436px;
 }
 body.outer .layout > .layout-row > .layout-cell .outer-form-container h2 {
   font-size: 18px;
@@ -14985,7 +15002,7 @@ body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizonta
 }
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form button.login-button {
   display: inline-block;
-  width: 65px;
+  width: 98px;
 }
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .forgot-password {
   margin-top: 30px;
@@ -15721,7 +15738,7 @@ body.side-panel-not-fixed .fancy-layout .field-richeditor {
 html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-container .loading-indicator > span {
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
-  background-image: url(../images/loading-indicator-white.svg);
+  background-image: url(../../../../../modules/system/assets/ui/images/loader-white.svg);
   background-size: 20px 20px;
 }
 .flyout-container > .flyout {

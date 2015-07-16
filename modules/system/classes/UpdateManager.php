@@ -437,6 +437,17 @@ class UpdateManager
     }
 
     /**
+     * Looks up content for a plugin from the update server.
+     * @param string $name Plugin name.
+     * @return array Content for the plugin.
+     */
+    public function requestPluginContent($name)
+    {
+        $result = $this->requestServerData('plugin/content', ['name' => $name]);
+        return $result;
+    }
+
+    /**
      * Runs update on a single plugin
      * @param string $name Plugin name.
      * @return self

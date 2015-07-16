@@ -8,6 +8,7 @@ The API allows to change elements' visibility or status (enabled/disabled) basin
 - data-trigger: a CSS selector for elements that trigger the action (checkboxes)
 - data-trigger-condition, values:
     - checked: determines the condition the elements specified in the data-trigger should satisfy in order the condition to be considered as "true".
+    - unchecked: inverse condition of "checked".
     - value[somevalue]: determines if the value of data-trigger equals the specified value (somevalue) the condition is considered "true".
 - data-trigger-closest-parent: optional, specifies a CSS selector for a closest common parent for the source and destination input elements.
 
@@ -17,6 +18,14 @@ Example code:
         data-trigger-action="enable"
         data-trigger="#cblist input[type=checkbox]"
         data-trigger-condition="checked" ... >
+
+Multiple actions are supported:
+
+    data-trigger-action="hide|empty"
+
+Multie value conditions are supported:
+
+    data-trigger-condition="value[foo][bar]"
 
 ### Supported events:
 

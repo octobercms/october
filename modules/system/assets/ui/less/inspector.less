@@ -320,6 +320,10 @@
                 background: white;
             }
         }
+
+        .select2-selection__rendered {
+            padding: 0 22px 0 0;
+        }
     }
 
     tr.changed {
@@ -392,6 +396,7 @@ div.control-popover {
         .select2-search {
             min-height: 26px;
             position: relative;
+            border-bottom: 1px solid #b2b9be; 
 
             &:after {
                 position: absolute;
@@ -401,11 +406,12 @@ div.control-popover {
                 color: #95a5a6;
             }
 
-            input.select2-input {
+            input.select2-search__field {
                 min-height: 26px;
                 background: transparent !important;
                 padding-left: 12px;
                 padding-right: 12px;
+                border: none;
             }
         }
     }

@@ -75,7 +75,7 @@ return [
         'menu_description' => 'Gérer les utilisateurs, les groupes et les permissions depuis l’administration.',
         'list_title' => 'Gérer les administrateurs',
         'new' => 'Créer un nouvel administrateur',
-        'login' => 'Identifiant',
+        'login' => 'S’identifier',
         'first_name' => 'Prénom',
         'last_name' => 'Nom',
         'full_name' => 'Nom complet',

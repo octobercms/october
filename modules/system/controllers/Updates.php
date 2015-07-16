@@ -103,7 +103,7 @@ class Updates extends Controller
     public function details($urlCode = null, $tab = null)
     {
         try {
-            $this->pageTitle = 'Plugin details';
+            $this->pageTitle = 'system::lang.updates.details_title';
             $this->addCss('/modules/system/assets/css/updates/details.css', 'core');
 
             $readmeFiles = ['README.md', 'readme.md'];
@@ -127,13 +127,21 @@ class Updates extends Controller
 
                 $pluginVersion = PluginVersion::whereCode($code)->first();
                 $this->vars['pluginName'] = array_get($details, 'name', 'system::lang.plugin.unnamed');
-                $this->vars['pluginVersion'] = $pluginVersion->version;
+                $this->vars['pluginVersion'] = $pluginVersion ? $pluginVersion->version : '???';
                 $this->vars['pluginAuthor'] = array_get($details, 'author');
                 $this->vars['pluginIcon'] = array_get($details, 'icon', 'icon-leaf');
                 $this->vars['pluginHomepage'] = array_get($details, 'homepage');
             }
             else {
                 throw new ApplicationException('Plugin not found');
+            }
+
+            /*
+             * Fetch from server
+             */
+            if (get('fetch')) {
+                $fetchedContent = UpdateManager::instance()->requestPluginContent($code);
+                $upgrades = array_get($fetchedContent, 'upgrade_guide_html');
             }
 
             $this->vars['activeTab'] = $tab ?: 'readme';
@@ -292,7 +300,7 @@ class Updates extends Controller
                 if (strpos($description, '!!!') === false) continue;
 
                 $isImportant = $hasImportantUpdates = true;
-                $detailsUrl = Backend::url('system/updates/details/'.strtolower(str_replace('.', '-', $code)).'/upgrades');
+                $detailsUrl = Backend::url('system/updates/details/'.PluginVersion::makeSlug($code).'/upgrades').'?fetch=1';
                 $description = str_replace('!!!', '', $description);
                 $result['plugins'][$code]['updates'][$version] = [$description, $detailsUrl];
             }

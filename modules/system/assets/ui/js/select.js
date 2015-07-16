@@ -37,7 +37,8 @@
         var selectOptions = {
             templateResult: formatSelectOption,
             templateSelection: formatSelectOption,
-            escapeMarkup: function(m) { return m }
+            escapeMarkup: function(m) { return m },
+            width: 'style'
         }
 
         /*
@@ -51,6 +52,13 @@
             if ($element.data('select2') != null) {
                 return true; // Continue
             }
+
+            $element.attr('data-disposable', 'data-disposable')
+            $element.one('dispose-control', function(){
+                if ($element.data('select2')) {
+                    $element.select2('destroy')
+                }
+            })
 
             if ($element.hasClass('select-no-search')) {
                 extraOptions.minimumResultsForSearch = Infinity

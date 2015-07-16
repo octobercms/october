@@ -231,7 +231,7 @@ return [
         'manage_pages' => 'Pārvaldīt lapas',
         'manage_layouts' => 'Pārvaldīt izkārtojumus',
         'manage_partials' => 'Pārvaldīt daļas',
-        'manage_themes' => 'Pārvaldīt tēmas'
+        'manage_themes' => 'Pārvaldīt tēmas',
         'manage_media' => 'Pārvaldīt multividi'
     ],
     'mediafinder' => [
