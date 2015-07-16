@@ -1,8 +1,9 @@
 @import "../../../../assets/less/core/boot.less";
 
-@color-import-column-bg: #e8eaeb;
+@color-import-column-bg: #fff;
 @color-import-column-border: #ccc;
-@color-import-bound-bg: #ddd;
+@color-import-bound-bg: #e8eaeb;
+@import-column-padding: 10px;
 
 .import-behavior {
 
@@ -24,9 +25,32 @@
         }
     }
 
+    .import-file-columns,
+    .import-record-columns {
+        height: 400px;
+        background: #f0f0f0;
+        padding: 5px;
+    }
+    .import-file-columns {
+        .upload-prompt {
+            display: block;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            margin-top: -10px;
+        }
+    }
+
+    .import-column-bindings > ul > li,
+    .import-record-columns > ul > li {
+        cursor: pointer;
+    }
+
     ul li.dragged,
-    ul.import-file-columns > li,
-    ul.import-record-columns > li {
+    .import-file-columns > ul > li,
+    .import-record-columns > ul > li {
         background: @color-import-column-bg;
         border: 1px solid @color-import-column-border;
         border-radius: 3px;
@@ -35,11 +59,11 @@
         div.import-column-name > span,
         > span {
             display: block;
-            padding: 5px;
+            padding: @import-column-padding;
         }
     }
 
-    ul.import-file-columns {
+    .import-file-columns > ul {
         > li {
             .clearfix;
         }
@@ -49,20 +73,19 @@
             width: 45%;
         }
 
-        ul.import-column-bindings {
+        .import-column-bindings > ul {
             float: right;
             width: 55%;
         }
     }
 
-    ul.import-column-bindings {
-        background: @color-import-bound-bg;
-        padding: 0 5px 0 21px;
+    .import-column-bindings > ul {
+        background: darken(@color-import-bound-bg, 5%);
         position: relative;
-        min-height: 30px;
+        min-height: (@import-column-padding * 2) + 20px;
 
         &:after {
-            .triangle(right, 16px, 30px, @color-import-column-bg);
+            .triangle(right, 18px, (@import-column-padding * 2) + 20px, @color-import-column-bg);
             position: absolute;
             top: 0;
             left: 0;
@@ -70,7 +93,8 @@
 
         &:before {
             position: absolute;
-            padding: 5px;
+            padding: @import-column-padding;
+            padding-left: 26px;
             content: attr(data-empty-text);
             font-style: italic;
             color: rgba(0,0,0,.5);
@@ -82,7 +106,8 @@
 
             > span {
                 display: block;
-                padding: 5px;
+                padding: @import-column-padding;
+                padding-left: 26px;
             }
         }
     }

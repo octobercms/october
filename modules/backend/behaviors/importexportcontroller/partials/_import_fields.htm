@@ -4,36 +4,46 @@
     <div class="col-md-6">
         File Columns
 
-        <ul class="import-file-columns">
-            <li>
-                <div class="import-column-name">
-                    <span>Name</span>
-                </div>
-                <ul class="import-column-bindings" data-empty-text="Drag here">
-                </ul>
-            </li>
-            <li>
-                <div class="import-column-name">
-                    <span>URL Name</span>
-                </div>
-                <ul class="import-column-bindings" data-empty-text="Drag here">
-                </ul>
-            </li>
-        </ul>
+        <div class="import-file-columns">
+            <p class="upload-prompt">
+                Please upload a valid CSV file.
+            </p>
+
+            <ul style="display: none">
+                <li>
+                    <div class="import-column-name">
+                        <span>Name</span>
+                    </div>
+                    <div class="import-column-bindings">
+                        <ul data-empty-text="Drop column here..."></ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="import-column-name">
+                        <span>URL Name</span>
+                    </div>
+                    <div class="import-column-bindings">
+                        <ul data-empty-text="Drop column here..."></ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="col-md-6">
         Record Columns
 
-        <ul class="import-record-columns">
-            <li><span>SKU</span></li>
-            <li><span>Title</span></li>
-            <li><span>Description</span></li>
-        </ul>
+        <div class="import-record-columns">
+            <ul>
+                <li><span>SKU</span></li>
+                <li><span>Title</span></li>
+                <li><span>Description</span></li>
+            </ul>
+        </div>
     </div>
 </div>
 
 <script>
-    $('ul.import-record-columns, ul.import-column-bindings').sortable({
+    $('.import-record-columns > ul, .import-column-bindings > ul').sortable({
         group: 'import-fields',
         usePlaceholderClone: true
     })
