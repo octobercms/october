@@ -913,6 +913,7 @@ return this.renderTokens(token[4],context,partials,originalTemplate);};Writer.pr
 return this.renderTokens(this.parse(value),context,partials,value);};Writer.prototype._unescapedValue=function(token,context){var value=context.lookup(token[1]);if(value!=null)
 return value;};Writer.prototype._escapedValue=function(token,context){var value=context.lookup(token[1]);if(value!=null)
 return mustache.escape(value);};Writer.prototype._rawValue=function(token){return token[1];};mustache.name="mustache.js";mustache.version="2.0.0";mustache.tags=["{{","}}"];var defaultWriter=new Writer();mustache.clearCache=function(){return defaultWriter.clearCache();};mustache.parse=function(template,tags){return defaultWriter.parse(template,tags);};mustache.render=function(template,view,partials){return defaultWriter.render(template,view,partials);};mustache.to_html=function(template,view,partials,send){var result=mustache.render(template,view,partials);if(isFunction(send)){send(result);}else{return result;}};mustache.escape=escapeHtml;mustache.Scanner=Scanner;mustache.Context=Context;mustache.Writer=Writer;}));+function($){"use strict";var Popover=function(element,options){var $el=this.$el=$(element);this.options=options||{};this.arrowSize=15
+this.docClickHandler=null
 this.show()}
 Popover.prototype.hide=function(){var e=$.Event('hiding.oc.popover',{relatedTarget:this.$el})
 this.$el.trigger(e,this)
@@ -930,7 +931,8 @@ this.$overlay=false
 this.$container=false
 this.$el.data('oc.popover',null)
 $(document.body).removeClass('popover-open')
-$(document).unbind('mousedown',this.docClickHandler);$(document).off('.oc.popover')}
+$(document).unbind('mousedown',this.docClickHandler);$(document).off('.oc.popover')
+this.docClickHandler=null}
 Popover.prototype.show=function(options){var self=this
 var e=$.Event('showing.oc.popover',{relatedTarget:this.$el})
 this.$el.trigger(e,this)
@@ -2532,6 +2534,7 @@ var $el=$(this)
 $(window).one('ajaxUpdateComplete',function(){if($el.closest('html').length===0)
 $.oc.stripeLoadIndicator.hide()})}).on('ajaxFail ajaxDone','[data-stripe-load-indicator]',function(event){event.stopPropagation()
 $.oc.stripeLoadIndicator.hide()})}(window.jQuery);+function($){"use strict";var Popover=function(element,options){var $el=this.$el=$(element);this.options=options||{};this.arrowSize=15
+this.docClickHandler=null
 this.show()}
 Popover.prototype.hide=function(){var e=$.Event('hiding.oc.popover',{relatedTarget:this.$el})
 this.$el.trigger(e,this)
@@ -2549,7 +2552,8 @@ this.$overlay=false
 this.$container=false
 this.$el.data('oc.popover',null)
 $(document.body).removeClass('popover-open')
-$(document).unbind('mousedown',this.docClickHandler);$(document).off('.oc.popover')}
+$(document).unbind('mousedown',this.docClickHandler);$(document).off('.oc.popover')
+this.docClickHandler=null}
 Popover.prototype.show=function(options){var self=this
 var e=$.Event('showing.oc.popover',{relatedTarget:this.$el})
 this.$el.trigger(e,this)
