@@ -52,6 +52,7 @@
 
         this.options = options || {};
         this.arrowSize = 15
+        this.docClickHandler = null
         this.show()
     }
 
@@ -94,6 +95,8 @@
 
         $(document).unbind('mousedown', this.docClickHandler);
         $(document).off('.oc.popover')
+
+        this.docClickHandler = null
     }
 
     Popover.prototype.show = function(options) {
@@ -165,29 +168,29 @@
         /*
          * Bind events
          */
-         this.$container.on('close.oc.popover', function(e){
-            self.hide()
-         })
+        this.$container.on('close.oc.popover', function(e){
+           self.hide()
+        })
 
-         this.$container.on('click', '[data-dismiss=popover]', function(e){
-            self.hide()
-            return false
-         })
+        this.$container.on('click', '[data-dismiss=popover]', function(e){
+           self.hide()
+           return false
+        })
 
-         this.docClickHandler = $.proxy(this.onDocumentClick, this)
-         $(document).bind('mousedown', this.docClickHandler);
+        this.docClickHandler = $.proxy(this.onDocumentClick, this)
+        $(document).bind('mousedown', this.docClickHandler);
 
-         if (this.options.closeOnEsc) {
-             $(document).on('keyup.oc.popover', function(e){
-                if ($(e.target).hasClass('select2-offscreen'))
-                    return false
+        if (this.options.closeOnEsc) {
+            $(document).on('keyup.oc.popover', function(e){
+               if ($(e.target).hasClass('select2-offscreen'))
+                   return false
 
-                if (e.keyCode == 27) {
-                    self.hide()
-                    return false
-                }
-             })
-         }
+               if (e.keyCode == 27) {
+                   self.hide()
+                   return false
+               }
+            })
+        }
     }
 
     Popover.prototype.getContent = function () {
