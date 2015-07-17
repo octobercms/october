@@ -287,7 +287,7 @@ class Form extends WidgetBase
      */
     public function setFormValues($data = null)
     {
-        if ($data == null) {
+        if ($data === null) {
             $data = $this->getSaveData();
         }
 
@@ -312,12 +312,10 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        $eventResults = $this->fireEvent('form.beforeRefresh', [$saveData]) +
-            Event::fire('backend.form.beforeRefresh', [$this, $saveData]);
-
-        foreach ($eventResults as $eventResult) {
-            $saveData = $eventResult + $saveData;
-        }
+        $dataHolder = (object) ['data' => $saveData];
+        $this->fireEvent('form.beforeRefresh', [$dataHolder]);
+        Event::fire('backend.form.beforeRefresh', [$this, $dataHolder]);
+        $saveData = $dataHolder->data;
 
         /*
          * Set the form variables and prepare the widget
@@ -356,8 +354,10 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        $eventResults = $this->fireEvent('form.refresh', [$result]) +
-            Event::fire('backend.form.refresh', [$this, $result]);
+        $eventResults = array_merge(
+            $this->fireEvent('form.refresh', [$result]),
+            Event::fire('backend.form.refresh', [$this, $result])
+        );
 
         foreach ($eventResults as $eventResult) {
             $result = $eventResult + $result;
