@@ -415,8 +415,14 @@ class Lists extends WidgetBase
              * Relation column
              */
             if (isset($column->relation)) {
-                $table =  $this->model->makeRelation($column->relation)->getTable();
+
+                // @todo Find a way...
                 $relationType = $this->model->getRelationType($column->relation);
+                if ($relationType == 'morphTo') {
+                    throw new ApplicationException('The relationship morphTo is not supported for list columns.');
+                }
+
+                $table =  $this->model->makeRelation($column->relation)->getTable();
                 $sqlSelect = $this->parseTableName($column->sqlSelect, $table);
 
                 /*
