@@ -1,0 +1,34 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    step1_section:
+        label: 1. Upload a CSV file
+        type: section
+
+    import_file:
+        label: Import file
+        type: fileupload
+        mode: file
+        span: left
+
+    first_row_titles:
+        label: First row contains column titles
+        comment: Leave this checked if the first row in the CSV is used as the column titles.
+        type: checkbox
+        default: true
+        span: left
+
+    step2_section:
+        label: 2. Match fields to the CSV columns
+        type: section
+
+    import_columns:
+        type: partial
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_columns.htm
+        dependsOn: import_file
+
+    step3_section:
+        label: 3. Set import options
+        type: section

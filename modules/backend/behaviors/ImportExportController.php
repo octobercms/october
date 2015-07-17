@@ -29,6 +29,11 @@ class ImportExportController extends ControllerBehavior
     public $importModel;
 
     /**
+     * @var array Import column configuration.
+     */
+    public $importColumns;
+
+    /**
      * @var Backend\Classes\WidgetBase Reference to the widget used for uploading import file.
      */
     protected $importUploadFormWidget;
@@ -55,6 +60,9 @@ class ImportExportController extends ControllerBehavior
         $modelClass = $this->getConfig('import[modelClass]');
         $this->importModel = new $modelClass;
 
+        $columnConfig = $this->getConfig('import[list]');
+        $this->importColumns = $this->makeListColumns($columnConfig);
+
         $this->importUploadFormWidget = $this->makeImportUploadFormWidget();
         $this->importUploadFormWidget->bindToController();
     }
@@ -66,6 +74,7 @@ class ImportExportController extends ControllerBehavior
     public function prepareVars()
     {
         $this->vars['importUploadFormWidget'] = $this->importUploadFormWidget;
+        $this->vars['importColumns'] = $this->importColumns;
     }
 
     public function import()
@@ -75,17 +84,7 @@ class ImportExportController extends ControllerBehavior
 
     public function importRender()
     {
-        return $this->importExportMakePartial('container');
-    }
-
-    public function importRenderUpload()
-    {
-        return $this->importExportMakePartial('import_upload');
-    }
-
-    public function importRenderColumns()
-    {
-        return $this->importExportMakePartial('import_columns');
+        return $this->importExportMakePartial('import');
     }
 
     /**
@@ -104,30 +103,37 @@ class ImportExportController extends ControllerBehavior
         return $contents;
     }
 
+    protected function makeListColumns($config)
+    {
+        $config = $this->makeConfig($config);
+
+        if (!isset($config->columns) || !is_array($config->columns)) {
+            return null;
+        }
+
+        $result = [];
+        foreach ($config->columns as $attribute => $column) {
+            $result[$attribute] = array_get($column, 'label', $attribute);
+        }
+
+        return $result;
+    }
+
     protected function makeImportUploadFormWidget()
     {
-        $fields = [
-            'import_file' => [
-                'label' => 'Import file',
-                'type' => 'fileupload',
-                'mode' => 'file'
-            ],
-            'first_row_titles' => [
-                'label' => 'First row contains column titles',
-                'comment' => 'Leave this checked if the first row in the CSV is used as the column titles.',
-                'type' => 'checkbox',
-                'default' => true
-            ]
-        ];
 
         // first_row_titles FALSE is generic columns (1,2,3,4,5..)
 
-        $widgetConfig = $this->makeConfig();
+        $widgetConfig = $this->makeConfig('~/modules/backend/behaviors/importexportcontroller/partials/fields_import.yaml');
         $widgetConfig->model = $this->importModel;
         $widgetConfig->alias = 'importUploadForm';
-        $widgetConfig->fields = $fields;
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
+
+        $widget->bindEvent('form.beforeRefresh', function($holder) {
+            $holder->data = [];
+        });
+
         return $widget;
     }
 
