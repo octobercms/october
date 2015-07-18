@@ -27,9 +27,49 @@
             $('#importDbColumns > ul, .import-column-bindings > ul').sortable(sortableOptions)
         }
 
-        this.onDropColumn = function ($item, container, _super, event) {
+        this.onDropColumn = function ($dbItem, container, _super, event) {
+            var
+                dbColumnName = $dbItem.data('column-name'),
+                $dbItemMatchInput = $('[data-column-match-input]' , $dbItem),
+                $fileColumns = $('#importFileColumns'),
+                $fileItem,
+                isMatch = $.contains($fileColumns.get(0), $dbItem.get(0)),
+                matchColumnId
 
-            _super($item, container)
+            /*
+             * Has a previous match?
+             */
+            matchColumnId = $dbItem.data('column-matched-id')
+            if (matchColumnId !== null) {
+                $fileItem = $('[data-column-id='+matchColumnId+']', $fileColumns)
+                this.toggleMatchState($fileItem)
+            }
+
+            /*
+             * Is a new match?
+             */
+            if (isMatch) {
+                $fileItem = $dbItem.closest('[data-column-id]'),
+                matchColumnId = $fileItem.data('column-id')
+
+                this.toggleMatchState($fileItem)
+
+                $dbItem.data('column-matched-id', matchColumnId)
+                $dbItemMatchInput.attr('name', 'column_match['+matchColumnId+'][]')
+                $dbItemMatchInput.attr('value', dbColumnName)
+            }
+            else {
+                $dbItem.removeData('column-matched-id')
+                $dbItemMatchInput.attr('name', '');
+                $dbItemMatchInput.attr('value', '');
+            }
+
+            _super($dbItem, container)
+        }
+
+        this.toggleMatchState = function ($container) {
+            var hasItems = !!$('.import-column-bindings li', $container).length
+            $container.toggleClass('column-matched', hasItems)
         }
 
         this.ignoreFileColumn = function(el) {
