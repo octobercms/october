@@ -10,8 +10,5 @@
 </div>
 
 <script>
-    $('.import-db-columns > ul, .import-column-bindings > ul').sortable({
-        group: 'import-fields',
-        usePlaceholderClone: true
-    })
+    $.oc.importExportBehavior.bindColumnSorting()
 </script>

@@ -4396,6 +4396,8 @@ Sortable.prototype.disable=function(){this.$el.jqSortable('disable')}
 Sortable.prototype.refresh=function(){this.$el.jqSortable('refresh')}
 Sortable.prototype.serialize=function(){this.$el.jqSortable('serialize')}
 Sortable.prototype.destroy=function(){this.dispose()}
+Sortable.prototype.destroyGroup=function(){var jqSortable=this.$el.data('jqSortable')
+if(jqSortable.group){jqSortable.group._destroy()}}
 Sortable.DEFAULTS={useAnimation:false,usePlaceholderClone:false,tweakCursorAdjustment:null}
 var old=$.fn.sortable
 $.fn.sortable=function(option){var args=arguments;return this.each(function(){var $this=$(this)
