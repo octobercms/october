@@ -49,8 +49,8 @@ class ImportExportController extends ControllerBehavior
     {
         parent::__construct($controller);
 
-        $this->addJs('js/october.importexport.js', 'core');
-        $this->addCss('css/importexport.css', 'core');
+        $this->addJs('js/october.import.js', 'core');
+        $this->addCss('css/import.css', 'core');
 
         /*
          * Build configuration

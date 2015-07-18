@@ -3,7 +3,7 @@
  */
 +function ($) { "use strict";
 
-    var ImportExportBehavior = function() {
+    var ImportBehavior = function() {
 
         this.bindColumnSorting = function() {
             /*
@@ -20,10 +20,16 @@
             var sortableOptions = {
                 group: 'import-fields',
                 usePlaceholderClone: true,
-                nested: false
+                nested: false,
+                onDrop: $.proxy(this.onDropColumn, this)
             }
 
             $('#importDbColumns > ul, .import-column-bindings > ul').sortable(sortableOptions)
+        }
+
+        this.onDropColumn = function ($item, container, _super, event) {
+
+            _super($item, container)
         }
 
         this.ignoreFileColumn = function(el) {
@@ -53,5 +59,5 @@
         }
     }
 
-    $.oc.importExportBehavior = new ImportExportBehavior;
+    $.oc.importBehavior = new ImportBehavior;
 }(window.jQuery);

@@ -13,14 +13,14 @@
                                 data-delay="300"
                                 data-placement="right"
                                 title="Ignore this column"
-                                onclick="$.oc.importExportBehavior.ignoreFileColumn(this)"
+                                onclick="$.oc.importBehavior.ignoreFileColumn(this)"
                             >
                                 <i class="icon-close"></i>
                             </a>
                             <a
                                 href="javascript:;"
                                 class="column-label"
-                                onclick="$.oc.importExportBehavior.loadFileColumnSample(this)"
+                                onclick="$.oc.importBehavior.loadFileColumnSample(this)"
                             >
                                 <?= $column ?>
                             </a>
@@ -40,5 +40,5 @@
 </div>
 
 <script>
-    $.oc.importExportBehavior.bindColumnSorting()
+    $.oc.importBehavior.bindColumnSorting()
 </script>
