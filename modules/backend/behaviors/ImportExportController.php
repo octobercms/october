@@ -79,6 +79,10 @@ class ImportExportController extends ControllerBehavior
         // TBA
     }
 
+    public function onImport()
+    {
+    }
+
     //
     // Importing
     //
