@@ -82,7 +82,7 @@
 .import-behavior .import-file-columns > ul > li.column-matched .column-success-icon {
   display: inline-block;
 }
-.import-behavior .import-file-columns > ul > li.column-matched .column-ignore {
+.import-behavior .import-file-columns > ul > li.column-matched .column-ignore-button {
   display: none !important;
 }
 .import-behavior .import-file-columns > ul div.import-column-name {
