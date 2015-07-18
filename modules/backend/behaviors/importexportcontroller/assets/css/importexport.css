@@ -18,6 +18,7 @@
   height: 400px;
   background: #f0f0f0;
   padding: 5px;
+  overflow: auto;
 }
 .import-behavior .import-file-columns .upload-prompt {
   display: block;
@@ -60,6 +61,11 @@
 .import-behavior .import-file-columns > ul div.import-column-name {
   float: left;
   width: 45%;
+}
+.import-behavior .import-file-columns > ul div.import-column-name > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .import-behavior .import-file-columns > ul .import-column-bindings > ul {
   float: right;

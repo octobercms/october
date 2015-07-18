@@ -1,7 +1,8 @@
 <?php namespace Backend\Behaviors;
 
 use Backend\Classes\ControllerBehavior;
-use League\Csv\Writer;
+use League\Csv\Writer as CsvWrtier;
+use League\Csv\Reader as CsvReader;
 
 /**
  * Import/Export Controller Behavior
@@ -87,7 +88,8 @@ class ImportExportController extends ControllerBehavior
     public function prepareVars()
     {
         $this->vars['importUploadFormWidget'] = $this->importUploadFormWidget;
-        $this->vars['importColumns'] = $this->getImportDbColumns();
+        $this->vars['importDbColumns'] = $this->getImportDbColumns();
+        $this->vars['importFileColumns'] = $this->getImportFileColumns();
 
         // Make these variables to widgets
         $this->controller->vars += $this->vars;
@@ -119,7 +121,20 @@ class ImportExportController extends ControllerBehavior
 
     protected function getImportFileColumns()
     {
+        if (!$path = $this->getImportFilePath()) {
+            return null;
+        }
 
+        $reader = CsvReader::createFromPath($path);
+        $firstRow = $reader->fetchOne(0);
+
+        if (!post('first_row_titles')) {
+            array_walk($firstRow, function(&$value, $key) {
+                $value = 'Column #'.($key + 1);
+            });
+        }
+
+        return $firstRow;
     }
 
     protected function makeImportUploadFormWidget()
@@ -137,6 +152,21 @@ class ImportExportController extends ControllerBehavior
         });
 
         return $widget;
+    }
+
+    protected function getImportFilePath()
+    {
+        $model = $this->importGetModel();
+        $file = $model
+            ->import_file()
+            ->withDeferred($this->importUploadFormWidget->getSessionKey())
+            ->first();
+
+        if (!$file) {
+            return null;
+        }
+
+        return $file->getLocalPath();
     }
 
     //

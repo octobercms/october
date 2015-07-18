@@ -1,0 +1,20 @@
+<div class="import-file-columns">
+    <?php if ($importFileColumns): ?>
+        <ul>
+            <?php foreach ($importFileColumns as $index => $column): ?>
+                <li data-column-id="<?= $index ?>">
+                    <div class="import-column-name">
+                        <span><?= $column ?></span>
+                    </div>
+                    <div class="import-column-bindings">
+                        <ul data-empty-text="Drop column here..."></ul>
+                    </div>
+                </li>
+            <?php endforeach ?>
+        </ul>
+    <?php else: ?>
+        <p class="upload-prompt">
+            Please upload a valid CSV file.
+        </p>
+    <?php endif ?>
+</div>

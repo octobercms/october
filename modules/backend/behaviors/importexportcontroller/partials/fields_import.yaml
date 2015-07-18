@@ -25,10 +25,18 @@ fields:
         label: 2. Match fields to the CSV columns
         type: section
 
-    import_columns:
+    import_file_columns:
+        label: File columns
         type: partial
-        path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_columns.htm
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_file_columns.htm
         dependsOn: import_file
+        span: left
+
+    import_db_columns:
+        label: Record columns
+        type: partial
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_db_columns.htm
+        span: right
 
     step3_section:
         label: 3. Set import options
