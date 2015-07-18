@@ -47,6 +47,7 @@ return array(
         "array"   => "Поле :attribute должно содержать не более :max элементов."
     ),
     "mimes"            => "Поле :attribute должно быть файлом одного из типов: :values.",
+    "extensions"       => "Поле :attribute должно иметь одно из расширений: :values.",
     "min"              => array(
         "numeric" => "Поле :attribute должно быть не менее :min.",
         "file"    => "Поле :attribute должно быть не менее :min Килобайт.",
