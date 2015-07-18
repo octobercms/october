@@ -3,7 +3,8 @@
 @color-import-column-bg: #fff;
 @color-import-column-border: #ccc;
 @color-import-bound-bg: #e8eaeb;
-@import-column-padding: 10px;
+@import-column-padding: 8px;
+@import-column-font-size: 13px;
 
 .import-behavior {
 
@@ -11,6 +12,10 @@
         margin: 0;
         padding: 0;
         list-style: none;
+
+        li {
+            font-size: @import-column-font-size;
+        }
 
         li.placeholder {
             display: block;
@@ -61,6 +66,20 @@
         > span {
             display: block;
             padding: @import-column-padding;
+            padding-left: (@import-column-padding * 1.5);
+        }
+    }
+
+    .import-db-columns > ul {
+        > li {
+            .column-icon {
+                color: #ccc;
+                position: relative;
+                left: -3px;
+            }
+            &:hover .column-icon {
+                color: #4da7e8;
+            }
         }
     }
 
@@ -78,6 +97,28 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+
+            a.column-label {
+                color: #333;
+            }
+
+            a.column-ignore {
+                color: #fff;
+                background: #ccc;
+                font-size: 10px;
+                border-radius: 15px;
+                display: inline-block;
+                text-decoration: none;
+                width: 15px;
+                height: 15px;
+                text-align: center;
+                position: relative;
+                top: -1px;
+                left: -3px;
+                &:hover {
+                    background: #ab2a1c;
+                }
+            }
         }
 
         .import-column-bindings > ul {
@@ -89,10 +130,10 @@
     .import-column-bindings > ul {
         background: darken(@color-import-bound-bg, 5%);
         position: relative;
-        min-height: (@import-column-padding * 2) + 20px;
+        min-height: (@import-column-padding * 2) + 18px;
 
         &:after {
-            .triangle(right, 18px, (@import-column-padding * 2) + 20px, @color-import-column-bg);
+            .triangle(right, 18px, (@import-column-padding * 2) + 18px, @color-import-column-bg);
             position: absolute;
             top: 0;
             left: 0;
@@ -101,10 +142,23 @@
         &:before {
             position: absolute;
             padding: @import-column-padding;
-            padding-left: 26px;
+            padding-left: 28px;
             content: attr(data-empty-text);
-            font-style: italic;
             color: rgba(0,0,0,.5);
+        }
+
+        > li {
+            .column-icon {
+                color: #595959;
+                float: right;
+                margin: 3px;
+            }
+
+            &:hover {
+                .column-icon {
+                    color: #333333;
+                }
+            }
         }
 
         > li:not(.dragged) {
@@ -114,7 +168,7 @@
             > span {
                 display: block;
                 padding: @import-column-padding;
-                padding-left: 26px;
+                padding-left: 28px;
             }
         }
     }

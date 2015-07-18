@@ -4,7 +4,25 @@
             <?php foreach ($importFileColumns as $index => $column): ?>
                 <li data-column-id="<?= $index ?>">
                     <div class="import-column-name">
-                        <span><?= $column ?></span>
+                        <span>
+                            <a
+                                href="javascript"
+                                class="column-ignore"
+                                data-toggle="tooltip"
+                                data-delay="300"
+                                data-placement="right"
+                                title="Ignore this column"
+                            >
+                                <i class="icon-close"></i>
+                            </a>
+                            <a
+                                href="javascript:;"
+                                class="column-label"
+                                onclick="$.oc.importExportBehavior.loadFileColumnSample(this, '<?= $index ?>')"
+                            >
+                                <?= $column ?>
+                            </a>
+                        </span>
                     </div>
                     <div class="import-column-bindings">
                         <ul data-empty-text="Drop column here..."></ul>

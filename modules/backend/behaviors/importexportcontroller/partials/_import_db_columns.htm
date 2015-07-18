@@ -2,7 +2,10 @@
     <ul>
         <?php foreach ($importDbColumns as $column => $label): ?>
             <li data-column-name="<?= e($column) ?>">
-                <span><?= e($label) ?></span>
+                <span>
+                    <i class="column-icon icon-link"></i>
+                    <?= e($label) ?>
+                </span>
                 <input type="hidden" data-column-match Xname="column_match[1][]" Xvalue="<?= e($column) ?>" >
             </li>
         <?php endforeach ?>

@@ -25,6 +25,12 @@
 
             $('.import-db-columns > ul, .import-column-bindings > ul').sortable(sortableOptions)
         }
+
+        this.loadFileColumnSample = function(el, id) {
+            $(el).popup({
+                handler: 'onImportLoadColumnSample'
+            })
+        }
     }
 
     $.oc.importExportBehavior = new ImportExportBehavior;
