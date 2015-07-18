@@ -4083,7 +4083,10 @@ this.$src=$(options.inputPreset,parent),this.$src.on('keyup',function(){if(self.
 return
 $el.val(prefix+self.formatValue())})
 this.$el.on('change',function(){self.cancelled=true})}
-InputPreset.prototype.formatValue=function(){if(this.options.inputPresetType=='camel')
+InputPreset.prototype.formatNamespace=function(){var value=toCamel(this.$src.val())
+return value.substr(0,1).toUpperCase()+value.substr(1)}
+InputPreset.prototype.formatValue=function(){if(this.options.inputPresetType=='namespace'){return this.formatNamespace()}
+if(this.options.inputPresetType=='camel')
 var value=toCamel(this.$src.val())
 else{var value=slugify(this.$src.val())}
 if(this.options.inputPresetType=='url')
@@ -4951,12 +4954,12 @@ return this}
 $(document).render(function(){$('[data-control=scrollbar]').scrollbar()})}(window.jQuery);+function($){"use strict";var FileList=function(element,options){this.options=options
 this.$el=$(element)
 this.init();}
-FileList.DEFAULTS={}
+FileList.DEFAULTS={ignoreItemClick:false}
 FileList.prototype.init=function(){var self=this
 this.$el.on('click','li.group > h4 > a, li.group > div.group',function(){self.toggleGroup($(this).closest('li'))
-return false;});this.$el.on('click','li.item > a',function(event){var e=$.Event('open.oc.list',{relatedTarget:$(this).parent().get(0),clickEvent:event})
+return false;});if(!this.options.ignoreItemClick){this.$el.on('click','li.item > a',function(event){var e=$.Event('open.oc.list',{relatedTarget:$(this).parent().get(0),clickEvent:event})
 self.$el.trigger(e,this)
-return false})
+return false})}
 this.$el.on('ajaxUpdate',$.proxy(this.update,this))}
 FileList.prototype.toggleGroup=function(group){var $group=$(group);$group.attr('data-status')=='expanded'?this.collapseGroup($group):this.expandGroup($group)}
 FileList.prototype.collapseGroup=function(group){var
