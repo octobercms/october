@@ -55,17 +55,30 @@ class ImportExportController extends ControllerBehavior
         $this->config = $this->makeConfig($controller->importExportConfig, $this->requiredConfig);
 
         /*
-         * Import
+         * Import form widget
          */
-        $modelClass = $this->getConfig('import[modelClass]');
-        $this->importModel = new $modelClass;
-
-        $columnConfig = $this->getConfig('import[list]');
-        $this->importColumns = $this->makeListColumns($columnConfig);
-
-        $this->importUploadFormWidget = $this->makeImportUploadFormWidget();
-        $this->importUploadFormWidget->bindToController();
+        if ($this->importUploadFormWidget = $this->makeImportUploadFormWidget()) {
+            $this->importUploadFormWidget->bindToController();
+        }
     }
+
+    //
+    // Controller actions
+    //
+
+    public function import()
+    {
+        $this->prepareVars();
+    }
+
+    public function export()
+    {
+        // TBA
+    }
+
+    //
+    // Importing
+    //
 
     /**
      * Prepares the view data.
@@ -74,18 +87,66 @@ class ImportExportController extends ControllerBehavior
     public function prepareVars()
     {
         $this->vars['importUploadFormWidget'] = $this->importUploadFormWidget;
-        $this->vars['importColumns'] = $this->importColumns;
-    }
+        $this->vars['importColumns'] = $this->getImportDbColumns();
 
-    public function import()
-    {
-        $this->prepareVars();
+        // Make these variables to widgets
+        $this->controller->vars += $this->vars;
     }
 
     public function importRender()
     {
         return $this->importExportMakePartial('import');
     }
+
+    public function importGetModel()
+    {
+        if ($this->importModel !== null) {
+            return $this->importModel;
+        }
+
+        $modelClass = $this->getConfig('import[modelClass]');
+        return $this->importModel = new $modelClass;
+    }
+
+    protected function getImportDbColumns()
+    {
+        if ($this->importColumns !== null) {
+            return $this->importColumns;
+        }
+        $columnConfig = $this->getConfig('import[list]');
+        return $this->importColumns = $this->makeListColumns($columnConfig);
+    }
+
+    protected function getImportFileColumns()
+    {
+
+    }
+
+    protected function makeImportUploadFormWidget()
+    {
+        // first_row_titles FALSE is generic columns (1,2,3,4,5..)
+
+        $widgetConfig = $this->makeConfig('~/modules/backend/behaviors/importexportcontroller/partials/fields_import.yaml');
+        $widgetConfig->model = $this->importGetModel();
+        $widgetConfig->alias = 'importUploadForm';
+
+        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
+
+        $widget->bindEvent('form.beforeRefresh', function($holder) {
+            $holder->data = [];
+        });
+
+        return $widget;
+    }
+
+    //
+    // Exporting
+    //
+
+
+    //
+    // Helpers
+    //
 
     /**
      * Controller accessor for making partials within this behavior.
@@ -118,23 +179,4 @@ class ImportExportController extends ControllerBehavior
 
         return $result;
     }
-
-    protected function makeImportUploadFormWidget()
-    {
-
-        // first_row_titles FALSE is generic columns (1,2,3,4,5..)
-
-        $widgetConfig = $this->makeConfig('~/modules/backend/behaviors/importexportcontroller/partials/fields_import.yaml');
-        $widgetConfig->model = $this->importModel;
-        $widgetConfig->alias = 'importUploadForm';
-
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-
-        $widget->bindEvent('form.beforeRefresh', function($holder) {
-            $holder->data = [];
-        });
-
-        return $widget;
-    }
-
 }

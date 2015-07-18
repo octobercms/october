@@ -14,7 +14,7 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.075);
 }
 .import-behavior .import-file-columns,
-.import-behavior .import-record-columns {
+.import-behavior .import-db-columns {
   height: 400px;
   background: #f0f0f0;
   padding: 5px;
@@ -29,12 +29,12 @@
   margin-top: -10px;
 }
 .import-behavior .import-column-bindings > ul > li,
-.import-behavior .import-record-columns > ul > li {
+.import-behavior .import-db-columns > ul > li {
   cursor: pointer;
 }
 .import-behavior ul li.dragged,
 .import-behavior .import-file-columns > ul > li,
-.import-behavior .import-record-columns > ul > li {
+.import-behavior .import-db-columns > ul > li {
   background: #ffffff;
   border: 1px solid #cccccc;
   border-radius: 3px;
@@ -42,10 +42,10 @@
 }
 .import-behavior ul li.dragged div.import-column-name > span,
 .import-behavior .import-file-columns > ul > li div.import-column-name > span,
-.import-behavior .import-record-columns > ul > li div.import-column-name > span,
+.import-behavior .import-db-columns > ul > li div.import-column-name > span,
 .import-behavior ul li.dragged > span,
 .import-behavior .import-file-columns > ul > li > span,
-.import-behavior .import-record-columns > ul > li > span {
+.import-behavior .import-db-columns > ul > li > span {
   display: block;
   padding: 10px;
 }

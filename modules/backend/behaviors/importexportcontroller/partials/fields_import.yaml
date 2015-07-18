@@ -12,6 +12,7 @@ fields:
         type: fileupload
         mode: file
         span: left
+        fileTypes: csv
 
     first_row_titles:
         label: First row contains column titles

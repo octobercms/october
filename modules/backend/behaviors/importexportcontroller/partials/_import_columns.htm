@@ -30,7 +30,7 @@
     <div class="col-md-6">
         Record Columns
 
-        <div class="import-record-columns">
+        <div class="import-db-columns">
             <ul>
                 <?php foreach ($importColumns as $column => $label): ?>
                     <li data-column-name="<?= e($column) ?>">
@@ -44,7 +44,7 @@
 </div>
 
 <script>
-    $('.import-record-columns > ul, .import-column-bindings > ul').sortable({
+    $('.import-db-columns > ul, .import-column-bindings > ul').sortable({
         group: 'import-fields',
         usePlaceholderClone: true
     })
