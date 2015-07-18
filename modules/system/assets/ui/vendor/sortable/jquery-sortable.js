@@ -631,10 +631,6 @@
           return val != that
         })
 
-      // See https://github.com/johnny/jquery-sortable/pull/122
-      if(this.group)
-        this.group._destroy()
-
       $.each(this.items || [], function(){
         $.removeData(this, subContainerKey)
       })

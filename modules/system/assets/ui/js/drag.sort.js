@@ -144,6 +144,15 @@
         this.dispose()
     }
 
+    // External solution for group persistence
+    // See https://github.com/johnny/jquery-sortable/pull/122
+    Sortable.prototype.destroyGroup = function() {
+        var jqSortable = this.$el.data('jqSortable')
+        if (jqSortable.group) {
+            jqSortable.group._destroy()
+        }
+    }
+
     Sortable.DEFAULTS = {
         useAnimation: false,
         usePlaceholderClone: false,
