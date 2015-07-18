@@ -120,7 +120,7 @@
 .control-simplelist ul{padding-left:15px}
 .control-simplelist.form-control ul{margin-bottom:0}
 .control-simplelist.form-control li{padding-top:5px;padding-bottom:5px}
-.control-simplelist.with-icons ul,.control-simplelist.with-checkboxes ul,.control-simplelist.is-selectable ul{list-style-type:none;padding-left:0}
+.control-simplelist.with-icons ul,.control-simplelist.with-checkboxes ul,.control-simplelist.is-divided ul,.control-simplelist.is-selectable ul{list-style-type:none;padding-left:0}
 .control-simplelist.is-sortable li.placeholder{position:relative}
 .control-simplelist.is-sortable li.placeholder:before{top:-10px;position:absolute;content:'';display:block;width:0;height:0;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;border-left:5px solid #999999}
 .control-simplelist.is-sortable li.dragged{position:absolute;opacity:0.5;filter:alpha(opacity=50);z-index:2000;color:#e67e22;width:auto !important}
@@ -130,13 +130,13 @@
 .control-simplelist.is-scrollable.size-large{min-height:400px}
 .control-simplelist.is-scrollable.size-huge{min-height:450px}
 .control-simplelist.is-scrollable.size-giant{min-height:550px}
-.control-simplelist.is-selectable li{padding:5px 10px;border-bottom:1px solid #e2e2e2}
-.control-simplelist.is-selectable li .heading{font-size:14px;font-weight:bold}
+.control-simplelist.is-divided li,.control-simplelist.is-selectable li{padding:5px 10px;border-bottom:1px solid #e2e2e2}
+.control-simplelist.is-divided li .heading,.control-simplelist.is-selectable li .heading{font-size:14px;font-weight:bold}
+.control-simplelist.is-divided li:last-child,.control-simplelist.is-selectable li:last-child{border-bottom:none}
 .control-simplelist.is-selectable li a{padding:5px 10px;margin:-5px -10px;display:block;color:#333333}
 .control-simplelist.is-selectable li:hover{background:#4da7e8;cursor:pointer}
 .control-simplelist.is-selectable li:hover,.control-simplelist.is-selectable li:hover a{color:white}
 .control-simplelist.is-selectable li:hover a{text-decoration:none}
-.control-simplelist.is-selectable li:last-child{border-bottom:none}
 .control-simplelist.is-selectable li.active a{background:#f0f0f0}
 .control-simplelist.is-selectable li.active a:hover{background:#4da7e8}
 .list-preview .control-simplelist.is-selectable ul{margin-bottom:0}

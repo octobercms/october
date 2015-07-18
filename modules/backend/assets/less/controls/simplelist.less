@@ -1,14 +1,14 @@
 //
 // Simple List
 // --------------------------------------------------
-// Usage:
+// Usage (bullets):
 //   <div class="control-simplelist">
 //       <ul>
 //           <li>Hello friend</li>
 //       </ul>
 //   </div>
 //
-// With icons:
+// With icons (no bullets):
 //   <div class="control-simplelist with-icons">
 //       <ul>
 //           <li class="oc-icon-check">Hello friend</li>
@@ -26,6 +26,26 @@
 //           </li>
 //       </ul>
 //   </div>
+//
+// Divided (basic):
+//   <div class="control-simplelist is-divided">
+//       <ul>
+//           <li>Hello friend</li>
+//       </ul>
+//   </div>
+//
+// Selectable:
+//   <div class="control-simplelist is-selectable">
+//       <ul>
+//           <li>
+//               <a href="#">
+//                   <h5 class="heading">Hello friend</h5>
+//                   <p class="description">Something cool over here</p>
+//               </a>
+//           </li>
+//       </ul>
+//   </div>
+//
 
 .control-simplelist {
 
@@ -41,7 +61,10 @@
         }
     }
 
-    &.with-icons, &.with-checkboxes, &.is-selectable {
+    &.with-icons,
+    &.with-checkboxes,
+    &.is-divided,
+    &.is-selectable {
         ul {
             list-style-type: none;
             padding-left: 0;
@@ -80,6 +103,7 @@
         &.size-giant { min-height: @size-giant + 200; }
     }
 
+    &.is-divided,
     &.is-selectable {
         li {
             padding: 5px 10px;
@@ -88,9 +112,17 @@
                 font-size: 14px;
                 font-weight: bold;
             }
-            .description {
 
+            .description {}
+
+            &:last-child {
+                border-bottom: none;
             }
+        }
+    }
+
+    &.is-selectable {
+        li {
             a {
                 padding: 5px 10px;
                 margin: -5px -10px;
@@ -102,10 +134,6 @@
                 cursor: pointer;
                 &, a { color: white; }
                 a { text-decoration: none; }
-            }
-
-            &:last-child {
-                border-bottom: none;
             }
 
             &.active {
