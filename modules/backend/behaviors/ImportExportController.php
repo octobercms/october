@@ -1,8 +1,10 @@
 <?php namespace Backend\Behaviors;
 
+use Str;
 use Backend\Classes\ControllerBehavior;
 use League\Csv\Writer as CsvWrtier;
 use League\Csv\Reader as CsvReader;
+use ApplicationException;
 
 /**
  * Import/Export Controller Behavior
@@ -139,8 +141,6 @@ class ImportExportController extends ControllerBehavior
 
     protected function makeImportUploadFormWidget()
     {
-        // first_row_titles FALSE is generic columns (1,2,3,4,5..)
-
         $widgetConfig = $this->makeConfig('~/modules/backend/behaviors/importexportcontroller/partials/fields_import.yaml');
         $widgetConfig->model = $this->importGetModel();
         $widgetConfig->alias = 'importUploadForm';
@@ -167,6 +167,42 @@ class ImportExportController extends ControllerBehavior
         }
 
         return $file->getLocalPath();
+    }
+
+    public function onImportLoadColumnSamplePopup()
+    {
+        if (($columnId = post('file_column_id', false)) === false) {
+            throw new ApplicationException('Missing column identifier');
+        }
+
+        $columns = $this->getImportFileColumns();
+        if (!array_key_exists($columnId, $columns)) {
+            throw new ApplicationException('Unknown column');
+        }
+
+        $path = $this->getImportFilePath();
+        $reader = CsvReader::createFromPath($path);
+
+        if (post('first_row_titles')) {
+            $reader->setOffset(1);
+        }
+
+        $data = $reader->setLimit(20)->fetchColumn((int) $columnId);
+
+        /*
+         * Clean up data
+         */
+        foreach ($data as $index => $sample) {
+            $data[$index] = Str::limit($sample, 100);
+            if (!strlen($data[$index])) {
+                unset($data[$index]);
+            }
+        }
+
+        $this->vars['columnName'] = array_get($columns, $columnId);
+        $this->vars['columnData'] = $data;
+
+        return $this->importExportMakePartial('column_sample_popup');
     }
 
     //

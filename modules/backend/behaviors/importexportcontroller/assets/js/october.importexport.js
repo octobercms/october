@@ -28,7 +28,10 @@
 
         this.loadFileColumnSample = function(el, id) {
             $(el).popup({
-                handler: 'onImportLoadColumnSample'
+                handler: 'onImportLoadColumnSamplePopup',
+                extraData: {
+                    file_column_id: id
+                }
             })
         }
     }
