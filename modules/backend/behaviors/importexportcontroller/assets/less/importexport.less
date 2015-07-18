@@ -85,6 +85,26 @@
     .import-file-columns > ul {
         > li {
             .clearfix;
+
+            &.column-ignored {
+                display: none;
+            }
+
+            .column-success-icon {
+                display: none;
+                position: relative;
+                left: -2px;
+                width: 15px;
+            }
+
+            &.column-matched {
+                .column-success-icon {
+                    display: inline-block;
+                }
+                .column-ignore {
+                    display: none !important;
+                }
+            }
         }
 
         div.import-column-name {

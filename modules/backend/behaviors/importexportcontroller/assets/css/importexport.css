@@ -70,6 +70,21 @@
 .import-behavior .import-file-columns > ul > li:after {
   clear: both;
 }
+.import-behavior .import-file-columns > ul > li.column-ignored {
+  display: none;
+}
+.import-behavior .import-file-columns > ul > li .column-success-icon {
+  display: none;
+  position: relative;
+  left: -2px;
+  width: 15px;
+}
+.import-behavior .import-file-columns > ul > li.column-matched .column-success-icon {
+  display: inline-block;
+}
+.import-behavior .import-file-columns > ul > li.column-matched .column-ignore {
+  display: none !important;
+}
 .import-behavior .import-file-columns > ul div.import-column-name {
   float: left;
   width: 45%;

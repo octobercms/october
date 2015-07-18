@@ -9,7 +9,7 @@
             /*
              * Unbind existing
              */
-            $('.import-db-columns > ul, .import-column-bindings > ul').each(function(){
+            $('#importDbColumns > ul, .import-column-bindings > ul').each(function(){
                 var $this = $(this)
                 if ($this.data('oc.sortable')) {
                     $this.sortable('destroyGroup')
@@ -23,14 +23,31 @@
                 nested: false
             }
 
-            $('.import-db-columns > ul, .import-column-bindings > ul').sortable(sortableOptions)
+            $('#importDbColumns > ul, .import-column-bindings > ul').sortable(sortableOptions)
         }
 
-        this.loadFileColumnSample = function(el, id) {
-            $(el).popup({
+        this.ignoreFileColumn = function(el) {
+            var $el = $(el),
+                $column = $el.closest('[data-column-id]')
+
+            $column.addClass('column-ignored')
+            $('#showIgnoredColumnsButton').removeClass('disabled')
+        }
+
+        this.showIgnoredColumns = function(el) {
+            $('#importFileColumns li.column-ignored').removeClass('column-ignored')
+            $('#showIgnoredColumnsButton').addClass('disabled')
+        }
+
+        this.loadFileColumnSample = function(el) {
+            var $el = $(el),
+                $column = $el.closest('[data-column-id]'),
+                columnId = $column.data('column-id')
+
+            $el.popup({
                 handler: 'onImportLoadColumnSamplePopup',
                 extraData: {
-                    file_column_id: id
+                    file_column_id: columnId
                 }
             })
         }

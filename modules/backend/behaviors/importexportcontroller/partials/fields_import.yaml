@@ -22,8 +22,12 @@ fields:
         span: left
 
     step2_section:
-        label: 2. Match fields to the CSV columns
+        label: 2. Match database fields to the CSV columns
         type: section
+
+    column_control_panel:
+        type: partial
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_toolbar.htm
 
     import_file_columns:
         label: File columns
@@ -33,7 +37,7 @@ fields:
         span: left
 
     import_db_columns:
-        label: Record columns
+        label: Database fields
         type: partial
         path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_db_columns.htm
         span: right
