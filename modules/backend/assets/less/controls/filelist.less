@@ -167,6 +167,16 @@
         }
     }
 
+    &.single-line {
+        ul {
+            li a span.title {
+                text-overflow: ellipsis; 
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+    }
+
     &.hero {
         .a-hover() {
             background: @color-filelist-hero-hover-bg;
