@@ -4371,8 +4371,12 @@ this.init()}
 Sortable.prototype=Object.create(BaseProto)
 Sortable.prototype.constructor=Sortable
 Sortable.prototype.init=function(){this.$el.one('dispose-control',this.proxy(this.dispose))
-var sortableOptions={onDragStart:this.proxy(this.onDragStart),onDrag:this.proxy(this.onDrag),onDrop:this.proxy(this.onDrop)}
-this.$el.jqSortable($.extend(sortableOptions,this.options))}
+var
+self=this,sortableOverrides={},sortableDefaults={onDragStart:this.proxy(this.onDragStart),onDrag:this.proxy(this.onDrag),onDrop:this.proxy(this.onDrop)}
+if(this.options.onDragStart){sortableOverrides.onDragStart=function($item,container,_super,event){self.options.onDragStart($item,container,sortableDefaults.onDragStart,event)}}
+if(this.options.onDrag){sortableOverrides.onDrag=function($item,position,_super,event){self.options.onDrag($item,position,sortableDefaults.onDrag,event)}}
+if(this.options.onDrop){sortableOverrides.onDrop=function($item,container,_super,event){self.options.onDrop($item,container,sortableDefaults.onDrop,event)}}
+this.$el.jqSortable($.extend({},sortableDefaults,this.options,sortableOverrides))}
 Sortable.prototype.dispose=function(){this.$el.jqSortable('destroy')
 this.$el.off('dispose-control',this.proxy(this.dispose))
 this.$el.removeData('oc.sortable')
@@ -4380,8 +4384,6 @@ this.$el=null
 this.options=null
 this.cursorAdjustment=null
 BaseProto.dispose.call(this)}
-Sortable.prototype.onDrag=function($item,position,_super,event){if(this.cursorAdjustment){$item.css({left:position.left-this.cursorAdjustment.left,top:position.top-this.cursorAdjustment.top})}
-else{$item.css(position)}}
 Sortable.prototype.onDragStart=function($item,container,_super,event){var offset=$item.offset(),pointer=container.rootGroup.pointer
 if(pointer){this.cursorAdjustment={left:pointer.left-offset.left,top:pointer.top-offset.top}}
 else{this.cursorAdjustment=null}
@@ -4391,6 +4393,8 @@ $item.addClass('dragged')
 $('body').addClass('dragging')
 if(this.options.useAnimation){$item.data('oc.animated',true)}
 if(this.options.usePlaceholderClone){$(container.rootGroup.placeholder).html($item.html())}}
+Sortable.prototype.onDrag=function($item,position,_super,event){if(this.cursorAdjustment){$item.css({left:position.left-this.cursorAdjustment.left,top:position.top-this.cursorAdjustment.top})}
+else{$item.css(position)}}
 Sortable.prototype.onDrop=function($item,container,_super,event){$item.removeClass('dragged').removeAttr('style')
 $('body').removeClass('dragging')
 if($item.data('oc.animated')){$item.hide().slideDown(200)}}
