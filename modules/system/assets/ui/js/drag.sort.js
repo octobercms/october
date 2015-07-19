@@ -28,13 +28,37 @@
     Sortable.prototype.init = function() {
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
-        var sortableOptions = {
-            onDragStart: this.proxy(this.onDragStart),
-            onDrag: this.proxy(this.onDrag),
-            onDrop: this.proxy(this.onDrop)
+        var
+            self = this,
+            sortableOverrides = {},
+            sortableDefaults = {
+                onDragStart: this.proxy(this.onDragStart),
+                onDrag: this.proxy(this.onDrag),
+                onDrop: this.proxy(this.onDrop)
+            }
+
+        /*
+         * Override _super object for each option/event
+         */
+        if (this.options.onDragStart) {
+            sortableOverrides.onDragStart = function ($item, container, _super, event) {
+                self.options.onDragStart($item, container, sortableDefaults.onDragStart, event)
+            }
         }
 
-        this.$el.jqSortable($.extend(sortableOptions, this.options))
+        if (this.options.onDrag) {
+            sortableOverrides.onDrag = function ($item, position, _super, event) {
+                self.options.onDrag($item, position, sortableDefaults.onDrag, event)
+            }
+        }
+
+        if (this.options.onDrop) {
+            sortableOverrides.onDrop = function ($item, container, _super, event) {
+                self.options.onDrop($item, container, sortableDefaults.onDrop, event)
+            }
+        }
+
+        this.$el.jqSortable($.extend({}, sortableDefaults, this.options, sortableOverrides))
     }
 
     Sortable.prototype.dispose = function() {
@@ -45,24 +69,6 @@
         this.options = null
         this.cursorAdjustment = null
         BaseProto.dispose.call(this)
-    }
-
-    Sortable.prototype.onDrag = function ($item, position, _super, event) {
-        if (this.cursorAdjustment) {
-            /*
-             * Relative cursor position
-             */
-            $item.css({
-              left: position.left - this.cursorAdjustment.left,
-              top: position.top - this.cursorAdjustment.top
-            })
-        }
-        else {
-            /*
-             * Default behavior
-             */
-            $item.css(position)
-        }
     }
 
     Sortable.prototype.onDragStart = function ($item, container, _super, event) {
@@ -107,6 +113,24 @@
          if (this.options.usePlaceholderClone) {
             $(container.rootGroup.placeholder).html($item.html())
          }
+    }
+
+    Sortable.prototype.onDrag = function ($item, position, _super, event) {
+        if (this.cursorAdjustment) {
+            /*
+             * Relative cursor position
+             */
+            $item.css({
+              left: position.left - this.cursorAdjustment.left,
+              top: position.top - this.cursorAdjustment.top
+            })
+        }
+        else {
+            /*
+             * Default behavior
+             */
+            $item.css(position)
+        }
     }
 
     Sortable.prototype.onDrop = function ($item, container, _super, event) {

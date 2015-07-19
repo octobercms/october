@@ -41,7 +41,7 @@
                 background: @color-list-hover;
             }
 
-            &.active a {
+            &.active > a {
                 background: @color-list-active;
                 position: relative;
                 &:after {
@@ -167,7 +167,29 @@
         }
     }
 
+    &.single-line {
+        ul {
+            li a span.title {
+                text-overflow: ellipsis; 
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+    }
+
     &.hero {
+        .a-hover() {
+            background: @color-filelist-hero-hover-bg;
+            border-bottom: 1px solid @color-filelist-hero-hover-bg!important;
+            span.title, span.description {
+                color: @color-filelist-hero-hover-text!important;
+            }
+
+            .list-icon {
+                color: @color-filelist-hero-hover-text!important;
+            }
+        }
+
         ul {
             li {
                 background: @color-filelist-hero-item-bg;
@@ -184,12 +206,16 @@
                         color: @color-filelist-title-hero;
                     }
 
+                    .list-icon {
+                        position: absolute;
+                        left: 14px;
+                        top: 20px;
+                        font-size: 22px;
+                        color: #b7c0c2;
+                    }
+
                     &:hover {
-                        background: @color-filelist-hero-hover-bg;
-                        border-bottom: 1px solid @color-filelist-hero-hover-bg!important;
-                        span.title, span.description {
-                            color: @color-filelist-hero-hover-text!important;
-                        }
+                        .a-hover();
                     }
                 }
 
@@ -233,11 +259,46 @@
                     padding-bottom: 6px;
                     border-bottom: 1px solid @color-panel-light;
                 }
+
+                > div.controls {
+                    display: none;
+                    position: absolute;
+                    right: 16px;
+                    top: 15px;
+
+                    > a.control {
+                        width: 16px;
+                        height: 23px;
+                        background: transparent;
+                        overflow: hidden;
+                        display: inline-block;
+                        color: @color-filelist-hero-hover-text!important;
+                        padding: 0;
+
+                        &:before {
+                            font-size: 17px;
+                        }
+                    }
+                }
+
+                &:hover > div.controls {
+                    display: block;
+                }
             }
 
             > li.group {
                 > ul > li > a {
                     padding-left: 66px;
+                }
+            }
+        }
+
+        &.single-level {
+            ul li:hover {
+                background: @color-filelist-hero-hover-bg;
+
+                > a {
+                    .a-hover();
                 }
             }
         }

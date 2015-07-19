@@ -4083,7 +4083,10 @@ this.$src=$(options.inputPreset,parent),this.$src.on('keyup',function(){if(self.
 return
 $el.val(prefix+self.formatValue())})
 this.$el.on('change',function(){self.cancelled=true})}
-InputPreset.prototype.formatValue=function(){if(this.options.inputPresetType=='camel')
+InputPreset.prototype.formatNamespace=function(){var value=toCamel(this.$src.val())
+return value.substr(0,1).toUpperCase()+value.substr(1)}
+InputPreset.prototype.formatValue=function(){if(this.options.inputPresetType=='namespace'){return this.formatNamespace()}
+if(this.options.inputPresetType=='camel')
 var value=toCamel(this.$src.val())
 else{var value=slugify(this.$src.val())}
 if(this.options.inputPresetType=='url')
@@ -4368,8 +4371,12 @@ this.init()}
 Sortable.prototype=Object.create(BaseProto)
 Sortable.prototype.constructor=Sortable
 Sortable.prototype.init=function(){this.$el.one('dispose-control',this.proxy(this.dispose))
-var sortableOptions={onDragStart:this.proxy(this.onDragStart),onDrag:this.proxy(this.onDrag),onDrop:this.proxy(this.onDrop)}
-this.$el.jqSortable($.extend(sortableOptions,this.options))}
+var
+self=this,sortableOverrides={},sortableDefaults={onDragStart:this.proxy(this.onDragStart),onDrag:this.proxy(this.onDrag),onDrop:this.proxy(this.onDrop)}
+if(this.options.onDragStart){sortableOverrides.onDragStart=function($item,container,_super,event){self.options.onDragStart($item,container,sortableDefaults.onDragStart,event)}}
+if(this.options.onDrag){sortableOverrides.onDrag=function($item,position,_super,event){self.options.onDrag($item,position,sortableDefaults.onDrag,event)}}
+if(this.options.onDrop){sortableOverrides.onDrop=function($item,container,_super,event){self.options.onDrop($item,container,sortableDefaults.onDrop,event)}}
+this.$el.jqSortable($.extend({},sortableDefaults,this.options,sortableOverrides))}
 Sortable.prototype.dispose=function(){this.$el.jqSortable('destroy')
 this.$el.off('dispose-control',this.proxy(this.dispose))
 this.$el.removeData('oc.sortable')
@@ -4377,8 +4384,6 @@ this.$el=null
 this.options=null
 this.cursorAdjustment=null
 BaseProto.dispose.call(this)}
-Sortable.prototype.onDrag=function($item,position,_super,event){if(this.cursorAdjustment){$item.css({left:position.left-this.cursorAdjustment.left,top:position.top-this.cursorAdjustment.top})}
-else{$item.css(position)}}
 Sortable.prototype.onDragStart=function($item,container,_super,event){var offset=$item.offset(),pointer=container.rootGroup.pointer
 if(pointer){this.cursorAdjustment={left:pointer.left-offset.left,top:pointer.top-offset.top}}
 else{this.cursorAdjustment=null}
@@ -4388,6 +4393,8 @@ $item.addClass('dragged')
 $('body').addClass('dragging')
 if(this.options.useAnimation){$item.data('oc.animated',true)}
 if(this.options.usePlaceholderClone){$(container.rootGroup.placeholder).html($item.html())}}
+Sortable.prototype.onDrag=function($item,position,_super,event){if(this.cursorAdjustment){$item.css({left:position.left-this.cursorAdjustment.left,top:position.top-this.cursorAdjustment.top})}
+else{$item.css(position)}}
 Sortable.prototype.onDrop=function($item,container,_super,event){$item.removeClass('dragged').removeAttr('style')
 $('body').removeClass('dragging')
 if($item.data('oc.animated')){$item.hide().slideDown(200)}}
@@ -4953,12 +4960,12 @@ return this}
 $(document).render(function(){$('[data-control=scrollbar]').scrollbar()})}(window.jQuery);+function($){"use strict";var FileList=function(element,options){this.options=options
 this.$el=$(element)
 this.init();}
-FileList.DEFAULTS={}
+FileList.DEFAULTS={ignoreItemClick:false}
 FileList.prototype.init=function(){var self=this
 this.$el.on('click','li.group > h4 > a, li.group > div.group',function(){self.toggleGroup($(this).closest('li'))
-return false;});this.$el.on('click','li.item > a',function(event){var e=$.Event('open.oc.list',{relatedTarget:$(this).parent().get(0),clickEvent:event})
+return false;});if(!this.options.ignoreItemClick){this.$el.on('click','li.item > a',function(event){var e=$.Event('open.oc.list',{relatedTarget:$(this).parent().get(0),clickEvent:event})
 self.$el.trigger(e,this)
-return false})
+return false})}
 this.$el.on('ajaxUpdate',$.proxy(this.update,this))}
 FileList.prototype.toggleGroup=function(group){var $group=$(group);$group.attr('data-status')=='expanded'?this.collapseGroup($group):this.expandGroup($group)}
 FileList.prototype.collapseGroup=function(group){var
