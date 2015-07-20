@@ -69,19 +69,19 @@
 
         this.toggleMatchState = function ($container) {
             var hasItems = !!$('.import-column-bindings li', $container).length
-            $container.toggleClass('column-matched', hasItems)
+            $container.toggleClass('is-matched', hasItems)
         }
 
         this.ignoreFileColumn = function(el) {
             var $el = $(el),
                 $column = $el.closest('[data-column-id]')
 
-            $column.addClass('column-ignored')
+            $column.addClass('is-ignored')
             $('#showIgnoredColumnsButton').removeClass('disabled')
         }
 
         this.showIgnoredColumns = function(el) {
-            $('#importFileColumns li.column-ignored').removeClass('column-ignored')
+            $('#importFileColumns li.is-ignored').removeClass('is-ignored')
             $('#showIgnoredColumnsButton').addClass('disabled')
         }
 
@@ -91,11 +91,17 @@
                 columnId = $column.data('column-id')
 
             $el.popup({
-                handler: 'onImportLoadColumnSamplePopup',
+                handler: 'onImportLoadColumnSampleForm',
                 extraData: {
                     file_column_id: columnId
                 }
             })
+        }
+
+        this.processImport = function () {
+            var $form = $('#importFileColumns').closest('form')
+
+            $form.request('onImport')
         }
     }
 

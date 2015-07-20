@@ -62,6 +62,9 @@
 .import-behavior .import-db-columns > ul > li:hover .column-icon {
   color: #4da7e8;
 }
+.import-behavior .import-db-columns > ul > li.is-required .column-icon {
+  color: #ab2a1c;
+}
 .import-behavior .import-file-columns > ul > li:before,
 .import-behavior .import-file-columns > ul > li:after {
   content: " ";
@@ -70,7 +73,7 @@
 .import-behavior .import-file-columns > ul > li:after {
   clear: both;
 }
-.import-behavior .import-file-columns > ul > li.column-ignored {
+.import-behavior .import-file-columns > ul > li.is-ignored {
   display: none;
 }
 .import-behavior .import-file-columns > ul > li .column-success-icon {
@@ -79,10 +82,10 @@
   left: -2px;
   width: 15px;
 }
-.import-behavior .import-file-columns > ul > li.column-matched .column-success-icon {
+.import-behavior .import-file-columns > ul > li.is-matched .column-success-icon {
   display: inline-block;
 }
-.import-behavior .import-file-columns > ul > li.column-matched .column-ignore-button {
+.import-behavior .import-file-columns > ul > li.is-matched .column-ignore-button {
   display: none !important;
 }
 .import-behavior .import-file-columns > ul div.import-column-name {

@@ -33,13 +33,14 @@ fields:
         label: File columns
         type: partial
         path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_file_columns.htm
-        dependsOn: import_file
+        dependsOn: [import_file, first_row_titles]
         span: left
 
     import_db_columns:
         label: Database fields
         type: partial
         path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_db_columns.htm
+        dependsOn: [import_file, first_row_titles]
         span: right
 
     step3_section:

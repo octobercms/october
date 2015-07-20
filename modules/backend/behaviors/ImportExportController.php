@@ -5,6 +5,7 @@ use Backend\Classes\ControllerBehavior;
 use League\Csv\Writer as CsvWrtier;
 use League\Csv\Reader as CsvReader;
 use ApplicationException;
+use Exception;
 
 /**
  * Import/Export Controller Behavior
@@ -79,8 +80,61 @@ class ImportExportController extends ControllerBehavior
         // TBA
     }
 
+    //
+    // Importing AJAX
+    //
+
     public function onImport()
     {
+        // traceLog(post());
+    }
+
+    public function onImportLoadForm()
+    {
+        try {
+            $this->checkRequiredImportColumns();
+        }
+        catch (Exception $ex) {
+            $this->controller->handleError($ex);
+        }
+
+        return $this->importExportMakePartial('import_form');
+    }
+
+    public function onImportLoadColumnSampleForm()
+    {
+        if (($columnId = post('file_column_id', false)) === false) {
+            throw new ApplicationException('Missing column identifier');
+        }
+
+        $columns = $this->getImportFileColumns();
+        if (!array_key_exists($columnId, $columns)) {
+            throw new ApplicationException('Unknown column');
+        }
+
+        $path = $this->getImportFilePath();
+        $reader = CsvReader::createFromPath($path);
+
+        if (post('first_row_titles')) {
+            $reader->setOffset(1);
+        }
+
+        $data = $reader->setLimit(20)->fetchColumn((int) $columnId);
+
+        /*
+         * Clean up data
+         */
+        foreach ($data as $index => $sample) {
+            $data[$index] = Str::limit($sample, 100);
+            if (!strlen($data[$index])) {
+                unset($data[$index]);
+            }
+        }
+
+        $this->vars['columnName'] = array_get($columns, $columnId);
+        $this->vars['columnData'] = $data;
+
+        return $this->importExportMakePartial('column_sample_form');
     }
 
     //
@@ -173,40 +227,34 @@ class ImportExportController extends ControllerBehavior
         return $file->getLocalPath();
     }
 
-    public function onImportLoadColumnSamplePopup()
+    public function importIsColumnRequired($columnName)
     {
-        if (($columnId = post('file_column_id', false)) === false) {
-            throw new ApplicationException('Missing column identifier');
+        $model = $this->importGetModel();
+        return $model->isAttributeRequired($columnName);
+    }
+
+    protected function checkRequiredImportColumns()
+    {
+        if (!$matches = post('column_match', [])) {
+            throw new ApplicationException('Please match some columns first.');
         }
 
-        $columns = $this->getImportFileColumns();
-        if (!array_key_exists($columnId, $columns)) {
-            throw new ApplicationException('Unknown column');
-        }
+        $dbColumns = $this->getImportDbColumns();
+        foreach ($dbColumns as $column => $label) {
+            if (!$this->importIsColumnRequired($column)) continue;
 
-        $path = $this->getImportFilePath();
-        $reader = CsvReader::createFromPath($path);
+            $found = false;
+            foreach ($matches as $matchedColumns) {
+                if (in_array($column, $matchedColumns)) {
+                    $found = true;
+                    break;
+                }
+            }
 
-        if (post('first_row_titles')) {
-            $reader->setOffset(1);
-        }
-
-        $data = $reader->setLimit(20)->fetchColumn((int) $columnId);
-
-        /*
-         * Clean up data
-         */
-        foreach ($data as $index => $sample) {
-            $data[$index] = Str::limit($sample, 100);
-            if (!strlen($data[$index])) {
-                unset($data[$index]);
+            if (!$found) {
+                throw new ApplicationException('Please specify a match for the required field '.$label.'.');
             }
         }
-
-        $this->vars['columnName'] = array_get($columns, $columnId);
-        $this->vars['columnData'] = $data;
-
-        return $this->importExportMakePartial('column_sample_popup');
     }
 
     //

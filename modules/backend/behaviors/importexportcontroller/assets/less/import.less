@@ -79,6 +79,12 @@
             &:hover .column-icon {
                 color: #4da7e8;
             }
+
+            &.is-required {
+                .column-icon {
+                    color: #ab2a1c;
+                }
+            }
         }
     }
 
@@ -86,7 +92,7 @@
         > li {
             .clearfix;
 
-            &.column-ignored {
+            &.is-ignored {
                 display: none;
             }
 
@@ -97,7 +103,7 @@
                 width: 15px;
             }
 
-            &.column-matched {
+            &.is-matched {
                 .column-success-icon {
                     display: inline-block;
                 }
