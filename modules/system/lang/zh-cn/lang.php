@@ -3,7 +3,7 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'tagline' => '登陆'
+        'tagline' => '欢迎使用October CMS！'
     ],
     'locale' => [
         'en' => 'English',
@@ -26,7 +26,7 @@ return [
         'se' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
-        'zh-cn' => 'Chinese (China)'
+        'zh-cn' => '简体中文'
     ],
     'directory' => [
         'create_fail' => '不能创建目录: :name'
@@ -35,7 +35,7 @@ return [
         'create_fail' => '不能创建文件: :name'
     ],
     'combiner' => [
-        'not_found' => "混合文件 ':name' 没找到."
+        'not_found' => "组合文件 ':name' 没找到."
     ],
     'system' => [
         'name' => '系统',
@@ -47,7 +47,7 @@ return [
             'mail' => '邮件',
             'shop' => '商铺',
             'team' => '团队',
-            'users' => '用户',
+            'articles' => '用户',
             'system' => '系统',
             'social' => '社交',
             'events' => '事件',
@@ -109,16 +109,16 @@ return [
         'none' => '没有',
         'id' => [
             'label' => '项目ID',
-            'help' => '如何找到你的项目ID',
-            'missing' => '请确认你想使用的项目ID.'
+            'help' => '如何找到您的项目ID',
+            'missing' => '请确认你想使用的项目ID。'
         ],
         'detach_confirm' => '你确定要删除这个项目吗?',
-        'unbind_success' => '项目删除成功.'
+        'unbind_success' => '项目删除成功。'
     ],
     'settings' => [
         'menu_label' => '设置',
         'not_found' => '不能找到特定的设置.',
-        'missing_model' => '设置页缺少Model定义.',
+        'missing_model' => '设置页缺少模型定义.',
         'update_success' => ':name 的设置更新成功了.',
         'return' => '返回系统设置',
         'search' => '搜索'
@@ -196,9 +196,10 @@ return [
         'plugin_description' => '描述',
         'plugin_version' => '版本',
         'plugin_author' => '作者',
-        'core_current_build' => '当前版本',
-        'core_build' => '版本 :build',
-        'core_build_help' => '新的版本可用.',
+        'core_build' => '当前版本',
+        'core_build_old' => '当前版本 :build',
+        'core_build_new' => '版本 :build',
+        'core_build_new_help' => '新的版本可用.',
         'core_downloading' => '下载应用程序',
         'core_extracting' => '解压应用程序',
         'plugins' => '插件',
@@ -207,6 +208,9 @@ return [
         'plugin_downloading' => '下载插件: :name',
         'plugin_extracting' => '解压插件: :name',
         'plugin_version_none' => '新插件',
+        'plugin_version_old' => '当前 v:version',
+        'plugin_version_new' => 'v:version',
+        'theme_label' => '主题',
         'theme_new_install' => '新主题安装.',
         'theme_downloading' => '下载主题: :name',
         'theme_extracting' => '解压主题: :name',
@@ -234,19 +238,19 @@ return [
         'file_corrupt' => '服务器下载文件校验失败.'
     ],
     'behavior' => [
-        'missing_property' => 'Class :class 必须定义属性 $:property 被 :behavior behavior 使用.'
+        'missing_property' => '行为 :behavior 使用的类 :class 必须定义属性 $:property。'
     ],
     'config' => [
-        'not_found' => '不能查找配置文件 :file 为 :location 定义.',
-        'required' => "配置 :location 必须有 ':property'."
+        'not_found' => '无法找到定义 :location 的配置文件 :file。',
+        'required' => "配置 :location 必须有 ':property'。"
     ],
     'zip' => [
-        'extract_failed' => "不能解压缩文件 ':file'."
+        'extract_failed' => "不能解压文件 ':file'。"
     ],
     'event_log' => [
-        'hint' => '日志显示了程序中的潜在错误, 比如异常和调试信息.',
+        'hint' => '日志显示了程序中的潜在错误, 比如异常和调试信息。',
         'menu_label' => '事件日志',
-        'menu_description' => '查看系统日志信息, 包括时间和详细信息.',
+        'menu_description' => '查看系统日志信息, 包括时间和详细信息。',
         'empty_link' => '清空事件日志',
         'empty_loading' => '清空事件日志...',
         'empty_success' => '成功清空时间日志.',
@@ -258,7 +262,7 @@ return [
         'level' => '级别'
     ],
     'request_log' => [
-        'hint' => '这个日志显示了需要注意的浏览器请求. 比如如果一个访问者打开一个没有的CMS页面, 一条返回状态404的记录被创建.',
+        'hint' => '这个日志显示了需要注意的浏览器请求. 比如如果一个访问者打开一个没有的CMS页面, 一条返回状态404的记录被创建。',
         'menu_label' => '请求日志',
         'menu_description' => '查看坏的或者重定向的请求, 比如页面找不到(404).',
         'empty_link' => '清空请求日志',
@@ -284,3 +288,4 @@ return [
         'manage_branding' => '自定义后台'
     ]
 ];
+
