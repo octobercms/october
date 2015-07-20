@@ -79,7 +79,7 @@
             fieldMap = {}
 
         /*
-         * Map master and slave field map
+         * Map master and slave fields
          */
         form.find('[data-field-depends]').each(function() {
             var name = $(this).data('field-name'),
