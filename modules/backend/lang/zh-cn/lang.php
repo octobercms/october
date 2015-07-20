@@ -225,19 +225,19 @@ return [
         'unlink_confirm' => "你确定?",
     ],
     'model' => [
-        'name' => 'Model',
-        'not_found' => "Model ':class' ID :id 找不到",
-        'missing_id' => '没有指定的ID查找model记录.',
-        'missing_relation' => "Model ':class' 不包含 ':relation'.",
-        'missing_method' => "Model ':class' 不包含 ':method'.",
-        'invalid_class' => "Model :model 在 :class 中是不合法的, 必须继承 \\Model class.",
-        'mass_assignment_failed' => "针对Model属性':attribute'的大量赋值失败."
+        'name' => '模型',
+        'not_found' => "ID为 :id 的 模型 ':class' 找不到",
+        'missing_id' => '没有找到指定ID的模型记录.',
+        'missing_relation' => "模型 ':class' 不包含 ':relation'.",
+        'missing_method' => "模型 ':class' 不包含 ':method'.",
+        'invalid_class' => "模型 :model 在 :class 中是不合法的, 它必须继承 \\Model 类.",
+        'mass_assignment_failed' => "为Model属性':attribute'赋值失败."
     ],
     'warnings' => [
         'tips' => '系统配置技巧',
-        'tips_description' => '你需要注意那些issue, 以使系统配置正确.',
-        'permissions'  => '目录 :name 或子目录对PHP不可写. 请对这个目录上的webserver设置正确的权限.',
-        'extension' => 'PHP扩展 :name 没安装. 请安装这个库并且激活扩展.'
+        'tips_description' => '你需要注意下面的问题, 以使系统更好的工作。',
+        'permissions'  => '目录 :name 或子目录对PHP不可写. 请在服务器上对这个目录设置正确的权限.',
+        'extension' => 'PHP扩展 :name 没安装，请安装这个库并且激活扩展.'
     ],
     'editor' => [
         'menu_label' => '代码编辑器选项',
@@ -249,7 +249,7 @@ return [
         'word_wrap' => '自动换行',
         'highlight_active_line' => '高亮活动的行',
         'show_invisibles' => '显示隐藏字符',
-        'show_gutter' => '显示gutter',
+        'show_gutter' => '显示侧边栏',
         'theme' => '色彩主题'
     ],
     'tooltips' => [
@@ -289,7 +289,7 @@ return [
         'locale_comment' => '选择你希望使用的本地语言。'
     ],
     'access_log' => [
-        'hint' => '这个log显示了管理员成功登录的信息. 记录保持:days天。',
+        'hint' => '这个日志显示了管理员成功登录的信息. 记录保持 :days 天。',
         'menu_label' => '访问日志',
         'menu_description' => '查看成功登陆后台用户日志。',
         'created_at' => '日期 & 时间',
@@ -303,3 +303,4 @@ return [
       'all' => '全部'
     ]
 ];
+
