@@ -2,7 +2,7 @@
 
 use Str;
 use Backend\Classes\ControllerBehavior;
-use League\Csv\Writer as CsvWrtier;
+use League\Csv\Writer as CsvWriter;
 use League\Csv\Reader as CsvReader;
 use ApplicationException;
 use Exception;
@@ -86,7 +86,22 @@ class ImportExportController extends ControllerBehavior
 
     public function onImport()
     {
-        // traceLog(post());
+        try {
+            $model = $this->importGetModel();
+            $matches = post('column_match', []);
+            $sessionKey = $this->importUploadFormWidget->getSessionKey();
+
+            $model->importDataFromColumnMatch($matches, $sessionKey, [
+                'firstRowTitles' => post('first_row_titles', false)
+            ]);
+
+            $this->vars['importResults'] = $model->getResultStats();
+        }
+        catch (Exception $ex) {
+            $this->controller->handleError($ex);
+        }
+
+        return $this->importExportMakePartial('import_result_form');
     }
 
     public function onImportLoadForm()
@@ -151,7 +166,7 @@ class ImportExportController extends ControllerBehavior
         $this->vars['importDbColumns'] = $this->getImportDbColumns();
         $this->vars['importFileColumns'] = $this->getImportFileColumns();
 
-        // Make these variables to widgets
+        // Make these variables available to widgets
         $this->controller->vars += $this->vars;
     }
 
@@ -214,17 +229,9 @@ class ImportExportController extends ControllerBehavior
 
     protected function getImportFilePath()
     {
-        $model = $this->importGetModel();
-        $file = $model
-            ->import_file()
-            ->withDeferred($this->importUploadFormWidget->getSessionKey())
-            ->first();
-
-        if (!$file) {
-            return null;
-        }
-
-        return $file->getLocalPath();
+        return $this
+            ->importGetModel()
+            ->getImportFilePath($this->importUploadFormWidget->getSessionKey());
     }
 
     public function importIsColumnRequired($columnName)

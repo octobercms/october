@@ -101,7 +101,12 @@
         this.processImport = function () {
             var $form = $('#importFileColumns').closest('form')
 
-            $form.request('onImport')
+            $form.request('onImport', {
+                success: function(data) {
+                    $('#importContainer').html(data.result)
+                    $(document).trigger('render')
+                }
+            })
         }
     }
 

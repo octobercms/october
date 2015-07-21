@@ -187,6 +187,7 @@ return [
         'close' => 'Close',
         'confirm' => 'Confirm',
         'reload' => 'Reload',
+        'complete' => 'Complete',
         'ok' => 'OK',
         'or' => 'or',
         'confirm_tab_close' => 'Do you really want to close the tab? Unsaved changes will be lost.',
