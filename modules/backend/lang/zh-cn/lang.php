@@ -18,6 +18,9 @@ return [
             'label' => '访问拒绝',
             'help' => "你没有访问这个页面需要的权限.",
             'cms_link' => '返回后台'
+        ],
+        'invalid_token' => [
+            'label' => '非法的security token'
         ]
     ],
     'partial' => [
@@ -108,6 +111,7 @@ return [
             'new' => '新管理组',
             'delete_confirm' => '你真的想要删除这个管理组?',
             'return' => '返回组列表',
+            'users_count' => '用户'
         ],
         'preferences' => [
             'not_authenticated' => '没有认证用户加载或保存设置.'
@@ -124,7 +128,7 @@ return [
         'behavior_not_ready' => '列表没有初始化, 确认你的控制器中调用了makeLists().',
         'invalid_column_datetime' => "栏值 ':column' 不是时间对象, 缺少了 \$dates 在模型中的引用吗?",
         'pagination' => '显示记录: :from-:to :total',
-        'prev_page' => '之前页',
+        'prev_page' => '上一页',
         'next_page' => '下一页',
         'loading' => '加载中...',
         'setup_title' => '建立列表',
@@ -140,7 +144,13 @@ return [
         'attachment' => '附件',
         'help' => '给附件添加标题和描述.',
         'title_label' => '标题',
-        'description_label' => '描述'
+        'description_label' => '描述',
+        'default_prompt' => '点击 %s 或者拖动一个文件到这里来上传',
+        'attachment_url' => '附件地址',
+        'upload_file' => '上传文件',
+        'upload_error' => '上传错误',
+        'remove_confirm' => '你确定吗？',
+        'remove_file' => '删除文件'
     ],
     'form' => [
         'create_title' => '新 :name',
@@ -181,10 +191,11 @@ return [
         'or' => '或',
         'confirm_tab_close' => '你真的想要关闭这个标签吗? 未保存的改变会丢失.',
         'behavior_not_ready' => '表单还没初始化, 确保你调用了控制器中的 initForm().',
-        'preview_no_files_message' => '文件没有上传',
+        'preview_no_files_message' => '文件没有上传。',
+        'preview_no_record_message' => '没有选择记录。',
         'select' => '选择',
-        'select_all' => 'all',
-        'select_none' => 'none',
+        'select_all' => '全部',
+        'select_none' => '无',
         'select_placeholder' => '请选择',
         'insert_row' => '插入行',
         'delete_row' => '删除行',
@@ -297,7 +308,7 @@ return [
         'ip_address' => 'IP地址',
         'first_name' => '名',
         'last_name' => '姓',
-        'email' => 'Email'
+        'email' => '电子邮箱'
     ],
     'filter' => [
       'all' => '全部'
