@@ -4,14 +4,6 @@ Scoreboard
 
 # Example
 
-<script src="/assets/js/october.goalmeter.js"></script>
-<script src="/assets/js/vendor/raphael-min.js"></script>
-<script src="/assets/js/october.chartutils.js"></script>
-<script src="/assets/js/october.chartpie.js"></script>
-<script src="/assets/js/october.chartbar.js"></script>
-<script src="/assets/js/october.dragscroll.js"></script>
-<script src="/assets/js/october.toolbar.js"></script>
-
     <div class="scoreboard">
         <div data-control="toolbar">
             <div class="scoreboard-item control-chart" data-control="chart-pie">
