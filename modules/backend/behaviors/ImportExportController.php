@@ -1,6 +1,7 @@
 <?php namespace Backend\Behaviors;
 
 use Str;
+use Lang;
 use Backend\Classes\ControllerBehavior;
 use League\Csv\Writer as CsvWriter;
 use League\Csv\Reader as CsvReader;
@@ -43,6 +44,11 @@ class ImportExportController extends ControllerBehavior
     protected $importUploadFormWidget;
 
     /**
+     * @var Backend\Classes\WidgetBase Reference to the widget used for specifing import options.
+     */
+    protected $importOptionsFormWidget;
+
+    /**
      * Behavior constructor
      * @param Backend\Classes\Controller $controller
      */
@@ -59,11 +65,16 @@ class ImportExportController extends ControllerBehavior
         $this->config = $this->makeConfig($controller->importExportConfig, $this->requiredConfig);
 
         /*
-         * Import form widget
+         * Import form widgets
          */
         if ($this->importUploadFormWidget = $this->makeImportUploadFormWidget()) {
             $this->importUploadFormWidget->bindToController();
         }
+
+        if ($this->importOptionsFormWidget = $this->makeImportOptionsFormWidget()) {
+            $this->importOptionsFormWidget->bindToController();
+        }
+
     }
 
     //
@@ -72,6 +83,9 @@ class ImportExportController extends ControllerBehavior
 
     public function import()
     {
+        $this->controller->pageTitle = $this->controller->pageTitle
+            ?: Lang::get($this->getConfig('import[title]', 'Import records'));
+
         $this->prepareVars();
     }
 
@@ -90,6 +104,10 @@ class ImportExportController extends ControllerBehavior
             $model = $this->importGetModel();
             $matches = post('column_match', []);
             $sessionKey = $this->importUploadFormWidget->getSessionKey();
+
+            if ($optionData = post('ImportOptions')) {
+                $model->fill($optionData);
+            }
 
             $model->importDataFromColumnMatch($matches, $sessionKey, [
                 'firstRowTitles' => post('first_row_titles', false)
@@ -134,7 +152,7 @@ class ImportExportController extends ControllerBehavior
             $reader->setOffset(1);
         }
 
-        $data = $reader->setLimit(20)->fetchColumn((int) $columnId);
+        $data = $reader->setLimit(50)->fetchColumn((int) $columnId);
 
         /*
          * Clean up data
@@ -163,6 +181,7 @@ class ImportExportController extends ControllerBehavior
     public function prepareVars()
     {
         $this->vars['importUploadFormWidget'] = $this->importUploadFormWidget;
+        $this->vars['importOptionsFormWidget'] = $this->importOptionsFormWidget;
         $this->vars['importDbColumns'] = $this->getImportDbColumns();
         $this->vars['importFileColumns'] = $this->getImportFileColumns();
 
@@ -225,6 +244,25 @@ class ImportExportController extends ControllerBehavior
         });
 
         return $widget;
+    }
+
+    protected function makeImportOptionsFormWidget()
+    {
+        if ($fieldConfig = $this->getConfig('import[form]')) {
+            $widgetConfig = $this->makeConfig($fieldConfig);
+            $widgetConfig->model = $this->importGetModel();
+            $widgetConfig->alias = 'importOptionsForm';
+            $widgetConfig->arrayName = 'ImportOptions';
+
+            $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
+            return $widget;
+        }
+        elseif ($this->importUploadFormWidget) {
+            $stepSection = $this->importUploadFormWidget->getField('step3_section');
+            $stepSection->hidden = true;
+        }
+
+        return null;
     }
 
     protected function getImportFilePath()
