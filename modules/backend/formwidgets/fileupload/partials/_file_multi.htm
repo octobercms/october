@@ -24,7 +24,7 @@
                 </div>
                 <div class="info">
                     <h4 class="filename">
-                        <span data-dz-name><?= $file->title ?: $file->file_name ?></span>
+                        <span data-dz-name><?= e($file->title ?: $file->file_name) ?></span>
                         <a
                             href="javascript:;"
                             class="upload-remove-button"
