@@ -1,3 +1,6 @@
+* **Build 28x** (2015-07-xx)
+  - The `export` action has been moved from ListController behavior to Import / Export behavior (see Backend > Importing & Exporting docs).
+
 * **Build 279** (2015-07-14)
   - Plugins can now be frozen to prevent them from receiving updates via the plugin management area.
   - A plugin version can now be flagged as "Important" by prepending `!!!` to the version history comment.
