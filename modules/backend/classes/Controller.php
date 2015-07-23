@@ -299,6 +299,27 @@ class Controller extends Extendable
     }
 
     /**
+     * Returns a URL for this controller and supplied action.
+     */
+    public function actionUrl($action = null, $path = null)
+    {
+        if ($action === null) {
+            $action = $this->action;
+        }
+
+        $class = get_called_class();
+        $uriPath = dirname(dirname(strtolower(str_replace('\\', '/', $class))));
+        $controllerName = strtolower(class_basename($class));
+
+        $url = $uriPath.'/'.$controllerName.'/'.$action;
+        if ($path) {
+            $url .= '/'.$path;
+        }
+
+        return Backend::url($url);
+    }
+
+    /**
      * Invokes the current controller action without rendering a view,
      * used by AJAX handler that may rely on the logic inside the action.
      */
