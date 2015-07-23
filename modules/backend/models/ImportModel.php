@@ -26,6 +26,9 @@ abstract class ImportModel extends Model
         'import_file' => ['System\Models\File']
     ];
 
+    /**
+     * @var array Import statistics store.
+     */
     protected $resultStats = [
         'updated' => 0,
         'created' => 0,
@@ -36,11 +39,33 @@ abstract class ImportModel extends Model
 
     /**
      * Called when data is being imported.
+     * The $results array should be in the format of:
+     *
+     *    [
+     *        'db_name1' => 'Some value',
+     *        'db_name2' => 'Another value'
+     *    ],
+     *    [...]
+     *
      */
     abstract public function importData($results, $sessionKey = null);
 
-    public function importDataFromColumnMatch($matches, $sessionKey = null, $options = [])
+    /**
+     * Import data based on column names matching header indexes in the CSV.
+     * The $matches array should be in the format of:
+     *
+     *    [
+     *        0 => [db_name1, db_name2],
+     *        1 => [db_name3],
+     *        ...
+     *    ]
+     *
+     * The key (0, 1) is the column index in the CSV and the value
+     * is another array of target database column names.
+     */
+    public function import($matches, $options = [])
     {
+        $sessionKey = array_get($options, 'sessionKey');
         $path = $this->getImportFilePath($sessionKey);
         $data = $this->processImportData($path, $matches, $options);
         return $this->importData($data, $sessionKey);
@@ -48,11 +73,12 @@ abstract class ImportModel extends Model
 
     /**
      * Converts column index to database column map to an array containing
-     * database column names and values pulled from the CSV file.
-     * Eg:
+     * database column names and values pulled from the CSV file. Eg:
+     *
      *   [0 => [first_name], 1 => [last_name]]
      *
      * Will return:
+     *
      *   [first_name => Joe, last_name => Blogs],
      *   [first_name => Harry, last_name => Potter],
      *   [...]

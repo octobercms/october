@@ -1,9 +1,33 @@
 /*
- * Scripts for the Import/Export controller behavior.
+ * Scripts for the Import controller behavior.
  */
 +function ($) { "use strict";
 
     var ImportBehavior = function() {
+
+        this.processImport = function () {
+            var $form = $('#importFileColumns').closest('form')
+
+            $form.request('onImport', {
+                success: function(data) {
+                    $('#importContainer').html(data.result)
+                    $(document).trigger('render')
+                }
+            })
+        }
+
+        this.loadFileColumnSample = function(el) {
+            var $el = $(el),
+                $column = $el.closest('[data-column-id]'),
+                columnId = $column.data('column-id')
+
+            $el.popup({
+                handler: 'onImportLoadColumnSampleForm',
+                extraData: {
+                    file_column_id: columnId
+                }
+            })
+        }
 
         this.bindColumnSorting = function() {
             /*
@@ -85,29 +109,6 @@
             $('#showIgnoredColumnsButton').addClass('disabled')
         }
 
-        this.loadFileColumnSample = function(el) {
-            var $el = $(el),
-                $column = $el.closest('[data-column-id]'),
-                columnId = $column.data('column-id')
-
-            $el.popup({
-                handler: 'onImportLoadColumnSampleForm',
-                extraData: {
-                    file_column_id: columnId
-                }
-            })
-        }
-
-        this.processImport = function () {
-            var $form = $('#importFileColumns').closest('form')
-
-            $form.request('onImport', {
-                success: function(data) {
-                    $('#importContainer').html(data.result)
-                    $(document).trigger('render')
-                }
-            })
-        }
     }
 
     $.oc.importBehavior = new ImportBehavior;
