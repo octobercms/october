@@ -2051,6 +2051,8 @@ html.cssanimations .loading-indicator.size-small > span,html.cssanimations .load
 .loading-indicator.indicator-center,.loading-indicator-container.indicator-center .loading-indicator{padding:20px}
 .loading-indicator.indicator-center > span,.loading-indicator-container.indicator-center .loading-indicator > span{left:50%;margin-left:-20px;margin-top:-20px}
 .loading-indicator.indicator-center > div,.loading-indicator-container.indicator-center .loading-indicator > div{top:auto;text-align:center;position:relative}
+.loading-indicator.indicator-inset,.loading-indicator-container.indicator-inset .loading-indicator{padding-left:80px}
+.loading-indicator.indicator-inset > span,.loading-indicator-container.indicator-inset .loading-indicator > span{left:20px}
 .loading-indicator-container.size-form-field .loading-indicator,.loading-indicator-container.size-input-text .loading-indicator{background-color:transparent;padding:0;margin:0}
 .loading-indicator-container.size-form-field .loading-indicator > span,.loading-indicator-container.size-input-text .loading-indicator > span{padding:0;margin:0;left:auto;right:7px;top:6px;width:23px;height:23px;background-size:23px 23px}
 .loading-indicator-container.size-form-field .loading-indicator > span{top:0;right:0;width:20px;height:20px;background-size:20px 20px}
