@@ -1,4 +1,5 @@
-* **Build 28x** (2015-07-xx)
+* **Build 284** (2015-07-25)
+  - Introduced new **ImportExport** controller behavior.
   - The `export` action has been moved from ListController behavior to Import / Export behavior (see Backend > Importing & Exporting docs).
 
 * **Build 279** (2015-07-14)
