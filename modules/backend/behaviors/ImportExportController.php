@@ -2,6 +2,7 @@
 
 use Str;
 use Lang;
+use Backend;
 use Backend\Classes\ControllerBehavior;
 use League\Csv\Reader as CsvReader;
 use ApplicationException;
@@ -168,6 +169,7 @@ class ImportExportController extends ControllerBehavior
             ]);
 
             $this->vars['importResults'] = $model->getResultStats();
+            $this->vars['returnUrl'] = $this->getRedirectUrlForType('import');
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -372,11 +374,13 @@ class ImportExportController extends ControllerBehavior
             }
 
             $reference = $model->export($columns, $exportOptions);
-
-            $this->vars['fileUrl'] = $this->controller->actionUrl(
+            $fileUrl = $this->controller->actionUrl(
                 'download',
                 $reference.'/'.$this->exportFileName
-             );
+            );
+
+            $this->vars['fileUrl'] = $fileUrl;
+            $this->vars['returnUrl'] = $this->getRedirectUrlForType('export');
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -548,5 +552,14 @@ class ImportExportController extends ControllerBehavior
         }
 
         return $result;
+    }
+
+    protected function getRedirectUrlForType($type)
+    {
+        if ($redirect = $this->getConfig($type.'[redirect]')) {
+            return Backend::url($redirect);
+        }
+
+        return $this->controller->actionUrl($type);
     }
 }

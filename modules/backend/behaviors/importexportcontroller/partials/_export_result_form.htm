@@ -7,12 +7,12 @@
         </p>
     </div>
     <div class="modal-footer">
-        <button
-            type="button"
+        <a
+            href="<?= $returnUrl ?>"
             class="btn btn-success"
             data-dismiss="popup">
             <?= e(trans('backend::lang.form.complete')) ?>
-        </button>
+        </a>
     </div>
 
     <script> window.location = '<?= $fileUrl ?>' </script>
