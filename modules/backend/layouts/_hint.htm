@@ -25,7 +25,11 @@
             </div>
         <?php endif ?>
         <div class="content">
-            <?= $this->makePartial($hintPartial, $hintParams) ?>
+            <?php if ($hintContent): ?>
+                <?= $hintContent ?>
+            <?php else: ?>
+                <?= $this->makePartial($hintPartial, $hintParams) ?>
+            <?php endif ?>
         </div>
     </div>
 <?php endif ?>

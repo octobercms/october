@@ -592,7 +592,8 @@ class Controller extends Extendable
 
     /**
      * Renders a hint partial, used for displaying informative information that
-     * can be hidden by the user.
+     * can be hidden by the user. If you don't want to render a partial, you can
+     * supply content via the 'content' key of $params.
      * @param  string $name    Unique key name
      * @param  string $partial Reference to content (partial name)
      * @param  array  $params  Extra parameters
@@ -612,6 +613,7 @@ class Controller extends Extendable
         return $this->makeLayoutPartial('hint', [
             'hintName'    => $name,
             'hintPartial' => $partial,
+            'hintContent' => array_get($params, 'content'),
             'hintParams'  => $params
         ] + $params);
     }
