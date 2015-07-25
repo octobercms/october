@@ -578,7 +578,6 @@ class RelationController extends ControllerBehavior
              */
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
             $widget->bindEvent('list.extendQuery', function ($query) {
-                $this->controller->relationExtendQuery($query, $this->field);
                 $this->relationObject->setQuery($query);
 
                 $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey() : null;
@@ -589,6 +588,8 @@ class RelationController extends ControllerBehavior
                 elseif ($this->model->exists) {
                     $this->relationObject->addConstraints();
                 }
+
+                $this->controller->relationExtendQuery($query, $this->field);
 
                 /*
                  * Allows pivot data to enter the fray
@@ -722,8 +723,6 @@ class RelationController extends ControllerBehavior
          */
         if ($this->manageMode == 'pivot' || $this->manageMode == 'list') {
             $widget->bindEvent('list.extendQuery', function ($query) {
-                $this->controller->relationExtendQuery($query, $this->field);
-
                 /*
                  * Where not in the current list of related records
                  */
@@ -732,6 +731,7 @@ class RelationController extends ControllerBehavior
                     $query->whereNotIn($this->relationModel->getQualifiedKeyName(), $existingIds);
                 }
 
+                $this->controller->relationExtendQuery($query, $this->field);
             });
         }
 
