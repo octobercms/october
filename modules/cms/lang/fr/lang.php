@@ -23,7 +23,7 @@ return [
             'not_found' => 'Le thème de rédaction est introuvable.',
             'not_match' => 'L’objet actuellement ouvert n’appartient pas au thème en cours de modification. Merci de recharger la page.'
         ],
-        'settings_menu' => 'Frontal du thème',
+        'settings_menu' => 'Thème frontal',
         'settings_menu_description' => 'Aperçu des thèmes installés et sélection du thème actif.',
         'default_tab' => 'Propriétés',
         'name_label' => 'Nom',
