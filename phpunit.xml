@@ -17,9 +17,6 @@
         <testsuite name="October Rain Test Suite">
             <directory>./vendor/october/rain/tests</directory>
         </testsuite>
-        <testsuite name="Laravel Test Suite">
-            <directory>./vendor/laravel/framework/tests</directory>
-        </testsuite>
     </testsuites>
     <php>
         <env name="APP_ENV" value="testing" />
