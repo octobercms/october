@@ -322,6 +322,7 @@ class RelationController extends ControllerBehavior
          * View widget
          */
         if ($this->viewWidget = $this->makeViewWidget()) {
+            $this->controller->relationExtendViewWidget($this->viewWidget, $this->field);
             $this->viewWidget->bindToController();
         }
 
@@ -329,6 +330,7 @@ class RelationController extends ControllerBehavior
          * Manage widget
          */
         if ($this->manageWidget = $this->makeManageWidget()) {
+            $this->controller->relationExtendManageWidget($this->manageWidget, $this->field);
             $this->manageWidget->bindToController();
         }
 
@@ -337,6 +339,7 @@ class RelationController extends ControllerBehavior
          */
         if ($this->manageMode == 'pivot') {
             if ($this->pivotWidget = $this->makePivotWidget()) {
+                $this->controller->relationExtendPivotWidget($this->pivotWidget, $this->field);
                 $this->pivotWidget->bindToController();
             }
         }
@@ -1153,6 +1156,43 @@ class RelationController extends ControllerBehavior
     {
     }
 
+    /**
+     * Provides an opportunity to manipulate the view widget.
+     * @param Backend\Classes\WidgetBase $widget
+     * @param string $field
+     */
+    public function relationExtendViewWidget($widget, $field)
+    {
+    }
+
+    /**
+     * Provides an opportunity to manipulate the manage widget.
+     * @param Backend\Classes\WidgetBase $widget
+     * @param string $field
+     */
+    public function relationExtendManageWidget($widget, $field)
+    {
+    }
+
+    /**
+     * Provides an opportunity to manipulate the pivot widget.
+     * @param Backend\Classes\WidgetBase $widget
+     * @param string $field
+     */
+    public function relationExtendPivotWidget($widget, $field)
+    {
+    }
+
+    /**
+     * The view widget is often refreshed when the manage widget makes a change,
+     * you can use this method to inject additional containers when this process
+     * occurs. Return an array with the extra values to send to the browser, eg:
+     *
+     * return ['#myCounter' => 'Total records: 6'];
+     *
+     * @param string $field
+     * @return array
+     */
     public function relationExtendRefreshResults($field)
     {
     }
