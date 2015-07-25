@@ -95,7 +95,7 @@ return [
         'send_invite' => 'Meghívó küldése e-mailben',
         'send_invite_comment' => 'A fentebb megadott adatokat tartalmazza.',
         'delete_confirm' => 'Valóban törölni akarja ezt az adminisztrátort?',
-        'return' => 'Vissza az adminisztrátor listához',
+        'return' => 'Vissza az adminisztrátorokhoz',
         'allow' => 'Engedélyezés',
         'inherit' => 'Öröklés',
         'deny' => 'Tiltás',
@@ -110,7 +110,7 @@ return [
             'list_title' => 'Csoportok kezelése',
             'new' => 'Új adminisztrátori csoport',
             'delete_confirm' => 'Valóban törölni akarja ezt a adminisztrátori csoportot?',
-            'return' => 'Vissza a csoport listához',
+            'return' => 'Vissza a csoportokhoz',
             'users_count' => 'Felhasználók'
         ],
         'preferences' => [
