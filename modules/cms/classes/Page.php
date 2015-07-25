@@ -19,20 +19,6 @@ class Page extends CmsCompoundObject
      */
     public $apiBag = [];
 
-    /**
-     * @var array These properties will be available as regular properties,
-     * by looking the settings and viewBag values.
-     */
-    protected $visible = [
-        'title',
-        'url',
-        'layout',
-        'description',
-        'meta_title',
-        'meta_description',
-        'is_hidden'
-    ];
-
     protected $settingsValidationRules = [
         'title' => 'required',
         'url'   => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|\.\^\$]*$/i']
