@@ -56,6 +56,7 @@ return [
         ]
     ],
     'theme' => [
+        'label' => 'Thème',
         'unnamed' => 'Thème sans nom',
         'name' => [
             'label' => 'Nom du thème',
@@ -71,6 +72,7 @@ return [
         'remove_confirm' => 'Confirmer la suppression de ce thème ?'
     ],
     'plugin' => [
+        'label' => 'Plugin',
         'unnamed' => 'Plugin sans nom',
         'name' => [
             'label' => 'Nom du plugin',
@@ -91,6 +93,8 @@ return [
         'refresh' => 'Actualiser',
         'disabled_label' => 'Désactivé',
         'disabled_help' => 'Les plugins désactivés sont ignorés par l’application.',
+        'frozen_label' => 'Mises à jour bloquées',
+        'frozen_help' => 'Les plugins bloqués seront ignorés par le processus de mise à jour.',
         'selected_amount' => 'Plugins sélectionnés : :amount',
         'remove_confirm' => 'Confirmer la suppression de ce plugin ?',
         'remove_success' => "Les plugins ont été supprimés avec succès.",
@@ -192,9 +196,11 @@ return [
         'name' => 'Mise à jour',
         'menu_label' => 'Mise à jour',
         'menu_description' => 'Mise à jour du système, gestion et installation des plugins et thèmes.',
+        'return_link' => 'Retourner aux mises à jour du système',
         'check_label' => 'Vérifier les mises à jour',
         'retry_label' => 'Réessayer',
         'plugin_name' => 'Nom',
+        'plugin_code' => 'Code',
         'plugin_description' => 'Description',
         'plugin_version' => 'Version',
         'plugin_author' => 'Auteur',
@@ -209,6 +215,7 @@ return [
         'plugin_downloading' => 'Téléchargement du plugin : :name',
         'plugin_extracting' => 'Décompression du plugin : :name',
         'plugin_version_none' => 'Nouveau plugin',
+        'plugin_current_version' => 'Version actuelle',
         'theme_new_install' => 'Installation du nouveau thème.',
         'theme_downloading' => 'Téléchargement du thème : :name',
         'theme_extracting' => 'Décompression du thème : :name',
@@ -226,6 +233,23 @@ return [
             'label' => 'Aucune mise à jour n’est disponible.',
             'help' => 'Aucune nouvelle mise à jour n’a été trouvée.',
         ],
+        'important_action' => [
+            'empty' => 'Sélectionner l’action',
+            'confirm' => 'Confirmer la mise à jour',
+            'skip' => 'Ignorer ce plugin (cette fois seulement)',
+            'ignore' => 'Ignorer ce plugin (toujours)',
+        ],
+        'important_action_required' => 'Action requise',
+        'important_view_guide' => 'Consulter le guide de mise à jour',
+        'important_alert_text' => 'Des mise à jour requièrent votre attention.',
+        'details_title' => 'Détails du plugin',
+        'details_view_homepage' => 'Voir la page d’accueil',
+        'details_readme' => 'Documentation',
+        'details_readme_missing' => 'Il n’y a pas de documentation disponible.',
+        'details_upgrades' => 'Guide de mise à jour',
+        'details_upgrades_missing' => 'Il n’y a pas d’instruction disponible.',
+        'details_current_version' => 'Version actuelle',
+        'details_author' => 'Auteur',
     ],
     'server' => [
         'connect_error' => 'Erreur lors de la connexion au serveur.',
