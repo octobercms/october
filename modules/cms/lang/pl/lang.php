@@ -13,21 +13,73 @@ return [
         'file_name_required' => 'Pole Nazwa Pliku jest wymagane.'
     ],
     'theme' => [
+		'not_found_name' => "Motyw ':name' nie został odnaleziony.",
         'active' => [
             'not_set' => 'Brak aktywnego motywu.',
             'not_found' => 'Aktywny motyw nie został odnaleziony.'
         ],
         'edit' => [
-            'not_set' => 'The edit theme is not set.',
-            'not_found' => 'The edit theme is not found.',
-            'not_match' => "The object you're trying to access doesn't belong to the theme being edited. Please reload the page."
+            'not_set' => 'Edytowany motyw nie jest ustawiony.',
+            'not_found' => 'Edytowany motyw nie został znaleziony.',
+            'not_match' => "Obiekt który próbujesz edytować nie należy do wybranego motywu. Proszę przeładować stronę."
         ],
         'settings_menu' => 'Motyw strony (Front-end theme)',
         'settings_menu_description' => 'Zobacz listę zainstalowanych motywów i wybierz, który aktywować.',
-        'find_more_themes' => 'Znajdź więcej motywów na OctoberCMS Theme Marketplace.',
+		'default_tab' => 'Właściwości',
+        'name_label' => 'Nazwa',
+        'name_create_placeholder' => 'Nowa nazwa motywu',
+        'author_label' => 'Autor',
+        'author_placeholder' => 'Osoba lub nazwa firmy',
+        'description_label' => 'Opis',
+        'description_placeholder' => 'Opis motywu',
+        'homepage_label' => 'Strona domowa',
+        'homepage_placeholder' => 'URL strony domowej',
+        'code_label' => 'Kod',
+        'code_placeholder' => 'Unikalny kod motywu używany do dystrybucji',
+        'dir_name_label' => 'Nazwa katalogu',
+        'dir_name_create_label' => 'Docelowy katalog motywu',
+        'theme_label' => 'Motyw',
+        'theme_title' => 'Motywy',
         'activate_button' => 'Aktywuj',
         'active_button' => 'Aktywuj',
-        'customize_button' => 'Personalizuj'
+        'customize_button' => 'Personalizuj',
+		'duplicate_button' => 'Doplikuj',
+        'duplicate_title' => 'Duplikuj motyw',
+        'duplicate_theme_success' => 'Pomyślnie utworzono kopię motywu!',
+        'manage_button' => 'Zarządzaj',
+        'manage_title' => 'Zarządzaj motywem',
+        'edit_properties_title' => 'Motyw',
+        'edit_properties_button' => 'Edytuj właściwości',
+        'save_properties' => 'Zapisz właściwości',
+        'import_button' => 'Zaimportuj',
+        'import_title' => 'Zaimportuj motyw',
+        'import_theme_success' => 'Pomyślnie zaimportowano motyw!',
+        'import_uploaded_file' => 'Plik archiwum motywu',
+        'import_overwrite_label' => 'Nadpisz istniejące pliki',
+        'import_overwrite_comment' => 'Odznacz aby zaimportować tylko nowe pliki',
+        'import_folders_label' => 'Foldery',
+        'import_folders_comment' => 'Proszę zaznaczyć foldery do importu',
+        'export_button' => 'Eksportuj',
+        'export_title' => 'Eksportuj motyw',
+        'export_folders_label' => 'Foldery',
+        'export_folders_comment' => 'Proszę zaznaczyć foldery do eksportu',
+        'delete_button' => 'Usuń',
+        'delete_confirm' => 'Czy na pewno usunąć ten motyw? Tej operacji nie można cofnąć!',
+        'delete_active_theme_failed' => 'Cannot delete the active theme, try making another theme active first.',
+        'delete_active_theme_failed' => 'Nie można usunąć aktywnego motywu. Spróbuj zmienić aktywny motyw na inny.',
+        'delete_theme_success' => 'Pomyślnie usunięto motyw!',
+        'create_title' => 'Utwórz motyw',
+        'create_button' => 'Utwórz',
+        'create_new_blank_theme' => 'Utwórz nowy pusty motyw',
+        'create_theme_success' => 'Pomyślnie utworzono motyw!',
+        'create_theme_required_name' => 'Proszę podać nazwę nowego motywu.',
+        'new_directory_name_label' => 'Katalog motywu',
+        'new_directory_name_comment' => 'Podaj nazwę nowego katalogu dla kopii motywu.',
+        'dir_name_invalid' => 'Nazwa może zawierać tylko cyfry, znaki łacińskie oraz następujące znaki: _-',
+        'dir_name_taken' => 'Żądany katalog motywu już istnieje.',
+        'find_more_themes' => 'Znajdź więcej motywów',
+        'saving' => 'Zapisywanie motywu...',
+        'return' => 'Wróć do listy motywów',
     ],
     'maintenance' => [
         'settings_menu' => 'Tryb konserwacji (Maintenance mode)',
@@ -36,13 +88,14 @@ return [
         'is_enabled_comment' => 'Kiedy włączony odwiedzający zamiast normalnej strony zobaczą stronę wybraną poniżej.'
     ],
     'page' => [
+		'not_found_name' => "Strona ':name' nie została znaleziona",
         'not_found' => [
             'label' => 'Nie znaleziono strony',
             'help' => 'Żądana strona nie została znaleziona.'
         ],
         'custom_error' => [
             'label' => 'Błąd strony',
-            'help' => "Bardzo Przepraszamy, jednak coś poszło nie tak i strona nie może zostać wyświetlona."
+            'help' => "Bardzo przepraszamy, jednak coś poszło nie tak i strona nie może zostać wyświetlona."
         ],
         'menu_label' => 'Strony',
         'unsaved_label' => 'Niezapisane strony',
@@ -178,7 +231,11 @@ return [
         'manage_pages' => 'Zarządzaj stronami',
         'manage_layouts' => 'Zarządzaj układami',
         'manage_partials' => 'Zarządzaj blokami',
-        'manage_themes' => 'Zarządzaj motywami'
+        'manage_themes' => 'Zarządzaj motywami',
+		'manage_media' => 'Manage mediami'
+    ],
+	'mediafinder' => [
+        'default_prompt' => 'Kliknij przycisk %s aby znaleźć element'
     ],
     'media' => [
         'invalid_path' => "Wybrano nieprawidłową ścieżkę pliku: ':path'.",
