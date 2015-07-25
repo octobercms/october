@@ -1140,6 +1140,10 @@ class RelationController extends ControllerBehavior
     //
 
     /**
+     * !!!!
+     * !!!! WARNING: DO NOT USE - This method is scheduled to be removed
+     * !!!!
+     *
      * Controller override: Extend the query used for populating the list
      * after the default query is processed.
      * @param October\Rain\Database\Builder $query
