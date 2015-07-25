@@ -617,9 +617,8 @@ class RelationController extends ControllerBehavior
          * Single (belongs to, has one)
          */
         elseif ($this->viewMode == 'single') {
-            $query = $this->relationObject;
-            $this->controller->relationExtendQuery($query, $this->field);
-            $this->viewModel = $query->getResults() ?: $this->relationModel;
+            $this->viewModel = $this->relationObject->getResults()
+                ?: $this->relationModel;
 
             $config = $this->makeConfigForMode('view', 'form');
             $config->model = $this->viewModel;
