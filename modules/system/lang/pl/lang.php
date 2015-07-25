@@ -214,7 +214,7 @@ return [
         'core_extracting' => 'Rozpakowywanie plików aplikacji',
         'plugins' => 'Wtyczki',
 		'themes' => 'Motywy',
-        'disabled' => 'Wyłączone',
+        'disabled' => 'Wyłączony',
         'plugin_downloading' => 'Pobieranie wtyczki: :name',
         'plugin_extracting' => 'Rozpakowywanie wtyczki: :name',
         'plugin_version_none' => 'Nowa wtyczka',
