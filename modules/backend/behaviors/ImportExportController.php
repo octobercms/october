@@ -5,7 +5,9 @@ use Lang;
 use Backend;
 use Backend\Classes\ControllerBehavior;
 use League\Csv\Reader as CsvReader;
+use League\Csv\Writer as CsvWriter;
 use ApplicationException;
+use SplTempFileObject;
 use Exception;
 
 /**
@@ -81,11 +83,6 @@ class ImportExportController extends ControllerBehavior
     {
         parent::__construct($controller);
 
-        $this->addJs('js/october.import.js', 'core');
-        $this->addJs('js/october.export.js', 'core');
-        $this->addCss('css/import.css', 'core');
-        $this->addCss('css/export.css', 'core');
-
         /*
          * Build configuration
          */
@@ -127,6 +124,9 @@ class ImportExportController extends ControllerBehavior
 
     public function import()
     {
+        $this->addJs('js/october.import.js', 'core');
+        $this->addCss('css/import.css', 'core');
+
         $this->controller->pageTitle = $this->controller->pageTitle
             ?: Lang::get($this->getConfig('import[title]', 'Import records'));
 
@@ -135,6 +135,11 @@ class ImportExportController extends ControllerBehavior
 
     public function export()
     {
+        $this->checkUseListExportMode();
+
+        $this->addJs('js/october.export.js', 'core');
+        $this->addCss('css/export.css', 'core');
+
         $this->controller->pageTitle = $this->controller->pageTitle
             ?: Lang::get($this->getConfig('export[title]', 'Export records'));
 
@@ -433,7 +438,7 @@ class ImportExportController extends ControllerBehavior
 
     protected function makeExportFormatFormWidget()
     {
-        if (!$this->getConfig('export')) {
+        if (!$this->getConfig('export') || $this->getConfig('export[useList]')) {
             return null;
         }
 
@@ -481,6 +486,85 @@ class ImportExportController extends ControllerBehavior
         }
 
         return $result;
+    }
+
+    //
+    // ListController integration
+    //
+
+    protected function checkUseListExportMode()
+    {
+        if (!$listDefinition = $this->getConfig('export[useList]')) {
+            return false;
+        }
+
+        if (!$this->controller->isClassExtendedWith('Backend.Behaviors.ListController')) {
+            throw new ApplicationException('You must implement the controller behavior ListController with the export "useList" option enabled.');
+        }
+
+        $this->exportFromList($listDefinition);
+    }
+
+    /**
+     * Outputs the list results as a CSV export.
+     * @param string $definition
+     * @param array $options
+     * @return void
+     */
+    public function exportFromList($definition = null, $options = [])
+    {
+        $lists = $this->controller->makeLists();
+
+        $widget = isset($lists[$definition])
+            ? $lists[$definition]
+            : reset($lists);
+
+        /*
+         * Parse options
+         */
+        $defaultOptions = [
+            'fileName' => $this->exportFileName,
+            'delimiter' => ',',
+            'enclosure' => '"'
+        ];
+
+        $options = array_merge($defaultOptions, $options);
+
+        /*
+         * Prepare CSV
+         */
+        $csv = CsvWriter::createFromFileObject(new SplTempFileObject);
+        $csv->setDelimiter($options['delimiter']);
+        $csv->setEnclosure($options['enclosure']);
+
+        /*
+         * Add headers
+         */
+        $headers = [];
+        $columns = $widget->getVisibleColumns();
+        foreach ($columns as $column) {
+            $headers[] = Lang::get($column->label);
+        }
+        $csv->insertOne($headers);
+
+        /*
+         * Add records
+         */
+        $model = $widget->prepareModel();
+        $results = $model->get();
+        foreach ($results as $result) {
+            $record = [];
+            foreach ($columns as $column) {
+                $record[] = $widget->getColumnValue($result, $column);
+            }
+            $csv->insertOne($record);
+        }
+
+        /*
+         * Output
+         */
+        $csv->output($options['fileName']);
+        exit;
     }
 
     //
