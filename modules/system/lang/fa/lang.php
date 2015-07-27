@@ -26,7 +26,8 @@ return [
         'se' => 'سوئدی',
         'sk' => 'اسلواکی',
         'tr' => 'ترکی',
-        'zh-cn' => 'چینی'
+        'zh-cn' => 'چینی',
+        'zh-tw' => 'Chinese (Taiwan)',
     ],
     'directory' => [
         'create_fail' => 'مشکلی در ایجاد پوشه ی :name به وجود آمده است',

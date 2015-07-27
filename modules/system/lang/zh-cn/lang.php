@@ -26,7 +26,8 @@ return [
         'se' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
-        'zh-cn' => '简体中文'
+        'zh-cn' => 'Chinese (China)',
+        'zh-tw' => 'Chinese (Taiwan)',
     ],
     'directory' => [
         'create_fail' => '不能创建目录: :name'

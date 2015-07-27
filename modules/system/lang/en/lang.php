@@ -27,6 +27,7 @@ return [
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
         'zh-cn' => 'Chinese (China)',
+        'zh-tw' => 'Chinese (Taiwan)',
         'el' => 'Greek'
     ],
     'directory' => [

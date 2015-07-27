@@ -26,7 +26,8 @@ return [
         'se' => 'Svéd',
         'sk' => 'Szlovák',
         'tr' => 'Török',
-        'zh-cn' => 'Kínai'
+        'zh-cn' => 'Kínai',
+        'zh-tw' => 'Chinese (Taiwan)',
     ],
     'directory' => [
         'create_fail' => 'Nem hozható létre a könyvtár: :name'
