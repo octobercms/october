@@ -26,7 +26,8 @@ return [
         'se' => 'Suédois',
         'sk' => 'Slovaque (Slovaquie)',
         'tr' => 'Turque',
-        'zh-cn' => 'Chinois (Chine)'
+        'zh-cn' => 'Chinois (Chine)',
+        'zh-tw' => 'Chinese (Taiwan)',
     ],
     'directory' => [
         'create_fail' => "Impossible de créer le répertoire : :name",

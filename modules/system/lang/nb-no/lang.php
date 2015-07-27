@@ -25,7 +25,8 @@ return [
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Tyrkisk',
         'nb-no' => 'Norsk (Bokmål)',
-        'zh-cn' => 'Kinesisk (Kina)'
+        'zh-cn' => 'Kinesisk (Kina)',
+        'zh-tw' => 'Chinese (Taiwan)',
     ],
     'directory' => [
         'create_fail' => 'Kan ikke opprette mappen: :name'
