@@ -11,7 +11,7 @@
             <div class="layout-relative">
                 <nav class="layout-sidenav" id="layout-sidenav" data-control="sidenav">
                     <ul class="nav">
-                        <?php foreach ($sideMenuItems as $sideItemCode => $item): ?>
+                        <?php foreach ($sideMenuItems as $item): ?>
                             <li
                                 class="<?= BackendMenu::isSideMenuItemActive($item) ? 'active' : null ?>"
                                 <?= HTML::attributes($item->attributes) ?>
