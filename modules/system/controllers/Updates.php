@@ -765,7 +765,8 @@ class Updates extends Controller
             foreach ((array) array_get($result, 'require') as $plugin) {
                 if (
                     ($name = array_get($plugin, 'code')) &&
-                    ($hash = array_get($plugin, 'hash'))
+                    ($hash = array_get($plugin, 'hash')) &&
+                    !PluginManager::instance()->hasPlugin($name)
                 ) {
                     $plugins[$name] = $hash;
                 }
