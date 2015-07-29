@@ -4,8 +4,8 @@ Toolbar
 
 # Example
 
-    <div class="layout-row control-toolbar" >
-        <div class="layout-item stretch toolbar-item">
+    <div class="layout control-toolbar">
+        <div class="layout-cell toolbar-item">
             <div data-control="toolbar">
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary oc-icon-plus">Create post</button>
@@ -26,7 +26,7 @@ Toolbar
                 </div>
             </div>
         </div>
-        <div class="layout-item fix relative toolbar-item">
+        <div class="layout-cell toolbar-item width-fix">
             <input placeholder="search..." type="text" name="" value="" class="form-control icon search growable" autocomplete="off"/>
         </div>
     </div>

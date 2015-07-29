@@ -50,6 +50,20 @@
             update()
         })
 
+        $el.on('shown.bs.dropdown', '.dropdown', function(event, eventData) {
+            var $this = $(this),
+                $dropdown = $('.dropdown-menu', $this),
+                $target = $(eventData.relatedTarget),
+                $window = $(window),
+                position = $this.offset()
+
+            $dropdown.css({
+                position: 'fixed',
+                top: position.top - $window.scrollTop() + $target.outerHeight(),
+                left: position.left
+            })
+        })
+
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
         function update() {
