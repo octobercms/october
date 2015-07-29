@@ -127,15 +127,18 @@
     .border-bottom-radius(0);
 
     .toolbar-item {
-        .btn {
+        .btn, .btn-group, .dropdown {
             margin: 0;
             padding: 0;
+        }
+        .btn {
             text-align: center;
             height: 40px;
             width: 40px;
             line-height: 40px;
             zoom: 1;
             color: @color-toolbar-editor-btn-color;
+            background: transparent;
             .user-select(none);
 
             &:before {

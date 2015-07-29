@@ -1432,7 +1432,8 @@ ul.status-list li span.status.info{background:#5bc0de}
 [data-control=toolbar]{white-space:nowrap;width:100%;overflow:hidden}
 #layout-side-panel .control-toolbar,.panel-contents .control-toolbar{padding:20px 0 20px 20px}
 .control-toolbar.edita-toolbar{padding:0;background:#dddddd;border-bottom-right-radius:0;border-bottom-left-radius:0}
-.control-toolbar.edita-toolbar .toolbar-item .btn{margin:0;padding:0;text-align:center;height:40px;width:40px;line-height:40px;zoom:1;color:#404040;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.control-toolbar.edita-toolbar .toolbar-item .btn,.control-toolbar.edita-toolbar .toolbar-item .btn-group,.control-toolbar.edita-toolbar .toolbar-item .dropdown{margin:0;padding:0}
+.control-toolbar.edita-toolbar .toolbar-item .btn{text-align:center;height:40px;width:40px;line-height:40px;zoom:1;color:#404040;background:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .control-toolbar.edita-toolbar .toolbar-item .btn:before{font-size:14px !important}
 .control-toolbar.edita-toolbar .toolbar-item .btn:hover{outline:none;background-color:#999999;color:#ffffff}
 .control-toolbar.edita-toolbar .toolbar-item .btn:active{outline:none;background-color:#404040;color:#ffffff}

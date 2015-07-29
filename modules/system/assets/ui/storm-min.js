@@ -1397,7 +1397,16 @@ if($('.dropdown-overlay',document.body).length==0){$(document.body).prepend($('<
 $(document).on('hidden.bs.dropdown','.dropdown',function(){var dropdown=$(this).data('oc.dropdown')
 if(dropdown!==undefined){dropdown.css('display','none')
 $(this).append(dropdown)}
-$(document.body).removeClass('dropdown-open');})}(window.jQuery);+function($){'use strict';var dismiss='[data-dismiss="callout"]'
+$(document.body).removeClass('dropdown-open');})
+var $dropdown,$container,$target
+function fixDropdownPosition(){var position=$container.offset()
+$dropdown.css({position:'fixed',top:position.top-$(window).scrollTop()+$target.outerHeight(),left:position.left})}
+$(document).on('shown.bs.dropdown','.dropdown.dropdown-fixed',function(event,eventData){$container=$(this)
+$dropdown=$('.dropdown-menu',$container)
+$target=$(eventData.relatedTarget)
+fixDropdownPosition()
+$(window).on('scroll.oc.dropdown',fixDropdownPosition)})
+$(document).on('hidden.bs.dropdown','.dropdown.dropdown-fixed',function(){$(window).off('scroll.oc.dropdown',fixDropdownPosition)})}(window.jQuery);+function($){'use strict';var dismiss='[data-dismiss="callout"]'
 var Callout=function(el){$(el).on('click',dismiss,this.close)}
 Callout.prototype.close=function(e){var $this=$(this)
 var selector=$this.attr('data-target')
@@ -1567,8 +1576,6 @@ var scrollClassContainer=options.scrollClassContainer!==undefined?options.scroll
 $el.dragScroll({scrollClassContainer:scrollClassContainer})
 $('.form-control.growable',$toolbar).on('focus.toolbar',function(){update()})
 $('.form-control.growable',$toolbar).on('blur.toolbar',function(){update()})
-$el.on('shown.bs.dropdown','.dropdown',function(event,eventData){var $this=$(this),$dropdown=$('.dropdown-menu',$this),$target=$(eventData.relatedTarget),$window=$(window),position=$this.offset()
-$dropdown.css({position:'fixed',top:position.top-$window.scrollTop()+$target.outerHeight(),left:position.left})})
 this.$el.one('dispose-control',this.proxy(this.dispose))
 function update(){$(window).trigger('resize')}}
 Toolbar.prototype=Object.create(BaseProto)
@@ -3760,8 +3767,6 @@ var scrollClassContainer=options.scrollClassContainer!==undefined?options.scroll
 $el.dragScroll({scrollClassContainer:scrollClassContainer})
 $('.form-control.growable',$toolbar).on('focus.toolbar',function(){update()})
 $('.form-control.growable',$toolbar).on('blur.toolbar',function(){update()})
-$el.on('shown.bs.dropdown','.dropdown',function(event,eventData){var $this=$(this),$dropdown=$('.dropdown-menu',$this),$target=$(eventData.relatedTarget),$window=$(window),position=$this.offset()
-$dropdown.css({position:'fixed',top:position.top-$window.scrollTop()+$target.outerHeight(),left:position.left})})
 this.$el.one('dispose-control',this.proxy(this.dispose))
 function update(){$(window).trigger('resize')}}
 Toolbar.prototype=Object.create(BaseProto)
