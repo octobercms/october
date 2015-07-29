@@ -8,6 +8,7 @@ return [
     'locale' => [
         'en' => 'English',
         'de' => 'German',
+        'el' => 'Greek',
         'es' => 'Spanish',
         'es-ar' => 'Spanish (Argentina)',
         'fa' => 'Persian',
@@ -27,8 +28,7 @@ return [
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
         'zh-cn' => 'Chinese (China)',
-        'zh-tw' => 'Chinese (Taiwan)',
-        'el' => 'Greek'
+        'zh-tw' => 'Chinese (Taiwan)'
     ],
     'directory' => [
         'create_fail' => 'Cannot create directory: :name'
@@ -170,6 +170,7 @@ return [
         'menu_layouts_label' => 'Mail Layouts',
         'layout' => 'Layout',
         'layouts' => 'Layouts',
+        'no_layout' => '-- No layout --',
         'name' => 'Name',
         'name_comment' => 'Unique name used to refer to this template',
         'code' => 'Code',
