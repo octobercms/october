@@ -1405,8 +1405,8 @@ $(document).on('shown.bs.dropdown','.dropdown.dropdown-fixed',function(event,eve
 $dropdown=$('.dropdown-menu',$container)
 $target=$(eventData.relatedTarget)
 fixDropdownPosition()
-$(window).on('scroll.oc.dropdown',fixDropdownPosition)})
-$(document).on('hidden.bs.dropdown','.dropdown.dropdown-fixed',function(){$(window).off('scroll.oc.dropdown',fixDropdownPosition)})}(window.jQuery);+function($){'use strict';var dismiss='[data-dismiss="callout"]'
+$(window).on('scroll.oc.dropdown, resize.oc.dropdown',fixDropdownPosition)})
+$(document).on('hidden.bs.dropdown','.dropdown.dropdown-fixed',function(){$(window).off('scroll.oc.dropdown, resize.oc.dropdown',fixDropdownPosition)})}(window.jQuery);+function($){'use strict';var dismiss='[data-dismiss="callout"]'
 var Callout=function(el){$(el).on('click',dismiss,this.close)}
 Callout.prototype.close=function(e){var $this=$(this)
 var selector=$this.attr('data-target')

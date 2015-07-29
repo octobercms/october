@@ -127,11 +127,11 @@
         $target = $(eventData.relatedTarget)
         fixDropdownPosition()
 
-        $(window).on('scroll.oc.dropdown', fixDropdownPosition)
+        $(window).on('scroll.oc.dropdown, resize.oc.dropdown', fixDropdownPosition)
     })
 
     $(document).on('hidden.bs.dropdown', '.dropdown.dropdown-fixed', function() {
-        $(window).off('scroll.oc.dropdown', fixDropdownPosition)
+        $(window).off('scroll.oc.dropdown, resize.oc.dropdown', fixDropdownPosition)
     })
 
 }(window.jQuery);

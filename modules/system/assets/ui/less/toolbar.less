@@ -10,7 +10,12 @@
 // Toolbars
 // --------------------------------------------------
 
-@color-scroll-indicator:                     #bbbbbb;
+@color-scroll-indicator:                 #bbbbbb;
+@color-toolbar-editor-bg:                #dddddd;
+@color-toolbar-editor-btn-color:         #404040;
+@color-toolbar-editor-btn-bg-hover:      #999999;
+@color-toolbar-editor-btn-bg-active:     #404040;
+@color-toolbar-editor-btn-color-hover:   #ffffff;
 
 //
 // Toolbars
@@ -110,18 +115,11 @@
     }
 }
 
-
-@color-toolbar-editor-bg:                   #dddddd;
-@color-toolbar-editor-btn-color:         #404040;
-@color-toolbar-editor-btn-bg-hover:      #999999;
-@color-toolbar-editor-btn-bg-active:     #404040;
-@color-toolbar-editor-btn-color-hover:   #ffffff;
-
 //
 // Editor toolbar
 // --------------------------------------------------
 
-.control-toolbar.edita-toolbar {
+.control-toolbar.editor-toolbar {
     padding: 0;
     background: @color-toolbar-editor-bg;
     .border-bottom-radius(0);
@@ -131,6 +129,7 @@
             margin: 0;
             padding: 0;
         }
+
         .btn {
             text-align: center;
             height: 40px;
@@ -155,6 +154,17 @@
                 background-color: @color-toolbar-editor-btn-bg-active;
                 color: @color-toolbar-editor-btn-color-hover;
             }
+            &.disabled,
+            &[disabled] {
+                opacity: .3;
+            }
+        }
+
+        .dropdown.open {
+            .btn {
+                background-color: @color-toolbar-editor-btn-bg-active;
+                color: @color-toolbar-editor-btn-color-hover;
+            }
         }
 
         .btn[class^="oc-icon-"],
@@ -164,7 +174,6 @@
             }
         }
     }
-
 }
 
 //
