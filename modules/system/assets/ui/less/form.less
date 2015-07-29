@@ -4,16 +4,11 @@
 
 @import "global.less";
 @import "icon.less";
-@import "site.variables.less";
-@import "site.mixins.less";
-
 
 //
 // Forms
 // --------------------------------------------------
 
-@import "form.variables.less";
-@import "form.mixins.less";
 @import "form.base.less";
 @import "form.groups.less";
 
@@ -41,7 +36,6 @@
     }
 }
 
-
 //
 // Nice forms
 //
@@ -62,7 +56,7 @@
         background-repeat: no-repeat;
         background-position: right -2px;
         padding-right: 30px !important;
-        background-image: url('../images/bitmap-icons.png');
+        background-image: url('@{image-path}/bitmap-icons.png');
 
         &.plus { background-position: right -124px; }
         &.search { background-position: right -84px; }
@@ -158,7 +152,7 @@
             color: @color-input-sidebar-control;
             &:hover, &:focus {
                 text-decoration: none;
-                color: @color-link;
+                color: @link-color;
                 outline: none;
             }
         }

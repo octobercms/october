@@ -8,8 +8,6 @@
 // Buttons
 // --------------------------------------------------
 
-@import "button.mixins.less";
-@import "button.variables.less";
 @import "button.base.less";
 @import "button.groups.less";
 
@@ -102,7 +100,7 @@
     }
 
     &:hover:before {
-        color: @color-link;
+        color: @link-color;
     }
 
     &.danger:hover:before {
@@ -140,7 +138,7 @@
         color: @btn-default-color;
 
         &:hover {
-            color: @color-link;
+            color: @link-color;
             text-decoration: none;
         }
     }
