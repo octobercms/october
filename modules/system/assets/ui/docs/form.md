@@ -1,6 +1,25 @@
-Renders a form
+# Form
 
-# Example
+## Types
+
+    <form class="form-elements" role="form">
+        <div class="form-group span-left">
+            <label>First name</label>
+            <input type="text" name="" value="" class="form-control" />
+        </div>
+
+        <div class="form-group span-right">
+            <label>Last name</label>
+            <input type="text" name="" value="" class="form-control" />
+        </div>
+
+        <div class="form-group span-full">
+            <label>Address</label>
+            <input type="text" name="" value="" class="form-control" />
+        </div>
+    </form>
+
+### Complete example
 
     <!-- Form Elements -->
     <form class="form-elements" role="form">
@@ -8,14 +27,14 @@ Renders a form
         <!-- Text Input (Left) -->
         <div class="form-group text-field span-left is-required">
             <label>Input Left</label>
-            <input type="text" name="" value="" class="form-control" autocomplete="off" maxlength="255" />
+            <input type="text" name="" value="" class="form-control" />
              <p class="help-block">Example below help text here.</p>
         </div>
 
         <!-- Text Input (Right) -->
         <div class="form-group text-field span-right is-required">
             <label>Input Right</label>
-            <input type="text" name="" value="" class="form-control" autocomplete="off" maxlength="255" />
+            <input type="text" name="" value="" class="form-control" />
             <p class="help-block">Example below help text here.</p>
         </div>
 
@@ -23,7 +42,7 @@ Renders a form
         <div class="form-group text-field span-full is-required">
             <label>Input Full</label>
             <p class="help-block before-field">Example above help text here.</p>
-            <input type="text" name="" value="" class="form-control" autocomplete="off" maxlength="255" />
+            <input type="text" name="" value="" class="form-control" />
         </div>
 
         <!-- Drop down -->
@@ -40,7 +59,6 @@ Renders a form
         <div class="form-group dropdown-field span-right">
             <label>Grouped Drop Down</label>
             <select class="form-control custom-select">
-                <option value=""></option>
                 <optgroup label="NFC EAST">
                     <option>Dallas Cowboys</option>
                     <option>New York Giants</option>
@@ -158,11 +176,5 @@ Renders a form
             </div>
         </div>
 
-        <!-- Textarea -->
-        <div class="form-group textarea-field span-right is-required">
-            <label>Textarea</label>
-            <p class="help-block before-field">Plain as Jane multi line text input</p>
-            <textarea autocomplete="off" class="form-control field-textarea size-large" name="comment" placeholder=""></textarea>
-        </div>
-
     </form>
+

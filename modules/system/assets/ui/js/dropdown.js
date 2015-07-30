@@ -116,9 +116,9 @@
 
         $dropdown.css({
             position: 'fixed',
-            top: position.top - $(window).scrollTop() + $target.outerHeight(),
+            top: position.top - 1 - $(window).scrollTop() + $target.outerHeight(),
             left: position.left
-        })        
+        })
     }
 
     $(document).on('shown.bs.dropdown', '.dropdown.dropdown-fixed', function(event, eventData) {

@@ -11,8 +11,17 @@
         <div class="layout control-toolbar editor-toolbar">
             <div class="layout-cell toolbar-item">
                 <div data-control="toolbar">
+
+                    <!-- Dropdown item -->
                     <div class="dropdown dropdown-fixed">
-                        <button data-toggle="dropdown" class="btn tb-icon tb-formatting"></button>
+                        <button
+                            type="button"
+                            class="btn tb-icon tb-formatting"
+                            title="Formatting"
+                            data-toggle="dropdown"
+                            data-control="tooltip"
+                            data-placement="bottom"
+                            data-container="body"></button>
                         <ul class="dropdown-menu" data-dropdown-title="Formatting">
                             <li><a href="#" rel="quote" tabindex="-1" class="oc-icon-quote-right">Quote</a></li>
                             <li><a href="#" rel="code" tabindex="-1" class="oc-icon-code">Code</a></li>
@@ -24,12 +33,21 @@
                             <li><a href="#" rel="header6" tabindex="-1" class="oc-icon-header">Header 6</a></li>
                         </ul>
                     </div>
-                    <button type="button" disabled class="btn tb-icon tb-bold"></button>
-                    <button type="button" class="btn tb-icon tb-italic"></button>
+
+                    <!-- Item with tooltip -->
+                    <button
+                        type="button"
+                        class="btn tb-icon tb-bold"
+                        title="Bold"
+                        data-control="tooltip"
+                        data-placement="bottom"
+                        data-container="body"></button>
+
+                    <!-- Disabled item -->
+                    <button type="button" disabled class="btn tb-icon tb-italic"></button>
 
                     <button type="button" class="btn tb-icon tb-unorderedlist"></button>
                     <button type="button" class="btn tb-icon tb-orderedlist"></button>
-
                     <button type="button" class="btn tb-icon tb-link"></button>
                     <button type="button" class="btn tb-icon tb-horizontalrule"></button>
                 </div>
