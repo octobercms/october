@@ -2338,20 +2338,20 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .report-widget .table-container table.table.data{margin-bottom:0}
 .report-widget .table-container table.table.data thead tr th{border-top:none !important}
 .report-widget .table-container table.table.data tbody tr:nth-child(even) td,.report-widget .table-container table.table.data tbody tr:nth-child(even) th{background-color:transparent}
-@media only screen and (max-width:960px){.control-list table,.control-list thead,.control-list tbody,.control-list th,.control-list td,.control-list tr{display:block}
-.control-list table{position:relative;border-top:1px solid #e2e2e2}
-.control-list table thead tr td,.control-list table thead tr th{position:absolute;top:-9999px;left:-9999px}
-.control-list table thead tr th.list-setup{position:absolute;top:auto;left:auto;bottom:0;right:0;border:none !important}
-.control-list table thead tr th.list-setup a{padding:10px 15px}
-.control-list table tbody tr{border-bottom:1px solid #e2e2e2}
-.control-list table tbody tr td{border:none;border-left:3px solid transparent;position:relative;padding-left:40% !important;white-space:normal;text-align:left;min-height:40px}
-.control-list table tbody tr td:before{position:absolute;top:0;left:0;width:35%;padding:11px 15px;white-space:nowrap;text-align:left;color:#333333;content:attr(data-title)}
-.control-list table tbody tr:hover td:before{color:white !important}
-.control-list table tbody tr.active td{border-left:3px solid #ff9933}
-.control-list table tbody tr.active td:before{color:#000000}
-.control-list table tbody tr td.list-setup{display:none}
-.control-list table tfoot tr td{border:none}
-.control-list table .list-checkbox{width:100% !important;border-right:none !important;padding-left:16px !important}
+@media only screen and (max-width:960px){.control-list:not(.list-unresponsive) table,.control-list:not(.list-unresponsive) thead,.control-list:not(.list-unresponsive) tbody,.control-list:not(.list-unresponsive) th,.control-list:not(.list-unresponsive) td,.control-list:not(.list-unresponsive) tr{display:block}
+.control-list:not(.list-unresponsive) table{position:relative;border-top:1px solid #e2e2e2}
+.control-list:not(.list-unresponsive) table thead tr td,.control-list:not(.list-unresponsive) table thead tr th{position:absolute;top:-9999px;left:-9999px}
+.control-list:not(.list-unresponsive) table thead tr th.list-setup{position:absolute;top:auto;left:auto;bottom:0;right:0;border:none !important}
+.control-list:not(.list-unresponsive) table thead tr th.list-setup a{padding:10px 15px}
+.control-list:not(.list-unresponsive) table tbody tr{border-bottom:1px solid #e2e2e2}
+.control-list:not(.list-unresponsive) table tbody tr td{border:none;border-left:3px solid transparent;position:relative;padding-left:40% !important;white-space:normal;text-align:left;min-height:40px}
+.control-list:not(.list-unresponsive) table tbody tr td:before{position:absolute;top:0;left:0;width:35%;padding:11px 15px;white-space:nowrap;text-align:left;color:#333333;content:attr(data-title)}
+.control-list:not(.list-unresponsive) table tbody tr:hover td:before{color:white !important}
+.control-list:not(.list-unresponsive) table tbody tr.active td{border-left:3px solid #ff9933}
+.control-list:not(.list-unresponsive) table tbody tr.active td:before{color:#000000}
+.control-list:not(.list-unresponsive) table tbody tr td.list-setup{display:none}
+.control-list:not(.list-unresponsive) table tfoot tr td{border:none}
+.control-list:not(.list-unresponsive) table .list-checkbox{width:100% !important;border-right:none !important;padding-left:16px !important}
 }
 .inspector-fields{min-width:220px;border-collapse:collapse;width:100%;table-layout:fixed;border-bottom-right-radius:2px;border-bottom-left-radius:2px}
 .inspector-fields td,.inspector-fields th{padding:5px 12px;color:#333333;font-size:12px;width:50%;border-bottom:1px solid #c8cccd;text-align:left}
