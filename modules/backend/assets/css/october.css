@@ -385,7 +385,7 @@
 .control-treeview ol > li.drop-target.has-subitems > div:before{background-position:0px -102px}
 }
 .sidenav-tree{width:280px;background:#34495e}
-.sidenav-tree .control-toolbar{padding:20px 0 20px 20px}
+.sidenav-tree .control-toolbar{height:auto;padding:20px 0 20px 20px}
 .sidenav-tree .control-toolbar input.form-control{border:none}
 .sidenav-tree ul{padding:0;margin:0;list-style:none}
 .sidenav-tree div.scrollbar-thumb{background:#2b3e50 !important}
@@ -3119,7 +3119,7 @@ body.slim-container .layout.layout-container,body.slim-container .layout .layout
 .layout.responsive-sidebar > .layout-cell:last-child .layout-absolute{position:static}
 }
 body.mainmenu-open{overflow:hidden}
-nav#layout-mainmenu.navbar{background-color:#111111;padding:0 0 0 20px;line-height:0;white-space:nowrap}
+nav#layout-mainmenu.navbar{background-color:#111111;height:auto;padding:0 0 0 20px;line-height:0;white-space:nowrap}
 nav#layout-mainmenu.navbar a{text-decoration:none}
 nav#layout-mainmenu.navbar a:focus{background:transparent}
 nav#layout-mainmenu.navbar ul{margin:0;padding:0;list-style:none;float:left;font-weight:600;white-space:nowrap;overflow:hidden}
