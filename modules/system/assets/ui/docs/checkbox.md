@@ -43,3 +43,13 @@ Allows a user to select from a small set of binary options.
 
         <input type="hidden" name="balloonValue" value="1" />
     </div>
+
+If you don't define `data-control="balloon-selector"` then the control will act as a static list of labels.
+
+    <div class="control-balloon-selector">
+        <ul>
+            <li>Monday</li>
+            <li>Tuesday</li>
+            <li>Happy days!</li>
+        </ul>
+    </div>
