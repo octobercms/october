@@ -393,6 +393,10 @@ class RelationController extends ControllerBehavior
     {
         $field = $this->validateField($field);
 
+        if(is_object($this->relationModel)) {
+            $this->relationModel->reloadRelations();
+        }
+
         $result = ['#'.$this->relationGetId('view') => $this->relationRenderView($field)];
         if ($toolbar = $this->relationRenderToolbar($field)) {
             $result['#'.$this->relationGetId('toolbar')] = $toolbar;
