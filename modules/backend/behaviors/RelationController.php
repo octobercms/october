@@ -877,17 +877,15 @@ class RelationController extends ControllerBehavior
         $this->forceManageMode = 'form';
         $this->beforeAjax();
         $saveData = $this->manageWidget->getSaveData();
+        $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey(true) : null;
 
         if ($this->viewMode == 'multi') {
-            $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey(true) : null;
-
             if ($this->relationType == 'hasMany') {
                 $newModel = $this->relationObject->create($saveData, $sessionKey);
             }
             elseif ($this->relationType == 'belongsToMany') {
                 $newModel = $this->relationObject->create($saveData, [], $sessionKey);
             }
-
             $newModel->commitDeferred($this->manageWidget->getSessionKey());
         }
         elseif ($this->viewMode == 'single') {
@@ -896,8 +894,12 @@ class RelationController extends ControllerBehavior
 
             if ($this->relationType == 'belongsTo') {
                 $newModel->save();
-                $this->relationObject->associate($newModel);
-                $this->relationObject->getParent()->save();
+                if($this->deferredBinding) {
+                    $this->relationObject->getParent()->bindDeferred($this->relationName,$newModel,$sessionKey);
+                } else {
+                    $this->relationObject->associate($newModel);
+                    $this->relationObject->getParent()->save();
+                }
             }
             elseif ($this->relationType == 'hasOne') {
                 $this->relationObject->add($newModel);
