@@ -19,7 +19,11 @@ $.oc.lang = (function(lang, messages) {
     }
 
     lang.get = function(name, defaultValue) {
+        if (!name) return
+
         var result = lang.loadedMessages
+
+        if (!defaultValue) defaultValue = name
 
         $.each(name.split('.'), function(index, value) {
             if (result[value] === undefined) {
