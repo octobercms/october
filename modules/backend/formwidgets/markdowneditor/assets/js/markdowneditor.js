@@ -12,6 +12,8 @@
         this.$code     = null
         this.editor    = null
         this.$form     = null
+        this.$buttons  = null
+        this.$fixedButtons = null
 
         $.oc.foundation.controlUtils.markDisposable(element)
         Base.call(this)
@@ -31,11 +33,14 @@
             this.$el.attr('id', 'element-' + Math.random().toString(36).substring(7))
         }
 
+        this.$el.addClass('mode-' + this.options.viewMode)
+        this.$form = this.$el.closest('form')
 
         this.createCodeContainer()
         this.createToolbar()
 
-        this.$toolbar.on('click', '.btn, .md-dropdown-button', this.proxy(this.onClickButton))
+        this.$toolbar.on('click', '.btn, .md-dropdown-button', this.proxy(this.onClickToolbarButton))
+        this.$form.on('oc.beforeRequest', this.proxy(this.onBeforeRequest))
 
         $('[data-control="tooltip"]', this.$toolbar).tooltip()
         $('[data-toggle="dropdown"]', this.$toolbar).dropdown()
@@ -43,7 +48,8 @@
 
     MarkdownEditor.prototype.dispose = function() {
         this.$el.off('dispose-control', this.proxy(this.dispose))
-        this.$toolbar.off('click', '.btn, .md-dropdown-button', this.proxy(this.onClickButton))
+        this.$toolbar.off('click', '.btn, .md-dropdown-button', this.proxy(this.onClickToolbarButton))
+        this.$form.off('oc.beforeRequest', this.proxy(this.onBeforeRequest))
 
         this.$el.removeData('oc.markdownEditor')
 
@@ -55,18 +61,31 @@
         this.$code = null
         this.editor = null
         this.$form = null
+        this.$buttons = null
+        this.$fixedButtons = null
+
+        this.isSplitMode = false
+        this.isPreview = false
+        this.isFullscreen = false
 
         this.options = null
 
         BaseProto.dispose.call(this)
     }
 
-    MarkdownEditor.prototype.onClickButton = function(ev) {
+    MarkdownEditor.prototype.onClickToolbarButton = function(ev) {
         var $button = $(ev.target),
             action = $button.data('button-action'),
             template = $button.data('button-template')
 
-        this[action](template)
+        $button.blur()
+
+        if (template) {
+            this[action](template)
+        }
+        else {
+            this[action]()
+        }
     }
 
     MarkdownEditor.prototype.createToolbar = function() {
@@ -114,6 +133,9 @@
         $buttons.wrapInner('<div data-control="toolbar" />')
         this.$toolbar.append($buttons)
         this.$toolbar.append($fixedButtons)
+
+        this.$fixedButtons = $fixedButtons
+        this.$buttons = $buttons
     }
 
     MarkdownEditor.prototype.createToolbarDropdown = function(button, $el) {
@@ -163,9 +185,9 @@
         /*
          * Initialize ACE editor
          */
-        var editor = this.editor = ace.edit(this.$code.attr('id')),
-            options = this.options,
-            $form = this.$el.closest('form');
+        var editor = this.editor = ace.edit(this.$code.attr('id'))
+
+        editor.getSession().setValue(this.$textarea.val())
 
         editor.getSession().setMode({ path: 'ace/mode/markdown' })
         editor.setHighlightActiveLine(false)
@@ -175,6 +197,21 @@
         editor.setFontSize(14)
         editor.on('blur', this.proxy(this.onBlur))
         editor.on('focus', this.proxy(this.onFocus))
+    }
+
+    MarkdownEditor.prototype.updatePreview = function() {
+        var self = this
+
+        this.$el.request(this.options.refreshHandler, {
+            success: function(data) {
+                this.success(data)
+                self.$preview.html(data.preview)
+            }
+        })
+    }
+
+    MarkdownEditor.prototype.onBeforeRequest = function() {
+        this.$textarea.val(this.editor.getSession().getValue())
     }
 
     MarkdownEditor.prototype.onResize = function() {
@@ -193,6 +230,19 @@
      * Button actions
      */
 
+    MarkdownEditor.prototype.togglePreview = function() {
+        if (!this.isPreview) {
+            this.updatePreview()
+        }
+        else {
+            this.editor.focus()
+        }
+
+        this.$el.toggleClass('is-preview', !this.isPreview)
+        $('.btn', this.$buttons).prop('disabled', !this.isPreview)
+        this.isPreview = !this.isPreview
+    }
+
     MarkdownEditor.prototype.insertLine = function(template) {
         var editor = this.editor,
             pos = this.editor.getCursorPosition()
@@ -204,13 +254,14 @@
             editor.navigateTo(editor.getSelectionRange().start.row, Number.MAX_VALUE)
         }
 
-        editor.insert('\n'+template+'\n')
+        editor.insert(template)
         editor.focus()
     }
 
     MarkdownEditor.DEFAULTS = {
         buttons: ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
-        viewMode: 'tab'
+        viewMode: 'tab',
+        refreshHandler: null
     }
 
     // PLUGIN DEFINITION
@@ -337,18 +388,18 @@
             label: 'markdowneditor.horizontalrule',
             icon: 'horizontalrule',
             action: 'insertLine',
-            template: '---'
+            template: '\n\n---\n'
         },
         fullscreen: {
             label: 'markdowneditor.fullscreen',
             icon: 'fullscreen',
-            action: 'fullscreen.toggle',
+            action: 'toggleFullscreen',
             fixed: true
         },
         preview: {
             label: 'markdowneditor.preview',
             cssClass: 'oc-button oc-icon-eye',
-            action: 'preview.toggle',
+            action: 'togglePreview',
             fixed: true
         }
     }

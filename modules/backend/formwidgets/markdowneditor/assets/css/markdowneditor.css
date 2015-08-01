@@ -5,8 +5,6 @@
   background: #fff;
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   border-radius: 5px;
 }
 .field-markdowneditor textarea {
@@ -20,23 +18,40 @@
 .field-markdowneditor.editor-focus {
   border: 1px solid #808c8d;
 }
-.field-markdowneditor.size-tiny .editor-write {
-  min-height: 50px;
+.field-markdowneditor.size-tiny .editor-write,
+.field-markdowneditor.size-tiny .editor-preview {
+  height: 50px;
 }
-.field-markdowneditor.size-small .editor-write {
-  min-height: 100px;
+.field-markdowneditor.size-small .editor-write,
+.field-markdowneditor.size-small .editor-preview {
+  height: 100px;
 }
-.field-markdowneditor.size-large .editor-write {
-  min-height: 200px;
+.field-markdowneditor.size-large .editor-write,
+.field-markdowneditor.size-large .editor-preview {
+  height: 200px;
 }
-.field-markdowneditor.size-huge .editor-write {
-  min-height: 250px;
+.field-markdowneditor.size-huge .editor-write,
+.field-markdowneditor.size-huge .editor-preview {
+  height: 250px;
 }
-.field-markdowneditor.size-giant .editor-write {
-  min-height: 350px;
+.field-markdowneditor.size-giant .editor-write,
+.field-markdowneditor.size-giant .editor-preview {
+  height: 350px;
 }
 .field-markdowneditor .editor-write {
   position: relative;
   margin: 15px;
 }
-
+.field-markdowneditor .editor-preview {
+  padding: 15px;
+}
+.field-markdowneditor.mode-tab .editor-preview {
+  overflow: auto;
+  display: none;
+}
+.field-markdowneditor.mode-tab.is-preview .editor-write {
+  display: none;
+}
+.field-markdowneditor.mode-tab.is-preview .editor-preview {
+  display: block;
+}

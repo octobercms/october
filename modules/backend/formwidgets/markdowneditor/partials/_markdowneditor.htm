@@ -5,6 +5,7 @@
     <div
         id="<?= $this->getId() ?>"
         class="field-markdowneditor size-<?= $size ?> <?= $stretch?'layout-relative':'' ?>"
+        data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
         data-control="markdowneditor">
 
         <div class="layout control-toolbar editor-toolbar"></div>

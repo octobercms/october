@@ -1,5 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
+use Markdown;
 use Backend\Models\EditorPreferences;
 use Backend\Classes\FormWidgetBase;
 
@@ -61,6 +62,16 @@ class MarkdownEditor extends FormWidgetBase
         $this->addCss('css/markdowneditor.css', 'core');
         $this->addJs('js/markdowneditor.js', 'core');
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
+    }
+
+    public function onRefresh()
+    {
+        $value = post($this->formField->getName());
+        $previewHtml = Markdown::parse($value);
+
+        return [
+            'preview' => $previewHtml
+        ];
     }
 
 }
