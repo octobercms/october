@@ -31,6 +31,120 @@
             this.$el.attr('id', 'element-' + Math.random().toString(36).substring(7))
         }
 
+
+        this.createCodeContainer()
+        this.createToolbar()
+
+        this.$toolbar.on('click', '.btn, .md-dropdown-button', this.proxy(this.onClickButton))
+
+        $('[data-control="tooltip"]', this.$toolbar).tooltip()
+        $('[data-toggle="dropdown"]', this.$toolbar).dropdown()
+    }
+
+    MarkdownEditor.prototype.dispose = function() {
+        this.$el.off('dispose-control', this.proxy(this.dispose))
+        this.$toolbar.off('click', '.btn, .md-dropdown-button', this.proxy(this.onClickButton))
+
+        this.$el.removeData('oc.markdownEditor')
+
+        this.$el = null
+        this.$textarea = null
+        this.$toolbar = null
+        this.$write = null
+        this.$preview = null
+        this.$code = null
+        this.editor = null
+        this.$form = null
+
+        this.options = null
+
+        BaseProto.dispose.call(this)
+    }
+
+    MarkdownEditor.prototype.onClickButton = function(ev) {
+        var $button = $(ev.target),
+            action = $button.data('button-action'),
+            template = $button.data('button-template')
+
+        this[action](template)
+    }
+
+    MarkdownEditor.prototype.createToolbar = function() {
+        var self = this,
+            $button,
+            $buttons = $('<div class="layout-cell toolbar-item" />'),
+            $fixedButtons = $('<div class="layout-cell toolbar-item width-fix" />')
+
+        $.each($.oc.markdownEditorButtons, function(code, button) {
+            $button = $('<button />').attr({
+                'type': "button",
+                'class': 'btn',
+                'title': $.oc.lang.get(button.label),
+                'data-control': "tooltip",
+                'data-placement': "bottom",
+                'data-container': "body",
+                'data-button-code': code,
+                'data-button-action': button.action
+            })
+
+            if (button.template) {
+                $button.attr('data-button-template', button.template)
+            }
+
+            if (button.cssClass) {
+                $button.addClass(button.cssClass)
+            }
+            else {
+                $button.addClass('tb-icon tb-' + button.icon)
+            }
+
+            if (button.fixed) {
+                $fixedButtons.append($button)
+            }
+            else {
+                $buttons.append($button)
+            }
+
+            if (button.dropdown) {
+                $button.attr('data-toggle', 'dropdown')
+                self.createToolbarDropdown(button, $button)
+            }
+        })
+
+        $buttons.wrapInner('<div data-control="toolbar" />')
+        this.$toolbar.append($buttons)
+        this.$toolbar.append($fixedButtons)
+    }
+
+    MarkdownEditor.prototype.createToolbarDropdown = function(button, $el) {
+        var $dropdown = $('<ul class="dropdown-menu" />'),
+            $childButton
+
+        $dropdown.attr('data-dropdown-title', $.oc.lang.get(button.label))
+        $.each(button.dropdown, function(code, childButton) {
+            $childButton = $('<a />').attr({
+                'href': 'javascript:;',
+                'class': 'md-dropdown-button',
+                'tabindex': '-1',
+                'data-button-code': code,
+                'data-button-action': childButton.action
+            })
+
+            if (childButton.cssClass) {
+                $childButton.addClass(childButton.cssClass)
+            }
+
+            $childButton.text($.oc.lang.get(childButton.label))
+
+            $dropdown.append($childButton)
+            $childButton.wrap('<li />')
+        })
+
+        $el.wrap('<div class="dropdown dropdown-fixed" />')
+        $el.after($dropdown)
+    }
+
+    MarkdownEditor.prototype.createCodeContainer = function() {
         /*
          * Create code container
          */
@@ -63,19 +177,6 @@
         editor.on('focus', this.proxy(this.onFocus))
     }
 
-    MarkdownEditor.prototype.dispose = function() {
-        this.$el.off('dispose-control', this.proxy(this.dispose))
-        this.$el.removeData('oc.markdownEditor')
-
-        this.$el = null
-
-        // In some cases options could contain callbacks, 
-        // so it's better to clean them up too.
-        this.options = null
-
-        BaseProto.dispose.call(this)
-    }
-
     MarkdownEditor.prototype.onResize = function() {
         this.editor.resize()
     }
@@ -86,6 +187,25 @@
 
     MarkdownEditor.prototype.onFocus = function() {
         this.$el.addClass('editor-focus')
+    }
+
+    /*
+     * Button actions
+     */
+
+    MarkdownEditor.prototype.insertLine = function(template) {
+        var editor = this.editor,
+            pos = this.editor.getCursorPosition()
+
+        if (pos.column == 0) {
+            editor.selection.clearSelection()
+        }
+        else {
+            editor.navigateTo(editor.getSelectionRange().start.row, Number.MAX_VALUE)
+        }
+
+        editor.insert('\n'+template+'\n')
+        editor.focus()
     }
 
     MarkdownEditor.DEFAULTS = {
@@ -216,18 +336,20 @@
         horizontalrule: {
             label: 'markdowneditor.horizontalrule',
             icon: 'horizontalrule',
-            action: 'line.insert',
+            action: 'insertLine',
             template: '---'
         },
         fullscreen: {
             label: 'markdowneditor.fullscreen',
             icon: 'fullscreen',
-            action: 'fullscreen.toggle'
+            action: 'fullscreen.toggle',
+            fixed: true
         },
         preview: {
             label: 'markdowneditor.preview',
             cssClass: 'oc-button oc-icon-eye',
-            action: 'preview.toggle'
+            action: 'preview.toggle',
+            fixed: true
         }
     }
 
