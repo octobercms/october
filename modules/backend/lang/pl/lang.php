@@ -259,6 +259,7 @@ return [
         'code_folding' => 'Zawijanie kodu',
         'word_wrap' => 'Zawijanie wierszy',
         'highlight_active_line' => 'Podświetl aktywne linie',
+        'auto_closing' => 'Automatycznie zamykaj tagi i specjalne znaki',
         'show_invisibles' => 'Pokaż niewidzialne znaki',
         'show_gutter' => 'Pokaż gutter',
         'theme' => 'Schemat kolorów'
