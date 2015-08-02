@@ -4,18 +4,20 @@
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
-        class="field-markdowneditor size-<?= $size ?> <?= $stretch?'layout-relative':'' ?>"
+        class="field-markdowneditor size-<?= $size ?> <?= $stretch?'layout-relative stretch':'' ?>"
+        data-control="markdowneditor"
         data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
-        data-control="markdowneditor">
+        data-view-mode="<?= $mode ?>"
+        data-vendor-path="<?= URL::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>">
 
         <div class="layout control-toolbar editor-toolbar"></div>
 
-        <div class="editor-write">
+
+        <div class="editor-write layout-cell">
             <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>"><?= e($value) ?></textarea>
         </div>
 
-        <div class="editor-preview">
-        </div>
+        <div class="editor-preview layout-cell"></div>
 
     </div>
 <?php endif ?>

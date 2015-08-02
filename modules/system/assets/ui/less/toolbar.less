@@ -149,6 +149,7 @@
                 background-color: @color-toolbar-editor-btn-bg-hover;
                 color: @color-toolbar-editor-btn-color-hover;
             }
+            &.active,
             &:active {
                 outline: none;
                 background-color: @color-toolbar-editor-btn-bg-active;
@@ -171,6 +172,14 @@
         .btn[class*=" oc-icon-"] {
             &:before {
                 margin: 0;
+            }
+        }
+
+        .btn.oc-autumn-button {
+            color: #c03f31;
+
+            &:hover {
+                color: white !important;
             }
         }
     }

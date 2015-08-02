@@ -14,6 +14,8 @@
         this.$form     = null
         this.$buttons  = null
         this.$fixedButtons = null
+        this.$indicator = null
+        this.editorPadding = 15
 
         $.oc.foundation.controlUtils.markDisposable(element)
         Base.call(this)
@@ -33,14 +35,17 @@
             this.$el.attr('id', 'element-' + Math.random().toString(36).substring(7))
         }
 
-        this.$el.addClass('mode-' + this.options.viewMode)
         this.$form = this.$el.closest('form')
 
         this.createCodeContainer()
         this.createToolbar()
+        this.createIndicator()
+        this.setViewMode(this.options.viewMode)
 
         this.$toolbar.on('click', '.btn, .md-dropdown-button', this.proxy(this.onClickToolbarButton))
         this.$form.on('oc.beforeRequest', this.proxy(this.onBeforeRequest))
+        this.editor.on('change', this.proxy(this.onEditorChange))
+        this.editor.getSession().on('changeScrollTop', this.proxy(this.onEditorScrollTop))
 
         $('[data-control="tooltip"]', this.$toolbar).tooltip()
         $('[data-toggle="dropdown"]', this.$toolbar).dropdown()
@@ -48,8 +53,11 @@
 
     MarkdownEditor.prototype.dispose = function() {
         this.$el.off('dispose-control', this.proxy(this.dispose))
+
         this.$toolbar.off('click', '.btn, .md-dropdown-button', this.proxy(this.onClickToolbarButton))
         this.$form.off('oc.beforeRequest', this.proxy(this.onBeforeRequest))
+        this.editor.off('change', this.proxy(this.onEditorChange))
+        $(window).off('resize', this.proxy(this.updateFullscreen))
 
         this.$el.removeData('oc.markdownEditor')
 
@@ -63,29 +71,16 @@
         this.$form = null
         this.$buttons = null
         this.$fixedButtons = null
+        this.$indicator = null
 
-        this.isSplitMode = false
-        this.isPreview = false
-        this.isFullscreen = false
+        this.isSplitMode = null
+        this.isPreview = null
+        this.isFullscreen = null
+        this.dataTrackInputTimer = null
 
         this.options = null
 
         BaseProto.dispose.call(this)
-    }
-
-    MarkdownEditor.prototype.onClickToolbarButton = function(ev) {
-        var $button = $(ev.target),
-            action = $button.data('button-action'),
-            template = $button.data('button-template')
-
-        $button.blur()
-
-        if (template) {
-            this[action](template)
-        }
-        else {
-            this[action]()
-        }
     }
 
     MarkdownEditor.prototype.createToolbar = function() {
@@ -152,6 +147,10 @@
                 'data-button-action': childButton.action
             })
 
+            if (childButton.template) {
+                $childButton.attr('data-button-template', childButton.template)
+            }
+
             if (childButton.cssClass) {
                 $childButton.addClass(childButton.cssClass)
             }
@@ -187,7 +186,21 @@
          */
         var editor = this.editor = ace.edit(this.$code.attr('id'))
 
+        // Fixes a weird notice about scrolling
+        editor.$blockScrolling = Infinity
+
         editor.getSession().setValue(this.$textarea.val())
+
+        /*
+         * Set theme, anticipated languages should be preloaded
+         */
+        assetManager.load({
+            js:[
+                this.options.vendorPath + '/theme-github.js'
+            ]
+        }, function(){
+            editor.setTheme('ace/theme/github')
+        })
 
         editor.getSession().setMode({ path: 'ace/mode/markdown' })
         editor.setHighlightActiveLine(false)
@@ -197,17 +210,88 @@
         editor.setFontSize(14)
         editor.on('blur', this.proxy(this.onBlur))
         editor.on('focus', this.proxy(this.onFocus))
+
+        // Set the vendor path for Ace's require path
+        ace.require('ace/config').set('basePath', this.options.vendorPath)
+
+        editor.renderer.setPadding(this.editorPadding)
+        editor.renderer.setScrollMargin(this.editorPadding, this.editorPadding, 0, 0)
+
+        setTimeout(function() {
+            editor.resize()
+        }, 100)
     }
 
-    MarkdownEditor.prototype.updatePreview = function() {
+    //
+    // Events
+    //
+
+    MarkdownEditor.prototype.onClickToolbarButton = function(ev) {
+        var $button = $(ev.target),
+            action = $button.data('button-action'),
+            template = $button.data('button-template')
+
+        $button.blur()
+
+        if (template) {
+            this[action](template)
+        }
+        else {
+            this[action]()
+        }
+    }
+
+    MarkdownEditor.prototype.onEditorScrollTop = function(scroll) {
+        if (!this.isSplitMode) return
+
+        var canvasHeight = this.$preview.height(),
+            editorHeight,
+            previewHeight,
+            scrollRatio
+
+        if (canvasHeight != this.$el.data('markdowneditor-canvas-height')) {
+
+            editorHeight =
+                (this.editor.getSession().getScreenLength() *
+                this.editor.renderer.lineHeight) -
+                canvasHeight
+
+            previewHeight = this.$preview.get(0).scrollHeight - canvasHeight
+
+            scrollRatio = previewHeight / editorHeight
+
+            this.$el.data('markdowneditor-canvas-height', canvasHeight)
+            this.$el.data('markdowneditor-scroll-ratio', scrollRatio)
+        }
+        else {
+            scrollRatio = this.$el.data('markdowneditor-scroll-ratio')
+        }
+
+        scroll += this.editorPadding
+        this.$preview.scrollTop(scroll * scrollRatio)
+    }
+
+    MarkdownEditor.prototype.onEditorChange = function() {
+        this.$form.trigger('change')
+
         var self = this
 
-        this.$el.request(this.options.refreshHandler, {
-            success: function(data) {
-                this.success(data)
-                self.$preview.html(data.preview)
+        if (!this.isSplitMode) return
+
+        if (this.loading) {
+            if (this.dataTrackInputTimer === undefined) {
+                this.dataTrackInputTimer = window.setInterval(function(){
+                    self.onEditorChange()
+                }, 100)
             }
-        })
+
+            return
+        }
+
+        window.clearTimeout(this.dataTrackInputTimer)
+        this.dataTrackInputTimer = undefined
+
+        self.updatePreview()
     }
 
     MarkdownEditor.prototype.onBeforeRequest = function() {
@@ -226,21 +310,171 @@
         this.$el.addClass('editor-focus')
     }
 
-    /*
-     * Button actions
-     */
+    //
+    // Preview
+    //
+
+    MarkdownEditor.prototype.updatePreview = function() {
+        var self = this
+
+        this.loading = true
+        this.showIndicator()
+
+        this.$el.request(this.options.refreshHandler, {
+            success: function(data) {
+                this.success(data)
+                self.$preview.html(data.preview)
+                self.initPreview()
+            }
+        }).done(function() {
+            self.hideIndicator()
+            self.loading = false
+        })
+    }
+
+    MarkdownEditor.prototype.initPreview = function() {
+        $('pre', this.$preview).addClass('prettyprint')
+        prettyPrint()
+    }
+
+    //
+    // Loader
+    //
+
+    MarkdownEditor.prototype.createIndicator = function() {
+        this.$indicator = $('<div class="editor-preview-loader"></div>')
+        this.$el.prepend(this.$indicator)
+        this.$indicator.css('display', 'none')
+    }
+
+    MarkdownEditor.prototype.showIndicator = function() {
+        this.$indicator.css('display', 'block')
+    }
+
+    MarkdownEditor.prototype.hideIndicator = function() {
+        this.$indicator.css('display', 'none')
+    }
+
+    //
+    // View mode
+    //
+
+    MarkdownEditor.prototype.setViewMode = function(value) {
+        this.isSplitMode = value == 'split'
+
+        $('[data-button-code="preview"]', this.$toolbar).toggle(!this.isSplitMode)
+
+        this.$el
+            .removeClass('mode-tab mode-split')
+            .addClass('mode-' + value)
+
+        if (this.isSplitMode) {
+            this.updatePreview()
+        }
+    }
+
+    //
+    // Full screen
+    //
+
+    MarkdownEditor.prototype.setFullscreen = function(value) {
+        this.isFullscreen = value
+        this.$el.toggleClass('is-fullscreen', value)
+
+        if (value) {
+            $('body, html').css('overflow', 'hidden')
+            this.updateFullscreen()
+            this.setViewMode('split')
+            $(window).on('resize', this.proxy(this.updateFullscreen))
+        }
+        else {
+            this.setViewMode(this.options.viewMode)
+
+            this.$preview.css('height', '')
+            this.$write.css('height', '')
+            $('body, html').css('overflow', '')
+
+            $(window).off('resize', this.proxy(this.updateFullscreen))
+            this.editor.resize()
+        }
+
+        $(window).trigger('oc.updateUi')
+    }
+
+    MarkdownEditor.prototype.updateFullscreen = function() {
+        if (!this.isFullscreen) return
+
+        var fullscreenCss = {
+            height: $(document).height() - this.$toolbar.outerHeight()
+        }
+
+        this.$preview.css(fullscreenCss)
+        this.$write.css(fullscreenCss)
+        this.editor.resize()
+    }
+
+    //
+    // Media Manager
+    //
+
+    MarkdownEditor.prototype.launchMediaManager = function(onSuccess) {
+        var self = this
+
+        new $.oc.mediaManager.popup({
+            alias: 'ocmediamanager',
+            cropAndInsertButton: true,
+            onInsert: function(items) {
+                if (!items.length) {
+                    alert('Please select image(s) to insert.')
+                    return
+                }
+
+                if (items.length > 1) {
+                    alert('Please select a single item.')
+                    return
+                }
+
+                var path, publicUrl
+                for (var i=0, len=items.length; i<len; i++) {
+                    path = items[i].path
+                    publicUrl = items[i].publicUrl
+                }
+
+                onSuccess(publicUrl)
+
+                this.hide()
+            }
+        })
+    }
+
+    //
+    // Button actions
+    //
+
+    MarkdownEditor.prototype.toggleFullscreen = function() {
+        this.setFullscreen(!this.isFullscreen)
+        if (this.isPreview) {
+            this.togglePreview()
+        }
+
+        this.editor.focus()
+        $('[data-button-code="fullscreen"]', this.$toolbar).toggleClass('active')
+    }
 
     MarkdownEditor.prototype.togglePreview = function() {
-        if (!this.isPreview) {
+        this.isPreview = !this.isPreview
+
+        if (this.isPreview) {
             this.updatePreview()
         }
         else {
             this.editor.focus()
         }
 
-        this.$el.toggleClass('is-preview', !this.isPreview)
-        $('.btn', this.$buttons).prop('disabled', !this.isPreview)
-        this.isPreview = !this.isPreview
+        this.$el.toggleClass('is-preview', this.isPreview)
+        $('.btn', this.$buttons).prop('disabled', this.isPreview)
+
+        $('[data-button-code="preview"]', this.$toolbar).toggleClass('active')
     }
 
     MarkdownEditor.prototype.insertLine = function(template) {
@@ -258,10 +492,97 @@
         editor.focus()
     }
 
+    MarkdownEditor.prototype.formatInline = function(template) {
+        var editor = this.editor,
+            pos = this.editor.getCursorPosition(),
+            text = editor.session.getTextRange(editor.selection.getRange()).trim()
+
+        if (!text.length) {
+            editor.selection.selectWord()
+            text = editor.session.getTextRange(editor.selection.getRange()).trim()
+        }
+
+        editor.insert(template.replace('$1', text))
+        editor.moveCursorToPosition(pos)
+
+        if (template.indexOf('$1') != -1) {
+            editor.navigateRight(template.indexOf('$1'))
+        }
+
+        editor.focus()
+    }
+
+    MarkdownEditor.prototype.formatBlock = function(template) {
+        var editor = this.editor,
+            pos = this.editor.getCursorPosition(),
+            text = editor.session.getTextRange(editor.selection.getRange()).trim()
+
+        if (!text.length) {
+            editor.navigateTo(editor.getSelectionRange().start.row, 0)
+            editor.selection.selectLineEnd()
+            text = editor.session.getTextRange(editor.selection.getRange()).trim()
+        }
+        else {
+            editor.insert('\n')
+        }
+
+        editor.insert(template.replace('$1', text))
+        editor.moveCursorToPosition(pos)
+
+        if (template.indexOf('$1') != -1) {
+            editor.navigateRight(template.indexOf('$1'))
+        }
+
+        editor.focus()
+    }
+
+    MarkdownEditor.prototype.formatBlockMulti = function(template) {
+        var editor = this.editor,
+            pos = this.editor.getCursorPosition(),
+            text = editor.session.getTextRange(editor.selection.getRange()).trim()
+
+        if (!text.length) {
+            editor.navigateTo(editor.getSelectionRange().start.row, 0)
+            editor.selection.selectLineEnd()
+        }
+
+        var range = editor.selection.getRange()
+        for (var i = range.start.row + 1; i < range.end.row + 2; i++) {
+            editor.gotoLine(i);
+            editor.insert(template.replace('$1', ''));
+        }
+
+        editor.moveCursorToPosition(pos)
+        editor.focus()
+    }
+
+    MarkdownEditor.prototype.formatMediaManager = function(template) {
+        var self = this,
+            editor = this.editor,
+            pos = this.editor.getCursorPosition(),
+            text = editor.session.getTextRange(editor.selection.getRange()).trim()
+
+        if (!text.length) {
+            editor.selection.selectWord()
+            text = editor.session.getTextRange(editor.selection.getRange()).trim()
+        }
+
+        this.launchMediaManager(function(path) {
+            editor.insert(template.replace('$1', text).replace('$2', path));
+            editor.moveCursorToPosition(pos)
+            editor.focus()
+
+            if (!text.length && template.indexOf('$1') != -1) {
+                editor.navigateRight(template.indexOf('$1'))
+            }
+        })
+    }
+
     MarkdownEditor.DEFAULTS = {
+        vendorPath: '/',
+        refreshHandler: null,
         buttons: ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
-        viewMode: 'tab',
-        refreshHandler: null
+        viewMode: 'tab'
     }
 
     // PLUGIN DEFINITION
@@ -307,49 +628,49 @@
                 quote: {
                     label: 'markdowneditor.quote',
                     cssClass: 'oc-button oc-icon-quote-right',
-                    action: 'list.toggle',
+                    action: 'formatBlockMulti',
                     template: '> $1'
                 },
                 code: {
                     label: 'markdowneditor.code',
                     cssClass: 'oc-button oc-icon-code',
-                    action: 'block.format',
-                    template: '```$1```'
+                    action: 'formatBlock',
+                    template: '\n```\n$1\n```\n'
                 },
                 header1: {
                     label: 'markdowneditor.header1',
                     cssClass: 'oc-button oc-icon-header',
-                    action: 'block.format',
+                    action: 'formatBlock',
                     template: '# $1'
                 },
                 header2: {
                     label: 'markdowneditor.header2',
                     cssClass: 'oc-button oc-icon-header',
-                    action: 'block.format',
+                    action: 'formatBlock',
                     template: '## $1'
                 },
                 header3: {
                     label: 'markdowneditor.header3',
                     cssClass: 'oc-button oc-icon-header',
-                    action: 'block.format',
+                    action: 'formatBlock',
                     template: '### $1'
                 },
                 header4: {
                     label: 'markdowneditor.header4',
                     cssClass: 'oc-button oc-icon-header',
-                    action: 'block.format',
+                    action: 'formatBlock',
                     template: '#### $1'
                 },
                 header5: {
                     label: 'markdowneditor.header5',
                     cssClass: 'oc-button oc-icon-header',
-                    action: 'block.format',
+                    action: 'formatBlock',
                     template: '##### $1'
                 },
                 header6: {
                     label: 'markdowneditor.header6',
                     cssClass: 'oc-button oc-icon-header',
-                    action: 'block.format',
+                    action: 'formatBlock',
                     template: '###### $1'
                 }
             }
@@ -357,38 +678,56 @@
         bold: {
             label: 'markdowneditor.bold',
             icon: 'bold',
-            action: 'inline.format',
+            action: 'formatInline',
             template: '**$1**'
         },
         italic: {
             label: 'markdowneditor.italic',
             icon: 'italic',
-            action: 'inline.format',
+            action: 'formatInline',
             template: '*$1*'
         },
         unorderedlist: {
             label: 'markdowneditor.unorderedlist',
             icon: 'unorderedlist',
-            action: 'list.toggle',
+            action: 'formatBlockMulti',
             template: '* $1'
         },
         orderedlist: {
             label: 'markdowneditor.orderedlist',
             icon: 'orderedlist',
-            action: 'list.toggle',
+            action: 'formatBlockMulti',
             template: '1. $1'
         },
         link: {
             label: 'markdowneditor.link',
             icon: 'link',
-            action: 'inline.format',
+            action: 'formatInline',
             template: '[$1](http://)'
+        },
+        image: {
+            label: 'markdowneditor.image',
+            icon: 'image',
+            action: 'formatInline',
+            template: '![$1](http://)'
         },
         horizontalrule: {
             label: 'markdowneditor.horizontalrule',
             icon: 'horizontalrule',
             action: 'insertLine',
             template: '\n\n---\n'
+        },
+        medialink: {
+            label: 'mediamanager.insert_link',
+            cssClass: 'oc-autumn-button oc-icon-link',
+            action: 'formatMediaManager',
+            template: '[$1]($2)'
+        },
+        mediaimage: {
+            label: 'mediamanager.insert_image',
+            cssClass: 'oc-autumn-button oc-icon-image',
+            action: 'formatMediaManager',
+            template: '![$1]($2)'
         },
         fullscreen: {
             label: 'markdowneditor.fullscreen',

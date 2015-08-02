@@ -17,6 +17,11 @@ class MarkdownEditor extends FormWidgetBase
     // Configurable properties
     //
 
+    /**
+     * @var bool Display mode: split, tab.
+     */
+    public $mode = 'tab';
+
     //
     // Object properties
     //
@@ -31,7 +36,9 @@ class MarkdownEditor extends FormWidgetBase
      */
     public function init()
     {
-        $this->fillFromConfig([]);
+        $this->fillFromConfig([
+            'mode',
+        ]);
     }
 
     /**
@@ -48,6 +55,7 @@ class MarkdownEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['mode'] = $this->mode;
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->formField->getName();
