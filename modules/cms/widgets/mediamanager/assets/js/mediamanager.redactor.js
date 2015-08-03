@@ -14,26 +14,26 @@ RedactorPlugins.mediamanager = function()
         init: function()
         {
             // Insert link button
-            var buttonInsertLink = this.button.add('mmInsertMediaLink', 'Insert Media Link');
+            var buttonInsertLink = this.button.add('mmInsertMediaLink', $.oc.lang.get('mediamanager.insert_link'));
 
             this.button.setAwesome('mmInsertMediaLink', 'icon-link');
             buttonInsertLink.addClass('oc-redactor-button oc-autumn-button')
             this.button.addCallback(buttonInsertLink, this.mediamanager.onInsertLink);
 
             // Insert image button
-            var buttonInsertImage = this.button.add('mmInsertImageLink', 'Insert Media Image');
+            var buttonInsertImage = this.button.add('mmInsertImageLink', $.oc.lang.get('mediamanager.insert_image'));
             buttonInsertImage.addClass('re-image oc-autumn-button')
             buttonInsertImage.removeClass('redactor-btn-image')
             this.button.addCallback(buttonInsertImage, this.mediamanager.onInsertImage);
 
             // Insert video button
-            var buttonInsertVideo = this.button.add('mmInsertVideoLink', 'Insert Media Video');
+            var buttonInsertVideo = this.button.add('mmInsertVideoLink', $.oc.lang.get('mediamanager.insert_video'));
             buttonInsertVideo.addClass('re-video oc-autumn-button')
             buttonInsertVideo.removeClass('redactor-btn-image')
             this.button.addCallback(buttonInsertVideo, this.mediamanager.onInsertVideo);
 
             // Insert audio button
-            var buttonInsertAudio = this.button.add('mmInsertAudioLink', 'Insert Media Audio');
+            var buttonInsertAudio = this.button.add('mmInsertAudioLink', $.oc.lang.get('mediamanager.insert_audio'));
             this.button.setAwesome('mmInsertAudioLink', 'icon-volume-up');
             buttonInsertAudio.addClass('oc-redactor-button oc-autumn-button')
             this.button.addCallback(buttonInsertAudio, this.mediamanager.onInsertAudio);
@@ -52,12 +52,12 @@ RedactorPlugins.mediamanager = function()
                 cropAndInsertButton: false,
                 onInsert: function(items) {
                     if (!items.length) {
-                        alert('Please select file to insert a links to.')
+                        alert($.oc.lang.get('mediamanager.invalid_file_empty_insert'))
                         return
                     }
 
                     if (items.length > 1) {
-                        alert('Please select a single file.')
+                        alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
                         return
                     }
 
