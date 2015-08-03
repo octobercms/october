@@ -2,20 +2,20 @@
 if(!RedactorPlugins)var RedactorPlugins={};RedactorPlugins.mediamanager=function()
 {function hideLinkTooltips(){$('.redactor-link-tooltip').remove()}
 return{init:function()
-{var buttonInsertLink=this.button.add('mmInsertMediaLink','Insert Media Link');this.button.setAwesome('mmInsertMediaLink','icon-link');buttonInsertLink.addClass('oc-redactor-button oc-autumn-button')
-this.button.addCallback(buttonInsertLink,this.mediamanager.onInsertLink);var buttonInsertImage=this.button.add('mmInsertImageLink','Insert Media Image');buttonInsertImage.addClass('re-image oc-autumn-button')
+{var buttonInsertLink=this.button.add('mmInsertMediaLink',$.oc.lang.get('mediamanager.insert_link'));this.button.setAwesome('mmInsertMediaLink','icon-link');buttonInsertLink.addClass('oc-redactor-button oc-autumn-button')
+this.button.addCallback(buttonInsertLink,this.mediamanager.onInsertLink);var buttonInsertImage=this.button.add('mmInsertImageLink',$.oc.lang.get('mediamanager.insert_image'));buttonInsertImage.addClass('re-image oc-autumn-button')
 buttonInsertImage.removeClass('redactor-btn-image')
-this.button.addCallback(buttonInsertImage,this.mediamanager.onInsertImage);var buttonInsertVideo=this.button.add('mmInsertVideoLink','Insert Media Video');buttonInsertVideo.addClass('re-video oc-autumn-button')
+this.button.addCallback(buttonInsertImage,this.mediamanager.onInsertImage);var buttonInsertVideo=this.button.add('mmInsertVideoLink',$.oc.lang.get('mediamanager.insert_video'));buttonInsertVideo.addClass('re-video oc-autumn-button')
 buttonInsertVideo.removeClass('redactor-btn-image')
-this.button.addCallback(buttonInsertVideo,this.mediamanager.onInsertVideo);var buttonInsertAudio=this.button.add('mmInsertAudioLink','Insert Media Audio');this.button.setAwesome('mmInsertAudioLink','icon-volume-up');buttonInsertAudio.addClass('oc-redactor-button oc-autumn-button')
+this.button.addCallback(buttonInsertVideo,this.mediamanager.onInsertVideo);var buttonInsertAudio=this.button.add('mmInsertAudioLink',$.oc.lang.get('mediamanager.insert_audio'));this.button.setAwesome('mmInsertAudioLink','icon-volume-up');buttonInsertAudio.addClass('oc-redactor-button oc-autumn-button')
 this.button.addCallback(buttonInsertAudio,this.mediamanager.onInsertAudio);},onInsertLink:function(buttonName)
 {var that=this
 hideLinkTooltips()
 this.selection.save()
 this.link.getData()
-new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:false,onInsert:function(items){if(!items.length){alert('Please select file to insert a links to.')
+new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:false,onInsert:function(items){if(!items.length){alert($.oc.lang.get('mediamanager.invalid_file_empty_insert'))
 return}
-if(items.length>1){alert('Please select a single file.')
+if(items.length>1){alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
 return}
 var text=that.link.text,textIsEmpty=$.trim(text)===''
 for(var i=0,len=items.length;i<len;i++){var text=textIsEmpty?items[i].title:text

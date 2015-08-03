@@ -496,7 +496,10 @@ class CombineAssets
 
             if ($extension == 'less') {
                 $cssPath = $path.'/../css';
-                if (File::isDirectory(File::symbolizePath($cssPath))) {
+                if (
+                    strtolower(basename($path)) == 'less' &&
+                    File::isDirectory(File::symbolizePath($cssPath))
+                ) {
                     $path = $cssPath;
                 }
                 $destination = $path.'/'.$file.'.css';

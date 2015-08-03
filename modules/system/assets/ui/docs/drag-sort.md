@@ -1,8 +1,34 @@
 # Drag.Sort
 
-Allows the dragging of things.
+Allows the dragging and sorting of lists.
 
-### JavaScript API:
+### Example
+
+Sort the buttons
+
+    <ol id="sortExample">
+        <li><a class="btn btn-sm btn-default">First</a></li>
+        <li><a class="btn btn-sm btn-primary">Second</a></li>
+        <li><a class="btn btn-sm btn-success">Third</a></li>
+    </ol>
+
+    <script>
+        $('#sortExample').sortable()
+    </script>
+
+    <style>
+        body.dragging, body.dragging * {
+            cursor: move !important
+        }
+        .dragged {
+            position: absolute; opacity: 0.5; z-index: 2000;
+        }
+        #sortExample li.placeholder {
+            position: relative;
+        }
+    </style>
+
+## JavaScript API:
 
 The `sortable()` method must be invoked on valid containers, meaning they must match the containerSelector option.
 
@@ -80,27 +106,3 @@ Serialize all selected containers. Returns a jQuery object . Use .get() to retri
 - `nested`: If true, search for nested containers within an item.If you nest containers, either the original selector with which you call the plugin must only match the top containers, or you need to specify a group (see the bootstrap nav example)
 
 - `vertical`: If true, the items are assumed to be arranged vertically
-
-# Example
-
-    <ol id="sortExample">
-        <li>First</li>
-        <li>Second</li>
-        <li>Third</li>
-    </ol>
-
-    <script>
-        $('#sortExample').sortable()
-    </script>
-
-    <style>
-        body.dragging, body.dragging * {
-            cursor: move !important
-        }
-        .dragged {
-            position: absolute; opacity: 0.5; z-index: 2000;
-        }
-        #sortExample li.placeholder {
-            position: relative;
-        }
-    </style>

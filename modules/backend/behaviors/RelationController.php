@@ -877,9 +877,9 @@ class RelationController extends ControllerBehavior
         $this->forceManageMode = 'form';
         $this->beforeAjax();
         $saveData = $this->manageWidget->getSaveData();
+        $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey(true) : null;
 
         if ($this->viewMode == 'multi') {
-            $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey(true) : null;
 
             if ($this->relationType == 'hasMany') {
                 $newModel = $this->relationObject->create($saveData, $sessionKey);
@@ -894,13 +894,24 @@ class RelationController extends ControllerBehavior
             $newModel = $this->viewModel;
             $this->viewWidget->setFormValues($saveData);
 
-            if ($this->relationType == 'belongsTo') {
+            /*
+             * Has one relations will save as part of the add() call.
+             */
+            if ($this->deferredBinding || $this->relationType != 'hasOne') {
                 $newModel->save();
-                $this->relationObject->associate($newModel);
-                $this->relationObject->getParent()->save();
             }
-            elseif ($this->relationType == 'hasOne') {
-                $this->relationObject->add($newModel);
+
+            $this->relationObject->add($newModel, $sessionKey);
+
+            /*
+             * Belongs to relations won't save when using add() so
+             * it should occur if the conditions are right.
+             */
+            if (!$this->deferredBinding && $this->relationType == 'belongsTo') {
+                $parentModel = $this->relationObject->getParent();
+                if ($parentModel->exists) {
+                    $parentModel->save();
+                }
             }
         }
 
@@ -975,6 +986,7 @@ class RelationController extends ControllerBehavior
         $this->beforeAjax();
 
         $recordId = post('record_id');
+        $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey() : null;
 
         /*
          * Add
@@ -993,11 +1005,6 @@ class RelationController extends ControllerBehavior
 
                 $models = $this->relationModel->whereIn($foreignKeyName, $checkedIds)->get();
                 foreach ($models as $model) {
-
-                    $sessionKey = $this->deferredBinding
-                        ? $this->relationGetSessionKey()
-                        : null;
-
                     $this->relationObject->add($model, $sessionKey);
                 }
             }
@@ -1009,14 +1016,19 @@ class RelationController extends ControllerBehavior
         elseif ($this->viewMode == 'single') {
             if ($recordId && ($model = $this->relationModel->find($recordId))) {
 
-                if ($this->relationType == 'belongsTo') {
-                    $this->relationObject->associate($model);
-                    $this->relationObject->getParent()->save();
-                }
-                elseif ($this->relationType == 'hasOne') {
-                    $this->relationObject->add($model);
-                }
+                $this->relationObject->add($model, $sessionKey);
                 $this->viewWidget->setFormValues($model->attributes);
+
+                /*
+                 * Belongs to relations won't save when using add() so
+                 * it should occur if the conditions are right.
+                 */
+                if (!$this->deferredBinding && $this->relationType == 'belongsTo') {
+                    $parentModel = $this->relationObject->getParent();
+                    if ($parentModel->exists) {
+                        $parentModel->save();
+                    }
+                }
 
             }
         }

@@ -36,6 +36,8 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 
                 var button = this.button.addBefore('link', 'table', this.lang.get('table'));
                 this.button.addDropdown(button, dropdown);
+
+                button.addClass('redactor_btn_table').removeClass('redactor-btn-image')
             },
             show: function()
             {
