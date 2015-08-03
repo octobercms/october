@@ -100,7 +100,7 @@ class NavigationManager
         /*
          * Sort menu items
          */
-        usort($this->items, function ($a, $b) {
+        uasort($this->items, function ($a, $b) {
             return $a->order - $b->order;
         });
 
@@ -127,7 +127,7 @@ class NavigationManager
             /*
              * Sort side menu items
              */
-            usort($item->sideMenu, function ($a, $b) {
+            uasort($item->sideMenu, function ($a, $b) {
                 return $a->order - $b->order;
             });
 
@@ -461,6 +461,10 @@ class NavigationManager
      */
     protected function filterItemPermissions($user, array $items)
     {
+        if (!$user) {
+            return $items;
+        }
+
         $items = array_filter($items, function ($item) use ($user) {
             if (!$item->permissions || !count($item->permissions)) {
                 return true;

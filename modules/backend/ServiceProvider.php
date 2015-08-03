@@ -131,6 +131,10 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Rich editor',
                 'code'  => 'richeditor'
             ]);
+            $manager->registerFormWidget('Backend\FormWidgets\MarkdownEditor', [
+                'label' => 'Markdown editor',
+                'code'  => 'markdown'
+            ]);
             $manager->registerFormWidget('Backend\FormWidgets\FileUpload', [
                 'label' => 'File uploader',
                 'code'  => 'fileupload'

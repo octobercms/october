@@ -1,14 +1,20 @@
 # Input Hotkey API
 
-Scripts that manage user input events.
+Allows keyboard shortcuts (hotkeys) to be bound to an element's click event.
 
 # Example
 
-    <button data-hotkey="b" onclick="alert('B is for Banana!')">
+    <button
+        class="btn btn-default"
+        data-hotkey="b"
+        onclick="alert('B is for Banana!')">
         Press "B" on your keyboard
     </button>
 
-    <button data-hotkey="shift+r" onclick="confirm('Shift gears...?')">
+    <button
+        class="btn btn-default"
+        data-hotkey="shift+r"
+        onclick="confirm('Shift gears...?')">
         Press "Shift + R" on your keyboard
     </button>
 

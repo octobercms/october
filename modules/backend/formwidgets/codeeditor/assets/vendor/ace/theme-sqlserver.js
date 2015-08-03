@@ -2,10 +2,7 @@ ace.define("ace/theme/sqlserver",["require","exports","module","ace/lib/dom"], f
 
 exports.isDark = false;
 exports.cssClass = "ace-sqlserver";
-exports.cssText = ".ace_line {\
-font-family: Consolas;\
-}\
-.ace-sqlserver .ace_gutter {\
+exports.cssText = ".ace-sqlserver .ace_gutter {\
 background: #ebebeb;\
 color: #333;\
 overflow: hidden;\

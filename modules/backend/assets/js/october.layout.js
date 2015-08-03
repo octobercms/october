@@ -13,16 +13,26 @@
     }
 
     OctoberLayout.prototype.updateLayout = function(title) {
-        $('.layout-cell.width-fix').each(function(){
-            var $el = $(this).children();
-            if ($el.length > 0) {
-                var margin = $el.data('oc.layoutMargin');
-                if (margin === undefined) {
-                    margin = parseInt($el.css('marginRight')) + parseInt($el.css('marginLeft'))
-                    $el.data('oc.layoutMargin', margin)
-                }
+        var $children, $el, fixedWidth, margin
 
-                $(this).width($el.get(0).offsetWidth + margin)
+        $('.layout-cell.width-fix').each(function(){
+            $children = $(this).children()
+
+            if ($children.length > 0) {
+                fixedWidth = 0
+
+                $children.each(function() {
+                    $el = $(this)
+                    margin = $el.data('oc.layoutMargin')
+
+                    if (margin === undefined) {
+                        margin = parseInt($el.css('marginRight')) + parseInt($el.css('marginLeft'))
+                        $el.data('oc.layoutMargin', margin)
+                    }
+                    fixedWidth += $el.get(0).offsetWidth + margin
+                })
+
+                $(this).width(fixedWidth)
                 $(this).trigger('oc.widthFixed')
             }
         })

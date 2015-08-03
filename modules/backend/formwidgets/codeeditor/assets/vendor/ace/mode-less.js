@@ -188,7 +188,7 @@ var LessHighlightRules = function() {
                 regex: "\\.[a-z0-9-_]+"
             }, {
                 token: "variable.language",
-                regex: ":[a-z0-9-_]+"
+                regex: ":[a-z_][a-z0-9-_]*"
             }, {
                 token: "constant",
                 regex: "[a-z0-9-_]+"
@@ -507,8 +507,8 @@ var CstyleBehaviour = function() {
                 if (leftChar == "\\" && token && /escape/.test(token.type))
                     return null;
                 
-                var stringBefore = token && /string/.test(token.type);
-                var stringAfter = !rightToken || /string/.test(rightToken.type);
+                var stringBefore = token && /string|escape/.test(token.type);
+                var stringAfter = !rightToken || /string|escape/.test(rightToken.type);
                 
                 var pair;
                 if (rightChar == quote) {

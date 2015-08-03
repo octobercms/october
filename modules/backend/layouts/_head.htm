@@ -7,12 +7,17 @@
 <title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s' : e($this->pageTitleTemplate) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?>">
     <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?>
 </title>
-
-<link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>" rel="stylesheet">
-<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>"></script>
-<script src="<?= URL::asset('modules/system/assets/js/framework.js') ?>"></script>
-<script src="<?= Backend::skinAsset('assets/js/october-min.js') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>"></script>
+<?php
+    $coreBuild = System\Models\Parameters::get('system::core.build', 1);
+?>
+<link href="<?= URL::asset('modules/system/assets/ui/storm.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
+<link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
+<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= URL::asset('modules/system/assets/js/framework.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= URL::asset('modules/system/assets/ui/storm-min.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october-min.js') ?>?v<?= $coreBuild ?>"></script>
 <script src="<?= URL::asset('modules/cms/widgets/mediamanager/assets/js/mediamanager-global-min.js') ?>"></script>
+<script src="<?= URL::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
 
 <script src="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>"></script>
 

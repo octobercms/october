@@ -1,8 +1,6 @@
 # Scoreboard
 
-Scoreboard
-
-# Example
+### Scoreboard
 
     <div class="scoreboard">
         <div data-control="toolbar">
