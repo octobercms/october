@@ -46,6 +46,7 @@ return [
         'array'   => ':attribute não pode ter mais que :max itens.',
     ],
     'mimes'            => ':attribute deve ser um arquivo do tipo: :values.',
+    "extensions"       => "O :attribute deve conter uma extensão: :values.",
     'min'              => [
         'numeric' => ':attribute deve ser no mínimo :min.',
         'file'    => ':attribute deve ter pelo menos :min kilobytes.',
