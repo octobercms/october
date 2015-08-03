@@ -46,6 +46,7 @@ return array(
         "array"   => ":attribute 不能超过 :max 个.",
     ),
     "mimes"            => ":attribute 必须是一个: :values 类型的文件.",
+    "extensions"       => ":attribute 必须有一个扩展： :values.",
     "min"              => array(
         "numeric" => ":attribute 必须至少 :min.",
         "file"    => ":attribute 必须至少 :min kilobytes.",
