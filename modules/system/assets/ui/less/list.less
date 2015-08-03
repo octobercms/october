@@ -9,9 +9,7 @@
 // Lists
 // --------------------------------------------------
 
-@import "list.variables.less";
 @import "list.rowlink.less";
-@import "list.mixins.less";
 @import "list.base.less";
 
 //
@@ -278,16 +276,24 @@ table.table.data {
         }
     }
 
-    // Tree levels 1 - 25
-    .makeTreeLevel(@count) when (@count < 26) {
+    // Tree levels 1 - 10
+    .makeTreeLevel(@count) {
         tr.list-tree-level-@{count} {
             a.list-expand-collapse { left: 20px + (10 * @count); }
             td.list-cell-index-1 { padding-left: 25px + (10 * @count); }
         }
-        .makeTreeLevel(@count + 1);
     }
-    .makeTreeLevel(1);
 
+    .makeTreeLevel(1);
+    .makeTreeLevel(2);
+    .makeTreeLevel(3);
+    .makeTreeLevel(4);
+    .makeTreeLevel(5);
+    .makeTreeLevel(6);
+    .makeTreeLevel(7);
+    .makeTreeLevel(8);
+    .makeTreeLevel(9);
+    .makeTreeLevel(10);
 }
 
 //
@@ -413,7 +419,7 @@ table.table.data {
 
 @media only screen and (max-width: 960px) {
 
-    .control-list {
+    .control-list:not(.list-unresponsive) {
         table, thead, tbody, th, td, tr {
             display: block;
         }

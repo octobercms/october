@@ -7,19 +7,21 @@
 
 @text-color:            @gray-dark;
 
-// Dupe
-@link-color:            @brand-primary;
-@color-link:                                 #0181b9;
+// Old
+// @link-color:                     darken(@brand-primary, 15%);
+// @link-hover-color:               darken(@link-color, 30%);
 
-@link-hover-color:      darken(@link-color, 15%);
+@link-color:                     #0181b9;
+@link-hover-color:               darken(@link-color, 30%);
+
 @link-hover-decoration: underline;
 
 //
 // Paths
 // --------------------------------------------------
 
-@font-path: "../font";
-@image-path: "../images";
+@font-path: "font";
+@image-path: "images";
 
 //
 // Breakpoints
@@ -127,7 +129,7 @@
 @gray-light:             lighten(#000, 60%);   // #999
 @gray-lighter:           lighten(#000, 93.5%); // #eee
 
-@brand-primary:         #428bca;
+@brand-primary:         #5fb6f5;
 @brand-success:         #5cb85c;
 @brand-info:            #5bc0de;
 @brand-warning:         #f0ad4e;
@@ -167,7 +169,7 @@
 @line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
 @line-height-small:         1.5;
 
-@border-radius-base:        4px;
+@border-radius-base:        2px;
 @border-radius-large:       6px;
 @border-radius-small:       3px;
 

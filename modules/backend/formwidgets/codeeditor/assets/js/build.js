@@ -6,7 +6,7 @@
  *
  * @see build-min.js
  *
- * Current Ace build v1.1.9 using "src-noconflict"
+ * Current Ace build v1.2.0 using "src-noconflict"
  * https://github.com/ajaxorg/ace-builds/
  *
 

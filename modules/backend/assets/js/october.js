@@ -15,9 +15,9 @@
 =require ../vendor/dropzone/dropzone.js
 =require ../vendor/sweet-alert/sweet-alert.js
 =require ../vendor/jcrop/js/jquery.Jcrop.js
+=require ../../../system/assets/vendor/prettify/prettify.js
 
-=require ../../../system/assets/ui/storm.js
-
+=require october.lang.js
 =require october.scrollpad.js
 =require october.verticalmenu.js
 =require october.navbar.js

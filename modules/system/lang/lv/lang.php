@@ -154,7 +154,7 @@ return [
         'mailgun_secret_comment' => 'Ievadiet savu Mailgun API kodu.',
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill Secret',
-        'mandrill_secret_comment' => 'Ievadiet savu Mandrill API kodu.'
+        'mandrill_secret_comment' => 'Ievadiet savu Mandrill API kodu.',
         'drivers_hint_header' => 'Dziņi nav instalēti',
         'drivers_hint_content' => 'Šai pasta metodei nepieciešams spraudnis ":plugin" instalējiet to pirms pasta sūtīšanas.'
     ],

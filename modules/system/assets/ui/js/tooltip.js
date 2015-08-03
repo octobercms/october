@@ -20,7 +20,7 @@
 (function($){
 
     $(document).render(function(){
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-control="tooltip"], [data-toggle="tooltip"]').tooltip()
     })
 
 })(jQuery);

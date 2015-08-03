@@ -6,7 +6,6 @@ use Event;
 use Config;
 use Backend;
 use Request;
-use DbDongle;
 use Validator;
 use BackendMenu;
 use BackendAuth;
@@ -244,7 +243,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerLogging()
     {
         Event::listen('illuminate.log', function ($level, $message, $context) {
-            if (DbDongle::hasDatabase() && !defined('OCTOBER_NO_EVENT_LOGGING')) {
+            if (EventLog::useLogging()) {
                 EventLog::add($message, $level);
             }
         });
@@ -448,6 +447,8 @@ class ServiceProvider extends ModuleServiceProvider
          */
         CombineAssets::registerCallback(function($combiner) {
             $combiner->registerBundle('~/modules/system/assets/less/styles.less');
+            $combiner->registerBundle('~/modules/system/assets/ui/storm.less');
+            $combiner->registerBundle('~/modules/system/assets/ui/storm.js');
         });
     }
 

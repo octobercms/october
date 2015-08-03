@@ -1,8 +1,9 @@
 "no use strict";
 ;(function(window) {
-if (typeof window.window != "undefined" && window.document) {
+if (typeof window.window != "undefined" && window.document)
     return;
-}
+if (window.require && window.define)
+    return;
 
 window.console = function() {
     var msgs = Array.prototype.slice.call(arguments, 0);
@@ -19,6 +20,7 @@ window.ace = window;
 window.onerror = function(message, file, line, col, err) {
     postMessage({type: "error", data: {
         message: message,
+        data: err.data,
         file: file,
         line: line, 
         col: col,
@@ -37,7 +39,7 @@ window.normalizeModule = function(parentId, moduleName) {
         var base = parentId.split("/").slice(0, -1).join("/");
         moduleName = (base ? base + "/" : "") + moduleName;
         
-        while(moduleName.indexOf(".") !== -1 && previous != moduleName) {
+        while (moduleName.indexOf(".") !== -1 && previous != moduleName) {
             var previous = moduleName;
             moduleName = moduleName.replace(/^\.\//, "").replace(/\/\.\//, "/").replace(/[^\/]+\/\.\.\//, "");
         }
@@ -46,7 +48,7 @@ window.normalizeModule = function(parentId, moduleName) {
     return moduleName;
 };
 
-window.require = function(parentId, id) {
+window.require = function require(parentId, id) {
     if (!id) {
         id = parentId;
         parentId = null;
@@ -64,17 +66,36 @@ window.require = function(parentId, id) {
         }
         return module.exports;
     }
-    
-    var chunks = id.split("/");
+   
     if (!window.require.tlns)
         return console.log("unable to load " + id);
-    chunks[0] = window.require.tlns[chunks[0]] || chunks[0];
-    var path = chunks.join("/") + ".js";
+    
+    var path = resolveModuleId(id, window.require.tlns);
+    if (path.slice(-3) != ".js") path += ".js";
     
     window.require.id = id;
+    window.require.modules[id] = {}; // prevent infinite loop on broken modules
     importScripts(path);
     return window.require(parentId, id);
 };
+function resolveModuleId(id, paths) {
+    var testPath = id, tail = "";
+    while (testPath) {
+        var alias = paths[testPath];
+        if (typeof alias == "string") {
+            return alias + tail;
+        } else if (alias) {
+            return  alias.location.replace(/\/*$/, "/") + (tail || alias.main || alias.name);
+        } else if (alias === false) {
+            return "";
+        }
+        var i = testPath.lastIndexOf("/");
+        if (i === -1) break;
+        tail = testPath.substr(i) + tail;
+        testPath = testPath.slice(0, i);
+    }
+    return id;
+}
 window.require.modules = {};
 window.require.tlns = {};
 
@@ -100,9 +121,9 @@ window.define = function(id, deps, factory) {
     }
 
     if (!deps.length)
-        // If there is no dependencies, we inject 'require', 'exports' and
-        // 'module' as dependencies, to provide CommonJS compatibility.
-        deps = ['require', 'exports', 'module'];
+        // If there is no dependencies, we inject "require", "exports" and
+        // "module" as dependencies, to provide CommonJS compatibility.
+        deps = ["require", "exports", "module"];
 
     var req = function(childId) {
         return window.require(id, childId);
@@ -113,16 +134,16 @@ window.define = function(id, deps, factory) {
         factory: function() {
             var module = this;
             var returnExports = factory.apply(this, deps.map(function(dep) {
-              switch(dep) {
-                  // Because 'require', 'exports' and 'module' aren't actual
-                  // dependencies, we must handle them seperately.
-                  case 'require': return req;
-                  case 'exports': return module.exports;
-                  case 'module':  return module;
-                  // But for all other dependencies, we can just go ahead and
-                  // require them.
-                  default:        return req(dep);
-              }
+                switch (dep) {
+                    // Because "require", "exports" and "module" aren't actual
+                    // dependencies, we must handle them seperately.
+                    case "require": return req;
+                    case "exports": return module.exports;
+                    case "module":  return module;
+                    // But for all other dependencies, we can just go ahead and
+                    // require them.
+                    default:        return req(dep);
+                }
             }));
             if (returnExports)
                 module.exports = returnExports;
@@ -131,9 +152,10 @@ window.define = function(id, deps, factory) {
     };
 };
 window.define.amd = {};
-
+require.tlns = {};
 window.initBaseUrls  = function initBaseUrls(topLevelNamespaces) {
-    require.tlns = topLevelNamespaces;
+    for (var i in topLevelNamespaces)
+        require.tlns[i] = topLevelNamespaces[i];
 };
 
 window.initSender = function initSender() {
@@ -173,21 +195,23 @@ var sender = window.sender = null;
 
 window.onmessage = function(e) {
     var msg = e.data;
-    if (msg.command) {
+    if (msg.event && sender) {
+        sender._signal(msg.event, msg.data);
+    }
+    else if (msg.command) {
         if (main[msg.command])
             main[msg.command].apply(main, msg.args);
+        else if (window[msg.command])
+            window[msg.command].apply(window, msg.args);
         else
             throw new Error("Unknown command:" + msg.command);
     }
-    else if (msg.init) {        
-        initBaseUrls(msg.tlns);
+    else if (msg.init) {
+        window.initBaseUrls(msg.tlns);
         require("ace/lib/es5-shim");
-        sender = window.sender = initSender();
+        sender = window.sender = window.initSender();
         var clazz = require(msg.module)[msg.classname];
         main = window.main = new clazz(sender);
-    } 
-    else if (msg.event && sender) {
-        sender._signal(msg.event, msg.data);
     }
 };
 })(this);
@@ -217,132 +241,6 @@ exports.mixin = function(obj, mixin) {
 exports.implement = function(proto, mixin) {
     exports.mixin(proto, mixin);
 };
-
-});
-
-ace.define("ace/lib/event_emitter",["require","exports","module"], function(require, exports, module) {
-"use strict";
-
-var EventEmitter = {};
-var stopPropagation = function() { this.propagationStopped = true; };
-var preventDefault = function() { this.defaultPrevented = true; };
-
-EventEmitter._emit =
-EventEmitter._dispatchEvent = function(eventName, e) {
-    this._eventRegistry || (this._eventRegistry = {});
-    this._defaultHandlers || (this._defaultHandlers = {});
-
-    var listeners = this._eventRegistry[eventName] || [];
-    var defaultHandler = this._defaultHandlers[eventName];
-    if (!listeners.length && !defaultHandler)
-        return;
-
-    if (typeof e != "object" || !e)
-        e = {};
-
-    if (!e.type)
-        e.type = eventName;
-    if (!e.stopPropagation)
-        e.stopPropagation = stopPropagation;
-    if (!e.preventDefault)
-        e.preventDefault = preventDefault;
-
-    listeners = listeners.slice();
-    for (var i=0; i<listeners.length; i++) {
-        listeners[i](e, this);
-        if (e.propagationStopped)
-            break;
-    }
-    
-    if (defaultHandler && !e.defaultPrevented)
-        return defaultHandler(e, this);
-};
-
-
-EventEmitter._signal = function(eventName, e) {
-    var listeners = (this._eventRegistry || {})[eventName];
-    if (!listeners)
-        return;
-    listeners = listeners.slice();
-    for (var i=0; i<listeners.length; i++)
-        listeners[i](e, this);
-};
-
-EventEmitter.once = function(eventName, callback) {
-    var _self = this;
-    callback && this.addEventListener(eventName, function newCallback() {
-        _self.removeEventListener(eventName, newCallback);
-        callback.apply(null, arguments);
-    });
-};
-
-
-EventEmitter.setDefaultHandler = function(eventName, callback) {
-    var handlers = this._defaultHandlers
-    if (!handlers)
-        handlers = this._defaultHandlers = {_disabled_: {}};
-    
-    if (handlers[eventName]) {
-        var old = handlers[eventName];
-        var disabled = handlers._disabled_[eventName];
-        if (!disabled)
-            handlers._disabled_[eventName] = disabled = [];
-        disabled.push(old);
-        var i = disabled.indexOf(callback);
-        if (i != -1) 
-            disabled.splice(i, 1);
-    }
-    handlers[eventName] = callback;
-};
-EventEmitter.removeDefaultHandler = function(eventName, callback) {
-    var handlers = this._defaultHandlers
-    if (!handlers)
-        return;
-    var disabled = handlers._disabled_[eventName];
-    
-    if (handlers[eventName] == callback) {
-        var old = handlers[eventName];
-        if (disabled)
-            this.setDefaultHandler(eventName, disabled.pop());
-    } else if (disabled) {
-        var i = disabled.indexOf(callback);
-        if (i != -1)
-            disabled.splice(i, 1);
-    }
-};
-
-EventEmitter.on =
-EventEmitter.addEventListener = function(eventName, callback, capturing) {
-    this._eventRegistry = this._eventRegistry || {};
-
-    var listeners = this._eventRegistry[eventName];
-    if (!listeners)
-        listeners = this._eventRegistry[eventName] = [];
-
-    if (listeners.indexOf(callback) == -1)
-        listeners[capturing ? "unshift" : "push"](callback);
-    return callback;
-};
-
-EventEmitter.off =
-EventEmitter.removeListener =
-EventEmitter.removeEventListener = function(eventName, callback) {
-    this._eventRegistry = this._eventRegistry || {};
-
-    var listeners = this._eventRegistry[eventName];
-    if (!listeners)
-        return;
-
-    var index = listeners.indexOf(callback);
-    if (index !== -1)
-        listeners.splice(index, 1);
-};
-
-EventEmitter.removeAllListeners = function(eventName) {
-    if (this._eventRegistry) this._eventRegistry[eventName] = [];
-};
-
-exports.EventEmitter = EventEmitter;
 
 });
 
@@ -585,6 +483,197 @@ Range.comparePoints = function(p1, p2) {
 exports.Range = Range;
 });
 
+ace.define("ace/apply_delta",["require","exports","module"], function(require, exports, module) {
+"use strict";
+
+function throwDeltaError(delta, errorText){
+    console.log("Invalid Delta:", delta);
+    throw "Invalid Delta: " + errorText;
+}
+
+function positionInDocument(docLines, position) {
+    return position.row    >= 0 && position.row    <  docLines.length &&
+           position.column >= 0 && position.column <= docLines[position.row].length;
+}
+
+function validateDelta(docLines, delta) {
+    if (delta.action != "insert" && delta.action != "remove")
+        throwDeltaError(delta, "delta.action must be 'insert' or 'remove'");
+    if (!(delta.lines instanceof Array))
+        throwDeltaError(delta, "delta.lines must be an Array");
+    if (!delta.start || !delta.end)
+       throwDeltaError(delta, "delta.start/end must be an present");
+    var start = delta.start;
+    if (!positionInDocument(docLines, delta.start))
+        throwDeltaError(delta, "delta.start must be contained in document");
+    var end = delta.end;
+    if (delta.action == "remove" && !positionInDocument(docLines, end))
+        throwDeltaError(delta, "delta.end must contained in document for 'remove' actions");
+    var numRangeRows = end.row - start.row;
+    var numRangeLastLineChars = (end.column - (numRangeRows == 0 ? start.column : 0));
+    if (numRangeRows != delta.lines.length - 1 || delta.lines[numRangeRows].length != numRangeLastLineChars)
+        throwDeltaError(delta, "delta.range must match delta lines");
+}
+
+exports.applyDelta = function(docLines, delta, doNotValidate) {
+    
+    var row = delta.start.row;
+    var startColumn = delta.start.column;
+    var line = docLines[row] || "";
+    switch (delta.action) {
+        case "insert":
+            var lines = delta.lines;
+            if (lines.length === 1) {
+                docLines[row] = line.substring(0, startColumn) + delta.lines[0] + line.substring(startColumn);
+            } else {
+                var args = [row, 1].concat(delta.lines);
+                docLines.splice.apply(docLines, args);
+                docLines[row] = line.substring(0, startColumn) + docLines[row];
+                docLines[row + delta.lines.length - 1] += line.substring(startColumn);
+            }
+            break;
+        case "remove":
+            var endColumn = delta.end.column;
+            var endRow = delta.end.row;
+            if (row === endRow) {
+                docLines[row] = line.substring(0, startColumn) + line.substring(endColumn);
+            } else {
+                docLines.splice(
+                    row, endRow - row + 1,
+                    line.substring(0, startColumn) + docLines[endRow].substring(endColumn)
+                );
+            }
+            break;
+    }
+}
+});
+
+ace.define("ace/lib/event_emitter",["require","exports","module"], function(require, exports, module) {
+"use strict";
+
+var EventEmitter = {};
+var stopPropagation = function() { this.propagationStopped = true; };
+var preventDefault = function() { this.defaultPrevented = true; };
+
+EventEmitter._emit =
+EventEmitter._dispatchEvent = function(eventName, e) {
+    this._eventRegistry || (this._eventRegistry = {});
+    this._defaultHandlers || (this._defaultHandlers = {});
+
+    var listeners = this._eventRegistry[eventName] || [];
+    var defaultHandler = this._defaultHandlers[eventName];
+    if (!listeners.length && !defaultHandler)
+        return;
+
+    if (typeof e != "object" || !e)
+        e = {};
+
+    if (!e.type)
+        e.type = eventName;
+    if (!e.stopPropagation)
+        e.stopPropagation = stopPropagation;
+    if (!e.preventDefault)
+        e.preventDefault = preventDefault;
+
+    listeners = listeners.slice();
+    for (var i=0; i<listeners.length; i++) {
+        listeners[i](e, this);
+        if (e.propagationStopped)
+            break;
+    }
+    
+    if (defaultHandler && !e.defaultPrevented)
+        return defaultHandler(e, this);
+};
+
+
+EventEmitter._signal = function(eventName, e) {
+    var listeners = (this._eventRegistry || {})[eventName];
+    if (!listeners)
+        return;
+    listeners = listeners.slice();
+    for (var i=0; i<listeners.length; i++)
+        listeners[i](e, this);
+};
+
+EventEmitter.once = function(eventName, callback) {
+    var _self = this;
+    callback && this.addEventListener(eventName, function newCallback() {
+        _self.removeEventListener(eventName, newCallback);
+        callback.apply(null, arguments);
+    });
+};
+
+
+EventEmitter.setDefaultHandler = function(eventName, callback) {
+    var handlers = this._defaultHandlers
+    if (!handlers)
+        handlers = this._defaultHandlers = {_disabled_: {}};
+    
+    if (handlers[eventName]) {
+        var old = handlers[eventName];
+        var disabled = handlers._disabled_[eventName];
+        if (!disabled)
+            handlers._disabled_[eventName] = disabled = [];
+        disabled.push(old);
+        var i = disabled.indexOf(callback);
+        if (i != -1) 
+            disabled.splice(i, 1);
+    }
+    handlers[eventName] = callback;
+};
+EventEmitter.removeDefaultHandler = function(eventName, callback) {
+    var handlers = this._defaultHandlers
+    if (!handlers)
+        return;
+    var disabled = handlers._disabled_[eventName];
+    
+    if (handlers[eventName] == callback) {
+        var old = handlers[eventName];
+        if (disabled)
+            this.setDefaultHandler(eventName, disabled.pop());
+    } else if (disabled) {
+        var i = disabled.indexOf(callback);
+        if (i != -1)
+            disabled.splice(i, 1);
+    }
+};
+
+EventEmitter.on =
+EventEmitter.addEventListener = function(eventName, callback, capturing) {
+    this._eventRegistry = this._eventRegistry || {};
+
+    var listeners = this._eventRegistry[eventName];
+    if (!listeners)
+        listeners = this._eventRegistry[eventName] = [];
+
+    if (listeners.indexOf(callback) == -1)
+        listeners[capturing ? "unshift" : "push"](callback);
+    return callback;
+};
+
+EventEmitter.off =
+EventEmitter.removeListener =
+EventEmitter.removeEventListener = function(eventName, callback) {
+    this._eventRegistry = this._eventRegistry || {};
+
+    var listeners = this._eventRegistry[eventName];
+    if (!listeners)
+        return;
+
+    var index = listeners.indexOf(callback);
+    if (index !== -1)
+        listeners.splice(index, 1);
+};
+
+EventEmitter.removeAllListeners = function(eventName) {
+    if (this._eventRegistry) this._eventRegistry[eventName] = [];
+};
+
+exports.EventEmitter = EventEmitter;
+
+});
+
 ace.define("ace/anchor",["require","exports","module","ace/lib/oop","ace/lib/event_emitter"], function(require, exports, module) {
 "use strict";
 
@@ -611,70 +700,46 @@ var Anchor = exports.Anchor = function(doc, row, column) {
         return this.document;
     };
     this.$insertRight = false;
-    this.onChange = function(e) {
-        var delta = e.data;
-        var range = delta.range;
-
-        if (range.start.row == range.end.row && range.start.row != this.row)
+    this.onChange = function(delta) {
+        if (delta.start.row == delta.end.row && delta.start.row != this.row)
             return;
 
-        if (range.start.row > this.row)
+        if (delta.start.row > this.row)
             return;
-
-        if (range.start.row == this.row && range.start.column > this.column)
-            return;
-
-        var row = this.row;
-        var column = this.column;
-        var start = range.start;
-        var end = range.end;
-
-        if (delta.action === "insertText") {
-            if (start.row === row && start.column <= column) {
-                if (start.column === column && this.$insertRight) {
-                } else if (start.row === end.row) {
-                    column += end.column - start.column;
-                } else {
-                    column -= start.column;
-                    row += end.row - start.row;
-                }
-            } else if (start.row !== end.row && start.row < row) {
-                row += end.row - start.row;
-            }
-        } else if (delta.action === "insertLines") {
-            if (start.row === row && column === 0 && this.$insertRight) {
-            }
-            else if (start.row <= row) {
-                row += end.row - start.row;
-            }
-        } else if (delta.action === "removeText") {
-            if (start.row === row && start.column < column) {
-                if (end.column >= column)
-                    column = start.column;
-                else
-                    column = Math.max(0, column - (end.column - start.column));
-
-            } else if (start.row !== end.row && start.row < row) {
-                if (end.row === row)
-                    column = Math.max(0, column - end.column) + start.column;
-                row -= (end.row - start.row);
-            } else if (end.row === row) {
-                row -= end.row - start.row;
-                column = Math.max(0, column - end.column) + start.column;
-            }
-        } else if (delta.action == "removeLines") {
-            if (start.row <= row) {
-                if (end.row <= row)
-                    row -= end.row - start.row;
-                else {
-                    row = start.row;
-                    column = 0;
-                }
-            }
-        }
-
-        this.setPosition(row, column, true);
+            
+        var point = $getTransformedPoint(delta, {row: this.row, column: this.column}, this.$insertRight);
+        this.setPosition(point.row, point.column, true);
     };
+    
+    function $pointsInOrder(point1, point2, equalPointsInOrder) {
+        var bColIsAfter = equalPointsInOrder ? point1.column <= point2.column : point1.column < point2.column;
+        return (point1.row < point2.row) || (point1.row == point2.row && bColIsAfter);
+    }
+            
+    function $getTransformedPoint(delta, point, moveIfEqual) {
+        var deltaIsInsert = delta.action == "insert";
+        var deltaRowShift = (deltaIsInsert ? 1 : -1) * (delta.end.row    - delta.start.row);
+        var deltaColShift = (deltaIsInsert ? 1 : -1) * (delta.end.column - delta.start.column);
+        var deltaStart = delta.start;
+        var deltaEnd = deltaIsInsert ? deltaStart : delta.end; // Collapse insert range.
+        if ($pointsInOrder(point, deltaStart, moveIfEqual)) {
+            return {
+                row: point.row,
+                column: point.column
+            };
+        }
+        if ($pointsInOrder(deltaEnd, point, !moveIfEqual)) {
+            return {
+                row: point.row + deltaRowShift,
+                column: point.column + (point.row == deltaEnd.row ? deltaColShift : 0)
+            };
+        }
+        
+        return {
+            row: deltaStart.row,
+            column: deltaStart.column
+        };
+    }
     this.setPosition = function(row, column, noClip) {
         var pos;
         if (noClip) {
@@ -734,22 +799,23 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 
 });
 
-ace.define("ace/document",["require","exports","module","ace/lib/oop","ace/lib/event_emitter","ace/range","ace/anchor"], function(require, exports, module) {
+ace.define("ace/document",["require","exports","module","ace/lib/oop","ace/apply_delta","ace/lib/event_emitter","ace/range","ace/anchor"], function(require, exports, module) {
 "use strict";
 
 var oop = require("./lib/oop");
+var applyDelta = require("./apply_delta").applyDelta;
 var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var Range = require("./range").Range;
 var Anchor = require("./anchor").Anchor;
 
-var Document = function(text) {
-    this.$lines = [];
-    if (text.length === 0) {
+var Document = function(textOrLines) {
+    this.$lines = [""];
+    if (textOrLines.length === 0) {
         this.$lines = [""];
-    } else if (Array.isArray(text)) {
-        this._insertLines(0, text);
+    } else if (Array.isArray(textOrLines)) {
+        this.insertMergedLines({row: 0, column: 0}, textOrLines);
     } else {
-        this.insert({row: 0, column:0}, text);
+        this.insert({row: 0, column:0}, textOrLines);
     }
 };
 
@@ -757,9 +823,9 @@ var Document = function(text) {
 
     oop.implement(this, EventEmitter);
     this.setValue = function(text) {
-        var len = this.getLength();
-        this.remove(new Range(0, 0, len, this.getLine(len-1).length));
-        this.insert({row: 0, column:0}, text);
+        var len = this.getLength() - 1;
+        this.remove(new Range(0, 0, len, this.getLine(len).length));
+        this.insert({row: 0, column: 0}, text);
     };
     this.getValue = function() {
         return this.getAllLines().join(this.getNewLineCharacter());
@@ -767,14 +833,15 @@ var Document = function(text) {
     this.createAnchor = function(row, column) {
         return new Anchor(this, row, column);
     };
-    if ("aaa".split(/a/).length === 0)
+    if ("aaa".split(/a/).length === 0) {
         this.$split = function(text) {
             return text.replace(/\r\n|\r/g, "\n").split("\n");
         };
-    else
+    } else {
         this.$split = function(text) {
             return text.split(/\r\n|\r|\n/);
         };
+    }
 
 
     this.$detectNewLine = function(text) {
@@ -821,251 +888,246 @@ var Document = function(text) {
         return this.$lines.length;
     };
     this.getTextRange = function(range) {
-        if (range.start.row == range.end.row) {
-            return this.getLine(range.start.row)
-                .substring(range.start.column, range.end.column);
-        }
-        var lines = this.getLines(range.start.row, range.end.row);
-        lines[0] = (lines[0] || "").substring(range.start.column);
-        var l = lines.length - 1;
-        if (range.end.row - range.start.row == l)
-            lines[l] = lines[l].substring(0, range.end.column);
-        return lines.join(this.getNewLineCharacter());
+        return this.getLinesForRange(range).join(this.getNewLineCharacter());
     };
-
+    this.getLinesForRange = function(range) {
+        var lines;
+        if (range.start.row === range.end.row) {
+            lines = [this.getLine(range.start.row).substring(range.start.column, range.end.column)];
+        } else {
+            lines = this.getLines(range.start.row, range.end.row);
+            lines[0] = (lines[0] || "").substring(range.start.column);
+            var l = lines.length - 1;
+            if (range.end.row - range.start.row == l)
+                lines[l] = lines[l].substring(0, range.end.column);
+        }
+        return lines;
+    };
+    this.insertLines = function(row, lines) {
+        console.warn("Use of document.insertLines is deprecated. Use the insertFullLines method instead.");
+        return this.insertFullLines(row, lines);
+    };
+    this.removeLines = function(firstRow, lastRow) {
+        console.warn("Use of document.removeLines is deprecated. Use the removeFullLines method instead.");
+        return this.removeFullLines(firstRow, lastRow);
+    };
+    this.insertNewLine = function(position) {
+        console.warn("Use of document.insertNewLine is deprecated. Use insertMergedLines(position, [\'\', \'\']) instead.");
+        return this.insertMergedLines(position, ["", ""]);
+    };
+    this.insert = function(position, text) {
+        if (this.getLength() <= 1)
+            this.$detectNewLine(text);
+        
+        return this.insertMergedLines(position, this.$split(text));
+    };
+    this.insertInLine = function(position, text) {
+        var start = this.clippedPos(position.row, position.column);
+        var end = this.pos(position.row, position.column + text.length);
+        
+        this.applyDelta({
+            start: start,
+            end: end,
+            action: "insert",
+            lines: [text]
+        }, true);
+        
+        return this.clonePos(end);
+    };
+    
+    this.clippedPos = function(row, column) {
+        var length = this.getLength();
+        if (row === undefined) {
+            row = length;
+        } else if (row < 0) {
+            row = 0;
+        } else if (row >= length) {
+            row = length - 1;
+            column = undefined;
+        }
+        var line = this.getLine(row);
+        if (column == undefined)
+            column = line.length;
+        column = Math.min(Math.max(column, 0), line.length);
+        return {row: row, column: column};
+    };
+    
+    this.clonePos = function(pos) {
+        return {row: pos.row, column: pos.column};
+    };
+    
+    this.pos = function(row, column) {
+        return {row: row, column: column};
+    };
+    
     this.$clipPosition = function(position) {
         var length = this.getLength();
         if (position.row >= length) {
             position.row = Math.max(0, length - 1);
-            position.column = this.getLine(length-1).length;
-        } else if (position.row < 0)
-            position.row = 0;
-        return position;
-    };
-    this.insert = function(position, text) {
-        if (!text || text.length === 0)
-            return position;
-
-        position = this.$clipPosition(position);
-        if (this.getLength() <= 1)
-            this.$detectNewLine(text);
-
-        var lines = this.$split(text);
-        var firstLine = lines.splice(0, 1)[0];
-        var lastLine = lines.length == 0 ? null : lines.splice(lines.length - 1, 1)[0];
-
-        position = this.insertInLine(position, firstLine);
-        if (lastLine !== null) {
-            position = this.insertNewLine(position); // terminate first line
-            position = this._insertLines(position.row, lines);
-            position = this.insertInLine(position, lastLine || "");
+            position.column = this.getLine(length - 1).length;
+        } else {
+            position.row = Math.max(0, position.row);
+            position.column = Math.min(Math.max(position.column, 0), this.getLine(position.row).length);
         }
         return position;
     };
-    this.insertLines = function(row, lines) {
-        if (row >= this.getLength())
-            return this.insert({row: row, column: 0}, "\n" + lines.join("\n"));
-        return this._insertLines(Math.max(row, 0), lines);
-    };
-    this._insertLines = function(row, lines) {
-        if (lines.length == 0)
-            return {row: row, column: 0};
-        while (lines.length > 20000) {
-            var end = this._insertLines(row, lines.slice(0, 20000));
-            lines = lines.slice(20000);
-            row = end.row;
+    this.insertFullLines = function(row, lines) {
+        row = Math.min(Math.max(row, 0), this.getLength());
+        var column = 0;
+        if (row < this.getLength()) {
+            lines = lines.concat([""]);
+            column = 0;
+        } else {
+            lines = [""].concat(lines);
+            row--;
+            column = this.$lines[row].length;
         }
-
-        var args = [row, 0];
-        args.push.apply(args, lines);
-        this.$lines.splice.apply(this.$lines, args);
-
-        var range = new Range(row, 0, row + lines.length, 0);
-        var delta = {
-            action: "insertLines",
-            range: range,
+        this.insertMergedLines({row: row, column: column}, lines);
+    };    
+    this.insertMergedLines = function(position, lines) {
+        var start = this.clippedPos(position.row, position.column);
+        var end = {
+            row: start.row + lines.length - 1,
+            column: (lines.length == 1 ? start.column : 0) + lines[lines.length - 1].length
+        };
+        
+        this.applyDelta({
+            start: start,
+            end: end,
+            action: "insert",
             lines: lines
-        };
-        this._signal("change", { data: delta });
-        return range.end;
-    };
-    this.insertNewLine = function(position) {
-        position = this.$clipPosition(position);
-        var line = this.$lines[position.row] || "";
-
-        this.$lines[position.row] = line.substring(0, position.column);
-        this.$lines.splice(position.row + 1, 0, line.substring(position.column, line.length));
-
-        var end = {
-            row : position.row + 1,
-            column : 0
-        };
-
-        var delta = {
-            action: "insertText",
-            range: Range.fromPoints(position, end),
-            text: this.getNewLineCharacter()
-        };
-        this._signal("change", { data: delta });
-
-        return end;
-    };
-    this.insertInLine = function(position, text) {
-        if (text.length == 0)
-            return position;
-
-        var line = this.$lines[position.row] || "";
-
-        this.$lines[position.row] = line.substring(0, position.column) + text
-                + line.substring(position.column);
-
-        var end = {
-            row : position.row,
-            column : position.column + text.length
-        };
-
-        var delta = {
-            action: "insertText",
-            range: Range.fromPoints(position, end),
-            text: text
-        };
-        this._signal("change", { data: delta });
-
-        return end;
+        });
+        
+        return this.clonePos(end);
     };
     this.remove = function(range) {
-        if (!(range instanceof Range))
-            range = Range.fromPoints(range.start, range.end);
-        range.start = this.$clipPosition(range.start);
-        range.end = this.$clipPosition(range.end);
-
-        if (range.isEmpty())
-            return range.start;
-
-        var firstRow = range.start.row;
-        var lastRow = range.end.row;
-
-        if (range.isMultiLine()) {
-            var firstFullRow = range.start.column == 0 ? firstRow : firstRow + 1;
-            var lastFullRow = lastRow - 1;
-
-            if (range.end.column > 0)
-                this.removeInLine(lastRow, 0, range.end.column);
-
-            if (lastFullRow >= firstFullRow)
-                this._removeLines(firstFullRow, lastFullRow);
-
-            if (firstFullRow != firstRow) {
-                this.removeInLine(firstRow, range.start.column, this.getLine(firstRow).length);
-                this.removeNewLine(range.start.row);
-            }
-        }
-        else {
-            this.removeInLine(firstRow, range.start.column, range.end.column);
-        }
-        return range.start;
+        var start = this.clippedPos(range.start.row, range.start.column);
+        var end = this.clippedPos(range.end.row, range.end.column);
+        this.applyDelta({
+            start: start,
+            end: end,
+            action: "remove",
+            lines: this.getLinesForRange({start: start, end: end})
+        });
+        return this.clonePos(start);
     };
     this.removeInLine = function(row, startColumn, endColumn) {
-        if (startColumn == endColumn)
-            return;
-
-        var range = new Range(row, startColumn, row, endColumn);
-        var line = this.getLine(row);
-        var removed = line.substring(startColumn, endColumn);
-        var newLine = line.substring(0, startColumn) + line.substring(endColumn, line.length);
-        this.$lines.splice(row, 1, newLine);
-
-        var delta = {
-            action: "removeText",
-            range: range,
-            text: removed
-        };
-        this._signal("change", { data: delta });
-        return range.start;
+        var start = this.clippedPos(row, startColumn);
+        var end = this.clippedPos(row, endColumn);
+        
+        this.applyDelta({
+            start: start,
+            end: end,
+            action: "remove",
+            lines: this.getLinesForRange({start: start, end: end})
+        }, true);
+        
+        return this.clonePos(start);
     };
-    this.removeLines = function(firstRow, lastRow) {
-        if (firstRow < 0 || lastRow >= this.getLength())
-            return this.remove(new Range(firstRow, 0, lastRow + 1, 0));
-        return this._removeLines(firstRow, lastRow);
-    };
-
-    this._removeLines = function(firstRow, lastRow) {
-        var range = new Range(firstRow, 0, lastRow + 1, 0);
-        var removed = this.$lines.splice(firstRow, lastRow - firstRow + 1);
-
-        var delta = {
-            action: "removeLines",
-            range: range,
-            nl: this.getNewLineCharacter(),
-            lines: removed
-        };
-        this._signal("change", { data: delta });
-        return removed;
+    this.removeFullLines = function(firstRow, lastRow) {
+        firstRow = Math.min(Math.max(0, firstRow), this.getLength() - 1);
+        lastRow  = Math.min(Math.max(0, lastRow ), this.getLength() - 1);
+        var deleteFirstNewLine = lastRow == this.getLength() - 1 && firstRow > 0;
+        var deleteLastNewLine  = lastRow  < this.getLength() - 1;
+        var startRow = ( deleteFirstNewLine ? firstRow - 1                  : firstRow                    );
+        var startCol = ( deleteFirstNewLine ? this.getLine(startRow).length : 0                           );
+        var endRow   = ( deleteLastNewLine  ? lastRow + 1                   : lastRow                     );
+        var endCol   = ( deleteLastNewLine  ? 0                             : this.getLine(endRow).length ); 
+        var range = new Range(startRow, startCol, endRow, endCol);
+        var deletedLines = this.$lines.slice(firstRow, lastRow + 1);
+        
+        this.applyDelta({
+            start: range.start,
+            end: range.end,
+            action: "remove",
+            lines: this.getLinesForRange(range)
+        });
+        return deletedLines;
     };
     this.removeNewLine = function(row) {
-        var firstLine = this.getLine(row);
-        var secondLine = this.getLine(row+1);
-
-        var range = new Range(row, firstLine.length, row+1, 0);
-        var line = firstLine + secondLine;
-
-        this.$lines.splice(row, 2, line);
-
-        var delta = {
-            action: "removeText",
-            range: range,
-            text: this.getNewLineCharacter()
-        };
-        this._signal("change", { data: delta });
+        if (row < this.getLength() - 1 && row >= 0) {
+            this.applyDelta({
+                start: this.pos(row, this.getLine(row).length),
+                end: this.pos(row + 1, 0),
+                action: "remove",
+                lines: ["", ""]
+            });
+        }
     };
     this.replace = function(range, text) {
-        if (!(range instanceof Range))
+        if (!range instanceof Range)
             range = Range.fromPoints(range.start, range.end);
-        if (text.length == 0 && range.isEmpty())
+        if (text.length === 0 && range.isEmpty())
             return range.start;
         if (text == this.getTextRange(range))
             return range.end;
 
         this.remove(range);
+        var end;
         if (text) {
-            var end = this.insert(range.start, text);
+            end = this.insert(range.start, text);
         }
         else {
             end = range.start;
         }
-
+        
         return end;
     };
     this.applyDeltas = function(deltas) {
         for (var i=0; i<deltas.length; i++) {
-            var delta = deltas[i];
-            var range = Range.fromPoints(delta.range.start, delta.range.end);
-
-            if (delta.action == "insertLines")
-                this.insertLines(range.start.row, delta.lines);
-            else if (delta.action == "insertText")
-                this.insert(range.start, delta.text);
-            else if (delta.action == "removeLines")
-                this._removeLines(range.start.row, range.end.row - 1);
-            else if (delta.action == "removeText")
-                this.remove(range);
+            this.applyDelta(deltas[i]);
         }
     };
     this.revertDeltas = function(deltas) {
         for (var i=deltas.length-1; i>=0; i--) {
-            var delta = deltas[i];
-
-            var range = Range.fromPoints(delta.range.start, delta.range.end);
-
-            if (delta.action == "insertLines")
-                this._removeLines(range.start.row, range.end.row - 1);
-            else if (delta.action == "insertText")
-                this.remove(range);
-            else if (delta.action == "removeLines")
-                this._insertLines(range.start.row, delta.lines);
-            else if (delta.action == "removeText")
-                this.insert(range.start, delta.text);
+            this.revertDelta(deltas[i]);
         }
+    };
+    this.applyDelta = function(delta, doNotValidate) {
+        var isInsert = delta.action == "insert";
+        if (isInsert ? delta.lines.length <= 1 && !delta.lines[0]
+            : !Range.comparePoints(delta.start, delta.end)) {
+            return;
+        }
+        
+        if (isInsert && delta.lines.length > 20000)
+            this.$splitAndapplyLargeDelta(delta, 20000);
+        applyDelta(this.$lines, delta, doNotValidate);
+        this._signal("change", delta);
+    };
+    
+    this.$splitAndapplyLargeDelta = function(delta, MAX) {
+        var lines = delta.lines;
+        var l = lines.length;
+        var row = delta.start.row; 
+        var column = delta.start.column;
+        var from = 0, to = 0;
+        do {
+            from = to;
+            to += MAX - 1;
+            var chunk = lines.slice(from, to);
+            if (to > l) {
+                delta.lines = chunk;
+                delta.start.row = row + from;
+                delta.start.column = column;
+                break;
+            }
+            chunk.push("");
+            this.applyDelta({
+                start: this.pos(row + from, column),
+                end: this.pos(row + to, column = 0),
+                action: delta.action,
+                lines: chunk
+            }, true);
+        } while(true);
+    };
+    this.revertDelta = function(delta) {
+        this.applyDelta({
+            start: this.clonePos(delta.start),
+            end: this.clonePos(delta.end),
+            action: (delta.action == "insert" ? "remove" : "insert"),
+            lines: delta.lines.slice()
+        });
     };
     this.indexToPosition = function(index, startRow) {
         var lines = this.$lines || this.getAllLines();
@@ -1283,9 +1345,10 @@ exports.delayedCall = function(fcn, defaultTimeout) {
 };
 });
 
-ace.define("ace/worker/mirror",["require","exports","module","ace/document","ace/lib/lang"], function(require, exports, module) {
+ace.define("ace/worker/mirror",["require","exports","module","ace/range","ace/document","ace/lib/lang"], function(require, exports, module) {
 "use strict";
 
+var Range = require("../range").Range;
 var Document = require("../document").Document;
 var lang = require("../lib/lang");
     
@@ -1297,7 +1360,19 @@ var Mirror = exports.Mirror = function(sender) {
     
     var _self = this;
     sender.on("change", function(e) {
-        doc.applyDeltas(e.data);
+        var data = e.data;
+        if (data[0].start) {
+            doc.applyDeltas(data);
+        } else {
+            for (var i = 0; i < data.length; i += 2) {
+                if (Array.isArray(data[i+1])) {
+                    var d = {action: "insert", start: data[i], lines: data[i+1]};
+                } else {
+                    var d = {action: "remove", start: data[i], end: data[i+1]};
+                }
+                doc.applyDelta(d, true);
+            }
+        }
         if (_self.$timeout)
             return deferredUpdate.schedule(_self.$timeout);
         _self.onUpdate();
@@ -1333,8 +1408,285 @@ var Mirror = exports.Mirror = function(sender) {
 });
 
 ace.define("ace/mode/javascript/jshint",["require","exports","module"], function(require, exports, module) {
-module.exports = (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({
-1:[function(_dereq_,module,exports){
+module.exports = (function outer (modules, cache, entry) {
+    var previousRequire = typeof require == "function" && require;
+    function newRequire(name, jumped){
+        if(!cache[name]) {
+            if(!modules[name]) {
+                var currentRequire = typeof require == "function" && require;
+                if (!jumped && currentRequire) return currentRequire(name, true);
+                if (previousRequire) return previousRequire(name, true);
+                var err = new Error('Cannot find module \'' + name + '\'');
+                err.code = 'MODULE_NOT_FOUND';
+                throw err;
+            }
+            var m = cache[name] = {exports:{}};
+            modules[name][0].call(m.exports, function(x){
+                var id = modules[name][1][x];
+                return newRequire(id ? id : x);
+            },m,m.exports,outer,modules,cache,entry);
+        }
+        return cache[name].exports;
+    }
+    for(var i=0;i<entry.length;i++) newRequire(entry[i]);
+    return newRequire(entry[0]);
+})
+({"/node_modules/browserify/node_modules/events/events.js":[function(_dereq_,module,exports){
+
+function EventEmitter() {
+  this._events = this._events || {};
+  this._maxListeners = this._maxListeners || undefined;
+}
+module.exports = EventEmitter;
+EventEmitter.EventEmitter = EventEmitter;
+
+EventEmitter.prototype._events = undefined;
+EventEmitter.prototype._maxListeners = undefined;
+EventEmitter.defaultMaxListeners = 10;
+EventEmitter.prototype.setMaxListeners = function(n) {
+  if (!isNumber(n) || n < 0 || isNaN(n))
+    throw TypeError('n must be a positive number');
+  this._maxListeners = n;
+  return this;
+};
+
+EventEmitter.prototype.emit = function(type) {
+  var er, handler, len, args, i, listeners;
+
+  if (!this._events)
+    this._events = {};
+  if (type === 'error') {
+    if (!this._events.error ||
+        (isObject(this._events.error) && !this._events.error.length)) {
+      er = arguments[1];
+      if (er instanceof Error) {
+        throw er; // Unhandled 'error' event
+      }
+      throw TypeError('Uncaught, unspecified "error" event.');
+    }
+  }
+
+  handler = this._events[type];
+
+  if (isUndefined(handler))
+    return false;
+
+  if (isFunction(handler)) {
+    switch (arguments.length) {
+      case 1:
+        handler.call(this);
+        break;
+      case 2:
+        handler.call(this, arguments[1]);
+        break;
+      case 3:
+        handler.call(this, arguments[1], arguments[2]);
+        break;
+      default:
+        len = arguments.length;
+        args = new Array(len - 1);
+        for (i = 1; i < len; i++)
+          args[i - 1] = arguments[i];
+        handler.apply(this, args);
+    }
+  } else if (isObject(handler)) {
+    len = arguments.length;
+    args = new Array(len - 1);
+    for (i = 1; i < len; i++)
+      args[i - 1] = arguments[i];
+
+    listeners = handler.slice();
+    len = listeners.length;
+    for (i = 0; i < len; i++)
+      listeners[i].apply(this, args);
+  }
+
+  return true;
+};
+
+EventEmitter.prototype.addListener = function(type, listener) {
+  var m;
+
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  if (!this._events)
+    this._events = {};
+  if (this._events.newListener)
+    this.emit('newListener', type,
+              isFunction(listener.listener) ?
+              listener.listener : listener);
+
+  if (!this._events[type])
+    this._events[type] = listener;
+  else if (isObject(this._events[type]))
+    this._events[type].push(listener);
+  else
+    this._events[type] = [this._events[type], listener];
+  if (isObject(this._events[type]) && !this._events[type].warned) {
+    var m;
+    if (!isUndefined(this._maxListeners)) {
+      m = this._maxListeners;
+    } else {
+      m = EventEmitter.defaultMaxListeners;
+    }
+
+    if (m && m > 0 && this._events[type].length > m) {
+      this._events[type].warned = true;
+      console.error('(node) warning: possible EventEmitter memory ' +
+                    'leak detected. %d listeners added. ' +
+                    'Use emitter.setMaxListeners() to increase limit.',
+                    this._events[type].length);
+      if (typeof console.trace === 'function') {
+        console.trace();
+      }
+    }
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+EventEmitter.prototype.once = function(type, listener) {
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  var fired = false;
+
+  function g() {
+    this.removeListener(type, g);
+
+    if (!fired) {
+      fired = true;
+      listener.apply(this, arguments);
+    }
+  }
+
+  g.listener = listener;
+  this.on(type, g);
+
+  return this;
+};
+EventEmitter.prototype.removeListener = function(type, listener) {
+  var list, position, length, i;
+
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  if (!this._events || !this._events[type])
+    return this;
+
+  list = this._events[type];
+  length = list.length;
+  position = -1;
+
+  if (list === listener ||
+      (isFunction(list.listener) && list.listener === listener)) {
+    delete this._events[type];
+    if (this._events.removeListener)
+      this.emit('removeListener', type, listener);
+
+  } else if (isObject(list)) {
+    for (i = length; i-- > 0;) {
+      if (list[i] === listener ||
+          (list[i].listener && list[i].listener === listener)) {
+        position = i;
+        break;
+      }
+    }
+
+    if (position < 0)
+      return this;
+
+    if (list.length === 1) {
+      list.length = 0;
+      delete this._events[type];
+    } else {
+      list.splice(position, 1);
+    }
+
+    if (this._events.removeListener)
+      this.emit('removeListener', type, listener);
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.removeAllListeners = function(type) {
+  var key, listeners;
+
+  if (!this._events)
+    return this;
+  if (!this._events.removeListener) {
+    if (arguments.length === 0)
+      this._events = {};
+    else if (this._events[type])
+      delete this._events[type];
+    return this;
+  }
+  if (arguments.length === 0) {
+    for (key in this._events) {
+      if (key === 'removeListener') continue;
+      this.removeAllListeners(key);
+    }
+    this.removeAllListeners('removeListener');
+    this._events = {};
+    return this;
+  }
+
+  listeners = this._events[type];
+
+  if (isFunction(listeners)) {
+    this.removeListener(type, listeners);
+  } else {
+    while (listeners.length)
+      this.removeListener(type, listeners[listeners.length - 1]);
+  }
+  delete this._events[type];
+
+  return this;
+};
+
+EventEmitter.prototype.listeners = function(type) {
+  var ret;
+  if (!this._events || !this._events[type])
+    ret = [];
+  else if (isFunction(this._events[type]))
+    ret = [this._events[type]];
+  else
+    ret = this._events[type].slice();
+  return ret;
+};
+
+EventEmitter.listenerCount = function(emitter, type) {
+  var ret;
+  if (!emitter._events || !emitter._events[type])
+    ret = 0;
+  else if (isFunction(emitter._events[type]))
+    ret = 1;
+  else
+    ret = emitter._events[type].length;
+  return ret;
+};
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+
+},{}],"/node_modules/jshint/data/ascii-identifier-data.js":[function(_dereq_,module,exports){
 var identifierStartTable = [];
 
 for (var i = 0; i < 128; i++) {
@@ -1358,9 +1710,7 @@ module.exports = {
   asciiIdentifierPartTable: identifierPartTable
 };
 
-},
-{}],
-2:[function(_dereq_,module,exports){
+},{}],"/node_modules/jshint/node_modules/underscore/underscore.js":[function(_dereq_,module,exports){
 
 (function() {
   var root = this;
@@ -1390,7 +1740,7 @@ module.exports = {
   } else {
     root._ = _;
   }
-  _.VERSION = '1.8.2';
+  _.VERSION = '1.8.3';
   var optimizeCb = function(func, context, argCount) {
     if (context === void 0) return func;
     switch (argCount == null ? 3 : argCount) {
@@ -1444,9 +1794,16 @@ module.exports = {
     Ctor.prototype = null;
     return result;
   };
+
+  var property = function(key) {
+    return function(obj) {
+      return obj == null ? void 0 : obj[key];
+    };
+  };
   var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
+  var getLength = property('length');
   var isArrayLike = function(collection) {
-    var length = collection && collection.length;
+    var length = getLength(collection);
     return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
   };
   _.each = _.forEach = function(obj, iteratee, context) {
@@ -1538,9 +1895,10 @@ module.exports = {
     }
     return false;
   };
-  _.contains = _.includes = _.include = function(obj, target, fromIndex) {
+  _.contains = _.includes = _.include = function(obj, item, fromIndex, guard) {
     if (!isArrayLike(obj)) obj = _.values(obj);
-    return _.indexOf(obj, target, typeof fromIndex == 'number' && fromIndex) >= 0;
+    if (typeof fromIndex != 'number' || guard) fromIndex = 0;
+    return _.indexOf(obj, item, fromIndex) >= 0;
   };
   _.invoke = function(obj, method) {
     var args = slice.call(arguments, 2);
@@ -1700,7 +2058,7 @@ module.exports = {
   };
   var flatten = function(input, shallow, strict, startIndex) {
     var output = [], idx = 0;
-    for (var i = startIndex || 0, length = input && input.length; i < length; i++) {
+    for (var i = startIndex || 0, length = getLength(input); i < length; i++) {
       var value = input[i];
       if (isArrayLike(value) && (_.isArray(value) || _.isArguments(value))) {
         if (!shallow) value = flatten(value, shallow, strict);
@@ -1722,7 +2080,6 @@ module.exports = {
     return _.difference(array, slice.call(arguments, 1));
   };
   _.uniq = _.unique = function(array, isSorted, iteratee, context) {
-    if (array == null) return [];
     if (!_.isBoolean(isSorted)) {
       context = iteratee;
       iteratee = isSorted;
@@ -1731,7 +2088,7 @@ module.exports = {
     if (iteratee != null) iteratee = cb(iteratee, context);
     var result = [];
     var seen = [];
-    for (var i = 0, length = array.length; i < length; i++) {
+    for (var i = 0, length = getLength(array); i < length; i++) {
       var value = array[i],
           computed = iteratee ? iteratee(value, i, array) : value;
       if (isSorted) {
@@ -1752,10 +2109,9 @@ module.exports = {
     return _.uniq(flatten(arguments, true, true));
   };
   _.intersection = function(array) {
-    if (array == null) return [];
     var result = [];
     var argsLength = arguments.length;
-    for (var i = 0, length = array.length; i < length; i++) {
+    for (var i = 0, length = getLength(array); i < length; i++) {
       var item = array[i];
       if (_.contains(result, item)) continue;
       for (var j = 1; j < argsLength; j++) {
@@ -1775,7 +2131,7 @@ module.exports = {
     return _.unzip(arguments);
   };
   _.unzip = function(array) {
-    var length = array && _.max(array, 'length').length || 0;
+    var length = array && _.max(array, getLength).length || 0;
     var result = Array(length);
 
     for (var index = 0; index < length; index++) {
@@ -1785,7 +2141,7 @@ module.exports = {
   };
   _.object = function(list, values) {
     var result = {};
-    for (var i = 0, length = list && list.length; i < length; i++) {
+    for (var i = 0, length = getLength(list); i < length; i++) {
       if (values) {
         result[list[i]] = values[i];
       } else {
@@ -1794,36 +2150,10 @@ module.exports = {
     }
     return result;
   };
-  _.indexOf = function(array, item, isSorted) {
-    var i = 0, length = array && array.length;
-    if (typeof isSorted == 'number') {
-      i = isSorted < 0 ? Math.max(0, length + isSorted) : isSorted;
-    } else if (isSorted && length) {
-      i = _.sortedIndex(array, item);
-      return array[i] === item ? i : -1;
-    }
-    if (item !== item) {
-      return _.findIndex(slice.call(array, i), _.isNaN);
-    }
-    for (; i < length; i++) if (array[i] === item) return i;
-    return -1;
-  };
-
-  _.lastIndexOf = function(array, item, from) {
-    var idx = array ? array.length : 0;
-    if (typeof from == 'number') {
-      idx = from < 0 ? idx + from + 1 : Math.min(idx, from + 1);
-    }
-    if (item !== item) {
-      return _.findLastIndex(slice.call(array, 0, idx), _.isNaN);
-    }
-    while (--idx >= 0) if (array[idx] === item) return idx;
-    return -1;
-  };
-  function createIndexFinder(dir) {
+  function createPredicateIndexFinder(dir) {
     return function(array, predicate, context) {
       predicate = cb(predicate, context);
-      var length = array != null && array.length;
+      var length = getLength(array);
       var index = dir > 0 ? 0 : length - 1;
       for (; index >= 0 && index < length; index += dir) {
         if (predicate(array[index], index, array)) return index;
@@ -1831,21 +2161,45 @@ module.exports = {
       return -1;
     };
   }
-  _.findIndex = createIndexFinder(1);
-
-  _.findLastIndex = createIndexFinder(-1);
+  _.findIndex = createPredicateIndexFinder(1);
+  _.findLastIndex = createPredicateIndexFinder(-1);
   _.sortedIndex = function(array, obj, iteratee, context) {
     iteratee = cb(iteratee, context, 1);
     var value = iteratee(obj);
-    var low = 0, high = array.length;
+    var low = 0, high = getLength(array);
     while (low < high) {
       var mid = Math.floor((low + high) / 2);
       if (iteratee(array[mid]) < value) low = mid + 1; else high = mid;
     }
     return low;
   };
+  function createIndexFinder(dir, predicateFind, sortedIndex) {
+    return function(array, item, idx) {
+      var i = 0, length = getLength(array);
+      if (typeof idx == 'number') {
+        if (dir > 0) {
+            i = idx >= 0 ? idx : Math.max(idx + length, i);
+        } else {
+            length = idx >= 0 ? Math.min(idx + 1, length) : idx + length + 1;
+        }
+      } else if (sortedIndex && idx && length) {
+        idx = sortedIndex(array, item);
+        return array[idx] === item ? idx : -1;
+      }
+      if (item !== item) {
+        idx = predicateFind(slice.call(array, i, length), _.isNaN);
+        return idx >= 0 ? idx + i : -1;
+      }
+      for (idx = dir > 0 ? i : length - 1; idx >= 0 && idx < length; idx += dir) {
+        if (array[idx] === item) return idx;
+      }
+      return -1;
+    };
+  }
+  _.indexOf = createIndexFinder(1, _.findIndex, _.sortedIndex);
+  _.lastIndexOf = createIndexFinder(-1, _.findLastIndex);
   _.range = function(start, stop, step) {
-    if (arguments.length <= 1) {
+    if (stop == null) {
       stop = start || 0;
       start = 0;
     }
@@ -2131,6 +2485,11 @@ module.exports = {
     return _.pick(obj, iteratee, context);
   };
   _.defaults = createAssigner(_.allKeys, true);
+  _.create = function(prototype, props) {
+    var result = baseCreate(prototype);
+    if (props) _.extendOwn(result, props);
+    return result;
+  };
   _.clone = function(obj) {
     if (!_.isObject(obj)) return obj;
     return _.isArray(obj) ? obj.slice() : _.extend({}, obj);
@@ -2271,11 +2630,7 @@ module.exports = {
 
   _.noop = function(){};
 
-  _.property = function(key) {
-    return function(obj) {
-      return obj == null ? void 0 : obj[key];
-    };
-  };
+  _.property = property;
   _.propertyOf = function(obj) {
     return obj == null ? function(){} : function(key) {
       return obj[key];
@@ -2441,7 +2796,7 @@ module.exports = {
     return this._wrapped;
   };
   _.prototype.valueOf = _.prototype.toJSON = _.prototype.value;
-  
+
   _.prototype.toString = function() {
     return '' + this._wrapped;
   };
@@ -2452,9 +2807,7 @@ module.exports = {
   }
 }.call(this));
 
-},
-{}],
-3:[function(_dereq_,module,exports){
+},{}],"/node_modules/jshint/src/jshint.js":[function(_dereq_,module,exports){
 
 var _        = _dereq_("underscore");
 var events   = _dereq_("events");
@@ -2494,7 +2847,6 @@ var JSHINT = (function() {
       "outer", "unused", "var"
     ],
 
-    funct, // The current function
     functions, // All of the functions
 
     global, // The global scope
@@ -2552,12 +2904,12 @@ var JSHINT = (function() {
     }
     var meta = token.meta;
 
-    if (meta && meta.isFutureReservedWord && state.option.inES5()) {
+    if (meta && meta.isFutureReservedWord && state.inES5()) {
       if (!meta.es5) {
         return false;
       }
       if (meta.strictOnly) {
-        if (!state.option.strict && !state.directive["use strict"]) {
+        if (!state.option.strict && !state.isStrict()) {
           return false;
         }
       }
@@ -2587,7 +2939,8 @@ var JSHINT = (function() {
   function processenforceall() {
     if (state.option.enforceall) {
       for (var enforceopt in options.bool.enforcing) {
-        if (state.option[enforceopt] === undefined) {
+        if (state.option[enforceopt] === undefined &&
+            !options.noenforceall[enforceopt]) {
           state.option[enforceopt] = true;
         }
       }
@@ -2608,6 +2961,15 @@ var JSHINT = (function() {
 
     if (state.option.esnext) {
       combine(predefined, vars.ecmaIdentifiers[6]);
+    }
+
+    if (state.option.module) {
+      if (!hasParsedCode(state.funct)) {
+        error("E055", state.tokens.next, "module");
+      }
+      if (!state.inESNext()) {
+        warning("W134", state.tokens.next, "module", 6);
+      }
     }
 
     if (state.option.couch) {
@@ -2697,25 +3059,6 @@ var JSHINT = (function() {
     if (state.option.mocha) {
       combine(predefined, vars.mocha);
     }
-
-    state.option.inMoz = function(strict) {
-      return state.option.moz;
-    };
-
-    state.option.inESNext = function(strict) {
-      return state.option.moz || state.option.esnext;
-    };
-
-    state.option.inES5 = function(/* strict */) {
-      return !state.option.es3;
-    };
-
-    state.option.inES3 = function(strict) {
-      if (strict) {
-        return !state.option.moz && !state.option.esnext && state.option.es3;
-      }
-      return state.option.es3;
-    };
   }
   function quit(code, line, chr) {
     var percentage = Math.floor((line / state.lines.length) * 100);
@@ -2758,7 +3101,7 @@ var JSHINT = (function() {
       msg = messages.info[code];
     }
 
-    t = t || state.tokens.next;
+    t = t || state.tokens.next || {};
     if (t.id === "(end)") {  // `~
       t = state.tokens.curr;
     }
@@ -2819,61 +3162,59 @@ var JSHINT = (function() {
     return i;
   }
   function addlabel(name, opts) {
-    opts = opts || {};
 
     var type  = opts.type;
     var token = opts.token;
-    var islet = opts.islet;
+    var isblockscoped = opts.isblockscoped;
     if (type === "exception") {
-      if (_.has(funct["(context)"], name)) {
-        if (funct[name] !== true && !state.option.node) {
+      if (_.has(state.funct["(context)"], name)) {
+        if (state.funct[name] !== true && !state.option.node) {
           warning("W002", state.tokens.next, name);
         }
       }
     }
 
-    if (_.has(funct, name) && !funct["(global)"]) {
-      if (funct[name] === true) {
+    if (_.has(state.funct, name) && !state.funct["(global)"]) {
+      if (state.funct[name] === true) {
         if (state.option.latedef) {
-          if ((state.option.latedef === true && _.contains([funct[name], type], "unction")) ||
-              !_.contains([funct[name], type], "unction")) {
+          if ((state.option.latedef === true && _.contains([state.funct[name], type], "unction")) ||
+              !_.contains([state.funct[name], type], "unction")) {
             warning("W003", state.tokens.next, name);
           }
         }
       } else {
         if ((!state.option.shadow || _.contains([ "inner", "outer" ], state.option.shadow)) &&
-            type !== "exception" || funct["(blockscope)"].getlabel(name)) {
+            type !== "exception" || state.funct["(blockscope)"].getlabel(name)) {
           warning("W004", state.tokens.next, name);
         }
       }
     }
 
-    if (funct["(context)"] && _.has(funct["(context)"], name) && type !== "function") {
+    if (state.funct["(context)"] && _.has(state.funct["(context)"], name) && type !== "function") {
       if (state.option.shadow === "outer") {
         warning("W123", state.tokens.next, name);
       }
     }
-    if (islet) {
-      funct["(blockscope)"].current.add(name, type, state.tokens.curr);
-      if (funct["(blockscope)"].atTop() && exported[name]) {
+    if (isblockscoped) {
+      state.funct["(blockscope)"].current.add(name, type, state.tokens.curr);
+      if (state.funct["(blockscope)"].atTop() && exported[name]) {
         state.tokens.curr.exported = true;
       }
     } else {
-      funct["(blockscope)"].shadow(name);
-      funct[name] = type;
+      state.funct["(blockscope)"].shadow(name);
+      state.funct[name] = type;
 
       if (token) {
-        funct["(tokens)"][name] = token;
+        state.funct["(tokens)"][name] = token;
       }
 
-      setprop(funct, name, { unused: opts.unused || false });
-
-      if (funct["(global)"]) {
-        global[name] = funct;
+      if (state.funct["(global)"]) {
+        global[name] = state.funct;
         if (_.has(implied, name)) {
           if (state.option.latedef) {
-            if ((state.option.latedef === true && _.contains([funct[name], type], "unction")) ||
-                !_.contains([funct[name], type], "unction")) {
+            if ((state.option.latedef === true &&
+                _.contains([state.funct[name], type], "unction")) ||
+                !_.contains([state.funct[name], type], "unction")) {
               warning("W003", state.tokens.next, name);
             }
           }
@@ -2881,7 +3222,7 @@ var JSHINT = (function() {
           delete implied[name];
         }
       } else {
-        scope[name] = funct;
+        scope[name] = state.funct;
       }
     }
   }
@@ -2890,12 +3231,19 @@ var JSHINT = (function() {
     var nt = state.tokens.next;
     var body = nt.body.match(/(-\s+)?[^\s,:]+(?:\s*:\s*(-\s+)?[^\s,]+)?/g) || [];
     var predef = {};
-
     if (nt.type === "globals") {
-      body.forEach(function(g) {
+      body.forEach(function(g, idx) {
         g = g.split(":");
         var key = (g[0] || "").trim();
         var val = (g[1] || "").trim();
+
+        if (key === "-" || !key.length) {
+          if (idx > 0 && idx === body.length - 1) {
+            return;
+          }
+          error("E002", nt);
+          return;
+        }
 
         if (key.charAt(0) === "-") {
           key = key.slice(1);
@@ -2918,7 +3266,15 @@ var JSHINT = (function() {
     }
 
     if (nt.type === "exported") {
-      body.forEach(function(e) {
+      body.forEach(function(e, idx) {
+        if (!e.length) {
+          if (idx > 0 && idx === body.length - 1) {
+            return;
+          }
+          error("E002", nt);
+          return;
+        }
+
         exported[e] = true;
       });
     }
@@ -2979,7 +3335,7 @@ var JSHINT = (function() {
 
         if (key === "validthis") {
 
-          if (funct["(global)"])
+          if (state.funct["(global)"])
             return void error("E009");
 
           if (val !== "true" && val !== "false")
@@ -3118,6 +3474,10 @@ var JSHINT = (function() {
       }
       j += 1;
     }
+    if (!t && state.tokens.next.id === "(end)") {
+      return state.tokens.next;
+    }
+
     return t;
   }
 
@@ -3199,7 +3559,7 @@ var JSHINT = (function() {
     if (next.id === ";" || next.id === "}" || next.id === ":") {
       return true;
     }
-    if (isInfix(next) === isInfix(curr) || (curr.id === "yield" && state.option.inMoz(true))) {
+    if (isInfix(next) === isInfix(curr) || (curr.id === "yield" && state.inMoz())) {
       return curr.line !== startLine(next);
     }
     return false;
@@ -3214,11 +3574,11 @@ var JSHINT = (function() {
 
     state.nameStack.push();
     if (!initial && state.tokens.next.value === "let" && peek(0).value === "(") {
-      if (!state.option.inMoz(true)) {
+      if (!state.inMoz()) {
         warning("W118", state.tokens.next, "let expressions");
       }
       isLetExpr = true;
-      funct["(blockscope)"].stack();
+      state.funct["(blockscope)"].stack();
       advance("let");
       advance("(");
       state.tokens.prev.fud();
@@ -3240,7 +3600,7 @@ var JSHINT = (function() {
     advance();
 
     if (initial) {
-      funct["(verb)"] = state.tokens.curr.value;
+      state.funct["(verb)"] = state.tokens.curr.value;
       state.tokens.curr.beginsStmt = true;
     }
 
@@ -3284,7 +3644,7 @@ var JSHINT = (function() {
       }
     }
     if (isLetExpr) {
-      funct["(blockscope)"].unstack();
+      state.funct["(blockscope)"].unstack();
     }
 
     state.nameStack.pop();
@@ -3333,7 +3693,7 @@ var JSHINT = (function() {
       nobreakcomma(state.tokens.prev, state.tokens.curr);
     }
 
-    if (state.tokens.next.identifier && !(opts.property && state.option.inES5())) {
+    if (state.tokens.next.identifier && !(opts.property && state.inES5())) {
       switch (state.tokens.next.value) {
       case "break":
       case "case":
@@ -3430,6 +3790,11 @@ var JSHINT = (function() {
             this.right.id !== "." && this.right.id !== "[") {
           warning("W017", this);
         }
+        if (this.right && this.right.identifier) {
+          if (state.funct["(blockscope)"].labeltype(this.right.value) === "const") {
+            error("E013", this, this.right.value);
+          }
+        }
       }
 
       return this;
@@ -3485,7 +3850,7 @@ var JSHINT = (function() {
       if (!w) {
         nobreaknonadjacent(state.tokens.prev, state.tokens.curr);
       }
-      if (s === "in" && left.id === "!") {
+      if ((s === "in" || s === "instanceof") && left.id === "!") {
         warning("W018", left, "!");
       }
       if (typeof f === "function") {
@@ -3518,7 +3883,8 @@ var JSHINT = (function() {
 
     x.led = function(left) {
       nobreaknonadjacent(state.tokens.prev, state.tokens.curr);
-      var right = expression(100);
+      this.left = left;
+      var right = this.right = expression(100);
 
       if (isIdentifier(left, "NaN") || isIdentifier(right, "NaN")) {
         warning("W019", this);
@@ -3538,8 +3904,6 @@ var JSHINT = (function() {
         warning("W018", right, "!");
       }
 
-      this.left = left;
-      this.right = right;
       return this;
     };
     return x;
@@ -3555,17 +3919,26 @@ var JSHINT = (function() {
         node.type === "undefined");
   }
 
-  function isTypoTypeof(left, right) {
+  var typeofValues = {};
+  typeofValues.legacy = [
+    "xml",
+    "unknown"
+  ];
+  typeofValues.es3 = [
+    "undefined", "boolean", "number", "string", "function", "object",
+  ];
+  typeofValues.es3 = typeofValues.es3.concat(typeofValues.legacy);
+  typeofValues.es6 = typeofValues.es3.concat("symbol");
+  function isTypoTypeof(left, right, state) {
+    var values;
+
     if (state.option.notypeof)
       return false;
 
     if (!left || !right)
       return false;
 
-    var values = [
-      "undefined", "object", "boolean", "number",
-      "string", "function", "xml", "object", "unknown", "symbol"
-    ];
+    values = state.inESNext() ? typeofValues.es6 : typeofValues.es3;
 
     if (right.type === "(identifier)" && right.value === "typeof" && left.type === "(string)")
       return !_.contains(values, left.value);
@@ -3573,9 +3946,9 @@ var JSHINT = (function() {
     return false;
   }
 
-  function isGlobalEval(left, state, funct) {
+  function isGlobalEval(left, state) {
     var isGlobal = false;
-    if (left.type === "this" && funct["(context)"] === null) {
+    if (left.type === "this" && state.funct["(context)"] === null) {
       isGlobal = true;
     }
     else if (left.type === "(identifier)") {
@@ -3637,14 +4010,14 @@ var JSHINT = (function() {
           warning("W021", left, left.value);
         }
 
-        if (funct[left.value] === "const") {
+        if (state.funct["(blockscope)"].labeltype(left.value) === "const") {
           error("E013", left, left.value);
         }
 
         if (left.id === ".") {
           if (!left.left) {
             warning("E031", that);
-          } else if (left.left.value === "arguments" && !state.directive["use strict"]) {
+          } else if (left.left.value === "arguments" && !state.isStrict()) {
             warning("E031", that);
           }
 
@@ -3654,13 +4027,13 @@ var JSHINT = (function() {
         } else if (left.id === "[") {
           if (state.tokens.curr.left.first) {
             state.tokens.curr.left.first.forEach(function(t) {
-              if (t && funct[t.value] === "const") {
+              if (t && state.funct[t.value] === "const") {
                 error("E013", t, t.value);
               }
             });
           } else if (!left.left) {
             warning("E031", that);
-          } else if (left.left.value === "arguments" && !state.directive["use strict"]) {
+          } else if (left.left.value === "arguments" && !state.isStrict()) {
             warning("E031", that);
           }
 
@@ -3669,7 +4042,7 @@ var JSHINT = (function() {
           that.right = expression(10);
           return that;
         } else if (left.identifier && !isReserved(left)) {
-          if (funct[left.value] === "exception") {
+          if (state.funct[left.value] === "exception") {
             warning("W022", left);
           }
           state.nameStack.set(left);
@@ -3727,7 +4100,6 @@ var JSHINT = (function() {
     }, 20);
   }
 
-
   function suffix(s) {
     var x = symbol(s, 150);
 
@@ -3736,6 +4108,11 @@ var JSHINT = (function() {
         warning("W016", this, this.id);
       } else if ((!left.identifier || isReserved(left)) && left.id !== "." && left.id !== "[") {
         warning("W017", this);
+      }
+      if (left && left.identifier) {
+        if (state.funct["(blockscope)"].labeltype(left.value) === "const") {
+          error("E013", this, left.value);
+        }
       }
 
       this.left = left;
@@ -3761,7 +4138,7 @@ var JSHINT = (function() {
     }
 
     if (prop) {
-      if (state.option.inES5()) {
+      if (state.inES5()) {
         return val;
       }
     }
@@ -3815,7 +4192,7 @@ var JSHINT = (function() {
       do {
         t = peek(i);
         i += 1;
-      } while (t.id != "(end)" && t.id === "(comment)");
+      } while (t.id !== "(end)" && t.id === "(comment)");
 
       if (t.reach) {
         return;
@@ -3863,7 +4240,7 @@ var JSHINT = (function() {
     }
     if (t.value === "module" && t.type === "(identifier)") {
       if (peek().type === "(identifier)") {
-        if (!state.option.inESNext()) {
+        if (!state.inESNext()) {
           warning("W119", state.tokens.curr, "module");
         }
 
@@ -3892,7 +4269,7 @@ var JSHINT = (function() {
     }
 
     if (t.id === "{") {
-      var iscase = (funct["(verb)"] === "case" && state.tokens.curr.value === ":");
+      var iscase = (state.funct["(verb)"] === "case" && state.tokens.curr.value === ":");
       block(true, true, false, false, iscase);
       return;
     }
@@ -3900,7 +4277,7 @@ var JSHINT = (function() {
     r = expression(0, true);
 
     if (r && (!r.identifier || r.value !== "function") && (r.type !== "(punctuator)")) {
-      if (!state.directive["use strict"] &&
+      if (!state.isStrict() &&
           state.option.globalstrict &&
           state.option.strict) {
         warning("E007");
@@ -3998,13 +4375,13 @@ var JSHINT = (function() {
 
     t = state.tokens.next;
 
-    var metrics = funct["(metrics)"];
+    var metrics = state.funct["(metrics)"];
     metrics.nestedBlockDepth += 1;
     metrics.verifyMaxNestedBlockDepthPerFunction();
 
     if (state.tokens.next.id === "{") {
       advance("{");
-      funct["(blockscope)"].stack();
+      state.funct["(blockscope)"].stack();
 
       line = state.tokens.curr.line;
       if (state.tokens.next.id !== "}") {
@@ -4022,8 +4399,8 @@ var JSHINT = (function() {
           }
           directives();
 
-          if (state.option.strict && funct["(context)"]["(global)"]) {
-            if (!m["use strict"] && !state.directive["use strict"]) {
+          if (state.option.strict && state.funct["(context)"]["(global)"]) {
+            if (!m["use strict"] && !state.isStrict()) {
               warning("E007");
             }
           }
@@ -4042,13 +4419,13 @@ var JSHINT = (function() {
 
       advance("}", t);
 
-      funct["(blockscope)"].unstack();
+      state.funct["(blockscope)"].unstack();
 
       indent = old_indent;
     } else if (!ordinary) {
       if (isfunc) {
         m = {};
-        if (stmt && !isfatarrow && !state.option.inMoz(true)) {
+        if (stmt && !isfatarrow && !state.inMoz()) {
           error("W118", state.tokens.curr, "function closure expressions");
         }
 
@@ -4061,8 +4438,8 @@ var JSHINT = (function() {
         }
         expression(10);
 
-        if (state.option.strict && funct["(context)"]["(global)"]) {
-          if (!m["use strict"] && !state.directive["use strict"]) {
+        if (state.option.strict && state.funct["(context)"]["(global)"]) {
+          if (!m["use strict"] && !state.isStrict()) {
             warning("E007");
           }
         }
@@ -4070,7 +4447,7 @@ var JSHINT = (function() {
         error("E021", state.tokens.next, "{", state.tokens.next.value);
       }
     } else {
-      funct["(nolet)"] = true;
+      state.funct["(noblockscopedvar)"] = true;
 
       if (!stmt || state.option.curly) {
         warning("W116", state.tokens.next, "{", state.tokens.next.value);
@@ -4081,9 +4458,9 @@ var JSHINT = (function() {
       a = [statement()];
       indent -= state.option.indent;
 
-      delete funct["(nolet)"];
+      delete state.funct["(noblockscopedvar)"];
     }
-    switch (funct["(verb)"]) {
+    switch (state.funct["(verb)"]) {
     case "break":
     case "continue":
     case "return":
@@ -4092,7 +4469,7 @@ var JSHINT = (function() {
         break;
       }
     default:
-      funct["(verb)"] = null;
+      state.funct["(verb)"] = null;
     }
 
     if (!ordinary || !state.option.funcscope) scope = s;
@@ -4149,30 +4526,30 @@ var JSHINT = (function() {
         return this;
       }
 
+      block = state.funct["(blockscope)"].getlabel(v);
+
       if (typeof s === "function") {
         s = undefined;
-      } else if (!funct["(blockscope)"].current.has(v) && typeof s === "boolean") {
-        f = funct;
-        funct = functions[0];
+      } else if (!block && typeof s === "boolean") {
+        f = state.funct;
+        state.funct = functions[0];
         addlabel(v, { type: "var" });
-        s = funct;
-        funct = f;
+        s = state.funct;
+        state.funct = f;
       }
-
-      block = funct["(blockscope)"].getlabel(v);
-      if (funct === s || block) {
-        switch (block ? block[v]["(type)"] : funct[v]) {
+      if (state.funct === s || block) {
+        switch (block ? block[v]["(type)"] : state.funct[v]) {
         case "unused":
           if (block) block[v]["(type)"] = "var";
-          else funct[v] = "var";
+          else state.funct[v] = "var";
           break;
         case "unction":
           if (block) block[v]["(type)"] = "function";
-          else funct[v] = "function";
+          else state.funct[v] = "function";
           this["function"] = true;
           break;
         case "const":
-          setprop(funct, v, { unused: false });
+          block[v]["(unused)"] = false;
           break;
         case "function":
           this["function"] = true;
@@ -4183,7 +4560,7 @@ var JSHINT = (function() {
         }
       } else {
 
-        switch (funct[v]) {
+        switch (state.funct[v]) {
         case "closure":
         case "function":
         case "var":
@@ -4198,17 +4575,17 @@ var JSHINT = (function() {
           break;
         default:
           if (s === true) {
-            funct[v] = true;
+            state.funct[v] = true;
           } else if (s === null) {
             warning("W039", state.tokens.curr, v);
             note_implied(state.tokens.curr);
           } else if (typeof s !== "object") {
 
-            if (!funct["(comparray)"].check(v)) {
-              isundef(funct, "W117", state.tokens.curr, v);
+            if (!state.funct["(comparray)"].check(v)) {
+              isundef(state.funct, "W117", state.tokens.curr, v);
             }
-            if (!funct["(global)"]) {
-              funct[v] = true;
+            if (!state.funct["(global)"]) {
+              state.funct[v] = true;
             }
 
             note_implied(state.tokens.curr);
@@ -4218,18 +4595,15 @@ var JSHINT = (function() {
             case "unction":
               this["function"] = true;
               s[v] = "closure";
-              funct[v] = s["(global)"] ? "global" : "outer";
+              state.funct[v] = s["(global)"] ? "global" : "outer";
               break;
             case "var":
             case "unused":
               s[v] = "closure";
-              funct[v] = s["(global)"] ? "global" : "outer";
-              break;
-            case "const":
-              setprop(s, v, { unused: false });
+              state.funct[v] = s["(global)"] ? "global" : "outer";
               break;
             case "closure":
-              funct[v] = s["(global)"] ? "global" : "outer";
+              state.funct[v] = s["(global)"] ? "global" : "outer";
               break;
             case "label":
               warning("W037", state.tokens.curr, v);
@@ -4300,7 +4674,7 @@ var JSHINT = (function() {
   reserve("default").reach = true;
   reserve("finally");
   reservevar("arguments", function(x) {
-    if (state.directive["use strict"] && funct["(global)"]) {
+    if (state.isStrict() && state.funct["(global)"]) {
       warning("E008", x);
     }
   });
@@ -4309,9 +4683,9 @@ var JSHINT = (function() {
   reservevar("Infinity");
   reservevar("null");
   reservevar("this", function(x) {
-    if (state.directive["use strict"] && !isMethod() &&
-        !state.option.validthis && ((funct["(statement)"] &&
-        funct["(name)"].charAt(0) > "Z") || funct["(global)"])) {
+    if (state.isStrict() && !isMethod() &&
+        !state.option.validthis && ((state.funct["(statement)"] &&
+        state.funct["(name)"].charAt(0) > "Z") || state.funct["(global)"])) {
       warning("W040", x);
     }
   });
@@ -4390,10 +4764,10 @@ var JSHINT = (function() {
       case isPoorRelation(right):
         warning("W041", this, "===", right.value);
         break;
-      case isTypoTypeof(right, left):
+      case isTypoTypeof(right, left, state):
         warning("W122", this, right.value);
         break;
-      case isTypoTypeof(left, right):
+      case isTypoTypeof(left, right, state):
         warning("W122", this, left.value);
         break;
     }
@@ -4401,9 +4775,9 @@ var JSHINT = (function() {
     return this;
   });
   relation("===", function(left, right) {
-    if (isTypoTypeof(right, left)) {
+    if (isTypoTypeof(right, left, state)) {
       warning("W122", this, right.value);
-    } else if (isTypoTypeof(left, right)) {
+    } else if (isTypoTypeof(left, right, state)) {
       warning("W122", this, left.value);
     }
     return this;
@@ -4419,17 +4793,17 @@ var JSHINT = (function() {
       warning("W041", this, "!==", left.value);
     } else if (isPoorRelation(right)) {
       warning("W041", this, "!==", right.value);
-    } else if (isTypoTypeof(right, left)) {
+    } else if (isTypoTypeof(right, left, state)) {
       warning("W122", this, right.value);
-    } else if (isTypoTypeof(left, right)) {
+    } else if (isTypoTypeof(left, right, state)) {
       warning("W122", this, left.value);
     }
     return this;
   });
   relation("!==", function(left, right) {
-    if (isTypoTypeof(right, left)) {
+    if (isTypoTypeof(right, left, state)) {
       warning("W122", this, right.value);
-    } else if (isTypoTypeof(left, right)) {
+    } else if (isTypoTypeof(left, right, state)) {
       warning("W122", this, left.value);
     }
     return this;
@@ -4507,7 +4881,7 @@ var JSHINT = (function() {
       warning("W051");
     }
     this.first = p;
-    if (p.identifier && !state.directive["use strict"]) {
+    if (p.identifier && !state.isStrict()) {
       p.forgiveUndef = true;
     }
     return this;
@@ -4629,7 +5003,7 @@ var JSHINT = (function() {
     if (left && left.value === "arguments" && (m === "callee" || m === "caller")) {
       if (state.option.noarg)
         warning("W059", left, m);
-      else if (state.directive["use strict"])
+      else if (state.isStrict())
         error("E008");
     } else if (!state.option.evil && left && left.value === "document" &&
         (m === "write" || m === "writeln")) {
@@ -4637,7 +5011,7 @@ var JSHINT = (function() {
     }
 
     if (!state.option.evil && (m === "eval" || m === "execScript")) {
-      if (isGlobalEval(left, state, funct)) {
+      if (isGlobalEval(left, state)) {
         warning("W061");
       }
     }
@@ -4681,7 +5055,7 @@ var JSHINT = (function() {
     advance(")");
 
     if (typeof left === "object") {
-      if (state.option.inES3() && left.value === "parseInt" && n === 1) {
+      if (state.inES3() && left.value === "parseInt" && n === 1) {
         warning("W065", state.tokens.curr);
       }
       if (!state.option.evil) {
@@ -4789,15 +5163,17 @@ var JSHINT = (function() {
       if (!isNecessary) {
         isNecessary =
           (opening.beginsStmt && (ret.id === "{" || triggerFnExpr || isFunctor(ret))) ||
-          (ret.id === "{" && preceeding.id === "=>") ||
-          (first.id === "+" && preceeding.id === "+");
+          (triggerFnExpr &&
+            (!isEndOfExpr() || state.tokens.prev.id !== "}")) ||
+          (isFunctor(ret) && !isEndOfExpr()) ||
+          (ret.id === "{" && preceeding.id === "=>");
       }
     }
 
     if (ret) {
       if (!isNecessary && (first.left || ret.exprs)) {
         isNecessary =
-          (!isBeginOfExpr(preceeding) && first.lbp < preceeding.lbp) ||
+          (!isBeginOfExpr(preceeding) && first.lbp <= preceeding.lbp) ||
           (!isEndOfExpr() && last.lbp < state.tokens.next.lbp);
       }
 
@@ -4817,7 +5193,7 @@ var JSHINT = (function() {
     var e = expression(10), s;
     if (e && e.type === "(string)") {
       if (!state.option.evil && (e.value === "eval" || e.value === "execScript")) {
-        if (isGlobalEval(left, state, funct)) {
+        if (isGlobalEval(left, state)) {
           warning("W061");
         }
       }
@@ -4844,62 +5220,62 @@ var JSHINT = (function() {
   function comprehensiveArrayExpression() {
     var res = {};
     res.exps = true;
-    funct["(comparray)"].stack();
+    state.funct["(comparray)"].stack();
     var reversed = false;
     if (state.tokens.next.value !== "for") {
       reversed = true;
-      if (!state.option.inMoz(true)) {
+      if (!state.inMoz()) {
         warning("W116", state.tokens.next, "for", state.tokens.next.value);
       }
-      funct["(comparray)"].setState("use");
+      state.funct["(comparray)"].setState("use");
       res.right = expression(10);
     }
 
     advance("for");
     if (state.tokens.next.value === "each") {
       advance("each");
-      if (!state.option.inMoz(true)) {
+      if (!state.inMoz()) {
         warning("W118", state.tokens.curr, "for each");
       }
     }
     advance("(");
-    funct["(comparray)"].setState("define");
+    state.funct["(comparray)"].setState("define");
     res.left = expression(130);
     if (_.contains(["in", "of"], state.tokens.next.value)) {
       advance();
     } else {
       error("E045", state.tokens.curr);
     }
-    funct["(comparray)"].setState("generate");
+    state.funct["(comparray)"].setState("generate");
     expression(10);
 
     advance(")");
     if (state.tokens.next.value === "if") {
       advance("if");
       advance("(");
-      funct["(comparray)"].setState("filter");
+      state.funct["(comparray)"].setState("filter");
       res.filter = expression(10);
       advance(")");
     }
 
     if (!reversed) {
-      funct["(comparray)"].setState("use");
+      state.funct["(comparray)"].setState("use");
       res.right = expression(10);
     }
 
     advance("]");
-    funct["(comparray)"].unstack();
+    state.funct["(comparray)"].unstack();
     return res;
   }
 
   prefix("[", function() {
     var blocktype = lookupBlockType();
     if (blocktype.isCompArray) {
-      if (!state.option.inESNext()) {
+      if (!state.inESNext()) {
         warning("W119", state.tokens.curr, "array comprehension");
       }
       return comprehensiveArrayExpression();
-    } else if (blocktype.isDestAssign && !state.option.inESNext()) {
+    } else if (blocktype.isDestAssign && !state.inESNext()) {
       warning("W104", state.tokens.curr, "destructuring assignment");
     }
     var b = state.tokens.curr.line !== startLine(state.tokens.next);
@@ -4913,7 +5289,7 @@ var JSHINT = (function() {
     while (state.tokens.next.id !== "(end)") {
       while (state.tokens.next.id === ",") {
         if (!state.option.elision) {
-          if (!state.option.inES5()) {
+          if (!state.inES5()) {
             warning("W070");
           } else {
             warning("W128");
@@ -4933,7 +5309,7 @@ var JSHINT = (function() {
       this.first.push(expression(10));
       if (state.tokens.next.id === ",") {
         comma({ allowTrailing: true });
-        if (state.tokens.next.id === "]" && !state.option.inES5(true)) {
+        if (state.tokens.next.id === "]" && !state.inES5(true)) {
           warning("W070", state.tokens.curr);
           break;
         }
@@ -4950,8 +5326,8 @@ var JSHINT = (function() {
 
 
   function isMethod() {
-    return funct["(statement)"] && funct["(statement)"].type === "class" ||
-           funct["(context)"] && funct["(context)"]["(verb)"] === "class";
+    return state.funct["(statement)"] && state.funct["(statement)"].type === "class" ||
+           state.funct["(context)"] && state.funct["(context)"]["(verb)"] === "class";
   }
 
 
@@ -5005,7 +5381,7 @@ var JSHINT = (function() {
 
     if (loneArg && loneArg.identifier === true) {
       addlabel(loneArg.value, { type: "unused", token: loneArg });
-      return [loneArg];
+      return [loneArg.value];
     }
 
     next = state.tokens.next;
@@ -5045,7 +5421,7 @@ var JSHINT = (function() {
         }
       }
       if (state.tokens.next.id === "=") {
-        if (!state.option.inESNext()) {
+        if (!state.inESNext()) {
           warning("W119", state.tokens.next, "default parameters");
         }
         advance("=");
@@ -5062,21 +5438,6 @@ var JSHINT = (function() {
         return params;
       }
     }
-  }
-
-  function setprop(funct, name, values) {
-    if (!funct["(properties)"][name]) {
-      funct["(properties)"][name] = { unused: false };
-    }
-
-    _.extend(funct["(properties)"][name], values);
-  }
-
-  function getprop(funct, name, prop) {
-    if (!funct["(properties)"][name])
-      return null;
-
-    return funct["(properties)"][name][prop] || null;
   }
 
   function functor(name, token, scope, overwrites) {
@@ -5123,6 +5484,9 @@ var JSHINT = (function() {
   function isFunctor(token) {
     return "(scope)" in token;
   }
+  function hasParsedCode(funct) {
+    return funct["(global)"] && !funct["(verb)"];
+  }
 
   function doTemplateLiteral(left) {
     var ctx = this.context;
@@ -5130,7 +5494,7 @@ var JSHINT = (function() {
     var depth = this.depth;
 
     if (!noSubst) {
-      while (!end() && state.tokens.next.id !== "(end)") {
+      while (!end()) {
         if (!state.tokens.next.template || state.tokens.next.depth > depth) {
           expression(0); // should probably have different rbp?
         } else {
@@ -5172,16 +5536,16 @@ var JSHINT = (function() {
     state.ignored = Object.create(state.ignored);
     scope = Object.create(scope);
 
-    funct = functor(name || state.nameStack.infer(), state.tokens.next, scope, {
+    state.funct = functor(name || state.nameStack.infer(), state.tokens.next, scope, {
       "(statement)": statement,
-      "(context)":   funct,
+      "(context)":   state.funct,
       "(generator)": isGenerator
     });
 
-    f = funct;
-    state.tokens.curr.funct = funct;
+    f = state.funct;
+    state.tokens.curr.funct = state.funct;
 
-    functions.push(funct);
+    functions.push(state.funct);
 
     if (name) {
       addlabel(name, { type: "function" });
@@ -5191,8 +5555,8 @@ var JSHINT = (function() {
       addlabel(classExprBinding, { type: "function" });
     }
 
-    funct["(params)"] = functionparams(options);
-    funct["(metrics)"].verifyMaxParametersPerFunction(funct["(params)"]);
+    state.funct["(params)"] = functionparams(options);
+    state.funct["(metrics)"].verifyMaxParametersPerFunction(state.funct["(params)"]);
 
     if (isArrow) {
       if (!state.option.esnext) {
@@ -5207,26 +5571,26 @@ var JSHINT = (function() {
     block(false, true, true, isArrow);
 
     if (!state.option.noyield && isGenerator &&
-        funct["(generator)"] !== "yielded") {
+        state.funct["(generator)"] !== "yielded") {
       warning("W124", state.tokens.curr);
     }
 
-    funct["(metrics)"].verifyMaxStatementsPerFunction();
-    funct["(metrics)"].verifyMaxComplexityPerFunction();
-    funct["(unusedOption)"] = state.option.unused;
+    state.funct["(metrics)"].verifyMaxStatementsPerFunction();
+    state.funct["(metrics)"].verifyMaxComplexityPerFunction();
+    state.funct["(unusedOption)"] = state.option.unused;
 
     scope = oldScope;
     state.option = oldOption;
     state.ignored = oldIgnored;
-    funct["(last)"] = state.tokens.curr.line;
-    funct["(lastcharacter)"] = state.tokens.curr.character;
+    state.funct["(last)"] = state.tokens.curr.line;
+    state.funct["(lastcharacter)"] = state.tokens.curr.character;
 
-    _.map(Object.keys(funct), function(key) {
+    _.map(Object.keys(state.funct), function(key) {
       if (key[0] === "(") return;
-      funct["(blockscope)"].unshadow(key);
+      state.funct["(blockscope)"].unshadow(key);
     });
 
-    funct = funct["(context)"];
+    state.funct = state.funct["(context)"];
 
     return f;
   }
@@ -5247,7 +5611,7 @@ var JSHINT = (function() {
       verifyMaxParametersPerFunction: function(params) {
         params = params || [];
 
-        if (state.option.maxparams && params.length > state.option.maxparams) {
+        if (_.isNumber(state.option.maxparams) && params.length > state.option.maxparams) {
           warning("W072", functionStartToken, params.length);
         }
       },
@@ -5271,7 +5635,7 @@ var JSHINT = (function() {
   }
 
   function increaseComplexityCount() {
-    funct["(metrics)"].ComplexityCount += 1;
+    state.funct["(metrics)"].ComplexityCount += 1;
   }
 
   function checkCondAssignment(expr) {
@@ -5300,7 +5664,7 @@ var JSHINT = (function() {
     }
   }
   function checkProperties(props) {
-    if (state.option.inES5()) {
+    if (state.inES5()) {
       for (var name in props) {
         if (_.has(props, name) && props[name].setterToken && !props[name].getterToken) {
           warning("W078", props[name].setterToken);
@@ -5311,7 +5675,7 @@ var JSHINT = (function() {
 
   (function(x) {
     x.nud = function() {
-      var b, f, i, p, t, g, nextVal;
+      var b, f, i, p, t, isGeneratorMethod = false, nextVal;
       var props = {}; // All properties, including accessors
 
       b = state.tokens.curr.line !== startLine(state.tokens.next);
@@ -5328,15 +5692,25 @@ var JSHINT = (function() {
         }
 
         nextVal = state.tokens.next.value;
-        if (peek().id !== ":" && (nextVal === "get" || nextVal === "set")) {
+        if (state.tokens.next.identifier &&
+            (peekIgnoreEOL().id === "," || peekIgnoreEOL().id === "}")) {
+          if (!state.inESNext()) {
+            warning("W104", state.tokens.next, "object short notation");
+          }
+          i = propertyName(true);
+          saveProperty(props, i, state.tokens.next);
+
+          expression(10);
+
+        } else if (peek().id !== ":" && (nextVal === "get" || nextVal === "set")) {
           advance(nextVal);
 
-          if (!state.option.inES5()) {
+          if (!state.inES5()) {
             error("E034");
           }
 
           i = propertyName();
-          if (!i && !state.option.inESNext()) {
+          if (!i && !state.inESNext()) {
             error("E035");
           }
           if (i) {
@@ -5353,44 +5727,36 @@ var JSHINT = (function() {
           }
         } else {
           if (state.tokens.next.value === "*" && state.tokens.next.type === "(punctuator)") {
-            if (!state.option.inESNext()) {
+            if (!state.inESNext()) {
               warning("W104", state.tokens.next, "generator functions");
             }
             advance("*");
-            g = true;
+            isGeneratorMethod = true;
+          } else {
+            isGeneratorMethod = false;
           }
-          if (state.tokens.next.identifier &&
-              (peekIgnoreEOL().id === "," || peekIgnoreEOL().id === "}")) {
-            if (!state.option.inESNext()) {
-              warning("W104", state.tokens.next, "object short notation");
-            }
-            i = propertyName(true);
+
+          if (state.tokens.next.id === "[") {
+            i = computedPropertyName();
+            state.nameStack.set(i);
+          } else {
+            state.nameStack.set(state.tokens.next);
+            i = propertyName();
             saveProperty(props, i, state.tokens.next);
 
-            expression(10);
+            if (typeof i !== "string") {
+              break;
+            }
+          }
+
+          if (state.tokens.next.value === "(") {
+            if (!state.inESNext()) {
+              warning("W104", state.tokens.curr, "concise methods");
+            }
+            doFunction({ type: isGeneratorMethod ? "generator" : null });
           } else {
-            if (state.tokens.next.id === "[") {
-              i = computedPropertyName();
-              state.nameStack.set(i);
-            } else {
-              state.nameStack.set(state.tokens.next);
-              i = propertyName();
-              saveProperty(props, i, state.tokens.next);
-
-              if (typeof i !== "string") {
-                break;
-              }
-            }
-
-            if (state.tokens.next.value === "(") {
-              if (!state.option.inESNext()) {
-                warning("W104", state.tokens.curr, "concise methods");
-              }
-              doFunction({ type: g ? "generator" : null });
-            } else {
-              advance(":");
-              expression(10);
-            }
+            advance(":");
+            expression(10);
           }
         }
 
@@ -5400,7 +5766,7 @@ var JSHINT = (function() {
           comma({ allowTrailing: true, property: true });
           if (state.tokens.next.id === ",") {
             warning("W070", state.tokens.curr);
-          } else if (state.tokens.next.id === "}" && !state.option.inES5(true)) {
+          } else if (state.tokens.next.id === "}" && !state.inES5(true)) {
             warning("W070", state.tokens.curr);
           }
         } else {
@@ -5424,7 +5790,7 @@ var JSHINT = (function() {
   function destructuringExpression() {
     var id, ids;
     var identifiers = [];
-    if (!state.option.inESNext()) {
+    if (!state.inESNext()) {
       warning("W104", state.tokens.curr, "destructuring expression");
     }
     var nextInnerDE = function() {
@@ -5514,17 +5880,30 @@ var JSHINT = (function() {
     });
   }
 
-  var conststatement = stmt("const", function(context) {
+  function blockVariableStatement(type, statement, context) {
+
     var prefix = context && context.prefix;
     var inexport = context && context.inexport;
-    var tokens;
-    var value;
-    var lone; // State variable to know if it is a lone identifier, or a destructuring statement.
+    var isLet = type === "let";
+    var isConst = type === "const";
+    var tokens, lone, value, letblock;
 
-    if (!state.option.inESNext())
-      warning("W104", state.tokens.curr, "const");
+    if (!state.inESNext()) {
+      warning("W104", state.tokens.curr, type);
+    }
 
-    this.first = [];
+    if (isLet && state.tokens.next.value === "(") {
+      if (!state.inMoz()) {
+        warning("W118", state.tokens.next, "let block");
+      }
+      advance("(");
+      state.funct["(blockscope)"].stack();
+      letblock = true;
+    } else if (state.funct["(noblockscopedvar)"]) {
+      error("E048", state.tokens.curr, isConst ? "Const" : "Let");
+    }
+
+    statement.first = [];
     for (;;) {
       var names = [];
       if (_.contains(["{", "["], state.tokens.next.value)) {
@@ -5541,192 +5920,41 @@ var JSHINT = (function() {
       for (var t in tokens) {
         if (tokens.hasOwnProperty(t)) {
           t = tokens[t];
-          if (funct[t.id] === "const") {
-            warning("E011", null, t.id);
+          if (state.inESNext()) {
+            if (state.funct["(blockscope)"].current.labeltype(t.id) === "const") {
+              warning("E011", null, t.id);
+            }
           }
-          if (funct["(global)"] && predefined[t.id] === false) {
-            warning("W079", t.token, t.id);
+          if (state.funct["(global)"]) {
+            if (predefined[t.id] === false) {
+              warning("W079", t.token, t.id);
+            }
           }
-          if (t.id) {
-            addlabel(t.id, { token: t.token, type: "const", unused: true });
+          if (t.id && !state.funct["(noblockscopedvar)"]) {
+            addlabel(t.id, {
+              type: isConst ? "const" : "unused",
+              token: t.token,
+              isblockscoped: true });
             names.push(t.token);
           }
         }
       }
-      if (prefix) {
-        break;
-      }
 
-      this.first = this.first.concat(names);
+      statement.first = statement.first.concat(names);
 
-      if (state.tokens.next.id !== "=") {
+      if (!prefix && isConst && state.tokens.next.id !== "=") {
         warning("E012", state.tokens.curr, state.tokens.curr.value);
       }
 
       if (state.tokens.next.id === "=") {
         advance("=");
-        if (state.tokens.next.id === "undefined") {
+        if (!prefix && state.tokens.next.id === "undefined") {
           warning("W080", state.tokens.prev, state.tokens.prev.value);
         }
-        if (peek(0).id === "=" && state.tokens.next.identifier) {
+        if (!prefix && peek(0).id === "=" && state.tokens.next.identifier) {
           warning("W120", state.tokens.next, state.tokens.next.value);
         }
-        value = expression(10);
-        if (lone) {
-          tokens[0].first = value;
-        } else {
-          destructuringExpressionMatch(names, value);
-        }
-      }
-
-      if (state.tokens.next.id !== ",") {
-        break;
-      }
-      comma();
-    }
-    return this;
-  });
-
-  conststatement.exps = true;
-  var varstatement = stmt("var", function(context) {
-    var prefix = context && context.prefix;
-    var inexport = context && context.inexport;
-    var tokens, lone, value;
-
-    this.first = [];
-    for (;;) {
-      var names = [];
-      if (_.contains(["{", "["], state.tokens.next.value)) {
-        tokens = destructuringExpression();
-        lone = false;
-      } else {
-        tokens = [ { id: identifier(), token: state.tokens.curr } ];
-        lone = true;
-        if (inexport) {
-          exported[state.tokens.curr.value] = true;
-          state.tokens.curr.exported = true;
-        }
-      }
-      for (var t in tokens) {
-        if (tokens.hasOwnProperty(t)) {
-          t = tokens[t];
-          if (state.option.inESNext() && funct[t.id] === "const") {
-            warning("E011", null, t.id);
-          }
-          if (funct["(global)"]) {
-            if (predefined[t.id] === false) {
-              warning("W079", t.token, t.id);
-            } else if (state.option.futurehostile === false) {
-              if ((!state.option.inES5() && vars.ecmaIdentifiers[5][t.id] === false) ||
-                (!state.option.inESNext() && vars.ecmaIdentifiers[6][t.id] === false)) {
-                warning("W129", t.token, t.id);
-              }
-            }
-          }
-          if (t.id) {
-            addlabel(t.id, { type: "unused", token: t.token });
-            names.push(t.token);
-          }
-        }
-      }
-      if (prefix) {
-        break;
-      }
-
-      this.first = this.first.concat(names);
-
-      if (state.tokens.next.id === "=") {
-        state.nameStack.set(state.tokens.curr);
-        advance("=");
-        if (state.tokens.next.id === "undefined") {
-          warning("W080", state.tokens.prev, state.tokens.prev.value);
-        }
-        if (peek(0).id === "=" && state.tokens.next.identifier) {
-          if (!funct["(params)"] || funct["(params)"].indexOf(state.tokens.next.value) === -1) {
-            warning("W120", state.tokens.next, state.tokens.next.value);
-          }
-        }
-        value = expression(10);
-        if (lone) {
-          tokens[0].first = value;
-        } else {
-          destructuringExpressionMatch(names, value);
-        }
-      }
-
-      if (state.tokens.next.id !== ",") {
-        break;
-      }
-      comma();
-    }
-    return this;
-  });
-  varstatement.exps = true;
-
-  var letstatement = stmt("let", function(context) {
-    var prefix = context && context.prefix;
-    var inexport = context && context.inexport;
-    var tokens, lone, value, letblock;
-
-    if (!state.option.inESNext()) {
-      warning("W104", state.tokens.curr, "let");
-    }
-
-    if (state.tokens.next.value === "(") {
-      if (!state.option.inMoz(true)) {
-        warning("W118", state.tokens.next, "let block");
-      }
-      advance("(");
-      funct["(blockscope)"].stack();
-      letblock = true;
-    } else if (funct["(nolet)"]) {
-      error("E048", state.tokens.curr);
-    }
-
-    this.first = [];
-    for (;;) {
-      var names = [];
-      if (_.contains(["{", "["], state.tokens.next.value)) {
-        tokens = destructuringExpression();
-        lone = false;
-      } else {
-        tokens = [ { id: identifier(), token: state.tokens.curr.value } ];
-        lone = true;
-        if (inexport) {
-          exported[state.tokens.curr.value] = true;
-          state.tokens.curr.exported = true;
-        }
-      }
-      for (var t in tokens) {
-        if (tokens.hasOwnProperty(t)) {
-          t = tokens[t];
-          if (state.option.inESNext() && funct[t.id] === "const") {
-            warning("E011", null, t.id);
-          }
-          if (funct["(global)"] && predefined[t.id] === false) {
-            warning("W079", t.token, t.id);
-          }
-          if (t.id && !funct["(nolet)"]) {
-            addlabel(t.id, { type: "unused", token: t.token, islet: true });
-            names.push(t.token);
-          }
-        }
-      }
-      if (prefix) {
-        break;
-      }
-
-      this.first = this.first.concat(names);
-
-      if (state.tokens.next.id === "=") {
-        advance("=");
-        if (state.tokens.next.id === "undefined") {
-          warning("W080", state.tokens.prev, state.tokens.prev.value);
-        }
-        if (peek(0).id === "=" && state.tokens.next.identifier) {
-          warning("W120", state.tokens.next, state.tokens.next.value);
-        }
-        value = expression(10);
+        value = expression(prefix ? 120 : 10);
         if (lone) {
           tokens[0].first = value;
         } else {
@@ -5742,20 +5970,129 @@ var JSHINT = (function() {
     if (letblock) {
       advance(")");
       block(true, true);
-      this.block = true;
-      funct["(blockscope)"].unstack();
+      statement.block = true;
+      state.funct["(blockscope)"].unstack();
+    }
+
+    return statement;
+  }
+
+  var conststatement = stmt("const", function(context) {
+    return blockVariableStatement("const", this, context);
+  });
+  conststatement.exps = true;
+
+  var letstatement = stmt("let", function(context) {
+    return blockVariableStatement("let", this, context);
+  });
+  letstatement.exps = true;
+
+  var varstatement = stmt("var", function(context) {
+    var prefix = context && context.prefix;
+    var inexport = context && context.inexport;
+    var tokens, lone, value;
+    var implied = context && context.implied;
+    var report = !(context && context.ignore);
+
+    this.first = [];
+    for (;;) {
+      var names = [];
+      if (_.contains(["{", "["], state.tokens.next.value)) {
+        tokens = destructuringExpression();
+        lone = false;
+      } else {
+        tokens = [ { id: identifier(), token: state.tokens.curr } ];
+        lone = true;
+        if (inexport) {
+          exported[state.tokens.curr.value] = true;
+          state.tokens.curr.exported = true;
+        }
+      }
+      for (var t in tokens) {
+        if (tokens.hasOwnProperty(t)) {
+          t = tokens[t];
+          if (state.inESNext()) {
+            if (state.funct["(blockscope)"].labeltype(t.id) === "const") {
+              warning("E011", null, t.id);
+            }
+          }
+          if (!implied && state.funct["(global)"]) {
+            if (predefined[t.id] === false) {
+              warning("W079", t.token, t.id);
+            } else if (state.option.futurehostile === false) {
+              if ((!state.inES5() && vars.ecmaIdentifiers[5][t.id] === false) ||
+                  (!state.inESNext() && vars.ecmaIdentifiers[6][t.id] === false)) {
+                warning("W129", t.token, t.id);
+              }
+            }
+          }
+          if (t.id) {
+            if (implied === "for") {
+              var ident = t.token.value;
+              switch (state.funct[ident]) {
+              case "unused":
+                state.funct[ident] = "var";
+                break;
+              case "var":
+                break;
+              default:
+                if (!state.funct["(blockscope)"].getlabel(ident) &&
+                    !(scope[ident] || {})[ident]) {
+                  if (report) warning("W088", t.token, ident);
+                }
+              }
+            } else {
+              addlabel(t.id, { type: "unused", token: t.token });
+            }
+            names.push(t.token);
+          }
+        }
+      }
+
+      if (!prefix && report && state.option.varstmt) {
+        warning("W132", this);
+      }
+
+      this.first = this.first.concat(names);
+
+      if (state.tokens.next.id === "=") {
+        state.nameStack.set(state.tokens.curr);
+
+        advance("=");
+        if (!prefix && report && state.tokens.next.id === "undefined") {
+          warning("W080", state.tokens.prev, state.tokens.prev.value);
+        }
+        if (peek(0).id === "=" && state.tokens.next.identifier) {
+          if (!prefix && report &&
+              !state.funct["(params)"] ||
+              state.funct["(params)"].indexOf(state.tokens.next.value) === -1) {
+            warning("W120", state.tokens.next, state.tokens.next.value);
+          }
+        }
+        value = expression(prefix ? 120 : 10);
+        if (lone) {
+          tokens[0].first = value;
+        } else {
+          destructuringExpressionMatch(names, value);
+        }
+      }
+
+      if (state.tokens.next.id !== ",") {
+        break;
+      }
+      comma();
     }
 
     return this;
   });
-  letstatement.exps = true;
+  varstatement.exps = true;
 
   blockstmt("class", function() {
     return classdef.call(this, true);
   });
 
   function classdef(isStatement) {
-    if (!state.option.inESNext()) {
+    if (!state.inESNext()) {
       warning("W104", state.tokens.curr, "class");
     }
     if (isStatement) {
@@ -5772,16 +6109,17 @@ var JSHINT = (function() {
   }
 
   function classtail(c) {
-    var strictness = state.directive["use strict"];
+    var wasInClassBody = state.inClassBody;
     if (state.tokens.next.value === "extends") {
       advance("extends");
       c.heritage = expression(10);
     }
-    state.directive["use strict"] = true;
+
+    state.inClassBody = true;
     advance("{");
     c.body = classbody(c);
     advance("}");
-    state.directive["use strict"] = strictness;
+    state.inClassBody = wasInClassBody;
   }
 
   function classbody(c) {
@@ -5797,6 +6135,12 @@ var JSHINT = (function() {
       isStatic = false;
       isGenerator = false;
       getset = null;
+      if (name.id === ";") {
+        warning("W032");
+        advance(";");
+        continue;
+      }
+
       if (name.id === "*") {
         isGenerator = true;
         advance("*");
@@ -5804,6 +6148,7 @@ var JSHINT = (function() {
       }
       if (name.id === "[") {
         name = computedPropertyName();
+        computed = true;
       } else if (isPropertyName(name)) {
         advance();
         computed = false;
@@ -5886,7 +6231,7 @@ var JSHINT = (function() {
     var generator = false;
     if (state.tokens.next.value === "*") {
       advance("*");
-      if (state.option.inESNext(true)) {
+      if (state.inESNext({ strict: true })) {
         generator = true;
       } else {
         warning("W119", state.tokens.curr, "function*");
@@ -5901,8 +6246,7 @@ var JSHINT = (function() {
     if (i === undefined) {
       warning("W025");
     }
-
-    if (funct[i] === "const") {
+    if (state.funct["(blockscope)"].labeltype(i) === "const") {
       warning("E011", null, i);
     }
     addlabel(i, { type: "unction", token: state.tokens.curr });
@@ -5922,7 +6266,7 @@ var JSHINT = (function() {
     var generator = false;
 
     if (state.tokens.next.value === "*") {
-      if (!state.option.inESNext()) {
+      if (!state.inESNext()) {
         warning("W119", state.tokens.curr, "function*");
       }
       advance("*");
@@ -5935,7 +6279,7 @@ var JSHINT = (function() {
     function isVariable(name) { return name[0] !== "("; }
     function isLocal(name) { return fn[name] === "var"; }
 
-    if (!state.option.loopfunc && funct["(loopage)"]) {
+    if (!state.option.loopfunc && state.funct["(loopage)"]) {
       if (_.some(fn, function(val, name) { return isVariable(name) && !isLocal(name); })) {
         warning("W083");
       }
@@ -6001,10 +6345,10 @@ var JSHINT = (function() {
 
       advance();
 
-      funct = functor("(catch)", state.tokens.next, scope, {
-        "(context)"  : funct,
-        "(breakage)" : funct["(breakage)"],
-        "(loopage)"  : funct["(loopage)"],
+      state.funct = functor("(catch)", state.tokens.next, scope, {
+        "(context)"  : state.funct,
+        "(breakage)" : state.funct["(breakage)"],
+        "(loopage)"  : state.funct["(loopage)"],
         "(statement)": false,
         "(catch)"    : true
       });
@@ -6014,7 +6358,7 @@ var JSHINT = (function() {
       }
 
       if (state.tokens.next.value === "if") {
-        if (!state.option.inMoz(true)) {
+        if (!state.inMoz()) {
           warning("W118", state.tokens.curr, "catch filter");
         }
         advance("if");
@@ -6023,23 +6367,23 @@ var JSHINT = (function() {
 
       advance(")");
 
-      state.tokens.curr.funct = funct;
-      functions.push(funct);
+      state.tokens.curr.funct = state.funct;
+      functions.push(state.funct);
 
       block(false);
 
       scope = oldScope;
 
-      funct["(last)"] = state.tokens.curr.line;
-      funct["(lastcharacter)"] = state.tokens.curr.character;
-      funct = funct["(context)"];
+      state.funct["(last)"] = state.tokens.curr.line;
+      state.funct["(lastcharacter)"] = state.tokens.curr.character;
+      state.funct = state.funct["(context)"];
     }
 
     block(true);
 
     while (state.tokens.next.id === "catch") {
       increaseComplexityCount();
-      if (b && (!state.option.inMoz(true))) {
+      if (b && (!state.inMoz())) {
         warning("W118", state.tokens.next, "multiple catch blocks");
       }
       doCatch();
@@ -6061,21 +6405,21 @@ var JSHINT = (function() {
 
   blockstmt("while", function() {
     var t = state.tokens.next;
-    funct["(breakage)"] += 1;
-    funct["(loopage)"] += 1;
+    state.funct["(breakage)"] += 1;
+    state.funct["(loopage)"] += 1;
     increaseComplexityCount();
     advance("(");
     checkCondAssignment(expression(0));
     advance(")", t);
     block(true, true);
-    funct["(breakage)"] -= 1;
-    funct["(loopage)"] -= 1;
+    state.funct["(breakage)"] -= 1;
+    state.funct["(loopage)"] -= 1;
     return this;
   }).labelled = true;
 
   blockstmt("with", function() {
     var t = state.tokens.next;
-    if (state.directive["use strict"]) {
+    if (state.isStrict()) {
       error("E010", state.tokens.curr);
     } else if (!state.option.withstmt) {
       warning("W085", state.tokens.curr);
@@ -6094,7 +6438,7 @@ var JSHINT = (function() {
     var g = false;
     var noindent = false;
 
-    funct["(breakage)"] += 1;
+    state.funct["(breakage)"] += 1;
     advance("(");
     checkCondAssignment(expression(0));
     advance(")", t);
@@ -6112,7 +6456,7 @@ var JSHINT = (function() {
     for (;;) {
       switch (state.tokens.next.id) {
       case "case":
-        switch (funct["(verb)"]) {
+        switch (state.funct["(verb)"]) {
         case "yield":
         case "break":
         case "case":
@@ -6132,10 +6476,10 @@ var JSHINT = (function() {
         increaseComplexityCount();
         g = true;
         advance(":");
-        funct["(verb)"] = "case";
+        state.funct["(verb)"] = "case";
         break;
       case "default":
-        switch (funct["(verb)"]) {
+        switch (state.funct["(verb)"]) {
         case "yield":
         case "break":
         case "continue":
@@ -6159,8 +6503,8 @@ var JSHINT = (function() {
           indent -= state.option.indent;
 
         advance("}", t);
-        funct["(breakage)"] -= 1;
-        funct["(verb)"] = undefined;
+        state.funct["(breakage)"] -= 1;
+        state.funct["(verb)"] = undefined;
         return;
       case "(end)":
         error("E023", state.tokens.next, "}");
@@ -6204,8 +6548,8 @@ var JSHINT = (function() {
 
   (function() {
     var x = stmt("do", function() {
-      funct["(breakage)"] += 1;
-      funct["(loopage)"] += 1;
+      state.funct["(breakage)"] += 1;
+      state.funct["(loopage)"] += 1;
       increaseComplexityCount();
 
       this.first = block(true, true);
@@ -6214,8 +6558,8 @@ var JSHINT = (function() {
       advance("(");
       checkCondAssignment(expression(0));
       advance(")", t);
-      funct["(breakage)"] -= 1;
-      funct["(loopage)"] -= 1;
+      state.funct["(breakage)"] -= 1;
+      state.funct["(loopage)"] -= 1;
       return this;
     });
     x.labelled = true;
@@ -6230,53 +6574,58 @@ var JSHINT = (function() {
     if (t.value === "each") {
       foreachtok = t;
       advance("each");
-      if (!state.option.inMoz(true)) {
+      if (!state.inMoz()) {
         warning("W118", state.tokens.curr, "for each");
       }
     }
 
-    funct["(breakage)"] += 1;
-    funct["(loopage)"] += 1;
+    state.funct["(breakage)"] += 1;
+    state.funct["(loopage)"] += 1;
     increaseComplexityCount();
     advance("(");
     var nextop; // contains the token of the "in" or "of" operator
     var i = 0;
     var inof = ["in", "of"];
+    var level = 0; // BindingPattern "level" --- level 0 === no BindingPattern
+    var comma; // First comma punctuator at level 0
+    var initializer; // First initializer at level 0
+    if (checkPunctuators(state.tokens.next, ["{", "["])) ++level;
     do {
       nextop = peek(i);
       ++i;
-    } while (!_.contains(inof, nextop.value) && nextop.value !== ";" && nextop.type !== "(end)");
+      if (checkPunctuators(nextop, ["{", "["])) ++level;
+      else if (checkPunctuators(nextop, ["}", "]"])) --level;
+      if (level < 0) break;
+      if (level === 0) {
+        if (!comma && checkPunctuators(nextop, [","])) comma = nextop;
+        else if (!initializer && checkPunctuators(nextop, ["="])) initializer = nextop;
+      }
+    } while (level > 0 || !_.contains(inof, nextop.value) && nextop.value !== ";" &&
+    nextop.type !== "(end)"); // Is this a JSCS bug? This looks really weird.
     if (_.contains(inof, nextop.value)) {
-      if (!state.option.inESNext() && nextop.value === "of") {
+      if (!state.inESNext() && nextop.value === "of") {
         error("W104", nextop, "for of");
+      }
+
+      var ok = !(initializer || comma);
+      if (initializer) {
+        error("W133", comma, nextop.value, "initializer is forbidden");
+      }
+
+      if (comma) {
+        error("W133", comma, nextop.value, "more than one ForBinding");
       }
 
       if (state.tokens.next.id === "var") {
         advance("var");
         state.tokens.curr.fud({ prefix: true });
-      } else if (state.tokens.next.id === "let") {
-        advance("let");
+      } else if (state.tokens.next.id === "let" || state.tokens.next.id === "const") {
+        advance(state.tokens.next.id);
         letscope = true;
-        funct["(blockscope)"].stack();
+        state.funct["(blockscope)"].stack();
         state.tokens.curr.fud({ prefix: true });
-      } else if (!state.tokens.next.identifier) {
-        error("E030", state.tokens.next, state.tokens.next.type);
-        advance();
       } else {
-        switch (funct[state.tokens.next.value]) {
-        case "unused":
-          funct[state.tokens.next.value] = "var";
-          break;
-        case "var":
-          break;
-        default:
-          var ident = state.tokens.next.value;
-          if (!funct["(blockscope)"].getlabel(ident) &&
-              !(scope[ident] || {})[ident]) {
-            warning("W088", state.tokens.next, state.tokens.next.value);
-          }
-        }
-        advance();
+        Object.create(varstatement).fud({ prefix: true, implied: "for", ignore: !ok });
       }
       advance(nextop.value);
       expression(20);
@@ -6309,8 +6658,8 @@ var JSHINT = (function() {
         state.forinifcheckneeded = false;
       }
 
-      funct["(breakage)"] -= 1;
-      funct["(loopage)"] -= 1;
+      state.funct["(breakage)"] -= 1;
+      state.funct["(loopage)"] -= 1;
     } else {
       if (foreachtok) {
         error("E045", foreachtok);
@@ -6322,7 +6671,7 @@ var JSHINT = (function() {
         } else if (state.tokens.next.id === "let") {
           advance("let");
           letscope = true;
-          funct["(blockscope)"].stack();
+          state.funct["(blockscope)"].stack();
           state.tokens.curr.fud();
         } else {
           for (;;) {
@@ -6355,12 +6704,12 @@ var JSHINT = (function() {
       }
       advance(")", t);
       block(true, true);
-      funct["(breakage)"] -= 1;
-      funct["(loopage)"] -= 1;
+      state.funct["(breakage)"] -= 1;
+      state.funct["(loopage)"] -= 1;
 
     }
     if (letscope) {
-      funct["(blockscope)"].unstack();
+      state.funct["(blockscope)"].unstack();
     }
     return this;
   }).labelled = true;
@@ -6369,7 +6718,7 @@ var JSHINT = (function() {
   stmt("break", function() {
     var v = state.tokens.next.value;
 
-    if (funct["(breakage)"] === 0)
+    if (state.funct["(breakage)"] === 0)
       warning("W052", state.tokens.next, this.value);
 
     if (!state.option.asi)
@@ -6377,9 +6726,9 @@ var JSHINT = (function() {
 
     if (state.tokens.next.id !== ";" && !state.tokens.next.reach) {
       if (state.tokens.curr.line === startLine(state.tokens.next)) {
-        if (funct[v] !== "label") {
+        if (state.funct[v] !== "label") {
           warning("W090", state.tokens.next, v);
-        } else if (scope[v] !== funct) {
+        } else if (scope[v] !== state.funct) {
           warning("W091", state.tokens.next, v);
         }
         this.first = state.tokens.next;
@@ -6396,7 +6745,7 @@ var JSHINT = (function() {
   stmt("continue", function() {
     var v = state.tokens.next.value;
 
-    if (funct["(breakage)"] === 0)
+    if (state.funct["(breakage)"] === 0)
       warning("W052", state.tokens.next, this.value);
 
     if (!state.option.asi)
@@ -6404,15 +6753,15 @@ var JSHINT = (function() {
 
     if (state.tokens.next.id !== ";" && !state.tokens.next.reach) {
       if (state.tokens.curr.line === startLine(state.tokens.next)) {
-        if (funct[v] !== "label") {
+        if (state.funct[v] !== "label") {
           warning("W090", state.tokens.next, v);
-        } else if (scope[v] !== funct) {
+        } else if (scope[v] !== state.funct) {
           warning("W091", state.tokens.next, v);
         }
         this.first = state.tokens.next;
         advance();
       }
-    } else if (!funct["(loopage)"]) {
+    } else if (!state.funct["(loopage)"]) {
       warning("W052", state.tokens.next, this.value);
     }
 
@@ -6450,14 +6799,14 @@ var JSHINT = (function() {
     x.lbp = 25;
   }(prefix("yield", function() {
     var prev = state.tokens.prev;
-    if (state.option.inESNext(true) && !funct["(generator)"]) {
-      if (!("(catch)" === funct["(name)"] && funct["(context)"]["(generator)"])) {
+    if (state.inESNext(true) && !state.funct["(generator)"]) {
+      if (!("(catch)" === state.funct["(name)"] && state.funct["(context)"]["(generator)"])) {
         error("E046", state.tokens.curr, "yield");
       }
-    } else if (!state.option.inESNext()) {
+    } else if (!state.inESNext()) {
       warning("W104", state.tokens.curr, "yield");
     }
-    funct["(generator)"] = "yielded";
+    state.funct["(generator)"] = "yielded";
     var delegatingYield = false;
 
     if (state.tokens.next.value === "*") {
@@ -6465,7 +6814,7 @@ var JSHINT = (function() {
       advance("*");
     }
 
-    if (this.line === startLine(state.tokens.next) || !state.option.inMoz(true)) {
+    if (this.line === startLine(state.tokens.next) || !state.inMoz()) {
       if (delegatingYield ||
           (state.tokens.next.id !== ";" && !state.tokens.next.reach && state.tokens.next.nud)) {
 
@@ -6478,7 +6827,7 @@ var JSHINT = (function() {
         }
       }
 
-      if (state.option.inMoz(true) && state.tokens.next.id !== ")" &&
+      if (state.inMoz() && state.tokens.next.id !== ")" &&
           (prev.lbp > 30 || (!prev.assign && !isEndOfExpr()) || prev.id === "yield")) {
         error("E050", this);
       }
@@ -6499,7 +6848,7 @@ var JSHINT = (function() {
   }).exps = true;
 
   stmt("import", function() {
-    if (!state.option.inESNext()) {
+    if (!state.inESNext()) {
       warning("W119", state.tokens.curr, "import");
     }
 
@@ -6568,12 +6917,12 @@ var JSHINT = (function() {
     var token;
     var identifier;
 
-    if (!state.option.inESNext()) {
+    if (!state.inESNext()) {
       warning("W119", state.tokens.curr, "export");
       ok = false;
     }
 
-    if (!funct["(global)"] || !funct["(blockscope)"].atTop()) {
+    if (!state.funct["(global)"] || !state.funct["(blockscope)"].atTop()) {
       error("E053", state.tokens.curr);
       ok = false;
     }
@@ -6644,11 +6993,11 @@ var JSHINT = (function() {
         advance("(string)");
       } else if (ok) {
         exportedTokens.forEach(function(token) {
-          if (!funct[token.value]) {
-            isundef(funct, "W117", token, token.value);
+          if (!state.funct[token.value]) {
+            isundef(state.funct, "W117", token, token.value);
           }
           exported[token.value] = true;
-          funct["(blockscope)"].setExported(token.value);
+          state.funct["(blockscope)"].setExported(token.value);
         });
       }
       return this;
@@ -6809,7 +7158,7 @@ var JSHINT = (function() {
 
     var block = lookupBlockType();
     if (block.notJson) {
-      if (!state.option.inESNext() && block.isDestAssign) {
+      if (!state.inESNext() && block.isDestAssign) {
         warning("W104", state.tokens.curr, "destructuring assignment");
       }
       statements();
@@ -6856,7 +7205,7 @@ var JSHINT = (function() {
             if (v.unused)
               warning("W098", v.token, v.raw_text || v.value);
             if (v.undef)
-              isundef(v.funct, "W117", v.token, v.value);
+              isundef(v.state.funct, "W117", v.token, v.value);
           });
           _carrays.splice(-1, 1);
           _current = _carrays[_carrays.length - 1];
@@ -6872,7 +7221,7 @@ var JSHINT = (function() {
           if (_current && _current.mode === "use") {
             if (use(v)) {
               _current.variables.push({
-                funct: funct,
+                funct: state.funct,
                 token: state.tokens.curr,
                 value: v,
                 undef: true,
@@ -6883,7 +7232,7 @@ var JSHINT = (function() {
           } else if (_current && _current.mode === "define") {
             if (!declare(v)) {
               _current.variables.push({
-                funct: funct,
+                funct: state.funct,
                 token: state.tokens.curr,
                 value: v,
                 undef: false,
@@ -6892,11 +7241,11 @@ var JSHINT = (function() {
             }
             return true;
           } else if (_current && _current.mode === "generate") {
-            isundef(funct, "W117", state.tokens.curr, v);
+            isundef(state.funct, "W117", state.tokens.curr, v);
             return true;
           } else if (_current && _current.mode === "filter") {
             if (use(v)) {
-              isundef(funct, "W117", state.tokens.curr, v);
+              isundef(state.funct, "W117", state.tokens.curr, v);
             }
             return true;
           }
@@ -6988,22 +7337,65 @@ var JSHINT = (function() {
     }
   }
 
+  var warnUnused = function(name, tkn, type, unused_opt) {
+    var line = tkn.line;
+    var chr  = tkn.from;
+    var raw_name = tkn.raw_text || name;
+
+    if (unused_opt === undefined) {
+      unused_opt = state.option.unused;
+    }
+
+    if (unused_opt === true) {
+      unused_opt = "last-param";
+    }
+
+    var warnable_types = {
+      "vars": ["var"],
+      "last-param": ["var", "param"],
+      "strict": ["var", "param", "last-param"]
+    };
+
+    if (unused_opt) {
+      if (warnable_types[unused_opt] && warnable_types[unused_opt].indexOf(type) !== -1) {
+        if (!tkn.exported) {
+          warningAt("W098", line, chr, raw_name);
+        }
+      }
+    }
+
+    unuseds.push({
+      name: name,
+      line: line,
+      character: chr
+    });
+  };
+
   var blockScope = function() {
     var _current = {};
     var _variables = [_current];
 
     function _checkBlockLabels() {
       for (var t in _current) {
-        if (_current[t]["(type)"] === "unused") {
+        var label = _current[t],
+            labelType = label["(type)"];
+        if (labelType === "unused" || (labelType === "const" && label["(unused)"])) {
           if (state.option.unused) {
             var tkn = _current[t]["(token)"];
             if (tkn.exported) {
               continue;
             }
-            var line = tkn.line;
-            var chr  = tkn.character;
-            warningAt("W098", line, chr, t);
+
+            warnUnused(t, tkn, "var");
           }
+        }
+      }
+    }
+
+    function _getLabel(l) {
+      for (var i = _variables.length - 1 ; i >= 0; --i) {
+        if (_.has(_variables[i], l) && !_variables[i][l]["(shadowed)"]) {
+          return _variables[i];
         }
       }
     }
@@ -7020,12 +7412,14 @@ var JSHINT = (function() {
         _current = _.last(_variables);
       },
 
-      getlabel: function(l) {
-        for (var i = _variables.length - 1 ; i >= 0; --i) {
-          if (_.has(_variables[i], l) && !_variables[i][l]["(shadowed)"]) {
-            return _variables[i];
-          }
+      getlabel: _getLabel,
+
+      labeltype: function(l) {
+        var block = _getLabel(l);
+        if (block) {
+          return block[l]["(type)"];
         }
+        return null;
       },
 
       shadow: function(name) {
@@ -7049,7 +7443,7 @@ var JSHINT = (function() {
       },
 
       setExported: function(id) {
-        if (funct["(blockscope)"].atTop()) {
+        if (state.funct["(blockscope)"].atTop()) {
           var item = _current[id];
           if (item && item["(token)"]) {
             item["(token)"].exported = true;
@@ -7058,12 +7452,19 @@ var JSHINT = (function() {
       },
 
       current: {
+        labeltype: function(t) {
+          if (_current[t]) {
+            return _current[t]["(type)"];
+          }
+          return null;
+        },
+
         has: function(t) {
           return _.has(_current, t);
         },
 
         add: function(t, type, tok) {
-          _current[t] = { "(type)" : type, "(token)": tok, "(shadowed)": false };
+          _current[t] = { "(type)" : type, "(token)": tok, "(shadowed)": false, "(unused)": true };
         }
       }
     };
@@ -7136,9 +7537,15 @@ var JSHINT = (function() {
         if (/^-W\d{3}$/g.test(optionKeys[x])) {
           newIgnoredObj[optionKeys[x].slice(1)] = true;
         } else {
-          newOptionObj[optionKeys[x]] = o[optionKeys[x]];
+          var optionKey = optionKeys[x];
+          newOptionObj[optionKey] = o[optionKey];
+          if (optionKey === "es5") {
+            if (o[optionKey]) {
+              warning("I003");
+            }
+          }
 
-          if (optionKeys[x] === "newcap" && o[optionKeys[x]] === false)
+          if (optionKeys[x] === "newcap" && o[optionKey] === false)
             newOptionObj["(explicitNewcap)"] = true;
         }
       }
@@ -7154,14 +7561,14 @@ var JSHINT = (function() {
     global = Object.create(predefined);
     scope = global;
 
-    funct = functor("(global)", null, scope, {
+    state.funct = functor("(global)", null, scope, {
       "(global)"    : true,
       "(blockscope)": blockScope(),
       "(comparray)" : arrayComprehension(),
       "(metrics)"   : createMetrics(state.tokens.next)
     });
 
-    functions = [funct];
+    functions = [state.funct];
     urls = [];
     stack = null;
     member = {};
@@ -7280,9 +7687,10 @@ var JSHINT = (function() {
       default:
         directives();
 
-        if (state.directive["use strict"]) {
+        if (state.isStrict()) {
           if (!state.option.globalstrict) {
-            if (!(state.option.node || state.option.phantom || state.option.browserify)) {
+            if (!(state.option.module || state.option.node || state.option.phantom ||
+              state.option.browserify)) {
               warning("W097", state.tokens.prev);
             }
           }
@@ -7290,8 +7698,12 @@ var JSHINT = (function() {
 
         statements();
       }
-      advance((state.tokens.next && state.tokens.next.value !== ".")  ? "(end)" : undefined);
-      funct["(blockscope)"].unstack();
+
+      if (state.tokens.next.id !== "(end)") {
+        quit("E041", state.tokens.curr.line);
+      }
+
+      state.funct["(blockscope)"].unstack();
 
       var markDefined = function(name, context) {
         do {
@@ -7327,40 +7739,6 @@ var JSHINT = (function() {
           implied[name] = newImplied;
       };
 
-      var warnUnused = function(name, tkn, type, unused_opt) {
-        var line = tkn.line;
-        var chr  = tkn.from;
-        var raw_name = tkn.raw_text || name;
-
-        if (unused_opt === undefined) {
-          unused_opt = state.option.unused;
-        }
-
-        if (unused_opt === true) {
-          unused_opt = "last-param";
-        }
-
-        var warnable_types = {
-          "vars": ["var"],
-          "last-param": ["var", "param"],
-          "strict": ["var", "param", "last-param"]
-        };
-
-        if (unused_opt) {
-          if (warnable_types[unused_opt] && warnable_types[unused_opt].indexOf(type) !== -1) {
-            if (!tkn.exported) {
-              warningAt("W098", line, chr, raw_name);
-            }
-          }
-        }
-
-        unuseds.push({
-          name: name,
-          line: line,
-          character: chr
-        });
-      };
-
       var checkUnused = function(func, key) {
         var type = func[key];
         var tkn = func["(tokens)"][key];
@@ -7368,13 +7746,11 @@ var JSHINT = (function() {
         if (key.charAt(0) === "(")
           return;
 
-        if (type !== "unused" && type !== "unction" && type !== "const")
+        if (type !== "unused" && type !== "unction")
           return;
         if (func["(params)"] && func["(params)"].indexOf(key) !== -1)
           return;
         if (func["(global)"] && _.has(exported, key))
-          return;
-        if (type === "const" && !getprop(func, key, "unused"))
           return;
 
         warnUnused(key, tkn, "var");
@@ -7557,9 +7933,7 @@ if (typeof exports === "object" && exports) {
   exports.JSHINT = JSHINT;
 }
 
-},
-{"./lex.js":4,"./messages.js":5,"./options.js":7,"./reg.js":8,"./state.js":9,"./style.js":10,"./vars.js":11,"events":12,"underscore":2}],
-4:[function(_dereq_,module,exports){
+},{"./lex.js":"/node_modules/jshint/src/lex.js","./messages.js":"/node_modules/jshint/src/messages.js","./options.js":"/node_modules/jshint/src/options.js","./reg.js":"/node_modules/jshint/src/reg.js","./state.js":"/node_modules/jshint/src/state.js","./style.js":"/node_modules/jshint/src/style.js","./vars.js":"/node_modules/jshint/src/vars.js","events":"/node_modules/browserify/node_modules/events/events.js","underscore":"/node_modules/jshint/node_modules/underscore/underscore.js"}],"/node_modules/jshint/src/lex.js":[function(_dereq_,module,exports){
 
 "use strict";
 
@@ -8341,7 +8715,7 @@ Lexer.prototype = {
         line: this.line,
         character: this.char
       }, checks,
-      function() { return n >= 0 && n <= 7 && state.directive["use strict"]; });
+      function() { return n >= 0 && n <= 7 && state.isStrict(); });
       break;
     case "u":
       var hexCode = this.input.substr(1, 4);
@@ -8493,8 +8867,8 @@ Lexer.prototype = {
 
     this.skip();
 
-    outer: while (this.peek() !== quote) {
-      while (this.peek() === "") { // End Of Line
+    while (this.peek() !== quote) {
+      if (this.peek() === "") { // End Of Line
 
         if (!allowNewLine) {
           this.trigger("warning", {
@@ -8534,32 +8908,31 @@ Lexer.prototype = {
             quote: quote
           };
         }
-        
-        if (this.peek() == quote)
-          break outer;
-      }
 
-      allowNewLine = false;
-      var char = this.peek();
-      var jump = 1; // A length of a jump, after we're done
+      } else { // Any character other than End Of Line
 
-      if (char < " ") {
-        this.trigger("warning", {
-          code: "W113",
-          line: this.line,
-          character: this.char,
-          data: [ "<non-printable>" ]
-        });
-      }
-      if (char === "\\") {
-        var parsed = this.scanEscapeSequence(checks);
-        char = parsed.char;
-        jump = parsed.jump;
-        allowNewLine = parsed.allowNewLine;
-      }
+        allowNewLine = false;
+        var char = this.peek();
+        var jump = 1; // A length of a jump, after we're done
 
-      value += char;
-      this.skip(jump);
+        if (char < " ") {
+          this.trigger("warning", {
+            code: "W113",
+            line: this.line,
+            character: this.char,
+            data: [ "<non-printable>" ]
+          });
+        }
+        if (char === "\\") {
+          var parsed = this.scanEscapeSequence(checks);
+          char = parsed.char;
+          jump = parsed.jump;
+          allowNewLine = parsed.allowNewLine;
+        }
+
+        value += char;
+        this.skip(jump);
+      }
     }
 
     this.skip();
@@ -8823,12 +9196,12 @@ Lexer.prototype = {
       }
       var meta = token.meta;
 
-      if (meta && meta.isFutureReservedWord && state.option.inES5()) {
+      if (meta && meta.isFutureReservedWord && state.inES5()) {
         if (!meta.es5) {
           return false;
         }
         if (meta.strictOnly) {
-          if (!state.option.strict && !state.directive["use strict"]) {
+          if (!state.option.strict && !state.isStrict()) {
             return false;
           }
         }
@@ -8913,7 +9286,16 @@ Lexer.prototype = {
 
     for (;;) {
       if (!this.input.length) {
-        return create(this.nextLine() ? "(endline)" : "(end)", "");
+        if (this.nextLine()) {
+          return create("(endline)", "");
+        }
+
+        if (this.exhausted) {
+          return null;
+        }
+
+        this.exhausted = true;
+        return create("(end)", "");
       }
 
       token = this.next(checks);
@@ -9027,7 +9409,7 @@ Lexer.prototype = {
           line: this.line,
           character: this.char
         }, checks, function() {
-          return state.directive["use strict"] && token.base === 8 && token.isLegacy;
+          return state.isStrict() && token.base === 8 && token.isLegacy;
         });
 
         this.trigger("Number", {
@@ -9075,9 +9457,7 @@ Lexer.prototype = {
 exports.Lexer = Lexer;
 exports.Context = Context;
 
-},
-{"../data/ascii-identifier-data.js":1,"./reg.js":8,"./state.js":9,"events":12,"underscore":2}],
-5:[function(_dereq_,module,exports){
+},{"../data/ascii-identifier-data.js":"/node_modules/jshint/data/ascii-identifier-data.js","./reg.js":"/node_modules/jshint/src/reg.js","./state.js":"/node_modules/jshint/src/state.js","events":"/node_modules/browserify/node_modules/events/events.js","underscore":"/node_modules/jshint/node_modules/underscore/underscore.js"}],"/node_modules/jshint/src/messages.js":[function(_dereq_,module,exports){
 "use strict";
 
 var _ = _dereq_("underscore");
@@ -9130,13 +9510,14 @@ var errors = {
   E045: "Invalid for each loop.",
   E046: "A yield statement shall be within a generator function (with syntax: `function*`)",
   E047: null, // Vacant
-  E048: "Let declaration not directly within block.",
+  E048: "{a} declaration not directly within block.",
   E049: "A {a} cannot be named '{b}'.",
   E050: "Mozilla requires the yield expression to be parenthesized here.",
   E051: "Regular parameters cannot come after default parameters.",
   E052: "Unclosed template literal.",
   E053: "Export declaration must be in global scope.",
-  E054: "Class properties must be methods. Expected '(' but instead saw '{a}'."
+  E054: "Class properties must be methods. Expected '(' but instead saw '{a}'.",
+  E055: "The '{a}' option cannot be set after any executable code."
 };
 
 var warnings = {
@@ -9273,7 +9654,10 @@ var warnings = {
   W129: "'{a}' is defined in a future version of JavaScript. Use a " +
     "different variable name to avoid migration issues.",
   W130: "Invalid element after rest element.",
-  W131: "Invalid parameter after rest parameter."
+  W131: "Invalid parameter after rest parameter.",
+  W132: "`var` declarations are forbidden. Use `let` or `const` instead.",
+  W133: "Invalid for-{a} loop left-hand-side: {b}.",
+  W134: "The '{a}' option is only available when linting ECMAScript {b} code."
 };
 
 var info = {
@@ -9298,9 +9682,7 @@ _.each(info, function(desc, code) {
   exports.info[code] = { code: code, desc: desc };
 });
 
-},
-{"underscore":2}],
-6:[function(_dereq_,module,exports){
+},{"underscore":"/node_modules/jshint/node_modules/underscore/underscore.js"}],"/node_modules/jshint/src/name-stack.js":[function(_dereq_,module,exports){
 "use strict";
 
 function NameStack() {
@@ -9348,9 +9730,7 @@ NameStack.prototype.infer = function() {
 
 module.exports = NameStack;
 
-},
-{}],
-7:[function(_dereq_,module,exports){
+},{}],"/node_modules/jshint/src/options.js":[function(_dereq_,module,exports){
 "use strict";
 exports.bool = {
   enforcing: {
@@ -9365,7 +9745,6 @@ exports.bool = {
     es5         : true,
     forin       : true,
     funcscope   : true,
-    globalstrict: true,
     immed       : true,
     iterator    : true,
     newcap      : true,
@@ -9376,6 +9755,8 @@ exports.bool = {
     nonew       : true,
     undef       : true,
     singleGroups: false,
+    strict      : true,
+    varstmt: false,
     enforceall : false
   },
   relaxing: {
@@ -9383,12 +9764,11 @@ exports.bool = {
     multistr    : true,
     debug       : true,
     boss        : true,
-    phantom     : true,
     evil        : true,
+    globalstrict: true,
     plusplus    : true,
     proto       : true,
     scripturl   : true,
-    strict      : true,
     sub         : true,
     supernew    : true,
     laxbreak    : true,
@@ -9416,6 +9796,7 @@ exports.bool = {
     prototypejs : true,
     yui         : true,
     mocha       : true,
+    module      : true,
     wsh         : true,
     worker      : true,
     nonstandard : true,
@@ -9423,7 +9804,8 @@ exports.bool = {
     browserify  : true,
     devel       : true,
     dojo        : true,
-    typed       : true
+    typed       : true,
+    phantom     : true
   },
   obsolete: {
     onecase     : true, // if one case switch statements should be allowed
@@ -9483,10 +9865,12 @@ exports.removed = {
   smarttabs: true,
   trailing: true
 };
+exports.noenforceall = {
+  varstmt: true,
+  strict: true
+};
 
-},
-{}],
-8:[function(_dereq_,module,exports){
+},{}],"/node_modules/jshint/src/reg.js":[function(_dereq_,module,exports){
 
 "use strict";
 exports.unsafeString =
@@ -9504,14 +9888,31 @@ exports.javascriptURL = /^(?:javascript|jscript|ecmascript|vbscript|livescript)\
 exports.fallsThrough = /^\s*\/\*\s*falls?\sthrough\s*\*\/\s*$/;
 exports.maxlenException = /^(?:(?:\/\/|\/\*|\*) ?)?[^ ]+$/;
 
-},
-{}],
-9:[function(_dereq_,module,exports){
+},{}],"/node_modules/jshint/src/state.js":[function(_dereq_,module,exports){
 "use strict";
 var NameStack = _dereq_("./name-stack.js");
 
 var state = {
   syntax: {},
+  isStrict: function() {
+    return this.directive["use strict"] || this.inClassBody ||
+      this.option.module;
+  },
+  inMoz: function() {
+    return this.option.moz;
+  },
+  inESNext: function() {
+    return this.option.moz || this.option.esnext;
+  },
+
+  inES5: function() {
+    return !this.option.es3;
+  },
+
+  inES3: function() {
+    return this.option.es3;
+  },
+
 
   reset: function() {
     this.tokens = {
@@ -9521,6 +9922,7 @@ var state = {
     };
 
     this.option = {};
+    this.funct = null;
     this.ignored = {};
     this.directive = {};
     this.jsonMode = false;
@@ -9531,15 +9933,14 @@ var state = {
     this.ignoredLines = {};
     this.forinifcheckneeded = false;
     this.nameStack = new NameStack();
+    this.inClassBody = false;
     this.ignoreLinterErrors = false;
   }
 };
 
 exports.state = state;
 
-},
-{"./name-stack.js":6}],
-10:[function(_dereq_,module,exports){
+},{"./name-stack.js":"/node_modules/jshint/src/name-stack.js"}],"/node_modules/jshint/src/style.js":[function(_dereq_,module,exports){
 "use strict";
 
 exports.register = function(linter) {
@@ -9662,9 +10063,7 @@ exports.register = function(linter) {
   });
 };
 
-},
-{}],
-11:[function(_dereq_,module,exports){
+},{}],"/node_modules/jshint/src/vars.js":[function(_dereq_,module,exports){
 
 "use strict";
 
@@ -9745,6 +10144,7 @@ exports.browser = {
   ElementTimeControl   : false,
   Event                : false,
   event                : false,
+  fetch                : false,
   FileReader           : false,
   FormData             : false,
   focus                : false,
@@ -9758,6 +10158,7 @@ exports.browser = {
   HTMLBRElement        : false,
   HTMLButtonElement    : false,
   HTMLCanvasElement    : false,
+  HTMLCollection       : false,
   HTMLDirectoryElement : false,
   HTMLDivElement       : false,
   HTMLDListElement     : false,
@@ -9837,6 +10238,7 @@ exports.browser = {
   opener               : false,
   Option               : false,
   parent               : false,
+  performance          : false,
   print                : false,
   Range                : false,
   requestAnimationFrame : false,
@@ -10322,6 +10724,7 @@ exports.yui = {
 };
 
 exports.mocha = {
+  mocha       : false,
   describe    : false,
   xdescribe   : false,
   it          : false,
@@ -10343,6 +10746,7 @@ exports.mocha = {
 exports.jasmine = {
   jasmine     : false,
   describe    : false,
+  xdescribe   : false,
   it          : false,
   xit         : false,
   beforeEach  : false,
@@ -10361,268 +10765,7 @@ exports.jasmine = {
   fit         : false
 };
 
-},
-{}],
-12:[function(_dereq_,module,exports){
-
-function EventEmitter() {
-  this._events = this._events || {};
-  this._maxListeners = this._maxListeners || undefined;
-}
-module.exports = EventEmitter;
-EventEmitter.EventEmitter = EventEmitter;
-
-EventEmitter.prototype._events = undefined;
-EventEmitter.prototype._maxListeners = undefined;
-EventEmitter.defaultMaxListeners = 10;
-EventEmitter.prototype.setMaxListeners = function(n) {
-  if (!isNumber(n) || n < 0 || isNaN(n))
-    throw TypeError('n must be a positive number');
-  this._maxListeners = n;
-  return this;
-};
-
-EventEmitter.prototype.emit = function(type) {
-  var er, handler, len, args, i, listeners;
-
-  if (!this._events)
-    this._events = {};
-  if (type === 'error') {
-    if (!this._events.error ||
-        (isObject(this._events.error) && !this._events.error.length)) {
-      er = arguments[1];
-      if (er instanceof Error) {
-        throw er; // Unhandled 'error' event
-      } else {
-        throw TypeError('Uncaught, unspecified "error" event.');
-      }
-      return false;
-    }
-  }
-
-  handler = this._events[type];
-
-  if (isUndefined(handler))
-    return false;
-
-  if (isFunction(handler)) {
-    switch (arguments.length) {
-      case 1:
-        handler.call(this);
-        break;
-      case 2:
-        handler.call(this, arguments[1]);
-        break;
-      case 3:
-        handler.call(this, arguments[1], arguments[2]);
-        break;
-      default:
-        len = arguments.length;
-        args = new Array(len - 1);
-        for (i = 1; i < len; i++)
-          args[i - 1] = arguments[i];
-        handler.apply(this, args);
-    }
-  } else if (isObject(handler)) {
-    len = arguments.length;
-    args = new Array(len - 1);
-    for (i = 1; i < len; i++)
-      args[i - 1] = arguments[i];
-
-    listeners = handler.slice();
-    len = listeners.length;
-    for (i = 0; i < len; i++)
-      listeners[i].apply(this, args);
-  }
-
-  return true;
-};
-
-EventEmitter.prototype.addListener = function(type, listener) {
-  var m;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events)
-    this._events = {};
-  if (this._events.newListener)
-    this.emit('newListener', type,
-              isFunction(listener.listener) ?
-              listener.listener : listener);
-
-  if (!this._events[type])
-    this._events[type] = listener;
-  else if (isObject(this._events[type]))
-    this._events[type].push(listener);
-  else
-    this._events[type] = [this._events[type], listener];
-  if (isObject(this._events[type]) && !this._events[type].warned) {
-    var m;
-    if (!isUndefined(this._maxListeners)) {
-      m = this._maxListeners;
-    } else {
-      m = EventEmitter.defaultMaxListeners;
-    }
-
-    if (m && m > 0 && this._events[type].length > m) {
-      this._events[type].warned = true;
-      console.error('(node) warning: possible EventEmitter memory ' +
-                    'leak detected. %d listeners added. ' +
-                    'Use emitter.setMaxListeners() to increase limit.',
-                    this._events[type].length);
-      if (typeof console.trace === 'function') {
-        console.trace();
-      }
-    }
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.on = EventEmitter.prototype.addListener;
-
-EventEmitter.prototype.once = function(type, listener) {
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  var fired = false;
-
-  function g() {
-    this.removeListener(type, g);
-
-    if (!fired) {
-      fired = true;
-      listener.apply(this, arguments);
-    }
-  }
-
-  g.listener = listener;
-  this.on(type, g);
-
-  return this;
-};
-EventEmitter.prototype.removeListener = function(type, listener) {
-  var list, position, length, i;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events || !this._events[type])
-    return this;
-
-  list = this._events[type];
-  length = list.length;
-  position = -1;
-
-  if (list === listener ||
-      (isFunction(list.listener) && list.listener === listener)) {
-    delete this._events[type];
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-
-  } else if (isObject(list)) {
-    for (i = length; i-- > 0;) {
-      if (list[i] === listener ||
-          (list[i].listener && list[i].listener === listener)) {
-        position = i;
-        break;
-      }
-    }
-
-    if (position < 0)
-      return this;
-
-    if (list.length === 1) {
-      list.length = 0;
-      delete this._events[type];
-    } else {
-      list.splice(position, 1);
-    }
-
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.removeAllListeners = function(type) {
-  var key, listeners;
-
-  if (!this._events)
-    return this;
-  if (!this._events.removeListener) {
-    if (arguments.length === 0)
-      this._events = {};
-    else if (this._events[type])
-      delete this._events[type];
-    return this;
-  }
-  if (arguments.length === 0) {
-    for (key in this._events) {
-      if (key === 'removeListener') continue;
-      this.removeAllListeners(key);
-    }
-    this.removeAllListeners('removeListener');
-    this._events = {};
-    return this;
-  }
-
-  listeners = this._events[type];
-
-  if (isFunction(listeners)) {
-    this.removeListener(type, listeners);
-  } else {
-    while (listeners.length)
-      this.removeListener(type, listeners[listeners.length - 1]);
-  }
-  delete this._events[type];
-
-  return this;
-};
-
-EventEmitter.prototype.listeners = function(type) {
-  var ret;
-  if (!this._events || !this._events[type])
-    ret = [];
-  else if (isFunction(this._events[type]))
-    ret = [this._events[type]];
-  else
-    ret = this._events[type].slice();
-  return ret;
-};
-
-EventEmitter.listenerCount = function(emitter, type) {
-  var ret;
-  if (!emitter._events || !emitter._events[type])
-    ret = 0;
-  else if (isFunction(emitter._events[type]))
-    ret = 1;
-  else
-    ret = emitter._events[type].length;
-  return ret;
-};
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-
-},
-{}]},{},[3])
-(3)
+},{}]},{},["/node_modules/jshint/src/jshint.js"]);
 
 });
 

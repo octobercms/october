@@ -94,7 +94,7 @@
         }
     })
 
-    $(document).on('hidden.bs.dropdown', '.dropdown', function(){
+    $(document).on('hidden.bs.dropdown', '.dropdown', function() {
         var dropdown = $(this).data('oc.dropdown')
         if (dropdown !== undefined) {
             dropdown.css('display', 'none')
@@ -102,6 +102,36 @@
         }
 
         $(document.body).removeClass('dropdown-open');
+    })
+
+    /*
+     * Fixed positioned dropdowns
+     * - Useful for dropdowns inside hidden overflow containers
+     */
+
+    var $dropdown, $container, $target
+
+    function fixDropdownPosition() {
+        var position = $container.offset()
+
+        $dropdown.css({
+            position: 'fixed',
+            top: position.top - 1 - $(window).scrollTop() + $target.outerHeight(),
+            left: position.left
+        })
+    }
+
+    $(document).on('shown.bs.dropdown', '.dropdown.dropdown-fixed', function(event, eventData) {
+        $container = $(this)
+        $dropdown = $('.dropdown-menu', $container)
+        $target = $(eventData.relatedTarget)
+        fixDropdownPosition()
+
+        $(window).on('scroll.oc.dropdown, resize.oc.dropdown', fixDropdownPosition)
+    })
+
+    $(document).on('hidden.bs.dropdown', '.dropdown.dropdown-fixed', function() {
+        $(window).off('scroll.oc.dropdown, resize.oc.dropdown', fixDropdownPosition)
     })
 
 }(window.jQuery);

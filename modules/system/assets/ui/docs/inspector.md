@@ -1,60 +1,11 @@
 # Inspector control
 
+### Inspector
+
 Manages properties of inspectable controls.
 
-### Supported data attributes:
+### Basic usage
 
-- data-inspectable - makes a control inspectable.
-- data-inspector-title - title for the inspector popup
-- data-inspector-description - optional description for the inspector popup
-- data-inspector-class - PHP class name of the inspectable object. Required for drop-down fields with dynamic options.
-- data-inspector-css-class - CSS class name to apply to the Inspector container element.
-- data-inspector-container - specifies a CSS selector for the inspector container. The default container is the document body. The container element should be relative positioned. The 'self' container value allows to inject the inspector to the inspectable element.
-- data-inspector-offset - offset in pixels to add to the calculated position, to make the position more "random"
-- data-inspector-placement - top | bottom | left | right. The placement could automatically be changed if the popover doesn't fit into the desired position.
-- data-inspector-fallback-placement - The placement to use if the default placement and all other possible placements do not work. The default value is "bottom".
-- data-inspector-config - Configuration of the inspector fields as an array in the JSON format.
-    Each element in the array is an object with the following properties:
-    - property
-    - title
-    - group (optional)
-    - type (currently supported types are: string, checkbox, dropdown)
-    - description (optional)
-    - validationPattern (regex pattern for for validating the value, supported by the text editor)
-    - validationMessage (a message to display if the validation fails)
-    - placeholder - placholder text, for text and dropdown properties
-    - default - default value
-    - depends - a list of properties the property depend on, for dropdown lists
-    - options - an option list for dropdown lists, optional. If not provided the options are loaded with AJAX.
-    - showExternalParam - specifies the visibility of the external parameter feature for the property. Default: true.
-    Example of the configuration string (a single property):
-    [{"property":"max-width","title":"Max width","type":"string"}]
-
-The Inspector requires the inspectable element to contain a hidden input element with the attribute "data-inspector-values".
-The inspector uses this field to read and write field values. The field value is a JSON string, an object with keys matching property
-names and values matching property values.
-
-Any HTML element that wraps the inspectable element can have the data-inspector-external-parameters property that enables the external 
-parameters support. External parameters saved with the special syntax {{ paramName }}. The external parameter feature can be toggled
-on per-property basis with the showExternalParam option, visible by default.
-
-### Supported events:
-
-- change - the event is triggered on the inspectable element when it's properties are updated.
-- showing.oc.inspector - triggered before the Inspector is displayed. Allows to cancel the action with e.preventDefault()
-- hiding.oc.inspector - triggered before the Inspector is hidden. Allows to cancel the action with e.preventDefault()
-- hidden.oc.inspector - triggered after the Inspector is hidden.
-
-## Dependencies
-
-- Popover
-- Tooltip
-- Select
-- Checkbox
-
-# Example
-
-    <h5>Basic usage</h5>
     <button
         class="btn btn-primary"
         data-inspectable
@@ -98,13 +49,8 @@ on per-property basis with the showExternalParam option, visible by default.
         Open Inspector
     </button>
 
+### Manual usage
 
-
-    <hr/>
-
-
-
-    <h5>Manual usage</h5>
     <div id="inspectorContainer">
         <button class="btn btn-primary" id="btn1">
             Open inspector
@@ -167,3 +113,49 @@ on per-property basis with the showExternalParam option, visible by default.
             return false
         })
     </script>
+
+## API
+
+### Supported data attributes:
+
+- data-inspectable - makes a control inspectable.
+- data-inspector-title - title for the inspector popup
+- data-inspector-description - optional description for the inspector popup
+- data-inspector-class - PHP class name of the inspectable object. Required for drop-down fields with dynamic options.
+- data-inspector-css-class - CSS class name to apply to the Inspector container element.
+- data-inspector-container - specifies a CSS selector for the inspector container. The default container is the document body. The container element should be relative positioned. The 'self' container value allows to inject the inspector to the inspectable element.
+- data-inspector-offset - offset in pixels to add to the calculated position, to make the position more "random"
+- data-inspector-placement - top | bottom | left | right. The placement could automatically be changed if the popover doesn't fit into the desired position.
+- data-inspector-fallback-placement - The placement to use if the default placement and all other possible placements do not work. The default value is "bottom".
+- data-inspector-config - Configuration of the inspector fields as an array in the JSON format.
+    Each element in the array is an object with the following properties:
+    - property
+    - title
+    - group (optional)
+    - type (currently supported types are: string, checkbox, dropdown)
+    - description (optional)
+    - validationPattern (regex pattern for for validating the value, supported by the text editor)
+    - validationMessage (a message to display if the validation fails)
+    - placeholder - placholder text, for text and dropdown properties
+    - default - default value
+    - depends - a list of properties the property depend on, for dropdown lists
+    - options - an option list for dropdown lists, optional. If not provided the options are loaded with AJAX.
+    - showExternalParam - specifies the visibility of the external parameter feature for the property. Default: true.
+    Example of the configuration string (a single property):
+    [{"property":"max-width","title":"Max width","type":"string"}]
+
+The Inspector requires the inspectable element to contain a hidden input element with the attribute "data-inspector-values".
+The inspector uses this field to read and write field values. The field value is a JSON string, an object with keys matching property
+names and values matching property values.
+
+Any HTML element that wraps the inspectable element can have the data-inspector-external-parameters property that enables the external 
+parameters support. External parameters saved with the special syntax {{ paramName }}. The external parameter feature can be toggled
+on per-property basis with the showExternalParam option, visible by default.
+
+### Supported events:
+
+- change - the event is triggered on the inspectable element when it's properties are updated.
+- showing.oc.inspector - triggered before the Inspector is displayed. Allows to cancel the action with e.preventDefault()
+- hiding.oc.inspector - triggered before the Inspector is hidden. Allows to cancel the action with e.preventDefault()
+- hidden.oc.inspector - triggered after the Inspector is hidden.
+

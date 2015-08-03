@@ -91,7 +91,12 @@ abstract class ImportModel extends Model
             'firstRowTitles' => true
         ], $options));
 
-        $reader = CsvReader::createFromPath($filePath);
+        $reader = CsvReader::createFromPath($filePath, 'r');
+
+        // Filter out empty rows
+        $reader->addFilter(function(array $row) {
+            return count($row) > 1 || reset($row) !== null;
+        });
 
         if ($firstRowTitles) {
             $reader->setOffset(1);
