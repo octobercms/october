@@ -91,7 +91,7 @@ abstract class ImportModel extends Model
             'firstRowTitles' => true
         ], $options));
 
-        $reader = CsvReader::createFromPath($filePath);
+        $reader = CsvReader::createFromPath($filePath, 'r');
 
         if ($firstRowTitles) {
             $reader->setOffset(1);
