@@ -33,7 +33,7 @@ return array(
     "different"        => 'Le champ :attribute et :other doivent être différents.',
     "digits"           => 'Le champ :attribute doit être de :digits chiffres.',
     "digits_between"   => 'Le champ :attribute doit être compris entre :min et :max chiffres.',
-    "email"            => 'Le format du champ :attribute  n’est pas valide.',
+    "email"            => 'Le format du champ :attribute n’est pas valide.',
     "exists"           => 'Le champ :attribute sélectionné n’est pas valide.',
     "image"            => 'Le champ :attribute doit être une image.',
     "in"               => 'Le champ :attribute sélectionné n’est pas valide.',
