@@ -27,7 +27,7 @@ return array(
         "string"  => 'Le champ :attribute doit être compris entre :min - :max caractères.',
         "array"   => 'Le champ :attribute doit être compris entre :min - :max objets.',
     ),
-    "confirmed"        => 'Le champ :attribute de confirmation ne correspond pas.',
+    "confirmed"        => 'Le champ de confirmation :attribute ne correspond pas.',
     "date"             => 'Le champ :attribute n’est pas une date valide.',
     "date_format"      => 'Le champ :attribute ne correspond pas au format :format.',
     "different"        => 'Le champ :attribute et :other doivent être différents.',
@@ -54,7 +54,7 @@ return array(
     ),
     "not_in"           => 'Le champ :attribute sélectionné n’est pas valide.',
     "numeric"          => 'Le champ :attribute doit être un nombre.',
-    "regex"            => 'Le format du champ :attribute  n’est pas valide.',
+    "regex"            => 'Le format du champ :attribute n’est pas valide.',
     "required"         => 'Le champ :attribute est obligatoire.',
     "required_if"      => 'Le champ :attribute est obligatoire quand :other est :value.',
     "required_with"    => 'Le champ :attribute est obligatoire quand :values est présent.',
@@ -66,8 +66,8 @@ return array(
         "string"  => 'Le champ :attribute doit être de :size caractères.',
         "array"   => 'Le champ :attribute doit contenir :size objets.',
     ),
-    "unique"           => 'Le champ :attribute a déjà été pris.',
-    "url"              => 'Le format de du champ :attribute n’est pas valide.',
+    "unique"           => 'Le champ :attribute doit être unique. La valeur renseignée est déjà utilisée.',
+    "url"              => 'Le champ :attribute n’est pas une URL valide.',
 
     /*
     |--------------------------------------------------------------------------
