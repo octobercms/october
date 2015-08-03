@@ -5,8 +5,6 @@
   background: #fff;
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   border-radius: 5px;
 }
 .field-markdowneditor textarea {
@@ -186,8 +184,6 @@
 .field-markdowneditor .editor-preview pre.prettyprint {
   border-width: 0;
   padding: 13px 16px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
   border-radius: 3px;
   line-height: 130%;
 }
