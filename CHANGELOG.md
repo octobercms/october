@@ -1,3 +1,6 @@
+* **Build 287** (2015-08-03)
+  - Introduced new **MarkdownEditor** form widget (see Backend > Forms docs).
+
 * **Build 284** (2015-07-25)
   - Introduced new **ImportExport** controller behavior.
   - The `export` action has been moved from ListController behavior to Import / Export behavior (see Backend > Importing & Exporting docs).
@@ -22,7 +25,7 @@
 
 * **Build 270** (2015-06-18)
   - Introduced the October Storm client-side library.
-  - Introduced new *MediaFinder* form widget.
+  - Introduced new **MediaFinder** form widget.
   - Improved the back-end administrator permissions and `RelationController` UI.
   - The page setting `hidden` has been renamed to `is_hidden`, this setting may need to be reapplied for some themes.
   - `FileUpload` form widget has been rebuilt from scratch, it now uses an interface similar to the Media Manager (see Backend > Forms docs).
