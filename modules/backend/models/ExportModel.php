@@ -183,4 +183,24 @@ abstract class ExportModel extends Model
         return $results;
     }
 
+    /**
+     * Implodes a single dimension array using pipes (|)
+     * Multi dimensional arrays are not allowed.
+     * @return string
+     */
+    protected function encodeArrayValue($data, $delimeter = '|')
+    {
+        $newData = [];
+        foreach ($data as $value) {
+            if (is_array($value)) {
+                $newData[] = 'Array';
+            }
+            else {
+                $newData[] = str_replace($delimeter, '\\'.$delimeter, $value);
+            }
+        }
+
+        return implode($delimeter, $newData);
+    }
+
 }

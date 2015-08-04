@@ -130,6 +130,24 @@ abstract class ImportModel extends Model
     }
 
     /**
+     * Explodes a string using pipes (|) to a single dimension array
+     * @return array
+     */
+    protected function decodeArrayValue($value, $delimeter = '|')
+    {
+        if (strpos($value, $delimeter) === false) return $value;
+
+        $data = preg_split('~(?<!\\\)' . preg_quote($delimeter, '~') . '~', $value);
+        $newData = [];
+
+        foreach ($data as $_value) {
+            $newData[] = str_replace('\\'.$delimeter, $delimeter, $_value);
+        }
+
+        return $newData;
+    }
+
+    /**
      * Returns an attached imported file local path, if available.
      * @return string
      */
