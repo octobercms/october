@@ -65,7 +65,7 @@ class MarkdownEditor extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('css/markdowneditor.css', 'core');
         $this->addJs('js/markdowneditor.js', 'core');

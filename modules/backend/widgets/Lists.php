@@ -197,7 +197,7 @@ class Lists extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addJs('js/october.list.js', 'core');
     }

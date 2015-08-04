@@ -112,7 +112,7 @@ class RichEditor extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('css/richeditor.css', 'core');
         $this->addJs('js/build-min.js', 'core');

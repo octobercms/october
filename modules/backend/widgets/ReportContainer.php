@@ -119,7 +119,7 @@ class ReportContainer extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('css/reportcontainer.css', 'core');
         $this->addJs('vendor/isotope/jquery.isotope.min.js', 'core');

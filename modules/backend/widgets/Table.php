@@ -125,7 +125,7 @@ class Table extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('css/table.css', 'core');
         $this->addJs('js/build-min.js', 'core');

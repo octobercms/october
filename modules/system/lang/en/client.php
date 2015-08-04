@@ -26,6 +26,7 @@ return [
         'italic' => 'Italic',
         'unorderedlist' => 'Unordered List',
         'orderedlist' => 'Ordered List',
+        'video' => 'Video',
         'image' => 'Image',
         'link' => 'Link',
         'horizontalrule' => 'Insert Horizontal Rule',

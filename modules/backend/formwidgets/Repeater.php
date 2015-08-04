@@ -78,7 +78,7 @@ class Repeater extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('css/repeater.css', 'core');
         $this->addJs('js/repeater.js', 'core');

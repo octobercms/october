@@ -116,7 +116,7 @@ class DatePicker extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('vendor/pikaday/css/pikaday.css', 'core');
         $this->addCss('vendor/clockpicker/css/jquery-clockpicker.css', 'core');
