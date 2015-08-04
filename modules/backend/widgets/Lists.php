@@ -520,6 +520,8 @@ class Lists extends WidgetBase
         }
 
         $data = $record->toArray();
+        $data += [$record->getKeyName() => $record->getKey()];
+
         $columns = array_keys($data);
 
         $url = RouterHelper::parseValues($data, $columns, $this->recordUrl);
