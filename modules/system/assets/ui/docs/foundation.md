@@ -196,16 +196,19 @@ We already have a boilerplate code for jQuery code. Disposable controls approach
         var old = $.fn.someDisposableControl
 
         $.fn.someDisposableControl = function (option) {
-            var args = arguments;
+            var args = Array.prototype.slice.call(arguments, 1), items, result
 
-            return this.each(function () {
+            items = this.each(function () {
                 var $this   = $(this)
                 var data    = $this.data('oc.someDisposableControl')
                 var options = $.extend({}, SomeDisposableControl.DEFAULTS, $this.data(), typeof option == 'object' && option)
                 if (!data) $this.data('oc.someDisposableControl', (data = new SomeDisposableControl(this, options)))
-                if (typeof option == 'string') data[option].apply(data, args)
+                if (typeof option == 'string') result = data[option].apply(data, args)
+                if (typeof result != 'undefined') return false
             })
-          }
+
+            return result ? result : items
+        }
 
         $.fn.someDisposableControl.Constructor = SomeDisposableControl
 
