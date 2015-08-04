@@ -22,7 +22,7 @@ fields:
         span: left
 
     step2_section:
-        label: 2. Match database fields to the CSV columns
+        label: 2. Match the file columns to database fields
         type: section
 
     column_control_panel:

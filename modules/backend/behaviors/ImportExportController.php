@@ -2,6 +2,8 @@
 
 use Str;
 use Lang;
+use View;
+use Response;
 use Backend;
 use Backend\Classes\ControllerBehavior;
 use League\Csv\Reader as CsvReader;
@@ -124,6 +126,10 @@ class ImportExportController extends ControllerBehavior
 
     public function import()
     {
+        if ($response = $this->checkPermissionsForType('import')) {
+            return $response;
+        }
+
         $this->addJs('js/october.import.js', 'core');
         $this->addCss('css/import.css', 'core');
 
@@ -135,6 +141,10 @@ class ImportExportController extends ControllerBehavior
 
     public function export()
     {
+        if ($response = $this->checkPermissionsForType('export')) {
+            return $response;
+        }
+
         $this->checkUseListExportMode();
 
         $this->addJs('js/october.export.js', 'core');
@@ -265,8 +275,15 @@ class ImportExportController extends ControllerBehavior
         if ($this->importColumns !== null) {
             return $this->importColumns;
         }
+
         $columnConfig = $this->getConfig('import[list]');
-        return $this->importColumns = $this->makeListColumns($columnConfig);
+        $columns = $this->makeListColumns($columnConfig);
+
+        if (empty($columns)) {
+            throw new ApplicationException('Please specify some columns to import.');
+        }
+
+        return $this->importColumns = $columns;
     }
 
     protected function getImportFileColumns()
@@ -432,8 +449,15 @@ class ImportExportController extends ControllerBehavior
         if ($this->exportColumns !== null) {
             return $this->exportColumns;
         }
+
         $columnConfig = $this->getConfig('export[list]');
-        return $this->exportColumns = $this->makeListColumns($columnConfig);
+        $columns = $this->makeListColumns($columnConfig);
+
+        if (empty($columns)) {
+            throw new ApplicationException('Please specify some columns to export.');
+        }
+
+        return $this->exportColumns = $columns;
     }
 
     protected function makeExportFormatFormWidget()
@@ -587,6 +611,21 @@ class ImportExportController extends ControllerBehavior
         return $contents;
     }
 
+    /**
+     * Checks to see if the import/export is controlled by permissions
+     * and if the logged in user has permissions.
+     * @return \View
+     */
+    protected function checkPermissionsForType($type)
+    {
+        if (
+            ($permissions = $this->getConfig($type.'[permissions]')) &&
+            (!$this->controller->user->hasAnyAccess((array) $permissions))
+        ) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+    }
+
     protected function makeOptionsFormWidgetForType($type)
     {
         if (!$this->getConfig($type)) {
@@ -632,7 +671,12 @@ class ImportExportController extends ControllerBehavior
 
         $result = [];
         foreach ($config->columns as $attribute => $column) {
-            $result[$attribute] = array_get($column, 'label', $attribute);
+            if (is_array($column)) {
+                $result[$attribute] = array_get($column, 'label', $attribute);
+            }
+            else {
+                $result[$attribute] = $column ?: $attribute;
+            }
         }
 
         return $result;
