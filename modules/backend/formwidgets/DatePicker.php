@@ -108,6 +108,7 @@ class DatePicker extends FormWidgetBase
         }
 
         $this->vars['value'] = $value ?: '';
+        $this->vars['field'] = $this->formField;
         $this->vars['mode'] = $this->mode;
         $this->vars['minDate'] = $this->minDate;
         $this->vars['maxDate'] = $this->maxDate;
