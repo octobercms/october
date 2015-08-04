@@ -16,6 +16,7 @@
         this.$fixedButtons = null
         this.$indicator = null
         this.editorPadding = 15
+        this.updatesPaused = false
 
         $.oc.foundation.controlUtils.markDisposable(element)
         Base.call(this)
@@ -72,6 +73,8 @@
         this.$buttons = null
         this.$fixedButtons = null
         this.$indicator = null
+        this.editorPadding = null
+        this.updatesPaused = null
 
         this.isSplitMode = null
         this.isPreview = null
@@ -83,6 +86,86 @@
         BaseProto.dispose.call(this)
     }
 
+    //
+    // Events
+    //
+
+    MarkdownEditor.prototype.onClickToolbarButton = function(ev) {
+        var $button = $(ev.target),
+            action = $button.data('button-action'),
+            template = $button.data('button-template')
+
+        $button.blur()
+
+        this.pauseUpdates()
+
+        if (template) {
+            this[action](template)
+        }
+        else {
+            this[action]()
+        }
+
+        this.resumeUpdates()
+        this.handleChange()
+    }
+
+    MarkdownEditor.prototype.onEditorScrollTop = function(scroll) {
+        if (!this.isSplitMode) return
+
+        var canvasHeight = this.$preview.height(),
+            editorHeight,
+            previewHeight,
+            scrollRatio
+
+        if (canvasHeight != this.$el.data('markdowneditor-canvas-height')) {
+
+            editorHeight =
+                (this.editor.getSession().getScreenLength() *
+                this.editor.renderer.lineHeight) -
+                canvasHeight
+
+            previewHeight = this.$preview.get(0).scrollHeight - canvasHeight
+
+            scrollRatio = previewHeight / editorHeight
+
+            this.$el.data('markdowneditor-canvas-height', canvasHeight)
+            this.$el.data('markdowneditor-scroll-ratio', scrollRatio)
+        }
+        else {
+            scrollRatio = this.$el.data('markdowneditor-scroll-ratio')
+        }
+
+        scroll += this.editorPadding
+        this.$preview.scrollTop(scroll * scrollRatio)
+    }
+
+    MarkdownEditor.prototype.onEditorChange = function() {
+        this.$form.trigger('change')
+        this.$textarea.trigger('oc.markdownEditorChange')
+        this.handleChange()
+    }
+
+    MarkdownEditor.prototype.onBeforeRequest = function() {
+        this.$textarea.val(this.editor.getSession().getValue())
+    }
+
+    MarkdownEditor.prototype.onResize = function() {
+        this.editor.resize()
+    }
+
+    MarkdownEditor.prototype.onBlur = function() {
+        this.$el.removeClass('editor-focus')
+    }
+
+    MarkdownEditor.prototype.onFocus = function() {
+        this.$el.addClass('editor-focus')
+    }
+
+    //
+    // Toolbar
+    //
+
     MarkdownEditor.prototype.createToolbar = function() {
         var self = this,
             $button,
@@ -90,27 +173,7 @@
             $fixedButtons = $('<div class="layout-cell toolbar-item width-fix" />')
 
         $.each($.oc.markdownEditorButtons, function(code, button) {
-            $button = $('<button />').attr({
-                'type': "button",
-                'class': 'btn',
-                'title': $.oc.lang.get(button.label),
-                'data-control': "tooltip",
-                'data-placement': "bottom",
-                'data-container': "body",
-                'data-button-code': code,
-                'data-button-action': button.action
-            })
-
-            if (button.template) {
-                $button.attr('data-button-template', button.template)
-            }
-
-            if (button.cssClass) {
-                $button.addClass(button.cssClass)
-            }
-            else {
-                $button.addClass('tb-icon tb-' + button.icon)
-            }
+            $button = self.makeToolbarButton(code, button)
 
             if (button.fixed) {
                 $fixedButtons.append($button)
@@ -164,6 +227,69 @@
         $el.wrap('<div class="dropdown dropdown-fixed" />')
         $el.after($dropdown)
     }
+
+    MarkdownEditor.prototype.makeToolbarButton = function(code, button) {
+        var $button = $('<button />').attr({
+            'type': "button",
+            'class': 'btn',
+            'title': $.oc.lang.get(button.label),
+            'data-control': "tooltip",
+            'data-placement': "bottom",
+            'data-container': "body",
+            'data-button-code': code
+        })
+
+        if (button.action) {
+            $button.attr('data-button-action', button.action)
+        }
+
+        if (button.template) {
+            $button.attr('data-button-template', button.template)
+        }
+
+        if (button.cssClass) {
+            $button.addClass(button.cssClass)
+        }
+        else {
+            $button.addClass('tb-icon tb-' + button.icon)
+        }
+
+        return $button
+    }
+
+    MarkdownEditor.prototype.addToolbarButton = function(code, button) {
+
+        var $button = this.makeToolbarButton(code, button)
+
+        var appendCode = button.insertBefore || button.insertAfter
+        if (appendCode) {
+            var appendButton = this.findToolbarButton(appendCode)
+            if (!!appendButton.length && button.insertBefore) {
+                appendButton.before($button)
+            }
+            else if (!!appendButton.length && button.insertAfter) {
+                appendButton.after($button)
+            }
+        }
+        else {
+            if (button.fixed) {
+                this.$fixedButtons.append($button)
+            }
+            else {
+                this.$buttons.append($button)
+            }
+        }
+
+        return $button
+    }
+
+    MarkdownEditor.prototype.findToolbarButton = function(code) {
+        return $('[data-button-code='+code+']', this.$toolbar)
+    }
+
+    //
+    // Write
+    //
 
     MarkdownEditor.prototype.createCodeContainer = function() {
         /*
@@ -222,57 +348,9 @@
         }, 100)
     }
 
-    //
-    // Events
-    //
-
-    MarkdownEditor.prototype.onClickToolbarButton = function(ev) {
-        var $button = $(ev.target),
-            action = $button.data('button-action'),
-            template = $button.data('button-template')
-
-        $button.blur()
-
-        if (template) {
-            this[action](template)
-        }
-        else {
-            this[action]()
-        }
-    }
-
-    MarkdownEditor.prototype.onEditorScrollTop = function(scroll) {
-        if (!this.isSplitMode) return
-
-        var canvasHeight = this.$preview.height(),
-            editorHeight,
-            previewHeight,
-            scrollRatio
-
-        if (canvasHeight != this.$el.data('markdowneditor-canvas-height')) {
-
-            editorHeight =
-                (this.editor.getSession().getScreenLength() *
-                this.editor.renderer.lineHeight) -
-                canvasHeight
-
-            previewHeight = this.$preview.get(0).scrollHeight - canvasHeight
-
-            scrollRatio = previewHeight / editorHeight
-
-            this.$el.data('markdowneditor-canvas-height', canvasHeight)
-            this.$el.data('markdowneditor-scroll-ratio', scrollRatio)
-        }
-        else {
-            scrollRatio = this.$el.data('markdowneditor-scroll-ratio')
-        }
-
-        scroll += this.editorPadding
-        this.$preview.scrollTop(scroll * scrollRatio)
-    }
-
-    MarkdownEditor.prototype.onEditorChange = function() {
-        this.$form.trigger('change')
+    MarkdownEditor.prototype.handleChange = function() {
+        if (this.updatesPaused)
+            return
 
         var self = this
 
@@ -281,7 +359,7 @@
         if (this.loading) {
             if (this.dataTrackInputTimer === undefined) {
                 this.dataTrackInputTimer = window.setInterval(function(){
-                    self.onEditorChange()
+                    self.handleChange()
                 }, 100)
             }
 
@@ -294,20 +372,8 @@
         self.updatePreview()
     }
 
-    MarkdownEditor.prototype.onBeforeRequest = function() {
-        this.$textarea.val(this.editor.getSession().getValue())
-    }
-
-    MarkdownEditor.prototype.onResize = function() {
-        this.editor.resize()
-    }
-
-    MarkdownEditor.prototype.onBlur = function() {
-        this.$el.removeClass('editor-focus')
-    }
-
-    MarkdownEditor.prototype.onFocus = function() {
-        this.$el.addClass('editor-focus')
+    MarkdownEditor.prototype.getEditorObject = function() {
+        return this.editor
     }
 
     //
@@ -335,6 +401,16 @@
     MarkdownEditor.prototype.initPreview = function() {
         $('pre', this.$preview).addClass('prettyprint')
         prettyPrint()
+
+        this.$el.trigger('oc.markdownEditorInitPreview')
+    }
+
+    MarkdownEditor.prototype.pauseUpdates = function() {
+        this.updatesPaused = true
+    }
+
+    MarkdownEditor.prototype.resumeUpdates = function() {
+        this.updatesPaused = false
     }
 
     //
@@ -591,16 +667,19 @@
     var old = $.fn.markdownEditor
 
     $.fn.markdownEditor = function (option) {
-        var args = arguments;
+        var args = Array.prototype.slice.call(arguments, 1), items, result
 
-        return this.each(function () {
+        items = this.each(function () {
             var $this   = $(this)
             var data    = $this.data('oc.markdownEditor')
             var options = $.extend({}, MarkdownEditor.DEFAULTS, $this.data(), typeof option == 'object' && option)
             if (!data) $this.data('oc.markdownEditor', (data = new MarkdownEditor(this, options)))
-            if (typeof option == 'string') data[option].apply(data, args)
+            if (typeof option == 'string') result = data[option].apply(data, args)
+            if (typeof result != 'undefined') return false
         })
-      }
+
+        return result ? result : items
+    }
 
     $.fn.markdownEditor.Constructor = MarkdownEditor
 
