@@ -134,7 +134,7 @@ return [
         'setup_title' => 'Configura elenco',
         'setup_help' => 'Utilizza le checkbox per selezionare le colonne che vuoi visualizzare nell\'elenco. Puoi cambiare la posizione delle colonne trascinandole verso l\'alto o il basso.',
         'records_per_page' => 'Record per pagina',
-        'records_per_page_help' => 'Seleziona il numero di record da visualizzare su ogni pagina. Ricorda che un numero elevato di record in una singola pagina può ridurre le prestazioni.'
+        'records_per_page_help' => 'Seleziona il numero di record da visualizzare su ogni pagina. Ricorda che un numero elevato di record in una singola pagina può ridurre le prestazioni.',
         'delete_selected' => 'Elimina selezionati',
         'delete_selected_empty' => 'Non hai selezionato nessun record da eliminare.',
         'delete_selected_confirm' => 'Elimina i record selezionati?',
