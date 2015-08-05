@@ -53,8 +53,6 @@
 
         this.onDropColumn = function ($dbItem, container, _super, event) {
             var
-                dbColumnName = $dbItem.data('column-name'),
-                $dbItemMatchInput = $('[data-column-match-input]' , $dbItem),
                 $fileColumns = $('#importFileColumns'),
                 $fileItem,
                 isMatch = $.contains($fileColumns.get(0), $dbItem.get(0)),
@@ -74,21 +72,15 @@
              */
             if (isMatch) {
                 $fileItem = $dbItem.closest('[data-column-id]'),
-                matchColumnId = $fileItem.data('column-id')
-
-                this.toggleMatchState($fileItem)
-
-                $dbItem.data('column-matched-id', matchColumnId)
-                $dbItemMatchInput.attr('name', 'column_match['+matchColumnId+'][]')
-                $dbItemMatchInput.attr('value', dbColumnName)
+                this.matchColumn($dbItem, $fileItem)
             }
             else {
-                $dbItem.removeData('column-matched-id')
-                $dbItemMatchInput.attr('name', '');
-                $dbItemMatchInput.attr('value', '');
+                this.unmatchColumn($dbItem)
             }
 
-            _super($dbItem, container)
+            if (_super) {
+                _super($dbItem, container)
+            }
         }
 
         this.toggleMatchState = function ($container) {
@@ -104,11 +96,53 @@
             $('#showIgnoredColumnsButton').removeClass('disabled')
         }
 
-        this.showIgnoredColumns = function(el) {
+        this.showIgnoredColumns = function() {
             $('#importFileColumns li.is-ignored').removeClass('is-ignored')
             $('#showIgnoredColumnsButton').addClass('disabled')
         }
 
+        this.autoMatchColumns = function() {
+            var self = this,
+                fileColumns = {},
+                $this,
+                name
+
+            $('#importFileColumns li').each(function() {
+                $this = $(this)
+                name = $.trim($('.column-label', $this).text())
+                fileColumns[name] = $this
+            })
+
+            $('#importDbColumns li').each(function() {
+                $this = $(this)
+                name = $.trim($('> span', $this).text())
+                if (fileColumns[name]) {
+
+                    $this.appendTo($('.import-column-bindings > ul', fileColumns[name]))
+                    self.matchColumn($this, fileColumns[name])
+                }
+            })
+        }
+
+        this.matchColumn = function($dbItem, $fileItem) {
+            var matchColumnId = $fileItem.data('column-id'),
+                dbColumnName = $dbItem.data('column-name'),
+                $dbItemMatchInput = $('[data-column-match-input]', $dbItem)
+
+            this.toggleMatchState($fileItem)
+
+            $dbItem.data('column-matched-id', matchColumnId)
+            $dbItemMatchInput.attr('name', 'column_match['+matchColumnId+'][]')
+            $dbItemMatchInput.attr('value', dbColumnName)
+        }
+
+        this.unmatchColumn = function($dbItem) {
+            var $dbItemMatchInput = $('[data-column-match-input]', $dbItem)
+
+            $dbItem.removeData('column-matched-id')
+            $dbItemMatchInput.attr('name', '');
+            $dbItemMatchInput.attr('value', '');
+        }
     }
 
     $.oc.importBehavior = new ImportBehavior;

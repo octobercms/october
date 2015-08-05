@@ -13,6 +13,7 @@ fields:
         mode: file
         span: left
         fileTypes: csv
+        useCaption: false
 
     first_row_titles:
         label: First row contains column titles

@@ -135,7 +135,7 @@ abstract class ImportModel extends Model
      */
     protected function decodeArrayValue($value, $delimeter = '|')
     {
-        if (strpos($value, $delimeter) === false) return $value;
+        if (strpos($value, $delimeter) === false) return [$value];
 
         $data = preg_split('~(?<!\\\)' . preg_quote($delimeter, '~') . '~', $value);
         $newData = [];
