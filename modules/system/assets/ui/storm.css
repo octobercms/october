@@ -1371,6 +1371,8 @@ div.progress{height:9px;-webkit-box-shadow:none;box-shadow:none;background:#d9de
 .title-value h4{font-size:12px;text-transform:uppercase;color:#666666;margin:0}
 .title-value span.goal-meter-indicator{float:left;height:24px;width:10px;margin-right:5px;position:relative;top:9px;background:#cc3300}
 .title-value span.goal-meter-indicator > span{text-indent:-10000em;display:block;position:absolute;width:10px;left:0;bottom:0;background:#95b753;height:0;-webkit-transition:all 0.2s;transition:all 0.2s}
+.title-value.goal-meter-inverse span.goal-meter-indicator{background:#95b753}
+.title-value.goal-meter-inverse span.goal-meter-indicator > span{background:#cc3300}
 .title-value p{color:#666666;margin:0;font-size:28px;line-height:41px}
 .title-value p:before{color:#e5a91a;font-size:22px}
 .title-value p.success{color:#95b753}

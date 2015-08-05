@@ -49,5 +49,11 @@
                 <p>88%</p>
                 <p class="description">37 posts remain</p>
             </div>
+
+            <div class="scoreboard-item title-value goal-meter-inverse" data-control="goal-meter" data-value="88">
+                <h4>goal meter</h4>
+                <p>88%</p>
+                <p class="description">37 posts remain</p>
+            </div>
         </div>
     </div>
