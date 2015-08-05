@@ -453,7 +453,9 @@ class Lists extends WidgetBase
          */
         if ($sortColumn = $this->getSortColumn()) {
             if (($column = array_get($this->allColumns, $sortColumn)) && $column->valueFrom) {
-                $sortColumn = $column->valueFrom;
+                $sortColumn = $this->isColumnPivot($column)
+                    ? 'pivot_' . $column->valueFrom
+                    : $column->valueFrom;
             }
 
             $query->orderBy($sortColumn, $this->sortDirection);
@@ -687,7 +689,13 @@ class Lists extends WidgetBase
             $label = studly_case($name);
         }
 
-        if (strpos($name, '[') !== false && strpos($name, ']') !== false) {
+        if (starts_with($name, 'pivot[') && strpos($name, ']') !== false) {
+            $_name = HtmlHelper::nameToArray($name);
+            $config['relation'] = array_shift($_name);
+            $config['valueFrom'] = array_shift($_name);
+            $config['searchable'] = false;
+        }
+        elseif (strpos($name, '[') !== false && strpos($name, ']') !== false) {
             $config['valueFrom'] = $name;
             $config['sortable'] = false;
             $config['searchable'] = false;
@@ -758,7 +766,7 @@ class Lists extends WidgetBase
             elseif ($this->isColumnRelated($column, true)) {
                 $value = implode(', ', $record->{$columnName}->lists($column->valueFrom));
             }
-            elseif ($this->isColumnRelated($column)) {
+            elseif ($this->isColumnRelated($column) || $this->isColumnPivot($column)) {
                 $value = $record->{$columnName}->{$column->valueFrom};
             }
             else {
@@ -1244,7 +1252,7 @@ class Lists extends WidgetBase
      */
     protected function isColumnRelated($column, $multi = false)
     {
-        if (!isset($column->relation)) {
+        if (!isset($column->relation) || $this->isColumnPivot($column)) {
             return false;
         }
 
@@ -1270,5 +1278,19 @@ class Lists extends WidgetBase
             'attachMany',
             'hasManyThrough'
         ]);
+    }
+
+    /**
+     * Checks if a column refers to a pivot model specifically.
+     * @param  ListColumn  $column List column object
+     * @return boolean
+     */
+    protected function isColumnPivot($column)
+    {
+        if (!isset($column->relation) || $column->relation != 'pivot') {
+            return false;
+        }
+
+        return true;
     }
 }
