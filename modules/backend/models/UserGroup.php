@@ -26,7 +26,8 @@ class UserGroup extends GroupBase
      * @var array Relations
      */
     public $belongsToMany = [
-        'users' => ['Backend\Models\User', 'table' => 'backend_users_groups']
+        'users' => ['Backend\Models\User', 'table' => 'backend_users_groups'],
+        'users_count' => ['Backend\Models\User', 'table' => 'backend_users_groups', 'count' => true]
     ];
 
     public function afterCreate()

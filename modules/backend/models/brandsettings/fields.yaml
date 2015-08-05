@@ -11,7 +11,6 @@ tabs:
             commentAbove: backend::lang.branding.logo_description
             mode: image
             imageHeight: 170
-            imageWidth: 170
             tab: backend::lang.branding.brand
 
         app_name:

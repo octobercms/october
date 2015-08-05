@@ -18,7 +18,8 @@
                     name="<?= $name ?>"
                     value="<?= $value ?>"
                     class="form-control align-right"
-                    autocomplete="off" />
+                    autocomplete="off"
+                    <?= $field->getAttributes() ?> />
             </div>
         </div>
 
@@ -41,7 +42,8 @@
                             name="<?= $name ?>"
                             value="<?= $value ?>"
                             class="form-control align-right"
-                            autocomplete="off" />
+                            autocomplete="off"
+                            <?= $field->getAttributes() ?> />
                     </div>
                 </div>
             </div>
@@ -62,7 +64,8 @@
                             autocomplete="off"
                             data-autoclose="true"
                             data-placement="bottom"
-                            data-align="right" />
+                            data-align="right"
+                            <?= $field->getAttributes() ?> />
                     </div>
                 </div>
             </div>
@@ -85,7 +88,8 @@
                     autocomplete="off"
                     data-autoclose="true"
                     data-placement="bottom"
-                    data-align="right" />
+                    data-align="right"
+                    <?= $field->getAttributes() ?> />
             </div>
         </div>
 

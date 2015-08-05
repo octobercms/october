@@ -1,79 +1,30 @@
-// Core variables and mixins
-@import "../vendor/bootstrap/less/variables.less";
-@import "../vendor/bootstrap/less/mixins.less";
+// Basic grid system
+@import "../ui/less/site.less";
+@import "../ui/less/icon.less";
 
-// Reset
-@import "../vendor/bootstrap/less/normalize.less";
-@import "../vendor/bootstrap/less/print.less";
+@font-family-base: 'Open Sans', Arial, sans-serif;
+@color-base: #405261;
+@color-warning: #c84530;
+@font-path: "../ui/font"; // For icon fonts
 
-// Core CSS
-@import "../vendor/bootstrap/less/scaffolding.less";
-@import "../vendor/bootstrap/less/type.less";
-@import "../vendor/bootstrap/less/grid.less";
-
-@fontOpenSans: 'Open Sans', Arial, sans-serif;
-@colorBase: #405261;
-@colorWarning: #c84530;
-@fontsPath: "../font";
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('@{fontsPath}/OpenSans-Light-webfont.eot');
-    src: url('@{fontsPath}/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('@{fontsPath}/OpenSans-Light-webfont.woff') format('woff'),
-         url('@{fontsPath}/OpenSans-Light-webfont.ttf') format('truetype'),
-         url('@{fontsPath}/OpenSans-Light-webfont.svg#OpenSans') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('@{fontsPath}/OpenSans-LightItalic-webfont.eot');
-    src: url('@{fontsPath}/OpenSans-LightItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('@{fontsPath}/OpenSans-LightItalic-webfont.woff') format('woff'),
-         url('@{fontsPath}/OpenSans-LightItalic-webfont.ttf') format('truetype'),
-         url('@{fontsPath}/OpenSans-LightItalic-webfont.svg#OpenSans') format('svg');
-    font-weight: normal;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('@{fontsPath}/OpenSans-Semibold-webfont.eot');
-    src: url('@{fontsPath}/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('@{fontsPath}/OpenSans-Semibold-webfont.woff') format('woff'),
-         url('@{fontsPath}/OpenSans-Semibold-webfont.ttf') format('truetype'),
-         url('@{fontsPath}/OpenSans-Semibold-webfont.svg#OpenSans') format('svg');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('@{fontsPath}/OpenSans-SemiboldItalic-webfont.eot');
-    src: url('@{fontsPath}/OpenSans-SemiboldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('@{fontsPath}/OpenSans-SemiboldItalic-webfont.woff') format('woff'),
-         url('@{fontsPath}/OpenSans-SemiboldItalic-webfont.ttf') format('truetype'),
-         url('@{fontsPath}/OpenSans-SemiboldItalic-webfont.svg#OpenSans') format('svg');
-    font-weight: bold;
-    font-style: italic;
-}
+// Import back-end typography fonts
+@type-font-path: "../../../backend/assets/font"; // For webfonts
+@import "../../../backend/assets/less/core/fonts.less";
 
 body {
     padding-top: 20px;
-    font-family: @fontOpenSans;
+    font-family: @font-family-base;
     background: #f3f3f3;
-    color: @colorBase;
+    color: @color-base;
 }
- 
+
 h1, h2, h3, h4, h5 {
-    font-family: @fontOpenSans;
+    font-family: @font-family-base;
     text-transform: uppercase;
 }
 
 h1 {
-    font-weight: normal;
+    font-weight: 300;
     font-size: 50px;
     margin-bottom: 15px;
 
@@ -85,17 +36,17 @@ h1 {
 }
 
 i[class^="icon-"].warning {
-    color: @colorWarning;
+    color: @color-warning;
 }
 
 h3 {
     font-size: 24px;
-    font-weight: normal;
+    font-weight: 300;
 }
 
 p.lead {
     font-size: 16px;
-    font-weight: normal;
+    font-weight: 300;
 }
 
 ul.indicators {
@@ -113,7 +64,7 @@ ul.indicators {
         }
 
         h3 {
-            font-weight: 100;
+            font-weight: 300;
             font-size: 12px;
             line-height: 100%;
             margin-bottom: 7px;
@@ -160,7 +111,7 @@ table.data-table {
     td, th {
         vertical-align: top;
         text-align: left;
-        font-weight: normal;
+        font-weight: 300;
         border: 1px solid #fff;
         padding: 6px 8px;
         &.right {
@@ -197,11 +148,12 @@ table.data-table {
     margin-bottom: 15px;
 
     div, p {
+        font-weight: 300;
         padding: 10px 15px;
     }
 
     div {
-        background: @colorWarning;
+        background: @color-warning;
         color: white;
         position: relative;
 
@@ -215,7 +167,7 @@ table.data-table {
             height: 0px;
             border-style: solid;
             border-width: 8px 8px 0 8px;
-            border-color: @colorWarning transparent transparent transparent;
+            border-color: @color-warning transparent transparent transparent;
         }
     }
 
@@ -223,7 +175,7 @@ table.data-table {
         background: #ebebeb;
         margin-bottom: 0;
         span {
-            color: lighten(@colorBase, 30%);
+            color: lighten(@color-base, 30%);
         }
     }
 }
@@ -260,7 +212,7 @@ table.data-table {
                         padding-left: 10px;
 
                         &.highlighted {
-                            background: @colorWarning;
+                            background: @color-warning;
                             color: white;
                         }
 

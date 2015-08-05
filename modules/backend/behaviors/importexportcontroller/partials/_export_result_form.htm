@@ -1,0 +1,34 @@
+<?php if (!$this->fatalError): ?>
+
+    <div class="modal-body">
+        <p>
+            File export process has completed successfully!
+            The browser should now redirect automatically to the file download.
+        </p>
+    </div>
+    <div class="modal-footer">
+        <a
+            href="<?= $returnUrl ?>"
+            class="btn btn-success"
+            data-dismiss="popup">
+            <?= e(trans('backend::lang.form.complete')) ?>
+        </a>
+    </div>
+
+    <script> window.location = '<?= $fileUrl ?>' </script>
+
+<?php else: ?>
+
+    <div class="modal-body">
+        <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    </div>
+    <div class="modal-footer">
+        <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="popup">
+            <?= e(trans('backend::lang.form.close')) ?>
+        </button>
+    </div>
+
+<?php endif ?>

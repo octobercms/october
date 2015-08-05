@@ -13,18 +13,27 @@
  * 
  */
 +function ($) { "use strict";
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
+
     var TreeView = function (element, options) {
         this.$el = $(element)
         this.options = options
+        this.$allItems = null
+        this.$scrollbar = null
 
+        Base.call(this)
+
+        $.oc.foundation.controlUtils.markDisposable(element)
         this.init()
     }
+
+    TreeView.prototype = Object.create(BaseProto)
+    TreeView.prototype.constructor = TreeView
 
     TreeView.prototype.init = function () {
         this.$allItems = $('li', this.$el)
         this.$scrollbar = this.$el.closest('[data-control=scrollbar]')
-
-        var self = this
 
         /*
          * Init the sortable
@@ -42,42 +51,52 @@
          * Bind the click events
          */
 
-        this.$el.on('click', 'li > div > ul.submenu li a', function(event) {
-            var e = $.Event('submenu.oc.treeview', {relatedTarget: this, clickEvent: event})
-            self.$el.trigger(e, this)
-
-            return false
-        })
-
-        this.$el.on('click', 'li > div > a', function(event) {
-            var e = $.Event('open.oc.treeview', {relatedTarget: $(this).closest('li').get(0), clickEvent: event})
-            self.$el.trigger(e, this)
-
-            return false
-        })
+        this.$el.on('click.treeview', 'li > div > ul.submenu li a', this.proxy(this.onOpenSubmenu))
+        this.$el.on('click.treeview', 'li > div > a', this.proxy(this.onOpen))
+        this.$el.on('click.treeview', 'li span.expand', this.proxy(this.onItemExpandClick))
 
         /*
-         * Listen for the AJAX updates and update the widget
+         * Listen for the AJAX updates and dispose the widget
          */
-        this.$el.on('ajaxUpdate', $.proxy(this.update, this))
+
+        this.$el.one('dispose-control', this.proxy(this.dispose))
+
+        /*
+         * Mark previously active item, if it was set
+         */
+        var dataId = this.$el.data('oc.active-item')
+        if (dataId !== undefined)
+            this.markActive(dataId)
+    }
+
+    TreeView.prototype.dispose = function() {
+        this.unregisterHandlers()
+
+        this.options = null
+        this.$el.removeData('oc.treeView')
+        this.$el = null
+        this.$allItems = null
+        this.$scrollbar = null
+
+        BaseProto.dispose.call(this)
+    }
+
+    TreeView.prototype.unregisterHandlers = function() {
+        this.$el.off('.treeview')
+        this.$el.off('move.oc.treelist', this.proxy(this.onNodeMove))
+        this.$el.off('aftermove.oc.treelist', this.proxy(this.onAfterNodeMove))
+        this.$el.off('dispose-control', this.proxy(this.dispose))
     }
 
     TreeView.prototype.createItemControls = function() {
-        var self = this
-
         $('li', this.$el).each(function() {
             var $container = $('> div', this),
-                $expand = $('> span.expand', $container),
-                group = this
+                $expand = $('> span.expand', $container)
 
             if ($expand.length > 0)
                 return
 
-            $expand = $('<span class="expand">Expand</span>').click(function(){
-                self.toggleGroup($(group))
-
-                return false
-            })
+            $expand = $('<span class="expand">Expand</span>')
 
             $container.prepend($expand)
 
@@ -92,8 +111,7 @@
     }
 
     TreeView.prototype.collapseGroup = function($group) {
-        var self = this,
-            $subitems = $('> ol', $group)
+        var $subitems = $('> ol', $group)
 
         $subitems.css({
             'overflow': 'hidden'
@@ -113,8 +131,7 @@
     }
 
     TreeView.prototype.expandGroup = function($group) {
-        var self = this,
-            $subitems = $('> ol', $group)
+        var $subitems = $('> ol', $group)
 
         $subitems.css({
             'overflow': 'hidden',
@@ -179,8 +196,7 @@
     }
 
     TreeView.prototype.initSortable = function() {
-        var self = this,
-            $noDragItems = $('[data-no-drag-mode]', this.$el)
+        var $noDragItems = $('[data-no-drag-mode]', this.$el)
 
         if ($noDragItems.length > 0)
             return
@@ -189,36 +205,14 @@
             this.$el.treeListWidget('unbind')
 
         this.$el.treeListWidget({
-            tweakCursorAdjustment: function(adjustment) {
-                if (!adjustment)
-                    return adjustment
-
-                if (self.$scrollbar.length > 0) {
-                    adjustment.top -= self.$scrollbar.scrollTop()
-                }
-
-                return adjustment;
-            },
-            isValidTarget: function($item, container) {
-                return $(container.el).closest('li').attr('data-status') != 'collapsed'
-            },
-            useAnimation: true,
+            tweakCursorAdjustment: this.proxy(this.tweakCursorAdjustment),
+            isValidTarget: this.proxy(this.isValidTarget),
+            useAnimation: false,
             handle: 'span.drag-handle'
         })
 
-        this.$el.on('move.oc.treelist', function(){
-            setTimeout(function(){
-                self.$el.trigger('change')
-                self.$allItems.removeClass('drop-target')
-                self.fixSubItems()
-                self.sendReorderRequest()
-            }, 50)
-        })
-
-        this.$el.on('aftermove.oc.treelist', function(event, data) {
-            self.$allItems.removeClass('drop-target')
-            data.container.el.closest('li').addClass('drop-target')
-        })
+        this.$el.on('move.oc.treelist', this.proxy(this.onNodeMove))
+        this.$el.on('aftermove.oc.treelist', this.proxy(this.onAfterNodeMove))
     }
 
     TreeView.prototype.markActive = function(dataId) {
@@ -227,20 +221,77 @@
         if (dataId)
             $('li[data-id="'+dataId+'"]', this.$el).addClass('active')
 
-        this.dataId = dataId
+        this.$el.data('oc.active-item', dataId)
     }
 
+    // It seems the method is not used anymore as we re-create the control
+    // instead of updating it. Remove later if nothing weird is noticed. 
+    // -ab Apr 26 2015
+    //
     TreeView.prototype.update = function() {
         this.$allItems = $('li', this.$el)
         this.createItemControls()
-        this.initSortable()
+        //this.initSortable()
 
-        if (this.dataId !== undefined)
-            this.markActive(this.dataId)
+        var dataId = this.$el.data('oc.active-item')
+        if (dataId !== undefined)
+            this.markActive(dataId)
+    }
+
+    TreeView.prototype.handleMovedNode = function() {
+        this.$el.trigger('change')
+        this.$allItems.removeClass('drop-target')
+        this.fixSubItems()
+        this.sendReorderRequest()
+    }
+
+    TreeView.prototype.tweakCursorAdjustment = function(adjustment) {
+        if (!adjustment)
+            return adjustment
+
+        if (this.$scrollbar.length > 0)
+            adjustment.top -= this.$scrollbar.scrollTop()
+
+        return adjustment
+    }
+
+    TreeView.prototype.isValidTarget = function($item, container) {
+        return $(container.el).closest('li').attr('data-status') != 'collapsed'
     }
 
     TreeView.DEFAULTS = {
 
+    }
+
+    // TREEVIEW EVENT HANDLERS
+    // ============================
+
+    TreeView.prototype.onOpenSubmenu = function(ev) {
+        var e = $.Event('submenu.oc.treeview', {relatedTarget: ev.currentTarget, clickEvent: ev})
+        this.$el.trigger(e, this)
+
+        return false
+    }
+
+    TreeView.prototype.onOpen = function(ev) {
+        var e = $.Event('open.oc.treeview', {relatedTarget: $(ev.currentTarget).closest('li').get(0), clickEvent: ev})
+        this.$el.trigger(e, ev.currentTarget)
+
+        return false
+    }
+
+    TreeView.prototype.onNodeMove = function() {
+        setTimeout(this.proxy(this.handleMovedNode), 50)
+    }
+
+    TreeView.prototype.onAfterNodeMove = function(ev, data) {
+        this.$allItems.removeClass('drop-target')
+        data.container.el.closest('li').addClass('drop-target')
+    }
+
+    TreeView.prototype.onItemExpandClick = function(ev) {
+        this.toggleGroup($(ev.currentTarget).closest('li'))
+        return false
     }
 
     // TREEVIEW PLUGIN DEFINITION
@@ -257,12 +308,13 @@
             var options = $.extend({}, TreeView.DEFAULTS, $this.data(), typeof option == 'object' && option)
             if (!data) $this.data('oc.treeView', (data = new TreeView(this, options)))
 
-            if (typeof option == 'string') { 
+            if (typeof option == 'string' && data) { 
                 var methodArgs = [];
                 for (var i=1; i<args.length; i++)
                     methodArgs.push(args[i])
 
-                data[option].apply(data, methodArgs)
+                if (data[option])
+                    data[option].apply(data, methodArgs)
             }
         })
       }

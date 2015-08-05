@@ -70,6 +70,7 @@ class Extension extends Twig_Extension
         return [
             new Twig_SimpleFilter('page', [$this, 'pageFilter'], ['is_safe' => ['html']]),
             new Twig_SimpleFilter('theme', [$this, 'themeFilter'], ['is_safe' => ['html']]),
+            new Twig_SimpleFilter('media', [$this, 'mediaFilter'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -163,6 +164,19 @@ class Extension extends Twig_Extension
     }
 
     /**
+     * Looks up the URL for a supplied page and returns it relative to the website root.
+     * @param mixed $name Specifies the Cms Page file name.
+     * @param array $parameters Route parameters to consider in the URL.
+     * @param bool $routePersistence By default the existing routing parameters will be included
+     * when creating the URL, set to false to disable this feature.
+     * @return string
+     */
+    public function pageFilter($name, $parameters = [], $routePersistence = true)
+    {
+        return $this->controller->pageUrl($name, $parameters, $routePersistence);
+    }
+
+    /**
      * Converts supplied URL to a theme URL relative to the website root. If the URL provided is an
      * array then the files will be combined.
      * @param mixed $url Specifies the theme-relative URL
@@ -174,16 +188,13 @@ class Extension extends Twig_Extension
     }
 
     /**
-     * Looks up the URL for a supplied page and returns it relative to the website root.
-     * @param mixed $name Specifies the Cms Page file name.
-     * @param array $parameters Route parameters to consider in the URL.
-     * @param bool $routePersistence By default the existing routing parameters will be included
-     * when creating the URL, set to false to disable this feature.
+     * Converts supplied file to a URL relative to the media library.
+     * @param string $file Specifies the media-relative file
      * @return string
      */
-    public function pageFilter($name, $parameters = [], $routePersistence = true)
+    public function mediaFilter($file)
     {
-        return $this->controller->pageUrl($name, $parameters, $routePersistence);
+        return $this->controller->mediaUrl($file);
     }
 
     /**

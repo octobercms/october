@@ -1,4 +1,4 @@
-define("ace/theme/kr_theme",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/theme/kr_theme",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
 
 exports.isDark = true;
 exports.cssClass = "ace-kr-theme";
@@ -22,7 +22,6 @@ background: rgba(170, 0, 255, 0.45)\
 }\
 .ace-kr-theme.ace_multiselect .ace_selection.ace_start {\
 box-shadow: 0 0 3px 0px #0B0A09;\
-border-radius: 2px\
 }\
 .ace-kr-theme .ace_marker-layer .ace_step {\
 background: rgb(102, 82, 0)\

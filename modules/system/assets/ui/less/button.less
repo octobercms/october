@@ -1,0 +1,145 @@
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+
+//
+// Buttons
+// --------------------------------------------------
+
+@import "button.base.less";
+@import "button.groups.less";
+
+//
+// Buttons
+// --------------------------------------------------
+
+.btn {
+    font-size: 13px;
+    border: none;
+    text-align: left;
+    outline: none !important;
+
+    &[class^="oc-icon-"],
+    &[class*=" oc-icon-"] {
+        &:before {
+            font-size: 14px;
+            line-height: 14px;
+            position: relative;
+        }
+    }
+
+    &[disabled] {
+        background-color: @color-button-disabled-bg;
+        color: @color-button-disabled-text;
+    }
+
+    &.active,
+    &:active {
+       .box-shadow(none);
+    }
+}
+
+.btn-default.on {
+    background-color: #95a5a6;
+    color: #f9f9f9;
+}
+
+.btn-group {
+    .btn{
+        border-right: 1px solid rgba(0,0,0,0.09);
+        margin-left: 0!important;
+
+        &:last-child, &.last {
+            border-right: none;
+        }
+
+        &.last {
+            .border-right-radius(@border-radius-base)!important;
+        }
+    }
+
+    > .dropdown {
+        float: left;
+
+        &:not(:last-child, .last) > .btn {
+            border-right: 1px solid rgba(0,0,0,0.09);
+            .border-right-radius(0)!important;
+        }
+
+        &:not(:first-child) > .btn {
+            .border-left-radius(0)!important;
+        }
+
+        &.last {
+            .btn {
+                border-right: none;
+            }
+        }
+    }
+}
+
+.btn, .btn-group {
+    &.offset-right {
+        margin-right: 10px;
+    }
+}
+
+.btn-icon {
+    display: inline-block;
+    height: 36px;
+    font-size: 21px;
+    background: transparent;
+    border: none;
+    outline: none;
+
+    &:before {
+        display: block;
+        color: @color-icon-btn-default;
+    }
+
+    &:hover:before {
+        color: @link-color;
+    }
+
+    &.danger:hover:before {
+        color: @color-btn-danger;
+    }
+
+    &.pull-right:before {
+        margin-right: 0;
+    }
+
+    &.margin-left {
+        margin-left: 5px;
+    }
+
+    &.small {
+        font-size: 17px;
+        height: 17px;
+        line-height: 15px;
+    }
+
+    &.larger {
+        font-size: 21px;
+        height: 21px;
+        line-height: 17px;
+    }
+}
+
+.btn-text {
+    font-size: 13px;
+    padding: 9px 0;
+    vertical-align: middle;
+    display: inline-block;
+
+    a {
+        color: @btn-default-color;
+
+        &:hover {
+            color: @link-color;
+            text-decoration: none;
+        }
+    }
+}

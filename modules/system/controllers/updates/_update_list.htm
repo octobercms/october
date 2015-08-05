@@ -9,57 +9,105 @@
             </p>
 
             <div class="control-updatelist">
-                <div class="control-scrollbar" style="height:300px" data-control="scrollbar">
-
+                <div class="control-scrollbar" style="height:400px" data-control="scrollbar">
                     <?php if ($core): ?>
-                        <h5>
-                            <i class="icon-cube"></i>
-                            <?= e(trans('system::lang.system.name')) ?>
-                            <?php if ($core['old_build']): ?>
-                                <small><?= e(trans('system::lang.updates.core_build_old', ['build'=>$core['old_build']])) ?></small>
-                            <?php endif ?>
-                        </h5>
-                        <dl>
-                            <dt><?= e(trans('system::lang.updates.core_build_new', ['build'=>$core['build']])) ?></dt>
-                            <dd><?= e(trans('system::lang.updates.core_build_new_help')) ?></dd>
-                        </dl>
-                        <input type="hidden" name="hash" value="<?= e($core['hash']) ?>" />
-                        <input type="hidden" name="build" value="<?= e($core['build']) ?>" />
+                        <div class="update-item">
+                            <div class="item-header">
+                                <h5>
+                                    <i class="icon-cube"></i>
+                                    <?= e(trans('system::lang.system.name')) ?>
+                                </h5>
+                            </div>
+                            <dl>
+                                <dt><?= e(trans('system::lang.updates.core_build', ['build'=>$core['build']])) ?></dt>
+                                <dd><?= e(trans('system::lang.updates.core_build_help')) ?></dd>
+                                <?php if ($core['old_build']): ?>
+                                    <dt class="text-muted"><?= e(trans('system::lang.updates.core_build', ['build'=>$core['old_build']])) ?></dt>
+                                    <dd class="text-muted"><?= e(trans('system::lang.updates.core_current_build')) ?></dd>
+                                <?php endif ?>
+                            </dl>
+                            <input type="hidden" name="hash" value="<?= e($core['hash']) ?>" />
+                            <input type="hidden" name="build" value="<?= e($core['build']) ?>" />
+                        </div>
                     <?php endif ?>
 
                     <?php foreach ($themeList as $code => $theme): ?>
-                        <h5>
-                            <i class="icon-picture-o"></i>
-                            <?= e(array_get($theme, 'name', 'Unknown')) ?>
-                            <small><?= e(trans('system::lang.updates.theme_label')) ?></small>
-                        </h5>
-                        <dl>
-                            <dt><?= e(array_get($theme, 'version', 'v1.0.0')) ?></dt>
-                            <dd><?= e(trans('system::lang.updates.theme_new_install')) ?></dd>
-                        </dl>
+                        <div class="update-item">
+                            <div class="item-header">
+                                <h5>
+                                    <i class="icon-picture-o"></i>
+                                    <?= e(array_get($theme, 'name', 'Unknown')) ?>
+                                </h5>
+                            </div>
+                            <dl>
+                                <dt><?= e(array_get($theme, 'version', 'v1.0.0')) ?></dt>
+                                <dd><?= e(trans('system::lang.updates.theme_new_install')) ?></dd>
+                            </dl>
 
-                        <input type="hidden" name="themes[<?= e($code) ?>]" value="<?= e($theme['hash']) ?>" />
+                            <input type="hidden" name="themes[<?= e($this->encodeCode($code)) ?>]" value="<?= e($theme['hash']) ?>" />
+                        </div>
                     <?php endforeach ?>
 
                     <?php foreach ($pluginList as $code => $plugin): ?>
-                        <h5>
-                            <i class="icon-puzzle-piece"></i>
-                            <?= e($plugin['name']) ?>
+                        <div class="update-item <?= $plugin['isImportant'] ? 'item-danger' : '' ?>">
+                            <div class="item-header">
+                                <?php if ($plugin['isImportant']): ?>
+                                    <div class="important-update form-group form-group-sm">
+                                        <select
+                                            name="plugin_actions[<?= e($this->encodeCode($code)) ?>]"
+                                            class="form-control custom-select select-no-search"
+                                            data-important-update-select>
+                                            <option value="">-- <?= e(trans('system::lang.updates.important_action.empty')) ?> --</option>
+                                            <option value="confirm"><?= e(trans('system::lang.updates.important_action.confirm')) ?></option>
+                                            <option value="skip"><?= e(trans('system::lang.updates.important_action.skip')) ?></option>
+                                            <option value="ignore"><?= e(trans('system::lang.updates.important_action.ignore')) ?></option>
+                                        </select>
+                                    </div>
+                                <?php endif ?>
+                                <h5>
+                                    <i class="<?= e($plugin['icon'] ?: 'icon-puzzle-piece') ?>"></i>
+                                    <?= e($plugin['name']) ?>
+                                </h5>
+                            </div>
+                            <dl>
 
-                            <?php if ($plugin['old_version']): ?>
-                                <small><?= e(trans('system::lang.updates.plugin_version_old', ['version'=>$plugin['old_version']])) ?></small>
-                            <?php else: ?>
-                                <small><?= e(trans('system::lang.updates.plugin_version_none')) ?></small>
-                            <?php endif ?>
-                        </h5>
-                        <dl>
-                            <?php foreach ($plugin['updates'] as $version => $description): ?>
-                                <dt><?= e(trans('system::lang.updates.plugin_version_new', compact('version'))) ?></dt>
-                                <dd><?= e($description) ?></dd>
-                            <?php endforeach ?>
-                        </dl>
+                                <?php if (!$plugin['old_version']): ?>
+                                    <dt>
+                                        <?= $plugin['version'] ?>
+                                    </dt>
+                                    <dd>
+                                        <?= e(trans('system::lang.updates.plugin_version_none')) ?>
+                                    </dd>
+                                <?php else: ?>
+                                    <?php foreach (array_reverse($plugin['updates']) as $version => $description): ?>
+                                        <dt><?= e($version) ?></dt>
+                                        <?php if (is_array($description)): ?>
+                                            <dd>
+                                                <span class="important-update-label">
+                                                    <?= e(trans('system::lang.updates.important_action_required')) ?>
+                                                </span>
+                                                <?= e($description[0]) ?>
+                                                <a href="<?= $description[1] ?>" target="_blank">
+                                                    <?= e(trans('system::lang.updates.important_view_guide')) ?>
+                                                    <i class="icon-external-link"></i>
+                                                </a>
+                                            </dd>
+                                        <?php else: ?>
+                                            <dd><?= e($description) ?></dd>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
 
-                        <input type="hidden" name="plugins[<?= e($code) ?>]" value="<?= e($plugin['hash']) ?>" />
+                                    <dt class="text-muted">
+                                        <?= e($plugin['old_version']) ?>
+                                    </dt>
+                                    <dd class="text-muted">
+                                        <?= e(trans('system::lang.updates.plugin_current_version')) ?>
+                                    </dd>
+                                <?php endif ?>
+                            </dl>
+
+                            <input type="hidden" name="plugins[<?= e($this->encodeCode($code)) ?>]" value="<?= e($plugin['hash']) ?>" />
+                        </div>
                     <?php endforeach ?>
 
                 </div>
@@ -68,8 +116,14 @@
         </div>
 
         <div class="modal-footer">
+            <?php if ($hasImportantUpdates): ?>
+                <p class="text-danger pull-left oc-icon-exclamation important-update-label" id="updateListImportantLabel">
+                    <?= e(trans('system::lang.updates.important_alert_text')) ?>
+                </p>
+            <?php endif ?>
             <button
                 type="button"
+                id="updateListUpdateButton"
                 class="btn btn-primary"
                 data-dismiss="popup"
                 data-control="popup"

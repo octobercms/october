@@ -22,7 +22,7 @@ class UnknownComponent extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'Uknown component',
+            'name'        => 'Unknown component',
             'description' => $this->errorMessage
         ];
     }

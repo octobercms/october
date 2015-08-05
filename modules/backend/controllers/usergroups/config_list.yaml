@@ -8,7 +8,6 @@ modelClass: Backend\Models\UserGroup
 recordUrl: backend/usergroups/update/:id
 noRecordsMessage: backend::lang.list.no_records
 recordsPerPage: 5
-showCheckboxes: true
 
 toolbar:
     buttons: list_toolbar

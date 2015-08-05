@@ -197,8 +197,10 @@ if (window.jQuery === undefined)
                             $(selector.substring(1)).append(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
                         } else if (jQuery.type(selector) == 'string' && selector.charAt(0) == '^') {
                             $(selector.substring(1)).prepend(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
-                        } else
+                        } else {
+                            $(selector).trigger('ajaxBeforeReplace')
                             $(selector).html(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
+                        }
                     }
 
                     /*
@@ -232,7 +234,7 @@ if (window.jQuery === undefined)
                         if (fieldElement.length > 0) {
 
                             var _event = jQuery.Event('ajaxInvalidField')
-                            $(window).trigger(_event, [fieldElement, fieldName, fieldMessages, isFirstInvalidField])
+                            $(window).trigger(_event, [fieldElement.get(0), fieldName, fieldMessages, isFirstInvalidField])
 
                             if (isFirstInvalidField) {
                                 if (!_event.isDefaultPrevented()) fieldElement.focus()
@@ -246,9 +248,7 @@ if (window.jQuery === undefined)
                  * Handle asset injection
                  */
                  if (data['X_OCTOBER_ASSETS']) {
-                    assetManager.load(data['X_OCTOBER_ASSETS'], function assetsLoaded(){
-                        updatePromise.resolve()
-                    })
+                    assetManager.load(data['X_OCTOBER_ASSETS'], $.proxy(updatePromise.resolve, updatePromise))
                  }
                  else
                     updatePromise.resolve()
@@ -384,7 +384,9 @@ if (window.jQuery === undefined)
         }
     })
 
-    $(document).on('keyup', 'input[type=text][data-request][data-track-input], input[type=password][data-request][data-track-input], input[type=number][data-request][data-track-input]', function documentOnKeyup(e){
+    $(document).on('keyup', 'input[data-request][data-track-input]', function documentOnKeyup(e){
+        if (!$(this).is('[type=email],[type=number],[type=password],[type=search],[type=text]')) return
+
         var
             $el = $(this),
             lastValue = $el.data('oc.lastvalue')

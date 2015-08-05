@@ -124,9 +124,9 @@ class MailTemplate extends Model
         $html = $twig->render($template->content_html, $data);
         if ($template->layout) {
             $html = $twig->render($template->layout->content_html, [
-                'message' => $html,
+                'content' => $html,
                 'css' => $template->layout->content_css
-            ]);
+            ] + (array) $data);
         }
 
         $message->setBody($html, 'text/html');
@@ -137,7 +137,9 @@ class MailTemplate extends Model
         if (strlen($template->content_text)) {
             $text = $twig->render($template->content_text, $data);
             if ($template->layout) {
-                $text = $twig->render($template->layout->content_text, ['message' => $text]);
+                $text = $twig->render($template->layout->content_text, [
+                    'content' => $text
+                ] + (array) $data);
             }
 
             $message->addPart($text, 'text/plain');

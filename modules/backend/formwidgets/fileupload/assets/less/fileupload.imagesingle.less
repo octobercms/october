@@ -1,0 +1,78 @@
+//
+// Single Image
+//
+
+.field-fileupload.style-image-single {
+    &.is-populated {
+        .upload-button {
+            display: none;
+        }
+    }
+
+    .upload-button {
+        .uploader-block-button();
+        min-height: 100px;
+        min-width: 100px;
+    }
+
+    .upload-object {
+        padding-bottom: 66px;
+
+        .icon-container {
+            border: 1px solid #f6f8f9;
+            background: rgba(255,255,255,.5);
+
+            &.image img {
+                .border-radius(3px);
+                .img-responsive();
+
+                // This is needed when the image is very large and
+                // being processed by dropzone on the client-side
+                // the image has no height or width.
+                min-height: 100px;
+                min-width: 100px;
+            }
+        }
+
+        .progress-bar {
+            .uploader-progress-bar();
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+        }
+
+        .info {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 66px;
+        }
+
+        .meta {
+            position: absolute;
+            bottom: 65px;
+            left: 0;
+            right: 0;
+            margin: 0 15px;
+        }
+
+        &:hover {
+            h4 { padding-right: 20px; }
+        }
+    }
+
+}
+
+
+//
+// Media
+//
+
+@media (max-width: 1024px) {
+    .field-fileupload.style-image-single {
+        .upload-object {
+            h4 { padding-right: 20px !important; }
+        }
+    }
+}

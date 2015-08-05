@@ -55,8 +55,8 @@ class MediaLibraryItem
      */
     protected static $defaultTypeExtensions = [
         'image' => ['gif', 'png', 'jpg', 'jpeg', 'bmp'],
-        'video' => ['mp4', 'avi', 'mov', 'mpg'],
-        'audio' => ['mp3', 'wav', 'wma', 'm4a']
+        'video' => ['mp4', 'avi', 'mov', 'mpg', 'mpeg', 'mkv', 'webm'],
+        'audio' => ['mp3', 'wav', 'wma', 'm4a', 'ogg']
     ];
 
     protected static $imageExtensions;
@@ -84,8 +84,9 @@ class MediaLibraryItem
      */
     public function getFileType()
     {
-        if (!$this->isFile())
+        if (!$this->isFile()) {
             return null;
+        }
 
         if (!self::$imageExtensions) {
             self::$imageExtensions = Config::get('cms.storage.media.image_extensions', self::$defaultTypeExtensions['image']);
@@ -94,17 +95,21 @@ class MediaLibraryItem
         }
 
         $extension = pathinfo($this->path, PATHINFO_EXTENSION);
-        if (!strlen($extension))
+        if (!strlen($extension)) {
             return self::FILE_TYPE_DOCUMENT;
+        }
 
-        if (in_array($extension, self::$imageExtensions))
+        if (in_array($extension, self::$imageExtensions)) {
             return self::FILE_TYPE_IMAGE;
+        }
 
-        if (in_array($extension, self::$videoExtensions))
+        if (in_array($extension, self::$videoExtensions)) {
             return self::FILE_TYPE_VIDEO;
+        }
 
-        if (in_array($extension, self::$audioExtensions))
+        if (in_array($extension, self::$audioExtensions)) {
             return self::FILE_TYPE_AUDIO;
+        }
 
         return self::FILE_TYPE_DOCUMENT;
     }
@@ -117,9 +122,9 @@ class MediaLibraryItem
      */
     public function sizeToString()
     {
-        return $this->type == self::TYPE_FILE ? 
-            File::sizeToString($this->size) : 
-            $this->size.' '.trans('cms::lang.media.folder_size_items');
+        return $this->type == self::TYPE_FILE
+            ? File::sizeToString($this->size)
+            : $this->size.' '.trans('cms::lang.media.folder_size_items');
     }
 
     /**

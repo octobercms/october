@@ -61,6 +61,7 @@ class MediaLibrary
     {
         $this->storageFolder = self::validatePath(Config::get('cms.storage.media.folder', 'media'), true);
         $this->storagePath = rtrim(Config::get('cms.storage.media.path', '/storage/app/media'), '/');
+
         if (!preg_match("/(\/\/|http|https)/", $this->storagePath)) {
             $this->storagePath = Request::getBasePath() . $this->storagePath;
         }
@@ -73,9 +74,9 @@ class MediaLibrary
     /**
      * Returns a list of folders and files in a Library folder.
      * @param string $folder Specifies the folder path relative the the Library root.
-     * @param string $sortBy Determines the sorting preference. 
+     * @param string $sortBy Determines the sorting preference.
      * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants) and FALSE.
-     * @param string $filter Determines the document type filtering preference. 
+     * @param string $filter Determines the document type filtering preference.
      * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
      * @return array Returns an array of MediaLibraryItem objects.
      */
@@ -91,11 +92,13 @@ class MediaLibrary
         $cached = Cache::get('cms-media-library-contents', false);
         $cached = $cached ? @unserialize($cached) : [];
 
-        if (!is_array($cached))
+        if (!is_array($cached)) {
             $cached = [];
+        }
 
-        if (array_key_exists($fullFolderPath, $cached))
+        if (array_key_exists($fullFolderPath, $cached)) {
             $folderContents = $cached[$fullFolderPath];
+        }
         else {
             $folderContents = $this->scanFolderContents($fullFolderPath);
 
@@ -388,6 +391,16 @@ class MediaLibrary
             throw new ApplicationException(Lang::get('cms::lang.media.invalid_path', ['path'=>$path]));
 
         return $path;
+    }
+
+    /**
+     * Helper that makes a URL for a media file.
+     * @param string $file
+     * @return string
+     */
+    public static function url($file)
+    {
+        return static::instance()->getPathUrl($file);
     }
 
     /**

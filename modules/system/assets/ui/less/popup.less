@@ -1,0 +1,179 @@
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "loader.less";
+@import "icon.close.less";
+
+//
+// Popup
+// --------------------------------------------------
+
+@import "popup.base.less";
+
+@color-popup-header-bg:                      #d35400;
+@color-popup-header-text:                    #ECF0F1;
+@color-popup-footer-bg:                      transparent;
+@color-popup-content-bg:                     @body-bg;
+
+@modal-inner-padding:         20px;
+@modal-title-padding:         15px;
+@modal-title-line-height:     @line-height-base;
+@modal-content-bg:                             #fff;
+@modal-content-border-color:                   rgba(0,0,0,.2);
+@modal-content-fallback-border-color:          #999;
+@modal-backdrop-bg:           #000;
+@modal-backdrop-opacity:      .5;
+@modal-header-border-color:   #e5e5e5;
+@modal-footer-border-color:   @modal-header-border-color;
+@modal-lg:                    900px;
+@modal-md:                    600px;
+@modal-sm:                    300px;
+
+//
+// Popup
+// --------------------------------------------------
+
+@popup-size-giant: 982px;
+@popup-size-huge: 900px;
+@popup-size-large: 750px;
+@popup-size-small: 400px;
+@popup-size-tiny: 300px;
+
+.modal-content {
+    .box-shadow(none);
+    .border-radius(2px);
+    border: none;
+    background: @color-popup-content-bg;
+    .close {color: #fff;}
+}
+
+.modal-header {
+    background: @color-popup-header-bg;
+    color: @color-popup-header-text;
+    border: none;
+
+    h4 {
+        font-weight: 600;
+        font-size: 16px;
+    }
+}
+
+.modal-footer {
+    background: @color-popup-footer-bg;
+    border: none;
+    margin-top: 0;
+    padding: 0 20px 20px 20px;
+}
+
+.modal-body {
+    padding-bottom: 0;
+
+    > p:last-child {
+        margin-bottom: 20px;
+    }
+}
+
+.modal-dialog {
+    &.size-adaptive {
+        width: 100%;
+        padding-right: 50px;
+        padding-left: 50px;
+    }
+
+    &.adaptive-height {
+        height: 100%;
+        min-height: 600px;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 50px;
+        padding-bottom: 50px;
+
+        .modal-content {
+            height: 100%;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        &.size-tiny  { width: @popup-size-tiny; }
+        &.size-small { width: @popup-size-small; }
+    }
+    @media (min-width: @screen-md-min) {
+        &.size-large { width: @popup-size-large; }
+        &.size-huge  { width: @popup-size-huge; }
+        &.size-giant { width: @popup-size-giant; }
+    }
+    @media (max-width: @screen-sm) {
+        &.size-adaptive {
+            width: auto;
+            padding: 5px 0;
+            margin: 0;
+        }
+    }
+}
+
+.control-popup {
+    &.fade {
+        .modal-dialog {
+            .opacity(0);
+            .transition(~'all 0.3s, width 0s');
+            .transform(~'scale(0.7)');
+        }
+    }
+
+    &.fade.in {
+        .modal-dialog {
+            .opacity(1);
+            .transform( ~'scale(1)');
+        }
+    }
+}
+
+.popup-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: (@zindex-modal-background - 10);
+    background-color: @modal-backdrop-bg;
+    background-color: rgba(0,0,0,.2);
+    .opacity(1);
+
+    .popup-loading-indicator {
+        display: block;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 130px;
+        left: 50%;
+        margin-left: -50px;
+        .transition(~'all 0.3s, width 0s');
+        .transform(~'scale(0.7)');
+        .opacity(0);
+
+        &:after {
+            content: ' ';
+            display: block;
+            background-size: 50px 50px;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-image: url('@{loader-image-path}/loader-transparent.svg');
+            .animation(spin 1s linear infinite);
+            width: 50px;
+            height: 50px;
+            margin: 25px 0 0 25px;
+        }
+    }
+
+    &.loading .popup-loading-indicator {
+        .opacity(1);
+        .transform(~'scale(1)');
+    }
+
+}
+
+.mac body.modal-open {
+    margin-right: 0;
+}

@@ -1,0 +1,219 @@
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "icon.less";
+
+//
+// Checkbox
+// --------------------------------------------------
+
+@import "checkbox.balloon.less";
+
+@color-checkbox-icon:                    #666666;
+@color-checkbox-border:                  #999999;
+
+@color-checkbox-switch-bg:                      #f6f6f6;
+@color-checkbox-switch-on:                      #8da85e;
+@color-checkbox-switch-off:                     #cc3300;
+
+//
+// Checkbox
+// --------------------------------------------------
+
+.custom-checkbox.nolabel label,
+.custom-radio.nolabel label {
+    .text-hide();
+}
+
+//
+// Nice Checkboxes & Radios
+//
+
+.custom-checkbox,
+.custom-radio {
+    padding-left: 23px;
+    margin-top: 0;
+
+    input[type=radio],
+    input[type=checkbox] {
+        display: none;
+    }
+
+    label {
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        padding-left: 20px;
+        margin-right: 15px;
+        margin-left: -20px;
+
+        font-size: 12px;
+        &:before {
+            content: "";
+            display: inline-block;
+            text-align: center;
+
+            width: 16px;
+            height: 16px;
+
+            margin-right: 10px;
+            position: absolute;
+            left: -3px;
+            bottom: 1px;
+            background-color: #FFFFFF;
+            border: 1px solid @color-checkbox-border;
+            color: @color-checkbox-icon;
+
+        }
+        &:hover:before {
+            border-color: darken(@color-checkbox-border, 10%);
+            color: darken(@color-checkbox-icon, 10%);
+        }
+        &:active:before {
+            border-color: darken(@color-checkbox-border, 20%);
+            color: darken(@color-checkbox-icon, 20%);
+        }
+    }
+
+    input[type=radio]:checked + label:before {
+        .icon(@circle);
+        font-size: 9px;
+        line-height: 12px;
+        border-width: 2px;
+    }
+
+    input[type=checkbox]:checked + label:before {
+        .icon(@check);
+        font-size: 10px;
+        line-height: 12px;
+        border-width: 2px;
+    }
+
+    &:focus {
+        outline: none;
+        label:before {
+            border-color: @color-focus;
+        }
+    }
+
+    p.help-block {
+        margin-top: 0;
+    }
+}
+
+.custom-radio label:before {
+    border-radius: 8px;
+}
+
+.custom-checkbox label:before {
+    border-radius: @border-radius-base;
+}
+
+//
+// ON / OFF Switcher
+//
+
+.switch-field {
+    .field-switch {
+        padding-left: 75px;
+        float: left;
+    }
+}
+
+.custom-switch {
+    display: block;
+    width: 58px;
+    height: 26px;
+    position: relative;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    .border-radius(3px);
+
+    * { .box-sizing(border-box); }
+    &.disabled { .opacity(.5); }
+    .slide-button {
+        z-index: 4;
+        display: block;
+        position: absolute;
+        right: 34px;
+        top: 2px;
+        width: 22px;
+        height: 22px;
+        background-color: @color-checkbox-switch-bg;
+        .border-radius(20px);
+        .transition(all 0.1s);
+    }
+
+    label,
+    > span {
+        line-height: 23px;
+        vertical-align: middle;
+    }
+
+    label {
+        z-index: 3;
+        width: 100%;
+        display: block;
+        position: relative;
+    }
+
+    input {
+        z-index: 5;
+        position: absolute;
+        left: 0;
+        top: 0;
+        .opacity(0);
+        &:checked {
+            ~ .slide-button {
+                right: 2px;
+            }
+            ~ span { background-color: @color-checkbox-switch-on; }
+            ~ span span {
+                &:first-of-type {
+                    color: #FFFFFF;
+                    display: block;
+                }
+                &:last-of-type {
+                    color: #666666;
+                    display: none;
+                }
+            }
+        }
+    }
+
+    > span {
+        display: block;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        background-color: @color-checkbox-switch-off;
+        font-size: 11px;
+        .user-select(none);
+        .border-radius(20px);
+
+        span {
+            z-index: 5;
+            display: block;
+            width: 50%;
+            position: absolute;
+            top: 1px;
+            left: 0;
+            .box-sizing(border-box);
+            &:last-child {
+                left: 50%; 
+                color: #FFFFFF;
+                display: block;
+            }
+            &:first-of-type {
+                padding-left: 9px;
+                display: none;
+                color: #666666;
+            }
+        }
+    }
+}
+

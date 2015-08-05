@@ -1,4 +1,4 @@
-define("ace/theme/pastel_on_dark",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/theme/pastel_on_dark",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
 
 exports.isDark = true;
 exports.cssClass = "ace-pastel-on-dark";
@@ -22,7 +22,6 @@ background: rgba(221, 240, 255, 0.20)\
 }\
 .ace-pastel-on-dark.ace_multiselect .ace_selection.ace_start {\
 box-shadow: 0 0 3px 0px #2C2828;\
-border-radius: 2px\
 }\
 .ace-pastel-on-dark .ace_marker-layer .ace_step {\
 background: rgb(102, 82, 0)\

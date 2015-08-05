@@ -1,5 +1,6 @@
 <?php namespace System\Console;
 
+use Lang;
 use File;
 use Config;
 use Illuminate\Console\Command;
@@ -71,6 +72,7 @@ class OctoberUtil extends Command
     {
         return [
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
+            ['debug', null, InputOption::VALUE_NONE, 'Run the operation in debug / development mode.'],
         ];
     }
 
@@ -92,7 +94,7 @@ class OctoberUtil extends Command
     {
         $this->comment('Compiling registered asset bundles...');
 
-        Config::set('cms.enableAssetMinify', true);
+        Config::set('cms.enableAssetMinify', !$this->option('debug'));
         $combiner = CombineAssets::instance();
         $bundles = $combiner->getBundles($type);
 
@@ -115,6 +117,57 @@ class OctoberUtil extends Command
                 $this->comment($shortAssets);
                 $this->comment(sprintf(' -> %s', $publicDest));
             }
+        }
+
+        if ($type === null) {
+            $this->utilCompileLang();
+        }
+    }
+
+    protected function utilCompileLang()
+    {
+        if (!$locales = Lang::get('system::lang.locale')) {
+            return;
+        }
+
+        $this->comment('Compiling client-side language files...');
+
+        $locales = array_keys($locales);
+        $stub = base_path() . '/modules/system/assets/js/lang/lang.stub';
+
+        foreach ($locales as $locale) {
+
+            /*
+             * Generate messages
+             */
+            $fallbackPath = base_path() . '/modules/system/lang/en/client.php';
+            $srcPath = base_path() . '/modules/system/lang/'.$locale.'/client.php';
+
+            $messages = require $fallbackPath;
+            if (File::isFile($srcPath) && $fallbackPath != $srcPath) {
+                $messages = array_replace_recursive($messages, require $srcPath);
+            }
+
+            /*
+             * Compile from stub and save file
+             */
+            $destPath = base_path() . '/modules/system/assets/js/lang/lang.'.$locale.'.js';
+
+            $contents = str_replace(
+                ['{{locale}}', '{{messages}}'],
+                [$locale, json_encode($messages)],
+                File::get($stub)
+            );
+
+            File::put($destPath, $contents);
+
+            /*
+             * Output notes
+             */
+            $publicDest = File::localToPublic(realpath(dirname($destPath))) . '/' . basename($destPath);
+
+            $this->comment($locale.'/'.basename($srcPath));
+            $this->comment(sprintf(' -> %s', $publicDest));
         }
     }
 

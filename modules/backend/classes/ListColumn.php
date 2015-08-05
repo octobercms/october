@@ -48,6 +48,11 @@ class ListColumn
     public $valueFrom;
 
     /**
+     * @var string Specifies a default value when value is empty.
+     */
+    public $defaults;
+
+    /**
      * @var string Custom SQL for selecting this record display value,
      * the @ symbol is replaced with the table name.
      */
@@ -133,6 +138,9 @@ class ListColumn
         }
         if (isset($config['valueFrom'])) {
             $this->valueFrom = $config['valueFrom'];
+        }
+        if (isset($config['default'])) {
+            $this->defaults = $config['default'];
         }
         if (isset($config['select'])) {
             $this->sqlSelect = $config['select'];

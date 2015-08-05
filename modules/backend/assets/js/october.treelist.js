@@ -13,34 +13,46 @@
  * - Sortable Plugin (october.sortable.js)
  */
 +function ($) { "use strict";
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
 
     var TreeListWidget = function (element, options) {
-
-        var $el = this.$el = $(element),
-            self = this;
-
+        this.$el = $(element)
         this.options = options || {};
 
+        Base.call(this)
+
+        $.oc.foundation.controlUtils.markDisposable(element)
+        this.init()
+    }
+
+    TreeListWidget.prototype = Object.create(BaseProto)
+    TreeListWidget.prototype.constructor = TreeListWidget
+
+    TreeListWidget.prototype.init = function() {
         var sortableOptions = {
-                handle: options.handle,
-                nested: options.nested,
-                onDrop: function($item, container, _super) {
-                    self.$el.trigger('move.oc.treelist', { item: $item, container: container })
-                    _super($item, container)
-                },
-                afterMove: function($placeholder, container, $closestEl) {
-                    self.$el.trigger('aftermove.oc.treelist', { placeholder: $placeholder, container: container, closestEl: $closestEl })
-                }
+                handle: this.options.handle,
+                nested: this.options.nested,
+                onDrop: this.proxy(this.onDrop),
+                afterMove: this.proxy(this.onAfterMove)
             }
 
-        $el.find('> ol').sortable($.extend(sortableOptions, options))
+        this.$el.find('> ol').sortable($.extend(sortableOptions, this.options))
 
-        if (!options.nested) {
-            $el.find('> ol ol').sortable($.extend(sortableOptions, options))
-        }
+        if (!this.options.nested)
+            this.$el.find('> ol ol').sortable($.extend(sortableOptions, this.options))
+
+        this.$el.one('dispose-control', this.proxy(this.dispose))
+    }
+
+    TreeListWidget.prototype.dispose = function() {
+        this.unbind()
+        BaseProto.dispose.call(this)
     }
 
     TreeListWidget.prototype.unbind = function() {
+        this.$el.off('dispose-control', this.proxy(this.dispose))
+
         this.$el.find('> ol').sortable('destroy')
 
         if (!this.options.nested) {
@@ -48,11 +60,36 @@
         }
 
         this.$el.removeData('oc.treelist')
+
+        this.$el = null
+        this.options = null
     }
 
     TreeListWidget.DEFAULTS = {
         handle: null,
         nested: true
+    }
+
+    // TREELIST EVENT HANDLERS
+    // ============================
+
+    TreeListWidget.prototype.onDrop = function($item, container, _super) {
+        // The event handler could be registered after the
+        // sortable is destroyed. This should be fixed later.
+        if (!this.$el) {
+            return
+        }
+
+        this.$el.trigger('move.oc.treelist', { item: $item, container: container })
+        _super($item, container)
+    }
+
+    TreeListWidget.prototype.onAfterMove = function($placeholder, container, $closestEl) {
+        if (!this.$el) {
+            return
+        }
+
+        this.$el.trigger('aftermove.oc.treelist', { placeholder: $placeholder, container: container, closestEl: $closestEl })
     }
 
     // TREELIST WIDGET PLUGIN DEFINITION

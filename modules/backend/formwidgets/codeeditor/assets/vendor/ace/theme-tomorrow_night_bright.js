@@ -1,4 +1,4 @@
-define("ace/theme/tomorrow_night_bright",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/theme/tomorrow_night_bright",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
 
 exports.isDark = true;
 exports.cssClass = "ace-tomorrow-night-bright";
@@ -22,7 +22,6 @@ background: #424242\
 }\
 .ace-tomorrow-night-bright.ace_multiselect .ace_selection.ace_start {\
 box-shadow: 0 0 3px 0px #000000;\
-border-radius: 2px\
 }\
 .ace-tomorrow-night-bright .ace_marker-layer .ace_step {\
 background: rgb(102, 82, 0)\
@@ -36,7 +35,7 @@ border: 1px solid rgb(110, 119, 0);\
 border-bottom: 0;\
 box-shadow: inset 0 -1px rgb(110, 119, 0);\
 margin: -1px 0 0 -1px;\
-background: rgba(255, 235, 0, 0.1);\
+background: rgba(255, 235, 0, 0.1)\
 }\
 .ace-tomorrow-night-bright .ace_marker-layer .ace_active-line {\
 background: #2A2A2A\
@@ -111,7 +110,7 @@ color: #D54E53\
 color: #969896\
 }\
 .ace-tomorrow-night-bright .ace_c9searchresults.ace_keyword {\
-color: #C2C280;\
+color: #C2C280\
 }\
 .ace-tomorrow-night-bright .ace_indent-guide {\
 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWNgYGBgYFBXV/8PAAJoAXX4kT2EAAAAAElFTkSuQmCC) right repeat-y\

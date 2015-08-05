@@ -38,6 +38,8 @@
         this.$fullscreenEnable = this.$toolbar.find('li.fullscreen-enable')
         this.$fullscreenDisable = this.$toolbar.find('li.fullscreen-disable')
 
+        $.oc.foundation.controlUtils.markDisposable(element)
+
         this.init();
     }
 
@@ -98,6 +100,9 @@
             options = this.options,
             $form = this.$el.closest('form');
 
+        // Fixes a weird notice about scrolling
+        editor.$blockScrolling = Infinity
+
         this.$form = $form
 
         this.$textarea.hide();
@@ -107,20 +112,20 @@
         $form.on('oc.beforeRequest', this.proxy(this.onBeforeRequest))
         $(window).on('resize', this.proxy(this.onResize))
         $(window).on('oc.updateUi', this.proxy(this.onResize))
-        this.$el.on('dispose-control', this.proxy(this.dispose))
+        this.$el.one('dispose-control', this.proxy(this.dispose))
 
         /*
-         * Set language and theme
+         * Set theme, anticipated languages should be preloaded
          */
         assetManager.load({
             js:[
-                options.vendorPath + '/mode-' + options.language + '.js',
+                // options.vendorPath + '/mode-' + options.language + '.js',
                 options.vendorPath + '/theme-' + options.theme + '.js'
             ]
         }, function(){
             editor.setTheme('ace/theme/' + options.theme)
             var inline = options.language === 'php'
-            editor.getSession().setMode({path: 'ace/mode/'+options.language, inline: inline})
+            editor.getSession().setMode({ path: 'ace/mode/'+options.language, inline: inline })
         })
 
         /*
@@ -144,8 +149,11 @@
         editor.on('focus', this.proxy(this.onFocus))
         this.setWordWrap(options.wordWrap)
 
+        // Set the vendor path for Ace's require path
+        ace.require('ace/config').set('basePath', this.options.vendorPath)
+
         editor.renderer.setScrollMargin(options.margin, options.margin, 0, 0)
-        editor.renderer.setPadding(options.margin) 
+        editor.renderer.setPadding(options.margin)
 
         /*
          * Toolbar
@@ -162,8 +170,8 @@
             })
             .tooltip({
                 delay: 500,
-                placement: 'auto',
-                html: true 
+                placement: 'left',
+                html: true
             })
         ;
 
@@ -182,21 +190,13 @@
 
         editor.commands.addCommand({
             name: 'toggleFullscreen',
-            bindKey: { win: 'Ctrl+Alt+F', mac: 'Ctrl+Alt+F' },
+            bindKey: { win: 'Ctrl+Shift+F', mac: 'Ctrl+Shift+F' },
             exec: $.proxy(this.toggleFullscreen, this),
             readOnly: true
         })
     }
 
     CodeEditor.prototype.dispose = function() {
-        // Currently it's not possible to dispose Ace Editor
-        // completely because of the internal organization of 
-        // because of the internal organization of the class.
-        // The class instance contains multiple references to 
-        // DOM elements in closures and event handlers.
-        // See https://github.com/ajaxorg/ace/issues/2469
-        // --ab 2015-04-23
-
         if (this.$el === null)
             return
 

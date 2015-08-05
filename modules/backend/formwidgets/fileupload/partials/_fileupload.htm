@@ -1,19 +1,39 @@
-<?php switch ($displayMode):
+<?php if ($this->previewMode && !$fileList->count()): ?>
 
-    case 'image-single': ?>
-        <?= $this->makePartial('image_single') ?>
-    <?php break ?>
+    <span class="form-control"><?= e(trans('backend::lang.form.preview_no_files_message')) ?></span>
 
-    <?php case 'image-multi': ?>
-        <?= $this->makePartial('image_multi') ?>
-    <?php break ?>
+<?php else: ?>
 
-    <?php case 'file-single': ?>
-        <?= $this->makePartial('file_single') ?>
-    <?php break ?>
+    <?php switch ($displayMode):
 
-    <?php case 'file-multi': ?>
-        <?= $this->makePartial('file_multi') ?>
-    <?php break ?>
+        case 'image-single': ?>
+            <?= $this->makePartial('image_single') ?>
+        <?php break ?>
 
-<?php endswitch ?>
+        <?php case 'image-multi': ?>
+            <?= $this->makePartial('image_multi') ?>
+        <?php break ?>
+
+        <?php case 'file-single': ?>
+            <?= $this->makePartial('file_single') ?>
+        <?php break ?>
+
+        <?php case 'file-multi': ?>
+            <?= $this->makePartial('file_multi') ?>
+        <?php break ?>
+
+    <?php endswitch ?>
+
+    <!-- Error template -->
+    <script type="text/template" id="<?= $this->getId('errorTemplate') ?>">
+        <div class="popover-head">
+            <h3><?= e(trans('backend::lang.fileupload.upload_error')) ?></h3>
+            <p>{{errorMsg}}</p>
+            <button type="button" class="close" data-dismiss="popover" aria-hidden="true">&times;</button>
+        </div>
+        <div class="popover-body">
+            <button class="btn btn-danger" data-remove-file><?= e(trans('backend::lang.fileupload.remove_file')) ?></button>
+        </div>
+    </script>
+
+<?php endif ?>

@@ -1,0 +1,243 @@
+
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "icon.less";
+
+//
+// Dropdown
+// --------------------------------------------------
+
+@import "dropdown.base.less";
+
+//
+// Dropdown
+// --------------------------------------------------
+
+.dropdown-menu {
+    padding: 0;
+    background: transparent;
+    border: none;
+    .box-shadow(none);
+
+    .dropdown-container {
+        > ul {
+            border: 1px solid @dropdown-border;
+            background-color: @dropdown-bg;
+            border-radius: @border-radius-base;
+            padding: 0;
+            list-style: none;
+            position: relative;
+            margin-top: 7px;
+
+            &:after {
+                .triangle(up, 15px, 8px, @dropdown-bg);
+                position: absolute;
+                left: 15px;
+                top: -8px;
+                z-index: 101;
+            }
+
+            &:before {
+                .triangle(up, 17px, 9px, @dropdown-border);
+                position: absolute;
+                left: 14px;
+                top: -9px;
+                z-index: 100;
+            }
+
+            li {
+                a {
+                    outline: none;
+                    padding: 8px 15px;
+                    font-size: 13px;
+                    display: block;
+                    color: @dropdown-link-color;
+                    position: relative;
+
+                    &:hover,
+                    &:focus {
+                        text-decoration: none;
+                        color: @color-dropdown-hover-text;
+                        background-color: @color-dropdown-hover-color;
+
+                        &[class^="oc-icon-"],
+                        &[class*=" oc-icon-"] {
+                            &:before {
+                                color: white;
+                            }
+                        }
+                    }
+
+                    &[class^="oc-icon-"],
+                    &[class*=" oc-icon-"] {
+                        padding-left: 30px;
+
+                        &:before {
+                            position: absolute;
+                            font-size: 14px;
+                            left: 9px;
+                            top: 7px;
+                            color: @dropdown-border;
+                        }
+                    }
+                }
+
+                &.first-item {
+                    a {
+                        &:hover, &:focus {
+                            &:after {
+                                .triangle(up, 15px, 8px, @color-dropdown-hover-color);
+                                position: absolute;
+                                left: 15px;
+                                top: -8px;
+                                z-index: 102;
+                            }
+                        }
+                    }
+                }
+
+                &.dropdown-title {display: none;}
+                &.divider {margin: 0;}
+            }
+        }
+    }
+
+    &.pull-right {
+        .dropdown-container > ul {
+            &:after {
+                left: auto;
+                right: 15px;
+            }
+            &:before {
+                left: auto;
+                right: 14px;
+            }
+            li.first-item a {
+                &:hover, &:focus {
+                    &:after {
+                        left: auto;
+                        right: 15px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.top {
+        .dropdown-container {
+            > ul {
+                &:after {
+                    .triangle(down, 15px, 8px, @dropdown-bg);
+                    top: auto;
+                    bottom: -8px;
+                }
+
+                &:before {
+                    .triangle(down, 17px, 9px, @dropdown-border);
+                    top: auto;
+                    bottom: -9px;
+                }
+            }
+        }
+    }
+}
+
+.touch .dropdown-menu .dropdown-container > ul li {
+    a:hover {
+        color: @dropdown-link-color;
+        background: white;
+
+        &:before {
+            position: absolute;
+            font-size: 14px;
+            left: 9px;
+            top: 7px;
+            color: @dropdown-border;
+        }
+    }
+
+    &.first-item {
+        a:hover {
+            &:after {
+                content: '';
+                display: none;
+            }
+        }
+    }
+}
+
+body.dropdown-open {
+    .dropdown-overlay {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        // background: rgba(0,0,0,0.1);
+        z-index: 300;
+    }
+}
+
+@media (max-width: @screen-xs) {
+    body.dropdown-open {
+
+        overflow: hidden;
+
+        .dropdown-overlay {
+            background: rgba(0,0,0,0.4);
+        }
+
+        .dropdown-menu {
+            overflow: auto;
+            overflow-y: scroll;
+            position: fixed!important;
+            margin: 0!important;
+            top: 0!important;
+            right: 0!important;
+            bottom: 0!important;
+            left: 0!important;
+            z-index: @zindex-modal-background;
+
+            .dropdown-container {
+                padding: 10px;
+                height: 100%;
+
+                ul {
+                    min-height: 100%;
+                    margin-top: 0;
+                    &:before, &:after {display: none;}
+
+                    li.dropdown-title {
+                        display: block;
+                        padding: 8px 15px;
+                        border-bottom: 1px solid @color-dropdown-title-border;
+                        color: @color-dropdown-title-text;
+                        position: relative;
+                        cursor: pointer;
+                        font-weight: 600;
+
+                        &:after {
+                            .icon(@times);
+                            position: absolute;
+                            top: 7px;
+                            right: 13px;
+                            .opacity(0.3);
+                        }
+                    }
+
+                    li.first-item {
+                        a:hover, :focus {
+                            &:after {
+                                content: '';
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

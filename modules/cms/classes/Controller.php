@@ -154,7 +154,7 @@ class Controller
          * Hidden page
          */
         $page = $this->router->findByUrl($url);
-        if ($page && $page->hidden) {
+        if ($page && $page->is_hidden) {
             if (!BackendAuth::getUser()) {
                 $page = null;
             }
@@ -461,20 +461,21 @@ class Controller
 
     /**
      * Post-processes page HTML code before it's sent to the client.
+     * Note for pre-processing see cms.template.processTwigContent event.
      * @param \Cms\Classes\Page $page Specifies the current CMS page.
      * @param string $url Specifies the current URL.
-     * @param string $html The page markup to post processs.
+     * @param string $content The page markup to post processs.
      * @return string Returns the updated result string.
      */
-    protected function postProcessResult($page, $url, $html)
+    protected function postProcessResult($page, $url, $content)
     {
-        $html = MediaViewHelper::instance()->processHtml($html);
+        $content = MediaViewHelper::instance()->processHtml($content);
 
-        $holder = (object) ['html' => $html];
+        $dataHolder = (object) ['content' => $content];
 
-        Event::fire('cms.page.postprocess', [$this, $url, $page, $holder]);
+        Event::fire('cms.page.postprocess', [$this, $url, $page, $dataHolder]);
 
-        return $holder->html;
+        return $dataHolder->content;
     }
 
     //
@@ -566,12 +567,29 @@ class Controller
     //
 
     /**
+     * Returns the AJAX handler for the current request, if available.
+     * @return string
+     */
+    public function getAjaxHandler()
+    {
+        if (!Request::ajax() || Request::method() != 'POST') {
+            return null;
+        }
+
+        if ($handler = Request::header('X_OCTOBER_REQUEST_HANDLER')) {
+            return trim($handler);
+        }
+
+        return null;
+    }
+
+    /**
      * Executes the page, layout, component and plugin AJAX handlers.
      * @return mixed Returns the AJAX Response object or null.
      */
     protected function execAjaxHandlers()
     {
-        if ($handler = trim(Request::header('X_OCTOBER_REQUEST_HANDLER'))) {
+        if ($handler = $this->getAjaxHandler()) {
             try {
                 /*
                  * Validate the handler name
@@ -1063,7 +1081,7 @@ class Controller
     public function pageUrl($name, $parameters = [], $routePersistence = true)
     {
         if (!$name) {
-            return null;
+            return $this->currentPageUrl($parameters, $routePersistence);
         }
 
         /*
@@ -1102,7 +1120,11 @@ class Controller
      */
     public function currentPageUrl($parameters = [], $routePersistence = true)
     {
-        return $this->pageUrl($this->page->getFileName(), $parameters, $routePersistence);
+        if (!$currentFile = $this->page->getFileName()) {
+            return null;
+        }
+
+        return $this->pageUrl($currentFile, $parameters, $routePersistence);
     }
 
     /**
@@ -1127,6 +1149,16 @@ class Controller
         }
 
         return $_url;
+    }
+
+    /**
+     * Converts supplied file to a URL relative to the media library.
+     * @param string $file Specifies the media-relative file
+     * @return string
+     */
+    public function mediaUrl($file = null)
+    {
+        return MediaLibrary::url($file);
     }
 
     /**

@@ -20,59 +20,8 @@
         controlGroup: ['up', 'down', 'remove'],
 
         init: function () {
-            this.observeCaptions()
             this.observeToolbars()
             this.observeKeyboard()
-        },
-
-        observeCaptions: function () {
-
-            /*
-             * Adding a line-break to empty captions and citations on click will place the cursor in the expected place
-             */
-            this.redactor.$editor.on('click', 'figcaption:empty, cite:empty', $.proxy(function (event) {
-                $(event.target).prepend('<br />')
-                this.redactor.caret.setEnd(event.target)
-                event.stopPropagation()
-            }, this))
-
-            /*
-             * Remove generated line-breaks empty figcaptions
-             */
-            $(window).on('click', $.proxy(this.cleanCaptions, this))
-            this.redactor.$editor.on('blur', $.proxy(this.cleanCaptions, this))
-            this.redactor.$editor.closest('form').one('submit', $.proxy(this.clearCaptions, this))
-
-            /*
-             * Prevent user from removing captions or citations with delete/backspace keys
-             */
-            this.redactor.$editor.on('keydown', $.proxy(function (event) {
-                var current       = this.redactor.selection.getCurrent(),
-                    isEmpty       = !current.length,
-                    isCaptionNode = !!$(current).closest('figcaption, cite').length,
-                    isDeleteKey   = $.inArray(event.keyCode, [this.redactor.keyCode.BACKSPACE, this.redactor.keyCode.DELETE]) >= 0
-
-                if (isEmpty && isDeleteKey && isCaptionNode) {
-                    event.preventDefault()
-                }
-            }, this))
-
-        },
-
-        cleanCaptions: function () {
-            this.redactor.$editor.find('figcaption, cite').filter(function () {
-                return $(this).text() == ''
-            }).empty()
-        },
-
-        clearCaptions: function () {
-            this.redactor.$editor.find('figcaption, cite').filter(function () {
-                return $(this).text() == ''
-            }).remove()
-
-            if (this.redactor.opts.visual) {
-                this.redactor.code.sync()
-            }
         },
 
         showToolbar: function (event) {
@@ -94,12 +43,12 @@
             /*
              * Before clicking a command, make sure we save the current node within the editor
              */
-            this.redactor.$editor.on('mousedown', '.oc-figure-controls', $.proxy(function (event) {
+            this.redactor.$editor.on('mousedown.figure', '.oc-figure-controls', $.proxy(function (event) {
                 event.preventDefault()
                 this.current = this.redactor.selection.getCurrent()
             }, this))
 
-            this.redactor.$editor.on('click', '.oc-figure-controls span, .oc-figure-controls a', $.proxy(function (event) {
+            this.redactor.$editor.on('click.figure', '.oc-figure-controls span, .oc-figure-controls a', $.proxy(function (event) {
                 event.stopPropagation()
                 var $target = $(event.currentTarget),
                     command = $target.data('command'),
@@ -109,7 +58,7 @@
                 this.command(command, $figure, plugin)
             }, this))
 
-            this.redactor.$editor.on('keydown', function () {
+            this.redactor.$editor.on('keydown.figure', function () {
                 $(this).find('figure').triggerHandler('mouseleave')
             })
 
@@ -121,13 +70,13 @@
                 /*
                  * If $editor is focused, click doesn't seem to fire
                  */
-                this.redactor.$editor.on('touchstart', 'figure', function (event) {
+                this.redactor.$editor.on('touchstart.figure', 'figure', function (event) {
                     if (event.target.nodeName !== 'FIGCAPTION' && $(event.target).parents('.oc-figure-controls').length) {
                         $(this).trigger('click', event)
                     }
                 })
 
-                this.redactor.$editor.on('click', 'figure', $.proxy(function (event) {
+                this.redactor.$editor.on('click.figure', 'figure', $.proxy(function (event) {
                     if (event.target.nodeName !== 'FIGCAPTION') {
                         this.redactor.$editor.trigger('blur')
                     }
@@ -142,12 +91,12 @@
                 /*
                  * Move toolbar into figure on mouseenter
                  */
-                this.redactor.$editor.on('mouseenter', 'figure', $.proxy(this.showToolbar, this))
+                this.redactor.$editor.on('mouseenter.figure', 'figure', $.proxy(this.showToolbar, this))
 
                 /*
                  * Remove toolbar from figure on mouseleave
                  */
-               this.redactor.$editor.on('mouseleave', 'figure', $.proxy(this.hideToolbar, this))
+               this.redactor.$editor.on('mouseleave.figure', 'figure', $.proxy(this.hideToolbar, this))
             }
 
         },
@@ -203,8 +152,8 @@
                         $dropdown.append(container.append(list))
                         $button.append($dropdown)
 
-                        $button.on('mouseover', function () { $dropdown.show() })
-                        $button.on('mouseout', function () { $dropdown.hide() })
+                        $button.on('mouseover.figure', function () { $dropdown.show() })
+                        $button.on('mouseout.figure', function () { $dropdown.hide() })
 
                         $.each(commands, $.proxy(function (index, command) {
                             control = controls[command]
@@ -275,7 +224,7 @@
 
         observeKeyboard: function () {
             var redactor = this.redactor
-            redactor.$editor.on('keydown', function (event) {
+            redactor.$editor.on('keydown.figure', function (event) {
                 /*
                  * Node at cursor
                  */
@@ -285,14 +234,25 @@
                  * Delete key
                  */
                 if (
-                        event.keyCode === 8
-                        && !redactor.caret.getOffset(currentNode)
-                        && currentNode.previousSibling
-                        && currentNode.previousSibling.nodeName === 'FIGURE'
-                    ) {
+                    event.keyCode === 8
+                    && !redactor.caret.getOffset(currentNode)
+                    && currentNode.previousSibling
+                    && currentNode.previousSibling.nodeName === 'FIGURE'
+                ) {
                     event.preventDefault()
                 }
             })
+        },
+
+        destroy: function() {
+            this.redactor.$editor.off('.figure')
+
+            for (var type in this.toolbar) {
+                this.toolbar[type].find('span').off('.figure')
+            }
+
+            this.redactor = null
+            this.toolbar = null
         }
     }
 

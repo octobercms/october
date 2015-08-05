@@ -1,4 +1,4 @@
-define("ace/theme/solarized_light",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/theme/solarized_light",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
 
 exports.isDark = false;
 exports.cssClass = "ace-solarized-light";
@@ -22,7 +22,6 @@ background: rgba(7, 54, 67, 0.09)\
 }\
 .ace-solarized-light.ace_multiselect .ace_selection.ace_start {\
 box-shadow: 0 0 3px 0px #FDF6E3;\
-border-radius: 2px\
 }\
 .ace-solarized-light .ace_marker-layer .ace_step {\
 background: rgb(255, 255, 0)\

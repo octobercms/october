@@ -1,3 +1,44 @@
+* **Build 287** (2015-08-03)
+  - Introduced new **MarkdownEditor** form widget (see Backend > Forms docs).
+
+* **Build 284** (2015-07-25)
+  - Introduced new **ImportExport** controller behavior.
+  - The `export` action has been moved from ListController behavior to Import / Export behavior (see Backend > Importing & Exporting docs).
+
+* **Build 279** (2015-07-14)
+  - Plugins can now be frozen to prevent them from receiving updates via the plugin management area.
+  - A plugin version can now be flagged as "Important" by prepending `!!!` to the version history comment.
+
+* **Build 275** (2015-07-04)
+  - List columns now support specifying a `default` option used when the value would otherwise be null.
+  - Implement a custom autoloader for plugins that use composer. Now only one instance of composer is used, all packages are now added to a global pool to prevent double loading and the load order is respected.
+  - The method signature of `Model::save()` has been fixed to match Eloquent.
+  - Added new security config option `cms.enableCsrfProtection`.
+
+* **Build 272** (2015-06-27)
+  - Protected images and their thumbnails are now supported in the back-end.
+  - Editing CMS templates now support form fields that use AJAX.
+  - When inserting a new link the Rich Editor now shows a drop-down list with available pages.
+
+* **Build 271** (2015-06-20)
+  - File Upload form widget can now specify `mimeTypes` to define MIME types that are accepted by the uploader, either as file extension or fully qualified name.
+
+* **Build 270** (2015-06-18)
+  - Introduced the October Storm client-side library.
+  - Introduced new **MediaFinder** form widget.
+  - Improved the back-end administrator permissions and `RelationController` UI.
+  - The page setting `hidden` has been renamed to `is_hidden`, this setting may need to be reapplied for some themes.
+  - `FileUpload` form widget has been rebuilt from scratch, it now uses an interface similar to the Media Manager (see Backend > Forms docs).
+
+* **Build 260** (2015-05-16)
+  - The `|page` filter now supports passing an empty string to generate a link to the current page.
+
+* **Build 258** (2015-05-09)
+  - The hotkey for full screen mode is now Cmd+Shift+F or Ctrl+Shift+F in Windows.
+
+* **Build 252** (2015-04-29)
+  - Optimized many JavaScript libraries used in the back-end to reduce memory leaks.
+
 * **Build 250** (2015-04-28)
   - Protected files can now be downloaded by administrators using the `fileupload` form widget.
   - The `{% content %}` tag now supports passing parameters, parsed by a basic template engine (see Cms > Content block docs).
@@ -61,7 +102,7 @@
 
 * **Build 187** (2015-02-12)
   - **Upgraded framework to Laravel version 5**, see the [end of beta page](http://octobercms.com/beta#advanced-upgrade) for information on how to upgrade.
-  - Introduced a linking policy to control the way URLs are generated globally (see config cms.linkPolicy).
+  - Introduced a linking policy to control the way URLs are generated globally (see config `cms.linkPolicy`).
   - Popup control now supports several sizes via `data-size` attribute: giant, huge, large, small, tiny.
   - Added new scaffold command for creating form widgets `create:formwidget Acme.Blog PostSelector`.
 
@@ -288,7 +329,6 @@
   - Fixes an issue where paid plugins could not be downloaded.
 
 * **Build 84** (2014-05-20)
-  - A temporary directory can now be specified in config (see config cms.tempDir).
   - Default AJAX error message can now be overridden (see `ajaxErrorMessage` jQuery event).
   - SQLite support has been improved using new `October\Rain\Database\Dongle` class.
   - Included `doctrine/dbal` for supporting SQLite.

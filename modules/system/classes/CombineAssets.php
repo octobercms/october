@@ -317,7 +317,7 @@ class CombineAssets
         $filesSalt = null;
         foreach ($assets as $asset) {
             $filters = $this->getFilters(File::extension($asset)) ?: [];
-            $path = File::symbolizePath($asset) ?: $this->localPath . $asset;
+            $path = File::symbolizePath($asset, null) ?: $this->localPath . $asset;
             $files[] = new FileAsset($path, $filters, public_path());
             $filesSalt .= $this->localPath . $asset;
         }
@@ -326,8 +326,9 @@ class CombineAssets
         $collection = new AssetCollection($files, [], $filesSalt);
         $collection->setTargetPath($this->getTargetPath($rewritePath));
 
-        if ($this->storagePath === null)
+        if ($this->storagePath === null) {
             return $collection;
+        }
 
         $cache = new FilesystemCache($this->storagePath);
         $cachedCollection = new AssetCache($collection, $cache);
@@ -495,7 +496,10 @@ class CombineAssets
 
             if ($extension == 'less') {
                 $cssPath = $path.'/../css';
-                if (File::isDirectory(File::symbolizePath($cssPath))) {
+                if (
+                    strtolower(basename($path)) == 'less' &&
+                    File::isDirectory(File::symbolizePath($cssPath))
+                ) {
                     $path = $cssPath;
                 }
                 $destination = $path.'/'.$file.'.css';

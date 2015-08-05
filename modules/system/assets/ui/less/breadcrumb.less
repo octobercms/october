@@ -1,0 +1,78 @@
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "icon.less";
+
+//
+// Breadcrumb
+// --------------------------------------------------
+
+@color-breadcrumb-text-active:               #9da3a7;
+@color-breadcrumb-text:                      #ecf0f1;
+@color-breadcrumb-background:                #2b343d;
+
+.control-breadcrumb {
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 15px 20px;
+    margin: -20px -20px 20px -20px;
+    background-color: @color-breadcrumb-background;
+
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        color: @color-breadcrumb-text-active;
+        letter-spacing: 0.05em;
+
+        a {
+            color: @color-breadcrumb-text;
+            text-decoration: none;
+            &:hover { color: @color-breadcrumb-text; }
+        }
+
+        &:after {
+            font-size: 14px;
+            line-height: 14px;
+            display: inline-block;
+            margin-left: 6px;
+            margin-right: 2px;
+            vertical-align: baseline;
+            color: @color-breadcrumb-text-active;
+            .icon(@angle-right);
+        }
+
+        &:last-child:after {
+            content:'';
+        }
+    }
+}
+
+// Breadcrumb to sit flush to the element below
+body.breadcrumb-flush .control-breadcrumb,
+.control-breadcrumb.breadcrumb-flush {
+    margin-bottom: 0;
+}
+
+body.slim-container {
+    .control-breadcrumb {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+body.compact-container {
+    .control-breadcrumb {
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

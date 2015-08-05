@@ -36,7 +36,7 @@ class NavigationManager
         'icon'        => null,
         'url'         => null,
         'permissions' => [],
-        'order'       => 100,
+        'order'       => 500,
         'sideMenu'    => []
     ];
 
@@ -47,6 +47,7 @@ class NavigationManager
         'url'         => null,
         'counter'     => null,
         'counterLabel'=> null,
+        'order'       => -1,
         'attributes'  => [],
         'permissions' => []
     ];
@@ -99,12 +100,8 @@ class NavigationManager
         /*
          * Sort menu items
          */
-        usort($this->items, function ($a, $b) {
-            if ($a->order == $b->order) {
-                return 0;
-            }
-
-            return $a->order > $b->order ? 1 : -1;
+        uasort($this->items, function ($a, $b) {
+            return $a->order - $b->order;
         });
 
         /*
@@ -118,6 +115,25 @@ class NavigationManager
                 continue;
             }
 
+            /*
+             * Apply incremental default orders
+             */
+            $orderCount = 0;
+            foreach ($item->sideMenu as $sideMenuItem) {
+                if ($sideMenuItem->order !== -1) continue;
+                $sideMenuItem->order = ($orderCount += 100);
+            }
+
+            /*
+             * Sort side menu items
+             */
+            uasort($item->sideMenu, function ($a, $b) {
+                return $a->order - $b->order;
+            });
+
+            /*
+             * Filter items user lacks permission for
+             */
             $item->sideMenu = $this->filterItemPermissions($user, $item->sideMenu);
         }
     }
@@ -141,8 +157,8 @@ class NavigationManager
 
     /**
      * Registers the back-end menu items.
-     * The argument is an array of the main menu items. The array keys represent the 
-     * menu item codes, specific for the plugin/module. Each element in the 
+     * The argument is an array of the main menu items. The array keys represent the
+     * menu item codes, specific for the plugin/module. Each element in the
      * array should be an associative array with the following keys:
      * - label - specifies the menu label localization string key, required.
      * - icon - an icon name from the Font Awesome icon collection, required.
@@ -151,7 +167,7 @@ class NavigationManager
      *   The item will be displayed if the user has any of the specified permissions.
      * - order - a position of the item in the menu, optional.
      * - sideMenu - an array of side menu items, optional. If provided, the array items
-     *   should represent the side menu item code, and each value should be an associative 
+     *   should represent the side menu item code, and each value should be an associative
      *   array with the following keys:
      * - label - specifies the menu label localization string key, required.
      * - icon - an icon name from the Font Awesome icon collection, required.
@@ -445,6 +461,10 @@ class NavigationManager
      */
     protected function filterItemPermissions($user, array $items)
     {
+        if (!$user) {
+            return $items;
+        }
+
         $items = array_filter($items, function ($item) use ($user) {
             if (!$item->permissions || !count($item->permissions)) {
                 return true;

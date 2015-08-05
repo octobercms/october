@@ -14,6 +14,8 @@
  * - Mouse Wheel plugin (mousewheel.js)
  */
 +function ($) { "use strict";
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
 
     var Scrollbar = function (element, options) {
 
@@ -29,6 +31,12 @@
             eventElementName = options.vertical ? 'pageY' : 'pageX',
             dragStart = 0,
             startOffset = 0;
+
+        $.oc.foundation.controlUtils.markDisposable(element)
+
+        Base.call(this)
+
+        this.$el.one('dispose-control', this.proxy(this.dispose))
 
         /*
          * Create Scrollbar
@@ -199,6 +207,19 @@
          * Give the DOM a second, then set the track and thumb size
          */
         setTimeout(function() { self.update() }, 1);
+    }
+
+    Scrollbar.prototype = Object.create(BaseProto)
+    Scrollbar.prototype.constructor = Scrollbar
+
+    Scrollbar.prototype.dispose = function() {
+        this.unregisterHandlers()
+
+        BaseProto.dispose.call(this)
+    }
+
+    Scrollbar.prototype.unregisterHandlers = function() {
+
     }
 
     Scrollbar.DEFAULTS = {

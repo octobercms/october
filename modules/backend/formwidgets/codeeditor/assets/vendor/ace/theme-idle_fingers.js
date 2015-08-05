@@ -1,10 +1,10 @@
-define("ace/theme/idle_fingers",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/theme/idle_fingers",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
 
 exports.isDark = true;
 exports.cssClass = "ace-idle-fingers";
 exports.cssText = ".ace-idle-fingers .ace_gutter {\
 background: #3b3b3b;\
-color: #fff\
+color: rgb(153,153,153)\
 }\
 .ace-idle-fingers .ace_print-margin {\
 width: 1px;\
@@ -22,7 +22,6 @@ background: rgba(90, 100, 126, 0.88)\
 }\
 .ace-idle-fingers.ace_multiselect .ace_selection.ace_start {\
 box-shadow: 0 0 3px 0px #323232;\
-border-radius: 2px\
 }\
 .ace-idle-fingers .ace_marker-layer .ace_step {\
 background: rgb(102, 82, 0)\

@@ -1,8 +1,8 @@
 <?php namespace Backend\Models;
 
-use App;
 use Lang;
 use Model;
+use Config;
 use Session;
 use DirectoryIterator;
 
@@ -20,15 +20,13 @@ class BackendPreferences extends Model
 
     public function initSettingsData()
     {
-        $config = App::make('config');
-        $this->locale = $config->get('app.locale', 'en');
+        $this->locale = Config::get('app.locale', 'en');
     }
 
     public static function applyConfigValues()
     {
-        $config = App::make('config');
         $settings = self::instance();
-        $config->set('app.locale', $settings->locale);
+        Config::set('app.locale', $settings->locale);
     }
 
     /**
@@ -37,7 +35,7 @@ class BackendPreferences extends Model
      */
     public function getLocaleOptions()
     {
-        $locales = [
+        $locales = Config::get('app.localeOptions', [
             'en' => [Lang::get('system::lang.locale.en'), 'flag-gb'],
             'de' => [Lang::get('system::lang.locale.de'), 'flag-de'],
             'es' => [Lang::get('system::lang.locale.es'), 'flag-es'],
@@ -48,6 +46,7 @@ class BackendPreferences extends Model
             'id' => [Lang::get('system::lang.locale.id'), 'flag-id'],
             'it' => [Lang::get('system::lang.locale.it'), 'flag-it'],
             'ja' => [Lang::get('system::lang.locale.ja'), 'flag-jp'],
+            'lv' => [Lang::get('system::lang.locale.lv'), 'flag-lv'],
             'nl' => [Lang::get('system::lang.locale.nl'), 'flag-nl'],
             'pt-br' => [Lang::get('system::lang.locale.pt-br'), 'flag-br'],
             'ro' => [Lang::get('system::lang.locale.ro'), 'flag-ro'],
@@ -58,7 +57,8 @@ class BackendPreferences extends Model
             'sk' => [Lang::get('system::lang.locale.sk'), 'flag-sk'],
             'zh-cn' => [Lang::get('system::lang.locale.zh-cn'), 'flag-cn'],
             'nb-no' => [Lang::get('system::lang.locale.nb-no'), 'flag-no'],
-        ];
+            'el' => [Lang::get('system::lang.locale.el'), 'flag-gr'],
+        ]);
 
         // Sort locales alphabetically
         asort($locales);

@@ -1,4 +1,4 @@
-define("ace/theme/tomorrow_night_blue",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/theme/tomorrow_night_blue",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
 
 exports.isDark = true;
 exports.cssClass = "ace-tomorrow-night-blue";
@@ -23,7 +23,6 @@ background: #003F8E\
 }\
 .ace-tomorrow-night-blue.ace_multiselect .ace_selection.ace_start {\
 box-shadow: 0 0 3px 0px #002451;\
-border-radius: 2px\
 }\
 .ace-tomorrow-night-blue .ace_marker-layer .ace_step {\
 background: rgb(127, 111, 19)\

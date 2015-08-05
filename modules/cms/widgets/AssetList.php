@@ -85,7 +85,7 @@ class AssetList extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('css/assetlist.css', 'core');
         $this->addJs('js/assetlist.js', 'core');

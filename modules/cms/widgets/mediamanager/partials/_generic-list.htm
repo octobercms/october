@@ -15,13 +15,14 @@
             </li>
         <?php endif ?>
 
-        <?php foreach ($items as $item): 
-            $itemType = $item->getFileType();
-        ?>
-            <li data-type="media-item" 
-                data-item-type="<?= $item->type ?>" 
-                data-path="<?= e($item->path) ?>" 
-                data-title="<?= e(basename($item->path)) ?>" 
+        <?php foreach ($items as $item): ?>
+            <?php
+                $itemType = $item->getFileType();
+            ?>
+            <li data-type="media-item"
+                data-item-type="<?= $item->type ?>"
+                data-path="<?= e($item->path) ?>"
+                data-title="<?= e(basename($item->path)) ?>"
                 data-size="<?= e($item->sizeToString()) ?>"
                 data-last-modified="<?= e($item->lastModifiedAsString()) ?>"
                 data-last-modified-ts="<?= $item->lastModified ?>"
@@ -36,8 +37,8 @@
                     <h4 title="<?= e(basename($item->path)) ?>">
                         <?= e(basename($item->path)) ?>
 
-                        <a 
-                            href="#" 
+                        <a
+                            href="#"
                             data-rename
                             data-control="popup"
                             data-z-index="1200"

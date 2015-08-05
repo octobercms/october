@@ -1,0 +1,59 @@
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "icon.less";
+
+//
+// Pagination
+// --------------------------------------------------
+
+@color-pagination-icon:                      #666666;
+@color-pagination-hover:                     @link-color;
+@color-pagination-inactive:                  #b6b6b6;
+@color-pagination:                           #98a7a8;
+
+//
+// Pagination
+// --------------------------------------------------
+
+.control-pagination {
+    font-size: 0;
+    .page-iteration {
+        margin-right: 4px;
+        font-size: 12px;
+        color: @color-pagination;
+    }
+    .page-next, .page-back {
+        display: inline-block;
+        padding: 10px 15px;
+        &:before {
+            color: @color-pagination-icon;
+            font-size: 19px;
+            line-height: 19px;
+            display: inline-block;
+            vertical-align: baseline;
+            position: relative;
+            top: 2px;
+        }
+    }
+    a.page-next, a.page-back {
+        &:hover:before {
+            color: @color-pagination-hover;
+        }
+    }
+    span.page-next, span.page-back {
+        &:before {
+            color: @color-pagination-inactive;
+        }
+    }
+    .page-next {
+        padding-left: 6px;
+    }
+    .page-back {
+        padding-right: 6px;
+    }
+    .page-next:before { .icon(@angle-right); }
+    .page-back:before { .icon(@angle-left); }
+}

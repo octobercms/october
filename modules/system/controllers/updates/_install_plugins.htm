@@ -11,7 +11,7 @@
                 name="code"
                 id="pluginSearchInput"
                 class="product-search-input search-input-lg typeahead"
-                placeholder="search plugins to install..."
+                placeholder="<?= e(trans('system::lang.plugins.search')) ?>"
                 data-search-type="plugins"
                 />
             <i class="icon icon-search"></i>
@@ -28,13 +28,13 @@
                 class="product-list-manager">
 
                 <h4 class="section-header">
-                    <a href="<?= Backend::url('system/updates') ?>">Installed plugins</a>
+                    <a href="<?= Backend::url('system/updates') ?>"><?= e(trans('system::lang.plugins.installed')) ?></a>
                     <small>(<span class="product-counter"><?= count($installedPlugins) ?></span>)</small>
                 </h4>
 
                 <?php if (!count($installedPlugins)): ?>
                     <div class="product-list-empty">
-                        <p>There are no plugins installed from the marketplace.</p>
+                        <p><?= e(trans('system::lang.plugins.no_plugins')) ?></p>
                     </div>
                 <?php else: ?>
                     <ul class="product-list plugin-list">
@@ -54,7 +54,7 @@
                                     aria-hidden="true"
                                     data-request="onRemovePlugin"
                                     data-request-data="code: '<?= $plugin['code'] ?>'"
-                                    data-request-confirm="Are you sure you want to remove this?"
+                                    data-request-confirm="<?= e(trans('system::lang.plugins.remove_confirm')) ?>"
                                     data-stripe-load-indicator>
                                     &times;
                                 </button>
@@ -71,7 +71,7 @@
 
             <!-- Recommended extras -->
             <div class="suggested-products-container">
-                <h4 class="section-header">Recommended</h4>
+                <h4 class="section-header"><?= e(trans('system::lang.plugins.recommended')) ?></h4>
                 <div class="scroll-panel">
                     <div
                         id="suggestedPlugins"

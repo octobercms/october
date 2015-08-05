@@ -1,4 +1,4 @@
-define("ace/theme/mono_industrial",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/theme/mono_industrial",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
 
 exports.isDark = true;
 exports.cssClass = "ace-mono-industrial";
@@ -22,7 +22,6 @@ background: rgba(145, 153, 148, 0.40)\
 }\
 .ace-mono-industrial.ace_multiselect .ace_selection.ace_start {\
 box-shadow: 0 0 3px 0px #222C28;\
-border-radius: 2px\
 }\
 .ace-mono-industrial .ace_marker-layer .ace_step {\
 background: rgb(102, 82, 0)\

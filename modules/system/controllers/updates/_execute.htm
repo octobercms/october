@@ -24,7 +24,7 @@
 
     <script type="text/template" id="executeFailed">
         <div class="modal-body">
-            <div class="callout callout-danger">
+            <div class="callout callout-danger no-icon">
                 <div class="header">
                     <h3><?= e(trans('system::lang.updates.update_failed_label')) ?></h3>
                     <p>{{ reason }}</p>
@@ -35,7 +35,7 @@
             <button
                 type="button"
                 class="btn btn-primary"
-                onclick="retryUpdate()">
+                onclick="$.oc.updateProcess.retryUpdate()">
                 <?= e(trans('system::lang.updates.retry_label')) ?>
             </button>
             <button
@@ -48,11 +48,9 @@
     </script>
 
     <script>
-
-        $('#executePopup').on('popupComplete', function(){
+        $('#executePopup').on('popupComplete', function() {
             $.oc.updateProcess.execute(<?= json_encode($updateSteps) ?>)
         })
-
     </script>
 
 <?php else: ?>
