@@ -756,6 +756,7 @@
   height: 20px;
   margin-top: -10px;
   margin-right: 10px;
+  z-index: 100;
 }
 .field-fileupload.style-file-single .upload-object .icon-container:after {
   width: 20px;
