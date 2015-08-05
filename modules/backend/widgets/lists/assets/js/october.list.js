@@ -118,6 +118,12 @@
             .listWidget('toggleChecked', el)
     }
 
+    $.oc.listGetChecked = function(el) {
+        return $(el)
+            .closest('[data-control="listwidget"]')
+            .listWidget('getChecked')
+    }
+
     // LIST WIDGET DATA-API
     // ==============
 
