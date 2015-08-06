@@ -73,6 +73,7 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/less/codeeditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/js/build.js');
+            $combiner->registerBundle('~/modules/backend/formwidgets/fileupload/assets/less/fileupload.less');
         });
     }
 
