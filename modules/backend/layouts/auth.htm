@@ -8,9 +8,11 @@
         <meta name="csrf-token" content="<?= csrf_token() ?>">
         <title><?= e(trans('backend::lang.auth.title')) ?></title>
         <link href="<?= URL::to('modules/backend/assets/css/october.css') ?>" rel="stylesheet">
+        <link href="<?= URL::to('modules/system/assets/ui/storm.css') ?>" rel="stylesheet">
 
         <script src="<?= URL::to('modules/backend/assets/js/vendor/jquery.min.js') ?>"></script>
         <script src="<?= URL::to('modules/system/assets/js/framework.js') ?>"></script>
+        <script src="<?= URL::to('modules/system/assets/ui/storm-min.js') ?>"></script>
         <script src="<?= URL::to('modules/backend/assets/js/october-min.js') ?>"></script>
         <script src="<?= URL::to('modules/backend/assets/js/auth/auth.js') ?>"></script>
         <?= $this->makeAssets() ?>
@@ -18,27 +20,27 @@
         <?= $this->makeLayoutPartial('custom_styles') ?>
     </head>
     <body class="outer <?= $this->bodyClass ?>">
-        <div id="layout-canvas">
-            <div class="layout">
+    <div id="layout-canvas">
+        <div class="layout">
 
-                <div class="layout-row min-size layout-head">
-                    <div class="layout-cell">
-                        <h1 class="oc-logo-white"><?= e(Backend\Models\BrandSettings::get('app_name')) ?></h1>
-                    </div>
+            <div class="layout-row min-size layout-head">
+                <div class="layout-cell">
+                    <h1 class="oc-logo-white"><?= e(Backend\Models\BrandSettings::get('app_name')) ?></h1>
                 </div>
-                <div class="layout-row">
-                    <div class="layout-cell">
-                        <div class="outer-form-container">
-                            <?= Block::placeholder('body') ?>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-        </div>
+            <div class="layout-row">
+                <div class="layout-cell">
+                    <div class="outer-form-container">
+                        <?= Block::placeholder('body') ?>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Flash Messages -->
-        <div id="layout-flash-messages"><?= $this->makeLayoutPartial('flash_messages') ?></div>
+        </div>
+    </div>
+
+    <!-- Flash Messages -->
+    <div id="layout-flash-messages"><?= $this->makeLayoutPartial('flash_messages') ?></div>
 
     </body>
 </html>
