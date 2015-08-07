@@ -11,6 +11,11 @@ use October\Rain\Auth\Models\Group as GroupBase;
 class UserGroup extends GroupBase
 {
     /**
+     * @var string The default group code.
+     */
+    const DEFAULT_CODE = 'owners';
+
+    /**
      * @var string The database table used by the model.
      */
     protected $table = 'backend_user_groups';

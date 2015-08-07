@@ -27,7 +27,7 @@ class SeedSetupAdmin extends Seeder
     {
         $group = UserGroup::create([
             'name' => 'Owners',
-            'code' => 'owners',
+            'code' => UserGroup::DEFAULT_CODE,
             'description' => 'Default group for website owners.',
             'is_new_user_default' => false
         ]);
