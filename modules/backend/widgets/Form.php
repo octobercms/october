@@ -460,7 +460,7 @@ class Form extends WidgetBase
                 continue;
             }
 
-            $widget = $this->makeFormWidget($field);
+            $widget = $this->makeFormFieldWidget($field);
             $widget->bindToController();
         }
 
@@ -674,7 +674,7 @@ class Form extends WidgetBase
     /**
      * Makes a widget object from a form field object.
      */
-    protected function makeFormWidget($field)
+    protected function makeFormFieldWidget($field)
     {
         if ($field->type != 'widget') {
             return null;
@@ -700,7 +700,7 @@ class Form extends WidgetBase
             ));
         }
 
-        $widget = new $widgetClass($this->controller, $field, $widgetConfig);
+        $widget = $this->makeFormWidget($widgetClass, $field, $widgetConfig);
 
         return $this->formWidgets[$field->fieldName] = $widget;
     }
@@ -820,7 +820,7 @@ class Form extends WidgetBase
         }
 
         if ($field->type == 'widget') {
-            $widget = $this->makeFormWidget($field);
+            $widget = $this->makeFormFieldWidget($field);
             return $widget->showLabels;
         }
 
