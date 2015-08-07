@@ -7,7 +7,7 @@ fields:
     layout:
         label: system::lang.mail_templates.layout
         type: relation
-        emptyOption: -- No layout --
+        emptyOption: system::lang.mail_templates.no_layout
 
     code:
         label: system::lang.mail_templates.code

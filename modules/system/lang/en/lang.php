@@ -2,12 +2,13 @@
 
 return [
     'app' => [
-        'name' => 'October CMS',
+        'name' => 'OctoberCMS',
         'tagline' => 'Getting back to basics'
     ],
     'locale' => [
         'en' => 'English',
         'de' => 'German',
+        'el' => 'Greek',
         'es' => 'Spanish',
         'es-ar' => 'Spanish (Argentina)',
         'fa' => 'Persian',
@@ -26,8 +27,7 @@ return [
         'se' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
-        'zh-cn' => 'Chinese (China)',
-        'el' => 'Greek'
+        'zh-cn' => 'Chinese (China)'
     ],
     'directory' => [
         'create_fail' => 'Cannot create directory: :name'
@@ -169,6 +169,7 @@ return [
         'menu_layouts_label' => 'Mail Layouts',
         'layout' => 'Layout',
         'layouts' => 'Layouts',
+        'no_layout' => '-- No layout --',
         'name' => 'Name',
         'name_comment' => 'Unique name used to refer to this template',
         'code' => 'Code',
