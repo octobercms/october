@@ -1,4 +1,4 @@
-* **Build 28x** (2015-08-xx)
+* **Build 289** (2015-08-07)
   - Added new `makeFormWidget()` method to `WidgetMaker` trait for rendering form widgets individually. This method is now available to backend controllers, controller behaviors and widgets themselves. Check to make sure your classes do not define a conflicting method of this name.
 
 * **Build 287** (2015-08-03)
