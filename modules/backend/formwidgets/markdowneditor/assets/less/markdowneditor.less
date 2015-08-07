@@ -13,6 +13,7 @@
     position: relative;
     border: 1px solid @color-form-field-border;
     background: #fff;
+
     textarea { .opacity(0); }
     .transition(@input-transition);
 
@@ -97,6 +98,8 @@
     //
 
     &.mode-split {
+        overflow: hidden; // clearfix
+
         .editor-preview {
             float: right;
             width: 50%;
