@@ -133,6 +133,7 @@ class ImportExportController extends ControllerBehavior
         $this->addJs('js/october.import.js', 'core');
         $this->addCss('css/import.css', 'core');
 
+        $this->controller->bodyClass = '';
         $this->controller->pageTitle = $this->controller->pageTitle
             ?: Lang::get($this->getConfig('import[title]', 'Import records'));
 
@@ -150,6 +151,7 @@ class ImportExportController extends ControllerBehavior
         $this->addJs('js/october.export.js', 'core');
         $this->addCss('css/export.css', 'core');
 
+        $this->controller->bodyClass = '';
         $this->controller->pageTitle = $this->controller->pageTitle
             ?: Lang::get($this->getConfig('export[title]', 'Export records'));
 
