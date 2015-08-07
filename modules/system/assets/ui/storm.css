@@ -1332,8 +1332,6 @@ div.progress{height:9px;-webkit-box-shadow:none;box-shadow:none;background:#d9de
 .control-tabs.content-tabs > ul.nav-tabs li:last-child{border-right:1px solid #e3e5e7}
 .control-tabs.content-tabs > ul.nav-tabs li.active{background:#ffffff}
 .control-tabs.content-tabs > ul.nav-tabs li.active a{font-weight:600}
-.control-tabs.content-tabs > .tab-content > .tab-pane{padding-top:0}
-.control-tabs.content-tabs > .tab-content > .tab-pane div.list-header,.control-tabs.content-tabs > .tab-content > .tab-pane div.padded-container,.control-tabs.content-tabs > .tab-content > .tab-pane div.toolbar-widget{background:#ffffff;padding-top:20px}
 .control-tabs.content-tabs.tabs-inset > ul.nav-tabs,.control-tabs.content-tabs.tabs-inset > div > ul.nav-tabs,.control-tabs.content-tabs.tabs-inset > div > div > ul.nav-tabs{margin-left:-20px;margin-right:-20px}
 .control-tabs.content-tabs.tabs-inset > ul.nav-tabs li:first-child,.control-tabs.content-tabs.tabs-inset > div > ul.nav-tabs li:first-child,.control-tabs.content-tabs.tabs-inset > div > div > ul.nav-tabs li:first-child{margin-left:20px}
 .control-tabs.content-tabs.tabs-offset > ul.nav-tabs li:first-child{margin-left:20px}
@@ -1341,6 +1339,9 @@ div.progress{height:9px;-webkit-box-shadow:none;box-shadow:none;background:#d9de
 .control-tabs.content-tabs.tabs-flush > ul.nav-tabs li:last-child{border-right:1px solid transparent}
 .control-tabs.content-tabs.tabs-flush > ul.nav-tabs li:first-child{border-left:1px solid transparent}
 .control-tabs.content-tabs.tabs-flush > ul.nav-tabs li.active:last-child{border-right:1px solid #e3e5e7}
+.control-tabs.content-tabs > .tab-content > .tab-pane{padding-top:0}
+.control-tabs.content-tabs > .tab-content > .tab-pane div.list-header,.control-tabs.content-tabs > .tab-content > .tab-pane div.padded-container,.control-tabs.content-tabs > .tab-content > .tab-pane div.toolbar-widget{background:#ffffff;padding-top:20px}
+.control-tabs.content-tabs > .tab-content > .tab-pane.pane-inset{margin-left:-20px;margin-right:-20px}
 .hide-tabs .control-tabs ul.nav-tabs{display:none}
 .hide-tabs .control-tabs > div.tab-content > div.tab-pane{padding-top:0}
 .form-sidebar .control-tabs.secondary > div > ul.nav-tabs > li a{background:transparent}
