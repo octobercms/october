@@ -69,10 +69,17 @@ class Content extends CmsCompoundObject
 
     protected function parseMarkup()
     {
-        $result = $this->markup;
+        $extension = strtolower(File::extension($this->fileName));
 
-        if (strtolower(File::extension($this->fileName)) == 'md') {
-            $result = Markdown::parse($this->markup);
+        switch ($extension) {
+            case 'txt':
+                $result = htmlspecialchars($this->markup);
+                break;
+            case 'md':
+                $result = Markdown::parse($this->markup);
+                break;
+            default:
+                $result = $this->markup;
         }
 
         return $result;

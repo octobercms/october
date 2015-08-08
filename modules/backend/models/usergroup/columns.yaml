@@ -10,3 +10,9 @@ columns:
     description:
         label: backend::lang.user.group.description_field
         searchable: yes
+
+    users_count:
+        label: backend::lang.user.group.users_count
+        relation: users_count
+        valueFrom: count
+        default: 0

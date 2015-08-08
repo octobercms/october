@@ -321,8 +321,7 @@ if(selectedItems[0].getAttribute('data-document-type')!=='image'){alert(this.opt
 return}
 var path=selectedItems[0].getAttribute('data-path')
 new $.oc.mediaManager.imageCropPopup(path,{alias:this.options.alias,onDone:callback})}
-MediaManager.prototype.onImageCropped=function(imageUrl){var item={documentType:'image',publicUrl:imageUrl}
-this.$el.trigger('popupcommand',['insert-cropped',item])}
+MediaManager.prototype.onImageCropped=function(result){this.$el.trigger('popupcommand',['insert-cropped',result])}
 MediaManager.prototype.clearSearchTrackInputTimer=function(){if(this.searchTrackInputTimer===null)
 return
 clearTimeout(this.searchTrackInputTimer)
@@ -573,8 +572,7 @@ MediaManagerImageCropPopup.prototype.cropAndInsert=function(){var data={img:$(th
 $.oc.stripeLoadIndicator.show()
 this.$popupElement.find('form').request(this.options.alias+'::onCropImage',{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.onImageCropped))}
 MediaManagerImageCropPopup.prototype.onImageCropped=function(response){this.hide()
-if(this.options.onDone!==undefined)
-this.options.onDone(response.result)}
+if(this.options.onDone!==undefined){this.options.onDone(response)}}
 MediaManagerImageCropPopup.prototype.showResizePopup=function(){this.$popupElement.find('button[data-command=resize]').popup({content:this.$popupElement.find('[data-control="resize-template"]').html(),zIndex:1220})}
 MediaManagerImageCropPopup.prototype.onResizePopupShown=function(ev,button,popup){var $popup=$(popup),$widthControl=$popup.find('input[name=width]'),$heightControl=$popup.find('input[name=height]'),imageWidth=this.fixDimensionValue(this.$popupElement.find('input[data-control=dimension-width]').val()),imageHeight=this.fixDimensionValue(this.$popupElement.find('input[data-control=dimension-height]').val())
 $widthControl.val(imageWidth)
@@ -635,7 +633,8 @@ this.initRulers()
 this.initJCrop()}
 MediaManagerImageCropPopup.prototype.onSelectionModeChanged=function(){var mode=this.getSelectionMode(),$widthInput=this.getWidthInput(),$heightInput=this.getHeightInput()
 if(mode==='normal'){$widthInput.attr('disabled','disabled')
-$heightInput.attr('disabled','disabled')}else{$widthInput.removeAttr('disabled')
+$heightInput.attr('disabled','disabled')}
+else{$widthInput.removeAttr('disabled')
 $heightInput.removeAttr('disabled')
 $widthInput.val(this.fixDimensionValue($widthInput.val()))
 $heightInput.val(this.fixDimensionValue($heightInput.val()))}

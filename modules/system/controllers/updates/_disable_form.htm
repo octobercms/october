@@ -28,6 +28,21 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <!-- Checkbox -->
+                <div class="checkbox custom-checkbox">
+                    <input
+                        type="checkbox"
+                        name="freeze"
+                        value="1"
+                        id="pluginFreeze">
+                    <label for="pluginFreeze">
+                        <?= e(trans('system::lang.plugins.frozen_label')) ?>
+                    </label>
+                    <p class="help-block"><?= e(trans('system::lang.plugins.frozen_help')) ?></p>
+                </div>
+            </div>
+
         </div>
 
         <?php foreach ($checked as $id): ?>

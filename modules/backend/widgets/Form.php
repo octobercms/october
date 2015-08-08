@@ -149,7 +149,7 @@ class Form extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addJs('js/october.form.js', 'core');
     }
@@ -287,7 +287,7 @@ class Form extends WidgetBase
      */
     public function setFormValues($data = null)
     {
-        if ($data == null) {
+        if ($data === null) {
             $data = $this->getSaveData();
         }
 
@@ -312,12 +312,10 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        $eventResults = $this->fireEvent('form.beforeRefresh', [$saveData]) +
-            Event::fire('backend.form.beforeRefresh', [$this, $saveData]);
-
-        foreach ($eventResults as $eventResult) {
-            $saveData = $eventResult + $saveData;
-        }
+        $dataHolder = (object) ['data' => $saveData];
+        $this->fireEvent('form.beforeRefresh', [$dataHolder]);
+        Event::fire('backend.form.beforeRefresh', [$this, $dataHolder]);
+        $saveData = $dataHolder->data;
 
         /*
          * Set the form variables and prepare the widget
@@ -356,8 +354,10 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        $eventResults = $this->fireEvent('form.refresh', [$result]) +
-            Event::fire('backend.form.refresh', [$this, $result]);
+        $eventResults = array_merge(
+            $this->fireEvent('form.refresh', [$result]),
+            Event::fire('backend.form.refresh', [$this, $result])
+        );
 
         foreach ($eventResults as $eventResult) {
             $result = $eventResult + $result;
@@ -460,7 +460,7 @@ class Form extends WidgetBase
                 continue;
             }
 
-            $widget = $this->makeFormWidget($field);
+            $widget = $this->makeFormFieldWidget($field);
             $widget->bindToController();
         }
 
@@ -518,7 +518,7 @@ class Form extends WidgetBase
                     $this->allTabs->secondary->addField($name, $fieldObj, $fieldTab);
                     break;
                 default:
-                    $this->allTabs->outside->addField($name, $fieldObj, $fieldTab);
+                    $this->allTabs->outside->addField($name, $fieldObj);
                     break;
             }
         }
@@ -674,7 +674,7 @@ class Form extends WidgetBase
     /**
      * Makes a widget object from a form field object.
      */
-    protected function makeFormWidget($field)
+    protected function makeFormFieldWidget($field)
     {
         if ($field->type != 'widget') {
             return null;
@@ -700,7 +700,7 @@ class Form extends WidgetBase
             ));
         }
 
-        $widget = new $widgetClass($this->controller, $field, $widgetConfig);
+        $widget = $this->makeFormWidget($widgetClass, $field, $widgetConfig);
 
         return $this->formWidgets[$field->fieldName] = $widget;
     }
@@ -820,7 +820,7 @@ class Form extends WidgetBase
         }
 
         if ($field->type == 'widget') {
-            $widget = $this->makeFormWidget($field);
+            $widget = $this->makeFormFieldWidget($field);
             return $widget->showLabels;
         }
 

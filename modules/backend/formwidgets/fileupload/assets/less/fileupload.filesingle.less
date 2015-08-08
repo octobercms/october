@@ -1,0 +1,117 @@
+//
+// Single File
+//
+
+.field-fileupload.style-file-single {
+    background-color: @color-form-field-bg;
+    border: 1px solid @color-form-field-border;
+    overflow: hidden;
+    position: relative;
+    padding-right: 30px;
+
+    .upload-button {
+        .uploader-vertical-align();
+        background: transparent;
+        right: -2px;
+
+        color: lighten(@color-form-field-recordfinder-btn, 15%);
+
+        i {
+            font-size: 14px;
+        }
+
+        &:hover {
+            color: @color-form-field-recordfinder-btn;
+        }
+    }
+
+    .upload-empty-message {
+        padding: 10px 0 10px 11px;
+        font-size: 13px;
+    }
+
+    &.is-populated {
+        .upload-empty-message {
+            display: none;
+        }
+    }
+
+    .upload-object {
+        display: block;
+        width: 100%;
+        padding: 8px 0 10px 0;
+
+        .icon-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 15px;
+            padding: 0 5px;
+            margin: 8px 0 0 7px;
+            text-align: center;
+
+            i {
+                line-height: 150%;
+                font-size: 15px;
+            }
+
+            img { display: none; }
+        }
+
+        .info {
+            margin-left: 34px;
+            margin-right: 15%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            h4, p {
+                display: inline;
+                margin: 0;
+                padding: 0;
+                font-size: 12px;
+                line-height: 150%;
+                color: #666666;
+            }
+
+            p.size {
+                font-weight: normal;
+                &:before {
+                    content: " - ";
+                }
+            }
+        }
+
+        .progress-bar {
+            .uploader-progress-bar();
+            position: absolute;
+            top: 50%;
+            margin-top: -2px;
+            right: 5px;
+        }
+
+        .meta {
+            .uploader-vertical-align();
+            right: 0;
+            width: 15%;
+            .upload-remove-button {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                height: 20px;
+                margin-top: -10px;
+                margin-right: 10px;
+                z-index: 100;
+            }
+        }
+
+        .icon-container:after {
+            .uploader-small-loader();
+        }
+
+        &.is-error .icon-container:after {
+            font-size: 20px;
+        }
+    }
+
+}

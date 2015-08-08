@@ -58,7 +58,7 @@ tabs:
             type: textarea
             size: tiny
 
-        settings[hidden]:
+        settings[is_hidden]:
             tab: cms::lang.editor.settings
             label: cms::lang.editor.hidden
             type: checkbox

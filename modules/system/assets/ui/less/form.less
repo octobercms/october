@@ -1,0 +1,431 @@
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "icon.less";
+
+//
+// Forms
+// --------------------------------------------------
+
+@import "form.base.less";
+@import "form.groups.less";
+
+// Load order
+@import "select.less";
+@import "checkbox.less";
+
+//
+// Form containers
+//
+
+.form-preview {
+    padding: 15px;
+    margin-bottom: 20px;
+    background: white;
+    border: 1px solid #eee;
+
+    >.form-group:last-child {
+        padding-bottom: 0;
+    }
+
+    // Form to sit flush to the element above
+    &.form-flush {
+        border-top: none;
+    }
+}
+
+//
+// Nice forms
+//
+
+.form-elements, .form-tabless-fields {
+    .clearfix();
+}
+
+.form-control {
+    position: relative;
+    -webkit-appearance: none;
+
+    &:focus {
+        border: 1px solid @color-form-field-border-focus;
+    }
+
+    &.icon {
+        background-repeat: no-repeat;
+        background-position: right -2px;
+        padding-right: 30px !important;
+        background-image: url('@{image-path}/bitmap-icons.png');
+
+        &.plus { background-position: right -124px; }
+        &.search { background-position: right -84px; }
+        &.user { background-position: right -41px; }
+        &.lock { background-position: right 0; }
+    }
+
+    &.growable {
+        width: 110px;
+        //.transition(width 0.2s);
+        &:focus, &:active {
+            width: 200px !important;
+        }
+    }
+}
+
+.form-group {
+    position: relative;
+
+    &:empty {
+        display: none;
+    }
+
+    &, &.layout-item {
+        padding-bottom: 20px;
+        margin-bottom: 0;
+    }
+
+    .box-sizing(border-box);
+
+    &.is-required {
+        > label:after {
+            color: @color-form-required-asterisk;
+            vertical-align: super;
+            font-size: 60%;
+            content: " *";
+            text-shadow: 0 0 2px darken(@color-form-required-asterisk, 15%);
+        }
+    }
+
+    &.span-full {
+        width: 100%;
+        float: left;
+    }
+
+    &.span-left {
+        float: left;
+        width: 48.5%;
+        clear: left;
+    }
+
+    &.span-right {
+        float: right;
+        width: 48.5%;
+        clear: right;
+    }
+
+    &.layout-relative {
+        padding-bottom: 0;
+    }
+
+    &.checkbox-field {
+        padding-bottom: 5px;
+    }
+
+    &.number-field {
+        > .form-control { text-align: right; }
+    }
+
+    &.checkbox-align {
+        padding-left: 23px;
+        margin-top: -5px;
+    }
+
+    &.field-slim {
+        &.span-left, &.span-right {
+            width: 50%;
+        }
+    }
+
+    &.field-indent {
+        padding-left: 23px;
+    }
+
+    &.input-sidebar-control {
+        padding-right: 35px;
+
+        .sidebar-control {
+            position: absolute;
+            right: 8px;
+            top: 34px;
+            font-size: 16px;
+            color: @color-input-sidebar-control;
+            &:hover, &:focus {
+                text-decoration: none;
+                color: @link-color;
+                outline: none;
+            }
+        }
+    }
+}
+
+.form-group-preview {
+
+    .form-control {
+        background-color: @color-form-field-preview;
+        height: auto;
+        min-height: 38px;
+    }
+
+    .custom-checkbox,
+    .custom-radio {
+        label { cursor: default; }
+    }
+}
+
+.help-block {
+    font-size: 12px;
+    margin-bottom: 0;
+    &.before-field {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+}
+
+.input-with-icon {
+    position: relative;
+
+    > .icon {
+        position: absolute;
+        z-index: 2;
+        padding: 13px;
+        pointer-events: none;
+        color: @color-form-field-icon;
+        font-size: 15px;
+    }
+
+    &.right-align {
+        > .icon { right: 0; }
+        input { padding-right: 32px !important; }
+    }
+
+    &.left-align {
+        > .icon { left: 0; }
+        input { padding-left: 32px !important; }
+    }
+}
+
+.field-section {
+    border-bottom: 1px solid @color-form-field-border;
+    padding-top: 3px;
+    padding-bottom: 7px;
+
+    > h4 {
+        color: rgba(0,0,0,.6);
+    }
+
+    > p:first-child,
+    > h4:first-child {
+        margin: 0;
+    }
+
+    &.is-collapsible {
+        cursor: pointer;
+
+        > h4:before {
+            // Icon
+            display: inline-block;
+            .icon-FontAutumn();
+            vertical-align: baseline;
+            content: @caret-down;
+
+            margin: 0 8px;
+            float: right;
+            color: rgba(0,0,0,.4);
+        }
+
+        &:hover {
+            border-bottom: 1px solid darken(@color-form-field-border, 10%);
+            > h4:before {
+                color: inherit;
+            }
+        }
+    }
+}
+
+.field-textarea {
+    resize: vertical;
+    &.size-tiny { min-height: @size-tiny; }
+    &.size-small { min-height: @size-small; }
+    &.size-large { min-height: @size-large; }
+    &.size-huge { min-height: @size-huge; }
+    &.size-giant { min-height: @size-giant; }
+}
+
+.field-checkboxlist {
+    .checkbox:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+.field-checkboxlist-scrollable {
+    background: white;
+    border: 1px solid @color-form-checkboxlist-border;
+    padding-left: 15px;
+    height: @size-large + 100;
+
+    // First checkbox
+    .checkbox {
+        margin-top: 15px;
+        margin-bottom: 5px;
+    }
+
+    // All others
+    .checkbox ~ .checkbox { margin-top: 0; }
+}
+
+.field-recordfinder {
+    background-color: @color-form-field-bg;
+    border: 1px solid @color-form-field-border;
+    overflow: hidden;
+    position: relative;
+    .form-control {
+        background: transparent;
+        border-color: transparent;
+        height: auto;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 8px 30px 10px 11px;
+    }
+    .btn {
+        background: transparent;
+        position: absolute;
+        right: -2px;
+        top: 50%;
+        margin-top: -44px;
+        height: 88px;
+        color: lighten(@color-form-field-recordfinder-btn, 15%);
+
+        i {
+            font-size: 14px;
+        }
+
+        &:hover {
+            color: @color-form-field-recordfinder-btn;
+        }
+    }
+    .text-muted i {
+        font-size: 14px;
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        margin: 0 2px;
+    }
+    .primary {
+        font-weight: 600;
+    }
+}
+
+.recordfinder-search {
+    background-position: right -81px !important;
+    border-top: none  !important;
+    border-left: none  !important;
+    border-right: none  !important;
+    border-radius: 0;
+}
+
+.form-buttons {
+    .clearfix();
+    padding-bottom: 20px;
+    font-size: 0;
+
+    .btn {
+        margin-right: 10px;
+
+        &.no-margin-right {
+            margin-right: 0;
+        }
+    }
+
+    .pull-right {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+
+    &.buttons-offset {
+        padding-left: 20px;
+    }
+}
+
+body.slim-container {
+    .form-buttons {
+        padding: 0 20px 20px;
+    }
+}
+
+@media (max-width: @form-breakpoint-max) {
+    .form-group {
+        &.span-left, &.span-right {
+            width: 100%;
+            clear: none;
+        }
+    }
+}
+
+//
+// Select2
+//
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border: none;
+}
+
+.select2-dropdown {
+    z-index: 10000;
+}
+
+//
+// Controls inside toolbar
+//
+
+[data-control=toolbar] {
+    .form-control {
+        display: inline-block;
+        margin-right: 15px;
+
+        &.width-50 {
+            width: 50px;
+        }
+
+        &.width-100 {
+            width: 100px;
+        }
+
+        &.width-150 {
+            width: 150px;
+        }
+    }
+
+    input[type=text].form-control, label {
+        position: relative;
+        top: 5px;
+    }
+
+    label {
+        margin-right: 7px;
+
+        &.standalone {
+            margin-right: 15px;
+        }
+    }
+
+    .select2-container {
+        display: inline-block;
+        width: auto;
+        height: 36px;
+        margin-right: 15px;
+
+        .select2-selection__rendered {
+            line-height: 17px;
+        }
+
+        .select2-selection--single {
+            height: 36px;
+        }
+    }
+
+    select.form-control.custom-select {
+        display: none;
+    }
+}

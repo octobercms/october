@@ -1,0 +1,357 @@
+
+//
+// Dependencies
+// --------------------------------------------------
+
+@import "global.less";
+@import "icon.less";
+
+//
+// Chart
+// --------------------------------------------------
+
+@color-status-list-text:                     #7e8c8d;
+
+@color-chart-tooltip-bg:                     #000000;
+@color-chart-tooltip-text:                   #ffffff;
+
+@color-scoreboard-title:                     #666666;
+@color-scoreboard-description:               #999999;
+@color-scoreboard-body:                      #666666;
+@color-scoreboard-icon:                      #e5a91a;
+@color-scoreboard-positive:                  #95b753;
+@color-scoreboard-negative:                  #cc3300;
+
+.control-chart-non-centered() {
+    text-align: left;
+
+    .canvas {
+        margin-right: 20px;
+        display: inline-block;
+    }
+}
+
+//
+// Chart
+// --------------------------------------------------
+
+.control-chart {
+    div.canvas {
+        display: inline-block;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        position: relative;
+
+        span.center {
+            position: absolute;
+            display: block;
+            text-align: center;
+            width: 100%;
+            top: 50%;
+            margin-top: -21px;
+            font-size: 30px;
+            font-weight: 100;
+            color: @color-scoreboard-title;
+            z-index: 10;
+        }
+
+        svg {
+            z-index: 20;
+        }
+    }
+
+    &.full-width div.canvas {
+        margin-right: 0!important;
+    }
+
+    ul {
+        display: inline-block;
+        height: inherit;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        position: relative;
+        vertical-align: top;
+
+        li {
+            width: 120px;
+            white-space: normal;
+            display: block;
+            text-transform: uppercase;
+            color: @color-scoreboard-title;
+            font-weight: 300;
+            font-size: 12px;
+            margin-bottom: 10px;
+
+            span {
+                float: right;
+                font-weight: 600;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    div.chart-legend {
+        display: inline-block;
+        vertical-align: top;
+        text-align: left;
+
+        table {
+            font-size: 12px;
+            color: @color-scoreboard-title;
+
+            tr {
+                td {
+                    padding: 0 0 7px 0;
+                    vertical-align: top;
+
+                    &.value {
+                        padding-left: 10px;
+                        font-weight: 600;
+                    }
+
+                    i {
+                        display: inline-block;
+                        width: 13px;
+                        height: 13px;
+                        .border-radius(@border-radius-base);
+                        text-indent: -100000em;
+                        margin-right: 5px;
+                        position: relative;
+                        top: 2px;
+                    }
+
+                    &.indicator {
+                        width: 20px;
+                    }
+                }
+
+                &:last-child td {
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .control-chart-non-centered();
+
+    &.centered {
+        text-align: center;
+
+        .canvas {
+            margin-right: 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    &.wrap-legend div.chart-legend table tr {
+        display: inline-block;
+        white-space: nowrap;
+        margin-right: 20px;
+
+        &:last-child td {
+            padding-bottom: 7px;
+        }
+    }
+}
+
+.report-container .wrapped .control-chart {
+    .control-chart-non-centered();
+}
+
+#flotTip, #chart-tooltip {
+    white-space: nowrap;
+    padding: 7px 10px;
+    background: @color-chart-tooltip-bg;
+    position: absolute;
+    z-index: 100;
+    color: @color-chart-tooltip-text;
+    .border-radius(@border-radius-base*2);
+    font-size: 12px;
+    .opacity(0.8);
+}
+
+.title-value {
+    h4 {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: @color-scoreboard-title;
+        margin: 0;
+    }
+
+    span.goal-meter-indicator {
+        float: left;
+        height: 24px;
+        width: 10px;
+        margin-right: 5px;
+        position: relative;
+        top: 9px;
+        background: @color-scoreboard-negative;
+
+        > span {
+            text-indent: -10000em;
+            display: block;
+            position: absolute;
+            width: 10px;
+            left: 0;
+            bottom: 0;
+            background: @color-scoreboard-positive;
+            height: 0;
+            .transition(all 0.2s);
+        }
+    }
+
+    &.goal-meter-inverse {
+        span.goal-meter-indicator {
+            background: @color-scoreboard-positive;
+            > span {
+                background: @color-scoreboard-negative;
+            }
+        }
+    }
+
+    p {
+        color: @color-scoreboard-body;
+        margin: 0;
+        font-size: 28px;
+        line-height: 41px;
+
+        &:before {
+            color: @color-scoreboard-icon;
+            font-size: 22px;
+        }
+
+        &.success {
+            color: @color-scoreboard-positive;
+        }
+        &.danger {
+            color: @color-scoreboard-negative;
+        }
+
+        &.negative, &.positive {
+            &:after {
+                font-size: 17px;
+                vertical-align: top;
+                position: relative;
+                top: -3px;
+                left: 5px;
+            }
+        }
+
+        &.negative {
+            color: @color-scoreboard-negative;
+            &:after{.icon(@angle-double-down)};
+        }
+        &.positive {
+            color: @color-scoreboard-positive;
+            &:after{.icon(@angle-double-up)};
+        }
+
+        &.description {
+            color: @color-scoreboard-description;
+            font-weight: 300;
+            line-height: 100%;
+            font-size: 13px;
+        }
+    }
+}
+
+.report-container {
+    .title-value {
+        margin-top: -18px;
+
+        p {
+            font-weight: 100;
+            font-size: 40px;
+
+            &.description {
+                font-size: 12px;
+                margin-top: 9px;
+            }
+
+            &:before {
+                font-size: 30px;
+                margin-right: 10px;
+            }
+
+            &.negative, &.positive {
+                &:after {
+                    top: -8px;
+                }
+            }
+        }
+
+        span.goal-meter-indicator {
+            height: 31px;
+            top: 4px;
+            width: 15px;
+            margin-right: 10px;
+
+            span {
+                width: 15px;
+            }
+        }
+    }
+}
+
+ul.status-list {
+    margin-bottom: 0;
+    padding: 0;
+
+    li {
+        margin: 0 15px 0 0;
+        list-style: none;
+        display: inline-block;
+        font-size: 14px;
+        color: @color-status-list-text;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        a {
+            color: @color-status-list-text;
+            &:hover {
+                color: @link-color;
+                text-decoration: none;
+            }
+        }
+
+        span.status {
+            display: inline-block;
+            padding: 1px 5px;
+            color: white;
+            .border-radius(@border-radius-base);
+
+            &.circle {
+                .border-radius(10px);
+                width: 12px;
+                height: 12px;
+                vertical-align: middle;
+                position: relative;
+                top: -1px;
+            }
+
+            &.success {background: @brand-success;}
+            &.primary {background: @brand-primary;}
+            &.warning {background: @brand-warning;}
+            &.danger {background: @brand-danger;}
+            &.info {background: @brand-info;}
+        }
+    }
+}
+
+.gecko ul.status-list li span.status.circle {
+    top: -2px;
+}
+
+.report-container {
+    ul.status-list {
+        margin-top: -10px;
+    }
+}

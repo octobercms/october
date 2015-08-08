@@ -108,6 +108,7 @@ class DatePicker extends FormWidgetBase
         }
 
         $this->vars['value'] = $value ?: '';
+        $this->vars['field'] = $this->formField;
         $this->vars['mode'] = $this->mode;
         $this->vars['minDate'] = $this->minDate;
         $this->vars['maxDate'] = $this->maxDate;
@@ -116,7 +117,7 @@ class DatePicker extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('vendor/pikaday/css/pikaday.css', 'core');
         $this->addCss('vendor/clockpicker/css/jquery-clockpicker.css', 'core');

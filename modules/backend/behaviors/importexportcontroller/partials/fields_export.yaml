@@ -1,0 +1,58 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    step1_section:
+        label: 1. Export output format
+        type: section
+
+    format_preset:
+        label: File format
+        type: dropdown
+        default: standard
+        options:
+            standard: Standard format
+            custom: Custom format
+        span: left
+
+    format_delimiter:
+        label: Delimiter character
+        default: ','
+        span: left
+        trigger:
+            action: show
+            condition: value[custom]
+            field: format_preset
+
+    format_enclosure:
+        label: Enclosure character
+        span: auto
+        default: '"'
+        trigger:
+            action: show
+            condition: value[custom]
+            field: format_preset
+
+    format_escape:
+        label: Escape character
+        span: auto
+        default: '\\'
+        trigger:
+            action: show
+            condition: value[custom]
+            field: format_preset
+
+    step2_section:
+        label: 2. Select columns to export
+        type: section
+
+    export_columns:
+        label: Columns
+        type: partial
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_export_columns.htm
+        span: left
+
+    step3_section:
+        label: 3. Set export options
+        type: section

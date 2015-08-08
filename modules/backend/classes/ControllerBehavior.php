@@ -103,7 +103,7 @@ class ControllerBehavior extends ExtensionBase
          * Loop the remaining key parts and build a result
          */
         foreach ($keyParts as $key) {
-            if (!array_key_exists($key, $result)) {
+            if (!is_array($result) || !array_key_exists($key, $result)) {
                 return $default;
             }
 

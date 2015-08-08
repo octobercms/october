@@ -1,0 +1,176 @@
+//
+// Multi File
+//
+
+.field-fileupload.style-file-multi {
+    .upload-button {
+        margin-bottom: 10px;
+    }
+
+    .upload-files-container {
+        border: 1px solid @fileupload-list-border-color;
+        .border-radius(3px);
+        border-bottom: none;
+        display: none;
+    }
+
+    &.is-populated .upload-files-container {
+        display: block;
+    }
+
+    .upload-object {
+        display: block;
+        width: 100%;
+        border-bottom: 1px solid @fileupload-list-border-color;
+        padding-left: 10px;
+
+        &:nth-child(even) {
+            background-color: @fileupload-list-accent-bg;
+        }
+
+        .icon-container {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            width: 15px;
+            padding: 11px 7px;
+
+            i {
+                line-height: 150%;
+                font-size: 15px;
+            }
+
+            img { display: none; }
+        }
+
+        .info {
+            margin-left: 35px;
+            margin-right: 15%;
+
+            h4, p {
+                margin: 0;
+                padding: 11px 0;
+                font-size: 12px;
+                font-weight: normal;
+                line-height: 150%;
+                color: #666666;
+            }
+
+            h4 {
+                padding-right: 15px;
+
+                a {
+                    padding: 10px 0;
+                    right: 15px;
+                }
+            }
+
+            p.size {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 15%;
+                display: none;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        .progress-bar {
+            .uploader-progress-bar();
+            position: absolute;
+            top: 18px;
+            left: 0;
+        }
+
+        .meta {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin-right: 15px;
+            width: 15%;
+
+            a.drag-handle {
+                top: -2px;
+                bottom: auto;
+                line-height: 150%;
+                padding: 10px 0;
+            }
+        }
+
+        .icon-container:after {
+            .uploader-small-loader();
+        }
+
+        &.is-error .icon-container:after {
+            font-size: 20px;
+        }
+
+        //
+        // Success
+        //
+
+        &.is-success {
+            .info p.size { display: block; }
+        }
+
+        //
+        // Sorting
+        //
+
+        &.upload-placeholder {
+            height: 35px;
+            background-color: transparent;
+            &:after { opacity: 0; }
+        }
+
+        //
+        // Hover
+        //
+
+        &:hover {
+            .uploader-object-active();
+            h4 { padding-right: 35px; }
+        }
+    }
+}
+
+//
+// Media
+//
+
+@media (max-width: @screen-md-max) {
+    .field-fileupload.style-file-multi {
+        .info {
+            margin-right: 20% !important;
+            p.size {
+                width: 20% !important;
+            }
+        }
+
+        .meta {
+            width: 20% !important;
+        }
+    }
+}
+
+@media (max-width: @screen-sm-max) {
+    .field-fileupload.style-file-multi {
+        .upload-object {
+            h4 { padding-right: 35px !important; }
+        }
+
+        .info {
+            margin-right: 25% !important;
+            p.size {
+                width: 25% !important;
+                padding-right: 35px !important;
+            }
+        }
+
+        .meta {
+            width: 25% !important;
+        }
+    }
+}

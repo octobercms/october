@@ -1,0 +1,15 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    code:
+        label: system::lang.updates.plugin_code
+        sortable: false
+        type: partial
+        path: column_code
+
+    version:
+        label: system::lang.updates.plugin_version
+        sortable: false

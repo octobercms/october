@@ -810,13 +810,8 @@
             })
     }
 
-    MediaManager.prototype.onImageCropped = function(imageUrl) {
-        var item = {
-            documentType: 'image',
-            publicUrl: imageUrl
-        }
-
-        this.$el.trigger('popupcommand', ['insert-cropped', item])
+    MediaManager.prototype.onImageCropped = function(result) {
+        this.$el.trigger('popupcommand', ['insert-cropped', result])
     }
 
     //

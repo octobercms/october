@@ -24,6 +24,30 @@
             .opacity(1)!important;
         }
     }
+
+    .fix-button-content-header .fix-button {
+        top: 9px;
+        right: 7px;
+
+        i {
+            color: @color-scrollpanel-fix-button-light;
+        }
+    }
+
+    .sidepanel-content-header {
+        background: #95a5a6;
+        color: white;
+        font-size: 14px;
+        padding: 10px 15px;
+        position: relative;
+
+        &:after {
+            .triangle(down, 15px, 8px, #95a5a6);
+            position: absolute;
+            left: 14px;
+            bottom: -8px;
+        }
+    }
 }
 
 body.side-panel-not-fixed {

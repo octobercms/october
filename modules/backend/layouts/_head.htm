@@ -1,23 +1,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0, minimal-ui">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="backend-base-path" content="<?= Backend::baseUrl() ?>">
+<meta name="csrf-token" content="<?= csrf_token() ?>">
 <link rel="icon" type="image/png" href="<?= Backend::skinAsset('assets/images/favicon.png') ?>">
 <title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s' : e($this->pageTitleTemplate) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?>">
-    <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?> 
+    <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?>
 </title>
-<script>
-<!--
-    backendBasePath = '<?= Backend::baseUrl() ?>';
-// -->
-</script>
-<link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>" rel="stylesheet">
-<link href="<?= Backend::skinAsset('assets/css/controls.css') ?>?v<?= System\Models\Parameters::get('system::core.build', 1) ?>" rel="stylesheet">
-<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>"></script>
-<script src="<?= URL::asset('modules/system/assets/js/framework.js') ?>"></script>
-<script src="<?= Backend::skinAsset('assets/js/vendor/modernizr.min.js') ?>"></script>
-<script src="<?= Backend::skinAsset('assets/js/vendor/vendor-min.js') ?>"></script>
-<script src="<?= Backend::skinAsset('assets/js/october-min.js') ?>"></script>
+<?php
+    $coreBuild = System\Models\Parameters::get('system::core.build', 1);
+?>
+<link href="<?= URL::asset('modules/system/assets/ui/storm.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
+<link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
+<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= URL::asset('modules/system/assets/js/framework.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= URL::asset('modules/system/assets/ui/storm-min.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= Backend::skinAsset('assets/js/october-min.js') ?>?v<?= $coreBuild ?>"></script>
 <script src="<?= URL::asset('modules/cms/widgets/mediamanager/assets/js/mediamanager-global-min.js') ?>"></script>
+<script src="<?= URL::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
+
+<script src="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>"></script>
 
 <?= $this->makeAssets() ?>
 <?= Block::placeholder('head') ?>

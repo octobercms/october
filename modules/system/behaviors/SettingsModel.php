@@ -63,7 +63,6 @@ class SettingsModel extends ModelBehavior
         /*
          * Parse the config
          */
-        $this->fieldConfig = $this->makeConfig($this->model->settingsFields);
         $this->recordCode = $this->model->settingsCode;
     }
 
@@ -125,7 +124,8 @@ class SettingsModel extends ModelBehavior
     {
         $data = is_array($key) ? $key : [$key => $value];
         $obj = self::instance();
-        return $obj->save($data);
+        $obj->fill($data);
+        return $obj->save();
     }
 
     /**
@@ -235,7 +235,11 @@ class SettingsModel extends ModelBehavior
      */
     public function getFieldConfig()
     {
-        return $this->fieldConfig;
+        if ($this->fieldConfig !== null) {
+            return $this->fieldConfig;
+        }
+
+        return $this->fieldConfig = $this->makeConfig($this->model->settingsFields);
     }
 
     /**

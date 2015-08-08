@@ -10,11 +10,7 @@ class WidgetManagerTest extends TestCase
         $manager = WidgetManager::instance();
         $widgets = $manager->listFormWidgets();
 
-        $this->assertArrayHasKey('Backend\FormWidgets\CodeEditor', $widgets);
-        $this->assertArrayHasKey('Backend\FormWidgets\RichEditor', $widgets);
-        $this->assertArrayHasKey('Backend\FormWidgets\FileUpload', $widgets);
-        $this->assertArrayHasKey('Backend\FormWidgets\Relation', $widgets);
-        $this->assertArrayHasKey('Backend\FormWidgets\DatePicker', $widgets);
-        $this->assertArrayHasKey('Cms\FormWidgets\Components', $widgets);
+        $this->assertArrayHasKey('TestVendor\Test\FormWidgets\Sample', $widgets);
+        $this->assertArrayHasKey('October\Tester\FormWidgets\Preview', $widgets);
     }
 }

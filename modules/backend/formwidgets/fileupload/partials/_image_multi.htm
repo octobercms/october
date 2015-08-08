@@ -1,83 +1,70 @@
 <div
     id="<?= $this->getId() ?>"
-    class="field-fileupload is-multi <?= count($fileList) ? 'has-attachments' : '' ?> is-sortable"
+    class="field-fileupload style-image-multi is-sortable is-multi <?= count($fileList) ? 'is-populated' : '' ?> <?= $this->previewMode ? 'is-preview' : '' ?>"
     data-control="fileupload"
-    data-unique-id="<?= $this->getId() ?>"
+    data-template="#<?= $this->getId('template') ?>"
+    data-error-template="#<?= $this->getId('errorTemplate') ?>"
     data-sort-handler="<?= $this->getEventHandler('onSortAttachments') ?>"
-    data-image-width="<?= $imageWidth ?>"
-    data-image-height="<?= $imageHeight ?>"
+    data-unique-id="<?= $this->getId() ?>"
+    <?php if ($useCaption): ?>data-config-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"<?php endif ?>
     <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
-    data-item-template="<?= $this->getId('template') ?>">
+>
 
-    <div class="image-multi">
-        <ul>
-            <!-- Add New Image -->
-            <li class="attachment-item attachment-uploader <?php if ($this->previewMode): ?>hidden<?php endif ?>" style="width: <?= $imageWidth.'px' ?>; height: <?= $imageHeight.'px' ?>">
-                <a href="javascript:;" class="uploader-link no-attachment">
-                    <table><tr><td class="oc-<?= $emptyIcon ?>"></td></tr></table>
-                </a>
+    <!-- Upload Button -->
+    <a href="javascript:;" class="upload-button">
+        <span class="upload-button-icon oc-<?= $emptyIcon ?>"></span>
+    </a>
 
-                <div class="uploader-progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <!-- Existing files -->
+    <div class="upload-files-container">
+        <?php foreach ($fileList as $file): ?>
+            <div class="upload-object is-success" data-id="<?= $file->id ?>" data-path="<?= $file->pathUrl ?>">
+                <div class="icon-container image">
+                    <img src="<?= $file->thumbUrl ?>" />
                 </div>
-                <div class="uploader-loading"></div>
-            </li>
-        </ul>
-        <?php if ($this->previewMode && !count($fileList)): ?>
-            <div class="no-data" style="height: <?= $imageHeight.'px' ?>"><?= e(trans($this->previewNoFilesMessage)) ?></div>
-        <?php endif ?>
-    </div>
-
-    <!-- Populated Image -->
-    <script type="text/template" id="<?= $this->getId('template') ?>">
-        <li>
-            <div
-                class="attachment-item"
-                data-attachment-id="{{id}}"
-                style="width: <?= $imageWidth.'px' ?>; height: <?= $imageHeight.'px' ?>">
-
-                <a href="{{path}}" target="_blank" class="active-image">
-                    <img src="{{thumb}}" alt="" class="attachment-image" />
-                </a>
-                <div class="uploader-toolbar">
-                    <h3>
-                        <abbr title="{{#title}}{{title}}{{/title}}{{^title}}{{file_name}}{{/title}}">
-                            {{#title}}{{title}}{{/title}}{{^title}}{{file_name}}{{/title}}
-                        </abbr>
-                    </h3>
-                    {{#description}}
-                        <p><abbr title="{{description}}">{{description}}</abbr></p>
-                    {{/description}}
-
-                    <?php if (!$this->previewMode): ?>
+                <div class="info">
+                    <h4 class="filename">
+                        <span data-dz-name><?= e($file->title ?: $file->file_name) ?></span>
                         <a
                             href="javascript:;"
-                            class="uploader-remove oc-icon-times"
+                            class="upload-remove-button"
                             data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
-                            data-request-data="file_id: {{id}}"></a>
-                    <?php endif ?>
-
-                    <div class="controls">
-                        <?php if (!$this->previewMode): ?>
-                            <a
-                                href="javascript:;"
-                                class="uploader-config oc-icon-cog"
-                                data-control="popup"
-                                data-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"
-                                data-request-data="file_id: {{id}}"></a>
-                        <?php endif ?>
-
-                        <a
-                            href="{{path}}"
-                            class="uploader-file-link oc-icon-paperclip"
-                            target="_blank"></a>
-                    </div>
+                            data-request-confirm="<?= e(trans('backend::lang.fileupload.remove_confirm')) ?>"
+                            data-request-data="file_id: <?= $file->id ?>"
+                            ><i class="icon-times"></i></a>
+                    </h4>
+                    <p class="size"><?= e($file->sizeToString()) ?></p>
                 </div>
-                <div class="uploader-loading"></div>
+                <div class="meta">
+                    <a href="javascript:;" class="drag-handle"><i class="icon-bars"></i></a>
+                </div>
             </div>
-        </li>
-    </script>
-
-    <!-- Existing images -->
-    <script> $('#<?= $this->getId() ?>').data('populatedData', <?= $fileList ?>); </script>
+        <?php endforeach ?>
+    </div>
 </div>
+
+<!-- Template for new files -->
+<script type="text/template" id="<?= $this->getId('template') ?>">
+    <div class="upload-object dz-preview dz-file-preview">
+        <div class="icon-container image">
+            <img data-dz-thumbnail />
+        </div>
+        <div class="info">
+            <h4 class="filename">
+                <span data-dz-name></span>
+                <a
+                    href="javascript:;"
+                    class="upload-remove-button"
+                    data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
+                    data-request-confirm="<?= e(trans('backend::lang.fileupload.remove_confirm')) ?>"
+                    ><i class="icon-times"></i></a>
+            </h4>
+            <p class="size" data-dz-size></p>
+        </div>
+        <div class="meta">
+            <a href="javascript:;" class="drag-handle"><i class="icon-bars"></i></a>
+            <div class="progress-bar"><span class="upload-progress" data-dz-uploadprogress></span></div>
+            <div class="error-message"><span data-dz-errormessage></span></div>
+        </div>
+    </div>
+</script>

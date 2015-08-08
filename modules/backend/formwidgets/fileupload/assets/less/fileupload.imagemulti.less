@@ -1,0 +1,121 @@
+//
+// Multi Image
+//
+
+.field-fileupload.style-image-multi {
+    .upload-button,
+    .upload-object {
+        margin: 0 10px 10px 0;
+    }
+
+    .upload-button {
+        .uploader-block-button();
+        width: 76px;
+        height: 76px;
+    }
+
+    .upload-files-container {
+        margin-left: 90px;
+    }
+
+    .upload-object {
+        background: #fff;
+        border: 1px solid #ecf0f1;
+        width: 260px;
+
+        .progress-bar {
+            .uploader-progress-bar();
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+        }
+
+        .icon-container {
+            border-right: 1px solid #f6f8f9;
+            float: left;
+            display: inline-block;
+            overflow: hidden;
+            width: 75px;
+            height: 75px;
+
+            i {
+                font-size: 35px;
+            }
+
+            &.image img {
+                .border-left-radius(3px);
+                width: auto;
+            }
+        }
+
+        .info {
+            margin-left: 90px;
+
+            h4 {
+                padding-right: 15px;
+                a {
+                    right: 15px;
+                }
+            }
+        }
+
+        .meta {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0 15px 0 90px;
+
+            a.drag-handle {
+                bottom: 15px;
+            }
+        }
+
+        &.upload-placeholder {
+            height: 75px;
+            background-color: transparent;
+            &:after { opacity: 0; }
+        }
+
+        &:hover {
+            .uploader-object-active();
+            h4 { padding-right: 35px; }
+        }
+    }
+
+    &.is-preview {
+        .upload-files-container {
+            margin-left: 0;
+        }
+    }
+}
+
+//
+// Media
+//
+
+@media (max-width: 1280px) {
+    .field-fileupload.style-image-multi {
+        .upload-object {
+            width: 230px;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .field-fileupload.style-image-multi {
+        .upload-button {
+            width: 100%;
+        }
+
+        .upload-files-container {
+            margin-left: 0;
+        }
+
+        .upload-object {
+            margin-right: 0;
+            display: block;
+            width: auto;
+        }
+    }
+}

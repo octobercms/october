@@ -16,6 +16,7 @@ return [
         'id' => 'Indonéz',
         'it' => 'Olasz',
         'ja' => 'Japán',
+        'lv' => 'Litván',
         'nb-no' => 'Norvég',
         'nl' => 'Holland',
         'pl' => 'Lengyel',
@@ -25,7 +26,8 @@ return [
         'se' => 'Svéd',
         'sk' => 'Szlovák',
         'tr' => 'Török',
-        'zh-cn' => 'Kínai'
+        'zh-cn' => 'Kínai',
+        'zh-tw' => 'Chinese (Taiwan)',
     ],
     'directory' => [
         'create_fail' => 'Nem hozható létre a könyvtár: :name'
@@ -55,6 +57,7 @@ return [
         ]
     ],
     'theme' => [
+        'label' => 'Téma',
         'unnamed' => 'Névtelen témák',
         'name' => [
             'label' => 'Téma neve',
@@ -70,6 +73,7 @@ return [
         'remove_confirm' => 'Valóban törölni akarja ezt a témát?'
     ],
     'plugin' => [
+        'label' => 'Bővítmény',
         'unnamed' => 'Névtelen bővítmény',
         'name' => [
             'label' => 'Bővítmény neve',
@@ -89,10 +93,12 @@ return [
         'remove' => 'Eltávolítás',
         'refresh' => 'Frissítés',
         'disabled_label' => 'Letiltva',
-        'disabled_help' => 'A letiltott bővítményeket az alkalmazás figyelmen kívül hagyja.',
+        'disabled_help' => 'A kiválasztott bővítményeket a weboldal figyelmen kívül hagyja.',
+        'frozen_label' => 'Frissítés letiltása',
+        'frozen_help' => 'A kiválasztott bővítmények nem lesznek frissítve a későbbiekben.',
         'selected_amount' => 'Kijelölt bővítmények: :amount',
         'remove_confirm' => 'Valóban törölni akarja a kijelölt bővítményeket?',
-        'remove_success' => 'A bővítmények sikeresen eltávolításra kerültek',
+        'remove_success' => 'A bővítmények sikeresen eltávolításra kerültek.',
         'refresh_confirm' => 'Valóban frissíteni akarja a kijelölt bővítményeket?',
         'refresh_success' => 'A bővítmények sikeresen frissítésre kerültek.',
         'disable_confirm' => 'Valóban tiltani akarja a kijelölt bővítményeket?',
@@ -108,7 +114,7 @@ return [
         'none' => 'Nincs',
         'id' => [
             'label' => 'Projektazonosító',
-            'help' => 'Hogyan található meg a projektazonosító',
+            'help' => 'Hogyan található meg a projektazonosító.',
             'missing' => 'Adjon meg egy használandó projektazonosítót.'
         ],
         'detach_confirm' => 'Biztosan le akarja választani ezt a projektet?',
@@ -149,7 +155,9 @@ return [
         'mailgun_secret_comment' => 'Adja meg a Mailgun API kulcsát.',
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill titkos jelszót.',
-        'mandrill_secret_comment' => 'Adja meg Mandrill API kulcsát.'
+        'mandrill_secret_comment' => 'Adja meg Mandrill API kulcsát.',
+        'drivers_hint_header' => 'Meghajtó nincs telepítve',
+        'drivers_hint_content' => 'A levél küldéséhez szükséges, hogy telepítve legyen a(z) ":plugin" nevű bővítmény.'
     ],
     'mail_templates' => [
         'menu_label' => 'Levél sablonok',
@@ -162,9 +170,9 @@ return [
         'layout' => 'Elrendezés',
         'layouts' => 'Elrendezések',
         'name' => 'Név',
-        'name_comment' => 'Erre a sablonra való hivatkozásként használt egyedi név',
+        'name_comment' => 'Erre a sablonra való hivatkozásként használt egyedi név.',
         'code' => 'Kód',
-        'code_comment' => 'Erre a sablonra való hivatkozásként használt egyedi kód',
+        'code_comment' => 'Erre a sablonra való hivatkozásként használt egyedi kód.',
         'subject' => 'Tárgy',
         'subject_comment' => 'Az e-mail üzenet tárgya',
         'description' => 'Leírás',
@@ -189,16 +197,17 @@ return [
         'name' => 'Szoftver frissítése',
         'menu_label' => 'Frissítések',
         'menu_description' => 'A rendszer és a bővítmények frissítése, valamint új kiegészítők telepítése.',
+        'return_link' => 'Vissza a rendszer frissítésekhez',
         'check_label' => 'Frissítések keresése',
         'retry_label' => 'Új próba',
         'plugin_name' => 'Név',
+        'plugin_code' => 'Kód',
         'plugin_description' => 'Leírás',
         'plugin_version' => 'Verzió',
         'plugin_author' => 'Fejlesztő',
-        'core_build' => 'Jelenlegi verzió',
-        'core_build_old' => 'Jelenlegi verzió: :build',
-        'core_build_new' => 'Verzió: :build',
-        'core_build_new_help' => 'Elérhető a legújabb hivatalos kiadás.',
+        'core_current_build' => 'Verzió',
+        'core_build' => 'Új verzió: :build',
+        'core_build_help' => 'Elérhető a legújabb hivatalos kiadás.',
         'core_downloading' => 'Alkalmazás fájlok letöltése...',
         'core_extracting' => 'Alkalmazás fájlok kicsomagolása...',
         'plugins' => 'Bővítmények',
@@ -207,9 +216,7 @@ return [
         'plugin_downloading' => 'Bővítmény letöltése: :name',
         'plugin_extracting' => 'Bővítmény kicsomagolása: :name',
         'plugin_version_none' => 'Új bővítmény',
-        'plugin_version_old' => 'Jelenlegi verzió',
-        'plugin_version_new' => 'v:version',
-        'theme_label' => 'Téma',
+        'plugin_current_version' => 'Aktuális verzió',
         'theme_new_install' => 'Új téma telepítése.',
         'theme_downloading' => 'Letöltendő téma: :name',
         'theme_extracting' => 'Kicsomagolandó téma: :name',
@@ -226,7 +233,24 @@ return [
         'none' => [
             'label' => 'A weboldal naprakész',
             'help' => 'Nem található új frissítés.'
-        ]
+        ],
+        'important_action' => [
+            'empty' => 'Művelet kiválasztása',
+            'confirm' => 'Frissítések elfogadása',
+            'skip' => 'Bővítmény kihagyása (csak most)',
+            'ignore' => 'Bővítmény kihagyása (mindig)'
+        ],
+        'important_action_required' => 'Művelet szükséges',
+        'important_view_guide' => 'Frissítési útmutat megtekintése',
+        'important_alert_text' => 'Néhány frissítés körültekintést igényel.',
+        'details_title' => 'Bővítmény részletei',
+        'details_view_homepage' => 'Weboldal megtekintése',
+        'details_readme' => 'Dokumentáció',
+        'details_readme_missing' => 'Nincs megadva dokumentáció.',
+        'details_upgrades' => 'Frissítési útmutató',
+        'details_upgrades_missing' => 'Nincsennek megadva frissítési utasítások.',
+        'details_current_version' => 'Aktuális verzió',
+        'details_author' => 'Fejlesztő'
     ],
     'server' => [
         'connect_error' => 'Hiba a kiszolgálóhoz való csatlakozáskor.',
@@ -244,7 +268,7 @@ return [
         'required' => "A(z) :location helyen használt konfigurációnak meg kell adnia egy ':property' értéket."
     ],
     'zip' => [
-        'extract_failed' => "Nem tömöríthető ki a(z) ':file' fő fájl."
+        'extract_failed' => "Nem tömöríthető ki a(z) ':file' fájl."
     ],
     'event_log' => [
         'hint' => 'Ez a napló a rendszerben történt lehetséges hibákat listázza ki. Például a kivételeket és a hibakeresési információkat.',
@@ -253,9 +277,9 @@ return [
         'empty_link' => 'Eseménynapló kiürítése',
         'empty_loading' => 'Az eseménynapló kiürítése...',
         'empty_success' => 'Az eseménynapló kiürítése sikerült.',
-        'return_link' => 'Vissza az eseménynaplóhoz',
+        'return_link' => 'Vissza az eseménynapló listához',
         'id' => 'Azonosító',
-        'id_label' => 'Eseményazonosító',
+        'id_label' => 'Esemény azonosító',
         'created_at' => 'Dátum és idő',
         'message' => 'Üzenet',
         'level' => 'Szint'
@@ -267,12 +291,12 @@ return [
         'empty_link' => 'Kérelemnapló kiürítése',
         'empty_loading' => 'A kérelemnapló kiürítése...',
         'empty_success' => 'A kérelemnapló kiürítése megtörtént.',
-        'return_link' => 'Vissza a kérelemnaplóhoz',
+        'return_link' => 'Vissza a kérelemnapló listához',
         'id' => 'Azonosító',
         'id_label' => 'Napló azonosító',
         'count' => 'Számláló',
         'referer' => 'Hivatkozók',
-        'url' => 'URL cím',
+        'url' => 'Webcím',
         'status_code' => 'Állapot'
     ],
     'permissions' => [

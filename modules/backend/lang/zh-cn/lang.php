@@ -6,22 +6,25 @@ return [
     ],
     'field' => [
         'invalid_type' => '不合法的字段类型 :type.',
-        'options_method_not_exists' => "model class :model 必须定义方法 :method() 返回了':field' form 字段的options."
+        'options_method_not_exists' => "模型 :model 必须定义一个返回 ':field' 表单字段选项的方法 :method()。"
     ],
     'widget' => [
-        'not_registered' => "widget class name ':name' 还没注册",
-        'not_bound' => "widget class name ':name' 没绑到 controller"
+        'not_registered' => "部件 ':name' 还没注册",
+        'not_bound' => "部件 ':name' 没绑到控制器"
     ],
     'page' => [
-        'untitled' => 'Untitled',
+        'untitled' => '未命名',
         'access_denied' => [
             'label' => '访问拒绝',
             'help' => "你没有访问这个页面需要的权限.",
             'cms_link' => '返回后台'
+        ],
+        'invalid_token' => [
+            'label' => '非法的security token'
         ]
     ],
     'partial' => [
-        'not_found_name' => "partial ':name' 没找到."
+        'not_found_name' => "部件 ':name' 没找到."
     ],
     'account' => [
         'sign_out' => '登出',
@@ -47,21 +50,21 @@ return [
         'ok' => 'OK'
     ],
     'dashboard' => [
-        'menu_label' => 'Dashboard',
-        'widget_label' => 'Widget',
-        'widget_width' => 'Width',
+        'menu_label' => '仪表盘',
+        'widget_label' => '小工具',
+        'widget_width' => '宽度',
         'full_width' => '全部宽度',
-        'add_widget' => '增加widget',
-        'widget_inspector_title' => 'Widget配置',
-        'widget_inspector_description' => '配置报表widget',
-        'widget_columns_label' => 'Width :columns',
-        'widget_columns_description' => 'widget宽度, 1 到 10.',
-        'widget_columns_error' => '请输入 widget 宽度, 1 到 10.',
-        'columns' => '{1} column|[2,Inf] columns',
+        'add_widget' => '添加小工具',
+        'widget_inspector_title' => '小工具配置',
+        'widget_inspector_description' => '配置报表小工具',
+        'widget_columns_label' => '宽度 :columns',
+        'widget_columns_description' => '小工具宽度, 1 到 10.',
+        'widget_columns_error' => '请输入小工具宽度, 1 到 10.',
+        'columns' => '{1} 栏|[2,Inf] 栏',
         'widget_new_row_label' => '强制新列',
-        'widget_new_row_description' => '把 widget 放到新列.',
-        'widget_title_label' => 'Widget 标题',
-        'widget_title_error' => '需要 Widget 标题.',
+        'widget_new_row_description' => '把小工具放到新列.',
+        'widget_title_label' => '小工具标题',
+        'widget_title_error' => '需要小工具标题.',
         'status' => [
             'widget_title_default' => '系统状态',
             'online' => '在线',
@@ -86,10 +89,11 @@ return [
         'password' => '密码',
         'password_confirmation' => '确认密码',
         'permissions' => '权限',
+        'account' => '帐号',
         'superuser' => '超级用户',
         'superuser_comment' => '选中并允许这个人访问全部区域.',
         'send_invite' => '发送邀请邮件',
-        'send_invite_comment' => '使用 checkbox 给用户发送邀请邮件',
+        'send_invite_comment' => '发送一封包含用户名和密码的欢迎邮件',
         'delete_confirm' => '你真的想要删除这个管理员?',
         'return' => '返回管理员列表',
         'allow' => '允许',
@@ -107,6 +111,7 @@ return [
             'new' => '新管理组',
             'delete_confirm' => '你真的想要删除这个管理组?',
             'return' => '返回组列表',
+            'users_count' => '用户'
         ],
         'preferences' => [
             'not_authenticated' => '没有认证用户加载或保存设置.'
@@ -116,18 +121,18 @@ return [
         'default_title' => '列表',
         'search_prompt' => '搜索...',
         'no_records' => '当前视图中没有记录.',
-        'missing_model' => ':class 中的列表没有定义好的model.',
+        'missing_model' => ':class 中的列表没有定义好的模型。',
         'missing_column' => '没有 :columns 的栏定义.',
         'missing_columns' => ':class 中使用的列表没有定义好的栏.',
         'missing_definition' => "列表不包含 ':field' 栏.",
-        'behavior_not_ready' => '列表没有初始化, 确认你的controller中调用了makeLists().',
-        'invalid_column_datetime' => "栏值 ':column' 不是 DateTime 对象, 缺少了 \$dates 在 Model 中的引用吗?",
+        'behavior_not_ready' => '列表没有初始化, 确认你的控制器中调用了makeLists().',
+        'invalid_column_datetime' => "栏值 ':column' 不是时间对象, 缺少了 \$dates 在模型中的引用吗?",
         'pagination' => '显示记录: :from-:to :total',
-        'prev_page' => '之前页',
+        'prev_page' => '上一页',
         'next_page' => '下一页',
         'loading' => '加载中...',
         'setup_title' => '建立列表',
-        'setup_help' => '使用 checkboxes 选择你想在列表中看到的栏. 你可以通过拖拽调整栏的位置.',
+        'setup_help' => '使用多选框选择你想在列表中看到的栏. 你可以通过拖拽调整栏的位置.',
         'records_per_page' => '每页的记录',
         'records_per_page_help' => '选择每页想显示的记录数量. 请注意一页中太多记录可能会降低性能.',
         'delete_selected' => '删除选择的',
@@ -139,7 +144,13 @@ return [
         'attachment' => '附件',
         'help' => '给附件添加标题和描述.',
         'title_label' => '标题',
-        'description_label' => '描述'
+        'description_label' => '描述',
+        'default_prompt' => '点击 %s 或者拖动一个文件到这里来上传',
+        'attachment_url' => '附件地址',
+        'upload_file' => '上传文件',
+        'upload_error' => '上传错误',
+        'remove_confirm' => '你确定吗？',
+        'remove_file' => '删除文件'
     ],
     'form' => [
         'create_title' => '新 :name',
@@ -179,11 +190,12 @@ return [
         'ok' => 'OK',
         'or' => '或',
         'confirm_tab_close' => '你真的想要关闭这个标签吗? 未保存的改变会丢失.',
-        'behavior_not_ready' => '表单还没初始化, 确保你调用了controller中的 initForm().',
-        'preview_no_files_message' => '文件没有上传',
+        'behavior_not_ready' => '表单还没初始化, 确保你调用了控制器中的 initForm().',
+        'preview_no_files_message' => '文件没有上传。',
+        'preview_no_record_message' => '没有选择记录。',
         'select' => '选择',
-        'select_all' => 'all',
-        'select_none' => 'none',
+        'select_all' => '全部',
+        'select_none' => '无',
         'select_placeholder' => '请选择',
         'insert_row' => '插入行',
         'delete_row' => '删除行',
@@ -224,19 +236,19 @@ return [
         'unlink_confirm' => "你确定?",
     ],
     'model' => [
-        'name' => 'Model',
-        'not_found' => "Model ':class' ID :id 找不到",
-        'missing_id' => '没有指定的ID查找model记录.',
-        'missing_relation' => "Model ':class' 不包含 ':relation'.",
-        'missing_method' => "Model ':class' 不包含 ':method'.",
-        'invalid_class' => "Model :model 在 :class 中是不合法的, 必须继承 \Model class.",
-        'mass_assignment_failed' => "针对Model属性':attribute'的大量赋值失败."
+        'name' => '模型',
+        'not_found' => "ID为 :id 的 模型 ':class' 找不到",
+        'missing_id' => '没有找到指定ID的模型记录.',
+        'missing_relation' => "模型 ':class' 不包含 ':relation'.",
+        'missing_method' => "模型 ':class' 不包含 ':method'.",
+        'invalid_class' => "模型 :model 在 :class 中是不合法的, 它必须继承 \\Model 类.",
+        'mass_assignment_failed' => "为Model属性':attribute'赋值失败."
     ],
     'warnings' => [
         'tips' => '系统配置技巧',
-        'tips_description' => '你需要注意那些issue, 以使系统配置正确.',
-        'permissions'  => '目录 :name 或子目录对PHP不可写. 请对这个目录上的webserver设置正确的权限.',
-        'extension' => 'PHP扩展 :name 没安装. 请安装这个库并且激活扩展.'
+        'tips_description' => '你需要注意下面的问题, 以使系统更好的工作。',
+        'permissions'  => '目录 :name 或子目录对PHP不可写. 请在服务器上对这个目录设置正确的权限.',
+        'extension' => 'PHP扩展 :name 没安装，请安装这个库并且激活扩展.'
     ],
     'editor' => [
         'menu_label' => '代码编辑器选项',
@@ -248,7 +260,7 @@ return [
         'word_wrap' => '自动换行',
         'highlight_active_line' => '高亮活动的行',
         'show_invisibles' => '显示隐藏字符',
-        'show_gutter' => '显示gutter',
+        'show_gutter' => '显示侧边栏',
         'theme' => '色彩主题'
     ],
     'tooltips' => [
@@ -269,10 +281,10 @@ return [
         'brand' => '品牌',
         'logo' => 'Logo',
         'logo_description' => '上传自定义logo到后台.',
-        'app_name' => 'App名字',
-        'app_name_description' => '这个名字显示在后台的标题区域.',
-        'app_tagline' => 'App 标语',
-        'app_tagline_description' => '名字显示在后台的登录界面.',
+        'app_name' => '站点名称',
+        'app_name_description' => '这个名称显示在后台的标题区域.',
+        'app_tagline' => '站点标语',
+        'app_tagline_description' => '标语显示在后台的登录界面.',
         'colors' => '颜色',
         'primary_light' => '主要 (Light)',
         'primary_dark' => '主要 (Dark)',
@@ -283,22 +295,23 @@ return [
     ],
     'backend_preferences' => [
         'menu_label' => '后台设置',
-        'menu_description' => '管理你的后台设置, 比如希望使用的语言.',
+        'menu_description' => '管理你的后台设置, 比如希望使用的语言。',
         'locale' => '语言',
-        'locale_comment' => '选择你希望使用的本地语言.'
+        'locale_comment' => '选择你希望使用的本地语言。'
     ],
     'access_log' => [
-        'hint' => '这个log显示了管理员成功登录的信息. 记录保持:days天.',
+        'hint' => '这个日志显示了管理员成功登录的信息. 记录保持 :days 天。',
         'menu_label' => '访问日志',
-        'menu_description' => '查看 successful back-end user sign ins.',
+        'menu_description' => '查看成功登陆后台用户日志。',
         'created_at' => '日期 & 时间',
         'login' => '登录',
         'ip_address' => 'IP地址',
         'first_name' => '名',
         'last_name' => '姓',
-        'email' => 'Email'
+        'email' => '电子邮箱'
     ],
     'filter' => [
-      'all' => 'all'
+      'all' => '全部'
     ]
 ];
+

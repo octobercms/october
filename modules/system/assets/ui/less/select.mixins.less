@@ -1,0 +1,44 @@
+//
+// Mixins
+// --------------------------------------------------
+
+.select-input-defaults() {
+    background-color: @input-bg;
+    border: 1px solid @input-border;
+    border-radius: @input-border-radius;
+    color: @input-color;
+    font-size: @input-font-size;
+}
+
+.validation-state-focus(@color) {
+    .select2-dropdown,
+    .select2-selection {
+        border-color: @color;
+    }
+
+    .select2-container--focus .select2-selection,
+    .select2-container--open .select2-selection {
+        border-color: darken(@color, 10%);
+    }
+
+    &.select2-drop-active {
+        border-color: darken(@color, 10%);
+
+        &.select2-drop.select2-drop-above {
+            border-top-color: darken(@color, 10%);
+        }
+    }
+}
+
+// dropdown arrow when dropdown is open
+.dropdown-arrow() {
+        .select2-selection--single {
+        //
+        // Make the dropdown arrow point up while the dropdown is visible.
+        //
+        .select2-selection__arrow b {
+            border-color: transparent transparent @color-select-icon transparent;
+            border-width: 0 @caret-width-large @caret-width-large @caret-width-large;
+        }
+    }
+}

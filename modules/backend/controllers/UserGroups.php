@@ -33,25 +33,49 @@ class UserGroups extends Controller
     /**
      * Add available permission fields to the Group form.
      */
-    protected function formExtendFields($host)
+    protected function formExtendFields($form)
+    {
+        /*
+         * Add permissions tab
+         */
+        $form->addTabFields($this->generatePermissionFields());
+    }
+
+    /**
+     * Generates an array of form fields to assign permissions provided
+     * by the system.
+     * @return array
+     */
+    protected function generatePermissionFields()
     {
         $permissionFields = [];
-        foreach (BackendAuth::listPermissions() as $permission) {
 
-            $fieldName = 'permissions['.$permission->code.']';
+        foreach (BackendAuth::listTabbedPermissions() as $tab => $permissions) {
+
+            $fieldName = 'permissions_'.snake_case($tab).'_section';
             $fieldConfig = [
-                'label' => $permission->label,
-                'comment' => $permission->comment,
-                'type' => 'checkbox',
+                'label' => $tab,
+                'type' => 'section',
+                'tab' => 'backend::lang.user.permissions',
+                'containerAttributes' => ['data-field-collapsible' => 1]
             ];
 
-            if (isset($permission->tab)) {
-                $fieldConfig['tab'] = $permission->tab;
-            }
-
             $permissionFields[$fieldName] = $fieldConfig;
+
+            foreach ($permissions as $permission) {
+                $fieldName = 'permissions['.$permission->code.']';
+                $fieldConfig = [
+                    'label' => $permission->label,
+                    'comment' => $permission->comment,
+                    'type' => 'checkbox',
+                    'span' => 'auto',
+                    'tab' => 'backend::lang.user.permissions'
+                ];
+
+                $permissionFields[$fieldName] = $fieldConfig;
+            }
         }
 
-        $host->addTabFields($permissionFields);
+        return $permissionFields;
     }
 }

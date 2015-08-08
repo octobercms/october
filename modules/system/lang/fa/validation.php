@@ -14,7 +14,7 @@ return array(
     */
 
     "accepted"         => ":attribute باید مورد قبولتان باشد.",
-    "active_url"       => ":attribute آدرس الکترونیکی معتبری نیست.",
+    "active_url"       => ":attribute آدرس سایت معتبری نیست.",
     "after"            => ":attribute باید تاریخی بعد از :date باشد.",
     "alpha"            => ":attribute فقط میتواند حاوی حروف انگلیسی باشد.",
     "alpha_dash"       => ":attribute فقط میتواند شامل حروف انگلیسی، اعداد و خط تیره باشد.",
@@ -31,7 +31,7 @@ return array(
     "date"             => ":attribute تاریخ معتبری نیست.",
     "date_format"      => "مقدار :attribute در قالب :format نمی باشد.",
     "different"        => "مقدار :attribute و :other نباید یکسان باشد.",
-    "digits"           => "مقدار :attribute باید یم عدد :digits رقمی باشد.",
+    "digits"           => "مقدار :attribute باید یک عدد :digits رقمی باشد.",
     "digits_between"   => "مقدار :attribute باید ما بین :min و :max باشد.",
     "email"            => "قالب :attribute نامعتبر است.",
     "exists"           => ":attribute انتخاب شده نامعتبر است.",
@@ -46,6 +46,7 @@ return array(
         "array"   => ":attribute نباید بیش تر از :max مورد داشته باشد.",
     ),
     "mimes"            => ":attribute باید فایلی از نوع :values باشد.",
+    "extensions"       => "پسوند :attribute باید :values باشد.",
     "min"              => array(
         "numeric" => "مقدار :attribute باید حد اقل :min باشد.",
         "file"    => ":attribute باید حداقل :min کیلوبایت باشد.",
@@ -53,7 +54,7 @@ return array(
         "array"   => ":attribute باید شامل حد اقل :min مورد باشد.",
     ),
     "not_in"           => ":attribute انتخاب شده نا معتبر است.",
-    "numeric"          => "مقدار :attribute باید یم مقدار عددی باشد.",
+    "numeric"          =>  "مقدار :attribute باید یک مقدار عددی باشد.",
     "regex"            => "قالب :attribute نا معتبر است.",
     "required"         => "وارد کردن :attribute الزامیست.",
     "required_if"      => "اگر مقدار :other برابر با :value باشد وارد کردن :attribute الزامیست.",

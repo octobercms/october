@@ -118,8 +118,9 @@
 
         ev.preventDefault()
 
-        var $panel = element.closest('.form-tabless-fields.collapsed'),
-            $primaryPanel = element.closest('.control-tabs.primary.collapsed')
+        var $el = $(element),
+            $panel = $el.closest('.form-tabless-fields.collapsed'),
+            $primaryPanel = $el.closest('.control-tabs.primary-tabs.collapsed')
 
         if ($panel.length > 0)
             $panel.removeClass('collapsed')
@@ -128,12 +129,12 @@
             $primaryPanel.removeClass('collapsed')
 
             var pane = $primaryPanel.closest('.tab-pane'),
-                $secondaryPanel = $('.control-tabs.secondary', pane)
+                $secondaryPanel = $('.control-tabs.secondary-tabs', pane)
 
             $secondaryPanel.removeClass('primary-collapsed')
         }
 
-        element.focus()
+        $el.focus()
     }
 
     CmsPage.prototype.onTabClosed = function(ev) {
@@ -207,8 +208,8 @@
         })
 
         var $primaryCollapseIcon = $('<a href="javascript:;" class="tab-collapse-icon primary"><i class="icon-chevron-down"></i></a>'),
-            $primaryPanel = $('.control-tabs.primary', data.pane),
-            $secondaryPanel = $('.control-tabs.secondary', data.pane),
+            $primaryPanel = $('.control-tabs.primary-tabs', data.pane),
+            $secondaryPanel = $('.control-tabs.secondary-tabs', data.pane),
             $primaryTabContainer = $('.nav-tabs', $primaryPanel)
 
         $primaryTabContainer.addClass('master-area')
@@ -510,7 +511,7 @@
 
     CmsPage.prototype.updateComponentListClass = function(pane) {
         var $componentList = $('.control-componentlist', pane),
-            $primaryPanel = $('.control-tabs.primary', pane),
+            $primaryPanel = $('.control-tabs.primary-tabs', pane),
             $primaryTabContainer = $('.nav-tabs', $primaryPanel),
             hasComponents = $('.layout', $componentList).children(':not(.hidden)').length > 0
 
@@ -553,11 +554,11 @@
 
     CmsPage.prototype.updateModifiedCounter = function() {
         var counters = {
-            page: {menu: 'pages', count: 0},
-            partial: {menu: 'partials', count: 0},
-            layout: {menu: 'layouts', count: 0},
-            content: {menu: 'content', count: 0},
-            asset:{menu: 'assets', count: 0}
+            page: { menu: 'pages', count: 0 },
+            partial: { menu: 'partials', count: 0 },
+            layout: { menu: 'layouts', count: 0 },
+            content: { menu: 'content', count: 0 },
+            asset: { menu: 'assets', count:  0}
         }
 
         $('> div.tab-content > div.tab-pane[data-modified]', '#cms-master-tabs').each(function(){

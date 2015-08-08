@@ -25,13 +25,15 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerMailer();
         $this->registerAssetBundles();
 
-        // Disabled for now
-        // if (App::runningInBackend()) {
+        /*
+         * Backend specific
+         */
+        if (App::runningInBackend()) {
             $this->registerBackendNavigation();
             $this->registerBackendWidgets();
             $this->registerBackendPermissions();
             $this->registerBackendSettings();
-        // }
+        }
     }
 
     /**
@@ -63,15 +65,15 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerAssetBundles()
     {
         CombineAssets::registerCallback(function($combiner) {
-            $combiner->registerBundle('~/modules/backend/assets/less/controls.less');
             $combiner->registerBundle('~/modules/backend/assets/less/october.less');
             $combiner->registerBundle('~/modules/backend/assets/js/october.js');
-            $combiner->registerBundle('~/modules/backend/assets/js/vendor/vendor.js');
             $combiner->registerBundle('~/modules/backend/widgets/table/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/datepicker/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/less/richeditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/less/codeeditor.less');
+            $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/js/build.js');
+            $combiner->registerBundle('~/modules/backend/formwidgets/fileupload/assets/less/fileupload.less');
         });
     }
 
@@ -129,6 +131,10 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\RichEditor', [
                 'label' => 'Rich editor',
                 'code'  => 'richeditor'
+            ]);
+            $manager->registerFormWidget('Backend\FormWidgets\MarkdownEditor', [
+                'label' => 'Markdown editor',
+                'code'  => 'markdown'
             ]);
             $manager->registerFormWidget('Backend\FormWidgets\FileUpload', [
                 'label' => 'File uploader',

@@ -5,12 +5,12 @@ return [
         'title' => 'Adminisztrációs oldal'
     ],
     'field' => [
-        'invalid_type' => 'A használt mezőtípus érvénytelen :type.',
+        'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
         'options_method_not_exists' => "A(z) :model modellosztálynak egy :method() metódus visszaadandó beállításait kell definiálnia a(z) ':field' űrlapmező számára."
     ],
     'widget' => [
-        'not_registered' => "Egy ':name' widgetosztálynév regisztrálása nem történt meg",
-        'not_bound' => "Egy ':name' osztálynevű widget kötése nem történt meg a vezérlővel"
+        'not_registered' => "A(z) ':name' widget osztálynév regisztrálása nem történt meg.",
+        'not_bound' => "A(z) ':name' osztálynevű widget kötése nem történt meg a vezérlővel."
     ],
     'page' => [
         'untitled' => 'Névtelen',
@@ -18,6 +18,9 @@ return [
             'label' => 'Hozzáférés megtagadva',
             'help' => 'Ön nem rendelkezik a szükséges engedélyekkel ennek a lapnak a megtekintéséhez.',
             'cms_link' => 'Vissza a látogatói oldalra'
+        ],
+        'invalid_token' => [
+            'label' => 'Érvénytelen a biztonsági kód.'
         ]
     ],
     'partial' => [
@@ -28,7 +31,7 @@ return [
         'login' => 'Belép',
         'reset' => 'Alaphelyzet',
         'restore' => 'Visszaállítás',
-        'login_placeholder' => 'bejelentkezési név',
+        'login_placeholder' => 'felhasználónév',
         'password_placeholder' => 'jelszó',
         'forgot_password' => 'Elfelejtette a jelszavát?',
         'enter_email' => 'Adja meg az e-mail címét',
@@ -36,8 +39,8 @@ return [
         'email_placeholder' => 'e-mail cím',
         'enter_new_password' => 'Adjon meg egy új jelszót',
         'password_reset' => 'Új jelszó kiadása',
-        'restore_success' => 'A jelszó visszaállítási utasításokat tartalmazó e-mail elküldésre került az e-mail címére.',
-        'restore_error' => "Nem található felhasználó a ':login' értékű bejelentkezési névvel",
+        'restore_success' => 'A visszaállítással kapcsolatos utasításokat tartalmazó levél elküldésre került az e-mail címére.',
+        'restore_error' => "Nem található a(z) ':login' nevű felhasználó.",
         'reset_success' => 'A jelszó átállítása sikerült. Most már bejelentkezhet.',
         'reset_error' => 'A megadott jelszó átállítási adatok érvénytelenek. Próbálja újra!',
         'reset_fail' => 'Nem állítható vissza a jelszava!',
@@ -55,8 +58,8 @@ return [
         'widget_inspector_title' => 'Widget konfiguráció',
         'widget_inspector_description' => 'A jelentés widget konfigurálása',
         'widget_columns_label' => 'Szélesség :columns',
-        'widget_columns_description' => 'A widget szélessége, egy 1 és 10 közti szám.',
-        'widget_columns_error' => 'Adja meg a widget szélességét egy 1 és 10 közti számként.',
+        'widget_columns_description' => 'A widget szélessége, egy 1 és 10 közötti szám.',
+        'widget_columns_error' => 'Adja meg a widget szélességét egy 1 és 10 közötti számként.',
         'columns' => '{1} oszlop|[2,Inf] oszlop',
         'widget_new_row_label' => 'Új sor kényszerítése',
         'widget_new_row_description' => 'A widget új sorba helyezése.',
@@ -75,7 +78,7 @@ return [
         'menu_description' => 'A felhasználók, a csoportok és az engedélyek kezelése.',
         'list_title' => 'Adminisztrátorok kezelése',
         'new' => 'Új adminisztrátor',
-        'login' => 'Bejelentkezési név',
+        'login' => 'Felhasználónév',
         'first_name' => 'Keresztnév',
         'last_name' => 'Vezetéknév',
         'full_name' => 'Teljes név',
@@ -86,12 +89,13 @@ return [
         'password' => 'Jelszó',
         'password_confirmation' => 'Jelszó megerősítése',
         'permissions' => 'Engedélyek',
+        'account' => 'Fiók',
         'superuser' => 'Szuperadmin',
         'superuser_comment' => 'Korlátlan hozzáférés a teljes admin felülethez.',
         'send_invite' => 'Meghívó küldése e-mailben',
         'send_invite_comment' => 'A fentebb megadott adatokat tartalmazza.',
         'delete_confirm' => 'Valóban törölni akarja ezt az adminisztrátort?',
-        'return' => 'Vissza az adminisztrátorok listájához',
+        'return' => 'Vissza az adminisztrátorokhoz',
         'allow' => 'Engedélyezés',
         'inherit' => 'Öröklés',
         'deny' => 'Tiltás',
@@ -99,14 +103,15 @@ return [
             'name' => 'Csoport',
             'name_field' => 'Név',
             'description_field' => 'Leírás',
-            'is_new_user_default_field' => 'Az új webhelygazdák hozzáadása alapértelmezésként ehhez a csoporthoz',
+            'is_new_user_default_field' => 'Az új adminisztrátorok hozzáadása alapértelmezésként ehhez a csoporthoz.',
             'code_field' => 'Kód',
             'code_comment' => 'Adjon meg egy egyedi kódot, ha az API-val kíván hozzáférni.',
             'menu_label' => 'Csoportok',
             'list_title' => 'Csoportok kezelése',
             'new' => 'Új adminisztrátori csoport',
             'delete_confirm' => 'Valóban törölni akarja ezt a adminisztrátori csoportot?',
-            'return' => 'Vissza a csoport listához'
+            'return' => 'Vissza a csoportokhoz',
+            'users_count' => 'Felhasználók'
         ],
         'preferences' => [
             'not_authenticated' => 'Nincs olyan hitelesített felhasználó, aki számára betölthetők vagy menthetők a beállítások.'
@@ -116,11 +121,11 @@ return [
         'default_title' => 'Lista',
         'search_prompt' => 'Keresés...',
         'no_records' => 'Nincs megjeleníthető tartalom.',
-        'missing_model' => 'Nincs modell definiálva a(z) :class osztályban használt listaviselkedéshez.',
+        'missing_model' => 'Nincs modell definiálva a(z) :class osztályban használt lista viselkedéshez.',
         'missing_column' => 'Nincsenek oszlopdefiníciók a(z) :columns oszlopok számára.',
         'missing_columns' => 'A(z) :class osztályban használt listának nincsenek definiált listaoszlopai.',
-        'missing_definition' => "A listaviselkedés nem tartalmaz oszlopot a(z) ':field' mező számára.",
-        'behavior_not_ready' => 'Nem történt meg a listaviselkedés inicializálása, ellenőrizze, hogy meghívta-e a(z) makeLists() függvényt a vezérlőben.',
+        'missing_definition' => "A lista viselkedés nem tartalmaz oszlopot a(z) ':field' mező számára.",
+        'behavior_not_ready' => 'Nem történt meg a lista viselkedés inicializálása és ellenőrizze, hogy meghívta-e a(z) makeLists() függvényt a vezérlőben.',
         'invalid_column_datetime' => "A(z) ':column' oszlopérték nem DateTime objektum, hiányzik egy \$dates hivatkozás a Modellben?",
         'pagination' => 'Megjelenített elemek: :from-:to / :total',
         'prev_page' => 'Előző lap',
@@ -137,9 +142,15 @@ return [
     ],
     'fileupload' => [
         'attachment' => 'Csatolmány',
-        'help' => 'Adja meg a csatolmány címét és leírását.',
+        'help' => 'Adja meg a csatolmány címét és a leírását.',
         'title_label' => 'Cím',
-        'description_label' => 'Leírás'
+        'description_label' => 'Leírás',
+        'default_prompt' => 'Hozza ide a fájlt vagy kattintson erre: %s',
+        'attachment_url' => 'Csatolmány webcíme',
+        'upload_file' => 'Fájl feltöltése',
+        'upload_error' => 'Feltöltési hiba',
+        'remove_confirm' => 'Biztos benne?',
+        'remove_file' => 'Fájl eltávolítása'
     ],
     'form' => [
         'create_title' => 'Új :name',
@@ -148,10 +159,10 @@ return [
         'create_success' => 'A(z) :name létrehozása sikerült',
         'update_success' => 'A(z) :name módosítása sikerült',
         'delete_success' => 'A(z) :name törlése sikerült',
-        'missing_id' => 'Nincs megadva az űrlaprekord azonosítója.',
-        'missing_model' => 'A(z) :class osztályban használt űrlapviselkedésnek nincs definiált modellje.',
-        'missing_definition' => "Az űrlapviselkedés nem tartalmaz mezőt a(z) ':field' mezőhöz.",
-        'not_found' => 'A(z) :id azonosítójú űrlaprekord nem található.',
+        'missing_id' => 'Nincs megadva az űrlap rekord azonosítója.',
+        'missing_model' => 'A(z) :class osztályban használt űrlap viselkedésnek nincs definiált modellje.',
+        'missing_definition' => "Az űrlap viselkedés nem tartalmaz mezőt a(z) ':field' mezőhöz.",
+        'not_found' => 'A(z) :id azonosítójú űrlap rekord nem található.',
         'action_confirm' => 'Biztos benne?',
         'create' => 'Létrehozás',
         'create_and_close' => 'Létrehozás és bezárás',
@@ -179,8 +190,9 @@ return [
         'ok' => 'OK',
         'or' => 'vagy',
         'confirm_tab_close' => 'Valóban be akarja zárni a fület? El fognak veszni a nem mentett módosítások.',
-        'behavior_not_ready' => 'Nem történt meg az űrlapviselkedés inicializálása, ellenőrizze, hogy meghívta-e az initForm() függvényt a vezérlőben.',
-        'preview_no_files_message' => 'A fájlok nincsenek feltöltve',
+        'behavior_not_ready' => 'Nem történt meg az űrlap viselkedésének inicializálása. Ellenőrizze, hogy meghívta-e az initForm() függvényt a vezérlőben.',
+        'preview_no_files_message' => 'Nincsennek feltöltve fájlok.',
+        'preview_no_record_message' => 'Egy mező sincs kiválasztva.',
         'select' => 'Válasszon',
         'select_all' => 'mind',
         'select_none' => 'egyik sem',
@@ -191,9 +203,9 @@ return [
         'concurrency_file_changed_description' => 'Az Ön által szerkesztett fájlt már egy máik felhasználó módosította. Vagy újratöltheti a fájlt és elveszti a változtatásait, vagy felülírja a fájlt.'
     ],
     'relation' => [
-        'missing_config' => "A relációviselkedésnek nincs semmilyen konfigurációja a következőhöz: ':config'.",
-        'missing_definition' => "A relációviselkedés nem tartalmazza a(z) ':field' mező definícióját.",
-        'missing_model' => 'A(z) :class osztályban használt relációviselkedésnek nincs definiált modellje.',
+        'missing_config' => "A reláció viselkedésnek nincs semmilyen konfigurációja a következőhöz: ':config'.",
+        'missing_definition' => "A reláció viselkedés nem tartalmazza a(z) ':field' mező definícióját.",
+        'missing_model' => 'A(z) :class osztályban használt reláció viselkedésnek nincs definiált modellje.',
         'invalid_action_single' => 'Ez a művelet nem hajtható végre egyetlen kapcsolaton.',
         'invalid_action_multi' => 'Ez a művelet nem hajtható végre több kapcsolaton.',
         'help' => 'Kattintson egy elemre a hozzáadásához',
@@ -225,18 +237,18 @@ return [
     ],
     'model' => [
         'name' => 'Modell',
-        'not_found' => "Nem található :id azonosítójú ':class' modell",
+        'not_found' => "Nem található :id azonosítójú ':class' modell.",
         'missing_id' => 'Nincs azonosító megadva a modellrekord kereséséhez.',
         'missing_relation' => "A(z) ':class' modell nem tartalmaz definíciót a(z) ':relation' reláció számára.",
         'missing_method' => "A(z) ':class' modell nem tartalmaz ':method' metódust.",
         'invalid_class' => "A(z) :class osztályban használt :model modell nem érvényes, örökölnie kell a \Model osztályt.",
-        'mass_assignment_failed' => "A tömeges hozzárendelés a(z) ':attribute' modellattribútumhoz nem sikerült."
+        'mass_assignment_failed' => "A tömeges hozzárendelés a(z) ':attribute' modell attribútumhoz nem sikerült."
     ],
     'warnings' => [
         'tips' => 'Rendszer konfigurációs tippek',
         'tips_description' => 'Olyan problémák vannak, melyekre figyeljen oda a rendszer megfelelő konfigurálása érdekében.',
         'permissions'  => 'A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a webkiszolgálónak erre a könyvtárra.',
-        'extension' => 'A(z) :name PHP-kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat, és aktiválja a kiterjesztést.'
+        'extension' => 'A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.'
     ],
     'editor' => [
         'menu_label' => 'Kódszerkesztő',
@@ -252,7 +264,7 @@ return [
         'theme' => 'Színséma'
     ],
     'tooltips' => [
-        'preview_website' => 'A webhely megtekintése'
+        'preview_website' => 'Weboldal megtekintése'
     ],
     'mysettings' => [
         'menu_label' => 'Beállításaim',
@@ -289,10 +301,10 @@ return [
     ],
     'access_log' => [
         'hint' => 'Ez a napló a felhasználók sikeres bejelentkezési kísérleteit listázza ki. A bejegyzéseket :days napig őrzi meg a rendszer.',
-        'menu_label' => 'Hozzáférési napló',
+        'menu_label' => 'Hozzáférésnapló',
         'menu_description' => 'A felhasználók sikeres bejelentkezéseinek megtekintése.',
         'created_at' => 'Dátum és idő',
-        'login' => 'Bejelentkezési név',
+        'login' => 'Felhasználónév',
         'ip_address' => 'IP cím',
         'first_name' => 'Keresztnév',
         'last_name' => 'Vezetéknév',

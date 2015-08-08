@@ -222,12 +222,12 @@ return [
     ],
     'permissions' => [
         'name' => 'Cms',
-        'manage_content' => 'Håndter innholdsfiler',
-        'manage_assets' => 'Håndter ressurser',
-        'manage_pages' => 'Håndter sider',
-        'manage_layouts' => 'Håndter layouts',
-        'manage_partials' => 'Håndter partials',
-        'manage_themes' => 'Håndter maler'
+        'manage_content' => 'Administrer innholdsfiler',
+        'manage_assets' => 'Administrer ressurser',
+        'manage_pages' => 'Administrer sider',
+        'manage_layouts' => 'Administrer layouts',
+        'manage_partials' => 'Administrer partials',
+        'manage_themes' => 'Administrer maler'
     ],
     'media' => [
         'invalid_path' => "Ugyldig filsti: ':path'.",
@@ -237,6 +237,7 @@ return [
         'delete' => 'Slett',
         'add_folder' => 'Ny mappe',
         'search' => 'Søk',
+        'display' => 'Vis',
         'filter_everything' => 'Alle filer',
         'filter_images' => 'Bilder',
         'filter_video' => 'Video',

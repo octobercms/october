@@ -100,6 +100,9 @@
             options = this.options,
             $form = this.$el.closest('form');
 
+        // Fixes a weird notice about scrolling
+        editor.$blockScrolling = Infinity
+
         this.$form = $form
 
         this.$textarea.hide();
@@ -112,17 +115,17 @@
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
         /*
-         * Set language and theme
+         * Set theme, anticipated languages should be preloaded
          */
         assetManager.load({
             js:[
-                options.vendorPath + '/mode-' + options.language + '.js',
+                // options.vendorPath + '/mode-' + options.language + '.js',
                 options.vendorPath + '/theme-' + options.theme + '.js'
             ]
         }, function(){
             editor.setTheme('ace/theme/' + options.theme)
             var inline = options.language === 'php'
-            editor.getSession().setMode({path: 'ace/mode/'+options.language, inline: inline})
+            editor.getSession().setMode({ path: 'ace/mode/'+options.language, inline: inline })
         })
 
         /*
@@ -146,8 +149,11 @@
         editor.on('focus', this.proxy(this.onFocus))
         this.setWordWrap(options.wordWrap)
 
+        // Set the vendor path for Ace's require path
+        ace.require('ace/config').set('basePath', this.options.vendorPath)
+
         editor.renderer.setScrollMargin(options.margin, options.margin, 0, 0)
-        editor.renderer.setPadding(options.margin) 
+        editor.renderer.setPadding(options.margin)
 
         /*
          * Toolbar

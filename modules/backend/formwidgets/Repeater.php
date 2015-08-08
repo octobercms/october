@@ -78,7 +78,7 @@ class Repeater extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('css/repeater.css', 'core');
         $this->addJs('js/repeater.js', 'core');
@@ -104,12 +104,12 @@ class Repeater extends FormWidgetBase
         if (!is_array($itemIndexes)) return;
 
         foreach ($itemIndexes as $itemIndex) {
-            $this->makeFormWidget($itemIndex);
+            $this->makeItemFormWidget($itemIndex);
             $this->indexCount = max((int) $itemIndex, $this->indexCount);
         }
     }
 
-    protected function makeFormWidget($index = 0)
+    protected function makeItemFormWidget($index = 0)
     {
         $loadValue = $this->getLoadValue();
         if (!is_array($loadValue)) $loadValue = [];
@@ -131,7 +131,7 @@ class Repeater extends FormWidgetBase
         $this->indexCount++;
 
         $this->prepareVars();
-        $this->vars['widget'] = $this->makeFormWidget($this->indexCount);
+        $this->vars['widget'] = $this->makeItemFormWidget($this->indexCount);
         $this->vars['indexValue'] = $this->indexCount;
 
         $itemContainer = '@#'.$this->getId('items');

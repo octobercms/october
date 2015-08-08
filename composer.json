@@ -3,6 +3,7 @@
     "description": "October CMS",
     "homepage": "http://octobercms.com",
     "keywords": ["october", "cms", "octobercms", "laravel"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Alexey Bobkov",
@@ -38,7 +39,8 @@
     "autoload-dev": {
         "classmap": [
             "tests/TestCase.php",
-            "tests/UiTestCase.php"
+            "tests/UiTestCase.php",
+            "tests/PluginTestCase.php"
         ]
     },
     "scripts": {

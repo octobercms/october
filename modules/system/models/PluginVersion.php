@@ -38,6 +38,12 @@ class PluginVersion extends Model
     public $orphaned = false;
 
     /**
+     * The accessors to append to the model's array form.
+     * @var array
+     */
+    protected $appends = ['slug'];
+
+    /**
      * After the model is populated
      */
     public function afterFetch()
@@ -48,7 +54,6 @@ class PluginVersion extends Model
          */
         $manager = PluginManager::instance();
         $pluginObj = $manager->findByIdentifier($this->code);
-
 
         if ($pluginObj) {
             $pluginInfo = $pluginObj->pluginDetails();
@@ -82,7 +87,7 @@ class PluginVersion extends Model
      * @param $query
      * @return mixed
      */
-    public function scopeIsEnabled($query)
+    public function scopeApplyEnabled($query)
     {
         return $query->where('is_disabled', '!=', 1);
     }
@@ -101,5 +106,21 @@ class PluginVersion extends Model
         return isset(self::$versionCache[$pluginCode])
             ? self::$versionCache[$pluginCode]
             : null;
+    }
+
+    /**
+     * Provides the slug attribute.
+     */
+    public function getSlugAttribute()
+    {
+        return self::makeSlug($this->code);
+    }
+
+    /**
+     * Generates a slug for the plugin.
+     */
+    public static function makeSlug($code)
+    {
+        return strtolower(str_replace('.', '-', $code));
     }
 }

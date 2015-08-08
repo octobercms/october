@@ -7,6 +7,7 @@
         class="field-richeditor size-<?= $size ?> <?= $stretch?'layout-relative stretch':'' ?>"
         <?php if ($fullPage): ?>data-fullpage="true"<?php endif ?>
         data-data-locker="#<?= $this->getId('dataLocker') ?>"
+        data-links-handler="<?= $this->getEventHandler('onGetPageLinks') ?>"
         data-control="richeditor">
         <textarea id="<?= $this->getId('textarea') ?>"></textarea>
     </div>
