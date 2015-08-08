@@ -150,7 +150,7 @@ return [
         'upload_file' => 'Télécharger le fichier',
         'upload_error' => 'Erreur durant le téléchargement',
         'remove_confirm' => 'Confirmer l’action ?',
-        'remove_file' => 'Supprimer le fichier'
+        'remove_file' => 'Supprimer le fichier',
     ],
     'form' => [
         'create_title' => 'Nouveau :name',
