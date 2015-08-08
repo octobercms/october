@@ -144,7 +144,7 @@ return [
         'attachment' => 'Pièce jointe',
         'help' => 'Ajouter un titre et une description pour cette pièce jointe.',
         'title_label' => 'Titre',
-        'description_label' => 'Description'
+        'description_label' => 'Description',
         'default_prompt' => 'Cliquer sur %s ou déposer un fichier ici pour le télécharger',
         'attachment_url' => 'Adresse URL du fichier joint',
         'upload_file' => 'Télécharger le fichier',
