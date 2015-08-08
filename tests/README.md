@@ -33,7 +33,7 @@ Then a **tests/** directory can be created to contain the test classes. The file
     use Acme\Blog\Models\Post;
     use PluginTestCase;
 
-    class MessageTest extends PluginTestCase
+    class PostTest extends PluginTestCase
     {
         public function testCreateFirstPost()
         {
