@@ -52,6 +52,32 @@ $(window).on('ajaxConfirmMessage', function(event, message){
     return true
 })
 
+
+/*
+ * Override "Sweet Alert" functions to translate default buttons
+ */
+
+$(document).on('ready', function(){
+    if (!window.swal) return
+
+    var swal = window.swal;
+
+    window.sweetAlert = window.swal = function(message, callback) {
+        if(typeof message === 'object') {
+            // Do not override if texts are provided
+            message.confirmButtonText = message.confirmButtonText || $.oc.lang.get('sweetalert.confirm_button_text');
+            message.cancelButtonText = message.cancelButtonText || $.oc.lang.get('sweetalert.cancel_button_text');
+        } else {
+            message = {
+                title: message,
+                confirmButtonText: $.oc.lang.get('sweetalert.confirm_button_text'),
+                cancelButtonText: $.oc.lang.get('sweetalert.cancel_button_text')
+            }
+        }
+        swal(message, callback);
+    }
+})
+
 /*
  * Path helpers
  */

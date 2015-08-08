@@ -35,14 +35,24 @@ return [
     ],
 
     'mediamanager' => [
-        'insert_link' => "Insert Media Link",
-        'insert_image' => "Insert Media Image",
-        'insert_video' => "Insert Media Video",
-        'insert_audio' => "Insert Media Audio",
-        'invalid_file_empty_insert' => "Please select file to insert a links to.",
-        'invalid_file_single_insert' => "Please select a single file.",
+        'insert_link' => "Insérer un lien vers un fichier de la médiathèque",
+        'insert_image' => "Insérer une image de la médiathèque",
+        'insert_video' => "Insérer une vidéo de la médiathèque",
+        'insert_audio' => "Insérer un document audio de la médiathèque",
+        'invalid_file_empty_insert' => "Veuillez sélectionner un fichier à lier.",
+        'invalid_file_single_insert' => "Veuillez sélectionner un seul fichier.",
+        'invalid_image_empty_insert' => "Veuillez sélectionner au moins une image à insérer.",
+        'invalid_video_empty_insert' => "Veuillez sélectionner une vidéo à insérer.",
+        'invalid_audio_empty_insert' => "Veuillez sélectionner un document audio à insérer.",
+        'invalid_image_invalid_insert' => "Le fichier n‘est pas une image.",
+        'invalid_video_invalid_insert' => "Le fichier n‘est pas une vidéo.",
+        'invalid_audio_invalid_insert' => "Le fichier n‘est pas un document audio.",
     ],
 
+    'sweetalert' => [
+        'confirm_button_text' => 'OK',
+        'cancel_button_text' => 'Annuler',
+    ],
 ];
 
 

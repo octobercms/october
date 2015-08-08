@@ -43,6 +43,11 @@ return [
         'invalid_file_single_insert' => "Please select a single file.",
     ],
 
+    'sweetalert' => [
+        'confirm_button_text' => 'OK',
+        'cancel_button_text' => 'Cancel',
+    ],
+
 ];
 
 
