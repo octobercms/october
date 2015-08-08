@@ -185,7 +185,7 @@ this.$form.request(this.options.alias+'::onSetSidebarVisible',{data:{visible:(is
 MediaManager.prototype.updateSidebarMediaPreview=function(items){var previewPanel=this.sidebarPreviewElement,previewContainer=previewPanel.querySelector('[data-control="media-preview-container"]'),template=''
 for(var i=0,len=previewContainer.children.length;i<len;i++)
 previewContainer.removeChild(previewContainer.children[i])
-if(items.length==1){var item=items[0],documentType=item.getAttribute('data-document-type')
+if(items.length==1&&!items[0].hasAttribute('data-root')){var item=items[0],documentType=item.getAttribute('data-document-type')
 switch(documentType){case'audio':template=previewPanel.querySelector('[data-control="audio-template"]').innerHTML
 break;case'video':template=previewPanel.querySelector('[data-control="video-template"]').innerHTML
 break;case'image':template=previewPanel.querySelector('[data-control="image-template"]').innerHTML
@@ -193,6 +193,8 @@ break;}
 previewContainer.innerHTML=template.replace('{src}',item.getAttribute('data-public-url')).replace('{path}',item.getAttribute('data-path')).replace('{last-modified}',item.getAttribute('data-last-modified-ts'))
 if(documentType=='image')
 this.loadSidebarThumbnail()}
+else if(items.length==1&&items[0].hasAttribute('data-root')){template=previewPanel.querySelector('[data-control="go-up"]').innerHTML
+previewContainer.innerHTML=template}
 else if(items.length==0){template=previewPanel.querySelector('[data-control="no-selection-template"]').innerHTML
 previewContainer.innerHTML=template}
 else{template=previewPanel.querySelector('[data-control="multi-selection-template"]').innerHTML
@@ -201,7 +203,7 @@ MediaManager.prototype.updateSidebarPreview=function(resetSidebar){if(!this.side
 this.sidebarPreviewElement=this.$el.get(0).querySelector('[data-control="preview-sidebar"]')
 var items=resetSidebar===undefined?this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'):[],previewPanel=this.sidebarPreviewElement
 if(items.length==0){this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class','hide')}
-else if(items.length==1){this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class','panel')
+else if(items.length==1&&!items[0].hasAttribute('data-root')){this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class','panel')
 var item=items[0],lastModified=item.getAttribute('data-last-modified')
 previewPanel.querySelector('[data-label="size"]').textContent=item.getAttribute('data-size')
 previewPanel.querySelector('[data-label="title"]').textContent=item.getAttribute('data-title')
