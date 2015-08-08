@@ -811,8 +811,10 @@
     }
 
     MediaManager.prototype.onImageCropped = function(imageUrl) {
+        var pathIndex = imageUrl.indexOf("/cropped-images/");
         var item = {
             documentType: 'image',
+            path: imageUrl.substr(pathIndex),
             publicUrl: imageUrl
         }
 
