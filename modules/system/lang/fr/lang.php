@@ -8,6 +8,7 @@ return [
     'locale' => [
         'en' => 'Anglais',
         'de' => 'Allemand',
+        'el' => 'Greek',
         'es' => 'Espangol',
         'es-ar' => 'Espagnol (Argentine)',
         'fa' => 'Persan',
@@ -169,6 +170,7 @@ return [
         'menu_layouts_label' => 'Maquettes des adresses e-mails',
         'layout' => 'Maquette',
         'layouts' => 'Maquettes',
+        'no_layout' => '-- Aucune maquette --',
         'name' => 'Nom',
         'name_comment' => 'Nom unique utilisé pour identifier ce modèle',
         'code' => 'Code',
