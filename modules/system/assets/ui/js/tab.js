@@ -158,6 +158,9 @@
 
         this.initTab($tab)
 
+        $link.data('title', $link.attr('data-title'))
+        $link.data('target', $link.attr('data-target'))
+
         this.updateClasses()
     }
 
