@@ -46,7 +46,7 @@ return array(
         "array"   => 'Le champ :attribute ne peut pas être supérieure à :max objets.',
     ),
     "mimes"            => 'Le champ :attribute doit être un fichier de type : :values.',
-    "extensions"       => 'Le champ :attribute doit être une extension de : :values.",
+    "extensions"       => 'Le champ :attribute doit être une extension de : :values.',
     "min"              => array(
         "numeric" => 'Le champ :attribute doit être au minimum de :min.',
         "file"    => 'Le champ :attribute doit être au minimum de :min kilooctets.',
