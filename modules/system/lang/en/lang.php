@@ -183,7 +183,10 @@ return [
         'content_text' => 'Plaintext',
         'test_send' => 'Send test message',
         'test_success' => 'The test message has been successfully sent.',
-        'return' => 'Return to template list'
+        'return' => 'Return to template list',
+        'test_confirm' => 'A test message will be sent to :email. Continue?',
+        'saving' => 'Saving Template...',
+        'sending' => 'Sending test message...',
     ],
     'install' => [
         'project_label' => 'Attach to Project',
