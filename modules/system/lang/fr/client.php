@@ -49,6 +49,10 @@ return [
         'invalid_audio_invalid_insert' => "Le fichier n‘est pas un document audio.",
     ],
 
+    'sweetalert' => [
+        'confirm_button_text' => 'OK',
+        'cancel_button_text' => 'Annuler',
+    ],
 ];
 
 
