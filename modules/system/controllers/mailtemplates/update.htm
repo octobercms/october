@@ -31,7 +31,7 @@
                     data-request="onSave"
                     data-request-data="redirect:0"
                     data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="Saving Template..."
+                    data-load-indicator="<?= e(trans('system::lang.mail_templates.saving')) ?>"
                     class="btn btn-primary">
                     <?= e(trans('backend::lang.form.save')) ?>
                 </button>
@@ -40,15 +40,15 @@
                     data-request="onSave"
                     data-request-data="close:1"
                     data-hotkey="ctrl+enter, cmd+enter"
-                    data-load-indicator="Saving Template..."
+                    data-load-indicator="<?= e(trans('system::lang.mail_templates.saving')) ?>"
                     class="btn btn-default">
                     <?= e(trans('backend::lang.form.save_and_close')) ?>
                 </button>
                 <button
                     type="button"
                     data-request="onTest"
-                    data-load-indicator="Sending test message..."
-                    data-request-confirm="A test message will be sent to <?= e(BackendAuth::getUser()->email) ?>. Continue?"
+                    data-load-indicator="<?= e(trans('system::lang.mail_templates.sending')) ?>"
+                    data-request-confirm="<?= e(trans('system::lang.mail_templates.test_confirm', [ 'email' => e(BackendAuth::getUser()->email)])) ?>"
                     class="btn btn-info">
                     <?= e(trans('system::lang.mail_templates.test_send')) ?>
                 </button>
