@@ -35,12 +35,12 @@ return [
     ],
 
     'mediamanager' => [
-        'insert_link' => "Insert Media Link",
-        'insert_image' => "Insert Media Image",
-        'insert_video' => "Insert Media Video",
-        'insert_audio' => "Insert Media Audio",
-        'invalid_file_empty_insert' => "Please select file to insert a links to.",
-        'invalid_file_single_insert' => "Please select a single file.",
+        'insert_link' => "Ajouter un lien",
+        'insert_image' => "Ajouter un fichier image",
+        'insert_video' => "Ajouter un fichier vidéo",
+        'insert_audio' => "Ajouter un fichier audio",
+        'invalid_file_empty_insert' => "Merci de sléectionner un fichier pour y ajouter un lien.",
+        'invalid_file_single_insert' => "Merci de sélectionner un seul fichier.",
     ],
 
 ];
