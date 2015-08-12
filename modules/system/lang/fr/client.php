@@ -39,7 +39,7 @@ return [
         'insert_image' => "Ajouter un fichier image",
         'insert_video' => "Ajouter un fichier vidéo",
         'insert_audio' => "Ajouter un fichier audio",
-        'invalid_file_empty_insert' => "Merci de sléectionner un fichier pour y ajouter un lien.",
+        'invalid_file_empty_insert' => "Merci de sélectionner un fichier pour y ajouter un lien.",
         'invalid_file_single_insert' => "Merci de sélectionner un seul fichier.",
     ],
 
