@@ -44,9 +44,9 @@ return [
         'invalid_image_empty_insert' => "Veuillez sélectionner au moins une image à insérer.",
         'invalid_video_empty_insert' => "Veuillez sélectionner une vidéo à insérer.",
         'invalid_audio_empty_insert' => "Veuillez sélectionner un document audio à insérer.",
-        'invalid_image_invalid_insert' => "Le fichier n‘est pas une image.",
-        'invalid_video_invalid_insert' => "Le fichier n‘est pas une vidéo.",
-        'invalid_audio_invalid_insert' => "Le fichier n‘est pas un document audio.",
+        'invalid_image_invalid_insert' => "Le fichier n’est pas une image.",
+        'invalid_video_invalid_insert' => "Le fichier n’est pas une vidéo.",
+        'invalid_audio_invalid_insert' => "Le fichier n’est pas un document audio.",
     ],
 
     'sweetalert' => [
