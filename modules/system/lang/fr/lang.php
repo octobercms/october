@@ -69,7 +69,7 @@ return [
         'install' => 'Installer des thèmes',
         'search' => 'Recherche des thème à installer…',
         'installed' => 'Thèmes installés',
-        'no_themes' => 'Il n’y a aucun thème installé depuis le site d‘October CMS.',
+        'no_themes' => 'Il n’y a aucun thème installé depuis le site d’October CMS.',
         'recommended' => 'Recommandé',
         'remove_confirm' => 'Confirmer la suppression de ce thème ?'
     ],
@@ -89,7 +89,7 @@ return [
         'install_products' => 'Installer des produits',
         'search' => 'Recherche des plugins à installer…',
         'installed' => 'Plugins installés',
-        'no_plugins' => 'Il n’y a aucun plugin installé depuis le site d‘October CMS.',
+        'no_plugins' => 'Il n’y a aucun plugin installé depuis le site d’October CMS.',
         'recommended' => 'Recommandé',
         'remove' => 'Supprimer',
         'refresh' => 'Actualiser',
