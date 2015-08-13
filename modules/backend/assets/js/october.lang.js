@@ -38,7 +38,7 @@ $.oc.lang = (function(lang, messages) {
     }
 
     if (lang.locale === undefined) {
-        lang.locale = 'en'
+        lang.locale = $('html').attr('lang') || 'en'
     }
 
     if (lang.loadedMessages === undefined) {
@@ -48,15 +48,3 @@ $.oc.lang = (function(lang, messages) {
     return lang
 
 })($.oc.lang || {}, $.oc.langMessages);
-
-+function(locale) {
-
-    if ($.oc.lang.locale !== locale) {
-        $.oc.lang.locale = locale;
-    }
-
-    $(window).on('render', function () {
-        $.oc.lang.load($.oc.lang.locale);
-    });
-
-}($('html').attr('lang') || 'en');
