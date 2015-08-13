@@ -1,10 +1,8 @@
 # Toolbar
 
-Toolbar
+A scrollable set of buttons aligned to the left with a fixed right section.
 
-# Example
-
-    <h4>Basic toolbar</h4>
+### Basic toolbar
 
     <div class="layout control-toolbar">
         <div class="layout-cell toolbar-item">
@@ -33,7 +31,7 @@ Toolbar
         </div>
     </div>
 
-    <h4>Editor toolbar</h4>
+### Editor toolbar
 
     <div class="layout control-toolbar editor-toolbar">
         <div class="layout-cell toolbar-item">
