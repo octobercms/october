@@ -185,8 +185,8 @@ return [
         'test_success' => 'Le message de test a été envoyé avec succès.',
         'return' => 'Retour à la liste des modèles.',
         'test_confirm' => 'Un message de test sera envoyé à :email. Continuer ?',
-        'saving' => 'Sauvegarde du modèle en cours...',
-        'sending' => 'Envoi du message de test en cours...',
+        'saving' => 'Sauvegarde du modèle en cours…',
+        'sending' => 'Envoi du message de test en cours…',
     ],
     'install' => [
         'project_label' => 'Attacher un projet',
