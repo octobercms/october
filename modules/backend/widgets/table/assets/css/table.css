@@ -304,6 +304,19 @@
 .control-table td[data-column-type=dropdown] .content-container {
   outline: none;
 }
+/* Frameless control styles start */
+.widget-field.frameless .control-table .table-container {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.widget-field.frameless .control-table .toolbar {
+  background: transparent;
+}
+/* Frameless control styles end */
 html.cssanimations .control-table td[data-column-type=dropdown] [data-view-container].loading:after {
   background-image: url('../../../../../../modules/system/assets/ui/images/loader-transparent.svg');
   background-size: 15px 15px;

@@ -199,6 +199,7 @@ return [
         'select_none' => 'none',
         'select_placeholder' => 'please select',
         'insert_row' => 'Insert Row',
+        'insert_row_below' => 'Insert Row Below',
         'delete_row' => 'Delete Row',
         'concurrency_file_changed_title' => 'File was changed',
         'concurrency_file_changed_description' => "The file you're editing has been changed on disk by another user. You can either reload the file and lose your changes or override the file on the disk."

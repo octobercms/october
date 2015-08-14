@@ -81,7 +81,7 @@ if(this.options.adding){var addBelowButton=document.createElement('a')
 addBelowButton.setAttribute('class','btn add-table-row-below')
 addBelowButton.setAttribute('data-cmd','record-add-below')
 this.toolbar.appendChild(addBelowButton)
-if(this.navigation.paginationEnabled()||!this.options.rowSorting){addBelowButton.textContent='Add row'}else{addBelowButton.textContent='Add row below'
+if(this.navigation.paginationEnabled()||!this.options.rowSorting){addBelowButton.textContent=this.options.btnAddRowLabel}else{addBelowButton.textContent=this.options.btnAddRowBelowLabel
 var addAboveButton=document.createElement('a')
 addAboveButton.setAttribute('class','btn add-table-row-above')
 addAboveButton.textContent='Add row above'
@@ -89,7 +89,7 @@ addAboveButton.setAttribute('data-cmd','record-add-above')
 this.toolbar.appendChild(addAboveButton)}}
 if(this.options.deleting){var deleteButton=document.createElement('a')
 deleteButton.setAttribute('class','btn delete-table-row')
-deleteButton.textContent='Delete row'
+deleteButton.textContent=this.options.btnDeleteRowLabel
 deleteButton.setAttribute('data-cmd','record-delete')
 this.toolbar.appendChild(deleteButton)}
 this.tableContainer.appendChild(this.toolbar)}
@@ -367,7 +367,7 @@ Table.prototype.setCellValue=function(cellElement,value){var dataContainer=cellE
 if(dataContainer.value!=value){dataContainer.value=value
 this.markCellRowDirty(cellElement)
 this.notifyRowProcessorsOnChange(cellElement)}}
-Table.DEFAULTS={clientDataSourceClass:'client',keyColumn:'id',recordsPerPage:false,data:null,postback:true,postbackHandlerName:'onSave',adding:true,deleting:true,toolbar:true,rowSorting:false,height:false,dynamicHeight:false}
+Table.DEFAULTS={clientDataSourceClass:'client',keyColumn:'id',recordsPerPage:false,data:null,postback:true,postbackHandlerName:'onSave',adding:true,deleting:true,toolbar:true,rowSorting:false,height:false,dynamicHeight:false,btnAddRowLabel:'Add row',btnAddRowBelowLabel:'Add row below',btnDeleteRowLabel:'Delete row'}
 var old=$.fn.table
 $.fn.table=function(option){var args=Array.prototype.slice.call(arguments,1),result=undefined
 this.each(function(){var $this=$(this)

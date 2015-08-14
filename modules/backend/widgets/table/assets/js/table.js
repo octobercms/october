@@ -231,9 +231,9 @@
                 // When the pagination is enabled, or sorting is disabled,
                 // new records can only be added to the bottom of the
                 // table.
-                addBelowButton.textContent = 'Add row'
+                addBelowButton.textContent = this.options.btnAddRowLabel
             } else {
-                addBelowButton.textContent = 'Add row below'
+                addBelowButton.textContent = this.options.btnAddRowBelowLabel
 
                 var addAboveButton = document.createElement('a')
                 addAboveButton.setAttribute('class', 'btn add-table-row-above')
@@ -246,7 +246,7 @@
         if (this.options.deleting) {
             var deleteButton = document.createElement('a')
             deleteButton.setAttribute('class', 'btn delete-table-row')
-            deleteButton.textContent = 'Delete row'
+            deleteButton.textContent = this.options.btnDeleteRowLabel
             deleteButton.setAttribute('data-cmd', 'record-delete')
             this.toolbar.appendChild(deleteButton)
         }
@@ -998,7 +998,10 @@
         toolbar: true,
         rowSorting: false,
         height: false,
-        dynamicHeight: false
+        dynamicHeight: false,
+        btnAddRowLabel: 'Add row',
+        btnAddRowBelowLabel: 'Add row below',
+        btnDeleteRowLabel: 'Delete row'
     }
 
     // TABLE PLUGIN DEFINITION

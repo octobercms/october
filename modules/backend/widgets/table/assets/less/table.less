@@ -366,6 +366,23 @@
     }
 }
 
+/* Frameless control styles start */
+
+.widget-field.frameless .control-table {
+    .table-container {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        .border-radius(0);
+    }
+
+    .toolbar {
+        background: transparent;
+    }
+}
+
+/* Frameless control styles end */
+
 html.cssanimations {
     .control-table td[data-column-type=dropdown] {
         [data-view-container].loading:after {
