@@ -781,9 +781,9 @@ class Controller
                         return false;
                     }
                 }
-            /*
-             * Component alias is supplied
-             */
+                /*
+                 * Component alias is supplied
+                 */
             }
             else {
                 if (($componentObj = $this->findComponentByName($componentAlias)) === null) {
@@ -843,6 +843,22 @@ class Controller
         }
 
         /*
+         * Keep track of current root component partial we are going to remove
+         * (nested partials can push component to the stack)
+         */
+        $partialComponentToRemove = false;
+        if(isset($componentObj)) {
+            foreach ($this->partialComponentStack as &$partialComponent) {
+                // Make sure that a nested partial that shares the alias will not remove the root from the stack
+                if ($partialComponent['name'] === $componentObj->alias && ! isset( $partialComponent['removing'] )) {
+                    $partialComponent['removing'] = true;
+                    $partialComponentToRemove     = $partialComponent['name'];
+                    break;
+                }
+            }
+        }
+
+        /*
          * Run functions for CMS partials only (Cms\Classes\Partial)
          */
 
@@ -852,7 +868,7 @@ class Controller
             foreach ($partial->settings['components'] as $component => $properties) {
                 // Do not inject the viewBag component to the environment.
                 // Not sure if they're needed there by the requirements,
-                // but there were problems with array-typed properties used by Static Pages 
+                // but there were problems with array-typed properties used by Static Pages
                 // snippets and setComponentPropertiesFromParams(). --ab
                 if ($component == 'viewBag')
                     continue;
@@ -897,6 +913,16 @@ class Controller
         $template = $this->twig->loadTemplate($partial->getFullPath());
         $result = $template->render(array_merge($this->vars, $parameters));
         CmsException::unmask();
+
+        /*
+         *  Free the stack if the current partial rendered is the root of the component
+         */
+        if ($this->partialComponentStack && $partialComponentToRemove) {
+            $this->partialComponentStack = array_filter($this->partialComponentStack,
+                function ($partialComponent) use ($partialComponentToRemove) {
+                    return $partialComponent['name'] !== $partialComponentToRemove;
+                });
+        }
 
         $this->vars = $vars;
         $this->componentContext = null;
