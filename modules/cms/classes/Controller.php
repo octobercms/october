@@ -898,12 +898,6 @@ class Controller
         $result = $template->render(array_merge($this->vars, $parameters));
         CmsException::unmask();
 
-        if ($partial instanceof Partial) {
-            if ($this->partialComponentStack) {
-                array_pop($this->partialComponentStack);
-            }
-        }
-
         $this->vars = $vars;
         $this->componentContext = null;
         return $result;
