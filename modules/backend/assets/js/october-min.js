@@ -716,7 +716,20 @@ result=result[value]})
 return result}
 if(lang.locale===undefined){lang.locale=$('html').attr('lang')||'en'}
 if(lang.loadedMessages===undefined){lang.load(lang.locale)}
-return lang})($.oc.lang||{},$.oc.langMessages);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+return lang})($.oc.lang||{},$.oc.langMessages);$(window).on('ajaxErrorMessage',function(event,message){if(!message)return
+swal({title:message,confirmButtonClass:'btn-default'})
+event.preventDefault()})
+$(window).on('ajaxConfirmMessage',function(event,message){if(!message)return
+swal({title:message,showCancelButton:true,confirmButtonClass:'btn-primary'},function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
+event.preventDefault()
+return true})
+$(document).on('ready',function(){if(!window.swal)return
+var swal=window.swal
+window.sweetAlert=window.swal=function(message,callback){if(typeof message==='object'){message.confirmButtonText=message.confirmButtonText||$.oc.lang.get('sweetalert.confirm_button_text')
+message.cancelButtonText=message.cancelButtonText||$.oc.lang.get('sweetalert.cancel_button_text')}
+else{message={title:message,confirmButtonText:$.oc.lang.get('sweetalert.confirm_button_text'),cancelButtonText:$.oc.lang.get('sweetalert.cancel_button_text')}}
+swal(message,callback)}})
++function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var Scrollpad=function(element,options){this.$el=$(element)
 this.scrollbarElement=null
 this.dragHandleElement=null
@@ -1400,16 +1413,6 @@ return this}
 $(document).ready(function(){$('[data-control=sidenav-tree]').sidenavTree()})}(window.jQuery);$.ajaxPrefilter(function(options){var token=$('meta[name="csrf-token"]').attr('content')
 if(token){if(!options.headers)options.headers={}
 options.headers['X-CSRF-TOKEN']=token}})
-$(window).on('ajaxErrorMessage',function(event,message){if(!message)return
-swal({title:message,confirmButtonClass:'btn-default'})
-event.preventDefault()})
-$(window).on('ajaxConfirmMessage',function(event,message){if(!message)return
-swal({title:message,showCancelButton:true,confirmButtonClass:'btn-primary'},function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
-event.preventDefault()
-return true})
-$(document).on('ready',function(){if(!window.swal)return
-var swal=window.swal;window.sweetAlert=window.swal=function(message,callback){if(typeof message==='object'){message.confirmButtonText=message.confirmButtonText||$.oc.lang.get('sweetalert.confirm_button_text');message.cancelButtonText=message.cancelButtonText||$.oc.lang.get('sweetalert.cancel_button_text');}else{message={title:message,confirmButtonText:$.oc.lang.get('sweetalert.confirm_button_text'),cancelButtonText:$.oc.lang.get('sweetalert.cancel_button_text')}}
-swal(message,callback);}})
 if($.oc===undefined)
 $.oc={}
 $.oc.backendUrl=function(url){var backendBasePath=$('meta[name="backend-base-path"]').attr('content')
