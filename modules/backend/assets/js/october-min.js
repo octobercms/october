@@ -714,7 +714,7 @@ $.each(name.split('.'),function(index,value){if(result[value]===undefined){resul
 return false}
 result=result[value]})
 return result}
-if(lang.locale===undefined){lang.locale='en'}
+if(lang.locale===undefined){lang.locale=$('html').attr('lang')||'en'}
 if(lang.loadedMessages===undefined){lang.load(lang.locale)}
 return lang})($.oc.lang||{},$.oc.langMessages);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var Scrollpad=function(element,options){this.$el=$(element)
@@ -1407,6 +1407,9 @@ $(window).on('ajaxConfirmMessage',function(event,message){if(!message)return
 swal({title:message,showCancelButton:true,confirmButtonClass:'btn-primary'},function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
 event.preventDefault()
 return true})
+$(document).on('ready',function(){if(!window.swal)return
+var swal=window.swal;window.sweetAlert=window.swal=function(message,callback){if(typeof message==='object'){message.confirmButtonText=message.confirmButtonText||$.oc.lang.get('sweetalert.confirm_button_text');message.cancelButtonText=message.cancelButtonText||$.oc.lang.get('sweetalert.cancel_button_text');}else{message={title:message,confirmButtonText:$.oc.lang.get('sweetalert.confirm_button_text'),cancelButtonText:$.oc.lang.get('sweetalert.cancel_button_text')}}
+swal(message,callback);}})
 if($.oc===undefined)
 $.oc={}
 $.oc.backendUrl=function(url){var backendBasePath=$('meta[name="backend-base-path"]').attr('content')
