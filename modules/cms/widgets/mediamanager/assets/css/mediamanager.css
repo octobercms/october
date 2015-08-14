@@ -54,7 +54,7 @@ div[data-control="media-manager"] .sidebar-image-placeholder-container{display:t
 div[data-control="media-manager"] .sidebar-image-placeholder{display:table-cell;height:225px;position:relative;vertical-align:middle;text-align:center;border-bottom:1px solid #ecf0f1}
 div[data-control="media-manager"] .sidebar-image-placeholder[data-loading]{background:#ecf0f1}
 div[data-control="media-manager"] .sidebar-image-placeholder[data-loading]:after{background-image:url('../../../../../../modules/system/assets/ui/images/loader-transparent.svg');background-position:50% 50%;content:' ';-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite;background-size:62px 62px;position:absolute;width:62px;height:62px;top:50%;left:50%;margin-top:-31px;margin-left:-31px}
-div[data-control="media-manager"] .sidebar-image-placeholder i.icon-chain-broken,div[data-control="media-manager"] .sidebar-image-placeholder i.icon-crop,div[data-control="media-manager"] .sidebar-image-placeholder i.icon-asterisk{color:#bdc3c7;font-size:55px}
+div[data-control="media-manager"] .sidebar-image-placeholder i.icon-chain-broken,div[data-control="media-manager"] .sidebar-image-placeholder i.icon-crop,div[data-control="media-manager"] .sidebar-image-placeholder i.icon-asterisk,div[data-control="media-manager"] .sidebar-image-placeholder i.icon-level-up{color:#bdc3c7;font-size:55px}
 div[data-control="media-manager"] .sidebar-image-placeholder.no-border{border-bottom:none}
 div[data-control="media-manager"] .sidebar-image-placeholder p{font-size:12px;margin:10px;line-height:160%;color:#bdc3c7;margin-top:25px}
 div[data-control="media-manager"] .list-container{position:relative;z-index:100}

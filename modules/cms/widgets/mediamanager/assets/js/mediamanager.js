@@ -440,7 +440,7 @@
         for (var i = 0, len = previewContainer.children.length; i < len; i++)
             previewContainer.removeChild(previewContainer.children[i])
 
-        if (items.length == 1) {
+        if (items.length == 1 && !items[0].hasAttribute('data-root')) {
             var item = items[0],
                 documentType = item.getAttribute('data-document-type')
 
@@ -464,6 +464,11 @@
             if (documentType == 'image')
                 this.loadSidebarThumbnail()
         }
+        else if (items.length == 1 && items[0].hasAttribute('data-root')) {
+            // "Go up" is selected
+            template = previewPanel.querySelector('[data-control="go-up"]').innerHTML
+            previewContainer.innerHTML = template
+        }
         else if (items.length == 0) {
             template = previewPanel.querySelector('[data-control="no-selection-template"]').innerHTML
             previewContainer.innerHTML = template
@@ -485,7 +490,7 @@
             // No items are selected
             this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class', 'hide')
         } 
-        else if (items.length == 1) {
+        else if (items.length == 1 && !items[0].hasAttribute('data-root')) {
             this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class', 'panel')
 
             // One item is selected - display the details
@@ -511,7 +516,7 @@
                 previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class', 'hide')
         }
         else {
-            // Multiple items are selected
+            // Multiple items are selected or "Go up" is selected
             this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class', 'hide')
         }
 
