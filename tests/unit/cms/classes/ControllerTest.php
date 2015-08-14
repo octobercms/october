@@ -127,19 +127,28 @@ class ControllerTest extends TestCase
 
     protected function configAjaxRequestMock($handler, $partials = false)
     {
-        $requestMock = $this->getMock('Illuminate\Http\Request', array('header'));
+        $requestMock = $this
+            ->getMockBuilder('Illuminate\Http\Request')
+            ->disableOriginalConstructor()
+            ->setMethods(array('ajax', 'method', 'header'))
+            ->getMock();
 
-        $requestMock->expects($this->at(0))
+        $map = array(
+            array('X_OCTOBER_REQUEST_HANDLER', null, $handler),
+            array('X_OCTOBER_REQUEST_PARTIALS', null, $partials),
+        );
+
+        $requestMock->expects($this->any())
+            ->method('ajax')
+            ->will($this->returnValue(true));
+
+        $requestMock->expects($this->any())
+            ->method('method')
+            ->will($this->returnValue('POST'));
+
+        $requestMock->expects($this->any())
             ->method('header')
-            ->with($this->stringContains('X_OCTOBER_REQUEST_HANDLER'), $this->anything())
-            ->will($this->returnValue($handler));
-
-        if ($partials !== false) {
-            $requestMock->expects($this->at(1))
-                ->method('header')
-                ->with($this->stringContains('X_OCTOBER_REQUEST_PARTIALS'), $this->anything())
-                ->will($this->returnValue($partials));
-        }
+            ->will($this->returnValueMap($map));
 
         return $requestMock;
     }

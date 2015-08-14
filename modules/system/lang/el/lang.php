@@ -1,5 +1,5 @@
 <?php
-/* Greek Language Updated on 2015-07-06 v1.02 */
+/* Greek Language Updated on 2015-07-11 v1.03 */
 return [
     'app' => [
         'name' => 'October CMS',
@@ -57,6 +57,7 @@ return [
         ]
     ],
     'theme' => [
+        'label' => 'Θέμα',
         'unnamed' => 'Ανώνυμο θέμα',
         'name' => [
             'label' => 'Όνομα Θέματος',
@@ -72,6 +73,7 @@ return [
         'remove_confirm' => 'Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό το θέμα;'
     ],
     'plugin' => [
+        'label' => 'Πρόσθετο',
         'unnamed' => 'Ανώνυμο πρόσθετο',
         'name' => [
             'label' => 'Όνομα Πρόσθετου',
@@ -92,6 +94,8 @@ return [
         'refresh' => 'Ανανέωση',
         'disabled_label' => 'Ανενεργό',
         'disabled_help' => 'Τα πρόσθετα που είναι απενεργοποιημένα αγνοούνται από την εφαρμογή.',
+        'frozen_label' => 'Πάγωμα ενημερώσεων',
+        'frozen_help' => 'Τα πρόσθετα τα οποία είναι παγωμένα θα αγνοηθούν από την διαδικασία ενημέρωσης.',
         'selected_amount' => 'Επιλεγμένα πρόσθετα',
         'remove_confirm' => 'Είστε σίγουροι ότι θέλετε να αφαιρέσετε αυτό το πρόσθετο;',
         'remove_success' => 'Επιτυχημένη αφαίρεση αυτών των πρόσθετων από το σύστημα.',
@@ -152,6 +156,8 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill Secret',
         'mandrill_secret_comment' => 'Συμπληρώστε το API κλειδί του Mandrill.',
+        'drivers_hint_header' => 'Οι οδηγοί δεν είναι εγκατεστημένοι',
+        'drivers_hint_content' => 'Αυτή η μέθοδος ταχυδρομείου απαιτεί να είναι εγκατεστημένο το πρόσθετο ":plugin" πριν μπορέσετε να αποστείλετε ένα ηλεκτρονικό ταχυδρομείο.',
     ],
     'mail_templates' => [
         'menu_label' => 'Πρότυπα',
@@ -191,15 +197,17 @@ return [
         'name' => 'Ενημέρωση λογισμικού',
         'menu_label' => 'Ενημερώσεις',
         'menu_description' => 'Ενημερώνει το σύστημα, διαχειρίζεται και εγκαθιστά πρόσθετα και θέματα.',
+        'return_link' => 'Επιστροφή στις ενημερώσεις του συστήματος',
         'check_label' => 'Έλεγχος για ενημερώσεις',
         'retry_label' => 'Προσπαθήστε ξανά',
         'plugin_name' => 'Όνομα',
+        'plugin_code' => 'Κώδικας',
         'plugin_description' => 'Περιγραφή',
         'plugin_version' => 'Έκδοση',
         'plugin_author' => 'Δημιουργός',
         'core_current_build' => 'Τρέχουσα έκδοση',
         'core_build' => 'Έκδοση :build',
-        'core_build_help' => 'Η τελευταία έκδοση είναι διαθέσιμη',
+        'core_build_help' => 'Η τελευταία έκδοση είναι διαθέσιμη.',
         'core_downloading' => 'Κατέβασμα αρχείων εφαρμογής',
         'core_extracting' => 'Ξεπακετάρισμα αρχείων εφαρμογής',
         'plugins' => 'Πρόσθετα',
@@ -208,6 +216,7 @@ return [
         'plugin_downloading' => 'Κατέβασμα πρόσθετου: :name',
         'plugin_extracting' => 'Ξεπακετάρισμα πρόσθετου: :name',
         'plugin_version_none' => 'Νέο πρόσθετο',
+        'plugin_current_version' => 'Τρέχουσα έκδοση',
         'theme_new_install' => 'Εγκατάσταση νέου θέματος.',
         'theme_downloading' => 'Κατέβασμα θέματος: :name',
         'theme_extracting' => 'Ξεπακετάρισμα θέματος: :name',
@@ -224,7 +233,24 @@ return [
         'none' => [
             'label' => 'Καμία ενημέρωση',
             'help' => 'Δεν βρέθηκαν νέες ενημερώσεις.',
-        ]
+        ],
+        'important_action' => [
+            'empty' => 'Επιλογή ενέργειας',
+            'confirm' => 'Επιβεβαίωση ενημέρωσης',
+            'skip' => 'Παράκαμψη αυτού του πρόσθετου (μόνο μια φορά)',
+            'ignore' => 'Παράκαμψη αυτού του πρόσθετου (πάντα)',
+        ],
+        'important_action_required' => 'Απαιτητέ ενέργεια',
+        'important_view_guide' => 'Εμφάνιση οδηγού αναβάθμισης',
+        'important_alert_text' => 'Κάποιες ενημερώσεις χρειάζονται την προσοχή σας.',
+        'details_title' => 'Λεπτομέρειες πρόσθετου',
+        'details_view_homepage' => 'Εμφάνιση αρχικής σελίδας',
+        'details_readme' => 'Οδηγιες Χρήσης',
+        'details_readme_missing' => 'Δεν παρέχονται οδηγίες χρήσης.',
+        'details_upgrades' => 'Οδηγός Αναβάθμισης',
+        'details_upgrades_missing' => 'Δεν παρέχονται οδηγίες αναβάθμισης',
+        'details_current_version' => 'Τρέχουσα έκδοση',
+        'details_author' => 'Δημιουργός',
     ],
     'server' => [
         'connect_error' => 'Σφάλμα σύνδεσης στον διακομιστή.',

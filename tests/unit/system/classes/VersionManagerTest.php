@@ -93,7 +93,7 @@ class VersionManagerTest extends TestCase
          * Test empty file
          */
         $result = self::callProtectedMethod($manager, 'getFileVersions', ['\October\\NoUpdates']);
-        $this->assertNull($result);
+        $this->assertEmpty($result);
     }
 
     public function testGetNewFileVersions()

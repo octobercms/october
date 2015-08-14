@@ -1,0 +1,49 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    step1_section:
+        label: 1. Upload a CSV file
+        type: section
+
+    import_file:
+        label: Import file
+        type: fileupload
+        mode: file
+        span: left
+        fileTypes: csv
+        useCaption: false
+
+    first_row_titles:
+        label: First row contains column titles
+        comment: Leave this checked if the first row in the CSV is used as the column titles.
+        type: checkbox
+        default: true
+        span: left
+
+    step2_section:
+        label: 2. Match the file columns to database fields
+        type: section
+
+    column_control_panel:
+        type: partial
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_toolbar.htm
+
+    import_file_columns:
+        label: File columns
+        type: partial
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_file_columns.htm
+        dependsOn: [import_file, first_row_titles]
+        span: left
+
+    import_db_columns:
+        label: Database fields
+        type: partial
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_db_columns.htm
+        dependsOn: [import_file, first_row_titles]
+        span: right
+
+    step3_section:
+        label: 3. Set import options
+        type: section

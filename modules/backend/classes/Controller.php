@@ -299,6 +299,27 @@ class Controller extends Extendable
     }
 
     /**
+     * Returns a URL for this controller and supplied action.
+     */
+    public function actionUrl($action = null, $path = null)
+    {
+        if ($action === null) {
+            $action = $this->action;
+        }
+
+        $class = get_called_class();
+        $uriPath = dirname(dirname(strtolower(str_replace('\\', '/', $class))));
+        $controllerName = strtolower(class_basename($class));
+
+        $url = $uriPath.'/'.$controllerName.'/'.$action;
+        if ($path) {
+            $url .= '/'.$path;
+        }
+
+        return Backend::url($url);
+    }
+
+    /**
      * Invokes the current controller action without rendering a view,
      * used by AJAX handler that may rely on the logic inside the action.
      */
@@ -571,21 +592,28 @@ class Controller extends Extendable
 
     /**
      * Renders a hint partial, used for displaying informative information that
-     * can be hidden by the user.
+     * can be hidden by the user. If you don't want to render a partial, you can
+     * supply content via the 'content' key of $params.
      * @param  string $name    Unique key name
      * @param  string $partial Reference to content (partial name)
      * @param  array  $params  Extra parameters
      * @return string
      */
-    public function makeHintPartial($name, $partial = null, array $params = [])
+    public function makeHintPartial($name, $partial = null, $params = [])
     {
+        if (is_array($partial)) {
+            $params = $partial;
+            $partial = null;
+        }
+
         if (!$partial) {
-            $partial = $name;
+            $partial = array_get($params, 'partial', $name);
         }
 
         return $this->makeLayoutPartial('hint', [
             'hintName'    => $name,
             'hintPartial' => $partial,
+            'hintContent' => array_get($params, 'content'),
             'hintParams'  => $params
         ] + $params);
     }

@@ -2,7 +2,42 @@
 
 The API allows to change elements' visibility or status (enabled/disabled) basing on other elements' statuses. Example: enable a button if any checkbox inside another element is checked.
 
-### Supported data attributes:
+## Example
+
+### Checked condition
+
+    <input type="checkbox" id="triggerChk1" />
+    <button class="btn disabled"
+        data-trigger-action="enable"
+        data-trigger="#triggerChk1"
+        data-trigger-condition="checked">
+        Check the checkbox
+    </button>
+
+### Value condition
+
+    <p>
+        <input
+            type="text"
+            id="triggerTxt1"
+            value=""
+            placeholder="Enter 'foo' or 'bar' here"
+            class="form-control" />
+    </p>
+
+    <div
+        class="callout callout-success"
+        data-trigger-action="show"
+        data-trigger="#triggerTxt1"
+        data-trigger-condition="value[foo][bar]">
+
+        <div class="content">
+            Passphrase is valid!
+        </div>
+    </div>
+
+
+## Supported data attributes:
 
 - data-trigger-action, values: show, hide, enable, disable, empty
 - data-trigger: a CSS selector for elements that trigger the action (checkboxes)
@@ -29,8 +64,7 @@ Multie value conditions are supported:
 
 ### Supported events:
 
-- oc.triggerOn.update - triggers the update. Trigger this event on the element the plugin is bound to to 
-  force it to check the condition and update itself. This is useful when the page content is updated with AJAX.
+- oc.triggerOn.update - triggers the update. Trigger this event on the element the plugin is bound to to force it to check the condition and update itself. This is useful when the page content is updated with AJAX.
 
 ### JavaScript API:
 
@@ -39,21 +73,3 @@ Multie value conditions are supported:
         trigger: '#cblist input[type=checkbox]',
         triggerAction: 'enable' 
     })
-
-# Example
-
-    <input type="checkbox" id="triggerChk1" />
-    <button class="btn disabled"
-        data-trigger-action="enable"
-        data-trigger="#triggerChk1"
-        data-trigger-condition="checked">
-        Check the checkbox
-    </button>
-
-    <input type="text" id="triggerTxt1" value="" placeholder="Enter 'foo' or 'bar' here" />
-    <button class="btn disabled"
-        data-trigger-action="enable"
-        data-trigger="#triggerTxt1"
-        data-trigger-condition="value[foo][bar]">
-        Passphrase valid!
-    </button>

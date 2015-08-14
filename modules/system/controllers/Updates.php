@@ -60,7 +60,7 @@ class Updates extends Controller
         $this->vars['projectId'] = Parameters::get('system::project.id');
         $this->vars['projectName'] = Parameters::get('system::project.name');
         $this->vars['projectOwner'] = Parameters::get('system::project.owner');
-        $this->vars['pluginsActiveCount'] = PluginVersion::isEnabled()->count();
+        $this->vars['pluginsActiveCount'] = PluginVersion::applyEnabled()->count();
         $this->vars['pluginsCount'] = PluginVersion::count();
         return $this->asExtension('ListController')->index();
     }
@@ -765,7 +765,8 @@ class Updates extends Controller
             foreach ((array) array_get($result, 'require') as $plugin) {
                 if (
                     ($name = array_get($plugin, 'code')) &&
-                    ($hash = array_get($plugin, 'hash'))
+                    ($hash = array_get($plugin, 'hash')) &&
+                    !PluginManager::instance()->hasPlugin($name)
                 ) {
                     $plugins[$name] = $hash;
                 }

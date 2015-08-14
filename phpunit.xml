@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="bootstrap/autoload.php"
+         bootstrap="tests/bootstrap.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -16,9 +16,6 @@
         </testsuite>
         <testsuite name="October Rain Test Suite">
             <directory>./vendor/october/rain/tests</directory>
-        </testsuite>
-        <testsuite name="Laravel Test Suite">
-            <directory>./vendor/laravel/framework/tests</directory>
         </testsuite>
     </testsuites>
     <php>

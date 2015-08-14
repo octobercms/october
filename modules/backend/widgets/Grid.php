@@ -276,7 +276,7 @@ class Grid extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('vendor/handsontable/jquery.handsontable.css', 'core');
         $this->addCss('css/datagrid.css', 'core');

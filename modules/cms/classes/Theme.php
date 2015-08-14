@@ -150,7 +150,7 @@ class Theme
 
         if (DbDongle::hasDatabase()) {
             $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function() {
-                return Parameters::findRecord(self::ACTIVE_KEY)->pluck('value');
+                return Parameters::applyKey(self::ACTIVE_KEY)->pluck('value');
             });
 
             if ($dbResult !== null && static::exists($dbResult)) {

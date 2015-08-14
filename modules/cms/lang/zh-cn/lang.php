@@ -154,10 +154,10 @@ return [
         'layout' => '布局',
         'description' => '描述',
         'preview' => '预览',
-        'meta' => 'Meta',
-        'meta_title' => 'Meta 标题',
-        'meta_description' => 'Meta 描述',
-        'markup' => 'Markup',
+        'meta' => '元素',
+        'meta_title' => '元素标题',
+        'meta_description' => '元素描述',
+        'markup' => '标记',
         'code' => '代码',
         'content' => '内容',
         'hidden' => '隐藏',
@@ -225,7 +225,7 @@ return [
         'saved'=> '模板保存成功.'
     ],
     'permissions' => [
-        'name' => 'Cms',
+        'name' => 'CMS',
         'manage_content' => '管理内容',
         'manage_assets' => '管理资源',
         'manage_pages' => '管理页面',

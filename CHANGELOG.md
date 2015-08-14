@@ -1,3 +1,13 @@
+* **Build 289** (2015-08-07)
+  - Added new `makeFormWidget()` method to `WidgetMaker` trait for rendering form widgets individually. This method is now available to backend controllers, controller behaviors and widgets themselves. Check to make sure your classes do not define a conflicting method of this name.
+
+* **Build 287** (2015-08-03)
+  - Introduced new **MarkdownEditor** form widget (see Backend > Forms docs).
+
+* **Build 284** (2015-07-25)
+  - Introduced new **ImportExport** controller behavior.
+  - The `export` action has been moved from ListController behavior to Import / Export behavior (see Backend > Importing & Exporting docs).
+
 * **Build 279** (2015-07-14)
   - Plugins can now be frozen to prevent them from receiving updates via the plugin management area.
   - A plugin version can now be flagged as "Important" by prepending `!!!` to the version history comment.
@@ -18,7 +28,7 @@
 
 * **Build 270** (2015-06-18)
   - Introduced the October Storm client-side library.
-  - Introduced new *MediaFinder* form widget.
+  - Introduced new **MediaFinder** form widget.
   - Improved the back-end administrator permissions and `RelationController` UI.
   - The page setting `hidden` has been renamed to `is_hidden`, this setting may need to be reapplied for some themes.
   - `FileUpload` form widget has been rebuilt from scratch, it now uses an interface similar to the Media Manager (see Backend > Forms docs).

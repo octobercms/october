@@ -73,6 +73,7 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/less/codeeditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/js/build.js');
+            $combiner->registerBundle('~/modules/backend/formwidgets/fileupload/assets/less/fileupload.less');
         });
     }
 
@@ -130,6 +131,10 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\RichEditor', [
                 'label' => 'Rich editor',
                 'code'  => 'richeditor'
+            ]);
+            $manager->registerFormWidget('Backend\FormWidgets\MarkdownEditor', [
+                'label' => 'Markdown editor',
+                'code'  => 'markdown'
             ]);
             $manager->registerFormWidget('Backend\FormWidgets\FileUpload', [
                 'label' => 'File uploader',

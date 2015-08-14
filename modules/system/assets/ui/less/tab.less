@@ -434,17 +434,6 @@
             }
         }
 
-        > .tab-content > .tab-pane {
-            padding-top: 0;
-
-            div.list-header,
-            div.padded-container,
-            div.toolbar-widget {
-                background: @color-tab-content-active-bg;
-                padding-top: 20px;
-            }
-        }
-
         // Tab divider to sit inset the standard padding (20px)
         &.tabs-inset {
             > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
@@ -482,6 +471,24 @@
                 }
             }
         }
+
+        > .tab-content > .tab-pane {
+            padding-top: 0;
+
+            div.list-header,
+            div.padded-container,
+            div.toolbar-widget {
+                background: @color-tab-content-active-bg;
+                padding-top: 20px;
+            }
+
+            // Pane to sit inset the standard padding (20px)
+            &.pane-inset {
+                margin-left: -20px;
+                margin-right: -20px;
+            }
+        }
+
     }
 }
 

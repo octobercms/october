@@ -59,12 +59,6 @@ class CmsCompoundObject extends CmsObject
         'fileName'
     ];
 
-    /**
-     * @var array These properties will be available as regular properties,
-     * by looking the settings and viewBag values.
-     */
-    protected $visible = [];
-
     protected $settingsValidationRules = [];
 
     protected $settingsValidationMessages = [];
@@ -116,21 +110,12 @@ class CmsCompoundObject extends CmsObject
      */
     public function __get($name)
     {
-        $visibleKeys = array_flip($this->visible);
-        if (isset($visibleKeys[$name])) {
-            if (
-                is_array($this->settings) &&
-                array_key_exists($name, $this->settings)
-            ) {
-                return $this->settings[$name];
-            }
+        if (is_array($this->settings) && array_key_exists($name, $this->settings)) {
+            return $this->settings[$name];
+        }
 
-            if (
-                is_array($this->viewBag) &&
-                array_key_exists($name, $this->viewBag)
-            ) {
-                return $this->viewBag[$name];
-            }
+        if (is_array($this->viewBag) && array_key_exists($name, $this->viewBag)) {
+            return $this->viewBag[$name];
         }
 
         return parent::__get($name);
@@ -536,40 +521,5 @@ class CmsCompoundObject extends CmsObject
 
         $stream = $twig->tokenize($markup === false ? $this->markup : $markup, 'getTwigNodeTree');
         return $twig->parse($stream);
-    }
-
-    //
-    // Visibility
-    //
-
-    /**
-     * Get the visible attributes for the object.
-     * @return array
-     */
-    public function getVisible()
-    {
-        return $this->visible;
-    }
-
-    /**
-     * Set the visible attributes for the object.
-     * @param  array  $visible
-     * @return void
-     */
-    public function setVisible(array $visible)
-    {
-        $this->visible = $visible;
-    }
-
-    /**
-     * Add visible attributes for the object.
-     * @param  array|string|null  $attributes
-     * @return void
-     */
-    public function addVisible($attributes = null)
-    {
-        $attributes = is_array($attributes) ? $attributes : func_get_args();
-
-        $this->visible = array_merge($this->visible, $attributes);
     }
 }

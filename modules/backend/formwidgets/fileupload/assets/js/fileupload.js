@@ -164,6 +164,11 @@
             $('.upload-remove-button', $preview).data('request-data', { file_id: response.id })
             $img.attr('src', response.thumb)
         }
+
+        /*
+         * Trigger change event (Compatability with october.form.js)
+         */
+        this.$el.closest('[data-field-name]').trigger('change.oc.formwidget')
     }
 
     FileUpload.prototype.onUploadError = function(file, error) {
@@ -255,6 +260,8 @@
     }
 
     FileUpload.prototype.onClickSuccessObject = function(ev) {
+        if ($(ev.target).closest('.meta').length) return
+
         var $target = $(ev.target).closest('.upload-object')
 
         if (!this.options.configHandler) {

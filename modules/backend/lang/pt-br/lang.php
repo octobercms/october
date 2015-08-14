@@ -19,6 +19,9 @@ return [
             'help' => 'Você não tem as permissões necessárias para visualizar esta página.',
             'cms_link' => 'Retornar à área administrativa',
         ],
+        'invalid_token' => [
+            'label' => 'Token de segurança inválido'
+        ]
     ],
     'partial' => [
         'not_found_name' => 'O bloco ":name" não foi encontrado.',
@@ -86,6 +89,7 @@ return [
         'password' => 'Senha',
         'password_confirmation' => 'Confirme a senha',
         'permissions' => 'Permissões',
+        'account' => 'Conta',
         'superuser' => 'Super Usuário',
         'superuser_comment' => 'Marque para liberar o acesso irrestrito para este usuário.',
         'send_invite' => 'Enviar convite por e-mail',
@@ -107,6 +111,7 @@ return [
             'new' => 'Novo grupo administrador',
             'delete_confirm' => 'Você realmente deseja excluir este grupo?',
             'return' => 'Voltar para a lista de grupos',
+            'users_count' => 'Usuários'
         ],
         'preferences' => [
             'not_authenticated' => 'Nenhum usuário autenticado para carregar as preferências.',
@@ -140,6 +145,12 @@ return [
         'help' => 'Adicione um título e descrição a este anexo.',
         'title_label' => 'Título',
         'description_label' => 'Descrição',
+        'default_prompt' => 'Clique em %s ou arraste um arquivo para cá para enviar',
+        'attachment_url' => 'Anexar URL',
+        'upload_file' => 'Enviar arquivo',
+        'upload_error' => 'Erro ao enviar',
+        'remove_confirm' => 'Você tem certeza?',
+        'remove_file' => 'Remover arquivo'
     ],
     'form' => [
         'create_title' => 'Novo :name',
@@ -176,11 +187,13 @@ return [
         'close' => 'Fechar',
         'confirm' => 'Confirmar',
         'reload' => 'Recarregar',
+        'complete' => 'Concluído',
         'ok' => 'Ok',
         'or' => 'ou',
         'confirm_tab_close' => 'Tem certeza que deseja fechar essa aba? As alterações que não foram salvas serão perdidas',
         'behavior_not_ready' => 'O formulário não foi inicializado. Confira se você chamou initForm() no controller.',
         'preview_no_files_message' => 'Os arquivos não foram carregados',
+        'preview_no_record_message' => 'Nenhum registro selecionado.',
         'select' => 'Selecionar',
         'select_all' => 'todos',
         'select_none' => 'nenhum',

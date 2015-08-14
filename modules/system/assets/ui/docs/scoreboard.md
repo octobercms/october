@@ -1,16 +1,6 @@
 # Scoreboard
 
-Scoreboard
-
-# Example
-
-<script src="/assets/js/october.goalmeter.js"></script>
-<script src="/assets/js/vendor/raphael-min.js"></script>
-<script src="/assets/js/october.chartutils.js"></script>
-<script src="/assets/js/october.chartpie.js"></script>
-<script src="/assets/js/october.chartbar.js"></script>
-<script src="/assets/js/october.dragscroll.js"></script>
-<script src="/assets/js/october.toolbar.js"></script>
+### Scoreboard
 
     <div class="scoreboard">
         <div data-control="toolbar">
@@ -55,6 +45,12 @@ Scoreboard
             </div>
 
             <div class="scoreboard-item title-value" data-control="goal-meter" data-value="88">
+                <h4>goal meter</h4>
+                <p>88%</p>
+                <p class="description">37 posts remain</p>
+            </div>
+
+            <div class="scoreboard-item title-value goal-meter-inverse" data-control="goal-meter" data-value="88">
                 <h4>goal meter</h4>
                 <p>88%</p>
                 <p class="description">37 posts remain</p>

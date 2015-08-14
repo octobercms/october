@@ -8,6 +8,101 @@ This plugin is a wrapper for the Twitter Bootstrap Tab component. It provides th
 - Scrolling tabs if they do not fit the screen
 - Collapsible tabs
 
+### Supported CSS modifiers
+
+These modifiers can be added in addition to the `control-tabs` class:
+
+- **tabs-inset**: Applies a negative margin to the tabs allowing them to sit well inside a padded container.
+- **tabs-offset**: Applies a positive padding to tabs so they sit well inside a flush (non padded) container.
+- **tabs-flush**: Tabs to sit flush to the element above it.
+
+### Master tabs
+
+    <div class="control-tabs master-tabs" data-control="tab">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#primaryTabOne">One</a></li>
+            <li><a href="#primaryTabTwo">Two</a></li>
+            <li><a href="#primaryTabThree">Three</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active">
+                Tab one content
+            </div>
+            <div class="tab-pane">
+                Tab two content
+            </div>
+            <div class="tab-pane">
+                Tab three content
+            </div>
+        </div>
+    </div>
+
+### Primary tabs
+
+    <div class="control-tabs primary-tabs" data-control="tab">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#primaryTabOne">One</a></li>
+            <li><a href="#primaryTabTwo">Two</a></li>
+            <li><a href="#primaryTabThree">Three</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active">
+                Tab one content
+            </div>
+            <div class="tab-pane">
+                Tab two content
+            </div>
+            <div class="tab-pane">
+                Tab three content
+            </div>
+        </div>
+    </div>
+
+> **Note**: Primary tabs in the October back-end are inset by default and you should use `.tabs-no-inset` to disable this.
+
+### Secondary tabs
+
+    <div class="control-tabs secondary-tabs" data-control="tab">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#secondaryTabOne">One</a></li>
+            <li><a href="#secondaryTabTwo">Two</a></li>
+            <li><a href="#secondaryTabThree">Three</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active">
+                Tab one content
+            </div>
+            <div class="tab-pane">
+                Tab two content
+            </div>
+            <div class="tab-pane">
+                Tab three content
+            </div>
+        </div>
+    </div>
+
+### Content tabs
+
+    <div class="control-tabs content-tabs" data-control="tab">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#contentTabOne">One</a></li>
+            <li><a href="#contentTabTwo">Two</a></li>
+            <li><a href="#contentTabThree">Three</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active">
+                Tab one content
+            </div>
+            <div class="tab-pane">
+                Tab two content
+            </div>
+            <div class="tab-pane">
+                Tab three content
+            </div>
+        </div>
+    </div>
+
+
 ### Supported data attributes:
 
 - data-control="tab" - creates the tab control from an element
@@ -52,108 +147,3 @@ Example with data attributes (data-control="tab"):
 - beforeClose.oc.tab - triggered on a tab pane element before tab is closed by the user. Call the event's 
   preventDefault() method to cancel the action.
 - afterAllClosed.oc.tab - triggered after all tabs have been closed
-
-# Example
-
-    <h5>Master</h5>
-
-    <div class="control-tabs master-tabs" data-control="tab">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#primaryTabOne">One</a></li>
-            <li><a href="#primaryTabTwo">Two</a></li>
-            <li><a href="#primaryTabThree">Three</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active">
-                Tab one content
-            </div>
-            <div class="tab-pane">
-                Tab two content
-            </div>
-            <div class="tab-pane">
-                Tab three content
-            </div>
-        </div>
-    </div>
-
-
-
-    <hr />
-
-
-
-    <h5>Primary</h5>
-
-    <div class="control-tabs primary-tabs" data-control="tab">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#primaryTabOne">One</a></li>
-            <li><a href="#primaryTabTwo">Two</a></li>
-            <li><a href="#primaryTabThree">Three</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active">
-                Tab one content
-            </div>
-            <div class="tab-pane">
-                Tab two content
-            </div>
-            <div class="tab-pane">
-                Tab three content
-            </div>
-        </div>
-    </div>
-
-
-
-    <hr />
-
-
-
-    <h5>Secondary</h5>
-
-    <div class="control-tabs secondary-tabs" data-control="tab">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#secondaryTabOne">One</a></li>
-            <li><a href="#secondaryTabTwo">Two</a></li>
-            <li><a href="#secondaryTabThree">Three</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active">
-                Tab one content
-            </div>
-            <div class="tab-pane">
-                Tab two content
-            </div>
-            <div class="tab-pane">
-                Tab three content
-            </div>
-        </div>
-    </div>
-
-
-
-    <hr />
-
-
-
-    <h5>Content</h5>
-
-    <div class="control-tabs content-tabs" data-control="tab">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#contentTabOne">One</a></li>
-            <li><a href="#contentTabTwo">Two</a></li>
-            <li><a href="#contentTabThree">Three</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active">
-                Tab one content
-            </div>
-            <div class="tab-pane">
-                Tab two content
-            </div>
-            <div class="tab-pane">
-                Tab three content
-            </div>
-        </div>
-    </div>
-

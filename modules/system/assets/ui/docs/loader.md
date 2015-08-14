@@ -62,6 +62,13 @@ A loading indicator can be aligned to the center by adding `indicator-center` to
     </div>
 
     <div class="loading-indicator-container">
+        <div class="loading-indicator indicator-inset">
+            <span></span>
+            <div>Loading (inset)</div>
+        </div>
+    </div>
+
+    <div class="loading-indicator-container">
         <div class="loading-indicator size-small">
             <span></span>
             <div>Loading (size-small)</div>

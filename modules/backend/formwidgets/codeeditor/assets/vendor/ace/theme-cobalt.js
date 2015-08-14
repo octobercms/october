@@ -22,7 +22,6 @@ background: rgba(179, 101, 57, 0.75)\
 }\
 .ace-cobalt.ace_multiselect .ace_selection.ace_start {\
 box-shadow: 0 0 3px 0px #002240;\
-border-radius: 2px\
 }\
 .ace-cobalt .ace_marker-layer .ace_step {\
 background: rgb(127, 111, 19)\

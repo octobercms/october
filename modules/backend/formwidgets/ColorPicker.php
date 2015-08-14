@@ -73,7 +73,7 @@ class ColorPicker extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('vendor/colpick/css/colpick.css', 'core');
         $this->addJs('vendor/colpick/js/colpick.js', 'core');

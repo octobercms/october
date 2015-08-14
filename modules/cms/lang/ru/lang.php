@@ -231,7 +231,11 @@ return [
         'manage_pages' => 'Управление страницами',
         'manage_layouts' => 'Управление шаблонами',
         'manage_partials' => 'Управление фрагментами',
-        'manage_themes' => 'Управление темами'
+        'manage_themes' => 'Управление темами',
+        'manage_media' => 'Управление медиафайлами'
+    ],
+    'mediafinder' => [
+        'default_prompt' => 'Кликните на %s кнопку, чтобы найти медиафайл'
     ],
     'media' => [
         'invalid_path' => "Указан недопустимый путь к файлу: ':path'.",

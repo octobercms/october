@@ -1,87 +1,84 @@
 <?php
     $fieldOptions = $field->options();
-    $checkedValues = (is_array($field->value)) ? $field->value : [$field->value];
+    $checkedValues = (array) $field->value;
 ?>
 <!-- Checkbox List -->
-<?php if (count($fieldOptions)): ?>
+<?php if ($this->previewMode && $field->value): ?>
 
     <div class="field-checkboxlist">
+        <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
+            <?php
+                $index++;
+                $checkboxId = 'checkbox_'.$field->getId().'_'.$index;
+                if (!in_array($value, $checkedValues)) continue;
+                if (is_string($option)) $option = [$option];
+            ?>
+            <div class="checkbox custom-checkbox">
+                <input
+                    type="checkbox"
+                    id="<?= $checkboxId ?>"
+                    name="<?= $field->getName() ?>[]"
+                    value="<?= $value ?>"
+                    disabled="disabled"
+                    checked="checked">
 
-        <?php if ($this->previewMode): ?>
+                <label for="<?= $checkboxId ?>">
+                    <?= e(trans($option[0])) ?>
+                </label>
+                <?php if (isset($option[1])): ?>
+                    <p class="help-block"><?= e(trans($option[1])) ?></p>
+                <?php endif ?>
+            </div>
+        <?php endforeach ?>
+    </div>
 
-            <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
-                <?php
-                    $index++;
-                    $checkboxId = 'checkbox_'.$field->getId().'_'.$index;
-                    if (!in_array($value, $checkedValues)) continue;
-                    if (is_string($option)) $option = [$option];
-                ?>
-                <div class="checkbox custom-checkbox">
-                    <input
-                        type="checkbox"
-                        id="<?= $checkboxId ?>"
-                        name="<?= $field->getName() ?>[]"
-                        value="<?= $value ?>"
-                        disabled="disabled"
-                        checked="checked">
+<?php elseif (!$this->previewMode && count($fieldOptions)): ?>
 
-                    <label for="<?= $checkboxId ?>">
-                        <?= e(trans($option[0])) ?>
-                    </label>
-                    <?php if (isset($option[1])): ?>
-                        <p class="help-block"><?= e(trans($option[1])) ?></p>
-                    <?php endif ?>
+    <div class="field-checkboxlist">
+        <?php if (count($fieldOptions) > 10): ?>
+            <!-- Quick selection -->
+            <small>
+                <?= e(trans('backend::lang.form.select')) ?>:
+                <a href="javascript:;" data-field-checkboxlist-all><?= e(trans('backend::lang.form.select_all')) ?></a>,
+                <a href="javascript:;" data-field-checkboxlist-none><?= e(trans('backend::lang.form.select_none')) ?></a>
+            </small>
+
+            <!-- Scrollable Checkbox list -->
+            <div class="field-checkboxlist-scrollable">
+                <div class="control-scrollbar" data-control="scrollbar">
+        <?php endif ?>
+
+        <input
+            type="hidden"
+            name="<?= $field->getName() ?>"
+            value="0" />
+
+        <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
+            <?php
+                $index++;
+                $checkboxId = 'checkbox_'.$field->getId().'_'.$index;
+                if (is_string($option)) $option = [$option];
+            ?>
+            <div class="checkbox custom-checkbox">
+                <input
+                    type="checkbox"
+                    id="<?= $checkboxId ?>"
+                    name="<?= $field->getName() ?>[]"
+                    value="<?= $value ?>"
+                    <?= in_array($value, $checkedValues) ? 'checked="checked"' : '' ?>>
+
+                <label for="<?= $checkboxId ?>">
+                    <?= e(trans($option[0])) ?>
+                </label>
+                <?php if (isset($option[1])): ?>
+                    <p class="help-block"><?= e(trans($option[1])) ?></p>
+                <?php endif ?>
+            </div>
+        <?php endforeach ?>
+
+        <?php if (count($fieldOptions) > 10): ?>
                 </div>
-            <?php endforeach ?>
-
-        <?php else: ?>
-
-            <?php if (count($fieldOptions) > 10): ?>
-                <!-- Quick selection -->
-                <small>
-                    <?= e(trans('backend::lang.form.select')) ?>:
-                    <a href="javascript:;" data-field-checkboxlist-all><?= e(trans('backend::lang.form.select_all')) ?></a>,
-                    <a href="javascript:;" data-field-checkboxlist-none><?= e(trans('backend::lang.form.select_none')) ?></a>
-                </small>
-
-                <!-- Scrollable Checkbox list -->
-                <div class="field-checkboxlist-scrollable">
-                    <div class="control-scrollbar" data-control="scrollbar">
-            <?php endif ?>
-
-            <input
-                type="hidden"
-                name="<?= $field->getName() ?>"
-                value="0" />
-
-            <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
-                <?php
-                    $index++;
-                    $checkboxId = 'checkbox_'.$field->getId().'_'.$index;
-                    if (is_string($option)) $option = [$option];
-                ?>
-                <div class="checkbox custom-checkbox">
-                    <input
-                        type="checkbox"
-                        id="<?= $checkboxId ?>"
-                        name="<?= $field->getName() ?>[]"
-                        value="<?= $value ?>"
-                        <?= in_array($value, $checkedValues) ? 'checked="checked"' : '' ?>>
-
-                    <label for="<?= $checkboxId ?>">
-                        <?= e(trans($option[0])) ?>
-                    </label>
-                    <?php if (isset($option[1])): ?>
-                        <p class="help-block"><?= e(trans($option[1])) ?></p>
-                    <?php endif ?>
-                </div>
-            <?php endforeach ?>
-
-            <?php if (count($fieldOptions) > 10): ?>
-                    </div>
-                </div>
-            <?php endif ?>
-
+            </div>
         <?php endif ?>
 
     </div>

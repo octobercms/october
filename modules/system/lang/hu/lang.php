@@ -56,6 +56,7 @@ return [
         ]
     ],
     'theme' => [
+        'label' => 'Téma',
         'unnamed' => 'Névtelen témák',
         'name' => [
             'label' => 'Téma neve',
@@ -71,6 +72,7 @@ return [
         'remove_confirm' => 'Valóban törölni akarja ezt a témát?'
     ],
     'plugin' => [
+        'label' => 'Bővítmény',
         'unnamed' => 'Névtelen bővítmény',
         'name' => [
             'label' => 'Bővítmény neve',
@@ -90,7 +92,9 @@ return [
         'remove' => 'Eltávolítás',
         'refresh' => 'Frissítés',
         'disabled_label' => 'Letiltva',
-        'disabled_help' => 'A letiltott bővítményeket az alkalmazás figyelmen kívül hagyja.',
+        'disabled_help' => 'A kiválasztott bővítményeket a weboldal figyelmen kívül hagyja.',
+        'frozen_label' => 'Frissítés letiltása',
+        'frozen_help' => 'A kiválasztott bővítmények nem lesznek frissítve a későbbiekben.',
         'selected_amount' => 'Kijelölt bővítmények: :amount',
         'remove_confirm' => 'Valóban törölni akarja a kijelölt bővítményeket?',
         'remove_success' => 'A bővítmények sikeresen eltávolításra kerültek.',
@@ -150,7 +154,9 @@ return [
         'mailgun_secret_comment' => 'Adja meg a Mailgun API kulcsát.',
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill titkos jelszót.',
-        'mandrill_secret_comment' => 'Adja meg Mandrill API kulcsát.'
+        'mandrill_secret_comment' => 'Adja meg Mandrill API kulcsát.',
+        'drivers_hint_header' => 'Meghajtó nincs telepítve',
+        'drivers_hint_content' => 'A levél küldéséhez szükséges, hogy telepítve legyen a(z) ":plugin" nevű bővítmény.'
     ],
     'mail_templates' => [
         'menu_label' => 'Levél sablonok',
@@ -190,9 +196,11 @@ return [
         'name' => 'Szoftver frissítése',
         'menu_label' => 'Frissítések',
         'menu_description' => 'A rendszer és a bővítmények frissítése, valamint új kiegészítők telepítése.',
+        'return_link' => 'Vissza a rendszer frissítésekhez',
         'check_label' => 'Frissítések keresése',
         'retry_label' => 'Új próba',
         'plugin_name' => 'Név',
+        'plugin_code' => 'Kód',
         'plugin_description' => 'Leírás',
         'plugin_version' => 'Verzió',
         'plugin_author' => 'Fejlesztő',
@@ -207,6 +215,7 @@ return [
         'plugin_downloading' => 'Bővítmény letöltése: :name',
         'plugin_extracting' => 'Bővítmény kicsomagolása: :name',
         'plugin_version_none' => 'Új bővítmény',
+        'plugin_current_version' => 'Aktuális verzió',
         'theme_new_install' => 'Új téma telepítése.',
         'theme_downloading' => 'Letöltendő téma: :name',
         'theme_extracting' => 'Kicsomagolandó téma: :name',
@@ -223,7 +232,24 @@ return [
         'none' => [
             'label' => 'A weboldal naprakész',
             'help' => 'Nem található új frissítés.'
-        ]
+        ],
+        'important_action' => [
+            'empty' => 'Művelet kiválasztása',
+            'confirm' => 'Frissítések elfogadása',
+            'skip' => 'Bővítmény kihagyása (csak most)',
+            'ignore' => 'Bővítmény kihagyása (mindig)'
+        ],
+        'important_action_required' => 'Művelet szükséges',
+        'important_view_guide' => 'Frissítési útmutat megtekintése',
+        'important_alert_text' => 'Néhány frissítés körültekintést igényel.',
+        'details_title' => 'Bővítmény részletei',
+        'details_view_homepage' => 'Weboldal megtekintése',
+        'details_readme' => 'Dokumentáció',
+        'details_readme_missing' => 'Nincs megadva dokumentáció.',
+        'details_upgrades' => 'Frissítési útmutató',
+        'details_upgrades_missing' => 'Nincsennek megadva frissítési utasítások.',
+        'details_current_version' => 'Aktuális verzió',
+        'details_author' => 'Fejlesztő'
     ],
     'server' => [
         'connect_error' => 'Hiba a kiszolgálóhoz való csatlakozáskor.',
@@ -241,7 +267,7 @@ return [
         'required' => "A(z) :location helyen használt konfigurációnak meg kell adnia egy ':property' értéket."
     ],
     'zip' => [
-        'extract_failed' => "Nem tömöríthető ki a(z) ':file' fő fájl."
+        'extract_failed' => "Nem tömöríthető ki a(z) ':file' fájl."
     ],
     'event_log' => [
         'hint' => 'Ez a napló a rendszerben történt lehetséges hibákat listázza ki. Például a kivételeket és a hibakeresési információkat.',

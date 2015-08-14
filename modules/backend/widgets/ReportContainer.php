@@ -73,18 +73,23 @@ class ReportContainer extends WidgetBase
     /**
      * Constructor.
      */
-    public function __construct($controller)
+    public function __construct($controller, $configuration = null)
     {
-        $configFile = 'config_' . snake_case($this->alias) . '.yaml';
-        $path = $controller->getConfigPath($configFile);
-        if (File::isFile($path)) {
-            $config = $this->makeConfig($configFile);
-        }
-        else {
-            $config = [];
+        if (!$configuration) {
+            $configuration = 'config_report_container.yaml';
         }
 
-        parent::__construct($controller, $config);
+        if (!is_array($configuration)) {
+            $path = $controller->getConfigPath($configuration);
+            if (File::isFile($path)) {
+                $configuration = $this->makeConfig($path);
+            }
+            else {
+                $configuration = [];
+            }
+        }
+
+        parent::__construct($controller, $configuration);
 
         $this->bindToController();
         $this->fillFromConfig();
@@ -114,7 +119,7 @@ class ReportContainer extends WidgetBase
     /**
      * {@inheritDoc}
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('css/reportcontainer.css', 'core');
         $this->addJs('vendor/isotope/jquery.isotope.min.js', 'core');

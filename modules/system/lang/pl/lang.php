@@ -13,16 +13,20 @@ return [
         'fa' => 'Perski',
         'fr' => 'Francuski',
         'hu' => 'Węgierski',
+		'id' => 'Indonezyjski',
         'it' => 'Włoski',
         'ja' => 'Japoński',
+		'lv' => 'Łotewski',
+		'nb-no' => 'Norweski (Bokmål)',
         'nl' => 'Duński',
+		'pl' => 'Polski',
         'pt-br' => 'Brazylisjki Portugalski',
         'ro' => 'Rumuński',
         'ru' => 'Rosyjski',
         'se' => 'Szwedzki',
+		'sk' => 'Słowacki (Słowacja)',
         'tr' => 'Turecki',
-        'pl' => 'Polski',
-        'nb-no' => 'Norweski (Bokmål)'
+        'zh-cn' => 'Chiński (Chiny)'
     ],
     'directory' => [
         'create_fail' => 'Nie można stworzyć katalogu: :name'
@@ -51,7 +55,24 @@ return [
             'my_settings' => 'Moje ustawienia'
         ]
     ],
+	'theme' => [
+        'label' => 'Motyw',
+        'unnamed' => 'Nienazwany motyw',
+        'name' => [
+            'label' => 'Nazwa motywu',
+            'help' => 'Nazwij motyw unikalnym kodem, na przykład: RainLab.Vanilla'
+        ],
+    ],
+    'themes' => [
+        'install' => 'Zainstaluj motywy',
+        'search' => 'szukaj motywów do instalacji...',
+        'installed' => 'Zainstalowane motywy',
+        'no_themes' => 'Brak motywów zainstalowanych z marketu.',
+        'recommended' => 'Polecane',
+        'remove_confirm' => 'Na pewno usunąć ten motyw?'
+    ],
     'plugin' => [
+		'label' => 'Wtyczka',
         'unnamed' => 'Wtyczka bez nazwy',
         'name' => [
             'label' => 'Nazwa Wtyczki',
@@ -62,10 +83,18 @@ return [
         'manage' => 'Zarządzaj Wtyczkami',
         'enable_or_disable' => 'Włącz lub wyłącz',
         'enable_or_disable_title' => 'Włącz lub Wyłącz Wtyczki',
+		'install' => 'Zainstaluj wtyczki',
+        'install_products' => 'Zainstaluj produkty',
+        'search' => 'szukaj wtyczek do instalacji...',
+        'installed' => 'Zainstalowane wtyczki',
+        'no_plugins' => 'Brak wtyczek zainstalowanych z marketu.',
+        'recommended' => 'Polecane',
         'remove' => 'Usuń',
         'refresh' => 'Odśwież',
         'disabled_label' => 'Wyłączona',
         'disabled_help' => 'Wyłączone wtyczki są ignorowane przez aplikację.',
+		'frozen_label' => 'Zablokuj zaktualizacje',
+        'frozen_help' => 'Zamrożone wtyczki będą pomijane w procesie aktualizacji.',
         'selected_amount' => 'Zaznaczono wtyczek: :amount',
         'remove_confirm' => 'Czy jesteś pewny?',
         'remove_success' => 'Skutecznie usunięto wtyczki z systemu.',
@@ -99,7 +128,7 @@ return [
         'search' => 'Szukaj'
     ],
     'mail' => [
-        'log_file' => 'Logi',
+        'log_file' => 'Plik logów',
         'menu_label' => 'Ustawienia wiadomości',
         'menu_description' => 'Zarządzaj ustawieniami email.',
         'general' => 'Ogólne',
@@ -107,7 +136,6 @@ return [
         'sender_name' => 'Imię nadawcy',
         'sender_email' => 'Email nadawcy',
         'php_mail' => 'PHP mail',
-        'sendmail' => 'Sendmail',
         'smtp' => 'SMTP',
         'smtp_address' => 'Adres serwera SMTP',
         'smtp_authorization' => 'Autoryzacja SMTP wymagana',
@@ -123,7 +151,12 @@ return [
         'mailgun_domain' => 'Domena Mailgun',
         'mailgun_domain_comment' => 'Proszę sprecyzować nazwę domeny Mailgun.',
         'mailgun_secret' => 'Mailgun Secret',
-        'mailgun_domain_secret' => 'Podaj klucz API Mailgun (Mailgun API key).'
+        'mailgun_secret_comment' => 'Podaj klucz API Mailgun (Mailgun API key).',
+		'mandrill' => 'Mandrill',
+        'mandrill_secret' => 'Mandrill secret',
+        'mandrill_secret_comment' => 'Podaj klucz API Mandrill.',
+        'drivers_hint_header' => 'Nie zainstalowano sterowników',
+        'drivers_hint_content' => 'Ta opcja wysyłki wiadomości wymaga zainstalowania wtyczki ":plugin".'
     ],
     'mail_templates' => [
         'menu_label' => 'Szablony wiadomości email',
@@ -152,7 +185,9 @@ return [
     'install' => [
         'project_label' => 'Podłącz do Projektu',
         'plugin_label' => 'Zainstaluj Wtyczkę',
+		'theme_label' => 'Zainstaluj Motyw',
         'missing_plugin_name' => 'Proszę sprecyzować nazwę Wtyczki do zainstalowania.',
+		'missing_theme_name' => 'Proszę sprecyzować nazwę Motywu do zainstalowania.',
         'install_completing' => 'Proces instalacji prawie zakończony.',
         'install_success' => 'Wtyczka została zainstalowana prawidłowo.'
     ],
@@ -161,21 +196,29 @@ return [
         'name' => 'Software – aktualizacje',
         'menu_label' => 'Aktualizacje',
         'menu_description' => 'Aktualizacja systemu, zarządzaj i instaluj wtyczki oraz szablony.',
+		'return_link' => 'Wróć do aktualizacji systemu',
         'check_label' => 'Sprawdź aktualizacje',
         'retry_label' => 'Spróbuj ponownie',
         'plugin_name' => 'Nazwa wtyczki',
+		'plugin_code' => 'Kod',
         'plugin_description' => 'Opis',
         'plugin_version' => 'Wersja',
         'plugin_author' => 'Autor',
+		'core_build' => 'Aktualny build',
+        'core_build_old' => 'Aktualny build :build',
         'core_current_build' => 'Aktualny build',
-        'core_build' => 'Build :build',
+		'core_build_new' => 'Build :build',
+        'core_build_new_help' => 'Najnowszy build jest dostępny.',
         'core_build_help' => 'Najnowszy build jest dostępny.',
         'core_downloading' => 'Pobieranie plików aplikacji',
         'core_extracting' => 'Rozpakowywanie plików aplikacji',
         'plugins' => 'Wtyczki',
+		'themes' => 'Motywy',
+        'disabled' => 'Wyłączony',
         'plugin_downloading' => 'Pobieranie wtyczki: :name',
         'plugin_extracting' => 'Rozpakowywanie wtyczki: :name',
         'plugin_version_none' => 'Nowa wtyczka',
+		'plugin_current_version' => 'Aktualna wersja',
         'theme_new_install' => 'Zainstaluj nowy motyw.',
         'theme_downloading' => 'Pobieranie nowego motywu: :name',
         'theme_extracting' => 'Rozpakowywanie motywu: :name',
@@ -192,7 +235,24 @@ return [
         'none' => [
             'label' => 'Brak aktualizacji',
             'help' => 'Brak nowych aktualizacji.'
-        ]
+        ],
+		'important_action' => [
+            'empty' => 'Wybierz działanie',
+            'confirm' => 'Zatwierdź aktualizację',
+            'skip' => 'Pomiń tę wtyczkę (tylko teraz)',
+            'ignore' => 'Pomiń tę wtyczkę (zawsze)',
+        ],
+        'important_action_required' => 'Wymagane działanie',
+        'important_view_guide' => 'Zobacz instrukcje aktualizacji',
+        'important_alert_text' => 'Niektóre aktualizacje wymagają twojej uwagi.',
+        'details_title' => 'Szeczóły Wtyczki',
+        'details_view_homepage' => 'Zobacz stronę domową',
+        'details_readme' => 'Dokumentacja',
+        'details_readme_missing' => 'Nie dostarczono dokumentacji.',
+        'details_upgrades' => 'Podręcznik Aktualizacji',
+        'details_upgrades_missing' => 'Nie dostarczono instrukcji aktualizacji.',
+        'details_current_version' => 'Aktualna wersja',
+        'details_author' => 'Autor',
     ],
     'server' => [
         'connect_error' => 'Błąd połączenia do serwera.',
@@ -245,9 +305,11 @@ return [
         'name' => 'System',
         'manage_system_settings' => 'Zarządzaj ustawienia systemu',
         'manage_software_updates' => 'Zarządzaj aktualizacjami – software',
+		'access_logs' => 'Przeglądaj logi systemowe',
         'manage_mail_templates' => 'Zarządzaj szablonami wiadomości',
         'manage_mail_settings' => 'Zarządzaj ustawieniami wiadomości',
         'manage_other_administrators' => 'Zarządzaj innymi administratorami',
-        'view_the_dashboard' => 'Zobacz kokpit'
+        'view_the_dashboard' => 'Zobacz kokpit',
+		'manage_branding' => 'Personalizuj zaplecze'
     ]
 ];

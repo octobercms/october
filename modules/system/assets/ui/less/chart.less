@@ -206,6 +206,15 @@
         }
     }
 
+    &.goal-meter-inverse {
+        span.goal-meter-indicator {
+            background: @color-scoreboard-positive;
+            > span {
+                background: @color-scoreboard-negative;
+            }
+        }
+    }
+
     p {
         color: @color-scoreboard-body;
         margin: 0;
@@ -308,7 +317,7 @@ ul.status-list {
         a {
             color: @color-status-list-text;
             &:hover {
-                color: @color-link;
+                color: @link-color;
                 text-decoration: none;
             }
         }
