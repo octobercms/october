@@ -389,8 +389,9 @@
           modalIsVisible = hasClass(modal, 'visible'),
           bootstrapModalIsVisible = document.querySelector('.control-popup.modal') || false;
 
-      if(bootstrapModalIsVisible) {
-        // Bootstrap will enforce focus on the existing model, so don't do anything here to prevent infinite loop
+      if (bootstrapModalIsVisible) {
+        // Bootstrap will enforce focus on the existing model, so don't
+        // do anything here to prevent infinite loop.
         return;
       }
 
