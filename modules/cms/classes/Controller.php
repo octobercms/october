@@ -781,9 +781,9 @@ class Controller
                         return false;
                     }
                 }
-                /*
-                 * Component alias is supplied
-                 */
+            /*
+             * Component alias is supplied
+             */
             }
             else {
                 if (($componentObj = $this->findComponentByName($componentAlias)) === null) {
