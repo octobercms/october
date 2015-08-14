@@ -113,19 +113,20 @@ return
 clearTimeout(this.selectTimer)
 this.selectTimer=null}
 MediaManager.prototype.selectItem=function(node,expandSelection){if(!expandSelection){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
-for(var i=0,len=items.length;i<len;i++)
-items[i].setAttribute('class','')}
-else
-this.unselectRoot()
-if(!expandSelection)
-node.setAttribute('class','selected')
+for(var i=0,len=items.length;i<len;i++){items[i].setAttribute('class','')}
+node.setAttribute('class','selected')}
 else{if(node.getAttribute('class')=='selected')
 node.setAttribute('class','')
 else
 node.setAttribute('class','selected')}
 node.focus()
 this.clearSelectTimer()
-if(this.isPreviewSidebarVisible()){this.selectTimer=setTimeout(this.proxy(this.updateSidebarPreview),100)}}
+if(this.isPreviewSidebarVisible()){this.selectTimer=setTimeout(this.proxy(this.updateSidebarPreview),100)}
+if(node.hasAttribute('data-root')&&!expandSelection){this.toggleMoveAndDelete(true)}
+else{this.toggleMoveAndDelete(false)}
+if(expandSelection){this.unselectRoot()}}
+MediaManager.prototype.toggleMoveAndDelete=function(value){$('[data-command=delete]',this.$el).prop('disabled',value)
+$('[data-command=move]',this.$el).prop('disabled',value)}
 MediaManager.prototype.unselectRoot=function(){var rootItem=this.$el.get(0).querySelector('[data-type="media-item"][data-root].selected')
 if(rootItem)
 rootItem.setAttribute('class','')}
@@ -135,8 +136,7 @@ clearTimeout(this.dblTouchTimer)
 this.dblTouchTimer=null}
 MediaManager.prototype.clearDblTouchFlag=function(){this.dblTouchFlag=false}
 MediaManager.prototype.selectFirstItem=function(){var firstItem=this.itemListElement.querySelector('[data-type="media-item"]:first-child')
-if(firstItem)
-this.selectItem(firstItem)}
+if(firstItem){this.selectItem(firstItem)}}
 MediaManager.prototype.selectRelative=function(next,expandSelection){var currentSelection=this.getSelectedItems(true,true)
 if(currentSelection.length==0){this.selectFirstItem()
 return}
@@ -183,8 +183,7 @@ else{$sidebar.addClass('hide')
 $button.addClass('sidebar-hidden')}
 this.$form.request(this.options.alias+'::onSetSidebarVisible',{data:{visible:(isVisible?0:1)}})}
 MediaManager.prototype.updateSidebarMediaPreview=function(items){var previewPanel=this.sidebarPreviewElement,previewContainer=previewPanel.querySelector('[data-control="media-preview-container"]'),template=''
-for(var i=0,len=previewContainer.children.length;i<len;i++)
-previewContainer.removeChild(previewContainer.children[i])
+for(var i=0,len=previewContainer.children.length;i<len;i++){previewContainer.removeChild(previewContainer.children[i])}
 if(items.length==1&&!items[0].hasAttribute('data-root')){var item=items[0],documentType=item.getAttribute('data-document-type')
 switch(documentType){case'audio':template=previewPanel.querySelector('[data-control="audio-template"]').innerHTML
 break;case'video':template=previewPanel.querySelector('[data-control="video-template"]').innerHTML
@@ -216,8 +215,8 @@ previewPanel.querySelector('[data-control="last-modified"]').setAttribute('class
 if(this.isSearchMode()){previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class','')
 var folderNode=previewPanel.querySelector('[data-label="folder"]')
 folderNode.textContent=item.getAttribute('data-folder')
-folderNode.setAttribute('data-path',item.getAttribute('data-folder'))}else
-previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class','hide')}
+folderNode.setAttribute('data-path',item.getAttribute('data-folder'))}
+else{previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class','hide')}}
 else{this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class','hide')}
 this.updateSidebarMediaPreview(items)}
 MediaManager.prototype.loadSidebarThumbnail=function(){if(this.sidebarThumbnailAjax){try{this.sidebarThumbnailAjax.abort()}
@@ -402,7 +401,7 @@ else
 this.cropSelectedImage(this.proxy(this.onImageCropped))
 break;}
 return false}
-MediaManager.prototype.onItemClick=function(ev){if(ev.currentTarget.hasAttribute('data-root')||(ev.target.tagName=='I'&&ev.target.hasAttribute('data-rename-control')))
+MediaManager.prototype.onItemClick=function(ev){if(ev.target.tagName=='I'&&ev.target.hasAttribute('data-rename-control'))
 return
 this.selectItem(ev.currentTarget,ev.shiftKey)}
 MediaManager.prototype.onItemTouch=function(ev){this.onItemClick(ev)

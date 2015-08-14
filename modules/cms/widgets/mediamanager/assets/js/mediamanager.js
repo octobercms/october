@@ -136,7 +136,7 @@
         this.$el.on('click.tree-path', 'ul.tree-path, [data-control="sidebar-labels"]', this.proxy(this.onNavigate))
 
         this.$el.on('click.command', '[data-command]', this.proxy(this.onCommandClick))
-        
+
         // Touch devices use double-tap for the navigation and single tap for selecting.
         // Another option is checkboxes visible only on touch devices, but this approach
         // will require more significant changes in the code for the touch device support.
@@ -162,7 +162,7 @@
         this.$el.off('dblclick', this.proxy(this.onNavigate))
         this.$el.off('click.tree-path', this.proxy(this.onNavigate))
         this.$el.off('click.command', this.proxy(this.onCommandClick))
-        
+
         if (!Modernizr.touch)
             this.$el.off('click.item', this.proxy(this.onItemClick))
         else
@@ -248,16 +248,14 @@
             var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
 
             // The class attribute is used only for selecting, it's safe to clear it
-            for (var i = 0, len = items.length; i < len; i++)
+            for (var i = 0, len = items.length; i < len; i++) {
                 items[i].setAttribute('class', '')
-        } 
-        else 
-            this.unselectRoot()
+            }
 
-        if (!expandSelection)
             node.setAttribute('class', 'selected')
+        }
         else {
-            if (node.getAttribute('class') == 'selected') 
+            if (node.getAttribute('class') == 'selected')
                 node.setAttribute('class', '')
             else
                 node.setAttribute('class', 'selected')
@@ -272,6 +270,24 @@
             // when the selection changes too quickly (with the keyboard arrows)
             this.selectTimer = setTimeout(this.proxy(this.updateSidebarPreview), 100) 
         }
+
+        // Disable delete and move buttons
+        if (node.hasAttribute('data-root') && !expandSelection) {
+            this.toggleMoveAndDelete(true)
+        }
+        else {
+            this.toggleMoveAndDelete(false)
+        }
+
+        // Always unselect root when selecting multiples
+        if (expandSelection) {
+            this.unselectRoot()
+        }
+    }
+
+    MediaManager.prototype.toggleMoveAndDelete = function(value) {
+        $('[data-command=delete]', this.$el).prop('disabled', value)
+        $('[data-command=move]', this.$el).prop('disabled', value)
     }
 
     MediaManager.prototype.unselectRoot = function() {
@@ -295,8 +311,9 @@
 
     MediaManager.prototype.selectFirstItem = function() {
         var firstItem = this.itemListElement.querySelector('[data-type="media-item"]:first-child')
-        if (firstItem)
+        if (firstItem) {
             this.selectItem(firstItem)
+        }
     }
 
     MediaManager.prototype.selectRelative = function(next, expandSelection) {
@@ -437,9 +454,11 @@
             previewContainer = previewPanel.querySelector('[data-control="media-preview-container"]'),
             template = ''
 
-        for (var i = 0, len = previewContainer.children.length; i < len; i++)
+        for (var i = 0, len = previewContainer.children.length; i < len; i++) {
             previewContainer.removeChild(previewContainer.children[i])
+        }
 
+        // Single item selected
         if (items.length == 1 && !items[0].hasAttribute('data-root')) {
             var item = items[0],
                 documentType = item.getAttribute('data-document-type')
@@ -464,16 +483,18 @@
             if (documentType == 'image')
                 this.loadSidebarThumbnail()
         }
+        // "Go up" is selected
         else if (items.length == 1 && items[0].hasAttribute('data-root')) {
-            // "Go up" is selected
             template = previewPanel.querySelector('[data-control="go-up"]').innerHTML
             previewContainer.innerHTML = template
         }
+        // No selection
         else if (items.length == 0) {
             template = previewPanel.querySelector('[data-control="no-selection-template"]').innerHTML
             previewContainer.innerHTML = template
         }
-        else  {
+        // Multiple selection
+        else {
             template = previewPanel.querySelector('[data-control="multi-selection-template"]').innerHTML
             previewContainer.innerHTML = template
         }
@@ -486,14 +507,14 @@
         var items = resetSidebar === undefined ? this.$el.get(0).querySelectorAll('[data-type="media-item"].selected') : [],
             previewPanel = this.sidebarPreviewElement
 
+        // No items are selected
         if (items.length == 0) {
-            // No items are selected
             this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class', 'hide')
-        } 
+        }
+        // One item is selected - display the details
         else if (items.length == 1 && !items[0].hasAttribute('data-root')) {
             this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class', 'panel')
 
-            // One item is selected - display the details
             var item = items[0],
                 lastModified = item.getAttribute('data-last-modified')
 
@@ -512,11 +533,13 @@
                 var folderNode = previewPanel.querySelector('[data-label="folder"]')
                 folderNode.textContent = item.getAttribute('data-folder')
                 folderNode.setAttribute('data-path', item.getAttribute('data-folder'))
-            } else
+            }
+            else {
                 previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class', 'hide')
+            }
         }
+        // Multiple items are selected or "Go up" is selected
         else {
-            // Multiple items are selected or "Go up" is selected
             this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class', 'hide')
         }
 
@@ -1037,13 +1060,13 @@
         var command = $(ev.currentTarget).data('command')
 
         switch (command) {
-            case 'refresh' : 
+            case 'refresh':
                 this.refresh()
             break;
-            case 'change-view' :
+            case 'change-view':
                 this.changeView($(ev.currentTarget).data('view'))
             break;
-            case 'cancel-uploading' :
+            case 'cancel-uploading':
                 this.uploadCancelAll()
             break;
             case 'close-uploader':
@@ -1078,8 +1101,8 @@
     }
 
     MediaManager.prototype.onItemClick = function(ev) {
-        // Don't select "Go up" folders and don't select items when the rename icon is clicked
-        if (ev.currentTarget.hasAttribute('data-root') || (ev.target.tagName == 'I' && ev.target.hasAttribute('data-rename-control')))
+        // Don't select items when the rename icon is clicked
+        if (ev.target.tagName == 'I' && ev.target.hasAttribute('data-rename-control'))
             return
 
         this.selectItem(ev.currentTarget, ev.shiftKey)
