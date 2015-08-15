@@ -158,6 +158,14 @@ class Table extends WidgetBase
                     $option = trans($option);
             }
 
+            if (isset($data['validation'])) {
+                foreach ($data['validation'] as &$validation) {
+                    if (isset($validation['message'])) {
+                        $validation['message'] = trans($validation['message']);
+                    }
+                }
+            }
+
             $result[] = $data;
         }
 

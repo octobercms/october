@@ -697,11 +697,14 @@ CheckboxProcessor.prototype.onFocus=function(cellElement,isClick){cellElement.qu
 CheckboxProcessor.prototype.onKeyDown=function(ev){if(ev.keyCode==32)
 this.onClick(ev)}
 CheckboxProcessor.prototype.onClick=function(ev){var target=this.tableObj.getEventTarget(ev,'DIV')
-if(target.getAttribute('data-checkbox-element')){this.changeState(target)}}
+if(target.getAttribute('data-checkbox-element')){var container=this.getCheckboxContainerNode(target)
+if(container.getAttribute('data-column')!==this.columnName){return}
+this.changeState(target)}}
 CheckboxProcessor.prototype.changeState=function(divElement){var cell=divElement.parentNode.parentNode
 if(divElement.getAttribute('class')=='checked'){divElement.setAttribute('class','')
 this.tableObj.setCellValue(cell,0)}else{divElement.setAttribute('class','checked')
 this.tableObj.setCellValue(cell,1)}}
+CheckboxProcessor.prototype.getCheckboxContainerNode=function(checkbox){return checkbox.parentNode.parentNode}
 $.oc.table.processor.checkbox=CheckboxProcessor;}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
 throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.processor===undefined)
 throw new Error("The $.oc.table.processor namespace is not defined. Make sure that the table.processor.base.js script is loaded.");var Base=$.oc.table.processor.base,BaseProto=Base.prototype

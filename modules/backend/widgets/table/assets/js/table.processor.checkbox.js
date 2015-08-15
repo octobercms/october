@@ -79,6 +79,13 @@
         var target = this.tableObj.getEventTarget(ev, 'DIV')
 
         if (target.getAttribute('data-checkbox-element')) {
+            // The method is called for all processors, but we should
+            // update only the checkbox in the clicked column.
+            var container = this.getCheckboxContainerNode(target)
+            if (container.getAttribute('data-column') !== this.columnName) {
+                return
+            }
+
             this.changeState(target)
         }
     }
@@ -94,6 +101,10 @@
             this.tableObj.setCellValue(cell, 1)
         }
     }
+
+    CheckboxProcessor.prototype.getCheckboxContainerNode = function(checkbox) {
+        return checkbox.parentNode.parentNode
+    } 
 
     $.oc.table.processor.checkbox = CheckboxProcessor;
 }(window.jQuery);
