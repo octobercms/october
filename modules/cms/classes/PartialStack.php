@@ -58,6 +58,10 @@ class PartialStack
      */
     public function getComponent($name)
     {
+        if (!$this->activePartial) {
+            return null;
+        }
+
         $component = $this->findComponentFromStack($name, $this->activePartial);
         if ($component !== null) {
             return $component;

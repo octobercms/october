@@ -5,6 +5,31 @@ use Cms\Classes\Controller;
 
 class ControllerTest extends TestCase
 {
+
+    public function testThemeUrl()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+
+        $url = $controller->themeUrl();
+        $this->assertEquals('http://localhost/themes/test', $url);
+
+        $url = $controller->themeUrl('foo/bar.css');
+        $this->assertEquals('http://localhost/themes/test/foo/bar.css', $url);
+
+        //
+        // These tests seem to bear different results
+        //
+
+        // $url = $controller->themeUrl(['assets/css/style1.css', 'assets/css/style2.css']);
+        // $url = substr($url, 0, strpos($url, '-'));
+        // $this->assertEquals('/combine/88634b8fa6f4f6442ce830d38296640a', $url);
+
+        // $url = $controller->themeUrl(['assets/js/script1.js', 'assets/js/script2.js']);
+        // $url = substr($url, 0, strpos($url, '-'));
+        // $this->assertEquals('/combine/860afc990164a60a8e90682d04da27ee', $url);
+    }
+
     public function test404()
     {
         /*
@@ -107,7 +132,7 @@ class ControllerTest extends TestCase
     }
 
     /**
-     * @expectedException        Cms\Classes\CmsException
+     * @expectedException        Twig_Error_Runtime
      * @expectedExceptionMessage is not found
      */
     public function testPartialNotFound()
@@ -341,28 +366,99 @@ ESC;
         $this->assertEquals('page', $content['ajax-result']);
     }
 
-    public function testThemeUrl()
+    /**
+     * @expectedException        October\Rain\Exception\SystemException
+     * @expectedExceptionMessage is not registered for the component
+     */
+    public function testComponentClassNotFound()
     {
         $theme = Theme::load('test');
         $controller = new Controller($theme);
+        $response = $controller->run('/no-component-class')->getContent();
+    }
 
-        $url = $controller->themeUrl();
-        $this->assertEquals('http://localhost/themes/test', $url);
-
-        $url = $controller->themeUrl('foo/bar.css');
-        $this->assertEquals('http://localhost/themes/test/foo/bar.css', $url);
-
+    public function testComponentNotFound()
+    {
         //
-        // These tests seem to bear different results
+        // This test should probably be throwing an exception... -sg
         //
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/no-component')->getContent();
 
-        // $url = $controller->themeUrl(['assets/css/style1.css', 'assets/css/style2.css']);
-        // $url = substr($url, 0, strpos($url, '-'));
-        // $this->assertEquals('/combine/88634b8fa6f4f6442ce830d38296640a', $url);
+        $this->assertEquals('<p>Hey</p>', $response);
+    }
 
-        // $url = $controller->themeUrl(['assets/js/script1.js', 'assets/js/script2.js']);
-        // $url = substr($url, 0, strpos($url, '-'));
-        // $this->assertEquals('/combine/860afc990164a60a8e90682d04da27ee', $url);
+    public function testComponentPartial()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/component-partial')->getContent();
+
+        $this->assertEquals('<p>DEFAULT MARKUP: I am a post yay</p>', $response);
+    }
+
+    public function testComponentPartialOverride()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/component-partial-override')->getContent();
+
+        $this->assertEquals('<p>I am an override partial! Yay</p>', $response);
+    }
+
+    public function testComponentPartialNesting()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/component-partial-nesting')->getContent();
+
+        $content = <<<ESC
+<h1>Level 1</h1>
+<ul>
+    <strong>Home</strong>
+    <strong>Blog</strong>
+    <strong>About</strong>
+    <strong>Contact</strong>
+    <strong>Home</strong>
+    <strong>Blog</strong>
+    <strong>About</strong>
+    <strong>Contact</strong>
+    <strong>Home</strong>
+    <strong>Blog</strong>
+    <strong>About</strong>
+    <strong>Contact</strong>
+</ul>
+
+<h1>Level 2</h1>
+<p>DEFAULT MARKUP: I am a post yay</p><p>I am another post, deep down</p>
+
+<h1>Level 3</h1>
+<h4>DEFAULT MARKUP: Menu</h4>
+<ul>
+    <li>DEFAULT: Home</li>
+    <li>DEFAULT: Blog</li>
+    <li>DEFAULT: About</li>
+    <li>DEFAULT: Contact</li>
+</ul>
+<p>Insert post here</p>
+ESC;
+
+        $this->assertEquals($content, $response);
+    }
+
+    public function testComponentWithOnRender()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/component-custom-render')->getContent();
+
+        $content = <<<ESC
+Pass
+Custom output: Would you look over Picasso's shoulder
+Custom output: And tell him about his brush strokes?
+ESC;
+        $this->assertEquals($content, $response);
     }
 
 }

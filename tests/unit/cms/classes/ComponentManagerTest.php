@@ -22,6 +22,8 @@ class ComponentManagerTest extends TestCase
     {
         include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Archive.php';
         include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Post.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/MainMenu.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/ContentBlock.php';
 
         $manager = ComponentManager::instance();
         $components = $manager->listComponentDetails();

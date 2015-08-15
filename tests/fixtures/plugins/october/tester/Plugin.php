@@ -18,7 +18,9 @@ class Plugin extends PluginBase
     {
         return [
             'October\Tester\Components\Archive' => 'testArchive',
-            'October\Tester\Components\Post' => 'testPost'
+            'October\Tester\Components\Post' => 'testPost',
+            'October\Tester\Components\MainMenu' => 'testMainMenu',
+            'October\Tester\Components\ContentBlock' => 'testContentBlock'
         ];
     }
 
