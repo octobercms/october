@@ -59,6 +59,11 @@ class RecordFinder extends FormWidgetBase
     public $scope;
 
     /**
+     * @var string Filters the relation using a raw where query statement.
+     */
+    public $conditions;
+
+    /**
      * @var string If searching the records, specifies a policy to use.
      * - all: result must contain all words
      * - any: result can contain any word
@@ -86,12 +91,12 @@ class RecordFinder extends FormWidgetBase
     public $relationModel;
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the widget used for viewing (list or form).
+     * @var \Backend\Classes\WidgetBase Reference to the widget used for viewing (list or form).
      */
     protected $listWidget;
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the widget used for searching.
+     * @var \Backend\Classes\WidgetBase Reference to the widget used for searching.
      */
     protected $searchWidget;
 
@@ -107,6 +112,7 @@ class RecordFinder extends FormWidgetBase
             'nameFrom',
             'descriptionFrom',
             'scope',
+            'conditions',
             'searchMode',
             'searchScope',
         ]);
@@ -247,6 +253,12 @@ class RecordFinder extends FormWidgetBase
         if ($scopeMethod = $this->scope) {
             $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
                 $query->$scopeMethod();
+            });
+        }
+
+        if ($sqlConditions = $this->conditions) {
+            $widget->bindEvent('list.extendQueryBefore', function($query) use ($sqlConditions) {
+                $query->whereRaw($sqlConditions);
             });
         }
 
