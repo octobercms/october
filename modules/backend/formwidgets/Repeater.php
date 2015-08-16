@@ -99,6 +99,8 @@ class Repeater extends FormWidgetBase
             $loadValue = array_keys($loadValue);
         }
 
+        if (!$loadValue) return;
+
         $itemIndexes = post(self::INDEX_PREFIX.$this->formField->getName(false), $loadValue);
 
         if (!is_array($itemIndexes)) return;
