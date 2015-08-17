@@ -963,6 +963,13 @@ class MediaManager extends WidgetBase
 
             $fileName = $uploadedFile->getClientOriginalName();
 
+            // If name of our uploadfile not latin
+            if (!$this->validateFileName($fileName)) {
+                $extension = $uploadedFile->getClientOriginalExtension();
+                $fileNameWithoutExt = str_replace($extension, "", $fileName);
+                $fileName = str_slug($fileNameWithoutExt, "-").'.'.$extension;    
+            }
+            
             // See mime type handling in the asset manager
 
             if (!$uploadedFile->isValid()) {
