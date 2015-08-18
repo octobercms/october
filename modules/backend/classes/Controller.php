@@ -120,10 +120,19 @@ class Controller extends Extendable
     protected $statusCode = 200;
 
     /**
+     * @var bool Event flag. If Repeater->onAddItem has occurred, it is set to true.
+     */
+    protected $onAddNewRepeater = false;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
+        /* If Repeater->onAddItem has occurred, onAddNewRepeater flag is set to true */
+        Event::listen('formwidgets.repeater.onadditem', function() {
+            $this->onAddNewRepeater = true;
+        });
         /*
          * Allow early access to route data.
          */

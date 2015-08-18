@@ -53,6 +53,8 @@ class Repeater extends FormWidgetBase
             'sortable',
         ]);
 
+        if ($this->controller->onAddNewRepeater) return;
+
         $this->processExistingItems();
     }
 
@@ -128,6 +130,8 @@ class Repeater extends FormWidgetBase
 
     public function onAddItem()
     {
+        Event::fire('formwidgets.repeater.onadditem');
+
         $this->indexCount++;
 
         $this->prepareVars();
