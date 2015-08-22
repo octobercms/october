@@ -8,6 +8,7 @@ return [
     'locale' => [
         'en' => 'Angol',
         'de' => 'Német',
+        'el' => 'Görög',
         'es' => 'Spanyol',
         'es-ar' => 'Spanyol (argentín)',
         'fa' => 'Perzsa',
@@ -27,7 +28,7 @@ return [
         'sk' => 'Szlovák',
         'tr' => 'Török',
         'zh-cn' => 'Kínai',
-        'zh-tw' => 'Chinese (Taiwan)',
+        'zh-tw' => 'Kínai (tajvani)'
     ],
     'directory' => [
         'create_fail' => 'Nem hozható létre a könyvtár: :name'
@@ -108,24 +109,24 @@ return [
     ],
     'project' => [
         'name' => 'Projekt',
-        'owner_label' => 'Tulajdonos',
-        'attach' => 'Projekt csatolása',
-        'detach' => 'Projekt leválasztása',
+        'owner_label' => 'Fejlesztő',
+        'attach' => 'Csatolás',
+        'detach' => 'leválasztás',
         'none' => 'Nincs',
         'id' => [
-            'label' => 'Projektazonosító',
-            'help' => 'Hogyan található meg a projektazonosító.',
-            'missing' => 'Adjon meg egy használandó projektazonosítót.'
+            'label' => 'Projekt azonosító',
+            'help' => 'Segítség (angol nyelvű)',
+            'missing' => 'Adjon meg egy projekt azonosítót.'
         ],
-        'detach_confirm' => 'Biztosan le akarja választani ezt a projektet?',
+        'detach_confirm' => 'Biztosan le akarja választani a projektet?',
         'unbind_success' => 'A projekt leválasztása sikerült.'
     ],
     'settings' => [
         'menu_label' => 'Beállítások',
         'not_found' => 'Nem találhatók a megadott beállítások.',
-        'missing_model' => 'A beállítások lap egy modelldefiníciót hiányol.',
+        'missing_model' => 'A beállítások lap egy modell definíciót hiányol.',
         'update_success' => 'A(z) :name beállításainak frissítése sikerült.',
-        'return' => 'Vissza a rendszer beállításokhoz',
+        'return' => 'Vissza a beállításokhoz',
         'search' => 'Keresés'
     ],
     'mail' => [
@@ -161,7 +162,7 @@ return [
     ],
     'mail_templates' => [
         'menu_label' => 'Levél sablonok',
-        'menu_description' => 'A küldendő levél sablonok kezelése.',
+        'menu_description' => 'A kimenő levelek megjelenésének testreszabása.',
         'new_template' => 'Új sablon',
         'new_layout' => 'Új elrendezés',
         'template' => 'Sablon',
@@ -169,6 +170,7 @@ return [
         'menu_layouts_label' => 'Levél elrendezések',
         'layout' => 'Elrendezés',
         'layouts' => 'Elrendezések',
+        'no_layout' => '-- nincs --',
         'name' => 'Név',
         'name_comment' => 'Erre a sablonra való hivatkozásként használt egyedi név.',
         'code' => 'Kód',
@@ -181,7 +183,10 @@ return [
         'content_text' => 'Egyszerű szöveg',
         'test_send' => 'Tesztüzenet küldése',
         'test_success' => 'A tesztüzenet elküldése sikerült.',
-        'return' => 'Vissza a sablon listához'
+        'return' => 'Vissza a sablonokhoz',
+        'test_confirm' => 'Teszt üzenet küldése a(z) ":email" címre. Folytatja?',
+        'saving' => 'Sablon mentése...',
+        'sending' => 'Üzenet küldése folyamatban...',
     ],
     'install' => [
         'project_label' => 'Csatolás projekthez',
@@ -197,7 +202,7 @@ return [
         'name' => 'Szoftver frissítése',
         'menu_label' => 'Frissítések',
         'menu_description' => 'A rendszer és a bővítmények frissítése, valamint új kiegészítők telepítése.',
-        'return_link' => 'Vissza a rendszer frissítésekhez',
+        'return_link' => 'Vissza a frissítésekhez',
         'check_label' => 'Frissítések keresése',
         'retry_label' => 'Új próba',
         'plugin_name' => 'Név',
@@ -208,9 +213,9 @@ return [
         'core_current_build' => 'Verzió',
         'core_build' => 'Új verzió: :build',
         'core_build_help' => 'Elérhető a legújabb hivatalos kiadás.',
-        'core_downloading' => 'Alkalmazás fájlok letöltése...',
-        'core_extracting' => 'Alkalmazás fájlok kicsomagolása...',
-        'plugins' => 'Bővítmények',
+        'core_downloading' => 'Weboldal frissítés letöltése...',
+        'core_extracting' => 'Weboldal frissítés kicsomagolása...',
+        'plugins' => 'Bővítmény',
         'themes' => 'Témák',
         'disabled' => 'Letiltva',
         'plugin_downloading' => 'Bővítmény letöltése: :name',
@@ -223,8 +228,8 @@ return [
         'update_label' => 'Honlap frissítése',
         'update_completing' => 'Frissítési folyamat befejezése',
         'update_loading' => 'Elérhető frissítések betöltése...',
-        'update_success' => 'A frissítési folyamat sikeresen végrehajtásra került.',
-        'update_failed_label' => 'A frissítés nem sikerült',
+        'update_success' => 'A frissítési sikeresen végrehajtásra került.',
+        'update_failed_label' => 'A frissítés nem sikerült.',
         'force_label' => 'Frissítés kényszerítése',
         'found' => [
             'label' => 'Új verzió elérhető!',
@@ -244,7 +249,7 @@ return [
         'important_view_guide' => 'Frissítési útmutat megtekintése',
         'important_alert_text' => 'Néhány frissítés körültekintést igényel.',
         'details_title' => 'Bővítmény részletei',
-        'details_view_homepage' => 'Weboldal megtekintése',
+        'details_view_homepage' => 'Weboldal',
         'details_readme' => 'Dokumentáció',
         'details_readme_missing' => 'Nincs megadva dokumentáció.',
         'details_upgrades' => 'Frissítési útmutató',
@@ -280,7 +285,7 @@ return [
         'return_link' => 'Vissza az eseménynapló listához',
         'id' => 'Azonosító',
         'id_label' => 'Esemény azonosító',
-        'created_at' => 'Dátum és idő',
+        'created_at' => 'Időpont',
         'message' => 'Üzenet',
         'level' => 'Szint'
     ],
