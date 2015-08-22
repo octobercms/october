@@ -38,9 +38,20 @@ class Repeater extends FormWidgetBase
      */
     protected $defaultAlias = 'repeater';
 
+    /**
+     * @var int Count of repeated items.
+     */
     protected $indexCount = 0;
 
+    /**
+     * @var array Collection of form widgets.
+     */
     protected $formWidgets = [];
+
+     /**
+      * @var bool Stops nested repeaters populating from previous sibling.
+      */
+    protected static $onAddItemCalled = false;
 
     /**
      * {@inheritDoc}
@@ -53,7 +64,9 @@ class Repeater extends FormWidgetBase
             'sortable',
         ]);
 
-        $this->processExistingItems();
+        if (!self::$onAddItemCalled) {
+            $this->processExistingItems();
+        }
     }
 
     /**
@@ -128,6 +141,8 @@ class Repeater extends FormWidgetBase
 
     public function onAddItem()
     {
+        self::$onAddItemCalled = true;
+
         $this->indexCount++;
 
         $this->prepareVars();
