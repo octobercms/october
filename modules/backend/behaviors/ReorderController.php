@@ -29,6 +29,11 @@ class ReorderController extends ControllerBehavior
     public $model;
 
     /**
+     * @var string Model attribute to use for the display name
+     */
+    public $nameFrom = 'name';
+
+    /**
      * @var bool Display parent/child relationships in the list.
      */
     protected $showTree = false;
@@ -59,11 +64,16 @@ class ReorderController extends ControllerBehavior
         $this->config = $this->makeConfig($controller->reorderConfig, $this->requiredConfig);
 
         /*
-         * Form widgets
+         * Widgets
          */
         if ($this->toolbarWidget = $this->makeToolbarWidget()) {
             $this->toolbarWidget->bindToController();
         }
+
+        /*
+         * Populate from config
+         */
+        $this->nameFrom = $this->getConfig('nameFrom', $this->nameFrom);
     }
 
     //
@@ -160,6 +170,15 @@ class ReorderController extends ControllerBehavior
         }
 
         return $this->model = new $modelClass;
+    }
+
+    /**
+     * Returns the display name for a record.
+     * @return string
+     */
+    public function reorderGetRecordName($record)
+    {
+        return $record->{$this->nameFrom};
     }
 
     /**
