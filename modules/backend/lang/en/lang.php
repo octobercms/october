@@ -236,6 +236,10 @@ return [
         'unlink_name' => 'Unlink :name',
         'unlink_confirm' => 'Are you sure?'
     ],
+    'reorder' => [
+        'default_title' => 'Reorder records',
+        'no_records' => 'There are no records available to sort.',
+    ],
     'model' => [
         'name' => 'Model',
         'not_found' => "Model ':class' with an ID of :id could not be found",
