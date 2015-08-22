@@ -716,18 +716,21 @@ result=result[value]})
 return result}
 if(lang.locale===undefined){lang.locale=$('html').attr('lang')||'en'}
 if(lang.loadedMessages===undefined){lang.load(lang.locale)}
-return lang})($.oc.lang||{},$.oc.langMessages);$(window).on('ajaxErrorMessage',function(event,message){if(!message)return
-swal({title:message,confirmButtonClass:'btn-default'})
+return lang})($.oc.lang||{},$.oc.langMessages);(function($){if($.oc===undefined)
+$.oc={}
+$.oc.alert=function alert(message){swal({title:message,confirmButtonClass:'btn-primary'})}
+$.oc.confirm=function confirm(message,callback){swal({title:message,showCancelButton:true,confirmButtonClass:'btn-primary'},callback)}})(jQuery);$(window).on('ajaxErrorMessage',function(event,message){if(!message)return
+$.oc.alert(message)
 event.preventDefault()})
 $(window).on('ajaxConfirmMessage',function(event,message){if(!message)return
-swal({title:message,showCancelButton:true,confirmButtonClass:'btn-primary'},function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
+$.oc.confirm(message,function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
 event.preventDefault()
 return true})
 $(document).on('ready',function(){if(!window.swal)return
 var swal=window.swal
-window.sweetAlert=window.swal=function(message,callback){if(typeof message==='object'){message.confirmButtonText=message.confirmButtonText||$.oc.lang.get('sweetalert.confirm_button_text')
-message.cancelButtonText=message.cancelButtonText||$.oc.lang.get('sweetalert.cancel_button_text')}
-else{message={title:message,confirmButtonText:$.oc.lang.get('sweetalert.confirm_button_text'),cancelButtonText:$.oc.lang.get('sweetalert.cancel_button_text')}}
+window.sweetAlert=window.swal=function(message,callback){if(typeof message==='object'){message.confirmButtonText=message.confirmButtonText||$.oc.lang.get('alert.confirm_button_text')
+message.cancelButtonText=message.cancelButtonText||$.oc.lang.get('alert.cancel_button_text')}
+else{message={title:message,confirmButtonText:$.oc.lang.get('alert.confirm_button_text'),cancelButtonText:$.oc.lang.get('alert.cancel_button_text')}}
 swal(message,callback)}})
 +function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var Scrollpad=function(element,options){this.$el=$(element)

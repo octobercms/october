@@ -46,7 +46,7 @@ return [
         'invalid_audio_empty_insert' => "Please select an audio file to insert.",
     ],
 
-    'sweetalert' => [
+    'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Cancel',
     ],
