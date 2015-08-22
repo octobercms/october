@@ -314,7 +314,7 @@ MediaManager.prototype.uploadSending=function(file,xhr,formData){formData.append
 formData.append('X_OCTOBER_FILEUPLOAD',this.options.uniqueId)}
 MediaManager.prototype.uploadCancelAll=function(){this.dropzone.removeAllFiles(true)
 this.hideUploadUi()}
-MediaManager.prototype.uploadError=function(file,message){swal({title:'Error uploading file',text:message,confirmButtonClass:'btn-default'})}
+MediaManager.prototype.uploadError=function(file,message){$.oc.alert('Error uploading file')}
 MediaManager.prototype.cropSelectedImage=function(callback){var selectedItems=this.getSelectedItems(true)
 if(selectedItems.length!=1){alert(this.options.selectSingleImage)
 return}
@@ -337,9 +337,9 @@ this.lastSearchValue=value
 this.clearSearchTrackInputTimer()
 this.searchTrackInputTimer=window.setTimeout(this.proxy(this.updateSearchResults),300)}
 MediaManager.prototype.deleteItems=function(){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
-if(!items.length){swal({title:this.options.deleteEmpty,confirmButtonClass:'btn-default'})
+if(!items.length){$.oc.alert(this.options.deleteEmpty)
 return}
-swal({title:this.options.deleteConfirm,confirmButtonClass:'btn-default',showCancelButton:true},this.proxy(this.deleteConfirmation))}
+$.oc.confirm(this.options.deleteConfirm,this.proxy(this.deleteConfirmation))}
 MediaManager.prototype.deleteConfirmation=function(confirmed){if(!confirmed)
 return
 var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),paths=[]
@@ -359,7 +359,7 @@ return false}
 MediaManager.prototype.folderCreated=function(){this.$el.find('button[data-command="create-folder"]').popup('hide')
 this.afterNavigate()}
 MediaManager.prototype.moveItems=function(ev){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
-if(!items.length){swal({title:this.options.moveEmpty,confirmButtonClass:'btn-default'})
+if(!items.length){$.oc.alert(this.options.moveEmpty)
 return}
 var data={exclude:[],path:this.$el.find('[data-type="current-folder"]').val()}
 for(var i=0,len=items.length;i<len;i++){var item=items[i],path=item.getAttribute('data-path')

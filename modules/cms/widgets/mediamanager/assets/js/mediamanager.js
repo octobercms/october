@@ -805,12 +805,7 @@
     }
 
     MediaManager.prototype.uploadError = function(file, message) {
-        swal({
-            title: 'Error uploading file',
-            text: message,
-            // type: 'error',
-            confirmButtonClass: 'btn-default'
-        })
+        $.oc.alert('Error uploading file')
     }
 
     //
@@ -888,19 +883,11 @@
         var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
 
         if (!items.length) {
-            swal({
-                title: this.options.deleteEmpty,
-                confirmButtonClass: 'btn-default'
-            })
-
+            $.oc.alert(this.options.deleteEmpty)
             return
         }
 
-        swal({
-            title: this.options.deleteConfirm,
-            confirmButtonClass: 'btn-default',
-            showCancelButton: true
-        }, this.proxy(this.deleteConfirmation))
+        $.oc.confirm(this.options.deleteConfirm, this.proxy(this.deleteConfirmation))
     }
 
     MediaManager.prototype.deleteConfirmation = function(confirmed) {
@@ -972,11 +959,7 @@
         var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
 
         if (!items.length) {
-            swal({
-                title: this.options.moveEmpty,
-                confirmButtonClass: 'btn-default'
-            })
-
+            $.oc.alert(this.options.moveEmpty)
             return
         }
 
