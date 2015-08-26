@@ -1471,26 +1471,23 @@ ul.status-list li span.status.danger{background:#d9534f}
 ul.status-list li span.status.info{background:#5bc0de}
 .gecko ul.status-list li span.status.circle{top:-2px}
 .report-container ul.status-list{margin-top:-10px}
-.control-toolbar{font-size:0;padding:0 0 20px 0;position:relative}
+.control-toolbar{font-size:0;padding:0 0 20px 0;position:relative;display:table;table-layout:fixed;width:100%}
 .control-toolbar:after,.control-toolbar:before{display:none;position:absolute;top:50%;margin-top:-7px;height:9px;font-size:10px;color:#bbbbbb}
 .control-toolbar:before{left:-6px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f104"}
 .control-toolbar:after{right:-8px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105"}
 .control-toolbar.scroll-before:before{display:block}
 .control-toolbar.scroll-after:after{display:block}
-.control-toolbar.standalone-paddings{padding:20px}
 .control-toolbar:before{left:-10px}
 .control-toolbar:after{right:-8px}
-.control-toolbar .toolbar-item{position:relative;white-space:nowrap;margin-right:20px}
-.control-toolbar .toolbar-item.last{margin-right:0}
+.control-toolbar .toolbar-item{position:relative;white-space:nowrap;display:table-cell;vertical-align:top;padding-right:20px}
+.control-toolbar .toolbar-item:last-child,.control-toolbar .toolbar-item.last{padding-right:0}
 .control-toolbar .toolbar-item:after,.control-toolbar .toolbar-item:before{display:none;position:absolute;top:50%;margin-top:-7px;height:9px;font-size:10px;color:#bbbbbb}
 .control-toolbar .toolbar-item:before{left:-6px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f104"}
 .control-toolbar .toolbar-item:after{right:-8px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105"}
 .control-toolbar .toolbar-item.scroll-before:before{display:block}
 .control-toolbar .toolbar-item.scroll-after:after{display:block}
 .control-toolbar .toolbar-item:before{left:-10px}
-.control-toolbar .toolbar-item.layout-cell{padding-right:20px;margin-right:0}
-.control-toolbar .toolbar-item.layout-cell:after{right:6px}
-.control-toolbar .toolbar-item.layout-cell:last-child{padding-right:0}
+.control-toolbar .toolbar-item:after{right:6px}
 .control-toolbar .toolbar-item .btn,.control-toolbar .toolbar-item .btn-group,.control-toolbar .toolbar-item .dropdown{white-space:nowrap;float:none;display:inline-block;margin-right:10px}
 .control-toolbar .toolbar-item .btn:last-child,.control-toolbar .toolbar-item .btn-group:last-child,.control-toolbar .toolbar-item .dropdown:last-child{margin-right:0}
 .control-toolbar .toolbar-item .btn.standalone,.control-toolbar .toolbar-item .btn-group.standalone,.control-toolbar .toolbar-item .dropdown.standalone{margin-right:15px}
@@ -1498,8 +1495,8 @@ ul.status-list li span.status.info{background:#5bc0de}
 .control-toolbar .toolbar-item .btn-group .dropdown > .btn{margin-right:0;border-bottom-right-radius:0;border-top-right-radius:0}
 .control-toolbar .toolbar-item .btn-group .dropdown.last > .btn{border-bottom-right-radius:2px !important;border-top-right-radius:2px !important}
 .control-toolbar input.form-control[type=text]{height:auto;padding:8px 10px}
+.control-toolbar.toolbar-padded{padding:20px}
 [data-control=toolbar]{white-space:nowrap;width:100%;overflow:hidden}
-#layout-side-panel .control-toolbar,.panel-contents .control-toolbar{padding:20px 0 20px 20px}
 .control-toolbar.editor-toolbar{padding:0;background:#dddddd;border-bottom-right-radius:0;border-bottom-left-radius:0}
 .control-toolbar.editor-toolbar .toolbar-item .btn,.control-toolbar.editor-toolbar .toolbar-item .btn-group,.control-toolbar.editor-toolbar .toolbar-item .dropdown{margin:0;padding:0}
 .control-toolbar.editor-toolbar .toolbar-item .btn{text-align:center;height:40px;width:40px;line-height:40px;zoom:1;color:#404040;background:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}

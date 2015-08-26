@@ -169,8 +169,8 @@
     MarkdownEditor.prototype.createToolbar = function() {
         var self = this,
             $button,
-            $buttons = $('<div class="layout-cell toolbar-item" />'),
-            $fixedButtons = $('<div class="layout-cell toolbar-item width-fix" />')
+            $buttons = $('<div class="toolbar-item toolbar-primary" />'),
+            $fixedButtons = $('<div class="toolbar-item" data-calculate-width />')
 
         $.each($.oc.markdownEditorButtons, function(code, button) {
             $button = self.makeToolbarButton(code, button)

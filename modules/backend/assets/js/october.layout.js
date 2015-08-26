@@ -15,7 +15,9 @@
     OctoberLayout.prototype.updateLayout = function(title) {
         var $children, $el, fixedWidth, margin
 
-        $('.layout-cell.width-fix').each(function(){
+        // The entire 'width-fix' class can probably be removed if year >= 2017
+        // After checking that it isn't being used anywhere -sg
+        $('.layout-cell.width-fix, [data-calculate-width]').each(function(){
             $children = $(this).children()
 
             if ($children.length > 0) {

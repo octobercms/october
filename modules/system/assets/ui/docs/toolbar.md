@@ -2,10 +2,12 @@
 
 A scrollable set of buttons aligned to the left with a fixed right section.
 
+All toolbar items (`toolbar-item`) should have a fixed width, except for the primary item (`toolbar-primary`) which will stretch. In the October backend you can use the `data-calculate-width` attribute to have these widths calculated dynamically for you.
+
 ## Basic toolbar
 
-    <div class="layout control-toolbar">
-        <div class="layout-cell toolbar-item">
+    <div class="control-toolbar">
+        <div class="toolbar-item toolbar-primary">
             <div data-control="toolbar">
                 <button type="button" class="btn btn-primary oc-icon-plus">Create post</button>
 
@@ -24,15 +26,15 @@ A scrollable set of buttons aligned to the left with a fixed right section.
                 <button type="button" class="btn btn-default oc-icon-hdd-o">Archive</button>
             </div>
         </div>
-        <div class="layout-cell toolbar-item width-fix">
-            <input placeholder="search..." type="text" name="" value="" class="form-control icon search growable" autocomplete="off"/>
+        <div class="toolbar-item" style="width: 110px">
+            <input placeholder="search..." type="text" name="" value="" class="form-control icon search" />
         </div>
     </div>
 
 ### Button groups
 
-    <div class="layout control-toolbar">
-        <div class="layout-cell toolbar-item">
+    <div class="control-toolbar">
+        <div class="toolbar-item toolbar-primary">
             <div data-control="toolbar">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default oc-icon-mail-reply-all">Send by email</button>
@@ -40,15 +42,15 @@ A scrollable set of buttons aligned to the left with a fixed right section.
                 </div>
             </div>
         </div>
-        <div class="layout-cell toolbar-item width-fix">
-            <input placeholder="search..." type="text" name="" value="" class="form-control icon search growable" autocomplete="off"/>
+        <div class="toolbar-item" style="width: 110px">
+            <input placeholder="search..." type="text" name="" value="" class="form-control icon search" />
         </div>
     </div>
 
 ### Button with Tooltips
 
-    <div class="layout control-toolbar">
-        <div class="layout-cell toolbar-item">
+    <div class="control-toolbar">
+        <div class="toolbar-item toolbar-primary">
             <div data-control="toolbar">
                 <button
                     type="button"
@@ -61,15 +63,15 @@ A scrollable set of buttons aligned to the left with a fixed right section.
                 </button>
             </div>
         </div>
-        <div class="layout-cell toolbar-item width-fix">
-            <input placeholder="search..." type="text" name="" value="" class="form-control icon search growable" autocomplete="off"/>
+        <div class="toolbar-item" style="width: 110px">
+            <input placeholder="search..." type="text" name="" value="" class="form-control icon search" />
         </div>
     </div>
 
 ### Dropdown buttons
 
-    <div class="layout control-toolbar">
-        <div class="layout-cell toolbar-item">
+    <div class="control-toolbar">
+        <div class="toolbar-item toolbar-primary">
             <div data-control="toolbar">
 
                 <div class="dropdown dropdown-fixed">
@@ -88,8 +90,8 @@ A scrollable set of buttons aligned to the left with a fixed right section.
 
             </div>
         </div>
-        <div class="layout-cell toolbar-item width-fix">
-            <input placeholder="search..." type="text" name="" value="" class="form-control icon search growable" autocomplete="off"/>
+        <div class="toolbar-item" style="width: 110px">
+            <input placeholder="search..." type="text" name="" value="" class="form-control icon search" />
         </div>
     </div>
 
@@ -139,7 +141,7 @@ A scrollable set of buttons aligned to the left with a fixed right section.
                 <button type="button" class="btn tb-icon tb-horizontalrule"></button>
             </div>
         </div>
-        <div class="layout-cell toolbar-item width-fix">
+        <div class="toolbar-item" style="width: 80px">
             <button type="button" class="btn oc-icon-eye"></button>
             <button type="button" class="btn oc-icon-expand"></button>
         </div>

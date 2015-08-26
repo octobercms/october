@@ -583,7 +583,6 @@ body{webkit-font-smoothing:antialiased;font-family:'Open Sans',Arial,sans-serif;
 .layout > .layout-row > .layout-cell.min-height{height:0}
 .layout > .layout-row > .layout-cell.center{text-align:center}
 .layout > .layout-row > .layout-cell.middle{vertical-align:middle}
-.layout > .layout-row > .layout-cell.width-fix > form,.layout > .layout-row > .layout-cell.width-fix > div{display:inline-block}
 .layout > .layout-row > .layout-cell.width-100{width:100px}
 .layout > .layout-row > .layout-cell.width-120{width:120px}
 .layout > .layout-row > .layout-cell.width-200{width:200px}
@@ -596,7 +595,6 @@ body{webkit-font-smoothing:antialiased;font-family:'Open Sans',Arial,sans-serif;
 .layout > .layout-row > .layout-cell.min-height{height:0}
 .layout > .layout-row > .layout-cell.center{text-align:center}
 .layout > .layout-row > .layout-cell.middle{vertical-align:middle}
-.layout > .layout-row > .layout-cell.width-fix > form,.layout > .layout-row > .layout-cell.width-fix > div{display:inline-block}
 .layout > .layout-row.min-size{height:0}
 .layout > .layout-cell{display:table-cell;vertical-align:top;height:100%}
 .layout > .layout-cell.width-100{width:100px}
@@ -611,8 +609,8 @@ body{webkit-font-smoothing:antialiased;font-family:'Open Sans',Arial,sans-serif;
 .layout > .layout-cell.min-height{height:0}
 .layout > .layout-cell.center{text-align:center}
 .layout > .layout-cell.middle{vertical-align:middle}
-.layout > .layout-cell.width-fix > form,.layout > .layout-cell.width-fix > div{display:inline-block}
 .whiteboard{background:white}
+.layout-cell.width-fix > form,[data-calculate-width] > form,.layout-cell.width-fix > div,[data-calculate-width] > div{display:inline-block}
 body.compact-container .layout.layout-container,body.compact-container .layout .layout-container{padding:0 !important}
 body.slim-container .layout.layout-container,body.slim-container .layout .layout-container{padding-left:0 !important;padding-right:0 !important}
 @media (max-width:768px){.layout .hide-on-small{display:none}
@@ -639,7 +637,7 @@ nav#layout-mainmenu.navbar ul li.account a{padding-right:20px;position:relative;
 nav#layout-mainmenu.navbar ul li.account img{width:25px;margin-right:7px;position:relative;top:-2px}
 nav#layout-mainmenu.navbar ul.nav{display:inline-block}
 nav#layout-mainmenu.navbar .menu-toggle{display:none}
-nav#layout-mainmenu.navbar .toolbar-item{margin-right:0}
+nav#layout-mainmenu.navbar .toolbar-item{padding-right:0}
 nav#layout-mainmenu.navbar .toolbar-item:before,nav#layout-mainmenu.navbar .toolbar-item:after{margin-top:0}
 nav#layout-mainmenu.navbar .toolbar-item:before{left:-12px}
 nav#layout-mainmenu.navbar .toolbar-item:after{right:-12px}

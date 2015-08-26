@@ -884,7 +884,7 @@ return this}}(window.jQuery);(function($){$(window).load(function(){$('nav.navba
 navbar=$(this),nav=$('ul.nav',navbar)
 nav.verticalMenu($('a.menu-toggle',navbar))
 $('li.with-tooltip > a',navbar).tooltip({container:'body',placement:'bottom'})
-$('.layout-cell.width-fix',navbar).one('oc.widthFixed',function(){var dragScroll=$('[data-control=toolbar]',navbar).data('oc.dragScroll')
+$('[data-calculate-width]',navbar).one('oc.widthFixed',function(){var dragScroll=$('[data-control=toolbar]',navbar).data('oc.dragScroll')
 if(dragScroll){dragScroll.goToElement($('ul.nav > li.active',navbar),undefined,{'duration':0})}})})})})(jQuery);+function($){"use strict";if($.oc===undefined)
 $.oc={}
 var SideNav=function(element,options){this.options=options
@@ -1090,7 +1090,7 @@ if(this.pageTitleTemplate===undefined)
 this.pageTitleTemplate=$title.data('titleTemplate')
 $title.text(this.pageTitleTemplate.replace('%s',title))}
 OctoberLayout.prototype.updateLayout=function(title){var $children,$el,fixedWidth,margin
-$('.layout-cell.width-fix').each(function(){$children=$(this).children()
+$('.layout-cell.width-fix, [data-calculate-width]').each(function(){$children=$(this).children()
 if($children.length>0){fixedWidth=0
 $children.each(function(){$el=$(this)
 margin=$el.data('oc.layoutMargin')

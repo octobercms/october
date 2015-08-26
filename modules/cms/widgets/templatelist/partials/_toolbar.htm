@@ -1,32 +1,33 @@
 <div class="layout-row min-size">
-    <div class="layout control-toolbar">
-        <div class="layout-cell width-fix">
-            <div class="toolbar-item">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary oc-icon-plus last"
-                        data-control="create-template"
-                        ><?= e(trans('cms::lang.sidebar.add')) ?></button>
-                    <button type="button" class="btn btn-primary empty oc-icon-trash-o hide"
-                        id="<?= $this->getId('delete-button') ?>"
-                        data-control="delete-template"
-                        data-confirmation="<?= e(trans($this->deleteConfirmation)) ?>"
-                        data-trigger-action="show"
-                        data-trigger="<?= '#'.$this->getId('template-list') ?> input[type=checkbox]"
-                        data-trigger-condition="checked"></button>
-                </div>
+    <div class="control-toolbar toolbar-padded">
+
+        <!-- Control Panel -->
+        <div class="toolbar-item" data-calculate-width>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary oc-icon-plus last"
+                    data-control="create-template"
+                    ><?= e(trans('cms::lang.sidebar.add')) ?></button>
+                <button type="button" class="btn btn-primary empty oc-icon-trash-o hide"
+                    id="<?= $this->getId('delete-button') ?>"
+                    data-control="delete-template"
+                    data-confirmation="<?= e(trans($this->deleteConfirmation)) ?>"
+                    data-trigger-action="show"
+                    data-trigger="<?= '#'.$this->getId('template-list') ?> input[type=checkbox]"
+                    data-trigger-condition="checked"></button>
             </div>
         </div>
-        <div class="layout-cell">
-            <div class="relative toolbar-item loading-indicator-container size-input-text">
-                <input placeholder="<?= e(trans('cms::lang.sidebar.search')) ?>" type="text" name="search" value="<?= e($this->getSearchTerm()) ?>" 
-                    class="form-control icon search" autocomplete="off"
-                    data-track-input
-                    data-load-indicator
-                    data-load-indicator-opaque
-                    data-request-success="$('<?= '#'.$this->getId('delete-button') ?>').trigger('oc.triggerOn.update')"
-                    data-request="<?= $this->getEventHandler('onSearch') ?>" 
-                />
-            </div>
+
+        <!-- Template Search -->
+        <div class="relative toolbar-item loading-indicator-container size-input-text">
+            <input placeholder="<?= e(trans('cms::lang.sidebar.search')) ?>" type="text" name="search" value="<?= e($this->getSearchTerm()) ?>" 
+                class="form-control icon search" autocomplete="off"
+                data-track-input
+                data-load-indicator
+                data-load-indicator-opaque
+                data-request-success="$('<?= '#'.$this->getId('delete-button') ?>').trigger('oc.triggerOn.update')"
+                data-request="<?= $this->getEventHandler('onSearch') ?>"
+            />
         </div>
+
     </div>
 </div>

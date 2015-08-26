@@ -1,4 +1,3 @@
-
 <?php if ($this->previewMode): ?>
     <div class="form-control"><?= e($value) ?></div>
 <?php else: ?>
@@ -10,8 +9,7 @@
         data-view-mode="<?= $mode ?>"
         data-vendor-path="<?= URL::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>">
 
-        <div class="layout control-toolbar editor-toolbar"></div>
-
+        <div class="control-toolbar editor-toolbar"></div>
 
         <div class="editor-write layout-cell">
             <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>"><?= e($value) ?></textarea>
