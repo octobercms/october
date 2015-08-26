@@ -317,6 +317,17 @@ this.tableContainer=null
 this.$el=null
 this.dataTableContainer=null
 this.activeCell=null}
+Table.prototype.setRowValues=function(rowIndex,rowValues){var row=this.findRowByIndex(rowIndex)
+if(!row){return false}
+var dataUpdated=false
+for(var i=0,len=row.children.length;i<len;i++){var cell=row.children[i],cellColumnName=this.getCellColumnName(cell)
+for(var rowColumnName in rowValues){if(rowColumnName==cellColumnName){this.setCellValue(cell,rowValues[rowColumnName],true)
+dataUpdated=true}}}
+if(dataUpdated){var originalEditedRowKey=this.editedRowKey
+this.editedRowKey=this.getRowKey(row)
+this.commitEditedRow()
+this.editedRowKey=originalEditedRowKey}
+return true}
 Table.prototype.getElement=function(){return this.el}
 Table.prototype.getAlias=function(){return this.options.alias}
 Table.prototype.getTableContainer=function(){return this.tableContainer}
@@ -352,6 +363,7 @@ Table.prototype.parentContainsElement=function(parent,element){while(element&&el
 return element?true:false}
 Table.prototype.getCellValue=function(cellElement){return cellElement.querySelector('[data-container]').value}
 Table.prototype.getCellRowKey=function(cellElement){return parseInt(cellElement.parentNode.getAttribute('data-row'))}
+Table.prototype.getRowKey=function(rowElement){return parseInt(rowElement.getAttribute('data-row'))}
 Table.prototype.findRowByKey=function(key){return this.dataTable.querySelector('tbody tr[data-row="'+key+'"]')}
 Table.prototype.findRowByIndex=function(index){return this.getDataTableBody().children[index]}
 Table.prototype.getCellRowIndex=function(cellElement){return parseInt(cellElement.parentNode.rowIndex)}
@@ -363,10 +375,12 @@ Table.prototype.getRowData=function(row){var result={}
 for(var i=0,len=row.children.length;i<len;i++){var cell=row.children[i]
 result[cell.getAttribute('data-column')]=this.getCellValue(cell)}
 return result}
-Table.prototype.setCellValue=function(cellElement,value){var dataContainer=cellElement.querySelector('[data-container]')
+Table.prototype.getCellColumnName=function(cellElement){return cellElement.getAttribute('data-column')}
+Table.prototype.setCellValue=function(cellElement,value,suppressEvents){var dataContainer=cellElement.querySelector('[data-container]')
 if(dataContainer.value!=value){dataContainer.value=value
 this.markCellRowDirty(cellElement)
-this.notifyRowProcessorsOnChange(cellElement)}}
+this.notifyRowProcessorsOnChange(cellElement)
+if(suppressEvents===undefined||!suppressEvents){this.$el.trigger('oc.tableCellChanged',[this.getCellColumnName(cellElement),value,this.getCellRowIndex(cellElement)])}}}
 Table.DEFAULTS={clientDataSourceClass:'client',keyColumn:'id',recordsPerPage:false,data:null,postback:true,postbackHandlerName:'onSave',adding:true,deleting:true,toolbar:true,rowSorting:false,height:false,dynamicHeight:false,btnAddRowLabel:'Add row',btnAddRowBelowLabel:'Add row below',btnDeleteRowLabel:'Delete row'}
 var old=$.fn.table
 $.fn.table=function(option){var args=Array.prototype.slice.call(arguments,1),result=undefined
@@ -658,6 +672,9 @@ return caretPosition==0
 if(direction=='right')
 return caretPosition==editor.value.length
 return true}
+StringProcessor.prototype.onRowValueChanged=function(columnName,cellElement){if(columnName!=this.columnName){return}
+var value=this.tableObj.getCellValue(cellElement)
+this.setViewContainerValue(cellElement,value)}
 StringProcessor.prototype.onFocusTimeout=function(){if(!this.activeCell)
 return
 var editor=this.activeCell.querySelector('.string-input')
@@ -690,8 +707,7 @@ CheckboxProcessor.prototype.isCellFocusable=function(){return false}
 CheckboxProcessor.prototype.renderCell=function(value,cellContentContainer){var checkbox=document.createElement('div')
 checkbox.setAttribute('data-checkbox-element','true')
 checkbox.setAttribute('tabindex','0')
-if(value&&value!=0&&value!="false")
-checkbox.setAttribute('class','checked')
+if(value&&value!=0&&value!="false"){checkbox.setAttribute('class','checked')}
 cellContentContainer.appendChild(checkbox)}
 CheckboxProcessor.prototype.onFocus=function(cellElement,isClick){cellElement.querySelector('div[data-checkbox-element]').focus()}
 CheckboxProcessor.prototype.onKeyDown=function(ev){if(ev.keyCode==32)
@@ -702,9 +718,14 @@ if(container.getAttribute('data-column')!==this.columnName){return}
 this.changeState(target)}}
 CheckboxProcessor.prototype.changeState=function(divElement){var cell=divElement.parentNode.parentNode
 if(divElement.getAttribute('class')=='checked'){divElement.setAttribute('class','')
-this.tableObj.setCellValue(cell,0)}else{divElement.setAttribute('class','checked')
+this.tableObj.setCellValue(cell,0)}
+else{divElement.setAttribute('class','checked')
 this.tableObj.setCellValue(cell,1)}}
 CheckboxProcessor.prototype.getCheckboxContainerNode=function(checkbox){return checkbox.parentNode.parentNode}
+CheckboxProcessor.prototype.onRowValueChanged=function(columnName,cellElement){if(columnName!=this.columnName){return}
+var checkbox=cellElement.querySelector('div[data-checkbox-element]'),value=this.tableObj.getCellValue(cellElement)
+if(value&&value!=0&&value!="false"){checkbox.setAttribute('class','checked')}
+else{checkbox.setAttribute('class','')}}
 $.oc.table.processor.checkbox=CheckboxProcessor;}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
 throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.processor===undefined)
 throw new Error("The $.oc.table.processor namespace is not defined. Make sure that the table.processor.base.js script is loaded.");var Base=$.oc.table.processor.base,BaseProto=Base.prototype

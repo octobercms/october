@@ -341,12 +341,14 @@
             this.showDropdown()
     }
 
-        /*
+    /*
      * This method is called when a cell value in the row changes.
      */
     DropdownProcessor.prototype.onRowValueChanged = function(columnName, cellElement) {
         // Determine if this drop-down depends on the changed column
         // and update the option list if necessary
+
+        // TODO: setting drop-down values with table.setRowValues() is not implemented currently
 
         if (!this.columnConfiguration.dependsOn)
             return

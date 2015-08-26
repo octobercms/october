@@ -841,6 +841,45 @@
         this.activeCell = null
     }
 
+    /*
+     * Updates row values in the table. 
+     * rowIndex is an integer value containing the row index on the current page.
+     * The rowValues should be a hash object containing only changed
+     * columns.
+     * Returns false if the row wasn't found. Otherwise returns true.
+     */
+    Table.prototype.setRowValues = function(rowIndex, rowValues) {
+        var row = this.findRowByIndex(rowIndex)
+
+        if (!row) {
+            return false
+        }
+
+        var dataUpdated = false
+
+        for (var i = 0, len = row.children.length; i < len; i++) {
+            var cell = row.children[i],
+                cellColumnName = this.getCellColumnName(cell)
+
+            for (var rowColumnName in rowValues) {
+                if (rowColumnName == cellColumnName) {
+                    this.setCellValue(cell, rowValues[rowColumnName], true)
+                    dataUpdated = true
+                }
+            }
+        }
+
+        if (dataUpdated) {
+            var originalEditedRowKey = this.editedRowKey
+
+            this.editedRowKey = this.getRowKey(row)
+            this.commitEditedRow()
+            this.editedRowKey = originalEditedRowKey
+        }
+
+        return true
+    }
+
     // HELPER METHODS
     // ============================
 
@@ -942,6 +981,10 @@
         return parseInt(cellElement.parentNode.getAttribute('data-row'))
     }
 
+    Table.prototype.getRowKey = function(rowElement) {
+        return parseInt(rowElement.getAttribute('data-row'))
+    }
+
     Table.prototype.findRowByKey = function(key) {
         return this.dataTable.querySelector('tbody tr[data-row="'+key+'"]')
     }
@@ -974,7 +1017,11 @@
         return result
     }
 
-    Table.prototype.setCellValue = function(cellElement, value) {
+    Table.prototype.getCellColumnName = function(cellElement) {
+        return cellElement.getAttribute('data-column')
+    }
+
+    Table.prototype.setCellValue = function(cellElement, value, suppressEvents) {
         var dataContainer = cellElement.querySelector('[data-container]')
 
         if (dataContainer.value != value) {
@@ -983,6 +1030,14 @@
             this.markCellRowDirty(cellElement)
 
             this.notifyRowProcessorsOnChange(cellElement)
+
+            if (suppressEvents === undefined || !suppressEvents) {
+                this.$el.trigger('oc.tableCellChanged', [
+                    this.getCellColumnName(cellElement),
+                    value,
+                    this.getCellRowIndex(cellElement)
+                ])
+            }
         }
     }
 

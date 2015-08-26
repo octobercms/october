@@ -128,6 +128,19 @@
         return true
     }
 
+    /*
+     * This method is called when a cell value in the row changes.
+     */
+    StringProcessor.prototype.onRowValueChanged = function(columnName, cellElement) {
+        if (columnName != this.columnName) {
+            return
+        }
+
+        var value = this.tableObj.getCellValue(cellElement)
+
+        this.setViewContainerValue(cellElement, value)
+    }
+
     StringProcessor.prototype.onFocusTimeout = function() {
         if (!this.activeCell)
             return
