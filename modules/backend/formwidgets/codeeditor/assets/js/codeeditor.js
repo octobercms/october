@@ -338,6 +338,24 @@
         this.editor.focus()
     }
 
+    // FIX EMMET HTML WHEN SYNTAX IS TWIG
+    // ==================================
+
+    +function (exports) {
+        if (exports.ace && typeof exports.ace.require == 'function') {
+            var emmetExt = exports.ace.require('ace/ext/emmet')
+
+            if (emmetExt && emmetExt.AceEmmetEditor && emmetExt.AceEmmetEditor.prototype.getSyntax) {
+                var coreGetSyntax = emmetExt.AceEmmetEditor.prototype.getSyntax
+
+                emmetExt.AceEmmetEditor.prototype.getSyntax = function () {
+                    var $syntax = $.proxy(coreGetSyntax, this)()
+                    return $syntax == 'twig' ? 'html' : $syntax
+                };
+            }
+        }
+    }(window)
+
     // CODEEDITOR PLUGIN DEFINITION
     // ============================
 
