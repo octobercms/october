@@ -4,6 +4,30 @@
 
     <div class="scoreboard">
         <div data-control="toolbar">
+            <div class="scoreboard-item title-value">
+                <h4>Weight</h4>
+                <p>100</p>
+                <p class="description">unit: kg</p>
+            </div>
+
+            <div class="scoreboard-item title-value">
+                <h4>Comments</h4>
+                <p class="positive">44</p>
+                <p class="description">previous month: 32</p>
+            </div>
+
+            <div class="scoreboard-item title-value">
+                <h4>Latest commenter</h4>
+                <p class="oc-icon-star">John Smith</p>
+                <p class="description">registered: yes</p>
+            </div>
+        </div>
+    </div>
+
+### Complete example
+
+    <div class="scoreboard">
+        <div data-control="toolbar">
             <div class="scoreboard-item control-chart" data-control="chart-pie">
                 <ul>
                     <li data-color="#95b753">Published <span>84</span></li>
@@ -57,3 +81,4 @@
             </div>
         </div>
     </div>
+
