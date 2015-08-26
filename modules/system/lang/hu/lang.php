@@ -24,7 +24,7 @@ return [
         'pt-br' => 'Portugál (brazíl)',
         'ro' => 'Román',
         'ru' => 'Orosz',
-        'se' => 'Svéd',
+        'sv' => 'Svéd',
         'sk' => 'Szlovák',
         'tr' => 'Török',
         'zh-cn' => 'Kínai',

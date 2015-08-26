@@ -19,7 +19,7 @@ return [
         'pt-br' => 'Brazilian Portuguese',
         'ro' => 'Romanian',
         'ru' => 'Russian',
-        'se' => 'Swedish',
+        'sv' => 'Swedish',
         'tr' => 'Turkish',
         'nb-no' => 'Norwegian (Bokmål)'
     ],

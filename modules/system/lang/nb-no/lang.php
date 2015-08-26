@@ -21,7 +21,7 @@ return [
         'pt-br' => 'Brasiliansk Portugisk',
         'ro' => 'Rumensk',
         'ru' => 'Russisk',
-        'se' => 'Svensk',
+        'sv' => 'Svensk',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Tyrkisk',
         'nb-no' => 'Norsk (Bokmål)',

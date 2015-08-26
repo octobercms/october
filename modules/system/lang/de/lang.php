@@ -9,7 +9,7 @@ return [
         'en' => 'English',
         'nl' => 'Dutch',
         'ja' => 'Japanese',
-        'se' => 'Swedish',
+        'sv' => 'Swedish',
         'tr' => 'Turkish',
         'de' => 'German',
         'ru' => 'Russian',

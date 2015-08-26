@@ -21,7 +21,7 @@ return [
         'pt-br' => 'Portugis (Brazil)',
         'ro' => 'Romania',
         'ru' => 'Rusia',
-        'se' => 'Swedia',
+        'sv' => 'Swedia',
         'sk' => 'Slowakia (Slovakia)',
         'tr' => 'Turki',
         'nb-no' => 'Norwegian (Bokmål)'
