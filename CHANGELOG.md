@@ -1,3 +1,7 @@
+* **Build 292** (2015-08-28)
+  - Added a new controller method `fireViewEvent()` for extending views and partials (see Plugins > Events docs).
+  - Fixes a bug where the database falls asleep during an update.
+
 * **Build 290** (2015-08-15)
   - Added test base class for developers who want to test their plugins with phpunit. See the readme file in the **tests/** directory for more details.
 
