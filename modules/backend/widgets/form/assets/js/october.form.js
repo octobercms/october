@@ -34,6 +34,7 @@
         this.bindCheckboxlist()
         this.toggleEmptyTabs()
         this.bindCollapsibleSections()
+        this.bindEvents()
 
         this.$el.one('dispose-control', this.proxy(this.dispose))
     }
@@ -46,6 +47,15 @@
         this.options = null
 
         BaseProto.dispose.call(this)
+    }
+
+    FormWidget.prototype.bindEvents = function() {
+        var self = this
+
+        // Update tab visibility status after fields toggle (deferred)
+        this.$el.on('oc.triggerOn.afterUpdate', function() {
+            self.toggleEmptyTabs(true)
+        })
     }
 
     /*
@@ -133,17 +143,31 @@
 
     /*
      * Hides tabs that have no content
+     * - deferred - boolean to defer the action (only one effective call per execution cycle)
      */
-    FormWidget.prototype.toggleEmptyTabs = function() {
-        var tabControl = $('[data-control=tab]', this.$el)
+    FormWidget.prototype.toggleEmptyTabs = function(deferred) {
+        if(deferred) {
+            var self = this
 
-        if (!tabControl.length)
-            return
+            if(this.$$toggleEmptyTabsTimeout) {
+                clearTimeout(this.$$toggleEmptyTabsTimeout)
+            }
 
-        $('.tab-pane', tabControl).each(function() {
-            $('[data-target="#' + $(this).attr('id') + '"]', tabControl)
-                .toggle(!!$('.form-group:not(:empty)', $(this)).length)
-        })
+            this.$$toggleEmptyTabsTimeout = setTimeout(function() {
+                self.toggleEmptyTabs(false)
+                delete self.$$toggleEmptyTabsTimeout
+            }, 1);
+        } else {
+            var tabControl = $('[data-control=tab]', this.$el)
+
+            if (!tabControl.length)
+                return
+
+            $('.tab-pane', tabControl).each(function() {
+                $('[data-target="#' + $(this).attr('id') + '"]', tabControl)
+                    .toggle(!!$('.form-group:not(:empty):not(.hide)', $(this)).length)
+            })
+        }
     }
 
     /*

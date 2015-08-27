@@ -65,6 +65,7 @@ Multie value conditions are supported:
 ### Supported events:
 
 - oc.triggerOn.update - triggers the update. Trigger this event on the element the plugin is bound to to force it to check the condition and update itself. This is useful when the page content is updated with AJAX.
+- oc.triggerOn.afterUpdate - triggered after the element is updated
 
 ### JavaScript API:
 
