@@ -77,11 +77,16 @@ class AuthManager extends RainAuthManager
      * - tab - assign this permission to a tabbed group, optional.
      * @param string $owner Specifies the menu items owner plugin or module in the format Vendor/Module.
      * @param array $definitions An array of the menu item definitions.
+     * @param string $defaultTab Specifies the default tabbed group to use if none is provided in definitions, optional.
      */
-    public function registerPermissions($owner, array $definitions)
+    public function registerPermissions($owner, array $definitions, $defaultTab = null)
     {
+        $defaults = array_merge(self::$permissionDefaults, [
+            'tab' => $defaultTab
+        ]);
+
         foreach ($definitions as $code => $definition) {
-            $permission = (object)array_merge(self::$permissionDefaults, array_merge($definition, [
+            $permission = (object)array_merge($defaults, array_merge($definition, [
                 'code' => $code,
                 'owner' => $owner
             ]));
@@ -118,7 +123,13 @@ class AuthManager extends RainAuthManager
                 continue;
             }
 
-            $this->registerPermissions($id, $items);
+            $tabName = null;
+            $pluginDetails = $plugin->pluginDetails();
+            if (isset($pluginDetails['name'])) {
+                $tabName = $pluginDetails['name'];
+            }
+
+            $this->registerPermissions($id, $items, $tabName);
         }
 
         /*
