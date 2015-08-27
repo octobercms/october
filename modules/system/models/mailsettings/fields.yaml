@@ -73,10 +73,11 @@ tabs:
                 field: send_mode
                 condition: value[smtp]
 
-        smtp_ssl:
-            type: checkbox
-            label: system::lang.mail.smtp_ssl
+        smtp_encryption:
+            type: dropdown
+            label: system::lang.mail.smtp_encryption
             tab: system::lang.mail.general
+            span: left
             trigger:
                 action: show
                 field: send_mode
