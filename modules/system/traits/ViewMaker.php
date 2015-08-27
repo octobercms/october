@@ -23,7 +23,7 @@ trait ViewMaker
     /**
      * @var string Specifies a path to the views directory.
      */
-    protected $viewPath;
+    public $viewPath;
 
     /**
      * @var string Specifies a path to the layout directory.
