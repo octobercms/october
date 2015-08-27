@@ -273,6 +273,11 @@ class NavigationManager
             return false;
         }
 
+        $definition = array_merge($definition, [
+            'code'  => $sideCode,
+            'owner' => $owner
+        ]);
+
         $mainItem = $this->items[$itemKey];
         if (isset($mainItem->sideMenu[$sideCode])) {
             $definition = array_merge((array) $mainItem->sideMenu[$sideCode], $definition);

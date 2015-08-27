@@ -41,6 +41,14 @@ return [
         'insert_audio' => "Insert Media Audio",
         'invalid_file_empty_insert' => "Please select file to insert a links to.",
         'invalid_file_single_insert' => "Please select a single file.",
+        'invalid_image_empty_insert' => "Please select image(s) to insert.",
+        'invalid_video_empty_insert' => "Please select a video file to insert.",
+        'invalid_audio_empty_insert' => "Please select an audio file to insert.",
+    ],
+
+    'alert' => [
+        'confirm_button_text' => 'OK',
+        'cancel_button_text' => 'Cancel',
     ],
 
 ];

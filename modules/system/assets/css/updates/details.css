@@ -27,6 +27,7 @@
 }
 .plugin-details-content pre {
   display: block;
+  border: none;
   padding: 10px 10px 10px 20px;
   font-size: 13px;
   word-break: break-all;

@@ -104,6 +104,7 @@ class Updates extends Controller
     {
         try {
             $this->pageTitle = 'system::lang.updates.details_title';
+            $this->addJs('/modules/system/assets/js/updates/details.js', 'core');
             $this->addCss('/modules/system/assets/css/updates/details.css', 'core');
 
             $readmeFiles = ['README.md', 'readme.md'];

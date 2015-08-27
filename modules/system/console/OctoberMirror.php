@@ -5,6 +5,13 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * This command will create symbolic links to files and directories
+ * that are commonly required to be publicly available.
+ *
+ * It is experimental and currently undergoing testing,
+ * see: https://github.com/octobercms/october/issues/1331
+ */
 class OctoberMirror extends Command
 {
 
@@ -19,7 +26,10 @@ class OctoberMirror extends Command
     protected $description = '(Experimental) Generates a mirrored public folder using symbolic links.';
 
     protected $files = [
-        'index.php'
+        'index.php',
+        'favicon.ico',
+        'robots.txt',
+        'sitemap.xml',
     ];
 
     protected $directories = [

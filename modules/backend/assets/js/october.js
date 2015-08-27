@@ -18,6 +18,7 @@
 =require ../../../system/assets/vendor/prettify/prettify.js
 
 =require october.lang.js
+=require october.alert.js
 =require october.scrollpad.js
 =require october.verticalmenu.js
 =require october.navbar.js

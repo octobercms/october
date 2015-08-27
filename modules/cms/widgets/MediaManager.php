@@ -963,6 +963,15 @@ class MediaManager extends WidgetBase
 
             $fileName = $uploadedFile->getClientOriginalName();
 
+            /*
+             * File name contains non-latin characters, attempt to slug the value
+             */
+            if (!$this->validateFileName($fileName)) {
+                $extension = $uploadedFile->getClientOriginalExtension();
+                $fileNameSlug = Str::slug(File::name($fileName), '-');
+                $fileName = $fileNameSlug.'.'.$extension;
+            }
+
             // See mime type handling in the asset manager
 
             if (!$uploadedFile->isValid()) {
@@ -1092,56 +1101,89 @@ class MediaManager extends WidgetBase
         $path = rtrim(dirname($path), '/').'/';
         $fileName = basename($imageSrcPath);
 
-        if (strpos($fileName, '..') !== false || strpos($fileName, '/') !== false || strpos($fileName, '\\') !== false)
+        if (
+            strpos($fileName, '..') !== false ||
+            strpos($fileName, '/') !== false ||
+            strpos($fileName, '\\') !== false
+        ) {
             throw new SystemException('Invalid image file name.');
+        }
 
         $selectionParams = ['x', 'y', 'w', 'h'];
 
         foreach ($selectionParams as $paramName) {
-            if (!array_key_exists($paramName, $selectionData))
+            if (!array_key_exists($paramName, $selectionData)) {
                 throw new SystemException('Invalid selection data.');
+            }
 
-            if (!ctype_digit($selectionData[$paramName]))
+            if (!ctype_digit($selectionData[$paramName])) {
                 throw new SystemException('Invalid selection data.');
+            }
         }
 
         $sessionDirectoryPath = $this->getCropSessionDirPath($cropSessionKey);
         $fullSessionDirectoryPath = temp_path($sessionDirectoryPath);
 
-        if (!File::isDirectory($fullSessionDirectoryPath))
+        if (!File::isDirectory($fullSessionDirectoryPath)) {
             throw new SystemException('The image editing session is not found.');
+        }
 
-        // Find the image on the disk and resize it
+        /*
+         * Find the image on the disk and resize it
+         */
         $imagePath = $fullSessionDirectoryPath.'/'.$fileName;
-        if (!File::isFile($imagePath))
+        if (!File::isFile($imagePath)) {
             throw new SystemException('The image is not found on the disk.');
+        }
 
         $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
 
-        $targetImageName = basename($originalFileName, '.'.$extension).'-'.$selectionData['x']
-            .'-'.$selectionData['y'].'-'.$selectionData['w'].'-'.$selectionData['h'].'-';
+        $targetImageName = basename($originalFileName, '.'.$extension).'-'
+            .$selectionData['x'].'-'
+            .$selectionData['y'].'-'
+            .$selectionData['w'].'-'
+            .$selectionData['h'].'-';
+
         $targetImageName .= time();
         $targetImageName .= '.'.$extension;
 
         $targetTmpPath = $fullSessionDirectoryPath.'/'.$targetImageName;
 
+        /*
+         * Crop the image, otherwise copy original to target destination.
+         */
         if ($selectionData['w'] == 0 || $selectionData['h'] == 0) {
-            // If cropping is not required, copy the oiginal image to the target destination.
             File::copy($imagePath, $targetTmpPath);
         }
         else {
             $resizer = Resizer::open($imagePath);
-
-            $resizer->resample($selectionData['x'], $selectionData['y'], $selectionData['w'], $selectionData['h'], $selectionData['w'], $selectionData['h']);
+            $resizer->resample(
+                $selectionData['x'],
+                $selectionData['y'],
+                $selectionData['w'],
+                $selectionData['h'],
+                $selectionData['w'],
+                $selectionData['h']
+            );
             $resizer->save($targetTmpPath, 95);
         }
 
-        // Upload the cropped file to the Library
-        $targetPath = $path.'cropped-images/'.$targetImageName;
+        /*
+         * Upload the cropped file to the Library
+         */
+        $targetFolder = $path.'cropped-images';
+        $targetPath = $targetFolder.'/'.$targetImageName;
 
         $library = MediaLibrary::instance();
-
         $library->put($targetPath, file_get_contents($targetTmpPath));
-        return $library->getPathUrl($targetPath);
+
+        return [
+            'publicUrl' => $library->getPathUrl($targetPath),
+            'documentType' => MediaLibraryItem::FILE_TYPE_IMAGE,
+            'itemType' => MediaLibraryItem::TYPE_FILE,
+            'path' => $targetPath,
+            'title' => $targetImageName,
+            'folder' => $targetFolder
+        ];
    }
 }

@@ -8,6 +8,7 @@ return [
     'locale' => [
         'en' => 'English',
         'de' => 'German',
+        'el' => 'Greek',
         'es' => 'Spanish',
         'es-ar' => 'Spanish (Argentina)',
         'fa' => 'Persian',
@@ -27,7 +28,7 @@ return [
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
         'zh-cn' => 'Chinese (China)',
-        'el' => 'Greek'
+        'zh-tw' => 'Chinese (Taiwan)'
     ],
     'directory' => [
         'create_fail' => 'Cannot create directory: :name'
@@ -169,6 +170,7 @@ return [
         'menu_layouts_label' => 'Mail Layouts',
         'layout' => 'Layout',
         'layouts' => 'Layouts',
+        'no_layout' => '-- No layout --',
         'name' => 'Name',
         'name_comment' => 'Unique name used to refer to this template',
         'code' => 'Code',
@@ -181,7 +183,10 @@ return [
         'content_text' => 'Plaintext',
         'test_send' => 'Send test message',
         'test_success' => 'The test message has been successfully sent.',
-        'return' => 'Return to template list'
+        'return' => 'Return to template list',
+        'test_confirm' => 'A test message will be sent to :email. Continue?',
+        'saving' => 'Saving Template...',
+        'sending' => 'Sending test message...',
     ],
     'install' => [
         'project_label' => 'Attach to Project',

@@ -1,6 +1,6 @@
 <div class="layout-row min-size">
-    <div class="layout control-toolbar standalone-paddings">
-        <div class="layout-cell toolbar-item">
+    <div class="control-toolbar toolbar-padded">
+        <div class="toolbar-item toolbar-primary">
             <div data-control="toolbar">
                 <div class="btn-group offset-right">
                     <button type="button" class="btn btn-primary oc-icon-upload" data-control="upload"
@@ -22,10 +22,14 @@
                 </div>
             </div>
         </div>
-        <div class="layout-cell toolbar-item width-fix">
+        <div class="toolbar-item" data-calculate-width>
             <div class="relative loading-indicator-container size-input-text">
-                <input placeholder="<?= e(trans('cms::lang.media.search')) ?>" type="text" name="search" value="<?= e($searchTerm) ?>" 
-                    class="form-control icon search growable" 
+                <input
+                    type="text"
+                    name="search"
+                    value="<?= e($searchTerm) ?>"
+                    class="form-control icon search growable"
+                    placeholder="<?= e(trans('cms::lang.media.search')) ?>"
                     data-control="search"
                     autocomplete="off"
                     data-load-indicator

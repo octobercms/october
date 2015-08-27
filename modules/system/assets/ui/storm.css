@@ -681,7 +681,7 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 .oc-icon-github:before,.icon-github:before{content:"\f09b"}
 .oc-icon-unlock:before,.icon-unlock:before{content:"\f09c"}
 .oc-icon-credit-card:before,.icon-credit-card:before{content:"\f09d"}
-.oc-icon-rss:before,.icon-rss:before{content:"\f09e"}
+.oc-icon-feed:before,.icon-feed:before,.oc-icon-rss:before,.icon-rss:before{content:"\f09e"}
 .oc-icon-hdd-o:before,.icon-hdd-o:before{content:"\f0a0"}
 .oc-icon-bullhorn:before,.icon-bullhorn:before{content:"\f0a1"}
 .oc-icon-bell:before,.icon-bell:before{content:"\f0f3"}
@@ -957,14 +957,14 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 .oc-icon-ge:before,.icon-ge:before,.oc-icon-empire:before,.icon-empire:before{content:"\f1d1"}
 .oc-icon-git-square:before,.icon-git-square:before{content:"\f1d2"}
 .oc-icon-git:before,.icon-git:before{content:"\f1d3"}
-.oc-icon-hacker-news:before,.icon-hacker-news:before{content:"\f1d4"}
+.oc-icon-y-combinator-square:before,.icon-y-combinator-square:before,.oc-icon-yc-square:before,.icon-yc-square:before,.oc-icon-hacker-news:before,.icon-hacker-news:before{content:"\f1d4"}
 .oc-icon-tencent-weibo:before,.icon-tencent-weibo:before{content:"\f1d5"}
 .oc-icon-qq:before,.icon-qq:before{content:"\f1d6"}
 .oc-icon-wechat:before,.icon-wechat:before,.oc-icon-weixin:before,.icon-weixin:before{content:"\f1d7"}
 .oc-icon-send:before,.icon-send:before,.oc-icon-paper-plane:before,.icon-paper-plane:before{content:"\f1d8"}
 .oc-icon-send-o:before,.icon-send-o:before,.oc-icon-paper-plane-o:before,.icon-paper-plane-o:before{content:"\f1d9"}
 .oc-icon-history:before,.icon-history:before{content:"\f1da"}
-.oc-icon-genderless:before,.icon-genderless:before,.oc-icon-circle-thin:before,.icon-circle-thin:before{content:"\f1db"}
+.oc-icon-circle-thin:before,.icon-circle-thin:before{content:"\f1db"}
 .oc-icon-header:before,.icon-header:before{content:"\f1dc"}
 .oc-icon-paragraph:before,.icon-paragraph:before{content:"\f1dd"}
 .oc-icon-sliders:before,.icon-sliders:before{content:"\f1de"}
@@ -1031,7 +1031,7 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 .oc-icon-venus:before,.icon-venus:before{content:"\f221"}
 .oc-icon-mars:before,.icon-mars:before{content:"\f222"}
 .oc-icon-mercury:before,.icon-mercury:before{content:"\f223"}
-.oc-icon-transgender:before,.icon-transgender:before{content:"\f224"}
+.oc-icon-intersex:before,.icon-intersex:before,.oc-icon-transgender:before,.icon-transgender:before{content:"\f224"}
 .oc-icon-transgender-alt:before,.icon-transgender-alt:before{content:"\f225"}
 .oc-icon-venus-double:before,.icon-venus-double:before{content:"\f226"}
 .oc-icon-mars-double:before,.icon-mars-double:before{content:"\f227"}
@@ -1040,6 +1040,7 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 .oc-icon-mars-stroke-v:before,.icon-mars-stroke-v:before{content:"\f22a"}
 .oc-icon-mars-stroke-h:before,.icon-mars-stroke-h:before{content:"\f22b"}
 .oc-icon-neuter:before,.icon-neuter:before{content:"\f22c"}
+.oc-icon-genderless:before,.icon-genderless:before{content:"\f22d"}
 .oc-icon-facebook-official:before,.icon-facebook-official:before{content:"\f230"}
 .oc-icon-pinterest-p:before,.icon-pinterest-p:before{content:"\f231"}
 .oc-icon-whatsapp:before,.icon-whatsapp:before{content:"\f232"}
@@ -1051,10 +1052,75 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 .oc-icon-train:before,.icon-train:before{content:"\f238"}
 .oc-icon-subway:before,.icon-subway:before{content:"\f239"}
 .oc-icon-medium:before,.icon-medium:before{content:"\f23a"}
+.oc-icon-yc:before,.icon-yc:before,.oc-icon-y-combinator:before,.icon-y-combinator:before{content:"\f23b"}
+.oc-icon-optin-monster:before,.icon-optin-monster:before{content:"\f23c"}
+.oc-icon-opencart:before,.icon-opencart:before{content:"\f23d"}
+.oc-icon-expeditedssl:before,.icon-expeditedssl:before{content:"\f23e"}
+.oc-icon-battery-4:before,.icon-battery-4:before,.oc-icon-battery-full:before,.icon-battery-full:before{content:"\f240"}
+.oc-icon-battery-3:before,.icon-battery-3:before,.oc-icon-battery-three-quarters:before,.icon-battery-three-quarters:before{content:"\f241"}
+.oc-icon-battery-2:before,.icon-battery-2:before,.oc-icon-battery-half:before,.icon-battery-half:before{content:"\f242"}
+.oc-icon-battery-1:before,.icon-battery-1:before,.oc-icon-battery-quarter:before,.icon-battery-quarter:before{content:"\f243"}
+.oc-icon-battery-0:before,.icon-battery-0:before,.oc-icon-battery-empty:before,.icon-battery-empty:before{content:"\f244"}
+.oc-icon-mouse-pointer:before,.icon-mouse-pointer:before{content:"\f245"}
+.oc-icon-i-cursor:before,.icon-i-cursor:before{content:"\f246"}
+.oc-icon-object-group:before,.icon-object-group:before{content:"\f247"}
+.oc-icon-object-ungroup:before,.icon-object-ungroup:before{content:"\f248"}
+.oc-icon-sticky-note:before,.icon-sticky-note:before{content:"\f249"}
+.oc-icon-sticky-note-o:before,.icon-sticky-note-o:before{content:"\f24a"}
+.oc-icon-cc-jcb:before,.icon-cc-jcb:before{content:"\f24b"}
+.oc-icon-cc-diners-club:before,.icon-cc-diners-club:before{content:"\f24c"}
+.oc-icon-clone:before,.icon-clone:before{content:"\f24d"}
+.oc-icon-balance-scale:before,.icon-balance-scale:before{content:"\f24e"}
+.oc-icon-hourglass-o:before,.icon-hourglass-o:before{content:"\f250"}
+.oc-icon-hourglass-1:before,.icon-hourglass-1:before,.oc-icon-hourglass-start:before,.icon-hourglass-start:before{content:"\f251"}
+.oc-icon-hourglass-2:before,.icon-hourglass-2:before,.oc-icon-hourglass-half:before,.icon-hourglass-half:before{content:"\f252"}
+.oc-icon-hourglass-3:before,.icon-hourglass-3:before,.oc-icon-hourglass-end:before,.icon-hourglass-end:before{content:"\f253"}
+.oc-icon-hourglass:before,.icon-hourglass:before{content:"\f254"}
+.oc-icon-hand-grab-o:before,.icon-hand-grab-o:before,.oc-icon-hand-rock-o:before,.icon-hand-rock-o:before{content:"\f255"}
+.oc-icon-hand-stop-o:before,.icon-hand-stop-o:before,.oc-icon-hand-paper-o:before,.icon-hand-paper-o:before{content:"\f256"}
+.oc-icon-hand-scissors-o:before,.icon-hand-scissors-o:before{content:"\f257"}
+.oc-icon-hand-lizard-o:before,.icon-hand-lizard-o:before{content:"\f258"}
+.oc-icon-hand-spock-o:before,.icon-hand-spock-o:before{content:"\f259"}
+.oc-icon-hand-pointer-o:before,.icon-hand-pointer-o:before{content:"\f25a"}
+.oc-icon-hand-peace-o:before,.icon-hand-peace-o:before{content:"\f25b"}
+.oc-icon-trademark:before,.icon-trademark:before{content:"\f25c"}
+.oc-icon-registered:before,.icon-registered:before{content:"\f25d"}
+.oc-icon-creative-commons:before,.icon-creative-commons:before{content:"\f25e"}
+.oc-icon-gg:before,.icon-gg:before{content:"\f260"}
+.oc-icon-gg-circle:before,.icon-gg-circle:before{content:"\f261"}
+.oc-icon-tripadvisor:before,.icon-tripadvisor:before{content:"\f262"}
+.oc-icon-odnoklassniki:before,.icon-odnoklassniki:before{content:"\f263"}
+.oc-icon-odnoklassniki-square:before,.icon-odnoklassniki-square:before{content:"\f264"}
+.oc-icon-get-pocket:before,.icon-get-pocket:before{content:"\f265"}
+.oc-icon-wikipedia-w:before,.icon-wikipedia-w:before{content:"\f266"}
+.oc-icon-safari:before,.icon-safari:before{content:"\f267"}
+.oc-icon-chrome:before,.icon-chrome:before{content:"\f268"}
+.oc-icon-firefox:before,.icon-firefox:before{content:"\f269"}
+.oc-icon-opera:before,.icon-opera:before{content:"\f26a"}
+.oc-icon-internet-explorer:before,.icon-internet-explorer:before{content:"\f26b"}
+.oc-icon-tv:before,.icon-tv:before,.oc-icon-television:before,.icon-television:before{content:"\f26c"}
+.oc-icon-contao:before,.icon-contao:before{content:"\f26d"}
+.oc-icon-500px:before,.icon-500px:before{content:"\f26e"}
+.oc-icon-amazon:before,.icon-amazon:before{content:"\f270"}
+.oc-icon-calendar-plus-o:before,.icon-calendar-plus-o:before{content:"\f271"}
+.oc-icon-calendar-minus-o:before,.icon-calendar-minus-o:before{content:"\f272"}
+.oc-icon-calendar-times-o:before,.icon-calendar-times-o:before{content:"\f273"}
+.oc-icon-calendar-check-o:before,.icon-calendar-check-o:before{content:"\f274"}
+.oc-icon-industry:before,.icon-industry:before{content:"\f275"}
+.oc-icon-map-pin:before,.icon-map-pin:before{content:"\f276"}
+.oc-icon-map-signs:before,.icon-map-signs:before{content:"\f277"}
+.oc-icon-map-o:before,.icon-map-o:before{content:"\f278"}
+.oc-icon-map:before,.icon-map:before{content:"\f279"}
+.oc-icon-commenting:before,.icon-commenting:before{content:"\f27a"}
+.oc-icon-commenting-o:before,.icon-commenting-o:before{content:"\f27b"}
+.oc-icon-houzz:before,.icon-houzz:before{content:"\f27c"}
+.oc-icon-vimeo:before,.icon-vimeo:before{content:"\f27d"}
+.oc-icon-black-tie:before,.icon-black-tie:before{content:"\f27e"}
+.oc-icon-fonticons:before,.icon-fonticons:before{content:"\f280"}
 .close{float:right;font-size:21px;font-weight:bold;line-height:1;color:#000000;text-shadow:0 1px 0 #ffffff;opacity:0.2;filter:alpha(opacity=20)}
 .close:hover,.close:focus{color:#000000;text-decoration:none;cursor:pointer;opacity:0.5;filter:alpha(opacity=50)}
 button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-appearance:none}
-@font-face{font-family:'FontAwesome';src:url('font/fontawesome-webfont.eot?v=1.0.0');src:url('font/fontawesome-webfont.eot?#iefix&v=1.0.0') format('embedded-opentype'),url('font/fontawesome-webfont.woff?v=1.0.0') format('woff'),url('font/fontawesome-webfont.ttf?v=1.0.0') format('truetype'),url('font/fontawesome-webfont.svg#fontawesomeregular?v=1.0.0') format('svg');font-weight:normal;font-style:normal}
+@font-face{font-family:'FontAwesome';src:url('font/fontawesome-webfont.eot?v=1.0.1');src:url('font/fontawesome-webfont.eot?#iefix&v=1.0.1') format('embedded-opentype'),url('font/fontawesome-webfont.woff?v=1.0.1') format('woff'),url('font/fontawesome-webfont.ttf?v=1.0.1') format('truetype'),url('font/fontawesome-webfont.svg#fontawesomeregular?v=1.0.1') format('svg');font-weight:normal;font-style:normal}
 [class^="icon-"],[class*=" icon-"]{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none;background-position:0% 0%;background-repeat:repeat;margin-top:0}
 [class^="icon-"]:before,[class*=" icon-"]:before{text-decoration:inherit;display:inline-block;speak:none}
 [class^="icon-"].pull-left,[class*=" icon-"].pull-left{margin-right:.3em}
@@ -1405,26 +1471,23 @@ ul.status-list li span.status.danger{background:#d9534f}
 ul.status-list li span.status.info{background:#5bc0de}
 .gecko ul.status-list li span.status.circle{top:-2px}
 .report-container ul.status-list{margin-top:-10px}
-.control-toolbar{font-size:0;padding:0 0 20px 0;position:relative}
+.control-toolbar{font-size:0;padding:0 0 20px 0;position:relative;display:table;table-layout:fixed;width:100%}
 .control-toolbar:after,.control-toolbar:before{display:none;position:absolute;top:50%;margin-top:-7px;height:9px;font-size:10px;color:#bbbbbb}
 .control-toolbar:before{left:-6px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f104"}
 .control-toolbar:after{right:-8px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105"}
 .control-toolbar.scroll-before:before{display:block}
 .control-toolbar.scroll-after:after{display:block}
-.control-toolbar.standalone-paddings{padding:20px}
 .control-toolbar:before{left:-10px}
 .control-toolbar:after{right:-8px}
-.control-toolbar .toolbar-item{position:relative;white-space:nowrap;margin-right:20px}
-.control-toolbar .toolbar-item.last{margin-right:0}
+.control-toolbar .toolbar-item{position:relative;white-space:nowrap;display:table-cell;vertical-align:top;padding-right:20px}
+.control-toolbar .toolbar-item:last-child,.control-toolbar .toolbar-item.last{padding-right:0}
 .control-toolbar .toolbar-item:after,.control-toolbar .toolbar-item:before{display:none;position:absolute;top:50%;margin-top:-7px;height:9px;font-size:10px;color:#bbbbbb}
 .control-toolbar .toolbar-item:before{left:-6px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f104"}
 .control-toolbar .toolbar-item:after{right:-8px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105"}
 .control-toolbar .toolbar-item.scroll-before:before{display:block}
 .control-toolbar .toolbar-item.scroll-after:after{display:block}
 .control-toolbar .toolbar-item:before{left:-10px}
-.control-toolbar .toolbar-item.layout-cell{padding-right:20px;margin-right:0}
-.control-toolbar .toolbar-item.layout-cell:after{right:6px}
-.control-toolbar .toolbar-item.layout-cell:last-child{padding-right:0}
+.control-toolbar .toolbar-item:after{right:6px}
 .control-toolbar .toolbar-item .btn,.control-toolbar .toolbar-item .btn-group,.control-toolbar .toolbar-item .dropdown{white-space:nowrap;float:none;display:inline-block;margin-right:10px}
 .control-toolbar .toolbar-item .btn:last-child,.control-toolbar .toolbar-item .btn-group:last-child,.control-toolbar .toolbar-item .dropdown:last-child{margin-right:0}
 .control-toolbar .toolbar-item .btn.standalone,.control-toolbar .toolbar-item .btn-group.standalone,.control-toolbar .toolbar-item .dropdown.standalone{margin-right:15px}
@@ -1432,8 +1495,8 @@ ul.status-list li span.status.info{background:#5bc0de}
 .control-toolbar .toolbar-item .btn-group .dropdown > .btn{margin-right:0;border-bottom-right-radius:0;border-top-right-radius:0}
 .control-toolbar .toolbar-item .btn-group .dropdown.last > .btn{border-bottom-right-radius:2px !important;border-top-right-radius:2px !important}
 .control-toolbar input.form-control[type=text]{height:auto;padding:8px 10px}
+.control-toolbar.toolbar-padded{padding:20px}
 [data-control=toolbar]{white-space:nowrap;width:100%;overflow:hidden}
-#layout-side-panel .control-toolbar,.panel-contents .control-toolbar{padding:20px 0 20px 20px}
 .control-toolbar.editor-toolbar{padding:0;background:#dddddd;border-bottom-right-radius:0;border-bottom-left-radius:0}
 .control-toolbar.editor-toolbar .toolbar-item .btn,.control-toolbar.editor-toolbar .toolbar-item .btn-group,.control-toolbar.editor-toolbar .toolbar-item .dropdown{margin:0;padding:0}
 .control-toolbar.editor-toolbar .toolbar-item .btn{text-align:center;height:40px;width:40px;line-height:40px;zoom:1;color:#404040;background:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}

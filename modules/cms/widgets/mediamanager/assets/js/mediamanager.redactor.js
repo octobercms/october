@@ -52,12 +52,12 @@ RedactorPlugins.mediamanager = function()
                 cropAndInsertButton: false,
                 onInsert: function(items) {
                     if (!items.length) {
-                        alert($.oc.lang.get('mediamanager.invalid_file_empty_insert'))
+                        $.oc.alert($.oc.lang.get('mediamanager.invalid_file_empty_insert'))
                         return
                     }
 
                     if (items.length > 1) {
-                        alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
+                        $.oc.alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
                         return
                     }
 
@@ -91,7 +91,7 @@ RedactorPlugins.mediamanager = function()
                 cropAndInsertButton: true,
                 onInsert: function(items) {
                     if (!items.length) {
-                        alert('Please select image(s) to insert.')
+                        $.oc.alert($.oc.lang.get('mediamanager.invalid_image_empty_insert'))
                         return
                     }
                     that.selection.restore()
@@ -104,7 +104,7 @@ RedactorPlugins.mediamanager = function()
 
                     for (var i=0, len=items.length; i<len; i++) {
                         if (items[i].documentType !== 'image') {
-                            alert('The file "'+items[i].title+'" is not an image.')
+                            $.oc.alert($.oc.lang.get('mediamanager.invalid_image_invalid_insert', 'The file "'+items[i].title+'" is not an image.'))
                             continue
                         }
 
@@ -154,19 +154,19 @@ RedactorPlugins.mediamanager = function()
                 cropAndInsertButton: false,
                 onInsert: function(items) {
                     if (!items.length) {
-                        alert('Please select a video file to insert.')
+                        $.oc.alert($.oc.lang.get('mediamanager.invalid_video_empty_insert'))
                         return
                     }
 
                     if (items.length > 1) {
-                        alert('Please select a single file.')
+                        $.oc.alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
                         return
                     }
 
                     var item = items[0]
 
                     if (item.documentType !== 'video') {
-                        alert('The file "'+item.title+'" is not a video.')
+                        $.oc.alert($.oc.lang.get('mediamanager.invalid_video_invalid_insert', 'The file "'+item.title+'" is not a video.'))
                         return
                     }
 
@@ -201,19 +201,19 @@ RedactorPlugins.mediamanager = function()
                 cropAndInsertButton: false,
                 onInsert: function(items) {
                     if (!items.length) {
-                        alert('Please select an audio file to insert.')
+                        $.oc.alert($.oc.lang.get('mediamanager.invalid_audio_empty_insert'))
                         return
                     }
 
                     if (items.length > 1) {
-                        alert('Please select a single file.')
+                        $.oc.alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
                         return
                     }
 
                     var item = items[0]
 
                     if (item.documentType !== 'audio') {
-                        alert('The file "'+item.title+'" is not an audio file.')
+                        $.oc.alert($.oc.lang.get('mediamanager.invalid_audio_invalid_insert', 'The file "'+item.title+'" is not an audio file.'))
                         return
                     }
 

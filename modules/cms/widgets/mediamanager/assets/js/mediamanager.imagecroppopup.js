@@ -236,20 +236,24 @@
         }
 
         $.oc.stripeLoadIndicator.show()
-        this.$popupElement.find('form').request(
-            this.options.alias+'::onCropImage', {
+
+        this.$popupElement
+            .find('form')
+            .request(this.options.alias+'::onCropImage', {
                 data: data
-            }
-        ).always(function() {
-            $.oc.stripeLoadIndicator.hide()
-        }).done(this.proxy(this.onImageCropped))
+            })
+            .always(function() {
+                $.oc.stripeLoadIndicator.hide()
+            })
+            .done(this.proxy(this.onImageCropped))
     }
 
     MediaManagerImageCropPopup.prototype.onImageCropped = function(response) {
         this.hide()
 
-        if (this.options.onDone !== undefined)
-            this.options.onDone(response.result)
+        if (this.options.onDone !== undefined) {
+            this.options.onDone(response)
+        }
     }
 
     MediaManagerImageCropPopup.prototype.showResizePopup = function() {
@@ -409,7 +413,8 @@
         if (mode === 'normal') {
             $widthInput.attr('disabled', 'disabled')
             $heightInput.attr('disabled', 'disabled')
-        } else {
+        }
+        else {
             $widthInput.removeAttr('disabled')
             $heightInput.removeAttr('disabled')
 
@@ -449,13 +454,13 @@
         var command = $(ev.currentTarget).data('command')
 
         switch (command) {
-            case 'insert' : 
+            case 'insert':
                 this.cropAndInsert()
             break
-            case 'resize' :
+            case 'resize':
                 this.showResizePopup()
             break
-            case 'undo-resizing' :
+            case 'undo-resizing':
                 this.undoResizing()
             break
         }

@@ -20,3 +20,10 @@
         </div>
     <?= Form::close() ?>
 </div>
+
+<script>
+    setTimeout(
+        function(){ $('#<?= $this->getId('popup') ?> input.form-control:first').focus() },
+        310
+    )
+</script>

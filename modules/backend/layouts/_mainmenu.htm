@@ -2,28 +2,26 @@
     $activeItem = BackendMenu::getActiveMainMenuItem();
     $mySettings = System\Classes\SettingsManager::instance()->listItems('mysettings');
 ?>
-<nav class="navbar layout control-toolbar" id="layout-mainmenu" role="navigation">
-    <div class="layout-cell">
-        <div class="toolbar-item">
-            <div data-control="toolbar">
-                <a class="menu-toggle" href="javascript:;">
-                    <i class="icon-bars"></i>
-                    <?= $activeItem ? e(trans($activeItem->label)) : 'CMS' ?>
-                </a>
+<nav class="navbar control-toolbar" id="layout-mainmenu" role="navigation">
+    <div class="toolbar-item toolbar-primary">
+        <div data-control="toolbar">
+            <a class="menu-toggle" href="javascript:;">
+                <i class="icon-bars"></i>
+                <?= $activeItem ? e(trans($activeItem->label)) : 'CMS' ?>
+            </a>
 
-                <ul class="nav">
-                    <?php foreach (BackendMenu::listMainMenuItems() as $item): ?>
-                        <li class="<?= BackendMenu::isMainMenuItemActive($item) ? 'active' : null ?>">
-                            <a href="<?= $item->url ?>">
-                                <i class="<?= $item->icon ?>"></i><?= e(trans($item->label)) ?>
-                            </a>
-                        </li>
-                    <?php endforeach ?>
-                </ul>
-            </div>
+            <ul class="nav">
+                <?php foreach (BackendMenu::listMainMenuItems() as $item): ?>
+                    <li class="<?= BackendMenu::isMainMenuItemActive($item) ? 'active' : null ?>">
+                        <a href="<?= $item->url ?>">
+                            <i class="<?= $item->icon ?>"></i><?= e(trans($item->label)) ?>
+                        </a>
+                    </li>
+                <?php endforeach ?>
+            </ul>
         </div>
     </div>
-    <div class="layout-cell width-fix">
+    <div class="toolbar-item" data-calculate-width>
         <ul>
             <li class="icon preview with-tooltip">
                 <a

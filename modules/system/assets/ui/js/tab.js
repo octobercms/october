@@ -86,18 +86,25 @@
             tabIndex = $tabs.index(li),
             time = new Date().getTime(),
             targetId = this.tabId + '-tab-' + tabIndex + time,
-            $a = $('a', li)
+            $anchor = $('a', li)
 
-        $a.attr('data-target', '#'+targetId).attr('data-toggle', 'tab')
-        if (!$a.attr('title'))
-            $a.attr('title', $a.text())
+        $anchor
+            .data('target', '#'+targetId)
+            .attr('data-target', '#'+targetId)
+            .attr('data-toggle', 'tab')
 
-        var html = $a.html()
+        if (!$anchor.attr('title'))
+            $anchor.attr('title', $anchor.text())
 
-        $a.html('')
-        $a.append($('<span class="title"></span>').append($('<span></span>').html(html)))
+        var html = $anchor.html()
+
+        $anchor.html('')
+        $anchor
+            .append($('<span class="title"></span>')
+            .append($('<span></span>').html(html)))
 
         var pane = $('> .tab-pane', this.$pagesContainer).eq(tabIndex).attr('id', targetId)
+
         $(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){
             $(this).trigger('close.oc.tab')
             return false

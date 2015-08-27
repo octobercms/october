@@ -17,7 +17,8 @@
         }
     ],
     "require": {
-        "php": ">=5.4"
+        "php": ">=5.4",
+        "composer/installers": "~1.0"
     },
     "extra": {
         "branch-alias": {

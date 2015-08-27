@@ -5,22 +5,22 @@
 Allows a user to select from a small set of binary options.
 
     <div class="checkbox custom-checkbox">
-        <input name="checkbox" value="1" type="checkbox" id="checkbox1">
+        <input name="checkbox" value="1" type="checkbox" id="checkbox1" />
         <label for="checkbox1">Checkbox</label>
     </div>
 
 ### Radio
 
     <div class="radio custom-radio">
-        <input name="radio" value="1" type="radio" id="radio_1">
+        <input name="radio" value="1" type="radio" id="radio_1" />
         <label for="radio_1">Paris</label>
     </div>
     <div class="radio custom-radio">
-        <input checked="checked" name="radio" value="2" type="radio" id="radio_2">
+        <input checked="checked" name="radio" value="2" type="radio" id="radio_2" />
         <label for="radio_2">Dubai</label>
     </div>
     <div class="radio custom-radio">
-        <input name="radio" value="3" type="radio" id="radio_3">
+        <input name="radio" value="3" type="radio" id="radio_3" />
         <label for="radio_3">New Zealand</label>
     </div>
 

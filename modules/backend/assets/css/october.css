@@ -116,6 +116,10 @@
 .sweet-alert .btn-danger:focus{border-color:#d43f3a;outline:0}
 .sweet-alert .btn-warning:focus{border-color:#eea236;outline:0}
 .sweet-alert button::-moz-focus-inner{border:0}
+.sweet-alert{text-align:right}
+.sweet-alert h4{word-break:word-break;word-wrap:break-word;max-height:350px;overflow-y:auto;margin:10px 0 17px 0;color:#2b3e50;text-align:left;font-size:15px;line-height:23px}
+.sweet-alert p{margin:0}
+.sweet-alert p.text-muted{margin-bottom:20px;color:#555555}
 .control-simplelist{font-size:13px}
 .control-simplelist ul{padding-left:15px}
 .control-simplelist.form-control ul{margin-bottom:0}
@@ -228,9 +232,6 @@
 .tooltip.in{opacity:1;filter:alpha(opacity=100)}
 .oc-logo-white{background-image:url(../images/october-logo-white.svg);background-position:50% 50%;background-repeat:no-repeat;background-size:contain}
 .oc-bg-logo{background-image:url(../images/october-logo-transparent.svg);background-position:50% 50%;background-repeat:no-repeat;background-size:50% auto}
-.sweet-alert{text-align:left}
-.sweet-alert h4{margin:10px 0 20px 0;color:#2b3e50;font-size:18px}
-.sweet-alert p.text-muted{margin-bottom:20px;color:#555555}
 .report-widget{padding:15px;background:white;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px}
 .report-widget h3{font-size:14px;color:#7e8c8d;text-transform:uppercase;font-weight:600;margin-top:0;margin-bottom:30px}
 .report-widget .height-100{height:100px}
@@ -582,7 +583,6 @@ body{webkit-font-smoothing:antialiased;font-family:'Open Sans',Arial,sans-serif;
 .layout > .layout-row > .layout-cell.min-height{height:0}
 .layout > .layout-row > .layout-cell.center{text-align:center}
 .layout > .layout-row > .layout-cell.middle{vertical-align:middle}
-.layout > .layout-row > .layout-cell.width-fix > form,.layout > .layout-row > .layout-cell.width-fix > div{display:inline-block}
 .layout > .layout-row > .layout-cell.width-100{width:100px}
 .layout > .layout-row > .layout-cell.width-120{width:120px}
 .layout > .layout-row > .layout-cell.width-200{width:200px}
@@ -595,7 +595,6 @@ body{webkit-font-smoothing:antialiased;font-family:'Open Sans',Arial,sans-serif;
 .layout > .layout-row > .layout-cell.min-height{height:0}
 .layout > .layout-row > .layout-cell.center{text-align:center}
 .layout > .layout-row > .layout-cell.middle{vertical-align:middle}
-.layout > .layout-row > .layout-cell.width-fix > form,.layout > .layout-row > .layout-cell.width-fix > div{display:inline-block}
 .layout > .layout-row.min-size{height:0}
 .layout > .layout-cell{display:table-cell;vertical-align:top;height:100%}
 .layout > .layout-cell.width-100{width:100px}
@@ -610,8 +609,8 @@ body{webkit-font-smoothing:antialiased;font-family:'Open Sans',Arial,sans-serif;
 .layout > .layout-cell.min-height{height:0}
 .layout > .layout-cell.center{text-align:center}
 .layout > .layout-cell.middle{vertical-align:middle}
-.layout > .layout-cell.width-fix > form,.layout > .layout-cell.width-fix > div{display:inline-block}
 .whiteboard{background:white}
+.layout-cell.width-fix > form,[data-calculate-width] > form,.layout-cell.width-fix > div,[data-calculate-width] > div{display:inline-block}
 body.compact-container .layout.layout-container,body.compact-container .layout .layout-container{padding:0 !important}
 body.slim-container .layout.layout-container,body.slim-container .layout .layout-container{padding-left:0 !important;padding-right:0 !important}
 @media (max-width:768px){.layout .hide-on-small{display:none}
@@ -638,7 +637,7 @@ nav#layout-mainmenu.navbar ul li.account a{padding-right:20px;position:relative;
 nav#layout-mainmenu.navbar ul li.account img{width:25px;margin-right:7px;position:relative;top:-2px}
 nav#layout-mainmenu.navbar ul.nav{display:inline-block}
 nav#layout-mainmenu.navbar .menu-toggle{display:none}
-nav#layout-mainmenu.navbar .toolbar-item{margin-right:0}
+nav#layout-mainmenu.navbar .toolbar-item{padding-right:0}
 nav#layout-mainmenu.navbar .toolbar-item:before,nav#layout-mainmenu.navbar .toolbar-item:after{margin-top:0}
 nav#layout-mainmenu.navbar .toolbar-item:before{left:-12px}
 nav#layout-mainmenu.navbar .toolbar-item:after{right:-12px}

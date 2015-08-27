@@ -38,7 +38,7 @@ $.oc.lang = (function(lang, messages) {
     }
 
     if (lang.locale === undefined) {
-        lang.locale = 'en'
+        lang.locale = $('html').attr('lang') || 'en'
     }
 
     if (lang.loadedMessages === undefined) {

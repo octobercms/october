@@ -1,5 +1,5 @@
 /*
- * SimpleList control. 
+ * SimpleList control.
  *
  * Data attributes:
  * - data-control="simplelist" - enables the simplelist plugin

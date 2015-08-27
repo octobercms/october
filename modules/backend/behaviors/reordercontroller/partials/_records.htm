@@ -1,0 +1,19 @@
+<?php foreach ($records as $record): ?>
+
+    <li data-record-id="<?= $record->id ?>" data-record-sort-order="<?= $record->sort_order ?>">
+        <div class="record">
+            <a href="javascript:;" class="move"></a>
+            <span><?= $this->reorderGetRecordName($record) ?></span>
+            <input name="record_ids[]" type="hidden" value="<?= $record->id ?>" />
+        </div>
+
+        <?php if ($reorderShowTree): ?>
+            <ol>
+                <?php if ($record->children): ?>
+                    <?= $this->reorderMakePartial('records', ['records' => $record->children]) ?>
+                <?php endif ?>
+            </ol>
+        <?php endif ?>
+    </li>
+
+<?php endforeach ?>

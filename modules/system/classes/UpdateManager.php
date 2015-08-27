@@ -1,5 +1,6 @@
 <?php namespace System\Classes;
 
+use Db;
 use App;
 use URL;
 use File;
@@ -414,6 +415,9 @@ class UpdateManager
         }
 
         @unlink($filePath);
+
+        // Database may fall asleep after this long process
+        Db::reconnect();
 
         Parameters::set([
             'system::core.hash'  => $hash,
