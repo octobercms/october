@@ -237,6 +237,10 @@ return [
         'unlink_name' => 'Unlink :name',
         'unlink_confirm' => 'Are you sure?'
     ],
+    'reorder' => [
+        'default_title' => 'Reorder records',
+        'no_records' => 'There are no records available to sort.',
+    ],
     'model' => [
         'name' => 'Model',
         'not_found' => "Model ':class' with an ID of :id could not be found",
@@ -261,6 +265,7 @@ return [
         'code_folding' => 'Code folding',
         'word_wrap' => 'Word wrap',
         'highlight_active_line' => 'Highlight active line',
+        'auto_closing' => 'Auto close tags and special characters',
         'show_invisibles' => 'Show invisible characters',
         'show_gutter' => 'Show gutter',
         'theme' => 'Color scheme'

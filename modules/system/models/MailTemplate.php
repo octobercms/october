@@ -45,6 +45,23 @@ class MailTemplate extends Model
 
     protected static $registeredTemplates;
 
+    /**
+     * Returns an array of template codes and descriptions.
+     * @return array
+     */
+    public static function listAllTemplates()
+    {
+        $fileTemplates = (array) self::make()->listRegisteredTemplates();
+        $dbTemplates = (array) self::lists('description', 'code');
+        $templates = $fileTemplates + $dbTemplates;
+        ksort($templates);
+        return $templates;
+    }
+
+    /**
+     * Syncronise all file templates to the database.
+     * @return void
+     */
     public static function syncAll()
     {
         $templates = self::make()->listRegisteredTemplates();

@@ -53,7 +53,7 @@ fields:
         type: dropdown
 
     auto_closing:
-        label: Auto close tags and special characters
+        label: backend::lang.editor.auto_closing
         type: checkbox
 
     show_invisibles:

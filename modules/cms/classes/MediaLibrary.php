@@ -467,8 +467,9 @@ class MediaLibrary
          * S3 doesn't allow getting the last modified timestamp for folders,
          * so this feature is disabled - folders timestamp is always NULL.
          */
-        $lastModified = $itemType == MediaLibraryItem::TYPE_FILE ? 
-            $this->getStorageDisk()->lastModified($path) : null;
+        $lastModified = $itemType == MediaLibraryItem::TYPE_FILE
+            ? $this->getStorageDisk()->lastModified($path)
+            : null;
 
         /*
          * The folder size (number of items) doesn't respect filters. That
@@ -476,8 +477,9 @@ class MediaLibrary
          * zero items for a folder that contains files not visible with a
          * currently applied filter. -ab
          */
-        $size = $itemType == MediaLibraryItem::TYPE_FILE ? 
-            $this->getStorageDisk()->size($path) : $this->getFolderItemCount($path);
+        $size = $itemType == MediaLibraryItem::TYPE_FILE
+            ? $this->getStorageDisk()->size($path)
+            : $this->getFolderItemCount($path);
 
         $publicUrl = $this->storagePath.$relativePath;
         return new MediaLibraryItem($relativePath, $size, $lastModified, $itemType, $publicUrl);
@@ -492,12 +494,14 @@ class MediaLibrary
     {
         $folderItems = array_merge(
             $this->getStorageDisk()->files($path),
-            $this->getStorageDisk()->directories($path));
+            $this->getStorageDisk()->directories($path)
+        );
 
         $size = 0;
         foreach ($folderItems as $folderItem) {
-            if ($this->isVisible($folderItem))
+            if ($this->isVisible($folderItem)) {
                 $size++;
+            }
         }
 
         return $size;
@@ -543,14 +547,14 @@ class MediaLibrary
 
         usort($itemList, function($a, $b) use ($sortBy) {
             switch ($sortBy) {
-                case self::SORT_BY_TITLE : return strcasecmp($a->path, $b->path);
-                case self::SORT_BY_SIZE : 
+                case self::SORT_BY_TITLE: return strcasecmp($a->path, $b->path);
+                case self::SORT_BY_SIZE:
                     if ($a->size > $b->size)
                         return -1;
 
                     return $a->size < $b->size ? 1 : 0;
                 break;
-                case self::SORT_BY_MODIFIED :
+                case self::SORT_BY_MODIFIED:
                     if ($a->lastModified > $b->lastModified)
                         return -1;
 
@@ -593,7 +597,8 @@ class MediaLibrary
             return $this->storageDisk;
 
         return $this->storageDisk = Storage::disk(
-            Config::get('cms.storage.media.disk', 'local'));
+            Config::get('cms.storage.media.disk', 'local')
+        );
     }
 
     /**

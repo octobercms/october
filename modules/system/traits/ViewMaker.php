@@ -2,6 +2,7 @@
 
 use File;
 use Lang;
+use Event;
 use Block;
 use SystemException;
 
@@ -232,5 +233,21 @@ trait ViewMaker
         $classFile = realpath(dirname(File::fromClass($class)));
         $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
         return ($isPublic) ? File::localToPublic($guessedPath) : $guessedPath;
+    }
+
+    /**
+     * Special event function used for extending within view files
+     * @param string $event Event name
+     * @param array $params Event parameters
+     * @return string
+     */
+    public function fireViewEvent($event, $params = [])
+    {
+        // Add the local object to the first parameter always
+        array_unshift($params, $this);
+
+        if ($result = Event::fire($event, $params)) {
+            return implode(PHP_EOL.PHP_EOL, (array) $result);
+        }
     }
 }

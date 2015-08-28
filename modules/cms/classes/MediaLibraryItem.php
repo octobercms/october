@@ -1,7 +1,7 @@
 <?php namespace Cms\Classes;
 
-use Config;
 use File;
+use Config;
 
 /**
  * Represents a file or folder in the Media Library.
@@ -22,7 +22,7 @@ class MediaLibraryItem
     /**
      * @var string Specifies the item path relative to the Library root.
      */
-    public $path; 
+    public $path;
 
     /**
      * @var integer Specifies the item size.

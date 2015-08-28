@@ -8,7 +8,8 @@ return [
     'locale' => [
         'en' => 'Anglais',
         'de' => 'Allemand',
-        'es' => 'Espangol',
+        'el' => 'Grec',
+        'es' => 'Espagnol',
         'es-ar' => 'Espagnol (Argentine)',
         'fa' => 'Persan',
         'fr' => 'Français',
@@ -26,7 +27,8 @@ return [
         'se' => 'Suédois',
         'sk' => 'Slovaque (Slovaquie)',
         'tr' => 'Turque',
-        'zh-cn' => 'Chinois (Chine)'
+        'zh-cn' => 'Chinois (Chine)',
+        'zh-tw' => 'Chinese (Taiwan)',
     ],
     'directory' => [
         'create_fail' => "Impossible de créer le répertoire : :name",
@@ -60,14 +62,14 @@ return [
         'unnamed' => 'Thème sans nom',
         'name' => [
             'label' => 'Nom du thème',
-            'help' => 'Nommer le thème en usant d’un code unique. Pour exemple, RainLab.Vanilla'
+            'help' => 'Nommer le thème avec un nom de code unique. Par exemple, RainLab.Vanilla'
         ],
     ],
     'themes' => [
         'install' => 'Installer des thèmes',
         'search' => 'Recherche des thème à installer…',
         'installed' => 'Thèmes installés',
-        'no_themes' => 'Il n’y a aucun thème installé depuis le site du CMS October.',
+        'no_themes' => 'Il n’y a aucun thème installé depuis le site d’October CMS.',
         'recommended' => 'Recommandé',
         'remove_confirm' => 'Confirmer la suppression de ce thème ?'
     ],
@@ -76,7 +78,7 @@ return [
         'unnamed' => 'Plugin sans nom',
         'name' => [
             'label' => 'Nom du plugin',
-            'help' => 'Nommer le plugin avec son nom de code unique. Par exemple, RainLab.Blog',
+            'help' => 'Nommer le plugin avec un nom de code unique. Par exemple, RainLab.Blog',
         ],
     ],
     'plugins' => [
@@ -87,7 +89,7 @@ return [
         'install_products' => 'Installer des produits',
         'search' => 'Recherche des plugins à installer…',
         'installed' => 'Plugins installés',
-        'no_plugins' => 'Il n’y a aucun plugin installé depuis le site du CMS October.',
+        'no_plugins' => 'Il n’y a aucun plugin installé depuis le site d’October CMS.',
         'recommended' => 'Recommandé',
         'remove' => 'Supprimer',
         'refresh' => 'Actualiser',
@@ -112,7 +114,7 @@ return [
         'detach' => 'Détacher le Projet',
         'none' => 'Aucun',
         'id' => [
-            'label' => 'Projet ID',
+            'label' => 'ID du projet',
             'help' => 'Comment trouver l’ID de son projet',
             'missing' => 'Spécifier un ID de projet.',
         ],
@@ -131,7 +133,7 @@ return [
         'log_file' => 'Journal du fichier',
         'menu_label' => 'Configuration des adresses e-mails',
         'menu_description' => 'Gérer la configuration des adresses e-mails.',
-        'general' => 'Générale',
+        'general' => 'Général',
         'method' => 'Méthode d’envoi',
         'sender_name' => 'Nom de l’expéditeur',
         'sender_email' => 'Adresse e-mail de l’expéditeur',
@@ -160,7 +162,7 @@ return [
     ],
     'mail_templates' => [
         'menu_label' => 'Modèles des adresses e-mails',
-        'menu_description' => 'Gérer les modèles et maquettes des adresses e-mails envoyées par l’administration.',
+        'menu_description' => 'Gérer les modèles et maquettes des e-mails envoyés aux utilisateurs et aux administrateurs.',
         'new_template' => 'Nouveau modèle',
         'new_layout' => 'Nouvelle maquette',
         'template' => 'Modèle',
@@ -168,6 +170,7 @@ return [
         'menu_layouts_label' => 'Maquettes des adresses e-mails',
         'layout' => 'Maquette',
         'layouts' => 'Maquettes',
+        'no_layout' => '-- Aucune maquette --',
         'name' => 'Nom',
         'name_comment' => 'Nom unique utilisé pour identifier ce modèle',
         'code' => 'Code',
@@ -180,7 +183,10 @@ return [
         'content_text' => 'Texte brut',
         'test_send' => 'Envoyer un message de test',
         'test_success' => 'Le message de test a été envoyé avec succès.',
-        'return' => 'Retour à la liste des modèles.'
+        'return' => 'Retour à la liste des modèles.',
+        'test_confirm' => 'Un message de test sera envoyé à :email. Continuer ?',
+        'saving' => 'Sauvegarde du modèle en cours…',
+        'sending' => 'Envoi du message de test en cours…',
     ],
     'install' => [
         'project_label' => 'Attacher un projet',
@@ -253,14 +259,14 @@ return [
     ],
     'server' => [
         'connect_error' => 'Erreur lors de la connexion au serveur.',
-        'response_not_found' => 'La mise à jour du serveur n’a pas été trouvée.',
+        'response_not_found' => 'Le serveur de mise à jour n’a pas été trouvé.',
         'response_invalid' => 'Réponse invalide du serveur.',
         'response_empty' => 'Réponse vide du serveur',
         'file_error' => 'Erreur du serveur lors de la transmission du paquet.',
         'file_corrupt' => 'Le fichier provenant du serveur est corrompu.',
     ],
     'behavior' => [
-        'missing_property' => 'La classe :class doit définir la propriété $:property utilisée par le fonctionnement :behavior.',
+        'missing_property' => 'La classe :class doit définir la propriété $:property utilisée par le comportement (behavior) :behavior.',
     ],
     'config' => [
         'not_found' => 'Impossible de trouver le fichier de configuration :file défini dans :location.',
@@ -270,16 +276,16 @@ return [
         'extract_failed' => "Impossible de décompresser le fichier ':file'.",
     ],
     'event_log' => [
-        'hint' => 'Ce journal affiche une liste des erreurs potentielles dans l’application, telles que les exceptions et les informations de débogage.',
+        'hint' => 'Ce journal affiche une liste des erreurs potentielles de l’application, telles que les exceptions et les informations de débogage.',
         'menu_label' => 'Journal des évènements',
-        'menu_description' => 'Affiche les évènements du système comprenant la date et les détails.',
+        'menu_description' => 'Affiche les évènements des journaux systèmes avec leur date et les détails.',
         'empty_link' => 'Purger le journal des évènements',
         'empty_loading' => 'Purge du journal des évènements…',
         'empty_success' => 'Le journal des évènements a été purgé avec succès.',
         'return_link' => 'Retour au journal des évènements',
         'id' => 'ID',
         'id_label' => 'ID de l’évènement',
-        'created_at' => 'Date & heure',
+        'created_at' => 'Date et heure',
         'message' => 'Message',
         'level' => 'Niveau',
     ],
@@ -305,7 +311,7 @@ return [
         'access_logs' => 'Voir les journaux système',
         'manage_mail_templates' => 'Gérer les modèles des e-mails',
         'manage_mail_settings' => 'Gérer les paramètres e-mail',
-        'manage_other_administrators' => 'Gérer les autres paramètres administrateur',
+        'manage_other_administrators' => 'Gérer les autres administrateurs',
         'view_the_dashboard' => 'Voir le tableau de bord',
         'manage_branding' => 'Personnaliser l’interface d’administration'
     ]

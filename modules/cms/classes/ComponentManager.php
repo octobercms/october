@@ -205,7 +205,7 @@ class ComponentManager
 
         if (!class_exists($className)) {
             throw new SystemException(sprintf(
-                'Component class not found %s.Check the component plugin.',
+                'Component class not found %s. Check the component plugin.',
                 $className
             ));
         }

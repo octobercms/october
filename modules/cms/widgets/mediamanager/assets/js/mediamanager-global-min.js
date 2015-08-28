@@ -13,9 +13,9 @@ this.button.addCallback(buttonInsertAudio,this.mediamanager.onInsertAudio);},onI
 hideLinkTooltips()
 this.selection.save()
 this.link.getData()
-new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:false,onInsert:function(items){if(!items.length){alert($.oc.lang.get('mediamanager.invalid_file_empty_insert'))
+new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:false,onInsert:function(items){if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_file_empty_insert'))
 return}
-if(items.length>1){alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
+if(items.length>1){$.oc.alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
 return}
 var text=that.link.text,textIsEmpty=$.trim(text)===''
 for(var i=0,len=items.length;i<len;i++){var text=textIsEmpty?items[i].title:text
@@ -26,11 +26,11 @@ if(!this.selection.getCurrent())
 this.focus.setStart()
 this.selection.save()
 var that=this
-new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:true,onInsert:function(items){if(!items.length){alert('Please select image(s) to insert.')
+new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:true,onInsert:function(items){if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_image_empty_insert'))
 return}
 that.selection.restore()
 var isP=that.utils.isCurrentOrParent('P'),html='',imagesInserted=0
-for(var i=0,len=items.length;i<len;i++){if(items[i].documentType!=='image'){alert('The file "'+items[i].title+'" is not an image.')
+for(var i=0,len=items.length;i<len;i++){if(items[i].documentType!=='image'){$.oc.alert($.oc.lang.get('mediamanager.invalid_image_invalid_insert','The file "'+items[i].title+'" is not an image.'))
 continue}
 var $img=$('<img>').attr('src',items[i].publicUrl).attr('data-redactor-inserted-image','true')
 html+=that.utils.getOuterHtml($img)
@@ -50,12 +50,12 @@ var that=this
 hideLinkTooltips()
 this.selection.save()
 this.link.getData()
-new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:false,onInsert:function(items){if(!items.length){alert('Please select a video file to insert.')
+new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:false,onInsert:function(items){if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_video_empty_insert'))
 return}
-if(items.length>1){alert('Please select a single file.')
+if(items.length>1){$.oc.alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
 return}
 var item=items[0]
-if(item.documentType!=='video'){alert('The file "'+item.title+'" is not a video.')
+if(item.documentType!=='video'){$.oc.alert($.oc.lang.get('mediamanager.invalid_video_invalid_insert','The file "'+item.title+'" is not a video.'))
 return}
 var $richEditorNode=that.core.getTextarea().closest('[data-control="richeditor"]'),$videoNode=$('<figure contenteditable="false" tabindex="0" data-ui-block="true"/>')
 $videoNode.get(0).contentEditable=false
@@ -68,12 +68,12 @@ var that=this
 hideLinkTooltips()
 this.selection.save()
 this.link.getData()
-new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:false,onInsert:function(items){if(!items.length){alert('Please select an audio file to insert.')
+new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:false,onInsert:function(items){if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_audio_empty_insert'))
 return}
-if(items.length>1){alert('Please select a single file.')
+if(items.length>1){$.oc.alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
 return}
 var item=items[0]
-if(item.documentType!=='audio'){alert('The file "'+item.title+'" is not an audio file.')
+if(item.documentType!=='audio'){$.oc.alert($.oc.lang.get('mediamanager.invalid_audio_invalid_insert','The file "'+item.title+'" is not an audio file.'))
 return}
 var $richEditorNode=that.core.getTextarea().closest('[data-control="richeditor"]'),$videoNode=$('<figure contenteditable="false" tabindex="0" data-ui-block="true"/>')
 $videoNode.get(0).contentEditable=false

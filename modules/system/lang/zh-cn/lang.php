@@ -26,7 +26,9 @@ return [
         'se' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
-        'zh-cn' => '简体中文'
+        'zh-cn' => '简体中文',
+        'zh-tw' => 'Chinese (Taiwan)',
+        'el' => 'Greek'
     ],
     'directory' => [
         'create_fail' => '不能创建目录: :name'
@@ -56,6 +58,7 @@ return [
         ]
     ],
     'theme' => [
+        'label' => '主题',
         'unnamed' => '未命名主题',
         'name' => [
             'label' => '主题名称',
@@ -71,6 +74,7 @@ return [
         'remove_confirm' => '你确定要删除这些主题吗？'
     ],
     'plugin' => [
+        'label' => '插件',
         'unnamed' => '未命名的插件',
         'name' => [
             'label' => '插件名称',
@@ -91,6 +95,8 @@ return [
         'refresh' => '刷新',
         'disabled_label' => '禁用',
         'disabled_help' => '被禁用的插件被应用程序忽略了.',
+        'frozen_label' => '不使用在线更新',
+        'frozen_help' => '在线更新时将不再更新这个插件。',
         'selected_amount' => '选中的插件: :数目',
         'remove_confirm' => '你确定吗?',
         'remove_success' => '成功从系统移除这些插件.',
@@ -150,7 +156,9 @@ return [
         'mailgun_secret_comment' => '输入你的 Mailgun API key.',
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill Secret',
-        'mandrill_secret_comment' => '输入你的 Mandrill API key.'
+        'mandrill_secret_comment' => '输入你的 Mandrill API key.',
+        'drivers_hint_header' => '驱动未安装',
+        'drivers_hint_content' => '这个邮件发送方法需要安装插件":plugin"。'
     ],
     'mail_templates' => [
         'menu_label' => '邮件模板',
@@ -190,6 +198,7 @@ return [
         'name' => '软件更新',
         'menu_label' => '更新',
         'menu_description' => '更新系统, 管理并安装插件和主题.',
+        'return_link' => '返回系统更新',
         'check_label' => '检查更新',
         'retry_label' => '重试',
         'plugin_name' => '名字',
@@ -208,15 +217,13 @@ return [
         'plugin_downloading' => '下载插件: :name',
         'plugin_extracting' => '解压插件: :name',
         'plugin_version_none' => '新插件',
-        'plugin_version_old' => '当前 v:version',
-        'plugin_version_new' => 'v:version',
-        'theme_label' => '主题',
+        'plugin_current_version' => '当前版本',
         'theme_new_install' => '新主题安装.',
         'theme_downloading' => '下载主题: :name',
         'theme_extracting' => '解压主题: :name',
         'update_label' => '更新软件',
         'update_completing' => '完成更新过程',
-        'update_loading' => '加载可用更新...',
+        'update_loading' => '正在检查可用更新...',
         'update_success' => '更新完成.',
         'update_failed_label' => '更新失败',
         'force_label' => '强制更新',
@@ -227,7 +234,24 @@ return [
         'none' => [
             'label' => '没有更新',
             'help' => '没有发现新的更新.'
-        ]
+    ],
+        'important_action' => [
+            'empty' => '选择操作',
+            'confirm' => '确认更新',
+            'skip' => '跳过这个插件（仅本次）',
+            'ignore' => '跳过这个插件（总是）',
+        ],
+        'important_action_required' => '需要选择操作',
+        'important_view_guide' => '查看升级指引',
+        'important_alert_text' => '一些更新注意事项',
+        'details_title' => '插件详情',
+        'details_view_homepage' => '查看主页',
+        'details_readme' => '文档',
+        'details_readme_missing' => '没有提供文档',
+        'details_upgrades' => '升级指引',
+        'details_upgrades_missing' => '没有提供升级指引。',
+        'details_current_version' => '当前版本',
+        'details_author' => '作者',
     ],
     'server' => [
         'connect_error' => '连接服务器失败.',
@@ -288,4 +312,3 @@ return [
         'manage_branding' => '自定义后台'
     ]
 ];
-

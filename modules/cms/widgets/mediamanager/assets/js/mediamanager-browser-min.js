@@ -113,19 +113,20 @@ return
 clearTimeout(this.selectTimer)
 this.selectTimer=null}
 MediaManager.prototype.selectItem=function(node,expandSelection){if(!expandSelection){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
-for(var i=0,len=items.length;i<len;i++)
-items[i].setAttribute('class','')}
-else
-this.unselectRoot()
-if(!expandSelection)
-node.setAttribute('class','selected')
+for(var i=0,len=items.length;i<len;i++){items[i].setAttribute('class','')}
+node.setAttribute('class','selected')}
 else{if(node.getAttribute('class')=='selected')
 node.setAttribute('class','')
 else
 node.setAttribute('class','selected')}
 node.focus()
 this.clearSelectTimer()
-if(this.isPreviewSidebarVisible()){this.selectTimer=setTimeout(this.proxy(this.updateSidebarPreview),100)}}
+if(this.isPreviewSidebarVisible()){this.selectTimer=setTimeout(this.proxy(this.updateSidebarPreview),100)}
+if(node.hasAttribute('data-root')&&!expandSelection){this.toggleMoveAndDelete(true)}
+else{this.toggleMoveAndDelete(false)}
+if(expandSelection){this.unselectRoot()}}
+MediaManager.prototype.toggleMoveAndDelete=function(value){$('[data-command=delete]',this.$el).prop('disabled',value)
+$('[data-command=move]',this.$el).prop('disabled',value)}
 MediaManager.prototype.unselectRoot=function(){var rootItem=this.$el.get(0).querySelector('[data-type="media-item"][data-root].selected')
 if(rootItem)
 rootItem.setAttribute('class','')}
@@ -135,8 +136,7 @@ clearTimeout(this.dblTouchTimer)
 this.dblTouchTimer=null}
 MediaManager.prototype.clearDblTouchFlag=function(){this.dblTouchFlag=false}
 MediaManager.prototype.selectFirstItem=function(){var firstItem=this.itemListElement.querySelector('[data-type="media-item"]:first-child')
-if(firstItem)
-this.selectItem(firstItem)}
+if(firstItem){this.selectItem(firstItem)}}
 MediaManager.prototype.selectRelative=function(next,expandSelection){var currentSelection=this.getSelectedItems(true,true)
 if(currentSelection.length==0){this.selectFirstItem()
 return}
@@ -183,9 +183,8 @@ else{$sidebar.addClass('hide')
 $button.addClass('sidebar-hidden')}
 this.$form.request(this.options.alias+'::onSetSidebarVisible',{data:{visible:(isVisible?0:1)}})}
 MediaManager.prototype.updateSidebarMediaPreview=function(items){var previewPanel=this.sidebarPreviewElement,previewContainer=previewPanel.querySelector('[data-control="media-preview-container"]'),template=''
-for(var i=0,len=previewContainer.children.length;i<len;i++)
-previewContainer.removeChild(previewContainer.children[i])
-if(items.length==1){var item=items[0],documentType=item.getAttribute('data-document-type')
+for(var i=0,len=previewContainer.children.length;i<len;i++){previewContainer.removeChild(previewContainer.children[i])}
+if(items.length==1&&!items[0].hasAttribute('data-root')){var item=items[0],documentType=item.getAttribute('data-document-type')
 switch(documentType){case'audio':template=previewPanel.querySelector('[data-control="audio-template"]').innerHTML
 break;case'video':template=previewPanel.querySelector('[data-control="video-template"]').innerHTML
 break;case'image':template=previewPanel.querySelector('[data-control="image-template"]').innerHTML
@@ -193,6 +192,8 @@ break;}
 previewContainer.innerHTML=template.replace('{src}',item.getAttribute('data-public-url')).replace('{path}',item.getAttribute('data-path')).replace('{last-modified}',item.getAttribute('data-last-modified-ts'))
 if(documentType=='image')
 this.loadSidebarThumbnail()}
+else if(items.length==1&&items[0].hasAttribute('data-root')){template=previewPanel.querySelector('[data-control="go-up"]').innerHTML
+previewContainer.innerHTML=template}
 else if(items.length==0){template=previewPanel.querySelector('[data-control="no-selection-template"]').innerHTML
 previewContainer.innerHTML=template}
 else{template=previewPanel.querySelector('[data-control="multi-selection-template"]').innerHTML
@@ -201,7 +202,7 @@ MediaManager.prototype.updateSidebarPreview=function(resetSidebar){if(!this.side
 this.sidebarPreviewElement=this.$el.get(0).querySelector('[data-control="preview-sidebar"]')
 var items=resetSidebar===undefined?this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'):[],previewPanel=this.sidebarPreviewElement
 if(items.length==0){this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class','hide')}
-else if(items.length==1){this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class','panel')
+else if(items.length==1&&!items[0].hasAttribute('data-root')){this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class','panel')
 var item=items[0],lastModified=item.getAttribute('data-last-modified')
 previewPanel.querySelector('[data-label="size"]').textContent=item.getAttribute('data-size')
 previewPanel.querySelector('[data-label="title"]').textContent=item.getAttribute('data-title')
@@ -214,8 +215,8 @@ previewPanel.querySelector('[data-control="last-modified"]').setAttribute('class
 if(this.isSearchMode()){previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class','')
 var folderNode=previewPanel.querySelector('[data-label="folder"]')
 folderNode.textContent=item.getAttribute('data-folder')
-folderNode.setAttribute('data-path',item.getAttribute('data-folder'))}else
-previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class','hide')}
+folderNode.setAttribute('data-path',item.getAttribute('data-folder'))}
+else{previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class','hide')}}
 else{this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class','hide')}
 this.updateSidebarMediaPreview(items)}
 MediaManager.prototype.loadSidebarThumbnail=function(){if(this.sidebarThumbnailAjax){try{this.sidebarThumbnailAjax.abort()}
@@ -313,7 +314,7 @@ MediaManager.prototype.uploadSending=function(file,xhr,formData){formData.append
 formData.append('X_OCTOBER_FILEUPLOAD',this.options.uniqueId)}
 MediaManager.prototype.uploadCancelAll=function(){this.dropzone.removeAllFiles(true)
 this.hideUploadUi()}
-MediaManager.prototype.uploadError=function(file,message){swal({title:'Error uploading file',text:message,confirmButtonClass:'btn-default'})}
+MediaManager.prototype.uploadError=function(file,message){$.oc.alert('Error uploading file')}
 MediaManager.prototype.cropSelectedImage=function(callback){var selectedItems=this.getSelectedItems(true)
 if(selectedItems.length!=1){alert(this.options.selectSingleImage)
 return}
@@ -321,8 +322,7 @@ if(selectedItems[0].getAttribute('data-document-type')!=='image'){alert(this.opt
 return}
 var path=selectedItems[0].getAttribute('data-path')
 new $.oc.mediaManager.imageCropPopup(path,{alias:this.options.alias,onDone:callback})}
-MediaManager.prototype.onImageCropped=function(imageUrl){var item={documentType:'image',publicUrl:imageUrl}
-this.$el.trigger('popupcommand',['insert-cropped',item])}
+MediaManager.prototype.onImageCropped=function(result){this.$el.trigger('popupcommand',['insert-cropped',result])}
 MediaManager.prototype.clearSearchTrackInputTimer=function(){if(this.searchTrackInputTimer===null)
 return
 clearTimeout(this.searchTrackInputTimer)
@@ -337,9 +337,9 @@ this.lastSearchValue=value
 this.clearSearchTrackInputTimer()
 this.searchTrackInputTimer=window.setTimeout(this.proxy(this.updateSearchResults),300)}
 MediaManager.prototype.deleteItems=function(){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
-if(!items.length){swal({title:this.options.deleteEmpty,confirmButtonClass:'btn-default'})
+if(!items.length){$.oc.alert(this.options.deleteEmpty)
 return}
-swal({title:this.options.deleteConfirm,confirmButtonClass:'btn-default',showCancelButton:true},this.proxy(this.deleteConfirmation))}
+$.oc.confirm(this.options.deleteConfirm,this.proxy(this.deleteConfirmation))}
 MediaManager.prototype.deleteConfirmation=function(confirmed){if(!confirmed)
 return
 var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),paths=[]
@@ -359,7 +359,7 @@ return false}
 MediaManager.prototype.folderCreated=function(){this.$el.find('button[data-command="create-folder"]').popup('hide')
 this.afterNavigate()}
 MediaManager.prototype.moveItems=function(ev){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
-if(!items.length){swal({title:this.options.moveEmpty,confirmButtonClass:'btn-default'})
+if(!items.length){$.oc.alert(this.options.moveEmpty)
 return}
 var data={exclude:[],path:this.$el.find('[data-type="current-folder"]').val()}
 for(var i=0,len=items.length;i<len;i++){var item=items[i],path=item.getAttribute('data-path')
@@ -401,7 +401,7 @@ else
 this.cropSelectedImage(this.proxy(this.onImageCropped))
 break;}
 return false}
-MediaManager.prototype.onItemClick=function(ev){if(ev.currentTarget.hasAttribute('data-root')||(ev.target.tagName=='I'&&ev.target.hasAttribute('data-rename-control')))
+MediaManager.prototype.onItemClick=function(ev){if(ev.target.tagName=='I'&&ev.target.hasAttribute('data-rename-control'))
 return
 this.selectItem(ev.currentTarget,ev.shiftKey)}
 MediaManager.prototype.onItemTouch=function(ev){this.onItemClick(ev)
@@ -573,8 +573,7 @@ MediaManagerImageCropPopup.prototype.cropAndInsert=function(){var data={img:$(th
 $.oc.stripeLoadIndicator.show()
 this.$popupElement.find('form').request(this.options.alias+'::onCropImage',{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.onImageCropped))}
 MediaManagerImageCropPopup.prototype.onImageCropped=function(response){this.hide()
-if(this.options.onDone!==undefined)
-this.options.onDone(response.result)}
+if(this.options.onDone!==undefined){this.options.onDone(response)}}
 MediaManagerImageCropPopup.prototype.showResizePopup=function(){this.$popupElement.find('button[data-command=resize]').popup({content:this.$popupElement.find('[data-control="resize-template"]').html(),zIndex:1220})}
 MediaManagerImageCropPopup.prototype.onResizePopupShown=function(ev,button,popup){var $popup=$(popup),$widthControl=$popup.find('input[name=width]'),$heightControl=$popup.find('input[name=height]'),imageWidth=this.fixDimensionValue(this.$popupElement.find('input[data-control=dimension-width]').val()),imageHeight=this.fixDimensionValue(this.$popupElement.find('input[data-control=dimension-height]').val())
 $widthControl.val(imageWidth)
@@ -635,7 +634,8 @@ this.initRulers()
 this.initJCrop()}
 MediaManagerImageCropPopup.prototype.onSelectionModeChanged=function(){var mode=this.getSelectionMode(),$widthInput=this.getWidthInput(),$heightInput=this.getHeightInput()
 if(mode==='normal'){$widthInput.attr('disabled','disabled')
-$heightInput.attr('disabled','disabled')}else{$widthInput.removeAttr('disabled')
+$heightInput.attr('disabled','disabled')}
+else{$widthInput.removeAttr('disabled')
 $heightInput.removeAttr('disabled')
 $widthInput.val(this.fixDimensionValue($widthInput.val()))
 $heightInput.val(this.fixDimensionValue($heightInput.val()))}

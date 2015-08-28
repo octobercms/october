@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?= Config::get('app.locale', 'en') ?>" class="no-js <?= $this->makeLayoutPartial('browser_detector') ?>">
+<html lang="<?= App::getLocale() ?>" class="no-js <?= $this->makeLayoutPartial('browser_detector') ?>">
     <head>
         <?= $this->makeLayoutPartial('head') ?>
     </head>

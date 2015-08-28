@@ -9,8 +9,8 @@
     $sizeDisabledAttr = $currentSelectionMode == Cms\Widgets\MediaManager::SELECTION_MODE_NORMAL ? 'disabled="disabled"' : null;
 ?>
 
-<div class="layout control-toolbar standalone-paddings">
-    <div class="layout-cell toolbar-item">
+<div class="control-toolbar toolbar-padded">
+    <div class="toolbar-item toolbar-primary">
         <div data-control="toolbar">
             <label class="standalone"><?= e(trans('cms::lang.media.image_size')) ?> <span data-label="width"><?= $dimensions[0] ?></span> x <span data-label="height"><?= $dimensions[1] ?></span></label>
 

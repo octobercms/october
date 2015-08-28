@@ -27,9 +27,9 @@
     position: relative;
     .horizontal-scroll-indicators(@color-scroll-indicator);
 
-    &.standalone-paddings {
-        padding: 20px;
-    }
+    display: table;
+    table-layout: fixed;
+    width: 100%;
 
     &:before {
         left: -10px;
@@ -41,27 +41,20 @@
 
     .toolbar-item {
         position: relative;
-
         white-space: nowrap;
-        margin-right: 20px;
+        display: table-cell;
+        vertical-align: top;
+        padding-right: 20px;
 
+        &:last-child,
         &.last {
-            margin-right: 0;
+            padding-right: 0;
         }
 
         .horizontal-scroll-indicators(@color-scroll-indicator);
 
         &:before { left: -10px; }
-
-        &.layout-cell {
-            padding-right: 20px;
-            margin-right: 0;
-            &:after { right: 6px; }
-
-            &:last-child {
-                padding-right: 0;
-            }
-        }
+        &:after { right: 6px; }
 
         .btn, .btn-group, .dropdown {
             white-space: nowrap;
@@ -101,18 +94,16 @@
         height: auto;
         padding: 8px 10px;
     }
+
+    &.toolbar-padded {
+        padding: 20px;
+    }
 }
 
 [data-control=toolbar] {
     white-space: nowrap;
     width: 100%;
     overflow: hidden;
-}
-
-#layout-side-panel, .panel-contents {
-    .control-toolbar {
-        padding: 20px 0 20px 20px;
-    }
 }
 
 //

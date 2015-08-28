@@ -12,7 +12,7 @@
 (function($){
     $(window).load(function() {
         $('nav.navbar').each(function(){
-            var 
+            var
                 navbar = $(this),
                 nav = $('ul.nav', navbar)
 
@@ -23,7 +23,7 @@
                 placement: 'bottom'
             })
 
-            $('.layout-cell.width-fix', navbar).one('oc.widthFixed', function(){
+            $('[data-calculate-width]', navbar).one('oc.widthFixed', function() {
                 var dragScroll = $('[data-control=toolbar]', navbar).data('oc.dragScroll')
                 if (dragScroll) {
                     dragScroll.goToElement($('ul.nav > li.active', navbar), undefined, {'duration': 0})

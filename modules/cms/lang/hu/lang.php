@@ -24,7 +24,7 @@ return [
             'not_match' => 'Az objektum melyhez hozzáférni próbál, nem a szerkesztés alatt lévő témához tartozik. Töltse be újra a lapot.'
         ],
         'settings_menu' => 'Dizájn',
-        'settings_menu_description' => 'Telepített témák és további választható sablonok listája.',
+        'settings_menu_description' => 'A telepített témák és a választható sablonok listája.',
         'default_tab' => 'Tulajdonságok',
         'name_label' => 'Név',
         'name_create_placeholder' => 'Az új téma neve',
@@ -104,7 +104,7 @@ return [
         'invalid_url' => 'Érvénytelen a webcím formátuma. A webcímnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő karaktereket tartalmazhatja: ._-[]:?|/+*',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt lapokat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a lapot?',
-        'no_layout' => '-- nincs elrendezés --'
+        'no_layout' => '-- nincs --'
     ],
     'layout' => [
         'not_found_name' => "A(z) ':name' elrendezés nem található",
@@ -147,8 +147,8 @@ return [
     ],
     'editor' => [
         'settings' => 'Beállítások',
-        'title' => 'Cím',
-        'new_title' => 'Új lap címe',
+        'title' => 'Elnevezés',
+        'new_title' => 'Az új lap címe',
         'url' => 'Webcím',
         'filename' => 'Fájlnév',
         'layout' => 'Elrendezés',
@@ -157,8 +157,8 @@ return [
         'meta' => 'Meta',
         'meta_title' => 'Meta cím',
         'meta_description' => 'Meta leírás',
-        'markup' => 'Jelölés',
-        'code' => 'Kód',
+        'markup' => 'HTML',
+        'code' => 'PHP',
         'content' => 'Tartalom',
         'hidden' => 'Rejtett',
         'hidden_comment' => 'A rejtett lapok csak a bejelentkezett felhasználók által hozzáférhetők.',
@@ -220,7 +220,7 @@ return [
         'method_not_found' => "A(z) ':name' komponens nem tartalmaz egy ':method' metódust."
     ],
     'template' => [
-        'invalid_type' => 'Ismeretlen sablontípus.',
+        'invalid_type' => 'Ismeretlen sablon típus.',
         'not_found' => 'A kért sablon nem található.',
         'saved' => 'A módosítások sikeresen mentésre kerültek.'
     ],

@@ -26,6 +26,7 @@
                 autocomplete="off"
                 maxlength="255" />
 
+                <!-- Submit Login -->
                 <button type="submit" class="btn btn-primary login-button">
                     <?= e(trans('backend::lang.account.login')) ?>
                 </button>
@@ -38,6 +39,7 @@
             </a>
         </p>
 
-        <!-- Submit Login -->
     </div>
 <?= Form::close() ?>
+
+<?= $this->fireViewEvent('backend.auth.extendSigninView') ?>

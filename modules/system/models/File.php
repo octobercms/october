@@ -43,4 +43,19 @@ class File extends FileBase
             return $uploadsPath . '/protected/';
         }
     }
+    
+    /**
+     * Define the internal storage path.
+     */
+    public function getStorageDirectory()
+    {
+        $uploadsFolder = Config::get('cms.storage.uploads.folder');
+
+        if ($this->isPublic()) {
+            return $uploadsFolder . '/public/';
+        }
+        else {
+            return $uploadsFolder . '/protected/';
+        }
+    }
 }

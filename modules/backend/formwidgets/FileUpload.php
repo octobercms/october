@@ -34,9 +34,9 @@ class FileUpload extends FormWidgetBase
     //
 
     /**
-     * @var string Prompt to display if no record is selected.
+     * @var string Prompt text to display for the upload button.
      */
-    public $prompt = 'backend::lang.fileupload.default_prompt';
+    public $prompt = null;
 
     /**
      * @var int Preview image width
@@ -126,7 +126,7 @@ class FileUpload extends FormWidgetBase
         $this->vars['cssDimensions'] = $this->getCssDimensions();
         $this->vars['cssBlockDimensions'] = $this->getCssDimensions('block');
         $this->vars['useCaption'] = $this->useCaption;
-        $this->vars['prompt'] = str_replace('%s', '<i class="icon-upload"></i>', trans($this->prompt));
+        $this->vars['prompt'] = $this->getPromptText();
     }
 
     protected function getFileList()
@@ -164,6 +164,22 @@ class FileUpload extends FormWidgetBase
         $mode .= ($relationType == 'attachMany' || $relationType == 'morphMany') ? '-multi' : '-single';
 
         return $mode;
+    }
+
+    /**
+     * Returns the escaped and translated prompt text to display according to the type.
+     * @return string
+     */
+    protected function getPromptText()
+    {
+        if ($this->prompt === null) {
+            $isMulti = ends_with($this->getDisplayMode(), 'multi');
+            $this->prompt = $isMulti
+                ? 'backend::lang.fileupload.upload_file'
+                : 'backend::lang.fileupload.default_prompt';
+        }
+
+        return str_replace('%s', '<i class="icon-upload"></i>', e(trans($this->prompt)));
     }
 
     /**

@@ -45,7 +45,7 @@ You can communicate with us using the following mediums:
 
 * [Follow us on Twitter](http://twitter.com/octobercms) for announcements and updates.
 * [Follow us on Facebook](http://facebook.com/octobercms) for announcements and updates.
-* [Join us on IRC](https://kiwiirc.com/client/irc.freenode.net/?nick=Octonaut|?#october) to chat with us.
+* [Join us on IRC](http://octobercms.com/chat) to chat with us.
 
 ### License
 

@@ -60,7 +60,7 @@ class MailTemplates extends Controller
 
             Mail::sendTo([$user->email => $user->full_name], $model->code);
 
-            Flash::success('The test message has been successfully sent.');
+            Flash::success(trans('system::lang.mail_templates.test_success'));
         }
         catch (Exception $ex) {
             Flash::error($ex->getMessage());

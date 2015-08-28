@@ -19,6 +19,9 @@ return [
             'help' => 'Vous n’avez pas l’autorisation de consulter cette page.',
             'cms_link' => 'Retour à l’administration'
         ],
+        'invalid_token' => [
+            'label' => 'La clé de sécurité est invalide'
+        ]
     ],
     'partial' => [
         'not_found_name' => 'Le nom partiel ":name" est introuvable.'
@@ -95,6 +98,7 @@ return [
         'allow' => 'Autoriser',
         'inherit' => 'Hériter',
         'deny' => 'Interdire',
+        'account' => 'Compte',
         'group' => [
             'name' => 'Groupe',
             'name_field' => 'Nom',
@@ -140,7 +144,13 @@ return [
         'attachment' => 'Pièce jointe',
         'help' => 'Ajouter un titre et une description pour cette pièce jointe.',
         'title_label' => 'Titre',
-        'description_label' => 'Description'
+        'description_label' => 'Description',
+        'default_prompt' => 'Cliquer sur %s ou déposer un fichier ici pour le télécharger',
+        'attachment_url' => 'Adresse URL du fichier joint',
+        'upload_file' => 'Télécharger le fichier',
+        'upload_error' => 'Erreur durant le téléchargement',
+        'remove_confirm' => 'Confirmer l’action ?',
+        'remove_file' => 'Supprimer le fichier',
     ],
     'form' => [
         'create_title' => 'Nouveau :name',
@@ -169,19 +179,21 @@ return [
         'resetting' => 'Restauration',
         'resetting_name' => 'Restauration de :name',
         'undefined_tab' => 'Divers',
-        'field_off' => 'Désactivé',
-        'field_on' => 'Activé',
+        'field_off' => 'Off',
+        'field_on' => 'On',
         'add' => 'Ajouter',
         'apply' => 'Appliquer',
         'cancel' => 'Annuler',
         'close' => 'Fermer',
         'confirm' => 'Confirmer',
         'reload' => 'Recharger',
+        'complete' => 'Complet',
         'ok' => 'OK',
         'or' => 'ou',
         'confirm_tab_close' => 'Confirmer la fermeture de cet onglet ? Les modifications réalisées seront perdues.',
         'behavior_not_ready' => 'Le formulaire n’a pas encore été initialisé, vérifier que la méthode d’appel de initForm() a été soumise au contrôleur.',
         'preview_no_files_message' => 'Les fichiers ne sont pas envoyés.',
+        'preview_no_record_message' => 'Il n’y a aucun enregistrement sélectionné.',
         'select' => 'Sélectionner',
         'select_all' => 'tout',
         'select_none' => 'aucun',
@@ -242,12 +254,13 @@ return [
     'editor' => [
         'menu_label' => 'Préférences de l’éditeur de code',
         'menu_description' => 'Personnaliser la configuration de l’éditeur de code, telle que la taille de la police ou la coloration syntaxique.',
-        'font_size' => 'Taille de police',
-        'tab_size' => 'Taille de tabulation',
+        'font_size' => 'Taille de la police',
+        'tab_size' => 'Taille de la tabulation',
         'use_hard_tabs' => 'Indentation par tabulation',
         'code_folding' => 'Masquage du code',
         'word_wrap' => 'Retour à la ligne',
         'highlight_active_line' => 'Sélectionner la ligne active',
+        'auto_closing' => 'Fermer Automatiquement les tags et les caractères spéciaux',
         'show_invisibles' => 'Afficher les caractères invisibles',
         'show_gutter' => 'Afficher les numéros de ligne',
         'theme' => 'Coloration syntaxique'
