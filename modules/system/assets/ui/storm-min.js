@@ -3437,7 +3437,8 @@ if(!!trigger.length){triggerValue=trigger.val()}
 this.updateTarget($.inArray(triggerValue,this.triggerConditionValue)!=-1)}}
 TriggerOn.prototype.updateTarget=function(status){var self=this,actions=this.options.triggerAction.split('|')
 $.each(actions,function(index,action){self.updateTargetAction(action,status)})
-$(window).trigger('resize')}
+$(window).trigger('resize')
+this.$el.trigger('oc.triggerOn.afterUpdate',status)}
 TriggerOn.prototype.updateTargetAction=function(action,status){if(action=='show'){this.$el.toggleClass('hide',!status).trigger('hide.oc.triggerapi',[!status])}
 else if(action=='hide'){this.$el.toggleClass('hide',status).trigger('hide.oc.triggerapi',[status])}
 else if(action=='enable'){this.$el.prop('disabled',!status).toggleClass('control-disabled',!status).trigger('disable.oc.triggerapi',[!status])}

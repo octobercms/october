@@ -34,8 +34,8 @@
         this.bindCheckboxlist()
         this.toggleEmptyTabs()
         this.bindCollapsibleSections()
-        this.bindEvents()
 
+        this.$el.on('oc.triggerOn.afterUpdate', this.proxy(this.toggleEmptyTabs))
         this.$el.one('dispose-control', this.proxy(this.dispose))
     }
 
@@ -47,15 +47,6 @@
         this.options = null
 
         BaseProto.dispose.call(this)
-    }
-
-    FormWidget.prototype.bindEvents = function() {
-        var self = this
-
-        // Update tab visibility status after fields toggle (deferred)
-        this.$el.on('oc.triggerOn.afterUpdate', function() {
-            self.toggleEmptyTabs(true)
-        })
     }
 
     /*
@@ -142,32 +133,42 @@
     }
 
     /*
-     * Hides tabs that have no content
-     * - deferred - boolean to defer the action (only one effective call per execution cycle)
+     * Hides tabs that have no content, it is possible this can be
+     * called multiple times in a single cycle due to input.trigger.
      */
-    FormWidget.prototype.toggleEmptyTabs = function(deferred) {
-        if(deferred) {
-            var self = this
+    FormWidget.prototype.toggleEmptyTabs = function() {
 
-            if(this.$$toggleEmptyTabsTimeout) {
-                clearTimeout(this.$$toggleEmptyTabsTimeout)
-            }
+        if (this.toggleEmptyTabsTimer !== undefined) {
+            window.clearTimeout(this.toggleEmptyTabsTimer)
+        }
 
-            this.$$toggleEmptyTabsTimeout = setTimeout(function() {
-                self.toggleEmptyTabs(false)
-                delete self.$$toggleEmptyTabsTimeout
-            }, 1);
-        } else {
-            var tabControl = $('[data-control=tab]', this.$el)
+        this.toggleEmptyTabsTimer = window.setTimeout(function() {
+
+            var tabControl = $('[data-control=tab]', this.$el),
+                tabContainer = $('.nav-tabs', tabControl)
 
             if (!tabControl.length)
                 return
 
+            /*
+             * Check each tab pane for form field groups
+             */
             $('.tab-pane', tabControl).each(function() {
                 $('[data-target="#' + $(this).attr('id') + '"]', tabControl)
+                    .closest('li')
                     .toggle(!!$('.form-group:not(:empty):not(.hide)', $(this)).length)
             })
-        }
+
+            /*
+             * If a hidden tab was selected, select the first visible tab
+             */
+            if (!$('> li.active:visible', tabContainer).length) {
+                $('> li:visible:first', tabContainer)
+                    .find('> a:first')
+                    .tab('show')
+            }
+
+        }, 1)
     }
 
     /*

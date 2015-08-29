@@ -83,7 +83,8 @@ class MailSettings extends Model
                 }
                 if ($settings->smtp_encryption) {
                     $config->set('mail.encryption', $settings->smtp_encryption);
-                } else {
+                }
+                else {
                     $config->set('mail.encryption', null);
                 }
                 break;
