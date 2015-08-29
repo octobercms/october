@@ -5,6 +5,7 @@ use Lang;
 use View;
 use Response;
 use Backend;
+use BackendAuth;
 use Backend\Classes\ControllerBehavior;
 use League\Csv\Reader as CsvReader;
 use League\Csv\Writer as CsvWriter;
@@ -620,7 +621,7 @@ class ImportExportController extends ControllerBehavior
     {
         if (
             ($permissions = $this->getConfig($type.'[permissions]')) &&
-            (!$this->controller->user->hasAnyAccess((array) $permissions))
+            (!BackendAuth::getUser()->hasAnyAccess((array) $permissions))
         ) {
             return Response::make(View::make('backend::access_denied'), 403);
         }

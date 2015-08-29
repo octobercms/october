@@ -1,5 +1,6 @@
 <?php namespace System\ReportWidgets;
 
+use BackendAuth;
 use System\Models\Parameters;
 use System\Classes\UpdateManager;
 use Cms\Models\MaintenanceSettings;
@@ -46,7 +47,7 @@ class Status extends ReportWidgetBase
     {
         $manager = UpdateManager::instance();
         $this->vars['inMaintenance'] = MaintenanceSettings::get('is_enabled');
-        $this->vars['showUpdates'] = $this->controller->user->hasAccess('system.manage_updates');
+        $this->vars['showUpdates'] = BackendAuth::getUser()->hasAccess('system.manage_updates');
         $this->vars['updates'] = $manager->check();
     }
 }
