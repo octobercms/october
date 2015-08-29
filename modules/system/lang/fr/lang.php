@@ -146,6 +146,8 @@ return [
         'smtp_password' => 'Mot de passe',
         'smtp_port' => 'Port SMTP',
         'smtp_ssl' => 'Connexion SSL requise',
+        'smtp_encryption' => 'Protocole de sécurisation des échanges SMTP',
+        'smtp_encryption_none' => 'Aucun cryptage',
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Chemin vers Sendmail',
         'sendmail_path_comment' => 'Saisir le chemin du programme Sendmail.',
