@@ -1,5 +1,5 @@
 <?php
-/* Greek Language Updated on 2015-08-07 v1.04 */
+/* Greek Language Updated on 2015-08-29 v1.05 */
 return [
     'auth' => [
         'title' => 'Περιοχή Διαχείρισης',
@@ -236,6 +236,10 @@ return [
         'unlink_name' => 'Αποσύνδεση :name',
         'unlink_confirm' => 'Είστε σίγουροι;',
     ],
+    'reorder' => [
+        'default_title' => 'Αναδιάταξη εγγραφών',
+        'no_records' => 'Δεν υπάρχουν διαθέσιμες εγγραφές για ταξινόμηση.',
+    ],    
     'model' => [
         'name' => 'Μοντέλο',
         'not_found' => "Η κλάση ':class' του μοντέλου με ID :id δεν μπόρεσε να βρεθεί",
@@ -260,6 +264,7 @@ return [
         'code_folding' => 'Αναδίπλωση κώδικα',
         'word_wrap' => 'Αναδίπλωση κειμένου',
         'highlight_active_line' => 'Επισήμανση ενεργής σειράς',
+        'auto_closing' => 'Αυτόματο κλείσιμο ετικετών και ειδικών χαρακτήρων',
         'show_invisibles' => 'Εμφάνιση αόρατων χαρακτήρων',
         'show_gutter' => 'Εμφάνιση περιθωρίου',
         'theme' => 'Χρωματική απεικόνιση',
