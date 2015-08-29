@@ -23,7 +23,7 @@ return [
         'pt-br' => 'Portoghese (Brasile)',
         'ro' => 'Romeno',
         'ru' => 'Russo',
-        'se' => 'Svedese',
+        'sv' => 'Svedese',
         'sk' => 'Slovacco (Slovacchia)',
         'tr' => 'Turco',
         'zh-cn' => 'Cinese (Cina)',

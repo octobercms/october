@@ -19,7 +19,7 @@ return [
         'pt-br' => 'Português (Brasil)',
         'ro' => 'Română (România)',
         'ru' => 'Русский (Россия - Russia)',
-        'se' => 'Svenska (Sverige)',
+        'sv' => 'Svenska (Sverige)',
         'tr' => 'Türkçe (Türkiye)',
         'nb-no' => 'Norwegian (Bokmål)'
     ],
