@@ -87,6 +87,8 @@
         })
 
         $(window).trigger('resize')
+
+        this.$el.trigger('oc.triggerOn.afterUpdate', status)
     }
 
     TriggerOn.prototype.updateTargetAction = function(action, status) {
