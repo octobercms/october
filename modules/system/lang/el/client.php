@@ -1,5 +1,5 @@
 <?php
-/* Greek Language Updated on 2015-08-07 v1.00 */
+/* Greek Language Updated on 2015-08-29 v1.01 */
 return [
 
     /*
@@ -39,8 +39,15 @@ return [
         'insert_image' => "Εισαγωγή Εικόνας από τα Μέσα",
         'insert_video' => "Εισαγωγή Βίντεο από τα Μέσα",
         'insert_audio' => "Εισαγωγή Ήχου από τα Μέσα",
-        'invalid_file_empty_insert' => "Παρακαλούμε επιλέξτε αρχείο για να εισάγετε συνδέσμους σε αυτό.",
+        'invalid_file_empty_insert' => "Παρακαλούμε επιλέξτε ένα αρχείο για να εισάγετε συνδέσμους σε αυτό.",
         'invalid_file_single_insert' => "Παρακαλούμε επιλέξτε ένα μοναδικό αρχείο.",
+        'invalid_image_empty_insert' => "Παρακαλούμε επιλέξτε την εικόνα ή τις εικόνες για εισαγωγη.",
+        'invalid_video_empty_insert' => "Παρακαλούμε επιλέξτε ένα αρχείο βίντεο για εισαγωγή.",
+        'invalid_audio_empty_insert' => "Παρακαλούμε επιλέξτε ένα αρχείο ήχου για εισαγωγή.",
     ],
 
+    'alert' => [
+        'confirm_button_text' => 'Εντάξει',
+        'cancel_button_text' => 'Άκυρο',
+    ],
 ];
