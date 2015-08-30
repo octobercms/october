@@ -106,7 +106,7 @@ class Controller
     /**
      * @var Cms\Classes\ComponentBase Object of the active component, used internally.
      */
-    protected $componentContext;
+    protected $componentContext = null;
 
     /**
      * @var array Component partial stack, used internally.
@@ -903,7 +903,6 @@ class Controller
         }
 
         $this->vars = $vars;
-        $this->componentContext = null;
         return $result;
     }
 
@@ -1287,7 +1286,7 @@ class Controller
      * @param ComponentBase $component
      * @return void
      */
-    public function setComponentContext(ComponentBase $component)
+    public function setComponentContext(ComponentBase $component = null)
     {
         $this->componentContext = $component;
     }

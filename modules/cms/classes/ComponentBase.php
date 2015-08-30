@@ -140,7 +140,9 @@ abstract class ComponentBase extends Extendable
     public function renderPartial()
     {
         $this->controller->setComponentContext($this);
-        return call_user_func_array([$this->controller, 'renderPartial'], func_get_args());
+        $result = call_user_func_array([$this->controller, 'renderPartial'], func_get_args());
+        $this->controller->setComponentContext(null);
+        return $result;
     }
 
     /**
