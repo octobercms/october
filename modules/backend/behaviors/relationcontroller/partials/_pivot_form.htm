@@ -2,7 +2,7 @@
 
     <?= Form::ajax('onRelationManagePivotUpdate', [
         'data' => ['_relation_field' => $relationField, 'manage_id' => $relationManageId],
-        'data-stripe-load-indicator' => true
+        'data-popup-load-indicator' => true
     ]) ?>
 
         <div class="modal-header">
@@ -23,8 +23,7 @@
             <?php else: ?>
                 <button
                     type="submit"
-                    class="btn btn-primary"
-                    data-dismiss="popup">
+                    class="btn btn-primary">
                     <?= e(trans('backend::lang.relation.update')) ?>
                 </button>
                 <button
@@ -42,7 +41,7 @@
 
     <?= Form::ajax('onRelationManagePivotCreate', [
         'data' => ['_relation_field' => $relationField, 'foreign_id' => $foreignId],
-        'data-stripe-load-indicator' => true
+        'data-popup-load-indicator' => true
     ]) ?>
 
         <div class="modal-header">
@@ -55,8 +54,7 @@
         <div class="modal-footer">
             <button
                 type="submit"
-                class="btn btn-primary"
-                data-dismiss="popup">
+                class="btn btn-primary">
                 <?= e(trans('backend::lang.relation.add')) ?>
             </button>
             <button
