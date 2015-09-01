@@ -113,6 +113,10 @@ class ServiceProvider extends ModuleServiceProvider
                 'backend.manage_branding' => [
                     'label' => 'system::lang.permissions.manage_branding',
                     'tab'   => 'system::lang.permissions.name'
+                ],
+                'backend.preferences' => [
+                    'label' => 'system::lang.permissions.manage_backend_preferences',
+                    'tab'   => 'system::lang.permissions.name'
                 ]
             ]);
         });
@@ -208,7 +212,8 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-laptop',
                     'class'       => 'Backend\Models\BackendPreferences',
                     'order'       => 510,
-                    'context'     => 'mysettings'
+                    'context'     => 'mysettings',
+                    'permissions' => ['backend.preferences']
                 ],
                 'editor' => [
                     'label'       => 'backend::lang.editor.menu_label',
