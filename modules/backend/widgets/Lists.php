@@ -804,7 +804,7 @@ class Lists extends WidgetBase
         /*
          * Apply default value.
          */
-        if (is_null($value)) {
+        if ($value === '' || $value === null) {
             $value = $column->defaults;
         }
 
