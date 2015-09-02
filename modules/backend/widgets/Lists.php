@@ -767,7 +767,7 @@ class Lists extends WidgetBase
                 $value = implode(', ', $record->{$columnName}->lists($column->valueFrom));
             }
             elseif ($this->isColumnRelated($column) || $this->isColumnPivot($column)) {
-                $value = $record->{$columnName}->{$column->valueFrom};
+                $value = $record->{$columnName} ? $record->{$columnName}->{$column->valueFrom} : null;
             }
             else {
                 $value = null;
