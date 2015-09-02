@@ -10,6 +10,12 @@ Place Font Autumn icons just about anywhere with the `<i>` tag.
         <i class="icon-camera-retro"></i> icon-camera-retro
     </div>
 
+You can also inject an icon to an existing element using the `oc-` prefix.
+
+    <div style="font-size: 24px;">
+        <span class="oc-icon-flag-checkered">You win!</span>
+    </div>
+
 > **Note**: Icon classes are echoed via CSS :before.
 
 ### With buttons

@@ -172,3 +172,78 @@ Lists are responsive by default and will collapse at a breakpoint of `980px`. Th
             </tfoot>
         </table>
     </div>
+
+### Row classes
+
+The following classes are available to use on the table row elements.
+
+    <div class="control-list list-unresponsive">
+        <table class="table data">
+            <thead>
+                <tr>
+                    <th class="sort-desc"><a href="/">Class</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Normal text</td></tr>
+                <tr class="hidden"><td>.hidden</td></tr>
+                <tr class="strike"><td>.strike</td></tr>
+                <tr class="frozen"><td>.frozen</td></tr>
+                <tr class="processing"><td>.processing</td></tr>
+                <tr class="negative"><td>.negative</td></tr>
+                <tr class="positive"><td>.positive</td></tr>
+                <tr class="disabled"><td>.disabled / .deleted</td></tr>
+                <tr class="new"><td>.new / .important</td></tr>
+                <tr class="safe"><td>.safe / .special</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+### Status column
+
+It might be fun to include a status column!
+
+    <div class="control-list list-unresponsive">
+        <table class="table data">
+            <thead>
+                <tr>
+                    <th style="width: 150px"><span>Status</span></th>
+                    <th class="active sort-asc"><a href="/">Title</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="oc-icon-circle text-muted">
+                            Draft
+                        </span>
+                    </td>
+                    <td>Welcome to October</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="oc-icon-circle text-info">
+                            Pending
+                        </span>
+                    </td>
+                    <td>What a wonderful day</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="oc-icon-circle text-success">
+                            Pending
+                        </span>
+                    </td>
+                    <td>The sun is shining</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="oc-icon-circle text-danger">
+                            Cancelled
+                        </span>
+                    </td>
+                    <td>The weather is sweet here</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
