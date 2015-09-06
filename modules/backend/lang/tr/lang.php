@@ -105,7 +105,7 @@ return [
             'description_field' => 'Açıklama',
             'is_new_user_default_field' => 'Yeni kullanıcılar bu gruba dahil edilsin mi?',
             'code_field' => 'Grup kodu',
-            'code_comment' => 'Grup kodunu yazın'
+            'code_comment' => 'Grup kodunu yazın',
             'menu_label' => 'Gruplar',
             'list_title' => 'Grupları Yönet',
             'new' => 'Yeni Yönetici Grubu',
