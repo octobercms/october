@@ -145,7 +145,7 @@ return [
         'help' => 'Bu ek için bir başlık ve tanım girin.',
         'title_label' => 'Başlık',
         'description_label' => 'Tanım',
-        'default_prompt' => 'Click the %s or drag a file here to upload',
+        'default_prompt' => '%s e tıkla ya da bir dosya sürükleyin',
         'attachment_url' => 'Ek URLsi',
         'upload_file' => 'Dosya yükle',
         'upload_error' => 'Dosya yükleme hatası',
