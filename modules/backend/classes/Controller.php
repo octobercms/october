@@ -554,6 +554,14 @@ class Controller extends Extendable
     }
 
     /**
+     * Returns the controllers public actions.
+     */
+    public function getPublicActions()
+    {
+        return $this->publicActions;
+    }
+
+    /**
      * Returns a unique ID for the controller and route. Useful in creating HTML markup.
      */
     public function getId($suffix = null)
