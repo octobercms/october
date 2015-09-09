@@ -1,0 +1,5 @@
+1.0.1: First version of Tester
+1.0.2:
+    - Create tables
+    - create_posts_table.php
+    - create_authors_table.php
