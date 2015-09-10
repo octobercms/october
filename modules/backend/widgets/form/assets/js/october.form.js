@@ -137,6 +137,8 @@
      * called multiple times in a single cycle due to input.trigger.
      */
     FormWidget.prototype.toggleEmptyTabs = function() {
+        var self = this,
+            form = this.$el
 
         if (this.toggleEmptyTabsTimer !== undefined) {
             window.clearTimeout(this.toggleEmptyTabsTimer)
@@ -147,7 +149,7 @@
             var tabControl = $('[data-control=tab]', this.$el),
                 tabContainer = $('.nav-tabs', tabControl)
 
-            if (!tabControl.length)
+            if (!tabControl.length || !$.contains(form.get(0), tabControl.get(0)))
                 return
 
             /*
