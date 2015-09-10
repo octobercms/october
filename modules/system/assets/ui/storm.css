@@ -2236,9 +2236,10 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .field-section > h4{color:rgba(0,0,0,0.6)}
 .field-section > p:first-child,.field-section > h4:first-child{margin:0}
 .field-section.is-collapsible{cursor:pointer}
-.field-section.is-collapsible > h4:before{display:inline-block;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;vertical-align:baseline;content:"\f0d7";margin:0 8px;float:right;color:rgba(0,0,0,0.4)}
+.field-section.is-collapsible > h4:before{display:inline-block;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;vertical-align:baseline;content:"\f077";font-size:12px;margin:2px 8px 0;float:right;color:rgba(0,0,0,0.4);-webkit-transition:all 0.3s;transition:all 0.3s;-webkit-transform:scale(1,1);-moz-transform:scale(1,1);-ms-transform:scale(1,1);-o-transform:scale(1,1);transform:scale(1,1)}
 .field-section.is-collapsible:hover{border-bottom:1px solid #c7c7c7}
 .field-section.is-collapsible:hover > h4:before{color:inherit}
+.form-group.section-field.collapsed .field-section.is-collapsible > h4:before{-webkit-transform:scale(1,-1);-moz-transform:scale(1,-1);-ms-transform:scale(1,-1);-o-transform:scale(1,-1);transform:scale(1,-1)}
 .field-textarea{resize:vertical}
 .field-textarea.size-tiny{min-height:50px}
 .field-textarea.size-small{min-height:100px}

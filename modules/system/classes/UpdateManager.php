@@ -837,6 +837,7 @@ class UpdateManager
     protected function applyHttpAttributes($http, $postData)
     {
         $postData['url'] = base64_encode(URL::to('/'));
+        $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION]));
         if (Config::get('cms.edgeUpdates', false)) {
             $postData['edge'] = 1;
         }

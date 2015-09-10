@@ -33,7 +33,7 @@ class UserGroups extends Controller
     /**
      * Add available permission fields to the Group form.
      */
-    protected function formExtendFields($form)
+    public function formExtendFields($form)
     {
         /*
          * Add permissions tab
