@@ -1,3 +1,6 @@
+* **Build 293** (2015-09-07)
+  - Corrected a flaw in the Behavior/Extension logic that previously made protected methods and properties accessible as if they were public.
+
 * **Build 292** (2015-08-28)
   - Added a new controller method `fireViewEvent()` for extending views and partials (see Plugins > Events docs).
   - Fixes a bug where the database falls asleep during an update.
