@@ -1112,24 +1112,29 @@ class RelationController extends ControllerBehavior
         $this->beforeAjax();
 
         /*
-         * Add the checked IDs to the pivot table
+         * If the pivot model fails for some reason, abort the sync
          */
-        $foreignIds = (array) $this->foreignId;
-        $this->relationObject->sync($foreignIds, false);
+        Db::transaction(function () {
+            /*
+             * Add the checked IDs to the pivot table
+             */
+            $foreignIds = (array) $this->foreignId;
+            $this->relationObject->sync($foreignIds, false);
 
-        /*
-         * Save data to models
-         */
-        $foreignKeyName = $this->relationModel->getQualifiedKeyName();
-        $hyrdatedModels = $this->relationObject->whereIn($foreignKeyName, $foreignIds)->get();
-        $saveData = $this->pivotWidget->getSaveData();
+            /*
+             * Save data to models
+             */
+            $foreignKeyName = $this->relationModel->getQualifiedKeyName();
+            $hyrdatedModels = $this->relationObject->whereIn($foreignKeyName, $foreignIds)->get();
+            $saveData = $this->pivotWidget->getSaveData();
 
-        foreach ($hyrdatedModels as $hydratedModel) {
-            $modelsToSave = $this->prepareModelsToSave($hydratedModel, $saveData);
-            foreach ($modelsToSave as $modelToSave) {
-                $modelToSave->save();
+            foreach ($hyrdatedModels as $hydratedModel) {
+                $modelsToSave = $this->prepareModelsToSave($hydratedModel, $saveData);
+                foreach ($modelsToSave as $modelToSave) {
+                    $modelToSave->save();
+                }
             }
-        }
+        });
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
