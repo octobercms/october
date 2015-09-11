@@ -247,6 +247,15 @@ class NavigationManager
     }
 
     /**
+     * Removes a single main menu item
+     */
+    public function removeMainMenuItem($owner, $code)
+    {
+        $itemKey = $this->makeItemKey($owner, $code);
+        unset($this->items[$itemKey]);
+    }
+
+    /**
      * Dynamically add an array of side menu items
      * @param string $owner
      * @param string $code
@@ -285,6 +294,20 @@ class NavigationManager
 
         $item = (object) array_merge(self::$sideItemDefaults, $definition);
         $this->items[$itemKey]->sideMenu[$sideCode] = $item;
+    }
+
+    /**
+     * Removes a single main menu item
+     */
+    public function removeSideMenuItem($owner, $code, $sideCode)
+    {
+        $itemKey = $this->makeItemKey($owner, $code);
+        if (!isset($this->items[$itemKey])) {
+            return false;
+        }
+
+        $mainItem = $this->items[$itemKey];
+        unset($mainItem->sideMenu[$sideCode]);
     }
 
     /**
