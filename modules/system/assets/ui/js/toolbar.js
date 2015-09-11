@@ -10,6 +10,7 @@
  * 
  * Data attributes:
  * - data-control="toolbar" - enables the toolbar plugin
+ * - data-no-drag-support="true" - disables the drag support for the toolbar, leaving only the mouse wheel support
  *
  * JavaScript API:
  * $('#toolbar').toolbar()
@@ -32,6 +33,8 @@
 
         this.options = options || {};
 
+        var noDragSupport = options.noDragSupport !== undefined && options.noDragSupport
+
         Base.call(this)
 
         var scrollClassContainer = options.scrollClassContainer !== undefined
@@ -39,7 +42,8 @@
             : $el.parent()
 
         $el.dragScroll({
-            scrollClassContainer: scrollClassContainer
+            scrollClassContainer: scrollClassContainer,
+            noDragSupport: noDragSupport
         })
 
         $('.form-control.growable', $toolbar).on('focus.toolbar', function(){

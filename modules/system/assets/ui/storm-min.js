@@ -1454,10 +1454,10 @@ if(this.options.scrollMarkerContainer){$(this.options.scrollMarkerContainer).app
 $el.mousewheel(function(event){if(!self.options.allowScroll)
 return;var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):(event.deltaFactor*event.deltaX)
 return!scrollWheel(offset)})
-$el.on('mousedown.dragScroll',function(event){if(event.target&&event.target.tagName==='INPUT')
+if(!options.noDragSupport){$el.on('mousedown.dragScroll',function(event){if(event.target&&event.target.tagName==='INPUT')
 return
 startDrag(event)
-return false})
+return false})}
 $el.on('touchstart.dragScroll',function(event){var touchEvent=event.originalEvent;if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
 event.stopPropagation()}})
 $el.on('click.dragScroll',function(){if($(document.body).hasClass('drag'))
@@ -1503,7 +1503,7 @@ return scrolled}
 this.fixScrollClasses();}
 DragScroll.prototype=Object.create(BaseProto)
 DragScroll.prototype.constructor=DragScroll
-DragScroll.DEFAULTS={vertical:false,allowScroll:true,scrollClassContainer:false,scrollMarkerContainer:false,dragClass:'drag',start:function(){},drag:function(){},stop:function(){}}
+DragScroll.DEFAULTS={vertical:false,allowScroll:true,scrollClassContainer:false,scrollMarkerContainer:false,dragClass:'drag',noDragSupport:false,start:function(){},drag:function(){},stop:function(){}}
 DragScroll.prototype.fixScrollClasses=function(){this.scrollClassContainer.toggleClass('scroll-before',!this.isStart())
 this.scrollClassContainer.toggleClass('scroll-after',!this.isEnd())
 this.scrollClassContainer.toggleClass('scroll-active-before',this.isActiveBefore())
@@ -1571,9 +1571,10 @@ var Toolbar=function(element,options){var
 $el=this.$el=$(element),$toolbar=$el.closest('.control-toolbar')
 $.oc.foundation.controlUtils.markDisposable(element)
 this.$toolbar=$toolbar
-this.options=options||{};Base.call(this)
+this.options=options||{};var noDragSupport=options.noDragSupport!==undefined&&options.noDragSupport
+Base.call(this)
 var scrollClassContainer=options.scrollClassContainer!==undefined?options.scrollClassContainer:$el.parent()
-$el.dragScroll({scrollClassContainer:scrollClassContainer})
+$el.dragScroll({scrollClassContainer:scrollClassContainer,noDragSupport:noDragSupport})
 $('.form-control.growable',$toolbar).on('focus.toolbar',function(){update()})
 $('.form-control.growable',$toolbar).on('blur.toolbar',function(){update()})
 this.$el.one('dispose-control',this.proxy(this.dispose))
@@ -3762,9 +3763,10 @@ var Toolbar=function(element,options){var
 $el=this.$el=$(element),$toolbar=$el.closest('.control-toolbar')
 $.oc.foundation.controlUtils.markDisposable(element)
 this.$toolbar=$toolbar
-this.options=options||{};Base.call(this)
+this.options=options||{};var noDragSupport=options.noDragSupport!==undefined&&options.noDragSupport
+Base.call(this)
 var scrollClassContainer=options.scrollClassContainer!==undefined?options.scrollClassContainer:$el.parent()
-$el.dragScroll({scrollClassContainer:scrollClassContainer})
+$el.dragScroll({scrollClassContainer:scrollClassContainer,noDragSupport:noDragSupport})
 $('.form-control.growable',$toolbar).on('focus.toolbar',function(){update()})
 $('.form-control.growable',$toolbar).on('blur.toolbar',function(){update()})
 this.$el.one('dispose-control',this.proxy(this.dispose))
@@ -3867,6 +3869,7 @@ var e=$.Event('beforeClose.oc.tab',{relatedTarget:$pane})
 this.$el.trigger(e)
 if(e.isDefaultPrevented())
 return
+$.oc.foundation.controlUtils.disposeControls($pane.get(0))
 $pane.remove()
 $tab.remove()
 if(isActive)

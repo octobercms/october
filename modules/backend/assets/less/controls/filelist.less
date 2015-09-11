@@ -151,6 +151,58 @@
                 }
             }
 
+            > div.controls {
+                position: absolute;
+                right: 19px;
+                top: 6px;
+
+                .dropdown {
+                    width: 14px;
+                    height: 21px;
+
+                    &.open a.control {
+                        display: block!important; 
+                        &:before {
+                            visibility: visible;
+                            display: block;
+                        }
+                    }
+                }
+
+                a.control {
+                    color: @color-text-title;
+                    font-size: 14px;
+                    visibility: hidden;
+                    overflow: hidden;
+                    width: 14px;
+                    height: 21px;
+                    display: none;
+                    text-decoration: none;
+                    cursor: pointer;
+                    padding: 0;
+                    .opacity(0.5);
+                    &:before {
+                        visibility: visible;
+                        display: block;
+                        margin-right: 0;
+                    }
+
+                    &:hover {
+                        .opacity(1);
+                    }
+                }
+            }
+
+            &:hover {
+                > div.controls, > a.control {
+                    display: block!important;
+
+                    > a.control {
+                        display: block!important;
+                    }
+                }
+            }
+
             .checkbox {
                 position: absolute;
                 top: 13px;

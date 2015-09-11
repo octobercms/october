@@ -23,6 +23,7 @@
  *   depending on whether the scrollable area is in its start or end
  * - scrollMarkerContainer - if specified, specifies an element or element selector to inject scroll markers (span elements that con 
  *   contain the ellipses icon, indicating whether scrolling is possible)
+ * - noDragSupport - disables the drag support, leaving only the mouse wheel support
  * 
  * Methods:
  * - isStart - determines if the scrollable area is in its start (left or top)
@@ -77,13 +78,15 @@
             return !scrollWheel(offset)
         })
 
-        $el.on('mousedown.dragScroll', function(event){
-            if (event.target && event.target.tagName === 'INPUT')
-                return // Don't prevent clicking inputs in the toolbar
+        if (!options.noDragSupport) {
+            $el.on('mousedown.dragScroll', function(event){
+                if (event.target && event.target.tagName === 'INPUT')
+                    return // Don't prevent clicking inputs in the toolbar
 
-            startDrag(event)
-            return false
-        })
+                startDrag(event)
+                return false
+            })
+        }
 
         $el.on('touchstart.dragScroll', function(event){
             var touchEvent = event.originalEvent;
@@ -223,6 +226,7 @@
         scrollClassContainer: false,
         scrollMarkerContainer: false,
         dragClass: 'drag',
+        noDragSupport: false,
         start: function() {},
         drag: function() {},
         stop: function() {}

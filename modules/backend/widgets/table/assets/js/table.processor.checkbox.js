@@ -88,6 +88,7 @@
             }
 
             this.changeState(target)
+            $(ev.target).trigger('change')
         }
     }
 

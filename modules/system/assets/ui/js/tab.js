@@ -200,6 +200,8 @@
         if (e.isDefaultPrevented())
             return
 
+        $.oc.foundation.controlUtils.disposeControls($pane.get(0))
+
         $pane.remove()
         $tab.remove()
 

@@ -353,9 +353,7 @@
 
                 dataContainer.setAttribute('type', 'hidden')
                 dataContainer.setAttribute('data-container', 'data-container')
-                dataContainer.value = records[i][columnName] !== undefined
-                    ? records[i][columnName]
-                    : ""
+                dataContainer.value = this.formatDataContainerValue(records[i][columnName])
 
                 cellContentContainer.setAttribute('class', 'content-container')
 
@@ -387,6 +385,18 @@
 
         // Update the pagination links
         this.navigation.buildPagination(totalCount)
+    }
+
+    Table.prototype.formatDataContainerValue = function(value) {
+        if (value === undefined) {
+            return ''
+        }
+
+        if (typeof value === 'boolean') {
+            return value ? 1 : ''
+        }
+
+        return value
     }
 
     Table.prototype.fetchRecords = function(onSuccess) {

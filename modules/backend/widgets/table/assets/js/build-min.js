@@ -134,7 +134,7 @@ cell.setAttribute('data-column',columnName)
 cell.setAttribute('data-column-type',column.type)
 dataContainer.setAttribute('type','hidden')
 dataContainer.setAttribute('data-container','data-container')
-dataContainer.value=records[i][columnName]!==undefined?records[i][columnName]:""
+dataContainer.value=this.formatDataContainerValue(records[i][columnName])
 cellContentContainer.setAttribute('class','content-container')
 cell.appendChild(cellContentContainer)
 row.appendChild(cell)
@@ -150,6 +150,9 @@ this.dataTable=dataTable
 this.updateColumnWidth()
 this.updateScrollbar()
 this.navigation.buildPagination(totalCount)}
+Table.prototype.formatDataContainerValue=function(value){if(value===undefined){return''}
+if(typeof value==='boolean'){return value?1:''}
+return value}
 Table.prototype.fetchRecords=function(onSuccess){this.dataSource.getRecords(this.navigation.getPageFirstRowOffset(),this.options.recordsPerPage,onSuccess)}
 Table.prototype.updateScrollbar=function(){if(!this.options.height)
 return
@@ -715,7 +718,8 @@ this.onClick(ev)}
 CheckboxProcessor.prototype.onClick=function(ev){var target=this.tableObj.getEventTarget(ev,'DIV')
 if(target.getAttribute('data-checkbox-element')){var container=this.getCheckboxContainerNode(target)
 if(container.getAttribute('data-column')!==this.columnName){return}
-this.changeState(target)}}
+this.changeState(target)
+$(ev.target).trigger('change')}}
 CheckboxProcessor.prototype.changeState=function(divElement){var cell=divElement.parentNode.parentNode
 if(divElement.getAttribute('class')=='checked'){divElement.setAttribute('class','')
 this.tableObj.setCellValue(cell,0)}
