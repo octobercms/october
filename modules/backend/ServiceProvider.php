@@ -45,16 +45,6 @@ class ServiceProvider extends ModuleServiceProvider
     public function boot()
     {
         parent::boot('backend');
-
-        Event::listen('pages.builder.registerControls', function($controlLibrary) {
-            $controlLibrary->registerControl('text', 
-                'backend::lang.form.control_text',
-                $controlLibrary::GROUP_STANDARD,
-                'icon-terminal',
-                $controlLibrary->getStandardProperties(),
-                null
-            );
-        });
     }
 
     /**

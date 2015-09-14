@@ -19,11 +19,13 @@ $.oc={}
 if($.oc.foundation===undefined)
 $.oc.foundation={}
 var Element={hasClass:function(el,className){if(el.classList)
-return el.classList.contains(className);return new RegExp('(^| )'+className+'( |$)','gi').test(el.className);},addClass:function(el,className){if(this.hasClass(el,className))
+return el.classList.contains(className);return new RegExp('(^| )'+className+'( |$)','gi').test(el.className);},addClass:function(el,className){var classes=className.split(' ')
+for(var i=0,len=classes.length;i<len;i++){var currentClass=classes[i].trim()
+if(this.hasClass(el,currentClass))
 return
 if(el.classList)
-el.classList.add(className);else
-el.className+=' '+className;},removeClass:function(el,className){if(el.classList)
+el.classList.add(currentClass);else
+el.className+=' '+currentClass;}},removeClass:function(el,className){if(el.classList)
 el.classList.remove(className);else
 el.className=el.className.replace(new RegExp('(^|\\b)'+className.split(' ').join('|')+'(\\b|$)','gi'),' ');},absolutePosition:function(element,ignoreScrolling){var top=ignoreScrolling===true?0:document.body.scrollTop,left=0
 do{top+=element.offsetTop||0;if(ignoreScrolling!==true)

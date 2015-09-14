@@ -26,13 +26,19 @@
         },
 
         addClass: function(el, className) {
-            if (this.hasClass(el, className))
-                return
+            var classes = className.split(' ')
 
-            if (el.classList)
-                el.classList.add(className);
-            else
-                el.className += ' ' + className;
+            for (var i = 0, len = classes.length; i < len; i++) {
+                var currentClass = classes[i].trim()
+
+                if (this.hasClass(el, currentClass))
+                    return
+
+                if (el.classList)
+                    el.classList.add(currentClass);
+                else
+                    el.className += ' ' + currentClass;
+            }
         },
 
         removeClass: function(el, className) {
