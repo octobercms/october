@@ -15,7 +15,7 @@ class BelongsToModelTest extends PluginTestCase
         $this->runPluginRefreshCommand('Database.Tester');
     }
 
-    public function testSetRelationValueBelongsTo()
+    public function testSetRelationValue()
     {
         Model::unguard();
         $post = Post::create(['title' => "First post", 'description' => "Yay!!"]);
@@ -39,11 +39,52 @@ class BelongsToModelTest extends PluginTestCase
         $this->assertNull($post->author_id);
         $this->assertNull($post->author);
 
-        // Deferred
+        // Deferred in memory
         $post->author = $author3;
         $this->assertEquals('Charlie', $post->author->name);
         $this->assertNull($post->author_id);
         $author3->save();
         $this->assertEquals($author3->id, $post->author_id);
     }
+
+    public function testDeferredBinding()
+    {
+        $sessionKey = uniqid('session_key', true);
+
+        Model::unguard();
+        $post = Post::make(['title' => "First post"]);
+        $author = Author::create(['name' => 'Stevie']);
+        Model::reguard();
+
+        // Deferred add
+        $post->author()->add($author, $sessionKey);
+        $this->assertNull($post->author_id);
+        $this->assertNull($post->author);
+
+        $this->assertEquals(0, $post->author()->count());
+        $this->assertEquals(1, $post->author()->withDeferred($sessionKey)->count());
+
+        // Commit deferred
+        $post->save(null, $sessionKey);
+        $this->assertEquals(1, $post->author()->count());
+        $this->assertEquals($author->id, $post->author_id);
+        $this->assertEquals('Stevie', $post->author->name);
+
+        // New session
+        $sessionKey = uniqid('session_key', true);
+
+        // Deferred remove
+        $post->author()->remove($author, $sessionKey);
+        $this->assertEquals(1, $post->author()->count());
+        $this->assertEquals(0, $post->author()->withDeferred($sessionKey)->count());
+        $this->assertEquals($author->id, $post->author_id);
+        $this->assertEquals('Stevie', $post->author->name);
+
+        // Commit deferred
+        $post->save(null, $sessionKey);
+        $this->assertEquals(0, $post->author()->count());
+        $this->assertNull($post->author_id);
+        $this->assertNull($post->author);
+    }
+
 }

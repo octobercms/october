@@ -1,3 +1,6 @@
+* **Build 297** (2015-09-16)
+  - Fixed a bug in deferred binding that allowed repeat bindings and ignored add/delete pairs.
+
 * **Build 293** (2015-09-07)
   - Corrected a flaw in the Behavior/Extension logic that previously made protected methods and properties accessible as if they were public.
 
