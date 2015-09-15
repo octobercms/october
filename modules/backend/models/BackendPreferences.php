@@ -36,6 +36,7 @@ class BackendPreferences extends Model
     public function getLocaleOptions()
     {
         $locales = Config::get('app.localeOptions', [
+            'cs' => [Lang::get('system::lang.locale.cs'), 'flag-cz'],
             'en' => [Lang::get('system::lang.locale.en'), 'flag-gb'],
             'de' => [Lang::get('system::lang.locale.de'), 'flag-de'],
             'es' => [Lang::get('system::lang.locale.es'), 'flag-es'],
