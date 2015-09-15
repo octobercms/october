@@ -18,25 +18,37 @@ You can also inject an icon to an existing element using the `oc-` prefix.
 
 > **Note**: Icon classes are echoed via CSS :before.
 
+### Icon sizes
+
+To increase icon sizes relative to their container, use the `icon-lg` (33% increase), `icon-2x`, `icon-3x`, `icon-4x`, or `icon-5x` classes.
+
+    <i class="fa icon-camera-retro icon-5x"></i> icon-5x
+    <i class="fa icon-camera-retro icon-4x"></i> icon-4x
+    <i class="fa icon-camera-retro icon-3x"></i> icon-3x
+    <i class="fa icon-camera-retro icon-2x"></i> icon-2x
+    <i class="fa icon-camera-retro icon-lg"></i> icon-lg
+
+> If your icons are getting chopped off on top and bottom, make sure you have sufficient line-height.
+
 ### With buttons
 
-    <a class="btn btn-default" href="#">
-        <i class="icon-refresh"></i> Refresh
+    <a class="btn btn-default oc-icon-refresh" href="#">
+        Refresh
     </a>
-    <a class="btn btn-success" href="#">
-        <i class="icon-shopping-cart icon-large"></i> Checkout
+    <a class="btn btn-success oc-icon-shopping" href="#">
+        Checkout
     </a>
-    <a class="btn btn-primary" href="#">
-        <i class="icon-comment"></i> Comment
+    <a class="btn btn-primary oc-icon-comment" href="#">
+        Comment
     </a>
-    <a class="btn btn-danger" href="#">
-        <i class="icon-trash icon-large"></i> Delete
+    <a class="btn btn-danger oc-icon-trash" href="#">
+        Delete
     </a>
-    <a class="btn btn-default" href="#">
-        <i class="icon-cog"></i> Settings
+    <a class="btn btn-default oc-icon-cog" href="#">
+        Settings
     </a>
-    <a class="btn btn-info" href="#">
-        <i class="icon-info"></i> More Info
+    <a class="btn btn-info oc-icon-info" href="#">
+        More Info
     </a>
 
 ## Available icons

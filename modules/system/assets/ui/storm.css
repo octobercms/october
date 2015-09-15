@@ -1127,6 +1127,11 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 [class^="icon-"].pull-right,[class*=" icon-"].pull-right{margin-left:.3em}
 [class^="oc-icon-"]:before,[class*=" oc-icon-"]:before{display:inline-block;margin-right:8px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;vertical-align:baseline}
 [class^="oc-icon-"].empty:before,[class*=" oc-icon-"].empty:before{margin-right:0}
+.icon-lg{font-size:1.33333333em;line-height:0.75em;vertical-align:-15%}
+.icon-2x{font-size:2em}
+.icon-3x{font-size:3em}
+.icon-4x{font-size:4em}
+.icon-5x{font-size:5em}
 .caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px solid;border-right:4px solid transparent;border-left:4px solid transparent}
 .dropdown{position:relative}
 .dropdown-toggle:focus{outline:0}
