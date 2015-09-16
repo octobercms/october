@@ -1,4 +1,5 @@
 * **Build 297** (2015-09-16)
+  - Added `timetense` list column type (see Backend > Lists docs), along with `|time_since` and `|time_tense` Twig filters.
   - Fixed a bug in deferred binding that allowed repeat bindings and ignored add/delete pairs.
 
 * **Build 293** (2015-09-07)

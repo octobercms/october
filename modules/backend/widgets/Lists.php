@@ -11,6 +11,7 @@ use DbDongle;
 use Carbon\Carbon;
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
+use System\Helpers\DateTime as DateTimeHelper;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
 use ApplicationException;
@@ -946,7 +947,21 @@ class Lists extends WidgetBase
 
         $value = $this->validateDateTimeValue($value, $column);
 
-        return $value->diffForHumans();
+        return DateTimeHelper::timeSince($value);
+    }
+
+    /**
+     * Process as time as current tense (Today at 0:00)
+     */
+    protected function evalTimetenseTypeValue($record, $column, $value)
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        $value = $this->validateDateTimeValue($value, $column);
+
+        return DateTimeHelper::timeTense($value);
     }
 
     /**
@@ -954,9 +969,7 @@ class Lists extends WidgetBase
      */
     protected function validateDateTimeValue($value, $column)
     {
-        if ($value instanceof DateTime) {
-            $value = Carbon::instance($value);
-        }
+        $value = DateTimeHelper::instance()->makeCarbon($value, false);
 
         if (!$value instanceof Carbon) {
             throw new ApplicationException(Lang::get(
