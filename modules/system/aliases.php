@@ -55,6 +55,7 @@ return [
     'Backend'         => 'Backend\Facades\Backend',
     'BackendMenu'     => 'Backend\Facades\BackendMenu',
     'BackendAuth'     => 'Backend\Facades\BackendAuth',
+    'AjaxException'        => 'October\Rain\Exception\AjaxException',
     'SystemException'      => 'October\Rain\Exception\SystemException',
     'ApplicationException' => 'October\Rain\Exception\ApplicationException',
     'ValidationException'  => 'October\Rain\Exception\ValidationException',
