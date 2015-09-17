@@ -1,22 +1,22 @@
-Provides icons of various descriptions
+# Icon library
 
-## Usage
+October provides an icon library with icons of various descriptions, based on the popular [Font Awesome collection](http://fortawesome.github.io/Font-Awesome/).
 
-### Inline icon
+### Inline icons
 
-Place Font Autumn icons just about anywhere with the `<i>` tag.
+Place icons just about anywhere with the `<i>` tag or to an existing element using the `oc-` prefix.
 
-    <div style="font-size: 24px;">
-        <i class="icon-camera-retro"></i> icon-camera-retro
-    </div>
+```html
+<i class="icon-camera-retro"></i> icon-camera-retro
 
-You can also inject an icon to an existing element using the `oc-` prefix.
+<span class="oc-icon-flag-checkered">oc-icon-flag-checkered</span>
+```
 
-    <div style="font-size: 24px;">
-        <span class="oc-icon-flag-checkered">You win!</span>
-    </div>
-
-> **Note**: Icon classes are echoed via CSS :before.
+<div class="frame" style="font-size: 22px;">
+    <i class="icon-camera-retro"></i> icon-camera-retro
+    <br />
+    <span class="oc-icon-flag-checkered">oc-icon-flag-checkered</span>
+</div>
 
 ### Icon sizes
 
@@ -28,9 +28,9 @@ To increase icon sizes relative to their container, use the `icon-lg` (33% incre
     <i class="fa icon-camera-retro icon-2x"></i> icon-2x
     <i class="fa icon-camera-retro icon-lg"></i> icon-lg
 
-> If your icons are getting chopped off on top and bottom, make sure you have sufficient line-height.
+### Icon buttons
 
-### With buttons
+Feel free to use them alongside your buttons.
 
     <a class="btn btn-default oc-icon-refresh" href="#">
         Refresh
@@ -940,7 +940,6 @@ To increase icon sizes relative to their container, use the `icon-lg` (33% incre
     float: left;
 }
 .category-icons > ul > li {
-    cursor: pointer;
     line-height: 42px;
     height: 42px;
     padding: 0;
@@ -962,9 +961,8 @@ To increase icon sizes relative to their container, use the `icon-lg` (33% incre
 }
 .category-icons > ul > li:hover [class^="icon-"]:before,
 .category-icons > ul > li:hover [class*=" icon-"]:before {
-    font-size: 24px;
+    font-size: 28px;
     vertical-align: middle;
-    line-height: 20px;
 }
 </style>
 
