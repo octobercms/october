@@ -317,7 +317,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'label'       => 'system::lang.settings.menu_label',
                     'icon'        => 'icon-cog',
                     'url'         => Backend::url('system/settings'),
-                    'permissions' => [],
+                    'permissions' => ['system.general'],
                     'order'       => 1000
                 ]
             ]);
@@ -369,7 +369,11 @@ class ServiceProvider extends ModuleServiceProvider
                 'system.manage_mail_templates' => [
                     'label' => 'system::lang.permissions.manage_mail_templates',
                     'tab' => 'system::lang.permissions.name'
-                ]
+                ],
+                'system.general' => [
+                    'label' => 'system::lang.permissions.manage_general_settings',
+                    'tab' => 'system::lang.permissions.name'
+                ],
             ]);
         });
     }

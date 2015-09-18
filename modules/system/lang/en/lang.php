@@ -317,6 +317,8 @@ return [
         'manage_mail_settings' => 'Manage mail settings',
         'manage_other_administrators' => 'Manage other administrators',
         'view_the_dashboard' => 'View the dashboard',
-        'manage_branding' => 'Customize the back-end'
+        'manage_branding' => 'Customize the back-end',
+        'manage_general_settings' => 'Manage general settings',
+        'manage_backend_preferences' => 'Backend preferences'
     ]
 ];
