@@ -1,4 +1,5 @@
-* **Build 297** (2015-09-16)
+* **Build 297** (2015-09-19)
+  - Introduced new `Revisionable` trait for storing model history (see Database > Traits docs).
   - Added `timetense` list column type (see Backend > Lists docs), along with `|time_since` and `|time_tense` Twig filters.
   - Fixed a bug in deferred binding that allowed repeat bindings and ignored add/delete pairs.
 
