@@ -8,7 +8,7 @@ class SluggableModelTest extends PluginTestCase
     {
         parent::setUp();
 
-        include_once base_path().'/tests/fixtures/plugins/database/tester/models/SluggablePost.php';
+        include_once base_path().'/tests/fixtures/plugins/database/tester/models/Post.php';
 
         $this->runPluginRefreshCommand('Database.Tester');
     }

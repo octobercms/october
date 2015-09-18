@@ -2,9 +2,6 @@
 
 use Model;
 
-/**
- * Author Model
- */
 class Author extends Model
 {
 
