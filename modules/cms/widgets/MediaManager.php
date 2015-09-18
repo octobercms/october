@@ -963,11 +963,14 @@ class MediaManager extends WidgetBase
 
             $fileName = $uploadedFile->getClientOriginalName();
 
+            // Transform extension like JPG and etc to lower case
+            $extension = strtolower($uploadedFile->getClientOriginalExtension());
+            $fileName = File::name($fileName).'.'.$extension;
+
             /*
-             * File name contains non-latin characters, attempt to slug the value
-             */
+            * File name contains non-latin characters, attempt to slug the value
+            */
             if (!$this->validateFileName($fileName)) {
-                $extension = $uploadedFile->getClientOriginalExtension();
                 $fileNameSlug = Str::slug(File::name($fileName), '-');
                 $fileName = $fileNameSlug.'.'.$extension;
             }
