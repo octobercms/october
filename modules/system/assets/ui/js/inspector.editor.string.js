@@ -47,22 +47,24 @@
         var input = this.getInput()
 
         input.addEventListener('focus', this.proxy(this.onInputFocus))
-        input.addEventListener('change', this.proxy(this.onInputChange))
+        input.addEventListener('keyup', this.proxy(this.onInputKeyUp))
     }
 
     StringEditor.prototype.unregisterHandlers = function() {
         var input = this.getInput()
 
         input.removeEventListener('focus', this.proxy(this.onInputFocus))
-        input.removeEventListener('change', this.proxy(this.onInputChange))
+        input.removeEventListener('keyup', this.proxy(this.onInputKeyUp))
     }
 
     StringEditor.prototype.onInputFocus = function(ev) {
         this.inspector.makeCellActive(this.containerCell)
     }
 
-    StringEditor.prototype.onInputChange = function() {
+    StringEditor.prototype.onInputKeyUp = function() {
+        var value = this.getInput().value
 
+        this.inspector.setPropertyValue(this.propertyDefinition.property, value)
     }
 
     $.oc.inspector.propertyEditors.string = StringEditor

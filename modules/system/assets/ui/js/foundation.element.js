@@ -48,6 +48,27 @@
                 el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
         },
 
+        toggleClass: function(el, className, add) {
+            if (add === undefined) {
+                if (this.hasClass(el, className)) {
+                    this.removeClass(el, className)
+                }
+                else {
+                    this.addClass(el, className)
+                }
+            }
+
+            if (add && !this.hasClass(el, className)) {
+                this.addClass(el, className)
+                return
+            }
+
+            if (!add && this.hasClass(el, className)) {
+                this.removeClass(el, className)
+                return
+            }
+        },
+
         /*
          * Returns element absolution position.
          * If the second parameter value is false, the scrolling

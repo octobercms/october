@@ -24,7 +24,7 @@
         for (var i = 0, len = properties.length; i < len; i++) {
             var property = properties[i]
 
-            if (property.itemType !== undefined && property.itemType == 'group' && item.title == group) {
+            if (property.itemType !== undefined && property.itemType == 'group' && property.title == group) {
                 return property
             }
         }
@@ -50,7 +50,7 @@
                 fields.push(property)
             }
             else {
-                var group = findGroup(property.group)
+                var group = findGroup(property.group, fields)
 
                 if (!group) {
                     group = {
@@ -69,8 +69,8 @@
             }
         }
 
-        for (var i = 0, len = properties.length; i < len; i++) {
-            var property = properties[i]
+        for (var i = 0, len = fields.length; i < len; i++) {
+            var property = fields[i]
 
             result.properties.push(property)
 

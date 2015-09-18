@@ -36,12 +36,18 @@
      *   related to an element in the document DOM.
      */
     var Surface = function(containerElement, properties, values, inspectorUniqueId, options) {
+        if (inspectorUniqueId === undefined) {
+            throw new Error('Inspector surface unique ID should be defined.')
+        }
+
         this.options = $.extend({}, Surface.DEFAULTS, typeof option == 'object' && option)
         this.rawProperties = properties
         this.parsedProperties = $.oc.inspector.engine.processPropertyGroups(properties)
         this.container = containerElement
         this.inspectorUniqueId = inspectorUniqueId
         this.values = values
+        this.originalValues = $.extend(true, {}, values) // Clone the values hash
+        this.idCounter = 1
 
         this.editors = []
         this.tableContainer = null
@@ -55,6 +61,7 @@
     Surface.prototype.constructor = Surface
 
     Surface.prototype.dispose = function() {
+        this.unregisterHandlers()
         this.removeElements()
         this.disposeEditors()
 
@@ -64,6 +71,7 @@
         this.parsedProperties = null
         this.editors = null
         this.values = null
+        this.originalValues = null
 
         BaseProto.dispose.call(this)
     }
@@ -73,6 +81,20 @@
 
     Surface.prototype.init = function() {
         this.build()
+
+        $.oc.foundation.controlUtils.markDisposable(this.tableContainer)
+
+        this.registerHandlers()
+    }
+
+    Surface.prototype.registerHandlers = function() {
+        $(this.tableContainer).one('dispose-control', this.proxy(this.dispose))
+        $(this.tableContainer).on('click', 'tr.group', this.proxy(this.onGroupClick))
+    }
+
+    Surface.prototype.unregisterHandlers = function() {
+        $(this.tableContainer).off('dispose-control', this.proxy(this.dispose))
+        $(this.tableContainer).off('click', 'tr.group', this.proxy(this.onGroupClick))
     }
 
     //
@@ -125,7 +147,10 @@
 
             // Table row
             //
-            row.setAttribute('data-property', property.property)
+            if (property.property) {
+                row.setAttribute('data-property', property.property)
+            }
+
             this.applyGroupIndexAttribute(property, row)
             $.oc.foundation.element.addClass(row, this.getRowCssClass(property))
 
@@ -242,6 +267,14 @@
         return {}
     }
 
+    Surface.prototype.writeGroupStatuses = function(updatedStatuses) {
+        var statuses = this.getInspectorGroupStatuses()
+
+        statuses[this.inspectorUniqueId] = updatedStatuses
+
+        this.setInspectorGroupStatuses(statuses)
+    }
+
     Surface.prototype.getInspectorGroupStatuses = function() {
         var statuses = document.body.getAttribute('data-inspector-group-statuses')
 
@@ -250,6 +283,48 @@
         }
 
         return {}
+    }
+
+    Surface.prototype.setInspectorGroupStatuses = function(statuses) {
+        document.body.setAttribute('data-inspector-group-statuses', JSON.stringify(statuses))
+    }
+
+    Surface.prototype.toggleGroup = function(row) {
+        var link = row.querySelector('a'),
+            groupIndex = link.getAttribute('data-group-index'),
+            propertyRows = this.tableContainer.querySelectorAll('tr[data-group-index="'+groupIndex+'"]'),
+            collapse = true,
+            statuses = this.loadGroupStatuses(),
+            title = row.querySelector('span.title-element').getAttribute('title'),
+            duration = Math.round(50 / propertyRows.length),
+            rowsArray = Array.prototype.slice.call(propertyRows)
+
+        if ($.oc.foundation.element.hasClass(link, 'expanded')) {
+            $.oc.foundation.element.removeClass(link, 'expanded')
+            statuses[title] = false
+        } else {
+            $.oc.foundation.element.addClass(link, 'expanded')
+            collapse = false
+            statuses[title] = true
+        }
+
+        this.expandOrCollapseRows(rowsArray, collapse, duration)
+
+        this.writeGroupStatuses(statuses)
+    }
+
+    Surface.prototype.expandOrCollapseRows = function(rows, collapse, duration) {
+        var row = rows.pop(),
+            self = this
+
+        if (row) {
+            setTimeout(function toggleRow() {
+                $.oc.foundation.element.toggleClass(row, 'collapsed', collapse)
+                $.oc.foundation.element.toggleClass(row, 'expanded', !collapse)
+
+                self.expandOrCollapseRows(rows, collapse, duration)
+            }, duration)
+        }
     }
 
     //
@@ -265,12 +340,18 @@
             throw new Error('The Inspector editor class "' + property.type + 
                 '" is not defined in the $.oc.inspector.propertyEditors namespace.')
 
-        var cell = document.createElement('td'),    
+        var cell = document.createElement('td'),
             editor = new $.oc.inspector.propertyEditors[property.type](this, property, cell)
 
         this.editors.push(editor)
 
         row.appendChild(cell)
+    }
+
+    Surface.prototype.generateSequencedId = function() {
+        this.idCounter ++
+
+        return this.inspectorUniqueId + '-' + this.idCounter
     }
 
     //
@@ -279,6 +360,45 @@
 
     Surface.prototype.getPropertyValue = function(property) {
         return this.values[property]
+    }
+
+    Surface.prototype.getValues = function() {
+        var result = {}
+
+        for (var i=0, len = this.parsedProperties.properties.length; i < len; i++) {
+            var property = this.parsedProperties.properties[i]
+
+            if (property.itemType !== 'property') {
+                continue
+            }
+
+            var value = this.getPropertyValue(property.property)
+
+            if (value === undefined) {
+                value = property.default
+            }
+
+            result[property.property] = value
+        }
+
+        return result
+    }
+
+    Surface.prototype.setPropertyValue = function(property, value, supressChangeEvents) {
+        this.values[property] = value
+
+        if (!supressChangeEvents) {
+            if (this.originalValues[property] === undefined || this.originalValues[property] != value) {
+                this.markPropertyChanged(property, true)
+            } 
+            else {
+                this.markPropertyChanged(property, false)
+            }
+
+// TODO: here we should force dependent editors to update
+        }
+
+        return value
     }
 
     Surface.prototype.makeCellActive = function(cell) {
@@ -290,6 +410,17 @@
         }
 
         $.oc.foundation.element.addClass(cell, 'active')
+    }
+
+    Surface.prototype.markPropertyChanged = function(property, changed) {
+        var row = this.tableContainer.querySelector('tr[data-property="'+property+'"]')
+
+        if (changed) {
+            $.oc.foundation.element.addClass(row, 'changed')
+        }
+        else {
+            $.oc.foundation.element.removeClass(row, 'changed')
+        }
     }
 
     //
@@ -316,6 +447,15 @@
         var div = document.createElement('div')
         div.appendChild(document.createTextNode(str))
         return div.innerHTML
+    }
+
+    // EVENT HANDLERS
+    //
+
+    Surface.prototype.onGroupClick = function(ev) {
+        var row = ev.currentTarget
+
+        this.toggleGroup(row)
     }
 
     // DEFAULT OPTIONS
