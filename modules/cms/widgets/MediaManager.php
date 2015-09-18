@@ -963,7 +963,9 @@ class MediaManager extends WidgetBase
 
             $fileName = $uploadedFile->getClientOriginalName();
 
-            // Transform extension like JPG and etc to lower case
+            /*
+             * Convert uppcare case file extensions to lower case
+             */
             $extension = strtolower($uploadedFile->getClientOriginalExtension());
             $fileName = File::name($fileName).'.'.$extension;
 
