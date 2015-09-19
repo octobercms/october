@@ -54,5 +54,25 @@
     BaseEditor.prototype.registerHandlers = function() {
     }
 
+    BaseEditor.prototype.onInspectorPropertyChanged = function(property, value) {
+    }
+
+    BaseEditor.prototype.onExternalPropertyEditorHidden = function() {
+    }
+
+    BaseEditor.prototype.focus = function() {
+    }
+
+    /**
+     * Updates displayed value in the editor UI. The value is already set 
+     * in the Inspector and should be loaded from Inspector.
+     */
+    BaseEditor.prototype.updateDisplayedValue = function(value) {
+    }
+
+    BaseEditor.prototype.getPropertyName = function() {
+        return this.propertyDefinition.property
+    }
+
     $.oc.inspector.propertyEditors.base = BaseEditor
 }(window.jQuery);

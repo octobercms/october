@@ -151,6 +151,31 @@
         this.inspector.setPropertyValue(this.propertyDefinition.property, select.value, this.initialization)
     }
 
+    DropdownEditor.prototype.onInspectorPropertyChanged = function(property, value) {
+        if (!this.propertyDefinition.depends || this.propertyDefinition.depends.indexOf(property) === -1) {
+            return
+        }
+
+        var dependencyValues = this.getDependencyValues()
+
+        if (this.prevDependencyValues === undefined || this.prevDependencyValues != dependencyValues)
+            this.loadDynamicOptions()
+    }
+
+    DropdownEditor.prototype.onExternalPropertyEditorHidden = function() {
+        this.loadDynamicOptions(false)
+    }
+
+    //
+    // Editor API methods
+    //
+
+    DropdownEditor.prototype.updateDisplayedValue = function(value) {
+        var select = this.getSelect()
+
+        select.value = value
+    }
+
     //
     // Disposing
     //
@@ -224,8 +249,9 @@
     DropdownEditor.prototype.getDependencyValues = function() {
         var result = ''
 
-        for (var property in this.propertyDefinition.depends) {
-            var value = this.inspector.getPropertyValue(property)
+        for (var i = 0, len = this.propertyDefinition.depends.length; i < len; i++) {
+            var property = this.propertyDefinition.depends[i],
+                value = this.inspector.getPropertyValue(property)
 
             if (value === undefined) {
                 value = '';
@@ -252,7 +278,11 @@
     DropdownEditor.prototype.optionsRequestDone = function(data, currentValue, initialization) {
         var select = this.getSelect()
 
+        // Without destroying and recreating the custom select
+        // there could be detached DOM nodes.
+        this.destroyCustomSelect()
         this.clearOptions(select)
+        this.initCustomSelect()
 
         this.createPlaceholder(select)
 

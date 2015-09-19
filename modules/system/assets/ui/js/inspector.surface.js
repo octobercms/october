@@ -40,7 +40,7 @@
             throw new Error('Inspector surface unique ID should be defined.')
         }
 
-        this.options = $.extend({}, Surface.DEFAULTS, typeof option == 'object' && option)
+        this.options = $.extend({}, Surface.DEFAULTS, typeof options == 'object' && options)
         this.rawProperties = properties
         this.parsedProperties = $.oc.inspector.engine.processPropertyGroups(properties)
         this.container = containerElement
@@ -50,6 +50,7 @@
         this.idCounter = 1
 
         this.editors = []
+        this.externalParameterEditors = []
         this.tableContainer = null
 
         Base.call(this)
@@ -62,7 +63,9 @@
 
     Surface.prototype.dispose = function() {
         this.unregisterHandlers()
+        this.disposeControls()
         this.removeElements()
+        this.disposeExternalParameterEditors()
         this.disposeEditors()
 
         this.container = null
@@ -70,6 +73,7 @@
         this.rawProperties = null
         this.parsedProperties = null
         this.editors = null
+        this.externalParameterEditors = null
         this.values = null
         this.originalValues = null
 
@@ -187,6 +191,37 @@
         this.tableContainer.appendChild(dataTable)
 
         this.container.appendChild(this.tableContainer)
+
+        if (this.options.enableExternalParameterEditor) {
+            this.buildExternalParameterEditor(tbody)
+        }
+
+        this.focusFirstEditor()
+    }
+
+    Surface.prototype.focusFirstEditor = function() {
+        if (this.editors.length == 0) {
+            return
+        }
+
+        for (var i = 0, len = this.editors.length; i < len; i++) {
+            var editor = this.editors[i],
+                group = editor.propertyDefinition.group
+
+            if (group && !this.isGroupExpanded(group)) {
+                continue
+            }
+
+            var externalParameterEditor = this.findExternalParameterEditor(editor.getPropertyName())
+
+            if (externalParameterEditor && externalParameterEditor.isEditorVisible()) {
+                externalParameterEditor.focus()
+                return
+            }
+
+            editor.focus()
+            return
+        }
     }
 
     Surface.prototype.applyGroupIndexAttribute = function(property, row) {
@@ -241,7 +276,28 @@
         span.setAttribute('title', this.escapeJavascriptString(property.description))
         span.setAttribute('class', 'info oc-icon-info with-tooltip')
 
+        $(span).tooltip({ placement: 'auto right', container: 'body', delay: 500 })
+
         return span
+    }
+
+    Surface.prototype.buildExternalParameterEditor = function(tbody) {
+        var rows = tbody.children
+
+        for (var i = 0, len = rows.length; i < len; i++) {
+            var row = rows[i],
+                property = row.getAttribute('data-property')
+
+            if ($.oc.foundation.element.hasClass(row, 'no-external-parameter') || !property) {
+                continue
+            }
+
+            var cell = row.querySelector('td'),
+                propertyDefinition = this.findPropertyDefinition(property),
+                editor = new $.oc.inspector.externalParameterEditor(this, propertyDefinition, cell)
+
+            this.externalParameterEditors.push(editor)
+        }
     }
 
     //
@@ -365,6 +421,10 @@
     Surface.prototype.getValues = function() {
         var result = {}
 
+        // TODO: implement validation in this method. It should be optional,
+        // as the method is used by other classes internally, but the validation
+        // is required only for the external callers.
+
         for (var i=0, len = this.parsedProperties.properties.length; i < len; i++) {
             var property = this.parsedProperties.properties[i]
 
@@ -372,10 +432,19 @@
                 continue
             }
 
-            var value = this.getPropertyValue(property.property)
+            var value = null,
+                externalParameterEditor = this.findExternalParameterEditor(property.property)
 
-            if (value === undefined) {
-                value = property.default
+            if (!externalParameterEditor || !externalParameterEditor.isEditorVisible()) {
+                value = this.getPropertyValue(property.property)
+
+                if (value === undefined) {
+                    value = property.default
+                }
+            } 
+            else {
+                value = externalParameterEditor.getValue()
+                value = '{{ ' + value + ' }}'
             }
 
             result[property.property] = value
@@ -384,7 +453,7 @@
         return result
     }
 
-    Surface.prototype.setPropertyValue = function(property, value, supressChangeEvents) {
+    Surface.prototype.setPropertyValue = function(property, value, supressChangeEvents, forceEditorUpdate) {
         this.values[property] = value
 
         if (!supressChangeEvents) {
@@ -395,10 +464,25 @@
                 this.markPropertyChanged(property, false)
             }
 
-// TODO: here we should force dependent editors to update
+            this.notifyEditorsPropertyChanged(property, value)
+        }
+
+        if (forceEditorUpdate) {
+            var editor = this.findPropertyEditor(property)
+            if (editor) {
+                editor.updateDisplayedValue(value)
+            }
         }
 
         return value
+    }
+
+    Surface.prototype.notifyEditorsPropertyChanged = function(property, value) {
+        for (var i = 0, len = this.editors.length; i < len; i++) {
+            var editor = this.editors[i]
+
+            editor.onInspectorPropertyChanged(property, value)
+        }
     }
 
     Surface.prototype.makeCellActive = function(cell) {
@@ -423,6 +507,36 @@
         }
     }
 
+    Surface.prototype.findPropertyEditor = function(property) {
+        for (var i = 0, len = this.editors.length; i < len; i++) {
+            if (this.editors[i].getPropertyName() == property)
+                return this.editors[i]
+        }
+
+        return null
+    }
+
+    Surface.prototype.findExternalParameterEditor = function(property) {
+        for (var i = 0, len = this.externalParameterEditors.length; i < len; i++) {
+            if (this.externalParameterEditors[i].getPropertyName() == property)
+                return this.externalParameterEditors[i]
+        }
+
+        return null
+    }
+
+    Surface.prototype.findPropertyDefinition = function(property) {
+        for (var i=0, len = this.parsedProperties.properties.length; i < len; i++) {
+            var definition = this.parsedProperties.properties[i]
+
+            if (definition.property == property) {
+                return definition
+            }
+        }
+
+        return null
+    }
+    
     //
     // Disposing
     //
@@ -436,6 +550,22 @@
             var editor = this.editors[i]
 
             editor.dispose()
+        }
+    }
+
+    Surface.prototype.disposeExternalParameterEditors = function() {
+        for (var i = 0, len = this.externalParameterEditors.length; i < len; i++) {
+            var editor = this.externalParameterEditors[i]
+
+            editor.dispose()
+        }
+    }
+
+    Surface.prototype.disposeControls = function() {
+        var tooltipControls = this.tableContainer.querySelectorAll('.with-tooltip')
+
+        for (var i = 0, len = tooltipControls.length; i < len; i++) {
+            $(tooltipControls[i]).tooltip('destroy')
         }
     }
 
@@ -462,7 +592,7 @@
     // ============================
 
     Surface.DEFAULTS = {
-        showExternalParam: false
+        enableExternalParameterEditor: false
     }
 
     // REGISTRATION

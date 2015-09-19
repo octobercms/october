@@ -39,8 +39,17 @@
         this.containerCell.appendChild(editor)
     }
 
+    StringEditor.prototype.updateDisplayedValue = function(value) {
+        this.getInput().value = value
+    }
+
     StringEditor.prototype.getInput = function() {
         return this.containerCell.querySelector('input')
+    }
+
+    StringEditor.prototype.focus = function() {
+        this.getInput().focus()
+        this.onInputFocus()
     }
 
     StringEditor.prototype.registerHandlers = function() {

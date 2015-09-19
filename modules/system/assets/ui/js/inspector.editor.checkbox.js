@@ -66,6 +66,14 @@
         return this.containerCell.querySelector('input')
     }
 
+    CheckboxEditor.prototype.focus = function() {
+        this.getInput().parentNode.focus()
+    }
+
+    CheckboxEditor.prototype.updateDisplayedValue = function(value) {
+        this.getInput().checked = this.normalizeCheckedValue(value)
+    }
+
     CheckboxEditor.prototype.registerHandlers = function() {
         var input = this.getInput()
 
