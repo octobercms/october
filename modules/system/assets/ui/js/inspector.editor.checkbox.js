@@ -1,5 +1,9 @@
 /*
  * Inspector checkbox editor class.
+ *
+ * This editor is used in $.oc.inspector.propertyEditors.set class.
+ * If updates that affect references to this.inspector and propertyDefinition are done,
+ * the propertyEditors.set class implementation should be reviewed.
  */
 +function ($) { "use strict";
 

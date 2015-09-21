@@ -25,6 +25,7 @@
         this.inspector = inspector
         this.propertyDefinition = propertyDefinition
         this.containerCell = containerCell
+        this.groupIndex = null
 
         Base.call(this)
 
@@ -61,6 +62,36 @@
     }
 
     BaseEditor.prototype.focus = function() {
+    }
+
+    BaseEditor.prototype.supportsExternalParameterEditor = function() {
+        return true
+    }
+
+    BaseEditor.prototype.isGroupedEditor = function() {
+        return false
+    }
+
+    BaseEditor.prototype.getGroupIndex = function() {
+        if (this.groupIndex !== null) {
+            return this.groupIndex
+        }
+
+        this.groupIndex = this.inspector.generateSequencedId()
+
+        return this.groupIndex
+    }
+
+    BaseEditor.prototype.addGroupedRow = function(row) {
+        if (this.inspector.isGroupExpanded(this.propertyDefinition.title)) {
+            $.oc.foundation.element.addClass(row, 'expanded')
+        }
+        else {
+            $.oc.foundation.element.addClass(row, 'collapsed')
+        }
+
+        $.oc.foundation.element.addClass(row, 'grouped')
+        row.setAttribute('data-group-index', this.getGroupIndex())
     }
 
     /**

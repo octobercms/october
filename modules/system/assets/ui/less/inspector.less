@@ -58,6 +58,14 @@
         }
     }
 
+    tr.control-group {
+        .user-select(none);
+
+        th, td {
+            cursor: pointer;
+        }
+    }
+
     tr {
         &.collapsed {display: none;}
         &.expanded {display: table-row;}
@@ -108,6 +116,20 @@
             }
         }
 
+        &.text-multiline, &.set {
+            a.trigger {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: @color-inspector-text;
+                text-decoration: none;
+
+                &.placeholder {
+                    color: #b5babd;
+                }
+            }
+        }
+
         &.dropdown {
             padding: 0!important;
         }
@@ -118,7 +140,7 @@
 
         div.external-param-editor-container {
             position: relative;
-            padding-right: 30px;
+            padding-right: 15px;
 
             div.external-editor {
                 bottom: 0;
@@ -283,6 +305,7 @@
     div.custom-checkbox {
         margin-top: 0;
         margin-bottom: 0;
+        .user-select(none);
 
         label:before {
             top: -12px;

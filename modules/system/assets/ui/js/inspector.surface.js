@@ -93,12 +93,12 @@
 
     Surface.prototype.registerHandlers = function() {
         $(this.tableContainer).one('dispose-control', this.proxy(this.dispose))
-        $(this.tableContainer).on('click', 'tr.group', this.proxy(this.onGroupClick))
+        $(this.tableContainer).on('click', 'tr.group, tr.control-group', this.proxy(this.onGroupClick))
     }
 
     Surface.prototype.unregisterHandlers = function() {
         $(this.tableContainer).off('dispose-control', this.proxy(this.dispose))
-        $(this.tableContainer).off('click', 'tr.group', this.proxy(this.onGroupClick))
+        $(this.tableContainer).off('click', 'tr.group, tr.control-group', this.proxy(this.onGroupClick))
     }
 
     //
@@ -144,47 +144,13 @@
 
         for (var i=0, len = this.parsedProperties.properties.length; i < len; i++) {
             var property = this.parsedProperties.properties[i],
-                row = document.createElement('tr'),
-                th = document.createElement('th'),
-                titleSpan = document.createElement('span'),
-                description = this.buildPropertyDescription(property)
+                row = this.buildRow(property)
 
-            // Table row
-            //
-            if (property.property) {
-                row.setAttribute('data-property', property.property)
-            }
-
-            this.applyGroupIndexAttribute(property, row)
-            $.oc.foundation.element.addClass(row, this.getRowCssClass(property))
-
-            // Property head
-            //
-            this.applyHeadColspan(th, property)
-
-            titleSpan.setAttribute('class', 'title-element')
-            titleSpan.setAttribute('title', this.escapeJavascriptString(property.title))
-            this.buildGroupExpandControl(titleSpan, property)
-            titleSpan.innerHTML += this.escapeJavascriptString(property.title)
-
-            var outerDiv = document.createElement('div'),
-                innerDiv = document.createElement('div')
-
-            innerDiv.appendChild(titleSpan)
-
-            if (description) {
-                innerDiv.appendChild(description)
-            }
-            
-            outerDiv.appendChild(innerDiv)
-            th.appendChild(outerDiv)
-            row.appendChild(th)
+            tbody.appendChild(row)
 
             // Editor
             //
-            this.buildEditor(row, property)
-
-            tbody.appendChild(row)
+            this.buildEditor(row, property, dataTable)
         }
 
         dataTable.appendChild(tbody)
@@ -197,6 +163,46 @@
         }
 
         this.focusFirstEditor()
+    }
+
+    Surface.prototype.buildRow = function(property) {
+        var row = document.createElement('tr'),
+            th = document.createElement('th'),
+            titleSpan = document.createElement('span'),
+            description = this.buildPropertyDescription(property)
+
+        // Table row
+        //
+        if (property.property) {
+            row.setAttribute('data-property', property.property)
+        }
+
+        this.applyGroupIndexAttribute(property, row)
+        $.oc.foundation.element.addClass(row, this.getRowCssClass(property))
+
+        // Property head
+        //
+        this.applyHeadColspan(th, property)
+
+        titleSpan.setAttribute('class', 'title-element')
+        titleSpan.setAttribute('title', this.escapeJavascriptString(property.title))
+        this.buildGroupExpandControl(titleSpan, property)
+        titleSpan.innerHTML += this.escapeJavascriptString(property.title)
+
+        var outerDiv = document.createElement('div'),
+            innerDiv = document.createElement('div')
+
+        innerDiv.appendChild(titleSpan)
+
+        if (description) {
+            innerDiv.appendChild(description)
+        }
+
+        outerDiv.appendChild(innerDiv)
+        th.appendChild(outerDiv)
+        row.appendChild(th)
+
+        return row
     }
 
     Surface.prototype.focusFirstEditor = function() {
@@ -251,8 +257,8 @@
         }
     }
 
-    Surface.prototype.buildGroupExpandControl = function(titleSpan, property) {
-        if (property.itemType !== 'group') {
+    Surface.prototype.buildGroupExpandControl = function(titleSpan, property, force) {
+        if (property.itemType !== 'group' && !force) {
             return
         }
 
@@ -289,6 +295,11 @@
                 property = row.getAttribute('data-property')
 
             if ($.oc.foundation.element.hasClass(row, 'no-external-parameter') || !property) {
+                continue
+            }
+
+            var propertyEditor = this.findPropertyEditor(property)
+            if (propertyEditor && !propertyEditor.supportsExternalParameterEditor()) {
                 continue
             }
 
@@ -387,7 +398,7 @@
     // Editors
     //
 
-    Surface.prototype.buildEditor = function(row, property) {
+    Surface.prototype.buildEditor = function(row, property, dataTable) {
         if (property.itemType !== 'property') {
             return
         }
@@ -396,12 +407,20 @@
             throw new Error('The Inspector editor class "' + property.type + 
                 '" is not defined in the $.oc.inspector.propertyEditors namespace.')
 
-        var cell = document.createElement('td'),
-            editor = new $.oc.inspector.propertyEditors[property.type](this, property, cell)
-
-        this.editors.push(editor)
-
+        var cell = document.createElement('td')
         row.appendChild(cell)
+
+        var editor = new $.oc.inspector.propertyEditors[property.type](this, property, cell)
+
+        if (editor.isGroupedEditor()) {
+            $.oc.foundation.element.addClass(dataTable, 'has-groups')
+            $.oc.foundation.element.addClass(row, 'control-group')
+
+            property.groupIndex = editor.getGroupIndex()
+            this.buildGroupExpandControl(row.querySelector('span.title-element'), property, true)
+        }
+        
+        this.editors.push(editor)
     }
 
     Surface.prototype.generateSequencedId = function() {
@@ -586,6 +605,9 @@
         var row = ev.currentTarget
 
         this.toggleGroup(row)
+
+        $.oc.foundation.event.stop(ev)
+        return false
     }
 
     // DEFAULT OPTIONS
