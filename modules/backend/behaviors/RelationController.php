@@ -484,15 +484,25 @@ class RelationController extends ControllerBehavior
     // Widgets
     //
 
-    protected function makeSearchWidget()
+    protected function makeSearchWidget($widget)
     {
         $config = $this->makeConfig();
         $config->alias = $this->alias . 'ManageSearch';
         $config->growable = false;
         $config->prompt = 'backend::lang.list.search_prompt';
-        $widget = $this->makeWidget('Backend\Widgets\Search', $config);
-        $widget->cssClasses[] = 'recordfinder-search';
-        return $widget;
+        $searchWidget = $this->makeWidget('Backend\Widgets\Search', $config);
+        $searchWidget->cssClasses[] = 'recordfinder-search';
+
+        $searchWidget->bindToController();
+        $searchWidget->bindEvent('search.submit', function () use ($widget, $searchWidget) {
+            $widget->setSearchTerm($searchWidget->getActiveTerm());
+            return $widget->onRefresh();
+        });
+
+        $searchWidget->setActiveTerm(post($searchWidget->getName()));
+        $widget->setSearchTerm($searchWidget->getActiveTerm());
+
+        return $searchWidget;
     }
 
     protected function makeToolbarWidget()
@@ -606,15 +616,8 @@ class RelationController extends ControllerBehavior
             /*
              * Constrain the list by the search widget, if available
              */
-            if ($this->toolbarWidget && $this->getConfig('view[showSearch]')) {
-                if ($searchWidget = $this->toolbarWidget->getSearchWidget()) {
-                    $searchWidget->bindEvent('search.submit', function () use ($widget, $searchWidget) {
-                        $widget->setSearchTerm($searchWidget->getActiveTerm());
-                        return $widget->onRefresh();
-                    });
-
-                    $searchWidget->setActiveTerm(null);
-                }
+            if ($this->getConfig('view[showSearch]')) {
+                $this->searchWidget = $this->makeSearchWidget($widget);
             }
         }
         /*
@@ -681,14 +684,7 @@ class RelationController extends ControllerBehavior
              * Link the Search Widget to the List Widget
              */
             if ($this->getConfig('manage[showSearch]')) {
-                $this->searchWidget = $this->makeSearchWidget();
-                $this->searchWidget->bindToController();
-                $this->searchWidget->bindEvent('search.submit', function () use ($widget) {
-                    $widget->setSearchTerm($this->searchWidget->getActiveTerm());
-                    return $widget->onRefresh();
-                });
-
-                $this->searchWidget->setActiveTerm(null);
+                $this->searchWidget = $this->makeSearchWidget($widget);
             }
         }
         /*
