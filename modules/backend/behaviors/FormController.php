@@ -693,7 +693,7 @@ class FormController extends ControllerBehavior
             if (!is_a($widget->getController(), $calledClass)) {
                 return;
             }
-            $callback($widget, $widget->model, $widget->getContext());
+            call_user_func_array($callback, [$widget, $widget->model, $widget->getContext()]);
         });
     }
 
