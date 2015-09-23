@@ -1,3 +1,6 @@
+* **Build 298** (2015-09-24)
+  - Added the ability to use a wildcard URL parameter in CMS pages (see CMS > Pages docs).
+
 * **Build 297** (2015-09-19)
   - Introduced new `Revisionable` trait for storing model history (see Database > Traits docs).
   - Added `timetense` list column type (see Backend > Lists docs), along with `|time_since` and `|time_tense` Twig filters.
