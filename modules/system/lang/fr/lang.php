@@ -6,6 +6,7 @@ return [
         'tagline' => 'Retourner à l’essentiel',
     ],
     'locale' => [
+        'cs' => 'Tchèque',
         'en' => 'Anglais',
         'de' => 'Allemand',
         'el' => 'Grec',

@@ -6,6 +6,7 @@ return [
         'tagline' => '登入'
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'English',
         'de' => 'German',
         'es' => 'Spanish',

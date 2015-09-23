@@ -6,6 +6,7 @@ return [
         'tagline' => 'Voltando ao básico',
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'Inglês',
         'de' => 'Alemão',
         'es' => 'Espanhol',

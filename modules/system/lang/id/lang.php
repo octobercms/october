@@ -6,6 +6,7 @@ return [
         'tagline' => 'Dapati kembali yang mendasar'
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'Inggris',
         'de' => 'Jerman',
         'es' => 'Spanyol',

@@ -6,6 +6,7 @@ return [
         'tagline' => '欢迎使用October CMS！'
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'English',
         'de' => 'German',
         'es' => 'Spanish',

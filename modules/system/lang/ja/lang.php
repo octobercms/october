@@ -6,6 +6,7 @@ return [
         'tagline' => '基本に戻ろう！',
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'English',
         'de' => 'German',
         'es' => 'Spanish',
