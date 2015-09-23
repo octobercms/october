@@ -54,7 +54,7 @@ class Lists extends WidgetBase
     /**
      * @var string Message to display when there are no records in the list.
      */
-    public $noRecordsMessage = 'No records found';
+    public $noRecordsMessage = 'backend::lang.list.no_records';
 
     /**
      * @var int Maximum rows to display for each page.
