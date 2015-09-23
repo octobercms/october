@@ -556,7 +556,7 @@ class RelationController extends ControllerBehavior
 
             $defaultOnClick = sprintf(
                 "$.oc.relationBehavior.clickViewListRecord(':%s', '%s', '%s')",
-			    $this->relationModel->primaryKey,
+                $this->relationModel->getKeyName(),
                 $this->field,
                 $this->relationGetSessionKey()
             );
