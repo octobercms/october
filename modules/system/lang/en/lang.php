@@ -316,6 +316,8 @@ return [
         'manage_mail_templates' => 'Manage mail templates',
         'manage_mail_settings' => 'Manage mail settings',
         'manage_other_administrators' => 'Manage other administrators',
+        'manage_preferences' => 'Manage backend preferences',
+        'manage_editor' => 'Manage code editor preferences',
         'view_the_dashboard' => 'View the dashboard',
         'manage_branding' => 'Customize the back-end'
     ]
