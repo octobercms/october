@@ -1540,15 +1540,17 @@ params=$.extend(params,options||{})
 var offset=0,animated=false
 if(!this.options.vertical){offset=$el.get(0).offsetLeft-this.el.scrollLeft()
 if(offset<0){this.el.animate({'scrollLeft':$el.get(0).offsetLeft},params)
-animated=true}else{offset=$el.get(0).offsetLeft+$el.width()-(this.el.scrollLeft()+this.el.width())
+animated=true}
+else{offset=$el.get(0).offsetLeft+$el.width()-(this.el.scrollLeft()+this.el.width())
 if(offset>0){this.el.animate({'scrollLeft':$el.get(0).offsetLeft+$el.width()-this.el.width()},params)
-animated=true}}}else{offset=$el.get(0).offsetTop-this.el.scrollTop()
+animated=true}}}
+else{offset=$el.get(0).offsetTop-this.el.scrollTop()
 if(offset<0){this.el.animate({'scrollTop':$el.get(0).offsetTop},params)
-animated=true}else{offset=$el.get(0).offsetTop-(this.el.scrollTop()+this.el.height())
+animated=true}
+else{offset=$el.get(0).offsetTop-(this.el.scrollTop()+this.el.height())
 if(offset>0){this.el.animate({'scrollTop':$el.get(0).offsetTop+$el.height()-this.el.height()},params)
 animated=true}}}
-if(!animated&&callback!==undefined)
-callback()}
+if(!animated&&callback!==undefined){callback()}}
 DragScroll.prototype.dispose=function(){this.scrollClassContainer=null
 $(document).off('ready',this.proxy(this.fixScrollClasses))
 $(window).off('resize',this.proxy(this.fixScrollClasses))
