@@ -2,6 +2,7 @@
 
 use File;
 use Config;
+use Backend\Models\UserPreferences;
 
 /**
  * Represents a file or folder in the Media Library.
@@ -133,6 +134,26 @@ class MediaLibraryItem
      */
     public function lastModifiedAsString()
     {
-        return $this->lastModified ? date('M d, Y', $this->lastModified) : null;
+        $preferences = UserPreferences::forUser()->get('backend::backend.preferences');
+
+        $dateFormats = [
+            'de'    => 'd.m.Y',
+            'hu'    => 'Y. m. d.',
+            'ja'    => 'Y年m月d日',
+            'lv'    => 'Y-m-d',
+            'nb-no' => 'd.m.Y',
+            'pl'    => 'd.m.Y',
+            'ro'    => 'd.m.Y',
+            'ru'    => 'd.m.Y',
+            'sk'    => 's. m. Y',
+            'sv'    => 'd.m.Y',
+            'tr'    => 'd.m.Y',
+            'zh-cn' => 'Y年m月d日',
+            'zh-tw' => 'Y年m月d日'
+        ];
+
+        $dateFormat = (isset($dateFormats[$preferences['locale']])) ? $dateFormats[$preferences['locale']] : 'd/m/Y';
+
+        return $this->lastModified ? date($dateFormat, $this->lastModified) : null;
     }
 }
