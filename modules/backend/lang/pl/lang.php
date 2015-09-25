@@ -219,7 +219,7 @@ return [
         'close' => "Zamknij",
         'add_name' => "Dodaj :name",
         'create' => "Stwórz",
-        'create_name' => "Create :name",
+        'create_name' => "Stwórz :name",
         'update' => "Aktualizuj",
         'update_name' => "Aktualizuj :name",
         'preview' => "Podgląd",
