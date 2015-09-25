@@ -10,6 +10,7 @@
 
     var SetEditor = function(inspector, propertyDefinition, containerCell) {
         this.editors = []
+        this.loadedItems = null
 
         Base.call(this, inspector, propertyDefinition, containerCell)
     }
@@ -19,6 +20,7 @@
 
     SetEditor.prototype.dispose = function() {
         this.disposeEditors()
+        this.disposeControls()
 
         this.editors = null
 
@@ -30,10 +32,6 @@
     //
 
     SetEditor.prototype.build = function() {
-        if (!this.propertyDefinition.items) {
-            throw new Error('The items are not defined for the set-typed property "' + this.propertyDefinition.property + '"')
-        }
-
         var link = document.createElement('a')
 
         $.oc.foundation.element.addClass(link, 'trigger')
@@ -41,10 +39,19 @@
         link.setAttribute('data-group-index', this.getGroupIndex())
         this.setLinkText(link)
 
-        $.oc.foundation.element.addClass(this.containerCell, 'set')
+        $.oc.foundation.element.addClass(this.containerCell, 'trigger-cell')
 
         this.containerCell.appendChild(link)
 
+        if (this.propertyDefinition.items !== undefined) {
+            this.loadStaticItems()
+        }
+        else {
+            this.loadDynamicItems()
+        }
+    }
+
+    SetEditor.prototype.loadStaticItems = function() {
         for (var itemValue in this.propertyDefinition.items) {
             this.buildItemEditor(itemValue, this.propertyDefinition.items[itemValue])
         }
@@ -52,14 +59,14 @@
 
     SetEditor.prototype.setLinkText = function(link, value) {
         var value = value !== undefined ? value 
-                : this.inspector.getPropertyValue(this.propertyDefinition.property),
-            text = '[]'
+                : this.getNormalizedValue(),
+            text = '[ ]'
 
         if (value === undefined) {
             value = this.propertyDefinition.default
         }
 
-        if (value !== undefined && value.length !== undefined && value.length > 0) {
+        if (value !== undefined && value.length !== undefined && value.length > 0 && typeof value !== 'string') {
             var textValues = []
             for (var i = 0, len = value.length; i < len; i++) {
                 textValues.push(this.valueToText(value[i]))
@@ -108,7 +115,48 @@
 
         return this.propertyDefinition.default.indexOf(value) > -1
     }
-    
+
+    //
+    // Dynamic items
+    //
+
+    SetEditor.prototype.showLoadingIndicator = function() {
+        $(this.getLink()).loadIndicator()
+    }
+
+    SetEditor.prototype.hideLoadingIndicator = function() {
+        $(this.getLink()).loadIndicator('hide')
+    }
+
+    SetEditor.prototype.loadDynamicItems = function() {
+        var link = this.getLink(),
+            data = this.inspector.getValues(),
+            $form = $(link).closest('form')
+
+        $.oc.foundation.element.addClass(link, 'loading-indicator-container size-small')
+        this.showLoadingIndicator()
+
+        $form.request('onInspectableGetOptions', {
+            data: data,
+        })
+        .done(this.proxy(this.itemsRequestDone))
+        .always(this.proxy(this.hideLoadingIndicator))
+    }
+
+    SetEditor.prototype.itemsRequestDone = function(data, currentValue, initialization) {
+        this.loadedItems = {}
+
+        if (data.options) {
+            for (var i = 0, len = data.options.length; i < len; i++) {
+                this.buildItemEditor(data.options[i].value, data.options[i].title)
+
+                this.loadedItems[data.options[i].value] = data.options[i].title
+            }
+        }
+
+        this.setLinkText(this.getLink())
+    }
+
     //
     // Helpers
     //
@@ -117,15 +165,62 @@
         return this.containerCell.querySelector('a.trigger')
     }
 
+    SetEditor.prototype.getItemsSource = function() {
+        if (this.propertyDefinition.items !== undefined) {
+            return this.propertyDefinition.items
+        }
+
+        return this.loadedItems
+    }
+
     SetEditor.prototype.valueToText = function(value) {
-        if (!this.propertyDefinition.items) {
+        var source = this.getItemsSource()
+
+        if (!source) {
             return value
         }
 
-        for (var itemValue in this.propertyDefinition.items) {
+        for (var itemValue in source) {
             if (itemValue == value) {
-                return this.propertyDefinition.items[itemValue]
+                return source[itemValue]
             }
+        }
+
+        return value
+    }
+
+    /* 
+     * Removes items that don't exist in the defined items from
+     * the value.
+     */
+    SetEditor.prototype.cleanUpValue = function(value) {
+        if (!value) {
+            return value
+        }
+
+        var result = [],
+            source = this.getItemsSource()
+
+        for (var i = 0, len = value.length; i < len; i++) {
+            var currentValue = value[i]
+
+            if (source[currentValue] !== undefined) {
+                result.push(currentValue)
+            }
+        }
+
+        return result
+    }
+
+    SetEditor.prototype.getNormalizedValue = function() {
+        var value = this.inspector.getPropertyValue(this.propertyDefinition.property)
+
+        if (value === undefined) {
+            return value
+        }
+
+        if (value.length === undefined || typeof value === 'string') {
+            return undefined
         }
 
         return value
@@ -159,7 +254,7 @@
         // current set value is [create] and checkboxValue is "create".
         // The result of the method will be TRUE.
 
-        var value = this.inspector.getPropertyValue(this.propertyDefinition.property)
+        var value = this.getNormalizedValue()
 
         if (value === undefined) {
             return this.isCheckedByDefault(checkboxValue)
@@ -173,7 +268,7 @@
     }
 
     SetEditor.prototype.setPropertyValue = function(checkboxValue, isChecked) {
-        var currentValue = this.inspector.getPropertyValue(this.propertyDefinition.property)
+        var currentValue = this.getNormalizedValue()
 
         if (currentValue === undefined) {
             currentValue = this.propertyDefinition.default
@@ -195,7 +290,7 @@
             }
         }
 
-        this.inspector.setPropertyValue(this.propertyDefinition.property, currentValue)
+        this.inspector.setPropertyValue(this.propertyDefinition.property, this.cleanUpValue(currentValue))
         this.setLinkText(this.getLink())
     }
 
@@ -213,6 +308,16 @@
 
             editor.dispose()
         }
+    }
+
+    SetEditor.prototype.disposeControls = function() {
+        var link = this.getLink()
+
+        if (this.propertyDefinition.items === undefined) {
+            $(link).loadIndicator('destroy')
+        }
+
+        link.parentNode.removeChild(link)
     }
 
     $.oc.inspector.propertyEditors.set = SetEditor

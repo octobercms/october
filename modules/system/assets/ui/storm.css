@@ -2320,6 +2320,7 @@ table td[class*="col-"],table th[class*="col-"]{position:static;float:none;displ
 .table-responsive > .table-bordered > tbody > tr:last-child > th,.table-responsive > .table-bordered > tfoot > tr:last-child > th,.table-responsive > .table-bordered > tbody > tr:last-child > td,.table-responsive > .table-bordered > tfoot > tr:last-child > td{border-bottom:0}
 }
 table.table.data{font-size:12px}
+table.table.data.no-offset-bottom{margin-bottom:0 !important}
 table.table.data thead{background:#ffffff}
 table.table.data thead td,table.table.data thead th{border-width:1px;border-top:1px solid #e2e2e2 !important;border-color:#e2e2e2;padding:0;font-weight:normal}
 table.table.data thead td > a,table.table.data thead th > a,table.table.data thead td > span,table.table.data thead th > span{display:block;padding:13px 15px;text-transform:uppercase;color:#333333;text-decoration:none}
@@ -2359,6 +2360,7 @@ table.table.data tbody td.column-slim{padding-left:0;padding-right:0}
 table.table.data tbody.icons td i[class^="icon-"]{display:inline-block;margin-right:7px;font-size:15px;color:#95a5a6;position:relative;top:1px}
 table.table.data tbody.clickable{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 table.table.data tbody td.column-compact{padding:0}
+table.table.data.no-active-indicator tbody tr td:first-child{border-left:none}
 table.table.data tfoot a{color:#666666;text-decoration:none}
 table.table.data tfoot td,table.table.data tfoot th{border-color:#e2e2e2;padding:10px 15px}
 table.table.data th.list-cell-type-switch,table.table.data td.list-cell-type-switch{text-align:center}
@@ -2440,8 +2442,11 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .inspector-fields td.text input[type=text]::-moz-placeholder{font-weight:normal !important;color:#b5babd}
 .inspector-fields td.text input[type=text]:-ms-input-placeholder{font-weight:normal !important;color:#b5babd}
 .inspector-fields td.text.active{background:#ffffff;border-left:1px solid #c8cccd}
-.inspector-fields td.text-multiline a.trigger,.inspector-fields td.set a.trigger{display:block;overflow:hidden;text-overflow:ellipsis;color:#333333;text-decoration:none}
-.inspector-fields td.text-multiline a.trigger.placeholder,.inspector-fields td.set a.trigger.placeholder{color:#b5babd}
+.inspector-fields td.trigger-cell{padding:0 !important}
+.inspector-fields td.trigger-cell a.trigger{display:block;padding:5px 12px 7px 12px;overflow:hidden;text-overflow:ellipsis;color:#333333;text-decoration:none}
+.inspector-fields td.trigger-cell a.trigger.placeholder{color:#b5babd}
+.inspector-fields td.trigger-cell a.trigger .loading-indicator{background-color:#f2f2f2}
+.inspector-fields td.trigger-cell a.trigger .loading-indicator span{margin-top:-12px;right:10px;left:auto}
 .inspector-fields td.dropdown{padding:0 !important}
 .inspector-fields td select{width:90%}
 .inspector-fields td div.external-param-editor-container{position:relative;padding-right:15px}
@@ -2467,7 +2472,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .inspector-fields div.custom-checkbox{margin-top:0;margin-bottom:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .inspector-fields div.custom-checkbox label:before{top:-12px}
 .inspector-fields .select2-container{width:100% !important}
-.inspector-fields .select2-container .select2-selection{background:transparent;height:30px;line-height:29px;padding:0 3px 0 12px;-webkit-border-radius:0 !important;-moz-border-radius:0 !important;border-radius:0 !important;border:none !important;font-size:12px}
+.inspector-fields .select2-container .select2-selection{background:transparent;height:29px;line-height:29px;padding:0 3px 0 12px;-webkit-border-radius:0 !important;-moz-border-radius:0 !important;border-radius:0 !important;border:none !important;font-size:12px}
 .inspector-fields .select2-container .select2-selection.select2-default{font-weight:normal !important}
 .inspector-fields .select2-container .loading-indicator > span{top:15px}
 .inspector-fields .select2-container.select2-container--open{-webkit-border-radius:0 !important;-moz-border-radius:0 !important;border-radius:0 !important;border:none !important}

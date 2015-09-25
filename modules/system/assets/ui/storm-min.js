@@ -1786,6 +1786,8 @@ if(this.options.opaque!==undefined){indicator.addClass('is-opaque')}
 this.$el.prepend(indicator)
 this.$el.addClass('in-progress')
 this.tally++}
+LoadIndicator.prototype.destroy=function(){this.$el.removeData('oc.loadIndicator')
+this.$el=null}
 LoadIndicator.DEFAULTS={text:''}
 var old=$.fn.loadIndicator
 $.fn.loadIndicator=function(option){var args=arguments;return this.each(function(){var $this=$(this)

@@ -34,6 +34,10 @@ table.table.data {
 
     font-size: 12px;
 
+    &.no-offset-bottom {
+        margin-bottom: 0!important;
+    }
+
     thead {
         background: @color-list-head-bg;
 
@@ -225,6 +229,12 @@ table.table.data {
 
         td.column-compact {
             padding: 0;
+        }
+    }
+
+    &.no-active-indicator tbody {
+        tr td:first-child {
+            border-left: none;
         }
     }
 

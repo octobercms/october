@@ -54,6 +54,11 @@
         this.tally++
     }
 
+    LoadIndicator.prototype.destroy = function() {
+        this.$el.removeData('oc.loadIndicator')
+        this.$el = null
+    }
+
     LoadIndicator.DEFAULTS = {
         text: ''
     }

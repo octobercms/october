@@ -116,9 +116,12 @@
             }
         }
 
-        &.text-multiline, &.set {
+        &.trigger-cell {
+            padding: 0!important;
+
             a.trigger {
                 display: block;
+                padding: 5px 12px 7px 12px;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 color: @color-inspector-text;
@@ -126,6 +129,16 @@
 
                 &.placeholder {
                     color: #b5babd;
+                }
+
+                .loading-indicator {
+                    background-color: @color-inspector-bg;
+
+                    span {
+                        margin-top: -12px;
+                        right: 10px;
+                        left: auto;
+                    }
                 }
             }
         }
@@ -317,7 +330,7 @@
 
         .select2-selection {
             background: transparent;
-            height: 30px;
+            height: 29px;
             line-height: 29px;
             padding: 0 3px 0 12px;
             .border-radius(0) !important;

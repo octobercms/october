@@ -235,7 +235,7 @@
 
         $form.request('onInspectableGetOptions', {
             data: data,
-        }).done(function optionsRequestDoneClosure(data) {
+        }).done(function dropdownOptionsRequestDoneClosure(data) {
             self.optionsRequestDone(data, currentValue, true)
         }).always(
             this.proxy(this.hideLoadingIndicator)

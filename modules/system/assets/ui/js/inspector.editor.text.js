@@ -26,7 +26,7 @@
         link.setAttribute('href', '#')
         this.setLinkText(link)
 
-        $.oc.foundation.element.addClass(this.containerCell, 'text-multiline')
+        $.oc.foundation.element.addClass(this.containerCell, 'trigger-cell')
 
         this.containerCell.appendChild(link)
     }

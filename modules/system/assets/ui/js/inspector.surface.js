@@ -76,6 +76,7 @@
         this.externalParameterEditors = null
         this.values = null
         this.originalValues = null
+        this.options.onChange = null
 
         BaseProto.dispose.call(this)
     }
@@ -230,16 +231,11 @@
         }
     }
 
-    Surface.prototype.applyGroupIndexAttribute = function(property, row) {
-        if (property.groupIndex !== undefined && property.itemType == 'property') {
-            row.setAttribute('data-group-index', property.groupIndex)
-        }
-    }
-
     Surface.prototype.getRowCssClass = function(property) {
         var result = property.itemType
 
-        if (property.itemType == 'property' && property.groupIndex !== undefined) {
+        // The property.groupedControl flag doesn't allow to collapse the grouped control row itself.
+        if (property.itemType == 'property' && property.groupIndex !== undefined && !property.groupedControl) {
             result += ' grouped'
             result += this.isGroupExpanded(property.group) ? ' expanded' : ' collapsed'
         }
@@ -314,6 +310,12 @@
     //
     // Field grouping
     //
+
+    Surface.prototype.applyGroupIndexAttribute = function(property, row) {
+        if (property.groupIndex !== undefined && property.itemType == 'property' && !property.groupedControl) {
+            row.setAttribute('data-group-index', property.groupIndex)
+        }
+    }
 
     Surface.prototype.isGroupExpanded = function(group) {
         var statuses = this.loadGroupStatuses()
@@ -417,6 +419,7 @@
             $.oc.foundation.element.addClass(row, 'control-group')
 
             property.groupIndex = editor.getGroupIndex()
+            property.groupedControl = true
             this.buildGroupExpandControl(row.querySelector('span.title-element'), property, true)
         }
         
@@ -437,46 +440,11 @@
         return this.values[property]
     }
 
-    Surface.prototype.getValues = function() {
-        var result = {}
-
-        // TODO: implement validation in this method. It should be optional,
-        // as the method is used by other classes internally, but the validation
-        // is required only for the external callers.
-
-        for (var i=0, len = this.parsedProperties.properties.length; i < len; i++) {
-            var property = this.parsedProperties.properties[i]
-
-            if (property.itemType !== 'property') {
-                continue
-            }
-
-            var value = null,
-                externalParameterEditor = this.findExternalParameterEditor(property.property)
-
-            if (!externalParameterEditor || !externalParameterEditor.isEditorVisible()) {
-                value = this.getPropertyValue(property.property)
-
-                if (value === undefined) {
-                    value = property.default
-                }
-            } 
-            else {
-                value = externalParameterEditor.getValue()
-                value = '{{ ' + value + ' }}'
-            }
-
-            result[property.property] = value
-        }
-
-        return result
-    }
-
     Surface.prototype.setPropertyValue = function(property, value, supressChangeEvents, forceEditorUpdate) {
         this.values[property] = value
 
         if (!supressChangeEvents) {
-            if (this.originalValues[property] === undefined || this.originalValues[property] != value) {
+            if (this.originalValues[property] === undefined || !this.comparePropertyValues(this.originalValues[property], value)) {
                 this.markPropertyChanged(property, true)
             } 
             else {
@@ -484,6 +452,10 @@
             }
 
             this.notifyEditorsPropertyChanged(property, value)
+
+            if (this.options.onChange !== null) {
+                this.options.onChange(property, value)
+            }
         }
 
         if (forceEditorUpdate) {
@@ -598,6 +570,61 @@
         return div.innerHTML
     }
 
+    Surface.prototype.comparePropertyValues = function(oldValue, newValue) {
+        if (oldValue === undefined && newValue !== undefined) {
+            return false
+        }
+
+        if (oldValue !== undefined && newValue === undefined) {
+            return false
+        }
+
+        if (typeof oldValue == 'object' && typeof newValue == 'object') {
+            return JSON.stringify(oldValue) == JSON.stringify(newValue)
+        }
+
+        return oldValue == newValue
+    }
+
+    //
+    // External API
+    //
+
+    Surface.prototype.getValues = function() {
+        var result = {}
+
+// TODO: implement validation in this method. It should be optional,
+// as the method is used by other classes internally, but the validation
+// is required only for the external callers.
+
+        for (var i=0, len = this.parsedProperties.properties.length; i < len; i++) {
+            var property = this.parsedProperties.properties[i]
+
+            if (property.itemType !== 'property') {
+                continue
+            }
+
+            var value = null,
+                externalParameterEditor = this.findExternalParameterEditor(property.property)
+
+            if (!externalParameterEditor || !externalParameterEditor.isEditorVisible()) {
+                value = this.getPropertyValue(property.property)
+
+                if (value === undefined) {
+                    value = property.default
+                }
+            } 
+            else {
+                value = externalParameterEditor.getValue()
+                value = '{{ ' + value + ' }}'
+            }
+
+            result[property.property] = value
+        }
+
+        return result
+    }
+
     // EVENT HANDLERS
     //
 
@@ -614,7 +641,8 @@
     // ============================
 
     Surface.DEFAULTS = {
-        enableExternalParameterEditor: false
+        enableExternalParameterEditor: false,
+        onChange: null
     }
 
     // REGISTRATION
