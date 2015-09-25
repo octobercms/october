@@ -438,7 +438,9 @@ class Index extends Controller
                 }
 
                 $properties = json_decode($componentProperties[$index], true);
-                unset($properties['oc.alias'], $properties['inspectorProperty'], $properties['inspectorClassName']);
+                unset($properties['oc.alias']);
+                unset($properties['inspectorProperty']);
+                unset($properties['inspectorClassName']);
                 $settings[$section] = $properties;
             }
         }
