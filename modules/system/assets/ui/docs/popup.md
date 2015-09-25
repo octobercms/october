@@ -5,6 +5,7 @@ Displays a modal popup, based on the Bootstrap modal implementation.
 - [Examples](#examples)
 - [Inline popups](#inline-popups)
 - [Remote popups](#remote-popups)
+- [API documentation](#api-docs)
 
 <a name="examples"></a>
 ## Examples
@@ -96,3 +97,27 @@ Using the `data-ajax` attribute you can refer to an external file or URL directl
 </a>
 ```
 
+<a name="api-docs"></a>
+## API documentation
+
+### Options:
+- content: content HTML string or callback
+
+### Data attributes:
+- data-control="popup" - enables the ajax popup plugin
+- data-ajax="popup-content.htm" - ajax content to load
+- data-handler="onLoadContent" - October ajax request name
+- data-keyboard="false" - Allow popup to be closed with the keyboard
+- data-extra-data="file_id: 1" - October ajax request data
+- data-size="large" - Popup size, available sizes: giant, huge, large, small, tiny
+
+### JavaScript API:
+
+```js
+$('a#someLink').popup({ ajax: 'popup-content.htm' })
+$('a#someLink').popup({ handler: 'onLoadSomePopup' })
+$('a#someLink').popup({ handler: 'onLoadSomePopup', extraData: { id: 3 } })
+```
+
+### Dependences:
+- Bootstrap Modal (modal.js)
