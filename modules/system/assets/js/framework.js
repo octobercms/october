@@ -77,8 +77,11 @@ if (window.jQuery === undefined)
                 options.data[inputName] = $el.val()
         }
 
+		/*
+		 *  Removing unneccesary data by en- and decoding it as JSON so functions are removed from objects.
+		 */
         if (options.data !== undefined && !$.isEmptyObject(options.data))
-            data.push($.param(options.data))
+            data.push($.param(JSON.parse(JSON.stringify(options.data))))
 
         var requestOptions = {
             context: context,
