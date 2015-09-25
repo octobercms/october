@@ -293,7 +293,7 @@ class AssetList extends WidgetBase
             throw new ApplicationException(Lang::get('cms::lang.asset.already_exists'));
         }
 
-        if (!@mkdir($newFullPath)) {
+        if (!File::makeDirectory($newFullPath)) {
             throw new ApplicationException(Lang::get(
                 'cms::lang.cms_object.error_creating_directory',
                 ['name' => $newName]
@@ -422,7 +422,7 @@ class AssetList extends WidgetBase
         $assetsPath = $this->getAssetsPath();
 
         if (!file_exists($assetsPath) || !is_dir($assetsPath)) {
-            if (!@mkdir($assetsPath)) {
+            if (!File::makeDirectory($assetsPath)) {
                 throw new ApplicationException(Lang::get(
                     'cms::lang.cms_object.error_creating_directory',
                     ['name'=>$assetsPath]
