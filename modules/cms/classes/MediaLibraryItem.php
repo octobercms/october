@@ -1,9 +1,10 @@
 <?php namespace Cms\Classes;
 
+use App;
 use File;
 use Config;
-use IntlDateFormatter;
 use Backend\Models\UserPreferences;
+use IntlDateFormatter;
 
 /**
  * Represents a file or folder in the Media Library.
@@ -140,7 +141,7 @@ class MediaLibraryItem
         }
 
         return IntlDateFormatter::create(
-            UserPreferences::forUser()->get('backend::backend.preferences')['locale'],
+            App::getLocale(),
             IntlDateFormatter::MEDIUM,
             IntlDateFormatter::NONE
         )->format($date);
