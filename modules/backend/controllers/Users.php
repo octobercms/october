@@ -94,6 +94,10 @@ class Users extends Controller
             return;
         }
 
+        if (!$this->user->isSuperUser()) {
+            $form->removeField('permissions[superuser]');
+        }
+
         /*
          * Add permissions tab
          */
