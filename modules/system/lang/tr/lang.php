@@ -6,6 +6,7 @@ return [
         'tagline' => 'Basitliğe dönüş...'
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'English (United States)',
         'de' => 'Deutsch (Deutschland)',
         'es' => 'Español (Spanish)',

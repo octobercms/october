@@ -6,6 +6,7 @@ return [
         'tagline' => 'Terug naar de basis',
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'Engels',
         'nl' => 'Nederlands',
         'ja' => 'Japans',

@@ -6,6 +6,7 @@ return [
         'tagline' => 'Intoarcerea la elementele de baza',
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'Engleza',
         'nl' => 'Olandeza',
         'ja' => 'Japoneza',

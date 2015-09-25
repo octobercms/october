@@ -6,6 +6,7 @@ return [
         'tagline' => 'Visszatérés az alapokhoz'
     ],
     'locale' => [
+        'cs' => 'Cseh',
         'en' => 'Angol',
         'de' => 'Német',
         'el' => 'Görög',

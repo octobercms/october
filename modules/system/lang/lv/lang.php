@@ -6,6 +6,7 @@ return [
         'tagline' => 'Atgriežamies pie pamatiem'
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'English',
         'de' => 'German',
         'es' => 'Spanish',
