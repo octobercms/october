@@ -6,8 +6,8 @@ return [
         'tagline' => 'Visszatérés az alapokhoz'
     ],
     'locale' => [
-        'cs' => 'Cseh',
         'en' => 'Angol',
+        'cs' => 'Cseh',
         'de' => 'Német',
         'el' => 'Görög',
         'es' => 'Spanyol',
@@ -147,6 +147,10 @@ return [
         'smtp_password' => 'Jelszó',
         'smtp_port' => 'SMTP port',
         'smtp_ssl' => 'SSL kapcsolat szükséges',
+        'smtp_encryption' => 'SMTP titkosítás típusa',
+        'smtp_encryption_none' => 'Nincs',
+        'smtp_encryption_tls' => 'TLS',
+        'smtp_encryption_ssl' => 'SSL',
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail elérési útja',
         'sendmail_path_comment' => 'Adja meg a Sendmail program elérési útját.',
@@ -285,7 +289,7 @@ return [
         'empty_success' => 'Az eseménynapló kiürítése sikerült.',
         'return_link' => 'Vissza az eseménynapló listához',
         'id' => 'Azonosító',
-        'id_label' => 'Esemény azonosító',
+        'id_label' => 'Esemény azonosítója',
         'created_at' => 'Időpont',
         'message' => 'Üzenet',
         'level' => 'Szint'
@@ -309,10 +313,12 @@ return [
         'name' => 'Rendszer',
         'manage_system_settings' => 'Rendszer beállítások kezelése',
         'manage_software_updates' => 'Szoftver frissítések kezelése',
-        'access_logs' => 'Rendszer napló megtekintése',
+        'access_logs' => 'Rendszer naplók megtekintése',
         'manage_mail_templates' => 'Levél sablonok kezelése',
         'manage_mail_settings' => 'Levelezési beállítások kezelése',
-        'manage_other_administrators' => 'Másik adminisztrátor kezelése',
+        'manage_other_administrators' => 'Adminisztrátorok kezelése',
+        'manage_preferences' => 'Beállítások menü kezelése',
+        'manage_editor' => 'Kódszerkesztő testreszabása',
         'view_the_dashboard' => 'Vezérlőpult megtekintése',
         'manage_branding' => 'Admin felület testreszabása'
     ]
