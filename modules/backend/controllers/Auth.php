@@ -64,7 +64,7 @@ class Auth extends Controller
     {
         $rules = [
             'login'    => 'required|min:2|max:32',
-            'password' => 'required|min:2'
+            'password' => 'required|min:4'
         ];
 
         $validation = Validator::make(post(), $rules);
@@ -96,7 +96,7 @@ class Auth extends Controller
         BackendAuth::logout();
         return Backend::redirect('backend');
     }
-    
+
     /**
      * Request a password reset verification code.
      */
@@ -176,7 +176,7 @@ class Auth extends Controller
         }
 
         $rules = [
-            'password' => 'required|min:2'
+            'password' => 'required|min:4'
         ];
 
         $validation = Validator::make(post(), $rules);
