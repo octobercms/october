@@ -24,6 +24,19 @@
     ObjectListEditor.prototype = Object.create(BaseProto)
     ObjectListEditor.prototype.constructor = Base
 
+    ObjectListEditor.prototype.init = function() {
+        if (this.isKeyValueMode()) {
+            var keyProperty = this.getKeyProperty()
+
+            if (!keyProperty) {
+                throw new Error('Object list key property ' + this.propertyDefinition.keyProperty 
+                    + ' is not defined in itemProperties. Property: ' + this.propertyDefinition.property)
+            }
+        }
+
+        BaseProto.init.call(this)
+    }
+
     ObjectListEditor.prototype.dispose = function() {
         this.unregisterHandlers()
         this.removeControls()
@@ -66,12 +79,25 @@
             }
         }
         else {
-            if (value.length === undefined) {
-                throw new Error('Object list value an array. Property: ' + this.propertyDefinition.property)
+            var itemCount = 0
+
+            if (!this.isKeyValueMode()) {
+                if (value.length === undefined) {
+                    throw new Error('Object list value should be an array. Property: ' + this.propertyDefinition.property)
+                }
+
+                itemCount = value.length
+            } 
+            else {
+                if (typeof value !== 'object') {
+                    throw new Error('Object list value should be an object. Property: ' + this.propertyDefinition.property)
+                }
+
+                itemCount = this.getValueKeys(value).length
             }
 
             $.oc.foundation.element.removeClass(link, 'placeholder')
-            link.textContent = 'Items: ' + value.length
+            link.textContent = 'Items: ' + itemCount
         }
     }
 
@@ -84,7 +110,7 @@
                 <div>                                                                                   \
                     <div class="layout inspector-columns-editor">                                       \
                         <div class="layout-row">                                                        \
-                            <div class="layout-cell">                                                   \
+                            <div class="layout-cell items-column">                                      \
                                 <div class="layout-relative">                                           \
                                     <div class="layout">                                                \
                                         <div class="layout-row min-size">                               \
@@ -153,7 +179,7 @@
             items = this.inspector.getPropertyValue(this.propertyDefinition.property),
             titleProperty = this.propertyDefinition.titleProperty
 
-        if (items === undefined || items.length === 0) {
+        if (items === undefined || this.getValueKeys(items).length === 0) {
             var row = this.buildEmptyRow()
 
             tbody.appendChild(row)
@@ -161,12 +187,13 @@
         else {
             var firstRow = undefined
 
-            for (var i = 0, len = items.length; i < len; i++) {
-                var item = items[i],
+            for (var key in items) {
+                var item = items[key],
+                    itemInspectorValue = this.addKeyProperty(key, item),
                     itemText = item[titleProperty],
                     row = this.buildTableRow(itemText, 'rowlink')
 
-                row.setAttribute('data-inspector-values', JSON.stringify(item))
+                row.setAttribute('data-inspector-values', JSON.stringify(itemInspectorValue))
                 tbody.appendChild(row)
 
                 if (firstRow === undefined) {
@@ -229,6 +256,10 @@
             selectedRow = this.getSelectedRow()
 
         if (selectedRow) {
+            if (!this.validateKeyValue()) {
+                return
+            }
+
 // TODO: validation of the currently existing Inspector is required
             this.applyDataToRow(selectedRow)
             $.oc.foundation.element.removeClass(selectedRow, 'active')
@@ -307,6 +338,10 @@
         var selectedRow = this.getSelectedRow()
 
         if (selectedRow) {
+            if (!this.validateKeyValue()) {
+                return
+            }
+
 // TODO: validation of the currently existing Inspector is required
             this.applyDataToRow(selectedRow)
             $.oc.foundation.element.removeClass(selectedRow, 'active')
@@ -360,17 +395,36 @@
             tbody = this.getTableBody(),
             dataRows = tbody.querySelectorAll('tr[data-inspector-values]'),
             link = this.getLink(),
+            result = null
+
+        if (this.isKeyValueMode()) {
+            result = {}
+        }
+        else {
             result = []
+        }
 
         if (selectedRow) {
+            if (!this.validateKeyValue()) {
+                return
+            }
+
 // TODO: validation of the currently existing Inspector is required
             this.applyDataToRow(selectedRow)
         }
 
         for (var i = 0, len = dataRows.length; i < len; i++) {
-            var dataRow = dataRows[i]
+            var dataRow = dataRows[i],
+                rowData = $.parseJSON(dataRow.getAttribute('data-inspector-values'))
 
-            result.push($.parseJSON(dataRow.getAttribute('data-inspector-values')))
+            if (!this.isKeyValueMode()) {
+                result.push(rowData)
+            }
+            else {
+                var rowKey = rowData[this.propertyDefinition.keyProperty]
+
+                result[rowKey] = this.removeKeyProperty(rowData)
+            }
         }
 
         this.inspector.setPropertyValue(this.propertyDefinition.property, result)
@@ -378,6 +432,55 @@
 
         $(link).popup('hide')
         return false
+    }
+
+    ObjectListEditor.prototype.validateKeyValue = function() {
+        if (!this.isKeyValueMode()) {
+            return true
+        }
+
+        if (this.currentRowInspector === null) {
+            return true
+        }
+
+        var data = this.currentRowInspector.getValues(),
+            keyProperty = this.propertyDefinition.keyProperty
+
+        if (data[keyProperty] === undefined) {
+            throw new Error('Key property ' + keyProperty + ' is not found in the Inspector data. Property: ' + this.propertyDefinition.property)
+        }
+
+        var keyPropertyValue = data[keyProperty],
+            keyPropertyTitle = this.getKeyProperty().title
+
+        if (typeof keyPropertyValue !== 'string') {
+            throw new Error('Key property (' + keyProperty + ') value should be a string. Property: ' + this.propertyDefinition.property)
+        }
+
+        if ($.trim(keyPropertyValue).length === 0) {
+            $.oc.flashMsg({text: 'The value of key property ' + keyPropertyTitle + ' cannot be empty.', 'class': 'error', 'interval': 3})
+            return false
+        }
+
+        var selectedRow = this.getSelectedRow(),
+            tbody = this.getTableBody(),
+            dataRows = tbody.querySelectorAll('tr[data-inspector-values]')
+
+        for (var i = 0, len = dataRows.length; i < len; i++) {
+            var dataRow = dataRows[i],
+                rowData = $.parseJSON(dataRow.getAttribute('data-inspector-values'))
+
+            if (selectedRow == dataRow) {
+                continue
+            }
+
+            if (rowData[keyProperty] == keyPropertyValue) {
+                $.oc.flashMsg({text: 'The value of key property ' + keyPropertyTitle + ' should be unique.', 'class': 'error', 'interval': 3})
+                return false
+            }
+        }
+
+        return true
     }
 
     //
@@ -404,6 +507,54 @@
 
     ObjectListEditor.prototype.getTableBody = function() {
         return this.popup.querySelector('table.inspector-table-list tbody')
+    }
+
+    ObjectListEditor.prototype.isKeyValueMode = function() {
+        return this.propertyDefinition.keyProperty !== undefined
+    }
+
+    ObjectListEditor.prototype.getKeyProperty = function() {
+        for (var i = 0, len = this.propertyDefinition.itemProperties.length; i < len; i++) {
+            var property = this.propertyDefinition.itemProperties[i]
+
+            if (property.property == this.propertyDefinition.keyProperty) {
+                return property
+            }
+        }
+    }
+
+    ObjectListEditor.prototype.getValueKeys = function(value) {
+        var result = []
+
+        for (var key in value) {
+            result.push(key)
+        }
+
+        return result
+    }
+
+    ObjectListEditor.prototype.addKeyProperty = function(key, value) {
+        if (!this.isKeyValueMode()) {
+            return value
+        }
+
+        value[this.propertyDefinition.keyProperty] = key
+
+        return value
+    }
+
+    ObjectListEditor.prototype.removeKeyProperty = function(value) {
+        if (!this.isKeyValueMode()) {
+            return value
+        }
+
+        var result = value
+
+        if (result[this.propertyDefinition.keyProperty] !== undefined) {
+            delete result[this.propertyDefinition.keyProperty]
+        }
+
+        return result
     }
 
     //
