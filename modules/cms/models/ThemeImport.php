@@ -101,7 +101,7 @@ class ThemeImport extends Model
 
             File::put($zipPath, $file->getContents());
 
-            if (!@mkdir($tempPath))
+            if (!File::makeDirectory($tempPath))
                 throw new ApplicationException('Unable to create directory '.$tempPath);
 
             Zip::extract($zipPath, $tempPath);

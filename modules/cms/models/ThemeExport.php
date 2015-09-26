@@ -86,10 +86,10 @@ class ThemeExport extends Model
             $zipName = uniqid('oc');
             $zipPath = temp_path().'/'.$zipName;
 
-            if (!@mkdir($tempPath))
+            if (!File::makeDirectory($tempPath))
                 throw new ApplicationException('Unable to create directory '.$tempPath);
 
-            if (!@mkdir($metaPath = $tempPath . '/meta'))
+            if (!File::makeDirectory($metaPath = $tempPath . '/meta'))
                 throw new ApplicationException('Unable to create directory '.$metaPath);
 
             File::copy($themePath.'/theme.yaml', $tempPath.'/theme.yaml');
@@ -133,7 +133,7 @@ class ThemeExport extends Model
         $headers = Response::download($zipPath, $outputName)->headers->all();
         $result = Response::make(File::get($zipPath), 200, $headers);
 
-        @unlink($zipPath);
+        @File::delete($zipPath);
 
         return $result;
     }
