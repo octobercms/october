@@ -832,28 +832,35 @@ class Form extends WidgetBase
      */
     public function getSaveData()
     {
-        $data = ($this->arrayName) ? post($this->arrayName) : post();
+        $result = [];
 
+        /*
+         * Source data
+         */
+        $data = $this->arrayName ? post($this->arrayName) : post();
         if (!$data) {
             $data = [];
         }
 
         /*
-         * Number fields should be converted to integers
+         * Spin over each field and extract the postback value
          */
         foreach ($this->allFields as $field) {
-            if ($field->type != 'number') {
-                continue;
-            }
-
             /*
              * Handle HTML array, eg: item[key][another]
              */
             $parts = HtmlHelper::nameToArray($field->fieldName);
             $dotted = implode('.', $parts);
             if (($value = array_get($data, $dotted)) !== null) {
-                $value = !strlen(trim($value)) ? null : (float) $value;
-                array_set($data, $dotted, $value);
+
+                /*
+                 * Number fields should be converted to integers
+                 */
+                if ($field->type == 'number') {
+                    $value = !strlen(trim($value)) ? null : (float) $value;
+                }
+
+                array_set($result, $dotted, $value);
             }
         }
 
@@ -864,44 +871,11 @@ class Form extends WidgetBase
             $parts = HtmlHelper::nameToArray($field);
             $dotted = implode('.', $parts);
 
-            $widgetValue = $widget->getSaveValue(array_get($data, $dotted));
-
-            array_set($data, $dotted, $widgetValue);
+            $widgetValue = $widget->getSaveValue(array_get($result, $dotted));
+            array_set($result, $dotted, $widgetValue);
         }
 
-        /*
-         * Handle fields that differ by fieldName and valueFrom
-         * @todo @deprecated / Not needed? Remove if year >= 2016
-         */
-        // $remappedFields = [];
-        // foreach ($this->allFields as $field) {
-        //     if ($field->fieldName == $field->valueFrom) {
-        //         continue;
-        //     }
-
-        //     /*
-        //      * Get the value, remove it from the data collection
-        //      */
-        //     $parts = HtmlHelper::nameToArray($field->fieldName);
-        //     $dotted = implode('.', $parts);
-        //     $value = array_get($data, $dotted);
-        //     array_forget($data, $dotted);
-
-        //     /*
-        //      * Set the new value to the data collection
-        //      */
-        //     $parts = HtmlHelper::nameToArray($field->valueFrom);
-        //     $dotted = implode('.', $parts);
-        //     array_set($remappedFields, $dotted, $value);
-        // }
-
-        // if (count($remappedFields) > 0) {
-        //     $data = array_merge($remappedFields, $data);
-        //     // Could be useful one day for field name collisions
-        //     // $data['X_OCTOBER_REMAPPED_FIELDS'] = $remappedFields;
-        // }
-
-        return $data;
+        return $result;
     }
 
     /*
