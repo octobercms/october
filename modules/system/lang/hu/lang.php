@@ -101,9 +101,9 @@ return [
         'selected_amount' => 'Kijelölt bővítmények: :amount',
         'remove_confirm' => 'Valóban törölni akarja a kijelölt bővítményeket?',
         'remove_success' => 'A bővítmények sikeresen eltávolításra kerültek.',
-        'refresh_confirm' => 'Valóban frissíteni akarja a kijelölt bővítményeket?',
+        'refresh_confirm' => 'Biztos benne?',
         'refresh_success' => 'A bővítmények sikeresen frissítésre kerültek.',
-        'disable_confirm' => 'Valóban tiltani akarja a kijelölt bővítményeket?',
+        'disable_confirm' => 'Biztos benne?',
         'disable_success' => 'A bővítmények sikeresen letiltásra kerültek.',
         'enable_success' => 'A bővítmények sikeresen engedélyezésre kerültek.',
         'unknown_plugin' => 'A bővítmények eltávolítása megtörtént.'
