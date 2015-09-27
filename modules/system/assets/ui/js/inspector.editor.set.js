@@ -52,8 +52,17 @@
     }
 
     SetEditor.prototype.loadStaticItems = function() {
+        var itemArray = []
+
         for (var itemValue in this.propertyDefinition.items) {
-            this.buildItemEditor(itemValue, this.propertyDefinition.items[itemValue])
+            itemArray.push({
+                value: itemValue,
+                title: this.propertyDefinition.items[itemValue]
+            })
+        }
+
+        for (var i = itemArray.length-1; i >=0; i--) {
+            this.buildItemEditor(itemArray[i].value, itemArray[i].title)
         }
     }
 
@@ -76,6 +85,10 @@
             $.oc.foundation.element.removeClass(link, 'placeholder')
         } else {
             text = this.propertyDefinition.placeholder
+
+            if ((typeof text === 'string' && text.length == 0) || text === undefined) {
+                text = '[ ]'
+            }
             $.oc.foundation.element.addClass(link, 'placeholder')
         }
 
@@ -106,6 +119,8 @@
                 default: this.isCheckedByDefault(value)
             },
             editor = new $.oc.inspector.propertyEditors.checkbox(this, property, cell)
+
+        this.editors.push[editor]
     }
 
     SetEditor.prototype.isCheckedByDefault = function(value) {
@@ -147,7 +162,7 @@
         this.loadedItems = {}
 
         if (data.options) {
-            for (var i = 0, len = data.options.length; i < len; i++) {
+            for (var i = data.options.length-1; i >= 0; i--) {
                 this.buildItemEditor(data.options[i].value, data.options[i].title)
 
                 this.loadedItems[data.options[i].value] = data.options[i].title

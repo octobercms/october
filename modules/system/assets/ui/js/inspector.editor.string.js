@@ -26,10 +26,14 @@
 
         editor.setAttribute('type', 'text')
         editor.setAttribute('class', 'string-editor')
-        editor.setAttribute('placeholder', 'placeholder')
+        editor.setAttribute('placeholder', placeholder)
 
         if (value === undefined) {
             value = this.propertyDefinition.default
+        }
+
+        if (value === undefined) {
+            value = ''
         }
 
         editor.value = value

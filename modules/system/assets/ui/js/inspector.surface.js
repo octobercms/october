@@ -35,7 +35,7 @@
      *   not associated with an element. Inspector uses the ID for storing configuration
      *   related to an element in the document DOM.
      */
-    var Surface = function(containerElement, properties, values, inspectorUniqueId, options) {
+    var Surface = function(containerElement, properties, values, inspectorUniqueId, options, parentSurface) {
         if (inspectorUniqueId === undefined) {
             throw new Error('Inspector surface unique ID should be defined.')
         }
@@ -48,6 +48,7 @@
         this.values = values
         this.originalValues = $.extend(true, {}, values) // Clone the values hash
         this.idCounter = 1
+        this.parentSurface = parentSurface
 
         this.editors = []
         this.externalParameterEditors = []
@@ -77,6 +78,7 @@
         this.values = null
         this.originalValues = null
         this.options.onChange = null
+        this.parentSurface = null
 
         BaseProto.dispose.call(this)
     }
@@ -181,6 +183,9 @@
         this.applyGroupIndexAttribute(property, row)
         $.oc.foundation.element.addClass(row, this.getRowCssClass(property))
 
+        row.setAttribute('data-inspector-level', this.options.surfaceLevel)
+        row.setAttribute('data-inspector-id', this.getInspectorUniqueId())
+
         // Property head
         //
         this.applyHeadColspan(th, property)
@@ -253,17 +258,23 @@
         }
     }
 
-    Surface.prototype.buildGroupExpandControl = function(titleSpan, property, force) {
+    Surface.prototype.buildGroupExpandControl = function(titleSpan, property, force, hasChildSurface) {
         if (property.itemType !== 'group' && !force) {
             return
         }
 
-        var statusClass = this.isGroupExpanded(property.title) ? 'expanded' : '',
+        var groupIndex = this.generateGroupIndex(property.property),
+            statusClass = this.isGroupExpanded(groupIndex) ? 'expanded' : '',
             anchor = document.createElement('a')
 
         anchor.setAttribute('class', 'expandControl ' + statusClass)
         anchor.setAttribute('href', 'javascript:;')
-        anchor.setAttribute('data-group-index', property.groupIndex)
+        anchor.setAttribute('data-group-index', groupIndex)
+
+        if (hasChildSurface) {
+            anchor.setAttribute('data-has-child-surface', 'true')
+        }
+
         anchor.innerHTML = '<span>Expand/collapse</span>'
 
         titleSpan.appendChild(anchor)
@@ -327,19 +338,21 @@
     }
 
     Surface.prototype.loadGroupStatuses = function() {
-        var statuses = this.getInspectorGroupStatuses()
+        var statuses = this.getInspectorGroupStatuses(),
+            root = this.getRootSurface()
 
-        if (statuses[this.inspectorUniqueId] !== undefined) {
-            return statuses[this.inspectorUniqueId]
+        if (statuses[root.inspectorUniqueId] !== undefined) {
+            return statuses[root.inspectorUniqueId]
         }
 
         return {}
     }
 
     Surface.prototype.writeGroupStatuses = function(updatedStatuses) {
-        var statuses = this.getInspectorGroupStatuses()
+        var statuses = this.getInspectorGroupStatuses(),
+            root = this.getRootSurface()
 
-        statuses[this.inspectorUniqueId] = updatedStatuses
+        statuses[root.inspectorUniqueId] = updatedStatuses
 
         this.setInspectorGroupStatuses(statuses)
     }
@@ -361,20 +374,34 @@
     Surface.prototype.toggleGroup = function(row) {
         var link = row.querySelector('a'),
             groupIndex = link.getAttribute('data-group-index'),
-            propertyRows = this.tableContainer.querySelectorAll('tr[data-group-index="'+groupIndex+'"]'),
+            hasChildSurface = link.getAttribute('data-has-child-surface'),
             collapse = true,
             statuses = this.loadGroupStatuses(),
-            title = row.querySelector('span.title-element').getAttribute('title'),
-            duration = Math.round(50 / propertyRows.length),
+            propertyRows = []
+
+        if (!hasChildSurface) {
+            propertyRows = this.tableContainer.querySelectorAll('tr[data-group-index="'+groupIndex+'"]')
+        }
+        else {
+            var editor = this.findRowPropertyEditor(row)
+
+            if (!editor) {
+                throw new Error('Cannot find editor for the property ' + property)
+            }
+
+            propertyRows = editor.getChildInspectorRows()
+        }
+
+        var duration = Math.round(50 / propertyRows.length),
             rowsArray = Array.prototype.slice.call(propertyRows)
 
         if ($.oc.foundation.element.hasClass(link, 'expanded')) {
             $.oc.foundation.element.removeClass(link, 'expanded')
-            statuses[title] = false
+            statuses[groupIndex] = false
         } else {
             $.oc.foundation.element.addClass(link, 'expanded')
             collapse = false
-            statuses[title] = true
+            statuses[groupIndex] = true
         }
 
         this.expandOrCollapseRows(rowsArray, collapse, duration)
@@ -405,14 +432,18 @@
             return
         }
 
-        if ($.oc.inspector.propertyEditors[property.type] === undefined)
-            throw new Error('The Inspector editor class "' + property.type + 
-                '" is not defined in the $.oc.inspector.propertyEditors namespace.')
+        this.validateEditorType(property.type)
 
-        var cell = document.createElement('td')
+        var cell = document.createElement('td'),
+            type = property.type
+
         row.appendChild(cell)
 
-        var editor = new $.oc.inspector.propertyEditors[property.type](this, property, cell)
+        if (type === undefined) {
+            type = 'string'
+        }
+
+        var editor = new $.oc.inspector.propertyEditors[type](this, property, cell)
 
         if (editor.isGroupedEditor()) {
             $.oc.foundation.element.addClass(dataTable, 'has-groups')
@@ -420,7 +451,15 @@
 
             property.groupIndex = editor.getGroupIndex()
             property.groupedControl = true
-            this.buildGroupExpandControl(row.querySelector('span.title-element'), property, true)
+            this.buildGroupExpandControl(row.querySelector('span.title-element'), property, true, editor.hasChildSurface())
+
+            if (cell.children.length == 0) {
+                // If the editor hasn't added any elements to the cell,
+                // and it's a grouped control, remove the cell and
+                // make the group title full-width.
+                row.querySelector('th').setAttribute('colspan', 2)
+                row.removeChild(cell)
+            }
         }
         
         this.editors.push(editor)
@@ -507,6 +546,25 @@
         return null
     }
 
+    Surface.prototype.findRowPropertyEditor = function(row) {
+        var inspectorId = row.getAttribute('data-inspector-id'),
+            propertyName = row.getAttribute('data-property')
+
+        if (!inspectorId || !propertyName) {
+            throw new Error('Cannot find property editor for a row with unknown property name or inspector ID.')
+        }
+
+        for (var i = 0, len = this.editors.length; i < len; i++) {
+            var result = this.editors[i].findEditorByInspectorIdAndPropertyName(inspectorId, propertyName)
+
+            if (result) {
+                return result
+            }
+        }
+
+        return null
+    }
+
     Surface.prototype.findExternalParameterEditor = function(property) {
         for (var i = 0, len = this.externalParameterEditors.length; i < len; i++) {
             if (this.externalParameterEditors[i].getPropertyName() == property)
@@ -527,7 +585,70 @@
 
         return null
     }
-    
+
+    Surface.prototype.validateEditorType = function(type) {
+        if (type === undefined) {
+            type = 'string'
+        }
+
+        if ($.oc.inspector.propertyEditors[type] === undefined) {
+            throw new Error('The Inspector editor class "' + type + 
+                '" is not defined in the $.oc.inspector.propertyEditors namespace.')
+        }
+    }
+
+    Surface.prototype.generateGroupIndex = function(propertyName) {
+        return this.getInspectorUniqueId() + '-' + propertyName
+    }
+
+    //
+    // Nested surfaces support
+    //
+
+    Surface.prototype.mergeChildSurface = function(surface, mergeAfterRow) {
+        var rows = surface.tableContainer.querySelectorAll('table.inspector-fields > tbody > tr')
+
+        for (var i = rows.length-1; i >= 0; i--) {
+            var row = rows[i],
+                th = this.getRowHeadElement(row)
+
+            if (th === null) {
+                throw new Error('Cannot find TH element for the Inspector row')
+            }
+
+            mergeAfterRow.parentNode.insertBefore(row, mergeAfterRow.nextSibling)
+            th.children[0].style.marginLeft = row.getAttribute('data-inspector-level')*10 + 'px'
+        }
+    }
+
+    Surface.prototype.getRowHeadElement = function(row) {
+        for (var i = row.children.length-1; i >= 0; i--) {
+            var element = row.children[i]
+
+            if (element.tagName === 'TH') {
+                return element
+            }
+        }
+
+        return null
+    }
+
+    Surface.prototype.getInspectorUniqueId = function() {
+        return this.inspectorUniqueId
+    }
+
+    Surface.prototype.getRootSurface = function() {
+        var current = this
+
+        while (current) {
+            if (!current.parentSurface) {
+                return current
+            }
+
+            current = current.parentSurface
+        }
+    }
+
     //
     // Disposing
     //
@@ -642,6 +763,7 @@
 
     Surface.DEFAULTS = {
         enableExternalParameterEditor: false,
+        surfaceLevel: 0, // For internal use
         onChange: null
     }
 
