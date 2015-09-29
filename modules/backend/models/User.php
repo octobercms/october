@@ -22,9 +22,9 @@ class User extends UserBase
      */
     public $rules = [
         'login' => 'required|between:2,24|unique:backend_users',
-        'email' => 'required|between:3,64|email|unique:backend_users',
-        'password' => 'required:create|between:4,64|confirmed',
-        'password_confirmation' => 'required_with:password|between:4,64'
+        'email' => 'required|between:3,255|email|unique:backend_users',
+        'password' => 'required:create|between:4,255|confirmed',
+        'password_confirmation' => 'required_with:password|between:4,255'
     ];
 
     /**
