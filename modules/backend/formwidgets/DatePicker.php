@@ -46,13 +46,33 @@ class DatePicker extends FormWidgetBase
      */
     public function init()
     {
-        $this->fillFromConfig([
-            'mode',
-            'minDate',
-            'maxDate',
-        ]);
-
+        $this->fillDatesFromConfig();
+        $this->fillFromConfig(['mode']);
         $this->mode = strtolower($this->mode);
+    }
+
+    /**
+     * Transfers minDate and maxDate config values stored inside the
+     * $config property directly on to the root object properties.
+     *
+     * This method checks for Yaml parsed dates that have been converted
+     * into integer timestamps via the Symfony Yaml parser and converts them
+     * back into strings for use with the datepicker.
+     *
+     * @param array $properties
+     * @return void
+     */
+    protected function fillDatesFromConfig()
+    {
+        foreach(['minDate', 'maxDate'] as $property) {
+
+            $this->{$property} = $this->getConfig($property, $this->{$property});
+
+            if (is_integer($this->{$property})) {
+                $this->{$property} = date('Y-m-d', $this->{$property});
+            }
+
+        }
     }
 
     /**
