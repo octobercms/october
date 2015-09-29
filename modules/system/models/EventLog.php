@@ -31,6 +31,7 @@ class EventLog extends Model
     {
         return (
             class_exists('Model') &&
+            Model::getConnectionResolver() &&
             DbDongle::hasDatabase() &&
             !defined('OCTOBER_NO_EVENT_LOGGING')
         );
