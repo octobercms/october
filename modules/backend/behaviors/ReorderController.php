@@ -2,6 +2,7 @@
 
 use Lang;
 use Backend;
+use ApplicationException;
 use Backend\Classes\ControllerBehavior;
 
 /**
