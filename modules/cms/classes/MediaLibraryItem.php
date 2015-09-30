@@ -4,7 +4,7 @@ use App;
 use File;
 use Config;
 use Backend\Models\UserPreferences;
-use IntlDateFormatter;
+use Carbon\Carbon;
 
 /**
  * Represents a file or folder in the Media Library.
@@ -140,10 +140,6 @@ class MediaLibraryItem
             return null;
         }
 
-        return IntlDateFormatter::create(
-            App::getLocale(),
-            IntlDateFormatter::MEDIUM,
-            IntlDateFormatter::NONE
-        )->format($date);
+        return Carbon::createFromTimestamp($date)->toFormattedDateString();
     }
 }
