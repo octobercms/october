@@ -1,6 +1,5 @@
 <?php namespace Cms\Classes;
 
-use App;
 use File;
 use Config;
 use Backend\Models\UserPreferences;
