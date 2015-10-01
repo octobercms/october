@@ -3398,13 +3398,11 @@ this.$el.on('change',function(){self.cancelled=true})}
 InputPreset.prototype.formatNamespace=function(){var value=toCamel(this.$src.val())
 return value.substr(0,1).toUpperCase()+value.substr(1)}
 InputPreset.prototype.formatValue=function(){if(this.options.inputPresetType=='namespace'){return this.formatNamespace()}
-if(this.options.inputPresetType=='camel')
-var value=toCamel(this.$src.val())
+if(this.options.inputPresetType=='camel'){var value=toCamel(this.$src.val())}
 else{var value=slugify(this.$src.val())}
-if(this.options.inputPresetType=='url')
-value='/'+value
+if(this.options.inputPresetType=='url'){value='/'+value}
 return value.replace(/\s/gi,"-")}
-InputPreset.DEFAULTS={inputPreset:'',inputPresetType:'file',inputPresetClosestParent:undefined,inputPresetPrefixInput:undefined}
+InputPreset.DEFAULTS={inputPreset:'',inputPresetType:'slug',inputPresetClosestParent:undefined,inputPresetPrefixInput:undefined}
 var old=$.fn.inputPreset
 $.fn.inputPreset=function(option){return this.each(function(){var $this=$(this)
 var data=$this.data('oc.inputPreset')

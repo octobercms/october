@@ -51,6 +51,7 @@ return [
     'Str'             => 'October\Rain\Support\Facades\Str',
     'Markdown'        => 'October\Rain\Support\Facades\Markdown',
     'Yaml'            => 'October\Rain\Support\Facades\Yaml',
+    'Ini'             => 'October\Rain\Support\Facades\Ini',
     'Twig'            => 'October\Rain\Support\Facades\Twig',
     'DbDongle'        => 'October\Rain\Support\Facades\DbDongle',
     'Backend'         => 'Backend\Facades\Backend',
