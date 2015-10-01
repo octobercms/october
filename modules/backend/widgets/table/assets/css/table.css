@@ -137,17 +137,17 @@
   background: white;
   border-bottom: 1px solid #e0e0e0;
 }
-.control-table .toolbar a {
+.control-table .toolbar a.btn {
   color: #323e50;
   padding: 10px;
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
-.control-table .toolbar a:hover {
+.control-table .toolbar a.btn:hover {
   opacity: 1;
   filter: alpha(opacity=100);
 }
-.control-table .toolbar a:before {
+.control-table .toolbar a.table-icon:before {
   display: inline-block;
   content: ' ';
   width: 16px;
@@ -159,10 +159,10 @@
   background-position: 0 0;
   background-size: 32px auto;
 }
-.control-table .toolbar a.add-table-row-above:before {
+.control-table .toolbar a.table-icon.add-table-row-above:before {
   background-position: 0 -56px;
 }
-.control-table .toolbar a.delete-table-row:before {
+.control-table .toolbar a.table-icon.delete-table-row:before {
   background-position: 0 -113px;
 }
 .control-table.active .toolbar {

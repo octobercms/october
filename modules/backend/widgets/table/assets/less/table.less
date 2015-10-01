@@ -177,7 +177,7 @@
         background: white;
         border-bottom: 1px solid @table-inactive-border;
 
-        a {
+        a.btn {
             color: #323e50;
             padding: 10px;
             .opacity(0.5);
@@ -185,14 +185,16 @@
             &:hover {
                 .opacity(1);
             }
+        }
 
+        a.table-icon {
             &:before {
                 display: inline-block;
                 content: ' ';
                 width: 16px;
                 height: 16px;
                 margin-right: 8px;
-                position: relative; 
+                position: relative;
                 top: 3px;
                 background: transparent url(../images/table-icons.gif) no-repeat;
                 background-position: 0 0;

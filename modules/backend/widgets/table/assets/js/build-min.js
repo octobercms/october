@@ -78,17 +78,17 @@ return
 this.toolbar=document.createElement('div')
 this.toolbar.setAttribute('class','toolbar')
 if(this.options.adding){var addBelowButton=document.createElement('a')
-addBelowButton.setAttribute('class','btn add-table-row-below')
+addBelowButton.setAttribute('class','btn table-icon add-table-row-below')
 addBelowButton.setAttribute('data-cmd','record-add-below')
 this.toolbar.appendChild(addBelowButton)
 if(this.navigation.paginationEnabled()||!this.options.rowSorting){addBelowButton.textContent='Add row'}else{addBelowButton.textContent='Add row below'
 var addAboveButton=document.createElement('a')
-addAboveButton.setAttribute('class','btn add-table-row-above')
+addAboveButton.setAttribute('class','btn table-icon add-table-row-above')
 addAboveButton.textContent='Add row above'
 addAboveButton.setAttribute('data-cmd','record-add-above')
 this.toolbar.appendChild(addAboveButton)}}
 if(this.options.deleting){var deleteButton=document.createElement('a')
-deleteButton.setAttribute('class','btn delete-table-row')
+deleteButton.setAttribute('class','btn table-icon delete-table-row')
 deleteButton.textContent='Delete row'
 deleteButton.setAttribute('data-cmd','record-delete')
 this.toolbar.appendChild(deleteButton)}
