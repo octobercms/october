@@ -766,6 +766,9 @@
         var target = this.getEventTarget(ev),
             cmd = target.getAttribute('data-cmd')
 
+        if (!cmd)
+            return
+
         switch (cmd) {
             case 'record-add-below':
                 this.addRecord('below')

@@ -66,19 +66,24 @@
             paginationContainer = document.createElement('div')
             paginationContainer.setAttribute('class', 'pagination')
             newPaginationContainer = true
-        } else
+        }
+        else {
             curRecordCount = this.getRecordCount(paginationContainer)
+        }
 
         // Generate the new page list only if the record count has changed
         if (newPaginationContainer || curRecordCount != recordCount) {
             paginationContainer.setAttribute('data-record-count', recordCount)
 
-            var pageList = this.buildPaginationLinkList(recordCount, 
-                    this.tableObj.options.recordsPerPage, 
-                    this.pageIndex)
+            var pageList = this.buildPaginationLinkList(
+                recordCount,
+                this.tableObj.options.recordsPerPage,
+                this.pageIndex
+            )
 
-            if (!newPaginationContainer)
+            if (!newPaginationContainer) {
                 paginationContainer.replaceChild(pageList, paginationContainer.children[0])
+            }
             else {
                 paginationContainer.appendChild(pageList)
                 this.tableObj.getElement().appendChild(paginationContainer)
@@ -120,6 +125,8 @@
             if (i == pageIndex)
                 item.setAttribute('class', 'active')
 
+            $(item).addClass('pagination-link')
+
             link.innerText = i+1
             link.setAttribute('data-page-index', i)
             link.setAttribute('href', '#')
@@ -141,8 +148,9 @@
         activeItem.setAttribute('class', '')
 
         for (var i=0, len = list.children.length; i < len; i++) {
-            if (i == pageIndex)
+            if (i == pageIndex) {
                 list.children[i].setAttribute('class', 'active')
+            }
         }
     }
 
@@ -200,9 +208,9 @@
             return
 
         var row = this.tableObj.activeCell.parentNode,
-            newRow = !ev.shiftKey ? 
-                row.nextElementSibling :
-                row.parentNode.children[row.parentNode.children.length - 1],
+            newRow = !ev.shiftKey
+                ? row.nextElementSibling 
+                : row.parentNode.children[row.parentNode.children.length - 1],
             cellIndex = forceCellIndex !== undefined ? 
                 forceCellIndex :
                 this.tableObj.activeCell.cellIndex
@@ -212,7 +220,8 @@
 
             if (cell)
                 this.tableObj.focusCell(cell)
-        } else {
+        }
+        else {
             // Try to switch to the next page if that's possible
 
             if (!this.paginationEnabled())
@@ -377,8 +386,10 @@
             return this.navigateUp(ev)
         else if (ev.keyCode == 37)
             return this.navigateLeft(ev)
+
         if (ev.keyCode == 39)
             return this.navigateRight(ev)
+
         if (ev.keyCode == 9)
             return this.navigateNext(ev)
     }
@@ -389,7 +400,7 @@
 
         var target = this.tableObj.getEventTarget(ev, 'A')
 
-        if (!target)
+        if (!target || !$(target).hasClass('pagination-link'))
             return
 
         var pageIndex = parseInt(target.getAttribute('data-page-index'))
