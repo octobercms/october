@@ -189,17 +189,6 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $controller->run('/ajax-test');
-
-        //
-        // This was the old approach, can remove this comment block if year >= 2017
-        //
-
-        // $response = $controller->run('/ajax-test');
-        // $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
-
-        // $this->assertInternalType('string', $response->getOriginalContent());
-        // $this->assertEquals(500, $response->getStatusCode());
-        // $this->assertEquals("AJAX handler 'onNoHandler' was not found.", $response->getOriginalContent());
     }
 
     /**
