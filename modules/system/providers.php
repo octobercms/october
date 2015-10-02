@@ -27,12 +27,12 @@ return [
     'October\Rain\Foundation\Providers\ArtisanServiceProvider',
     'October\Rain\Database\DatabaseServiceProvider',
     'October\Rain\Filesystem\FilesystemServiceProvider',
+    'October\Rain\Parse\ParseServiceProvider',
     'October\Rain\Html\HtmlServiceProvider',
     'October\Rain\Html\UrlServiceProvider',
     'October\Rain\Network\NetworkServiceProvider',
     'October\Rain\Scaffold\ScaffoldServiceProvider',
     'October\Rain\Flash\FlashServiceProvider',
     'October\Rain\Mail\MailServiceProvider',
-    'October\Rain\Parse\ParseServiceProvider',
 
 ];

@@ -1,5 +1,6 @@
 * **Build 300** (2015-10-xx)
   - Added new helper `Twig::parse` for parsing Twig.
+  - Page settings now support infinite array nesting with October flavored INI syntax via `Ini::parse` and `Ini::render`.
 
 * **Build 298** (2015-09-24)
   - Added the ability to use a wildcard URL parameter in CMS pages (see CMS > Pages docs).
