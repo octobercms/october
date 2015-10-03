@@ -114,6 +114,7 @@ return [
     'providers' => array_merge(include(base_path().'/modules/system/providers.php'), [
 
         // 'Illuminate\Html\HtmlServiceProvider', // Example
+        // Collective\Html\HtmlServiceProvider::class,
 
         'System\ServiceProvider',
     ]),

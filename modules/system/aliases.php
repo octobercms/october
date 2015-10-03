@@ -34,9 +34,9 @@ return [
     'URL'       => 'Illuminate\Support\Facades\URL',
     'Validator' => 'Illuminate\Support\Facades\Validator',
     'View'      => 'Illuminate\Support\Facades\View',
-    'Form'      => 'Illuminate\Html\FormFacade',
-    'Html'      => 'Illuminate\Html\HtmlFacade', // Preferred
-    'HTML'      => 'Illuminate\Html\HtmlFacade',
+    'Form'      => Collective\Html\FormFacade::class,
+    'Html'      => Collective\Html\HtmlFacade::class, // Preferred
+    'HTML'      => Collective\Html\HtmlFacade::class,
 
     /*
      * October aliases
