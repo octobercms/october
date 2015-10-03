@@ -10,8 +10,8 @@
     var Base = $.oc.inspector.propertyEditors.base,
         BaseProto = Base.prototype
 
-    var CheckboxEditor = function(inspector, propertyDefinition, containerCell) {
-        Base.call(this, inspector, propertyDefinition, containerCell)
+    var CheckboxEditor = function(inspector, propertyDefinition, containerCell, group) {
+        Base.call(this, inspector, propertyDefinition, containerCell, group)
     }
 
     CheckboxEditor.prototype = Object.create(BaseProto)

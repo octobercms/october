@@ -8,15 +8,21 @@
     var Base = $.oc.inspector.propertyEditors.base,
         BaseProto = Base.prototype
 
-    var SetEditor = function(inspector, propertyDefinition, containerCell) {
+    var SetEditor = function(inspector, propertyDefinition, containerCell, group) {
         this.editors = []
         this.loadedItems = null
 
-        Base.call(this, inspector, propertyDefinition, containerCell)
+        Base.call(this, inspector, propertyDefinition, containerCell, group)
     }
 
     SetEditor.prototype = Object.create(BaseProto)
     SetEditor.prototype.constructor = Base
+
+    SetEditor.prototype.init = function() {
+        this.initControlGroup()
+
+        BaseProto.init.call(this)
+    }
 
     SetEditor.prototype.dispose = function() {
         this.disposeEditors()
@@ -36,7 +42,6 @@
 
         $.oc.foundation.element.addClass(link, 'trigger')
         link.setAttribute('href', '#')
-        link.setAttribute('data-group-index', this.getGroupIndex())
         this.setLinkText(link)
 
         $.oc.foundation.element.addClass(this.containerCell, 'trigger-cell')
@@ -98,14 +103,14 @@
     SetEditor.prototype.buildItemEditor = function(value, text) {
         var property = {
                 title: text,
-                itemType: 'property'
+                itemType: 'property',
+                groupIndex: this.group.getGroupIndex()
             },
-            newRow = this.inspector.buildRow(property),
+            newRow = this.createGroupedRow(property),
             currentRow = this.containerCell.parentNode,
             tbody = this.containerCell.parentNode.parentNode, // row / tbody
             cell = document.createElement('td')
 
-        this.addGroupedRow(newRow)
         this.buildCheckbox(cell, value, text)
 
         newRow.appendChild(cell)
@@ -118,7 +123,7 @@
                 title: title,
                 default: this.isCheckedByDefault(value)
             },
-            editor = new $.oc.inspector.propertyEditors.checkbox(this, property, cell)
+            editor = new $.oc.inspector.propertyEditors.checkbox(this, property, cell, this.group)
 
         this.editors.push[editor]
     }

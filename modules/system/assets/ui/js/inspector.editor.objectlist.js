@@ -6,7 +6,7 @@
     var Base = $.oc.inspector.propertyEditors.base,
         BaseProto = Base.prototype
 
-    var ObjectListEditor = function(inspector, propertyDefinition, containerCell) {
+    var ObjectListEditor = function(inspector, propertyDefinition, containerCell, group) {
         this.currentRowInspector = null
         this.popup = null
 
@@ -18,7 +18,7 @@
             throw new Error('The itemProperties property should be specified in the objectList editor configuration. Property: ' + propertyDefinition.property)
         }
 
-        Base.call(this, inspector, propertyDefinition, containerCell)
+        Base.call(this, inspector, propertyDefinition, containerCell, group)
     }
 
     ObjectListEditor.prototype = Object.create(BaseProto)
@@ -395,14 +395,7 @@
             tbody = this.getTableBody(),
             dataRows = tbody.querySelectorAll('tr[data-inspector-values]'),
             link = this.getLink(),
-            result = null
-
-        if (this.isKeyValueMode()) {
-            result = {}
-        }
-        else {
-            result = []
-        }
+            result = this.getEmptyValue()
 
         if (selectedRow) {
             if (!this.validateKeyValue()) {
@@ -555,6 +548,15 @@
         }
 
         return result
+    }
+
+    ObjectListEditor.prototype.getEmptyValue = function() {
+        if (this.isKeyValueMode()) {
+            return {}
+        }
+        else {
+            return []
+        }
     }
 
     //

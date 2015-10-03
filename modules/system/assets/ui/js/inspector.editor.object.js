@@ -8,17 +8,22 @@
     var Base = $.oc.inspector.propertyEditors.base,
         BaseProto = Base.prototype
 
-    var ObjectEditor = function(inspector, propertyDefinition, containerCell) {
-       
+    var ObjectEditor = function(inspector, propertyDefinition, containerCell, group) {
         if (propertyDefinition.properties === undefined) {
             throw new Error('The properties property should be specified in the object editor configuration. Property: ' + propertyDefinition.property)
         }
 
-        Base.call(this, inspector, propertyDefinition, containerCell)
+        Base.call(this, inspector, propertyDefinition, containerCell, group)
     }
 
     ObjectEditor.prototype = Object.create(BaseProto)
     ObjectEditor.prototype.constructor = Base
+
+    ObjectEditor.prototype.init = function() {
+        this.initControlGroup()
+
+        BaseProto.init.call(this)
+    }
 
     //
     // Building
@@ -29,7 +34,7 @@
             inspectorContainer = document.createElement('div'),
             options = {
                 enableExternalParameterEditor: false,
-                surfaceLevel: this.inspector.options.surfaceLevel + 1
+                onChange: this.proxy(this.onInspectorDataChange)
             },
             values = this.inspector.getPropertyValue(this.propertyDefinition.property)
 
@@ -37,16 +42,54 @@
             values = {}
         }
 
-        // this.containerCell.appendChild(inspectorContainer)
-
         this.childInspector = new $.oc.inspector.surface(inspectorContainer, 
             this.propertyDefinition.properties, 
             values, 
             this.inspector.getInspectorUniqueId() + '-' + this.propertyDefinition.property, 
             options,
-            this.inspector)
+            this.inspector,
+            this.group)
 
         this.inspector.mergeChildSurface(this.childInspector, currentRow)
+    }
+
+    //
+    // Helpers
+    //
+
+    ObjectEditor.prototype.cleanUpValue = function(value) {
+        if (value === undefined || typeof value !== 'object') {
+            return undefined
+        }
+
+        if (this.propertyDefinition.ignoreIfPropertyEmpty === undefined) {
+            return value
+        }
+
+        return this.getValueOrRemove(value)
+    }
+
+    ObjectEditor.prototype.isEmptyValue = function(value) {
+        return value === undefined
+            || value === null
+            || $.isEmptyObject(value) 
+            || (typeof value == 'string' && $.trim(value).length === 0)
+            || (Object.prototype.toString.call(value) === '[object Array]' && value.length === 0)
+    }
+
+    ObjectEditor.prototype.getValueOrRemove = function(value) {
+        if (this.propertyDefinition.ignoreIfPropertyEmpty === undefined) {
+            return value
+        }
+
+        var targetProperty = this.propertyDefinition.ignoreIfPropertyEmpty,
+            targetValue = value[targetProperty]
+
+        if (this.isEmptyValue(targetValue)) {
+            return $.oc.inspector.removedProperty
+        }
+
+        return value
     }
 
     //
@@ -59,6 +102,32 @@
 
     ObjectEditor.prototype.isGroupedEditor = function() {
         return true
+    }
+
+
+    ObjectEditor.prototype.getUndefinedValue = function() {
+        var result = {}
+
+        for (var i = 0, len = this.propertyDefinition.properties.length; i < len; i++) {
+            var propertyName = this.propertyDefinition.properties[i].property,
+                editor = this.childInspector.findPropertyEditor(propertyName)
+
+            if (editor) {
+                result[propertyName] = editor.getUndefinedValue()
+            }
+        }
+
+        return this.getValueOrRemove(result)
+    }
+
+    //
+    // Event handlers
+    //
+
+    ObjectEditor.prototype.onInspectorDataChange = function(property, value) {
+        var values = this.childInspector.getValues()
+
+        this.inspector.setPropertyValue(this.propertyDefinition.property, this.cleanUpValue(values))
     }
 
     $.oc.inspector.propertyEditors.object = ObjectEditor

@@ -6,8 +6,8 @@
     var Base = $.oc.inspector.propertyEditors.base,
         BaseProto = Base.prototype
 
-    var StringEditor = function(inspector, propertyDefinition, containerCell) {
-        Base.call(this, inspector, propertyDefinition, containerCell)
+    var StringEditor = function(inspector, propertyDefinition, containerCell, group) {
+        Base.call(this, inspector, propertyDefinition, containerCell, group)
     }
 
     StringEditor.prototype = Object.create(BaseProto)

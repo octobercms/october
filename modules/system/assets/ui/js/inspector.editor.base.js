@@ -21,12 +21,13 @@
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype
 
-    var BaseEditor = function(inspector, propertyDefinition, containerCell) {
+    var BaseEditor = function(inspector, propertyDefinition, containerCell, group) {
         this.inspector = inspector
         this.propertyDefinition = propertyDefinition
         this.containerCell = containerCell
         this.containerRow = containerCell.parentNode
-        this.groupIndex = null
+        this.parentGroup = group
+        this.group = null // Group created by a grouped editor, for example by the set editor
         this.childInspector = null
 
         Base.call(this)
@@ -47,6 +48,8 @@
         this.containerCell = null
         this.containerRow = null
         this.childInspector = null
+        this.parentGroup = null
+        this.group = null
 
         BaseProto.dispose.call(this)
     }
@@ -84,74 +87,19 @@
         return this.childInspector !== null
     }
 
-    BaseEditor.prototype.getGroupIndex = function() {
-        if (this.groupIndex !== null) {
-            return this.groupIndex
-        }
-
-        this.groupIndex = this.inspector.generateGroupIndex(this.propertyDefinition.property)
-
-        return this.groupIndex
+    BaseEditor.prototype.initControlGroup = function() {
+        this.group = this.inspector.getGroupManager().createGroup(this.propertyDefinition.property, this.parentGroup)
     }
 
-    BaseEditor.prototype.addGroupedRow = function(row) {
-        if (this.inspector.isGroupExpanded(this.propertyDefinition.title)) {
-            $.oc.foundation.element.addClass(row, 'expanded')
-        }
-        else {
-            $.oc.foundation.element.addClass(row, 'collapsed')
-        }
+    BaseEditor.prototype.createGroupedRow = function(property) {
+        var row = this.inspector.buildRow(property, this.group),
+            groupedClass = this.inspector.getGroupManager().isGroupExpanded(this.group) ? 'expanded' : 'collapsed'
 
-        $.oc.foundation.element.addClass(row, 'grouped')
-        row.setAttribute('data-group-index', this.getGroupIndex())
-    }
+        this.inspector.applyGroupLevelToRow(row, this.group)
 
-    BaseEditor.prototype.getChildInspectorRows = function(level) {
-        if (level === undefined) {
-            level = 0
-        }
-
-        if (!this.childInspector) {
-            return [this.containerRow]
-        }
-
-        var result = []
-
-        if (level > 0) {
-            result.push(this.containerRow)
-        }
-
-        for (var i = 0, len = this.childInspector.editors.length; i < len; i++) {
-            var editor = this.childInspector.editors[i],
-                childRows = editor.getChildInspectorRows(level+1)
-
-            for (var j = 0, rowsLength = childRows.length; j < rowsLength; j++) {
-                result.push(childRows[j])
-            }
-        }
-
-        return result
-    }
-
-    BaseEditor.prototype.findEditorByInspectorIdAndPropertyName = function(inspectorId, propertyName) {
-        if (this.inspector.getInspectorUniqueId() == inspectorId && this.propertyDefinition.property == propertyName) {
-            return this
-        }
-
-        if (!this.hasChildSurface()) {
-            return null
-        }
-
-        for (var i = this.childInspector.editors.length-1; i >= 0; i--) {
-            var editor = this.childInspector.editors[i],
-                result = editor.findEditorByInspectorIdAndPropertyName(inspectorId, propertyName)
-
-            if (result) {
-                return result
-            }
-        }
-
-        return null
+        $.oc.foundation.element.addClass(row, 'property')
+        $.oc.foundation.element.addClass(row, groupedClass)
+        return row
     }
 
     /**
@@ -163,6 +111,10 @@
 
     BaseEditor.prototype.getPropertyName = function() {
         return this.propertyDefinition.property
+    }
+
+    BaseEditor.prototype.getUndefinedValue = function() {
+        return this.propertyDefinition.default === undefined ? undefined : this.propertyDefinition.default
     }
 
     $.oc.inspector.propertyEditors.base = BaseEditor

@@ -6,10 +6,10 @@
     var Base = $.oc.inspector.propertyEditors.base,
         BaseProto = Base.prototype
 
-    var DropdownEditor = function(inspector, propertyDefinition, containerCell) {
+    var DropdownEditor = function(inspector, propertyDefinition, containerCell, group) {
         this.indicatorContainer = null
 
-        Base.call(this, inspector, propertyDefinition, containerCell)
+        Base.call(this, inspector, propertyDefinition, containerCell, group)
     }
 
     DropdownEditor.prototype = Object.create(BaseProto)
@@ -174,6 +174,27 @@
         var select = this.getSelect()
 
         select.value = value
+    }
+
+    DropdownEditor.prototype.getUndefinedValue = function() {
+        // Return default value if the default value is defined
+        if (this.propertyDefinition.default !== undefined) {
+            return this.propertyDefinition.default
+        }
+
+        // Return undefined if there's a placeholder value
+        if (this.propertyDefinition.placeholder !== undefined) {
+            return undefined
+        }
+
+        // Otherwise - return the first value in the list
+        var select = this.getSelect()
+
+        if (select) {
+            return select.value
+        }
+
+        return undefined
     }
 
     //
