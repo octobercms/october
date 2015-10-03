@@ -231,7 +231,11 @@ return [
         'manage_pages' => 'مدیریت صفحات',
         'manage_layouts' => 'مدیریت طرح بندی ها',
         'manage_partials' => 'مدیریت بخش ها',
-        'manage_themes' => 'مدیریت قالب ها'
+        'manage_themes' => 'مدیریت قالب ها',
+        'manage_media' => 'مدیریت چند رسانه ها'
+    ],
+    'mediafinder' => [
+        'default_prompt' => '%s را جهت انتخاب فایل چند رسانه ای انتخاب کنید'
     ],
     'media' => [
         'invalid_path' => "آدرس فایل ':path' معتبر نیست.",
