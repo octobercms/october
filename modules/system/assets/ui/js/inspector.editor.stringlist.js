@@ -46,11 +46,9 @@
         }
     }
 
-    StringListEditor.prototype.onPopupShown = function(ev, link, popup) {
+    StringListEditor.prototype.configurePopup = function(popup) {
         var $textarea = $(popup).find('textarea'),
             value = this.inspector.getPropertyValue(this.propertyDefinition.property)
-
-        $(popup).on('submit.inspector', 'form', this.proxy(this.onSubmit))
 
         if (this.propertyDefinition.placeholder) {
             $textarea.attr('placeholder', this.propertyDefinition.placeholder)
@@ -69,11 +67,8 @@
         $textarea.focus()
     }
 
-    StringListEditor.prototype.onSubmit = function(ev) {
-        ev.preventDefault()
-
-        var $form = $(ev.target),
-            $textarea = $form.find('textarea'),
+    StringListEditor.prototype.handleSubmit = function($form) {
+        var $textarea = $form.find('textarea'),
             link = this.getLink(),
             value = $.trim($textarea.val()),
             arrayValue = [],
@@ -94,10 +89,6 @@
 
         this.inspector.setPropertyValue(this.propertyDefinition.property, resultValue)
 // TODO: validate here
-
-        this.setLinkText(link)
-        $(link).popup('hide')
-        return false
     }
 
     $.oc.inspector.propertyEditors.stringList = StringListEditor
