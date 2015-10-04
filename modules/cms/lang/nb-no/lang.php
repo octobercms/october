@@ -258,7 +258,6 @@ return [
         'uploading_file_num' => 'Laster opp :number fil(er)...',
         'uploading_complete' => 'Opplasting fullført',
         'order_by' => 'Sorter etter',
-        'search' => 'Søk',
         'folder' => 'Mappe',
         'no_files_found' => 'Ingen filer ble funnet.',
         'delete_empty' => 'Ingen filer er valgt.',

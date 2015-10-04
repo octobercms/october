@@ -266,7 +266,6 @@ return [
         'uploading_file_num' => 'Feltöltve :number fájl...',
         'uploading_complete' => 'Feltöltés sikeresen befejezve',
         'order_by' => 'Rendezés',
-        'search' => 'Keresés',
         'folder' => 'Könyvtárak',
         'no_files_found' => 'Nem található fájl a lekérésben.',
         'delete_empty' => 'Kérjük, válassza ki a törölni kívánt fájlokat.',

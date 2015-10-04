@@ -266,7 +266,6 @@ return [
         'uploading_file_num' => 'ارسال :number فایل(ها)...',
         'uploading_complete' => 'ارسال انجام شد',
         'order_by' => 'مرتب سازی با',
-        'search' => 'جستجو',
         'folder' => 'پوشه',
         'no_files_found' => 'فایلی با درخواست شما یافت نشد',
         'delete_empty' => 'لطفا موارد را جهت حذف انتخاب نمایید',

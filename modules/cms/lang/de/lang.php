@@ -253,7 +253,6 @@ return [
         'uploading_file_num' => 'Lade :number Datei(en)...',
         'uploading_complete' => 'Upload vollständig',
         'order_by' => 'Sortieren nach',
-        'search' => 'Suchen',
         'folder' => 'Ordner',
         'no_files_found' => 'Keine entsprechenden Dateien gefunden.',
         'delete_empty' => 'Bitte Wählen Sie Dateien zum Löschen aus.',

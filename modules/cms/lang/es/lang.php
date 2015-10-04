@@ -256,7 +256,6 @@ return [
         'uploading_file_num'         => 'Subiendo :number archivo(s)...',
         'uploading_complete'         => 'Subida completada',
         'order_by'                   => 'Ordenar por',
-        'search'                     => 'Buscar',
         'folder'                     => 'Carpeta',
         'no_files_found'             => 'No se han encontrado archivos.',
         'delete_empty'               => 'Por favor, selecciona los elementos que quieres eliminar.',
