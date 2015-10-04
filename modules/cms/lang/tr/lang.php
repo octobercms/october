@@ -266,7 +266,6 @@ return [
         'uploading_file_num' => ':number adet dosya yükleniyor...',
         'uploading_complete' => 'Yükleme tamamlandı',
         'order_by' => 'Sırala',
-        'search' => 'Ara',
         'folder' => 'Klasör',
         'no_files_found' => 'İsteğiniz doğrultusunda hiçbir dosya bulunamadı.',
         'delete_empty' => 'Lütfen silinecek öğeleri seçiniz.',

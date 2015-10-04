@@ -262,7 +262,6 @@ return [
         'uploading_file_num' => '上传 :number 文件...',
         'uploading_complete' => '上传完毕',
         'order_by' => '排序',
-        'search' => '搜索',
         'folder' => '文件夹',
         'no_files_found' => '没找到你请求的文件.',
         'delete_empty' => '请选择删除项.',

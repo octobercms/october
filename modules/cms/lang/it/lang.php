@@ -266,7 +266,6 @@ return [
         'uploading_file_num' => 'Caricamento in corso di :number file(s)...',
         'uploading_complete' => 'Caricamento completato',
         'order_by' => 'Ordina per',
-        'search' => 'Cerca',
         'folder' => 'Cartella',
         'no_files_found' => 'Nessun file corrisponde alla tua richiesta.',
         'delete_empty' => 'Seleziona elementi da eliminare.',

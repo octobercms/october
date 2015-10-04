@@ -265,7 +265,6 @@ return [
         'uploading_file_num' => 'Laddar upp :number fil(er)...',
         'uploading_complete' => 'Uppladdning slutförd',
         'order_by' => 'Ordna efter',
-        'search' => 'Sök',
         'folder' => 'Mapp',
         'no_files_found' => 'Inga filer kunde hittas baserat på din sökning.',
         'delete_empty' => 'Vänligen välj föremål att radera.',
