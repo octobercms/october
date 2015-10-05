@@ -832,6 +832,8 @@ class Form extends WidgetBase
      */
     public function getSaveData()
     {
+        $this->defineFormFields();
+
         $result = [];
 
         /*
