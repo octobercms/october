@@ -304,7 +304,8 @@ class TemplateList extends WidgetBase
                 return true;
             }
         }
-        elseif (Str::$operator(Str::lower($item->fileName), $word)) {
+
+        if (Str::$operator(Str::lower($item->fileName), $word)) {
             return true;
         }
 
