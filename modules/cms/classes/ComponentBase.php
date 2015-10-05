@@ -216,6 +216,7 @@ abstract class ComponentBase extends Extendable
      * Sets an external property name.
      * @param string $name Property name
      * @param string $extName External property name
+     * @return string
      */
     public function setExternalPropertyName($name, $extName)
     {
