@@ -976,6 +976,7 @@ class Controller
     /**
      * Sets the status code for the current web response.
      * @param int $code Status code
+     * @return \Cms\Classes\Controller $this
      */
     public function setStatusCode($code)
     {

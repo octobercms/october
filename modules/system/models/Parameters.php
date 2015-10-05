@@ -61,6 +61,7 @@ class Parameters extends Model
      * Stores a setting value to the database.
      * @param string $key Specifies the setting key value, for example 'system:updates.check'
      * @param mixed $value The setting value to store, serializable.
+     * @return bool
      */
     public static function set($key, $value = null)
     {

@@ -27,6 +27,7 @@ class Layout extends CmsCompoundObject
     /**
      * Initializes the fallback layout.
      * @param \Cms\ClassesTheme $theme Specifies a theme the file belongs to.
+     * @return \Cms\Classes\Layout
      */
     public static function initFallback($theme)
     {
