@@ -850,8 +850,7 @@ class Form extends WidgetBase
              * Handle HTML array, eg: item[key][another]
              */
             $parts = HtmlHelper::nameToArray($field->fieldName);
-            $dotted = implode('.', $parts);
-            if (($value = array_get($data, $dotted)) !== null) {
+            if (($value = $this->dataArrayGet($data, $parts)) !== null) {
 
                 /*
                  * Number fields should be converted to integers
@@ -860,7 +859,7 @@ class Form extends WidgetBase
                     $value = !strlen(trim($value)) ? null : (float) $value;
                 }
 
-                array_set($result, $dotted, $value);
+                $this->dataArraySet($result, $parts, $value);
             }
         }
 
@@ -869,10 +868,9 @@ class Form extends WidgetBase
          */
         foreach ($this->formWidgets as $field => $widget) {
             $parts = HtmlHelper::nameToArray($field);
-            $dotted = implode('.', $parts);
 
-            $widgetValue = $widget->getSaveValue(array_get($result, $dotted));
-            array_set($result, $dotted, $widgetValue);
+            $widgetValue = $widget->getSaveValue($this->dataArrayGet($result, $parts));
+            $this->dataArraySet($result, $parts, $widgetValue);
         }
 
         return $result;
@@ -979,4 +977,59 @@ class Form extends WidgetBase
 
         return method_exists($object, $method);
     }
+
+    /**
+     * Variant to array_get() but preserves dots in key names.
+     */
+    protected function dataArrayGet(array $array, array $parts, $default = null)
+    {
+        if (is_null($parts)) {
+            return $array;
+        }
+
+        if (count($parts) === 1) {
+            $key = array_shift($parts);
+            if (isset($array[$key])) {
+                return $array[$key];
+            }
+            else {
+                return $default;
+            }
+        }
+
+        foreach ($parts as $segment) {
+            if (!is_array($array) || !array_key_exists($segment, $array)) {
+                return $default;
+            }
+
+            $array = $array[$segment];
+        }
+
+        return $array;
+    }
+
+    /**
+     * Variant to array_set() but preserves dots in key names.
+     */
+    protected function dataArraySet(array &$array, array $parts, $value)
+    {
+        if (is_null($parts)) {
+            return $array = $value;
+        }
+
+        while (count($parts) > 1) {
+            $key = array_shift($parts);
+
+            if (!isset($array[$key]) || !is_array($array[$key])) {
+                $array[$key] = [];
+            }
+
+            $array =& $array[$key];
+        }
+
+        $array[array_shift($parts)] = $value;
+
+        return $array;
+    }
+
 }
