@@ -1258,8 +1258,9 @@ this.shown=false
 this.listen()}
 Autocomplete.prototype={constructor:Autocomplete,select:function(){var val=this.$menu.find('.active').attr('data-value')
 this.$element.val(this.updater(val)).change()
-return this.hide()},updater:function(item){return item},show:function(){var pos=$.extend({},this.$element.position(),{height:this.$element[0].offsetHeight})
-this.$menu.insertAfter(this.$element).css({top:pos.top+pos.height,left:pos.left}).show()
+return this.hide()},updater:function(item){return item},show:function(){var pos=$.extend({},this.$element.position(),{height:this.$element[0].offsetHeight}),cssOptions={top:pos.top+pos.height,left:pos.left}
+if(this.options.matchWidth){cssOptions.width=this.$element[0].offsetWidth}
+this.$menu.insertAfter(this.$element).css(cssOptions).show()
 this.shown=true
 return this},hide:function(){this.$menu.hide()
 this.shown=false
@@ -1293,9 +1294,9 @@ return this},next:function(event){var active=this.$menu.find('.active').removeCl
 if(!next.length){next=$(this.$menu.find('li')[0])}
 next.addClass('active')},prev:function(event){var active=this.$menu.find('.active').removeClass('active'),prev=active.prev()
 if(!prev.length){prev=this.$menu.find('li').last()}
-prev.addClass('active')},listen:function(){this.$element.on('focus',$.proxy(this.focus,this)).on('blur',$.proxy(this.blur,this)).on('keypress',$.proxy(this.keypress,this)).on('keyup',$.proxy(this.keyup,this))
-if(this.eventSupported('keydown')){this.$element.on('keydown',$.proxy(this.keydown,this))}
-this.$menu.on('click',$.proxy(this.click,this)).on('mouseenter','li',$.proxy(this.mouseenter,this)).on('mouseleave','li',$.proxy(this.mouseleave,this))},eventSupported:function(eventName){var isSupported=eventName in this.$element
+prev.addClass('active')},listen:function(){this.$element.on('focus.autocomplete',$.proxy(this.focus,this)).on('blur.autocomplete',$.proxy(this.blur,this)).on('keypress.autocomplete',$.proxy(this.keypress,this)).on('keyup.autocomplete',$.proxy(this.keyup,this))
+if(this.eventSupported('keydown')){this.$element.on('keydown.autocomplete',$.proxy(this.keydown,this))}
+this.$menu.on('click.autocomplete',$.proxy(this.click,this)).on('mouseenter.autocomplete','li',$.proxy(this.mouseenter,this)).on('mouseleave.autocomplete','li',$.proxy(this.mouseleave,this))},eventSupported:function(eventName){var isSupported=eventName in this.$element
 if(!isSupported){this.$element.setAttribute(eventName,'return;')
 isSupported=typeof this.$element[eventName]==='function'}
 return isSupported},move:function(e){if(!this.shown)return
@@ -1325,7 +1326,13 @@ this.select()
 this.$element.focus()},mouseenter:function(e){this.mousedover=true
 this.$menu.find('.active').removeClass('active')
 $(e.currentTarget).addClass('active')},mouseleave:function(e){this.mousedover=false
-if(!this.focused&&this.shown)this.hide()}}
+if(!this.focused&&this.shown)this.hide()},destroy:function(){this.hide()
+this.$element.removeData('autocomplete')
+this.$menu.remove()
+this.$element.off('.autocomplete')
+this.$menu.off('.autocomplete')
+this.$element=null
+this.$menu=null}}
 var old=$.fn.autocomplete
 $.fn.autocomplete=function(option){return this.each(function(){var $this=$(this),data=$this.data('autocomplete'),options=typeof option=='object'&&option
 if(!data)$this.data('autocomplete',(data=new Autocomplete(this,options)))

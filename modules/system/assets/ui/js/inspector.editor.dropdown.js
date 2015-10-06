@@ -293,6 +293,7 @@
     DropdownEditor.prototype.hideLoadingIndicator = function() {
         if (!Modernizr.touch) {
             this.indicatorContainer.loadIndicator('hide')
+            this.indicatorContainer.loadIndicator('destroy')
         }
     }
 

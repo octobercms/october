@@ -145,7 +145,10 @@
     }
 
     SetEditor.prototype.hideLoadingIndicator = function() {
-        $(this.getLink()).loadIndicator('hide')
+        var $link = $(this.getLink())
+
+        $link.loadIndicator('hide')
+        $link.loadIndicator('destroy')
     }
 
     SetEditor.prototype.loadDynamicItems = function() {

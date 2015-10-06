@@ -53,14 +53,19 @@
         show: function () {
             var pos = $.extend({}, this.$element.position(), {
                 height: this.$element[0].offsetHeight
-            })
+            }),
+            cssOptions = {
+                top: pos.top + pos.height
+                , left: pos.left
+            }
+
+            if (this.options.matchWidth) {
+                cssOptions.width = this.$element[0].offsetWidth
+            }
 
             this.$menu
                 .insertAfter(this.$element)
-                .css({
-                    top: pos.top + pos.height
-                    , left: pos.left
-                })
+                .css(cssOptions)
                 .show()
 
             this.shown = true
@@ -194,19 +199,19 @@
 
         listen: function () {
             this.$element
-                .on('focus',    $.proxy(this.focus, this))
-                .on('blur',     $.proxy(this.blur, this))
-                .on('keypress', $.proxy(this.keypress, this))
-                .on('keyup',    $.proxy(this.keyup, this))
+                .on('focus.autocomplete',    $.proxy(this.focus, this))
+                .on('blur.autocomplete',     $.proxy(this.blur, this))
+                .on('keypress.autocomplete', $.proxy(this.keypress, this))
+                .on('keyup.autocomplete',    $.proxy(this.keyup, this))
 
             if (this.eventSupported('keydown')) {
-                this.$element.on('keydown', $.proxy(this.keydown, this))
+                this.$element.on('keydown.autocomplete', $.proxy(this.keydown, this))
             }
 
             this.$menu
-                .on('click', $.proxy(this.click, this))
-                .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
-                .on('mouseleave', 'li', $.proxy(this.mouseleave, this))
+                .on('click.autocomplete', $.proxy(this.click, this))
+                .on('mouseenter.autocomplete', 'li', $.proxy(this.mouseenter, this))
+                .on('mouseleave.autocomplete', 'li', $.proxy(this.mouseleave, this))
         },
 
         eventSupported: function(eventName) {
@@ -305,8 +310,20 @@
         mouseleave: function (e) {
             this.mousedover = false
             if (!this.focused && this.shown) this.hide()
-        }
+        },
 
+        destroy: function() {
+            this.hide()
+
+            this.$element.removeData('autocomplete')
+            this.$menu.remove()
+
+            this.$element.off('.autocomplete')
+            this.$menu.off('.autocomplete')
+
+            this.$element = null
+            this.$menu = null
+        }
     }
 
 

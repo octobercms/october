@@ -80,5 +80,9 @@
         this.inspector.setPropertyValue(this.propertyDefinition.property, value)
     }
 
+    StringEditor.prototype.onExternalPropertyEditorHidden = function() {
+        this.focus()
+    }
+
     $.oc.inspector.propertyEditors.string = StringEditor
 }(window.jQuery);
