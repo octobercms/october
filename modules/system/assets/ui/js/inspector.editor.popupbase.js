@@ -7,6 +7,8 @@
         BaseProto = Base.prototype
 
     var PopupBase = function(inspector, propertyDefinition, containerCell, group) {
+        this.popup = null
+
         Base.call(this, inspector, propertyDefinition, containerCell, group)
     }
 
@@ -15,6 +17,7 @@
 
     PopupBase.prototype.dispose = function() {
         this.unregisterHandlers()
+        this.popup = null
 
         BaseProto.dispose.call(this)
     }
@@ -105,17 +108,22 @@
     PopupBase.prototype.onPopupShown = function(ev, link, popup) {
         $(popup).on('submit.inspector', 'form', this.proxy(this.onSubmit))
 
+        this.popup = popup.get(0)
+
         this.configurePopup(popup)
     }
 
     PopupBase.prototype.onPopupHidden = function(ev, link, popup) {
-        $(popup).off('.inspector', this.proxy(this.onSubmit))
+        $(popup).off('.inspector', 'form', this.proxy(this.onSubmit))
+        this.popup = null
     }
 
     PopupBase.prototype.onSubmit = function(ev) {
         ev.preventDefault()
 
-        this.handleSubmit($(ev.target))
+        if (this.handleSubmit($(ev.target)) === false) {
+            return false
+        }
 
         this.setLinkText(this.getLink())
         this.hidePopup()
