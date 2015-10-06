@@ -98,6 +98,18 @@
         return this.getInput().parentNode
     }
 
+    AutocompleteEditor.prototype.registerHandlers = function() {
+        BaseProto.registerHandlers.call(this)
+
+        $(this.getInput()).on('change', this.proxy(this.onInputKeyUp))
+    }
+
+    AutocompleteEditor.prototype.unregisterHandlers = function() {
+        BaseProto.unregisterHandlers.call(this)
+
+        $(this.getInput()).off('change', this.proxy(this.onInputKeyUp))
+    }
+
     //
     // Dynamic items
     //
