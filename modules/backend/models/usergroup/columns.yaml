@@ -16,3 +16,4 @@ columns:
         relation: users_count
         valueFrom: count
         default: 0
+        sortable: false
