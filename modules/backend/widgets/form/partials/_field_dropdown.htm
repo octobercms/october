@@ -18,7 +18,7 @@
                 if (!is_array($option)) $option = [$option];
             ?>
             <option
-                <?= $value == $field->value ? 'selected="selected"' : '' ?>
+                <?= ($value == $field->value || (is_array($field->value) && in_array($value,$field->value))) ? 'selected="selected"' : '' ?>
                 <?php if (isset($option[1])): ?>data-<?=strpos($option[1],'.')?'image':'icon'?>="<?= $option[1] ?>"<?php endif ?>
                 value="<?= $value ?>">
                     <?= e(trans($option[0])) ?>
