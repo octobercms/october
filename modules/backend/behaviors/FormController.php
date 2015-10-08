@@ -202,7 +202,7 @@ class FormController extends ControllerBehavior
 
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
         foreach ($modelsToSave as $modelToSave) {
-            $modelToSave->save(null, $this->formWidget->getSessionKey());
+            $modelToSave->update([], $this->formWidget->getSessionKey());
         }
 
         $this->controller->formAfterSave($model);
