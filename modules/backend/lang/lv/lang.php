@@ -187,6 +187,7 @@ return [
         'close' => 'Aizvērt',
         'confirm' => 'Apstiprināt',
         'reload' => 'Pārlādēt',
+        'complete' => 'Pabeigt',
         'ok' => 'OK',
         'or' => 'vai',
         'confirm_tab_close' => 'Vai tiešām vēlaties aizvērt šo cilni? Nesaglabātās izmaiņas būs zudušas.',
@@ -235,6 +236,10 @@ return [
         'unlink_name' => "Atsaistīt :name",
         'unlink_confirm' => "Vai esat pārliecināts?",
     ],
+    'reorder' => [
+        'default_title' => 'Pārkārtot ierakstus',
+        'no_records' => 'Nav pieejami ieraksti, ko pārkārtot.',
+    ],
     'model' => [
         'name' => 'Modulis',
         'not_found' => "Modulis ':class' ar ID :id netika atrasts",
@@ -259,6 +264,7 @@ return [
         'code_folding' => 'Koda savilkšana',
         'word_wrap' => 'Vārdu aplaušana',
         'highlight_active_line' => 'Iekrāsot aktīvo līniju',
+        'auto_closing' => 'Automātiski aizvērt birkas un īpašos simbolus',
         'show_invisibles' => 'Rādīt slēptos simbolus',
         'show_gutter' => 'Rādīt līniju numurus',
         'theme' => 'Krāsu shēma'
