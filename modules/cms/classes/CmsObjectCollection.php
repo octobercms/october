@@ -63,7 +63,7 @@ class CmsObjectCollection extends CollectionBase
      * @param string $value
      * @return static
      */
-    public function whereComponent($components, $property, $value, $strict = true)
+    public function whereComponent($components, $property, $value, $strict = false)
     {
         return $this->filter(function($object) use ($components, $property, $value, $strict) {
 

@@ -13,8 +13,6 @@ class CmsObjectQueryTest extends TestCase
 
     public function testWhereComponent()
     {
-        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Archive.php';
-
         $pages = Page::whereComponent('testArchive', 'posts-per-page', '6');
         $this->assertCount(1, $pages->all());
 
