@@ -488,7 +488,7 @@
         var form = this.popup.querySelector('form')
 
         if (!form) {
-            throw new Error('Cannot find form element in the popup window.')
+            this.throwError('Cannot find form element in the popup window.')
         }
 
         return form

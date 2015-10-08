@@ -2429,6 +2429,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .inspector-fields tr:last-child td,.inspector-fields tr:last-child td input[type=text]{-webkit-border-radius:0 0 2px 0;-moz-border-radius:0 0 2px 0;border-radius:0 0 2px 0}
 .inspector-fields tr.group{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .inspector-fields tr.group th{background:#e0e4e5;font-weight:600;cursor:pointer}
+.inspector-fields tr.invalid th{color:#c03f31 !important}
 .inspector-fields tr.control-group{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .inspector-fields tr.control-group th,.inspector-fields tr.control-group td{cursor:pointer}
 .inspector-fields tr.collapsed{display:none}

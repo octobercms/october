@@ -42,7 +42,7 @@
 
     StringListEditor.prototype.checkValueType = function(value) {
         if (value && Object.prototype.toString.call(value) !== '[object Array]') {
-            throw new Error('The string list value should be an array.')
+            this.throwError('The string list value should be an array.')
         }
     }
 

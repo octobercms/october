@@ -103,6 +103,27 @@
         return group.findGroupRows(table, ignoreCollapsedSubgroups, this)
     }
 
+    GroupManager.prototype.markGroupRowInvalid = function(group, table) {
+        var currentGroup = group
+
+        while (currentGroup) {
+            var row = currentGroup.findGroupRow(table)
+            if (row) {
+                $.oc.foundation.element.addClass(row, 'invalid')
+            }
+
+            currentGroup = currentGroup.parentGroup
+        }
+    }
+
+    GroupManager.prototype.unmarkInvalidGroups = function(table) {
+        var rows = table.querySelectorAll('tr.invalid')
+
+        for (var i = rows.length-1; i >= 0; i--) {
+            $.oc.foundation.element.removeClass(rows[i], 'invalid')
+        }
+    }
+
     GroupManager.prototype.isRowVisible = function(table, rowGroupIndex) {
         var group = this.findGroupByIndex(index)
 
@@ -204,6 +225,19 @@
         return level
     }
 
+    Group.prototype.getGroupAndAllParents = function() {
+        var current = this,
+            result = []
+
+        while (current) {
+            result.push(current)
+
+            current = current.parentGroup
+        }
+
+        return result
+    }
+
     Group.prototype.findGroupRows = function(table, ignoreCollapsedSubgroups, groupManager) {
         var groupIndex = this.getGroupIndex(),
             rows = table.querySelectorAll('tr[data-parent-group-index="'+groupIndex+'"]'),
@@ -223,6 +257,10 @@
         }
 
         return result
+    }
+
+    Group.prototype.findGroupRow = function(table) {
+        return table.querySelector('tr[data-group-index="'+this.groupIndex+'"]')
     }
 
     $.oc.inspector.groupManager = GroupManager

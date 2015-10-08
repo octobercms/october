@@ -241,6 +241,19 @@
         this.getInput().focus()
     }
 
+    ExternalParameterEditor.prototype.validate = function() {
+        var value = $.trim(this.getValue())
+
+        if (value.length === 0) {
+            $.oc.flashMsg({text: 'Please enter the external parameter name.', 'class': 'error', 'interval': 5})
+            this.focus()
+
+            return false
+        }
+
+        return true
+    }
+
     //
     // Event handlers
     //

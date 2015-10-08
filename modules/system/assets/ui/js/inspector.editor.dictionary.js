@@ -40,7 +40,7 @@
             var itemCount = 0
 
             if (typeof value !== 'object') {
-                throw new Error('Object list value should be an object. Property: ' + this.propertyDefinition.property)
+                this.throwError('Object list value should be an object.')
             }
 
             itemCount = this.getValueKeys(value).length

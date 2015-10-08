@@ -390,14 +390,14 @@
         th.children[0].style.marginLeft = groupLevel*10 + 'px'
     }
 
-    Surface.prototype.toggleGroup = function(row) {
+    Surface.prototype.toggleGroup = function(row, forceExpand) {
         var link = row.querySelector('a'),
             groupIndex = row.getAttribute('data-group-index'),
             table = this.getRootTable(),
             groupManager = this.getGroupManager(),
             collapse = true
 
-        if ($.oc.foundation.element.hasClass(link, 'expanded')) {
+        if ($.oc.foundation.element.hasClass(link, 'expanded') && !forceExpand) {
             $.oc.foundation.element.removeClass(link, 'expanded')
         } else {
             $.oc.foundation.element.addClass(link, 'expanded')
@@ -407,21 +407,41 @@
         var propertyRows = groupManager.findGroupRows(table, groupIndex, !collapse),
             duration = Math.round(50 / propertyRows.length)
 
-        this.expandOrCollapseRows(propertyRows, collapse, duration)
+        this.expandOrCollapseRows(propertyRows, collapse, duration, forceExpand)
         groupManager.setGroupStatus(groupIndex, !collapse)
     }
 
-    Surface.prototype.expandOrCollapseRows = function(rows, collapse, duration) {
+    Surface.prototype.expandGroupParents = function(group) {
+        var groups = group.getGroupAndAllParents(),
+            table = this.getRootTable()
+
+        for (var i = groups.length-1; i >= 0; i--) {
+            var row = groups[i].findGroupRow(table)
+
+            if (row) {
+                this.toggleGroup(row, true)
+            }
+        }
+    }
+
+    Surface.prototype.expandOrCollapseRows = function(rows, collapse, duration, noAnimation) {
         var row = rows.pop(),
             self = this
 
         if (row) {
-            setTimeout(function toggleRow() {
+            if (!noAnimation) {
+                setTimeout(function toggleRow() {
+                    $.oc.foundation.element.toggleClass(row, 'collapsed', collapse)
+                    $.oc.foundation.element.toggleClass(row, 'expanded', !collapse)
+
+                    self.expandOrCollapseRows(rows, collapse, duration, noAnimation)
+                }, duration)
+            } else {
                 $.oc.foundation.element.toggleClass(row, 'collapsed', collapse)
                 $.oc.foundation.element.toggleClass(row, 'expanded', !collapse)
 
-                self.expandOrCollapseRows(rows, collapse, duration)
-            }, duration)
+                self.expandOrCollapseRows(rows, collapse, duration, noAnimation)
+            }
         }
     }
 
@@ -708,10 +728,6 @@
     Surface.prototype.getValues = function() {
         var result = {}
 
-// TODO: implement validation in this method. It should be optional,
-// as the method is used by other classes internally, but the validation
-// is required only for the external callers.
-
         for (var i=0, len = this.parsedProperties.properties.length; i < len; i++) {
             var property = this.parsedProperties.properties[i]
 
@@ -749,6 +765,32 @@
         }
 
         return result
+    }
+
+    Surface.prototype.validate = function() {
+        this.getGroupManager().unmarkInvalidGroups(this.getRootTable())
+
+        for (var i = 0, len = this.editors.length; i < len; i++) {
+            var editor = this.editors[i],
+                externalEditor = this.findExternalParameterEditor(editor.propertyDefinition.property)
+
+            if (externalEditor && externalEditor.isEditorVisible()) {
+                if (!externalEditor.validate()) {
+                    editor.markInvalid()
+                    return false
+                }
+                else {
+                    continue
+                }
+            }
+
+            if (!editor.validate()) {
+                editor.markInvalid()
+                return false
+            }
+        }
+
+        return true
     }
 
     // EVENT HANDLERS

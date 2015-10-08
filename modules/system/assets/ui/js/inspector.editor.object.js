@@ -10,7 +10,7 @@
 
     var ObjectEditor = function(inspector, propertyDefinition, containerCell, group) {
         if (propertyDefinition.properties === undefined) {
-            throw new Error('The properties property should be specified in the object editor configuration. Property: ' + propertyDefinition.property)
+            this.throwError('The properties property should be specified in the object editor configuration.')
         }
 
         Base.call(this, inspector, propertyDefinition, containerCell, group)
