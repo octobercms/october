@@ -1,5 +1,6 @@
 <?php namespace System\Helpers;
 
+use App;
 use File;
 use Config;
 
@@ -31,7 +32,6 @@ class Cache
         foreach (File::directories(storage_path().'/cms/combiner') as $directory) {
             File::deleteDirectory($directory);
         }
-
     }
 
     /*
@@ -60,5 +60,7 @@ class Cache
     public function clearMeta()
     {
         File::delete(storage_path().'/cms/disabled.json');
+        File::delete(App::getCachedCompilePath());
+        File::delete(App::getCachedServicesPath());
     }
 }
