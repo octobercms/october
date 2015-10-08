@@ -1,3 +1,6 @@
+* **Build 304** (2015-10-09)
+  - Added new `where` and `whereComponent` methods for querying CMS template properties.
+
 * **Build 300** (2015-10-03)
   - **Happy 2nd Birthday October!**
   - Page settings now support infinite array nesting with October flavored INI syntax via `Ini::parse` and `Ini::render`.
