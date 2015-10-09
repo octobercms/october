@@ -104,7 +104,6 @@
         return true
     }
 
-
     ObjectEditor.prototype.getUndefinedValue = function() {
         var result = {}
 
@@ -118,6 +117,19 @@
         }
 
         return this.getValueOrRemove(result)
+    }
+
+    ObjectEditor.prototype.validate = function() {
+        var values = values = this.childInspector.getValues()
+
+        if (this.cleanUpValue(values) === $.oc.inspector.removedProperty) {
+            // Ignore any validation rules if the object's required 
+            // property is empty (ignoreIfPropertyEmpty)
+
+            return true
+        }
+
+        return this.childInspector.validate()
     }
 
     //

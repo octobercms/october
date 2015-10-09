@@ -75,7 +75,7 @@
     }
 
     StringEditor.prototype.onInputKeyUp = function() {
-        var value = this.getInput().value
+        var value = $.trim(this.getInput().value)
 
         this.inspector.setPropertyValue(this.propertyDefinition.property, value)
     }

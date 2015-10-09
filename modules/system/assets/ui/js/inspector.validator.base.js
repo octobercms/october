@@ -17,7 +17,9 @@
 
     var BaseValidator = function(options) {
         this.options = options
-        this.defaultMessage = 'Invalid property value'
+        this.defaultMessage = 'Invalid property value.'
+
+        Base.call(this)
     }
 
     BaseValidator.prototype = Object.create(BaseProto)
@@ -29,9 +31,14 @@
         BaseProto.dispose.call(this)
     }
 
-    BaseValidator.prototype.getMessage = function() {
-        if (this.options.message !== undefined)
+    BaseValidator.prototype.getMessage = function(defaultMessage) {
+        if (this.options.message !== undefined) {
             return this.options.message
+        }
+
+        if (defaultMessage !== undefined) {
+            return defaultMessage
+        }
 
         return this.defaultMessage
     }
@@ -49,7 +56,7 @@
     }
 
     BaseValidator.prototype.isValid = function(value) {
-        return true
+        return null
     }
 
     $.oc.inspector.validators.base = BaseValidator

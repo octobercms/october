@@ -8,6 +8,8 @@
 
     var RequiredValidator = function(options) {
         Base.call(this, options)
+
+        this.defaultMessage = 'The property is required.'
     }
 
     RequiredValidator.prototype = Object.create(BaseProto)
@@ -15,18 +17,18 @@
 
     RequiredValidator.prototype.isValid = function(value) {
         if (value === undefined || value === null) {
-            return false
+            return this.getMessage()
         }
 
         if (typeof value === 'boolean') {
-            return value
+            return value ? null : this.getMessage()
         }
 
         if (typeof value === 'object') {
-            return !$.isEmptyObject(value)
+            return !$.isEmptyObject(value) ? null : this.getMessage()
         }
 
-        return $.trim(String(value)).length > 0
+        return $.trim(String(value)).length > 0 ? null : this.getMessage()
     }
 
     $.oc.inspector.validators.required = RequiredValidator
