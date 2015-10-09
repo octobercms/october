@@ -254,6 +254,10 @@ class FormField
      */
     protected function evalConfig($config)
     {
+        if(is_null($config)) {
+            $config = [];
+        }
+
         /*
          * Standard config:property values
          */
