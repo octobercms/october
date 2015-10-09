@@ -3411,8 +3411,7 @@ if(!data)$this.data('oc.inputPreset',(data=new InputPreset(this,options)))})}
 $.fn.inputPreset.Constructor=InputPreset
 $.fn.inputPreset.noConflict=function(){$.fn.inputPreset=old
 return this}
-$(document).render(function(){$('[data-input-preset]').inputPreset()})}(window.jQuery);+function($){"use strict";var TriggerOn=function(element,options){var $el=this.$el=$(element);this.options=options||{};if(this.options.triggerType!==false&&this.options.triggerAction===false)this.options.triggerAction=this.options.triggerType
-if(this.options.triggerCondition===false)
+$(document).render(function(){$('[data-input-preset]').inputPreset()})}(window.jQuery);+function($){"use strict";var TriggerOn=function(element,options){var $el=this.$el=$(element);this.options=options||{};if(this.options.triggerCondition===false)
 throw new Error('Trigger condition is not specified.')
 if(this.options.trigger===false)
 throw new Error('Trigger selector is not specified.')
