@@ -2066,7 +2066,7 @@ RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control
 if(this.options.dataLocker){this.$dataLocker=$(this.options.dataLocker)
 this.$textarea.val(this.$dataLocker.val())}
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
-var redactorOptions={imageEditable:true,imageResizable:true,buttonSource:true,removeDataAttr:false,syncBeforeCallback:this.proxy(this.onSyncBefore),focusCallback:this.proxy(this.onFocus),blurCallback:this.proxy(this.onBlur),keydownCallback:this.proxy(this.onKeydown),enterCallback:this.proxy(this.onEnter),changeCallback:this.proxy(this.onChange),pageLinksHandler:this.options.linksHandler,initCallback:function(){self.build(this)}}
+var redactorOptions={imageEditable:true,imageResizable:true,buttonSource:true,removeDataAttr:false,toolbarFixed:false,syncBeforeCallback:this.proxy(this.onSyncBefore),focusCallback:this.proxy(this.onFocus),blurCallback:this.proxy(this.onBlur),keydownCallback:this.proxy(this.onKeydown),enterCallback:this.proxy(this.onEnter),changeCallback:this.proxy(this.onChange),pageLinksHandler:this.options.linksHandler,initCallback:function(){self.build(this)}}
 if(this.options.fullpage){redactorOptions.fullpage=true}
 redactorOptions.plugins=['fullscreen','figure','table','pagelinks','mediamanager']
 redactorOptions.buttons=['html','formatting','bold','italic','unorderedlist','orderedlist','link','horizontalrule'],this.$textarea.redactor(redactorOptions)

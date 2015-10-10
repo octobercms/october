@@ -72,6 +72,7 @@
             imageResizable: true,
             buttonSource: true,
             removeDataAttr: false,
+            toolbarFixed: false,
             syncBeforeCallback: this.proxy(this.onSyncBefore),
             focusCallback: this.proxy(this.onFocus),
             blurCallback: this.proxy(this.onBlur),
