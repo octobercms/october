@@ -205,7 +205,7 @@
         table.appendChild(tbody)
 
         if (firstRow !== undefined) {
-            this.selectRow(firstRow)
+            this.selectRow(firstRow, true)
         }
 
         this.updateScrollpads()
@@ -250,17 +250,26 @@
     // Built-in Inspector management
     //
 
-    ObjectListEditor.prototype.selectRow = function(row) {
+    ObjectListEditor.prototype.selectRow = function(row, forceSelect) {
         var tbody = row.parentNode,
             inspectorContainer = this.getInspectorContainer(),
             selectedRow = this.getSelectedRow()
+
+        if (selectedRow === row && !forceSelect) {
+            return
+        }
 
         if (selectedRow) {
             if (!this.validateKeyValue()) {
                 return
             }
 
-// TODO: validation of the currently existing Inspector is required
+            if (this.currentRowInspector) {
+                if (!this.currentRowInspector.validate()) {
+                    return
+                }
+            }
+
             this.applyDataToRow(selectedRow)
             $.oc.foundation.element.removeClass(selectedRow, 'active')
         }
@@ -291,7 +300,7 @@
     }
 
     ObjectListEditor.prototype.disposeInspector = function() {
-        $.oc.foundation.controlUtils.disposeControls(this.popup)
+        $.oc.foundation.controlUtils.disposeControls(this.popup.querySelector('[data-inspector-container]'))
         this.currentRowInspector = null
     }
 
@@ -313,6 +322,15 @@
 
         if (property !== this.propertyDefinition.titleProperty) {
             return
+        }
+
+        value = $.trim(value)
+
+        if (value.length === 0) {
+            value = '[No title]'
+            $.oc.foundation.element.addClass(selectedRow, 'disabled')
+        } else {
+            $.oc.foundation.element.removeClass(selectedRow, 'disabled')
         }
 
         selectedRow.firstChild.textContent = value
@@ -342,7 +360,12 @@
                 return
             }
 
-// TODO: validation of the currently existing Inspector is required
+            if (this.currentRowInspector) {
+                if (!this.currentRowInspector.validate()) {
+                    return
+                }
+            }
+
             this.applyDataToRow(selectedRow)
             $.oc.foundation.element.removeClass(selectedRow, 'active')
         }
@@ -359,7 +382,7 @@
         row.setAttribute('data-inspector-values', JSON.stringify(data))
         tbody.appendChild(row)
 
-        this.selectRow(row)
+        this.selectRow(row, true)
 
         this.removeEmptyRow()
         this.updateScrollpads()
@@ -402,7 +425,12 @@
                 return
             }
 
-// TODO: validation of the currently existing Inspector is required
+            if (this.currentRowInspector) {
+                if (!this.currentRowInspector.validate()) {
+                    return
+                }
+            }
+
             this.applyDataToRow(selectedRow)
         }
 
@@ -611,6 +639,8 @@
         $(popup).off('click.inspector', '[data-cmd]', this.proxy(this.onCommand))
 
         this.disposeInspector()
+        $.oc.foundation.controlUtils.disposeControls(this.popup)
+
         this.popup = null
     }
 

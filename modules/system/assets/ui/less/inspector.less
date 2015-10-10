@@ -129,6 +129,7 @@
                 display: block;
                 padding: 5px 12px 7px 12px;
                 overflow: hidden;
+                min-height: 29px;
                 text-overflow: ellipsis;
                 color: @color-inspector-text;
                 text-decoration: none;
@@ -237,10 +238,12 @@
             }
         }
 
-        &.dropdown div.external-param-editor-container div.external-editor {
-            height: 100%;
-            margin: 0;
-            bottom: auto;
+        &.dropdown, &.trigger-cell {
+            div.external-param-editor-container div.external-editor {
+                height: 100%;
+                margin: 0;
+                bottom: auto;
+            }
         }
     }
 

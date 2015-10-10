@@ -7,11 +7,29 @@
         BaseProto = Base.prototype
 
     var DictionaryEditor = function(inspector, propertyDefinition, containerCell, group) {
+        this.keyValidationSet = null
+        this.valueValidationSet = null
+
         Base.call(this, inspector, propertyDefinition, containerCell, group)
     }
 
     DictionaryEditor.prototype = Object.create(BaseProto)
     DictionaryEditor.prototype.constructor = Base
+
+    DictionaryEditor.prototype.dispose = function() {
+        this.disposeValidators()
+        
+        this.keyValidationSet = null
+        this.valueValidationSet = null
+
+        BaseProto.dispose.call(this)
+    }
+
+    DictionaryEditor.prototype.init = function() {
+        this.initValidators()
+
+        BaseProto.init.call(this)
+    }
 
     //
     // Popup editor methods
@@ -108,7 +126,6 @@
 
     DictionaryEditor.prototype.handleSubmit = function($form) {
         return this.applyValues()
-// TODO: validate here
     }
 
     //
@@ -253,6 +270,18 @@
                 this.focusAndMakeActive(keyInput)
                 return false
             }
+        
+            var validationResult = this.keyValidationSet.validate(key)
+            if (validationResult !== null) {
+                $.oc.flashMsg({text: validationResult, 'class': 'error', 'interval': 5})
+                return false
+            }
+
+            validationResult = this.valueValidationSet.validate(value)
+            if (validationResult !== null) {
+                $.oc.flashMsg({text: validationResult, 'class': 'error', 'interval': 5})
+                return false
+            }
 
             result[key] = value
         }
@@ -349,6 +378,25 @@
         var newActiveEditor = prevRow.cells[cell.cellIndex].querySelector('input')
 
         this.focusAndMakeActive(newActiveEditor)
+    }
+
+    //
+    // Validation
+    //
+
+    DictionaryEditor.prototype.initValidators = function() {
+        this.keyValidationSet = new $.oc.inspector.validationSet({
+            validation: this.propertyDefinition.validationKey
+        }, this.propertyDefinition.property+'.validationKey')
+
+        this.valueValidationSet = new $.oc.inspector.validationSet({
+            validation: this.propertyDefinition.validationValue
+        }, this.propertyDefinition.property+'.validationValue')
+    }
+
+    DictionaryEditor.prototype.disposeValidators = function() {
+        this.keyValidationSet.dispose()
+        this.valueValidationSet.dispose()
     }
 
     //

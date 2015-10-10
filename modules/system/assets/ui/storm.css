@@ -2445,7 +2445,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .inspector-fields td.text input[type=text]:-ms-input-placeholder{font-weight:normal !important;color:#b5babd}
 .inspector-fields td.text.active{background:#ffffff;border-left:1px solid #c8cccd}
 .inspector-fields td.trigger-cell{padding:0 !important}
-.inspector-fields td.trigger-cell a.trigger{display:block;padding:5px 12px 7px 12px;overflow:hidden;text-overflow:ellipsis;color:#333333;text-decoration:none}
+.inspector-fields td.trigger-cell a.trigger{display:block;padding:5px 12px 7px 12px;overflow:hidden;min-height:29px;text-overflow:ellipsis;color:#333333;text-decoration:none}
 .inspector-fields td.trigger-cell a.trigger.placeholder{color:#b5babd}
 .inspector-fields td.trigger-cell a.trigger .loading-indicator{background-color:#f2f2f2}
 .inspector-fields td.trigger-cell a.trigger .loading-indicator span{margin-top:-12px;right:10px;left:auto}
@@ -2459,7 +2459,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .inspector-fields td div.external-param-editor-container div.external-editor div.controls input{position:absolute;display:block;border:none;width:100%;height:100%;left:0;top:0;padding-left:30px;padding-right:12px;background:transparent}
 .inspector-fields td div.external-param-editor-container.editor-visible div.external-editor div.controls input{background:#f2f2f2}
 .inspector-fields td.active div.external-param-editor-container div.external-editor div.controls input{background:white}
-.inspector-fields td.dropdown div.external-param-editor-container div.external-editor{height:100%;margin:0;bottom:auto}
+.inspector-fields td.dropdown div.external-param-editor-container div.external-editor,.inspector-fields td.trigger-cell div.external-param-editor-container div.external-editor{height:100%;margin:0;bottom:auto}
 .inspector-fields th{font-weight:500}
 .inspector-fields th > div{position:relative}
 .inspector-fields th > div > div{white-space:nowrap;padding-right:10px;text-overflow:ellipsis;overflow:hidden;width:100%}

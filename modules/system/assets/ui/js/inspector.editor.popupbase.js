@@ -84,7 +84,6 @@
     }
 
     PopupBase.prototype.handleSubmit = function($form) {
-// TODO: validate here
     }
 
     PopupBase.prototype.hidePopup = function() {

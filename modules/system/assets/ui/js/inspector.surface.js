@@ -283,8 +283,7 @@
     Surface.prototype.getRowCssClass = function(property, group) {
         var result = property.itemType
 
-        // The property.groupedControl flag doesn't allow to collapse the grouped control row itself.
-        if (property.itemType == 'property' && !property.groupedControl) {
+        if (property.itemType == 'property') {
             // result += ' grouped'
             if (group.parentGroup) {
                 result += this.getGroupManager().isGroupExpanded(group) ? ' expanded' : ' collapsed'
@@ -362,8 +361,8 @@
     // Field grouping
     //
 
-    Surface.prototype.applyGroupIndexAttribute = function(property, row, group) {
-        if (property.itemType == 'group' || property.groupedControl) {
+    Surface.prototype.applyGroupIndexAttribute = function(property, row, group, isGroupedControl) {
+        if (property.itemType == 'group' || isGroupedControl) {
             row.setAttribute('data-group-index', this.getGroupManager().getGroupIndex(group))
             row.setAttribute('data-parent-group-index', this.getGroupManager().getGroupIndex(group.parentGroup))
         } else {
@@ -472,12 +471,12 @@
         var editor = new $.oc.inspector.propertyEditors[type](this, property, cell, group)
 
         if (editor.isGroupedEditor()) {
-            property.groupedControl = true
+//            property.groupedControl = true
 
             $.oc.foundation.element.addClass(dataTable, 'has-groups')
             $.oc.foundation.element.addClass(row, 'control-group')
 
-            this.applyGroupIndexAttribute(property, row, editor.group)
+            this.applyGroupIndexAttribute(property, row, editor.group, true)
             this.buildGroupExpandControl(row.querySelector('span.title-element'), property, true, editor.hasChildSurface(), editor.group)
 
             if (cell.children.length == 0) {
