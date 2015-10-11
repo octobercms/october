@@ -60,7 +60,7 @@ trait FormModelSaver
             if ($isNested && is_array($value)) {
                 $this->setModelAttributes($model->{$attribute}, $value);
             }
-            elseif ($value !== FormField::NO_SAVE_DATA) {
+            elseif ($value !== FormField::NO_SAVE_DATA && $model->isFillable($attribute)) {
                 $model->{$attribute} = $value;
             }
         }
