@@ -6,6 +6,7 @@ return [
         'tagline' => 'Dapati kembali yang mendasar'
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'Inggris',
         'de' => 'Jerman',
         'es' => 'Spanyol',
@@ -109,7 +110,6 @@ return [
         'sender_name' => 'Nama Pengirim',
         'sender_email' => 'Surel Pengirim',
         'php_mail' => 'PHP mail',
-        'sendmail' => 'Sendmail',
         'smtp' => 'SMTP',
         'smtp_address' => 'Alamat SMTP',
         'smtp_authorization' => 'Otorisasi SMTP diperlukan',

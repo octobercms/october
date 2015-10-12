@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use Ini;
 use Cache;
 use Config;
 use Validator;
@@ -7,7 +8,6 @@ use SystemException;
 use ValidationException;
 use Cms\Classes\ViewBag;
 use Cms\Classes\CodeBase;
-use Cms\Classes\FileHelper;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\Extension as CmsTwigExtension;
 use System\Twig\Extension as SystemTwigExtension;
@@ -227,7 +227,7 @@ class CmsCompoundObject extends CmsObject
         $content = [];
 
         if ($this->settings) {
-            $content[] = FileHelper::formatIniString($this->settings);
+            $content[] = Ini::render($this->settings);
         }
 
         if ($this->code) {

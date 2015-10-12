@@ -18,7 +18,6 @@ use Twig_Environment;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
-use Cms\Classes\FileHelper as CmsFileHelper;
 use Cms\Models\MaintenanceSettings;
 use System\Models\RequestLog;
 use System\Classes\ErrorHandler;

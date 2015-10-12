@@ -5,6 +5,7 @@ use Lang;
 use Cache;
 use Config;
 use Validator;
+use Cms\Helpers\File as FileHelper;
 use ApplicationException;
 use ValidationException;
 use RecursiveDirectoryIterator;

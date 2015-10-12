@@ -1,5 +1,7 @@
 <?php namespace Cms\Classes;
 
+use ApplicationException;
+
 /**
  * Helper class for processing video and audio tags inserted by the Media Manager.
  *
@@ -80,7 +82,7 @@ class MediaViewHelper
 
         $controller = Controller::getController();
         if (!$controller) {
-            throw new Phpr_ApplicationException('Media tags can only be processed for front-end requests.');
+            throw new ApplicationException('Media tags can only be processed for front-end requests.');
         }
 
         $partial = Partial::loadCached($controller->getTheme(), $name);

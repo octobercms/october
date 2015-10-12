@@ -656,6 +656,8 @@ nav#layout-mainmenu.navbar ul li a,nav#layout-mainmenu .menu-toggle,.mainmenu-co
 nav#layout-mainmenu.navbar ul li a:hover,nav#layout-mainmenu .menu-toggle:hover,.mainmenu-collapsed li a:hover{background-color:transparent !important}
 nav#layout-mainmenu.navbar ul li a:active,nav#layout-mainmenu .menu-toggle:active,.mainmenu-collapsed li a:active,nav#layout-mainmenu.navbar ul li a:focus,nav#layout-mainmenu .menu-toggle:focus,.mainmenu-collapsed li a:focus{text-decoration:none;color:#555555}
 nav#layout-mainmenu.navbar ul li a i,nav#layout-mainmenu .menu-toggle i,.mainmenu-collapsed li a i{line-height:1;font-size:35px;vertical-align:middle;margin-right:10px}
+nav#layout-mainmenu.navbar ul li a i{font-size:28px}
+nav#layout-mainmenu.navbar ul li.active a i{font-size:35px}
 .mainmenu-collapsed li a i{width:40px;text-align:left;display:inline-block}
 nav#layout-mainmenu.navbar ul li:hover a:active,.mainmenu-collapsed li:hover a:active,nav#layout-mainmenu.navbar ul li:hover a:focus,.mainmenu-collapsed li:hover a:focus{color:#ffffff !important}
 .touch .mainmenu-collapsed li a:hover{color:#555555}

@@ -78,17 +78,17 @@ return
 this.toolbar=document.createElement('div')
 this.toolbar.setAttribute('class','toolbar')
 if(this.options.adding){var addBelowButton=document.createElement('a')
-addBelowButton.setAttribute('class','btn add-table-row-below')
+addBelowButton.setAttribute('class','btn table-icon add-table-row-below')
 addBelowButton.setAttribute('data-cmd','record-add-below')
 this.toolbar.appendChild(addBelowButton)
 if(this.navigation.paginationEnabled()||!this.options.rowSorting){addBelowButton.textContent='Add row'}else{addBelowButton.textContent='Add row below'
 var addAboveButton=document.createElement('a')
-addAboveButton.setAttribute('class','btn add-table-row-above')
+addAboveButton.setAttribute('class','btn table-icon add-table-row-above')
 addAboveButton.textContent='Add row above'
 addAboveButton.setAttribute('data-cmd','record-add-above')
 this.toolbar.appendChild(addAboveButton)}}
 if(this.options.deleting){var deleteButton=document.createElement('a')
-deleteButton.setAttribute('class','btn delete-table-row')
+deleteButton.setAttribute('class','btn table-icon delete-table-row')
 deleteButton.textContent='Delete row'
 deleteButton.setAttribute('data-cmd','record-delete')
 this.toolbar.appendChild(deleteButton)}
@@ -288,6 +288,8 @@ if(!this.validate()){ev.preventDefault()
 return}
 var fieldName=this.options.alias.indexOf('[')>-1?this.options.alias+'[TableData]':this.options.alias+'TableData';data.options.data[fieldName]=this.dataSource.getAllData()}}
 Table.prototype.onToolbarClick=function(ev){var target=this.getEventTarget(ev),cmd=target.getAttribute('data-cmd')
+if(!cmd)
+return
 switch(cmd){case'record-add-below':this.addRecord('below')
 break
 case'record-add-above':this.addRecord('above')
@@ -397,12 +399,11 @@ var paginationContainer=this.tableObj.getElement().querySelector('.pagination'),
 this.pageCount=this.calculatePageCount(recordCount,this.tableObj.options.recordsPerPage)
 if(!paginationContainer){paginationContainer=document.createElement('div')
 paginationContainer.setAttribute('class','pagination')
-newPaginationContainer=true}else
-curRecordCount=this.getRecordCount(paginationContainer)
+newPaginationContainer=true}
+else{curRecordCount=this.getRecordCount(paginationContainer)}
 if(newPaginationContainer||curRecordCount!=recordCount){paginationContainer.setAttribute('data-record-count',recordCount)
 var pageList=this.buildPaginationLinkList(recordCount,this.tableObj.options.recordsPerPage,this.pageIndex)
-if(!newPaginationContainer)
-paginationContainer.replaceChild(pageList,paginationContainer.children[0])
+if(!newPaginationContainer){paginationContainer.replaceChild(pageList,paginationContainer.children[0])}
 else{paginationContainer.appendChild(pageList)
 this.tableObj.getElement().appendChild(paginationContainer)}}else{this.markActiveLinkItem(paginationContainer,this.pageIndex)}}
 Navigation.prototype.calculatePageCount=function(recordCount,recordsPerPage){var pageCount=Math.ceil(recordCount/recordsPerPage)
@@ -415,6 +416,7 @@ Navigation.prototype.buildPaginationLinkList=function(recordCount,recordsPerPage
 for(var i=0;i<pageCount;i++){var item=document.createElement('li'),link=document.createElement('a')
 if(i==pageIndex)
 item.setAttribute('class','active')
+$(item).addClass('pagination-link')
 link.innerText=i+1
 link.setAttribute('data-page-index',i)
 link.setAttribute('href','#')
@@ -423,8 +425,7 @@ pageList.appendChild(item)}
 return pageList}
 Navigation.prototype.markActiveLinkItem=function(paginationContainer,pageIndex){var activeItem=paginationContainer.querySelector('.active'),list=paginationContainer.children[0]
 activeItem.setAttribute('class','')
-for(var i=0,len=list.children.length;i<len;i++){if(i==pageIndex)
-list.children[i].setAttribute('class','active')}}
+for(var i=0,len=list.children.length;i<len;i++){if(i==pageIndex){list.children[i].setAttribute('class','active')}}}
 Navigation.prototype.gotoPage=function(pageIndex,onSuccess){this.tableObj.unfocusTable()
 if(!this.tableObj.validate())
 return
@@ -450,7 +451,8 @@ return
 var row=this.tableObj.activeCell.parentNode,newRow=!ev.shiftKey?row.nextElementSibling:row.parentNode.children[row.parentNode.children.length-1],cellIndex=forceCellIndex!==undefined?forceCellIndex:this.tableObj.activeCell.cellIndex
 if(newRow){var cell=newRow.children[cellIndex]
 if(cell)
-this.tableObj.focusCell(cell)}else{if(!this.paginationEnabled())
+this.tableObj.focusCell(cell)}
+else{if(!this.paginationEnabled())
 return
 if(this.pageIndex<this.pageCount-1){var self=this
 this.gotoPage(this.pageIndex+1,function navDownPageSuccess(){self.focusCell('top',cellIndex)
@@ -524,7 +526,7 @@ return this.navigateRight(ev)
 if(ev.keyCode==9)
 return this.navigateNext(ev)}
 Navigation.prototype.onClick=function(ev){var target=this.tableObj.getEventTarget(ev,'A')
-if(!target)
+if(!target||!$(target).hasClass('pagination-link'))
 return
 var pageIndex=parseInt(target.getAttribute('data-page-index'))
 if(pageIndex===null)
@@ -552,7 +554,8 @@ this.data=JSON.parse(dataString)};Client.prototype=Object.create(BaseProto)
 Client.prototype.constructor=Client
 Client.prototype.dispose=function(){BaseProto.dispose.call(this)
 this.data=null}
-Client.prototype.getRecords=function(offset,count,onSuccess){if(!count){onSuccess(this.data,this.data.length)}else{onSuccess(this.data.slice(offset,offset+count),this.data.length)}}
+Client.prototype.getRecords=function(offset,count,onSuccess){if(!count){onSuccess(this.data,this.data.length)}
+else{onSuccess(this.data.slice(offset,offset+count),this.data.length)}}
 Client.prototype.createRecord=function(recordData,placement,relativeToKey,offset,count,onSuccess){if(placement==='bottom'){this.data.push(recordData)}
 else if(placement=='above'||placement=='below'){var recordIndex=this.getIndexOfKey(relativeToKey)
 if(placement=='below')

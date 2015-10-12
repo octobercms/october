@@ -1,3 +1,14 @@
+* **Build 304** (2015-10-09)
+  - Added new `where` and `whereComponent` methods for querying CMS template properties.
+
+* **Build 300** (2015-10-03)
+  - **Happy 2nd Birthday October!**
+  - Page settings now support infinite array nesting with October flavored INI syntax via `Ini::parse` and `Ini::render`.
+  - Added new helper `Twig::parse` for parsing Twig (see Services > Parser docs).
+
+* **Build 298** (2015-09-24)
+  - Added the ability to use a wildcard URL parameter in CMS pages (see CMS > Pages docs).
+
 * **Build 297** (2015-09-19)
   - Introduced new `Revisionable` trait for storing model history (see Database > Traits docs).
   - Added `timetense` list column type (see Backend > Lists docs), along with `|time_since` and `|time_tense` Twig filters.

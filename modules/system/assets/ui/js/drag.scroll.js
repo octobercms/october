@@ -294,14 +294,14 @@
 
         var self = this,
             params = {
-            duration: 300, 
-            queue: false, 
-            complete: function(){
-                self.fixScrollClasses()
-                if (callback !== undefined)
-                    callback()
+                duration: 300,
+                queue: false,
+                complete: function(){
+                    self.fixScrollClasses()
+                    if (callback !== undefined)
+                        callback()
+                }
             }
-        }
 
         params = $.extend(params, options || {})
 
@@ -314,20 +314,23 @@
             if (offset < 0) {
                 this.el.animate({'scrollLeft': $el.get(0).offsetLeft}, params)
                 animated = true
-            } else {
+            }
+            else {
                 offset = $el.get(0).offsetLeft + $el.width() - (this.el.scrollLeft() + this.el.width())
                 if (offset > 0) {
                     this.el.animate({'scrollLeft': $el.get(0).offsetLeft + $el.width() - this.el.width()}, params)
                     animated = true
                 }
             }
-        } else {
+        }
+        else {
             offset = $el.get(0).offsetTop - this.el.scrollTop()
 
             if (offset < 0) {
                 this.el.animate({'scrollTop': $el.get(0).offsetTop}, params)
                 animated = true
-            } else {
+            }
+            else {
                 offset = $el.get(0).offsetTop - (this.el.scrollTop() + this.el.height())
                 if (offset > 0) {
                     this.el.animate({'scrollTop': $el.get(0).offsetTop + $el.height() - this.el.height()}, params)
@@ -336,8 +339,9 @@
             }
         }
 
-        if (!animated && callback !== undefined)
+        if (!animated && callback !== undefined) {
             callback()
+        }
     }
 
     DragScroll.prototype.dispose = function() {

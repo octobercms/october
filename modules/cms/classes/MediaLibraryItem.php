@@ -2,6 +2,8 @@
 
 use File;
 use Config;
+use Backend\Models\UserPreferences;
+use Carbon\Carbon;
 
 /**
  * Represents a file or folder in the Media Library.
@@ -48,7 +50,7 @@ class MediaLibraryItem
 
     /**
      * @var array Contains a default list of files and directories to ignore.
-     * The list can be customized with the following configuration options: 
+     * The list can be customized with the following configuration options:
      * - cms.storage.media.image_extensions
      * - cms.storage.media.video_extensions
      * - cms.storage.media.audo_extensions
@@ -129,10 +131,14 @@ class MediaLibraryItem
 
     /**
      * Returns the item last modification date as string.
-     * @return string Returns the item last modification date as string.
+     * @return string Returns the item's last modification date as string.
      */
     public function lastModifiedAsString()
     {
-        return $this->lastModified ? date('M d, Y', $this->lastModified) : null;
+        if (!($date = $this->lastModified)) {
+            return null;
+        }
+
+        return Carbon::createFromTimestamp($date)->toFormattedDateString();
     }
 }

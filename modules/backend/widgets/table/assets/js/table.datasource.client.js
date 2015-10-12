@@ -49,7 +49,8 @@
         if (!count) {
             // Return all records
             onSuccess(this.data, this.data.length)
-        } else {
+        }
+        else {
             // Return a subset of records
             onSuccess(this.data.slice(offset, offset+count), this.data.length)
         }

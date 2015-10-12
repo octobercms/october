@@ -3,10 +3,11 @@
 use Db;
 use Lang;
 use Event;
+use Request;
 use Form as FormHelper;
 use Backend\Classes\ControllerBehavior;
-use ApplicationException;
 use October\Rain\Database\Model;
+use ApplicationException;
 
 /**
  * Relation Controller Behavior
@@ -319,6 +320,13 @@ class RelationController extends ControllerBehavior
         }
 
         /*
+         * Search widget
+         */
+        if ($this->searchWidget = $this->makeSearchWidget()) {
+            $this->searchWidget->bindToController();
+        }
+
+        /*
          * View widget
          */
         if ($this->viewWidget = $this->makeViewWidget()) {
@@ -484,17 +492,6 @@ class RelationController extends ControllerBehavior
     // Widgets
     //
 
-    protected function makeSearchWidget()
-    {
-        $config = $this->makeConfig();
-        $config->alias = $this->alias . 'ManageSearch';
-        $config->growable = false;
-        $config->prompt = 'backend::lang.list.search_prompt';
-        $widget = $this->makeWidget('Backend\Widgets\Search', $config);
-        $widget->cssClasses[] = 'recordfinder-search';
-        return $widget;
-    }
-
     protected function makeToolbarWidget()
     {
         $defaultConfig = [];
@@ -539,6 +536,29 @@ class RelationController extends ControllerBehavior
         return $toolbarWidget;
     }
 
+    protected function makeSearchWidget()
+    {
+        if (!$this->getConfig('manage[showSearch]')) {
+            return null;
+        }
+
+        $config = $this->makeConfig();
+        $config->alias = $this->alias . 'ManageSearch';
+        $config->growable = false;
+        $config->prompt = 'backend::lang.list.search_prompt';
+        $widget = $this->makeWidget('Backend\Widgets\Search', $config);
+        $widget->cssClasses[] = 'recordfinder-search';
+
+        /*
+         * Persist the search term across AJAX requests only
+         */
+        if (!Request::ajax()) {
+            $widget->setActiveTerm(null);
+        }
+
+        return $widget;
+    }
+
     protected function makeViewWidget()
     {
         /*
@@ -555,7 +575,8 @@ class RelationController extends ControllerBehavior
             $config->recordUrl = $this->getConfig('view[recordUrl]', null);
 
             $defaultOnClick = sprintf(
-                "$.oc.relationBehavior.clickViewListRecord(':id', '%s', '%s')",
+                "$.oc.relationBehavior.clickViewListRecord(':%s', '%s', '%s')",
+                $this->relationModel->getKeyName(),
                 $this->field,
                 $this->relationGetSessionKey()
             );
@@ -613,7 +634,15 @@ class RelationController extends ControllerBehavior
                         return $widget->onRefresh();
                     });
 
-                    $searchWidget->setActiveTerm(null);
+                    /*
+                     * Persist the search term across AJAX requests only
+                     */
+                    if (Request::ajax()) {
+                        $widget->setSearchTerm($searchWidget->getActiveTerm());
+                    }
+                    else {
+                        $searchWidget->setActiveTerm(null);
+                    }
                 }
             }
         }
@@ -680,15 +709,18 @@ class RelationController extends ControllerBehavior
             /*
              * Link the Search Widget to the List Widget
              */
-            if ($this->getConfig('manage[showSearch]')) {
-                $this->searchWidget = $this->makeSearchWidget();
-                $this->searchWidget->bindToController();
+            if ($this->searchWidget) {
                 $this->searchWidget->bindEvent('search.submit', function () use ($widget) {
                     $widget->setSearchTerm($this->searchWidget->getActiveTerm());
                     return $widget->onRefresh();
                 });
 
-                $this->searchWidget->setActiveTerm(null);
+                /*
+                 * Persist the search term across AJAX requests only
+                 */
+                if (Request::ajax()) {
+                    $widget->setSearchTerm($this->searchWidget->getActiveTerm());
+                }
             }
         }
         /*

@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use Ini;
 use Str;
 
 /**
@@ -46,7 +47,7 @@ class SectionParser
         ];
 
         if ($count >= 3) {
-            $result['settings'] = parse_ini_string($sections[0], true);
+            $result['settings'] = Ini::parse($sections[0], true);
             $result['code'] = $sections[1];
 
             $result['code'] = preg_replace('/^\s*\<\?php/', '', $result['code']);
@@ -56,7 +57,7 @@ class SectionParser
             $result['markup'] = $sections[2];
         }
         elseif ($count == 2) {
-            $result['settings'] = parse_ini_string($sections[0], true);
+            $result['settings'] = Ini::parse($sections[0], true);
             $result['markup'] = $sections[1];
         }
         elseif ($count == 1) {

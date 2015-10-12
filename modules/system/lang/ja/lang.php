@@ -6,6 +6,7 @@ return [
         'tagline' => '基本に戻ろう！',
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'English',
         'de' => 'German',
         'es' => 'Spanish',
@@ -106,7 +107,6 @@ return [
         'sender_name' => '送信者名',
         'sender_email' => '送信者メール',
         'php_mail' => 'PHPメール',
-        'sendmail' => 'Sendmail',
         'smtp' => 'SMTP',
         'smtp_address' => 'SMTPアドレス',
         'smtp_authorization' => 'SMTP認証が必要',

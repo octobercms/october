@@ -266,7 +266,6 @@ return [
         'uploading_file_num' => 'Enviando :number arquivo(s)...',
         'uploading_complete' => 'Envio finalizado',
         'order_by' => 'Ordenar por',
-        'search' => 'Buscar',
         'folder' => 'Pasta',
         'no_files_found' => 'Nenhum arquivo encontrado.',
         'delete_empty' => 'Por favor, selecione um item para excluir.',

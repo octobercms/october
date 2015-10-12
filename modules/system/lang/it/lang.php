@@ -6,6 +6,7 @@ return [
         'tagline' => 'Tornare alle origini',
     ],
     'locale' => [
+        'cs' => 'Ceco',
         'en' => 'Inglese',
         'de' => 'Tedesco',
         'es' => 'Spagnolo',

@@ -6,6 +6,7 @@ return [
         'tagline' => 'Возвращение к истокам'
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'English',
         'de' => 'German',
         'es' => 'Spanish',

@@ -516,6 +516,9 @@
                     publicUrl = items[i].publicUrl
                 }
 
+                // Spaces in URLs break Markdown syntax
+                publicUrl = publicUrl.replace(/\s/g, '%20')
+
                 onSuccess(publicUrl)
 
                 this.hide()

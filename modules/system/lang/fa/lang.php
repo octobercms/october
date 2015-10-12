@@ -6,8 +6,10 @@ return [
         'tagline' => 'بازگشت به گذشته',
     ],
     'locale' => [
+        'cs' => 'چک اسلواکی',
         'en' => 'انگلیسی',
         'de' => 'آلمانی',
+        'el' => 'یونانی',
         'es' => 'اسپانیایی',
         'es-ar' => 'اسپانیایی (آرژانتین)',
         'fa' => 'فارسی',
@@ -57,6 +59,7 @@ return [
         ]
     ],
     'theme' => [
+        'label' => 'قالب',
         'unnamed' => 'قالب بدون نام',
         'name' => [
             'label' => 'نام قالب',
@@ -72,6 +75,7 @@ return [
         'remove_confirm' => 'آیا از حذف این قالب اطمینان دارید؟',
     ],
     'plugin' => [
+        'label' => 'افزونه',
         'unnamed' => 'افزونه بدون نام',
         'name' => [
             'label' => 'نام افزونه',
@@ -92,6 +96,8 @@ return [
         'refresh' => 'بارگذاری مجدد',
         'disabled_label' => 'غیر فعال',
         'disabled_help' => 'افزونه های غیر فعال توسط برنامه نادیده گرفته می شوند.',
+        'frozen_label' => 'قفل کردن به روز رسانی',
+        'frozen_help' => 'افزونه های قفل شده بهنگام به روز رسانی نادیده گرفته خواهند شد.',
         'selected_amount' => 'افزونه های انتخاب شده: :amount',
         'remove_confirm' => 'آیا از حذف این افزونه اطمینان دارید؟',
         'remove_success' => "افزونه ها با موفقیت از سیستم حذف شدند.",
@@ -141,8 +147,12 @@ return [
         'smtp_password' => 'کلمه عبور',
         'smtp_port' => 'درگاه SMTP',
         'smtp_ssl' => 'اتصال امن SSL مورد نیاز است',
+        'smtp_encryption' => 'پروتکل رمزگذاری SMTP',
+        'smtp_encryption_none' => 'بدون رمزگذاری',
+        'smtp_encryption_tls' => 'TLS',
+        'smtp_encryption_ssl' => 'SSL',
         'sendmail' => 'Sendmail',
-        'sendmail_path' => 'محل Sendmail',
+        'sendmail_path' => 'آدرس برنامه Sendmail',
         'sendmail_path_comment' => 'لطفا محل ذخیره نرم افزار sendmail را مشخص نمایید.',
         'mailgun' => 'Mailgun',
         'mailgun_domain' => 'دامنه ی Mailgun',
@@ -151,7 +161,9 @@ return [
         'mailgun_secret_comment' => 'کلید API ی مربوط به Mailgun را وارد نمایید.',
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'کلمه عبور Mandrill',
-        'mandrill_secret_comment' => 'کلید API ی Mandrill را وارد نمایید.'
+        'mandrill_secret_comment' => 'کلید API ی Mandrill را وارد نمایید.',
+        'drivers_hint_header' => 'درایور ها نصب نشده اند',
+        'drivers_hint_content' => 'این روش برای ارسال پست الکترونیکی به افزونه ":plugin" نیاز دارد. جهت استفاده از این روش لطفا افزونه مورد نیاز را نصب نمایید.'
     ],
     'mail_templates' => [
         'menu_label' => 'قالب های نامه الکترونیکی',
@@ -163,6 +175,7 @@ return [
         'menu_layouts_label' => 'طرح بندی نامه الکترونیکی',
         'layout' => 'طرح بندی',
         'layouts' => 'طرح بندی ها',
+        'no_layout' => '-- بدون طرح بندی --',
         'name' => 'نام',
         'name_comment' => 'نام یکتای مشخص کننده ی این قالی',
         'code' => 'کد',
@@ -175,7 +188,10 @@ return [
         'content_text' => 'متن معمولی',
         'test_send' => 'ارسال پیغام آزمایشی',
         'test_success' => 'پیغام آزمایشی ارسال شد.',
-        'return' => 'بازگشت به لیست قالب ها'
+        'return' => 'بازگشت به لیست قالب ها',
+        'test_confirm' => 'یک نامه الکترونیکی جهت آزمایش به :email ارسال شد. آیا میخواهید ادامه دهید؟',
+        'saving' => 'ذخیره سازی قالب...',
+        'sending' => 'ارسال نامه الکترونیکی آزمایشی...',
     ],
     'install' => [
         'project_label' => 'ضمیمه کردن به نرم افزار',
@@ -191,9 +207,11 @@ return [
         'name' => 'بروز رسانی نرم افزار',
         'menu_label' => 'بروز رسانی ها',
         'menu_description' => 'به روز رسانی ی سیستم، مدیریت افزونه ها و قالب های نصب شده.',
+        'return_link' => 'بازگشت به صفحه به روز رسانی ها',
         'check_label' => 'بررسی بروز رسانی',
         'retry_label' => 'تلاش مجدد',
         'plugin_name' => 'نام',
+        'plugin_code' => 'کد یکتا',
         'plugin_description' => 'توضیحات',
         'plugin_version' => 'نسخه',
         'plugin_author' => 'تولید کننده',
@@ -208,6 +226,7 @@ return [
         'plugin_downloading' => 'دریافت افزونه: :name',
         'plugin_extracting' => 'گشودن افزونه: :name',
         'plugin_version_none' => 'افزونه ی جدید',
+        'plugin_current_version' => 'نسخه کنونی',
         'theme_new_install' => 'قالب جدید نصب شد.',
         'theme_downloading' => 'دریافت قالب: :name',
         'theme_extracting' => 'گشودن قالب: :name',
@@ -224,7 +243,24 @@ return [
         'none' => [
             'label' => 'شما از آخرین نسخه استفاده می کنید',
             'help' => 'هیچ به روز رسانی یافت نشد.'
-        ]
+        ],
+        'important_action' => [
+            'empty' => 'اقدام مورد نظر را انتخاب کنید',
+            'confirm' => 'تایید به روز رسانی',
+            'skip' => 'این افزونه را به روز نکن (فقط یک بار)',
+            'ignore' => 'این افزونه را به روز نکن (همیشه)',
+        ],
+        'important_action_required' => 'انتخاب عملیات مورد نیاز است',
+        'important_view_guide' => 'نمایش راهنمای به روز رسانی',
+        'important_alert_text' => 'برخی از به روز رسانی ها به تایید شما نیاز دارند',
+        'details_title' => 'مشخصات افزونه',
+        'details_view_homepage' => 'نمایش صفحه اصلی',
+        'details_readme' => 'مستندات',
+        'details_readme_missing' => 'مستنداتی در دسترس نمی باشد',
+        'details_upgrades' => 'راهنمای به روز رسانی',
+        'details_upgrades_missing' => 'راهنمایی جهت به روز رسانی در دسترس نیست.',
+        'details_current_version' => 'نسخه کنونی',
+        'details_author' => 'نویسنده',
     ],
     'server' => [
         'connect_error' => 'خطا در برقراری ارتباط با سرور.',

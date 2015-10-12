@@ -266,7 +266,6 @@ return [
         'uploading_file_num' => 'Téléchargement de :number fichier(s)…',
         'uploading_complete' => 'Téléchargement complet',
         'order_by' => 'Trier par',
-        'search' => 'Rechercher',
         'folder' => 'Répertoire',
         'no_files_found' => 'Aucun fichier trouvé.',
         'delete_empty' => 'Sélectionner les articles à supprimer.',
