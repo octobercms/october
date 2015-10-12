@@ -148,4 +148,46 @@ return [
     'zip' => [
         'extract_failed' => "Konnte Core-Datei ':file' nicht entpacken.",
     ],
+    'event_log' => [
+        'hint' => 'Dieses Event-Log listet potentielle Fehler in der Anwendung, wie Exceptions und Debugging-Informationen.',
+        'menu_label' => 'Event-Log',
+        'menu_description' => 'Rufe ein Event-Log mit Zeitangaben und Fehlerdetails auf.',
+        'empty_link' => 'Event-Log zurücksetzen',
+        'empty_loading' => 'Event-Log wird zurückgesetzt...',
+        'empty_success' => 'Event-Log erfolgreich zurückgesetzt.',
+        'return_link' => 'Zurück zum Event-Log',
+        'id' => 'ID',
+        'id_label' => 'Event ID',
+        'created_at' => 'Datum & Zeit',
+        'message' => 'Nachricht',
+        'level' => 'Level'
+    ],
+    'request_log' => [
+        'hint' => 'Dieses Request-Log listet Browser-Anfragen, die Ihrer Aufmerksamkeit bedürfen könnten. Falls zum Beispiel ein Besucher eine nicht existierende CMS-Seite öffnet, wird ein Eintrag mit dem Fehler 404 angelegt.',
+        'menu_label' => 'Request-Log',
+        'menu_description' => 'Liste fehlerhafte Requests auf, z.B. Seite nicht gefunden (404).',
+        'empty_link' => 'Request-Log zurücksetzen',
+        'empty_loading' => 'Request-Log wird zurückgesetzt...',
+        'empty_success' => 'Request-Log erfolgreich zurückgesetzt.',
+        'return_link' => 'Zurück zum Request-Log',
+        'id' => 'ID',
+        'id_label' => 'Log ID',
+        'count' => 'Zähler',
+        'referer' => 'Referer',
+        'url' => 'URL',
+        'status_code' => 'Status'
+    ],
+    'permissions' => [
+        'name' => 'System',
+        'manage_system_settings' => 'Systemeinstellungen verwalten',
+        'manage_software_updates' => 'Software-Updates verwalten',
+        'access_logs' => 'Systemprotokolle einsehen',
+        'manage_mail_templates' => 'Mail-Templates verwalten',
+        'manage_mail_settings' => 'Mail-Einstellungen verwalten',
+        'manage_other_administrators' => 'Andere Administratoren verwalten',
+        'manage_preferences' => 'Backend-Einstellungen verwalten',
+        'manage_editor' => 'Code-Editor-Einstellungen verwalten',
+        'view_the_dashboard' => 'Dashboard einsehen',
+        'manage_branding' => 'Backend individualisieren'
+    ]
 ];
