@@ -81,6 +81,10 @@
         return this.childInspector !== null
     }
 
+    BaseEditor.prototype.getRootSurface = function() {
+        return this.inspector.getRootSurface()
+    }
+
     /**
      * Updates displayed value in the editor UI. The value is already set 
      * in the Inspector and should be loaded from Inspector.

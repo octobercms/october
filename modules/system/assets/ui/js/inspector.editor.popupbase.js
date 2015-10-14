@@ -110,11 +110,15 @@
         this.popup = popup.get(0)
 
         this.configurePopup(popup)
+
+        this.getRootSurface().popupDisplayed()
     }
 
     PopupBase.prototype.onPopupHidden = function(ev, link, popup) {
         $(popup).off('.inspector', 'form', this.proxy(this.onSubmit))
         this.popup = null
+
+        this.getRootSurface().popupHidden()
     }
 
     PopupBase.prototype.onSubmit = function(ev) {

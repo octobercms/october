@@ -87,5 +87,4 @@
 
         return result
     }
-
 }(window.jQuery);

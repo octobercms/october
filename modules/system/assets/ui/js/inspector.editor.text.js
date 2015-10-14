@@ -78,7 +78,6 @@
             value = $.trim($textarea.val())
 
         this.inspector.setPropertyValue(this.propertyDefinition.property, value)
-// TODO: validate here
     }
 
     $.oc.inspector.propertyEditors.text = TextEditor

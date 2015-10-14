@@ -6,7 +6,6 @@
 
 =require js/foundation.js
 =require js/flashmessage.js
-=require js/inspector.js
 =require js/checkbox.js
 =require js/dropdown.js
 =require js/callout.js

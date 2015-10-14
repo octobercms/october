@@ -631,6 +631,7 @@
         this.popup = popup.get(0)
 
         this.buildPopupContents(this.popup)
+        this.getRootSurface().popupDisplayed()
     }
 
     ObjectListEditor.prototype.onPopupHidden = function(ev, link, popup) {
@@ -642,6 +643,7 @@
         $.oc.foundation.controlUtils.disposeControls(this.popup)
 
         this.popup = null
+        this.getRootSurface().popupHidden()
     }
 
     ObjectListEditor.prototype.onSubmit = function(ev) {

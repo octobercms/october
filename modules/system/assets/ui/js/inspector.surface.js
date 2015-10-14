@@ -48,6 +48,7 @@
         this.values = values
         this.originalValues = $.extend(true, {}, values) // Clone the values hash
         this.idCounter = 1
+        this.popupCounter = 0
         this.parentSurface = parentSurface
 
         this.editors = []
@@ -88,6 +89,8 @@
         this.values = null
         this.originalValues = null
         this.options.onChange = null
+        this.options.onPopupDisplayed = null
+        this.options.onPopupHidden = null
         this.parentSurface = null
         this.groupManager = null
         this.group = null
@@ -210,6 +213,12 @@
         if (!this.parentSurface) {
             this.focusFirstEditor()
         }
+    }
+
+    Surface.prototype.moveToContainer = function(newContainer) {
+        this.container = newContainer
+
+        this.container.appendChild(this.tableContainer)
     }
 
     Surface.prototype.buildRow = function(property, group) {
@@ -611,6 +620,26 @@
         }
     }
 
+    Surface.prototype.popupDisplayed = function() {
+        if (this.popupCounter === 0 && this.options.onPopupDisplayed !== null) {
+            this.options.onPopupDisplayed()
+        }
+
+        this.popupCounter++
+    }
+
+    Surface.prototype.popupHidden = function() {
+        this.popupCounter--
+
+        if (this.popupCounter < 0) {
+            this.popupCounter = 0
+        }
+
+        if (this.popupCounter === 0 && this.options.onPopupHidden !== null) {
+            this.options.onPopupHidden()
+        }
+    }
+
     //
     // Nested surfaces support
     //
@@ -809,7 +838,9 @@
 
     Surface.DEFAULTS = {
         enableExternalParameterEditor: false,
-        onChange: null
+        onChange: null,
+        onPopupDisplayed: null,
+        onPopupHidden: null
     }
 
     // REGISTRATION

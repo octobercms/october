@@ -113,233 +113,142 @@ FlashMessage.DEFAULTS={class:'success',text:'Default text',interval:2}
 if($.oc===undefined)
 $.oc={}
 $.oc.flashMsg=FlashMessage
-$(document).render(function(){$('[data-control=flash-message]').each(function(){$.oc.flashMsg($(this).data(),this)})})}(window.jQuery);;window.Modernizr=(function(window,document,undefined){var version='2.8.3',Modernizr={},enableClasses=true,docElement=document.documentElement,mod='modernizr',modElem=document.createElement(mod),mStyle=modElem.style,inputElem=document.createElement('input'),smile=':)',toString={}.toString,prefixes=' -webkit- -moz- -o- -ms- '.split(' '),omPrefixes='Webkit Moz O ms',cssomPrefixes=omPrefixes.split(' '),domPrefixes=omPrefixes.toLowerCase().split(' '),ns={'svg':'http://www.w3.org/2000/svg'},tests={},inputs={},attrs={},classes=[],slice=classes.slice,featureName,injectElementWithStyles=function(rule,callback,nodes,testnames){var style,ret,node,docOverflow,div=document.createElement('div'),body=document.body,fakeBody=body||document.createElement('body');if(parseInt(nodes,10)){while(nodes--){node=document.createElement('div');node.id=testnames?testnames[nodes]:mod+(nodes+1);div.appendChild(node);}}
-style=['&#173;','<style id="s',mod,'">',rule,'</style>'].join('');div.id=mod;(body?div:fakeBody).innerHTML+=style;fakeBody.appendChild(div);if(!body){fakeBody.style.background='';fakeBody.style.overflow='hidden';docOverflow=docElement.style.overflow;docElement.style.overflow='hidden';docElement.appendChild(fakeBody);}
-ret=callback(div,rule);if(!body){fakeBody.parentNode.removeChild(fakeBody);docElement.style.overflow=docOverflow;}else{div.parentNode.removeChild(div);}
-return!!ret;},testMediaQuery=function(mq){var matchMedia=window.matchMedia||window.msMatchMedia;if(matchMedia){return matchMedia(mq)&&matchMedia(mq).matches||false;}
-var bool;injectElementWithStyles('@media '+mq+' { #'+mod+' { position: absolute; } }',function(node){bool=(window.getComputedStyle?getComputedStyle(node,null):node.currentStyle)['position']=='absolute';});return bool;},isEventSupported=(function(){var TAGNAMES={'select':'input','change':'input','submit':'form','reset':'form','error':'img','load':'img','abort':'img'};function isEventSupported(eventName,element){element=element||document.createElement(TAGNAMES[eventName]||'div');eventName='on'+eventName;var isSupported=eventName in element;if(!isSupported){if(!element.setAttribute){element=document.createElement('div');}
-if(element.setAttribute&&element.removeAttribute){element.setAttribute(eventName,'');isSupported=is(element[eventName],'function');if(!is(element[eventName],'undefined')){element[eventName]=undefined;}
-element.removeAttribute(eventName);}}
-element=null;return isSupported;}
-return isEventSupported;})(),_hasOwnProperty=({}).hasOwnProperty,hasOwnProp;if(!is(_hasOwnProperty,'undefined')&&!is(_hasOwnProperty.call,'undefined')){hasOwnProp=function(object,property){return _hasOwnProperty.call(object,property);};}
-else{hasOwnProp=function(object,property){return((property in object)&&is(object.constructor.prototype[property],'undefined'));};}
-if(!Function.prototype.bind){Function.prototype.bind=function bind(that){var target=this;if(typeof target!="function"){throw new TypeError();}
-var args=slice.call(arguments,1),bound=function(){if(this instanceof bound){var F=function(){};F.prototype=target.prototype;var self=new F();var result=target.apply(self,args.concat(slice.call(arguments)));if(Object(result)===result){return result;}
-return self;}else{return target.apply(that,args.concat(slice.call(arguments)));}};return bound;};}
-function setCss(str){mStyle.cssText=str;}
-function setCssAll(str1,str2){return setCss(prefixes.join(str1+';')+(str2||''));}
-function is(obj,type){return typeof obj===type;}
-function contains(str,substr){return!!~(''+str).indexOf(substr);}
-function testProps(props,prefixed){for(var i in props){var prop=props[i];if(!contains(prop,"-")&&mStyle[prop]!==undefined){return prefixed=='pfx'?prop:true;}}
-return false;}
-function testDOMProps(props,obj,elem){for(var i in props){var item=obj[props[i]];if(item!==undefined){if(elem===false)return props[i];if(is(item,'function')){return item.bind(elem||obj);}
-return item;}}
-return false;}
-function testPropsAll(prop,prefixed,elem){var ucProp=prop.charAt(0).toUpperCase()+prop.slice(1),props=(prop+' '+cssomPrefixes.join(ucProp+' ')+ucProp).split(' ');if(is(prefixed,"string")||is(prefixed,"undefined")){return testProps(props,prefixed);}else{props=(prop+' '+(domPrefixes).join(ucProp+' ')+ucProp).split(' ');return testDOMProps(props,prefixed,elem);}}tests['flexbox']=function(){return testPropsAll('flexWrap');};tests['flexboxlegacy']=function(){return testPropsAll('boxDirection');};tests['canvas']=function(){var elem=document.createElement('canvas');return!!(elem.getContext&&elem.getContext('2d'));};tests['canvastext']=function(){return!!(Modernizr['canvas']&&is(document.createElement('canvas').getContext('2d').fillText,'function'));};tests['webgl']=function(){return!!window.WebGLRenderingContext;};tests['touch']=function(){var bool;if(('ontouchstart'in window)||window.DocumentTouch&&document instanceof DocumentTouch){bool=true;}else{injectElementWithStyles(['@media (',prefixes.join('touch-enabled),('),mod,')','{#modernizr{top:9px;position:absolute}}'].join(''),function(node){bool=node.offsetTop===9;});}
-return bool;};tests['geolocation']=function(){return'geolocation'in navigator;};tests['postmessage']=function(){return!!window.postMessage;};tests['websqldatabase']=function(){return!!window.openDatabase;};tests['indexedDB']=function(){return!!testPropsAll("indexedDB",window);};tests['hashchange']=function(){return isEventSupported('hashchange',window)&&(document.documentMode===undefined||document.documentMode>7);};tests['history']=function(){return!!(window.history&&history.pushState);};tests['draganddrop']=function(){var div=document.createElement('div');return('draggable'in div)||('ondragstart'in div&&'ondrop'in div);};tests['websockets']=function(){return'WebSocket'in window||'MozWebSocket'in window;};tests['rgba']=function(){setCss('background-color:rgba(150,255,150,.5)');return contains(mStyle.backgroundColor,'rgba');};tests['hsla']=function(){setCss('background-color:hsla(120,40%,100%,.5)');return contains(mStyle.backgroundColor,'rgba')||contains(mStyle.backgroundColor,'hsla');};tests['multiplebgs']=function(){setCss('background:url(https://),url(https://),red url(https://)');return(/(url\s*\(.*?){3}/).test(mStyle.background);};tests['backgroundsize']=function(){return testPropsAll('backgroundSize');};tests['borderimage']=function(){return testPropsAll('borderImage');};tests['borderradius']=function(){return testPropsAll('borderRadius');};tests['boxshadow']=function(){return testPropsAll('boxShadow');};tests['textshadow']=function(){return document.createElement('div').style.textShadow==='';};tests['opacity']=function(){setCssAll('opacity:.55');return(/^0.55$/).test(mStyle.opacity);};tests['cssanimations']=function(){return testPropsAll('animationName');};tests['csscolumns']=function(){return testPropsAll('columnCount');};tests['cssgradients']=function(){var str1='background-image:',str2='gradient(linear,left top,right bottom,from(#9f9),to(white));',str3='linear-gradient(left top,#9f9, white);';setCss((str1+'-webkit- '.split(' ').join(str2+str1)+
-prefixes.join(str3+str1)).slice(0,-str1.length));return contains(mStyle.backgroundImage,'gradient');};tests['cssreflections']=function(){return testPropsAll('boxReflect');};tests['csstransforms']=function(){return!!testPropsAll('transform');};tests['csstransforms3d']=function(){var ret=!!testPropsAll('perspective');if(ret&&'webkitPerspective'in docElement.style){injectElementWithStyles('@media (transform-3d),(-webkit-transform-3d){#modernizr{left:9px;position:absolute;height:3px;}}',function(node,rule){ret=node.offsetLeft===9&&node.offsetHeight===3;});}
-return ret;};tests['csstransitions']=function(){return testPropsAll('transition');};tests['fontface']=function(){var bool;injectElementWithStyles('@font-face {font-family:"font";src:url("https://")}',function(node,rule){var style=document.getElementById('smodernizr'),sheet=style.sheet||style.styleSheet,cssText=sheet?(sheet.cssRules&&sheet.cssRules[0]?sheet.cssRules[0].cssText:sheet.cssText||''):'';bool=/src/i.test(cssText)&&cssText.indexOf(rule.split(' ')[0])===0;});return bool;};tests['generatedcontent']=function(){var bool;injectElementWithStyles(['#',mod,'{font:0/0 a}#',mod,':after{content:"',smile,'";visibility:hidden;font:3px/1 a}'].join(''),function(node){bool=node.offsetHeight>=3;});return bool;};tests['video']=function(){var elem=document.createElement('video'),bool=false;try{if(bool=!!elem.canPlayType){bool=new Boolean(bool);bool.ogg=elem.canPlayType('video/ogg; codecs="theora"').replace(/^no$/,'');bool.h264=elem.canPlayType('video/mp4; codecs="avc1.42E01E"').replace(/^no$/,'');bool.webm=elem.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/^no$/,'');}}catch(e){}
-return bool;};tests['audio']=function(){var elem=document.createElement('audio'),bool=false;try{if(bool=!!elem.canPlayType){bool=new Boolean(bool);bool.ogg=elem.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/,'');bool.mp3=elem.canPlayType('audio/mpeg;').replace(/^no$/,'');bool.wav=elem.canPlayType('audio/wav; codecs="1"').replace(/^no$/,'');bool.m4a=(elem.canPlayType('audio/x-m4a;')||elem.canPlayType('audio/aac;')).replace(/^no$/,'');}}catch(e){}
-return bool;};tests['localstorage']=function(){try{localStorage.setItem(mod,mod);localStorage.removeItem(mod);return true;}catch(e){return false;}};tests['sessionstorage']=function(){try{sessionStorage.setItem(mod,mod);sessionStorage.removeItem(mod);return true;}catch(e){return false;}};tests['webworkers']=function(){return!!window.Worker;};tests['applicationcache']=function(){return!!window.applicationCache;};tests['svg']=function(){return!!document.createElementNS&&!!document.createElementNS(ns.svg,'svg').createSVGRect;};tests['inlinesvg']=function(){var div=document.createElement('div');div.innerHTML='<svg/>';return(div.firstChild&&div.firstChild.namespaceURI)==ns.svg;};tests['smil']=function(){return!!document.createElementNS&&/SVGAnimate/.test(toString.call(document.createElementNS(ns.svg,'animate')));};tests['svgclippaths']=function(){return!!document.createElementNS&&/SVGClipPath/.test(toString.call(document.createElementNS(ns.svg,'clipPath')));};function webforms(){Modernizr['input']=(function(props){for(var i=0,len=props.length;i<len;i++){attrs[props[i]]=!!(props[i]in inputElem);}
-if(attrs.list){attrs.list=!!(document.createElement('datalist')&&window.HTMLDataListElement);}
-return attrs;})('autocomplete autofocus list placeholder max min multiple pattern required step'.split(' '));Modernizr['inputtypes']=(function(props){for(var i=0,bool,inputElemType,defaultView,len=props.length;i<len;i++){inputElem.setAttribute('type',inputElemType=props[i]);bool=inputElem.type!=='text';if(bool){inputElem.value=smile;inputElem.style.cssText='position:absolute;visibility:hidden;';if(/^range$/.test(inputElemType)&&inputElem.style.WebkitAppearance!==undefined){docElement.appendChild(inputElem);defaultView=document.defaultView;bool=defaultView.getComputedStyle&&defaultView.getComputedStyle(inputElem,null).WebkitAppearance!=='textfield'&&(inputElem.offsetHeight!==0);docElement.removeChild(inputElem);}else if(/^(search|tel)$/.test(inputElemType)){}else if(/^(url|email)$/.test(inputElemType)){bool=inputElem.checkValidity&&inputElem.checkValidity()===false;}else{bool=inputElem.value!=smile;}}
-inputs[props[i]]=!!bool;}
-return inputs;})('search tel url email datetime date month week time datetime-local number range color'.split(' '));}
-for(var feature in tests){if(hasOwnProp(tests,feature)){featureName=feature.toLowerCase();Modernizr[featureName]=tests[feature]();classes.push((Modernizr[featureName]?'':'no-')+featureName);}}
-Modernizr.input||webforms();Modernizr.addTest=function(feature,test){if(typeof feature=='object'){for(var key in feature){if(hasOwnProp(feature,key)){Modernizr.addTest(key,feature[key]);}}}else{feature=feature.toLowerCase();if(Modernizr[feature]!==undefined){return Modernizr;}
-test=typeof test=='function'?test():test;if(typeof enableClasses!=="undefined"&&enableClasses){docElement.className+=' '+(test?'':'no-')+feature;}
-Modernizr[feature]=test;}
-return Modernizr;};setCss('');modElem=inputElem=null;;(function(window,document){var version='3.7.0';var options=window.html5||{};var reSkip=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i;var saveClones=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i;var supportsHtml5Styles;var expando='_html5shiv';var expanID=0;var expandoData={};var supportsUnknownElements;(function(){try{var a=document.createElement('a');a.innerHTML='<xyz></xyz>';supportsHtml5Styles=('hidden'in a);supportsUnknownElements=a.childNodes.length==1||(function(){(document.createElement)('a');var frag=document.createDocumentFragment();return(typeof frag.cloneNode=='undefined'||typeof frag.createDocumentFragment=='undefined'||typeof frag.createElement=='undefined');}());}catch(e){supportsHtml5Styles=true;supportsUnknownElements=true;}}());function addStyleSheet(ownerDocument,cssText){var p=ownerDocument.createElement('p'),parent=ownerDocument.getElementsByTagName('head')[0]||ownerDocument.documentElement;p.innerHTML='x<style>'+cssText+'</style>';return parent.insertBefore(p.lastChild,parent.firstChild);}
-function getElements(){var elements=html5.elements;return typeof elements=='string'?elements.split(' '):elements;}
-function getExpandoData(ownerDocument){var data=expandoData[ownerDocument[expando]];if(!data){data={};expanID++;ownerDocument[expando]=expanID;expandoData[expanID]=data;}
-return data;}
-function createElement(nodeName,ownerDocument,data){if(!ownerDocument){ownerDocument=document;}
-if(supportsUnknownElements){return ownerDocument.createElement(nodeName);}
-if(!data){data=getExpandoData(ownerDocument);}
-var node;if(data.cache[nodeName]){node=data.cache[nodeName].cloneNode();}else if(saveClones.test(nodeName)){node=(data.cache[nodeName]=data.createElem(nodeName)).cloneNode();}else{node=data.createElem(nodeName);}
-return node.canHaveChildren&&!reSkip.test(nodeName)&&!node.tagUrn?data.frag.appendChild(node):node;}
-function createDocumentFragment(ownerDocument,data){if(!ownerDocument){ownerDocument=document;}
-if(supportsUnknownElements){return ownerDocument.createDocumentFragment();}
-data=data||getExpandoData(ownerDocument);var clone=data.frag.cloneNode(),i=0,elems=getElements(),l=elems.length;for(;i<l;i++){clone.createElement(elems[i]);}
-return clone;}
-function shivMethods(ownerDocument,data){if(!data.cache){data.cache={};data.createElem=ownerDocument.createElement;data.createFrag=ownerDocument.createDocumentFragment;data.frag=data.createFrag();}
-ownerDocument.createElement=function(nodeName){if(!html5.shivMethods){return data.createElem(nodeName);}
-return createElement(nodeName,ownerDocument,data);};ownerDocument.createDocumentFragment=Function('h,f','return function(){'+'var n=f.cloneNode(),c=n.createElement;'+'h.shivMethods&&('+
-getElements().join().replace(/[\w\-]+/g,function(nodeName){data.createElem(nodeName);data.frag.createElement(nodeName);return'c("'+nodeName+'")';})+');return n}')(html5,data.frag);}
-function shivDocument(ownerDocument){if(!ownerDocument){ownerDocument=document;}
-var data=getExpandoData(ownerDocument);if(html5.shivCSS&&!supportsHtml5Styles&&!data.hasCSS){data.hasCSS=!!addStyleSheet(ownerDocument,'article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}'+'mark{background:#FF0;color:#000}'+'template{display:none}');}
-if(!supportsUnknownElements){shivMethods(ownerDocument,data);}
-return ownerDocument;}
-var html5={'elements':options.elements||'abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video','version':version,'shivCSS':(options.shivCSS!==false),'supportsUnknownElements':supportsUnknownElements,'shivMethods':(options.shivMethods!==false),'type':'default','shivDocument':shivDocument,createElement:createElement,createDocumentFragment:createDocumentFragment};window.html5=html5;shivDocument(document);}(this,document));Modernizr._version=version;Modernizr._prefixes=prefixes;Modernizr._domPrefixes=domPrefixes;Modernizr._cssomPrefixes=cssomPrefixes;Modernizr.mq=testMediaQuery;Modernizr.hasEvent=isEventSupported;Modernizr.testProp=function(prop){return testProps([prop]);};Modernizr.testAllProps=testPropsAll;Modernizr.testStyles=injectElementWithStyles;docElement.className=docElement.className.replace(/(^|\s)no-js(\s|$)/,'$1$2')+
-(enableClasses?' js '+classes.join(' '):'');return Modernizr;})(this,this.document);(function(a,b,c){function d(a){return"[object Function]"==o.call(a)}function e(a){return"string"==typeof a}function f(){}function g(a){return!a||"loaded"==a||"complete"==a||"uninitialized"==a}function h(){var a=p.shift();q=1,a?a.t?m(function(){("c"==a.t?B.injectCss:B.injectJs)(a.s,0,a.a,a.x,a.e,1)},0):(a(),h()):q=0}function i(a,c,d,e,f,i,j){function k(b){if(!o&&g(l.readyState)&&(u.r=o=1,!q&&h(),l.onload=l.onreadystatechange=null,b)){"img"!=a&&m(function(){t.removeChild(l)},50);for(var d in y[c])y[c].hasOwnProperty(d)&&y[c][d].onload()}}var j=j||B.errorTimeout,l=b.createElement(a),o=0,r=0,u={t:d,s:c,e:f,a:i,x:j};1===y[c]&&(r=1,y[c]=[]),"object"==a?l.data=c:(l.src=c,l.type=a),l.width=l.height="0",l.onerror=l.onload=l.onreadystatechange=function(){k.call(this,r)},p.splice(e,0,u),"img"!=a&&(r||2===y[c]?(t.insertBefore(l,s?null:n),m(k,j)):y[c].push(l))}function j(a,b,c,d,f){return q=0,b=b||"j",e(a)?i("c"==b?v:u,a,b,this.i++,c,d,f):(p.splice(this.i++,0,a),1==p.length&&h()),this}function k(){var a=B;return a.loader={load:j,i:0},a}var l=b.documentElement,m=a.setTimeout,n=b.getElementsByTagName("script")[0],o={}.toString,p=[],q=0,r="MozAppearance"in l.style,s=r&&!!b.createRange().compareNode,t=s?l:n.parentNode,l=a.opera&&"[object Opera]"==o.call(a.opera),l=!!b.attachEvent&&!l,u=r?"object":l?"script":"img",v=l?"script":u,w=Array.isArray||function(a){return"[object Array]"==o.call(a)},x=[],y={},z={timeout:function(a,b){return b.length&&(a.timeout=b[0]),a}},A,B;B=function(a){function b(a){var a=a.split("!"),b=x.length,c=a.pop(),d=a.length,c={url:c,origUrl:c,prefixes:a},e,f,g;for(f=0;f<d;f++)g=a[f].split("="),(e=z[g.shift()])&&(c=e(c,g));for(f=0;f<b;f++)c=x[f](c);return c}function g(a,e,f,g,h){var i=b(a),j=i.autoCallback;i.url.split(".").pop().split("?").shift(),i.bypass||(e&&(e=d(e)?e:e[a]||e[g]||e[a.split("/").pop().split("?")[0]]),i.instead?i.instead(a,e,f,g,h):(y[i.url]?i.noexec=!0:y[i.url]=1,f.load(i.url,i.forceCSS||!i.forceJS&&"css"==i.url.split(".").pop().split("?").shift()?"c":c,i.noexec,i.attrs,i.timeout),(d(e)||d(j))&&f.load(function(){k(),e&&e(i.origUrl,h,g),j&&j(i.origUrl,h,g),y[i.url]=2})))}function h(a,b){function c(a,c){if(a){if(e(a))c||(j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}),g(a,j,b,0,h);else if(Object(a)===a)for(n in m=function(){var b=0,c;for(c in a)a.hasOwnProperty(c)&&b++;return b}(),a)a.hasOwnProperty(n)&&(!c&&!--m&&(d(j)?j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}:j[n]=function(a){return function(){var b=[].slice.call(arguments);a&&a.apply(this,b),l()}}(k[n])),g(a[n],j,b,n,h))}else!c&&l()}var h=!!a.test,i=a.load||a.both,j=a.callback||f,k=j,l=a.complete||f,m,n;c(h?a.yep:a.nope,!!i),i&&c(i)}var i,j,l=this.yepnope.loader;if(e(a))g(a,0,l,0);else if(w(a))for(i=0;i<a.length;i++)j=a[i],e(j)?g(j,0,l,0):w(j)?B(j):Object(j)===j&&h(j,l);else Object(a)===a&&h(a,l)},B.addPrefix=function(a,b){z[a]=b},B.addFilter=function(a){x.push(a)},B.errorTimeout=1e4,null==b.readyState&&b.addEventListener&&(b.readyState="loading",b.addEventListener("DOMContentLoaded",A=function(){b.removeEventListener("DOMContentLoaded",A,0),b.readyState="complete"},0)),a.yepnope=k(),a.yepnope.executeStack=h,a.yepnope.injectJs=function(a,c,d,e,i,j){var k=b.createElement("script"),l,o,e=e||B.errorTimeout;k.src=a;for(o in d)k.setAttribute(o,d[o]);c=j?h:c||f,k.onreadystatechange=k.onload=function(){!l&&g(k.readyState)&&(l=1,c(),k.onload=k.onreadystatechange=null)},m(function(){l||(l=1,c(1))},e),i?k.onload():n.parentNode.insertBefore(k,n)},a.yepnope.injectCss=function(a,c,d,e,g,i){var e=b.createElement("link"),j,c=i?h:c||f;e.href=a,e.rel="stylesheet",e.type="text/css";for(j in d)e.setAttribute(j,d[j]);g||(n.parentNode.insertBefore(e,n),m(c,0))}})(this,document);Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0));};;(function(global,factory){if(typeof exports==="object"&&exports){factory(exports);}else if(typeof define==="function"&&define.amd){define(['exports'],factory);}else{factory(global.Mustache={});}}(this,function(mustache){var Object_toString=Object.prototype.toString;var isArray=Array.isArray||function(object){return Object_toString.call(object)==='[object Array]';};function isFunction(object){return typeof object==='function';}
-function escapeRegExp(string){return string.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g,"\\$&");}
-var RegExp_test=RegExp.prototype.test;function testRegExp(re,string){return RegExp_test.call(re,string);}
-var nonSpaceRe=/\S/;function isWhitespace(string){return!testRegExp(nonSpaceRe,string);}
-var entityMap={"&":"&amp;","<":"&lt;",">":"&gt;",'"':'&quot;',"'":'&#39;',"/":'&#x2F;'};function escapeHtml(string){return String(string).replace(/[&<>"'\/]/g,function(s){return entityMap[s];});}
-var whiteRe=/\s*/;var spaceRe=/\s+/;var equalsRe=/\s*=/;var curlyRe=/\s*\}/;var tagRe=/#|\^|\/|>|\{|&|=|!/;function parseTemplate(template,tags){if(!template)
-return[];var sections=[];var tokens=[];var spaces=[];var hasTag=false;var nonSpace=false;function stripSpace(){if(hasTag&&!nonSpace){while(spaces.length)
-delete tokens[spaces.pop()];}else{spaces=[];}
-hasTag=false;nonSpace=false;}
-var openingTagRe,closingTagRe,closingCurlyRe;function compileTags(tags){if(typeof tags==='string')
-tags=tags.split(spaceRe,2);if(!isArray(tags)||tags.length!==2)
-throw new Error('Invalid tags: '+tags);openingTagRe=new RegExp(escapeRegExp(tags[0])+'\\s*');closingTagRe=new RegExp('\\s*'+escapeRegExp(tags[1]));closingCurlyRe=new RegExp('\\s*'+escapeRegExp('}'+tags[1]));}
-compileTags(tags||mustache.tags);var scanner=new Scanner(template);var start,type,value,chr,token,openSection;while(!scanner.eos()){start=scanner.pos;value=scanner.scanUntil(openingTagRe);if(value){for(var i=0,valueLength=value.length;i<valueLength;++i){chr=value.charAt(i);if(isWhitespace(chr)){spaces.push(tokens.length);}else{nonSpace=true;}
-tokens.push(['text',chr,start,start+1]);start+=1;if(chr==='\n')
-stripSpace();}}
-if(!scanner.scan(openingTagRe))
-break;hasTag=true;type=scanner.scan(tagRe)||'name';scanner.scan(whiteRe);if(type==='='){value=scanner.scanUntil(equalsRe);scanner.scan(equalsRe);scanner.scanUntil(closingTagRe);}else if(type==='{'){value=scanner.scanUntil(closingCurlyRe);scanner.scan(curlyRe);scanner.scanUntil(closingTagRe);type='&';}else{value=scanner.scanUntil(closingTagRe);}
-if(!scanner.scan(closingTagRe))
-throw new Error('Unclosed tag at '+scanner.pos);token=[type,value,start,scanner.pos];tokens.push(token);if(type==='#'||type==='^'){sections.push(token);}else if(type==='/'){openSection=sections.pop();if(!openSection)
-throw new Error('Unopened section "'+value+'" at '+start);if(openSection[1]!==value)
-throw new Error('Unclosed section "'+openSection[1]+'" at '+start);}else if(type==='name'||type==='{'||type==='&'){nonSpace=true;}else if(type==='='){compileTags(value);}}
-openSection=sections.pop();if(openSection)
-throw new Error('Unclosed section "'+openSection[1]+'" at '+scanner.pos);return nestTokens(squashTokens(tokens));}
-function squashTokens(tokens){var squashedTokens=[];var token,lastToken;for(var i=0,numTokens=tokens.length;i<numTokens;++i){token=tokens[i];if(token){if(token[0]==='text'&&lastToken&&lastToken[0]==='text'){lastToken[1]+=token[1];lastToken[3]=token[3];}else{squashedTokens.push(token);lastToken=token;}}}
-return squashedTokens;}
-function nestTokens(tokens){var nestedTokens=[];var collector=nestedTokens;var sections=[];var token,section;for(var i=0,numTokens=tokens.length;i<numTokens;++i){token=tokens[i];switch(token[0]){case'#':case'^':collector.push(token);sections.push(token);collector=token[4]=[];break;case'/':section=sections.pop();section[5]=token[2];collector=sections.length>0?sections[sections.length-1][4]:nestedTokens;break;default:collector.push(token);}}
-return nestedTokens;}
-function Scanner(string){this.string=string;this.tail=string;this.pos=0;}
-Scanner.prototype.eos=function(){return this.tail==="";};Scanner.prototype.scan=function(re){var match=this.tail.match(re);if(!match||match.index!==0)
-return'';var string=match[0];this.tail=this.tail.substring(string.length);this.pos+=string.length;return string;};Scanner.prototype.scanUntil=function(re){var index=this.tail.search(re),match;switch(index){case-1:match=this.tail;this.tail="";break;case 0:match="";break;default:match=this.tail.substring(0,index);this.tail=this.tail.substring(index);}
-this.pos+=match.length;return match;};function Context(view,parentContext){this.view=view;this.cache={'.':this.view};this.parent=parentContext;}
-Context.prototype.push=function(view){return new Context(view,this);};Context.prototype.lookup=function(name){var cache=this.cache;var value;if(name in cache){value=cache[name];}else{var context=this,names,index,lookupHit=false;while(context){if(name.indexOf('.')>0){value=context.view;names=name.split('.');index=0;while(value!=null&&index<names.length){if(index===names.length-1&&value!=null)
-lookupHit=(typeof value==='object')&&value.hasOwnProperty(names[index]);value=value[names[index++]];}}else if(context.view!=null&&typeof context.view==='object'){value=context.view[name];lookupHit=context.view.hasOwnProperty(name);}
-if(lookupHit)
-break;context=context.parent;}
-cache[name]=value;}
-if(isFunction(value))
-value=value.call(this.view);return value;};function Writer(){this.cache={};}
-Writer.prototype.clearCache=function(){this.cache={};};Writer.prototype.parse=function(template,tags){var cache=this.cache;var tokens=cache[template];if(tokens==null)
-tokens=cache[template]=parseTemplate(template,tags);return tokens;};Writer.prototype.render=function(template,view,partials){var tokens=this.parse(template);var context=(view instanceof Context)?view:new Context(view);return this.renderTokens(tokens,context,partials,template);};Writer.prototype.renderTokens=function(tokens,context,partials,originalTemplate){var buffer='';var token,symbol,value;for(var i=0,numTokens=tokens.length;i<numTokens;++i){value=undefined;token=tokens[i];symbol=token[0];if(symbol==='#')value=this._renderSection(token,context,partials,originalTemplate);else if(symbol==='^')value=this._renderInverted(token,context,partials,originalTemplate);else if(symbol==='>')value=this._renderPartial(token,context,partials,originalTemplate);else if(symbol==='&')value=this._unescapedValue(token,context);else if(symbol==='name')value=this._escapedValue(token,context);else if(symbol==='text')value=this._rawValue(token);if(value!==undefined)
-buffer+=value;}
-return buffer;};Writer.prototype._renderSection=function(token,context,partials,originalTemplate){var self=this;var buffer='';var value=context.lookup(token[1]);function subRender(template){return self.render(template,context,partials);}
-if(!value)return;if(isArray(value)){for(var j=0,valueLength=value.length;j<valueLength;++j){buffer+=this.renderTokens(token[4],context.push(value[j]),partials,originalTemplate);}}else if(typeof value==='object'||typeof value==='string'||typeof value==='number'){buffer+=this.renderTokens(token[4],context.push(value),partials,originalTemplate);}else if(isFunction(value)){if(typeof originalTemplate!=='string')
-throw new Error('Cannot use higher-order sections without the original template');value=value.call(context.view,originalTemplate.slice(token[3],token[5]),subRender);if(value!=null)
-buffer+=value;}else{buffer+=this.renderTokens(token[4],context,partials,originalTemplate);}
-return buffer;};Writer.prototype._renderInverted=function(token,context,partials,originalTemplate){var value=context.lookup(token[1]);if(!value||(isArray(value)&&value.length===0))
-return this.renderTokens(token[4],context,partials,originalTemplate);};Writer.prototype._renderPartial=function(token,context,partials){if(!partials)return;var value=isFunction(partials)?partials(token[1]):partials[token[1]];if(value!=null)
-return this.renderTokens(this.parse(value),context,partials,value);};Writer.prototype._unescapedValue=function(token,context){var value=context.lookup(token[1]);if(value!=null)
-return value;};Writer.prototype._escapedValue=function(token,context){var value=context.lookup(token[1]);if(value!=null)
-return mustache.escape(value);};Writer.prototype._rawValue=function(token){return token[1];};mustache.name="mustache.js";mustache.version="2.0.0";mustache.tags=["{{","}}"];var defaultWriter=new Writer();mustache.clearCache=function(){return defaultWriter.clearCache();};mustache.parse=function(template,tags){return defaultWriter.parse(template,tags);};mustache.render=function(template,view,partials){return defaultWriter.render(template,view,partials);};mustache.to_html=function(template,view,partials,send){var result=mustache.render(template,view,partials);if(isFunction(send)){send(result);}else{return result;}};mustache.escape=escapeHtml;mustache.Scanner=Scanner;mustache.Context=Context;mustache.Writer=Writer;}));+function($){"use strict";var Popover=function(element,options){var $el=this.$el=$(element);this.options=options||{};this.arrowSize=15
-this.docClickHandler=null
-this.show()}
-Popover.prototype.hide=function(){var e=$.Event('hiding.oc.popover',{relatedTarget:this.$el})
-this.$el.trigger(e,this)
-if(e.isDefaultPrevented())
+$(document).render(function(){$('[data-control=flash-message]').each(function(){$.oc.flashMsg($(this).data(),this)})})}(window.jQuery);+function($){"use strict";var BalloonSelector=function(element,options){this.$el=$(element)
+this.$field=$('input',this.$el)
+this.options=options||{};var self=this;$('li',this.$el).click(function(){if(self.$el.hasClass('control-disabled'))
 return
-this.$container.removeClass('in')
-if(this.$overlay)this.$overlay.removeClass('in')
-this.disposeControls()
-$.support.transition&&this.$container.hasClass('fade')?this.$container.one($.support.transition.end,$.proxy(this.hidePopover,this)).emulateTransitionEnd(300):this.hidePopover()}
-Popover.prototype.disposeControls=function(){if(this.$container){$.oc.foundation.controlUtils.disposeControls(this.$container.get(0))}}
-Popover.prototype.hidePopover=function(){this.$container.remove();if(this.$overlay)this.$overlay.remove()
-this.$el.removeClass('popover-highlight')
-this.$el.trigger('hide.oc.popover')
-this.$overlay=false
-this.$container=false
-this.$el.data('oc.popover',null)
-$(document.body).removeClass('popover-open')
-$(document).unbind('mousedown',this.docClickHandler);$(document).off('.oc.popover')
-this.docClickHandler=null}
-Popover.prototype.show=function(options){var self=this
-var e=$.Event('showing.oc.popover',{relatedTarget:this.$el})
-this.$el.trigger(e,this)
-if(e.isDefaultPrevented())
-return
-this.$container=$('<div />').addClass('control-popover')
-if(this.options.containerClass)
-this.$container.addClass(this.options.containerClass)
-if(this.options.useAnimation)
-this.$container.addClass('fade')
-var $content=$('<div />').html(this.getContent())
-this.$container.append($content)
-if(this.options.width)
-this.$container.width(this.options.width)
-if(this.options.modal){this.$overlay=$('<div />').addClass('popover-overlay')
-$(document.body).append(this.$overlay)
-if(this.options.highlightModalTarget){this.$el.addClass('popover-highlight')
-this.$el.blur()}}else{this.$overlay=false}
-if(this.options.container)
-$(this.options.container).append(this.$container)
-else
-$(document.body).append(this.$container)
-var
-placement=this.calcPlacement(),position=this.calcPosition(placement)
-this.$container.css({left:position.x,top:position.y}).addClass('placement-'+placement)
-this.$container.addClass('in')
-if(this.$overlay)this.$overlay.addClass('in')
-$(document.body).addClass('popover-open')
-var showEvent=jQuery.Event('show.oc.popover',{relatedTarget:this.$container.get(0)})
-this.$el.trigger(showEvent)
-this.$container.on('close.oc.popover',function(e){self.hide()})
-this.$container.on('click','[data-dismiss=popover]',function(e){self.hide()
-return false})
-this.docClickHandler=$.proxy(this.onDocumentClick,this)
-$(document).bind('mousedown',this.docClickHandler);if(this.options.closeOnEsc){$(document).on('keyup.oc.popover',function(e){if($(e.target).hasClass('select2-offscreen'))
-return false
-if(e.keyCode==27){self.hide()
-return false}})}}
-Popover.prototype.getContent=function(){return typeof this.options.content=='function'?this.options.content.call(this.$el[0],this):this.options.content}
-Popover.prototype.calcDimensions=function(){var
-documentWidth=$(document).width(),documentHeight=$(document).height(),targetOffset=this.$el.offset(),targetWidth=this.$el.outerWidth(),targetHeight=this.$el.outerHeight()
-return{containerWidth:this.$container.outerWidth()+this.arrowSize,containerHeight:this.$container.outerHeight()+this.arrowSize,targetOffset:targetOffset,targetHeight:targetHeight,targetWidth:targetWidth,spaceLeft:targetOffset.left,spaceRight:documentWidth-(targetWidth+targetOffset.left),spaceTop:targetOffset.top,spaceBottom:documentHeight-(targetHeight+targetOffset.top),spaceHorizontalBottom:documentHeight-targetOffset.top,spaceVerticalRight:documentWidth-targetOffset.left,documentWidth:documentWidth}}
-Popover.prototype.fitsLeft=function(dimensions){return dimensions.spaceLeft>=dimensions.containerWidth&&dimensions.spaceHorizontalBottom>=dimensions.containerHeight}
-Popover.prototype.fitsRight=function(dimensions){return dimensions.spaceRight>=dimensions.containerWidth&&dimensions.spaceHorizontalBottom>=dimensions.containerHeight}
-Popover.prototype.fitsBottom=function(dimensions){return dimensions.spaceBottom>=dimensions.containerHeight&&dimensions.spaceVerticalRight>=dimensions.containerWidth}
-Popover.prototype.fitsTop=function(dimensions){return dimensions.spaceTop>=dimensions.containerHeight&&dimensions.spaceVerticalRight>=dimensions.containerWidth}
-Popover.prototype.calcPlacement=function(){var
-placement=this.options.placement,dimensions=this.calcDimensions();if(placement=='center')
-return placement
-if(placement!='bottom'&&placement!='top'&&placement!='left'&&placement!='right')
-placement='bottom'
-var placementFunctions={top:this.fitsTop,bottom:this.fitsBottom,left:this.fitsLeft,right:this.fitsRight}
-if(placementFunctions[placement](dimensions))
-return placement
-for(var index in placementFunctions){if(placementFunctions[index](dimensions))
-return index}
-return this.options.fallbackPlacement}
-Popover.prototype.calcPosition=function(placement){var
-dimensions=this.calcDimensions(),result
-switch(placement){case'left':var realOffset=this.options.offsetY===undefined?this.options.offset:this.options.offsetY
-result={x:(dimensions.targetOffset.left-dimensions.containerWidth),y:dimensions.targetOffset.top+realOffset}
-break;case'top':var realOffset=this.options.offsetX===undefined?this.options.offset:this.options.offsetX
-result={x:dimensions.targetOffset.left+realOffset,y:(dimensions.targetOffset.top-dimensions.containerHeight)}
-break;case'bottom':var realOffset=this.options.offsetX===undefined?this.options.offset:this.options.offsetX
-result={x:dimensions.targetOffset.left+realOffset,y:(dimensions.targetOffset.top+dimensions.targetHeight+this.arrowSize)}
-break;case'right':var realOffset=this.options.offsetY===undefined?this.options.offset:this.options.offsetY
-result={x:(dimensions.targetOffset.left+dimensions.targetWidth+this.arrowSize),y:dimensions.targetOffset.top+realOffset}
-break;case'center':var windowHeight=$(window).height()
-result={x:(dimensions.documentWidth/2-dimensions.containerWidth/2),y:(windowHeight/2-dimensions.containerHeight/2)}
-if(result.y<40)
-result.y=40
-break;}
-if(!this.options.container)
-return result
-var
-$container=$(this.options.container),containerOffset=$container.offset()
-result.x-=containerOffset.left
-result.y-=containerOffset.top
-return result}
-Popover.prototype.onDocumentClick=function(e){if(!this.options.closeOnPageClick)
-return
-if($.contains(this.$container.get(0),e.target))
-return
-this.hide();}
-Popover.DEFAULTS={placement:'bottom',fallbackPlacement:'bottom',content:'<p>Popover content<p>',width:false,modal:false,highlightModalTarget:false,closeOnPageClick:true,closeOnEsc:true,container:false,containerClass:null,offset:15,useAnimation:false}
-var old=$.fn.ocPopover
-$.fn.ocPopover=function(option){var args=arguments;return this.each(function(){var $this=$(this)
-var data=$this.data('oc.popover')
-var options=$.extend({},Popover.DEFAULTS,$this.data(),typeof option=='object'&&option)
-if(!data){if(typeof option=='string')
-return;$this.data('oc.popover',(data=new Popover(this,options)))}else{if(typeof option!='string')
-return;var methodArgs=[];for(var i=1;i<args.length;i++)
-methodArgs.push(args[i])
-data[option].apply(data,methodArgs)}})}
-$.fn.ocPopover.Constructor=Popover
-$.fn.ocPopover.noConflict=function(){$.fn.ocPopover=old
+$('li',self.$el).removeClass('active')
+$(this).addClass('active')
+self.$field.val($(this).data('value'))
+self.$el.trigger('change')})}
+BalloonSelector.DEFAULTS={}
+var old=$.fn.balloonSelector
+$.fn.balloonSelector=function(option){return this.each(function(){var $this=$(this)
+var data=$this.data('oc.balloon-selector')
+var options=$.extend({},BalloonSelector.DEFAULTS,$this.data(),typeof option=='object'&&option)
+if(!data)$this.data('oc.balloon-selector',(data=new BalloonSelector(this,options)))})}
+$.fn.balloonSelector.Constructor=BalloonSelector
+$.fn.balloonSelector.noConflict=function(){$.fn.balloonSelector=old
 return this}
-$(document).on('click','[data-control=popover]',function(e){$(this).ocPopover()
-return false;})}(window.jQuery);+function($){'use strict';var Tooltip=function(element,options){this.type=this.options=this.enabled=this.timeout=this.hoverState=this.$element=null
+$(document).on('render',function(){$('div[data-control=balloon-selector]').balloonSelector()})}(window.jQuery);(function($){$(document).on('keydown','div.custom-checkbox',function(e){if(e.keyCode==32)
+e.preventDefault()})
+$(document).on('keyup','div.custom-checkbox',function(e){if(e.keyCode==32){var $cb=$('input',this)
+if($cb.data('oc-space-timestamp')==e.timeStamp)
+return
+$cb.get(0).checked=!$cb.get(0).checked
+$cb.data('oc-space-timestamp',e.timeStamp)
+$cb.trigger('change')
+return false}})})(jQuery);+function($){'use strict';var backdrop='.dropdown-backdrop'
+var toggle='[data-toggle=dropdown]'
+var Dropdown=function(element){$(element).on('click.bs.dropdown',this.toggle)}
+Dropdown.prototype.toggle=function(e){var $this=$(this)
+if($this.is('.disabled, :disabled'))return
+var $parent=getParent($this)
+var isActive=$parent.hasClass('open')
+clearMenus()
+if(!isActive){if('ontouchstart'in document.documentElement&&!$parent.closest('.navbar-nav').length){$('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click',clearMenus)}
+var relatedTarget={relatedTarget:this}
+$parent.trigger(e=$.Event('show.bs.dropdown',relatedTarget))
+if(e.isDefaultPrevented())return
+$parent.toggleClass('open').trigger('shown.bs.dropdown',relatedTarget)
+$this.focus()}
+return false}
+Dropdown.prototype.keydown=function(e){if(!/(38|40|27)/.test(e.keyCode))return
+var $this=$(this)
+e.preventDefault()
+e.stopPropagation()
+if($this.is('.disabled, :disabled'))return
+var $parent=getParent($this)
+var isActive=$parent.hasClass('open')
+if(!isActive||(isActive&&e.keyCode==27)){if(e.which==27)$parent.find(toggle).focus()
+return $this.click()}
+var desc=' li:not(.divider):visible a'
+var $items=$parent.find('[role=menu]'+desc+', [role=listbox]'+desc)
+if(!$items.length)return
+var index=$items.index($items.filter(':focus'))
+if(e.keyCode==38&&index>0)index--
+if(e.keyCode==40&&index<$items.length-1)index++
+if(!~index)index=0
+$items.eq(index).focus()}
+function clearMenus(e){$(backdrop).remove()
+$(toggle).each(function(){var $parent=getParent($(this))
+var relatedTarget={relatedTarget:this}
+if(!$parent.hasClass('open'))return
+$parent.trigger(e=$.Event('hide.bs.dropdown',relatedTarget))
+if(e.isDefaultPrevented())return
+$parent.removeClass('open').trigger('hidden.bs.dropdown',relatedTarget)})}
+function getParent($this){var selector=$this.attr('data-target')
+if(!selector){selector=$this.attr('href')
+selector=selector&&/#[A-Za-z]/.test(selector)&&selector.replace(/.*(?=#[^\s]*$)/,'')}
+var $parent=selector&&$(selector)
+return $parent&&$parent.length?$parent:$this.parent()}
+var old=$.fn.dropdown
+$.fn.dropdown=function(option){return this.each(function(){var $this=$(this)
+var data=$this.data('bs.dropdown')
+if(!data)$this.data('bs.dropdown',(data=new Dropdown(this)))
+if(typeof option=='string')data[option].call($this)})}
+$.fn.dropdown.Constructor=Dropdown
+$.fn.dropdown.noConflict=function(){$.fn.dropdown=old
+return this}
+$(document).on('click.bs.dropdown.data-api',clearMenus).on('click.bs.dropdown.data-api','.dropdown form',function(e){e.stopPropagation()}).on('click.bs.dropdown.data-api',toggle,Dropdown.prototype.toggle).on('keydown.bs.dropdown.data-api',toggle+', [role=menu], [role=listbox]',Dropdown.prototype.keydown)}(jQuery);+function($){"use strict";$(document).on('shown.bs.dropdown','.dropdown',function(){$(document.body).addClass('dropdown-open')
+var dropdown=$('.dropdown-menu',this),dropdownContainer=$(this).data('dropdown-container')
+if($('.dropdown-container',dropdown).length==0){var title=$('[data-toggle=dropdown]',this).text(),titleAttr=dropdown.data('dropdown-title'),timer=null
+if(titleAttr!==undefined)
+title=titleAttr
+$('li:first-child',dropdown).addClass('first-item')
+dropdown.prepend($('<li/>').addClass('dropdown-title').text(title))
+var container=$('<li/>').addClass('dropdown-container'),ul=$('<ul/>')
+container.prepend(ul)
+ul.prepend(dropdown.children())
+dropdown.prepend(container)
+dropdown.on('touchstart',function(){window.setTimeout(function(){dropdown.addClass('scroll')},200)})
+dropdown.on('touchend',function(){window.setTimeout(function(){dropdown.removeClass('scroll')},200)})
+dropdown.on('click','a',function(){if(dropdown.hasClass('scroll'))
+return false})}
+if(dropdownContainer!==undefined&&dropdownContainer=='body'){$(this).data('oc.dropdown',dropdown)
+$(document.body).append(dropdown)
+dropdown.css({'visibility':'hidden','left':0,'top':0,'display':'block'})
+var targetOffset=$(this).offset(),targetHeight=$(this).height(),targetWidth=$(this).width(),position={x:targetOffset.left,y:targetOffset.top+targetHeight},leftOffset=targetWidth<30?-16:0,documentHeight=$(document).height(),dropdownHeight=dropdown.height()
+if((dropdownHeight+position.y)>$(document).height()){position.y=targetOffset.top-dropdownHeight-12
+dropdown.addClass('top')}
+else{dropdown.removeClass('top')}
+dropdown.css({'left':position.x+leftOffset,'top':position.y,'visibility':'visible'})}
+if($('.dropdown-overlay',document.body).length==0){$(document.body).prepend($('<div/>').addClass('dropdown-overlay'));}})
+$(document).on('hidden.bs.dropdown','.dropdown',function(){var dropdown=$(this).data('oc.dropdown')
+if(dropdown!==undefined){dropdown.css('display','none')
+$(this).append(dropdown)}
+$(document.body).removeClass('dropdown-open');})
+var $dropdown,$container,$target
+function fixDropdownPosition(){var position=$container.offset()
+$dropdown.css({position:'fixed',top:position.top-1-$(window).scrollTop()+$target.outerHeight(),left:position.left})}
+$(document).on('shown.bs.dropdown','.dropdown.dropdown-fixed',function(event,eventData){$container=$(this)
+$dropdown=$('.dropdown-menu',$container)
+$target=$(eventData.relatedTarget)
+fixDropdownPosition()
+$(window).on('scroll.oc.dropdown, resize.oc.dropdown',fixDropdownPosition)})
+$(document).on('hidden.bs.dropdown','.dropdown.dropdown-fixed',function(){$(window).off('scroll.oc.dropdown, resize.oc.dropdown',fixDropdownPosition)})}(window.jQuery);+function($){'use strict';var dismiss='[data-dismiss="callout"]'
+var Callout=function(el){$(el).on('click',dismiss,this.close)}
+Callout.prototype.close=function(e){var $this=$(this)
+var selector=$this.attr('data-target')
+if(!selector){selector=$this.attr('href')
+selector=selector&&selector.replace(/.*(?=#[^\s]*$)/,'')}
+var $parent=$(selector)
+if(e)e.preventDefault()
+if(!$parent.length){$parent=$this.hasClass('callout')?$this:$this.parent()}
+$parent.trigger(e=$.Event('close.oc.callout'))
+if(e.isDefaultPrevented())return
+$parent.removeClass('in')
+function removeElement(){$parent.trigger('closed.oc.callout').remove()}
+$.support.transition&&$parent.hasClass('fade')?$parent.one($.support.transition.end,removeElement).emulateTransitionEnd(500):removeElement()}
+var old=$.fn.callout
+$.fn.callout=function(option){return this.each(function(){var $this=$(this)
+var data=$this.data('oc.callout')
+if(!data)$this.data('oc.callout',(data=new Callout(this)))
+if(typeof option=='string')data[option].call($this)})}
+$.fn.callout.Constructor=Callout
+$.fn.callout.noConflict=function(){$.fn.callout=old
+return this}
+$(document).on('click.oc.callout.data-api',dismiss,Callout.prototype.close)}(jQuery);+function($){'use strict';var Tooltip=function(element,options){this.type=this.options=this.enabled=this.timeout=this.hoverState=this.$element=null
 this.init('tooltip',element,options)}
 Tooltip.DEFAULTS={animation:true,placement:'top',selector:false,template:'<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',trigger:'hover focus',title:'',delay:0,html:false,container:false}
 Tooltip.prototype.init=function(type,element,options){this.enabled=true
@@ -471,32 +380,555 @@ if(!data)$this.data('bs.tooltip',(data=new Tooltip(this,options)))
 if(typeof option=='string')data[option]()})}
 $.fn.tooltip.Constructor=Tooltip
 $.fn.tooltip.noConflict=function(){$.fn.tooltip=old
-return this}}(jQuery);(function($){$(document).render(function(){$('[data-control="tooltip"], [data-toggle="tooltip"]').tooltip()})})(jQuery);+function($){"use strict";var BalloonSelector=function(element,options){this.$el=$(element)
-this.$field=$('input',this.$el)
-this.options=options||{};var self=this;$('li',this.$el).click(function(){if(self.$el.hasClass('control-disabled'))
+return this}}(jQuery);(function($){$(document).render(function(){$('[data-control="tooltip"], [data-toggle="tooltip"]').tooltip()})})(jQuery);;window.Modernizr=(function(window,document,undefined){var version='2.8.3',Modernizr={},enableClasses=true,docElement=document.documentElement,mod='modernizr',modElem=document.createElement(mod),mStyle=modElem.style,inputElem=document.createElement('input'),smile=':)',toString={}.toString,prefixes=' -webkit- -moz- -o- -ms- '.split(' '),omPrefixes='Webkit Moz O ms',cssomPrefixes=omPrefixes.split(' '),domPrefixes=omPrefixes.toLowerCase().split(' '),ns={'svg':'http://www.w3.org/2000/svg'},tests={},inputs={},attrs={},classes=[],slice=classes.slice,featureName,injectElementWithStyles=function(rule,callback,nodes,testnames){var style,ret,node,docOverflow,div=document.createElement('div'),body=document.body,fakeBody=body||document.createElement('body');if(parseInt(nodes,10)){while(nodes--){node=document.createElement('div');node.id=testnames?testnames[nodes]:mod+(nodes+1);div.appendChild(node);}}
+style=['&#173;','<style id="s',mod,'">',rule,'</style>'].join('');div.id=mod;(body?div:fakeBody).innerHTML+=style;fakeBody.appendChild(div);if(!body){fakeBody.style.background='';fakeBody.style.overflow='hidden';docOverflow=docElement.style.overflow;docElement.style.overflow='hidden';docElement.appendChild(fakeBody);}
+ret=callback(div,rule);if(!body){fakeBody.parentNode.removeChild(fakeBody);docElement.style.overflow=docOverflow;}else{div.parentNode.removeChild(div);}
+return!!ret;},testMediaQuery=function(mq){var matchMedia=window.matchMedia||window.msMatchMedia;if(matchMedia){return matchMedia(mq)&&matchMedia(mq).matches||false;}
+var bool;injectElementWithStyles('@media '+mq+' { #'+mod+' { position: absolute; } }',function(node){bool=(window.getComputedStyle?getComputedStyle(node,null):node.currentStyle)['position']=='absolute';});return bool;},isEventSupported=(function(){var TAGNAMES={'select':'input','change':'input','submit':'form','reset':'form','error':'img','load':'img','abort':'img'};function isEventSupported(eventName,element){element=element||document.createElement(TAGNAMES[eventName]||'div');eventName='on'+eventName;var isSupported=eventName in element;if(!isSupported){if(!element.setAttribute){element=document.createElement('div');}
+if(element.setAttribute&&element.removeAttribute){element.setAttribute(eventName,'');isSupported=is(element[eventName],'function');if(!is(element[eventName],'undefined')){element[eventName]=undefined;}
+element.removeAttribute(eventName);}}
+element=null;return isSupported;}
+return isEventSupported;})(),_hasOwnProperty=({}).hasOwnProperty,hasOwnProp;if(!is(_hasOwnProperty,'undefined')&&!is(_hasOwnProperty.call,'undefined')){hasOwnProp=function(object,property){return _hasOwnProperty.call(object,property);};}
+else{hasOwnProp=function(object,property){return((property in object)&&is(object.constructor.prototype[property],'undefined'));};}
+if(!Function.prototype.bind){Function.prototype.bind=function bind(that){var target=this;if(typeof target!="function"){throw new TypeError();}
+var args=slice.call(arguments,1),bound=function(){if(this instanceof bound){var F=function(){};F.prototype=target.prototype;var self=new F();var result=target.apply(self,args.concat(slice.call(arguments)));if(Object(result)===result){return result;}
+return self;}else{return target.apply(that,args.concat(slice.call(arguments)));}};return bound;};}
+function setCss(str){mStyle.cssText=str;}
+function setCssAll(str1,str2){return setCss(prefixes.join(str1+';')+(str2||''));}
+function is(obj,type){return typeof obj===type;}
+function contains(str,substr){return!!~(''+str).indexOf(substr);}
+function testProps(props,prefixed){for(var i in props){var prop=props[i];if(!contains(prop,"-")&&mStyle[prop]!==undefined){return prefixed=='pfx'?prop:true;}}
+return false;}
+function testDOMProps(props,obj,elem){for(var i in props){var item=obj[props[i]];if(item!==undefined){if(elem===false)return props[i];if(is(item,'function')){return item.bind(elem||obj);}
+return item;}}
+return false;}
+function testPropsAll(prop,prefixed,elem){var ucProp=prop.charAt(0).toUpperCase()+prop.slice(1),props=(prop+' '+cssomPrefixes.join(ucProp+' ')+ucProp).split(' ');if(is(prefixed,"string")||is(prefixed,"undefined")){return testProps(props,prefixed);}else{props=(prop+' '+(domPrefixes).join(ucProp+' ')+ucProp).split(' ');return testDOMProps(props,prefixed,elem);}}tests['flexbox']=function(){return testPropsAll('flexWrap');};tests['flexboxlegacy']=function(){return testPropsAll('boxDirection');};tests['canvas']=function(){var elem=document.createElement('canvas');return!!(elem.getContext&&elem.getContext('2d'));};tests['canvastext']=function(){return!!(Modernizr['canvas']&&is(document.createElement('canvas').getContext('2d').fillText,'function'));};tests['webgl']=function(){return!!window.WebGLRenderingContext;};tests['touch']=function(){var bool;if(('ontouchstart'in window)||window.DocumentTouch&&document instanceof DocumentTouch){bool=true;}else{injectElementWithStyles(['@media (',prefixes.join('touch-enabled),('),mod,')','{#modernizr{top:9px;position:absolute}}'].join(''),function(node){bool=node.offsetTop===9;});}
+return bool;};tests['geolocation']=function(){return'geolocation'in navigator;};tests['postmessage']=function(){return!!window.postMessage;};tests['websqldatabase']=function(){return!!window.openDatabase;};tests['indexedDB']=function(){return!!testPropsAll("indexedDB",window);};tests['hashchange']=function(){return isEventSupported('hashchange',window)&&(document.documentMode===undefined||document.documentMode>7);};tests['history']=function(){return!!(window.history&&history.pushState);};tests['draganddrop']=function(){var div=document.createElement('div');return('draggable'in div)||('ondragstart'in div&&'ondrop'in div);};tests['websockets']=function(){return'WebSocket'in window||'MozWebSocket'in window;};tests['rgba']=function(){setCss('background-color:rgba(150,255,150,.5)');return contains(mStyle.backgroundColor,'rgba');};tests['hsla']=function(){setCss('background-color:hsla(120,40%,100%,.5)');return contains(mStyle.backgroundColor,'rgba')||contains(mStyle.backgroundColor,'hsla');};tests['multiplebgs']=function(){setCss('background:url(https://),url(https://),red url(https://)');return(/(url\s*\(.*?){3}/).test(mStyle.background);};tests['backgroundsize']=function(){return testPropsAll('backgroundSize');};tests['borderimage']=function(){return testPropsAll('borderImage');};tests['borderradius']=function(){return testPropsAll('borderRadius');};tests['boxshadow']=function(){return testPropsAll('boxShadow');};tests['textshadow']=function(){return document.createElement('div').style.textShadow==='';};tests['opacity']=function(){setCssAll('opacity:.55');return(/^0.55$/).test(mStyle.opacity);};tests['cssanimations']=function(){return testPropsAll('animationName');};tests['csscolumns']=function(){return testPropsAll('columnCount');};tests['cssgradients']=function(){var str1='background-image:',str2='gradient(linear,left top,right bottom,from(#9f9),to(white));',str3='linear-gradient(left top,#9f9, white);';setCss((str1+'-webkit- '.split(' ').join(str2+str1)+
+prefixes.join(str3+str1)).slice(0,-str1.length));return contains(mStyle.backgroundImage,'gradient');};tests['cssreflections']=function(){return testPropsAll('boxReflect');};tests['csstransforms']=function(){return!!testPropsAll('transform');};tests['csstransforms3d']=function(){var ret=!!testPropsAll('perspective');if(ret&&'webkitPerspective'in docElement.style){injectElementWithStyles('@media (transform-3d),(-webkit-transform-3d){#modernizr{left:9px;position:absolute;height:3px;}}',function(node,rule){ret=node.offsetLeft===9&&node.offsetHeight===3;});}
+return ret;};tests['csstransitions']=function(){return testPropsAll('transition');};tests['fontface']=function(){var bool;injectElementWithStyles('@font-face {font-family:"font";src:url("https://")}',function(node,rule){var style=document.getElementById('smodernizr'),sheet=style.sheet||style.styleSheet,cssText=sheet?(sheet.cssRules&&sheet.cssRules[0]?sheet.cssRules[0].cssText:sheet.cssText||''):'';bool=/src/i.test(cssText)&&cssText.indexOf(rule.split(' ')[0])===0;});return bool;};tests['generatedcontent']=function(){var bool;injectElementWithStyles(['#',mod,'{font:0/0 a}#',mod,':after{content:"',smile,'";visibility:hidden;font:3px/1 a}'].join(''),function(node){bool=node.offsetHeight>=3;});return bool;};tests['video']=function(){var elem=document.createElement('video'),bool=false;try{if(bool=!!elem.canPlayType){bool=new Boolean(bool);bool.ogg=elem.canPlayType('video/ogg; codecs="theora"').replace(/^no$/,'');bool.h264=elem.canPlayType('video/mp4; codecs="avc1.42E01E"').replace(/^no$/,'');bool.webm=elem.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/^no$/,'');}}catch(e){}
+return bool;};tests['audio']=function(){var elem=document.createElement('audio'),bool=false;try{if(bool=!!elem.canPlayType){bool=new Boolean(bool);bool.ogg=elem.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/,'');bool.mp3=elem.canPlayType('audio/mpeg;').replace(/^no$/,'');bool.wav=elem.canPlayType('audio/wav; codecs="1"').replace(/^no$/,'');bool.m4a=(elem.canPlayType('audio/x-m4a;')||elem.canPlayType('audio/aac;')).replace(/^no$/,'');}}catch(e){}
+return bool;};tests['localstorage']=function(){try{localStorage.setItem(mod,mod);localStorage.removeItem(mod);return true;}catch(e){return false;}};tests['sessionstorage']=function(){try{sessionStorage.setItem(mod,mod);sessionStorage.removeItem(mod);return true;}catch(e){return false;}};tests['webworkers']=function(){return!!window.Worker;};tests['applicationcache']=function(){return!!window.applicationCache;};tests['svg']=function(){return!!document.createElementNS&&!!document.createElementNS(ns.svg,'svg').createSVGRect;};tests['inlinesvg']=function(){var div=document.createElement('div');div.innerHTML='<svg/>';return(div.firstChild&&div.firstChild.namespaceURI)==ns.svg;};tests['smil']=function(){return!!document.createElementNS&&/SVGAnimate/.test(toString.call(document.createElementNS(ns.svg,'animate')));};tests['svgclippaths']=function(){return!!document.createElementNS&&/SVGClipPath/.test(toString.call(document.createElementNS(ns.svg,'clipPath')));};function webforms(){Modernizr['input']=(function(props){for(var i=0,len=props.length;i<len;i++){attrs[props[i]]=!!(props[i]in inputElem);}
+if(attrs.list){attrs.list=!!(document.createElement('datalist')&&window.HTMLDataListElement);}
+return attrs;})('autocomplete autofocus list placeholder max min multiple pattern required step'.split(' '));Modernizr['inputtypes']=(function(props){for(var i=0,bool,inputElemType,defaultView,len=props.length;i<len;i++){inputElem.setAttribute('type',inputElemType=props[i]);bool=inputElem.type!=='text';if(bool){inputElem.value=smile;inputElem.style.cssText='position:absolute;visibility:hidden;';if(/^range$/.test(inputElemType)&&inputElem.style.WebkitAppearance!==undefined){docElement.appendChild(inputElem);defaultView=document.defaultView;bool=defaultView.getComputedStyle&&defaultView.getComputedStyle(inputElem,null).WebkitAppearance!=='textfield'&&(inputElem.offsetHeight!==0);docElement.removeChild(inputElem);}else if(/^(search|tel)$/.test(inputElemType)){}else if(/^(url|email)$/.test(inputElemType)){bool=inputElem.checkValidity&&inputElem.checkValidity()===false;}else{bool=inputElem.value!=smile;}}
+inputs[props[i]]=!!bool;}
+return inputs;})('search tel url email datetime date month week time datetime-local number range color'.split(' '));}
+for(var feature in tests){if(hasOwnProp(tests,feature)){featureName=feature.toLowerCase();Modernizr[featureName]=tests[feature]();classes.push((Modernizr[featureName]?'':'no-')+featureName);}}
+Modernizr.input||webforms();Modernizr.addTest=function(feature,test){if(typeof feature=='object'){for(var key in feature){if(hasOwnProp(feature,key)){Modernizr.addTest(key,feature[key]);}}}else{feature=feature.toLowerCase();if(Modernizr[feature]!==undefined){return Modernizr;}
+test=typeof test=='function'?test():test;if(typeof enableClasses!=="undefined"&&enableClasses){docElement.className+=' '+(test?'':'no-')+feature;}
+Modernizr[feature]=test;}
+return Modernizr;};setCss('');modElem=inputElem=null;;(function(window,document){var version='3.7.0';var options=window.html5||{};var reSkip=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i;var saveClones=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i;var supportsHtml5Styles;var expando='_html5shiv';var expanID=0;var expandoData={};var supportsUnknownElements;(function(){try{var a=document.createElement('a');a.innerHTML='<xyz></xyz>';supportsHtml5Styles=('hidden'in a);supportsUnknownElements=a.childNodes.length==1||(function(){(document.createElement)('a');var frag=document.createDocumentFragment();return(typeof frag.cloneNode=='undefined'||typeof frag.createDocumentFragment=='undefined'||typeof frag.createElement=='undefined');}());}catch(e){supportsHtml5Styles=true;supportsUnknownElements=true;}}());function addStyleSheet(ownerDocument,cssText){var p=ownerDocument.createElement('p'),parent=ownerDocument.getElementsByTagName('head')[0]||ownerDocument.documentElement;p.innerHTML='x<style>'+cssText+'</style>';return parent.insertBefore(p.lastChild,parent.firstChild);}
+function getElements(){var elements=html5.elements;return typeof elements=='string'?elements.split(' '):elements;}
+function getExpandoData(ownerDocument){var data=expandoData[ownerDocument[expando]];if(!data){data={};expanID++;ownerDocument[expando]=expanID;expandoData[expanID]=data;}
+return data;}
+function createElement(nodeName,ownerDocument,data){if(!ownerDocument){ownerDocument=document;}
+if(supportsUnknownElements){return ownerDocument.createElement(nodeName);}
+if(!data){data=getExpandoData(ownerDocument);}
+var node;if(data.cache[nodeName]){node=data.cache[nodeName].cloneNode();}else if(saveClones.test(nodeName)){node=(data.cache[nodeName]=data.createElem(nodeName)).cloneNode();}else{node=data.createElem(nodeName);}
+return node.canHaveChildren&&!reSkip.test(nodeName)&&!node.tagUrn?data.frag.appendChild(node):node;}
+function createDocumentFragment(ownerDocument,data){if(!ownerDocument){ownerDocument=document;}
+if(supportsUnknownElements){return ownerDocument.createDocumentFragment();}
+data=data||getExpandoData(ownerDocument);var clone=data.frag.cloneNode(),i=0,elems=getElements(),l=elems.length;for(;i<l;i++){clone.createElement(elems[i]);}
+return clone;}
+function shivMethods(ownerDocument,data){if(!data.cache){data.cache={};data.createElem=ownerDocument.createElement;data.createFrag=ownerDocument.createDocumentFragment;data.frag=data.createFrag();}
+ownerDocument.createElement=function(nodeName){if(!html5.shivMethods){return data.createElem(nodeName);}
+return createElement(nodeName,ownerDocument,data);};ownerDocument.createDocumentFragment=Function('h,f','return function(){'+'var n=f.cloneNode(),c=n.createElement;'+'h.shivMethods&&('+
+getElements().join().replace(/[\w\-]+/g,function(nodeName){data.createElem(nodeName);data.frag.createElement(nodeName);return'c("'+nodeName+'")';})+');return n}')(html5,data.frag);}
+function shivDocument(ownerDocument){if(!ownerDocument){ownerDocument=document;}
+var data=getExpandoData(ownerDocument);if(html5.shivCSS&&!supportsHtml5Styles&&!data.hasCSS){data.hasCSS=!!addStyleSheet(ownerDocument,'article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}'+'mark{background:#FF0;color:#000}'+'template{display:none}');}
+if(!supportsUnknownElements){shivMethods(ownerDocument,data);}
+return ownerDocument;}
+var html5={'elements':options.elements||'abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video','version':version,'shivCSS':(options.shivCSS!==false),'supportsUnknownElements':supportsUnknownElements,'shivMethods':(options.shivMethods!==false),'type':'default','shivDocument':shivDocument,createElement:createElement,createDocumentFragment:createDocumentFragment};window.html5=html5;shivDocument(document);}(this,document));Modernizr._version=version;Modernizr._prefixes=prefixes;Modernizr._domPrefixes=domPrefixes;Modernizr._cssomPrefixes=cssomPrefixes;Modernizr.mq=testMediaQuery;Modernizr.hasEvent=isEventSupported;Modernizr.testProp=function(prop){return testProps([prop]);};Modernizr.testAllProps=testPropsAll;Modernizr.testStyles=injectElementWithStyles;docElement.className=docElement.className.replace(/(^|\s)no-js(\s|$)/,'$1$2')+
+(enableClasses?' js '+classes.join(' '):'');return Modernizr;})(this,this.document);(function(a,b,c){function d(a){return"[object Function]"==o.call(a)}function e(a){return"string"==typeof a}function f(){}function g(a){return!a||"loaded"==a||"complete"==a||"uninitialized"==a}function h(){var a=p.shift();q=1,a?a.t?m(function(){("c"==a.t?B.injectCss:B.injectJs)(a.s,0,a.a,a.x,a.e,1)},0):(a(),h()):q=0}function i(a,c,d,e,f,i,j){function k(b){if(!o&&g(l.readyState)&&(u.r=o=1,!q&&h(),l.onload=l.onreadystatechange=null,b)){"img"!=a&&m(function(){t.removeChild(l)},50);for(var d in y[c])y[c].hasOwnProperty(d)&&y[c][d].onload()}}var j=j||B.errorTimeout,l=b.createElement(a),o=0,r=0,u={t:d,s:c,e:f,a:i,x:j};1===y[c]&&(r=1,y[c]=[]),"object"==a?l.data=c:(l.src=c,l.type=a),l.width=l.height="0",l.onerror=l.onload=l.onreadystatechange=function(){k.call(this,r)},p.splice(e,0,u),"img"!=a&&(r||2===y[c]?(t.insertBefore(l,s?null:n),m(k,j)):y[c].push(l))}function j(a,b,c,d,f){return q=0,b=b||"j",e(a)?i("c"==b?v:u,a,b,this.i++,c,d,f):(p.splice(this.i++,0,a),1==p.length&&h()),this}function k(){var a=B;return a.loader={load:j,i:0},a}var l=b.documentElement,m=a.setTimeout,n=b.getElementsByTagName("script")[0],o={}.toString,p=[],q=0,r="MozAppearance"in l.style,s=r&&!!b.createRange().compareNode,t=s?l:n.parentNode,l=a.opera&&"[object Opera]"==o.call(a.opera),l=!!b.attachEvent&&!l,u=r?"object":l?"script":"img",v=l?"script":u,w=Array.isArray||function(a){return"[object Array]"==o.call(a)},x=[],y={},z={timeout:function(a,b){return b.length&&(a.timeout=b[0]),a}},A,B;B=function(a){function b(a){var a=a.split("!"),b=x.length,c=a.pop(),d=a.length,c={url:c,origUrl:c,prefixes:a},e,f,g;for(f=0;f<d;f++)g=a[f].split("="),(e=z[g.shift()])&&(c=e(c,g));for(f=0;f<b;f++)c=x[f](c);return c}function g(a,e,f,g,h){var i=b(a),j=i.autoCallback;i.url.split(".").pop().split("?").shift(),i.bypass||(e&&(e=d(e)?e:e[a]||e[g]||e[a.split("/").pop().split("?")[0]]),i.instead?i.instead(a,e,f,g,h):(y[i.url]?i.noexec=!0:y[i.url]=1,f.load(i.url,i.forceCSS||!i.forceJS&&"css"==i.url.split(".").pop().split("?").shift()?"c":c,i.noexec,i.attrs,i.timeout),(d(e)||d(j))&&f.load(function(){k(),e&&e(i.origUrl,h,g),j&&j(i.origUrl,h,g),y[i.url]=2})))}function h(a,b){function c(a,c){if(a){if(e(a))c||(j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}),g(a,j,b,0,h);else if(Object(a)===a)for(n in m=function(){var b=0,c;for(c in a)a.hasOwnProperty(c)&&b++;return b}(),a)a.hasOwnProperty(n)&&(!c&&!--m&&(d(j)?j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}:j[n]=function(a){return function(){var b=[].slice.call(arguments);a&&a.apply(this,b),l()}}(k[n])),g(a[n],j,b,n,h))}else!c&&l()}var h=!!a.test,i=a.load||a.both,j=a.callback||f,k=j,l=a.complete||f,m,n;c(h?a.yep:a.nope,!!i),i&&c(i)}var i,j,l=this.yepnope.loader;if(e(a))g(a,0,l,0);else if(w(a))for(i=0;i<a.length;i++)j=a[i],e(j)?g(j,0,l,0):w(j)?B(j):Object(j)===j&&h(j,l);else Object(a)===a&&h(a,l)},B.addPrefix=function(a,b){z[a]=b},B.addFilter=function(a){x.push(a)},B.errorTimeout=1e4,null==b.readyState&&b.addEventListener&&(b.readyState="loading",b.addEventListener("DOMContentLoaded",A=function(){b.removeEventListener("DOMContentLoaded",A,0),b.readyState="complete"},0)),a.yepnope=k(),a.yepnope.executeStack=h,a.yepnope.injectJs=function(a,c,d,e,i,j){var k=b.createElement("script"),l,o,e=e||B.errorTimeout;k.src=a;for(o in d)k.setAttribute(o,d[o]);c=j?h:c||f,k.onreadystatechange=k.onload=function(){!l&&g(k.readyState)&&(l=1,c(),k.onload=k.onreadystatechange=null)},m(function(){l||(l=1,c(1))},e),i?k.onload():n.parentNode.insertBefore(k,n)},a.yepnope.injectCss=function(a,c,d,e,g,i){var e=b.createElement("link"),j,c=i?h:c||f;e.href=a,e.rel="stylesheet",e.type="text/css";for(j in d)e.setAttribute(j,d[j]);g||(n.parentNode.insertBefore(e,n),m(c,0))}})(this,document);Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0));};;(function(factory){if(typeof define==='function'&&define.amd){define(['jquery'],factory);}else if(typeof exports==='object'){module.exports=factory;}else{factory(jQuery);}}(function($){var toFix=['wheel','mousewheel','DOMMouseScroll','MozMousePixelScroll'],toBind=('onwheel'in document||document.documentMode>=9)?['wheel']:['mousewheel','DomMouseScroll','MozMousePixelScroll'],slice=Array.prototype.slice,nullLowestDeltaTimeout,lowestDelta;if($.event.fixHooks){for(var i=toFix.length;i;){$.event.fixHooks[toFix[--i]]=$.event.mouseHooks;}}
+var special=$.event.special.mousewheel={version:'3.1.9',setup:function(){if(this.addEventListener){for(var i=toBind.length;i;){this.addEventListener(toBind[--i],handler,false);}}else{this.onmousewheel=handler;}
+$.data(this,'mousewheel-line-height',special.getLineHeight(this));$.data(this,'mousewheel-page-height',special.getPageHeight(this));},teardown:function(){if(this.removeEventListener){for(var i=toBind.length;i;){this.removeEventListener(toBind[--i],handler,false);}}else{this.onmousewheel=null;}},getLineHeight:function(elem){return parseInt($(elem)['offsetParent'in $.fn?'offsetParent':'parent']().css('fontSize'),10);},getPageHeight:function(elem){return $(elem).height();},settings:{adjustOldDeltas:true}};$.fn.extend({mousewheel:function(fn){return fn?this.bind('mousewheel',fn):this.trigger('mousewheel');},unmousewheel:function(fn){return this.unbind('mousewheel',fn);}});function handler(event){var orgEvent=event||window.event,args=slice.call(arguments,1),delta=0,deltaX=0,deltaY=0,absDelta=0;event=$.event.fix(orgEvent);event.type='mousewheel';if('detail'in orgEvent){deltaY=orgEvent.detail*-1;}
+if('wheelDelta'in orgEvent){deltaY=orgEvent.wheelDelta;}
+if('wheelDeltaY'in orgEvent){deltaY=orgEvent.wheelDeltaY;}
+if('wheelDeltaX'in orgEvent){deltaX=orgEvent.wheelDeltaX*-1;}
+if('axis'in orgEvent&&orgEvent.axis===orgEvent.HORIZONTAL_AXIS){deltaX=deltaY*-1;deltaY=0;}
+delta=deltaY===0?deltaX:deltaY;if('deltaY'in orgEvent){deltaY=orgEvent.deltaY*-1;delta=deltaY;}
+if('deltaX'in orgEvent){deltaX=orgEvent.deltaX;if(deltaY===0){delta=deltaX*-1;}}
+if(deltaY===0&&deltaX===0){return;}
+if(orgEvent.deltaMode===1){var lineHeight=$.data(this,'mousewheel-line-height');delta*=lineHeight;deltaY*=lineHeight;deltaX*=lineHeight;}else if(orgEvent.deltaMode===2){var pageHeight=$.data(this,'mousewheel-page-height');delta*=pageHeight;deltaY*=pageHeight;deltaX*=pageHeight;}
+absDelta=Math.max(Math.abs(deltaY),Math.abs(deltaX));if(!lowestDelta||absDelta<lowestDelta){lowestDelta=absDelta;if(shouldAdjustOldDeltas(orgEvent,absDelta)){lowestDelta/=40;}}
+if(shouldAdjustOldDeltas(orgEvent,absDelta)){delta/=40;deltaX/=40;deltaY/=40;}
+delta=Math[delta>=1?'floor':'ceil'](delta/lowestDelta);deltaX=Math[deltaX>=1?'floor':'ceil'](deltaX/lowestDelta);deltaY=Math[deltaY>=1?'floor':'ceil'](deltaY/lowestDelta);event.deltaX=deltaX;event.deltaY=deltaY;event.deltaFactor=lowestDelta;event.deltaMode=0;args.unshift(event,delta,deltaX,deltaY);if(nullLowestDeltaTimeout){clearTimeout(nullLowestDeltaTimeout);}
+nullLowestDeltaTimeout=setTimeout(nullLowestDelta,200);return($.event.dispatch||$.event.handle).apply(this,args);}
+function nullLowestDelta(){lowestDelta=null;}
+function shouldAdjustOldDeltas(orgEvent,absDelta){return special.settings.adjustOldDeltas&&orgEvent.type==='mousewheel'&&absDelta%120===0;}}));+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var DragScroll=function(element,options){this.options=$.extend({},DragScroll.DEFAULTS,options)
+var
+$el=$(element),el=$el.get(0),dragStart=0,startOffset=0,self=this,dragging=false,eventElementName=this.options.vertical?'pageY':'pageX';this.el=$el
+this.scrollClassContainer=this.options.scrollClassContainer?$(this.options.scrollClassContainer):$el
+Base.call(this)
+if(this.options.scrollMarkerContainer){$(this.options.scrollMarkerContainer).append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))}
+$el.mousewheel(function(event){if(!self.options.allowScroll)
+return;var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):(event.deltaFactor*event.deltaX)
+return!scrollWheel(offset)})
+if(!options.noDragSupport){$el.on('mousedown.dragScroll',function(event){if(event.target&&event.target.tagName==='INPUT')
 return
-$('li',self.$el).removeClass('active')
-$(this).addClass('active')
-self.$field.val($(this).data('value'))
-self.$el.trigger('change')})}
-BalloonSelector.DEFAULTS={}
-var old=$.fn.balloonSelector
-$.fn.balloonSelector=function(option){return this.each(function(){var $this=$(this)
-var data=$this.data('oc.balloon-selector')
-var options=$.extend({},BalloonSelector.DEFAULTS,$this.data(),typeof option=='object'&&option)
-if(!data)$this.data('oc.balloon-selector',(data=new BalloonSelector(this,options)))})}
-$.fn.balloonSelector.Constructor=BalloonSelector
-$.fn.balloonSelector.noConflict=function(){$.fn.balloonSelector=old
+startDrag(event)
+return false})}
+$el.on('touchstart.dragScroll',function(event){var touchEvent=event.originalEvent;if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
+event.stopPropagation()}})
+$el.on('click.dragScroll',function(){if($(document.body).hasClass('drag'))
+return false})
+$(document).on('ready',this.proxy(this.fixScrollClasses))
+$(window).on('resize',this.proxy(this.fixScrollClasses))
+function startDrag(event){dragStart=event[eventElementName]
+startOffset=self.options.vertical?$el.scrollTop():$el.scrollLeft()
+if(Modernizr.touch){$(window).on('touchmove.dragScroll',function(event){var touchEvent=event.originalEvent
+moveDrag(touchEvent.touches[0])
+event.preventDefault()})
+$(window).on('touchend.dragScroll',function(event){stopDrag()})}
+else{$(window).on('mousemove.dragScroll',function(event){moveDrag(event)
+$(document.body).addClass(self.options.dragClass)
+return false})
+$(window).on('mouseup.dragScroll',function(mouseUpEvent){var isClick=event.pageX==mouseUpEvent.pageX&&event.pageY==mouseUpEvent.pageY
+stopDrag(isClick)
+return false})}}
+function moveDrag(event){var current=event[eventElementName],offset=dragStart-current
+if(Math.abs(offset)>2){if(!dragging){dragging=true
+$el.trigger('start.oc.dragScroll')
+self.options.start();}
+self.options.vertical?$el.scrollTop(startOffset+offset):$el.scrollLeft(startOffset+offset)
+$el.trigger('drag.oc.dragScroll')
+self.options.drag()}}
+function stopDrag(click){$(window).off('.dragScroll')
+dragging=false;if(click)
+$(document.body).removeClass(self.options.dragClass)
+else
+self.fixScrollClasses()
+window.setTimeout(function(){if(!click){$(document.body).removeClass(self.options.dragClass)
+$el.trigger('stop.oc.dragScroll')
+self.options.stop()
+self.fixScrollClasses()}},100)}
+function scrollWheel(offset){startOffset=self.options.vertical?el.scrollTop:el.scrollLeft
+self.options.vertical?$el.scrollTop(startOffset+offset):$el.scrollLeft(startOffset+offset)
+var scrolled=self.options.vertical?el.scrollTop!=startOffset:el.scrollLeft!=startOffset
+$el.trigger('drag.oc.dragScroll')
+self.options.drag()
+if(scrolled){if(self.wheelUpdateTimer!==undefined&&self.wheelUpdateTimer!==false)
+window.clearInterval(self.wheelUpdateTimer);self.wheelUpdateTimer=window.setTimeout(function(){self.wheelUpdateTimer=false;self.fixScrollClasses()},100);}
+return scrolled}
+this.fixScrollClasses();}
+DragScroll.prototype=Object.create(BaseProto)
+DragScroll.prototype.constructor=DragScroll
+DragScroll.DEFAULTS={vertical:false,allowScroll:true,scrollClassContainer:false,scrollMarkerContainer:false,dragClass:'drag',noDragSupport:false,start:function(){},drag:function(){},stop:function(){}}
+DragScroll.prototype.fixScrollClasses=function(){this.scrollClassContainer.toggleClass('scroll-before',!this.isStart())
+this.scrollClassContainer.toggleClass('scroll-after',!this.isEnd())
+this.scrollClassContainer.toggleClass('scroll-active-before',this.isActiveBefore())
+this.scrollClassContainer.toggleClass('scroll-active-after',this.isActiveAfter())}
+DragScroll.prototype.isStart=function(){if(!this.options.vertical)
+return this.el.scrollLeft()<=0;else
+return this.el.scrollTop()<=0;}
+DragScroll.prototype.isEnd=function(){if(!this.options.vertical)
+return(this.el[0].scrollWidth-(this.el.scrollLeft()+this.el.width()))<=0
+else
+return(this.el[0].scrollHeight-(this.el.scrollTop()+this.el.height()))<=0}
+DragScroll.prototype.goToStart=function(){if(!this.options.vertical)
+return this.el.scrollLeft(0)
+else
+return this.el.scrollTop(0)}
+DragScroll.prototype.isActiveAfter=function(){var activeElement=$('.active',this.el);if(activeElement.length==0)
+return false
+if(!this.options.vertical)
+return activeElement.get(0).offsetLeft>(this.el.scrollLeft()+this.el.width())
+else
+return activeElement.get(0).offsetTop>(this.el.scrollTop()+this.el.height())}
+DragScroll.prototype.isActiveBefore=function(){var activeElement=$('.active',this.el);if(activeElement.length==0)
+return false
+if(!this.options.vertical)
+return(activeElement.get(0).offsetLeft+activeElement.width())<this.el.scrollLeft()
+else
+return(activeElement.get(0).offsetTop+activeElement.height())<this.el.scrollTop()}
+DragScroll.prototype.goToElement=function(element,callback,options){var $el=$(element)
+if(!$el.length)
+return;var self=this,params={duration:300,queue:false,complete:function(){self.fixScrollClasses()
+if(callback!==undefined)
+callback()}}
+params=$.extend(params,options||{})
+var offset=0,animated=false
+if(!this.options.vertical){offset=$el.get(0).offsetLeft-this.el.scrollLeft()
+if(offset<0){this.el.animate({'scrollLeft':$el.get(0).offsetLeft},params)
+animated=true}else{offset=$el.get(0).offsetLeft+$el.width()-(this.el.scrollLeft()+this.el.width())
+if(offset>0){this.el.animate({'scrollLeft':$el.get(0).offsetLeft+$el.width()-this.el.width()},params)
+animated=true}}}else{offset=$el.get(0).offsetTop-this.el.scrollTop()
+if(offset<0){this.el.animate({'scrollTop':$el.get(0).offsetTop},params)
+animated=true}else{offset=$el.get(0).offsetTop-(this.el.scrollTop()+this.el.height())
+if(offset>0){this.el.animate({'scrollTop':$el.get(0).offsetTop+$el.height()-this.el.height()},params)
+animated=true}}}
+if(!animated&&callback!==undefined)
+callback()}
+DragScroll.prototype.dispose=function(){this.scrollClassContainer=null
+$(document).off('ready',this.proxy(this.fixScrollClasses))
+$(window).off('resize',this.proxy(this.fixScrollClasses))
+this.el.off('.dragScroll')
+this.el.removeData('oc.dragScroll')
+this.el=null
+BaseProto.dispose.call(this)}
+var old=$.fn.dragScroll
+$.fn.dragScroll=function(option){var args=arguments;return this.each(function(){var $this=$(this)
+var data=$this.data('oc.dragScroll')
+var options=typeof option=='object'&&option
+if(!data)$this.data('oc.dragScroll',(data=new DragScroll(this,options)))
+if(typeof option=='string'){var methodArgs=[];for(var i=1;i<args.length;i++)
+methodArgs.push(args[i])
+data[option].apply(data,methodArgs)}})}
+$.fn.dragScroll.Constructor=DragScroll
+$.fn.dragScroll.noConflict=function(){$.fn.dragScroll=old
+return this}}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var Toolbar=function(element,options){var
+$el=this.$el=$(element),$toolbar=$el.closest('.control-toolbar')
+$.oc.foundation.controlUtils.markDisposable(element)
+this.$toolbar=$toolbar
+this.options=options||{};var noDragSupport=options.noDragSupport!==undefined&&options.noDragSupport
+Base.call(this)
+var scrollClassContainer=options.scrollClassContainer!==undefined?options.scrollClassContainer:$el.parent()
+$el.dragScroll({scrollClassContainer:scrollClassContainer,noDragSupport:noDragSupport})
+$('.form-control.growable',$toolbar).on('focus.toolbar',function(){update()})
+$('.form-control.growable',$toolbar).on('blur.toolbar',function(){update()})
+this.$el.one('dispose-control',this.proxy(this.dispose))
+function update(){$(window).trigger('resize')}}
+Toolbar.prototype=Object.create(BaseProto)
+Toolbar.prototype.constructor=Toolbar
+Toolbar.prototype.dispose=function(){this.$el.off('dispose-control',this.proxy(this.dispose))
+$('.form-control.growable',this.$toolbar).off('.toolbar')
+this.$el.dragScroll('dispose')
+this.$el.removeData('oc.toolbar')
+this.$el=null
+BaseProto.dispose.call(this)}
+Toolbar.DEFAULTS={}
+var old=$.fn.toolbar
+$.fn.toolbar=function(option){var args=Array.prototype.slice.call(arguments,1)
+return this.each(function(){var $this=$(this)
+var data=$this.data('oc.toolbar')
+var options=$.extend({},Toolbar.DEFAULTS,$this.data(),typeof option=='object'&&option)
+if(!data)$this.data('oc.toolbar',(data=new Toolbar(this,options)))
+if(typeof option=='string')data[option].apply(data,args)})}
+$.fn.toolbar.Constructor=Toolbar
+$.fn.toolbar.noConflict=function(){$.fn.toolbar=old
 return this}
-$(document).on('render',function(){$('div[data-control=balloon-selector]').balloonSelector()})}(window.jQuery);(function($){$(document).on('keydown','div.custom-checkbox',function(e){if(e.keyCode==32)
-e.preventDefault()})
-$(document).on('keyup','div.custom-checkbox',function(e){if(e.keyCode==32){var $cb=$('input',this)
-if($cb.data('oc-space-timestamp')==e.timeStamp)
+$(document).on('render',function(){$('[data-control=toolbar]').toolbar()})}(window.jQuery);(function(global,factory){if(typeof exports==="object"&&exports){factory(exports);}else if(typeof define==="function"&&define.amd){define(['exports'],factory);}else{factory(global.Mustache={});}}(this,function(mustache){var Object_toString=Object.prototype.toString;var isArray=Array.isArray||function(object){return Object_toString.call(object)==='[object Array]';};function isFunction(object){return typeof object==='function';}
+function escapeRegExp(string){return string.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g,"\\$&");}
+var RegExp_test=RegExp.prototype.test;function testRegExp(re,string){return RegExp_test.call(re,string);}
+var nonSpaceRe=/\S/;function isWhitespace(string){return!testRegExp(nonSpaceRe,string);}
+var entityMap={"&":"&amp;","<":"&lt;",">":"&gt;",'"':'&quot;',"'":'&#39;',"/":'&#x2F;'};function escapeHtml(string){return String(string).replace(/[&<>"'\/]/g,function(s){return entityMap[s];});}
+var whiteRe=/\s*/;var spaceRe=/\s+/;var equalsRe=/\s*=/;var curlyRe=/\s*\}/;var tagRe=/#|\^|\/|>|\{|&|=|!/;function parseTemplate(template,tags){if(!template)
+return[];var sections=[];var tokens=[];var spaces=[];var hasTag=false;var nonSpace=false;function stripSpace(){if(hasTag&&!nonSpace){while(spaces.length)
+delete tokens[spaces.pop()];}else{spaces=[];}
+hasTag=false;nonSpace=false;}
+var openingTagRe,closingTagRe,closingCurlyRe;function compileTags(tags){if(typeof tags==='string')
+tags=tags.split(spaceRe,2);if(!isArray(tags)||tags.length!==2)
+throw new Error('Invalid tags: '+tags);openingTagRe=new RegExp(escapeRegExp(tags[0])+'\\s*');closingTagRe=new RegExp('\\s*'+escapeRegExp(tags[1]));closingCurlyRe=new RegExp('\\s*'+escapeRegExp('}'+tags[1]));}
+compileTags(tags||mustache.tags);var scanner=new Scanner(template);var start,type,value,chr,token,openSection;while(!scanner.eos()){start=scanner.pos;value=scanner.scanUntil(openingTagRe);if(value){for(var i=0,valueLength=value.length;i<valueLength;++i){chr=value.charAt(i);if(isWhitespace(chr)){spaces.push(tokens.length);}else{nonSpace=true;}
+tokens.push(['text',chr,start,start+1]);start+=1;if(chr==='\n')
+stripSpace();}}
+if(!scanner.scan(openingTagRe))
+break;hasTag=true;type=scanner.scan(tagRe)||'name';scanner.scan(whiteRe);if(type==='='){value=scanner.scanUntil(equalsRe);scanner.scan(equalsRe);scanner.scanUntil(closingTagRe);}else if(type==='{'){value=scanner.scanUntil(closingCurlyRe);scanner.scan(curlyRe);scanner.scanUntil(closingTagRe);type='&';}else{value=scanner.scanUntil(closingTagRe);}
+if(!scanner.scan(closingTagRe))
+throw new Error('Unclosed tag at '+scanner.pos);token=[type,value,start,scanner.pos];tokens.push(token);if(type==='#'||type==='^'){sections.push(token);}else if(type==='/'){openSection=sections.pop();if(!openSection)
+throw new Error('Unopened section "'+value+'" at '+start);if(openSection[1]!==value)
+throw new Error('Unclosed section "'+openSection[1]+'" at '+start);}else if(type==='name'||type==='{'||type==='&'){nonSpace=true;}else if(type==='='){compileTags(value);}}
+openSection=sections.pop();if(openSection)
+throw new Error('Unclosed section "'+openSection[1]+'" at '+scanner.pos);return nestTokens(squashTokens(tokens));}
+function squashTokens(tokens){var squashedTokens=[];var token,lastToken;for(var i=0,numTokens=tokens.length;i<numTokens;++i){token=tokens[i];if(token){if(token[0]==='text'&&lastToken&&lastToken[0]==='text'){lastToken[1]+=token[1];lastToken[3]=token[3];}else{squashedTokens.push(token);lastToken=token;}}}
+return squashedTokens;}
+function nestTokens(tokens){var nestedTokens=[];var collector=nestedTokens;var sections=[];var token,section;for(var i=0,numTokens=tokens.length;i<numTokens;++i){token=tokens[i];switch(token[0]){case'#':case'^':collector.push(token);sections.push(token);collector=token[4]=[];break;case'/':section=sections.pop();section[5]=token[2];collector=sections.length>0?sections[sections.length-1][4]:nestedTokens;break;default:collector.push(token);}}
+return nestedTokens;}
+function Scanner(string){this.string=string;this.tail=string;this.pos=0;}
+Scanner.prototype.eos=function(){return this.tail==="";};Scanner.prototype.scan=function(re){var match=this.tail.match(re);if(!match||match.index!==0)
+return'';var string=match[0];this.tail=this.tail.substring(string.length);this.pos+=string.length;return string;};Scanner.prototype.scanUntil=function(re){var index=this.tail.search(re),match;switch(index){case-1:match=this.tail;this.tail="";break;case 0:match="";break;default:match=this.tail.substring(0,index);this.tail=this.tail.substring(index);}
+this.pos+=match.length;return match;};function Context(view,parentContext){this.view=view;this.cache={'.':this.view};this.parent=parentContext;}
+Context.prototype.push=function(view){return new Context(view,this);};Context.prototype.lookup=function(name){var cache=this.cache;var value;if(name in cache){value=cache[name];}else{var context=this,names,index,lookupHit=false;while(context){if(name.indexOf('.')>0){value=context.view;names=name.split('.');index=0;while(value!=null&&index<names.length){if(index===names.length-1&&value!=null)
+lookupHit=(typeof value==='object')&&value.hasOwnProperty(names[index]);value=value[names[index++]];}}else if(context.view!=null&&typeof context.view==='object'){value=context.view[name];lookupHit=context.view.hasOwnProperty(name);}
+if(lookupHit)
+break;context=context.parent;}
+cache[name]=value;}
+if(isFunction(value))
+value=value.call(this.view);return value;};function Writer(){this.cache={};}
+Writer.prototype.clearCache=function(){this.cache={};};Writer.prototype.parse=function(template,tags){var cache=this.cache;var tokens=cache[template];if(tokens==null)
+tokens=cache[template]=parseTemplate(template,tags);return tokens;};Writer.prototype.render=function(template,view,partials){var tokens=this.parse(template);var context=(view instanceof Context)?view:new Context(view);return this.renderTokens(tokens,context,partials,template);};Writer.prototype.renderTokens=function(tokens,context,partials,originalTemplate){var buffer='';var token,symbol,value;for(var i=0,numTokens=tokens.length;i<numTokens;++i){value=undefined;token=tokens[i];symbol=token[0];if(symbol==='#')value=this._renderSection(token,context,partials,originalTemplate);else if(symbol==='^')value=this._renderInverted(token,context,partials,originalTemplate);else if(symbol==='>')value=this._renderPartial(token,context,partials,originalTemplate);else if(symbol==='&')value=this._unescapedValue(token,context);else if(symbol==='name')value=this._escapedValue(token,context);else if(symbol==='text')value=this._rawValue(token);if(value!==undefined)
+buffer+=value;}
+return buffer;};Writer.prototype._renderSection=function(token,context,partials,originalTemplate){var self=this;var buffer='';var value=context.lookup(token[1]);function subRender(template){return self.render(template,context,partials);}
+if(!value)return;if(isArray(value)){for(var j=0,valueLength=value.length;j<valueLength;++j){buffer+=this.renderTokens(token[4],context.push(value[j]),partials,originalTemplate);}}else if(typeof value==='object'||typeof value==='string'||typeof value==='number'){buffer+=this.renderTokens(token[4],context.push(value),partials,originalTemplate);}else if(isFunction(value)){if(typeof originalTemplate!=='string')
+throw new Error('Cannot use higher-order sections without the original template');value=value.call(context.view,originalTemplate.slice(token[3],token[5]),subRender);if(value!=null)
+buffer+=value;}else{buffer+=this.renderTokens(token[4],context,partials,originalTemplate);}
+return buffer;};Writer.prototype._renderInverted=function(token,context,partials,originalTemplate){var value=context.lookup(token[1]);if(!value||(isArray(value)&&value.length===0))
+return this.renderTokens(token[4],context,partials,originalTemplate);};Writer.prototype._renderPartial=function(token,context,partials){if(!partials)return;var value=isFunction(partials)?partials(token[1]):partials[token[1]];if(value!=null)
+return this.renderTokens(this.parse(value),context,partials,value);};Writer.prototype._unescapedValue=function(token,context){var value=context.lookup(token[1]);if(value!=null)
+return value;};Writer.prototype._escapedValue=function(token,context){var value=context.lookup(token[1]);if(value!=null)
+return mustache.escape(value);};Writer.prototype._rawValue=function(token){return token[1];};mustache.name="mustache.js";mustache.version="2.0.0";mustache.tags=["{{","}}"];var defaultWriter=new Writer();mustache.clearCache=function(){return defaultWriter.clearCache();};mustache.parse=function(template,tags){return defaultWriter.parse(template,tags);};mustache.render=function(template,view,partials){return defaultWriter.render(template,view,partials);};mustache.to_html=function(template,view,partials,send){var result=mustache.render(template,view,partials);if(isFunction(send)){send(result);}else{return result;}};mustache.escape=escapeHtml;mustache.Scanner=Scanner;mustache.Context=Context;mustache.Writer=Writer;}));+function($){"use strict";var Popover=function(element,options){var $el=this.$el=$(element);this.options=options||{};this.arrowSize=15
+this.docClickHandler=null
+this.show()}
+Popover.prototype.hide=function(){var e=$.Event('hiding.oc.popover',{relatedTarget:this.$el})
+this.$el.trigger(e,this)
+if(e.isDefaultPrevented())
 return
-$cb.get(0).checked=!$cb.get(0).checked
-$cb.data('oc-space-timestamp',e.timeStamp)
-$cb.trigger('change')
-return false}})})(jQuery);(function(factory){if(typeof define==='function'&&define.amd){define(['jquery'],factory);}else if(typeof exports==='object'){factory(require('jquery'));}else{factory(jQuery);}}(function(jQuery){var S2=(function(){if(jQuery&&jQuery.fn&&jQuery.fn.select2&&jQuery.fn.select2.amd){var S2=jQuery.fn.select2.amd;}
+this.$container.removeClass('in')
+if(this.$overlay)this.$overlay.removeClass('in')
+this.disposeControls()
+$.support.transition&&this.$container.hasClass('fade')?this.$container.one($.support.transition.end,$.proxy(this.hidePopover,this)).emulateTransitionEnd(300):this.hidePopover()}
+Popover.prototype.disposeControls=function(){if(this.$container){$.oc.foundation.controlUtils.disposeControls(this.$container.get(0))}}
+Popover.prototype.hidePopover=function(){this.$container.remove();if(this.$overlay)this.$overlay.remove()
+this.$el.removeClass('popover-highlight')
+this.$el.trigger('hide.oc.popover')
+this.$overlay=false
+this.$container=false
+this.$el.data('oc.popover',null)
+$(document.body).removeClass('popover-open')
+$(document).unbind('mousedown',this.docClickHandler);$(document).off('.oc.popover')
+this.docClickHandler=null
+this.options.onCheckDocumentClickTarget=null}
+Popover.prototype.show=function(options){var self=this
+var e=$.Event('showing.oc.popover',{relatedTarget:this.$el})
+this.$el.trigger(e,this)
+if(e.isDefaultPrevented())
+return
+this.$container=$('<div />').addClass('control-popover')
+if(this.options.containerClass)
+this.$container.addClass(this.options.containerClass)
+if(this.options.useAnimation)
+this.$container.addClass('fade')
+var $content=$('<div />').html(this.getContent())
+this.$container.append($content)
+if(this.options.width)
+this.$container.width(this.options.width)
+if(this.options.modal){this.$overlay=$('<div />').addClass('popover-overlay')
+$(document.body).append(this.$overlay)
+if(this.options.highlightModalTarget){this.$el.addClass('popover-highlight')
+this.$el.blur()}}else{this.$overlay=false}
+if(this.options.container)
+$(this.options.container).append(this.$container)
+else
+$(document.body).append(this.$container)
+var
+placement=this.calcPlacement(),position=this.calcPosition(placement)
+this.$container.css({left:position.x,top:position.y}).addClass('placement-'+placement)
+this.$container.addClass('in')
+if(this.$overlay)this.$overlay.addClass('in')
+$(document.body).addClass('popover-open')
+var showEvent=jQuery.Event('show.oc.popover',{relatedTarget:this.$container.get(0)})
+this.$el.trigger(showEvent)
+this.$container.on('close.oc.popover',function(e){self.hide()})
+this.$container.on('click','[data-dismiss=popover]',function(e){self.hide()
+return false})
+this.docClickHandler=$.proxy(this.onDocumentClick,this)
+$(document).bind('mousedown',this.docClickHandler);if(this.options.closeOnEsc){$(document).on('keyup.oc.popover',function(e){if($(e.target).hasClass('select2-offscreen'))
+return false
+if(!self.options.closeOnEsc){return false}
+if(e.keyCode==27){self.hide()
+return false}})}}
+Popover.prototype.getContent=function(){return typeof this.options.content=='function'?this.options.content.call(this.$el[0],this):this.options.content}
+Popover.prototype.calcDimensions=function(){var
+documentWidth=$(document).width(),documentHeight=$(document).height(),targetOffset=this.$el.offset(),targetWidth=this.$el.outerWidth(),targetHeight=this.$el.outerHeight()
+return{containerWidth:this.$container.outerWidth()+this.arrowSize,containerHeight:this.$container.outerHeight()+this.arrowSize,targetOffset:targetOffset,targetHeight:targetHeight,targetWidth:targetWidth,spaceLeft:targetOffset.left,spaceRight:documentWidth-(targetWidth+targetOffset.left),spaceTop:targetOffset.top,spaceBottom:documentHeight-(targetHeight+targetOffset.top),spaceHorizontalBottom:documentHeight-targetOffset.top,spaceVerticalRight:documentWidth-targetOffset.left,documentWidth:documentWidth}}
+Popover.prototype.fitsLeft=function(dimensions){return dimensions.spaceLeft>=dimensions.containerWidth&&dimensions.spaceHorizontalBottom>=dimensions.containerHeight}
+Popover.prototype.fitsRight=function(dimensions){return dimensions.spaceRight>=dimensions.containerWidth&&dimensions.spaceHorizontalBottom>=dimensions.containerHeight}
+Popover.prototype.fitsBottom=function(dimensions){return dimensions.spaceBottom>=dimensions.containerHeight&&dimensions.spaceVerticalRight>=dimensions.containerWidth}
+Popover.prototype.fitsTop=function(dimensions){return dimensions.spaceTop>=dimensions.containerHeight&&dimensions.spaceVerticalRight>=dimensions.containerWidth}
+Popover.prototype.calcPlacement=function(){var
+placement=this.options.placement,dimensions=this.calcDimensions();if(placement=='center')
+return placement
+if(placement!='bottom'&&placement!='top'&&placement!='left'&&placement!='right')
+placement='bottom'
+var placementFunctions={top:this.fitsTop,bottom:this.fitsBottom,left:this.fitsLeft,right:this.fitsRight}
+if(placementFunctions[placement](dimensions))
+return placement
+for(var index in placementFunctions){if(placementFunctions[index](dimensions))
+return index}
+return this.options.fallbackPlacement}
+Popover.prototype.calcPosition=function(placement){var
+dimensions=this.calcDimensions(),result
+switch(placement){case'left':var realOffset=this.options.offsetY===undefined?this.options.offset:this.options.offsetY
+result={x:(dimensions.targetOffset.left-dimensions.containerWidth),y:dimensions.targetOffset.top+realOffset}
+break;case'top':var realOffset=this.options.offsetX===undefined?this.options.offset:this.options.offsetX
+result={x:dimensions.targetOffset.left+realOffset,y:(dimensions.targetOffset.top-dimensions.containerHeight)}
+break;case'bottom':var realOffset=this.options.offsetX===undefined?this.options.offset:this.options.offsetX
+result={x:dimensions.targetOffset.left+realOffset,y:(dimensions.targetOffset.top+dimensions.targetHeight+this.arrowSize)}
+break;case'right':var realOffset=this.options.offsetY===undefined?this.options.offset:this.options.offsetY
+result={x:(dimensions.targetOffset.left+dimensions.targetWidth+this.arrowSize),y:dimensions.targetOffset.top+realOffset}
+break;case'center':var windowHeight=$(window).height()
+result={x:(dimensions.documentWidth/2-dimensions.containerWidth/2),y:(windowHeight/2-dimensions.containerHeight/2)}
+if(result.y<40)
+result.y=40
+break;}
+if(!this.options.container)
+return result
+var
+$container=$(this.options.container),containerOffset=$container.offset()
+result.x-=containerOffset.left
+result.y-=containerOffset.top
+return result}
+Popover.prototype.onDocumentClick=function(e){if(!this.options.closeOnPageClick)
+return
+if(this.options.onCheckDocumentClickTarget&&this.options.onCheckDocumentClickTarget(e.target)){return}
+if($.contains(this.$container.get(0),e.target))
+return
+this.hide();}
+Popover.DEFAULTS={placement:'bottom',fallbackPlacement:'bottom',content:'<p>Popover content<p>',width:false,modal:false,highlightModalTarget:false,closeOnPageClick:true,closeOnEsc:true,container:false,containerClass:null,offset:15,useAnimation:false,onCheckDocumentClickTarget:null}
+var old=$.fn.ocPopover
+$.fn.ocPopover=function(option){var args=arguments;return this.each(function(){var $this=$(this)
+var data=$this.data('oc.popover')
+var options=$.extend({},Popover.DEFAULTS,$this.data(),typeof option=='object'&&option)
+if(!data){if(typeof option=='string')
+return;$this.data('oc.popover',(data=new Popover(this,options)))}else{if(typeof option!='string')
+return;var methodArgs=[];for(var i=1;i<args.length;i++)
+methodArgs.push(args[i])
+data[option].apply(data,methodArgs)}})}
+$.fn.ocPopover.Constructor=Popover
+$.fn.ocPopover.noConflict=function(){$.fn.ocPopover=old
+return this}
+$(document).on('click','[data-control=popover]',function(e){$(this).ocPopover()
+return false;})}(window.jQuery);+function($){"use strict";var FilterWidget=function(element,options){var $el=this.$el=$(element);this.options=options||{}
+this.scopeValues={}
+this.$activeScope=null
+this.activeScopeName=null
+this.isActiveScopeDirty=false
+this.init()}
+FilterWidget.DEFAULTS={optionsHandler:null,updateHandler:null}
+FilterWidget.prototype.getPopoverTemplate=function(){return'                                                                                        \
+                <form>                                                                                  \
+                    <input type="hidden" name="scopeName"  value="{{ scopeName }}" />                   \
+                    <div id="controlFilterPopover" class="control-filter-popover">                      \
+                        <div class="filter-search loading-indicator-container size-input-text">         \
+                            <button class="close" data-dismiss="popover" type="button">&times;</button> \
+                            <input                                                                      \
+                                type="text"                                                             \
+                                name="search"                                                           \
+                                autocomplete="off"                                                      \
+                                class="filter-search-input form-control icon search"                    \
+                                data-request="{{ optionsHandler }}"                                     \
+                                data-load-indicator-opaque                                              \
+                                data-load-indicator                                                     \
+                                data-track-input />                                                     \
+                        </div>                                                                          \
+                        <div class="filter-items">                                                      \
+                            <ul>                                                                        \
+                                {{#available}}                                                          \
+                                    <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>  \
+                                {{/available}}                                                          \
+                                {{#loading}}                                                            \
+                                    <li class="loading"><span></span></li>                              \
+                                {{/loading}}                                                            \
+                            </ul>                                                                       \
+                        </div>                                                                          \
+                        <div class="filter-active-items">                                               \
+                            <ul>                                                                        \
+                                {{#active}}                                                             \
+                                    <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>  \
+                                {{/active}}                                                             \
+                            </ul>                                                                       \
+                        </div>                                                                          \
+                    </div>                                                                              \
+                </form>                                                                                 \
+            '}
+FilterWidget.prototype.init=function(){var self=this
+this.$el.on('change','.filter-scope input[type="checkbox"]',function(){var isChecked=$(this).is(':checked'),$scope=$(this).closest('.filter-scope'),scopeName=$scope.data('scope-name')
+self.scopeValues[scopeName]=isChecked
+self.checkboxToggle(scopeName,isChecked)})
+this.$el.on('click','a.filter-scope',function(){var $scope=$(this),scopeName=$scope.data('scope-name')
+if($scope.hasClass('filter-scope-open'))return
+self.$activeScope=$scope
+self.activeScopeName=scopeName
+self.isActiveScopeDirty=false
+self.displayPopover($scope)
+$scope.addClass('filter-scope-open')})
+this.$el.on('show.oc.popover','a.filter-scope',function(){self.focusSearch()})
+this.$el.on('hide.oc.popover','a.filter-scope',function(){var $scope=$(this)
+self.pushOptions(self.activeScopeName)
+self.activeScopeName=null
+self.$activeScope=null
+setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})
+$(document).on('click','#controlFilterPopover .filter-items > ul > li',function(){self.selectItem($(this))})
+$(document).on('click','#controlFilterPopover .filter-active-items > ul > li',function(){self.selectItem($(this),true)})
+$(document).on('ajaxDone','#controlFilterPopover input.filter-search-input',function(event,context,data){self.filterAvailable(data.scopeName,data.options.available)})}
+FilterWidget.prototype.focusSearch=function(){if(Modernizr.touch)
+return
+var $input=$('#controlFilterPopover input.filter-search-input'),length=$input.val().length
+$input.focus()
+$input.get(0).setSelectionRange(length,length)}
+FilterWidget.prototype.updateScopeSetting=function($scope,amount){var $setting=$scope.find('.filter-setting')
+if(amount){$setting.text(amount)
+$scope.addClass('active')}
+else{$setting.text('all')
+$scope.removeClass('active')}}
+FilterWidget.prototype.selectItem=function($item,isDeselect){var $otherContainer=isDeselect?$item.closest('.control-filter-popover').find('.filter-items:first > ul'):$item.closest('.control-filter-popover').find('.filter-active-items:first > ul')
+$item.addClass('animate-enter').prependTo($otherContainer).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){$(this).removeClass('animate-enter')})
+if(!this.scopeValues[this.activeScopeName])
+return
+var
+itemId=$item.data('item-id'),items=this.scopeValues[this.activeScopeName],fromItems=isDeselect?items.active:items.available,toItems=isDeselect?items.available:items.active,testFunc=function(item){return item.id==itemId},item=$.grep(fromItems,testFunc).pop(),filtered=$.grep(fromItems,testFunc,true)
+if(isDeselect)
+this.scopeValues[this.activeScopeName].active=filtered
+else
+this.scopeValues[this.activeScopeName].available=filtered
+if(item)
+toItems.push(item)
+this.updateScopeSetting(this.$activeScope,items.active.length)
+this.isActiveScopeDirty=true
+this.focusSearch()}
+FilterWidget.prototype.displayPopover=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName],isLoaded=true
+if(!data){data={loading:true}
+isLoaded=false}
+data.scopeName=scopeName
+data.optionsHandler=self.options.optionsHandler
+$scope.data('oc.popover',null)
+$scope.ocPopover({content:Mustache.render(self.getPopoverTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom'})
+if(!isLoaded){self.loadOptions(scopeName)}}
+FilterWidget.prototype.loadOptions=function(scopeName){var $form=this.$el.closest('form'),self=this,data={scopeName:scopeName}
+var populated=this.$el.data('filterScopes')
+if(populated&&populated[scopeName]){self.fillOptions(scopeName,populated[scopeName])
+return false}
+return $form.request(this.options.optionsHandler,{data:data,success:function(data){self.fillOptions(scopeName,data.options)}})}
+FilterWidget.prototype.fillOptions=function(scopeName,data){if(this.scopeValues[scopeName])
+return
+if(!data.active)data.active=[]
+if(!data.available)data.available=[]
+this.scopeValues[scopeName]=data
+if(scopeName!=this.activeScopeName)
+return
+var container=$('#controlFilterPopover .filter-items > ul').empty()
+this.addItemsToListElement(container,data.available)
+var container=$('#controlFilterPopover .filter-active-items > ul')
+this.addItemsToListElement(container,data.active)}
+FilterWidget.prototype.filterAvailable=function(scopeName,available){if(this.activeScopeName!=scopeName)
+return
+if(!this.scopeValues[this.activeScopeName])
+return
+var
+self=this,filtered=[],items=this.scopeValues[scopeName]
+if(items.active.length){var compareFunc=function(a,b){return a.id==b.id},inArrayFunc=function(elem,array,testFunc){var i=array.length
+do{if(i--===0)return i}while(testFunc(array[i],elem))
+return i}
+filtered=$.grep(available,function(item){return!inArrayFunc(item,items.active,compareFunc)})}
+else{filtered=available}
+var container=$('#controlFilterPopover .filter-items > ul').empty()
+self.addItemsToListElement(container,filtered)}
+FilterWidget.prototype.addItemsToListElement=function($ul,items){$.each(items,function(key,obj){var item=$('<li />').data({'item-id':obj.id}).append($('<a />').prop({'href':'javascript:;',}).text(obj.name))
+$ul.append(item)})}
+FilterWidget.prototype.pushOptions=function(scopeName){if(!this.isActiveScopeDirty||!this.options.updateHandler)
+return
+var $form=this.$el.closest('form'),data={scopeName:scopeName,options:this.scopeValues[scopeName]}
+$.oc.stripeLoadIndicator.show()
+$form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+FilterWidget.prototype.checkboxToggle=function(scopeName,isChecked){if(!this.options.updateHandler)
+return
+var $form=this.$el.closest('form'),data={scopeName:scopeName,value:isChecked}
+$.oc.stripeLoadIndicator.show()
+$form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+var old=$.fn.filterWidget
+$.fn.filterWidget=function(option){var args=arguments,result
+this.each(function(){var $this=$(this)
+var data=$this.data('oc.filterwidget')
+var options=$.extend({},FilterWidget.DEFAULTS,$this.data(),typeof option=='object'&&option)
+if(!data)$this.data('oc.filterwidget',(data=new FilterWidget(this,options)))
+if(typeof option=='string')result=data[option].call($this)
+if(typeof result!='undefined')return false})
+return result?result:this}
+$.fn.filterWidget.Constructor=FilterWidget
+$.fn.filterWidget.noConflict=function(){$.fn.filterWidget=old
+return this}
+$(document).render(function(){$('[data-control="filterwidget"]').filterWidget();})}(window.jQuery);(function(factory){if(typeof define==='function'&&define.amd){define(['jquery'],factory);}else if(typeof exports==='object'){factory(require('jquery'));}else{factory(jQuery);}}(function(jQuery){var S2=(function(){if(jQuery&&jQuery.fn&&jQuery.fn.select2&&jQuery.fn.select2.amd){var S2=jQuery.fn.select2.amd;}
 var S2;(function(){if(!S2||!S2.requirejs){if(!S2){S2={};}else{require=S2;}
 var requirejs,require,define;(function(undef){var main,req,makeMap,handlers,defined={},waiting={},config={},defining={},hasOwn=Object.prototype.hasOwnProperty,aps=[].slice,jsSuffixRegExp=/\.js$/;function hasProp(obj,prop){return hasOwn.call(obj,prop);}
 function normalize(name,baseName){var nameParts,nameSegment,mapValue,foundMap,lastIndex,foundI,foundStarMap,starI,i,j,part,baseParts=baseName&&baseName.split("/"),map=config.map,starMap=(map&&map['*'])||{};if(name&&name.charAt(0)==="."){if(baseName){baseParts=baseParts.slice(0,baseParts.length-1);name=name.split('/');lastIndex=name.length-1;if(config.nodeIdCompat&&jsSuffixRegExp.test(name[lastIndex])){name[lastIndex]=name[lastIndex].replace(jsSuffixRegExp,'');}
@@ -846,929 +1278,6 @@ $element.one('dispose-control',function(){if($element.data('select2')){$element.
 if($element.hasClass('select-no-search')){extraOptions.minimumResultsForSearch=Infinity}
 $element.select2($.extend({},selectOptions,extraOptions))})})
 $(document).on('disable','select.custom-select',function(event,status){$(this).select2('enable',!status)})
-$(document).on('focus','select.custom-select',function(event){setTimeout($.proxy(function(){$(this).select2('focus')},this),10)})})(jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
-if($.oc===undefined)
-$.oc={}
-$.oc.inspector={editors:{},propertyCounter:0}
-var Inspector=function(element,options){this.options=options
-this.$el=$(element)
-this.title=false
-this.description=false
-Base.call(this)}
-Inspector.prototype=Object.create(BaseProto)
-Inspector.prototype.constructor=Inspector
-Inspector.prototype.loadConfiguration=function(onSuccess){var configString=this.$el.data('inspector-config')
-if(configString!==undefined){this.parseConfiguration(configString)
-if(onSuccess!==undefined)
-onSuccess();}else{var $form=$(this.selector).closest('form'),data=this.$el.data(),self=this
-$.oc.stripeLoadIndicator.show()
-var request=$form.request('onGetInspectorConfiguration',{data:data}).done(function(data){self.parseConfiguration(data.configuration.properties)
-if(data.configuration.title!==undefined)
-self.title=data.configuration.title
-if(data.configuration.description!==undefined)
-self.description=data.configuration.description
-$.oc.stripeLoadIndicator.hide()
-if(onSuccess!==undefined)
-onSuccess();}).always(function(){$.oc.stripeLoadIndicator.hide()})}}
-Inspector.prototype.parseConfiguration=function(jsonString){if(jsonString===undefined)
-throw new Error('The Inspector cannot be initialized because the Inspector configuration '+'attribute is not defined on the inspectable element.');if(!$.isArray(jsonString)&&!$.isPlainObject(jsonString)){try{this.config=$.parseJSON(jsonString)}catch(err){throw new Error('Error parsing the Inspector field configuration. '+err)}}else
-this.config=jsonString
-this.propertyValuesField=$('input[data-inspector-values]',this.$el)}
-Inspector.prototype.getPopoverTemplate=function(){return'                                                                                                      \
-                <div class="popover-head">                                                                            \
-                    <h3>{{title}}</h3>                                                                                \
-                    {{#description}}                                                                                  \
-                        <p>{{description}}</p>                                                                        \
-                    {{/description}}                                                                                  \
-                    <button type="button" class="close"                                                               \
-                        data-dismiss="popover"                                                                        \
-                        aria-hidden="true">&times;</button>                                                           \
-                </div>                                                                                                \
-                <form autocomplete="off" onsubmit="return false">                                                     \
-                    <table class="inspector-fields {{#tableClass}}{{/tableClass}}">                                   \
-                        {{#properties}}                                                                               \
-                            <tr id="{{#propFormat}}{{property}}{{/propFormat}}" data-property="{{property}}"          \
-                                {{#dataGroupIndex}}{{/dataGroupIndex}}                                                \
-                                class="{{#cellClass}}{{/cellClass}}">                                                 \
-                                <th {{#colspan}}{{/colspan}}><div><div><span class="title-element" title="{{title}}"> \
-                                {{#expandControl}}{{/expandControl}}                                                  \
-                                {{title}}</span>                                                                      \
-                                {{#info}}{{/info}}                                                                    \
-                                </div></div></th>                                                                     \
-                                {{#editor}}{{/editor}}                                                                \
-                            </tr>                                                                                     \
-                        {{/properties}}                                                                               \
-                    </table>                                                                                          \
-                <form>                                                                                                \
-            '}
-Inspector.prototype.init=function(){if(!this.config||this.config.length==0)
-return
-this.editors=[]
-this.initProperties()
-this.$el.data('oc.inspectorVisible',true)
-var e=$.Event('showing.oc.inspector')
-this.$el.trigger(e,[{callback:this.proxy(this.displayPopover)}])
-if(e.isDefaultPrevented())
-return
-if(!e.isPropagationStopped())
-this.displayPopover()}
-Inspector.prototype.displayPopover=function(){var fieldsConfig=this.preprocessConfig(),renderEditorBound=this.proxy(this.renderEditor),groupExpandedBound=this.proxy(this.groupExpanded),data={title:this.title?this.title:this.$el.data('inspector-title'),description:this.description?this.description:this.$el.data('inspector-description'),properties:fieldsConfig.properties,editor:function(){return function(text,render){if(this.itemType=='property')
-return renderEditorBound(this,render)}},info:function(){return function(text,render){if(this.description!==undefined&&this.description!=null)
-return render('<span title="{{description}}" class="info oc-icon-info with-tooltip"></span>',this)}},propFormat:function(){return function(text,render){return'prop-'+render(text).replace('.','-')}},colspan:function(){return function(text,render){return this.itemType=='group'?'colspan="2"':null}},tableClass:function(){return function(text,render){return fieldsConfig.hasGroups?'has-groups':null}},cellClass:function(){return function(text,render){var result=this.itemType+((this.itemType=='property'&&this.groupIndex!==undefined)?' grouped':'')
-if(this.itemType=='property'&&this.groupIndex!==undefined)
-result+=groupExpandedBound(this.group)?' expanded':' collapsed'
-if(this.itemType=='property'&&!this.showExternalParam)
-result+=' no-external-parameter'
-return result}},expandControl:function(){return function(text,render){if(this.itemType=='group'){this.itemStatus=groupExpandedBound(this.title)?'expanded':''
-return render('<a class="expandControl {{itemStatus}}" href="javascript:;" data-group-index="{{groupIndex}}"><span>Expand/collapse</span></a>',this)}}},dataGroupIndex:function(){return function(text,render){return this.groupIndex!==undefined&&this.itemType=='property'?render('data-group-index={{groupIndex}}',this):''}}}
-var offset=this.$el.data('inspector-offset')
-if(offset===undefined)
-offset=15
-var offsetX=this.$el.data('inspector-offset-x'),offsetY=this.$el.data('inspector-offset-y')
-var placement=this.$el.data('inspector-placement')
-if(placement===undefined)
-placement='bottom'
-var fallbackPlacement=this.$el.data('inspector-fallback-placement')
-if(fallbackPlacement===undefined)
-fallbackPlacement='bottom'
-this.$el.ocPopover({content:Mustache.render(this.getPopoverTemplate(),data),highlightModalTarget:true,modal:true,placement:placement,fallbackPlacement:fallbackPlacement,containerClass:'control-inspector',container:this.$el.data('inspector-container'),offset:offset,offsetX:offsetX,offsetY:offsetY,width:400})
-this.$el.on('hiding.oc.popover',this.proxy(this.onBeforeHide))
-this.$el.on('hide.oc.popover',this.proxy(this.cleanup))
-this.$el.addClass('inspector-open')
-$(this.$el.data('oc.popover').$container).on('keydown',this.proxy(this.onPopoverKeyDown))
-if(this.editors.length>0){if(this.editors[0].focus!==undefined)
-this.editors[0].focus()}
-if(this.$el.closest('[data-inspector-external-parameters]').length>0)
-this.initExternalParameterEditor(this.$el.data('oc.popover').$container)
-for(var i=0,len=this.editors.length;i<len;i++){if(this.editors[i].init!==undefined)
-this.editors[i].init()}
-$('.with-tooltip',this.$el.data('oc.popover').$container).tooltip({placement:'auto right',container:'body',delay:500})
-var $container=this.$el.data('oc.popover').$container
-$container.on('click','tr.group',this.proxy(this.onGroupClick))
-var cssClass=this.options.inspectorCssClass
-if(cssClass!==undefined)
-$container.addClass(cssClass)}
-Inspector.prototype.onPopoverKeyDown=function(ev){if(ev.keyCode==13)
-$(ev.currentTarget).trigger('close.oc.popover')}
-Inspector.prototype.onGroupClick=function(ev){var $container=this.$el.data('oc.popover').$container
-this.toggleGroup($('a.expandControl',ev.target),$container)
-return false}
-Inspector.prototype.initExternalParameterEditor=function($container){var self=this
-$('table.inspector-fields tr',$container).each(function(){if(!$(this).hasClass('no-external-parameter')){var property=$(this).data('property'),$td=$('td',this),$editorContainer=$('<div class="external-param-editor-container"></div>'),$editor=$('<div class="external-editor">                  \
-                            <div class="controls">                      \
-                                <input type="text" tabindex="-1"/>      \
-                                <a href="#" tabindex="-1">              \
-                                    <i class="oc-icon-terminal"></i>    \
-                                </a>                                    \
-                            </div>                                      \
-                        </div>')
-$editorContainer.append($td.children())
-$editorContainer.append($editor)
-$td.append($editorContainer)
-var $editorLink=$('a',$editor)
-$editorLink.click(function(){return self.toggleExternalParameterEditor($(this))}).attr('title','Click to enter the external parameter name to load the property value from').tooltip({'container':'body',delay:500})
-var $input=$editor.find('input'),propertyValue=self.propertyValues[property]
-$input.on('focus',function(){var $field=$(this)
-$('td',$field.closest('table')).removeClass('active')
-$field.closest('td').addClass('active')})
-$input.on('change',function(){self.markPropertyChanged(property,true)})
-var matches=[]
-if(propertyValue){if(matches=propertyValue.match(/^\{\{([^\}]+)\}\}$/)){var value=$.trim(matches[1])
-if(value.length>0){self.showExternalParameterEditor($editorContainer,$editor,$editorLink,$td,true)
-$editor.find('input').val(value)
-self.writeProperty(property,null,true)}}}}})}
-Inspector.prototype.showExternalParameterEditor=function($container,$editor,$editorLink,$cell,noAnimation){var position=$editor.position()
-$('input',$editor).focus()
-if(!noAnimation){$editor.css({'left':position.left+'px','right':0})}else{$editor.css('right',0)}
-setTimeout(function(){$editor.css('left',0)
-$cell.scrollTop(0)},0)
-$container.addClass('editor-visible')
-$editorLink.attr('data-original-title','Click to enter the property value')
-this.toggleCellEditorVisibility($cell,false)
-$editor.find('input').attr('tabindex',0)}
-Inspector.prototype.toggleExternalParameterEditor=function($editorLink){var $container=$editorLink.closest('.external-param-editor-container'),$editor=$('.external-editor',$container),$cell=$editorLink.closest('td'),self=this
-$editorLink.tooltip('hide')
-if(!$container.hasClass('editor-visible')){self.showExternalParameterEditor($container,$editor,$editorLink,$cell)}else{var left=$container.width()
-$editor.css('left',left+'px')
-setTimeout(function(){$editor.css({'left':'auto','right':'30px'})
-$container.removeClass('editor-visible')
-$container.closest('td').removeClass('active')
-var property=$container.closest('tr').data('property'),propertyEditor=self.findEditor(property)
-if(propertyEditor&&propertyEditor.onHideExternalParameterEditor!==undefined)
-propertyEditor.onHideExternalParameterEditor()},200)
-$editorLink.attr('data-original-title','Click to enter the external parameter name to load the property value from')
-$editor.find('input').attr('tabindex',-1)
-self.toggleCellEditorVisibility($cell,true)}
-return false}
-Inspector.prototype.toggleCellEditorVisibility=function($cell,show){var $container=$('.external-param-editor-container',$cell)
-$container.children().each(function(){var $el=$(this)
-if($el.hasClass('external-editor'))
-return
-if(show)
-$el.removeClass('hide')
-else{var height=$cell.data('inspector-cell-height')
-if(!height){height=$cell.height()
-$cell.data('inspector-cell-height',height)}
-$container.css('height',height+'px')
-$el.addClass('hide')}})}
-Inspector.prototype.preprocessConfig=function(){var fields=[],result={hasGroups:false,properties:[]},groupIndex=0
-function findGroup(title){var groups=$.grep(fields,function(item){return item.itemType!==undefined&&item.itemType=='group'&&item.title==title})
-if(groups.length>0)
-return groups[0]
-return null}
-$.each(this.config,function(){this.itemType='property'
-if(this.group===undefined)
-fields.push(this)
-else{var group=findGroup(this.group)
-if(!group){group={itemType:'group',title:this.group,properties:[],groupIndex:groupIndex}
-groupIndex++
-fields.push(group)}
-this.groupIndex=group.groupIndex
-group.properties.push(this)}})
-$.each(fields,function(){result.properties.push(this)
-if(this.itemType=='group'){result.hasGroups=true
-$.each(this.properties,function(){result.properties.push(this)})
-delete this.properties}})
-return result}
-Inspector.prototype.toggleGroup=function(link,$container){var $link=$(link),groupIndex=$link.data('group-index'),propertyRows=$('tr[data-group-index='+groupIndex+']',$container),duration=Math.round(100/propertyRows.length),collapse=true,statuses=this.loadGroupExpandedStatuses(),title=$('span.title-element',$link.closest('tr')).attr('title')
-if($link.hasClass('expanded')){$link.removeClass('expanded')
-statuses[title]=false}else{$link.addClass('expanded')
-collapse=false
-statuses[title]=true}
-propertyRows.each(function(index){var self=$(this)
-setTimeout(function(){self.toggleClass('collapsed',collapse)
-self.toggleClass('expanded',!collapse)},index*duration)})
-this.writeGroupExpandedStatuses(statuses)}
-Inspector.prototype.loadGroupExpandedStatuses=function(){var statuses=this.$el.data('inspector-group-statuses')
-return statuses!==undefined?JSON.parse(statuses):{}}
-Inspector.prototype.writeGroupExpandedStatuses=function(statuses){this.$el.data('inspector-group-statuses',JSON.stringify(statuses))}
-Inspector.prototype.groupExpanded=function(title){var statuses=this.loadGroupExpandedStatuses()
-if(statuses[title]!==undefined)
-return statuses[title]
-return false}
-Inspector.prototype.normalizePropertyCode=function(code){var lowerCaseCode=code.toLowerCase()
-for(var index in this.config){var propertyInfo=this.config[index]
-if(propertyInfo.property.toLowerCase()==lowerCaseCode)
-return propertyInfo.property}
-return code}
-Inspector.prototype.initProperties=function(){if(!this.propertyValuesField.length){var properties={},attributes=this.$el.get(0).attributes
-for(var i=0,len=attributes.length;i<len;i++){var attribute=attributes[i],matches=[]
-if(matches=attribute.name.match(/^data-property-(.*)$/)){properties[this.normalizePropertyCode(matches[1])]=attribute.value}}
-this.propertyValues=properties}else{var propertyValuesStr=$.trim(this.propertyValuesField.val())
-this.propertyValues=propertyValuesStr.length===0?{}:$.parseJSON(propertyValuesStr)}
-try{this.originalPropertyValues=$.extend(true,{},this.propertyValues)}catch(err){throw new Error('Error parsing the Inspector property values string. '+err)}}
-Inspector.prototype.readProperty=function(property,returnUndefined){if(this.propertyValues[property]!==undefined)
-return this.propertyValues[property]
-return returnUndefined?undefined:null}
-Inspector.prototype.getDefaultValue=function(property){for(var index in this.config){var propertyInfo=this.config[index]
-if(propertyInfo.itemType!=='property')
-continue
-if(propertyInfo.property==property)
-return propertyInfo.default}
-return undefined}
-Inspector.prototype.writeProperty=function(property,value,noChangedStatusUpdate){this.propertyValues[property]=value
-if(this.propertyValuesField.length)
-this.propertyValuesField.val(JSON.stringify(this.propertyValues))
-else{var self=this
-$.each(this.propertyValues,function(propertyName){self.$el.attr('data-property-'+propertyName,this)})}
-if(this.originalPropertyValues[property]===undefined||this.originalPropertyValues[property]!=value){if(!noChangedStatusUpdate){this.$el.trigger('change')
-this.markPropertyChanged(property,true)}}else{if(!noChangedStatusUpdate)
-this.markPropertyChanged(property,false)}
-if(!noChangedStatusUpdate)
-this.$el.trigger('propertyChanged.oc.Inspector',[property])
-return value}
-Inspector.prototype.markPropertyChanged=function(property,changed){$('#prop-'+property.replace('.','-'),this.$el.data('oc.popover').$container).toggleClass('changed',changed)}
-Inspector.prototype.renderEditor=function(data,render){$.oc.inspector.propertyCounter++
-var editorClass='inspectorEditor'
-+data.type.charAt(0).toUpperCase()
-+data.type.slice(1),editorId='inspector-property-'+data.type+$.oc.inspector.propertyCounter
-if($.oc.inspector.editors[editorClass]===undefined)
-throw new Error('The Inspector editor class "'+editorClass+'" is not defined in the $.oc.inspector.editors namespace.')
-var editor=new $.oc.inspector.editors[editorClass](editorId,this,data)
-this.editors.push(editor)
-editor.inspectorCellId=editorId
-return editor.renderEditor()}
-Inspector.prototype.cleanup=function(){this.$el.off('hiding.oc.popover')
-this.$el.off('hide.oc.popover')
-this.$el.off('.oc.Inspector')
-this.$el.removeClass('inspector-open')
-var e=$.Event('hidden.oc.inspector')
-this.$el.trigger(e)
-this.$el.data('oc.inspectorVisible',false)
-this.dispose()}
-Inspector.prototype.dispose=function(){var $popoverContainer=$(this.$el.data('oc.popover').$container)
-$popoverContainer.off('keydown',this.proxy(this.onPopoverKeyDown))
-$('.with-tooltip',$popoverContainer).tooltip('destroy')
-this.$el.removeData('oc.inspector')
-this.editors=null
-this.options=null
-this.$el=null
-BaseProto.dispose.call(this)}
-Inspector.prototype.onBeforeHide=function(e){var $container=this.$el.data('inspector-container'),externalParamErrorFound=false,self=this
-$.each(this.editors,function(){if(!self.editorExternalPropertyEnabled(this))
-this.applyValue()
-else{var $cell=$('#'+this.inspectorCellId,$container),$extPropEditorContainer=$cell.find('.external-param-editor-container'),$input=$extPropEditorContainer.find('.external-editor input'),val=$.trim($input.val())
-if(val.length==0){alert('Please enter external parameter name for the '+this.fieldDef.title+' property.')
-externalParamErrorFound=true
-setTimeout(function(){$input.focus()},0)
-return false}
-self.writeProperty(this.fieldDef.property,'{{ '+val+' }}')}})
-if(externalParamErrorFound){e.preventDefault()
-return false}
-var eH=$.Event('hiding.oc.inspector'),inspector=this
-this.$el.trigger(eH,[{values:this.propertyValues}])
-if(eH.isDefaultPrevented()){e.preventDefault()
-return false}
-$.each(this.editors,function(){if(inspector.editorExternalPropertyEnabled(this))
-return true
-if(this.validate===undefined)
-return true
-var validationError=this.validate()
-if(!validationError)
-return true
-alert(validationError)
-e.preventDefault()
-var self=this
-setTimeout(function(){self.focus()},0)
-return false})
-$('.with-tooltip',this.$el.data('oc.popover').$container).tooltip('hide')
-if(!e.isDefaultPrevented()){for(var i=0,len=this.editors.length;i<len;i++){this.editors[i].dispose()
-this.editors[i]=null}}}
-Inspector.prototype.editorExternalPropertyEnabled=function(editor){var $container=this.$el.data('inspector-container'),$cell=$('#'+editor.inspectorCellId,$container),$extPropEditorContainer=$cell.find('.external-param-editor-container')
-return $extPropEditorContainer.hasClass('editor-visible')}
-Inspector.prototype.findEditor=function(property){var count=this.editors.length
-for(var i=0;i<count;i++){if(this.editors[i].fieldDef.property==property)
-return this.editors[i]}
-return null}
-var InspectorEditorString=function(editorId,inspector,fieldDef){this.inspector=inspector
-this.fieldDef=fieldDef
-this.editorId=editorId
-this.selector='#'+this.editorId+' input.string-editor'
-Base.call(this)
-$(document).on('focus',this.selector,this.proxy(this.onFocus))
-$(document).on('change',this.selector,this.proxy(this.applyValue))}
-InspectorEditorString.prototype=Object.create(BaseProto)
-InspectorEditorString.prototype.constructor=InspectorEditorString
-InspectorEditorString.prototype.init=function(){var value=this.inspector.readProperty(this.fieldDef.property,true)
-if(value===undefined)
-value=this.inspector.getDefaultValue(this.fieldDef.property)
-$(this.selector).val($.trim(value))}
-InspectorEditorString.prototype.dispose=function(){$(document).off('change',this.selector,this.proxy(this.applyValue))
-$(document).off('focus',this.selector,this.proxy(this.onFocus))
-this.inspector=null
-this.fieldDef=null
-this.editorId=null
-this.selector=null
-BaseProto.dispose.call(this)}
-InspectorEditorString.prototype.onFocus=function(ev){var $field=$(ev.currentTarget)
-$('td',$field.closest('table')).removeClass('active')
-$field.closest('td').addClass('active')}
-InspectorEditorString.prototype.applyValue=function(){this.inspector.writeProperty(this.fieldDef.property,$.trim($(this.selector).val()))}
-InspectorEditorString.prototype.renderEditor=function(){var data={id:this.editorId,placeholder:this.fieldDef.placeholder!==undefined?this.fieldDef.placeholder:''}
-return Mustache.render('<td class="text" id="{{id}}"><input type="text" class="string-editor" placeholder="{{placeholder}}"/></td>',data)}
-InspectorEditorString.prototype.validate=function(){var val=$.trim($(this.selector).val())
-if(this.fieldDef.required&&val.length===0)
-return this.fieldDef.validationMessage||'Required fields were left blank.'
-if(this.fieldDef.validationPattern===undefined)
-return
-var re=new RegExp(this.fieldDef.validationPattern,'m')
-if(!val.match(re))
-return this.fieldDef.validationMessage}
-InspectorEditorString.prototype.focus=function(){$(this.selector).focus()
-$(this.selector).closest('td').scrollLeft(0)}
-$.oc.inspector.editors.inspectorEditorString=InspectorEditorString;var InspectorEditorCheckbox=function(editorId,inspector,fieldDef){this.inspector=inspector
-this.fieldDef=fieldDef
-this.editorId=editorId
-this.selector='#'+this.editorId+' input'
-Base.call(this)
-$(document).on('change',this.selector,this.proxy(this.applyValue))}
-InspectorEditorCheckbox.prototype=Object.create(BaseProto)
-InspectorEditorCheckbox.prototype.constructor=InspectorEditorCheckbox
-InspectorEditorCheckbox.prototype.dispose=function(){$(document).off('change',this.selector,this.proxy(this.applyValue))
-this.inspector=null
-this.fieldDef=null
-this.editorId=null
-this.selector=null
-BaseProto.dispose.call(this)}
-InspectorEditorCheckbox.prototype.applyValue=function(){this.inspector.writeProperty(this.fieldDef.property,$(this.selector).get(0).checked?1:0)}
-InspectorEditorCheckbox.prototype.renderEditor=function(){var self=this,data={id:this.editorId,cbId:this.editorId+'-cb',title:this.fieldDef.title}
-return Mustache.render(this.getTemplate(),data)}
-InspectorEditorCheckbox.prototype.init=function(){var isChecked=this.inspector.readProperty(this.fieldDef.property,true)
-if(isChecked===undefined){if(this.fieldDef.default!==undefined){isChecked=this.normalizeCheckedValue(this.fieldDef.default)}}else{isChecked=this.normalizeCheckedValue(isChecked)}
-$(this.selector).prop('checked',isChecked)}
-InspectorEditorCheckbox.prototype.normalizeCheckedValue=function(value){if(value=='0'||value=='false')
-return false
-return value}
-InspectorEditorCheckbox.prototype.focus=function(){$(this.selector).closest('div').focus()}
-InspectorEditorCheckbox.prototype.getTemplate=function(){return'                                              \
-            <td id="{{id}}">                                  \
-                <div tabindex="0" class="checkbox             \
-                    custom-checkbox nolabel">                 \
-                    <input type="checkbox"                    \
-                        value="1"                             \
-                        id="{{cbId}}"/>                       \
-                    <label for="{{cbId}}">{{title}}</label>   \
-                </div>                                        \
-            </td>                                             \
-        ';}
-$.oc.inspector.editors.inspectorEditorCheckbox=InspectorEditorCheckbox;var InspectorEditorDropdown=function(editorId,inspector,fieldDef){this.inspector=inspector
-this.fieldDef=fieldDef
-this.editorId=editorId
-this.selector='#'+this.editorId+' select'
-this.dynamicOptions=this.fieldDef.options?false:true
-this.initialization=false
-Base.call(this)
-$(document).on('change',this.selector,this.proxy(this.applyValue))}
-InspectorEditorDropdown.prototype=Object.create(BaseProto)
-InspectorEditorDropdown.prototype.constructor=InspectorEditorDropdown
-InspectorEditorDropdown.prototype.dispose=function(){$(document).off('change',this.selector,this.proxy(this.applyValue))
-var $element=$(this.selector)
-if($element.data('select2')!=null){$element.select2('close')
-$element.select2('destroy')}
-this.inspector=null
-this.fieldDef=null
-this.editorId=null
-this.selector=null
-BaseProto.dispose.call(this)}
-InspectorEditorDropdown.prototype.applyValue=function(){this.inspector.writeProperty(this.fieldDef.property,$(this.selector).val(),this.initialization)}
-InspectorEditorDropdown.prototype.renderEditor=function(){var
-self=this,data={id:this.editorId,value:$.trim(this.inspector.readProperty(this.fieldDef.property)),selectId:this.editorId+'-select',defaultOption:function(){return function(text,render){if(self.fieldDef.placeholder==undefined)
-return''
-if(!Modernizr.touch)
-return'<option></option>'}}}
-if(this.fieldDef.options){var options=[]
-if(this.fieldDef.placeholder!==undefined&&Modernizr.touch)
-options.push({value:null,title:this.fieldDef.placeholder})
-$.each(this.fieldDef.options,function(value,title){options.push({value:value,title:title})})
-data.options=options}
-return Mustache.render(this.getTemplate(),data)}
-InspectorEditorDropdown.prototype.getTemplate=function(){return'                                                    \
-            <td id="{{id}}" class="dropdown">                       \
-                <select id="{{selectId}}" class="custom-select">    \
-                    {{#defaultOption}}{{/defaultOption}}            \
-                    {{#options}}                                    \
-                        <option value="{{value}}">                  \
-                            {{title}}                               \
-                        </option>                                   \
-                    {{/options}}                                    \
-                </select>                                           \
-            </td>                                                   \
-        ';}
-InspectorEditorDropdown.prototype.init=function(){var value=this.inspector.readProperty(this.fieldDef.property,true)
-if(value===undefined)
-value=this.inspector.getDefaultValue(this.fieldDef.property)
-$(this.selector).val(value)
-if(!Modernizr.touch){var options={dropdownCssClass:'ocInspectorDropdown'}
-if(this.fieldDef.placeholder!==undefined)
-options.placeholder=this.fieldDef.placeholder
-$(this.selector).select2(options)}
-if(this.dynamicOptions){if(!Modernizr.touch){this.indicatorContainer=$('.select2-container',$(this.selector).closest('td'))
-this.indicatorContainer.addClass('loading-indicator-container').addClass('size-small')}
-this.loadOptions(true)}
-if(this.fieldDef.depends)
-this.inspector.$el.on('propertyChanged.oc.Inspector',$.proxy(this.onDependencyChanged,this))}
-InspectorEditorDropdown.prototype.onDependencyChanged=function(ev,property){if($.inArray(property,this.fieldDef.depends)===-1)
-return
-var self=this,dependencyValues=this.getDependencyValues()
-if(this.prevDependencyValues===undefined||this.prevDependencyValues!=dependencyValues)
-this.loadOptions()}
-InspectorEditorDropdown.prototype.saveDependencyValues=function(){this.prevDependencyValues=this.getDependencyValues()}
-InspectorEditorDropdown.prototype.getDependencyValues=function(){var dependencyValues='',self=this
-$.each(this.fieldDef.depends,function(index,masterProperty){dependencyValues+=masterProperty+':'+self.inspector.readProperty(masterProperty)+'-'})
-return dependencyValues}
-InspectorEditorDropdown.prototype.showLoadingIndicator=function(){if(!Modernizr.touch)
-this.indicatorContainer.loadIndicator()}
-InspectorEditorDropdown.prototype.hideLoadingIndicator=function(){if(!Modernizr.touch)
-this.indicatorContainer.loadIndicator('hide')}
-InspectorEditorDropdown.prototype.loadOptions=function(initialization){var $form=$(this.selector).closest('form'),data=this.inspector.propertyValues,$select=$(this.selector),currentValue=this.inspector.readProperty(this.fieldDef.property,true),self=this
-if(currentValue===undefined)
-currentValue=this.inspector.getDefaultValue(this.fieldDef.property)
-for(var index in this.inspector.config){var propertyInfo=this.inspector.config[index]
-if(propertyInfo.itemType=='property'){if(data[propertyInfo.property]===undefined)
-data[propertyInfo.property]=this.inspector.getDefaultValue(propertyInfo.property)}}
-if(this.fieldDef.depends)
-this.saveDependencyValues()
-data.inspectorProperty=this.fieldDef.property
-data.inspectorClassName=this.inspector.options.inspectorClass
-this.showLoadingIndicator()
-$form.request('onInspectableGetOptions',{data:data,success:function(data){$('option',$select).remove()
-if(self.fieldDef.placeholder!==undefined)
-$select.append($('<option></option>'))
-if(data.options)
-$.each(data.options,function(key,obj){$select.append($('<option></option>').attr('value',obj.value).text(obj.title))})
-var hasOption=$('option[value="'+currentValue+'"]',$select).length>0
-if(hasOption)
-$select.val(currentValue)
-else
-$('option:first-child',$select).attr("selected","selected");self.initialization=initialization
-$select.trigger('change')
-self.initialization=false
-self.hideLoadingIndicator()},error:function(jqXHR,textStatus,errorThrown){alert(jqXHR.responseText.length?jqXHR.responseText:jqXHR.statusText)
-self.hideLoadingIndicator()}})}
-InspectorEditorDropdown.prototype.onHideExternalParameterEditor=function(){this.loadOptions(false)}
-$.oc.inspector.editors.inspectorEditorDropdown=InspectorEditorDropdown;function initInspector($element){var inspector=$element.data('oc.inspector')
-if(inspector===undefined){inspector=new Inspector($element.get(0),$element.data())
-inspector.loadConfiguration(function(){inspector.init()})
-$element.data('oc.inspector',inspector)}}
-$.fn.inspector=function(option){return this.each(function(){initInspector($(this))})}
-$(document).on('click','[data-inspectable]',function(){var $this=$(this)
-if($this.data('oc.inspectorVisible'))
-return false
-initInspector($this)
-return false})}(window.jQuery);(function($){$(document).on('keydown','div.custom-checkbox',function(e){if(e.keyCode==32)
-e.preventDefault()})
-$(document).on('keyup','div.custom-checkbox',function(e){if(e.keyCode==32){var $cb=$('input',this)
-if($cb.data('oc-space-timestamp')==e.timeStamp)
-return
-$cb.get(0).checked=!$cb.get(0).checked
-$cb.data('oc-space-timestamp',e.timeStamp)
-$cb.trigger('change')
-return false}})})(jQuery);+function($){'use strict';var backdrop='.dropdown-backdrop'
-var toggle='[data-toggle=dropdown]'
-var Dropdown=function(element){$(element).on('click.bs.dropdown',this.toggle)}
-Dropdown.prototype.toggle=function(e){var $this=$(this)
-if($this.is('.disabled, :disabled'))return
-var $parent=getParent($this)
-var isActive=$parent.hasClass('open')
-clearMenus()
-if(!isActive){if('ontouchstart'in document.documentElement&&!$parent.closest('.navbar-nav').length){$('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click',clearMenus)}
-var relatedTarget={relatedTarget:this}
-$parent.trigger(e=$.Event('show.bs.dropdown',relatedTarget))
-if(e.isDefaultPrevented())return
-$parent.toggleClass('open').trigger('shown.bs.dropdown',relatedTarget)
-$this.focus()}
-return false}
-Dropdown.prototype.keydown=function(e){if(!/(38|40|27)/.test(e.keyCode))return
-var $this=$(this)
-e.preventDefault()
-e.stopPropagation()
-if($this.is('.disabled, :disabled'))return
-var $parent=getParent($this)
-var isActive=$parent.hasClass('open')
-if(!isActive||(isActive&&e.keyCode==27)){if(e.which==27)$parent.find(toggle).focus()
-return $this.click()}
-var desc=' li:not(.divider):visible a'
-var $items=$parent.find('[role=menu]'+desc+', [role=listbox]'+desc)
-if(!$items.length)return
-var index=$items.index($items.filter(':focus'))
-if(e.keyCode==38&&index>0)index--
-if(e.keyCode==40&&index<$items.length-1)index++
-if(!~index)index=0
-$items.eq(index).focus()}
-function clearMenus(e){$(backdrop).remove()
-$(toggle).each(function(){var $parent=getParent($(this))
-var relatedTarget={relatedTarget:this}
-if(!$parent.hasClass('open'))return
-$parent.trigger(e=$.Event('hide.bs.dropdown',relatedTarget))
-if(e.isDefaultPrevented())return
-$parent.removeClass('open').trigger('hidden.bs.dropdown',relatedTarget)})}
-function getParent($this){var selector=$this.attr('data-target')
-if(!selector){selector=$this.attr('href')
-selector=selector&&/#[A-Za-z]/.test(selector)&&selector.replace(/.*(?=#[^\s]*$)/,'')}
-var $parent=selector&&$(selector)
-return $parent&&$parent.length?$parent:$this.parent()}
-var old=$.fn.dropdown
-$.fn.dropdown=function(option){return this.each(function(){var $this=$(this)
-var data=$this.data('bs.dropdown')
-if(!data)$this.data('bs.dropdown',(data=new Dropdown(this)))
-if(typeof option=='string')data[option].call($this)})}
-$.fn.dropdown.Constructor=Dropdown
-$.fn.dropdown.noConflict=function(){$.fn.dropdown=old
-return this}
-$(document).on('click.bs.dropdown.data-api',clearMenus).on('click.bs.dropdown.data-api','.dropdown form',function(e){e.stopPropagation()}).on('click.bs.dropdown.data-api',toggle,Dropdown.prototype.toggle).on('keydown.bs.dropdown.data-api',toggle+', [role=menu], [role=listbox]',Dropdown.prototype.keydown)}(jQuery);+function($){"use strict";$(document).on('shown.bs.dropdown','.dropdown',function(){$(document.body).addClass('dropdown-open')
-var dropdown=$('.dropdown-menu',this),dropdownContainer=$(this).data('dropdown-container')
-if($('.dropdown-container',dropdown).length==0){var title=$('[data-toggle=dropdown]',this).text(),titleAttr=dropdown.data('dropdown-title'),timer=null
-if(titleAttr!==undefined)
-title=titleAttr
-$('li:first-child',dropdown).addClass('first-item')
-dropdown.prepend($('<li/>').addClass('dropdown-title').text(title))
-var container=$('<li/>').addClass('dropdown-container'),ul=$('<ul/>')
-container.prepend(ul)
-ul.prepend(dropdown.children())
-dropdown.prepend(container)
-dropdown.on('touchstart',function(){window.setTimeout(function(){dropdown.addClass('scroll')},200)})
-dropdown.on('touchend',function(){window.setTimeout(function(){dropdown.removeClass('scroll')},200)})
-dropdown.on('click','a',function(){if(dropdown.hasClass('scroll'))
-return false})}
-if(dropdownContainer!==undefined&&dropdownContainer=='body'){$(this).data('oc.dropdown',dropdown)
-$(document.body).append(dropdown)
-dropdown.css({'visibility':'hidden','left':0,'top':0,'display':'block'})
-var targetOffset=$(this).offset(),targetHeight=$(this).height(),targetWidth=$(this).width(),position={x:targetOffset.left,y:targetOffset.top+targetHeight},leftOffset=targetWidth<30?-16:0,documentHeight=$(document).height(),dropdownHeight=dropdown.height()
-if((dropdownHeight+position.y)>$(document).height()){position.y=targetOffset.top-dropdownHeight-12
-dropdown.addClass('top')}
-else{dropdown.removeClass('top')}
-dropdown.css({'left':position.x+leftOffset,'top':position.y,'visibility':'visible'})}
-if($('.dropdown-overlay',document.body).length==0){$(document.body).prepend($('<div/>').addClass('dropdown-overlay'));}})
-$(document).on('hidden.bs.dropdown','.dropdown',function(){var dropdown=$(this).data('oc.dropdown')
-if(dropdown!==undefined){dropdown.css('display','none')
-$(this).append(dropdown)}
-$(document.body).removeClass('dropdown-open');})
-var $dropdown,$container,$target
-function fixDropdownPosition(){var position=$container.offset()
-$dropdown.css({position:'fixed',top:position.top-1-$(window).scrollTop()+$target.outerHeight(),left:position.left})}
-$(document).on('shown.bs.dropdown','.dropdown.dropdown-fixed',function(event,eventData){$container=$(this)
-$dropdown=$('.dropdown-menu',$container)
-$target=$(eventData.relatedTarget)
-fixDropdownPosition()
-$(window).on('scroll.oc.dropdown, resize.oc.dropdown',fixDropdownPosition)})
-$(document).on('hidden.bs.dropdown','.dropdown.dropdown-fixed',function(){$(window).off('scroll.oc.dropdown, resize.oc.dropdown',fixDropdownPosition)})}(window.jQuery);+function($){'use strict';var dismiss='[data-dismiss="callout"]'
-var Callout=function(el){$(el).on('click',dismiss,this.close)}
-Callout.prototype.close=function(e){var $this=$(this)
-var selector=$this.attr('data-target')
-if(!selector){selector=$this.attr('href')
-selector=selector&&selector.replace(/.*(?=#[^\s]*$)/,'')}
-var $parent=$(selector)
-if(e)e.preventDefault()
-if(!$parent.length){$parent=$this.hasClass('callout')?$this:$this.parent()}
-$parent.trigger(e=$.Event('close.oc.callout'))
-if(e.isDefaultPrevented())return
-$parent.removeClass('in')
-function removeElement(){$parent.trigger('closed.oc.callout').remove()}
-$.support.transition&&$parent.hasClass('fade')?$parent.one($.support.transition.end,removeElement).emulateTransitionEnd(500):removeElement()}
-var old=$.fn.callout
-$.fn.callout=function(option){return this.each(function(){var $this=$(this)
-var data=$this.data('oc.callout')
-if(!data)$this.data('oc.callout',(data=new Callout(this)))
-if(typeof option=='string')data[option].call($this)})}
-$.fn.callout.Constructor=Callout
-$.fn.callout.noConflict=function(){$.fn.callout=old
-return this}
-$(document).on('click.oc.callout.data-api',dismiss,Callout.prototype.close)}(jQuery);(function($){$(document).render(function(){$('[data-control="tooltip"], [data-toggle="tooltip"]').tooltip()})})(jQuery);(function(factory){if(typeof define==='function'&&define.amd){define(['jquery'],factory);}else if(typeof exports==='object'){module.exports=factory;}else{factory(jQuery);}}(function($){var toFix=['wheel','mousewheel','DOMMouseScroll','MozMousePixelScroll'],toBind=('onwheel'in document||document.documentMode>=9)?['wheel']:['mousewheel','DomMouseScroll','MozMousePixelScroll'],slice=Array.prototype.slice,nullLowestDeltaTimeout,lowestDelta;if($.event.fixHooks){for(var i=toFix.length;i;){$.event.fixHooks[toFix[--i]]=$.event.mouseHooks;}}
-var special=$.event.special.mousewheel={version:'3.1.9',setup:function(){if(this.addEventListener){for(var i=toBind.length;i;){this.addEventListener(toBind[--i],handler,false);}}else{this.onmousewheel=handler;}
-$.data(this,'mousewheel-line-height',special.getLineHeight(this));$.data(this,'mousewheel-page-height',special.getPageHeight(this));},teardown:function(){if(this.removeEventListener){for(var i=toBind.length;i;){this.removeEventListener(toBind[--i],handler,false);}}else{this.onmousewheel=null;}},getLineHeight:function(elem){return parseInt($(elem)['offsetParent'in $.fn?'offsetParent':'parent']().css('fontSize'),10);},getPageHeight:function(elem){return $(elem).height();},settings:{adjustOldDeltas:true}};$.fn.extend({mousewheel:function(fn){return fn?this.bind('mousewheel',fn):this.trigger('mousewheel');},unmousewheel:function(fn){return this.unbind('mousewheel',fn);}});function handler(event){var orgEvent=event||window.event,args=slice.call(arguments,1),delta=0,deltaX=0,deltaY=0,absDelta=0;event=$.event.fix(orgEvent);event.type='mousewheel';if('detail'in orgEvent){deltaY=orgEvent.detail*-1;}
-if('wheelDelta'in orgEvent){deltaY=orgEvent.wheelDelta;}
-if('wheelDeltaY'in orgEvent){deltaY=orgEvent.wheelDeltaY;}
-if('wheelDeltaX'in orgEvent){deltaX=orgEvent.wheelDeltaX*-1;}
-if('axis'in orgEvent&&orgEvent.axis===orgEvent.HORIZONTAL_AXIS){deltaX=deltaY*-1;deltaY=0;}
-delta=deltaY===0?deltaX:deltaY;if('deltaY'in orgEvent){deltaY=orgEvent.deltaY*-1;delta=deltaY;}
-if('deltaX'in orgEvent){deltaX=orgEvent.deltaX;if(deltaY===0){delta=deltaX*-1;}}
-if(deltaY===0&&deltaX===0){return;}
-if(orgEvent.deltaMode===1){var lineHeight=$.data(this,'mousewheel-line-height');delta*=lineHeight;deltaY*=lineHeight;deltaX*=lineHeight;}else if(orgEvent.deltaMode===2){var pageHeight=$.data(this,'mousewheel-page-height');delta*=pageHeight;deltaY*=pageHeight;deltaX*=pageHeight;}
-absDelta=Math.max(Math.abs(deltaY),Math.abs(deltaX));if(!lowestDelta||absDelta<lowestDelta){lowestDelta=absDelta;if(shouldAdjustOldDeltas(orgEvent,absDelta)){lowestDelta/=40;}}
-if(shouldAdjustOldDeltas(orgEvent,absDelta)){delta/=40;deltaX/=40;deltaY/=40;}
-delta=Math[delta>=1?'floor':'ceil'](delta/lowestDelta);deltaX=Math[deltaX>=1?'floor':'ceil'](deltaX/lowestDelta);deltaY=Math[deltaY>=1?'floor':'ceil'](deltaY/lowestDelta);event.deltaX=deltaX;event.deltaY=deltaY;event.deltaFactor=lowestDelta;event.deltaMode=0;args.unshift(event,delta,deltaX,deltaY);if(nullLowestDeltaTimeout){clearTimeout(nullLowestDeltaTimeout);}
-nullLowestDeltaTimeout=setTimeout(nullLowestDelta,200);return($.event.dispatch||$.event.handle).apply(this,args);}
-function nullLowestDelta(){lowestDelta=null;}
-function shouldAdjustOldDeltas(orgEvent,absDelta){return special.settings.adjustOldDeltas&&orgEvent.type==='mousewheel'&&absDelta%120===0;}}));+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
-var DragScroll=function(element,options){this.options=$.extend({},DragScroll.DEFAULTS,options)
-var
-$el=$(element),el=$el.get(0),dragStart=0,startOffset=0,self=this,dragging=false,eventElementName=this.options.vertical?'pageY':'pageX';this.el=$el
-this.scrollClassContainer=this.options.scrollClassContainer?$(this.options.scrollClassContainer):$el
-Base.call(this)
-if(this.options.scrollMarkerContainer){$(this.options.scrollMarkerContainer).append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))}
-$el.mousewheel(function(event){if(!self.options.allowScroll)
-return;var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):(event.deltaFactor*event.deltaX)
-return!scrollWheel(offset)})
-if(!options.noDragSupport){$el.on('mousedown.dragScroll',function(event){if(event.target&&event.target.tagName==='INPUT')
-return
-startDrag(event)
-return false})}
-$el.on('touchstart.dragScroll',function(event){var touchEvent=event.originalEvent;if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
-event.stopPropagation()}})
-$el.on('click.dragScroll',function(){if($(document.body).hasClass('drag'))
-return false})
-$(document).on('ready',this.proxy(this.fixScrollClasses))
-$(window).on('resize',this.proxy(this.fixScrollClasses))
-function startDrag(event){dragStart=event[eventElementName]
-startOffset=self.options.vertical?$el.scrollTop():$el.scrollLeft()
-if(Modernizr.touch){$(window).on('touchmove.dragScroll',function(event){var touchEvent=event.originalEvent
-moveDrag(touchEvent.touches[0])
-event.preventDefault()})
-$(window).on('touchend.dragScroll',function(event){stopDrag()})}
-else{$(window).on('mousemove.dragScroll',function(event){moveDrag(event)
-$(document.body).addClass(self.options.dragClass)
-return false})
-$(window).on('mouseup.dragScroll',function(mouseUpEvent){var isClick=event.pageX==mouseUpEvent.pageX&&event.pageY==mouseUpEvent.pageY
-stopDrag(isClick)
-return false})}}
-function moveDrag(event){var current=event[eventElementName],offset=dragStart-current
-if(Math.abs(offset)>2){if(!dragging){dragging=true
-$el.trigger('start.oc.dragScroll')
-self.options.start();}
-self.options.vertical?$el.scrollTop(startOffset+offset):$el.scrollLeft(startOffset+offset)
-$el.trigger('drag.oc.dragScroll')
-self.options.drag()}}
-function stopDrag(click){$(window).off('.dragScroll')
-dragging=false;if(click)
-$(document.body).removeClass(self.options.dragClass)
-else
-self.fixScrollClasses()
-window.setTimeout(function(){if(!click){$(document.body).removeClass(self.options.dragClass)
-$el.trigger('stop.oc.dragScroll')
-self.options.stop()
-self.fixScrollClasses()}},100)}
-function scrollWheel(offset){startOffset=self.options.vertical?el.scrollTop:el.scrollLeft
-self.options.vertical?$el.scrollTop(startOffset+offset):$el.scrollLeft(startOffset+offset)
-var scrolled=self.options.vertical?el.scrollTop!=startOffset:el.scrollLeft!=startOffset
-$el.trigger('drag.oc.dragScroll')
-self.options.drag()
-if(scrolled){if(self.wheelUpdateTimer!==undefined&&self.wheelUpdateTimer!==false)
-window.clearInterval(self.wheelUpdateTimer);self.wheelUpdateTimer=window.setTimeout(function(){self.wheelUpdateTimer=false;self.fixScrollClasses()},100);}
-return scrolled}
-this.fixScrollClasses();}
-DragScroll.prototype=Object.create(BaseProto)
-DragScroll.prototype.constructor=DragScroll
-DragScroll.DEFAULTS={vertical:false,allowScroll:true,scrollClassContainer:false,scrollMarkerContainer:false,dragClass:'drag',noDragSupport:false,start:function(){},drag:function(){},stop:function(){}}
-DragScroll.prototype.fixScrollClasses=function(){this.scrollClassContainer.toggleClass('scroll-before',!this.isStart())
-this.scrollClassContainer.toggleClass('scroll-after',!this.isEnd())
-this.scrollClassContainer.toggleClass('scroll-active-before',this.isActiveBefore())
-this.scrollClassContainer.toggleClass('scroll-active-after',this.isActiveAfter())}
-DragScroll.prototype.isStart=function(){if(!this.options.vertical)
-return this.el.scrollLeft()<=0;else
-return this.el.scrollTop()<=0;}
-DragScroll.prototype.isEnd=function(){if(!this.options.vertical)
-return(this.el[0].scrollWidth-(this.el.scrollLeft()+this.el.width()))<=0
-else
-return(this.el[0].scrollHeight-(this.el.scrollTop()+this.el.height()))<=0}
-DragScroll.prototype.goToStart=function(){if(!this.options.vertical)
-return this.el.scrollLeft(0)
-else
-return this.el.scrollTop(0)}
-DragScroll.prototype.isActiveAfter=function(){var activeElement=$('.active',this.el);if(activeElement.length==0)
-return false
-if(!this.options.vertical)
-return activeElement.get(0).offsetLeft>(this.el.scrollLeft()+this.el.width())
-else
-return activeElement.get(0).offsetTop>(this.el.scrollTop()+this.el.height())}
-DragScroll.prototype.isActiveBefore=function(){var activeElement=$('.active',this.el);if(activeElement.length==0)
-return false
-if(!this.options.vertical)
-return(activeElement.get(0).offsetLeft+activeElement.width())<this.el.scrollLeft()
-else
-return(activeElement.get(0).offsetTop+activeElement.height())<this.el.scrollTop()}
-DragScroll.prototype.goToElement=function(element,callback,options){var $el=$(element)
-if(!$el.length)
-return;var self=this,params={duration:300,queue:false,complete:function(){self.fixScrollClasses()
-if(callback!==undefined)
-callback()}}
-params=$.extend(params,options||{})
-var offset=0,animated=false
-if(!this.options.vertical){offset=$el.get(0).offsetLeft-this.el.scrollLeft()
-if(offset<0){this.el.animate({'scrollLeft':$el.get(0).offsetLeft},params)
-animated=true}else{offset=$el.get(0).offsetLeft+$el.width()-(this.el.scrollLeft()+this.el.width())
-if(offset>0){this.el.animate({'scrollLeft':$el.get(0).offsetLeft+$el.width()-this.el.width()},params)
-animated=true}}}else{offset=$el.get(0).offsetTop-this.el.scrollTop()
-if(offset<0){this.el.animate({'scrollTop':$el.get(0).offsetTop},params)
-animated=true}else{offset=$el.get(0).offsetTop-(this.el.scrollTop()+this.el.height())
-if(offset>0){this.el.animate({'scrollTop':$el.get(0).offsetTop+$el.height()-this.el.height()},params)
-animated=true}}}
-if(!animated&&callback!==undefined)
-callback()}
-DragScroll.prototype.dispose=function(){this.scrollClassContainer=null
-$(document).off('ready',this.proxy(this.fixScrollClasses))
-$(window).off('resize',this.proxy(this.fixScrollClasses))
-this.el.off('.dragScroll')
-this.el.removeData('oc.dragScroll')
-this.el=null
-BaseProto.dispose.call(this)}
-var old=$.fn.dragScroll
-$.fn.dragScroll=function(option){var args=arguments;return this.each(function(){var $this=$(this)
-var data=$this.data('oc.dragScroll')
-var options=typeof option=='object'&&option
-if(!data)$this.data('oc.dragScroll',(data=new DragScroll(this,options)))
-if(typeof option=='string'){var methodArgs=[];for(var i=1;i<args.length;i++)
-methodArgs.push(args[i])
-data[option].apply(data,methodArgs)}})}
-$.fn.dragScroll.Constructor=DragScroll
-$.fn.dragScroll.noConflict=function(){$.fn.dragScroll=old
-return this}}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
-var Toolbar=function(element,options){var
-$el=this.$el=$(element),$toolbar=$el.closest('.control-toolbar')
-$.oc.foundation.controlUtils.markDisposable(element)
-this.$toolbar=$toolbar
-this.options=options||{};var noDragSupport=options.noDragSupport!==undefined&&options.noDragSupport
-Base.call(this)
-var scrollClassContainer=options.scrollClassContainer!==undefined?options.scrollClassContainer:$el.parent()
-$el.dragScroll({scrollClassContainer:scrollClassContainer,noDragSupport:noDragSupport})
-$('.form-control.growable',$toolbar).on('focus.toolbar',function(){update()})
-$('.form-control.growable',$toolbar).on('blur.toolbar',function(){update()})
-this.$el.one('dispose-control',this.proxy(this.dispose))
-function update(){$(window).trigger('resize')}}
-Toolbar.prototype=Object.create(BaseProto)
-Toolbar.prototype.constructor=Toolbar
-Toolbar.prototype.dispose=function(){this.$el.off('dispose-control',this.proxy(this.dispose))
-$('.form-control.growable',this.$toolbar).off('.toolbar')
-this.$el.dragScroll('dispose')
-this.$el.removeData('oc.toolbar')
-this.$el=null
-BaseProto.dispose.call(this)}
-Toolbar.DEFAULTS={}
-var old=$.fn.toolbar
-$.fn.toolbar=function(option){var args=Array.prototype.slice.call(arguments,1)
-return this.each(function(){var $this=$(this)
-var data=$this.data('oc.toolbar')
-var options=$.extend({},Toolbar.DEFAULTS,$this.data(),typeof option=='object'&&option)
-if(!data)$this.data('oc.toolbar',(data=new Toolbar(this,options)))
-if(typeof option=='string')data[option].apply(data,args)})}
-$.fn.toolbar.Constructor=Toolbar
-$.fn.toolbar.noConflict=function(){$.fn.toolbar=old
-return this}
-$(document).on('render',function(){$('[data-control=toolbar]').toolbar()})}(window.jQuery);+function($){"use strict";var FilterWidget=function(element,options){var $el=this.$el=$(element);this.options=options||{}
-this.scopeValues={}
-this.$activeScope=null
-this.activeScopeName=null
-this.isActiveScopeDirty=false
-this.init()}
-FilterWidget.DEFAULTS={optionsHandler:null,updateHandler:null}
-FilterWidget.prototype.getPopoverTemplate=function(){return'                                                                                        \
-                <form>                                                                                  \
-                    <input type="hidden" name="scopeName"  value="{{ scopeName }}" />                   \
-                    <div id="controlFilterPopover" class="control-filter-popover">                      \
-                        <div class="filter-search loading-indicator-container size-input-text">         \
-                            <button class="close" data-dismiss="popover" type="button">&times;</button> \
-                            <input                                                                      \
-                                type="text"                                                             \
-                                name="search"                                                           \
-                                autocomplete="off"                                                      \
-                                class="filter-search-input form-control icon search"                    \
-                                data-request="{{ optionsHandler }}"                                     \
-                                data-load-indicator-opaque                                              \
-                                data-load-indicator                                                     \
-                                data-track-input />                                                     \
-                        </div>                                                                          \
-                        <div class="filter-items">                                                      \
-                            <ul>                                                                        \
-                                {{#available}}                                                          \
-                                    <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>  \
-                                {{/available}}                                                          \
-                                {{#loading}}                                                            \
-                                    <li class="loading"><span></span></li>                              \
-                                {{/loading}}                                                            \
-                            </ul>                                                                       \
-                        </div>                                                                          \
-                        <div class="filter-active-items">                                               \
-                            <ul>                                                                        \
-                                {{#active}}                                                             \
-                                    <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>  \
-                                {{/active}}                                                             \
-                            </ul>                                                                       \
-                        </div>                                                                          \
-                    </div>                                                                              \
-                </form>                                                                                 \
-            '}
-FilterWidget.prototype.init=function(){var self=this
-this.$el.on('change','.filter-scope input[type="checkbox"]',function(){var isChecked=$(this).is(':checked'),$scope=$(this).closest('.filter-scope'),scopeName=$scope.data('scope-name')
-self.scopeValues[scopeName]=isChecked
-self.checkboxToggle(scopeName,isChecked)})
-this.$el.on('click','a.filter-scope',function(){var $scope=$(this),scopeName=$scope.data('scope-name')
-if($scope.hasClass('filter-scope-open'))return
-self.$activeScope=$scope
-self.activeScopeName=scopeName
-self.isActiveScopeDirty=false
-self.displayPopover($scope)
-$scope.addClass('filter-scope-open')})
-this.$el.on('show.oc.popover','a.filter-scope',function(){self.focusSearch()})
-this.$el.on('hide.oc.popover','a.filter-scope',function(){var $scope=$(this)
-self.pushOptions(self.activeScopeName)
-self.activeScopeName=null
-self.$activeScope=null
-setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})
-$(document).on('click','#controlFilterPopover .filter-items > ul > li',function(){self.selectItem($(this))})
-$(document).on('click','#controlFilterPopover .filter-active-items > ul > li',function(){self.selectItem($(this),true)})
-$(document).on('ajaxDone','#controlFilterPopover input.filter-search-input',function(event,context,data){self.filterAvailable(data.scopeName,data.options.available)})}
-FilterWidget.prototype.focusSearch=function(){if(Modernizr.touch)
-return
-var $input=$('#controlFilterPopover input.filter-search-input'),length=$input.val().length
-$input.focus()
-$input.get(0).setSelectionRange(length,length)}
-FilterWidget.prototype.updateScopeSetting=function($scope,amount){var $setting=$scope.find('.filter-setting')
-if(amount){$setting.text(amount)
-$scope.addClass('active')}
-else{$setting.text('all')
-$scope.removeClass('active')}}
-FilterWidget.prototype.selectItem=function($item,isDeselect){var $otherContainer=isDeselect?$item.closest('.control-filter-popover').find('.filter-items:first > ul'):$item.closest('.control-filter-popover').find('.filter-active-items:first > ul')
-$item.addClass('animate-enter').prependTo($otherContainer).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){$(this).removeClass('animate-enter')})
-if(!this.scopeValues[this.activeScopeName])
-return
-var
-itemId=$item.data('item-id'),items=this.scopeValues[this.activeScopeName],fromItems=isDeselect?items.active:items.available,toItems=isDeselect?items.available:items.active,testFunc=function(item){return item.id==itemId},item=$.grep(fromItems,testFunc).pop(),filtered=$.grep(fromItems,testFunc,true)
-if(isDeselect)
-this.scopeValues[this.activeScopeName].active=filtered
-else
-this.scopeValues[this.activeScopeName].available=filtered
-if(item)
-toItems.push(item)
-this.updateScopeSetting(this.$activeScope,items.active.length)
-this.isActiveScopeDirty=true
-this.focusSearch()}
-FilterWidget.prototype.displayPopover=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName],isLoaded=true
-if(!data){data={loading:true}
-isLoaded=false}
-data.scopeName=scopeName
-data.optionsHandler=self.options.optionsHandler
-$scope.data('oc.popover',null)
-$scope.ocPopover({content:Mustache.render(self.getPopoverTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom'})
-if(!isLoaded){self.loadOptions(scopeName)}}
-FilterWidget.prototype.loadOptions=function(scopeName){var $form=this.$el.closest('form'),self=this,data={scopeName:scopeName}
-var populated=this.$el.data('filterScopes')
-if(populated&&populated[scopeName]){self.fillOptions(scopeName,populated[scopeName])
-return false}
-return $form.request(this.options.optionsHandler,{data:data,success:function(data){self.fillOptions(scopeName,data.options)}})}
-FilterWidget.prototype.fillOptions=function(scopeName,data){if(this.scopeValues[scopeName])
-return
-if(!data.active)data.active=[]
-if(!data.available)data.available=[]
-this.scopeValues[scopeName]=data
-if(scopeName!=this.activeScopeName)
-return
-var container=$('#controlFilterPopover .filter-items > ul').empty()
-this.addItemsToListElement(container,data.available)
-var container=$('#controlFilterPopover .filter-active-items > ul')
-this.addItemsToListElement(container,data.active)}
-FilterWidget.prototype.filterAvailable=function(scopeName,available){if(this.activeScopeName!=scopeName)
-return
-if(!this.scopeValues[this.activeScopeName])
-return
-var
-self=this,filtered=[],items=this.scopeValues[scopeName]
-if(items.active.length){var compareFunc=function(a,b){return a.id==b.id},inArrayFunc=function(elem,array,testFunc){var i=array.length
-do{if(i--===0)return i}while(testFunc(array[i],elem))
-return i}
-filtered=$.grep(available,function(item){return!inArrayFunc(item,items.active,compareFunc)})}
-else{filtered=available}
-var container=$('#controlFilterPopover .filter-items > ul').empty()
-self.addItemsToListElement(container,filtered)}
-FilterWidget.prototype.addItemsToListElement=function($ul,items){$.each(items,function(key,obj){var item=$('<li />').data({'item-id':obj.id}).append($('<a />').prop({'href':'javascript:;',}).text(obj.name))
-$ul.append(item)})}
-FilterWidget.prototype.pushOptions=function(scopeName){if(!this.isActiveScopeDirty||!this.options.updateHandler)
-return
-var $form=this.$el.closest('form'),data={scopeName:scopeName,options:this.scopeValues[scopeName]}
-$.oc.stripeLoadIndicator.show()
-$form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
-FilterWidget.prototype.checkboxToggle=function(scopeName,isChecked){if(!this.options.updateHandler)
-return
-var $form=this.$el.closest('form'),data={scopeName:scopeName,value:isChecked}
-$.oc.stripeLoadIndicator.show()
-$form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
-var old=$.fn.filterWidget
-$.fn.filterWidget=function(option){var args=arguments,result
-this.each(function(){var $this=$(this)
-var data=$this.data('oc.filterwidget')
-var options=$.extend({},FilterWidget.DEFAULTS,$this.data(),typeof option=='object'&&option)
-if(!data)$this.data('oc.filterwidget',(data=new FilterWidget(this,options)))
-if(typeof option=='string')result=data[option].call($this)
-if(typeof result!='undefined')return false})
-return result?result:this}
-$.fn.filterWidget.Constructor=FilterWidget
-$.fn.filterWidget.noConflict=function(){$.fn.filterWidget=old
-return this}
-$(document).render(function(){$('[data-control="filterwidget"]').filterWidget();})}(window.jQuery);(function($){$(document).render(function(){if(Modernizr.touch)
-return
-var formatSelectOption=function(state){if(!state.id)
-return state.text;var $option=$(state.element),iconClass=$option.data('icon'),imageSrc=$option.data('image')
-if(iconClass)
-return'<i class="select-icon '+iconClass+'"></i> '+state.text
-if(imageSrc)
-return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+state.text
-return state.text}
-var selectOptions={templateResult:formatSelectOption,templateSelection:formatSelectOption,escapeMarkup:function(m){return m},width:'style'}
-$('select.custom-select').each(function(){var $element=$(this),extraOptions={}
-if($element.data('select2')!=null){return true;}
-$element.attr('data-disposable','data-disposable')
-$element.one('dispose-control',function(){if($element.data('select2')){$element.select2('destroy')}})
-if($element.hasClass('select-no-search')){extraOptions.minimumResultsForSearch=Infinity}
-$element.select2($.extend({},selectOptions,extraOptions))})})
-$(document).on('disable','select.custom-select',function(event,status){$(this).select2('enable',!status)})
 $(document).on('focus','select.custom-select',function(event){setTimeout($.proxy(function(){$(this).select2('focus')},this),10)})})(jQuery);+function($){"use strict";var LoadIndicator=function(element,options){var $el=this.$el=$(element)
 this.options=options||{}
 this.tally=0
@@ -1871,7 +1380,8 @@ this.$container=false
 this.$el.data('oc.popover',null)
 $(document.body).removeClass('popover-open')
 $(document).unbind('mousedown',this.docClickHandler);$(document).off('.oc.popover')
-this.docClickHandler=null}
+this.docClickHandler=null
+this.options.onCheckDocumentClickTarget=null}
 Popover.prototype.show=function(options){var self=this
 var e=$.Event('showing.oc.popover',{relatedTarget:this.$el})
 this.$el.trigger(e,this)
@@ -1908,6 +1418,7 @@ return false})
 this.docClickHandler=$.proxy(this.onDocumentClick,this)
 $(document).bind('mousedown',this.docClickHandler);if(this.options.closeOnEsc){$(document).on('keyup.oc.popover',function(e){if($(e.target).hasClass('select2-offscreen'))
 return false
+if(!self.options.closeOnEsc){return false}
 if(e.keyCode==27){self.hide()
 return false}})}}
 Popover.prototype.getContent=function(){return typeof this.options.content=='function'?this.options.content.call(this.$el[0],this):this.options.content}
@@ -1953,10 +1464,11 @@ result.y-=containerOffset.top
 return result}
 Popover.prototype.onDocumentClick=function(e){if(!this.options.closeOnPageClick)
 return
+if(this.options.onCheckDocumentClickTarget&&this.options.onCheckDocumentClickTarget(e.target)){return}
 if($.contains(this.$container.get(0),e.target))
 return
 this.hide();}
-Popover.DEFAULTS={placement:'bottom',fallbackPlacement:'bottom',content:'<p>Popover content<p>',width:false,modal:false,highlightModalTarget:false,closeOnPageClick:true,closeOnEsc:true,container:false,containerClass:null,offset:15,useAnimation:false}
+Popover.DEFAULTS={placement:'bottom',fallbackPlacement:'bottom',content:'<p>Popover content<p>',width:false,modal:false,highlightModalTarget:false,closeOnPageClick:true,closeOnEsc:true,container:false,containerClass:null,offset:15,useAnimation:false,onCheckDocumentClickTarget:null}
 var old=$.fn.ocPopover
 $.fn.ocPopover=function(option){var args=arguments;return this.each(function(){var $this=$(this)
 var data=$this.data('oc.popover')

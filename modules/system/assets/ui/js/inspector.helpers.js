@@ -29,4 +29,5 @@
     $.oc.inspector.helpers.generateUniqueId = function() {
         return "inspectorid-" + Math.floor(Math.random() * new Date().getTime());
     }
+
 }(window.jQuery)

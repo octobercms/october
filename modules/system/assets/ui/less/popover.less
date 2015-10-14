@@ -153,6 +153,10 @@ div.control-popover {
             font-size: 13px;
             font-weight: 100;
             margin: 10px 0 0 0;
+
+            &:empty {
+                display: none;
+            }
         }
 
         .close {
@@ -162,6 +166,7 @@ div.control-popover {
             top: 12px;
             color: @color-popover-head-text;
             outline: none;
+            .opacity(0.4);
 
             &:hover {
                 .opacity(1);
