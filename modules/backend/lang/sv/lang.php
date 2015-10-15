@@ -307,7 +307,7 @@ return [
         'menu_label' => 'Åtkomstlogg',
         'menu_description' => 'Visa en lista över framgångsrika inloggningar av back-end användare.',
         'created_at' => 'Dataum och tid',
-        'login' => 'Inlogging',
+        'login' => 'Inloggning',
         'ip_address' => 'IP adress',
         'first_name' => 'Förnamn',
         'last_name' => 'Efternamn',
