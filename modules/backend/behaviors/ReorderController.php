@@ -215,16 +215,25 @@ class ReorderController extends ControllerBehavior
         $records = null;
 
         if ($this->sortMode == 'simple') {
-            $records = $model
-                ->orderBy($model->getSortOrderColumn())
-                ->get()
-            ;
+            $records = $model->orderBy($model->getSortOrderColumn());
+            $this->controller->reorderExtendQuery($records);
+            $records = $records->get();
         }
         elseif ($this->sortMode == 'nested') {
             $records = $model->getEagerRoot();
         }
 
         return $records;
+    }
+
+    /**
+     * Extend the query used for finding reorder records. Extra conditions
+     * can be applied to the query, for example, $query->withTrashed();
+     * @param October\Rain\Database\Builder $query
+     * @return void
+     */
+    public function reorderExtendQuery($query)
+    {
     }
 
     //
