@@ -3479,4 +3479,1826 @@ $(window).on('ajaxInvalidField',function(event,element,name,messages,isFirst){if
 event.preventDefault()
 var $el=$(element)
 $el.closest('[data-control=tab]').ocTab('goToElement',$el)
-$el.focus()})}(window.jQuery);
+$el.focus()})}(window.jQuery);+function($){"use strict";if($.oc===undefined)
+$.oc={}
+if($.oc.inspector===undefined)
+$.oc.inspector={}
+var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var Surface=function(containerElement,properties,values,inspectorUniqueId,options,parentSurface,group){if(inspectorUniqueId===undefined){throw new Error('Inspector surface unique ID should be defined.')}
+this.options=$.extend({},Surface.DEFAULTS,typeof options=='object'&&options)
+this.rawProperties=properties
+this.parsedProperties=$.oc.inspector.engine.processPropertyGroups(properties)
+this.container=containerElement
+this.inspectorUniqueId=inspectorUniqueId
+this.values=values
+this.originalValues=$.extend(true,{},values)
+this.idCounter=1
+this.popupCounter=0
+this.parentSurface=parentSurface
+this.editors=[]
+this.externalParameterEditors=[]
+this.tableContainer=null
+this.groupManager=null
+this.group=null
+if(group!==undefined){this.group=group}
+if(!this.parentSurface){this.groupManager=new $.oc.inspector.groupManager(this.inspectorUniqueId)}
+Base.call(this)
+this.init()}
+Surface.prototype=Object.create(BaseProto)
+Surface.prototype.constructor=Surface
+Surface.prototype.dispose=function(){this.unregisterHandlers()
+this.disposeControls()
+this.disposeEditors()
+this.removeElements()
+this.disposeExternalParameterEditors()
+this.container=null
+this.tableContainer=null
+this.rawProperties=null
+this.parsedProperties=null
+this.editors=null
+this.externalParameterEditors=null
+this.values=null
+this.originalValues=null
+this.options.onChange=null
+this.options.onPopupDisplayed=null
+this.options.onPopupHidden=null
+this.parentSurface=null
+this.groupManager=null
+this.group=null
+BaseProto.dispose.call(this)}
+Surface.prototype.init=function(){if(this.groupManager&&!this.group){this.group=this.groupManager.createGroup('root')}
+this.build()
+if(!this.parentSurface){$.oc.foundation.controlUtils.markDisposable(this.tableContainer)}
+this.registerHandlers()}
+Surface.prototype.registerHandlers=function(){if(!this.parentSurface){$(this.tableContainer).one('dispose-control',this.proxy(this.dispose))
+$(this.tableContainer).on('click','tr.group, tr.control-group',this.proxy(this.onGroupClick))}}
+Surface.prototype.unregisterHandlers=function(){if(!this.parentSurface){$(this.tableContainer).off('dispose-control',this.proxy(this.dispose))
+$(this.tableContainer).off('click','tr.group, tr.control-group',this.proxy(this.onGroupClick))}}
+Surface.prototype.build=function(){this.tableContainer=document.createElement('div')
+var dataTable=document.createElement('table'),tbody=document.createElement('tbody')
+$.oc.foundation.element.addClass(dataTable,'inspector-fields')
+if(this.parsedProperties.hasGroups){$.oc.foundation.element.addClass(dataTable,'has-groups')}
+var currentGroup=this.group
+for(var i=0,len=this.parsedProperties.properties.length;i<len;i++){var property=this.parsedProperties.properties[i]
+if(property.itemType=='group'){currentGroup=this.getGroupManager().createGroup(property.groupIndex,this.group)}
+else{if(property.groupIndex===undefined){currentGroup=this.group}}
+var row=this.buildRow(property,currentGroup)
+if(property.itemType=='group')
+{this.applyGroupLevelToRow(row,currentGroup.parentGroup)}
+else{this.applyGroupLevelToRow(row,currentGroup)}
+tbody.appendChild(row)
+this.buildEditor(row,property,dataTable,currentGroup)}
+dataTable.appendChild(tbody)
+this.tableContainer.appendChild(dataTable)
+this.container.appendChild(this.tableContainer)
+if(this.options.enableExternalParameterEditor){this.buildExternalParameterEditor(tbody)}
+if(!this.parentSurface){this.focusFirstEditor()}}
+Surface.prototype.moveToContainer=function(newContainer){this.container=newContainer
+this.container.appendChild(this.tableContainer)}
+Surface.prototype.buildRow=function(property,group){var row=document.createElement('tr'),th=document.createElement('th'),titleSpan=document.createElement('span'),description=this.buildPropertyDescription(property)
+if(property.property){row.setAttribute('data-property',property.property)}
+this.applyGroupIndexAttribute(property,row,group)
+$.oc.foundation.element.addClass(row,this.getRowCssClass(property,group))
+this.applyHeadColspan(th,property)
+titleSpan.setAttribute('class','title-element')
+titleSpan.setAttribute('title',this.escapeJavascriptString(property.title))
+this.buildGroupExpandControl(titleSpan,property,false,false,group)
+titleSpan.innerHTML+=this.escapeJavascriptString(property.title)
+var outerDiv=document.createElement('div'),innerDiv=document.createElement('div')
+innerDiv.appendChild(titleSpan)
+if(description){innerDiv.appendChild(description)}
+outerDiv.appendChild(innerDiv)
+th.appendChild(outerDiv)
+row.appendChild(th)
+return row}
+Surface.prototype.focusFirstEditor=function(){if(this.editors.length==0){return}
+var groupManager=this.getGroupManager()
+for(var i=0,len=this.editors.length;i<len;i++){var editor=this.editors[i],group=editor.parentGroup
+if(group&&!this.groupManager.isGroupExpanded(group)){continue}
+var externalParameterEditor=this.findExternalParameterEditor(editor.getPropertyName())
+if(externalParameterEditor&&externalParameterEditor.isEditorVisible()){externalParameterEditor.focus()
+return}
+editor.focus()
+return}}
+Surface.prototype.getRowCssClass=function(property,group){var result=property.itemType
+if(property.itemType=='property'){if(group.parentGroup){result+=this.getGroupManager().isGroupExpanded(group)?' expanded':' collapsed'}}
+if(property.itemType=='property'&&!property.showExternalParam){result+=' no-external-parameter'}
+return result}
+Surface.prototype.applyHeadColspan=function(th,property){if(property.itemType=='group'){th.setAttribute('colspan',2)}}
+Surface.prototype.buildGroupExpandControl=function(titleSpan,property,force,hasChildSurface,group){if(property.itemType!=='group'&&!force){return}
+var groupIndex=this.getGroupManager().getGroupIndex(group),statusClass=this.getGroupManager().isGroupExpanded(group)?'expanded':'',anchor=document.createElement('a')
+anchor.setAttribute('class','expandControl '+statusClass)
+anchor.setAttribute('href','javascript:;')
+anchor.innerHTML='<span>Expand/collapse</span>'
+titleSpan.appendChild(anchor)}
+Surface.prototype.buildPropertyDescription=function(property){if(property.description===undefined||property.description===null){return null}
+var span=document.createElement('span')
+span.setAttribute('title',this.escapeJavascriptString(property.description))
+span.setAttribute('class','info oc-icon-info with-tooltip')
+$(span).tooltip({placement:'auto right',container:'body',delay:500})
+return span}
+Surface.prototype.buildExternalParameterEditor=function(tbody){var rows=tbody.children
+for(var i=0,len=rows.length;i<len;i++){var row=rows[i],property=row.getAttribute('data-property')
+if($.oc.foundation.element.hasClass(row,'no-external-parameter')||!property){continue}
+var propertyEditor=this.findPropertyEditor(property)
+if(propertyEditor&&!propertyEditor.supportsExternalParameterEditor()){continue}
+var cell=row.querySelector('td'),propertyDefinition=this.findPropertyDefinition(property),editor=new $.oc.inspector.externalParameterEditor(this,propertyDefinition,cell)
+this.externalParameterEditors.push(editor)}}
+Surface.prototype.applyGroupIndexAttribute=function(property,row,group,isGroupedControl){if(property.itemType=='group'||isGroupedControl){row.setAttribute('data-group-index',this.getGroupManager().getGroupIndex(group))
+row.setAttribute('data-parent-group-index',this.getGroupManager().getGroupIndex(group.parentGroup))}else{if(group.parentGroup){row.setAttribute('data-parent-group-index',this.getGroupManager().getGroupIndex(group))}}}
+Surface.prototype.applyGroupLevelToRow=function(row,group){if(row.hasAttribute('data-group-level')){return}
+var th=this.getRowHeadElement(row)
+if(th===null){throw new Error('Cannot find TH element for the Inspector row')}
+var groupLevel=group.getLevel()
+row.setAttribute('data-group-level',groupLevel)
+th.children[0].style.marginLeft=groupLevel*10+'px'}
+Surface.prototype.toggleGroup=function(row,forceExpand){var link=row.querySelector('a'),groupIndex=row.getAttribute('data-group-index'),table=this.getRootTable(),groupManager=this.getGroupManager(),collapse=true
+if($.oc.foundation.element.hasClass(link,'expanded')&&!forceExpand){$.oc.foundation.element.removeClass(link,'expanded')}else{$.oc.foundation.element.addClass(link,'expanded')
+collapse=false}
+var propertyRows=groupManager.findGroupRows(table,groupIndex,!collapse),duration=Math.round(50/propertyRows.length)
+this.expandOrCollapseRows(propertyRows,collapse,duration,forceExpand)
+groupManager.setGroupStatus(groupIndex,!collapse)}
+Surface.prototype.expandGroupParents=function(group){var groups=group.getGroupAndAllParents(),table=this.getRootTable()
+for(var i=groups.length-1;i>=0;i--){var row=groups[i].findGroupRow(table)
+if(row){this.toggleGroup(row,true)}}}
+Surface.prototype.expandOrCollapseRows=function(rows,collapse,duration,noAnimation){var row=rows.pop(),self=this
+if(row){if(!noAnimation){setTimeout(function toggleRow(){$.oc.foundation.element.toggleClass(row,'collapsed',collapse)
+$.oc.foundation.element.toggleClass(row,'expanded',!collapse)
+self.expandOrCollapseRows(rows,collapse,duration,noAnimation)},duration)}else{$.oc.foundation.element.toggleClass(row,'collapsed',collapse)
+$.oc.foundation.element.toggleClass(row,'expanded',!collapse)
+self.expandOrCollapseRows(rows,collapse,duration,noAnimation)}}}
+Surface.prototype.getGroupManager=function(){return this.getRootSurface().groupManager}
+Surface.prototype.buildEditor=function(row,property,dataTable,group){if(property.itemType!=='property'){return}
+this.validateEditorType(property.type)
+var cell=document.createElement('td'),type=property.type
+row.appendChild(cell)
+if(type===undefined){type='string'}
+var editor=new $.oc.inspector.propertyEditors[type](this,property,cell,group)
+if(editor.isGroupedEditor()){$.oc.foundation.element.addClass(dataTable,'has-groups')
+$.oc.foundation.element.addClass(row,'control-group')
+this.applyGroupIndexAttribute(property,row,editor.group,true)
+this.buildGroupExpandControl(row.querySelector('span.title-element'),property,true,editor.hasChildSurface(),editor.group)
+if(cell.children.length==0){row.querySelector('th').setAttribute('colspan',2)
+row.removeChild(cell)}}
+this.editors.push(editor)}
+Surface.prototype.generateSequencedId=function(){this.idCounter++
+return this.inspectorUniqueId+'-'+this.idCounter}
+Surface.prototype.getPropertyValue=function(property){return this.values[property]}
+Surface.prototype.setPropertyValue=function(property,value,supressChangeEvents,forceEditorUpdate){if(value!==undefined){this.values[property]=value}
+else{if(this.values[property]!==undefined){delete this.values[property]}}
+if(!supressChangeEvents){if(this.originalValues[property]===undefined||!this.comparePropertyValues(this.originalValues[property],value)){this.markPropertyChanged(property,true)}
+else{this.markPropertyChanged(property,false)}
+this.notifyEditorsPropertyChanged(property,value)
+if(this.options.onChange!==null){this.options.onChange(property,value)}}
+if(forceEditorUpdate){var editor=this.findPropertyEditor(property)
+if(editor){editor.updateDisplayedValue(value)}}
+return value}
+Surface.prototype.notifyEditorsPropertyChanged=function(property,value){for(var i=0,len=this.editors.length;i<len;i++){var editor=this.editors[i]
+editor.onInspectorPropertyChanged(property,value)}}
+Surface.prototype.makeCellActive=function(cell){var tbody=cell.parentNode.parentNode.parentNode,cells=tbody.querySelectorAll('tr td')
+for(var i=0,len=cells.length;i<len;i++){$.oc.foundation.element.removeClass(cells[i],'active')}
+$.oc.foundation.element.addClass(cell,'active')}
+Surface.prototype.markPropertyChanged=function(property,changed){var row=this.tableContainer.querySelector('tr[data-property="'+property+'"]')
+if(changed){$.oc.foundation.element.addClass(row,'changed')}
+else{$.oc.foundation.element.removeClass(row,'changed')}}
+Surface.prototype.findPropertyEditor=function(property){for(var i=0,len=this.editors.length;i<len;i++){if(this.editors[i].getPropertyName()==property)
+return this.editors[i]}
+return null}
+Surface.prototype.findExternalParameterEditor=function(property){for(var i=0,len=this.externalParameterEditors.length;i<len;i++){if(this.externalParameterEditors[i].getPropertyName()==property)
+return this.externalParameterEditors[i]}
+return null}
+Surface.prototype.findPropertyDefinition=function(property){for(var i=0,len=this.parsedProperties.properties.length;i<len;i++){var definition=this.parsedProperties.properties[i]
+if(definition.property==property){return definition}}
+return null}
+Surface.prototype.validateEditorType=function(type){if(type===undefined){type='string'}
+if($.oc.inspector.propertyEditors[type]===undefined){throw new Error('The Inspector editor class "'+type+'" is not defined in the $.oc.inspector.propertyEditors namespace.')}}
+Surface.prototype.popupDisplayed=function(){if(this.popupCounter===0&&this.options.onPopupDisplayed!==null){this.options.onPopupDisplayed()}
+this.popupCounter++}
+Surface.prototype.popupHidden=function(){this.popupCounter--
+if(this.popupCounter<0){this.popupCounter=0}
+if(this.popupCounter===0&&this.options.onPopupHidden!==null){this.options.onPopupHidden()}}
+Surface.prototype.mergeChildSurface=function(surface,mergeAfterRow){var rows=surface.tableContainer.querySelectorAll('table.inspector-fields > tbody > tr')
+surface.tableContainer=this.getRootSurface().tableContainer
+for(var i=rows.length-1;i>=0;i--){var row=rows[i]
+mergeAfterRow.parentNode.insertBefore(row,mergeAfterRow.nextSibling)
+this.applyGroupLevelToRow(row,surface.group)}}
+Surface.prototype.getRowHeadElement=function(row){for(var i=row.children.length-1;i>=0;i--){var element=row.children[i]
+if(element.tagName==='TH'){return element}}
+return null}
+Surface.prototype.getInspectorUniqueId=function(){return this.inspectorUniqueId}
+Surface.prototype.getRootSurface=function(){var current=this
+while(current){if(!current.parentSurface){return current}
+current=current.parentSurface}}
+Surface.prototype.removeElements=function(){if(!this.parentSurface){this.tableContainer.parentNode.removeChild(this.tableContainer);}}
+Surface.prototype.disposeEditors=function(){for(var i=0,len=this.editors.length;i<len;i++){var editor=this.editors[i]
+editor.dispose()}}
+Surface.prototype.disposeExternalParameterEditors=function(){for(var i=0,len=this.externalParameterEditors.length;i<len;i++){var editor=this.externalParameterEditors[i]
+editor.dispose()}}
+Surface.prototype.disposeControls=function(){var tooltipControls=this.tableContainer.querySelectorAll('.with-tooltip')
+for(var i=0,len=tooltipControls.length;i<len;i++){$(tooltipControls[i]).tooltip('destroy')}}
+Surface.prototype.escapeJavascriptString=function(str){var div=document.createElement('div')
+div.appendChild(document.createTextNode(str))
+return div.innerHTML}
+Surface.prototype.comparePropertyValues=function(oldValue,newValue){if(oldValue===undefined&&newValue!==undefined){return false}
+if(oldValue!==undefined&&newValue===undefined){return false}
+if(typeof oldValue=='object'&&typeof newValue=='object'){return JSON.stringify(oldValue)==JSON.stringify(newValue)}
+return oldValue==newValue}
+Surface.prototype.getRootTable=function(){return this.getRootSurface().container.querySelector('table.inspector-fields')}
+Surface.prototype.getValues=function(){var result={}
+for(var i=0,len=this.parsedProperties.properties.length;i<len;i++){var property=this.parsedProperties.properties[i]
+if(property.itemType!=='property'){continue}
+var value=null,externalParameterEditor=this.findExternalParameterEditor(property.property)
+if(!externalParameterEditor||!externalParameterEditor.isEditorVisible()){value=this.getPropertyValue(property.property)
+if(value===undefined){var editor=this.findPropertyEditor(property.property)
+if(editor){value=editor.getUndefinedValue()}
+else{value=property.default}}
+if(value===$.oc.inspector.removedProperty){continue}}
+else{value=externalParameterEditor.getValue()
+value='{{ '+value+' }}'}
+result[property.property]=value}
+return result}
+Surface.prototype.validate=function(){this.getGroupManager().unmarkInvalidGroups(this.getRootTable())
+for(var i=0,len=this.editors.length;i<len;i++){var editor=this.editors[i],externalEditor=this.findExternalParameterEditor(editor.propertyDefinition.property)
+if(externalEditor&&externalEditor.isEditorVisible()){if(!externalEditor.validate()){editor.markInvalid()
+return false}
+else{continue}}
+if(!editor.validate()){editor.markInvalid()
+return false}}
+return true}
+Surface.prototype.hasChanges=function(){return!this.comparePropertyValues(this.originalValues,this.values)}
+Surface.prototype.onGroupClick=function(ev){var row=ev.currentTarget
+this.toggleGroup(row)
+$.oc.foundation.event.stop(ev)
+return false}
+Surface.DEFAULTS={enableExternalParameterEditor:false,onChange:null,onPopupDisplayed:null,onPopupHidden:null}
+$.oc.inspector.surface=Surface
+$.oc.inspector.removedProperty={removed:true}}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var InspectorManager=function(){Base.call(this)
+this.init()}
+InspectorManager.prototype=Object.create(BaseProto)
+InspectorManager.prototype.constructor=Base
+InspectorManager.prototype.init=function(){$(document).on('click','[data-inspectable]',this.proxy(this.onInspectableClicked))}
+InspectorManager.prototype.getContainerElement=function($element){var $containerHolder=$element.closest('[data-inspector-container]')
+if($containerHolder.length===0){return null}
+var $container=$containerHolder.find($containerHolder.data('inspector-container'))
+if($container.length===0){throw new Error('Inspector container '+$containerHolder.data['inspector-container']+' element is not found.')}
+return $container}
+InspectorManager.prototype.createInspectorPopup=function($element,containerSupported){new $.oc.inspector.wrappers.popup($element,null,{containerSupported:containerSupported})}
+InspectorManager.prototype.createInspectorContainer=function($element,$container){new $.oc.inspector.wrappers.container($element,null,{containerSupported:true,container:$container})}
+InspectorManager.prototype.switchToPopup=function(wrapper){new $.oc.inspector.wrappers.popup(wrapper.$element,wrapper,{containerSupported:true})
+wrapper.cleanupAfterSwitch()
+this.setContainerPreference(false)}
+InspectorManager.prototype.switchToContainer=function(wrapper){var $container=this.getContainerElement(wrapper.$element)
+if(!$container){throw new Error('Cannot switch to container: a container element is not found')}
+new $.oc.inspector.wrappers.container(wrapper.$element,wrapper,{containerSupported:true,container:$container})
+wrapper.cleanupAfterSwitch()
+this.setContainerPreference(true)}
+InspectorManager.prototype.createInspector=function($element){var $container=this.getContainerElement($element)
+if(!$container){this.createInspectorPopup($element,false)}
+else{if(!this.applyValuesFromContainer($container)||!this.containerHidingAllowed($container)){return}
+$.oc.foundation.controlUtils.disposeControls($container.get(0))
+if(!this.getContainerPreference()){this.createInspectorPopup($element,true)}
+else{this.createInspectorContainer($element,$container)}}}
+InspectorManager.prototype.getContainerPreference=function(){if(!Modernizr.localstorage){return false}
+return localStorage.getItem('oc.inspectorUseContainer')==="true"}
+InspectorManager.prototype.setContainerPreference=function(value){if(!Modernizr.localstorage){return}
+return localStorage.setItem('oc.inspectorUseContainer',value?"true":"false")}
+InspectorManager.prototype.applyValuesFromContainer=function($container){var applyEvent=$.Event('apply.oc.inspector')
+$container.trigger(applyEvent)
+if(applyEvent.isDefaultPrevented()){return false}
+return true}
+InspectorManager.prototype.containerHidingAllowed=function($container){var allowedEvent=$.Event('beforeContainerHide.oc.inspector')
+$container.trigger(allowedEvent)
+if(allowedEvent.isDefaultPrevented()){return false}
+return true}
+InspectorManager.prototype.onInspectableClicked=function(ev){var $element=$(ev.currentTarget)
+if($element.data('oc.inspectorVisible'))
+return false
+this.createInspector($element)}
+$.oc.inspector.manager=new InspectorManager()}(window.jQuery);+function($){"use strict";if($.oc.inspector===undefined)
+$.oc.inspector={}
+if($.oc.inspector.wrappers===undefined)
+$.oc.inspector.wrappers={}
+var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var BaseWrapper=function($element,sourceWrapper,options){this.$element=$element
+this.options=$.extend({},BaseWrapper.DEFAULTS,typeof options=='object'&&options)
+this.switched=false
+Base.call(this)
+if(!sourceWrapper){if(!this.triggerShowingAndInit()){return}
+this.surface=null
+this.title=null
+this.description=null}
+else{this.surface=sourceWrapper.surface
+this.title=sourceWrapper.title
+this.description=sourceWrapper.description
+sourceWrapper=null
+this.init()}}
+BaseWrapper.prototype=Object.create(BaseProto)
+BaseWrapper.prototype.constructor=Base
+BaseWrapper.prototype.dispose=function(){if(!this.switched){this.$element.removeClass('inspector-open')
+this.setInspectorVisibleFlag(false)
+this.$element.trigger('hidden.oc.inspector')}
+this.surface=null
+this.$element=null
+this.title=null
+this.description=null
+BaseProto.dispose.call(this)}
+BaseWrapper.prototype.init=function(){if(!this.surface){this.loadConfiguration()}
+else{this.adoptSurface()}
+this.$element.addClass('inspector-open')}
+BaseWrapper.prototype.getElementValuesInput=function(){return this.$element.find('input[data-inspector-values]')}
+BaseWrapper.prototype.normalizePropertyCode=function(code,configuration){var lowerCaseCode=code.toLowerCase()
+for(var index in configuration){var propertyInfo=configuration[index]
+if(propertyInfo.property.toLowerCase()==lowerCaseCode){return propertyInfo.property}}
+return code}
+BaseWrapper.prototype.isExternalParametersEditorEnabled=function(){return this.$element.closest('[data-inspector-external-parameters]').length>0}
+BaseWrapper.prototype.initSurface=function(containerElement,properties,values){var options=this.$element.data()||{}
+options.enableExternalParameterEditor=this.isExternalParametersEditorEnabled()
+this.surface=new $.oc.inspector.surface(containerElement,properties,values,$.oc.inspector.helpers.generateElementUniqueId(this.$element.get(0)),options)}
+BaseWrapper.prototype.createSurfaceAndUi=function(properties,values){}
+BaseWrapper.prototype.setInspectorVisibleFlag=function(value){this.$element.data('oc.inspectorVisible',value)}
+BaseWrapper.prototype.adoptSurface=function(){}
+BaseWrapper.prototype.cleanupAfterSwitch=function(){this.switched=true
+this.dispose()}
+BaseWrapper.prototype.loadValues=function(configuration){var $valuesField=this.getElementValuesInput()
+if($valuesField.length>0){var valuesStr=$.trim($valuesField.val())
+try{return valuesStr.length===0?{}:$.parseJSON(valuesStr)}catch(err){throw new Error('Error parsing Inspector field values. '+err)}}
+var values={},attributes=this.$element.get(0).attributes
+for(var i=0,len=attributes.length;i<len;i++){var attribute=attributes[i],matches=[]
+if(matches=attribute.name.match(/^data-property-(.*)$/)){var normalizedPropertyName=this.normalizePropertyCode(matches[1],configuration)
+values[normalizedPropertyName]=attribute.value}}
+return values}
+BaseWrapper.prototype.applyValues=function(){var $valuesField=this.getElementValuesInput(),values=this.surface.getValues()
+if($valuesField.length>0){$valuesField.val(JSON.stringify(values))}
+else{for(var property in values){var value=values[property]
+if($.isArray(value)||$.isPlainObject(value)){throw new Error('Inspector data-property-xxx attributes do not support complex values. Property: '+property)}
+this.$element.attr('data-property-'+property,value)}}
+if(this.surface.hasChanges()){this.$element.trigger('change')}}
+BaseWrapper.prototype.loadConfiguration=function(){var configString=this.$element.data('inspector-config'),result={properties:{},title:null,description:null}
+result.title=this.$element.data('inspector-title')
+result.description=this.$element.data('inspector-description')
+if(configString!==undefined){result.properties=this.parseConfiguration(configString)
+this.configurationLoaded(result)
+return}
+var $configurationField=this.$element.find('input[data-inspector-config]')
+if($configurationField.length>0){result.properties=this.parseConfiguration($configurationField.val())
+this.configurationLoaded(result)
+return}
+var $form=this.$element.closest('form'),data=this.$element.data(),self=this
+$.oc.stripeLoadIndicator.show()
+var request=$form.request('onGetInspectorConfiguration',{data:data}).done(function inspectorConfigurationRequestDoneClosure(data){self.onConfigurartionRequestDone(data,result)}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+BaseWrapper.prototype.parseConfiguration=function(configuration){if(!$.isArray(configuration)&&!$.isPlainObject(configuration)){if($.trim(configuration)===0){return{}}
+try{return $.parseJSON(configuration)}catch(err){throw new Error('Error parsing Inspector configuration. '+err)}}else{return configuration}}
+BaseWrapper.prototype.configurationLoaded=function(configuration){var values=this.loadValues(configuration.properties)
+this.title=configuration.title
+this.description=configuration.description
+this.createSurfaceAndUi(configuration.properties,values)}
+BaseWrapper.prototype.onConfigurartionRequestDone=function(data,result){result.properties=this.parseConfiguration(data.configuration.properties)
+if(data.configuration.title!==undefined){result.title=data.configuration.title}
+if(data.configuration.description!==undefined){result.description=data.configuration.description}
+this.configurationLoaded(result)}
+BaseWrapper.prototype.triggerShowingAndInit=function(){var e=$.Event('showing.oc.inspector')
+this.$element.trigger(e,[{callback:this.proxy(this.init)}])
+if(e.isDefaultPrevented()){this.$element=null
+return false}
+if(!e.isPropagationStopped()){this.init()}}
+BaseWrapper.prototype.triggerHiding=function(){var hidingEvent=$.Event('hiding.oc.inspector'),values=this.surface.getValues()
+this.$element.trigger(hidingEvent,[{values:values}])
+if(hidingEvent.isDefaultPrevented()){return false}
+return true}
+BaseWrapper.DEFAULTS={containerSupported:false}
+$.oc.inspector.wrappers.base=BaseWrapper}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.wrappers.base,BaseProto=Base.prototype
+var InspectorPopup=function($element,surface,options){this.$popoverContainer=null
+this.popoverObj=null
+this.cleaningUp=false
+Base.call(this,$element,surface,options)}
+InspectorPopup.prototype=Object.create(BaseProto)
+InspectorPopup.prototype.constructor=Base
+InspectorPopup.prototype.dispose=function(){this.unregisterHandlers()
+this.$popoverContainer=null
+this.popoverObj=null
+BaseProto.dispose.call(this)}
+InspectorPopup.prototype.createSurfaceAndUi=function(properties,values,title,description){this.showPopover()
+this.initSurface(this.$popoverContainer.find('[data-surface-container]').get(0),properties,values)
+this.registerPopupHandlers()}
+InspectorPopup.prototype.adoptSurface=function(){this.showPopover()
+this.surface.moveToContainer(this.$popoverContainer.find('[data-surface-container]').get(0))
+this.registerPopupHandlers()}
+InspectorPopup.prototype.cleanupAfterSwitch=function(){this.cleaningUp=true
+this.switched=true
+this.forceClose()}
+InspectorPopup.prototype.getPopoverContents=function(){return'<div class="popover-head">                          \
+                    <h3 data-inspector-title></h3>                  \
+                    <p data-inspector-description></p>              \
+                    <button type="button" class="close"             \
+                        data-dismiss="popover"                      \
+                        aria-hidden="true">&times;</button>         \
+                </div>                                              \
+                <form autocomplete="off" onsubmit="return false">   \
+                    <div data-surface-container></div>              \
+                <form>'}
+InspectorPopup.prototype.showPopover=function(){var offset=this.$element.data('inspector-offset'),offsetX=this.$element.data('inspector-offset-x'),offsetY=this.$element.data('inspector-offset-y'),placement=this.$element.data('inspector-placement'),fallbackPlacement=this.$element.data('inspector-fallback-placement')
+if(offset===undefined){offset=15}
+if(placement===undefined){placement='bottom'}
+if(fallbackPlacement===undefined){fallbackPlacement='bottom'}
+this.$element.ocPopover({content:this.getPopoverContents(),highlightModalTarget:true,modal:true,placement:placement,fallbackPlacement:fallbackPlacement,containerClass:'control-inspector',container:this.$element.data('inspector-container'),offset:offset,offsetX:offsetX,offsetY:offsetY,width:400})
+this.setInspectorVisibleFlag(true)
+this.popoverObj=this.$element.data('oc.popover')
+this.$popoverContainer=this.popoverObj.$container
+if(this.options.containerSupported){var moveToContainerButton=$('<span class="inspector-move-to-container oc-icon-download">')
+this.$popoverContainer.find('.popover-head').append(moveToContainerButton)}
+this.$popoverContainer.find('[data-inspector-title]').text(this.title)
+this.$popoverContainer.find('[data-inspector-description]').text(this.description)}
+InspectorPopup.prototype.forceClose=function(){this.$popoverContainer.trigger('close.oc.popover')}
+InspectorPopup.prototype.registerPopupHandlers=function(){this.surface.options.onPopupDisplayed=this.proxy(this.onPopupEditorDisplayed)
+this.surface.options.onPopupHidden=this.proxy(this.onPopupEditorHidden)
+this.popoverObj.options.onCheckDocumentClickTarget=this.proxy(this.onCheckDocumentClickTarget)
+this.$element.on('hiding.oc.popover',this.proxy(this.onBeforeHide))
+this.$element.on('hide.oc.popover',this.proxy(this.onHide))
+this.$popoverContainer.on('keydown',this.proxy(this.onPopoverKeyDown))
+if(this.options.containerSupported){this.$popoverContainer.on('click','span.inspector-move-to-container',this.proxy(this.onMoveToContainer))}}
+InspectorPopup.prototype.unregisterHandlers=function(){this.popoverObj.options.onCheckDocumentClickTarget=null
+this.$element.off('hiding.oc.popover',this.proxy(this.onBeforeHide))
+this.$element.off('hide.oc.popover',this.proxy(this.onHide))
+this.$popoverContainer.off('keydown',this.proxy(this.onPopoverKeyDown))
+if(this.options.containerSupported){this.$popoverContainer.off('click','span.inspector-move-to-container',this.proxy(this.onMoveToContainer))}
+this.surface.options.onPopupDisplayed=null
+this.surface.options.onPopupHidden=null}
+InspectorPopup.prototype.onBeforeHide=function(ev){if(this.cleaningUp){return}
+if(!this.surface.validate()){ev.preventDefault()
+return false}
+if(!this.triggerHiding()){ev.preventDefault()
+return false}
+this.applyValues()}
+InspectorPopup.prototype.onHide=function(ev){this.dispose()}
+InspectorPopup.prototype.onPopoverKeyDown=function(ev){if(ev.keyCode==13){$(ev.currentTarget).trigger('close.oc.popover')}}
+InspectorPopup.prototype.onPopupEditorDisplayed=function(){this.popoverObj.options.closeOnPageClick=false
+this.popoverObj.options.closeOnEsc=false}
+InspectorPopup.prototype.onPopupEditorHidden=function(){this.popoverObj.options.closeOnPageClick=true
+this.popoverObj.options.closeOnEsc=true}
+InspectorPopup.prototype.onCheckDocumentClickTarget=function(element){if($.contains(this.$element,element)||this.$element.get(0)===element){return true}}
+InspectorPopup.prototype.onMoveToContainer=function(){$.oc.inspector.manager.switchToContainer(this)}
+$.oc.inspector.wrappers.popup=InspectorPopup}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.wrappers.base,BaseProto=Base.prototype
+var InspectorContainer=function($element,surface,options){if(!options.container){throw new Error('Cannot create Inspector container wrapper without a container element.')}
+this.surfaceContainer=null
+Base.call(this,$element,surface,options)}
+InspectorContainer.prototype=Object.create(BaseProto)
+InspectorContainer.prototype.constructor=Base
+InspectorContainer.prototype.init=function(){this.registerHandlers()
+BaseProto.init.call(this)}
+InspectorContainer.prototype.dispose=function(){this.unregisterHandlers()
+this.removeControls()
+this.surfaceContainer=null
+BaseProto.dispose.call(this)}
+InspectorContainer.prototype.createSurfaceAndUi=function(properties,values){this.buildUi()
+this.initSurface(this.surfaceContainer,properties,values)}
+InspectorContainer.prototype.adoptSurface=function(){this.buildUi()
+this.surface.moveToContainer(this.surfaceContainer)}
+InspectorContainer.prototype.buildUi=function(){var scrollable=this.isScrollable(),head=this.buildHead(),layoutElements=this.buildLayout()
+layoutElements.headContainer.appendChild(head)
+if(scrollable){var scrollpad=this.buildScrollpad()
+this.surfaceContainer=scrollpad.container
+layoutElements.bodyContainer.appendChild(scrollpad.scrollpad)
+$(scrollpad.scrollpad).scrollpad()}
+else{this.surfaceContainer=layoutElements.bodyContainer}
+this.setInspectorVisibleFlag(true)}
+InspectorContainer.prototype.buildHead=function(){var container=document.createElement('div'),header=document.createElement('h3'),paragraph=document.createElement('p'),detachButton=document.createElement('span'),closeButton=document.createElement('span')
+container.setAttribute('class','inspector-header')
+detachButton.setAttribute('class','oc-icon-external-link-square detach')
+closeButton.setAttribute('class','close')
+header.textContent=this.title
+paragraph.textContent=this.description
+closeButton.innerHTML='&times;';container.appendChild(header)
+container.appendChild(paragraph)
+container.appendChild(detachButton)
+container.appendChild(closeButton)
+return container}
+InspectorContainer.prototype.buildScrollpad=function(){var scrollpad=document.createElement('div'),scrollWrapper=document.createElement('div'),scrollableContainer=document.createElement('div')
+scrollpad.setAttribute('class','control-scrollpad')
+scrollpad.setAttribute('data-control','scrollpad')
+scrollWrapper.setAttribute('class','scroll-wrapper inspector-wrapper')
+scrollpad.appendChild(scrollWrapper)
+scrollWrapper.appendChild(scrollableContainer)
+return{scrollpad:scrollpad,container:scrollableContainer}}
+InspectorContainer.prototype.buildLayout=function(){var layout=document.createElement('div'),headRow=document.createElement('div'),bodyRow=document.createElement('div'),bodyCell=document.createElement('div'),layoutRelative=document.createElement('div')
+layout.setAttribute('class','layout')
+headRow.setAttribute('class','layout-row min-size')
+bodyRow.setAttribute('class','layout-row')
+bodyCell.setAttribute('class','layout-cell')
+layoutRelative.setAttribute('class','layout-relative')
+bodyCell.appendChild(layoutRelative)
+bodyRow.appendChild(bodyCell)
+layout.appendChild(headRow)
+layout.appendChild(bodyRow)
+this.options.container.get(0).appendChild(layout)
+$.oc.foundation.controlUtils.markDisposable(layout)
+this.registerLayoutHandlers(layout)
+return{headContainer:headRow,bodyContainer:layoutRelative}}
+InspectorContainer.prototype.validateAndApply=function(){if(!this.surface.validate()){return false}
+this.applyValues()
+return true}
+InspectorContainer.prototype.isScrollable=function(){return this.options.container.data('inspector-scrollable')!==undefined}
+InspectorContainer.prototype.getLayout=function(){return this.options.container.get(0).querySelector('div.layout')}
+InspectorContainer.prototype.registerLayoutHandlers=function(layout){var $layout=$(layout)
+$layout.one('dispose-control',this.proxy(this.dispose))
+$layout.on('click','span.close',this.proxy(this.onClose))
+$layout.on('click','span.detach',this.proxy(this.onDetach))}
+InspectorContainer.prototype.registerHandlers=function(){this.options.container.on('apply.oc.inspector',this.proxy(this.onApplyValues))
+this.options.container.on('beforeContainerHide.oc.inspector',this.proxy(this.onBeforeHide))}
+InspectorContainer.prototype.unregisterHandlers=function(){var $layout=$(this.getLayout())
+this.options.container.off('apply.oc.inspector',this.proxy(this.onApplyValues))
+this.options.container.off('beforeContainerHide.oc.inspector',this.proxy(this.onBeforeHide))
+$layout.off('dispose-control',this.proxy(this.dispose))
+$layout.off('click','span.close',this.proxy(this.onClose))
+$layout.off('click','span.detach',this.proxy(this.onDetach))}
+InspectorContainer.prototype.removeControls=function(){if(this.isScrollable()){this.options.container.find('.control-scrollpad').scrollpad('dispose')}
+var layout=this.getLayout()
+layout.parentNode.removeChild(layout)}
+InspectorContainer.prototype.onApplyValues=function(ev){if(!this.validateAndApply()){ev.preventDefault()
+return false}}
+InspectorContainer.prototype.onBeforeHide=function(ev){if(!this.triggerHiding()){ev.preventDefault()
+return false}}
+InspectorContainer.prototype.onClose=function(ev){if(!this.validateAndApply()){ev.preventDefault()
+return false}
+if(!this.triggerHiding()){ev.preventDefault()
+return false}
+this.surface.dispose()
+this.dispose()}
+InspectorContainer.prototype.onDetach=function(){$.oc.inspector.manager.switchToPopup(this)}
+$.oc.inspector.wrappers.container=InspectorContainer}(window.jQuery);+function($){"use strict";var GroupManager=function(controlId){this.controlId=controlId
+this.rootGroup=null
+this.cachedGroupStatuses=null}
+GroupManager.prototype.createGroup=function(groupId,parentGroup){var group=new Group(groupId)
+if(parentGroup){parentGroup.groups.push(group)
+group.parentGroup=parentGroup}
+else{this.rootGroup=group}
+return group}
+GroupManager.prototype.getGroupIndex=function(group){return group.getGroupIndex()}
+GroupManager.prototype.isParentGroupExpanded=function(group){if(!group.parentGroup){return true}
+return this.isGroupExpanded(group.parentGroup)}
+GroupManager.prototype.isGroupExpanded=function(group){if(!group.parentGroup){return true}
+var groupIndex=this.getGroupIndex(group),statuses=this.readGroupStatuses()
+if(statuses[groupIndex]!==undefined)
+return statuses[groupIndex]
+return false}
+GroupManager.prototype.setGroupStatus=function(groupIndex,expanded){var statuses=this.readGroupStatuses()
+statuses[groupIndex]=expanded
+this.writeGroupStatuses(statuses)}
+GroupManager.prototype.readGroupStatuses=function(){if(this.cachedGroupStatuses!==null){return this.cachedGroupStatuses}
+var statuses=getInspectorGroupStatuses()
+if(statuses[this.controlId]!==undefined){this.cachedGroupStatuses=statuses[this.controlId]}
+else{this.cachedGroupStatuses={}}
+return this.cachedGroupStatuses}
+GroupManager.prototype.writeGroupStatuses=function(updatedStatuses){var statuses=getInspectorGroupStatuses()
+statuses[this.controlId]=updatedStatuses
+setInspectorGroupStatuses(statuses)
+this.cachedGroupStatuses=updatedStatuses}
+GroupManager.prototype.findGroupByIndex=function(index){return this.rootGroup.findGroupByIndex(index)}
+GroupManager.prototype.findGroupRows=function(table,index,ignoreCollapsedSubgroups){var group=this.findGroupByIndex(index)
+if(!group){throw new Error('Cannot find the requested row group.')}
+return group.findGroupRows(table,ignoreCollapsedSubgroups,this)}
+GroupManager.prototype.markGroupRowInvalid=function(group,table){var currentGroup=group
+while(currentGroup){var row=currentGroup.findGroupRow(table)
+if(row){$.oc.foundation.element.addClass(row,'invalid')}
+currentGroup=currentGroup.parentGroup}}
+GroupManager.prototype.unmarkInvalidGroups=function(table){var rows=table.querySelectorAll('tr.invalid')
+for(var i=rows.length-1;i>=0;i--){$.oc.foundation.element.removeClass(rows[i],'invalid')}}
+GroupManager.prototype.isRowVisible=function(table,rowGroupIndex){var group=this.findGroupByIndex(index)
+if(!group){throw new Error('Cannot find the requested row group.')}
+var current=group
+while(current){if(!this.isGroupExpanded(current)){return false}
+current=current.parentGroup}
+return true}
+function getInspectorGroupStatuses(){var statuses=document.body.getAttribute('data-inspector-group-statuses')
+if(statuses!==null){return JSON.parse(statuses)}
+return{}}
+function setInspectorGroupStatuses(statuses){document.body.setAttribute('data-inspector-group-statuses',JSON.stringify(statuses))}
+var Group=function(groupId){this.groupId=groupId
+this.parentGroup=null
+this.groupIndex=null
+this.groups=[]}
+Group.prototype.getGroupIndex=function(){if(this.groupIndex!==null){return this.groupIndex}
+var result='',current=this
+while(current){if(result.length>0){result=current.groupId+'-'+result}
+else{result=String(current.groupId)}
+current=current.parentGroup}
+this.groupIndex=result
+return result}
+Group.prototype.findGroupByIndex=function(index){if(this.getGroupIndex()==index){return this}
+for(var i=this.groups.length-1;i>=0;i--){var groupResult=this.groups[i].findGroupByIndex(index)
+if(groupResult!==null){return groupResult}}
+return null}
+Group.prototype.getLevel=function(){var current=this,level=-1
+while(current){level++
+current=current.parentGroup}
+return level}
+Group.prototype.getGroupAndAllParents=function(){var current=this,result=[]
+while(current){result.push(current)
+current=current.parentGroup}
+return result}
+Group.prototype.findGroupRows=function(table,ignoreCollapsedSubgroups,groupManager){var groupIndex=this.getGroupIndex(),rows=table.querySelectorAll('tr[data-parent-group-index="'+groupIndex+'"]'),result=Array.prototype.slice.call(rows)
+for(var i=0,len=this.groups.length;i<len;i++){var subgroup=this.groups[i]
+if(ignoreCollapsedSubgroups&&!groupManager.isGroupExpanded(subgroup)){continue}
+var subgroupRows=subgroup.findGroupRows(table,ignoreCollapsedSubgroups,groupManager)
+for(var j=0,subgroupLen=subgroupRows.length;j<subgroupLen;j++){result.push(subgroupRows[j])}}
+return result}
+Group.prototype.findGroupRow=function(table){return table.querySelector('tr[data-group-index="'+this.groupIndex+'"]')}
+$.oc.inspector.groupManager=GroupManager}(window.jQuery);+function($){"use strict";if($.oc===undefined)
+$.oc={}
+if($.oc.inspector===undefined)
+$.oc.inspector={}
+$.oc.inspector.engine={}
+function findGroup(group,properties){for(var i=0,len=properties.length;i<len;i++){var property=properties[i]
+if(property.itemType!==undefined&&property.itemType=='group'&&property.title==group){return property}}
+return null}
+$.oc.inspector.engine.processPropertyGroups=function(properties){var fields=[],result={hasGroups:false,properties:[]},groupIndex=0
+for(var i=0,len=properties.length;i<len;i++){var property=properties[i]
+property.itemType='property'
+if(property.group===undefined){fields.push(property)}
+else{var group=findGroup(property.group,fields)
+if(!group){group={itemType:'group',title:property.group,properties:[],groupIndex:groupIndex}
+groupIndex++
+fields.push(group)}
+property.groupIndex=group.groupIndex
+group.properties.push(property)}}
+for(var i=0,len=fields.length;i<len;i++){var property=fields[i]
+result.properties.push(property)
+if(property.itemType=='group'){result.hasGroups=true
+for(var j=0,propertiesLen=property.properties.length;j<propertiesLen;j++){result.properties.push(property.properties[j])}
+delete property.properties}}
+return result}}(window.jQuery);+function($){"use strict";if($.oc===undefined)
+$.oc={}
+if($.oc.inspector===undefined)
+$.oc.inspector={}
+if($.oc.inspector.propertyEditors===undefined)
+$.oc.inspector.propertyEditors={}
+var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var BaseEditor=function(inspector,propertyDefinition,containerCell,group){this.inspector=inspector
+this.propertyDefinition=propertyDefinition
+this.containerCell=containerCell
+this.containerRow=containerCell.parentNode
+this.parentGroup=group
+this.group=null
+this.childInspector=null
+this.validationSet=null
+Base.call(this)
+this.init()}
+BaseEditor.prototype=Object.create(BaseProto)
+BaseEditor.prototype.constructor=Base
+BaseEditor.prototype.dispose=function(){this.disposeValidation()
+if(this.childInspector){this.childInspector.dispose()}
+this.inspector=null
+this.propertyDefinition=null
+this.containerCell=null
+this.containerRow=null
+this.childInspector=null
+this.parentGroup=null
+this.group=null
+this.validationSet=null
+BaseProto.dispose.call(this)}
+BaseEditor.prototype.init=function(){this.build()
+this.registerHandlers()
+this.initValidation()}
+BaseEditor.prototype.build=function(){return null}
+BaseEditor.prototype.registerHandlers=function(){}
+BaseEditor.prototype.onInspectorPropertyChanged=function(property,value){}
+BaseEditor.prototype.focus=function(){}
+BaseEditor.prototype.hasChildSurface=function(){return this.childInspector!==null}
+BaseEditor.prototype.getRootSurface=function(){return this.inspector.getRootSurface()}
+BaseEditor.prototype.updateDisplayedValue=function(value){}
+BaseEditor.prototype.getPropertyName=function(){return this.propertyDefinition.property}
+BaseEditor.prototype.getUndefinedValue=function(){return this.propertyDefinition.default===undefined?undefined:this.propertyDefinition.default}
+BaseEditor.prototype.throwError=function(errorMessage){throw new Error(errorMessage+' Property: '+this.propertyDefinition.property)}
+BaseEditor.prototype.initValidation=function(){this.validationSet=new $.oc.inspector.validationSet(this.propertyDefinition,this.propertyDefinition.property)}
+BaseEditor.prototype.disposeValidation=function(){this.validationSet.dispose()}
+BaseEditor.prototype.getValueToValidate=function(){return this.inspector.getPropertyValue(this.propertyDefinition.property)}
+BaseEditor.prototype.validate=function(){var value=this.getValueToValidate()
+if(value===undefined){value=this.getUndefinedValue()}
+var validationResult=this.validationSet.validate(value)
+if(validationResult!==null){$.oc.flashMsg({text:validationResult,'class':'error','interval':5})
+return false}
+return true}
+BaseEditor.prototype.markInvalid=function(){$.oc.foundation.element.addClass(this.containerRow,'invalid')
+this.inspector.getGroupManager().markGroupRowInvalid(this.parentGroup,this.inspector.getRootTable())
+this.inspector.getRootSurface().expandGroupParents(this.parentGroup)
+this.focus()}
+BaseEditor.prototype.supportsExternalParameterEditor=function(){return true}
+BaseEditor.prototype.onExternalPropertyEditorHidden=function(){}
+BaseEditor.prototype.isGroupedEditor=function(){return false}
+BaseEditor.prototype.initControlGroup=function(){this.group=this.inspector.getGroupManager().createGroup(this.propertyDefinition.property,this.parentGroup)}
+BaseEditor.prototype.createGroupedRow=function(property){var row=this.inspector.buildRow(property,this.group),groupedClass=this.inspector.getGroupManager().isGroupExpanded(this.group)?'expanded':'collapsed'
+this.inspector.applyGroupLevelToRow(row,this.group)
+$.oc.foundation.element.addClass(row,'property')
+$.oc.foundation.element.addClass(row,groupedClass)
+return row}
+$.oc.inspector.propertyEditors.base=BaseEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.base,BaseProto=Base.prototype
+var StringEditor=function(inspector,propertyDefinition,containerCell,group){Base.call(this,inspector,propertyDefinition,containerCell,group)}
+StringEditor.prototype=Object.create(BaseProto)
+StringEditor.prototype.constructor=Base
+StringEditor.prototype.dispose=function(){this.unregisterHandlers()
+BaseProto.dispose.call(this)}
+StringEditor.prototype.build=function(){var editor=document.createElement('input'),placeholder=this.propertyDefinition.placeholder!==undefined?this.propertyDefinition.placeholder:'',value=this.inspector.getPropertyValue(this.propertyDefinition.property)
+editor.setAttribute('type','text')
+editor.setAttribute('class','string-editor')
+editor.setAttribute('placeholder',placeholder)
+if(value===undefined){value=this.propertyDefinition.default}
+if(value===undefined){value=''}
+editor.value=value
+$.oc.foundation.element.addClass(this.containerCell,'text')
+this.containerCell.appendChild(editor)}
+StringEditor.prototype.updateDisplayedValue=function(value){this.getInput().value=value}
+StringEditor.prototype.getInput=function(){return this.containerCell.querySelector('input')}
+StringEditor.prototype.focus=function(){this.getInput().focus()
+this.onInputFocus()}
+StringEditor.prototype.registerHandlers=function(){var input=this.getInput()
+input.addEventListener('focus',this.proxy(this.onInputFocus))
+input.addEventListener('keyup',this.proxy(this.onInputKeyUp))}
+StringEditor.prototype.unregisterHandlers=function(){var input=this.getInput()
+input.removeEventListener('focus',this.proxy(this.onInputFocus))
+input.removeEventListener('keyup',this.proxy(this.onInputKeyUp))}
+StringEditor.prototype.onInputFocus=function(ev){this.inspector.makeCellActive(this.containerCell)}
+StringEditor.prototype.onInputKeyUp=function(){var value=$.trim(this.getInput().value)
+this.inspector.setPropertyValue(this.propertyDefinition.property,value)}
+StringEditor.prototype.onExternalPropertyEditorHidden=function(){this.focus()}
+$.oc.inspector.propertyEditors.string=StringEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.base,BaseProto=Base.prototype
+var CheckboxEditor=function(inspector,propertyDefinition,containerCell,group){Base.call(this,inspector,propertyDefinition,containerCell,group)}
+CheckboxEditor.prototype=Object.create(BaseProto)
+CheckboxEditor.prototype.constructor=Base
+CheckboxEditor.prototype.dispose=function(){this.unregisterHandlers()
+BaseProto.dispose.call(this)}
+CheckboxEditor.prototype.build=function(){var editor=document.createElement('input'),container=document.createElement('div'),value=this.inspector.getPropertyValue(this.propertyDefinition.property),label=document.createElement('label'),isChecked=false,id=this.inspector.generateSequencedId()
+container.setAttribute('tabindex',0)
+container.setAttribute('class','custom-checkbox nolabel')
+editor.setAttribute('type','checkbox')
+editor.setAttribute('value','1')
+editor.setAttribute('placeholder','placeholder')
+editor.setAttribute('id',id)
+label.setAttribute('for',id)
+label.textContent=this.propertyDefinition.title
+container.appendChild(editor)
+container.appendChild(label)
+if(value===undefined){if(this.propertyDefinition.default!==undefined){isChecked=this.normalizeCheckedValue(this.propertyDefinition.default)}}
+else{isChecked=this.normalizeCheckedValue(value)}
+editor.checked=isChecked
+this.containerCell.appendChild(container)}
+CheckboxEditor.prototype.normalizeCheckedValue=function(value){if(value=='0'||value=='false')
+return false
+return value}
+CheckboxEditor.prototype.getInput=function(){return this.containerCell.querySelector('input')}
+CheckboxEditor.prototype.focus=function(){this.getInput().parentNode.focus()}
+CheckboxEditor.prototype.updateDisplayedValue=function(value){this.getInput().checked=this.normalizeCheckedValue(value)}
+CheckboxEditor.prototype.registerHandlers=function(){var input=this.getInput()
+input.addEventListener('change',this.proxy(this.onInputChange))}
+CheckboxEditor.prototype.unregisterHandlers=function(){var input=this.getInput()
+input.removeEventListener('change',this.proxy(this.onInputChange))}
+CheckboxEditor.prototype.onInputChange=function(){var isChecked=this.getInput().checked
+this.inspector.setPropertyValue(this.propertyDefinition.property,isChecked?1:0)}
+$.oc.inspector.propertyEditors.checkbox=CheckboxEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.base,BaseProto=Base.prototype
+var DropdownEditor=function(inspector,propertyDefinition,containerCell,group){this.indicatorContainer=null
+Base.call(this,inspector,propertyDefinition,containerCell,group)}
+DropdownEditor.prototype=Object.create(BaseProto)
+DropdownEditor.prototype.constructor=Base
+DropdownEditor.prototype.init=function(){this.dynamicOptions=this.propertyDefinition.options?false:true
+this.initialization=false
+BaseProto.init.call(this)}
+DropdownEditor.prototype.dispose=function(){this.unregisterHandlers()
+this.destroyCustomSelect()
+this.indicatorContainer=null
+BaseProto.dispose.call(this)}
+DropdownEditor.prototype.build=function(){var select=document.createElement('select')
+$.oc.foundation.element.addClass(this.containerCell,'dropdown')
+$.oc.foundation.element.addClass(select,'custom-select')
+if(!this.dynamicOptions){this.loadStaticOptions(select)}
+this.containerCell.appendChild(select)
+this.initCustomSelect()
+if(this.dynamicOptions){this.loadDynamicOptions(true)}}
+DropdownEditor.prototype.createOption=function(select,title,value){var option=document.createElement('option')
+if(title!==null){option.textContent=title}
+if(value!==null){option.value=value}
+select.appendChild(option)}
+DropdownEditor.prototype.createOptions=function(select,options){for(var value in options){this.createOption(select,options[value],value)}}
+DropdownEditor.prototype.initCustomSelect=function(){var select=this.getSelect()
+if(Modernizr.touch){return}
+var options={dropdownCssClass:'ocInspectorDropdown'}
+if(this.propertyDefinition.placeholder!==undefined){options.placeholder=this.propertyDefinition.placeholder}
+$(select).select2(options)
+if(!Modernizr.touch){this.indicatorContainer=$('.select2-container',this.containerCell)
+this.indicatorContainer.addClass('loading-indicator-container size-small')}}
+DropdownEditor.prototype.createPlaceholder=function(select){var placeholder=this.propertyDefinition.placeholder
+if(placeholder!==undefined&&!Modernizr.touch){this.createOption(select,null,null)}
+if(placeholder!==undefined&&Modernizr.touch){this.createOption(select,placeholder,null)}}
+DropdownEditor.prototype.getSelect=function(){return this.containerCell.querySelector('select')}
+DropdownEditor.prototype.clearOptions=function(select){while(select.firstChild){select.removeChild(select.firstChild)}}
+DropdownEditor.prototype.hasOptionValue=function(select,value){var options=select.children
+for(var i=0,len=options.length;i<len;i++){if(options[i].value==value){return true}}
+return false}
+DropdownEditor.prototype.registerHandlers=function(){var select=this.getSelect()
+$(select).on('change',this.proxy(this.onSelectionChange))}
+DropdownEditor.prototype.onSelectionChange=function(){var select=this.getSelect()
+this.inspector.setPropertyValue(this.propertyDefinition.property,select.value,this.initialization)}
+DropdownEditor.prototype.onInspectorPropertyChanged=function(property,value){if(!this.propertyDefinition.depends||this.propertyDefinition.depends.indexOf(property)===-1){return}
+var dependencyValues=this.getDependencyValues()
+if(this.prevDependencyValues===undefined||this.prevDependencyValues!=dependencyValues)
+this.loadDynamicOptions()}
+DropdownEditor.prototype.onExternalPropertyEditorHidden=function(){this.loadDynamicOptions(false)}
+DropdownEditor.prototype.updateDisplayedValue=function(value){var select=this.getSelect()
+select.value=value}
+DropdownEditor.prototype.getUndefinedValue=function(){if(this.propertyDefinition.default!==undefined){return this.propertyDefinition.default}
+if(this.propertyDefinition.placeholder!==undefined){return undefined}
+var select=this.getSelect()
+if(select){return select.value}
+return undefined}
+DropdownEditor.prototype.destroyCustomSelect=function(){var select=this.getSelect()
+$(select).select2('destroy')}
+DropdownEditor.prototype.unregisterHandlers=function(){var select=this.getSelect()
+$(select).off('change',this.proxy(this.onSelectionChange))}
+DropdownEditor.prototype.loadStaticOptions=function(select){var value=this.inspector.getPropertyValue(this.propertyDefinition.property)
+this.createPlaceholder(select)
+this.createOptions(select,this.propertyDefinition.options)
+if(value===undefined){value=this.propertyDefinition.default}
+select.value=value}
+DropdownEditor.prototype.loadDynamicOptions=function(initialization){var currentValue=this.inspector.getPropertyValue(this.propertyDefinition.property),data=this.inspector.getValues(),self=this,$form=$(this.getSelect()).closest('form')
+if(currentValue===undefined){currentValue=this.propertyDefinition.default}
+if(this.propertyDefinition.depends){this.saveDependencyValues()}
+data['inspectorProperty']=this.propertyDefinition.property
+data['inspectorClassName']=this.inspector.options.inspectorClass
+this.showLoadingIndicator()
+$form.request('onInspectableGetOptions',{data:data,}).done(function dropdownOptionsRequestDoneClosure(data){self.optionsRequestDone(data,currentValue,true)}).always(this.proxy(this.hideLoadingIndicator))}
+DropdownEditor.prototype.saveDependencyValues=function(){this.prevDependencyValues=this.getDependencyValues()}
+DropdownEditor.prototype.getDependencyValues=function(){var result=''
+for(var i=0,len=this.propertyDefinition.depends.length;i<len;i++){var property=this.propertyDefinition.depends[i],value=this.inspector.getPropertyValue(property)
+if(value===undefined){value='';}
+result+=property+':'+value+'-'}
+return result}
+DropdownEditor.prototype.showLoadingIndicator=function(){if(!Modernizr.touch){this.indicatorContainer.loadIndicator()}}
+DropdownEditor.prototype.hideLoadingIndicator=function(){if(!Modernizr.touch){this.indicatorContainer.loadIndicator('hide')
+this.indicatorContainer.loadIndicator('destroy')}}
+DropdownEditor.prototype.optionsRequestDone=function(data,currentValue,initialization){var select=this.getSelect()
+this.destroyCustomSelect()
+this.clearOptions(select)
+this.initCustomSelect()
+this.createPlaceholder(select)
+if(data.options){for(var i=0,len=data.options.length;i<len;i++){this.createOption(select,data.options[i].title,data.options[i].value)}}
+if(this.hasOptionValue(select,currentValue)){select.value=currentValue}
+else{select.selectedIndex=this.propertyDefinition.placeholder===undefined?0:-1}
+this.initialization=initialization
+$(select).trigger('change')
+this.initialization=false}
+$.oc.inspector.propertyEditors.dropdown=DropdownEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.base,BaseProto=Base.prototype
+var PopupBase=function(inspector,propertyDefinition,containerCell,group){this.popup=null
+Base.call(this,inspector,propertyDefinition,containerCell,group)}
+PopupBase.prototype=Object.create(BaseProto)
+PopupBase.prototype.constructor=Base
+PopupBase.prototype.dispose=function(){this.unregisterHandlers()
+this.popup=null
+BaseProto.dispose.call(this)}
+PopupBase.prototype.build=function(){var link=document.createElement('a')
+$.oc.foundation.element.addClass(link,'trigger')
+link.setAttribute('href','#')
+this.setLinkText(link)
+$.oc.foundation.element.addClass(this.containerCell,'trigger-cell')
+this.containerCell.appendChild(link)}
+PopupBase.prototype.setLinkText=function(link,value){}
+PopupBase.prototype.getPopupContent=function(){return'<form>                                                                                  \
+                <div class="modal-header">                                                              \
+                    <button type="button" class="close" data-dismiss="popup">&times;</button>           \
+                    <h4 class="modal-title">{{property}}</h4>                                           \
+                </div>                                                                                  \
+                <div class="modal-body">                                                                \
+                    <div class="form-group">                                                            \
+                    </div>                                                                              \
+                </div>                                                                                  \
+                <div class="modal-footer">                                                              \
+                    <button type="submit" class="btn btn-primary">OK</button>                           \
+                    <button type="button" class="btn btn-default"data-dismiss="popup">Cancel</button>   \
+                </div>                                                                                  \
+                </form>'}
+PopupBase.prototype.updateDisplayedValue=function(value){this.setLinkText(this.getLink(),value)}
+PopupBase.prototype.registerHandlers=function(){var link=this.getLink(),$link=$(link)
+link.addEventListener('click',this.proxy(this.onTriggerClick))
+$link.on('shown.oc.popup',this.proxy(this.onPopupShown))
+$link.on('hidden.oc.popup',this.proxy(this.onPopupHidden))}
+PopupBase.prototype.unregisterHandlers=function(){var link=this.getLink(),$link=$(link)
+link.removeEventListener('click',this.proxy(this.onTriggerClick))
+$link.off('shown.oc.popup',this.proxy(this.onPopupShown))
+$link.off('hidden.oc.popup',this.proxy(this.onPopupHidden))}
+PopupBase.prototype.getLink=function(){return this.containerCell.querySelector('a.trigger')}
+PopupBase.prototype.configurePopup=function(popup){}
+PopupBase.prototype.handleSubmit=function($form){}
+PopupBase.prototype.hidePopup=function(){$(this.getLink()).popup('hide')}
+PopupBase.prototype.onTriggerClick=function(ev){$.oc.foundation.event.stop(ev)
+var content=this.getPopupContent()
+content=content.replace('{{property}}',this.propertyDefinition.title)
+$(ev.target).popup({content:content})
+return false}
+PopupBase.prototype.onPopupShown=function(ev,link,popup){$(popup).on('submit.inspector','form',this.proxy(this.onSubmit))
+this.popup=popup.get(0)
+this.configurePopup(popup)
+this.getRootSurface().popupDisplayed()}
+PopupBase.prototype.onPopupHidden=function(ev,link,popup){$(popup).off('.inspector','form',this.proxy(this.onSubmit))
+this.popup=null
+this.getRootSurface().popupHidden()}
+PopupBase.prototype.onSubmit=function(ev){ev.preventDefault()
+if(this.handleSubmit($(ev.target))===false){return false}
+this.setLinkText(this.getLink())
+this.hidePopup()
+return false}
+$.oc.inspector.propertyEditors.popupBase=PopupBase}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.popupBase,BaseProto=Base.prototype
+var TextEditor=function(inspector,propertyDefinition,containerCell,group){Base.call(this,inspector,propertyDefinition,containerCell,group)}
+TextEditor.prototype=Object.create(BaseProto)
+TextEditor.prototype.constructor=Base
+TextEditor.prototype.setLinkText=function(link,value){var value=value!==undefined?value:this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(value===undefined){value=this.propertyDefinition.default}
+if(!value){value=this.propertyDefinition.placeholder
+$.oc.foundation.element.addClass(link,'placeholder')}
+else{$.oc.foundation.element.removeClass(link,'placeholder')}
+if(typeof value==='string'){value=value.replace(/(?:\r\n|\r|\n)/g,' ');value=$.trim(value)
+value=value.substring(0,300);}
+link.textContent=value}
+TextEditor.prototype.getPopupContent=function(){return'<form>                                                                                  \
+                <div class="modal-header">                                                              \
+                    <button type="button" class="close" data-dismiss="popup">&times;</button>           \
+                    <h4 class="modal-title">{{property}}</h4>                                           \
+                </div>                                                                                  \
+                <div class="modal-body">                                                                \
+                    <div class="form-group">                                                            \
+                        <textarea class="form-control size-small field-textarea" name="name" value=""/> \
+                    </div>                                                                              \
+                </div>                                                                                  \
+                <div class="modal-footer">                                                              \
+                    <button type="submit" class="btn btn-primary">OK</button>                           \
+                    <button type="button" class="btn btn-default"data-dismiss="popup">Cancel</button>   \
+                </div>                                                                                  \
+                </form>'}
+TextEditor.prototype.configurePopup=function(popup){var $textarea=$(popup).find('textarea'),value=this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(this.propertyDefinition.placeholder){$textarea.attr('placeholder',this.propertyDefinition.placeholder)}
+if(value===undefined){value=this.propertyDefinition.default}
+$textarea.val(value)
+$textarea.focus()}
+TextEditor.prototype.handleSubmit=function($form){var $textarea=$form.find('textarea'),link=this.getLink(),value=$.trim($textarea.val())
+this.inspector.setPropertyValue(this.propertyDefinition.property,value)}
+$.oc.inspector.propertyEditors.text=TextEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.base,BaseProto=Base.prototype
+var SetEditor=function(inspector,propertyDefinition,containerCell,group){this.editors=[]
+this.loadedItems=null
+Base.call(this,inspector,propertyDefinition,containerCell,group)}
+SetEditor.prototype=Object.create(BaseProto)
+SetEditor.prototype.constructor=Base
+SetEditor.prototype.init=function(){this.initControlGroup()
+BaseProto.init.call(this)}
+SetEditor.prototype.dispose=function(){this.disposeEditors()
+this.disposeControls()
+this.editors=null
+BaseProto.dispose.call(this)}
+SetEditor.prototype.build=function(){var link=document.createElement('a')
+$.oc.foundation.element.addClass(link,'trigger')
+link.setAttribute('href','#')
+this.setLinkText(link)
+$.oc.foundation.element.addClass(this.containerCell,'trigger-cell')
+this.containerCell.appendChild(link)
+if(this.propertyDefinition.items!==undefined){this.loadStaticItems()}
+else{this.loadDynamicItems()}}
+SetEditor.prototype.loadStaticItems=function(){var itemArray=[]
+for(var itemValue in this.propertyDefinition.items){itemArray.push({value:itemValue,title:this.propertyDefinition.items[itemValue]})}
+for(var i=itemArray.length-1;i>=0;i--){this.buildItemEditor(itemArray[i].value,itemArray[i].title)}}
+SetEditor.prototype.setLinkText=function(link,value){var value=value!==undefined?value:this.getNormalizedValue(),text='[ ]'
+if(value===undefined){value=this.propertyDefinition.default}
+if(value!==undefined&&value.length!==undefined&&value.length>0&&typeof value!=='string'){var textValues=[]
+for(var i=0,len=value.length;i<len;i++){textValues.push(this.valueToText(value[i]))}
+text='['+textValues.join(', ')+']'
+$.oc.foundation.element.removeClass(link,'placeholder')}else{text=this.propertyDefinition.placeholder
+if((typeof text==='string'&&text.length==0)||text===undefined){text='[ ]'}
+$.oc.foundation.element.addClass(link,'placeholder')}
+link.textContent=text}
+SetEditor.prototype.buildItemEditor=function(value,text){var property={title:text,itemType:'property',groupIndex:this.group.getGroupIndex()},newRow=this.createGroupedRow(property),currentRow=this.containerCell.parentNode,tbody=this.containerCell.parentNode.parentNode,cell=document.createElement('td')
+this.buildCheckbox(cell,value,text)
+newRow.appendChild(cell)
+tbody.insertBefore(newRow,currentRow.nextSibling)}
+SetEditor.prototype.buildCheckbox=function(cell,value,title){var property={property:value,title:title,default:this.isCheckedByDefault(value)},editor=new $.oc.inspector.propertyEditors.checkbox(this,property,cell,this.group)
+this.editors.push[editor]}
+SetEditor.prototype.isCheckedByDefault=function(value){if(!this.propertyDefinition.default){return false}
+return this.propertyDefinition.default.indexOf(value)>-1}
+SetEditor.prototype.showLoadingIndicator=function(){$(this.getLink()).loadIndicator()}
+SetEditor.prototype.hideLoadingIndicator=function(){var $link=$(this.getLink())
+$link.loadIndicator('hide')
+$link.loadIndicator('destroy')}
+SetEditor.prototype.loadDynamicItems=function(){var link=this.getLink(),data=this.inspector.getValues(),$form=$(link).closest('form')
+$.oc.foundation.element.addClass(link,'loading-indicator-container size-small')
+this.showLoadingIndicator()
+data['inspectorProperty']=this.propertyDefinition.property
+data['inspectorClassName']=this.inspector.options.inspectorClass
+$form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.itemsRequestDone)).always(this.proxy(this.hideLoadingIndicator))}
+SetEditor.prototype.itemsRequestDone=function(data,currentValue,initialization){this.loadedItems={}
+if(data.options){for(var i=data.options.length-1;i>=0;i--){this.buildItemEditor(data.options[i].value,data.options[i].title)
+this.loadedItems[data.options[i].value]=data.options[i].title}}
+this.setLinkText(this.getLink())}
+SetEditor.prototype.getLink=function(){return this.containerCell.querySelector('a.trigger')}
+SetEditor.prototype.getItemsSource=function(){if(this.propertyDefinition.items!==undefined){return this.propertyDefinition.items}
+return this.loadedItems}
+SetEditor.prototype.valueToText=function(value){var source=this.getItemsSource()
+if(!source){return value}
+for(var itemValue in source){if(itemValue==value){return source[itemValue]}}
+return value}
+SetEditor.prototype.cleanUpValue=function(value){if(!value){return value}
+var result=[],source=this.getItemsSource()
+for(var i=0,len=value.length;i<len;i++){var currentValue=value[i]
+if(source[currentValue]!==undefined){result.push(currentValue)}}
+return result}
+SetEditor.prototype.getNormalizedValue=function(){var value=this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(value===undefined){return value}
+if(value.length===undefined||typeof value==='string'){return undefined}
+return value}
+SetEditor.prototype.supportsExternalParameterEditor=function(){return false}
+SetEditor.prototype.isGroupedEditor=function(){return true}
+SetEditor.prototype.getPropertyValue=function(checkboxValue){var value=this.getNormalizedValue()
+if(value===undefined){return this.isCheckedByDefault(checkboxValue)}
+if(!value){return false}
+return value.indexOf(checkboxValue)>-1}
+SetEditor.prototype.setPropertyValue=function(checkboxValue,isChecked){var currentValue=this.getNormalizedValue()
+if(currentValue===undefined){currentValue=this.propertyDefinition.default}
+if(!currentValue){currentValue=[]}
+if(isChecked){if(currentValue.indexOf(checkboxValue)===-1){currentValue.push(checkboxValue)}}
+else{var index=currentValue.indexOf(checkboxValue)
+if(index!==-1){currentValue.splice(index,1)}}
+this.inspector.setPropertyValue(this.propertyDefinition.property,this.cleanUpValue(currentValue))
+this.setLinkText(this.getLink())}
+SetEditor.prototype.generateSequencedId=function(){return this.inspector.generateSequencedId()}
+SetEditor.prototype.disposeEditors=function(){for(var i=0,len=this.editors.length;i<len;i++){var editor=this.editors[i]
+editor.dispose()}}
+SetEditor.prototype.disposeControls=function(){var link=this.getLink()
+if(this.propertyDefinition.items===undefined){$(link).loadIndicator('destroy')}
+link.parentNode.removeChild(link)}
+$.oc.inspector.propertyEditors.set=SetEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.base,BaseProto=Base.prototype
+var ObjectListEditor=function(inspector,propertyDefinition,containerCell,group){this.currentRowInspector=null
+this.popup=null
+if(propertyDefinition.titleProperty===undefined){throw new Error('The titleProperty property should be specified in the objectList editor configuration. Property: '+propertyDefinition.property)}
+if(propertyDefinition.itemProperties===undefined){throw new Error('The itemProperties property should be specified in the objectList editor configuration. Property: '+propertyDefinition.property)}
+Base.call(this,inspector,propertyDefinition,containerCell,group)}
+ObjectListEditor.prototype=Object.create(BaseProto)
+ObjectListEditor.prototype.constructor=Base
+ObjectListEditor.prototype.init=function(){if(this.isKeyValueMode()){var keyProperty=this.getKeyProperty()
+if(!keyProperty){throw new Error('Object list key property '+this.propertyDefinition.keyProperty
++' is not defined in itemProperties. Property: '+this.propertyDefinition.property)}}
+BaseProto.init.call(this)}
+ObjectListEditor.prototype.dispose=function(){this.unregisterHandlers()
+this.removeControls()
+this.currentRowInspector=null
+this.popup=null
+BaseProto.dispose.call(this)}
+ObjectListEditor.prototype.build=function(){var link=document.createElement('a')
+$.oc.foundation.element.addClass(link,'trigger')
+link.setAttribute('href','#')
+this.setLinkText(link)
+$.oc.foundation.element.addClass(this.containerCell,'trigger-cell')
+this.containerCell.appendChild(link)}
+ObjectListEditor.prototype.setLinkText=function(link,value){var value=value!==undefined?value:this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(value===undefined){var placeholder=this.propertyDefinition.placeholder
+if(placeholder!==undefined){$.oc.foundation.element.addClass(link,'placeholder')
+link.textContent=placeholder}
+else{link.textContent='Items: 0'}}
+else{var itemCount=0
+if(!this.isKeyValueMode()){if(value.length===undefined){throw new Error('Object list value should be an array. Property: '+this.propertyDefinition.property)}
+itemCount=value.length}
+else{if(typeof value!=='object'){throw new Error('Object list value should be an object. Property: '+this.propertyDefinition.property)}
+itemCount=this.getValueKeys(value).length}
+$.oc.foundation.element.removeClass(link,'placeholder')
+link.textContent='Items: '+itemCount}}
+ObjectListEditor.prototype.getPopupContent=function(){return'<form>                                                                                  \
+                <div class="modal-header">                                                              \
+                    <button type="button" class="close" data-dismiss="popup">&times;</button>           \
+                    <h4 class="modal-title">{{property}}</h4>                                           \
+                </div>                                                                                  \
+                <div>                                                                                   \
+                    <div class="layout inspector-columns-editor">                                       \
+                        <div class="layout-row">                                                        \
+                            <div class="layout-cell items-column">                                      \
+                                <div class="layout-relative">                                           \
+                                    <div class="layout">                                                \
+                                        <div class="layout-row min-size">                               \
+                                            <div class="control-toolbar toolbar-padded">                \
+                                                <div class="toolbar-item">                              \
+                                                    <div class="btn-group">                             \
+                                                        <button type="button" class="btn btn-primary    \
+                                                            oc-icon-plus"                               \
+                                                            data-cmd="create-item">Add</button>         \
+                                                        <button type="button" class="btn btn-default    \
+                                                            empty oc-icon-trash-o"                      \
+                                                            data-cmd="delete-item"></button>            \
+                                                    </div>                                              \
+                                                </div>                                                  \
+                                            </div>                                                      \
+                                        </div>                                                          \
+                                        <div class="layout-row">                                        \
+                                            <div class="layout-cell">                                   \
+                                                <div class="layout-relative">                           \
+                                                    <div class="layout-absolute">                       \
+                                                        <div class="control-scrollpad"                  \
+                                                            data-control="scrollpad">                   \
+                                                            <div class="scroll-wrapper">                \
+                                                                <table class="table data                \
+                                                                    no-offset-bottom                    \
+                                                                    inspector-table-list">              \
+                                                                </table>                                \
+                                                            </div>                                      \
+                                                        </div>                                          \
+                                                    </div>                                              \
+                                                </div>                                                  \
+                                            </div>                                                      \
+                                        </div>                                                          \
+                                    </div>                                                              \
+                                </div>                                                                  \
+                            </div>                                                                      \
+                            <div class="layout-cell">                                                   \
+                                <div class="layout-relative">                                           \
+                                    <div class="layout-absolute">                                       \
+                                        <div class="control-scrollpad" data-control="scrollpad">        \
+                                            <div class="scroll-wrapper inspector-wrapper">              \
+                                                <div data-inspector-container>                          \
+                                                </div>                                                  \
+                                            </div>                                                      \
+                                        </div>                                                          \
+                                    </div>                                                              \
+                                </div>                                                                  \
+                            </div>                                                                      \
+                        </div>                                                                          \
+                    </div>                                                                              \
+                </div>                                                                                  \
+                <div class="modal-footer">                                                              \
+                    <button type="submit" class="btn btn-primary">OK</button>                           \
+                    <button type="button" class="btn btn-default"data-dismiss="popup">Cancel</button>   \
+                </div>                                                                                  \
+                </form>'}
+ObjectListEditor.prototype.buildPopupContents=function(popup){this.buildItemsTable(popup)}
+ObjectListEditor.prototype.buildItemsTable=function(popup){var table=popup.querySelector('table'),tbody=document.createElement('tbody'),items=this.inspector.getPropertyValue(this.propertyDefinition.property),titleProperty=this.propertyDefinition.titleProperty
+if(items===undefined||this.getValueKeys(items).length===0){var row=this.buildEmptyRow()
+tbody.appendChild(row)}
+else{var firstRow=undefined
+for(var key in items){var item=items[key],itemInspectorValue=this.addKeyProperty(key,item),itemText=item[titleProperty],row=this.buildTableRow(itemText,'rowlink')
+row.setAttribute('data-inspector-values',JSON.stringify(itemInspectorValue))
+tbody.appendChild(row)
+if(firstRow===undefined){firstRow=row}}}
+table.appendChild(tbody)
+if(firstRow!==undefined){this.selectRow(firstRow,true)}
+this.updateScrollpads()}
+ObjectListEditor.prototype.buildEmptyRow=function(){return this.buildTableRow('No items found','no-data','nolink')}
+ObjectListEditor.prototype.removeEmptyRow=function(){var tbody=this.getTableBody(),row=tbody.querySelector('tr.no-data')
+if(row){tbody.removeChild(row)}}
+ObjectListEditor.prototype.buildTableRow=function(text,rowClass,cellClass){var row=document.createElement('tr'),cell=document.createElement('td')
+cell.textContent=text
+if(rowClass!==undefined){$.oc.foundation.element.addClass(row,rowClass)}
+if(cellClass!==undefined){$.oc.foundation.element.addClass(cell,cellClass)}
+row.appendChild(cell)
+return row}
+ObjectListEditor.prototype.updateScrollpads=function(){$('.control-scrollpad',this.popup).scrollpad('update')}
+ObjectListEditor.prototype.selectRow=function(row,forceSelect){var tbody=row.parentNode,inspectorContainer=this.getInspectorContainer(),selectedRow=this.getSelectedRow()
+if(selectedRow===row&&!forceSelect){return}
+if(selectedRow){if(!this.validateKeyValue()){return}
+if(this.currentRowInspector){if(!this.currentRowInspector.validate()){return}}
+this.applyDataToRow(selectedRow)
+$.oc.foundation.element.removeClass(selectedRow,'active')}
+this.disposeInspector()
+$.oc.foundation.element.addClass(row,'active')
+this.createInspectorForRow(row,inspectorContainer)}
+ObjectListEditor.prototype.createInspectorForRow=function(row,inspectorContainer){var dataStr=row.getAttribute('data-inspector-values')
+if(dataStr===undefined||typeof dataStr!=='string'){throw new Error('Values not found for the selected row.')}
+var properties=this.propertyDefinition.itemProperties,values=$.parseJSON(dataStr),options={enableExternalParameterEditor:false,onChange:this.proxy(this.onInspectorDataChange),inspectorClass:this.inspector.options.inspectorClass}
+this.currentRowInspector=new $.oc.inspector.surface(inspectorContainer,properties,values,$.oc.inspector.helpers.generateElementUniqueId(inspectorContainer),options)}
+ObjectListEditor.prototype.disposeInspector=function(){$.oc.foundation.controlUtils.disposeControls(this.popup.querySelector('[data-inspector-container]'))
+this.currentRowInspector=null}
+ObjectListEditor.prototype.applyDataToRow=function(row){if(this.currentRowInspector===null){return}
+var data=this.currentRowInspector.getValues()
+row.setAttribute('data-inspector-values',JSON.stringify(data))}
+ObjectListEditor.prototype.updateRowText=function(property,value){var selectedRow=this.getSelectedRow()
+if(!selectedRow){throw new Exception('A row is not found for the updated data')}
+if(property!==this.propertyDefinition.titleProperty){return}
+value=$.trim(value)
+if(value.length===0){value='[No title]'
+$.oc.foundation.element.addClass(selectedRow,'disabled')}else{$.oc.foundation.element.removeClass(selectedRow,'disabled')}
+selectedRow.firstChild.textContent=value}
+ObjectListEditor.prototype.getSelectedRow=function(){if(!this.popup){throw new Error('Trying to get selected row without a popup reference.')}
+var rows=this.getTableBody().children
+for(var i=0,len=rows.length;i<len;i++){if($.oc.foundation.element.hasClass(rows[i],'active')){return rows[i]}}
+return null}
+ObjectListEditor.prototype.createItem=function(){var selectedRow=this.getSelectedRow()
+if(selectedRow){if(!this.validateKeyValue()){return}
+if(this.currentRowInspector){if(!this.currentRowInspector.validate()){return}}
+this.applyDataToRow(selectedRow)
+$.oc.foundation.element.removeClass(selectedRow,'active')}
+this.disposeInspector()
+var title='New item',row=this.buildTableRow(title,'rowlink active'),tbody=this.getTableBody(),data={}
+data[this.propertyDefinition.titleProperty]=title
+row.setAttribute('data-inspector-values',JSON.stringify(data))
+tbody.appendChild(row)
+this.selectRow(row,true)
+this.removeEmptyRow()
+this.updateScrollpads()}
+ObjectListEditor.prototype.deleteItem=function(){var selectedRow=this.getSelectedRow()
+if(!selectedRow){return}
+var nextRow=selectedRow.nextElementSibling,prevRow=selectedRow.previousElementSibling,tbody=this.getTableBody()
+this.disposeInspector()
+tbody.removeChild(selectedRow)
+var newSelectedRow=nextRow?nextRow:prevRow
+if(newSelectedRow){this.selectRow(newSelectedRow)}else{tbody.appendChild(this.buildEmptyRow())}
+this.updateScrollpads()}
+ObjectListEditor.prototype.applyDataToParentInspector=function(){var selectedRow=this.getSelectedRow(),tbody=this.getTableBody(),dataRows=tbody.querySelectorAll('tr[data-inspector-values]'),link=this.getLink(),result=this.getEmptyValue()
+if(selectedRow){if(!this.validateKeyValue()){return}
+if(this.currentRowInspector){if(!this.currentRowInspector.validate()){return}}
+this.applyDataToRow(selectedRow)}
+for(var i=0,len=dataRows.length;i<len;i++){var dataRow=dataRows[i],rowData=$.parseJSON(dataRow.getAttribute('data-inspector-values'))
+if(!this.isKeyValueMode()){result.push(rowData)}
+else{var rowKey=rowData[this.propertyDefinition.keyProperty]
+result[rowKey]=this.removeKeyProperty(rowData)}}
+this.inspector.setPropertyValue(this.propertyDefinition.property,result)
+this.setLinkText(link,result)
+$(link).popup('hide')
+return false}
+ObjectListEditor.prototype.validateKeyValue=function(){if(!this.isKeyValueMode()){return true}
+if(this.currentRowInspector===null){return true}
+var data=this.currentRowInspector.getValues(),keyProperty=this.propertyDefinition.keyProperty
+if(data[keyProperty]===undefined){throw new Error('Key property '+keyProperty+' is not found in the Inspector data. Property: '+this.propertyDefinition.property)}
+var keyPropertyValue=data[keyProperty],keyPropertyTitle=this.getKeyProperty().title
+if(typeof keyPropertyValue!=='string'){throw new Error('Key property ('+keyProperty+') value should be a string. Property: '+this.propertyDefinition.property)}
+if($.trim(keyPropertyValue).length===0){$.oc.flashMsg({text:'The value of key property '+keyPropertyTitle+' cannot be empty.','class':'error','interval':3})
+return false}
+var selectedRow=this.getSelectedRow(),tbody=this.getTableBody(),dataRows=tbody.querySelectorAll('tr[data-inspector-values]')
+for(var i=0,len=dataRows.length;i<len;i++){var dataRow=dataRows[i],rowData=$.parseJSON(dataRow.getAttribute('data-inspector-values'))
+if(selectedRow==dataRow){continue}
+if(rowData[keyProperty]==keyPropertyValue){$.oc.flashMsg({text:'The value of key property '+keyPropertyTitle+' should be unique.','class':'error','interval':3})
+return false}}
+return true}
+ObjectListEditor.prototype.getLink=function(){return this.containerCell.querySelector('a.trigger')}
+ObjectListEditor.prototype.getPopupFormElement=function(){var form=this.popup.querySelector('form')
+if(!form){this.throwError('Cannot find form element in the popup window.')}
+return form}
+ObjectListEditor.prototype.getInspectorContainer=function(){return this.popup.querySelector('div[data-inspector-container]')}
+ObjectListEditor.prototype.getTableBody=function(){return this.popup.querySelector('table.inspector-table-list tbody')}
+ObjectListEditor.prototype.isKeyValueMode=function(){return this.propertyDefinition.keyProperty!==undefined}
+ObjectListEditor.prototype.getKeyProperty=function(){for(var i=0,len=this.propertyDefinition.itemProperties.length;i<len;i++){var property=this.propertyDefinition.itemProperties[i]
+if(property.property==this.propertyDefinition.keyProperty){return property}}}
+ObjectListEditor.prototype.getValueKeys=function(value){var result=[]
+for(var key in value){result.push(key)}
+return result}
+ObjectListEditor.prototype.addKeyProperty=function(key,value){if(!this.isKeyValueMode()){return value}
+value[this.propertyDefinition.keyProperty]=key
+return value}
+ObjectListEditor.prototype.removeKeyProperty=function(value){if(!this.isKeyValueMode()){return value}
+var result=value
+if(result[this.propertyDefinition.keyProperty]!==undefined){delete result[this.propertyDefinition.keyProperty]}
+return result}
+ObjectListEditor.prototype.getEmptyValue=function(){if(this.isKeyValueMode()){return{}}
+else{return[]}}
+ObjectListEditor.prototype.registerHandlers=function(){var link=this.getLink(),$link=$(link)
+link.addEventListener('click',this.proxy(this.onTriggerClick))
+$link.on('shown.oc.popup',this.proxy(this.onPopupShown))
+$link.on('hidden.oc.popup',this.proxy(this.onPopupHidden))}
+ObjectListEditor.prototype.unregisterHandlers=function(){var link=this.getLink(),$link=$(link)
+link.removeEventListener('click',this.proxy(this.onTriggerClick))
+$link.off('shown.oc.popup',this.proxy(this.onPopupShown))
+$link.off('hidden.oc.popup',this.proxy(this.onPopupHidden))}
+ObjectListEditor.prototype.onTriggerClick=function(ev){$.oc.foundation.event.stop(ev)
+var content=this.getPopupContent()
+content=content.replace('{{property}}',this.propertyDefinition.title)
+$(ev.target).popup({content:content})
+return false}
+ObjectListEditor.prototype.onPopupShown=function(ev,link,popup){$(popup).on('submit.inspector','form',this.proxy(this.onSubmit))
+$(popup).on('click','tr.rowlink',this.proxy(this.onRowClick))
+$(popup).on('click.inspector','[data-cmd]',this.proxy(this.onCommand))
+this.popup=popup.get(0)
+this.buildPopupContents(this.popup)
+this.getRootSurface().popupDisplayed()}
+ObjectListEditor.prototype.onPopupHidden=function(ev,link,popup){$(popup).off('.inspector',this.proxy(this.onSubmit))
+$(popup).off('click','tr.rowlink',this.proxy(this.onRowClick))
+$(popup).off('click.inspector','[data-cmd]',this.proxy(this.onCommand))
+this.disposeInspector()
+$.oc.foundation.controlUtils.disposeControls(this.popup)
+this.popup=null
+this.getRootSurface().popupHidden()}
+ObjectListEditor.prototype.onSubmit=function(ev){this.applyDataToParentInspector()
+ev.preventDefault()
+return false}
+ObjectListEditor.prototype.onRowClick=function(ev){this.selectRow(ev.currentTarget)}
+ObjectListEditor.prototype.onInspectorDataChange=function(property,value){this.updateRowText(property,value)}
+ObjectListEditor.prototype.onCommand=function(ev){var command=ev.currentTarget.getAttribute('data-cmd')
+switch(command){case'create-item':this.createItem()
+break;case'delete-item':this.deleteItem()
+break;}}
+ObjectListEditor.prototype.removeControls=function(){if(this.popup){this.disposeInspector(this.popup)}}
+$.oc.inspector.propertyEditors.objectList=ObjectListEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.base,BaseProto=Base.prototype
+var ObjectEditor=function(inspector,propertyDefinition,containerCell,group){if(propertyDefinition.properties===undefined){this.throwError('The properties property should be specified in the object editor configuration.')}
+Base.call(this,inspector,propertyDefinition,containerCell,group)}
+ObjectEditor.prototype=Object.create(BaseProto)
+ObjectEditor.prototype.constructor=Base
+ObjectEditor.prototype.init=function(){this.initControlGroup()
+BaseProto.init.call(this)}
+ObjectEditor.prototype.build=function(){var currentRow=this.containerCell.parentNode,inspectorContainer=document.createElement('div'),options={enableExternalParameterEditor:false,onChange:this.proxy(this.onInspectorDataChange),inspectorClass:this.inspector.options.inspectorClass},values=this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(values===undefined){values={}}
+this.childInspector=new $.oc.inspector.surface(inspectorContainer,this.propertyDefinition.properties,values,this.inspector.getInspectorUniqueId()+'-'+this.propertyDefinition.property,options,this.inspector,this.group)
+this.inspector.mergeChildSurface(this.childInspector,currentRow)}
+ObjectEditor.prototype.cleanUpValue=function(value){if(value===undefined||typeof value!=='object'){return undefined}
+if(this.propertyDefinition.ignoreIfPropertyEmpty===undefined){return value}
+return this.getValueOrRemove(value)}
+ObjectEditor.prototype.isEmptyValue=function(value){return value===undefined||value===null||$.isEmptyObject(value)||(typeof value=='string'&&$.trim(value).length===0)||(Object.prototype.toString.call(value)==='[object Array]'&&value.length===0)}
+ObjectEditor.prototype.getValueOrRemove=function(value){if(this.propertyDefinition.ignoreIfPropertyEmpty===undefined){return value}
+var targetProperty=this.propertyDefinition.ignoreIfPropertyEmpty,targetValue=value[targetProperty]
+if(this.isEmptyValue(targetValue)){return $.oc.inspector.removedProperty}
+return value}
+ObjectEditor.prototype.supportsExternalParameterEditor=function(){return false}
+ObjectEditor.prototype.isGroupedEditor=function(){return true}
+ObjectEditor.prototype.getUndefinedValue=function(){var result={}
+for(var i=0,len=this.propertyDefinition.properties.length;i<len;i++){var propertyName=this.propertyDefinition.properties[i].property,editor=this.childInspector.findPropertyEditor(propertyName)
+if(editor){result[propertyName]=editor.getUndefinedValue()}}
+return this.getValueOrRemove(result)}
+ObjectEditor.prototype.validate=function(){var values=values=this.childInspector.getValues()
+if(this.cleanUpValue(values)===$.oc.inspector.removedProperty){return true}
+return this.childInspector.validate()}
+ObjectEditor.prototype.onInspectorDataChange=function(property,value){var values=this.childInspector.getValues()
+this.inspector.setPropertyValue(this.propertyDefinition.property,this.cleanUpValue(values))}
+$.oc.inspector.propertyEditors.object=ObjectEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.text,BaseProto=Base.prototype
+var StringListEditor=function(inspector,propertyDefinition,containerCell,group){Base.call(this,inspector,propertyDefinition,containerCell,group)}
+StringListEditor.prototype=Object.create(BaseProto)
+StringListEditor.prototype.constructor=Base
+StringListEditor.prototype.setLinkText=function(link,value){var value=value!==undefined?value:this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(value===undefined){value=this.propertyDefinition.default}
+this.checkValueType(value)
+if(!value){value=this.propertyDefinition.placeholder
+$.oc.foundation.element.addClass(link,'placeholder')
+if(!value){value='[]'}
+link.textContent=value}
+else{$.oc.foundation.element.removeClass(link,'placeholder')
+link.textContent='['+value.join(', ')+']'}}
+StringListEditor.prototype.checkValueType=function(value){if(value&&Object.prototype.toString.call(value)!=='[object Array]'){this.throwError('The string list value should be an array.')}}
+StringListEditor.prototype.configurePopup=function(popup){var $textarea=$(popup).find('textarea'),value=this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(this.propertyDefinition.placeholder){$textarea.attr('placeholder',this.propertyDefinition.placeholder)}
+if(value===undefined){value=this.propertyDefinition.default}
+this.checkValueType(value)
+if(value&&value.length){$textarea.val(value.join('\n'))}
+$textarea.focus()}
+StringListEditor.prototype.handleSubmit=function($form){var $textarea=$form.find('textarea'),link=this.getLink(),value=$.trim($textarea.val()),arrayValue=[],resultValue=[]
+if(value.length){value=value.replace(/\r\n/g,'\n')
+arrayValue=value.split('\n')
+for(var i=0,len=arrayValue.length;i<len;i++){var currentValue=$.trim(arrayValue[i])
+if(currentValue.length>0){resultValue.push(currentValue)}}}
+this.inspector.setPropertyValue(this.propertyDefinition.property,resultValue)}
+$.oc.inspector.propertyEditors.stringList=StringListEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.popupBase,BaseProto=Base.prototype
+var DictionaryEditor=function(inspector,propertyDefinition,containerCell,group){this.keyValidationSet=null
+this.valueValidationSet=null
+Base.call(this,inspector,propertyDefinition,containerCell,group)}
+DictionaryEditor.prototype=Object.create(BaseProto)
+DictionaryEditor.prototype.constructor=Base
+DictionaryEditor.prototype.dispose=function(){this.disposeValidators()
+this.keyValidationSet=null
+this.valueValidationSet=null
+BaseProto.dispose.call(this)}
+DictionaryEditor.prototype.init=function(){this.initValidators()
+BaseProto.init.call(this)}
+DictionaryEditor.prototype.setLinkText=function(link,value){var value=value!==undefined?value:this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(value===undefined){value=this.propertyDefinition.default}
+if(value===undefined||$.isEmptyObject(value)){var placeholder=this.propertyDefinition.placeholder
+if(placeholder!==undefined){$.oc.foundation.element.addClass(link,'placeholder')
+link.textContent=placeholder}
+else{link.textContent='Items: 0'}}
+else{var itemCount=0
+if(typeof value!=='object'){this.throwError('Object list value should be an object.')}
+itemCount=this.getValueKeys(value).length
+$.oc.foundation.element.removeClass(link,'placeholder')
+link.textContent='Items: '+itemCount}}
+DictionaryEditor.prototype.getPopupContent=function(){return'<form>                                                                                  \
+                <div class="modal-header">                                                              \
+                    <button type="button" class="close" data-dismiss="popup">&times;</button>           \
+                    <h4 class="modal-title">{{property}}</h4>                                           \
+                </div>                                                                                  \
+                <div class="modal-body">                                                                \
+                    <div class="control-toolbar">                                                       \
+                        <div class="toolbar-item">                                                      \
+                            <div class="btn-group">                                                     \
+                                <button type="button" class="btn btn-primary                            \
+                                    oc-icon-plus"                                                       \
+                                    data-cmd="create-item">Add</button>                                 \
+                                <button type="button" class="btn btn-default                            \
+                                    empty oc-icon-trash-o"                                              \
+                                    data-cmd="delete-item"></button>                                    \
+                            </div>                                                                      \
+                        </div>                                                                          \
+                    </div>                                                                              \
+                    <div class="form-group">                                                            \
+                        <div class="inspector-dictionary-container">                                    \
+                            <table class="headers">                                                     \
+                                <thead>                                                                 \
+                                    <tr>                                                                \
+                                        <td>Key</td>                                                    \
+                                        <td>Value</td>                                                  \
+                                    </tr>                                                               \
+                                </thead>                                                                \
+                            </table>                                                                    \
+                            <div class="values">                                                        \
+                                <div class="control-scrollpad"                                          \
+                                    data-control="scrollpad">                                           \
+                                    <div class="scroll-wrapper">                                        \
+                                        <table class="                                                  \
+                                            no-offset-bottom                                            \
+                                            inspector-dictionary-table">                                \
+                                        </table>                                                        \
+                                    </div>                                                              \
+                                </div>                                                                  \
+                            </div>                                                                      \
+                        </div>                                                                          \
+                    </div>                                                                              \
+                </div>                                                                                  \
+                <div class="modal-footer">                                                              \
+                    <button type="submit" class="btn btn-primary">OK</button>                           \
+                    <button type="button" class="btn btn-default"data-dismiss="popup">Cancel</button>   \
+                </div>                                                                                  \
+                </form>'}
+DictionaryEditor.prototype.configurePopup=function(popup){this.buildItemsTable(popup.get(0))
+this.focusFirstInput()}
+DictionaryEditor.prototype.handleSubmit=function($form){return this.applyValues()}
+DictionaryEditor.prototype.buildItemsTable=function(popup){var table=popup.querySelector('table.inspector-dictionary-table'),tbody=document.createElement('tbody'),items=this.inspector.getPropertyValue(this.propertyDefinition.property),titleProperty=this.propertyDefinition.titleProperty
+if(items===undefined){items=this.propertyDefinition.default}
+if(items===undefined||this.getValueKeys(items).length===0){var row=this.buildEmptyRow()
+tbody.appendChild(row)}
+else{for(var key in items){var row=this.buildTableRow(key,items[key])
+tbody.appendChild(row)}}
+table.appendChild(tbody)
+this.updateScrollpads()}
+DictionaryEditor.prototype.buildTableRow=function(key,value){var row=document.createElement('tr'),keyCell=document.createElement('td'),valueCell=document.createElement('td')
+this.createInput(keyCell,key)
+this.createInput(valueCell,value)
+row.appendChild(keyCell)
+row.appendChild(valueCell)
+return row}
+DictionaryEditor.prototype.buildEmptyRow=function(){return this.buildTableRow(null,null)}
+DictionaryEditor.prototype.createInput=function(container,value){var input=document.createElement('input'),controlContainer=document.createElement('div')
+input.setAttribute('type','text')
+input.setAttribute('class','form-control')
+input.value=value
+controlContainer.appendChild(input)
+container.appendChild(controlContainer)}
+DictionaryEditor.prototype.setActiveCell=function(input){var activeCells=this.popup.querySelectorAll('td.active')
+for(var i=activeCells.length-1;i>=0;i--){$.oc.foundation.element.removeClass(activeCells[i],'active')}
+var activeCell=input.parentNode.parentNode
+$.oc.foundation.element.addClass(activeCell,'active')}
+DictionaryEditor.prototype.createItem=function(){var activeRow=this.getActiveRow(),newRow=this.buildEmptyRow(),tbody=this.getTableBody(),nextSibling=activeRow?activeRow.nextElementSibling:null
+tbody.insertBefore(newRow,nextSibling)
+this.focusAndMakeActive(newRow.querySelector('input'))
+this.updateScrollpads()}
+DictionaryEditor.prototype.deleteItem=function(){var activeRow=this.getActiveRow(),tbody=this.getTableBody()
+if(!activeRow){return}
+var nextRow=activeRow.nextElementSibling,prevRow=activeRow.previousElementSibling
+tbody.removeChild(activeRow)
+var newSelectedRow=nextRow?nextRow:prevRow
+if(!newSelectedRow){newSelectedRow=this.buildEmptyRow()
+tbody.appendChild(newSelectedRow)}
+this.focusAndMakeActive(newSelectedRow.querySelector('input'))
+this.updateScrollpads()}
+DictionaryEditor.prototype.applyValues=function(){var tbody=this.getTableBody(),dataRows=tbody.querySelectorAll('tr'),link=this.getLink(),result={}
+for(var i=0,len=dataRows.length;i<len;i++){var dataRow=dataRows[i],keyInput=this.getRowInputByIndex(dataRow,0),valueInput=this.getRowInputByIndex(dataRow,1),key=$.trim(keyInput.value),value=$.trim(valueInput.value)
+if(key.length==0&&value.length==0){continue}
+if(key.length==0){$.oc.flashMsg({text:'The key cannot be empty.','class':'error','interval':3})
+this.focusAndMakeActive(keyInput)
+return false}
+if(value.length==0){$.oc.flashMsg({text:'The value cannot be empty.','class':'error','interval':3})
+this.focusAndMakeActive(valueInput)
+return false}
+if(result[key]!==undefined){$.oc.flashMsg({text:'Keys should be unique.','class':'error','interval':3})
+this.focusAndMakeActive(keyInput)
+return false}
+var validationResult=this.keyValidationSet.validate(key)
+if(validationResult!==null){$.oc.flashMsg({text:validationResult,'class':'error','interval':5})
+return false}
+validationResult=this.valueValidationSet.validate(value)
+if(validationResult!==null){$.oc.flashMsg({text:validationResult,'class':'error','interval':5})
+return false}
+result[key]=value}
+this.inspector.setPropertyValue(this.propertyDefinition.property,result)
+this.setLinkText(link,result)}
+DictionaryEditor.prototype.getValueKeys=function(value){var result=[]
+for(var key in value){result.push(key)}
+return result}
+DictionaryEditor.prototype.getActiveRow=function(){var activeCell=this.popup.querySelector('td.active')
+if(!activeCell){return null}
+return activeCell.parentNode}
+DictionaryEditor.prototype.getTableBody=function(){return this.popup.querySelector('table.inspector-dictionary-table tbody')}
+DictionaryEditor.prototype.updateScrollpads=function(){$('.control-scrollpad',this.popup).scrollpad('update')}
+DictionaryEditor.prototype.focusFirstInput=function(){var input=this.popup.querySelector('td input')
+if(input){input.focus()
+this.setActiveCell(input)}}
+DictionaryEditor.prototype.getEditorCell=function(cell){return cell.parentNode.parentNode}
+DictionaryEditor.prototype.getEditorRow=function(cell){return cell.parentNode.parentNode.parentNode}
+DictionaryEditor.prototype.focusAndMakeActive=function(input){input.focus()
+this.setActiveCell(input)}
+DictionaryEditor.prototype.getRowInputByIndex=function(row,index){return row.cells[index].querySelector('input')}
+DictionaryEditor.prototype.navigateDown=function(ev){var cell=this.getEditorCell(ev.currentTarget),row=this.getEditorRow(ev.currentTarget),nextRow=row.nextElementSibling
+if(!nextRow){return}
+var newActiveEditor=nextRow.cells[cell.cellIndex].querySelector('input')
+this.focusAndMakeActive(newActiveEditor)}
+DictionaryEditor.prototype.navigateUp=function(ev){var cell=this.getEditorCell(ev.currentTarget),row=this.getEditorRow(ev.currentTarget),prevRow=row.previousElementSibling
+if(!prevRow){return}
+var newActiveEditor=prevRow.cells[cell.cellIndex].querySelector('input')
+this.focusAndMakeActive(newActiveEditor)}
+DictionaryEditor.prototype.initValidators=function(){this.keyValidationSet=new $.oc.inspector.validationSet({validation:this.propertyDefinition.validationKey},this.propertyDefinition.property+'.validationKey')
+this.valueValidationSet=new $.oc.inspector.validationSet({validation:this.propertyDefinition.validationValue},this.propertyDefinition.property+'.validationValue')}
+DictionaryEditor.prototype.disposeValidators=function(){this.keyValidationSet.dispose()
+this.valueValidationSet.dispose()}
+DictionaryEditor.prototype.onPopupShown=function(ev,link,popup){BaseProto.onPopupShown.call(this,ev,link,popup)
+popup.on('focus.inspector','td input',this.proxy(this.onFocus))
+popup.on('keydown.inspector','td input',this.proxy(this.onKeyDown))
+popup.on('click.inspector','[data-cmd]',this.proxy(this.onCommand))}
+DictionaryEditor.prototype.onPopupHidden=function(ev,link,popup){popup.off('.inspector','td input')
+popup.off('.inspector','[data-cmd]',this.proxy(this.onCommand))
+BaseProto.onPopupHidden.call(this,ev,link,popup)}
+DictionaryEditor.prototype.onFocus=function(ev){this.setActiveCell(ev.currentTarget)}
+DictionaryEditor.prototype.onCommand=function(ev){var command=ev.currentTarget.getAttribute('data-cmd')
+switch(command){case'create-item':this.createItem()
+break;case'delete-item':this.deleteItem()
+break;}}
+DictionaryEditor.prototype.onKeyDown=function(ev){if(ev.keyCode==40)
+return this.navigateDown(ev)
+else if(ev.keyCode==38)
+return this.navigateUp(ev)}
+$.oc.inspector.propertyEditors.dictionary=DictionaryEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.string,BaseProto=Base.prototype
+var AutocompleteEditor=function(inspector,propertyDefinition,containerCell,group){Base.call(this,inspector,propertyDefinition,containerCell,group)}
+AutocompleteEditor.prototype=Object.create(BaseProto)
+AutocompleteEditor.prototype.constructor=Base
+AutocompleteEditor.prototype.dispose=function(){this.removeAutocomplete()
+BaseProto.dispose.call(this)}
+AutocompleteEditor.prototype.build=function(){var container=document.createElement('div'),editor=document.createElement('input'),placeholder=this.propertyDefinition.placeholder!==undefined?this.propertyDefinition.placeholder:'',value=this.inspector.getPropertyValue(this.propertyDefinition.property)
+editor.setAttribute('type','text')
+editor.setAttribute('class','string-editor')
+editor.setAttribute('placeholder',placeholder)
+container.setAttribute('class','autocomplete-container')
+if(value===undefined){value=this.propertyDefinition.default}
+if(value===undefined){value=''}
+editor.value=value
+$.oc.foundation.element.addClass(this.containerCell,'text autocomplete')
+container.appendChild(editor)
+this.containerCell.appendChild(container)
+if(this.propertyDefinition.items!==undefined){this.buildAutoComplete(this.propertyDefinition.items)}
+else{this.loadDynamicItems()}}
+AutocompleteEditor.prototype.buildAutoComplete=function(items){var input=this.getInput()
+if(items===undefined){items=[]}
+$(input).autocomplete({source:this.prepareItems(items),matchWidth:true})}
+AutocompleteEditor.prototype.removeAutocomplete=function(){var input=this.getInput()
+$(input).autocomplete('destroy')}
+AutocompleteEditor.prototype.prepareItems=function(items){var result={}
+if($.isArray(items)){for(var i=0,len=items.length;i<len;i++){result[items[i]]=items[i]}}
+else{result=items}
+return result}
+AutocompleteEditor.prototype.supportsExternalParameterEditor=function(){return false}
+AutocompleteEditor.prototype.getContainer=function(){return this.getInput().parentNode}
+AutocompleteEditor.prototype.registerHandlers=function(){BaseProto.registerHandlers.call(this)
+$(this.getInput()).on('change',this.proxy(this.onInputKeyUp))}
+AutocompleteEditor.prototype.unregisterHandlers=function(){BaseProto.unregisterHandlers.call(this)
+$(this.getInput()).off('change',this.proxy(this.onInputKeyUp))}
+AutocompleteEditor.prototype.showLoadingIndicator=function(){$(this.getContainer()).loadIndicator()}
+AutocompleteEditor.prototype.hideLoadingIndicator=function(){var $container=$(this.getContainer())
+$container.loadIndicator('hide')
+$container.loadIndicator('destroy')
+$container.removeClass('loading-indicator-container')}
+AutocompleteEditor.prototype.loadDynamicItems=function(){var container=this.getContainer(),data=this.inspector.getValues(),$form=$(container).closest('form')
+$.oc.foundation.element.addClass(container,'loading-indicator-container size-small')
+this.showLoadingIndicator()
+data['inspectorProperty']=this.propertyDefinition.property
+data['inspectorClassName']=this.inspector.options.inspectorClass
+$form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.itemsRequestDone)).always(this.proxy(this.hideLoadingIndicator))}
+AutocompleteEditor.prototype.itemsRequestDone=function(data,currentValue,initialization){var loadedItems={}
+if(data.options){for(var i=data.options.length-1;i>=0;i--){loadedItems[data.options[i].value]=data.options[i].title}}
+this.buildAutoComplete(loadedItems)}
+$.oc.inspector.propertyEditors.autocomplete=AutocompleteEditor}(window.jQuery);+function($){"use strict";if($.oc===undefined)
+$.oc={}
+if($.oc.inspector===undefined)
+$.oc.inspector={}
+$.oc.inspector.helpers={}
+$.oc.inspector.helpers.generateElementUniqueId=function(element){if(element.hasAttribute('data-inspector-id')){return element.getAttribute('data-inspector-id')}
+var id=$.oc.inspector.helpers.generateUniqueId()
+element.setAttribute('data-inspector-id',id)
+return id}
+$.oc.inspector.helpers.generateUniqueId=function(){return"inspectorid-"+Math.floor(Math.random()*new Date().getTime());}}(window.jQuery)
++function($){"use strict";if($.oc.inspector.validators===undefined)
+$.oc.inspector.validators={}
+var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var ValidationSet=function(options,propertyName){this.validators=[]
+this.options=options
+this.propertyName=propertyName
+Base.call(this)
+this.createValidators()}
+ValidationSet.prototype=Object.create(BaseProto)
+ValidationSet.prototype.constructor=Base
+ValidationSet.prototype.dispose=function(){this.disposeValidators()
+this.validators=null
+BaseProto.dispose.call(this)}
+ValidationSet.prototype.disposeValidators=function(){for(var i=0,len=this.validators.length;i<len;i++){this.validators[i].dispose()}}
+ValidationSet.prototype.throwError=function(errorMessage){throw new Error(errorMessage+' Property: '+this.propertyName)}
+ValidationSet.prototype.createValidators=function(){if((this.options.required!==undefined||this.options.validationPattern!==undefined||this.options.validationMessage!==undefined)&&this.options.validation!==undefined){this.throwError('Legacy and new validation syntax should not be mixed.')}
+if(this.options.required!==undefined){var validator=new $.oc.inspector.validators.required({message:this.options.validationMessage})
+this.validators.push(validator)}
+if(this.options.validationPattern!==undefined){var validator=new $.oc.inspector.validators.regex({message:this.options.validationMessage,pattern:this.options.validationPattern})
+this.validators.push(validator)}
+if(this.options.validation===undefined){return}
+for(var validatorName in this.options.validation){if($.oc.inspector.validators[validatorName]==undefined){this.throwError('Inspector validator "'+validatorName+'" is not found in the $.oc.inspector.validators namespace.')}
+var validator=new $.oc.inspector.validators[validatorName](this.options.validation[validatorName])
+this.validators.push(validator)}}
+ValidationSet.prototype.validate=function(value){try{for(var i=0,len=this.validators.length;i<len;i++){var validator=this.validators[i],errorMessage=validator.isValid(value)
+if(typeof errorMessage==='string'){return errorMessage}}
+return null}
+catch(err){this.throwError(err)}}
+$.oc.inspector.validationSet=ValidationSet}(window.jQuery);+function($){"use strict";if($.oc.inspector.validators===undefined)
+$.oc.inspector.validators={}
+var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var BaseValidator=function(options){this.options=options
+this.defaultMessage='Invalid property value.'
+Base.call(this)}
+BaseValidator.prototype=Object.create(BaseProto)
+BaseValidator.prototype.constructor=Base
+BaseValidator.prototype.dispose=function(){this.defaultMessage=null
+BaseProto.dispose.call(this)}
+BaseValidator.prototype.getMessage=function(defaultMessage){if(this.options.message!==undefined){return this.options.message}
+if(defaultMessage!==undefined){return defaultMessage}
+return this.defaultMessage}
+BaseValidator.prototype.isScalar=function(value){if(value===undefined||value===null){return true}
+if(typeof value==='string'||typeof value=='number'||typeof value=='boolean'){return true}
+return false}
+BaseValidator.prototype.isValid=function(value){return null}
+$.oc.inspector.validators.base=BaseValidator}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.validators.base,BaseProto=Base.prototype
+var BaseNumber=function(options){Base.call(this,options)}
+BaseNumber.prototype=Object.create(BaseProto)
+BaseNumber.prototype.constructor=Base
+BaseNumber.prototype.doCommonChecks=function(value){if(this.options.min!==undefined||this.options.max!==undefined){if(this.options.min!==undefined){if(this.options.min.value===undefined)
+throw new Error('The min.value parameter is not defined in the Inspector validator configuration')
+if(value<this.options.min.value){return this.options.min.message!==undefined?this.options.min.message:"The value should not be less than "+this.options.min.value}}
+if(this.options.max!==undefined){if(this.options.max.value===undefined)
+throw new Error('The max.value parameter is not defined in the table Inspector validator configuration')
+if(value>this.options.max.value){return this.options.max.message!==undefined?this.options.max.message:"The value should not be greater than "+this.options.max.value}}}}
+$.oc.inspector.validators.baseNumber=BaseNumber}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.validators.base,BaseProto=Base.prototype
+var RequiredValidator=function(options){Base.call(this,options)
+this.defaultMessage='The property is required.'}
+RequiredValidator.prototype=Object.create(BaseProto)
+RequiredValidator.prototype.constructor=Base
+RequiredValidator.prototype.isValid=function(value){if(value===undefined||value===null){return this.getMessage()}
+if(typeof value==='boolean'){return value?null:this.getMessage()}
+if(typeof value==='object'){return!$.isEmptyObject(value)?null:this.getMessage()}
+return $.trim(String(value)).length>0?null:this.getMessage()}
+$.oc.inspector.validators.required=RequiredValidator}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.validators.base,BaseProto=Base.prototype
+var RegexValidator=function(options){Base.call(this,options)}
+RegexValidator.prototype=Object.create(BaseProto)
+RegexValidator.prototype.constructor=Base
+RegexValidator.prototype.isValid=function(value){if(this.options.pattern===undefined){this.throwError('The pattern parameter is not defined in the Regex Inspector validator configuration.')}
+if(!this.isScalar(value)){this.throwError('The Regex Inspector validator can only be used with string values.')}
+if(value===undefined||value===null){return null}
+var string=$.trim(String(value))
+if(string.length===0){return null}
+var regexObj=new RegExp(this.options.pattern,this.options.modifiers)
+return regexObj.test(string)?null:this.getMessage()}
+$.oc.inspector.validators.regex=RegexValidator}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.validators.baseNumber,BaseProto=Base.prototype
+var IntegerValidator=function(options){Base.call(this,options)}
+IntegerValidator.prototype=Object.create(BaseProto)
+IntegerValidator.prototype.constructor=Base
+IntegerValidator.prototype.isValid=function(value){if(!this.isScalar(value)||typeof value=='boolean'){this.throwError('The Integer Inspector validator can only be used with string values.')}
+if(value===undefined||value===null){return null}
+var string=$.trim(String(value))
+if(string.length===0){return null}
+var testResult=this.options.allowNegative?/^\-?[0-9]*$/.test(string):/^[0-9]*$/.test(string)
+if(!testResult){var defaultMessage=this.options.allowNegative?'The value should be an integer.':'The value should be a positive integer.';return this.getMessage(defaultMessage)}
+return this.doCommonChecks(parseInt(string))}
+$.oc.inspector.validators.integer=IntegerValidator}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.validators.baseNumber,BaseProto=Base.prototype
+var FloatValidator=function(options){Base.call(this,options)}
+FloatValidator.prototype=Object.create(BaseProto)
+FloatValidator.prototype.constructor=Base
+FloatValidator.prototype.isValid=function(value){if(!this.isScalar(value)||typeof value=='boolean'){this.throwError('The Float Inspector validator can only be used with string values.')}
+if(value===undefined||value===null){return null}
+var string=$.trim(String(value))
+if(string.length===0){return null}
+var testResult=this.options.allowNegative?/^[-]?([0-9]+\.[0-9]+|[0-9]+)$/.test(string):/^([0-9]+\.[0-9]+|[0-9]+)$/.test(string)
+if(!testResult){var defaultMessage=this.options.allowNegative?'The value should be a floating point number.':'The value should be a positive floating point number.';return this.getMessage(defaultMessage)}
+return this.doCommonChecks(parseFloat(string))}
+$.oc.inspector.validators.float=FloatValidator}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.validators.base,BaseProto=Base.prototype
+var LengthValidator=function(options){Base.call(this,options)}
+LengthValidator.prototype=Object.create(BaseProto)
+LengthValidator.prototype.constructor=Base
+LengthValidator.prototype.isValid=function(value){if(value===undefined||value===null){return null}
+if(typeof value=='boolean'){this.throwError('The Length Inspector validator cannot work with Boolean values.')}
+var length=null
+if(Object.prototype.toString.call(value)==='[object Array]'||typeof value==='string'){length=value.length}
+else if(typeof value==='object'){length=this.getObjectLength(value)}
+if(this.options.min!==undefined||this.options.max!==undefined){if(this.options.min!==undefined){if(this.options.min.value===undefined)
+throw new Error('The min.value parameter is not defined in the Length Inspector validator configuration.')
+if(length<this.options.min.value){return this.options.min.message!==undefined?this.options.min.message:"The value should not be shorter than "+this.options.min.value}}
+if(this.options.max!==undefined){if(this.options.max.value===undefined)
+throw new Error('The max.value parameter is not defined in the Length Inspector validator configuration.')
+if(length>this.options.max.value){return this.options.max.message!==undefined?this.options.max.message:"The value should not be longer than "+this.options.max.value}}}}
+LengthValidator.prototype.getObjectLength=function(value){var result=0
+for(var key in value){result++}
+return result}
+$.oc.inspector.validators.length=LengthValidator}(window.jQuery);+function($){"use strict";if($.oc===undefined)
+$.oc={}
+if($.oc.inspector===undefined)
+$.oc.inspector={}
+var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var ExternalParameterEditor=function(inspector,propertyDefinition,containerCell){this.inspector=inspector
+this.propertyDefinition=propertyDefinition
+this.containerCell=containerCell
+Base.call(this)
+this.init()}
+ExternalParameterEditor.prototype=Object.create(BaseProto)
+ExternalParameterEditor.prototype.constructor=Base
+ExternalParameterEditor.prototype.dispose=function(){this.disposeControls()
+this.unregisterHandlers()
+this.inspector=null
+this.propertyDefinition=null
+this.containerCell=null
+BaseProto.dispose.call(this)}
+ExternalParameterEditor.prototype.init=function(){this.tooltipText='Click to enter the external parameter name to load the property value from'
+this.build()
+this.registerHandlers()
+this.setInitialValue()}
+ExternalParameterEditor.prototype.build=function(){var container=document.createElement('div'),editor=document.createElement('div'),controls=document.createElement('div'),input=document.createElement('input'),link=document.createElement('a'),icon=document.createElement('i')
+container.setAttribute('class','external-param-editor-container')
+editor.setAttribute('class','external-editor')
+controls.setAttribute('class','controls')
+input.setAttribute('type','text')
+input.setAttribute('tabindex','-1')
+link.setAttribute('href','#')
+link.setAttribute('class','external-editor-link')
+link.setAttribute('tabindex','-1')
+link.setAttribute('title',this.tooltipText)
+$(link).tooltip({'container':'body',delay:500})
+icon.setAttribute('class','oc-icon-terminal')
+link.appendChild(icon)
+controls.appendChild(input)
+controls.appendChild(link)
+editor.appendChild(controls)
+while(this.containerCell.firstChild){var child=this.containerCell.firstChild
+container.appendChild(child)}
+container.appendChild(editor)
+this.containerCell.appendChild(container)}
+ExternalParameterEditor.prototype.setInitialValue=function(){var propertyValue=this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(!propertyValue){return}
+if(typeof propertyValue!=='string'){return}
+var matches=[]
+if(matches=propertyValue.match(/^\{\{([^\}]+)\}\}$/)){var value=$.trim(matches[1])
+if(value.length>0){this.showEditor(true)
+this.getInput().value=value
+this.inspector.setPropertyValue(this.propertyDefinition.property,null,true,true)}}}
+ExternalParameterEditor.prototype.showEditor=function(building){var editor=this.getEditor(),input=this.getInput(),container=this.getContainer(),link=this.getLink()
+var position=$(editor).position()
+if(!building){editor.style.right=0
+editor.style.left=position.left+'px'}
+else{editor.style.right=0}
+setTimeout(this.proxy(this.repositionEditor),0)
+$.oc.foundation.element.addClass(container,'editor-visible')
+link.setAttribute('data-original-title','Click to enter the property value')
+this.toggleEditorVisibility(false)
+input.setAttribute('tabindex',0)
+if(!building){input.focus()}}
+ExternalParameterEditor.prototype.repositionEditor=function(){this.getEditor().style.left=0
+this.containerCell.scrollTop=0}
+ExternalParameterEditor.prototype.hideEditor=function(){var editor=this.getEditor(),container=this.getContainer()
+editor.style.left='auto'
+editor.style.right='30px'
+$.oc.foundation.element.removeClass(container,'editor-visible')
+$.oc.foundation.element.removeClass(this.containerCell,'active')
+var propertyEditor=this.inspector.findPropertyEditor(this.propertyDefinition.property)
+if(propertyEditor){propertyEditor.onExternalPropertyEditorHidden()}}
+ExternalParameterEditor.prototype.toggleEditor=function(ev){$.oc.foundation.event.stop(ev)
+var link=this.getLink(),container=this.getContainer(),editor=this.getEditor()
+$(link).tooltip('hide')
+if(!this.isEditorVisible()){this.showEditor()
+return}
+var left=container.offsetWidth
+editor.style.left=left+'px'
+link.setAttribute('data-original-title',this.tooltipText)
+this.getInput().setAttribute('tabindex','-1')
+this.toggleEditorVisibility(true)
+setTimeout(this.proxy(this.hideEditor),200)}
+ExternalParameterEditor.prototype.toggleEditorVisibility=function(show){var container=this.getContainer(),children=container.children,height=0
+if(!show){height=this.containerCell.getAttribute('data-inspector-cell-height')
+if(!height){height=$(this.containerCell).height()
+this.containerCell.setAttribute('data-inspector-cell-height',height)}}
+for(var i=0,len=children.length;i<len;i++){var element=children[i]
+if($.oc.foundation.element.hasClass(element,'external-editor')){continue}
+if(show){$.oc.foundation.element.removeClass(element,'hide')}
+else{container.style.height=height+'px'
+$.oc.foundation.element.addClass(element,'hide')}}}
+ExternalParameterEditor.prototype.focus=function(){this.getInput().focus()}
+ExternalParameterEditor.prototype.validate=function(){var value=$.trim(this.getValue())
+if(value.length===0){$.oc.flashMsg({text:'Please enter the external parameter name.','class':'error','interval':5})
+this.focus()
+return false}
+return true}
+ExternalParameterEditor.prototype.registerHandlers=function(){var input=this.getInput()
+this.getLink().addEventListener('click',this.proxy(this.toggleEditor))
+input.addEventListener('focus',this.proxy(this.onInputFocus))
+input.addEventListener('change',this.proxy(this.onInputChange))}
+ExternalParameterEditor.prototype.onInputFocus=function(){this.inspector.makeCellActive(this.containerCell)}
+ExternalParameterEditor.prototype.onInputChange=function(){this.inspector.markPropertyChanged(this.propertyDefinition.property,true)}
+ExternalParameterEditor.prototype.unregisterHandlers=function(){var input=this.getInput()
+this.getLink().removeEventListener('click',this.proxy(this.toggleEditor))
+input.removeEventListener('focus',this.proxy(this.onInputFocus))
+input.removeEventListener('change',this.proxy(this.onInputChange))}
+ExternalParameterEditor.prototype.disposeControls=function(){$(this.getLink()).tooltip('destroy')}
+ExternalParameterEditor.prototype.getInput=function(){return this.containerCell.querySelector('div.external-editor input')}
+ExternalParameterEditor.prototype.getValue=function(){return this.getInput().value}
+ExternalParameterEditor.prototype.getLink=function(){return this.containerCell.querySelector('a.external-editor-link')}
+ExternalParameterEditor.prototype.getContainer=function(){return this.containerCell.querySelector('div.external-param-editor-container')}
+ExternalParameterEditor.prototype.getEditor=function(){return this.containerCell.querySelector('div.external-editor')}
+ExternalParameterEditor.prototype.getPropertyName=function(){return this.propertyDefinition.property}
+ExternalParameterEditor.prototype.isEditorVisible=function(){return $.oc.foundation.element.hasClass(this.getContainer(),'editor-visible')}
+$.oc.inspector.externalParameterEditor=ExternalParameterEditor}(window.jQuery);

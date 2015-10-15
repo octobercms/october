@@ -157,11 +157,7 @@
             return false
         }
 
-        var hidingEvent = $.Event('hiding.oc.inspector'),
-            values = this.surface.getValues()
-
-        this.$element.trigger(hidingEvent, [{values: values}])
-        if (hidingEvent.isDefaultPrevented()) {
+        if (!this.triggerHiding()) {
             ev.preventDefault()
             return false
         }

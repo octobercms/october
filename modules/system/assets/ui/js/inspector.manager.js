@@ -83,7 +83,7 @@
         } 
         else {
             // If the container is already in use, apply values to the inspectable elements
-            if (!this.applyValuesFromContainer($container)) {
+            if (!this.applyValuesFromContainer($container) || !this.containerHidingAllowed($container)) {
                 return
             }
 
@@ -122,6 +122,17 @@
 
         $container.trigger(applyEvent)
         if (applyEvent.isDefaultPrevented()) {
+            return false
+        }
+
+        return true
+    }
+
+    InspectorManager.prototype.containerHidingAllowed = function($container) {
+        var allowedEvent = $.Event('beforeContainerHide.oc.inspector')
+
+        $container.trigger(allowedEvent)
+        if (allowedEvent.isDefaultPrevented()) {
             return false
         }
 

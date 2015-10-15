@@ -169,12 +169,15 @@
 
     InspectorContainer.prototype.registerHandlers = function() {
         this.options.container.on('apply.oc.inspector', this.proxy(this.onApplyValues))
+        this.options.container.on('beforeContainerHide.oc.inspector', this.proxy(this.onBeforeHide))
     }
 
     InspectorContainer.prototype.unregisterHandlers = function() {
         var $layout = $(this.getLayout())
 
         this.options.container.off('apply.oc.inspector', this.proxy(this.onApplyValues))
+        this.options.container.off('beforeContainerHide.oc.inspector', this.proxy(this.onBeforeHide))
+
         $layout.off('dispose-control', this.proxy(this.dispose))
         $layout.off('click', 'span.close', this.proxy(this.onClose))
         $layout.off('click', 'span.detach', this.proxy(this.onDetach))
@@ -196,8 +199,20 @@
         }
     }
 
+    InspectorContainer.prototype.onBeforeHide = function(ev) {
+        if (!this.triggerHiding()) {
+            ev.preventDefault()
+            return false
+        }
+    }
+
     InspectorContainer.prototype.onClose = function(ev) {
         if (!this.validateAndApply()) {
+            ev.preventDefault()
+            return false
+        }
+
+        if (!this.triggerHiding()) {
             ev.preventDefault()
             return false
         }

@@ -821,6 +821,10 @@
         return true
     }
 
+    Surface.prototype.hasChanges = function() {
+        return !this.comparePropertyValues(this.originalValues, this.values)
+    }
+
     // EVENT HANDLERS
     //
 

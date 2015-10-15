@@ -135,6 +135,9 @@
         $.oc.foundation.element.addClass(container, 'loading-indicator-container size-small')
         this.showLoadingIndicator()
 
+        data['inspectorProperty'] = this.propertyDefinition.property
+        data['inspectorClassName'] = this.inspector.options.inspectorClass
+
         $form.request('onInspectableGetOptions', {
             data: data,
         })

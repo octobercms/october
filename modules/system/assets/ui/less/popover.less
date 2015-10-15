@@ -172,6 +172,25 @@ div.control-popover {
                 .opacity(1);
             }
         }
+
+        .inspector-move-to-container {
+            .opacity(0.4);
+            position: absolute;
+            top: 12px;
+            right: 26px;
+            float: none;
+            color: #ffffff;
+            cursor: pointer;
+
+            &:hover {
+                .opacity(1);
+                color: #ffffff;
+            }
+
+            &:before {
+                .transform(~'transform: rotate(270deg)');
+            }
+        }
     }
 
     &.placement-bottom .popover-head:before {

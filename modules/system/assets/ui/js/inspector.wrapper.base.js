@@ -21,8 +21,19 @@
     var BaseWrapper = function($element, sourceWrapper, options) {
         this.$element = $element
 
+        this.options = $.extend({}, BaseWrapper.DEFAULTS, typeof options == 'object' && options)
+        this.switched = false
+
+        Base.call(this)
+
         if (!sourceWrapper) {
-            this.surface = surface
+            if (!this.triggerShowingAndInit()) {
+                // this.init() is called inside triggerShowing()
+
+                return
+            }
+
+            this.surface = null
             this.title = null
             this.description = null
         } 
@@ -32,13 +43,9 @@
             this.description = sourceWrapper.description
 
             sourceWrapper = null
+
+            this.init()
         }
-
-        this.options = $.extend({}, BaseWrapper.DEFAULTS, typeof options == 'object' && options)
-        this.switched = false
-
-        Base.call(this)
-        this.init()
     }
 
     BaseWrapper.prototype = Object.create(BaseProto)
@@ -48,6 +55,8 @@
         if (!this.switched) {
             this.$element.removeClass('inspector-open')
             this.setInspectorVisibleFlag(false)
+
+            this.$element.trigger('hidden.oc.inspector')
         }
 
         this.surface = null
@@ -104,9 +113,9 @@
     }
 
     BaseWrapper.prototype.initSurface = function(containerElement, properties, values) {
-        var options = {
-                enableExternalParameterEditor: this.isExternalParametersEditorEnabled()
-            }
+        var options = this.$element.data() || {}
+
+        options.enableExternalParameterEditor = this.isExternalParametersEditorEnabled()
 
         this.surface = new $.oc.inspector.surface(
             containerElement,
@@ -203,6 +212,10 @@
                 this.$element.attr('data-property-' + property, value)
             }
         }
+
+        if (this.surface.hasChanges()) {
+            this.$element.trigger('change')
+        }
     }
 
     //
@@ -210,7 +223,7 @@
     //
 
     BaseWrapper.prototype.loadConfiguration = function() {
-        var $configurationField = this.$element.find('input[data-inspector-config]'),
+        var configString = this.$element.data('inspector-config'),
             result = {
                 properties: {},
                 title: null,
@@ -219,6 +232,15 @@
 
         result.title = this.$element.data('inspector-title')
         result.description = this.$element.data('inspector-description')
+
+        if (configString !== undefined) {
+            result.properties = this.parseConfiguration(configString)
+
+            this.configurationLoaded(result)
+            return
+        }
+
+        var $configurationField = this.$element.find('input[data-inspector-config]')
 
         if ($configurationField.length > 0) {
             result.properties = this.parseConfiguration($configurationField.val())
@@ -278,6 +300,37 @@
         }
 
         this.configurationLoaded(result)
+    }
+
+    //
+    // Events
+    //
+
+    BaseWrapper.prototype.triggerShowingAndInit = function() {
+        var e = $.Event('showing.oc.inspector')
+
+        this.$element.trigger(e, [{callback: this.proxy(this.init)}])
+        if (e.isDefaultPrevented()) {
+            this.$element = null
+
+            return false
+        }
+
+        if (!e.isPropagationStopped()) {
+            this.init()
+        }
+    }
+
+    BaseWrapper.prototype.triggerHiding = function() {
+        var hidingEvent = $.Event('hiding.oc.inspector'),
+            values = this.surface.getValues()
+
+        this.$element.trigger(hidingEvent, [{values: values}])
+        if (hidingEvent.isDefaultPrevented()) {
+            return false
+        }
+
+        return true
     }
 
     BaseWrapper.DEFAULTS = {

@@ -34,7 +34,8 @@
             inspectorContainer = document.createElement('div'),
             options = {
                 enableExternalParameterEditor: false,
-                onChange: this.proxy(this.onInspectorDataChange)
+                onChange: this.proxy(this.onInspectorDataChange),
+                inspectorClass: this.inspector.options.inspectorClass
             },
             values = this.inspector.getPropertyValue(this.propertyDefinition.property)
 

@@ -292,7 +292,8 @@
             values = $.parseJSON(dataStr),
             options = {
                 enableExternalParameterEditor: false,
-                onChange: this.proxy(this.onInspectorDataChange)
+                onChange: this.proxy(this.onInspectorDataChange),
+                inspectorClass: this.inspector.options.inspectorClass
             }
 
         this.currentRowInspector = new $.oc.inspector.surface(inspectorContainer, properties, values, 
