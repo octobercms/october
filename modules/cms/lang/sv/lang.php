@@ -25,6 +25,7 @@ return [
         ],
         'settings_menu' => 'Front-end tema',
         'settings_menu_description' => 'Förhandsgranska listan av installerade teman och välj ett aktivt tema.',
+        'default_tab' => 'Egenskaper',
         'name_label' => 'Namn',
         'name_create_placeholder' => 'Nytt tema namn',
         'author_label' => 'Författare',
