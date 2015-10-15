@@ -234,9 +234,11 @@ class RecordFinder extends FormWidgetBase
         $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':id')", $this->getId());
         $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 
-        $widget->addFilter(function ($query) {
-            return $query->whereRaw($this->conditions);
-        });
+        if (!empty($this->conditions)) {
+            $widget->addFilter(function ($query) {
+                return $query->whereRaw($this->conditions);
+            });
+        }
 
         return $widget;
     }
