@@ -9,6 +9,7 @@ return [
         'cs' => 'Czech',
         'en' => 'Engelska',
         'de' => 'Tyska',
+        'el' => 'Grekiska',
         'es' => 'Spanska',
         'es-ar' => 'Spanska (Argentina)',
         'fa' => 'Persiska',
@@ -74,6 +75,7 @@ return [
         'remove_confirm' => 'Är du säker på att du vill radera det här temat?'
     ],
     'plugin' => [
+        'label' => 'Tillägg',
         'unnamed' => 'Namnlöst tillägg',
         'name' => [
             'label' => 'Tilläggsnamn',
@@ -145,6 +147,10 @@ return [
         'smtp_password' => 'Lösenord',
         'smtp_port' => 'SMTP-port',
         'smtp_ssl' => 'SSL-anslutning krävs',
+        'smtp_encryption' => 'SMTP-krypteringsprotokoll',
+        'smtp_encryption_none' => 'Ingen kryptering',
+        'smtp_encryption_tls' => 'TLS',
+        'smtp_encryption_ssl' => 'SSL',
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail-sökväg',
         'sendmail_path_comment' => 'Vänligen ange sökvägen till sendmail',
@@ -305,13 +311,15 @@ return [
     ],
     'permissions' => [
         'name' => 'System',
-        'manage_system_settings' => 'Hantera system inställningar',
+        'manage_system_settings' => 'Hantera systeminställningar',
         'manage_software_updates' => 'Hantera systemuppdateringar',
-        'access_logs' => 'Visa system loggen',
+        'access_logs' => 'Visa systemloggen',
         'manage_mail_templates' => 'Hantera e-postmallar',
         'manage_mail_settings' => 'Hantera e-postinställningar',
         'manage_other_administrators' => 'Hantera andra administratörer',
+        'manage_preferences' => 'Hantera inställningar för back-end',
+        'manage_editor' => 'Hantera inställningar för kodredigerare',
         'view_the_dashboard' => 'Visa kontrollpanelen',
-        'manage_branding' => 'Anpassa backend'
+        'manage_branding' => 'Anpassa back-end',
     ]
 ];
