@@ -304,7 +304,7 @@ return [
     ],
     'access_log' => [
         'hint' => 'Denna logg visar en lista över lyckade inloggningsförsök till administratrationen. Registret behålls i :days dagar.',
-        'menu_label' => 'Åtkomst logg',
+        'menu_label' => 'Åtkomstlogg',
         'menu_description' => 'Visa en lista över framgångsrika inloggningar av back-end användare.',
         'created_at' => 'Dataum och tid',
         'login' => 'Inlogging',
