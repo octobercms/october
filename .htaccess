@@ -13,6 +13,12 @@
     # RewriteBase /
 
     ##
+    ## Block libwww-perl access user agent
+    ## 
+    RewriteCond %{HTTP_USER_AGENT} libwww-perl.*
+    RewriteRule .* – [F,L]
+
+    ##
     ## Black list protected files
     ##
     RewriteRule ^themes/.*/(layouts|pages|partials)/.*.htm index.php [L,NC]
