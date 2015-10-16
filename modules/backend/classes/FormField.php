@@ -254,7 +254,7 @@ class FormField
      */
     protected function evalConfig($config)
     {
-        if(is_null($config)) {
+        if (is_null($config)) {
             $config = [];
         }
 
