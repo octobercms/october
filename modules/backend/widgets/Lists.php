@@ -880,11 +880,11 @@ class Lists extends WidgetBase
     {
         $contents = '';
 
-        if($value) {
-            $contents = trans('backend::lang.list.widget_switch_true');
+        if ($value) {
+            $contents = Lang::get('backend::lang.list.column_switch_true');
         }
         else {
-            $contents = trans('backend::lang.list.widget_switch_false');
+            $contents = Lang::get('backend::lang.list.column_switch_false');
         }
 
         return $contents;
