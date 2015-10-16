@@ -11,6 +11,7 @@ use DbDongle;
 use Carbon\Carbon;
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
+use System\Helpers\DateTime as DateTimeHelper;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
 use ApplicationException;
@@ -53,7 +54,7 @@ class Lists extends WidgetBase
     /**
      * @var string Message to display when there are no records in the list.
      */
-    public $noRecordsMessage = 'No records found';
+    public $noRecordsMessage = 'backend::lang.list.no_records';
 
     /**
      * @var int Maximum rows to display for each page.
@@ -767,7 +768,7 @@ class Lists extends WidgetBase
                 $value = implode(', ', $record->{$columnName}->lists($column->valueFrom));
             }
             elseif ($this->isColumnRelated($column) || $this->isColumnPivot($column)) {
-                $value = $record->{$columnName}->{$column->valueFrom};
+                $value = $record->{$columnName} ? $record->{$columnName}->{$column->valueFrom} : null;
             }
             else {
                 $value = null;
@@ -804,7 +805,7 @@ class Lists extends WidgetBase
         /*
          * Apply default value.
          */
-        if (empty($value)) {
+        if ($value === '' || $value === null) {
             $value = $column->defaults;
         }
 
@@ -946,7 +947,21 @@ class Lists extends WidgetBase
 
         $value = $this->validateDateTimeValue($value, $column);
 
-        return $value->diffForHumans();
+        return DateTimeHelper::timeSince($value);
+    }
+
+    /**
+     * Process as time as current tense (Today at 0:00)
+     */
+    protected function evalTimetenseTypeValue($record, $column, $value)
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        $value = $this->validateDateTimeValue($value, $column);
+
+        return DateTimeHelper::timeTense($value);
     }
 
     /**
@@ -954,9 +969,7 @@ class Lists extends WidgetBase
      */
     protected function validateDateTimeValue($value, $column)
     {
-        if ($value instanceof DateTime) {
-            $value = Carbon::instance($value);
-        }
+        $value = DateTimeHelper::instance()->makeCarbon($value, false);
 
         if (!$value instanceof Carbon) {
             throw new ApplicationException(Lang::get(

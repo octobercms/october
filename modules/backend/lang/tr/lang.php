@@ -18,6 +18,9 @@ return [
             'label' => "Giriş engellendi",
             'help' => "Bu sayfayı görüntülemek için gerekli izinlere sahip değilsiniz.",
             'cms_link' => "Ana sayfaya dön"
+        ],
+        'invalid_token' => [
+            'label' => 'Geçersiz güvenlik anahtarı'
         ]
     ],
     'partial' => [
@@ -86,6 +89,7 @@ return [
         'password' => "Parola",
         'password_confirmation' => "Parola (Tekrar)",
         'permissions' => 'İzinler',
+        'account' => 'Hesap',
         'superuser' => "Süper Kullanıcı",
         'superuser_comment' => "Kullanıcıya her alanda yetki vermek için burayı işaretleyin.",
         'send_invite' => 'Email ile davet gönder',
@@ -98,15 +102,16 @@ return [
         'group' => [
             'name' => 'Grup',
             'name_field' => 'Adı',
+            'description_field' => 'Açıklama',
+            'is_new_user_default_field' => 'Yeni kullanıcılar bu gruba dahil edilsin mi?',
+            'code_field' => 'Grup kodu',
+            'code_comment' => 'Grup kodunu yazın',
             'menu_label' => 'Gruplar',
             'list_title' => 'Grupları Yönet',
             'new' => 'Yeni Yönetici Grubu',
             'delete_confirm' => 'Bu yönetici grubunu silmek istiyor musunuz?',
             'return' => 'Grup listesine dön',
-            'description_field' => 'Adı',
-            'is_new_user_default_field' => 'Yeni kullanıcılar bu gruba dahil edilsin mi?',
-            'code_field' => 'Grup kodu',
-            'code_comment' => 'Grup kodunu yazın'
+            'users_count' => 'Users'
         ],
         'preferences' => [
             'not_authenticated' => 'Ayarları görüntülemek veya düzenlemek için yetkili bir kullanıcı yok.'
@@ -129,13 +134,23 @@ return [
         'setup_title' => 'Liste Ayarları',
         'setup_help' => 'Listede görmek istediğiniz sütunları seçmek için onay kutularını kullanın. Sütunları yukarı veya aşağı sürükleyerek konumlarını değiştirebilirsiniz.',
         'records_per_page' => 'Sayfa başına kayıt sayısı',
-        'records_per_page_help' => 'Sayfa başına görüntülenecek kayıt sayısını seçin. Tek sayfada yüksek miktarda kayıt görüntülemek sistem performansını azaltabilir.'
+        'records_per_page_help' => 'Sayfa başına görüntülenecek kayıt sayısını seçin. Tek sayfada yüksek miktarda kayıt görüntülemek sistem performansını azaltabilir.',
+        'delete_selected' => 'Seçili olanı sil',
+        'delete_selected_empty' => 'Silinecek seçili kayıt bulunamadı.',
+        'delete_selected_confirm' => 'Seçili kayıtları silmek istediğize emin misiniz?',
+        'delete_selected_success' => 'Seçili kayıtlar başarıyla silindi.'
     ],
     'fileupload' => [
         'attachment' => 'Dosya Eki',
         'help' => 'Bu ek için bir başlık ve tanım girin.',
         'title_label' => 'Başlık',
-        'description_label' => 'Tanım'
+        'description_label' => 'Tanım',
+        'default_prompt' => '%s e tıkla ya da bir dosya sürükleyin',
+        'attachment_url' => 'Ek URLsi',
+        'upload_file' => 'Dosya yükle',
+        'upload_error' => 'Dosya yükleme hatası',
+        'remove_confirm' => 'Emin misiniz?',
+        'remove_file' => 'Dosyayı sil'
     ],
     'form' => [
         'create_title' => ":name Oluştur",
@@ -172,11 +187,13 @@ return [
         'close' => 'Kapat',
         'confirm' => 'Onayla',
         'reload' => 'Yenile',
+        'complete' => 'Tamamla',
         'ok' => 'Tamam',
         'or' => 'veya',
         'confirm_tab_close' => 'Bu sekmeyi kapatmak istediğinize emin misiniz? Kaydedilmemiş değişiklikleri kaybedeceksiniz.',
         'behavior_not_ready' => 'Form oluşturulamadı, controller da initForm() metodunu kontrol edin.',
         'preview_no_files_message' => 'Dosyalar yüklenmedi',
+        'preview_no_record_message' => 'Seçili kayıt yok.',
         'select' => 'Seç',
         'select_all' => 'tümü',
         'select_none' => 'hiçbiri',
@@ -196,6 +213,8 @@ return [
         'add' => "Ekle",
         'add_selected' => 'Seçilenleri ekle',
         'add_a_new' => 'Yeni bir :name ekle',
+        'link_selected' => 'Seçileni bağla',
+        'link_a_new' => 'Yeni bir :name bağla',
         'cancel' => 'İptal',
         'close' => "Kapat",
         'add_name' => ":name Ekle",
@@ -209,7 +228,16 @@ return [
         'remove_name' => ":name Kaldır",
         'delete' => "Sil",
         'delete_name' => ":name Sil",
-        'delete_confirm' => 'Emin misiniz?'
+        'delete_confirm' => 'Emin misiniz?',
+        'link' => 'Bağla',
+        'link_name' => ':name bağla',
+        'unlink' => 'Bağlamayı kaldır',
+        'unlink_name' => ':name bağlamasını kaldır',
+        'unlink_confirm' => 'Emin misiniz?'
+    ],
+    'reorder' => [
+        'default_title' => 'Kayıtları yeniden sırala',
+        'no_records' => 'Sıralamak için bir kayıt bulunamadı.',
     ],
     'model' => [
         'name' => "Model",
@@ -235,6 +263,7 @@ return [
         'code_folding' => 'Kod katlama (Alt satıra inme)',
         'word_wrap' => 'Uzun kelimeleri yeni satırda göster',
         'highlight_active_line' => 'Aktif satırı vurgula',
+        'auto_closing' => 'Etiketleri ve özel karakterleri otomatik kapat',
         'show_invisibles' => 'Gizli karakterleri göster',
         'show_gutter' => 'Satır numarasını göster',
         'theme' => 'Renk şeması',
@@ -287,6 +316,6 @@ return [
         'email' => 'Email'
     ],
     'filter' => [
-      'all' => 'tümü'
+        'all' => 'tümü'
     ]
 ];

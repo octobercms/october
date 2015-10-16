@@ -52,15 +52,17 @@ class PluginManagerTest extends TestCase
         $manager = PluginManager::instance();
         $result = self::callProtectedMethod($manager, 'loadPlugins');
 
-        $this->assertCount(4, $result);
+        $this->assertCount(5, $result);
         $this->assertArrayHasKey('October.NoUpdates', $result);
         $this->assertArrayHasKey('October.Sample', $result);
         $this->assertArrayHasKey('October.Tester', $result);
+        $this->assertArrayHasKey('Database.Tester', $result);
         $this->assertArrayHasKey('TestVendor.Test', $result);
 
         $this->assertInstanceOf('October\NoUpdates\Plugin', $result['October.NoUpdates']);
         $this->assertInstanceOf('October\Sample\Plugin', $result['October.Sample']);
         $this->assertInstanceOf('October\Tester\Plugin', $result['October.Tester']);
+        $this->assertInstanceOf('Database\Tester\Plugin', $result['Database.Tester']);
         $this->assertInstanceOf('TestVendor\Test\Plugin', $result['TestVendor.Test']);
     }
 
@@ -77,15 +79,17 @@ class PluginManagerTest extends TestCase
         $manager = PluginManager::instance();
         $result = $manager->getPlugins();
 
-        $this->assertCount(4, $result);
+        $this->assertCount(5, $result);
         $this->assertArrayHasKey('October.NoUpdates', $result);
         $this->assertArrayHasKey('October.Sample', $result);
         $this->assertArrayHasKey('October.Tester', $result);
+        $this->assertArrayHasKey('Database.Tester', $result);
         $this->assertArrayHasKey('TestVendor.Test', $result);
 
         $this->assertInstanceOf('October\NoUpdates\Plugin', $result['October.NoUpdates']);
         $this->assertInstanceOf('October\Sample\Plugin', $result['October.Sample']);
         $this->assertInstanceOf('October\Tester\Plugin', $result['October.Tester']);
+        $this->assertInstanceOf('Database\Tester\Plugin', $result['Database.Tester']);
         $this->assertInstanceOf('TestVendor\Test\Plugin', $result['TestVendor.Test']);
     }
 
@@ -111,10 +115,11 @@ class PluginManagerTest extends TestCase
         $manager = PluginManager::instance();
         $result = $manager->getPluginNamespaces();
 
-        $this->assertCount(4, $result);
+        $this->assertCount(5, $result);
         $this->assertArrayHasKey('\october\noupdates', $result);
         $this->assertArrayHasKey('\october\sample', $result);
         $this->assertArrayHasKey('\october\tester', $result);
+        $this->assertArrayHasKey('\database\tester', $result);
         $this->assertArrayHasKey('\testvendor\test', $result);
     }
     
@@ -124,8 +129,9 @@ class PluginManagerTest extends TestCase
         $vendors = $manager->getVendorAndPluginNames();
 
         $this->assertArrayHasKey('october', $vendors);
+        $this->assertArrayHasKey('database', $vendors);
         $this->assertArrayHasKey('testvendor', $vendors);
-        $this->assertCount(2, $vendors);
+        $this->assertCount(3, $vendors);
     }
 
     public function testPluginDetails()

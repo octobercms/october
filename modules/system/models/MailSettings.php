@@ -44,7 +44,8 @@ class MailSettings extends Model
         $this->smtp_port = $config->get('mail.port', 587);
         $this->smtp_user = $config->get('mail.username');
         $this->smtp_password = $config->get('mail.password');
-        $this->smtp_authorization = strlen($this->smtp_user);
+        $this->smtp_authorization = !!strlen($this->smtp_user);
+        $this->smtp_encryption = $config->get('mail.encryption');
     }
 
     public function getSendModeOptions()
@@ -80,6 +81,12 @@ class MailSettings extends Model
                     $config->set('mail.username', null);
                     $config->set('mail.password', null);
                 }
+                if ($settings->smtp_encryption) {
+                    $config->set('mail.encryption', $settings->smtp_encryption);
+                }
+                else {
+                    $config->set('mail.encryption', null);
+                }
                 break;
 
             case self::MODE_SENDMAIL:
@@ -96,5 +103,18 @@ class MailSettings extends Model
                 break;
         }
 
+    }
+
+
+    /**
+     * @return array smtp_encryption options values
+     */
+    public function getSmtpEncryptionOptions()
+    {
+        return [
+            '' => 'system::lang.mail.smtp_encryption_none',
+            'tls' => 'system::lang.mail.smtp_encryption_tls',
+            'ssl' => 'system::lang.mail.smtp_encryption_ssl',
+        ];
     }
 }

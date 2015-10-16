@@ -6,6 +6,7 @@ return [
         'tagline' => '欢迎使用October CMS！'
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'English',
         'de' => 'German',
         'es' => 'Spanish',
@@ -23,7 +24,7 @@ return [
         'pt-br' => 'Portuguese (Brazil)',
         'ro' => 'Romanian',
         'ru' => 'Russian',
-        'se' => 'Swedish',
+        'sv' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
         'zh-cn' => '简体中文',

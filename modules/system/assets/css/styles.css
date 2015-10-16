@@ -1004,6 +1004,11 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 [class^="icon-"].pull-right,[class*=" icon-"].pull-right{margin-left:.3em}
 [class^="oc-icon-"]:before,[class*=" oc-icon-"]:before{display:inline-block;margin-right:8px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;vertical-align:baseline}
 [class^="oc-icon-"].empty:before,[class*=" oc-icon-"].empty:before{margin-right:0}
+.icon-lg{font-size:1.33333333em;line-height:0.75em;vertical-align:-15%}
+.icon-2x{font-size:2em}
+.icon-3x{font-size:3em}
+.icon-4x{font-size:4em}
+.icon-5x{font-size:5em}
 @font-face{font-family:'Open Sans';src:url('../../../backend/assets/font/OpenSans-Light.eot');src:url('../../../backend/assets/font/OpenSans-Light.eot?#iefix') format('embedded-opentype'),url('../../../backend/assets/font/OpenSans-Light.svg#open_sanslight') format('svg'),url('../../../backend/assets/font/OpenSans-Light.woff') format('woff'),url('../../../backend/assets/font/OpenSans-Light.ttf') format('truetype');font-style:normal;font-weight:300}
 @font-face{font-family:'Open Sans';src:url('../../../backend/assets/font/OpenSans-Regular.eot');src:url('../../../backend/assets/font/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),url('../../../backend/assets/font/OpenSans-Regular.svg#open_sansregular') format('svg'),url('../../../backend/assets/font/OpenSans-Regular.woff') format('woff'),url('../../../backend/assets/font/OpenSans-Regular.ttf') format('truetype');font-style:normal;font-weight:400}
 @font-face{font-family:'Open Sans';src:url('../../../backend/assets/font/OpenSans-Semibold.eot');src:url('../../../backend/assets/font/OpenSans-Semibold.eot?#iefix') format('embedded-opentype'),url('../../../backend/assets/font/OpenSans-Semibold.svg#open_sanssemibold') format('svg'),url('../../../backend/assets/font/OpenSans-Semibold.woff') format('woff'),url('../../../backend/assets/font/OpenSans-Semibold.ttf') format('truetype');font-style:normal;font-weight:600}

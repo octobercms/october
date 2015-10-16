@@ -4,24 +4,7 @@
 /*
  * Ajax Popup plugin
  *
- * Options:
- * - content: content HTML string or callback
- * 
- * Data attributes:
- * - data-control="popup" - enables the ajax popup plugin
- * - data-ajax="popup-content.htm" - ajax content to load
- * - data-handler="widget:pluginName" - October ajax request name
- * - data-keyboard="false" - Allow popup to be closed with the keyboard
- * - data-extra-data="file_id: 1" - October ajax request data
- * - data-size="large" - Popup size, available sizes: giant, huge, large, small, tiny
- *
- * JavaScript API:
- * $('a#someLink').popup({ ajax: 'popup-content.htm' })
- * $('a#someLink').popup({ handler: 'onLoadSomePopup' })
- * $('a#someLink').popup({ handler: 'onLoadSomePopup', extraData: { id: 3 } })
- *
- * Dependences:
- * - Bootstrap Modal (modal.js)
+ * - Documentation: ../docs/popup.md
  */
 
 +function ($) { "use strict";

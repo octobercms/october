@@ -6,6 +6,7 @@ return [
         'tagline' => 'Voltando ao básico',
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'Inglês',
         'de' => 'Alemão',
         'es' => 'Espanhol',
@@ -23,7 +24,7 @@ return [
         'pt-br' => 'Português (Brasil)',
         'ro' => 'Romeno',
         'ru' => 'Russo',
-        'se' => 'Sueco',
+        'sv' => 'Sueco',
         'sk' => 'Eslovaco',
         'tr' => 'Turco',
         'zh-cn' => 'Chinês (China)',

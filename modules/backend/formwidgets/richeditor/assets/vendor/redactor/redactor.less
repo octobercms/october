@@ -898,9 +898,14 @@ body .redactor-box-fullscreen {
 	}
 	blockquote {
 	  margin-left: 1.6em !important;
-	  padding-left: 0;
+	  padding: 0;
+	  text-align: left;
 	  color: #777;
 	  font-style: italic;
+	  &:before,
+	  &:after {
+		  content: '';
+	  }
 	}
 	ul,
 	ol {

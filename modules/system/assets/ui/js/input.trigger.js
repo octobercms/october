@@ -11,9 +11,6 @@
 
         this.options = options || {};
 
-        // @deprecated remove if year >= 2016
-        if (this.options.triggerType !== false && this.options.triggerAction === false) this.options.triggerAction = this.options.triggerType
-
         if (this.options.triggerCondition === false)
             throw new Error('Trigger condition is not specified.')
 
@@ -87,6 +84,8 @@
         })
 
         $(window).trigger('resize')
+
+        this.$el.trigger('oc.triggerOn.afterUpdate', status)
     }
 
     TriggerOn.prototype.updateTargetAction = function(action, status) {

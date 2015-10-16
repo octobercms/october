@@ -35,6 +35,7 @@
         this.toggleEmptyTabs()
         this.bindCollapsibleSections()
 
+        this.$el.on('oc.triggerOn.afterUpdate', this.proxy(this.toggleEmptyTabs))
         this.$el.one('dispose-control', this.proxy(this.dispose))
     }
 
@@ -132,18 +133,44 @@
     }
 
     /*
-     * Hides tabs that have no content
+     * Hides tabs that have no content, it is possible this can be
+     * called multiple times in a single cycle due to input.trigger.
      */
     FormWidget.prototype.toggleEmptyTabs = function() {
-        var tabControl = $('[data-control=tab]', this.$el)
+        var self = this,
+            form = this.$el
 
-        if (!tabControl.length)
-            return
+        if (this.toggleEmptyTabsTimer !== undefined) {
+            window.clearTimeout(this.toggleEmptyTabsTimer)
+        }
 
-        $('.tab-pane', tabControl).each(function() {
-            $('[data-target="#' + $(this).attr('id') + '"]', tabControl)
-                .toggle(!!$('.form-group:not(:empty)', $(this)).length)
-        })
+        this.toggleEmptyTabsTimer = window.setTimeout(function() {
+
+            var tabControl = $('[data-control=tab]', this.$el),
+                tabContainer = $('.nav-tabs', tabControl)
+
+            if (!tabControl.length || !$.contains(form.get(0), tabControl.get(0)))
+                return
+
+            /*
+             * Check each tab pane for form field groups
+             */
+            $('.tab-pane', tabControl).each(function() {
+                $('[data-target="#' + $(this).attr('id') + '"]', tabControl)
+                    .closest('li')
+                    .toggle(!!$('.form-group:not(:empty):not(.hide)', $(this)).length)
+            })
+
+            /*
+             * If a hidden tab was selected, select the first visible tab
+             */
+            if (!$('> li.active:visible', tabContainer).length) {
+                $('> li:visible:first', tabContainer)
+                    .find('> a:first')
+                    .tab('show')
+            }
+
+        }, 1)
     }
 
     /*

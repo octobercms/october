@@ -37,6 +37,25 @@ tabs:
                 field: send_mode
                 condition: value[smtp]
 
+        smtp_port:
+            label: system::lang.mail.smtp_port
+            tab: system::lang.mail.general
+            span: auto
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        smtp_encryption:
+            type: dropdown
+            label: system::lang.mail.smtp_encryption
+            tab: system::lang.mail.general
+            span: auto
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
         smtp_authorization:
             type: checkbox
             label: system::lang.mail.smtp_authorization
@@ -60,23 +79,6 @@ tabs:
             label: system::lang.mail.smtp_password
             tab: system::lang.mail.general
             span: right
-            trigger:
-                action: show
-                field: send_mode
-                condition: value[smtp]
-
-        smtp_port:
-            label: system::lang.mail.smtp_port
-            tab: system::lang.mail.general
-            trigger:
-                action: show
-                field: send_mode
-                condition: value[smtp]
-
-        smtp_ssl:
-            type: checkbox
-            label: system::lang.mail.smtp_ssl
-            tab: system::lang.mail.general
             trigger:
                 action: show
                 field: send_mode

@@ -27,7 +27,7 @@ class UserPreferencesModel extends SettingsModel
     {
         parent::__construct($model);
 
-        $this->model->table = 'backend_user_preferences';
+        $this->model->setTable('backend_user_preferences');
     }
 
     /**

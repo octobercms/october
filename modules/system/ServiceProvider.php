@@ -178,6 +178,8 @@ class ServiceProvider extends ModuleServiceProvider
                 'trans'          => ['Lang', 'get'],
                 'transchoice'    => ['Lang', 'choice'],
                 'md'             => ['Markdown', 'parse'],
+                'time_since'     => ['System\Helpers\DateTime', 'timeSince'],
+                'time_tense'     => ['System\Helpers\DateTime', 'timeTense'],
             ]);
         });
     }
@@ -255,10 +257,10 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerTwigParser()
     {
         /*
-         * Register basic Twig
+         * Register system Twig environment
          */
-        App::singleton('twig', function ($app) {
-            $twig = new Twig_Environment(new TwigLoader(), ['auto_reload' => true]);
+        App::singleton('twig.environment', function ($app) {
+            $twig = new Twig_Environment(new TwigLoader, ['auto_reload' => true]);
             $twig->addExtension(new TwigExtension);
             return $twig;
         });
@@ -267,16 +269,7 @@ class ServiceProvider extends ModuleServiceProvider
          * Register .htm extension for Twig views
          */
         App::make('view')->addExtension('htm', 'twig', function () {
-            return new TwigEngine(App::make('twig'));
-        });
-
-        /*
-         * Register Twig that will parse strings
-         */
-        App::singleton('twig.string', function ($app) {
-            $twig = $app['twig'];
-            $twig->setLoader(new Twig_Loader_String);
-            return $twig;
+            return new TwigEngine(App::make('twig.environment'));
         });
     }
 

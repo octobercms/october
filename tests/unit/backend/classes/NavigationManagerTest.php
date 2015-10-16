@@ -79,6 +79,51 @@ class NavigationManagerTest extends TestCase
         $this->assertEquals(200, $items['categories']->order);
     }
 
+    public function testAddMainMenuItems()
+    {
+        $manager = NavigationManager::instance();
+        $manager->addMainMenuItems('October.Tester', [
+            'print' => [
+                'label' => 'Print',
+                'icon' => 'icon-print',
+                'url' => 'javascript:window.print()'
+            ]
+        ]);
+
+        $items = $manager->listMainMenuItems();
+
+        $this->assertInternalType('array', $items);
+        $this->assertArrayHasKey('OCTOBER.TESTER.PRINT', $items);
+
+        $item = $items['OCTOBER.TESTER.PRINT'];
+        $this->assertEquals('print', $item->code);
+        $this->assertEquals('Print', $item->label);
+        $this->assertEquals('icon-print', $item->icon);
+        $this->assertEquals('javascript:window.print()', $item->url);
+        $this->assertEquals(500, $item->order);
+        $this->assertEquals('October.Tester', $item->owner);
+    }
+
+    public function testRemoveMainMenuItem()
+    {
+        $manager = NavigationManager::instance();
+        $manager->addMainMenuItems('October.Tester', [
+            'close' => [
+                'label' => 'Close',
+                'icon' => 'icon-times',
+                'url' => 'javascript:window.close()'
+            ]
+        ]);
+
+        $items = $manager->listMainMenuItems();
+        $this->assertArrayHasKey('OCTOBER.TESTER.CLOSE', $items);
+
+        $manager->removeMainMenuItem('October.Tester', 'close');
+
+        $items = $manager->listMainMenuItems();
+        $this->assertArrayNotHasKey('OCTOBER.TESTER.CLOSE', $items);
+    }
+
     public function testAddSideMenuItems()
     {
         $manager = NavigationManager::instance();
@@ -115,5 +160,27 @@ class NavigationManagerTest extends TestCase
         $this->assertCount(2, $items['foo']->permissions);
         $this->assertContains('october.tester.access_foo', $items['foo']->permissions);
         $this->assertContains('october.tester.access_bar', $items['foo']->permissions);
+    }
+
+    public function testRemoveSideMenuItem()
+    {
+        $manager = NavigationManager::instance();
+        $manager->addSideMenuItems('October.Tester', 'blog', [
+            'bar' => [
+                'label' => 'Bar',
+                'icon' => 'icon-bars',
+                'url' => 'http://yahoo.com'
+            ]
+        ]);
+
+        $manager->setContext('October.Tester', 'blog');
+
+        $items = $manager->listSideMenuItems();
+        $this->assertArrayHasKey('bar', $items);
+
+        $manager->removeSideMenuItem('October.Tester', 'blog', 'bar');
+
+        $items = $manager->listSideMenuItems();
+        $this->assertArrayNotHasKey('bar', $items);
     }
 }

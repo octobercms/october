@@ -247,7 +247,7 @@ class Themes extends Controller
     /**
      * Add form fields defined in theme.yaml
      */
-    protected function formExtendFields($form)
+    public function formExtendFields($form)
     {
         $model = $form->model;
         $theme = $this->findThemeObject($model->theme);

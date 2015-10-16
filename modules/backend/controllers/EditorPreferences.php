@@ -20,6 +20,8 @@ class EditorPreferences extends Controller
 
     public $formConfig = 'config_form.yaml';
 
+    public $requiredPermissions = ['backend.manage_editor'];
+
     /**
      * Constructor.
      */

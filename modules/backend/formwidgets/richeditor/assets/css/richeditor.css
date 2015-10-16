@@ -200,7 +200,8 @@ to{background-position:0 0}
 .redactor-editor video,.redactor-editor img{height:auto}
 .redactor-editor div,.redactor-editor p,.redactor-editor ul,.redactor-editor ol,.redactor-editor table,.redactor-editor dl,.redactor-editor figure,.redactor-editor blockquote,.redactor-editor pre{margin:0;margin-bottom:15px;border:none;background:none;box-shadow:none}
 .redactor-editor iframe,.redactor-editor object,.redactor-editor hr{margin-bottom:15px}
-.redactor-editor blockquote{margin-left:1.6em !important;padding-left:0;color:#777;font-style:italic}
+.redactor-editor blockquote{margin-left:1.6em !important;padding:0;text-align:left;color:#777;font-style:italic}
+.redactor-editor blockquote:before,.redactor-editor blockquote:after{content:''}
 .redactor-editor ul,.redactor-editor ol{padding-left:2em}
 .redactor-editor ul ul,.redactor-editor ol ol,.redactor-editor ul ol,.redactor-editor ol ul{margin:2px;padding:0;padding-left:2em;border:none}
 .redactor-editor ol ol li{list-style-type:lower-alpha}

@@ -6,6 +6,7 @@ return [
         'tagline' => 'Getting back to basics'
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'English',
         'de' => 'German',
         'el' => 'Greek',
@@ -24,7 +25,7 @@ return [
         'pt-br' => 'Portuguese (Brazil)',
         'ro' => 'Romanian',
         'ru' => 'Russian',
-        'se' => 'Swedish',
+        'sv' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
         'zh-cn' => 'Chinese (China)',
@@ -146,6 +147,10 @@ return [
         'smtp_password' => 'Password',
         'smtp_port' => 'SMTP port',
         'smtp_ssl' => 'SSL connection required',
+        'smtp_encryption' => 'SMTP encryption protocol',
+        'smtp_encryption_none' => 'No encryption',
+        'smtp_encryption_tls' => 'TLS',
+        'smtp_encryption_ssl' => 'SSL',
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail path',
         'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
@@ -312,6 +317,8 @@ return [
         'manage_mail_templates' => 'Manage mail templates',
         'manage_mail_settings' => 'Manage mail settings',
         'manage_other_administrators' => 'Manage other administrators',
+        'manage_preferences' => 'Manage backend preferences',
+        'manage_editor' => 'Manage code editor preferences',
         'view_the_dashboard' => 'View the dashboard',
         'manage_branding' => 'Customize the back-end'
     ]

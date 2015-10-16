@@ -13,6 +13,9 @@ use Yaml;
  */
 class PluginBase extends ServiceProviderBase
 {
+    /**
+     * @var boolean
+     */
     protected $loadedYamlConfigration = false;
 
     /**
@@ -32,6 +35,9 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * Returns information about this plugin, including plugin name and developer name.
+     *
+     * @return array
+     * @throws SystemException
      */
     public function pluginDetails()
     {
@@ -50,6 +56,8 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * Register method, called when the plugin is first registered.
+     *
+     * @return void
      */
     public function register()
     {
@@ -57,6 +65,8 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * Boot method, called right before the request route.
+     *
+     * @return array
      */
     public function boot()
     {
@@ -64,6 +74,8 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * Registers CMS markup tags introduced by this plugin.
+     *
+     * @return array
      */
     public function registerMarkupTags()
     {
@@ -72,6 +84,8 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * Registers any front-end components implemented in this plugin.
+     *
+     * @return array
      */
     public function registerComponents()
     {
@@ -80,6 +94,8 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * Registers back-end navigation items for this plugin.
+     *
+     * @return array
      */
     public function registerNavigation()
     {
@@ -88,6 +104,8 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * Registers any back-end permissions used by this plugin.
+     *
+     * @return array
      */
     public function registerPermissions()
     {
@@ -96,6 +114,8 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * Registers any back-end configuration links used by this plugin.
+     *
+     * @return array
      */
     public function registerSettings()
     {
@@ -104,6 +124,9 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * Registers scheduled tasks that are executed on a regular basis.
+     *
+     * @param string $schedule
+     * @return void
      */
     public function registerSchedule($schedule)
     {
@@ -116,12 +139,13 @@ class PluginBase extends ServiceProviderBase
      *  'className1'=>[
      *          'label'    => 'My widget 1',
      *          'context' => ['context-1', 'context-2'],
-     *      ], 
+     *      ],
      *  'className2' => [
      *          'label'    => 'My widget 2',
      *          'context' => 'context-1'
      *      ]
      * ]
+     * @return array
      */
     public function registerReportWidgets()
     {
@@ -133,6 +157,7 @@ class PluginBase extends ServiceProviderBase
      * The widgets must be returned in the following format:
      * ['className1' => 'alias'],
      * ['className2' => 'anotherAlias']
+     * @return array
      */
     public function registerFormWidgets()
     {
@@ -144,6 +169,7 @@ class PluginBase extends ServiceProviderBase
      * The templates must be returned in the following format:
      * ['acme.blog::mail.welcome' => 'This is a description of the welcome template'],
      * ['acme.blog::mail.forgot_password' => 'This is a description of the forgot password template'],
+     * @return array
      */
     public function registerMailTemplates()
     {
@@ -152,8 +178,9 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * Registers a new console (artisan) command
-     * @param $key The command name
-     * @param $class The command class
+     *
+     * @param string $key The command name
+     * @param string $class The command class
      * @return void
      */
     public function registerConsoleCommand($key, $class)
@@ -166,6 +193,13 @@ class PluginBase extends ServiceProviderBase
         $this->commands($key);
     }
 
+    /**
+     * Read configuration from YAML file
+     *
+     * @param string|null $exceptionMessage
+     * @return array|bool
+     * @throws SystemException
+     */
     protected function getConfigurationFromYaml($exceptionMessage = null)
     {
         if ($this->loadedYamlConfigration !== false) {
@@ -186,7 +220,7 @@ class PluginBase extends ServiceProviderBase
         else {
             $this->loadedYamlConfigration = Yaml::parse(file_get_contents($yamlFilePath));
             if (!is_array($this->loadedYamlConfigration)) {
-                throw new SystemException('Invalid format of the plugin configuration file: %s. The file should define an array.', $filePath);
+                throw new SystemException('Invalid format of the plugin configuration file: %s. The file should define an array.', $yamlFilePath);
             }
         }
 

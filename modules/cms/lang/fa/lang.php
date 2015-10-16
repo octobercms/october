@@ -231,7 +231,11 @@ return [
         'manage_pages' => 'مدیریت صفحات',
         'manage_layouts' => 'مدیریت طرح بندی ها',
         'manage_partials' => 'مدیریت بخش ها',
-        'manage_themes' => 'مدیریت قالب ها'
+        'manage_themes' => 'مدیریت قالب ها',
+        'manage_media' => 'مدیریت چند رسانه ها'
+    ],
+    'mediafinder' => [
+        'default_prompt' => '%s را جهت انتخاب فایل چند رسانه ای انتخاب کنید'
     ],
     'media' => [
         'invalid_path' => "آدرس فایل ':path' معتبر نیست.",
@@ -262,7 +266,6 @@ return [
         'uploading_file_num' => 'ارسال :number فایل(ها)...',
         'uploading_complete' => 'ارسال انجام شد',
         'order_by' => 'مرتب سازی با',
-        'search' => 'جستجو',
         'folder' => 'پوشه',
         'no_files_found' => 'فایلی با درخواست شما یافت نشد',
         'delete_empty' => 'لطفا موارد را جهت حذف انتخاب نمایید',

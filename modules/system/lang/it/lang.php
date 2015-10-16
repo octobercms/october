@@ -6,6 +6,7 @@ return [
         'tagline' => 'Tornare alle origini',
     ],
     'locale' => [
+        'cs' => 'Ceco',
         'en' => 'Inglese',
         'de' => 'Tedesco',
         'es' => 'Spagnolo',
@@ -23,7 +24,7 @@ return [
         'pt-br' => 'Portoghese (Brasile)',
         'ro' => 'Romeno',
         'ru' => 'Russo',
-        'se' => 'Svedese',
+        'sv' => 'Svedese',
         'sk' => 'Slovacco (Slovacchia)',
         'tr' => 'Turco',
         'zh-cn' => 'Cinese (Cina)',

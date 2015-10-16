@@ -6,6 +6,7 @@ return [
         'tagline' => 'Getting back to basics'
     ],
     'locale' => [
+        'cs' => 'Czech',
         'en' => 'Engelsk',
         'de' => 'Tysk',
         'es' => 'Spansk',
@@ -21,7 +22,7 @@ return [
         'pt-br' => 'Brasiliansk Portugisk',
         'ro' => 'Rumensk',
         'ru' => 'Russisk',
-        'se' => 'Svensk',
+        'sv' => 'Svensk',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Tyrkisk',
         'nb-no' => 'Norsk (Bokmål)',
@@ -132,7 +133,6 @@ return [
         'sender_name' => 'Avsendernavn',
         'sender_email' => 'Avsenderens e-postadresse',
         'php_mail' => 'PHP mail',
-        'sendmail' => 'Sendmail',
         'smtp' => 'SMTP',
         'smtp_address' => 'SMTP-adresse',
         'smtp_authorization' => 'SMTP-autentisering kreves',

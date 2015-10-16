@@ -227,11 +227,14 @@
             display: inline-block;
             .icon-FontAutumn();
             vertical-align: baseline;
-            content: @caret-down;
+            content: @chevron-up;
 
-            margin: 0 8px;
+            font-size: 12px;
+            margin: 2px 8px 0;
             float: right;
             color: rgba(0,0,0,.4);
+            .transition(all 0.3s);
+            .scaleAxes(1, 1);
         }
 
         &:hover {
@@ -240,6 +243,12 @@
                 color: inherit;
             }
         }
+    }
+}
+
+.form-group.section-field.collapsed {
+    .field-section.is-collapsible > h4:before {
+        .scaleAxes(1, -1);
     }
 }
 

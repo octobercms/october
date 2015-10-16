@@ -2,6 +2,7 @@
 
 use App;
 use File;
+use Twig;
 use View;
 use Model;
 use October\Rain\Mail\MailParser;
@@ -130,17 +131,16 @@ class MailTemplate extends Model
         }
 
         /*
-         * Get Twig to load from a string
+         * Subject
          */
-        $twig = App::make('twig.string');
-        $message->subject($twig->render($template->subject, $data));
+        $message->subject(Twig::parse($template->subject, $data));
 
         /*
          * HTML contents
          */
-        $html = $twig->render($template->content_html, $data);
+        $html = Twig::parse($template->content_html, $data);
         if ($template->layout) {
-            $html = $twig->render($template->layout->content_html, [
+            $html = Twig::parse($template->layout->content_html, [
                 'content' => $html,
                 'css' => $template->layout->content_css
             ] + (array) $data);
@@ -152,9 +152,9 @@ class MailTemplate extends Model
          * Text contents
          */
         if (strlen($template->content_text)) {
-            $text = $twig->render($template->content_text, $data);
+            $text = Twig::parse($template->content_text, $data);
             if ($template->layout) {
-                $text = $twig->render($template->layout->content_text, [
+                $text = Twig::parse($template->layout->content_text, [
                     'content' => $text
                 ] + (array) $data);
             }

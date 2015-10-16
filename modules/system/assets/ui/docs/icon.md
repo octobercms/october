@@ -1,36 +1,54 @@
-Provides icons of various descriptions
+# Icon library
 
-## Usage
+October provides an icon library with icons of various descriptions, based on the popular [Font Awesome collection](http://fortawesome.github.io/Font-Awesome/).
 
-### Inline icon
+### Inline icons
 
-Place Font Autumn icons just about anywhere with the `<i>` tag.
+Place icons just about anywhere with the `<i>` tag or to an existing element using the `oc-` prefix.
 
-    <div style="font-size: 24px;">
-        <i class="icon-camera-retro"></i> icon-camera-retro
-    </div>
+```html
+<i class="icon-camera-retro"></i> icon-camera-retro
 
-> **Note**: Icon classes are echoed via CSS :before.
+<span class="oc-icon-flag-checkered">oc-icon-flag-checkered</span>
+```
 
-### With buttons
+<div class="frame" style="font-size: 22px;">
+    <i class="icon-camera-retro"></i> icon-camera-retro
+    <br />
+    <span class="oc-icon-flag-checkered">oc-icon-flag-checkered</span>
+</div>
 
-    <a class="btn btn-default" href="#">
-        <i class="icon-refresh"></i> Refresh
+### Icon sizes
+
+To increase icon sizes relative to their container, use the `icon-lg` (33% increase), `icon-2x`, `icon-3x`, `icon-4x`, or `icon-5x` classes.
+
+    <i class="fa icon-camera-retro icon-5x"></i> icon-5x
+    <i class="fa icon-camera-retro icon-4x"></i> icon-4x
+    <i class="fa icon-camera-retro icon-3x"></i> icon-3x
+    <i class="fa icon-camera-retro icon-2x"></i> icon-2x
+    <i class="fa icon-camera-retro icon-lg"></i> icon-lg
+
+### Icon buttons
+
+Feel free to use them alongside your buttons.
+
+    <a class="btn btn-default oc-icon-refresh" href="#">
+        Refresh
     </a>
-    <a class="btn btn-success" href="#">
-        <i class="icon-shopping-cart icon-large"></i> Checkout
+    <a class="btn btn-success oc-icon-shopping" href="#">
+        Checkout
     </a>
-    <a class="btn btn-primary" href="#">
-        <i class="icon-comment"></i> Comment
+    <a class="btn btn-primary oc-icon-comment" href="#">
+        Comment
     </a>
-    <a class="btn btn-danger" href="#">
-        <i class="icon-trash icon-large"></i> Delete
+    <a class="btn btn-danger oc-icon-trash" href="#">
+        Delete
     </a>
-    <a class="btn btn-default" href="#">
-        <i class="icon-cog"></i> Settings
+    <a class="btn btn-default oc-icon-cog" href="#">
+        Settings
     </a>
-    <a class="btn btn-info" href="#">
-        <i class="icon-info"></i> More Info
+    <a class="btn btn-info oc-icon-info" href="#">
+        More Info
     </a>
 
 ## Available icons
@@ -922,7 +940,6 @@ Place Font Autumn icons just about anywhere with the `<i>` tag.
     float: left;
 }
 .category-icons > ul > li {
-    cursor: pointer;
     line-height: 42px;
     height: 42px;
     padding: 0;
@@ -944,9 +961,8 @@ Place Font Autumn icons just about anywhere with the `<i>` tag.
 }
 .category-icons > ul > li:hover [class^="icon-"]:before,
 .category-icons > ul > li:hover [class*=" icon-"]:before {
-    font-size: 24px;
+    font-size: 28px;
     vertical-align: middle;
-    line-height: 20px;
 }
 </style>
 

@@ -99,7 +99,7 @@ class Index extends Controller
 
         $this->bodyClass = 'compact-container side-panel-not-fixed';
         $this->pageTitle = 'cms::lang.cms.menu_label';
-        $this->pageTitleTemplate = '%s CMS';
+        $this->pageTitleTemplate = '%s '.trans($this->pageTitle);
 
         if (Request::ajax() && Request::input('formWidgetAlias')) {
             $this->bindFormWidgetToController();
@@ -307,6 +307,7 @@ class Index extends Controller
         $partial = ComponentPartial::load($componentObj, 'default');
         $content = $partial->getContent();
         $content = str_replace('__SELF__', $alias, $content);
+
         return $content;
     }
 
@@ -328,7 +329,7 @@ class Index extends Controller
             'partial' => '\Cms\Classes\Partial',
             'layout'  => '\Cms\Classes\Layout',
             'content' => '\Cms\Classes\Content',
-            'asset'   => '\Cms\Classes\Asset',
+            'asset'   => '\Cms\Classes\Asset'
         ];
 
         if (!array_key_exists($type, $types)) {
@@ -392,7 +393,7 @@ class Index extends Controller
             'partial' => '~/modules/cms/classes/partial/fields.yaml',
             'layout'  => '~/modules/cms/classes/layout/fields.yaml',
             'content' => '~/modules/cms/classes/content/fields.yaml',
-            'asset'   => '~/modules/cms/classes/asset/fields.yaml',
+            'asset'   => '~/modules/cms/classes/asset/fields.yaml'
         ];
 
         if (!array_key_exists($type, $formConfigs)) {
@@ -427,7 +428,7 @@ class Index extends Controller
                 throw new ApplicationException(trans('cms::lang.component.invalid_request'));
             }
 
-            for ($index = 0; $index < $count; $index ++) {
+            for ($index = 0; $index < $count; $index++) {
                 $componentName = $componentNames[$index];
                 $componentAlias = $componentAliases[$index];
 

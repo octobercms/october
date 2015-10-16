@@ -39,9 +39,9 @@ class SettingsModel extends ModelBehavior
     {
         parent::__construct($model);
 
-        $this->model->table = 'system_settings';
-        $this->model->jsonable = ['value'];
-        $this->model->guarded = [];
+        $this->model->setTable('system_settings');
+        $this->model->jsonable(['value']);
+        $this->model->guard([]);
         $this->model->timestamps = false;
 
         // Option A: (@todo Determine which is faster by benchmark)

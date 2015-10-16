@@ -262,7 +262,6 @@ return [
         'uploading_file_num' => '上傳 :number 檔案...',
         'uploading_complete' => '上傳完畢',
         'order_by' => '排序',
-        'search' => '搜尋',
         'folder' => '檔案夾',
         'no_files_found' => '沒找到您請求的檔案.',
         'delete_empty' => '請選擇刪除項.',

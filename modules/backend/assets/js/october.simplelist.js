@@ -7,7 +7,7 @@
  * JavaScript API:
  * $('#simplelist').simplelist()
  *
- * Dependences: 
+ * Dependences:
  * - Sortable (jquery-sortable.js)
  */
 +function ($) { "use strict";

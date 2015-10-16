@@ -111,6 +111,14 @@ class ServiceProvider extends ModuleServiceProvider
                     'label' => 'system::lang.permissions.manage_other_administrators',
                     'tab'   => 'system::lang.permissions.name'
                 ],
+                'backend.manage_preferences' => [
+                    'label' => 'system::lang.permissions.manage_preferences',
+                    'tab'   => 'system::lang.permissions.name'
+                ],
+                'backend.manage_editor' => [
+                    'label' => 'system::lang.permissions.manage_editor',
+                    'tab'   => 'system::lang.permissions.name'
+                ],
                 'backend.manage_branding' => [
                     'label' => 'system::lang.permissions.manage_branding',
                     'tab'   => 'system::lang.permissions.name'
@@ -208,6 +216,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_MYSETTINGS,
                     'icon'        => 'icon-laptop',
                     'class'       => 'Backend\Models\BackendPreferences',
+                    'permissions' => ['backend.manage_preferences'],
                     'order'       => 510,
                     'context'     => 'mysettings'
                 ],
@@ -217,6 +226,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_MYSETTINGS,
                     'icon'        => 'icon-code',
                     'url'         => Backend::URL('backend/editorpreferences'),
+                    'permissions' => ['backend.manage_editor'],
                     'order'       => 520,
                     'context'     => 'mysettings'
                 ],

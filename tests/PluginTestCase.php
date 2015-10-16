@@ -4,7 +4,7 @@ use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
 use October\Rain\Database\Model as ActiveRecord;
 
-class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
+abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
      * @var array Cache for storing which plugins have been loaded
@@ -160,10 +160,18 @@ class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
     protected function flushModelEventListeners()
     {
         foreach (get_declared_classes() as $class) {
+            if ($class == 'October\Rain\Database\Pivot') {
+                continue;
+            }
 
-            if (!is_subclass_of($class, 'October\Rain\Database\Model')) continue;
-            if (is_subclass_of($class, 'October\Rain\Database\Pivot')) continue;
-            if ($class == 'October\Rain\Database\Pivot') continue;
+            $reflectClass = new ReflectionClass($class);
+            if (
+                !$reflectClass->isInstantiable() ||
+                !$reflectClass->isSubclassOf('October\Rain\Database\Model') ||
+                $reflectClass->isSubclassOf('October\Rain\Database\Pivot')
+            ) {
+                continue;
+            }
 
             $class::flushEventListeners();
         }

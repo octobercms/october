@@ -40,6 +40,10 @@ class CmsObjectQuery
      */
     public function inTheme($theme)
     {
+        if (is_string($theme)) {
+            $theme = Theme::load($theme);
+        }
+
         $this->theme = $theme;
         return $this;
     }

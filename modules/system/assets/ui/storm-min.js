@@ -550,15 +550,17 @@ params=$.extend(params,options||{})
 var offset=0,animated=false
 if(!this.options.vertical){offset=$el.get(0).offsetLeft-this.el.scrollLeft()
 if(offset<0){this.el.animate({'scrollLeft':$el.get(0).offsetLeft},params)
-animated=true}else{offset=$el.get(0).offsetLeft+$el.width()-(this.el.scrollLeft()+this.el.width())
+animated=true}
+else{offset=$el.get(0).offsetLeft+$el.width()-(this.el.scrollLeft()+this.el.width())
 if(offset>0){this.el.animate({'scrollLeft':$el.get(0).offsetLeft+$el.width()-this.el.width()},params)
-animated=true}}}else{offset=$el.get(0).offsetTop-this.el.scrollTop()
+animated=true}}}
+else{offset=$el.get(0).offsetTop-this.el.scrollTop()
 if(offset<0){this.el.animate({'scrollTop':$el.get(0).offsetTop},params)
-animated=true}else{offset=$el.get(0).offsetTop-(this.el.scrollTop()+this.el.height())
+animated=true}
+else{offset=$el.get(0).offsetTop-(this.el.scrollTop()+this.el.height())
 if(offset>0){this.el.animate({'scrollTop':$el.get(0).offsetTop+$el.height()-this.el.height()},params)
 animated=true}}}
-if(!animated&&callback!==undefined)
-callback()}
+if(!animated&&callback!==undefined){callback()}}
 DragScroll.prototype.dispose=function(){this.scrollClassContainer=null
 $(document).off('ready',this.proxy(this.fixScrollClasses))
 $(window).off('resize',this.proxy(this.fixScrollClasses))
@@ -2916,13 +2918,11 @@ this.$el.on('change',function(){self.cancelled=true})}
 InputPreset.prototype.formatNamespace=function(){var value=toCamel(this.$src.val())
 return value.substr(0,1).toUpperCase()+value.substr(1)}
 InputPreset.prototype.formatValue=function(){if(this.options.inputPresetType=='namespace'){return this.formatNamespace()}
-if(this.options.inputPresetType=='camel')
-var value=toCamel(this.$src.val())
+if(this.options.inputPresetType=='camel'){var value=toCamel(this.$src.val())}
 else{var value=slugify(this.$src.val())}
-if(this.options.inputPresetType=='url')
-value='/'+value
+if(this.options.inputPresetType=='url'){value='/'+value}
 return value.replace(/\s/gi,"-")}
-InputPreset.DEFAULTS={inputPreset:'',inputPresetType:'file',inputPresetClosestParent:undefined,inputPresetPrefixInput:undefined}
+InputPreset.DEFAULTS={inputPreset:'',inputPresetType:'slug',inputPresetClosestParent:undefined,inputPresetPrefixInput:undefined}
 var old=$.fn.inputPreset
 $.fn.inputPreset=function(option){return this.each(function(){var $this=$(this)
 var data=$this.data('oc.inputPreset')
@@ -2931,8 +2931,7 @@ if(!data)$this.data('oc.inputPreset',(data=new InputPreset(this,options)))})}
 $.fn.inputPreset.Constructor=InputPreset
 $.fn.inputPreset.noConflict=function(){$.fn.inputPreset=old
 return this}
-$(document).render(function(){$('[data-input-preset]').inputPreset()})}(window.jQuery);+function($){"use strict";var TriggerOn=function(element,options){var $el=this.$el=$(element);this.options=options||{};if(this.options.triggerType!==false&&this.options.triggerAction===false)this.options.triggerAction=this.options.triggerType
-if(this.options.triggerCondition===false)
+$(document).render(function(){$('[data-input-preset]').inputPreset()})}(window.jQuery);+function($){"use strict";var TriggerOn=function(element,options){var $el=this.$el=$(element);this.options=options||{};if(this.options.triggerCondition===false)
 throw new Error('Trigger condition is not specified.')
 if(this.options.trigger===false)
 throw new Error('Trigger selector is not specified.')
@@ -2957,7 +2956,8 @@ if(!!trigger.length){triggerValue=trigger.val()}
 this.updateTarget($.inArray(triggerValue,this.triggerConditionValue)!=-1)}}
 TriggerOn.prototype.updateTarget=function(status){var self=this,actions=this.options.triggerAction.split('|')
 $.each(actions,function(index,action){self.updateTargetAction(action,status)})
-$(window).trigger('resize')}
+$(window).trigger('resize')
+this.$el.trigger('oc.triggerOn.afterUpdate',status)}
 TriggerOn.prototype.updateTargetAction=function(action,status){if(action=='show'){this.$el.toggleClass('hide',!status).trigger('hide.oc.triggerapi',[!status])}
 else if(action=='hide'){this.$el.toggleClass('hide',status).trigger('hide.oc.triggerapi',[status])}
 else if(action=='enable'){this.$el.prop('disabled',!status).toggleClass('control-disabled',!status).trigger('disable.oc.triggerapi',[!status])}

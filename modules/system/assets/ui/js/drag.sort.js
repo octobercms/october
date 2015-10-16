@@ -5,7 +5,6 @@
  * Sortable plugin.
  *
  * - Documentation: ../docs/drag-sort.md
- * - Note: Consider using october.simplelist.js with "is-sortable" class.
  */
 
  +function ($) { "use strict";
