@@ -868,7 +868,7 @@ html.csstransitions body.outer.preload .outer-form-container{-webkit-transform:s
 .fancy-layout .field-richeditor{border:none;border-left:1px solid #e0e0e0 !important}
 .fancy-layout .field-richeditor,.fancy-layout .field-richeditor .redactor_box,.fancy-layout .field-richeditor .redactor_toolbar{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;border-top-right-radius:0;border-top-left-radius:0}
 .fancy-layout .field-richeditor .redactor-box textarea{background:white;padding:20px !important;color:#333333;font-size:14px}
-.fancy-layout .secondary-content-tabs .field-richeditor .redactor-box .redactor-toolbar{margin:20px 20px 0 20px !important;-webkit-border-radius:3px !important;-moz-border-radius:3px !important;border-radius:3px !important}
+.fancy-layout .secondary-content-tabs .field-richeditor .redactor-box .redactor-toolbar{margin:20px 0 0 0!important;left:20px;right:20px;width:auto;-webkit-border-radius:3px !important;-moz-border-radius:3px !important;border-radius:3px !important}
 body.side-panel-not-fixed .fancy-layout .field-richeditor{border-left:none}
 html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-container .loading-indicator > span{-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite;background-image:url('../../../system/assets/ui/images/loader-white.svg');background-size:20px 20px}
 .flyout-container > .flyout{overflow:hidden;width:0;left:0 !important;-webkit-transition:width 0.1s;transition:width 0.1s}

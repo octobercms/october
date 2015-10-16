@@ -45,8 +45,8 @@
         this.parsedProperties = $.oc.inspector.engine.processPropertyGroups(properties)
         this.container = containerElement
         this.inspectorUniqueId = inspectorUniqueId
-        this.values = values
-        this.originalValues = $.extend(true, {}, values) // Clone the values hash
+        this.values = values !== null ? values : {}
+        this.originalValues = $.extend(true, {}, this.values) // Clone the values hash
         this.idCounter = 1
         this.popupCounter = 0
         this.parentSurface = parentSurface

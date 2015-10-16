@@ -104,6 +104,10 @@
         this.popoverObj = this.$element.data('oc.popover')
         this.$popoverContainer = this.popoverObj.$container
 
+        if (this.options.inspectorCssClass !== undefined) {
+            this.$popoverContainer.addClass(this.options.inspectorCssClass)
+        }
+
         if (this.options.containerSupported) {
             var moveToContainerButton = $('<span class="inspector-move-to-container oc-icon-download">')
 

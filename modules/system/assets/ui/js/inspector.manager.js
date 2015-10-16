@@ -35,45 +35,70 @@
         return $container
     }
 
+    InspectorManager.prototype.loadElementOptions = function($element) {
+        var options = {}
+
+        // Only specific options are allowed, don't load all options with data()
+        //
+        if ($element.data('inspector-css-class')) {
+            options.inspectorCssClass = $element.data('inspector-css-class')
+        }
+
+        return options
+    }
+
     InspectorManager.prototype.createInspectorPopup = function($element, containerSupported) {
-        new $.oc.inspector.wrappers.popup($element, null, {
-            containerSupported: containerSupported
-        })
+        var options = $.extend(this.loadElementOptions($element), {
+                containerSupported: containerSupported
+            })
+
+        new $.oc.inspector.wrappers.popup($element, null, options)
     }
 
     InspectorManager.prototype.createInspectorContainer = function($element, $container) {
-        new $.oc.inspector.wrappers.container($element, null, {
-            containerSupported: true,
-            container: $container
-        })
+        var options = $.extend(this.loadElementOptions($element), {
+                containerSupported: true,
+                container: $container
+            })
+
+        new $.oc.inspector.wrappers.container($element, null, options)
     }
 
     InspectorManager.prototype.switchToPopup = function(wrapper) {
-        new $.oc.inspector.wrappers.popup(wrapper.$element, wrapper, {
-            containerSupported: true
-        })
+        var options = $.extend(this.loadElementOptions(wrapper.$element), {
+                containerSupported: true
+            })
+
+        new $.oc.inspector.wrappers.popup(wrapper.$element, wrapper, options)
 
         wrapper.cleanupAfterSwitch()
         this.setContainerPreference(false)
     }
 
     InspectorManager.prototype.switchToContainer = function(wrapper) {
-        var $container = this.getContainerElement(wrapper.$element)
+        var $container = this.getContainerElement(wrapper.$element),
+            options = $.extend(this.loadElementOptions(wrapper.$element), {
+                containerSupported: true,
+                container: $container
+            })
 
         if (!$container) {
             throw new Error('Cannot switch to container: a container element is not found')
         }
 
-        new $.oc.inspector.wrappers.container(wrapper.$element, wrapper, {
-            containerSupported: true,
-            container: $container
-        })
+        new $.oc.inspector.wrappers.container(wrapper.$element, wrapper, options)
 
         wrapper.cleanupAfterSwitch()
         this.setContainerPreference(true)
     }
 
-    InspectorManager.prototype.createInspector = function($element) {
+    InspectorManager.prototype.createInspector = function(element) {
+        var $element = $(element)
+
+        if ($element.data('oc.inspectorVisible')) {
+            return false
+        }
+
         var $container = this.getContainerElement($element)
 
         // If there's no container option, create the Inspector popup
@@ -142,10 +167,9 @@
     InspectorManager.prototype.onInspectableClicked = function(ev) {
         var $element = $(ev.currentTarget)
 
-        if ($element.data('oc.inspectorVisible'))
+        if (this.createInspector($element) === false) {
             return false
-
-        this.createInspector($element)
+        }
     }
 
     $.oc.inspector.manager = new InspectorManager()

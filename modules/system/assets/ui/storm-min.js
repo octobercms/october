@@ -3490,8 +3490,8 @@ this.rawProperties=properties
 this.parsedProperties=$.oc.inspector.engine.processPropertyGroups(properties)
 this.container=containerElement
 this.inspectorUniqueId=inspectorUniqueId
-this.values=values
-this.originalValues=$.extend(true,{},values)
+this.values=values!==null?values:{}
+this.originalValues=$.extend(true,{},this.values)
 this.idCounter=1
 this.popupCounter=0
 this.parentSurface=parentSurface
@@ -3743,17 +3743,25 @@ if($containerHolder.length===0){return null}
 var $container=$containerHolder.find($containerHolder.data('inspector-container'))
 if($container.length===0){throw new Error('Inspector container '+$containerHolder.data['inspector-container']+' element is not found.')}
 return $container}
-InspectorManager.prototype.createInspectorPopup=function($element,containerSupported){new $.oc.inspector.wrappers.popup($element,null,{containerSupported:containerSupported})}
-InspectorManager.prototype.createInspectorContainer=function($element,$container){new $.oc.inspector.wrappers.container($element,null,{containerSupported:true,container:$container})}
-InspectorManager.prototype.switchToPopup=function(wrapper){new $.oc.inspector.wrappers.popup(wrapper.$element,wrapper,{containerSupported:true})
+InspectorManager.prototype.loadElementOptions=function($element){var options={}
+if($element.data('inspector-css-class')){options.inspectorCssClass=$element.data('inspector-css-class')}
+return options}
+InspectorManager.prototype.createInspectorPopup=function($element,containerSupported){var options=$.extend(this.loadElementOptions($element),{containerSupported:containerSupported})
+new $.oc.inspector.wrappers.popup($element,null,options)}
+InspectorManager.prototype.createInspectorContainer=function($element,$container){var options=$.extend(this.loadElementOptions($element),{containerSupported:true,container:$container})
+new $.oc.inspector.wrappers.container($element,null,options)}
+InspectorManager.prototype.switchToPopup=function(wrapper){var options=$.extend(this.loadElementOptions(wrapper.$element),{containerSupported:true})
+new $.oc.inspector.wrappers.popup(wrapper.$element,wrapper,options)
 wrapper.cleanupAfterSwitch()
 this.setContainerPreference(false)}
-InspectorManager.prototype.switchToContainer=function(wrapper){var $container=this.getContainerElement(wrapper.$element)
+InspectorManager.prototype.switchToContainer=function(wrapper){var $container=this.getContainerElement(wrapper.$element),options=$.extend(this.loadElementOptions(wrapper.$element),{containerSupported:true,container:$container})
 if(!$container){throw new Error('Cannot switch to container: a container element is not found')}
-new $.oc.inspector.wrappers.container(wrapper.$element,wrapper,{containerSupported:true,container:$container})
+new $.oc.inspector.wrappers.container(wrapper.$element,wrapper,options)
 wrapper.cleanupAfterSwitch()
 this.setContainerPreference(true)}
-InspectorManager.prototype.createInspector=function($element){var $container=this.getContainerElement($element)
+InspectorManager.prototype.createInspector=function(element){var $element=$(element)
+if($element.data('oc.inspectorVisible')){return false}
+var $container=this.getContainerElement($element)
 if(!$container){this.createInspectorPopup($element,false)}
 else{if(!this.applyValuesFromContainer($container)||!this.containerHidingAllowed($container)){return}
 $.oc.foundation.controlUtils.disposeControls($container.get(0))
@@ -3772,9 +3780,7 @@ $container.trigger(allowedEvent)
 if(allowedEvent.isDefaultPrevented()){return false}
 return true}
 InspectorManager.prototype.onInspectableClicked=function(ev){var $element=$(ev.currentTarget)
-if($element.data('oc.inspectorVisible'))
-return false
-this.createInspector($element)}
+if(this.createInspector($element)===false){return false}}
 $.oc.inspector.manager=new InspectorManager()}(window.jQuery);+function($){"use strict";if($.oc.inspector===undefined)
 $.oc.inspector={}
 if($.oc.inspector.wrappers===undefined)
@@ -3905,6 +3911,7 @@ this.$element.ocPopover({content:this.getPopoverContents(),highlightModalTarget:
 this.setInspectorVisibleFlag(true)
 this.popoverObj=this.$element.data('oc.popover')
 this.$popoverContainer=this.popoverObj.$container
+if(this.options.inspectorCssClass!==undefined){this.$popoverContainer.addClass(this.options.inspectorCssClass)}
 if(this.options.containerSupported){var moveToContainerButton=$('<span class="inspector-move-to-container oc-icon-download">')
 this.$popoverContainer.find('.popover-head').append(moveToContainerButton)}
 this.$popoverContainer.find('[data-inspector-title]').text(this.title)
