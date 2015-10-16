@@ -13,6 +13,9 @@ class ViewBag extends ComponentBase
 {
     public $isHidden = true;
 
+    /**
+     * @return array
+     */
     public function componentDetails()
     {
         return [
@@ -21,11 +24,20 @@ class ViewBag extends ComponentBase
         ];
     }
 
+    /**
+     * @param array $properties
+     * @return array
+     */
     public function validateProperties(array $properties)
     {
         return $properties;
     }
 
+    /**
+     * @param string $method
+     * @param array $parameters
+     * @return mixed
+     */
     public function __call($method, $parameters)
     {
         if (array_key_exists($method, $this->properties) && !method_exists($this, $method)) {
@@ -35,6 +47,9 @@ class ViewBag extends ComponentBase
         return parent::__call($method, $parameters);
     }
 
+    /**
+     * @return array
+     */
     public function defineProperties()
     {
         $result = [];

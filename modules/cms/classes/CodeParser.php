@@ -15,7 +15,7 @@ use SystemException;
 class CodeParser
 {
     /**
-     * @var Cms\Classes\CmsCompoundObject A reference to the CMS object being parsed.
+     * @var \Cms\Classes\CmsCompoundObject A reference to the CMS object being parsed.
      */
     protected $object;
 
@@ -141,9 +141,9 @@ class CodeParser
 
     /**
      * Runs the object's PHP file and returns the corresponding object.
-     * @param Cms\Classes\Page $page Specifies the CMS page.
-     * @param Cms\Classes\Layout $layout Specifies the CMS layout.
-     * @param Cms\Classes\Controller $controller Specifies the CMS controller.
+     * @param \Cms\Classes\Page $page Specifies the CMS page.
+     * @param \Cms\Classes\Layout $layout Specifies the CMS layout.
+     * @param \Cms\Classes\Controller $controller Specifies the CMS controller.
      * @return mixed
      */
     public function source($page, $layout, $controller)

@@ -65,6 +65,13 @@ class MediaLibraryItem
     protected static $videoExtensions;
     protected static $audioExtensions;
 
+    /**
+     * @param string $path
+     * @param int $size
+     * @param int $lastModified
+     * @param string $type
+     * @param string $publicUrl
+     */
     public function __construct($path, $size, $lastModified, $type, $publicUrl)
     {
         $this->path = $path;
@@ -74,6 +81,9 @@ class MediaLibraryItem
         $this->publicUrl = $publicUrl;
     }
 
+    /**
+     * @return bool
+     */
     public function isFile()
     {
         return $this->type == self::TYPE_FILE;

@@ -194,7 +194,7 @@ class CmsException extends ApplicationException
      * Override properties of an exception specific to the Twig section
      * of a CMS object.
      * @param \Exception $exception The exception to modify.
-     * @return void
+     * @return bool
      */
     protected function processTwig(Exception $exception)
     {
