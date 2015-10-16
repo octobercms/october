@@ -1,10 +1,10 @@
 /*
-=require ../vendor/bootstrap/js/modal.js
-*/
-/*
  * Ajax Popup plugin
  *
- * - Documentation: ../docs/popup.md
+ * Documentation: ../docs/popup.md
+ *
+ * Require:
+ *  - bootstrap/modal
  */
 
 +function ($) { "use strict";

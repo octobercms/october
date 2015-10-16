@@ -1,6 +1,6 @@
 /*
  * The bar chart plugin.
- * 
+ *
  * Data attributes:
  * - data-control="chart-bar" - enables the bar chart plugin
  * - data-height="200" - optional, height of the graph
@@ -9,9 +9,8 @@
  * JavaScript API:
  * $('.scoreboard .chart').barChart()
  *
- * Dependences: 
+ * Dependences:
  * - Raphaël (raphael-min.js)
- * - October chart utilities (october.chartutils.js)
  */
 +function ($) { "use strict";
 

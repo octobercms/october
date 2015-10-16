@@ -118,6 +118,3 @@ $('a#someLink').popup({ ajax: 'popup-content.htm' })
 $('a#someLink').popup({ handler: 'onLoadSomePopup' })
 $('a#someLink').popup({ handler: 'onLoadSomePopup', extraData: { id: 3 } })
 ```
-
-### Dependences:
-- Bootstrap Modal (modal.js)

@@ -1,17 +1,10 @@
 /*
-=require ../vendor/bootstrap/js/transition.js
-*/
-
-/*
- * The flash message. 
- * 
- * The default hide interval is 2 seconds. The interval option is not required.
+ * The flash message.
  *
- * Data attributes API:
- * <p data-control="flash-message" class="success" data-interval="5">The record has been successfully saved.</p>
+ * Documentation: ../docs/flashmessage.md
  *
- * JavaScript API:
- * $.oc.flashMsg({text: 'The record has been successfully saved.', 'class': 'success', 'interval': 3})
+ * Require:
+ *  - bootstrap/transition
  */
 +function ($) { "use strict";
 

@@ -1,11 +1,10 @@
 /*
-=require ../vendor/bootstrap/js/dropdown.js
-*/
-/*
  * Dropdown menus.
  *
  * This script customizes the Twitter Bootstrap drop-downs.
  *
+ * Require:
+ *  - bootstrap/dropdown
  */
 +function ($) { "use strict";
 

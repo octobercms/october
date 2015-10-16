@@ -1,7 +1,4 @@
 /*
-=require foundation.js
-*/
-/*
  * Hot key binding.
  * 
  * Data attributes:

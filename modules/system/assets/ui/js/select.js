@@ -1,11 +1,9 @@
 /*
-=require ../vendor/modernizr/modernizr.js
-=require ../vendor/select2/js/select2.full.js
-*/
-
-/*
  * Select control
  *
+ * Require:
+ *  - modernizr/modernizr
+ *  - select2/select2.full
  */
 
 (function($){
