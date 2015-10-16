@@ -2460,7 +2460,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .inspector-fields td.trigger-cell a.trigger .loading-indicator span{margin-top:-12px;right:10px;left:auto}
 .inspector-fields td.dropdown{padding:0 !important}
 .inspector-fields td select{width:90%}
-.inspector-fields td div.external-param-editor-container{position:relative;padding-right:15px}
+.inspector-fields td div.external-param-editor-container{position:relative;padding-right:25px}
 .inspector-fields td div.external-param-editor-container div.external-editor{bottom:0;margin:-5px -12px;right:30px;left:auto;top:0;position:absolute;-webkit-transition:left 0.2s;transition:left 0.2s;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0);will-change:transform}
 .inspector-fields td div.external-param-editor-container div.external-editor div.controls{position:absolute;width:100%;height:100%;left:0;top:0}
 .inspector-fields td div.external-param-editor-container div.external-editor div.controls a{position:absolute;left:0;top:0;display:inline-block;height:100%;width:30px;color:#2b3e50;outline:none}
