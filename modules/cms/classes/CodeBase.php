@@ -32,7 +32,7 @@ class CodeBase extends Extendable implements ArrayAccess
      * @param \Cms\Classes\Layout $layout Specifies the CMS layout.
      * @param \Cms\Classes\Controller $controller Specifies the CMS controller.
      */
-    public function __construct(Page $page, Layout $layout, Controller $controller)
+    public function __construct(Page $page = null, Layout $layout = null, Controller $controller= null)
     {
         $this->page = $page;
         $this->layout = $layout;
