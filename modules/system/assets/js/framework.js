@@ -199,7 +199,7 @@ if (window.jQuery === undefined)
                             $(selector.substring(1)).prepend(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
                         } else {
                             $(selector).trigger('ajaxBeforeReplace')
-                            $(selector).html(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
+                            $(selector).empty().html(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
                         }
                     }
 
