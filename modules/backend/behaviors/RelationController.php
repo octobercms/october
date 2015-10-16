@@ -1304,10 +1304,12 @@ class RelationController extends ControllerBehavior
         switch ($this->relationType) {
             case 'hasMany':
             case 'belongsToMany':
+            case 'attachMany':
                 return 'multi';
 
             case 'hasOne':
             case 'belongsTo':
+            case 'attachOne':
                 return 'single';
         }
     }
