@@ -78,7 +78,7 @@ class CmsObject implements ArrayAccess
      * @param string $fileName Specifies the file name, with the extension.
      * @return mixed Returns a CMS object instance or null if the object wasn't found.
      */
-    public static function loadCached($theme, $fileName)
+    public static function loadCached(Theme $theme, $fileName)
     {
         if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting())) {
             throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
@@ -154,7 +154,7 @@ class CmsObject implements ArrayAccess
      * The file name can contain only alphanumeric symbols, dashes and dots.
      * @return mixed Returns a CMS object instance or null if the object wasn't found.
      */
-    public static function load($theme, $fileName)
+    public static function load(Theme $theme, $fileName)
     {
         if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting())) {
             throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
@@ -410,7 +410,7 @@ class CmsObject implements ArrayAccess
      * @param boolean $skipCache Indicates if objects should be reloaded from the disk bypassing the cache.
      * @return array Returns an array of CMS objects.
      */
-    public static function listInTheme($theme, $skipCache = false)
+    public static function listInTheme(Theme $theme, $skipCache = false)
     {
         if (!$theme) {
             throw new ApplicationException(Lang::get('cms::lang.theme.active.not_set'));
@@ -450,7 +450,7 @@ class CmsObject implements ArrayAccess
      * @param string$fileName Specifies the file name to return the path to.
      * @return string
      */
-    protected static function getFilePath($theme, $fileName)
+    protected static function getFilePath(Theme $theme, $fileName)
     {
         return $theme->getPath().'/'.static::getObjectTypeDirName().'/'.$fileName;
     }

@@ -166,12 +166,12 @@ class Page extends CmsCompoundObject
      * - items - an array of arrays with the same keys (url, isActive, items) + the title key. 
      *   The items array should be added only if the $item's $nesting property value is TRUE.
      * @param \RainLab\Pages\Classes\MenuItem $item Specifies the menu item.
-     * @param \Cms\Classes\Theme $theme Specifies the current theme.
      * @param string $url Specifies the current page URL, normalized, in lower case
+     * @param \Cms\Classes\Theme $theme Specifies the current theme.
      * The URL is specified relative to the website root, it includes the subdirectory name, if any.
      * @return mixed Returns an array. Returns null if the item cannot be resolved.
      */
-    public static function resolveMenuItem($item, $url, $theme)
+    public static function resolveMenuItem($item, $url, Theme $theme)
     {
         $result = null;
 
