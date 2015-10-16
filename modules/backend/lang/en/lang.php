@@ -138,7 +138,9 @@ return [
         'delete_selected' => 'Delete selected',
         'delete_selected_empty' => 'There are no selected records to delete.',
         'delete_selected_confirm' => 'Delete the selected records?',
-        'delete_selected_success' => 'Successfully deleted the selected records.'
+        'delete_selected_success' => 'Successfully deleted the selected records.',
+        'widget_switch_true' => 'Yes',
+        'widget_switch_false' => 'No'
     ],
     'fileupload' => [
         'attachment' => 'Attachment',
