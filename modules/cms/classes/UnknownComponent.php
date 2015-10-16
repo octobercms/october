@@ -19,6 +19,9 @@ class UnknownComponent extends ComponentBase
         parent::__construct($cmsObject, $properties);
     }
 
+    /**
+     * @return array
+     */
     public function componentDetails()
     {
         return [

@@ -59,8 +59,10 @@ class CmsObjectCollection extends CollectionBase
 
     /**
      * Returns objects whose component properties match the supplied value.
+     * @param mixed $components
      * @param string $property
      * @param string $value
+     * @param bool $strict
      * @return static
      */
     public function whereComponent($components, $property, $value, $strict = false)
