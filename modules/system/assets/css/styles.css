@@ -365,8 +365,8 @@ cite{font-style:normal}
 .text-center{text-align:center}
 .text-justify{text-align:justify}
 .text-muted{color:#999999}
-.text-primary{color:#5fb6f5}
-a.text-primary:hover{color:#2fa0f2}
+.text-primary{color:#4da7e8}
+a.text-primary:hover{color:#2091e2}
 .text-success{color:#3c763d}
 a.text-success:hover{color:#2b542c}
 .text-info{color:#31708f}
@@ -375,8 +375,8 @@ a.text-info:hover{color:#245269}
 a.text-warning:hover{color:#66512c}
 .text-danger{color:#a94442}
 a.text-danger:hover{color:#843534}
-.bg-primary{color:#fff;background-color:#5fb6f5}
-a.bg-primary:hover{background-color:#2fa0f2}
+.bg-primary{color:#fff;background-color:#4da7e8}
+a.bg-primary:hover{background-color:#2091e2}
 .bg-success{background-color:#dff0d8}
 a.bg-success:hover{background-color:#c1e2b3}
 .bg-info{background-color:#d9edf7}
