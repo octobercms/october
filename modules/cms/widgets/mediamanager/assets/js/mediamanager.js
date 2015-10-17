@@ -775,10 +775,10 @@
     }
 
     MediaManager.prototype.setUploadProgress = function(value) {
-        var progresBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
-        
-        progresBar.setAttribute('style', 'width: ' + value + '%')
-        progresBar.setAttribute('class', 'progress-bar')
+        var progressBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
+
+        progressBar.setAttribute('style', 'width: ' + value + '%')
+        progressBar.setAttribute('class', 'progress-bar')
     }
 
     MediaManager.prototype.uploadQueueComplete = function() {
@@ -801,10 +801,10 @@
     MediaManager.prototype.updateUploadBar = function(templateName, classNames) {
         var fileNumberLabel = this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),
             successTemplate = fileNumberLabel.getAttribute('data-' + templateName + '-template'),
-            progresBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
+            progressBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
 
         fileNumberLabel.innerHTML = successTemplate;
-        progresBar.setAttribute('class', classNames)
+        progressBar.setAttribute('class', classNames)
     }
 
     MediaManager.prototype.uploadSuccess = function() {
@@ -812,7 +812,7 @@
     }
 
     MediaManager.prototype.uploadError = function(file, message) {
-      this.updateUploadBar('error', 'progress-bar-error');
+      this.updateUploadBar('error', 'progress-bar progress-bar-danger');
 
         $.oc.alert('Error uploading file')
     }

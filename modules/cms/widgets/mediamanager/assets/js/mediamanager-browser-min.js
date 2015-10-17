@@ -303,9 +303,9 @@ var fileNumberLabel=this.$el.get(0).querySelector('[data-label="file-number-and-
 if(uploadProgress>=100)
 uploadProgress=99
 fileNumberLabel.innerHTML=messageTemplate.replace(':number',fileNumber).replace(':percents',Math.round(uploadProgress)+'%')}
-MediaManager.prototype.setUploadProgress=function(value){var progresBar=this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
-progresBar.setAttribute('style','width: '+value+'%')
-progresBar.setAttribute('class','progress-bar')}
+MediaManager.prototype.setUploadProgress=function(value){var progressBar=this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
+progressBar.setAttribute('style','width: '+value+'%')
+progressBar.setAttribute('class','progress-bar')}
 MediaManager.prototype.uploadQueueComplete=function(){this.$el.find('[data-command="cancel-uploading"]').addClass('hide')
 this.$el.find('[data-command="close-uploader"]').removeClass('hide')
 this.refresh()}
@@ -313,10 +313,10 @@ MediaManager.prototype.uploadSending=function(file,xhr,formData){formData.append
 formData.append('X_OCTOBER_FILEUPLOAD',this.options.uniqueId)}
 MediaManager.prototype.uploadCancelAll=function(){this.dropzone.removeAllFiles(true)
 this.hideUploadUi()}
-MediaManager.prototype.updateUploadBar=function(templateName,classNames){var fileNumberLabel=this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),successTemplate=fileNumberLabel.getAttribute('data-'+templateName+'-template'),progresBar=this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
-fileNumberLabel.innerHTML=successTemplate;progresBar.setAttribute('class',classNames)}
+MediaManager.prototype.updateUploadBar=function(templateName,classNames){var fileNumberLabel=this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),successTemplate=fileNumberLabel.getAttribute('data-'+templateName+'-template'),progressBar=this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
+fileNumberLabel.innerHTML=successTemplate;progressBar.setAttribute('class',classNames)}
 MediaManager.prototype.uploadSuccess=function(){this.updateUploadBar('success','progress-bar progress-bar-success');}
-MediaManager.prototype.uploadError=function(file,message){this.updateUploadBar('error','progress-bar-error');$.oc.alert('Error uploading file')}
+MediaManager.prototype.uploadError=function(file,message){this.updateUploadBar('error','progress-bar progress-bar-danger');$.oc.alert('Error uploading file')}
 MediaManager.prototype.cropSelectedImage=function(callback){var selectedItems=this.getSelectedItems(true)
 if(selectedItems.length!=1){alert(this.options.selectSingleImage)
 return}
