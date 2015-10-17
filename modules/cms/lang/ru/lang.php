@@ -265,6 +265,7 @@ return [
         'multiple_selected' => 'Выбрано несколько объектов.',
         'uploading_file_num' => 'Загрузка файлов: :number',
         'uploading_complete' => 'Загрузка файлов завершена!',
+        'uploading_error' => 'Ошибка загрузки',
         'order_by' => 'Сортировать по',
         'folder' => 'Папка',
         'no_files_found' => 'Ни один из файлов не удовлетворяет вашему запросу.',
