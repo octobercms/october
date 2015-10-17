@@ -20,15 +20,17 @@ Inspectable elements should also contain a hidden input element used by Inspecto
 
 Example inspectable element markup:
 
-    <div 
-        data-inspectable 
-        data-inspector-title="Some inspectable element" 
-        data-inspector-description="Some description">
-            <input 
-                data-inspector-values
-                type="hidden" 
-                value="JSON"/>
-    </div>
+```html
+<div 
+    data-inspectable 
+    data-inspector-title="Some inspectable element" 
+    data-inspector-description="Some description">
+        <input 
+            data-inspector-values
+            type="hidden" 
+            value="JSON"/>
+</div>
+```
 
 ### Optional data attributes
 
@@ -47,49 +49,55 @@ In case if the `data-inspector-config` attribute is missing in the inspectable e
 
 The AJAX request used for loading the configuration from the server is named `onGetInspectorConfiguration`. The handler should be defined in the back-end controller and should return an array containing the Inspector configuration (in the PHP equivalent of the JSON configuration structure described later in this section), inspector title and description. Example of a server-side AJAX dynamic configuration request handler:
 
-    public function onGetInspectorConfiguration()
-    {
-        // Load and use some values from the posted form 
-        //
-        $someValue = Request::input('someValue');
-        
-        ... do some processing ...
-        
-        return [
-            'configuration' => [
-                'properties'  => [list of properties],
-                'title'       => 'Inspector title',
-                'description' => 'Inspector description'
-            ]
-        ];
-    }
+```php
+public function onGetInspectorConfiguration()
+{
+    // Load and use some values from the posted form 
+    //
+    $someValue = Request::input('someValue');
+    
+    ... do some processing ...
+    
+    return [
+        'configuration' => [
+            'properties'  => [list of properties],
+            'title'       => 'Inspector title',
+            'description' => 'Inspector description'
+        ]
+    ];
+}
+```
 
 Some Inspector editors - (drop-down, set, autocomplete) support static and dynamic options. Dynamic options are requested from the server, rather than being defined in the configuration JSON string. For using this feature, the inspectable element must have the `data-inspector-class` attribute defined. The attribute value should contain a name of a PHP class corresponding to the inspectable element. 
 
 The server-side controller should use the `Backend\Traits\InspectableContainer` trait in order to provide the dynamic options loading. The inspectable PHP class (specified with `data-inspector-class`) must either have a method `get[Property]Options()`, where the [Property] part corresponds the name of the dynamic property, or `getPropertyOptions($propertyName)` method that is more universal and accepts the property name as a parameter. The methods should return the `options` array containing associative arrays with keys `option` and `value`. Example:
 
-    public function getContextOptions()
-    {
-        $optionsArray = [];
+```php
+public function getContextOptions()
+{
+    $optionsArray = [];
 
-        $optionsArray[] = ['value' => 'create', 'title' => 'Create'];
-        $optionsArray[] = ['value' => 'update', 'title' => 'Update'];
-        $optionsArray[] = ['value' => 'delete', 'title' => 'Delete'];
+    $optionsArray[] = ['value' => 'create', 'title' => 'Create'];
+    $optionsArray[] = ['value' => 'update', 'title' => 'Update'];
+    $optionsArray[] = ['value' => 'delete', 'title' => 'Delete'];
 
-        return [
-            'options' => $optionsArray
-        ];
-    }
+    return [
+        'options' => $optionsArray
+    ];
+}
+```
 
 ### Container and popups
 
 By default Inspector is displayed in a popup, but there's an option to display it right on the page, in a container element. To enable this option, all inspectable elements should be wrapped into another element with `data-inspector-container` attribute. The attribute value should be a CSS selector pointing to an element inside the wrapper. Example:
 
-    <div data-inspector-container=".inspector-container">
-           <div class="inspector-container"></div>
-           <div data-inspectable ... ...>
-           <div data-inspectable ... ...>
-    </div>
+```html
+<div data-inspector-container=".inspector-container">
+   <div class="inspector-container"></div>
+   <div data-inspectable ... ...>
+   <div data-inspectable ... ...>
+</div>
+```
 
 The inner element will act as host element for Inspector when an inspectable element is clicked. The element should have the `inspector-container` class and can be optionally marked with `data-inspector-scrollable` attribute to make the Inspector scrollable. For the scrolling feature, the container element should have height defined explicitly.
 
@@ -99,22 +107,26 @@ When the container is used, Inspector is still displayed in a popup by default, 
 
 Inspector configuration, defined with `data-inspector-config` attribute or loaded from the server, should be an array containing a list of property definition. All examples in this section use JSON format. Below is an example of a configuration for two properties:
 
-    [
-        {
-            "property": "firstName",
-            "title": "First name",
-            "type": "string"
-        },
-        {
-            "property": "lastName",
-            "title": "Last name",
-            "type": "string"
-        }
-    ]
+```json
+[
+    {
+        "property": "firstName",
+        "title": "First name",
+        "type": "string"
+    },
+    {
+        "property": "lastName",
+        "title": "Last name",
+        "type": "string"
+    }
+]
+```
 
 This configuration creates two text fields with titles "First name" and "Last name". When the data is saved back to the inspectable element (to the `data-inspector-values` hidden input element), it would have the following format:
 
-    {"firstName":"John", "lastName":"Smith"}
+```json
+{"firstName":"John", "lastName":"Smith"}
+```
 
 Each property should have attributes `property`, `title` and `type`. The `type` attribute defines a type of an editor that should be created for the property. The supported editors are described further.
 
@@ -133,63 +145,79 @@ All other configuration properties are specific for different property types.
 
 String editor allows entering a single line of a text and represented with a simple input text field. The editor doesn't have any specific parameters. The optional `default` parameter for the editor should contain a string.
 
-    {
-        "property": "firstName",
-        "title": "First name",
-        "type": "string",
-        "default": "John"
-    }
+```json
+{
+    "property": "firstName",
+    "title": "First name",
+    "type": "string",
+    "default": "John"
+}
+```
 
 The editor generates string values:
 
-    {"firstName":"Sam"}
+```json
+{"firstName":"Sam"}
+```
 
 ### Text editor
 
 Text editor allows entering multi-line long text values in a popup window. The editor doesn't have any specific parameters. The optional `default` parameter for the editor should contain a string.
 
-    {
-        "property": "description",
-        "title": "Description",
-        "type": "text",
-        "default": "This is a default description"
-    }
+```json
+{
+    "property": "description",
+    "title": "Description",
+    "type": "text",
+    "default": "This is a default description"
+}
+```
 
 The editor generates string values:
 
-    {"description":"This is a description"}
+```json
+{"description":"This is a description"}
+```
 
 ### String list editor
 
 Allows users to enter lists of strings. The editor opens in a popup window and displays a text area. Each line of text represents an element in the result array. The optional `default` parameter should contain an array of strings. Example:
 
-    {
-        "property": "items",
-        "title": "Items"
-        "type": "stringList",
-        "default": ["String 1", "String 2"]
-    }
+```json
+{
+    "property": "items",
+    "title": "Items"
+    "type": "stringList",
+    "default": ["String 1", "String 2"]
+}
+```
 
 A value generated by the editor is an array of strings, for example: 
 
-    {"items":["String 1","String 2","String 3"]}
+```json
+{"items":["String 1","String 2","String 3"]}
+```
 
 ### Autocomplete editor
 
 This editor works like the `string` editor, but includes the autocomplete feature. Autocompletion options can be specified statically, with the `items` parameter or loaded dynamically. Example with static options:
 
-    {
-        "property": "condition",
-        "title": "Condition"
-        "type": "autocomplete",
-        "items": {"start": "Start", "end": "End"}
-    }
+```json
+{
+    "property": "condition",
+    "title": "Condition"
+    "type": "autocomplete",
+    "items": {"start": "Start", "end": "End"}
+}
+```
 
 The items are specified as a key-value object. The `items` parameter is optional, if it's not provided, the items will be loaded from the server - see [Dynamic configuration and dynamic items](#dynamic-configuration-and-dynamic-items) section above.
 
 Values generated by the editor are strings. Example:
 
-    {"condition":"start"}
+```json
+{"condition":"start"}
+```
 
 Fields of this type do not support external property editors.
 
@@ -197,148 +225,168 @@ Fields of this type do not support external property editors.
 
 Properties of this type are represented with a checkbox in the Inspector UI. This property doesn't have any special parameters. The `default` parameter, if specified, should contain a Boolean value or string values "true", "false", "1", "0". Example:
 
-    {
-        "property": "enabled",
-        "title": "Enabled",
-        "type": "checkbox",
-        "default": true
-    }
+```json
+{
+    "property": "enabled",
+    "title": "Enabled",
+    "type": "checkbox",
+    "default": true
+}
+```
 
 Values generated by the editor are 0 (unchecked) or 1 (checked). Example:
 
-    {"enabled":1}
+```json
+{"enabled":1}
+```
 
 ### Dropdown editor
 
 Displays a drop-down list. Options for the drop-down list can be specified statically with the `options` attribute or loaded from the server dynamically. Example:
 
-    {
-        "property": "action",
-        "title": "Action",
-        "type": "dropdown",
-        "options": {
-            "show": "Show",
-            "hide": "Hide",
-            "enable": "Enable",
-            "disable": "Disable",
-            "empty": "Empty"
-        }
+```json
+{
+    "property": "action",
+    "title": "Action",
+    "type": "dropdown",
+    "options": {
+        "show": "Show",
+        "hide": "Hide",
+        "enable": "Enable",
+        "disable": "Disable",
+        "empty": "Empty"
     }
+}
+```
 
 The `options` attribute should be a key-value object. If the attribute is not specified, Inspector will try to load options from the server - see [Dynamic configuration and dynamic items](#dynamic-configuration-and-dynamic-items) section above.
 
 The editor generates a string value corresponding to the selected option, for example: 
 
-    {"action":"hide"}
+```json
+{"action":"hide"}
+```
 
 ### Dictionary editor
 
 Dictionary editor allows to create key-value pairs with a simple user interface consisting of a table with two columns. The `default` parameter, if specified, should contain a key-value object. Example:
 
-    {
-        "property": "options",
-        "title": "Options",
-        "type": "dictionary",
-        "default": {"option1": "Option 1"}
-    }
+```json
+{
+    "property": "options",
+    "title": "Options",
+    "type": "dictionary",
+    "default": {"option1": "Option 1"}
+}
+```
 
 The editor generates an object value, for example: 
 
-    {"options":{"option1":"Option 1","option2":"Option 2"}}
+```json
+{"options":{"option1":"Option 1","option2":"Option 2"}}
+```
 
 The dictionary editor supports validation for the entire set (`required` and `length` validators) and for keys and values separately. See the [validation description](#defining-the-validation-rules) further in this document. The `validationKey` and `validationValue` define validation for keys and values, for example:
 
-    {
-        "property": "options",
-        "title": "Options",
-        "type": "dictionary",
-        "validation": {
-            "required": {
-                "message": "Please create options"
-            },
-            "length": {
-                "min": {
-                    "value": 2,
-                    "message": "Create at least two options."
-                }
-            }
+```json
+{
+    "property": "options",
+    "title": "Options",
+    "type": "dictionary",
+    "validation": {
+        "required": {
+            "message": "Please create options"
         },
-        "validationKey": {
-            "regex": {
-                "pattern": "^[a-z]+$",
-                "message": "Keys can contain only lowercase Latin letters"
-            }
-        },
-        "validationValue": {
-            "regex": {
-                "pattern": "^[a-zA-Z0-9]+$", 
-                "message": "Values can contain only Latin letters and digits"
+        "length": {
+            "min": {
+                "value": 2,
+                "message": "Create at least two options."
             }
         }
+    },
+    "validationKey": {
+        "regex": {
+            "pattern": "^[a-z]+$",
+            "message": "Keys can contain only lowercase Latin letters"
+        }
+    },
+    "validationValue": {
+        "regex": {
+            "pattern": "^[a-zA-Z0-9]+$", 
+            "message": "Values can contain only Latin letters and digits"
+        }
     }
+}
+```
 
 ### Object editor
 
 Allows to define an object with specific properties editable by users. Object properties are specified with the `properties` attribute. The value of the attribute is an array, which has exactly the same structure as the Inspector properties array. 
 
-    {
-        "property": "address",
-        "title": "Address",
-        "type": "object",
-        "properties": [
-            {
-                "property": "streetAddress",
-                "title": "Street address",
-                "type": "string"
-            },
-            {
-                "property": "city",
-                "title": "City",
-                "type": "string"
-            },
-            {
-                "property": "country",
-                "title": "Country",
-                "type": "dropdown",
-                "options": {"us": "US", "ca": "Canada"}
-            }
-        ]
-    }
+```json
+{
+    "property": "address",
+    "title": "Address",
+    "type": "object",
+    "properties": [
+        {
+            "property": "streetAddress",
+            "title": "Street address",
+            "type": "string"
+        },
+        {
+            "property": "city",
+            "title": "City",
+            "type": "string"
+        },
+        {
+            "property": "country",
+            "title": "Country",
+            "type": "dropdown",
+            "options": {"us": "US", "ca": "Canada"}
+        }
+    ]
+}
+```
 
 The example above creates an object with three properties. Two of them are displayed as text fields, and the third as a drop-down. 
 
 Object editor values are objects. Example:
 
-    {
-        "address": {
-            "streetAddress":"321-210 Second ave",
-            "city":"Springfield",
-            "country":"us"
-        }
+```json
+{
+    "address": {
+        "streetAddress":"321-210 Second ave",
+        "city":"Springfield",
+        "country":"us"
     }
+}
+```
 
 The object properties can be of any type supported by Inspector, including other objects.
 
 There's a way to exclude an object from Inspector values completely, if one of the object fields is empty. The field is identified with `ignoreIfPropertyEmpty` parameter. For example:
 
-    {
-        "property": "address",
-        "title": "Address",
-        "type": "object",
-        "ignoreIfPropertyEmpty": "title",
-        "properties": [
-            {
-                "property": "streetAddress",
-                "title": "Street address",
-                "type": "string"
-            },
-            {
-                "property": "city",
-                "title": "City",
-                "type": "string"
-            }
-        ]
-    }
+```json
+{
+    "property": "address",
+    "title": "Address",
+    "type": "object",
+    "ignoreIfPropertyEmpty": "title",
+    "properties": [
+        {
+            "property": "streetAddress",
+            "title": "Street address",
+            "type": "string"
+        },
+        {
+            "property": "city",
+            "title": "City",
+            "type": "string"
+        }
+    ]
+}
+```
 
 In the example above, if the street address is not specified, the object ("address") will be completely removed from the Inspector output. If there are any validation rules defined on other object properties and the required property is empty, those rules will be ignored.
 
@@ -352,24 +400,26 @@ The object list editor allows users to create multiple objects with a pre-define
 
 The properties of objects that can be created with the editor are defined with `itemProperties` parameter. The parameter should contain an array of properties, similar to Inspector configuration array. Another required parameter is `titleProperty`, which identifies a property that should be used as a title in Inspector UI. Example configuration:
 
-    {
-        "property": "people",
-        "title": "People",
-        "type": "objectList",
-        "titleProperty": "fullName",
-        "itemProperties": [
-            {
-                "property": "fullName",
-                "title": "Full name",
-                "type": "string"
-            },
-            {
-                "property": "address",
-                "title": "Address",
-                "type": "string"
-            }
-        ]
-    }
+```json
+{
+    "property": "people",
+    "title": "People",
+    "type": "objectList",
+    "titleProperty": "fullName",
+    "itemProperties": [
+        {
+            "property": "fullName",
+            "title": "Full name",
+            "type": "string"
+        },
+        {
+            "property": "address",
+            "title": "Address",
+            "type": "string"
+        }
+    ]
+}
+```
 
 The array of properties defined with `itemProperties` supports all property types.
 
@@ -377,63 +427,72 @@ The Object List editor type doesn't support default values.
 
 By default the value created by the editor of this type is a non-associative array:
 
-    {
-        "people":[
-            {"fullName":"John Smith","address":"Palo Alto"},{"fullName":"Bart Simpson","address":"Springfield"}
-         ]
-    }
+```json
+{
+    "people":[
+        {"fullName":"John Smith","address":"Palo Alto"},
+        {"fullName":"Bart Simpson","address":"Springfield"}
+     ]
+}
+```
 
 If the result value should be an associative array (object), use the `keyProperty` configuration option. The option value should refer to a property that should be used as a key. The key property can use only the string or drop-down editors, its value should be unique and cannot be empty. Example:
 
-    {
-        "property": "people",
-        "title": "People",
-        "type": "objectList",
-        "titleProperty": "fullName",
-        "keyProperty": "login",
-        "itemProperties": [
-            {
-                "property": "fullName",
-                "title": "Full name",
-                "type": "string"
-            },
-            {
-                "property": "login",
-                "title": "Login",
-                "type": "string"
-            },
-            {
-                "property": "address",
-                "title": "Address",
-                "type": "string"
-            }
-        ]
-    }
+```json
+{
+    "property": "people",
+    "title": "People",
+    "type": "objectList",
+    "titleProperty": "fullName",
+    "keyProperty": "login",
+    "itemProperties": [
+        {
+            "property": "fullName",
+            "title": "Full name",
+            "type": "string"
+        },
+        {
+            "property": "login",
+            "title": "Login",
+            "type": "string"
+        },
+        {
+            "property": "address",
+            "title": "Address",
+            "type": "string"
+        }
+    ]
+}
+```
 
 The `login` property in the example above will be used as a key in the result value:
 
-    {
-        "people":{
-            "john":{"fullName":"John Smith","address":"Palo Alto"},
-            "bart":{"fullName":"Bart Simpson","address":"Springfield"}
-        }
+```json
+{
+    "people":{
+        "john":{"fullName":"John Smith","address":"Palo Alto"},
+        "bart":{"fullName":"Bart Simpson","address":"Springfield"}
     }
+}
+```
 
 ### Set editor
 
 The set editor allows users to select multiple predefined options with checkboxes. Set items can be specified statically with the configuration, using the `items` parameter, or loaded dynamically. Example with static items definition: 
 
-    {
-        "property": "context",
-        "title": "Context",
-        "type": "set",
-        "items": {
-            "create": "Create",
-            "update": "Update",
-            "preview": "Preview"
-        },
-        "default": ["create", "update"]
-    }
+```json
+{
+    "property": "context",
+    "title": "Context",
+    "type": "set",
+    "items": {
+        "create": "Create",
+        "update": "Update",
+        "preview": "Preview"
+    },
+    "default": ["create", "update"]
+}
+```
 
 The `items` attribute should be a key-value object. If the attribute is not specified, Inspector will try to load options from the server - see [Dynamic configuration and dynamic items](#dynamic-configuration-and-dynamic-items) section above.
 
@@ -447,31 +506,35 @@ Inspector support several validation rules that can be applied to properties. Va
 
 The legacy syntax is supported for the backwards compatibility with existing CMS components definitions. This syntax will always be supported, but it's limited, and cannot be mixed with the new syntax. Example of the legacy syntax:
 
-    {
-        "property": "name",
-        "title": "Name",
-        "type": "string",
-        "required": true,
-        "validationPattern": "^[a-zA-Z]+$"
-        "validationMessage": "The Name field is required and can contain only Latin letters.",
-    }
+```json
+{
+    "property": "name",
+    "title": "Name",
+    "type": "string",
+    "required": true,
+    "validationPattern": "^[a-zA-Z]+$"
+    "validationMessage": "The Name field is required and can contain only Latin letters.",
+}
+```
 
 The legacy syntax supports only two validation rules - required and regular expression. The new syntax is much more flexible and extendable:
 
-    {
-        "property": "name",
-        "title": "Name",
-        "type": "string",
-        "validation": {
-            "required": {
-                "message": "The Name field is required"
-            },
-            "regex": {
-                "message": "The Name field can contain only Latin letters.",
-                "pattern": "^[a-zA-Z]+$"
-            }
+```json
+{
+    "property": "name",
+    "title": "Name",
+    "type": "string",
+    "validation": {
+        "required": {
+            "message": "The Name field is required"
+        },
+        "regex": {
+            "message": "The Name field can contain only Latin letters.",
+            "pattern": "^[a-zA-Z]+$"
         }
     }
+}
+```
 
 The key value in the `validation` object refers to a validator (see below). Validators are configured with objects, which properties depend on a validator. One property - `message` is common for all validators.
 
@@ -479,33 +542,37 @@ The key value in the `validation` object refers to a validator (see below). Vali
 
 Checks if a value is not empty. The validator can be used with any editor, including complex editors (sets, dictionaries, object lists, etc.). Example:
 
-    {
-        "property": "name",
-        "title": "Name",
-        "type": "string",
-        "validation": {
-            "required": {
-                "message": "The Name field is required"
-            }
+```json
+{
+    "property": "name",
+    "title": "Name",
+    "type": "string",
+    "validation": {
+        "required": {
+            "message": "The Name field is required"
         }
     }
+}
+```
 
 ### regex validator
 
 Validates string values with a regular expression. The validator can  be use only with string-typed editors. Example:
 
-    {
-        "property": "name",
-        "title": "Name",
-        "type": "string",
-        "validation": {
-            "regex": {
-                "message": "The Name field can contain only Latin letters",
-                "pattern": "^[a-z]+$",
-                "modifiers": "i"
-            }
+```json
+{
+    "property": "name",
+    "title": "Name",
+    "type": "string",
+    "validation": {
+        "regex": {
+            "message": "The Name field can contain only Latin letters",
+            "pattern": "^[a-z]+$",
+            "modifiers": "i"
         }
     }
+}
+```
 
 The regular expression is specified with the required `pattern` parameter. The `modifiers` parameter is optional and can be used for setting regular expression modifiers.
 
@@ -513,25 +580,27 @@ The regular expression is specified with the required `pattern` parameter. The `
 
 Checks if the value is integer and can optionally validate if the value is within a specific interval. The validator can be used only with string-typed editors. Example:
 
-    {
-        "property": "numOfColumns",
-        "title": "Number of Columns",
-        "type": "string",
-        "validation": {
-            "integer": {
-                "message": "The Number of Columns field should contain an integer value",
-                "allowNegative": true,
-                "min": {
-                    "value": -10,
-                    "message": "The number of columns should not be less than -10."
-                },
-                "max": {
-                    "value": 10,
-                    "message": "The number of columns should not be greater than 10."
-                }
+```json
+{
+    "property": "numOfColumns",
+    "title": "Number of Columns",
+    "type": "string",
+    "validation": {
+        "integer": {
+            "message": "The Number of Columns field should contain an integer value",
+            "allowNegative": true,
+            "min": {
+                "value": -10,
+                "message": "The number of columns should not be less than -10."
+            },
+            "max": {
+                "value": 10,
+                "message": "The number of columns should not be greater than 10."
             }
         }
     }
+}
+```
 
 Supported parameters:
 
@@ -547,16 +616,18 @@ Supported parameters:
 
 Checks if the value is a floating point number. The parameters for this validator match the parameters of the **integer** validator described above. Example: 
 
-    {
-        "property": "amount",
-        "title": "Amount",
-        "type": "string",
-        "validation": {
-            "float": {
-                "message": "The Amount field should contain a positive floating point value."
-            }
+```json
+{
+    "property": "amount",
+    "title": "Amount",
+    "type": "string",
+    "validation": {
+        "float": {
+            "message": "The Amount field should contain a positive floating point value."
         }
     }
+}
+```
 
 Valid floating point number formats:
 
@@ -571,23 +642,25 @@ Checks if a string, array or object is not shorter or longer than specified valu
 
 > **Note**: the `length` validator doesn't validate empty values. For example, if it's applied to a set editor, and the set is empty, the validation will pass regardless of the `min` and `max` parameter values. Use the `required` validator together with the `length` validator to make sure that the value is not empty before the length validation is applied.
 
-    {
-        "property": "name",
-        "title": "Name",
-        "type": "string",
-        "validation": {
-            "length": {
-                "min": {
-                    "value": 2,
-                    "message": "The name should not be shorter than two letters."
-                },
-                "max": {
-                    "value": 10,
-                    "message": "name should not be longer than 10 letters."
-                }
+```json
+{
+    "property": "name",
+    "title": "Name",
+    "type": "string",
+    "validation": {
+        "length": {
+            "min": {
+                "value": 2,
+                "message": "The name should not be shorter than two letters."
+            },
+            "max": {
+                "value": 10,
+                "message": "name should not be longer than 10 letters."
             }
         }
     }
+}
+```
 
 Supported parameters:
 
@@ -610,33 +683,41 @@ The `change` event is triggered after Inspector applies updated values to the in
 
 The `showing.oc.inspector` event is triggered before Inspector is displayed. The event handler can optionally stop the process with calling `ev.isDefaultPrevented()`. Example - prevent Inspector showing:
 
-    $(document).on('showing.oc.inspector', 'div[data-inspectable]', function(ev, data){
-        ev.preventDefault()
-    })
+```js
+$(document).on('showing.oc.inspector', 'div[data-inspectable]', function(ev, data){
+    ev.preventDefault()
+})
+```
 
 The handler could  perform any required processing, even asynchronous, and then call the callback function passed to the handler, to continue showing the Inspector. In this case the handler should call `ev.stopPropagation()` method to stop the default Inspector initialization. Example - continue showing after some processing:
 
-    $(document).on('showing.oc.inspector', 'div[data-inspectable]', function(ev, data){
-        ev.stopPropagation()
-        // The callback function can be called asynchronously
-        data.callback()
-    })
+```js
+$(document).on('showing.oc.inspector', 'div[data-inspectable]', function(ev, data){
+    ev.stopPropagation()
+    // The callback function can be called asynchronously
+    data.callback()
+})
+```
 
 ### hiding.oc.inspector
 
 The `hiding.oc.inspector` is called before Inspector hiding process starts. The handler can stop the hiding with calling `ev.preventDefault()`. Example:
 
-    $(document).on('hiding.oc.inspector', 'div[data-inspectable]', function(ev, data){
-        if (!confirm('Allow hiding?')) {
-            ev.preventDefault()
-        }
-    })
+```js
+$(document).on('hiding.oc.inspector', 'div[data-inspectable]', function(ev, data){
+    if (!confirm('Allow hiding?')) {
+        ev.preventDefault()
+    }
+})
+```
 
 The values entered in Inspector are available through the `values` element of the second handler argument:
 
-    $(document).on('hiding.oc.inspector', 'div[data-inspectable]', function(ev, data){
-       console.log(data.values)
-    })
+```js
+$(document).on('hiding.oc.inspector', 'div[data-inspectable]', function(ev, data){
+   console.log(data.values)
+})
+```
 
 ### hidden.oc.inspector
 
