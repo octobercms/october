@@ -4,7 +4,7 @@ Thank you for your contributions!
 
 ## Reporting a bug with OctoberCMS
 
-**Please don't use the main Github for reporting bugs with plugins.** If you have found a bug in a plugin, the best place to report it is with the [plugin author](http://octobercms.com/plugins).
+**Please don't use the main GitHub for reporting bugs with plugins.** If you have found a bug in a plugin, the best place to report it is with the [plugin author](http://octobercms.com/plugins).
 
 We work hard to process bugs that are reported, to assist with this please ensure the following details are always included:
 
@@ -18,9 +18,9 @@ We work hard to process bugs that are reported, to assist with this please ensur
 
 - **Actual result**: What is the actual result on running above steps i.e. the bug behavior - **include any error messages**.
 
-#### Here's how to report a bug on Github
+#### Here's how to report a bug on GitHub
 
-1. **Register for an account on [Github](https://github.com),** if you don't already have one.
+1. **Register for an account on [GitHub](https://github.com),** if you don't already have one.
 
 2. **Search for similar bugs.** Perhaps someone has already reported your issue! If so, please add clarification and/or more information to the **existing** bug.
 
@@ -38,11 +38,11 @@ If you wish to contact us privately about any security exploits in OctoberCMS yo
 
 ## Feature requests
 
-**Please don't use Github issues for suggesting a new feature.** If you have a feature idea, the best place to suggest it is the [OctoberCMS website forum](http://octobercms.com/forum/chan/feature-requests).
+**Please don't use GitHub issues for suggesting a new feature.** If you have a feature idea, the best place to suggest it is the [OctoberCMS website forum](http://octobercms.com/forum/chan/feature-requests).
 
-Only use Github if you are planning on contributing a new feature and developing it. If you want to discuss your idea first, before "officially" posting it anywhere, you can always join us on [IRC](http://octobercms.com/chat).
+Only use GitHub if you are planning on contributing a new feature and developing it. If you want to discuss your idea first, before "officially" posting it anywhere, you can always join us on [IRC](http://octobercms.com/chat).
 
-#### Github feature requests
+#### GitHub feature requests
 
 Feature Requests submitted as GitHub Issues specifically mean *"I'd like to see this feature, I'm going to be working on some code to implement it."* It is more like a Pre-Pull Request, in which a developer signifies that he or she wants to see a feature implemented that they think would be really great, and they're committed to coding it.
 
