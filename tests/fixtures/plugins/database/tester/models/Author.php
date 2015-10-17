@@ -22,4 +22,11 @@ class Author extends Model
         'posts' => 'Database\Tester\Models\Post',
     ];
 
+    /**
+     * @var array Relations
+     */
+    public $hasOne = [
+        'phone' => 'Database\Tester\Models\Phone',
+    ];
+
 }
