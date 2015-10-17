@@ -1,3 +1,6 @@
+* **Build 305** (2015-10-17)
+  - The Inspector control has been dramatically improved.
+
 * **Build 304** (2015-10-09)
   - Added new `where` and `whereComponent` methods for querying CMS template properties.
 

@@ -1304,6 +1304,10 @@ class Controller
         $routerParameters = $this->router->getParameters();
 
         foreach ($properties as $propertyName => $propertyValue) {
+            if (is_array($propertyValue)) {
+                continue;
+            }
+
             $matches = [];
             if (preg_match('/^\{\{([^\}]+)\}\}$/', $propertyValue, $matches)) {
                 $paramName = trim($matches[1]);
