@@ -3781,7 +3781,8 @@ if(allowedEvent.isDefaultPrevented()){return false}
 return true}
 InspectorManager.prototype.onInspectableClicked=function(ev){var $element=$(ev.currentTarget)
 if(this.createInspector($element)===false){return false}}
-$.oc.inspector.manager=new InspectorManager()}(window.jQuery);+function($){"use strict";if($.oc.inspector===undefined)
+$.oc.inspector.manager=new InspectorManager()
+$.fn.inspector=function(){return this.each(function(){$.oc.inspector.manager.createInspector(this)})}}(window.jQuery);+function($){"use strict";if($.oc.inspector===undefined)
 $.oc.inspector={}
 if($.oc.inspector.wrappers===undefined)
 $.oc.inspector.wrappers={}
