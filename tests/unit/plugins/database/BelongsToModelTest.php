@@ -47,6 +47,16 @@ class BelongsToModelTest extends PluginTestCase
         $this->assertEquals($author3->id, $post->author_id);
     }
 
+    public function testGetRelationValue()
+    {
+        Model::unguard();
+        $author = Author::create(['name' => 'Stevie']);
+        $post = Post::make(['title' => "First post", 'author_id' => $author->id]);
+        Model::reguard();
+
+        $this->assertEquals($author->id, $post->getRelationValue('author'));
+    }
+
     public function testDeferredBinding()
     {
         $sessionKey = uniqid('session_key', true);
@@ -86,5 +96,6 @@ class BelongsToModelTest extends PluginTestCase
         $this->assertNull($post->author_id);
         $this->assertNull($post->author);
     }
+
 
 }
