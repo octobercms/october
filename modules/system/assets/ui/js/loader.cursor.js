@@ -13,6 +13,9 @@
  *
  * The event parameter in the show() method is optional. If it is passed, the initial cursor position
  * will be loaded from it.
+ *
+ * Require:
+ *  - modernizr/modernizr
  */
 +function ($) { "use strict";
     if ($.oc === undefined)

@@ -443,7 +443,7 @@ class MediaLibrary
     /**
      * Determines if the path should be visible (not ignored).
      * @param string $path Specifies a path to check.
-     * return boolean Returns TRUE if the path is visible.
+     * @return boolean Returns TRUE if the path is visible.
      */
     protected function isVisible($path)
     {

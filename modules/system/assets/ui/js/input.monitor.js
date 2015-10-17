@@ -1,7 +1,4 @@
 /*
-=require foundation.js
-*/
-/*
  * The form change monitor API. 
  *
  * This plugin allows to monitor changes in a form. 

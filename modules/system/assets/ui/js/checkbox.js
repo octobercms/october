@@ -1,7 +1,4 @@
 /*
-=require checkbox.balloon.js
-*/
-/*
  * Checkbox control
  *
  */

@@ -976,6 +976,7 @@ class Controller
     /**
      * Sets the status code for the current web response.
      * @param int $code Status code
+     * @return \Cms\Classes\Controller $this
      */
     public function setStatusCode($code)
     {
@@ -1303,6 +1304,10 @@ class Controller
         $routerParameters = $this->router->getParameters();
 
         foreach ($properties as $propertyName => $propertyValue) {
+            if (is_array($propertyValue)) {
+                continue;
+            }
+
             $matches = [];
             if (preg_match('/^\{\{([^\}]+)\}\}$/', $propertyValue, $matches)) {
                 $paramName = trim($matches[1]);

@@ -24,7 +24,7 @@
         <?php if ($singleFile): ?>
             <div class="upload-object is-success" data-id="<?= $singleFile->id ?>" data-path="<?= $singleFile->pathUrl ?>">
                 <div class="icon-container image">
-                    <img src="<?= $singleFile->thumbUrl ?>" />
+                    <img src="<?= $singleFile->thumbUrl ?>" alt="" />
                 </div>
                 <div class="info">
                     <h4 class="filename">
@@ -50,7 +50,7 @@
 <script type="text/template" id="<?= $this->getId('template') ?>">
     <div class="upload-object dz-preview dz-file-preview">
         <div class="icon-container image">
-            <img data-dz-thumbnail style="<?= $cssDimensions ?>" />
+            <img data-dz-thumbnail style="<?= $cssDimensions ?>" alt="" />
         </div>
         <div class="info">
             <h4 class="filename">

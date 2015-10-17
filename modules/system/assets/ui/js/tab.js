@@ -1,12 +1,12 @@
 /*
-=require ../vendor/bootstrap/js/transition.js
-=require ../vendor/bootstrap/js/tab.js
-=require toolbar.js
-*/
-/*
  * Tab control
  *
- * - Documentation: ../docs/tab.md
+ * Documentation: ../docs/tab.md
+ *
+ * Require:
+ *  - bootstrap/transition
+ *  - bootstrap/tab
+ *  - storm/toolbar
  */
 +function ($) { "use strict";
 
