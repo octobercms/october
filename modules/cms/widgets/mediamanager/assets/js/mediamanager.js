@@ -764,12 +764,13 @@
             messageTemplate = fileNumberLabel.getAttribute('data-message-template'),
             fileNumber = this.dropzone.getUploadingFiles().length + this.dropzone.getQueuedFiles().length
 
-        // Don't confuse users with displaying 100% 
+        // Don't confuse users with displaying 100%
         // until the operation finishes. We consider the operation
-        // finished when the Dropzone's 'compete' event triggers - 
+        // finished when the Dropzone's 'compete' event triggers -
         // when the response is received from the server.
-        if (uploadProgress >= 100)
+        if (uploadProgress >= 100) {
             uploadProgress = 99
+        }
 
         fileNumberLabel.innerHTML = messageTemplate.replace(':number', fileNumber).replace(':percents', Math.round(uploadProgress) + '%')
     }
@@ -808,12 +809,11 @@
     }
 
     MediaManager.prototype.uploadSuccess = function() {
-      this.updateUploadBar('success', 'progress-bar progress-bar-success');
+        this.updateUploadBar('success', 'progress-bar progress-bar-success');
     }
 
     MediaManager.prototype.uploadError = function(file, message) {
-      this.updateUploadBar('error', 'progress-bar progress-bar-danger');
-
+        this.updateUploadBar('error', 'progress-bar progress-bar-danger');
         $.oc.alert('Error uploading file')
     }
 

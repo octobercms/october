@@ -300,8 +300,7 @@ MediaManager.prototype.showUploadUi=function(){this.$el.find('[data-control="upl
 MediaManager.prototype.hideUploadUi=function(){this.$el.find('[data-control="upload-ui"]').addClass('hide')}
 MediaManager.prototype.uploadUpdateTotalProgress=function(uploadProgress,totalBytes,totalBytesSent){this.setUploadProgress(uploadProgress)
 var fileNumberLabel=this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),messageTemplate=fileNumberLabel.getAttribute('data-message-template'),fileNumber=this.dropzone.getUploadingFiles().length+this.dropzone.getQueuedFiles().length
-if(uploadProgress>=100)
-uploadProgress=99
+if(uploadProgress>=100){uploadProgress=99}
 fileNumberLabel.innerHTML=messageTemplate.replace(':number',fileNumber).replace(':percents',Math.round(uploadProgress)+'%')}
 MediaManager.prototype.setUploadProgress=function(value){var progressBar=this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
 progressBar.setAttribute('style','width: '+value+'%')

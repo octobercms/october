@@ -211,16 +211,20 @@ class ReorderController extends ControllerBehavior
      */
     protected function getRecords()
     {
-        $model = $this->controller->reorderGetModel();
         $records = null;
+        $model = $this->controller->reorderGetModel();
+        $query = $model->newQuery();
+
+        $this->controller->reorderExtendQuery($query);
 
         if ($this->sortMode == 'simple') {
-            $records = $model->orderBy($model->getSortOrderColumn());
-            $this->controller->reorderExtendQuery($records);
-            $records = $records->get();
+            $records = $query
+                ->orderBy($model->getSortOrderColumn())
+                ->get()
+            ;
         }
         elseif ($this->sortMode == 'nested') {
-            $records = $model->getEagerRoot();
+            $records = $query->getNested();
         }
 
         return $records;
