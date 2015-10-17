@@ -80,7 +80,7 @@ class CmsCompoundObject extends CmsObject
      * The file name can contain only alphanumeric symbols, dashes and dots.
      * @return boolean Returns true if the object was successfully loaded. Otherwise returns false.
      */
-    public static function load(Theme $theme, $fileName)
+    public static function load($theme, $fileName)
     {
         if (($obj = parent::load($theme, $fileName)) === null) {
             return null;

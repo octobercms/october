@@ -410,7 +410,7 @@ class CmsObject implements ArrayAccess
      * @param boolean $skipCache Indicates if objects should be reloaded from the disk bypassing the cache.
      * @return array Returns an array of CMS objects.
      */
-    public static function listInTheme(Theme $theme, $skipCache = false)
+    public static function listInTheme($theme, $skipCache = false)
     {
         if (!$theme) {
             throw new ApplicationException(Lang::get('cms::lang.theme.active.not_set'));

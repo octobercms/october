@@ -959,7 +959,7 @@ class Controller
      * @param array $parameters
      * @return string Returns the component default contents.
      */
-    public function renderComponent($name, array $parameters = [])
+    public function renderComponent($name, $parameters = [])
     {
         if ($componentObj = $this->findComponentByName($name)) {
             $componentObj->id = uniqid($name);
