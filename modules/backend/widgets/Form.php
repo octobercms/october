@@ -291,7 +291,7 @@ class Form extends WidgetBase
             $data = $this->getSaveData();
         }
 
-        $this->model->fill($data);
+        $this->model->forceFill($data);
         $this->data = (object) array_merge((array) $this->data, (array) $data);
 
         foreach ($this->allFields as $field) {

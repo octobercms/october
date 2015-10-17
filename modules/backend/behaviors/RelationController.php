@@ -912,15 +912,13 @@ class RelationController extends ControllerBehavior
         $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey(true) : null;
 
         if ($this->viewMode == 'multi') {
-
-            if ($this->relationType == 'hasMany') {
-                $newModel = $this->relationObject->create($saveData, $sessionKey);
-            }
-            elseif ($this->relationType == 'belongsToMany') {
-                $newModel = $this->relationObject->create($saveData, [], $sessionKey);
+            $newModel = $this->relationModel;
+            $modelsToSave = $this->prepareModelsToSave($newModel, $saveData);
+            foreach ($modelsToSave as $modelToSave) {
+                $modelToSave->save(null, $this->manageWidget->getSessionKey());
             }
 
-            $newModel->commitDeferred($this->manageWidget->getSessionKey());
+            $this->relationObject->add($newModel, $sessionKey);
         }
         elseif ($this->viewMode == 'single') {
             $newModel = $this->viewModel;
@@ -961,8 +959,10 @@ class RelationController extends ControllerBehavior
 
         if ($this->viewMode == 'multi') {
             $model = $this->relationModel->find($this->manageId);
-            $model->fill($saveData);
-            $model->save(null, $this->manageWidget->getSessionKey());
+            $modelsToSave = $this->prepareModelsToSave($model, $saveData);
+            foreach ($modelsToSave as $modelToSave) {
+                $modelToSave->save(null, $this->manageWidget->getSessionKey());
+            }
         }
         elseif ($this->viewMode == 'single') {
             $this->viewWidget->setFormValues($saveData);
