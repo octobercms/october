@@ -72,7 +72,7 @@
     }
 
     SetEditor.prototype.setLinkText = function(link, value) {
-        var value = value !== undefined ? value 
+        var value = (value !== undefined && value !== null) ? value 
                 : this.getNormalizedValue(),
             text = '[ ]'
 
@@ -240,6 +240,10 @@
 
     SetEditor.prototype.getNormalizedValue = function() {
         var value = this.inspector.getPropertyValue(this.propertyDefinition.property)
+
+        if (value === null) {
+            value = undefined
+        }
 
         if (value === undefined) {
             return value

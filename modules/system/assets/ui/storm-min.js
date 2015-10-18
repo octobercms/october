@@ -4314,7 +4314,7 @@ else{this.loadDynamicItems()}}
 SetEditor.prototype.loadStaticItems=function(){var itemArray=[]
 for(var itemValue in this.propertyDefinition.items){itemArray.push({value:itemValue,title:this.propertyDefinition.items[itemValue]})}
 for(var i=itemArray.length-1;i>=0;i--){this.buildItemEditor(itemArray[i].value,itemArray[i].title)}}
-SetEditor.prototype.setLinkText=function(link,value){var value=value!==undefined?value:this.getNormalizedValue(),text='[ ]'
+SetEditor.prototype.setLinkText=function(link,value){var value=(value!==undefined&&value!==null)?value:this.getNormalizedValue(),text='[ ]'
 if(value===undefined){value=this.propertyDefinition.default}
 if(value!==undefined&&value.length!==undefined&&value.length>0&&typeof value!=='string'){var textValues=[]
 for(var i=0,len=value.length;i<len;i++){textValues.push(this.valueToText(value[i]))}
@@ -4358,6 +4358,7 @@ for(var i=0,len=value.length;i<len;i++){var currentValue=value[i]
 if(source[currentValue]!==undefined){result.push(currentValue)}}
 return result}
 SetEditor.prototype.getNormalizedValue=function(){var value=this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(value===null){value=undefined}
 if(value===undefined){return value}
 if(value.length===undefined||typeof value==='string'){return undefined}
 return value}
@@ -4398,13 +4399,15 @@ this.removeControls()
 this.currentRowInspector=null
 this.popup=null
 BaseProto.dispose.call(this)}
+ObjectListEditor.prototype.supportsExternalParameterEditor=function(){return false}
 ObjectListEditor.prototype.build=function(){var link=document.createElement('a')
 $.oc.foundation.element.addClass(link,'trigger')
 link.setAttribute('href','#')
 this.setLinkText(link)
 $.oc.foundation.element.addClass(this.containerCell,'trigger-cell')
 this.containerCell.appendChild(link)}
-ObjectListEditor.prototype.setLinkText=function(link,value){var value=value!==undefined?value:this.inspector.getPropertyValue(this.propertyDefinition.property)
+ObjectListEditor.prototype.setLinkText=function(link,value){var value=value!==undefined&&value!==null?value:this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(value===null){value=undefined}
 if(value===undefined){var placeholder=this.propertyDefinition.placeholder
 if(placeholder!==undefined){$.oc.foundation.element.addClass(link,'placeholder')
 link.textContent=placeholder}
@@ -4704,6 +4707,7 @@ this.valueValidationSet=null
 BaseProto.dispose.call(this)}
 DictionaryEditor.prototype.init=function(){this.initValidators()
 BaseProto.init.call(this)}
+DictionaryEditor.prototype.supportsExternalParameterEditor=function(){return false}
 DictionaryEditor.prototype.setLinkText=function(link,value){var value=value!==undefined?value:this.inspector.getPropertyValue(this.propertyDefinition.property)
 if(value===undefined){value=this.propertyDefinition.default}
 if(value===undefined||$.isEmptyObject(value)){var placeholder=this.propertyDefinition.placeholder
