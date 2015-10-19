@@ -1,10 +1,4 @@
 /*
-=require ../vendor/flot/jquery.flot.js
-=require ../vendor/flot/jquery.flot.tooltip.js
-=require ../vendor/flot/jquery.flot.resize.js
-=require ../vendor/flot/jquery.flot.time.js
-*/
-/*
  * Line Chart Plugin
  *
  * Data attributes:
@@ -21,15 +15,11 @@
  * JavaScript API:
  * $('.chart').chartLine({ resetZoomLink:'#reset-zoom' })
  *
- *
- * Dependences: 
+ * Dependences:
  * - Flot (jquery.flot.js)
- * - Flot Pie (jquery.flot.pie.js)
  * - Flot Tooltip (jquery.flot.tooltip.js)
- * - Flot Selection (jquery.flot.selection.js)
  * - Flot Resize (jquery.flot.resize.js)
  * - Flot Time (jquery.flot.time.js)
- * - Flot Order Bars (jquery.orderBars.js)
  */
 
 +function ($) { "use strict";

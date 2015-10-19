@@ -3,4 +3,5 @@
     - Create tables
     - create_posts_table.php
     - create_authors_table.php
+    - create_phones_table.php
     - create_categories_table.php

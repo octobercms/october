@@ -72,7 +72,8 @@ trait ViewMaker
     /**
      * Loads a view with the name specified. Applies layout if its name is provided by the parent object.
      * The view file must be situated in the views directory, and has the extension "htm".
-     * @param string $view Specifies the view name, without extension. Eg: "index". 
+     * @param string $view Specifies the view name, without extension. Eg: "index".
+     * @return string
      */
     public function makeView($view)
     {

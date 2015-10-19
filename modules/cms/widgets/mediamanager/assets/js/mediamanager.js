@@ -730,6 +730,7 @@
         this.dropzone.on('queuecomplete', this.proxy(this.uploadQueueComplete))
         this.dropzone.on('sending', this.proxy(this.uploadSending))
         this.dropzone.on('error', this.proxy(this.uploadError))
+        this.dropzone.on('success', this.proxy(this.uploadSuccess))
     }
 
     MediaManager.prototype.destroyUploader = function() {
@@ -763,31 +764,25 @@
             messageTemplate = fileNumberLabel.getAttribute('data-message-template'),
             fileNumber = this.dropzone.getUploadingFiles().length + this.dropzone.getQueuedFiles().length
 
-        // Don't confuse users with displaying 100% 
+        // Don't confuse users with displaying 100%
         // until the operation finishes. We consider the operation
-        // finished when the Dropzone's 'compete' event triggers - 
+        // finished when the Dropzone's 'compete' event triggers -
         // when the response is received from the server.
-        if (uploadProgress >= 100)
+        if (uploadProgress >= 100) {
             uploadProgress = 99
+        }
 
         fileNumberLabel.innerHTML = messageTemplate.replace(':number', fileNumber).replace(':percents', Math.round(uploadProgress) + '%')
     }
 
     MediaManager.prototype.setUploadProgress = function(value) {
-        var progresBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
-        
-        progresBar.setAttribute('style', 'width: ' + value + '%')
-        progresBar.setAttribute('class', 'progress-bar')
+        var progressBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
+
+        progressBar.setAttribute('style', 'width: ' + value + '%')
+        progressBar.setAttribute('class', 'progress-bar')
     }
 
     MediaManager.prototype.uploadQueueComplete = function() {
-        var fileNumberLabel = this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),
-            completeTemplate = fileNumberLabel.getAttribute('data-complete-template'),
-            progresBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
-
-        fileNumberLabel.innerHTML = completeTemplate;
-        progresBar.setAttribute('class', 'progress-bar progress-bar-success')
-
         this.$el.find('[data-command="cancel-uploading"]').addClass('hide')
         this.$el.find('[data-command="close-uploader"]').removeClass('hide')
 
@@ -804,7 +799,21 @@
         this.hideUploadUi()
     }
 
+    MediaManager.prototype.updateUploadBar = function(templateName, classNames) {
+        var fileNumberLabel = this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),
+            successTemplate = fileNumberLabel.getAttribute('data-' + templateName + '-template'),
+            progressBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
+
+        fileNumberLabel.innerHTML = successTemplate;
+        progressBar.setAttribute('class', classNames)
+    }
+
+    MediaManager.prototype.uploadSuccess = function() {
+        this.updateUploadBar('success', 'progress-bar progress-bar-success');
+    }
+
     MediaManager.prototype.uploadError = function(file, message) {
+        this.updateUploadBar('error', 'progress-bar progress-bar-danger');
         $.oc.alert('Error uploading file')
     }
 

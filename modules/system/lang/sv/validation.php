@@ -46,6 +46,7 @@ return array(
         "array"   => ":attribute får inte innehålla mer än :max objekt.",
     ),
     "mimes"            => ":attribute måste vara en fil av typen: :values.",
+    "extensions"       => ":attribute måste ha ett av följande filtillägg: :values.",
     "min"              => array(
         "numeric" => ":attribute måste vara minst :min.",
         "file"    => ":attribute måste vara minst :min kilobytes.",

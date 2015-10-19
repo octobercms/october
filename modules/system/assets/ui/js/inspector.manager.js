@@ -173,4 +173,10 @@
     }
 
     $.oc.inspector.manager = new InspectorManager()
+
+    $.fn.inspector = function () {
+        return this.each(function () {
+            $.oc.inspector.manager.createInspector(this)
+        })
+    }
 }(window.jQuery);

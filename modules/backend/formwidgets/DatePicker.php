@@ -1,5 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
+use Carbon\Carbon;
 use Backend\Classes\FormWidgetBase;
 
 /**
@@ -53,6 +54,14 @@ class DatePicker extends FormWidgetBase
         ]);
 
         $this->mode = strtolower($this->mode);
+
+        $this->minDate = is_integer($this->minDate)
+            ? Carbon::createFromTimestamp($this->minDate)
+            : Carbon::parse($this->minDate);
+
+        $this->maxDate = is_integer($this->maxDate)
+            ? Carbon::createFromTimestamp($this->maxDate)
+            : Carbon::parse($this->maxDate);
     }
 
     /**

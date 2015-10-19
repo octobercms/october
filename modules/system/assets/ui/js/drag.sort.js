@@ -1,10 +1,10 @@
 /*
-=require ../vendor/sortable/jquery-sortable.js
-*/
-/*
  * Sortable plugin.
  *
- * - Documentation: ../docs/drag-sort.md
+ * Documentation: ../docs/drag-sort.md
+ *
+ * Require:
+ *  - sortable/jquery-sortable
  */
 
  +function ($) { "use strict";

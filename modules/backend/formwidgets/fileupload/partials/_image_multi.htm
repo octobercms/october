@@ -20,7 +20,7 @@
         <?php foreach ($fileList as $file): ?>
             <div class="upload-object is-success" data-id="<?= $file->id ?>" data-path="<?= $file->pathUrl ?>">
                 <div class="icon-container image">
-                    <img src="<?= $file->thumbUrl ?>" />
+                    <img src="<?= $file->thumbUrl ?>" alt="" />
                 </div>
                 <div class="info">
                     <h4 class="filename">
@@ -47,7 +47,7 @@
 <script type="text/template" id="<?= $this->getId('template') ?>">
     <div class="upload-object dz-preview dz-file-preview">
         <div class="icon-container image">
-            <img data-dz-thumbnail />
+            <img data-dz-thumbnail alt="" />
         </div>
         <div class="info">
             <h4 class="filename">

@@ -31,6 +31,10 @@
         BaseProto.init.call(this)
     }
 
+    DictionaryEditor.prototype.supportsExternalParameterEditor = function() {
+        return false
+    }
+
     //
     // Popup editor methods
     //

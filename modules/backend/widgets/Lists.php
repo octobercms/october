@@ -878,8 +878,16 @@ class Lists extends WidgetBase
      */
     protected function evalSwitchTypeValue($record, $column, $value)
     {
-        // return ($value) ? '<i class="icon-check"></i>' : '<i class="icon-times"></i>';
-        return ($value) ? 'Yes' : 'No';
+        $contents = '';
+
+        if ($value) {
+            $contents = Lang::get('backend::lang.list.column_switch_true');
+        }
+        else {
+            $contents = Lang::get('backend::lang.list.column_switch_false');
+        }
+
+        return $contents;
     }
 
     /**

@@ -1,10 +1,4 @@
 /*
-=require ../vendor/modernizr/modernizr.js
-=require ../vendor/mustache/mustache.js
-=require popover.js
-*/
-
-/*
  * Filter Widget
  *
  * Data attributes:
@@ -16,6 +10,11 @@
  * Notes:
  *   Ideally this control would not depend on loader or the AJAX framework,
  *   then the Filter widget can use events to handle this business logic.
+ *
+ * Require:
+ *  - mustache/mustache
+ *  - modernizr/modernizr
+ *  - storm/popover
  */
 +function ($) { "use strict";
 

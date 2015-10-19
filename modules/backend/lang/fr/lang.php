@@ -139,6 +139,8 @@ return [
         'delete_selected_empty' => 'Il n’y a aucun enregistrement à supprimer',
         'delete_selected_confirm' => 'Confirmer la suppression des enregistrements sélectionnés ?',
         'delete_selected_success' => 'Les enregistrements ont bien été supprimés.',
+        'column_switch_true' => 'Oui',
+        'column_switch_false' => 'Non'
     ],
     'fileupload' => [
         'attachment' => 'Pièce jointe',

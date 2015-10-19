@@ -265,6 +265,7 @@ return [
         'multiple_selected' => 'Multiple items selected.',
         'uploading_file_num' => 'Uploading :number file(s)...',
         'uploading_complete' => 'Upload complete',
+        'uploading_error' => 'Upload failed',
         'order_by' => 'Order by',
         'folder' => 'Folder',
         'no_files_found' => 'No files found by your request.',

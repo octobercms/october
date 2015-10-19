@@ -47,6 +47,10 @@
         BaseProto.dispose.call(this)
     }
 
+    ObjectListEditor.prototype.supportsExternalParameterEditor = function() {
+        return false
+    }
+
     //
     // Building
     //
@@ -64,8 +68,12 @@
     }
 
     ObjectListEditor.prototype.setLinkText = function(link, value) {
-        var value = value !== undefined ? value 
+        var value = value !== undefined && value !== null ? value 
                 : this.inspector.getPropertyValue(this.propertyDefinition.property)
+
+        if (value === null) {
+            value = undefined
+        }
 
         if (value === undefined) {
             var placeholder = this.propertyDefinition.placeholder

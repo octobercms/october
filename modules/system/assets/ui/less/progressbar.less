@@ -8,32 +8,75 @@
 // Progress bars
 // --------------------------------------------------
 
-@import "progressbar.base.less";
-
-@progress-bg:                 #f5f5f5;
+@progress-bg:                 #d9dee0;
 @progress-bar-color:          #fff;
 
-@progress-bar-bg:             @brand-primary;
+@progress-bar-bg:             #2f99da;
 @progress-bar-success-bg:     @brand-success;
 @progress-bar-warning-bg:     @brand-warning;
 @progress-bar-danger-bg:      @brand-danger;
 @progress-bar-info-bg:        @brand-info;
 
+// Bar itself
+// -------------------------
 
-div.progress {
+// Outer container
+.progress {
+    overflow: hidden;
     height: 9px;
-    .box-shadow(none);
-    background: #d9dee0;
+    margin-bottom: @line-height-computed;
+    background-color: @progress-bg;
+    border-radius: @border-radius-base;
 }
 
+// Bar of progress
 .progress-bar {
+    float: left;
+    width: 0%;
+    height: 100%;
+    font-size: @font-size-small;
     line-height: 9px;
-    .box-shadow(none);
-    background-color: #2f99da;
-
-    &.progress-bar-success {
-        background-color: #31ac5f;
-    }
+    color: @progress-bar-color;
+    text-align: center;
+    background-color: @progress-bar-bg;
+    .transition(width .6s ease);
 }
 
+// Call animation for the active one
+.progress.active .progress-bar {
+    .animation(progress-bar-stripes 2s linear infinite);
+}
 
+// Variations
+// -------------------------
+
+.progress-bar-success {
+    background-color: @progress-bar-success-bg;
+}
+
+.progress-bar-info {
+    background-color: @progress-bar-info-bg;
+}
+
+.progress-bar-warning {
+    background-color: @progress-bar-warning-bg;
+}
+
+.progress-bar-danger {
+    background-color: @progress-bar-danger-bg;
+}
+
+// Bar animations
+// -------------------------
+
+// WebKit
+@-webkit-keyframes progress-bar-stripes {
+    from  { background-position: 40px 0; }
+    to    { background-position: 0 0; }
+}
+
+// Spec and IE10+
+@keyframes progress-bar-stripes {
+    from  { background-position: 40px 0; }
+    to    { background-position: 0 0; }
+}

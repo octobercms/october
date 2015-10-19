@@ -141,7 +141,7 @@ class FileUpload extends FormWidgetBase
         /*
          * Decorate each file with thumb and custom download path
          */
-        $list->each(function($file){
+        $list->each(function($file) {
             $this->decorateFileAttributes($file);
         });
 

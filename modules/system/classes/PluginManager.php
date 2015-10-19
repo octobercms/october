@@ -469,7 +469,8 @@ class PluginManager
     /**
      * Disables a single plugin in the system.
      * @param string $id Plugin code/namespace
-     * @param bool $user Set to true if disabled by the user
+     * @param bool $isUser Set to true if disabled by the user
+     * @return bool
      */
     public function disablePlugin($id, $isUser = false)
     {
@@ -491,7 +492,8 @@ class PluginManager
     /**
      * Enables a single plugin in the system.
      * @param string $id Plugin code/namespace
-     * @param bool $user Set to true if enabled by the user
+     * @param bool $isUser Set to true if enabled by the user
+     * @return bool
      */
     public function enablePlugin($id, $isUser = false)
     {

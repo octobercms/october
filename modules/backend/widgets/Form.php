@@ -291,7 +291,7 @@ class Form extends WidgetBase
             $data = $this->getSaveData();
         }
 
-        $this->model->fill($data);
+        $this->model->forceFill($data);
         $this->data = (object) array_merge((array) $this->data, (array) $data);
 
         foreach ($this->allFields as $field) {
@@ -775,17 +775,9 @@ class Form extends WidgetBase
             $field = $this->allFields[$field];
         }
 
-        $defaultValue = null;
-
-        if (!$this->model->exists) {
-            if ($field->defaultFrom) {
-                list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->defaultFrom);
-                $defaultValue = $model->{$attribute};
-            }
-            elseif ($field->defaults !== '') {
-                $defaultValue = $field->defaults;
-            }
-        }
+        $defaultValue = !$this->model->exists
+            ? $field->getDefaultFromData($this->data)
+            : null;
 
         return $field->getValueFromData($this->data, $defaultValue);
     }
