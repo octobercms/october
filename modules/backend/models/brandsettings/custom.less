@@ -113,6 +113,7 @@ table.table.data {
 @color-fancy-form-tabless-fields-bg: @primary-color-light;
 @color-fancy-master-tabs-bg: @primary-color-dark;
 @color-fancy-form-inactive-tab: mix(black, desaturate(@primary-color-dark, 14.5%), 5%);
+@color-fancy-form-placeholder: lighten(@primary-color-light, 30%);
 
 .fancy-layout {
     .control-tabs, &.control-tabs {
@@ -162,9 +163,14 @@ table.table.data {
         }
     }
 
-    .form-tabless-fields,
-    .form-tabless-fields .loading-indicator-container .loading-indicator {
-        background: @color-fancy-form-tabless-fields-bg;
+    .form-tabless-fields {
+        &,
+        .loading-indicator-container .loading-indicator {
+            background: @color-fancy-form-tabless-fields-bg;
+        }
+        input[type=text]::-webkit-input-placeholder {
+            color: @color-fancy-form-placeholder;
+        }
     }
 }
 
