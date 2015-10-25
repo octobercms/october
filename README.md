@@ -2,7 +2,7 @@
     <img src="https://github.com/octobercms/october/blob/master/themes/demo/assets/images/october.png?raw=true" alt="October" width="25%" height="25%" />
 </p>
 
-[October](http://octobercms.com) is a Content Management System (CMS) and web platform whose sole purpose is to make your development workflow simple again. It was born out of frustration with existing systems, we feel building websites has become a convoluted and confusing process that leaves developers unsatisfied. We want to turn you around to the simpler side and get back to basics.
+[October](http://octobercms.com) is a Content Management System (CMS) and web platform whose sole purpose is to make your development workflow simple again. It was born out of frustration with existing systems. We feel building websites has become a convoluted and confusing process that leaves developers unsatisfied. We want to turn you around to the simpler side and get back to basics.
 
 October's mission is to show the world that web development is not rocket science.
 
@@ -35,7 +35,7 @@ The CMS uses [Laravel](http://laravel.com) as a foundation PHP framework.
 
 ### Using LESS
 
-The theme is based on the Twitter Bootstrap framework and uses LESS language for generating the CSS. Please use a suitable LESS application for compiling the **assets/less/*.less** file to **assets/css/*.css**. The following application is recommended:
+The theme is based on the Twitter Bootstrap framework and uses the LESS language for generating the CSS. Please use a suitable LESS application for compiling the **assets/less/*.less** file to **assets/css/*.css**. The following application is recommended:
 
 * [Koala](http://koala-app.com/)
 
