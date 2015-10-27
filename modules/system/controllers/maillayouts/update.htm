@@ -31,7 +31,7 @@
                     data-request="onSave"
                     data-request-data="redirect:0"
                     data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="Saving Layout..."
+                    data-load-indicator="<?= e(trans('system::lang.mail_templates.saving_layout')) ?>"
                     class="btn btn-primary">
                     <?= e(trans('backend::lang.form.save')) ?>
                 </button>
@@ -40,7 +40,7 @@
                     data-request="onSave"
                     data-request-data="close:1"
                     data-hotkey="ctrl+enter, cmd+enter"
-                    data-load-indicator="Saving Layout..."
+                    data-load-indicator="<?= e(trans('system::lang.mail_templates.saving_layout')) ?>"
                     class="btn btn-default">
                     <?= e(trans('backend::lang.form.save_and_close')) ?>
                 </button>
@@ -49,8 +49,8 @@
                         type="button"
                         class="oc-icon-trash-o btn-icon danger pull-right"
                         data-request="onDelete"
-                        data-load-indicator="Deleting Layout..."
-                        data-request-confirm="Do you really want to delete this layout?">
+                        data-load-indicator="<?= e(trans('system::lang.mail_templates.deleting_layout')) ?>"
+                        data-request-confirm="<?= e(trans('system::lang.mail_templates.delete_layout_confirm')) ?>">
                     </button>
                 <?php endif ?>
                 <span class="btn-text">

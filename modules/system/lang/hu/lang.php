@@ -132,7 +132,7 @@ return [
     ],
     'mail' => [
         'log_file' => 'Naplófájl',
-        'menu_label' => 'Általános beállítások',
+        'menu_label' => 'Beállítások',
         'menu_description' => 'Az e-mail küldés testreszabása.',
         'general' => 'Általános',
         'method' => 'Levelező rendszer',
@@ -166,7 +166,7 @@ return [
         'drivers_hint_content' => 'A levél küldéséhez szükséges, hogy telepítve legyen a(z) ":plugin" nevű bővítmény.'
     ],
     'mail_templates' => [
-        'menu_label' => 'Levél sablonok',
+        'menu_label' => 'Sablonok',
         'menu_description' => 'A kimenő levelek megjelenésének testreszabása.',
         'new_template' => 'Új sablon',
         'new_layout' => 'Új elrendezés',
@@ -177,9 +177,9 @@ return [
         'layouts' => 'Elrendezések',
         'no_layout' => '-- nincs --',
         'name' => 'Név',
-        'name_comment' => 'Erre a sablonra való hivatkozásként használt egyedi név.',
+        'name_comment' => 'Erre a sablonra hivatkozásként használt egyedi név.',
         'code' => 'Kód',
-        'code_comment' => 'Erre a sablonra való hivatkozásként használt egyedi kód.',
+        'code_comment' => 'Erre a sablonra hivatkozásként használt egyedi kód.',
         'subject' => 'Tárgy',
         'subject_comment' => 'Az e-mail üzenet tárgya',
         'description' => 'Leírás',
@@ -188,10 +188,17 @@ return [
         'content_text' => 'Egyszerű szöveg',
         'test_send' => 'Tesztüzenet küldése',
         'test_success' => 'A tesztüzenet elküldése sikerült.',
-        'return' => 'Vissza a sablonokhoz',
         'test_confirm' => 'Teszt üzenet küldése a(z) ":email" címre. Folytatja?',
+        'creating' => 'Sablon létrehozása...',
+        'creating_layout' => 'Elrendezés létrehozása...',
         'saving' => 'Sablon mentése...',
+        'saving_layout' => 'Elrendezés mentése...',
+        'delete_confirm' => 'Valóban törölni akarja a sablont?',
+        'delete_layout_confirm' => 'Valóban törölni akarja az elrendezést?',
+        'deleting' => 'Sablon törlése...',
+        'deleting_layout' => 'Elrendezés törlése...',
         'sending' => 'Üzenet küldése folyamatban...',
+        'return' => 'Vissza a sablonokhoz'
     ],
     'install' => [
         'project_label' => 'Csatolás projekthez',

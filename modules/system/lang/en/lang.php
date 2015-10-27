@@ -188,10 +188,17 @@ return [
         'content_text' => 'Plaintext',
         'test_send' => 'Send test message',
         'test_success' => 'The test message has been successfully sent.',
-        'return' => 'Return to template list',
         'test_confirm' => 'A test message will be sent to :email. Continue?',
+        'creating' => 'Creating Template...',
+        'creating_layout' => 'Creating Layout...',
         'saving' => 'Saving Template...',
+        'saving_layout' => 'Saving Layout...',
+        'delete_confirm' => 'Do you really want to delete this template?',
+        'delete_layout_confirm' => 'Do you really want to delete this layout?',
+        'deleting' => 'Deleting Template...',
+        'deleting_layout' => 'Deleting Layout...',
         'sending' => 'Sending test message...',
+        'return' => 'Return to template list'
     ],
     'install' => [
         'project_label' => 'Attach to Project',
