@@ -119,6 +119,7 @@
         if (!this.parentSurface) {
             $(this.tableContainer).one('dispose-control', this.proxy(this.dispose))
             $(this.tableContainer).on('click', 'tr.group, tr.control-group', this.proxy(this.onGroupClick))
+            $(this.tableContainer).on('focus-control', this.proxy(this.focusFirstEditor))
         }
     }
 
@@ -126,6 +127,7 @@
         if (!this.parentSurface) {
             $(this.tableContainer).off('dispose-control', this.proxy(this.dispose))
             $(this.tableContainer).off('click', 'tr.group, tr.control-group', this.proxy(this.onGroupClick))
+            $(this.tableContainer).off('focus-control', this.proxy(this.focusFirstEditor))
         }
     }
 

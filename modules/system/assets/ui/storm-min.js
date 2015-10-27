@@ -2324,9 +2324,7 @@ if(this.options.container)
 $(this.options.container).append(this.$container)
 else
 $(document.body).append(this.$container)
-var
-placement=this.calcPlacement(),position=this.calcPosition(placement)
-this.$container.css({left:position.x,top:position.y}).addClass('placement-'+placement)
+this.reposition()
 this.$container.addClass('in')
 if(this.$overlay)this.$overlay.addClass('in')
 $(document.body).addClass('popover-open')
@@ -2341,6 +2339,10 @@ return false
 if(!self.options.closeOnEsc){return false}
 if(e.keyCode==27){self.hide()
 return false}})}}
+Popover.prototype.reposition=function(){var
+placement=this.calcPlacement(),position=this.calcPosition(placement)
+this.$container.removeClass('placement-center placement-bottom placement-top placement-left placement-right')
+this.$container.css({left:position.x,top:position.y}).addClass('placement-'+placement)}
 Popover.prototype.getContent=function(){return typeof this.options.content=='function'?this.options.content.call(this.$el[0],this):this.options.content}
 Popover.prototype.calcDimensions=function(){var
 documentWidth=$(document).width(),documentHeight=$(document).height(),targetOffset=this.$el.offset(),targetWidth=this.$el.outerWidth(),targetHeight=this.$el.outerHeight()
@@ -3377,9 +3379,11 @@ this.build()
 if(!this.parentSurface){$.oc.foundation.controlUtils.markDisposable(this.tableContainer)}
 this.registerHandlers()}
 Surface.prototype.registerHandlers=function(){if(!this.parentSurface){$(this.tableContainer).one('dispose-control',this.proxy(this.dispose))
-$(this.tableContainer).on('click','tr.group, tr.control-group',this.proxy(this.onGroupClick))}}
+$(this.tableContainer).on('click','tr.group, tr.control-group',this.proxy(this.onGroupClick))
+$(this.tableContainer).on('focus-control',this.proxy(this.focusFirstEditor))}}
 Surface.prototype.unregisterHandlers=function(){if(!this.parentSurface){$(this.tableContainer).off('dispose-control',this.proxy(this.dispose))
-$(this.tableContainer).off('click','tr.group, tr.control-group',this.proxy(this.onGroupClick))}}
+$(this.tableContainer).off('click','tr.group, tr.control-group',this.proxy(this.onGroupClick))
+$(this.tableContainer).off('focus-control',this.proxy(this.focusFirstEditor))}}
 Surface.prototype.build=function(){this.tableContainer=document.createElement('div')
 var dataTable=document.createElement('table'),tbody=document.createElement('tbody')
 $.oc.foundation.element.addClass(dataTable,'inspector-fields')
@@ -3733,9 +3737,11 @@ this.popoverObj=null
 BaseProto.dispose.call(this)}
 InspectorPopup.prototype.createSurfaceAndUi=function(properties,values,title,description){this.showPopover()
 this.initSurface(this.$popoverContainer.find('[data-surface-container]').get(0),properties,values)
+this.repositionPopover()
 this.registerPopupHandlers()}
 InspectorPopup.prototype.adoptSurface=function(){this.showPopover()
 this.surface.moveToContainer(this.$popoverContainer.find('[data-surface-container]').get(0))
+this.repositionPopover()
 this.registerPopupHandlers()}
 InspectorPopup.prototype.cleanupAfterSwitch=function(){this.cleaningUp=true
 this.switched=true
@@ -3758,11 +3764,15 @@ this.$element.ocPopover({content:this.getPopoverContents(),highlightModalTarget:
 this.setInspectorVisibleFlag(true)
 this.popoverObj=this.$element.data('oc.popover')
 this.$popoverContainer=this.popoverObj.$container
+this.$popoverContainer.addClass('inspector-temporary-placement')
 if(this.options.inspectorCssClass!==undefined){this.$popoverContainer.addClass(this.options.inspectorCssClass)}
 if(this.options.containerSupported){var moveToContainerButton=$('<span class="inspector-move-to-container oc-icon-download">')
 this.$popoverContainer.find('.popover-head').append(moveToContainerButton)}
 this.$popoverContainer.find('[data-inspector-title]').text(this.title)
 this.$popoverContainer.find('[data-inspector-description]').text(this.description)}
+InspectorPopup.prototype.repositionPopover=function(){this.popoverObj.reposition()
+this.$popoverContainer.removeClass('inspector-temporary-placement')
+this.$popoverContainer.find('div[data-surface-container] > div').trigger('focus-control')}
 InspectorPopup.prototype.forceClose=function(){this.$popoverContainer.trigger('close.oc.popover')}
 InspectorPopup.prototype.registerPopupHandlers=function(){this.surface.options.onPopupDisplayed=this.proxy(this.onPopupEditorDisplayed)
 this.surface.options.onPopupHidden=this.proxy(this.onPopupEditorHidden)
