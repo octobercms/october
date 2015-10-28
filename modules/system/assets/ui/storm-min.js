@@ -4005,11 +4005,13 @@ this.parentGroup=group
 this.group=null
 this.childInspector=null
 this.validationSet=null
+this.disposed=false
 Base.call(this)
 this.init()}
 BaseEditor.prototype=Object.create(BaseProto)
 BaseEditor.prototype.constructor=Base
-BaseEditor.prototype.dispose=function(){this.disposeValidation()
+BaseEditor.prototype.dispose=function(){this.disposed=true
+this.disposeValidation()
 if(this.childInspector){this.childInspector.dispose()}
 this.inspector=null
 this.propertyDefinition=null
@@ -4024,6 +4026,7 @@ BaseEditor.prototype.init=function(){this.build()
 this.registerHandlers()
 this.initValidation()}
 BaseEditor.prototype.build=function(){return null}
+BaseEditor.prototype.isDisposed=function(){return this.disposed}
 BaseEditor.prototype.registerHandlers=function(){}
 BaseEditor.prototype.onInspectorPropertyChanged=function(property,value){}
 BaseEditor.prototype.focus=function(){}
@@ -4172,8 +4175,8 @@ if(this.propertyDefinition.placeholder!==undefined){return undefined}
 var select=this.getSelect()
 if(select){return select.value}
 return undefined}
-DropdownEditor.prototype.destroyCustomSelect=function(){var select=this.getSelect()
-$(select).select2('destroy')}
+DropdownEditor.prototype.destroyCustomSelect=function(){var $select=$(this.getSelect())
+if($select.data('select2')!=null){$select.select2('destroy')}}
 DropdownEditor.prototype.unregisterHandlers=function(){var select=this.getSelect()
 $(select).off('change',this.proxy(this.onSelectionChange))}
 DropdownEditor.prototype.loadStaticOptions=function(select){var value=this.inspector.getPropertyValue(this.propertyDefinition.property)
@@ -4195,9 +4198,11 @@ if(value===undefined){value='';}
 result+=property+':'+value+'-'}
 return result}
 DropdownEditor.prototype.showLoadingIndicator=function(){if(!Modernizr.touch){this.indicatorContainer.loadIndicator()}}
-DropdownEditor.prototype.hideLoadingIndicator=function(){if(!Modernizr.touch){this.indicatorContainer.loadIndicator('hide')
+DropdownEditor.prototype.hideLoadingIndicator=function(){if(this.isDisposed()){return}
+if(!Modernizr.touch){this.indicatorContainer.loadIndicator('hide')
 this.indicatorContainer.loadIndicator('destroy')}}
-DropdownEditor.prototype.optionsRequestDone=function(data,currentValue,initialization){var select=this.getSelect()
+DropdownEditor.prototype.optionsRequestDone=function(data,currentValue,initialization){if(this.isDisposed()){return}
+var select=this.getSelect()
 this.destroyCustomSelect()
 this.clearOptions(select)
 this.initCustomSelect()
@@ -4342,7 +4347,8 @@ this.editors.push[editor]}
 SetEditor.prototype.isCheckedByDefault=function(value){if(!this.propertyDefinition.default){return false}
 return this.propertyDefinition.default.indexOf(value)>-1}
 SetEditor.prototype.showLoadingIndicator=function(){$(this.getLink()).loadIndicator()}
-SetEditor.prototype.hideLoadingIndicator=function(){var $link=$(this.getLink())
+SetEditor.prototype.hideLoadingIndicator=function(){if(this.isDisposed()){return}
+var $link=$(this.getLink())
 $link.loadIndicator('hide')
 $link.loadIndicator('destroy')}
 SetEditor.prototype.loadDynamicItems=function(){var link=this.getLink(),data=this.inspector.getValues(),$form=$(link).closest('form')
@@ -4351,7 +4357,8 @@ this.showLoadingIndicator()
 data['inspectorProperty']=this.propertyDefinition.property
 data['inspectorClassName']=this.inspector.options.inspectorClass
 $form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.itemsRequestDone)).always(this.proxy(this.hideLoadingIndicator))}
-SetEditor.prototype.itemsRequestDone=function(data,currentValue,initialization){this.loadedItems={}
+SetEditor.prototype.itemsRequestDone=function(data,currentValue,initialization){if(this.isDisposed()){return}
+this.loadedItems={}
 if(data.options){for(var i=data.options.length-1;i>=0;i--){this.buildItemEditor(data.options[i].value,data.options[i].title)
 this.loadedItems[data.options[i].value]=data.options[i].title}}
 this.setLinkText(this.getLink())}
@@ -4917,7 +4924,8 @@ $(this.getInput()).on('change',this.proxy(this.onInputKeyUp))}
 AutocompleteEditor.prototype.unregisterHandlers=function(){BaseProto.unregisterHandlers.call(this)
 $(this.getInput()).off('change',this.proxy(this.onInputKeyUp))}
 AutocompleteEditor.prototype.showLoadingIndicator=function(){$(this.getContainer()).loadIndicator()}
-AutocompleteEditor.prototype.hideLoadingIndicator=function(){var $container=$(this.getContainer())
+AutocompleteEditor.prototype.hideLoadingIndicator=function(){if(this.isDisposed()){return}
+var $container=$(this.getContainer())
 $container.loadIndicator('hide')
 $container.loadIndicator('destroy')
 $container.removeClass('loading-indicator-container')}
@@ -4927,7 +4935,8 @@ this.showLoadingIndicator()
 data['inspectorProperty']=this.propertyDefinition.property
 data['inspectorClassName']=this.inspector.options.inspectorClass
 $form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.itemsRequestDone)).always(this.proxy(this.hideLoadingIndicator))}
-AutocompleteEditor.prototype.itemsRequestDone=function(data,currentValue,initialization){var loadedItems={}
+AutocompleteEditor.prototype.itemsRequestDone=function(data,currentValue,initialization){if(this.isDisposed()){return}
+var loadedItems={}
 if(data.options){for(var i=data.options.length-1;i>=0;i--){loadedItems[data.options[i].value]=data.options[i].title}}
 this.buildAutoComplete(loadedItems)}
 $.oc.inspector.propertyEditors.autocomplete=AutocompleteEditor}(window.jQuery);+function($){"use strict";if($.oc===undefined)

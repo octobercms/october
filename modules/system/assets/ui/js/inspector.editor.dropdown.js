@@ -202,9 +202,11 @@
     //
 
     DropdownEditor.prototype.destroyCustomSelect = function() {
-        var select = this.getSelect()
+        var $select = $(this.getSelect())
 
-        $(select).select2('destroy')
+        if ($select.data('select2') != null) {
+            $select.select2('destroy')
+        }
     }
 
     DropdownEditor.prototype.unregisterHandlers = function() {
@@ -291,6 +293,10 @@
     }
 
     DropdownEditor.prototype.hideLoadingIndicator = function() {
+        if (this.isDisposed()) {
+            return
+        }
+
         if (!Modernizr.touch) {
             this.indicatorContainer.loadIndicator('hide')
             this.indicatorContainer.loadIndicator('destroy')
@@ -298,6 +304,12 @@
     }
 
     DropdownEditor.prototype.optionsRequestDone = function(data, currentValue, initialization) {
+        if (this.isDisposed()) {
+            // Handle the case when the asynchronous request finishes after
+            // the editor is disposed
+            return
+        }
+
         var select = this.getSelect()
 
         // Without destroying and recreating the custom select

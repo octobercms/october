@@ -30,6 +30,7 @@
         this.group = null // Group created by a grouped editor, for example by the set editor
         this.childInspector = null
         this.validationSet = null
+        this.disposed = false
 
         Base.call(this)
 
@@ -40,6 +41,8 @@
     BaseEditor.prototype.constructor = Base
 
     BaseEditor.prototype.dispose = function() {
+        this.disposed = true // After this point editors can't rely on any DOM references
+
         this.disposeValidation()
 
         if (this.childInspector) {
@@ -66,6 +69,10 @@
 
     BaseEditor.prototype.build = function() {
         return null
+    }
+
+    BaseEditor.prototype.isDisposed = function() {
+        return this.disposed
     }
 
     BaseEditor.prototype.registerHandlers = function() {

@@ -119,6 +119,10 @@
     }
 
     AutocompleteEditor.prototype.hideLoadingIndicator = function() {
+        if (this.isDisposed()) {
+            return
+        }
+
         var $container = $(this.getContainer())
 
         $container.loadIndicator('hide')
@@ -146,6 +150,12 @@
     }
 
     AutocompleteEditor.prototype.itemsRequestDone = function(data, currentValue, initialization) {
+        if (this.isDisposed()) {
+            // Handle the case when the asynchronous request finishes after
+            // the editor is disposed
+            return
+        }
+
         var loadedItems = {}
 
         if (data.options) {

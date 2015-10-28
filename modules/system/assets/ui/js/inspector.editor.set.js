@@ -145,6 +145,10 @@
     }
 
     SetEditor.prototype.hideLoadingIndicator = function() {
+        if (this.isDisposed()) {
+            return
+        }
+
         var $link = $(this.getLink())
 
         $link.loadIndicator('hide')
@@ -170,6 +174,12 @@
     }
 
     SetEditor.prototype.itemsRequestDone = function(data, currentValue, initialization) {
+        if (this.isDisposed()) {
+            // Handle the case when the asynchronous request finishes after
+            // the editor is disposed
+            return
+        }
+
         this.loadedItems = {}
 
         if (data.options) {
