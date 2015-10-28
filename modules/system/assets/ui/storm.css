@@ -2501,6 +2501,7 @@ div.control-popover.control-inspector > div:before,div.control-popover.control-i
 div.control-popover.hero .inspector-fields th,div.control-popover.hero .inspector-fields td{padding:9px 12px;font-weight:600 !important;font-size:13px}
 div.control-popover.hero .inspector-fields td{font-weight:400 !important}
 div.control-popover.hero .inspector-fields div.custom-select.select2-container .select2-selection{height:36px;line-height:36px}
+div.control-popover.inspector-temporary-placement{visibility:hidden;left:0 !important;top:0 !important}
 .inspector-columns-editor{min-height:400px;margin-bottom:20px;border-bottom:1px solid #bdc3c7}
 .inspector-columns-editor .items-column{width:250px}
 .inspector-columns-editor .inspector-wrapper{background:#f2f2f2;border-left:2px solid #bdc3c7}

@@ -147,14 +147,7 @@
         /*
          * Determine the popover position
          */
-        var
-            placement = this.calcPlacement(),
-            position = this.calcPosition(placement)
-
-        this.$container.css({
-            left: position.x,
-            top: position.y
-        }).addClass('placement-'+placement)
+        this.reposition()
 
         /*
          * Display the popover
@@ -196,6 +189,19 @@
                }
             })
         }
+    }
+
+    Popover.prototype.reposition = function() {
+        var
+            placement = this.calcPlacement(),
+            position = this.calcPosition(placement)
+
+        this.$container.removeClass('placement-center placement-bottom placement-top placement-left placement-right')
+
+        this.$container.css({
+            left: position.x,
+            top: position.y
+        }).addClass('placement-'+placement)
     }
 
     Popover.prototype.getContent = function () {
