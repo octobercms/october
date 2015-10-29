@@ -46,6 +46,7 @@ return array(
         "array"   => "Het veld :attribute mag niet meer dan :max objecten bevatten.",
     ),
     "mimes"            => "Het bestand van :attribute mag enkel zijn van het type: :values.",
+    "extensions"       => "Het bestand van :attribute moet een extensie hebben van het type: :values.",
     "min"              => array(
         "numeric" => "De waarde van :attribute minimaal :min zijn.",
         "file"    => "De bestandsgrootte van :attribute moet minimaal :min kilobytes zijn.",
