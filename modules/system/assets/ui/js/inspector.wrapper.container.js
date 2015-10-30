@@ -41,12 +41,20 @@
         this.buildUi()
 
         this.initSurface(this.surfaceContainer, properties, values)
+
+        if (this.isLiveUpdateEnabled()) {
+            this.surface.options.onChange = this.proxy(this.onLiveUpdate)
+        }
     }
 
     InspectorContainer.prototype.adoptSurface = function() {
         this.buildUi()
 
         this.surface.moveToContainer(this.surfaceContainer)
+
+        if (this.isLiveUpdateEnabled()) {
+            this.surface.options.onChange = this.proxy(this.onLiveUpdate)
+        }
     }
 
     InspectorContainer.prototype.buildUi = function() {
@@ -155,6 +163,10 @@
         return this.options.container.data('inspector-scrollable') !== undefined
     }
 
+    InspectorContainer.prototype.isLiveUpdateEnabled = function() {
+        return this.options.container.data('inspector-live-update') !== undefined
+    }
+
     InspectorContainer.prototype.getLayout = function() {
         return this.options.container.get(0).querySelector('div.layout')
     }
@@ -181,6 +193,10 @@
         $layout.off('dispose-control', this.proxy(this.dispose))
         $layout.off('click', 'span.close', this.proxy(this.onClose))
         $layout.off('click', 'span.detach', this.proxy(this.onDetach))
+
+        if (this.surface !== null && this.surface.options.onChange === this.proxy(this.onLiveUpdate)) {
+            this.surface.options.onChange = null
+        }
     }
 
     InspectorContainer.prototype.removeControls = function() {
@@ -220,6 +236,10 @@
         this.surface.dispose()
 
         this.dispose()
+    }
+
+    InspectorContainer.prototype.onLiveUpdate = function() {
+        this.applyValues(true)
     }
 
     InspectorContainer.prototype.onDetach = function() {

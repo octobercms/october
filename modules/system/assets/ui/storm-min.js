@@ -3567,12 +3567,20 @@ else{value=externalParameterEditor.getValue()
 value='{{ '+value+' }}'}
 result[property.property]=value}
 return result}
-Surface.prototype.validate=function(){this.getGroupManager().unmarkInvalidGroups(this.getRootTable())
+Surface.prototype.getValidValues=function(){var allValues=this.getValues(),result={}
+for(var property in allValues){var editor=this.findPropertyEditor(property)
+if(!editor){throw new Error('Cannot find editor for property '+property)}
+var externalEditor=this.findExternalParameterEditor(property)
+if(externalEditor&&externalEditor.isEditorVisible()&&!externalEditor.validate(true)){continue}
+if(!editor.validate(true)){continue}
+result[property]=allValues[property]}
+return result}
+Surface.prototype.validate=function(silentMode){this.getGroupManager().unmarkInvalidGroups(this.getRootTable())
 for(var i=0,len=this.editors.length;i<len;i++){var editor=this.editors[i],externalEditor=this.findExternalParameterEditor(editor.propertyDefinition.property)
-if(externalEditor&&externalEditor.isEditorVisible()){if(!externalEditor.validate()){editor.markInvalid()
+if(externalEditor&&externalEditor.isEditorVisible()){if(!externalEditor.validate(silentMode)){if(!silentMode){editor.markInvalid()}
 return false}
 else{continue}}
-if(!editor.validate()){editor.markInvalid()
+if(!editor.validate(silentMode)){if(!silentMode){editor.markInvalid()}
 return false}}
 return true}
 Surface.prototype.hasChanges=function(){return!this.comparePropertyValues(this.originalValues,this.values)}
@@ -3640,6 +3648,7 @@ var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var BaseWrapper=function($element,sourceWrapper,options){this.$element=$element
 this.options=$.extend({},BaseWrapper.DEFAULTS,typeof options=='object'&&options)
 this.switched=false
+this.configuration=null
 Base.call(this)
 if(!sourceWrapper){if(!this.triggerShowingAndInit()){return}
 this.surface=null
@@ -3659,6 +3668,7 @@ this.surface=null
 this.$element=null
 this.title=null
 this.description=null
+this.configuration=null
 BaseProto.dispose.call(this)}
 BaseWrapper.prototype.init=function(){if(!this.surface){this.loadConfiguration()}
 else{this.adoptSurface()}
@@ -3685,12 +3695,15 @@ for(var i=0,len=attributes.length;i<len;i++){var attribute=attributes[i],matches
 if(matches=attribute.name.match(/^data-property-(.*)$/)){var normalizedPropertyName=this.normalizePropertyCode(matches[1],configuration)
 values[normalizedPropertyName]=attribute.value}}
 return values}
-BaseWrapper.prototype.applyValues=function(){var $valuesField=this.getElementValuesInput(),values=this.surface.getValues()
+BaseWrapper.prototype.applyValues=function(liveUpdateMode){var $valuesField=this.getElementValuesInput(),values=liveUpdateMode?this.surface.getValidValues():this.surface.getValues()
+if(liveUpdateMode){var existingValues=this.loadValues(this.configuration)
+values=$.extend(existingValues,values)}
 if($valuesField.length>0){$valuesField.val(JSON.stringify(values))}
 else{for(var property in values){var value=values[property]
 if($.isArray(value)||$.isPlainObject(value)){throw new Error('Inspector data-property-xxx attributes do not support complex values. Property: '+property)}
 this.$element.attr('data-property-'+property,value)}}
-if(this.surface.hasChanges()){this.$element.trigger('change')}}
+if(this.surface.hasChanges()){if(!liveUpdateMode){this.$element.trigger('change')}
+else{this.$element.trigger('livechange')}}}
 BaseWrapper.prototype.loadConfiguration=function(){var configString=this.$element.data('inspector-config'),result={properties:{},title:null,description:null}
 result.title=this.$element.data('inspector-title')
 result.description=this.$element.data('inspector-description')
@@ -3709,6 +3722,7 @@ try{return $.parseJSON(configuration)}catch(err){throw new Error('Error parsing 
 BaseWrapper.prototype.configurationLoaded=function(configuration){var values=this.loadValues(configuration.properties)
 this.title=configuration.title
 this.description=configuration.description
+this.configuration=configuration
 this.createSurfaceAndUi(configuration.properties,values)}
 BaseWrapper.prototype.onConfigurartionRequestDone=function(data,result){result.properties=this.parseConfiguration(data.configuration.properties)
 if(data.configuration.title!==undefined){result.title=data.configuration.title}
@@ -3815,9 +3829,11 @@ this.removeControls()
 this.surfaceContainer=null
 BaseProto.dispose.call(this)}
 InspectorContainer.prototype.createSurfaceAndUi=function(properties,values){this.buildUi()
-this.initSurface(this.surfaceContainer,properties,values)}
+this.initSurface(this.surfaceContainer,properties,values)
+if(this.isLiveUpdateEnabled()){this.surface.options.onChange=this.proxy(this.onLiveUpdate)}}
 InspectorContainer.prototype.adoptSurface=function(){this.buildUi()
-this.surface.moveToContainer(this.surfaceContainer)}
+this.surface.moveToContainer(this.surfaceContainer)
+if(this.isLiveUpdateEnabled()){this.surface.options.onChange=this.proxy(this.onLiveUpdate)}}
 InspectorContainer.prototype.buildUi=function(){var scrollable=this.isScrollable(),head=this.buildHead(),layoutElements=this.buildLayout()
 layoutElements.headContainer.appendChild(head)
 if(scrollable){var scrollpad=this.buildScrollpad()
@@ -3862,6 +3878,7 @@ InspectorContainer.prototype.validateAndApply=function(){if(!this.surface.valida
 this.applyValues()
 return true}
 InspectorContainer.prototype.isScrollable=function(){return this.options.container.data('inspector-scrollable')!==undefined}
+InspectorContainer.prototype.isLiveUpdateEnabled=function(){return this.options.container.data('inspector-live-update')!==undefined}
 InspectorContainer.prototype.getLayout=function(){return this.options.container.get(0).querySelector('div.layout')}
 InspectorContainer.prototype.registerLayoutHandlers=function(layout){var $layout=$(layout)
 $layout.one('dispose-control',this.proxy(this.dispose))
@@ -3874,7 +3891,8 @@ this.options.container.off('apply.oc.inspector',this.proxy(this.onApplyValues))
 this.options.container.off('beforeContainerHide.oc.inspector',this.proxy(this.onBeforeHide))
 $layout.off('dispose-control',this.proxy(this.dispose))
 $layout.off('click','span.close',this.proxy(this.onClose))
-$layout.off('click','span.detach',this.proxy(this.onDetach))}
+$layout.off('click','span.detach',this.proxy(this.onDetach))
+if(this.surface!==null&&this.surface.options.onChange===this.proxy(this.onLiveUpdate)){this.surface.options.onChange=null}}
 InspectorContainer.prototype.removeControls=function(){if(this.isScrollable()){this.options.container.find('.control-scrollpad').scrollpad('dispose')}
 var layout=this.getLayout()
 layout.parentNode.removeChild(layout)}
@@ -3888,6 +3906,7 @@ if(!this.triggerHiding()){ev.preventDefault()
 return false}
 this.surface.dispose()
 this.dispose()}
+InspectorContainer.prototype.onLiveUpdate=function(){this.applyValues(true)}
 InspectorContainer.prototype.onDetach=function(){$.oc.inspector.manager.switchToPopup(this)}
 $.oc.inspector.wrappers.container=InspectorContainer}(window.jQuery);+function($){"use strict";var GroupManager=function(controlId){this.controlId=controlId
 this.rootGroup=null
@@ -4039,10 +4058,10 @@ BaseEditor.prototype.throwError=function(errorMessage){throw new Error(errorMess
 BaseEditor.prototype.initValidation=function(){this.validationSet=new $.oc.inspector.validationSet(this.propertyDefinition,this.propertyDefinition.property)}
 BaseEditor.prototype.disposeValidation=function(){this.validationSet.dispose()}
 BaseEditor.prototype.getValueToValidate=function(){return this.inspector.getPropertyValue(this.propertyDefinition.property)}
-BaseEditor.prototype.validate=function(){var value=this.getValueToValidate()
+BaseEditor.prototype.validate=function(silentMode){var value=this.getValueToValidate()
 if(value===undefined){value=this.getUndefinedValue()}
 var validationResult=this.validationSet.validate(value)
-if(validationResult!==null){$.oc.flashMsg({text:validationResult,'class':'error','interval':5})
+if(validationResult!==null){if(!silentMode){$.oc.flashMsg({text:validationResult,'class':'error','interval':5})}
 return false}
 return true}
 BaseEditor.prototype.markInvalid=function(){$.oc.foundation.element.addClass(this.containerRow,'invalid')
@@ -4681,9 +4700,9 @@ ObjectEditor.prototype.getUndefinedValue=function(){var result={}
 for(var i=0,len=this.propertyDefinition.properties.length;i<len;i++){var propertyName=this.propertyDefinition.properties[i].property,editor=this.childInspector.findPropertyEditor(propertyName)
 if(editor){result[propertyName]=editor.getUndefinedValue()}}
 return this.getValueOrRemove(result)}
-ObjectEditor.prototype.validate=function(){var values=values=this.childInspector.getValues()
+ObjectEditor.prototype.validate=function(silentMode){var values=values=this.childInspector.getValues()
 if(this.cleanUpValue(values)===$.oc.inspector.removedProperty){return true}
-return this.childInspector.validate()}
+return this.childInspector.validate(silentMode)}
 ObjectEditor.prototype.onInspectorDataChange=function(property,value){var values=this.childInspector.getValues()
 this.inspector.setPropertyValue(this.propertyDefinition.property,this.cleanUpValue(values))}
 $.oc.inspector.propertyEditors.object=ObjectEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.text,BaseProto=Base.prototype
@@ -5155,9 +5174,9 @@ if(show){$.oc.foundation.element.removeClass(element,'hide')}
 else{container.style.height=height+'px'
 $.oc.foundation.element.addClass(element,'hide')}}}
 ExternalParameterEditor.prototype.focus=function(){this.getInput().focus()}
-ExternalParameterEditor.prototype.validate=function(){var value=$.trim(this.getValue())
-if(value.length===0){$.oc.flashMsg({text:'Please enter the external parameter name.','class':'error','interval':5})
-this.focus()
+ExternalParameterEditor.prototype.validate=function(silentMode){var value=$.trim(this.getValue())
+if(value.length===0){if(!silentMode){$.oc.flashMsg({text:'Please enter the external parameter name.','class':'error','interval':5})
+this.focus()}
 return false}
 return true}
 ExternalParameterEditor.prototype.registerHandlers=function(){var input=this.getInput()

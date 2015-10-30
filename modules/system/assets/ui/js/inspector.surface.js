@@ -797,7 +797,33 @@
         return result
     }
 
-    Surface.prototype.validate = function() {
+    Surface.prototype.getValidValues = function() {
+        var allValues = this.getValues(),
+            result = {}
+
+        for (var property in allValues) {
+            var editor = this.findPropertyEditor(property)
+
+            if (!editor) {
+                throw new Error('Cannot find editor for property ' + property)
+            }
+
+            var externalEditor = this.findExternalParameterEditor(property)
+            if (externalEditor && externalEditor.isEditorVisible() && !externalEditor.validate(true)) {
+                continue
+            }
+
+            if (!editor.validate(true)) {
+                continue
+            }
+
+            result[property] = allValues[property]
+        }
+
+        return result
+    }
+
+    Surface.prototype.validate = function(silentMode) {
         this.getGroupManager().unmarkInvalidGroups(this.getRootTable())
 
         for (var i = 0, len = this.editors.length; i < len; i++) {
@@ -805,8 +831,10 @@
                 externalEditor = this.findExternalParameterEditor(editor.propertyDefinition.property)
 
             if (externalEditor && externalEditor.isEditorVisible()) {
-                if (!externalEditor.validate()) {
-                    editor.markInvalid()
+                if (!externalEditor.validate(silentMode)) {
+                    if (!silentMode) {
+                        editor.markInvalid()
+                    }
                     return false
                 }
                 else {
@@ -814,8 +842,10 @@
                 }
             }
 
-            if (!editor.validate()) {
-                editor.markInvalid()
+            if (!editor.validate(silentMode)) {
+                if (!silentMode) {
+                    editor.markInvalid()
+                }
                 return false
             }
         }

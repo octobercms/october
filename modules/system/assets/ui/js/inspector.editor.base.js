@@ -127,7 +127,7 @@
         return this.inspector.getPropertyValue(this.propertyDefinition.property)
     }
 
-    BaseEditor.prototype.validate = function() {
+    BaseEditor.prototype.validate = function(silentMode) {
         var value = this.getValueToValidate()
 
         if (value === undefined) {
@@ -136,7 +136,9 @@
 
         var validationResult = this.validationSet.validate(value)
         if (validationResult !== null) {
-            $.oc.flashMsg({text: validationResult, 'class': 'error', 'interval': 5})
+            if (!silentMode) {
+                $.oc.flashMsg({text: validationResult, 'class': 'error', 'interval': 5})
+            }
             return false
         }
 

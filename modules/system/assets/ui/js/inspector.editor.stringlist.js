@@ -88,7 +88,6 @@
         }
 
         this.inspector.setPropertyValue(this.propertyDefinition.property, resultValue)
-// TODO: validate here
     }
 
     $.oc.inspector.propertyEditors.stringList = StringListEditor

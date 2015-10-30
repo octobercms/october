@@ -23,6 +23,7 @@
 
         this.options = $.extend({}, BaseWrapper.DEFAULTS, typeof options == 'object' && options)
         this.switched = false
+        this.configuration = null
 
         Base.call(this)
 
@@ -63,6 +64,7 @@
         this.$element = null
         this.title = null
         this.description = null
+        this.configuration = null
 
         BaseProto.dispose.call(this)
     }
@@ -194,9 +196,21 @@
         return values
     }
 
-    BaseWrapper.prototype.applyValues = function() {
+    BaseWrapper.prototype.applyValues = function(liveUpdateMode) {
         var $valuesField = this.getElementValuesInput(),
-            values = this.surface.getValues()
+            values = liveUpdateMode ? 
+                        this.surface.getValidValues() : 
+                        this.surface.getValues()
+
+        if (liveUpdateMode) {
+            // In the live update mode, when only valid values are applied,
+            // we don't want to change all other values (invalid properties), 
+            // so we merge existing values with the valid values.
+
+            var existingValues = this.loadValues(this.configuration)
+
+            values = $.extend(existingValues, values)
+        }
 
         if ($valuesField.length > 0) {
             $valuesField.val(JSON.stringify(values))
@@ -214,7 +228,12 @@
         }
 
         if (this.surface.hasChanges()) {
-            this.$element.trigger('change')
+            if (!liveUpdateMode) {
+                this.$element.trigger('change')
+            }
+            else {
+                this.$element.trigger('livechange')
+            }
         }
     }
 
@@ -284,6 +303,7 @@
 
         this.title = configuration.title
         this.description = configuration.description
+        this.configuration = configuration
 
         this.createSurfaceAndUi(configuration.properties, values)
     }

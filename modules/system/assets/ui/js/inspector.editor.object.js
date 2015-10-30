@@ -120,7 +120,7 @@
         return this.getValueOrRemove(result)
     }
 
-    ObjectEditor.prototype.validate = function() {
+    ObjectEditor.prototype.validate = function(silentMode) {
         var values = values = this.childInspector.getValues()
 
         if (this.cleanUpValue(values) === $.oc.inspector.removedProperty) {
@@ -130,7 +130,7 @@
             return true
         }
 
-        return this.childInspector.validate()
+        return this.childInspector.validate(silentMode)
     }
 
     //
