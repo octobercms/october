@@ -360,7 +360,9 @@ class PluginManager
             return $plugins;
         }
 
-        $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirPath));
+        $it = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($dirPath, RecursiveDirectoryIterator::FOLLOW_SYMLINKS)
+        );
         $it->setMaxDepth(2);
         $it->rewind();
 
