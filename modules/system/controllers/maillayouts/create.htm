@@ -19,7 +19,7 @@
                     type="submit"
                     data-request="onSave"
                     data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="Creating Layout..."
+                    data-load-indicator="<?= e(trans('system::lang.mail_templates.creating_layout')) ?>"
                     class="btn btn-primary">
                     <?= e(trans('backend::lang.form.create')) ?>
                 </button>
@@ -28,7 +28,7 @@
                     data-request="onSave"
                     data-request-data="close:1"
                     data-hotkey="ctrl+enter, cmd+enter"
-                    data-load-indicator="Creating Layout..."
+                    data-load-indicator="<?= e(trans('system::lang.mail_templates.creating_layout')) ?>"
                     class="btn btn-default">
                     <?= e(trans('backend::lang.form.create_and_close')) ?>
                 </button>
