@@ -3702,7 +3702,7 @@ if($valuesField.length>0){$valuesField.val(JSON.stringify(values))}
 else{for(var property in values){var value=values[property]
 if($.isArray(value)||$.isPlainObject(value)){throw new Error('Inspector data-property-xxx attributes do not support complex values. Property: '+property)}
 this.$element.attr('data-property-'+property,value)}}
-if(this.surface.hasChanges()){if(!liveUpdateMode){this.$element.trigger('change')}
+if(this.surface.hasChanges()||liveUpdateMode){if(!liveUpdateMode){this.$element.trigger('change')}
 else{this.$element.trigger('livechange')}}}
 BaseWrapper.prototype.loadConfiguration=function(){var configString=this.$element.data('inspector-config'),result={properties:{},title:null,description:null}
 result.title=this.$element.data('inspector-title')

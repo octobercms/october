@@ -227,7 +227,11 @@
             }
         }
 
-        if (this.surface.hasChanges()) {
+        // In the live update mode the livechange event is triggered 
+        // regardless of whether Surface properties match or don't match
+        // the original properties of the inspectable element. Without it
+        // there could be undesirable side effects.
+        if (this.surface.hasChanges() || liveUpdateMode) {
             if (!liveUpdateMode) {
                 this.$element.trigger('change')
             }
