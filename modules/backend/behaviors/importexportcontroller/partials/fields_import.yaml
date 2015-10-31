@@ -4,11 +4,11 @@
 
 fields:
     step1_section:
-        label: 1. Upload a CSV file
+        label: backend::lang.import_export.upload_csv_file
         type: section
 
     import_file:
-        label: Import file
+        label: backend::lang.import_export.import_file
         type: fileupload
         mode: file
         span: left
@@ -16,14 +16,14 @@ fields:
         useCaption: false
 
     first_row_titles:
-        label: First row contains column titles
-        comment: Leave this checked if the first row in the CSV is used as the column titles.
+        label: backend::lang.import_export.first_row_contains_titles
+        comment: backend::lang.import_export.first_row_contains_titles_desc
         type: checkbox
         default: true
         span: left
 
     step2_section:
-        label: 2. Match the file columns to database fields
+        label: backend::lang.import_export.match_columns
         type: section
 
     column_control_panel:
@@ -31,19 +31,19 @@ fields:
         path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_toolbar.htm
 
     import_file_columns:
-        label: File columns
+        label: backend::lang.import_export.file_columns
         type: partial
         path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_file_columns.htm
         dependsOn: [import_file, first_row_titles]
         span: left
 
     import_db_columns:
-        label: Database fields
+        label: backend::lang.import_export.database_fields
         type: partial
         path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_db_columns.htm
         dependsOn: [import_file, first_row_titles]
         span: right
 
     step3_section:
-        label: 3. Set import options
+        label: backend::lang.import_export.set_import_options
         type: section
