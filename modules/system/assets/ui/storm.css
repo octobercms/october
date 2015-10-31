@@ -2271,6 +2271,8 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .form-buttons:after{clear:both}
 .form-buttons .btn{margin-right:10px}
 .form-buttons .btn.no-margin-right{margin-right:0}
+.form-buttons .btn-group{margin-right:10px}
+.form-buttons .btn-group .btn{margin-right:0}
 .form-buttons .pull-right{margin-right:0;margin-left:10px}
 .form-buttons.buttons-offset{padding-left:20px}
 body.slim-container .form-buttons{padding:0 20px 20px}
