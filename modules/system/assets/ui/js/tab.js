@@ -105,10 +105,12 @@
 
         var pane = $('> .tab-pane', this.$pagesContainer).eq(tabIndex).attr('id', targetId)
 
-        $(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){
-            $(this).trigger('close.oc.tab')
-            return false
-        }))
+        if (!$('span.tab-close', li).length) {
+            $(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){
+                $(this).trigger('close.oc.tab')
+                return false
+            }))
+        }
 
         pane.data('tab', li)
 

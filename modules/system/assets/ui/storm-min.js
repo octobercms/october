@@ -2706,8 +2706,8 @@ ChangeMonitor.prototype=Object.create(BaseProto)
 ChangeMonitor.prototype.constructor=ChangeMonitor
 ChangeMonitor.prototype.init=function(){this.$el.on('change',this.proxy(this.change))
 this.$el.on('unchange.oc.changeMonitor',this.proxy(this.unchange))
-this.$el.on('pause.oc.changeMonitor ',this.proxy(this.pause))
-this.$el.on('resume.oc.changeMonitor ',this.proxy(this.resume))
+this.$el.on('pause.oc.changeMonitor',this.proxy(this.pause))
+this.$el.on('resume.oc.changeMonitor',this.proxy(this.resume))
 this.$el.on('keyup input paste','input, textarea:not(.ace_text-input)',this.proxy(this.onInputChange))
 $('input:not([type=hidden]), textarea:not(.ace_text-input)',this.$el).each(function(){$(this).data('oldval.oc.changeMonitor',$(this).val());})
 if(this.options.windowCloseConfirm)
@@ -3188,8 +3188,8 @@ var html=$anchor.html()
 $anchor.html('')
 $anchor.append($('<span class="title"></span>').append($('<span></span>').html(html)))
 var pane=$('> .tab-pane',this.$pagesContainer).eq(tabIndex).attr('id',targetId)
-$(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){$(this).trigger('close.oc.tab')
-return false}))
+if(!$('span.tab-close',li).length){$(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){$(this).trigger('close.oc.tab')
+return false}))}
 pane.data('tab',li)
 this.$el.trigger('initTab.oc.tab',[{'pane':pane,'tab':li}])}
 Tab.prototype.addTab=function(title,content,identifier,tabClass){var

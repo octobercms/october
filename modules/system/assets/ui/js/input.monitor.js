@@ -1,35 +1,7 @@
 /*
- * The form change monitor API. 
+ * The form change monitor API.
  *
- * This plugin allows to monitor changes in a form. 
- * The script adds the "oc-data-changed" class to the form element when the form data is changed.
- * 
- * Supported data attributes:
- * - data-change-monitor - enables the plugin form a form
- * - data-window-close-confirm - confirmation message to show when a browser window is closing and there is unsaved data
- *
- * Example: <form 
- *              data-change-monitor
-                data-window-close-confirm="There is unsaved data"
- *             ...
- *          >
- *
- * Supported events:
- * - change - marks the form data as "changed". The event can be triggered on any
- *   element within a form or on a form itself.
- * - unchange.oc.changeMonitor - marks the form data as "unchanged". The event can be triggered on any
- *   element within a form or on a form itself.
- * - pause.oc.changeMonitor - temporary pauses the change monitoring. The event can be triggered on any
- *   element within a form or on a form itself.
- * - resume.oc.changeMonitor - resumes the change monitoring. The event can be triggered on any
- *   element within a form or on a form itself.
- *
- * Triggered events: 
- * - changed.oc.changeMonitor - triggered when the form data changes.
- * - unchanged.oc.changeMonitor - triggered when the form data unchanges.
- *
- * JavaScript API:
- * $('#form').changeMonitor()
+ * - Documentation: ../docs/input-monitor.md
  */
 +function ($) { "use strict";
 
@@ -55,8 +27,8 @@
     ChangeMonitor.prototype.init = function() {
         this.$el.on('change', this.proxy(this.change))
         this.$el.on('unchange.oc.changeMonitor', this.proxy(this.unchange))
-        this.$el.on('pause.oc.changeMonitor ', this.proxy(this.pause))
-        this.$el.on('resume.oc.changeMonitor ', this.proxy(this.resume))
+        this.$el.on('pause.oc.changeMonitor', this.proxy(this.pause))
+        this.$el.on('resume.oc.changeMonitor', this.proxy(this.resume))
 
         this.$el.on('keyup input paste', 'input, textarea:not(.ace_text-input)', this.proxy(this.onInputChange))
         $('input:not([type=hidden]), textarea:not(.ace_text-input)', this.$el).each(function() {

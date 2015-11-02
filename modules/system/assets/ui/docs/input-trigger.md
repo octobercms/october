@@ -38,7 +38,7 @@ The API allows to change elements' visibility or status (enabled/disabled) basin
     </div>
 
 
-## Supported data attributes:
+## Supported data attributes
 
 - data-trigger-action, values: show, hide, enable, disable, empty
 - data-trigger: a CSS selector for elements that trigger the action (checkboxes)
@@ -69,12 +69,12 @@ Multie value conditions are supported:
 data-trigger-condition="value[foo][bar]"
 ```
 
-### Supported events:
+### Supported events
 
 - oc.triggerOn.update - triggers the update. Trigger this event on the element the plugin is bound to to force it to check the condition and update itself. This is useful when the page content is updated with AJAX.
 - oc.triggerOn.afterUpdate - triggered after the element is updated
 
-### JavaScript API:
+### JavaScript API
 
 ```html
 $('#mybutton').triggerOn({
