@@ -308,7 +308,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'label'       => 'system::lang.settings.menu_label',
                     'icon'        => 'icon-cog',
                     'url'         => Backend::url('system/settings'),
-                    'permissions' => [],
+                    'permissions' => ['system.settings.*'],
                     'order'       => 1000
                 ]
             ]);
