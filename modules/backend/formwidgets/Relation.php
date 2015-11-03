@@ -5,6 +5,7 @@ use Backend\Classes\FormWidgetBase;
 use ApplicationException;
 use SystemException;
 use Illuminate\Database\Eloquent\Relations\Relation as RelationBase;
+use DB;
 
 /**
  * Form Relationship
@@ -28,6 +29,11 @@ class Relation extends FormWidgetBase
      * @var string Model column to use for the description reference
      */
     public $descriptionFrom = 'description';
+
+    /**
+     * @var string Model SQL column selection to use for the name reference
+     */
+    public $nameFromSelect;
 
     /**
      * @var string Empty value to use if the relation is singluar (belongsTo)
@@ -57,6 +63,7 @@ class Relation extends FormWidgetBase
             'nameFrom',
             'descriptionFrom',
             'emptyOption',
+            'nameFromSelect',
         ]);
     }
 
@@ -111,12 +118,27 @@ class Relation extends FormWidgetBase
             // by joining its pivot table. Remove all joins from the query.
             $query->getQuery()->getQuery()->joins = [];
 
-            $treeTraits = ['October\Rain\Database\Traits\NestedTree', 'October\Rain\Database\Traits\SimpleTree'];
-            if (count(array_intersect($treeTraits, class_uses($relationModel))) > 0) {
-                $field->options = $query->listsNested($this->nameFrom, $relationModel->getKeyName());
+            /**
+             * The nameFromSelect config takes precedence over nameFrom.
+             * A virtual column called "selection" will contain the result.
+             */
+            if ($this->nameFromSelect) {
+                $nameFrom = 'selection';
+                $query = $query->select(
+                    DB::raw($this->nameFromSelect . ' AS ' . $nameFrom),
+                    $relationModel->getKeyName()
+                );
             }
             else {
-                $field->options = $query->lists($this->nameFrom, $relationModel->getKeyName());
+                $nameFrom = $this->nameFrom;
+            }
+
+            $treeTraits = ['October\Rain\Database\Traits\NestedTree', 'October\Rain\Database\Traits\SimpleTree'];
+            if (count(array_intersect($treeTraits, class_uses($relationModel))) > 0) {
+                $field->options = $query->listsNested($nameFrom, $relationModel->getKeyName());
+            }
+            else {
+                $field->options = $query->lists($nameFrom, $relationModel->getKeyName());
             }
 
             return $field;
