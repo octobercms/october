@@ -13,7 +13,7 @@
   padding-top: 15px;
   padding-right: 15px;
   z-index: 2000;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
   border: 1px dashed #dbdee0;
 }
 .field-repeater ul.field-repeater-items > li.dragged .repeater-item-remove {
@@ -63,6 +63,14 @@
 .field-repeater li.field-repeater-item .field-repeater-form {
   position: relative;
   top: -7px;
+}
+.field-repeater li.field-repeater-item .field-repeater-form:before,
+.field-repeater li.field-repeater-item .field-repeater-form:after {
+  content: " ";
+  display: table;
+}
+.field-repeater li.field-repeater-item .field-repeater-form:after {
+  clear: both;
 }
 .field-repeater li.field-repeater-item .repeater-item-handle {
   position: absolute;

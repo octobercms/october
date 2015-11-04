@@ -18,9 +18,9 @@
     </div>
 
     <div class="field-repeater-form">
-        <?= $widget->render([
-            'useContainer' => false
-        ]) ?>
+        <?php foreach ($widget->getFields() as $field): ?>
+            <?= $widget->renderField($field) ?>
+        <?php endforeach ?>
     </div>
 
     <input type="hidden" name="<?= $indexName ?>" value="<?= $indexValue ?>" />
