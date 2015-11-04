@@ -3332,7 +3332,7 @@ $.oc={}
 if($.oc.inspector===undefined)
 $.oc.inspector={}
 var Base=$.oc.foundation.base,BaseProto=Base.prototype
-var Surface=function(containerElement,properties,values,inspectorUniqueId,options,parentSurface,group){if(inspectorUniqueId===undefined){throw new Error('Inspector surface unique ID should be defined.')}
+var Surface=function(containerElement,properties,values,inspectorUniqueId,options,parentSurface,group,propertyName){if(inspectorUniqueId===undefined){throw new Error('Inspector surface unique ID should be defined.')}
 this.options=$.extend({},Surface.DEFAULTS,typeof options=='object'&&options)
 this.rawProperties=properties
 this.parsedProperties=$.oc.inspector.engine.processPropertyGroups(properties)
@@ -3343,6 +3343,7 @@ this.originalValues=$.extend(true,{},this.values)
 this.idCounter=1
 this.popupCounter=0
 this.parentSurface=parentSurface
+this.propertyName=propertyName
 this.editors=[]
 this.externalParameterEditors=[]
 this.tableContainer=null
@@ -3370,6 +3371,7 @@ this.originalValues=null
 this.options.onChange=null
 this.options.onPopupDisplayed=null
 this.options.onPopupHidden=null
+this.options.onGetInspectableElement=null
 this.parentSurface=null
 this.groupManager=null
 this.group=null
@@ -3527,6 +3529,13 @@ this.popupCounter++}
 Surface.prototype.popupHidden=function(){this.popupCounter--
 if(this.popupCounter<0){this.popupCounter=0}
 if(this.popupCounter===0&&this.options.onPopupHidden!==null){this.options.onPopupHidden()}}
+Surface.prototype.getInspectableElement=function(){if(this.options.onGetInspectableElement!==null){return this.options.onGetInspectableElement()}}
+Surface.prototype.getPropertyPath=function(propertyName){var result=[],current=this
+result.push(propertyName)
+while(current){if(current.propertyName){result.push(current.propertyName)}
+current=current.parentSurface}
+result.reverse()
+return result.join('.')}
 Surface.prototype.mergeChildSurface=function(surface,mergeAfterRow){var rows=surface.tableContainer.querySelectorAll('table.inspector-fields > tbody > tr')
 surface.tableContainer=this.getRootSurface().tableContainer
 for(var i=rows.length-1;i>=0;i--){var row=rows[i]
@@ -3562,7 +3571,10 @@ if(!externalParameterEditor||!externalParameterEditor.isEditorVisible()){value=t
 if(value===undefined){var editor=this.findPropertyEditor(property.property)
 if(editor){value=editor.getUndefinedValue()}
 else{value=property.default}}
-if(value===$.oc.inspector.removedProperty){continue}}
+if(value===$.oc.inspector.removedProperty){continue}
+if(property.ignoreIfEmpty!==undefined&&(property.ignoreIfEmpty===true||property.ignoreIfEmpty==="true")&&editor){if(editor.isEmptyValue(value)){continue}}
+if(property.ignoreIfDefault!==undefined&&(property.ignoreIfDefault===true||property.ignoreIfDefault==="true")&&editor){if(property.default===undefined){throw new Error('The ignoreIfDefault feature cannot be used without the default property value.')}
+if(this.comparePropertyValues(value,property.default)){continue}}}
 else{value=externalParameterEditor.getValue()
 value='{{ '+value+' }}'}
 result[property.property]=value}
@@ -3571,8 +3583,10 @@ Surface.prototype.getValidValues=function(){var allValues=this.getValues(),resul
 for(var property in allValues){var editor=this.findPropertyEditor(property)
 if(!editor){throw new Error('Cannot find editor for property '+property)}
 var externalEditor=this.findExternalParameterEditor(property)
-if(externalEditor&&externalEditor.isEditorVisible()&&!externalEditor.validate(true)){continue}
-if(!editor.validate(true)){continue}
+if(externalEditor&&externalEditor.isEditorVisible()&&!externalEditor.validate(true)){result[property]=$.oc.inspector.invalidProperty
+continue}
+if(!editor.validate(true)){result[property]=$.oc.inspector.invalidProperty
+continue}
 result[property]=allValues[property]}
 return result}
 Surface.prototype.validate=function(silentMode){this.getGroupManager().unmarkInvalidGroups(this.getRootTable())
@@ -3583,14 +3597,16 @@ else{continue}}
 if(!editor.validate(silentMode)){if(!silentMode){editor.markInvalid()}
 return false}}
 return true}
-Surface.prototype.hasChanges=function(){return!this.comparePropertyValues(this.originalValues,this.values)}
+Surface.prototype.hasChanges=function(originalValues){var values=originalValues!==undefined?originalValues:this.originalValues
+return!this.comparePropertyValues(values,this.values)}
 Surface.prototype.onGroupClick=function(ev){var row=ev.currentTarget
 this.toggleGroup(row)
 $.oc.foundation.event.stop(ev)
 return false}
-Surface.DEFAULTS={enableExternalParameterEditor:false,onChange:null,onPopupDisplayed:null,onPopupHidden:null}
+Surface.DEFAULTS={enableExternalParameterEditor:false,onChange:null,onPopupDisplayed:null,onPopupHidden:null,onGetInspectableElement:null}
 $.oc.inspector.surface=Surface
-$.oc.inspector.removedProperty={removed:true}}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+$.oc.inspector.removedProperty={removed:true}
+$.oc.inspector.invalidProperty={invalid:true}}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var InspectorManager=function(){Base.call(this)
 this.init()}
 InspectorManager.prototype=Object.create(BaseProto)
@@ -3664,6 +3680,7 @@ BaseWrapper.prototype.constructor=Base
 BaseWrapper.prototype.dispose=function(){if(!this.switched){this.$element.removeClass('inspector-open')
 this.setInspectorVisibleFlag(false)
 this.$element.trigger('hidden.oc.inspector')}
+if(this.surface!==null&&this.surface.options.onGetInspectableElement===this.proxy(this.onGetInspectableElement)){this.surface.options.onGetInspectableElement=null}
 this.surface=null
 this.$element=null
 this.title=null
@@ -3681,10 +3698,12 @@ return code}
 BaseWrapper.prototype.isExternalParametersEditorEnabled=function(){return this.$element.closest('[data-inspector-external-parameters]').length>0}
 BaseWrapper.prototype.initSurface=function(containerElement,properties,values){var options=this.$element.data()||{}
 options.enableExternalParameterEditor=this.isExternalParametersEditorEnabled()
+options.onGetInspectableElement=this.proxy(this.onGetInspectableElement)
 this.surface=new $.oc.inspector.surface(containerElement,properties,values,$.oc.inspector.helpers.generateElementUniqueId(this.$element.get(0)),options)}
+BaseWrapper.prototype.isLiveUpdateEnabled=function(){return false}
 BaseWrapper.prototype.createSurfaceAndUi=function(properties,values){}
 BaseWrapper.prototype.setInspectorVisibleFlag=function(value){this.$element.data('oc.inspectorVisible',value)}
-BaseWrapper.prototype.adoptSurface=function(){}
+BaseWrapper.prototype.adoptSurface=function(){this.surface.options.onGetInspectableElement=this.proxy(this.onGetInspectableElement)}
 BaseWrapper.prototype.cleanupAfterSwitch=function(){this.switched=true
 this.dispose()}
 BaseWrapper.prototype.loadValues=function(configuration){var $valuesField=this.getElementValuesInput()
@@ -3697,13 +3716,20 @@ values[normalizedPropertyName]=attribute.value}}
 return values}
 BaseWrapper.prototype.applyValues=function(liveUpdateMode){var $valuesField=this.getElementValuesInput(),values=liveUpdateMode?this.surface.getValidValues():this.surface.getValues()
 if(liveUpdateMode){var existingValues=this.loadValues(this.configuration)
-values=$.extend(existingValues,values)}
+for(var property in values){if(values[property]!==$.oc.inspector.invalidProperty){existingValues[property]=values[property]}}
+var filteredValues={}
+for(var property in existingValues){if(values.hasOwnProperty(property)){filteredValues[property]=existingValues[property]}}
+values=filteredValues}
 if($valuesField.length>0){$valuesField.val(JSON.stringify(values))}
 else{for(var property in values){var value=values[property]
 if($.isArray(value)||$.isPlainObject(value)){throw new Error('Inspector data-property-xxx attributes do not support complex values. Property: '+property)}
 this.$element.attr('data-property-'+property,value)}}
-if(this.surface.hasChanges()||liveUpdateMode){if(!liveUpdateMode){this.$element.trigger('change')}
-else{this.$element.trigger('livechange')}}}
+if(liveUpdateMode){this.$element.trigger('livechange')}
+else{var hasChanges=false
+if(this.isLiveUpdateEnabled()){var currentValues=this.loadValues(this.configuration)
+hasChanges=this.surface.hasChanges(currentValues)}
+else{hasChanges=this.surface.hasChanges()}
+if(hasChanges){this.$element.trigger('change')}}}
 BaseWrapper.prototype.loadConfiguration=function(){var configString=this.$element.data('inspector-config'),result={properties:{},title:null,description:null}
 result.title=this.$element.data('inspector-title')
 result.description=this.$element.data('inspector-description')
@@ -3737,6 +3763,7 @@ BaseWrapper.prototype.triggerHiding=function(){var hidingEvent=$.Event('hiding.o
 this.$element.trigger(hidingEvent,[{values:values}])
 if(hidingEvent.isDefaultPrevented()){return false}
 return true}
+BaseWrapper.prototype.onGetInspectableElement=function(){return this.$element}
 BaseWrapper.DEFAULTS={containerSupported:false}
 $.oc.inspector.wrappers.base=BaseWrapper}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.wrappers.base,BaseProto=Base.prototype
 var InspectorPopup=function($element,surface,options){this.$popoverContainer=null
@@ -3756,7 +3783,8 @@ this.registerPopupHandlers()}
 InspectorPopup.prototype.adoptSurface=function(){this.showPopover()
 this.surface.moveToContainer(this.$popoverContainer.find('[data-surface-container]').get(0))
 this.repositionPopover()
-this.registerPopupHandlers()}
+this.registerPopupHandlers()
+BaseProto.adoptSurface.call(this)}
 InspectorPopup.prototype.cleanupAfterSwitch=function(){this.cleaningUp=true
 this.switched=true
 this.forceClose()}
@@ -3833,7 +3861,8 @@ this.initSurface(this.surfaceContainer,properties,values)
 if(this.isLiveUpdateEnabled()){this.surface.options.onChange=this.proxy(this.onLiveUpdate)}}
 InspectorContainer.prototype.adoptSurface=function(){this.buildUi()
 this.surface.moveToContainer(this.surfaceContainer)
-if(this.isLiveUpdateEnabled()){this.surface.options.onChange=this.proxy(this.onLiveUpdate)}}
+if(this.isLiveUpdateEnabled()){this.surface.options.onChange=this.proxy(this.onLiveUpdate)}
+BaseProto.adoptSurface.call(this)}
 InspectorContainer.prototype.buildUi=function(){var scrollable=this.isScrollable(),head=this.buildHead(),layoutElements=this.buildLayout()
 layoutElements.headContainer.appendChild(head)
 if(scrollable){var scrollpad=this.buildScrollpad()
@@ -4055,6 +4084,8 @@ BaseEditor.prototype.updateDisplayedValue=function(value){}
 BaseEditor.prototype.getPropertyName=function(){return this.propertyDefinition.property}
 BaseEditor.prototype.getUndefinedValue=function(){return this.propertyDefinition.default===undefined?undefined:this.propertyDefinition.default}
 BaseEditor.prototype.throwError=function(errorMessage){throw new Error(errorMessage+' Property: '+this.propertyDefinition.property)}
+BaseEditor.prototype.getInspectableElement=function(){return this.getRootSurface().getInspectableElement()}
+BaseEditor.prototype.isEmptyValue=function(value){return value===undefined||value===null||$.isEmptyObject(value)||(typeof value=='string'&&$.trim(value).length===0)||(Object.prototype.toString.call(value)==='[object Array]'&&value.length===0)}
 BaseEditor.prototype.initValidation=function(){this.validationSet=new $.oc.inspector.validationSet(this.propertyDefinition,this.propertyDefinition.property)}
 BaseEditor.prototype.disposeValidation=function(){this.validationSet.dispose()}
 BaseEditor.prototype.getValueToValidate=function(){return this.inspector.getPropertyValue(this.propertyDefinition.property)}
@@ -4205,11 +4236,20 @@ if(value===undefined){value=this.propertyDefinition.default}
 select.value=value}
 DropdownEditor.prototype.loadDynamicOptions=function(initialization){var currentValue=this.inspector.getPropertyValue(this.propertyDefinition.property),data=this.inspector.getValues(),self=this,$form=$(this.getSelect()).closest('form')
 if(currentValue===undefined){currentValue=this.propertyDefinition.default}
+var callback=function dropdownOptionsRequestDoneClosure(data){self.hideLoadingIndicator()
+self.optionsRequestDone(data,currentValue,true)}
 if(this.propertyDefinition.depends){this.saveDependencyValues()}
 data['inspectorProperty']=this.propertyDefinition.property
 data['inspectorClassName']=this.inspector.options.inspectorClass
 this.showLoadingIndicator()
-$form.request('onInspectableGetOptions',{data:data,}).done(function dropdownOptionsRequestDoneClosure(data){self.optionsRequestDone(data,currentValue,true)}).always(this.proxy(this.hideLoadingIndicator))}
+if(this.triggerGetOptions(data,callback)===false){return}
+$form.request('onInspectableGetOptions',{data:data,}).done(callback).always(this.proxy(this.hideLoadingIndicator))}
+DropdownEditor.prototype.triggerGetOptions=function(values,callback){var $inspectable=this.getInspectableElement()
+if(!$inspectable){return true}
+var optionsEvent=$.Event('dropdownoptions.oc.inspector')
+$inspectable.trigger(optionsEvent,[{values:values,callback:callback,property:this.inspector.getPropertyPath(this.propertyDefinition.property)}])
+if(optionsEvent.isDefaultPrevented()){return false}
+return true}
 DropdownEditor.prototype.saveDependencyValues=function(){this.prevDependencyValues=this.getDependencyValues()}
 DropdownEditor.prototype.getDependencyValues=function(){var result=''
 for(var i=0,len=this.propertyDefinition.depends.length;i<len;i++){var property=this.propertyDefinition.depends[i],value=this.inspector.getPropertyValue(property)
@@ -4407,10 +4447,10 @@ return value.indexOf(checkboxValue)>-1}
 SetEditor.prototype.setPropertyValue=function(checkboxValue,isChecked){var currentValue=this.getNormalizedValue()
 if(currentValue===undefined){currentValue=this.propertyDefinition.default}
 if(!currentValue){currentValue=[]}
-if(isChecked){if(currentValue.indexOf(checkboxValue)===-1){currentValue.push(checkboxValue)}}
-else{var index=currentValue.indexOf(checkboxValue)
-if(index!==-1){currentValue.splice(index,1)}}
-this.inspector.setPropertyValue(this.propertyDefinition.property,this.cleanUpValue(currentValue))
+var resultValue=[]
+for(var itemValue in this.propertyDefinition.items){if(itemValue!==checkboxValue){if(currentValue.indexOf(itemValue)!==-1){resultValue.push(itemValue)}}
+else{if(isChecked){resultValue.push(itemValue)}}}
+this.inspector.setPropertyValue(this.propertyDefinition.property,this.cleanUpValue(resultValue))
 this.setLinkText(this.getLink())}
 SetEditor.prototype.generateSequencedId=function(){return this.inspector.generateSequencedId()}
 SetEditor.prototype.disposeEditors=function(){for(var i=0,len=this.editors.length;i<len;i++){var editor=this.editors[i]
@@ -4684,12 +4724,11 @@ ObjectEditor.prototype.init=function(){this.initControlGroup()
 BaseProto.init.call(this)}
 ObjectEditor.prototype.build=function(){var currentRow=this.containerCell.parentNode,inspectorContainer=document.createElement('div'),options={enableExternalParameterEditor:false,onChange:this.proxy(this.onInspectorDataChange),inspectorClass:this.inspector.options.inspectorClass},values=this.inspector.getPropertyValue(this.propertyDefinition.property)
 if(values===undefined){values={}}
-this.childInspector=new $.oc.inspector.surface(inspectorContainer,this.propertyDefinition.properties,values,this.inspector.getInspectorUniqueId()+'-'+this.propertyDefinition.property,options,this.inspector,this.group)
+this.childInspector=new $.oc.inspector.surface(inspectorContainer,this.propertyDefinition.properties,values,this.inspector.getInspectorUniqueId()+'-'+this.propertyDefinition.property,options,this.inspector,this.group,this.propertyDefinition.property)
 this.inspector.mergeChildSurface(this.childInspector,currentRow)}
 ObjectEditor.prototype.cleanUpValue=function(value){if(value===undefined||typeof value!=='object'){return undefined}
 if(this.propertyDefinition.ignoreIfPropertyEmpty===undefined){return value}
 return this.getValueOrRemove(value)}
-ObjectEditor.prototype.isEmptyValue=function(value){return value===undefined||value===null||$.isEmptyObject(value)||(typeof value=='string'&&$.trim(value).length===0)||(Object.prototype.toString.call(value)==='[object Array]'&&value.length===0)}
 ObjectEditor.prototype.getValueOrRemove=function(value){if(this.propertyDefinition.ignoreIfPropertyEmpty===undefined){return value}
 var targetProperty=this.propertyDefinition.ignoreIfPropertyEmpty,targetValue=value[targetProperty]
 if(this.isEmptyValue(targetValue)){return $.oc.inspector.removedProperty}
@@ -4951,10 +4990,18 @@ $container.removeClass('loading-indicator-container')}
 AutocompleteEditor.prototype.loadDynamicItems=function(){var container=this.getContainer(),data=this.inspector.getValues(),$form=$(container).closest('form')
 $.oc.foundation.element.addClass(container,'loading-indicator-container size-small')
 this.showLoadingIndicator()
+if(this.triggerGetItems(data)===false){return}
 data['inspectorProperty']=this.propertyDefinition.property
 data['inspectorClassName']=this.inspector.options.inspectorClass
 $form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.itemsRequestDone)).always(this.proxy(this.hideLoadingIndicator))}
-AutocompleteEditor.prototype.itemsRequestDone=function(data,currentValue,initialization){if(this.isDisposed()){return}
+AutocompleteEditor.prototype.triggerGetItems=function(values){var $inspectable=this.getInspectableElement()
+if(!$inspectable){return true}
+var itemsEvent=$.Event('autocompleteitems.oc.inspector')
+$inspectable.trigger(itemsEvent,[{values:values,callback:this.proxy(this.itemsRequestDone),property:this.inspector.getPropertyPath(this.propertyDefinition.property)}])
+if(itemsEvent.isDefaultPrevented()){return false}
+return true}
+AutocompleteEditor.prototype.itemsRequestDone=function(data){if(this.isDisposed()){return}
+this.hideLoadingIndicator()
 var loadedItems={}
 if(data.options){for(var i=data.options.length-1;i>=0;i--){loadedItems[data.options[i].value]=data.options[i].title}}
 this.buildAutoComplete(loadedItems)}

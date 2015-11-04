@@ -55,6 +55,8 @@
         if (this.isLiveUpdateEnabled()) {
             this.surface.options.onChange = this.proxy(this.onLiveUpdate)
         }
+
+        BaseProto.adoptSurface.call(this)
     }
 
     InspectorContainer.prototype.buildUi = function() {

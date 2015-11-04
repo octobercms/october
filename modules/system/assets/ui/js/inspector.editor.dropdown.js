@@ -247,6 +247,11 @@
             currentValue = this.propertyDefinition.default
         }
 
+        var callback = function dropdownOptionsRequestDoneClosure(data) {
+            self.hideLoadingIndicator()
+            self.optionsRequestDone(data, currentValue, true)
+        }
+
         if (this.propertyDefinition.depends) {
             this.saveDependencyValues()
         }
@@ -256,13 +261,36 @@
 
         this.showLoadingIndicator()
 
+        if (this.triggerGetOptions(data, callback) === false) {
+            return
+        }
+
         $form.request('onInspectableGetOptions', {
             data: data,
-        }).done(function dropdownOptionsRequestDoneClosure(data) {
-            self.optionsRequestDone(data, currentValue, true)
-        }).always(
+        }).done(callback).always(
             this.proxy(this.hideLoadingIndicator)
         )
+    }
+
+    DropdownEditor.prototype.triggerGetOptions = function(values, callback) {
+        var $inspectable = this.getInspectableElement()
+        if (!$inspectable) {
+            return true
+        }
+
+        var optionsEvent = $.Event('dropdownoptions.oc.inspector')
+
+        $inspectable.trigger(optionsEvent, [{
+            values: values, 
+            callback: callback,
+            property: this.inspector.getPropertyPath(this.propertyDefinition.property)
+        }])
+
+        if (optionsEvent.isDefaultPrevented()) {
+            return false
+        }
+
+        return true
     }
 
     DropdownEditor.prototype.saveDependencyValues = function() {
