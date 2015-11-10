@@ -45,6 +45,11 @@ class RecordFinder extends FormWidgetBase
      */
     public $prompt = 'Click the %s button to find a record';
 
+    /**
+     * @var boolean Show only available related models (true shows all)
+     */
+    public $showAvailable = false;
+
     //
     // Object properties
     //
@@ -227,17 +232,19 @@ class RecordFinder extends FormWidgetBase
         $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':id')", $this->getId());
         $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 
-        // $widget->bindEvent('list.extendQueryBefore', function($query) {
+        if($showAvailable) {
+            $widget->bindEvent('list.extendQueryBefore', function($query) {
 
-        //     /*
-        //      * Where not in the current list of related records
-        //      */
-        //     $existingIds = $this->findExistingRelationIds();
-        //     if (count($existingIds)) {
-        //         $query->whereNotIn('id', $existingIds);
-        //     }
+                /*
+                 * Where not in the current list of related records
+                 */
+                $existingIds = $this->findExistingRelationIds();
+                if (count($existingIds)) {
+                    $query->whereNotIn('id', $existingIds);
+                }
 
-        // });
+            });
+        }
 
         return $widget;
     }
@@ -251,5 +258,19 @@ class RecordFinder extends FormWidgetBase
         $widget = $this->makeWidget('Backend\Widgets\Search', $config);
         $widget->cssClasses[] = 'recordfinder-search';
         return $widget;
+    }
+
+    protected function findExistingRelationIds()
+    {
+        $relatedAlias       = $this->formField->fieldName;
+        $relationDefinition = $this->model->getRelationDefinition($relatedAlias);
+
+        if(array_key_exists('key', $relationDefinition)) {
+            $foreignKey = $relationDefinition['key'];
+        } else {
+            $foreignKey = snake_case($relatedAlias).'_id';
+        }
+
+        return $this->model->lists($foreignKey);
     }
 }
