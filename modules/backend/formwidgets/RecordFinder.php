@@ -84,6 +84,7 @@ class RecordFinder extends FormWidgetBase
             'keyFrom',
             'nameFrom',
             'descriptionFrom',
+            'showAvailable',
         ]);
 
         if (post('recordfinder_flag')) {
