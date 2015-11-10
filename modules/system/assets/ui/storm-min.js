@@ -3654,7 +3654,9 @@ $container.trigger(allowedEvent)
 if(allowedEvent.isDefaultPrevented()){return false}
 return true}
 InspectorManager.prototype.onInspectableClicked=function(ev){var $element=$(ev.currentTarget)
-if(this.createInspector($element)===false){return false}}
+if(this.createInspector($element)===false){return false}
+ev.stopPropagation()
+return false}
 $.oc.inspector.manager=new InspectorManager()
 $.fn.inspector=function(){return this.each(function(){$.oc.inspector.manager.createInspector(this)})}}(window.jQuery);+function($){"use strict";if($.oc.inspector===undefined)
 $.oc.inspector={}
@@ -3690,7 +3692,7 @@ BaseProto.dispose.call(this)}
 BaseWrapper.prototype.init=function(){if(!this.surface){this.loadConfiguration()}
 else{this.adoptSurface()}
 this.$element.addClass('inspector-open')}
-BaseWrapper.prototype.getElementValuesInput=function(){return this.$element.find('input[data-inspector-values]')}
+BaseWrapper.prototype.getElementValuesInput=function(){return this.$element.find('> input[data-inspector-values]')}
 BaseWrapper.prototype.normalizePropertyCode=function(code,configuration){var lowerCaseCode=code.toLowerCase()
 for(var index in configuration){var propertyInfo=configuration[index]
 if(propertyInfo.property.toLowerCase()==lowerCaseCode){return propertyInfo.property}}

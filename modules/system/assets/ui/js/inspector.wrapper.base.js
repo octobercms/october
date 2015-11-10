@@ -97,7 +97,7 @@
     //
 
     BaseWrapper.prototype.getElementValuesInput = function() {
-        return this.$element.find('input[data-inspector-values]')
+        return this.$element.find('> input[data-inspector-values]')
     }
 
     BaseWrapper.prototype.normalizePropertyCode = function(code, configuration) {
