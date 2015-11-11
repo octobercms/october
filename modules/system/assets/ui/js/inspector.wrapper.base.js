@@ -307,7 +307,7 @@
             return
         }
 
-        var $configurationField = this.$element.find('input[data-inspector-config]')
+        var $configurationField = this.$element.find('> input[data-inspector-config]')
 
         if ($configurationField.length > 0) {
             result.properties = this.parseConfiguration($configurationField.val())

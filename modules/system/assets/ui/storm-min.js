@@ -3738,7 +3738,7 @@ result.description=this.$element.data('inspector-description')
 if(configString!==undefined){result.properties=this.parseConfiguration(configString)
 this.configurationLoaded(result)
 return}
-var $configurationField=this.$element.find('input[data-inspector-config]')
+var $configurationField=this.$element.find('> input[data-inspector-config]')
 if($configurationField.length>0){result.properties=this.parseConfiguration($configurationField.val())
 this.configurationLoaded(result)
 return}
