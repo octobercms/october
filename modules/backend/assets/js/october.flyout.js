@@ -38,6 +38,8 @@
         var $cells = this.$el.find('> .layout-cell'),
             $flyout = this.$el.find('> .flyout')
 
+        $('[data-control=layout-sidepanel]').sidePanelTab('hideSidePanel')
+
         this.removeOverlay()
 
         for (var i = 0; i < $cells.length; i++) {

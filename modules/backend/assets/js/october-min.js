@@ -1186,7 +1186,7 @@ $.fn.sidePanelTab=function(option){return this.each(function(){var $this=$(this)
 var data=$this.data('oc.sidePanelTab')
 var options=$.extend({},SidePanelTab.DEFAULTS,$this.data(),typeof option=='object'&&option)
 if(!data)$this.data('oc.sidePanelTab',(data=new SidePanelTab(this,options)))
-if(typeof option=='string')data[option].call($this)})}
+if(typeof option=='string')data[option].call(data)})}
 $.fn.sidePanelTab.Constructor=SidePanelTab
 $.fn.sidePanelTab.noConflict=function(){$.fn.sidePanelTab=old
 return this}
