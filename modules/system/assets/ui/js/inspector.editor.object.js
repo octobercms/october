@@ -121,7 +121,7 @@
     }
 
     ObjectEditor.prototype.validate = function() {
-        var values = values = this.childInspector.getValues()
+        var values = this.childInspector.getValues()
 
         if (this.cleanUpValue(values) === $.oc.inspector.removedProperty) {
             // Ignore any validation rules if the object's required 

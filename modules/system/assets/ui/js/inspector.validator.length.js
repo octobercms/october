@@ -34,8 +34,9 @@
 
         if (this.options.min !== undefined || this.options.max !== undefined) {
             if (this.options.min !== undefined) {
-                if (this.options.min.value === undefined)
+                if (this.options.min.value === undefined) {
                     throw new Error('The min.value parameter is not defined in the Length Inspector validator configuration.')
+                }
 
                 if (length < this.options.min.value) {
                     return this.options.min.message !== undefined ?
