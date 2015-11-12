@@ -147,7 +147,7 @@
         var applyEvent = $.Event('apply.oc.inspector')
 
         $container.trigger(applyEvent)
-        return applyEvent.isDefaultPrevented() ? false : true;
+        return !applyEvent.isDefaultPrevented();
     }
 
     InspectorManager.prototype.containerHidingAllowed = function($container) {
