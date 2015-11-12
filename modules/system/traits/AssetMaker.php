@@ -212,7 +212,7 @@ trait AssetMaker
             return $fileName;
         }
 
-        return $assetPath . '/' . $fileName;
+        return URL::to($assetPath . '/' . $fileName);
     }
 
     /**
