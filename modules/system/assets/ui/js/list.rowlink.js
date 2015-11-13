@@ -27,24 +27,17 @@
 
         tr.each(function(){
 
-            var link = $(this).find(options.target).filter(function(){
-                return !$(this).closest('td').hasClass(options.excludeClass) && !$(this).hasClass(options.excludeClass)
-            }).first()
-
-            if (!link.length) return
-
-            var href = link.attr('href'),
-                onclick = (typeof link.get(0).onclick == "function") ? link.get(0).onclick : null
+            var href = $(this).data('link'),
+                onclick = $(this).data('onclick') ? new Function('object', $(this).data('onclick')) : null
 
             $(this).find('td').not('.' + options.excludeClass).click(function() {
                 if (onclick)
-                    onclick.apply(link.get(0))
+                    onclick.apply(this)
                 else
                     window.location = href;
             })
 
             $(this).addClass(options.linkedClass)
-            link.hide().after(link.html())
         })
 
     }

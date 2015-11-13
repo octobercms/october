@@ -544,7 +544,7 @@ class Lists extends WidgetBase
 
         $columns = array_keys($record->getAttributes());
         $recordOnClick = RouterHelper::parseValues($record, $columns, $this->recordOnClick);
-        return Html::attributes(['onclick' => $recordOnClick]);
+        return $recordOnClick;
     }
 
     /**
