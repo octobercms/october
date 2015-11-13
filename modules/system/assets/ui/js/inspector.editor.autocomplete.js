@@ -119,6 +119,10 @@
     }
 
     AutocompleteEditor.prototype.hideLoadingIndicator = function() {
+        if (this.isDisposed()) {
+            return
+        }
+
         var $container = $(this.getContainer())
 
         $container.loadIndicator('hide')
@@ -135,6 +139,10 @@
         $.oc.foundation.element.addClass(container, 'loading-indicator-container size-small')
         this.showLoadingIndicator()
 
+        if (this.triggerGetItems(data) === false) {
+            return
+        }
+
         data['inspectorProperty'] = this.propertyDefinition.property
         data['inspectorClassName'] = this.inspector.options.inspectorClass
 
@@ -145,7 +153,36 @@
         .always(this.proxy(this.hideLoadingIndicator))
     }
 
-    AutocompleteEditor.prototype.itemsRequestDone = function(data, currentValue, initialization) {
+    AutocompleteEditor.prototype.triggerGetItems = function(values) {
+        var $inspectable = this.getInspectableElement()
+        if (!$inspectable) {
+            return true
+        }
+
+        var itemsEvent = $.Event('autocompleteitems.oc.inspector')
+
+        $inspectable.trigger(itemsEvent, [{
+            values: values, 
+            callback: this.proxy(this.itemsRequestDone),
+            property: this.inspector.getPropertyPath(this.propertyDefinition.property)
+        }])
+
+        if (itemsEvent.isDefaultPrevented()) {
+            return false
+        }
+
+        return true
+    }
+
+    AutocompleteEditor.prototype.itemsRequestDone = function(data) {
+        if (this.isDisposed()) {
+            // Handle the case when the asynchronous request finishes after
+            // the editor is disposed
+            return
+        }
+
+        this.hideLoadingIndicator()
+
         var loadedItems = {}
 
         if (data.options) {

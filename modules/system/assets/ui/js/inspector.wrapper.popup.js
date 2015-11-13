@@ -33,6 +33,8 @@
         this.showPopover()
 
         this.initSurface(this.$popoverContainer.find('[data-surface-container]').get(0), properties, values)
+        this.repositionPopover()
+
         this.registerPopupHandlers()
     }
 
@@ -40,7 +42,11 @@
         this.showPopover()
 
         this.surface.moveToContainer(this.$popoverContainer.find('[data-surface-container]').get(0))
+        this.repositionPopover()
+
         this.registerPopupHandlers()
+
+        BaseProto.adoptSurface.call(this)
     }
 
     InspectorPopup.prototype.cleanupAfterSwitch = function() {
@@ -104,6 +110,8 @@
         this.popoverObj = this.$element.data('oc.popover')
         this.$popoverContainer = this.popoverObj.$container
 
+        this.$popoverContainer.addClass('inspector-temporary-placement')
+
         if (this.options.inspectorCssClass !== undefined) {
             this.$popoverContainer.addClass(this.options.inspectorCssClass)
         }
@@ -116,6 +124,12 @@
 
         this.$popoverContainer.find('[data-inspector-title]').text(this.title)
         this.$popoverContainer.find('[data-inspector-description]').text(this.description)
+    }
+
+    InspectorPopup.prototype.repositionPopover = function() {
+        this.popoverObj.reposition()
+        this.$popoverContainer.removeClass('inspector-temporary-placement')
+        this.$popoverContainer.find('div[data-surface-container] > div').trigger('focus-control')
     }
 
     InspectorPopup.prototype.forceClose = function() {

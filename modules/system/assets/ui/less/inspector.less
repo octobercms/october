@@ -444,6 +444,12 @@ div.control-popover {
             }
         }
     }
+
+    &.inspector-temporary-placement {
+        visibility: hidden;
+        left: 0!important;
+        top: 0!important;
+    }
 }
 
 .inspector-columns-editor {
@@ -593,6 +599,12 @@ div.inspector-dictionary-container {
 .inspector-container {
     .control-scrollpad {
         position: absolute;
+    }
+}
+
+.inspector-field-comment {
+    &:empty {
+        display: none;
     }
 }
 

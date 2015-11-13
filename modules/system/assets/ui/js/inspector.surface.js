@@ -35,7 +35,7 @@
      *   not associated with an element. Inspector uses the ID for storing configuration
      *   related to an element in the document DOM.
      */
-    var Surface = function(containerElement, properties, values, inspectorUniqueId, options, parentSurface, group) {
+    var Surface = function(containerElement, properties, values, inspectorUniqueId, options, parentSurface, group, propertyName) {
         if (inspectorUniqueId === undefined) {
             throw new Error('Inspector surface unique ID should be defined.')
         }
@@ -50,6 +50,7 @@
         this.idCounter = 1
         this.popupCounter = 0
         this.parentSurface = parentSurface
+        this.propertyName = propertyName
 
         this.editors = []
         this.externalParameterEditors = []
@@ -91,6 +92,7 @@
         this.options.onChange = null
         this.options.onPopupDisplayed = null
         this.options.onPopupHidden = null
+        this.options.onGetInspectableElement = null
         this.parentSurface = null
         this.groupManager = null
         this.group = null
@@ -119,6 +121,7 @@
         if (!this.parentSurface) {
             $(this.tableContainer).one('dispose-control', this.proxy(this.dispose))
             $(this.tableContainer).on('click', 'tr.group, tr.control-group', this.proxy(this.onGroupClick))
+            $(this.tableContainer).on('focus-control', this.proxy(this.focusFirstEditor))
         }
     }
 
@@ -126,6 +129,7 @@
         if (!this.parentSurface) {
             $(this.tableContainer).off('dispose-control', this.proxy(this.dispose))
             $(this.tableContainer).off('click', 'tr.group, tr.control-group', this.proxy(this.onGroupClick))
+            $(this.tableContainer).off('focus-control', this.proxy(this.focusFirstEditor))
         }
     }
 
@@ -480,8 +484,6 @@
         var editor = new $.oc.inspector.propertyEditors[type](this, property, cell, group)
 
         if (editor.isGroupedEditor()) {
-//            property.groupedControl = true
-
             $.oc.foundation.element.addClass(dataTable, 'has-groups')
             $.oc.foundation.element.addClass(row, 'control-group')
 
@@ -640,6 +642,31 @@
         }
     }
 
+    Surface.prototype.getInspectableElement = function() {
+        if (this.options.onGetInspectableElement !== null) {
+            return this.options.onGetInspectableElement()
+        }
+    }
+
+    Surface.prototype.getPropertyPath = function(propertyName) {
+        var result = [],
+            current = this
+
+        result.push(propertyName)
+
+        while (current) {
+            if (current.propertyName) {
+                result.push(current.propertyName)
+            }
+
+            current = current.parentSurface
+        }
+
+        result.reverse()
+
+        return result.join('.')
+    }
+
     //
     // Nested surfaces support
     //
@@ -769,9 +796,9 @@
             if (!externalParameterEditor || !externalParameterEditor.isEditorVisible()) {
                 value = this.getPropertyValue(property.property)
 
-                if (value === undefined) {
-                    var editor = this.findPropertyEditor(property.property)
+                var editor = this.findPropertyEditor(property.property)
 
+                if (value === undefined) {
                     if (editor) {
                         value = editor.getUndefinedValue()
                     }
@@ -782,6 +809,22 @@
 
                 if (value === $.oc.inspector.removedProperty) {
                     continue
+                }
+
+                if (property.ignoreIfEmpty !== undefined && (property.ignoreIfEmpty === true || property.ignoreIfEmpty === "true") && editor) {
+                    if (editor.isEmptyValue(value)) {
+                        continue
+                    }
+                }
+
+                if (property.ignoreIfDefault !== undefined && (property.ignoreIfDefault === true || property.ignoreIfDefault === "true") && editor) {
+                    if (property.default === undefined) {
+                        throw new Error('The ignoreIfDefault feature cannot be used without the default property value.')
+                    }
+
+                    if (this.comparePropertyValues(value, property.default)) {
+                        continue
+                    }
                 }
             } 
             else {
@@ -795,7 +838,35 @@
         return result
     }
 
-    Surface.prototype.validate = function() {
+    Surface.prototype.getValidValues = function() {
+        var allValues = this.getValues(),
+            result = {}
+
+        for (var property in allValues) {
+            var editor = this.findPropertyEditor(property)
+
+            if (!editor) {
+                throw new Error('Cannot find editor for property ' + property)
+            }
+
+            var externalEditor = this.findExternalParameterEditor(property)
+            if (externalEditor && externalEditor.isEditorVisible() && !externalEditor.validate(true)) {
+                result[property] = $.oc.inspector.invalidProperty
+                continue
+            }
+
+            if (!editor.validate(true)) {
+                result[property] = $.oc.inspector.invalidProperty
+                continue
+            }
+
+            result[property] = allValues[property]
+        }
+
+        return result
+    }
+
+    Surface.prototype.validate = function(silentMode) {
         this.getGroupManager().unmarkInvalidGroups(this.getRootTable())
 
         for (var i = 0, len = this.editors.length; i < len; i++) {
@@ -803,8 +874,10 @@
                 externalEditor = this.findExternalParameterEditor(editor.propertyDefinition.property)
 
             if (externalEditor && externalEditor.isEditorVisible()) {
-                if (!externalEditor.validate()) {
-                    editor.markInvalid()
+                if (!externalEditor.validate(silentMode)) {
+                    if (!silentMode) {
+                        editor.markInvalid()
+                    }
                     return false
                 }
                 else {
@@ -812,8 +885,10 @@
                 }
             }
 
-            if (!editor.validate()) {
-                editor.markInvalid()
+            if (!editor.validate(silentMode)) {
+                if (!silentMode) {
+                    editor.markInvalid()
+                }
                 return false
             }
         }
@@ -821,8 +896,10 @@
         return true
     }
 
-    Surface.prototype.hasChanges = function() {
-        return !this.comparePropertyValues(this.originalValues, this.values)
+    Surface.prototype.hasChanges = function(originalValues) {
+        var values = originalValues !== undefined ? originalValues : this.originalValues
+
+        return !this.comparePropertyValues(values, this.values)
     }
 
     // EVENT HANDLERS
@@ -844,7 +921,8 @@
         enableExternalParameterEditor: false,
         onChange: null,
         onPopupDisplayed: null,
-        onPopupHidden: null
+        onPopupHidden: null,
+        onGetInspectableElement: null
     }
 
     // REGISTRATION
@@ -852,4 +930,5 @@
 
     $.oc.inspector.surface = Surface
     $.oc.inspector.removedProperty = {removed: true}
+    $.oc.inspector.invalidProperty = {invalid: true}
 }(window.jQuery);

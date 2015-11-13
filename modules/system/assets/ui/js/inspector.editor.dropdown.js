@@ -135,6 +135,24 @@
         return false
     }
 
+    DropdownEditor.prototype.normalizeValue = function(value) {
+        if (!this.propertyDefinition.booleanValues) {
+            return value
+        }
+
+        var str = String(value)
+
+        if (str.length === 0) {
+            return ''
+        }
+
+        if (str === 'true') {
+            return true
+        }
+
+        return false
+    }
+
     //
     // Event handlers
     //
@@ -148,7 +166,7 @@
     DropdownEditor.prototype.onSelectionChange = function() {
         var select = this.getSelect()
 
-        this.inspector.setPropertyValue(this.propertyDefinition.property, select.value, this.initialization)
+        this.inspector.setPropertyValue(this.propertyDefinition.property, this.normalizeValue(select.value), this.initialization)
     }
 
     DropdownEditor.prototype.onInspectorPropertyChanged = function(property, value) {
@@ -191,10 +209,22 @@
         var select = this.getSelect()
 
         if (select) {
-            return select.value
+            return this.normalizeValue(select.value)
         }
 
         return undefined
+    }
+
+    DropdownEditor.prototype.isEmptyValue = function(value) {
+        if (this.propertyDefinition.booleanValues) {
+            if (value === '') {
+                return true
+            }
+
+            return false
+        }
+
+        return BaseProto.isEmptyValue.call(this, value) 
     }
 
     //
@@ -202,9 +232,11 @@
     //
 
     DropdownEditor.prototype.destroyCustomSelect = function() {
-        var select = this.getSelect()
+        var $select = $(this.getSelect())
 
-        $(select).select2('destroy')
+        if ($select.data('select2') != null) {
+            $select.select2('destroy')
+        }
     }
 
     DropdownEditor.prototype.unregisterHandlers = function() {
@@ -245,6 +277,11 @@
             currentValue = this.propertyDefinition.default
         }
 
+        var callback = function dropdownOptionsRequestDoneClosure(data) {
+            self.hideLoadingIndicator()
+            self.optionsRequestDone(data, currentValue, true)
+        }
+
         if (this.propertyDefinition.depends) {
             this.saveDependencyValues()
         }
@@ -254,13 +291,36 @@
 
         this.showLoadingIndicator()
 
+        if (this.triggerGetOptions(data, callback) === false) {
+            return
+        }
+
         $form.request('onInspectableGetOptions', {
             data: data,
-        }).done(function dropdownOptionsRequestDoneClosure(data) {
-            self.optionsRequestDone(data, currentValue, true)
-        }).always(
+        }).done(callback).always(
             this.proxy(this.hideLoadingIndicator)
         )
+    }
+
+    DropdownEditor.prototype.triggerGetOptions = function(values, callback) {
+        var $inspectable = this.getInspectableElement()
+        if (!$inspectable) {
+            return true
+        }
+
+        var optionsEvent = $.Event('dropdownoptions.oc.inspector')
+
+        $inspectable.trigger(optionsEvent, [{
+            values: values, 
+            callback: callback,
+            property: this.inspector.getPropertyPath(this.propertyDefinition.property)
+        }])
+
+        if (optionsEvent.isDefaultPrevented()) {
+            return false
+        }
+
+        return true
     }
 
     DropdownEditor.prototype.saveDependencyValues = function() {
@@ -291,6 +351,10 @@
     }
 
     DropdownEditor.prototype.hideLoadingIndicator = function() {
+        if (this.isDisposed()) {
+            return
+        }
+
         if (!Modernizr.touch) {
             this.indicatorContainer.loadIndicator('hide')
             this.indicatorContainer.loadIndicator('destroy')
@@ -298,6 +362,12 @@
     }
 
     DropdownEditor.prototype.optionsRequestDone = function(data, currentValue, initialization) {
+        if (this.isDisposed()) {
+            // Handle the case when the asynchronous request finishes after
+            // the editor is disposed
+            return
+        }
+
         var select = this.getSelect()
 
         // Without destroying and recreating the custom select
