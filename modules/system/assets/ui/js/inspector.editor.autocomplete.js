@@ -164,7 +164,8 @@
         $inspectable.trigger(itemsEvent, [{
             values: values, 
             callback: this.proxy(this.itemsRequestDone),
-            property: this.inspector.getPropertyPath(this.propertyDefinition.property)
+            property: this.inspector.getPropertyPath(this.propertyDefinition.property),
+            propertyDefinition: this.propertyDefinition
         }])
 
         if (itemsEvent.isDefaultPrevented()) {

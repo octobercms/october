@@ -313,7 +313,8 @@
         $inspectable.trigger(optionsEvent, [{
             values: values, 
             callback: callback,
-            property: this.inspector.getPropertyPath(this.propertyDefinition.property)
+            property: this.inspector.getPropertyPath(this.propertyDefinition.property),
+            propertyDefinition: this.propertyDefinition
         }])
 
         if (optionsEvent.isDefaultPrevented()) {

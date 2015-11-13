@@ -4262,7 +4262,7 @@ $form.request('onInspectableGetOptions',{data:data,}).done(callback).always(this
 DropdownEditor.prototype.triggerGetOptions=function(values,callback){var $inspectable=this.getInspectableElement()
 if(!$inspectable){return true}
 var optionsEvent=$.Event('dropdownoptions.oc.inspector')
-$inspectable.trigger(optionsEvent,[{values:values,callback:callback,property:this.inspector.getPropertyPath(this.propertyDefinition.property)}])
+$inspectable.trigger(optionsEvent,[{values:values,callback:callback,property:this.inspector.getPropertyPath(this.propertyDefinition.property),propertyDefinition:this.propertyDefinition}])
 if(optionsEvent.isDefaultPrevented()){return false}
 return true}
 DropdownEditor.prototype.saveDependencyValues=function(){this.prevDependencyValues=this.getDependencyValues()}
@@ -5018,7 +5018,7 @@ $form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.items
 AutocompleteEditor.prototype.triggerGetItems=function(values){var $inspectable=this.getInspectableElement()
 if(!$inspectable){return true}
 var itemsEvent=$.Event('autocompleteitems.oc.inspector')
-$inspectable.trigger(itemsEvent,[{values:values,callback:this.proxy(this.itemsRequestDone),property:this.inspector.getPropertyPath(this.propertyDefinition.property)}])
+$inspectable.trigger(itemsEvent,[{values:values,callback:this.proxy(this.itemsRequestDone),property:this.inspector.getPropertyPath(this.propertyDefinition.property),propertyDefinition:this.propertyDefinition}])
 if(itemsEvent.isDefaultPrevented()){return false}
 return true}
 AutocompleteEditor.prototype.itemsRequestDone=function(data){if(this.isDisposed()){return}

@@ -2506,6 +2506,7 @@ div.control-popover.inspector-temporary-placement{visibility:hidden;left:0 !impo
 .inspector-columns-editor .items-column{width:250px}
 .inspector-columns-editor .inspector-wrapper{background:#f2f2f2;border-left:2px solid #bdc3c7}
 .inspector-columns-editor .toolbar{padding:20px}
+html.gecko.mac .scroll-wrapper.inspector-wrapper > div{margin-right:17px}
 .inspector-table-list{border-top:1px solid #e2e2e2;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 div.inspector-dictionary-container{border:1px solid #e0e0e0}
 div.inspector-dictionary-container .values{height:300px}
