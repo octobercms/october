@@ -65,6 +65,8 @@
         }
 
         $textarea.focus()
+
+        this.configureComment(popup)
     }
 
     StringListEditor.prototype.handleSubmit = function($form) {

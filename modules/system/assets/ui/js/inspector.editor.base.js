@@ -118,7 +118,7 @@
     BaseEditor.prototype.isEmptyValue = function(value) {
         return value === undefined
             || value === null
-            || $.isEmptyObject(value) 
+            || (typeof value == 'object' && $.isEmptyObject(value) )
             || (typeof value == 'string' && $.trim(value).length === 0)
             || (Object.prototype.toString.call(value) === '[object Array]' && value.length === 0)
     }

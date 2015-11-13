@@ -3568,8 +3568,8 @@ for(var i=0,len=this.parsedProperties.properties.length;i<len;i++){var property=
 if(property.itemType!=='property'){continue}
 var value=null,externalParameterEditor=this.findExternalParameterEditor(property.property)
 if(!externalParameterEditor||!externalParameterEditor.isEditorVisible()){value=this.getPropertyValue(property.property)
-if(value===undefined){var editor=this.findPropertyEditor(property.property)
-if(editor){value=editor.getUndefinedValue()}
+var editor=this.findPropertyEditor(property.property)
+if(value===undefined){if(editor){value=editor.getUndefinedValue()}
 else{value=property.default}}
 if(value===$.oc.inspector.removedProperty){continue}
 if(property.ignoreIfEmpty!==undefined&&(property.ignoreIfEmpty===true||property.ignoreIfEmpty==="true")&&editor){if(editor.isEmptyValue(value)){continue}}
@@ -4027,6 +4027,9 @@ if(property.itemType!==undefined&&property.itemType=='group'&&property.title==gr
 return null}
 $.oc.inspector.engine.processPropertyGroups=function(properties){var fields=[],result={hasGroups:false,properties:[]},groupIndex=0
 for(var i=0,len=properties.length;i<len;i++){var property=properties[i]
+if(property['sortOrder']===undefined){property['sortOrder']=(i+1)*20}}
+properties.sort(function(a,b){return a['sortOrder']-b['sortOrder']})
+for(var i=0,len=properties.length;i<len;i++){var property=properties[i]
 property.itemType='property'
 if(property.group===undefined){fields.push(property)}
 else{var group=findGroup(property.group,fields)
@@ -4087,7 +4090,7 @@ BaseEditor.prototype.getPropertyName=function(){return this.propertyDefinition.p
 BaseEditor.prototype.getUndefinedValue=function(){return this.propertyDefinition.default===undefined?undefined:this.propertyDefinition.default}
 BaseEditor.prototype.throwError=function(errorMessage){throw new Error(errorMessage+' Property: '+this.propertyDefinition.property)}
 BaseEditor.prototype.getInspectableElement=function(){return this.getRootSurface().getInspectableElement()}
-BaseEditor.prototype.isEmptyValue=function(value){return value===undefined||value===null||$.isEmptyObject(value)||(typeof value=='string'&&$.trim(value).length===0)||(Object.prototype.toString.call(value)==='[object Array]'&&value.length===0)}
+BaseEditor.prototype.isEmptyValue=function(value){return value===undefined||value===null||(typeof value=='object'&&$.isEmptyObject(value))||(typeof value=='string'&&$.trim(value).length===0)||(Object.prototype.toString.call(value)==='[object Array]'&&value.length===0)}
 BaseEditor.prototype.initValidation=function(){this.validationSet=new $.oc.inspector.validationSet(this.propertyDefinition,this.propertyDefinition.property)}
 BaseEditor.prototype.disposeValidation=function(){this.validationSet.dispose()}
 BaseEditor.prototype.getValueToValidate=function(){return this.inspector.getPropertyValue(this.propertyDefinition.property)}
@@ -4166,6 +4169,8 @@ return value}
 CheckboxEditor.prototype.getInput=function(){return this.containerCell.querySelector('input')}
 CheckboxEditor.prototype.focus=function(){this.getInput().parentNode.focus()}
 CheckboxEditor.prototype.updateDisplayedValue=function(value){this.getInput().checked=this.normalizeCheckedValue(value)}
+CheckboxEditor.prototype.isEmptyValue=function(value){if(value===0||value==='0'||value==='false'){return true}
+return BaseProto.isEmptyValue.call(this,value)}
 CheckboxEditor.prototype.registerHandlers=function(){var input=this.getInput()
 input.addEventListener('change',this.proxy(this.onInputChange))}
 CheckboxEditor.prototype.unregisterHandlers=function(){var input=this.getInput()
@@ -4211,10 +4216,15 @@ DropdownEditor.prototype.clearOptions=function(select){while(select.firstChild){
 DropdownEditor.prototype.hasOptionValue=function(select,value){var options=select.children
 for(var i=0,len=options.length;i<len;i++){if(options[i].value==value){return true}}
 return false}
+DropdownEditor.prototype.normalizeValue=function(value){if(!this.propertyDefinition.booleanValues){return value}
+var str=String(value)
+if(str.length===0){return''}
+if(str==='true'){return true}
+return false}
 DropdownEditor.prototype.registerHandlers=function(){var select=this.getSelect()
 $(select).on('change',this.proxy(this.onSelectionChange))}
 DropdownEditor.prototype.onSelectionChange=function(){var select=this.getSelect()
-this.inspector.setPropertyValue(this.propertyDefinition.property,select.value,this.initialization)}
+this.inspector.setPropertyValue(this.propertyDefinition.property,this.normalizeValue(select.value),this.initialization)}
 DropdownEditor.prototype.onInspectorPropertyChanged=function(property,value){if(!this.propertyDefinition.depends||this.propertyDefinition.depends.indexOf(property)===-1){return}
 var dependencyValues=this.getDependencyValues()
 if(this.prevDependencyValues===undefined||this.prevDependencyValues!=dependencyValues)
@@ -4225,8 +4235,11 @@ select.value=value}
 DropdownEditor.prototype.getUndefinedValue=function(){if(this.propertyDefinition.default!==undefined){return this.propertyDefinition.default}
 if(this.propertyDefinition.placeholder!==undefined){return undefined}
 var select=this.getSelect()
-if(select){return select.value}
+if(select){return this.normalizeValue(select.value)}
 return undefined}
+DropdownEditor.prototype.isEmptyValue=function(value){if(this.propertyDefinition.booleanValues){if(value===''){return true}
+return false}
+return BaseProto.isEmptyValue.call(this,value)}
 DropdownEditor.prototype.destroyCustomSelect=function(){var $select=$(this.getSelect())
 if($select.data('select2')!=null){$select.select2('destroy')}}
 DropdownEditor.prototype.unregisterHandlers=function(){var select=this.getSelect()
@@ -4352,6 +4365,7 @@ TextEditor.prototype.getPopupContent=function(){return'<form>                   
                 </div>                                                                                  \
                 <div class="modal-body">                                                                \
                     <div class="form-group">                                                            \
+                        <p class="inspector-field-comment"></p>                                         \
                         <textarea class="form-control size-small field-textarea" name="name" value=""/> \
                     </div>                                                                              \
                 </div>                                                                                  \
@@ -4360,11 +4374,15 @@ TextEditor.prototype.getPopupContent=function(){return'<form>                   
                     <button type="button" class="btn btn-default"data-dismiss="popup">Cancel</button>   \
                 </div>                                                                                  \
                 </form>'}
+TextEditor.prototype.configureComment=function(popup){if(!this.propertyDefinition.description){return}
+var descriptionElement=$(popup).find('p.inspector-field-comment')
+descriptionElement.text(this.propertyDefinition.description)}
 TextEditor.prototype.configurePopup=function(popup){var $textarea=$(popup).find('textarea'),value=this.inspector.getPropertyValue(this.propertyDefinition.property)
 if(this.propertyDefinition.placeholder){$textarea.attr('placeholder',this.propertyDefinition.placeholder)}
 if(value===undefined){value=this.propertyDefinition.default}
 $textarea.val(value)
-$textarea.focus()}
+$textarea.focus()
+this.configureComment(popup)}
 TextEditor.prototype.handleSubmit=function($form){var $textarea=$form.find('textarea'),link=this.getLink(),value=$.trim($textarea.val())
 this.inspector.setPropertyValue(this.propertyDefinition.property,value)}
 $.oc.inspector.propertyEditors.text=TextEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.base,BaseProto=Base.prototype
@@ -4765,7 +4783,8 @@ if(this.propertyDefinition.placeholder){$textarea.attr('placeholder',this.proper
 if(value===undefined){value=this.propertyDefinition.default}
 this.checkValueType(value)
 if(value&&value.length){$textarea.val(value.join('\n'))}
-$textarea.focus()}
+$textarea.focus()
+this.configureComment(popup)}
 StringListEditor.prototype.handleSubmit=function($form){var $textarea=$form.find('textarea'),link=this.getLink(),value=$.trim($textarea.val()),arrayValue=[],resultValue=[]
 if(value.length){value=value.replace(/\r\n/g,'\n')
 arrayValue=value.split('\n')

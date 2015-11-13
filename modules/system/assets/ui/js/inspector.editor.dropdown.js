@@ -135,6 +135,24 @@
         return false
     }
 
+    DropdownEditor.prototype.normalizeValue = function(value) {
+        if (!this.propertyDefinition.booleanValues) {
+            return value
+        }
+
+        var str = String(value)
+
+        if (str.length === 0) {
+            return ''
+        }
+
+        if (str === 'true') {
+            return true
+        }
+
+        return false
+    }
+
     //
     // Event handlers
     //
@@ -148,7 +166,7 @@
     DropdownEditor.prototype.onSelectionChange = function() {
         var select = this.getSelect()
 
-        this.inspector.setPropertyValue(this.propertyDefinition.property, select.value, this.initialization)
+        this.inspector.setPropertyValue(this.propertyDefinition.property, this.normalizeValue(select.value), this.initialization)
     }
 
     DropdownEditor.prototype.onInspectorPropertyChanged = function(property, value) {
@@ -191,10 +209,22 @@
         var select = this.getSelect()
 
         if (select) {
-            return select.value
+            return this.normalizeValue(select.value)
         }
 
         return undefined
+    }
+
+    DropdownEditor.prototype.isEmptyValue = function(value) {
+        if (this.propertyDefinition.booleanValues) {
+            if (value === '') {
+                return true
+            }
+
+            return false
+        }
+
+        return BaseProto.isEmptyValue.call(this, value) 
     }
 
     //

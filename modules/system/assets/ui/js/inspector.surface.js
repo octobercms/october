@@ -796,9 +796,9 @@
             if (!externalParameterEditor || !externalParameterEditor.isEditorVisible()) {
                 value = this.getPropertyValue(property.property)
 
-                if (value === undefined) {
-                    var editor = this.findPropertyEditor(property.property)
+                var editor = this.findPropertyEditor(property.property)
 
+                if (value === undefined) {
                     if (editor) {
                         value = editor.getUndefinedValue()
                     }
