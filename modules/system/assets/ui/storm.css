@@ -1222,6 +1222,7 @@ div.control-popover.popover-danger.placement-top > div:after{content:'';display:
 div.control-popover.popover-danger.placement-left > div:after{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-left:8px solid #ab2a1c}
 div.control-popover.popover-danger.placement-right > div:after{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-right:8px solid #ab2a1c}
 div.control-popover.popover-danger .popover-head{background-color:#ab2a1c}
+div.control-popover div.popover-fixed-height{height:300px}
 .popover-highlight{position:relative;z-index:562 !important}
 .popover-highlight:hover,.popover-highlight:active,.popover-highlight:focus{z-index:562 !important}
 div.popover-overlay{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:560}
@@ -1229,6 +1230,7 @@ div.popover-overlay{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba
 body.popover-open .control-popover{overflow:auto;overflow-y:scroll;position:fixed;margin:0;padding:10px;width:100% !important;z-index:609;top:0 !important;right:0 !important;bottom:0 !important;left:0 !important}
 body.popover-open .control-popover > div{padding:0;min-height:100%;-webkit-box-shadow:none;box-shadow:none}
 body.popover-open .control-popover > div:before,body.popover-open .control-popover > div:after{display:none}
+body.popover-open .control-popover div.popover-fixed-height{height:100%;min-height:100%}
 body.popover-open .control-popover .popover-head:before{display:none}
 }
 .control-breadcrumb{font-size:12px;text-transform:uppercase;padding:15px 20px;margin:-20px -20px 20px -20px;background-color:#2b343d}

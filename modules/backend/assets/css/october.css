@@ -228,6 +228,10 @@
 .control-filelist.hero ul li > div.controls > a.control{width:16px;height:23px;background:transparent;overflow:hidden;display:inline-block;color:#ffffff !important;padding:0}
 .control-filelist.hero ul li > div.controls > a.control:before{font-size:17px}
 .control-filelist.hero ul li:hover > div.controls{display:block}
+.control-filelist.hero ul li.separator{position:relative;border-bottom:1px solid #95a5a6;padding:17px 15px 18px 15px}
+.control-filelist.hero ul li.separator:before{z-index:31;content:'';display:block;width:0;height:0;border-left:9.5px solid transparent;border-right:9.5px solid transparent;border-top:11px solid #ffffff;border-bottom-width:0;position:absolute;left:13px;bottom:-8px}
+.control-filelist.hero ul li.separator:after{z-index:30;content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-top:9px solid #95a5a6;border-bottom-width:0;position:absolute;left:14px;bottom:-9px}
+.control-filelist.hero ul li.separator h5{color:#2b3e50;font-size:15px;margin:0;font-weight:600;padding:0}
 .control-filelist.hero ul > li.group > ul > li > a{padding-left:66px}
 .control-filelist.hero.single-level ul li:hover{background:#58b6f7}
 .control-filelist.hero.single-level ul li:hover > a{background:#58b6f7;border-bottom:1px solid #58b6f7 !important}
