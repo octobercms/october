@@ -3891,26 +3891,22 @@ scrollWrapper.setAttribute('class','scroll-wrapper inspector-wrapper')
 scrollpad.appendChild(scrollWrapper)
 scrollWrapper.appendChild(scrollableContainer)
 return{scrollpad:scrollpad,container:scrollableContainer}}
-InspectorContainer.prototype.buildLayout=function(){var layout=document.createElement('div'),headRow=document.createElement('div'),bodyRow=document.createElement('div'),bodyCell=document.createElement('div'),layoutRelative=document.createElement('div')
-layout.setAttribute('class','layout')
-headRow.setAttribute('class','layout-row min-size')
-bodyRow.setAttribute('class','layout-row')
-bodyCell.setAttribute('class','layout-cell')
-layoutRelative.setAttribute('class','layout-relative')
-bodyCell.appendChild(layoutRelative)
-bodyRow.appendChild(bodyCell)
+InspectorContainer.prototype.buildLayout=function(){var layout=document.createElement('div'),headRow=document.createElement('div'),bodyRow=document.createElement('div')
+layout.setAttribute('class','flex-layout-column fill-container')
+headRow.setAttribute('class','flex-layout-item fix')
+bodyRow.setAttribute('class','flex-layout-item stretch relative')
 layout.appendChild(headRow)
 layout.appendChild(bodyRow)
 this.options.container.get(0).appendChild(layout)
 $.oc.foundation.controlUtils.markDisposable(layout)
 this.registerLayoutHandlers(layout)
-return{headContainer:headRow,bodyContainer:layoutRelative}}
+return{headContainer:headRow,bodyContainer:bodyRow}}
 InspectorContainer.prototype.validateAndApply=function(){if(!this.surface.validate()){return false}
 this.applyValues()
 return true}
 InspectorContainer.prototype.isScrollable=function(){return this.options.container.data('inspector-scrollable')!==undefined}
 InspectorContainer.prototype.isLiveUpdateEnabled=function(){return this.options.container.data('inspector-live-update')!==undefined}
-InspectorContainer.prototype.getLayout=function(){return this.options.container.get(0).querySelector('div.layout')}
+InspectorContainer.prototype.getLayout=function(){return this.options.container.get(0).querySelector('div.flex-layout-column')}
 InspectorContainer.prototype.registerLayoutHandlers=function(layout){var $layout=$(layout)
 $layout.one('dispose-control',this.proxy(this.dispose))
 $layout.on('click','span.close',this.proxy(this.onClose))

@@ -2529,6 +2529,7 @@ div.inspector-dictionary-container table.inspector-dictionary-table tbody tr:las
 .inspector-header span:hover{opacity:1;filter:alpha(opacity=100);color:#ffffff}
 .inspector-header .detach{right:26px}
 .inspector-header .close{right:11px;font-size:21px}
+.inspector-container:empty{display:none}
 .inspector-container .control-scrollpad{position:absolute}
 .inspector-field-comment:empty{display:none}
 .select2-dropdown.ocInspectorDropdown{font-size:12px;-webkit-border-radius:0 !important;-moz-border-radius:0 !important;border-radius:0 !important;border:none !important}

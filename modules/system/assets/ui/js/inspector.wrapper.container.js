@@ -125,18 +125,11 @@
     InspectorContainer.prototype.buildLayout = function() {
         var layout = document.createElement('div'),
             headRow = document.createElement('div'),
-            bodyRow = document.createElement('div'),
-            bodyCell = document.createElement('div'),
-            layoutRelative = document.createElement('div')
+            bodyRow = document.createElement('div')
 
-        layout.setAttribute('class', 'layout')
-        headRow.setAttribute('class', 'layout-row min-size')
-        bodyRow.setAttribute('class', 'layout-row')
-        bodyCell.setAttribute('class', 'layout-cell')
-        layoutRelative.setAttribute('class', 'layout-relative')
-
-        bodyCell.appendChild(layoutRelative)
-        bodyRow.appendChild(bodyCell)
+        layout.setAttribute('class', 'flex-layout-column fill-container')
+        headRow.setAttribute('class', 'flex-layout-item fix')
+        bodyRow.setAttribute('class', 'flex-layout-item stretch relative')
 
         layout.appendChild(headRow)
         layout.appendChild(bodyRow)
@@ -148,7 +141,7 @@
   
         return {
             headContainer: headRow,
-            bodyContainer: layoutRelative
+            bodyContainer: bodyRow
         }
     }
 
@@ -170,7 +163,7 @@
     }
 
     InspectorContainer.prototype.getLayout = function() {
-        return this.options.container.get(0).querySelector('div.layout')
+        return this.options.container.get(0).querySelector('div.flex-layout-column')
     }
 
     InspectorContainer.prototype.registerLayoutHandlers = function(layout) {
