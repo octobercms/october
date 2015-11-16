@@ -647,7 +647,10 @@ body.slim-container .layout.layout-container,body.slim-container .layout .layout
 .flex-layout-item.center{-webkit-align-self:center;-moz-align-self:center;-ms-align-self:center;align-self:center}
 .flex-layout-item.relative{position:relative}
 .flex-layout-item.layout-container{max-width:none}
+.flex-layout-item.layout-body-container{padding:20px 20px 0 20px}
+.flex-layout-item.layout-body-container .container-flush{padding-top:0}
 .flex-layout-item.width-100{width:100px}
+.flex-layout-item.width-120{width:120px}
 .flex-layout-item.width-200{width:200px}
 .flex-layout-item.width-300{width:300px}
 body.mainmenu-open{overflow:hidden}

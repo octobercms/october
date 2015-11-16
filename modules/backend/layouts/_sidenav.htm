@@ -7,30 +7,28 @@
         $sideMenuItems = BackendMenu::listSideMenuItems();
     ?>
     <?php if ($sideMenuItems): ?>
-        <div class="layout-cell width-120">
-            <div class="layout-relative">
-                <nav class="layout-sidenav" id="layout-sidenav" data-control="sidenav">
-                    <ul class="nav">
-                        <?php foreach ($sideMenuItems as $sideItemCode => $item): ?>
-                            <li
-                                class="<?= BackendMenu::isSideMenuItemActive($item) ? 'active' : null ?>"
-                                <?= HTML::attributes($item->attributes) ?>
-                            >
-                                <a href="<?= $item->url ?>">
-                                    <i class="<?= $item->icon ?>"></i><?= e(trans($item->label)) ?>
-                                </a>
-                                <span
-                                    class="counter <?= $item->counter === null ? 'empty' : null ?>"
-                                    data-menu-id="<?= e($context->mainMenuCode.'/'.$sideItemCode) ?>"
-                                    <?php if ($item->counterLabel): ?>title="<?= e(trans($item->counterLabel)) ?>"<?php endif ?>
-                                    >
-                                    <?= e($item->counter) ?>
-                                </span>
-                            </li>
-                        <?php endforeach ?>
-                    </ul>
-                </nav>
-            </div>
+        <div class="flex-layout-item relative width-120">
+            <nav class="layout-sidenav" id="layout-sidenav" data-control="sidenav">
+                <ul class="nav">
+                    <?php foreach ($sideMenuItems as $sideItemCode => $item): ?>
+                        <li
+                            class="<?= BackendMenu::isSideMenuItemActive($item) ? 'active' : null ?>"
+                            <?= HTML::attributes($item->attributes) ?>
+                        >
+                            <a href="<?= $item->url ?>">
+                                <i class="<?= $item->icon ?>"></i><?= e(trans($item->label)) ?>
+                            </a>
+                            <span
+                                class="counter <?= $item->counter === null ? 'empty' : null ?>"
+                                data-menu-id="<?= e($context->mainMenuCode.'/'.$sideItemCode) ?>"
+                                <?php if ($item->counterLabel): ?>title="<?= e(trans($item->counterLabel)) ?>"<?php endif ?>
+                                >
+                                <?= e($item->counter) ?>
+                            </span>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+            </nav>
         </div>
     <?php endif ?>
 <?php else: ?>

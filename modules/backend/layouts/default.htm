@@ -5,25 +5,24 @@
     </head>
     <body class="<?= $this->bodyClass ?>">
         <div id="layout-canvas">
-            <div class="layout">
+            <div class="flex-layout-column full-height">
 
                 <!-- Main Menu -->
-                <div class="layout-row min-size">
+                <div class="flex-layout-item fix">
                     <?= $this->makeLayoutPartial('mainmenu') ?>
                 </div>
 
                 <?php $flyoutContent = Block::placeholder('sidepanel-flyout') ?>
 
-                <div class="layout-row">
-                    <div class="layout flyout-container" 
+                <div class="flex-layout-item stretch flex-layout-row flyout-container"
                         <?php if ($flyoutContent): ?>
                             data-control="flyout"
                             data-flyout-width="400"
                             data-flyout-toggle="#layout-sidenav"
                         <?php endif ?>
-                    >
+                >
                         <?php if ($flyoutContent): ?>
-                            <div class="layout-cell flyout"> <?= $flyoutContent ?></div>
+                            <div class="flex-layout-item flex-layout-row fix flyout"> <?= $flyoutContent ?></div>
                         <?php endif ?>
 
                         <!-- Side Navigation -->
@@ -31,33 +30,26 @@
 
                         <!-- Side panel -->
                         <?php if ($sidePanelContent = Block::placeholder('sidepanel')): ?>
-                            <div class="layout-cell width-300 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel">
+                            <div class="flex-layout-item flex-layout-row width-300 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel">
                                 <?= $sidePanelContent ?>
                             </div>
                         <?php endif ?>
 
                         <!-- Content Body -->
-                        <div class="layout-cell layout-container" id="layout-body">
-                            <div class="layout-relative">
-
-                                <div class="layout">
-                                    <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
-                                        <!-- Breadcrumb -->
-                                        <div class="control-breadcrumb">
-                                            <?= $breadcrumbContent ?>
-                                        </div>
-                                    <?php endif ?>
-
-                                    <!-- Content -->
-                                    <div class="layout-row">
-                                        <?= Block::placeholder('body') ?>
+                        <div class="flex-layout-item layout-body-container relative stretch-constrain" id="layout-body">
+                                <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
+                                    <!-- Breadcrumb -->
+                                    <div class="control-breadcrumb flex-layout-item fix">
+                                        <?= $breadcrumbContent ?>
                                     </div>
-                                </div>
+                                <?php endif ?>
 
-                            </div>
+                                <!-- Content -->
+                                <div class="flex-layout-item">
+                                    <?= Block::placeholder('body') ?>
+                                </div>
                         </div>
 
-                    </div>
                 </div>
 
             </div>
