@@ -36,13 +36,13 @@ class Files extends Controller
     /**
      * Output thumbnail, or fall back on the 404 page
      */
-    public function thumb($code = null, $width = 100, $height = 100, $mode = 'auto', $extension = 'auto')
+    public function thumb($code = null, $width = 100, $height = 100, $mode = 'auto', $extension = 'auto', $name='thumb')
     {
         try {
             echo $this->findFileObject($code)->outputThumb(
                 $width,
                 $height,
-                compact('mode','extension')
+                compact('mode','extension','name')
             );
             exit;
         }
