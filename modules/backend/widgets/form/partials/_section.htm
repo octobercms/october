@@ -1,10 +1,10 @@
 <?php
     $type = $tabs->section;
 
-    $containerCss = 'layout-row min-size';
+    $containerCss = 'flex-layout-item flex-layout-column fix';
 
     if ($tabs->stretch) {
-        $containerCss = 'layout-row';
+        $containerCss = 'flex-layout-item flex-layout-column stretch';
     }
 ?>
 <!-- <?= ucfirst($type) ?> Tabs -->
@@ -21,7 +21,7 @@
 
         <div
             id="<?= $this->getId($type.'Tabs') ?>"
-            class="control-tabs <?= $type ?>-tabs layout <?= $tabs->cssClass ?>"
+            class="control-tabs <?= $type ?>-tabs flex-layout-item flex-layout-column  <?= $tabs->cssClass ?>"
             data-control="tab"
             data-slidable>
             <?= $this->makePartial('form_tabs', ['tabs' => $tabs]) ?>

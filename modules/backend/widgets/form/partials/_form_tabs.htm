@@ -6,9 +6,9 @@
     $paneCss = '';
 
     if ($tabs->stretch) {
-        $navCss = 'layout-row min-size';
-        $contentCss = 'layout-row';
-        $paneCss = 'layout-cell';
+        $navCss = 'flex-layout-item fix';
+        $contentCss = 'flex-layout-item flex-layout-column stretch';
+        $paneCss = 'flex-layout-item flex-layout-column';
     }
 ?>
 <div class="<?= $navCss ?>">

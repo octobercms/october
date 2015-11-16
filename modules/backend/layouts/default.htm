@@ -36,7 +36,7 @@
                         <?php endif ?>
 
                         <!-- Content Body -->
-                        <div class="flex-layout-item layout-body-container relative stretch-constrain" id="layout-body">
+                        <div class="flex-layout-item flex-layout-row layout-body-container relative stretch-constrain" id="layout-body">
                                 <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
                                     <!-- Breadcrumb -->
                                     <div class="control-breadcrumb flex-layout-item fix">
@@ -45,7 +45,7 @@
                                 <?php endif ?>
 
                                 <!-- Content -->
-                                <div class="flex-layout-item">
+                                <div class="flex-layout-item flex-layout-column stretch">
                                     <?= Block::placeholder('body') ?>
                                 </div>
                         </div>
