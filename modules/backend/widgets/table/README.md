@@ -161,6 +161,24 @@ Multiple fields are allowed as well:
 
 **Note:** Dependent drop-down should always be defined after their master columns.
 
+### Autocomplete cell processor
+
+The autocomplete column type can load options from the column configuration or with AJAX. Example column configuration:
+
+    color:
+        title: Color
+        type: autocomplete
+        options:
+            red: Red
+            green: Green
+            blue: Blue
+
+If the `options` element is not presented in the configuration, the options will be loaded with AJAX. 
+
+**TODO:** Document the AJAX interface
+
+The editor can have the `dependsOn` property similar to the drop-down editor.
+
 # Server-side table widget (Backend\Widgets\Table)
 
 ## Configuration

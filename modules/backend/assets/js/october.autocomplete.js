@@ -51,7 +51,8 @@
         },
 
         show: function () {
-            var pos = $.extend({}, this.$element.position(), {
+            var offset = this.options.bodyContainer ? this.$element.offset() : this.$element.position(),
+                pos = $.extend({}, offset, {
                 height: this.$element[0].offsetHeight
             }),
             cssOptions = {
@@ -63,10 +64,16 @@
                 cssOptions.width = this.$element[0].offsetWidth
             }
 
-            this.$menu
-                .insertAfter(this.$element)
-                .css(cssOptions)
-                .show()
+            this.$menu.css(cssOptions)
+
+            if (this.options.bodyContainer) {
+                $(document.body).append(this.$menu)
+            }
+            else {
+                this.$menu.insertAfter(this.$element)
+            }
+
+            this.$menu.show()
 
             this.shown = true
             return this
@@ -347,7 +354,8 @@
         items: 8,
         menu: '<ul class="autocomplete dropdown-menu"></ul>',
         item: '<li><a href="#"></a></li>',
-        minLength: 1
+        minLength: 1,
+        bodyContainer: false
     }
 
     $.fn.autocomplete.Constructor = Autocomplete

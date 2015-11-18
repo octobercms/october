@@ -1260,9 +1260,12 @@ this.shown=false
 this.listen()}
 Autocomplete.prototype={constructor:Autocomplete,select:function(){var val=this.$menu.find('.active').attr('data-value')
 this.$element.val(this.updater(val)).change()
-return this.hide()},updater:function(item){return item},show:function(){var pos=$.extend({},this.$element.position(),{height:this.$element[0].offsetHeight}),cssOptions={top:pos.top+pos.height,left:pos.left}
+return this.hide()},updater:function(item){return item},show:function(){var offset=this.options.bodyContainer?this.$element.offset():this.$element.position(),pos=$.extend({},offset,{height:this.$element[0].offsetHeight}),cssOptions={top:pos.top+pos.height,left:pos.left}
 if(this.options.matchWidth){cssOptions.width=this.$element[0].offsetWidth}
-this.$menu.insertAfter(this.$element).css(cssOptions).show()
+this.$menu.css(cssOptions)
+if(this.options.bodyContainer){$(document.body).append(this.$menu)}
+else{this.$menu.insertAfter(this.$element)}
+this.$menu.show()
 this.shown=true
 return this},hide:function(){this.$menu.hide()
 this.shown=false
@@ -1339,7 +1342,7 @@ var old=$.fn.autocomplete
 $.fn.autocomplete=function(option){return this.each(function(){var $this=$(this),data=$this.data('autocomplete'),options=typeof option=='object'&&option
 if(!data)$this.data('autocomplete',(data=new Autocomplete(this,options)))
 if(typeof option=='string')data[option]()})}
-$.fn.autocomplete.defaults={source:[],items:8,menu:'<ul class="autocomplete dropdown-menu"></ul>',item:'<li><a href="#"></a></li>',minLength:1}
+$.fn.autocomplete.defaults={source:[],items:8,menu:'<ul class="autocomplete dropdown-menu"></ul>',item:'<li><a href="#"></a></li>',minLength:1,bodyContainer:false}
 $.fn.autocomplete.Constructor=Autocomplete
 $.fn.autocomplete.noConflict=function(){$.fn.autocomplete=old
 return this}
