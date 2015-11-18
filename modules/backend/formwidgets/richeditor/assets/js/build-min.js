@@ -2111,10 +2111,12 @@ RichEditor.prototype.syncBefore=function(html){var container={html:html}
 this.$textarea.trigger('syncBefore.oc.richeditor',[container])
 var $domTree=$('<div>'+container.html+'</div>')
 $('*',$domTree).removeAttr('data-redactor-tag')
-$domTree.find('span[data-redactor-class="redactor-invisible-space"]').each(function(){$(this).children().insertBefore(this)
-$(this).remove()})
-$domTree.find('span.redactor-invisible-space').each(function(){$(this).children().insertBefore(this)
-$(this).remove()})
+$domTree.find($('span[data-redactor-class="redactor-invisible-space"]').get().reverse()).each(function(){$($(this).children().html()).insertBefore(this);
+$(this).remove();
+})
+$domTree.find($('span.redactor-invisible-space').get().reverse()).each(function(){$($(this).children().html()).insertBefore(this);
+$(this).remove();
+});
 $domTree.find('[data-video], [data-audio]').each(function(){$(this).removeAttr('contenteditable data-ui-block tabindex')})
 $domTree.find('div.oc-figure-controls').remove()
 return $domTree.html()}
