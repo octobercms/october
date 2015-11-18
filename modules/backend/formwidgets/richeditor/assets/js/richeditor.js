@@ -43,7 +43,7 @@
         fullpage: false
     }
 
-    RichEditor.prototype.init = function (){
+    RichEditor.prototype.init = function() {
         var self = this;
 
         this.$el.one('dispose-control', this.proxy(this.dispose))
@@ -88,7 +88,7 @@
         }
 
         redactorOptions.plugins = ['fullscreen', 'figure', 'table', 'pagelinks', 'mediamanager']
-        redactorOptions.buttons = ['html', 'formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
+        redactorOptions.buttons = ['html', 'formatting', 'bold', 'italic', 'alignment', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
 
         this.$textarea.redactor(redactorOptions)
 
@@ -193,7 +193,7 @@
         var $domTree = $('<div>'+container.html+'</div>')
 
         // This code removes Redactor-specific attributes and tags from the code.
-        // It seems to be a known problem with Redactor, try googling for 
+        // It seems to be a known problem with Redactor, try googling for
         // "data-redactor-tag" or "redactor-invisible-space" (with quotes)
         $('*', $domTree).removeAttr('data-redactor-tag')
 
@@ -217,7 +217,7 @@
     }
 
     RichEditor.prototype.onShowFigureToolbar = function($figure, $toolbar) {
-        // Deal with the case when the toolbar top has negative 
+        // Deal with the case when the toolbar top has negative
         // value
         var toolbarTop = $figure.position().top - $toolbar.height() - 10
 
