@@ -116,7 +116,14 @@ class Relation extends FormWidgetBase
                 $field->options = $query->listsNested($this->nameFrom, $relationModel->getKeyName());
             }
             else {
-                $field->options = $query->lists($this->nameFrom, $relationModel->getKeyName());
+                if ($query->getModel()->hasGetMutator($this->nameFrom)) {
+                    $results = $query->get();
+                    foreach($results as $model) {
+                        $field->options[$model->id] = $model->{$this->nameFrom};
+                    }
+                } else {
+                    $field->options = $query->lists($this->nameFrom, $relationModel->getKeyName());   
+                }
             }
 
             return $field;
