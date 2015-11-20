@@ -31,6 +31,10 @@
         $('.fix-button-container', this.$el).append(this.$fixButton)
 
         this.$sideNavItems.click(function(){
+            if ($(this).data('no-side-panel')) {
+                return
+            }
+
             if (Modernizr.touch && $(window).width() < self.options.breakpoint) {
                 if ($(this).data('menu-item') == self.visibleItemId && self.panelVisible) {
                     self.hideSidePanel()
@@ -46,11 +50,13 @@
 
         if (!Modernizr.touch) {
             self.$sideNav.mouseenter(function(){
-               if ($(window).width() < self.options.breakpoint || !self.panelFixed()) {
+                // TODO: The side panel opens regardless of whether
+                // the hovered item has a side panel (data-no-side-panel attribute).
+                if ($(window).width() < self.options.breakpoint || !self.panelFixed()) {
                     self.panelOpenTimeout = setTimeout(function () {
                         self.displaySidePanel()
                     }, self.tabOpenDelay)
-               }
+                }
             })
 
             self.$sideNav.mouseleave(function(){
@@ -63,6 +69,10 @@
 
             self.$sideNavItems.mouseenter(function(){
                 if ($(window).width() < self.options.breakpoint || !self.panelFixed()) {
+                    if ($(this).data('no-side-panel')) {
+                        return
+                    }
+
                     var _this = this
                     self.tabOpenTimeout = setTimeout(function () {
                         self.displayTab(_this)
@@ -73,7 +83,6 @@
             self.$sideNavItems.mouseleave(function (){
                 clearTimeout(self.tabOpenTimeout)
             })
-
 
             $(window).resize(function() {
                 self.updatePanelPosition()

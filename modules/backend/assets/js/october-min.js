@@ -1133,7 +1133,8 @@ this.$fixButton=$('<a href="#" class="fix-button"><i class="icon-thumb-tack"></i
 this.$fixButton.click(function(){self.fixPanel()
 return false})
 $('.fix-button-container',this.$el).append(this.$fixButton)
-this.$sideNavItems.click(function(){if(Modernizr.touch&&$(window).width()<self.options.breakpoint){if($(this).data('menu-item')==self.visibleItemId&&self.panelVisible){self.hideSidePanel()
+this.$sideNavItems.click(function(){if($(this).data('no-side-panel')){return}
+if(Modernizr.touch&&$(window).width()<self.options.breakpoint){if($(this).data('menu-item')==self.visibleItemId&&self.panelVisible){self.hideSidePanel()
 return}else
 self.displaySidePanel()}
 self.displayTab(this)
@@ -1141,7 +1142,8 @@ return false})
 if(!Modernizr.touch){self.$sideNav.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){self.panelOpenTimeout=setTimeout(function(){self.displaySidePanel()},self.tabOpenDelay)}})
 self.$sideNav.mouseleave(function(){clearTimeout(self.panelOpenTimeout)})
 self.$el.mouseleave(function(){self.hideSidePanel()})
-self.$sideNavItems.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){var _this=this
+self.$sideNavItems.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){if($(this).data('no-side-panel')){return}
+var _this=this
 self.tabOpenTimeout=setTimeout(function(){self.displayTab(_this)},self.tabOpenDelay)}})
 self.$sideNavItems.mouseleave(function(){clearTimeout(self.tabOpenTimeout)})
 $(window).resize(function(){self.updatePanelPosition()

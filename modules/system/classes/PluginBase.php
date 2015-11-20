@@ -109,7 +109,12 @@ class PluginBase extends ServiceProviderBase
      */
     public function registerPermissions()
     {
-        return [];
+        $thisClass = get_class($this);
+
+        $configuration = $this->getConfigurationFromYaml();
+        if (array_key_exists('permissions', $configuration)) {
+            return $configuration['permissions'];
+        }
     }
 
     /**
