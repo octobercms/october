@@ -221,6 +221,7 @@ this.navigation.pageIndex=newPageIndex}
 this.recordsAddedOrDeleted++
 var keyColumn=this.options.keyColumn,recordData={},self=this
 recordData[keyColumn]=-1*this.recordsAddedOrDeleted
+this.$el.trigger('oc.tableNewRow',[recordData])
 this.dataSource.createRecord(recordData,placement,relativeToKey,this.navigation.getPageFirstRowOffset(),this.options.recordsPerPage,function onAddRecordDataTableSuccess(records,totalCount){self.buildDataTable(records,totalCount)
 var row=self.findRowByKey(recordData[keyColumn])
 if(!row)
