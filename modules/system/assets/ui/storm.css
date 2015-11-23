@@ -2538,6 +2538,7 @@ div.inspector-dictionary-container table.inspector-dictionary-table tbody tr:las
 .select2-dropdown.ocInspectorDropdown > .select2-results > .select2-results__options{font-size:12px}
 .select2-dropdown.ocInspectorDropdown > .select2-results > li > div{padding:5px 12px 5px}
 .select2-dropdown.ocInspectorDropdown > .select2-results li.select2-no-results{padding:5px 12px 5px}
+.select2-dropdown.ocInspectorDropdown > .select2-results li > i,.select2-dropdown.ocInspectorDropdown > .select2-results li > img{margin-left:6px}
 .select2-dropdown.ocInspectorDropdown .select2-search{min-height:26px;position:relative;border-bottom:1px solid #b2b9be}
 .select2-dropdown.ocInspectorDropdown .select2-search:after{position:absolute;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f002";right:10px;top:10px;color:#95a5a6}
 .select2-dropdown.ocInspectorDropdown .select2-search input.select2-search__field{min-height:26px;background:transparent !important;padding-left:12px;padding-right:12px;border:none}

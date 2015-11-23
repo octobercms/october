@@ -4192,8 +4192,15 @@ if(!this.dynamicOptions){this.loadStaticOptions(select)}
 this.containerCell.appendChild(select)
 this.initCustomSelect()
 if(this.dynamicOptions){this.loadDynamicOptions(true)}}
+DropdownEditor.prototype.formatSelectOption=function(state){if(!state.id)
+return state.text;var option=state.element,iconClass=option.getAttribute('data-icon'),imageSrc=option.getAttribute('data-image')
+if(iconClass){return'<i class="select-icon '+iconClass+'"></i> '+state.text}
+if(imageSrc){return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+state.text}
+return state.text}
 DropdownEditor.prototype.createOption=function(select,title,value){var option=document.createElement('option')
-if(title!==null){option.textContent=title}
+if(title!==null){if(!$.isArray(title)){option.textContent=title}else{if(title[1].indexOf('.')!==-1){option.setAttribute('data-image',title[1])}
+else{option.setAttribute('data-icon',title[1])}
+option.textContent=title[0]}}
 if(value!==null){option.value=value}
 select.appendChild(option)}
 DropdownEditor.prototype.createOptions=function(select,options){for(var value in options){this.createOption(select,options[value],value)}}
@@ -4201,6 +4208,9 @@ DropdownEditor.prototype.initCustomSelect=function(){var select=this.getSelect()
 if(Modernizr.touch){return}
 var options={dropdownCssClass:'ocInspectorDropdown'}
 if(this.propertyDefinition.placeholder!==undefined){options.placeholder=this.propertyDefinition.placeholder}
+options.templateResult=this.formatSelectOption
+options.templateSelection=this.formatSelectOption
+options.escapeMarkup=function(m){return m}
 $(select).select2(options)
 if(!Modernizr.touch){this.indicatorContainer=$('.select2-container',this.containerCell)
 this.indicatorContainer.addClass('loading-indicator-container size-small')}}
