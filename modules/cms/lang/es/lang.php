@@ -25,6 +25,7 @@ return [
         ],
         'settings_menu'              => 'Tema para el Front-end',
         'settings_menu_description'  => 'Previsualiza la lista de temas instalados y selecciona un tema activo.',
+        'default_tab' => 'Propiedades',		
         'name_label'                 => 'Nombre',
         'name_create_placeholder'    => 'Nombre del nuevo tema',
         'author_label'               => 'Autor',
@@ -38,8 +39,10 @@ return [
         'dir_name_label'             => 'Nombre del directorio',
         'dir_name_create_label'      => 'El directorio de destino del tema',
         'theme_label'                => 'Tema',
+        'theme_title' => 'Temas',		
         'activate_button'            => 'Activar',
         'active_button'              => 'Activar',
+        'customize_theme' => 'Personalizar Tema',		
         'customize_button'           => 'Personalizar',
         'duplicate_button'           => 'Duplicar',
         'duplicate_title'            => 'Duplicar tema',
@@ -75,6 +78,7 @@ return [
         'dir_name_invalid'           => 'El nombre sólo puede contener dígitos, letras latinas y los siguientes símbolos: _-',
         'dir_name_taken'             => 'Este directorio ya existe.',
         'find_more_themes'           => 'Buscar nuevos temas',
+        'saving' => 'Salvando tema...',		
         'return'                     => 'Volver a la lista de temas',
     ],
     'maintenance' => [
@@ -87,11 +91,11 @@ return [
         'not_found_name' => "La página ':name' no se ha encontrado",
         'not_found' => [
             'label' => 'Página no encontrada',
-            'help'  => 'La página solicitada no se ha encontrado.',
+            'help'  => 'La página solicitada no se ha encontrado.'
         ],
         'custom_error' => [
             'label' => 'Error',
-            'help'  => 'Lo sentimos, pero algo salió mal y la página no se puede mostrar.',
+            'help'  => 'Lo sentimos, pero algo salió mal y la página no se puede mostrar.'
         ],
         'menu_label'              => 'Páginas',
         'unsaved_label'           => 'Página(s) sin guardar',
@@ -109,7 +113,7 @@ return [
         'no_list_records'         => 'No se ecnontraron diseños',
         'new'                     => 'Nuevo diseño',
         'delete_confirm_multiple' => 'Realmente quiere borrar los diseños seleccionados?',
-        'delete_confirm_single'   => 'Realmente quiere borrar este diseño?',
+        'delete_confirm_single'   => 'Realmente quiere borrar este diseño?'
     ],
     'partial' => [
         'not_found_name'          => "El nombre parcial ':name' no se encuentra.",
@@ -119,7 +123,7 @@ return [
         'no_list_records'         => 'No se encontraron parciales',
         'delete_confirm_multiple' => 'Realmente quiere borrar los parciales seleccionados?',
         'delete_confirm_single'   => 'Realmente quiere borrar este parcial?',
-        'new'                     => 'Nuevo parcial',
+        'new'                     => 'Nuevo parcial'
     ],
     'content' => [
         'not_found_name'          => "El contenido del archivo ':name' no se encuentra.",
@@ -128,18 +132,18 @@ return [
         'no_list_records'         => 'No se encuentra el conteinod de los archivos',
         'delete_confirm_multiple' => 'Realmente desea borrar los contenidos seleccionados de los archivos o directorios?',
         'delete_confirm_single'   => 'Realmente desea borrar el contenido de este archivo?',
-        'new'                     => 'Nuevo contenido de archivo',
+        'new'                     => 'Nuevo contenido de archivo'
     ],
     'ajax_handler' => [
         'invalid_name' => 'Manejador de AJAX inválido: :name.',
-        'not_found'    => "El manejador de AJAX ':name' no se encuentra.",
+        'not_found'    => "El manejador de AJAX ':name' no se encuentra."
     ],
     'cms' => [
-        'menu_label' => 'Gestión',
+        'menu_label' => 'Gestión'
     ],
     'sidebar' => [
         'add'    => 'Agregar',
-        'search' => 'Buscar...',
+        'search' => 'Buscar...'
     ],
     'editor' => [
         'settings'         => 'Configuración',
@@ -159,10 +163,11 @@ return [
         'hidden'           => 'Oculto',
         'hidden_comment'   => 'A las páginas ocultas sólo pueden acceder los usuarios del back-end que se encuentren logueados.',
         'enter_fullscreen' => 'Ingresar en el modo pantalla completa',
-        'exit_fullscreen'  => 'Salir de pantalla completa',
+        'exit_fullscreen'  => 'Salir de pantalla completa'
     ],
     'asset' => [
         'menu_label'                   => 'Assets',
+        'unsaved_label' => 'Asset(s) sin salvar',		
         'drop_down_add_title'          => 'Añadir...',
         'drop_down_operation_title'    => 'Acción...',
         'upload_files'                 => 'Subir archivo(s)',
@@ -200,7 +205,7 @@ return [
         'error_moving_file'            => 'Error moviendo archivo :file',
         'error_moving_directory'       => 'Error moviendo el directorio :dir',
         'error_deleting_directory'     => 'Error borrando el directorio original :dir',
-        'path'                         => 'Ruta',
+        'path'                         => 'Ruta'
     ],
     'component' => [
         'menu_label'         => 'Componentes',
@@ -212,12 +217,12 @@ return [
         'invalid_request'    => 'La plantilla no puede ser guardada porque tiene datos inválidos.',
         'no_records'         => 'No se encontraron componentes',
         'not_found'          => "El componente ':name' no se encuentra.",
-        'method_not_found'   => "El componente ':name' no contiene un método ':method'.",
+        'method_not_found'   => "El componente ':name' no contiene un método ':method'."
     ],
     'template' => [
         'invalid_type' => 'Tipo de plantilla Desconocido.',
         'not_found'    => 'No se encontró la plantilla solicitada.',
-        'saved'        => 'La plantilla se ha guardado correctamente.',
+        'saved'        => 'La plantilla se ha guardado correctamente.'
     ],
     'permissions' => [
         'name'            => 'Cms',
@@ -227,15 +232,20 @@ return [
         'manage_layouts'  => 'Gestionar diseños',
         'manage_partials' => 'Gestionar parciales',
         'manage_themes'   => 'Gestionar plantilla',
+        'manage_media' => 'Gestionar media'		
     ],
+    'mediafinder' => [
+        'default_prompt' => 'Haga clic en el botón de %s para buscar un elemento multimedia'
+    ],	
     'media' => [
-        'invalid_path'               => "Invalid file path specified: ':path'.",
+        'invalid_path'               => "Ruta de archivo especificada no válida: ':path'.",
         'menu_label'                 => 'Media',
         'upload'                     => 'Subir',
         'move'                       => 'Mover',
         'delete'                     => 'Eliminar',
         'add_folder'                 => 'Nueva carpeta',
         'search'                     => 'Buscar',
+        'display' => 'Mostrar',		
         'filter_everything'          => 'Todo',
         'filter_images'              => 'Imágenes',
         'filter_video'               => 'Vídeos',
@@ -255,6 +265,7 @@ return [
         'multiple_selected'          => 'Se han selecciondo varios elementos.',
         'uploading_file_num'         => 'Subiendo :number archivo(s)...',
         'uploading_complete'         => 'Subida completada',
+        'uploading_error' => 'Error al subir',		
         'order_by'                   => 'Ordenar por',
         'folder'                     => 'Carpeta',
         'no_files_found'             => 'No se han encontrado archivos.',
@@ -285,6 +296,6 @@ return [
         'selection_mode'             => 'Modo selección',
         'resize_image'               => 'Redimensionar imagen',
         'image_size'                 => 'Tamaño de la imagen:',
-        'selected_size'              => 'Selección:',
-    ],
+        'selected_size'              => 'Selección:'
+    ]
 ];
