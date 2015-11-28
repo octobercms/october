@@ -745,7 +745,8 @@ this.scrollbarSize=null
 this.updateScrollbarTimer=null
 this.dragOffset=null
 Base.call(this)
-this.init()}
+this.init()
+$.oc.foundation.controlUtils.markDisposable(element)}
 Scrollpad.prototype=Object.create(BaseProto)
 Scrollpad.prototype.constructor=Scrollpad
 Scrollpad.prototype.dispose=function(){this.unregisterHandlers()
@@ -771,10 +772,12 @@ this.scrollbarElement=el.querySelector('.scrollpad-scrollbar')
 this.dragHandleElement=el.querySelector('.scrollpad-scrollbar > .drag-handle')}
 Scrollpad.prototype.registerHandlers=function(){this.$el.on('mouseenter',this.proxy(this.onMouseEnter))
 this.$el.on('mouseleave',this.proxy(this.onMouseLeave))
+this.$el.one('dispose-control',this.proxy(this.dispose))
 this.scrollContentElement.addEventListener('scroll',this.proxy(this.onScroll))
 this.dragHandleElement.addEventListener('mousedown',this.proxy(this.onStartDrag))}
 Scrollpad.prototype.unregisterHandlers=function(){this.$el.off('mouseenter',this.proxy(this.onMouseEnter))
 this.$el.off('mouseleave',this.proxy(this.onMouseLeave))
+this.$el.off('dispose-control',this.proxy(this.dispose))
 this.scrollContentElement.removeEventListener('scroll',this.proxy(this.onScroll))
 this.dragHandleElement.removeEventListener('mousedown',this.proxy(this.onStartDrag))
 document.removeEventListener('mousemove',this.proxy(this.onMouseMove))
