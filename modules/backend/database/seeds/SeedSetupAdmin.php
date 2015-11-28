@@ -40,7 +40,7 @@ class SeedSetupAdmin extends Seeder
             'first_name'            => static::$firstName,
             'last_name'             => static::$lastName,
             'permissions'           => [],
-            'is_super_user'         => true,
+            'is_superuser'         => true,
             'is_activated'          => true
         ]);
 
