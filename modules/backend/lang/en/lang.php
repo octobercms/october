@@ -130,6 +130,8 @@ return [
         'pagination' => 'Displayed records: :from-:to of :total',
         'prev_page' => 'Previous page',
         'next_page' => 'Next page',
+        'refresh' => 'Refresh',
+        'updating' => 'Updating...',
         'loading' => 'Loading...',
         'setup_title' => 'List Setup',
         'setup_help' => 'Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.',
@@ -205,6 +207,9 @@ return [
         'delete_row' => 'Delete Row',
         'concurrency_file_changed_title' => 'File was changed',
         'concurrency_file_changed_description' => "The file you're editing has been changed on disk by another user. You can either reload the file and lose your changes or override the file on the disk."
+    ],
+    'recordfinder' => [
+        'find_record' => 'Find Record'
     ],
     'relation' => [
         'missing_config' => "Relation behavior does not have any configuration for ':config'.",

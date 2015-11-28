@@ -172,7 +172,7 @@
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default"data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
                 </div>                                                                                  \
                 </form>'
     }
@@ -338,7 +338,8 @@
         if (value.length === 0) {
             value = '[No title]'
             $.oc.foundation.element.addClass(selectedRow, 'disabled')
-        } else {
+        }
+        else {
             $.oc.foundation.element.removeClass(selectedRow, 'disabled')
         }
 
@@ -415,7 +416,8 @@
 
         if (newSelectedRow) {
             this.selectRow(newSelectedRow)
-        } else {
+        }
+        else {
             tbody.appendChild(this.buildEmptyRow())
         }
 

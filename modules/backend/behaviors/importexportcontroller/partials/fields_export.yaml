@@ -37,7 +37,7 @@ fields:
     format_escape:
         label: backend::lang.import_export.escape_char
         span: auto
-        default: '\\'
+        default: '\'
         trigger:
             action: show
             condition: value[custom]

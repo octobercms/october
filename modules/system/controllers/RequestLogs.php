@@ -40,7 +40,12 @@ class RequestLogs extends Controller
         SettingsManager::setContext('October.System', 'request_logs');
     }
 
-    public function onEmptyLog()
+    public function index_onRefresh()
+    {
+        return $this->listRefresh();
+    }
+
+    public function index_onEmptyLog()
     {
         RequestLog::truncate();
         Flash::success(Lang::get('system::lang.request_log.empty_success'));

@@ -140,9 +140,11 @@
     }
 
     FileUpload.prototype.onUploadAddedFile = function(file) {
+        var $object = $(file.previewElement).data('dzFileObject', file)
+
         // Remove any exisiting objects for single variety
         if (!this.options.isMulti) {
-            $(file.previewElement).siblings().remove()
+            this.removeFileFromElement($object.siblings())
         }
 
         this.evalIsPopulated()
@@ -189,6 +191,22 @@
                 formData.append(field.name, field.value)
             })
         }
+    }
+
+    FileUpload.prototype.removeFileFromElement = function($element) {
+        var self = this
+
+        $element.each(function() {
+            var $el = $(this),
+                obj = $el.data('dzFileObject')
+
+            if (obj) {
+                self.dropzone.removeFile(obj)
+            }
+            else {
+                $el.remove()
+            }
+        })
     }
 
     //
@@ -251,7 +269,7 @@
                 $object.addClass('is-loading')
             })
             .one('ajaxDone', function(){
-                $object.remove()
+                self.removeFileFromElement($object)
                 self.evalIsPopulated()
             })
             .request()
@@ -293,7 +311,7 @@
 
         // Remove any exisiting objects for single variety
         if (!this.options.isMulti) {
-            $target.siblings().remove()
+            this.removeFileFromElement($target.siblings())
         }
 
         $target.ocPopover({
@@ -308,7 +326,7 @@
         var $container = $target.data('oc.popover').$container
         $container.one('click', '[data-remove-file]', function() {
             $target.data('oc.popover').hide()
-            $target.remove()
+            self.removeFileFromElement($target)
             self.evalIsPopulated()
         })
     }

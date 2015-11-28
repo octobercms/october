@@ -44,6 +44,8 @@ class CmsObjectQueryTest extends TestCase
     {
         // Default theme: test
         $pages = Page::lists('baseFileName');
+        sort($pages);
+
         $this->assertEquals([
             "404",
             "a/a-page",
@@ -54,13 +56,13 @@ class CmsObjectQueryTest extends TestCase
             "blog-post",
             "code-namespaces",
             "component-custom-render",
+            "component-partial",
             "component-partial-nesting",
             "component-partial-override",
-            "component-partial",
             "cycle-test",
             "index",
-            "no-component-class",
             "no-component",
+            "no-component-class",
             "no-layout",
             "no-partial",
             "optional-full-php-tags",
@@ -75,6 +77,8 @@ class CmsObjectQueryTest extends TestCase
         ], $pages);
 
         $layouts = Layout::lists('baseFileName');
+        sort($layouts);
+
         $this->assertEquals([
             "a/a-layout",
             "ajax-test",
