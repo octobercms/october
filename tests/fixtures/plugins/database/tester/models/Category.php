@@ -8,6 +8,11 @@ class Category extends Model
      * @var string The database table used by the model.
      */
     public $table = 'database_tester_categories';
+
+    public function getCustomNameAttribute()
+    {
+        return $this->name.' (#'.$this->id.')';
+    }
 }
 
 
