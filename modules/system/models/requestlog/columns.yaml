@@ -6,6 +6,7 @@ columns:
     status_code:
         label: system::lang.request_log.status_code
         searchable: yes
+        width: 100px
 
     url:
         label: system::lang.request_log.url
@@ -14,3 +15,4 @@ columns:
 
     count:
         label: system::lang.request_log.count
+        width: 150px

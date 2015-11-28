@@ -6,6 +6,8 @@ columns:
     created_at:
         label: backend::lang.access_log.created_at
         searchable: yes
+        type: timetense
+        width: 160px
 
     login:
         label: backend::lang.access_log.login

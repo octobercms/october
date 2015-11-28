@@ -6,10 +6,13 @@ columns:
     id:
         label: system::lang.event_log.id
         searchable: yes
+        width: 75px
 
     created_at:
         label: system::lang.event_log.created_at
         searchable: yes
+        width: 160px
+        type: timetense
 
     message:
         label: system::lang.event_log.message

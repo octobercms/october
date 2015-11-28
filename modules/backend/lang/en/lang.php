@@ -130,6 +130,8 @@ return [
         'pagination' => 'Displayed records: :from-:to of :total',
         'prev_page' => 'Previous page',
         'next_page' => 'Next page',
+        'refresh' => 'Refresh',
+        'updating' => 'Updating...',
         'loading' => 'Loading...',
         'setup_title' => 'List Setup',
         'setup_help' => 'Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.',
