@@ -208,6 +208,9 @@ return [
         'concurrency_file_changed_title' => 'File was changed',
         'concurrency_file_changed_description' => "The file you're editing has been changed on disk by another user. You can either reload the file and lose your changes or override the file on the disk."
     ],
+    'recordfinder' => [
+        'find_record' => 'Find Record'
+    ],
     'relation' => [
         'missing_config' => "Relation behavior does not have any configuration for ':config'.",
         'missing_definition' => "Relation behavior does not contain a definition for ':field'.",

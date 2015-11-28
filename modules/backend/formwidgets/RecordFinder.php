@@ -12,6 +12,7 @@ use Backend\Classes\FormWidgetBase;
  *        label: User
  *        type: recordfinder
  *        list: ~/plugins/rainlab/user/models/user/columns.yaml
+ *        title: Find Record
  *        prompt: Click the Find button to find a user
  *        nameFrom: name
  *        descriptionFrom: email
@@ -39,6 +40,11 @@ class RecordFinder extends FormWidgetBase
      * @var string Relation column to display for the description
      */
     public $descriptionFrom;
+
+    /**
+     * @var string Text to display for the title of the popup list form
+     */
+    public $title = 'backend::lang.recordfinder.find_record';
 
     /**
      * @var string Prompt to display if no record is selected.
@@ -75,6 +81,7 @@ class RecordFinder extends FormWidgetBase
     public function init()
     {
         $this->fillFromConfig([
+            'title',
             'prompt',
             'keyFrom',
             'nameFrom',
@@ -150,6 +157,7 @@ class RecordFinder extends FormWidgetBase
         $this->vars['descriptionValue'] = $this->getDescriptionValue();
         $this->vars['listWidget'] = $this->listWidget;
         $this->vars['searchWidget'] = $this->searchWidget;
+        $this->vars['title'] = $this->getTitle();
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-th-list"></i>', e(trans($this->prompt)));
     }
 
@@ -192,6 +200,15 @@ class RecordFinder extends FormWidgetBase
         return $this->relationModel->{$this->keyFrom};
     }
 
+    public function getTitle()
+    {
+        if (!$this->relationModel || !$this->title) {
+            return null;
+        }
+
+        return $this->relationModel->{$this->title};
+    }
+
     public function getNameValue()
     {
         if (!$this->relationModel || !$this->nameFrom) {
@@ -213,7 +230,7 @@ class RecordFinder extends FormWidgetBase
     public function onFindRecord()
     {
         $this->prepareVars();
-        return $this->makePartial('recordfinder_form');
+        return $this->makePartial('recordfinder_form', ['title' => $this->title]);
     }
 
     protected function makeListWidget()
