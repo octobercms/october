@@ -77,7 +77,6 @@ class CmsObjectQueryTest extends TestCase
         ], $pages);
 
         $layouts = Layout::lists('baseFileName');
-
         sort($layouts);
 
         $this->assertEquals([
