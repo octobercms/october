@@ -157,7 +157,7 @@ class RecordFinder extends FormWidgetBase
         $this->vars['descriptionValue'] = $this->getDescriptionValue();
         $this->vars['listWidget'] = $this->listWidget;
         $this->vars['searchWidget'] = $this->searchWidget;
-        $this->vars['title'] = $this->getTitle();
+        $this->vars['title'] = $this->title;
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-th-list"></i>', e(trans($this->prompt)));
     }
 
@@ -200,15 +200,6 @@ class RecordFinder extends FormWidgetBase
         return $this->relationModel->{$this->keyFrom};
     }
 
-    public function getTitle()
-    {
-        if (!$this->relationModel || !$this->title) {
-            return null;
-        }
-
-        return $this->relationModel->{$this->title};
-    }
-
     public function getNameValue()
     {
         if (!$this->relationModel || !$this->nameFrom) {
@@ -230,7 +221,7 @@ class RecordFinder extends FormWidgetBase
     public function onFindRecord()
     {
         $this->prepareVars();
-        return $this->makePartial('recordfinder_form', ['title' => $this->title]);
+        return $this->makePartial('recordfinder_form');
     }
 
     protected function makeListWidget()
