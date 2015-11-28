@@ -60,8 +60,9 @@
     }
 
     CheckboxEditor.prototype.normalizeCheckedValue = function(value) {
-         if (value == '0' || value == 'false')
-            return false
+         if (value == '0' || value == 'false') {
+             return false
+         }
 
         return value
     }

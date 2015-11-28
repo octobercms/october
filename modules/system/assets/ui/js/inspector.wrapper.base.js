@@ -158,7 +158,8 @@
 
             try {
                 return valuesStr.length === 0 ? {} : $.parseJSON(valuesStr)
-            } catch (err) {
+            }
+            catch (err) {
                 throw new Error('Error parsing Inspector field values. ' + err)
             }
         }
@@ -254,7 +255,7 @@
             self = this
 
         $.oc.stripeLoadIndicator.show()
-        var request = $form.request('onGetInspectorConfiguration', {
+        $form.request('onGetInspectorConfiguration', {
             data: data
         }).done(function inspectorConfigurationRequestDoneClosure(data) {
             self.onConfigurartionRequestDone(data, result)
@@ -271,10 +272,12 @@
 
             try {
                return $.parseJSON(configuration)
-            } catch(err) {
+            }
+            catch(err) {
                 throw new Error('Error parsing Inspector configuration. ' + err)
             }
-        } else {
+        }
+        else {
             return configuration
         }
     }
@@ -326,11 +329,7 @@
             values = this.surface.getValues()
 
         this.$element.trigger(hidingEvent, [{values: values}])
-        if (hidingEvent.isDefaultPrevented()) {
-            return false
-        }
-
-        return true
+        return !hidingEvent.isDefaultPrevented();
     }
 
     BaseWrapper.DEFAULTS = {

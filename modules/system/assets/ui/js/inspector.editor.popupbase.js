@@ -49,7 +49,7 @@
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default"data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
                 </div>                                                                                  \
                 </form>'
     }

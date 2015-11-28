@@ -16,8 +16,9 @@
     BaseNumber.prototype.doCommonChecks = function(value) {
        if (this.options.min !== undefined || this.options.max !== undefined) {
             if (this.options.min !== undefined) {
-                if (this.options.min.value === undefined)
+                if (this.options.min.value === undefined) {
                     throw new Error('The min.value parameter is not defined in the Inspector validator configuration')
+                }
 
                 if (value < this.options.min.value) {
                     return this.options.min.message !== undefined ?
@@ -27,8 +28,9 @@
             }
 
             if (this.options.max !== undefined) {
-                if (this.options.max.value === undefined)
+                if (this.options.max.value === undefined) {
                     throw new Error('The max.value parameter is not defined in the table Inspector validator configuration')
+                }
 
                 if (value > this.options.max.value) {
                     return this.options.max.message !== undefined ?
