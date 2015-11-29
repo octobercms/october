@@ -99,7 +99,10 @@ class PluginBase extends ServiceProviderBase
      */
     public function registerNavigation()
     {
-        return [];
+        $configuration = $this->getConfigurationFromYaml();
+        if (array_key_exists('navigation', $configuration)) {
+            return $configuration['navigation'];
+        }
     }
 
     /**
@@ -109,8 +112,6 @@ class PluginBase extends ServiceProviderBase
      */
     public function registerPermissions()
     {
-        $thisClass = get_class($this);
-
         $configuration = $this->getConfigurationFromYaml();
         if (array_key_exists('permissions', $configuration)) {
             return $configuration['permissions'];

@@ -1142,12 +1142,13 @@ return}else
 self.displaySidePanel()}
 self.displayTab(this)
 return false})
-if(!Modernizr.touch){self.$sideNav.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){self.panelOpenTimeout=setTimeout(function(){self.displaySidePanel()},self.tabOpenDelay)}})
-self.$sideNav.mouseleave(function(){clearTimeout(self.panelOpenTimeout)})
+if(!Modernizr.touch){self.$sideNav.mouseleave(function(){clearTimeout(self.panelOpenTimeout)})
 self.$el.mouseleave(function(){self.hideSidePanel()})
-self.$sideNavItems.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){if($(this).data('no-side-panel')){return}
+self.$sideNavItems.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){if($(this).data('no-side-panel')){self.hideSidePanel()
+return}
 var _this=this
-self.tabOpenTimeout=setTimeout(function(){self.displayTab(_this)},self.tabOpenDelay)}})
+self.tabOpenTimeout=setTimeout(function(){self.displaySidePanel()
+self.displayTab(_this)},self.tabOpenDelay)}})
 self.$sideNavItems.mouseleave(function(){clearTimeout(self.tabOpenTimeout)})
 $(window).resize(function(){self.updatePanelPosition()
 self.updateActiveTab()})}else{$('#layout-body').click(function(){if(self.panelVisible){self.hideSidePanel()

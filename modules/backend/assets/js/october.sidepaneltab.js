@@ -49,15 +49,16 @@
         })
 
         if (!Modernizr.touch) {
-            self.$sideNav.mouseenter(function(){
-                // TODO: The side panel opens regardless of whether
-                // the hovered item has a side panel (data-no-side-panel attribute).
-                if ($(window).width() < self.options.breakpoint || !self.panelFixed()) {
-                    self.panelOpenTimeout = setTimeout(function () {
-                        self.displaySidePanel()
-                    }, self.tabOpenDelay)
-                }
-            })
+            // The side panel now opens only when a menu item is hovered and
+            // when the item doesn't have the "data-no-side-panel" attribute.
+            // TODO: remove the comment and the code below if no issues noticed.
+            // self.$sideNav.mouseenter(function(){
+            //     if ($(window).width() < self.options.breakpoint || !self.panelFixed()) {
+            //         self.panelOpenTimeout = setTimeout(function () {
+            //             self.displaySidePanel()
+            //         }, self.tabOpenDelay)
+            //     }
+            // })
 
             self.$sideNav.mouseleave(function(){
                 clearTimeout(self.panelOpenTimeout)
@@ -70,11 +71,13 @@
             self.$sideNavItems.mouseenter(function(){
                 if ($(window).width() < self.options.breakpoint || !self.panelFixed()) {
                     if ($(this).data('no-side-panel')) {
+                        self.hideSidePanel()
                         return
                     }
 
                     var _this = this
                     self.tabOpenTimeout = setTimeout(function () {
+                        self.displaySidePanel()
                         self.displayTab(_this)
                     }, self.tabOpenDelay)
                 }
