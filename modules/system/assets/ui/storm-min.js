@@ -107,158 +107,215 @@ if(!supportsUnknownElements){shivMethods(ownerDocument,data);}
 return ownerDocument;}
 var html5={'elements':options.elements||'abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video','version':version,'shivCSS':(options.shivCSS!==false),'supportsUnknownElements':supportsUnknownElements,'shivMethods':(options.shivMethods!==false),'type':'default','shivDocument':shivDocument,createElement:createElement,createDocumentFragment:createDocumentFragment};window.html5=html5;shivDocument(document);}(this,document));Modernizr._version=version;Modernizr._prefixes=prefixes;Modernizr._domPrefixes=domPrefixes;Modernizr._cssomPrefixes=cssomPrefixes;Modernizr.mq=testMediaQuery;Modernizr.hasEvent=isEventSupported;Modernizr.testProp=function(prop){return testProps([prop]);};Modernizr.testAllProps=testPropsAll;Modernizr.testStyles=injectElementWithStyles;docElement.className=docElement.className.replace(/(^|\s)no-js(\s|$)/,'$1$2')+
 (enableClasses?' js '+classes.join(' '):'');return Modernizr;})(this,this.document);(function(a,b,c){function d(a){return"[object Function]"==o.call(a)}function e(a){return"string"==typeof a}function f(){}function g(a){return!a||"loaded"==a||"complete"==a||"uninitialized"==a}function h(){var a=p.shift();q=1,a?a.t?m(function(){("c"==a.t?B.injectCss:B.injectJs)(a.s,0,a.a,a.x,a.e,1)},0):(a(),h()):q=0}function i(a,c,d,e,f,i,j){function k(b){if(!o&&g(l.readyState)&&(u.r=o=1,!q&&h(),l.onload=l.onreadystatechange=null,b)){"img"!=a&&m(function(){t.removeChild(l)},50);for(var d in y[c])y[c].hasOwnProperty(d)&&y[c][d].onload()}}var j=j||B.errorTimeout,l=b.createElement(a),o=0,r=0,u={t:d,s:c,e:f,a:i,x:j};1===y[c]&&(r=1,y[c]=[]),"object"==a?l.data=c:(l.src=c,l.type=a),l.width=l.height="0",l.onerror=l.onload=l.onreadystatechange=function(){k.call(this,r)},p.splice(e,0,u),"img"!=a&&(r||2===y[c]?(t.insertBefore(l,s?null:n),m(k,j)):y[c].push(l))}function j(a,b,c,d,f){return q=0,b=b||"j",e(a)?i("c"==b?v:u,a,b,this.i++,c,d,f):(p.splice(this.i++,0,a),1==p.length&&h()),this}function k(){var a=B;return a.loader={load:j,i:0},a}var l=b.documentElement,m=a.setTimeout,n=b.getElementsByTagName("script")[0],o={}.toString,p=[],q=0,r="MozAppearance"in l.style,s=r&&!!b.createRange().compareNode,t=s?l:n.parentNode,l=a.opera&&"[object Opera]"==o.call(a.opera),l=!!b.attachEvent&&!l,u=r?"object":l?"script":"img",v=l?"script":u,w=Array.isArray||function(a){return"[object Array]"==o.call(a)},x=[],y={},z={timeout:function(a,b){return b.length&&(a.timeout=b[0]),a}},A,B;B=function(a){function b(a){var a=a.split("!"),b=x.length,c=a.pop(),d=a.length,c={url:c,origUrl:c,prefixes:a},e,f,g;for(f=0;f<d;f++)g=a[f].split("="),(e=z[g.shift()])&&(c=e(c,g));for(f=0;f<b;f++)c=x[f](c);return c}function g(a,e,f,g,h){var i=b(a),j=i.autoCallback;i.url.split(".").pop().split("?").shift(),i.bypass||(e&&(e=d(e)?e:e[a]||e[g]||e[a.split("/").pop().split("?")[0]]),i.instead?i.instead(a,e,f,g,h):(y[i.url]?i.noexec=!0:y[i.url]=1,f.load(i.url,i.forceCSS||!i.forceJS&&"css"==i.url.split(".").pop().split("?").shift()?"c":c,i.noexec,i.attrs,i.timeout),(d(e)||d(j))&&f.load(function(){k(),e&&e(i.origUrl,h,g),j&&j(i.origUrl,h,g),y[i.url]=2})))}function h(a,b){function c(a,c){if(a){if(e(a))c||(j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}),g(a,j,b,0,h);else if(Object(a)===a)for(n in m=function(){var b=0,c;for(c in a)a.hasOwnProperty(c)&&b++;return b}(),a)a.hasOwnProperty(n)&&(!c&&!--m&&(d(j)?j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}:j[n]=function(a){return function(){var b=[].slice.call(arguments);a&&a.apply(this,b),l()}}(k[n])),g(a[n],j,b,n,h))}else!c&&l()}var h=!!a.test,i=a.load||a.both,j=a.callback||f,k=j,l=a.complete||f,m,n;c(h?a.yep:a.nope,!!i),i&&c(i)}var i,j,l=this.yepnope.loader;if(e(a))g(a,0,l,0);else if(w(a))for(i=0;i<a.length;i++)j=a[i],e(j)?g(j,0,l,0):w(j)?B(j):Object(j)===j&&h(j,l);else Object(a)===a&&h(a,l)},B.addPrefix=function(a,b){z[a]=b},B.addFilter=function(a){x.push(a)},B.errorTimeout=1e4,null==b.readyState&&b.addEventListener&&(b.readyState="loading",b.addEventListener("DOMContentLoaded",A=function(){b.removeEventListener("DOMContentLoaded",A,0),b.readyState="complete"},0)),a.yepnope=k(),a.yepnope.executeStack=h,a.yepnope.injectJs=function(a,c,d,e,i,j){var k=b.createElement("script"),l,o,e=e||B.errorTimeout;k.src=a;for(o in d)k.setAttribute(o,d[o]);c=j?h:c||f,k.onreadystatechange=k.onload=function(){!l&&g(k.readyState)&&(l=1,c(),k.onload=k.onreadystatechange=null)},m(function(){l||(l=1,c(1))},e),i?k.onload():n.parentNode.insertBefore(k,n)},a.yepnope.injectCss=function(a,c,d,e,g,i){var e=b.createElement("link"),j,c=i?h:c||f;e.href=a,e.rel="stylesheet",e.type="text/css";for(j in d)e.setAttribute(j,d[j]);g||(n.parentNode.insertBefore(e,n),m(c,0))}})(this,document);Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0));};;+function($){'use strict';var backdrop='.dropdown-backdrop'
-var toggle='[data-toggle=dropdown]'
+var toggle='[data-toggle="dropdown"]'
 var Dropdown=function(element){$(element).on('click.bs.dropdown',this.toggle)}
+Dropdown.VERSION='3.3.6'
+function getParent($this){var selector=$this.attr('data-target')
+if(!selector){selector=$this.attr('href')
+selector=selector&&/#[A-Za-z]/.test(selector)&&selector.replace(/.*(?=#[^\s]*$)/,'')}
+var $parent=selector&&$(selector)
+return $parent&&$parent.length?$parent:$this.parent()}
+function clearMenus(e){if(e&&e.which===3)return
+$(backdrop).remove()
+$(toggle).each(function(){var $this=$(this)
+var $parent=getParent($this)
+var relatedTarget={relatedTarget:this}
+if(!$parent.hasClass('open'))return
+if(e&&e.type=='click'&&/input|textarea/i.test(e.target.tagName)&&$.contains($parent[0],e.target))return
+$parent.trigger(e=$.Event('hide.bs.dropdown',relatedTarget))
+if(e.isDefaultPrevented())return
+$this.attr('aria-expanded','false')
+$parent.removeClass('open').trigger($.Event('hidden.bs.dropdown',relatedTarget))})}
 Dropdown.prototype.toggle=function(e){var $this=$(this)
 if($this.is('.disabled, :disabled'))return
 var $parent=getParent($this)
 var isActive=$parent.hasClass('open')
 clearMenus()
-if(!isActive){if('ontouchstart'in document.documentElement&&!$parent.closest('.navbar-nav').length){$('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click',clearMenus)}
+if(!isActive){if('ontouchstart'in document.documentElement&&!$parent.closest('.navbar-nav').length){$(document.createElement('div')).addClass('dropdown-backdrop').insertAfter($(this)).on('click',clearMenus)}
 var relatedTarget={relatedTarget:this}
 $parent.trigger(e=$.Event('show.bs.dropdown',relatedTarget))
 if(e.isDefaultPrevented())return
-$parent.toggleClass('open').trigger('shown.bs.dropdown',relatedTarget)
-$this.focus()}
+$this.trigger('focus').attr('aria-expanded','true')
+$parent.toggleClass('open').trigger($.Event('shown.bs.dropdown',relatedTarget))}
 return false}
-Dropdown.prototype.keydown=function(e){if(!/(38|40|27)/.test(e.keyCode))return
+Dropdown.prototype.keydown=function(e){if(!/(38|40|27|32)/.test(e.which)||/input|textarea/i.test(e.target.tagName))return
 var $this=$(this)
 e.preventDefault()
 e.stopPropagation()
 if($this.is('.disabled, :disabled'))return
 var $parent=getParent($this)
 var isActive=$parent.hasClass('open')
-if(!isActive||(isActive&&e.keyCode==27)){if(e.which==27)$parent.find(toggle).focus()
-return $this.click()}
-var desc=' li:not(.divider):visible a'
-var $items=$parent.find('[role=menu]'+desc+', [role=listbox]'+desc)
+if(!isActive&&e.which!=27||isActive&&e.which==27){if(e.which==27)$parent.find(toggle).trigger('focus')
+return $this.trigger('click')}
+var desc=' li:not(.disabled):visible a'
+var $items=$parent.find('.dropdown-menu'+desc)
 if(!$items.length)return
-var index=$items.index($items.filter(':focus'))
-if(e.keyCode==38&&index>0)index--
-if(e.keyCode==40&&index<$items.length-1)index++
+var index=$items.index(e.target)
+if(e.which==38&&index>0)index--
+if(e.which==40&&index<$items.length-1)index++
 if(!~index)index=0
-$items.eq(index).focus()}
-function clearMenus(e){$(backdrop).remove()
-$(toggle).each(function(){var $parent=getParent($(this))
-var relatedTarget={relatedTarget:this}
-if(!$parent.hasClass('open'))return
-$parent.trigger(e=$.Event('hide.bs.dropdown',relatedTarget))
-if(e.isDefaultPrevented())return
-$parent.removeClass('open').trigger('hidden.bs.dropdown',relatedTarget)})}
-function getParent($this){var selector=$this.attr('data-target')
-if(!selector){selector=$this.attr('href')
-selector=selector&&/#[A-Za-z]/.test(selector)&&selector.replace(/.*(?=#[^\s]*$)/,'')}
-var $parent=selector&&$(selector)
-return $parent&&$parent.length?$parent:$this.parent()}
-var old=$.fn.dropdown
-$.fn.dropdown=function(option){return this.each(function(){var $this=$(this)
+$items.eq(index).trigger('focus')}
+function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.dropdown')
 if(!data)$this.data('bs.dropdown',(data=new Dropdown(this)))
 if(typeof option=='string')data[option].call($this)})}
+var old=$.fn.dropdown
+$.fn.dropdown=Plugin
 $.fn.dropdown.Constructor=Dropdown
 $.fn.dropdown.noConflict=function(){$.fn.dropdown=old
 return this}
-$(document).on('click.bs.dropdown.data-api',clearMenus).on('click.bs.dropdown.data-api','.dropdown form',function(e){e.stopPropagation()}).on('click.bs.dropdown.data-api',toggle,Dropdown.prototype.toggle).on('keydown.bs.dropdown.data-api',toggle+', [role=menu], [role=listbox]',Dropdown.prototype.keydown)}(jQuery);+function($){'use strict';function transitionEnd(){var el=document.createElement('bootstrap')
-var transEndEventNames={'WebkitTransition':'webkitTransitionEnd','MozTransition':'transitionend','OTransition':'oTransitionEnd otransitionend','transition':'transitionend'}
+$(document).on('click.bs.dropdown.data-api',clearMenus).on('click.bs.dropdown.data-api','.dropdown form',function(e){e.stopPropagation()}).on('click.bs.dropdown.data-api',toggle,Dropdown.prototype.toggle).on('keydown.bs.dropdown.data-api',toggle,Dropdown.prototype.keydown).on('keydown.bs.dropdown.data-api','.dropdown-menu',Dropdown.prototype.keydown)}(jQuery);+function($){'use strict';function transitionEnd(){var el=document.createElement('bootstrap')
+var transEndEventNames={WebkitTransition:'webkitTransitionEnd',MozTransition:'transitionend',OTransition:'oTransitionEnd otransitionend',transition:'transitionend'}
 for(var name in transEndEventNames){if(el.style[name]!==undefined){return{end:transEndEventNames[name]}}}
 return false}
-$.fn.emulateTransitionEnd=function(duration){var called=false,$el=this
-$(this).one($.support.transition.end,function(){called=true})
+$.fn.emulateTransitionEnd=function(duration){var called=false
+var $el=this
+$(this).one('bsTransitionEnd',function(){called=true})
 var callback=function(){if(!called)$($el).trigger($.support.transition.end)}
 setTimeout(callback,duration)
 return this}
-$(function(){$.support.transition=transitionEnd()})}(jQuery);+function($){'use strict';var Tab=function(element){this.element=$(element)}
+$(function(){$.support.transition=transitionEnd()
+if(!$.support.transition)return
+$.event.special.bsTransitionEnd={bindType:$.support.transition.end,delegateType:$.support.transition.end,handle:function(e){if($(e.target).is(this))return e.handleObj.handler.apply(this,arguments)}}})}(jQuery);+function($){'use strict';var Tab=function(element){this.element=$(element)}
+Tab.VERSION='3.3.6'
+Tab.TRANSITION_DURATION=150
 Tab.prototype.show=function(){var $this=this.element
 var $ul=$this.closest('ul:not(.dropdown-menu)')
 var selector=$this.data('target')
 if(!selector){selector=$this.attr('href')
 selector=selector&&selector.replace(/.*(?=#[^\s]*$)/,'')}
 if($this.parent('li').hasClass('active'))return
-var previous=$ul.find('.active:last a')[0]
-var e=$.Event('show.bs.tab',{relatedTarget:previous})
-$this.trigger(e)
-if(e.isDefaultPrevented())return
+var $previous=$ul.find('.active:last a')
+var hideEvent=$.Event('hide.bs.tab',{relatedTarget:$this[0]})
+var showEvent=$.Event('show.bs.tab',{relatedTarget:$previous[0]})
+$previous.trigger(hideEvent)
+$this.trigger(showEvent)
+if(showEvent.isDefaultPrevented()||hideEvent.isDefaultPrevented())return
 var $target=$(selector)
-this.activate($this.parent('li'),$ul)
-this.activate($target,$target.parent(),function(){$this.trigger({type:'shown.bs.tab',relatedTarget:previous})})}
+this.activate($this.closest('li'),$ul)
+this.activate($target,$target.parent(),function(){$previous.trigger({type:'hidden.bs.tab',relatedTarget:$this[0]})
+$this.trigger({type:'shown.bs.tab',relatedTarget:$previous[0]})})}
 Tab.prototype.activate=function(element,container,callback){var $active=container.find('> .active')
-var transition=callback&&$.support.transition&&$active.hasClass('fade')
-function next(){$active.removeClass('active').find('> .dropdown-menu > .active').removeClass('active')
-element.addClass('active')
+var transition=callback&&$.support.transition&&($active.length&&$active.hasClass('fade')||!!container.find('> .fade').length)
+function next(){$active.removeClass('active').find('> .dropdown-menu > .active').removeClass('active').end().find('[data-toggle="tab"]').attr('aria-expanded',false)
+element.addClass('active').find('[data-toggle="tab"]').attr('aria-expanded',true)
 if(transition){element[0].offsetWidth
 element.addClass('in')}else{element.removeClass('fade')}
-if(element.parent('.dropdown-menu')){element.closest('li.dropdown').addClass('active')}
+if(element.parent('.dropdown-menu').length){element.closest('li.dropdown').addClass('active').end().find('[data-toggle="tab"]').attr('aria-expanded',true)}
 callback&&callback()}
-transition?$active.one($.support.transition.end,next).emulateTransitionEnd(150):next()
+$active.length&&transition?$active.one('bsTransitionEnd',next).emulateTransitionEnd(Tab.TRANSITION_DURATION):next()
 $active.removeClass('in')}
-var old=$.fn.tab
-$.fn.tab=function(option){return this.each(function(){var $this=$(this)
+function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.tab')
 if(!data)$this.data('bs.tab',(data=new Tab(this)))
 if(typeof option=='string')data[option]()})}
+var old=$.fn.tab
+$.fn.tab=Plugin
 $.fn.tab.Constructor=Tab
 $.fn.tab.noConflict=function(){$.fn.tab=old
 return this}
-$(document).on('click.bs.tab.data-api','[data-toggle="tab"], [data-toggle="pill"]',function(e){e.preventDefault()
-$(this).tab('show')})}(jQuery);+function($){'use strict';var Modal=function(element,options){this.options=options
+var clickHandler=function(e){e.preventDefault()
+Plugin.call($(this),'show')}
+$(document).on('click.bs.tab.data-api','[data-toggle="tab"]',clickHandler).on('click.bs.tab.data-api','[data-toggle="pill"]',clickHandler)}(jQuery);+function($){'use strict';var Modal=function(element,options){this.options=options
+this.$body=$(document.body)
 this.$element=$(element)
-this.$backdrop=this.isShown=null
+this.$dialog=this.$element.find('.modal-dialog')
+this.$backdrop=null
+this.isShown=null
+this.originalBodyPad=null
+this.scrollbarWidth=0
+this.ignoreBackdropClick=false
 if(this.options.remote){this.$element.find('.modal-content').load(this.options.remote,$.proxy(function(){this.$element.trigger('loaded.bs.modal')},this))}}
+Modal.VERSION='3.3.6'
+Modal.TRANSITION_DURATION=300
+Modal.BACKDROP_TRANSITION_DURATION=150
 Modal.DEFAULTS={backdrop:true,keyboard:true,show:true}
-Modal.prototype.toggle=function(_relatedTarget){return this[!this.isShown?'show':'hide'](_relatedTarget)}
+Modal.prototype.toggle=function(_relatedTarget){return this.isShown?this.hide():this.show(_relatedTarget)}
 Modal.prototype.show=function(_relatedTarget){var that=this
 var e=$.Event('show.bs.modal',{relatedTarget:_relatedTarget})
 this.$element.trigger(e)
 if(this.isShown||e.isDefaultPrevented())return
 this.isShown=true
+this.checkScrollbar()
+this.setScrollbar()
+this.$body.addClass('modal-open')
 this.escape()
+this.resize()
 this.$element.on('click.dismiss.bs.modal','[data-dismiss="modal"]',$.proxy(this.hide,this))
+this.$dialog.on('mousedown.dismiss.bs.modal',function(){that.$element.one('mouseup.dismiss.bs.modal',function(e){if($(e.target).is(that.$element))that.ignoreBackdropClick=true})})
 this.backdrop(function(){var transition=$.support.transition&&that.$element.hasClass('fade')
-if(!that.$element.parent().length){that.$element.appendTo(document.body)}
+if(!that.$element.parent().length){that.$element.appendTo(that.$body)}
 that.$element.show().scrollTop(0)
+that.adjustDialog()
 if(transition){that.$element[0].offsetWidth}
-that.$element.addClass('in').attr('aria-hidden',false)
+that.$element.addClass('in')
 that.enforceFocus()
 var e=$.Event('shown.bs.modal',{relatedTarget:_relatedTarget})
-transition?that.$element.find('.modal-dialog').one($.support.transition.end,function(){that.$element.focus().trigger(e)}).emulateTransitionEnd(300):that.$element.focus().trigger(e)})}
+transition?that.$dialog.one('bsTransitionEnd',function(){that.$element.trigger('focus').trigger(e)}).emulateTransitionEnd(Modal.TRANSITION_DURATION):that.$element.trigger('focus').trigger(e)})}
 Modal.prototype.hide=function(e){if(e)e.preventDefault()
 e=$.Event('hide.bs.modal')
 this.$element.trigger(e)
 if(!this.isShown||e.isDefaultPrevented())return
 this.isShown=false
 this.escape()
+this.resize()
 $(document).off('focusin.bs.modal')
-this.$element.removeClass('in').attr('aria-hidden',true).off('click.dismiss.bs.modal')
-$.support.transition&&this.$element.hasClass('fade')?this.$element.one($.support.transition.end,$.proxy(this.hideModal,this)).emulateTransitionEnd(300):this.hideModal()}
-Modal.prototype.enforceFocus=function(){$(document).off('focusin.bs.modal').on('focusin.bs.modal',$.proxy(function(e){if($(e.target).hasClass('select2-search__field')){return}
-if(this.$element[0]!==e.target&&!this.$element.has(e.target).length){this.$element.focus()}},this))}
-Modal.prototype.escape=function(){if(this.isShown&&this.options.keyboard){this.$element.on('keyup.dismiss.bs.modal',$.proxy(function(e){e.which==27&&this.hide()},this))}
-else if(!this.isShown){this.$element.off('keyup.dismiss.bs.modal')}}
+this.$element.removeClass('in').off('click.dismiss.bs.modal').off('mouseup.dismiss.bs.modal')
+this.$dialog.off('mousedown.dismiss.bs.modal')
+$.support.transition&&this.$element.hasClass('fade')?this.$element.one('bsTransitionEnd',$.proxy(this.hideModal,this)).emulateTransitionEnd(Modal.TRANSITION_DURATION):this.hideModal()}
+Modal.prototype.enforceFocus=function(){$(document).off('focusin.bs.modal').on('focusin.bs.modal',$.proxy(function(e){if(this.$element[0]!==e.target&&!this.$element.has(e.target).length){this.$element.trigger('focus')}},this))}
+Modal.prototype.escape=function(){if(this.isShown&&this.options.keyboard){this.$element.on('keydown.dismiss.bs.modal',$.proxy(function(e){e.which==27&&this.hide()},this))}else if(!this.isShown){this.$element.off('keydown.dismiss.bs.modal')}}
+Modal.prototype.resize=function(){if(this.isShown){$(window).on('resize.bs.modal',$.proxy(this.handleUpdate,this))}else{$(window).off('resize.bs.modal')}}
 Modal.prototype.hideModal=function(){var that=this
 this.$element.hide()
-this.backdrop(function(){that.removeBackdrop()
+this.backdrop(function(){that.$body.removeClass('modal-open')
+that.resetAdjustments()
+that.resetScrollbar()
 that.$element.trigger('hidden.bs.modal')})}
 Modal.prototype.removeBackdrop=function(){this.$backdrop&&this.$backdrop.remove()
 this.$backdrop=null}
-Modal.prototype.backdrop=function(callback){var animate=this.$element.hasClass('fade')?'fade':''
+Modal.prototype.backdrop=function(callback){var that=this
+var animate=this.$element.hasClass('fade')?'fade':''
 if(this.isShown&&this.options.backdrop){var doAnimate=$.support.transition&&animate
-this.$backdrop=$('<div class="modal-backdrop '+animate+'" />').appendTo(document.body)
-this.$element.on('click.dismiss.bs.modal',$.proxy(function(e){if(e.target!==e.currentTarget)return
-this.options.backdrop=='static'?this.$element[0].focus.call(this.$element[0]):this.hide.call(this)},this))
+this.$backdrop=$(document.createElement('div')).addClass('modal-backdrop '+animate).appendTo(this.$body)
+this.$element.on('click.dismiss.bs.modal',$.proxy(function(e){if(this.ignoreBackdropClick){this.ignoreBackdropClick=false
+return}
+if(e.target!==e.currentTarget)return
+this.options.backdrop=='static'?this.$element[0].focus():this.hide()},this))
 if(doAnimate)this.$backdrop[0].offsetWidth
 this.$backdrop.addClass('in')
 if(!callback)return
-doAnimate?this.$backdrop.one($.support.transition.end,callback).emulateTransitionEnd(150):callback()}
-else if(!this.isShown&&this.$backdrop){this.$backdrop.removeClass('in')
-$.support.transition&&this.$element.hasClass('fade')?this.$backdrop.one($.support.transition.end,callback).emulateTransitionEnd(150):callback()}
-else if(callback){callback()}}
-var old=$.fn.modal
-$.fn.modal=function(option,_relatedTarget){return this.each(function(){var $this=$(this)
+doAnimate?this.$backdrop.one('bsTransitionEnd',callback).emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION):callback()}else if(!this.isShown&&this.$backdrop){this.$backdrop.removeClass('in')
+var callbackRemove=function(){that.removeBackdrop()
+callback&&callback()}
+$.support.transition&&this.$element.hasClass('fade')?this.$backdrop.one('bsTransitionEnd',callbackRemove).emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION):callbackRemove()}else if(callback){callback()}}
+Modal.prototype.handleUpdate=function(){this.adjustDialog()}
+Modal.prototype.adjustDialog=function(){var modalIsOverflowing=this.$element[0].scrollHeight>document.documentElement.clientHeight
+this.$element.css({paddingLeft:!this.bodyIsOverflowing&&modalIsOverflowing?this.scrollbarWidth:'',paddingRight:this.bodyIsOverflowing&&!modalIsOverflowing?this.scrollbarWidth:''})}
+Modal.prototype.resetAdjustments=function(){this.$element.css({paddingLeft:'',paddingRight:''})}
+Modal.prototype.checkScrollbar=function(){var fullWindowWidth=window.innerWidth
+if(!fullWindowWidth){var documentElementRect=document.documentElement.getBoundingClientRect()
+fullWindowWidth=documentElementRect.right-Math.abs(documentElementRect.left)}
+this.bodyIsOverflowing=document.body.clientWidth<fullWindowWidth
+this.scrollbarWidth=this.measureScrollbar()}
+Modal.prototype.setScrollbar=function(){var bodyPad=parseInt((this.$body.css('padding-right')||0),10)
+this.originalBodyPad=document.body.style.paddingRight||''
+if(this.bodyIsOverflowing)this.$body.css('padding-right',bodyPad+this.scrollbarWidth)}
+Modal.prototype.resetScrollbar=function(){this.$body.css('padding-right',this.originalBodyPad)}
+Modal.prototype.measureScrollbar=function(){var scrollDiv=document.createElement('div')
+scrollDiv.className='modal-scrollbar-measure'
+this.$body.append(scrollDiv)
+var scrollbarWidth=scrollDiv.offsetWidth-scrollDiv.clientWidth
+this.$body[0].removeChild(scrollDiv)
+return scrollbarWidth}
+function Plugin(option,_relatedTarget){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.modal')
 var options=$.extend({},Modal.DEFAULTS,$this.data(),typeof option=='object'&&option)
 if(!data)$this.data('bs.modal',(data=new Modal(this,options)))
 if(typeof option=='string')data[option](_relatedTarget)
 else if(options.show)data.show(_relatedTarget)})}
+var old=$.fn.modal
+$.fn.modal=Plugin
 $.fn.modal.Constructor=Modal
 $.fn.modal.noConflict=function(){$.fn.modal=old
 return this}
@@ -267,14 +324,26 @@ var href=$this.attr('href')
 var $target=$($this.attr('data-target')||(href&&href.replace(/.*(?=#[^\s]+$)/,'')))
 var option=$target.data('bs.modal')?'toggle':$.extend({remote:!/#/.test(href)&&href},$target.data(),$this.data())
 if($this.is('a'))e.preventDefault()
-$target.modal(option,this).one('hide',function(){$this.is(':visible')&&$this.focus()})})
-$(document).on('show.bs.modal','.modal',function(){$(document.body).addClass('modal-open')}).on('hidden.bs.modal','.modal',function(){$(document.body).removeClass('modal-open')})}(jQuery);+function($){'use strict';var Tooltip=function(element,options){this.type=this.options=this.enabled=this.timeout=this.hoverState=this.$element=null
+$target.one('show.bs.modal',function(showEvent){if(showEvent.isDefaultPrevented())return
+$target.one('hidden.bs.modal',function(){$this.is(':visible')&&$this.trigger('focus')})})
+Plugin.call($target,option,this)})}(jQuery);+function($){'use strict';var Tooltip=function(element,options){this.type=null
+this.options=null
+this.enabled=null
+this.timeout=null
+this.hoverState=null
+this.$element=null
+this.inState=null
 this.init('tooltip',element,options)}
-Tooltip.DEFAULTS={animation:true,placement:'top',selector:false,template:'<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',trigger:'hover focus',title:'',delay:0,html:false,container:false}
+Tooltip.VERSION='3.3.6'
+Tooltip.TRANSITION_DURATION=150
+Tooltip.DEFAULTS={animation:true,placement:'top',selector:false,template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',trigger:'hover focus',title:'',delay:0,html:false,container:false,viewport:{selector:'body',padding:0}}
 Tooltip.prototype.init=function(type,element,options){this.enabled=true
 this.type=type
 this.$element=$(element)
 this.options=this.getOptions(options)
+this.$viewport=this.options.viewport&&$($.isFunction(this.options.viewport)?this.options.viewport.call(this,this.$element):(this.options.viewport.selector||this.options.viewport))
+this.inState={click:false,hover:false,focus:false}
+if(this.$element[0]instanceof document.constructor&&!this.options.selector){throw new Error('`selector` option must be specified when initializing '+this.type+' on the window.document object!')}
 var triggers=this.options.trigger.split(' ')
 for(var i=triggers.length;i--;){var trigger=triggers[i]
 if(trigger=='click'){this.$element.on('click.'+this.type,this.options.selector,$.proxy(this.toggle,this))}else if(trigger!='manual'){var eventIn=trigger=='hover'?'mouseenter':'focusin'
@@ -290,114 +359,158 @@ Tooltip.prototype.getDelegateOptions=function(){var options={}
 var defaults=this.getDefaults()
 this._options&&$.each(this._options,function(key,value){if(defaults[key]!=value)options[key]=value})
 return options}
-Tooltip.prototype.enter=function(obj){var self=obj instanceof this.constructor?obj:$(obj.currentTarget)[this.type](this.getDelegateOptions()).data('bs.'+this.type)
+Tooltip.prototype.enter=function(obj){var self=obj instanceof this.constructor?obj:$(obj.currentTarget).data('bs.'+this.type)
+if(!self){self=new this.constructor(obj.currentTarget,this.getDelegateOptions())
+$(obj.currentTarget).data('bs.'+this.type,self)}
+if(obj instanceof $.Event){self.inState[obj.type=='focusin'?'focus':'hover']=true}
+if(self.tip().hasClass('in')||self.hoverState=='in'){self.hoverState='in'
+return}
 clearTimeout(self.timeout)
 self.hoverState='in'
 if(!self.options.delay||!self.options.delay.show)return self.show()
 self.timeout=setTimeout(function(){if(self.hoverState=='in')self.show()},self.options.delay.show)}
-Tooltip.prototype.leave=function(obj){var self=obj instanceof this.constructor?obj:$(obj.currentTarget)[this.type](this.getDelegateOptions()).data('bs.'+this.type)
+Tooltip.prototype.isInStateTrue=function(){for(var key in this.inState){if(this.inState[key])return true}
+return false}
+Tooltip.prototype.leave=function(obj){var self=obj instanceof this.constructor?obj:$(obj.currentTarget).data('bs.'+this.type)
+if(!self){self=new this.constructor(obj.currentTarget,this.getDelegateOptions())
+$(obj.currentTarget).data('bs.'+this.type,self)}
+if(obj instanceof $.Event){self.inState[obj.type=='focusout'?'focus':'hover']=false}
+if(self.isInStateTrue())return
 clearTimeout(self.timeout)
 self.hoverState='out'
 if(!self.options.delay||!self.options.delay.hide)return self.hide()
 self.timeout=setTimeout(function(){if(self.hoverState=='out')self.hide()},self.options.delay.hide)}
 Tooltip.prototype.show=function(){var e=$.Event('show.bs.'+this.type)
 if(this.hasContent()&&this.enabled){this.$element.trigger(e)
-if(e.isDefaultPrevented())return
-var that=this;var $tip=this.tip()
+var inDom=$.contains(this.$element[0].ownerDocument.documentElement,this.$element[0])
+if(e.isDefaultPrevented()||!inDom)return
+var that=this
+var $tip=this.tip()
+var tipId=this.getUID(this.type)
 this.setContent()
+$tip.attr('id',tipId)
+this.$element.attr('aria-describedby',tipId)
 if(this.options.animation)$tip.addClass('fade')
 var placement=typeof this.options.placement=='function'?this.options.placement.call(this,$tip[0],this.$element[0]):this.options.placement
 var autoToken=/\s?auto?\s?/i
 var autoPlace=autoToken.test(placement)
 if(autoPlace)placement=placement.replace(autoToken,'')||'top'
-$tip.detach().css({top:0,left:0,display:'block'}).addClass(placement)
+$tip.detach().css({top:0,left:0,display:'block'}).addClass(placement).data('bs.'+this.type,this)
 this.options.container?$tip.appendTo(this.options.container):$tip.insertAfter(this.$element)
+this.$element.trigger('inserted.bs.'+this.type)
 var pos=this.getPosition()
 var actualWidth=$tip[0].offsetWidth
 var actualHeight=$tip[0].offsetHeight
-if(autoPlace){var $parent=this.$element.parent()
-var orgPlacement=placement
-var docScroll=document.documentElement.scrollTop||document.body.scrollTop
-var parentWidth=this.options.container=='body'?window.innerWidth:$parent.outerWidth()
-var parentHeight=this.options.container=='body'?window.innerHeight:$parent.outerHeight()
-var parentLeft=this.options.container=='body'?0:$parent.offset().left
-placement=placement=='bottom'&&pos.top+pos.height+actualHeight-docScroll>parentHeight?'top':placement=='top'&&pos.top-docScroll-actualHeight<0?'bottom':placement=='right'&&pos.right+actualWidth>parentWidth?'left':placement=='left'&&pos.left-actualWidth<parentLeft?'right':placement
+if(autoPlace){var orgPlacement=placement
+var viewportDim=this.getPosition(this.$viewport)
+placement=placement=='bottom'&&pos.bottom+actualHeight>viewportDim.bottom?'top':placement=='top'&&pos.top-actualHeight<viewportDim.top?'bottom':placement=='right'&&pos.right+actualWidth>viewportDim.width?'left':placement=='left'&&pos.left-actualWidth<viewportDim.left?'right':placement
 $tip.removeClass(orgPlacement).addClass(placement)}
 var calculatedOffset=this.getCalculatedOffset(placement,pos,actualWidth,actualHeight)
 this.applyPlacement(calculatedOffset,placement)
-this.hoverState=null
-var complete=function(){that.$element.trigger('shown.bs.'+that.type)}
-$.support.transition&&this.$tip.hasClass('fade')?$tip.one($.support.transition.end,complete).emulateTransitionEnd(150):complete()}}
-Tooltip.prototype.applyPlacement=function(offset,placement){var replace
-var $tip=this.tip()
+var complete=function(){var prevHoverState=that.hoverState
+that.$element.trigger('shown.bs.'+that.type)
+that.hoverState=null
+if(prevHoverState=='out')that.leave(that)}
+$.support.transition&&this.$tip.hasClass('fade')?$tip.one('bsTransitionEnd',complete).emulateTransitionEnd(Tooltip.TRANSITION_DURATION):complete()}}
+Tooltip.prototype.applyPlacement=function(offset,placement){var $tip=this.tip()
 var width=$tip[0].offsetWidth
 var height=$tip[0].offsetHeight
 var marginTop=parseInt($tip.css('margin-top'),10)
 var marginLeft=parseInt($tip.css('margin-left'),10)
 if(isNaN(marginTop))marginTop=0
 if(isNaN(marginLeft))marginLeft=0
-offset.top=offset.top+marginTop
-offset.left=offset.left+marginLeft
+offset.top+=marginTop
+offset.left+=marginLeft
 $.offset.setOffset($tip[0],$.extend({using:function(props){$tip.css({top:Math.round(props.top),left:Math.round(props.left)})}},offset),0)
 $tip.addClass('in')
 var actualWidth=$tip[0].offsetWidth
 var actualHeight=$tip[0].offsetHeight
-if(placement=='top'&&actualHeight!=height){replace=true
-offset.top=offset.top+height-actualHeight}
-if(/bottom|top/.test(placement)){var delta=0
-if(offset.left<0){delta=offset.left*-2
-offset.left=0
+if(placement=='top'&&actualHeight!=height){offset.top=offset.top+height-actualHeight}
+var delta=this.getViewportAdjustedDelta(placement,offset,actualWidth,actualHeight)
+if(delta.left)offset.left+=delta.left
+else offset.top+=delta.top
+var isVertical=/top|bottom/.test(placement)
+var arrowDelta=isVertical?delta.left*2-width+actualWidth:delta.top*2-height+actualHeight
+var arrowOffsetPosition=isVertical?'offsetWidth':'offsetHeight'
 $tip.offset(offset)
-actualWidth=$tip[0].offsetWidth
-actualHeight=$tip[0].offsetHeight}
-this.replaceArrow(delta-width+actualWidth,actualWidth,'left')}else{this.replaceArrow(actualHeight-height,actualHeight,'top')}
-if(replace)$tip.offset(offset)}
-Tooltip.prototype.replaceArrow=function(delta,dimension,position){this.arrow().css(position,delta?(50*(1-delta/dimension)+'%'):'')}
+this.replaceArrow(arrowDelta,$tip[0][arrowOffsetPosition],isVertical)}
+Tooltip.prototype.replaceArrow=function(delta,dimension,isVertical){this.arrow().css(isVertical?'left':'top',50*(1-delta/dimension)+'%').css(isVertical?'top':'left','')}
 Tooltip.prototype.setContent=function(){var $tip=this.tip()
 var title=this.getTitle()
 $tip.find('.tooltip-inner')[this.options.html?'html':'text'](title)
 $tip.removeClass('fade in top bottom left right')}
-Tooltip.prototype.hide=function(){var that=this
-var $tip=this.tip()
+Tooltip.prototype.hide=function(callback){var that=this
+var $tip=$(this.$tip)
 var e=$.Event('hide.bs.'+this.type)
 function complete(){if(that.hoverState!='in')$tip.detach()
-that.$element.trigger('hidden.bs.'+that.type)}
+that.$element.removeAttr('aria-describedby').trigger('hidden.bs.'+that.type)
+callback&&callback()}
 this.$element.trigger(e)
 if(e.isDefaultPrevented())return
 $tip.removeClass('in')
-$.support.transition&&this.$tip.hasClass('fade')?$tip.one($.support.transition.end,complete).emulateTransitionEnd(150):complete()
+$.support.transition&&$tip.hasClass('fade')?$tip.one('bsTransitionEnd',complete).emulateTransitionEnd(Tooltip.TRANSITION_DURATION):complete()
 this.hoverState=null
 return this}
 Tooltip.prototype.fixTitle=function(){var $e=this.$element
-if($e.attr('title')||typeof($e.attr('data-original-title'))!='string'){$e.attr('data-original-title',$e.attr('title')||'').attr('title','')}}
+if($e.attr('title')||typeof $e.attr('data-original-title')!='string'){$e.attr('data-original-title',$e.attr('title')||'').attr('title','')}}
 Tooltip.prototype.hasContent=function(){return this.getTitle()}
-Tooltip.prototype.getPosition=function(){var el=this.$element[0]
-return $.extend({},(typeof el.getBoundingClientRect=='function')?el.getBoundingClientRect():{width:el.offsetWidth,height:el.offsetHeight},this.$element.offset())}
+Tooltip.prototype.getPosition=function($element){$element=$element||this.$element
+var el=$element[0]
+var isBody=el.tagName=='BODY'
+var elRect=el.getBoundingClientRect()
+if(elRect.width==null){elRect=$.extend({},elRect,{width:elRect.right-elRect.left,height:elRect.bottom-elRect.top})}
+var elOffset=isBody?{top:0,left:0}:$element.offset()
+var scroll={scroll:isBody?document.documentElement.scrollTop||document.body.scrollTop:$element.scrollTop()}
+var outerDims=isBody?{width:$(window).width(),height:$(window).height()}:null
+return $.extend({},elRect,scroll,outerDims,elOffset)}
 Tooltip.prototype.getCalculatedOffset=function(placement,pos,actualWidth,actualHeight){return placement=='bottom'?{top:pos.top+pos.height,left:pos.left+pos.width/2-actualWidth/2}:placement=='top'?{top:pos.top-actualHeight,left:pos.left+pos.width/2-actualWidth/2}:placement=='left'?{top:pos.top+pos.height/2-actualHeight/2,left:pos.left-actualWidth}:{top:pos.top+pos.height/2-actualHeight/2,left:pos.left+pos.width}}
+Tooltip.prototype.getViewportAdjustedDelta=function(placement,pos,actualWidth,actualHeight){var delta={top:0,left:0}
+if(!this.$viewport)return delta
+var viewportPadding=this.options.viewport&&this.options.viewport.padding||0
+var viewportDimensions=this.getPosition(this.$viewport)
+if(/right|left/.test(placement)){var topEdgeOffset=pos.top-viewportPadding-viewportDimensions.scroll
+var bottomEdgeOffset=pos.top+viewportPadding-viewportDimensions.scroll+actualHeight
+if(topEdgeOffset<viewportDimensions.top){delta.top=viewportDimensions.top-topEdgeOffset}else if(bottomEdgeOffset>viewportDimensions.top+viewportDimensions.height){delta.top=viewportDimensions.top+viewportDimensions.height-bottomEdgeOffset}}else{var leftEdgeOffset=pos.left-viewportPadding
+var rightEdgeOffset=pos.left+viewportPadding+actualWidth
+if(leftEdgeOffset<viewportDimensions.left){delta.left=viewportDimensions.left-leftEdgeOffset}else if(rightEdgeOffset>viewportDimensions.right){delta.left=viewportDimensions.left+viewportDimensions.width-rightEdgeOffset}}
+return delta}
 Tooltip.prototype.getTitle=function(){var title
 var $e=this.$element
 var o=this.options
 title=$e.attr('data-original-title')||(typeof o.title=='function'?o.title.call($e[0]):o.title)
 return title}
-Tooltip.prototype.tip=function(){return this.$tip=this.$tip||$(this.options.template)}
-Tooltip.prototype.arrow=function(){return this.$arrow=this.$arrow||this.tip().find('.tooltip-arrow')}
-Tooltip.prototype.validate=function(){if(!this.$element[0].parentNode){this.hide()
-this.$element=null
-this.options=null}}
+Tooltip.prototype.getUID=function(prefix){do prefix+=~~(Math.random()*1000000)
+while(document.getElementById(prefix))
+return prefix}
+Tooltip.prototype.tip=function(){if(!this.$tip){this.$tip=$(this.options.template)
+if(this.$tip.length!=1){throw new Error(this.type+' `template` option must consist of exactly 1 top-level element!')}}
+return this.$tip}
+Tooltip.prototype.arrow=function(){return(this.$arrow=this.$arrow||this.tip().find('.tooltip-arrow'))}
 Tooltip.prototype.enable=function(){this.enabled=true}
 Tooltip.prototype.disable=function(){this.enabled=false}
 Tooltip.prototype.toggleEnabled=function(){this.enabled=!this.enabled}
-Tooltip.prototype.toggle=function(e){var self=e?$(e.currentTarget)[this.type](this.getDelegateOptions()).data('bs.'+this.type):this
-self.tip().hasClass('in')?self.leave(self):self.enter(self)}
-Tooltip.prototype.destroy=function(){clearTimeout(this.timeout)
-this.hide().$element.off('.'+this.type).removeData('bs.'+this.type)}
-var old=$.fn.tooltip
-$.fn.tooltip=function(option){return this.each(function(){var $this=$(this)
+Tooltip.prototype.toggle=function(e){var self=this
+if(e){self=$(e.currentTarget).data('bs.'+this.type)
+if(!self){self=new this.constructor(e.currentTarget,this.getDelegateOptions())
+$(e.currentTarget).data('bs.'+this.type,self)}}
+if(e){self.inState.click=!self.inState.click
+if(self.isInStateTrue())self.enter(self)
+else self.leave(self)}else{self.tip().hasClass('in')?self.leave(self):self.enter(self)}}
+Tooltip.prototype.destroy=function(){var that=this
+clearTimeout(this.timeout)
+this.hide(function(){that.$element.off('.'+that.type).removeData('bs.'+that.type)
+if(that.$tip){that.$tip.detach()}
+that.$tip=null
+that.$arrow=null
+that.$viewport=null})}
+function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.tooltip')
 var options=typeof option=='object'&&option
-if(!data&&option=='destroy')return
+if(!data&&/destroy|hide/.test(option))return
 if(!data)$this.data('bs.tooltip',(data=new Tooltip(this,options)))
 if(typeof option=='string')data[option]()})}
+var old=$.fn.tooltip
+$.fn.tooltip=Plugin
 $.fn.tooltip.Constructor=Tooltip
 $.fn.tooltip.noConflict=function(){$.fn.tooltip=old
 return this}}(jQuery);(function(glob){var version="0.4.2",has="hasOwnProperty",separator=/[\.\/]/,wildcard="*",fun=function(){},numsort=function(a,b){return a-b;},current_event,stop,events={n:{}},eve=function(name,scope){name=String(name);var e=events,oldstop=stop,args=Array.prototype.slice.call(arguments,2),listeners=eve.listeners(name),z=0,f=false,l,indexed=[],queue={},out=[],ce=current_event,errors=[];current_event=name;stop=0;for(var i=0,ii=listeners.length;i<ii;i++)if("zIndex"in listeners[i]){indexed.push(listeners[i].zIndex);if(listeners[i].zIndex<0){queue[listeners[i].zIndex]=listeners[i];}}
@@ -3455,7 +3568,8 @@ if(propertyEditor&&!propertyEditor.supportsExternalParameterEditor()){continue}
 var cell=row.querySelector('td'),propertyDefinition=this.findPropertyDefinition(property),editor=new $.oc.inspector.externalParameterEditor(this,propertyDefinition,cell)
 this.externalParameterEditors.push(editor)}}
 Surface.prototype.applyGroupIndexAttribute=function(property,row,group,isGroupedControl){if(property.itemType=='group'||isGroupedControl){row.setAttribute('data-group-index',this.getGroupManager().getGroupIndex(group))
-row.setAttribute('data-parent-group-index',this.getGroupManager().getGroupIndex(group.parentGroup))}else{if(group.parentGroup){row.setAttribute('data-parent-group-index',this.getGroupManager().getGroupIndex(group))}}}
+row.setAttribute('data-parent-group-index',this.getGroupManager().getGroupIndex(group.parentGroup))}
+else{if(group.parentGroup){row.setAttribute('data-parent-group-index',this.getGroupManager().getGroupIndex(group))}}}
 Surface.prototype.applyGroupLevelToRow=function(row,group){if(row.hasAttribute('data-group-level')){return}
 var th=this.getRowHeadElement(row)
 if(th===null){throw new Error('Cannot find TH element for the Inspector row')}
@@ -3474,7 +3588,8 @@ if(row){this.toggleGroup(row,true)}}}
 Surface.prototype.expandOrCollapseRows=function(rows,collapse,duration,noAnimation){var row=rows.pop(),self=this
 if(row){if(!noAnimation){setTimeout(function toggleRow(){$.oc.foundation.element.toggleClass(row,'collapsed',collapse)
 $.oc.foundation.element.toggleClass(row,'expanded',!collapse)
-self.expandOrCollapseRows(rows,collapse,duration,noAnimation)},duration)}else{$.oc.foundation.element.toggleClass(row,'collapsed',collapse)
+self.expandOrCollapseRows(rows,collapse,duration,noAnimation)},duration)}
+else{$.oc.foundation.element.toggleClass(row,'collapsed',collapse)
 $.oc.foundation.element.toggleClass(row,'expanded',!collapse)
 self.expandOrCollapseRows(rows,collapse,duration,noAnimation)}}}
 Surface.prototype.getGroupManager=function(){return this.getRootSurface().groupManager}
@@ -3511,11 +3626,9 @@ $.oc.foundation.element.addClass(cell,'active')}
 Surface.prototype.markPropertyChanged=function(property,changed){var row=this.tableContainer.querySelector('tr[data-property="'+property+'"]')
 if(changed){$.oc.foundation.element.addClass(row,'changed')}
 else{$.oc.foundation.element.removeClass(row,'changed')}}
-Surface.prototype.findPropertyEditor=function(property){for(var i=0,len=this.editors.length;i<len;i++){if(this.editors[i].getPropertyName()==property)
-return this.editors[i]}
+Surface.prototype.findPropertyEditor=function(property){for(var i=0,len=this.editors.length;i<len;i++){if(this.editors[i].getPropertyName()==property){return this.editors[i]}}
 return null}
-Surface.prototype.findExternalParameterEditor=function(property){for(var i=0,len=this.externalParameterEditors.length;i<len;i++){if(this.externalParameterEditors[i].getPropertyName()==property)
-return this.externalParameterEditors[i]}
+Surface.prototype.findExternalParameterEditor=function(property){for(var i=0,len=this.externalParameterEditors.length;i<len;i++){if(this.externalParameterEditors[i].getPropertyName()==property){return this.externalParameterEditors[i]}}
 return null}
 Surface.prototype.findPropertyDefinition=function(property){for(var i=0,len=this.parsedProperties.properties.length;i<len;i++){var definition=this.parsedProperties.properties[i]
 if(definition.property==property){return definition}}
@@ -3623,12 +3736,10 @@ InspectorManager.prototype.setContainerPreference=function(value){if(!Modernizr.
 return localStorage.setItem('oc.inspectorUseContainer',value?"true":"false")}
 InspectorManager.prototype.applyValuesFromContainer=function($container){var applyEvent=$.Event('apply.oc.inspector')
 $container.trigger(applyEvent)
-if(applyEvent.isDefaultPrevented()){return false}
-return true}
+return!applyEvent.isDefaultPrevented();}
 InspectorManager.prototype.containerHidingAllowed=function($container){var allowedEvent=$.Event('beforeContainerHide.oc.inspector')
 $container.trigger(allowedEvent)
-if(allowedEvent.isDefaultPrevented()){return false}
-return true}
+return!allowedEvent.isDefaultPrevented();}
 InspectorManager.prototype.onInspectableClicked=function(ev){var $element=$(ev.currentTarget)
 if(this.createInspector($element)===false){return false}}
 $.oc.inspector.manager=new InspectorManager()
@@ -3679,7 +3790,8 @@ BaseWrapper.prototype.cleanupAfterSwitch=function(){this.switched=true
 this.dispose()}
 BaseWrapper.prototype.loadValues=function(configuration){var $valuesField=this.getElementValuesInput()
 if($valuesField.length>0){var valuesStr=$.trim($valuesField.val())
-try{return valuesStr.length===0?{}:$.parseJSON(valuesStr)}catch(err){throw new Error('Error parsing Inspector field values. '+err)}}
+try{return valuesStr.length===0?{}:$.parseJSON(valuesStr)}
+catch(err){throw new Error('Error parsing Inspector field values. '+err)}}
 var values={},attributes=this.$element.get(0).attributes
 for(var i=0,len=attributes.length;i<len;i++){var attribute=attributes[i],matches=[]
 if(matches=attribute.name.match(/^data-property-(.*)$/)){var normalizedPropertyName=this.normalizePropertyCode(matches[1],configuration)
@@ -3703,9 +3815,11 @@ this.configurationLoaded(result)
 return}
 var $form=this.$element.closest('form'),data=this.$element.data(),self=this
 $.oc.stripeLoadIndicator.show()
-var request=$form.request('onGetInspectorConfiguration',{data:data}).done(function inspectorConfigurationRequestDoneClosure(data){self.onConfigurartionRequestDone(data,result)}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+$form.request('onGetInspectorConfiguration',{data:data}).done(function inspectorConfigurationRequestDoneClosure(data){self.onConfigurartionRequestDone(data,result)}).always(function(){$.oc.stripeLoadIndicator.hide()})}
 BaseWrapper.prototype.parseConfiguration=function(configuration){if(!$.isArray(configuration)&&!$.isPlainObject(configuration)){if($.trim(configuration)===0){return{}}
-try{return $.parseJSON(configuration)}catch(err){throw new Error('Error parsing Inspector configuration. '+err)}}else{return configuration}}
+try{return $.parseJSON(configuration)}
+catch(err){throw new Error('Error parsing Inspector configuration. '+err)}}
+else{return configuration}}
 BaseWrapper.prototype.configurationLoaded=function(configuration){var values=this.loadValues(configuration.properties)
 this.title=configuration.title
 this.description=configuration.description
@@ -3721,8 +3835,7 @@ return false}
 if(!e.isPropagationStopped()){this.init()}}
 BaseWrapper.prototype.triggerHiding=function(){var hidingEvent=$.Event('hiding.oc.inspector'),values=this.surface.getValues()
 this.$element.trigger(hidingEvent,[{values:values}])
-if(hidingEvent.isDefaultPrevented()){return false}
-return true}
+return!hidingEvent.isDefaultPrevented();}
 BaseWrapper.DEFAULTS={containerSupported:false}
 $.oc.inspector.wrappers.base=BaseWrapper}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.wrappers.base,BaseProto=Base.prototype
 var InspectorPopup=function($element,surface,options){this.$popoverContainer=null
@@ -3902,8 +4015,7 @@ GroupManager.prototype.isParentGroupExpanded=function(group){if(!group.parentGro
 return this.isGroupExpanded(group.parentGroup)}
 GroupManager.prototype.isGroupExpanded=function(group){if(!group.parentGroup){return true}
 var groupIndex=this.getGroupIndex(group),statuses=this.readGroupStatuses()
-if(statuses[groupIndex]!==undefined)
-return statuses[groupIndex]
+if(statuses[groupIndex]!==undefined){return statuses[groupIndex]}
 return false}
 GroupManager.prototype.setGroupStatus=function(groupIndex,expanded){var statuses=this.readGroupStatuses()
 statuses[groupIndex]=expanded
@@ -4108,8 +4220,7 @@ if(value===undefined){if(this.propertyDefinition.default!==undefined){isChecked=
 else{isChecked=this.normalizeCheckedValue(value)}
 editor.checked=isChecked
 this.containerCell.appendChild(container)}
-CheckboxEditor.prototype.normalizeCheckedValue=function(value){if(value=='0'||value=='false')
-return false
+CheckboxEditor.prototype.normalizeCheckedValue=function(value){if(value=='0'||value=='false'){return false}
 return value}
 CheckboxEditor.prototype.getInput=function(){return this.containerCell.querySelector('input')}
 CheckboxEditor.prototype.focus=function(){this.getInput().parentNode.focus()}
@@ -4165,8 +4276,7 @@ DropdownEditor.prototype.onSelectionChange=function(){var select=this.getSelect(
 this.inspector.setPropertyValue(this.propertyDefinition.property,select.value,this.initialization)}
 DropdownEditor.prototype.onInspectorPropertyChanged=function(property,value){if(!this.propertyDefinition.depends||this.propertyDefinition.depends.indexOf(property)===-1){return}
 var dependencyValues=this.getDependencyValues()
-if(this.prevDependencyValues===undefined||this.prevDependencyValues!=dependencyValues)
-this.loadDynamicOptions()}
+if(this.prevDependencyValues===undefined||this.prevDependencyValues!=dependencyValues){this.loadDynamicOptions()}}
 DropdownEditor.prototype.onExternalPropertyEditorHidden=function(){this.loadDynamicOptions(false)}
 DropdownEditor.prototype.updateDisplayedValue=function(value){var select=this.getSelect()
 select.value=value}
@@ -4239,7 +4349,7 @@ PopupBase.prototype.getPopupContent=function(){return'<form>                    
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default"data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
                 </div>                                                                                  \
                 </form>'}
 PopupBase.prototype.updateDisplayedValue=function(value){this.setLinkText(this.getLink(),value)}
@@ -4296,7 +4406,7 @@ TextEditor.prototype.getPopupContent=function(){return'<form>                   
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default"data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
                 </div>                                                                                  \
                 </form>'}
 TextEditor.prototype.configurePopup=function(popup){var $textarea=$(popup).find('textarea'),value=this.inspector.getPropertyValue(this.propertyDefinition.property)
@@ -4334,7 +4444,8 @@ if(value===undefined){value=this.propertyDefinition.default}
 if(value!==undefined&&value.length!==undefined&&value.length>0&&typeof value!=='string'){var textValues=[]
 for(var i=0,len=value.length;i<len;i++){textValues.push(this.valueToText(value[i]))}
 text='['+textValues.join(', ')+']'
-$.oc.foundation.element.removeClass(link,'placeholder')}else{text=this.propertyDefinition.placeholder
+$.oc.foundation.element.removeClass(link,'placeholder')}
+else{text=this.propertyDefinition.placeholder
 if((typeof text==='string'&&text.length==0)||text===undefined){text='[ ]'}
 $.oc.foundation.element.addClass(link,'placeholder')}
 link.textContent=text}
@@ -4498,7 +4609,7 @@ ObjectListEditor.prototype.getPopupContent=function(){return'<form>             
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default"data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
                 </div>                                                                                  \
                 </form>'}
 ObjectListEditor.prototype.buildPopupContents=function(popup){this.buildItemsTable(popup)}
@@ -4546,7 +4657,8 @@ if(!selectedRow){throw new Exception('A row is not found for the updated data')}
 if(property!==this.propertyDefinition.titleProperty){return}
 value=$.trim(value)
 if(value.length===0){value='[No title]'
-$.oc.foundation.element.addClass(selectedRow,'disabled')}else{$.oc.foundation.element.removeClass(selectedRow,'disabled')}
+$.oc.foundation.element.addClass(selectedRow,'disabled')}
+else{$.oc.foundation.element.removeClass(selectedRow,'disabled')}
 selectedRow.firstChild.textContent=value}
 ObjectListEditor.prototype.getSelectedRow=function(){if(!this.popup){throw new Error('Trying to get selected row without a popup reference.')}
 var rows=this.getTableBody().children
@@ -4571,7 +4683,8 @@ var nextRow=selectedRow.nextElementSibling,prevRow=selectedRow.previousElementSi
 this.disposeInspector()
 tbody.removeChild(selectedRow)
 var newSelectedRow=nextRow?nextRow:prevRow
-if(newSelectedRow){this.selectRow(newSelectedRow)}else{tbody.appendChild(this.buildEmptyRow())}
+if(newSelectedRow){this.selectRow(newSelectedRow)}
+else{tbody.appendChild(this.buildEmptyRow())}
 this.updateScrollpads()}
 ObjectListEditor.prototype.applyDataToParentInspector=function(){var selectedRow=this.getSelectedRow(),tbody=this.getTableBody(),dataRows=tbody.querySelectorAll('tr[data-inspector-values]'),link=this.getLink(),result=this.getEmptyValue()
 if(selectedRow){if(!this.validateKeyValue()){return}
@@ -4681,7 +4794,7 @@ ObjectEditor.prototype.getUndefinedValue=function(){var result={}
 for(var i=0,len=this.propertyDefinition.properties.length;i<len;i++){var propertyName=this.propertyDefinition.properties[i].property,editor=this.childInspector.findPropertyEditor(propertyName)
 if(editor){result[propertyName]=editor.getUndefinedValue()}}
 return this.getValueOrRemove(result)}
-ObjectEditor.prototype.validate=function(){var values=values=this.childInspector.getValues()
+ObjectEditor.prototype.validate=function(){var values=this.childInspector.getValues()
 if(this.cleanUpValue(values)===$.oc.inspector.removedProperty){return true}
 return this.childInspector.validate()}
 ObjectEditor.prototype.onInspectorDataChange=function(property,value){var values=this.childInspector.getValues()
@@ -4731,9 +4844,8 @@ if(value===undefined||$.isEmptyObject(value)){var placeholder=this.propertyDefin
 if(placeholder!==undefined){$.oc.foundation.element.addClass(link,'placeholder')
 link.textContent=placeholder}
 else{link.textContent='Items: 0'}}
-else{var itemCount=0
-if(typeof value!=='object'){this.throwError('Object list value should be an object.')}
-itemCount=this.getValueKeys(value).length
+else{if(typeof value!=='object'){this.throwError('Object list value should be an object.')}
+var itemCount=this.getValueKeys(value).length
 $.oc.foundation.element.removeClass(link,'placeholder')
 link.textContent='Items: '+itemCount}}
 DictionaryEditor.prototype.getPopupContent=function(){return'<form>                                                                                  \
@@ -4780,7 +4892,7 @@ DictionaryEditor.prototype.getPopupContent=function(){return'<form>             
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default"data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
                 </div>                                                                                  \
                 </form>'}
 DictionaryEditor.prototype.configurePopup=function(popup){this.buildItemsTable(popup.get(0))
@@ -4885,10 +4997,8 @@ DictionaryEditor.prototype.onCommand=function(ev){var command=ev.currentTarget.g
 switch(command){case'create-item':this.createItem()
 break;case'delete-item':this.deleteItem()
 break;}}
-DictionaryEditor.prototype.onKeyDown=function(ev){if(ev.keyCode==40)
-return this.navigateDown(ev)
-else if(ev.keyCode==38)
-return this.navigateUp(ev)}
+DictionaryEditor.prototype.onKeyDown=function(ev){if(ev.keyCode==40){return this.navigateDown(ev)}
+else if(ev.keyCode==38){return this.navigateUp(ev)}}
 $.oc.inspector.propertyEditors.dictionary=DictionaryEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.string,BaseProto=Base.prototype
 var AutocompleteEditor=function(inspector,propertyDefinition,containerCell,group){Base.call(this,inspector,propertyDefinition,containerCell,group)}
 AutocompleteEditor.prototype=Object.create(BaseProto)
@@ -4991,18 +5101,15 @@ BaseValidator.prototype.getMessage=function(defaultMessage){if(this.options.mess
 if(defaultMessage!==undefined){return defaultMessage}
 return this.defaultMessage}
 BaseValidator.prototype.isScalar=function(value){if(value===undefined||value===null){return true}
-if(typeof value==='string'||typeof value=='number'||typeof value=='boolean'){return true}
-return false}
+return!!(typeof value==='string'||typeof value=='number'||typeof value=='boolean');}
 BaseValidator.prototype.isValid=function(value){return null}
 $.oc.inspector.validators.base=BaseValidator}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.validators.base,BaseProto=Base.prototype
 var BaseNumber=function(options){Base.call(this,options)}
 BaseNumber.prototype=Object.create(BaseProto)
 BaseNumber.prototype.constructor=Base
-BaseNumber.prototype.doCommonChecks=function(value){if(this.options.min!==undefined||this.options.max!==undefined){if(this.options.min!==undefined){if(this.options.min.value===undefined)
-throw new Error('The min.value parameter is not defined in the Inspector validator configuration')
+BaseNumber.prototype.doCommonChecks=function(value){if(this.options.min!==undefined||this.options.max!==undefined){if(this.options.min!==undefined){if(this.options.min.value===undefined){throw new Error('The min.value parameter is not defined in the Inspector validator configuration')}
 if(value<this.options.min.value){return this.options.min.message!==undefined?this.options.min.message:"The value should not be less than "+this.options.min.value}}
-if(this.options.max!==undefined){if(this.options.max.value===undefined)
-throw new Error('The max.value parameter is not defined in the table Inspector validator configuration')
+if(this.options.max!==undefined){if(this.options.max.value===undefined){throw new Error('The max.value parameter is not defined in the table Inspector validator configuration')}
 if(value>this.options.max.value){return this.options.max.message!==undefined?this.options.max.message:"The value should not be greater than "+this.options.max.value}}}}
 $.oc.inspector.validators.baseNumber=BaseNumber}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.validators.base,BaseProto=Base.prototype
 var RequiredValidator=function(options){Base.call(this,options)
@@ -5055,8 +5162,7 @@ if(typeof value=='boolean'){this.throwError('The Length Inspector validator cann
 var length=null
 if(Object.prototype.toString.call(value)==='[object Array]'||typeof value==='string'){length=value.length}
 else if(typeof value==='object'){length=this.getObjectLength(value)}
-if(this.options.min!==undefined||this.options.max!==undefined){if(this.options.min!==undefined){if(this.options.min.value===undefined)
-throw new Error('The min.value parameter is not defined in the Length Inspector validator configuration.')
+if(this.options.min!==undefined||this.options.max!==undefined){if(this.options.min!==undefined){if(this.options.min.value===undefined){throw new Error('The min.value parameter is not defined in the Length Inspector validator configuration.')}
 if(length<this.options.min.value){return this.options.min.message!==undefined?this.options.min.message:"The value should not be shorter than "+this.options.min.value}}
 if(this.options.max!==undefined){if(this.options.max.value===undefined)
 throw new Error('The max.value parameter is not defined in the Length Inspector validator configuration.')
