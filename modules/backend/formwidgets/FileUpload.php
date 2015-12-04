@@ -255,9 +255,7 @@ class FileUpload extends FormWidgetBase
             return $value;
         }, $types);
 
-        $types = implode(',', $types);
-
-        return $types . ',' . strtoupper($types);
+        return implode(',', $types);
     }
 
     /**
