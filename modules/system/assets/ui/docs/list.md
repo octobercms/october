@@ -175,7 +175,7 @@ Lists are responsive by default and will collapse at a breakpoint of `980px`. Th
 
 ### Row classes
 
-The following classes are available to use on the table row elements.
+The following colored classes are available to use on the table row elements.
 
     <div class="control-list list-unresponsive">
         <table class="table data">
@@ -247,3 +247,36 @@ It might be fun to include a status column!
             </tbody>
         </table>
     </div>
+
+### Button column
+
+You may add a small button to a list column by adding the `column-button` class to the table data (TD) element.
+
+    <div class="control-list list-unresponsive">
+        <table class="table data" data-control="rowlink">
+            <thead>
+                <tr>
+                    <th style="width: 150px"><span>Action</span></th>
+                    <th><a href="javascript:;">Name</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="column-button nolink">
+                        <a
+                            href="http://www.google.com"
+                            target="_blank"
+                            class="btn btn-default btn-sm">
+                            Open Google
+                        </a>
+                    </td>
+                    <td>
+                        <a href="javascript:;">
+                            Petoria
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+

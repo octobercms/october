@@ -2345,8 +2345,8 @@ table.table.data thead td.active > span:after,table.table.data thead th.active >
 table.table.data thead tr th:first-child{padding-left:5px}
 table.table.data tbody tr:nth-child(even) td,table.table.data tbody tr:nth-child(even) th{background-color:#f5f5f5}
 table.table.data tbody td,table.table.data tbody th{padding:11px 15px;color:#666666;border-color:#eeeeee}
-table.table.data tbody td a,table.table.data tbody th a{color:#666666}
-table.table.data tbody td a:hover,table.table.data tbody th a:hover{text-decoration:none}
+table.table.data tbody td a:not(.btn),table.table.data tbody th a:not(.btn){color:#666666}
+table.table.data tbody td a:not(.btn):hover,table.table.data tbody th a:not(.btn):hover{text-decoration:none}
 table.table.data tbody td div.progress,table.table.data tbody th div.progress{position:relative;overflow:visible;height:auto;margin-bottom:0;background-color:transparent;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:none;box-shadow:none}
 table.table.data tbody td div.progress div.bar,table.table.data tbody th div.progress div.bar{position:absolute;left:-15px;top:-11px;bottom:-11px;background:#0181b9;opacity:0.3;filter:alpha(opacity=30)}
 table.table.data tbody td div.progress a,table.table.data tbody th div.progress a{position:relative}
@@ -2355,7 +2355,7 @@ table.table.data tbody tr td:first-child{border-left:3px solid transparent;paddi
 table.table.data tbody tr.active td{color:#000000}
 table.table.data tbody tr.active td:first-child{border-left:3px solid #ff9933}
 table.table.data tbody tr:not(.no-data):hover td,table.table.data tbody tr:not(.no-data).selected td{background:#4da7e8 !important;color:white}
-table.table.data tbody tr:not(.no-data):hover td a,table.table.data tbody tr:not(.no-data).selected td a,table.table.data tbody tr:not(.no-data):hover td span,table.table.data tbody tr:not(.no-data).selected td span,table.table.data tbody tr:not(.no-data):hover td i[class^="icon-"],table.table.data tbody tr:not(.no-data).selected td i[class^="icon-"]{color:white}
+table.table.data tbody tr:not(.no-data):hover td a:not(.btn),table.table.data tbody tr:not(.no-data).selected td a:not(.btn),table.table.data tbody tr:not(.no-data):hover td span,table.table.data tbody tr:not(.no-data).selected td span,table.table.data tbody tr:not(.no-data):hover td i[class^="icon-"],table.table.data tbody tr:not(.no-data).selected td i[class^="icon-"]{color:white}
 table.table.data tbody tr.hidden td,table.table.data tbody tr.hidden th,table.table.data tbody tr.hidden td a,table.table.data tbody tr.hidden th a{display:none}
 table.table.data tbody tr.strike td,table.table.data tbody tr.strike th,table.table.data tbody tr.strike td a,table.table.data tbody tr.strike th a{text-decoration:line-through}
 table.table.data tbody tr.frozen td,table.table.data tbody tr.frozen th,table.table.data tbody tr.frozen td a,table.table.data tbody tr.frozen th a{color:#337ab7}
@@ -2368,9 +2368,10 @@ table.table.data tbody tr.safe td,table.table.data tbody tr.special td,table.tab
 table.table.data tbody td.column-break-word{word-wrap:break-word;word-break:break-all}
 table.table.data tbody td.column-single-line{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 table.table.data tbody td.column-slim{padding-left:0;padding-right:0}
+table.table.data tbody td.column-compact{padding:0}
+table.table.data tbody td.column-button{padding:5px}
 table.table.data tbody.icons td i[class^="icon-"]{display:inline-block;margin-right:7px;font-size:15px;color:#95a5a6;position:relative;top:1px}
 table.table.data tbody.clickable{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
-table.table.data tbody td.column-compact{padding:0}
 table.table.data.no-active-indicator tbody tr td:first-child{border-left:none}
 table.table.data tfoot a{color:#666666;text-decoration:none}
 table.table.data tfoot td,table.table.data tfoot th{border-color:#e2e2e2;padding:10px 15px}
