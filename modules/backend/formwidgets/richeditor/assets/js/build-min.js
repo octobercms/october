@@ -2069,7 +2069,7 @@ if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random()
 var redactorOptions={imageEditable:true,imageResizable:true,buttonSource:true,removeDataAttr:false,toolbarFixed:false,syncBeforeCallback:this.proxy(this.onSyncBefore),focusCallback:this.proxy(this.onFocus),blurCallback:this.proxy(this.onBlur),keydownCallback:this.proxy(this.onKeydown),enterCallback:this.proxy(this.onEnter),changeCallback:this.proxy(this.onChange),pageLinksHandler:this.options.linksHandler,initCallback:function(){self.build(this)}}
 if(this.options.fullpage){redactorOptions.fullpage=true}
 redactorOptions.plugins=['fullscreen','figure','table','pagelinks','mediamanager']
-redactorOptions.buttons=['html','formatting','bold','italic','unorderedlist','orderedlist','link','horizontalrule'],this.$textarea.redactor(redactorOptions)
+redactorOptions.buttons=['html','formatting','bold','italic','alignment','unorderedlist','orderedlist','link','horizontalrule'],this.$textarea.redactor(redactorOptions)
 this.redactor=this.$textarea.redactor('core.getObject')
 this.$editor=this.redactor.$editor}
 RichEditor.prototype.dispose=function(){this.unregisterHandlers()
