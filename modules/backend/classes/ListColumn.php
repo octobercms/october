@@ -42,6 +42,11 @@ class ListColumn
     public $sortable = true;
 
     /**
+     * @var bool If set to false, disables the default click behavior when the column is clicked.
+     */
+    public $clickable = true;
+
+    /**
      * @var string Model attribute to use for the display value, this will
      * override any $sqlSelect definition.
      */
@@ -132,6 +137,9 @@ class ListColumn
         }
         if (isset($config['sortable'])) {
             $this->sortable = $config['sortable'];
+        }
+        if (isset($config['clickable'])) {
+            $this->clickable = $config['clickable'];
         }
         if (isset($config['invisible'])) {
             $this->invisible = $config['invisible'];
