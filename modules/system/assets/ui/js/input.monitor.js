@@ -27,6 +27,7 @@
  * Triggered events: 
  * - changed.oc.changeMonitor - triggered when the form data changes.
  * - unchanged.oc.changeMonitor - triggered when the form data unchanges.
+ * - ready.oc.changeMonitor - triggered when the change monitor instance finishes initialization.
  *
  * JavaScript API:
  * $('#form').changeMonitor()
@@ -67,6 +68,7 @@
             $(window).on('beforeunload', this.proxy(this.onBeforeUnload))
 
         this.$el.one('dispose-control', this.proxy(this.dispose))
+        this.$el.trigger('ready.oc.changeMonitor')
     }
 
     ChangeMonitor.prototype.dispose = function() {

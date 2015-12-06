@@ -2713,7 +2713,8 @@ this.$el.on('keyup input paste','input, textarea:not(.ace_text-input)',this.prox
 $('input:not([type=hidden]), textarea:not(.ace_text-input)',this.$el).each(function(){$(this).data('oldval.oc.changeMonitor',$(this).val());})
 if(this.options.windowCloseConfirm)
 $(window).on('beforeunload',this.proxy(this.onBeforeUnload))
-this.$el.one('dispose-control',this.proxy(this.dispose))}
+this.$el.one('dispose-control',this.proxy(this.dispose))
+this.$el.trigger('ready.oc.changeMonitor')}
 ChangeMonitor.prototype.dispose=function(){if(this.$el===null)
 return
 this.unregisterHandlers()
@@ -3244,7 +3245,7 @@ if(isActive)
 $('> li > a',this.$tabsContainer).eq(tabIndex-1).tab('show')
 if($('> li > a',this.$tabsContainer).length==0)
 this.$el.trigger('afterAllClosed.oc.tab')
-this.$el.trigger('closed.oc.tab',[$tab])
+this.$el.trigger('closed.oc.tab',[$tab,$pane])
 $(window).trigger('resize')
 this.updateClasses()}
 Tab.prototype.updateClasses=function(){if(this.$tabsContainer.children().length>0)
@@ -3270,6 +3271,8 @@ tabParent=this.$tabsContainer
 return tabParent.children().index($(tabToFind))}
 Tab.prototype.findTabFromPane=function(pane){var id='#'+$(pane).attr('id'),tab=$('[data-target="'+id+'"]',this.$tabsContainer)
 return tab}
+Tab.prototype.findPaneFromTab=function(tab){var id=$(tab).find('> a').data('target'),pane=this.$pagesContainer.find(id)
+return pane}
 Tab.prototype.goTo=function(identifier){var $tab=$('[data-tab-id="'+identifier+'" ]',this.$tabsContainer)
 if($tab.length==0)
 return false

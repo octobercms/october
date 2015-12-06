@@ -2604,7 +2604,7 @@ div.inspector-dictionary-container table.inspector-dictionary-table tbody tr:las
 .modal-footer .btn + .btn{margin-left:5px;margin-bottom:0}
 .modal-footer .btn-group .btn + .btn{margin-left:-1px}
 .modal-footer .btn-block + .btn-block{margin-left:0}
-@media (min-width:768px){.modal-dialog{width:600px;margin:30px auto}
+@media (min-width:768px){.modal-dialog{width:600px;margin:80px auto 30px auto}
 .modal-content{-webkit-box-shadow:0 5px 15px rgba(0,0,0,0.5);box-shadow:0 5px 15px rgba(0,0,0,0.5)}
 .modal-sm{width:300px}
 }
