@@ -264,7 +264,7 @@ return [
         'nothing_selected' => 'Nincs fájl kiválasztva.',
         'multiple_selected' => 'Több fájl kiválasztva.',
         'uploading_file_num' => 'Feltöltve :number fájl...',
-        'uploading_complete' => 'Feltöltés sikeresen befejezve',,
+        'uploading_complete' => 'Feltöltés sikeresen befejezve',
         'uploading_error' => 'Feltöltés sikertelen',
         'order_by' => 'Rendezés',
         'folder' => 'Könyvtárak',
