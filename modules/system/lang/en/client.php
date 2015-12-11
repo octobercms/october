@@ -59,6 +59,20 @@ return [
         'weekdaysShort' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     ],
 
+    'filter' => [
+        'group' => [
+            'all' => 'all'
+        ],
+        'dates' => [
+            'format' => 'YYYY-MM-DD', // Moment.js date format
+            'all' => 'all period',
+            'filter_button_text' => 'Filter',
+            'reset_button_text'  => 'Reset',
+            'date_placeholder' => 'Date',
+            'after_placeholder' => 'After',
+            'before_placeholder' => 'Before'
+        ]
+    ],
 ];
 
 

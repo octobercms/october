@@ -349,7 +349,11 @@ return [
     ],
     'filter' => [
         'all' => 'all',
-        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':filter' filter."
+        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':filter' filter.",
+        'date' => [
+            'all' => 'all period',
+            'format' =>'Y-m-d'
+        ]
     ],
     'import_export' => [
         'upload_csv_file' => '1. Upload a CSV file',

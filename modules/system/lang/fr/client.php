@@ -61,6 +61,21 @@ return [
         'weekdays'      => ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
         'weekdaysShort' => ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
     ],
+
+    'filter' => [
+        'group' => [
+            'all' => 'all'
+        ],
+        'dates' => [
+            'format' => 'DD/MM/YYYY', // Moment.js date format
+            'all' => 'toute la période',
+            'filter_button_text' => 'Filtrer',
+            'reset_button_text'  => 'Effacer',
+            'date_placeholder' =>   'Date',
+            'after_placeholder' => 'Après le',
+            'before_placeholder' => 'Avant le',
+        ]
+    ],
 ];
 
 
