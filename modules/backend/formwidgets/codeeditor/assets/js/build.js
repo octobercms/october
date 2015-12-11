@@ -22,6 +22,7 @@
 =require ../vendor/ace/mode-css.js
 =require ../vendor/ace/mode-scss.js
 =require ../vendor/ace/mode-sass.js
+=require ../vendor/ace/mode-yaml.js
 =require ../vendor/ace/mode-javascript.js
 
 =require codeeditor.js
