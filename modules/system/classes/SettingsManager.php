@@ -209,7 +209,7 @@ class SettingsManager
      *   The item will be displayed if the user has any of the specified permissions.
      * - order - a position of the item in the setting, optional.
      * - category - a string to assign this item to a category, optional.
-     * @param string $owner Specifies the setting items owner plugin or module in the format Vendor/Module.
+     * @param string $owner Specifies the setting items owner plugin or module in the format Vendor.Module.
      * @param array $definitions An array of the setting item definitions.
      */
     public function registerSettingItems($owner, array $definitions)
@@ -250,7 +250,7 @@ class SettingsManager
 
     /**
      * Sets the navigation context.
-     * @param string $owner Specifies the setting items owner plugin or module in the format Vendor/Module.
+     * @param string $owner Specifies the setting items owner plugin or module in the format Vendor.Module.
      * @param string $code Specifies the settings item code.
      */
     public static function setContext($owner, $code)
