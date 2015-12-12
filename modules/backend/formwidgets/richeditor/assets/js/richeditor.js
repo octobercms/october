@@ -68,6 +68,7 @@
          * Initialize Redactor editor
          */
         var redactorOptions = {
+            lang: document.documentElement.lang,
             imageEditable: true,
             imageResizable: true,
             buttonSource: true,
@@ -158,8 +159,9 @@
             $codeEditor = $('textarea', this.$el),
             $toolbar = $('.redactor-toolbar', this.$el)
 
-        if (!$editor.length)
+        if (!$editor.length) {
             return
+        }
 
         if (this.$el.hasClass('stretch')) {
             var height = $toolbar.outerHeight(true)
@@ -231,8 +233,9 @@
         var current = this.redactor.selection.getCurrent(),
             inserted = false
 
-        if (current === false)
+        if (current === false) {
             this.redactor.focus.setStart()
+        }
 
         current = this.redactor.selection.getCurrent()
 
@@ -243,8 +246,9 @@
                 this.redactor.caret.setAfter($paragraph.get(0))
 
                 // If the paragraph is empty, remove it.
-                if ($.trim($paragraph.text()).length == 0)
+                if ($.trim($paragraph.text()).length == 0) {
                     $paragraph.remove()
+                }
             }
             else {
                 // If block is inserted into another UI block, insert it after the existing block.
@@ -256,8 +260,9 @@
             }
         }
 
-        if (!inserted)
+        if (!inserted) {
             this.redactor.insert.node($node)
+        }
 
         this.redactor.code.sync()
 
@@ -275,8 +280,9 @@
     }
 
     RichEditor.prototype.handleUiBlocksKeydown = function(ev) {
-        if (this.$textarea === undefined)
+        if (this.$textarea === undefined) {
             return
+        }
 
         if (ev.target && $(ev.target).attr('data-ui-block') !== undefined) {
             this.uiBlockKeyDown(ev, ev.target)
@@ -350,10 +356,12 @@
     RichEditor.prototype.focusUiBlockOrText = function($block, gotoStart) {
         if ($block.length > 0) {
             if (!this.handleUiBlockCaretIn($block, this.redactor)) {
-                if (gotoStart)
+                if (gotoStart) {
                     this.redactor.caret.setStart($block.get(0))
-                else
+                }
+                else {
                     this.redactor.caret.setEnd($block.get(0))
+                }
             }
         }
     }
@@ -376,25 +384,29 @@
     RichEditor.prototype.onKeydown = function(ev) {
         this.$textarea.trigger('keydown.oc.richeditor', [ev, this.$editor, this.$textarea])
 
-        if (ev.isDefaultPrevented())
+        if (ev.isDefaultPrevented()) {
             return false
+        }
 
         this.handleUiBlocksKeydown(ev)
 
-        if (ev.isDefaultPrevented())
+        if (ev.isDefaultPrevented()) {
             return false
+        }
     }
 
     RichEditor.prototype.onEnter = function(ev) {
         this.$textarea.trigger('enter.oc.richeditor', [ev, this.$editor, this.$textarea])
 
-        if (ev.isDefaultPrevented())
+        if (ev.isDefaultPrevented()) {
             return false
+        }
 
         this.handleUiBlocksKeydown(ev)
 
-        if (ev.isDefaultPrevented())
+        if (ev.isDefaultPrevented()) {
             return false
+        }
     }
 
     RichEditor.prototype.onChange = function(ev) {
@@ -402,8 +414,9 @@
         this.$editor.trigger('mutate')
         this.$form.trigger('change')
 
-        if (this.$dataLocker)
+        if (this.$dataLocker) {
             this.$dataLocker.val(this.syncBefore(this.$editor.html()))
+        }
     }
 
     // RICHEDITOR PLUGIN DEFINITION
@@ -411,19 +424,23 @@
 
     var old = $.fn.richEditor
 
-    $.fn.richEditor = function (option) {
+    $.fn.richEditor = function(option) {
         var args = arguments;
 
-        return this.each(function () {
+        return this.each(function() {
             var $this   = $(this)
             var data    = $this.data('oc.richEditor')
             var options = $.extend({}, RichEditor.DEFAULTS, $this.data(), typeof option == 'object' && option)
-            if (!data) $this.data('oc.richEditor', (data = new RichEditor(this, options)))
+
+            if (!data) {
+                $this.data('oc.richEditor', (data = new RichEditor(this, options)))
+            }
 
             if (typeof option == 'string') {
                 var methodArgs = [];
-                for (var i=1; i<args.length; i++)
+                for (var i=1; i<args.length; i++) {
                     methodArgs.push(args[i])
+                }
 
                 data[option].apply(data, methodArgs)
             }
@@ -435,14 +452,14 @@
     // RICHEDITOR NO CONFLICT
     // =================
 
-    $.fn.richEditor.noConflict = function () {
+    $.fn.richEditor.noConflict = function() {
         $.fn.richEditor = old
         return this
     }
 
     // RICHEDITOR DATA-API
     // ===============
-    $(document).render(function () {
+    $(document).render(function() {
         $('[data-control="richeditor"]').richEditor()
     })
 
