@@ -1,4 +1,4 @@
-* **Build 31x** (2015-12-xx)
+* **Build 313** (2015-12-12)
   - Added a `clickable` option to list columns (see Backend > Lists docs).
 
 * **Build 310** (2015-11-28)
