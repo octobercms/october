@@ -41,7 +41,17 @@
 }
 
 // Relation manager to sit flush to the element above
-.relation-flush { }
+.relation-flush {
+    .control-list {
+        border-top: none;
+    }
+}
+
+// Relation manager to sit inset the standard padding (20px)
+.relation-inset {
+    margin-left: -20px;
+    margin-right: -20px;
+}
 
 // Displayed in a form field
 .form-group > .relation-behavior {
