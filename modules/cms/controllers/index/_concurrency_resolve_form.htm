@@ -11,19 +11,19 @@
             type="submit"
             data-action="reload"
             class="btn btn-primary">
-            Reload
+            <?= e(trans('backend::lang.form.reload')) ?>
         </button>
         <button
             type="submit"
             data-action="save"
             class="btn btn-primary">
-            Save
+            <?= e(trans('backend::lang.form.save')) ?>
         </button>
         <button
             type="button"
             class="btn btn-default"
             data-dismiss="popup">
-            Cancel
+            <?= e(trans('backend::lang.form.cancel')) ?>
         </button>
     </div>
 <?= Form::close() ?>
