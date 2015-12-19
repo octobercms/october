@@ -2,7 +2,7 @@
 
 use System\Classes\PluginManager;
 
-class TranslatorTest extends TestCase
+class CoreLangTest extends TestCase
 {
     public function testValidationTranslator()
     {
