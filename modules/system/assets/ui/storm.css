@@ -1173,9 +1173,8 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 .touch .dropdown-menu .dropdown-container > ul li a:hover{color:#39454a;background:white}
 .touch .dropdown-menu .dropdown-container > ul li a:hover:before{position:absolute;font-size:14px;left:9px;top:7px;color:#949ea6}
 .touch .dropdown-menu .dropdown-container > ul li.first-item a:hover:after{content:'';display:none}
-body.dropdown-open .dropdown-overlay{position:fixed;left:0;top:0;right:0;bottom:0;z-index:300}
+body.dropdown-open .dropdown-overlay{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:300}
 @media (max-width:480px){body.dropdown-open{overflow:hidden}
-body.dropdown-open .dropdown-overlay{background:rgba(0,0,0,0.4)}
 body.dropdown-open .dropdown-menu{overflow:auto;overflow-y:scroll;position:fixed !important;margin:0 !important;top:0 !important;right:0 !important;bottom:0 !important;left:0 !important;z-index:1040}
 body.dropdown-open .dropdown-menu .dropdown-container{padding:10px;height:100%}
 body.dropdown-open .dropdown-menu .dropdown-container ul{min-height:100%;margin-top:0}

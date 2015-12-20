@@ -631,7 +631,7 @@ body.mainmenu-open{overflow:hidden}
 nav#layout-mainmenu.navbar{background-color:#111111;padding:0 0 0 20px;line-height:0;white-space:nowrap}
 nav#layout-mainmenu.navbar a{text-decoration:none}
 nav#layout-mainmenu.navbar a:focus{background:transparent}
-nav#layout-mainmenu.navbar ul{margin:0;padding:0;list-style:none;float:left;font-weight:600;white-space:nowrap;overflow:hidden}
+nav#layout-mainmenu.navbar ul{margin:0;padding:0;list-style:none;float:left;font-weight:600;white-space:nowrap}
 nav#layout-mainmenu.navbar ul li{color:#555555;display:inline-block;margin-right:30px;position:relative}
 nav#layout-mainmenu.navbar ul li:last-child{margin-right:0}
 nav#layout-mainmenu.navbar ul li.active:after{content:' ';position:absolute;bottom:0;left:50%;margin-left:-8.5px}
@@ -651,8 +651,7 @@ nav#layout-mainmenu.navbar .toolbar-item:before{left:-12px}
 nav#layout-mainmenu.navbar .toolbar-item:after{right:-12px}
 nav#layout-mainmenu.navbar .toolbar-item.scroll-active-before:before{color:#ffffff}
 nav#layout-mainmenu.navbar .toolbar-item.scroll-active-after:after{color:#ffffff}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu{position:fixed;top:63px;right:0;background:#2b3e50;z-index:590;display:none}
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu.active{display:block}
+nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu{position:absolute;top:58px;right:0;background:#2b3e50;z-index:590;display:none}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu:after{content:'';display:block;width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-bottom:12px solid #2b3e50;right:40px;top:-12px;position:absolute}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu ul{float:none;display:block}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li{padding:0;margin:0;font-weight:400;text-align:left;display:block}
@@ -661,6 +660,7 @@ nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li:hover{background:#3d52
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu li.divider{height:1px;width:100%;background-color:#4b6372}
 @media (max-width:768px){nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu:after{right:71px}
 }
+nav#layout-mainmenu.navbar ul li.open .mainmenu-accountmenu{display:block}
 nav#layout-mainmenu.navbar ul li a,nav#layout-mainmenu .menu-toggle,.mainmenu-collapsed li a{padding:14px 0;display:inline-block;font-size:14px;color:inherit;outline:none}
 nav#layout-mainmenu.navbar ul li a:hover,nav#layout-mainmenu .menu-toggle:hover,.mainmenu-collapsed li a:hover{background-color:transparent !important}
 nav#layout-mainmenu.navbar ul li a:active,nav#layout-mainmenu .menu-toggle:active,.mainmenu-collapsed li a:active,nav#layout-mainmenu.navbar ul li a:focus,nav#layout-mainmenu .menu-toggle:focus,.mainmenu-collapsed li a:focus{text-decoration:none;color:#555555}

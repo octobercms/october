@@ -31,8 +31,8 @@
                     <i class="icon-crosshairs"></i>
                 </a>
             </li>
-            <li class="highlight account">
-                <a href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)">
+            <li class="highlight account dropdown">
+                <a href="javascript:;" data-toggle="dropdown">
                     <img src="<?= $this->user->getAvatarThumb(50, ['extension' => 'png']) ?>">
                     <span class="hidden-xs">
                         <?= e($this->user->first_name.' '.$this->user->last_name) ?>

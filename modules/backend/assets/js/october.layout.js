@@ -40,26 +40,6 @@
         })
     }
 
-    OctoberLayout.prototype.toggleAccountMenu = function(el) {
-        var self = this,
-            $menu = $(el).next()
-
-        if ($menu.hasClass('active')) {
-            self.$accountMenuOverlay.remove()
-            $menu.removeClass('active')
-        }
-        else {
-            self.$accountMenuOverlay = $('<div />').addClass('popover-overlay')
-            $(document.body).append(self.$accountMenuOverlay)
-            $menu.addClass('active')
-
-            self.$accountMenuOverlay.one('click', function(){
-                self.$accountMenuOverlay.remove()
-                $menu.removeClass('active')
-            })
-        }
-    }
-
     if ($.oc === undefined)
         $.oc = {}
 

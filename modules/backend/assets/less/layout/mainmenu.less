@@ -26,7 +26,6 @@ nav#layout-mainmenu.navbar {
         float: left;
         font-weight: 600;
         white-space: nowrap;
-        overflow: hidden;
 
         li {
             color: @color-mainmenu-inactive;
@@ -94,58 +93,61 @@ nav#layout-mainmenu.navbar {
     }
 }
 
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu {
-    position: fixed;
-    top: 63px;
-    right: 0;
-    background: @color-accountmenu-bg;
-    z-index: 590;
-    display: none;
+nav#layout-mainmenu.navbar ul li {
 
-    &.active {
-        display: block;
-    }
-
-    &:after {
-        .triangle(up, 22px, 12px, @color-accountmenu-bg);
-        right: 40px;
-        top: -12px;
+    .mainmenu-accountmenu {
         position: absolute;
-    }
+        top: 58px;
+        right: 0;
+        background: @color-accountmenu-bg;
+        z-index: 590;
+        display: none;
 
-    ul {
-        float: none;
-        display: block;
-    }
-
-    li {
-        padding: 0;
-        margin: 0;
-        font-weight: 400;
-        text-align: left;
-        display: block;
-
-        a {
-            display: block;
-            padding: 12px 30px;
-            text-align: left;
-        }
-
-        &:hover {
-            background: #3d5265!important;
-        }
-    }
-
-    li.divider {
-        height: 1px;
-        width: 100%;
-        background-color: @color-accountmenu-divider;
-    }
-
-    @media (max-width: @screen-sm) {
         &:after {
-            right: 71px;
+            .triangle(up, 22px, 12px, @color-accountmenu-bg);
+            right: 40px;
+            top: -12px;
+            position: absolute;
         }
+
+        ul {
+            float: none;
+            display: block;
+        }
+
+        li {
+            padding: 0;
+            margin: 0;
+            font-weight: 400;
+            text-align: left;
+            display: block;
+
+            a {
+                display: block;
+                padding: 12px 30px;
+                text-align: left;
+            }
+
+            &:hover {
+                background: #3d5265!important;
+            }
+        }
+
+        li.divider {
+            height: 1px;
+            width: 100%;
+            background-color: @color-accountmenu-divider;
+        }
+
+        @media (max-width: @screen-sm) {
+            &:after {
+                right: 71px;
+            }
+        }
+    }
+
+    &.open .mainmenu-accountmenu {
+        display: block;
     }
 }
 
