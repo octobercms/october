@@ -49,7 +49,8 @@
             this.inspector.getInspectorUniqueId() + '-' + this.propertyDefinition.property, 
             options,
             this.inspector,
-            this.group)
+            this.group,
+            this.propertyDefinition.property)
 
         this.inspector.mergeChildSurface(this.childInspector, currentRow)
     }
@@ -68,14 +69,6 @@
         }
 
         return this.getValueOrRemove(value)
-    }
-
-    ObjectEditor.prototype.isEmptyValue = function(value) {
-        return value === undefined
-            || value === null
-            || $.isEmptyObject(value) 
-            || (typeof value == 'string' && $.trim(value).length === 0)
-            || (Object.prototype.toString.call(value) === '[object Array]' && value.length === 0)
     }
 
     ObjectEditor.prototype.getValueOrRemove = function(value) {
@@ -120,8 +113,8 @@
         return this.getValueOrRemove(result)
     }
 
-    ObjectEditor.prototype.validate = function() {
-        var values = this.childInspector.getValues()
+    ObjectEditor.prototype.validate = function(silentMode) {
+        var values = values = this.childInspector.getValues()
 
         if (this.cleanUpValue(values) === $.oc.inspector.removedProperty) {
             // Ignore any validation rules if the object's required 
@@ -130,7 +123,7 @@
             return true
         }
 
-        return this.childInspector.validate()
+        return this.childInspector.validate(silentMode)
     }
 
     //

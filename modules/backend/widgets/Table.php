@@ -197,4 +197,21 @@ class Table extends WidgetBase
             'options' => $options
         ];
     }
+
+    public function onGetAutocompleteOptions()
+    {
+        $columnName = Input::get('column');
+        $rowData = Input::get('rowData');
+
+        $eventResults = $this->fireEvent('table.getAutocompleteOptions', [$columnName, $rowData]);
+
+        $options = [];
+        if (count($eventResults)) {
+            $options = $eventResults[0];
+        }
+
+        return [
+            'options' => $options
+        ];
+    }
 }

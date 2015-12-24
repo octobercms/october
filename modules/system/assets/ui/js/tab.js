@@ -213,7 +213,7 @@
         if ($('> li > a', this.$tabsContainer).length == 0)
             this.$el.trigger('afterAllClosed.oc.tab')
 
-        this.$el.trigger('closed.oc.tab', [$tab])
+        this.$el.trigger('closed.oc.tab', [$tab, $pane])
 
         $(window).trigger('resize')
         this.updateClasses()
@@ -263,6 +263,13 @@
             tab = $('[data-target="' + id + '"]', this.$tabsContainer)
 
         return tab
+    }
+
+    Tab.prototype.findPaneFromTab = function(tab) {
+        var id = $(tab).find('> a').data('target'),
+            pane = this.$pagesContainer.find(id)
+
+        return pane
     }
 
     Tab.prototype.goTo = function(identifier) {

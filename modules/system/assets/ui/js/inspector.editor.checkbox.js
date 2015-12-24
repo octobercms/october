@@ -79,6 +79,14 @@
         this.getInput().checked = this.normalizeCheckedValue(value)
     }
 
+    CheckboxEditor.prototype.isEmptyValue = function(value) {
+        if (value === 0 || value === '0' || value === 'false') {
+            return true
+        }
+
+        return BaseProto.isEmptyValue.call(this, value)
+    }
+
     CheckboxEditor.prototype.registerHandlers = function() {
         var input = this.getInput()
 

@@ -41,12 +41,22 @@
         this.buildUi()
 
         this.initSurface(this.surfaceContainer, properties, values)
+
+        if (this.isLiveUpdateEnabled()) {
+            this.surface.options.onChange = this.proxy(this.onLiveUpdate)
+        }
     }
 
     InspectorContainer.prototype.adoptSurface = function() {
         this.buildUi()
 
         this.surface.moveToContainer(this.surfaceContainer)
+
+        if (this.isLiveUpdateEnabled()) {
+            this.surface.options.onChange = this.proxy(this.onLiveUpdate)
+        }
+
+        BaseProto.adoptSurface.call(this)
     }
 
     InspectorContainer.prototype.buildUi = function() {
@@ -115,18 +125,11 @@
     InspectorContainer.prototype.buildLayout = function() {
         var layout = document.createElement('div'),
             headRow = document.createElement('div'),
-            bodyRow = document.createElement('div'),
-            bodyCell = document.createElement('div'),
-            layoutRelative = document.createElement('div')
+            bodyRow = document.createElement('div')
 
-        layout.setAttribute('class', 'layout')
-        headRow.setAttribute('class', 'layout-row min-size')
-        bodyRow.setAttribute('class', 'layout-row')
-        bodyCell.setAttribute('class', 'layout-cell')
-        layoutRelative.setAttribute('class', 'layout-relative')
-
-        bodyCell.appendChild(layoutRelative)
-        bodyRow.appendChild(bodyCell)
+        layout.setAttribute('class', 'flex-layout-column fill-container')
+        headRow.setAttribute('class', 'flex-layout-item fix')
+        bodyRow.setAttribute('class', 'flex-layout-item stretch relative')
 
         layout.appendChild(headRow)
         layout.appendChild(bodyRow)
@@ -138,7 +141,7 @@
   
         return {
             headContainer: headRow,
-            bodyContainer: layoutRelative
+            bodyContainer: bodyRow
         }
     }
 
@@ -155,8 +158,12 @@
         return this.options.container.data('inspector-scrollable') !== undefined
     }
 
+    InspectorContainer.prototype.isLiveUpdateEnabled = function() {
+        return this.options.container.data('inspector-live-update') !== undefined
+    }
+
     InspectorContainer.prototype.getLayout = function() {
-        return this.options.container.get(0).querySelector('div.layout')
+        return this.options.container.get(0).querySelector('div.flex-layout-column')
     }
 
     InspectorContainer.prototype.registerLayoutHandlers = function(layout) {
@@ -181,6 +188,10 @@
         $layout.off('dispose-control', this.proxy(this.dispose))
         $layout.off('click', 'span.close', this.proxy(this.onClose))
         $layout.off('click', 'span.detach', this.proxy(this.onDetach))
+
+        if (this.surface !== null && this.surface.options.onChange === this.proxy(this.onLiveUpdate)) {
+            this.surface.options.onChange = null
+        }
     }
 
     InspectorContainer.prototype.removeControls = function() {
@@ -220,6 +231,10 @@
         this.surface.dispose()
 
         this.dispose()
+    }
+
+    InspectorContainer.prototype.onLiveUpdate = function() {
+        this.applyValues(true)
     }
 
     InspectorContainer.prototype.onDetach = function() {

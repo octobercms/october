@@ -178,6 +178,8 @@ return [
         'saving_name' => 'Saving :name...',
         'delete' => 'Delete',
         'deleting' => 'Deleting...',
+        'confirm_delete' => 'Do you really want to delete this record?',
+        'confirm_delete_multiple' => 'Do you really want to delete the selected records?',
         'deleting_name' => 'Deleting :name...',
         'reset_default' => 'Reset to default',
         'resetting' => 'Resetting',
@@ -206,7 +208,8 @@ return [
         'insert_row_below' => 'Insert Row Below',
         'delete_row' => 'Delete Row',
         'concurrency_file_changed_title' => 'File was changed',
-        'concurrency_file_changed_description' => "The file you're editing has been changed on disk by another user. You can either reload the file and lose your changes or override the file on the disk."
+        'concurrency_file_changed_description' => "The file you're editing has been changed on disk by another user. You can either reload the file and lose your changes or override the file on the disk.",
+        'return_to_list' => 'Return to the list'
     ],
     'recordfinder' => [
         'find_record' => 'Find Record'

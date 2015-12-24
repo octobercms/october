@@ -65,6 +65,8 @@
         }
 
         $textarea.focus()
+
+        this.configureComment(popup)
     }
 
     StringListEditor.prototype.handleSubmit = function($form) {
@@ -88,7 +90,6 @@
         }
 
         this.inspector.setPropertyValue(this.propertyDefinition.property, resultValue)
-// TODO: validate here
     }
 
     $.oc.inspector.propertyEditors.stringList = StringListEditor

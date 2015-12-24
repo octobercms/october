@@ -23,6 +23,7 @@
 
         this.options = $.extend({}, BaseWrapper.DEFAULTS, typeof options == 'object' && options)
         this.switched = false
+        this.configuration = null
 
         Base.call(this)
 
@@ -59,10 +60,15 @@
             this.$element.trigger('hidden.oc.inspector')
         }
 
+        if (this.surface !== null && this.surface.options.onGetInspectableElement === this.proxy(this.onGetInspectableElement)) {
+            this.surface.options.onGetInspectableElement = null
+        }
+
         this.surface = null
         this.$element = null
         this.title = null
         this.description = null
+        this.configuration = null
 
         BaseProto.dispose.call(this)
     }
@@ -91,7 +97,7 @@
     //
 
     BaseWrapper.prototype.getElementValuesInput = function() {
-        return this.$element.find('input[data-inspector-values]')
+        return this.$element.find('> input[data-inspector-values]')
     }
 
     BaseWrapper.prototype.normalizePropertyCode = function(code, configuration) {
@@ -116,6 +122,7 @@
         var options = this.$element.data() || {}
 
         options.enableExternalParameterEditor = this.isExternalParametersEditorEnabled()
+        options.onGetInspectableElement = this.proxy(this.onGetInspectableElement)
 
         this.surface = new $.oc.inspector.surface(
             containerElement,
@@ -123,6 +130,10 @@
             values,
             $.oc.inspector.helpers.generateElementUniqueId(this.$element.get(0)),
             options)
+    }
+
+    BaseWrapper.prototype.isLiveUpdateEnabled = function() {
+        return false
     }
 
     //
@@ -138,7 +149,7 @@
     }
 
     BaseWrapper.prototype.adoptSurface = function() {
-
+        this.surface.options.onGetInspectableElement = this.proxy(this.onGetInspectableElement)
     }
 
     BaseWrapper.prototype.cleanupAfterSwitch = function() {
@@ -195,9 +206,39 @@
         return values
     }
 
-    BaseWrapper.prototype.applyValues = function() {
+    BaseWrapper.prototype.applyValues = function(liveUpdateMode) {
         var $valuesField = this.getElementValuesInput(),
-            values = this.surface.getValues()
+            values = liveUpdateMode ? 
+                        this.surface.getValidValues() : 
+                        this.surface.getValues()
+
+        if (liveUpdateMode) {
+            // In the live update mode, when only valid values are applied,
+            // we don't want to change all other values (invalid properties).
+
+            var existingValues = this.loadValues(this.configuration)
+
+            for (var property in values) {
+                if (values[property] !== $.oc.inspector.invalidProperty) {
+                    existingValues[property] = values[property]
+                }
+            }
+
+            // Properties that use settings like ignoreIfPropertyEmpty could 
+            // be removed from the list returned by getValidValues(). Removed
+            // properties should be removed from the result list.
+
+            var filteredValues = {}
+
+            for (var property in existingValues) {
+                if (values.hasOwnProperty(property)) {
+                    filteredValues[property] = existingValues[property]
+                }
+            }
+
+
+            values = filteredValues
+        }
 
         if ($valuesField.length > 0) {
             $valuesField.val(JSON.stringify(values))
@@ -214,8 +255,34 @@
             }
         }
 
-        if (this.surface.hasChanges()) {
-            this.$element.trigger('change')
+        // In the live update mode the livechange event is triggered 
+        // regardless of whether Surface properties match or don't match
+        // the original properties of the inspectable element. Without it
+        // there could be undesirable side effects.
+
+        if (liveUpdateMode) {
+            this.$element.trigger('livechange')
+        }
+        else {
+            var hasChanges = false
+
+            if (this.isLiveUpdateEnabled()) {
+                var currentValues = this.loadValues(this.configuration)
+
+                // If the Inspector setup supports the live update mode,
+                // evaluate changes as a difference between the current element
+                // properties and internal properties stored in the Surface.
+                // If there is no differences, the properties have already
+                // been applied with a preceding live update.
+                hasChanges = this.surface.hasChanges(currentValues)
+            }
+            else {
+                hasChanges = this.surface.hasChanges()
+            }
+
+            if (hasChanges) {
+                this.$element.trigger('change')
+            }
         }
     }
 
@@ -241,7 +308,7 @@
             return
         }
 
-        var $configurationField = this.$element.find('input[data-inspector-config]')
+        var $configurationField = this.$element.find('> input[data-inspector-config]')
 
         if ($configurationField.length > 0) {
             result.properties = this.parseConfiguration($configurationField.val())
@@ -287,6 +354,7 @@
 
         this.title = configuration.title
         this.description = configuration.description
+        this.configuration = configuration
 
         this.createSurfaceAndUi(configuration.properties, values)
     }
@@ -330,6 +398,10 @@
 
         this.$element.trigger(hidingEvent, [{values: values}])
         return !hidingEvent.isDefaultPrevented();
+    }
+
+    BaseWrapper.prototype.onGetInspectableElement = function() {
+        return this.$element
     }
 
     BaseWrapper.DEFAULTS = {

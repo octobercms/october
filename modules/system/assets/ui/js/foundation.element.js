@@ -131,6 +131,15 @@
                     input = null
                 }, 0)
             }
+        },
+
+        elementContainsPoint: function(element, point) {
+            var elementPosition = $.oc.foundation.element.absolutePosition(element),
+                elementRight = elementPosition.left + element.offsetWidth,
+                elementBottom = elementPosition.top + element.offsetHeight
+
+            return point.x >= elementPosition.left && point.x <= elementRight 
+                    && point.y >= elementPosition.top && point.y <= elementBottom
         }
     }
 

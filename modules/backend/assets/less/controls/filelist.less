@@ -336,6 +336,36 @@
                 &:hover > div.controls {
                     display: block;
                 }
+
+                &.separator {
+                    position: relative;
+                    border-bottom: 1px solid #95a5a6;
+                    padding: 17px 15px 18px 15px;
+
+                    &:before {
+                        z-index: 31;
+                        .triangle(down, 19px, 11px, white);
+                        position: absolute;
+                        left: 13px;
+                        bottom: -8px;
+                    }
+
+                    &:after {
+                        z-index: 30;
+                        .triangle(down, 17px, 9px, #95a5a6);
+                        position: absolute;
+                        left: 14px;
+                        bottom: -9px;
+                    }
+
+                    h5 {
+                        color: #2b3e50;
+                        font-size: 15px;
+                        margin: 0;
+                        font-weight: 600;
+                        padding: 0;
+                    }
+                }
             }
 
             > li.group {

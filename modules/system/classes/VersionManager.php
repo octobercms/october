@@ -69,8 +69,10 @@ class VersionManager
 
     /**
      * Updates a single plugin by its code or object with it's latest changes.
+     * If the $stopOnVersion parameter is specified, the process stops after
+     * the specified version is applied.
      */
-    public function updatePlugin($plugin)
+    public function updatePlugin($plugin, $stopOnVersion = null)
     {
         $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
@@ -90,9 +92,28 @@ class VersionManager
         $newUpdates = $this->getNewFileVersions($code, $databaseVersion);
         foreach ($newUpdates as $version => $details) {
             $this->applyPluginUpdate($code, $version, $details);
+
+            if ($stopOnVersion === $version) {
+                return true;
+            }
         }
 
         return true;
+    }
+
+    /**
+     * Returns a list of unapplied plugin versions.
+     */
+    public function listNewVersions($plugin)
+    {
+        $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+
+        if (!$this->hasVersionFile($code)) {
+            return [];
+        }
+
+        $databaseVersion = $this->getDatabaseVersion($code);
+        return $this->getNewFileVersions($code, $databaseVersion);
     }
 
     /**
@@ -134,8 +155,10 @@ class VersionManager
 
     /**
      * Removes and packs down a plugin from the system. Files are left intact.
+     * If the $stopOnVersion parameter is specified, the process stops after
+     * the specified version is rolled back.
      */
-    public function removePlugin($plugin)
+    public function removePlugin($plugin, $stopOnVersion = null)
     {
         $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
@@ -146,16 +169,31 @@ class VersionManager
         $pluginHistory = $this->getDatabaseHistory($code);
         $pluginHistory = array_reverse($pluginHistory);
 
+        $stopOnNextVersion = false;
+        $newPluginVersion = null;
+
         foreach ($pluginHistory as $history) {
+            if ($stopOnNextVersion && $history->version !== $stopOnVersion) {
+                // Stop if the $stopOnVersion value was found and
+                // this is a new version. The history could contain
+                // multiple items for a single version (comments and scripts).
+                $newPluginVersion = $history->version;
+                break;
+            }
+
             if ($history->type == self::HISTORY_TYPE_COMMENT) {
                 $this->removeDatabaseComment($code, $history->version);
             }
             elseif ($history->type == self::HISTORY_TYPE_SCRIPT) {
                 $this->removeDatabaseScript($code, $history->version, $history->detail);
             }
+
+            if ($stopOnVersion === $history->version) {
+                $stopOnNextVersion = true;
+            }
         }
 
-        $this->setDatabaseVersion($code);
+        $this->setDatabaseVersion($code, $newPluginVersion);
 
         if (isset($this->fileVersions[$code])) {
             unset($this->fileVersions[$code]);

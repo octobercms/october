@@ -51,6 +51,7 @@ Click the "Mark changed" button and "Reload page".
 
 - changed.oc.changeMonitor - triggered when the form data changes.
 - unchanged.oc.changeMonitor - triggered when the form data unchanges.
+- ready.oc.changeMonitor triggered when the change monitor instance finishes initialization.
 
 ## JavaScript API
 
