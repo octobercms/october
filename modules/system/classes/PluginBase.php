@@ -4,6 +4,7 @@ use Illuminate\Support\ServiceProvider as ServiceProviderBase;
 use ReflectionClass;
 use SystemException;
 use Yaml;
+use Backend;
 
 /**
  * Plugin base class
@@ -101,7 +102,17 @@ class PluginBase extends ServiceProviderBase
     {
         $configuration = $this->getConfigurationFromYaml();
         if (array_key_exists('navigation', $configuration)) {
-            return $configuration['navigation'];
+            $navigation = $configuration['navigation'];
+
+            if (is_array($navigation)) {
+                array_walk_recursive($navigation, function(&$item, $key){
+                    if ($key == 'url') {
+                        $item = Backend::url($item);
+                    }
+                });
+            }
+
+            return $navigation;
         }
     }
 

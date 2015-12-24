@@ -2462,7 +2462,11 @@ this.setLoading(false)
 this.show()
 this.firstDiv=this.$content.find('>div:first')
 if(this.firstDiv.length>0)
-this.firstDiv.data('oc.popup',this)}
+this.firstDiv.data('oc.popup',this)
+var $defaultFocus=$('[default-focus]',this.$content)
+if($defaultFocus.is(":visible"))
+{window.setTimeout(function(){$defaultFocus.focus()
+$defaultFocus=null},300)}}
 Popup.prototype.setBackdrop=function(val){if(val&&!this.$backdrop){this.$backdrop=$('<div class="popup-backdrop fade" />')
 if(this.options.zIndex!==null)
 this.$backdrop.css('z-index',this.options.zIndex)
