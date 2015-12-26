@@ -80,6 +80,13 @@ class CmsObject implements ArrayAccess
      */
     public static function loadCached($theme, $fileName)
     {
+        if(Config::get('app.debug', false)) {
+          /*
+           * Bypass caching if in debug mode
+           */
+          return static::load($theme, $fileName);
+        }
+
         if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting())) {
             throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
         }
@@ -109,7 +116,7 @@ class CmsObject implements ArrayAccess
 
         if ($cached !== false) {
             /*
-             * The cached item exists and successfully unserialized. 
+             * The cached item exists and successfully unserialized.
              * Initialize the object from the cached data.
              */
             $obj = new static($theme);
@@ -183,7 +190,7 @@ class CmsObject implements ArrayAccess
     }
 
     /**
-     * Returns the maximum allowed path nesting level. 
+     * Returns the maximum allowed path nesting level.
      * The default value is 2, meaning that files
      * can only exist in the root directory, or in a subdirectory.
      * @return mixed Returns the maximum nesting level or null if any level is allowed.
@@ -443,7 +450,7 @@ class CmsObject implements ArrayAccess
 
         return $result;
     }
-    
+
     /**
      * Returns the absolute file path.
      * @param $theme Specifies a theme the file belongs to.
