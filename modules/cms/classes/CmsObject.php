@@ -12,6 +12,8 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ArrayAccess;
 use Exception;
+use DateTime;
+use DateInterval;
 
 /**
  * This is a base class for all CMS objects - content files, pages, partials and layouts.
@@ -46,6 +48,14 @@ class CmsObject implements ArrayAccess
      * @var boolean Indicated whether the object was loaded from the cache.
      */
     protected $loadedFromCache = false;
+
+    /**
+     * @var int How 'fresh' the file is for Twig caching
+     * 0: Changed but not noticed/accessed
+     * 1: Changed and noticed/accessed, will change to 2 on next load
+     * 2: Unchanged
+     */
+    protected $freshness = 0;
 
     protected static $fillable = [
         'content',
@@ -90,6 +100,10 @@ class CmsObject implements ArrayAccess
 
         $filePath = static::getFilePath($theme, $fileName);
         if (array_key_exists($filePath, ObjectMemoryCache::$cache)) {
+            if(ObjectMemoryCache::$cache[$filePath]->freshness == 1) {
+              ObjectMemoryCache::$cache[$filePath]->freshness = 2;
+            }
+
             return ObjectMemoryCache::$cache[$filePath];
         }
 
@@ -109,14 +123,20 @@ class CmsObject implements ArrayAccess
 
         if ($cached !== false) {
             /*
-             * The cached item exists and successfully unserialized. 
+             * The cached item exists and successfully unserialized.
              * Initialize the object from the cached data.
              */
+            if($cached['freshness'] == 1) {
+              $cached['freshness'] = 2;
+            }
+            Cache::put($key, serialize($cached), $cached['expire']);
+
             $obj = new static($theme);
             $obj->content = $cached['content'];
             $obj->fileName = $fileName;
             $obj->mtime = File::lastModified($filePath);
             $obj->loadedFromCache = true;
+            $obj->freshness = $cached['freshness'];
             $obj->initFromCache($cached);
 
             return ObjectMemoryCache::$cache[$filePath] = $obj;
@@ -136,12 +156,15 @@ class CmsObject implements ArrayAccess
 
         $cached = [
             'mtime'   => @File::lastModified($filePath),
-            'content' => $obj->content
+            'content' => $obj->content,
+            'freshness' => 0,
+            'expire' => (new DateTime())->add(new DateInterval('PT'.Config::get('cms.parsedPageCacheTTL', 1440).'M'))
         ];
 
         $obj->loadedFromCache = false;
+        $obj->freshness = 0;
         $obj->initCacheItem($cached);
-        Cache::put($key, serialize($cached), Config::get('cms.parsedPageCacheTTL', 1440));
+        Cache::put($key, serialize($cached), $cached['expire']);
 
         return ObjectMemoryCache::$cache[$filePath] = $obj;
     }
@@ -183,7 +206,7 @@ class CmsObject implements ArrayAccess
     }
 
     /**
-     * Returns the maximum allowed path nesting level. 
+     * Returns the maximum allowed path nesting level.
      * The default value is 2, meaning that files
      * can only exist in the root directory, or in a subdirectory.
      * @return mixed Returns the maximum nesting level or null if any level is allowed.
@@ -293,6 +316,37 @@ class CmsObject implements ArrayAccess
     public function isLoadedFromCache()
     {
         return $this->loadedFromCache;
+    }
+
+    /**
+     * Returns true if the object is fresh for Twig.
+     * Waits until it is called and the object reloaded to change the object's freshness.
+     * This method is used by the CMS internally.
+     * @return boolean
+     */
+    public function isFresh() {
+      $filePath = $this->getFullPath();
+      $key = self::getObjectTypeDirName().crc32($filePath);
+      $cached = Cache::get($key, false);
+
+      if($cached !== false) {
+          $cached = @unserialize($cached);
+      }
+
+      if($this->freshness < 2) {
+          $this->freshness = 1;
+          if($cached !== false) {
+              $cached['freshness'] = 1;
+              Cache::put($key, serialize($cached), $cached['expire']);
+          }
+          return false;
+      }
+
+      if($cached !== false) {
+          $cached['freshness'] = 1;
+          Cache::put($key, serialize($cached), $cached['expire']);
+      }
+      return true;
     }
 
     /**
@@ -443,7 +497,7 @@ class CmsObject implements ArrayAccess
 
         return $result;
     }
-    
+
     /**
      * Returns the absolute file path.
      * @param $theme Specifies a theme the file belongs to.

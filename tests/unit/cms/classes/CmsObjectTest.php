@@ -124,6 +124,77 @@ class CmsObjectTest extends TestCase
         $this->assertNull($obj);
     }
 
+    public function testFreshness()
+    {
+          $theme = Theme::load('test');
+          $themePath = $theme->getPath();
+
+          $filePath1 = $themePath . '/temporary/test.htm';
+          if (file_exists($filePath1))
+              @unlink($filePath1);
+          $filePath2 = $themePath . '/temporary/test1.htm';
+          if (file_exists($filePath2))
+              @unlink($filePath2);
+
+          $this->assertFileNotExists($filePath1);
+          $this->assertFileNotExists($filePath2);
+
+          file_put_contents($filePath1, '<p>Test content 1</p>');
+          file_put_contents($filePath2, '<p>Test content 2</p>');
+
+          /*
+           * First try - both objects should be fresh
+           */
+          $obj1 = TestTemporaryCmsObject::loadCached($theme, 'test.htm');
+          $this->assertEquals($obj1->content, '<p>Test content 1</p>');
+          $this->assertFalse($obj1->isFresh());
+          $obj2 = TestTemporaryCmsObject::loadCached($theme, 'test1.htm');
+          $this->assertEquals($obj2->content, '<p>Test content 2</p>');
+          $this->assertFalse($obj1->isFresh());
+          $this->assertFalse($obj2->isFresh());
+
+          /*
+           * Second try - both objects should not be fresh
+           */
+          CmsObject::clearInternalCache();
+          $obj1 = TestTemporaryCmsObject::loadCached($theme, 'test.htm');
+          $this->assertTrue($obj1->isFresh());
+          $obj2 = TestTemporaryCmsObject::loadCached($theme, 'test1.htm');
+          $this->assertTrue($obj1->isFresh());
+          $this->assertTrue($obj2->isFresh());
+
+          /*
+           * Modify the file. The first object should show as not fresh, until it is observed and reloaded.
+           */
+          sleep(1); // Sleep a second in order to have the update file modification time
+          file_put_contents($filePath1, '<p>Updated test content</p>');
+
+          CmsObject::clearInternalCache();
+          $obj1 = TestTemporaryCmsObject::loadCached($theme, 'test.htm');
+          $this->assertEquals($obj1->content, '<p>Updated test content</p>');
+          $obj2 = TestTemporaryCmsObject::loadCached($theme, 'test1.htm');
+          $this->assertEquals($obj2->content, '<p>Test content 2</p>');
+          $this->assertFalse($obj1->isFresh());
+          $this->assertTrue($obj2->isFresh());
+          $obj1 = TestTemporaryCmsObject::loadCached($theme, 'test.htm');
+          $this->assertTrue($obj1->isFresh());
+
+          /*
+           * Modify the file again, but wait to look for change. The object should still show as changed, even after the second load.
+           */
+          sleep(1); // Sleep a second in order to have the update file modification time
+          file_put_contents($filePath1, '<p>Updated test content again</p>');
+
+          CmsObject::clearInternalCache();
+          $obj1 = TestTemporaryCmsObject::loadCached($theme, 'test.htm');
+          $this->assertEquals($obj1->content, '<p>Updated test content again</p>');
+          $obj2 = TestTemporaryCmsObject::loadCached($theme, 'test1.htm');
+          $this->assertEquals($obj2->content, '<p>Test content 2</p>');
+          $this->assertTrue($obj2->isFresh());
+          $obj1 = TestTemporaryCmsObject::loadCached($theme, 'test.htm');
+          $this->assertFalse($obj1->isFresh());
+    }
+
     public function testFillFillable()
     {
         $theme = Theme::load('apitest');
