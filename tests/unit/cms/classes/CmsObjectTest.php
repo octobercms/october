@@ -143,7 +143,7 @@ class CmsObjectTest extends TestCase
           file_put_contents($filePath2, '<p>Test content 2</p>');
 
           /*
-           * First try - both objects should be fresh
+           * First try - both objects should not be fresh
            */
           $obj1 = TestTemporaryCmsObject::loadCached($theme, 'test.htm');
           $this->assertEquals($obj1->content, '<p>Test content 1</p>');
@@ -154,7 +154,7 @@ class CmsObjectTest extends TestCase
           $this->assertFalse($obj2->isFresh());
 
           /*
-           * Second try - both objects should not be fresh
+           * Second try - both objects should be fresh
            */
           CmsObject::clearInternalCache();
           $obj1 = TestTemporaryCmsObject::loadCached($theme, 'test.htm');
@@ -180,7 +180,7 @@ class CmsObjectTest extends TestCase
           $this->assertTrue($obj1->isFresh());
 
           /*
-           * Modify the file again, but wait to look for change. The object should still show as changed, even after the second load.
+           * Modify the file again, but wait to look for change. The object should still show as not fresh, even after the second load.
            */
           sleep(1); // Sleep a second in order to have the update file modification time
           file_put_contents($filePath1, '<p>Updated test content again</p>');
