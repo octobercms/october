@@ -224,7 +224,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_CMS,
                     'icon'        => 'icon-picture-o',
                     'url'         => Backend::URL('cms/themes'),
-                    'permissions' => ['system.manage_themes'],
+                    'permissions' => ['cms.manage_themes'],
                     'order'       => 200
                 ],
                 'maintenance_settings' => [
@@ -233,7 +233,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_CMS,
                     'icon'        => 'icon-plug',
                     'class'       => 'Cms\Models\MaintenanceSettings',
-                    'permissions' => ['system.manage_themes'],
+                    'permissions' => ['cms.manage_themes'],
                     'order'       => 300
                 ],
             ]);
