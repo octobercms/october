@@ -146,7 +146,7 @@
 
         this.toggleEmptyTabsTimer = window.setTimeout(function() {
 
-            var tabControl = $('[data-control=tab]', this.$el),
+            var tabControl = $('[data-control=tab]', self.$el),
                 tabContainer = $('.nav-tabs', tabControl)
 
             if (!tabControl.length || !$.contains(form.get(0), tabControl.get(0)))
