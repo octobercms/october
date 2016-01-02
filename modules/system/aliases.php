@@ -34,9 +34,6 @@ return [
     'URL'       => 'Illuminate\Support\Facades\URL',
     'Validator' => 'Illuminate\Support\Facades\Validator',
     'View'      => 'Illuminate\Support\Facades\View',
-    'Form'      => 'Illuminate\Html\FormFacade',
-    'Html'      => 'Illuminate\Html\HtmlFacade', // Preferred
-    'HTML'      => 'Illuminate\Html\HtmlFacade',
 
     /*
      * October aliases
@@ -47,6 +44,8 @@ return [
     'Config'          => 'October\Rain\Support\Facades\Config',
     'Seeder'          => 'October\Rain\Database\Updates\Seeder',
     'Flash'           => 'October\Rain\Support\Facades\Flash',
+    'Form'            => 'October\Rain\Support\Facades\Form',
+    'Html'            => 'October\Rain\Support\Facades\Html',
     'Http'            => 'October\Rain\Support\Facades\Http',
     'Str'             => 'October\Rain\Support\Facades\Str',
     'Markdown'        => 'October\Rain\Support\Facades\Markdown',

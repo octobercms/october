@@ -1,7 +1,7 @@
 <?php namespace Backend\Widgets;
 
 use Db;
-use HTML as Html;
+use Html;
 use App;
 use Lang;
 use Input;
