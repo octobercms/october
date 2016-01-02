@@ -57,6 +57,6 @@ class Loader implements Twig_LoaderInterface
      */
     public function isFresh($name, $time)
     {
-        return $this->obj->isLoadedFromCache();
+        return $this->obj->mtime <= $time;
     }
 }
