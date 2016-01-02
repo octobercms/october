@@ -25,10 +25,10 @@
     },
     "require": {
         "php": ">=5.5.9",
-        "october/rain": "~1.0",
-        "october/system": "~1.0",
-        "october/backend": "~1.0",
-        "october/cms": "~1.0",
+        "october/rain": "dev-stable",
+        "october/system": "dev-stable",
+        "october/backend": "dev-stable",
+        "october/cms": "dev-stable",
         "laravel/framework": "5.1.*"
     },
     "require-dev": {
