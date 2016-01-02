@@ -5,6 +5,9 @@ use Lang;
 use Event;
 use Block;
 use SystemException;
+use Exception;
+use Throwable;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 /**
  * View Maker Trait
@@ -91,6 +94,7 @@ trait ViewMaker
      */
     public function makeViewContent($contents, $layout = null)
     {
+            return $contents;
         if ($this->suppressLayout || $this->layout == '') {
             return $contents;
         }
@@ -203,10 +207,44 @@ trait ViewMaker
 
         $vars = array_merge($this->vars, $extraParams);
 
+        $obLevel = ob_get_level();
+
         ob_start();
+
         extract($vars);
-        include $filePath;
+
+        // We'll evaluate the contents of the view inside a try/catch block so we can
+        // flush out any stray output that might get out before an error occurs or
+        // an exception is thrown. This prevents any partial views from leaking.
+        try {
+            include $filePath;
+        }
+        catch (Exception $e) {
+            $this->handleViewException($e, $obLevel);
+        }
+        catch (Throwable $e) {
+            $this->handleViewException(new FatalThrowableError($e), $obLevel);
+        }
+
         return ob_get_clean();
+    }
+
+    /**
+     * Handle a view exception.
+     *
+     * @param  \Exception  $e
+     * @param  int  $obLevel
+     * @return void
+     *
+     * @throws $e
+     */
+    protected function handleViewException($e, $obLevel)
+    {
+        while (ob_get_level() > $obLevel) {
+            ob_end_clean();
+        }
+
+        throw $e;
     }
 
     /**
