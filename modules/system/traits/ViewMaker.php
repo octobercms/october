@@ -94,7 +94,6 @@ trait ViewMaker
      */
     public function makeViewContent($contents, $layout = null)
     {
-            return $contents;
         if ($this->suppressLayout || $this->layout == '') {
             return $contents;
         }
