@@ -1,7 +1,7 @@
 <?php namespace Cms\Classes;
 
 use ApplicationException;
-use Illuminate\Support\Collection as CollectionBase;
+use October\Rain\Support\Collection as CollectionBase;
 
 /**
  * This class represents a collection of Cms Objects.
