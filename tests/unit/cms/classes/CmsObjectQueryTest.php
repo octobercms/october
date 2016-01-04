@@ -43,7 +43,7 @@ class CmsObjectQueryTest extends TestCase
     public function testLists()
     {
         // Default theme: test
-        $pages = Page::lists('baseFileName');
+        $pages = Page::lists('baseFileName')->all();
         sort($pages);
 
         $this->assertEquals([
@@ -76,7 +76,7 @@ class CmsObjectQueryTest extends TestCase
             "with-placeholder",
         ], $pages);
 
-        $layouts = Layout::lists('baseFileName');
+        $layouts = Layout::lists('baseFileName')->all();
         sort($layouts);
 
         $this->assertEquals([
@@ -91,7 +91,7 @@ class CmsObjectQueryTest extends TestCase
             "sidebar",
         ], $layouts);
 
-        $pages = Page::inTheme('NON_EXISTENT_THEME')->lists('baseFileName');
+        $pages = Page::inTheme('NON_EXISTENT_THEME')->lists('baseFileName')->all();
         $this->assertEmpty($pages);
     }
 }
