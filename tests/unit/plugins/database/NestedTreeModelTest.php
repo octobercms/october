@@ -63,15 +63,6 @@ class NestedTreeModelTest extends PluginTestCase
         ], $array);
     }
 
-    /**
-     * @expectedException        \Exception
-     * @expectedExceptionMessage Column mismatch in listsNested method
-     */
-    public function testListsNestedUnknownColumn()
-    {
-        CategoryNested::listsNested('custom_name', 'id');
-    }
-
     public function testListsNestedFromCollection()
     {
         $array = CategoryNested::get()->listsNested('custom_name', 'id', '...');

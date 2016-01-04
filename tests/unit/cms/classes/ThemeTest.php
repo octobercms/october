@@ -34,7 +34,7 @@ class ThemeTest extends TestCase
     {
         $theme = Theme::load('test');
 
-        $this->assertEquals(base_path().'/tests/fixtures/themes/test', $theme->getPath());
+        $this->assertEquals(base_path('tests/fixtures/themes/test'), $theme->getPath());
     }
 
     public function testListPages()
