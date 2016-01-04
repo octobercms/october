@@ -200,13 +200,13 @@ return [
         'uploads' => [
             'disk'   => 'local',
             'folder' => 'uploads',
-            'path'   => storage_path('app/uploads'),
+            'path'   => '/storage/app/uploads',
         ],
 
         'media' => [
             'disk'   => 'local',
             'folder' => 'media',
-            'path'   => storage_path('app/media'),
+            'path'   => '/storage/app/media',
         ],
 
     ],
