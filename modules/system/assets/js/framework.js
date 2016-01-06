@@ -56,22 +56,23 @@ if (window.jQuery === undefined)
          */
 
         var
-            form = $el.closest('form'),
+            $form = $el.closest('form'),
+            $triggerEl = !!$form.length ? $form : $el,
             context = { handler: handler, options: options },
             loading = options.loading !== undefined && options.loading.length ? $(options.loading) : null,
             isRedirect = options.redirect !== undefined && options.redirect.length
 
         var _event = jQuery.Event('oc.beforeRequest')
-        form.trigger(_event, context)
+        $triggerEl.trigger(_event, context)
         if (_event.isDefaultPrevented()) return
 
-        var data = [form.serialize()]
+        var data = [$form.serialize()]
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendReque(){
             data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
         })
 
-        if ($el.is(':input') && !form.length) {
+        if ($el.is(':input') && !$form.length) {
             var inputName = $el.attr('name')
             if (options.data[inputName] === undefined)
                 options.data[inputName] = $el.val()
@@ -97,7 +98,7 @@ if (window.jQuery === undefined)
                  * Trigger 'ajaxBeforeUpdate' on the form, halt if event.preventDefault() is called
                  */
                 var _event = jQuery.Event('ajaxBeforeUpdate')
-                form.trigger(_event, [context, data, textStatus, jqXHR])
+                $triggerEl.trigger(_event, [context, data, textStatus, jqXHR])
                 if (_event.isDefaultPrevented()) return
 
                 /*
@@ -106,7 +107,7 @@ if (window.jQuery === undefined)
                 var updatePromise = requestOptions.handleUpdateResponse(data, textStatus, jqXHR)
 
                 updatePromise.done(function(){
-                    form.trigger('ajaxSuccess', [context, data, textStatus, jqXHR])
+                    $triggerEl.trigger('ajaxSuccess', [context, data, textStatus, jqXHR])
                     options.evalSuccess && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalSuccess+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')
                 })
 
@@ -148,7 +149,7 @@ if (window.jQuery === undefined)
                      * Trigger 'ajaxError' on the form, halt if event.preventDefault() is called
                      */
                     var _event = jQuery.Event('ajaxError')
-                    form.trigger(_event, [context, textStatus, jqXHR])
+                    $triggerEl.trigger(_event, [context, textStatus, jqXHR])
                     if (_event.isDefaultPrevented()) return
 
                     /*
@@ -163,7 +164,7 @@ if (window.jQuery === undefined)
                 return updatePromise
             },
             complete: function(data, textStatus, jqXHR) {
-                form.trigger('ajaxComplete', [context, data, textStatus, jqXHR])
+                $triggerEl.trigger('ajaxComplete', [context, data, textStatus, jqXHR])
                 options.evalComplete && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalComplete+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')
             },
 
@@ -230,7 +231,7 @@ if (window.jQuery === undefined)
                 if (data['X_OCTOBER_ERROR_FIELDS']) {
                     var isFirstInvalidField = true
                     $.each(data['X_OCTOBER_ERROR_FIELDS'], function focusErrorField(fieldName, fieldMessages){
-                        var fieldElement = form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
+                        var fieldElement = $form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
                         if (fieldElement.length > 0) {
 
                             var _event = jQuery.Event('ajaxInvalidField')
