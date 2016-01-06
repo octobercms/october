@@ -2,7 +2,7 @@
  * October CMS: front-end JavaScript framework
  * http://octobercms.com
  * ========================================================================
- * Copyright 2014 Alexey Bobkov, Samuel Georges
+ * Copyright 2016 Alexey Bobkov, Samuel Georges
  *
  * ======================================================================== */
 
@@ -68,7 +68,7 @@ if (window.jQuery === undefined)
 
         var data = [$form.serialize()]
 
-        $.each($el.parents('[data-request-data]').toArray().reverse(), function extendReque(){
+        $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest(){
             data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
         })
 
@@ -410,12 +410,12 @@ if (window.jQuery === undefined)
         }, interval)
     })
 
-    $(document).on('submit', '[data-request]', function documentOnsubmit(){
+    $(document).on('submit', '[data-request]', function documentOnSubmit(){
         $(this).request()
         return false
     })
 
-    $(window).on('beforeunload', function documentOnBeforeunload() {
+    $(window).on('beforeunload', function documentOnBeforeUnload() {
         window.ocUnloading = true
     })
 
