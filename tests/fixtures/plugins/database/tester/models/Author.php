@@ -29,4 +29,8 @@ class Author extends Model
         'phone' => 'Database\Tester\Models\Phone',
     ];
 
+    public $belongsToMany = [
+        'roles' => ['Database\Tester\Models\Role', 'table' => 'database_tester_authors_roles']
+    ];
+
 }
