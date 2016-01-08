@@ -138,6 +138,9 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
 
         if (!empty($plugin->require)) {
             foreach ((array) $plugin->require as $dependency) {
+
+                if (isset($this->pluginTestCaseLoadedPlugins[$code])) continue;
+
                 $this->runPluginRefreshCommand($dependency);
             }
         }
