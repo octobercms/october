@@ -101,7 +101,7 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
     }
 
     /**
-     * Since the test environment has loaded all the test plugins 
+     * Since the test environment has loaded all the test plugins
      * natively, this method will ensure the desired plugin is
      * loaded in the system before proceeding to migrate it.
      * @return void
@@ -132,23 +132,20 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
         }
 
         /*
-         * Execute the command
-         */
-        Artisan::call('plugin:refresh', ['name' => $code]);
-
-        /*
          * Spin over dependencies and refresh them too
          */
         $this->pluginTestCaseLoadedPlugins[$code] = $plugin;
 
         if (!empty($plugin->require)) {
             foreach ((array) $plugin->require as $dependency) {
-
-                if (isset($this->pluginTestCaseLoadedPlugins[$code])) continue;
-
                 $this->runPluginRefreshCommand($dependency);
             }
         }
+
+        /*
+         * Execute the command
+         */
+        Artisan::call('plugin:refresh', ['name' => $code]);
     }
 
     /**
