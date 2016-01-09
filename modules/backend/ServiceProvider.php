@@ -165,10 +165,6 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Color picker',
                 'code'  => 'colorpicker'
             ]);
-            $manager->registerFormWidget('Backend\FormWidgets\DataGrid', [
-                'label' => 'Data Grid',
-                'code'  => 'datagrid'
-            ]); // @deprecated if year >= 2016
             $manager->registerFormWidget('Backend\FormWidgets\DataTable', [
                 'label' => 'Data Table',
                 'code'  => 'datatable'
