@@ -410,7 +410,7 @@ class Lists extends WidgetBase
                 continue;
             }
 
-            $alias = Db::getQueryGrammar()->wrap($column->columnName);
+            $alias = $query->getQuery()->getGrammar()->wrap($column->columnName);
 
             /*
              * Relation column
