@@ -52,7 +52,7 @@ class RevisionablePost extends Post
 {
 
     use \October\Rain\Database\Traits\Revisionable;
-    use \October\Rain\Database\Traits\SoftDeleting;
+    use \October\Rain\Database\Traits\SoftDelete;
 
     /**
      * @var array Guarded fields
