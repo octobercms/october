@@ -73,7 +73,7 @@ if (window.jQuery === undefined)
 
         if ($el.is(':input') && !form.length) {
             var inputName = $el.attr('name')
-            if (options.data[inputName] === undefined)
+            if (inputName !== undefined && options.data[inputName] === undefined)
                 options.data[inputName] = $el.val()
         }
 
@@ -265,7 +265,7 @@ if (window.jQuery === undefined)
         context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
 
-        requestOptions.data = data.join('&')
+        requestOptions.data = data.filter(function (value) { return value.trim().length > 0 }).join('&')
 
         if (loading) loading.show()
 
