@@ -1,7 +1,6 @@
 <?php namespace Backend\Controllers;
 
 use Backend;
-use Redirect;
 use BackendMenu;
 use BackendAuth;
 use Backend\Models\UserGroup;

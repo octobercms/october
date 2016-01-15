@@ -1,8 +1,6 @@
 <?php namespace Backend\Widgets;
 
-use App;
 use Lang;
-use Input;
 use Event;
 use Form as FormHelper;
 use Backend\Classes\FormTabs;
@@ -716,7 +714,7 @@ class Form extends WidgetBase
 
     /**
      * Get a specified form widget
-     * @param  string $fieldName
+     * @param  string $field
      * @return mixed
      */
     public function getFormWidget($field)
@@ -735,7 +733,7 @@ class Form extends WidgetBase
 
     /**
      * Get a specified field object
-     * @param  string $fieldName
+     * @param  string $field
      * @return mixed
      */
     public function getField($field)
@@ -759,7 +757,7 @@ class Form extends WidgetBase
 
     /**
      * Looks up the field value.
-     * @param  use Backend\Classes\FormField $field
+     * @param  \Backend\Classes\FormField $field
      * @return string
      */
     protected function getFieldValue($field)
@@ -785,7 +783,7 @@ class Form extends WidgetBase
     /**
      * Returns a HTML encoded value containing the other fields this
      * field depends on
-     * @param  use Backend\Classes\FormField $field
+     * @param  \Backend\Classes\FormField $field
      * @return string
      */
     protected function getFieldDepends($field)
@@ -802,7 +800,7 @@ class Form extends WidgetBase
     /**
      * Helper method to determine if field should be rendered
      * with label and comments.
-     * @param  use Backend\Classes\FormField $field
+     * @param  \Backend\Classes\FormField $field
      * @return boolean
      */
     protected function showFieldLabels($field)

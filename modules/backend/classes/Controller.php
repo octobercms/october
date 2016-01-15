@@ -1,7 +1,6 @@
 <?php namespace Backend\Classes;
 
 use App;
-use Log;
 use Str;
 use Lang;
 use View;
@@ -11,7 +10,6 @@ use Config;
 use Request;
 use Backend;
 use Session;
-use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
