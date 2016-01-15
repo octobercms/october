@@ -29,7 +29,7 @@ return [
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
         'zh-cn' => 'Chinese (China)',
-        'zh-tw' => 'Chinese (Taiwan)'
+        'zh-tw' => 'Chinese (Taiwan)',
     ],
     'directory' => [
         'create_fail' => 'Map aanmaken mislukt: :name',
@@ -63,7 +63,7 @@ return [
         'unnamed' => 'Naamloos thema',
         'name' => [
             'label' => 'Thema naam',
-            'help' => 'Gebruik bij het invoeren van de naam de unieke code van het thema. Bijvoorbeeld: RainLab.Vanilla'
+            'help' => 'Gebruik bij het invoeren van de naam de unieke code van het thema. Bijvoorbeeld: RainLab.Vanilla',
         ],
     ],
     'themes' => [
@@ -72,9 +72,10 @@ return [
         'installed' => "Geïnstalleerde thema's",
         'no_themes' => "Er zijn geen thema's geinstallerd uit de marketplace.",
         'recommended' => 'Aanbevolen',
-        'remove_confirm' => 'Weet je zeker dat je dit thema wilt verwijderen?'
+        'remove_confirm' => 'Weet je zeker dat je dit thema wilt verwijderen?',
     ],
     'plugin' => [
+        'label' => 'Plugin',
         'unnamed' => 'Naamloze plugin',
         'name' => [
             'label' => 'Plugin naam',
@@ -162,7 +163,7 @@ return [
         'mandrill_secret' => 'Mandrill secret',
         'mandrill_secret_comment' => 'Geef hier de Mandrill API key op.',
         'drivers_hint_header' => "Stuurprogramma's niet geïnstalleerd",
-        'drivers_hint_content' => 'Om deze e-mail methode te gebruiken moet de plugin ":plugin" zijn geïnstalleerd.'
+        'drivers_hint_content' => 'Om deze e-mail methode te gebruiken moet de plugin ":plugin" zijn geïnstalleerd.',
     ],
     'mail_templates' => [
         'menu_label' => 'E-mail sjablonen',
@@ -325,6 +326,6 @@ return [
         'manage_other_administrators' => 'Beheer mede-beheerders',
         'manage_preferences' => 'Beheer back-end instellingen',
         'manage_editor' => 'Beheer code editor instellingen',
-        'manage_branding' => 'Back-end aanpassen'
-    ]
+        'manage_branding' => 'Back-end aanpassen',
+    ],
 ];
