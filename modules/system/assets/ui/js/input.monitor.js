@@ -39,6 +39,7 @@
             $(window).on('beforeunload', this.proxy(this.onBeforeUnload))
 
         this.$el.one('dispose-control', this.proxy(this.dispose))
+        this.$el.trigger('ready.oc.changeMonitor')
     }
 
     ChangeMonitor.prototype.dispose = function() {

@@ -163,6 +163,9 @@
         if (this.createInspector($element) === false) {
             return false
         }
+
+        ev.stopPropagation()
+        return false
     }
 
     $.oc.inspector.manager = new InspectorManager()

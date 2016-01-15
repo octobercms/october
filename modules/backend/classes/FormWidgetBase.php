@@ -97,7 +97,8 @@ abstract class FormWidgetBase extends WidgetBase
     }
 
     /**
-     * Process the postback value for this widget.
+     * Process the postback value for this widget. If the value is omitted from
+     * postback data, it will be NULL, otherwise it will be an empty string.
      * @param $value The existing value for this widget.
      * @return string The new value for this widget.
      */

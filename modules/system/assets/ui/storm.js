@@ -80,4 +80,5 @@
 =require js/inspector.validator.float.js
 =require js/inspector.validator.length.js
 =require js/inspector.externalparametereditor.js
+=require js/list.sortable.js
 */

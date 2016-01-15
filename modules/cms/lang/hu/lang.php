@@ -162,8 +162,8 @@ return [
         'content' => 'Tartalom',
         'hidden' => 'Rejtett',
         'hidden_comment' => 'A rejtett lapok csak a bejelentkezett felhasználók által hozzáférhetők.',
-        'enter_fullscreen' => 'Váltás teljes képernyős módra',
-        'exit_fullscreen' => 'Kilépés a teljes képernyős módból'
+        'enter_fullscreen' => 'Váltás teljes képernyőre',
+        'exit_fullscreen' => 'Kilépés a teljes képernyőből'
     ],
     'asset' => [
         'menu_label' => 'Fájlok',
@@ -265,6 +265,7 @@ return [
         'multiple_selected' => 'Több fájl kiválasztva.',
         'uploading_file_num' => 'Feltöltve :number fájl...',
         'uploading_complete' => 'Feltöltés sikeresen befejezve',
+        'uploading_error' => 'Feltöltés sikertelen',
         'order_by' => 'Rendezés',
         'folder' => 'Könyvtárak',
         'no_files_found' => 'Nem található fájl a lekérésben.',

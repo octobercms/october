@@ -212,7 +212,7 @@
 
             if (!this.cachedOptionPromises[cachingKey]) {
                 var requestData = {
-                       column: this.columnName,
+                        column: this.columnName,
                         rowData: this.tableObj.getRowData(row)
                     },
                     handlerName = this.tableObj.getAlias()+'::onGetDropdownOptions'

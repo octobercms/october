@@ -64,12 +64,12 @@ abstract class ComponentBase extends Extendable
     protected $dirName;
 
     /**
-     * @var Cms\Classes\Controller Controller object.
+     * @var \Cms\Classes\Controller Controller object.
      */
     protected $controller;
 
     /**
-     * @var Cms\Classes\PageCode Page object object.
+     * @var \Cms\Classes\PageCode Page object object.
      */
     protected $page;
 
@@ -81,6 +81,8 @@ abstract class ComponentBase extends Extendable
     /**
      * Component constructor. Takes in the page or layout code section object
      * and properties set by the page or layout.
+     * @param null|CodeBase $cmsObject
+     * @param array $properties
      */
     public function __construct(CodeBase $cmsObject = null, $properties = [])
     {

@@ -45,6 +45,8 @@
         this.repositionPopover()
 
         this.registerPopupHandlers()
+
+        BaseProto.adoptSurface.call(this)
     }
 
     InspectorPopup.prototype.cleanupAfterSwitch = function() {

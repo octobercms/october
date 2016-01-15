@@ -319,19 +319,21 @@
             currentValue = []
         }
 
-        if (isChecked) {
-            if (currentValue.indexOf(checkboxValue) === -1) {
-                currentValue.push(checkboxValue)
-            }
-        }
-        else {
-            var index = currentValue.indexOf(checkboxValue)
-            if (index !== -1) {
-                currentValue.splice(index, 1)
+        var resultValue = []
+        for (var itemValue in this.propertyDefinition.items) {
+            if (itemValue !== checkboxValue) {
+                if (currentValue.indexOf(itemValue) !== -1) {
+                    resultValue.push(itemValue)
+                }
+            } 
+            else {
+                if (isChecked) {
+                    resultValue.push(itemValue)
+                }
             }
         }
 
-        this.inspector.setPropertyValue(this.propertyDefinition.property, this.cleanUpValue(currentValue))
+        this.inspector.setPropertyValue(this.propertyDefinition.property, this.cleanUpValue(resultValue))
         this.setLinkText(this.getLink())
     }
 

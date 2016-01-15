@@ -30,3 +30,16 @@ Custom select control.
             <option value="2" selected="selected">Two</option>
         </select>
     </div>
+
+## Options
+
+### Disable search
+
+Add the `select-no-search` CSS class to disable searching.
+
+    <div class="form-group">
+        <select class="form-control custom-select select-no-search">
+            <option value="1" selected="selected">One</option>
+            <option value="2" selected="selected">Two</option>
+        </select>
+    </div>

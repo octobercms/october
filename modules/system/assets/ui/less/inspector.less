@@ -471,6 +471,12 @@ div.control-popover {
     }
 }
 
+html.gecko.mac {
+    .scroll-wrapper.inspector-wrapper > div {
+        margin-right: 17px;
+    }
+}
+
 .inspector-table-list {
     border-top: 1px solid #e2e2e2;
     .user-select(none);
@@ -597,8 +603,18 @@ div.inspector-dictionary-container {
 }
 
 .inspector-container {
+    &:empty { 
+        display: none;
+    }
+
     .control-scrollpad {
         position: absolute;
+    }
+}
+
+.inspector-field-comment {
+    &:empty {
+        display: none;
     }
 }
 
@@ -618,6 +634,10 @@ div.inspector-dictionary-container {
 
             li.select2-no-results {
                 padding: 5px 12px 5px;
+            }
+
+            li > i, li > img {
+                margin-left: 6px;
             }
         }
 

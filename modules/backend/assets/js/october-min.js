@@ -745,7 +745,8 @@ this.scrollbarSize=null
 this.updateScrollbarTimer=null
 this.dragOffset=null
 Base.call(this)
-this.init()}
+this.init()
+$.oc.foundation.controlUtils.markDisposable(element)}
 Scrollpad.prototype=Object.create(BaseProto)
 Scrollpad.prototype.constructor=Scrollpad
 Scrollpad.prototype.dispose=function(){this.unregisterHandlers()
@@ -771,10 +772,12 @@ this.scrollbarElement=el.querySelector('.scrollpad-scrollbar')
 this.dragHandleElement=el.querySelector('.scrollpad-scrollbar > .drag-handle')}
 Scrollpad.prototype.registerHandlers=function(){this.$el.on('mouseenter',this.proxy(this.onMouseEnter))
 this.$el.on('mouseleave',this.proxy(this.onMouseLeave))
+this.$el.one('dispose-control',this.proxy(this.dispose))
 this.scrollContentElement.addEventListener('scroll',this.proxy(this.onScroll))
 this.dragHandleElement.addEventListener('mousedown',this.proxy(this.onStartDrag))}
 Scrollpad.prototype.unregisterHandlers=function(){this.$el.off('mouseenter',this.proxy(this.onMouseEnter))
 this.$el.off('mouseleave',this.proxy(this.onMouseLeave))
+this.$el.off('dispose-control',this.proxy(this.dispose))
 this.scrollContentElement.removeEventListener('scroll',this.proxy(this.onScroll))
 this.dragHandleElement.removeEventListener('mousedown',this.proxy(this.onStartDrag))
 document.removeEventListener('mousemove',this.proxy(this.onMouseMove))
@@ -1133,16 +1136,19 @@ this.$fixButton=$('<a href="#" class="fix-button"><i class="icon-thumb-tack"></i
 this.$fixButton.click(function(){self.fixPanel()
 return false})
 $('.fix-button-container',this.$el).append(this.$fixButton)
-this.$sideNavItems.click(function(){if(Modernizr.touch&&$(window).width()<self.options.breakpoint){if($(this).data('menu-item')==self.visibleItemId&&self.panelVisible){self.hideSidePanel()
+this.$sideNavItems.click(function(){if($(this).data('no-side-panel')){return}
+if(Modernizr.touch&&$(window).width()<self.options.breakpoint){if($(this).data('menu-item')==self.visibleItemId&&self.panelVisible){self.hideSidePanel()
 return}else
 self.displaySidePanel()}
 self.displayTab(this)
 return false})
-if(!Modernizr.touch){self.$sideNav.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){self.panelOpenTimeout=setTimeout(function(){self.displaySidePanel()},self.tabOpenDelay)}})
-self.$sideNav.mouseleave(function(){clearTimeout(self.panelOpenTimeout)})
+if(!Modernizr.touch){self.$sideNav.mouseleave(function(){clearTimeout(self.panelOpenTimeout)})
 self.$el.mouseleave(function(){self.hideSidePanel()})
-self.$sideNavItems.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){var _this=this
-self.tabOpenTimeout=setTimeout(function(){self.displayTab(_this)},self.tabOpenDelay)}})
+self.$sideNavItems.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){if($(this).data('no-side-panel')){self.hideSidePanel()
+return}
+var _this=this
+self.tabOpenTimeout=setTimeout(function(){self.displaySidePanel()
+self.displayTab(_this)},self.tabOpenDelay)}})
 self.$sideNavItems.mouseleave(function(){clearTimeout(self.tabOpenTimeout)})
 $(window).resize(function(){self.updatePanelPosition()
 self.updateActiveTab()})}else{$('#layout-body').click(function(){if(self.panelVisible){self.hideSidePanel()
@@ -1186,7 +1192,7 @@ $.fn.sidePanelTab=function(option){return this.each(function(){var $this=$(this)
 var data=$this.data('oc.sidePanelTab')
 var options=$.extend({},SidePanelTab.DEFAULTS,$this.data(),typeof option=='object'&&option)
 if(!data)$this.data('oc.sidePanelTab',(data=new SidePanelTab(this,options)))
-if(typeof option=='string')data[option].call($this)})}
+if(typeof option=='string')data[option].call(data)})}
 $.fn.sidePanelTab.Constructor=SidePanelTab
 $.fn.sidePanelTab.noConflict=function(){$.fn.sidePanelTab=old
 return this}
@@ -1260,9 +1266,12 @@ this.shown=false
 this.listen()}
 Autocomplete.prototype={constructor:Autocomplete,select:function(){var val=this.$menu.find('.active').attr('data-value')
 this.$element.val(this.updater(val)).change()
-return this.hide()},updater:function(item){return item},show:function(){var pos=$.extend({},this.$element.position(),{height:this.$element[0].offsetHeight}),cssOptions={top:pos.top+pos.height,left:pos.left}
+return this.hide()},updater:function(item){return item},show:function(){var offset=this.options.bodyContainer?this.$element.offset():this.$element.position(),pos=$.extend({},offset,{height:this.$element[0].offsetHeight}),cssOptions={top:pos.top+pos.height,left:pos.left}
 if(this.options.matchWidth){cssOptions.width=this.$element[0].offsetWidth}
-this.$menu.insertAfter(this.$element).css(cssOptions).show()
+this.$menu.css(cssOptions)
+if(this.options.bodyContainer){$(document.body).append(this.$menu)}
+else{this.$menu.insertAfter(this.$element)}
+this.$menu.show()
 this.shown=true
 return this},hide:function(){this.$menu.hide()
 this.shown=false
@@ -1339,7 +1348,7 @@ var old=$.fn.autocomplete
 $.fn.autocomplete=function(option){return this.each(function(){var $this=$(this),data=$this.data('autocomplete'),options=typeof option=='object'&&option
 if(!data)$this.data('autocomplete',(data=new Autocomplete(this,options)))
 if(typeof option=='string')data[option]()})}
-$.fn.autocomplete.defaults={source:[],items:8,menu:'<ul class="autocomplete dropdown-menu"></ul>',item:'<li><a href="#"></a></li>',minLength:1}
+$.fn.autocomplete.defaults={source:[],items:8,menu:'<ul class="autocomplete dropdown-menu"></ul>',item:'<li><a href="#"></a></li>',minLength:1,bodyContainer:false}
 $.fn.autocomplete.Constructor=Autocomplete
 $.fn.autocomplete.noConflict=function(){$.fn.autocomplete=old
 return this}

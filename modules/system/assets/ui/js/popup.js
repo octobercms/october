@@ -181,6 +181,15 @@
         this.firstDiv = this.$content.find('>div:first')
         if (this.firstDiv.length > 0)
             this.firstDiv.data('oc.popup', this)
+
+        var $defaultFocus = $('[default-focus]', this.$content)
+        if ($defaultFocus.is(":visible"))
+        {
+            window.setTimeout(function() {
+                $defaultFocus.focus()
+                $defaultFocus = null
+            }, 300)
+        }
     }
 
     Popup.prototype.setBackdrop = function(val) {

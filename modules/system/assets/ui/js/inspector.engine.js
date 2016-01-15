@@ -40,6 +40,17 @@
             },
             groupIndex = 0
 
+        for (var i = 0, len = properties.length; i < len; i++) {
+            var property = properties[i]
+
+            if (property['sortOrder'] === undefined) {
+                property['sortOrder'] = (i+1)*20
+            }
+        }
+
+        properties.sort(function(a, b){
+            return a['sortOrder'] - b['sortOrder']
+        })
 
         for (var i = 0, len = properties.length; i < len; i++) {
             var property = properties[i]

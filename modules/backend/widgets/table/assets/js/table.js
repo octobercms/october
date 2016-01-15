@@ -577,6 +577,10 @@
 
         recordData[keyColumn] = -1*this.recordsAddedOrDeleted
 
+        this.$el.trigger('oc.tableNewRow', [
+            recordData
+        ])
+
         this.dataSource.createRecord(recordData, placement, relativeToKey,
             this.navigation.getPageFirstRowOffset(), 
             this.options.recordsPerPage,

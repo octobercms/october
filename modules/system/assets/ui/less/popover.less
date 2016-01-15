@@ -237,6 +237,10 @@ div.control-popover {
             background-color: @color-popover-danger-bg;
         }
     }
+
+    div.popover-fixed-height {
+        height: 300px;
+    }
 }
 
 .popover-highlight {
@@ -283,6 +287,11 @@ div.popover-overlay {
                 &:before, &:after {
                     display: none;
                 }
+            }
+
+            div.popover-fixed-height {
+                height: 100%;
+                min-height: 100%;
             }
 
             .popover-head:before {
