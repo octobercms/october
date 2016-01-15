@@ -171,7 +171,7 @@ class CombineAssets
         }
 
         $this->localPath = $cacheInfo['path'];
-        $this->storagePath = storage_path().'/cms/combiner/assets';
+        $this->storagePath = storage_path('cms/combiner/assets');
 
         $combiner = $this->prepareCombiner($cacheInfo['files']);
         $contents = $combiner->dump();
@@ -278,7 +278,7 @@ class CombineAssets
         }
 
         $this->localPath = $localPath;
-        $this->storagePath = storage_path().'/cms/combiner/assets';
+        $this->storagePath = storage_path('cms/combiner/assets');
 
         list($assets, $extension) = $this->prepareAssets($assets);
 

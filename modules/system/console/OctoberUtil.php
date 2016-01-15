@@ -178,7 +178,7 @@ class OctoberUtil extends Command
         }
 
         $totalCount = 0;
-        $uploadsPath = Config::get('filesystems.disks.local.root', storage_path().'/app');
+        $uploadsPath = Config::get('filesystems.disks.local.root', storage_path('app'));
         $uploadsPath .= '/uploads';
 
         /*
