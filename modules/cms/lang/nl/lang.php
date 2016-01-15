@@ -10,7 +10,7 @@ return [
         'invalid_file_extension' => 'Ongeldige bestandsextensie: :invalid. Toegestane extensies zijn: :allowed.',
         'error_deleting' => 'Fout bij het verwijderen van template: ":name". Controleer de schrijfrechten.',
         'delete_success' => 'Templates zijn succesvol verwijderd: :count.',
-        'file_name_required' => 'Het invullen van een bestandsnaam is verplicht.'
+        'file_name_required' => 'Het invullen van een bestandsnaam is verplicht.',
     ],
     'theme' => [
         'not_found_name' => 'Het thema \':name\' is niet gevonden.',
@@ -21,13 +21,10 @@ return [
         'edit' => [
             'not_set' => 'Er is geen thema ingesteld om te kunnen bewerken.',
             'not_found' => 'Het te bewerken thema is niet gevonden.',
-            'not_match' => 'Het object dat je probeert te openen behoort niet tot het te bewerken thema. Herlaad de pagina.'
+            'not_match' => 'Het object dat je probeert te openen behoort niet tot het te bewerken thema. Herlaad de pagina.',
         ],
         'settings_menu' => 'Front-end thema',
         'settings_menu_description' => 'Bekijk de lijst met geïnstalleerde thema\'s en selecteer een beschikbaar thema.',
-        'find_more_themes' => 'Vind meer thema\'s op de OctoberCMS thema marktplaats.',
-        'activate_button' => 'Activeer',
-        'active_button' => 'Activeer',
         'default_tab' => 'Eigenschappen',
         'name_label' => 'Naam',
         'name_create_placeholder' => 'Thema naam',
@@ -43,6 +40,8 @@ return [
         'dir_name_create_label' => 'Mapnaam van het thema',
         'theme_label' => 'Thema',
         'theme_title' => 'Thema\'s',
+        'activate_button' => 'Activeren',
+        'active_button' => 'Activeren',
         'customize_theme' => 'Thema aanpassen',
         'customize_button' => 'Aanpassen',
         'duplicate_button' => 'Dupliceren',
@@ -78,6 +77,7 @@ return [
         'new_directory_name_comment' => 'Geef een nieuwe mapnaam op voor het gedupliceerde thema.',
         'dir_name_invalid' => 'Naam mag alleen cijfers, letters en de volgende symbolen bevatten: _-',
         'dir_name_taken' => 'Opgegeven mapnaam bestaat reeds.',
+        'find_more_themes' => 'Zoek meer thema\'s',
         'saving' => 'Thema opslaan...',
         'return' => 'Terug naar thema lijst',
     ],
@@ -85,7 +85,7 @@ return [
         'settings_menu' => 'Onderhoudsmodus',
         'settings_menu_description' => 'Instellingen voor de onderhoudsmodus pagina.',
         'is_enabled' => 'Onderhoudsmodus inschakelen',
-        'is_enabled_comment' => 'Toon de volgende pagina als onderhoudsmodus is ingeschakeld:'
+        'is_enabled_comment' => 'Toon de volgende pagina als onderhoudsmodus is ingeschakeld:',
     ],
     'page' => [
         'not_found_name' => 'De pagina \':name\' is niet gevonden.',
@@ -98,37 +98,37 @@ return [
             'help' => 'Onze excuses, er is iets mis gegaan. De opgevraagde pagina kan niet worden getoond.',
         ],
         'menu_label' => 'Pagina\'s',
+        'unsaved_label' => 'Niet opgeslagen pagina\'s',
         'no_list_records' => 'Geen pagina\'s gevonden',
         'new' => 'Nieuwe pagina',
         'invalid_url' => 'Ongeldig URL formaat. De URL moet beginnen met een schuine streep en mag enkel bestaan uit letters, cijfers en de volgende tekens: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Weet je zeker dat je de geselecteerde pagina\'s wilt verwijderen?',
         'delete_confirm_single' => 'Weet je zeker dat je deze pagina wilt verwijderen?',
         'no_layout' => '-- geen layout --',
-        'unsaved_label' => 'Niet opgeslagen pagina\'s',
     ],
     'layout' => [
-        'unsaved_label' => 'Niet opgeslagen layouts',
         'not_found_name' => "De layout ':name' is niet gevonden",
         'menu_label' => 'Layouts',
+        'unsaved_label' => 'Niet opgeslagen layouts',
         'no_list_records' => 'Geen layouts gevonden',
         'new' => 'Nieuwe layout',
         'delete_confirm_multiple' => 'Weet je zeker dat je de geselecteerde layouts wilt verwijderen?',
         'delete_confirm_single' => 'Weet je zeker dat je deze layout wilt verwijderen?',
     ],
     'partial' => [
-        'unsaved_label' => 'Niet opgeslagen sjablonen',
         'not_found_name' => 'Het sjabloon (partial) \':name\' is niet gevonden.',
         'invalid_name' => 'Ongeldige naam voor sjabloon (partial): :name.',
         'menu_label' => 'Sjablonen',
+        'unsaved_label' => 'Niet opgeslagen sjablonen',
         'no_list_records' => 'Geen sjablonen (partial) gevonden',
         'delete_confirm_multiple' => 'Weet je zeker dat je de geselecteerde sjablonen wilt verwijderen?',
         'delete_confirm_single' => 'Weet je zeker dat je dit sjabloon wilt verwijderen?',
         'new' => 'Nieuw sjabloon',
     ],
     'content' => [
-        'unsaved_label' => 'Niet opgeslagen tekstblokken',
         'not_found_name' => "Het tekstblok (content) ':name' is niet gevonden.",
         'menu_label' => 'Tekstblokken',
+        'unsaved_label' => 'Niet opgeslagen tekstblokken',
         'no_list_records' => 'Geen tekstblokken (content) gevonden',
         'delete_confirm_multiple' => 'Weet je zeker dat je de geselecteerde tekstblokken of mappen wilt verwijderen?',
         'delete_confirm_single' => 'Weet je zeker dat je dit tekstblok wilt verwijderen?',
@@ -139,11 +139,11 @@ return [
         'not_found' => 'AJAX handler \':name\' is niet gevonden.',
     ],
     'cms' => [
-        'menu_label' => 'CMS'
+        'menu_label' => 'CMS',
     ],
     'sidebar' => [
         'add' => 'Toevoegen',
-        'search' => 'Zoeken...'
+        'search' => 'Zoeken...',
     ],
     'editor' => [
         'settings' => 'Instellingen',
@@ -222,7 +222,7 @@ return [
     'template' => [
         'invalid_type' => 'Onbekend type template.',
         'not_found' => 'De opgevraagde template is niet gevonden.',
-        'saved' => 'De template is succesvol opgeslagen.'
+        'saved' => 'De template is succesvol opgeslagen.',
     ],
     'permissions' => [
         'name' => 'Cms',
@@ -235,7 +235,7 @@ return [
         'manage_media' => 'Beheer media',
     ],
     'mediafinder' => [
-        'default_prompt' => 'Klik op de %s knop om een media item te vinden'
+        'default_prompt' => 'Klik op de %s knop om een media item te vinden',
     ],
     'media' => [
         'invalid_path' => 'Ongeldig pad opgegeven: \':path\'.',
@@ -265,6 +265,7 @@ return [
         'multiple_selected' => 'Meerdere items geselecteerd.',
         'uploading_file_num' => 'Uploaden van :number bestanden...',
         'uploading_complete' => 'Uploaden voltooid',
+        'uploading_error' => 'Upload mislukt',
         'order_by' => 'Sorteer op',
         'folder' => 'Map',
         'no_files_found' => 'Er zijn geen bestanden gevonden.',
@@ -295,6 +296,6 @@ return [
         'selection_mode' => 'Selectie modus',
         'resize_image' => 'Wijzig grootte van afbeelding',
         'image_size' => 'Grootte afbeelding:',
-        'selected_size' => 'Geselecteerd:'
-    ]
+        'selected_size' => 'Geselecteerd:',
+    ],
 ];
