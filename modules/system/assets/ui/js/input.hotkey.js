@@ -50,9 +50,6 @@
     }
 
     HotKey.prototype.init = function() {
-        if (this.options.hotkeyMac) 
-            this.options.hotkey += ', ' + this.options.hotkeyMac // @todo deprecated
-
         this.initKeyMap()
 
         var keys = this.options.hotkey.toLowerCase().split(',')
@@ -175,7 +172,6 @@
 
     HotKey.DEFAULTS = {
         hotkey: null,
-        hotkeyMac: null, // @todo deprecated
         hotkeyTarget: 'html',
         hotkeyVisible: true,
         callback: function(element) {

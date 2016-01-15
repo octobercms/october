@@ -2784,9 +2784,7 @@ this.keyConditions=null
 this.keyMap=null
 this.options=null
 BaseProto.dispose.call(this)}
-HotKey.prototype.init=function(){if(this.options.hotkeyMac)
-this.options.hotkey+=', '+this.options.hotkeyMac
-this.initKeyMap()
+HotKey.prototype.init=function(){this.initKeyMap()
 var keys=this.options.hotkey.toLowerCase().split(',')
 for(var i=0,len=keys.length;i<len;i++){var keysTrimmed=this.trim(keys[i])
 this.keyConditions.push(this.makeCondition(keysTrimmed))}
@@ -2816,7 +2814,7 @@ HotKey.prototype.onKeyDown=function(ev){if(this.testConditions(ev)){if(this.opti
 return
 if(this.options.callback)
 return this.options.callback(this.$el,ev.currentTarget)}}
-HotKey.DEFAULTS={hotkey:null,hotkeyMac:null,hotkeyTarget:'html',hotkeyVisible:true,callback:function(element){element.trigger('click')
+HotKey.DEFAULTS={hotkey:null,hotkeyTarget:'html',hotkeyVisible:true,callback:function(element){element.trigger('click')
 return false}}
 var old=$.fn.hotKey
 $.fn.hotKey=function(option){var args=arguments;return this.each(function(){var $this=$(this)
@@ -3403,8 +3401,7 @@ for(var i=0,len=this.parsedProperties.properties.length;i<len;i++){var property=
 if(property.itemType=='group'){currentGroup=this.getGroupManager().createGroup(property.groupIndex,this.group)}
 else{if(property.groupIndex===undefined){currentGroup=this.group}}
 var row=this.buildRow(property,currentGroup)
-if(property.itemType=='group')
-{this.applyGroupLevelToRow(row,currentGroup.parentGroup)}
+if(property.itemType=='group'){this.applyGroupLevelToRow(row,currentGroup.parentGroup)}
 else{this.applyGroupLevelToRow(row,currentGroup)}
 tbody.appendChild(row)
 this.buildEditor(row,property,dataTable,currentGroup)}
@@ -3474,7 +3471,8 @@ var groupLevel=group.getLevel()
 row.setAttribute('data-group-level',groupLevel)
 th.children[0].style.marginLeft=groupLevel*10+'px'}
 Surface.prototype.toggleGroup=function(row,forceExpand){var link=row.querySelector('a'),groupIndex=row.getAttribute('data-group-index'),table=this.getRootTable(),groupManager=this.getGroupManager(),collapse=true
-if($.oc.foundation.element.hasClass(link,'expanded')&&!forceExpand){$.oc.foundation.element.removeClass(link,'expanded')}else{$.oc.foundation.element.addClass(link,'expanded')
+if($.oc.foundation.element.hasClass(link,'expanded')&&!forceExpand){$.oc.foundation.element.removeClass(link,'expanded')}
+else{$.oc.foundation.element.addClass(link,'expanded')
 collapse=false}
 var propertyRows=groupManager.findGroupRows(table,groupIndex,!collapse),duration=Math.round(50/propertyRows.length)
 this.expandOrCollapseRows(propertyRows,collapse,duration,forceExpand)
@@ -4324,7 +4322,7 @@ PopupBase.prototype.getPopupContent=function(){return'<form>                    
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>  \
                 </div>                                                                                  \
                 </form>'}
 PopupBase.prototype.updateDisplayedValue=function(value){this.setLinkText(this.getLink(),value)}
@@ -4382,7 +4380,7 @@ TextEditor.prototype.getPopupContent=function(){return'<form>                   
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>  \
                 </div>                                                                                  \
                 </form>'}
 TextEditor.prototype.configureComment=function(popup){if(!this.propertyDefinition.description){return}
@@ -4589,7 +4587,7 @@ ObjectListEditor.prototype.getPopupContent=function(){return'<form>             
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>  \
                 </div>                                                                                  \
                 </form>'}
 ObjectListEditor.prototype.buildPopupContents=function(popup){this.buildItemsTable(popup)}
@@ -4773,7 +4771,7 @@ ObjectEditor.prototype.getUndefinedValue=function(){var result={}
 for(var i=0,len=this.propertyDefinition.properties.length;i<len;i++){var propertyName=this.propertyDefinition.properties[i].property,editor=this.childInspector.findPropertyEditor(propertyName)
 if(editor){result[propertyName]=editor.getUndefinedValue()}}
 return this.getValueOrRemove(result)}
-ObjectEditor.prototype.validate=function(silentMode){var values=values=this.childInspector.getValues()
+ObjectEditor.prototype.validate=function(silentMode){var values=this.childInspector.getValues()
 if(this.cleanUpValue(values)===$.oc.inspector.removedProperty){return true}
 return this.childInspector.validate(silentMode)}
 ObjectEditor.prototype.onInspectorDataChange=function(property,value){var values=this.childInspector.getValues()
@@ -4872,7 +4870,7 @@ DictionaryEditor.prototype.getPopupContent=function(){return'<form>             
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>  \
                 </div>                                                                                  \
                 </form>'}
 DictionaryEditor.prototype.configurePopup=function(popup){this.buildItemsTable(popup.get(0))
