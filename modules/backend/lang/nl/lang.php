@@ -2,7 +2,7 @@
 
 return [
     'auth' => [
-        'title' => 'Beheeromgeving'
+        'title' => 'Beheeromgeving',
     ],
     'field' => [
         'invalid_type' => 'Ongeldig type veld: :type.',
@@ -20,8 +20,8 @@ return [
             'cms_link' => 'Terug naar CMS',
         ],
         'invalid_token' => [
-            'label' => 'Ongeldig token'
-        ]
+            'label' => 'Ongeldig token',
+        ],
     ],
     'partial' => [
         'not_found_name' => "Het sjabloon (partial) ':name' is niet gevonden.",
@@ -70,7 +70,7 @@ return [
             'online' => 'online',
             'maintenance' => 'in onderhoud',
             'update_available' => '{0} updates beschikbaar!|{1} update beschikbaar!|[2,Inf] updates beschikbaar!',
-        ]
+        ],
     ],
     'user' => [
         'name' => 'Beheerder',
@@ -111,10 +111,10 @@ return [
             'new' => 'Nieuwe beheerdersgroep',
             'delete_confirm' => 'Weet je zeker dat je deze beheerdersgroep wilt verwijderen?',
             'return' => 'Terug naar het groepenoverzicht',
-            'users_count' => 'Gebruikers'
+            'users_count' => 'Gebruikers',
         ],
         'preferences' => [
-            'not_authenticated' => 'Er is geen geauthenticeerde gebruiker om gegevens voor te laden of op te slaan.'
+            'not_authenticated' => 'Er is geen geauthenticeerde gebruiker om gegevens voor te laden of op te slaan.',
         ],
     ],
     'list' => [
@@ -130,6 +130,8 @@ return [
         'pagination' => 'Getoonde resultaten: :from-:to van :total',
         'prev_page' => 'Vorige pagina',
         'next_page' => 'Volgende pagina',
+        'refresh' => 'Vernieuwen',
+        'updating' => 'Bijwerken...',
         'loading' => 'Laden...',
         'setup_title' => 'Lijst instellingen',
         'setup_help' => 'Selecteer door middel van vinkjes de kolommen welke je in de lijst wilt zien. Je kunt de volgorde van kolommen veranderen door ze omhoog of omlaag te slepen.',
@@ -140,7 +142,7 @@ return [
         'delete_selected_confirm' => 'Verwijder geselecteerde records?',
         'delete_selected_success' => 'De geselecteerde records zijn succesvol verwijderd.',
         'column_switch_true' => 'Ja',
-        'column_switch_false' => 'Nee'
+        'column_switch_false' => 'Nee',
     ],
     'fileupload' => [
         'attachment' => 'Bijlage',
@@ -152,7 +154,7 @@ return [
         'upload_file' => 'Upload bestand',
         'upload_error' => 'Upload fout',
         'remove_confirm' => 'Weet je het zeker?',
-        'remove_file' => 'Verwijder bestand'
+        'remove_file' => 'Verwijder bestand',
     ],
     'form' => [
         'create_title' => 'Nieuwe :name',
@@ -176,6 +178,8 @@ return [
         'saving_name' => ':name opslaan...',
         'delete' => 'Verwijderen',
         'deleting' => 'Verwijderen...',
+        'confirm_delete' => 'Weet je zeker dat je dit record wilt verwijderen?',
+        'confirm_delete_multiple' => 'Weet je zeker dat je de geselecteerde records wilt verwijderen?',
         'deleting_name' => ':name verwijderen...',
         'reset_default' => 'Terug naar standaard instellingen',
         'resetting' => 'Bezig met terugzetten',
@@ -204,7 +208,11 @@ return [
         'insert_row_below' => 'Rij onder invoegen',
         'delete_row' => 'Rij verwijderen',
         'concurrency_file_changed_title' => 'Bestand is gewijzigd',
-        'concurrency_file_changed_description' => 'Heb bestand wat je aan het bewerken bent is gewijzigd door een andere gebruiker. Je kan het bestand opnieuw inladen (en wijzigingen verliezen) of het bestand te overschrijven.'
+        'concurrency_file_changed_description' => 'Heb bestand wat je aan het bewerken bent is gewijzigd door een andere gebruiker. Je kan het bestand opnieuw inladen (en wijzigingen verliezen) of het bestand te overschrijven.',
+        'return_to_list' => 'Terug naar lijst',
+    ],
+    'recordfinder' => [
+        'find_record' => 'Zoek record',
     ],
     'relation' => [
         'missing_config' => "Het gedrag (behavior) van deze relatie bevat geen instellingen voor ':config'.",
@@ -237,7 +245,7 @@ return [
         'link_name' => 'Koppel :name',
         'unlink' => 'Ontkoppel',
         'unlink_name' => 'Ontkoppel :name',
-        'unlink_confirm' => 'Weet je het zeker?'
+        'unlink_confirm' => 'Weet je het zeker?',
     ],
     'reorder' => [
         'default_title' => 'Rangschik records',
@@ -256,7 +264,7 @@ return [
         'tips' => 'Systeem configuratie tips',
         'tips_description' => 'Er zijn problemen gevonden waar je aandacht aan moet besteden om uw systeem goed te configureren.',
         'permissions' => 'De map :name of de submapen zijn niet schrijfbaar voor PHP. Zet de bijhorende rechten voor de webserver in deze map.',
-        'extension' => 'De PHP extensie :name is niet geïnstalleerd. Installeer deze bibliotheek en activeer de extensie.'
+        'extension' => 'De PHP extensie :name is niet geïnstalleerd. Installeer deze bibliotheek en activeer de extensie.',
     ],
     'editor' => [
         'menu_label' => 'Editor instellingen',
@@ -273,7 +281,7 @@ return [
         'theme' => 'Kleurschema',
     ],
     'tooltips' => [
-        'preview_website' => 'Voorvertoning website'
+        'preview_website' => 'Voorvertoning website',
     ],
     'mysettings' => [
         'menu_label' => 'Mijn instellingen',
@@ -282,7 +290,7 @@ return [
     'myaccount' => [
         'menu_label' => 'Mijn account',
         'menu_description' => 'Werk accountinstellingen zoals naam, e-mailadres en wachtwoord bij.',
-        'menu_keywords' => 'security login'
+        'menu_keywords' => 'security login',
     ],
     'branding' => [
         'menu_label' => 'Aanpassen back-end',
@@ -300,7 +308,7 @@ return [
         'secondary_light' => 'Secundair (Licht)',
         'secondary_dark' => 'Secundair (Donker)',
         'styles' => 'Stijlen',
-        'custom_stylesheet' => 'Aangepaste stylesheet'
+        'custom_stylesheet' => 'Aangepaste stylesheet',
     ],
     'backend_preferences' => [
         'menu_label' => 'CMS voorkeuren',
@@ -320,7 +328,7 @@ return [
         'email' => 'E-mailadres',
     ],
     'filter' => [
-        'all' => 'alle'
+        'all' => 'alle',
     ],
     'import_export' => [
         'upload_csv_file' => '1. Upload een CSV bestand',

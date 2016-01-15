@@ -153,7 +153,7 @@ class DatePicker extends FormWidgetBase
             $value .= ' ' . $timeValue . ':00';
         }
         elseif ($this->mode == 'time') {
-            $value .= ':00';
+            $value = substr($value, 0, 5) . ':00';
         }
 
         return $value;
