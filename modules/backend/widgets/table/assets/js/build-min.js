@@ -423,7 +423,8 @@ if(newPaginationContainer||curRecordCount!=recordCount){paginationContainer.setA
 var pageList=this.buildPaginationLinkList(recordCount,this.tableObj.options.recordsPerPage,this.pageIndex)
 if(!newPaginationContainer){paginationContainer.replaceChild(pageList,paginationContainer.children[0])}
 else{paginationContainer.appendChild(pageList)
-this.tableObj.getElement().appendChild(paginationContainer)}}else{this.markActiveLinkItem(paginationContainer,this.pageIndex)}}
+this.tableObj.getElement().appendChild(paginationContainer)}}
+else{this.markActiveLinkItem(paginationContainer,this.pageIndex)}}
 Navigation.prototype.calculatePageCount=function(recordCount,recordsPerPage){var pageCount=Math.ceil(recordCount/recordsPerPage)
 if(!pageCount)
 pageCount=1
@@ -434,12 +435,12 @@ Navigation.prototype.buildPaginationLinkList=function(recordCount,recordsPerPage
 for(var i=0;i<pageCount;i++){var item=document.createElement('li'),link=document.createElement('a')
 if(i==pageIndex)
 item.setAttribute('class','active')
-$(item).addClass('pagination-link')
 link.innerText=i+1
 link.setAttribute('data-page-index',i)
 link.setAttribute('href','#')
 item.appendChild(link)
-pageList.appendChild(item)}
+pageList.appendChild(item)
+$(link).addClass('pagination-link')}
 return pageList}
 Navigation.prototype.markActiveLinkItem=function(paginationContainer,pageIndex){var activeItem=paginationContainer.querySelector('.active'),list=paginationContainer.children[0]
 activeItem.setAttribute('class','')

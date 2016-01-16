@@ -88,10 +88,10 @@
                 paginationContainer.appendChild(pageList)
                 this.tableObj.getElement().appendChild(paginationContainer)
             }
-        } else {
+        }
+        else {
             // Do not re-generate the pages if the record count hasn't changed,
             // but mark the new active item in the pagination list
-       
             this.markActiveLinkItem(paginationContainer, this.pageIndex)
         }
     }
@@ -125,7 +125,6 @@
             if (i == pageIndex)
                 item.setAttribute('class', 'active')
 
-            $(item).addClass('pagination-link')
 
             link.innerText = i+1
             link.setAttribute('data-page-index', i)
@@ -133,6 +132,8 @@
 
             item.appendChild(link)
             pageList.appendChild(item)
+
+            $(link).addClass('pagination-link')
         }
 
         return pageList
@@ -209,11 +210,11 @@
 
         var row = this.tableObj.activeCell.parentNode,
             newRow = !ev.shiftKey
-                ? row.nextElementSibling 
+                ? row.nextElementSibling
                 : row.parentNode.children[row.parentNode.children.length - 1],
-            cellIndex = forceCellIndex !== undefined ? 
-                forceCellIndex :
-                this.tableObj.activeCell.cellIndex
+            cellIndex = forceCellIndex !== undefined
+                ? forceCellIndex
+                : this.tableObj.activeCell.cellIndex
 
         if (newRow) {
             var cell = newRow.children[cellIndex]

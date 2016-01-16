@@ -3,7 +3,7 @@
 /**
  * The client-memory data source for the Table widget.
  */
-class ClientMemoryDataSource extends TableDataSourceBase
+class ClientMemoryDataSource extends DataSourceBase
 {
     /**
      * @var array Keeps the data source data.
@@ -43,7 +43,7 @@ class ClientMemoryDataSource extends TableDataSourceBase
      * Return records from the data source.
      * @param integer $offset Specifies the offset of the first record to return, zero-based.
      * @param integer $count Specifies the number of records to return.
-     * @return array Returns the records. 
+     * @return array Returns the records.
      * If there are no more records, returns an empty array.
      */
     public function getRecords($offset, $count)
