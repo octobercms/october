@@ -16,6 +16,11 @@ use Backend\Classes\WidgetBase;
  */
 class TemplateList extends WidgetBase
 {
+    const SORT_ASC = 1;
+    const SORT_DESC = 2;
+    const SORT_BY_TITLE = 4;
+    const SORT_BY_URL = 8;
+
     protected $searchTerm = false;
 
     protected $dataSource;
@@ -225,7 +230,32 @@ class TemplateList extends WidgetBase
             $result[] = $group;
         }
 
+        if ($this->itemType === 'page') {
+            return $this->sortPages($result, self::SORT_BY_URL | self::SORT_ASC);
+        }
+
         return $result;
+    }
+
+
+    /**
+     * @param array $data
+     * @param int $sortOptions
+     * @return array
+     */
+    private function sortPages(array $data, $sortOptions)
+    {
+        $data = json_decode(json_encode($data), true);
+
+        $sortValues = [];
+
+        foreach ($data as $key => $value) {
+            $sortValues[$key] = ($sortOptions & self::SORT_BY_TITLE) ? $value['title'] : $value['descriptions']['URL'];
+        }
+
+        array_multisort($sortValues, ($sortOptions & self::SORT_ASC) ? SORT_ASC : SORT_DESC, $data);
+
+        return json_decode(json_encode($data));
     }
 
     protected function normalizeItem($item)
