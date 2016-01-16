@@ -172,13 +172,13 @@ class Form extends WidgetBase
      */
     public function render($options = [])
     {
-        if (array_key_exists('preview', $options)) {
+        if (isset($options['preview'])) {
             $this->previewMode = $options['preview'];
         }
-        if (!array_key_exists('useContainer', $options)) {
+        if (!isset($options['useContainer'])) {
             $options['useContainer'] = true;
         }
-        if (!array_key_exists('section', $options)) {
+        if (!isset($options['section'])) {
             $options['section'] = null;
         }
 
@@ -230,7 +230,7 @@ class Form extends WidgetBase
     public function renderField($field, array $options = [])
     {
         if (is_string($field)) {
-            if (!array_key_exists($field, $this->allFields)) {
+            if (!isset($this->allFields[$field])) {
                 throw new ApplicationException(Lang::get(
                     'backend::lang.form.missing_definition',
                     compact('field')
@@ -240,7 +240,7 @@ class Form extends WidgetBase
             $field = $this->allFields[$field];
         }
 
-        if (!array_key_exists('useContainer', $options)) {
+        if (!isset($options['useContainer'])) {
             $options['useContainer'] = true;
         }
         $targetPartial = $options['useContainer'] ? 'field-container' : 'field';
@@ -591,7 +591,7 @@ class Form extends WidgetBase
      */
     public function removeField($name)
     {
-        if (!array_key_exists($name, $this->addFields())) {
+        if (!isset($this->allFields[$name])) {
             return false;
         }
 
@@ -745,7 +745,7 @@ class Form extends WidgetBase
             return null;
         }
 
-        if (array_key_exists($field->fieldName, $this->formWidgets)) {
+        if (isset($this->formWidgets[$field->fieldName])) {
             return $this->formWidgets[$field->fieldName];
         }
 
@@ -789,7 +789,7 @@ class Form extends WidgetBase
      */
     public function getFormWidget($field)
     {
-        if (array_key_exists($field, $this->formWidgets)) {
+        if (isset($this->formWidgets[$field])) {
             return $this->formWidgets[$field];
         }
 
@@ -814,7 +814,7 @@ class Form extends WidgetBase
      */
     public function getField($field)
     {
-        if (array_key_exists($field, $this->allFields)) {
+        if (isset($this->allFields[$field])) {
             return $this->allFields[$field];
         }
 
@@ -844,7 +844,7 @@ class Form extends WidgetBase
     protected function getFieldValue($field)
     {
         if (is_string($field)) {
-            if (!array_key_exists($field, $this->allFields)) {
+            if (!isset($this->allFields[$field])) {
                 throw new ApplicationException(Lang::get(
                     'backend::lang.form.missing_definition',
                     compact('field')
@@ -1079,7 +1079,7 @@ class Form extends WidgetBase
 
         if (count($parts) === 1) {
             $key = array_shift($parts);
-            if (array_key_exists($key, $array)) {
+            if (isset($array[$key])) {
                 return $array[$key];
             } else {
                 return $default;
@@ -1114,7 +1114,7 @@ class Form extends WidgetBase
         while (count($parts) > 1) {
             $key = array_shift($parts);
 
-            if (!array_key_exists($key, $array) || !is_array($array[$key])) {
+            if (!isset($array[$key]) || !is_array($array[$key])) {
                 $array[$key] = [];
             }
 
