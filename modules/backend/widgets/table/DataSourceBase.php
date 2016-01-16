@@ -48,7 +48,7 @@ abstract class DataSourceBase
      * Return records from the data source.
      * @param integer $offset Specifies the offset of the first record to return, zero-based.
      * @param integer $count Specifies the number of records to return.
-     * @return array Returns the records. 
+     * @return array Returns the records.
      * If there are no more records, returns an empty array.
      */
     abstract public function getRecords($offset, $count);

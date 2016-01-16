@@ -9,30 +9,26 @@ The data source and cell processor JavaScript classes use the simple parasitic c
 - http://javascriptissexy.com/oop-in-javascript-what-you-need-to-know/
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript
 
-```
+    // Parent class with a method
+    var SuperClass = function(params) {}
+    SuperClass.prototype.someMethod = function() {}
 
-// Parent class with a method
-var SuperClass = function(params) {}
-SuperClass.prototype.someMethod = function() {}
+    // Child class
+    var SubClass = function(params) {
+        // Call the parent constructor
+        SuperClass.call(this, params)
+    }
 
-// Child class
-var SubClass = function(params) {
-    // Call the parent constructor
-    SuperClass.call(this, params)
-}
+    SubClass.prototype = Object.create(SuperClass.prototype)
+    SubClass.prototype.constructor = SubClass
 
-SubClass.prototype = Object.create(SuperClass.prototype)
-SubClass.prototype.constructor = SubClass
+    // Child class methods can be defined only after the prototype
+    // is updated in the two previous lines
 
-// Child class methods can be defined only after the prototype
-// is updated in the two previous lines
-
-SubClass.prototype.someMethod = function() {
-    // Call the parent method
-    SuperClass.prototype.someMethod.call(this)
-};
-
-```
+    SubClass.prototype.someMethod = function() {
+        // Call the parent method
+        SuperClass.prototype.someMethod.call(this)
+    };
 
 ### Namespaces
 

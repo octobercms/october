@@ -770,9 +770,9 @@
                 return
             }
 
-            var fieldName = this.options.alias.indexOf('[') > -1 ? 
-                this.options.alias + '[TableData]' :
-                this.options.alias + 'TableData';
+            var fieldName = this.options.alias.indexOf('[') > -1
+                ? this.options.alias + '[TableData]'
+                : this.options.alias + 'TableData'
 
             data.options.data[fieldName] = this.dataSource.getAllData()
         }

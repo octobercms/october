@@ -36,7 +36,8 @@ class Table extends WidgetBase
     protected $recordsKeyFrom;
 
     protected $dataSourceAliases = [
-        'client' => '\Backend\Widgets\Table\ClientMemoryDataSource'
+        'client' => '\Backend\Widgets\Table\ClientMemoryDataSource',
+        'server' => '\Backend\Widgets\Table\ServerEventDataSource'
     ];
 
     /**
@@ -118,9 +119,10 @@ class Table extends WidgetBase
         $isClientDataSource = $this->isClientDataSource();
 
         $this->vars['clientDataSourceClass'] = $isClientDataSource ? 'client' : 'server';
-        $this->vars['data'] = $isClientDataSource
-            ? json_encode($this->dataSource->getAllRecords())
-            : [];
+        $this->vars['data'] = json_encode($isClientDataSource
+            ? $this->dataSource->getAllRecords()
+            : []
+        );
     }
 
     //
@@ -177,9 +179,24 @@ class Table extends WidgetBase
         return $this->dataSource instanceof \Backend\Widgets\Table\ClientMemoryDataSource;
     }
 
-    /*
-     * Event handlers
-     */
+    //
+    // Event handlers
+    //
+
+    public function onServerGetRecords()
+    {
+        // Disable assets
+        $this->controller->clearAssetDefinitions();
+
+        if ($this->isClientDataSource()) {
+            throw new SystemException('The Table widget is not configured to use the server data source.');
+        }
+
+        return [
+            'records' => $this->dataSource->getRecords(post('offset'), post('count')),
+            'count' => $this->dataSource->getCount()
+        ];
+    }
 
     public function onGetDropdownOptions()
     {

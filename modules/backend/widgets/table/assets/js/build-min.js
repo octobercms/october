@@ -290,7 +290,8 @@ return}
 Table.prototype.onFormSubmit=function(ev,data){if(data.handler==this.options.postbackHandlerName){this.unfocusTable()
 if(!this.validate()){ev.preventDefault()
 return}
-var fieldName=this.options.alias.indexOf('[')>-1?this.options.alias+'[TableData]':this.options.alias+'TableData';data.options.data[fieldName]=this.dataSource.getAllData()}}
+var fieldName=this.options.alias.indexOf('[')>-1?this.options.alias+'[TableData]':this.options.alias+'TableData'
+data.options.data[fieldName]=this.dataSource.getAllData()}}
 Table.prototype.onToolbarClick=function(ev){var target=this.getEventTarget(ev),cmd=target.getAttribute('data-cmd')
 if(!cmd)
 return
@@ -595,6 +596,22 @@ Client.prototype.getIndexOfKey=function(key){var keyColumn=this.tableObj.options
 return this.data.map(function(record){return record[keyColumn]+""}).indexOf(key+"")}
 Client.prototype.getAllData=function(){return this.data}
 $.oc.table.datasource.client=Client}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
+throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.datasource===undefined)
+throw new Error("The $.oc.table.datasource namespace is not defined. Make sure that the table.datasource.base.js script is loaded.");var Base=$.oc.table.datasource.base,BaseProto=Base.prototype
+var Server=function(tableObj){Base.call(this,tableObj)
+var dataString=tableObj.getElement().getAttribute('data-data')
+if(dataString===null||dataString===undefined)
+throw new Error('The required data-data attribute is not found on the table control element.')
+this.data=JSON.parse(dataString)};Server.prototype=Object.create(BaseProto)
+Server.prototype.constructor=Server
+Server.prototype.dispose=function(){BaseProto.dispose.call(this)
+this.data=null}
+Server.prototype.getRecords=function(offset,count,onSuccess){var handlerName=this.tableObj.getAlias()+'::onServerGetRecords'
+$.request(handlerName,{data:{offset:offset,count:count}}).done(function(data){onSuccess(data.records,data.count)})}
+Server.prototype.createRecord=function(recordData,placement,relativeToKey,offset,count,onSuccess){console.log('createRecord')}
+Server.prototype.updateRecord=function(key,recordData){console.log('updateRecord')}
+Base.prototype.deleteRecord=function(key,newRecordData,offset,count,onSuccess){console.log('deleteRecord')}
+$.oc.table.datasource.server=Server}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
 throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.processor===undefined)
 $.oc.table.processor={}
 var Base=function(tableObj,columnName,columnConfiguration){this.tableObj=tableObj
