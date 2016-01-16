@@ -1,9 +1,9 @@
-<?php namespace Backend\Classes;
+<?php namespace Backend\Widgets\Table;
 
 /**
  * Base class for the Table widget data sources.
  */
-abstract class TableDataSourceBase
+abstract class DataSourceBase
 {
     /**
      * @var string Specifies a name of record's key column 

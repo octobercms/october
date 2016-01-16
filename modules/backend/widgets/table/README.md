@@ -198,7 +198,7 @@ The widget is configured with YAML file. Required parameters:
 
 The `dataSource` parameter can take aliases for some data source classes for the simpler configuration syntax. Known aliases are:
 
-* `client` = \Backend\Classes\TableClientMemoryDataSource
+* `client` = \Backend\Widgets\Table\ClientMemoryDataSource
 
 ### Column definitions
 

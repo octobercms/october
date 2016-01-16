@@ -36,7 +36,7 @@ class Table extends WidgetBase
     protected $recordsKeyFrom;
 
     protected $dataSourceAliases = [
-        'client' => '\Backend\Classes\TableClientMemoryDataSource'
+        'client' => '\Backend\Widgets\Table\ClientMemoryDataSource'
     ];
 
     /**
@@ -79,7 +79,7 @@ class Table extends WidgetBase
 
     /**
      * Returns the data source object.
-     * @return \Backend\Classes\TableDataSourceBase 
+     * @return \Backend\Widgets\Table\DataSourceBase
      */
     public function getDataSource()
     {
@@ -174,7 +174,7 @@ class Table extends WidgetBase
 
     protected function isClientDataSource()
     {
-        return $this->dataSource instanceof \Backend\Classes\TableClientMemoryDataSource;
+        return $this->dataSource instanceof \Backend\Widgets\Table\ClientMemoryDataSource;
     }
 
     /*

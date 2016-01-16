@@ -1,9 +1,9 @@
-<?php namespace Backend\Classes;
+<?php namespace Backend\Widgets\Table;
 
 /**
  * The client-memory data source for the Table widget.
  */
-class TableClientMemoryDataSource extends TableDataSourceBase
+class ClientMemoryDataSource extends TableDataSourceBase
 {
     /**
      * @var array Keeps the data source data.
