@@ -410,7 +410,7 @@ class Lists extends WidgetBase
                 continue;
             }
 
-            $alias = Db::getQueryGrammar()->wrap($column->columnName);
+            $alias = $query->getQuery()->getGrammar()->wrap($column->columnName);
 
             /*
              * Relation column
@@ -430,7 +430,7 @@ class Lists extends WidgetBase
                  * Manipulate a count query for the sub query
                  */
                 $relationObj = $this->model->{$column->relation}();
-                $countQuery = $relationObj->getRelationCountQuery($relationObj->getRelated()->newQuery(), $query);
+                $countQuery = $relationObj->getRelationCountQuery($relationObj->getRelated()->newQueryWithoutScopes(), $query);
 
                 $joinSql = $this->isColumnRelated($column, true)
                     ? DbDongle::raw("group_concat(" . $sqlSelect . " separator ', ')")

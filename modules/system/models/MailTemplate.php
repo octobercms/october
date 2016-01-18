@@ -133,7 +133,10 @@ class MailTemplate extends Model
         /*
          * Subject
          */
-        $message->subject(Twig::parse($template->subject, $data));
+        $customSubject = $message->getSwiftMessage()->getSubject();
+        if (empty($customSubject)) {
+            $message->subject(Twig::parse($template->subject, $data));
+        }
 
         /*
          * HTML contents

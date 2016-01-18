@@ -36,7 +36,7 @@ class RequestLog extends Model
         if (!DbDongle::hasDatabase()) return;
 
         $record = static::firstOrNew([
-            'url' => Request::fullUrl(),
+            'url' => substr(Request::fullUrl(), 0, 255),
             'status_code' => $statusCode,
         ]);
 
