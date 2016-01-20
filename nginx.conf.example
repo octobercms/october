@@ -10,7 +10,7 @@ server {
   }
 
   # Deny access to framework directories
-  location ~ /(bootstrap/|config/|modules|plugins/|storeage/|themes/|vendor/) {
+  location ~ /(bootstrap/|config/|modules/|plugins/|storage/|themes/|vendor/) {
     deny  all;
   }
 
