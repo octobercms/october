@@ -40,11 +40,15 @@ class ViewBag extends ComponentBase
      */
     public function __call($method, $parameters)
     {
-        if (array_key_exists($method, $this->properties) && !method_exists($this, $method)) {
-            return $this->properties[$method];
+        if (method_exists($this, $method)){
+            return call_user_func_array([$this, $method], $parameters);
         }
 
-        return parent::__call($method, $parameters);
+        if ($property = $this->property($method, $parameters)) {
+            return $property;
+        }
+
+        return null;
     }
 
     /**
