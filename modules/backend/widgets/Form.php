@@ -545,12 +545,12 @@ class Form extends WidgetBase
 
     public function addTabFields(array $fields)
     {
-        return $this->addFields($fields, 'primary');
+        $this->addFields($fields, 'primary');
     }
 
     public function addSecondaryTabFields(array $fields)
     {
-        return $this->addFields($fields, 'secondary');
+        $this->addFields($fields, 'secondary');
     }
 
     /**
