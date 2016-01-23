@@ -213,7 +213,6 @@ class ListController extends ControllerBehavior
              * Filter the list when the scopes are changed
              */
             $filterWidget->bindEvent('filter.update', function () use ($widget, $filterWidget) {
-                $widget->addFilter([$filterWidget, 'applyAllScopesToQuery']);
                 return $widget->onRefresh();
             });
 
