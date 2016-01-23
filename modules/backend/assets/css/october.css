@@ -484,6 +484,8 @@ div.control-scrollpad > .scrollpad-scrollbar[data-visible]{opacity:0.7}
 div.control-scrollpad > .scrollpad-scrollbar[data-hidden]{display:none}
 div.control-scrollpad[data-direction=horizontal] > .scrollpad-scrollbar{top:auto;left:0;width:auto;height:11px}
 div.control-scrollpad[data-direction=horizontal] > .scrollpad-scrollbar .drag-handle{right:auto;top:2px;height:7px;min-height:0;min-width:10px;width:auto}
+.autocomplete.dropdown-menu{background:white}
+.autocomplete.dropdown-menu li a{padding:3px 12px}
 @font-face{font-family:'Open Sans';src:url('../font/OpenSans-Light.eot');src:url('../font/OpenSans-Light.eot?#iefix') format('embedded-opentype'),url('../font/OpenSans-Light.svg#open_sanslight') format('svg'),url('../font/OpenSans-Light.woff') format('woff'),url('../font/OpenSans-Light.ttf') format('truetype');font-style:normal;font-weight:300}
 @font-face{font-family:'Open Sans';src:url('../font/OpenSans-Regular.eot');src:url('../font/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),url('../font/OpenSans-Regular.svg#open_sansregular') format('svg'),url('../font/OpenSans-Regular.woff') format('woff'),url('../font/OpenSans-Regular.ttf') format('truetype');font-style:normal;font-weight:400}
 @font-face{font-family:'Open Sans';src:url('../font/OpenSans-Semibold.eot');src:url('../font/OpenSans-Semibold.eot?#iefix') format('embedded-opentype'),url('../font/OpenSans-Semibold.svg#open_sanssemibold') format('svg'),url('../font/OpenSans-Semibold.woff') format('woff'),url('../font/OpenSans-Semibold.ttf') format('truetype');font-style:normal;font-weight:600}

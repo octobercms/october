@@ -2461,7 +2461,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .inspector-fields td.autocomplete{padding:0}
 .inspector-fields td.autocomplete .autocomplete-container input[type=text]{padding:5px 12px}
 .inspector-fields td.autocomplete .autocomplete-container ul.dropdown-menu{background:white;font-size:12px}
-.inspector-fields td.autocomplete .autocomplete-container ul.dropdown-menu li a{padding:5px 12px;white-space:normal}
+.inspector-fields td.autocomplete .autocomplete-container ul.dropdown-menu li a{padding:5px 12px;white-space:normal;word-wrap:break-word}
 .inspector-fields td.autocomplete .autocomplete-container .loading-indicator span{margin-top:-12px;right:10px;left:auto}
 .inspector-fields td.trigger-cell{padding:0 !important}
 .inspector-fields td.trigger-cell a.trigger{display:block;padding:5px 12px 7px 12px;overflow:hidden;min-height:29px;text-overflow:ellipsis;color:#333333;text-decoration:none}
