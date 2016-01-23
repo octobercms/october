@@ -39,7 +39,12 @@ class FormController extends ControllerBehavior
     const CONTEXT_PREVIEW = 'preview';
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the widget object.
+     * @var \Backend\Classes\Controller|FormController Reference to the back end controller.
+     */
+    protected $controller;
+
+    /**
+     * @var \Backend\Widgets\Form Reference to the widget object.
      */
     protected $formWidget;
 

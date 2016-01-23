@@ -26,7 +26,7 @@ abstract class WidgetBase
     public $config;
 
     /**
-     * @var Backend\Classes\Controller Backend controller object.
+     * @var \Backend\Classes\Controller Backend controller object.
      */
     protected $controller;
 
@@ -42,9 +42,8 @@ abstract class WidgetBase
 
     /**
      * Constructor
-     * @param Backend\Classes\Controller $controller
+     * @param \Backend\Classes\Controller $controller
      * @param array $configuration Proactive configuration definition.
-     * @return void
      */
     public function __construct($controller, $configuration = [])
     {

@@ -27,7 +27,7 @@ class ControllerBehavior extends ExtensionBase
     protected $config;
 
     /**
-     * @var Backend\Classes\Controller Reference to the back end controller.
+     * @var \Backend\Classes\Controller Reference to the back end controller.
      */
     protected $controller;
 
@@ -71,8 +71,8 @@ class ControllerBehavior extends ExtensionBase
 
     /**
      * Safe accessor for configuration values.
-     * @param $name Config name, supports array names like "field[key]"
-     * @param $default Default value if nothing is found
+     * @param string $name Config name, supports array names like "field[key]"
+     * @param mixed $default Default value if nothing is found
      * @return string
      */
     public function getConfig($name = null, $default = null)
