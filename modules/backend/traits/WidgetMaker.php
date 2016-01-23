@@ -16,8 +16,6 @@ use SystemException;
  */
 trait WidgetMaker
 {
-    /**@var \Backend\Classes\Controller $controller */
-    protected $controller;
 
     /**
      * Makes a widget object with the supplied configuration file.
