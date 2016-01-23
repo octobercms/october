@@ -52,6 +52,8 @@ trait PropertyContainer
 
     /**
      * Sets multiple properties.
+     * @param array $properties
+     * @return array
      */
     public function setProperties($properties)
     {
@@ -60,14 +62,18 @@ trait PropertyContainer
 
     /**
      * Sets a property value
+     * @param string $name
+     * @param mixed $value
+     * @return void
      */
     public function setProperty($name, $value)
     {
-        return $this->properties[$name] = $value;
+        $this->properties[$name] = $value;
     }
 
     /**
      * Returns all properties.
+     * @return array
      */
     public function getProperties()
     {

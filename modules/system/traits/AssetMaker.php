@@ -2,10 +2,8 @@
 
 use Url;
 use Html;
-use File;
 use System\Models\Parameters;
 use System\Models\PluginVersion;
-use SystemException;
 
 /**
  * Asset Maker Trait
@@ -14,7 +12,6 @@ use SystemException;
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-
 trait AssetMaker
 {
 
