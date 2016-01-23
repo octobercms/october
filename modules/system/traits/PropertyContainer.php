@@ -1,4 +1,5 @@
 <?php namespace System\Traits;
+use October\Rain\Exception\ValidationException;
 
 /**
  * Property container trait
@@ -36,7 +37,15 @@ trait PropertyContainer
         }
         $properties = array_merge($defaultProperties, $properties);
 
-        // @todo Check required properties
+        // Verify required properties are present
+        $missingRequiredProperties = [];
+        foreach ($definedProperties as $name => $information) {
+            if (isset($information['required']) && $information['required'] && empty($properties[$name])) {
+                $missingRequiredProperties[$name] = isset($information['validationMessage'])
+                    ? $information['validationMessage']
+                    : trans('config.required', ['location' => get_class($this), 'property' => $name]);
+            }
+        }
 
         return $properties;
     }
