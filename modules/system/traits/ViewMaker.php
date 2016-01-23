@@ -178,11 +178,11 @@ trait ViewMaker
         foreach ($viewPath as $path) {
             $_fileName = File::symbolizePath($path) . '/' . $fileName;
             if (File::isFile($_fileName)) {
-                break;
+                return $_fileName;
             }
         }
 
-        return $_fileName;
+        return '';
     }
 
     /**

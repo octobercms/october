@@ -153,11 +153,11 @@ trait ConfigMaker
         foreach ($configPath as $path) {
             $_fileName = $path . '/' . $fileName;
             if (File::isFile($_fileName)) {
-                break;
+                return $_fileName;
             }
         }
 
-        return $_fileName;
+        return '';
     }
 
     /**
