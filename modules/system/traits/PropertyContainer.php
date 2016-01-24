@@ -1,5 +1,4 @@
 <?php namespace System\Traits;
-use October\Rain\Exception\ValidationException;
 
 /**
  * Property container trait
