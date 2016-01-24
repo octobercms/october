@@ -35,6 +35,10 @@ class Author extends Model
         'roles' => ['Database\Tester\Models\Role', 'table' => 'database_tester_authors_roles']
     ];
 
+    public $morphMany = [
+        'event_log' => ['Database\Tester\Models\EventLog', 'name' => 'related', 'delete' => true, 'softDelete' => true],
+    ];
+
 }
 
 class SoftDeleteAuthor extends Author

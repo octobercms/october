@@ -96,6 +96,4 @@ class BelongsToModelTest extends PluginTestCase
         $this->assertNull($post->author_id);
         $this->assertNull($post->author);
     }
-
-
 }

@@ -27,6 +27,10 @@ class Post extends Model
         'author' => 'Database\Tester\Models\Author',
     ];
 
+    public $morphMany = [
+        'event_log' => ['Database\Tester\Models\EventLog', 'name' => 'related', 'delete' => true, 'softDelete' => true],
+    ];
+
 }
 
 class SluggablePost extends Post
