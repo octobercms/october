@@ -4260,7 +4260,7 @@ this.createPlaceholder(select)
 this.createOptions(select,this.propertyDefinition.options)
 if(value===undefined){value=this.propertyDefinition.default}
 select.value=value}
-DropdownEditor.prototype.loadDynamicOptions=function(initialization){var currentValue=this.inspector.getPropertyValue(this.propertyDefinition.property),data=this.inspector.getValues(),self=this,$form=$(this.getSelect()).closest('form')
+DropdownEditor.prototype.loadDynamicOptions=function(initialization){var currentValue=this.inspector.getPropertyValue(this.propertyDefinition.property),data=this.getRootSurface().getValues(),self=this,$form=$(this.getSelect()).closest('form')
 if(currentValue===undefined){currentValue=this.propertyDefinition.default}
 var callback=function dropdownOptionsRequestDoneClosure(data){self.hideLoadingIndicator()
 self.optionsRequestDone(data,currentValue,true)}
@@ -4980,10 +4980,12 @@ break;}}
 DictionaryEditor.prototype.onKeyDown=function(ev){if(ev.keyCode==40){return this.navigateDown(ev)}
 else if(ev.keyCode==38){return this.navigateUp(ev)}}
 $.oc.inspector.propertyEditors.dictionary=DictionaryEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.string,BaseProto=Base.prototype
-var AutocompleteEditor=function(inspector,propertyDefinition,containerCell,group){Base.call(this,inspector,propertyDefinition,containerCell,group)}
+var AutocompleteEditor=function(inspector,propertyDefinition,containerCell,group){this.autoUpdateTimeout=null
+Base.call(this,inspector,propertyDefinition,containerCell,group)}
 AutocompleteEditor.prototype=Object.create(BaseProto)
 AutocompleteEditor.prototype.constructor=Base
-AutocompleteEditor.prototype.dispose=function(){this.removeAutocomplete()
+AutocompleteEditor.prototype.dispose=function(){this.clearAutoUpdateTimeout()
+this.removeAutocomplete()
 BaseProto.dispose.call(this)}
 AutocompleteEditor.prototype.build=function(){var container=document.createElement('div'),editor=document.createElement('input'),placeholder=this.propertyDefinition.placeholder!==undefined?this.propertyDefinition.placeholder:'',value=this.inspector.getPropertyValue(this.propertyDefinition.property)
 editor.setAttribute('type','text')
@@ -5000,7 +5002,9 @@ if(this.propertyDefinition.items!==undefined){this.buildAutoComplete(this.proper
 else{this.loadDynamicItems()}}
 AutocompleteEditor.prototype.buildAutoComplete=function(items){var input=this.getInput()
 if(items===undefined){items=[]}
-$(input).autocomplete({source:this.prepareItems(items),matchWidth:true})}
+var $input=$(input),autocomplete=$input.data('autocomplete')
+if(!autocomplete){$input.autocomplete({source:this.prepareItems(items),matchWidth:true})}
+else{autocomplete.source=this.prepareItems(items)}}
 AutocompleteEditor.prototype.removeAutocomplete=function(){var input=this.getInput()
 $(input).autocomplete('destroy')}
 AutocompleteEditor.prototype.prepareItems=function(items){var result={}
@@ -5013,13 +5017,26 @@ AutocompleteEditor.prototype.registerHandlers=function(){BaseProto.registerHandl
 $(this.getInput()).on('change',this.proxy(this.onInputKeyUp))}
 AutocompleteEditor.prototype.unregisterHandlers=function(){BaseProto.unregisterHandlers.call(this)
 $(this.getInput()).off('change',this.proxy(this.onInputKeyUp))}
+AutocompleteEditor.prototype.saveDependencyValues=function(){this.prevDependencyValues=this.getDependencyValues()}
+AutocompleteEditor.prototype.getDependencyValues=function(){var result=''
+for(var i=0,len=this.propertyDefinition.depends.length;i<len;i++){var property=this.propertyDefinition.depends[i],value=this.inspector.getPropertyValue(property)
+if(value===undefined){value='';}
+result+=property+':'+value+'-'}
+return result}
+AutocompleteEditor.prototype.onInspectorPropertyChanged=function(property,value){if(!this.propertyDefinition.depends||this.propertyDefinition.depends.indexOf(property)===-1){return}
+this.clearAutoUpdateTimeout()
+if(this.prevDependencyValues===undefined||this.prevDependencyValues!=dependencyValues){this.autoUpdateTimeout=setTimeout(this.proxy(this.loadDynamicItems),200)}}
+AutocompleteEditor.prototype.clearAutoUpdateTimeout=function(){if(this.autoUpdateTimeout!==null){clearTimeout(this.autoUpdateTimeout)
+this.autoUpdateTimeout=null}}
 AutocompleteEditor.prototype.showLoadingIndicator=function(){$(this.getContainer()).loadIndicator()}
 AutocompleteEditor.prototype.hideLoadingIndicator=function(){if(this.isDisposed()){return}
 var $container=$(this.getContainer())
 $container.loadIndicator('hide')
 $container.loadIndicator('destroy')
 $container.removeClass('loading-indicator-container')}
-AutocompleteEditor.prototype.loadDynamicItems=function(){var container=this.getContainer(),data=this.inspector.getValues(),$form=$(container).closest('form')
+AutocompleteEditor.prototype.loadDynamicItems=function(){if(this.isDisposed()){return}
+this.clearAutoUpdateTimeout()
+var container=this.getContainer(),data=this.getRootSurface().getValues(),$form=$(container).closest('form')
 $.oc.foundation.element.addClass(container,'loading-indicator-container size-small')
 this.showLoadingIndicator()
 if(this.triggerGetItems(data)===false){return}

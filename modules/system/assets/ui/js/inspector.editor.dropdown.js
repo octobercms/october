@@ -306,7 +306,7 @@
 
     DropdownEditor.prototype.loadDynamicOptions = function(initialization) {
         var currentValue = this.inspector.getPropertyValue(this.propertyDefinition.property),
-            data = this.inspector.getValues(),
+            data = this.getRootSurface().getValues(),
             self = this,
             $form = $(this.getSelect()).closest('form')
 
