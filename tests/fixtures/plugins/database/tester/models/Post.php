@@ -33,6 +33,23 @@ class Post extends Model
 
 }
 
+class NullablePost extends Post
+{
+    use \October\Rain\Database\Traits\Nullable;
+
+    /**
+     * @var array Guarded fields
+     */
+    protected $guarded = [];
+
+    /**
+     * @var array List of attributes to nullify
+     */
+    protected $nullable = [
+        'author_nickname',
+    ];
+}
+
 class SluggablePost extends Post
 {
 
