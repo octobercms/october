@@ -15,11 +15,11 @@ class NullableModelTest extends PluginTestCase
 
     public function testNullifyingFields()
     {
-        // The nullable field should be unset and use sql default
-        $post = NullablePost::create(['author_nickname' => '']);
-        $this->assertEquals('October', NullablePost::find($post->id)->author_nickname);
+        // Save as SQL default
+        $post = NullablePost::create(['author_nickname' => ''])->reload();
+        $this->assertEquals('October', $post->author_nickname);
 
-        // Once saved, fields will be set to null
+        // Save as empty string
         $post->author_nickname = '';
         $post->save();
         $this->assertNull($post->author_nickname);
@@ -27,7 +27,13 @@ class NullableModelTest extends PluginTestCase
 
     public function testNonEmptyValuesAreIgnored()
     {
+        // Save as value
         $post = NullablePost::create(['author_nickname' => 'Joe']);
         $this->assertEquals('Joe', $post->author_nickname);
+
+        // Save as "not equal" operator
+        $post->author_nickname = 0;
+        $post->save();
+        $this->assertEquals(0, $post->author_nickname);
     }
 }
