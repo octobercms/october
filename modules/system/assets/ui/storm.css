@@ -2460,7 +2460,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .inspector-fields td.text.active{background:#ffffff;border-left:1px solid #c8cccd}
 .inspector-fields td.autocomplete{padding:0}
 .inspector-fields td.autocomplete .autocomplete-container input[type=text]{padding:5px 12px}
-.inspector-fields td.autocomplete .autocomplete-container ul.dropdown-menu{background:white;font-size:12px}
+.inspector-fields td.autocomplete .autocomplete-container ul.dropdown-menu{background:white;font-size:12px;z-index:100000}
 .inspector-fields td.autocomplete .autocomplete-container ul.dropdown-menu li a{padding:5px 12px;white-space:normal;word-wrap:break-word}
 .inspector-fields td.autocomplete .autocomplete-container .loading-indicator span{margin-top:-12px;right:10px;left:auto}
 .inspector-fields td.trigger-cell{padding:0 !important}
@@ -2538,6 +2538,8 @@ div.inspector-dictionary-container table.inspector-dictionary-table tbody tr:las
 .inspector-container:empty{display:none}
 .inspector-container .control-scrollpad{position:absolute}
 .inspector-field-comment:empty{display:none}
+ul.autocomplete.dropdown-menu.inspector-autocomplete{background:white;font-size:12px;z-index:100000}
+ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white-space:normal;word-wrap:break-word}
 .select2-dropdown.ocInspectorDropdown{font-size:12px;-webkit-border-radius:0 !important;-moz-border-radius:0 !important;border-radius:0 !important;border:none !important}
 .select2-dropdown.ocInspectorDropdown > .select2-results > .select2-results__options{font-size:12px}
 .select2-dropdown.ocInspectorDropdown > .select2-results > li > div{padding:5px 12px 5px}
