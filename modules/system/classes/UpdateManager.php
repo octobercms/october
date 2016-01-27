@@ -220,10 +220,6 @@ class UpdateManager
             'force' => $force
         ];
 
-        if ($projectId = Parameters::get('system::project.id')) {
-            $params['project'] = $projectId;
-        }
-
         $result = $this->requestServerData('core/update', $params);
         $updateCount = (int) array_get($result, 'update', 0);
 
