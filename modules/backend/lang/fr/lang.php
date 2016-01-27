@@ -189,7 +189,7 @@ return [
         'close' => 'Fermer',
         'confirm' => 'Confirmer',
         'reload' => 'Recharger',
-        'complete' => 'Complet',
+        'complete' => 'Terminé',
         'ok' => 'OK',
         'or' => 'ou',
         'confirm_tab_close' => 'Confirmer la fermeture de cet onglet ? Les modifications réalisées seront perdues.',
