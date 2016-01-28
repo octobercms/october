@@ -25,7 +25,7 @@
         if (this.options.triggerCondition.indexOf('value') == 0) {
             var match = this.options.triggerCondition.match(/[^[\]]+(?=])/g)
             this.triggerCondition = 'value'
-            this.triggerConditionValue = (match) ? match : ""
+            this.triggerConditionValue = (match) ? match : [""]
         }
 
         this.triggerParent = this.options.triggerClosestParent !== undefined
