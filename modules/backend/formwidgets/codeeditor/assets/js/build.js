@@ -24,6 +24,8 @@
 =require ../vendor/ace/mode-sass.js
 =require ../vendor/ace/mode-yaml.js
 =require ../vendor/ace/mode-javascript.js
+=require ../vendor/ace/keybinding-vim.js
+=require ../vendor/ace/keybinding-emacs.js
 
 =require codeeditor.js
 

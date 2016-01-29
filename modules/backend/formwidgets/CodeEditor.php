@@ -72,6 +72,11 @@ class CodeEditor extends FormWidgetBase
      */
     public $readOnly = false;
 
+	/**
+	 * @var string Sets the editor keybinding mode
+	 */
+	public $keyboardBinding = null;
+
     //
     // Object properties
     //
@@ -99,7 +104,8 @@ class CodeEditor extends FormWidgetBase
             'fontSize',
             'margin',
             'theme',
-            'readOnly'
+			'readOnly',
+			'keyboard_binding'
         ]);
     }
 
@@ -133,6 +139,7 @@ class CodeEditor extends FormWidgetBase
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->formField->getName();
         $this->vars['readOnly'] = $this->readOnly;
+        $this->vars['keyboardBinding'] = $this->keyboardBinding;
 
         // Double encode when escaping
         $this->vars['value'] = htmlentities($this->getLoadValue(), ENT_QUOTES, 'UTF-8', true);
@@ -166,6 +173,7 @@ class CodeEditor extends FormWidgetBase
         $this->highlightActiveLine = $editorSettings->highlight_active_line;
         $this->useSoftTabs = !$editorSettings->use_hard_tabs;
         $this->showGutter = $editorSettings->show_gutter;
+        $this->keyboardBinding = $editorSettings->keyboardBinding;
     }
 
 }

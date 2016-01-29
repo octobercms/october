@@ -5,7 +5,7 @@
  * - data-control="codeeditor" - enables the code editor plugin
  * - data-vendor-path="/" - sets the path to find Ace editor files
  * - data-language="php" - set the coding language used
- * - data-theme="textmate" - the colour scheme and theme 
+ * - data-theme="textmate" - the colour scheme and theme
  *
  * JavaScript API:
  * $('textarea').codeEditor({ vendorPath: '/', language: 'php '})
@@ -64,7 +64,7 @@
         showPrintMargin: true,
         highlightSelectedWord: false,
         hScrollBarAlwaysVisible: false,
-        readOnly: false
+        readOnly: false,
     }
 
     CodeEditor.prototype.init = function (){
@@ -145,6 +145,7 @@
         editor.setReadOnly(options.readOnly)
         editor.getSession().setFoldStyle(options.codeFolding)
         editor.setFontSize(options.fontSize)
+		editor.setKeyboardHandler(options.keyboardBinding)
         editor.on('blur', this.proxy(this.onBlur))
         editor.on('focus', this.proxy(this.onFocus))
         this.setWordWrap(options.wordWrap)
@@ -354,7 +355,7 @@
                 $this.trigger('oc.codeEditorReady')
             }
             if (typeof option == 'string') result = data[option].apply(data, args)
-            if (typeof result != 'undefined') return false 
+            if (typeof result != 'undefined') return false
         })
 
         return result ? result : this
