@@ -369,5 +369,7 @@ return [
         'export_progress' => 'Export progress',
         'export_error' => 'Export error',
         'column_preview' => 'Column preview',
+        'file_not_found_error' => 'File not found',
+        'empty_error' => 'There was no data supplied to export',
     ],
 ];

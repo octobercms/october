@@ -356,5 +356,7 @@ return [
         'export_progress' => 'Progression de l’export',
         'export_error' => 'Erreur d’export',
         'column_preview' => 'Prévisualisation des colonnes',
+        'file_not_found_error' => 'Fichier non trouvé',
+        'empty_error' => 'Il n‘y a aucune donnée à exporter',
     ],
 ];
