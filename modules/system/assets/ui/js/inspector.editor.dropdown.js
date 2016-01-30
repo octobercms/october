@@ -323,7 +323,7 @@
             this.saveDependencyValues()
         }
 
-        data['inspectorProperty'] = this.propertyDefinition.property
+        data['inspectorProperty'] = this.getPropertyPath()
         data['inspectorClassName'] = this.inspector.options.inspectorClass
 
         this.showLoadingIndicator()

@@ -200,7 +200,7 @@
             return
         }
 
-        data['inspectorProperty'] = this.propertyDefinition.property
+        data['inspectorProperty'] = this.getPropertyPath()
         data['inspectorClassName'] = this.inspector.options.inspectorClass
 
         $form.request('onInspectableGetOptions', {

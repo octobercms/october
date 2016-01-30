@@ -3416,7 +3416,8 @@ if(!this.parentSurface){this.focusFirstEditor()}}
 Surface.prototype.moveToContainer=function(newContainer){this.container=newContainer
 this.container.appendChild(this.tableContainer)}
 Surface.prototype.buildRow=function(property,group){var row=document.createElement('tr'),th=document.createElement('th'),titleSpan=document.createElement('span'),description=this.buildPropertyDescription(property)
-if(property.property){row.setAttribute('data-property',property.property)}
+if(property.property){row.setAttribute('data-property',property.property)
+row.setAttribute('data-property-path',this.getPropertyPath(property.property))}
 this.applyGroupIndexAttribute(property,row,group)
 $.oc.foundation.element.addClass(row,this.getRowCssClass(property,group))
 this.applyHeadColspan(th,property)
@@ -3462,7 +3463,9 @@ for(var i=0,len=rows.length;i<len;i++){var row=rows[i],property=row.getAttribute
 if($.oc.foundation.element.hasClass(row,'no-external-parameter')||!property){continue}
 var propertyEditor=this.findPropertyEditor(property)
 if(propertyEditor&&!propertyEditor.supportsExternalParameterEditor()){continue}
-var cell=row.querySelector('td'),propertyDefinition=this.findPropertyDefinition(property),editor=new $.oc.inspector.externalParameterEditor(this,propertyDefinition,cell)
+var cell=row.querySelector('td'),propertyDefinition=this.findPropertyDefinition(property),initialValue=this.getPropertyValue(property)
+if(initialValue===undefined){initialValue=propertyEditor.getUndefinedValue()}
+var editor=new $.oc.inspector.externalParameterEditor(this,propertyDefinition,cell,initialValue)
 this.externalParameterEditors.push(editor)}}
 Surface.prototype.applyGroupIndexAttribute=function(property,row,group,isGroupedControl){if(property.itemType=='group'||isGroupedControl){row.setAttribute('data-group-index',this.getGroupManager().getGroupIndex(group))
 row.setAttribute('data-parent-group-index',this.getGroupManager().getGroupIndex(group.parentGroup))}
@@ -3510,17 +3513,19 @@ Surface.prototype.setPropertyValue=function(property,value,supressChangeEvents,f
 else{if(this.values[property]!==undefined){delete this.values[property]}}
 if(!supressChangeEvents){if(this.originalValues[property]===undefined||!this.comparePropertyValues(this.originalValues[property],value)){this.markPropertyChanged(property,true)}
 else{this.markPropertyChanged(property,false)}
-this.notifyEditorsPropertyChanged(property,value)
+var propertyPath=this.getPropertyPath(property)
+this.getRootSurface().notifyEditorsPropertyChanged(propertyPath,value)
 if(this.options.onChange!==null){this.options.onChange(property,value)}}
 if(forceEditorUpdate){var editor=this.findPropertyEditor(property)
 if(editor){editor.updateDisplayedValue(value)}}
 return value}
-Surface.prototype.notifyEditorsPropertyChanged=function(property,value){for(var i=0,len=this.editors.length;i<len;i++){var editor=this.editors[i]
-editor.onInspectorPropertyChanged(property,value)}}
+Surface.prototype.notifyEditorsPropertyChanged=function(propertyPath,value){for(var i=0,len=this.editors.length;i<len;i++){var editor=this.editors[i]
+editor.onInspectorPropertyChanged(propertyPath,value)
+editor.notifyChildSurfacesPropertyChanged(propertyPath,value)}}
 Surface.prototype.makeCellActive=function(cell){var tbody=cell.parentNode.parentNode.parentNode,cells=tbody.querySelectorAll('tr td')
 for(var i=0,len=cells.length;i<len;i++){$.oc.foundation.element.removeClass(cells[i],'active')}
 $.oc.foundation.element.addClass(cell,'active')}
-Surface.prototype.markPropertyChanged=function(property,changed){var row=this.tableContainer.querySelector('tr[data-property="'+property+'"]')
+Surface.prototype.markPropertyChanged=function(property,changed){var propertyPath=this.getPropertyPath(property),row=this.tableContainer.querySelector('tr[data-property-path="'+propertyPath+'"]')
 if(changed){$.oc.foundation.element.addClass(row,'changed')}
 else{$.oc.foundation.element.removeClass(row,'changed')}}
 Surface.prototype.findPropertyEditor=function(property){for(var i=0,len=this.editors.length;i<len;i++){if(this.editors[i].getPropertyName()==property){return this.editors[i]}}
@@ -4085,9 +4090,12 @@ BaseEditor.prototype.build=function(){return null}
 BaseEditor.prototype.isDisposed=function(){return this.disposed}
 BaseEditor.prototype.registerHandlers=function(){}
 BaseEditor.prototype.onInspectorPropertyChanged=function(property,value){}
+BaseEditor.prototype.notifyChildSurfacesPropertyChanged=function(property,value){if(!this.hasChildSurface()){return}
+this.childInspector.notifyEditorsPropertyChanged(property,value)}
 BaseEditor.prototype.focus=function(){}
 BaseEditor.prototype.hasChildSurface=function(){return this.childInspector!==null}
 BaseEditor.prototype.getRootSurface=function(){return this.inspector.getRootSurface()}
+BaseEditor.prototype.getPropertyPath=function(){return this.inspector.getPropertyPath(this.propertyDefinition.property)}
 BaseEditor.prototype.updateDisplayedValue=function(value){}
 BaseEditor.prototype.getPropertyName=function(){return this.propertyDefinition.property}
 BaseEditor.prototype.getUndefinedValue=function(){return this.propertyDefinition.default===undefined?undefined:this.propertyDefinition.default}
@@ -4265,7 +4273,7 @@ if(currentValue===undefined){currentValue=this.propertyDefinition.default}
 var callback=function dropdownOptionsRequestDoneClosure(data){self.hideLoadingIndicator()
 self.optionsRequestDone(data,currentValue,true)}
 if(this.propertyDefinition.depends){this.saveDependencyValues()}
-data['inspectorProperty']=this.propertyDefinition.property
+data['inspectorProperty']=this.getPropertyPath()
 data['inspectorClassName']=this.inspector.options.inspectorClass
 this.showLoadingIndicator()
 if(this.triggerGetOptions(data,callback)===false){return}
@@ -4445,7 +4453,7 @@ $link.loadIndicator('destroy')}
 SetEditor.prototype.loadDynamicItems=function(){var link=this.getLink(),data=this.inspector.getValues(),$form=$(link).closest('form')
 $.oc.foundation.element.addClass(link,'loading-indicator-container size-small')
 this.showLoadingIndicator()
-data['inspectorProperty']=this.propertyDefinition.property
+data['inspectorProperty']=this.getPropertyPath()
 data['inspectorClassName']=this.inspector.options.inspectorClass
 $form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.itemsRequestDone)).always(this.proxy(this.hideLoadingIndicator))}
 SetEditor.prototype.itemsRequestDone=function(data,currentValue,initialization){if(this.isDisposed()){return}
@@ -4479,8 +4487,8 @@ return value.indexOf(checkboxValue)>-1}
 SetEditor.prototype.setPropertyValue=function(checkboxValue,isChecked){var currentValue=this.getNormalizedValue()
 if(currentValue===undefined){currentValue=this.propertyDefinition.default}
 if(!currentValue){currentValue=[]}
-var resultValue=[]
-for(var itemValue in this.propertyDefinition.items){if(itemValue!==checkboxValue){if(currentValue.indexOf(itemValue)!==-1){resultValue.push(itemValue)}}
+var resultValue=[],items=this.getItemsSource()
+for(var itemValue in items){if(itemValue!==checkboxValue){if(currentValue.indexOf(itemValue)!==-1){resultValue.push(itemValue)}}
 else{if(isChecked){resultValue.push(itemValue)}}}
 this.inspector.setPropertyValue(this.propertyDefinition.property,this.cleanUpValue(resultValue))
 this.setLinkText(this.getLink())}
@@ -4955,7 +4963,7 @@ return result}
 StringListAutocomplete.prototype.loadDynamicItems=function(){if(this.isDisposed()){return}
 var data=this.getRootSurface().getValues(),$form=$(this.popup).find('form')
 if(this.triggerGetItems(data)===false){return}
-data['inspectorProperty']=this.propertyDefinition.property
+data['inspectorProperty']=this.getPropertyPath()
 data['inspectorClassName']=this.inspector.options.inspectorClass
 $form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.itemsRequestDone))}
 StringListAutocomplete.prototype.triggerGetItems=function(values){var $inspectable=this.getInspectableElement()
@@ -5224,7 +5232,7 @@ var container=this.getContainer(),data=this.getRootSurface().getValues(),$form=$
 $.oc.foundation.element.addClass(container,'loading-indicator-container size-small')
 this.showLoadingIndicator()
 if(this.triggerGetItems(data)===false){return}
-data['inspectorProperty']=this.propertyDefinition.property
+data['inspectorProperty']=this.getPropertyPath()
 data['inspectorClassName']=this.inspector.options.inspectorClass
 $form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.itemsRequestDone)).always(this.proxy(this.hideLoadingIndicator))}
 AutocompleteEditor.prototype.triggerGetItems=function(values){var $inspectable=this.getInspectableElement()
@@ -5364,9 +5372,10 @@ $.oc={}
 if($.oc.inspector===undefined)
 $.oc.inspector={}
 var Base=$.oc.foundation.base,BaseProto=Base.prototype
-var ExternalParameterEditor=function(inspector,propertyDefinition,containerCell){this.inspector=inspector
+var ExternalParameterEditor=function(inspector,propertyDefinition,containerCell,initialValue){this.inspector=inspector
 this.propertyDefinition=propertyDefinition
 this.containerCell=containerCell
+this.initialValue=initialValue
 Base.call(this)
 this.init()}
 ExternalParameterEditor.prototype=Object.create(BaseProto)
@@ -5376,6 +5385,7 @@ this.unregisterHandlers()
 this.inspector=null
 this.propertyDefinition=null
 this.containerCell=null
+this.initialValue=null
 BaseProto.dispose.call(this)}
 ExternalParameterEditor.prototype.init=function(){this.tooltipText='Click to enter the external parameter name to load the property value from'
 this.build()
@@ -5401,11 +5411,10 @@ while(this.containerCell.firstChild){var child=this.containerCell.firstChild
 container.appendChild(child)}
 container.appendChild(editor)
 this.containerCell.appendChild(container)}
-ExternalParameterEditor.prototype.setInitialValue=function(){var propertyValue=this.inspector.getPropertyValue(this.propertyDefinition.property)
-if(!propertyValue){return}
-if(typeof propertyValue!=='string'){return}
+ExternalParameterEditor.prototype.setInitialValue=function(){if(!this.initialValue){return}
+if(typeof this.initialValue!=='string'){return}
 var matches=[]
-if(matches=propertyValue.match(/^\{\{([^\}]+)\}\}$/)){var value=$.trim(matches[1])
+if(matches=this.initialValue.match(/^\{\{([^\}]+)\}\}$/)){var value=$.trim(matches[1])
 if(value.length>0){this.showEditor(true)
 this.getInput().value=value
 this.inspector.setPropertyValue(this.propertyDefinition.property,null,true,true)}}}
@@ -5440,10 +5449,8 @@ link.setAttribute('data-original-title',this.tooltipText)
 this.getInput().setAttribute('tabindex','-1')
 this.toggleEditorVisibility(true)
 setTimeout(this.proxy(this.hideEditor),200)}
-ExternalParameterEditor.prototype.toggleEditorVisibility=function(show){var container=this.getContainer(),children=container.children,height=0
-if(!show){height=this.containerCell.getAttribute('data-inspector-cell-height')
-if(!height){height=$(this.containerCell).height()
-this.containerCell.setAttribute('data-inspector-cell-height',height)}}
+ExternalParameterEditor.prototype.toggleEditorVisibility=function(show){var container=this.getContainer(),children=container.children,height=19
+if(!show){}
 for(var i=0,len=children.length;i<len;i++){var element=children[i]
 if($.oc.foundation.element.hasClass(element,'external-editor')){continue}
 if(show){$.oc.foundation.element.removeClass(element,'hide')}
