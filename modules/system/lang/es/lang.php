@@ -20,7 +20,7 @@ return [
         'id' => 'Bahasa Indonesia',
         'it'    => 'Italiano',
         'ja'    => 'Japonés',
-        'lv' => 'Latvian',
+        'lv' => 'Letón',
 
         'nb-no' => 'Noruego (Bokmål)',
 	'nl'    => 'Holandés',
@@ -29,7 +29,7 @@ return [
         'ro'    => 'Romana',
         'ru'    => 'Ruso',
         'sv'    => 'Sueco',
-        'sk' => 'Slovak (Slovakia)',
+        'sk' => 'Eslovaco (Eslovaquia)',
         'tr'    => 'Turco',
         'zh-cn' => 'Chino (China)',
         'zh-tw' => 'Chino (Taiwan)'
@@ -41,7 +41,7 @@ return [
         'create_fail' => 'No es posible crear el archivo: :name'
     ],
     'combiner' => [
-        'not_found' => "The combiner file ':name' is not found."
+        'not_found' => "El archivo combinador ':name' no se encuentra."
     ],
     'system'         => [
         'name'       => 'Sistema',
@@ -62,20 +62,20 @@ return [
         ]
     ],
     'theme' => [
-        'label' => 'Theme',
-        'unnamed' => 'Unnamed theme',
+        'label' => 'Tema',
+        'unnamed' => 'Tema sin nombre',
         'name' => [
-            'label' => 'Theme Name',
-            'help' => 'Name the theme by its unique code. For example, RainLab.Vanilla'
+            'label' => 'Nombre Tema',
+            'help' => 'Nombre del tema por su código único. Por ejemplo, RainLab.Vanilla'
         ],
     ],
     'themes' => [
-        'install' => 'Install themes',
-        'search' => 'search themes to install...',
-        'installed' => 'Installed themes',
-        'no_themes' => 'There are no themes installed from the marketplace.',
-        'recommended' => 'Recommended',
-        'remove_confirm' => 'Are you sure you want to remove this theme?'
+        'install' => 'Instalar temas',
+        'search' => 'buscar temas para instalar...',
+        'installed' => 'Temas Instalados',
+        'no_themes' => 'No hay temas instalados desde el mercado.',
+        'recommended' => 'Recomendado',
+        'remove_confirm' => '¿Seguro que quieres eliminar este tema?'
     ],
     'plugin' => [
         'label' => 'Plugin',
@@ -89,18 +89,18 @@ return [
         'manage'                  => 'Gestionar plugins',
         'enable_or_disable'       => 'Activar o desactivar',
         'enable_or_disable_title' => 'Activar o Desactivar Plugins',
-        'install' => 'Install plugins',
-        'install_products' => 'Install products',
-        'search' => 'search plugins to install...',
-        'installed' => 'Installed plugins',
-        'no_plugins' => 'There are no plugins installed from the marketplace.',
-        'recommended' => 'Recommended',
+        'install' => 'Instalar plugins',
+        'install_products' => 'Instalar productos',
+        'search' => 'buscar plugins para instalar...',
+        'installed' => 'Plugins Instalados',
+        'no_plugins' => 'No hay plugins instalados desde el mercado.',
+        'recommended' => 'Recomendado',
         'remove'                  => 'Eliminar',
         'refresh'                 => 'Recargar',
         'disabled_label'          => 'Desactivar',
         'disabled_help'           => 'Plugins que están deshabilitadas son ignorados por la aplicación.',
-        'frozen_label' => 'Freeze updates',
-        'frozen_help' => 'Plugins that are frozen will be ignored by the update process.',
+        'frozen_label' => 'Congele actualizaciones',
+        'frozen_help' => 'Plugins que están congelados serán ignorados por el proceso de actualización.',
         'selected_amount'         => 'Plugins seleccionado: :amount',
         'remove_confirm'          => 'Está seguro?',
         'remove_success'          => 'Eliminado con éxito los plugins del sistema.',
@@ -157,15 +157,15 @@ return [
         'sendmail_path'              => 'Directorio de Sendmail',
         'sendmail_path_comment'      => 'Por favor, especifique la ruta de acceso del programa sendmail.',
         'mailgun' => 'Mailgun',
-        'mailgun_domain' => 'Mailgun domain',
-        'mailgun_domain_comment' => 'Please specify the Mailgun domain name.',
+        'mailgun_domain' => 'Dominio Mailgun',
+        'mailgun_domain_comment' => 'Por favor, especifique el nombre de dominio Mailgun.',
         'mailgun_secret' => 'Mailgun secret',
-        'mailgun_secret_comment' => 'Enter your Mailgun API key.',
+        'mailgun_secret_comment' => 'Introduzca su key de Mailgun API.',
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill secret',
-        'mandrill_secret_comment' => 'Enter your Mandrill API key.',
-        'drivers_hint_header' => 'Drivers not installed',
-        'drivers_hint_content' => 'This mail method requires the plugin ":plugin" be installed before you can send mail.'
+        'mandrill_secret_comment' => 'Introduzca su key de Mandrill API.',
+        'drivers_hint_header' => 'Drivers no instalados',
+        'drivers_hint_content' => 'Este método de correo electrónico requiere que el plugin ":plugin" este instalado antes de poder enviar correo.'
     ],
     'mail_templates' => [
         'menu_label'         => 'Plantillas de Correo',
@@ -222,7 +222,7 @@ return [
         'core_downloading'    => 'Descargando archivos de la aplicación',
         'core_extracting'     => 'Descomprimiendo archivos de la aplicación',
         'plugins' => 'Plugins',
-        'themes' => 'Themes',
+        'themes' => 'Temas',
         'disabled' => 'Desactivado',
         'plugin_downloading'  => 'Descargando plugin: :name',
         'plugin_extracting'   => 'Descomprimiendo plugin: :name',
@@ -245,20 +245,20 @@ return [
             'help'  => 'No se encontraron nuevas actualizaciones disponibles.',
         ],
         'important_action' => [
-            'empty' => 'Select action',
-            'confirm' => 'Confirm update',
-            'skip' => 'Skip this plugin (once only)',
-            'ignore' => 'Skip this plugin (always)',
+            'empty' => 'Seleccione acción',
+            'confirm' => 'Confirmar actualización',
+            'skip' => 'Saltar este plugin (sólo una vez)',
+            'ignore' => 'Saltar este plugin (siempre)',
         ],
-        'important_action_required' => 'Action required',
-        'important_view_guide' => 'View upgrade guide',
-        'important_alert_text' => 'Some updates need your attention.',
-        'details_title' => 'Plugin details',
-        'details_view_homepage' => 'View homepage',
+        'important_action_required' => 'Acción requerida',
+        'important_view_guide' => 'Ver guía de actualización',
+        'important_alert_text' => 'Algunas actualizaciones necesitan su atención.',
+        'details_title' => 'Detalles plugin',
+        'details_view_homepage' => 'Ver página de inicio',
         'details_readme' => 'Documentación',
-        'details_readme_missing' => 'There is no documentation provided.',
-        'details_upgrades' => 'Upgrade Guide',
-        'details_upgrades_missing' => 'There are no upgrade instructions provided.',
+        'details_readme_missing' => 'No hay documentación proporcionada.',
+        'details_upgrades' => 'Guía de actualización',
+        'details_upgrades_missing' => 'No hay instrucciones de actualización proporcionadas.',
         'details_current_version' => 'Versión actual',
         'details_author' => 'Autor'
     ],
