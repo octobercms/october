@@ -1,33 +1,47 @@
 <?php
 
 return [
-    'app'            => [
+    'app' => [
         'name'    => 'October CMS',
         'tagline' => 'Getting back to basics',
     ],
     'locale'         => [
         'cs'    => 'Checo',
         'en'    => 'Inglés',
-        'nl'    => 'Holandés',
-        'ja'    => 'Japonés',
-        'sv'    => 'Sueco',
-        'tr'    => 'Turco',
-        'br'    => 'Portugués Brasileño',
         'de'    => 'Alemán',
-        'ru'    => 'Ruso',
-        'fr'    => 'Frabcés',
-        'it'    => 'Italiano',
-        'ro'    => 'Romana',
-        'pt-br' => 'Portugués Brasileño',
-        'es-ar' => 'Español (Argentina)',
+        'el' => 'Griego',
         'es'    => 'Español',
+        'es-ar' => 'Español (Argentina)',
+        'fa' => 'Persa',
+        'fr'    => 'Francés',
+        'br'    => 'Portugués Brasileño',
+
+        'hu' => 'Hungaro',
+        'id' => 'Bahasa Indonesia',
+        'it'    => 'Italiano',
+        'ja'    => 'Japonés',
+        'lv' => 'Letón',
+
         'nb-no' => 'Noruego (Bokmål)',
+	'nl'    => 'Holandés',
+        'pl' => 'Polaco',
+        'pt-br' => 'Portugués (Brasil)',
+        'ro'    => 'Romana',
+        'ru'    => 'Ruso',
+        'sv'    => 'Sueco',
+        'sk' => 'Eslovaco (Eslovaquia)',
+        'tr'    => 'Turco',
+        'zh-cn' => 'Chino (China)',
+        'zh-tw' => 'Chino (Taiwan)'
     ],
     'directory'      => [
-        'create_fail' => 'No es posible crear el directorio: :name',
+        'create_fail' => 'No es posible crear el directorio: :name'
     ],
     'file'           => [
-        'create_fail' => 'No es posible crear el archivo: :name',
+        'create_fail' => 'No es posible crear el archivo: :name'
+    ],
+    'combiner' => [
+        'not_found' => "El archivo combinador ':name' no se encuentra."
     ],
     'system'         => [
         'name'       => 'Sistema',
@@ -44,24 +58,49 @@ return [
             'social'      => 'Social',
             'events'      => 'Eventos',
             'customers'   => 'Clientes',
-            'my_settings' => 'Mis Configuraciones',
+            'my_settings' => 'Mis Configuraciones'
+        ]
+    ],
+    'theme' => [
+        'label' => 'Tema',
+        'unnamed' => 'Tema sin nombre',
+        'name' => [
+            'label' => 'Nombre Tema',
+            'help' => 'Nombre del tema por su código único. Por ejemplo, RainLab.Vanilla'
         ],
     ],
-    'plugin'         => [
+    'themes' => [
+        'install' => 'Instalar temas',
+        'search' => 'buscar temas para instalar...',
+        'installed' => 'Temas Instalados',
+        'no_themes' => 'No hay temas instalados desde el mercado.',
+        'recommended' => 'Recomendado',
+        'remove_confirm' => '¿Seguro que quieres eliminar este tema?'
+    ],
+    'plugin' => [
+        'label' => 'Plugin',
         'unnamed' => 'Plugin sin nombre',
         'name'    => [
             'label' => 'Nombre del Plugin',
             'help'  => 'Nombra el plugin por su código único. por ejemplo, RainLab.Blog',
-        ],
+        ]
     ],
     'plugins'        => [
         'manage'                  => 'Gestionar plugins',
         'enable_or_disable'       => 'Activar o desactivar',
         'enable_or_disable_title' => 'Activar o Desactivar Plugins',
+        'install' => 'Instalar plugins',
+        'install_products' => 'Instalar productos',
+        'search' => 'buscar plugins para instalar...',
+        'installed' => 'Plugins Instalados',
+        'no_plugins' => 'No hay plugins instalados desde el mercado.',
+        'recommended' => 'Recomendado',
         'remove'                  => 'Eliminar',
         'refresh'                 => 'Recargar',
         'disabled_label'          => 'Desactivar',
         'disabled_help'           => 'Plugins que están deshabilitadas son ignorados por la aplicación.',
+        'frozen_label' => 'Congele actualizaciones',
+        'frozen_help' => 'Plugins que están congelados serán ignorados por el proceso de actualización.',
         'selected_amount'         => 'Plugins seleccionado: :amount',
         'remove_confirm'          => 'Está seguro?',
         'remove_success'          => 'Eliminado con éxito los plugins del sistema.',
@@ -94,12 +133,14 @@ return [
         'search'         => 'Buscar',
     ],
     'mail'           => [
+        'log_file' => 'Archivo Registro',
         'menu_label'                 => 'Configuración del correo',
         'menu_description'           => 'Administrar la configuración de correo electrónico.',
         'general'                    => 'General',
         'method'                     => 'Método de correo',
         'sender_name'                => 'Nombre del remitente',
         'sender_email'               => 'Correo del remitente',
+        'php_mail' => 'mail PHP',
         'smtp'                       => 'SMTP',
         'smtp_address'               => 'Dirección SMTP',
         'smtp_authorization'         => 'autorización requerida de SMTP',
@@ -108,9 +149,23 @@ return [
         'smtp_password'              => 'Contraseña',
         'smtp_port'                  => 'Puerto SMTP',
         'smtp_ssl'                   => 'Conexión SSL requerida',
+        'smtp_encryption' => 'protocolo SMTP encryptado',
+        'smtp_encryption_none' => 'Sin encryptación',
+        'smtp_encryption_tls' => 'TLS',
+        'smtp_encryption_ssl' => 'SSL',
         'sendmail'                   => 'Sendmail',
         'sendmail_path'              => 'Directorio de Sendmail',
         'sendmail_path_comment'      => 'Por favor, especifique la ruta de acceso del programa sendmail.',
+        'mailgun' => 'Mailgun',
+        'mailgun_domain' => 'Dominio Mailgun',
+        'mailgun_domain_comment' => 'Por favor, especifique el nombre de dominio Mailgun.',
+        'mailgun_secret' => 'Mailgun secret',
+        'mailgun_secret_comment' => 'Introduzca su key de Mailgun API.',
+        'mandrill' => 'Mandrill',
+        'mandrill_secret' => 'Mandrill secret',
+        'mandrill_secret_comment' => 'Introduzca su key de Mandrill API.',
+        'drivers_hint_header' => 'Drivers no instalados',
+        'drivers_hint_content' => 'Este método de correo electrónico requiere que el plugin ":plugin" este instalado antes de poder enviar correo.'
     ],
     'mail_templates' => [
         'menu_label'         => 'Plantillas de Correo',
@@ -122,6 +177,7 @@ return [
         'menu_layouts_label' => 'Disposición del Mail',
         'layout'             => 'Disposición',
         'layouts'            => 'Disposiciones',
+        'no_layout' => '-- Sin disposición --',
         'name'               => 'Nombre',
         'name_comment'       => 'Nombre único utilizado para referirse a esta plantilla',
         'code'               => 'Código',
@@ -135,13 +191,18 @@ return [
         'test_send'          => 'Enviar mensaje de prueba',
         'test_success'       => 'El mensaje de prueba ha sido enviado con éxito.',
         'return'             => 'Volver a la lista de plantilla',
+        'test_confirm' => 'Un mensaje de prueba se enviará a :email. Continuar?',
+        'saving' => 'Salvando Plantilla...',
+        'sending' => 'Enviando mensaje de prueba...',
     ],
     'install'        => [
         'project_label'       => 'Adjuntar al proyecto',
         'plugin_label'        => 'Instalar Plugin',
+        'theme_label' => 'Instalar Theme',
         'missing_plugin_name' => 'Por favor, especifique un nombre de Plugin para instalar',
+        'missing_theme_name' => 'Por favor especifique un nombre de Theme a instalar.',
         'install_completing'  => 'Finalizó el proceso de instalación',
-        'install_success'     => 'El plugin se ha instalado correctamente.',
+        'install_success'     => 'El plugin se ha instalado correctamente.'
     ],
     'updates'        => [
         'title'               => 'Administrar actualizaciones',
@@ -151,6 +212,7 @@ return [
         'check_label'         => 'Chequear actualizaciones',
         'retry_label'         => 'Intentar nuevamente',
         'plugin_name'         => 'Nombre',
+        'plugin_code' => 'Código',
         'plugin_description'  => 'Descripción',
         'plugin_version'      => 'Versión',
         'plugin_author'       => 'Autor',
@@ -159,6 +221,9 @@ return [
         'core_build_help'     => 'Última versión está disponible.',
         'core_downloading'    => 'Descargando archivos de la aplicación',
         'core_extracting'     => 'Descomprimiendo archivos de la aplicación',
+        'plugins' => 'Plugins',
+        'themes' => 'Temas',
+        'disabled' => 'Desactivado',
         'plugin_downloading'  => 'Descargando plugin: :name',
         'plugin_extracting'   => 'Descomprimiendo plugin: :name',
         'plugin_version_none' => 'Nuevo plugin',
@@ -179,6 +244,23 @@ return [
             'label' => 'No hay actualizaciones',
             'help'  => 'No se encontraron nuevas actualizaciones disponibles.',
         ],
+        'important_action' => [
+            'empty' => 'Seleccione acción',
+            'confirm' => 'Confirmar actualización',
+            'skip' => 'Saltar este plugin (sólo una vez)',
+            'ignore' => 'Saltar este plugin (siempre)',
+        ],
+        'important_action_required' => 'Acción requerida',
+        'important_view_guide' => 'Ver guía de actualización',
+        'important_alert_text' => 'Algunas actualizaciones necesitan su atención.',
+        'details_title' => 'Detalles plugin',
+        'details_view_homepage' => 'Ver página de inicio',
+        'details_readme' => 'Documentación',
+        'details_readme_missing' => 'No hay documentación proporcionada.',
+        'details_upgrades' => 'Guía de actualización',
+        'details_upgrades_missing' => 'No hay instrucciones de actualización proporcionadas.',
+        'details_current_version' => 'Versión actual',
+        'details_author' => 'Autor'
     ],
     'server'         => [
         'connect_error'      => 'Error al conectar con el servidor.',
@@ -235,7 +317,9 @@ return [
         'manage_mail_templates'       => 'Gestionar plantillas de correo',
         'manage_mail_settings'        => 'Gestionar la configuración del correo',
         'manage_other_administrators' => 'Gestionar otros administradores',
+        'manage_preferences' => 'Gestionar preferencias back-end',
+        'manage_editor' => 'Gestionar preferencias editor código',
         'view_the_dashboard'          => 'Ver el Escritorio',
         'manage_branding'             => 'Perzonalizar el back-end',
-    ],
+    ]
 ];
