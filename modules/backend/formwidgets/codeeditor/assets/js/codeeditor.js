@@ -64,7 +64,7 @@
         showPrintMargin: true,
         highlightSelectedWord: false,
         hScrollBarAlwaysVisible: false,
-        readOnly: false,
+        readOnly: false
     }
 
     CodeEditor.prototype.init = function (){
