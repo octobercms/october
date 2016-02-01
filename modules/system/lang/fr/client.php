@@ -64,7 +64,7 @@ return [
 
     'filter' => [
         'group' => [
-            'all' => 'all'
+            'all' => 'tous'
         ],
         'dates' => [
             'format' => 'DD/MM/YYYY', // Moment.js date format
