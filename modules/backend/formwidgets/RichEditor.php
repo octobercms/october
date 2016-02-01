@@ -32,6 +32,12 @@ class RichEditor extends FormWidgetBase
     protected $defaultAlias = 'richeditor';
 
     /**
+     * Redactor default plugins options
+     * @var array
+     */
+    protected $defaultPlugins = ['fullscreen','figure','table','pagelinks','mediamanager'];
+
+    /**
      * {@inheritDoc}
      */
     public function init()
@@ -56,6 +62,9 @@ class RichEditor extends FormWidgetBase
     public function prepareVars()
     {
         $this->vars['fullPage'] = $this->fullPage;
+        // Enabled Redactor's plugins
+        $this->vars['plugins'] = $this->formField->options ?
+            $this->formField->options : $this->defaultPlugins;
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->formField->getName();
