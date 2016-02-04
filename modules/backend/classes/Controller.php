@@ -401,7 +401,7 @@ class Controller extends Extendable
                 /*
                  * Validate the handler name
                  */
-                if (!preg_match('/^(?:\w+\:{2})?on[A-Z]{1}[\w+]*$/', $handler)) {
+                if (!preg_match('/^(?:\w+(?:\[\w+\])*\:{2})?on[A-Z]{1}[\w+]*$/', $handler)) {
                     throw new SystemException(Lang::get('cms::lang.ajax_handler.invalid_name', ['name'=>$handler]));
                 }
 
