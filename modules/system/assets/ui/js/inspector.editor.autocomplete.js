@@ -9,6 +9,8 @@
         BaseProto = Base.prototype
 
     var AutocompleteEditor = function(inspector, propertyDefinition, containerCell, group) {
+        this.autoUpdateTimeout = null
+
         Base.call(this, inspector, propertyDefinition, containerCell, group)
     }
 
@@ -16,6 +18,7 @@
     AutocompleteEditor.prototype.constructor = Base
 
     AutocompleteEditor.prototype.dispose = function() {
+        this.clearAutoUpdateTimeout()
         this.removeAutocomplete()
 
         BaseProto.dispose.call(this)
@@ -63,10 +66,18 @@
             items = []
         }
 
-        $(input).autocomplete({
-            source: this.prepareItems(items),
-            matchWidth: true
-        })
+        var $input = $(input),
+            autocomplete = $input.data('autocomplete')
+
+        if (!autocomplete) {
+            $input.autocomplete({
+                source: this.prepareItems(items),
+                matchWidth: true
+            })
+        }
+        else {
+            autocomplete.source = this.prepareItems(items)
+        }
     }
 
     AutocompleteEditor.prototype.removeAutocomplete = function() {
@@ -110,6 +121,46 @@
         $(this.getInput()).off('change', this.proxy(this.onInputKeyUp))
     }
 
+    AutocompleteEditor.prototype.saveDependencyValues = function() {
+        this.prevDependencyValues = this.getDependencyValues()
+    }
+
+    AutocompleteEditor.prototype.getDependencyValues = function() {
+        var result = ''
+
+        for (var i = 0, len = this.propertyDefinition.depends.length; i < len; i++) {
+            var property = this.propertyDefinition.depends[i],
+                value = this.inspector.getPropertyValue(property)
+
+            if (value === undefined) {
+                value = '';
+            }
+
+            result += property + ':' + value + '-'
+        }
+
+        return result
+    }
+
+    AutocompleteEditor.prototype.onInspectorPropertyChanged = function(property, value) {
+        if (!this.propertyDefinition.depends || this.propertyDefinition.depends.indexOf(property) === -1) {
+            return
+        }
+
+        this.clearAutoUpdateTimeout()
+
+        if (this.prevDependencyValues === undefined || this.prevDependencyValues != dependencyValues) {
+            this.autoUpdateTimeout = setTimeout(this.proxy(this.loadDynamicItems), 200)
+        }
+    }
+
+    AutocompleteEditor.prototype.clearAutoUpdateTimeout = function() {
+        if (this.autoUpdateTimeout !== null) {
+            clearTimeout(this.autoUpdateTimeout)
+            this.autoUpdateTimeout = null
+        }
+    }
+
     //
     // Dynamic items
     //
@@ -132,8 +183,14 @@
     }
 
     AutocompleteEditor.prototype.loadDynamicItems = function() {
+        if (this.isDisposed()) {
+            return
+        }
+
+        this.clearAutoUpdateTimeout()
+
         var container = this.getContainer(),
-            data = this.inspector.getValues(),
+            data = this.getRootSurface().getValues(),
             $form = $(container).closest('form')
 
         $.oc.foundation.element.addClass(container, 'loading-indicator-container size-small')
@@ -143,7 +200,7 @@
             return
         }
 
-        data['inspectorProperty'] = this.propertyDefinition.property
+        data['inspectorProperty'] = this.getPropertyPath()
         data['inspectorClassName'] = this.inspector.options.inspectorClass
 
         $form.request('onInspectableGetOptions', {
