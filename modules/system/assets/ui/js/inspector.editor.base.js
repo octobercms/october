@@ -81,6 +81,14 @@
     BaseEditor.prototype.onInspectorPropertyChanged = function(property, value) {
     }
 
+    BaseEditor.prototype.notifyChildSurfacesPropertyChanged = function(property, value) {
+        if (!this.hasChildSurface()) {
+            return
+        }
+
+        this.childInspector.notifyEditorsPropertyChanged(property, value)
+    }
+
     BaseEditor.prototype.focus = function() {
     }
 
@@ -90,6 +98,10 @@
 
     BaseEditor.prototype.getRootSurface = function() {
         return this.inspector.getRootSurface()
+    }
+
+    BaseEditor.prototype.getPropertyPath = function() {
+        return this.inspector.getPropertyPath(this.propertyDefinition.property)
     }
 
     /**

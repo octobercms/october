@@ -3416,7 +3416,8 @@ if(!this.parentSurface){this.focusFirstEditor()}}
 Surface.prototype.moveToContainer=function(newContainer){this.container=newContainer
 this.container.appendChild(this.tableContainer)}
 Surface.prototype.buildRow=function(property,group){var row=document.createElement('tr'),th=document.createElement('th'),titleSpan=document.createElement('span'),description=this.buildPropertyDescription(property)
-if(property.property){row.setAttribute('data-property',property.property)}
+if(property.property){row.setAttribute('data-property',property.property)
+row.setAttribute('data-property-path',this.getPropertyPath(property.property))}
 this.applyGroupIndexAttribute(property,row,group)
 $.oc.foundation.element.addClass(row,this.getRowCssClass(property,group))
 this.applyHeadColspan(th,property)
@@ -3462,7 +3463,9 @@ for(var i=0,len=rows.length;i<len;i++){var row=rows[i],property=row.getAttribute
 if($.oc.foundation.element.hasClass(row,'no-external-parameter')||!property){continue}
 var propertyEditor=this.findPropertyEditor(property)
 if(propertyEditor&&!propertyEditor.supportsExternalParameterEditor()){continue}
-var cell=row.querySelector('td'),propertyDefinition=this.findPropertyDefinition(property),editor=new $.oc.inspector.externalParameterEditor(this,propertyDefinition,cell)
+var cell=row.querySelector('td'),propertyDefinition=this.findPropertyDefinition(property),initialValue=this.getPropertyValue(property)
+if(initialValue===undefined){initialValue=propertyEditor.getUndefinedValue()}
+var editor=new $.oc.inspector.externalParameterEditor(this,propertyDefinition,cell,initialValue)
 this.externalParameterEditors.push(editor)}}
 Surface.prototype.applyGroupIndexAttribute=function(property,row,group,isGroupedControl){if(property.itemType=='group'||isGroupedControl){row.setAttribute('data-group-index',this.getGroupManager().getGroupIndex(group))
 row.setAttribute('data-parent-group-index',this.getGroupManager().getGroupIndex(group.parentGroup))}
@@ -3510,17 +3513,19 @@ Surface.prototype.setPropertyValue=function(property,value,supressChangeEvents,f
 else{if(this.values[property]!==undefined){delete this.values[property]}}
 if(!supressChangeEvents){if(this.originalValues[property]===undefined||!this.comparePropertyValues(this.originalValues[property],value)){this.markPropertyChanged(property,true)}
 else{this.markPropertyChanged(property,false)}
-this.notifyEditorsPropertyChanged(property,value)
+var propertyPath=this.getPropertyPath(property)
+this.getRootSurface().notifyEditorsPropertyChanged(propertyPath,value)
 if(this.options.onChange!==null){this.options.onChange(property,value)}}
 if(forceEditorUpdate){var editor=this.findPropertyEditor(property)
 if(editor){editor.updateDisplayedValue(value)}}
 return value}
-Surface.prototype.notifyEditorsPropertyChanged=function(property,value){for(var i=0,len=this.editors.length;i<len;i++){var editor=this.editors[i]
-editor.onInspectorPropertyChanged(property,value)}}
+Surface.prototype.notifyEditorsPropertyChanged=function(propertyPath,value){for(var i=0,len=this.editors.length;i<len;i++){var editor=this.editors[i]
+editor.onInspectorPropertyChanged(propertyPath,value)
+editor.notifyChildSurfacesPropertyChanged(propertyPath,value)}}
 Surface.prototype.makeCellActive=function(cell){var tbody=cell.parentNode.parentNode.parentNode,cells=tbody.querySelectorAll('tr td')
 for(var i=0,len=cells.length;i<len;i++){$.oc.foundation.element.removeClass(cells[i],'active')}
 $.oc.foundation.element.addClass(cell,'active')}
-Surface.prototype.markPropertyChanged=function(property,changed){var row=this.tableContainer.querySelector('tr[data-property="'+property+'"]')
+Surface.prototype.markPropertyChanged=function(property,changed){var propertyPath=this.getPropertyPath(property),row=this.tableContainer.querySelector('tr[data-property-path="'+propertyPath+'"]')
 if(changed){$.oc.foundation.element.addClass(row,'changed')}
 else{$.oc.foundation.element.removeClass(row,'changed')}}
 Surface.prototype.findPropertyEditor=function(property){for(var i=0,len=this.editors.length;i<len;i++){if(this.editors[i].getPropertyName()==property){return this.editors[i]}}
@@ -4085,9 +4090,12 @@ BaseEditor.prototype.build=function(){return null}
 BaseEditor.prototype.isDisposed=function(){return this.disposed}
 BaseEditor.prototype.registerHandlers=function(){}
 BaseEditor.prototype.onInspectorPropertyChanged=function(property,value){}
+BaseEditor.prototype.notifyChildSurfacesPropertyChanged=function(property,value){if(!this.hasChildSurface()){return}
+this.childInspector.notifyEditorsPropertyChanged(property,value)}
 BaseEditor.prototype.focus=function(){}
 BaseEditor.prototype.hasChildSurface=function(){return this.childInspector!==null}
 BaseEditor.prototype.getRootSurface=function(){return this.inspector.getRootSurface()}
+BaseEditor.prototype.getPropertyPath=function(){return this.inspector.getPropertyPath(this.propertyDefinition.property)}
 BaseEditor.prototype.updateDisplayedValue=function(value){}
 BaseEditor.prototype.getPropertyName=function(){return this.propertyDefinition.property}
 BaseEditor.prototype.getUndefinedValue=function(){return this.propertyDefinition.default===undefined?undefined:this.propertyDefinition.default}
@@ -4260,12 +4268,12 @@ this.createPlaceholder(select)
 this.createOptions(select,this.propertyDefinition.options)
 if(value===undefined){value=this.propertyDefinition.default}
 select.value=value}
-DropdownEditor.prototype.loadDynamicOptions=function(initialization){var currentValue=this.inspector.getPropertyValue(this.propertyDefinition.property),data=this.inspector.getValues(),self=this,$form=$(this.getSelect()).closest('form')
+DropdownEditor.prototype.loadDynamicOptions=function(initialization){var currentValue=this.inspector.getPropertyValue(this.propertyDefinition.property),data=this.getRootSurface().getValues(),self=this,$form=$(this.getSelect()).closest('form')
 if(currentValue===undefined){currentValue=this.propertyDefinition.default}
 var callback=function dropdownOptionsRequestDoneClosure(data){self.hideLoadingIndicator()
 self.optionsRequestDone(data,currentValue,true)}
 if(this.propertyDefinition.depends){this.saveDependencyValues()}
-data['inspectorProperty']=this.propertyDefinition.property
+data['inspectorProperty']=this.getPropertyPath()
 data['inspectorClassName']=this.inspector.options.inspectorClass
 this.showLoadingIndicator()
 if(this.triggerGetOptions(data,callback)===false){return}
@@ -4445,7 +4453,7 @@ $link.loadIndicator('destroy')}
 SetEditor.prototype.loadDynamicItems=function(){var link=this.getLink(),data=this.inspector.getValues(),$form=$(link).closest('form')
 $.oc.foundation.element.addClass(link,'loading-indicator-container size-small')
 this.showLoadingIndicator()
-data['inspectorProperty']=this.propertyDefinition.property
+data['inspectorProperty']=this.getPropertyPath()
 data['inspectorClassName']=this.inspector.options.inspectorClass
 $form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.itemsRequestDone)).always(this.proxy(this.hideLoadingIndicator))}
 SetEditor.prototype.itemsRequestDone=function(data,currentValue,initialization){if(this.isDisposed()){return}
@@ -4479,8 +4487,8 @@ return value.indexOf(checkboxValue)>-1}
 SetEditor.prototype.setPropertyValue=function(checkboxValue,isChecked){var currentValue=this.getNormalizedValue()
 if(currentValue===undefined){currentValue=this.propertyDefinition.default}
 if(!currentValue){currentValue=[]}
-var resultValue=[]
-for(var itemValue in this.propertyDefinition.items){if(itemValue!==checkboxValue){if(currentValue.indexOf(itemValue)!==-1){resultValue.push(itemValue)}}
+var resultValue=[],items=this.getItemsSource()
+for(var itemValue in items){if(itemValue!==checkboxValue){if(currentValue.indexOf(itemValue)!==-1){resultValue.push(itemValue)}}
 else{if(isChecked){resultValue.push(itemValue)}}}
 this.inspector.setPropertyValue(this.propertyDefinition.property,this.cleanUpValue(resultValue))
 this.setLinkText(this.getLink())}
@@ -4806,6 +4814,190 @@ for(var i=0,len=arrayValue.length;i<len;i++){var currentValue=$.trim(arrayValue[
 if(currentValue.length>0){resultValue.push(currentValue)}}}
 this.inspector.setPropertyValue(this.propertyDefinition.property,resultValue)}
 $.oc.inspector.propertyEditors.stringList=StringListEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.popupBase,BaseProto=Base.prototype
+var StringListAutocomplete=function(inspector,propertyDefinition,containerCell,group){this.items=null
+Base.call(this,inspector,propertyDefinition,containerCell,group)}
+StringListAutocomplete.prototype=Object.create(BaseProto)
+StringListAutocomplete.prototype.constructor=Base
+StringListAutocomplete.prototype.dispose=function(){BaseProto.dispose.call(this)}
+StringListAutocomplete.prototype.init=function(){BaseProto.init.call(this)}
+StringListAutocomplete.prototype.supportsExternalParameterEditor=function(){return false}
+StringListAutocomplete.prototype.setLinkText=function(link,value){var value=value!==undefined?value:this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(value===undefined){value=this.propertyDefinition.default}
+this.checkValueType(value)
+if(!value){value=this.propertyDefinition.placeholder
+$.oc.foundation.element.addClass(link,'placeholder')
+if(!value){value='[]'}
+link.textContent=value}
+else{$.oc.foundation.element.removeClass(link,'placeholder')
+link.textContent='['+value.join(', ')+']'}}
+StringListAutocomplete.prototype.checkValueType=function(value){if(value&&Object.prototype.toString.call(value)!=='[object Array]'){this.throwError('The string list value should be an array.')}}
+StringListAutocomplete.prototype.getPopupContent=function(){return'<form>                                                                                  \
+                <div class="modal-header">                                                              \
+                    <button type="button" class="close" data-dismiss="popup">&times;</button>           \
+                    <h4 class="modal-title">{{property}}</h4>                                           \
+                </div>                                                                                  \
+                <div class="modal-body">                                                                \
+                    <div class="control-toolbar">                                                       \
+                        <div class="toolbar-item">                                                      \
+                            <div class="btn-group">                                                     \
+                                <button type="button" class="btn btn-primary                            \
+                                    oc-icon-plus"                                                       \
+                                    data-cmd="create-item">Add</button>                                 \
+                                <button type="button" class="btn btn-default                            \
+                                    empty oc-icon-trash-o"                                              \
+                                    data-cmd="delete-item"></button>                                    \
+                            </div>                                                                      \
+                        </div>                                                                          \
+                    </div>                                                                              \
+                    <div class="form-group">                                                            \
+                        <div class="inspector-dictionary-container">                                    \
+                            <div class="values">                                                        \
+                                <div class="control-scrollpad"                                          \
+                                    data-control="scrollpad">                                           \
+                                    <div class="scroll-wrapper">                                        \
+                                        <table class="                                                  \
+                                            no-offset-bottom                                            \
+                                            inspector-dictionary-table">                                \
+                                        </table>                                                        \
+                                    </div>                                                              \
+                                </div>                                                                  \
+                            </div>                                                                      \
+                        </div>                                                                          \
+                    </div>                                                                              \
+                </div>                                                                                  \
+                <div class="modal-footer">                                                              \
+                    <button type="submit" class="btn btn-primary">OK</button>                           \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
+                </div>                                                                                  \
+                </form>'}
+StringListAutocomplete.prototype.configurePopup=function(popup){this.initAutocomplete()
+this.buildItemsTable(popup.get(0))
+this.focusFirstInput()}
+StringListAutocomplete.prototype.handleSubmit=function($form){return this.applyValues()}
+StringListAutocomplete.prototype.buildItemsTable=function(popup){var table=popup.querySelector('table.inspector-dictionary-table'),tbody=document.createElement('tbody'),items=this.inspector.getPropertyValue(this.propertyDefinition.property)
+if(items===undefined){items=this.propertyDefinition.default}
+if(items===undefined||this.getValueKeys(items).length===0){var row=this.buildEmptyRow()
+tbody.appendChild(row)}
+else{for(var key in items){var row=this.buildTableRow(items[key])
+tbody.appendChild(row)}}
+table.appendChild(tbody)
+this.updateScrollpads()}
+StringListAutocomplete.prototype.buildTableRow=function(value){var row=document.createElement('tr'),valueCell=document.createElement('td')
+this.createInput(valueCell,value)
+row.appendChild(valueCell)
+return row}
+StringListAutocomplete.prototype.buildEmptyRow=function(){return this.buildTableRow(null)}
+StringListAutocomplete.prototype.createInput=function(container,value){var input=document.createElement('input'),controlContainer=document.createElement('div')
+input.setAttribute('type','text')
+input.setAttribute('class','form-control')
+input.value=value
+controlContainer.appendChild(input)
+container.appendChild(controlContainer)}
+StringListAutocomplete.prototype.setActiveCell=function(input){var activeCells=this.popup.querySelectorAll('td.active')
+for(var i=activeCells.length-1;i>=0;i--){$.oc.foundation.element.removeClass(activeCells[i],'active')}
+var activeCell=input.parentNode.parentNode
+$.oc.foundation.element.addClass(activeCell,'active')
+this.buildAutoComplete(input)}
+StringListAutocomplete.prototype.createItem=function(){var activeRow=this.getActiveRow(),newRow=this.buildEmptyRow(),tbody=this.getTableBody(),nextSibling=activeRow?activeRow.nextElementSibling:null
+tbody.insertBefore(newRow,nextSibling)
+this.focusAndMakeActive(newRow.querySelector('input'))
+this.updateScrollpads()}
+StringListAutocomplete.prototype.deleteItem=function(){var activeRow=this.getActiveRow(),tbody=this.getTableBody()
+if(!activeRow){return}
+var nextRow=activeRow.nextElementSibling,prevRow=activeRow.previousElementSibling,input=this.getRowInputByIndex(activeRow,0)
+if(input){this.removeAutocomplete(input)}
+tbody.removeChild(activeRow)
+var newSelectedRow=nextRow?nextRow:prevRow
+if(!newSelectedRow){newSelectedRow=this.buildEmptyRow()
+tbody.appendChild(newSelectedRow)}
+this.focusAndMakeActive(newSelectedRow.querySelector('input'))
+this.updateScrollpads()}
+StringListAutocomplete.prototype.applyValues=function(){var tbody=this.getTableBody(),dataRows=tbody.querySelectorAll('tr'),link=this.getLink(),result=[]
+for(var i=0,len=dataRows.length;i<len;i++){var dataRow=dataRows[i],valueInput=this.getRowInputByIndex(dataRow,0),value=$.trim(valueInput.value)
+if(value.length==0){continue}
+result.push(value)}
+this.inspector.setPropertyValue(this.propertyDefinition.property,result)
+this.setLinkText(link,result)}
+StringListAutocomplete.prototype.getValueKeys=function(value){var result=[]
+for(var key in value){result.push(key)}
+return result}
+StringListAutocomplete.prototype.getActiveRow=function(){var activeCell=this.popup.querySelector('td.active')
+if(!activeCell){return null}
+return activeCell.parentNode}
+StringListAutocomplete.prototype.getTableBody=function(){return this.popup.querySelector('table.inspector-dictionary-table tbody')}
+StringListAutocomplete.prototype.updateScrollpads=function(){$('.control-scrollpad',this.popup).scrollpad('update')}
+StringListAutocomplete.prototype.focusFirstInput=function(){var input=this.popup.querySelector('td input')
+if(input){input.focus()
+this.setActiveCell(input)}}
+StringListAutocomplete.prototype.getEditorCell=function(cell){return cell.parentNode.parentNode}
+StringListAutocomplete.prototype.getEditorRow=function(cell){return cell.parentNode.parentNode.parentNode}
+StringListAutocomplete.prototype.focusAndMakeActive=function(input){input.focus()
+this.setActiveCell(input)}
+StringListAutocomplete.prototype.getRowInputByIndex=function(row,index){return row.cells[index].querySelector('input')}
+StringListAutocomplete.prototype.navigateDown=function(ev){var cell=this.getEditorCell(ev.currentTarget),row=this.getEditorRow(ev.currentTarget),nextRow=row.nextElementSibling
+if(!nextRow){return}
+var newActiveEditor=nextRow.cells[cell.cellIndex].querySelector('input')
+this.focusAndMakeActive(newActiveEditor)}
+StringListAutocomplete.prototype.navigateUp=function(ev){var cell=this.getEditorCell(ev.currentTarget),row=this.getEditorRow(ev.currentTarget),prevRow=row.previousElementSibling
+if(!prevRow){return}
+var newActiveEditor=prevRow.cells[cell.cellIndex].querySelector('input')
+this.focusAndMakeActive(newActiveEditor)}
+StringListAutocomplete.prototype.initAutocomplete=function(){if(this.propertyDefinition.items!==undefined){this.items=this.prepareItems(this.propertyDefinition.items)
+this.initializeAutocompleteForCurrentInput()}
+else{this.loadDynamicItems()}}
+StringListAutocomplete.prototype.initializeAutocompleteForCurrentInput=function(){var activeElement=document.activeElement
+if(!activeElement){return}
+var inputs=this.popup.querySelectorAll('td input.form-control')
+if(!inputs){return}
+for(var i=inputs.length-1;i>=0;i--){if(inputs[i]===activeElement){this.buildAutoComplete(inputs[i])
+return}}}
+StringListAutocomplete.prototype.buildAutoComplete=function(input){if(this.items===null){return}
+$(input).autocomplete({source:this.items,matchWidth:true,menu:'<ul class="autocomplete dropdown-menu inspector-autocomplete"></ul>',bodyContainer:true})}
+StringListAutocomplete.prototype.removeAutocomplete=function(input){var $input=$(input)
+if(!$input.data('autocomplete')){return}
+$input.autocomplete('destroy')}
+StringListAutocomplete.prototype.prepareItems=function(items){var result={}
+if($.isArray(items)){for(var i=0,len=items.length;i<len;i++){result[items[i]]=items[i]}}
+else{result=items}
+return result}
+StringListAutocomplete.prototype.loadDynamicItems=function(){if(this.isDisposed()){return}
+var data=this.getRootSurface().getValues(),$form=$(this.popup).find('form')
+if(this.triggerGetItems(data)===false){return}
+data['inspectorProperty']=this.getPropertyPath()
+data['inspectorClassName']=this.inspector.options.inspectorClass
+$form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.itemsRequestDone))}
+StringListAutocomplete.prototype.triggerGetItems=function(values){var $inspectable=this.getInspectableElement()
+if(!$inspectable){return true}
+var itemsEvent=$.Event('autocompleteitems.oc.inspector')
+$inspectable.trigger(itemsEvent,[{values:values,callback:this.proxy(this.itemsRequestDone),property:this.inspector.getPropertyPath(this.propertyDefinition.property),propertyDefinition:this.propertyDefinition}])
+if(itemsEvent.isDefaultPrevented()){return false}
+return true}
+StringListAutocomplete.prototype.itemsRequestDone=function(data){if(this.isDisposed()){return}
+var loadedItems={}
+if(data.options){for(var i=data.options.length-1;i>=0;i--){loadedItems[data.options[i].value]=data.options[i].title}}
+this.items=this.prepareItems(loadedItems)
+this.initializeAutocompleteForCurrentInput()}
+StringListAutocomplete.prototype.removeAutocompleteFromAllRows=function(){var inputs=this.popup.querySelector('td input.form-control')
+for(var i=inputs.length-1;i>=0;i--){this.removeAutocomplete(inputs[i])}}
+StringListAutocomplete.prototype.onPopupShown=function(ev,link,popup){BaseProto.onPopupShown.call(this,ev,link,popup)
+popup.on('focus.inspector','td input',this.proxy(this.onFocus))
+popup.on('blur.inspector','td input',this.proxy(this.onBlur))
+popup.on('keydown.inspector','td input',this.proxy(this.onKeyDown))
+popup.on('click.inspector','[data-cmd]',this.proxy(this.onCommand))}
+StringListAutocomplete.prototype.onPopupHidden=function(ev,link,popup){popup.off('.inspector','td input')
+popup.off('.inspector','[data-cmd]',this.proxy(this.onCommand))
+this.removeAutocompleteFromAllRows()
+this.items=null
+BaseProto.onPopupHidden.call(this,ev,link,popup)}
+StringListAutocomplete.prototype.onFocus=function(ev){this.setActiveCell(ev.currentTarget)}
+StringListAutocomplete.prototype.onBlur=function(ev){this.removeAutocomplete(ev.currentTarget)}
+StringListAutocomplete.prototype.onCommand=function(ev){var command=ev.currentTarget.getAttribute('data-cmd')
+switch(command){case'create-item':this.createItem()
+break;case'delete-item':this.deleteItem()
+break;}}
+StringListAutocomplete.prototype.onKeyDown=function(ev){if(ev.keyCode==40){return this.navigateDown(ev)}
+else if(ev.keyCode==38){return this.navigateUp(ev)}}
+$.oc.inspector.propertyEditors.stringListAutocomplete=StringListAutocomplete}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.popupBase,BaseProto=Base.prototype
 var DictionaryEditor=function(inspector,propertyDefinition,containerCell,group){this.keyValidationSet=null
 this.valueValidationSet=null
 Base.call(this,inspector,propertyDefinition,containerCell,group)}
@@ -4980,10 +5172,12 @@ break;}}
 DictionaryEditor.prototype.onKeyDown=function(ev){if(ev.keyCode==40){return this.navigateDown(ev)}
 else if(ev.keyCode==38){return this.navigateUp(ev)}}
 $.oc.inspector.propertyEditors.dictionary=DictionaryEditor}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.string,BaseProto=Base.prototype
-var AutocompleteEditor=function(inspector,propertyDefinition,containerCell,group){Base.call(this,inspector,propertyDefinition,containerCell,group)}
+var AutocompleteEditor=function(inspector,propertyDefinition,containerCell,group){this.autoUpdateTimeout=null
+Base.call(this,inspector,propertyDefinition,containerCell,group)}
 AutocompleteEditor.prototype=Object.create(BaseProto)
 AutocompleteEditor.prototype.constructor=Base
-AutocompleteEditor.prototype.dispose=function(){this.removeAutocomplete()
+AutocompleteEditor.prototype.dispose=function(){this.clearAutoUpdateTimeout()
+this.removeAutocomplete()
 BaseProto.dispose.call(this)}
 AutocompleteEditor.prototype.build=function(){var container=document.createElement('div'),editor=document.createElement('input'),placeholder=this.propertyDefinition.placeholder!==undefined?this.propertyDefinition.placeholder:'',value=this.inspector.getPropertyValue(this.propertyDefinition.property)
 editor.setAttribute('type','text')
@@ -5000,7 +5194,9 @@ if(this.propertyDefinition.items!==undefined){this.buildAutoComplete(this.proper
 else{this.loadDynamicItems()}}
 AutocompleteEditor.prototype.buildAutoComplete=function(items){var input=this.getInput()
 if(items===undefined){items=[]}
-$(input).autocomplete({source:this.prepareItems(items),matchWidth:true})}
+var $input=$(input),autocomplete=$input.data('autocomplete')
+if(!autocomplete){$input.autocomplete({source:this.prepareItems(items),matchWidth:true})}
+else{autocomplete.source=this.prepareItems(items)}}
 AutocompleteEditor.prototype.removeAutocomplete=function(){var input=this.getInput()
 $(input).autocomplete('destroy')}
 AutocompleteEditor.prototype.prepareItems=function(items){var result={}
@@ -5013,17 +5209,30 @@ AutocompleteEditor.prototype.registerHandlers=function(){BaseProto.registerHandl
 $(this.getInput()).on('change',this.proxy(this.onInputKeyUp))}
 AutocompleteEditor.prototype.unregisterHandlers=function(){BaseProto.unregisterHandlers.call(this)
 $(this.getInput()).off('change',this.proxy(this.onInputKeyUp))}
+AutocompleteEditor.prototype.saveDependencyValues=function(){this.prevDependencyValues=this.getDependencyValues()}
+AutocompleteEditor.prototype.getDependencyValues=function(){var result=''
+for(var i=0,len=this.propertyDefinition.depends.length;i<len;i++){var property=this.propertyDefinition.depends[i],value=this.inspector.getPropertyValue(property)
+if(value===undefined){value='';}
+result+=property+':'+value+'-'}
+return result}
+AutocompleteEditor.prototype.onInspectorPropertyChanged=function(property,value){if(!this.propertyDefinition.depends||this.propertyDefinition.depends.indexOf(property)===-1){return}
+this.clearAutoUpdateTimeout()
+if(this.prevDependencyValues===undefined||this.prevDependencyValues!=dependencyValues){this.autoUpdateTimeout=setTimeout(this.proxy(this.loadDynamicItems),200)}}
+AutocompleteEditor.prototype.clearAutoUpdateTimeout=function(){if(this.autoUpdateTimeout!==null){clearTimeout(this.autoUpdateTimeout)
+this.autoUpdateTimeout=null}}
 AutocompleteEditor.prototype.showLoadingIndicator=function(){$(this.getContainer()).loadIndicator()}
 AutocompleteEditor.prototype.hideLoadingIndicator=function(){if(this.isDisposed()){return}
 var $container=$(this.getContainer())
 $container.loadIndicator('hide')
 $container.loadIndicator('destroy')
 $container.removeClass('loading-indicator-container')}
-AutocompleteEditor.prototype.loadDynamicItems=function(){var container=this.getContainer(),data=this.inspector.getValues(),$form=$(container).closest('form')
+AutocompleteEditor.prototype.loadDynamicItems=function(){if(this.isDisposed()){return}
+this.clearAutoUpdateTimeout()
+var container=this.getContainer(),data=this.getRootSurface().getValues(),$form=$(container).closest('form')
 $.oc.foundation.element.addClass(container,'loading-indicator-container size-small')
 this.showLoadingIndicator()
 if(this.triggerGetItems(data)===false){return}
-data['inspectorProperty']=this.propertyDefinition.property
+data['inspectorProperty']=this.getPropertyPath()
 data['inspectorClassName']=this.inspector.options.inspectorClass
 $form.request('onInspectableGetOptions',{data:data,}).done(this.proxy(this.itemsRequestDone)).always(this.proxy(this.hideLoadingIndicator))}
 AutocompleteEditor.prototype.triggerGetItems=function(values){var $inspectable=this.getInspectableElement()
@@ -5163,9 +5372,10 @@ $.oc={}
 if($.oc.inspector===undefined)
 $.oc.inspector={}
 var Base=$.oc.foundation.base,BaseProto=Base.prototype
-var ExternalParameterEditor=function(inspector,propertyDefinition,containerCell){this.inspector=inspector
+var ExternalParameterEditor=function(inspector,propertyDefinition,containerCell,initialValue){this.inspector=inspector
 this.propertyDefinition=propertyDefinition
 this.containerCell=containerCell
+this.initialValue=initialValue
 Base.call(this)
 this.init()}
 ExternalParameterEditor.prototype=Object.create(BaseProto)
@@ -5175,6 +5385,7 @@ this.unregisterHandlers()
 this.inspector=null
 this.propertyDefinition=null
 this.containerCell=null
+this.initialValue=null
 BaseProto.dispose.call(this)}
 ExternalParameterEditor.prototype.init=function(){this.tooltipText='Click to enter the external parameter name to load the property value from'
 this.build()
@@ -5200,11 +5411,10 @@ while(this.containerCell.firstChild){var child=this.containerCell.firstChild
 container.appendChild(child)}
 container.appendChild(editor)
 this.containerCell.appendChild(container)}
-ExternalParameterEditor.prototype.setInitialValue=function(){var propertyValue=this.inspector.getPropertyValue(this.propertyDefinition.property)
-if(!propertyValue){return}
-if(typeof propertyValue!=='string'){return}
+ExternalParameterEditor.prototype.setInitialValue=function(){if(!this.initialValue){return}
+if(typeof this.initialValue!=='string'){return}
 var matches=[]
-if(matches=propertyValue.match(/^\{\{([^\}]+)\}\}$/)){var value=$.trim(matches[1])
+if(matches=this.initialValue.match(/^\{\{([^\}]+)\}\}$/)){var value=$.trim(matches[1])
 if(value.length>0){this.showEditor(true)
 this.getInput().value=value
 this.inspector.setPropertyValue(this.propertyDefinition.property,null,true,true)}}}
@@ -5239,10 +5449,8 @@ link.setAttribute('data-original-title',this.tooltipText)
 this.getInput().setAttribute('tabindex','-1')
 this.toggleEditorVisibility(true)
 setTimeout(this.proxy(this.hideEditor),200)}
-ExternalParameterEditor.prototype.toggleEditorVisibility=function(show){var container=this.getContainer(),children=container.children,height=0
-if(!show){height=this.containerCell.getAttribute('data-inspector-cell-height')
-if(!height){height=$(this.containerCell).height()
-this.containerCell.setAttribute('data-inspector-cell-height',height)}}
+ExternalParameterEditor.prototype.toggleEditorVisibility=function(show){var container=this.getContainer(),children=container.children,height=19
+if(!show){}
 for(var i=0,len=children.length;i<len;i++){var element=children[i]
 if($.oc.foundation.element.hasClass(element,'external-editor')){continue}
 if(show){$.oc.foundation.element.removeClass(element,'hide')}
