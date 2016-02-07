@@ -4990,7 +4990,8 @@ this.removeAutocompleteFromAllRows()
 this.items=null
 BaseProto.onPopupHidden.call(this,ev,link,popup)}
 StringListAutocomplete.prototype.onFocus=function(ev){this.setActiveCell(ev.currentTarget)}
-StringListAutocomplete.prototype.onBlur=function(ev){this.removeAutocomplete(ev.currentTarget)}
+StringListAutocomplete.prototype.onBlur=function(ev){if($(ev.relatedTarget).closest('ul.inspector-autocomplete').length>0){return}
+this.removeAutocomplete(ev.currentTarget)}
 StringListAutocomplete.prototype.onCommand=function(ev){var command=ev.currentTarget.getAttribute('data-cmd')
 switch(command){case'create-item':this.createItem()
 break;case'delete-item':this.deleteItem()

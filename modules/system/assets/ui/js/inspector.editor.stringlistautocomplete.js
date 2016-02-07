@@ -514,6 +514,12 @@
     }
 
     StringListAutocomplete.prototype.onBlur = function(ev) {
+        if ($(ev.relatedTarget).closest('ul.inspector-autocomplete').length > 0) {
+            // Do not close the autocomplete results if a drop-down
+            // menu item was clicked
+            return
+        }
+
         this.removeAutocomplete(ev.currentTarget)
     }
 
