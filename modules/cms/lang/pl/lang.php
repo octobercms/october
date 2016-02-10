@@ -43,7 +43,7 @@ return [
         'activate_button' => 'Aktywuj',
         'active_button' => 'Aktywuj',
         'customize_button' => 'Personalizuj',
-		'duplicate_button' => 'Doplikuj',
+		'duplicate_button' => 'Duplikuj',
         'duplicate_title' => 'Duplikuj motyw',
         'duplicate_theme_success' => 'Pomyślnie utworzono kopię motywu!',
         'manage_button' => 'Zarządzaj',
