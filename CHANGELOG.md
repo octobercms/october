@@ -1,3 +1,6 @@
+* **Build 317** (2015-02-11)
+  - Various back-end UI enhancements used for the [Builder plugin](http://octobercms.com/plugin/rainlab-builder).
+
 * **Build 313** (2015-12-12)
   - Added a `clickable` option to list columns (see Backend > Lists docs).
 
