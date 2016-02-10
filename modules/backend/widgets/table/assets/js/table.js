@@ -420,7 +420,7 @@
     Table.prototype.updateScrollbar = function() {
         if (!this.options.height)
             return
-    
+
         $(this.dataTableContainer.parentNode).data('oc.scrollbar').update()
     }
 
@@ -453,7 +453,7 @@
     Table.prototype.commitEditedRow = function() {
         if (this.editedRowKey === null)
             return
-        
+
         var editedRow = this.dataTable.querySelector('tr[data-row="'+this.editedRowKey+'"]')
         if (!editedRow)
             return
@@ -627,11 +627,12 @@
         var keyColumn = this.options.keyColumn,
             newRecordData = {}
 
-        newRecordData[keyColumn] = -1*this.recordsAddedOrDeleted
+        newRecordData[keyColumn] = -1 * this.recordsAddedOrDeleted
 
-        this.dataSource.deleteRecord(key, 
+        this.dataSource.deleteRecord(
+            key,
             newRecordData,
-            this.navigation.getPageFirstRowOffset(), 
+            this.navigation.getPageFirstRowOffset(),
             this.options.recordsPerPage,
             function onDeleteRecordDataTableSuccess(records, totalCount) {
                 self.buildDataTable(records, totalCount)

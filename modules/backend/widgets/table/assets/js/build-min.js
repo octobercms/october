@@ -593,7 +593,7 @@ Client.prototype.updateRecord=function(key,recordData){var recordIndex=this.getI
 if(recordIndex!==-1){recordData[this.tableObj.options.keyColumn]=key
 this.data[recordIndex]=recordData}
 else{throw new Error('Record with they key '+key+' is not found in the data set')}}
-Base.prototype.deleteRecord=function(key,newRecordData,offset,count,onSuccess){var recordIndex=this.getIndexOfKey(key)
+Client.prototype.deleteRecord=function(key,newRecordData,offset,count,onSuccess){var recordIndex=this.getIndexOfKey(key)
 if(recordIndex!==-1){this.data.splice(recordIndex,1)
 if(this.data.length==0)
 this.data.push(newRecordData)
@@ -617,7 +617,7 @@ Server.prototype.getRecords=function(offset,count,onSuccess){var handlerName=thi
 $.request(handlerName,{data:{offset:offset,count:count}}).done(function(data){onSuccess(data.records,data.count)})}
 Server.prototype.createRecord=function(recordData,placement,relativeToKey,offset,count,onSuccess){console.log('createRecord')}
 Server.prototype.updateRecord=function(key,recordData){console.log('updateRecord')}
-Base.prototype.deleteRecord=function(key,newRecordData,offset,count,onSuccess){console.log('deleteRecord')}
+Server.prototype.deleteRecord=function(key,newRecordData,offset,count,onSuccess){console.log('deleteRecord')}
 $.oc.table.datasource.server=Server}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
 throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.processor===undefined)
 $.oc.table.processor={}
