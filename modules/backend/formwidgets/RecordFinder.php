@@ -16,7 +16,8 @@ use Backend\Classes\FormWidgetBase;
  *        prompt: Click the Find button to find a user
  *        nameFrom: name
  *        descriptionFrom: email
- * 
+ *        conditions: is_active = 1
+ *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -51,6 +52,11 @@ class RecordFinder extends FormWidgetBase
      */
     public $prompt = 'Click the %s button to find a record';
 
+    /**
+     * @var string Filters the relation using a raw where query statement.
+     */
+    public $conditions;
+
     //
     // Object properties
     //
@@ -66,12 +72,12 @@ class RecordFinder extends FormWidgetBase
     public $relationModel;
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the widget used for viewing (list or form).
+     * @var \Backend\Classes\WidgetBase Reference to the widget used for viewing (list or form).
      */
     protected $listWidget;
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the widget used for searching.
+     * @var \Backend\Classes\WidgetBase Reference to the widget used for searching.
      */
     protected $searchWidget;
 
@@ -86,6 +92,7 @@ class RecordFinder extends FormWidgetBase
             'keyFrom',
             'nameFrom',
             'descriptionFrom',
+            'conditions'
         ]);
 
         if (post('recordfinder_flag')) {
@@ -141,7 +148,7 @@ class RecordFinder extends FormWidgetBase
         $model->{$attribute} = post($this->formField->getName());
 
         $this->prepareVars();
-        return ['#'.$this->getId('container') => $this->makePartial('recordfinder')];
+        return ['#' . $this->getId('container') => $this->makePartial('recordfinder')];
     }
 
     /**
@@ -235,17 +242,11 @@ class RecordFinder extends FormWidgetBase
         $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':id')", $this->getId());
         $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 
-        // $widget->bindEvent('list.extendQueryBefore', function($query) {
-
-        //     /*
-        //      * Where not in the current list of related records
-        //      */
-        //     $existingIds = $this->findExistingRelationIds();
-        //     if (count($existingIds)) {
-        //         $query->whereNotIn('id', $existingIds);
-        //     }
-
-        // });
+        if (!empty($this->conditions)) {
+            $widget->addFilter(function ($query) {
+                return $query->whereRaw($this->conditions);
+            });
+        }
 
         return $widget;
     }
