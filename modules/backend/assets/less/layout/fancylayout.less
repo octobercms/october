@@ -54,7 +54,7 @@
                 > ul.nav-tabs {
                     margin-left: -8px;
                     > li {
-                        margin-left: -10px;
+                        margin-left: -8px;
                         top: 1px;
 
                         span.tab-close{
@@ -79,7 +79,7 @@
                             background: transparent;
                             font-size: 14px;
                             color: @color-fancy-master-tabs-inactive-text;
-                            padding: 6px 0 0 0;
+                            padding: 6px 0 0 24px!important;
                             overflow: visible;
 
                             > span.title {
@@ -114,8 +114,9 @@
 
                             &:before {
                                 z-index: 110;
-                                position: relative;
-                                margin-right: -12px;
+                                position: absolute;
+                                top: 15px;
+                                left: 22px;
                             }
 
                             &[class*=icon] > span.title {
@@ -401,9 +402,13 @@
             }
         }
 
-        > div.tab-content {
-            background: @body-bg;
+        &.has-tabs {
+            > div.tab-content {
+                background: @body-bg;
+            }
+        }
 
+        > div.tab-content {
             > div.tab-pane {
                 padding: 0;
 

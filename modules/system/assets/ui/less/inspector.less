@@ -22,6 +22,18 @@
 // Inspector
 // --------------------------------------------------
 
+.inspector-autocomplete-list() {
+    background: white;
+    font-size: 12px;
+    z-index: 100000; // It's safe to set z-index any high value for drop-downs
+
+    li a {
+        padding: 5px 12px;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+}
+
 .inspector-fields {
     min-width: 220px;
     border-collapse: collapse;
@@ -131,12 +143,7 @@
                 }
 
                 ul.dropdown-menu {
-                    background: white;
-                    font-size: 12px;
-
-                    li a {
-                        padding: 5px 12px;
-                    }
+                    .inspector-autocomplete-list();
                 }
 
                 .loading-indicator {
@@ -578,7 +585,8 @@ div.inspector-dictionary-container {
         }
     }
 
-    span {
+    span, a {
+        text-decoration: none;
         position: absolute;
         top: 12px;
         float: none;
@@ -616,6 +624,10 @@ div.inspector-dictionary-container {
     &:empty {
         display: none;
     }
+}
+
+ul.autocomplete.dropdown-menu.inspector-autocomplete {
+    .inspector-autocomplete-list();
 }
 
 .select2-dropdown {

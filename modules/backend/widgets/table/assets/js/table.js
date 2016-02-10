@@ -23,6 +23,7 @@
         this.$el = $(element)
 
         this.options = options
+        this.disposed = false
 
         //
         // State properties
@@ -77,11 +78,16 @@
         // Number of records added or deleted during the session
         this.recordsAddedOrDeleted = 0
 
+        // Bound reference to dispose() - ideally the class should use the October foundation library base class
+        this.disposeBound = this.dispose.bind(this)
+
         //
         // Initialization
         //
 
         this.init()
+
+        $.oc.foundation.controlUtils.markDisposable(element)
     }
 
     // INTERNAL METHODS
@@ -136,6 +142,8 @@
     Table.prototype.registerHandlers = function() {
         this.el.addEventListener('click', this.clickHandler)
         this.el.addEventListener('keydown', this.keydownHandler)
+        this.$el.one('dispose-control', this.disposeBound)
+
         document.addEventListener('click', this.documentClickHandler)
 
         if (this.options.postback && this.options.clientDataSourceClass == 'client')
@@ -822,6 +830,16 @@
     // ============================
 
     Table.prototype.dispose = function() {
+        if (this.disposed) {
+            // Prevent errors when legacy code executes the dispose() method
+            // directly, bypassing $.oc.foundation.controlUtils.disposeControls(container)
+            return
+        }
+
+        this.disposed = true
+
+        this.disposeBound = true
+
         // Remove an editor and commit the data if needed
         this.unfocusTable()
 

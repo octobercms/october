@@ -68,6 +68,7 @@
 =require js/inspector.editor.objectlist.js
 =require js/inspector.editor.object.js
 =require js/inspector.editor.stringlist.js
+=require js/inspector.editor.stringlistautocomplete.js
 =require js/inspector.editor.dictionary.js
 =require js/inspector.editor.autocomplete.js
 =require js/inspector.helpers.js

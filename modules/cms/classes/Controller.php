@@ -168,6 +168,7 @@ class Controller
             MaintenanceSettings::get('is_enabled', false) &&
             !BackendAuth::getUser()
         ) {
+            $this->setStatusCode(503);
             $page = Page::loadCached($this->theme, MaintenanceSettings::get('cms_page'));
         }
 

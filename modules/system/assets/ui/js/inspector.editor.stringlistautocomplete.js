@@ -1,45 +1,35 @@
 /*
- * Inspector dictionary editor class.
+ * Inspector string list with autocompletion editor class.
+ *
+ * TODO: validation is not implemented in this editor. See the Dictionary editor for reference.
  */
 +function ($) { "use strict";
 
     var Base = $.oc.inspector.propertyEditors.popupBase,
         BaseProto = Base.prototype
 
-    var DictionaryEditor = function(inspector, propertyDefinition, containerCell, group) {
-        this.keyValidationSet = null
-        this.valueValidationSet = null
+    var StringListAutocomplete = function(inspector, propertyDefinition, containerCell, group) {
+        this.items = null
 
         Base.call(this, inspector, propertyDefinition, containerCell, group)
     }
 
-    DictionaryEditor.prototype = Object.create(BaseProto)
-    DictionaryEditor.prototype.constructor = Base
+    StringListAutocomplete.prototype = Object.create(BaseProto)
+    StringListAutocomplete.prototype.constructor = Base
 
-    DictionaryEditor.prototype.dispose = function() {
-        this.disposeValidators()
-        
-        this.keyValidationSet = null
-        this.valueValidationSet = null
-
+    StringListAutocomplete.prototype.dispose = function() {
         BaseProto.dispose.call(this)
     }
 
-    DictionaryEditor.prototype.init = function() {
-        this.initValidators()
-
+    StringListAutocomplete.prototype.init = function() {
         BaseProto.init.call(this)
     }
 
-    DictionaryEditor.prototype.supportsExternalParameterEditor = function() {
+    StringListAutocomplete.prototype.supportsExternalParameterEditor = function() {
         return false
     }
 
-    //
-    // Popup editor methods
-    //
-
-    DictionaryEditor.prototype.setLinkText = function(link, value) {
+    StringListAutocomplete.prototype.setLinkText = function(link, value) {
         var value = value !== undefined ? value 
                 : this.inspector.getPropertyValue(this.propertyDefinition.property)
 
@@ -47,30 +37,36 @@
             value = this.propertyDefinition.default
         }
 
-        if (value === undefined || $.isEmptyObject(value)) {
-            var placeholder = this.propertyDefinition.placeholder
+        this.checkValueType(value)
 
-            if (placeholder !== undefined) {
-                $.oc.foundation.element.addClass(link, 'placeholder')
-                link.textContent = placeholder
+        if (!value) {
+            value = this.propertyDefinition.placeholder
+            $.oc.foundation.element.addClass(link, 'placeholder')
+
+            if (!value) {
+                value = '[]'
             }
-            else {
-                link.textContent = 'Items: 0'
-            }
-        }
+
+            link.textContent = value
+        } 
         else {
-            if (typeof value !== 'object') {
-                this.throwError('Object list value should be an object.')
-            }
-
-            var itemCount = this.getValueKeys(value).length
-
             $.oc.foundation.element.removeClass(link, 'placeholder')
-            link.textContent = 'Items: ' + itemCount
+    
+            link.textContent = '[' + value.join(', ') + ']'
         }
     }
 
-    DictionaryEditor.prototype.getPopupContent = function() {
+    StringListAutocomplete.prototype.checkValueType = function(value) {
+        if (value && Object.prototype.toString.call(value) !== '[object Array]') {
+            this.throwError('The string list value should be an array.')
+        }
+    }
+
+    //
+    // Popup editor methods
+    //
+
+    StringListAutocomplete.prototype.getPopupContent = function() {
         return '<form>                                                                                  \
                 <div class="modal-header">                                                              \
                     <button type="button" class="close" data-dismiss="popup">&times;</button>           \
@@ -91,14 +87,6 @@
                     </div>                                                                              \
                     <div class="form-group">                                                            \
                         <div class="inspector-dictionary-container">                                    \
-                            <table class="headers">                                                     \
-                                <thead>                                                                 \
-                                    <tr>                                                                \
-                                        <td>Key</td>                                                    \
-                                        <td>Value</td>                                                  \
-                                    </tr>                                                               \
-                                </thead>                                                                \
-                            </table>                                                                    \
                             <div class="values">                                                        \
                                 <div class="control-scrollpad"                                          \
                                     data-control="scrollpad">                                           \
@@ -115,18 +103,20 @@
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>  \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
                 </div>                                                                                  \
                 </form>'
     }
 
-    DictionaryEditor.prototype.configurePopup = function(popup) {
+    StringListAutocomplete.prototype.configurePopup = function(popup) {
+        this.initAutocomplete()
+
         this.buildItemsTable(popup.get(0))
 
         this.focusFirstInput()
     }
 
-    DictionaryEditor.prototype.handleSubmit = function($form) {
+    StringListAutocomplete.prototype.handleSubmit = function($form) {
         return this.applyValues()
     }
 
@@ -134,11 +124,10 @@
     // Building and row management
     //
 
-    DictionaryEditor.prototype.buildItemsTable = function(popup) {
+    StringListAutocomplete.prototype.buildItemsTable = function(popup) {
         var table = popup.querySelector('table.inspector-dictionary-table'),
             tbody = document.createElement('tbody'),
-            items = this.inspector.getPropertyValue(this.propertyDefinition.property),
-            titleProperty = this.propertyDefinition.titleProperty
+            items = this.inspector.getPropertyValue(this.propertyDefinition.property)
 
         if (items === undefined) {
             items = this.propertyDefinition.default
@@ -151,7 +140,7 @@
         }
         else {
             for (var key in items) {
-                var row = this.buildTableRow(key, items[key])
+                var row = this.buildTableRow(items[key])
 
                 tbody.appendChild(row)
             }
@@ -161,25 +150,22 @@
         this.updateScrollpads()
     }
 
-    DictionaryEditor.prototype.buildTableRow = function(key, value) {
+    StringListAutocomplete.prototype.buildTableRow = function(value) {
         var row = document.createElement('tr'),
-            keyCell = document.createElement('td'),
             valueCell = document.createElement('td')
 
-        this.createInput(keyCell, key)
         this.createInput(valueCell, value)
 
-        row.appendChild(keyCell)
         row.appendChild(valueCell)
 
         return row
     }
 
-    DictionaryEditor.prototype.buildEmptyRow = function() {
-        return this.buildTableRow(null, null)
+    StringListAutocomplete.prototype.buildEmptyRow = function() {
+        return this.buildTableRow(null)
     }
 
-    DictionaryEditor.prototype.createInput = function(container, value) {
+    StringListAutocomplete.prototype.createInput = function(container, value) {
         var input = document.createElement('input'),
             controlContainer = document.createElement('div')
 
@@ -191,7 +177,7 @@
         container.appendChild(controlContainer)
     }
 
-    DictionaryEditor.prototype.setActiveCell = function(input) {
+    StringListAutocomplete.prototype.setActiveCell = function(input) {
         var activeCells = this.popup.querySelectorAll('td.active')
 
         for (var i = activeCells.length-1; i >= 0; i--) {
@@ -200,9 +186,11 @@
 
         var activeCell = input.parentNode.parentNode // input / div / td
         $.oc.foundation.element.addClass(activeCell, 'active')
+
+        this.buildAutoComplete(input)
     }
 
-    DictionaryEditor.prototype.createItem = function() {
+    StringListAutocomplete.prototype.createItem = function() {
         var activeRow = this.getActiveRow(),
             newRow = this.buildEmptyRow(),
             tbody = this.getTableBody(),
@@ -214,7 +202,7 @@
         this.updateScrollpads()
     }
 
-    DictionaryEditor.prototype.deleteItem = function() {
+    StringListAutocomplete.prototype.deleteItem = function() {
         var activeRow = this.getActiveRow(),
             tbody = this.getTableBody()
 
@@ -223,7 +211,12 @@
         }
 
         var nextRow = activeRow.nextElementSibling,
-            prevRow = activeRow.previousElementSibling
+            prevRow = activeRow.previousElementSibling,
+            input = this.getRowInputByIndex(activeRow, 0)
+
+        if (input) {
+            this.removeAutocomplete(input)
+        }
 
         tbody.removeChild(activeRow)
 
@@ -234,58 +227,26 @@
             tbody.appendChild(newSelectedRow)
         }
 
-        this.focusAndMakeActive(newSelectedRow .querySelector('input'))
+        this.focusAndMakeActive(newSelectedRow.querySelector('input'))
         this.updateScrollpads()
     }
 
-    DictionaryEditor.prototype.applyValues = function() {
+    StringListAutocomplete.prototype.applyValues = function() {
         var tbody = this.getTableBody(),
             dataRows = tbody.querySelectorAll('tr'),
             link = this.getLink(),
-            result = {}
+            result = []
 
         for (var i = 0, len = dataRows.length; i < len; i++) {
             var dataRow = dataRows[i],
-                keyInput = this.getRowInputByIndex(dataRow, 0),
-                valueInput = this.getRowInputByIndex(dataRow, 1),
-                key = $.trim(keyInput.value),
+                valueInput = this.getRowInputByIndex(dataRow, 0),
                 value = $.trim(valueInput.value)
 
-            if (key.length == 0 && value.length == 0) {
+            if (value.length == 0) {
                 continue
             }
 
-            if (key.length == 0) {
-                $.oc.flashMsg({text: 'The key cannot be empty.', 'class': 'error', 'interval': 3})
-                this.focusAndMakeActive(keyInput)
-                return false
-            }
-
-            if (value.length == 0) {
-                $.oc.flashMsg({text: 'The value cannot be empty.', 'class': 'error', 'interval': 3})
-                this.focusAndMakeActive(valueInput)
-                return false
-            }
-
-            if (result[key] !== undefined) {
-                $.oc.flashMsg({text: 'Keys should be unique.', 'class': 'error', 'interval': 3})
-                this.focusAndMakeActive(keyInput)
-                return false
-            }
-        
-            var validationResult = this.keyValidationSet.validate(key)
-            if (validationResult !== null) {
-                $.oc.flashMsg({text: validationResult, 'class': 'error', 'interval': 5})
-                return false
-            }
-
-            validationResult = this.valueValidationSet.validate(value)
-            if (validationResult !== null) {
-                $.oc.flashMsg({text: validationResult, 'class': 'error', 'interval': 5})
-                return false
-            }
-
-            result[key] = value
+            result.push(value)
         }
 
         this.inspector.setPropertyValue(this.propertyDefinition.property, result)
@@ -296,7 +257,7 @@
     // Helpers
     //
 
-    DictionaryEditor.prototype.getValueKeys = function(value) {
+    StringListAutocomplete.prototype.getValueKeys = function(value) {
         var result = []
 
         for (var key in value) {
@@ -306,7 +267,7 @@
         return result
     }
 
-    DictionaryEditor.prototype.getActiveRow = function() {
+    StringListAutocomplete.prototype.getActiveRow = function() {
         var activeCell = this.popup.querySelector('td.active')
 
         if (!activeCell) {
@@ -316,15 +277,15 @@
         return activeCell.parentNode
     }
 
-    DictionaryEditor.prototype.getTableBody = function() {
+    StringListAutocomplete.prototype.getTableBody = function() {
         return this.popup.querySelector('table.inspector-dictionary-table tbody')
     }
 
-    DictionaryEditor.prototype.updateScrollpads = function() {
+    StringListAutocomplete.prototype.updateScrollpads = function() {
         $('.control-scrollpad', this.popup).scrollpad('update')
     }
 
-    DictionaryEditor.prototype.focusFirstInput = function() {
+    StringListAutocomplete.prototype.focusFirstInput = function() {
         var input = this.popup.querySelector('td input')
 
         if (input) {
@@ -333,20 +294,20 @@
         }
     }
 
-    DictionaryEditor.prototype.getEditorCell = function(cell) {
+    StringListAutocomplete.prototype.getEditorCell = function(cell) {
         return cell.parentNode.parentNode // cell / div / td
     }
 
-    DictionaryEditor.prototype.getEditorRow = function(cell) {
+    StringListAutocomplete.prototype.getEditorRow = function(cell) {
         return cell.parentNode.parentNode.parentNode // cell / div / td / tr
     }
 
-    DictionaryEditor.prototype.focusAndMakeActive = function(input) {
+    StringListAutocomplete.prototype.focusAndMakeActive = function(input) {
         input.focus()
         this.setActiveCell(input)
     }
 
-    DictionaryEditor.prototype.getRowInputByIndex = function(row, index) {
+    StringListAutocomplete.prototype.getRowInputByIndex = function(row, index) {
         return row.cells[index].querySelector('input')
     }
 
@@ -354,7 +315,7 @@
     // Navigation
     //
 
-    DictionaryEditor.prototype.navigateDown = function(ev) {
+    StringListAutocomplete.prototype.navigateDown = function(ev) {
         var cell = this.getEditorCell(ev.currentTarget),
             row = this.getEditorRow(ev.currentTarget),
             nextRow = row.nextElementSibling
@@ -368,7 +329,7 @@
         this.focusAndMakeActive(newActiveEditor)
     }
 
-    DictionaryEditor.prototype.navigateUp = function(ev) {
+    StringListAutocomplete.prototype.navigateUp = function(ev) {
         var cell = this.getEditorCell(ev.currentTarget),
             row = this.getEditorRow(ev.currentTarget),
             prevRow = row.previousElementSibling
@@ -383,48 +344,186 @@
     }
 
     //
-    // Validation
+    // Autocomplete
     //
 
-    DictionaryEditor.prototype.initValidators = function() {
-        this.keyValidationSet = new $.oc.inspector.validationSet({
-            validation: this.propertyDefinition.validationKey
-        }, this.propertyDefinition.property+'.validationKey')
-
-        this.valueValidationSet = new $.oc.inspector.validationSet({
-            validation: this.propertyDefinition.validationValue
-        }, this.propertyDefinition.property+'.validationValue')
+    StringListAutocomplete.prototype.initAutocomplete = function() {
+        if (this.propertyDefinition.items !== undefined) {
+            this.items = this.prepareItems(this.propertyDefinition.items)
+            this.initializeAutocompleteForCurrentInput()
+        }
+        else {
+            this.loadDynamicItems()
+        }
     }
 
-    DictionaryEditor.prototype.disposeValidators = function() {
-        this.keyValidationSet.dispose()
-        this.valueValidationSet.dispose()
+    StringListAutocomplete.prototype.initializeAutocompleteForCurrentInput = function() {
+        var activeElement = document.activeElement
+
+        if (!activeElement) {
+            return
+        }
+
+        var inputs = this.popup.querySelectorAll('td input.form-control')
+
+        if (!inputs) {
+            return
+        }
+
+        for (var i=inputs.length-1; i>=0; i--) {
+            if (inputs[i] === activeElement) {
+                this.buildAutoComplete(inputs[i])
+                return
+            }
+        }
+    }
+
+    StringListAutocomplete.prototype.buildAutoComplete = function(input) {
+        if (this.items === null) {
+            return
+        }
+
+        $(input).autocomplete({
+            source: this.items,
+            matchWidth: true,
+            menu: '<ul class="autocomplete dropdown-menu inspector-autocomplete"></ul>',
+            bodyContainer: true
+        })
+    }
+
+    StringListAutocomplete.prototype.removeAutocomplete = function(input) {
+        var $input = $(input)
+
+        if (!$input.data('autocomplete')) {
+            return
+        }
+
+        $input.autocomplete('destroy')
+    }
+
+    StringListAutocomplete.prototype.prepareItems = function(items) {
+        var result = {}
+
+        if ($.isArray(items)) {
+            for (var i = 0, len = items.length; i < len; i++) {
+                result[items[i]] = items[i]
+            }
+        }
+        else {
+            result = items
+        }
+
+        return result
+    }
+
+    StringListAutocomplete.prototype.loadDynamicItems = function() {
+        if (this.isDisposed()) {
+            return
+        }
+
+        var data = this.getRootSurface().getValues(),
+            $form = $(this.popup).find('form')
+
+        if (this.triggerGetItems(data) === false) {
+            return
+        }
+
+        data['inspectorProperty'] = this.getPropertyPath()
+        data['inspectorClassName'] = this.inspector.options.inspectorClass
+
+        $form.request('onInspectableGetOptions', {
+            data: data,
+        })
+        .done(this.proxy(this.itemsRequestDone))
+    }
+
+    StringListAutocomplete.prototype.triggerGetItems = function(values) {
+        var $inspectable = this.getInspectableElement()
+        if (!$inspectable) {
+            return true
+        }
+
+        var itemsEvent = $.Event('autocompleteitems.oc.inspector')
+
+        $inspectable.trigger(itemsEvent, [{
+            values: values, 
+            callback: this.proxy(this.itemsRequestDone),
+            property: this.inspector.getPropertyPath(this.propertyDefinition.property),
+            propertyDefinition: this.propertyDefinition
+        }])
+
+        if (itemsEvent.isDefaultPrevented()) {
+            return false
+        }
+
+        return true
+    }
+
+    StringListAutocomplete.prototype.itemsRequestDone = function(data) {
+        if (this.isDisposed()) {
+            // Handle the case when the asynchronous request finishes after
+            // the editor is disposed
+            return
+        }
+
+        var loadedItems = {}
+
+        if (data.options) {
+            for (var i = data.options.length-1; i >= 0; i--) {
+                loadedItems[data.options[i].value] = data.options[i].title
+            }
+        }
+
+        this.items = this.prepareItems(loadedItems)
+        this.initializeAutocompleteForCurrentInput()
+    }
+
+    StringListAutocomplete.prototype.removeAutocompleteFromAllRows = function() {
+        var inputs = this.popup.querySelector('td input.form-control')
+
+        for (var i=inputs.length-1; i>=0; i--) {
+            this.removeAutocomplete(inputs[i])
+        }
     }
 
     //
     // Event handlers
     //
 
-    DictionaryEditor.prototype.onPopupShown = function(ev, link, popup) {
-        BaseProto.onPopupShown.call(this,ev, link, popup )
+    StringListAutocomplete.prototype.onPopupShown = function(ev, link, popup) {
+        BaseProto.onPopupShown.call(this,ev, link, popup)
 
         popup.on('focus.inspector', 'td input', this.proxy(this.onFocus))
+        popup.on('blur.inspector', 'td input', this.proxy(this.onBlur))
         popup.on('keydown.inspector', 'td input', this.proxy(this.onKeyDown))
         popup.on('click.inspector', '[data-cmd]', this.proxy(this.onCommand))
     }
 
-    DictionaryEditor.prototype.onPopupHidden = function(ev, link, popup) {
+    StringListAutocomplete.prototype.onPopupHidden = function(ev, link, popup) {
         popup.off('.inspector', 'td input')
         popup.off('.inspector', '[data-cmd]', this.proxy(this.onCommand))
+
+        this.removeAutocompleteFromAllRows()
+        this.items = null
 
         BaseProto.onPopupHidden.call(this, ev, link, popup)
     }
 
-    DictionaryEditor.prototype.onFocus = function(ev) {
+    StringListAutocomplete.prototype.onFocus = function(ev) {
         this.setActiveCell(ev.currentTarget)
     }
 
-    DictionaryEditor.prototype.onCommand = function(ev) {
+    StringListAutocomplete.prototype.onBlur = function(ev) {
+        if ($(ev.relatedTarget).closest('ul.inspector-autocomplete').length > 0) {
+            // Do not close the autocomplete results if a drop-down
+            // menu item was clicked
+            return
+        }
+
+        this.removeAutocomplete(ev.currentTarget)
+    }
+
+    StringListAutocomplete.prototype.onCommand = function(ev) {
         var command = ev.currentTarget.getAttribute('data-cmd')
 
         switch (command) {
@@ -437,7 +536,7 @@
         }
     }
 
-    DictionaryEditor.prototype.onKeyDown = function(ev) {
+    StringListAutocomplete.prototype.onKeyDown = function(ev) {
         if (ev.keyCode == 40) {
             return this.navigateDown(ev)
         }
@@ -446,5 +545,5 @@
         }
     }
 
-    $.oc.inspector.propertyEditors.dictionary = DictionaryEditor
+    $.oc.inspector.propertyEditors.stringListAutocomplete = StringListAutocomplete
 }(window.jQuery);
