@@ -3,26 +3,33 @@
 return [
     'app' => [
         'name' => 'October CMS',
-        'tagline' => 'Basitliğe dönüş...'
+        'tagline' => 'Sadeliğe dönüş...'
     ],
     'locale' => [
-        'cs' => 'Czech',
+        'cs' => 'Čeština (Česko)',
         'en' => 'English (United States)',
         'de' => 'Deutsch (Deutschland)',
+        'el' => 'Ελληνικά (Ελλάδα)',
         'es' => 'Español (Spanish)',
         'es-ar' => 'Español (Argentina)',
         'fa' => '‏فارسی‏ (Iran) ايران',
         'fr' => 'Français (France)',
-        'hu' => 'Magyar (Magyarország - Hungary)',
+        'hu' => 'Magyar - Magyarország (Hungary)',
+        'id' => 'Bahasa Indonesia (Indonesia)',
         'it' => 'Italiano (Italia)',
         'ja' => '日本語 (Japan) 日本',
+        'lv' => 'Latviešu (Latvija)',
+        'nb-no' => 'Norsk - Bokmål (Norge)',
         'nl' => 'Nederlands (Nederland)',
+        'pl' => 'Polski (Polska)',
         'pt-br' => 'Português (Brasil)',
         'ro' => 'Română (România)',
         'ru' => 'Русский (Россия - Russia)',
         'sv' => 'Svenska (Sverige)',
+        'sk' => 'Slovenčina (Slovensko)',
         'tr' => 'Türkçe (Türkiye)',
-        'nb-no' => 'Norwegian (Bokmål)'
+        'zh-cn' => '中文(简体) - 中国 (Chine-Simplified Chinese)',
+        'zh-tw' => '中文(台灣) - 台灣 (Taiwan-Traditional Chinese)'
     ],
     'directory' => [
         'create_fail' => "Klasör oluşturulamıyor: :name"
@@ -181,10 +188,17 @@ return [
         'content_text' => 'Düzyazı',
         'test_send' => 'Test mesajı gönder',
         'test_success' => 'Test mesajı başarılı şekilde gönderildi.',
-        'return' => 'Şablon listesine geri dön',
         'test_confirm' => 'Deneme mesajı :email eposta adresine gönderilecek. Devam etmek istiyor musunuz?',
+        'creating' => 'Şablon Oluşturuluyor...',
+        'creating_layout' => 'Layout Oluşturuluyor...',
         'saving' => 'Şablon kaydediliyor...',
+        'saving_layout' => 'Layout kaydediliyor...',
+        'delete_confirm' => 'Bu şablonu silmek istediğinize emin misiniz?',
+        'delete_layout_confirm' => 'Bu layout\'u silmek istediğinize emin misiniz?',
+        'deleting' => 'Şablon Siliniyor...',
+        'deleting_layout' => 'Layout Siliniyor...',
         'sending' => 'Deneme mesajı gönderiliyor...',
+        'return' => 'Şablon listesine geri dön'
     ],
     'install' => [
         'project_label' => 'Projeye bağla',
@@ -304,13 +318,15 @@ return [
     ],
     'permissions' => [
         'name' => 'Sistem',
-        'manage_system_settings' => 'Sistem ayarlarını düzenleyebilsin',
-        'manage_software_updates' => 'Sistem güncellemelerini yönetebilsin',
-        'access_logs' => 'Sistem günlüğünü görüntüle',
-        'manage_mail_templates' => 'E-posta şablonları yönetebilsin',
-        'manage_mail_settings' => 'E-posta ayarlarını yönetebilsin',
-        'manage_other_administrators' => 'Diğer yöneticileri düzenleyebilsin',
-        'view_the_dashboard' => 'Panoyu görüntüleyebilsin',
-        'manage_branding' => 'Back-end i özelleştir'
+        'manage_system_settings' => 'Sistem ayarlarını düzenleyebilir',
+        'manage_software_updates' => 'Sistem güncellemelerini yönetebilir',
+        'access_logs' => 'Sistem günlüğünü görüntüleyebilir',
+        'manage_mail_templates' => 'E-posta şablonları yönetebilir',
+        'manage_mail_settings' => 'E-posta ayarlarını yönetebilir',
+        'manage_other_administrators' => 'Diğer yöneticileri düzenleyebilir',
+        'manage_preferences' => 'Yönetim paneli seçeneklerini düzenleyebilir',
+        'manage_editor' => 'Kod editör ayarlarını düzenleyebilir',
+        'view_the_dashboard' => 'Panoyu görüntüleyebilir',
+        'manage_branding' => 'Yönetim Panelini özelleştirebilsin'
     ]
 ];
