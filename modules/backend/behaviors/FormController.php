@@ -180,6 +180,8 @@ class FormController extends ControllerBehavior
             );
 
             $model = $this->controller->formCreateModelObject();
+            $model = $this->controller->formExtendModel($model);
+
             $this->initForm($model);
         }
         catch (Exception $ex) {
@@ -364,8 +366,6 @@ class FormController extends ControllerBehavior
     {
         $class = $this->config->modelClass;
         $model = new $class();
-
-        $model = $this->controller->formExtendModel($model);
         return $model;
     }
 
@@ -571,7 +571,6 @@ class FormController extends ControllerBehavior
     {
     }
 
-
     /**
      * Finds a Model record by its primary identifier, used by update actions. This logic
      * can be changed by overriding it in the controller.
@@ -584,7 +583,7 @@ class FormController extends ControllerBehavior
             throw new ApplicationException($this->getLang('not-found-message', 'backend::lang.form.missing_id'));
         }
 
-        $model = $this->createModel();
+        $model = $this->controller->formCreateModelObject();
 
         /*
          * Prepare query and find model record
@@ -599,12 +598,14 @@ class FormController extends ControllerBehavior
             ]));
         }
 
+        $result = $this->controller->formExtendModel($result);
+
         return $result;
     }
 
     /**
-     * Creates a new instance of a form model, used by create actions. This logic
-     * can be changed by overriding it in the controller.
+     * Creates a new instance of a form model. This logic can be changed
+     * by overriding it in the controller.
      * @return Model
      */
     public function formCreateModelObject()
