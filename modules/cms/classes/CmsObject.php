@@ -190,7 +190,7 @@ class CmsObject implements ArrayAccess
      */
     protected static function getMaxAllowedPathNesting()
     {
-        return 2;
+        return 4;
     }
 
     /**
@@ -424,14 +424,14 @@ class CmsObject implements ArrayAccess
         }
 
         $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirPath));
-        $it->setMaxDepth(1); // Support only a single level of subdirectories
+        $it->setMaxDepth(self::getMaxAllowedPathNesting() - 1); // Limit nesting
         $it->rewind();
 
         while ($it->valid()) {
             if ($it->isFile() && in_array($it->getExtension(), static::$allowedExtensions)) {
                 $filePath = $it->getBasename();
                 if ($it->getDepth() > 0) {
-                    $filePath = basename($it->getPath()).'/'.$filePath;
+                    $filePath = $it->getSubPath().'/'.$filePath;
                 }
 
                 $page = $skipCache ? static::load($theme, $filePath) : static::loadCached($theme, $filePath);
