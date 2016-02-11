@@ -45,13 +45,13 @@ class CmsObjectQueryTest extends TestCase
         // Default theme: test
         $pages = Page::lists('baseFileName');
         sort($pages);
-
         $this->assertEquals([
             "404",
             "a/a-page",
             "ajax-test",
             "authors",
             "b/b-page",
+            "b/c/c-page",
             "blog-archive",
             "blog-post",
             "code-namespaces",

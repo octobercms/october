@@ -201,7 +201,7 @@ class TemplateList extends WidgetBase
         $result = [];
         $foundGroups = [];
         foreach ($filteredItems as $itemData) {
-            $pos = strpos($itemData->fileName, '/');
+            $pos = strrpos($itemData->fileName, '/');
 
             if ($pos !== false) {
                 $group = substr($itemData->fileName, 0, $pos);
@@ -220,6 +220,8 @@ class TemplateList extends WidgetBase
                 $result[] = $itemData;
             }
         }
+
+        ksort($foundGroups, SORT_STRING);
 
         foreach ($foundGroups as $group) {
             $result[] = $group;
