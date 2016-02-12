@@ -300,7 +300,7 @@
   - All instances now use the Cron queue driver by default (see config queue.default).
   - Created My Settings backend page. Renamed old My Settings to My Account.
   - Moved Editor Preferences to My Settings area.
-  - Created Backend Preferences page, used for setting the Backend langauge.
+  - Created Backend Preferences page, used for setting the Backend language.
   - Dropdown field options can now supply an image or icon.
   - CMS Pages now have a hidden flag.
 
@@ -331,7 +331,7 @@
 
 * **Build 106** (2014-06-10)
   - Upgrade to Laravel 4.2.
-  - Form fields can now pass context via their name definnition using syntax `field@context`.
+  - Form fields can now pass context via their name definition using syntax `field@context`.
   - Added a code editor preferences page.
   - Fixes a bug where morphToMany relations show all records in list rows.
 
