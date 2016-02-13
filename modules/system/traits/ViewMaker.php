@@ -47,6 +47,7 @@ trait ViewMaker
      * @param array $params Parameter variables to pass to the view.
      * @param bool $throwException Throw an exception if the partial is not found.
      * @return mixed Partial contents or false if not throwing an exception.
+     * @throws SystemException
      */
     public function makePartial($partial, $params = [], $throwException = true)
     {
@@ -85,9 +86,8 @@ trait ViewMaker
     /**
      * Renders supplied contents inside a layout.
      * @param string $contents The inner contents as a string.
-     * @param string $name Specifies the layout name.
-     * If this parameter is omitted, the $layout property will be used.
-     * @return string The layout contents
+     * @param string $layout Specifies the layout name.
+     * @throws SystemException
      */
     public function makeViewContent($contents, $layout = null)
     {
@@ -98,7 +98,7 @@ trait ViewMaker
         // Append any undefined block content to the body block
         Block::set('undefinedBlock', $contents);
         Block::append('body', Block::get('undefinedBlock'));
-        return $this->makeLayout();
+        return $this->makeLayout($layout);
     }
 
     /**
@@ -108,12 +108,13 @@ trait ViewMaker
      * @param array $params Parameter variables to pass to the view.
      * @param bool $throwException Throw an exception if the layout is not found
      * @return string The layout contents
+     * @throws SystemException
      */
     public function makeLayout($name = null, $params = [], $throwException = true)
     {
         $layout = ($name === null) ? $this->layout : $name;
         if ($layout == '') {
-            return;
+            return '';
         }
 
         $layoutPath = $this->getViewPath($layout . '.htm', $this->layoutPath);
@@ -177,11 +178,11 @@ trait ViewMaker
         foreach ($viewPath as $path) {
             $_fileName = File::symbolizePath($path) . '/' . $fileName;
             if (File::isFile($_fileName)) {
-                break;
+                return $_fileName;
             }
         }
 
-        return $_fileName;
+        return '';
     }
 
     /**
@@ -194,7 +195,7 @@ trait ViewMaker
     public function makeFileContents($filePath, $extraParams = [])
     {
         if (!strlen($filePath) || !File::isFile($filePath)) {
-            return;
+            return '';
         }
 
         if (!is_array($extraParams)) {
@@ -250,5 +251,6 @@ trait ViewMaker
         if ($result = Event::fire($event, $params)) {
             return implode(PHP_EOL.PHP_EOL, (array) $result);
         }
+        return '';
     }
 }

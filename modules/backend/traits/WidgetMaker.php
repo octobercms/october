@@ -14,14 +14,15 @@ use SystemException;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-
 trait WidgetMaker
 {
+
     /**
      * Makes a widget object with the supplied configuration file.
      * @param string $class Widget class name
      * @param array $widgetConfig An array of config.
-     * @return WidgetBase The widget object
+     * @return \Backend\Classes\WidgetBase The widget object
+     * @throws SystemException
      */
     public function makeWidget($class, $widgetConfig = [])
     {
@@ -43,7 +44,8 @@ trait WidgetMaker
      * @param string $class Widget class name
      * @param mixed $fieldConfig A field name, an array of config or a FormField object.
      * @param array $widgetConfig An array of config.
-     * @return FormWidgetBase The widget object
+     * @return \Backend\Classes\FormWidgetBase The widget object
+     * @throws SystemException
      */
     public function makeFormWidget($class, $fieldConfig = [], $widgetConfig = [])
     {

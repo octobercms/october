@@ -25,6 +25,10 @@ trait ConfigMaker
 
     /**
      * Reads the contents of the supplied file and applies it to this object.
+     * @param array $configFile
+     * @param array $requiredConfig
+     * @return array|stdClass
+     * @throws SystemException
      */
     public function makeConfig($configFile = [], $requiredConfig = [])
     {
@@ -100,7 +104,7 @@ trait ConfigMaker
      * Makes a config object from an array, making the first level keys properties a new object. 
      * Property values are converted to camelCase and are not set if one already exists.
      * @param array $configArray Config array.
-     * @return stdObject The config object
+     * @return stdClass The config object
      */
     public function makeConfigFromArray($configArray = [])
     {
@@ -149,11 +153,11 @@ trait ConfigMaker
         foreach ($configPath as $path) {
             $_fileName = $path . '/' . $fileName;
             if (File::isFile($_fileName)) {
-                break;
+                return $_fileName;
             }
         }
 
-        return $_fileName;
+        return '';
     }
 
     /**
