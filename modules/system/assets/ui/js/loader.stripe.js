@@ -22,7 +22,9 @@
                             .append($('<div />').addClass('stripe-loaded'))
         this.stripe = this.indicator.find('.stripe')
 
-        $(document.body).append(this.indicator)
+        $(document).ready(function(){
+            $(document.body).append(this.indicator)
+        })
     }
 
     StripeLoadIndicator.prototype.show = function() {
@@ -49,9 +51,7 @@
         }
     }
 
-    $(document).ready(function(){
-        $.oc.stripeLoadIndicator = new StripeLoadIndicator()
-    })
+    $.oc.stripeLoadIndicator = new StripeLoadIndicator()
 
     // STRIPE LOAD INDICATOR DATA-API
     // ==============
