@@ -74,7 +74,7 @@ if (window.jQuery === undefined)
 
         if ($el.is(':input') && !$form.length) {
             var inputName = $el.attr('name')
-            if (options.data[inputName] === undefined)
+            if (inputName !== undefined && options.data[inputName] === undefined)
                 options.data[inputName] = $el.val()
         }
 
