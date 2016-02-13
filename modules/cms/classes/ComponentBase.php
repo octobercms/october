@@ -7,6 +7,7 @@ use Config;
 use Cms\Classes\CodeBase;
 use Cms\Classes\CmsException;
 use October\Rain\Extension\Extendable;
+use BadMethodCallException;
 
 /**
  * Component base class
@@ -36,7 +37,7 @@ abstract class ComponentBase extends Extendable
     public $name;
 
     /**
-     * @var boolean Determines whether the component is hidden in the back-end UI.
+     * @var boolean Determines whether the component is hidden from the back-end UI.
      */
     public $isHidden = false;
 
@@ -265,15 +266,16 @@ abstract class ComponentBase extends Extendable
      */
     public function __call($method, $parameters)
     {
-        if (method_exists($this, $method)) {
-            return call_user_func_array([$this, $method], $parameters);
+        try {
+            parent::__call($method, $parameters);
         }
+        catch (BadMethodCallException $ex) {}
 
         if (method_exists($this->controller, $method)) {
             return call_user_func_array([$this->controller, $method], $parameters);
         }
 
-        throw new CmsException(Lang::get('cms::lang.component.method_not_found', [
+        throw new BadMethodCallException(Lang::get('cms::lang.component.method_not_found', [
             'name' => get_class($this),
             'method' => $method
         ]));
