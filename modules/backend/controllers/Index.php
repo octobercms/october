@@ -37,11 +37,17 @@ class Index extends Controller
 
     public function index()
     {
-        if ($redirect = $this->checkPermissionRedirect())
+        if ($redirect = $this->checkPermissionRedirect()) {
             return $redirect;
+        }
 
         $this->pageTitle = 'backend::lang.dashboard.menu_label';
         BackendMenu::setContextMainMenu('dashboard');
+    }
+
+    public function index_onInitReportContainer()
+    {
+        return ['#dashReportContainer' => $this->widget->reportContainer->render()];
     }
 
     /**
