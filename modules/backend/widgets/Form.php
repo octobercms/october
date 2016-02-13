@@ -1,16 +1,16 @@
 <?php namespace Backend\Widgets;
 
-use ApplicationException;
-use Backend\Classes\FormField;
-use Backend\Classes\FormTabs;
-use Backend\Classes\FormWidgetBase;
-use Backend\Classes\WidgetBase;
-use Backend\Classes\WidgetManager;
+use Lang;
 use Event;
 use Form as FormHelper;
-use Lang;
+use Backend\Classes\FormTabs;
+use Backend\Classes\FormField;
+use Backend\Classes\WidgetBase;
+use Backend\Classes\WidgetManager;
+use Backend\Classes\FormWidgetBase;
 use October\Rain\Database\Model;
 use October\Rain\Html\Helper as HtmlHelper;
+use ApplicationException;
 
 /**
  * Form Widget
@@ -67,7 +67,7 @@ class Form extends WidgetBase
     //
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected $defaultAlias = 'form';
 
@@ -113,7 +113,7 @@ class Form extends WidgetBase
     protected $widgetManager;
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function init()
     {
@@ -138,7 +138,6 @@ class Form extends WidgetBase
      * operate.
      *
      * @return void
-     * @throws ApplicationException
      */
     public function bindToController()
     {
@@ -147,7 +146,7 @@ class Form extends WidgetBase
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function loadAssets()
     {
@@ -168,7 +167,6 @@ class Form extends WidgetBase
      *
      * @param array $options
      * @return mixed
-     * @throws \SystemException
      */
     public function render($options = [])
     {
@@ -224,10 +222,8 @@ class Form extends WidgetBase
      * @param string $field
      * @param array $options
      * @return mixed
-     * @throws ApplicationException
-     * @throws \SystemException
      */
-    public function renderField($field, array $options = [])
+    public function renderField($field, $options = [])
     {
         if (is_string($field)) {
             if (!isset($this->allFields[$field])) {
@@ -254,7 +250,6 @@ class Form extends WidgetBase
      *
      * @param $field
      * @return mixed
-     * @throws \SystemException
      */
     public function renderFieldElement($field)
     {
@@ -271,7 +266,6 @@ class Form extends WidgetBase
      * Validate the supplied form model.
      *
      * @return mixed
-     * @throws ApplicationException
      */
     protected function validateModel()
     {
@@ -329,7 +323,6 @@ class Form extends WidgetBase
      * Event handler for refreshing the form.
      *
      * @return array
-     * @throws \SystemException
      */
     public function onRefresh()
     {
@@ -398,7 +391,6 @@ class Form extends WidgetBase
      * Also slots fields in to their respective tabs.
      *
      * @return void
-     * @throws ApplicationException
      */
     protected function defineFormFields()
     {
@@ -486,7 +478,7 @@ class Form extends WidgetBase
          * Bind all form widgets to controller
          */
         foreach ($this->allFields as $field) {
-            if ($field->type != 'widget') {
+            if ($field->type !== 'widget') {
                 continue;
             }
 
@@ -525,8 +517,8 @@ class Form extends WidgetBase
      * Programatically add fields, used internally and for extensibility.
      *
      * @param array $fields
-     * @param null $addToArea
-     * @throws ApplicationException
+     * @param string $addToArea
+     * @return void
      */
     public function addFields(array $fields, $addToArea = null)
     {
@@ -566,7 +558,6 @@ class Form extends WidgetBase
      *
      * @param array $fields
      * @return void
-     * @throws ApplicationException
      */
     public function addTabFields(array $fields)
     {
@@ -576,7 +567,6 @@ class Form extends WidgetBase
     /**
      * @param array $fields
      * @return void
-     * @throws ApplicationException
      */
     public function addSecondaryTabFields(array $fields)
     {
@@ -619,7 +609,6 @@ class Form extends WidgetBase
      * @param string $name
      * @param array $config
      * @return FormField
-     * @throws ApplicationException
      */
     protected function makeFormField($name, $config = [])
     {
@@ -736,8 +725,6 @@ class Form extends WidgetBase
      *
      * @param $field
      * @return \Backend\Traits\FormWidgetBase|null
-     * @throws ApplicationException
-     * @throws \SystemException
      */
     protected function makeFormFieldWidget($field)
     {
@@ -790,8 +777,8 @@ class Form extends WidgetBase
     public function getFormWidget($field)
     {
         if (isset($this->formWidgets[$field])) {
-        return $this->formWidgets[$field];
-    }
+            return $this->formWidgets[$field];
+        }
 
         return null;
     }
@@ -815,8 +802,8 @@ class Form extends WidgetBase
     public function getField($field)
     {
         if (isset($this->allFields[$field])) {
-        return $this->allFields[$field];
-    }
+            return $this->allFields[$field];
+        }
 
         return null;
     }
@@ -839,7 +826,6 @@ class Form extends WidgetBase
      * Looks up the field value.
      * @param mixed $field
      * @return string
-     * @throws ApplicationException
      */
     protected function getFieldValue($field)
     {
@@ -890,7 +876,7 @@ class Form extends WidgetBase
             return false;
         }
 
-        if ($field->type == 'widget') {
+        if ($field->type === 'widget') {
             $widget = $this->makeFormFieldWidget($field);
             return $widget->showLabels;
         }
@@ -930,7 +916,7 @@ class Form extends WidgetBase
                 /*
                  * Number fields should be converted to integers
                  */
-                if ($field->type == 'number') {
+                if ($field->type === 'number') {
                     $value = !strlen(trim($value)) ? null : (float) $value;
                 }
 
@@ -967,7 +953,6 @@ class Form extends WidgetBase
      * @param $field
      * @param $fieldOptions
      * @return mixed
-     * @throws ApplicationException
      */
     protected function getOptionsFromModel($field, $fieldOptions)
     {
