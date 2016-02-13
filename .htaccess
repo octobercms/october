@@ -61,6 +61,8 @@
     RewriteCond %{REQUEST_URI} !\.mpeg
     RewriteCond %{REQUEST_URI} !\.webm
     RewriteCond %{REQUEST_URI} !\.mkv
+    RewriteCond %{REQUEST_URI} !\.rar
+    RewriteCond %{REQUEST_URI} !\.zip
     RewriteCond %{REQUEST_URI} !docs/.*
     RewriteCond %{REQUEST_URI} !themes/.*
     RewriteRule ^ index.php [L,NC]
