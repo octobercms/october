@@ -63,25 +63,27 @@
 
     // STRIPE LOAD INDICATOR DATA-API
     // ==============
-
-    $(document)
-        .on('ajaxPromise', '[data-request]', function(event) {
-            // Prevent this event from bubbling up to a non-related data-request
-            // element, for example a <form> tag wrapping a <button> tag
-            event.stopPropagation()
-
-            $.oc.stripeLoadIndicator.show()
-
-            // This code will cover instances where the element has been removed
-            // from the DOM, making the resolution event below an orphan.
-            var $el = $(this)
-            $(window).one('ajaxUpdateComplete', function(){
-                if ($el.closest('html').length === 0)
-                    $.oc.stripeLoadIndicator.hide()
-             })
-        }).on('ajaxFail ajaxDone', '[data-request]', function(event) {
-            event.stopPropagation()
-            $.oc.stripeLoadIndicator.hide()
-        })
-
+    // INITIALIZE STRIPE ONLY AFTER CREATING A OBJECT
+    // ==============
+    $(document).ready(function(){
+        $(document)
+            .on('ajaxPromise', '[data-request]', function(event) {
+                // Prevent this event from bubbling up to a non-related data-request
+                // element, for example a <form> tag wrapping a <button> tag
+                event.stopPropagation()
+    
+                $.oc.stripeLoadIndicator.show()
+    
+                // This code will cover instances where the element has been removed
+                // from the DOM, making the resolution event below an orphan.
+                var $el = $(this)
+                $(window).one('ajaxUpdateComplete', function(){
+                    if ($el.closest('html').length === 0)
+                        $.oc.stripeLoadIndicator.hide()
+                 })
+            }).on('ajaxFail ajaxDone', '[data-request]', function(event) {
+                event.stopPropagation()
+                $.oc.stripeLoadIndicator.hide()
+            })
+    })
 }(window.jQuery);
