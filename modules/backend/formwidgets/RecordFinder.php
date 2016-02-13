@@ -16,7 +16,7 @@ use Backend\Classes\FormWidgetBase;
  *        prompt: Click the Find button to find a user
  *        nameFrom: name
  *        descriptionFrom: email
- * 
+ *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -232,7 +232,7 @@ class RecordFinder extends FormWidgetBase
         $config->showSetup = false;
         $config->showCheckboxes = false;
         $config->recordsPerPage = 20;
-        $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':id')", $this->getId());
+        $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':" . $this->keyFrom . "')", $this->getId());
         $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 
         // $widget->bindEvent('list.extendQueryBefore', function($query) {
