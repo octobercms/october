@@ -50,7 +50,6 @@ trait ViewMaker
      * @param array $params Parameter variables to pass to the view.
      * @param bool $throwException Throw an exception if the partial is not found.
      * @return mixed Partial contents or false if not throwing an exception.
-     * @throws SystemException
      */
     public function makePartial($partial, $params = [], $throwException = true)
     {
@@ -90,7 +89,7 @@ trait ViewMaker
      * Renders supplied contents inside a layout.
      * @param string $contents The inner contents as a string.
      * @param string $layout Specifies the layout name.
-     * @throws SystemException
+     * @return string
      */
     public function makeViewContent($contents, $layout = null)
     {
@@ -110,12 +109,11 @@ trait ViewMaker
      * If this parameter is omitted, the $layout property will be used.
      * @param array $params Parameter variables to pass to the view.
      * @param bool $throwException Throw an exception if the layout is not found
-     * @return string The layout contents
-     * @throws SystemException
+     * @return mixed The layout contents, or false.
      */
     public function makeLayout($name = null, $params = [], $throwException = true)
     {
-        $layout = ($name === null) ? $this->layout : $name;
+        $layout = $name === null ? $this->layout : $name;
         if ($layout == '') {
             return '';
         }
@@ -185,7 +183,7 @@ trait ViewMaker
             }
         }
 
-        return '';
+        return $fileName;
     }
 
     /**
@@ -236,7 +234,6 @@ trait ViewMaker
      * @param  int  $obLevel
      * @return void
      *
-     * @throws $e
      */
     protected function handleViewException($e, $obLevel)
     {
@@ -288,6 +285,7 @@ trait ViewMaker
         if ($result = Event::fire($event, $params)) {
             return implode(PHP_EOL.PHP_EOL, (array) $result);
         }
+
         return '';
     }
 }

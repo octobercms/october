@@ -93,7 +93,7 @@ class Form extends WidgetBase
     ];
 
     /**
-     * @var FormWidgetBase[] Collection of all form widgets used in this form.
+     * @var array Collection of all form widgets used in this form.
      */
     protected $formWidgets = [];
 
@@ -167,7 +167,6 @@ class Form extends WidgetBase
      *
      * @param array $options
      * @return string|bool The rendered partial contents, or false if suppressing an exception
-     * @throws \SystemException
      */
     public function render($options = [])
     {
@@ -226,8 +225,6 @@ class Form extends WidgetBase
      * @param string|array $field The field name or definition
      * @param array $options
      * @return string|bool The rendered partial contents, or false if suppressing an exception
-     * @throws ApplicationException
-     * @throws \SystemException
      */
     public function renderField($field, $options = [])
     {
@@ -255,7 +252,6 @@ class Form extends WidgetBase
      * Renders the HTML element for a field
      * @param FormWidgetBase $field
      * @return string|bool The rendered partial contents, or false if suppressing an exception
-     * @throws \SystemException
      */
     public function renderFieldElement($field)
     {
@@ -364,6 +360,7 @@ class Form extends WidgetBase
                 if (!isset($this->allFields[$field])) {
                     continue;
                 }
+
                 /** @var FormWidgetBase $fieldObject */
                 $fieldObject = $this->allFields[$field];
                 $result['#' . $fieldObject->getId('group')] = $this->makePartial('field', ['field' => $fieldObject]);
@@ -832,7 +829,6 @@ class Form extends WidgetBase
      * Looks up the field value.
      * @param mixed $field
      * @return string
-     * @throws ApplicationException
      */
     protected function getFieldValue($field)
     {

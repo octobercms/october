@@ -28,7 +28,6 @@ trait ConfigMaker
      * @param array $configFile
      * @param array $requiredConfig
      * @return array|stdClass
-     * @throws SystemException
      */
     public function makeConfig($configFile = [], $requiredConfig = [])
     {
@@ -108,7 +107,7 @@ trait ConfigMaker
      */
     public function makeConfigFromArray($configArray = [])
     {
-        $object = new stdClass();
+        $object = new stdClass;
 
         if (!is_array($configArray)) {
             return $object;
@@ -124,7 +123,7 @@ trait ConfigMaker
 
     /**
      * Locates a file based on it's definition. If the file starts with
-     * an "at symbol", it will be returned in context of the application base path,
+     * the ~ symbol it will be returned in context of the application base path,
      * otherwise it will be returned in context of the config path.
      * @param string $fileName File to load.
      * @param mixed $configPath Explicitly define a config path.
@@ -157,7 +156,7 @@ trait ConfigMaker
             }
         }
 
-        return '';
+        return $fileName;
     }
 
     /**

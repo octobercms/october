@@ -22,7 +22,6 @@ trait WidgetMaker
      * @param string $class Widget class name
      * @param array $widgetConfig An array of config.
      * @return \Backend\Classes\WidgetBase The widget object
-     * @throws SystemException
      */
     public function makeWidget($class, $widgetConfig = [])
     {
@@ -45,7 +44,6 @@ trait WidgetMaker
      * @param mixed $fieldConfig A field name, an array of config or a FormField object.
      * @param array $widgetConfig An array of config.
      * @return \Backend\Classes\FormWidgetBase The widget object
-     * @throws SystemException
      */
     public function makeFormWidget($class, $fieldConfig = [], $widgetConfig = [])
     {
