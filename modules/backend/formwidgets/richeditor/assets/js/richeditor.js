@@ -40,7 +40,8 @@
         dataLocker: null,
         linksHandler: null,
         stylesheet: null,
-        fullpage: false
+        fullpage: false,
+        editorLang: 'en'
     }
 
     RichEditor.prototype.init = function() {
@@ -68,7 +69,7 @@
          * Initialize Redactor editor
          */
         var redactorOptions = {
-            lang: document.documentElement.lang,
+            lang: this.options.editorLang,
             imageEditable: true,
             imageResizable: true,
             buttonSource: true,
@@ -424,23 +425,19 @@
 
     var old = $.fn.richEditor
 
-    $.fn.richEditor = function(option) {
+    $.fn.richEditor = function (option) {
         var args = arguments;
 
-        return this.each(function() {
+        return this.each(function () {
             var $this   = $(this)
             var data    = $this.data('oc.richEditor')
             var options = $.extend({}, RichEditor.DEFAULTS, $this.data(), typeof option == 'object' && option)
-
-            if (!data) {
-                $this.data('oc.richEditor', (data = new RichEditor(this, options)))
-            }
+            if (!data) $this.data('oc.richEditor', (data = new RichEditor(this, options)))
 
             if (typeof option == 'string') {
                 var methodArgs = [];
-                for (var i=1; i<args.length; i++) {
+                for (var i=1; i<args.length; i++)
                     methodArgs.push(args[i])
-                }
 
                 data[option].apply(data, methodArgs)
             }
