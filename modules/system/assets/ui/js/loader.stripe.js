@@ -16,6 +16,7 @@
         $.oc = {}
 
     var StripeLoadIndicator = function () {
+        var self = this
         this.counter = 0
         this.indicator = $('<div/>').addClass('stripe-loading-indicator loaded')
                             .append($('<div />').addClass('stripe'))
@@ -23,7 +24,7 @@
         this.stripe = this.indicator.find('.stripe')
 
         $(document).ready(function(){
-            $(document.body).append(this.indicator)
+            $(document.body).append(self.indicator)
         })
     }
 
