@@ -104,8 +104,8 @@ class CodeEditor extends FormWidgetBase
             'fontSize',
             'margin',
             'theme',
-			'readOnly',
-			'keyboard_binding'
+            'readOnly',
+            'keyboardBinding'
         ]);
     }
 
