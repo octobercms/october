@@ -501,7 +501,7 @@ class RelationController extends ControllerBehavior
          */
         $defaultButtons = null;
 
-        if (!$this->readOnly) {
+        if (!$this->readOnly && $this->toolbarButtons) {
             $defaultButtons = '~/modules/backend/behaviors/relationcontroller/partials/_toolbar.htm';
         }
 
@@ -1287,10 +1287,16 @@ class RelationController extends ControllerBehavior
      */
     protected function evalToolbarButtons()
     {
-        if ($buttons = $this->getConfig('view[toolbarButtons]')) {
-            return is_array($buttons)
-                ? $buttons
-                : array_map('trim', explode('|', $buttons));
+        $buttons = $this->getConfig('view[toolbarButtons]');
+
+        if ($buttons === false) {
+            return null;
+        }
+        elseif (is_string($buttons)) {
+            return array_map('trim', explode('|', $buttons));
+        }
+        elseif (is_array($buttons)) {
+            return $buttons;
         }
 
         switch ($this->relationType) {
@@ -1430,5 +1436,4 @@ class RelationController extends ControllerBehavior
 
         return $this->makeConfig($config);
     }
-
 }
