@@ -650,7 +650,20 @@ class Controller
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
                 }
 
-                return Response::make($responseContents, $this->statusCode);
+                if ($result instanceof \Symfony\Component\HttpFoundation\Response) {
+                    $content = json_decode($result->getContent(), true);
+                    if ($content !== null) {
+                        $responseContents = array_merge($responseContents, $content);
+                    }
+
+                    $result->setStatusCode(200);
+                    $result->setContent(json_encode($responseContents));
+                }
+                else {
+                    $result = Response::make($responseContents, $this->statusCode);
+                }
+
+                return $result;
             }
             catch (ValidationException $ex) {
                 /*
