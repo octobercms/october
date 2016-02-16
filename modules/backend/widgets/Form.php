@@ -853,19 +853,6 @@ class Form extends WidgetBase
                     $value = !strlen(trim($value)) ? null : (float) $value;
                 }
 
-                /*
-                 * Number fields in repeater widget should be converted to floats
-                 */
-                if (isset($field->config['type'], $field->config['form']['fields']) && $field->config['type'] == 'repeater') {
-                    foreach ($field->config['form']['fields'] as $fieldKey => $formField) {
-                        if (isset($formField['type']) && $formField['type'] == 'number') {
-                            foreach ($value as $index => $_) {
-                                $value[$index][$fieldKey] = !strlen(trim($value[$index][$fieldKey])) ? null : (float) $value[$index][$fieldKey];
-                            }
-                        }
-                    }
-                }
-
                 $this->dataArraySet($result, $parts, $value);
             }
         }

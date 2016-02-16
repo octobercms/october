@@ -102,7 +102,22 @@ class Repeater extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
-        return (array) $value;
+        $saveValue = (array) $value;
+
+        /*
+         * Number fields in repeater widget should be converted to floats
+         */
+        if (isset($this->formField->config['type'], $this->formField->config['form']['fields']) && $this->formField->config['type'] == 'repeater') {
+            foreach ($this->formField->config['form']['fields'] as $fieldKey => $formField) {
+                if (isset($formField['type']) && $formField['type'] == 'number') {
+                    foreach ($saveValue as $index => $item) {
+                        $saveValue[$index][$fieldKey] = !strlen(trim($value[$index][$fieldKey])) ? null : (float) $value[$index][$fieldKey];
+                    }
+                }
+            }
+        }
+
+        return $saveValue;
     }
 
     protected function processExistingItems()
