@@ -265,6 +265,7 @@ return [
         'multiple_selected' => 'چند مورد انتخاب شده',
         'uploading_file_num' => 'ارسال :number فایل(ها)...',
         'uploading_complete' => 'ارسال انجام شد',
+        'uploading_error' => 'خطا در ارسال',
         'order_by' => 'مرتب سازی با',
         'folder' => 'پوشه',
         'no_files_found' => 'فایلی با درخواست شما یافت نشد',
