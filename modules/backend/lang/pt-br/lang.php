@@ -335,7 +335,7 @@ return [
         'import_file' => 'Importar arquivo',
         'first_row_contains_titles' => 'Primeira linha contém títulos das colunas',
         'first_row_contains_titles_desc' => 'Deixe marcado se primeira linha do CSV é utilizada como títulos das colunas.',
-        'match_columns' => '2. Associar as colunas do arquivo com campos do banco de dados',
+        'match_columns' => '2. Associar as colunas do arquivo a campos do banco de dados',
         'file_columns' => 'Colunas do arquivo',
         'database_fields' => 'Campos do banco de dados',
         'set_import_options' => '3. Definir opções de importação',
