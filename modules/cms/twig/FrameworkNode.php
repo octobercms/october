@@ -37,7 +37,7 @@ class FrameworkNode extends Twig_Node
                 ->write("echo '<script src=\"'. Request::getBasePath()
                     .'/modules/system/assets/js/framework.extras.js\"></script>'.PHP_EOL;" . PHP_EOL)
                 ->write("echo '<link rel=\"stylesheet\" property=\"stylesheet\" href=\"'. Request::getBasePath()
-                    .'/modules/system/assets/css/framework.extras.css\" rel=\"stylesheet\">'.PHP_EOL;" . PHP_EOL)
+                    .'/modules/system/assets/css/framework.extras.css\">'.PHP_EOL;" . PHP_EOL)
             ;
         }
     }
