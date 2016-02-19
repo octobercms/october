@@ -613,8 +613,6 @@ class RelationController extends ControllerBehavior
                     $this->relationObject->addConstraints();
                 }
 
-                $this->controller->relationExtendQuery($query, $this->field);
-
                 /*
                  * Allows pivot data to enter the fray
                  */
@@ -765,8 +763,6 @@ class RelationController extends ControllerBehavior
                 if (count($existingIds)) {
                     $query->whereNotIn($this->relationModel->getQualifiedKeyName(), $existingIds);
                 }
-
-                $this->controller->relationExtendQuery($query, $this->field);
             });
         }
 
@@ -1203,20 +1199,6 @@ class RelationController extends ControllerBehavior
     //
     // Overrides
     //
-
-    /**
-     * !!!!
-     * !!!! WARNING: DO NOT USE - This method is scheduled to be removed
-     * !!!!
-     *
-     * Controller override: Extend the query used for populating the list
-     * after the default query is processed.
-     * @param October\Rain\Database\Builder $query
-     * @param string $field
-     */
-    public function relationExtendQuery($query, $field)
-    {
-    }
 
     /**
      * Provides an opportunity to manipulate the view widget.
