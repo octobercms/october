@@ -2,6 +2,7 @@
 
 use App;
 use URL;
+use Event;
 use File;
 use Lang;
 use Cache;
@@ -640,9 +641,21 @@ class CombineAssets
      * @var array Asset files
      * @return string Unique identifier
      */
-    protected function makeCacheId(array $assets)
-    {
-        return md5($this->localPath . implode('|', $assets));
+     protected function makeCacheId(array $assets)
+     {
+         //build cacheId for every file
+         $cacheIds = [];
+
+         foreach ($assets as $asset) {
+             $cacheId = $asset;
+
+             Event::fire('cms.combineassets.makecacheid', [$cacheId, $asset, $this]);
+
+             $cacheIds[] = $cacheId;
+         }
+
+         //put all cacheIds together
+         return md5($this->localPath . implode('|', $cacheIds));
     }
 
     /**
