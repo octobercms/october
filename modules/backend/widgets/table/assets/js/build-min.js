@@ -85,7 +85,8 @@ if(this.options.adding){var addBelowButton=document.createElement('a')
 addBelowButton.setAttribute('class','btn table-icon add-table-row-below')
 addBelowButton.setAttribute('data-cmd','record-add-below')
 this.toolbar.appendChild(addBelowButton)
-if(this.navigation.paginationEnabled()||!this.options.rowSorting){addBelowButton.textContent=this.options.btnAddRowLabel}else{addBelowButton.textContent=this.options.btnAddRowBelowLabel
+if(this.navigation.paginationEnabled()||!this.options.rowSorting){addBelowButton.textContent=this.options.btnAddRowLabel}
+else{addBelowButton.textContent=this.options.btnAddRowBelowLabel
 var addAboveButton=document.createElement('a')
 addAboveButton.setAttribute('class','btn table-icon add-table-row-above')
 addAboveButton.textContent='Add row above'
@@ -124,6 +125,7 @@ if(onSuccess)
 onSuccess()
 if(totalCount==0)
 self.addRecord('above',true)
+self.$el.trigger('oc.tableUpdateData',[records,totalCount])
 self=null})}
 Table.prototype.updateColumnWidth=function(){var headerCells=this.headerTable.querySelectorAll('th'),dataCells=this.dataTable.querySelectorAll('tr:first-child td')
 for(var i=0,len=headerCells.length;i<len;i++){if(dataCells[i])
@@ -491,7 +493,8 @@ return
 var row=this.tableObj.activeCell.parentNode,newRow=(!ev.shiftKey||isTab)?row.previousElementSibling:row.parentNode.children[0],cellIndex=forceCellIndex!==undefined?forceCellIndex:this.tableObj.activeCell.cellIndex
 if(newRow){var cell=newRow.children[cellIndex]
 if(cell)
-this.tableObj.focusCell(cell)}else{if(!this.paginationEnabled())
+this.tableObj.focusCell(cell)}
+else{if(!this.paginationEnabled())
 return
 if(this.pageIndex>0){var self=this
 this.gotoPage(this.pageIndex-1,function navUpPageSuccess(){self.focusCell('bottom',cellIndex)
@@ -502,8 +505,7 @@ if(!isTab&&this.tableObj.activeCellProcessor&&!this.tableObj.activeCellProcessor
 return
 var row=this.tableObj.activeCell.parentNode,newIndex=(!ev.shiftKey||isTab)?this.tableObj.activeCell.cellIndex-1:0
 var cell=row.children[newIndex]
-if(cell)
-this.tableObj.focusCell(cell)
+if(cell){this.tableObj.focusCell(cell)}
 else{this.navigateUp(ev,row.children.length-1,isTab)}}
 Navigation.prototype.navigateRight=function(ev,isTab){if(!this.tableObj.activeCell)
 return
@@ -511,8 +513,7 @@ if(!isTab&&this.tableObj.activeCellProcessor&&!this.tableObj.activeCellProcessor
 return
 var row=this.tableObj.activeCell.parentNode,newIndex=!ev.shiftKey?this.tableObj.activeCell.cellIndex+1:row.children.length-1
 var cell=row.children[newIndex]
-if(cell)
-this.tableObj.focusCell(cell)
+if(cell){this.tableObj.focusCell(cell)}
 else{this.navigateDown(ev,0)}}
 Navigation.prototype.navigateNext=function(ev){if(!this.tableObj.activeCell)
 return
@@ -524,8 +525,7 @@ else
 this.navigateLeft(ev,true)
 this.tableObj.stopEvent(ev)}
 Navigation.prototype.focusCell=function(rowReference,cellIndex){var row=null,tbody=this.tableObj.getDataTableBody()
-if(typeof rowReference==='object')
-row=rowReference
+if(typeof rowReference==='object'){row=rowReference}
 else{if(rowReference=='bottom'){row=tbody.children[tbody.children.length-1]}
 else if(rowReference=='top'){row=tbody.children[0]}}
 if(!row)
@@ -533,8 +533,7 @@ return
 var cell=row.children[cellIndex]
 if(cell)
 this.tableObj.focusCell(cell)}
-Navigation.prototype.focusCellInReplacedRow=function(rowIndex,cellIndex){if(rowIndex==0)
-this.focusCell('top',cellIndex)
+Navigation.prototype.focusCellInReplacedRow=function(rowIndex,cellIndex){if(rowIndex==0){this.focusCell('top',cellIndex)}
 else{var focusRow=this.tableObj.findRowByIndex(rowIndex)
 if(!focusRow)
 focusRow=this.tableObj.findRowByIndex(rowIndex-1)
@@ -691,6 +690,7 @@ var input=document.createElement('input')
 input.setAttribute('type','text')
 input.setAttribute('class','string-input')
 input.value=this.tableObj.getCellValue(cellElement)
+if(this.columnConfiguration.readOnly){input.setAttribute('readonly',true)}
 cellContentContainer.appendChild(input)
 this.setCaretPosition(input,0)
 window.setTimeout(this.focusTimeoutHandler,0)}
@@ -830,8 +830,7 @@ if(!activeItemElement){activeItemElement=this.itemListElement.querySelector('ul 
 if(activeItemElement)
 activeItemElement.setAttribute('class','selected')}
 if(activeItemElement){window.setTimeout(function(){activeItemElement.focus()},0)}}}
-DropdownProcessor.prototype.fetchOptions=function(cellElement,onSuccess){if(this.columnConfiguration.options)
-onSuccess(this.columnConfiguration.options)
+DropdownProcessor.prototype.fetchOptions=function(cellElement,onSuccess){if(this.columnConfiguration.options){onSuccess(this.columnConfiguration.options)}
 else{var row=cellElement.parentNode,cachingKey=this.createOptionsCachingKey(row),viewContainer=this.getViewContainer(cellElement)
 viewContainer.setAttribute('class','loading')
 if(!this.cachedOptionPromises[cachingKey]){var requestData={column:this.columnName,rowData:this.tableObj.getRowData(row)},handlerName=this.tableObj.getAlias()+'::onGetDropdownOptions'
