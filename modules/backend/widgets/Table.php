@@ -192,8 +192,15 @@ class Table extends WidgetBase
             throw new SystemException('The Table widget is not configured to use the server data source.');
         }
 
+        $count = post('count');
+
+        // Oddly, JS may pass false as a string (@todo)
+        if ($count === 'false') {
+            $count = false;
+        }
+
         return [
-            'records' => $this->dataSource->getRecords(post('offset'), post('count')),
+            'records' => $this->dataSource->getRecords(post('offset'), $count),
             'count' => $this->dataSource->getCount()
         ];
     }
