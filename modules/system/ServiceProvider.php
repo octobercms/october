@@ -307,6 +307,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'system' => [
                     'label'       => 'system::lang.settings.menu_label',
                     'icon'        => 'icon-cog',
+                    'iconSvg'     => 'modules/system/assets/images/cog-icon.svg',
                     'url'         => Backend::url('system/settings'),
                     'permissions' => [],
                     'order'       => 1000
@@ -441,7 +442,7 @@ class ServiceProvider extends ModuleServiceProvider
          * Register asset bundles
          */
         CombineAssets::registerCallback(function($combiner) {
-            $combiner->registerBundle('~/modules/system/assets/less/styles.less');
+//            $combiner->registerBundle('~/modules/system/assets/less/styles.less');
             $combiner->registerBundle('~/modules/system/assets/ui/storm.less');
             $combiner->registerBundle('~/modules/system/assets/ui/storm.js');
         });

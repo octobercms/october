@@ -49,7 +49,7 @@
     -webkit-appearance: none;
 
     &:focus {
-        border: 1px solid @color-form-field-border-focus;
+        border: 2px solid @color-form-field-border-focus;
     }
 
     &.icon {
@@ -59,7 +59,7 @@
         background-image: url('@{image-path}/bitmap-icons.png');
 
         &.plus { background-position: right -124px; }
-        &.search { background-position: right -84px; }
+        &.search { background-position: right -77px; }
         &.user { background-position: right -41px; }
         &.lock { background-position: right 0; }
     }
@@ -81,7 +81,7 @@
     }
 
     &, &.layout-item {
-        padding-bottom: 20px;
+        padding-bottom: 35px;
         margin-bottom: 0;
     }
 
@@ -89,11 +89,15 @@
 
     &.is-required {
         > label:after {
-            color: @color-form-required-asterisk;
+            background-color: @color-form-required-asterisk;
+            width: 5px;
+            height: 5px;
+            margin-left: 3px;
             vertical-align: super;
             font-size: 60%;
-            content: " *";
-            text-shadow: 0 0 2px darken(@color-form-required-asterisk, 15%);
+            content: "";
+            display: inline-block;
+            .border-radius(8px);
         }
     }
 
@@ -174,11 +178,11 @@
 }
 
 .help-block {
-    font-size: 12px;
+    font-size: 15px;
     margin-bottom: 0;
     &.before-field {
         margin-top: 0;
-        margin-bottom: 10px;
+        margin-bottom: 17px;
     }
 }
 
@@ -262,6 +266,10 @@
 }
 
 .field-checkboxlist {
+    padding: 20px 20px 5px 20px;
+    .border-radius(@border-radius-base);
+    background: @color-form-checkboxlist-background;
+
     .checkbox:last-of-type {
         margin-bottom: 0;
     }
@@ -336,11 +344,11 @@
 
 .form-buttons {
     .clearfix();
-    padding-bottom: 20px;
+    padding-bottom: 35px;
     font-size: 0;
 
     .btn {
-        margin-right: 10px;
+        margin-right: 20px;
 
         &.no-margin-right {
             margin-right: 0;

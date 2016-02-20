@@ -6,7 +6,33 @@ body.mainmenu-open {
     overflow: hidden;
 }
 
-nav#layout-mainmenu.navbar {
+.main-menu-item-link() {
+    padding: 19px 0 15px;
+    display: inline-block;
+    font-size: 16px;
+    color: inherit;
+    outline: none;
+
+    &:hover {
+        background-color: transparent !important;
+    }
+
+    &:active, &:focus {
+        text-decoration: none;
+        color: @color-mainmenu-inactive;
+    }
+
+    i {
+        position: relative;
+        top: -2px;
+        line-height: 1;
+        font-size: 35px;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+}
+
+nav#layout-mainmenu {
     background-color: @color-mainmenu;
     padding: 0 0 0 20px;
     line-height: 0;
@@ -35,7 +61,25 @@ nav#layout-mainmenu.navbar {
             margin-right: 30px;
             position: relative;
 
-            &:last-child { margin-right: 0; }
+            a {
+                .main-menu-item-link();
+
+                i { 
+                    font-size: 30px;
+                }
+
+                img.svg-icon {
+                    height: 30px;
+                    width: 30px;
+                    margin-right: 10px;
+                    position: relative;
+                    top: 0;
+                }
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
 
             &.active {
                 &:after {
@@ -45,24 +89,50 @@ nav#layout-mainmenu.navbar {
                     left: 50%;
                     margin-left: -8.5px;
                 }
+
+                a {
+                    font-size: 18px;
+                    padding-top: 13px;
+                    padding-bottom: 8px;
+
+                    i {
+                        font-size: 40px;
+                    }
+
+                    img.svg-icon {
+                        height: 40px;
+                        width: 40px;
+                    }
+                }
             }
 
             &.icon {
                 margin-right: 0;
-                i { margin-right: 0; }
-                a { padding: 14px; }
+
+                i {
+                    margin-right: 0;
+                }
+
+                a {
+                    padding: 14px;
+                }
             }
 
             &.power-off, &.preview {
-                i { font-size: 20px; }
-                a { padding: 25px 10px 19px 21px; }
+                i {
+                    font-size: 20px;
+                }
+
+                a {
+                    padding: 25px 10px 19px 21px;
+                }
             }
 
             &.account {
                 margin-right: 0;
 
                 > a {
-                    padding: 20px 20px 9px 10px;
+                    padding: 16px 20px 13px 10px;
                     font-size: 18px;
                     position: relative;
                     z-index: 590;
@@ -72,7 +142,7 @@ nav#layout-mainmenu.navbar {
                     width: 35px;
                     margin-right: 15px;
                     position: relative;
-                    top: -4px;
+                    top: -1px;
                 }
 
                 ul {
@@ -81,9 +151,15 @@ nav#layout-mainmenu.navbar {
             }
         }
 
-        &.nav { display: inline-block; }
+        &.nav {
+            display: inline-block;
+        }
     }
-    .menu-toggle { display: none; }
+
+    .menu-toggle {
+        .main-menu-item-link();
+        display: none;
+    }
 
     .toolbar-item {
         padding-right: 0;
@@ -91,17 +167,37 @@ nav#layout-mainmenu.navbar {
         &:before, &:after {
             margin-top: 0;
         }
-        &:before { left: -12px; }
-        &:after { right: -12px; }
 
-        &.scroll-active-before:before { color: @color-mainmenu-active; }
-        &.scroll-active-after:after { color: @color-mainmenu-active; }
+        &:before {
+            left: -12px;
+        }
+
+        &:after {
+            right: -12px;
+        }
+
+        &.scroll-active-before:before {
+            color: @color-mainmenu-active;
+        }
+
+        &.scroll-active-after:after {
+            color: @color-mainmenu-active;
+        }
     }
 }
 
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu {
+html.svg {
+    nav#layout-mainmenu,
+    .mainmenu-collapsed {
+        img.svg-icon {
+            display: inline-block;
+        }
+    }
+}
+
+nav#layout-mainmenu ul li .mainmenu-accountmenu {
     position: fixed;
-    top: 61px;
+    top: 64px;
     right: 0;
     background: @color-accountmenu-bg;
     z-index: 590;
@@ -152,57 +248,6 @@ nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu {
             right: 71px;
         }
     }
-}
-
-nav#layout-mainmenu.navbar ul li a,
-nav#layout-mainmenu .menu-toggle,
-.mainmenu-collapsed li a {
-    padding: 19px 0 15px;
-    display: inline-block;
-    font-size: 16px;
-    color: inherit;
-    outline: none;
-
-    &:hover {
-        background-color: transparent !important;
-    }
-
-    &:active, &:focus {
-        text-decoration: none;
-        color: @color-mainmenu-inactive;
-    }
-
-    i {
-        position: relative;
-        top: -2px;
-        line-height: 1;
-        font-size: 35px;
-        vertical-align: middle;
-        margin-right: 10px;
-    }
-}
-
-nav#layout-mainmenu.navbar ul li {
-    a {
-        i { 
-            font-size: 30px;
-        }
-    }
-    &.active a {
-        font-size: 18px;
-        padding-top: 16px;
-        padding-bottom: 13px;
-
-        i {
-            font-size: 35px;
-        }
-    }
-}
-
-.mainmenu-collapsed li a i {
-    width: 40px;
-    text-align: left;
-    display: inline-block;
 }
 
 nav#layout-mainmenu.navbar ul li:hover,
@@ -277,6 +322,8 @@ body.drag {
                     color: @color-mainmenu-inactive;
 
                     a {
+                        .main-menu-item-link();
+
                         white-space: nowrap;
                         display: block;
                         padding: 15px 20px;
@@ -284,6 +331,24 @@ body.drag {
                         &:hover {
                             text-decoration: none;
                         }
+
+                        img.svg-icon {
+                            margin-right: 10px;
+                            position: relative;
+                            top: -3px;
+                            width: 30px;
+                            height: 30px;
+                        }
+
+                        i {
+                            width: 40px;
+                            text-align: left;
+                            display: inline-block;
+                        }
+                    }
+
+                    &.active a {
+                        padding: 9px 20px 11px 20px;
                     }
                 }
             }

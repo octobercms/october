@@ -1,0 +1,86 @@
+@import "../../../../assets/less/core/boot.less";
+
+@color-permissioneditor-section-border:         #DBE1E3;
+@color-permissioneditor-permission-border:      #ECF0F1;
+
+
+.permissioneditor {
+    table {
+        width: 100%;
+
+        th {
+            padding: 30px 0 15px;
+            color: @color-label;
+            font-weight: normal;
+            border-bottom: 1px solid @color-permissioneditor-section-border; 
+
+            &.tab {
+                font-size: 16px;
+            }
+
+            &.permission-type {
+                font-size: 15px;
+                text-align: center;
+            }
+        }
+
+        td {
+            padding: 10px 0;
+            vertical-align: top;
+            border-bottom: 1px solid @color-permissioneditor-permission-border; 
+
+            &.permission-value{
+                text-align: center;
+            }
+
+            &.permission-name {
+                font-size: 15px;
+                color: @color-help-block-text;
+            }
+
+            p.comment {
+                margin-top: 5px;
+                margin-bottom: 0;
+
+                &:empty {
+                    display: none;
+                }
+            }
+        }
+
+        .custom-radio {
+            display: inline-block;;
+            padding-left: 0;
+
+            &, label {
+                margin-bottom: 0;
+            }
+
+            label {
+                text-indent: -10000em;
+                padding: 0 0 0 14px;
+                margin: 0;
+                top: 2px;
+
+                &:before {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:first-child th {
+            padding-top: 0;
+        }
+
+        tr.last-section-row {
+            td {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+        }
+    }
+}

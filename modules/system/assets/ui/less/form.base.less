@@ -31,9 +31,10 @@ legend {
 
 label {
     display: inline-block;
-    margin-bottom: 5px;
-    font-weight: 600;
+    margin-bottom: 14px;
+    font-weight: normal;
     font-size: @label-font-size;
+    color: @color-label;
 }
 
 
@@ -112,17 +113,17 @@ output {
 // input[type="tel"]
 // input[type="color"]
 
-.form-control {
+.form-control { 
     display: block;
     width: 100%;
     height: @input-height-base; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
-    padding: @padding-base-vertical @padding-base-horizontal;
+    padding: (@padding-base-vertical + 1) @padding-base-horizontal (@padding-base-vertical - 1);
     font-size: @input-font-size;
     line-height: @line-height-base;
     color: @input-color;
     background-color: @input-bg;
     background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
-    border: 1px solid @input-border;
+    border: 2px solid @input-border;
     border-radius: @input-border-radius;
     .transition(@input-transition);
 
@@ -319,8 +320,13 @@ input[type="checkbox"],
 .help-block {
     display: block; // account for any element using help-block
     margin-top: 5px;
-    margin-bottom: 10px;
-    color: lighten(@text-color, 25%); // lighten the text some for contrast
+    margin-bottom: 14px;
+    color: @color-help-block-text;
+}
+
+label + .help-block,
+label + .help-block.before-field {
+    margin-top: -7px;
 }
 
 // Inline forms

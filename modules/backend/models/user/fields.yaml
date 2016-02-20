@@ -60,6 +60,6 @@ secondaryTabs:
             label: backend::lang.user.avatar
             type: fileupload
             mode: image
-            imageHeight: 260
-            imageWidth: 260
+            imageHeight: 230
+            imageWidth: 230
 

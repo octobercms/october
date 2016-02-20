@@ -226,13 +226,13 @@ return [
     ],
     'permissions' => [
         'name' => 'Cms',
-        'manage_content' => 'Manage content',
-        'manage_assets' => 'Manage assets',
-        'manage_pages' => 'Manage pages',
-        'manage_layouts' => 'Manage layouts',
-        'manage_partials' => 'Manage partials',
-        'manage_themes' => 'Manage themes',
-        'manage_media' => 'Manage media'
+        'manage_content' => 'Manage website content files',
+        'manage_assets' => 'Manage website assets - images, JavaScript files, CSS files',
+        'manage_pages' => 'Create, modify and delete website pages',
+        'manage_layouts' => 'Create, modify and delete CMS layouts',
+        'manage_partials' => 'Create, modify and delete CMS partials',
+        'manage_themes' => 'Activate, deactivate and configure CMS themes',
+        'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents'
     ],
     'mediafinder' => [
         'default_prompt' => 'Click the %s button to find a media item'

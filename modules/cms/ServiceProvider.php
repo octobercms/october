@@ -72,7 +72,7 @@ class ServiceProvider extends ModuleServiceProvider
         CombineAssets::registerCallback(function($combiner) {
             $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-global.js');
             $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-browser.js');
-            $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/less/mediamanager.less');
+            // $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/less/mediamanager.less');
         });
     }
 
@@ -86,6 +86,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'cms' => [
                     'label'       => 'cms::lang.cms.menu_label',
                     'icon'        => 'icon-magic',
+                    'iconSvg'     => 'modules/cms/assets/images/cms-icon.svg',
                     'url'         => Backend::url('cms'),
                     'permissions' => ['cms.*'],
                     'order'       => 10,
@@ -143,6 +144,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'media' => [
                     'label'       => 'cms::lang.media.menu_label',
                     'icon'        => 'icon-folder',
+                    'iconSvg'     => 'modules/cms/assets/images/media-icon.svg',
                     'url'         => Backend::url('cms/media'),
                     'permissions' => ['media.*'],
                     'order'       => 20

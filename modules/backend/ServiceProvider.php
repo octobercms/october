@@ -66,13 +66,13 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerAssetBundles()
     {
         CombineAssets::registerCallback(function($combiner) {
-            $combiner->registerBundle('~/modules/backend/assets/less/october.less');
+            // $combiner->registerBundle('~/modules/backend/assets/less/october.less');
             $combiner->registerBundle('~/modules/backend/assets/js/october.js');
             $combiner->registerBundle('~/modules/backend/widgets/table/assets/js/build.js');
-            $combiner->registerBundle('~/modules/backend/formwidgets/datepicker/assets/js/build.js');
-            $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/less/richeditor.less');
+            // $combiner->registerBundle('~/modules/backend/formwidgets/datepicker/assets/js/build.js');
+            // $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/less/richeditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
-            $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/less/codeeditor.less');
+            // $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/less/codeeditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/fileupload/assets/less/fileupload.less');
         });
@@ -88,6 +88,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'dashboard' => [
                     'label'       => 'backend::lang.dashboard.menu_label',
                     'icon'        => 'icon-dashboard',
+                    'iconSvg'     => 'modules/backend/assets/images/dashboard-icon.svg',
                     'url'         => Backend::url('backend'),
                     'permissions' => ['backend.access_dashboard'],
                     'order'       => 1
