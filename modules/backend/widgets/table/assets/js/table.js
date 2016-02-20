@@ -526,7 +526,7 @@
                 this.elementAddClass(this.activeCell, 'active')
         }
 
-        // If the cell belongs to other row than the currently edited, 
+        // If the cell belongs to other row than the currently edited,
         // commit currently edited row to the data source. Update the
         // currently edited row key.
         var rowKey = this.getCellRowKey(cellElement)

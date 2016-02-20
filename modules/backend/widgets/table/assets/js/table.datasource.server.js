@@ -47,7 +47,7 @@
      */
     Server.prototype.getRecords = function(offset, count, onSuccess) {
         var handlerName = this.tableObj.getAlias()+'::onServerGetRecords'
-        $.request(handlerName, {
+        this.tableObj.$el.request(handlerName, {
             data: {
                 offset: offset,
                 count: count
@@ -71,21 +71,18 @@
      * The onSuccess callback parameters: records, totalCount.
      */
     Server.prototype.createRecord = function(recordData, placement, relativeToKey, offset, count, onSuccess) {
-        console.log('createRecord')
-        // if (placement === 'bottom') {
-        //     // Add record to the bottom of the dataset
-        //     this.data.push(recordData)
-        // }
-        // else if (placement == 'above' || placement == 'below') {
-        //     // Add record above or below the passed record key
-        //     var recordIndex = this.getIndexOfKey(relativeToKey)
-        //     if (placement == 'below')
-        //         recordIndex ++
-
-        //     this.data.splice(recordIndex, 0, recordData)
-        // }
-
-        // this.getRecords(offset, count, onSuccess)
+        var handlerName = this.tableObj.getAlias()+'::onServerCreateRecord'
+        this.tableObj.$el.request(handlerName, {
+            data: {
+                recordData: recordData,
+                placement: placement,
+                relativeToKey: relativeToKey,
+                offset: offset,
+                count: count
+            }
+        }).done(function(data) {
+            onSuccess(data.records, data.count)
+        })
     }
 
     /*
@@ -95,16 +92,13 @@
      * - recordData - the record fields.
      */
     Server.prototype.updateRecord = function(key, recordData) {
-        console.log('updateRecord')
-        // var recordIndex = this.getIndexOfKey(key)
-
-        // if (recordIndex !== -1) {
-        //     recordData[this.tableObj.options.keyColumn] = key
-        //     this.data[recordIndex] = recordData
-        // }
-        // else {
-        //     throw new Error('Record with they key '+key+ ' is not found in the data set')
-        // }
+        var handlerName = this.tableObj.getAlias()+'::onServerUpdateRecord'
+        this.tableObj.$el.request(handlerName, {
+            data: {
+                key: key,
+                recordData: recordData
+            }
+        })
     }
 
     /*
@@ -120,20 +114,16 @@
      * The onSuccess callback parameters: records, totalCount.
      */
     Server.prototype.deleteRecord = function(key, newRecordData, offset, count, onSuccess) {
-        console.log('deleteRecord')
-        // var recordIndex = this.getIndexOfKey(key)
-
-        // if (recordIndex !== -1) {
-        //     this.data.splice(recordIndex, 1)
-
-        //     if (this.data.length == 0)
-        //         this.data.push(newRecordData)
-
-        //     this.getRecords(offset, count, onSuccess)
-        // }
-        // else {
-        //     throw new Error('Record with they key '+key+ ' is not found in the data set')
-        // }
+        var handlerName = this.tableObj.getAlias()+'::onServerDeleteRecord'
+        this.tableObj.$el.request(handlerName, {
+            data: {
+                key: key,
+                offset: offset,
+                count: count
+            }
+        }).done(function(data) {
+            onSuccess(data.records, data.count)
+        })
     }
 
     $.oc.table.datasource.server = Server

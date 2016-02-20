@@ -2260,10 +2260,11 @@ $(window).off('.cursorLoadIndicator');}}
 $(document).ready(function(){$.oc.cursorLoadIndicator=new CursorLoadIndicator();})
 $(document).on('ajaxPromise','[data-cursor-load-indicator]',function(){$.oc.cursorLoadIndicator.show()}).on('ajaxFail ajaxDone','[data-cursor-load-indicator]',function(){$.oc.cursorLoadIndicator.hide()})}(window.jQuery);+function($){"use strict";if($.oc===undefined)
 $.oc={}
-var StripeLoadIndicator=function(){this.counter=0
+var StripeLoadIndicator=function(){var self=this
+this.counter=0
 this.indicator=$('<div/>').addClass('stripe-loading-indicator loaded').append($('<div />').addClass('stripe')).append($('<div />').addClass('stripe-loaded'))
 this.stripe=this.indicator.find('.stripe')
-$(document.body).append(this.indicator)}
+$(document).ready(function(){$(document.body).append(self.indicator)})}
 StripeLoadIndicator.prototype.show=function(){this.counter++
 this.stripe.after(this.stripe=this.stripe.clone()).remove()
 if(this.counter>1)
@@ -2275,7 +2276,7 @@ if(force!==undefined&&force)
 this.counter=0
 if(this.counter<=0){this.indicator.addClass('loaded')
 $(document.body).removeClass('loading')}}
-$(document).ready(function(){$.oc.stripeLoadIndicator=new StripeLoadIndicator()})
+$.oc.stripeLoadIndicator=new StripeLoadIndicator()
 $(document).on('ajaxPromise','[data-stripe-load-indicator]',function(event){event.stopPropagation()
 $.oc.stripeLoadIndicator.show()
 var $el=$(this)

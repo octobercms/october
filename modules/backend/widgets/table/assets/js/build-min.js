@@ -614,10 +614,13 @@ Server.prototype.constructor=Server
 Server.prototype.dispose=function(){BaseProto.dispose.call(this)
 this.data=null}
 Server.prototype.getRecords=function(offset,count,onSuccess){var handlerName=this.tableObj.getAlias()+'::onServerGetRecords'
-$.request(handlerName,{data:{offset:offset,count:count}}).done(function(data){onSuccess(data.records,data.count)})}
-Server.prototype.createRecord=function(recordData,placement,relativeToKey,offset,count,onSuccess){console.log('createRecord')}
-Server.prototype.updateRecord=function(key,recordData){console.log('updateRecord')}
-Server.prototype.deleteRecord=function(key,newRecordData,offset,count,onSuccess){console.log('deleteRecord')}
+this.tableObj.$el.request(handlerName,{data:{offset:offset,count:count}}).done(function(data){onSuccess(data.records,data.count)})}
+Server.prototype.createRecord=function(recordData,placement,relativeToKey,offset,count,onSuccess){var handlerName=this.tableObj.getAlias()+'::onServerCreateRecord'
+this.tableObj.$el.request(handlerName,{data:{recordData:recordData,placement:placement,relativeToKey:relativeToKey,offset:offset,count:count}}).done(function(data){onSuccess(data.records,data.count)})}
+Server.prototype.updateRecord=function(key,recordData){var handlerName=this.tableObj.getAlias()+'::onServerUpdateRecord'
+this.tableObj.$el.request(handlerName,{data:{key:key,recordData:recordData}})}
+Server.prototype.deleteRecord=function(key,newRecordData,offset,count,onSuccess){var handlerName=this.tableObj.getAlias()+'::onServerDeleteRecord'
+this.tableObj.$el.request(handlerName,{data:{key:key,offset:offset,count:count}}).done(function(data){onSuccess(data.records,data.count)})}
 $.oc.table.datasource.server=Server}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
 throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.processor===undefined)
 $.oc.table.processor={}
