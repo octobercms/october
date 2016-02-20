@@ -198,6 +198,41 @@ class Table extends WidgetBase
         ];
     }
 
+    public function onServerCreateRecord()
+    {
+        if ($this->isClientDataSource()) {
+            throw new SystemException('The Table widget is not configured to use the server data source.');
+        }
+
+        $this->dataSource->createRecord(
+            post('recordData'),
+            post('placement'),
+            post('relativeToKey')
+        );
+
+        return $this->onServerGetRecords();
+    }
+
+    public function onServerUpdateRecord()
+    {
+        if ($this->isClientDataSource()) {
+            throw new SystemException('The Table widget is not configured to use the server data source.');
+        }
+
+        $this->dataSource->updateRecord(post('key'), post('recordData'));
+    }
+
+    public function onServerDeleteRecord()
+    {
+        if ($this->isClientDataSource()) {
+            throw new SystemException('The Table widget is not configured to use the server data source.');
+        }
+
+        $this->dataSource->deleteRecord(post('key'));
+
+        return $this->onServerGetRecords();
+    }
+
     public function onGetDropdownOptions()
     {
         $columnName = Input::get('column');

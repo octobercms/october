@@ -57,7 +57,7 @@ trait PropertyContainer
      */
     public function setProperties($properties)
     {
-        return $this->properties = $this->validateProperties($properties);
+        $this->properties = $this->validateProperties($properties);
     }
 
     /**

@@ -26,6 +26,7 @@ class OctoberMirror extends Command
     protected $description = '(Experimental) Generates a mirrored public folder using symbolic links.';
 
     protected $files = [
+        '.htaccess',
         'index.php',
         'favicon.ico',
         'robots.txt',

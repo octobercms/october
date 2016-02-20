@@ -215,7 +215,7 @@
 
         if (!this.options.height)
             this.dataTableContainer = this.tableContainer
-        else 
+        else
             this.dataTableContainer = this.buildScrollbar()
 
         // Build the data table
@@ -240,7 +240,8 @@
                 // new records can only be added to the bottom of the
                 // table.
                 addBelowButton.textContent = this.options.btnAddRowLabel
-            } else {
+            }
+            else {
                 addBelowButton.textContent = this.options.btnAddRowBelowLabel
 
                 var addAboveButton = document.createElement('a')
@@ -313,7 +314,8 @@
 
         this.unfocusTable()
 
-        this.fetchRecords(function onUpdateDataTableSuccess(records, totalCount){
+
+        this.fetchRecords(function onUpdateDataTableSuccess(records, totalCount) {
             self.buildDataTable(records, totalCount)
 
             if (onSuccess)
@@ -321,6 +323,11 @@
 
             if (totalCount == 0)
                 self.addRecord('above', true)
+
+            self.$el.trigger('oc.tableUpdateData', [
+                records,
+                totalCount
+            ])
 
             self = null
         })
@@ -526,7 +533,7 @@
                 this.elementAddClass(this.activeCell, 'active')
         }
 
-        // If the cell belongs to other row than the currently edited, 
+        // If the cell belongs to other row than the currently edited,
         // commit currently edited row to the data source. Update the
         // currently edited row key.
         var rowKey = this.getCellRowKey(cellElement)
@@ -583,7 +590,7 @@
             recordData = {},
             self = this
 
-        recordData[keyColumn] = -1*this.recordsAddedOrDeleted
+        recordData[keyColumn] = -1 * this.recordsAddedOrDeleted
 
         this.$el.trigger('oc.tableNewRow', [
             recordData

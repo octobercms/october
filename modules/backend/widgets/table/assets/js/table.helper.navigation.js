@@ -174,7 +174,7 @@
         var curRecordCount = this.getRecordCount()
 
         if (placement === 'bottom')
-            return this.calculatePageCount(curRecordCount+1, this.tableObj.options.recordsPerPage)-1
+            return this.calculatePageCount(curRecordCount + 1, this.tableObj.options.recordsPerPage) - 1
 
         // When a row is added above a current row, the current row just moves down,
         // so it's safe to return the current page index
@@ -182,8 +182,8 @@
             return this.pageIndex
 
         if (placement == 'below') {
-            if (currentRowIndex == (this.tableObj.options.recordsPerPage-1))
-                return this.pageIndex+1
+            if (currentRowIndex == (this.tableObj.options.recordsPerPage - 1))
+                return this.pageIndex + 1
 
             return this.pageIndex
         }
@@ -193,7 +193,7 @@
 
     Navigation.prototype.getPageAfterDeletion = function(currentRowIndex) {
         if (currentRowIndex == 0 && this.getRowCountOnPage() == 1)
-            return this.pageIndex == 0 ? 0 : this.pageIndex-1
+            return this.pageIndex == 0 ? 0 : this.pageIndex - 1
 
         return this.pageIndex
     }
@@ -228,10 +228,10 @@
             if (!this.paginationEnabled())
                 return
 
-            if (this.pageIndex < this.pageCount-1) {
+            if (this.pageIndex < this.pageCount - 1) {
                 var self = this
 
-                this.gotoPage(this.pageIndex+1, function navDownPageSuccess(){
+                this.gotoPage(this.pageIndex + 1, function navDownPageSuccess(){
                     self.focusCell('top', cellIndex)
                     self = null
                 })
@@ -247,19 +247,20 @@
             return
 
         var row = this.tableObj.activeCell.parentNode,
-            newRow = (!ev.shiftKey || isTab) ? 
-                row.previousElementSibling :
-                row.parentNode.children[0],
-            cellIndex = forceCellIndex !== undefined ? 
-                forceCellIndex :
-                this.tableObj.activeCell.cellIndex
+            newRow = (!ev.shiftKey || isTab)
+                ? row.previousElementSibling
+                : row.parentNode.children[0],
+            cellIndex = forceCellIndex !== undefined
+                ? forceCellIndex
+                : this.tableObj.activeCell.cellIndex
 
         if (newRow) {
             var cell = newRow.children[cellIndex]
 
             if (cell)
                 this.tableObj.focusCell(cell)
-        } else {
+        }
+        else {
             // Try to switch to the previous page if that's possible
 
             if (!this.paginationEnabled())
@@ -268,7 +269,7 @@
             if (this.pageIndex > 0) {
                 var self = this
 
-                this.gotoPage(this.pageIndex-1, function navUpPageSuccess(){
+                this.gotoPage(this.pageIndex - 1, function navUpPageSuccess(){
                     self.focusCell('bottom', cellIndex)
                     self = null
                 })
@@ -284,17 +285,18 @@
             return
 
         var row = this.tableObj.activeCell.parentNode,
-            newIndex = (!ev.shiftKey || isTab) ? 
-                this.tableObj.activeCell.cellIndex-1 :
-                0
+            newIndex = (!ev.shiftKey || isTab)
+                ? this.tableObj.activeCell.cellIndex - 1
+                : 0
 
         var cell = row.children[newIndex]
 
-        if (cell)
+        if (cell) {
             this.tableObj.focusCell(cell)
+        }
         else {
             // Try to navigate up if that's possible
-            this.navigateUp(ev, row.children.length-1, isTab)
+            this.navigateUp(ev, row.children.length - 1, isTab)
         }
     }
 
@@ -306,14 +308,15 @@
             return
 
         var row = this.tableObj.activeCell.parentNode,
-            newIndex = !ev.shiftKey ? 
-                this.tableObj.activeCell.cellIndex+1 :
-                row.children.length-1
+            newIndex = !ev.shiftKey
+                ? this.tableObj.activeCell.cellIndex + 1
+                : row.children.length - 1
 
         var cell = row.children[newIndex]
 
-        if (cell)
+        if (cell) {
             this.tableObj.focusCell(cell)
+        }
         else {
             // Try to navigate down if that's possible
             this.navigateDown(ev, 0)
@@ -339,12 +342,13 @@
         var row = null,
             tbody = this.tableObj.getDataTableBody()
 
-        if (typeof rowReference === 'object')
+        if (typeof rowReference === 'object') {
             row = rowReference
+        }
         else {
             if (rowReference == 'bottom') {
                 row = tbody.children[tbody.children.length-1]
-            } 
+            }
             else if (rowReference == 'top') {
                 row = tbody.children[0]
             }
@@ -359,8 +363,9 @@
     }
 
     Navigation.prototype.focusCellInReplacedRow = function(rowIndex, cellIndex) {
-        if (rowIndex == 0)
+        if (rowIndex == 0) {
            this.focusCell('top', cellIndex)
+        }
         else {
             var focusRow = this.tableObj.findRowByIndex(rowIndex)
 

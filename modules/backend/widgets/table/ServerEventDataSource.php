@@ -11,7 +11,7 @@ class ServerEventDataSource extends DataSourceBase
      * Return records from the data source.
      * @param integer $offset Specifies the offset of the first record to return, zero-based.
      * @param integer $count Specifies the number of records to return.
-     * @return array Returns the records. 
+     * @return array Returns the records.
      * If there are no more records, returns an empty array.
      */
     public function getRecords($offset, $count)
@@ -26,6 +26,33 @@ class ServerEventDataSource extends DataSourceBase
     public function getCount()
     {
         return $this->fireEvent('data.getCount', [], true);
+    }
+
+    /**
+     * Updates a record in the data source.
+     * @return void
+     */
+    public function createRecord($data, $placement, $relativeToKey)
+    {
+        return $this->fireEvent('data.createRecord', [$data, $placement, $relativeToKey]);
+    }
+
+    /**
+     * Updates a record in the data source.
+     * @return void
+     */
+    public function updateRecord($key, $data)
+    {
+        $this->fireEvent('data.updateRecord', [$key, $data]);
+    }
+
+    /**
+     * Removes a record from the data source.
+     * @return array Returns the remaining records.
+     */
+    public function deleteRecord($key)
+    {
+        return $this->fireEvent('data.deleteRecord', [$key], true);
     }
 
     /**

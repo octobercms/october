@@ -106,7 +106,7 @@ The client memory data sources keeps the data in the client memory. The data is 
 
 ### Server memory data source ($.oc.table.datasource.server)
 
-**TODO:** document this 
+**TODO:** document this
 
 ## Cell processors ($.oc.table.processor)
 
@@ -137,7 +137,7 @@ The drop-down column type can load options from the column configuration or with
             blue: Blue
         width: 15%
 
-If the `options` element is not presented in the configuration, the options will be loaded with AJAX. 
+If the `options` element is not presented in the configuration, the options will be loaded with AJAX.
 
 **TODO:** Document the AJAX interface
 
@@ -203,7 +203,7 @@ Columns are defined as array with the `columns` property. The array keys corresp
 - `title`
 - `type` (string, checkbox, dropdown, autocomplete)
 - `width` - sets the column width, can be specified in percents (10%) or pixels (50px). There could be a single column without width specified, it will be stretched to take the available space.
-- `readOnly`
+- `readOnly` - prevents the cell value from being modified. Default: false.
 - `options` (for drop-down elements and autocomplete types)
 - `dependsOn` (from drop-down elements)
 - validation - defines the column client-side validation rules. See the **Client-side validation** section below.
@@ -212,7 +212,7 @@ Columns are defined as array with the `columns` property. The array keys corresp
 
 ### table.getDropdownOptions
 
-table.getDropdownOptions - triggered when drop-down options are requested by the client. Parameters: 
+table.getDropdownOptions - triggered when drop-down options are requested by the client. Parameters:
 
 - `$columnName` - specifies the drop-down column name.
 - `$rowData` - an array containing values of all columns in the table row.
@@ -220,7 +220,7 @@ table.getDropdownOptions - triggered when drop-down options are requested by the
 Example event handler:
 
 ```
-$table->bindEvent('table.getDropdownOptions', 
+$table->bindEvent('table.getDropdownOptions',
     function ($columnName, $rowData) {
         if ($columnName == 'state')
             return ['ca'=>'California', 'wa'=>'Washington'];
