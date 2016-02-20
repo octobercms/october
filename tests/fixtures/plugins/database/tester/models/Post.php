@@ -64,7 +64,8 @@ class SluggablePost extends Post
      * @var array List of attributes to automatically generate unique URL names (slugs) for.
      */
     protected $slugs = [
-        'slug' => 'title'
+        'slug' => 'title',
+        'long_slug' => ['title', 'description']
     ];
 
 }
