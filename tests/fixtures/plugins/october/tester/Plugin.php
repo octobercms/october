@@ -20,7 +20,8 @@ class Plugin extends PluginBase
             'October\Tester\Components\Archive' => 'testArchive',
             'October\Tester\Components\Post' => 'testPost',
             'October\Tester\Components\MainMenu' => 'testMainMenu',
-            'October\Tester\Components\ContentBlock' => 'testContentBlock'
+            'October\Tester\Components\ContentBlock' => 'testContentBlock',
+            'October\Tester\Components\Comments' => 'testComments',
         ];
     }
 
