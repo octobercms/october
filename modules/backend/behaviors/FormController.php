@@ -201,7 +201,10 @@ class FormController extends ControllerBehavior
     public function create_onSave($context = null)
     {
         $this->context = strlen($context) ? $context : $this->getConfig('create[context]', self::CONTEXT_CREATE);
+
         $model = $this->controller->formCreateModelObject();
+        $model = $this->controller->formExtendModel($model);
+
         $this->initForm($model);
 
         $this->controller->formBeforeSave($model);
