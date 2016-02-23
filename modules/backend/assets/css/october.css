@@ -639,7 +639,7 @@
 .control-simplelist.is-divided li,
 .control-simplelist.is-selectable li {
   padding: 5px 10px;
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid #d4d8da;
 }
 .control-simplelist.is-divided li .heading,
 .control-simplelist.is-selectable li .heading {
@@ -2013,11 +2013,15 @@
 .sidenav-tree .control-toolbar input.form-control {
   border: none;
   outline: none;
+  padding: 12px 13px 13px;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
   -webkit-box-shadow: inset -5px 0 3px rgba(0, 0, 0, 0.1);
   box-shadow: inset -5px 0 3px rgba(0, 0, 0, 0.1);
+}
+.sidenav-tree .control-toolbar input.form-control.search {
+  background-position: right -78px;
 }
 .sidenav-tree ul {
   padding: 0;
@@ -2055,8 +2059,8 @@
   background: #2a3e51;
   color: #ecf0f1;
   text-transform: uppercase;
-  font-size: 16px;
-  padding: 22px 15px 21px 40px;
+  font-size: 15px;
+  padding: 15px 15px 15px 40px;
   margin: 0;
   position: relative;
   cursor: pointer;
@@ -2067,7 +2071,7 @@
   width: 10px;
   height: 10px;
   left: 16px;
-  top: 21px;
+  top: 15px;
   color: #cfcfcf;
   font-family: FontAwesome;
   font-weight: normal;
@@ -2100,7 +2104,7 @@
 .sidenav-tree ul.top-level > li > ul li a {
   display: block;
   position: relative;
-  padding: 25px 25px 25px 60px;
+  padding: 18px 25px 18px 55px;
   background: transparent;
   border-bottom: 1px solid #2a3e51;
   color: #ffffff;
@@ -2121,8 +2125,8 @@
 }
 .sidenav-tree ul.top-level > li > ul li a i {
   position: absolute;
-  left: 20px;
-  top: 24px;
+  left: 16px;
+  top: 18px;
   font-size: 22px;
 }
 .sidenav-tree ul.top-level > li > ul li a span {
@@ -2802,8 +2806,8 @@ body {
 .control-tabs.primary-tabs > ul.nav-tabs,
 .control-tabs.primary-tabs > div > ul.nav-tabs,
 .control-tabs.primary-tabs > div > div > ul.nav-tabs {
-  margin-left: -35px;
-  margin-right: -35px;
+  margin-left: -25px;
+  margin-right: -25px;
 }
 .control-tabs.primary-tabs.tabs-no-inset > ul.nav-tabs,
 .control-tabs.primary-tabs.tabs-no-inset > div > ul.nav-tabs,
@@ -2843,7 +2847,7 @@ body {
 .layout > .layout-row > .layout-cell .layout-container,
 .layout > .layout-row > .layout-cell.padded-container,
 .layout > .layout-row > .layout-cell .padded-container {
-  padding: 35px 35px 0 35px;
+  padding: 25px 25px 0 25px;
 }
 .layout > .layout-row > .layout-cell.layout-container .container-flush,
 .layout > .layout-row > .layout-cell .layout-container .container-flush,
@@ -2888,7 +2892,7 @@ body {
 .layout > .layout-row > .layout-cell .layout-container,
 .layout > .layout-row > .layout-cell.padded-container,
 .layout > .layout-row > .layout-cell .padded-container {
-  padding: 35px 35px 0 35px;
+  padding: 25px 25px 0 25px;
 }
 .layout > .layout-row > .layout-cell.layout-container .container-flush,
 .layout > .layout-row > .layout-cell .layout-container .container-flush,
@@ -2941,7 +2945,7 @@ body {
 .layout > .layout-cell .layout-container,
 .layout > .layout-cell.padded-container,
 .layout > .layout-cell .padded-container {
-  padding: 35px 35px 0 35px;
+  padding: 25px 25px 0 25px;
 }
 .layout > .layout-cell.layout-container .container-flush,
 .layout > .layout-cell .layout-container .container-flush,

@@ -101,9 +101,11 @@ return [
         'deny' => 'Deny',
         'group' => [
             'name' => 'Group',
+            'name_comment' => 'The name is displayed in the group list on the Create/Edit Administrator form.',
             'name_field' => 'Name',
             'description_field' => 'Description',
-            'is_new_user_default_field' => 'Add new administrators to this group by default.',
+            'is_new_user_default_field_label' => 'Default group',
+            'is_new_user_default_field_comment' => 'Add new administrators to this group by default',
             'code_field' => 'Code',
             'code_comment' => 'Enter a unique code if you want to access it with the API.',
             'menu_label' => 'Groups',

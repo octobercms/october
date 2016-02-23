@@ -59,7 +59,7 @@
         background-image: url('@{image-path}/bitmap-icons.png');
 
         &.plus { background-position: right -124px; }
-        &.search { background-position: right -77px; }
+        &.search { background-position: right -83px; }
         &.user { background-position: right -41px; }
         &.lock { background-position: right 0; }
     }
@@ -81,7 +81,7 @@
     }
 
     &, &.layout-item {
-        padding-bottom: 35px;
+        padding-bottom: @padding-standard;
         margin-bottom: 0;
     }
 
@@ -178,7 +178,7 @@
 }
 
 .help-block {
-    font-size: 15px;
+    font-size: 14px;
     margin-bottom: 0;
     &.before-field {
         margin-top: 0;
@@ -266,7 +266,7 @@
 }
 
 .field-checkboxlist {
-    padding: 20px 20px 5px 20px;
+    padding: 20px 20px 2px 20px;
     .border-radius(@border-radius-base);
     background: @color-form-checkboxlist-background;
 
@@ -344,7 +344,7 @@
 
 .form-buttons {
     .clearfix();
-    padding-bottom: 35px;
+    padding-bottom: @padding-standard;
     font-size: 0;
 
     .btn {

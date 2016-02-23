@@ -1,21 +1,37 @@
+.permissioneditor {
+  position: relative;
+}
+.permissioneditor.control-disabled .permissions-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.01);
+  cursor: not-allowed;
+}
+.permissioneditor.control-disabled table {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
 .permissioneditor table {
   width: 100%;
 }
 .permissioneditor table th {
-  padding: 30px 0 15px;
+  padding: 30px 4px 8px 4px;
   color: #2a3e51;
   font-weight: normal;
   border-bottom: 1px solid #dbe1e3;
 }
 .permissioneditor table th.tab {
-  font-size: 16px;
+  font-size: 15px;
 }
 .permissioneditor table th.permission-type {
   font-size: 15px;
   text-align: center;
 }
 .permissioneditor table td {
-  padding: 10px 0;
+  padding: 10px 4px;
   vertical-align: top;
   border-bottom: 1px solid #ecf0f1;
 }
@@ -23,7 +39,7 @@
   text-align: center;
 }
 .permissioneditor table td.permission-name {
-  font-size: 15px;
+  font-size: 14px;
   color: #555555;
 }
 .permissioneditor table td p.comment {
@@ -33,21 +49,38 @@
 .permissioneditor table td p.comment:empty {
   display: none;
 }
-.permissioneditor table .custom-radio {
+.permissioneditor table th:first-child,
+.permissioneditor table td:first-child {
+  padding-left: 0;
+}
+.permissioneditor table th:last-child,
+.permissioneditor table td:last-child {
+  padding-right: 0;
+}
+.permissioneditor table .custom-radio,
+.permissioneditor table .custom-checkbox {
   display: inline-block;
   padding-left: 0;
 }
 .permissioneditor table .custom-radio,
-.permissioneditor table .custom-radio label {
+.permissioneditor table .custom-checkbox,
+.permissioneditor table .custom-radio label,
+.permissioneditor table .custom-checkbox label {
   margin-bottom: 0;
 }
-.permissioneditor table .custom-radio label {
-  text-indent: -10000em;
+.permissioneditor table .custom-radio label,
+.permissioneditor table .custom-checkbox label {
   padding: 0 0 0 14px;
   margin: 0;
   top: 2px;
 }
-.permissioneditor table .custom-radio label:before {
+.permissioneditor table .custom-radio label span,
+.permissioneditor table .custom-checkbox label span {
+  text-indent: -10000em;
+  display: block;
+}
+.permissioneditor table .custom-radio label:before,
+.permissioneditor table .custom-checkbox label:before {
   margin-right: 0;
 }
 .permissioneditor table tr:last-child td {

@@ -225,7 +225,7 @@ return [
         'saved'=> 'The template has been successfully saved.'
     ],
     'permissions' => [
-        'name' => 'Cms',
+        'name' => 'CMS',
         'manage_content' => 'Manage website content files',
         'manage_assets' => 'Manage website assets - images, JavaScript files, CSS files',
         'manage_pages' => 'Create, modify and delete website pages',

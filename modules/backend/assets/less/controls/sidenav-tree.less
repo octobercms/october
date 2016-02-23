@@ -23,9 +23,13 @@
         input.form-control {
             border: none;
             outline: none;
-
+            padding: 12px 13px 13px;
             .border-radius(0);
             .box-shadow(inset -5px 0 3px rgba(0,0,0,0.1));
+
+            &.search {
+                background-position: right -78px;
+            }
         }
     }
 
@@ -69,8 +73,8 @@
                 background: @color-sidebarnav-tree-group-bg;
                 color: @color-sidebarnav-tree-group;
                 text-transform: uppercase;
-                font-size: 16px;
-                padding: 22px 15px 21px 40px;
+                font-size: 15px;
+                padding: 15px 15px 15px 40px;
                 margin: 0;
                 position: relative;
                 cursor: pointer;
@@ -81,7 +85,7 @@
                     width: 10px;
                     height: 10px;
                     left: 16px;
-                    top: 21px;
+                    top: 15px;
                     color: @color-list-arrow;
                     .icon(@angle-right);
                     .transform(~'rotate(90deg) translate(5px, -3px)');
@@ -104,7 +108,7 @@
                 a {
                     display: block;
                     position: relative;
-                    padding: 25px 25px 25px 60px;
+                    padding: 18px 25px 18px 55px;
                     background: @color-sidebarnav-tree-inactive-bg;
                     border-bottom: 1px solid @color-sidebarnav-tree-group-bg;
                     color: @color-sidebarnav-tree-inactive-text;
@@ -120,8 +124,8 @@
 
                     i {
                         position: absolute;
-                        left: 20px;
-                        top: 24px;
+                        left: 16px;
+                        top: 18px;
                         font-size: 22px;
                     }
 

@@ -50,8 +50,8 @@ body {
 
 .control-tabs.primary-tabs {
     > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
-        margin-left: -35px;
-        margin-right: -35px;
+        margin-left: -(@padding-standard);
+        margin-right: -(@padding-standard);
     }
 
     &.tabs-no-inset {
@@ -78,7 +78,7 @@ body {
         &.width-300 { width: 300px; }
 
         &.layout-container, .layout-container, &.padded-container, .padded-container {
-            padding: 35px 35px 0 35px;
+            padding: @padding-standard @padding-standard 0 @padding-standard;
 
             // Container to sit flush to the element above
             .container-flush {

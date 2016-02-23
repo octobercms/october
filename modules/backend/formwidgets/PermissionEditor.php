@@ -12,11 +12,16 @@ use BackendAuth;
  */
 class PermissionEditor extends FormWidgetBase
 {
+    public $mode;
+
     /**
      * {@inheritDoc}
      */
     public function init()
     {
+        $this->fillFromConfig([
+            'mode'
+        ]);
     }
 
     /**
@@ -33,9 +38,30 @@ class PermissionEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['mode'] = $this->getControlMode();
+
         $this->vars['permissions'] = BackendAuth::listTabbedPermissions();
         $this->vars['baseFieldName'] = $this->formField->getName();
-        $this->vars['permissionsData'] = $this->formField->getValueFromData($this->model);
+        $permissionsData = $this->formField->getValueFromData($this->model);
+
+        if (!is_array($permissionsData)) {
+            $permissionsData = [];
+        }
+
+        $this->vars['permissionsData'] = $permissionsData;
+        $this->vars['field'] = $this->formField;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSaveValue($value)
+    {
+        if (is_array($value)) {
+            return $value;
+        }
+
+        return [];
     }
 
     /**
@@ -44,5 +70,10 @@ class PermissionEditor extends FormWidgetBase
     protected function loadAssets()
     {
         $this->addCss('css/permissioneditor.css', 'core');
+    }
+
+    protected function getControlMode()
+    {
+        return strlen($this->mode) ? $this->mode : 'radio';
     }
 }

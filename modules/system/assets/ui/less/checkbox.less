@@ -62,13 +62,13 @@
             text-align: center;
             color: @color-checkbox-icon;
 
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
 
             margin-right: 15px;
             position: absolute;
             left: -3px;
-            bottom: 0;
+            top: 0;
             background-color: #FFFFFF;
             border: 2px solid @color-checkbox-border;
         }
@@ -90,13 +90,13 @@
 
         &:after {
             content: '';
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             background-color: @color-checkbox-checked;
             display: inline-block;
             position: absolute;
             left: 0px;
-            top: 2px;
+            top: 3px;
             .border-radius(17px);
         }
     }
@@ -125,7 +125,7 @@
         .icon(@check);
         border-color: @color-checkbox-checked;
         background-color: @color-checkbox-checked;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 17px;
         border-width: 2px;
     }
@@ -157,19 +157,19 @@
 
 .switch-field {
     .field-switch {
-        padding-left: 90px;
+        padding-left: 85px;
         float: left;
 
         > label {
-            margin-top: 5px;
+            margin-top: 3px;
         }
     }
 }
 
 .custom-switch {
     display: block;
-    width: 69px;
-    height: 30px;
+    width: 65px;
+    height: 26px;
     position: relative;
     text-transform: uppercase;
     border: none;
@@ -182,10 +182,10 @@
         z-index: 4;
         display: block;
         position: absolute;
-        right: 43px;
-        top: 4px;
-        width: 22px;
-        height: 22px;
+        right: 42px;
+        top: 3px;
+        width: 20px;
+        height: 20px;
         background-color: @color-checkbox-switch-bg;
         .border-radius(20px);
         .transition(all 0.1s);
@@ -235,7 +235,7 @@
         left: 0;
         width: 100%;
         background-color: @color-checkbox-switch-off;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: bold;
         .user-select(none);
         .border-radius(20px);
@@ -245,11 +245,11 @@
             display: block;
             width: 50%;
             position: absolute;
-            top: 4px;
-            left: 0;
+            top: 1px;
+            left: -1px;
             .box-sizing(border-box);
             &:last-child {
-                left: 31px;
+                left: 28px;
                 color: #FFFFFF;
                 display: block;
             }
