@@ -1,14 +1,13 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Updates\Migration;
 
 class DbSystemFiles extends Migration
 {
 
     public function up()
     {
-        Schema::create('system_files', function (Blueprint $table) {
+        Schema::create('system_files', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('disk_name');

@@ -1,14 +1,13 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Updates\Migration;
 
 class DbSystemEventLogs extends Migration
 {
 
     public function up()
     {
-        Schema::create('system_event_logs', function (Blueprint $table) {
+        Schema::create('system_event_logs', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('level')->nullable()->index();
