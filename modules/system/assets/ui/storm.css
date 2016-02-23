@@ -2356,7 +2356,7 @@ table.table.data thead td.active > span:after,table.table.data thead th.active >
 table.table.data thead tr th:first-child{padding-left:10px}
 table.table.data thead tr th:last-child a{padding-right:25px}
 table.table.data tbody tr:nth-child(even) td,table.table.data tbody tr:nth-child(even) th{background-color:#ecf0f1}
-table.table.data tbody td,table.table.data tbody th{padding:11px 15px;color:#666666;border-color:#e4e7e8}
+table.table.data tbody td,table.table.data tbody th{padding:11px 15px;color:#666666;border-color:#e4e7e8;font-size:14px}
 table.table.data tbody td a:not(.btn),table.table.data tbody th a:not(.btn){color:#666666}
 table.table.data tbody td a:not(.btn):hover,table.table.data tbody th a:not(.btn):hover{text-decoration:none}
 table.table.data tbody td div.progress,table.table.data tbody th div.progress{position:relative;overflow:visible;height:auto;margin-bottom:0;background-color:transparent;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:none;box-shadow:none}
