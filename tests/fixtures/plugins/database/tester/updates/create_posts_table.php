@@ -14,6 +14,7 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->string('title')->nullable();
             $table->string('slug')->nullable()->index();
+            $table->text('long_slug')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_published')->default(false);
             $table->timestamp('published_at')->nullable();
