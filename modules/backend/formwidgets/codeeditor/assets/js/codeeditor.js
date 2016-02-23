@@ -145,7 +145,7 @@
         editor.setReadOnly(options.readOnly)
         editor.getSession().setFoldStyle(options.codeFolding)
         editor.setFontSize(options.fontSize)
-		editor.setKeyboardHandler(options.keyboardBinding)
+        editor.setKeyboardHandler(options.keyboardBinding)
         editor.on('blur', this.proxy(this.onBlur))
         editor.on('focus', this.proxy(this.onFocus))
         this.setWordWrap(options.wordWrap)

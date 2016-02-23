@@ -278,8 +278,8 @@ return [
         'auto_closing' => 'Auto close tags and special characters',
         'show_invisibles' => 'Show invisible characters',
         'show_gutter' => 'Show gutter',
-		'theme' => 'Color scheme',
-		'keyboard_binding' => 'Keyboard binding'
+        'theme' => 'Color scheme',
+        'keyboard_binding' => 'Keyboard binding'
     ],
     'tooltips' => [
         'preview_website' => 'Preview the website'

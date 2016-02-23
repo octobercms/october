@@ -72,10 +72,10 @@ class CodeEditor extends FormWidgetBase
      */
     public $readOnly = false;
 
-	/**
-	 * @var string Sets the editor keybinding mode
-	 */
-	public $keyboardBinding = null;
+    /**
+     * @var string Sets the editor keybinding mode
+     */
+    public $keyboardBinding = null;
 
     //
     // Object properties
