@@ -13,10 +13,10 @@ matrix:
 
 sudo: false
 
-install: travis_retry composer install --no-interaction --prefer-source
-
-before_script:
-  - git reset --hard HEAD
+install:
   - composer self-update
+  - travis_retry composer install --no-interaction --prefer-source
+
+before_script: git reset --hard HEAD
 
 script: vendor/bin/phpunit
