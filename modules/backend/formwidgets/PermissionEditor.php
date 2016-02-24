@@ -38,7 +38,7 @@ class PermissionEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['mode'] = $this->getControlMode();
+        $this->vars['checkboxMode'] = $this->getControlMode() === 'checkbox';
 
         $this->vars['permissions'] = BackendAuth::listTabbedPermissions();
         $this->vars['baseFieldName'] = $this->formField->getName();
@@ -70,6 +70,7 @@ class PermissionEditor extends FormWidgetBase
     protected function loadAssets()
     {
         $this->addCss('css/permissioneditor.css', 'core');
+        $this->addJs('js/permissioneditor.js', 'core');
     }
 
     protected function getControlMode()

@@ -107,7 +107,7 @@ return [
             'is_new_user_default_field_label' => 'Default group',
             'is_new_user_default_field_comment' => 'Add new administrators to this group by default',
             'code_field' => 'Code',
-            'code_comment' => 'Enter a unique code if you want to access it with the API.',
+            'code_comment' => 'Enter a unique code if you want to access the group object with the API.',
             'menu_label' => 'Groups',
             'list_title' => 'Manage Groups',
             'new' => 'New Group',

@@ -7,6 +7,8 @@
 .permissioneditor {
     position: relative;
 
+    margin: 0 -(@padding-standard);
+
     &.control-disabled {
         .permissions-overlay {
             position: absolute;
@@ -40,14 +42,13 @@
                 font-size: 15px;
                 text-align: center;
             }
-
-
         }
 
         td {
             padding: 10px 4px;
             vertical-align: top;
             border-bottom: 1px solid @color-permissioneditor-permission-border; 
+            .user-select(none);
 
             &.permission-value{
                 text-align: center;
@@ -55,6 +56,7 @@
 
             &.permission-name {
                 font-size: 14px;
+                cursor: pointer;
                 color: @color-help-block-text;
             }
 
@@ -68,13 +70,23 @@
             }
         }
 
+        tr:hover {
+            td {
+                background: @color-list-hover-bg;
+
+                &.permission-name {
+                    color: #ffffff!important;
+                }
+            }
+        }
+
         th, td {
             &:first-child {
-                padding-left: 0;
+                padding-left: @padding-standard;
             }
 
             &:last-child {
-                padding-right: 0;
+                padding-right: 5px;
             }
         }
 
@@ -90,7 +102,7 @@
             label {
                 padding: 0 0 0 14px;
                 margin: 0;
-                top: 2px;
+                top: 0;
 
                 span {
                     text-indent: -10000em;
@@ -111,10 +123,15 @@
             padding-top: 0;
         }
 
+        tr.disabled {
+            td.permission-name {
+                color: #AAA;
+            }
+        }
+
         tr.last-section-row {
             td {
                 border-bottom: none;
-                padding-bottom: 0;
             }
         }
     }

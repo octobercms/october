@@ -8,10 +8,12 @@
                 <th class="tab"><?= e(trans($tab)) ?></th>
                 <th class="permission-type"><?= $firstTab ? e(Lang::get('backend::lang.user.allow')) : '' ?></th>
 
-                <?php if ($mode === 'radio'): ?>
+                <?php if (!$checkboxMode): ?>
                     <th class="permission-type"><?= $firstTab ? e(Lang::get('backend::lang.user.inherit')) : '' ?></th>
                     <th class="permission-type"><?= $firstTab ? e(Lang::get('backend::lang.user.deny')) : '' ?></th>
                 <?php endif ?>
+
+                <th></th>
             </tr>
 
             <?php 
@@ -19,7 +21,7 @@
                 foreach ($tabPermissions as $index=>$permission): 
                     $globalIndex++;
 
-                    if ($mode === 'radio') {
+                    if (!$checkboxMode) {
                         $permissionValue = array_key_exists($permission->code, $permissionsData) ? 
                            $permissionsData[$permission->code] : 0;
                     } 
@@ -27,14 +29,18 @@
                         $isChecked = array_key_exists($permission->code, $permissionsData);
                     }
                 ?> 
-                <tr class="<?= $lastIndex == $index ? 'last-section-row' : '' ?>">
+                <tr class="<?= $lastIndex == $index ? 'last-section-row' : '' ?>
+                        <?= $checkboxMode ? 'mode-checkbox' : 'mode-radio' ?>
+                        <?= $checkboxMode && !$isChecked ? 'disabled' : '' ?>
+                        <?= !$checkboxMode && $permissionValue == -1 ? 'disabled' : '' ?>
+                    ">
                     <td class="permission-name">
                         <?= e(trans($permission->label)) ?>
 
                         <p class="comment"><?= e(trans($permission->comment)) ?></p>
                     </td>
                     <td class="permission-value">
-                        <?php if ($mode === 'radio'): ?>
+                        <?php if (!$checkboxMode): ?>
                             <div class="radio custom-radio">
                                  <input
                                     id="<?= 'permission-'.$globalIndex.'-allow' ?>"
@@ -62,7 +68,7 @@
                         <?php endif?>
                     </td>
 
-                    <?php if ($mode === 'radio'): ?>
+                    <?php if (!$checkboxMode): ?>
                         <td class="permission-value">
                             <div class="radio custom-radio">
                                  <input
@@ -91,6 +97,8 @@
                             </div>
                         </td>
                     <?php endif ?>
+
+                    <td></td>
                 </tr>
             <?php endforeach ?>
         <?php 

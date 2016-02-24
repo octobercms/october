@@ -10,9 +10,9 @@
 // Filters
 // --------------------------------------------------
 
-@color-filter-bg:                            #f3f3f3;
-@color-filter-bg-active:                     #cc3300;
-@color-filter-border:                        #949ea6;
+@color-filter-bg:                            #ECF0F1;
+@color-filter-bg-active:                     #6AAB55;
+@color-filter-border:                        #D7DBDD;
 @color-filter-text:                          #949ea6;
 @color-filter-items-bg:                      #fafafa;
 @color-filter-items-bg-hover:                #4da7e8;
@@ -23,7 +23,7 @@
 
 .control-filter {
     padding: 0 10px;
-    font-size: 13px;
+    font-size: 15px;
     color: @color-filter-text;
     background-color: @color-filter-bg;
     border-top: 1px solid @color-filter-border;
@@ -36,9 +36,12 @@
     > .filter-scope {
         display: inline-block;
         padding: 15px;
-        .filter-label {}
+        .filter-label {
+            margin-right: 5px;
+        }
         .filter-setting {
             display: inline-block;
+            margin-right: 5px;
             .transition(color 0.6s);
         }
 
@@ -62,6 +65,10 @@
             padding-left: 35px;
             &, label {
                 margin-bottom: 0;
+            }
+
+            label {
+                padding-left: 30px;
             }
 
             &:after {
@@ -101,7 +108,7 @@
 
     .filter-items, .filter-active-items {
         color: @color-filter-text;
-        font-size: 13px;
+        font-size: 14px;
         ul, li {
             list-style-type: none;
             margin:0;

@@ -1,5 +1,6 @@
 .permissioneditor {
   position: relative;
+  margin: 0 -25px;
 }
 .permissioneditor.control-disabled .permissions-overlay {
   position: absolute;
@@ -34,12 +35,17 @@
   padding: 10px 4px;
   vertical-align: top;
   border-bottom: 1px solid #ecf0f1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .permissioneditor table td.permission-value {
   text-align: center;
 }
 .permissioneditor table td.permission-name {
   font-size: 14px;
+  cursor: pointer;
   color: #555555;
 }
 .permissioneditor table td p.comment {
@@ -49,13 +55,19 @@
 .permissioneditor table td p.comment:empty {
   display: none;
 }
+.permissioneditor table tr:hover td {
+  background: #4da7e8;
+}
+.permissioneditor table tr:hover td.permission-name {
+  color: #ffffff!important;
+}
 .permissioneditor table th:first-child,
 .permissioneditor table td:first-child {
-  padding-left: 0;
+  padding-left: 25px;
 }
 .permissioneditor table th:last-child,
 .permissioneditor table td:last-child {
-  padding-right: 0;
+  padding-right: 5px;
 }
 .permissioneditor table .custom-radio,
 .permissioneditor table .custom-checkbox {
@@ -72,7 +84,7 @@
 .permissioneditor table .custom-checkbox label {
   padding: 0 0 0 14px;
   margin: 0;
-  top: 2px;
+  top: 0;
 }
 .permissioneditor table .custom-radio label span,
 .permissioneditor table .custom-checkbox label span {
@@ -89,7 +101,9 @@
 .permissioneditor table tr:first-child th {
   padding-top: 0;
 }
+.permissioneditor table tr.disabled td.permission-name {
+  color: #AAA;
+}
 .permissioneditor table tr.last-section-row td {
   border-bottom: none;
-  padding-bottom: 0;
 }

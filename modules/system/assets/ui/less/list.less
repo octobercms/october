@@ -79,6 +79,10 @@ table.table.data {
         tr th:last-child a {
             padding-right: 25px;
         }
+
+        .list-checkbox .custom-checkbox {
+            top: -20px;
+        }
     }
 
     tbody {
@@ -271,14 +275,17 @@ table.table.data {
         .checkbox { margin: 0; }
         .custom-checkbox {
             position: relative;
-            top: 5px;
+            top: -14px;
             left: -2px;
-            label { margin-right: 0; }
+            label { 
+                margin-right: 0;
+                margin-bottom: 0;
+            }
         }
     }
 
     thead tr th.list-checkbox {
-        padding: 18px 0 0 20px;
+        padding: 18px 0 0 @padding-standard;
     }
 
     .list-tree {
