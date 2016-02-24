@@ -30,7 +30,8 @@
         "october/backend": "~1.0",
         "october/cms": "~1.0",
         "laravel/framework": "5.0.*",
-        "illuminate/html": "5.0.*"
+        "illuminate/html": "5.0.*",
+        "wikimedia/composer-merge-plugin": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
@@ -52,5 +53,15 @@
         "preferred-install": "dist"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "merge-plugin": {
+            "include": [
+                "plugins/*/*/composer.json"
+            ],
+            "recurse": true,
+            "replace": false,
+            "merge-dev": false
+        }
+    }
 }

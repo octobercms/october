@@ -753,7 +753,7 @@ class Controller
     public function renderPartial($name, $parameters = [], $throwException = true)
     {
         $vars = $this->vars;
-
+        $this->vars = array_merge($this->vars, $parameters);
         /*
          * Alias @ symbol for ::
          */
