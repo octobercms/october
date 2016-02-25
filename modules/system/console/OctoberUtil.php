@@ -230,15 +230,15 @@ class OctoberUtil extends Command
     }
 
     /**
-     * @todo This command is not compatible with Windows
+     * This command requires the git binary to be installed.
      */
     protected function utilGitPull()
     {
         foreach (File::directories(plugins_path()) as $authorDir) {
             foreach (File::directories($authorDir) as $pluginDir) {
                 if (!File::isDirectory($pluginDir.'/.git')) continue;
-                $exec = 'cd ' . $pluginDir . ';';
-                $exec .= 'git pull 2>&1;';
+                $exec = 'cd ' . $pluginDir . ' && ';
+                $exec .= 'git pull 2>&1';
                 echo 'Updating plugin: '. basename(dirname($pluginDir)) .'.'. basename($pluginDir) . PHP_EOL;
                 echo shell_exec($exec);
             }
@@ -246,8 +246,8 @@ class OctoberUtil extends Command
 
         foreach (File::directories(themes_path()) as $themeDir) {
             if (!File::isDirectory($themeDir.'/.git')) continue;
-            $exec = 'cd ' . $themeDir . ';';
-            $exec .= 'git pull 2>&1;';
+            $exec = 'cd ' . $themeDir . ' && ';
+            $exec .= 'git pull 2>&1';
             echo 'Updating theme: '. basename($themeDir) . PHP_EOL;
             echo shell_exec($exec);
         }
