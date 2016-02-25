@@ -1572,11 +1572,6 @@ div.scoreboard .control-chart ul li > i{margin-left:-18px}
 div.scoreboard .control-chart .canvas + ul{margin-left:0}
 div.scoreboard .scoreboard-offset{padding-left:20px}
 body.slim-container div.scoreboard{padding:0 25px}
-.dashboard-container > .report-container.loading{position:absolute;width:100%;height:100%}
-.dashboard-container > .report-container.loading .loading-indicator-container{position:absolute;left:0;top:0;height:100%;width:100%}
-.dashboard-container > .report-container.loading .loading-indicator-container .loading-indicator{padding:0;height:150px;top:50%;margin-top:-90px}
-.dashboard-container > .report-container.loading .loading-indicator-container .loading-indicator:before{content:'';background:transparent url('images/october-leaf.svg') no-repeat;background-size:49px 65px;width:49px;height:65px;left:50%;top:50%;margin-top:-33px;margin-left:-24px;position:absolute;opacity:0.2;filter:alpha(opacity=20)}
-.dashboard-container > .report-container.loading .loading-indicator-container .loading-indicator > span{left:50%;width:200px;height:200px;margin-left:-100px;margin-top:-100px;background-size:200px 200px;background-image:url('images/dashboard-loading-indicator.svg')}
 #layout-canvas .flash-message{display:none}
 .flash-message{position:fixed;width:500px;left:50%;top:13px;margin-left:-250px;color:#ffffff;font-size:13px;padding:10px 30px 10px 15px;z-index:10000;word-wrap:break-word;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
 .flash-message.fade{opacity:0;filter:alpha(opacity=0);-webkit-transition:all 0.5s,width 0s;transition:all 0.5s,width 0s;-webkit-transform:scale(0.9);-ms-transform:scale(0.9);transform:scale(0.9)}

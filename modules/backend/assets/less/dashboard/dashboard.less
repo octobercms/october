@@ -1,3 +1,5 @@
+@import "../../../../backend/assets/less/core/boot.less";
+
 .dashboard-container > .report-container {
     &.loading {
         position: absolute;
@@ -19,7 +21,7 @@
 
                 &:before {
                     content: '';
-                    background: transparent url('images/october-leaf.svg') no-repeat;
+                    background: transparent url('../../images/october-leaf.svg') no-repeat;
                     background-size: 49px 65px;
                     width: 49px;
                     height: 65px;
@@ -38,7 +40,7 @@
                     margin-left: -100px;
                     margin-top: -100px;
                     background-size: 200px 200px;
-                    background-image: url('images/dashboard-loading-indicator.svg');
+                    background-image: url('../../images/dashboard-loading-indicator.svg');
                 }
             }
         }

@@ -30,6 +30,9 @@ class Index extends Controller
         parent::__construct();
 
         BackendMenu::setContextOwner('October.Backend');
+
+        $this->addCss('/modules/backend/assets/css/dashboard/dashboard.css', 'core');
+
         if (BackendAuth::check()) {
             new ReportContainer($this);
         }
