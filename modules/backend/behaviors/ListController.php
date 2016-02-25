@@ -3,10 +3,9 @@
 use Str;
 use Lang;
 use Event;
+use Flash;
 use ApplicationException;
 use Backend\Classes\ControllerBehavior;
-use League\Csv\Writer;
-use SplTempFileObject;
 
 /**
  * List Controller Behavior
@@ -244,6 +243,29 @@ class ListController extends ControllerBehavior
         ));
         $this->controller->bodyClass = 'slim-container';
         $this->makeLists();
+    }
+
+    public function index_onDelete()
+    {
+        if (method_exists($this->controller, 'onDelete')) {
+            return $this->controller->onDelete();
+        }
+
+        $model = $this->config->modelClass;
+
+        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+            foreach ($checkedIds as $id) {
+                if (!$record = $model::find($id)) {
+                    continue;
+                }
+
+                $record->delete();
+            }
+
+            Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
+        }
+
+        $this->controller->listRefresh();
     }
 
     /**
