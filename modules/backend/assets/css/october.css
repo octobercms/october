@@ -818,7 +818,7 @@
   color: #666666;
   font-size: 12px;
   text-align: center;
-  font-weight: 400;
+  font-weight: normal;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -828,7 +828,7 @@
   margin: 0;
 }
 .control-filelist ul li {
-  font-weight: 300;
+  font-weight: normal;
   line-height: 150%;
   position: relative;
   list-style: none;
@@ -852,7 +852,7 @@
 }
 .control-filelist ul li a {
   display: block;
-  padding: 10px 40px 10px 20px;
+  padding: 10px 45px 10px 20px;
   outline: none;
 }
 .control-filelist ul li a:hover,
@@ -864,26 +864,29 @@
   display: block;
 }
 .control-filelist ul li a span.title {
-  font-weight: 500;
+  font-weight: normal;
   color: #405261;
-  font-size: 12px;
+  font-size: 14px;
 }
 .control-filelist ul li a span.description {
   color: #8f8f8f;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 13px;
+  white-space: nowrap;
+  font-weight: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .control-filelist ul li a span.description strong {
   color: #405261;
-  font-weight: 500;
+  font-weight: normal;
 }
 .control-filelist ul li.group > h4,
 .control-filelist ul li.group > div.group > h4 {
-  font-weight: 500;
-  font-size: 12px;
+  font-weight: normal;
+  font-size: 14px;
   margin-top: 0;
   margin-bottom: 0;
-  display: relative;
+  position: relative;
 }
 .control-filelist ul li.group > h4 a,
 .control-filelist ul li.group > div.group > h4 a {
@@ -908,7 +911,8 @@
 }
 .control-filelist ul li.group > h4 a:after,
 .control-filelist ul li.group > div.group > h4 a:after {
-  left: 34px;
+  left: 33px;
+  top: 9px;
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
@@ -917,8 +921,7 @@
   *margin-right: .3em;
   content: "\f07b";
   color: #a1aab1;
-  font-size: 14px;
-  top: 9px;
+  font-size: 16px;
 }
 .control-filelist ul li.group > h4 a:before,
 .control-filelist ul li.group > div.group > h4 a:before {
@@ -1043,8 +1046,8 @@
 }
 .control-filelist ul li .checkbox {
   position: absolute;
-  top: 13px;
-  right: 17px;
+  top: -3px;
+  right: 3px;
 }
 .control-filelist ul li .checkbox label {
   margin-right: 0;
@@ -1067,8 +1070,8 @@
   border-bottom: 1px solid #ecf0f1;
 }
 .control-filelist.hero ul li > a span.title {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: normal;
   color: #2b3e50;
 }
 .control-filelist.hero ul li > a .list-icon {
@@ -1179,7 +1182,7 @@
   color: #2b3e50;
   font-size: 15px;
   margin: 0;
-  font-weight: 600;
+  font-weight: bold;
   padding: 0;
 }
 .control-filelist.hero ul > li.group > ul > li > a {
@@ -2864,6 +2867,9 @@ body {
 .layout > .layout-row > .layout-cell.width-300 {
   width: 300px;
 }
+.layout > .layout-row > .layout-cell.width-350 {
+  width: 350px;
+}
 .layout > .layout-row > .layout-cell.layout-container,
 .layout > .layout-row > .layout-cell .layout-container,
 .layout > .layout-row > .layout-cell.padded-container,
@@ -2911,6 +2917,9 @@ body {
 }
 .layout > .layout-row > .layout-cell.width-300 {
   width: 300px;
+}
+.layout > .layout-row > .layout-cell.width-350 {
+  width: 350px;
 }
 .layout > .layout-row > .layout-cell.layout-container,
 .layout > .layout-row > .layout-cell .layout-container,
@@ -2967,6 +2976,9 @@ body {
 }
 .layout > .layout-cell.width-300 {
   width: 300px;
+}
+.layout > .layout-cell.width-350 {
+  width: 350px;
 }
 .layout > .layout-cell.layout-container,
 .layout > .layout-cell .layout-container,
@@ -3707,7 +3719,7 @@ body.display-side-panel #layout-side-panel {
   display: block;
   position: absolute;
   z-index: 500;
-  width: 300px;
+  width: 350px;
   -webkit-box-shadow: 2px 0px 2px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 2px 0px 2px 0 rgba(0, 0, 0, 0.3);
 }
@@ -4472,6 +4484,7 @@ html.csstransitions body.outer.preload .outer-form-container {
   display: none;
 }
 .fancy-layout .form-tabless-fields.collapsed .form-buttons {
+  margin-left: 10px;
   padding-bottom: 0;
 }
 .fancy-layout .form-tabless-fields .loading-indicator-container .loading-indicator {
@@ -4490,16 +4503,17 @@ html.csstransitions body.outer.preload .outer-form-container {
 .fancy-layout .form-buttons {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
-  padding-top: 2px;
+  padding-top: 11px;
   padding-bottom: 5px;
+}
+.fancy-layout .form-buttons .btn {
+  padding: 0;
+  margin-right: 5px;
   margin-top: -6px;
-}
-.fancy-layout .form-buttons .btn {
-  margin-left: -11px;
+  margin-right: 30px;
   background-color: transparent;
-}
-.fancy-layout .form-buttons .btn {
   color: #ffffff;
+  font-weight: normal;
   opacity: 0.5;
   filter: alpha(opacity=50);
   -webkit-transition: all 0.3s ease;
@@ -4508,6 +4522,9 @@ html.csstransitions body.outer.preload .outer-form-container {
 .fancy-layout .form-buttons .btn:hover {
   opacity: 1;
   filter: alpha(opacity=100);
+}
+.fancy-layout .form-buttons .btn:last-child {
+  margin-right: 0;
 }
 .fancy-layout form.oc-data-changed .btn.save {
   opacity: 1;

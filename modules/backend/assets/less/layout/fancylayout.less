@@ -482,6 +482,7 @@
             }
 
             .form-buttons {
+                margin-left: 10px;
                 padding-bottom: 0;
             }
         }
@@ -505,24 +506,27 @@
 
     .form-buttons {
         .transition(all 0.5s);
-        padding-top: 2px;
+        padding-top: 11px;
         padding-bottom: 5px;
-        margin-top: -6px;
 
         .btn {
-            margin-left: -11px;
+            padding: 0;
+            margin-right: 5px;
+            margin-top: -6px;
+            margin-right: 30px;
             background-color: transparent;
-        }
-    }
-
-    .form-buttons {
-        .btn {
             color: @color-fancy-master-tabs-active-text;
+            font-weight: normal;
+
             .opacity(0.5);
             .transition(all 0.3s ease);
 
             &:hover {
                 .opacity(1);
+            }
+
+            &:last-child {
+                margin-right: 0;
             }
         }
     }

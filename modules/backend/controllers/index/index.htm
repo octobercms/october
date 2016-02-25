@@ -1,13 +1,12 @@
 <?= $this->makePartial('warnings') ?>
 
-<?= Form::open() ?>
-    <div id="dashReportContainer">
+<?= Form::open(['class'=>'layout-relative dashboard-container']) ?>
+    <div id="dashReportContainer" class="report-container loading">
 
         <!-- Loading -->
         <div class="loading-indicator-container">
             <div class="loading-indicator">
                 <span></span>
-                <div>Loading dashboard...</div>
             </div>
         </div>
 
@@ -16,6 +15,8 @@
 
 <script>
     $(document).ready(function() {
-        $.request('onInitReportContainer')
+        $.request('onInitReportContainer').done(function(){
+            $('#dashReportContainer').removeClass('loading')
+        })
     })
 </script>
