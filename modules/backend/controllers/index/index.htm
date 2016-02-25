@@ -16,7 +16,9 @@
 <script>
     $(document).ready(function() {
         $.request('onInitReportContainer').done(function(){
-            $('#dashReportContainer').removeClass('loading')
+            setTimeout(function() {
+                $('#dashReportContainer').removeClass('loading')
+            }, 100)
         })
     })
 </script>
