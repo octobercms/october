@@ -22,21 +22,6 @@
   height: 150px;
   top: 50%;
   margin-top: -90px;
-  /*
-                &:before {
-                    content: '';
-                    background: transparent url('../../images/october-leaf.svg') no-repeat;
-                    background-size: 49px 65px;
-                    width: 49px;
-                    height: 65px;
-                    left: 50%;
-                    top: 50%;
-                    margin-top: -33px;
-                    margin-left: -24px;
-                    position: absolute;
-                    .opacity(0.2);
-                }
-*/
 }
 .dashboard-container > .report-container.loading .loading-indicator-container .loading-indicator:after {
   content: '';
