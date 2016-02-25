@@ -265,7 +265,7 @@ class ListController extends ControllerBehavior
             Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
         }
 
-        $this->controller->listRefresh();
+        return $this->controller->listRefresh();
     }
 
     /**
