@@ -168,7 +168,10 @@ class Controller
             MaintenanceSettings::get('is_enabled', false) &&
             !BackendAuth::getUser()
         ) {
-            $this->setStatusCode(503);
+            if (!Request::ajax()) {
+                $this->setStatusCode(503);
+            }
+
             $page = Page::loadCached($this->theme, MaintenanceSettings::get('cms_page'));
         }
 
@@ -191,7 +194,9 @@ class Controller
          * If the page was not found, render the 404 page - either provided by the theme or the built-in one.
          */
         if (!$page || $url === '404') {
-            $this->setStatusCode(404);
+            if (!Request::ajax()) {
+                $this->setStatusCode(404);
+            }
 
             // Log the 404 request
             if (!App::runningUnitTests()) {
