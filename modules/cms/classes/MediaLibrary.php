@@ -385,8 +385,8 @@ class MediaLibrary
             return $path;
         }
 
-        $regexDirectorySeparator = preg_quote(DIRECTORY_SEPARATOR, '/');
-        $regexDot = preg_quote('.', '/');
+        $regexDirectorySeparator = preg_quote('/', '#');
+        $regexDot = preg_quote('.', '#');
         $regex = [
             // Checks for parent or current directory reference at beginning of path
             '(^'.$regexDot.'+?'.$regexDirectorySeparator.')',
@@ -401,7 +401,7 @@ class MediaLibrary
         /*
          * Combine everything to one regex
          */
-        $regex = '/'.implode('|', $regex).'/';
+        $regex = '#'.implode('|', $regex).'#';
         if (preg_match($regex, $path) !== 0 || strpos($path, '//') !== false) {
             throw new ApplicationException(Lang::get('cms::lang.media.invalid_path', compact('path')));
         }
