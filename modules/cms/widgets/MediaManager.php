@@ -945,25 +945,6 @@ class MediaManager extends WidgetBase
         }
     }
 
-    /**
-    * Creates a slug form the string. A modified version of Laravel's Str::slug
-    * with the main difference that it accepts @-signs
-    * @param string
-    * @return string
-    */
-    public static function slug($string)
-    {
-        $title = Str::ascii($title);
-        // Convert all dashes/underscores into separator
-        $flip = $separator == '-' ? '_' : '-';
-        $title = preg_replace('!['.preg_quote($flip).']+!u', $separator, $title);
-        // Remove all characters that are not the separator, letters, numbers, whitespace or @.
-        $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s@]+!u', '', mb_strtolower($title));
-        // Replace all separator characters and whitespace by a single separator
-        $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
-        return trim($title, $separator);
-    }
-
     protected function checkUploadPostback()
     {
         $fileName = null;
@@ -989,15 +970,14 @@ class MediaManager extends WidgetBase
             $fileName = File::name($fileName).'.'.$extension;
 
             /*
-            * File name contains non-latin characters, attempt to slug the value
-            */
+             * File name contains non-latin characters, attempt to slug the value
+             */
             if (!$this->validateFileName($fileName)) {
-                $fileNameSlug = static::slug(File::name($fileName), '-');
-                $fileName = $fileNameSlug.'.'.$extension;
+                $fileNameClean = $this->cleanFileName(File::name($fileName));
+                $fileName = $fileNameClean . '.' . $extension;
             }
 
             // See mime type handling in the asset manager
-
             if (!$uploadedFile->isValid()) {
                 throw new ApplicationException($uploadedFile->getErrorMessage());
             }
@@ -1018,6 +998,11 @@ class MediaManager extends WidgetBase
         }
     }
 
+    /**
+     * Validate a proposed media item file name.
+     * @param string
+     * @return string
+     */
     protected function validateFileName($name)
     {
         if (!preg_match('/^[0-9a-z@\.\s_\-]+$/i', $name)) {
@@ -1029,6 +1014,29 @@ class MediaManager extends WidgetBase
         }
 
         return true;
+    }
+
+    /**
+     * Creates a slug form the string. A modified version of Str::slug
+     * with the main difference that it accepts @-signs
+     * @param string
+     * @return string
+     */
+    protected function cleanFileName($name)
+    {
+        $title = Str::ascii($title);
+
+        // Convert all dashes/underscores into separator
+        $flip = $separator = '-';
+        $title = preg_replace('!['.preg_quote($flip).']+!u', $separator, $title);
+
+        // Remove all characters that are not the separator, letters, numbers, whitespace or @.
+        $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s@]+!u', '', mb_strtolower($title));
+
+        // Replace all separator characters and whitespace by a single separator
+        $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
+
+        return trim($title, $separator);
     }
 
     //
