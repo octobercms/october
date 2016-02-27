@@ -15,31 +15,63 @@ class SimpleTreeModelTest extends PluginTestCase
         $this->seedSampleTree();
     }
 
-    public function testGetChildren()
+    public function testGetNested()
     {
-        // Not eager loaded
-        $item = CategorySimple::first();
-        $this->assertEquals(6, $item->getChildren()->count());
+        $items = CategorySimple::getNested();
 
         // Eager loaded
-        $item = CategorySimple::make()->getAllRoot()->first();
-        $this->assertEquals(6, $item->getChildren()->count());
+        $items->each(function($item) {
+            $this->assertTrue($item->relationLoaded('children'));
+        });
+
+        $this->assertEquals(3, $items->count());
     }
 
     public function testGetAllRoot()
     {
-        $items = CategorySimple::make()->getAllRoot();
+        $items = CategorySimple::getAllRoot();
+
+        // Not eager loaded
+        $items->each(function($item) {
+            $this->assertFalse($item->relationLoaded('children'));
+        });
+
         $this->assertEquals(3, $items->count());
+    }
+
+    public function testGetChildren()
+    {
+        // Not eager loaded
+        $item = CategorySimple::first();
+        $this->assertFalse($item->relationLoaded('children'));
+        $this->assertEquals(6, $item->getChildren()->count());
+
+        // Not eager loaded
+        $item = CategorySimple::getAllRoot()->first();
+        $this->assertFalse($item->relationLoaded('children'));
+        $this->assertEquals(6, $item->getChildren()->count());
+
+        // Eager loaded
+        $item = CategorySimple::getNested()->first();
+        $this->assertTrue($item->relationLoaded('children'));
+        $this->assertEquals(6, $item->getChildren()->count());
     }
 
     public function testGetChildCount()
     {
         // Not eager loaded
         $item = CategorySimple::first();
+        $this->assertFalse($item->relationLoaded('children'));
+        $this->assertEquals(9, $item->getChildCount());
+
+        // Not eager loaded
+        $item = CategorySimple::getAllRoot()->first();
+        $this->assertFalse($item->relationLoaded('children'));
         $this->assertEquals(9, $item->getChildCount());
 
         // Eager loaded
-        $item = CategorySimple::make()->getAllRoot()->first();
+        $item = CategorySimple::getNested()->first();
+        $this->assertTrue($item->relationLoaded('children'));
         $this->assertEquals(9, $item->getChildCount());
     }
 
@@ -47,10 +79,17 @@ class SimpleTreeModelTest extends PluginTestCase
     {
         // Not eager loaded
         $item = CategorySimple::first();
+        $this->assertFalse($item->relationLoaded('children'));
+        $this->assertEquals(9, $item->getAllChildren()->count());
+
+        // Not eager loaded
+        $item = CategorySimple::getAllRoot()->first();
+        $this->assertFalse($item->relationLoaded('children'));
         $this->assertEquals(9, $item->getAllChildren()->count());
 
         // Eager loaded
-        $item = CategorySimple::make()->getAllRoot()->first();
+        $item = CategorySimple::getNested()->first();
+        $this->assertTrue($item->relationLoaded('children'));
         $this->assertEquals(9, $item->getAllChildren()->count());
     }
 
