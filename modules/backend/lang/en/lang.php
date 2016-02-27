@@ -125,6 +125,7 @@ return [
         'missing_column' => 'There are no column definitions for :columns.',
         'missing_columns' => 'List used in :class has no list columns defined.',
         'missing_definition' => "List behavior does not contain a column for ':field'.",
+        'missing_parent_definition' => "List behavior does not contain a definition for ':definition'.",
         'behavior_not_ready' => 'List behavior has not been initialized, check that you have called makeLists() in your controller.',
         'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
         'pagination' => 'Displayed records: :from-:to of :total',

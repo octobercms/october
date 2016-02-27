@@ -108,7 +108,7 @@ class ListController extends ControllerBehavior
          * Create the model
          */
         $class = $listConfig->modelClass;
-        $model = new $class();
+        $model = new $class;
         $model = $this->controller->listExtendModel($model, $definition);
 
         /*
@@ -245,24 +245,67 @@ class ListController extends ControllerBehavior
         $this->makeLists();
     }
 
+    /**
+     * Bulk delete records.
+     * @return void
+     */
     public function index_onDelete()
     {
         if (method_exists($this->controller, 'onDelete')) {
-            return $this->controller->onDelete();
+            return call_user_func_array([$this->controller, 'onDelete'], func_get_args());
         }
 
-        $model = $this->config->modelClass;
+        /*
+         * Validate checked identifiers
+         */
+        $checkedIds = post('checked');
 
-        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-            foreach ($checkedIds as $id) {
-                if (!$record = $model::find($id)) {
-                    continue;
-                }
+        if (!$checkedIds || !is_array($checkedIds) || !count($checkedIds)) {
+            Flash::error(Lang::get('backend::lang.list.delete_selected_empty'));
+            return $this->controller->listRefresh();
+        }
 
+        /*
+         * Establish the list definition
+         */
+        $definition = post('definition', $this->primaryDefinition);
+
+        if (!isset($this->listDefinitions[$definition])) {
+            throw new ApplicationException(Lang::get('backend::lang.list.missing_parent_definition', compact('definition')));
+        }
+
+        $listConfig = $this->makeConfig($this->listDefinitions[$definition], $this->requiredConfig);
+
+        /*
+         * Create the model
+         */
+        $class = $listConfig->modelClass;
+        $model = new $class;
+        $model = $this->controller->listExtendModel($model, $definition);
+
+        /*
+         * Create the query
+         */
+        $query = $model->newQuery();
+        $this->controller->listExtendQueryBefore($query, $definition);
+
+        $query->whereIn($model->getKeyName(), $checkedIds);
+        $this->controller->listExtendQuery($query, $definition);
+
+        /*
+         * Delete records
+         */
+        $records = $query->get();
+
+        if ($records->count()) {
+            foreach ($records as $record) {
                 $record->delete();
             }
 
             Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
+        }
+        else {
+            Flash::error(Lang::get('backend::lang.list.delete_selected_empty'));
         }
 
         return $this->controller->listRefresh();
