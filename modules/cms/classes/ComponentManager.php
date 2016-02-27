@@ -4,6 +4,7 @@ use Str;
 use Illuminate\Container\Container;
 use System\Classes\PluginManager;
 use SystemException;
+use Illuminate\Support\Facades\App;
 
 /**
  * Component manager
@@ -132,7 +133,7 @@ class ComponentManager
         return $this->codeMap;
     }
 
-    /** 
+    /**
      * Returns an array of all component detail definitions.
      * @return array Array keys are component codes, values are the details defined in the component.
      */
@@ -210,7 +211,7 @@ class ComponentManager
             ));
         }
 
-        $component = new $className($cmsObject, $properties);
+        $component = App::make($className, [$cmsObject, $properties]);
         $component->name = $name;
 
         return $component;

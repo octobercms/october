@@ -138,7 +138,9 @@ return [
         'delete_selected' => 'Usuń zaznaczone',
         'delete_selected_empty' => 'Nie wybrano elementów do usunięcia.',
         'delete_selected_confirm' => 'Usunąć zaznaczone elementy?',
-        'delete_selected_success' => 'Pomyślnie usunięto zaznaczone elementy.'
+        'delete_selected_success' => 'Pomyślnie usunięto zaznaczone elementy.',
+        'column_switch_true' => 'Tak',
+        'column_switch_false' => 'Nie'
     ],
     'fileupload' => [
         'attachment' => 'Załącznik',

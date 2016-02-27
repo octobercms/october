@@ -30,6 +30,7 @@
         "october/backend": "dev-stable",
         "october/cms": "dev-stable",
         "laravel/framework": "5.1.*"
+        "wikimedia/composer-merge-plugin": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -52,5 +53,15 @@
         "preferred-install": "dist"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "merge-plugin": {
+            "include": [
+                "plugins/*/*/composer.json"
+            ],
+            "recurse": true,
+            "replace": false,
+            "merge-dev": false
+}
+    }
 }
