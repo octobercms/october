@@ -1,9 +1,9 @@
 <?php namespace Backend\Models;
 
 use Mail;
+use Event;
 use Backend;
 use October\Rain\Auth\Models\User as UserBase;
-use Event;
 
 /**
  * Administrator user model
@@ -108,11 +108,11 @@ class User extends UserBase
             $this->sendInvitation();
         }
     }
-    
+
     public function afterLogin()
     {
-        Event::fire('backend.user.login', [$this]);
         parent::afterLogin();
+        Event::fire('backend.user.login', [$this]);
     }
 
     public function sendInvitation()
