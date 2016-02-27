@@ -7,13 +7,13 @@ use Redirect;
 use Validator;
 use BackendAuth;
 use BackendMenu;
-use Backend\Models\User;
 use Backend\Models\AccessLog;
 use Backend\Classes\Controller;
 use System\Classes\UpdateManager;
 use ApplicationException;
 use ValidationException;
 use Exception;
+use Event;
 
 /**
  * Authentication controller
@@ -78,6 +78,8 @@ class Auth extends Controller
             'password' => post('password')
         ], true);
 
+        Event::fire('backend.user.signin', [$user]);
+
         // Load version updates
         UpdateManager::instance()->update();
 
@@ -93,7 +95,11 @@ class Auth extends Controller
      */
     public function signout()
     {
+        $user = BackendAuth::getUser();
         BackendAuth::logout();
+
+        Event::fire('backend.user.signout', [$user]);
+
         return Backend::redirect('backend');
     }
 
