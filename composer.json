@@ -29,7 +29,7 @@
         "october/system": "dev-stable",
         "october/backend": "dev-stable",
         "october/cms": "dev-stable",
-        "laravel/framework": "5.1.*"
+        "laravel/framework": "5.1.*",
         "wikimedia/composer-merge-plugin": "dev-master"
     },
     "require-dev": {
