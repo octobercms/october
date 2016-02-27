@@ -754,6 +754,7 @@ class Controller
     {
         $vars = $this->vars;
         $this->vars = array_merge($this->vars, $parameters);
+
         /*
          * Alias @ symbol for ::
          */
