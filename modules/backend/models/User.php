@@ -3,6 +3,7 @@
 use Mail;
 use Backend;
 use October\Rain\Auth\Models\User as UserBase;
+use Event;
 
 /**
  * Administrator user model
@@ -106,6 +107,12 @@ class User extends UserBase
         if ($this->send_invite) {
             $this->sendInvitation();
         }
+    }
+    
+    public function afterLogin()
+    {
+        Event::fire('backend.user.login', [$this]);
+        parent::afterLogin();
     }
 
     public function sendInvitation()
