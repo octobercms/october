@@ -666,8 +666,7 @@ nav#layout-mainmenu ul li{color:#555555;display:inline-block;vertical-align:top;
 nav#layout-mainmenu ul li a{padding:19px 0 15px;display:inline-block;font-size:16px;color:inherit;outline:none}
 nav#layout-mainmenu ul li a:hover{background-color:transparent !important}
 nav#layout-mainmenu ul li a:active,nav#layout-mainmenu ul li a:focus{text-decoration:none;color:#555555}
-nav#layout-mainmenu ul li a i{position:relative;top:-2px;line-height:1;font-size:35px;vertical-align:middle;margin-right:10px}
-nav#layout-mainmenu ul li a i{font-size:30px}
+nav#layout-mainmenu ul li a i{position:relative;top:-2px;line-height:1;font-size:30px;vertical-align:middle;margin-right:10px}
 nav#layout-mainmenu ul li a img.svg-icon{height:30px;width:30px;margin-right:10px;position:relative;top:0}
 nav#layout-mainmenu ul li:last-child{margin-right:0}
 nav#layout-mainmenu ul li.active:after{content:' ';position:absolute;bottom:0;left:50%;margin-left:-8.5px}
@@ -687,7 +686,7 @@ nav#layout-mainmenu ul.nav{display:inline-block}
 nav#layout-mainmenu .menu-toggle{padding:19px 0 15px;display:inline-block;font-size:16px;color:inherit;outline:none;display:none}
 nav#layout-mainmenu .menu-toggle:hover{background-color:transparent !important}
 nav#layout-mainmenu .menu-toggle:active,nav#layout-mainmenu .menu-toggle:focus{text-decoration:none;color:#555555}
-nav#layout-mainmenu .menu-toggle i{position:relative;top:-2px;line-height:1;font-size:35px;vertical-align:middle;margin-right:10px}
+nav#layout-mainmenu .menu-toggle i{position:relative;top:-2px;line-height:1;font-size:30px;vertical-align:middle;margin-right:10px}
 nav#layout-mainmenu .toolbar-item{padding-right:0}
 nav#layout-mainmenu .toolbar-item:before,nav#layout-mainmenu .toolbar-item:after{margin-top:0}
 nav#layout-mainmenu .toolbar-item:before{left:-12px}
@@ -720,7 +719,7 @@ nav#layout-mainmenu.navbar .menu-toggle{display:inline-block;color:#ffffff !impo
 .mainmenu-collapsed > div ul li a{padding:19px 0 15px;display:inline-block;font-size:16px;color:inherit;outline:none;white-space:nowrap;display:block;padding:15px 20px}
 .mainmenu-collapsed > div ul li a:hover{background-color:transparent !important}
 .mainmenu-collapsed > div ul li a:active,.mainmenu-collapsed > div ul li a:focus{text-decoration:none;color:#555555}
-.mainmenu-collapsed > div ul li a i{position:relative;top:-2px;line-height:1;font-size:35px;vertical-align:middle;margin-right:10px}
+.mainmenu-collapsed > div ul li a i{position:relative;top:-2px;line-height:1;font-size:30px;vertical-align:middle;margin-right:10px}
 .mainmenu-collapsed > div ul li a:hover{text-decoration:none}
 .mainmenu-collapsed > div ul li a img.svg-icon{margin-right:10px;position:relative;top:-3px;width:30px;height:30px}
 .mainmenu-collapsed > div ul li a i{width:40px;text-align:left;display:inline-block}
