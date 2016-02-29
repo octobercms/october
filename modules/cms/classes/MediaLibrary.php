@@ -1,13 +1,14 @@
 <?php namespace Cms\Classes;
 
-use Request;
-use ApplicationException;
-use SystemException;
-use Config;
-use Storage;
+use Str;
 use Lang;
 use Cache;
-use Str;
+use Config;
+use Storage;
+use Request;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
+use ApplicationException;
+use SystemException;
 
 /**
  * Provides abstraction level for the Media Library operations.
@@ -41,17 +42,14 @@ class MediaLibrary
     protected $storageDisk;
 
     /**
-     * @var array Contains a default list of files and directories to ignore.
-     * The list can be customized with cms.storage.media.ignore configuration option.
-     */
-    protected $defaultIgnoreNames = ['.svn', '.git', '.DS_Store'];
-
-    /**
      * @var array Contains a list of files and directories to ignore.
      * The list can be customized with cms.storage.media.ignore configuration option.
      */
     protected $ignoreNames;
 
+    /**
+     * @var int Cache for the storage folder name length.
+     */
     protected $storageFolderNameLength;
 
     /**
@@ -66,7 +64,7 @@ class MediaLibrary
             $this->storagePath = Request::getBasePath() . $this->storagePath;
         }
 
-        $this->ignoreNames = Config::get('cms.storage.media.ignore', $this->defaultIgnoreNames);
+        $this->ignoreNames = Config::get('cms.storage.media.ignore', FileDefinitions::get('ignoreFiles'));
 
         $this->storageFolderNameLength = strlen($this->storageFolder);
     }
@@ -125,9 +123,9 @@ class MediaLibrary
     /**
      * Finds files in the Library.
      * @param string $searchTerm Specifies the search term.
-     * @param string $sortBy Determines the sorting preference. 
+     * @param string $sortBy Determines the sorting preference.
      * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants).
-     * @param string $filter Determines the document type filtering preference. 
+     * @param string $filter Determines the document type filtering preference.
      * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
      * @return array Returns an array of MediaLibraryItem objects.
      */
@@ -381,14 +379,30 @@ class MediaLibrary
         $path = str_replace('\\', '/', $path);
         $path = '/'.trim($path, '/');
 
-        if ($normalizeOnly)
+        if ($normalizeOnly) {
             return $path;
+        }
 
-        if (strpos($path, '..') !== false)
-            throw new ApplicationException(Lang::get('cms::lang.media.invalid_path', ['path'=>$path]));
+        $regexDirectorySeparator = preg_quote(DIRECTORY_SEPARATOR, '/');
+        $regexDot = preg_quote('.', '/');
+        $regex = [
+            // Checks for parent or current directory reference at beginning of path
+            '(^'.$regexDot.'+?'.$regexDirectorySeparator.')',
 
-        if (strpos($path, './') !== false || strpos($path, '//') !== false)
-            throw new ApplicationException(Lang::get('cms::lang.media.invalid_path', ['path'=>$path]));
+            // Check for parent or current directory reference in middle of path
+            '('.$regexDirectorySeparator.$regexDot.'+?'.$regexDirectorySeparator.')',
+
+            // Check for parent or current directory reference at end of path
+            '('.$regexDirectorySeparator.$regexDot.'+?$)',
+        ];
+
+        /*
+         * Combine everything to one regex
+         */
+        $regex = '/'.implode('|', $regex).'/';
+        if (preg_match($regex, $path) !== 0 || strpos($path, '//') !== false) {
+            throw new ApplicationException(Lang::get('cms::lang.media.invalid_path', compact('path')));
+        }
 
         return $path;
     }
@@ -537,7 +551,7 @@ class MediaLibrary
     /**
      * Sorts the item list by title, size or last modified date.
      * @param array $itemList Specifies the item list to sort.
-     * @param string $sortBy Determines the sorting preference. 
+     * @param string $sortBy Determines the sorting preference.
      * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants).
      */
     protected function sortItemList(&$itemList, $sortBy)
@@ -567,7 +581,7 @@ class MediaLibrary
     /**
      * Filters item list by file type.
      * @param array $itemList Specifies the item list to sort.
-     * @param string $filter Determines the document type filtering preference. 
+     * @param string $filter Determines the document type filtering preference.
      * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
      */
     protected function filterItemList(&$itemList, $filter)
@@ -586,7 +600,7 @@ class MediaLibrary
 
     /**
      * Initializes and returns the Media Library disk.
-     * This method should always be used instead of trying to access the 
+     * This method should always be used instead of trying to access the
      * $storageDisk property directly as initializing the disc requires
      * communicating with the remote storage.
      * @return mixed Returns the storage disk object.

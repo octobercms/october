@@ -493,15 +493,16 @@ class Lists extends WidgetBase
      */
     protected function getRecords()
     {
+        $model = $this->prepareModel();
+
         if ($this->showTree) {
-            $records = $this->model->getAllRoot();
+            $records = $model->getNested();
+        }
+        elseif ($this->showPagination) {
+            $records = $model->paginate($this->recordsPerPage, $this->currentPageNumber);
         }
         else {
-            $model = $this->prepareModel();
-            $records = ($this->showPagination)
-                ? $model->paginate($this->recordsPerPage, $this->currentPageNumber)
-                : $model->get();
-
+            $records = $model->get();
         }
 
         return $this->records = $records;

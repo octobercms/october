@@ -168,7 +168,10 @@ class Controller
             MaintenanceSettings::get('is_enabled', false) &&
             !BackendAuth::getUser()
         ) {
-            $this->setStatusCode(503);
+            if (!Request::ajax()) {
+                $this->setStatusCode(503);
+            }
+
             $page = Page::loadCached($this->theme, MaintenanceSettings::get('cms_page'));
         }
 
@@ -190,8 +193,10 @@ class Controller
         /*
          * If the page was not found, render the 404 page - either provided by the theme or the built-in one.
          */
-        if (!$page) {
-            $this->setStatusCode(404);
+        if (!$page || $url === '404') {
+            if (!Request::ajax()) {
+                $this->setStatusCode(404);
+            }
 
             // Log the 404 request
             if (!App::runningUnitTests()) {
@@ -753,6 +758,7 @@ class Controller
     public function renderPartial($name, $parameters = [], $throwException = true)
     {
         $vars = $this->vars;
+        $this->vars = array_merge($this->vars, $parameters);
 
         /*
          * Alias @ symbol for ::

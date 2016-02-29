@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Updates\Migration;
 
 class DbCmsThemeData extends Migration
 {
     public function up()
     {
-        Schema::create('cms_theme_data', function (Blueprint $table) {
+        Schema::create('cms_theme_data', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('theme')->nullable()->index();

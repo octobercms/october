@@ -11,6 +11,7 @@ use ApplicationException;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 use Backend\Controllers\Files as FilesController;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 use ValidationException;
 use Exception;
 
@@ -230,7 +231,7 @@ class FileUpload extends FormWidgetBase
 
         if ($types === false) {
             $isImage = starts_with($this->getDisplayMode(), 'image');
-            $types = implode(',', File::getDefaultFileTypes($isImage));
+            $types = implode(',', FileDefinitions::get($isImage ? 'imageExtensions' : 'defaultExtensions'));
         }
 
         if (!$types || $types == '*') {

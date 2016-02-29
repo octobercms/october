@@ -1,3 +1,10 @@
+* **Build 317** (2015-02-24)
+  - The `/404` route now returns 404 HTTP response code as it should.
+  - Updated the `.htaccess` file with a minor security precaution.
+
+* **Build 316** (2015-02-11)
+  - Various back-end UI enhancements used for the [Builder plugin](http://octobercms.com/plugin/rainlab-builder).
+
 * **Build 313** (2015-12-12)
   - Added a `clickable` option to list columns (see Backend > Lists docs).
 

@@ -892,11 +892,11 @@ class Updates extends Controller
     //
 
     /**
-     * Encode HTML safe product code.
+     * Encode HTML safe product code, this is to prevent issues with array_get().
      */
     protected function encodeCode($code)
     {
-        return str_replace('.', '_', $code);
+        return str_replace('.', ':', $code);
     }
 
     /**
@@ -904,6 +904,6 @@ class Updates extends Controller
      */
     protected function decodeCode($code)
     {
-        return str_replace('_', '.', $code);
+        return str_replace(':', '.', $code);
     }
 }

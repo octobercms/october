@@ -1,6 +1,7 @@
 <?php namespace Backend\Models;
 
 use Mail;
+use Event;
 use Backend;
 use October\Rain\Auth\Models\User as UserBase;
 
@@ -106,6 +107,12 @@ class User extends UserBase
         if ($this->send_invite) {
             $this->sendInvitation();
         }
+    }
+
+    public function afterLogin()
+    {
+        parent::afterLogin();
+        Event::fire('backend.user.login', [$this]);
     }
 
     public function sendInvitation()
