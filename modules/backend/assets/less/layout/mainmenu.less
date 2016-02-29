@@ -32,6 +32,13 @@ body.mainmenu-open {
     }
 }
 
+.mainmenu-tooltip {
+    .tooltip-inner {
+        font-size: 16px;
+        padding: 6px 16px;
+    }
+}
+
 nav#layout-mainmenu {
     background-color: @color-mainmenu;
     padding: 0 0 0 20px;
@@ -71,12 +78,22 @@ nav#layout-mainmenu {
                     position: relative;
                     top: 0;
                 }
+
+                .nav-label {
+                    display: none;
+                }
             }
 
             &:last-child {
                 margin-right: 0;
             }
 
+            &.active {
+                .nav-label {
+                    display: inline;
+                }
+            }
+/*
             &.active {
                 &:after {
                     content: ' ';
@@ -101,7 +118,7 @@ nav#layout-mainmenu {
                     }
                 }
             }
-
+*/
             &.icon {
                 margin-right: 0;
 

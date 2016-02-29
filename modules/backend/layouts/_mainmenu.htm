@@ -12,15 +12,21 @@
 
             <ul class="nav">
                 <?php foreach (BackendMenu::listMainMenuItems() as $item): ?>
-                    <li class="<?= BackendMenu::isMainMenuItemActive($item) ? 'active' : null ?> svg-icon-container svg-active-effects">
-                        <a href="<?= $item->url ?>">
-                            <?php if ($item->iconSvg): ?>
-                                <img class="svg-icon" src="<?= URL::asset($item->iconSvg) ?>">
-                            <?php endif ?>
+                    <?php
+                        $isActive = BackendMenu::isMainMenuItemActive($item);
+                    ?>
+                    <li class="<?= $isActive ? 'active' : null ?> svg-icon-container svg-active-effects with-tooltip">
+                        <a href="<?= $item->url ?>" title="<?= e(trans($item->label)) ?>">
+                            <span class="nav-icon">
+                                <?php if ($item->iconSvg): ?>
+                                    <img class="svg-icon" src="<?= URL::asset($item->iconSvg) ?>">
+                                <?php endif ?>
 
-                            <i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon ?>"></i>
-
-                            <?= e(trans($item->label)) ?>
+                                <i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon ?>"></i>
+                            </span>
+                            <span class="nav-label">
+                                <?= e(trans($item->label)) ?>
+                            </span>
                         </a>
                     </li>
                 <?php endforeach ?>
