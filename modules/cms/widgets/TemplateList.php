@@ -102,6 +102,10 @@ class TemplateList extends WidgetBase
      */
     public function render()
     {
+        $toolbarClass = Str::contains($this->controlClass, 'hero') ? 'separator' : null;
+
+        $this->vars['toolbarClass'] = $toolbarClass;
+
         return $this->makePartial('body', [
             'data'=>$this->getData()
         ]);

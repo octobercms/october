@@ -18,10 +18,10 @@
     .listPaddings (0, 27px) {}
 
     p.no-data {
-        padding: 18px 0;
+        padding: 22px 0;
         margin: 0;
         color: @color-filelist-norecords-text;
-        font-size: 12px;
+        font-size: 14px;
         text-align: center;
         font-weight: normal;
         .border-radius(@border-radius-base);
@@ -208,8 +208,8 @@
 
             .checkbox {
                 position: absolute;
-                top: -3px;
-                right: 3px;
+                top: -5px;
+                right: -5px;
 
                 label {
                     margin-right: 0;
@@ -261,6 +261,10 @@
                         color: @color-filelist-title-hero;
                     }
 
+                    span.description {
+                        font-size: 14px;
+                    }
+
                     .list-icon {
                         position: absolute;
                         left: 14px;
@@ -275,8 +279,8 @@
                 }
 
                 .checkbox {
-                    top: 17px;
-                    right: 17px;
+                    top: 0;
+                    right: 0;
                 }
 
                 &.active {

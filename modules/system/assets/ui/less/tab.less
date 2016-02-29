@@ -70,10 +70,12 @@
         font-size: 0;
         overflow: hidden;
         border-bottom: none;
+        vertical-align: bottom;
         > li {
             font-size: 15px;
             float: none;
             display: inline-block;
+            vertical-align: bottom;
             margin-right: 20px;
             position: relative;
             z-index: 90;
@@ -379,8 +381,8 @@
                 border-right: 1px solid @color-tab-border;
 
                 a {
-                    font-size: 12px;
-                    font-weight: 600;
+                    font-size: 14px;
+                    font-weight: bold;
                     padding-bottom: 0;
                 }
 
@@ -389,6 +391,12 @@
                     margin-right: 0;
                     padding-right: 0;
                 }
+            }
+        }
+
+        > div.tab-content {
+            > div.tab-pane {
+                padding-top: 15px;
             }
         }
     }
@@ -419,11 +427,17 @@
 
                 a {
                     font-size: 12px;
-                    padding: 17px 20px;
+                    padding: 11px 20px;
                     margin: 0;
                     border: none;
                     text-transform: uppercase;
                     background: transparent;
+
+                    span.title {
+                        span {
+                            border-top: none;
+                        }
+                    }
                 }
 
                 &:first-child {

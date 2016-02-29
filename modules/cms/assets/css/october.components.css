@@ -282,13 +282,13 @@ div.control-componentlist div.components div.layout-cell.adding > div {
 .control-filelist.component-list ul li div.group {
   background: #f1f3f4;
   border-top: 1px solid #e6ebed;
-  padding: 10px;
+  padding: 10px 15px 10px 10px;
   position: relative;
   cursor: pointer;
 }
 .control-filelist.component-list ul li div.group h4 {
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 3px;
 }
 .control-filelist.component-list ul li div.group h4 a {
@@ -302,8 +302,9 @@ div.control-componentlist div.components div.layout-cell.adding > div {
 }
 .control-filelist.component-list ul li div.group span.description {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   padding-left: 33px;
+  color: #8f8f8f;
 }
 .control-filelist.component-list ul li div.group i {
   position: absolute;

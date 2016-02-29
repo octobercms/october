@@ -112,6 +112,27 @@ html.csstransitions {
     }
 }
 
+@media (max-width: @screen-sm) {
+    body.outer .layout > .layout-row {
+        &.layout-head {
+            > .layout-cell {
+                padding: 50px @padding-standard;
+            }
+        }
+
+        > .layout-cell .outer-form-container {
+            width: auto;
+            padding: @padding-standard;
+    
+            .horizontal-form input {
+                display: block;
+                width: 100%!important;
+                margin-bottom: @padding-standard;
+            }
+        }
+    }
+}
+
 /*
 
 .outer-form-container {

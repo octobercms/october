@@ -920,7 +920,7 @@
     Surface.prototype.hasChanges = function(originalValues) {
         var values = originalValues !== undefined ? originalValues : this.originalValues
 
-        return !this.comparePropertyValues(values, this.values)
+        return !this.comparePropertyValues(values, this.getValues())
     }
 
     // EVENT HANDLERS
