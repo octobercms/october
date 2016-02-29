@@ -1118,7 +1118,7 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 .oc-icon-vimeo:before,.icon-vimeo:before{content:"\f27d"}
 .oc-icon-black-tie:before,.icon-black-tie:before{content:"\f27e"}
 .oc-icon-fonticons:before,.icon-fonticons:before{content:"\f280"}
-.close{float:right;font-size:21px;font-weight:bold;line-height:1;color:#000000 !important;text-shadow:0 1px 0 #ffffff;opacity:0.2;filter:alpha(opacity=20)}
+.close{float:right;font-size:21px;font-weight:bold;line-height:1;color:#000000;text-shadow:0 1px 0 #ffffff;opacity:0.2;filter:alpha(opacity=20)}
 .close:hover,.close:focus{color:#000000;text-decoration:none;cursor:pointer;opacity:0.5;filter:alpha(opacity=50)}
 button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-appearance:none}
 @font-face{font-family:'FontAwesome';src:url('font/fontawesome-webfont.eot?v=1.0.1');src:url('font/fontawesome-webfont.eot?#iefix&v=1.0.1') format('embedded-opentype'),url('font/fontawesome-webfont.woff?v=1.0.1') format('woff'),url('font/fontawesome-webfont.ttf?v=1.0.1') format('truetype'),url('font/fontawesome-webfont.svg#fontawesomeregular?v=1.0.1') format('svg');font-weight:normal;font-style:normal}
