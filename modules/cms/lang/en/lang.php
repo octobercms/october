@@ -266,6 +266,7 @@ return [
         'uploading_file_num' => 'Uploading :number file(s)...',
         'uploading_complete' => 'Upload complete',
         'uploading_error' => 'Upload failed',
+        'type_blocked' => 'The file type used is blocked for security reasons.',
         'order_by' => 'Order by',
         'folder' => 'Folder',
         'no_files_found' => 'No files found by your request.',

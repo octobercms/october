@@ -17,6 +17,7 @@ use ApplicationException;
 use ValidationException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use DirectoryIterator;
@@ -47,31 +48,6 @@ class AssetList extends WidgetBase
      * @var string Message to display when the Delete button is clicked.
      */
     public $deleteConfirmation = 'Do you really want to delete selected files or directories?';
-
-    /**
-     * @var array A list of default allowed file types.
-     * This parameter can be overridden with the cms.allowedAssetTypes configuration option.
-     */
-    public $allowedAssetTypes = [
-        'jpg',
-        'jpeg',
-        'bmp',
-        'png',
-        'gif',
-        'css',
-        'js',
-        'woff',
-        'woff2',
-        'svg',
-        'ttf',
-        'eot',
-        'otf',
-        'json',
-        'md',
-        'less',
-        'sass',
-        'scss'
-    ];
 
     public function __construct($controller, $alias)
     {
@@ -681,10 +657,7 @@ class AssetList extends WidgetBase
 
             // Don't rely on Symfony's mime guessing implementation, it's not accurate enough.
             // Use the simple extension validation.
-            $allowedAssetTypes = Config::get('cms.allowedAssetTypes');
-            if (!$allowedAssetTypes) {
-                $allowedAssetTypes = $this->allowedAssetTypes;
-            }
+            $allowedAssetTypes = FileDefinitions::get('assetExtensions');
 
             $maxSize = UploadedFile::getMaxFilesize();
             if ($uploadedFile->getSize() > $maxSize) {

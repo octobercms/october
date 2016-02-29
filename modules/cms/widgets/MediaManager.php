@@ -15,6 +15,7 @@ use Backend\Classes\WidgetBase;
 use Cms\Classes\MediaLibrary;
 use Cms\Classes\MediaLibraryItem;
 use October\Rain\Database\Attach\Resizer;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 
 /**
  * Media Manager widget.
@@ -968,6 +969,14 @@ class MediaManager extends WidgetBase
              */
             $extension = strtolower($uploadedFile->getClientOriginalExtension());
             $fileName = File::name($fileName).'.'.$extension;
+
+            /*
+             * Check for unsafe file extensions
+             */
+            $blockedFileTypes = FileDefinitions::get('blockedExtensions');
+            if (in_array($extension, $blockedFileTypes)) {
+                throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
+            }
 
             /*
              * File name contains non-latin characters, attempt to slug the value
