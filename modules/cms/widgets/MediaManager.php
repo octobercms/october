@@ -702,11 +702,12 @@ class MediaManager extends WidgetBase
             $folder = array_pop($path);
 
             $result[$folder] = implode('/', $path).'/'.$folder;
-            if (substr($result[$folder], 0, 1) != '/')
+            if (substr($result[$folder], 0, 1) != '/') {
                 $result[$folder] = '/'.$result[$folder];
+            }
         }
 
-        return array_reverse($result);
+        return array_reverse($result, true);
     }
 
     protected function setViewMode($viewMode)

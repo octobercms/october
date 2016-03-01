@@ -218,7 +218,7 @@ class MediaLibrary
 
     /**
      * Returns a list of all directories in the Library, optionally excluding some of them.
-     * @param array $exclude A list of folders to exclude from the result list/
+     * @param array $exclude A list of folders to exclude from the result list.
      * The folder paths should be specified relative to the Library root.
      * @return array
      */
@@ -227,19 +227,26 @@ class MediaLibrary
         $fullPath = $this->getMediaPath('/');
 
         $folders = $this->getStorageDisk()->allDirectories($fullPath);
+
         $folders = array_unique($folders, SORT_LOCALE_STRING);
 
         $result = [];
 
         foreach ($folders as $folder) {
             $folder = $this->getMediaRelativePath($folder);
-            if (!strlen($folder))
+            if (!strlen($folder)) {
                 $folder = '/';
+            }
 
-            if (Str::startsWith($folder, $exclude))
+            if (Str::startsWith($folder, $exclude)) {
                 continue;
+            }
 
             $result[] = $folder;
+        }
+
+        if (!in_array('/', $result)) {
+            array_unshift($result, '/');
         }
 
         return $result;
@@ -335,10 +342,34 @@ class MediaLibrary
      */
     public function moveFolder($originalPath, $newPath)
     {
-        if (!$this->copyFolder($originalPath, $newPath))
-            return false;
+        if (Str::lower($originalPath) !== Str::lower($newPath)) {
+            // If there is no risk that the directory was renamed
+            // by just changing the letter case in the name - 
+            // copy the directory to the destination path and delete
+            // the source directory.
 
-        $this->deleteFolder($originalPath);
+            if (!$this->copyFolder($originalPath, $newPath)) {
+                return false;
+            }
+
+            $this->deleteFolder($originalPath);
+        } else {
+            // If there's a risk that the directory name was updated
+            // by changing the letter case - swap source and destination
+            // using a temporary directory with random name.
+
+            $tempraryDirPath = $this->generateRandomTmpFolderName(dirname($originalPath));
+
+            if (!$this->copyFolder($originalPath, $tempraryDirPath)) {
+                $this->deleteFolder($tempraryDirPath);
+
+                return false;
+            }
+
+            $this->deleteFolder($originalPath);
+
+            return $this->moveFolder($tempraryDirPath, $newPath);
+        }
 
         return true;
     }
@@ -637,5 +668,19 @@ class MediaLibrary
         }
 
         return true;
+    }
+
+    protected function generateRandomTmpFolderName($location)
+    {
+        $temporaryDirBaseName = time();
+
+        $tmpPath = $location.'/tmp-'.$temporaryDirBaseName;
+
+        while ($this->folderExists($tmpPath)) {
+            $temporaryDirBaseName++;
+            $tmpPath = $location.'/tmp-'.$temporaryDirBaseName;
+        }
+
+        return $tmpPath;
     }
 }
