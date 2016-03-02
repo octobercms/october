@@ -129,7 +129,7 @@ class Relation extends FormWidgetBase
             /**
              * Extensibility
              */
-            Event::fire('backend.relation.extendQuery', [$this, $query]);
+            Event::fire('backend.relation.extendQuery', [$this, $attribute, $query]);
 
             // The "sqlSelect" config takes precedence over "nameFrom".
             // A virtual column called "selection" will contain the result.
