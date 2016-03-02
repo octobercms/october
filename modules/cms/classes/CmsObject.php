@@ -6,6 +6,7 @@ use Cache;
 use Config;
 use Validator;
 use Cms\Helpers\File as FileHelper;
+use October\Rain\Extension\Extendable;
 use ApplicationException;
 use ValidationException;
 use RecursiveDirectoryIterator;
@@ -20,7 +21,7 @@ use Exception;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class CmsObject implements ArrayAccess
+class CmsObject extends Extendable implements ArrayAccess
 {
     /**
      * @var string Specifies the file name corresponding the CMS object.
@@ -68,6 +69,8 @@ class CmsObject implements ArrayAccess
      */
     public function __construct(Theme $theme = null)
     {
+        parent::__construct();
+
         $this->theme = $theme;
     }
 
