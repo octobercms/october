@@ -3046,7 +3046,10 @@ this.scrollClassContainer=this.options.scrollClassContainer?$(this.options.scrol
 Base.call(this)
 if(this.options.scrollMarkerContainer){$(this.options.scrollMarkerContainer).append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))}
 $el.mousewheel(function(event){if(!self.options.allowScroll)
-return;var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):(event.deltaFactor*event.deltaX)
+return;var offset,offsetX=event.deltaFactor*event.deltaX,offsetY=event.deltaFactor*event.deltaY
+if(!offsetX){offset=offsetY*-1}
+else if(!offsetY){offset=offsetX}
+else{offset=self.options.vertical?(offsetY*-1):offsetX}
 return!scrollWheel(offset)})
 if(!options.noDragSupport){$el.on('mousedown.dragScroll',function(event){if(event.target&&event.target.tagName==='INPUT')
 return

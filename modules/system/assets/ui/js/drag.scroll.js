@@ -67,9 +67,19 @@
             if (!self.options.allowScroll)
                 return;
 
-            var offset = self.options.vertical
-                ? ((event.deltaFactor * event.deltaY) * -1)
-                : (event.deltaFactor * event.deltaX)
+            var offset,
+                offsetX = event.deltaFactor * event.deltaX,
+                offsetY = event.deltaFactor * event.deltaY
+
+            if (!offsetX) {
+                offset = offsetY * -1
+            }
+            else if (!offsetY) {
+                offset = offsetX
+            }
+            else {
+                offset = self.options.vertical ? (offsetY * -1) : offsetX
+            }
 
             return !scrollWheel(offset)
         })
