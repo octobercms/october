@@ -10,13 +10,13 @@
                 <?= $activeItem ? e(trans($activeItem->label)) : 'CMS' ?>
             </a>
 
-            <ul class="nav">
+            <ul class="nav mainmenu-nav">
                 <?php foreach (BackendMenu::listMainMenuItems() as $item): ?>
                     <?php
                         $isActive = BackendMenu::isMainMenuItemActive($item);
                     ?>
-                    <li class="<?= $isActive ? 'active' : null ?> svg-icon-container svg-active-effects with-tooltip">
-                        <a href="<?= $item->url ?>" title="<?= e(trans($item->label)) ?>">
+                    <li class="<?= $isActive ? 'active' : null ?> svg-icon-container svg-active-effects">
+                        <a href="<?= $item->url ?>">
                             <span class="nav-icon">
                                 <?php if ($item->iconSvg): ?>
                                     <img class="svg-icon" src="<?= URL::asset($item->iconSvg) ?>">
@@ -34,8 +34,8 @@
         </div>
     </div>
     <div class="toolbar-item" data-calculate-width>
-        <ul>
-            <li class="icon preview with-tooltip">
+        <ul class="mainmenu-toolbar">
+            <li class="mainmenu-preview icon-only with-tooltip">
                 <a
                     href="<?= URL::to('/') ?>"
                     target="_blank"
@@ -43,9 +43,9 @@
                     <i class="icon-crosshairs"></i>
                 </a>
             </li>
-            <li class="highlight account">
+            <li class="mainmenu-account highlight">
                 <a href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)">
-                    <img src="<?= $this->user->getAvatarThumb(35, ['extension' => 'png']) ?>">
+                    <img src="<?= $this->user->getAvatarThumb(80, ['mode' => 'crop', 'extension' => 'png']) ?>">
                     <span class="hidden-xs">
                         <?= e($this->user->first_name.' '.$this->user->last_name) ?>
                     </span>

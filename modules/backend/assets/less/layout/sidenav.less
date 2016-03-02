@@ -3,6 +3,13 @@
 // --------------------------------------------------
 
 #layout-sidenav {
+
+    background-color: @color-sidebarnav-bg;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    .box-sizing(border-box);
+
     .sidenav-shadow-element() {
         content: '';
         position: absolute;
@@ -11,15 +18,8 @@
         right: 0;
         width: 10px;
         height: 100%;
-        .box-shadow(inset -5px 0 3px rgba(0,0,0,0.1));
+        .box-shadow(inset -5px 0 3px rgba(0,0,0,.1));
     }
-
-    background-color: @color-sidebarnav-bg;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-
-    .box-sizing(border-box);
 
     ul {
         position: relative;
@@ -27,6 +27,10 @@
         padding: 0;
         height: 100%;
         overflow: hidden;
+
+        &, li:first-child a {
+            .box-shadow(inset 0 6px 3px -3px rgba(0,0,0,.1));
+        }
 
         &:after {
             .sidenav-shadow-element();
@@ -38,9 +42,9 @@
             position: relative;
 
             a {
-                padding: 20px 13px;
+                padding: 20px 10px;
                 display: block;
-                font-size: 15px;
+                font-size: 14px;
                 color: @color-sidebarnav-inactive-text;
                 font-weight: normal;
                 position: relative;
@@ -63,10 +67,16 @@
             }
 
             &.active a, a:hover {
-                background: @color-sidebarnav-active-bg;
-
                 color: @color-sidebarnav-active-text;
                 i { color: @color-sidebarnav-active-icon; }
+            }
+
+            &.active a {
+                background: @color-sidebarnav-active-bg;
+                text-shadow: 1px 1px 0 rgba(0,0,0,.2);
+                > i {
+                    text-shadow: none;
+                }
             }
 
             span.counter {
