@@ -119,7 +119,7 @@
 .sweet-alert h2{word-break:word-break;word-wrap:break-word;max-height:350px;overflow-y:auto;margin:10px 0 17px 0;color:#2b3e50;text-align:left;font-size:15px;line-height:23px}
 .sweet-alert p{margin:0}
 .sweet-alert p.text-muted{margin-bottom:20px;color:#555555}
-.control-simplelist{font-size:13px;padding:20px 20px 2px 20px;margin-bottom:25px;background:#ffffff;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
+.control-simplelist{font-size:13px;padding:20px 20px 2px 20px;margin-bottom:25px;background:#ffffff;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .control-simplelist ul{padding-left:15px}
 .control-simplelist.form-control ul{margin-bottom:0}
 .control-simplelist.form-control li{padding-top:5px;padding-bottom:5px}
@@ -169,7 +169,7 @@
 @media (max-width:768px){.responsive-sidebar > .layout-cell:last-child .control-scrollbar{overflow:visible;height:auto}
 .responsive-sidebar > .layout-cell:last-child .control-scrollbar .scrollbar-scrollbar{display:none !important}
 }
-.control-filelist p.no-data{padding:22px 0;margin:0;color:#666666;font-size:14px;text-align:center;font-weight:normal;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
+.control-filelist p.no-data{padding:22px 0;margin:0;color:#666666;font-size:14px;text-align:center;font-weight:normal;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .control-filelist ul{padding:0;margin:0}
 .control-filelist ul li{font-weight:normal;line-height:150%;position:relative;list-style:none}
 .control-filelist ul li a:hover{background:#dddddd}
@@ -249,7 +249,7 @@
 .tooltip.in{opacity:1;filter:alpha(opacity=100)}
 .oc-logo-white{background-image:url(../images/october-logo-white.svg);background-position:50% 50%;background-repeat:no-repeat;background-size:contain}
 .oc-bg-logo{background-image:url(../images/october-logo-transparent.svg);background-position:50% 50%;background-repeat:no-repeat;background-size:50% auto}
-.report-widget{padding:15px;background:white;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
+.report-widget{padding:15px;background:white;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .report-widget h3{font-size:14px;color:#7e8c8d;text-transform:uppercase;font-weight:600;margin-top:0;margin-bottom:30px}
 .report-widget .height-100{height:100px}
 .report-widget .height-200{height:200px}
