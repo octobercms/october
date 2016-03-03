@@ -685,14 +685,14 @@ nav#layout-mainmenu .toolbar-item.scroll-active-after:after{color:#ffffff}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview i{font-size:20px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview a{height:62px;line-height:62px;padding:0 15px;margin:8px 0 8px 11px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account{margin-right:0}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account > a{height:78px;line-height:78px;padding:0 20px 0 10px;font-size:16px;letter-spacing:-1px;font-weight:bold;position:relative;z-index:590}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account > a{height:78px;line-height:78px;padding:0 20px 0 10px;font-size:16px;position:relative;z-index:590}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img{width:40px;margin-right:15px;border-radius:999px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account ul{line-height:23px}
 nav#layout-mainmenu:hover ul.mainmenu-nav li{-webkit-transition:opacity 0.15s ease;transition:opacity 0.15s ease;opacity:1}
 nav#layout-mainmenu ul.mainmenu-nav li a{position:relative;width:65px;height:65px}
 nav#layout-mainmenu ul.mainmenu-nav li a .nav-icon{text-align:center;display:block;position:absolute;top:50%;left:50%;margin-left:-15px;margin-top:-22.5px;width:30px;height:30px}
 nav#layout-mainmenu ul.mainmenu-nav li a .nav-icon i,nav#layout-mainmenu ul.mainmenu-nav li a .nav-icon img{margin:0}
-nav#layout-mainmenu ul.mainmenu-nav li a .nav-label{display:block;width:100px;height:20px;line-height:20px;position:absolute;bottom:0;left:50%;padding:0 5px;margin-left:-50px;overflow:hidden;text-overflow:ellipsis;text-align:center}
+nav#layout-mainmenu ul.mainmenu-nav li a .nav-label{display:block;width:100px;height:20px;line-height:23px;position:absolute;bottom:0;left:50%;padding:0 5px;margin-left:-50px;overflow:hidden;text-overflow:ellipsis;text-align:center}
 nav#layout-mainmenu ul.mainmenu-nav li{opacity:.65;-webkit-transition:opacity 5s ease;transition:opacity 5s ease;-webkit-transition-delay:5s;transition-delay:5s;margin-right:30px;padding:3px 0}
 nav#layout-mainmenu ul.mainmenu-nav li:first-child{margin-left:8px}
 nav#layout-mainmenu ul.mainmenu-nav li:last-child{margin-right:0}

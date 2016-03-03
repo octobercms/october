@@ -146,8 +146,6 @@ nav#layout-mainmenu {
                 line-height: @mainmenu-height;
                 padding: 0 20px 0 10px;
                 font-size: 16px;
-                letter-spacing: -1px;
-                font-weight: bold;
                 position: relative;
                 // z-index: 200; // Previous value 590 was overlappnig with drop-down menus on small screens
                 z-index: 590; // @todo Investigate: This causes the button to dim without 590
@@ -199,7 +197,7 @@ nav#layout-mainmenu {
                 display: block;
                 width: @mainmenu-tile-label-width;
                 height: @mainmenu-tile-label-height;
-                line-height: @mainmenu-tile-label-height;
+                line-height: (@mainmenu-tile-label-height+3);
                 position: absolute;
                 bottom: 0;
                 left: 50%;
