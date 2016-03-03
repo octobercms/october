@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'auth' => [
+        'title' => 'Admin-Bereich'
+    ],
     'field' => [
         'invalid_type' => 'Ungültiger Feldtyp :type.',
         'options_method_not_exists' => 'Die Model-Klasse :model muss eine Methode :method() mit Rückgabe der Werte von ":field" besitzen.',
