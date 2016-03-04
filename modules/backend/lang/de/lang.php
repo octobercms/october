@@ -176,6 +176,7 @@ return [
         'reload' => 'Erneut laden',
     ],
     'relation' => [
+        'missing_config' => "Verhalten (behaviour) der Verbindung hat keine Konfiguration für ':config'.",
         'missing_definition' => "Verhalten (behaviour) der Verbindung umfasst keine Definition für ':field'.",
         'missing_model' => "Verhalten (behaviour) der Verbindung, die in :class benutzt wird, hat kein definiertes Model",
         'invalid_action_single' => "Dieser Vorgang kann nicht auf eine Einwege-Verbindung (singular) angewendet werden.",
@@ -183,6 +184,12 @@ return [
         'help'  => "Zum Hinzufügen auf ein Item klicken",
         'related_data' => "Verwandte :name Daten",
         'add' => "Hinzufügen",
+        'add_selected' => 'Auswahl hinzufügen',
+        'add_a_new' => ':name hinzufügen',
+        'link_selected' => 'Auswahl verlinken',
+        'link_a_new' => ':name  verlinken',
+        'cancel' => 'Abbrechen',
+        'close' => 'Schließen',
         'add_name' => ":name hinzufügen",
         'create' => "Erstellen",
         'create_name' => "Erstelle :name",
@@ -193,6 +200,11 @@ return [
         'delete' => "Löschen",
         'delete_name' => ":name löschen",
         'delete_confirm' => "Sind Sie sicher?",
+        'link' => 'Link',
+        'link_name' => 'Link :name',
+        'unlink' => 'Link entfernen',
+        'unlink_name' => 'Link von :name entfernen',
+        'unlink_confirm' => 'Sind Sie sicher?'
     ],
     'model' => [
         'name' => "Model",

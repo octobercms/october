@@ -224,6 +224,9 @@ return [
         'manage_partials' => 'Partials verwalten',
         'manage_themes' => 'Themes verwalten'
     ],
+    'mediafinder' => [
+        'default_prompt' => 'Klicke auf %s um eine Mediendatei auszuwählen'
+    ],
     'media' => [
         'invalid_path' => "Ungültiger Dateipfad: ':path'.",
         'menu_label' => 'Medien',
