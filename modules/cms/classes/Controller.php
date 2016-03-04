@@ -27,7 +27,7 @@ use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
-use October\Rain\Parse\Template as TextParser;
+use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
 
 /**

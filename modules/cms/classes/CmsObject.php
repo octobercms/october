@@ -446,7 +446,7 @@ class CmsObject extends Extendable implements ArrayAccess
 
         return $result;
     }
-    
+
     /**
      * Returns the absolute file path.
      * @param $theme Specifies a theme the file belongs to.
@@ -486,6 +486,23 @@ class CmsObject extends Extendable implements ArrayAccess
         }
 
         return false;
+    }
+
+    /**
+     * Sets an attribute on the object.
+     * @param  string  $key
+     * @return bool
+     */
+    public function __set($key, $value)
+    {
+        $methodName = 'set'.ucfirst($key);
+        if (method_exists($this, $methodName)) {
+            $this->$methodName($value);
+        }
+        // Do not allow setting protected properties
+        elseif (!property_exists($this, $key)) {
+            $this->$key = $value;
+        }
     }
 
     /**
@@ -558,8 +575,7 @@ class CmsObject extends Extendable implements ArrayAccess
             return call_user_func_array(array($query, $method), $parameters);
         }
 
-        $className = get_class($this);
-        throw new \BadMethodCallException("Call to undefined method {$className}::{$method}()");
+        return parent::__call($method, $parameters);
     }
 
     /**
