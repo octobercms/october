@@ -671,12 +671,12 @@ class MediaManager extends WidgetBase
 
     protected function setSidebarVisible($visible)
     {
-        return $this->putSession('sideba_visible', !!$visible);
+        return $this->putSession('sidebar_visible', !!$visible);
     }
 
     protected function getSidebarVisible()
     {
-        return $this->getSession('sideba_visible', true);
+        return $this->getSession('sidebar_visible', true);
     }
 
     protected function itemTypeToIconClass($item, $itemType)
@@ -1020,10 +1020,10 @@ class MediaManager extends WidgetBase
     /**
      * Creates a slug form the string. A modified version of Str::slug
      * with the main difference that it accepts @-signs
-     * @param string
+     * @param string $title
      * @return string
      */
-    protected function cleanFileName($name)
+    protected function cleanFileName($title)
     {
         $title = Str::ascii($title);
 
@@ -1083,7 +1083,8 @@ class MediaManager extends WidgetBase
                     'url' => $url,
                     'dimensions' => $dimensions
                 ];
-            } else {
+            }
+            else {
                 // If the target dimensions are provided, resize the original image and return its URL
                 // and dimensions.
 
@@ -1107,7 +1108,8 @@ class MediaManager extends WidgetBase
                     'dimensions' => $dimensions
                 ];
             }
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             if ($sessionDirectoryCreated)
                 @File::deleteDirectory($fullSessionDirectoryPath);
 
