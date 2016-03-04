@@ -71,6 +71,7 @@ return [
     'user' => [
         'name' => 'Administrator',
         'menu_label' => 'Administratoren',
+        'menu_description' => 'Backend-Benutzer, Administratoren, Gruppen und Zugriffsrechte verwalten.',
         'list_title' => 'Administratoren verwalten',
         'new' => 'Neuer Administrator',
         'login' => "Benutzername",
@@ -231,6 +232,24 @@ return [
         'menu_label' => 'Mein Account',
         'menu_description' => 'Updaten Sie Ihre Account-Details wie z.B. den Namen, die E-Mail-Adresse und das Passwort.',
         'menu_keywords' => 'Sicheres Anmelden'
+    ],
+    'branding' => [
+        'menu_label' => 'Backend anpassen',
+        'menu_description' => 'Passe den Admin-Bereich an - z.B. Name, Farben und Logo.',
+        'brand' => 'Brand',
+        'logo' => 'Logo',
+        'logo_description' => 'Lade ein eigenes Logo hoch, das im Backend verwendet werden soll.',
+        'app_name' => 'App-Name',
+        'app_name_description' => 'Dieser Name wird als Titel des Backends angezeigt.',
+        'app_tagline' => 'App-Tagline',
+        'app_tagline_description' => 'Die Tagline wird im Log-In-Bereich des Backends angezeigt.',
+        'colors' => 'Farben',
+        'primary_light' => 'Primär (Hell)',
+        'primary_dark' => 'Primär (Dunkel)',
+        'secondary_light' => 'Sekundär (Hell)',
+        'secondary_dark' => 'Sekundär (Dunkel)',
+        'styles' => 'Styles',
+        'custom_stylesheet' => 'Benutzerdefiniertes Stylesheet',
     ],
     'backend_preferences' => [
         'menu_label' => 'Backend Einstellungen',
