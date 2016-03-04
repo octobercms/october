@@ -500,7 +500,7 @@ class MediaLibrary
     /**
      * Initializes a library item from a path and item type.
      * @param string $path Specifies the item path relative to the storage disk root.
-     * @param string $type Specifies the item type.
+     * @param string $itemType Specifies the item type.
      * @return mixed Returns the MediaLibraryItem object or NULL if the item is not visible.
      */
     protected function initLibraryItem($path, $itemType)
