@@ -1,6 +1,6 @@
 /*
  * Table row linking plugin
- * 
+ *
  * Data attributes:
  * - data-control="rowlink" - enables the plugin on an element
  *
@@ -36,9 +36,11 @@
             var href = link.attr('href'),
                 onclick = (typeof link.get(0).onclick == "function") ? link.get(0).onclick : null
 
-            $(this).find('td').not('.' + options.excludeClass).click(function() {
+            $(this).find('td').not('.' + options.excludeClass).click(function(e) {
                 if (onclick)
                     onclick.apply(link.get(0))
+                else if (e.ctrlKey)
+                    window.open(href);
                 else
                     window.location = href;
             })
