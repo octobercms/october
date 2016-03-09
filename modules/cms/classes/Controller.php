@@ -1276,23 +1276,13 @@ class Controller
     public function findComponentByPartial($partial)
     {
         foreach ($this->page->components as $component) {
-            $fileName = ComponentPartial::getFilePath($component, $partial);
-            if (!strlen(File::extension($fileName))) {
-                $fileName .= '.htm';
-            }
-
-            if (File::isFile($fileName)) {
+            if (ComponentPartial::check($component, $partial)) {
                 return $component;
             }
         }
 
         foreach ($this->layout->components as $component) {
-            $fileName = ComponentPartial::getFilePath($component, $partial);
-            if (!strlen(File::extension($fileName))) {
-                $fileName .= '.htm';
-            }
-
-            if (File::isFile($fileName)) {
+            if (ComponentPartial::check($component, $partial)) {
                 return $component;
             }
         }

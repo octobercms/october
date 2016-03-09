@@ -13,6 +13,7 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ArrayAccess;
 use Exception;
+use Cms\Contracts\CmsObject as CmsObjectContract;
 
 /**
  * This is a base class for all CMS objects - content files, pages, partials and layouts.
@@ -21,7 +22,7 @@ use Exception;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class CmsObject extends Extendable implements ArrayAccess
+class CmsObject extends Extendable implements ArrayAccess, CmsObjectContract
 {
     /**
      * @var string Specifies the file name corresponding the CMS object.
