@@ -4,6 +4,8 @@ use File;
 use Lang;
 use Cms\Contracts\CmsObject as CmsObjectContract;
 use Cms\Helpers\File as FileHelper;
+use October\Rain\Extension\Extendable;
+use ApplicationException;
 
 /**
  * The CMS component partial class. These objects are read-only.
@@ -11,7 +13,7 @@ use Cms\Helpers\File as FileHelper;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class ComponentPartial implements CmsObjectContract
+class ComponentPartial extends Extendable implements CmsObjectContract
 {
     /**
      * @var \Cms\Classes\ComponentBase A reference to the CMS component containing the object.
@@ -57,6 +59,8 @@ class ComponentPartial implements CmsObjectContract
     public function __construct(ComponentBase $component)
     {
         $this->component = $component;
+
+        parent::__construct();
     }
 
     /**
