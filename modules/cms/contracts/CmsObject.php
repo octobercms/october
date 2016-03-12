@@ -27,7 +27,25 @@ interface CmsObject
      * @param  string  $fileName
      * @return string
      */
-    // public static function getFilePath($fileName = null);
+    public function getFilePath($fileName = null);
+
+    /**
+     * Returns the file name.
+     * @return string
+     */
+    public function getFileName();
+
+    /**
+     * Returns the file name without the extension.
+     * @return string
+     */
+    public function getBaseFileName();
+
+    /**
+     * Returns the file content.
+     * @return string
+     */
+    public function getContent();
 
     /**
      * Returns the Twig content string.

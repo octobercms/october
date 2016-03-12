@@ -81,7 +81,7 @@ class CmsException extends ApplicationException
                 break;
         }
         if ($result !== false) {
-            $this->file = $this->compoundObject->getFullPath();
+            $this->file = $this->compoundObject->getFilePath();
 
             if (File::isFile($this->file) && is_readable($this->file)) {
                 $this->fileContent = @file($this->file);

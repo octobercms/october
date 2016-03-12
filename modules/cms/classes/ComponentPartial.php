@@ -226,12 +226,4 @@ class ComponentPartial extends Extendable implements CmsObjectContract
 
         return $path;
     }
-
-    // @deprecated This method should be removed globally
-    // remove if year >= 2016
-    public function getFullPath()
-    {
-        return $this->getFilePath();
-    }
-
 }

@@ -11,22 +11,20 @@ use Markdown;
  */
 class Content extends CmsCompoundObject
 {
-    protected static $allowedExtensions = ['htm', 'txt', 'md'];
+    /**
+     * @var string The container name associated with the model, eg: pages.
+     */
+    protected $dirName = 'content';
+
+    /**
+     * @var array Allowable file extensions.
+     */
+    protected $allowedExtensions = ['htm', 'txt', 'md'];
 
     /**
      * @var string Contains the parsed markup.
      */
     public $parsedMarkup = null;
-
-    /**
-     * Returns the directory name corresponding to the object type.
-     * For pages the directory name is "pages", for layouts - "layouts", etc.
-     * @return string
-     */
-    public static function getObjectTypeDirName()
-    {
-        return 'content';
-    }
 
     /**
      * Loads the object from a file.

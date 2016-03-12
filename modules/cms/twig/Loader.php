@@ -49,7 +49,7 @@ class Loader implements Twig_LoaderInterface
      */
     public function getCacheKey($name)
     {
-        return $this->obj->getFullPath();
+        return $this->obj->getFilePath();
     }
 
     /**
