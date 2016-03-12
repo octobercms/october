@@ -12,6 +12,7 @@ use System\Classes\SettingsManager;
 use System\Classes\CombineAssets;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\Page as CmsPage;
+use Cms\Classes\Theme as CmsTheme;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -47,6 +48,7 @@ class ServiceProvider extends ModuleServiceProvider
     {
         parent::boot('cms');
 
+        $this->bootDefaultTheme();
         $this->bootMenuItemEvents();
         $this->bootRichEditorEvents();
     }
@@ -284,4 +286,20 @@ class ServiceProvider extends ModuleServiceProvider
         });
     }
 
+    /**
+     * Boot the default theme.
+     */
+    protected function bootDefaultTheme()
+    {
+        $resolver = App::make('halcyon');
+        if ($resolver->getDefaultTheme()) {
+            return;
+        }
+
+        $defaultTheme = App::runningInBackend()
+            ? CmsTheme::getEditThemeCode()
+            : CmsTheme::getActiveThemeCode();
+
+        $resolver->setDefaultTheme($defaultTheme);
+    }
 }

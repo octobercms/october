@@ -1,6 +1,7 @@
 <?php namespace Cms\Classes;
 
-use URL;
+use App;
+use Url;
 use File;
 use Yaml;
 use Lang;
@@ -12,6 +13,7 @@ use SystemException;
 use ApplicationException;
 use System\Models\Parameters;
 use Cms\Models\ThemeData;
+use October\Rain\Halcyon\Theme\FileTheme as HalcyonFileTheme;
 use DirectoryIterator;
 
 /**
@@ -55,6 +57,7 @@ class Theme
     {
         $theme = new static;
         $theme->setDirName($dirName);
+        $theme->registerHalyconTheme();
         return $theme;
     }
 
@@ -134,18 +137,14 @@ class Theme
     }
 
     /**
-     * Returns the active theme.
+     * Returns the active theme code.
      * By default the active theme is loaded from the cms.activeTheme parameter,
      * but this behavior can be overridden by the cms.activeTheme event listeners.
-     * @return \Cms\Classes\Theme Returns the loaded theme object.
+     * @return string
      * If the theme doesn't exist, returns null.
      */
-    public static function getActiveTheme()
+    public static function getActiveThemeCode()
     {
-        if (self::$activeThemeCache !== false) {
-            return self::$activeThemeCache;
-        }
-
         $activeTheme = Config::get('cms.activeTheme');
 
         if (DbDongle::hasDatabase()) {
@@ -167,7 +166,24 @@ class Theme
             throw new SystemException(Lang::get('cms::lang.theme.active.not_set'));
         }
 
-        $theme = static::load($activeTheme);
+        return $activeTheme;
+    }
+
+
+    /**
+     * Returns the active theme.
+     * By default the active theme is loaded from the cms.activeTheme parameter,
+     * but this behavior can be overridden by the cms.activeTheme event listeners.
+     * @return \Cms\Classes\Theme Returns the loaded theme object.
+     * If the theme doesn't exist, returns null.
+     */
+    public static function getActiveTheme()
+    {
+        if (self::$activeThemeCache !== false) {
+            return self::$activeThemeCache;
+        }
+
+        $theme = static::load(static::getActiveThemeCode());
 
         if (!File::isDirectory($theme->getPath())) {
             return self::$activeThemeCache = null;
@@ -188,23 +204,18 @@ class Theme
     }
 
     /**
-     * Returns the edit theme.
+     * Returns the edit theme code.
      * By default the edit theme is loaded from the cms.editTheme parameter,
      * but this behavior can be overridden by the cms.editTheme event listeners.
      * If the edit theme is not defined in the configuration file, the active theme
      * is returned.
-     * @return \Cms\Classes\Theme Returns the loaded theme object.
-     * If the theme doesn't exist, returns null.
+     * @return string
      */
-    public static function getEditTheme()
+    public static function getEditThemeCode()
     {
-        if (self::$editThemeCache !== false) {
-            return self::$editThemeCache;
-        }
-
         $editTheme = Config::get('cms.editTheme');
         if (!$editTheme) {
-            $editTheme = static::getActiveTheme()->getDirName();
+            $editTheme = static::getActiveThemeCode();
         }
 
         $apiResult = Event::fire('cms.editTheme', [], true);
@@ -216,7 +227,20 @@ class Theme
             throw new SystemException(Lang::get('cms::lang.theme.edit.not_set'));
         }
 
-        $theme = static::load($editTheme);
+        return $editTheme;
+    }
+
+    /**
+     * Returns the edit theme.
+     * @return \Cms\Classes\Theme Returns the loaded theme object.
+     */
+    public static function getEditTheme()
+    {
+        if (self::$editThemeCache !== false) {
+            return self::$editThemeCache;
+        }
+
+        $theme = static::load(static::getEditThemeCode());
 
         if (!File::isDirectory($theme->getPath())) {
             return self::$editThemeCache = null;
@@ -309,10 +333,10 @@ class Theme
     {
         $previewPath = '/assets/images/theme-preview.png';
         if (File::exists($this->getPath().$previewPath)) {
-            return URL::asset('themes/'.$this->getDirName().$previewPath);
+            return Url::asset('themes/'.$this->getDirName().$previewPath);
         }
 
-        return URL::asset('modules/cms/assets/images/default-theme-preview.png');
+        return Url::asset('modules/cms/assets/images/default-theme-preview.png');
     }
 
     /**
@@ -334,6 +358,20 @@ class Theme
     public function hasCustomData()
     {
         return $this->getConfigValue('form', false);
+    }
+
+    /**
+     * Ensures this theme is registered as a Halcyon them datasource.
+     * @return void
+     */
+    public function registerHalyconTheme()
+    {
+        $resolver = App::make('halcyon');
+
+        if (!$resolver->hasTheme($this->dirName)) {
+            $themeDatasource = new HalcyonFileTheme($this->getPath(), App::make('files'));
+            $resolver->addTheme($this->dirName, $themeDatasource);
+        }
     }
 
     /**
