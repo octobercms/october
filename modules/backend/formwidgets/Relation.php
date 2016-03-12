@@ -2,6 +2,7 @@
 
 use Db;
 use Lang;
+use Event;
 use Backend\Classes\FormWidgetBase;
 use ApplicationException;
 use SystemException;
@@ -124,6 +125,11 @@ class Relation extends FormWidgetBase
             // Determine if the model uses a tree trait
             $treeTraits = ['October\Rain\Database\Traits\NestedTree', 'October\Rain\Database\Traits\SimpleTree'];
             $usesTree = count(array_intersect($treeTraits, class_uses($relationModel))) > 0;
+
+            /**
+             * Extensibility
+             */
+            Event::fire('backend.relation.extendQuery', [$this, $attribute, $query]);
 
             // The "sqlSelect" config takes precedence over "nameFrom".
             // A virtual column called "selection" will contain the result.
