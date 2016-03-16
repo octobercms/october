@@ -2196,7 +2196,7 @@ $('select.custom-select').each(function(){var $element=$(this),extraOptions={}
 if($element.data('select2')!=null){return true;}
 $element.attr('data-disposable','data-disposable')
 $element.one('dispose-control',function(){if($element.data('select2')){$element.select2('destroy')}})
-if($element.hasClass('select-no-search')){extraOptions.minimumResultsForSearch=Infinity}
+if($element.hasClass('select-no-search')||$element.parent().hasClass('select-no-search')){extraOptions.minimumResultsForSearch=Infinity}
 $element.select2($.extend({},selectOptions,extraOptions))})})
 $(document).on('disable','select.custom-select',function(event,status){$(this).select2('enable',!status)})
 $(document).on('focus','select.custom-select',function(event){setTimeout($.proxy(function(){$(this).select2('focus')},this),10)})})(jQuery);+function($){"use strict";var LoadIndicator=function(element,options){var $el=this.$el=$(element)
