@@ -2,9 +2,15 @@
 
 use Cms\Classes\Theme;
 use Cms\Classes\Controller;
+use Cms\Classes\CmsCompoundObject;
 
 class ControllerTest extends TestCase
 {
+    public function tearDown()
+    {
+        parent::tearDown();
+        CmsCompoundObject::flushEventListeners();
+    }
 
     public function testThemeUrl()
     {

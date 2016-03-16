@@ -6,26 +6,26 @@ use Cms\Classes\CmsCompoundObject;
 
 class TestCmsCompoundObject extends CmsCompoundObject
 {
-    protected function parseSettings() {}
+    protected $dirName = 'testobjects';
 
-    public static function getObjectTypeDirName()
-    {
-        return 'testobjects';
-    }
+    protected function parseSettings() {}
 }
 
 class TestTemporaryCmsCompoundObject extends CmsCompoundObject
 {
-    protected function parseSettings() {}
+    protected $dirName = 'temporary';
 
-    public static function getObjectTypeDirName()
-    {
-        return 'temporary';
-    }
+    protected function parseSettings() {}
 }
 
-class CmsCompoundObjectTest extends TestCase 
+class CmsCompoundObjectTest extends TestCase
 {
+    public function tearDown()
+    {
+        parent::tearDown();
+        TestCmsCompoundObject::flushEventListeners();
+    }
+
     public function testLoadFile()
     {
         $theme = Theme::load('test');
@@ -159,9 +159,7 @@ class CmsCompoundObjectTest extends TestCase
 
     public function testUndefinedProperty()
     {
-        $theme = Theme::load('test');
-
-        $obj = new TestCmsCompoundObject($theme);
+        $obj = new TestCmsCompoundObject;
         $this->assertNull($obj->something);
     }
 
@@ -175,7 +173,7 @@ class CmsCompoundObjectTest extends TestCase
 
         $this->assertFileNotExists($destFilePath);
 
-        $obj = new TestCmsCompoundObject($theme);
+        $obj = TestCmsCompoundObject::inTheme($theme);
         $obj->fill([
             'markup' => '<p>Hello, world!</p>',
             'fileName'=>'compound-markup'
@@ -199,7 +197,7 @@ class CmsCompoundObjectTest extends TestCase
 
         $this->assertFileNotExists($destFilePath);
 
-        $obj = new TestCmsCompoundObject($theme);
+        $obj = TestCmsCompoundObject::inTheme($theme);
         $obj->fill([
             'settings'=>['var'=>'value'],
             'markup' => '<p>Hello, world!</p>',
@@ -225,7 +223,7 @@ class CmsCompoundObjectTest extends TestCase
 
         $this->assertFileNotExists($destFilePath);
 
-        $obj = new TestCmsCompoundObject($theme);
+        $obj = TestCmsCompoundObject::inTheme($theme);
         $obj->fill([
             'fileName'=>'compound',
             'settings'=>['var'=>'value'],

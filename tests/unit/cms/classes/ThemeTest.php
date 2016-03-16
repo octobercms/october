@@ -41,7 +41,8 @@ class ThemeTest extends TestCase
     {
         $theme = Theme::load('test');
 
-        $pages = $theme->listPages();
+        $pageCollection = $theme->listPages();
+        $pages = array_values($pageCollection->all());
         $this->assertInternalType('array', $pages);
 
         $expectedPageNum = $this->countThemePages(base_path().'/tests/fixtures/themes/test/pages');
