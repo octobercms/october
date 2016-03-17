@@ -11,6 +11,11 @@ class TestCmsCompoundObject extends CmsCompoundObject
     protected function parseSettings() {}
 }
 
+class TestParsedCmsCompoundObject extends CmsCompoundObject
+{
+    protected $dirName = 'testobjects';
+}
+
 class TestTemporaryCmsCompoundObject extends CmsCompoundObject
 {
     protected $dirName = 'temporary';
@@ -239,12 +244,52 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertFileEqualsNormalized($referenceFilePath, $destFilePath);
     }
 
-   //
-   // Helpers
-   //
+    public function testGetViewBagPopulated()
+    {
+        $theme = Theme::load('test');
 
-   protected function assertFileEqualsNormalized($expected, $actual)
-   {
+        $obj = TestParsedCmsCompoundObject::load($theme, 'viewbag.htm');
+        $this->assertNull($obj->code);
+        $this->assertEquals('<p>Chop Suey!</p>', $obj->markup);
+        $this->assertInternalType('array', $obj->settings);
+        $this->assertArrayHasKey('var', $obj->settings);
+        $this->assertEquals('value', $obj->settings['var']);
+
+        $this->assertArrayHasKey('components', $obj->settings);
+
+        $this->assertArrayHasKey('viewBag', $obj->settings['components']);
+        $this->assertInternalType('array', $obj->settings['components']['viewBag']);
+        $this->assertArrayHasKey('title', $obj->settings['components']['viewBag']);
+        $this->assertEquals('Toxicity', $obj->settings['components']['viewBag']['title']);
+
+        $viewBag = $obj->getViewBag();
+        $properties = $viewBag->getProperties();
+        $this->assertCount(1, $properties);
+        $this->assertEquals($obj->viewBag, $properties);
+        $this->assertInstanceOf('Cms\Classes\ViewBag', $viewBag);
+        $this->assertArrayHasKey('title', $properties);
+        $this->assertEquals('Toxicity', $properties['title']);
+    }
+
+    public function testGetViewBagEmpty()
+    {
+        $theme = Theme::load('test');
+
+        $obj = TestParsedCmsCompoundObject::load($theme, 'compound.htm');
+
+        $viewBag = $obj->getViewBag();
+        $this->assertInstanceOf('Cms\Classes\ViewBag', $viewBag);
+        $properties = $viewBag->getProperties();
+        $this->assertEmpty($properties);
+        $this->assertEquals($obj->viewBag, $properties);
+    }
+
+    //
+    // Helpers
+    //
+
+    protected function assertFileEqualsNormalized($expected, $actual)
+    {
         $expected = file_get_contents($expected);
         $expected = preg_replace('~\R~u', PHP_EOL, $expected); // Normalize EOL
 
@@ -252,6 +297,6 @@ class CmsCompoundObjectTest extends TestCase
         $actual = preg_replace('~\R~u', PHP_EOL, $actual); // Normalize EOL
 
         $this->assertEquals($expected, $actual);
-   }
+    }
 
 }
