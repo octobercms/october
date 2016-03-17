@@ -54,6 +54,7 @@ class CmsCompoundObject extends CmsObject
     protected $passthru = [
         'lists',
         'where',
+        'sortBy',
         'whereComponent',
         'withComponent'
     ];
@@ -69,15 +70,22 @@ class CmsCompoundObject extends CmsObject
     protected static $objectComponentPropertyMap = null;
 
     /**
-     * After fetch event
+     * @var mixed Cache store for the getViewBag method.
+     */
+    protected $viewBagCache = false;
+
+    /**
+     * Triggered after the object is loaded.
+     * @return void
      */
     public function afterFetch()
     {
         $this->parseComponentSettings();
+        $this->parseSettings();
     }
 
     /**
-     * Create a new Eloquent Collection instance.
+     * Create a new Collection instance.
      *
      * @param  array  $models
      * @return \October\Rain\Halcyon\Collection
@@ -85,6 +93,17 @@ class CmsCompoundObject extends CmsObject
     public function newCollection(array $models = [])
     {
         return new CmsObjectCollection($models);
+    }
+
+    /**
+     * Parses the settings array.
+     * Child classes can override this method in order to update
+     * the content of the $settings property after the object
+     * is loaded from a file.
+     */
+    protected function parseSettings()
+    {
+        $this->fillViewBagArray();
     }
 
     //
@@ -255,6 +274,57 @@ class CmsCompoundObject extends CmsObject
         return [];
     }
 
+    /**
+     * Clears the object cache.
+     * @param \Cms\Classes\Theme $theme Specifies a parent theme.
+     * @return void
+     */
+    public static function clearCache($theme)
+    {
+        $key = crc32($theme->getPath()).'component-properties';
+        Cache::forget($key);
+    }
+
+    //
+    // View Bag
+    //
+
+    /**
+     * Returns the configured view bag component.
+     * This method is used only in the back-end and for internal system needs when 
+     * the standard way to access components is not an option.
+     * @return \Cms\Classes\ViewBag Returns the view bag component instance.
+     */
+    public function getViewBag()
+    {
+        if ($this->viewBagCache !== false) {
+            return $this->viewBagCache;
+        }
+
+        $componentName = 'viewBag';
+
+        if (!isset($this->settings['components'][$componentName])) {
+            $viewBag = new ViewBag(null, []);
+            $viewBag->name = $componentName;
+
+            return $this->viewBagCache = $viewBag;
+        }
+
+        return $this->viewBagCache = $this->getComponent($componentName);
+    }
+
+    /*
+     * Copies view bag properties to the view bag array.
+     * This is required for the back-end editors.
+     */
+    protected function fillViewBagArray()
+    {
+        $viewBag = $this->getViewBag();
+        foreach ($viewBag->getProperties() as $name => $value) {
+            $this->viewBag[$name] = $value;
+        }
+    }
+
     //
     // Twig
     //
@@ -291,6 +361,42 @@ class CmsCompoundObject extends CmsObject
     //
     // Magic
     //
+
+    /**
+     * Implements getter functionality for visible properties defined in
+     * the settings section or view bag array.
+     */
+    public function __get($name)
+    {
+        if (is_array($this->settings) && array_key_exists($name, $this->settings)) {
+            return $this->settings[$name];
+        }
+
+        if (is_array($this->viewBag) && array_key_exists($name, $this->viewBag)) {
+            return $this->viewBag[$name];
+        }
+
+        return parent::__get($name);
+    }
+
+    /**
+     * Determine if an attribute exists on the object.
+     *
+     * @param  string  $key
+     * @return void
+     */
+    public function __isset($key)
+    {
+        if (parent::__isset($key) === true) {
+            return true;
+        }
+
+        if (isset($this->viewBag[$key]) === true) {
+            return true;
+        }
+
+        return isset($this->settings[$key]);
+    }
 
     /**
      * Dynamically handle calls into the query instance.

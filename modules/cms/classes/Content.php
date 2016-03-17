@@ -22,50 +22,38 @@ class Content extends CmsCompoundObject
     protected $allowedExtensions = ['htm', 'txt', 'md'];
 
     /**
-     * @var string Contains the parsed markup.
+     * @var array List of attribute names which are not considered "settings".
      */
-    public $parsedMarkup = null;
+    protected $purgeable = ['parsedMarkup'];
 
     /**
-     * Loads the object from a file.
-     * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
-     * @param string $fileName Specifies the file name, with the extension.
-     * The file name can contain only alphanumeric symbols, dashes and dots.
-     * @return boolean Returns true if the object was successfully loaded. Otherwise returns false.
-     */
-    public static function load($theme, $fileName)
-    {
-        if ($obj = parent::load($theme, $fileName)) {
-            $obj->parsedMarkup = $obj->parseMarkup();
-        }
-
-        return $obj;
-    }
-
-    /**
-     * Initializes the object properties from the cached data.
+     * Initializes the object properties from the cached data. The extra data
+     * set here becomes available as attributes set on the model after fetch.
      * @param array $cached The cached data array.
      */
-    protected function initFromCache($cached)
+    public static function initCacheItem(&$item)
     {
-        parent::initFromCache($cached);
-
-        $this->parsedMarkup = array_key_exists('parsed-markup', $cached)
-            ? $cached['parsed-markup']
-            : $this->parseMarkup($this->markup);
+        $item['parsedMarkup'] = (new static($item))->parseMarkup();
     }
 
     /**
-     * Initializes a cache item.
-     * @param array &$item The cached item array.
+     * Returns a default value for parsedMarkup attribute.
+     * @return string
      */
-    protected function initCacheItem(&$item)
+    public function getParsedMarkupAttribute()
     {
-        parent::initCacheItem($item);
-        $item['parsed-markup'] = $this->parsedMarkup;
+        if (array_key_exists('parsedMarkup', $this->attributes)) {
+            return $this->attributes['parsedMarkup'];
+        }
+
+        return $this->attributes['parsedMarkup'] = $this->parseMarkup();
     }
 
-    protected function parseMarkup()
+    /**
+     * Parses the content markup according to the file type.
+     * @return string
+     */
+    public function parseMarkup()
     {
         $extension = strtolower(File::extension($this->fileName));
 
@@ -82,4 +70,5 @@ class Content extends CmsCompoundObject
 
         return $result;
     }
+
 }

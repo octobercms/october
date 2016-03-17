@@ -23,8 +23,10 @@ class Page extends CmsCompoundObject
      */
     protected $fillable = [
         'url',
+        'layout',
         'title',
         'description',
+        'is_hidden',
         'meta_title',
         'meta_description',
         'markup',
@@ -38,20 +40,23 @@ class Page extends CmsCompoundObject
      */
     public $apiBag = [];
 
-    protected $settingsValidationRules = [
+    /**
+     * @var array The rules to be applied to the data.
+     */
+    public $rules = [
         'title' => 'required',
         'url'   => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|\.\^\\\$]*$/i']
     ];
 
     /**
      * Creates an instance of the object and associates it with a CMS theme.
-     * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
+     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
 
-        $this->settingsValidationMessages = [
+        $this->customMessages = [
             'url.regex' => Lang::get('cms::lang.page.invalid_url')
         ];
     }

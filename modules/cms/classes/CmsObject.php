@@ -6,6 +6,7 @@ use October\Rain\Halcyon\Model as HalcyonModel;
 use Cms\Contracts\CmsObject as CmsObjectContract;
 use ApplicationException;
 use ValidationException;
+use SystemException;
 use Exception;
 
 /**
@@ -17,6 +18,23 @@ use Exception;
  */
 class CmsObject extends HalcyonModel implements CmsObjectContract
 {
+    use \October\Rain\Halcyon\Traits\Validation;
+
+    /**
+     * @var array The rules to be applied to the data.
+     */
+    public $rules = [];
+
+    /**
+     * @var array The array of custom attribute names.
+     */
+    public $attributeNames = [];
+
+    /**
+     * @var array The array of custom error messages.
+     */
+    public $customMessages = [];
+
     /**
      * @var array The attributes that are mass assignable.
      */
@@ -28,6 +46,22 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
      * @var bool Model supports code and settings sections.
      */
     protected $isCompoundObject = false;
+
+    /**
+     * @var \Cms\Classes\Theme A reference to the CMS theme containing the object.
+     */
+    protected $themeCache;
+
+    /**
+     * Create a new CMS object instance.
+     *
+     * @param  array  $attributes
+     * @return void
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
 
     /**
      * Loads the object from a file.
@@ -100,6 +134,22 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
     }
 
     /**
+     * Returns the CMS theme this object belongs to.
+     * @return \Cms\Classes\Theme
+     */
+    public function getThemeAttribute()
+    {
+        if ($this->themeCache !== null) {
+            return $this->themeCache;
+        }
+
+        $themeName = $this->getDatasourceName()
+            ?: static::getDatasourceResolver()->getDefaultDatasource();
+
+        return $this->themeCache = Theme::load($themeName);
+    }
+
+    /**
      * Returns the full path to the template file corresponding to this object.
      * @return string
      */
@@ -109,7 +159,7 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
             $fileName = $this->fileName;
         }
 
-        return $this->getTheme()->getBasePath().'/'.$this->getObjectTypeDirName().'/'.$fileName;
+        return $this->theme->getPath().'/'.$this->getObjectTypeDirName().'/'.$fileName;
     }
 
     /**

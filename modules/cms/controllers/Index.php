@@ -273,7 +273,7 @@ class Index extends Controller
     {
         $this->validateRequestTheme();
 
-        $page = new Page($this->theme);
+        $page = Page::inTheme($this->theme);
         return [
             'layouts' => $page->getLayoutOptions()
         ];
@@ -356,7 +356,7 @@ class Index extends Controller
     {
         $class = $this->resolveTypeClassName($type);
 
-        if (!($template = new $class($this->theme))) {
+        if (!($template = $class::inTheme($this->theme))) {
             throw new ApplicationException(trans('cms::lang.template.not_found'));
         }
 
