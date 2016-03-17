@@ -31,8 +31,19 @@ class Table extends WidgetBase
      */
     protected $showHeader = true;
 
+    /**
+     * @var Backend\Widgets\Table\DatasourceBase
+     */
     protected $dataSource = null;
 
+    /**
+     * @var string Field name used for request data.
+     */
+    protected $fieldName = null;
+
+    /*
+     * @var string
+     */
     protected $recordsKeyFrom;
 
     protected $dataSourceAliases = [
@@ -46,6 +57,8 @@ class Table extends WidgetBase
     public function init()
     {
         $this->columns = $this->getConfig('columns', []);
+
+        $this->fieldName = $this->getConfig('fieldName', $this->alias);
 
         $this->recordsKeyFrom = $this->getConfig('keyFrom', 'id');
 
@@ -65,10 +78,12 @@ class Table extends WidgetBase
         $this->dataSource = new $dataSourceClass($this->recordsKeyFrom);
 
         if (Request::method() == 'POST' && $this->isClientDataSource()) {
-            if (strpos($this->alias, '[') === false)
-                $requestDataField = $this->alias.'TableData';
-            else
-                $requestDataField = $this->alias.'[TableData]';
+            if (strpos($this->fieldName, '[') === false) {
+                $requestDataField = $this->fieldName.'TableData';
+            }
+            else {
+                $requestDataField = $this->fieldName.'[TableData]';
+            }
 
             if (Request::exists($requestDataField)) {
                 // Load data into the client memory data source on POST

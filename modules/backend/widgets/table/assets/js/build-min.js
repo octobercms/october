@@ -296,7 +296,7 @@ return}
 Table.prototype.onFormSubmit=function(ev,data){if(data.handler==this.options.postbackHandlerName){this.unfocusTable()
 if(!this.validate()){ev.preventDefault()
 return}
-var fieldName=this.options.alias.indexOf('[')>-1?this.options.alias+'[TableData]':this.options.alias+'TableData'
+var fieldName=this.options.fieldName.indexOf('[')>-1?this.options.fieldName+'[TableData]':this.options.fieldName+'TableData'
 data.options.data[fieldName]=this.dataSource.getAllData()}}
 Table.prototype.onToolbarClick=function(ev){var target=this.getEventTarget(ev),cmd=target.getAttribute('data-cmd')
 if(!cmd)

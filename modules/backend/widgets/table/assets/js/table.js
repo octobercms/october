@@ -786,9 +786,9 @@
                 return
             }
 
-            var fieldName = this.options.alias.indexOf('[') > -1
-                ? this.options.alias + '[TableData]'
-                : this.options.alias + 'TableData'
+            var fieldName = this.options.fieldName.indexOf('[') > -1
+                ? this.options.fieldName + '[TableData]'
+                : this.options.fieldName + 'TableData'
 
             data.options.data[fieldName] = this.dataSource.getAllData()
         }
