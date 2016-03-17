@@ -9,11 +9,11 @@ use Cache;
 use Event;
 use Config;
 use DbDongle;
-use SystemException;
-use ApplicationException;
-use System\Models\Parameters;
 use Cms\Models\ThemeData;
-use October\Rain\Halcyon\Theme\FileTheme as HalcyonFileTheme;
+use System\Models\Parameters;
+use October\Rain\Halcyon\Datasource\FileDatasource;
+use ApplicationException;
+use SystemException;
 use DirectoryIterator;
 
 /**
@@ -57,7 +57,7 @@ class Theme
     {
         $theme = new static;
         $theme->setDirName($dirName);
-        $theme->registerHalyconTheme();
+        $theme->registerHalyconDatasource();
         return $theme;
     }
 
@@ -364,13 +364,13 @@ class Theme
      * Ensures this theme is registered as a Halcyon them datasource.
      * @return void
      */
-    public function registerHalyconTheme()
+    public function registerHalyconDatasource()
     {
         $resolver = App::make('halcyon');
 
-        if (!$resolver->hasTheme($this->dirName)) {
-            $themeDatasource = new HalcyonFileTheme($this->getPath(), App::make('files'));
-            $resolver->addTheme($this->dirName, $themeDatasource);
+        if (!$resolver->hasDatasource($this->dirName)) {
+            $datasource = new FileDatasource($this->getPath(), App::make('files'));
+            $resolver->addDatasource($this->dirName, $datasource);
         }
     }
 

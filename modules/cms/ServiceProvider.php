@@ -292,7 +292,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function bootDefaultTheme()
     {
         $resolver = App::make('halcyon');
-        if ($resolver->getDefaultTheme()) {
+        if ($resolver->getDefaultDatasource()) {
             return;
         }
 
@@ -300,6 +300,6 @@ class ServiceProvider extends ModuleServiceProvider
             ? CmsTheme::getEditThemeCode()
             : CmsTheme::getActiveThemeCode();
 
-        $resolver->setDefaultTheme($defaultTheme);
+        $resolver->setDefaultDatasource($defaultTheme);
     }
 }
