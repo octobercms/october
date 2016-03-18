@@ -2,8 +2,8 @@
 
 use File;
 use Twig_Error;
-use Cms\Classes\SectionParser;
 use October\Rain\Exception\ApplicationException;
+use October\Rain\Halcyon\Processors\SectionParser;
 use Exception;
 
 /**
@@ -110,7 +110,7 @@ class CmsException extends ApplicationException
         if (strpos($message, 'Unknown') === false) {
             return false;
         }
-        if (strpos($exception->getFile(), 'SectionParser.php') === false) {
+        if (strpos($exception->getFile(), 'Ini.php') === false) {
             return false;
         }
 

@@ -1,10 +1,12 @@
 <?php namespace Cms\Classes;
 
+use Ini;
 use Cache;
 use Config;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\Extension as CmsTwigExtension;
 use System\Twig\Extension as SystemTwigExtension;
+use October\Rain\Halcyon\Processors\SectionParser;
 use Twig_Environment;
 
 /**
@@ -81,6 +83,7 @@ class CmsCompoundObject extends CmsObject
     public function afterFetch()
     {
         $this->parseComponentSettings();
+        $this->validateSettings();
         $this->parseSettings();
     }
 
@@ -93,6 +96,21 @@ class CmsCompoundObject extends CmsObject
     public function newCollection(array $models = [])
     {
         return new CmsObjectCollection($models);
+    }
+
+    /**
+     * If the model is loaded with an invalid INI section, the invalid content will be
+     * passed as a special attribute. Look for it, then locate the failure reason.
+     *
+     * @return void
+     */
+    protected function validateSettings()
+    {
+        if (isset($this->attributes[SectionParser::ERROR_INI])) {
+            CmsException::mask($this, 200);
+            Ini::parse($this->attributes[SectionParser::ERROR_INI]);
+            CmsException::unmask();
+        }
     }
 
     /**
