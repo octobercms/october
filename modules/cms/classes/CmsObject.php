@@ -6,7 +6,6 @@ use October\Rain\Halcyon\Model as HalcyonModel;
 use Cms\Contracts\CmsObject as CmsObjectContract;
 use ApplicationException;
 use ValidationException;
-use SystemException;
 use Exception;
 
 /**

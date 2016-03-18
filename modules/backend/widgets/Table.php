@@ -41,7 +41,7 @@ class Table extends WidgetBase
      */
     protected $fieldName = null;
 
-    /*
+    /**
      * @var string
      */
     protected $recordsKeyFrom;
