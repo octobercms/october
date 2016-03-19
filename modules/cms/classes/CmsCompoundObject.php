@@ -101,7 +101,6 @@ class CmsCompoundObject extends CmsObject
     /**
      * If the model is loaded with an invalid INI section, the invalid content will be
      * passed as a special attribute. Look for it, then locate the failure reason.
-     *
      * @return void
      */
     protected function validateSettings()
@@ -115,9 +114,9 @@ class CmsCompoundObject extends CmsObject
 
     /**
      * Parses the settings array.
-     * Child classes can override this method in order to update
-     * the content of the $settings property after the object
-     * is loaded from a file.
+     * Child classes can override this method in order to update the content
+     * of the $settings property after the object is loaded from a file.
+     * @return void
      */
     protected function parseSettings()
     {
@@ -131,6 +130,7 @@ class CmsCompoundObject extends CmsObject
     /**
      * Runs components defined in the settings
      * Process halts if a component returns a value
+     * @return void
      */
     public function runComponents()
     {
@@ -145,6 +145,7 @@ class CmsCompoundObject extends CmsObject
      * Parse component sections.
      * Replace the multiple component sections with a single "components"
      * element in the $settings property.
+     * @return void
      */
     protected function parseComponentSettings()
     {
@@ -331,9 +332,10 @@ class CmsCompoundObject extends CmsObject
         return $this->viewBagCache = $this->getComponent($componentName);
     }
 
-    /*
+    /**
      * Copies view bag properties to the view bag array.
      * This is required for the back-end editors.
+     * @return void
      */
     protected function fillViewBagArray()
     {
@@ -341,6 +343,8 @@ class CmsCompoundObject extends CmsObject
         foreach ($viewBag->getProperties() as $name => $value) {
             $this->viewBag[$name] = $value;
         }
+
+        $this->fireEvent('cmsObject.fillViewBagArray');
     }
 
     //

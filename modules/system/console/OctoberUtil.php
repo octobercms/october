@@ -14,6 +14,12 @@ use System\Classes\CombineAssets;
  * Supported commands:
  *
  *   - purge thumbs: Deletes all thumbnail files in the uploads directory.
+ *   - git pull: Perform "git pull" on all plugins and themes.
+ *   - compile assets: Compile registered Language, LESS and JS files.
+ *   - compile js: Compile registered JS files only.
+ *   - compile less: Compile registered LESS files only.
+ *   - compile lang: Compile registered Language files only.
+ *
  */
 class OctoberUtil extends Command
 {
