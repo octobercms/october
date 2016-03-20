@@ -7,6 +7,7 @@ use Response;
 use Backend;
 use BackendAuth;
 use Backend\Classes\ControllerBehavior;
+use Backend\Classes\StreamFilterTranscode;
 use League\Csv\Reader as CsvReader;
 use League\Csv\Writer as CsvWriter;
 use ApplicationException;
@@ -174,15 +175,22 @@ class ImportExportController extends ControllerBehavior
         try {
             $model = $this->importGetModel();
             $matches = post('column_match', []);
+            $importOptions = [
+                'sessionKey' => $this->importUploadFormWidget->getSessionKey()
+            ];
 
             if ($optionData = post('ImportOptions')) {
                 $model->fill($optionData);
             }
 
-            $model->import($matches, [
-                'sessionKey' => $this->importUploadFormWidget->getSessionKey(),
-                'firstRowTitles' => post('first_row_titles', false)
-            ]);
+            if (post('format_preset') == 'custom') {
+                $importOptions['delimiter'] = post('format_delimiter');
+                $importOptions['enclosure'] = post('format_enclosure');
+                $importOptions['escape'] = post('format_escape');
+                $importOptions['encoding'] = post('format_encoding');
+            }
+
+            $model->import($matches, $importOptions);
 
             $this->vars['importResults'] = $model->getResultStats();
             $this->vars['returnUrl'] = $this->getRedirectUrlForType('import');
@@ -218,7 +226,7 @@ class ImportExportController extends ControllerBehavior
         }
 
         $path = $this->getImportFilePath();
-        $reader = CsvReader::createFromPath($path);
+        $reader   = $this->createCsvReader($path);
 
         if (post('first_row_titles')) {
             $reader->setOffset(1);
@@ -293,13 +301,18 @@ class ImportExportController extends ControllerBehavior
             return null;
         }
 
-        $reader = CsvReader::createFromPath($path);
+        $reader   = $this->createCsvReader($path);
         $firstRow = $reader->fetchOne(0);
 
         if (!post('first_row_titles')) {
             array_walk($firstRow, function(&$value, $key) {
                 $value = 'Column #'.($key + 1);
             });
+        }
+
+        // Prevents unfriendly error to be thrown due to bad encoding at response time
+        if (false === json_encode($firstRow)) {
+            throw new ApplicationException(Lang::get('backend::lang.import_export.encoding_not_supported_error'));
         }
 
         return $firstRow;
@@ -690,5 +703,51 @@ class ImportExportController extends ControllerBehavior
         }
 
         return $this->controller->actionUrl($type);
+    }
+
+
+    /**
+     * Create a new CSV reader with options selected by the user
+     * @param string $path
+     *
+     * @return CsvReader
+     */
+    protected function createCsvReader($path)
+    {
+        $reader = CsvReader::createFromPath($path);
+
+        if (post('format_preset') == 'custom') {
+            $options = [
+                'delimiter' => post('format_delimiter'),
+                'enclosure' => post('format_enclosure'),
+                'escape' => post('format_escape'),
+                'encoding' => post('format_encoding')
+            ];
+
+            if ($options['delimiter'] !== null) {
+                $reader->setDelimiter($options['delimiter']);
+            }
+
+            if ($options['enclosure'] !== null) {
+                $reader->setEnclosure($options['enclosure']);
+            }
+
+            if ($options['escape'] !== null) {
+                $reader->setEscape($options['escape']);
+            }
+
+            if ($options['encoding'] !== null) {
+                if ($reader->isActiveStreamFilter()) {
+                    $reader->appendStreamFilter(sprintf(
+                        '%s%s:%s',
+                        StreamFilterTranscode::FILTER_NAME,
+                        strtolower($options['encoding']),
+                        'utf-8'
+                    ));
+                }
+            }
+        }
+
+        return $reader;
     }
 }

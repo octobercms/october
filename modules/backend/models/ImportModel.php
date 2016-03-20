@@ -87,10 +87,21 @@ abstract class ImportModel extends Model
      */
     protected function processImportData($filePath, $matches, $options)
     {
-        extract(array_merge([
-            'firstRowTitles' => true
-        ], $options));
+        /*
+         * Parse options
+         */
+        $defaultOptions = [
+            'firstRowTitles' => true,
+            'delimiter' => null,
+            'enclosure' => null,
+            'escape' => null
+        ];
 
+        $options = array_merge($defaultOptions, $options);
+
+        /*
+         * Read CSV
+         */
         $reader = CsvReader::createFromPath($filePath, 'r');
 
         // Filter out empty rows
@@ -98,7 +109,19 @@ abstract class ImportModel extends Model
             return count($row) > 1 || reset($row) !== null;
         });
 
-        if ($firstRowTitles) {
+        if ($options['delimiter'] !== null) {
+            $reader->setDelimiter($options['delimiter']);
+        }
+
+        if ($options['enclosure'] !== null) {
+            $reader->setEnclosure($options['enclosure']);
+        }
+
+        if ($options['escape'] !== null) {
+            $reader->setEscape($options['escape']);
+        }
+
+        if ($options['firstRowTitles']) {
             $reader->setOffset(1);
         }
 
@@ -163,6 +186,16 @@ abstract class ImportModel extends Model
         }
 
         return $file->getLocalPath();
+    }
+
+
+    /**
+     * Returns all available encodings values from the localization config
+     * @return array
+     */
+    public function getFormatEncodingOptions()
+    {
+        return \Lang::get('backend::lang.import_export.encodings');
     }
 
     //
