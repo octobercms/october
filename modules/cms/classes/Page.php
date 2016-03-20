@@ -75,7 +75,7 @@ class Page extends CmsCompoundObject
     }
 
     /**
-     * Returns a list of layouts available in the theme. 
+     * Returns a list of layouts available in the theme.
      * This method is used by the form widget.
      * @return array Returns an array of strings.
      */

@@ -99,7 +99,19 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
      */
     public static function listInTheme($theme, $skipCache = false)
     {
-        return static::inTheme($theme)->get();
+        $instance = static::inTheme($theme);
+
+        if ($skipCache) {
+            return $instance->get();
+        }
+
+        $items = $instance->newQuery()->lists('fileName');
+
+        $items = array_map(function ($item) use ($theme) {
+            return static::loadCached($theme, $item);
+        }, $items);
+
+        return $instance->newCollection($items);
     }
 
     /**
