@@ -31,6 +31,11 @@ class EditorPreferences extends Model
         $this->use_hard_tabs = $config->get('editor.use_hard_tabs', false);
         $this->show_gutter = $config->get('editor.show_gutter', true);
         $this->auto_closing = $config->get('editor.auto_closing', true);
+        $this->enable_basic_autocompletion = $config->get('editor.enable_basic_autocompletion', true);
+	$this->enable_snippets = $config->get('editor.enable_snippets', true);
+        $this->enable_live_autocompletion = $config->get('editor.enable_live_autocompletion', true);
+        $this->display_indent_guides = $config->get('editor.display_indent_guides', true);
+        $this->show_print_margin = $config->get('editor.show_print_margin', true);		
     }
 
     public static function applyConfigValues()
@@ -47,6 +52,11 @@ class EditorPreferences extends Model
         $config->set('editor.use_hard_tabs', $settings->use_hard_tabs);
         $config->set('editor.show_gutter', $settings->show_gutter);
         $config->set('editor.auto_closing', $settings->auto_closing);
+        $config->set('editor.enable_basic_autocompletion', $settings->enable_basic_autocompletion);
+	$config->set('editor.editor.enable_snippets', $settings->enable_snippets);
+        $config->set('editor.enable_live_autocompletion', $settings->enable_live_autocompletion);
+        $config->set('editor.display_indent_guides', $settings->display_indent_guides);
+        $config->set('editor.show_print_margin', $settings->show_print_margin);		
     }
 
     public function getThemeOptions()

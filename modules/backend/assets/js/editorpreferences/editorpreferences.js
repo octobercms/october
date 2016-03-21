@@ -31,6 +31,26 @@ $(document).ready(function(){
         editor.setShowInvisibles($(this).is(':checked'))
     })
 
+    $('#Form-field-EditorPreferences-enable_basic_autocompletion').on('change', function(){
+		editor.setOption('enableBasicAutocompletion', $(this).is(':checked'))
+    })
+
+    $('#Form-field-EditorPreferences-enable_snippets').on('change', function(){
+		editor.setOption('enableSnippets', $(this).is(':checked'))
+    })
+
+    $('#Form-field-EditorPreferences-enable_live_autocompletion').on('change', function(){
+		editor.setOption('enableLiveAutocompletion', $(this).is(':checked'))
+    })
+
+    $('#Form-field-EditorPreferences-display_indent_guides').on('change', function(){
+        editor.setDisplayIndentGuides($(this).is(':checked'))
+    })
+
+    $('#Form-field-EditorPreferences-show_print_margin').on('change', function(){
+        editor.setShowPrintMargin($(this).is(':checked'))
+    })
+	
     $('#Form-field-EditorPreferences-highlight_active_line').on('change', function(){
         editor.setHighlightActiveLine($(this).is(':checked'))
     })

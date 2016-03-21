@@ -37,6 +37,12 @@
         this.isFullscreen = false
         this.$fullscreenEnable = this.$toolbar.find('li.fullscreen-enable')
         this.$fullscreenDisable = this.$toolbar.find('li.fullscreen-disable')
+        this.isSearchbox = false
+        this.$searchboxEnable = this.$toolbar.find('li.searchbox-enable')
+        this.$searchboxDisable = this.$toolbar.find('li.searchbox-disable')
+		this.isReplacebox = false
+        this.$replaceboxEnable = this.$toolbar.find('li.replacebox-enable')
+        this.$replaceboxDisable = this.$toolbar.find('li.replacebox-disable')
 
         $.oc.foundation.controlUtils.markDisposable(element)
 
@@ -61,7 +67,7 @@
         language: 'php',
         margin: 0,
         vendorPath: '/',
-        showPrintMargin: true,
+        showPrintMargin: false,
         highlightSelectedWord: false,
         hScrollBarAlwaysVisible: false,
         readOnly: false
@@ -126,6 +132,7 @@
             editor.setTheme('ace/theme/' + options.theme)
             var inline = options.language === 'php'
             editor.getSession().setMode({ path: 'ace/mode/'+options.language, inline: inline })
+			//editor.getSession().setMode({ path: 'ace/mode/'+options.language })
         })
 
         /*
@@ -140,6 +147,13 @@
         editor.setHighlightSelectedWord(options.highlightSelectedWord)
         editor.renderer.setHScrollBarAlwaysVisible(options.hScrollBarAlwaysVisible)
         editor.setOption('enableEmmet', options.enableEmmet)
+		// enable autocompletion and snippets
+		editor.setOptions({
+			enableBasicAutocompletion: options.enableBasicAutocompletion,
+			enableSnippets: options.enableSnippets,
+			enableLiveAutocompletion: options.enableLiveAutocompletion
+		})
+		editor.setDisplayIndentGuides(options.displayIndentGuides)
         editor.getSession().setUseSoftTabs(options.useSoftTabs)
         editor.getSession().setTabSize(options.tabSize)
         editor.setReadOnly(options.readOnly)
@@ -170,7 +184,7 @@
             })
             .tooltip({
                 delay: 500,
-                placement: 'left',
+                placement: 'bottom',
                 html: true
             })
         ;
@@ -178,6 +192,14 @@
         this.$fullscreenDisable.hide()
         this.$fullscreenEnable.on('click.codeeditor', '>a', $.proxy(this.toggleFullscreen, this))
         this.$fullscreenDisable.on('click.codeeditor', '>a', $.proxy(this.toggleFullscreen, this))
+		
+		this.$searchboxDisable.hide()
+        this.$searchboxEnable.on('click.codeeditor', '>a', $.proxy(this.toggleSearchbox, this))
+        this.$searchboxDisable.on('click.codeeditor', '>a', $.proxy(this.toggleSearchbox, this))
+		
+		this.$replaceboxDisable.hide()
+        this.$replaceboxEnable.on('click.codeeditor', '>a', $.proxy(this.toggleReplacebox, this))
+        this.$replaceboxDisable.on('click.codeeditor', '>a', $.proxy(this.toggleReplacebox, this))		
 
         /*
          * Hotkeys
@@ -209,6 +231,10 @@
         this.$code = null
         this.$fullscreenEnable = null
         this.$fullscreenDisable = null
+        this.$searchboxEnable = null
+        this.$searchboxDisable = null
+		this.$replaceboxEnable = null
+        this.$replaceboxDisable = null
         this.$form = null
         this.options = null
 
@@ -333,6 +359,26 @@
         else {
             $('body').css({ overflow: 'inherit' })
         }
+
+        this.editor.resize()
+        this.editor.focus()
+    }
+	
+    CodeEditor.prototype.toggleSearchbox = function() {
+        this.$searchboxEnable.toggle()
+        this.$searchboxDisable.toggle()
+		
+		this.editor.execCommand("find")
+
+        this.editor.resize()
+        this.editor.focus()
+    }
+
+    CodeEditor.prototype.toggleReplacebox = function() {
+        this.$replaceboxEnable.toggle()
+        this.$replaceboxDisable.toggle()
+		
+		this.editor.execCommand("replace")
 
         this.editor.resize()
         this.editor.focus()

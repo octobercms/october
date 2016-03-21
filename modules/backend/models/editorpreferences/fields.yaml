@@ -71,3 +71,23 @@ fields:
     show_gutter:
         label: backend::lang.editor.show_gutter
         type: checkbox
+
+    enable_basic_autocompletion:
+        label: backend::lang.editor.enable_basic_autocompletion
+        type: checkbox
+
+    enable_snippets:
+        label: backend::lang.editor.enable_snippets
+        type: checkbox
+
+    enable_live_autocompletion:
+        label: backend::lang.editor.enable_live_autocompletion
+        type: checkbox
+
+    display_indent_guides:
+        label: backend::lang.editor.display_indent_guides
+        type: checkbox
+
+    show_print_margin:
+        label: backend::lang.editor.show_print_margin
+        type: checkbox
