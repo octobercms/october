@@ -1,6 +1,7 @@
 <?php namespace Cms\Widgets;
 
 use Str;
+use File;
 use Input;
 use Request;
 use Response;
@@ -64,9 +65,9 @@ class TemplateList extends WidgetBase
     public $controlClass = null;
 
     /**
-     * @var string A list of directories to suppress / hide.
+     * @var string A list of file name patterns to suppress / hide.
      */
-    public $suppressDirectories = [];
+    public $ignoreDirectories = [];
 
     /*
      * Public methods
@@ -107,7 +108,7 @@ class TemplateList extends WidgetBase
         $this->vars['toolbarClass'] = $toolbarClass;
 
         return $this->makePartial('body', [
-            'data'=>$this->getData()
+            'data' => $this->getData()
         ]);
     }
 
@@ -143,6 +144,7 @@ class TemplateList extends WidgetBase
     //
     // Methods for the internal use
     //
+
     protected function getData()
     {
         /*
@@ -150,21 +152,15 @@ class TemplateList extends WidgetBase
          */
         $items = call_user_func($this->dataSource);
 
-        $normalizedItems = [];
-        foreach ($items as $item) {
-            if ($this->suppressDirectories) {
-                $fileName = $item->getBaseFileName();
-                $dir = dirname($fileName);
-
-                if (in_array($dir, $this->suppressDirectories)) {
-                    continue;
-                }
-            }
-
-            $normalizedItems[] = $this->normalizeItem($item);
+        if ($items instanceof \October\Rain\Support\Collection) {
+            $items = $items->all();
         }
 
-        usort($normalizedItems, function ($a, $b) {
+        $items = $this->removeIgnoredDirectories($items);
+
+        $items = array_map([$this, 'normalizeItem'], $items);
+
+        usort($items, function ($a, $b) {
             return strcmp($a->fileName, $b->fileName);
         });
 
@@ -178,10 +174,10 @@ class TemplateList extends WidgetBase
             /*
              * Exact
              */
-            foreach ($normalizedItems as $index => $item) {
+            foreach ($items as $index => $item) {
                 if ($this->itemContainsWord($searchTerm, $item, true)) {
                     $filteredItems[] = $item;
-                    unset($normalizedItems[$index]);
+                    unset($items[$index]);
                 }
             }
 
@@ -189,14 +185,14 @@ class TemplateList extends WidgetBase
              * Fuzzy
              */
             $words = explode(' ', $searchTerm);
-            foreach ($normalizedItems as $item) {
+            foreach ($items as $item) {
                 if ($this->itemMatchesSearch($words, $item)) {
                     $filteredItems[] = $item;
                 }
             }
         }
         else {
-            $filteredItems = $normalizedItems;
+            $filteredItems = $items;
         }
 
         /*
@@ -230,6 +226,35 @@ class TemplateList extends WidgetBase
         }
 
         return $result;
+    }
+
+    protected function removeIgnoredDirectories($items)
+    {
+        if (!$this->ignoreDirectories) {
+            return $items;
+        }
+
+        $ignoreCache = [];
+
+        $items = array_filter($items, function($item) use (&$ignoreCache) {
+            $fileName = $item->getBaseFileName();
+            $dirName = dirname($fileName);
+
+            if (isset($ignoreCache[$dirName])) {
+                return false;
+            }
+
+            foreach ($this->ignoreDirectories as $ignoreDir) {
+                if (File::fileNameMatch($dirName, $ignoreDir)) {
+                    $ignoreCache[$dirName] = true;
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+        return $items;
     }
 
     protected function normalizeItem($item)
