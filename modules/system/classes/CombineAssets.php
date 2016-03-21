@@ -175,7 +175,7 @@ class CombineAssets
 
         $combiner = $this->prepareCombiner($cacheInfo['files']);
         $contents = $combiner->dump();
-        $mime = ($cacheInfo['extension'] == 'css') ? 'text/css' : 'text/javascript';
+        $mime = ($cacheInfo['extension'] == 'css') ? 'text/css' : 'application/javascript';
 
         header_remove();
         $response = Response::make($contents);
