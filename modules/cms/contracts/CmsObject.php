@@ -54,4 +54,10 @@ interface CmsObject
      */
     public function getTwigContent();
 
+    /**
+     * Returns the key used by the Twig cache.
+     * @return string
+     */
+    public function getTwigCacheKey();
+
 }
