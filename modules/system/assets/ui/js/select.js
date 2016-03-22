@@ -58,7 +58,7 @@
                 }
             })
 
-            if ($element.hasClass('select-no-search')) {
+            if ($element.hasClass('select-no-search') || $element.parent().hasClass('select-no-search')) {
                 extraOptions.minimumResultsForSearch = Infinity
             }
 
