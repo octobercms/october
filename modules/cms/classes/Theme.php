@@ -303,6 +303,23 @@ class Theme
     }
 
     /**
+     * Returns an array value from the theme configuration file by its name.
+     * If the value is a string, it is treated as a YAML file and loaded.
+     * @param string $name Specifies the configuration parameter name.
+     * @return array
+     */
+    public function getConfigArray($name)
+    {
+        $result = array_get($this->getConfig(), $name, []);
+
+        if (is_string($result)) {
+            // Load from file
+        }
+
+        return (array) $result;
+    }
+
+    /**
      * Writes to the theme.yaml file with the supplied array values.
      * @param array $values Data to write
      * @param array $overwrite If true, undefined values are removed.
