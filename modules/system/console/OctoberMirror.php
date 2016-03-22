@@ -30,6 +30,7 @@ class OctoberMirror extends Command
         'favicon.ico',
         'robots.txt',
         'sitemap.xml',
+        '.htaccess',
     ];
 
     protected $directories = [
