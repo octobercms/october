@@ -986,10 +986,10 @@ class MediaManager extends WidgetBase
             $path = Input::get('path');
             $path = MediaLibrary::validatePath($path);
             
-            $realpath = (empty(trim($uploadedFile->getRealPath())) 
+            $realpath = empty(trim($uploadedFile->getRealPath())) 
                             ? $uploadedFile->getPath().DIRECTORY_SEPARATOR.$uploadedFile->getFileName() 
                             : $uploadedFile->getRealPath()
-                        );
+                        ;
             MediaLibrary::instance()->put(
                 $path.'/'.$fileName,
                 File::get($realpath))
