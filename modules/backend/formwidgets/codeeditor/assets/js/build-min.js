@@ -4170,7 +4170,7 @@ this.isFullscreen=false
 this.$fullscreenEnable=this.$toolbar.find('li.fullscreen-enable')
 this.$fullscreenDisable=this.$toolbar.find('li.fullscreen-disable')
 $.oc.foundation.controlUtils.markDisposable(element)
-this.init();}
+this.init();this.$el.trigger('oc.codeEditorReady')}
 CodeEditor.prototype=Object.create(BaseProto)
 CodeEditor.prototype.constructor=CodeEditor
 CodeEditor.DEFAULTS={fontSize:12,wordWrap:'off',codeFolding:'manual',tabSize:4,theme:'textmate',showInvisibles:true,highlightActiveLine:true,useSoftTabs:true,autoCloseTags:true,showGutter:true,enableEmmet:true,language:'php',margin:0,vendorPath:'/',showPrintMargin:true,highlightSelectedWord:false,hScrollBarAlwaysVisible:false,readOnly:false}
@@ -4285,8 +4285,7 @@ $.fn.codeEditor=function(option){var args=Array.prototype.slice.call(arguments,1
 this.each(function(){var $this=$(this)
 var data=$this.data('oc.codeEditor')
 var options=$.extend({},CodeEditor.DEFAULTS,$this.data(),typeof option=='object'&&option)
-if(!data){$this.data('oc.codeEditor',(data=new CodeEditor(this,options)))
-$this.trigger('oc.codeEditorReady')}
+if(!data)$this.data('oc.codeEditor',(data=new CodeEditor(this,options)))
 if(typeof option=='string')result=data[option].apply(data,args)
 if(typeof result!='undefined')return false})
 return result?result:this}

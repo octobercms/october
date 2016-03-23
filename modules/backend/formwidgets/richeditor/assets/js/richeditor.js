@@ -75,6 +75,7 @@
             buttonSource: true,
             removeDataAttr: false,
             toolbarFixed: false,
+            visualCallback: this.proxy(this.onVisualMode),
             syncBeforeCallback: this.proxy(this.onSyncBefore),
             focusCallback: this.proxy(this.onFocus),
             blurCallback: this.proxy(this.onBlur),
@@ -143,7 +144,7 @@
         $(window).on('resize', this.proxy(this.updateLayout))
         $(window).on('oc.updateUi', this.proxy(this.updateLayout))
 
-        this.$textarea.trigger('init.oc.richeditor', [this.$el])
+        this.$textarea.trigger('init.oc.richeditor', [this])
 
         this.initUiBlocks()
 
@@ -153,6 +154,24 @@
                 self.onShowFigureToolbar($figure, $toolbar)
             }
         }
+    }
+
+    RichEditor.prototype.getElement = function() {
+        return this.$el
+    }
+
+    RichEditor.prototype.getEditor = function() {
+        return this.$editor
+    }
+
+    RichEditor.prototype.getTextarea = function() {
+        return this.$textarea
+    }
+
+    RichEditor.prototype.setContent = function(html) {
+        this.$textarea.redactor('code.set', html)
+
+        this.$textarea.trigger('setContent.oc.richeditor', [this])
     }
 
     RichEditor.prototype.updateLayout = function() {
@@ -183,7 +202,7 @@
             this.$editor.prepend('<p><br></p>')
         }
 
-        this.$textarea.trigger('sanitize.oc.richeditor', [this.$editor])
+        this.$textarea.trigger('sanitize.oc.richeditor', [this])
     }
 
     RichEditor.prototype.syncBefore = function(html) {
@@ -191,7 +210,7 @@
             html: html
         }
 
-        this.$textarea.trigger('syncBefore.oc.richeditor', [container])
+        this.$textarea.trigger('syncBefore.oc.richeditor', [this, container])
 
         var $domTree = $('<div>'+container.html+'</div>')
 
@@ -220,8 +239,7 @@
     }
 
     RichEditor.prototype.onShowFigureToolbar = function($figure, $toolbar) {
-        // Deal with the case when the toolbar top has negative
-        // value
+        // Deal with the case when the toolbar top has negative value
         var toolbarTop = $figure.position().top - $toolbar.height() - 10
 
         $toolbar.toggleClass('bottom', toolbarTop < 0)
@@ -370,6 +388,10 @@
     // EVENT HANDLERS
     // ============================
 
+    RichEditor.prototype.onVisualMode = function(html) {
+        this.$textarea.trigger('visualMode.oc.richeditor', [this])
+    }
+
     RichEditor.prototype.onSyncBefore = function(html) {
         return this.syncBefore(html)
     }
@@ -383,7 +405,7 @@
     }
 
     RichEditor.prototype.onKeydown = function(ev) {
-        this.$textarea.trigger('keydown.oc.richeditor', [ev, this.$editor, this.$textarea])
+        this.$textarea.trigger('keydown.oc.richeditor', [ev, this])
 
         if (ev.isDefaultPrevented()) {
             return false
@@ -397,7 +419,7 @@
     }
 
     RichEditor.prototype.onEnter = function(ev) {
-        this.$textarea.trigger('enter.oc.richeditor', [ev, this.$editor, this.$textarea])
+        this.$textarea.trigger('enter.oc.richeditor', [ev, this])
 
         if (ev.isDefaultPrevented()) {
             return false
@@ -426,22 +448,17 @@
     var old = $.fn.richEditor
 
     $.fn.richEditor = function (option) {
-        var args = arguments;
-
-        return this.each(function () {
+        var args = Array.prototype.slice.call(arguments, 1), result
+        this.each(function () {
             var $this   = $(this)
             var data    = $this.data('oc.richEditor')
             var options = $.extend({}, RichEditor.DEFAULTS, $this.data(), typeof option == 'object' && option)
             if (!data) $this.data('oc.richEditor', (data = new RichEditor(this, options)))
-
-            if (typeof option == 'string') {
-                var methodArgs = [];
-                for (var i=1; i<args.length; i++)
-                    methodArgs.push(args[i])
-
-                data[option].apply(data, methodArgs)
-            }
+            if (typeof option == 'string') result = data[option].apply(data, args)
+            if (typeof result != 'undefined') return false
         })
+
+        return result ? result : this
     }
 
     $.fn.richEditor.Constructor = RichEditor
