@@ -9,7 +9,7 @@ class ThemeTest extends TestCase
         parent::setUp();
 
         Config::set('cms.activeTheme', 'test');
-        Event::flush('cms.activeTheme');
+        Event::flush('cms.theme.getActiveTheme');
         Theme::resetCache();
     }
 
@@ -74,8 +74,8 @@ class ThemeTest extends TestCase
 
     public function testApiTheme()
     {
-        Event::flush('cms.activeTheme');
-        Event::listen('cms.activeTheme', function() { return 'apitest'; });
+        Event::flush('cms.theme.getActiveTheme');
+        Event::listen('cms.theme.getActiveTheme', function() { return 'apitest'; });
 
         $activeTheme = Theme::getActiveTheme();
         $this->assertNotNull($activeTheme);

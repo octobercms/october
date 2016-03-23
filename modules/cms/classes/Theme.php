@@ -139,7 +139,7 @@ class Theme
     /**
      * Returns the active theme code.
      * By default the active theme is loaded from the cms.activeTheme parameter,
-     * but this behavior can be overridden by the cms.activeTheme event listeners.
+     * but this behavior can be overridden by the cms.theme.getActiveTheme event listeners.
      * @return string
      * If the theme doesn't exist, returns null.
      */
@@ -157,7 +157,7 @@ class Theme
             }
         }
 
-        $apiResult = Event::fire('cms.activeTheme', [], true);
+        $apiResult = Event::fire('cms.theme.getActiveTheme', [], true);
         if ($apiResult !== null) {
             $activeTheme = $apiResult;
         }
@@ -171,9 +171,7 @@ class Theme
 
 
     /**
-     * Returns the active theme.
-     * By default the active theme is loaded from the cms.activeTheme parameter,
-     * but this behavior can be overridden by the cms.activeTheme event listeners.
+     * Returns the active theme object.
      * @return \Cms\Classes\Theme Returns the loaded theme object.
      * If the theme doesn't exist, returns null.
      */
@@ -200,13 +198,16 @@ class Theme
     public static function setActiveTheme($code)
     {
         self::resetCache();
+
         Parameters::set(self::ACTIVE_KEY, $code);
+
+        Event::fire('cms.theme.setActiveTheme', compact('code'));
     }
 
     /**
      * Returns the edit theme code.
      * By default the edit theme is loaded from the cms.editTheme parameter,
-     * but this behavior can be overridden by the cms.editTheme event listeners.
+     * but this behavior can be overridden by the cms.theme.getEditTheme event listeners.
      * If the edit theme is not defined in the configuration file, the active theme
      * is returned.
      * @return string
@@ -218,7 +219,7 @@ class Theme
             $editTheme = static::getActiveThemeCode();
         }
 
-        $apiResult = Event::fire('cms.editTheme', [], true);
+        $apiResult = Event::fire('cms.theme.getEditTheme', [], true);
         if ($apiResult !== null) {
             $editTheme = $apiResult;
         }
@@ -313,7 +314,20 @@ class Theme
         $result = array_get($this->getConfig(), $name, []);
 
         if (is_string($result)) {
-            // Load from file
+            $fileName = File::symbolizePath($result);
+
+            if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
+                $path = $fileName;
+            }
+            else {
+                $path = $this->getPath().'/'.$result;
+            }
+
+            if (!File::exists($path)) {
+                throw new ApplicationException('Path does not exist: '.$path);
+            }
+
+            $result = Yaml::parseFile($path);
         }
 
         return (array) $result;
