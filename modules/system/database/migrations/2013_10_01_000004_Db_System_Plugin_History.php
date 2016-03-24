@@ -4,7 +4,6 @@ use October\Rain\Database\Updates\Migration;
 
 class DbSystemPluginHistory extends Migration
 {
-
     public function up()
     {
         Schema::create('system_plugin_history', function ($table) {
