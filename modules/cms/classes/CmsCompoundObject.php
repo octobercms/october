@@ -141,7 +141,7 @@ class CmsCompoundObject extends CmsObject
      */
     protected function checkSafeMode()
     {
-        $safeMode = Config::get('cms.enableSafeMode', false);
+        $safeMode = Config::get('cms.enableSafeMode', null);
         if ($safeMode === null) {
             $safeMode = !Config::get('app.debug', false);
         }

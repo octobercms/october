@@ -253,7 +253,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Safe Mode
+    | Safe mode
     |--------------------------------------------------------------------------
     |
     | If safe mode is enabled, the PHP code section is disabled in the CMS
