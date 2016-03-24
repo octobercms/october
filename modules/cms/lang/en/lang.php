@@ -10,7 +10,8 @@ return [
         'invalid_file_extension'=>'Invalid file extension: :invalid. Allowed extensions are: :allowed.',
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
         'delete_success' => 'Templates were successfully deleted: :count.',
-        'file_name_required' => 'The File Name field is required.'
+        'file_name_required' => 'The File Name field is required.',
+        'safe_mode_enabled' => 'Safe mode is currently enabled.',
     ],
     'theme' => [
         'not_found_name' => "The theme ':name' is not found.",

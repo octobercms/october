@@ -1,6 +1,7 @@
 <?php namespace Cms\Classes;
 
 use Ini;
+use Lang;
 use Cache;
 use Config;
 use Cms\Twig\Loader as TwigLoader;
@@ -8,6 +9,7 @@ use Cms\Twig\Extension as CmsTwigExtension;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Halcyon\Processors\SectionParser;
 use Twig_Environment;
+use ApplicationException;
 
 /**
  * This is a base class for CMS objects that have multiple sections - pages, partials and layouts.
@@ -88,6 +90,15 @@ class CmsCompoundObject extends CmsObject
     }
 
     /**
+     * Triggered when the model is saved.
+     * @return void
+     */
+    public function beforeSave()
+    {
+        $this->checkSafeMode();
+    }
+
+    /**
      * Create a new Collection instance.
      *
      * @param  array  $models
@@ -121,6 +132,23 @@ class CmsCompoundObject extends CmsObject
     protected function parseSettings()
     {
         $this->fillViewBagArray();
+    }
+
+    /**
+     * This method checks if safe mode is enabled by config, and the code
+     * attribute is modified and populated. If so an exception is thrown.
+     * @return void
+     */
+    protected function checkSafeMode()
+    {
+        $safeMode = Config::get('cms.enableSafeMode', false);
+        if ($safeMode === null) {
+            $safeMode = !Config::get('app.debug', false);
+        }
+
+        if ($safeMode && $this->isDirty('code') && strlen(trim($this->code))) {
+            throw new ApplicationException(Lang::get('cms::lang.cms_object.safe_mode_enabled'));
+        }
     }
 
     //

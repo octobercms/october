@@ -253,6 +253,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Safe Mode
+    |--------------------------------------------------------------------------
+    |
+    | If safe mode is enabled, the PHP code section is disabled in the CMS
+    | for security reasons. If set to null, safe mode is on when debug mode
+    | (app.debug) is disabled.
+    |
+    */
+
+    'enableSafeMode' => null,
+
+    /*
+    |--------------------------------------------------------------------------
     | Cross Site Request Forgery (CSRF) Protection
     |--------------------------------------------------------------------------
     |
