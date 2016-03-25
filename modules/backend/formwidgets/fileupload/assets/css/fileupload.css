@@ -39,7 +39,7 @@
 .fileupload-config-form .file-upload-modal-image-header,.fileupload-config-form .file-upload-modal-image-header img{border-top-right-radius:2px;border-top-left-radius:2px}
 .fileupload-config-form .file-upload-modal-image-header .close{position:absolute;top:20px;right:20px}
 .field-fileupload.style-image-multi .upload-button,.field-fileupload.style-image-multi .upload-object{margin:0 10px 10px 0}
-.field-fileupload.style-image-multi .upload-button{display:block;float:left;border:2px dashed #BDC3C7;background-clip:content-box;background-color:#F9F9F9;position:relative;outline:none;width:76px;height:76px}
+.field-fileupload.style-image-multi .upload-button{display:block;border:2px dashed #BDC3C7;background-clip:content-box;background-color:#F9F9F9;position:relative;outline:none;float:left;width:76px;height:76px}
 .field-fileupload.style-image-multi .upload-button .upload-button-icon{position:absolute;width:22px;height:22px;top:50%;left:50%;margin-top:-11px;margin-left:-11px}
 .field-fileupload.style-image-multi .upload-button .upload-button-icon:before{text-align:center;display:block;font-size:22px;height:22px;width:22px;line-height:22px;color:#BDC3C7}
 .field-fileupload.style-image-multi .upload-button .upload-button-icon.large-icon{width:34px;height:34px;top:50%;left:50%;margin-top:-17px;margin-left:-17px}
@@ -75,7 +75,7 @@
 .field-fileupload.style-image-multi .upload-object{margin-right:0;display:block;width:auto}
 }
 .field-fileupload.style-image-single.is-populated .upload-button{display:none}
-.field-fileupload.style-image-single .upload-button{display:block;float:left;border:2px dashed #BDC3C7;background-clip:content-box;background-color:#F9F9F9;position:relative;outline:none;min-height:100px;min-width:100px}
+.field-fileupload.style-image-single .upload-button{display:block;border:2px dashed #BDC3C7;background-clip:content-box;background-color:#F9F9F9;position:relative;outline:none;min-height:100px;min-width:100px}
 .field-fileupload.style-image-single .upload-button .upload-button-icon{position:absolute;width:22px;height:22px;top:50%;left:50%;margin-top:-11px;margin-left:-11px}
 .field-fileupload.style-image-single .upload-button .upload-button-icon:before{text-align:center;display:block;font-size:22px;height:22px;width:22px;line-height:22px;color:#BDC3C7}
 .field-fileupload.style-image-single .upload-button .upload-button-icon.large-icon{width:34px;height:34px;top:50%;left:50%;margin-top:-17px;margin-left:-17px}
