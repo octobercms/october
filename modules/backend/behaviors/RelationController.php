@@ -131,6 +131,11 @@ class RelationController extends ControllerBehavior
     protected $viewMode;
 
     /**
+     * @var string The title used for the manage popup.
+     */
+    protected $manageTitle;
+
+    /**
      * @var string Management of relation as list, form, or pivot.
      */
     protected $manageMode;
@@ -220,6 +225,7 @@ class RelationController extends ControllerBehavior
     {
         $this->vars['relationManageId'] = $this->manageId;
         $this->vars['relationLabel'] = $this->config->label ?: $this->field;
+        $this->vars['relationManageTitle'] = $this->manageTitle;
         $this->vars['relationField'] = $this->field;
         $this->vars['relationType'] = $this->relationType;
         $this->vars['relationSearchWidget'] = $this->searchWidget;
@@ -309,6 +315,7 @@ class RelationController extends ControllerBehavior
         $this->toolbarButtons = $this->evalToolbarButtons();
         $this->viewMode = $this->evalViewMode();
         $this->manageMode = $this->evalManageMode();
+        $this->manageTitle = $this->evalManageTitle();
         $this->manageId = post('manage_id');
         $this->foreignId = post('foreign_id');
 
@@ -1312,6 +1319,39 @@ class RelationController extends ControllerBehavior
             case 'hasOne':
             case 'belongsTo':
                 return 'single';
+        }
+    }
+
+    /**
+     * Determine the management mode popup title.
+     * @return string
+     */
+    protected function evalManageTitle()
+    {
+        if ($customTitle = $this->getConfig('manage[title]')) {
+            return $customTitle;
+        }
+
+        switch ($this->manageMode) {
+            case 'list':
+                if ($this->eventTarget == 'button-link') {
+                    return 'backend::lang.relation.add_a_link';
+                }
+                else {
+                    return 'backend::lang.relation.add_a_new';
+                }
+            break;
+            case 'form':
+                if ($this->readOnly) {
+                    return 'backend::lang.relation.preview_name';
+                }
+                else {
+                    return 'backend::lang.relation.update_name';
+                }
+            break;
+            case 'pivot':
+                return 'backend::lang.relation.add_a_new';
+            break;
         }
     }
 

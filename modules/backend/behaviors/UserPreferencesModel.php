@@ -18,7 +18,7 @@ use Backend\Models\UserPreferences;
  */
 class UserPreferencesModel extends SettingsModel
 {
-    private static $instances = [];
+    protected static $instances = [];
 
     /**
      * Constructor
