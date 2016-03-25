@@ -121,16 +121,4 @@ abstract class FormWidgetBase extends WidgetBase
         return $this->formField->getValueFromData($this->data ?: $this->model, $defaultValue);
     }
 
-    /**
-     * Returns the final model and attribute name of
-     * a nested HTML array attribute.
-     * Eg: list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-     * @param  string $attribute.
-     * @return array
-     */
-    public function resolveModelAttribute($attribute)
-    {
-        return $this->formField->resolveModelAttribute($this->model, $attribute);
-    }
-
 }
