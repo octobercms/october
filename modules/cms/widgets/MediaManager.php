@@ -888,9 +888,13 @@ class MediaManager extends WidgetBase
         $targetWidth = $targetDimensions[0];
         $targetHeight = $targetDimensions[1];
 
-        $resizer = Resizer::open($tempFilePath);
-        $resizer->resize($targetWidth, $targetHeight, $thumbnailParams['mode'], [0, 0]);
-        $resizer->save($fullThumbnailPath, 95);
+        Resizer::open($tempFilePath)
+            ->resize($targetWidth, $targetHeight, [
+                'mode'   => $thumbnailParams['mode'],
+                'offset' => [0, 0]
+            ])
+            ->save($fullThumbnailPath)
+        ;
 
         File::chmod($fullThumbnailPath);
     }
@@ -1081,8 +1085,9 @@ class MediaManager extends WidgetBase
 
                 $tempFilePath = $fullSessionDirectoryPath.'/'.$originalThumbFileName;
 
-                if (!@File::put($tempFilePath, $library->get($path)))
+                if (!@File::put($tempFilePath, $library->get($path))) {
                     throw new SystemException('Error saving remote file to a temporary location.');
+                }
 
                 $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$originalThumbFileName);
                 $dimensions = getimagesize($tempFilePath);
@@ -1091,21 +1096,25 @@ class MediaManager extends WidgetBase
                     'url' => $url,
                     'dimensions' => $dimensions
                 ];
-            } else {
+            }
+            else {
                 // If the target dimensions are provided, resize the original image and return its URL
                 // and dimensions.
 
                 $originalFilePath = $fullSessionDirectoryPath.'/'.$originalThumbFileName;
-                if (!File::isFile($originalFilePath))
+                if (!File::isFile($originalFilePath)) {
                     throw new SystemException('The original image is not found in the cropping session directory.');
+                }
 
                 $resizedThumbFileName = 'resized-'.$params['width'].'-'.$params['height'].'.'.$extension;
                 $tempFilePath = $fullSessionDirectoryPath.'/'.$resizedThumbFileName;
 
-                $resizer = Resizer::open($originalFilePath);
-
-                $resizer->resize($params['width'], $params['height'], 'exact');
-                $resizer->save($tempFilePath, 95);
+                Resizer::open($originalFilePath)
+                    ->resize($params['width'], $params['height'], [
+                        'mode' => 'exact'
+                    ])
+                    ->save($tempFilePath)
+                ;
 
                 $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$resizedThumbFileName);
                 $dimensions = getimagesize($tempFilePath);
@@ -1115,12 +1124,15 @@ class MediaManager extends WidgetBase
                     'dimensions' => $dimensions
                 ];
             }
-        } catch (Exception $ex) {
-            if ($sessionDirectoryCreated)
+        }
+        catch (Exception $ex) {
+            if ($sessionDirectoryCreated) {
                 @File::deleteDirectory($fullSessionDirectoryPath);
+            }
 
-            if ($tempFilePath)
+            if ($tempFilePath) {
                 File::delete($tempFilePath);
+            }
 
             throw $ex;
         }
@@ -1197,16 +1209,17 @@ class MediaManager extends WidgetBase
             File::copy($imagePath, $targetTmpPath);
         }
         else {
-            $resizer = Resizer::open($imagePath);
-            $resizer->resample(
-                $selectionData['x'],
-                $selectionData['y'],
-                $selectionData['w'],
-                $selectionData['h'],
-                $selectionData['w'],
-                $selectionData['h']
-            );
-            $resizer->save($targetTmpPath, 95);
+            Resizer::open($imagePath)
+                ->crop(
+                    $selectionData['x'],
+                    $selectionData['y'],
+                    $selectionData['w'],
+                    $selectionData['h'],
+                    $selectionData['w'],
+                    $selectionData['h']
+                )
+                ->save($targetTmpPath)
+            ;
         }
 
         /*
