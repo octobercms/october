@@ -65,7 +65,7 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
     /**
      * Loads the object from a file.
      * This method is used in the CMS back-end. It doesn't use any caching.
-     * @param $theme Specifies the theme the object belongs to.
+     * @param mixed $theme Specifies the theme the object belongs to.
      * @param string $fileName Specifies the file name, with the extension.
      * The file name can contain only alphanumeric symbols, dashes and dots.
      * @return mixed Returns a CMS object instance or null if the object wasn't found.
