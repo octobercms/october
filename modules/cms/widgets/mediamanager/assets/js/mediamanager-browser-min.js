@@ -173,7 +173,9 @@ if($item.data('item-type')=='folder'){if(!$item.data('clear-search'))
 this.gotoFolder($item.data('path'))
 else{this.resetSearch()
 this.gotoFolder($item.data('path'),true)}}
-else if($item.data('item-type')=='file'){this.$el.trigger('popupcommand',['insert'])}}
+else if($item.data('item-type')=='file'){var $html=$(document.documentElement)
+if($html.hasClass('safari')&&!$html.hasClass('chrome')){return}
+this.$el.trigger('popupcommand',['insert'])}}
 MediaManager.prototype.isPreviewSidebarVisible=function(){return!this.$el.find('[data-control="preview-sidebar"]').hasClass('hide')}
 MediaManager.prototype.toggleSidebar=function(ev){var isVisible=this.isPreviewSidebarVisible(),$sidebar=this.$el.find('[data-control="preview-sidebar"]'),$button=$(ev.target)
 if(!isVisible){$sidebar.removeClass('hide')

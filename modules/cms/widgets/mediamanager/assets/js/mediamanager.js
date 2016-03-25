@@ -414,7 +414,18 @@
         } 
         else if ($item.data('item-type') == 'file') {
             // Trigger the Insert popup command if a file item 
-            // was double clicked.
+            // was double clicked or Enter key was pressed.
+
+            var $html = $(document.documentElement)
+            if ($html.hasClass('safari') && !$html.hasClass('chrome')) {
+                // Inserting media/link in Safari with Enter key and double click 
+                // is buggy. It causes endless recursion inside the rich editor 
+                // third-party code.
+                // See https://github.com/octobercms/october/issues/1733
+
+                return
+            }
+
             this.$el.trigger('popupcommand', ['insert'])
         }
     }

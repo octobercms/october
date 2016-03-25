@@ -96,7 +96,7 @@ class MailTemplate extends Model
             $template = self::make();
             $template->code = $code;
             $template->description = $description;
-            $template->is_custom = false;
+            $template->is_custom = 0;
             $template->layout_id = isset($categories[$layoutCode]) ? $categories[$layoutCode] : null;
             $template->forceSave();
         }
