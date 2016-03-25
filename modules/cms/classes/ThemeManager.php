@@ -40,7 +40,8 @@ class ThemeManager
 
     /**
      * Flags a theme as being installed, so it is not downloaded twice.
-     * @param string $name Theme code
+     * @param string $code Theme code
+     * @param string|null $dirName
      */
     public function setInstalled($code, $dirName = null)
     {
@@ -55,7 +56,7 @@ class ThemeManager
 
     /**
      * Flags a theme as being uninstalled.
-     * @param string $name Theme code
+     * @param string $code Theme code
      */
     public function setUninstalled($code)
     {
@@ -89,7 +90,7 @@ class ThemeManager
 
     /**
      * Completely delete a theme from the system.
-     * @param string $id Theme code/namespace
+     * @param string $theme Theme code/namespace
      * @return void
      */
     public function deleteTheme($theme)

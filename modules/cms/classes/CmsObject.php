@@ -74,7 +74,7 @@ class CmsObject implements ArrayAccess
     /**
      * Loads the object from a cache.
      * This method is used by the CMS in the runtime. If the cache is not found, it is created.
-     * @param $theme Specifies the theme the object belongs to.
+     * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
      * @param string $fileName Specifies the file name, with the extension.
      * @return mixed Returns a CMS object instance or null if the object wasn't found.
      */
@@ -149,7 +149,7 @@ class CmsObject implements ArrayAccess
     /**
      * Loads the object from a file.
      * This method is used in the CMS back-end. It doesn't use any caching.
-     * @param $theme Specifies the theme the object belongs to.
+     * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
      * @param string $fileName Specifies the file name, with the extension.
      * The file name can contain only alphanumeric symbols, dashes and dots.
      * @return mixed Returns a CMS object instance or null if the object wasn't found.
@@ -446,7 +446,7 @@ class CmsObject implements ArrayAccess
     
     /**
      * Returns the absolute file path.
-     * @param $theme Specifies a theme the file belongs to.
+     * @param \Cms\Classes\Theme $theme Specifies a theme the file belongs to.
      * @param string$fileName Specifies the file name to return the path to.
      * @return string
      */
