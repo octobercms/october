@@ -28,7 +28,7 @@ class SettingsModel extends ModelBehavior
     /**
      * @var array Internal cache of model objects.
      */
-    protected static $instances = [];
+    private static $instances = [];
 
     /**
      * {@inheritDoc}
