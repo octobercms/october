@@ -950,14 +950,13 @@ class MediaManager extends WidgetBase
     {
         $fileName = null;
 
-        if (!($uniqueId = post('X_OCTOBER_FILEUPLOAD')) || $uniqueId != $this->getId()) {
+        if (!($uniqueId = Request::header('X-OCTOBER-FILEUPLOAD')) || $uniqueId != $this->getId()) {
             return;
         }
 
         try {
-
             if (!Input::hasFile('file_data')) {
-                return;
+                throw new ApplicationException('File missing from request');
             }
 
             $uploadedFile = Input::file('file_data');
@@ -999,12 +998,13 @@ class MediaManager extends WidgetBase
                 File::get($uploadedFile->getRealPath())
             );
 
-            die('success');
+            Response::json(['result' => 'success'])->send();
         }
         catch (Exception $ex) {
-            Response::make($ex->getMessage(), 406)->send();
-            die();
+            Response::json($ex->getMessage(), 400)->send();
         }
+
+        exit;
     }
 
     /**
