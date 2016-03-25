@@ -228,7 +228,6 @@ return [
         'add' => 'Add',
         'add_selected' => 'Add selected',
         'add_a_new' => 'Add a new :name',
-        'add_a_link' => 'Link a new :name',
         'link_selected' => 'Link selected',
         'link_a_new' => 'Link a new :name',
         'cancel' => 'Cancel',

@@ -1333,9 +1333,10 @@ class RelationController extends ControllerBehavior
         }
 
         switch ($this->manageMode) {
+            case 'pivot':
             case 'list':
                 if ($this->eventTarget == 'button-link') {
-                    return 'backend::lang.relation.add_a_link';
+                    return 'backend::lang.relation.link_a_new';
                 }
                 else {
                     return 'backend::lang.relation.add_a_new';
@@ -1348,9 +1349,6 @@ class RelationController extends ControllerBehavior
                 else {
                     return 'backend::lang.relation.update_name';
                 }
-            break;
-            case 'pivot':
-                return 'backend::lang.relation.add_a_new';
             break;
         }
     }
