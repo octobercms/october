@@ -549,6 +549,17 @@ class FormField
     }
 
     /**
+     * Returns a raw config item value.
+     * @param  string $value
+     * @param  string $default
+     * @return mixed
+     */
+    public function getConfig($value, $default = null)
+    {
+        return array_get($this->config, $value, $default);
+    }
+
+    /**
      * Returns this fields value from a supplied data set, which can be
      * an array or a model or another generic collection.
      * @param mixed $data
