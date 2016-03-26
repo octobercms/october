@@ -7,7 +7,7 @@ use Response;
 use Backend;
 use BackendAuth;
 use Backend\Classes\ControllerBehavior;
-use Backend\Classes\StreamFilterTranscode;
+use Backend\Behaviors\ImportExportController\TranscodeFilter;
 use League\Csv\Reader as CsvReader;
 use League\Csv\Writer as CsvWriter;
 use ApplicationException;
@@ -175,20 +175,14 @@ class ImportExportController extends ControllerBehavior
         try {
             $model = $this->importGetModel();
             $matches = post('column_match', []);
-            $importOptions = [
-                'sessionKey' => $this->importUploadFormWidget->getSessionKey()
-            ];
 
             if ($optionData = post('ImportOptions')) {
                 $model->fill($optionData);
             }
 
-            if (post('format_preset') == 'custom') {
-                $importOptions['delimiter'] = post('format_delimiter');
-                $importOptions['enclosure'] = post('format_enclosure');
-                $importOptions['escape'] = post('format_escape');
-                $importOptions['encoding'] = post('format_encoding');
-            }
+            $importOptions = $this->getFormatOptionsFromPost();
+            $importOptions['sessionKey'] = $this->importUploadFormWidget->getSessionKey();
+            $importOptions['firstRowTitles'] = post('first_row_titles', false);
 
             $model->import($matches, $importOptions);
 
@@ -226,7 +220,7 @@ class ImportExportController extends ControllerBehavior
         }
 
         $path = $this->getImportFilePath();
-        $reader   = $this->createCsvReader($path);
+        $reader = $this->createCsvReader($path);
 
         if (post('first_row_titles')) {
             $reader->setOffset(1);
@@ -301,7 +295,7 @@ class ImportExportController extends ControllerBehavior
             return null;
         }
 
-        $reader   = $this->createCsvReader($path);
+        $reader = $this->createCsvReader($path);
         $firstRow = $reader->fetchOne(0);
 
         if (!post('first_row_titles')) {
@@ -310,8 +304,10 @@ class ImportExportController extends ControllerBehavior
             });
         }
 
-        // Prevents unfriendly error to be thrown due to bad encoding at response time
-        if (false === json_encode($firstRow)) {
+        /*
+         * Prevents unfriendly error to be thrown due to bad encoding at response time.
+         */
+        if (json_encode($firstRow) === false) {
             throw new ApplicationException(Lang::get('backend::lang.import_export.encoding_not_supported_error'));
         }
 
@@ -395,19 +391,13 @@ class ImportExportController extends ControllerBehavior
         try {
             $model = $this->exportGetModel();
             $columns = $this->processExportColumnsFromPost();
-            $exportOptions = [
-                'sessionKey' => $this->exportFormatFormWidget->getSessionKey()
-            ];
 
             if ($optionData = post('ExportOptions')) {
                 $model->fill($optionData);
             }
 
-            if (post('format_preset') == 'custom') {
-                $exportOptions['delimiter'] = post('format_delimiter');
-                $exportOptions['enclosure'] = post('format_enclosure');
-                $exportOptions['escape'] = post('format_escape');
-            }
+            $exportOptions = $this->getFormatOptionsFromPost();
+            $exportOptions['sessionKey'] = $this->exportFormatFormWidget->getSessionKey();
 
             $reference = $model->export($columns, $exportOptions);
             $fileUrl = $this->controller->actionUrl(
@@ -705,7 +695,6 @@ class ImportExportController extends ControllerBehavior
         return $this->controller->actionUrl($type);
     }
 
-
     /**
      * Create a new CSV reader with options selected by the user
      * @param string $path
@@ -715,39 +704,59 @@ class ImportExportController extends ControllerBehavior
     protected function createCsvReader($path)
     {
         $reader = CsvReader::createFromPath($path);
+        $options = $this->getFormatOptionsFromPost();
 
-        if (post('format_preset') == 'custom') {
-            $options = [
-                'delimiter' => post('format_delimiter'),
-                'enclosure' => post('format_enclosure'),
-                'escape' => post('format_escape'),
-                'encoding' => post('format_encoding')
-            ];
+        if ($options['delimiter'] !== null) {
+            $reader->setDelimiter($options['delimiter']);
+        }
 
-            if ($options['delimiter'] !== null) {
-                $reader->setDelimiter($options['delimiter']);
-            }
+        if ($options['enclosure'] !== null) {
+            $reader->setEnclosure($options['enclosure']);
+        }
 
-            if ($options['enclosure'] !== null) {
-                $reader->setEnclosure($options['enclosure']);
-            }
+        if ($options['escape'] !== null) {
+            $reader->setEscape($options['escape']);
+        }
 
-            if ($options['escape'] !== null) {
-                $reader->setEscape($options['escape']);
-            }
-
-            if ($options['encoding'] !== null) {
-                if ($reader->isActiveStreamFilter()) {
-                    $reader->appendStreamFilter(sprintf(
-                        '%s%s:%s',
-                        StreamFilterTranscode::FILTER_NAME,
-                        strtolower($options['encoding']),
-                        'utf-8'
-                    ));
-                }
-            }
+        if (
+            $options['encoding'] !== null &&
+            $reader->isActiveStreamFilter()
+        ) {
+            $reader->appendStreamFilter(sprintf(
+                '%s%s:%s',
+                TranscodeFilter::FILTER_NAME,
+                strtolower($options['encoding']),
+                'utf-8'
+            ));
         }
 
         return $reader;
     }
+
+    /**
+     * Returns the file format options from postback. This method
+     * can be used to define presets.
+     * @return array
+     */
+    protected function getFormatOptionsFromPost()
+    {
+        $presetMode = post('format_preset');
+
+        $options = [
+            'delimiter' => null,
+            'enclosure' => null,
+            'escape' => null,
+            'encoding' => null
+        ];
+
+        if ($presetMode == 'custom') {
+            $options['delimiter'] = post('format_delimiter');
+            $options['enclosure'] = post('format_enclosure');
+            $options['escape'] = post('format_escape');
+            $options['encoding'] = post('format_encoding');
+        }
+
+        return $options;
+    }
+
 }

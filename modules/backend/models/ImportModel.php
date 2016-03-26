@@ -1,5 +1,6 @@
 <?php namespace Backend\Models;
 
+use Lang;
 use Model;
 use League\Csv\Reader as CsvReader;
 
@@ -179,7 +180,8 @@ abstract class ImportModel extends Model
         $file = $this
             ->import_file()
             ->withDeferred($sessionKey)
-            ->first();
+            ->first()
+        ;
 
         if (!$file) {
             return null;
@@ -195,7 +197,7 @@ abstract class ImportModel extends Model
      */
     public function getFormatEncodingOptions()
     {
-        return \Lang::get('backend::lang.import_export.encodings');
+        return Lang::get('backend::lang.import_export.encodings');
     }
 
     //

@@ -16,7 +16,6 @@ use SplTempFileObject;
  */
 abstract class ExportModel extends Model
 {
-
     /**
      * Called when data is being exported.
      * The return value should be an array in the format of:
@@ -202,5 +201,4 @@ abstract class ExportModel extends Model
 
         return implode($delimeter, $newData);
     }
-
 }
