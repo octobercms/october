@@ -386,7 +386,7 @@ this.$input=this.$el.find('input:first')
 var $form=this.$el.closest('form'),changeMonitor=$form.data('oc.changeMonitor')
 if(changeMonitor!==undefined)
 changeMonitor.pause()
-this.$input.pikaday({minDate:new Date(options.minDate),maxDate:new Date(options.maxDate),yearRange:options.yearRange,setDefaultDate:moment(this.$input.val()).toDate(),onOpen:function(){var $field=$(this._o.trigger)
+this.$input.pikaday({minDate:new Date(options.minDate),maxDate:new Date(options.maxDate),yearRange:options.yearRange,setDefaultDate:moment(this.$input.val()).toDate(),i18n:$.oc.lang.get('pikaday'),onOpen:function(){var $field=$(this._o.trigger)
 $(this.el).css({left:'auto',right:$(window).width()-$field.offset().left-$field.outerWidth()})}})
 if(changeMonitor!==undefined)
 changeMonitor.resume()}

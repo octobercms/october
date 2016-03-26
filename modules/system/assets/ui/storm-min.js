@@ -2685,9 +2685,10 @@ var tr=this.$el.prop('tagName')=='TR'?this.$el:this.$el.find('tr:has(td)')
 tr.each(function(){var link=$(this).find(options.target).filter(function(){return!$(this).closest('td').hasClass(options.excludeClass)&&!$(this).hasClass(options.excludeClass)}).first()
 if(!link.length)return
 var href=link.attr('href'),onclick=(typeof link.get(0).onclick=="function")?link.get(0).onclick:null
-$(this).find('td').not('.'+options.excludeClass).click(function(){if(onclick)
+$(this).find('td').not('.'+options.excludeClass).click(function(e){if(onclick)
 onclick.apply(link.get(0))
-else
+else if(e.ctrlKey)
+window.open(href);else
 window.location=href;})
 $(this).addClass(options.linkedClass)
 link.hide().after(link.html())})}
