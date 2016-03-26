@@ -1,8 +1,5 @@
 <?php namespace Cms\Classes;
 
-use Cms\Classes\ComponentBase;
-use Cms\Classes\CodeBase;
-
 class UnknownComponent extends ComponentBase
 {
     protected $errorMessage;
