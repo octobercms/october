@@ -1091,7 +1091,7 @@ class MediaManager extends WidgetBase
 
                 $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$originalThumbFileName);
                 $dimensions = getimagesize($tempFilePath);
-                
+
                 return [
                     'url' => $url,
                     'dimensions' => $dimensions
@@ -1143,8 +1143,9 @@ class MediaManager extends WidgetBase
         $sessionDirectoryPath = $this->getCropSessionDirPath($cropSessionKey);
         $fullSessionDirectoryPath = temp_path($sessionDirectoryPath);
 
-        if (File::isDirectory($fullSessionDirectoryPath))
+        if (File::isDirectory($fullSessionDirectoryPath)) {
             @File::deleteDirectory($fullSessionDirectoryPath);
+        }
     }
 
     protected function cropImage($imageSrcPath, $selectionData, $cropSessionKey, $path)
