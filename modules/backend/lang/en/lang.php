@@ -372,5 +372,13 @@ return [
         'column_preview' => 'Column preview',
         'file_not_found_error' => 'File not found',
         'empty_error' => 'There was no data supplied to export',
+        'empty_import_columns_error' => 'Please specify some columns to import.',
+        'match_some_column_error' => 'Please match some columns first.',
+        'required_match_column_error' => 'Please specify a match for the required field :label.',
+        'empty_export_columns_error' => 'Please specify some columns to export.',
+        'behavior_missing_uselist_error' => 'You must implement the controller behavior ListController with the export "useList" option enabled.',
+        'missing_model_class_error' => 'Please specify the modelClass property for :type',
+        'missing_column_id_error' => 'Missing column identifier',
+        'unknown_column_error' => 'Unknown column',
     ],
 ];

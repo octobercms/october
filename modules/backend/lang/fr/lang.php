@@ -358,5 +358,13 @@ return [
         'column_preview' => 'Prévisualisation des colonnes',
         'file_not_found_error' => 'Fichier non trouvé',
         'empty_error' => 'Il n‘y a aucune donnée à exporter',
+        'empty_import_columns_error' => 'Veuillez indiquer quelques colonnes à importer.',
+        'match_some_column_error' => 'Veuillez d’abord faire correspondre quelques colonnes.',
+        'required_match_column_error' => 'Veuillez faire correspondre la colonne obligatoire :label.',
+        'empty_export_columns_error' => 'Veuillez indiquer quelques colonnes à exporter.',
+        'behavior_missing_uselist_error' => 'Vous devez implémenter le behavior ListController avec l’option d’export "useList" activée.',
+        'missing_model_class_error' => 'Veuillez préciser la propriété modelClass pour :type',
+        'missing_column_id_error' => 'Identifiant de colonne manquant',
+        'unknown_column_error' => 'Colonne inconnue',
     ],
 ];

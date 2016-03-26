@@ -209,12 +209,12 @@ class ImportExportController extends ControllerBehavior
     public function onImportLoadColumnSampleForm()
     {
         if (($columnId = post('file_column_id', false)) === false) {
-            throw new ApplicationException('Missing column identifier');
+            throw new ApplicationException(Lang::get('backend::lang.import_export.missing_column_id_error'));
         }
 
         $columns = $this->getImportFileColumns();
         if (!array_key_exists($columnId, $columns)) {
-            throw new ApplicationException('Unknown column');
+            throw new ApplicationException(Lang::get('backend::lang.import_export.unknown_column_error'));
         }
 
         $path = $this->getImportFilePath();
@@ -281,7 +281,7 @@ class ImportExportController extends ControllerBehavior
         $columns = $this->makeListColumns($columnConfig);
 
         if (empty($columns)) {
-            throw new ApplicationException('Please specify some columns to import.');
+            throw new ApplicationException(Lang::get('backend::lang.import_export.empty_import_columns_error'));
         }
 
         return $this->importColumns = $columns;
@@ -352,7 +352,7 @@ class ImportExportController extends ControllerBehavior
     protected function checkRequiredImportColumns()
     {
         if (!$matches = post('column_match', [])) {
-            throw new ApplicationException('Please match some columns first.');
+            throw new ApplicationException(Lang::get('backend::lang.import_export.match_some_column_error'));
         }
 
         $dbColumns = $this->getImportDbColumns();
@@ -368,7 +368,9 @@ class ImportExportController extends ControllerBehavior
             }
 
             if (!$found) {
-                throw new ApplicationException('Please specify a match for the required field '.$label.'.');
+                throw new ApplicationException(Lang::get('backend::lang.import_export.required_match_column_error', [
+                    'label' => Lang::get($label)
+                ]));
             }
         }
     }
@@ -455,7 +457,7 @@ class ImportExportController extends ControllerBehavior
         $columns = $this->makeListColumns($columnConfig);
 
         if (empty($columns)) {
-            throw new ApplicationException('Please specify some columns to export.');
+            throw new ApplicationException(Lang::get('backend::lang.import_export.empty_export_columns_error'));
         }
 
         return $this->exportColumns = $columns;
@@ -524,7 +526,7 @@ class ImportExportController extends ControllerBehavior
         }
 
         if (!$this->controller->isClassExtendedWith('Backend.Behaviors.ListController')) {
-            throw new ApplicationException('You must implement the controller behavior ListController with the export "useList" option enabled.');
+            throw new ApplicationException(Lang::get('backend::lang.import_export.behavior_missing_uselist_error'));
         }
 
         $this->exportFromList($listDefinition);
@@ -656,7 +658,9 @@ class ImportExportController extends ControllerBehavior
 
         $modelClass = $this->getConfig($type.'[modelClass]');
         if (!$modelClass) {
-            throw new ApplicationException('Please specify the modelClass property for '.$type);
+            throw new ApplicationException(Lang::get('backend::lang.import_export.missing_model_class_error', [
+                'type' => $type
+            ]));
         }
 
         return $this->{$cacheProperty} = new $modelClass;
