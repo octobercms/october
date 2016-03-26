@@ -6,7 +6,6 @@ use Lang;
 use File;
 use Form;
 use Input;
-use Request;
 use Response;
 use Exception;
 use SystemException;
@@ -150,7 +149,7 @@ class MediaManager extends WidgetBase
             throw new ApplicationException('Invalid input data');
         }
 
-        // If the thumbnail file exists - just return the thumbnail marup,
+        // If the thumbnail file exists - just return the thumbnail markup,
         // otherwise generate a new thumbnail.
         $thumbnailPath = $this->thumbnailExists($thumbnailParams, $path, $lastModified);
         if ($thumbnailPath) {
@@ -502,10 +501,10 @@ class MediaManager extends WidgetBase
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
 
-        $params = array(
+        $params = [
             'width' => $width,
             'height' => $height
-        );
+        ];
 
         return $this->getCropEditImageUrlAndSize($path, $cropSessionKey, $params);
     }

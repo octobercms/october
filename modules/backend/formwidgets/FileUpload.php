@@ -223,6 +223,7 @@ class FileUpload extends FormWidgetBase
      * Returns the specified accepted file types, or the default
      * based on the mode. Image mode will return:
      * - jpg,jpeg,bmp,png,gif,svg
+     * @param bool $includeDot
      * @return string
      */
     public function getAcceptedFileTypes($includeDot = false)
@@ -439,7 +440,7 @@ class FileUpload extends FormWidgetBase
      * Adds the bespoke attributes used internally by this widget.
      * - thumbUrl
      * - pathUrl
-     * @return System\Models\File
+     * @return \System\Models\File
      */
     protected function decorateFileAttributes($file)
     {

@@ -3,9 +3,6 @@
 use Str;
 use Lang;
 use Input;
-use Request;
-use Response;
-use Cms\Classes\Theme;
 use System\Classes\PluginManager;
 use Cms\Classes\ComponentHelpers;
 use Backend\Classes\WidgetBase;
@@ -203,7 +200,7 @@ class ComponentList extends WidgetBase
 
     protected function getPluginComponents($plugin)
     {
-        $result = array();
+        $result = [];
         $pluginClass = get_class($plugin);
         foreach ($this->pluginComponentList as $componentInfo) {
             if ($componentInfo->pluginClass == $pluginClass) {

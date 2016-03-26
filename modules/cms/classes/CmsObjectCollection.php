@@ -1,6 +1,5 @@
 <?php namespace Cms\Classes;
 
-use ApplicationException;
 use October\Rain\Support\Collection as CollectionBase;
 
 /**

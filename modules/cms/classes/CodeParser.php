@@ -3,7 +3,6 @@
 use File;
 use Lang;
 use Cache;
-use Config;
 use SystemException;
 
 /**

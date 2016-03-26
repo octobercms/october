@@ -2,7 +2,6 @@
 
 use Lang;
 use Backend\Classes\FormField;
-use Backend\Classes\WidgetManager;
 use SystemException;
 
 /**

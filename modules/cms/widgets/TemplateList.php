@@ -3,7 +3,6 @@
 use Str;
 use Input;
 use Request;
-use Response;
 use Cms\Classes\Theme;
 use Backend\Classes\WidgetBase;
 

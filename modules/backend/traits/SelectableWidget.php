@@ -1,11 +1,6 @@
 <?php namespace Backend\Traits;
 
-use Str;
-use File;
-use Lang;
 use Input;
-use Block;
-use SystemException;
 
 /**
  * Selectable Widget Trait

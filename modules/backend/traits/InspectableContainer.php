@@ -1,7 +1,6 @@
 <?php namespace Backend\Traits;
 
 use Request;
-use SystemException;
 use ApplicationException;
 
 /**
