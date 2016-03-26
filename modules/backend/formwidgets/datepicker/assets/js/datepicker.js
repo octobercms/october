@@ -39,7 +39,7 @@
             maxDate: new Date(options.maxDate),
             yearRange: options.yearRange,
             setDefaultDate: moment(this.$input.val()).toDate(),
-            i18n: $.oc.lang.get('pikaday'),
+            i18n: $.oc.lang.get('datepicker'),
             onOpen: function() {
                 var $field = $(this._o.trigger)
 

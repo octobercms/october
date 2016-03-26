@@ -54,7 +54,7 @@ return [
         'cancel_button_text' => 'Annuler',
     ],
 
-    'pikaday' => [
+    'datepicker' => [
         'previousMonth' => 'Mois précédent',
         'nextMonth'     => 'Mois suivant',
         'months'        => ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
