@@ -3,7 +3,6 @@
 use Str;
 use Input;
 use Request;
-use Response;
 use Cms\Classes\Theme;
 use Backend\Classes\WidgetBase;
 
@@ -16,13 +15,13 @@ use Backend\Classes\WidgetBase;
  */
 class TemplateList extends WidgetBase
 {
+    use \Backend\Traits\CollapsableWidget;
+
     protected $searchTerm = false;
 
     protected $dataSource;
 
     protected $theme;
-
-    protected $groupStatusCache = false;
 
     protected $selectedTemplatesCache = false;
 
@@ -320,43 +319,6 @@ class TemplateList extends WidgetBase
         }
 
         return false;
-    }
-
-    protected function getGroupStatus($group)
-    {
-        $statuses = $this->getGroupStatuses();
-        if (array_key_exists($group, $statuses)) {
-            return $statuses[$group];
-        }
-
-        return false;
-    }
-
-    protected function getThemeSessionKey($prefix)
-    {
-        return $prefix.$this->theme->getDirName();
-    }
-
-    protected function getGroupStatuses()
-    {
-        if ($this->groupStatusCache !== false) {
-            return $this->groupStatusCache;
-        }
-
-        $groups = $this->getSession($this->getThemeSessionKey('groups'), []);
-        if (!is_array($groups)) {
-            return $this->groupStatusCache = [];
-        }
-
-        return $this->groupStatusCache = $groups;
-    }
-
-    protected function setGroupStatus($group, $status)
-    {
-        $statuses = $this->getGroupStatuses();
-        $statuses[$group] = $status;
-        $this->groupStatusCache = $statuses;
-        $this->putSession($this->getThemeSessionKey('groups'), $statuses);
     }
 
     protected function getSelectedTemplates()

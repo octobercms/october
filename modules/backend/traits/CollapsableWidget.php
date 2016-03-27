@@ -30,7 +30,7 @@ trait CollapsableWidget
             return $this->groupStatusCache;
         }
 
-        $groups = $this->getSession('groups', []);
+        $groups = $this->getSession($this->getThemeSessionKey('groups'), []);
         if (!is_array($groups)) {
             return $this->groupStatusCache = [];
         }
@@ -43,7 +43,7 @@ trait CollapsableWidget
         $statuses = $this->getGroupStatuses();
         $statuses[$group] = $status;
         $this->groupStatusCache = $statuses;
-        $this->putSession('groups', $statuses);
+        $this->putSession($this->getThemeSessionKey('groups'), $statuses);
     }
 
     protected function getGroupStatus($group)
@@ -54,5 +54,10 @@ trait CollapsableWidget
         }
 
         return true;
+    }
+
+    protected function getThemeSessionKey($prefix)
+    {
+        return $prefix.$this->theme->getDirName();
     }
 }
