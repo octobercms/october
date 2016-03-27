@@ -41,13 +41,13 @@ trait CollapsableWidget
         $this->putSession('groups', $statuses);
     }
 
-    protected function getGroupStatus($group)
+    protected function getGroupStatus($group, $default = true)
     {
         $statuses = $this->getGroupStatuses();
         if (array_key_exists($group, $statuses)) {
             return $statuses[$group];
         }
 
-        return true;
+        return $default;
     }
 }

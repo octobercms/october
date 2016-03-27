@@ -15,9 +15,9 @@ use Backend\Classes\WidgetBase;
  */
 class ComponentList extends WidgetBase
 {
-    protected $searchTerm = false;
+    use \Backend\Traits\CollapsableWidget;
 
-    protected $groupStatusCache = false;
+    protected $searchTerm = false;
 
     protected $pluginComponentList;
 
@@ -56,11 +56,6 @@ class ComponentList extends WidgetBase
         $this->setSearchTerm(Input::get('search'));
 
         return $this->updateList();
-    }
-
-    public function onGroupStatusUpdate()
-    {
-        $this->setGroupStatus(Input::get('group'), Input::get('status'));
     }
 
     /*
@@ -255,39 +250,6 @@ class ComponentList extends WidgetBase
 
         if (Str::contains(Str::lower($item->plugin), $word) && strlen($item->plugin)) {
             return true;
-        }
-
-        return false;
-    }
-
-    protected function getGroupStatuses()
-    {
-        if ($this->groupStatusCache !== false) {
-            return $this->groupStatusCache;
-        }
-
-        $groups = $this->getSession('groups');
-        if (!is_array($groups)) {
-            return $this->groupStatusCache = [];
-        }
-
-        return $this->groupStatusCache = $groups;
-    }
-
-    protected function setGroupStatus($group, $status)
-    {
-        $statuses = $this->getGroupStatuses();
-        $statuses[$group] = $status;
-        $this->groupStatusCache = $statuses;
-
-        $this->putSession('groups', $statuses);
-    }
-
-    protected function getGroupStatus($group)
-    {
-        $statuses = $this->getGroupStatuses();
-        if (array_key_exists($group, $statuses)) {
-            return $statuses[$group];
         }
 
         return false;

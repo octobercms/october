@@ -1,7 +1,7 @@
 <?php if ($items): ?>
     <ul>
     <?php foreach ($items as $item): ?>
-        <li class="group" data-status="<?= $this->getGroupStatus($item->pluginClass) ? 'expanded' : 'collapsed' ?>" data-group-id="<?= e($item->pluginClass) ?>">
+        <li class="group" data-status="<?= $this->getGroupStatus($item->pluginClass, false) ? 'expanded' : 'collapsed' ?>" data-group-id="<?= e($item->pluginClass) ?>">
             <div class="group">
                 <h4><a href="#"><?= e(trans($item->title)) ?></a></h4>
                 <i class="<?= $item->icon ?>"></i>
