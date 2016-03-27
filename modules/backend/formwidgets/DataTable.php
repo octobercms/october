@@ -40,7 +40,7 @@ class DataTable extends FormWidgetBase
     protected $defaultAlias = 'datatable';
 
     /**
-     * @var Backend\Widgets\Table Table widget
+     * @var \Backend\Widgets\Table Table widget
      */
     protected $table;
 
@@ -59,7 +59,7 @@ class DataTable extends FormWidgetBase
     }
 
     /**
-     * @return Backend\Widgets\Table   The table to be displayed.
+     * @return \Backend\Widgets\Table   The table to be displayed.
      */
     public function getTable()
     {
@@ -175,7 +175,10 @@ class DataTable extends FormWidgetBase
         $methodName = 'get'.studly_case($this->fieldName).'DataTableOptions';
 
         if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getDataTableOptions')) {
-            throw new ApplicationException(Lang::get('backend::lang.model.missing_method', ['class' => get_class($this->model), 'method' => 'getDataTableOptions']));
+            throw new ApplicationException(Lang::get('backend::lang.model.missing_method', [
+                'class' => get_class($this->model),
+                'method' => 'getDataTableOptions'
+            ]));
         }
 
         if ($this->model->methodExists($methodName)) {

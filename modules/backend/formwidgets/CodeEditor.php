@@ -63,7 +63,7 @@ class CodeEditor extends FormWidgetBase
     public $margin = 0;
 
     /**
-     * @var $theme Ace Editor theme to use.
+     * @var string $theme Ace Editor theme to use.
      */
     public $theme = 'twilight';
 

@@ -1,7 +1,5 @@
 <?php namespace Cms\Classes;
 
-use ApplicationException;
-
 /**
  * This class provides helper methods to make the CmsObject behave like a Model
  *
@@ -121,7 +119,7 @@ class CmsObjectQuery
     {
         if (method_exists('Cms\Classes\CmsObjectCollection', $method)) {
             $collection = $this->all();
-            return call_user_func_array(array($collection, $method), $parameters);
+            return call_user_func_array([$collection, $method], $parameters);
         }
 
         $className = get_class($this);

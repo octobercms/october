@@ -343,7 +343,7 @@ class Index extends Controller
     {
         $class = $this->resolveTypeClassName($type);
 
-        if (!($template = call_user_func(array($class, 'load'), $this->theme, $path))) {
+        if (!($template = call_user_func([$class, 'load'], $this->theme, $path))) {
             throw new ApplicationException(trans('cms::lang.template.not_found'));
         }
 

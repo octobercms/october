@@ -49,6 +49,7 @@ class Theme
 
     /**
      * Loads the theme.
+     * @param string $dirName The theme directory
      * @return self
      */
     public static function load($dirName)
@@ -69,12 +70,12 @@ class Theme
             $dirName = $this->getDirName();
         }
 
-        return themes_path().'/'.$dirName;
+        return themes_path($dirName);
     }
 
     /**
      * Sets the theme directory name.
-     * @return void
+     * @param string $dirName The theme directory
      */
     public function setDirName($dirName)
     {

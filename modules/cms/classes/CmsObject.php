@@ -4,14 +4,12 @@ use File;
 use Lang;
 use Cache;
 use Config;
-use Validator;
 use Cms\Helpers\File as FileHelper;
 use ApplicationException;
 use ValidationException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ArrayAccess;
-use Exception;
 
 /**
  * This is a base class for all CMS objects - content files, pages, partials and layouts.
@@ -552,7 +550,7 @@ class CmsObject implements ArrayAccess
         // cannot be performed on it to reduce overhead on populated objects.
         if (!$this->theme) {
             $query = $this->newQuery();
-            return call_user_func_array(array($query, $method), $parameters);
+            return call_user_func_array([$query, $method], $parameters);
         }
 
         $className = get_class($this);

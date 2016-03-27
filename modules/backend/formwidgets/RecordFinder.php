@@ -61,17 +61,17 @@ class RecordFinder extends FormWidgetBase
     protected $defaultAlias = 'recordfinder';
 
     /**
-     * @var Model Relationship model
+     * @var \October\Rain\Database\Model Relationship model
      */
     public $relationModel;
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the widget used for viewing (list or form).
+     * @var \Backend\Classes\WidgetBase Reference to the widget used for viewing (list or form).
      */
     protected $listWidget;
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the widget used for searching.
+     * @var \Backend\Classes\WidgetBase Reference to the widget used for searching.
      */
     protected $searchWidget;
 
