@@ -17,7 +17,7 @@ class ThemeTest extends TestCase
     {
         $result = 0;
         $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
-        $it->setMaxDepth(1);
+        $it->setMaxDepth(3);
         $it->rewind();
 
         while ($it->valid()) {
