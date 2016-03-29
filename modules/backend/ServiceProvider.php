@@ -1,8 +1,6 @@
 <?php namespace Backend;
 
 use App;
-use Lang;
-use Event;
 use Backend;
 use BackendMenu;
 use BackendAuth;
