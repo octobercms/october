@@ -17,6 +17,8 @@ use Backend\Classes\WidgetBase;
  */
 class TemplateList extends WidgetBase
 {
+    use \Backend\Traits\SelectableWidget;
+
     protected $searchTerm = false;
 
     protected $dataSource;
@@ -24,8 +26,6 @@ class TemplateList extends WidgetBase
     protected $theme;
 
     protected $groupStatusCache = false;
-
-    protected $selectedTemplatesCache = false;
 
     /**
      * @var string object property to use as a title.
@@ -78,6 +78,7 @@ class TemplateList extends WidgetBase
         $this->alias = $alias;
         $this->dataSource = $dataSource;
         $this->theme = Theme::getEditTheme();
+        $this->selectionInputName = 'template';
 
         parent::__construct($controller, []);
 
@@ -127,11 +128,6 @@ class TemplateList extends WidgetBase
     public function onGroupStatusUpdate()
     {
         $this->setGroupStatus(Input::get('group'), Input::get('status'));
-    }
-
-    public function onSelect()
-    {
-        $this->extendSelection();
     }
 
     public function onUpdate()
@@ -305,7 +301,9 @@ class TemplateList extends WidgetBase
 
     protected function updateList()
     {
-        return ['#'.$this->getId('template-list') => $this->makePartial('items', ['items'=>$this->getData()])];
+        return [
+            '#'.$this->getId('template-list') => $this->makePartial('items', ['items' => $this->getData()])
+        ];
     }
 
     protected function itemMatchesSearch($words, $item)
@@ -386,42 +384,5 @@ class TemplateList extends WidgetBase
         $statuses[$group] = $status;
         $this->groupStatusCache = $statuses;
         $this->putSession($this->getThemeSessionKey('groups'), $statuses);
-    }
-
-    protected function getSelectedTemplates()
-    {
-        if ($this->selectedTemplatesCache !== false) {
-            return $this->selectedTemplatesCache;
-        }
-
-        $templates = $this->getSession($this->getThemeSessionKey('selected'), []);
-        if (!is_array($templates)) {
-            return $this->selectedTemplatesCache = [];
-        }
-
-        return $this->selectedTemplatesCache = $templates;
-    }
-
-    protected function extendSelection()
-    {
-        $items = Input::get('template', []);
-        $currentSelection = $this->getSelectedTemplates();
-
-        $this->putSession($this->getThemeSessionKey('selected'), array_merge($currentSelection, $items));
-    }
-
-    protected function resetSelection()
-    {
-        $this->putSession($this->getThemeSessionKey('selected'), []);
-    }
-
-    protected function isTemplateSelected($item)
-    {
-        $selectedTemplates = $this->getSelectedTemplates();
-        if (!is_array($selectedTemplates) || !isset($selectedTemplates[$item->fileName])) {
-            return false;
-        }
-
-        return $selectedTemplates[$item->fileName];
     }
 }
