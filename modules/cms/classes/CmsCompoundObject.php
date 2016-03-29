@@ -433,7 +433,7 @@ class CmsCompoundObject extends CmsObject
      * Determine if an attribute exists on the object.
      *
      * @param  string  $key
-     * @return void
+     * @return bool
      */
     public function __isset($key)
     {
@@ -459,7 +459,7 @@ class CmsCompoundObject extends CmsObject
     {
         if (in_array($method, $this->passthru)) {
             $collection = $this->get();
-            return call_user_func_array(array($collection, $method), $parameters);
+            return call_user_func_array([$collection, $method], $parameters);
         }
 
         return parent::__call($method, $parameters);

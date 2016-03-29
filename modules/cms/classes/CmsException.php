@@ -17,19 +17,19 @@ use Exception;
 class CmsException extends ApplicationException
 {
     /**
-     * @var Cms\Classes\CmsCompoundObject A reference to a CMS object used for masking errors.
+     * @var \Cms\Classes\CmsCompoundObject A reference to a CMS object used for masking errors.
      */
     protected $compoundObject;
 
     /**
      * @var array Collection of error codes for each error distinction.
      */
-    protected static $errorCodes = array(
+    protected static $errorCodes = [
         100 => 'General',
         200 => 'INI Settings',
         300 => 'PHP Content',
         400 => 'Twig Template'
-    );
+    ];
 
     /**
      * Creates the CMS exception object.

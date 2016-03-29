@@ -34,7 +34,7 @@
                             id="<?= $cbId ?>" 
                             type="checkbox"
                             name="template[<?= e($item->fileName) ?>]"
-                            <?= $this->isTemplateSelected($item) ? 'checked' : null ?>
+                            <?= $this->isItemSelected($item->fileName) ? 'checked' : null ?>
                             data-request="<?= $this->getEventHandler('onSelect') ?>"
                             value="1">
                         <label for="<?= $cbId ?>">Select</label>

@@ -76,7 +76,7 @@ class AssetList extends WidgetBase
     public function render()
     {
         return $this->makePartial('body', [
-           'data'=>$this->getData()
+           'data' => $this->getData()
         ]);
     }
 
@@ -108,14 +108,14 @@ class AssetList extends WidgetBase
 
         $this->putSession('currentPath', $path);
         return [
-            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
+            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items' => $this->getData()])
         ];
     }
 
     public function onRefresh()
     {
         return [
-            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
+            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items' => $this->getData()])
         ];
     }
 
