@@ -162,6 +162,7 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
 
     /**
      * Returns the full path to the template file corresponding to this object.
+     * @param  string  $fileName
      * @return string
      */
     public function getFilePath($fileName = null)

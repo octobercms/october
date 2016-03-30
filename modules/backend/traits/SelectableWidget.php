@@ -48,6 +48,15 @@ trait SelectableWidget
         $this->putSession('selected', []);
     }
 
+    protected function removeSelection($itemId)
+    {
+        $currentSelection = $this->getSelectedItems();
+
+        unset($currentSelection[$itemId]);
+        $this->putSession('selected', $currentSelection);
+        $this->selectedItemsCache = $currentSelection;
+    }
+
     protected function isItemSelected($itemId)
     {
         $selectedItems = $this->getSelectedItems();

@@ -17,7 +17,7 @@ abstract class FormWidgetBase extends WidgetBase
     //
 
     /**
-     * @var Model Form model object.
+     * @var \October\Rain\Database\Model Form model object.
      */
     public $model;
 
@@ -63,7 +63,6 @@ abstract class FormWidgetBase extends WidgetBase
     /**
      * Constructor
      * @param $controller Controller Active controller object.
-     * @param $model Model The relevant model to reference.
      * @param $formField FormField Object containing general form field information.
      * @param $configuration array Configuration the relates to this widget.
      */

@@ -66,7 +66,7 @@ class ComponentPartial extends Extendable implements CmsObjectContract
     /**
      * Loads the object from a file.
      * This method is used in the CMS back-end. It doesn't use any caching.
-     * @param Cms\Classes\ComponentBase $component Specifies the component the object belongs to.
+     * @param \Cms\Classes\ComponentBase $component Specifies the component the object belongs to.
      * @param string $fileName Specifies the file name, with the extension.
      * The file name can contain only alphanumeric symbols, dashes and dots.
      * @return mixed Returns a CMS object instance or null if the object wasn't found.
@@ -79,7 +79,7 @@ class ComponentPartial extends Extendable implements CmsObjectContract
     /**
      * There is not much point caching a component partial, so this behavior
      * reverts to a regular load call.
-     * @param Cms\Classes\ComponentBase $component
+     * @param \Cms\Classes\ComponentBase $component
      * @param string $fileName
      * @return mixed
      */
@@ -133,13 +133,15 @@ class ComponentPartial extends Extendable implements CmsObjectContract
 
     /**
      * Checks the supplied file name for validity.
-     * @param string   $fileName
+     * @param string  $fileName
      * @return string
      */
     protected function validateFileName($fileName)
     {
         if (!FileHelper::validatePath($fileName, $this->maxNesting)) {
-            throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
+            throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_file', [
+                'name' => $fileName
+            ]));
         }
 
         if (!strlen(File::extension($fileName))) {

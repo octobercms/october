@@ -31,13 +31,13 @@ use Exception;
  */
 class AssetList extends WidgetBase
 {
+    use \Backend\Traits\SelectableWidget;
+
     protected $searchTerm = false;
 
     protected $theme;
 
     protected $groupStatusCache = false;
-
-    protected $selectedFilesCache = false;
 
     /**
      * @var string Message to display when there are no records in the list.
@@ -53,6 +53,7 @@ class AssetList extends WidgetBase
     {
         $this->alias = $alias;
         $this->theme = Theme::getEditTheme();
+        $this->selectionInputName = 'file';
 
         parent::__construct($controller, []);
         $this->bindToController();
@@ -87,11 +88,6 @@ class AssetList extends WidgetBase
     public function onGroupStatusUpdate()
     {
         $this->setGroupStatus(Input::get('group'), Input::get('status'));
-    }
-
-    public function onSelect()
-    {
-        $this->extendSelection();
     }
 
     public function onOpenDirectory()
@@ -369,7 +365,7 @@ class AssetList extends WidgetBase
                     ));
                 }
 
-                if (!@File::deleteDirectory($originalFullPath, $directory)) {
+                if (!@File::deleteDirectory($originalFullPath)) {
                     throw new ApplicationException(Lang::get(
                         'cms::lang.asset.error_deleting_directory',
                         ['dir'=>$basename]
@@ -580,30 +576,6 @@ class AssetList extends WidgetBase
         return $prefix.$this->theme->getDirName();
     }
 
-    protected function getSelectedFiles()
-    {
-        if ($this->selectedFilesCache !== false) {
-            return $this->selectedFilesCache;
-        }
-
-        $files = $this->getSession($this->getThemeSessionKey('selected'), []);
-        if (!is_array($files)) {
-            return $this->selectedFilesCache = [];
-        }
-
-        return $this->selectedFilesCache = $files;
-    }
-
-    protected function isFileSelected($item)
-    {
-        $selectedFiles = $this->getSelectedFiles();
-        if (!is_array($selectedFiles) || !isset($selectedFiles[$item->path])) {
-            return false;
-        }
-
-        return $selectedFiles[$item->path];
-    }
-
     protected function getUpPath()
     {
         $path = $this->getCurrentRelativePath();
@@ -612,23 +584,6 @@ class AssetList extends WidgetBase
         }
 
         return dirname($path);
-    }
-
-    protected function extendSelection()
-    {
-        $items = Input::get('file', []);
-        $currentSelection = $this->getSelectedFiles();
-
-        $this->putSession($this->getThemeSessionKey('selected'), array_merge($currentSelection, $items));
-    }
-
-    protected function removeSelection($path)
-    {
-        $currentSelection = $this->getSelectedFiles();
-
-        unset($currentSelection[$path]);
-        $this->putSession($this->getThemeSessionKey('selected'), $currentSelection);
-        $this->selectedFilesCache = $currentSelection;
     }
 
     protected function validateRequestTheme()
