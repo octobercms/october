@@ -29,7 +29,7 @@ class Content extends CmsCompoundObject
     /**
      * Initializes the object properties from the cached data. The extra data
      * set here becomes available as attributes set on the model after fetch.
-     * @param array $cached The cached data array.
+     * @param array $item The cached data array.
      */
     public static function initCacheItem(&$item)
     {

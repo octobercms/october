@@ -103,7 +103,7 @@ class Controller
     protected static $instance = null;
 
     /**
-     * @var Cms\Classes\ComponentBase Object of the active component, used internally.
+     * @var \Cms\Classes\ComponentBase Object of the active component, used internally.
      */
     protected $componentContext = null;
 
