@@ -147,7 +147,7 @@
 .control-simplelist.is-selectable li.active a{background:#f0f0f0}
 .control-simplelist.is-selectable li.active a:hover{background:#4da7e8}
 .list-preview .control-simplelist.is-selectable ul{margin-bottom:0}
-.drag-noselect{user-select:none;-o-user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none}
+.drag-noselect{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .control-scrollbar{position:relative;overflow:hidden;height:100%;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}
 .control-scrollbar > div{-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}
 .control-scrollbar > .scrollbar-scrollbar{position:absolute;z-index:100}
@@ -281,7 +281,7 @@
 .control-treeview ol > li > div > a{color:#2b3e50;padding:16px 45px 15px 61px;display:block;line-height:150%;text-decoration:none;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .control-treeview ol > li > div:before{content:' ';background-image:url(../images/treeview-icons.png);background-position:0px -28px;background-repeat:no-repeat;background-size:42px auto;position:absolute;width:21px;height:22px;left:28px;top:20px}
 .control-treeview ol > li > div span.comment{display:block;font-weight:400;color:#95a5a6;font-size:14px;margin-top:2px;overflow:hidden;text-overflow:ellipsis}
-.control-treeview ol > li > div > span.expand{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;display:none;position:absolute;left:0;width:20px;height:20px;top:24px;left:2px;cursor:pointer;color:#bdc3c7;-webkit-transition:transform 0.1s ease;transition:transform 0.1s ease}
+.control-treeview ol > li > div > span.expand{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;display:none;position:absolute;width:20px;height:20px;top:24px;left:2px;cursor:pointer;color:#bdc3c7;-webkit-transition:transform 0.1s ease;transition:transform 0.1s ease}
 .control-treeview ol > li > div > span.expand:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0da";line-height:100%;font-size:15px;position:relative;left:8px;top:2px}
 .control-treeview ol > li > div > span.drag-handle{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;-webkit-transition:opacity 0.4s;transition:opacity 0.4s;position:absolute;right:18px;bottom:5px;width:18px;height:19px;cursor:move;color:#bdc3c7;opacity:0;filter:alpha(opacity=0)}
 .control-treeview ol > li > div > span.drag-handle:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0c9";font-size:18px}
@@ -488,8 +488,8 @@ div.control-scrollpad[data-direction=horizontal] > div{overflow-x:scroll;overflo
 div.control-scrollpad[data-direction=horizontal] > div::-webkit-scrollbar{width:auto;height:0}
 div.control-scrollpad > .scrollpad-scrollbar{z-index:199;position:absolute;top:0;right:0;bottom:0;width:11px;background-color:transparent;opacity:0;overflow:hidden;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-transition:opacity 0.3s;transition:opacity 0.3s}
 div.control-scrollpad > .scrollpad-scrollbar .drag-handle{position:absolute;right:2px;min-height:10px;width:7px;background-color:#aaaaaa;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
-div.control-scrollpad > .scrollpad-scrollbar:hover{opacity:0.7;-webkit-transition:opacity 0 linear;transition:opacity 0 linear}
-div.control-scrollpad > .scrollpad-scrollbar[data-visible]{opacity:0.7}
+div.control-scrollpad > .scrollpad-scrollbar:hover{opacity:0.7;filter:alpha(opacity=70);-webkit-transition:opacity 0 linear;transition:opacity 0 linear}
+div.control-scrollpad > .scrollpad-scrollbar[data-visible]{opacity:0.7;filter:alpha(opacity=70)}
 div.control-scrollpad > .scrollpad-scrollbar[data-hidden]{display:none}
 div.control-scrollpad[data-direction=horizontal] > .scrollpad-scrollbar{top:auto;left:0;width:auto;height:11px}
 div.control-scrollpad[data-direction=horizontal] > .scrollpad-scrollbar .drag-handle{right:auto;top:2px;height:7px;min-height:0;min-width:10px;width:auto}
@@ -647,7 +647,7 @@ body.slim-container .layout.layout-container,body.slim-container .layout .layout
 .flex-layout-column.absolute{position:absolute !important}
 .flex-layout-column.fill-container{position:absolute;left:0;top:0;width:100%;height:100%}
 .flex-layout-row{display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex;display:flex;-webkit-flex-direction:row;-moz-flex-direction:row;-webkit-box-orient:horizontal;-ms-flex-direction:row;flex-direction:row}
-.flex-layout-column.justify-center,.flex-layout-row.justify-center{-webkit-justify-content:center;-moz-justify-content:center;-ms-justify-content:;-webkit-box-pack:center;justify-content:center}
+.flex-layout-column.justify-center,.flex-layout-row.justify-center{-webkit-justify-content:center;-moz-justify-content:center;-ms-justify-content:center;-webkit-box-pack:center;justify-content:center}
 .flex-layout-column.align-center,.flex-layout-row.align-center{-webkit-align-items:center;-moz-align-items:center;-ms-align-items:center;align-items:center;-webkit-align-content:center;-moz-align-content:center;-webkit-box-align:center;-ms-align-content:center;align-content:center}
 .flex-layout-column.full-height,.flex-layout-row.full-height{min-height:100%}
 .flex-layout-item{margin:0}
@@ -688,15 +688,15 @@ nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account{margin-right:0}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account > a{height:78px;line-height:78px;padding:0 20px 0 10px;font-size:16px;position:relative;z-index:590}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img{width:40px;margin-right:15px;border-radius:999px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account ul{line-height:23px}
-nav#layout-mainmenu:hover ul.mainmenu-nav li{-webkit-transition:opacity 0.15s ease;transition:opacity 0.15s ease;opacity:1}
+nav#layout-mainmenu:hover ul.mainmenu-nav li{-webkit-transition:opacity 0.15s ease;transition:opacity 0.15s ease;opacity:1;filter:alpha(opacity=100)}
 nav#layout-mainmenu ul.mainmenu-nav li a{position:relative;width:65px;height:65px}
 nav#layout-mainmenu ul.mainmenu-nav li a .nav-icon{text-align:center;display:block;position:absolute;top:50%;left:50%;margin-left:-15px;margin-top:-22.5px;width:30px;height:30px}
 nav#layout-mainmenu ul.mainmenu-nav li a .nav-icon i,nav#layout-mainmenu ul.mainmenu-nav li a .nav-icon img{margin:0}
 nav#layout-mainmenu ul.mainmenu-nav li a .nav-label{display:block;width:100px;height:20px;line-height:23px;position:absolute;bottom:0;left:50%;padding:0 5px;margin-left:-50px;overflow:hidden;text-overflow:ellipsis;text-align:center}
-nav#layout-mainmenu ul.mainmenu-nav li{opacity:.65;-webkit-transition:opacity 5s ease;transition:opacity 5s ease;-webkit-transition-delay:5s;transition-delay:5s;margin-right:30px;padding:3px 0}
+nav#layout-mainmenu ul.mainmenu-nav li{opacity:0.65;filter:alpha(opacity=65);-webkit-transition:opacity 5s ease;transition:opacity 5s ease;-webkit-transition-delay:5s;transition-delay:5s;margin-right:30px;padding:3px 0}
 nav#layout-mainmenu ul.mainmenu-nav li:first-child{margin-left:8px}
 nav#layout-mainmenu ul.mainmenu-nav li:last-child{margin-right:0}
-nav#layout-mainmenu ul.mainmenu-nav li.active{opacity:1}
+nav#layout-mainmenu ul.mainmenu-nav li.active{opacity:1;filter:alpha(opacity=100)}
 nav#layout-mainmenu ul.mainmenu-nav li.active a .nav-label{text-shadow:1px 1px 0 rgba(255,255,255,0.3)}
 nav#layout-mainmenu ul.mainmenu-nav li:hover .nav-label{width:auto;min-width:100px;text-overflow:all;overflow:visible;background-color:#111111;z-index:2}
 nav#layout-mainmenu .menu-toggle{display:inline-block;font-size:15px;color:inherit;outline:none;height:78px;line-height:78px;display:none}
@@ -751,7 +751,7 @@ body.mainmenu-open .mainmenu-collapsed ul{position:fixed;left:0;top:10px;bottom:
 #layout-sidenav{background-color:#31495f;position:absolute;height:100%;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #layout-sidenav ul{position:relative;margin:0;padding:0;height:100%;overflow:hidden}
 #layout-sidenav ul,#layout-sidenav ul li:first-child a{-webkit-box-shadow:inset 0 6px 3px -3px rgba(0,0,0,0.1);box-shadow:inset 0 6px 3px -3px rgba(0,0,0,0.1)}
-#layout-sidenav ul:after{content:'';position:absolute;top:0;right:0;width:10px;height:100%;-webkit-box-shadow:inset -5px 0 3px rgba(0,0,0,0.1);box-shadow:inset -5px 0 3px rgba(0,0,0,0.1)}
+#layout-sidenav ul:after{content:'';position:absolute;height:100%;top:0;right:0;width:10px;-webkit-box-shadow:inset -5px 0 3px rgba(0,0,0,0.1);box-shadow:inset -5px 0 3px rgba(0,0,0,0.1)}
 #layout-sidenav ul li{display:block;text-align:center;position:relative}
 #layout-sidenav ul li a{padding:20px 10px;display:block;font-size:14px;color:rgba(255,255,255,0.35);font-weight:normal;position:relative}
 #layout-sidenav ul li a:hover{text-decoration:none;background-color:transparent}
