@@ -170,7 +170,7 @@ nav#layout-mainmenu {
     &:hover {
         ul.mainmenu-nav li {
             .transition(opacity .15s ease);
-            opacity: 1;
+            .opacity(1);
         }
     }
 
@@ -210,7 +210,7 @@ nav#layout-mainmenu {
         }
 
         li {
-            opacity: .65;
+            .opacity(.65);
             .transition(opacity 5s ease);
             .transition-delay(5s);
 
@@ -226,7 +226,7 @@ nav#layout-mainmenu {
             }
 
             &.active {
-                opacity: 1;
+                .opacity(1);
 
                 a .nav-label {
                     text-shadow: 1px 1px 0 rgba(255,255,255,.3);

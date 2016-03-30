@@ -78,8 +78,13 @@
 
         &:hover {
             color: #000;
-            .filter-label { color: @color-filter-text; }
-            &.active .filter-setting { background-color: darken(@color-filter-bg-active, 5%); }
+
+            .filter-label {
+                color: @color-filter-text;
+            }
+            &.active .filter-setting {
+                background-color: darken(@color-filter-bg-active, 5%);
+            }
         }
     }
 }
