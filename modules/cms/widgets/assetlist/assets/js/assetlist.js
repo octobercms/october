@@ -13,6 +13,7 @@
         this.$form.on('click', 'ul.list > li.file > a', $.proxy(this.onFileClick, this))
         this.$form.on('click', 'p.parent > a', $.proxy(this.onDirectoryClick, this))
         this.$form.on('click', 'a[data-control=delete-asset]', $.proxy(this.onDeleteClick, this))
+        this.$form.on('click', 'a[data-control=unzip-asset]', $.proxy(this.onUnzipClick, this))
         this.$form.on('oc.list.setActiveItem', $.proxy(this.onSetActiveItem, this))
 
         this.setupUploader()
@@ -63,6 +64,26 @@
             return false
 
         this.$form.request(this.alias+'::onDeleteFiles', {
+            success: function(data) {
+                if (data.error !== undefined && $.type(data.error) === 'string' && data.error.length)
+                    $.oc.flashMsg({text: data.error, 'class': 'error'})
+            },
+            complete: function() {
+                self.refresh()
+            }
+        })
+
+        return false
+    }
+
+    AssetList.prototype.onUnzipClick = function(e) {
+        var $el = $(e.currentTarget),
+            self = this
+
+        if (!confirm($el.data('confirmation')))
+            return false
+
+        this.$form.request(this.alias+'::onUnzipFiles', {
             success: function(data) {
                 if (data.error !== undefined && $.type(data.error) === 'string' && data.error.length)
                     $.oc.flashMsg({text: data.error, 'class': 'error'})

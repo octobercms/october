@@ -21,6 +21,7 @@ use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use DirectoryIterator;
 use Exception;
+use ZipArchive;
 
 /**
  * CMS asset list widget.
@@ -49,6 +50,11 @@ class AssetList extends WidgetBase
     public $deleteConfirmation = 'Do you really want to delete selected files or directories?';
 
     /**
+     * @var string Message to display when the Unzip button is clicked.
+     */
+    public $unzipConfirmation = 'Do you really want to unzip selected files into this directory?';
+
+    /**
      * @var array A list of default allowed file types.
      * This parameter can be overridden with the cms.allowedAssetTypes configuration option.
      */
@@ -70,7 +76,8 @@ class AssetList extends WidgetBase
         'md',
         'less',
         'sass',
-        'scss'
+        'scss',
+        'zip'
     ];
 
     public function __construct($controller, $alias)
@@ -206,6 +213,70 @@ class AssetList extends WidgetBase
 
         return [
             'deleted'=>$deleted,
+            'error'=>$error,
+            'theme'=>Request::input('theme')
+        ];
+    }
+
+    public function onUnzipFiles()
+    {
+        $this->validateRequestTheme();
+
+        $fileList = Request::input('file');
+        $error = null;
+        $unzipped = [];
+
+        try {
+            $assetsPath = $this->getAssetsPath();
+
+            foreach ($fileList as $path => $selected) {
+                if ($selected) {
+                    if (!$this->validatePath($path)) {
+                        $this->removeSelection($path);
+                        throw new ApplicationException(Lang::get('cms::lang.asset.invalid_path'));
+                    }
+
+                    $fullPath = $assetsPath.$path;
+                    if (File::exists($fullPath)) {
+
+                        if (!File::isDirectory($fullPath)) {
+                            $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+                            if ($ext !== 'zip') {
+                                $this->removeSelection($path);
+                                throw new ApplicationException(Lang::get(
+                                    'cms::lang.cms_object.invalid_file_extension',
+                                    [ 'invalid' => $ext, 'allowed' => 'zip'] 
+                                ));
+                            }
+
+                            $zip = new ZipArchive();
+
+                            if ($zip->open($fullPath, ZipArchive::CREATE)!==TRUE) {
+                                $this->removeSelection($path);
+                                throw new ApplicationException(Lang::get(
+                                    'cms::lang.asset.error_open_zip'
+                                ));
+                            }
+
+                            $zip->extractTo ( $assetsPath );
+                            $unzipped[] = $path;
+                            $this->removeSelection($path);
+                        }else {
+                            $this->removeSelection($path);
+                            throw new ApplicationException(Lang::get(
+                                'cms::lang.asset.is_a_directory'
+                            ));
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception $ex) {
+            $error = $ex->getMessage();
+        }
+
+        return [
+            'unzipped'=>$unzipped,
             'error'=>$error,
             'theme'=>Request::input('theme')
         ];
