@@ -205,7 +205,10 @@ return [
         'error_moving_file' => 'Error moving file :file',
         'error_moving_directory' => 'Error moving directory :dir',
         'error_deleting_directory' => 'Error deleting the original directory :dir',
-        'path' => 'Path'
+        'path' => 'Path',
+        'unzip' => 'Unzip',
+        'is_a_directory' => 'Only files are allowed. You\'ve selected a directory.',
+        'error_open_zip' => 'Error open the zip file'
     ],
     'component' => [
         'menu_label' => 'Components',

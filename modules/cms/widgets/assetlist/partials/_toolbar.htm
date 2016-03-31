@@ -53,6 +53,15 @@
                             data-control="popup"
                             data-handler="<?= $this->getEventHandler('onLoadMovePopup') ?>"
                         ><?= e(trans('cms::lang.asset.move')) ?></a></li>
+
+                        <li role="presentation"><a
+                            role="menuitem"
+                            tabindex="-1"
+                            href="javascript:;"
+                            data-control="unzip-asset"
+                            data-confirmation="<?= e(trans($this->unzipConfirmation)) ?>"
+                            class="oc-icon-file-zip-o"
+                        ><?= e(trans('cms::lang.asset.unzip')) ?></a></li>
                     </ul>
                 </div>
             </div>

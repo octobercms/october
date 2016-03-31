@@ -206,6 +206,9 @@ return [
         'error_moving_directory' => 'Erro ao mover diretório :dir',
         'error_deleting_directory' => 'Erro ao excluir o diretório original :dir',
         'path' => 'Caminho',
+        'unzip' => 'Descompactar',
+        'is_a_directory' => 'Apenas arquivos são permitidos. Você selecionou um diretório.',
+        'error_open_zip' => 'Erro ao abrir o arquivo zip'
     ],
     'component' => [
         'menu_label' => 'Componentes',
