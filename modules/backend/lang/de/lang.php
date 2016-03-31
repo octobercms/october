@@ -150,6 +150,7 @@ return [
         'saving' => 'Wird gespeichert...',
         'delete' => 'Löschen',
         'deleting' => 'Löschen...',
+        'confirm_delete' => 'Wollen Sie diesen Eintrag wirklich löschen?',
         'undefined_tab' => 'Divers',
         'field_off' => 'Aus',
         'field_on' => 'An',
