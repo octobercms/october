@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Updates\Migration;
 
 class DbBackendUsers extends Migration
 {
     public function up()
     {
-        Schema::create('backend_users', function (Blueprint $table) {
+        Schema::create('backend_users', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('first_name')->nullable();

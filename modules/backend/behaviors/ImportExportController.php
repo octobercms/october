@@ -7,6 +7,7 @@ use Response;
 use Backend;
 use BackendAuth;
 use Backend\Classes\ControllerBehavior;
+use Backend\Behaviors\ImportExportController\TranscodeFilter;
 use League\Csv\Reader as CsvReader;
 use League\Csv\Writer as CsvWriter;
 use ApplicationException;
@@ -179,10 +180,11 @@ class ImportExportController extends ControllerBehavior
                 $model->fill($optionData);
             }
 
-            $model->import($matches, [
-                'sessionKey' => $this->importUploadFormWidget->getSessionKey(),
-                'firstRowTitles' => post('first_row_titles', false)
-            ]);
+            $importOptions = $this->getFormatOptionsFromPost();
+            $importOptions['sessionKey'] = $this->importUploadFormWidget->getSessionKey();
+            $importOptions['firstRowTitles'] = post('first_row_titles', false);
+
+            $model->import($matches, $importOptions);
 
             $this->vars['importResults'] = $model->getResultStats();
             $this->vars['returnUrl'] = $this->getRedirectUrlForType('import');
@@ -218,7 +220,7 @@ class ImportExportController extends ControllerBehavior
         }
 
         $path = $this->getImportFilePath();
-        $reader = CsvReader::createFromPath($path);
+        $reader = $this->createCsvReader($path);
 
         if (post('first_row_titles')) {
             $reader->setOffset(1);
@@ -293,13 +295,20 @@ class ImportExportController extends ControllerBehavior
             return null;
         }
 
-        $reader = CsvReader::createFromPath($path);
+        $reader = $this->createCsvReader($path);
         $firstRow = $reader->fetchOne(0);
 
         if (!post('first_row_titles')) {
             array_walk($firstRow, function(&$value, $key) {
                 $value = 'Column #'.($key + 1);
             });
+        }
+
+        /*
+         * Prevents unfriendly error to be thrown due to bad encoding at response time.
+         */
+        if (json_encode($firstRow) === false) {
+            throw new ApplicationException(Lang::get('backend::lang.import_export.encoding_not_supported_error'));
         }
 
         return $firstRow;
@@ -384,19 +393,13 @@ class ImportExportController extends ControllerBehavior
         try {
             $model = $this->exportGetModel();
             $columns = $this->processExportColumnsFromPost();
-            $exportOptions = [
-                'sessionKey' => $this->exportFormatFormWidget->getSessionKey()
-            ];
 
             if ($optionData = post('ExportOptions')) {
                 $model->fill($optionData);
             }
 
-            if (post('format_preset') == 'custom') {
-                $exportOptions['delimiter'] = post('format_delimiter');
-                $exportOptions['enclosure'] = post('format_enclosure');
-                $exportOptions['escape'] = post('format_escape');
-            }
+            $exportOptions = $this->getFormatOptionsFromPost();
+            $exportOptions['sessionKey'] = $this->exportFormatFormWidget->getSessionKey();
 
             $reference = $model->export($columns, $exportOptions);
             $fileUrl = $this->controller->actionUrl(
@@ -695,4 +698,69 @@ class ImportExportController extends ControllerBehavior
 
         return $this->controller->actionUrl($type);
     }
+
+    /**
+     * Create a new CSV reader with options selected by the user
+     * @param string $path
+     *
+     * @return CsvReader
+     */
+    protected function createCsvReader($path)
+    {
+        $reader = CsvReader::createFromPath($path);
+        $options = $this->getFormatOptionsFromPost();
+
+        if ($options['delimiter'] !== null) {
+            $reader->setDelimiter($options['delimiter']);
+        }
+
+        if ($options['enclosure'] !== null) {
+            $reader->setEnclosure($options['enclosure']);
+        }
+
+        if ($options['escape'] !== null) {
+            $reader->setEscape($options['escape']);
+        }
+
+        if (
+            $options['encoding'] !== null &&
+            $reader->isActiveStreamFilter()
+        ) {
+            $reader->appendStreamFilter(sprintf(
+                '%s%s:%s',
+                TranscodeFilter::FILTER_NAME,
+                strtolower($options['encoding']),
+                'utf-8'
+            ));
+        }
+
+        return $reader;
+    }
+
+    /**
+     * Returns the file format options from postback. This method
+     * can be used to define presets.
+     * @return array
+     */
+    protected function getFormatOptionsFromPost()
+    {
+        $presetMode = post('format_preset');
+
+        $options = [
+            'delimiter' => null,
+            'enclosure' => null,
+            'escape' => null,
+            'encoding' => null
+        ];
+
+        if ($presetMode == 'custom') {
+            $options['delimiter'] = post('format_delimiter');
+            $options['enclosure'] = post('format_enclosure');
+            $options['escape'] = post('format_escape');
+            $options['encoding'] = post('format_encoding');
+        }
+
+        return $options;
+    }
+
 }

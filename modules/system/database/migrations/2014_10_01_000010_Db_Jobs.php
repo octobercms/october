@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Updates\Migration;
 
 class DbJobs extends Migration
 {
     public function up()
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('jobs', function ($table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->string('queue');

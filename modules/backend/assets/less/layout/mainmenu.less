@@ -2,15 +2,53 @@
 // Top navigation bar
 // --------------------------------------------------
 
+@mainmenu-height: 78px;
+@mainmenu-tile-dimension: 65px;
+@mainmenu-tile-icon-dimension: 30px;
+@mainmenu-tile-label-height: 20px;
+@mainmenu-tile-label-width: 100px;
+
 body.mainmenu-open {
     overflow: hidden;
 }
 
-nav#layout-mainmenu.navbar {
+.mainmenu-item-link() {
+    display: inline-block;
+    font-size: 15px;
+    color: inherit;
+    outline: none;
+
+    &:hover {
+        background-color: transparent !important;
+    }
+
+    &:active, &:focus {
+        text-decoration: none;
+        color: @color-mainmenu-inactive;
+    }
+
+    i {
+        line-height: 1;
+        font-size: 30px;
+        vertical-align: middle;
+    }
+}
+
+.mainmenu-tooltip {
+    .tooltip-inner {
+        font-size: 16px;
+        padding: 6px 16px;
+        border-radius: 0;
+    }
+}
+
+nav#layout-mainmenu {
     background-color: @color-mainmenu;
     padding: 0 0 0 20px;
     line-height: 0;
     white-space: nowrap;
+    vertical-align: top;
+    height: @mainmenu-height;
 
     a {
         text-decoration: none;
@@ -24,61 +62,39 @@ nav#layout-mainmenu.navbar {
         padding: 0;
         list-style: none;
         float: left;
-        font-weight: 600;
         white-space: nowrap;
         overflow: hidden;
 
         li {
             color: @color-mainmenu-inactive;
             display: inline-block;
-            margin-right: 30px;
+            vertical-align: top;
             position: relative;
 
-            &:last-child { margin-right: 0; }
+            a {
+                .mainmenu-item-link();
+                padding: 14px 0 10px;
 
-            &.active {
-                &:after {
-                    content: ' ';
-                    position: absolute;
-                    bottom: 0;
-                    left: 50%;
-                    margin-left: -8.5px;
+                img.svg-icon {
+                    height: 30px;
+                    width: 30px;
+                    margin-right: 10px;
+                    position: relative;
+                    top: 0;
                 }
             }
 
-            &.icon {
+            &.icon-only {
                 margin-right: 0;
-                i { margin-right: 0; }
                 a { padding: 14px; }
-            }
-
-            &.power-off, &.preview {
-                i { font-size: 20px; }
-                a { padding: 22px 20px 20px 20px; }
-            }
-
-            &.account {
-                margin-right: 0;
-                line-height: 23px;
-
-                a {
-                    padding-right: 20px;
-                    position: relative;
-                    z-index: 590;
-                }
-
-                img {
-                    width: 25px;
-                    margin-right: 7px;
-                    position: relative;
-                    top: -2px;
-                }
+                i { margin-right: 0; }
             }
         }
 
-        &.nav { display: inline-block; }
+        &.nav {
+            display: inline-block;
+        }
     }
-    .menu-toggle { display: none; }
 
     .toolbar-item {
         padding-right: 0;
@@ -86,17 +102,179 @@ nav#layout-mainmenu.navbar {
         &:before, &:after {
             margin-top: 0;
         }
-        &:before { left: -12px; }
-        &:after { right: -12px; }
 
-        &.scroll-active-before:before { color: @color-mainmenu-active; }
-        &.scroll-active-after:after { color: @color-mainmenu-active; }
+        &:before {
+            left: -12px;
+        }
+
+        &:after {
+            right: -12px;
+        }
+
+        &.scroll-active-before:before {
+            color: @color-mainmenu-active;
+        }
+
+        &.scroll-active-after:after {
+            color: @color-mainmenu-active;
+        }
+    }
+
+    //
+    // Toolbar
+    //
+
+    ul.mainmenu-toolbar {
+        li.mainmenu-preview {
+            i {
+                font-size: 20px;
+            }
+
+            a {
+                height: @mainmenu-height - 16px;
+                line-height: @mainmenu-height - 16px;
+                padding: 0 15px;
+                margin: 8px 0 8px 11px;
+            }
+        }
+
+        li.mainmenu-account {
+            margin-right: 0;
+
+            > a {
+                height: @mainmenu-height;
+                line-height: @mainmenu-height;
+                padding: 0 20px 0 10px;
+                font-size: 16px;
+                position: relative;
+                // z-index: 200; // Previous value 590 was overlappnig with drop-down menus on small screens
+                z-index: 590; // @todo Investigate: This causes the button to dim without 590
+            }
+
+            img {
+                width: 40px;
+                margin-right: 15px;
+                border-radius: 999px;
+            }
+
+            ul {
+                line-height: 23px;
+            }
+        }
+    }
+
+    //
+    // Tiles
+    //
+
+    &:hover {
+        ul.mainmenu-nav li {
+            .transition(opacity .15s ease);
+            .opacity(1);
+        }
+    }
+
+    ul.mainmenu-nav {
+        li a {
+            position: relative;
+            width: @mainmenu-tile-dimension;
+            height: @mainmenu-tile-dimension;
+
+            .nav-icon {
+                text-align: center;
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-left: -(@mainmenu-tile-icon-dimension / 2);
+                margin-top: -(@mainmenu-tile-dimension - @mainmenu-tile-label-height) / 2;
+                width: @mainmenu-tile-icon-dimension;
+                height: @mainmenu-tile-icon-dimension;
+                i, img { margin: 0; }
+            }
+
+            .nav-label {
+                display: block;
+                width: @mainmenu-tile-label-width;
+                height: @mainmenu-tile-label-height;
+                line-height: (@mainmenu-tile-label-height+3);
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                padding: 0 5px;
+                margin-left: -(@mainmenu-tile-label-width / 2);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-align: center;
+            }
+        }
+
+        li {
+            .opacity(.65);
+            .transition(opacity 5s ease);
+            .transition-delay(5s);
+
+            margin-right: 30px;
+            padding: 3px 0;
+
+            &:first-child {
+                margin-left: 8px;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &.active {
+                .opacity(1);
+
+                a .nav-label {
+                    text-shadow: 1px 1px 0 rgba(255,255,255,.3);
+                }
+            }
+
+            &:hover {
+                .nav-label {
+                    width: auto;
+                    min-width: @mainmenu-tile-label-width;
+                    text-overflow: all;
+                    overflow: visible;
+                    background-color: @color-mainmenu;
+                    z-index: 2;
+                }
+            }
+        }
+    }
+
+    //
+    // Mobile
+    //
+
+    .menu-toggle {
+        .mainmenu-item-link();
+        height: @mainmenu-height;
+        line-height: @mainmenu-height;
+        display: none;
+
+        > i {
+            margin-right: 10px;
+        }
+    }
+
+}
+
+html.svg {
+    nav#layout-mainmenu,
+    .mainmenu-collapsed {
+        img.svg-icon {
+            display: inline-block;
+        }
     }
 }
 
-nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu {
+nav#layout-mainmenu ul li .mainmenu-accountmenu {
     position: fixed;
-    top: 63px;
+    top: @mainmenu-height;
     right: 0;
     background: @color-accountmenu-bg;
     z-index: 590;
@@ -121,7 +299,7 @@ nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu {
     li {
         padding: 0;
         margin: 0;
-        font-weight: 400;
+        font-weight: normal;
         text-align: left;
         display: block;
 
@@ -149,47 +327,6 @@ nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu {
     }
 }
 
-nav#layout-mainmenu.navbar ul li a,
-nav#layout-mainmenu .menu-toggle,
-.mainmenu-collapsed li a {
-    padding: 14px 0;
-    display: inline-block;
-    font-size: 14px;
-    color: inherit;
-    outline: none;
-
-    &:hover {
-        background-color: transparent !important;
-    }
-
-    &:active, &:focus {
-        text-decoration: none;
-        color: @color-mainmenu-inactive;
-    }
-
-    i {
-        line-height: 1;
-        font-size: 35px;
-        vertical-align: middle;
-        margin-right: 10px;
-    }
-}
-
-nav#layout-mainmenu.navbar ul li {
-    a {
-        i { font-size: 28px; }
-    }
-    &.active a {
-        i { font-size: 35px; }
-    }
-}
-
-.mainmenu-collapsed li a i {
-    width: 40px;
-    text-align: left;
-    display: inline-block;
-}
-
 nav#layout-mainmenu.navbar ul li:hover,
 .mainmenu-collapsed li:hover {
     a {
@@ -207,7 +344,6 @@ nav#layout-mainmenu.navbar ul li,
 .mainmenu-collapsed li {
     &.active, &.highlight {
         color: @color-mainmenu-active !important;
-        font-weight: 600;
 
         a {
             color: @color-mainmenu-active !important;
@@ -229,12 +365,11 @@ body.drag {
 
 @media (max-width: @menu-breakpoint-max) {
     nav#layout-mainmenu.navbar {
-        ul.nav {display: none;}
+        ul.nav { display: none; }
 
         .menu-toggle {
             display: inline-block;
             color: @color-mainmenu-active!important;
-            font-weight: 600;
         }
     }
 
@@ -264,6 +399,8 @@ body.drag {
                     color: @color-mainmenu-inactive;
 
                     a {
+                        .mainmenu-item-link();
+
                         white-space: nowrap;
                         display: block;
                         padding: 15px 20px;
@@ -271,6 +408,27 @@ body.drag {
                         &:hover {
                             text-decoration: none;
                         }
+
+                        .nav-icon {
+                            margin-right: 10px;
+
+                            img.svg-icon {
+                                position: relative;
+                                top: -3px;
+                                width: 30px;
+                                height: 30px;
+                            }
+
+                            i {
+                                width: 30px;
+                                text-align: left;
+                                display: inline-block;
+                            }
+                        }
+                    }
+
+                    &.active a {
+                        padding: 9px 20px 11px 20px;
                     }
                 }
             }
@@ -288,6 +446,6 @@ body.mainmenu-open  .mainmenu-collapsed ul {
 }
 
 @media (min-width: @menu-breakpoint-min) {
-    #layout-canvas {position: static!important;}
-    .mainmenu-collapsed {display: none!important;}
+    #layout-canvas { position: static!important; }
+    .mainmenu-collapsed { display: none!important; }
 }

@@ -3,11 +3,8 @@
 use Mail;
 use Flash;
 use Backend;
-use Redirect;
 use Validator;
 use BackendAuth;
-use BackendMenu;
-use Backend\Models\User;
 use Backend\Models\AccessLog;
 use Backend\Classes\Controller;
 use System\Classes\UpdateManager;

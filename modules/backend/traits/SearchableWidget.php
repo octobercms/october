@@ -1,10 +1,6 @@
 <?php namespace Backend\Traits;
 
 use Str;
-use File;
-use Lang;
-use Block;
-use SystemException;
 
 /**
  * Searchable Widget Trait

@@ -22,6 +22,8 @@ use Backend\Classes\FormWidgetBase;
  */
 class RecordFinder extends FormWidgetBase
 {
+    use \Backend\Traits\FormModelWidget;
+
     //
     // Configurable properties
     //
@@ -105,25 +107,6 @@ class RecordFinder extends FormWidgetBase
 
             $this->searchWidget->setActiveTerm(null);
         }
-    }
-
-    /**
-     * Returns the model of a relation type,
-     * supports nesting via HTML array.
-     * @return Relation
-     */
-    protected function getRelationModel()
-    {
-        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-
-        if (!$model->hasRelation($attribute)) {
-            throw new ApplicationException(Lang::get('backend::lang.model.missing_relation', [
-                'class' => get_class($model),
-                'relation' => $attribute
-            ]));
-        }
-
-        return $model->makeRelation($attribute);
     }
 
     /**

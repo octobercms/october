@@ -1,6 +1,5 @@
 <?php namespace Backend\Classes;
 
-use Str;
 use IteratorAggregate;
 use ArrayIterator;
 use ArrayAccess;

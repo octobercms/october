@@ -1,14 +1,13 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Updates\Migration;
 use Backend\Models\User as AdminModel;
 
 class DbBackendAddSuperuserFlag extends Migration
 {
     public function up()
     {
-        Schema::table('backend_users', function (Blueprint $table) {
+        Schema::table('backend_users', function ($table) {
             $table->boolean('is_superuser')->default(false);
         });
 
@@ -22,7 +21,7 @@ class DbBackendAddSuperuserFlag extends Migration
 
     public function down()
     {
-        // Schema::table('backend_users', function (Blueprint $table) {
+        // Schema::table('backend_users', function ($table) {
         //     $table->dropColumn('is_superuser');
         // });
     }

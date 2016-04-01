@@ -27,7 +27,7 @@ use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
-use October\Rain\Parse\Template as TextParser;
+use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
 
 /**
@@ -103,7 +103,7 @@ class Controller
     protected static $instance = null;
 
     /**
-     * @var Cms\Classes\ComponentBase Object of the active component, used internally.
+     * @var \Cms\Classes\ComponentBase Object of the active component, used internally.
      */
     protected $componentContext = null;
 
@@ -168,7 +168,10 @@ class Controller
             MaintenanceSettings::get('is_enabled', false) &&
             !BackendAuth::getUser()
         ) {
-            $this->setStatusCode(503);
+            if (!Request::ajax()) {
+                $this->setStatusCode(503);
+            }
+
             $page = Page::loadCached($this->theme, MaintenanceSettings::get('cms_page'));
         }
 
@@ -191,7 +194,9 @@ class Controller
          * If the page was not found, render the 404 page - either provided by the theme or the built-in one.
          */
         if (!$page || $url === '404') {
-            $this->setStatusCode(404);
+            if (!Request::ajax()) {
+                $this->setStatusCode(404);
+            }
 
             // Log the 404 request
             if (!App::runningUnitTests()) {
@@ -367,7 +372,7 @@ class Controller
              */
             CmsException::mask($this->page, 400);
             $this->loader->setObject($this->page);
-            $template = $this->twig->loadTemplate($this->page->getFullPath());
+            $template = $this->twig->loadTemplate($this->page->getFilePath());
             $this->pageContents = $template->render($this->vars);
             CmsException::unmask();
         }
@@ -377,7 +382,7 @@ class Controller
          */
         CmsException::mask($this->layout, 400);
         $this->loader->setObject($this->layout);
-        $template = $this->twig->loadTemplate($this->layout->getFullPath());
+        $template = $this->twig->loadTemplate($this->layout->getFilePath());
         $result = $template->render($this->vars);
         CmsException::unmask();
 
@@ -896,7 +901,7 @@ class Controller
          */
         CmsException::mask($partial, 400);
         $this->loader->setObject($partial);
-        $template = $this->twig->loadTemplate($partial->getFullPath());
+        $template = $this->twig->loadTemplate($partial->getFilePath());
         $result = $template->render(array_merge($this->vars, $parameters));
         CmsException::unmask();
 
@@ -1091,6 +1096,9 @@ class Controller
          */
         if (is_bool($parameters)) {
             $routePersistence = $parameters;
+        }
+
+        if (!is_array($parameters)) {
             $parameters = [];
         }
 
@@ -1268,23 +1276,13 @@ class Controller
     public function findComponentByPartial($partial)
     {
         foreach ($this->page->components as $component) {
-            $fileName = ComponentPartial::getFilePath($component, $partial);
-            if (!strlen(File::extension($fileName))) {
-                $fileName .= '.htm';
-            }
-
-            if (File::isFile($fileName)) {
+            if (ComponentPartial::check($component, $partial)) {
                 return $component;
             }
         }
 
         foreach ($this->layout->components as $component) {
-            $fileName = ComponentPartial::getFilePath($component, $partial);
-            if (!strlen(File::extension($fileName))) {
-                $fileName .= '.htm';
-            }
-
-            if (File::isFile($fileName)) {
+            if (ComponentPartial::check($component, $partial)) {
                 return $component;
             }
         }

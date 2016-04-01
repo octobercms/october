@@ -53,6 +53,14 @@ return [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Annuler',
     ],
+
+    'datepicker' => [
+        'previousMonth' => 'Mois précédent',
+        'nextMonth'     => 'Mois suivant',
+        'months'        => ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        'weekdays'      => ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+        'weekdaysShort' => ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
+    ],
 ];
 
 

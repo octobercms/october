@@ -15,6 +15,7 @@ use Backend\Classes\WidgetBase;
 use Cms\Classes\MediaLibrary;
 use Cms\Classes\MediaLibraryItem;
 use October\Rain\Database\Attach\Resizer;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 
 /**
  * Media Manager widget.
@@ -671,12 +672,12 @@ class MediaManager extends WidgetBase
 
     protected function setSidebarVisible($visible)
     {
-        return $this->putSession('sidebar_visible', !!$visible);
+        return $this->putSession('sideba_visible', !!$visible);
     }
 
     protected function getSidebarVisible()
     {
-        return $this->getSession('sidebar_visible', true);
+        return $this->getSession('sideba_visible', true);
     }
 
     protected function itemTypeToIconClass($item, $itemType)
@@ -702,12 +703,11 @@ class MediaManager extends WidgetBase
             $folder = array_pop($path);
 
             $result[$folder] = implode('/', $path).'/'.$folder;
-            if (substr($result[$folder], 0, 1) != '/') {
+            if (substr($result[$folder], 0, 1) != '/')
                 $result[$folder] = '/'.$result[$folder];
-            }
         }
 
-        return array_reverse($result, true);
+        return array_reverse($result);
     }
 
     protected function setViewMode($viewMode)
@@ -888,9 +888,13 @@ class MediaManager extends WidgetBase
         $targetWidth = $targetDimensions[0];
         $targetHeight = $targetDimensions[1];
 
-        $resizer = Resizer::open($tempFilePath);
-        $resizer->resize($targetWidth, $targetHeight, $thumbnailParams['mode'], [0, 0]);
-        $resizer->save($fullThumbnailPath, 95);
+        Resizer::open($tempFilePath)
+            ->resize($targetWidth, $targetHeight, [
+                'mode'   => $thumbnailParams['mode'],
+                'offset' => [0, 0]
+            ])
+            ->save($fullThumbnailPath)
+        ;
 
         File::chmod($fullThumbnailPath);
     }
@@ -950,14 +954,13 @@ class MediaManager extends WidgetBase
     {
         $fileName = null;
 
-        if (!($uniqueId = post('X_OCTOBER_FILEUPLOAD')) || $uniqueId != $this->getId()) {
+        if (!($uniqueId = Request::header('X-OCTOBER-FILEUPLOAD')) || $uniqueId != $this->getId()) {
             return;
         }
 
         try {
-
             if (!Input::hasFile('file_data')) {
-                return;
+                throw new ApplicationException('File missing from request');
             }
 
             $uploadedFile = Input::file('file_data');
@@ -969,6 +972,14 @@ class MediaManager extends WidgetBase
              */
             $extension = strtolower($uploadedFile->getClientOriginalExtension());
             $fileName = File::name($fileName).'.'.$extension;
+
+            /*
+             * Check for unsafe file extensions
+             */
+            $blockedFileTypes = FileDefinitions::get('blockedExtensions');
+            if (in_array($extension, $blockedFileTypes)) {
+                throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
+            }
 
             /*
              * File name contains non-latin characters, attempt to slug the value
@@ -991,12 +1002,13 @@ class MediaManager extends WidgetBase
                 File::get($uploadedFile->getRealPath())
             );
 
-            die('success');
+            Response::json(['result' => 'success'])->send();
         }
         catch (Exception $ex) {
-            Response::make($ex->getMessage(), 406)->send();
-            die();
+            Response::json($ex->getMessage(), 400)->send();
         }
+
+        exit;
     }
 
     /**
@@ -1020,10 +1032,10 @@ class MediaManager extends WidgetBase
     /**
      * Creates a slug form the string. A modified version of Str::slug
      * with the main difference that it accepts @-signs
-     * @param string $title
+     * @param string
      * @return string
      */
-    protected function cleanFileName($title)
+    protected function cleanFileName($name)
     {
         $title = Str::ascii($title);
 
@@ -1073,12 +1085,13 @@ class MediaManager extends WidgetBase
 
                 $tempFilePath = $fullSessionDirectoryPath.'/'.$originalThumbFileName;
 
-                if (!@File::put($tempFilePath, $library->get($path)))
+                if (!@File::put($tempFilePath, $library->get($path))) {
                     throw new SystemException('Error saving remote file to a temporary location.');
+                }
 
                 $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$originalThumbFileName);
                 $dimensions = getimagesize($tempFilePath);
-                
+
                 return [
                     'url' => $url,
                     'dimensions' => $dimensions
@@ -1089,16 +1102,19 @@ class MediaManager extends WidgetBase
                 // and dimensions.
 
                 $originalFilePath = $fullSessionDirectoryPath.'/'.$originalThumbFileName;
-                if (!File::isFile($originalFilePath))
+                if (!File::isFile($originalFilePath)) {
                     throw new SystemException('The original image is not found in the cropping session directory.');
+                }
 
                 $resizedThumbFileName = 'resized-'.$params['width'].'-'.$params['height'].'.'.$extension;
                 $tempFilePath = $fullSessionDirectoryPath.'/'.$resizedThumbFileName;
 
-                $resizer = Resizer::open($originalFilePath);
-
-                $resizer->resize($params['width'], $params['height'], 'exact');
-                $resizer->save($tempFilePath, 95);
+                Resizer::open($originalFilePath)
+                    ->resize($params['width'], $params['height'], [
+                        'mode' => 'exact'
+                    ])
+                    ->save($tempFilePath)
+                ;
 
                 $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$resizedThumbFileName);
                 $dimensions = getimagesize($tempFilePath);
@@ -1110,11 +1126,13 @@ class MediaManager extends WidgetBase
             }
         }
         catch (Exception $ex) {
-            if ($sessionDirectoryCreated)
+            if ($sessionDirectoryCreated) {
                 @File::deleteDirectory($fullSessionDirectoryPath);
+            }
 
-            if ($tempFilePath)
+            if ($tempFilePath) {
                 File::delete($tempFilePath);
+            }
 
             throw $ex;
         }
@@ -1125,8 +1143,9 @@ class MediaManager extends WidgetBase
         $sessionDirectoryPath = $this->getCropSessionDirPath($cropSessionKey);
         $fullSessionDirectoryPath = temp_path($sessionDirectoryPath);
 
-        if (File::isDirectory($fullSessionDirectoryPath))
+        if (File::isDirectory($fullSessionDirectoryPath)) {
             @File::deleteDirectory($fullSessionDirectoryPath);
+        }
     }
 
     protected function cropImage($imageSrcPath, $selectionData, $cropSessionKey, $path)
@@ -1191,16 +1210,17 @@ class MediaManager extends WidgetBase
             File::copy($imagePath, $targetTmpPath);
         }
         else {
-            $resizer = Resizer::open($imagePath);
-            $resizer->resample(
-                $selectionData['x'],
-                $selectionData['y'],
-                $selectionData['w'],
-                $selectionData['h'],
-                $selectionData['w'],
-                $selectionData['h']
-            );
-            $resizer->save($targetTmpPath, 95);
+            Resizer::open($imagePath)
+                ->crop(
+                    $selectionData['x'],
+                    $selectionData['y'],
+                    $selectionData['w'],
+                    $selectionData['h'],
+                    $selectionData['w'],
+                    $selectionData['h']
+                )
+                ->save($targetTmpPath)
+            ;
         }
 
         /*

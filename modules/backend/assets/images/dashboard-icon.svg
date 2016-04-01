@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
+    <title>dashboard-icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="home" sketch:type="MSLayerGroup">
+            <path d="M38,35 L2,35 L2,19 L20,2 L38,19 L38,35 Z" id="Shape" fill="#E8EAF6" sketch:type="MSShapeGroup"></path>
+            <g id="Group" transform="translate(2.000000, 5.000000)" fill="#C5CAE9" sketch:type="MSShapeGroup">
+                <path d="M33,12 L28,7 L28,0 L33,0 L33,12 Z" id="Shape"></path>
+                <rect id="Rectangle-path" x="0" y="30" width="36" height="5"></rect>
+            </g>
+            <path d="M20,0.3 L0,18.9 L2,21.1 L20,4.4 L38,21.1 L40,18.9 L20,0.3 Z" id="Shape" fill="#B71C1C" sketch:type="MSShapeGroup"></path>
+            <rect id="Rectangle-path" fill="#D84315" sketch:type="MSShapeGroup" x="14" y="24" width="12" height="16"></rect>
+            <rect id="Rectangle-path" fill="#01579B" sketch:type="MSShapeGroup" x="17" y="13" width="6" height="6"></rect>
+            <path d="M23.5,31.5 C23.2,31.5 23,31.7 23,32 L23,34 C23,34.3 23.2,34.5 23.5,34.5 C23.8,34.5 24,34.3 24,34 L24,32 C24,31.7 23.8,31.5 23.5,31.5 L23.5,31.5 Z" id="Shape" fill="#FF8A65" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

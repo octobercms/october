@@ -27,6 +27,27 @@ class Post extends Model
         'author' => 'Database\Tester\Models\Author',
     ];
 
+    public $morphMany = [
+        'event_log' => ['Database\Tester\Models\EventLog', 'name' => 'related', 'delete' => true, 'softDelete' => true],
+    ];
+
+}
+
+class NullablePost extends Post
+{
+    use \October\Rain\Database\Traits\Nullable;
+
+    /**
+     * @var array Guarded fields
+     */
+    protected $guarded = [];
+
+    /**
+     * @var array List of attributes to nullify
+     */
+    protected $nullable = [
+        'author_nickname',
+    ];
 }
 
 class SluggablePost extends Post
@@ -43,7 +64,8 @@ class SluggablePost extends Post
      * @var array List of attributes to automatically generate unique URL names (slugs) for.
      */
     protected $slugs = [
-        'slug' => 'title'
+        'slug' => 'title',
+        'long_slug' => ['title', 'description']
     ];
 
 }
@@ -52,7 +74,7 @@ class RevisionablePost extends Post
 {
 
     use \October\Rain\Database\Traits\Revisionable;
-    use \October\Rain\Database\Traits\SoftDeleting;
+    use \October\Rain\Database\Traits\SoftDelete;
 
     /**
      * @var array Guarded fields

@@ -131,6 +131,11 @@ class RelationController extends ControllerBehavior
     protected $viewMode;
 
     /**
+     * @var string The title used for the manage popup.
+     */
+    protected $manageTitle;
+
+    /**
      * @var string Management of relation as list, form, or pivot.
      */
     protected $manageMode;
@@ -220,6 +225,7 @@ class RelationController extends ControllerBehavior
     {
         $this->vars['relationManageId'] = $this->manageId;
         $this->vars['relationLabel'] = $this->config->label ?: $this->field;
+        $this->vars['relationManageTitle'] = $this->manageTitle;
         $this->vars['relationField'] = $this->field;
         $this->vars['relationType'] = $this->relationType;
         $this->vars['relationSearchWidget'] = $this->searchWidget;
@@ -309,6 +315,7 @@ class RelationController extends ControllerBehavior
         $this->toolbarButtons = $this->evalToolbarButtons();
         $this->viewMode = $this->evalViewMode();
         $this->manageMode = $this->evalManageMode();
+        $this->manageTitle = $this->evalManageTitle();
         $this->manageId = post('manage_id');
         $this->foreignId = post('foreign_id');
 
@@ -501,7 +508,7 @@ class RelationController extends ControllerBehavior
          */
         $defaultButtons = null;
 
-        if (!$this->readOnly) {
+        if (!$this->readOnly && $this->toolbarButtons) {
             $defaultButtons = '~/modules/backend/behaviors/relationcontroller/partials/_toolbar.htm';
         }
 
@@ -612,8 +619,6 @@ class RelationController extends ControllerBehavior
                 elseif ($this->model->exists) {
                     $this->relationObject->addConstraints();
                 }
-
-                $this->controller->relationExtendQuery($query, $this->field);
 
                 /*
                  * Allows pivot data to enter the fray
@@ -767,8 +772,6 @@ class RelationController extends ControllerBehavior
                 if (count($existingIds)) {
                     $query->whereNotIn($this->relationModel->getQualifiedKeyName(), $existingIds);
                 }
-
-                $this->controller->relationExtendQuery($query, $this->field);
             });
         }
 
@@ -1207,20 +1210,6 @@ class RelationController extends ControllerBehavior
     //
 
     /**
-     * !!!!
-     * !!!! WARNING: DO NOT USE - This method is scheduled to be removed
-     * !!!!
-     *
-     * Controller override: Extend the query used for populating the list
-     * after the default query is processed.
-     * @param October\Rain\Database\Builder $query
-     * @param string $field
-     */
-    public function relationExtendQuery($query, $field)
-    {
-    }
-
-    /**
      * Provides an opportunity to manipulate the view widget.
      * @param Backend\Classes\WidgetBase $widget
      * @param string $field
@@ -1289,10 +1278,16 @@ class RelationController extends ControllerBehavior
      */
     protected function evalToolbarButtons()
     {
-        if ($buttons = $this->getConfig('view[toolbarButtons]')) {
-            return is_array($buttons)
-                ? $buttons
-                : array_map('trim', explode('|', $buttons));
+        $buttons = $this->getConfig('view[toolbarButtons]');
+
+        if ($buttons === false) {
+            return null;
+        }
+        elseif (is_string($buttons)) {
+            return array_map('trim', explode('|', $buttons));
+        }
+        elseif (is_array($buttons)) {
+            return $buttons;
         }
 
         switch ($this->relationType) {
@@ -1324,6 +1319,37 @@ class RelationController extends ControllerBehavior
             case 'hasOne':
             case 'belongsTo':
                 return 'single';
+        }
+    }
+
+    /**
+     * Determine the management mode popup title.
+     * @return string
+     */
+    protected function evalManageTitle()
+    {
+        if ($customTitle = $this->getConfig('manage[title]')) {
+            return $customTitle;
+        }
+
+        switch ($this->manageMode) {
+            case 'pivot':
+            case 'list':
+                if ($this->eventTarget == 'button-link') {
+                    return 'backend::lang.relation.link_a_new';
+                }
+                else {
+                    return 'backend::lang.relation.add_a_new';
+                }
+            break;
+            case 'form':
+                if ($this->readOnly) {
+                    return 'backend::lang.relation.preview_name';
+                }
+                else {
+                    return 'backend::lang.relation.update_name';
+                }
+            break;
         }
     }
 

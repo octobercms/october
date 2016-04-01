@@ -1,14 +1,13 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Updates\Migration;
 
 class DbSystemRevisions extends Migration
 {
 
     public function up()
     {
-        Schema::create('system_revisions', function (Blueprint $table) {
+        Schema::create('system_revisions', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable()->index();

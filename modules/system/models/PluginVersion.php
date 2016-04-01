@@ -79,7 +79,15 @@ class PluginVersion extends Model
             $this->description = Lang::get('system::lang.plugins.unknown_plugin');
             $this->orphaned = true;
         }
+    }
 
+    /**
+     * Returns true if the plugin should be updated by the system.
+     * @return bool
+     */
+    public function getIsUpdatableAttribute()
+    {
+        return !$this->is_disabled && !$this->disabledBySystem && !$this->disabledByConfig;
     }
 
     /**

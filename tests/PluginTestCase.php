@@ -187,7 +187,7 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
     {
         $reflect = new ReflectionClass($this);
         $path = $reflect->getFilename();
-        $basePath = plugins_path();
+        $basePath = $this->app->pluginsPath();
 
         $result = false;
 

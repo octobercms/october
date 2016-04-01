@@ -62,13 +62,13 @@ class DebugExtension extends Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new Twig_SimpleFunction('dump', [$this, 'runDump'], array(
+        return [
+            new Twig_SimpleFunction('dump', [$this, 'runDump'], [
                 'is_safe' => ['html'],
                 'needs_context' => true,
                 'needs_environment' => true
-            )),
-        );
+            ]),
+        ];
     }
 
     /**
@@ -141,7 +141,7 @@ class DebugExtension extends Twig_Extension
     /**
      * Dump information about a variable
      *
-     * @param mixed $variable Variable to dump
+     * @param mixed $variables Variable to dump
      * @param mixed $caption Caption [and subcaption] of the dump
      * @return void
      */

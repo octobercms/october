@@ -2,6 +2,7 @@
 
 use Db;
 use Event;
+use DbDongle;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\FilterScope;
 use ApplicationException;
@@ -370,7 +371,7 @@ class Filter extends WidgetBase
                 $filtered = Db::getPdo()->quote($value);
             }
 
-            $query->whereRaw(strtr($scopeConditions, [':filtered' => $filtered]));
+            $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [':filtered' => $filtered])));
         }
 
         /*

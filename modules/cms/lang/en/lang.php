@@ -10,7 +10,8 @@ return [
         'invalid_file_extension'=>'Invalid file extension: :invalid. Allowed extensions are: :allowed.',
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
         'delete_success' => 'Templates were successfully deleted: :count.',
-        'file_name_required' => 'The File Name field is required.'
+        'file_name_required' => 'The File Name field is required.',
+        'safe_mode_enabled' => 'Safe mode is currently enabled.',
     ],
     'theme' => [
         'not_found_name' => "The theme ':name' is not found.",
@@ -225,14 +226,14 @@ return [
         'saved'=> 'The template has been successfully saved.'
     ],
     'permissions' => [
-        'name' => 'Cms',
-        'manage_content' => 'Manage content',
-        'manage_assets' => 'Manage assets',
-        'manage_pages' => 'Manage pages',
-        'manage_layouts' => 'Manage layouts',
-        'manage_partials' => 'Manage partials',
-        'manage_themes' => 'Manage themes',
-        'manage_media' => 'Manage media'
+        'name' => 'CMS',
+        'manage_content' => 'Manage website content files',
+        'manage_assets' => 'Manage website assets - images, JavaScript files, CSS files',
+        'manage_pages' => 'Create, modify and delete website pages',
+        'manage_layouts' => 'Create, modify and delete CMS layouts',
+        'manage_partials' => 'Create, modify and delete CMS partials',
+        'manage_themes' => 'Activate, deactivate and configure CMS themes',
+        'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents'
     ],
     'mediafinder' => [
         'default_prompt' => 'Click the %s button to find a media item'
@@ -266,6 +267,7 @@ return [
         'uploading_file_num' => 'Uploading :number file(s)...',
         'uploading_complete' => 'Upload complete',
         'uploading_error' => 'Upload failed',
+        'type_blocked' => 'The file type used is blocked for security reasons.',
         'order_by' => 'Order by',
         'folder' => 'Folder',
         'no_files_found' => 'No files found by your request.',

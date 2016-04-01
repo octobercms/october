@@ -2260,10 +2260,11 @@ $(window).off('.cursorLoadIndicator');}}
 $(document).ready(function(){$.oc.cursorLoadIndicator=new CursorLoadIndicator();})
 $(document).on('ajaxPromise','[data-cursor-load-indicator]',function(){$.oc.cursorLoadIndicator.show()}).on('ajaxFail ajaxDone','[data-cursor-load-indicator]',function(){$.oc.cursorLoadIndicator.hide()})}(window.jQuery);+function($){"use strict";if($.oc===undefined)
 $.oc={}
-var StripeLoadIndicator=function(){this.counter=0
+var StripeLoadIndicator=function(){var self=this
+this.counter=0
 this.indicator=$('<div/>').addClass('stripe-loading-indicator loaded').append($('<div />').addClass('stripe')).append($('<div />').addClass('stripe-loaded'))
 this.stripe=this.indicator.find('.stripe')
-$(document.body).append(this.indicator)}
+$(document).ready(function(){$(document.body).append(self.indicator)})}
 StripeLoadIndicator.prototype.show=function(){this.counter++
 this.stripe.after(this.stripe=this.stripe.clone()).remove()
 if(this.counter>1)
@@ -2275,7 +2276,7 @@ if(force!==undefined&&force)
 this.counter=0
 if(this.counter<=0){this.indicator.addClass('loaded')
 $(document.body).removeClass('loading')}}
-$(document).ready(function(){$.oc.stripeLoadIndicator=new StripeLoadIndicator()})
+$.oc.stripeLoadIndicator=new StripeLoadIndicator()
 $(document).on('ajaxPromise','[data-stripe-load-indicator]',function(event){event.stopPropagation()
 $.oc.stripeLoadIndicator.show()
 var $el=$(this)
@@ -2684,9 +2685,10 @@ var tr=this.$el.prop('tagName')=='TR'?this.$el:this.$el.find('tr:has(td)')
 tr.each(function(){var link=$(this).find(options.target).filter(function(){return!$(this).closest('td').hasClass(options.excludeClass)&&!$(this).hasClass(options.excludeClass)}).first()
 if(!link.length)return
 var href=link.attr('href'),onclick=(typeof link.get(0).onclick=="function")?link.get(0).onclick:null
-$(this).find('td').not('.'+options.excludeClass).click(function(){if(onclick)
+$(this).find('td').not('.'+options.excludeClass).click(function(e){if(onclick)
 onclick.apply(link.get(0))
-else
+else if(e.ctrlKey)
+window.open(href);else
 window.location=href;})
 $(this).addClass(options.linkedClass)
 link.hide().after(link.html())})}
@@ -2784,9 +2786,7 @@ this.keyConditions=null
 this.keyMap=null
 this.options=null
 BaseProto.dispose.call(this)}
-HotKey.prototype.init=function(){if(this.options.hotkeyMac)
-this.options.hotkey+=', '+this.options.hotkeyMac
-this.initKeyMap()
+HotKey.prototype.init=function(){this.initKeyMap()
 var keys=this.options.hotkey.toLowerCase().split(',')
 for(var i=0,len=keys.length;i<len;i++){var keysTrimmed=this.trim(keys[i])
 this.keyConditions.push(this.makeCondition(keysTrimmed))}
@@ -2816,7 +2816,7 @@ HotKey.prototype.onKeyDown=function(ev){if(this.testConditions(ev)){if(this.opti
 return
 if(this.options.callback)
 return this.options.callback(this.$el,ev.currentTarget)}}
-HotKey.DEFAULTS={hotkey:null,hotkeyMac:null,hotkeyTarget:'html',hotkeyVisible:true,callback:function(element){element.trigger('click')
+HotKey.DEFAULTS={hotkey:null,hotkeyTarget:'html',hotkeyVisible:true,callback:function(element){element.trigger('click')
 return false}}
 var old=$.fn.hotKey
 $.fn.hotKey=function(option){var args=arguments;return this.each(function(){var $this=$(this)
@@ -3047,7 +3047,10 @@ this.scrollClassContainer=this.options.scrollClassContainer?$(this.options.scrol
 Base.call(this)
 if(this.options.scrollMarkerContainer){$(this.options.scrollMarkerContainer).append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))}
 $el.mousewheel(function(event){if(!self.options.allowScroll)
-return;var offset=self.options.vertical?((event.deltaFactor*event.deltaY)*-1):(event.deltaFactor*event.deltaX)
+return;var offset,offsetX=event.deltaFactor*event.deltaX,offsetY=event.deltaFactor*event.deltaY
+if(!offsetX){offset=offsetY*-1}
+else if(!offsetY){offset=offsetX}
+else{offset=self.options.vertical?(offsetY*-1):offsetX}
 return!scrollWheel(offset)})
 if(!options.noDragSupport){$el.on('mousedown.dragScroll',function(event){if(event.target&&event.target.tagName==='INPUT')
 return
@@ -3403,8 +3406,7 @@ for(var i=0,len=this.parsedProperties.properties.length;i<len;i++){var property=
 if(property.itemType=='group'){currentGroup=this.getGroupManager().createGroup(property.groupIndex,this.group)}
 else{if(property.groupIndex===undefined){currentGroup=this.group}}
 var row=this.buildRow(property,currentGroup)
-if(property.itemType=='group')
-{this.applyGroupLevelToRow(row,currentGroup.parentGroup)}
+if(property.itemType=='group'){this.applyGroupLevelToRow(row,currentGroup.parentGroup)}
 else{this.applyGroupLevelToRow(row,currentGroup)}
 tbody.appendChild(row)
 this.buildEditor(row,property,dataTable,currentGroup)}
@@ -3477,7 +3479,8 @@ var groupLevel=group.getLevel()
 row.setAttribute('data-group-level',groupLevel)
 th.children[0].style.marginLeft=groupLevel*10+'px'}
 Surface.prototype.toggleGroup=function(row,forceExpand){var link=row.querySelector('a'),groupIndex=row.getAttribute('data-group-index'),table=this.getRootTable(),groupManager=this.getGroupManager(),collapse=true
-if($.oc.foundation.element.hasClass(link,'expanded')&&!forceExpand){$.oc.foundation.element.removeClass(link,'expanded')}else{$.oc.foundation.element.addClass(link,'expanded')
+if($.oc.foundation.element.hasClass(link,'expanded')&&!forceExpand){$.oc.foundation.element.removeClass(link,'expanded')}
+else{$.oc.foundation.element.addClass(link,'expanded')
 collapse=false}
 var propertyRows=groupManager.findGroupRows(table,groupIndex,!collapse),duration=Math.round(50/propertyRows.length)
 this.expandOrCollapseRows(propertyRows,collapse,duration,forceExpand)
@@ -3611,7 +3614,7 @@ if(!editor.validate(silentMode)){if(!silentMode){editor.markInvalid()}
 return false}}
 return true}
 Surface.prototype.hasChanges=function(originalValues){var values=originalValues!==undefined?originalValues:this.originalValues
-return!this.comparePropertyValues(values,this.values)}
+return!this.comparePropertyValues(values,this.getValues())}
 Surface.prototype.onGroupClick=function(ev){var row=ev.currentTarget
 this.toggleGroup(row)
 $.oc.foundation.event.stop(ev)
@@ -4332,7 +4335,7 @@ PopupBase.prototype.getPopupContent=function(){return'<form>                    
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>  \
                 </div>                                                                                  \
                 </form>'}
 PopupBase.prototype.updateDisplayedValue=function(value){this.setLinkText(this.getLink(),value)}
@@ -4390,7 +4393,7 @@ TextEditor.prototype.getPopupContent=function(){return'<form>                   
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>  \
                 </div>                                                                                  \
                 </form>'}
 TextEditor.prototype.configureComment=function(popup){if(!this.propertyDefinition.description){return}
@@ -4597,7 +4600,7 @@ ObjectListEditor.prototype.getPopupContent=function(){return'<form>             
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>  \
                 </div>                                                                                  \
                 </form>'}
 ObjectListEditor.prototype.buildPopupContents=function(popup){this.buildItemsTable(popup)}
@@ -4781,7 +4784,7 @@ ObjectEditor.prototype.getUndefinedValue=function(){var result={}
 for(var i=0,len=this.propertyDefinition.properties.length;i<len;i++){var propertyName=this.propertyDefinition.properties[i].property,editor=this.childInspector.findPropertyEditor(propertyName)
 if(editor){result[propertyName]=editor.getUndefinedValue()}}
 return this.getValueOrRemove(result)}
-ObjectEditor.prototype.validate=function(silentMode){var values=values=this.childInspector.getValues()
+ObjectEditor.prototype.validate=function(silentMode){var values=this.childInspector.getValues()
 if(this.cleanUpValue(values)===$.oc.inspector.removedProperty){return true}
 return this.childInspector.validate(silentMode)}
 ObjectEditor.prototype.onInspectorDataChange=function(property,value){var values=this.childInspector.getValues()
@@ -5065,7 +5068,7 @@ DictionaryEditor.prototype.getPopupContent=function(){return'<form>             
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \
                     <button type="submit" class="btn btn-primary">OK</button>                           \
-                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>   \
+                    <button type="button" class="btn btn-default" data-dismiss="popup">Cancel</button>  \
                 </div>                                                                                  \
                 </form>'}
 DictionaryEditor.prototype.configurePopup=function(popup){this.buildItemsTable(popup.get(0))

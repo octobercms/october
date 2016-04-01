@@ -25,6 +25,9 @@ class SettingsModel extends ModelBehavior
     protected $fieldConfig;
     protected $fieldValues = [];
 
+    /**
+     * @var array Internal cache of model objects.
+     */
     private static $instances = [];
 
     /**
@@ -248,5 +251,14 @@ class SettingsModel extends ModelBehavior
     protected function getCacheKey()
     {
         return 'system::settings.'.$this->recordCode;
+    }
+
+    /**
+     * Clears the internal memory cache of model instances.
+     * @return void
+     */
+    public static function clearInternalCache()
+    {
+        static::$instances = [];
     }
 }

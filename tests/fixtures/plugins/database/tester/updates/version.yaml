@@ -5,3 +5,6 @@
     - create_authors_table.php
     - create_phones_table.php
     - create_categories_table.php
+    - create_roles_table.php
+    - create_users_table.php
+    - create_event_log_table.php

@@ -1,16 +1,16 @@
 <?php namespace Backend\FormWidgets;
 
 use Str;
-use Lang;
 use Input;
 use Request;
 use Response;
 use Validator;
 use System\Models\File;
-use ApplicationException;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 use Backend\Controllers\Files as FilesController;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
+use ApplicationException;
 use ValidationException;
 use Exception;
 
@@ -29,6 +29,8 @@ use Exception;
  */
 class FileUpload extends FormWidgetBase
 {
+    use \Backend\Traits\FormModelWidget;
+
     //
     // Configurable properties
     //
@@ -119,7 +121,7 @@ class FileUpload extends FormWidgetBase
         $this->vars['fileList'] = $fileList = $this->getFileList();
         $this->vars['singleFile'] = $fileList->first();
         $this->vars['displayMode'] = $this->getDisplayMode();
-        $this->vars['emptyIcon'] = $this->getConfig('emptyIcon', 'icon-plus');
+        $this->vars['emptyIcon'] = $this->getConfig('emptyIcon', 'icon-upload');
         $this->vars['imageHeight'] = $this->imageHeight;
         $this->vars['imageWidth'] = $this->imageWidth;
         $this->vars['acceptedFileTypes'] = $this->getAcceptedFileTypes(true);
@@ -230,7 +232,7 @@ class FileUpload extends FormWidgetBase
 
         if ($types === false) {
             $isImage = starts_with($this->getDisplayMode(), 'image');
-            $types = implode(',', File::getDefaultFileTypes($isImage));
+            $types = implode(',', FileDefinitions::get($isImage ? 'imageExtensions' : 'defaultExtensions'));
         }
 
         if (!$types || $types == '*') {
@@ -256,36 +258,6 @@ class FileUpload extends FormWidgetBase
         }, $types);
 
         return implode(',', $types);
-    }
-
-    /**
-     * Returns the value as a relation object from the model,
-     * supports nesting via HTML array.
-     * @return Relation
-     */
-    protected function getRelationObject()
-    {
-        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-
-        if (!$model->hasRelation($attribute)) {
-            throw new ApplicationException(Lang::get('backend::lang.model.missing_relation', [
-                'class' => get_class($model),
-                'relation' => $attribute
-            ]));
-        }
-
-        return $model->{$attribute}();
-    }
-
-    /**
-     * Returns the value as a relation type from the model,
-     * supports nesting via HTML array.
-     * @return Relation
-     */
-    protected function getRelationType()
-    {
-        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-        return $model->getRelationType($attribute);
     }
 
     /**

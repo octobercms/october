@@ -20,8 +20,8 @@
             .transition(width 1s);
 
             > div {
-                font-size: 13px;
-                font-weight: 600;
+                font-size: 15px;
+                font-weight: normal;
                 background: @color-treeview-item-bg;
                 border-bottom: 1px solid @color-panel-light;
                 position: relative;
@@ -53,7 +53,7 @@
                     display: block;
                     font-weight: 400;
                     color: @color-treeview-item-comment;
-                    font-size: 12px;
+                    font-size: 14px;
                     margin-top: 2px;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -63,7 +63,6 @@
                     .hide-text();
                     display: none;
                     position: absolute;
-                    left: 0;
                     width: 20px;
                     height: 20px;
                     top: 24px;
@@ -88,17 +87,17 @@
                     .transition(opacity 0.4s);
 
                     position: absolute;
-                    right: 24px;
+                    right: 18px;
                     bottom: 5px;
-                    width: 14px;
-                    height: 14px;
+                    width: 18px;
+                    height: 19px;
                     cursor: move;
                     color: @color-treeview-control;
                     .opacity(0);
 
                     &:before {
                         .icon(@bars);
-                        font-size: 14px;
+                        font-size: 18px;
                     }
                 }
 
@@ -163,8 +162,8 @@
 
                 .checkbox {
                     position: absolute;
-                    top: 19px;
-                    right: 17px;
+                    top: 0;
+                    right: 0;
 
                     label {
                         margin-right: 0;
