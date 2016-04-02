@@ -105,13 +105,14 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
             return $instance->get();
         }
 
+        $result = [];
         $items = $instance->newQuery()->lists('fileName');
 
-        $items = array_map(function ($item) use ($theme) {
-            return static::loadCached($theme, $item);
-        }, $items);
+        foreach ($items as $item) {
+            $result[] = static::loadCached($theme, $item);
+        }
 
-        return $instance->newCollection($items);
+        return $instance->newCollection($result);
     }
 
     /**
