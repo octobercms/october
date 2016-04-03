@@ -20,7 +20,7 @@ return [
             'cms_link' => 'Zpět do administrace'
         ],
         'invalid_token' => [
-            'label' => 'Neplatný bezpečností token'
+            'label' => 'Neplatný bezpečnostní token',
         ]
     ],
     'partial' => [
