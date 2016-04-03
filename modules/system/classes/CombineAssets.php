@@ -11,7 +11,6 @@ use Request;
 use Response;
 use Assetic\Asset\AssetCollection;
 use Assetic\Asset\FileAsset;
-use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCache;
 use Assetic\Cache\FilesystemCache;
 use ApplicationException;
@@ -103,7 +102,7 @@ class CombineAssets
          */
         $this->registerFilter('css', new \Assetic\Filter\CssImportFilter);
         $this->registerFilter(['css', 'less'], new \Assetic\Filter\CssRewriteFilter);
-        $this->registerFilter('less', new \October\Rain\Support\Filters\LessCompiler);
+        $this->registerFilter('less', new \Assetic\Filter\LessphpFilter);
 
         /*
          * Minification filters
