@@ -105,6 +105,7 @@
 
         > ul {
             li {
+
                 a {
                     display: block;
                     position: relative;
@@ -113,6 +114,7 @@
                     border-bottom: 1px solid @color-sidebarnav-tree-group-bg;
                     color: @color-sidebarnav-tree-inactive-text;
                     text-decoration: none!important;
+                    .opacity(.65);
 
                     &:after {
                         .sidenav-tree-shadow-element();
@@ -135,18 +137,23 @@
 
                         &.header {
                             color: @color-sidebarnav-tree-inactive-header;
-                            font-size: 16px;
+                            font-size: @font-size-base + 1;
                             margin-bottom: 5px;
                         }
 
                         &.description {
                             color: @color-sidebarnav-tree-inactive-desc;
-                            font-size: 15px;
+                            font-size: @font-size-base - 1;
                         }
                     }
                 }
 
-                &.active a, &:hover a {
+                &:hover a,
+                &.active a {
+                    .opacity(1);
+                }
+
+                &.active a {
                     background: @color-sidebarnav-tree-active-bg;
                     color: @color-sidebarnav-tree-active-text;
 

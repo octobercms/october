@@ -10,7 +10,7 @@
                 <?= $activeItem ? e(trans($activeItem->label)) : 'CMS' ?>
             </a>
 
-            <ul class="nav mainmenu-nav">
+            <ul class="nav mainmenu-nav nav-inline">
                 <?php foreach (BackendMenu::listMainMenuItems() as $item): ?>
                     <?php
                         $isActive = BackendMenu::isMainMenuItemActive($item);
@@ -45,10 +45,10 @@
             </li>
             <li class="mainmenu-account highlight">
                 <a href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)">
-                    <img src="<?= $this->user->getAvatarThumb(80, ['mode' => 'crop', 'extension' => 'png']) ?>">
                     <span class="hidden-xs">
                         <?= e($this->user->first_name.' '.$this->user->last_name) ?>
                     </span>
+                    <img src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>">
                 </a>
                 <div class="mainmenu-accountmenu">
                     <ul>

@@ -195,9 +195,15 @@
         }
 
         &.secondary-tabs {
+            // Target horizontal scroll indicators
+            &:before {
+                left: 5px;
+            }
+            &:after {
+                right: 5px;
+            }
             > div > ul.nav-tabs {
                 background: @color-fancy-secondary-tabs-bg;
-                padding-left: 15px;
                 > li {
                     border-right: none;
                     padding-right: 0;
@@ -219,6 +225,10 @@
                                 padding-top: 0;
                             }
                         }
+                    }
+
+                    &:first-child {
+                        padding-left: 15px; // Will cause issues when first child is hidden
                     }
 
                     &.active {

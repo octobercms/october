@@ -5,7 +5,7 @@
         padding: 18px 0;
         margin: 0;
         color: @color-filelist-norecords-text;
-        font-size: 12px;
+        font-size: @font-size-base;
         text-align: center;
         font-weight: 400;
     }
@@ -20,7 +20,7 @@
             .transition(width 1s);
 
             > div {
-                font-size: 15px;
+                font-size: @font-size-base + 1;
                 font-weight: normal;
                 background: @color-treeview-item-bg;
                 border-bottom: 1px solid @color-panel-light;
@@ -53,7 +53,7 @@
                     display: block;
                     font-weight: 400;
                     color: @color-treeview-item-comment;
-                    font-size: 14px;
+                    font-size: @font-size-base;
                     margin-top: 2px;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -74,7 +74,7 @@
                     &:before {
                         .icon(@caret-right);
                         line-height: 100%;
-                        font-size: 15px;
+                        font-size: @font-size-base + 1;
 
                         position: relative;
                         left: 8px;
@@ -138,7 +138,7 @@
                     }
 
                     li {
-                        font-size: 12px;
+                        font-size: @font-size-base - 2;
 
                         a {
                             display: block;
@@ -422,7 +422,7 @@
         padding: 13px 15px;
         border: dotted 2px #ebebeb;
         color: #bdc3c7;
-        font-size: 12px;
+        font-size: @font-size-base - 2;
         font-weight: 600;
         text-transform: uppercase;
         .border-radius(5px);
@@ -430,8 +430,8 @@
 
         &:hover {
             text-decoration: none;
-            background-color: @color-treeview-hover-bg!important;
-            color: @color-treeview-hover-text!important;
+            background-color: @color-treeview-hover-bg !important;
+            color: @color-treeview-hover-text !important;
             border: none;
             padding: 15px 17px;
         }
@@ -445,7 +445,7 @@
     /*
      * Light version of the treeview - transparent background, no bottom borders,
      * smaller paddings, inline submenu
-     */ 
+     */
     &.light {
         margin-bottom: 0;
         margin-top: 20px;
@@ -519,7 +519,7 @@
                                     vertical-align: middle;
                                     height: 100%;
                                     padding: 0 20px;
-                                    font-size: 13px;
+                                    font-size: @font-size-base - 1;
                                     .box-sizing(border-box);
 
                                     i.control-icon {

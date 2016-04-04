@@ -175,10 +175,12 @@
 
             dragging = false;
 
-            if (click)
+            if (click) {
                 $(document.body).removeClass(self.options.dragClass)
-            else
+            }
+            else {
                 self.fixScrollClasses()
+            }
 
             window.setTimeout(function(){
                 if (!click) {
@@ -247,24 +249,30 @@
     }
 
     DragScroll.prototype.isStart = function() {
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return this.el.scrollLeft() <= 0;
-        else
+        }
+        else {
             return this.el.scrollTop() <= 0;
+        }
     }
 
     DragScroll.prototype.isEnd = function() {
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return (this.el[0].scrollWidth - (this.el.scrollLeft() + this.el.width())) <= 0
-        else
+        }
+        else {
             return (this.el[0].scrollHeight - (this.el.scrollTop() + this.el.height())) <= 0
+        }
     }
 
     DragScroll.prototype.goToStart = function() {
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return this.el.scrollLeft(0)
-        else
+        }
+        else {
             return this.el.scrollTop(0)
+        }
     }
 
     /*
@@ -273,13 +281,16 @@
      */
     DragScroll.prototype.isActiveAfter = function() {
         var activeElement = $('.active', this.el);
-        if (activeElement.length == 0)
+        if (activeElement.length == 0) {
             return false
+        }
 
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return activeElement.get(0).offsetLeft > (this.el.scrollLeft() + this.el.width())
-        else
+        }
+        else {
             return activeElement.get(0).offsetTop > (this.el.scrollTop() + this.el.height())
+        }
     }
 
     /*
@@ -288,13 +299,16 @@
      */
     DragScroll.prototype.isActiveBefore = function() {
         var activeElement = $('.active', this.el);
-        if (activeElement.length == 0)
+        if (activeElement.length == 0) {
             return false
+        }
 
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return (activeElement.get(0).offsetLeft + activeElement.width()) < this.el.scrollLeft()
-        else
+        }
+        else {
             return (activeElement.get(0).offsetTop + activeElement.height()) < this.el.scrollTop()
+        }
     }
 
     DragScroll.prototype.goToElement = function(element, callback, options) {

@@ -61,7 +61,7 @@
     &.scroll-active-after:after { color: @color-tab-active-border; }
 
     &:before, &:after {
-        top: 5px;
+        top: 10px;
         margin-top: 0;
     }
 
@@ -120,7 +120,7 @@
             }
 
             &.active {
-            z-index: 100;
+                z-index: 100;
 
                 a {
                     color: @color-tab-active-text;
@@ -139,7 +139,7 @@
 
     > div.tab-content {
         > div.tab-pane {
-            padding: 35px 0 0 0;
+            padding: @padding-standard 0 0 0;
             .clearfix();
             display: none;
 

@@ -40,7 +40,7 @@ table{border-collapse:collapse;border-spacing:0}
 td,th{padding:0}
 *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 html{font-size:62.5%;-webkit-tap-highlight-color:rgba(0,0,0,0)}
-body{font-family:sans-serif;font-size:15px;line-height:1.42857143;color:#333333;background-color:#f9f9f9}
+body{font-family:sans-serif;font-size:14px;line-height:1.42857143;color:#333333;background-color:#f9f9f9}
 input,button,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
 button,input,select[multiple],textarea{background-image:none}
 a{color:#0181b9;text-decoration:none}
@@ -50,7 +50,7 @@ img{vertical-align:middle}
 .img-responsive{display:block;max-width:100%;height:auto}
 .img-rounded{-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px}
 .img-circle{border-radius:50%}
-hr{margin-top:21px;margin-bottom:21px;border:0;border-top:1px solid #eeeeee}
+hr{margin-top:20px;margin-bottom:20px;border:0;border-top:1px solid #eeeeee}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);border:0}
 @media print{*{text-shadow:none !important;color:#000 !important;background:transparent !important;box-shadow:none !important}
 a,a:visited{text-decoration:underline}
@@ -345,19 +345,19 @@ th.visible-print,td.visible-print{display:table-cell !important}
 }
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:inherit;font-weight:500;line-height:1.1;color:inherit}
 h1 small,h2 small,h3 small,h4 small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 small,h1 .small,h2 .small,h3 .small,h4 .small,h5 .small,h6 .small,.h1 .small,.h2 .small,.h3 .small,.h4 .small,.h5 .small,.h6 .small{font-weight:normal;line-height:1;color:#999999}
-h1,.h1,h2,.h2,h3,.h3{margin-top:21px;margin-bottom:10.5px}
+h1,.h1,h2,.h2,h3,.h3{margin-top:20px;margin-bottom:10px}
 h1 small,.h1 small,h2 small,.h2 small,h3 small,.h3 small,h1 .small,.h1 .small,h2 .small,.h2 .small,h3 .small,.h3 .small{font-size:65%}
-h4,.h4,h5,.h5,h6,.h6{margin-top:10.5px;margin-bottom:10.5px}
+h4,.h4,h5,.h5,h6,.h6{margin-top:10px;margin-bottom:10px}
 h4 small,.h4 small,h5 small,.h5 small,h6 small,.h6 small,h4 .small,.h4 .small,h5 .small,.h5 .small,h6 .small,.h6 .small{font-size:75%}
-h1,.h1{font-size:39px}
-h2,.h2{font-size:32px}
-h3,.h3{font-size:26px}
-h4,.h4{font-size:19px}
-h5,.h5{font-size:15px}
-h6,.h6{font-size:13px}
-p{margin:0 0 10.5px}
-.lead{margin-bottom:21px;font-size:17px;font-weight:200;line-height:1.4}
-@media (min-width:768px){.lead{font-size:22.5px}
+h1,.h1{font-size:36px}
+h2,.h2{font-size:30px}
+h3,.h3{font-size:24px}
+h4,.h4{font-size:18px}
+h5,.h5{font-size:14px}
+h6,.h6{font-size:12px}
+p{margin:0 0 10px}
+.lead{margin-bottom:20px;font-size:16px;font-weight:200;line-height:1.4}
+@media (min-width:768px){.lead{font-size:21px}
 }
 small,.small{font-size:85%}
 cite{font-style:normal}
@@ -386,13 +386,13 @@ a.bg-info:hover{background-color:#afd9ee}
 a.bg-warning:hover{background-color:#f7ecb5}
 .bg-danger{background-color:#f2dede}
 a.bg-danger:hover{background-color:#e4b9b9}
-.page-header{padding-bottom:9.5px;margin:42px 0 21px;border-bottom:1px solid #eeeeee}
-ul,ol{margin-top:0;margin-bottom:10.5px}
+.page-header{padding-bottom:9px;margin:40px 0 20px;border-bottom:1px solid #eeeeee}
+ul,ol{margin-top:0;margin-bottom:10px}
 ul ul,ol ul,ul ol,ol ol{margin-bottom:0}
 .list-unstyled{padding-left:0;list-style:none}
 .list-inline{padding-left:0;list-style:none;margin-left:-5px}
 .list-inline > li{display:inline-block;padding-left:5px;padding-right:5px}
-dl{margin-top:0;margin-bottom:21px}
+dl{margin-top:0;margin-bottom:20px}
 dt,dd{line-height:1.42857143}
 dt{font-weight:bold}
 dd{margin-left:0}
@@ -401,7 +401,7 @@ dd{margin-left:0}
 }
 abbr[title],abbr[data-original-title]{cursor:help;border-bottom:1px dotted #999999}
 .initialism{font-size:90%;text-transform:uppercase}
-blockquote{padding:10.5px 21px;margin:0 0 21px;font-size:18.75px;border-left:5px solid #eeeeee}
+blockquote{padding:10px 20px;margin:0 0 20px;font-size:17.5px;border-left:5px solid #eeeeee}
 blockquote p:last-child,blockquote ul:last-child,blockquote ol:last-child{margin-bottom:0}
 blockquote footer,blockquote small,blockquote .small{display:block;font-size:80%;line-height:1.42857143;color:#999999}
 blockquote footer:before,blockquote small:before,blockquote .small:before{content:'\2014 \00A0'}
@@ -409,7 +409,7 @@ blockquote footer:before,blockquote small:before,blockquote .small:before{conten
 .blockquote-reverse footer:before,blockquote.pull-right footer:before,.blockquote-reverse small:before,blockquote.pull-right small:before,.blockquote-reverse .small:before,blockquote.pull-right .small:before{content:''}
 .blockquote-reverse footer:after,blockquote.pull-right footer:after,.blockquote-reverse small:after,blockquote.pull-right small:after,.blockquote-reverse .small:after,blockquote.pull-right .small:after{content:'\00A0 \2014'}
 blockquote:before,blockquote:after{content:""}
-address{margin-bottom:21px;font-style:normal;line-height:1.42857143}
+address{margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .oc-icon-glass:before,.icon-glass:before{content:"\f000"}
 .oc-icon-music:before,.icon-music:before{content:"\f001"}
 .oc-icon-search:before,.icon-search:before{content:"\f002"}
@@ -995,7 +995,7 @@ address{margin-bottom:21px;font-style:normal;line-height:1.42857143}
 .oc-icon-vimeo:before,.icon-vimeo:before{content:"\f27d"}
 .oc-icon-black-tie:before,.icon-black-tie:before{content:"\f27e"}
 .oc-icon-fonticons:before,.icon-fonticons:before{content:"\f280"}
-.close{float:right;font-size:22.5px;font-weight:bold;line-height:1;color:#000000;text-shadow:0 1px 0 #ffffff;opacity:0.2;filter:alpha(opacity=20)}
+.close{float:right;font-size:21px;font-weight:bold;line-height:1;color:#000000;text-shadow:0 1px 0 #ffffff;opacity:0.2;filter:alpha(opacity=20)}
 .close:hover,.close:focus{color:#000000;text-decoration:none;cursor:pointer;opacity:0.5;filter:alpha(opacity=50)}
 button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-appearance:none}
 @font-face{font-family:'FontAwesome';src:url('../ui/font/fontawesome-webfont.eot?v=1.0.1');src:url('../ui/font/fontawesome-webfont.eot?#iefix&v=1.0.1') format('embedded-opentype'),url('../ui/font/fontawesome-webfont.woff?v=1.0.1') format('woff'),url('../ui/font/fontawesome-webfont.ttf?v=1.0.1') format('truetype'),url('../ui/font/fontawesome-webfont.svg#fontawesomeregular?v=1.0.1') format('svg');font-weight:normal;font-style:normal}

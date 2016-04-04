@@ -32,7 +32,7 @@ table.table.data {
         }
     }
 
-    font-size: 15px;
+    font-size: @font-size-base;
 
     &.no-offset-bottom {
         margin-bottom: 0!important;
@@ -47,7 +47,6 @@ table.table.data {
             border-bottom: 2px solid @color-list-border !important;
             border-color: @color-list-border;
             padding: 0;
-            font-size: 15px;
             font-weight: normal;
 
             > a, > span {
@@ -90,10 +89,10 @@ table.table.data {
             td, th { background-color: @color-list-accent; }
         }
         td, th {
-            padding: 11px 15px;
+            padding: 12px 15px;
             color: @color-list-text;
             border-color: @color-list-grid;
-            font-size: 14px;
+            font-size: @font-size-base;
 
             a:not(.btn) {
                 color: @color-list-text;
@@ -267,21 +266,27 @@ table.table.data {
     }
 
     .list-checkbox {
-        padding-left: 16px;
-        padding-right: 8px;
         width: 52px;
         vertical-align: top;
         border-right: 1px solid @color-list-border-light;
-        .checkbox { margin: 0; }
+        .checkbox {
+            margin: 0;
+            min-height: 0;
+        }
         .custom-checkbox {
             position: relative;
             top: -14px;
             left: -2px;
-            label { 
+            label {
                 margin-right: 0;
                 margin-bottom: 0;
             }
         }
+    }
+
+    tbody tr td.list-checkbox {
+        padding-left: (@padding-standard - 3); // Offset the border
+        padding-right: (@padding-standard - 17); // Offset the checkbox padding
     }
 
     thead tr th.list-checkbox {

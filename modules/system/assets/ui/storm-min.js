@@ -3082,10 +3082,8 @@ self.options.vertical?$el.scrollTop(startOffset+offset):$el.scrollLeft(startOffs
 $el.trigger('drag.oc.dragScroll')
 self.options.drag()}}
 function stopDrag(click){$(window).off('.dragScroll')
-dragging=false;if(click)
-$(document.body).removeClass(self.options.dragClass)
-else
-self.fixScrollClasses()
+dragging=false;if(click){$(document.body).removeClass(self.options.dragClass)}
+else{self.fixScrollClasses()}
 window.setTimeout(function(){if(!click){$(document.body).removeClass(self.options.dragClass)
 $el.trigger('stop.oc.dragScroll')
 self.options.stop()
@@ -3106,29 +3104,18 @@ DragScroll.prototype.fixScrollClasses=function(){this.scrollClassContainer.toggl
 this.scrollClassContainer.toggleClass('scroll-after',!this.isEnd())
 this.scrollClassContainer.toggleClass('scroll-active-before',this.isActiveBefore())
 this.scrollClassContainer.toggleClass('scroll-active-after',this.isActiveAfter())}
-DragScroll.prototype.isStart=function(){if(!this.options.vertical)
-return this.el.scrollLeft()<=0;else
-return this.el.scrollTop()<=0;}
-DragScroll.prototype.isEnd=function(){if(!this.options.vertical)
-return(this.el[0].scrollWidth-(this.el.scrollLeft()+this.el.width()))<=0
-else
-return(this.el[0].scrollHeight-(this.el.scrollTop()+this.el.height()))<=0}
-DragScroll.prototype.goToStart=function(){if(!this.options.vertical)
-return this.el.scrollLeft(0)
-else
-return this.el.scrollTop(0)}
-DragScroll.prototype.isActiveAfter=function(){var activeElement=$('.active',this.el);if(activeElement.length==0)
-return false
-if(!this.options.vertical)
-return activeElement.get(0).offsetLeft>(this.el.scrollLeft()+this.el.width())
-else
-return activeElement.get(0).offsetTop>(this.el.scrollTop()+this.el.height())}
-DragScroll.prototype.isActiveBefore=function(){var activeElement=$('.active',this.el);if(activeElement.length==0)
-return false
-if(!this.options.vertical)
-return(activeElement.get(0).offsetLeft+activeElement.width())<this.el.scrollLeft()
-else
-return(activeElement.get(0).offsetTop+activeElement.height())<this.el.scrollTop()}
+DragScroll.prototype.isStart=function(){if(!this.options.vertical){return this.el.scrollLeft()<=0;}
+else{return this.el.scrollTop()<=0;}}
+DragScroll.prototype.isEnd=function(){if(!this.options.vertical){return(this.el[0].scrollWidth-(this.el.scrollLeft()+this.el.width()))<=0}
+else{return(this.el[0].scrollHeight-(this.el.scrollTop()+this.el.height()))<=0}}
+DragScroll.prototype.goToStart=function(){if(!this.options.vertical){return this.el.scrollLeft(0)}
+else{return this.el.scrollTop(0)}}
+DragScroll.prototype.isActiveAfter=function(){var activeElement=$('.active',this.el);if(activeElement.length==0){return false}
+if(!this.options.vertical){return activeElement.get(0).offsetLeft>(this.el.scrollLeft()+this.el.width())}
+else{return activeElement.get(0).offsetTop>(this.el.scrollTop()+this.el.height())}}
+DragScroll.prototype.isActiveBefore=function(){var activeElement=$('.active',this.el);if(activeElement.length==0){return false}
+if(!this.options.vertical){return(activeElement.get(0).offsetLeft+activeElement.width())<this.el.scrollLeft()}
+else{return(activeElement.get(0).offsetTop+activeElement.height())<this.el.scrollTop()}}
 DragScroll.prototype.goToElement=function(element,callback,options){var $el=$(element)
 if(!$el.length)
 return;var self=this,params={duration:300,queue:false,complete:function(){self.fixScrollClasses()

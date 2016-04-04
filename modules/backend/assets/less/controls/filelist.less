@@ -21,7 +21,7 @@
         padding: 22px 0;
         margin: 0;
         color: @color-filelist-norecords-text;
-        font-size: 14px;
+        font-size: @font-size-base;
         text-align: center;
         font-weight: normal;
         .border-radius(@border-radius-base);
@@ -69,12 +69,12 @@
                     &.title {
                         font-weight: normal;
                         color: @color-text-title;
-                        font-size: 14px;
+                        font-size: @font-size-base;
                     }
 
                     &.description {
                         color: @color-text-description;
-                        font-size: 13px;
+                        font-size: @font-size-base - 2;
                         white-space: nowrap;
                         font-weight: normal;
                         overflow: hidden;
@@ -91,7 +91,7 @@
             &.group {
                 > h4, > div.group > h4 {
                     font-weight: normal;
-                    font-size: 14px;
+                    font-size: @font-size-base;
                     margin-top: 0;
                     margin-bottom: 0;
                     position: relative;
@@ -174,7 +174,7 @@
 
                 a.control {
                     color: @color-text-title;
-                    font-size: 14px;
+                    font-size: @font-size-base;
                     visibility: hidden;
                     overflow: hidden;
                     width: 14px;
@@ -232,6 +232,10 @@
         }
     }
 
+    //
+    // Templates have emphasis
+    //
+
     &.hero {
         .a-hover() {
             background: @color-filelist-hero-hover-bg;
@@ -252,17 +256,17 @@
 
                 > a {
                     padding: 16px 45px 15px 50px;
-                    font-size: 13px;
+                    font-size: @font-size-base - 1;
                     border-bottom: 1px solid @color-panel-light;
 
                     span.title {
-                        font-size: 15px;
+                        font-size: @font-size-base + 1;
                         font-weight: normal;
                         color: @color-filelist-title-hero;
                     }
 
                     span.description {
-                        font-size: 14px;
+                        font-size: @font-size-base;
                     }
 
                     .list-icon {
