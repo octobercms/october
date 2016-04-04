@@ -3,6 +3,7 @@
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
 use Cms\Classes\Layout;
+use October\Rain\Halcyon\Model;
 
 class CmsObjectQueryTest extends TestCase
 {
@@ -10,10 +11,8 @@ class CmsObjectQueryTest extends TestCase
     {
         parent::setUp();
 
-        // Register theme with Halcyon
-        Theme::load('test');
-
-        TestCmsCompoundObject::flushEventListeners();
+        Model::clearBootedModels();
+        Model::flushEventListeners();
     }
 
     public function testWhere()

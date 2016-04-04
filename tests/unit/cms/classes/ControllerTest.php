@@ -2,14 +2,16 @@
 
 use Cms\Classes\Theme;
 use Cms\Classes\Controller;
-use Cms\Classes\CmsCompoundObject;
+use October\Rain\Halcyon\Model;
 
 class ControllerTest extends TestCase
 {
-    public function tearDown()
+    public function setUp()
     {
-        parent::tearDown();
-        CmsCompoundObject::flushEventListeners();
+        parent::setUp();
+
+        Model::clearBootedModels();
+        Model::flushEventListeners();
     }
 
     public function testThemeUrl()

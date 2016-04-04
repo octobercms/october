@@ -3,6 +3,7 @@
 use Cms\Classes\Theme;
 use Cms\Classes\CmsObject;
 use Cms\Classes\CmsCompoundObject;
+use October\Rain\Halcyon\Model;
 
 class TestCmsCompoundObject extends CmsCompoundObject
 {
@@ -25,10 +26,12 @@ class TestTemporaryCmsCompoundObject extends CmsCompoundObject
 
 class CmsCompoundObjectTest extends TestCase
 {
-    public function tearDown()
+    public function setUp()
     {
-        parent::tearDown();
-        TestCmsCompoundObject::flushEventListeners();
+        parent::setUp();
+
+        Model::clearBootedModels();
+        Model::flushEventListeners();
     }
 
     public function testLoadFile()
