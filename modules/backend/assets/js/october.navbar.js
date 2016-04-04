@@ -14,9 +14,12 @@
         $('nav.navbar').each(function(){
             var
                 navbar = $(this),
-                nav = $('ul.nav', navbar)
+                nav = $('ul.nav', navbar),
+                collapseMode = navbar.hasClass('navbar-mode-collapse')
 
-            nav.verticalMenu($('a.menu-toggle', navbar))
+            nav.verticalMenu($('a.menu-toggle', navbar), {
+                breakpoint: collapseMode ? Infinity : 769
+            })
 
             $('li.with-tooltip:not(.active) > a', navbar).tooltip({
                 container: 'body',

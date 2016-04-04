@@ -1,16 +1,21 @@
 <?php
     $activeItem = BackendMenu::getActiveMainMenuItem();
     $mySettings = System\Classes\SettingsManager::instance()->listItems('mysettings');
+    $navbarMode = 'navbar-mode-inline'; // Supported: inline, tiles, collapse.
 ?>
-<nav class="navbar control-toolbar" id="layout-mainmenu" role="navigation">
+<nav class="navbar control-toolbar <?= $navbarMode ?>" id="layout-mainmenu" role="navigation">
     <div class="toolbar-item toolbar-primary">
         <div data-control="toolbar">
             <a class="menu-toggle" href="javascript:;">
-                <i class="icon-bars"></i>
-                <?= $activeItem ? e(trans($activeItem->label)) : 'CMS' ?>
+                <span class="menu-toggle-icon">
+                    <i class="icon-bars"></i>
+                </span>
+                <span class="menu-toggle-title">
+                    <?= $activeItem ? e(trans($activeItem->label)) : 'CMS' ?>
+                </span>
             </a>
 
-            <ul class="nav mainmenu-nav nav-inline">
+            <ul class="nav mainmenu-nav">
                 <?php foreach (BackendMenu::listMainMenuItems() as $item): ?>
                     <?php
                         $isActive = BackendMenu::isMainMenuItemActive($item);
@@ -40,15 +45,15 @@
                     href="<?= URL::to('/') ?>"
                     target="_blank"
                     title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
-                    <i class="icon-crosshairs"></i>
+                    <i class="icon-eye"></i>
                 </a>
             </li>
             <li class="mainmenu-account highlight">
                 <a href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)">
-                    <span class="hidden-xs">
+                    <span class="account-name hidden-xs">
                         <?= e($this->user->first_name.' '.$this->user->last_name) ?>
                     </span>
-                    <img src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>">
+                    <img src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>" class="account-avatar" />
                 </a>
                 <div class="mainmenu-accountmenu">
                     <ul>

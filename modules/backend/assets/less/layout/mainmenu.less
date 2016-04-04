@@ -2,11 +2,11 @@
 // Top navigation bar
 // --------------------------------------------------
 
-//mainmenu-height: 78px;
-@mainmenu-height: 60px;
-@mainmenu-icon-dimension: 30px;
+@mainmenu-mode-tiles-height: 78px;
+@mainmenu-mode-inline-height: 60px;
+@mainmenu-mode-collapse-height: 45px;
 
-// Stacked nav
+@mainmenu-icon-dimension: 30px;
 @mainmenu-tile-dimension: 65px;
 @mainmenu-tile-label-height: 20px;
 @mainmenu-tile-label-width: 100px;
@@ -37,9 +37,33 @@ body.mainmenu-open {
     }
 }
 
+.mainmenu-set-height(@height) {
+    height: @height;
+
+    ul.mainmenu-toolbar {
+        li.mainmenu-preview {
+            a {
+                height: @height - 16px;
+                line-height: @height - 16px;
+            }
+        }
+
+        li.mainmenu-account {
+            > a {
+                height: @height;
+                line-height: @height;
+            }
+        }
+    }
+
+    ul li .mainmenu-accountmenu {
+        top: @height;
+    }
+}
+
 .mainmenu-tooltip {
     .tooltip-inner {
-        font-size: @font-size-base + 2;
+        font-size: @font-size-base;
         padding: 6px 16px;
         border-radius: 0;
     }
@@ -51,7 +75,6 @@ nav#layout-mainmenu {
     line-height: 0;
     white-space: nowrap;
     vertical-align: top;
-    height: @mainmenu-height;
 
     a {
         text-decoration: none;
@@ -73,6 +96,7 @@ nav#layout-mainmenu {
             display: inline-block;
             vertical-align: top;
             position: relative;
+            margin-right: 30px;
 
             a {
                 .mainmenu-item-link();
@@ -134,8 +158,6 @@ nav#layout-mainmenu {
             }
 
             a {
-                height: @mainmenu-height - 16px;
-                line-height: @mainmenu-height - 16px;
                 padding: 0 15px;
                 margin: 8px 0 8px 11px;
             }
@@ -145,18 +167,19 @@ nav#layout-mainmenu {
             margin-right: 0;
 
             > a {
-                height: @mainmenu-height;
-                line-height: @mainmenu-height;
                 padding: 0 15px 0 10px;
-                font-size: 16px;
+                font-size: @font-size-base;
                 position: relative;
                 // z-index: 200; // Previous value 590 was overlappnig with drop-down menus on small screens
                 z-index: 590; // @todo Investigate: This causes the button to dim without 590
             }
 
-            img {
+            img.account-avatar {
                 width: 45px;
-                margin-left: 15px;
+            }
+
+            .account-name {
+                margin-right: 15px;
             }
 
             ul {
@@ -166,7 +189,7 @@ nav#layout-mainmenu {
     }
 
     //
-    // Menu items
+    // Fading animation (disabled)
     //
 
     &:hover {
@@ -180,18 +203,87 @@ nav#layout-mainmenu {
         //.opacity(.65);
         //.transition(opacity 5s ease);
         //.transition-delay(5s);
-        margin-right: 30px;
 
         &.active {
             //.opacity(1);
         }
     }
+}
 
-    //
-    // Menu items (Inline mode)
-    //
+//
+// SVG support
+//
 
-    ul.mainmenu-nav.nav-inline {
+html.svg {
+    nav#layout-mainmenu,
+    .mainmenu-collapsed {
+        img.svg-icon {
+            display: inline-block;
+        }
+    }
+}
+
+//
+// User account menu
+//
+
+nav#layout-mainmenu ul li .mainmenu-accountmenu {
+    position: fixed;
+    top: 0; // See mode for this value
+    right: 0;
+    background: @color-accountmenu-bg;
+    z-index: 590;
+    display: none;
+
+    &.active {
+        display: block;
+    }
+
+    &:after {
+        .triangle(up, 22px, 12px, @color-accountmenu-bg);
+        right: 26px;
+        top: -12px;
+        position: absolute;
+    }
+
+    ul {
+        float: none;
+        display: block;
+    }
+
+    li {
+        padding: 0;
+        margin: 0;
+        font-weight: normal;
+        text-align: left;
+        display: block;
+
+        a {
+            display: block;
+            padding: 12px 30px;
+            text-align: left;
+        }
+
+        &:hover {
+            background: #3d5265!important;
+        }
+    }
+
+    li.divider {
+        height: 1px;
+        width: 100%;
+        background-color: @color-accountmenu-divider;
+    }
+}
+
+//
+// Navbar (Inline mode)
+//
+
+nav#layout-mainmenu.navbar-mode-inline {
+    .mainmenu-set-height(@mainmenu-mode-inline-height);
+
+    ul.mainmenu-nav {
         li a {
             padding: 15px 0;
 
@@ -218,12 +310,19 @@ nav#layout-mainmenu {
             }
         }
     }
+}
 
-    //
-    // Menu items (Tile mode)
-    //
+//
+// Navbar (Tiles mode)
+//
 
-    ul.mainmenu-nav.nav-tiles {
+nav#layout-mainmenu.navbar-mode-tiles {
+    .mainmenu-set-height(@mainmenu-mode-tiles-height);
+    .mainmenu-navbar-tiles();
+}
+
+.mainmenu-navbar-tiles() {
+    ul.mainmenu-nav {
         li a {
             position: relative;
             width: @mainmenu-tile-dimension;
@@ -287,81 +386,137 @@ nav#layout-mainmenu {
             }
         }
     }
+}
 
-    //
-    // Mobile
-    //
+//
+// Mobile (Collapsed mode)
+//
 
+nav#layout-mainmenu {
     .menu-toggle {
-        .mainmenu-item-link();
-        height: @mainmenu-height;
-        line-height: @mainmenu-height;
+        height: @mainmenu-mode-collapse-height;
+        line-height: @mainmenu-mode-collapse-height;
+        font-size: @font-size-base + 2;
         display: none;
 
-        > i {
-            margin-right: 10px;
-        }
-    }
-
-}
-
-html.svg {
-    nav#layout-mainmenu,
-    .mainmenu-collapsed {
-        img.svg-icon {
+        .menu-toggle-icon {
+            background: #333;
             display: inline-block;
+            height: @mainmenu-mode-collapse-height;
+            line-height: @mainmenu-mode-collapse-height;
+            width: @mainmenu-mode-collapse-height;
+            text-align: center;
+
+            i {
+                line-height: 1;
+                font-size: 30px;
+                vertical-align: middle;
+            }
+        }
+
+        .menu-toggle-title {
+            margin-left: 10px;
         }
     }
 }
 
-nav#layout-mainmenu ul li .mainmenu-accountmenu {
-    position: fixed;
-    top: @mainmenu-height;
-    right: 0;
-    background: @color-accountmenu-bg;
-    z-index: 590;
-    display: none;
+nav#layout-mainmenu.navbar-mode-collapse {
+    .mainmenu-navbar-collapse();
+}
 
-    &.active {
-        display: block;
-    }
-
-    &:after {
-        .triangle(up, 22px, 12px, @color-accountmenu-bg);
-        right: 26px;
-        top: -12px;
-        position: absolute;
-    }
-
-    ul {
-        float: none;
-        display: block;
-    }
-
-    li {
-        padding: 0;
-        margin: 0;
-        font-weight: normal;
-        text-align: left;
-        display: block;
-
-        a {
-            display: block;
-            padding: 12px 30px;
-            text-align: left;
-        }
-
-        &:hover {
-            background: #3d5265!important;
-        }
-    }
-
-    li.divider {
-        height: 1px;
-        width: 100%;
-        background-color: @color-accountmenu-divider;
+@media (max-width: @menu-breakpoint-max) {
+    nav#layout-mainmenu.navbar {
+        .mainmenu-navbar-collapse();
     }
 }
+
+// This logic is implemented in the october.navbar.js script,
+// it prevents the collapse mode from working beyond the min
+// breakpoint. Leaving this code just in case, remove later.
+// -SG
+@media (min-width: @menu-breakpoint-min) {
+    // #layout-canvas { position: static !important; }
+    // .mainmenu-collapsed { display: none !important; }
+}
+
+.mainmenu-navbar-collapse() {
+    padding-left: 0;
+
+    .mainmenu-set-height(@mainmenu-mode-collapse-height);
+
+    ul.mainmenu-toolbar li.mainmenu-account > a {
+        padding-right: 0;
+    }
+
+    ul li .mainmenu-accountmenu:after {
+        right: 11px;
+    }
+
+    ul.nav { display: none; }
+
+    .menu-toggle {
+        display: inline-block;
+        color: @color-mainmenu-active !important;
+    }
+}
+
+.mainmenu-collapsed {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    background: @color-mainmenu-collapsed;
+
+    > div {
+        display: block;
+        height: 100%;
+
+        .mainmenu-navbar-tiles();
+
+        ul.mainmenu-nav li:first-child {
+            margin-left: 0;
+        }
+
+        ul {
+            margin: 0;
+            padding: 5px 0 15px 30px;
+            overflow: hidden;
+        }
+
+        ul li {
+            color: @color-mainmenu-inactive;
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            margin-right: 30px;
+        }
+
+        ul li a {
+            .mainmenu-item-link();
+
+            img.svg-icon {
+                height: 30px;
+                width: 30px;
+                position: relative;
+                top: 0;
+            }
+        }
+    }
+
+    .vertical-scroll-marker(@color-mainmenu-inactive);
+}
+
+body.mainmenu-open .mainmenu-collapsed ul {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    bottom: 10px;
+}
+
+//
+// Misc
+//
 
 nav#layout-mainmenu.navbar ul li:hover,
 .mainmenu-collapsed li:hover {
@@ -397,91 +552,4 @@ body.drag {
     .mainmenu-collapsed ul {
         li:hover { color: @color-mainmenu-inactive; }
     }
-}
-
-@media (max-width: @menu-breakpoint-max) {
-    nav#layout-mainmenu.navbar {
-        ul.nav { display: none; }
-
-        .menu-toggle {
-            display: inline-block;
-            color: @color-mainmenu-active!important;
-        }
-    }
-
-    .mainmenu-collapsed {
-        position: fixed;
-        height: 100%;
-        left: 0;
-        top: 0;
-        width: 0;
-        background: @color-mainmenu-collapsed;
-        .box-shadow(inset -5px 0 3px rgba(0,0,0,0.1));
-
-        margin: 0;
-
-        > div {
-            display: relative;
-            height: 100%;
-
-            ul {
-                overflow: hidden;
-                padding: 0;
-                margin: 0;
-
-                li {
-                    text-transform: uppercase;
-                    list-style: none;
-                    color: @color-mainmenu-inactive;
-
-                    a {
-                        .mainmenu-item-link();
-
-                        white-space: nowrap;
-                        display: block;
-                        padding: 15px 20px;
-
-                        &:hover {
-                            text-decoration: none;
-                        }
-
-                        .nav-icon {
-                            margin-right: 10px;
-
-                            img.svg-icon {
-                                position: relative;
-                                top: -3px;
-                                width: 30px;
-                                height: 30px;
-                            }
-
-                            i {
-                                width: 30px;
-                                text-align: left;
-                                display: inline-block;
-                            }
-                        }
-                    }
-
-                    &.active a {
-                        padding: 9px 20px 11px 20px;
-                    }
-                }
-            }
-        }
-
-        .vertical-scroll-marker(@color-mainmenu-inactive);
-    }
-}
-
-body.mainmenu-open  .mainmenu-collapsed ul {
-    position: fixed;
-    left: 0;
-    top: 10px;
-    bottom: 10px;
-}
-
-@media (min-width: @menu-breakpoint-min) {
-    #layout-canvas { position: static!important; }
-    .mainmenu-collapsed { display: none!important; }
 }

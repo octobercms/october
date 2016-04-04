@@ -845,14 +845,16 @@ return result?result:this}
 $.fn.scrollpad.Constructor=Scrollpad
 $.fn.scrollpad.noConflict=function(){$.fn.scrollpad=old
 return this}
-$(document).on('render',function(){$('div[data-control=scrollpad]').scrollpad()})}(window.jQuery);+function($){"use strict";var VerticalMenu=function(element,toggle,options){this.body=$('body')
+$(document).on('render',function(){$('div[data-control=scrollpad]').scrollpad()})}(window.jQuery);+function($){"use strict";var VerticalMenu=function(element,toggle,options){this.$el=$(element)
+this.body=$('body')
 this.toggle=$(toggle)
 this.options=options||{}
 this.options=$.extend({},VerticalMenu.DEFAULTS,this.options)
 this.wrapper=$(this.options.contentWrapper)
+this.breakpoint=options.breakpoint
 this.menuPanel=$('<div></div>').appendTo('body').addClass(this.options.collapsedMenuClass).css('width',0)
 this.menuContainer=$('<div></div>').appendTo(this.menuPanel).css('display','none')
-this.menuElement=$(element).clone().appendTo(this.menuContainer).css('width','auto')
+this.menuElement=this.$el.clone().appendTo(this.menuContainer).css('width','auto')
 var self=this
 this.toggle.click(function(){if(!self.body.hasClass(self.options.bodyMenuOpenClass)){var wrapperWidth=self.wrapper.outerWidth()
 self.menuElement.dragScroll('goToStart')
@@ -860,11 +862,12 @@ self.wrapper.css({'position':'absolute','min-width':self.wrapper.width(),'height
 self.body.addClass(self.options.bodyMenuOpenClass)
 self.menuContainer.css('display','block')
 self.wrapper.animate({'left':self.options.menuWidth},{duration:200,queue:false})
-self.menuPanel.animate({'width':self.options.menuWidth},{duration:200,queue:false,complete:function(){self.menuElement.css('width',self.options.menuWidth)}})}else{closeMenu()}
+self.menuPanel.animate({'width':self.options.menuWidth},{duration:200,queue:false,complete:function(){self.menuElement.css('width',self.options.menuWidth)}})}
+else{closeMenu()}
 return false})
 this.wrapper.click(function(){if(self.body.hasClass(self.options.bodyMenuOpenClass)){closeMenu()
 return false}})
-$(window).resize(function(){if(self.body.hasClass(self.options.bodyMenuOpenClass)){if($(window).width()>self.options.breakpoint){hideMenu()}}})
+$(window).resize(function(){if(self.body.hasClass(self.options.bodyMenuOpenClass)){if($(window).width()>self.breakpoint){hideMenu()}}})
 this.menuElement.dragScroll({vertical:true,start:function(){self.menuElement.addClass('drag')},stop:function(){self.menuElement.removeClass('drag')},scrollClassContainer:self.menuPanel,scrollMarkerContainer:self.menuContainer})
 this.menuElement.on('click',function(){if(self.menuElement.hasClass('drag'))
 return false})
@@ -876,7 +879,7 @@ self.menuContainer.css('display','none')}
 function closeMenu(){self.wrapper.animate({'left':0},{duration:200,queue:false})
 self.menuPanel.animate({'width':0},{duration:200,queue:false,complete:hideMenu})
 self.menuElement.animate({'width':0},{duration:200,queue:false})}}
-VerticalMenu.DEFAULTS={menuWidth:250,minContentWidth:769,breakpoint:769,bodyMenuOpenClass:'mainmenu-open',collapsedMenuClass:'mainmenu-collapsed',contentWrapper:'#layout-canvas'}
+VerticalMenu.DEFAULTS={menuWidth:230,breakpoint:769,bodyMenuOpenClass:'mainmenu-open',collapsedMenuClass:'mainmenu-collapsed',contentWrapper:'#layout-canvas'}
 var old=$.fn.verticalMenu
 $.fn.verticalMenu=function(toggleSelector,option){return this.each(function(){var $this=$(this)
 var data=$this.data('oc.verticalMenu')
@@ -886,8 +889,8 @@ if(typeof option=='string')data[option].call($this)})}
 $.fn.verticalMenu.Constructor=VerticalMenu
 $.fn.verticalMenu.noConflict=function(){$.fn.verticalMenu=old
 return this}}(window.jQuery);(function($){$(window).load(function(){$('nav.navbar').each(function(){var
-navbar=$(this),nav=$('ul.nav',navbar)
-nav.verticalMenu($('a.menu-toggle',navbar))
+navbar=$(this),nav=$('ul.nav',navbar),collapseMode=navbar.hasClass('navbar-mode-collapse')
+nav.verticalMenu($('a.menu-toggle',navbar),{breakpoint:collapseMode?Infinity:769})
 $('li.with-tooltip:not(.active) > a',navbar).tooltip({container:'body',placement:'bottom',template:'<div class="tooltip mainmenu-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'})
 $('[data-calculate-width]',navbar).one('oc.widthFixed',function(){var dragScroll=$('[data-control=toolbar]',navbar).data('oc.dragScroll')
 if(dragScroll){dragScroll.goToElement($('ul.nav > li.active',navbar),undefined,{'duration':0})}})})})})(jQuery);+function($){"use strict";if($.oc===undefined)
