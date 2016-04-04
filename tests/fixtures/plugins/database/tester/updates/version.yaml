@@ -8,3 +8,4 @@
     - create_roles_table.php
     - create_users_table.php
     - create_event_log_table.php
+    - create_meta_table.php

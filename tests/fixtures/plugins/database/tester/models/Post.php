@@ -31,6 +31,9 @@ class Post extends Model
         'event_log' => ['Database\Tester\Models\EventLog', 'name' => 'related', 'delete' => true, 'softDelete' => true],
     ];
 
+    public $morphOne = [
+        'meta' => ['Database\Tester\Models\Meta', 'name' => 'taggable'],
+    ];
 }
 
 class NullablePost extends Post
