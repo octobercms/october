@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use App;
 use Lang;
 use Config;
 use October\Rain\Halcyon\Model as HalcyonModel;
@@ -60,6 +61,36 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
+    }
+
+    /**
+     * The "booting" method of the model.
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::bootDefaultTheme();
+    }
+
+    /**
+     * Boot all of the bootable traits on the model.
+     * @return void
+     */
+    protected static function bootDefaultTheme()
+    {
+        $resolver = static::getDatasourceResolver();
+        if ($resolver->getDefaultDatasource()) {
+            return;
+        }
+
+        $defaultTheme = App::runningInBackend()
+            ? Theme::getEditThemeCode()
+            : Theme::getActiveThemeCode();
+
+        Theme::load($defaultTheme);
+
+        $resolver->setDefaultDatasource($defaultTheme);
     }
 
     /**

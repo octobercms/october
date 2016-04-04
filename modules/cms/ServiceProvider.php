@@ -48,7 +48,6 @@ class ServiceProvider extends ModuleServiceProvider
     {
         parent::boot('cms');
 
-        $this->bootDefaultTheme();
         $this->bootMenuItemEvents();
         $this->bootRichEditorEvents();
     }
@@ -284,22 +283,5 @@ class ServiceProvider extends ModuleServiceProvider
                 return CmsPage::getRichEditorTypeInfo($type);
             }
         });
-    }
-
-    /**
-     * Boot the default theme.
-     */
-    protected function bootDefaultTheme()
-    {
-        $resolver = App::make('halcyon');
-        if ($resolver->getDefaultDatasource()) {
-            return;
-        }
-
-        $defaultTheme = App::runningInBackend()
-            ? CmsTheme::getEditThemeCode()
-            : CmsTheme::getActiveThemeCode();
-
-        $resolver->setDefaultDatasource($defaultTheme);
     }
 }
