@@ -898,11 +898,15 @@ $.oc={}
 var SideNav=function(element,options){this.options=options
 this.$el=$(element)
 this.$list=$('ul',this.$el)
+this.$items=$('li',this.$list)
 this.init();}
-SideNav.DEFAULTS={}
+SideNav.DEFAULTS={activeClass:'active'}
 SideNav.prototype.init=function(){var self=this;this.$list.dragScroll({vertical:true,start:function(){self.$list.addClass('drag')},stop:function(){self.$list.removeClass('drag')},scrollClassContainer:self.$el,scrollMarkerContainer:self.$el})
 this.$list.on('click',function(){if(self.$list.hasClass('drag'))
 return false})}
+SideNav.prototype.unsetActiveItem=function(itemId){this.$items.removeClass(this.options.activeClass)}
+SideNav.prototype.setActiveItem=function(itemId){if(!itemId){return}
+this.$items.removeClass(this.options.activeClass).filter('[data-menu-item='+itemId+']').addClass(this.options.activeClass)}
 SideNav.prototype.setCounter=function(itemId,value){var $counter=$('span.counter[data-menu-id="'+itemId+'"]',this.$el)
 $counter.removeClass('empty')
 $counter.toggleClass('empty',value==0)
@@ -919,13 +923,16 @@ return this}
 SideNav.prototype.dropCounter=function(itemId){this.setCounter(itemId,0)
 return this}
 var old=$.fn.sideNav
-$.fn.sideNav=function(option){return this.each(function(){var $this=$(this)
+$.fn.sideNav=function(option){var args=Array.prototype.slice.call(arguments,1),result
+this.each(function(){var $this=$(this)
 var data=$this.data('oc.sideNav')
 var options=$.extend({},SideNav.DEFAULTS,$this.data(),typeof option=='object'&&option)
 if(!data)$this.data('oc.sideNav',(data=new SideNav(this,options)))
-if(typeof option=='string')data[option].call($this)
+if(typeof option=='string')result=data[option].apply(data,args)
+if(typeof result!='undefined')return false
 if($.oc.sideNav===undefined)
-$.oc.sideNav=data})}
+$.oc.sideNav=data})
+return result?result:this}
 $.fn.sideNav.Constructor=SideNav
 $.fn.sideNav.noConflict=function(){$.fn.sideNav=old
 return this}
@@ -1159,9 +1166,8 @@ return false}})
 self.$el.on('close.oc.sidePanel',function(){self.hideSidePanel()})}
 this.updateActiveTab()}
 SidePanelTab.prototype.displayTab=function(menuItem){var menuItemId=$(menuItem).data('menu-item')
-this.$sideNavItems.removeClass('active')
-$(menuItem).addClass('active')
 this.visibleItemId=menuItemId
+$.oc.sideNav.setActiveItem(menuItemId)
 this.$sidePanelItems.each(function(){var $el=$(this)
 $el.toggleClass('hide',$el.data('content-id')!=menuItemId)})
 $(window).trigger('resize')}
@@ -1178,8 +1184,8 @@ this.updateActiveTab()}
 SidePanelTab.prototype.updatePanelPosition=function(){if(!this.panelFixed()||Modernizr.touch){this.$el.height($(document).height()-this.mainNavHeight)}
 else{this.$el.css('height','')}
 if(this.panelVisible&&$(window).width()>this.options.breakpoint&&this.panelFixed()){this.hideSidePanel()}}
-SidePanelTab.prototype.updateActiveTab=function(){if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed())){this.$sideNavItems.removeClass('active')}
-else{this.$sideNavItems.filter('[data-menu-item='+this.visibleItemId+']').addClass('active')}}
+SidePanelTab.prototype.updateActiveTab=function(){if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed())){$.oc.sideNav.unsetActiveItem()}
+else{$.oc.sideNav.setActiveItem(this.visibleItemId)}}
 SidePanelTab.prototype.panelFixed=function(){return!($(window).width()<this.options.breakpoint)&&!$(document.body).hasClass('side-panel-not-fixed')}
 SidePanelTab.prototype.fixPanel=function(){$(document.body).toggleClass('side-panel-not-fixed')
 var self=this
