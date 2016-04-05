@@ -122,7 +122,7 @@ return [
         'new' => 'Neues Partial'
     ],
     'content' => [
-        'not_found_name' => "Die Inhaltsdatei ':name' wurde nicht gefundne.",
+        'not_found_name' => "Die Inhaltsdatei ':name' wurde nicht gefunden.",
         'menu_label' => 'Inhalt',
         'no_list_records' => 'Keine Inhaltsdateien gefunden',
         'delete_confirm_multiple' => 'Wollen Sie die ausgewählten Inhalte und Verzeichnisse wirklich löschen?',
