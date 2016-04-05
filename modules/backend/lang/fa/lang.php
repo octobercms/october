@@ -303,10 +303,9 @@ return [
         'app_tagline' => 'شعار برنامه',
         'app_tagline_description' => 'این شعار در قسمت ورود به بخش مدیریت نمایش داده می شود.',
         'colors' => 'رنگ ها',
-        'primary_light' => 'اصلی (روشن)',
-        'primary_dark' => 'اصلی (تیره)',
-        'secondary_light' => 'ثانویه (روشن)',
-        'secondary_dark' => 'ثانویه (تیره)',
+        'primary_color' => 'اصلی color',
+        'secondary_color' => 'ثانویه color',
+        'accent_color' => 'Accent color',
         'styles' => 'شیوه نامه ها',
         'custom_stylesheet' => 'شیوه نامه های سفارشی'
     ],

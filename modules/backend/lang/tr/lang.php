@@ -303,10 +303,9 @@ return [
         'app_tagline' => 'Site Mottosu',
         'app_tagline_description' => 'Bu motto Yönetim Paneli giriş ekranında görüntülenecektir.',
         'colors' => 'Renkler',
-        'primary_light' => 'Ana Renk (Açık Ton)',
-        'primary_dark' => 'Ana Renk (Koyu Ton)',
-        'secondary_light' => 'İkincil Renk (Açık Ton)',
-        'secondary_dark' => 'İkincil Renk (Koyu Ton)',
+        'primary_color' => 'Ana Renk color',
+        'secondary_color' => 'İkincil Renk color',
+        'accent_color' => 'Accent color',
         'styles' => 'Stiller',
         'custom_stylesheet' => 'Özel stil - CSS'
     ],

@@ -290,10 +290,9 @@ return [
         'app_tagline' => 'Slogan de l’application',
         'app_tagline_description' => 'Ce slogan est affiché sur la page d’inscription à l’interface d’administration.',
         'colors' => 'Couleurs',
-        'primary_light' => 'Primaire (Claire)',
-        'primary_dark' => 'Primaire (Foncée)',
-        'secondary_light' => 'Secondaire (Claire)',
-        'secondary_dark' => 'Secondaire (Foncée)',
+        'primary_color' => 'Primaire color',
+        'secondary_color' => 'Secondaire color',
+        'accent_color' => 'Accent color',
         'styles' => 'Styles',
         'custom_stylesheet' => 'Feuille de style personnalisée (CSS)'
     ],

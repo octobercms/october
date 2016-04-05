@@ -193,7 +193,8 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-paint-brush',
                     'class'       => 'Backend\Models\BrandSettings',
                     'permissions' => ['backend.manage_branding'],
-                    'order'       => 500
+                    'order'       => 500,
+                    'keywords'    => 'brand style'
                 ],
                 'myaccount' => [
                     'label'       => 'backend::lang.myaccount.menu_label',

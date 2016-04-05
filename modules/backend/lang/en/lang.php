@@ -306,10 +306,9 @@ return [
         'app_tagline' => 'App Tagline',
         'app_tagline_description' => 'This name is shown on the sign in screen for the back-end.',
         'colors' => 'Colors',
-        'primary_light' => 'Primary (Light)',
-        'primary_dark' => 'Primary (Dark)',
-        'secondary_light' => 'Secondary (Light)',
-        'secondary_dark' => 'Secondary (Dark)',
+        'primary_color' => 'Primary color',
+        'secondary_color' => 'Secondary color',
+        'accent_color' => 'Accent color',
         'styles' => 'Styles',
         'custom_stylesheet' => 'Custom stylesheet'
     ],

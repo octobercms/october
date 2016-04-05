@@ -2,12 +2,40 @@
 // Coded variables
 //
 // @logo-image
-// @primary-color-light   - #e67e22
-// @primary-color-dark    - #d35400
-// @secondary-color-light - #34495e
-// @secondary-color-dark  - #2b3e50
+// @brand-primary
+// @brand-secondary
+// @brand-accent
 //
 
+.br-p     { color: @brand-primary; }
+.br-s     { color: @brand-secondary; }
+.br-a     { color: @brand-accent; }
+.br-p-s10 { color: saturate(@brand-primary,   10%); }
+.br-s-s10 { color: saturate(@brand-secondary, 10%); }
+.br-a-s10 { color: saturate(@brand-accent,    10%); }
+.br-p-s20 { color: saturate(@brand-primary,   20%); }
+.br-s-s20 { color: saturate(@brand-secondary, 20%); }
+.br-a-s20 { color: saturate(@brand-accent,    20%); }
+
+.bg-p     { background-color: @brand-primary; }
+.bg-s     { background-color: @brand-secondary; }
+.bg-a     { background-color: @brand-accent; }
+.bg-p-s10 { background-color: saturate(@brand-primary,   10%); }
+.bg-s-s10 { background-color: saturate(@brand-secondary, 10%); }
+.bg-a-s10 { background-color: saturate(@brand-accent,    10%); }
+.bg-p-s20 { background-color: saturate(@brand-primary,   20%); }
+.bg-s-s20 { background-color: saturate(@brand-secondary, 20%); }
+.bg-a-s20 { background-color: saturate(@brand-accent,    20%); }
+
+//
+// Edge cases
+//
+
+.sidenav-tree ul.top-level > li > div.group:before {
+    border-top-color: @brand-secondary;
+}
+
+/*
 //
 // Logos
 //
@@ -280,3 +308,4 @@ div.control-componentlist {
         }
     }
 }
+*/
