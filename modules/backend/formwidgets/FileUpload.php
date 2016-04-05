@@ -5,7 +5,6 @@ use Input;
 use Request;
 use Response;
 use Validator;
-use System\Models\File;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 use Backend\Controllers\Files as FilesController;
@@ -265,7 +264,8 @@ class FileUpload extends FormWidgetBase
      */
     public function onRemoveAttachment()
     {
-        if (($file_id = post('file_id')) && ($file = File::find($file_id))) {
+        $fileModel = $this->getRelationModel();
+        if (($fileId = post('file_id')) && ($file = $fileModel::find($fileId))) {
             $this->getRelationObject()->remove($file, $this->sessionKey);
         }
     }
@@ -279,8 +279,8 @@ class FileUpload extends FormWidgetBase
             $ids = array_keys($sortData);
             $orders = array_values($sortData);
 
-            $file = new File;
-            $file->setSortableOrder($ids, $orders);
+            $fileModel = $this->getRelationModel();
+            $fileModel->setSortableOrder($ids, $orders);
         }
     }
 
@@ -289,7 +289,8 @@ class FileUpload extends FormWidgetBase
      */
     public function onLoadAttachmentConfig()
     {
-        if (($file_id = post('file_id')) && ($file = File::find($file_id))) {
+        $fileModel = $this->getRelationModel();
+        if (($fileId = post('file_id')) && ($file = $fileModel::find($fileId))) {
             $file = $this->decorateFileAttributes($file);
 
             $this->vars['file'] = $file;
@@ -308,7 +309,8 @@ class FileUpload extends FormWidgetBase
     public function onSaveAttachmentConfig()
     {
         try {
-            if (($file_id = post('file_id')) && ($file = File::find($file_id))) {
+            $fileModel = $this->getRelationModel();
+            if (($fileId = post('file_id')) && ($file = $fileModel::find($fileId))) {
                 $file->title = post('title');
                 $file->description = post('description');
                 $file->save();
@@ -355,9 +357,10 @@ class FileUpload extends FormWidgetBase
                 throw new ApplicationException('File missing from request');
             }
 
+            $fileModel = $this->getRelationModel();
             $uploadedFile = Input::file('file_data');
 
-            $validationRules = ['max:'.File::getMaxFilesize()];
+            $validationRules = ['max:'.$fileModel::getMaxFilesize()];
             if ($fileTypes = $this->getAcceptedFileTypes()) {
                 $validationRules[] = 'extensions:'.$fileTypes;
             }
@@ -381,7 +384,7 @@ class FileUpload extends FormWidgetBase
 
             $fileRelation = $this->getRelationObject();
 
-            $file = new File();
+            $file = $fileModel;
             $file->data = $uploadedFile;
             $file->is_public = $fileRelation->isPublic();
             $file->save();
