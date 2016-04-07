@@ -16,9 +16,9 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.9",
         "composer/installers": "~1.0",
-        "october/rain": "~1.0"
+        "october/rain": "dev-develop"
     },
     "autoload": {
         "psr-4": {

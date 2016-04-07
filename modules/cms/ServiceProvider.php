@@ -12,6 +12,7 @@ use System\Classes\SettingsManager;
 use System\Classes\CombineAssets;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\Page as CmsPage;
+use Cms\Classes\Theme as CmsTheme;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -86,6 +87,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'cms' => [
                     'label'       => 'cms::lang.cms.menu_label',
                     'icon'        => 'icon-magic',
+                    'iconSvg'     => 'modules/cms/assets/images/cms-icon.svg',
                     'url'         => Backend::url('cms'),
                     'permissions' => ['cms.*'],
                     'order'       => 10,
@@ -143,6 +145,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'media' => [
                     'label'       => 'cms::lang.media.menu_label',
                     'icon'        => 'icon-folder',
+                    'iconSvg'     => 'modules/cms/assets/images/media-icon.svg',
                     'url'         => Backend::url('cms/media'),
                     'permissions' => ['media.*'],
                     'order'       => 20
@@ -281,5 +284,4 @@ class ServiceProvider extends ModuleServiceProvider
             }
         });
     }
-
 }

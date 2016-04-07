@@ -111,7 +111,7 @@
 }
 .theme-selector-layout .create-new-theme:hover,
 .theme-selector-layout .find-more-themes:hover {
-  background: #1795f1;
+  background: #0181b9;
   color: white;
 }
 @media (max-width: 768px) {

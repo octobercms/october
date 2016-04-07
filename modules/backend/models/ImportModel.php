@@ -1,5 +1,7 @@
 <?php namespace Backend\Models;
 
+use Str;
+use Lang;
 use Model;
 use League\Csv\Reader as CsvReader;
 
@@ -87,10 +89,21 @@ abstract class ImportModel extends Model
      */
     protected function processImportData($filePath, $matches, $options)
     {
-        extract(array_merge([
-            'firstRowTitles' => true
-        ], $options));
+        /*
+         * Parse options
+         */
+        $defaultOptions = [
+            'firstRowTitles' => true,
+            'delimiter' => null,
+            'enclosure' => null,
+            'escape' => null
+        ];
 
+        $options = array_merge($defaultOptions, $options);
+
+        /*
+         * Read CSV
+         */
         $reader = CsvReader::createFromPath($filePath, 'r');
 
         // Filter out empty rows
@@ -98,7 +111,19 @@ abstract class ImportModel extends Model
             return count($row) > 1 || reset($row) !== null;
         });
 
-        if ($firstRowTitles) {
+        if ($options['delimiter'] !== null) {
+            $reader->setDelimiter($options['delimiter']);
+        }
+
+        if ($options['enclosure'] !== null) {
+            $reader->setEnclosure($options['enclosure']);
+        }
+
+        if ($options['escape'] !== null) {
+            $reader->setEscape($options['escape']);
+        }
+
+        if ($options['firstRowTitles']) {
             $reader->setOffset(1);
         }
 
@@ -156,13 +181,48 @@ abstract class ImportModel extends Model
         $file = $this
             ->import_file()
             ->withDeferred($sessionKey)
-            ->first();
+            ->first()
+        ;
 
         if (!$file) {
             return null;
         }
 
         return $file->getLocalPath();
+    }
+
+    /**
+     * Returns all available encodings values from the localization config
+     * @return array
+     */
+    public function getFormatEncodingOptions()
+    {
+        $options = [
+            'utf-8',
+            'us-ascii',
+            'iso-8859-1',
+            'iso-8859-2',
+            'iso-8859-3',
+            'iso-8859-4',
+            'iso-8859-5',
+            'iso-8859-6',
+            'iso-8859-7',
+            'iso-8859-8',
+            'iso-8859-0',
+            'iso-8859-10',
+            'iso-8859-11',
+            'iso-8859-13',
+            'iso-8859-14',
+            'iso-8859-15',
+            'Windows-1251',
+            'Windows-1252'
+        ];
+
+        $translated = array_map(function($option){
+            return Lang::get('backend::lang.import_export.encodings.'.Str::slug($option, '_'));
+        }, $options);
+
+        return array_combine($options, $translated);
     }
 
     //

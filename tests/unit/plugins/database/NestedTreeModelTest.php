@@ -15,9 +15,27 @@ class NestedTreeModelTest extends PluginTestCase
         $this->seedSampleTree();
     }
 
+    public function testGetNested()
+    {
+        $items = CategoryNested::getNested();
+
+        // Eager loaded
+        $items->each(function($item) {
+            $this->assertTrue($item->relationLoaded('children'));
+        });
+
+        $this->assertEquals(2, $items->count());
+    }
+
     public function testGetAllRoot()
     {
-        $items = CategoryNested::make()->getAllRoot();
+        $items = CategoryNested::getAllRoot();
+
+        // Not eager loaded
+        $items->each(function($item) {
+            $this->assertFalse($item->relationLoaded('children'));
+        });
+
         $this->assertEquals(2, $items->count());
     }
 
@@ -61,15 +79,6 @@ class NestedTreeModelTest extends PluginTestCase
             'Winter Snow' => '**Disccusion about the frosty snow flakes.',
             'Spring Trees' => '**Disccusion about the blooming gardens.'
         ], $array);
-    }
-
-    /**
-     * @expectedException        \Exception
-     * @expectedExceptionMessage Column mismatch in listsNested method
-     */
-    public function testListsNestedUnknownColumn()
-    {
-        CategoryNested::listsNested('custom_name', 'id');
     }
 
     public function testListsNestedFromCollection()

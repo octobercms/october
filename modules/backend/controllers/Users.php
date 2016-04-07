@@ -1,7 +1,6 @@
 <?php namespace Backend\Controllers;
 
 use Backend;
-use Redirect;
 use BackendMenu;
 use BackendAuth;
 use Backend\Models\UserGroup;
@@ -101,7 +100,7 @@ class Users extends Controller
         /*
          * Add permissions tab
          */
-        $form->addTabFields($this->generatePermissionFields());
+        $form->addTabFields($this->generatePermissionsField());
 
         /*
          * Mark default groups
@@ -115,52 +114,21 @@ class Users extends Controller
     }
 
     /**
-     * Generates an array of form fields to assign permissions provided
-     * by the system.
+     * Adds the permissions editor widget to the form.
      * @return array
      */
-    protected function generatePermissionFields()
+    protected function generatePermissionsField()
     {
-        $permissionFields = [];
-
-        foreach (BackendAuth::listTabbedPermissions() as $tab => $permissions) {
-
-            $fieldName = 'permissions_'.snake_case($tab).'_section';
-            $fieldConfig = [
-                'label' => $tab,
-                'type' => 'section',
+        return [
+            'permissions' => [
                 'tab' => 'backend::lang.user.permissions',
-                'containerAttributes' => [
-                    'data-field-collapsible' => 1
-                ],
-            ];
-
-            $permissionFields[$fieldName] = $fieldConfig;
-
-            foreach ($permissions as $permission) {
-                $fieldName = 'permissions['.$permission->code.']';
-                $fieldConfig = [
-                    'label' => $permission->label,
-                    'comment' => $permission->comment,
-                    'type' => 'balloon-selector',
-                    'options' => [
-                        1 => 'backend::lang.user.allow',
-                        0 => 'backend::lang.user.inherit',
-                        -1 => 'backend::lang.user.deny',
-                    ],
-                    'trigger' => [
-                        'action' => 'disable',
-                        'field' => 'is_superuser',
-                        'condition' => 'checked'
-                    ],
-                    'span' => 'auto',
-                    'tab' => 'backend::lang.user.permissions',
-                ];
-
-                $permissionFields[$fieldName] = $fieldConfig;
-            }
-        }
-
-        return $permissionFields;
+                'type' => 'Backend\FormWidgets\PermissionEditor',
+                'trigger' => [
+                    'action' => 'disable',
+                    'field' => 'is_superuser',
+                    'condition' => 'checked'
+                ]
+            ]
+        ];
     }
 }

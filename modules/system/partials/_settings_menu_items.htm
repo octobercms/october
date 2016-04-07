@@ -17,7 +17,7 @@
 
             <ul>
                 <?php foreach ($items as $item): ?>
-                    <li class="<?= strtolower($item->owner) == $context->owner && strtolower($item->code) == $context->itemCode ? 'active' : false ?>" data-keywords="<?= e(trans($item->keywords)) ?>">
+                    <li class="<?= strtolower($item->owner) == $context->owner && strtolower($item->code) == $context->itemCode ? 'active bg-p' : false ?>" data-keywords="<?= e(trans($item->keywords)) ?>">
                         <a href="<?= $item->url ?>">
                             <i class="<?= $item->icon ?>"></i>
                             <span class="header"><?= e(trans($item->label)) ?></span>

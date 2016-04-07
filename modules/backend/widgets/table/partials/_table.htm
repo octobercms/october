@@ -4,6 +4,8 @@
     class="control-table"
     data-columns="<?= e(json_encode($columns)) ?>"
     data-data="<?= e($data) ?>"
+    data-alias="<?= e($this->alias) ?>"
+    data-field-name="<?= e($this->fieldName) ?>"
     data-postback-handler-name="<?= e($postbackHandlerName) ?>"
     data-adding="<?= e($adding) ?>"
     data-deleting="<?= e($deleting) ?>"
@@ -13,8 +15,7 @@
     data-key-column="<?= e($recordsKeyFrom) ?>"
     data-client-data-source-class="<?= e($clientDataSourceClass) ?>"
     data-dynamic-height="<?= e($dynamicHeight) ?>"
-    data-alias="<?= e($this->alias) ?>"
-    data-btn-add-row-label="<?= e($btnAddRowLabel) ?>",
-    data-btn-add-row-below-label="<?= e($btnAddRowBelowLabel) ?>",
+    data-btn-add-row-label="<?= e($btnAddRowLabel) ?>"
+    data-btn-add-row-below-label="<?= e($btnAddRowBelowLabel) ?>"
     data-btn-delete-row-label="<?= e($btnDeleteRowLabel) ?>"
 ></div>

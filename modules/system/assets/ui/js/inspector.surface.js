@@ -190,8 +190,7 @@
 
             var row = this.buildRow(property, currentGroup)
 
-            if (property.itemType == 'group')
-            {
+            if (property.itemType == 'group') {
                 this.applyGroupLevelToRow(row, currentGroup.parentGroup)
             }
             else {
@@ -235,6 +234,7 @@
         //
         if (property.property) {
             row.setAttribute('data-property', property.property)
+            row.setAttribute('data-property-path', this.getPropertyPath(property.property))
         }
 
         this.applyGroupIndexAttribute(property, row, group)
@@ -364,7 +364,13 @@
 
             var cell = row.querySelector('td'),
                 propertyDefinition = this.findPropertyDefinition(property),
-                editor = new $.oc.inspector.externalParameterEditor(this, propertyDefinition, cell)
+                initialValue = this.getPropertyValue(property)
+
+            if (initialValue === undefined) {
+                initialValue = propertyEditor.getUndefinedValue()
+            }
+
+            var editor = new $.oc.inspector.externalParameterEditor(this, propertyDefinition, cell, initialValue)
 
             this.externalParameterEditors.push(editor)
         }
@@ -412,7 +418,8 @@
 
         if ($.oc.foundation.element.hasClass(link, 'expanded') && !forceExpand) {
             $.oc.foundation.element.removeClass(link, 'expanded')
-        } else {
+        }
+        else {
             $.oc.foundation.element.addClass(link, 'expanded')
             collapse = false
         }
@@ -536,7 +543,8 @@
                 this.markPropertyChanged(property, false)
             }
 
-            this.notifyEditorsPropertyChanged(property, value)
+            var propertyPath = this.getPropertyPath(property)
+            this.getRootSurface().notifyEditorsPropertyChanged(propertyPath, value)
 
             if (this.options.onChange !== null) {
                 this.options.onChange(property, value)
@@ -553,11 +561,19 @@
         return value
     }
 
-    Surface.prototype.notifyEditorsPropertyChanged = function(property, value) {
+    Surface.prototype.notifyEditorsPropertyChanged = function(propertyPath, value) {
+        // Editors use this event to watch changes in properties
+        // they depend on. All editors should be notified, including 
+        // editors in nested surfaces. The property name is passed as a
+        // path object.property (if the property is nested), so that 
+        // property depenencies could be defined as 
+        // ['property', 'object.property']
+
         for (var i = 0, len = this.editors.length; i < len; i++) {
             var editor = this.editors[i]
 
-            editor.onInspectorPropertyChanged(property, value)
+            editor.onInspectorPropertyChanged(propertyPath, value)
+            editor.notifyChildSurfacesPropertyChanged(propertyPath, value)
         }
     }
 
@@ -573,7 +589,8 @@
     }
 
     Surface.prototype.markPropertyChanged = function(property, changed) {
-        var row = this.tableContainer.querySelector('tr[data-property="'+property+'"]')
+        var propertyPath = this.getPropertyPath(property),
+            row = this.tableContainer.querySelector('tr[data-property-path="'+propertyPath+'"]')
 
         if (changed) {
             $.oc.foundation.element.addClass(row, 'changed')
@@ -903,7 +920,7 @@
     Surface.prototype.hasChanges = function(originalValues) {
         var values = originalValues !== undefined ? originalValues : this.originalValues
 
-        return !this.comparePropertyValues(values, this.values)
+        return !this.comparePropertyValues(values, this.getValues())
     }
 
     // EVENT HANDLERS

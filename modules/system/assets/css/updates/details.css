@@ -5,16 +5,16 @@
   margin-top: 0;
 }
 .plugin-details-content h1 {
-  font-size: 28px;
+  font-size: 31px;
 }
 .plugin-details-content h2 {
-  font-size: 24px;
+  font-size: 26px;
 }
 .plugin-details-content h3 {
-  font-size: 20px;
+  font-size: 22px;
 }
 .plugin-details-content h4 {
-  font-size: 17px;
+  font-size: 18px;
 }
 .plugin-details-content h1,
 .plugin-details-content h2 {
@@ -23,12 +23,12 @@
 }
 .plugin-details-content ul,
 .plugin-details-content ol {
-  padding-left: 20px;
+  padding-left: 25px;
 }
 .plugin-details-content pre {
   display: block;
   border: none;
-  padding: 10px 10px 10px 20px;
+  padding: 10px 10px 10px 25px;
   font-size: 13px;
   word-break: break-all;
   word-wrap: break-word;
@@ -36,8 +36,8 @@
   background-color: #333;
   margin-top: 10px;
   margin-bottom: 20px;
-  margin-left: -20px;
-  margin-right: -20px;
+  margin-left: -25px;
+  margin-right: -25px;
 }
 .plugin-details-content pre code {
   padding: 0;
@@ -49,6 +49,6 @@
 }
 .plugin-details-content ul pre,
 .plugin-details-content ol pre {
-  margin-left: -40px;
-  padding-left: 40px;
+  margin-left: -50px;
+  padding-left: 50px;
 }

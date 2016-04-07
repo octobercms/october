@@ -16,7 +16,6 @@ use SplTempFileObject;
  */
 abstract class ExportModel extends Model
 {
-
     /**
      * Called when data is being exported.
      * The return value should be an array in the format of:
@@ -55,12 +54,12 @@ abstract class ExportModel extends Model
     public function download($name, $outputName = null)
     {
         if (!preg_match('/^oc[0-9a-z]*$/i', $name)) {
-            throw new ApplicationException('File not found');
+            throw new ApplicationException(Lang::get('backend::lang.import_export.file_not_found_error'));
         }
 
         $csvPath = temp_path() . '/' . $name;
         if (!file_exists($csvPath)) {
-            throw new ApplicationException('File not found');
+            throw new ApplicationException(Lang::get('backend::lang.import_export.file_not_found_error'));
         }
 
         $headers = Response::download($csvPath, $outputName)->headers->all();
@@ -80,7 +79,7 @@ abstract class ExportModel extends Model
          * Validate
          */
         if (!$results) {
-            throw new ApplicationException('There was no data supplied to export');
+            throw new ApplicationException(Lang::get('backend::lang.import_export.empty_error'));
         }
 
         /*
@@ -202,5 +201,4 @@ abstract class ExportModel extends Model
 
         return implode($delimeter, $newData);
     }
-
 }

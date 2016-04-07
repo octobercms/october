@@ -19,8 +19,10 @@
                                 </h5>
                             </div>
                             <dl>
-                                <dt><?= e(trans('system::lang.updates.core_build', ['build'=>$core['build']])) ?></dt>
-                                <dd><?= e(trans('system::lang.updates.core_build_help')) ?></dd>
+                                <?php foreach ($core['updates'] as $build => $description): ?>
+                                    <dt><?= e(trans('system::lang.updates.core_build', ['build'=>$build])) ?></dt>
+                                    <dd><?= e($description) ?></dd>
+                                <?php endforeach ?>
                                 <?php if ($core['old_build']): ?>
                                     <dt class="text-muted"><?= e(trans('system::lang.updates.core_build', ['build'=>$core['old_build']])) ?></dt>
                                     <dd class="text-muted"><?= e(trans('system::lang.updates.core_current_build')) ?></dd>
@@ -70,7 +72,6 @@
                                 </h5>
                             </div>
                             <dl>
-
                                 <?php if (!$plugin['old_version']): ?>
                                     <dt>
                                         <?= $plugin['version'] ?>
@@ -79,7 +80,7 @@
                                         <?= e(trans('system::lang.updates.plugin_version_none')) ?>
                                     </dd>
                                 <?php else: ?>
-                                    <?php foreach (array_reverse($plugin['updates']) as $version => $description): ?>
+                                    <?php foreach ($plugin['updates'] as $version => $description): ?>
                                         <dt><?= e($version) ?></dt>
                                         <?php if (is_array($description)): ?>
                                             <dd>

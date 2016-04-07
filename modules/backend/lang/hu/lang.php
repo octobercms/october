@@ -292,10 +292,9 @@ return [
         'app_tagline' => 'Weboldal szlogenje',
         'app_tagline_description' => 'Ez a mondat látható a bejelentkező oldalon.',
         'colors' => 'Színek',
-        'primary_light' => 'Alap (világos)',
-        'primary_dark' => 'Alap (sötét)',
-        'secondary_light' => 'Másodlagos (világos)',
-        'secondary_dark' => 'Másodlagos (sötét)',
+        'primary_color' => 'Alap color',
+        'secondary_color' => 'Másodlagos color',
+        'accent_color' => 'Accent color',
         'styles' => 'Stílusok',
         'custom_stylesheet' => 'Egyéni megjelenés'
     ],

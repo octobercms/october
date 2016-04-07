@@ -1,7 +1,7 @@
 <?php namespace Backend\Classes;
 
 use App;
-use Log;
+use Str;
 use Lang;
 use View;
 use Flash;
@@ -10,7 +10,6 @@ use Config;
 use Request;
 use Backend;
 use Session;
-use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
@@ -677,7 +676,7 @@ class Controller extends Extendable
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
-        return \Symfony\Component\Security\Core\Util\StringUtils::equals(
+        return Str::equals(
             Session::getToken(),
             $token
         );

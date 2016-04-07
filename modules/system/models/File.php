@@ -22,7 +22,7 @@ class File extends FileBase
      */
     protected function getLocalRootPath()
     {
-        return Config::get('filesystems.disks.local.root', storage_path().'/app');
+        return Config::get('filesystems.disks.local.root', storage_path('app'));
     }
 
     /**

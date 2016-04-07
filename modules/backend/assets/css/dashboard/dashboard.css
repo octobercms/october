@@ -1,0 +1,69 @@
+.dashboard-container > .report-container {
+  -webkit-transition: background 1s ease;
+  transition: background 1s ease;
+  border-radius: 5px;
+}
+.dashboard-container > .report-container.loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+.dashboard-container > .report-container.loading .loading-indicator-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.dashboard-container > .report-container.loading .loading-indicator-container .loading-indicator {
+  background: transparent;
+  padding: 0;
+  height: 150px;
+  top: 50%;
+  margin-top: -90px;
+}
+.dashboard-container > .report-container.loading .loading-indicator-container .loading-indicator:after {
+  content: '';
+  background: transparent url('../../images/dashboard-loading-indicator.svg') no-repeat;
+  background-size: 100px 100px;
+  width: 100px;
+  height: 100px;
+  left: 50%;
+  top: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  position: absolute;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+.dashboard-container > .report-container.loading .loading-indicator-container .loading-indicator:before {
+  content: '';
+  background: transparent url('../../images/dashboard-loading-indicator.svg') no-repeat;
+  background-size: 150px 150px;
+  width: 150px;
+  height: 150px;
+  left: 50%;
+  top: 50%;
+  margin-top: -75px;
+  margin-left: -75px;
+  position: absolute;
+  /*.animation(rspin 1.5s linear infinite);*/
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+.dashboard-container > .report-container.loading .loading-indicator-container .loading-indicator > span {
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin-left: -100px;
+  margin-top: -100px;
+  background-size: 200px 200px;
+  background-image: url('../../images/dashboard-loading-indicator.svg');
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}

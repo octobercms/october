@@ -1,3 +1,10 @@
+* **Build 317** (2016-02-24)
+  - The `/404` route now returns 404 HTTP response code as it should.
+  - Updated the `.htaccess` file with a minor security precaution.
+
+* **Build 316** (2016-02-11)
+  - Various back-end UI enhancements used for the [Builder plugin](http://octobercms.com/plugin/rainlab-builder).
+
 * **Build 313** (2015-12-12)
   - Added a `clickable` option to list columns (see Backend > Lists docs).
 
@@ -300,7 +307,7 @@
   - All instances now use the Cron queue driver by default (see config queue.default).
   - Created My Settings backend page. Renamed old My Settings to My Account.
   - Moved Editor Preferences to My Settings area.
-  - Created Backend Preferences page, used for setting the Backend langauge.
+  - Created Backend Preferences page, used for setting the Backend language.
   - Dropdown field options can now supply an image or icon.
   - CMS Pages now have a hidden flag.
 
@@ -331,7 +338,7 @@
 
 * **Build 106** (2014-06-10)
   - Upgrade to Laravel 4.2.
-  - Form fields can now pass context via their name definnition using syntax `field@context`.
+  - Form fields can now pass context via their name definition using syntax `field@context`.
   - Added a code editor preferences page.
   - Fixes a bug where morphToMany relations show all records in list rows.
 

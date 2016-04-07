@@ -7,8 +7,10 @@ class RouterTest extends TestCase
 {
     protected static $theme = null;
 
-    public static function setUpBeforeClass()
+    public function setUp()
     {
+        parent::setUp();
+
         self::$theme = Theme::load('test');
     }
 

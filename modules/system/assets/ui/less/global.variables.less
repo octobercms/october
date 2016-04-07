@@ -6,13 +6,8 @@
 @body-bg:               #f9f9f9;
 
 @text-color:            @gray-dark;
-
-// Old
-// @link-color:                     darken(@brand-primary, 15%);
-// @link-hover-color:               darken(@link-color, 30%);
-
-@link-color:                     #0181b9;
-@link-hover-color:               darken(@link-color, 30%);
+@link-color:            #0181b9;
+@link-hover-color:      darken(@link-color, 30%);
 
 @link-hover-decoration: underline;
 
@@ -115,10 +110,12 @@
 //
 // Colors
 // --------------------------------------------------
-@brand-primary:          #4da7e8; // Original was #5fb6f5 -sg
+@brand-primary:          #3498db;
+@brand-secondary:        #34495e;
+@brand-accent:           #e67e22;
 @brand-success:          #31ac5f;
-@brand-info:             #5bc0de; // @todo Find a non-BS color
-@brand-warning:          #f0ad4e; // @todo Find a non-BS color
+@brand-info:             #5bc0de;
+@brand-warning:          #f0ad4e;
 @brand-danger:           #ab2a1c;
 
 @color-text-title:       #405261;
@@ -153,8 +150,10 @@
 //
 // General
 // --------------------------------------------------
-@padding-base-vertical:     9px;
-@padding-base-horizontal:   11px;
+@padding-standard:          20px;
+
+@padding-base-vertical:     8px;
+@padding-base-horizontal:   13px;
 
 @padding-large-vertical:    10px;
 @padding-large-horizontal:  16px;
@@ -168,7 +167,7 @@
 @line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
 @line-height-small:         1.5;
 
-@border-radius-base:        2px;
+@border-radius-base:        3px;
 @border-radius-large:       6px;
 @border-radius-small:       3px;
 
@@ -177,3 +176,7 @@
 
 @caret-width-base:          4px;
 @caret-width-large:         5px;
+
+@spacer: @padding-standard;
+@spacer-y: @spacer;
+@spacer-x: @spacer;

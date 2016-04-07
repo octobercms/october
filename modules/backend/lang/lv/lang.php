@@ -292,10 +292,9 @@ return [
         'app_tagline' => 'Apraksts',
         'app_tagline_description' => 'Šis apraksts tiek rādīts back-end auteintificēšanās lapā.',
         'colors' => 'Krāsas',
-        'primary_light' => 'Primārā (Gaiša)',
-        'primary_dark' => 'Primārā (Tumša)',
-        'secondary_light' => 'Sekundārā (Gaiša)',
-        'secondary_dark' => 'Sekundārā (Tumša)',
+        'primary_color' => 'Primārā color',
+        'secondary_color' => 'Sekundārā color',
+        'accent_color' => 'Accent color',
         'styles' => 'Stili',
         'custom_stylesheet' => 'Pielāgots css'
     ],

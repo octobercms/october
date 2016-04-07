@@ -28,7 +28,7 @@
             <h4><?= e(trans('system::lang.updates.plugins')) ?></h4>
             <p><?= $pluginsCount ?></p>
             <p class="description">
-                <?= e(trans('system::lang.updates.disabled')) ?>: <?= $pluginsActiveCount - $pluginsCount ?>
+                <?= e(trans('system::lang.updates.disabled')) ?>: <?= $pluginsCount - $pluginsActiveCount ?>
             </p>
         </div>
         <?php if ($coreBuild): ?>

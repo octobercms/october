@@ -1,10 +1,6 @@
 <?php namespace Backend\Classes;
 
 use Str;
-use File;
-use Yaml;
-use Closure;
-use Illuminate\Container\Container;
 use System\Classes\PluginManager;
 
 /**

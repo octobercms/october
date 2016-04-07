@@ -67,9 +67,19 @@
             if (!self.options.allowScroll)
                 return;
 
-            var offset = self.options.vertical
-                ? ((event.deltaFactor * event.deltaY) * -1)
-                : (event.deltaFactor * event.deltaX)
+            var offset,
+                offsetX = event.deltaFactor * event.deltaX,
+                offsetY = event.deltaFactor * event.deltaY
+
+            if (!offsetX) {
+                offset = offsetY * -1
+            }
+            else if (!offsetY) {
+                offset = offsetX
+            }
+            else {
+                offset = self.options.vertical ? (offsetY * -1) : offsetX
+            }
 
             return !scrollWheel(offset)
         })
@@ -94,7 +104,7 @@
 
         $el.on('click.dragScroll', function() {
             // Do not handle item clicks while dragging
-            if ($(document.body).hasClass('drag'))
+            if ($(document.body).hasClass(self.options.dragClass))
                 return false
         })
 
@@ -122,10 +132,9 @@
             else {
                 $(window).on('mousemove.dragScroll', function(event){
                     moveDrag(event)
-                    $(document.body).addClass(self.options.dragClass)
                     return false
                 })
-                
+
                 $(window).on('mouseup.dragScroll', function(mouseUpEvent){
                     var isClick = event.pageX == mouseUpEvent.pageX && event.pageY == mouseUpEvent.pageY
                     stopDrag(isClick)
@@ -145,7 +154,8 @@
                 if (!dragging) {
                     dragging = true
                     $el.trigger('start.oc.dragScroll')
-                    self.options.start();
+                    self.options.start()
+                    $(document.body).addClass(self.options.dragClass)
                 }
 
                 self.options.vertical
@@ -165,10 +175,12 @@
 
             dragging = false;
 
-            if (click)
+            if (click) {
                 $(document.body).removeClass(self.options.dragClass)
-            else
+            }
+            else {
                 self.fixScrollClasses()
+            }
 
             window.setTimeout(function(){
                 if (!click) {
@@ -237,24 +249,30 @@
     }
 
     DragScroll.prototype.isStart = function() {
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return this.el.scrollLeft() <= 0;
-        else
+        }
+        else {
             return this.el.scrollTop() <= 0;
+        }
     }
 
     DragScroll.prototype.isEnd = function() {
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return (this.el[0].scrollWidth - (this.el.scrollLeft() + this.el.width())) <= 0
-        else
+        }
+        else {
             return (this.el[0].scrollHeight - (this.el.scrollTop() + this.el.height())) <= 0
+        }
     }
 
     DragScroll.prototype.goToStart = function() {
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return this.el.scrollLeft(0)
-        else
+        }
+        else {
             return this.el.scrollTop(0)
+        }
     }
 
     /*
@@ -263,13 +281,16 @@
      */
     DragScroll.prototype.isActiveAfter = function() {
         var activeElement = $('.active', this.el);
-        if (activeElement.length == 0)
+        if (activeElement.length == 0) {
             return false
+        }
 
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return activeElement.get(0).offsetLeft > (this.el.scrollLeft() + this.el.width())
-        else
+        }
+        else {
             return activeElement.get(0).offsetTop > (this.el.scrollTop() + this.el.height())
+        }
     }
 
     /*
@@ -278,13 +299,16 @@
      */
     DragScroll.prototype.isActiveBefore = function() {
         var activeElement = $('.active', this.el);
-        if (activeElement.length == 0)
+        if (activeElement.length == 0) {
             return false
+        }
 
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return (activeElement.get(0).offsetLeft + activeElement.width()) < this.el.scrollLeft()
-        else
+        }
+        else {
             return (activeElement.get(0).offsetTop + activeElement.height()) < this.el.scrollTop()
+        }
     }
 
     DragScroll.prototype.goToElement = function(element, callback, options) {

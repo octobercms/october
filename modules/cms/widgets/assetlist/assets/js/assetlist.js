@@ -39,6 +39,7 @@
         else
             $container.addClass('goForward')
 
+        $.oc.stripeLoadIndicator.show()
         this.$form.request(this.alias+'::onOpenDirectory', {
             data: {
                 path: path,
@@ -52,6 +53,8 @@
                 $container.removeClass('goForward goBackward')
                 alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
             }
+        }).always(function(){
+            $.oc.stripeLoadIndicator.hide()
         })
     }
 

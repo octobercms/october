@@ -171,11 +171,11 @@ class CombineAssets
         }
 
         $this->localPath = $cacheInfo['path'];
-        $this->storagePath = storage_path().'/cms/combiner/assets';
+        $this->storagePath = storage_path('cms/combiner/assets');
 
         $combiner = $this->prepareCombiner($cacheInfo['files']);
         $contents = $combiner->dump();
-        $mime = ($cacheInfo['extension'] == 'css') ? 'text/css' : 'text/javascript';
+        $mime = ($cacheInfo['extension'] == 'css') ? 'text/css' : 'application/javascript';
 
         header_remove();
         $response = Response::make($contents);
@@ -278,7 +278,7 @@ class CombineAssets
         }
 
         $this->localPath = $localPath;
-        $this->storagePath = storage_path().'/cms/combiner/assets';
+        $this->storagePath = storage_path('cms/combiner/assets');
 
         list($assets, $extension) = $this->prepareAssets($assets);
 

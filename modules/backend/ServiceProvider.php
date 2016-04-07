@@ -1,8 +1,6 @@
 <?php namespace Backend;
 
 use App;
-use Lang;
-use Event;
 use Backend;
 use BackendMenu;
 use BackendAuth;
@@ -88,6 +86,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'dashboard' => [
                     'label'       => 'backend::lang.dashboard.menu_label',
                     'icon'        => 'icon-dashboard',
+                    'iconSvg'     => 'modules/backend/assets/images/dashboard-icon.svg',
                     'url'         => Backend::url('backend'),
                     'permissions' => ['backend.access_dashboard'],
                     'order'       => 1
@@ -165,10 +164,6 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Color picker',
                 'code'  => 'colorpicker'
             ]);
-            $manager->registerFormWidget('Backend\FormWidgets\DataGrid', [
-                'label' => 'Data Grid',
-                'code'  => 'datagrid'
-            ]); // @deprecated if year >= 2016
             $manager->registerFormWidget('Backend\FormWidgets\DataTable', [
                 'label' => 'Data Table',
                 'code'  => 'datatable'
@@ -198,7 +193,8 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-paint-brush',
                     'class'       => 'Backend\Models\BrandSettings',
                     'permissions' => ['backend.manage_branding'],
-                    'order'       => 500
+                    'order'       => 500,
+                    'keywords'    => 'brand style'
                 ],
                 'myaccount' => [
                     'label'       => 'backend::lang.myaccount.menu_label',

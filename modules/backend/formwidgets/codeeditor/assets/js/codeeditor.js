@@ -41,6 +41,8 @@
         $.oc.foundation.controlUtils.markDisposable(element)
 
         this.init();
+
+        this.$el.trigger('oc.codeEditorReady')
     }
 
     CodeEditor.prototype = Object.create(BaseProto)
@@ -349,10 +351,7 @@
             var $this   = $(this)
             var data    = $this.data('oc.codeEditor')
             var options = $.extend({}, CodeEditor.DEFAULTS, $this.data(), typeof option == 'object' && option)
-            if (!data) {
-                $this.data('oc.codeEditor', (data = new CodeEditor(this, options)))
-                $this.trigger('oc.codeEditorReady')
-            }
+            if (!data) $this.data('oc.codeEditor', (data = new CodeEditor(this, options)))
             if (typeof option == 'string') result = data[option].apply(data, args)
             if (typeof result != 'undefined') return false 
         })

@@ -91,11 +91,16 @@
         input.setAttribute('type', 'text')
         input.setAttribute('class', 'string-input')
         input.value = this.tableObj.getCellValue(cellElement)
+
+        if (this.columnConfiguration.readOnly) {
+            input.setAttribute('readonly', true)
+        }
+
         cellContentContainer.appendChild(input)
 
         this.setCaretPosition(input, 0)
 
-        // Focus the element in the next frame. 
+        // Focus the element in the next frame.
         // http://stackoverflow.com/questions/779379/why-is-settimeoutfn-0-sometimes-useful
         window.setTimeout(this.focusTimeoutHandler, 0)
     }

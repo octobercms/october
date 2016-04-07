@@ -295,10 +295,9 @@ return [
         'app_tagline' => 'Eslogan',
         'app_tagline_description' => 'Se mostrará en la página de inicio de sesión del back-end.',
         'colors' => 'Colores',
-        'primary_light' => 'Primario (Claro)',
-        'primary_dark' => 'Primario (Oscuro)',
-        'secondary_light' => 'Secundario (Claro)',
-        'secondary_dark' => 'Secundario (Oscuro)',
+        'primary_color' => 'Primario color',
+        'secondary_color' => 'Secundario color',
+        'accent_color' => 'Accent color',
         'styles' => 'Estilos',
         'custom_stylesheet' => 'Hoja de estilo personalizada'
     ],

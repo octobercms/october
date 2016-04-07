@@ -13,7 +13,7 @@ return [
         'file_name_required' => 'Pole Nazwa Pliku jest wymagane.'
     ],
     'theme' => [
-		'not_found_name' => "Motyw ':name' nie został odnaleziony.",
+        'not_found_name' => "Motyw ':name' nie został odnaleziony.",
         'active' => [
             'not_set' => 'Brak aktywnego motywu.',
             'not_found' => 'Aktywny motyw nie został odnaleziony.'
@@ -25,7 +25,7 @@ return [
         ],
         'settings_menu' => 'Motyw strony (Front-end theme)',
         'settings_menu_description' => 'Zobacz listę zainstalowanych motywów i wybierz, który aktywować.',
-		'default_tab' => 'Właściwości',
+        'default_tab' => 'Właściwości',
         'name_label' => 'Nazwa',
         'name_create_placeholder' => 'Nowa nazwa motywu',
         'author_label' => 'Autor',
@@ -43,7 +43,7 @@ return [
         'activate_button' => 'Aktywuj',
         'active_button' => 'Aktywuj',
         'customize_button' => 'Personalizuj',
-		'duplicate_button' => 'Doplikuj',
+        'duplicate_button' => 'Duplikuj',
         'duplicate_title' => 'Duplikuj motyw',
         'duplicate_theme_success' => 'Pomyślnie utworzono kopię motywu!',
         'manage_button' => 'Zarządzaj',
@@ -87,7 +87,7 @@ return [
         'is_enabled_comment' => 'Kiedy włączony odwiedzający zamiast normalnej strony zobaczą stronę wybraną poniżej.'
     ],
     'page' => [
-		'not_found_name' => "Strona ':name' nie została znaleziona",
+        'not_found_name' => "Strona ':name' nie została znaleziona",
         'not_found' => [
             'label' => 'Nie znaleziono strony',
             'help' => 'Żądana strona nie została znaleziona.'
@@ -231,9 +231,9 @@ return [
         'manage_layouts' => 'Zarządzaj układami',
         'manage_partials' => 'Zarządzaj blokami',
         'manage_themes' => 'Zarządzaj motywami',
-		'manage_media' => 'Manage mediami'
+        'manage_media' => 'Manage mediami'
     ],
-	'mediafinder' => [
+    'mediafinder' => [
         'default_prompt' => 'Kliknij przycisk %s aby znaleźć element'
     ],
     'media' => [

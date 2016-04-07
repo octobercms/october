@@ -292,10 +292,9 @@ return [
         'app_tagline' => 'Applikationstaggning',
         'app_tagline_description' => 'Detta namn visas på inloggningsskärmen för back-end.',
         'colors' => 'Färger',
-        'primary_light' => 'Primär (Ljus)',
-        'primary_dark' => 'Primär (Mörk)',
-        'secondary_light' => 'Sekundär (Ljus)',
-        'secondary_dark' => 'Sekundär (Mörk)',
+        'primary_color' => 'Primär color',
+        'secondary_color' => 'Sekundär color',
+        'accent_color' => 'Accent color',
         'styles' => 'Formatmallar',
         'custom_stylesheet' => 'Anpassad formatmall'
     ],

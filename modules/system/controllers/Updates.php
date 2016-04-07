@@ -273,6 +273,7 @@ class Updates extends Controller
             $manager = UpdateManager::instance();
             $result = $manager->requestUpdateList();
 
+            $result = $this->processUpdateLists($result);
             $result = $this->processImportantUpdates($result);
 
             $this->vars['core'] = array_get($result, 'core', false);
@@ -290,6 +291,8 @@ class Updates extends Controller
 
     /**
      * Loops the update list and checks for actionable updates.
+     * @param array  $result
+     * @return array
      */
     protected function processImportantUpdates($result)
     {
@@ -310,6 +313,24 @@ class Updates extends Controller
         }
 
         $result['hasImportantUpdates'] = $hasImportantUpdates;
+        return $result;
+    }
+
+    /**
+     * Reverses the update lists for the core and all plugins.
+     * @param array  $result
+     * @return array
+     */
+    protected function processUpdateLists($result)
+    {
+        if ($core = array_get($result, 'core')) {
+            $result['core']['updates'] = array_reverse(array_get($core, 'updates', []), true);
+        }
+
+        foreach (array_get($result, 'plugins', []) as $code => $plugin) {
+            $result['plugins'][$code]['updates'] = array_reverse(array_get($plugin, 'updates', []), true);
+        }
+
         return $result;
     }
 
@@ -892,11 +913,11 @@ class Updates extends Controller
     //
 
     /**
-     * Encode HTML safe product code.
+     * Encode HTML safe product code, this is to prevent issues with array_get().
      */
     protected function encodeCode($code)
     {
-        return str_replace('.', '_', $code);
+        return str_replace('.', ':', $code);
     }
 
     /**
@@ -904,6 +925,6 @@ class Updates extends Controller
      */
     protected function decodeCode($code)
     {
-        return str_replace('_', '.', $code);
+        return str_replace(':', '.', $code);
     }
 }
