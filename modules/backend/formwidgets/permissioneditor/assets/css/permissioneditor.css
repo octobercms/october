@@ -1,6 +1,6 @@
 .permissioneditor {
   position: relative;
-  margin: 0 -25px;
+  margin: 0 -20px;
 }
 .permissioneditor.control-disabled .permissions-overlay {
   position: absolute;
