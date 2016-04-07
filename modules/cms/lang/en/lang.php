@@ -208,7 +208,7 @@ return [
         'path' => 'Path',
         'unzip' => 'Unzip',
         'is_a_directory' => 'Only files are allowed. You\'ve selected a directory.',
-        'error_open_zip' => 'Error open the zip file'
+        'error_open_zip' => 'Failed to open the zip file'
     ],
     'component' => [
         'menu_label' => 'Components',
