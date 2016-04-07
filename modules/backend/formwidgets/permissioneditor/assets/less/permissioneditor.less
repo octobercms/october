@@ -3,7 +3,6 @@
 @color-permissioneditor-section-border:         #DBE1E3;
 @color-permissioneditor-permission-border:      #ECF0F1;
 
-
 .permissioneditor {
     position: relative;
 
@@ -35,11 +34,12 @@
             border-bottom: 1px solid @color-permissioneditor-section-border; 
 
             &.tab {
-                font-size: 15px;
+                font-size: @font-size-base - 1;
             }
 
             &.permission-type {
-                font-size: 15px;
+                text-transform: uppercase;
+                font-size: @font-size-base - 3;
                 text-align: center;
             }
         }
@@ -55,7 +55,7 @@
             }
 
             &.permission-name {
-                font-size: 14px;
+                font-size: @font-size-base - 1;
                 cursor: pointer;
                 color: @color-help-block-text;
             }
@@ -75,7 +75,7 @@
                 background: @color-list-hover-bg;
 
                 &.permission-name {
-                    color: #ffffff!important;
+                    color: #ffffff !important;
                 }
             }
         }

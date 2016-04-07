@@ -28,10 +28,10 @@
     border-top: 1px solid @color-filter-border;
     border-bottom: 1px solid @color-filter-border;
 
-    font-size: @font-size-base;
+    font-size: @font-size-base - 1;
 
     .custom-checkbox label {
-        font-size: @font-size-base;
+        font-size: @font-size-base - 1;
         color: @color-filter-text;
     }
 
@@ -42,7 +42,8 @@
 
     > .filter-scope {
         display: inline-block;
-        padding: 15px;
+        padding: 10px;
+
         .filter-label {
             margin-right: 5px;
         }
@@ -75,8 +76,13 @@
             }
 
             label {
-                padding-left: 30px;
+                padding-left: 25px;
+
+                &:before {
+                    top: -1px;
+                }
             }
+
 
             &:after {
                 content: '';
@@ -123,7 +129,7 @@
 
     .filter-items, .filter-active-items {
         color: @color-filter-text;
-        font-size: 14px;
+        font-size: @font-size-base - 1;
         ul, li {
             list-style-type: none;
             margin:0;

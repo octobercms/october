@@ -13,13 +13,15 @@
     &.active,
     .open .dropdown-toggle& {
         color: @color;
-        background-color: darken(@background-hover, 8%);
-        border-color: darken(@border-hover, 12%);
+        background-color: @background-hover;
+        border-color: @border-hover;
     }
 
     &:active,
     &.active,
     .open .dropdown-toggle& {
+        background-color: darken(@background-hover, 8%);
+        border-color: darken(@border-hover, 12%);
         background-image: none;
     }
 

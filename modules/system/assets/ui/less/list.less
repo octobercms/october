@@ -32,7 +32,7 @@ table.table.data {
         }
     }
 
-    font-size: @font-size-base;
+    font-size: @font-size-base - 1;
 
     &.no-offset-bottom {
         margin-bottom: 0!important;
@@ -48,6 +48,8 @@ table.table.data {
             border-color: @color-list-border;
             padding: 0;
             font-weight: normal;
+            text-transform: uppercase;
+            font-size: @font-size-base - 3;
 
             > a, > span {
                 display: block;
@@ -92,7 +94,6 @@ table.table.data {
             padding: 12px 15px;
             color: @color-list-text;
             border-color: @color-list-grid;
-            font-size: @font-size-base;
 
             a:not(.btn) {
                 color: @color-list-text;

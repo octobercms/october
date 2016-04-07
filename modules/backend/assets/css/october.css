@@ -674,9 +674,6 @@ nav#layout-mainmenu ul li a:hover{background-color:transparent !important}
 nav#layout-mainmenu ul li a:active,nav#layout-mainmenu ul li a:focus{text-decoration:none;color:#555555}
 nav#layout-mainmenu ul li a i{line-height:1;font-size:30px;vertical-align:middle}
 nav#layout-mainmenu ul li a img.svg-icon{height:30px;width:30px;margin-right:10px;position:relative;top:0}
-nav#layout-mainmenu ul li.icon-only{margin-right:0}
-nav#layout-mainmenu ul li.icon-only a{padding:14px}
-nav#layout-mainmenu ul li.icon-only i{margin-right:0}
 nav#layout-mainmenu ul.nav{display:inline-block}
 nav#layout-mainmenu .toolbar-item{padding-right:0}
 nav#layout-mainmenu .toolbar-item:before,nav#layout-mainmenu .toolbar-item:after{margin-top:0}
@@ -684,8 +681,9 @@ nav#layout-mainmenu .toolbar-item:before{left:-12px}
 nav#layout-mainmenu .toolbar-item:after{right:-12px}
 nav#layout-mainmenu .toolbar-item.scroll-active-before:before{color:#ffffff}
 nav#layout-mainmenu .toolbar-item.scroll-active-after:after{color:#ffffff}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview{margin:0 0 0 11px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview i{font-size:20px}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview a{padding:0 15px;margin:8px 0 8px 11px}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview a{position:relative;padding:0 15px;top:-1px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account{margin-right:0}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account > a{padding:0 15px 0 10px;font-size:14px;position:relative;z-index:590}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{width:45px}
@@ -701,7 +699,7 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu li a{display:block;padding:12px 
 nav#layout-mainmenu ul li .mainmenu-accountmenu li:hover{background:#3d5265 !important}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li.divider{height:1px;width:100%;background-color:#4b6372}
 nav#layout-mainmenu.navbar-mode-inline{height:60px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-preview a{height:44px;line-height:44px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-preview a{height:60px;line-height:60px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account > a{height:60px;line-height:60px}
 nav#layout-mainmenu.navbar-mode-inline ul li .mainmenu-accountmenu{top:60px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a{padding:15px 0}
@@ -711,7 +709,7 @@ nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-label{line-heig
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:first-child{margin-left:2px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:last-child{margin-right:0}
 nav#layout-mainmenu.navbar-mode-tile{height:78px}
-nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-preview a{height:62px;line-height:62px}
+nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-preview a{height:78px;line-height:78px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-account > a{height:78px;line-height:78px}
 nav#layout-mainmenu.navbar-mode-tile ul li .mainmenu-accountmenu{top:78px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-nav li a{position:relative;width:65px;height:65px}
@@ -728,7 +726,7 @@ nav#layout-mainmenu .menu-toggle .menu-toggle-icon{background:#333;display:inlin
 nav#layout-mainmenu .menu-toggle .menu-toggle-icon i{line-height:1;font-size:30px;vertical-align:middle}
 nav#layout-mainmenu .menu-toggle .menu-toggle-title{margin-left:10px}
 nav#layout-mainmenu.navbar-mode-collapse{padding-left:0;height:45px}
-nav#layout-mainmenu.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-preview a{height:29px;line-height:29px}
+nav#layout-mainmenu.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-preview a{height:45px;line-height:45px}
 nav#layout-mainmenu.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-account > a{height:45px;line-height:45px}
 nav#layout-mainmenu.navbar-mode-collapse ul li .mainmenu-accountmenu{top:45px}
 nav#layout-mainmenu.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-account > a{padding-right:0}
@@ -736,7 +734,7 @@ nav#layout-mainmenu.navbar-mode-collapse ul li .mainmenu-accountmenu:after{right
 nav#layout-mainmenu.navbar-mode-collapse ul.nav{display:none}
 nav#layout-mainmenu.navbar-mode-collapse .menu-toggle{display:inline-block;color:#ffffff !important}
 @media (max-width:769px){nav#layout-mainmenu.navbar{padding-left:0;height:45px}
-nav#layout-mainmenu.navbar ul.mainmenu-toolbar li.mainmenu-preview a{height:29px;line-height:29px}
+nav#layout-mainmenu.navbar ul.mainmenu-toolbar li.mainmenu-preview a{height:45px;line-height:45px}
 nav#layout-mainmenu.navbar ul.mainmenu-toolbar li.mainmenu-account > a{height:45px;line-height:45px}
 nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu{top:45px}
 nav#layout-mainmenu.navbar ul.mainmenu-toolbar li.mainmenu-account > a{padding-right:0}
@@ -948,7 +946,7 @@ body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizonta
 .fancy-layout .form-tabless-fields .loading-indicator-container .loading-indicator{background-color:#e67e22;padding:0 0 0 30px;color:rgba(255,255,255,0.5);margin-top:1px;height:90%;font-size:12px;line-height:100%}
 .fancy-layout .form-tabless-fields .loading-indicator-container .loading-indicator > span{left:-10px;top:18px}
 .fancy-layout .form-buttons{-webkit-transition:all 0.5s;transition:all 0.5s;padding-top:11px;padding-bottom:5px}
-.fancy-layout .form-buttons .btn{padding:0;margin-right:5px;margin-top:-6px;margin-right:30px;background-color:transparent;color:#ffffff;font-weight:normal;opacity:0.5;filter:alpha(opacity=50);-webkit-transition:all 0.3s ease;transition:all 0.3s ease}
+.fancy-layout .form-buttons .btn{padding:0;margin-right:5px;margin-top:-6px;margin-right:30px;background-color:transparent;color:#ffffff;font-weight:normal;-webkit-box-shadow:none;box-shadow:none;opacity:0.5;filter:alpha(opacity=50);-webkit-transition:all 0.3s ease;transition:all 0.3s ease}
 .fancy-layout .form-buttons .btn:hover{opacity:1;filter:alpha(opacity=100)}
 .fancy-layout .form-buttons .btn:last-child{margin-right:0}
 .fancy-layout form.oc-data-changed .btn.save{opacity:1;filter:alpha(opacity=100)}

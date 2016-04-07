@@ -60,7 +60,8 @@
             white-space: nowrap;
             float: none;
             display: inline-block;
-            margin-right:  10px;
+            margin-right: 10px;
+
             &:last-child {
                 margin-right: 0;
             }
@@ -130,6 +131,8 @@
             color: @color-toolbar-editor-btn-color;
             background: transparent;
             .user-select(none);
+            .box-shadow(none);
+            border-radius: 0;
 
             &:before {
                 font-size: 14px !important;

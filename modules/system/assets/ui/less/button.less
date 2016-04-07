@@ -16,7 +16,7 @@
 // --------------------------------------------------
 
 .btn {
-    font-size: 15px;
+    font-size: @font-size-base;
     border: none;
     text-align: left;
     outline: none !important;
@@ -35,28 +35,25 @@
         color: @color-button-disabled-text;
     }
 
+    .box-shadow(inset 0 -2px 0 rgba(0,0,0,.2));
+
     &.active,
     &:active {
-       .box-shadow(none);
+        .box-shadow(inset 0 2px 0 rgba(0,0,0,.3));
     }
 }
 
-.btn-default.on {
-    background-color: #95a5a6;
-    color: #f9f9f9;
-}
-
 .btn-group {
-    .btn{
+    .btn {
         border-right: 1px solid rgba(0,0,0,0.09);
-        margin-left: 0!important;
+        margin-left: 0 !important;
 
         &:last-child, &.last {
             border-right: none;
         }
 
         &.last {
-            .border-right-radius(@border-radius-base)!important;
+            .border-right-radius(@border-radius-base) !important;
         }
     }
 
@@ -65,11 +62,11 @@
 
         &:not(:last-child, .last) > .btn {
             border-right: 1px solid rgba(0,0,0,0.09);
-            .border-right-radius(0)!important;
+            .border-right-radius(0) !important;
         }
 
         &:not(:first-child) > .btn {
-            .border-left-radius(0)!important;
+            .border-left-radius(0) !important;
         }
 
         &.last {
@@ -129,7 +126,7 @@
 }
 
 .btn-text {
-    font-size: 16px;
+    font-size: @font-size-base;
     padding: 8px 0;
     vertical-align: middle;
     display: inline-block;

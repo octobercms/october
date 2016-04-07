@@ -1,6 +1,6 @@
 .permissioneditor {
   position: relative;
-  margin: 0 -25px;
+  margin: 0 -20px;
 }
 .permissioneditor.control-disabled .permissions-overlay {
   position: absolute;
@@ -25,10 +25,11 @@
   border-bottom: 1px solid #dbe1e3;
 }
 .permissioneditor table th.tab {
-  font-size: 15px;
+  font-size: 13px;
 }
 .permissioneditor table th.permission-type {
-  font-size: 15px;
+  text-transform: uppercase;
+  font-size: 11px;
   text-align: center;
 }
 .permissioneditor table td {
@@ -44,9 +45,9 @@
   text-align: center;
 }
 .permissioneditor table td.permission-name {
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
-  color: #555555;
+  color: #777777;
 }
 .permissioneditor table td p.comment {
   margin-top: 5px;
@@ -59,11 +60,11 @@
   background: #4da7e8;
 }
 .permissioneditor table tr:hover td.permission-name {
-  color: #ffffff!important;
+  color: #ffffff !important;
 }
 .permissioneditor table th:first-child,
 .permissioneditor table td:first-child {
-  padding-left: 25px;
+  padding-left: 20px;
 }
 .permissioneditor table th:last-child,
 .permissioneditor table td:last-child {

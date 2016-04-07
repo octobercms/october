@@ -104,7 +104,7 @@
 
         $el.on('click.dragScroll', function() {
             // Do not handle item clicks while dragging
-            if ($(document.body).hasClass('drag'))
+            if ($(document.body).hasClass(self.options.dragClass))
                 return false
         })
 
@@ -132,10 +132,9 @@
             else {
                 $(window).on('mousemove.dragScroll', function(event){
                     moveDrag(event)
-                    $(document.body).addClass(self.options.dragClass)
                     return false
                 })
-                
+
                 $(window).on('mouseup.dragScroll', function(mouseUpEvent){
                     var isClick = event.pageX == mouseUpEvent.pageX && event.pageY == mouseUpEvent.pageY
                     stopDrag(isClick)
@@ -155,7 +154,8 @@
                 if (!dragging) {
                     dragging = true
                     $el.trigger('start.oc.dragScroll')
-                    self.options.start();
+                    self.options.start()
+                    $(document.body).addClass(self.options.dragClass)
                 }
 
                 self.options.vertical

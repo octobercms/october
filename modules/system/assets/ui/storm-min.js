@@ -3058,7 +3058,7 @@ startDrag(event)
 return false})}
 $el.on('touchstart.dragScroll',function(event){var touchEvent=event.originalEvent;if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
 event.stopPropagation()}})
-$el.on('click.dragScroll',function(){if($(document.body).hasClass('drag'))
+$el.on('click.dragScroll',function(){if($(document.body).hasClass(self.options.dragClass))
 return false})
 $(document).on('ready',this.proxy(this.fixScrollClasses))
 $(window).on('resize',this.proxy(this.fixScrollClasses))
@@ -3069,7 +3069,6 @@ moveDrag(touchEvent.touches[0])
 event.preventDefault()})
 $(window).on('touchend.dragScroll',function(event){stopDrag()})}
 else{$(window).on('mousemove.dragScroll',function(event){moveDrag(event)
-$(document.body).addClass(self.options.dragClass)
 return false})
 $(window).on('mouseup.dragScroll',function(mouseUpEvent){var isClick=event.pageX==mouseUpEvent.pageX&&event.pageY==mouseUpEvent.pageY
 stopDrag(isClick)
@@ -3077,7 +3076,8 @@ return false})}}
 function moveDrag(event){var current=event[eventElementName],offset=dragStart-current
 if(Math.abs(offset)>2){if(!dragging){dragging=true
 $el.trigger('start.oc.dragScroll')
-self.options.start();}
+self.options.start()
+$(document.body).addClass(self.options.dragClass)}
 self.options.vertical?$el.scrollTop(startOffset+offset):$el.scrollLeft(startOffset+offset)
 $el.trigger('drag.oc.dragScroll')
 self.options.drag()}}
