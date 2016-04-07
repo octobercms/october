@@ -8,7 +8,7 @@ modelClass: System\Models\MailLayout
 defaultRedirect: system/mailtemplates
 
 create:
-    redirect: system/mailtemplates/update/:id
+    redirect: system/maillayouts/update/:id
     redirectClose: system/mailtemplates
 
 update:
