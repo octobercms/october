@@ -506,31 +506,37 @@ address{margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .btn-default{color:#ffffff;background-color:#a7afb4;border-color:#a7afb4}
 .btn-default:hover,.btn-default:focus,.btn-default:active,.btn-default.active,.open .dropdown-toggle.btn-default{color:#ffffff;background-color:#1681ba;border-color:#1681ba}
 .btn-default:active,.btn-default.active,.open .dropdown-toggle.btn-default{background-color:#126896;border-color:#105b83;background-image:none}
+.btn-default.on{background-color:#869198;border-color:#7b878e;background-image:none}
 .btn-default.disabled,.btn-default[disabled],fieldset[disabled] .btn-default,.btn-default.disabled:hover,.btn-default[disabled]:hover,fieldset[disabled] .btn-default:hover,.btn-default.disabled:focus,.btn-default[disabled]:focus,fieldset[disabled] .btn-default:focus,.btn-default.disabled:active,.btn-default[disabled]:active,fieldset[disabled] .btn-default:active,.btn-default.disabled.active,.btn-default[disabled].active,fieldset[disabled] .btn-default.active{background-color:#a7afb4;border-color:#a7afb4}
 .btn-default .badge{color:#a7afb4;background-color:#ffffff}
 .btn-primary{color:#ffffff;background-color:#1991d1;border-color:#1371a3;font-weight:bold}
 .btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary{color:#ffffff;background-color:#1681ba;border-color:#1681ba}
 .btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary{background-color:#126896;border-color:#105b83;background-image:none}
+.btn-primary.on{background-color:#126b9a;border-color:#0b3f5a;background-image:none}
 .btn-primary.disabled,.btn-primary[disabled],fieldset[disabled] .btn-primary,.btn-primary.disabled:hover,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary:hover,.btn-primary.disabled:focus,.btn-primary[disabled]:focus,fieldset[disabled] .btn-primary:focus,.btn-primary.disabled:active,.btn-primary[disabled]:active,fieldset[disabled] .btn-primary:active,.btn-primary.disabled.active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary.active{background-color:#1991d1;border-color:#1371a3}
 .btn-primary .badge{color:#1991d1;background-color:#ffffff}
 .btn-success{color:#ffffff;background-color:#a7afb4;border-color:#2b9854}
 .btn-success:hover,.btn-success:focus,.btn-success:active,.btn-success.active,.open .dropdown-toggle.btn-success{color:#ffffff;background-color:#31ac5f;border-color:#31ac5f}
 .btn-success:active,.btn-success.active,.open .dropdown-toggle.btn-success{background-color:#288c4d;border-color:#237c45;background-image:none}
+.btn-success.on{background-color:#869198;border-color:#195931;background-image:none}
 .btn-success.disabled,.btn-success[disabled],fieldset[disabled] .btn-success,.btn-success.disabled:hover,.btn-success[disabled]:hover,fieldset[disabled] .btn-success:hover,.btn-success.disabled:focus,.btn-success[disabled]:focus,fieldset[disabled] .btn-success:focus,.btn-success.disabled:active,.btn-success[disabled]:active,fieldset[disabled] .btn-success:active,.btn-success.disabled.active,.btn-success[disabled].active,fieldset[disabled] .btn-success.active{background-color:#a7afb4;border-color:#2b9854}
 .btn-success .badge{color:#a7afb4;background-color:#ffffff}
 .btn-info{color:#ffffff;background-color:#a7afb4;border-color:#46b8da}
 .btn-info:hover,.btn-info:focus,.btn-info:active,.btn-info.active,.open .dropdown-toggle.btn-info{color:#ffffff;background-color:#5bc0de;border-color:#5bc0de}
 .btn-info:active,.btn-info.active,.open .dropdown-toggle.btn-info{background-color:#39b3d7;border-color:#2aabd2;background-image:none}
+.btn-info.on{background-color:#869198;border-color:#228cab;background-image:none}
 .btn-info.disabled,.btn-info[disabled],fieldset[disabled] .btn-info,.btn-info.disabled:hover,.btn-info[disabled]:hover,fieldset[disabled] .btn-info:hover,.btn-info.disabled:focus,.btn-info[disabled]:focus,fieldset[disabled] .btn-info:focus,.btn-info.disabled:active,.btn-info[disabled]:active,fieldset[disabled] .btn-info:active,.btn-info.disabled.active,.btn-info[disabled].active,fieldset[disabled] .btn-info.active{background-color:#a7afb4;border-color:#46b8da}
 .btn-info .badge{color:#a7afb4;background-color:#ffffff}
 .btn-warning{color:#ffffff;background-color:#a7afb4;border-color:#eea236}
 .btn-warning:hover,.btn-warning:focus,.btn-warning:active,.btn-warning.active,.open .dropdown-toggle.btn-warning{color:#ffffff;background-color:#f0ad4e;border-color:#f0ad4e}
 .btn-warning:active,.btn-warning.active,.open .dropdown-toggle.btn-warning{background-color:#ed9c28;border-color:#eb9316;background-image:none}
+.btn-warning.on{background-color:#869198;border-color:#c27910;background-image:none}
 .btn-warning.disabled,.btn-warning[disabled],fieldset[disabled] .btn-warning,.btn-warning.disabled:hover,.btn-warning[disabled]:hover,fieldset[disabled] .btn-warning:hover,.btn-warning.disabled:focus,.btn-warning[disabled]:focus,fieldset[disabled] .btn-warning:focus,.btn-warning.disabled:active,.btn-warning[disabled]:active,fieldset[disabled] .btn-warning:active,.btn-warning.disabled.active,.btn-warning[disabled].active,fieldset[disabled] .btn-warning.active{background-color:#a7afb4;border-color:#eea236}
 .btn-warning .badge{color:#a7afb4;background-color:#ffffff}
 .btn-danger{color:#ffffff;background-color:#a7afb4;border-color:#952518}
 .btn-danger:hover,.btn-danger:focus,.btn-danger:active,.btn-danger.active,.open .dropdown-toggle.btn-danger{color:#ffffff;background-color:#ab2a1c;border-color:#ab2a1c}
 .btn-danger:active,.btn-danger.active,.open .dropdown-toggle.btn-danger{background-color:#882116;border-color:#761d13;background-image:none}
+.btn-danger.on{background-color:#869198;border-color:#4f130d;background-image:none}
 .btn-danger.disabled,.btn-danger[disabled],fieldset[disabled] .btn-danger,.btn-danger.disabled:hover,.btn-danger[disabled]:hover,fieldset[disabled] .btn-danger:hover,.btn-danger.disabled:focus,.btn-danger[disabled]:focus,fieldset[disabled] .btn-danger:focus,.btn-danger.disabled:active,.btn-danger[disabled]:active,fieldset[disabled] .btn-danger:active,.btn-danger.disabled.active,.btn-danger[disabled].active,fieldset[disabled] .btn-danger.active{background-color:#a7afb4;border-color:#952518}
 .btn-danger .badge{color:#a7afb4;background-color:#ffffff}
 .btn-link{color:#0181b9;font-weight:normal;cursor:pointer;border-radius:0}
