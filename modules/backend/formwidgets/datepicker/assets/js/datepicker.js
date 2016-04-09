@@ -3,6 +3,7 @@
  *
  * Data attributes:
  * - data-control="datepicker" - enables the plugin on an element
+ * - data-format="value" - display format
  * - data-min-date="value" - minimum date to allow
  * - data-max-date="value" - maximum date to allow
  * - data-year-range="value" - range of years to display
