@@ -1151,7 +1151,13 @@ class Controller
         $themeDir = $this->getTheme()->getDirName();
 
         if (is_array($url)) {
-            $_url = URL::to(CombineAssets::combine($url, themes_path().'/'.$themeDir));
+            $_url = Config::get('cms.combineAssetsPath', '/combine');
+            $parsedUrl = parse_url($_url);
+            $_url = '';
+            if(isset($parsedUrl['host'])) {
+                $_url .= $parsedUrl['scheme'].'://'.$parsedUrl['host'];
+            }
+            $_url = URL::to($_url.CombineAssets::combine($url, themes_path().'/'.$themeDir));
         }
         else {
             $_url = Config::get('cms.themesPath', '/themes').'/'.$themeDir;
