@@ -4238,7 +4238,7 @@ this.inspector.setPropertyValue(this.propertyDefinition.property,this.normalizeV
 DropdownEditor.prototype.onInspectorPropertyChanged=function(property,value){if(!this.propertyDefinition.depends||this.propertyDefinition.depends.indexOf(property)===-1){return}
 var dependencyValues=this.getDependencyValues()
 if(this.prevDependencyValues===undefined||this.prevDependencyValues!=dependencyValues){this.loadDynamicOptions()}}
-DropdownEditor.prototype.onExternalPropertyEditorHidden=function(){this.loadDynamicOptions(false)}
+DropdownEditor.prototype.onExternalPropertyEditorHidden=function(){if(this.dynamicOptions){this.loadDynamicOptions(false)}}
 DropdownEditor.prototype.updateDisplayedValue=function(value){var select=this.getSelect()
 select.value=value}
 DropdownEditor.prototype.getUndefinedValue=function(){if(this.propertyDefinition.default!==undefined){return this.propertyDefinition.default}
@@ -5440,8 +5440,11 @@ link.setAttribute('data-original-title',this.tooltipText)
 this.getInput().setAttribute('tabindex','-1')
 this.toggleEditorVisibility(true)
 setTimeout(this.proxy(this.hideEditor),200)}
-ExternalParameterEditor.prototype.toggleEditorVisibility=function(show){var container=this.getContainer(),children=container.children,height=19
-if(!show){}
+ExternalParameterEditor.prototype.toggleEditorVisibility=function(show){var container=this.getContainer(),children=container.children,height=0
+if(!show){height=this.containerCell.getAttribute('data-inspector-cell-height')
+if(!height){height=$(this.containerCell).height()
+this.containerCell.setAttribute('data-inspector-cell-height',height)}}
+height=Math.max(height,19)
 for(var i=0,len=children.length;i<len;i++){var element=children[i]
 if($.oc.foundation.element.hasClass(element,'external-editor')){continue}
 if(show){$.oc.foundation.element.removeClass(element,'hide')}

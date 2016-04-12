@@ -209,22 +209,22 @@
     ExternalParameterEditor.prototype.toggleEditorVisibility = function(show) {
         var container = this.getContainer(),
             children = container.children,
-            height = 19 
-
-        // Fixed value instead of trying to get the container cell height.
-        // If the editor is contained in initially hidden editor (collapsed group),
-        // the container cell will be unknown.
+            height = 0
 
         if (!show) {
-            /*
             height = this.containerCell.getAttribute('data-inspector-cell-height')
 
             if (!height) {
                 height = $(this.containerCell).height()
                 this.containerCell.setAttribute('data-inspector-cell-height', height)
             }
-            */
         }
+
+        // Fixed value instead of trying to get the container cell height.
+        // If the editor is contained in initially hidden editor (collapsed group),
+        // the container cell will be unknown.
+
+        height = Math.max(height, 19)
 
         for (var i = 0, len = children.length; i < len; i++) {
             var element = children[i]

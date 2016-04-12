@@ -591,6 +591,7 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 .btn[class^="oc-icon-"]:before,.btn[class*=" oc-icon-"]:before{font-size:14px;line-height:14px;position:relative}
 .btn[disabled]{background-color:#dbdbdb;color:#aaaaaa}
 .btn.active,.btn:active{-webkit-box-shadow:inset 0 2px 0 rgba(0,0,0,0.3);box-shadow:inset 0 2px 0 rgba(0,0,0,0.3)}
+.btn-link{-webkit-box-shadow:none;box-shadow:none}
 .btn-group .btn{border-right:1px solid rgba(0,0,0,0.09);margin-left:0 !important}
 .btn-group .btn:last-child,.btn-group .btn.last{border-right:none}
 .btn-group .btn.last{border-bottom-right-radius:3px !important;border-top-right-radius:3px !important}
@@ -1300,8 +1301,8 @@ div.control-popover div.popover-body.form-container{padding-bottom:0}
 div.control-popover div.popover-footer{padding:0 20px 20px 20px}
 div.control-popover .popover-head{background:#d35400;padding:14px 16px;position:relative;color:#ffffff;border-top-right-radius:2px;border-top-left-radius:2px}
 div.control-popover .popover-head:before{z-index:602;position:absolute}
-div.control-popover .popover-head h3{font-size:16px;font-weight:bold;margin-top:0;margin-bottom:0;padding-right:15px;line-height:130%}
-div.control-popover .popover-head p{font-size:14px;font-weight:normal;margin:5px 0 0 0}
+div.control-popover .popover-head h3{font-size:14px;font-weight:bold;margin-top:0;margin-bottom:0;padding-right:15px;line-height:130%}
+div.control-popover .popover-head p{font-size:12px;font-weight:normal;margin:5px 0 0 0}
 div.control-popover .popover-head p:empty{display:none}
 div.control-popover .popover-head .close{float:none;position:absolute;right:11px;top:12px;color:#ffffff;outline:none;opacity:0.4;filter:alpha(opacity=40)}
 div.control-popover .popover-head .close:hover{opacity:1;filter:alpha(opacity=100)}
@@ -2199,8 +2200,8 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .select2-container.in-progress .select2-selection .select2-selection__arrow b{display:none !important}
 .select2-container--default{display:block; }
 .select2-container--default .select2-selection{background-color:#ffffff;border:2px solid #bdc3c7;border-radius:3px;color:#555555;font-size:14px;outline:0}
-.select2-container--default .select2-search--dropdown{position:relative;padding:9px}
-.select2-container--default .select2-search--dropdown:after{position:absolute;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f002";right:19px;top:15px;color:#95a5a6}
+.select2-container--default .select2-search--dropdown{position:relative}
+.select2-container--default .select2-search--dropdown:after{position:absolute;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f002";right:10px;top:7px;color:#95a5a6}
 .select2-container--default .select2-search--dropdown .select2-search__field{background-color:#ffffff;border:2px solid #bdc3c7;border-radius:3px;color:#555555;font-size:14px}
 .select2-container--default .select2-search__field{outline:0}
 .select2-container--default .select2-search__field::-webkit-input-placeholder{color:#cccccc}
@@ -2682,7 +2683,7 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .select2-dropdown.ocInspectorDropdown > .select2-results li > i,.select2-dropdown.ocInspectorDropdown > .select2-results li > img{margin-left:6px}
 .select2-dropdown.ocInspectorDropdown .select2-search{min-height:26px;position:relative;border-bottom:1px solid #b2b9be}
 .select2-dropdown.ocInspectorDropdown .select2-search:after{position:absolute;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f002";right:10px;top:10px;color:#95a5a6}
-.select2-dropdown.ocInspectorDropdown .select2-search input.select2-search__field{min-height:26px;background:transparent !important;padding-left:12px;padding-right:12px;border:none}
+.select2-dropdown.ocInspectorDropdown .select2-search input.select2-search__field{min-height:26px;background:transparent !important;font-size:13px;padding-left:4px;padding-right:20px;border:none}
 .control-pagination{font-size:0}
 .control-pagination .page-iteration{margin-right:4px;font-size:14px;color:#98a7a8}
 .control-pagination .page-next,.control-pagination .page-back{display:inline-block;padding:10px 15px}

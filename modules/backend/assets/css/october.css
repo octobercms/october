@@ -210,7 +210,7 @@
 .control-filelist ul li > div.controls a.control:hover{opacity:1;filter:alpha(opacity=100)}
 .control-filelist ul li:hover > div.controls,.control-filelist ul li:hover > a.control{display:block !important}
 .control-filelist ul li:hover > div.controls > a.control,.control-filelist ul li:hover > a.control > a.control{display:block !important}
-.control-filelist ul li .checkbox{position:absolute;top:-5px;right:-5px}
+.control-filelist ul li .checkbox{position:absolute;top:-5px;right:0}
 .control-filelist ul li .checkbox label{margin-right:0}
 .control-filelist ul li .checkbox label:before{border-color:#cccccc}
 .control-filelist.single-line ul li a span.title{text-overflow:ellipsis;overflow:hidden;white-space:nowrap}
@@ -682,9 +682,9 @@ nav#layout-mainmenu .toolbar-item:before{left:-12px}
 nav#layout-mainmenu .toolbar-item:after{right:-12px}
 nav#layout-mainmenu .toolbar-item.scroll-active-before:before{color:#ffffff}
 nav#layout-mainmenu .toolbar-item.scroll-active-after:after{color:#ffffff}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview{margin:0 0 0 11px}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview{margin:0 0 0 21px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview i{font-size:20px}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview a{position:relative;padding:0 15px;top:-1px}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview a{position:relative;padding:0 10px;top:-1px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account{margin-right:0}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account > a{padding:0 15px 0 10px;font-size:14px;position:relative;z-index:590}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{width:45px}
@@ -939,14 +939,14 @@ body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizonta
 .fancy-layout .form-tabless-fields .tab-collapse-icon:hover{text-decoration:none;opacity:1;filter:alpha(opacity=100)}
 .fancy-layout .form-tabless-fields .tab-collapse-icon.primary{color:#475354;bottom:-25px;z-index:100;-webkit-transform:scale(1,-1);-moz-transform:scale(1,-1);-ms-transform:scale(1,-1);-o-transform:scale(1,-1);transform:scale(1,-1)}
 .fancy-layout .form-tabless-fields .tab-collapse-icon.primary i{position:relative;display:block}
-.fancy-layout .form-tabless-fields .tab-collapse-icon.tabless{top:11px}
+.fancy-layout .form-tabless-fields .tab-collapse-icon.tabless{top:14px}
 .fancy-layout .form-tabless-fields.collapsed{padding:5px 23px 0 10px}
 .fancy-layout .form-tabless-fields.collapsed .tab-collapse-icon.tabless{-webkit-transform:scale(1,-1);-moz-transform:scale(1,-1);-ms-transform:scale(1,-1);-o-transform:scale(1,-1);transform:scale(1,-1)}
 .fancy-layout .form-tabless-fields.collapsed .form-group:not(.collapse-visible){display:none}
 .fancy-layout .form-tabless-fields.collapsed .form-buttons{margin-left:10px;padding-bottom:0}
 .fancy-layout .form-tabless-fields .loading-indicator-container .loading-indicator{background-color:#e67e22;padding:0 0 0 30px;color:rgba(255,255,255,0.5);margin-top:1px;height:90%;font-size:12px;line-height:100%}
 .fancy-layout .form-tabless-fields .loading-indicator-container .loading-indicator > span{left:-10px;top:18px}
-.fancy-layout .form-buttons{-webkit-transition:all 0.5s;transition:all 0.5s;padding-top:11px;padding-bottom:5px}
+.fancy-layout .form-buttons{-webkit-transition:all 0.5s;transition:all 0.5s;padding-top:14px;padding-bottom:5px}
 .fancy-layout .form-buttons .btn{padding:0;margin-right:5px;margin-top:-6px;margin-right:30px;background-color:transparent;color:#ffffff;font-weight:normal;-webkit-box-shadow:none;box-shadow:none;opacity:0.5;filter:alpha(opacity=50);-webkit-transition:all 0.3s ease;transition:all 0.3s ease}
 .fancy-layout .form-buttons .btn:hover{opacity:1;filter:alpha(opacity=100)}
 .fancy-layout .form-buttons .btn:last-child{margin-right:0}
