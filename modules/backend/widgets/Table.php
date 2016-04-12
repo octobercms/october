@@ -200,8 +200,8 @@ class Table extends WidgetBase
 
     public function onServerGetRecords()
     {
-        // Disable assets
-        $this->controller->clearAssetDefinitions();
+        // Disable asset broadcasting
+        $this->controller->flushAssets();
 
         if ($this->isClientDataSource()) {
             throw new SystemException('The Table widget is not configured to use the server data source.');

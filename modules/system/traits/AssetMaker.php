@@ -31,7 +31,7 @@ trait AssetMaker
      * by specifically targeting the hasAssetsDefined method.
      * @return void
      */
-    public function clearAssetDefinitions()
+    public function flushAssets()
     {
         $this->assets = ['js'=>[], 'css'=>[], 'rss'=>[]];
     }
