@@ -24,10 +24,11 @@ class MailSettings extends Model
     const MODE_SMTP     = 'smtp';
     const MODE_MAILGUN  = 'mailgun';
     const MODE_MANDRILL = 'mandrill';
+    const MODE_SES      = 'ses';
 
     /*
      * Validation rules
-     */ 
+     */
     public $rules = [
         'sender_name'  => 'required',
         'sender_email' => 'required|email'
@@ -57,6 +58,7 @@ class MailSettings extends Model
             static::MODE_SMTP     => 'system::lang.mail.smtp',
             static::MODE_MAILGUN  => 'system::lang.mail.mailgun',
             static::MODE_MANDRILL => 'system::lang.mail.mandrill',
+            static::MODE_SES      => 'system::lang.mail.ses',
         ];
     }
 
@@ -100,6 +102,12 @@ class MailSettings extends Model
 
             case self::MODE_MANDRILL:
                 $config->set('services.mandrill.secret', $settings->mandrill_secret);
+                break;
+
+            case self::MODE_SES:
+                $config->set('services.ses.key', $settings->ses_key);
+                $config->set('services.ses.secret', $settings->ses_secret);
+                $config->set('services.ses.region', $settings->ses_region);
                 break;
         }
 
