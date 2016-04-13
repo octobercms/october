@@ -43,7 +43,7 @@ div[data-control="media-manager"] .media-list.tiles li .image-placeholder{width:
 div[data-control="media-manager"] .media-list.tiles li .image-placeholder[data-loading]:after{background-image:url('../../../../../../modules/system/assets/ui/images/loader-transparent.svg');background-position:50% 50%;content:' ';-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite;background-size:55px 55px;position:absolute;width:55px;height:55px;top:50%;left:50%;margin-top:-27.5px;margin-left:-27.5px}
 div[data-control="media-manager"] .media-list.tiles li .icon-container{width:167px;height:167px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;border:1px solid #ecf0f1;overflow:hidden;background:#f6f8f9}
 div[data-control="media-manager"] .media-list.tiles li .icon-container i{font-size:55px}
-div[data-control="media-manager"] .media-list.tiles li .icon-container p{font-family:'Open Sans',Arial,sans-serif}
+div[data-control="media-manager"] .media-list.tiles li .icon-container p{font-family:sans-serif}
 div[data-control="media-manager"] .media-list.tiles li.selected .icon-container{background:#4da7e8 !important;border-color:#2581b8}
 div[data-control="media-manager"] .media-list.tiles li.selected .icon-container i,div[data-control="media-manager"] .media-list.tiles li.selected .icon-container p{color:#ecf0f1}
 div[data-control="media-manager"] .media-list.tiles li.selected h4{color:#2581b8}

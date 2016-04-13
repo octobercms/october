@@ -1,10 +1,20 @@
 <?php
 
 use Cms\Classes\Page;
+use Cms\Classes\Theme;
 use Cms\Classes\Layout;
+use October\Rain\Halcyon\Model;
 
 class CmsObjectQueryTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        Model::clearBootedModels();
+        Model::flushEventListeners();
+    }
+
     public function testWhere()
     {
         $page = Page::where('layout', 'caramba')->first();
@@ -90,7 +100,10 @@ class CmsObjectQueryTest extends TestCase
             "placeholder",
             "sidebar",
         ], $layouts);
+    }
 
+    public function testListsNonExistentTheme()
+    {
         $pages = Page::inTheme('NON_EXISTENT_THEME')->lists('baseFileName');
         $this->assertEmpty($pages);
     }

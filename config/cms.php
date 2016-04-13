@@ -4,16 +4,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Bleeding edge updates
+    | Back-end URI prefix
     |--------------------------------------------------------------------------
     |
-    | If you are developing with October, it is important to have the latest
-    | code base, set this value to 'true' to tell the platform to download
-    | and use the development copies of core files and plugins.
+    | Specifies the URL name used for accessing back-end pages.
+    | For example: backend -> http://localhost/backend
     |
     */
 
-    'edgeUpdates' => false,
+    'backendUri' => 'backend',
 
     /*
     |--------------------------------------------------------------------------
@@ -28,14 +27,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Back-end URI prefix
+    | Bleeding edge updates
     |--------------------------------------------------------------------------
     |
-    | Specifies the URI prefix used for accessing back-end pages.
+    | If you are developing with October, it is important to have the latest
+    | code base, set this value to 'true' to tell the platform to download
+    | and use the development copies of core files and plugins.
     |
     */
 
-    'backendUri' => 'backend',
+    'edgeUpdates' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -249,6 +250,19 @@ return [
     */
 
     'defaultMask' => ['file' => null, 'folder' => null],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Safe mode
+    |--------------------------------------------------------------------------
+    |
+    | If safe mode is enabled, the PHP code section is disabled in the CMS
+    | for security reasons. If set to null, safe mode is on when debug mode
+    | (app.debug) is disabled.
+    |
+    */
+
+    'enableSafeMode' => null,
 
     /*
     |--------------------------------------------------------------------------

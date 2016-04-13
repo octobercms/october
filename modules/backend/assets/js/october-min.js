@@ -845,14 +845,16 @@ return result?result:this}
 $.fn.scrollpad.Constructor=Scrollpad
 $.fn.scrollpad.noConflict=function(){$.fn.scrollpad=old
 return this}
-$(document).on('render',function(){$('div[data-control=scrollpad]').scrollpad()})}(window.jQuery);+function($){"use strict";var VerticalMenu=function(element,toggle,options){this.body=$('body')
+$(document).on('render',function(){$('div[data-control=scrollpad]').scrollpad()})}(window.jQuery);+function($){"use strict";var VerticalMenu=function(element,toggle,options){this.$el=$(element)
+this.body=$('body')
 this.toggle=$(toggle)
 this.options=options||{}
 this.options=$.extend({},VerticalMenu.DEFAULTS,this.options)
 this.wrapper=$(this.options.contentWrapper)
+this.breakpoint=options.breakpoint
 this.menuPanel=$('<div></div>').appendTo('body').addClass(this.options.collapsedMenuClass).css('width',0)
 this.menuContainer=$('<div></div>').appendTo(this.menuPanel).css('display','none')
-this.menuElement=$(element).clone().appendTo(this.menuContainer).css('width','auto')
+this.menuElement=this.$el.clone().appendTo(this.menuContainer).css('width','auto')
 var self=this
 this.toggle.click(function(){if(!self.body.hasClass(self.options.bodyMenuOpenClass)){var wrapperWidth=self.wrapper.outerWidth()
 self.menuElement.dragScroll('goToStart')
@@ -860,11 +862,12 @@ self.wrapper.css({'position':'absolute','min-width':self.wrapper.width(),'height
 self.body.addClass(self.options.bodyMenuOpenClass)
 self.menuContainer.css('display','block')
 self.wrapper.animate({'left':self.options.menuWidth},{duration:200,queue:false})
-self.menuPanel.animate({'width':self.options.menuWidth},{duration:200,queue:false,complete:function(){self.menuElement.css('width',self.options.menuWidth)}})}else{closeMenu()}
+self.menuPanel.animate({'width':self.options.menuWidth},{duration:200,queue:false,complete:function(){self.menuElement.css('width',self.options.menuWidth)}})}
+else{closeMenu()}
 return false})
 this.wrapper.click(function(){if(self.body.hasClass(self.options.bodyMenuOpenClass)){closeMenu()
 return false}})
-$(window).resize(function(){if(self.body.hasClass(self.options.bodyMenuOpenClass)){if($(window).width()>self.options.breakpoint){hideMenu()}}})
+$(window).resize(function(){if(self.body.hasClass(self.options.bodyMenuOpenClass)){if($(window).width()>self.breakpoint){hideMenu()}}})
 this.menuElement.dragScroll({vertical:true,start:function(){self.menuElement.addClass('drag')},stop:function(){self.menuElement.removeClass('drag')},scrollClassContainer:self.menuPanel,scrollMarkerContainer:self.menuContainer})
 this.menuElement.on('click',function(){if(self.menuElement.hasClass('drag'))
 return false})
@@ -876,7 +879,7 @@ self.menuContainer.css('display','none')}
 function closeMenu(){self.wrapper.animate({'left':0},{duration:200,queue:false})
 self.menuPanel.animate({'width':0},{duration:200,queue:false,complete:hideMenu})
 self.menuElement.animate({'width':0},{duration:200,queue:false})}}
-VerticalMenu.DEFAULTS={menuWidth:250,minContentWidth:769,breakpoint:769,bodyMenuOpenClass:'mainmenu-open',collapsedMenuClass:'mainmenu-collapsed',contentWrapper:'#layout-canvas'}
+VerticalMenu.DEFAULTS={menuWidth:230,breakpoint:769,bodyMenuOpenClass:'mainmenu-open',collapsedMenuClass:'mainmenu-collapsed',contentWrapper:'#layout-canvas'}
 var old=$.fn.verticalMenu
 $.fn.verticalMenu=function(toggleSelector,option){return this.each(function(){var $this=$(this)
 var data=$this.data('oc.verticalMenu')
@@ -886,20 +889,24 @@ if(typeof option=='string')data[option].call($this)})}
 $.fn.verticalMenu.Constructor=VerticalMenu
 $.fn.verticalMenu.noConflict=function(){$.fn.verticalMenu=old
 return this}}(window.jQuery);(function($){$(window).load(function(){$('nav.navbar').each(function(){var
-navbar=$(this),nav=$('ul.nav',navbar)
-nav.verticalMenu($('a.menu-toggle',navbar))
-$('li.with-tooltip > a',navbar).tooltip({container:'body',placement:'bottom'})
+navbar=$(this),nav=$('ul.nav',navbar),collapseMode=navbar.hasClass('navbar-mode-collapse')
+nav.verticalMenu($('a.menu-toggle',navbar),{breakpoint:collapseMode?Infinity:769})
+$('li.with-tooltip:not(.active) > a',navbar).tooltip({container:'body',placement:'bottom',template:'<div class="tooltip mainmenu-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'})
 $('[data-calculate-width]',navbar).one('oc.widthFixed',function(){var dragScroll=$('[data-control=toolbar]',navbar).data('oc.dragScroll')
 if(dragScroll){dragScroll.goToElement($('ul.nav > li.active',navbar),undefined,{'duration':0})}})})})})(jQuery);+function($){"use strict";if($.oc===undefined)
 $.oc={}
 var SideNav=function(element,options){this.options=options
 this.$el=$(element)
 this.$list=$('ul',this.$el)
+this.$items=$('li',this.$list)
 this.init();}
-SideNav.DEFAULTS={}
+SideNav.DEFAULTS={activeClass:'active'}
 SideNav.prototype.init=function(){var self=this;this.$list.dragScroll({vertical:true,start:function(){self.$list.addClass('drag')},stop:function(){self.$list.removeClass('drag')},scrollClassContainer:self.$el,scrollMarkerContainer:self.$el})
 this.$list.on('click',function(){if(self.$list.hasClass('drag'))
 return false})}
+SideNav.prototype.unsetActiveItem=function(itemId){this.$items.removeClass(this.options.activeClass)}
+SideNav.prototype.setActiveItem=function(itemId){if(!itemId){return}
+this.$items.removeClass(this.options.activeClass).filter('[data-menu-item='+itemId+']').addClass(this.options.activeClass)}
 SideNav.prototype.setCounter=function(itemId,value){var $counter=$('span.counter[data-menu-id="'+itemId+'"]',this.$el)
 $counter.removeClass('empty')
 $counter.toggleClass('empty',value==0)
@@ -916,13 +923,16 @@ return this}
 SideNav.prototype.dropCounter=function(itemId){this.setCounter(itemId,0)
 return this}
 var old=$.fn.sideNav
-$.fn.sideNav=function(option){return this.each(function(){var $this=$(this)
+$.fn.sideNav=function(option){var args=Array.prototype.slice.call(arguments,1),result
+this.each(function(){var $this=$(this)
 var data=$this.data('oc.sideNav')
 var options=$.extend({},SideNav.DEFAULTS,$this.data(),typeof option=='object'&&option)
 if(!data)$this.data('oc.sideNav',(data=new SideNav(this,options)))
-if(typeof option=='string')data[option].call($this)
+if(typeof option=='string')result=data[option].apply(data,args)
+if(typeof result!='undefined')return false
 if($.oc.sideNav===undefined)
-$.oc.sideNav=data})}
+$.oc.sideNav=data})
+return result?result:this}
 $.fn.sideNav.Constructor=SideNav
 $.fn.sideNav.noConflict=function(){$.fn.sideNav=old
 return this}
@@ -1156,9 +1166,8 @@ return false}})
 self.$el.on('close.oc.sidePanel',function(){self.hideSidePanel()})}
 this.updateActiveTab()}
 SidePanelTab.prototype.displayTab=function(menuItem){var menuItemId=$(menuItem).data('menu-item')
-this.$sideNavItems.removeClass('active')
-$(menuItem).addClass('active')
 this.visibleItemId=menuItemId
+$.oc.sideNav.setActiveItem(menuItemId)
 this.$sidePanelItems.each(function(){var $el=$(this)
 $el.toggleClass('hide',$el.data('content-id')!=menuItemId)})
 $(window).trigger('resize')}
@@ -1175,8 +1184,8 @@ this.updateActiveTab()}
 SidePanelTab.prototype.updatePanelPosition=function(){if(!this.panelFixed()||Modernizr.touch){this.$el.height($(document).height()-this.mainNavHeight)}
 else{this.$el.css('height','')}
 if(this.panelVisible&&$(window).width()>this.options.breakpoint&&this.panelFixed()){this.hideSidePanel()}}
-SidePanelTab.prototype.updateActiveTab=function(){if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed())){this.$sideNavItems.removeClass('active')}
-else{this.$sideNavItems.filter('[data-menu-item='+this.visibleItemId+']').addClass('active')}}
+SidePanelTab.prototype.updateActiveTab=function(){if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed())){$.oc.sideNav.unsetActiveItem()}
+else{$.oc.sideNav.setActiveItem(this.visibleItemId)}}
 SidePanelTab.prototype.panelFixed=function(){return!($(window).width()<this.options.breakpoint)&&!$(document.body).hasClass('side-panel-not-fixed')}
 SidePanelTab.prototype.fixPanel=function(){$(document.body).toggleClass('side-panel-not-fixed')
 var self=this

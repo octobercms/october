@@ -1,12 +1,34 @@
+.sidenav-tree-shadow-element() {
+    content: '';
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100%;
+    .box-shadow(inset -5px 0 3px rgba(0,0,0,0.1));
+}
+
 .sidenav-tree {
-    width: 280px;
-    background: @color-sidebarnav-bg;
+    width: 300px;
 
     .control-toolbar {
-        padding: 20px 0 20px 20px;
+        padding: 0;
+
+        .toolbar-item {
+            display: block;
+        }
 
         input.form-control {
             border: none;
+            outline: none;
+            padding: 12px 13px 13px;
+            .border-radius(0);
+            .box-shadow(inset -5px 0 3px rgba(0,0,0,0.1));
+
+            &.search {
+                background-position: right -78px;
+            }
         }
     }
 
@@ -17,13 +39,20 @@
     }
 
     div.scrollbar-thumb {
-        background: #2b3e50!important;
+        background: rgba(0,0,0,.2) !important;
     }
 
     ul.top-level > li {
         &[data-status=collapsed] {
-            > div.group h3:before {
-                .transform(~'rotate(0deg) translate(3px, 0)');
+            > div.group {
+                h3:before {
+                    .transform(~'rotate(0deg) translate(2px, -2px)');
+                }
+
+                // Hide triangle
+                &:before, &:after {
+                    display: none;
+                }
             }
 
             ul {
@@ -32,45 +61,68 @@
         }
 
         > div.group {
+            position: relative;
+
             h3 {
                 background: @color-sidebarnav-tree-group-bg;
                 color: @color-sidebarnav-tree-group;
                 text-transform: uppercase;
-                font-size: 14px;
-                padding: 15px 15px 15px 33px;
+                font-size: 15px;
+                padding: 15px 15px 15px 40px;
                 margin: 0;
                 position: relative;
                 cursor: pointer;
 
                 &:before {
-                    width: 10px;
-                    height: 10px;
                     display: block;
                     position: absolute;
-                    top: 1px;
-                }
-
-                &:before {
-                    left: 13px;
+                    width: 10px;
+                    height: 10px;
+                    left: 16px;
                     top: 15px;
                     color: @color-list-arrow;
-                    .icon(@caret-right);
-                    .transform(~'rotate(90deg) translate(5px, 0)');
+                    .icon(@angle-right);
+                    .transform(~'rotate(90deg) translate(5px, -3px)');
                     .transition(all 0.1s ease);
+                    font-size: 16px;
                 }
+
+                &:after {
+                    .sidenav-tree-shadow-element();
+                }
+            }
+
+            // Use two triangles to achieve the darkening effect
+            &:before,
+            &:after {
+                .triangle(down, 15px, 8px, @brand-secondary);
+                position: absolute;
+                left: 15px;
+                bottom: -8px;
+                z-index: 101;
+            }
+
+            &:after {
+                .triangle(down, 15px, 8px, @color-sidebarnav-tree-group-bg);
             }
         }
 
         > ul {
             li {
+
                 a {
                     display: block;
                     position: relative;
-                    padding: 15px 15px 15px 40px;
+                    padding: 18px 25px 18px 55px;
                     background: @color-sidebarnav-tree-inactive-bg;
-                    margin-bottom: 1px;
+                    border-bottom: 1px solid @color-sidebarnav-tree-group-bg;
                     color: @color-sidebarnav-tree-inactive-text;
                     text-decoration: none!important;
+                    .opacity(.65);
+
+                    &:after {
+                        .sidenav-tree-shadow-element();
+                    }
 
                     &:hover {
                         text-decoration: none;
@@ -78,9 +130,9 @@
 
                     i {
                         position: absolute;
-                        left: 15px;
-                        top: 17px;
-                        font-size: 16px;
+                        left: 16px;
+                        top: 18px;
+                        font-size: 22px;
                     }
 
                     span {
@@ -89,31 +141,25 @@
 
                         &.header {
                             color: @color-sidebarnav-tree-inactive-header;
-                            font-size: 14px;
+                            font-size: @font-size-base + 1;
                             margin-bottom: 5px;
                         }
 
                         &.description {
                             color: @color-sidebarnav-tree-inactive-desc;
-                            font-size: 12px;
-                            font-weight: 100;
+                            font-size: @font-size-base - 1;
                         }
                     }
                 }
 
+                &:hover a,
                 &.active a {
-                    background: @color-sidebarnav-tree-active-bg;
-                    color: @color-sidebarnav-tree-active-text;
+                    .opacity(1);
+                }
 
-                    &:before {
-                        content: ' ';
-                        position: absolute;
-                        width: 4px;
-                        background: @color-sidebarnav-tree-active-marker;
-                        left: 0;
-                        top: 0;
-                        height: 100%;
-                    }
+                &.active a {
+                    //background: @color-sidebarnav-tree-active-bg;
+                    color: @color-sidebarnav-tree-active-text;
 
                     span.header {
                         color: @color-sidebarnav-tree-active-header;
@@ -125,11 +171,7 @@
                 }
 
                 &:last-child a {
-                    margin-bottom: 0;
-                }
-
-                &:hover a {
-                    background-color: @color-sidebarnav-tree-active-bg;
+                    border-bottom: none;
                 }
             }
         }

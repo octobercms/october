@@ -14,41 +14,55 @@ use ApplicationException;
 class Page extends CmsCompoundObject
 {
     /**
+     * @var string The container name associated with the model, eg: pages.
+     */
+    protected $dirName = 'pages';
+
+    /**
+     * @var array The attributes that are mass assignable.
+     */
+    protected $fillable = [
+        'url',
+        'layout',
+        'title',
+        'description',
+        'is_hidden',
+        'meta_title',
+        'meta_description',
+        'markup',
+        'settings',
+        'code'
+    ];
+
+    /**
      * @var array The API bag allows the API handler code to bind arbitrary
      * data to the page object.
      */
     public $apiBag = [];
 
-    protected $settingsValidationRules = [
+    /**
+     * @var array The rules to be applied to the data.
+     */
+    public $rules = [
         'title' => 'required',
         'url'   => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|\.\^\\\$]*$/i']
     ];
 
     /**
      * Creates an instance of the object and associates it with a CMS theme.
-     * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
+     * @param array $attributes
      */
-    public function __construct(Theme $theme = null)
+    public function __construct(array $attributes = [])
     {
-        parent::__construct($theme);
+        parent::__construct($attributes);
 
-        $this->settingsValidationMessages = [
+        $this->customMessages = [
             'url.regex' => Lang::get('cms::lang.page.invalid_url')
         ];
     }
 
     protected function parseSettings()
     {
-    }
-
-    /**
-     * Returns the directory name corresponding to the object type.
-     * For pages the directory name is "pages", for layouts - "layouts", etc.
-     * @return string
-     */
-    public static function getObjectTypeDirName()
-    {
-        return 'pages';
     }
 
     /**
@@ -61,7 +75,7 @@ class Page extends CmsCompoundObject
     }
 
     /**
-     * Returns a list of layouts available in the theme. 
+     * Returns a list of layouts available in the theme.
      * This method is used by the form widget.
      * @return array Returns an array of strings.
      */

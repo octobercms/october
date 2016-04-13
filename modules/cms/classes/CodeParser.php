@@ -41,7 +41,7 @@ class CodeParser
     public function __construct(CmsCompoundObject $object)
     {
         $this->object = $object;
-        $this->filePath = $object->getFullPath();
+        $this->filePath = $object->getFilePath();
     }
 
     /**

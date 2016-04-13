@@ -1,5 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
+use App;
+use File;
 use Event;
 use Request;
 use Backend\Classes\FormWidgetBase;
@@ -55,6 +57,7 @@ class RichEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['editorLang'] = $this->getValidEditorLang();
         $this->vars['fullPage'] = $this->fullPage;
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
@@ -116,6 +119,29 @@ class RichEditor extends FormWidgetBase
     {
         $this->addCss('css/richeditor.css', 'core');
         $this->addJs('js/build-min.js', 'core');
+
+        if ($lang = $this->getValidEditorLang()) {
+            $this->addJs('vendor/redactor/lang/'.$lang.'.js', 'core');
+        }
+    }
+
+    /**
+     * Returns a valid language code for Redactor.
+     * @return string|mixed
+     */
+    protected function getValidEditorLang()
+    {
+        $locale = App::getLocale();
+
+        // English is baked in
+        if ($locale == 'en') {
+            return null;
+        }
+
+        $locale = str_replace('-', '_', strtolower($locale));
+        $path = base_path('modules/backend/formwidgets/richeditor/assets/vendor/redactor/lang/'.$locale.'.js');
+
+        return File::exists($path) ? $locale : false;
     }
 
     /**

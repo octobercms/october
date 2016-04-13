@@ -1,7 +1,6 @@
 <?php namespace Backend\Traits;
 
 use Request;
-use SystemException;
 use ApplicationException;
 
 /**
@@ -16,6 +15,9 @@ trait InspectableContainer
 {
     public function onInspectableGetOptions()
     {
+        // Disable asset broadcasting
+        $this->flushAssets();
+
         $property = trim(Request::input('inspectorProperty'));
         if (!$property) {
             throw new ApplicationException('The property name is not specified.');
@@ -31,9 +33,23 @@ trait InspectableContainer
             throw new ApplicationException('The options cannot be loaded for the specified class.');
         }
 
-        $obj = new $className(null);
+        $obj = new $className;
 
-        $methodName = 'get'.ucfirst($property).'Options';
+        // Nested properties have names like object.property.
+        // Convert them to Object.Property.
+        $propertyNameParts = explode('.', $property);
+        $propertyMethodName = '';
+        foreach ($propertyNameParts as $part) {
+            $part = trim($part);
+
+            if (!strlen($part)) {
+                continue;
+            }
+
+            $propertyMethodName .= ucfirst($part);
+        }
+
+        $methodName = 'get'.$propertyMethodName.'Options';
         if (method_exists($obj, $methodName)) {
             $options = $obj->$methodName();
         }

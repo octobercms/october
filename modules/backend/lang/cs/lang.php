@@ -20,7 +20,7 @@ return [
             'cms_link' => 'Zpět do administrace'
         ],
         'invalid_token' => [
-            'label' => 'Neplatný bezpečností token'
+            'label' => 'Neplatný bezpečnostní token',
         ]
     ],
     'partial' => [
@@ -292,10 +292,9 @@ return [
         'app_tagline' => 'Motto aplikace',
         'app_tagline_description' => 'Toto motto se zobrazí na přihlašovací stránce administrace.',
         'colors' => 'Barvy',
-        'primary_light' => 'Primární (světlá)',
-        'primary_dark' => 'Primární (tmavá)',
-        'secondary_light' => 'Sekundární (světlá)',
-        'secondary_dark' => 'Sekundární (tmavá)',
+        'primary_color' => 'Primární color',
+        'secondary_color' => 'Sekundární color',
+        'accent_color' => 'Accent color',
         'styles' => 'Styly',
         'custom_stylesheet' => 'Vlastní kaskádové styly'
     ],

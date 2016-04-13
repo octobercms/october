@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 5.4
   - 5.5
   - 5.6
   - 7.0
@@ -13,7 +12,9 @@ matrix:
 
 sudo: false
 
-install: travis_retry composer install --no-interaction --prefer-source
+install:
+  - composer self-update
+  - travis_retry composer install --no-interaction --prefer-source
 
 before_script: git reset --hard HEAD
 

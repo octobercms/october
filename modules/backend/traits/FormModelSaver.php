@@ -39,7 +39,7 @@ trait FormModelSaver
     /**
      * Sets a data collection to a model attributes, relations will also be set.
      * @param array $saveData Data to save.
-     * @param Model $model Model to save to
+     * @param \October\Rain\Database\Model $model Model to save to
      * @return array The collection of models to save.
      */
     protected function setModelAttributes($model, $saveData)

@@ -18,6 +18,9 @@ use Backend\Models\UserPreferences;
  */
 class UserPreferencesModel extends SettingsModel
 {
+    /**
+     * @var array Internal cache of model objects.
+     */
     private static $instances = [];
 
     /**
@@ -109,6 +112,8 @@ class UserPreferencesModel extends SettingsModel
      */
     protected function getCacheKey()
     {
-        return 'backend::userpreferences.'.$this->recordCode;
+        $item = UserPreferences::forUser();
+        $userId = $item->userContext ? $item->userContext->id : 0;
+        return $this->recordCode.'-userpreference-'.$userId;
     }
 }

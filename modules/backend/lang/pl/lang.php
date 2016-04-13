@@ -138,7 +138,9 @@ return [
         'delete_selected' => 'Usuń zaznaczone',
         'delete_selected_empty' => 'Nie wybrano elementów do usunięcia.',
         'delete_selected_confirm' => 'Usunąć zaznaczone elementy?',
-        'delete_selected_success' => 'Pomyślnie usunięto zaznaczone elementy.'
+        'delete_selected_success' => 'Pomyślnie usunięto zaznaczone elementy.',
+        'column_switch_true' => 'Tak',
+        'column_switch_false' => 'Nie'
     ],
     'fileupload' => [
         'attachment' => 'Załącznik',
@@ -287,10 +289,9 @@ return [
         'app_tagline' => 'Podpis aplikacji',
         'app_tagline_description' => 'Ten podpis jest wyświetlany na ekranie logowania do back-endu',
         'colors' => 'Kolory',
-        'primary_light' => 'Podstawowy (Jasny)',
-        'primary_dark' => 'Podstawowy (Ciemny)',
-        'secondary_light' => 'Dodatkowy (Jasny)',
-        'secondary_dark' => 'Dodatkowy (Ciemny)',
+        'primary_color' => 'Podstawowy color',
+        'secondary_color' => 'Dodatkowy color',
+        'accent_color' => 'Accent color',
         'styles' => 'Style',
         'custom_stylesheet' => 'Własne style'
     ],

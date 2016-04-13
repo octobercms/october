@@ -40,7 +40,8 @@
         dataLocker: null,
         linksHandler: null,
         stylesheet: null,
-        fullpage: false
+        fullpage: false,
+        editorLang: 'en'
     }
 
     RichEditor.prototype.init = function() {
@@ -68,11 +69,13 @@
          * Initialize Redactor editor
          */
         var redactorOptions = {
+            lang: this.options.editorLang,
             imageEditable: true,
             imageResizable: true,
             buttonSource: true,
             removeDataAttr: false,
             toolbarFixed: false,
+            visualCallback: this.proxy(this.onVisualMode),
             syncBeforeCallback: this.proxy(this.onSyncBefore),
             focusCallback: this.proxy(this.onFocus),
             blurCallback: this.proxy(this.onBlur),
@@ -141,7 +144,7 @@
         $(window).on('resize', this.proxy(this.updateLayout))
         $(window).on('oc.updateUi', this.proxy(this.updateLayout))
 
-        this.$textarea.trigger('init.oc.richeditor', [this.$el])
+        this.$textarea.trigger('init.oc.richeditor', [this])
 
         this.initUiBlocks()
 
@@ -153,13 +156,32 @@
         }
     }
 
+    RichEditor.prototype.getElement = function() {
+        return this.$el
+    }
+
+    RichEditor.prototype.getEditor = function() {
+        return this.$editor
+    }
+
+    RichEditor.prototype.getTextarea = function() {
+        return this.$textarea
+    }
+
+    RichEditor.prototype.setContent = function(html) {
+        this.$textarea.redactor('code.set', html)
+
+        this.$textarea.trigger('setContent.oc.richeditor', [this])
+    }
+
     RichEditor.prototype.updateLayout = function() {
         var $editor = $('.redactor-editor', this.$el),
             $codeEditor = $('textarea', this.$el),
             $toolbar = $('.redactor-toolbar', this.$el)
 
-        if (!$editor.length)
+        if (!$editor.length) {
             return
+        }
 
         if (this.$el.hasClass('stretch')) {
             var height = $toolbar.outerHeight(true)
@@ -180,7 +202,7 @@
             this.$editor.prepend('<p><br></p>')
         }
 
-        this.$textarea.trigger('sanitize.oc.richeditor', [this.$editor])
+        this.$textarea.trigger('sanitize.oc.richeditor', [this])
     }
 
     RichEditor.prototype.syncBefore = function(html) {
@@ -188,7 +210,7 @@
             html: html
         }
 
-        this.$textarea.trigger('syncBefore.oc.richeditor', [container])
+        this.$textarea.trigger('syncBefore.oc.richeditor', [this, container])
 
         var $domTree = $('<div>'+container.html+'</div>')
 
@@ -217,8 +239,7 @@
     }
 
     RichEditor.prototype.onShowFigureToolbar = function($figure, $toolbar) {
-        // Deal with the case when the toolbar top has negative
-        // value
+        // Deal with the case when the toolbar top has negative value
         var toolbarTop = $figure.position().top - $toolbar.height() - 10
 
         $toolbar.toggleClass('bottom', toolbarTop < 0)
@@ -231,8 +252,9 @@
         var current = this.redactor.selection.getCurrent(),
             inserted = false
 
-        if (current === false)
+        if (current === false) {
             this.redactor.focus.setStart()
+        }
 
         current = this.redactor.selection.getCurrent()
 
@@ -243,8 +265,9 @@
                 this.redactor.caret.setAfter($paragraph.get(0))
 
                 // If the paragraph is empty, remove it.
-                if ($.trim($paragraph.text()).length == 0)
+                if ($.trim($paragraph.text()).length == 0) {
                     $paragraph.remove()
+                }
             }
             else {
                 // If block is inserted into another UI block, insert it after the existing block.
@@ -256,8 +279,9 @@
             }
         }
 
-        if (!inserted)
+        if (!inserted) {
             this.redactor.insert.node($node)
+        }
 
         this.redactor.code.sync()
 
@@ -275,8 +299,9 @@
     }
 
     RichEditor.prototype.handleUiBlocksKeydown = function(ev) {
-        if (this.$textarea === undefined)
+        if (this.$textarea === undefined) {
             return
+        }
 
         if (ev.target && $(ev.target).attr('data-ui-block') !== undefined) {
             this.uiBlockKeyDown(ev, ev.target)
@@ -350,16 +375,22 @@
     RichEditor.prototype.focusUiBlockOrText = function($block, gotoStart) {
         if ($block.length > 0) {
             if (!this.handleUiBlockCaretIn($block, this.redactor)) {
-                if (gotoStart)
+                if (gotoStart) {
                     this.redactor.caret.setStart($block.get(0))
-                else
+                }
+                else {
                     this.redactor.caret.setEnd($block.get(0))
+                }
             }
         }
     }
 
     // EVENT HANDLERS
     // ============================
+
+    RichEditor.prototype.onVisualMode = function(html) {
+        this.$textarea.trigger('visualMode.oc.richeditor', [this])
+    }
 
     RichEditor.prototype.onSyncBefore = function(html) {
         return this.syncBefore(html)
@@ -374,27 +405,31 @@
     }
 
     RichEditor.prototype.onKeydown = function(ev) {
-        this.$textarea.trigger('keydown.oc.richeditor', [ev, this.$editor, this.$textarea])
+        this.$textarea.trigger('keydown.oc.richeditor', [ev, this])
 
-        if (ev.isDefaultPrevented())
+        if (ev.isDefaultPrevented()) {
             return false
+        }
 
         this.handleUiBlocksKeydown(ev)
 
-        if (ev.isDefaultPrevented())
+        if (ev.isDefaultPrevented()) {
             return false
+        }
     }
 
     RichEditor.prototype.onEnter = function(ev) {
-        this.$textarea.trigger('enter.oc.richeditor', [ev, this.$editor, this.$textarea])
+        this.$textarea.trigger('enter.oc.richeditor', [ev, this])
 
-        if (ev.isDefaultPrevented())
+        if (ev.isDefaultPrevented()) {
             return false
+        }
 
         this.handleUiBlocksKeydown(ev)
 
-        if (ev.isDefaultPrevented())
+        if (ev.isDefaultPrevented()) {
             return false
+        }
     }
 
     RichEditor.prototype.onChange = function(ev) {
@@ -402,8 +437,9 @@
         this.$editor.trigger('mutate')
         this.$form.trigger('change')
 
-        if (this.$dataLocker)
+        if (this.$dataLocker) {
             this.$dataLocker.val(this.syncBefore(this.$editor.html()))
+        }
     }
 
     // RICHEDITOR PLUGIN DEFINITION
@@ -412,22 +448,17 @@
     var old = $.fn.richEditor
 
     $.fn.richEditor = function (option) {
-        var args = arguments;
-
-        return this.each(function () {
+        var args = Array.prototype.slice.call(arguments, 1), result
+        this.each(function () {
             var $this   = $(this)
             var data    = $this.data('oc.richEditor')
             var options = $.extend({}, RichEditor.DEFAULTS, $this.data(), typeof option == 'object' && option)
             if (!data) $this.data('oc.richEditor', (data = new RichEditor(this, options)))
-
-            if (typeof option == 'string') {
-                var methodArgs = [];
-                for (var i=1; i<args.length; i++)
-                    methodArgs.push(args[i])
-
-                data[option].apply(data, methodArgs)
-            }
+            if (typeof option == 'string') result = data[option].apply(data, args)
+            if (typeof result != 'undefined') return false
         })
+
+        return result ? result : this
     }
 
     $.fn.richEditor.Constructor = RichEditor
@@ -435,14 +466,14 @@
     // RICHEDITOR NO CONFLICT
     // =================
 
-    $.fn.richEditor.noConflict = function () {
+    $.fn.richEditor.noConflict = function() {
         $.fn.richEditor = old
         return this
     }
 
     // RICHEDITOR DATA-API
     // ===============
-    $(document).render(function () {
+    $(document).render(function() {
         $('[data-control="richeditor"]').richEditor()
     })
 

@@ -1,0 +1,109 @@
+<div class="permissioneditor" <?= $field->getAttributes() ?>>
+    <table>
+        <?php 
+            $firstTab = true;
+            $globalIndex = 0;
+            foreach ($permissions as $tab=>$tabPermissions): ?>
+            <tr class="section">
+                <th class="tab"><?= e(trans($tab)) ?></th>
+                <th class="permission-type"><?= $firstTab ? e(Lang::get('backend::lang.user.allow')) : '' ?></th>
+
+                <?php if (!$checkboxMode): ?>
+                    <th class="permission-type"><?= $firstTab ? e(Lang::get('backend::lang.user.inherit')) : '' ?></th>
+                    <th class="permission-type"><?= $firstTab ? e(Lang::get('backend::lang.user.deny')) : '' ?></th>
+                <?php endif ?>
+
+                <th></th>
+            </tr>
+
+            <?php 
+                $lastIndex = count($tabPermissions)-1;
+                foreach ($tabPermissions as $index=>$permission): 
+                    $globalIndex++;
+
+                    if (!$checkboxMode) {
+                        $permissionValue = array_key_exists($permission->code, $permissionsData) ? 
+                           $permissionsData[$permission->code] : 0;
+                    } 
+                    else {
+                        $isChecked = array_key_exists($permission->code, $permissionsData);
+                    }
+                ?> 
+                <tr class="<?= $lastIndex == $index ? 'last-section-row' : '' ?>
+                        <?= $checkboxMode ? 'mode-checkbox' : 'mode-radio' ?>
+                        <?= $checkboxMode && !$isChecked ? 'disabled' : '' ?>
+                        <?= !$checkboxMode && $permissionValue == -1 ? 'disabled' : '' ?>
+                    ">
+                    <td class="permission-name">
+                        <?= e(trans($permission->label)) ?>
+
+                        <p class="comment"><?= e(trans($permission->comment)) ?></p>
+                    </td>
+                    <td class="permission-value">
+                        <?php if (!$checkboxMode): ?>
+                            <div class="radio custom-radio">
+                                 <input
+                                    id="<?= 'permission-'.$globalIndex.'-allow' ?>"
+                                    name="<?= e($baseFieldName) ?>[<?= e($permission->code) ?>]"
+                                    value="1"
+                                    type="radio"
+                                    <?= $permissionValue == 1 ? 'checked="checked"' : '' ?>
+                                    data-radio-color="green"
+                                >
+
+                                <label for="<?= 'permission-'.$globalIndex.'-allow' ?>"><span>Allow</span></label>
+                            </div>
+                        <?php else: ?>
+                            <div class="checkbox custom-checkbox">
+                                 <input
+                                    id="<?= 'permission-'.$globalIndex.'-allow' ?>"
+                                    name="<?= e($baseFieldName) ?>[<?= e($permission->code) ?>]"
+                                    value="1"
+                                    type="checkbox"
+                                    <?= $isChecked ? 'checked="checked"' : '' ?>
+                                >
+
+                                <label for="<?= 'permission-'.$globalIndex.'-allow' ?>"><span>Allow</span></label>
+                            </div>
+                        <?php endif?>
+                    </td>
+
+                    <?php if (!$checkboxMode): ?>
+                        <td class="permission-value">
+                            <div class="radio custom-radio">
+                                 <input
+                                    id="<?= 'permission-'.$globalIndex.'-inherit' ?>"
+                                    name="<?= e($baseFieldName) ?>[<?= e($permission->code) ?>]"
+                                    value="0"
+                                    <?= $permissionValue == 0 ? 'checked="checked"' : '' ?>
+                                    type="radio"
+                                >
+
+                                <label for="<?= 'permission-'.$globalIndex.'-inherit' ?>"><span>Inherit</span></label>
+                            </div>
+                        </td>
+                        <td class="permission-value">
+                            <div class="radio custom-radio">
+                                 <input
+                                    id="<?= 'permission-'.$globalIndex.'-deny' ?>"
+                                    name="<?= e($baseFieldName) ?>[<?= e($permission->code) ?>]"
+                                    value="-1"
+                                    <?= $permissionValue == -1 ? 'checked="checked"' : '' ?>
+                                    type="radio"
+                                    data-radio-color="red"
+                                >
+
+                                <label for="<?= 'permission-'.$globalIndex.'-deny' ?>"><span>Deny</span></label>
+                            </div>
+                        </td>
+                    <?php endif ?>
+
+                    <td></td>
+                </tr>
+            <?php endforeach ?>
+        <?php 
+            $firstTab = false;
+            endforeach ?>
+    </table>
+    <div class="permissions-overlay"></div>
+</div>

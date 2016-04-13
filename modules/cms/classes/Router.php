@@ -54,12 +54,12 @@ class Router
     /**
      * @var array Contains the URL map - the list of page file names and corresponding URL patterns.
      */
-    protected static $urlMap = [];
+    protected $urlMap = [];
 
     /**
      * October\Rain\Router\Router Router object with routes preloaded.
      */
-    protected static $routerObj;
+    protected $routerObj;
 
     /**
      * Creates the router instance.
@@ -169,8 +169,8 @@ class Router
      */
     protected function getRouterObject()
     {
-        if (self::$routerObj !== null) {
-            return self::$routerObj;
+        if ($this->routerObj !== null) {
+            return $this->routerObj;
         }
 
         /*
@@ -186,7 +186,7 @@ class Router
          */
         $router->sortRules();
 
-        return self::$routerObj = $router;
+        return $this->routerObj = $router;
     }
 
     /**
@@ -195,11 +195,11 @@ class Router
      */
     protected function getUrlMap()
     {
-        if (!count(self::$urlMap)) {
+        if (!count($this->urlMap)) {
             $this->loadUrlMap();
         }
 
-        return self::$urlMap;
+        return $this->urlMap;
     }
 
     /**
@@ -235,7 +235,7 @@ class Router
                 $map[] = ['file' => $page->getFileName(), 'pattern' => $page->url];
             }
 
-            self::$urlMap = $map;
+            $this->urlMap = $map;
             if ($cacheable) {
                 Cache::put($key, serialize($map), Config::get('cms.urlCacheTtl', 1));
             }
@@ -243,7 +243,7 @@ class Router
             return false;
         }
 
-        self::$urlMap = $unserialized;
+        $this->urlMap = $unserialized;
         return true;
     }
 

@@ -23,6 +23,7 @@
         this.$el = $(element)
 
         this.options = options
+        this.disposed = false
 
         //
         // State properties
@@ -77,11 +78,16 @@
         // Number of records added or deleted during the session
         this.recordsAddedOrDeleted = 0
 
+        // Bound reference to dispose() - ideally the class should use the October foundation library base class
+        this.disposeBound = this.dispose.bind(this)
+
         //
         // Initialization
         //
 
         this.init()
+
+        $.oc.foundation.controlUtils.markDisposable(element)
     }
 
     // INTERNAL METHODS
@@ -136,6 +142,8 @@
     Table.prototype.registerHandlers = function() {
         this.el.addEventListener('click', this.clickHandler)
         this.el.addEventListener('keydown', this.keydownHandler)
+        this.$el.one('dispose-control', this.disposeBound)
+
         document.addEventListener('click', this.documentClickHandler)
 
         if (this.options.postback && this.options.clientDataSourceClass == 'client')
@@ -207,7 +215,7 @@
 
         if (!this.options.height)
             this.dataTableContainer = this.tableContainer
-        else 
+        else
             this.dataTableContainer = this.buildScrollbar()
 
         // Build the data table
@@ -232,7 +240,8 @@
                 // new records can only be added to the bottom of the
                 // table.
                 addBelowButton.textContent = this.options.btnAddRowLabel
-            } else {
+            }
+            else {
                 addBelowButton.textContent = this.options.btnAddRowBelowLabel
 
                 var addAboveButton = document.createElement('a')
@@ -305,7 +314,8 @@
 
         this.unfocusTable()
 
-        this.fetchRecords(function onUpdateDataTableSuccess(records, totalCount){
+
+        this.fetchRecords(function onUpdateDataTableSuccess(records, totalCount) {
             self.buildDataTable(records, totalCount)
 
             if (onSuccess)
@@ -313,6 +323,11 @@
 
             if (totalCount == 0)
                 self.addRecord('above', true)
+
+            self.$el.trigger('oc.tableUpdateData', [
+                records,
+                totalCount
+            ])
 
             self = null
         })
@@ -412,7 +427,7 @@
     Table.prototype.updateScrollbar = function() {
         if (!this.options.height)
             return
-    
+
         $(this.dataTableContainer.parentNode).data('oc.scrollbar').update()
     }
 
@@ -445,7 +460,7 @@
     Table.prototype.commitEditedRow = function() {
         if (this.editedRowKey === null)
             return
-        
+
         var editedRow = this.dataTable.querySelector('tr[data-row="'+this.editedRowKey+'"]')
         if (!editedRow)
             return
@@ -518,7 +533,7 @@
                 this.elementAddClass(this.activeCell, 'active')
         }
 
-        // If the cell belongs to other row than the currently edited, 
+        // If the cell belongs to other row than the currently edited,
         // commit currently edited row to the data source. Update the
         // currently edited row key.
         var rowKey = this.getCellRowKey(cellElement)
@@ -575,7 +590,7 @@
             recordData = {},
             self = this
 
-        recordData[keyColumn] = -1*this.recordsAddedOrDeleted
+        recordData[keyColumn] = -1 * this.recordsAddedOrDeleted
 
         this.$el.trigger('oc.tableNewRow', [
             recordData
@@ -619,11 +634,12 @@
         var keyColumn = this.options.keyColumn,
             newRecordData = {}
 
-        newRecordData[keyColumn] = -1*this.recordsAddedOrDeleted
+        newRecordData[keyColumn] = -1 * this.recordsAddedOrDeleted
 
-        this.dataSource.deleteRecord(key, 
+        this.dataSource.deleteRecord(
+            key,
             newRecordData,
-            this.navigation.getPageFirstRowOffset(), 
+            this.navigation.getPageFirstRowOffset(),
             this.options.recordsPerPage,
             function onDeleteRecordDataTableSuccess(records, totalCount) {
                 self.buildDataTable(records, totalCount)
@@ -770,9 +786,9 @@
                 return
             }
 
-            var fieldName = this.options.alias.indexOf('[') > -1 ? 
-                this.options.alias + '[TableData]' :
-                this.options.alias + 'TableData';
+            var fieldName = this.options.fieldName.indexOf('[') > -1
+                ? this.options.fieldName + '[TableData]'
+                : this.options.fieldName + 'TableData'
 
             data.options.data[fieldName] = this.dataSource.getAllData()
         }
@@ -822,6 +838,16 @@
     // ============================
 
     Table.prototype.dispose = function() {
+        if (this.disposed) {
+            // Prevent errors when legacy code executes the dispose() method
+            // directly, bypassing $.oc.foundation.controlUtils.disposeControls(container)
+            return
+        }
+
+        this.disposed = true
+
+        this.disposeBound = true
+
         // Remove an editor and commit the data if needed
         this.unfocusTable()
 

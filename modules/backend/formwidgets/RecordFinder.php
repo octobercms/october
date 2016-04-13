@@ -16,12 +16,14 @@ use Backend\Classes\FormWidgetBase;
  *        prompt: Click the Find button to find a user
  *        nameFrom: name
  *        descriptionFrom: email
- * 
+ *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
 class RecordFinder extends FormWidgetBase
 {
+    use \Backend\Traits\FormModelWidget;
+
     //
     // Configurable properties
     //
@@ -105,25 +107,6 @@ class RecordFinder extends FormWidgetBase
 
             $this->searchWidget->setActiveTerm(null);
         }
-    }
-
-    /**
-     * Returns the model of a relation type,
-     * supports nesting via HTML array.
-     * @return Relation
-     */
-    protected function getRelationModel()
-    {
-        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-
-        if (!$model->hasRelation($attribute)) {
-            throw new ApplicationException(Lang::get('backend::lang.model.missing_relation', [
-                'class' => get_class($model),
-                'relation' => $attribute
-            ]));
-        }
-
-        return $model->makeRelation($attribute);
     }
 
     /**
@@ -232,7 +215,7 @@ class RecordFinder extends FormWidgetBase
         $config->showSetup = false;
         $config->showCheckboxes = false;
         $config->recordsPerPage = 20;
-        $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':id')", $this->getId());
+        $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':" . $this->keyFrom . "')", $this->getId());
         $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 
         // $widget->bindEvent('list.extendQueryBefore', function($query) {

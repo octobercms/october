@@ -286,10 +286,9 @@ return [
         'app_tagline' => '站点标语',
         'app_tagline_description' => '标语显示在后台的登录界面.',
         'colors' => '颜色',
-        'primary_light' => '主要 (Light)',
-        'primary_dark' => '主要 (Dark)',
-        'secondary_light' => '次要 (Light)',
-        'secondary_dark' => '次要 (Dark)',
+        'primary_color' => '主要 color',
+        'secondary_color' => '次要 color',
+        'accent_color' => 'Accent color',
         'styles' => '样式',
         'custom_stylesheet' => '自定义样式'
     ],

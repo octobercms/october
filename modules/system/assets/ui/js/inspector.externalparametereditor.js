@@ -23,10 +23,11 @@
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype
 
-    var ExternalParameterEditor = function(inspector, propertyDefinition, containerCell) {
+    var ExternalParameterEditor = function(inspector, propertyDefinition, containerCell, initialValue) {
         this.inspector = inspector
         this.propertyDefinition = propertyDefinition
         this.containerCell = containerCell
+        this.initialValue = initialValue
 
         Base.call(this)
 
@@ -43,6 +44,7 @@
         this.inspector = null
         this.propertyDefinition = null
         this.containerCell = null
+        this.initialValue = null
 
         BaseProto.dispose.call(this)
     }
@@ -108,18 +110,16 @@
     }
 
     ExternalParameterEditor.prototype.setInitialValue = function() {
-        var propertyValue = this.inspector.getPropertyValue(this.propertyDefinition.property)
-
-        if (!propertyValue) {
+        if (!this.initialValue) {
             return
         }
 
-        if (typeof propertyValue !== 'string') {
+        if (typeof this.initialValue !== 'string') {
             return
         }
 
         var matches = []
-        if (matches = propertyValue.match(/^\{\{([^\}]+)\}\}$/)) {
+        if (matches = this.initialValue.match(/^\{\{([^\}]+)\}\}$/)) {
             var value = $.trim(matches[1])
 
             if (value.length > 0) {
@@ -219,6 +219,12 @@
                 this.containerCell.setAttribute('data-inspector-cell-height', height)
             }
         }
+
+        // Fixed value instead of trying to get the container cell height.
+        // If the editor is contained in initially hidden editor (collapsed group),
+        // the container cell will be unknown.
+
+        height = Math.max(height, 19)
 
         for (var i = 0, len = children.length; i < len; i++) {
             var element = children[i]

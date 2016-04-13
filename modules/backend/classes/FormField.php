@@ -262,17 +262,18 @@ class FormField
          * Standard config:property values
          */
         $applyConfigValues = [
-            'context',
+            'commentHtml',
             'placeholder',
-            'cssClass',
             'dependsOn',
+            'required',
+            'disabled',
+            'cssClass',
+            'stretch',
+            'context',
+            'hidden',
             'trigger',
             'preset',
             'path',
-            'required',
-            'disabled',
-            'hidden',
-            'stretch',
         ];
 
         foreach ($applyConfigValues as $value) {
@@ -332,11 +333,15 @@ class FormField
      * @param bool $isHtml Set to true if you use HTML formatting in the comment
      * Supported values are 'below' and 'above'
      */
-    public function comment($text, $position = 'below', $isHtml = false)
+    public function comment($text, $position = 'below', $isHtml = null)
     {
         $this->comment = $text;
         $this->commentPosition = $position;
-        $this->commentHtml = $isHtml;
+
+        if ($isHtml !== null) {
+            $this->commentHtml = $isHtml;
+        }
+
         return $this;
     }
 
@@ -541,6 +546,17 @@ class FormField
         }
 
         return HtmlHelper::nameToId($id);
+    }
+
+    /**
+     * Returns a raw config item value.
+     * @param  string $value
+     * @param  string $default
+     * @return mixed
+     */
+    public function getConfig($value, $default = null)
+    {
+        return array_get($this->config, $value, $default);
     }
 
     /**
