@@ -50,6 +50,7 @@ table.table.data {
             font-weight: normal;
             text-transform: uppercase;
             font-size: @font-size-base - 3;
+            white-space: nowrap;
 
             > a, > span {
                 display: block;
@@ -448,92 +449,31 @@ table.table.data {
 }
 
 //
-// Responsive Table
+// Scrollable list control
 //
 
-@media only screen and (max-width: 960px) {
+.list-scrollable-container {
+    position: relative;
 
-    .control-list:not(.list-unresponsive) {
-        table, thead, tbody, th, td, tr {
-            display: block;
-        }
+    .horizontal-scroll-indicators(@color-list-text-head);
 
-        table {
-            position: relative;
-            border-top: 1px solid @color-list-border;
-
-            thead tr {
-                td, th {
-                    position: absolute;
-                    top: -9999px;
-                    left: -9999px;
-                }
-
-                th.list-setup {
-                    position: absolute;
-                    top: auto;
-                    left: auto;
-                    bottom: 0;
-                    right: 0;
-                    border: none!important;
-
-                    a {
-                        padding: 10px 15px;
-                    }
-                }
-            }
-
-            tbody tr {
-                border-bottom: 1px solid @color-list-border;
-
-                td {
-                    border: none;
-                    border-left: 3px solid transparent;
-                    position: relative;
-                    padding-left: 40%!important;
-                    white-space: normal;
-                    text-align: left;
-                    min-height: 40px;
-                }
-
-                td:before {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 35%;
-                    padding: 11px 15px;
-                    white-space: nowrap;
-                    text-align: left;
-                    color: @color-list-text-head;
-                    content: attr(data-title);
-                }
-
-                &:hover {
-                    td:before {
-                        color: white !important;
-                    }
-                }
-
-                &.active {
-                    td {
-                        border-left: 3px solid @color-list-stripe-active;
-                        &:before { color: @color-list-text-active; }
-                    }
-                }
-
-                td.list-setup { display: none; }
-            }
-
-            tfoot tr {
-                td { border: none; }
-            }
-
-            .list-checkbox {
-                width: 100% !important;
-                border-right: none !important;
-                padding-left: 16px !important;
-            }
-        }
+    &:after, &:before {
+        margin-top: 0;
+        height: 41px;
+        padding: 13px 10px;
+        background: #fff;
+        top: 1px;
     }
 
+    &:before {
+        left: 0;
+    }
+
+    &:after {
+        right: 0;
+    }
+
+    > .list-scrollable {
+        overflow: hidden;
+    }
 }

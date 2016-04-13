@@ -13,13 +13,15 @@
  * - drag - callback function to execute when the element is dragged
  * - stop - callback function to execute when the drag ends
  * - vertical - determines if the scroll direction is vertical, true by default
- * - allowScroll - determines if the mouse wheel scrolling is allowed, true by default
  * - scrollClassContainer - if specified, specifies an element or element selector to apply the 'scroll-before' and 'scroll-after' CSS classes,
  *   depending on whether the scrollable area is in its start or end
  * - scrollMarkerContainer - if specified, specifies an element or element selector to inject scroll markers (span elements that con 
  *   contain the ellipses icon, indicating whether scrolling is possible)
- * - noDragSupport - disables the drag support, leaving only the mouse wheel support
- * 
+ * - useDrag - determines if dragging is allowed support, true by default
+ * - useScroll - determines if the mouse wheel scrolling is allowed, true by default
+ * - useComboScroll - determines if horizontal scroll should act as vertical, and vice versa, true by default
+ * - dragSelector - restrict drag events to this selector
+ *
  * Methods:
  * - isStart - determines if the scrollable area is in its start (left or top)
  * - isEnd - determines if the scrollable area is in its end (right or bottom)
@@ -49,6 +51,7 @@
 
         this.el = $el
         this.scrollClassContainer = this.options.scrollClassContainer ? $(this.options.scrollClassContainer) : $el
+        this.isScrollable = true
 
         Base.call(this)
 
@@ -64,17 +67,17 @@
          * Bind events
          */
         $el.mousewheel(function(event){
-            if (!self.options.allowScroll)
+            if (!self.options.useScroll)
                 return;
 
             var offset,
                 offsetX = event.deltaFactor * event.deltaX,
                 offsetY = event.deltaFactor * event.deltaY
 
-            if (!offsetX) {
+            if (!offsetX && self.options.useComboScroll) {
                 offset = offsetY * -1
             }
-            else if (!offsetY) {
+            else if (!offsetY && self.options.useComboScroll) {
                 offset = offsetX
             }
             else {
@@ -84,17 +87,20 @@
             return !scrollWheel(offset)
         })
 
-        if (!options.noDragSupport) {
-            $el.on('mousedown.dragScroll', function(event){
+        if (this.options.useDrag) {
+            $el.on('mousedown.dragScroll', this.options.dragSelector, function(event){
                 if (event.target && event.target.tagName === 'INPUT')
                     return // Don't prevent clicking inputs in the toolbar
+
+                if (!self.isScrollable)
+                    return
 
                 startDrag(event)
                 return false
             })
         }
 
-        $el.on('touchstart.dragScroll', function(event){
+        $el.on('touchstart.dragScroll', this.options.dragSelector, function(event){
             var touchEvent = event.originalEvent;
             if (touchEvent.touches.length == 1) {
                 startDrag(touchEvent.touches[0])
@@ -230,22 +236,28 @@
 
     DragScroll.DEFAULTS = {
         vertical: false,
-        allowScroll: true,
+        useDrag: true,
+        useScroll: true,
+        useComboScroll: true,
         scrollClassContainer: false,
         scrollMarkerContainer: false,
+        dragSelector: null,
         dragClass: 'drag',
-        noDragSupport: false,
         start: function() {},
         drag: function() {},
         stop: function() {}
     }
 
     DragScroll.prototype.fixScrollClasses = function() {
-        this.scrollClassContainer.toggleClass('scroll-before', !this.isStart())
-        this.scrollClassContainer.toggleClass('scroll-after', !this.isEnd())
+        var isStart = this.isStart(),
+            isEnd = this.isEnd()
+
+        this.scrollClassContainer.toggleClass('scroll-before', !isStart)
+        this.scrollClassContainer.toggleClass('scroll-after', !isEnd)
 
         this.scrollClassContainer.toggleClass('scroll-active-before', this.isActiveBefore())
         this.scrollClassContainer.toggleClass('scroll-active-after', this.isActiveAfter())
+        this.isScrollable = !isStart || !isEnd
     }
 
     DragScroll.prototype.isStart = function() {

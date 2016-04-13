@@ -2009,7 +2009,7 @@ this.$toolbar=$toolbar
 this.options=options||{};var noDragSupport=options.noDragSupport!==undefined&&options.noDragSupport
 Base.call(this)
 var scrollClassContainer=options.scrollClassContainer!==undefined?options.scrollClassContainer:$el.parent()
-$el.dragScroll({scrollClassContainer:scrollClassContainer,noDragSupport:noDragSupport})
+$el.dragScroll({scrollClassContainer:scrollClassContainer,useDrag:!noDragSupport})
 $('.form-control.growable',$toolbar).on('focus.toolbar',function(){update()})
 $('.form-control.growable',$toolbar).on('blur.toolbar',function(){update()})
 this.$el.one('dispose-control',this.proxy(this.dispose))
@@ -2685,7 +2685,9 @@ var tr=this.$el.prop('tagName')=='TR'?this.$el:this.$el.find('tr:has(td)')
 tr.each(function(){var link=$(this).find(options.target).filter(function(){return!$(this).closest('td').hasClass(options.excludeClass)&&!$(this).hasClass(options.excludeClass)}).first()
 if(!link.length)return
 var href=link.attr('href'),onclick=(typeof link.get(0).onclick=="function")?link.get(0).onclick:null
-$(this).find('td').not('.'+options.excludeClass).click(function(e){if(onclick)
+$(this).find('td').not('.'+options.excludeClass).click(function(e){if($(document.body).hasClass('drag'))
+return
+if(onclick)
 onclick.apply(link.get(0))
 else if(e.ctrlKey)
 window.open(href);else
@@ -3044,19 +3046,22 @@ var DragScroll=function(element,options){this.options=$.extend({},DragScroll.DEF
 var
 $el=$(element),el=$el.get(0),dragStart=0,startOffset=0,self=this,dragging=false,eventElementName=this.options.vertical?'pageY':'pageX';this.el=$el
 this.scrollClassContainer=this.options.scrollClassContainer?$(this.options.scrollClassContainer):$el
+this.isScrollable=true
 Base.call(this)
 if(this.options.scrollMarkerContainer){$(this.options.scrollMarkerContainer).append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))}
-$el.mousewheel(function(event){if(!self.options.allowScroll)
+$el.mousewheel(function(event){if(!self.options.useScroll)
 return;var offset,offsetX=event.deltaFactor*event.deltaX,offsetY=event.deltaFactor*event.deltaY
-if(!offsetX){offset=offsetY*-1}
-else if(!offsetY){offset=offsetX}
+if(!offsetX&&self.options.useComboScroll){offset=offsetY*-1}
+else if(!offsetY&&self.options.useComboScroll){offset=offsetX}
 else{offset=self.options.vertical?(offsetY*-1):offsetX}
 return!scrollWheel(offset)})
-if(!options.noDragSupport){$el.on('mousedown.dragScroll',function(event){if(event.target&&event.target.tagName==='INPUT')
+if(this.options.useDrag){$el.on('mousedown.dragScroll',this.options.dragSelector,function(event){if(event.target&&event.target.tagName==='INPUT')
+return
+if(!self.isScrollable)
 return
 startDrag(event)
 return false})}
-$el.on('touchstart.dragScroll',function(event){var touchEvent=event.originalEvent;if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
+$el.on('touchstart.dragScroll',this.options.dragSelector,function(event){var touchEvent=event.originalEvent;if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
 event.stopPropagation()}})
 $el.on('click.dragScroll',function(){if($(document.body).hasClass(self.options.dragClass))
 return false})
@@ -3099,11 +3104,13 @@ return scrolled}
 this.fixScrollClasses();}
 DragScroll.prototype=Object.create(BaseProto)
 DragScroll.prototype.constructor=DragScroll
-DragScroll.DEFAULTS={vertical:false,allowScroll:true,scrollClassContainer:false,scrollMarkerContainer:false,dragClass:'drag',noDragSupport:false,start:function(){},drag:function(){},stop:function(){}}
-DragScroll.prototype.fixScrollClasses=function(){this.scrollClassContainer.toggleClass('scroll-before',!this.isStart())
-this.scrollClassContainer.toggleClass('scroll-after',!this.isEnd())
+DragScroll.DEFAULTS={vertical:false,useDrag:true,useScroll:true,useComboScroll:true,scrollClassContainer:false,scrollMarkerContainer:false,dragSelector:null,dragClass:'drag',start:function(){},drag:function(){},stop:function(){}}
+DragScroll.prototype.fixScrollClasses=function(){var isStart=this.isStart(),isEnd=this.isEnd()
+this.scrollClassContainer.toggleClass('scroll-before',!isStart)
+this.scrollClassContainer.toggleClass('scroll-after',!isEnd)
 this.scrollClassContainer.toggleClass('scroll-active-before',this.isActiveBefore())
-this.scrollClassContainer.toggleClass('scroll-active-after',this.isActiveAfter())}
+this.scrollClassContainer.toggleClass('scroll-active-after',this.isActiveAfter())
+this.isScrollable=!isStart||!isEnd}
 DragScroll.prototype.isStart=function(){if(!this.options.vertical){return this.el.scrollLeft()<=0;}
 else{return this.el.scrollTop()<=0;}}
 DragScroll.prototype.isEnd=function(){if(!this.options.vertical){return(this.el[0].scrollWidth-(this.el.scrollLeft()+this.el.width()))<=0}

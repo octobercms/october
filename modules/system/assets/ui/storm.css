@@ -428,7 +428,7 @@ address{margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .bg-p-s20{background-color:#1c9df3}
 .bg-s-s20{background-color:#25496d}
 .bg-a-s20{background-color:#ff7c09}
-.t-ww{word-wrap:break-word}
+.t-ww{word-wrap:break-word;word-break:break-word}
 .pos-r{position:relative !important}
 .pos-a{position:absolute !important}
 .pos-f{position:fixed !important}
@@ -1452,7 +1452,7 @@ to{background-position:0 0}
 .control-tabs > ul.nav-tabs,.control-tabs > div > ul.nav-tabs,.control-tabs > div > div > ul.nav-tabs{white-space:nowrap;font-size:0;overflow:hidden;border-bottom:none;vertical-align:bottom}
 .control-tabs > ul.nav-tabs > li,.control-tabs > div > ul.nav-tabs > li,.control-tabs > div > div > ul.nav-tabs > li{font-size:15px;float:none;display:inline-block;vertical-align:bottom;margin-right:20px;position:relative;z-index:90}
 .control-tabs > ul.nav-tabs > li:last-child,.control-tabs > div > ul.nav-tabs > li:last-child,.control-tabs > div > div > ul.nav-tabs > li:last-child{margin-right:0}
-.control-tabs > ul.nav-tabs > li a,.control-tabs > div > ul.nav-tabs > li a,.control-tabs > div > div > ul.nav-tabs > li a{border-left:none !important;border-top:none !important;border-right:none !important;padding:0 0 10px 0;color:#cccccc;background:#f9f9f9;font-weight:400;overflow:hidden}
+.control-tabs > ul.nav-tabs > li a,.control-tabs > div > ul.nav-tabs > li a,.control-tabs > div > div > ul.nav-tabs > li a{border-left:none !important;border-top:none !important;border-right:none !important;padding:0 0 10px 0;color:#bbbbbb;background:#f9f9f9;font-weight:400;overflow:hidden}
 .control-tabs > ul.nav-tabs > li a:hover,.control-tabs > div > ul.nav-tabs > li a:hover,.control-tabs > div > div > ul.nav-tabs > li a:hover{background-color:transparent;border-bottom-color:transparent}
 .control-tabs > ul.nav-tabs > li a:before,.control-tabs > div > ul.nav-tabs > li a:before,.control-tabs > div > div > ul.nav-tabs > li a:before{font-size:14px}
 .control-tabs > ul.nav-tabs > li a > span.title > span,.control-tabs > div > ul.nav-tabs > li a > span.title > span,.control-tabs > div > div > ul.nav-tabs > li a > span.title > span{max-width:150px;overflow:hidden;text-overflow:ellipsis;display:inline-block;border-top:2px solid #ecf0f1;margin-top:-4px;padding-top:7px}
@@ -1471,10 +1471,10 @@ to{background-position:0 0}
 .control-tabs > div.tab-content > div.tab-pane.pane-padded{padding:20px 20px 0 20px}
 .control-tabs[data-closable] > ul.nav-tabs > li,.control-tabs[data-closable] > div > ul.nav-tabs > li,.control-tabs[data-closable] > div > div > ul.nav-tabs > li{margin-right:5px}
 .control-tabs[data-closable] > ul.nav-tabs > li a,.control-tabs[data-closable] > div > ul.nav-tabs > li a,.control-tabs[data-closable] > div > div > ul.nav-tabs > li a{padding-left:20px !important;padding-right:0 !important}
-.control-tabs[data-closable] > ul.nav-tabs > li span.tab-close,.control-tabs[data-closable] > div > ul.nav-tabs > li span.tab-close,.control-tabs[data-closable] > div > div > ul.nav-tabs > li span.tab-close{display:block;position:absolute;width:20px;height:20px;top:5px;left:-5px;text-align:right;font-size:12px;color:#cccccc !important;cursor:pointer}
+.control-tabs[data-closable] > ul.nav-tabs > li span.tab-close,.control-tabs[data-closable] > div > ul.nav-tabs > li span.tab-close,.control-tabs[data-closable] > div > div > ul.nav-tabs > li span.tab-close{display:block;position:absolute;width:20px;height:20px;top:5px;left:-5px;text-align:right;font-size:12px;color:#bbbbbb !important;cursor:pointer}
 .control-tabs[data-closable] > ul.nav-tabs > li span.tab-close i,.control-tabs[data-closable] > div > ul.nav-tabs > li span.tab-close i,.control-tabs[data-closable] > div > div > ul.nav-tabs > li span.tab-close i{display:inline-block;z-index:101;top:-7px;right:5px;position:relative}
 .control-tabs[data-closable] > ul.nav-tabs > li span.tab-close:hover i,.control-tabs[data-closable] > div > ul.nav-tabs > li span.tab-close:hover i,.control-tabs[data-closable] > div > div > ul.nav-tabs > li span.tab-close:hover i{color:#ab2a1c}
-.control-tabs[data-closable] > ul.nav-tabs > li.active span.close,.control-tabs[data-closable] > div > ul.nav-tabs > li.active span.close,.control-tabs[data-closable] > div > div > ul.nav-tabs > li.active span.close{color:#cccccc}
+.control-tabs[data-closable] > ul.nav-tabs > li.active span.close,.control-tabs[data-closable] > div > ul.nav-tabs > li.active span.close,.control-tabs[data-closable] > div > div > ul.nav-tabs > li.active span.close{color:#bbbbbb}
 .control-tabs[data-closable] > ul.nav-tabs > li[data-modified] span.tab-close i,.control-tabs[data-closable] > div > ul.nav-tabs > li[data-modified] span.tab-close i,.control-tabs[data-closable] > div > div > ul.nav-tabs > li[data-modified] span.tab-close i{top:-4px}
 .control-tabs[data-closable] > ul.nav-tabs > li[data-modified] span.tab-close i:before,.control-tabs[data-closable] > div > ul.nav-tabs > li[data-modified] span.tab-close i:before,.control-tabs[data-closable] > div > div > ul.nav-tabs > li[data-modified] span.tab-close i:before{content:"\f111";font-size:9px}
 .control-tabs.master > ul.nav-tabs > li a,.control-tabs.master-tabs > ul.nav-tabs > li a,.control-tabs.master > div > ul.nav-tabs > li a,.control-tabs.master-tabs > div > ul.nav-tabs > li a,.control-tabs.master > div > div > ul.nav-tabs > li a,.control-tabs.master-tabs > div > div > ul.nav-tabs > li a{font-size:15px;border-bottom:transparent 4px solid;position:relative;z-index:101;line-height:100%}
@@ -2468,7 +2468,7 @@ table td[class*="col-"],table th[class*="col-"]{position:static;float:none;displ
 table.table.data{font-size:13px}
 table.table.data.no-offset-bottom{margin-bottom:0 !important}
 table.table.data thead{background:#ffffff}
-table.table.data thead td,table.table.data thead th{border-width:1px;border-top:1px solid #d4d8da !important;border-bottom:2px solid #d4d8da !important;border-color:#d4d8da;padding:0;font-weight:normal;text-transform:uppercase;font-size:11px}
+table.table.data thead td,table.table.data thead th{border-width:1px;border-top:1px solid #d4d8da !important;border-bottom:2px solid #d4d8da !important;border-color:#d4d8da;padding:0;font-weight:normal;text-transform:uppercase;font-size:11px;white-space:nowrap}
 table.table.data thead td > a,table.table.data thead th > a,table.table.data thead td > span,table.table.data thead th > span{display:block;padding:13px 15px;color:#666666;text-decoration:none}
 table.table.data thead td > a:hover,table.table.data thead th > a:hover,table.table.data thead td > span:hover,table.table.data thead th > span:hover{color:#000000}
 table.table.data thead td.sort-desc > span:after,table.table.data thead th.sort-desc > span:after,table.table.data thead td.sort-desc > a:after,table.table.data thead th.sort-desc > a:after{font-size:14px;line-height:14px;display:inline-block;margin-left:8px;vertical-align:baseline;opacity:0.2;filter:alpha(opacity=20);font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f107"}
@@ -2558,21 +2558,16 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .report-widget .table-container table.table.data{margin-bottom:0}
 .report-widget .table-container table.table.data thead tr th{border-top:none !important}
 .report-widget .table-container table.table.data tbody tr:nth-child(even) td,.report-widget .table-container table.table.data tbody tr:nth-child(even) th{background-color:transparent}
-@media only screen and (max-width:960px){.control-list:not(.list-unresponsive) table,.control-list:not(.list-unresponsive) thead,.control-list:not(.list-unresponsive) tbody,.control-list:not(.list-unresponsive) th,.control-list:not(.list-unresponsive) td,.control-list:not(.list-unresponsive) tr{display:block}
-.control-list:not(.list-unresponsive) table{position:relative;border-top:1px solid #d4d8da}
-.control-list:not(.list-unresponsive) table thead tr td,.control-list:not(.list-unresponsive) table thead tr th{position:absolute;top:-9999px;left:-9999px}
-.control-list:not(.list-unresponsive) table thead tr th.list-setup{position:absolute;top:auto;left:auto;bottom:0;right:0;border:none !important}
-.control-list:not(.list-unresponsive) table thead tr th.list-setup a{padding:10px 15px}
-.control-list:not(.list-unresponsive) table tbody tr{border-bottom:1px solid #d4d8da}
-.control-list:not(.list-unresponsive) table tbody tr td{border:none;border-left:3px solid transparent;position:relative;padding-left:40% !important;white-space:normal;text-align:left;min-height:40px}
-.control-list:not(.list-unresponsive) table tbody tr td:before{position:absolute;top:0;left:0;width:35%;padding:11px 15px;white-space:nowrap;text-align:left;color:#666666;content:attr(data-title)}
-.control-list:not(.list-unresponsive) table tbody tr:hover td:before{color:white !important}
-.control-list:not(.list-unresponsive) table tbody tr.active td{border-left:3px solid #ff9933}
-.control-list:not(.list-unresponsive) table tbody tr.active td:before{color:#000000}
-.control-list:not(.list-unresponsive) table tbody tr td.list-setup{display:none}
-.control-list:not(.list-unresponsive) table tfoot tr td{border:none}
-.control-list:not(.list-unresponsive) table .list-checkbox{width:100% !important;border-right:none !important;padding-left:16px !important}
-}
+.list-scrollable-container{position:relative}
+.list-scrollable-container:after,.list-scrollable-container:before{display:none;position:absolute;top:50%;margin-top:-7px;height:9px;font-size:10px;color:#666666}
+.list-scrollable-container:before{left:-6px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f104"}
+.list-scrollable-container:after{right:-8px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105"}
+.list-scrollable-container.scroll-before:before{display:block}
+.list-scrollable-container.scroll-after:after{display:block}
+.list-scrollable-container:after,.list-scrollable-container:before{margin-top:0;height:41px;padding:13px 10px;background:#fff;top:1px}
+.list-scrollable-container:before{left:0}
+.list-scrollable-container:after{right:0}
+.list-scrollable-container > .list-scrollable{overflow:hidden}
 .inspector-fields{min-width:220px;border-collapse:collapse;width:100%;table-layout:fixed;border-bottom-right-radius:2px;border-bottom-left-radius:2px}
 .inspector-fields td,.inspector-fields th{padding:5px 12px;color:#333333;font-size:12px;width:50%;border-bottom:1px solid #c8cccd;text-align:left}
 .inspector-fields tr:last-child td,.inspector-fields tr:last-child th{border-bottom:none}
