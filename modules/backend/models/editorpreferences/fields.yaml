@@ -71,3 +71,13 @@ fields:
     show_gutter:
         label: backend::lang.editor.show_gutter
         type: checkbox
+
+    keyboardBinding:
+      label: backend::lang.editor.keyboard_binding
+      commentAbove: backend::lang.editor.keyboard_binding_comment
+      type: dropdown
+      options:
+        null: None
+        ace/keyboard/vim: Vim
+        ace/keyboard/emacs: Emacs
+

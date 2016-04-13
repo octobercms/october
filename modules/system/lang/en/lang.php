@@ -162,6 +162,13 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill secret',
         'mandrill_secret_comment' => 'Enter your Mandrill API key.',
+        'ses' => 'SES',
+        'ses_key' => 'SES key',
+        'ses_key_comment' => 'Enter your SES API key',
+        'ses_secret' => 'SES secret',
+        'ses_secret_comment' => 'Enter your SES API secret key',
+        'ses_region' => 'SES region',
+        'ses_region_comment' => 'Enter your SES region (e.g. us-east-1)',
         'drivers_hint_header' => 'Drivers not installed',
         'drivers_hint_content' => 'This mail method requires the plugin ":plugin" be installed before you can send mail.'
     ],

@@ -53,6 +53,7 @@ class EditorPreferences extends Controller
         $this->vars['showGutter'] = true;
         $this->vars['language'] = 'css';
         $this->vars['margin'] = 0;
+        $this->vars['keyboardBinding'] = $editorSettings->keyboardBinding;
 
         $this->asExtension('FormController')->update();
         $this->pageTitle = 'backend::lang.editor.menu_label';

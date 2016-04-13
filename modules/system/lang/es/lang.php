@@ -164,6 +164,13 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill secret',
         'mandrill_secret_comment' => 'Introduzca su key de Mandrill API.',
+        'ses' => 'SES',
+        'ses_key' => 'SES key',
+        'ses_key_comment' => 'Introduzca su key de SES API',
+        'ses_secret' => 'SES secret',
+        'ses_secret_comment' => 'Introduzca su key de SES API',
+        'ses_region' => 'Región SES',
+        'ses_region_comment' => 'Introduzca su región SES (e.g. us-east-1)',
         'drivers_hint_header' => 'Drivers no instalados',
         'drivers_hint_content' => 'Este método de correo electrónico requiere que el plugin ":plugin" este instalado antes de poder enviar correo.'
     ],
