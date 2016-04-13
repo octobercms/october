@@ -21,6 +21,7 @@
  * - useScroll - determines if the mouse wheel scrolling is allowed, true by default
  * - useComboScroll - determines if horizontal scroll should act as vertical, and vice versa, true by default
  * - dragSelector - restrict drag events to this selector
+ * - scrollSelector - restrict scroll events to this selector
  *
  * Methods:
  * - isStart - determines if the scrollable area is in its start (left or top)
@@ -66,7 +67,9 @@
         /*
          * Bind events
          */
-        $el.mousewheel(function(event){
+        var $scrollSelect = this.options.scrollSelector ? $(this.options.scrollSelector, $el) : $el
+
+        $scrollSelect.mousewheel(function(event){
             if (!self.options.useScroll)
                 return;
 
@@ -241,6 +244,7 @@
         useComboScroll: true,
         scrollClassContainer: false,
         scrollMarkerContainer: false,
+        scrollSelector: null,
         dragSelector: null,
         dragClass: 'drag',
         start: function() {},

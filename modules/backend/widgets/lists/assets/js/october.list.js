@@ -18,7 +18,7 @@
 
         $el.dragScroll({
             scrollClassContainer: scrollClassContainer,
-            useComboScroll: false,
+            scrollSelector: 'thead',
             dragSelector: 'thead'
         })
 

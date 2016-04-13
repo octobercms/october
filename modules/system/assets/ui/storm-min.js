@@ -3049,7 +3049,8 @@ this.scrollClassContainer=this.options.scrollClassContainer?$(this.options.scrol
 this.isScrollable=true
 Base.call(this)
 if(this.options.scrollMarkerContainer){$(this.options.scrollMarkerContainer).append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))}
-$el.mousewheel(function(event){if(!self.options.useScroll)
+var $scrollSelect=this.options.scrollSelector?$(this.options.scrollSelector,$el):$el
+$scrollSelect.mousewheel(function(event){if(!self.options.useScroll)
 return;var offset,offsetX=event.deltaFactor*event.deltaX,offsetY=event.deltaFactor*event.deltaY
 if(!offsetX&&self.options.useComboScroll){offset=offsetY*-1}
 else if(!offsetY&&self.options.useComboScroll){offset=offsetX}
@@ -3104,7 +3105,7 @@ return scrolled}
 this.fixScrollClasses();}
 DragScroll.prototype=Object.create(BaseProto)
 DragScroll.prototype.constructor=DragScroll
-DragScroll.DEFAULTS={vertical:false,useDrag:true,useScroll:true,useComboScroll:true,scrollClassContainer:false,scrollMarkerContainer:false,dragSelector:null,dragClass:'drag',start:function(){},drag:function(){},stop:function(){}}
+DragScroll.DEFAULTS={vertical:false,useDrag:true,useScroll:true,useComboScroll:true,scrollClassContainer:false,scrollMarkerContainer:false,scrollSelector:null,dragSelector:null,dragClass:'drag',start:function(){},drag:function(){},stop:function(){}}
 DragScroll.prototype.fixScrollClasses=function(){var isStart=this.isStart(),isEnd=this.isEnd()
 this.scrollClassContainer.toggleClass('scroll-before',!isStart)
 this.scrollClassContainer.toggleClass('scroll-after',!isEnd)

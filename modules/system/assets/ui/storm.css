@@ -2564,7 +2564,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .list-scrollable-container:after{right:-8px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105"}
 .list-scrollable-container.scroll-before:before{display:block}
 .list-scrollable-container.scroll-after:after{display:block}
-.list-scrollable-container:after,.list-scrollable-container:before{margin-top:0;height:41px;padding:13px 10px;background:#fff;top:1px}
+.list-scrollable-container:after,.list-scrollable-container:before{margin-top:0;height:40px;padding:13px 10px;background:#fff;top:1px}
 .list-scrollable-container:before{left:0}
 .list-scrollable-container:after{right:0}
 .list-scrollable-container > .list-scrollable{overflow:hidden}
