@@ -31,6 +31,7 @@ class EditorPreferences extends Model
         $this->use_hard_tabs = $config->get('editor.use_hard_tabs', false);
         $this->show_gutter = $config->get('editor.show_gutter', true);
         $this->auto_closing = $config->get('editor.auto_closing', true);
+        $this->keyboardBinding = $config->get('editor.keyboardBinding', true);
     }
 
     public static function applyConfigValues()
@@ -47,6 +48,7 @@ class EditorPreferences extends Model
         $config->set('editor.use_hard_tabs', $settings->use_hard_tabs);
         $config->set('editor.show_gutter', $settings->show_gutter);
         $config->set('editor.auto_closing', $settings->auto_closing);
+        $config->set('editor.keyboardBinding', $settings->keyboardBinding);
     }
 
     public function getThemeOptions()
