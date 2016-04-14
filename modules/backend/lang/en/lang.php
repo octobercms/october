@@ -310,7 +310,11 @@ return [
         'secondary_color' => 'Secondary color',
         'accent_color' => 'Accent color',
         'styles' => 'Styles',
-        'custom_stylesheet' => 'Custom stylesheet'
+        'custom_stylesheet' => 'Custom stylesheet',
+        'navbar_mode' => 'Navbar style',
+        'navbar_mode_inline' => 'Inline',
+        'navbar_mode_tiles' => 'Tiles',
+        'navbar_mode_collapse' => 'Collapse'
     ],
     'backend_preferences' => [
         'menu_label' => 'Back-end preferences',

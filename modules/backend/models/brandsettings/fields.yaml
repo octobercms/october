@@ -49,5 +49,14 @@ tabs:
             tab: backend::lang.branding.styles
             size: giant
             language: css
-
+            
+        navbar_mode:
+            label: backend::lang.branding.navbar_mode
+            type: dropdown
+            tab: backend::lang.branding.styles
+            span: left
+            options:
+                inline: backend::lang.branding.navbar_mode_inline
+                tiles: backend::lang.branding.navbar_mode_tiles
+                collapse: backend::lang.branding.navbar_mode_collapse
 
