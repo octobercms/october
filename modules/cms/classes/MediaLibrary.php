@@ -88,7 +88,7 @@ class MediaLibrary
          */
 
         $cached = Cache::get('cms-media-library-contents', false);
-        $cached = $cached ? @unserialize($cached) : [];
+        $cached = $cached ? @unserialize(@base64_decode($cached)) : [];
 
         if (!is_array($cached)) {
             $cached = [];
@@ -101,7 +101,11 @@ class MediaLibrary
             $folderContents = $this->scanFolderContents($fullFolderPath);
 
             $cached[$fullFolderPath] = $folderContents;
-            Cache::put(self::CACHE_KEY, serialize($cached), Config::get('cms.storage.media.ttl', 10));
+            Cache::put(
+                self::CACHE_KEY,
+                base64_encode(serialize($cached)),
+                Config::get('cms.storage.media.ttl', 10)
+            );
         }
 
         /*

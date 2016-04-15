@@ -637,11 +637,11 @@ class UpdateManager
         $cacheKey = 'system-updates-popular-'.$type;
 
         if (Cache::has($cacheKey)) {
-            return @unserialize(Cache::get($cacheKey)) ?: [];
+            return @unserialize(@base64_decode(Cache::get($cacheKey))) ?: [];
         }
 
         $data = $this->requestServerData($type.'/popular');
-        Cache::put($cacheKey, serialize($data), 60);
+        Cache::put($cacheKey, base64_encode(serialize($data)), 60);
 
         foreach ($data as $product) {
             $code = array_get($product, 'code', -1);
@@ -659,7 +659,7 @@ class UpdateManager
         $cacheKey = 'system-updates-product-details';
 
         if (Cache::has($cacheKey)) {
-            $this->productCache = @unserialize(Cache::get($cacheKey)) ?: $defaultCache;
+            $this->productCache = @unserialize(@base64_decode(Cache::get($cacheKey))) ?: $defaultCache;
         }
         else {
             $this->productCache = $defaultCache;
@@ -674,7 +674,7 @@ class UpdateManager
 
         $cacheKey = 'system-updates-product-details';
         $expiresAt = Carbon::now()->addDays(2);
-        Cache::put($cacheKey, serialize($this->productCache), $expiresAt);
+        Cache::put($cacheKey, base64_encode(serialize($this->productCache)), $expiresAt);
     }
 
     protected function cacheProductDetail($type, $code, $data)

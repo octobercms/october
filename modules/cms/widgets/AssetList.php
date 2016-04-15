@@ -293,7 +293,7 @@ class AssetList extends WidgetBase
         $this->listDestinationDirectories($directories, $selectedList);
 
         $this->vars['directories'] = $directories;
-        $this->vars['selectedList'] = serialize(array_keys($selectedList));
+        $this->vars['selectedList'] = base64_encode(serialize(array_keys($selectedList)));
         return $this->makePartial('move_form');
     }
 
@@ -316,7 +316,7 @@ class AssetList extends WidgetBase
             throw new ApplicationException(Lang::get('cms::lang.asset.destination_not_found'));
         }
 
-        $list = @unserialize($selectedList);
+        $list = @unserialize(@base64_decode($selectedList));
         if ($list === false) {
             throw new ApplicationException(Lang::get('cms::lang.asset.selected_files_not_found'));
         }

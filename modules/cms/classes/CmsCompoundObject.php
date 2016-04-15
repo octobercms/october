@@ -268,7 +268,7 @@ class CmsCompoundObject extends CmsObject
         }
         else {
             $cached = Cache::get($key, false);
-            $unserialized = $cached ? @unserialize($cached) : false;
+            $unserialized = $cached ? @unserialize(@base64_decode($cached)) : false;
             $objectComponentMap = $unserialized ? $unserialized : [];
             if ($objectComponentMap) {
                 self::$objectComponentPropertyMap = $objectComponentMap;
@@ -312,7 +312,7 @@ class CmsCompoundObject extends CmsObject
 
         self::$objectComponentPropertyMap = $objectComponentMap;
 
-        Cache::put($key, serialize($objectComponentMap), Config::get('cms.parsedPageCacheTTL', 10));
+        Cache::put($key, base64_encode(serialize($objectComponentMap)), Config::get('cms.parsedPageCacheTTL', 10));
 
         if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
             return $objectComponentMap[$objectCode][$componentName];

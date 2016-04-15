@@ -117,7 +117,11 @@ class Router
                             : $fileName;
 
                         $key = $this->getUrlListCacheKey();
-                        Cache::put($key, serialize($urlList), Config::get('cms.urlCacheTtl', 1));
+                        Cache::put(
+                            $key,
+                            base64_encode(serialize($urlList)),
+                            Config::get('cms.urlCacheTtl', 1)
+                        );
                     }
                 }
             }
@@ -221,7 +225,7 @@ class Router
             $cached = false;
         }
 
-        if (!$cached || ($unserialized = @unserialize($cached)) === false) {
+        if (!$cached || ($unserialized = @unserialize(@base64_decode($cached))) === false) {
             /*
              * The item doesn't exist in the cache, create the map
              */
@@ -237,7 +241,7 @@ class Router
 
             $this->urlMap = $map;
             if ($cacheable) {
-                Cache::put($key, serialize($map), Config::get('cms.urlCacheTtl', 1));
+                Cache::put($key, base64_encode(serialize($map)), Config::get('cms.urlCacheTtl', 1));
             }
 
             return false;
@@ -327,7 +331,11 @@ class Router
         $key = $this->getUrlListCacheKey();
         $urlList = Cache::get($key, false);
 
-        if ($urlList && ($urlList = @unserialize($urlList)) && is_array($urlList)) {
+        if (
+            $urlList &&
+            ($urlList = @unserialize(@base64_decode($urlList))) &&
+            is_array($urlList)
+        ) {
             if (array_key_exists($url, $urlList)) {
                 return $urlList[$url];
             }
