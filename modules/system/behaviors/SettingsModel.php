@@ -1,7 +1,7 @@
 <?php namespace System\Behaviors;
 
+use App;
 use Cache;
-use DbDongle;
 use System\Classes\ModelBehavior;
 use ApplicationException;
 
@@ -103,7 +103,7 @@ class SettingsModel extends ModelBehavior
      */
     public function isConfigured()
     {
-        return DbDongle::hasDatabase() && $this->getSettingsRecord() !== null;
+        return App::hasDatabase() && $this->getSettingsRecord() !== null;
     }
 
     /**

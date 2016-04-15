@@ -8,7 +8,6 @@ use Lang;
 use Cache;
 use Event;
 use Config;
-use DbDongle;
 use Cms\Models\ThemeData;
 use System\Models\Parameters;
 use October\Rain\Halcyon\Datasource\FileDatasource;
@@ -147,7 +146,7 @@ class Theme
     {
         $activeTheme = Config::get('cms.activeTheme');
 
-        if (DbDongle::hasDatabase()) {
+        if (App::hasDatabase()) {
             $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function() {
                 return Parameters::applyKey(self::ACTIVE_KEY)->pluck('value');
             });
