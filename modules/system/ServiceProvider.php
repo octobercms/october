@@ -207,7 +207,7 @@ class ServiceProvider extends ModuleServiceProvider
          * Add CMS based cache clearing to native command
          */
         Event::listen('cache:cleared', function() {
-            \System\Helpers\Cache::clear();
+            \System\Helpers\Cache::clearInternal();
         });
 
         /*
