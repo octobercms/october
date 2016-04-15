@@ -1,9 +1,9 @@
 <?php
     $activeItem = BackendMenu::getActiveMainMenuItem();
     $mySettings = System\Classes\SettingsManager::instance()->listItems('mysettings');
-    $navbarMode = 'navbar-mode-inline'; // Supported: inline, tile, collapse.
+    $navbarMode = Backend\Models\BrandSettings::get('menu_mode', 'inline');
 ?>
-<nav class="navbar control-toolbar <?= $navbarMode ?>" id="layout-mainmenu" role="navigation">
+<nav class="navbar control-toolbar navbar-mode-<?= $navbarMode ?>" id="layout-mainmenu" role="navigation">
     <div class="toolbar-item toolbar-primary">
         <div data-control="toolbar">
             <a class="menu-toggle" href="javascript:;">

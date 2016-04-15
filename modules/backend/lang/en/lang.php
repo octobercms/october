@@ -306,6 +306,7 @@ return [
         'app_tagline' => 'App Tagline',
         'app_tagline_description' => 'This name is shown on the sign in screen for the back-end.',
         'colors' => 'Colors',
+        'appearance' => 'Appearance',
         'primary_color' => 'Primary color',
         'secondary_color' => 'Secondary color',
         'accent_color' => 'Accent color',
