@@ -9,8 +9,9 @@
             class="field-datepicker"
             data-control="datepicker"
             data-format="<?= $format ?>"
-            data-min-date="<?= $minDate ?>"
-            data-max-date="<?= $maxDate ?>">
+            <?php if ($minDate): ?>data-min-date="<?= $minDate ?>"<?php endif ?>
+            <?php if ($maxDate): ?>data-max-date="<?= $maxDate ?>"<?php endif ?>
+            >
             <div class="input-with-icon right-align">
                 <i class="icon icon-calendar-o"></i>
                 <input
@@ -34,8 +35,9 @@
                     class="field-datepicker"
                     data-control="datepicker"
                     data-format="<?= $format ?>"
-                    data-min-date="<?= $minDate ?>"
-                    data-max-date="<?= $maxDate ?>">
+                    <?php if ($minDate): ?>data-min-date="<?= $minDate ?>"<?php endif ?>
+                    <?php if ($maxDate): ?>data-max-date="<?= $maxDate ?>"<?php endif ?>
+                    >
                     <div class="input-with-icon right-align">
                         <i class="icon icon-calendar-o"></i>
                         <input

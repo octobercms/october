@@ -386,11 +386,14 @@ this.$input=this.$el.find('input:first')
 var $form=this.$el.closest('form'),changeMonitor=$form.data('oc.changeMonitor')
 if(changeMonitor!==undefined)
 changeMonitor.pause()
-this.$input.pikaday({minDate:new Date(options.minDate),maxDate:new Date(options.maxDate),yearRange:options.yearRange,setDefaultDate:moment(this.$input.val()).toDate(),i18n:$.oc.lang.get('datepicker'),onOpen:function(){var $field=$(this._o.trigger)
-$(this.el).css({left:'auto',right:$(window).width()-$field.offset().left-$field.outerWidth()})}})
+var pikadayOptions={yearRange:options.yearRange,format:options.format,setDefaultDate:moment(this.$input.val()).toDate(),i18n:$.oc.lang.get('datepicker'),onOpen:function(){var $field=$(this._o.trigger)
+$(this.el).css({left:'auto',right:$(window).width()-$field.offset().left-$field.outerWidth()})}}
+if(options.minDate){pikadayOptions.minDate=new Date(options.minDate)}
+if(options.maxDate){pikadayOptions.maxDate=new Date(options.maxDate)}
+this.$input.pikaday(pikadayOptions)
 if(changeMonitor!==undefined)
 changeMonitor.resume()}
-DatePicker.DEFAULTS={minDate:'2000-01-01',maxDate:'2020-12-31',yearRange:10}
+DatePicker.DEFAULTS={minDate:null,maxDate:null,format:'YYYY-MM-DD',yearRange:10}
 var old=$.fn.datePicker
 $.fn.datePicker=function(option){var args=Array.prototype.slice.call(arguments,1)
 return this.each(function(){var $this=$(this)

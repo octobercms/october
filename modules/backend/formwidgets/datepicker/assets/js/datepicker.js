@@ -35,9 +35,7 @@
         if (changeMonitor !== undefined)
             changeMonitor.pause()
 
-        this.$input.pikaday({
-            minDate: new Date(options.minDate),
-            maxDate: new Date(options.maxDate),
+        var pikadayOptions = {
             yearRange: options.yearRange,
             format: options.format,
             setDefaultDate: moment(this.$input.val()).toDate(),
@@ -50,15 +48,25 @@
                     right: $(window).width() - $field.offset().left - $field.outerWidth()
                 })
             }
-        })
+        }
+
+        if (options.minDate) {
+            pikadayOptions.minDate = new Date(options.minDate)
+        }
+
+        if (options.maxDate) {
+            pikadayOptions.maxDate = new Date(options.maxDate)
+        }
+
+        this.$input.pikaday(pikadayOptions)
 
         if (changeMonitor !== undefined)
             changeMonitor.resume()
     }
 
     DatePicker.DEFAULTS = {
-        minDate: '2000-01-01',
-        maxDate: '2020-12-31',
+        minDate: null,
+        maxDate: null,
         format: 'YYYY-MM-DD',
         yearRange: 10
     }
