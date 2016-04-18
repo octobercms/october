@@ -1,8 +1,9 @@
 /*
  * DatePicker plugin
- * 
+ *
  * Data attributes:
  * - data-control="datepicker" - enables the plugin on an element
+ * - data-format="value" - display format
  * - data-min-date="value" - minimum date to allow
  * - data-max-date="value" - maximum date to allow
  * - data-year-range="value" - range of years to display
@@ -38,6 +39,7 @@
             minDate: new Date(options.minDate),
             maxDate: new Date(options.maxDate),
             yearRange: options.yearRange,
+            format: options.format,
             setDefaultDate: moment(this.$input.val()).toDate(),
             i18n: $.oc.lang.get('datepicker'),
             onOpen: function() {
@@ -57,6 +59,7 @@
     DatePicker.DEFAULTS = {
         minDate: '2000-01-01',
         maxDate: '2020-12-31',
+        format: 'YYYY-MM-DD',
         yearRange: 10
     }
 

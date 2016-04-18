@@ -20,6 +20,11 @@ class DatePicker extends FormWidgetBase
     //
 
     /**
+     * @var string Display format.
+     */
+    public $format = 'YYYY-MM-DD';
+
+    /**
      * @var bool Display mode: datetime, date, time.
      */
     public $mode = 'datetime';
@@ -49,6 +54,7 @@ class DatePicker extends FormWidgetBase
     public function init()
     {
         $this->fillFromConfig([
+            'format',
             'mode',
             'minDate',
             'maxDate',
@@ -119,6 +125,7 @@ class DatePicker extends FormWidgetBase
 
         $this->vars['value'] = $value ?: '';
         $this->vars['field'] = $this->formField;
+        $this->vars['format'] = $this->format;
         $this->vars['mode'] = $this->mode;
         $this->vars['minDate'] = $this->minDate;
         $this->vars['maxDate'] = $this->maxDate;
