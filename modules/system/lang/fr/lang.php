@@ -162,6 +162,13 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Clé secrète Mandrill',
         'mandrill_secret_comment' => 'Saisir la clé de l’API Mandrill.',
+        'ses' => 'SES',
+        'ses_key' => 'Clé SES',
+        'ses_key_comment' => 'Saisir la clé de l’API SES',
+        'ses_secret' => 'Clé secrète SES',
+        'ses_secret_comment' => 'Saisir la clé secrète de l’API SES',
+        'ses_region' => 'Région SES',
+        'ses_region_comment' => 'Saisir la région SES (e.g. us-east-1)',
         'drivers_hint_header' => 'Les drivers ne sont pas installés',
         'drivers_hint_content' => 'Cette méthode d’envoi d’e-mails nécessite que le plugin ":plugin" soit installé avant de pouvoir envoyer des e-mails.'
     ],
