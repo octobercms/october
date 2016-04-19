@@ -163,7 +163,11 @@ return [
         'hidden'           => 'Oculto',
         'hidden_comment'   => 'A las páginas ocultas sólo pueden acceder los usuarios del back-end que se encuentren logueados.',
         'enter_fullscreen' => 'Ingresar en el modo pantalla completa',
-        'exit_fullscreen'  => 'Salir de pantalla completa'
+        'exit_fullscreen'  => 'Salir de pantalla completa',
+        'open_searchbox' => 'Abrir caja de busqueda',
+        'close_searchbox'  => 'Cerrar caja de busqueda',
+		'open_replacebox' => 'Abrir caja de reemplazo',
+        'close_replacebox'  => 'Cerrar caja de reemplazo'
     ],
     'asset' => [
         'menu_label'                   => 'Assets',

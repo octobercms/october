@@ -164,7 +164,11 @@ return [
         'hidden' => 'Hidden',
         'hidden_comment' => 'Hidden pages are accessible only by logged-in back-end users.',
         'enter_fullscreen' => 'Enter fullscreen mode',
-        'exit_fullscreen' => 'Exit fullscreen mode'
+        'exit_fullscreen' => 'Exit fullscreen mode',
+        'open_searchbox' => 'Open Search box',
+        'close_searchbox'  => 'Close Search box',
+		'open_replacebox' => 'Open Replace box',
+        'close_replacebox'  => 'Close Replace box'
     ],
     'asset' => [
         'menu_label' => 'Assets',

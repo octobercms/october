@@ -281,6 +281,11 @@ return [
         'auto_closing' => 'Auto close tags and special characters',
         'show_invisibles' => 'Show invisible characters',
         'show_gutter' => 'Show gutter',
+	'enable_basic_autocompletion'=> 'Enable Basic Autocompletion(Ctrl+Space)',
+	'enable_snippets'=> 'Enable use of Snippets',
+	'enable_live_autocompletion'=> 'Enable Live Autocompletion',
+	'display_indent_guides'=> 'Show Display Indent Guides',
+	'show_print_margin'=> 'Show Print Margin',
         'theme' => 'Color scheme'
     ],
     'tooltips' => [

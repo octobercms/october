@@ -72,6 +72,31 @@ class CodeEditor extends FormWidgetBase
      */
     public $readOnly = false;
 
+    /**
+     * @var boolean If true, the editor activate Basic Autocompletion if press Ctrl+Space
+     */	
+	public $enableBasicAutocompletion = true;
+	
+    /**
+     * @var boolean If true, the editor activate use Snippets
+     */	
+	public $enableSnippets = true;
+	
+    /**
+     * @var boolean If true, the editor activate Live Autocompletion mode
+     */	
+	public $enableLiveAutocompletion = true;
+	
+    /**
+     * @var boolean If true, the editor show Indent Guides
+     */	
+	public $displayIndentGuides = true;
+	
+    /**
+     * @var boolean If true, the editor show Print Margin
+     */	
+	public $showPrintMargin = false;	
+	
     //
     // Object properties
     //
@@ -99,7 +124,12 @@ class CodeEditor extends FormWidgetBase
             'fontSize',
             'margin',
             'theme',
-            'readOnly'
+            'readOnly',
+	    'enableBasicAutocompletion',
+	    'enableSnippets',
+	    'enableLiveAutocompletion',
+	    'displayIndentGuides',
+	    'showPrintMargin'
         ]);
     }
 
@@ -133,6 +163,11 @@ class CodeEditor extends FormWidgetBase
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->formField->getName();
         $this->vars['readOnly'] = $this->readOnly;
+        $this->vars['enableBasicAutocompletion'] = $this->enableBasicAutocompletion;
+	$this->vars['enableSnippets'] = $this->enableSnippets;
+        $this->vars['enableLiveAutocompletion'] = $this->enableLiveAutocompletion;
+        $this->vars['displayIndentGuides'] = $this->displayIndentGuides;
+        $this->vars['showPrintMargin'] = $this->showPrintMargin;
 
         // Double encode when escaping
         $this->vars['value'] = htmlentities($this->getLoadValue(), ENT_QUOTES, 'UTF-8', true);
@@ -166,6 +201,11 @@ class CodeEditor extends FormWidgetBase
         $this->highlightActiveLine = $editorSettings->highlight_active_line;
         $this->useSoftTabs = !$editorSettings->use_hard_tabs;
         $this->showGutter = $editorSettings->show_gutter;
+        $this->enableBasicAutocompletion = $editorSettings->enable_basic_autocompletion;
+	$this->enableSnippets = $editorSettings->enable_snippets;
+        $this->enableLiveAutocompletion = $editorSettings->enable_live_autocompletion;
+        $this->displayIndentGuides = $editorSettings->display_indent_guides;
+	$this->showPrintMargin = $editorSettings->show_print_margin;
     }
 
 }
