@@ -1073,7 +1073,10 @@ class Lists extends WidgetBase
         $term = $this->searchTerm;
 
         if ($scopeMethod = $this->searchScope) {
-            $query->$scopeMethod($term);
+            $searchMethod = $boolean == 'and' ? 'where' : 'orWhere';
+            $query->$searchMethod(function($q) use ($term, $scopeMethod) {
+                $q->$scopeMethod($term);
+            });
         }
         else {
             $searchMethod = $boolean == 'and' ? 'searchWhere' : 'orSearchWhere';
