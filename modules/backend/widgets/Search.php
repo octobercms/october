@@ -31,6 +31,16 @@ class Search extends WidgetBase
      */
     public $partial;
 
+    /**
+     * @var string Defines the search mode. Commonly passed to the searchWhere() query.
+     */
+    public $mode;
+
+    /**
+     * @var string Custom scope method name. Commonly passed to the query.
+     */
+    public $scope;
+
     //
     // Object properties
     //
@@ -59,6 +69,8 @@ class Search extends WidgetBase
             'prompt',
             'partial',
             'growable',
+            'scope',
+            'mode',
         ]);
 
         /*
