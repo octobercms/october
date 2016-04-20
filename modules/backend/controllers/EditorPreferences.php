@@ -54,8 +54,8 @@ class EditorPreferences extends Controller
         $this->vars['language'] = 'css';
         $this->vars['margin'] = 0;
         $this->vars['enableBasicAutocompletion'] = $editorSettings->enable_basic_autocompletion;
-	$this->vars['enableSnippets'] = $editorSettings->enable_snippets;
         $this->vars['enableLiveAutocompletion'] = $editorSettings->enable_live_autocompletion;
+        $this->vars['enableSnippets'] = $editorSettings->enable_snippets;
         $this->vars['displayIndentGuides'] = $editorSettings->display_indent_guides;
         $this->vars['showPrintMargin'] = $editorSettings->show_print_margin;
         $this->asExtension('FormController')->update();

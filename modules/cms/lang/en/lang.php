@@ -167,7 +167,7 @@ return [
         'exit_fullscreen' => 'Exit fullscreen mode',
         'open_searchbox' => 'Open Search box',
         'close_searchbox'  => 'Close Search box',
-		'open_replacebox' => 'Open Replace box',
+        'open_replacebox' => 'Open Replace box',
         'close_replacebox'  => 'Close Replace box'
     ],
     'asset' => [
