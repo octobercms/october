@@ -7,26 +7,28 @@
     background-color: @background;
     border-color: @border;
 
+    #gradient > .vertical(@start-color: mix(white, @background, 5%); @end-color: mix(black, @background, 5%));
+
     &:hover,
     &:focus,
     &:active,
     &.active,
     .open .dropdown-toggle& {
         color: @color;
-        background-color: @background-hover;
+        background: @background-hover;
         border-color: @border-hover;
     }
 
     &:active,
     &.active,
     .open .dropdown-toggle& {
-        background-color: darken(@background-hover, 8%);
+        background: darken(@background-hover, 8%);
         border-color: darken(@border-hover, 12%);
         background-image: none;
     }
 
     &.on {
-        background-color: darken(@background, 12%);
+        background: darken(@background, 12%);
         border-color: darken(@border, 16%);
         background-image: none;
     }
@@ -39,14 +41,14 @@
         &:focus,
         &:active,
         &.active {
-            background-color: @background;
+            background: @background;
             border-color: @border;
         }
     }
 
     .badge {
         color: @background;
-        background-color: @color;
+        background: @color;
     }
 }
 

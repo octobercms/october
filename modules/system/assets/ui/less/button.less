@@ -16,10 +16,12 @@
 // --------------------------------------------------
 
 .btn {
-    font-size: @font-size-base;
+    font-size: @font-size-base - 1;
     border: none;
     text-align: left;
     outline: none !important;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.4);
+    .box-shadow(~"inset 0 -1px 0 rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.35)");
 
     &[class^="oc-icon-"],
     &[class*=" oc-icon-"] {
@@ -31,11 +33,8 @@
     }
 
     &[disabled] {
-        background-color: @color-button-disabled-bg;
-        color: @color-button-disabled-text;
+        color: rgba(255,255,255,.6);
     }
-
-    .box-shadow(inset 0 -2px 0 rgba(0,0,0,.2));
 
     &.active,
     &:active {
@@ -43,8 +42,17 @@
     }
 }
 
+.btn-secondary {
+    text-shadow: 0 1px 0 rgba(255,255,255,.8);
+
+    &[disabled] {
+        color: rgba(0,0,0,.6);
+    }
+}
+
 .btn-link {
     .box-shadow(none);
+    text-shadow: none;
 }
 
 .btn-group {

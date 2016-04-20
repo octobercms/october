@@ -23,12 +23,12 @@ table.table.data {
                 font-size: 14px;
                 line-height: 14px;
                 display: inline-block;
-                margin-left: 8px;
+                margin-left: 6px;
                 vertical-align: baseline;
-                .opacity(.2);
+                .opacity(.4);
                 .icon(@icon);
             }
-            &:hover:after { .opacity(.6); }
+            &:hover:after { .opacity(.8); }
         }
     }
 
@@ -94,7 +94,8 @@ table.table.data {
         td, th {
             padding: 12px 15px;
             color: @color-list-text;
-            border-color: @color-list-grid;
+            border-color: white;
+            border-bottom: 1px solid @color-list-grid;
 
             a:not(.btn) {
                 color: @color-list-text;
@@ -126,9 +127,16 @@ table.table.data {
                 }
             }
         }
+
         tr:first-child {
             th, td {
                 border-top-width: 0;
+            }
+        }
+
+        tr:last-child {
+            th, td {
+                border-bottom-width: 0;
             }
         }
 
@@ -145,11 +153,18 @@ table.table.data {
         }
         tr:not(.no-data):hover td, tr:not(.no-data).selected td, {
            background: @color-list-hover-bg !important;
+           .box-shadow(~"inset 0 3px 3px -3px rgba(0,0,0,.25)");
+           text-shadow: 0 -1px 0 rgba(0,0,0,.3);
            color: white;
 
             a:not(.btn), span, i[class^="icon-"] {
                color: white;
             }
+        }
+        tr:not(.no-data):active td {
+           .box-shadow(~"inset 0 3px 3px -3px rgba(0,0,0,.5)");
+           background: mix(black, @color-list-hover-bg, 10%) !important;
+           color: white;
         }
 
         tr.hidden {
@@ -368,7 +383,7 @@ table.table.data {
         padding: 18px 20px;
         margin: 0 20px;
         color: @color-list-norecords-text;
-        font-size: 14px;
+        font-size: @font-size-base - 1;
         text-align: center;
         font-weight: 300;
         .border-radius(@border-radius-base);

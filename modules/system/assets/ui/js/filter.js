@@ -88,6 +88,14 @@
 
             self.scopeValues[scopeName] = isChecked
             self.checkboxToggle(scopeName, isChecked)
+
+            $scope.toggleClass('active', isChecked)
+        })
+
+        $('.filter-scope input[type="checkbox"]', this.$el).each(function() {
+            $(this)
+                .closest('.filter-scope')
+                .toggleClass('active', $(this).is(':checked'))
         })
 
         this.$el.on('click', 'a.filter-scope', function(){

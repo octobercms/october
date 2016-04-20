@@ -1114,14 +1114,17 @@ $el.data('oc.layoutMargin',margin)}
 fixedWidth+=$el.get(0).offsetWidth+margin})
 $(this).width(fixedWidth)
 $(this).trigger('oc.widthFixed')}})}
-OctoberLayout.prototype.toggleAccountMenu=function(el){var self=this,$menu=$(el).next()
+OctoberLayout.prototype.toggleAccountMenu=function(el){var self=this,$el=$(el),$parent=$(el).parent(),$menu=$el.next()
 if($menu.hasClass('active')){self.$accountMenuOverlay.remove()
+$parent.removeClass('highlight')
 $menu.removeClass('active')}
 else{self.$accountMenuOverlay=$('<div />').addClass('popover-overlay')
 $(document.body).append(self.$accountMenuOverlay)
+$parent.addClass('highlight')
 $menu.addClass('active')
 self.$accountMenuOverlay.one('click',function(){self.$accountMenuOverlay.remove()
-$menu.removeClass('active')})}}
+$menu.removeClass('active')
+$parent.removeClass('highlight')})}}
 if($.oc===undefined)
 $.oc={}
 $.oc.layout=new OctoberLayout()

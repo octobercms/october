@@ -226,7 +226,7 @@ to{background-position:0 0}
 .field-richeditor{border:1px solid #bdc3c7;-webkit-transition:border-color ease-in-out 0.15s,box-shadow ease-in-out 0.15s;transition:border-color ease-in-out 0.15s,box-shadow ease-in-out 0.15s}
 .field-richeditor,.field-richeditor .redactor-box{-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
 .field-richeditor .redactor-toolbar{border-top-right-radius:5px;border-top-left-radius:5px}
-.field-richeditor.editor-focus{border-color:#1f99dc}
+.field-richeditor.editor-focus{border-color:#bdc3c7}
 .field-richeditor.size-tiny .redactor-editor{height:20px !important}
 .field-richeditor.size-small .redactor-editor{height:70px !important}
 .field-richeditor.size-large .redactor-editor{height:170px !important}
@@ -246,7 +246,7 @@ to{background-position:0 0}
 .redactor-toolbar li a.oc-redactor-button i:before{font-size:16px !important}
 .redactor-toolbar li a.oc-autumn-button{color:#c03f31}
 .redactor-toolbar li a.oc-autumn-button:hover{color:white !important}
-.redactor-editor{border:none;font-size:13px;color:#555555;padding:15px}
+.redactor-editor{border:none;font-size:13px;color:#385487;padding:15px}
 .field-richeditor.stretch .redactor-box{display:block;position:relative;height:100% !important;width:100% !important;-webkit-border-radius:0 !important;-moz-border-radius:0 !important;border-radius:0 !important;overflow:hidden}
 .field-richeditor.stretch .redactor-box .redactor-toolbar{-webkit-border-radius:0 !important;-moz-border-radius:0 !important;border-radius:0 !important;display:block;border-bottom:none;position:absolute;width:100%;top:0}
 .field-richeditor.stretch .redactor-box .redactor-editor,.field-richeditor.stretch .redactor-box textarea{width:100% !important;left:0;top:0;bottom:0;position:absolute;height:auto !important;padding:20px}

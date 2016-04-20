@@ -61,7 +61,18 @@
                     margin-bottom: 5px;
                     font-size: 28px;
                 }
+
+                .nav-label,
+                .nav-icon {
+                    text-shadow: 0 -1px 0 rgba(0,0,0,.6);
+                }
             }
+
+            // a:active, a:focus {
+            //     .nav-label {
+            //         text-shadow: 1px 1px 15px white, -1px -1px 15px white;
+            //     }
+            // }
 
             &.active a, a:hover {
                 color: @color-sidebarnav-active-text;
@@ -70,9 +81,13 @@
 
             &.active a {
                 //background: @color-sidebarnav-active-bg;
-                text-shadow: 1px 1px 0 rgba(0,0,0,.2);
-                > i {
-                    text-shadow: none;
+                .nav-label,
+                .nav-icon {
+                    text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+                }
+
+                .nav-label {
+                    // font-weight: bold;
                 }
             }
 

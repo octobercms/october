@@ -47,9 +47,11 @@
 .form-control {
     position: relative;
     -webkit-appearance: none;
+    border: 1px solid @input-border;
+    .box-shadow(~"inset 0 0.5px 1px @{input-border}, 0 1.5px 0 #fff");
 
     &:focus {
-        border: 2px solid @color-form-field-border-focus;
+        border: 1px solid @color-form-field-border-focus;
     }
 
     &.icon {
@@ -69,6 +71,16 @@
         //.transition(width 0.2s);
         &:focus, &:active {
             width: 200px !important;
+        }
+    }
+
+    &.searchable {
+        border-radius: 100px;
+
+        &.icon {
+            background-position: left -84px;
+            padding-left: 33px !important;
+            padding-right: 13px !important;
         }
     }
 }
@@ -196,6 +208,7 @@
         pointer-events: none;
         color: @color-form-field-icon;
         font-size: 15px;
+        margin-top: -1px;
     }
 
     &.right-align {
@@ -296,6 +309,9 @@
     border: 1px solid @color-form-field-border;
     overflow: hidden;
     position: relative;
+    .box-shadow(~"inset 0 0.5px 1px @{input-border}, 0 1.5px 0 #fff");
+    .border-radius(@input-border-radius);
+
     .form-control {
         background: transparent;
         border-color: transparent;
@@ -303,16 +319,18 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        padding: 8px 30px 10px 11px;
+        padding: 7px 30px 7px 11px;
+        .box-shadow(none);
     }
     .btn {
         background: transparent;
         position: absolute;
         right: -2px;
         top: 50%;
-        margin-top: -44px;
+        margin-top: -43px;
         height: 88px;
         color: lighten(@color-form-field-recordfinder-btn, 15%);
+        text-shadow: none;
 
         i {
             font-size: 14px;
@@ -348,7 +366,7 @@
     font-size: 0;
 
     .btn {
-        margin-right: 20px;
+        margin-right: 15px;
 
         &.no-margin-right {
             margin-right: 0;

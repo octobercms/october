@@ -13,7 +13,8 @@
 @color-filter-bg:                            #ECF0F1;
 @color-filter-bg-active:                     #6AAB55;
 @color-filter-border:                        #D7DBDD;
-@color-filter-text:                          #949ea6;
+@color-filter-text:                          rgba(0,0,0,.6);
+@color-filter-text-active:                   #000000;
 @color-filter-items-bg:                      #fafafa;
 @color-filter-items-bg-hover:                #4da7e8;
 
@@ -47,6 +48,7 @@
         .filter-label {
             margin-right: 5px;
         }
+
         .filter-setting {
             display: inline-block;
             margin-right: 5px;
@@ -83,19 +85,18 @@
                 }
             }
 
-
             &:after {
                 content: '';
             }
         }
 
-        &:hover {
+        &:hover, &.active {
             &, &.custom-checkbox label {
-                color: #000;
+                color: @color-filter-text-active;
             }
 
             .filter-label {
-                color: @color-filter-text;
+                color: @color-filter-text-active;
             }
 
             &.active .filter-setting {

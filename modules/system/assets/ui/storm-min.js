@@ -2079,7 +2079,9 @@ FilterWidget.prototype.getPopoverTemplate=function(){return'                    
 FilterWidget.prototype.init=function(){var self=this
 this.$el.on('change','.filter-scope input[type="checkbox"]',function(){var isChecked=$(this).is(':checked'),$scope=$(this).closest('.filter-scope'),scopeName=$scope.data('scope-name')
 self.scopeValues[scopeName]=isChecked
-self.checkboxToggle(scopeName,isChecked)})
+self.checkboxToggle(scopeName,isChecked)
+$scope.toggleClass('active',isChecked)})
+$('.filter-scope input[type="checkbox"]',this.$el).each(function(){$(this).closest('.filter-scope').toggleClass('active',$(this).is(':checked'))})
 this.$el.on('click','a.filter-scope',function(){var $scope=$(this),scopeName=$scope.data('scope-name')
 if($scope.hasClass('filter-scope-open'))return
 self.$activeScope=$scope

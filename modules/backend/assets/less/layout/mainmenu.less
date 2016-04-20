@@ -17,9 +17,10 @@ body.mainmenu-open {
 
 .mainmenu-item-link() {
     display: inline-block;
-    font-size: @font-size-base + 1;
+    font-size: @font-size-base;
     color: inherit;
     outline: none;
+    text-shadow: 0 0 2px black;
 
     &:hover {
         background-color: transparent !important;
@@ -57,13 +58,13 @@ body.mainmenu-open {
     }
 
     ul li .mainmenu-accountmenu {
-        top: @height;
+        top: @height + 10;
     }
 }
 
 .mainmenu-tooltip {
     .tooltip-inner {
-        font-size: @font-size-base;
+        font-size: @font-size-base - 1;
         padding: 6px 16px;
         border-radius: 0;
     }
@@ -109,6 +110,10 @@ nav#layout-mainmenu {
                     position: relative;
                     top: 0;
                 }
+            }
+
+            &.active a {
+                // font-weight: bold;
             }
         }
 
@@ -165,7 +170,7 @@ nav#layout-mainmenu {
 
             > a {
                 padding: 0 15px 0 10px;
-                font-size: @font-size-base;
+                font-size: @font-size-base - 1;
                 position: relative;
                 // z-index: 200; // Previous value 590 was overlappnig with drop-down menus on small screens
                 z-index: 590; // @todo Investigate: This causes the button to dim without 590
@@ -176,6 +181,7 @@ nav#layout-mainmenu {
             }
 
             .account-name {
+                //font-weight: bold;
                 margin-right: 15px;
             }
 
@@ -237,9 +243,9 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu {
     }
 
     &:after {
-        .triangle(up, 22px, 12px, @color-accountmenu-bg);
-        right: 26px;
-        top: -12px;
+        .triangle(up, 17px, 7px, @color-accountmenu-bg);
+        right: 29px;
+        top: -7px;
         position: absolute;
     }
 
@@ -259,6 +265,7 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu {
             display: block;
             padding: 12px 30px;
             text-align: left;
+            font-size: @font-size-base - 1;
         }
 
         &:hover {
@@ -281,31 +288,43 @@ nav#layout-mainmenu.navbar-mode-inline {
     .mainmenu-set-height(@mainmenu-mode-inline-height);
 
     ul.mainmenu-nav {
-        li a {
-            padding: 15px 0;
-
-            .nav-icon {
-                position: relative;
-                top: -1px;
-                margin-right: 5px;
-                width: @mainmenu-icon-dimension;
-                height: @mainmenu-icon-dimension;
-                i, img { margin: 0; }
-            }
-            .nav-label {
-                line-height: @mainmenu-icon-dimension;
-            }
-        }
-
         li {
+            margin: 5px 0;
+
+            a {
+                padding: 10px 15px;
+
+                .nav-icon {
+                    position: relative;
+                    top: -1px;
+                    margin-right: 5px;
+                    width: @mainmenu-icon-dimension;
+                    height: @mainmenu-icon-dimension;
+                    i, img { margin: 0; }
+                }
+                .nav-label {
+                    line-height: @mainmenu-icon-dimension;
+                }
+            }
+
             &:first-child {
-                margin-left: 2px;
+                margin-left: -13px;
             }
 
             &:last-child {
                 margin-right: 0;
             }
         }
+
+        li.active {
+            background: @color-mainmenu-active-bg;
+            border-radius: 5px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+
     }
 }
 
@@ -325,6 +344,9 @@ nav#layout-mainmenu.navbar-mode-tile {
             width: @mainmenu-tile-dimension;
             height: @mainmenu-tile-dimension;
 
+            // Offset from bottom
+            @tile-bottom-offset: 4;
+
             .nav-icon {
                 text-align: center;
                 display: block;
@@ -332,7 +354,7 @@ nav#layout-mainmenu.navbar-mode-tile {
                 top: 50%;
                 left: 50%;
                 margin-left: -(@mainmenu-icon-dimension / 2);
-                margin-top: -(@mainmenu-tile-dimension - @mainmenu-tile-label-height) / 2;
+                margin-top: -((@mainmenu-tile-dimension - @mainmenu-tile-label-height) / 2) - @tile-bottom-offset;
                 width: @mainmenu-icon-dimension;
                 height: @mainmenu-icon-dimension;
                 i, img { margin: 0; }
@@ -344,7 +366,7 @@ nav#layout-mainmenu.navbar-mode-tile {
                 height: @mainmenu-tile-label-height;
                 line-height: @mainmenu-tile-label-height;
                 position: absolute;
-                bottom: 0;
+                bottom: @tile-bottom-offset + 0px;
                 left: 50%;
                 padding: 0 5px;
                 margin-left: -(@mainmenu-tile-label-width / 2);
@@ -355,20 +377,11 @@ nav#layout-mainmenu.navbar-mode-tile {
         }
 
         li {
-            padding: 3px 0;
+            padding: 0 15px;
+            margin: 7px 0 0;
 
             &:first-child {
-                margin-left: 8px;
-            }
-
-            &:last-child {
-                margin-right: 0;
-            }
-
-            &.active {
-                a .nav-label {
-                    text-shadow: 1px 1px 0 rgba(255,255,255,.3);
-                }
+                margin-left: -7px;
             }
 
             &:hover {
@@ -377,9 +390,22 @@ nav#layout-mainmenu.navbar-mode-tile {
                     min-width: @mainmenu-tile-label-width;
                     text-overflow: all;
                     overflow: visible;
-                    background-color: @color-mainmenu;
                     z-index: 2;
                 }
+            }
+
+        }
+
+        li.active {
+            background: @color-mainmenu-active-bg;
+            border-radius: 5px;
+
+            a {
+                // font-weight: bold;
+            }
+
+            &:first-child {
+                margin-left: 0;
             }
         }
     }
@@ -446,7 +472,7 @@ nav#layout-mainmenu.navbar-mode-collapse {
     }
 
     ul li .mainmenu-accountmenu:after {
-        right: 11px;
+        right: 13px;
     }
 
     ul.nav { display: none; }
@@ -454,6 +480,7 @@ nav#layout-mainmenu.navbar-mode-collapse {
     .menu-toggle {
         display: inline-block;
         color: @color-mainmenu-active !important;
+        // font-weight: bold;
     }
 }
 
@@ -477,7 +504,7 @@ nav#layout-mainmenu.navbar-mode-collapse {
 
         ul {
             margin: 0;
-            padding: 5px 0 15px 30px;
+            padding: 5px 0 15px 15px;
             overflow: hidden;
         }
 
@@ -530,11 +557,22 @@ nav#layout-mainmenu.navbar ul li:hover,
 
 nav#layout-mainmenu.navbar ul li,
 .mainmenu-collapsed li {
+
+    // a:active, a:focus {
+    //     .nav-label {
+    //         text-shadow: 1px 1px 15px white, -1px -1px 15px white;
+    //     }
+    // }
+
     &.active, &.highlight {
         color: @color-mainmenu-active !important;
 
         a {
             color: @color-mainmenu-active !important;
+
+            .nav-label {
+               text-shadow: none;
+            }
         }
     }
 
@@ -545,8 +583,16 @@ nav#layout-mainmenu.navbar ul li,
 }
 
 body.drag {
-    nav#layout-mainmenu.navbar ul.nav,
-    .mainmenu-collapsed ul {
-        li:hover { color: @color-mainmenu-inactive; }
+    nav#layout-mainmenu.navbar ul.nav li,
+    .mainmenu-collapsed ul li {
+        &:hover {
+            color: @color-mainmenu-inactive;
+        }
+
+        a:active, a:focus {
+            .nav-label {
+                text-shadow: none;
+            }
+        }
     }
 }
