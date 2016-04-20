@@ -53,6 +53,24 @@ class RecordFinder extends FormWidgetBase
      */
     public $prompt = 'Click the %s button to find a record';
 
+    /**
+     * @var string Use a custom scope method for the list query.
+     */
+    public $scope;
+
+    /**
+     * @var string If searching the records, specifies a policy to use.
+     * - all: result must contain all words
+     * - any: result can contain any word
+     * - exact: result must contain the exact phrase
+     */
+    public $searchMode;
+
+    /**
+     * @var string Use a custom scope method for performing searches.
+     */
+    public $searchScope;
+
     //
     // Object properties
     //
@@ -88,6 +106,9 @@ class RecordFinder extends FormWidgetBase
             'keyFrom',
             'nameFrom',
             'descriptionFrom',
+            'scope',
+            'searchMode',
+            'searchScope',
         ]);
 
         if (post('recordfinder_flag')) {
@@ -218,17 +239,16 @@ class RecordFinder extends FormWidgetBase
         $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':" . $this->keyFrom . "')", $this->getId());
         $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 
-        // $widget->bindEvent('list.extendQueryBefore', function($query) {
+        $widget->setSearchOptions([
+            'mode' => $this->searchMode,
+            'scope' => $this->searchScope,
+        ]);
 
-        //     /*
-        //      * Where not in the current list of related records
-        //      */
-        //     $existingIds = $this->findExistingRelationIds();
-        //     if (count($existingIds)) {
-        //         $query->whereNotIn('id', $existingIds);
-        //     }
-
-        // });
+        if ($scopeMethod = $this->scope) {
+            $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
+                $query->$scopeMethod();
+            });
+        }
 
         return $widget;
     }
