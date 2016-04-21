@@ -21,7 +21,7 @@
     text-align: left;
     outline: none !important;
     text-shadow: 0 -1px 0 rgba(0,0,0,.4);
-    .box-shadow(~"inset 0 -1px 0 rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.35)");
+    .box-shadow(~"inset 0 -2px 0 rgba(0,0,0,.15)");
 
     &[class^="oc-icon-"],
     &[class*=" oc-icon-"] {
@@ -51,8 +51,8 @@
 }
 
 .btn-link {
-    .box-shadow(none);
-    text-shadow: none;
+    .box-shadow(none) !important;
+    text-shadow: none !important;
 }
 
 .btn-group {

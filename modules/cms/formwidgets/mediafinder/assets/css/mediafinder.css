@@ -138,8 +138,8 @@
   position: relative;
   padding-right: 30px;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 0.5px 1px #bdc3c7, 0 1.5px 0 #fff;
-  box-shadow: inset 0 0.5px 1px #bdc3c7, 0 1.5px 0 #fff;
+  -webkit-box-shadow: inset 0 1px 0 #bdc3c7, 0 1px 0 #fff;
+  box-shadow: inset 0 1px 0 #bdc3c7, 0 1px 0 #fff;
 }
 .field-mediafinder.style-file-single .find-button {
   position: absolute;

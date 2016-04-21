@@ -581,7 +581,7 @@ body.no-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:no
 html,body{height:100%; }
 body{webkit-font-smoothing:antialiased;font-family:sans-serif;background:#f9f9f9}
 #layout-canvas{min-height:100%;height:100%}
-body{font-family:'Noto Sans',sans-serif}
+body{font-family:'Noto Sans',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .control-tabs.primary-tabs > ul.nav-tabs,.control-tabs.primary-tabs > div > ul.nav-tabs,.control-tabs.primary-tabs > div > div > ul.nav-tabs{margin-left:-20px;margin-right:-20px}
 .control-tabs.primary-tabs.tabs-no-inset > ul.nav-tabs,.control-tabs.primary-tabs.tabs-no-inset > div > ul.nav-tabs,.control-tabs.primary-tabs.tabs-no-inset > div > div > ul.nav-tabs{margin-left:0;margin-right:0}
 .layout{display:table;table-layout:fixed;height:100%;width:100%}
@@ -710,7 +710,6 @@ nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon i,nav#layo
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-label{line-height:30px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:first-child{margin-left:-13px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:last-child{margin-right:0}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li.active{background:#262626;border-radius:5px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li.active:first-child{margin-left:0}
 nav#layout-mainmenu.navbar-mode-tile{height:78px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-preview a{height:78px;line-height:78px}
@@ -723,7 +722,6 @@ nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-nav li a .nav-label{display:blo
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-nav li{padding:0 15px;margin:7px 0 0}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-nav li:first-child{margin-left:-7px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-nav li:hover .nav-label{width:auto;min-width:100px;text-overflow:all;overflow:visible;z-index:2}
-nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-nav li.active{background:#262626;border-radius:5px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-nav li.active:first-child{margin-left:0}
 nav#layout-mainmenu .menu-toggle{height:45px;line-height:45px;font-size:16px;display:none}
 nav#layout-mainmenu .menu-toggle .menu-toggle-icon{background:#333;display:inline-block;height:45px;line-height:45px;width:45px;text-align:center}
@@ -755,7 +753,6 @@ nav#layout-mainmenu.navbar .menu-toggle{display:inline-block;color:#ffffff !impo
 .mainmenu-collapsed > div ul.mainmenu-nav li{padding:0 15px;margin:7px 0 0}
 .mainmenu-collapsed > div ul.mainmenu-nav li:first-child{margin-left:-7px}
 .mainmenu-collapsed > div ul.mainmenu-nav li:hover .nav-label{width:auto;min-width:100px;text-overflow:all;overflow:visible;z-index:2}
-.mainmenu-collapsed > div ul.mainmenu-nav li.active{background:#262626;border-radius:5px}
 .mainmenu-collapsed > div ul.mainmenu-nav li.active:first-child{margin-left:0}
 .mainmenu-collapsed > div ul.mainmenu-nav li:first-child{margin-left:0}
 .mainmenu-collapsed > div ul{margin:0;padding:5px 0 15px 15px;overflow:hidden}
@@ -783,14 +780,13 @@ body.drag nav#layout-mainmenu.navbar ul.nav li:hover,body.drag .mainmenu-collaps
 body.drag nav#layout-mainmenu.navbar ul.nav li a:active .nav-label,body.drag .mainmenu-collapsed ul li a:active .nav-label,body.drag nav#layout-mainmenu.navbar ul.nav li a:focus .nav-label,body.drag .mainmenu-collapsed ul li a:focus .nav-label{text-shadow:none}
 #layout-sidenav{position:absolute;height:100%;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #layout-sidenav ul{position:relative;margin:0;padding:0;height:100%;overflow:hidden}
-#layout-sidenav ul,#layout-sidenav ul li:first-child a{-webkit-box-shadow:inset 0 6px 3px -3px rgba(0,0,0,0.1);box-shadow:inset 0 6px 3px -3px rgba(0,0,0,0.1)}
-#layout-sidenav ul:after{content:'';position:absolute;height:100%;top:0;right:0;width:10px;-webkit-box-shadow:inset -5px 0 3px rgba(0,0,0,0.1);box-shadow:inset -5px 0 3px rgba(0,0,0,0.1)}
 #layout-sidenav ul li{display:block;text-align:center;position:relative}
 #layout-sidenav ul li a{padding:20px 10px;display:block;font-size:13px;color:rgba(255,255,255,0.6);font-weight:normal;position:relative}
 #layout-sidenav ul li a:hover{text-decoration:none;background-color:transparent}
 #layout-sidenav ul li a:focus{background:transparent}
 #layout-sidenav ul li a i{color:rgba(255,255,255,0.6);display:block;margin-bottom:5px;font-size:28px}
 #layout-sidenav ul li a .nav-label,#layout-sidenav ul li a .nav-icon{text-shadow:0 -1px 0 rgba(0,0,0,0.6)}
+#layout-sidenav ul li:first-child a{padding-top:30px}
 #layout-sidenav ul li.active a,#layout-sidenav ul li a:hover{color:#ffffff}
 #layout-sidenav ul li.active a i,#layout-sidenav ul li a:hover i{color:#ffffff}
 #layout-sidenav ul li.active a .nav-label,#layout-sidenav ul li.active a .nav-icon{text-shadow:0 -1px 0 rgba(0,0,0,0.3)}

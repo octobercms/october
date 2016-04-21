@@ -94,8 +94,7 @@ table.table.data {
         td, th {
             padding: 12px 15px;
             color: @color-list-text;
-            border-color: white;
-            border-bottom: 1px solid @color-list-grid;
+            border-top: 2px solid white;
 
             a:not(.btn) {
                 color: @color-list-text;
@@ -153,7 +152,6 @@ table.table.data {
         }
         tr:not(.no-data):hover td, tr:not(.no-data).selected td, {
            background: @color-list-hover-bg !important;
-           .box-shadow(~"inset 0 3px 3px -3px rgba(0,0,0,.25)");
            text-shadow: 0 -1px 0 rgba(0,0,0,.3);
            color: white;
 
@@ -162,7 +160,6 @@ table.table.data {
             }
         }
         tr:not(.no-data):active td {
-           .box-shadow(~"inset 0 3px 3px -3px rgba(0,0,0,.5)");
            background: mix(black, @color-list-hover-bg, 10%) !important;
            color: white;
         }

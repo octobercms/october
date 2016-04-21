@@ -12,12 +12,12 @@
                 <nav
                     id="layout-sidenav"
                     class="layout-sidenav bg-s"
-                    data-active-class="active bg-p"
+                    data-active-class="active"
                     data-control="sidenav">
                     <ul class="nav">
                         <?php foreach ($sideMenuItems as $sideItemCode => $item): ?>
                             <li
-                                class="<?= BackendMenu::isSideMenuItemActive($item) ? 'active bg-p' : null ?>"
+                                class="<?= BackendMenu::isSideMenuItemActive($item) ? 'active' : null ?>"
                                 <?= HTML::attributes($item->attributes) ?>
                             >
                                 <a href="<?= $item->url ?>">

@@ -50,11 +50,10 @@
 }
 
 .modal-header {
-    //#gradient > .vertical(@start-color: mix(white, @color-popup-header-bg, 10%); @end-color: mix(black, @color-popup-header-bg, 10%));
     background: @color-popup-header-bg;
     color: @color-popup-header-text;
     text-shadow: 0 -1px 0 rgba(0,0,0,.6);
-    .box-shadow(~"inset 0 -2px 0 rgba(0,0,0,.1), inset 0 2px 0 rgba(255,255,255,.2)");
+    .box-shadow(inset 0 -2px 0 rgba(0,0,0,.1));
     .border-top-radius(5px);
 
     border: none;

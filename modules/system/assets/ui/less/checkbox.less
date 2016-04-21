@@ -14,7 +14,7 @@
 @color-checkbox-checked:                        #1F99DC;
 
 @color-checkbox-icon:                           #FFFFFF;
-@color-checkbox-border:                         #DCE1E3;
+@color-checkbox-border:                         @input-border;
 
 @color-checkbox-switch-bg:                      #f6f6f6;
 @color-checkbox-switch-on:                      #76A544;
@@ -68,15 +68,17 @@
             margin-right: 15px;
             position: absolute;
             left: -3px;
-            top: -1px;
+            top: 0;
             background-color: #FFFFFF;
-            border: 2px solid @color-checkbox-border;
+            border: 1px solid @color-checkbox-border;
+            .box-shadow(~"inset 0 1px 0 @{input-border}, 0 1px 0 #fff");
         }
         &:hover:before {
             border-color: darken(@color-checkbox-border, 10%);
         }
         &:active:before {
             border-color: darken(@color-checkbox-border, 20%);
+            border-width: 2px;
         }
     }
 
@@ -96,7 +98,7 @@
             display: inline-block;
             position: absolute;
             left: 0;
-            top: 2px;
+            top: 3px;
             .border-radius(17px);
         }
     }
@@ -128,6 +130,7 @@
         font-size: 12px;
         line-height: 17px;
         border-width: 2px;
+        .box-shadow(none);
     }
 
     &:focus {

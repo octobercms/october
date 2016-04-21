@@ -38,6 +38,11 @@ body.mainmenu-open {
     }
 }
 
+.mainmenu-item-link-active() {
+    // background: @color-mainmenu-active-bg;
+    // .border-radius(5px);
+}
+
 .mainmenu-set-height(@height) {
     height: @height;
 
@@ -317,8 +322,7 @@ nav#layout-mainmenu.navbar-mode-inline {
         }
 
         li.active {
-            background: @color-mainmenu-active-bg;
-            border-radius: 5px;
+            .mainmenu-item-link-active();
 
             &:first-child {
                 margin-left: 0;
@@ -397,8 +401,7 @@ nav#layout-mainmenu.navbar-mode-tile {
         }
 
         li.active {
-            background: @color-mainmenu-active-bg;
-            border-radius: 5px;
+            .mainmenu-item-link-active();
 
             a {
                 // font-weight: bold;
