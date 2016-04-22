@@ -269,9 +269,10 @@
 
         input.form-control {
             border: none;
-            padding: 12px 13px 13px;
+            padding: 11px 13px 12px;
             height: auto;
-            .border-radius(0)!important;
+            .border-radius(0) !important;
+            .box-shadow(~"inset 0 1px 0 @{input-border}");
 
             &.icon.search {
                 background-position: right -78px;

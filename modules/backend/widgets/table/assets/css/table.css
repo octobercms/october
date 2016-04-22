@@ -72,16 +72,16 @@
   padding: 1px;
 }
 .control-table table.data td.active {
-  border-color: #4da7e8 !important;
+  border-color: #3498db !important;
 }
 .control-table table.data td.active .content-container {
   padding: 0;
-  border: 1px solid #4da7e8;
+  border: 1px solid #3498db;
 }
 .control-table table.data td.active .content-container:before,
 .control-table table.data td.active .content-container:after {
   content: ' ';
-  background: #4da7e8;
+  background: #3498db;
   position: absolute;
   left: -2px;
   top: -2px;
@@ -142,6 +142,9 @@
   padding: 10px;
   opacity: 0.5;
   filter: alpha(opacity=50);
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  text-shadow: none;
 }
 .control-table .toolbar a.btn:hover {
   opacity: 1;
@@ -189,7 +192,7 @@
   color: #95a5a6;
 }
 .control-table .pagination ul li.active {
-  background: #4da7e8;
+  background: #3498db;
 }
 .control-table .pagination ul li.active a {
   color: #ffffff;
@@ -236,7 +239,7 @@ ul.table-widget-autocomplete li a {
 .control-table td[data-column-type=checkbox] div[data-checkbox-element] {
   width: 16px;
   height: 16px;
-  border-radius: 2px;
+  border-radius: 3px;
   background-color: #FFFFFF;
   border: 1px solid #999999;
   margin: 5px 5px 5px 10px;
@@ -267,7 +270,7 @@ ul.table-widget-autocomplete li a {
   top: -4px;
 }
 .control-table td[data-column-type=checkbox] div[data-checkbox-element]:focus {
-  border-color: #4da7e8;
+  border-color: #3498db;
   outline: none;
 }
 /*
@@ -379,6 +382,6 @@ html.cssanimations .control-table td[data-column-type=dropdown] [data-view-conta
 .table-control-dropdown-list li:hover,
 .table-control-dropdown-list li:focus,
 .table-control-dropdown-list li.selected {
-  background: #4da7e8;
+  background: #3498db;
   color: white;
 }
