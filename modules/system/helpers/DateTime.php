@@ -4,6 +4,7 @@ use Lang;
 use Carbon\Carbon;
 use Exception;
 use DateTime as PhpDateTime;
+use InvalidArgumentException;
 
 class DateTime
 {
@@ -72,7 +73,7 @@ class DateTime
         }
 
         if (!$value instanceof Carbon && $throwException) {
-            throw new Exception('Invalid date value supplied to DateTime helper.');
+            throw new InvalidArgumentException('Invalid date value supplied to DateTime helper.');
         }
 
         return $value;
