@@ -466,6 +466,15 @@ class FormController extends ControllerBehavior
     }
 
     /**
+     * Helper to check if a form tab has fields.
+     * @return bool
+     */
+    public function formHasOutsideFields()
+    {
+        return $this->formWidget->getTab('outside')->hasFields();
+    }
+
+    /**
      * Helper for custom layouts. Renders Outside Fields.
      * @return string The area HTML markup.
      */
@@ -475,12 +484,30 @@ class FormController extends ControllerBehavior
     }
 
     /**
+     * Helper to check if a form tab has fields.
+     * @return bool
+     */
+    public function formHasPrimaryTabs()
+    {
+        return $this->formWidget->getTab('primary')->hasFields();
+    }
+
+    /**
      * Helper for custom layouts. Renders Primary Tabs.
      * @return string The tab HTML markup.
      */
     public function formRenderPrimaryTabs()
     {
         return $this->formRender(['section' => 'primary']);
+    }
+
+    /**
+     * Helper to check if a form tab has fields.
+     * @return bool
+     */
+    public function formHasSecondaryTabs()
+    {
+        return $this->formWidget->getTab('secondary')->hasFields();
     }
 
     /**

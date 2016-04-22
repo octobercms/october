@@ -446,15 +446,15 @@ class Form extends WidgetBase
         /*
          * Convert automatic spanned fields
          */
-        foreach ($this->allTabs->outside->getTabs() as $fields) {
+        foreach ($this->allTabs->outside->getFields() as $fields) {
             $this->processAutoSpan($fields);
         }
 
-        foreach ($this->allTabs->primary->getTabs() as $fields) {
+        foreach ($this->allTabs->primary->getFields() as $fields) {
             $this->processAutoSpan($fields);
         }
 
-        foreach ($this->allTabs->secondary->getTabs() as $fields) {
+        foreach ($this->allTabs->secondary->getFields() as $fields) {
             $this->processAutoSpan($fields);
         }
 
@@ -604,8 +604,20 @@ class Form extends WidgetBase
     }
 
     /**
+     * Programatically remove all fields belonging to a tab.
      *
+     * @param string $name
+     * @return bool
      */
+    public function removeTab($name)
+    {
+        foreach ($this->allFields as $fieldName => $field) {
+            if ($field->tab == $name) {
+                $this->removeField($fieldName);
+            }
+        }
+    }
+
     /**
      * Creates a form field object from name and configuration.
      *
@@ -806,6 +818,32 @@ class Form extends WidgetBase
     {
         if (isset($this->allFields[$field])) {
             return $this->allFields[$field];
+        }
+
+        return null;
+    }
+
+    /**
+     * Get all tab objects for the instance.
+     *
+     * @return object[FormTabs]
+     */
+    public function getTabs()
+    {
+        return $this->allTabs;
+    }
+
+    /**
+     * Get a specified tab object.
+     * Options: outside, primary, secondary.
+     *
+     * @param string $field
+     * @return mixed
+     */
+    public function getTab($tab)
+    {
+        if (isset($this->allTabs->$tab)) {
+            return $this->allTabs->$tab;
         }
 
         return null;
