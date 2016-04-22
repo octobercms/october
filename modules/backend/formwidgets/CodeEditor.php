@@ -1,6 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
-use Backend\Models\EditorPreferences;
+use Backend\Models\Preferences as BackendPreferences;
 use Backend\Classes\FormWidgetBase;
 
 /**
@@ -74,29 +74,29 @@ class CodeEditor extends FormWidgetBase
 
     /**
      * @var boolean If true, the editor activate Basic Autocompletion if press Ctrl+Space
-     */	
-	public $enableBasicAutocompletion = true;
-	
+     */
+    public $enableBasicAutocompletion = true;
+
     /**
      * @var boolean If true, the editor activate use Snippets
-     */	
-	public $enableSnippets = true;
-	
+     */
+    public $enableSnippets = true;
+
     /**
      * @var boolean If true, the editor activate Live Autocompletion mode
-     */	
-	public $enableLiveAutocompletion = true;
-	
+     */
+    public $enableLiveAutocompletion = true;
+    
     /**
      * @var boolean If true, the editor show Indent Guides
-     */	
-	public $displayIndentGuides = true;
-	
+     */
+    public $displayIndentGuides = true;
+
     /**
      * @var boolean If true, the editor show Print Margin
-     */	
-	public $showPrintMargin = false;	
-	
+     */
+    public $showPrintMargin = false;
+
     //
     // Object properties
     //
@@ -125,11 +125,11 @@ class CodeEditor extends FormWidgetBase
             'margin',
             'theme',
             'readOnly',
-	    'enableBasicAutocompletion',
-	    'enableSnippets',
-	    'enableLiveAutocompletion',
-	    'displayIndentGuides',
-	    'showPrintMargin'
+            'enableBasicAutocompletion',
+            'enableSnippets',
+            'enableLiveAutocompletion',
+            'displayIndentGuides',
+            'showPrintMargin'
         ]);
     }
 
@@ -164,7 +164,7 @@ class CodeEditor extends FormWidgetBase
         $this->vars['name'] = $this->formField->getName();
         $this->vars['readOnly'] = $this->readOnly;
         $this->vars['enableBasicAutocompletion'] = $this->enableBasicAutocompletion;
-	$this->vars['enableSnippets'] = $this->enableSnippets;
+        $this->vars['enableSnippets'] = $this->enableSnippets;
         $this->vars['enableLiveAutocompletion'] = $this->enableLiveAutocompletion;
         $this->vars['displayIndentGuides'] = $this->displayIndentGuides;
         $this->vars['showPrintMargin'] = $this->showPrintMargin;
@@ -189,23 +189,23 @@ class CodeEditor extends FormWidgetBase
     protected function applyEditorPreferences()
     {
         // Load the editor system settings
-        $editorSettings = EditorPreferences::instance();
+        $preferences = BackendPreferences::instance();
 
-        $this->fontSize = $editorSettings->font_size;
-        $this->wordWrap = $editorSettings->word_wrap;
-        $this->codeFolding = $editorSettings->code_folding;
-        $this->autoClosing = $editorSettings->auto_closing;
-        $this->tabSize = $editorSettings->tab_size;
-        $this->theme = $editorSettings->theme;
-        $this->showInvisibles = $editorSettings->show_invisibles;
-        $this->highlightActiveLine = $editorSettings->highlight_active_line;
-        $this->useSoftTabs = !$editorSettings->use_hard_tabs;
-        $this->showGutter = $editorSettings->show_gutter;
-        $this->enableBasicAutocompletion = $editorSettings->enable_basic_autocompletion;
-	$this->enableSnippets = $editorSettings->enable_snippets;
-        $this->enableLiveAutocompletion = $editorSettings->enable_live_autocompletion;
-        $this->displayIndentGuides = $editorSettings->display_indent_guides;
-	$this->showPrintMargin = $editorSettings->show_print_margin;
+        $this->fontSize = $preferences->editor_font_size;
+        $this->wordWrap = $preferences->editor_word_wrap;
+        $this->codeFolding = $preferences->editor_code_folding;
+        $this->autoClosing = $preferences->editor_auto_closing;
+        $this->tabSize = $preferences->editor_tab_size;
+        $this->theme = $preferences->editor_theme;
+        $this->showInvisibles = $preferences->editor_show_invisibles;
+        $this->highlightActiveLine = $preferences->editor_highlight_active_line;
+        $this->useSoftTabs = !$preferences->editor_use_hard_tabs;
+        $this->showGutter = $preferences->editor_show_gutter;
+        $this->enableBasicAutocompletion = $preferences->editor_enable_basic_autocompletion;
+        $this->enableSnippets = $preferences->editor_enable_snippets;
+        $this->enableLiveAutocompletion = $preferences->editor_enable_live_autocompletion;
+        $this->displayIndentGuides = $preferences->editor_display_indent_guides;
+        $this->showPrintMargin = $preferences->editor_show_print_margin;
     }
 
 }

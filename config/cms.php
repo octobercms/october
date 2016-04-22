@@ -40,6 +40,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Back-end timezone
+    |--------------------------------------------------------------------------
+    |
+    | This acts as the default setting for a back-end user's timezone. This can
+    | be changed by the user at any time using the backend preferences.
+    |
+    */
+
+    'backendTimezone' => 'UTC',
+
+    /*
+    |--------------------------------------------------------------------------
     | Back-end Skin
     |--------------------------------------------------------------------------
     |

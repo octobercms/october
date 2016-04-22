@@ -1,0 +1,67 @@
+$(document).ready(function(){
+
+    var editorEl = $('#editorpreferencesCodeeditor'),
+        editor = editorEl.codeEditor('getEditorObject'),
+        session = editor.getSession(),
+        renderer = editor.renderer
+
+    editorEl.height($('#editorSettingsForm').height() - 23)
+
+    $('#Form-field-Preferences-editor_theme').on('change', function(){
+        editorEl.codeEditor('setTheme', $(this).val())
+    })
+
+    $('#Form-field-Preferences-editor_font_size').on('change', function(){
+        editor.setFontSize(parseInt($(this).val()))
+    })
+
+    $('#Form-field-Preferences-editor_word_wrap').on('change', function(){
+        editorEl.codeEditor('setWordWrap', $(this).val())
+    })
+
+    $('#Form-field-Preferences-editor_code_folding').on('change', function(){
+        session.setFoldStyle($(this).val())
+    })
+
+    $('#Form-field-Preferences-editor_tab_size').on('change', function(){
+        session.setTabSize($(this).val())
+    })
+
+    $('#Form-field-Preferences-editor_show_invisibles').on('change', function(){
+        editor.setShowInvisibles($(this).is(':checked'))
+    })
+
+    $('#Form-field-Preferences-editor_enable_basic_autocompletion').on('change', function(){
+        editor.setOption('enableBasicAutocompletion', $(this).is(':checked'))
+    })
+
+    $('#Form-field-Preferences-editor_enable_snippets').on('change', function(){
+        editor.setOption('enableSnippets', $(this).is(':checked'))
+    })
+
+    $('#Form-field-Preferences-editor_enable_live_autocompletion').on('change', function(){
+        editor.setOption('enableLiveAutocompletion', $(this).is(':checked'))
+    })
+
+    $('#Form-field-Preferences-editor_display_indent_guides').on('change', function(){
+        editor.setDisplayIndentGuides($(this).is(':checked'))
+    })
+
+    $('#Form-field-Preferences-editor_show_print_margin').on('change', function(){
+        editor.setShowPrintMargin($(this).is(':checked'))
+    })
+    
+    $('#Form-field-Preferences-editor_highlight_active_line').on('change', function(){
+        editor.setHighlightActiveLine($(this).is(':checked'))
+    })
+
+    $('#Form-field-Preferences-editor_use_hard_tabs').on('change', function(){
+        session.setUseSoftTabs(!$(this).is(':checked'))
+    })
+
+    $('#Form-field-Preferences-editor_show_gutter').on('change', function(){
+        renderer.setShowGutter($(this).is(':checked'))
+    })
+
+})
+

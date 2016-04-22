@@ -206,24 +206,14 @@ class ServiceProvider extends ModuleServiceProvider
                     'context'     => 'mysettings',
                     'keywords'    => 'backend::lang.myaccount.menu_keywords'
                 ],
-                'backend_preferences' => [
+                'preferences' => [
                     'label'       => 'backend::lang.backend_preferences.menu_label',
                     'description' => 'backend::lang.backend_preferences.menu_description',
                     'category'    => SettingsManager::CATEGORY_MYSETTINGS,
                     'icon'        => 'icon-laptop',
-                    'class'       => 'Backend\Models\BackendPreferences',
+                    'url'         => Backend::URL('backend/preferences'),
                     'permissions' => ['backend.manage_preferences'],
                     'order'       => 510,
-                    'context'     => 'mysettings'
-                ],
-                'editor' => [
-                    'label'       => 'backend::lang.editor.menu_label',
-                    'description' => 'backend::lang.editor.menu_description',
-                    'category'    => SettingsManager::CATEGORY_MYSETTINGS,
-                    'icon'        => 'icon-code',
-                    'url'         => Backend::URL('backend/editorpreferences'),
-                    'permissions' => ['backend.manage_editor'],
-                    'order'       => 520,
                     'context'     => 'mysettings'
                 ],
                 'access_logs' => [
