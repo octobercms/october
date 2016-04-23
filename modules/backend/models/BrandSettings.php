@@ -8,7 +8,7 @@ use Less_Parser;
 use Exception;
 
 /**
- * Backend settings that affect all users
+ * Brand settings that affect all users
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
