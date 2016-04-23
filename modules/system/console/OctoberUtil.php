@@ -165,6 +165,14 @@ class OctoberUtil extends Command
                 File::get($stub)
             );
 
+            /*
+             * Include the moment localization data
+             */
+            $momentPath = base_path() . '/modules/backend/assets/vendor/moment/locale/'.$locale.'.js';
+            if (File::exists($momentPath)) {
+                $contents .= PHP_EOL.PHP_EOL.File::get($momentPath).PHP_EOL;
+            }
+
             File::put($destPath, $contents);
 
             /*
