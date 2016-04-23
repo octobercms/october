@@ -11,6 +11,5 @@
 =require ../vendor/pikaday/js/pikaday.jquery.js
 =require ../vendor/clockpicker/js/jquery-clockpicker.js
 =require datepicker.js
-=require timepicker.js
 
 */

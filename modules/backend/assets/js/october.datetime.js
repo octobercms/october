@@ -81,7 +81,7 @@
             result
 
         if (this.options.locale) {
-            moment.locale(this.options.locale)
+            momentObj = momentObj.locale(this.options.locale)
         }
 
         if (this.options.timezone) {
@@ -164,7 +164,6 @@
         return this
     }
 
-    // Add this only if required
     $(document).render(function (){
         $('time[data-datetime-control]').dateTimeConverter()
     })

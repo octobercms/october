@@ -1732,7 +1732,7 @@ this.appTimezone=$('meta[name="app-timezone"]').attr('content')
 if(!this.appTimezone){this.appTimezone='UTC'}}
 DateTimeConverter.prototype.getDateTimeValue=function(){this.datetime=this.$el.attr('datetime')
 var momentObj=moment.tz(this.datetime,this.appTimezone),result
-if(this.options.locale){moment.locale(this.options.locale)}
+if(this.options.locale){momentObj=momentObj.locale(this.options.locale)}
 if(this.options.timezone){momentObj=momentObj.tz(this.options.timezone)}
 if(this.options.timeSince){result=momentObj.fromNow()}
 else if(this.options.timeTense){result=momentObj.calendar()}

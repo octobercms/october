@@ -152,7 +152,7 @@ plate.prepend(canvas);clearTimeout(movingTimer);$body.removeClass('clockpicker-m
 if(svgSupported){var canvas=popover.find('.clockpicker-canvas'),svg=createSvgElement('svg');svg.setAttribute('class','clockpicker-svg');svg.setAttribute('width',diameter);svg.setAttribute('height',diameter);var g=createSvgElement('g');g.setAttribute('transform','translate('+dialRadius+','+dialRadius+')');var bearing=createSvgElement('circle');bearing.setAttribute('class','clockpicker-canvas-bearing');bearing.setAttribute('cx',0);bearing.setAttribute('cy',0);bearing.setAttribute('r',2);var hand=createSvgElement('line');hand.setAttribute('x1',0);hand.setAttribute('y1',0);var bg=createSvgElement('circle');bg.setAttribute('class','clockpicker-canvas-bg');bg.setAttribute('r',tickRadius);var fg=createSvgElement('circle');fg.setAttribute('class','clockpicker-canvas-fg');fg.setAttribute('r',3.5);g.appendChild(hand);g.appendChild(bg);g.appendChild(fg);g.appendChild(bearing);svg.appendChild(g);canvas.append(svg);this.hand=hand;this.bg=bg;this.fg=fg;this.bearing=bearing;this.g=g;this.canvas=canvas;}
 raiseCallback(this.options.init);}
 function raiseCallback(callbackFunction){if(callbackFunction&&typeof callbackFunction==="function"){callbackFunction();}}
-ClockPicker.DEFAULTS={'default':'',fromnow:0,placement:'bottom',align:'left',donetext:'完成',autoclose:false,twelvehour:false,vibrate:true};ClockPicker.prototype.toggle=function(){this[this.isShown?'hide':'show']();};ClockPicker.prototype.locate=function(){var element=this.element,popover=this.popover,offset=element.offset(),width=element.outerWidth(),height=element.outerHeight(),placement=this.options.placement,align=this.options.align,styles={},self=this;popover.show();switch(placement){case'bottom':styles.top=offset.top+height;break;case'right':styles.left=offset.left+width;break;case'top':styles.top=offset.top-popover.outerHeight();break;case'left':styles.left=offset.left-popover.outerWidth();break;}
+ClockPicker.DEFAULTS={'default':'',fromnow:0,placement:'bottom',align:'left',donetext:'Done',autoclose:false,twelvehour:false,vibrate:true};ClockPicker.prototype.toggle=function(){this[this.isShown?'hide':'show']();};ClockPicker.prototype.locate=function(){var element=this.element,popover=this.popover,offset=element.offset(),width=element.outerWidth(),height=element.outerHeight(),placement=this.options.placement,align=this.options.align,styles={},self=this;popover.show();switch(placement){case'bottom':styles.top=offset.top+height;break;case'right':styles.left=offset.left+width;break;case'top':styles.top=offset.top-popover.outerHeight();break;case'left':styles.left=offset.left-popover.outerWidth();break;}
 switch(align){case'left':styles.left=offset.left;break;case'right':styles.left=offset.left+width-popover.outerWidth();break;case'top':styles.top=offset.top;break;case'bottom':styles.top=offset.top+height-popover.outerHeight();break;}
 popover.css(styles);};ClockPicker.prototype.show=function(e){if(this.isShown){return;}
 raiseCallback(this.options.beforeShow);var self=this;if(!this.isAppended){$body=$(document.body).append(this.popover);$win.on('resize.clockpicker'+this.id,function(){if(self.isShown){self.locate();}});this.isAppended=true;}
@@ -167,54 +167,100 @@ if(value===60){value=0;}}}
 if(this[this.currentView]!==value){if(vibrate&&this.options.vibrate){if(!this.vibrateTimer){navigator[vibrate](10);this.vibrateTimer=setTimeout($.proxy(function(){this.vibrateTimer=null;},this),100);}}}
 this[this.currentView]=value;this[isHours?'spanHours':'spanMinutes'].html(leadingZero(value));if(!svgSupported){this[isHours?'hoursView':'minutesView'].find('.clockpicker-tick').each(function(){var tick=$(this);tick.toggleClass('active',value===+tick.html());});return;}
 if(dragging||(!isHours&&value%5)){this.g.insertBefore(this.hand,this.bearing);this.g.insertBefore(this.bg,this.fg);this.bg.setAttribute('class','clockpicker-canvas-bg clockpicker-canvas-bg-trans');}else{this.g.insertBefore(this.hand,this.bg);this.g.insertBefore(this.fg,this.bg);this.bg.setAttribute('class','clockpicker-canvas-bg');}
-var cx=Math.sin(radian)*radius,cy=-Math.cos(radian)*radius;this.hand.setAttribute('x2',cx);this.hand.setAttribute('y2',cy);this.bg.setAttribute('cx',cx);this.bg.setAttribute('cy',cy);this.fg.setAttribute('cx',cx);this.fg.setAttribute('cy',cy);};ClockPicker.prototype.done=function(){raiseCallback(this.options.beforeDone);this.hide();var last=this.input.prop('value'),value=leadingZero(this.hours)+':'+leadingZero(this.minutes);if(this.options.twelvehour){value=value+this.amOrPm;}
+var cx=Math.sin(radian)*radius,cy=-Math.cos(radian)*radius;this.hand.setAttribute('x2',cx);this.hand.setAttribute('y2',cy);this.bg.setAttribute('cx',cx);this.bg.setAttribute('cy',cy);this.fg.setAttribute('cx',cx);this.fg.setAttribute('cy',cy);};ClockPicker.prototype.done=function(){raiseCallback(this.options.beforeDone);this.hide();var last=this.input.prop('value'),value=leadingZero(this.hours)+':'+leadingZero(this.minutes);if(this.options.twelvehour){value=value+' '+this.amOrPm;}
 this.input.prop('value',value);if(value!==last){this.input.triggerHandler('change');if(!this.isInput){this.element.trigger('change');}}
 if(this.options.autoclose){this.input.trigger('blur');}
 raiseCallback(this.options.afterDone);};ClockPicker.prototype.remove=function(){this.element.removeData('clockpicker');this.input.off('focus.clockpicker click.clockpicker');this.addon.off('click.clockpicker');if(this.isShown){this.hide();}
-if(this.isAppended){$win.off('resize.clockpicker'+this.id);this.popover.remove();}};$.fn.clockpicker=function(option){var args=Array.prototype.slice.call(arguments,1);return this.each(function(){var $this=$(this),data=$this.data('clockpicker');if(!data){var options=$.extend({},ClockPicker.DEFAULTS,$this.data(),typeof option=='object'&&option);$this.data('clockpicker',new ClockPicker($this,options));}else{if(typeof data[option]==='function'){data[option].apply(data,args);}}});};}());+function($){"use strict";var DatePicker=function(element,options){var self=this
-this.options=options
-this.$el=$(element)
-this.$input=this.$el.find('input:first')
-var $form=this.$el.closest('form'),changeMonitor=$form.data('oc.changeMonitor')
-if(changeMonitor!==undefined)
-changeMonitor.pause()
-var pikadayOptions={yearRange:options.yearRange,format:options.format,setDefaultDate:moment(this.$input.val()).toDate(),i18n:$.oc.lang.get('datepicker'),onOpen:function(){var $field=$(this._o.trigger)
-$(this.el).css({left:'auto',right:$(window).width()-$field.offset().left-$field.outerWidth()})}}
-if(options.minDate){pikadayOptions.minDate=new Date(options.minDate)}
-if(options.maxDate){pikadayOptions.maxDate=new Date(options.maxDate)}
-this.$input.pikaday(pikadayOptions)
-if(changeMonitor!==undefined)
-changeMonitor.resume()}
+if(this.isAppended){$win.off('resize.clockpicker'+this.id);this.popover.remove();}};$.fn.clockpicker=function(option){var args=Array.prototype.slice.call(arguments,1);return this.each(function(){var $this=$(this),data=$this.data('clockpicker');if(!data){var options=$.extend({},ClockPicker.DEFAULTS,$this.data(),typeof option=='object'&&option);$this.data('clockpicker',new ClockPicker($this,options));}else{if(typeof data[option]==='function'){data[option].apply(data,args);}}});};}());+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
+var DatePicker=function(element,options){this.$el=$(element)
+this.options=options||{}
+$.oc.foundation.controlUtils.markDisposable(element)
+Base.call(this)
+this.init()}
+DatePicker.prototype=Object.create(BaseProto)
+DatePicker.prototype.constructor=DatePicker
+DatePicker.prototype.init=function(){var self=this,$form=this.$el.closest('form'),changeMonitor=$form.data('oc.changeMonitor')
+if(changeMonitor!==undefined){changeMonitor.pause()}
+this.dbDateTimeFormat='YYYY-MM-DD HH:mm:ss'
+this.dbDateFormat='YYYY-MM-DD'
+this.dbTimeFormat='HH:mm:ss'
+this.$dataLocker=$('[data-datetime-value]',this.$el)
+this.$datePicker=$('[data-datepicker]',this.$el)
+this.$timePicker=$('[data-timepicker]',this.$el)
+this.hasDate=!!this.$datePicker.length
+this.hasTime=!!this.$timePicker.length
+this.initRegion()
+if(this.hasDate){this.initDatePicker()}
+if(this.hasTime){this.initTimePicker()}
+if(changeMonitor!==undefined){changeMonitor.resume()}
+this.$timePicker.on('change.oc.datepicker',function(){if(!$.trim($(this).val())){self.emptyValues()}})
+this.$datePicker.on('change.oc.datepicker',function(){if(!$.trim($(this).val())){self.emptyValues()}})
+this.$el.one('dispose-control',this.proxy(this.dispose))}
+DatePicker.prototype.dispose=function(){this.$timePicker.off('change.oc.datepicker')
+this.$datePicker.off('change.oc.datepicker')
+this.$el.off('dispose-control',this.proxy(this.dispose))
+this.$el.removeData('oc.datePicker')
+this.$el=null
+this.options=null
+BaseProto.dispose.call(this)}
+DatePicker.prototype.initDatePicker=function(){var self=this
+var pikadayOptions={yearRange:this.options.yearRange,format:this.getDateFormat(),setDefaultDate:moment().tz(this.timezone).format('l'),i18n:$.oc.lang.get('datepicker'),onOpen:function(){var $field=$(this._o.trigger)
+$(this.el).css({left:'auto',right:$(window).width()-$field.offset().left-$field.outerWidth()})},onSelect:function(){self.onSelectDatePicker.call(self,this.getMoment())}}
+this.$datePicker.val(this.getDataLockerValue('l'))
+if(this.options.minDate){pikadayOptions.minDate=new Date(this.options.minDate)}
+if(this.options.maxDate){pikadayOptions.maxDate=new Date(this.options.maxDate)}
+this.$datePicker.pikaday(pikadayOptions)}
+DatePicker.prototype.onSelectDatePicker=function(pickerMoment){var pickerValue=pickerMoment.format(this.dbDateFormat)
+var timeValue=this.getTimePickerValue()
+var momentObj=moment.tz(pickerValue+' '+timeValue,this.dbDateTimeFormat,this.timezone).tz(this.appTimezone)
+var lockerValue=momentObj.format(this.dbDateTimeFormat)
+this.$dataLocker.val(lockerValue)}
+DatePicker.prototype.getDatePickerValue=function(){var value=this.$datePicker.val()
+if(!this.hasDate||!value){return moment.tz(this.appTimezone).tz(this.timezone).format(this.dbDateFormat)}
+return moment(value,this.getDateFormat()).format(this.dbDateFormat)}
+DatePicker.prototype.getDateFormat=function(){var format=this.options.format
+if(this.locale){format=moment().locale(this.locale).localeData().longDateFormat('l')}
+return format}
+DatePicker.prototype.initTimePicker=function(){this.$timePicker.clockpicker({autoclose:'true',placement:'bottom',align:'right',twelvehour:this.isTimeTwelveHour(),afterDone:this.proxy(this.onSelectTimePicker)})
+this.$timePicker.val(this.getDataLockerValue(this.getTimeFormat()))}
+DatePicker.prototype.onSelectTimePicker=function(){var pickerValue=this.$timePicker.val()
+var timeValue=moment(pickerValue,this.getTimeFormat()).format(this.dbTimeFormat)
+var dateValue=this.getDatePickerValue()
+var momentObj=moment.tz(dateValue+' '+timeValue,this.dbDateTimeFormat,this.timezone).tz(this.appTimezone)
+var lockerValue=momentObj.format(this.dbDateTimeFormat)
+this.$dataLocker.val(lockerValue)}
+DatePicker.prototype.getTimePickerValue=function(){var value=this.$timePicker.val()
+if(!this.hasTime||!value){return moment.tz(this.appTimezone).tz(this.timezone).format(this.dbTimeFormat)}
+return moment(value,this.getTimeFormat()).format(this.dbTimeFormat)}
+DatePicker.prototype.getTimeFormat=function(){return this.isTimeTwelveHour()?'hh:mm A':'HH:mm'}
+DatePicker.prototype.isTimeTwelveHour=function(){var momentObj=moment()
+if(this.locale){momentObj=momentObj.locale(this.locale)}
+return momentObj.localeData().longDateFormat('LT').indexOf('A')!==-1;}
+DatePicker.prototype.emptyValues=function(){this.$dataLocker.val('')
+this.$datePicker.val('')
+this.$timePicker.val('')}
+DatePicker.prototype.getDataLockerValue=function(format){var value=this.$dataLocker.val()
+return value?this.getMomentLoadValue(value,format):null}
+DatePicker.prototype.getMomentLoadValue=function(value,format){var momentObj=moment.tz(value,this.appTimezone)
+if(this.locale){momentObj=momentObj.locale(this.locale)}
+momentObj=momentObj.tz(this.timezone)
+return momentObj.format(format)}
+DatePicker.prototype.initRegion=function(){this.locale=$('meta[name="backend-locale"]').attr('content')
+this.timezone=$('meta[name="backend-timezone"]').attr('content')
+this.appTimezone=$('meta[name="app-timezone"]').attr('content')
+if(!this.appTimezone){this.appTimezone='UTC'}
+if(!this.timezone){this.timezone='UTC'}}
 DatePicker.DEFAULTS={minDate:null,maxDate:null,format:'YYYY-MM-DD',yearRange:10}
 var old=$.fn.datePicker
-$.fn.datePicker=function(option){var args=Array.prototype.slice.call(arguments,1)
-return this.each(function(){var $this=$(this)
-var data=$this.data('oc.datepicker')
+$.fn.datePicker=function(option){var args=Array.prototype.slice.call(arguments,1),items,result
+items=this.each(function(){var $this=$(this)
+var data=$this.data('oc.datePicker')
 var options=$.extend({},DatePicker.DEFAULTS,$this.data(),typeof option=='object'&&option)
-if(!data)$this.data('oc.datepicker',(data=new DatePicker(this,options)))
-else if(typeof option=='string')data[option].apply(data,args)})}
+if(!data)$this.data('oc.datePicker',(data=new DatePicker(this,options)))
+if(typeof option=='string')result=data[option].apply(data,args)
+if(typeof result!='undefined')return false})
+return result?result:items}
 $.fn.datePicker.Constructor=DatePicker
 $.fn.datePicker.noConflict=function(){$.fn.datePicker=old
 return this}
-$(document).on('render',function(){$('[data-control="datepicker"]').datePicker()});}(window.jQuery);+function($){"use strict";var TimePicker=function(element,options){var self=this
-this.options=options
-this.$el=$(element)
-this.$input=this.$el.find('input:first')
-var $form=this.$el.closest('form'),changeMonitor=$form.data('oc.changeMonitor')
-if(changeMonitor!==undefined)
-changeMonitor.pause()
-this.$input.clockpicker()
-if(changeMonitor!==undefined)
-changeMonitor.resume()}
-TimePicker.DEFAULTS={}
-var old=$.fn.timePicker
-$.fn.timePicker=function(option){var args=Array.prototype.slice.call(arguments,1)
-return this.each(function(){var $this=$(this)
-var data=$this.data('oc.timepicker')
-var options=$.extend({},TimePicker.DEFAULTS,$this.data(),typeof option=='object'&&option)
-if(!data)$this.data('oc.timepicker',(data=new TimePicker(this,options)))
-else if(typeof option=='string')data[option].apply(data,args)})}
-$.fn.timePicker.Constructor=TimePicker
-$.fn.timePicker.noConflict=function(){$.fn.timePicker=old
-return this}
-$(document).on('render',function(){$('[data-control="timepicker"]').timePicker()});}(window.jQuery);
+$(document).on('render',function(){$('[data-control="datepicker"]').datePicker()});}(window.jQuery);

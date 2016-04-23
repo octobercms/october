@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
+use System\Helpers\DateTime as DateTimeHelper;
 
 /**
  * Date picker
@@ -13,16 +14,9 @@ use Backend\Classes\FormWidgetBase;
  */
 class DatePicker extends FormWidgetBase
 {
-    const TIME_PREFIX = '___time_';
-
     //
     // Configurable properties
     //
-
-    /**
-     * @var string Display format.
-     */
-    public $format = 'YYYY-MM-DD';
 
     /**
      * @var bool Display mode: datetime, date, time.
@@ -93,45 +87,42 @@ class DatePicker extends FormWidgetBase
     {
         $this->vars['name'] = $this->formField->getName();
 
-        $this->vars['timeName'] = self::TIME_PREFIX.$this->formField->getName(false);
-        $this->vars['timeValue'] = null;
 
         if ($value = $this->getLoadValue()) {
-
+            $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
             /*
              * Date / Time
              */
-            if ($this->mode == 'datetime') {
-                if (is_object($value)) {
-                    $value = $value->toDateTimeString();
-                }
+            // if ($this->mode == 'datetime') {
+            //     if (is_object($value)) {
+            //         $value = $value->toDateTimeString();
+            //     }
 
-                $dateTime = explode(' ', $value);
-                $value = $dateTime[0];
-                $this->vars['timeValue'] = isset($dateTime[1]) ? substr($dateTime[1], 0, 5) : '';
-            }
+            //     $dateTime = explode(' ', $value);
+            //     $value = $dateTime[0];
+            //     $this->vars['timeValue'] = isset($dateTime[1]) ? substr($dateTime[1], 0, 5) : '';
+            // }
             /*
              * Date
              */
-            elseif ($this->mode == 'date') {
-                if (is_string($value)) {
-                    $value = substr($value, 0, 10);
-                }
-                elseif (is_object($value)) {
-                    $value = $value->toDateString();
-                }
-            }
-            elseif ($this->mode == 'time') {
-                if (is_object($value)) {
-                    $value = $value->toTimeString();
-                }
-            }
+            // elseif ($this->mode == 'date') {
+            //     if (is_string($value)) {
+            //         $value = substr($value, 0, 10);
+            //     }
+            //     elseif (is_object($value)) {
+            //         $value = $value->toDateString();
+            //     }
+            // }
+            // elseif ($this->mode == 'time') {
+            //     if (is_object($value)) {
+            //         $value = $value->toTimeString();
+            //     }
+            // }
 
         }
 
         $this->vars['value'] = $value ?: '';
         $this->vars['field'] = $this->formField;
-        $this->vars['format'] = $this->format;
         $this->vars['mode'] = $this->mode;
         $this->vars['minDate'] = $this->minDate;
         $this->vars['maxDate'] = $this->maxDate;
@@ -161,13 +152,13 @@ class DatePicker extends FormWidgetBase
             return null;
         }
 
-        $timeValue = post(self::TIME_PREFIX . $this->formField->getName(false));
-        if ($this->mode == 'datetime' && $timeValue) {
-            $value .= ' ' . $timeValue . ':00';
-        }
-        elseif ($this->mode == 'time') {
-            $value = substr($value, 0, 5) . ':00';
-        }
+        // $timeValue = post(self::TIME_PREFIX . $this->formField->getName(false));
+        // if ($this->mode == 'datetime' && $timeValue) {
+        //     $value .= ' ' . $timeValue . ':00';
+        // }
+        // elseif ($this->mode == 'time') {
+        //     $value = substr($value, 0, 5) . ':00';
+        // }
 
         return $value;
     }

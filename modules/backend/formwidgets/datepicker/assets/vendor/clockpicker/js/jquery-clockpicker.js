@@ -2,6 +2,10 @@
  * ClockPicker v0.0.7 (http://weareoutman.github.io/clockpicker/)
  * Copyright 2014 Wang Shenwei.
  * Licensed under MIT (https://github.com/weareoutman/clockpicker/blob/gh-pages/LICENSE)
+
+ * This library is no longer maintained by Weareoutman, hence
+ * no further updates will be provided. Consider this file
+ * a forked version and you a free to make changes.
  */
 
 ;(function(){
@@ -121,7 +125,7 @@
 		// Setup for for 12 hour clock if option is selected
 		if (options.twelvehour) {
 			
-			var  amPmButtonsTemplate = ['<div class="clockpicker-am-pm-block">',
+			var amPmButtonsTemplate = ['<div class="clockpicker-am-pm-block">',
 				'<button type="button" class="btn btn-sm btn-default clockpicker-button clockpicker-am-button">',
 				'AM</button>',
 				'<button type="button" class="btn btn-sm btn-default clockpicker-button clockpicker-pm-button">',
@@ -367,7 +371,7 @@
 		fromnow: 0,          // set default time to * milliseconds from now (using with default = 'now')
 		placement: 'bottom', // clock popover placement
 		align: 'left',       // popover arrow align
-		donetext: '完成',    // done button text
+		donetext: 'Done',    // done button text
 		autoclose: false,    // auto close when minute is selected
 		twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
 		vibrate: true        // vibrate the device when dragging clock hand
@@ -676,10 +680,11 @@
 		this.hide();
 		var last = this.input.prop('value'),
 			value = leadingZero(this.hours) + ':' + leadingZero(this.minutes);
-		if  (this.options.twelvehour) {
-			value = value + this.amOrPm;
+
+		if (this.options.twelvehour) {
+			value = value + ' ' +this.amOrPm;
 		}
-		
+
 		this.input.prop('value', value);
 		if (value !== last) {
 			this.input.triggerHandler('change');
