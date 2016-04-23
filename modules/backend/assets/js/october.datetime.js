@@ -67,11 +67,17 @@
         if (this.options.formatAlias) {
             this.options.format = this.getFormatFromAlias(this.options.formatAlias)
         }
+
+        this.appTimezone = $('meta[name="app-timezone"]').attr('content')
+        if (!this.appTimezone) {
+            this.appTimezone = 'UTC'
+        }
     }
 
     DateTimeConverter.prototype.getDateTimeValue = function() {
         this.datetime = this.$el.attr('datetime')
-        var momentObj = moment(this.datetime),
+
+        var momentObj = moment.tz(this.datetime, this.appTimezone),
             result
 
         if (this.options.locale) {
