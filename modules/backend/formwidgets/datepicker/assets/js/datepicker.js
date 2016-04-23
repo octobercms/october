@@ -1,3 +1,24 @@
+/*
+ * DatePicker plugin
+ *
+ * Data attributes:
+ * - data-control="datepicker" - enables the plugin on an element
+ * - data-format="value" - display format
+ * - data-min-date="value" - minimum date to allow
+ * - data-max-date="value" - maximum date to allow
+ * - data-year-range="value" - range of years to display
+ *
+ * JavaScript API:
+ * $('a#someElement').datePicker({ option: 'value' })
+ *
+ * Dependences:
+ * - Pikaday plugin (pikaday.js)
+ * - Pikaday jQuery addon (pikaday.jquery.js)
+ * - Clockpicker plugin (jquery-clockpicker.js)
+ * - Moment library (moment.js)
+ * - Moment Timezone library (moment.timezone.js)
+ */
+
 +function ($) { "use strict";
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype
