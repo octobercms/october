@@ -14,6 +14,7 @@
  * Dependences:
  * - Pikaday plugin (pikaday.js)
  * - Pikaday jQuery addon (pikaday.jquery.js)
+ * - Moment library (moment.js)
  */
 
 +function ($) { "use strict";
