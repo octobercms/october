@@ -913,13 +913,19 @@ class Lists extends WidgetBase
             return null;
         }
 
-        $value = $this->validateDateTimeValue($value, $column);
+        $dateTime = $this->validateDateTimeValue($value, $column);
 
         if ($column->format !== null) {
-            return $value->format($column->format);
+            $value = $dateTime->format($column->format);
+        }
+        else {
+            $value = $dateTime->toDayDateTimeString();
         }
 
-        return $value->toDayDateTimeString();
+        return Backend::dateTime($dateTime, $value, [
+            'format' => $column->format,
+            'formatAlias' => 'dateTimeLongMin'
+        ]);
     }
 
     /**
@@ -931,13 +937,16 @@ class Lists extends WidgetBase
             return null;
         }
 
-        $value = $this->validateDateTimeValue($value, $column);
+        $dateTime = $this->validateDateTimeValue($value, $column);
 
-        if ($column->format === null) {
-            $column->format = 'g:i A';
-        }
+        $format = $column->format !== null ? $column->format : 'g:i A';
 
-        return $value->format($column->format);
+        $value = $dateTime->format($format);
+
+        return Backend::dateTime($dateTime, $value, [
+            'format' => $column->format,
+            'formatAlias' => 'time'
+        ]);
     }
 
     /**
@@ -949,13 +958,19 @@ class Lists extends WidgetBase
             return null;
         }
 
-        $value = $this->validateDateTimeValue($value, $column);
+        $dateTime = $this->validateDateTimeValue($value, $column);
 
         if ($column->format !== null) {
-            return $value->format($column->format);
+            $value = $dateTime->format($column->format);
+        }
+        else {
+            $value = $dateTime->toFormattedDateString();
         }
 
-        return $value->toFormattedDateString();
+        return Backend::dateTime($dateTime, $value, [
+            'format' => $column->format,
+            'formatAlias' => 'dateLongMin'
+        ]);
     }
 
     /**
@@ -967,9 +982,13 @@ class Lists extends WidgetBase
             return null;
         }
 
-        $value = $this->validateDateTimeValue($value, $column);
+        $dateTime = $this->validateDateTimeValue($value, $column);
 
-        return DateTimeHelper::timeSince($value);
+        $value = DateTimeHelper::timeSince($dateTime);
+
+        return Backend::dateTime($dateTime, $value, [
+            'timeSince' => true
+        ]);
     }
 
     /**
@@ -981,9 +1000,13 @@ class Lists extends WidgetBase
             return null;
         }
 
-        $value = $this->validateDateTimeValue($value, $column);
+        $dateTime = $this->validateDateTimeValue($value, $column);
 
-        return DateTimeHelper::timeTense($value);
+        $value = DateTimeHelper::timeTense($dateTime);
+
+        return Backend::dateTime($dateTime, $value, [
+            'timeTense' => true
+        ]);
     }
 
     /**
@@ -991,7 +1014,7 @@ class Lists extends WidgetBase
      */
     protected function validateDateTimeValue($value, $column)
     {
-        $value = DateTimeHelper::instance()->makeCarbon($value, false);
+        $value = DateTimeHelper::makeCarbon($value, false);
 
         if (!$value instanceof Carbon) {
             throw new ApplicationException(Lang::get(

@@ -1,10 +1,12 @@
 <?php namespace Backend\Helpers;
 
 use Url;
+use Html;
 use Config;
 use Request;
 use Redirect;
 use October\Rain\Router\Helper as RouterHelper;
+use System\Helpers\DateTime as DateTimeHelper;
 use Backend\Classes\Skin;
 
 /**
@@ -79,4 +81,48 @@ class Backend
     {
         return Redirect::intended($this->uri() . '/' . $path, $status, $headers, $secure);
     }
+
+    /**
+     * Returns the HTML for a date formatted in the backend.
+     */
+    public function dateTime($dateTime, $value = '', $options = [])
+    {
+        extract(array_merge([
+            'format' => null,
+            'formatAlias' => null,
+            'jsFormat' => null,
+            'timeTense' => false,
+            'timeSince' => false,
+        ], $options));
+
+        $carbon = DateTimeHelper::makeCarbon($dateTime);
+
+        if ($jsFormat !== null) {
+            $format = $jsFormat;
+        }
+        else {
+            $format = DateTimeHelper::momentFormat($format);
+        }
+
+        $attributes = [
+            'datetime' => $carbon,
+            'data-datetime-control' => 1,
+        ];
+
+        if ($timeTense) {
+            $attributes['data-time-tense'] = 1;
+        }
+        elseif ($timeSince) {
+            $attributes['data-time-since'] = 1;
+        }
+        elseif ($format) {
+            $attributes['data-format'] = $format;
+        }
+        elseif ($formatAlias) {
+            $attributes['data-format-alias'] = $formatAlias;
+        }
+
+        return '<time'.Html::attributes($attributes).'>'.e($value).'</time>'.PHP_EOL;
+    }
+
 }
