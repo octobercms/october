@@ -34,6 +34,22 @@
     &.form-flush {
         border-top: none;
     }
+
+    // Style primary tabs
+    .control-tabs.primary-tabs {
+        > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
+            > li a > span.title {
+                &:before, &:after {
+                    background: white;
+                }
+            }
+            > li.active a {
+                &:before {
+                    background-color: white;
+                }
+            }
+        }
+    }
 }
 
 //
