@@ -99,6 +99,20 @@ class DatePicker extends FormWidgetBase
             }
         }
 
+        /*
+         * Display alias, used by preview mode
+         */
+        if ($this->mode == 'time') {
+            $formatAlias = 'time';
+        }
+        elseif ($this->mode == 'date') {
+            $formatAlias = 'dateLong';
+        }
+        else {
+            $formatAlias = 'dateTimeLong';
+        }
+
+        $this->vars['formatAlias'] = $formatAlias;
         $this->vars['value'] = $value ?: '';
         $this->vars['field'] = $this->formField;
         $this->vars['mode'] = $this->mode;

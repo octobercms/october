@@ -922,7 +922,8 @@ class Lists extends WidgetBase
             $value = $dateTime->toDayDateTimeString();
         }
 
-        return Backend::dateTime($dateTime, $value, [
+        return Backend::dateTime($dateTime, [
+            'defaultValue' => $value,
             'format' => $column->format,
             'formatAlias' => 'dateTimeLongMin'
         ]);
@@ -943,7 +944,8 @@ class Lists extends WidgetBase
 
         $value = $dateTime->format($format);
 
-        return Backend::dateTime($dateTime, $value, [
+        return Backend::dateTime($dateTime, [
+            'defaultValue' => $value,
             'format' => $column->format,
             'formatAlias' => 'time'
         ]);
@@ -967,7 +969,8 @@ class Lists extends WidgetBase
             $value = $dateTime->toFormattedDateString();
         }
 
-        return Backend::dateTime($dateTime, $value, [
+        return Backend::dateTime($dateTime, [
+            'defaultValue' => $value,
             'format' => $column->format,
             'formatAlias' => 'dateLongMin'
         ]);
@@ -986,7 +989,8 @@ class Lists extends WidgetBase
 
         $value = DateTimeHelper::timeSince($dateTime);
 
-        return Backend::dateTime($dateTime, $value, [
+        return Backend::dateTime($dateTime, [
+            'defaultValue' => $value,
             'timeSince' => true
         ]);
     }
@@ -1004,7 +1008,8 @@ class Lists extends WidgetBase
 
         $value = DateTimeHelper::timeTense($dateTime);
 
-        return Backend::dateTime($dateTime, $value, [
+        return Backend::dateTime($dateTime, [
+            'defaultValue' => $value,
             'timeTense' => true
         ]);
     }

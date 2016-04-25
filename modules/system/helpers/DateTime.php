@@ -66,6 +66,9 @@ class DateTime
         elseif (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $value)) {
             $value = Carbon::createFromFormat('Y-m-d', $value)->startOfDay();
         }
+        else {
+            $value = @Carbon::parse($value);
+        }
 
         if (!$value instanceof Carbon && $throwException) {
             throw new InvalidArgumentException('Invalid date value supplied to DateTime helper.');

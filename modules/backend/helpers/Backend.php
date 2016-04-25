@@ -84,10 +84,22 @@ class Backend
 
     /**
      * Returns the HTML for a date formatted in the backend.
+     * Supported for formatAlias:
+     *   time             -> 6:28 AM
+     *   timeLong         -> 6:28:01 AM
+     *   date             -> 04/23/2016
+     *   dateMin          -> 4/23/2016
+     *   dateLong         -> April 23, 2016
+     *   dateLongMin      -> Apr 23, 2016
+     *   dateTime         -> April 23, 2016 6:28 AM
+     *   dateTimeMin      -> Apr 23, 2016 6:28 AM
+     *   dateTimeLong     -> Saturday, April 23, 2016 6:28 AM
+     *   dateTimeLongMin  -> Sat, Apr 23, 2016 6:29 AM
      */
-    public function dateTime($dateTime, $value = '', $options = [])
+    public function dateTime($dateTime, $options = [])
     {
         extract(array_merge([
+            'defaultValue' => '',
             'format' => null,
             'formatAlias' => null,
             'jsFormat' => null,
@@ -122,7 +134,7 @@ class Backend
             $attributes['data-format-alias'] = $formatAlias;
         }
 
-        return '<time'.Html::attributes($attributes).'>'.e($value).'</time>'.PHP_EOL;
+        return '<time'.Html::attributes($attributes).'>'.e($defaultValue).'</time>'.PHP_EOL;
     }
 
 }
