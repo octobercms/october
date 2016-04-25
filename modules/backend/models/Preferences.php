@@ -34,11 +34,11 @@ class Preferences extends Model
 
     public function initSettingsData()
     {
-        $this->locale = Config::get('app.locale', 'en');
-        $this->fallback_locale = $this->getFallbackLocale($this->locale);
-        $this->timezone = Config::get('cms.backendTimezone', 'UTC');
-
         $config = App::make('config');
+        $this->locale = $config->get('app.locale', 'en');
+        $this->fallback_locale = $this->getFallbackLocale($this->locale);
+        $this->timezone = $config->get('cms.backendTimezone', $config->get('app.timezone'));
+
         $this->editor_font_size = $config->get('editor.font_size', 12);
         $this->editor_word_wrap = $config->get('editor.word_wrap', 'fluid');
         $this->editor_code_folding = $config->get('editor.code_folding', 'manual');
