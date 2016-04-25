@@ -232,6 +232,7 @@
 	background-color: rgb(192, 229, 247);
 	background-color: rgba(0, 149, 221, .25);
 }
+/*
 .clockpicker-button {
 	background-image: none;
 	background-color: #fff;
@@ -247,8 +248,9 @@
 	background-color: #ebebeb;
 }
 .clockpicker-button:focus {
-	outline: none!important;
+    outline: none!important;
 }
+*/
 .clockpicker-dial {
 	-webkit-transition: -webkit-transform 350ms, opacity 350ms;
 	-moz-transition: -moz-transform 350ms, opacity 350ms;

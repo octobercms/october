@@ -72,6 +72,9 @@
             if (!$.trim($(this).val())) {
                 self.emptyValues()
             }
+            else {
+                self.onSelectTimePicker()
+            }
         })
 
         this.$datePicker.on('change.oc.datepicker', function() {
@@ -182,8 +185,8 @@
             autoclose: 'true',
             placement: 'bottom',
             align: 'right',
-            twelvehour: this.isTimeTwelveHour(),
-            afterDone: this.proxy(this.onSelectTimePicker)
+            twelvehour: this.isTimeTwelveHour()
+            // afterDone: this.proxy(this.onSelectTimePicker)
         })
 
         this.$timePicker.val(this.getDataLockerValue(this.getTimeFormat()))
