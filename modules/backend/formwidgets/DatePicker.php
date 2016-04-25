@@ -90,35 +90,13 @@ class DatePicker extends FormWidgetBase
 
         if ($value = $this->getLoadValue()) {
             $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
-            /*
-             * Date / Time
-             */
-            // if ($this->mode == 'datetime') {
-            //     if (is_object($value)) {
-            //         $value = $value->toDateTimeString();
-            //     }
 
-            //     $dateTime = explode(' ', $value);
-            //     $value = $dateTime[0];
-            //     $this->vars['timeValue'] = isset($dateTime[1]) ? substr($dateTime[1], 0, 5) : '';
-            // }
             /*
-             * Date
+             * Time
              */
-            // elseif ($this->mode == 'date') {
-            //     if (is_string($value)) {
-            //         $value = substr($value, 0, 10);
-            //     }
-            //     elseif (is_object($value)) {
-            //         $value = $value->toDateString();
-            //     }
-            // }
-            // elseif ($this->mode == 'time') {
-            //     if (is_object($value)) {
-            //         $value = $value->toTimeString();
-            //     }
-            // }
-
+            if (strlen($value) <= 8) {
+                $value = Carbon::now()->toDateString() . ' ' . $value;
+            }
         }
 
         $this->vars['value'] = $value ?: '';
@@ -151,14 +129,6 @@ class DatePicker extends FormWidgetBase
         if (!strlen($value)) {
             return null;
         }
-
-        // $timeValue = post(self::TIME_PREFIX . $this->formField->getName(false));
-        // if ($this->mode == 'datetime' && $timeValue) {
-        //     $value .= ' ' . $timeValue . ':00';
-        // }
-        // elseif ($this->mode == 'time') {
-        //     $value = substr($value, 0, 5) . ':00';
-        // }
 
         return $value;
     }
