@@ -100,6 +100,8 @@ abstract class ExportModel extends Model
          * Prepare CSV
          */
         $csv = CsvWriter::createFromFileObject(new SplTempFileObject);
+        
+        $csv->setOutputBOM(AbstractCsv::BOM_UTF8);
 
         if ($options['delimiter'] !== null) {
             $csv->setDelimiter($options['delimiter']);
