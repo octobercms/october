@@ -388,7 +388,7 @@ return [
         'empty_error' => 'Dati eksportam netika sniegti',
         'empty_import_columns_error' => 'Lūdzu, norādiet kādas kolonnas ir jāimportē.',
         'match_some_column_error' => 'Lūdzu, vispirms saskanējiet kolonnas.',
-        'required_match_column_error' => 'Please specify a match for the required field :label.',
+        'required_match_column_error' => 'Lūdzu, norādiet attiecīgu datubāzes lauku obligātam laukam :label.',
         'empty_export_columns_error' => 'Lūdzu, norādiet kādas kolonnas ir jāeksportē.',
         'behavior_missing_uselist_error' => 'Jums ir jāisteno kontroliera uzvedība ListController Jūsu kontrolierī un jāiestata "useList: true" opcija Importa un Eksporta konfigurācijā.',
         'missing_model_class_error' => 'Lūdzu, norādiet modelClass īpašību priekš :type',
