@@ -163,8 +163,16 @@ class CmsCompoundObject extends CmsObject
     public function runComponents()
     {
         foreach ($this->components as $component) {
+            if ($event = $component->fireEvent('component.beforeRun', [], true)) {
+                return $event;
+            }
+
             if ($result = $component->onRun()) {
                 return $result;
+            }
+
+            if ($event = $component->fireEvent('component.run', [], true)) {
+                return $event;
             }
         }
     }
@@ -427,6 +435,22 @@ class CmsCompoundObject extends CmsObject
         }
 
         return parent::__get($name);
+    }
+
+    /**
+     * Dynamically set attributes on the model.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public function __set($key, $value)
+    {
+        parent::__set($key, $value);
+
+        if (array_key_exists($key, $this->settings)) {
+            $this->settings[$key] = $this->attributes[$key];
+        }
     }
 
     /**
