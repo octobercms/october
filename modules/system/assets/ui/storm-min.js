@@ -1900,8 +1900,7 @@ $(container).triggerHandler('dispose-control')}}
 $.oc.foundation.controlUtils=ControlUtils;$(document).on('ajaxBeforeReplace',function(ev){$.oc.foundation.controlUtils.disposeControls(ev.target)})}(window.jQuery);+function($){"use strict";var FlashMessage=function(options,el){var
 options=$.extend({},FlashMessage.DEFAULTS,options),$element=$(el)
 $('body > p.flash-message').remove()
-if($element.length==0)
-$element=$('<p/>').addClass(options.class).html(options.text)
+if($element.length==0){$element=$('<p/>').addClass(options.class).html(options.text)}
 $element.addClass('flash-message fade')
 $element.attr('data-control',null)
 $element.append('<button type="button" class="close" aria-hidden="true">&times;</button>')
