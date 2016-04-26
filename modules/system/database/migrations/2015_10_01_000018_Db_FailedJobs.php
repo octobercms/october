@@ -1,12 +1,13 @@
 <?php
 
+use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
 class DbFailedJobs extends Migration
 {
     public function up()
     {
-        Schema::create('failed_jobs', function ($table) {
+        Schema::create('failed_jobs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->text('connection');

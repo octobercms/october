@@ -1,12 +1,13 @@
 <?php
 
+use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
 class DbCache extends Migration
 {
     public function up()
     {
-        Schema::create('cache', function ($table) {
+        Schema::create('cache', function (Blueprint $table) {
             $table->string('key')->unique();
             $table->text('value');
             $table->integer('expiration');

@@ -26,7 +26,6 @@ return [
     'Request'   => Illuminate\Support\Facades\Request::class,
     'Response'  => Illuminate\Support\Facades\Response::class,
     'Route'     => Illuminate\Support\Facades\Route::class,
-    'Schema'    => Illuminate\Support\Facades\Schema::class,
     'Session'   => Illuminate\Support\Facades\Session::class,
     'Storage'   => Illuminate\Support\Facades\Storage::class,
     'Url'       => Illuminate\Support\Facades\URL::class, // Preferred
@@ -52,6 +51,7 @@ return [
     'Ini'             => October\Rain\Support\Facades\Ini::class,
     'Twig'            => October\Rain\Support\Facades\Twig::class,
     'DbDongle'        => October\Rain\Support\Facades\DbDongle::class,
+    'Schema'          => October\Rain\Support\Facades\Schema::class,
     'Backend'         => Backend\Facades\Backend::class,
     'BackendMenu'     => Backend\Facades\BackendMenu::class,
     'BackendAuth'     => Backend\Facades\BackendAuth::class,
