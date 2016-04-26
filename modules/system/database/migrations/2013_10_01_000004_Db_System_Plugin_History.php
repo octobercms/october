@@ -14,7 +14,7 @@ class DbSystemPluginHistory extends Migration
             $table->string('type', 20)->index();
             $table->string('version', 50);
             $table->string('detail')->nullable();
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->nullable();
         });
     }
 

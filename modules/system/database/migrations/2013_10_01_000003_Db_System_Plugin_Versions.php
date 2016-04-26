@@ -12,7 +12,7 @@ class DbSystemPluginVersions extends Migration
             $table->increments('id');
             $table->string('code')->index();
             $table->string('version', 50);
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
