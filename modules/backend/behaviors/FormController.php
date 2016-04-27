@@ -185,7 +185,7 @@ class FormController extends ControllerBehavior
             );
 
             $model = $this->controller->formCreateModelObject();
-            $model = $this->controller->formExtendModel($model);
+            $model = $this->controller->formExtendModel($model) ?: $model;
 
             $this->initForm($model);
         }
@@ -203,7 +203,7 @@ class FormController extends ControllerBehavior
         $this->context = strlen($context) ? $context : $this->getConfig('create[context]', self::CONTEXT_CREATE);
 
         $model = $this->controller->formCreateModelObject();
-        $model = $this->controller->formExtendModel($model);
+        $model = $this->controller->formExtendModel($model) ?: $model;
 
         $this->initForm($model);
 
@@ -633,7 +633,7 @@ class FormController extends ControllerBehavior
             ]));
         }
 
-        $result = $this->controller->formExtendModel($result);
+        $result = $this->controller->formExtendModel($result) ?: $result;
 
         return $result;
     }
@@ -704,7 +704,6 @@ class FormController extends ControllerBehavior
      */
     public function formExtendModel($model)
     {
-        return $model;
     }
 
     /**
