@@ -79,10 +79,6 @@
 
             label {
                 padding-left: 25px;
-
-                &:before {
-                    top: -1px;
-                }
             }
 
             &:after {
@@ -116,6 +112,7 @@
             border: none;
             border-bottom: 1px solid @color-filter-border;
             .border-bottom-radius(0);
+            .box-shadow(none);
             background-color: transparent;
         }
 
@@ -159,7 +156,7 @@
     }
 
     .filter-items {
-        height: 100px;
+        max-height: 135px;
         overflow: auto;
 
         background-color: @color-filter-items-bg;
@@ -191,7 +188,7 @@
 @media (max-width: @screen-xs) {
     .control-filter-popover {
         .filter-items {
-            height: 200px;
+            max-height: 200px;
         }
         .filter-search {
             input {

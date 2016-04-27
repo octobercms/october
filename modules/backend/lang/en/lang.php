@@ -343,7 +343,8 @@ return [
         'email' => 'Email'
     ],
     'filter' => [
-        'all' => 'all'
+        'all' => 'all',
+        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':filter' filter."
     ],
     'import_export' => [
         'upload_csv_file' => '1. Upload a CSV file',

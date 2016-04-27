@@ -2348,7 +2348,7 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .custom-checkbox,.custom-radio{padding-left:23px;margin-top:0}
 .custom-checkbox input[type=radio],.custom-radio input[type=radio],.custom-checkbox input[type=checkbox],.custom-radio input[type=checkbox]{display:none}
 .custom-checkbox label,.custom-radio label{display:inline-block;cursor:pointer;position:relative;padding-left:25px;margin-right:15px;margin-left:-20px;font-size:13px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
-.custom-checkbox label:before,.custom-radio label:before{content:"";display:inline-block;text-align:center;color:#ffffff;width:18px;height:18px;margin-right:15px;position:absolute;left:-3px;top:0;background-color:#FFFFFF;border:1px solid #bdc3c7;-webkit-box-shadow:inset 0 1px 0 #bdc3c7,0 1px 0 #fff;box-shadow:inset 0 1px 0 #bdc3c7,0 1px 0 #fff}
+.custom-checkbox label:before,.custom-radio label:before{content:"";display:inline-block;text-align:center;color:#ffffff;width:18px;height:18px;margin-right:15px;position:absolute;left:-3px;top:0;background-color:#FFFFFF;border:1px solid #bdc3c7;-webkit-box-shadow:inset 0 1px 0 #bdc3c7,0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 1px 0 #bdc3c7,0 1px 0 rgba(255,255,255,.5)}
 .custom-checkbox label:hover:before,.custom-radio label:hover:before{border-color:#a1aab0}
 .custom-checkbox label:active:before,.custom-radio label:active:before{border-color:#869198;border-width:2px}
 .custom-checkbox input[type=radio]:checked + label:before,.custom-radio input[type=radio]:checked + label:before{border-color:#1f99dc;line-height:17px;border-width:2px}
@@ -2357,7 +2357,11 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .custom-checkbox input[type=radio][data-radio-color=green]:checked + label:after,.custom-radio input[type=radio][data-radio-color=green]:checked + label:after{background-color:#76a544}
 .custom-checkbox input[type=radio][data-radio-color=red]:checked + label:before,.custom-radio input[type=radio][data-radio-color=red]:checked + label:before{border-color:#bb2424}
 .custom-checkbox input[type=radio][data-radio-color=red]:checked + label:after,.custom-radio input[type=radio][data-radio-color=red]:checked + label:after{background-color:#bb2424}
-.custom-checkbox input[type=checkbox]:checked + label:before,.custom-radio input[type=checkbox]:checked + label:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f00c";border-color:#1f99dc;background-color:#1f99dc;font-size:12px;line-height:17px;border-width:2px;-webkit-box-shadow:none;box-shadow:none}
+.custom-checkbox input[type=checkbox]:indeterminate + label:before,.custom-radio input[type=checkbox]:indeterminate + label:before,.custom-checkbox input[type=checkbox]:checked + label:before,.custom-radio input[type=checkbox]:checked + label:before{border-color:#1f99dc;background-color:#1f99dc;font-size:12px;line-height:17px;border-width:2px;-webkit-box-shadow:none;box-shadow:none}
+.custom-checkbox input[type=checkbox]:checked + label:before,.custom-radio input[type=checkbox]:checked + label:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f00c"}
+.custom-checkbox input[type=checkbox]:indeterminate + label:before,.custom-radio input[type=checkbox]:indeterminate + label:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f068"}
+.custom-checkbox input:disabled + label:before,.custom-radio input:disabled + label:before{border:1px solid #bdc3c7 !important}
+.custom-checkbox input:disabled:checked + label:before,.custom-radio input:disabled:checked + label:before{background-color:#999}
 .custom-checkbox:focus,.custom-radio:focus{outline:none}
 .custom-checkbox:focus label:before,.custom-radio:focus label:before{border-color:#3498db}
 .custom-checkbox p.help-block,.custom-radio p.help-block{padding-left:6px;margin-bottom:17px}
@@ -2409,6 +2413,7 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .form-group.checkbox-field{padding-bottom:5px}
 .form-group.number-field > .form-control{text-align:right}
 .form-group.checkbox-align{padding-left:28px;margin-top:-5px}
+.form-group.field-align-above{margin-top:-5px}
 .form-group.field-slim.span-left,.form-group.field-slim.span-right{width:50%}
 .form-group.field-indent{padding-left:23px}
 .form-group.input-sidebar-control{padding-right:35px}
@@ -2438,9 +2443,9 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .field-textarea.size-large{min-height:200px}
 .field-textarea.size-huge{min-height:250px}
 .field-textarea.size-giant{min-height:350px}
-.field-checkboxlist{padding:20px 20px 2px 20px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#ffffff}
-.field-checkboxlist .checkbox:last-of-type{margin-bottom:0}
-.field-checkboxlist-scrollable{background:white;border:1px solid #e2e2e2;padding-left:15px;height:300px}
+.field-checkboxlist:not(.is-scrollable){padding:20px 20px 2px 20px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#ffffff;border:1px solid #e2e2e2}
+.field-checkboxlist.is-scrollable small{color:#999999}
+.field-checkboxlist-scrollable{background:#ffffff;border:1px solid #e2e2e2;padding-left:15px;height:300px}
 .field-checkboxlist-scrollable .checkbox{margin-top:15px;margin-bottom:5px}
 .field-checkboxlist-scrollable .checkbox ~ .checkbox{margin-top:0}
 .field-recordfinder{background-color:#ffffff;border:1px solid #bdc3c7;overflow:hidden;position:relative;-webkit-box-shadow:inset 0 1px 0 #bdc3c7,0 1px 0 #fff;box-shadow:inset 0 1px 0 #bdc3c7,0 1px 0 #fff;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
@@ -2753,14 +2758,13 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .control-filter > .filter-scope.checkbox{padding-left:35px}
 .control-filter > .filter-scope.checkbox,.control-filter > .filter-scope.checkbox label{margin-bottom:0}
 .control-filter > .filter-scope.checkbox label{padding-left:25px}
-.control-filter > .filter-scope.checkbox label:before{top:-1px}
 .control-filter > .filter-scope.checkbox:after{content:''}
 .control-filter > .filter-scope:hover,.control-filter > .filter-scope.active,.control-filter > .filter-scope:hover.custom-checkbox label,.control-filter > .filter-scope.active.custom-checkbox label{color:#000000}
 .control-filter > .filter-scope:hover .filter-label,.control-filter > .filter-scope.active .filter-label{color:#000000}
 .control-filter > .filter-scope:hover.active .filter-setting,.control-filter > .filter-scope.active.active .filter-setting{background-color:#5f9a4c}
 .control-filter-popover{min-width:275px}
 .control-filter-popover .filter-search{min-height:36px}
-.control-filter-popover .filter-search input{min-height:36px;border:none;border-bottom:1px solid #d7dbdd;border-bottom-right-radius:0;border-bottom-left-radius:0;background-color:transparent}
+.control-filter-popover .filter-search input{min-height:36px;border:none;border-bottom:1px solid #d7dbdd;border-bottom-right-radius:0;border-bottom-left-radius:0;-webkit-box-shadow:none;box-shadow:none;background-color:transparent}
 .control-filter-popover .filter-search .form-control.icon.search{background-position:right -81px}
 .control-filter-popover .filter-search .close{display:none}
 .control-filter-popover .filter-items,.control-filter-popover .filter-active-items{color:rgba(0,0,0,0.6);font-size:13px}
@@ -2769,14 +2773,14 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .control-filter-popover .filter-items a,.control-filter-popover .filter-active-items a{text-decoration:none;color:rgba(0,0,0,0.6);display:block;padding:7px 15px}
 .control-filter-popover .filter-items a:before,.control-filter-popover .filter-active-items a:before{margin-right:8px;display:inline-block;vertical-align:baseline}
 .control-filter-popover .filter-items a:hover,.control-filter-popover .filter-active-items a:hover{background-color:#4da7e8;color:#FFFFFF}
-.control-filter-popover .filter-items{height:100px;overflow:auto;background-color:#fafafa;border-bottom:1px solid #d7dbdd}
+.control-filter-popover .filter-items{max-height:135px;overflow:auto;background-color:#fafafa;border-bottom:1px solid #d7dbdd}
 .control-filter-popover .filter-items a:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f067"}
 .control-filter-popover .filter-items li.loading{padding:7px}
 .control-filter-popover .filter-items li.loading > span{display:block;height:20px;width:20px;background-image:url('images/loader-transparent.svg');background-size:20px 20px;background-position:50% 50%;-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite}
 .control-filter-popover .filter-items li.animate-enter{-webkit-animation:fadeInUp 0.5s;animation:fadeInUp 0.5s}
 .control-filter-popover .filter-active-items a:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f00d"}
 .control-filter-popover .filter-active-items li.animate-enter{-webkit-animation:fadeInDown 0.5s;animation:fadeInDown 0.5s}
-@media (max-width:480px){.control-filter-popover .filter-items{height:200px}
+@media (max-width:480px){.control-filter-popover .filter-items{max-height:200px}
 .control-filter-popover .filter-search input{padding-left:36px;padding-right:36px}
 .control-filter-popover .filter-search .form-control.icon.search{background-position:0 -81px}
 .control-filter-popover .filter-search .close{width:30px;display:block;position:absolute;top:5px;right:5px;font-size:28px;z-index:2}

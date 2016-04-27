@@ -153,6 +153,10 @@
         margin-top: -5px;
     }
 
+    &.field-align-above {
+        margin-top: -5px;
+    }
+
     &.field-slim {
         &.span-left, &.span-right {
             width: 50%;
@@ -287,18 +291,25 @@
     &.size-giant { min-height: @size-giant; }
 }
 
-.field-checkboxlist {
+.field-checkboxlist:not(.is-scrollable) {
     padding: 20px 20px 2px 20px;
     .border-radius(@border-radius-base);
     background: @color-form-checkboxlist-background;
+    border: 1px solid @color-form-checkboxlist-border;
 
-    .checkbox:last-of-type {
-        margin-bottom: 0;
+    //.checkbox:last-of-type {
+    //    margin-bottom: 0;
+    //}
+}
+
+.field-checkboxlist.is-scrollable {
+    small {
+        color: @text-muted;
     }
 }
 
 .field-checkboxlist-scrollable {
-    background: white;
+    background: @color-form-checkboxlist-background;
     border: 1px solid @color-form-checkboxlist-border;
     padding-left: 15px;
     height: @size-large + 100;

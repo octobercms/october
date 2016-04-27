@@ -1925,7 +1925,29 @@ return
 $cb.get(0).checked=!$cb.get(0).checked
 $cb.data('oc-space-timestamp',e.timeStamp)
 $cb.trigger('change')
-return false}})})(jQuery);+function($){"use strict";var BalloonSelector=function(element,options){this.$el=$(element)
+return false}})
+$(document).render(function(){$('div.custom-checkbox.is-indeterminate > input').each(function(){var $el=$(this),checked=$el.data('checked')
+switch(checked){case 1:$el.prop('indeterminate',true)
+break
+case 2:$el.prop('indeterminate',false)
+$el.prop('checked',true)
+break
+default:$el.prop('indeterminate',false)
+$el.prop('checked',false)}})})
+$(document).on('click','div.custom-checkbox.is-indeterminate > label',function(){var $el=$(this).parent().find('input:first'),checked=$el.data('checked')
+if(checked===undefined){checked=$el.is(':checked')?1:0}
+switch(checked){case 0:$el.data('checked',1)
+$el.prop('indeterminate',true)
+break
+case 1:$el.data('checked',2)
+$el.prop('indeterminate',false)
+$el.prop('checked',true)
+break
+default:$el.data('checked',0)
+$el.prop('indeterminate',false)
+$el.prop('checked',false)}
+$el.trigger('change')
+return false})})(jQuery);+function($){"use strict";var BalloonSelector=function(element,options){this.$el=$(element)
 this.$field=$('input',this.$el)
 this.options=options||{};var self=this;$('li',this.$el).click(function(){if(self.$el.hasClass('control-disabled'))
 return
@@ -2076,10 +2098,9 @@ FilterWidget.prototype.getPopoverTemplate=function(){return'                    
                 </form>                                                                                 \
             '}
 FilterWidget.prototype.init=function(){var self=this
-this.$el.on('change','.filter-scope input[type="checkbox"]',function(){var isChecked=$(this).is(':checked'),$scope=$(this).closest('.filter-scope'),scopeName=$scope.data('scope-name')
-self.scopeValues[scopeName]=isChecked
-self.checkboxToggle(scopeName,isChecked)
-$scope.toggleClass('active',isChecked)})
+this.$el.on('change','.filter-scope input[type="checkbox"]',function(){var $scope=$(this).closest('.filter-scope')
+if($scope.hasClass('is-indeterminate')){self.switchToggle($(this))}
+else{self.checkboxToggle($(this))}})
 $('.filter-scope input[type="checkbox"]',this.$el).each(function(){$(this).closest('.filter-scope').toggleClass('active',$(this).is(':checked'))})
 this.$el.on('click','a.filter-scope',function(){var $scope=$(this),scopeName=$scope.data('scope-name')
 if($scope.hasClass('filter-scope-open'))return
@@ -2166,11 +2187,18 @@ return
 var $form=this.$el.closest('form'),data={scopeName:scopeName,options:this.scopeValues[scopeName]}
 $.oc.stripeLoadIndicator.show()
 $form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
-FilterWidget.prototype.checkboxToggle=function(scopeName,isChecked){if(!this.options.updateHandler)
-return
-var $form=this.$el.closest('form'),data={scopeName:scopeName,value:isChecked}
+FilterWidget.prototype.checkboxToggle=function($el){var isChecked=$el.is(':checked'),$scope=$el.closest('.filter-scope'),scopeName=$scope.data('scope-name')
+this.scopeValues[scopeName]=isChecked
+if(this.options.updateHandler){var $form=this.$el.closest('form'),data={scopeName:scopeName,value:isChecked}
 $.oc.stripeLoadIndicator.show()
 $form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+$scope.toggleClass('active',isChecked)}
+FilterWidget.prototype.switchToggle=function($el){var switchValue=$el.data('checked'),$scope=$el.closest('.filter-scope'),scopeName=$scope.data('scope-name')
+this.scopeValues[scopeName]=switchValue
+if(this.options.updateHandler){var $form=this.$el.closest('form'),data={scopeName:scopeName,value:switchValue}
+$.oc.stripeLoadIndicator.show()
+$form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+$scope.toggleClass('active',!!switchValue)}
 var old=$.fn.filterWidget
 $.fn.filterWidget=function(option){var args=arguments,result
 this.each(function(){var $this=$(this)

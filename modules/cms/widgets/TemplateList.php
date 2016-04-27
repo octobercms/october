@@ -322,7 +322,7 @@ class TemplateList extends WidgetBase
         return true;
     }
 
-    protected function itemContainsWord($word, $item , $exact = false)
+    protected function itemContainsWord($word, $item, $exact = false)
     {
         $operator = $exact ? 'is' : 'contains';
 
