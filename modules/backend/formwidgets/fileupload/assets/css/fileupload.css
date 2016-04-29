@@ -4,12 +4,12 @@
 .field-fileupload .upload-object .icon-container i{color:#95a5a6;display:inline-block}
 .field-fileupload .upload-object .icon-container div{display:table-cell;text-align:center;vertical-align:middle}
 .field-fileupload .upload-object .icon-container.image > div.icon-wrapper{display:none}
-.field-fileupload .upload-object h4{font-size:15px;color:#2A3E51;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:150%;margin:15px 0 5px 0;padding-right:0;-webkit-transition:padding 0.1s;transition:padding 0.1s;position:relative}
+.field-fileupload .upload-object h4{font-size:13px;color:#2A3E51;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:150%;margin:15px 0 5px 0;padding-right:0;-webkit-transition:padding 0.1s;transition:padding 0.1s;position:relative}
 .field-fileupload .upload-object h4 a{position:absolute;right:0;top:0;display:none;font-weight:400}
 .field-fileupload .upload-object p.size{font-size:12px;color:#95a5a6}
 .field-fileupload .upload-object p.size strong{font-weight:400}
 .field-fileupload .upload-object .meta .drag-handle{position:absolute;bottom:0;right:0;cursor:move;display:block}
-.field-fileupload .upload-object .info h4 a,.field-fileupload .upload-object .meta a.upload-remove-button,.field-fileupload .upload-object .meta a.drag-handle{color:#2b3e50;display:none;font-size:15px;text-decoration:none}
+.field-fileupload .upload-object .info h4 a,.field-fileupload .upload-object .meta a.upload-remove-button,.field-fileupload .upload-object .meta a.drag-handle{color:#2b3e50;display:none;font-size:13px;text-decoration:none}
 .field-fileupload .upload-object .icon-container{position:relative}
 .field-fileupload .upload-object .icon-container:after{background-image:url('../../../../../system/assets/ui/images/loader-transparent.svg');position:absolute;content:' ';width:40px;height:40px;left:50%;top:50%;margin-top:-20px;margin-left:-20px;display:block;background-size:40px 40px;background-position:50% 50%;-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite}
 .field-fileupload .upload-object.is-success .icon-container{opacity:1}

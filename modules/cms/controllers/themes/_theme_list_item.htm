@@ -19,7 +19,7 @@
             <button
                 type="submit"
                 disabled
-                class="btn btn-disabled">
+                class="btn btn-secondary btn-disabled">
                 <i class="icon-star"></i>
                 <?= e(trans('cms::lang.theme.active_button')) ?>
             </button>
@@ -37,7 +37,7 @@
         <?php if ($theme->hasCustomData()): ?>
             <a
                 href="<?= Backend::url('cms/themes/update/'.$theme->getDirName()) ?>"
-                class="btn btn-default">
+                class="btn btn-secondary">
                 <i class="icon-paint-brush"></i>
                 <?= e(trans('cms::lang.theme.customize_button')) ?>
             </a>
@@ -45,7 +45,7 @@
         <div class="dropdown">
             <button
                 data-toggle="dropdown"
-                class="btn btn-default">
+                class="btn btn-secondary">
                 <i class="icon-wrench"></i>
                 <?= e(trans('cms::lang.theme.manage_button')) ?>
             </button>

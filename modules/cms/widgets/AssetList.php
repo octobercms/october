@@ -47,7 +47,7 @@ class AssetList extends WidgetBase
     /**
      * @var string Message to display when the Delete button is clicked.
      */
-    public $deleteConfirmation = 'Do you really want to delete selected files or directories?';
+    public $deleteConfirmation = 'Delete selected files or directories?';
 
     public function __construct($controller, $alias)
     {

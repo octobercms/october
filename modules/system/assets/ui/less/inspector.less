@@ -15,6 +15,7 @@
 @color-inspector-bg:                         #f2f2f2;
 @color-inspector-active-bg:                  #ffffff;
 @color-inspector-text:                       #333333;
+@color-inspector-input-text:                 #385487;
 @color-inspector-grid:                       #c8cccd;
 @color-inspector-changed:                    #c03f31;
 
@@ -43,11 +44,18 @@
 
     td, th {
         padding: 5px 12px;
-        color: @color-inspector-text;
         font-size: 12px;
         width: 50%;
         border-bottom: 1px solid @color-inspector-grid;
         text-align: left;
+    }
+
+    th {
+        color: @color-inspector-text;
+    }
+
+    td {
+        color: @color-inspector-input-text;
     }
 
     tr:last-child {
@@ -376,9 +384,10 @@
             height: 29px;
             line-height: 29px;
             padding: 0 3px 0 12px;
-            .border-radius(0) !important;
             border: none !important;
             font-size: 12px;
+            .border-radius(0) !important;
+            .box-shadow(none) !important;
 
             &.select2-default {
                 font-weight: normal !important;
@@ -402,6 +411,7 @@
 
         .select2-selection__rendered {
             padding: 0 22px 0 0;
+            color: @color-inspector-input-text;
         }
     }
 
@@ -516,7 +526,7 @@ div.inspector-dictionary-container {
         }
     }
 
-    table.inspector-dictionary-table{
+    table.inspector-dictionary-table {
         width: 100%;
         border: none;
 
@@ -541,6 +551,7 @@ div.inspector-dictionary-container {
                     outline: none;
                     border: none;
                     padding: 7px 5px;
+                    .box-shadow(none);
 
                     &:focus {
                         border: none;

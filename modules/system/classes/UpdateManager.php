@@ -122,7 +122,7 @@ class UpdateManager
         $firstUp = !Schema::hasTable('migrations');
         if ($firstUp) {
             $this->repository->createRepository();
-            $this->note('Migration table created successfully.');
+            $this->note('Migration table created');
         }
 
         /*

@@ -44,16 +44,15 @@ class Preferences extends Model
         $this->editor_code_folding = $config->get('editor.code_folding', 'manual');
         $this->editor_tab_size = $config->get('editor.tab_size', 4);
         $this->editor_theme = $config->get('editor.theme', static::DEFAULT_THEME);
-        $this->editor_show_invisibles = $config->get('editor.show_invisibles', true);
+        $this->editor_show_invisibles = $config->get('editor.show_invisibles', false);
         $this->editor_highlight_active_line = $config->get('editor.highlight_active_line', true);
         $this->editor_use_hard_tabs = $config->get('editor.use_hard_tabs', false);
         $this->editor_show_gutter = $config->get('editor.show_gutter', true);
-        $this->editor_auto_closing = $config->get('editor.auto_closing', true);
-        $this->editor_enable_basic_autocompletion = $config->get('editor.enable_basic_autocompletion', true);
-        $this->editor_enable_live_autocompletion = $config->get('editor.enable_live_autocompletion', true);
-        $this->editor_enable_snippets = $config->get('editor.enable_snippets', true);
-        $this->editor_display_indent_guides = $config->get('editor.display_indent_guides', true);
-        $this->editor_show_print_margin = $config->get('editor.show_print_margin', true);
+        $this->editor_auto_closing = $config->get('editor.auto_closing', false);
+        $this->editor_autocompletion = $config->get('editor.editor_autocompletion', 'manual');
+        $this->editor_enable_snippets = $config->get('editor.enable_snippets', false);
+        $this->editor_display_indent_guides = $config->get('editor.display_indent_guides', false);
+        $this->editor_show_print_margin = $config->get('editor.show_print_margin', false);
     }
 
     public static function setAppLocale()

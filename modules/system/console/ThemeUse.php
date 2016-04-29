@@ -36,7 +36,7 @@ class ThemeUse extends Command
      */
     public function fire()
     {
-        if (!$this->confirmToProceed('Do you really want to change the active theme?')) {
+        if (!$this->confirmToProceed('Change the active theme?')) {
             return;
         }
 

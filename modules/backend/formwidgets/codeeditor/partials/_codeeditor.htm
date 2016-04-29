@@ -12,11 +12,10 @@
         data-tab-size="<?= $tabSize ?>"
         data-theme="<?= $theme ?>"
         data-show-invisibles="<?= $showInvisibles ?>"
-		data-enable-basic-autocompletion="<?= $enableBasicAutocompletion ?>"
-		data-enable-snippets="<?= $enableSnippets ?>"
-		data-enable-live-autocompletion="<?= $enableLiveAutocompletion ?>"
-		data-display-indent-guides="<?= $displayIndentGuides ?>"
-		data-show-print-margin="<?= $showPrintMargin ?>"
+        data-autocompletion="<?= $autocompletion ?>"
+        data-enable-snippets="<?= $enableSnippets ?>"
+        data-display-indent-guides="<?= $displayIndentGuides ?>"
+        data-show-print-margin="<?= $showPrintMargin ?>"
         data-highlight-active-line="<?= $highlightActiveLine ?>"
         data-use-soft-tabs="<?= $useSoftTabs ?>"
         data-show-gutter="<?= $showGutter ? 'true' : 'false' ?>"
@@ -49,8 +48,8 @@
                         <i class="icon-random"></i>
                         <abbr title="ctrl+h or esc"><?= e(trans('cms::lang.editor.close_replacebox')) ?></abbr>
                     </a>
-                </li>				
-				<li class="fullscreen-enable">
+                </li>
+                <li class="fullscreen-enable">
                     <a href="javascript:;">
                         <i class="icon-desktop"></i>
                         <abbr title="ctrl+shift+f"><?= e(trans('cms::lang.editor.enter_fullscreen')) ?></abbr>
@@ -61,7 +60,7 @@
                         <i class="icon-desktop"></i>
                         <abbr title="ctrl+shift+f or esc"><?= e(trans('cms::lang.editor.exit_fullscreen')) ?></abbr>
                     </a>
-                </li>		
+                </li>
             </ul>
         </div>
         <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>"><?= e($value) ?></textarea>

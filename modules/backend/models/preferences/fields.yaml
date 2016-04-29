@@ -24,18 +24,11 @@ tabs:
             tab: backend::lang.backend_preferences.code_editor
             path: field_editor_preview
 
-        editor_font_size:
-            label: backend::lang.editor.font_size
+        editor_theme:
+            label: backend::lang.editor.theme
             tab: backend::lang.backend_preferences.code_editor
             span: auto
             type: dropdown
-            options:
-                11: 11px
-                12: 12px
-                13: 13px
-                14: 14px
-                15: 15px
-                16: 16px
 
         editor_word_wrap:
             label: backend::lang.editor.word_wrap
@@ -48,15 +41,18 @@ tabs:
                 80: 80 Characters
                 fluid: Fluid
 
-        editor_code_folding:
-            label: backend::lang.editor.code_folding
+        editor_font_size:
+            label: backend::lang.editor.font_size
             tab: backend::lang.backend_preferences.code_editor
-            type: dropdown
             span: auto
+            type: dropdown
             options:
-                manual: Off
-                markbegin: Mark begin
-                markbeginend: Mark begin and end
+                11: 11px
+                12: 12px
+                13: 13px
+                14: 14px
+                15: 15px
+                16: 16px
 
         editor_tab_size:
             label: backend::lang.editor.tab_size
@@ -72,19 +68,28 @@ tabs:
                 7: 7
                 8: 8
 
-        editor_theme:
-            label: backend::lang.editor.theme
+        editor_code_folding:
+            label: backend::lang.editor.code_folding
             tab: backend::lang.backend_preferences.code_editor
             type: dropdown
-
-        editor_auto_closing:
-            label: backend::lang.editor.auto_closing
-            tab: backend::lang.backend_preferences.code_editor
-            type: checkbox
             span: auto
+            options:
+                manual: backend::lang.editor.mode_off
+                markbegin: backend::lang.editor.code_folding_begin
+                markbeginend: backend::lang.editor.code_folding_begin_end
 
-        editor_show_invisibles:
-            label: backend::lang.editor.show_invisibles
+        editor_autocompletion:
+            label: backend::lang.editor.autocompletion
+            tab: backend::lang.backend_preferences.code_editor
+            type: dropdown
+            span: auto
+            options:
+                manual: backend::lang.editor.mode_off
+                basic: backend::lang.editor.basic_autocompletion
+                live: backend::lang.editor.live_autocompletion
+
+        editor_show_gutter:
+            label: backend::lang.editor.show_gutter
             tab: backend::lang.backend_preferences.code_editor
             type: checkbox
             span: auto
@@ -101,38 +106,32 @@ tabs:
             type: checkbox
             span: auto
 
-        editor_show_gutter:
-            label: backend::lang.editor.show_gutter
-            tab: backend::lang.backend_preferences.code_editor
-            type: checkbox
-            span: auto
-
-        editor_enable_basic_autocompletion:
-            label: backend::lang.editor.enable_basic_autocompletion
-            tab: backend::lang.backend_preferences.code_editor
-            type: checkbox
-            span: auto
-
-        editor_enable_snippets:
-            label: backend::lang.editor.enable_snippets
-            tab: backend::lang.backend_preferences.code_editor
-            type: checkbox
-            span: auto
-
-        editor_enable_live_autocompletion:
-            label: backend::lang.editor.enable_live_autocompletion
-            tab: backend::lang.backend_preferences.code_editor
-            type: checkbox
-            span: auto
-
         editor_display_indent_guides:
             label: backend::lang.editor.display_indent_guides
             tab: backend::lang.backend_preferences.code_editor
             type: checkbox
             span: auto
 
+        editor_show_invisibles:
+            label: backend::lang.editor.show_invisibles
+            tab: backend::lang.backend_preferences.code_editor
+            type: checkbox
+            span: auto
+
         editor_show_print_margin:
             label: backend::lang.editor.show_print_margin
+            tab: backend::lang.backend_preferences.code_editor
+            type: checkbox
+            span: auto
+
+        editor_auto_closing:
+            label: backend::lang.editor.auto_closing
+            tab: backend::lang.backend_preferences.code_editor
+            type: checkbox
+            span: auto
+
+        editor_enable_snippets:
+            label: backend::lang.editor.enable_snippets
             tab: backend::lang.backend_preferences.code_editor
             type: checkbox
             span: auto

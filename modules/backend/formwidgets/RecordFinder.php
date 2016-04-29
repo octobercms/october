@@ -241,7 +241,7 @@ class RecordFinder extends FormWidgetBase
         $config->alias = $this->alias . 'List';
         $config->showSetup = false;
         $config->showCheckboxes = false;
-        $config->recordsPerPage = 20;
+        $config->recordsPerPage = 10;
         $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':" . $this->keyFrom . "')", $this->getId());
         $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 

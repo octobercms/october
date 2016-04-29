@@ -73,20 +73,15 @@ class CodeEditor extends FormWidgetBase
     public $readOnly = false;
 
     /**
-     * @var boolean If true, the editor activate Basic Autocompletion if press Ctrl+Space
+     * @var string Autocomplete mode: manual, basic, live.
      */
-    public $enableBasicAutocompletion = true;
+    public $autocompletion = 'manual';
 
     /**
      * @var boolean If true, the editor activate use Snippets
      */
     public $enableSnippets = true;
 
-    /**
-     * @var boolean If true, the editor activate Live Autocompletion mode
-     */
-    public $enableLiveAutocompletion = true;
-    
     /**
      * @var boolean If true, the editor show Indent Guides
      */
@@ -125,9 +120,8 @@ class CodeEditor extends FormWidgetBase
             'margin',
             'theme',
             'readOnly',
-            'enableBasicAutocompletion',
+            'autocompletion',
             'enableSnippets',
-            'enableLiveAutocompletion',
             'displayIndentGuides',
             'showPrintMargin'
         ]);
@@ -163,9 +157,8 @@ class CodeEditor extends FormWidgetBase
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->formField->getName();
         $this->vars['readOnly'] = $this->readOnly;
-        $this->vars['enableBasicAutocompletion'] = $this->enableBasicAutocompletion;
+        $this->vars['autocompletion'] = $this->autocompletion;
         $this->vars['enableSnippets'] = $this->enableSnippets;
-        $this->vars['enableLiveAutocompletion'] = $this->enableLiveAutocompletion;
         $this->vars['displayIndentGuides'] = $this->displayIndentGuides;
         $this->vars['showPrintMargin'] = $this->showPrintMargin;
 
@@ -201,9 +194,8 @@ class CodeEditor extends FormWidgetBase
         $this->highlightActiveLine = $preferences->editor_highlight_active_line;
         $this->useSoftTabs = !$preferences->editor_use_hard_tabs;
         $this->showGutter = $preferences->editor_show_gutter;
-        $this->enableBasicAutocompletion = $preferences->editor_enable_basic_autocompletion;
+        $this->autocompletion = $preferences->editor_autocompletion;
         $this->enableSnippets = $preferences->editor_enable_snippets;
-        $this->enableLiveAutocompletion = $preferences->editor_enable_live_autocompletion;
         $this->displayIndentGuides = $preferences->editor_display_indent_guides;
         $this->showPrintMargin = $preferences->editor_show_print_margin;
     }

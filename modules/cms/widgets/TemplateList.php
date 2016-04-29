@@ -52,7 +52,7 @@ class TemplateList extends WidgetBase
     /**
      * @var string Message to display when the Delete button is clicked.
      */
-    public $deleteConfirmation = 'Do you really want to delete selected templates?';
+    public $deleteConfirmation = 'Delete selected templates?';
 
     /**
      * @var string Specifies the item type.

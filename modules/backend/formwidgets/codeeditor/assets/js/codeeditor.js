@@ -58,6 +58,7 @@
         fontSize: 12,
         wordWrap: 'off',
         codeFolding: 'manual',
+        autocompletion: 'manual',
         tabSize: 4,
         theme: 'textmate',
         showInvisibles: true,
@@ -147,12 +148,6 @@
         editor.renderer.setShowPrintMargin(options.showPrintMargin)
         editor.setHighlightSelectedWord(options.highlightSelectedWord)
         editor.renderer.setHScrollBarAlwaysVisible(options.hScrollBarAlwaysVisible)
-        editor.setOptions({
-            enableEmmet: options.enableEmmet,
-            enableBasicAutocompletion: options.enableBasicAutocompletion,
-            enableSnippets: options.enableSnippets,
-            enableLiveAutocompletion: options.enableLiveAutocompletion
-        })
         editor.setDisplayIndentGuides(options.displayIndentGuides)
         editor.getSession().setUseSoftTabs(options.useSoftTabs)
         editor.getSession().setTabSize(options.tabSize)
@@ -165,6 +160,13 @@
 
         // Set the vendor path for Ace's require path
         ace.require('ace/config').set('basePath', this.options.vendorPath)
+
+        editor.setOptions({
+            enableEmmet: options.enableEmmet,
+            enableBasicAutocompletion: options.autocompletion === 'basic',
+            enableSnippets: options.enableSnippets,
+            enableLiveAutocompletion: options.autocompletion === 'live'
+        })
 
         editor.renderer.setScrollMargin(options.margin, options.margin, 0, 0)
         editor.renderer.setPadding(options.margin)

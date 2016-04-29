@@ -1,5 +1,7 @@
 <?php namespace Backend\Controllers;
 
+use Lang;
+use Flash;
 use Backend;
 use BackendMenu;
 use Backend\Classes\Controller;
@@ -63,6 +65,8 @@ class Preferences extends Controller
     {
         $model = $this->formFindModelObject();
         $model->resetDefault();
+
+        Flash::success(Lang::get('backend::lang.form.reset_success'));
 
         return Backend::redirect('backend/preferences');
     }

@@ -23,6 +23,19 @@ $(document).ready(function(){
         session.setFoldStyle($(this).val())
     })
 
+    $('#Form-field-Preferences-editor_autocompletion').on('change', function(){
+        editor.setOption('enableBasicAutocompletion', false)
+        editor.setOption('enableLiveAutocompletion', false)
+
+        var val = $(this).val()
+        if (val == 'basic') {
+            editor.setOption('enableBasicAutocompletion', true)
+        }
+        else if (val == 'live') {
+            editor.setOption('enableLiveAutocompletion', true)
+        }
+    })
+
     $('#Form-field-Preferences-editor_tab_size').on('change', function(){
         session.setTabSize($(this).val())
     })
@@ -31,16 +44,8 @@ $(document).ready(function(){
         editor.setShowInvisibles($(this).is(':checked'))
     })
 
-    $('#Form-field-Preferences-editor_enable_basic_autocompletion').on('change', function(){
-        editor.setOption('enableBasicAutocompletion', $(this).is(':checked'))
-    })
-
     $('#Form-field-Preferences-editor_enable_snippets').on('change', function(){
         editor.setOption('enableSnippets', $(this).is(':checked'))
-    })
-
-    $('#Form-field-Preferences-editor_enable_live_autocompletion').on('change', function(){
-        editor.setOption('enableLiveAutocompletion', $(this).is(':checked'))
     })
 
     $('#Form-field-Preferences-editor_display_indent_guides').on('change', function(){
