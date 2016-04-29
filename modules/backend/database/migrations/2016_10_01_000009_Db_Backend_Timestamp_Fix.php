@@ -5,9 +5,9 @@ use October\Rain\Database\Updates\Migration;
 class DbBackendTimestampFix extends Migration
 {
     protected $backendTables = [
-        'users',
-        'user_groups',
-        'access_log',
+        'backend_users',
+        'backend_user_groups',
+        'backend_access_log',
     ];
 
     public function up()
