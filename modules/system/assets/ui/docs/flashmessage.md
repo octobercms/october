@@ -37,7 +37,7 @@ Displays a floating flash message on the screen.
 
 ```js
 $.oc.flashMsg({
-    'text': 'The record has been successfully saved.',
+    'text': 'Record saved.',
     'class': 'success',
     'interval': 3
 })

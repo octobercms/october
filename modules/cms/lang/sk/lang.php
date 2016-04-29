@@ -9,7 +9,7 @@ return [
         'error_creating_directory' => 'Error creating directory :name. Please check write permissions.',
         'invalid_file_extension'=>'Invalid file extension: :invalid. Allowed extensions are: :allowed.',
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
-        'delete_success' => 'Templates were successfully deleted: :count.',
+        'delete_success' => 'Templates deleted: :count.',
         'file_name_required' => 'The File Name field is required.'
     ],
     'theme' => [
@@ -168,8 +168,8 @@ return [
     ],
     'template' => [
         'invalid_type' => 'Unknown template type.',
-        'not_found' => 'The requested template was not found.',
-        'saved'=> 'The template has been successfully saved.'
+        'not_found' => 'Requested template not found.',
+        'saved'=> 'Template saved.'
     ],
     'permissions' => [
         'name' => 'Cms',

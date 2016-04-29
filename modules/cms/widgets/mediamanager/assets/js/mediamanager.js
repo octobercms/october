@@ -1279,7 +1279,7 @@
         alias: '',
         uniqueId: null,
         deleteEmpty: 'Please select files to delete.',
-        deleteConfirm: 'Do you really want to delete the selected file(s)?',
+        deleteConfirm: 'Delete the selected file(s)?',
         moveEmpty: 'Please select files to move.',
         selectSingleImage: 'Please select a single image.',
         selectionNotImage: 'The selected item is not an image.',

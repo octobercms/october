@@ -122,7 +122,7 @@ Example with data attributes (data-control="tab"):
 
 ### JavaScript API:
 
-- $('#mytabs').ocTab({closable: true, closeConfirmation: 'Do you really want to close this tab? Unsaved data will be lost.'})
+- $('#mytabs').ocTab({closable: true, closeConfirmation: 'Close this tab? Unsaved data will be lost.'})
 - $('#mytabs').ocTab('addTab', 'Tab title', 'Tab content', identifier) - adds tab. The optional identifier parameter allows to associate a identifier with a tab. The identifier can be used with the goTo() method to find and open a tab by it's identifier.
 - $('#mytabs').ocTab('closeTab', '.nav-tabs > li.active', true) - closes a tab. The second argument can point to a tab or tab pane. The thrid argument determines whether the tab should be closed without the user confirmation. The default value is false.
 - $('.nav-tabs > li.active').trigger('close.oc.tab') - another way to close a tab. The event can be triggered on a tab, tab pane or any element inside a tab or tab pane.

@@ -270,11 +270,11 @@ return [
         'auto_closing' => 'Auto cerrado de etiquetas y caracteres especiales',
         'show_invisibles' => 'Mostrar caracteres invisibles',
         'show_gutter' => 'Mostrar numeros de línea',
-	'enable_basic_autocompletion'=> 'Activar Autocompletado Basico(Ctrl+Espacio)',
-	'enable_snippets'=> 'Activar uso de Snippets',
-	'enable_live_autocompletion'=> 'Activar Autocompletado en Vivo',
-	'display_indent_guides'=> 'Mostrar Guias de Identado',
-	'show_print_margin'=> 'Mostrar Margen de impresión',
+        'basic_autocompletion'=> 'Autocompletado Basico (Ctrl + Espacio)',
+        'live_autocompletion'=> 'Autocompletado en Vivo',
+        'enable_snippets'=> 'Activar uso de Snippets',
+        'display_indent_guides'=> 'Mostrar Guias de Identado',
+        'show_print_margin'=> 'Mostrar Margen de impresión',
         'theme' => 'Color del esquema'
     ],
     'tooltips' => [
