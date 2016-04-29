@@ -1,10 +1,10 @@
 <?php
 
+use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
 class DbSystemSessions extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -12,7 +12,7 @@ class DbSystemSessions extends Migration
      */
     public function up()
     {
-        Schema::create('sessions', function ($table) {
+        Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->unique();
             $table->text('payload')->nullable();
             $table->integer('last_activity')->nullable();
