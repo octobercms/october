@@ -2,13 +2,18 @@
 
 use October\Rain\Database\Updates\Migration;
 
+/**
+ * This migration addresses a MySQL specific issue around STRICT MODE.
+ * In past versions, Laravel would give timestamps a bad default value
+ * of "0" considered invalid by MySQL. Strict mode is disabled and the
+ * the timestamps are patched up. Credit for this work: Dave Shoreman.
+ */
 class DbCmsTimestampFix extends Migration
 {
     public function up()
     {
-        // Disable all special modes such as NO_ZERO_DATE to prevent any
-        // errors from MySQL before we can update the timestamp columns.
-        Db::statement("SET @@SQL_MODE=''");
+        DbDongle::disableStrictMode();
+
         DbDongle::convertTimestamps('cms_theme_data');
     }
 
