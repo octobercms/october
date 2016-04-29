@@ -385,6 +385,8 @@ class VersionManager
      */
     protected function applyDatabaseScript($code, $version, $script)
     {
+        DbDongle::disableStrictMode();
+
         /*
          * Execute the database PHP script
          */
@@ -405,6 +407,8 @@ class VersionManager
      */
     protected function removeDatabaseScript($code, $version, $script)
     {
+        DbDongle::disableStrictMode();
+
         /*
          * Execute the database PHP script
          */

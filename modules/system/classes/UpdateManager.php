@@ -366,6 +366,8 @@ class UpdateManager
      */
     public function migrateModule($module)
     {
+        DbDongle::disableStrictMode();
+
         $this->migrator->run(base_path() . '/modules/'.strtolower($module).'/database/migrations');
 
         $this->note($module);
