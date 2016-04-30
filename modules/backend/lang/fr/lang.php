@@ -166,6 +166,7 @@ return [
         'create_success' => ':name a été créé avec succès',
         'update_success' => ':name a été modifié avec succès',
         'delete_success' => ':name a été supprimé avec succès',
+        'reset_success' => 'Réinitialisation terminée',
         'missing_id' => 'L’ID de l’enregistrement du formulaire n’est pas précisé.',
         'missing_model' => 'Le formulaire utilisé dans la classe :class n’a pas de modèle défini.',
         'missing_definition' => 'Le formulaire utilisé n’a pas de champ pour ":field".',
@@ -275,12 +276,21 @@ return [
         'font_size' => 'Taille de la police',
         'tab_size' => 'Taille de la tabulation',
         'use_hard_tabs' => 'Indentation par tabulation',
-        'code_folding' => 'Masquage du code',
+        'code_folding' => 'Replier le code',
+        'code_folding_begin' => 'Marquer le début',
+        'code_folding_begin_end' => 'Marquer le début et la fin',
+        'autocompletion' => 'Auto-complétion',
         'word_wrap' => 'Retour à la ligne',
         'highlight_active_line' => 'Sélectionner la ligne active',
         'auto_closing' => 'Fermer Automatiquement les tags et les caractères spéciaux',
         'show_invisibles' => 'Afficher les caractères invisibles',
         'show_gutter' => 'Afficher les numéros de ligne',
+        'basic_autocompletion'=> 'Auto-complétion basique (Ctrl + Espace)',
+        'live_autocompletion'=> 'Auto-complétion en temps réel',
+        'enable_snippets'=> 'Activer les extraits de code (Tab)',
+        'display_indent_guides'=> 'Afficher les guides d’indentation',
+        'show_print_margin'=> 'Afficher les marges d’impression',
+        'mode_off' => 'Désactivé',
         'theme' => 'Coloration syntaxique'
     ],
     'tooltips' => [
@@ -311,11 +321,19 @@ return [
         'secondary_color' => 'Couleur secondaire',
         'accent_color' => 'Couleur d’accentuation',
         'styles' => 'Styles',
-        'custom_stylesheet' => 'Feuille de style personnalisée (CSS)'
+        'custom_stylesheet' => 'Feuille de style personnalisée (CSS)',
+        'navigation' => 'Navigation',
+        'menu_mode' => 'Style du menu',
+        'menu_mode_inline' => 'Horizontal',
+        'menu_mode_tile' => 'Tuiles',
+        'menu_mode_collapsed' => 'Replié',
     ],
     'backend_preferences' => [
         'menu_label' => 'Préférences d’administration',
         'menu_description' => 'Gérer les préférences de votre compte telle que la langue utilisée.',
+        'region' => 'Région',
+        'code_editor' => 'Editeur de code',
+        'timezone' => 'Fuseau horaire',
         'locale' => 'Langue',
         'locale_comment' => 'Choisir une langue.'
     ],
@@ -331,7 +349,8 @@ return [
         'email' => 'Adresse e-mail'
     ],
     'filter' => [
-      'all' => 'tous'
+      'all' => 'tous',
+      'options_method_not_exists' => "La classe du modèle :model doit définir une méthode :method() qui retourne les options pour le filtre ':filter'."
     ],
     'import_export' => [
         'upload_csv_file' => '1. Envoyer un fichier CSV',

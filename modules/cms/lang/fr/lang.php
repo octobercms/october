@@ -164,7 +164,11 @@ return [
         'hidden' => 'Caché',
         'hidden_comment' => 'Les pages cachées sont seulement accessibles aux administrateurs connectés.',
         'enter_fullscreen' => 'Activer le mode plein écran',
-        'exit_fullscreen' => 'Annuler le mode plein écran'
+        'exit_fullscreen' => 'Annuler le mode plein écran',
+        'open_searchbox' => 'Ouvrir la boite de dialogue Rechercher',
+        'close_searchbox'  => 'Fermer la boite de dialogue Rechercher',
+        'open_replacebox' => 'Ouvrir la boite de dialogue Remplacer',
+        'close_replacebox'  => 'Fermer la boite de dialogue Remplacer'
     ],
     'asset' => [
         'menu_label' => 'Assets',
