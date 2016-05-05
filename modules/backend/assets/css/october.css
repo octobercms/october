@@ -710,7 +710,6 @@ nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon i,nav#layo
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-label{line-height:30px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:first-child{margin-left:-13px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:last-child{margin-right:0}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li.active:first-child{margin-left:0}
 nav#layout-mainmenu.navbar-mode-tile{height:78px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-preview a{height:78px;line-height:78px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-account > a{height:78px;line-height:78px}
