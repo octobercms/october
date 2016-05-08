@@ -1,0 +1,15 @@
+<?php
+    $fieldOptions = $field->options();
+?>
+<!-- Tag List -->
+<select
+    id="<?= $field->getId() ?>"
+    name="<?= $field->getName() ?>"
+    class="form-control custom-select <?= !count($fieldOptions) ? 'select-no-dropdown' : '' ?>"
+    <?php if ($customSeparators): ?>data-token-separators="<?= $customSeparators ?>"<?php endif ?>
+    multiple
+    <?= $field->getAttributes() ?>>
+    <?php foreach ($fieldOptions as $option): ?>
+        <option value="<?= e(trans($option)) ?>"><?= e(trans($option)) ?></option>
+    <?php endforeach ?>
+</select>

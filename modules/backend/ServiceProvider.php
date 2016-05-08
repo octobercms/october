@@ -176,6 +176,10 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Repeater',
                 'code'  => 'repeater'
             ]);
+            $manager->registerFormWidget('Backend\FormWidgets\TagList', [
+                'label' => 'Tag List',
+                'code'  => 'taglist'
+            ]);
         });
     }
 

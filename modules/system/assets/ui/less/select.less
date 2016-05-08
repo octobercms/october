@@ -166,14 +166,14 @@
         // Handle border radii of the container when the dropdown is showing.
         //
         &.select2-container--below {
-            .select2-selection {
+            .select2-selection:not(.select-no-dropdown) {
                 .border-bottom-radius(0);
                 border-bottom-color: transparent;
             }
         }
 
         &.select2-container--above {
-            .select2-selection {
+            .select2-selection:not(.select-no-dropdown) {
                 .border-top-radius(0);
                 border-top-color: transparent;
             }
@@ -233,6 +233,13 @@
         font-size: @input-font-size;
         max-height: 200px;
         overflow-y: auto;
+    }
+
+    // No Dropdown
+    //------------------------------------
+    
+    .select2-dropdown.select-no-dropdown {
+        display: none !important;
     }
 
     // Single select
