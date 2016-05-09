@@ -2234,19 +2234,20 @@ if(imageSrc)
 return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+state.text
 return state.text}
 var selectOptions={templateResult:formatSelectOption,templateSelection:formatSelectOption,escapeMarkup:function(m){return m},width:'style'}
-$('select.custom-select').each(function(){var $element=$(this),extraOptions={}
+$('select.custom-select').each(function(){var $element=$(this),extraOptions={dropdownCssClass:'',containerCssClass:''}
 if($element.data('select2')!=null){return true;}
 $element.attr('data-disposable','data-disposable')
 $element.one('dispose-control',function(){if($element.data('select2')){$element.select2('destroy')}})
 if($element.hasClass('select-no-search')){extraOptions.minimumResultsForSearch=Infinity}
-if($element.hasClass('select-no-dropdown')){extraOptions.dropdownCssClass='select-no-dropdown'
-extraOptions.containerCssClass='select-no-dropdown'}
+if($element.hasClass('select-no-dropdown')){extraOptions.dropdownCssClass+=' select-no-dropdown'
+extraOptions.containerCssClass+=' select-no-dropdown'}
+if($element.hasClass('select-hide-selected')){extraOptions.dropdownCssClass+=' select-hide-selected'}
 var separators=$element.data('token-separators')
 if(separators){extraOptions.tags=true
-extraOptions.selectOnClose=true
-extraOptions.closeOnSelect=false
 extraOptions.tokenSeparators=separators.split('|')
-if($element.hasClass('select-no-dropdown')){$element.on('select2:closing',function(){$('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').removeClass('select2-results__option--highlighted')
+if($element.hasClass('select-no-dropdown')){extraOptions.selectOnClose=true
+extraOptions.closeOnSelect=false
+$element.on('select2:closing',function(){$('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').removeClass('select2-results__option--highlighted')
 $('.select2-dropdown.select-no-dropdown:first .select2-results__option:first').addClass('select2-results__option--highlighted')})}}
 $element.select2($.extend({},selectOptions,extraOptions))})})
 $(document).on('disable','select.custom-select',function(event,status){$(this).select2('enable',!status)})

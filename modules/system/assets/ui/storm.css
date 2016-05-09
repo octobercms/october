@@ -2283,6 +2283,7 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .select2-container--default .select2-dropdown--above{margin-top:1px;-webkit-box-shadow:0 -3px 6px rgba(0,0,0,0.075);box-shadow:0 -3px 6px rgba(0,0,0,0.075)}
 .select2-container--default .select2-results > .select2-results__options{font-size:14px;max-height:200px;overflow-y:auto}
 .select2-container--default .select2-dropdown.select-no-dropdown{display:none !important}
+.select2-container--default .select2-dropdown.select-hide-selected li[aria-selected=true]{display:none !important}
 .select2-container--default .select2-selection--single{height:38px;line-height:1.42857143;padding:8px 25px 8px 13px}
 .select2-container--default .select2-selection--single .select2-selection__arrow{position:absolute;bottom:0;right:13px;top:0;width:4px}
 .select2-container--default .select2-selection--single .select2-selection__arrow b{position:absolute;top:50%;height:9px;width:8px;right:3px;margin-top:-5px;line-height:9px}

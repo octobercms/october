@@ -690,7 +690,7 @@ class Form extends WidgetBase
         /*
          * Get field options from model
          */
-        $optionModelTypes = ['dropdown', 'radio', 'checkboxlist', 'taglist', 'balloon-selector'];
+        $optionModelTypes = ['dropdown', 'radio', 'checkboxlist', 'balloon-selector'];
         if (in_array($field->type, $optionModelTypes, false)) {
 
             /*
@@ -769,6 +769,18 @@ class Form extends WidgetBase
         }
 
         $widget = $this->makeFormWidget($widgetClass, $field, $widgetConfig);
+
+        /*
+         * If options config is defined, request options from the model.
+         */
+        if (isset($field->config['options'])) {
+            $field->options(function () use ($field) {
+                $fieldOptions = $field->config['options'];
+                if ($fieldOptions === true) $fieldOptions = null;
+                $fieldOptions = $this->getOptionsFromModel($field, $fieldOptions);
+                return $fieldOptions;
+            });
+        }
 
         return $this->formWidgets[$field->fieldName] = $widget;
     }

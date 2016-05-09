@@ -7,6 +7,12 @@ use Backend\Classes\FormWidgetBase;
  */
 class TagList extends FormWidgetBase
 {
+    use \Backend\Traits\FormModelWidget;
+
+    const MODE_ARRAY = 'array';
+    const MODE_STRING = 'string';
+    const MODE_RELATION = 'relation';
+
     //
     // Configurable properties
     //
@@ -14,12 +20,27 @@ class TagList extends FormWidgetBase
     /**
      * @var string Tag separator: space, comma.
      */
-    public $separator = 'space';
+    public $separator = 'comma';
 
     /**
      * @var bool Allows custom tags to be entered manually by the user.
      */
-    public $useCustom = true;
+    public $customTags = true;
+
+    /**
+     * @var mixed Predefined options settings. Set to true to get from model.
+     */
+    public $options = null;
+
+    /**
+     * @var string Mode for the return value. Values: string, array, relation.
+     */
+    public $mode = 'string';
+
+    /**
+     * @var string If mode is relation, model column to use for the name reference.
+     */
+    public $nameFrom = 'name';
 
     //
     // Object properties
@@ -37,7 +58,9 @@ class TagList extends FormWidgetBase
     {
         $this->fillFromConfig([
             'separator',
-            'useCustom',
+            'customTags',
+            'options',
+            'mode',
         ]);
     }
 
@@ -55,11 +78,10 @@ class TagList extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['customSeparators'] = $this->getCustomSeparators();
         $this->vars['field'] = $this->formField;
-        $this->vars['name'] = $this->formField->getName();
-        $this->vars['value'] = $this->getLoadValue();
-        $this->vars['model'] = $this->model;
+        $this->vars['fieldOptions'] = $this->getFieldOptions();
+        $this->vars['selectedValues'] = $this->getLoadValue();
+        $this->vars['customSeparators'] = $this->getCustomSeparators();
     }
 
     /**
@@ -67,7 +89,73 @@ class TagList extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
+        if ($this->mode === static::MODE_RELATION) {
+            return $this->hydrateRelationSaveValue($value);
+        }
+
+        if (is_array($value) && $this->mode === static::MODE_STRING) {
+            return implode($this->getSeparatorCharacter(), $value);
+        }
+
         return $value;
+    }
+
+    /**
+     * Returns an array suitable for saving against a relation (array of keys).
+     * This method also creates non-existent tags.
+     * @return array
+     */
+    protected function hydrateRelationSaveValue($names)
+    {
+        if (!$names) {
+            return $names;
+        }
+
+        $relationModel = $this->getRelationModel();
+        $existingTags = $relationModel
+            ->whereIn($this->nameFrom, $names)
+            ->lists($this->nameFrom, $relationModel->getKeyName())
+        ;
+
+        $newTags = $this->customTags ? array_diff($names, $existingTags) : [];
+
+        foreach ($newTags as $newTag) {
+            $newModel = $relationModel::create([$this->nameFrom => $newTag]);
+            $existingTags[$newModel->id] = $newTag;
+        }
+
+        return array_keys($existingTags);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLoadValue()
+    {
+        $value = parent::getLoadValue();
+
+        if ($this->mode === static::MODE_RELATION) {
+            return $this->getRelationObject()->lists($this->nameFrom);
+        }
+
+        return $this->mode === static::MODE_STRING
+            ? explode($this->getSeparatorCharacter(), $value)
+            : $value;
+    }
+
+    /**
+     * Returns defined field options, or from the relation if available.
+     * @return array
+     */
+    public function getFieldOptions()
+    {
+        $options = $this->formField->options();
+
+        if (!$options && $this->mode === static::MODE_RELATION) {
+            $options = $this->getRelationModel()->lists($this->nameFrom);
+        }
+
+        return $options;
     }
 
     /**
@@ -76,15 +164,27 @@ class TagList extends FormWidgetBase
      */
     protected function getCustomSeparators()
     {
-        if (!$this->useCustom) {
+        if (!$this->customTags) {
             return false;
         }
 
         $separators = [];
 
-        $separators[] = $this->separator == 'comma' ? ',' : ' ';
+        $separators[] = $this->getSeparatorCharacter();
 
         return implode('|', $separators);
+    }
+
+    /**
+     * Convert the character word to the singular character.
+     * @return string
+     */
+    protected function getSeparatorCharacter()
+    {
+        switch (strtolower($this->separator)) {
+            case 'comma': return ',';
+            case 'space': return ' ';
+        }
     }
 
 }

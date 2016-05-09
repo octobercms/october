@@ -237,9 +237,15 @@
 
     // No Dropdown
     //------------------------------------
-    
+
     .select2-dropdown.select-no-dropdown {
         display: none !important;
+    }
+
+    .select2-dropdown.select-hide-selected {
+        li[aria-selected=true] {
+            display: none !important;
+        }
     }
 
     // Single select
