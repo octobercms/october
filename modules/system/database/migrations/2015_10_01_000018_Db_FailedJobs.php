@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Schema\Blueprint;
+use October\Rain\Database\Updates\Migration;
 
 class DbFailedJobs extends Migration
 {
@@ -13,7 +13,7 @@ class DbFailedJobs extends Migration
             $table->text('connection');
             $table->text('queue');
             $table->text('payload');
-            $table->timestamp('failed_at');
+            $table->timestamp('failed_at')->nullable();
         });
     }
 

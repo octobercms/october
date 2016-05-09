@@ -26,22 +26,24 @@
     top: 13px;
     margin-left: -250px;
     color: @color-flash-text;
-    font-size: 13px;
+    font-size: 14px;
     padding: 10px 30px 10px 15px;
     z-index: 10000;
     word-wrap: break-word;
+    text-shadow: 0 -1px 0px rgba(0,0,0,.25);
+    text-align: center;
+    .box-shadow(inset 0 -2px 0 rgba(0,0,0,.1));
 
     .border-radius(@border-radius-base);
 
     &.fade {
         .opacity(0);
-        .transition(~'all 0.5s, width 0s');
-        .transform(~'scale(0.9)');
+        .transition(~'opacity .15s linear');
     }
 
     &.fade.in {
         .opacity(1);
-        .transform( ~'scale(1)');
+        .animation(~'flashmessage-fade-in 1s cubic-bezier(0.2, 0.7, 0.5, 1)');
     }
 
     &.success { background: @color-flash-success-bg; }
@@ -55,6 +57,8 @@
         right: 10px;
         top: 8px;
         color: white;
+
+        outline: none;
 
         &:hover {
             color: white
@@ -76,5 +80,18 @@
         top: 10px;
         margin-left: 0;
         width: auto;
+    }
+}
+
+@keyframes flashmessage-fade-in {
+    0% {
+        .transform(~"translateY(-30%)");
+        opacity: 0;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        .transform(~"translateY(0)");
     }
 }

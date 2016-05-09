@@ -2,10 +2,15 @@
 // -------------------------
 // Easily pump out default styles, as well as :hover, :focus, :active,
 // and disabled options for all buttons
-.button-variant(@color; @background; @border) {
+.button-variant(@color; @background; @border; @background-hover: @background; @border-hover: @border) {
     color: @color;
     background-color: @background;
-    border-color: @border;
+    //border-color: @border;
+    border: none;
+
+    text-shadow: 0 -1px 0 rgba(0,0,0,.4);
+    .box-shadow(~"inset 0 -2px 0 rgba(0,0,0,.15)");
+    #gradient > .vertical(@start-color: mix(white, @background, 5%); @end-color: mix(black, @background, 5%));
 
     &:hover,
     &:focus,
@@ -13,34 +18,84 @@
     &.active,
     .open .dropdown-toggle& {
         color: @color;
-        background-color: darken(@background, 8%);
-        border-color: darken(@border, 12%);
+        background: @background-hover;
+        border-color: @border-hover;
     }
 
     &:active,
     &.active,
     .open .dropdown-toggle& {
+        background: darken(@background-hover, 8%);
+        border-color: darken(@border-hover, 12%);
+        background-image: none;
+    }
+
+    &.on {
+        background: darken(@background, 12%);
+        border-color: darken(@border, 16%);
         background-image: none;
     }
 
     &.disabled,
-    &[disabled],
-    fieldset[disabled] & {
+    &[disabled] {
         &,
         &:hover,
         &:focus,
         &:active,
         &.active {
-            background-color: @background;
+            background: @background;
             border-color: @border;
         }
     }
 
     .badge {
         color: @background;
-        background-color: @color;
+        background: @color;
     }
 }
+
+.button-outline-variant(@color) {
+    color: darken(@color, 10%);
+    background-image: none;
+    background-color: transparent;
+    border-color: @color;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        color: #fff;
+        background-color: @color;
+        border-color: @color;
+        text-shadow: 0 1px 0 rgba(0,0,0,.2);
+    }
+
+    &:active,
+    &.active,
+    .open > .dropdown-toggle& {
+        color: #fff;
+        background-color: @color;
+        border-color: @color;
+        text-shadow: 0 1px 0 rgba(0,0,0,.2);
+
+        &:hover,
+        &:focus,
+        &.focus {
+            color: #fff;
+            background-color: darken(@color, 17%);
+            border-color: darken(@color, 25%);
+        }
+    }
+
+    &.disabled,
+    &:disabled {
+        &:hover,
+        &:focus,
+        &.focus {
+            border-color: lighten(@color, 20%);
+        }
+    }
+}
+
 
 // Button sizes
 // -------------------------
@@ -48,5 +103,5 @@
     padding: @padding-vertical (@padding-horizontal * 1.5);
     font-size: @font-size;
     line-height: @line-height;
-    border-radius: @border-radius;
+    .border-radius(@border-radius);
 }

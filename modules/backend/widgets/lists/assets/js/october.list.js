@@ -12,6 +12,16 @@
 
         this.options = options || {};
 
+        var scrollClassContainer = options.scrollClassContainer !== undefined
+            ? options.scrollClassContainer
+            : $el.parent()
+
+        $el.dragScroll({
+            scrollClassContainer: scrollClassContainer,
+            scrollSelector: 'thead',
+            dragSelector: 'thead'
+        })
+
         this.update()
     }
 

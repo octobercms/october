@@ -97,9 +97,11 @@ class ServiceProvider extends ModuleServiceProvider
         App::singleton('backend.helper', function () {
             return new \Backend\Helpers\Backend;
         });
+
         App::singleton('backend.menu', function () {
             return \Backend\Classes\NavigationManager::instance();
         });
+
         App::singleton('backend.auth', function () {
             return \Backend\Classes\AuthManager::instance();
         });
@@ -205,7 +207,7 @@ class ServiceProvider extends ModuleServiceProvider
          * Add CMS based cache clearing to native command
          */
         Event::listen('cache:cleared', function() {
-            \System\Helpers\Cache::clear();
+            \System\Helpers\Cache::clearInternal();
         });
 
         /*
@@ -291,9 +293,8 @@ class ServiceProvider extends ModuleServiceProvider
          * Override standard Mailer content with template
          */
         Event::listen('mailer.beforeAddContent', function ($mailer, $message, $view, $data) {
-            if (MailTemplate::addContentToMailer($message, $view, $data)) {
-                return false;
-            }
+            MailTemplate::addContentToMailer($message, $view, $data);
+            return false;
         });
     }
 
@@ -307,6 +308,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'system' => [
                     'label'       => 'system::lang.settings.menu_label',
                     'icon'        => 'icon-cog',
+                    'iconSvg'     => 'modules/system/assets/images/cog-icon.svg',
                     'url'         => Backend::url('system/settings'),
                     'permissions' => [],
                     'order'       => 1000

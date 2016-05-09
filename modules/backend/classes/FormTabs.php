@@ -1,6 +1,5 @@
 <?php namespace Backend\Classes;
 
-use Str;
 use IteratorAggregate;
 use ArrayIterator;
 use ArrayAccess;
@@ -134,21 +133,6 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     }
 
     /**
-     * Returns an array of the registered fields, without tabs.
-     * @return array
-     */
-    public function getFields()
-    {
-        $tablessFields = [];
-
-        foreach ($this->getTabs() as $tab) {
-            $tablessFields += $tab;
-        }
-
-        return $tablessFields;
-    }
-
-    /**
      * Returns true if any fields have been registered for these tabs
      * @return boolean
      */
@@ -161,9 +145,24 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      * Returns an array of the registered fields, including tabs.
      * @return array
      */
-    public function getTabs()
+    public function getFields()
     {
         return $this->fields;
+    }
+
+    /**
+     * Returns an array of the registered fields, without tabs.
+     * @return array
+     */
+    public function getAllFields()
+    {
+        $tablessFields = [];
+
+        foreach ($this->getFields() as $tab) {
+            $tablessFields += $tab;
+        }
+
+        return $tablessFields;
     }
 
     /**
@@ -173,8 +172,8 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     public function getIterator()
     {
         return new ArrayIterator($this->suppressTabs
-            ? $this->getFields()
-            : $this->getTabs()
+            ? $this->getAllFields()
+            : $this->getFields()
         );
     }
 

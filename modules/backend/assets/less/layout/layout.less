@@ -44,14 +44,26 @@ body {
 }
 
 //
+// Font
+//
+
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700,700italic);
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+//
 // Tabs override for Layout
 // Primary tabs should use inset by default, unless otherwise specified
 // --------------------------------------------------
 
 .control-tabs.primary-tabs {
     > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
-        margin-left: -20px;
-        margin-right: -20px;
+        margin-left: -(@padding-standard);
+        margin-right: -(@padding-standard);
     }
 
     &.tabs-no-inset {
@@ -72,13 +84,17 @@ body {
         vertical-align: top;
         height: 100%;
 
+        // @deprecated Remove if year >= 2017 (7 lines below)
         &.width-100 { width: 100px; }
         &.width-120 { width: 120px; }
+        &.width-130 { width: 130px; }
+        &.width-140 { width: 140px; }
         &.width-200 { width: 200px; }
         &.width-300 { width: 300px; }
+        &.width-350 { width: 350px; }
 
         &.layout-container, .layout-container, &.padded-container, .padded-container {
-            padding: 20px 20px 0 20px;
+            padding: @padding-standard @padding-standard 0 @padding-standard;
 
             // Container to sit flush to the element above
             .container-flush {

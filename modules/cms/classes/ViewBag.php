@@ -11,6 +11,9 @@ use Cms\Classes\ComponentBase;
  */
 class ViewBag extends ComponentBase
 {
+    /**
+     * @var boolean This component is hidden from the back-end UI.
+     */
     public $isHidden = true;
 
     /**
@@ -34,17 +37,31 @@ class ViewBag extends ComponentBase
     }
 
     /**
-     * @param string $method
-     * @param array $parameters
-     * @return mixed
+     * Implements the getter functionality.
+     * @param  string  $name
+     * @return void
      */
-    public function __call($method, $parameters)
+    public function __get($name)
     {
-        if (array_key_exists($method, $this->properties) && !method_exists($this, $method)) {
-            return $this->properties[$method];
+        if (array_key_exists($name, $this->properties)) {
+            return $this->properties[$name];
         }
 
-        return parent::__call($method, $parameters);
+        return null;
+    }
+
+    /**
+     * Determine if an attribute exists on the object.
+     * @param  string  $key
+     * @return void
+     */
+    public function __isset($key)
+    {
+        if (array_key_exists($key, $this->properties)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

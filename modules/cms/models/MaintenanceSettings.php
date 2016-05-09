@@ -3,6 +3,7 @@
 use Model;
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
+use ApplicationException;
 
 /**
  * Maintenance mode settings
@@ -32,7 +33,10 @@ class MaintenanceSettings extends Model
 
     public function getCmsPageOptions()
     {
-        return Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+        if (!$theme = Theme::getEditTheme())
+            throw new ApplicationException('Unable to find the active theme.');
+
+        return Page::listInTheme($theme)->lists('fileName', 'fileName');
     }
 
     /**

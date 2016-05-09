@@ -23,16 +23,16 @@ table.table.data {
                 font-size: 14px;
                 line-height: 14px;
                 display: inline-block;
-                margin-left: 8px;
+                margin-left: 6px;
                 vertical-align: baseline;
-                .opacity(.2);
+                .opacity(.4);
                 .icon(@icon);
             }
-            &:hover:after { .opacity(.6); }
+            &:hover:after { .opacity(.8); }
         }
     }
 
-    font-size: 12px;
+    font-size: @font-size-base - 1;
 
     &.no-offset-bottom {
         margin-bottom: 0!important;
@@ -44,14 +44,17 @@ table.table.data {
         td, th {
             border-width: 1px;
             border-top: 1px solid @color-list-border !important;
+            border-bottom: 2px solid @color-list-border !important;
             border-color: @color-list-border;
             padding: 0;
             font-weight: normal;
+            text-transform: uppercase;
+            font-size: @font-size-base - 3;
+            white-space: nowrap;
 
             > a, > span {
                 display: block;
                 padding: 13px 15px;
-                text-transform: uppercase;
                 color: @color-list-text-head;
                 text-decoration: none;
                 &:hover { color: @color-list-text-active; }
@@ -70,8 +73,17 @@ table.table.data {
                 }
             }
         }
+
         tr th:first-child {
-            padding-left: 5px;
+            padding-left: 10px;
+        }
+
+        tr th:last-child a {
+            padding-right: 25px;
+        }
+
+        .list-checkbox .custom-checkbox {
+            top: -20px;
         }
     }
 
@@ -80,9 +92,9 @@ table.table.data {
             td, th { background-color: @color-list-accent; }
         }
         td, th {
-            padding: 11px 15px;
+            padding: 12px 15px;
             color: @color-list-text;
-            border-color: @color-list-grid;
+            border-top: 2px solid white;
 
             a:not(.btn) {
                 color: @color-list-text;
@@ -114,15 +126,22 @@ table.table.data {
                 }
             }
         }
+
         tr:first-child {
             th, td {
                 border-top-width: 0;
             }
         }
 
+        tr:last-child {
+            th, td {
+                border-bottom-width: 0;
+            }
+        }
+
         tr td:first-child {
             border-left: 3px solid transparent;
-            padding-left: 17px;
+            padding-left: 22px;
         }
         tr.active td {
             color: @color-list-text-active;
@@ -133,11 +152,16 @@ table.table.data {
         }
         tr:not(.no-data):hover td, tr:not(.no-data).selected td, {
            background: @color-list-hover-bg !important;
+           text-shadow: 0 -1px 0 rgba(0,0,0,.3);
            color: white;
 
             a:not(.btn), span, i[class^="icon-"] {
                color: white;
             }
+        }
+        tr:not(.no-data):active td {
+           background: mix(black, @color-list-hover-bg, 10%) !important;
+           color: white;
         }
 
         tr.hidden {
@@ -256,22 +280,31 @@ table.table.data {
     }
 
     .list-checkbox {
-        padding-left: 16px;
-        padding-right: 8px;
         width: 52px;
         vertical-align: top;
         border-right: 1px solid @color-list-border-light;
-        .checkbox { margin: 0; }
+        .checkbox {
+            margin: 0;
+            min-height: 0;
+        }
         .custom-checkbox {
             position: relative;
-            top: 5px;
+            top: -14px;
             left: -2px;
-            label { margin-right: 0; }
+            label {
+                margin-right: 0;
+                margin-bottom: 0;
+            }
         }
     }
 
+    tbody tr td.list-checkbox {
+        padding-left: (@padding-standard - 3); // Offset the border
+        padding-right: (@padding-standard - 17); // Offset the checkbox padding
+    }
+
     thead tr th.list-checkbox {
-        padding: 18px 0 0 20px;
+        padding: 18px 0 0 @padding-standard;
     }
 
     .list-tree {
@@ -282,7 +315,7 @@ table.table.data {
             padding: 5px;
             display: block;
             text-align: center;
-            font-size: 14px;
+            font-size: 18px;
             position: relative;
             top: 5px;
             left: 10px;
@@ -347,7 +380,7 @@ table.table.data {
         padding: 18px 20px;
         margin: 0 20px;
         color: @color-list-norecords-text;
-        font-size: 14px;
+        font-size: @font-size-base - 1;
         text-align: center;
         font-weight: 300;
         .border-radius(@border-radius-base);
@@ -393,7 +426,7 @@ table.table.data {
 
 .list-header {
     background-color: @color-list-header-bg;
-    padding: 0 20px 1px 20px;
+    padding: 0 @padding-standard 1px @padding-standard;
 
     h3 {
         font-size: 14px;
@@ -428,92 +461,31 @@ table.table.data {
 }
 
 //
-// Responsive Table
+// Scrollable list control
 //
 
-@media only screen and (max-width: 960px) {
+.list-scrollable-container {
+    position: relative;
 
-    .control-list:not(.list-unresponsive) {
-        table, thead, tbody, th, td, tr {
-            display: block;
-        }
+    .horizontal-scroll-indicators(@color-list-text-head);
 
-        table {
-            position: relative;
-            border-top: 1px solid @color-list-border;
-
-            thead tr {
-                td, th {
-                    position: absolute;
-                    top: -9999px;
-                    left: -9999px;
-                }
-
-                th.list-setup {
-                    position: absolute;
-                    top: auto;
-                    left: auto;
-                    bottom: 0;
-                    right: 0;
-                    border: none!important;
-
-                    a {
-                        padding: 10px 15px;
-                    }
-                }
-            }
-
-            tbody tr {
-                border-bottom: 1px solid @color-list-border;
-
-                td {
-                    border: none;
-                    border-left: 3px solid transparent;
-                    position: relative;
-                    padding-left: 40%!important;
-                    white-space: normal;
-                    text-align: left;
-                    min-height: 40px;
-                }
-
-                td:before {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 35%;
-                    padding: 11px 15px;
-                    white-space: nowrap;
-                    text-align: left;
-                    color: @color-list-text-head;
-                    content: attr(data-title);
-                }
-
-                &:hover {
-                    td:before {
-                        color: white !important;
-                    }
-                }
-
-                &.active {
-                    td {
-                        border-left: 3px solid @color-list-stripe-active;
-                        &:before { color: @color-list-text-active; }
-                    }
-                }
-
-                td.list-setup { display: none; }
-            }
-
-            tfoot tr {
-                td { border: none; }
-            }
-
-            .list-checkbox {
-                width: 100% !important;
-                border-right: none !important;
-                padding-left: 16px !important;
-            }
-        }
+    &:after, &:before {
+        margin-top: 0;
+        height: 40px;
+        padding: 13px 10px;
+        background: #fff;
+        top: 1px;
     }
 
+    &:before {
+        left: 0;
+    }
+
+    &:after {
+        right: 0;
+    }
+
+    > .list-scrollable {
+        overflow: hidden;
+    }
 }

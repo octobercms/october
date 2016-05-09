@@ -60,7 +60,8 @@
             white-space: nowrap;
             float: none;
             display: inline-block;
-            margin-right:  10px;
+            margin-right: 10px;
+
             &:last-child {
                 margin-right: 0;
             }
@@ -92,7 +93,7 @@
 
     input.form-control[type=text] {
         height: auto;
-        padding: 8px 10px;
+        padding: 6px 13px 6px;
     }
 
     &.toolbar-padded {
@@ -130,6 +131,9 @@
             color: @color-toolbar-editor-btn-color;
             background: transparent;
             .user-select(none);
+            .box-shadow(none);
+            text-shadow: none;
+            border-radius: 0;
 
             &:before {
                 font-size: 14px !important;
@@ -238,3 +242,47 @@
 .tb-alignjustify:before { content: "\e61d"; }
 .tb-aligncenter:before { content: "\e61e"; }
 .tb-gallery:before { content: "\e61f"; }
+
+/* Toolbar tweaks for the side panel */
+
+#layout-side-panel,
+.compact-toolbar {
+    div.control-toolbar {
+        &, &.toolbar-padded {
+            padding: 0;
+        }
+
+        &.separator {
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .toolbar-item {
+            padding-right: 0;
+        }
+
+        .btn {
+            .border-radius(0)!important;
+            padding-top: 12px;
+            padding-bottom: 13px;
+            margin-right: 0;
+        }
+
+        input.form-control {
+            border: none;
+            padding: 11px 13px 12px;
+            height: auto;
+            .border-radius(0) !important;
+            .box-shadow(~"inset 0 1px 0 @{input-border}");
+
+            &.icon.search {
+                background-position: right -78px;
+            }
+        }
+
+        div.loading-indicator-container.size-input-text {
+            .loading-indicator {
+                top: 6px;
+            }
+        }
+    }
+}

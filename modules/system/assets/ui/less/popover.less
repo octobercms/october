@@ -12,7 +12,7 @@
 
 @color-popover-bg:                           #ffffff;
 @color-popover-border:                       @dropdown-border;
-@color-popover-head-bg:                      #d35400;
+@color-popover-head-bg:                      mix(black, saturate(@brand-accent, 20%), 25%);
 @color-popover-head-text:                    #ffffff;
 @color-popover-danger-bg:                    #ab2a1c;
 
@@ -141,8 +141,8 @@ div.control-popover {
         }
 
         h3 {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: @font-size-base;
+            font-weight: bold;
             margin-top: 0;
             margin-bottom: 0;
             padding-right: 15px;
@@ -150,9 +150,9 @@ div.control-popover {
         }
 
         p {
-            font-size: 13px;
-            font-weight: 100;
-            margin: 10px 0 0 0;
+            font-size: @font-size-base - 2;
+            font-weight: normal;
+            margin: 5px 0 0 0;
 
             &:empty {
                 display: none;
@@ -176,7 +176,7 @@ div.control-popover {
         .inspector-move-to-container {
             .opacity(0.4);
             position: absolute;
-            top: 12px;
+            top: 14px;
             right: 26px;
             float: none;
             color: #ffffff;

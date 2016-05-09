@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'pluginsPathLocal' => base_path().'/tests/fixtures/plugins',
+    'pluginsPathLocal' => base_path('tests/fixtures/plugins'),
 
     /*
     |--------------------------------------------------------------------------
@@ -107,6 +107,6 @@ return [
     |
     */
 
-    'themesPathLocal' => base_path().'/tests/fixtures/themes',
+    'themesPathLocal' => base_path('tests/fixtures/themes'),
 
 ];

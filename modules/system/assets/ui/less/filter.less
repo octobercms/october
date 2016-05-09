@@ -10,10 +10,11 @@
 // Filters
 // --------------------------------------------------
 
-@color-filter-bg:                            #f3f3f3;
-@color-filter-bg-active:                     #cc3300;
-@color-filter-border:                        #949ea6;
-@color-filter-text:                          #949ea6;
+@color-filter-bg:                            #ECF0F1;
+@color-filter-bg-active:                     #6AAB55;
+@color-filter-border:                        #D7DBDD;
+@color-filter-text:                          rgba(0,0,0,.6);
+@color-filter-text-active:                   #000000;
 @color-filter-items-bg:                      #fafafa;
 @color-filter-items-bg-hover:                #4da7e8;
 
@@ -23,11 +24,18 @@
 
 .control-filter {
     padding: 0 10px;
-    font-size: 13px;
     color: @color-filter-text;
     background-color: @color-filter-bg;
     border-top: 1px solid @color-filter-border;
     border-bottom: 1px solid @color-filter-border;
+
+    font-size: @font-size-base - 1;
+
+    .custom-checkbox label {
+        font-size: @font-size-base - 1;
+        color: @color-filter-text;
+    }
+
     a {
         text-decoration: none;
         color: @color-filter-text;
@@ -35,10 +43,15 @@
 
     > .filter-scope {
         display: inline-block;
-        padding: 15px;
-        .filter-label {}
+        padding: 10px;
+
+        .filter-label {
+            margin-right: 5px;
+        }
+
         .filter-setting {
             display: inline-block;
+            margin-right: 5px;
             .transition(color 0.6s);
         }
 
@@ -64,15 +77,27 @@
                 margin-bottom: 0;
             }
 
+            label {
+                padding-left: 25px;
+            }
+
             &:after {
                 content: '';
             }
         }
 
-        &:hover {
-            color: #000;
-            .filter-label { color: @color-filter-text; }
-            &.active .filter-setting { background-color: darken(@color-filter-bg-active, 5%); }
+        &:hover, &.active {
+            &, &.custom-checkbox label {
+                color: @color-filter-text-active;
+            }
+
+            .filter-label {
+                color: @color-filter-text-active;
+            }
+
+            &.active .filter-setting {
+                background-color: darken(@color-filter-bg-active, 5%);
+            }
         }
     }
 }
@@ -87,6 +112,7 @@
             border: none;
             border-bottom: 1px solid @color-filter-border;
             .border-bottom-radius(0);
+            .box-shadow(none);
             background-color: transparent;
         }
 
@@ -101,7 +127,7 @@
 
     .filter-items, .filter-active-items {
         color: @color-filter-text;
-        font-size: 13px;
+        font-size: @font-size-base - 1;
         ul, li {
             list-style-type: none;
             margin:0;
@@ -130,7 +156,7 @@
     }
 
     .filter-items {
-        height: 100px;
+        max-height: 135px;
         overflow: auto;
 
         background-color: @color-filter-items-bg;
@@ -162,7 +188,7 @@
 @media (max-width: @screen-xs) {
     .control-filter-popover {
         .filter-items {
-            height: 200px;
+            max-height: 200px;
         }
         .filter-search {
             input {

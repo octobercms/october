@@ -14,6 +14,12 @@ use System\Classes\CombineAssets;
  * Supported commands:
  *
  *   - purge thumbs: Deletes all thumbnail files in the uploads directory.
+ *   - git pull: Perform "git pull" on all plugins and themes.
+ *   - compile assets: Compile registered Language, LESS and JS files.
+ *   - compile js: Compile registered JS files only.
+ *   - compile less: Compile registered LESS files only.
+ *   - compile lang: Compile registered Language files only.
+ *
  */
 class OctoberUtil extends Command
 {
@@ -159,6 +165,14 @@ class OctoberUtil extends Command
                 File::get($stub)
             );
 
+            /*
+             * Include the moment localization data
+             */
+            $momentPath = base_path() . '/modules/backend/assets/vendor/moment/locale/'.$locale.'.js';
+            if (File::exists($momentPath)) {
+                $contents .= PHP_EOL.PHP_EOL.File::get($momentPath).PHP_EOL;
+            }
+
             File::put($destPath, $contents);
 
             /*
@@ -178,7 +192,7 @@ class OctoberUtil extends Command
         }
 
         $totalCount = 0;
-        $uploadsPath = Config::get('filesystems.disks.local.root', storage_path().'/app');
+        $uploadsPath = Config::get('filesystems.disks.local.root', storage_path('app'));
         $uploadsPath .= '/uploads';
 
         /*
@@ -228,4 +242,29 @@ class OctoberUtil extends Command
 
         // @todo
     }
+
+    /**
+     * This command requires the git binary to be installed.
+     */
+    protected function utilGitPull()
+    {
+        foreach (File::directories(plugins_path()) as $authorDir) {
+            foreach (File::directories($authorDir) as $pluginDir) {
+                if (!File::isDirectory($pluginDir.'/.git')) continue;
+                $exec = 'cd ' . $pluginDir . ' && ';
+                $exec .= 'git pull 2>&1';
+                echo 'Updating plugin: '. basename(dirname($pluginDir)) .'.'. basename($pluginDir) . PHP_EOL;
+                echo shell_exec($exec);
+            }
+        }
+
+        foreach (File::directories(themes_path()) as $themeDir) {
+            if (!File::isDirectory($themeDir.'/.git')) continue;
+            $exec = 'cd ' . $themeDir . ' && ';
+            $exec .= 'git pull 2>&1';
+            echo 'Updating theme: '. basename($themeDir) . PHP_EOL;
+            echo shell_exec($exec);
+        }
+    }
+
 }

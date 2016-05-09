@@ -270,10 +270,9 @@ return [
         'app_tagline' => 'アプリタグライン',
         'app_tagline_description' => 'この名前はバックエンドのサインインページに表示されます。',
         'colors' => '配色',
-        'primary_light' => 'プライマリ (明るい)',
-        'primary_dark' => 'プライマリ (暗い)',
-        'secondary_light' => 'セカンダリ (明るい)',
-        'secondary_dark' => 'セカンダリ (暗い)',
+        'primary_color' => 'プライマリ color',
+        'secondary_color' => 'セカンダリ color',
+        'accent_color' => 'Accent color',
         'styles' => 'スタイル',
         'custom_stylesheet' => 'カスタムスタイルシート'
     ],

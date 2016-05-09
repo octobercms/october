@@ -82,12 +82,20 @@
         var self = this
 
         this.$el.on('change', '.filter-scope input[type="checkbox"]', function(){
-            var isChecked = $(this).is(':checked'),
-                $scope = $(this).closest('.filter-scope'),
-                scopeName = $scope.data('scope-name')
+            var $scope = $(this).closest('.filter-scope')
 
-            self.scopeValues[scopeName] = isChecked
-            self.checkboxToggle(scopeName, isChecked)
+            if ($scope.hasClass('is-indeterminate')) {
+                self.switchToggle($(this))
+            }
+            else {
+                self.checkboxToggle($(this))
+            }
+        })
+
+        $('.filter-scope input[type="checkbox"]', this.$el).each(function() {
+            $(this)
+                .closest('.filter-scope')
+                .toggleClass('active', $(this).is(':checked'))
         })
 
         this.$el.on('click', 'a.filter-scope', function(){
@@ -343,22 +351,54 @@
         })
     }
 
-    FilterWidget.prototype.checkboxToggle = function(scopeName, isChecked) {
-        if (!this.options.updateHandler)
-            return
+    FilterWidget.prototype.checkboxToggle = function($el) {
+        var isChecked = $el.is(':checked'),
+            $scope = $el.closest('.filter-scope'),
+            scopeName = $scope.data('scope-name')
 
-        var $form = this.$el.closest('form'),
-            data = {
-                scopeName: scopeName,
-                value: isChecked
-            }
+        this.scopeValues[scopeName] = isChecked
 
-        $.oc.stripeLoadIndicator.show()
-        $form.request(this.options.updateHandler, {
-            data: data
-        }).always(function(){
-            $.oc.stripeLoadIndicator.hide()
-        })
+        if (this.options.updateHandler) {
+            var $form = this.$el.closest('form'),
+                data = {
+                    scopeName: scopeName,
+                    value: isChecked
+                }
+
+            $.oc.stripeLoadIndicator.show()
+            $form.request(this.options.updateHandler, {
+                data: data
+            }).always(function(){
+                $.oc.stripeLoadIndicator.hide()
+            })
+        }
+
+        $scope.toggleClass('active', isChecked)
+    }
+
+    FilterWidget.prototype.switchToggle = function($el) {
+        var switchValue = $el.data('checked'),
+            $scope = $el.closest('.filter-scope'),
+            scopeName = $scope.data('scope-name')
+
+        this.scopeValues[scopeName] = switchValue
+
+        if (this.options.updateHandler) {
+            var $form = this.$el.closest('form'),
+                data = {
+                    scopeName: scopeName,
+                    value: switchValue
+                }
+
+            $.oc.stripeLoadIndicator.show()
+            $form.request(this.options.updateHandler, {
+                data: data
+            }).always(function(){
+                $.oc.stripeLoadIndicator.hide()
+            })
+        }
+
+        $scope.toggleClass('active', !!switchValue)
     }
 
 

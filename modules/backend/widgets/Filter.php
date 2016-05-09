@@ -1,7 +1,10 @@
 <?php namespace Backend\Widgets;
 
 use Db;
+use Str;
+use Lang;
 use Event;
+use DbDongle;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\FilterScope;
 use ApplicationException;
@@ -125,6 +128,11 @@ class Filter extends WidgetBase
                 $checked = post('value') == 'true' ? true : false;
                 $this->setScopeValue($scope, $checked);
                 break;
+
+            case 'switch':
+                $value = post('value');
+                $this->setScopeValue($scope, $value);
+                break;
         }
 
         /*
@@ -178,12 +186,12 @@ class Filter extends WidgetBase
      */
     protected function getAvailableOptions($scope, $searchQuery = null)
     {
-        if (count($scope->options)) {
-            return $scope->options;
+        if ($scope->options) {
+            return $this->getOptionsFromArray($scope, $searchQuery);
         }
 
         $available = [];
-        $nameColumn = $this->getScopeNameColumn($scope);
+        $nameColumn = $this->getScopeNameFrom($scope);
         $options = $this->getOptionsFromModel($scope, $searchQuery);
         foreach ($options as $option) {
             $available[$option->getKey()] = $option->{$nameColumn};
@@ -215,6 +223,7 @@ class Filter extends WidgetBase
 
     /**
      * Looks at the model for defined scope items.
+     * @return Collection
      */
     protected function getOptionsFromModel($scope, $searchQuery = null)
     {
@@ -231,8 +240,95 @@ class Filter extends WidgetBase
             return $query->get();
         }
 
-        $searchFields = [$model->getKeyName(), $this->getScopeNameColumn($scope)];
+        $searchFields = [$model->getKeyName(), $this->getScopeNameFrom($scope)];
         return $query->searchWhere($searchQuery, $searchFields)->get();
+    }
+
+    /**
+     * Look at the defined set of options for scope items, or the model method.
+     * @return array
+     */
+    protected function getOptionsFromArray($scope, $searchQuery = null)
+    {
+        /*
+         * Load the data
+         */
+        $options = $scope->options;
+
+        if (is_scalar($options)) {
+            $model = $this->scopeModels[$scope->scopeName];
+            $methodName = $options;
+
+            if (!$model->methodExists($methodName)) {
+                throw new ApplicationException(Lang::get(
+                    'backend::lang.filter.options_method_not_exists',
+                    ['model'=>get_class($model), 'method'=>$methodName, 'filter'=>$scope->scopeName]
+                ));
+            }
+
+            $options = $model->$methodName();
+        }
+        elseif (!is_array($options)) {
+            $options = [];
+        }
+
+        /*
+         * Apply the search
+         */
+        $searchQuery = Str::lower($searchQuery);
+        if (strlen($searchQuery)) {
+            $options = $this->filterOptionsBySearch($options, $searchQuery);
+        }
+
+        return $options;
+    }
+
+    /**
+     * Filters an array of options by a search term.
+     * @param array $options
+     * @param string $query
+     * @return array
+     */
+    protected function filterOptionsBySearch($options, $query)
+    {
+        $filteredOptions = [];
+
+        $optionMatchesSearch = function($words, $option) {
+            foreach ($words as $word) {
+                $word = trim($word);
+                if (!strlen($word)) {
+                    continue;
+                }
+
+                if (!Str::contains(Str::lower($option), $word)) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
+        /*
+         * Exact
+         */
+        foreach ($options as $index => $option) {
+            if (Str::is(Str::lower($option), $query)) {
+                $filteredOptions[$index] = $option;
+                unset($options[$index]);
+            }
+        }
+
+        /*
+         * Fuzzy
+         */
+        $words = explode(' ', $query);
+        foreach ($options as $index => $option) {
+            if ($optionMatchesSearch($words, $option)) {
+                $filteredOptions[$index] = $option;
+            }
+        }
+
+        return $filteredOptions;
     }
 
     /**
@@ -361,6 +457,15 @@ class Filter extends WidgetBase
          * Condition
          */
         if ($scopeConditions = $scope->conditions) {
+
+            /*
+             * Switch scope: multiple conditions, value either 1 or 2
+             */
+            if (is_array($scopeConditions)) {
+                $conditionNum = is_array($value) ? 0 : $value - 1;
+                list($scopeConditions) = array_slice($scopeConditions, $conditionNum);
+            }
+
             if (is_array($value)) {
                 $filtered = implode(',', array_build($value, function ($key, $_value) {
                     return [$key, Db::getPdo()->quote($_value)];
@@ -370,7 +475,7 @@ class Filter extends WidgetBase
                 $filtered = Db::getPdo()->quote($value);
             }
 
-            $query->whereRaw(strtr($scopeConditions, [':filtered' => $filtered]));
+            $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [':filtered' => $filtered])));
         }
 
         /*
@@ -443,7 +548,7 @@ class Filter extends WidgetBase
      * @param  string $scope
      * @return string
      */
-    public function getScopeNameColumn($scope)
+    public function getScopeNameFrom($scope)
     {
         if (is_string($scope)) {
             $scope = $this->getScope($scope);

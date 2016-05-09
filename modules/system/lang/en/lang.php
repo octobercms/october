@@ -7,13 +7,17 @@ return [
     ],
     'locale' => [
         'cs' => 'Czech',
-        'en' => 'English',
+        'en' => 'English (United States)',
+        'en-au' => 'English (Australia)',
+        'en-ca' => 'English (Canada)',
+        'en-gb' => 'English (United Kingdom)',
         'de' => 'German',
         'el' => 'Greek',
         'es' => 'Spanish',
         'es-ar' => 'Spanish (Argentina)',
         'fa' => 'Persian',
         'fr' => 'French',
+        'fr-ca' => 'French (Canada)',
         'hu' => 'Hungarian',
         'id' => 'Bahasa Indonesia',
         'it' => 'Italian',
@@ -120,13 +124,13 @@ return [
             'missing' => 'Please specify a Project ID to use.'
         ],
         'detach_confirm' => 'Are you sure you want to detach this project?',
-        'unbind_success' => 'Project has been detached successfully.'
+        'unbind_success' => 'Project has been detached.'
     ],
     'settings' => [
         'menu_label' => 'Settings',
         'not_found' => 'Unable to find the specified settings.',
         'missing_model' => 'The settings page is missing a Model definition.',
-        'update_success' => 'Settings for :name have been updated successfully.',
+        'update_success' => ':name settings updated',
         'return' => 'Return to system settings',
         'search' => 'Search'
     ],
@@ -162,6 +166,13 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill secret',
         'mandrill_secret_comment' => 'Enter your Mandrill API key.',
+        'ses' => 'SES',
+        'ses_key' => 'SES key',
+        'ses_key_comment' => 'Enter your SES API key',
+        'ses_secret' => 'SES secret',
+        'ses_secret_comment' => 'Enter your SES API secret key',
+        'ses_region' => 'SES region',
+        'ses_region_comment' => 'Enter your SES region (e.g. us-east-1)',
         'drivers_hint_header' => 'Drivers not installed',
         'drivers_hint_content' => 'This mail method requires the plugin ":plugin" be installed before you can send mail.'
     ],
@@ -187,14 +198,14 @@ return [
         'content_css' => 'CSS',
         'content_text' => 'Plaintext',
         'test_send' => 'Send test message',
-        'test_success' => 'The test message has been successfully sent.',
-        'test_confirm' => 'A test message will be sent to :email. Continue?',
+        'test_success' => 'Test message sent.',
+        'test_confirm' => 'Send test message to :email. Continue?',
         'creating' => 'Creating Template...',
         'creating_layout' => 'Creating Layout...',
         'saving' => 'Saving Template...',
         'saving_layout' => 'Saving Layout...',
-        'delete_confirm' => 'Do you really want to delete this template?',
-        'delete_layout_confirm' => 'Do you really want to delete this layout?',
+        'delete_confirm' => 'Delete this template?',
+        'delete_layout_confirm' => 'Delete this layout?',
         'deleting' => 'Deleting Template...',
         'deleting_layout' => 'Deleting Layout...',
         'sending' => 'Sending test message...',
@@ -207,7 +218,7 @@ return [
         'missing_plugin_name' => 'Please specify a Plugin name to install.',
         'missing_theme_name' => 'Please specify a Theme name to install.',
         'install_completing' => 'Finishing installation process',
-        'install_success' => 'The plugin has been installed successfully.'
+        'install_success' => 'Plugin installed successfully'
     ],
     'updates' => [
         'title' => 'Manage Updates',
@@ -240,7 +251,7 @@ return [
         'update_label' => 'Update software',
         'update_completing' => 'Finishing update process',
         'update_loading' => 'Loading available updates...',
-        'update_success' => 'The update process was performed successfully.',
+        'update_success' => 'Update process complete',
         'update_failed_label' => 'Update failed',
         'force_label' => 'Force update',
         'found' => [

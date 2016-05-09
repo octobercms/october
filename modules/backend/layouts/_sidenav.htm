@@ -7,9 +7,13 @@
         $sideMenuItems = BackendMenu::listSideMenuItems();
     ?>
     <?php if ($sideMenuItems): ?>
-        <div class="layout-cell width-120">
+        <div class="layout-cell w-120">
             <div class="layout-relative">
-                <nav class="layout-sidenav" id="layout-sidenav" data-control="sidenav">
+                <nav
+                    id="layout-sidenav"
+                    class="layout-sidenav bg-s"
+                    data-active-class="active"
+                    data-control="sidenav">
                     <ul class="nav">
                         <?php foreach ($sideMenuItems as $sideItemCode => $item): ?>
                             <li
@@ -17,7 +21,12 @@
                                 <?= HTML::attributes($item->attributes) ?>
                             >
                                 <a href="<?= $item->url ?>">
-                                    <i class="<?= $item->icon ?>"></i><?= e(trans($item->label)) ?>
+                                    <span class="nav-icon">
+                                        <i class="<?= $item->icon ?>"></i>
+                                    </span>
+                                    <span class="nav-label">
+                                        <?= e(trans($item->label)) ?>
+                                    </span>
                                 </a>
                                 <span
                                     class="counter <?= $item->counter === null ? 'empty' : null ?>"

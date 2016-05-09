@@ -30,6 +30,7 @@ class CmsController extends ControllerBase
 
     /**
      * Extend this object properties upon construction.
+     * @param Closure $callback
      */
     public static function extend(Closure $callback)
     {

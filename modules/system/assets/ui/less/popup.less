@@ -12,7 +12,7 @@
 
 @import "popup.base.less";
 
-@color-popup-header-bg:                      #d35400;
+@color-popup-header-bg:                      mix(black, saturate(@brand-accent, 20%), 25%);
 @color-popup-header-text:                    #ECF0F1;
 @color-popup-footer-bg:                      transparent;
 @color-popup-content-bg:                     @body-bg;
@@ -20,9 +20,9 @@
 @modal-inner-padding:         20px;
 @modal-title-padding:         15px;
 @modal-title-line-height:     @line-height-base;
-@modal-content-bg:                             #fff;
-@modal-content-border-color:                   rgba(0,0,0,.2);
-@modal-content-fallback-border-color:          #999;
+@modal-content-bg:                          #fff;
+@modal-content-border-color:                rgba(0,0,0,.2);
+@modal-content-fallback-border-color:       #999;
 @modal-backdrop-bg:           #000;
 @modal-backdrop-opacity:      .5;
 @modal-header-border-color:   #e5e5e5;
@@ -43,15 +43,19 @@
 
 .modal-content {
     .box-shadow(none);
-    .border-radius(2px);
+    .border-radius(5px);
     border: none;
     background: @color-popup-content-bg;
-    .close {color: #fff;}
+    .close { color: #fff; }
 }
 
 .modal-header {
     background: @color-popup-header-bg;
     color: @color-popup-header-text;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.6);
+    .box-shadow(inset 0 -2px 0 rgba(0,0,0,.1));
+    .border-top-radius(5px);
+
     border: none;
 
     h4 {
@@ -64,7 +68,7 @@
     background: @color-popup-footer-bg;
     border: none;
     margin-top: 0;
-    padding: 0 20px 20px 20px;
+    padding: 0 @padding-standard @padding-standard @padding-standard;
 }
 
 .modal-body {

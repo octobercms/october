@@ -9,6 +9,19 @@ use Cms\Classes\ComponentManager;
 
 class ComponentManagerTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Archive.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Post.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/MainMenu.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/ContentBlock.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Comments.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/classes/Users.php';
+    }
+
+
     public function testListComponents()
     {
         $manager = ComponentManager::instance();
@@ -20,14 +33,9 @@ class ComponentManagerTest extends TestCase
 
     public function testListComponentDetails()
     {
-        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Archive.php';
-        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Post.php';
-        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/MainMenu.php';
-        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/ContentBlock.php';
-
         $manager = ComponentManager::instance();
         $components = $manager->listComponentDetails();
-        
+
         $this->assertArrayHasKey('testArchive', $components);
         $this->assertArrayHasKey('name', $components['testArchive']);
         $this->assertArrayHasKey('description', $components['testArchive']);
@@ -41,6 +49,26 @@ class ComponentManagerTest extends TestCase
         $this->assertEquals('Displays a blog post.', $components['testPost']['description']);
     }
 
+    public function testGetComponentWithFactoryUsingAutomaticResolution()
+    {
+        $manager = ComponentManager::instance();
+        $components = $manager->listComponentDetails();
+
+        $this->assertArrayHasKey('testComments', $components);
+        $this->assertArrayHasKey('name', $components['testComments']);
+        $this->assertArrayHasKey('description', $components['testComments']);
+        $this->assertEquals('Blog Comments Dummy Component', $components['testComments']['name']);
+        $this->assertEquals('Displays the list of comments on a post.', $components['testComments']['description']);
+
+        $comments = $manager->makeComponent('testComments', $this->spoofPageCode(), []);
+        $users = $comments->getUsers()->getUsers();
+
+        $this->assertArrayHasKey('Art Vandelay', $users);
+        $this->assertArrayHasKey('Carl', $users);
+        $this->assertEquals('Arquitecht and Importer/Exporter', $users['Art Vandelay']);
+        $this->assertEquals('where is he?', $users['Carl']);
+    }
+
     public function testFindByAlias()
     {
         $manager = ComponentManager::instance();
@@ -50,7 +78,6 @@ class ComponentManagerTest extends TestCase
 
         $component = $manager->resolve('testPost');
         $this->assertEquals('\October\Tester\Components\Post', $component);
-
     }
 
     public function testHasComponent()

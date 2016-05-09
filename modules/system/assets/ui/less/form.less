@@ -21,7 +21,7 @@
 //
 
 .form-preview {
-    padding: 15px;
+    padding: @padding-standard;
     margin-bottom: 20px;
     background: white;
     border: 1px solid #eee;
@@ -33,6 +33,22 @@
     // Form to sit flush to the element above
     &.form-flush {
         border-top: none;
+    }
+
+    // Style primary tabs
+    .control-tabs.primary-tabs {
+        > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
+            > li a > span.title {
+                &:before, &:after {
+                    background: white;
+                }
+            }
+            > li.active a {
+                &:before {
+                    background-color: white;
+                }
+            }
+        }
     }
 }
 
@@ -47,6 +63,8 @@
 .form-control {
     position: relative;
     -webkit-appearance: none;
+    border: 1px solid @input-border;
+    .box-shadow(~"inset 0 1px 0 @{input-border}, 0 1px 0 #fff");
 
     &:focus {
         border: 1px solid @color-form-field-border-focus;
@@ -59,7 +77,7 @@
         background-image: url('@{image-path}/bitmap-icons.png');
 
         &.plus { background-position: right -124px; }
-        &.search { background-position: right -84px; }
+        &.search { background-position: right -83px; }
         &.user { background-position: right -41px; }
         &.lock { background-position: right 0; }
     }
@@ -81,7 +99,7 @@
     }
 
     &, &.layout-item {
-        padding-bottom: 20px;
+        padding-bottom: @padding-standard;
         margin-bottom: 0;
     }
 
@@ -89,11 +107,15 @@
 
     &.is-required {
         > label:after {
-            color: @color-form-required-asterisk;
+            background-color: @color-form-required-asterisk;
+            width: 5px;
+            height: 5px;
+            margin-left: 3px;
             vertical-align: super;
             font-size: 60%;
-            content: " *";
-            text-shadow: 0 0 2px darken(@color-form-required-asterisk, 15%);
+            content: "";
+            display: inline-block;
+            .border-radius(8px);
         }
     }
 
@@ -127,7 +149,11 @@
     }
 
     &.checkbox-align {
-        padding-left: 23px;
+        padding-left: 28px;
+        margin-top: -5px;
+    }
+
+    &.field-align-above {
         margin-top: -5px;
     }
 
@@ -162,9 +188,12 @@
 .form-group-preview {
 
     .form-control {
-        background-color: @color-form-field-preview;
+        background-color: @color-form-field-preview-bg;
+        color: @color-form-field-preview-text;
         height: auto;
         min-height: 38px;
+        border-color: #eee;
+        .box-shadow(none);
     }
 
     .custom-checkbox,
@@ -174,11 +203,11 @@
 }
 
 .help-block {
-    font-size: 12px;
+    font-size: @font-size-base - 1;
     margin-bottom: 0;
     &.before-field {
         margin-top: 0;
-        margin-bottom: 10px;
+        margin-bottom: 17px;
     }
 }
 
@@ -192,6 +221,7 @@
         pointer-events: none;
         color: @color-form-field-icon;
         font-size: 15px;
+        margin-top: -1px;
     }
 
     &.right-align {
@@ -261,14 +291,25 @@
     &.size-giant { min-height: @size-giant; }
 }
 
-.field-checkboxlist {
-    .checkbox:last-of-type {
-        margin-bottom: 0;
+.field-checkboxlist:not(.is-scrollable) {
+    padding: 20px 20px 2px 20px;
+    .border-radius(@border-radius-base);
+    background: @color-form-checkboxlist-background;
+    border: 1px solid @color-form-checkboxlist-border;
+
+    //.checkbox:last-of-type {
+    //    margin-bottom: 0;
+    //}
+}
+
+.field-checkboxlist.is-scrollable {
+    small {
+        color: @text-muted;
     }
 }
 
 .field-checkboxlist-scrollable {
-    background: white;
+    background: @color-form-checkboxlist-background;
     border: 1px solid @color-form-checkboxlist-border;
     padding-left: 15px;
     height: @size-large + 100;
@@ -288,6 +329,9 @@
     border: 1px solid @color-form-field-border;
     overflow: hidden;
     position: relative;
+    .box-shadow(~"inset 0 1px 0 @{input-border}, 0 1px 0 #fff");
+    .border-radius(@input-border-radius);
+
     .form-control {
         background: transparent;
         border-color: transparent;
@@ -295,16 +339,18 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        padding: 8px 30px 10px 11px;
+        padding: 7px 30px 7px 11px;
+        .box-shadow(none);
     }
     .btn {
         background: transparent;
         position: absolute;
         right: -2px;
         top: 50%;
-        margin-top: -44px;
+        margin-top: -43px;
         height: 88px;
         color: lighten(@color-form-field-recordfinder-btn, 15%);
+        text-shadow: none;
 
         i {
             font-size: 14px;
@@ -336,11 +382,11 @@
 
 .form-buttons {
     .clearfix();
-    padding-bottom: 20px;
+    padding-bottom: @padding-standard;
     font-size: 0;
 
     .btn {
-        margin-right: 10px;
+        margin-right: 15px;
 
         &.no-margin-right {
             margin-right: 0;
@@ -401,17 +447,10 @@ body.slim-container {
         display: inline-block;
         margin-right: 15px;
 
-        &.width-50 {
-            width: 50px;
-        }
-
-        &.width-100 {
-            width: 100px;
-        }
-
-        &.width-150 {
-            width: 150px;
-        }
+        // @deprecated Remove if year >= 2017 (3 lines below)
+        &.width-50 { width: 50px; }
+        &.width-100 { width: 100px; }
+        &.width-150 { width: 150px;}
     }
 
     input[type=text].form-control, label {

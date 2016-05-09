@@ -1,5 +1,22 @@
 <?= $this->makePartial('warnings') ?>
 
-<?= Form::open() ?>
-    <?= $this->widget->reportContainer->render() ?>
+<?= Form::open(['class'=>'layout-relative dashboard-container']) ?>
+    <div id="dashReportContainer" class="report-container loading">
+
+        <!-- Loading -->
+        <div class="loading-indicator-container">
+            <div class="loading-indicator">
+                <span></span>
+            </div>
+        </div>
+
+    </div>
 <?= Form::close() ?>
+
+<script>
+    $(document).ready(function() {
+        $.request('onInitReportContainer').done(function(){
+            $('#dashReportContainer').removeClass('loading')
+        })
+    })
+</script>

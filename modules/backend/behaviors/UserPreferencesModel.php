@@ -18,6 +18,9 @@ use Backend\Models\UserPreferences;
  */
 class UserPreferencesModel extends SettingsModel
 {
+    /**
+     * @var array Internal cache of model objects.
+     */
     private static $instances = [];
 
     /**

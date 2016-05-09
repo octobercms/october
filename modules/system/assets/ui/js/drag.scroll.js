@@ -13,13 +13,16 @@
  * - drag - callback function to execute when the element is dragged
  * - stop - callback function to execute when the drag ends
  * - vertical - determines if the scroll direction is vertical, true by default
- * - allowScroll - determines if the mouse wheel scrolling is allowed, true by default
  * - scrollClassContainer - if specified, specifies an element or element selector to apply the 'scroll-before' and 'scroll-after' CSS classes,
  *   depending on whether the scrollable area is in its start or end
  * - scrollMarkerContainer - if specified, specifies an element or element selector to inject scroll markers (span elements that con 
  *   contain the ellipses icon, indicating whether scrolling is possible)
- * - noDragSupport - disables the drag support, leaving only the mouse wheel support
- * 
+ * - useDrag - determines if dragging is allowed support, true by default
+ * - useScroll - determines if the mouse wheel scrolling is allowed, true by default
+ * - useComboScroll - determines if horizontal scroll should act as vertical, and vice versa, true by default
+ * - dragSelector - restrict drag events to this selector
+ * - scrollSelector - restrict scroll events to this selector
+ *
  * Methods:
  * - isStart - determines if the scrollable area is in its start (left or top)
  * - isEnd - determines if the scrollable area is in its end (right or bottom)
@@ -49,6 +52,7 @@
 
         this.el = $el
         this.scrollClassContainer = this.options.scrollClassContainer ? $(this.options.scrollClassContainer) : $el
+        this.isScrollable = true
 
         Base.call(this)
 
@@ -63,28 +67,43 @@
         /*
          * Bind events
          */
-        $el.mousewheel(function(event){
-            if (!self.options.allowScroll)
+        var $scrollSelect = this.options.scrollSelector ? $(this.options.scrollSelector, $el) : $el
+
+        $scrollSelect.mousewheel(function(event){
+            if (!self.options.useScroll)
                 return;
 
-            var offset = self.options.vertical
-                ? ((event.deltaFactor * event.deltaY) * -1)
-                : (event.deltaFactor * event.deltaX)
+            var offset,
+                offsetX = event.deltaFactor * event.deltaX,
+                offsetY = event.deltaFactor * event.deltaY
+
+            if (!offsetX && self.options.useComboScroll) {
+                offset = offsetY * -1
+            }
+            else if (!offsetY && self.options.useComboScroll) {
+                offset = offsetX
+            }
+            else {
+                offset = self.options.vertical ? (offsetY * -1) : offsetX
+            }
 
             return !scrollWheel(offset)
         })
 
-        if (!options.noDragSupport) {
-            $el.on('mousedown.dragScroll', function(event){
+        if (this.options.useDrag) {
+            $el.on('mousedown.dragScroll', this.options.dragSelector, function(event){
                 if (event.target && event.target.tagName === 'INPUT')
                     return // Don't prevent clicking inputs in the toolbar
+
+                if (!self.isScrollable)
+                    return
 
                 startDrag(event)
                 return false
             })
         }
 
-        $el.on('touchstart.dragScroll', function(event){
+        $el.on('touchstart.dragScroll', this.options.dragSelector, function(event){
             var touchEvent = event.originalEvent;
             if (touchEvent.touches.length == 1) {
                 startDrag(touchEvent.touches[0])
@@ -94,7 +113,7 @@
 
         $el.on('click.dragScroll', function() {
             // Do not handle item clicks while dragging
-            if ($(document.body).hasClass('drag'))
+            if ($(document.body).hasClass(self.options.dragClass))
                 return false
         })
 
@@ -122,10 +141,9 @@
             else {
                 $(window).on('mousemove.dragScroll', function(event){
                     moveDrag(event)
-                    $(document.body).addClass(self.options.dragClass)
                     return false
                 })
-                
+
                 $(window).on('mouseup.dragScroll', function(mouseUpEvent){
                     var isClick = event.pageX == mouseUpEvent.pageX && event.pageY == mouseUpEvent.pageY
                     stopDrag(isClick)
@@ -145,7 +163,8 @@
                 if (!dragging) {
                     dragging = true
                     $el.trigger('start.oc.dragScroll')
-                    self.options.start();
+                    self.options.start()
+                    $(document.body).addClass(self.options.dragClass)
                 }
 
                 self.options.vertical
@@ -165,10 +184,12 @@
 
             dragging = false;
 
-            if (click)
+            if (click) {
                 $(document.body).removeClass(self.options.dragClass)
-            else
+            }
+            else {
                 self.fixScrollClasses()
+            }
 
             window.setTimeout(function(){
                 if (!click) {
@@ -218,43 +239,56 @@
 
     DragScroll.DEFAULTS = {
         vertical: false,
-        allowScroll: true,
+        useDrag: true,
+        useScroll: true,
+        useComboScroll: true,
         scrollClassContainer: false,
         scrollMarkerContainer: false,
+        scrollSelector: null,
+        dragSelector: null,
         dragClass: 'drag',
-        noDragSupport: false,
         start: function() {},
         drag: function() {},
         stop: function() {}
     }
 
     DragScroll.prototype.fixScrollClasses = function() {
-        this.scrollClassContainer.toggleClass('scroll-before', !this.isStart())
-        this.scrollClassContainer.toggleClass('scroll-after', !this.isEnd())
+        var isStart = this.isStart(),
+            isEnd = this.isEnd()
+
+        this.scrollClassContainer.toggleClass('scroll-before', !isStart)
+        this.scrollClassContainer.toggleClass('scroll-after', !isEnd)
 
         this.scrollClassContainer.toggleClass('scroll-active-before', this.isActiveBefore())
         this.scrollClassContainer.toggleClass('scroll-active-after', this.isActiveAfter())
+        this.isScrollable = !isStart || !isEnd
     }
 
     DragScroll.prototype.isStart = function() {
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return this.el.scrollLeft() <= 0;
-        else
+        }
+        else {
             return this.el.scrollTop() <= 0;
+        }
     }
 
     DragScroll.prototype.isEnd = function() {
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return (this.el[0].scrollWidth - (this.el.scrollLeft() + this.el.width())) <= 0
-        else
+        }
+        else {
             return (this.el[0].scrollHeight - (this.el.scrollTop() + this.el.height())) <= 0
+        }
     }
 
     DragScroll.prototype.goToStart = function() {
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return this.el.scrollLeft(0)
-        else
+        }
+        else {
             return this.el.scrollTop(0)
+        }
     }
 
     /*
@@ -263,13 +297,16 @@
      */
     DragScroll.prototype.isActiveAfter = function() {
         var activeElement = $('.active', this.el);
-        if (activeElement.length == 0)
+        if (activeElement.length == 0) {
             return false
+        }
 
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return activeElement.get(0).offsetLeft > (this.el.scrollLeft() + this.el.width())
-        else
+        }
+        else {
             return activeElement.get(0).offsetTop > (this.el.scrollTop() + this.el.height())
+        }
     }
 
     /*
@@ -278,13 +315,16 @@
      */
     DragScroll.prototype.isActiveBefore = function() {
         var activeElement = $('.active', this.el);
-        if (activeElement.length == 0)
+        if (activeElement.length == 0) {
             return false
+        }
 
-        if (!this.options.vertical)
+        if (!this.options.vertical) {
             return (activeElement.get(0).offsetLeft + activeElement.width()) < this.el.scrollLeft()
-        else
+        }
+        else {
             return (activeElement.get(0).offsetTop + activeElement.height()) < this.el.scrollTop()
+        }
     }
 
     DragScroll.prototype.goToElement = function(element, callback, options) {

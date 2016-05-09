@@ -1,7 +1,9 @@
 # ===================================
 #  Field Definitions
 # ===================================
-
+# Light palette: [#1abc9c, #2ecc71, #3498db, #9b59b6, #34495e, #f1c40f, #e67e22, #e74c3c, #ecf0f1, #95a5a6]
+# Dark palette:  [#16a085, #27ae60, #2980b9, #8e44ad, #2b3e50, #f39c12, #d35400, #c0392b, #bdc3c7, #7f8c8d]
+#
 tabs:
     fields:
 
@@ -23,29 +25,32 @@ tabs:
             commentAbove: backend::lang.branding.app_tagline_description
             tab: backend::lang.branding.brand
 
-        primary_color_light:
-            label: backend::lang.branding.primary_light
+        primary_color:
+            label: backend::lang.branding.primary_color
             type: colorpicker
             tab: backend::lang.branding.colors
-            availableColors: [#1abc9c, #2ecc71, #3498db, #9b59b6, #34495e, #f1c40f, #e67e22, #e74c3c, #ecf0f1, #95a5a6]
+            availableColors: [#16a085, #27ae60, #3498db, #9b59b6, #34495e, #f1c40f, #e67e22, #e74c3c, #ecf0f1, #95a5a6]
 
-        primary_color_dark:
-            label: backend::lang.branding.primary_dark
+        secondary_color:
+            label: backend::lang.branding.secondary_color
             type: colorpicker
             tab: backend::lang.branding.colors
-            availableColors: [#16a085, #27ae60, #2980b9, #8e44ad, #2b3e50, #f39c12, #d35400, #c0392b, #bdc3c7, #7f8c8d]
+            availableColors: [#16a085, #27ae60, #2980b9, #8e44ad, #34495e, #f39c12, #d35400, #c0392b, #bdc3c7, #7f8c8d]
 
-        secondary_color_light:
-            label: backend::lang.branding.secondary_light
+        accent_color:
+            label: backend::lang.branding.accent_color
             type: colorpicker
             tab: backend::lang.branding.colors
-            availableColors: [#1abc9c, #2ecc71, #3498db, #9b59b6, #34495e, #f1c40f, #e67e22, #e74c3c, #ecf0f1, #95a5a6]
+            availableColors: [#16a085, #27ae60, #3498db, #9b59b6, #34495e, #f1c40f, #e67e22, #e74c3c, #ecf0f1, #95a5a6]
 
-        secondary_color_dark:
-            label: backend::lang.branding.secondary_dark
-            type: colorpicker
-            tab: backend::lang.branding.colors
-            availableColors: [#16a085, #27ae60, #2980b9, #8e44ad, #2b3e50, #f39c12, #d35400, #c0392b, #bdc3c7, #7f8c8d]
+        menu_mode:
+            label: backend::lang.branding.menu_mode
+            tab: backend::lang.branding.navigation
+            type: radio
+            options:
+                inline: backend::lang.branding.menu_mode_inline
+                tile: backend::lang.branding.menu_mode_tile
+                collapse: backend::lang.branding.menu_mode_collapsed
 
         custom_css:
             label: backend::lang.branding.custom_stylesheet
@@ -53,5 +58,3 @@ tabs:
             tab: backend::lang.branding.styles
             size: giant
             language: css
-
-

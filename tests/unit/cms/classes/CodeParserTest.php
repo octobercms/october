@@ -95,7 +95,7 @@ class CodeParserTest extends TestCase
          * Test caching - update the file modification time and reset the internal cache. The file should be parsed.
          */
 
-        $this->assertTrue(@touch($layout->getFullPath()));
+        $this->assertTrue(@touch($layout->getFilePath()));
         $layout = Layout::load($theme, 'php-parser-test.htm');
         $this->assertNotEmpty($layout);
         $parser = new CodeParser($layout);

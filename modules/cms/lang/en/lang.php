@@ -9,8 +9,9 @@ return [
         'error_creating_directory' => 'Error creating directory :name. Please check write permissions.',
         'invalid_file_extension'=>'Invalid file extension: :invalid. Allowed extensions are: :allowed.',
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
-        'delete_success' => 'Templates were successfully deleted: :count.',
-        'file_name_required' => 'The File Name field is required.'
+        'delete_success' => 'Templates deleted: :count.',
+        'file_name_required' => 'The File Name field is required.',
+        'safe_mode_enabled' => 'Safe mode is currently enabled.',
     ],
     'theme' => [
         'not_found_name' => "The theme ':name' is not found.",
@@ -46,7 +47,7 @@ return [
         'customize_button' => 'Customize',
         'duplicate_button' => 'Duplicate',
         'duplicate_title' => 'Duplicate theme',
-        'duplicate_theme_success' => 'Duplicated theme successfully!',
+        'duplicate_theme_success' => 'Theme duplicated!',
         'manage_button' => 'Manage',
         'manage_title' => 'Manage theme',
         'edit_properties_title' => 'Theme',
@@ -54,7 +55,7 @@ return [
         'save_properties' => 'Save properties',
         'import_button' => 'Import',
         'import_title' => 'Import theme',
-        'import_theme_success' => 'Imported theme successfully!',
+        'import_theme_success' => 'Theme imported!',
         'import_uploaded_file' => 'Theme archive file',
         'import_overwrite_label' => 'Overwrite existing files',
         'import_overwrite_comment' => 'Untick this box to only import new files',
@@ -67,11 +68,11 @@ return [
         'delete_button' => 'Delete',
         'delete_confirm' => 'Are you sure you want to delete this theme? It cannot be undone!',
         'delete_active_theme_failed' => 'Cannot delete the active theme, try making another theme active first.',
-        'delete_theme_success' => 'Deleted theme successfully!',
+        'delete_theme_success' => 'Theme deleted!',
         'create_title' => 'Create theme',
         'create_button' => 'Create',
         'create_new_blank_theme' => 'Create a new blank theme',
-        'create_theme_success' => 'Created theme successfully!',
+        'create_theme_success' => 'Theme created!',
         'create_theme_required_name' => 'Please specify a name for the theme.',
         'new_directory_name_label' => 'Theme directory',
         'new_directory_name_comment' => 'Provide a new directory name for the duplicated theme.',
@@ -102,8 +103,8 @@ return [
         'no_list_records' => 'No pages found',
         'new' => 'New page',
         'invalid_url' => 'Invalid URL format. The URL should start with the forward slash symbol and can contain digits, Latin letters and the following symbols: ._-[]:?|/+*^$',
-        'delete_confirm_multiple' => 'Do you really want to delete selected pages?',
-        'delete_confirm_single' => 'Do you really want delete this page?',
+        'delete_confirm_multiple' => 'Delete selected pages?',
+        'delete_confirm_single' => 'Delete this page?',
         'no_layout' => '-- no layout --'
     ],
     'layout' => [
@@ -112,8 +113,8 @@ return [
         'unsaved_label' => 'Unsaved layout(s)',
         'no_list_records' => 'No layouts found',
         'new' => 'New layout',
-        'delete_confirm_multiple' => 'Do you really want to delete selected layouts?',
-        'delete_confirm_single' => 'Do you really want delete this layout?'
+        'delete_confirm_multiple' => 'Delete selected layouts?',
+        'delete_confirm_single' => 'Delete this layout?'
     ],
     'partial' => [
         'not_found_name' => "The partial ':name' is not found.",
@@ -121,8 +122,8 @@ return [
         'menu_label' => 'Partials',
         'unsaved_label' => 'Unsaved partial(s)',
         'no_list_records' => 'No partials found',
-        'delete_confirm_multiple' => 'Do you really want to delete selected partials?',
-        'delete_confirm_single' => 'Do you really want delete this partial?',
+        'delete_confirm_multiple' => 'Delete selected partials?',
+        'delete_confirm_single' => 'Delete this partial?',
         'new' => 'New partial'
     ],
     'content' => [
@@ -130,8 +131,8 @@ return [
         'menu_label' => 'Content',
         'unsaved_label' => 'Unsaved content',
         'no_list_records' => 'No content files found',
-        'delete_confirm_multiple' => 'Do you really want to delete selected content files or directories?',
-        'delete_confirm_single' => 'Do you really want delete this content file?',
+        'delete_confirm_multiple' => 'Delete selected content files or directories?',
+        'delete_confirm_single' => 'Delete this content file?',
         'new' => 'New content file'
     ],
     'ajax_handler' => [
@@ -163,7 +164,11 @@ return [
         'hidden' => 'Hidden',
         'hidden_comment' => 'Hidden pages are accessible only by logged-in back-end users.',
         'enter_fullscreen' => 'Enter fullscreen mode',
-        'exit_fullscreen' => 'Exit fullscreen mode'
+        'exit_fullscreen' => 'Exit fullscreen mode',
+        'open_searchbox' => 'Open Search box',
+        'close_searchbox'  => 'Close Search box',
+        'open_replacebox' => 'Open Replace box',
+        'close_replacebox'  => 'Close Replace box'
     ],
     'asset' => [
         'menu_label' => 'Assets',
@@ -221,18 +226,18 @@ return [
     ],
     'template' => [
         'invalid_type' => 'Unknown template type.',
-        'not_found' => 'The requested template was not found.',
-        'saved'=> 'The template has been successfully saved.'
+        'not_found' => 'Template not found.',
+        'saved'=> 'Template saved.'
     ],
     'permissions' => [
-        'name' => 'Cms',
-        'manage_content' => 'Manage content',
-        'manage_assets' => 'Manage assets',
-        'manage_pages' => 'Manage pages',
-        'manage_layouts' => 'Manage layouts',
-        'manage_partials' => 'Manage partials',
-        'manage_themes' => 'Manage themes',
-        'manage_media' => 'Manage media'
+        'name' => 'CMS',
+        'manage_content' => 'Manage website content files',
+        'manage_assets' => 'Manage website assets - images, JavaScript files, CSS files',
+        'manage_pages' => 'Create, modify and delete website pages',
+        'manage_layouts' => 'Create, modify and delete CMS layouts',
+        'manage_partials' => 'Create, modify and delete CMS partials',
+        'manage_themes' => 'Activate, deactivate and configure CMS themes',
+        'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents'
     ],
     'mediafinder' => [
         'default_prompt' => 'Click the %s button to find a media item'
@@ -266,11 +271,12 @@ return [
         'uploading_file_num' => 'Uploading :number file(s)...',
         'uploading_complete' => 'Upload complete',
         'uploading_error' => 'Upload failed',
+        'type_blocked' => 'The file type used is blocked for security reasons.',
         'order_by' => 'Order by',
         'folder' => 'Folder',
         'no_files_found' => 'No files found by your request.',
         'delete_empty' => 'Please select items to delete.',
-        'delete_confirm' => 'Do you really want to delete the selected item(s)?',
+        'delete_confirm' => 'Delete the selected item(s)?',
         'error_renaming_file' => 'Error renaming the item.',
         'new_folder_title' => 'New folder',
         'folder_name' => 'Folder name',

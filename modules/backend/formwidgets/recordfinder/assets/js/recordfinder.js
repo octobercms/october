@@ -21,6 +21,10 @@
         var self       = this
         this.options   = options
         this.$el       = $(element)
+
+        this.$el.on('dblclick', function () {
+            $('.btn:first', this.$el).trigger('click')
+        })
     }
 
     RecordFinder.DEFAULTS = {

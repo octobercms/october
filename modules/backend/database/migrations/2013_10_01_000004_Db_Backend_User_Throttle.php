@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Schema\Blueprint;
+use October\Rain\Database\Updates\Migration;
 
 class DbBackendUserThrottle extends Migration
 {
     public function up()
     {
-        Schema::create('backend_user_throttle', function ($table) {
+        Schema::create('backend_user_throttle', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable()->index();

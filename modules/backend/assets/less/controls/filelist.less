@@ -18,12 +18,12 @@
     .listPaddings (0, 27px) {}
 
     p.no-data {
-        padding: 18px 0;
+        padding: 22px 0;
         margin: 0;
         color: @color-filelist-norecords-text;
-        font-size: 12px;
+        font-size: @font-size-base;
         text-align: center;
-        font-weight: 400;
+        font-weight: normal;
         .border-radius(@border-radius-base);
     }
 
@@ -32,7 +32,7 @@
         margin: 0;
 
         li {
-            font-weight: 300;
+            font-weight: normal;
             line-height: 150%;
             position: relative;
             list-style: none;
@@ -58,7 +58,7 @@
 
             a {
                 display: block;
-                padding: 10px 40px 10px 20px;
+                padding: 10px 45px 10px 20px;
                 outline: none;
 
                 &:hover, &:focus, &:active {text-decoration: none;}
@@ -67,19 +67,22 @@
                     display: block;
 
                     &.title {
-                        font-weight: 500;
+                        font-weight: normal;
                         color: @color-text-title;
-                        font-size: 12px;
+                        font-size: @font-size-base;
                     }
 
                     &.description {
                         color: @color-text-description;
-                        font-size: 12px;
-                        font-weight: 500;
+                        font-size: @font-size-base - 2;
+                        white-space: nowrap;
+                        font-weight: normal;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
 
                         strong {
                             color: @color-text-title;
-                            font-weight: 500;
+                            font-weight: normal;
                         }
                     }
                 }
@@ -87,11 +90,11 @@
 
             &.group {
                 > h4, > div.group > h4 {
-                    font-weight: 500;
-                    font-size: 12px;
+                    font-weight: normal;
+                    font-size: @font-size-base;
                     margin-top: 0;
                     margin-bottom: 0;
-                    display: relative;
+                    position: relative;
 
                     a {
                         padding: 10px 20px 10px 53px;
@@ -110,11 +113,11 @@
                         }
 
                         &:after {
-                            left: 34px;
+                            left: 33px;
+                            top: 9px;
                             .icon(@folder);
                             color: @color-list-icon;
-                            font-size: 14px;
-                            top: 9px;
+                            font-size: 16px;
                         }
 
                         &:before {
@@ -171,7 +174,7 @@
 
                 a.control {
                     color: @color-text-title;
-                    font-size: 14px;
+                    font-size: @font-size-base;
                     visibility: hidden;
                     overflow: hidden;
                     width: 14px;
@@ -205,8 +208,8 @@
 
             .checkbox {
                 position: absolute;
-                top: 13px;
-                right: 17px;
+                top: -5px;
+                right: 0;
 
                 label {
                     margin-right: 0;
@@ -229,6 +232,10 @@
         }
     }
 
+    //
+    // Templates have emphasis
+    //
+
     &.hero {
         .a-hover() {
             background: @color-filelist-hero-hover-bg;
@@ -249,13 +256,17 @@
 
                 > a {
                     padding: 16px 45px 15px 50px;
-                    font-size: 13px;
+                    font-size: @font-size-base - 1;
                     border-bottom: 1px solid @color-panel-light;
 
                     span.title {
-                        font-size: 13px;
-                        font-weight: 600;
+                        font-size: @font-size-base + 1;
+                        font-weight: normal;
                         color: @color-filelist-title-hero;
+                    }
+
+                    span.description {
+                        font-size: @font-size-base;
                     }
 
                     .list-icon {
@@ -272,8 +283,8 @@
                 }
 
                 .checkbox {
-                    top: 17px;
-                    right: 17px;
+                    top: 0;
+                    right: 0;
                 }
 
                 &.active {
@@ -362,7 +373,7 @@
                         color: #2b3e50;
                         font-size: 15px;
                         margin: 0;
-                        font-weight: 600;
+                        font-weight: bold;
                         padding: 0;
                     }
                 }

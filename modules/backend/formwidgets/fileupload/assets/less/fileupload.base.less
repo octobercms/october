@@ -37,8 +37,9 @@
 
 .uploader-block-button() {
     display: block;
-    float: left;
-    border: 2px dotted rgba(0,0,0,.1);
+    border: 2px dashed #BDC3C7;
+    background-clip: content-box;
+    background-color: #F9F9F9;
     position: relative;
     outline: none;
 
@@ -58,26 +59,39 @@
             height: 22px;
             width: 22px;
             line-height: 22px;
-            color: rgba(0,0,0,.1);
+            color: #BDC3C7;
+        }
+
+        &.large-icon {
+            width: 34px;
+            height: 34px;
+            top: 50%;
+            left: 50%;
+            margin-top: -17px;
+            margin-left: -17px;
+
+            &:before {
+                font-size: 34px;
+                height: 24px;
+                width: 24px;
+                line-height: 24px;
+            }
         }
     }
 
     &:hover {
-        border: 2px dotted rgba(0,0,0,.2);
+        border: 2px dashed #1F99DC;
 
         .upload-button-icon:before {
-            color: @brand-success;
-            color: rgba(0,0,0,.2);
+            color: #1F99DC;
         }
     }
 
     &:focus {
-        border: 2px solid rgba(0,0,0,.3);
-        background: transparent;
+        border: 2px dashed #1F99DC;
 
         .upload-button-icon:before {
-            color: @brand-success;
-            color: rgba(0,0,0,.2);
+            color: #1F99DC;
         }
     }
 }
@@ -144,9 +158,8 @@
         }
 
         h4 {
-            font-weight: 600;
             font-size: 13px;
-            color: #2b3e50;
+            color: #2A3E51;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -187,7 +200,7 @@
         .meta a.drag-handle {
             color: #2b3e50;
             display: none;
-            font-size: 15px;
+            font-size: 13px;
             text-decoration: none;
         }
 

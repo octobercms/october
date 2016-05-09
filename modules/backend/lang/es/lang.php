@@ -269,7 +269,12 @@ return [
         'highlight_active_line' => 'Resaltar línea activa',
         'auto_closing' => 'Auto cerrado de etiquetas y caracteres especiales',
         'show_invisibles' => 'Mostrar caracteres invisibles',
-        'show_gutter' => 'Mostrar canal',
+        'show_gutter' => 'Mostrar numeros de línea',
+        'basic_autocompletion'=> 'Autocompletado Basico (Ctrl + Espacio)',
+        'live_autocompletion'=> 'Autocompletado en Vivo',
+        'enable_snippets'=> 'Activar uso de Snippets',
+        'display_indent_guides'=> 'Mostrar Guias de Identado',
+        'show_print_margin'=> 'Mostrar Margen de impresión',
         'theme' => 'Color del esquema'
     ],
     'tooltips' => [
@@ -295,10 +300,9 @@ return [
         'app_tagline' => 'Eslogan',
         'app_tagline_description' => 'Se mostrará en la página de inicio de sesión del back-end.',
         'colors' => 'Colores',
-        'primary_light' => 'Primario (Claro)',
-        'primary_dark' => 'Primario (Oscuro)',
-        'secondary_light' => 'Secundario (Claro)',
-        'secondary_dark' => 'Secundario (Oscuro)',
+        'primary_color' => 'Primario color',
+        'secondary_color' => 'Secundario color',
+        'accent_color' => 'Accent color',
         'styles' => 'Estilos',
         'custom_stylesheet' => 'Hoja de estilo personalizada'
     ],

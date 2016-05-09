@@ -22,11 +22,15 @@
     border: none;
     .box-shadow(none);
 
+    &.offset-left {
+        left: 10px;
+    }
+
     .dropdown-container {
         > ul {
             border: 1px solid @dropdown-border;
             background-color: @dropdown-bg;
-            border-radius: @border-radius-base;
+            .border-radius(@border-radius-base);
             padding: 0;
             list-style: none;
             position: relative;
@@ -51,8 +55,8 @@
             li {
                 a {
                     outline: none;
-                    padding: 8px 15px;
-                    font-size: 13px;
+                    padding: 10px 15px;
+                    font-size: @font-size-base - 1;
                     display: block;
                     color: @dropdown-link-color;
                     position: relative;
@@ -79,7 +83,7 @@
                             position: absolute;
                             font-size: 14px;
                             left: 9px;
-                            top: 7px;
+                            top: 10px;
                             color: @dropdown-border;
                         }
                     }

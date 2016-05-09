@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="240px" height="240px" viewBox="0 0 240 240" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
+    <title>dashboard-loading-indicator</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Dashboard" sketch:type="MSLayerGroup">
+            <rect id="Rectangle-1" opacity="0.00874533582" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="0" width="240" height="240"></rect>
+            <path d="M39.4136706,179.221343 C57.6187466,203.95263 86.9353412,220 120,220 C175.228475,220 220,175.228475 220,120 C220,64.771525 175.228475,20 120,20 C79.2272481,20 44.1537628,44.4014613 28.5865512,79.3973768" id="Oval-2" stroke="#E8ECED" stroke-width="12" stroke-linecap="round" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

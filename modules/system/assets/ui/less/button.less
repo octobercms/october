@@ -16,8 +16,7 @@
 // --------------------------------------------------
 
 .btn {
-    font-size: 13px;
-    border: none;
+    font-size: @font-size-base - 1;
     text-align: left;
     outline: none !important;
 
@@ -31,32 +30,39 @@
     }
 
     &[disabled] {
-        background-color: @color-button-disabled-bg;
-        color: @color-button-disabled-text;
+        color: rgba(255,255,255,.6);
     }
 
     &.active,
     &:active {
-       .box-shadow(none);
+        .box-shadow(inset 0 2px 0 rgba(0,0,0,.3));
     }
 }
 
-.btn-default.on {
-    background-color: #95a5a6;
-    color: #f9f9f9;
+.btn-secondary {
+    text-shadow: 0 1px 0 rgba(255,255,255,.8);
+
+    &[disabled] {
+        color: rgba(0,0,0,.6);
+    }
+}
+
+.btn-link {
+    .box-shadow(none) !important;
+    text-shadow: none !important;
 }
 
 .btn-group {
-    .btn{
+    .btn {
         border-right: 1px solid rgba(0,0,0,0.09);
-        margin-left: 0!important;
+        margin-left: 0 !important;
 
         &:last-child, &.last {
             border-right: none;
         }
 
         &.last {
-            .border-right-radius(@border-radius-base)!important;
+            .border-right-radius(@border-radius-base) !important;
         }
     }
 
@@ -65,11 +71,11 @@
 
         &:not(:last-child, .last) > .btn {
             border-right: 1px solid rgba(0,0,0,0.09);
-            .border-right-radius(0)!important;
+            .border-right-radius(0) !important;
         }
 
         &:not(:first-child) > .btn {
-            .border-left-radius(0)!important;
+            .border-left-radius(0) !important;
         }
 
         &.last {
@@ -129,17 +135,18 @@
 }
 
 .btn-text {
-    font-size: 13px;
-    padding: 9px 0;
+    font-size: @font-size-base;
+    padding: 8px 0;
     vertical-align: middle;
     display: inline-block;
+    color: @btn-default-bg;
 
     a {
-        color: @btn-default-color;
+        color: @btn-default-bg;
+        text-decoration: underline;
 
         &:hover {
             color: @link-color;
-            text-decoration: none;
         }
     }
 }

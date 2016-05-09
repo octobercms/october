@@ -1,6 +1,7 @@
 <?php
     $fieldOptions = $field->options();
     $checkedValues = (array) $field->value;
+    $isScrollable = count($fieldOptions) > 10;
 ?>
 <!-- Checkbox List -->
 <?php if ($this->previewMode && $field->value): ?>
@@ -34,8 +35,8 @@
 
 <?php elseif (!$this->previewMode && count($fieldOptions)): ?>
 
-    <div class="field-checkboxlist">
-        <?php if (count($fieldOptions) > 10): ?>
+    <div class="field-checkboxlist <?= $isScrollable ? 'is-scrollable' : '' ?>">
+        <?php if ($isScrollable): ?>
             <!-- Quick selection -->
             <small>
                 <?= e(trans('backend::lang.form.select')) ?>:
@@ -76,7 +77,7 @@
             </div>
         <?php endforeach ?>
 
-        <?php if (count($fieldOptions) > 10): ?>
+        <?php if ($isScrollable): ?>
                 </div>
             </div>
         <?php endif ?>

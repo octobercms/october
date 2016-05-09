@@ -1,10 +1,12 @@
 <?php namespace Backend\Helpers;
 
 use Url;
+use Html;
 use Config;
 use Request;
 use Redirect;
 use October\Rain\Router\Helper as RouterHelper;
+use System\Helpers\DateTime as DateTimeHelper;
 use Backend\Classes\Skin;
 
 /**
@@ -79,4 +81,60 @@ class Backend
     {
         return Redirect::intended($this->uri() . '/' . $path, $status, $headers, $secure);
     }
+
+    /**
+     * Returns the HTML for a date formatted in the backend.
+     * Supported for formatAlias:
+     *   time             -> 6:28 AM
+     *   timeLong         -> 6:28:01 AM
+     *   date             -> 04/23/2016
+     *   dateMin          -> 4/23/2016
+     *   dateLong         -> April 23, 2016
+     *   dateLongMin      -> Apr 23, 2016
+     *   dateTime         -> April 23, 2016 6:28 AM
+     *   dateTimeMin      -> Apr 23, 2016 6:28 AM
+     *   dateTimeLong     -> Saturday, April 23, 2016 6:28 AM
+     *   dateTimeLongMin  -> Sat, Apr 23, 2016 6:29 AM
+     */
+    public function dateTime($dateTime, $options = [])
+    {
+        extract(array_merge([
+            'defaultValue' => '',
+            'format' => null,
+            'formatAlias' => null,
+            'jsFormat' => null,
+            'timeTense' => false,
+            'timeSince' => false,
+        ], $options));
+
+        $carbon = DateTimeHelper::makeCarbon($dateTime);
+
+        if ($jsFormat !== null) {
+            $format = $jsFormat;
+        }
+        else {
+            $format = DateTimeHelper::momentFormat($format);
+        }
+
+        $attributes = [
+            'datetime' => $carbon,
+            'data-datetime-control' => 1,
+        ];
+
+        if ($timeTense) {
+            $attributes['data-time-tense'] = 1;
+        }
+        elseif ($timeSince) {
+            $attributes['data-time-since'] = 1;
+        }
+        elseif ($format) {
+            $attributes['data-format'] = $format;
+        }
+        elseif ($formatAlias) {
+            $attributes['data-format-alias'] = $formatAlias;
+        }
+
+        return '<time'.Html::attributes($attributes).'>'.e($defaultValue).'</time>'.PHP_EOL;
+    }
+
 }

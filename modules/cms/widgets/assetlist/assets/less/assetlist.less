@@ -2,10 +2,10 @@
 
 .control-assetlist {
     p.no-data {
-        padding: 18px;
+        padding: 22px;
         margin: 0;
         color: @color-filelist-norecords-text;
-        font-size: 12px;
+        font-size: 14px;
         text-align: center;
         font-weight: 400;
         .border-radius(@border-radius-base);
@@ -39,7 +39,7 @@
             outline: none;
             font-weight: 500;
             color: @color-text-title;
-            font-size: 12px;
+            font-size: 14px;
 
             &:hover, &:focus, &:active {text-decoration: none;}
 
@@ -84,6 +84,19 @@
                 background-color: @color-list-parent-bg;
                 word-wrap: break-word;
 
+                &:before {
+                    content: '';
+                    height: 1px;
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 1px;
+                    background: #ecf0f1;
+                }
+
+
                 &:after {
                     font-size: 13px;
                     color: @color-list-nav-arrow;
@@ -103,6 +116,10 @@
 
         &:after {
             .opacity(1);
+        }
+
+        &:before {
+            display: none;
         }
     }
 
@@ -185,8 +202,8 @@
 
             .checkbox {
                 position: absolute;
-                top: 13px;
-                right: 17px;
+                top: -5px;
+                right: -5px;
 
                 label {
                     margin-right: 0;
@@ -208,11 +225,11 @@
         }
 
         &.goForward ul {
-            .translate(-300px, 0);
+            .translate(-350px, 0);
         }
 
         &.goBackward ul {
-            .translate(300px, 0);
+            .translate(350px, 0);
         }
 
     }

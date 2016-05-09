@@ -4,14 +4,14 @@ $warnings = [];
 $writablePaths = [
     temp_path(),
     themes_path(),
-    base_path().'/storage',
-    base_path().'/storage/app',
-    base_path().'/storage/logs',
-    base_path().'/storage/framework',
-    base_path().'/storage/cms',
-    base_path().'/storage/cms/cache',
-    base_path().'/storage/cms/twig',
-    base_path().'/storage/cms/combiner',
+    storage_path(),
+    storage_path('app'),
+    storage_path('logs'),
+    storage_path('framework'),
+    storage_path('cms'),
+    storage_path('cms/cache'),
+    storage_path('cms/twig'),
+    storage_path('cms/combiner'),
 ];
 $requiredExtensions = [
     'GD' => extension_loaded('gd'),

@@ -15,6 +15,7 @@
 @color-inspector-bg:                         #f2f2f2;
 @color-inspector-active-bg:                  #ffffff;
 @color-inspector-text:                       #333333;
+@color-inspector-input-text:                 #385487;
 @color-inspector-grid:                       #c8cccd;
 @color-inspector-changed:                    #c03f31;
 
@@ -43,11 +44,18 @@
 
     td, th {
         padding: 5px 12px;
-        color: @color-inspector-text;
         font-size: 12px;
         width: 50%;
         border-bottom: 1px solid @color-inspector-grid;
         text-align: left;
+    }
+
+    th {
+        color: @color-inspector-text;
+    }
+
+    td {
+        color: @color-inspector-input-text;
     }
 
     tr:last-child {
@@ -376,9 +384,10 @@
             height: 29px;
             line-height: 29px;
             padding: 0 3px 0 12px;
-            .border-radius(0) !important;
             border: none !important;
             font-size: 12px;
+            .border-radius(0) !important;
+            .box-shadow(none) !important;
 
             &.select2-default {
                 font-weight: normal !important;
@@ -402,6 +411,7 @@
 
         .select2-selection__rendered {
             padding: 0 22px 0 0;
+            color: @color-inspector-input-text;
         }
     }
 
@@ -516,7 +526,7 @@ div.inspector-dictionary-container {
         }
     }
 
-    table.inspector-dictionary-table{
+    table.inspector-dictionary-table {
         width: 100%;
         border: none;
 
@@ -541,6 +551,7 @@ div.inspector-dictionary-container {
                     outline: none;
                     border: none;
                     padding: 7px 5px;
+                    .box-shadow(none);
 
                     &:focus {
                         border: none;
@@ -567,8 +578,8 @@ div.inspector-dictionary-container {
     color: #ffffff;
 
     h3 {
-        font-size: 14px;
-        font-weight: 600;
+        font-size: 16px;
+        font-weight: bold;
         margin-top: 0;
         margin-bottom: 0;
         padding-right: 15px;
@@ -576,9 +587,9 @@ div.inspector-dictionary-container {
     }
 
     p {
-        font-size: 13px;
-        font-weight: 100;
-        margin: 10px 0 0 0;
+        font-size: 14px;
+        font-weight: normal;
+        margin: 5px 0 0 0;
 
         &:empty {
             display: none;
@@ -656,7 +667,7 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete {
         .select2-search {
             min-height: 26px;
             position: relative;
-            border-bottom: 1px solid #b2b9be; 
+            border-bottom: 1px solid #b2b9be;
 
             &:after {
                 position: absolute;
@@ -669,8 +680,9 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete {
             input.select2-search__field {
                 min-height: 26px;
                 background: transparent !important;
-                padding-left: 12px;
-                padding-right: 12px;
+                font-size: @input-font-size - 1;
+                padding-left: 4px;
+                padding-right: 20px;
                 border: none;
             }
         }

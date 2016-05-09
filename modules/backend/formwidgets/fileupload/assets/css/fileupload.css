@@ -4,12 +4,12 @@
 .field-fileupload .upload-object .icon-container i{color:#95a5a6;display:inline-block}
 .field-fileupload .upload-object .icon-container div{display:table-cell;text-align:center;vertical-align:middle}
 .field-fileupload .upload-object .icon-container.image > div.icon-wrapper{display:none}
-.field-fileupload .upload-object h4{font-weight:600;font-size:13px;color:#2b3e50;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:150%;margin:15px 0 5px 0;padding-right:0;-webkit-transition:padding 0.1s;transition:padding 0.1s;position:relative}
+.field-fileupload .upload-object h4{font-size:13px;color:#2A3E51;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:150%;margin:15px 0 5px 0;padding-right:0;-webkit-transition:padding 0.1s;transition:padding 0.1s;position:relative}
 .field-fileupload .upload-object h4 a{position:absolute;right:0;top:0;display:none;font-weight:400}
 .field-fileupload .upload-object p.size{font-size:12px;color:#95a5a6}
 .field-fileupload .upload-object p.size strong{font-weight:400}
 .field-fileupload .upload-object .meta .drag-handle{position:absolute;bottom:0;right:0;cursor:move;display:block}
-.field-fileupload .upload-object .info h4 a,.field-fileupload .upload-object .meta a.upload-remove-button,.field-fileupload .upload-object .meta a.drag-handle{color:#2b3e50;display:none;font-size:15px;text-decoration:none}
+.field-fileupload .upload-object .info h4 a,.field-fileupload .upload-object .meta a.upload-remove-button,.field-fileupload .upload-object .meta a.drag-handle{color:#2b3e50;display:none;font-size:13px;text-decoration:none}
 .field-fileupload .upload-object .icon-container{position:relative}
 .field-fileupload .upload-object .icon-container:after{background-image:url('../../../../../system/assets/ui/images/loader-transparent.svg');position:absolute;content:' ';width:40px;height:40px;left:50%;top:50%;margin-top:-20px;margin-left:-20px;display:block;background-size:40px 40px;background-position:50% 50%;-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite}
 .field-fileupload .upload-object.is-success .icon-container{opacity:1}
@@ -39,16 +39,18 @@
 .fileupload-config-form .file-upload-modal-image-header,.fileupload-config-form .file-upload-modal-image-header img{border-top-right-radius:2px;border-top-left-radius:2px}
 .fileupload-config-form .file-upload-modal-image-header .close{position:absolute;top:20px;right:20px}
 .field-fileupload.style-image-multi .upload-button,.field-fileupload.style-image-multi .upload-object{margin:0 10px 10px 0}
-.field-fileupload.style-image-multi .upload-button{display:block;float:left;border:2px dotted rgba(0,0,0,0.1);position:relative;outline:none;width:76px;height:76px}
+.field-fileupload.style-image-multi .upload-button{display:block;border:2px dashed #BDC3C7;background-clip:content-box;background-color:#F9F9F9;position:relative;outline:none;float:left;width:76px;height:76px}
 .field-fileupload.style-image-multi .upload-button .upload-button-icon{position:absolute;width:22px;height:22px;top:50%;left:50%;margin-top:-11px;margin-left:-11px}
-.field-fileupload.style-image-multi .upload-button .upload-button-icon:before{text-align:center;display:block;font-size:22px;height:22px;width:22px;line-height:22px;color:rgba(0,0,0,0.1)}
-.field-fileupload.style-image-multi .upload-button:hover{border:2px dotted rgba(0,0,0,0.2)}
-.field-fileupload.style-image-multi .upload-button:hover .upload-button-icon:before{color:#31ac5f;color:rgba(0,0,0,0.2)}
-.field-fileupload.style-image-multi .upload-button:focus{border:2px solid rgba(0,0,0,0.3);background:transparent}
-.field-fileupload.style-image-multi .upload-button:focus .upload-button-icon:before{color:#31ac5f;color:rgba(0,0,0,0.2)}
+.field-fileupload.style-image-multi .upload-button .upload-button-icon:before{text-align:center;display:block;font-size:22px;height:22px;width:22px;line-height:22px;color:#BDC3C7}
+.field-fileupload.style-image-multi .upload-button .upload-button-icon.large-icon{width:34px;height:34px;top:50%;left:50%;margin-top:-17px;margin-left:-17px}
+.field-fileupload.style-image-multi .upload-button .upload-button-icon.large-icon:before{font-size:34px;height:24px;width:24px;line-height:24px}
+.field-fileupload.style-image-multi .upload-button:hover{border:2px dashed #1F99DC}
+.field-fileupload.style-image-multi .upload-button:hover .upload-button-icon:before{color:#1F99DC}
+.field-fileupload.style-image-multi .upload-button:focus{border:2px dashed #1F99DC}
+.field-fileupload.style-image-multi .upload-button:focus .upload-button-icon:before{color:#1F99DC}
 .field-fileupload.style-image-multi .upload-files-container{margin-left:90px}
 .field-fileupload.style-image-multi .upload-object{background:#fff;border:1px solid #ecf0f1;width:260px}
-.field-fileupload.style-image-multi .upload-object .progress-bar{display:block;width:100%;overflow:hidden;height:5px;background-color:#f5f5f5;border-radius:2px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);position:absolute;bottom:10px;left:0}
+.field-fileupload.style-image-multi .upload-object .progress-bar{display:block;width:100%;overflow:hidden;height:5px;background-color:#f5f5f5;border-radius:3px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);position:absolute;bottom:10px;left:0}
 .field-fileupload.style-image-multi .upload-object .progress-bar .upload-progress{float:left;width:0%;height:100%;line-height:5px;color:#ffffff;background-color:#5fb6f5;-webkit-box-shadow:none;box-shadow:none;-webkit-transition:width 0.6s ease;transition:width 0.6s ease}
 .field-fileupload.style-image-multi .upload-object .icon-container{border-right:1px solid #f6f8f9;float:left;display:inline-block;overflow:hidden;width:75px;height:75px}
 .field-fileupload.style-image-multi .upload-object .icon-container i{font-size:35px}
@@ -73,17 +75,19 @@
 .field-fileupload.style-image-multi .upload-object{margin-right:0;display:block;width:auto}
 }
 .field-fileupload.style-image-single.is-populated .upload-button{display:none}
-.field-fileupload.style-image-single .upload-button{display:block;float:left;border:2px dotted rgba(0,0,0,0.1);position:relative;outline:none;min-height:100px;min-width:100px}
+.field-fileupload.style-image-single .upload-button{display:block;border:2px dashed #BDC3C7;background-clip:content-box;background-color:#F9F9F9;position:relative;outline:none;min-height:100px;min-width:100px}
 .field-fileupload.style-image-single .upload-button .upload-button-icon{position:absolute;width:22px;height:22px;top:50%;left:50%;margin-top:-11px;margin-left:-11px}
-.field-fileupload.style-image-single .upload-button .upload-button-icon:before{text-align:center;display:block;font-size:22px;height:22px;width:22px;line-height:22px;color:rgba(0,0,0,0.1)}
-.field-fileupload.style-image-single .upload-button:hover{border:2px dotted rgba(0,0,0,0.2)}
-.field-fileupload.style-image-single .upload-button:hover .upload-button-icon:before{color:#31ac5f;color:rgba(0,0,0,0.2)}
-.field-fileupload.style-image-single .upload-button:focus{border:2px solid rgba(0,0,0,0.3);background:transparent}
-.field-fileupload.style-image-single .upload-button:focus .upload-button-icon:before{color:#31ac5f;color:rgba(0,0,0,0.2)}
+.field-fileupload.style-image-single .upload-button .upload-button-icon:before{text-align:center;display:block;font-size:22px;height:22px;width:22px;line-height:22px;color:#BDC3C7}
+.field-fileupload.style-image-single .upload-button .upload-button-icon.large-icon{width:34px;height:34px;top:50%;left:50%;margin-top:-17px;margin-left:-17px}
+.field-fileupload.style-image-single .upload-button .upload-button-icon.large-icon:before{font-size:34px;height:24px;width:24px;line-height:24px}
+.field-fileupload.style-image-single .upload-button:hover{border:2px dashed #1F99DC}
+.field-fileupload.style-image-single .upload-button:hover .upload-button-icon:before{color:#1F99DC}
+.field-fileupload.style-image-single .upload-button:focus{border:2px dashed #1F99DC}
+.field-fileupload.style-image-single .upload-button:focus .upload-button-icon:before{color:#1F99DC}
 .field-fileupload.style-image-single .upload-object{padding-bottom:66px}
 .field-fileupload.style-image-single .upload-object .icon-container{border:1px solid #f6f8f9;background:rgba(255,255,255,0.5)}
 .field-fileupload.style-image-single .upload-object .icon-container.image img{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;display:block;max-width:100%;height:auto;min-height:100px;min-width:100px}
-.field-fileupload.style-image-single .upload-object .progress-bar{display:block;width:100%;overflow:hidden;height:5px;background-color:#f5f5f5;border-radius:2px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);position:absolute;bottom:10px;left:0}
+.field-fileupload.style-image-single .upload-object .progress-bar{display:block;width:100%;overflow:hidden;height:5px;background-color:#f5f5f5;border-radius:3px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);position:absolute;bottom:10px;left:0}
 .field-fileupload.style-image-single .upload-object .progress-bar .upload-progress{float:left;width:0%;height:100%;line-height:5px;color:#ffffff;background-color:#5fb6f5;-webkit-box-shadow:none;box-shadow:none;-webkit-transition:width 0.6s ease;transition:width 0.6s ease}
 .field-fileupload.style-image-single .upload-object .info{position:absolute;left:0;right:0;bottom:0;height:66px}
 .field-fileupload.style-image-single .upload-object .meta{position:absolute;bottom:65px;left:0;right:0;margin:0 15px}
@@ -103,7 +107,7 @@
 .field-fileupload.style-file-multi .upload-object .info h4{padding-right:15px}
 .field-fileupload.style-file-multi .upload-object .info h4 a{padding:10px 0;right:15px}
 .field-fileupload.style-file-multi .upload-object .info p.size{position:absolute;top:0;right:0;width:15%;display:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.field-fileupload.style-file-multi .upload-object .progress-bar{display:block;width:100%;overflow:hidden;height:5px;background-color:#f5f5f5;border-radius:2px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);position:absolute;top:18px;left:0}
+.field-fileupload.style-file-multi .upload-object .progress-bar{display:block;width:100%;overflow:hidden;height:5px;background-color:#f5f5f5;border-radius:3px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);position:absolute;top:18px;left:0}
 .field-fileupload.style-file-multi .upload-object .progress-bar .upload-progress{float:left;width:0%;height:100%;line-height:5px;color:#ffffff;background-color:#5fb6f5;-webkit-box-shadow:none;box-shadow:none;-webkit-transition:width 0.6s ease;transition:width 0.6s ease}
 .field-fileupload.style-file-multi .upload-object .meta{position:absolute;top:0;right:0;margin-right:15px;width:15%}
 .field-fileupload.style-file-multi .upload-object .meta a.drag-handle{top:-2px;bottom:auto;line-height:150%;padding:10px 0}
@@ -126,21 +130,21 @@
 .field-fileupload.style-file-multi .info p.size{width:25% !important;padding-right:35px !important}
 .field-fileupload.style-file-multi .meta{width:25% !important}
 }
-.field-fileupload.style-file-single{background-color:#ffffff;border:1px solid #e0e0e0;overflow:hidden;position:relative;padding-right:30px}
+.field-fileupload.style-file-single{background-color:#ffffff;border:1px solid #bdc3c7;overflow:hidden;position:relative;padding-right:30px;border-radius:3px;-webkit-box-shadow:inset 0 1px 0 #bdc3c7,0 1px 0 #fff;box-shadow:inset 0 1px 0 #bdc3c7,0 1px 0 #fff}
 .field-fileupload.style-file-single .upload-button{position:absolute;top:50%;margin-top:-44px;height:88px;background:transparent;right:-2px;color:#595959}
 .field-fileupload.style-file-single .upload-button i{font-size:14px}
 .field-fileupload.style-file-single .upload-button:hover{color:#333333}
-.field-fileupload.style-file-single .upload-empty-message{padding:10px 0 10px 11px;font-size:13px}
+.field-fileupload.style-file-single .upload-empty-message{padding:8px 0 8px 11px;font-size:14px}
 .field-fileupload.style-file-single.is-populated .upload-empty-message{display:none}
-.field-fileupload.style-file-single .upload-object{display:block;width:100%;padding:8px 0 10px 0}
+.field-fileupload.style-file-single .upload-object{display:block;width:100%;padding:7px 0 9px 0}
 .field-fileupload.style-file-single .upload-object .icon-container{position:absolute;top:0;left:0;width:15px;padding:0 5px;margin:8px 0 0 7px;text-align:center}
 .field-fileupload.style-file-single .upload-object .icon-container i{line-height:150%;font-size:15px}
 .field-fileupload.style-file-single .upload-object .icon-container img{display:none}
 .field-fileupload.style-file-single .upload-object .info{margin-left:34px;margin-right:15%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.field-fileupload.style-file-single .upload-object .info h4,.field-fileupload.style-file-single .upload-object .info p{display:inline;margin:0;padding:0;font-size:12px;line-height:150%;color:#666666}
+.field-fileupload.style-file-single .upload-object .info h4,.field-fileupload.style-file-single .upload-object .info p{display:inline;margin:0;padding:0;font-size:13px;line-height:150%;color:#666666}
 .field-fileupload.style-file-single .upload-object .info p.size{font-weight:normal}
 .field-fileupload.style-file-single .upload-object .info p.size:before{content:" - "}
-.field-fileupload.style-file-single .upload-object .progress-bar{display:block;width:100%;overflow:hidden;height:5px;background-color:#f5f5f5;border-radius:2px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);position:absolute;top:50%;margin-top:-2px;right:5px}
+.field-fileupload.style-file-single .upload-object .progress-bar{display:block;width:100%;overflow:hidden;height:5px;background-color:#f5f5f5;border-radius:3px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);position:absolute;top:50%;margin-top:-2px;right:5px}
 .field-fileupload.style-file-single .upload-object .progress-bar .upload-progress{float:left;width:0%;height:100%;line-height:5px;color:#ffffff;background-color:#5fb6f5;-webkit-box-shadow:none;box-shadow:none;-webkit-transition:width 0.6s ease;transition:width 0.6s ease}
 .field-fileupload.style-file-single .upload-object .meta{position:absolute;top:50%;margin-top:-44px;height:88px;right:0;width:15%}
 .field-fileupload.style-file-single .upload-object .meta .upload-remove-button{position:absolute;top:50%;right:0;height:20px;margin-top:-10px;margin-right:10px;z-index:100}

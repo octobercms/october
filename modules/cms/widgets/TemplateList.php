@@ -1,6 +1,7 @@
 <?php namespace Cms\Widgets;
 
 use Str;
+use File;
 use Input;
 use Request;
 use Response;
@@ -16,6 +17,8 @@ use Backend\Classes\WidgetBase;
  */
 class TemplateList extends WidgetBase
 {
+    use \Backend\Traits\SelectableWidget;
+
     protected $searchTerm = false;
 
     protected $dataSource;
@@ -23,8 +26,6 @@ class TemplateList extends WidgetBase
     protected $theme;
 
     protected $groupStatusCache = false;
-
-    protected $selectedTemplatesCache = false;
 
     /**
      * @var string object property to use as a title.
@@ -51,7 +52,7 @@ class TemplateList extends WidgetBase
     /**
      * @var string Message to display when the Delete button is clicked.
      */
-    public $deleteConfirmation = 'Do you really want to delete selected templates?';
+    public $deleteConfirmation = 'Delete selected templates?';
 
     /**
      * @var string Specifies the item type.
@@ -64,9 +65,9 @@ class TemplateList extends WidgetBase
     public $controlClass = null;
 
     /**
-     * @var string A list of directories to suppress / hide.
+     * @var string A list of file name patterns to suppress / hide.
      */
-    public $suppressDirectories = [];
+    public $ignoreDirectories = [];
 
     /*
      * Public methods
@@ -77,6 +78,7 @@ class TemplateList extends WidgetBase
         $this->alias = $alias;
         $this->dataSource = $dataSource;
         $this->theme = Theme::getEditTheme();
+        $this->selectionInputName = 'template';
 
         parent::__construct($controller, []);
 
@@ -102,8 +104,12 @@ class TemplateList extends WidgetBase
      */
     public function render()
     {
+        $toolbarClass = Str::contains($this->controlClass, 'hero') ? 'separator' : null;
+
+        $this->vars['toolbarClass'] = $toolbarClass;
+
         return $this->makePartial('body', [
-            'data'=>$this->getData()
+            'data' => $this->getData()
         ]);
     }
 
@@ -124,11 +130,6 @@ class TemplateList extends WidgetBase
         $this->setGroupStatus(Input::get('group'), Input::get('status'));
     }
 
-    public function onSelect()
-    {
-        $this->extendSelection();
-    }
-
     public function onUpdate()
     {
         $this->extendSelection();
@@ -139,6 +140,7 @@ class TemplateList extends WidgetBase
     //
     // Methods for the internal use
     //
+
     protected function getData()
     {
         /*
@@ -146,21 +148,15 @@ class TemplateList extends WidgetBase
          */
         $items = call_user_func($this->dataSource);
 
-        $normalizedItems = [];
-        foreach ($items as $item) {
-            if ($this->suppressDirectories) {
-                $fileName = $item->getBaseFileName();
-                $dir = dirname($fileName);
-
-                if (in_array($dir, $this->suppressDirectories)) {
-                    continue;
-                }
-            }
-
-            $normalizedItems[] = $this->normalizeItem($item);
+        if ($items instanceof \October\Rain\Support\Collection) {
+            $items = $items->all();
         }
 
-        usort($normalizedItems, function ($a, $b) {
+        $items = $this->removeIgnoredDirectories($items);
+
+        $items = array_map([$this, 'normalizeItem'], $items);
+
+        usort($items, function ($a, $b) {
             return strcmp($a->fileName, $b->fileName);
         });
 
@@ -174,10 +170,10 @@ class TemplateList extends WidgetBase
             /*
              * Exact
              */
-            foreach ($normalizedItems as $index => $item) {
+            foreach ($items as $index => $item) {
                 if ($this->itemContainsWord($searchTerm, $item, true)) {
                     $filteredItems[] = $item;
-                    unset($normalizedItems[$index]);
+                    unset($items[$index]);
                 }
             }
 
@@ -185,14 +181,14 @@ class TemplateList extends WidgetBase
              * Fuzzy
              */
             $words = explode(' ', $searchTerm);
-            foreach ($normalizedItems as $item) {
+            foreach ($items as $item) {
                 if ($this->itemMatchesSearch($words, $item)) {
                     $filteredItems[] = $item;
                 }
             }
         }
         else {
-            $filteredItems = $normalizedItems;
+            $filteredItems = $items;
         }
 
         /*
@@ -226,6 +222,35 @@ class TemplateList extends WidgetBase
         }
 
         return $result;
+    }
+
+    protected function removeIgnoredDirectories($items)
+    {
+        if (!$this->ignoreDirectories) {
+            return $items;
+        }
+
+        $ignoreCache = [];
+
+        $items = array_filter($items, function($item) use (&$ignoreCache) {
+            $fileName = $item->getBaseFileName();
+            $dirName = dirname($fileName);
+
+            if (isset($ignoreCache[$dirName])) {
+                return false;
+            }
+
+            foreach ($this->ignoreDirectories as $ignoreDir) {
+                if (File::fileNameMatch($dirName, $ignoreDir)) {
+                    $ignoreCache[$dirName] = true;
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+        return $items;
     }
 
     protected function normalizeItem($item)
@@ -276,7 +301,9 @@ class TemplateList extends WidgetBase
 
     protected function updateList()
     {
-        return ['#'.$this->getId('template-list') => $this->makePartial('items', ['items'=>$this->getData()])];
+        return [
+            '#'.$this->getId('template-list') => $this->makePartial('items', ['items' => $this->getData()])
+        ];
     }
 
     protected function itemMatchesSearch($words, $item)
@@ -295,7 +322,7 @@ class TemplateList extends WidgetBase
         return true;
     }
 
-    protected function itemContainsWord($word, $item , $exact = false)
+    protected function itemContainsWord($word, $item, $exact = false)
     {
         $operator = $exact ? 'is' : 'contains';
 
@@ -357,42 +384,5 @@ class TemplateList extends WidgetBase
         $statuses[$group] = $status;
         $this->groupStatusCache = $statuses;
         $this->putSession($this->getThemeSessionKey('groups'), $statuses);
-    }
-
-    protected function getSelectedTemplates()
-    {
-        if ($this->selectedTemplatesCache !== false) {
-            return $this->selectedTemplatesCache;
-        }
-
-        $templates = $this->getSession($this->getThemeSessionKey('selected'), []);
-        if (!is_array($templates)) {
-            return $this->selectedTemplatesCache = [];
-        }
-
-        return $this->selectedTemplatesCache = $templates;
-    }
-
-    protected function extendSelection()
-    {
-        $items = Input::get('template', []);
-        $currentSelection = $this->getSelectedTemplates();
-
-        $this->putSession($this->getThemeSessionKey('selected'), array_merge($currentSelection, $items));
-    }
-
-    protected function resetSelection()
-    {
-        $this->putSession($this->getThemeSessionKey('selected'), []);
-    }
-
-    protected function isTemplateSelected($item)
-    {
-        $selectedTemplates = $this->getSelectedTemplates();
-        if (!is_array($selectedTemplates) || !isset($selectedTemplates[$item->fileName])) {
-            return false;
-        }
-
-        return $selectedTemplates[$item->fileName];
     }
 }

@@ -122,7 +122,7 @@ class UpdateManager
         $firstUp = !Schema::hasTable('migrations');
         if ($firstUp) {
             $this->repository->createRepository();
-            $this->note('Migration table created successfully.');
+            $this->note('Migration table created');
         }
 
         /*
@@ -211,6 +211,7 @@ class UpdateManager
         $names = $installed->lists('name', 'code');
         $icons = $installed->lists('icon', 'code');
         $frozen = $installed->lists('is_frozen', 'code');
+        $updatable = $installed->lists('is_updatable', 'code');
         $build = Parameters::get('system::core.build');
 
         $params = [
@@ -245,10 +246,13 @@ class UpdateManager
             $info['icon'] = isset($icons[$code]) ? $icons[$code] : false;
 
             /*
-             * If plugin has updates frozen, do not add it to the list
-             * and discount an update unit.
+             * If a plugin has updates frozen, or cannot be updated,
+             * do not add to the list and discount an update unit.
              */
-            if (isset($frozen[$code]) && $frozen[$code]) {
+            if (
+                (isset($frozen[$code]) && $frozen[$code]) ||
+                (isset($updatable[$code]) && !$updatable[$code])
+            ) {
                 $updateCount = max(0, --$updateCount);
             }
             else {
@@ -633,11 +637,11 @@ class UpdateManager
         $cacheKey = 'system-updates-popular-'.$type;
 
         if (Cache::has($cacheKey)) {
-            return @unserialize(Cache::get($cacheKey)) ?: [];
+            return @unserialize(@base64_decode(Cache::get($cacheKey))) ?: [];
         }
 
         $data = $this->requestServerData($type.'/popular');
-        Cache::put($cacheKey, serialize($data), 60);
+        Cache::put($cacheKey, base64_encode(serialize($data)), 60);
 
         foreach ($data as $product) {
             $code = array_get($product, 'code', -1);
@@ -655,7 +659,7 @@ class UpdateManager
         $cacheKey = 'system-updates-product-details';
 
         if (Cache::has($cacheKey)) {
-            $this->productCache = @unserialize(Cache::get($cacheKey)) ?: $defaultCache;
+            $this->productCache = @unserialize(@base64_decode(Cache::get($cacheKey))) ?: $defaultCache;
         }
         else {
             $this->productCache = $defaultCache;
@@ -670,7 +674,7 @@ class UpdateManager
 
         $cacheKey = 'system-updates-product-details';
         $expiresAt = Carbon::now()->addDays(2);
-        Cache::put($cacheKey, serialize($this->productCache), $expiresAt);
+        Cache::put($cacheKey, base64_encode(serialize($this->productCache)), $expiresAt);
     }
 
     protected function cacheProductDetail($type, $code, $data)
@@ -820,7 +824,7 @@ class UpdateManager
      */
     protected function createServerUrl($uri)
     {
-        $gateway = Config::get('cms.updateServer', 'http://octobercms.com/api');
+        $gateway = Config::get('cms.updateServer', 'http://gateway.octobercms.com/api');
         if (substr($gateway, -1) != '/') {
             $gateway .= '/';
         }

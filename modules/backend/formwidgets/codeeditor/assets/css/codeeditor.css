@@ -1,13 +1,13 @@
-.field-codeeditor{width:100%;position:relative;border:2px solid #e0e0e0;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px}
+.field-codeeditor{width:100%;position:relative;border:2px solid #bdc3c7;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .field-codeeditor textarea{opacity:0;filter:alpha(opacity=0)}
-.field-codeeditor.editor-focus{border:2px solid #808c8d}
+.field-codeeditor.editor-focus{border:2px solid #bdc3c7}
 .field-codeeditor.size-tiny{min-height:50px}
 .field-codeeditor.size-small{min-height:100px}
 .field-codeeditor.size-large{min-height:200px}
 .field-codeeditor.size-huge{min-height:250px}
 .field-codeeditor.size-giant{min-height:350px}
-.field-codeeditor .ace_search{font-family:'Open Sans',Arial,sans-serif;font-size:14px;color:#333333;z-index:603}
-.field-codeeditor .editor-code{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px}
+.field-codeeditor .ace_search{font-family:sans-serif;font-size:14px;color:#333333;z-index:603}
+.field-codeeditor .editor-code{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .field-codeeditor .editor-toolbar{position:absolute;top:10px;right:10px;z-index:600}
 .field-codeeditor .editor-toolbar > ul,.field-codeeditor .editor-toolbar ul > li{list-style-type:none;padding:0;margin:0}
 .field-codeeditor .editor-toolbar > ul > li{float:left}

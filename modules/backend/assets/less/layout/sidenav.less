@@ -3,19 +3,9 @@
 // --------------------------------------------------
 
 #layout-sidenav {
-    .virtualFullHeight() {
-        content: ' ';
-        position: absolute;
-        height: 100%;
-        top: 0;
-    }
-
-    background-color: @color-sidebarnav-bg;
     position: absolute;
     height: 100%;
     width: 100%;
-    padding: 10px 0;
-
     .box-sizing(border-box);
 
     ul {
@@ -31,11 +21,12 @@
             position: relative;
 
             a {
-                padding: 13px;
+                padding: 20px 10px;
                 display: block;
-                font-size: 12px;
+                font-size: @font-size-base - 1;
                 color: @color-sidebarnav-inactive-text;
                 font-weight: normal;
+                position: relative;
 
                 &:hover {
                     text-decoration: none;
@@ -52,11 +43,28 @@
                     margin-bottom: 5px;
                     font-size: 28px;
                 }
+
+                .nav-label,
+                .nav-icon {
+                    text-shadow: 0 -1px 0 rgba(0,0,0,.6);
+                }
+            }
+
+            &:first-child a {
+                padding-top: 30px;
             }
 
             &.active a, a:hover {
                 color: @color-sidebarnav-active-text;
                 i { color: @color-sidebarnav-active-icon; }
+            }
+
+            &.active a {
+                //background: @color-sidebarnav-active-bg;
+                .nav-label,
+                .nav-icon {
+                    text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+                }
             }
 
             span.counter {
@@ -81,8 +89,6 @@
             }
         }
     }
-
-    .vertical-scroll-marker(@color-sidebarnav-inactive-icon);
 }
 
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,

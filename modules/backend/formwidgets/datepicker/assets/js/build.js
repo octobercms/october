@@ -7,11 +7,9 @@
  * @see build-min.js
  *
 
-=require ../vendor/moment/moment.js
 =require ../vendor/pikaday/js/pikaday.js
 =require ../vendor/pikaday/js/pikaday.jquery.js
 =require ../vendor/clockpicker/js/jquery-clockpicker.js
 =require datepicker.js
-=require timepicker.js
 
 */

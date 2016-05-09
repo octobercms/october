@@ -1,8 +1,6 @@
 <?php namespace Backend;
 
 use App;
-use Lang;
-use Event;
 use Backend;
 use BackendMenu;
 use BackendAuth;
@@ -88,6 +86,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'dashboard' => [
                     'label'       => 'backend::lang.dashboard.menu_label',
                     'icon'        => 'icon-dashboard',
+                    'iconSvg'     => 'modules/backend/assets/images/dashboard-icon.svg',
                     'url'         => Backend::url('backend'),
                     'permissions' => ['backend.access_dashboard'],
                     'order'       => 1
@@ -165,10 +164,6 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Color picker',
                 'code'  => 'colorpicker'
             ]);
-            $manager->registerFormWidget('Backend\FormWidgets\DataGrid', [
-                'label' => 'Data Grid',
-                'code'  => 'datagrid'
-            ]); // @deprecated if year >= 2016
             $manager->registerFormWidget('Backend\FormWidgets\DataTable', [
                 'label' => 'Data Table',
                 'code'  => 'datatable'
@@ -180,6 +175,10 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\Repeater', [
                 'label' => 'Repeater',
                 'code'  => 'repeater'
+            ]);
+            $manager->registerFormWidget('Backend\FormWidgets\TagList', [
+                'label' => 'Tag List',
+                'code'  => 'taglist'
             ]);
         });
     }
@@ -198,7 +197,8 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-paint-brush',
                     'class'       => 'Backend\Models\BrandSettings',
                     'permissions' => ['backend.manage_branding'],
-                    'order'       => 500
+                    'order'       => 500,
+                    'keywords'    => 'brand style'
                 ],
                 'myaccount' => [
                     'label'       => 'backend::lang.myaccount.menu_label',
@@ -210,24 +210,14 @@ class ServiceProvider extends ModuleServiceProvider
                     'context'     => 'mysettings',
                     'keywords'    => 'backend::lang.myaccount.menu_keywords'
                 ],
-                'backend_preferences' => [
+                'preferences' => [
                     'label'       => 'backend::lang.backend_preferences.menu_label',
                     'description' => 'backend::lang.backend_preferences.menu_description',
                     'category'    => SettingsManager::CATEGORY_MYSETTINGS,
                     'icon'        => 'icon-laptop',
-                    'class'       => 'Backend\Models\BackendPreferences',
+                    'url'         => Backend::URL('backend/preferences'),
                     'permissions' => ['backend.manage_preferences'],
                     'order'       => 510,
-                    'context'     => 'mysettings'
-                ],
-                'editor' => [
-                    'label'       => 'backend::lang.editor.menu_label',
-                    'description' => 'backend::lang.editor.menu_description',
-                    'category'    => SettingsManager::CATEGORY_MYSETTINGS,
-                    'icon'        => 'icon-code',
-                    'url'         => Backend::URL('backend/editorpreferences'),
-                    'permissions' => ['backend.manage_editor'],
-                    'order'       => 520,
                     'context'     => 'mysettings'
                 ],
                 'access_logs' => [

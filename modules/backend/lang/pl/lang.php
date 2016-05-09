@@ -289,10 +289,9 @@ return [
         'app_tagline' => 'Podpis aplikacji',
         'app_tagline_description' => 'Ten podpis jest wyświetlany na ekranie logowania do back-endu',
         'colors' => 'Kolory',
-        'primary_light' => 'Podstawowy (Jasny)',
-        'primary_dark' => 'Podstawowy (Ciemny)',
-        'secondary_light' => 'Dodatkowy (Jasny)',
-        'secondary_dark' => 'Dodatkowy (Ciemny)',
+        'primary_color' => 'Podstawowy color',
+        'secondary_color' => 'Dodatkowy color',
+        'accent_color' => 'Accent color',
         'styles' => 'Style',
         'custom_stylesheet' => 'Własne style'
     ],

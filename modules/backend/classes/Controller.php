@@ -1,7 +1,7 @@
 <?php namespace Backend\Classes;
 
 use App;
-use Log;
+use Str;
 use Lang;
 use View;
 use Flash;
@@ -10,12 +10,11 @@ use Config;
 use Request;
 use Backend;
 use Session;
-use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
 use Backend\Models\UserPreferences;
-use Backend\Models\BackendPreferences;
+use Backend\Models\Preferences as BackendPreferences;
 use Cms\Widgets\MediaManager;
 use System\Classes\ErrorHandler;
 use October\Rain\Exception\AjaxException;
@@ -219,13 +218,8 @@ class Controller extends Extendable
         /*
          * Set the admin preference locale
          */
-        if (Session::has('locale')) {
-            App::setLocale(Session::get('locale'));
-        }
-        elseif ($this->user && ($locale = BackendPreferences::get('locale'))) {
-            Session::put('locale', $locale);
-            App::setLocale($locale);
-        }
+        BackendPreferences::setAppLocale();
+        BackendPreferences::setAppFallbackLocale();
 
         /*
          * Execute AJAX event
@@ -677,7 +671,7 @@ class Controller extends Extendable
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
-        return \Symfony\Component\Security\Core\Util\StringUtils::equals(
+        return Str::equals(
             Session::getToken(),
             $token
         );

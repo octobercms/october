@@ -1,7 +1,0 @@
-# ===================================
-#  Form Behavior Config
-# ===================================
-
-form: ~/modules/backend/models/editorpreferences/fields.yaml
-modelClass: Backend\Models\EditorPreferences
-defaultRedirect: system/mailtemplates

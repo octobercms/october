@@ -66,7 +66,7 @@ class PluginManager
     protected function init()
     {
         $this->bindContainerObjects();
-        $this->metaFile = storage_path() . '/cms/disabled.json';
+        $this->metaFile = storage_path('cms/disabled.json');
         $this->loadDisabled();
         $this->loadPlugins();
         $this->loadDependencies();
@@ -457,6 +457,7 @@ class PluginManager
         if (array_key_exists($code, $this->disabledPlugins)) {
             return true;
         }
+        return false;
     }
 
     /**

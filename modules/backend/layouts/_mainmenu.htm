@@ -1,20 +1,37 @@
 <?php
     $activeItem = BackendMenu::getActiveMainMenuItem();
     $mySettings = System\Classes\SettingsManager::instance()->listItems('mysettings');
+    $navbarMode = Backend\Models\BrandSettings::get('menu_mode', 'inline');
 ?>
-<nav class="navbar control-toolbar" id="layout-mainmenu" role="navigation">
+<nav class="navbar control-toolbar navbar-mode-<?= $navbarMode ?>" id="layout-mainmenu" role="navigation">
     <div class="toolbar-item toolbar-primary">
         <div data-control="toolbar">
             <a class="menu-toggle" href="javascript:;">
-                <i class="icon-bars"></i>
-                <?= $activeItem ? e(trans($activeItem->label)) : 'CMS' ?>
+                <span class="menu-toggle-icon">
+                    <i class="icon-bars"></i>
+                </span>
+                <span class="menu-toggle-title">
+                    <?= $activeItem ? e(trans($activeItem->label)) : 'CMS' ?>
+                </span>
             </a>
 
-            <ul class="nav">
+            <ul class="nav mainmenu-nav">
                 <?php foreach (BackendMenu::listMainMenuItems() as $item): ?>
-                    <li class="<?= BackendMenu::isMainMenuItemActive($item) ? 'active' : null ?>">
+                    <?php
+                        $isActive = BackendMenu::isMainMenuItemActive($item);
+                    ?>
+                    <li class="<?= $isActive ? 'active' : null ?> svg-icon-container svg-active-effects">
                         <a href="<?= $item->url ?>">
-                            <i class="<?= $item->icon ?>"></i><?= e(trans($item->label)) ?>
+                            <span class="nav-icon">
+                                <?php if ($item->iconSvg): ?>
+                                    <img class="svg-icon" src="<?= URL::asset($item->iconSvg) ?>">
+                                <?php endif ?>
+
+                                <i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon ?>"></i>
+                            </span>
+                            <span class="nav-label">
+                                <?= e(trans($item->label)) ?>
+                            </span>
                         </a>
                     </li>
                 <?php endforeach ?>
@@ -22,8 +39,8 @@
         </div>
     </div>
     <div class="toolbar-item" data-calculate-width>
-        <ul>
-            <li class="icon preview with-tooltip">
+        <ul class="mainmenu-toolbar">
+            <li class="mainmenu-preview with-tooltip">
                 <a
                     href="<?= URL::to('/') ?>"
                     target="_blank"
@@ -31,12 +48,12 @@
                     <i class="icon-crosshairs"></i>
                 </a>
             </li>
-            <li class="highlight account">
+            <li class="mainmenu-account">
                 <a href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)">
-                    <img src="<?= $this->user->getAvatarThumb(50, ['extension' => 'png']) ?>">
-                    <span class="hidden-xs">
+                    <span class="account-name hidden-xs">
                         <?= e($this->user->first_name.' '.$this->user->last_name) ?>
                     </span>
+                    <img src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>" class="account-avatar" />
                 </a>
                 <div class="mainmenu-accountmenu">
                     <ul>

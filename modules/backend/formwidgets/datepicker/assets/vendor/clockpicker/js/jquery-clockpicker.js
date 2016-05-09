@@ -2,6 +2,10 @@
  * ClockPicker v0.0.7 (http://weareoutman.github.io/clockpicker/)
  * Copyright 2014 Wang Shenwei.
  * Licensed under MIT (https://github.com/weareoutman/clockpicker/blob/gh-pages/LICENSE)
+
+ * This library is no longer maintained by Weareoutman, hence
+ * no further updates will be provided. Consider this file
+ * a forked version and you a free to make changes.
  */
 
 ;(function(){
@@ -70,8 +74,8 @@
 			'<div class="arrow"></div>',
 			'<div class="popover-title">',
 				'<span class="clockpicker-span-hours text-primary"></span>',
-				' : ',
-				'<span class="clockpicker-span-minutes"></span>',
+				':',
+				'<span class="clockpicker-span-minutes"></span> ',
 				'<span class="clockpicker-span-am-pm"></span>',
 			'</div>',
 			'<div class="popover-content">',
@@ -121,10 +125,10 @@
 		// Setup for for 12 hour clock if option is selected
 		if (options.twelvehour) {
 			
-			var  amPmButtonsTemplate = ['<div class="clockpicker-am-pm-block">',
-				'<button type="button" class="btn btn-sm btn-default clockpicker-button clockpicker-am-button">',
+			var amPmButtonsTemplate = ['<div class="clockpicker-am-pm-block">',
+				'<button type="button" class="btn btn-sm btn-secondary clockpicker-button clockpicker-am-button">',
 				'AM</button>',
-				'<button type="button" class="btn btn-sm btn-default clockpicker-button clockpicker-pm-button">',
+				'<button type="button" class="btn btn-sm btn-secondary clockpicker-button clockpicker-pm-button">',
 				'PM</button>',
 				'</div>'].join('');
 			
@@ -144,14 +148,14 @@
 			//        $('.clockpicker-span-am-pm').empty().append('PM');
 			//    });
 	
-			$('<button type="button" class="btn btn-sm btn-default clockpicker-button am-button">' + "AM" + '</button>')
+			$('<button type="button" class="btn btn-sm btn-secondary clockpicker-button am-button">' + "AM" + '</button>')
 				.on("click", function() {
 					self.amOrPm = "AM";
 					$('.clockpicker-span-am-pm').empty().append('AM');
 				}).appendTo(this.amPmBlock);
 				
 				
-			$('<button type="button" class="btn btn-sm btn-default clockpicker-button pm-button">' + "PM" + '</button>')
+			$('<button type="button" class="btn btn-sm btn-secondary clockpicker-button pm-button">' + "PM" + '</button>')
 				.on("click", function() {
 					self.amOrPm = 'PM';
 					$('.clockpicker-span-am-pm').empty().append('PM');
@@ -161,7 +165,7 @@
 		
 		if (! options.autoclose) {
 			// If autoclose is not setted, append a button
-			$('<button type="button" class="btn btn-sm btn-default btn-block clockpicker-button">' + options.donetext + '</button>')
+			$('<button type="button" class="btn btn-sm btn-secondary btn-block clockpicker-button">' + options.donetext + '</button>')
 				.click($.proxy(this.done, this))
 				.appendTo(popover);
 		}
@@ -367,7 +371,7 @@
 		fromnow: 0,          // set default time to * milliseconds from now (using with default = 'now')
 		placement: 'bottom', // clock popover placement
 		align: 'left',       // popover arrow align
-		donetext: '完成',    // done button text
+		donetext: 'Done',    // done button text
 		autoclose: false,    // auto close when minute is selected
 		twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
 		vibrate: true        // vibrate the device when dragging clock hand
@@ -454,7 +458,17 @@
 		}
 
 		// Get the time
-		var value = ((this.input.prop('value') || this.options['default'] || '') + '').split(':');
+		var value = ((this.input.prop('value') || this.options['default'] || '') + '');
+
+		if (this.options.twelvehour) {
+			var amPmValue = value.split(' ');
+			if (amPmValue[1]) {
+				value = amPmValue[0];
+				this.amOrPm = amPmValue[1];
+			}
+		}
+
+		value = value.split(':');
 		if (value[0] === 'now') {
 			var now = new Date(+ new Date() + this.options.fromnow);
 			value = [
@@ -462,10 +476,14 @@
 				now.getMinutes()
 			];
 		}
+
 		this.hours = + value[0] || 0;
 		this.minutes = + value[1] || 0;
 		this.spanHours.html(leadingZero(this.hours));
 		this.spanMinutes.html(leadingZero(this.minutes));
+		if (this.options.twelvehour) {
+			this.spanAmPm.html(this.amOrPm);
+		}
 
 		// Toggle to hours view
 		this.toggleView('hours');
@@ -676,10 +694,11 @@
 		this.hide();
 		var last = this.input.prop('value'),
 			value = leadingZero(this.hours) + ':' + leadingZero(this.minutes);
-		if  (this.options.twelvehour) {
-			value = value + this.amOrPm;
+
+		if (this.options.twelvehour) {
+			value = value + ' ' +this.amOrPm;
 		}
-		
+
 		this.input.prop('value', value);
 		if (value !== last) {
 			this.input.triggerHandler('change');

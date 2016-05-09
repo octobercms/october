@@ -6,12 +6,13 @@
 @input-bg:                       #fff;
 @input-bg-disabled:              @gray-lighter;
 
-@input-color:                    @gray;
-@input-border:                   #e0e0e0;
-@input-border-focus:             #808c8d;
+@input-color:                    #385487;
+@input-border:                   #BDC3C7;
+@input-border-focus:             @input-border;
 @input-border-radius:            3px;
 
 @input-color-placeholder:        #cccccc;
+@input-color-disabled:           #999999;
 
 @input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
 @input-height-large:             (ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
@@ -23,8 +24,9 @@
 @input-group-addon-bg:           @gray-lighter;
 @input-group-addon-border-color: @input-border;
 
-@label-font-size: 12px;
-@input-font-size: 13px;
+@label-font-size: @font-size-base - 1;
+@input-font-size: @font-size-base;
+@color-label:     #2A3E51;
 
 @input-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 
@@ -35,12 +37,15 @@
 
 @color-form-field-border:                    @input-border;
 @color-form-field-border-focus:              @input-border-focus;
-@color-form-required-asterisk:               #ff0000;
+@color-form-required-asterisk:               #C20A0A;
 @color-form-sidebar:                         #ecf0f1;
-@color-form-field-preview:                   #f6f6f6;
+@color-form-field-preview-bg:                #f6f6f6;
+@color-form-field-preview-text:              #555555;
 @color-form-field-bg:                        #ffffff;
 @color-form-field-icon:                      #bdbdbd;
+@color-help-block-text:                      #777777;
 
 @color-form-field-recordfinder-btn:          #333333;
 
 @color-form-checkboxlist-border:             #e2e2e2;
+@color-form-checkboxlist-background:         #FFFFFF;

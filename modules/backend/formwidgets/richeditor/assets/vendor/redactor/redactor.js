@@ -7,6 +7,10 @@
 	Copyright (c) 2009-2015, Imperavi LLC.
 	License: http://imperavi.com/redactor/license/
 
+	This version of Redactor is no longer supported by Imperavi LLC,
+	hence no further updates will be provided. Consider this file
+	a forked version and you a free to make changes.
+
 	Usage: $('#content').redactor();
 */
 
@@ -156,7 +160,7 @@
 		fileUpload: null,
 		fileUploadParam: 'file',
 
-		dragFileUpload: true,
+		dragFileUpload: false,
 
 		s3: false,
 
@@ -166,7 +170,7 @@
 		convertVideoLinks: true,
 
 		preSpaces: 4, // or false
-		tabAsSpaces: false, // true or number of spaces
+		tabAsSpaces: true, // true or number of spaces
 		tabKey: true,
 
 		scrollTarget: false,
@@ -1079,9 +1083,6 @@
 							$next.remove();
 						}
 					}
-
-
-
 				},
 				formatTableWrapping: function($formatted)
 				{
@@ -3095,12 +3096,9 @@
 						html = html.substr(0, end + markerLength) + this.selection.getMarkerAsHtml(2) + html.substr(end + markerLength);
 					}
 
-
-
 					if (this.modified !== this.clean.removeSpaces(html))
 					{
 						this.code.set(html);
-
 					}
 
 					if (this.opts.codemirror)
@@ -3131,7 +3129,10 @@
 
 					var $el = this.$textarea;
 					var start = $el.get(0).selectionStart;
-					$el.val($el.val().substring(0, start) + "\t" + $el.val().substring($el.get(0).selectionEnd));
+
+					// Replaced tab with 4 spaces -sg
+					$el.val($el.val().substring(0, start) + "    " + $el.val().substring($el.get(0).selectionEnd));
+
 					$el.get(0).selectionStart = $el.get(0).selectionEnd = start + 1;
 
 					return false;
@@ -8085,7 +8086,8 @@
 					var s = '';
 					for ( var j = 0; j < this.tabifier.cleanlevel; j++ )
 					{
-						s += '\t';
+						// Replaced tab with 4 spaces -sg
+						s += '    ';
 					}
 
 					return s;

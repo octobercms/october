@@ -52,14 +52,12 @@ tabs:
             commentAbove: backend::lang.user.groups_comment
             type: checkboxlist
 
-
 secondaryTabs:
     fields:
-
         avatar:
             label: backend::lang.user.avatar
             type: fileupload
             mode: image
-            imageHeight: 260
-            imageWidth: 260
+            imageHeight: 250
+            imageWidth: 250
 

@@ -41,7 +41,7 @@ class CodeParser
     public function __construct(CmsCompoundObject $object)
     {
         $this->object = $object;
-        $this->filePath = $object->getFullPath();
+        $this->filePath = $object->getFilePath();
     }
 
     /**
@@ -134,7 +134,7 @@ class CodeParser
         $cacheItem['mtime'] = $this->object->mtime;
         $cached[$this->filePath] = $cacheItem;
 
-        Cache::put($this->dataCacheKey, serialize($cached), 1440);
+        Cache::put($this->dataCacheKey, base64_encode(serialize($cached)), 1440);
 
         return self::$cache[$this->filePath] = $result;
     }
@@ -171,6 +171,7 @@ class CodeParser
     protected function handleCorruptCache()
     {
         $path = $this->getFilePath();
+
         if (File::isFile($path)) {
             File::delete($path);
         }
@@ -211,7 +212,11 @@ class CodeParser
     protected function getCachedInfo()
     {
         $cached = Cache::get($this->dataCacheKey, false);
-        if ($cached !== false && ($cached = @unserialize($cached)) !== false) {
+
+        if (
+            $cached !== false &&
+            ($cached = @unserialize(@base64_decode($cached))) !== false
+        ) {
             return $cached;
         }
 
@@ -225,6 +230,7 @@ class CodeParser
     protected function getCachedFileInfo()
     {
         $cached = $this->getCachedInfo();
+
         if ($cached !== null) {
             if (array_key_exists($this->filePath, $cached)) {
                 return $cached[$this->filePath];

@@ -190,8 +190,7 @@
 
             var row = this.buildRow(property, currentGroup)
 
-            if (property.itemType == 'group')
-            {
+            if (property.itemType == 'group') {
                 this.applyGroupLevelToRow(row, currentGroup.parentGroup)
             }
             else {
@@ -419,7 +418,8 @@
 
         if ($.oc.foundation.element.hasClass(link, 'expanded') && !forceExpand) {
             $.oc.foundation.element.removeClass(link, 'expanded')
-        } else {
+        }
+        else {
             $.oc.foundation.element.addClass(link, 'expanded')
             collapse = false
         }
@@ -920,7 +920,7 @@
     Surface.prototype.hasChanges = function(originalValues) {
         var values = originalValues !== undefined ? originalValues : this.originalValues
 
-        return !this.comparePropertyValues(values, this.values)
+        return !this.comparePropertyValues(values, this.getValues())
     }
 
     // EVENT HANDLERS

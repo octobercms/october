@@ -2,11 +2,54 @@
 // Coded variables
 //
 // @logo-image
-// @primary-color-light   - #e67e22
-// @primary-color-dark    - #d35400
-// @secondary-color-light - #34495e
-// @secondary-color-dark  - #2b3e50
+// @brand-primary
+// @brand-secondary
+// @brand-accent
 //
+
+.br-p     { color: @brand-primary; }
+.br-s     { color: @brand-secondary; }
+.br-a     { color: @brand-accent; }
+.br-p-s10 { color: saturate(@brand-primary,   10%); }
+.br-s-s10 { color: saturate(@brand-secondary, 10%); }
+.br-a-s10 { color: saturate(@brand-accent,    10%); }
+.br-p-s20 { color: saturate(@brand-primary,   20%); }
+.br-s-s20 { color: saturate(@brand-secondary, 20%); }
+.br-a-s20 { color: saturate(@brand-accent,    20%); }
+
+.bg-p     { background-color: @brand-primary; }
+.bg-s     { background-color: @brand-secondary; }
+.bg-a     { background-color: @brand-accent; }
+.bg-p-s10 { background-color: saturate(@brand-primary,   10%); }
+.bg-s-s10 { background-color: saturate(@brand-secondary, 10%); }
+.bg-a-s10 { background-color: saturate(@brand-accent,    10%); }
+.bg-p-s20 { background-color: saturate(@brand-primary,   20%); }
+.bg-s-s20 { background-color: saturate(@brand-secondary, 20%); }
+.bg-a-s20 { background-color: saturate(@brand-accent,    20%); }
+
+@custom-dark-primary: mix(black, desaturate(@brand-primary, 35%), 20%);
+@custom-dark-accent: mix(black, saturate(@brand-accent, 20%), 25%);
+@custom-dark-secondary: mix(black, saturate(@brand-secondary, 5%), 15%);
+
+//
+// Sidenav Tree
+//
+
+.sidenav-tree ul.top-level > li > div.group:before {
+    border-top-color: @brand-secondary;
+}
+
+//
+// Outside Layout
+//
+
+body.outer {
+    background: @custom-dark-secondary;
+}
+
+body.outer .layout > .layout-row.layout-head {
+    background: mix(black, saturate(@custom-dark-secondary, 5%), 27%);
+}
 
 //
 // Logos
@@ -21,51 +64,24 @@
 }
 
 //
-// Outside Layout
-//
-
-@color-outer-bg: @secondary-color-dark;
-@color-outer-header: mix(black, saturate(@secondary-color-dark, 5%), 27%);
-
-body.outer {
-    background: @color-outer-bg;
-}
-
-body.outer .layout > .layout-row.layout-head {
-    background: @color-outer-header;
-}
-
-//
-// Side navigation bar
-//
-
-@color-sidebarnav-bg: @secondary-color-light;
-
-#layout-sidenav {
-    background-color: @color-sidebarnav-bg;
-}
-
-//
 // Popover
 //
 
-@color-popover-head-bg: @primary-color-dark;
-
 div.control-popover {
     .popover-head {
-        background: @color-popover-head-bg;
+        background: @custom-dark-accent;
     }
 
     &.placement-bottom .popover-head:before {
-        border-bottom-color: @color-popover-head-bg;
+        border-bottom-color: @custom-dark-accent;
     }
 
     &.placement-left .popover-head:before {
-        border-left-color: @color-popover-head-bg;
+        border-left-color: @custom-dark-accent;
     }
 
     &.placement-right .popover-head:before {
-        border-right-color: @color-popover-head-bg;
+        border-right-color: @custom-dark-accent;
     }
 }
 
@@ -73,118 +89,68 @@ div.control-popover {
 // Popup
 //
 
-@color-popup-header-bg: @primary-color-dark;
-
 .modal-header {
-    background: @color-popup-header-bg;
+    background: @custom-dark-accent;
 }
 
 //
 // List
 //
 
-@color-list-stripe-active: @primary-color-light;
-@color-list-active-sort: @primary-color-dark;
-
 table.table.data {
     tbody {
         tr.active td {
             &:first-child {
-                border-left: 3px solid @color-list-stripe-active;
+                border-left: 3px solid @brand-accent;
             }
         }
     }
 }
 
 //
-// Breadcrumb
+// Fancy Layout
 //
 
-@color-breadcrumb-background: mix(rgb(43,43,43), @secondary-color-dark, 50%);
+.fancy-layout .form-tabless-fields {
+    background: @brand-accent;
 
-.control-breadcrumb {
-    background-color: @color-breadcrumb-background;
+    .loading-indicator-container .loading-indicator {
+        background: @brand-accent;
+    }
 }
 
-//
-// Fancy layout
-//
-
-@color-fancy-form-tabless-fields-bg: @primary-color-light;
-@color-fancy-master-tabs-bg: @primary-color-dark;
-@color-fancy-form-inactive-tab: mix(black, desaturate(@primary-color-dark, 14.5%), 5%);
-@color-fancy-form-placeholder: lighten(@primary-color-light, 30%);
-
-.fancy-layout {
-    .control-tabs, &.control-tabs {
-        &.master-tabs {
-            > div > div.tabs-container {
-                background: @color-fancy-master-tabs-bg;
-            }
-        }
-
-        &.secondary-tabs {
-            &.content-tabs {
-                &.primary-collapsed {
-                    > div > ul.nav-tabs {
-                        background: @color-fancy-form-tabless-fields-bg;
-                    }
-                }
-            }
-        }
-
-        &.primary-tabs {
-            > div > ul.nav-tabs {
-                &.master-area {
-                    background: @color-fancy-form-tabless-fields-bg;
-                }
-            }
-        }
-
-        &.master-tabs {
-            > div > div.tabs-container > ul.nav-tabs > li {
-                a > span.title {
-                    background-color: @color-fancy-form-inactive-tab;
-
-                    //
-                    // Disabled: See BrandSettings::makeTabSvg()
-                    //
-                    //&:before, &:after {
-                    //    background-image: url(~'@{tab-svg}');
-                    //}
-
-                }
-                &.active {
-                    a > span.title {
-                        background-color: @color-fancy-form-tabless-fields-bg;
-                    }
-                }
-            }
+.fancy-layout .control-tabs.master-tabs,
+.fancy-layout.control-tabs.master-tabs {
+    > div > div.tabs-container > ul.nav-tabs > li.active a > span.title {
+        &, &:before, &:after {
+            background: @brand-accent;
         }
     }
 
-    .form-tabless-fields {
-        &,
-        .loading-indicator-container .loading-indicator {
-            background: @color-fancy-form-tabless-fields-bg;
-        }
-        input[type=text]::-webkit-input-placeholder {
-            color: @color-fancy-form-placeholder;
+    > div > div.tabs-container > ul.nav-tabs > li a > span.title {
+        &, &:before, &:after {
+            background-color: mix(black, saturate(@brand-accent, 20%), 31%);
         }
     }
+
+    > div > div.tabs-container {
+        background-color: @custom-dark-accent;
+    }
+}
+
+.control-filelist ul li.active > a:after {
+    background: @brand-accent;
 }
 
 //
 // Component List
 //
 
-@color-component-list-bg: @secondary-color-dark;
-
 div.control-componentlist {
-    background-color: @color-component-list-bg;
+    background-color: @custom-dark-secondary;
 
     &.droppable {
-        background-color: lighten(@color-component-list-bg, 20%);
+        background-color: lighten(@custom-dark-secondary, 20%);
     }
 }
 
@@ -193,89 +159,8 @@ div.control-componentlist {
         &.primary-tabs {
             > div > ul.nav-tabs {
                 &.component-area {
-                    background: @color-component-list-bg;
+                    background: @custom-dark-secondary;
                 }
-            }
-        }
-    }
-}
-
-//
-// File List
-//
-
-@color-list-active-border: @primary-color-light;
-
-.control-filelist {
-    ul li.active a:after {
-        background: @color-list-active-border;
-    }
-}
-
-.control-assetlist {
-    ul li.active a.link:after {
-        background: @color-list-active-border;
-    }
-}
-
-.nav.selector-group {
-    li {
-        &.active {
-            border-color: @color-list-active-border;
-        }
-    }
-}
-
-//
-// TreeView
-//
-
-.control-treeview {
-    ol {
-        > li {
-            &.active {
-                > div {
-                    &:after {
-                        background: @color-list-active-border;
-                    }
-                }
-            }
-        }
-    }
-}
-
-//
-// Sidenav Tree
-//
-
-@color-sidebarnav-bg: @secondary-color-light;
-@color-sidebarnav-tree-group-bg: @secondary-color-dark;
-@color-sidebarnav-tree-inactive-bg: mix(white, @secondary-color-light, 7%);
-@color-sidebarnav-tree-active-bg: @secondary-color-light;
-@color-sidebarnav-tree-active-marker: @primary-color-light;
-
-.sidenav-tree {
-    background: @color-sidebarnav-bg;
-
-    ul.top-level > li {
-        > div.group h3 {
-            background: @color-sidebarnav-tree-group-bg;
-        }
-
-        > ul li {
-            a {
-                background: @color-sidebarnav-tree-inactive-bg;
-            }
-            &.active a {
-                background: @color-sidebarnav-tree-active-bg;
-
-                &:before {
-                    background: @color-sidebarnav-tree-active-marker;
-                }
-            }
-
-            &:hover a {
-                background: @color-sidebarnav-tree-active-bg;
             }
         }
     }

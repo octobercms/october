@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Schema\Blueprint;
+use October\Rain\Database\Updates\Migration;
 
 class DbSystemEventLogs extends Migration
 {
-
     public function up()
     {
         Schema::create('system_event_logs', function (Blueprint $table) {
