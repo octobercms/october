@@ -2,7 +2,7 @@
 
 return [
     'app' => [
-        'name' => 'October CMS',
+        'name' => 'OctoberCMS',
         'tagline' => 'Getting back to basics'
     ],
     'locale' => [
