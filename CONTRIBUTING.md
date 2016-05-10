@@ -72,3 +72,7 @@ Also ensure that your Pull Request satisfies the following coding standards:
 #### Team rules
 
 The October team follows the [developer guidelines](http://octobercms.com/docs/help/developer-guide) as much as possible.
+
+#### Escalation process
+
+We do our best to attend to all reported issues. If you have an important issue that requires attention, consider submitting a bounty using the [OctoberCMS Bounty Program](https://www.bountysource.com/teams/october).
