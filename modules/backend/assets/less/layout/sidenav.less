@@ -8,12 +8,26 @@
     width: 100%;
     .box-sizing(border-box);
 
+    .sidenav-shadow-element() {
+        content: '';
+        position: absolute;
+        height: 100%;
+        top: 0;
+        right: 0;
+        width: 10px;
+        .box-shadow(inset -5px 0 3px rgba(0,0,0,.1));
+    }
+
     ul {
         position: relative;
         margin: 0;
         padding: 0;
         height: 100%;
         overflow: hidden;
+
+        &:after {
+            .sidenav-shadow-element();
+        }
 
         li {
             display: block;

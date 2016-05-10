@@ -47,20 +47,16 @@ body.outer {
     background: @custom-dark-secondary;
 }
 
-body.outer .layout > .layout-row.layout-head {
-    background: mix(black, saturate(@custom-dark-secondary, 5%), 27%);
-}
-
 //
 // Logos
 //
 
-.oc-bg-logo when not (@logo-image = '') {
-    background-image: linear-gradient(to bottom, rgba(249,249,249,0.7) 0%,rgba(249,249,249,0.7) 100%), url('@{logo-image}');
+.oc-logo-transparent when not (@logo-image = '') {
+    background-image: url('@{logo-image}') !important;
 }
-.oc-logo-white when not (@logo-image = '') {
+
+.oc-logo when not (@logo-image = '') {
     background-image: url('@{logo-image}');
-    height: 170px !important;
 }
 
 //
