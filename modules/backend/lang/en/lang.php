@@ -291,6 +291,9 @@ return [
         'display_indent_guides'=> 'Show indent guides',
         'show_print_margin'=> 'Show print margin',
         'mode_off' => 'Off',
+        'mode_fluid' => 'Fluid',
+        '40_characters' => '40 Characters',
+        '80_characters' => '80 Characters',
         'theme' => 'Color scheme'
     ],
     'tooltips' => [
@@ -333,6 +336,7 @@ return [
         'region' => 'Region',
         'code_editor' => 'Code editor',
         'timezone' => 'Timezone',
+        'timezone_comment' => 'Adjust displayed dates to this timezone.',
         'locale' => 'Locale',
         'locale_comment' => 'Select your desired locale for language use.'
     ],

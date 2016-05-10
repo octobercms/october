@@ -1,7 +1,7 @@
 # ===================================
 #  Field Definitions
 # ===================================
-#
+
 tabs:
     fields:
 
@@ -15,7 +15,7 @@ tabs:
         timezone:
             tab: backend::lang.backend_preferences.region
             label: backend::lang.backend_preferences.timezone
-            comment: Adjust displayed dates to this timezone.
+            comment: backend::lang.backend_preferences.timezone_comment
             type: dropdown
             span: left
 
@@ -36,10 +36,10 @@ tabs:
             type: dropdown
             span: auto
             options:
-                off: Off
-                40: 40 Characters
-                80: 80 Characters
-                fluid: Fluid
+                off: backend::lang.editor.mode_off
+                40: backend::lang.editor.40_characters
+                80: backend::lang.editor.80_characters
+                fluid: backend::lang.editor.mode_fluid
 
         editor_font_size:
             label: backend::lang.editor.font_size
