@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -21,12 +21,12 @@ return array(
     "alpha_num"        => ":attribute drīkst saturēt tikai burtus un skaitļus.",
     "array"            => ":attribute jābūt masīvam.",
     "before"           => ":attribute jābūt datumam pirms :date.",
-    "between"          => array(
+    "between"          => [
         "numeric" => ":attribute jābūt starp :min - :max.",
         "file"    => ":attribute jābūt no :min - :max kilobaitiem.",
         "string"  => ":attribute jābūt no :min - :max simboliem.",
         "array"   => ":attribute jābūt no :min - :max objektiem.",
-    ),
+    ],
     "confirmed"        => ":attribute apstiprinājums nesakrīt.",
     "date"             => ":attribute ir nederīgs datums.",
     "date_format"      => ":attribute nesakrīt ar formātu :format.",
@@ -39,20 +39,20 @@ return array(
     "in"               => "Izvēlētais :attribute ir nederīgs.",
     "integer"          => ":attribute ir jābūt skaitlim.",
     "ip"               => ":attribute ir jābūt derīgai IP adresei.",
-    "max"              => array(
+    "max"              => [
         "numeric" => ":attribute nedrīkst pārsniegt :max.",
         "file"    => ":attribute nedrīkst pārsniegt :max kilobaitus.",
         "string"  => ":attribute nedrīkst pārsniegt :max simbolus.",
         "array"   => ":attribute nedrīkst pārsniegt :max objektus.",
-    ),
+    ],
     "mimes"            => ":attribute jabūt failam ar tipu: :values.",
     "extensions"       => ":attribute jābūt ar paplašinājumu: :values.",
-    "min"              => array(
+    "min"              => [
         "numeric" => ":attribute jābūt vismaz :min.",
         "file"    => ":attribute jabūt vismaz :min kilobaitiem.",
         "string"  => ":attribute jābūt vismaz :min simboliem.",
         "array"   => ":attribute jābūt vismaz :min objektiem.",
-    ),
+    ],
     "not_in"           => "Izvēlētais :attribute nav derīgs.",
     "numeric"          => ":attribute jabūt skaitlim.",
     "regex"            => ":attribute formāts nav derīgs.",
@@ -61,12 +61,12 @@ return array(
     "required_with"    => ":attribute lauks ir obligāts, ja :values ir norādītas.",
     "required_without" => ":attribute lauks ir obligāts, ja :values nav norādītas.",
     "same"             => ":attribute un :other ir jāsakrīt.",
-    "size"             => array(
+    "size"             => [
         "numeric" => ":attribute ir jābūt :size.",
         "file"    => ":attribute ir jābūt :size kilobaitiem.",
         "string"  => ":attribute ir jābūt :size simboliem.",
         "array"   => ":attribute ir jābūt :size objektiem.",
-    ),
+    ],
     "unique"           => ":attribute ir jau aizņemts.",
     "url"              => ":attribute nederīgs formāts.",
 
@@ -96,4 +96,4 @@ return array(
 
     'attributes' => array(),
 
-);
+];

@@ -6,7 +6,10 @@ return [
         'tagline' => 'Visszatérés az alapokhoz'
     ],
     'locale' => [
-        'en' => 'Angol',
+        'en' => 'Angol (amerikai)',
+        'en-au' => 'Angol (ausztrál)',
+        'en-ca' => 'Angol (kanadai)',
+        'en-gb' => 'Angol (brit)',
         'cs' => 'Cseh',
         'de' => 'Német',
         'el' => 'Görög',
@@ -14,6 +17,7 @@ return [
         'es-ar' => 'Spanyol (argentín)',
         'fa' => 'Perzsa',
         'fr' => 'Francia',
+        'fr-ca' => 'French (kanadai)',
         'hu' => 'Magyar',
         'id' => 'Indonéz',
         'it' => 'Olasz',
@@ -68,7 +72,7 @@ return [
     ],
     'themes' => [
         'install' => 'Téma telepítése',
-        'search' => 'keresés...',
+        'search' => 'Keresés...',
         'installed' => 'Telepítve',
         'no_themes' => 'Egy téma sincs telepítve a piactérről.',
         'recommended' => 'Ajánlott',
@@ -87,8 +91,8 @@ return [
         'enable_or_disable' => 'Engedélyezés vagy letiltás',
         'enable_or_disable_title' => 'Bővítmények engedélyezése vagy letiltása',
         'install' => 'Bővítmény telepítése',
-        'install_products' => 'Telepítés és eltávolítás',
-        'search' => 'keresés...',
+        'install_products' => 'Kiegészítők telepítése',
+        'search' => 'Keresés...',
         'installed' => 'Telepítve',
         'no_plugins' => 'Valóban törölni akarja ezt a bővítményt?',
         'recommended' => 'Ajánlott',
@@ -128,17 +132,17 @@ return [
         'missing_model' => 'A beállítások lap egy modell definíciót hiányol.',
         'update_success' => 'A(z) :name beállításainak frissítése sikerült.',
         'return' => 'Vissza a beállításokhoz',
-        'search' => 'Keresés'
+        'search' => 'Keresés...'
     ],
     'mail' => [
         'log_file' => 'Naplófájl',
         'menu_label' => 'Beállítások',
-        'menu_description' => 'Az e-mail küldés testreszabása.',
-        'general' => 'Általános',
+        'menu_description' => 'A weboldal e-mail küldésének testreszabása.',
+        'general' => 'Beállítások',
         'method' => 'Levelező rendszer',
         'sender_name' => 'Feladó neve',
         'sender_email' => 'Feladó e-mail címe',
-        'php_mail' => 'PHP mail',
+        'php_mail' => 'PHP levélküldő',
         'smtp' => 'SMTP',
         'smtp_address' => 'SMTP címe',
         'smtp_authorization' => 'SMTP hitelesítés szükséges',
@@ -162,6 +166,13 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill titkos jelszót.',
         'mandrill_secret_comment' => 'Adja meg Mandrill API kulcsát.',
+        'ses' => 'SES',
+        'ses_key' => 'SES kulcs',
+        'ses_key_comment' => 'Adja meg a SES API kulcsot',
+        'ses_secret' => 'SES kód',
+        'ses_secret_comment' => 'Adja meg a SES API titkos kulcsot',
+        'ses_region' => 'SES régió',
+        'ses_region_comment' => 'Adja meg a SES régiót (pl. us-east-1)',
         'drivers_hint_header' => 'Meghajtó nincs telepítve',
         'drivers_hint_content' => 'A levél küldéséhez szükséges, hogy telepítve legyen a(z) ":plugin" nevű bővítmény.'
     ],
@@ -210,13 +221,13 @@ return [
         'install_success' => 'A bővítmény telepítése sikerült.'
     ],
     'updates' => [
-        'title' => 'Frissítések kezelése',
+        'title' => 'Gépház',
         'name' => 'Szoftver frissítése',
-        'menu_label' => 'Frissítések',
-        'menu_description' => 'A rendszer és a bővítmények frissítése, valamint új kiegészítők telepítése.',
-        'return_link' => 'Vissza a frissítésekhez',
-        'check_label' => 'Frissítések keresése',
-        'retry_label' => 'Új próba',
+        'menu_label' => 'Gépház',
+        'menu_description' => 'A rendszer frissítése, valamint új bővítmények telepítése.',
+        'return_link' => 'Vissza a gépházhoz',
+        'check_label' => 'Frissítés keresése',
+        'retry_label' => 'Újra próbál',
         'plugin_name' => 'Név',
         'plugin_code' => 'Kód',
         'plugin_description' => 'Leírás',
@@ -227,7 +238,7 @@ return [
         'core_build_help' => 'Elérhető a legújabb hivatalos kiadás.',
         'core_downloading' => 'Weboldal frissítés letöltése...',
         'core_extracting' => 'Weboldal frissítés kicsomagolása...',
-        'plugins' => 'Bővítmény',
+        'plugins' => 'Bővítmények',
         'themes' => 'Témák',
         'disabled' => 'Letiltva',
         'plugin_downloading' => 'Bővítmény letöltése: :name',
@@ -249,7 +260,7 @@ return [
         ],
         'none' => [
             'label' => 'A weboldal naprakész',
-            'help' => 'Nem található új frissítés.'
+            'help' => 'Gratulálunk! A weboldala naprakész.'
         ],
         'important_action' => [
             'empty' => 'Művelet kiválasztása',
@@ -265,7 +276,7 @@ return [
         'details_readme' => 'Dokumentáció',
         'details_readme_missing' => 'Nincs megadva dokumentáció.',
         'details_upgrades' => 'Frissítési útmutató',
-        'details_upgrades_missing' => 'Nincsennek megadva frissítési utasítások.',
+        'details_upgrades_missing' => 'Nincs megadva instrukció.',
         'details_current_version' => 'Aktuális verzió',
         'details_author' => 'Fejlesztő'
     ],
@@ -318,15 +329,15 @@ return [
     ],
     'permissions' => [
         'name' => 'Rendszer',
-        'manage_system_settings' => 'Rendszer beállítások kezelése',
-        'manage_software_updates' => 'Szoftver frissítések kezelése',
-        'access_logs' => 'Rendszer naplók megtekintése',
+        'manage_system_settings' => 'Beállítások kezelése',
+        'manage_software_updates' => 'Frissítések és bővítmények kezelése',
+        'access_logs' => 'Naplók megtekintése',
         'manage_mail_templates' => 'Levél sablonok kezelése',
         'manage_mail_settings' => 'Levelezési beállítások kezelése',
         'manage_other_administrators' => 'Adminisztrátorok kezelése',
-        'manage_preferences' => 'Beállítások menü kezelése',
+        'manage_preferences' => 'Saját beállítások kezelése',
         'manage_editor' => 'Kódszerkesztő testreszabása',
-        'view_the_dashboard' => 'Vezérlőpult megtekintése',
+        'view_the_dashboard' => 'Vezérlőpult elérése',
         'manage_branding' => 'Admin felület testreszabása'
     ]
 ];

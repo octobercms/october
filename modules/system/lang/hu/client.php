@@ -49,6 +49,14 @@ return [
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Mégsem'
+    ],
+
+    'datepicker' => [
+        'previousMonth' => 'Előző hónap',
+        'nextMonth' => 'Következő hónap',
+        'months' => ['január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december'],
+        'weekdays' => ['vasárnap', 'hétfő', 'kedd', 'szerda', 'csütörtök', 'péntek', 'szombat'],
+        'weekdaysShort' => ['va', 'hé', 'ke', 'sze', 'cs', 'pé', 'szo']
     ]
 
 ];
