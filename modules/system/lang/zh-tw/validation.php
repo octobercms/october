@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -21,12 +21,12 @@ return array(
     "alpha_num"        => ":attribute 只能包含字母和數字.",
     "array"            => ":attribute 只能是一個陣列.",
     "before"           => ":attribute 必須是 :date 之前的一個日期.",
-    "between"          => array(
+    "between"          => [
         "numeric" => ":attribute 在 :min - :max 之間.",
         "file"    => ":attribute 在 :min - :max kilobytes之間.",
         "string"  => ":attribute 在 :min - :max 字元之間.",
         "array"   => ":attribute 在 :min - :max 個之間.",
-    ),
+    ],
     "confirmed"        => ":attribute 的確認不滿足.",
     "date"             => ":attribute 不是一個合法的日期.",
     "date_format"      => ":attribute 不符合 :format 格式.",
@@ -39,19 +39,19 @@ return array(
     "in"               => "選取的 :attribute 無效.",
     "integer"          => ":attribute 必須是數字.",
     "ip"               => ":attribute 必須是一個有效的IP地址.",
-    "max"              => array(
+    "max"              => [
         "numeric" => ":attribute 不能大於 :max.",
         "file"    => ":attribute 不能大於 :max kilobytes.",
         "string"  => ":attribute 不能超過 :max 字元.",
         "array"   => ":attribute 不能超過 :max 個.",
-    ),
+    ],
     "mimes"            => ":attribute 必須是一個: :values 類型的檔案.",
-    "min"              => array(
+    "min"              => [
         "numeric" => ":attribute 必須至少 :min.",
         "file"    => ":attribute 必須至少 :min kilobytes.",
         "string"  => ":attribute 必須至少 :min 字元.",
         "array"   => ":attribute 必須至少 :min 個.",
-    ),
+    ],
     "not_in"           => "選取的 :attribute 無效.",
     "numeric"          => ":attribute 必須是一個數字.",
     "regex"            => ":attribute 格式無效.",
@@ -60,12 +60,12 @@ return array(
     "required_with"    => "需要 :attribute 字串, 當 :values 是目前值.",
     "required_without" => "需要 :attribute 字串, 當 :values 不是目前值.",
     "same"             => ":attribute 和 :other 必須相符.",
-    "size"             => array(
+    "size"             => [
         "numeric" => ":attribute 必須是 :size.",
         "file"    => ":attribute 必須是 :size kilobytes.",
         "string"  => ":attribute 必須是 :size 字元.",
         "array"   => ":attribute 必須是 :size 個.",
-    ),
+    ],
     "unique"           => ":attribute 已使用.",
     "url"              => ":attribute 格式無效.",
 
@@ -95,4 +95,4 @@ return array(
 
     'attributes' => array(),
 
-);
+];
