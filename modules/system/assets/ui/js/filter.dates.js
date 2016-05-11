@@ -29,29 +29,30 @@
     FilterWidget.prototype.init = function () {
         overloaded_init.apply(this);
 
-        this.initFilterDate();
-    };
+        this.initRegion()
+        this.initFilterDate()
+    }
 
 
     // NEW MODULE
     // =================
 
     FilterWidget.prototype.initFilterDate = function () {
-        var self = this;
+        var self = this
 
         this.$el.on('show.oc.popover', 'a.filter-scope-date', function () {
-            self.initDatePickers($(this).hasClass('range'));
+            self.initDatePickers($(this).hasClass('range'))
         });
 
         this.$el.on('hiding.oc.popover', 'a.filter-scope-date', function () {
-            self.clearDatePickers();
+            self.clearDatePickers()
         });
 
         this.$el.on('hide.oc.popover', 'a.filter-scope-date', function () {
-            var $scope = $(this);
-            self.pushOptions(self.activeScopeName);
-            self.activeScopeName = null;
-            self.$activeScope = null;
+            var $scope = $(this)
+            self.pushOptions(self.activeScopeName)
+            self.activeScopeName = null
+            self.$activeScope = null
 
             // Second click closes the filter scope
             setTimeout(function () {
@@ -61,17 +62,17 @@
 
         this.$el.on('click', 'a.filter-scope-date', function () {
             var $scope = $(this),
-                scopeName = $scope.data('scope-name');
+                scopeName = $scope.data('scope-name')
 
             // Ignore if already opened
-            if ($scope.hasClass('filter-scope-open')) return;
+            if ($scope.hasClass('filter-scope-open')) return
 
             // Ignore if another popover is opened
-            if (null !== self.activeScopeName) return;
+            if (null !== self.activeScopeName) return
 
-            self.$activeScope = $scope;
-            self.activeScopeName = scopeName;
-            self.isActiveScopeDirty = false;
+            self.$activeScope = $scope
+            self.activeScopeName = scopeName
+            self.isActiveScopeDirty = false
 
             if ($scope.hasClass('range')) {
                 self.displayPopoverRange($scope)
@@ -84,19 +85,19 @@
         });
 
         $(document).on('click', '#controlFilterPopover [data-trigger="filter"]', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+            e.preventDefault()
+            e.stopPropagation()
 
             self.filterByDate()
         });
 
         $(document).on('click', '#controlFilterPopover [data-trigger="clear"]', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+            e.preventDefault()
+            e.stopPropagation()
 
             self.filterByDate(true)
         })
-    };
+    }
 
     /*
      * Get popover date template
@@ -128,7 +129,7 @@
                     </div>                                                                                              \
                 </form>                                                                                                 \
             '
-    };
+    }
 
     /*
      * Get popover range template
@@ -175,23 +176,23 @@
                     </div>                                                                                              \
                 </form>                                                                                                 \
             '
-    };
+    }
 
     FilterWidget.prototype.displayPopoverDate = function ($scope) {
         var self = this,
             scopeName = $scope.data('scope-name'),
-            data = this.scopeValues[scopeName];
+            data = this.scopeValues[scopeName]
 
         data = $.extend({}, data, {
             filter_button_text: $.oc.lang.get('filter.dates.filter_button_text'),
             reset_button_text: $.oc.lang.get('filter.dates.reset_button_text'),
-            date_placeholder: $.oc.lang.get('filter.dates.date_placeholder')
-        });
+            date_placeholder: this.getLang('filter.dates.date_placeholder', 'Date')
+        })
 
-        data.scopeName = scopeName;
+        data.scopeName = scopeName
 
         // Destroy any popovers already bound
-        $scope.data('oc.popover', null);
+        $scope.data('oc.popover', null)
 
         $scope.ocPopover({
             content: Mustache.render(self.getPopoverDateTemplate(), data),
@@ -203,24 +204,24 @@
                 return self.onCheckDocumentClickTargetDatePicker(target);
             }
         })
-    };
+    }
 
     FilterWidget.prototype.displayPopoverRange = function ($scope) {
         var self = this,
             scopeName = $scope.data('scope-name'),
-            data = this.scopeValues[scopeName];
+            data = this.scopeValues[scopeName]
 
         data = $.extend({}, data, {
             filter_button_text: $.oc.lang.get('filter.dates.filter_button_text'),
             reset_button_text: $.oc.lang.get('filter.dates.reset_button_text'),
-            after_placeholder: $.oc.lang.get('filter.dates.after_placeholder'),
-            before_placeholder: $.oc.lang.get('filter.dates.before_placeholder')
-        });
+            after_placeholder: this.getLang('filter.dates.after_placeholder', 'After'),
+            before_placeholder: this.getLang('filter.dates.before_placeholder', 'Before')
+        })
 
-        data.scopeName = scopeName;
+        data.scopeName = scopeName
 
         // Destroy any popovers already bound
-        $scope.data('oc.popover', null);
+        $scope.data('oc.popover', null)
 
         $scope.ocPopover({
             content: Mustache.render(self.getPopoverRangeTemplate(), data),
@@ -229,16 +230,16 @@
             closeOnPageClick: true,
             placement: 'bottom',
             onCheckDocumentClickTarget: function (target) {
-                return self.onCheckDocumentClickTargetDatePicker(target);
+                return self.onCheckDocumentClickTargetDatePicker(target)
             }
         })
-    };
+    }
 
     FilterWidget.prototype.initDatePickers = function (isRange) {
         var self = this,
             scopeData = self.$activeScope.data('scope-data'),
             $inputs = $('.field-datepicker input', '#controlFilterPopover'),
-            data = self.scopeValues[self.activeScopeName];
+            data = self.scopeValues[self.activeScopeName]
 
         if (!data) {
             data = {
@@ -256,7 +257,7 @@
                     setDefaultDate: '' !== defaultValue ? defaultValue.toDate() : '',
                     format: self.getDateFormat(),
                     i18n: $.oc.lang.get('datepicker')
-                };
+                }
 
             if (0 <= index && index < data.dates.length) {
                 defaultValue = moment(data.dates[index], 'YYYY-MM-DD')
@@ -272,22 +273,22 @@
 
             $datepicker.pikaday(defaults)
         })
-    };
+    }
 
     FilterWidget.prototype.clearDatePickers = function () {
-        var $inputs = $('.field-datepicker input', '#controlFilterPopover');
+        var $inputs = $('.field-datepicker input', '#controlFilterPopover')
 
         $inputs.each(function (index, datepicker) {
-            var $datepicker = $(datepicker);
+            var $datepicker = $(datepicker)
 
-            $datepicker.data('pikaday').destroy();
+            $datepicker.data('pikaday').destroy()
         })
-    };
+    }
 
     FilterWidget.prototype.updateScopeDateSetting = function ($scope, dates) {
         var self = this,
             $setting = $scope.find('.filter-setting'),
-            dateFormat = self.getDateFormat();
+            dateFormat = self.getDateFormat()
 
         if (dates && dates.length) {
             if (dates.length > 1) {
@@ -295,21 +296,22 @@
                     before = moment(dates[1], 'YYYY-MM-DD').format(dateFormat);
 
                 $setting.text(after + ' → ' + before)
-            } else {
+            }
+            else {
                 $setting.text(moment(dates[0], 'YYYY-MM-DD').format(dateFormat))
             }
 
             $scope.addClass('active')
         }
         else {
-            $setting.text($.oc.lang.get('filter.dates.all'));
+            $setting.text(this.getLang('filter.dates.all', 'all'));
             $scope.removeClass('active')
         }
-    };
+    }
 
     FilterWidget.prototype.filterByDate = function (isReset) {
         var self = this,
-            dates = [];
+            dates = []
 
         if (!isReset) {
             $('.field-datepicker input', '#controlFilterPopover').each(function (index, datepicker) {
@@ -320,17 +322,24 @@
         self.updateScopeDateSetting(self.$activeScope, dates);
         self.scopeValues[self.activeScopeName] = {
             dates: dates
-        };
+        }
         self.isActiveScopeDirty = true;
         self.$activeScope.data('oc.popover').hide()
-    };
+    }
 
     FilterWidget.prototype.getDateFormat = function () {
-        return $.oc.lang.get('filter.dates.format')
-    };
+        if (this.locale) {
+            return moment()
+                .locale(this.locale)
+                .localeData()
+                .longDateFormat('l')
+        }
+
+        return 'YYYY-MM-DD'
+    }
 
     FilterWidget.prototype.onCheckDocumentClickTargetDatePicker = function (target) {
-        var $target = $(target);
+        var $target = $(target)
 
         // If the click happens on a pikaday element, do not close the popover
         return $target.hasClass('pika-next') ||
@@ -338,6 +347,21 @@
             $target.hasClass('pika-select') ||
             $target.hasClass('pika-button') ||
             $target.parents('.pika-table').length ||
-            $target.parents('.pika-title').length;
-    };
+            $target.parents('.pika-title').length
+    }
+
+    FilterWidget.prototype.initRegion = function() {
+        this.locale = $('meta[name="backend-locale"]').attr('content')
+        this.timezone = $('meta[name="backend-timezone"]').attr('content')
+        this.appTimezone = $('meta[name="app-timezone"]').attr('content')
+
+        if (!this.appTimezone) {
+            this.appTimezone = 'UTC'
+        }
+
+        if (!this.timezone) {
+            this.timezone = 'UTC'
+        }
+    }
+
 }(window.jQuery);

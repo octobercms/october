@@ -64,8 +64,7 @@ return [
             'all' => 'all'
         ],
         'dates' => [
-            'format' => 'YYYY-MM-DD', // Moment.js date format
-            'all' => 'all period',
+            'all' => 'all',
             'filter_button_text' => 'Filter',
             'reset_button_text'  => 'Reset',
             'date_placeholder' => 'Date',
