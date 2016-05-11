@@ -67,7 +67,6 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/backend/assets/less/october.less');
             $combiner->registerBundle('~/modules/backend/assets/js/october.js');
             $combiner->registerBundle('~/modules/backend/widgets/table/assets/js/build.js');
-            $combiner->registerBundle('~/modules/backend/formwidgets/datepicker/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/less/richeditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/less/codeeditor.less');

@@ -33,6 +33,7 @@
 =require js/checkbox.balloon.js
 =require js/dropdown.js
 =require js/callout.js
+=require js/datepicker.js
 =require js/tooltip.js
 =require js/toolbar.js
 =require js/filter.js

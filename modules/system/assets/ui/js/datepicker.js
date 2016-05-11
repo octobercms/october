@@ -1,15 +1,7 @@
 /*
  * DatePicker plugin
  *
- * Data attributes:
- * - data-control="datepicker" - enables the plugin on an element
- * - data-format="value" - display format
- * - data-min-date="value" - minimum date to allow
- * - data-max-date="value" - maximum date to allow
- * - data-year-range="value" - range of years to display
- *
- * JavaScript API:
- * $('a#someElement').datePicker({ option: 'value' })
+ * - Documentation: ../docs/datepicker.md
  *
  * Dependences:
  * - Pikaday plugin (pikaday.js)
@@ -109,7 +101,6 @@
             yearRange: this.options.yearRange,
             format: this.getDateFormat(),
             setDefaultDate: moment().tz(this.timezone).format('l'), // now
-            i18n: $.oc.lang.get('datepicker'),
             onOpen: function() {
                 var $field = $(this._o.trigger)
 
@@ -121,6 +112,11 @@
             onSelect: function() {
                 self.onSelectDatePicker.call(self, this.getMoment())
             }
+        }
+
+        var lang = this.getLang('datepicker', false)
+        if (lang) {
+            pikadayOptions.i18n = lang
         }
 
         this.$datePicker.val(this.getDataLockerValue('l'))
@@ -282,6 +278,14 @@
         if (!this.timezone) {
             this.timezone = 'UTC'
         }
+    }
+
+    DatePicker.prototype.getLang = function(key, defaultValue) {
+        if ($.oc === undefined || $.oc.lang === undefined) {
+            return defaultValue
+        }
+
+        return $.oc.lang.get(name, defaultValue)
     }
 
     DatePicker.DEFAULTS = {

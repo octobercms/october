@@ -168,7 +168,7 @@ class OctoberUtil extends Command
             /*
              * Include the moment localization data
              */
-            $momentPath = base_path() . '/modules/backend/assets/vendor/moment/locale/'.$locale.'.js';
+            $momentPath = base_path() . '/modules/system/assets/ui/vendor/moment/locale/'.$locale.'.js';
             if (File::exists($momentPath)) {
                 $contents .= PHP_EOL.PHP_EOL.File::get($momentPath).PHP_EOL;
             }

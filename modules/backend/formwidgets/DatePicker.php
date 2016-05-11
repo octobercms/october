@@ -123,17 +123,6 @@ class DatePicker extends FormWidgetBase
     /**
      * {@inheritDoc}
      */
-    protected function loadAssets()
-    {
-        $this->addCss('vendor/pikaday/css/pikaday.css', 'core');
-        $this->addCss('vendor/clockpicker/css/jquery-clockpicker.css', 'core');
-        $this->addCss('css/datepicker.css', 'core');
-        $this->addJs('js/build-min.js', 'core');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getSaveValue($value)
     {
         if ($this->formField->disabled) {
