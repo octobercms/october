@@ -406,7 +406,7 @@
             return defaultValue
         }
 
-        return $.oc.lang.get(name, defaultValue)
+        return $.oc.lang.get(key, defaultValue)
     }
 
 
