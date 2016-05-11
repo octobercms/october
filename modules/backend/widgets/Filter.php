@@ -1,5 +1,8 @@
 <?php namespace Backend\Widgets;
 
+use Backend\Classes\FormField;
+use Backend\FormWidgets\DatePicker;
+use Carbon\Carbon;
 use Db;
 use Str;
 use Lang;
@@ -97,6 +100,14 @@ class Filter extends WidgetBase
      */
     public function renderScopeElement($scope)
     {
+        switch ($scope->type) {
+            case 'datepicker':
+            case 'daterangepicker':
+                // Load datepicker assets
+                new DatePicker($this->controller, new FormField('dummy', 'dummy'));
+                break;
+        }
+
         return $this->makePartial('scope_'.$scope->type, ['scope' => $scope]);
     }
 
@@ -132,6 +143,32 @@ class Filter extends WidgetBase
             case 'switch':
                 $value = post('value');
                 $this->setScopeValue($scope, $value);
+                break;
+
+            case 'datepicker':
+                $dates = $this->datesFromAjax(post('options.dates'));
+
+                if (!empty($dates)) {
+                    list($date) = $dates;
+                } else {
+                    $date = null;
+                }
+
+                $this->setScopeValue($scope, $date);
+                break;
+
+            case 'daterangepicker':
+                $dates = $this->datesFromAjax(post('options.dates'));
+
+                if (!empty($dates)) {
+                    list($after, $before) = $dates;
+
+                    $dates = [$after, $before];
+                } else {
+                    $dates = null;
+                }
+
+                $this->setScopeValue($scope, $dates);
                 break;
         }
 
@@ -392,6 +429,14 @@ class Filter extends WidgetBase
                 $this->scopeModels[$name] = $model;
             }
 
+            /*
+             * Ensure dates options are set
+             */
+            if (!isset($config['minDate'])) {
+                $scopeObj->minDate = '2000-01-01';
+                $scopeObj->maxDate = '2099-12-31';
+            }
+
             $this->allScopes[$name] = $scopeObj;
         }
     }
@@ -451,38 +496,60 @@ class Filter extends WidgetBase
             return;
         }
 
-        $value = is_array($scope->value) ? array_keys($scope->value) : $scope->value;
+        switch ($scope->type) {
+            case 'datepicker':
+                if ($scope->value instanceof Carbon && $scopeConditions = $scope->conditions) {
+                    $query->whereRaw(strtr($scopeConditions, [':filtered' => $scope->value->format('Y-m-d')]));
+                }
 
-        /*
-         * Condition
-         */
-        if ($scopeConditions = $scope->conditions) {
+                break;
+            case 'daterangepicker':
+                if (is_array($scope->value) && count($scope->value) > 1 && ($scopeConditions = $scope->conditions)) {
+                    list($after, $before) = array_values($scope->value);
 
-            /*
-             * Switch scope: multiple conditions, value either 1 or 2
-             */
-            if (is_array($scopeConditions)) {
-                $conditionNum = is_array($value) ? 0 : $value - 1;
-                list($scopeConditions) = array_slice($scopeConditions, $conditionNum);
-            }
+                    if($after instanceof Carbon && $before instanceof Carbon) {
+                        $query->whereRaw(strtr($scopeConditions, [
+                            ':after'  => $after->format('Y-m-d'),
+                            ':before' => $before->format('Y-m-d')
+                        ]));
+                    }
+                }
 
-            if (is_array($value)) {
-                $filtered = implode(',', array_build($value, function ($key, $_value) {
-                    return [$key, Db::getPdo()->quote($_value)];
-                }));
-            }
-            else {
-                $filtered = Db::getPdo()->quote($value);
-            }
+                break;
+            default:
+                $value = is_array($scope->value) ? array_keys($scope->value) : $scope->value;
 
-            $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [':filtered' => $filtered])));
-        }
+                /*
+                 * Condition
+                 */
+                if ($scopeConditions = $scope->conditions) {
 
-        /*
-         * Scope
-         */
-        if ($scopeMethod = $scope->scope) {
-            $query->$scopeMethod($value);
+                    /*
+                     * Switch scope: multiple conditions, value either 1 or 2
+                     */
+                    if (is_array($scopeConditions)) {
+                        $conditionNum = is_array($value) ? 0 : $value - 1;
+                        list($scopeConditions) = array_slice($scopeConditions, $conditionNum);
+                    }
+
+                    if (is_array($value)) {
+                        $filtered = implode(',', array_build($value, function ($key, $_value) {
+                            return [$key, Db::getPdo()->quote($_value)];
+                        }));
+                    }
+                    else {
+                        $filtered = Db::getPdo()->quote($value);
+                    }
+
+                    $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [':filtered' => $filtered])));
+                }
+
+                /*
+                 * Scope
+                 */
+                if ($scopeMethod = $scope->scope) {
+                    $query->$scopeMethod($value);
+                }
         }
 
         return $query;
@@ -603,5 +670,46 @@ class Filter extends WidgetBase
             $processed[$id] = array_get($option, 'name');
         }
         return $processed;
+    }
+
+
+    /**
+     * Convert an array from the posted dates
+     *
+     * @param  mixed $scope
+     * @param  array $dates
+     *
+     * @return array
+     */
+    protected function datesFromAjax($ajaxDates)
+    {
+        $dates = [];
+
+        if (null !== $ajaxDates) {
+            if (!is_array($ajaxDates)) {
+                $dates = [$ajaxDates];
+            }
+
+            foreach ($ajaxDates as $date) {
+                $dates[] = Carbon::createFromFormat('Y-m-d', $date);
+            }
+        }
+
+        return $dates;
+    }
+
+
+    /**
+     * @param mixed $scope
+     *
+     * @return string
+     */
+    protected function getFilterDateFormat($scope)
+    {
+        if (isset($scope->date_format)) {
+            return $scope->date_format;
+        }
+
+        return trans('backend::lang.filter.date.format');
     }
 }

@@ -158,7 +158,7 @@
             $scope.addClass('active')
         }
         else {
-            $setting.text('all')
+            $setting.text($.oc.lang.get('filter.group.all'))
             $scope.removeClass('active')
         }
     }
