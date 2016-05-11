@@ -280,7 +280,7 @@
         }
     }
 
-    DatePicker.prototype.getLang = function(key, defaultValue) {
+    DatePicker.prototype.getLang = function(name, defaultValue) {
         if ($.oc === undefined || $.oc.lang === undefined) {
             return defaultValue
         }

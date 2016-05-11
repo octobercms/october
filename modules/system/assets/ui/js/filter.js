@@ -401,7 +401,7 @@
         $scope.toggleClass('active', !!switchValue)
     }
 
-    FilterWidget.prototype.getLang = function(key, defaultValue) {
+    FilterWidget.prototype.getLang = function(name, defaultValue) {
         if ($.oc === undefined || $.oc.lang === undefined) {
             return defaultValue
         }
