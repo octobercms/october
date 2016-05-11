@@ -18,6 +18,11 @@
 =require vendor/select2/js/select2.full.js
 =require vendor/mousewheel/mousewheel.js
 =require vendor/sortable/jquery-sortable.js
+=require vendor/moment/moment.js
+=require vendor/moment/moment-timezone-with-data.js
+=require vendor/pikaday/js/pikaday.js
+=require vendor/pikaday/js/pikaday.jquery.js
+=require vendor/clockpicker/js/jquery-clockpicker.js
 
 =require js/foundation.baseclass.js
 =require js/foundation.element.js
