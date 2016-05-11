@@ -351,7 +351,7 @@ var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
 for(var i=0,len=items.length;i<len;i++){paths.push({'path':items[i].getAttribute('data-path'),'type':items[i].getAttribute('data-item-type')})}
 var data={paths:paths}
 $.oc.stripeLoadIndicator.show()
-this.$form.request(this.options.alias+'::onDelete',{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.afterNavigate))}
+this.$form.request(this.options.alias+'::onDeleteItem',{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.afterNavigate))}
 MediaManager.prototype.createFolder=function(ev){$(ev.target).popup({content:this.$el.find('[data-control="new-folder-template"]').html(),zIndex:1200})}
 MediaManager.prototype.onFolderPopupShown=function(ev,button,popup){$(popup).find('input[name=name]').focus()
 $(popup).on('submit.media','form',this.proxy(this.onNewFolderSubmit))}

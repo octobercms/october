@@ -220,7 +220,7 @@ class MediaManager extends WidgetBase
         ];
     }
 
-    public function onDelete()
+    public function onDeleteItem()
     {
         $paths = Input::get('paths');
 
@@ -244,8 +244,9 @@ class MediaManager extends WidgetBase
             }
         }
 
-        if (count($filesToDelete) > 0)
+        if (count($filesToDelete) > 0) {
             $library->deleteFiles($filesToDelete);
+        }
 
         $library->resetCache();
         $this->prepareVars();

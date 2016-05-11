@@ -940,7 +940,7 @@
             }
 
         $.oc.stripeLoadIndicator.show()
-        this.$form.request(this.options.alias+'::onDelete', {
+        this.$form.request(this.options.alias+'::onDeleteItem', {
             data: data
         }).always(function() {
             $.oc.stripeLoadIndicator.hide()
@@ -967,7 +967,7 @@
         var data = {
                 name: $(ev.target).find('input[name=name]').val(),
                 path: this.$el.find('[data-type="current-folder"]').val()
-            } 
+            }
 
         $.oc.stripeLoadIndicator.show()
         this.$form.request(this.options.alias+'::onCreateFolder', {
