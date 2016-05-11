@@ -95,7 +95,7 @@
             // Use two triangles to achieve the darkening effect
             &:before,
             &:after {
-                .triangle(down, 15px, 8px, @brand-secondary);
+                .triangle(down, 15px, 8px, @brand-primary);
                 position: absolute;
                 left: 15px;
                 bottom: -8px;
@@ -157,18 +157,23 @@
                     .opacity(1);
                 }
 
-                &.active a {
-                    //background: @color-sidebarnav-tree-active-bg;
-                    color: @color-sidebarnav-tree-active-text;
+                &.active {
+                    border-left: 5px solid @brand-accent;
 
-                    span.header {
-                        color: @color-sidebarnav-tree-active-header;
-                    }
-
-                    span.description {
+                    a {
                         color: @color-sidebarnav-tree-active-text;
+                        padding-right: 20px;
+
+                        span.header {
+                            color: @color-sidebarnav-tree-active-header;
+                        }
+
+                        span.description {
+                            color: @color-sidebarnav-tree-active-text;
+                        }
                     }
                 }
+
 
                 &:last-child a {
                     border-bottom: none;

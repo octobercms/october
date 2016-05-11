@@ -141,11 +141,11 @@
 .control-simplelist.is-divided li .heading,.control-simplelist.is-selectable li .heading{font-size:14px;font-weight:bold}
 .control-simplelist.is-divided li:last-child,.control-simplelist.is-selectable li:last-child{border-bottom:none}
 .control-simplelist.is-selectable li a{padding:5px 10px;margin:-5px -10px;display:block;color:#333333}
-.control-simplelist.is-selectable li:hover{background:#4da7e8;cursor:pointer}
+.control-simplelist.is-selectable li:hover{background:#4ea5e0;cursor:pointer}
 .control-simplelist.is-selectable li:hover,.control-simplelist.is-selectable li:hover a{color:white}
 .control-simplelist.is-selectable li:hover a{text-decoration:none}
 .control-simplelist.is-selectable li.active a{background:#f0f0f0}
-.control-simplelist.is-selectable li.active a:hover{background:#4da7e8}
+.control-simplelist.is-selectable li.active a:hover{background:#4ea5e0}
 .list-preview .control-simplelist.is-selectable ul{margin-bottom:0}
 .drag-noselect{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .control-scrollbar{position:relative;overflow:hidden;height:100%;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}
@@ -267,14 +267,14 @@
 .control-treelist li > div.record{margin:0;font-size:12px;margin-bottom:5px;position:relative;display:block}
 .control-treelist li > div.record:before{color:#bdc3c7;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f111";font-size:6px;position:absolute;left:-18px;top:11px}
 .control-treelist li > div.record > a.move{display:inline-block;padding:7px 0 7px 10px;text-decoration:none;color:#bdc3c7}
-.control-treelist li > div.record > a.move:hover{color:#4da7e8}
+.control-treelist li > div.record > a.move:hover{color:#4ea5e0}
 .control-treelist li > div.record > a.move:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0c9"}
 .control-treelist li > div.record > span{color:#666666;display:inline-block;padding:7px 15px 7px 5px}
 .control-treelist li.dragged{position:absolute;z-index:2000;width:auto !important;height:auto !important}
-.control-treelist li.dragged > div.record{opacity:0.5;filter:alpha(opacity=50);background:#4da7e8 !important}
+.control-treelist li.dragged > div.record{opacity:0.5;filter:alpha(opacity=50);background:#4ea5e0 !important}
 .control-treelist li.dragged > div.record > a.move:before,.control-treelist li.dragged > div.record > span{color:white}
 .control-treelist li.dragged > div.record:before{display:none}
-.control-treelist li.placeholder{display:inline-block;position:relative;background:#4da7e8 !important;height:25px;margin-bottom:5px}
+.control-treelist li.placeholder{display:inline-block;position:relative;background:#4ea5e0 !important;height:25px;margin-bottom:5px}
 .control-treelist li.placeholder:before{display:block;position:absolute;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f053";color:#d35714;left:-10px;top:8px;z-index:2000}
 .control-treeview{margin-bottom:40px; }
 .control-treeview ol{margin:0;padding:0;list-style:none;background:#ffffff}
@@ -428,7 +428,8 @@
 .sidenav-tree ul.top-level > li > ul li a span.header{color:#ffffff;font-size:15px;margin-bottom:5px}
 .sidenav-tree ul.top-level > li > ul li a span.description{color:rgba(255,255,255,0.6);font-size:13px}
 .sidenav-tree ul.top-level > li > ul li:hover a,.sidenav-tree ul.top-level > li > ul li.active a{opacity:1;filter:alpha(opacity=100)}
-.sidenav-tree ul.top-level > li > ul li.active a{color:rgba(255,255,255,0.91)}
+.sidenav-tree ul.top-level > li > ul li.active{border-left:5px solid #3498db}
+.sidenav-tree ul.top-level > li > ul li.active a{color:rgba(255,255,255,0.91);padding-right:20px}
 .sidenav-tree ul.top-level > li > ul li.active a span.header{color:#ffffff}
 .sidenav-tree ul.top-level > li > ul li.active a span.description{color:rgba(255,255,255,0.91)}
 .sidenav-tree ul.top-level > li > ul li:last-child a{border-bottom:none}

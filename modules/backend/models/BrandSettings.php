@@ -30,9 +30,9 @@ class BrandSettings extends Model
 
     const CACHE_KEY = 'backend::brand.custom_css';
 
-    const PRIMARY_COLOR   = '#3498db'; // Peter River
-    const SECONDARY_COLOR = '#34495e'; // Wet Asphalt
-    const ACCENT_COLOR    = '#e67e22'; // Pumpkin
+    const PRIMARY_COLOR   = '#34495e'; // Wet Asphalt
+    const SECONDARY_COLOR = '#e67e22'; // Pumpkin
+    const ACCENT_COLOR    = '#3498db'; // Peter River
 
     const INLINE_MENU   = 'inline';
     const TILE_MENU     = 'tile';

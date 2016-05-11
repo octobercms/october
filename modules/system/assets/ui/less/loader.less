@@ -9,7 +9,7 @@
 // --------------------------------------------------
 
 @color-loading-indicator-text:               #999999;
-@color-stripe-loader:                        #0090c0;
+@color-stripe-loader:                        @brand-accent;
 @loader-image-path:                          @image-path;
 
 .loading-indicator {
@@ -238,22 +238,15 @@ html.cssanimations {
 
     .stripe-loaded {
         width: 0;
-
-        // Opacity replaced with display. Leaving the animated indicator element
-        // in the rendering tree, even invisible, affects the performance.
-        // .opacity(0);
-        display: none;
+        .opacity(0);
     }
 
     &.loaded {
-        // .opacity(0);
-        display: none;
-
+        .opacity(0);
         .transition(opacity .4s linear);
         .transition-delay(.3s);
         .stripe-loaded {
-            display: block;
-            // .opacity(1);
+            .opacity(1);
             .transition(width .3s linear);
             width: 100% !important;
         }

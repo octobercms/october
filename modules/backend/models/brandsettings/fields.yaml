@@ -29,13 +29,13 @@ tabs:
             label: backend::lang.branding.primary_color
             type: colorpicker
             tab: backend::lang.branding.colors
-            availableColors: [#16a085, #27ae60, #3498db, #9b59b6, #34495e, #f1c40f, #e67e22, #e74c3c, #ecf0f1, #95a5a6]
+            availableColors: [#16a085, #27ae60, #2980b9, #8e44ad, #34495e, #f39c12, #d35400, #c0392b, #7f8c8d, #4f5458]
 
         secondary_color:
             label: backend::lang.branding.secondary_color
             type: colorpicker
             tab: backend::lang.branding.colors
-            availableColors: [#16a085, #27ae60, #2980b9, #8e44ad, #34495e, #f39c12, #d35400, #c0392b, #bdc3c7, #7f8c8d]
+            availableColors: [#16a085, #27ae60, #3498db, #9b59b6, #34495e, #f39c12, #e67e22, #e74c3c, #708598, #4f5458]
 
         accent_color:
             label: backend::lang.branding.accent_color

@@ -2314,20 +2314,24 @@ $(document).on('ajaxPromise','[data-cursor-load-indicator]',function(){$.oc.curs
 $.oc={}
 var StripeLoadIndicator=function(){var self=this
 this.counter=0
-this.indicator=$('<div/>').addClass('stripe-loading-indicator loaded').append($('<div />').addClass('stripe')).append($('<div />').addClass('stripe-loaded'))
+this.indicator=this.makeIndicator()
 this.stripe=this.indicator.find('.stripe')
+this.animationTimer=null
 $(document).ready(function(){$(document.body).append(self.indicator)})}
-StripeLoadIndicator.prototype.show=function(){this.counter++
+StripeLoadIndicator.prototype.makeIndicator=function(){return $('<div/>').addClass('stripe-loading-indicator loaded').append($('<div />').addClass('stripe')).append($('<div />').addClass('stripe-loaded'))}
+StripeLoadIndicator.prototype.show=function(){window.clearTimeout(this.animationTimer)
+this.indicator.show()
+this.counter++
 this.stripe.after(this.stripe=this.stripe.clone()).remove()
-if(this.counter>1)
-return
+if(this.counter>1){return}
 this.indicator.removeClass('loaded')
 $(document.body).addClass('loading')}
-StripeLoadIndicator.prototype.hide=function(force){this.counter--
-if(force!==undefined&&force)
-this.counter=0
+StripeLoadIndicator.prototype.hide=function(force){var self=this
+this.counter--
+if(force!==undefined&&force){this.counter=0}
 if(this.counter<=0){this.indicator.addClass('loaded')
-$(document.body).removeClass('loading')}}
+$(document.body).removeClass('loading')
+this.animationTimer=window.setTimeout(function(){self.indicator.hide()},1000)}}
 $.oc.stripeLoadIndicator=new StripeLoadIndicator()
 $(document).on('ajaxPromise','[data-stripe-load-indicator]',function(event){event.stopPropagation()
 $.oc.stripeLoadIndicator.show()
@@ -2469,6 +2473,7 @@ this.firstDiv=null
 this.allowHide=true
 this.$container=this.createPopupContainer()
 this.$content=this.$container.find('.modal-content:first')
+this.$dialog=this.$container.find('.modal-dialog:first')
 this.$modal=this.$container.modal({show:false,backdrop:false,keyboard:this.options.keyboard})
 this.$container.data('oc.popup',this)
 this.$modal.on('hide.bs.modal',function(){self.triggerEvent('hide.oc.popup')
@@ -2546,11 +2551,13 @@ Popup.prototype.reload=function(){this.init()}
 Popup.prototype.show=function(){this.$modal.modal('show')
 this.$modal.on('click.dismiss.popup','[data-dismiss="popup"]',$.proxy(this.hide,this))
 this.triggerEvent('popupShow')
-this.triggerEvent('show.oc.popup')}
+this.triggerEvent('show.oc.popup')
+this.$dialog.css('transform','inherit')}
 Popup.prototype.hide=function(){this.triggerEvent('popupHide')
 this.triggerEvent('hide.oc.popup')
 if(this.allowHide)
-this.$modal.modal('hide')}
+this.$modal.modal('hide')
+this.$dialog.css('transform','')}
 Popup.prototype.visible=function(val){if(val)
 this.$modal.addClass('in')
 else
