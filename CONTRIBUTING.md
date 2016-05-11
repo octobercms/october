@@ -73,6 +73,12 @@ Also ensure that your Pull Request satisfies the following coding standards:
 
 The October team follows the [developer guidelines](http://octobercms.com/docs/help/developer-guide) as much as possible.
 
+#### Code of conduct
+
+We promise to extend courtesy and respect to everyone opening an issue. We expect anyone using the bug trackers to do the same.
+
+All reported issues to this project are valuable. Please act with respect and avoid demeaning, condescending, racist, sexist and other inappropriate language and conduct. Please ensure comments stay professional and constructive.
+
 #### Escalation process
 
 We do our best to attend to all reported issues. If you have an important issue that requires attention, consider submitting a bounty using the [OctoberCMS Bounty Program](https://www.bountysource.com/teams/october).
