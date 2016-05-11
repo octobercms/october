@@ -101,8 +101,8 @@ class Filter extends WidgetBase
     public function renderScopeElement($scope)
     {
         switch ($scope->type) {
-            case 'datepicker':
-            case 'daterangepicker':
+            case 'date':
+            case 'daterange':
                 // Load datepicker assets
                 new DatePicker($this->controller, new FormField('dummy', 'dummy'));
                 break;
@@ -145,26 +145,28 @@ class Filter extends WidgetBase
                 $this->setScopeValue($scope, $value);
                 break;
 
-            case 'datepicker':
+            case 'date':
                 $dates = $this->datesFromAjax(post('options.dates'));
 
                 if (!empty($dates)) {
                     list($date) = $dates;
-                } else {
+                }
+                else {
                     $date = null;
                 }
 
                 $this->setScopeValue($scope, $date);
                 break;
 
-            case 'daterangepicker':
+            case 'daterange':
                 $dates = $this->datesFromAjax(post('options.dates'));
 
                 if (!empty($dates)) {
                     list($after, $before) = $dates;
 
                     $dates = [$after, $before];
-                } else {
+                }
+                else {
                     $dates = null;
                 }
 

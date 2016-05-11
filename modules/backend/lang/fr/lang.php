@@ -351,10 +351,8 @@ return [
     'filter' => [
       'all' => 'tous',
       'options_method_not_exists' => "La classe du modèle :model doit définir une méthode :method() qui retourne les options pour le filtre ':filter'.",
-      'date' => [
-          'all' => 'toute la période',
-          'format' =>'d/m/Y'
-      ]
+      'date_all' => 'toute la période',
+      // 'date_format' =>'d/m/Y',
     ],
     'import_export' => [
         'upload_csv_file' => '1. Envoyer un fichier CSV',

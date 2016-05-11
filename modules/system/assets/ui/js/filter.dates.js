@@ -21,9 +21,8 @@
 
     var FilterWidget = $.fn.filterWidget.Constructor;
 
-    /* ------------------------------------------------------------------------
-     * Overloaded module functions
-     */
+    // OVERLOADED MODULE
+    // =================
 
     var overloaded_init = FilterWidget.prototype.init;
 
@@ -34,9 +33,8 @@
     };
 
 
-    /*------------------------------------------------------------------------
-     * New module functions
-     */
+    // NEW MODULE
+    // =================
 
     FilterWidget.prototype.initFilterDate = function () {
         var self = this;
@@ -77,7 +75,8 @@
 
             if ($scope.hasClass('range')) {
                 self.displayPopoverRange($scope)
-            } else {
+            }
+            else {
                 self.displayPopoverDate($scope)
             }
 
@@ -121,7 +120,7 @@
                                 </div>                                                                                  \
                             </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
-                                <button class="btn btn-block btn-default" data-trigger="clear">                         \
+                                <button class="btn btn-block btn-secondary" data-trigger="clear">                         \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \
@@ -168,7 +167,7 @@
                                 <button class="btn btn-block btn-primary oc-icon-search" data-trigger="filter">         \
                                     {{ filter_button_text }}                                                            \
                                 </button>                                                                               \
-                                <button class="btn btn-block btn-default" data-trigger="clear">                         \
+                                <button class="btn btn-block btn-secondary" data-trigger="clear">                         \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \

@@ -158,7 +158,7 @@
             $scope.addClass('active')
         }
         else {
-            $setting.text($.oc.lang.get('filter.group.all'))
+            $setting.text(this.getLang('filter.group.all', 'all'))
             $scope.removeClass('active')
         }
     }
@@ -399,6 +399,14 @@
         }
 
         $scope.toggleClass('active', !!switchValue)
+    }
+
+    FilterWidget.prototype.getLang = function(key, default) {
+        if ($.oc === undefined || $.oc.lang === undefined) {
+            return default
+        }
+
+        return $.oc.lang.get(name, default)
     }
 
 
