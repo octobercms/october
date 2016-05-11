@@ -256,7 +256,7 @@
                     yearRange: 10,
                     setDefaultDate: '' !== defaultValue ? defaultValue.toDate() : '',
                     format: self.getDateFormat(),
-                    i18n: $.oc.lang.get('pikaday')
+                    i18n: $.oc.lang.get('datepicker')
                 };
 
             if (0 <= index && index < data.dates.length) {

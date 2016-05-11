@@ -101,10 +101,10 @@ class Filter extends WidgetBase
     public function renderScopeElement($scope)
     {
         switch ($scope->type) {
-            case 'date':
-            case 'range':
+            case 'datepicker':
+            case 'daterangepicker':
                 // Load datepicker assets
-                new DatePicker($this->controller, new FormField('dummy','dummy'));
+                new DatePicker($this->controller, new FormField('dummy', 'dummy'));
                 break;
         }
 
@@ -145,11 +145,11 @@ class Filter extends WidgetBase
                 $this->setScopeValue($scope, $value);
                 break;
 
-            case 'date':
+            case 'datepicker':
                 $dates = $this->datesFromAjax(post('options.dates'));
 
-                if ( ! empty( $dates )) {
-                    list( $date ) = $dates;
+                if (!empty($dates)) {
+                    list($date) = $dates;
                 } else {
                     $date = null;
                 }
@@ -157,11 +157,11 @@ class Filter extends WidgetBase
                 $this->setScopeValue($scope, $date);
                 break;
 
-            case 'range':
+            case 'daterangepicker':
                 $dates = $this->datesFromAjax(post('options.dates'));
 
-                if ( ! empty( $dates )) {
-                    list( $after, $before ) = $dates;
+                if (!empty($dates)) {
+                    list($after, $before) = $dates;
 
                     $dates = [$after, $before];
                 } else {
@@ -432,7 +432,7 @@ class Filter extends WidgetBase
             /*
              * Ensure dates options are set
              */
-            if ( ! isset( $config['minDate'] )) {
+            if (!isset($config['minDate'])) {
                 $scopeObj->minDate = '2000-01-01';
                 $scopeObj->maxDate = '2099-12-31';
             }
@@ -497,65 +497,62 @@ class Filter extends WidgetBase
         }
 
         switch ($scope->type) {
-            case'date':
-            case'range':
-                $this->applyDateScopeToQuery($scope, $query);
+            case 'datepicker':
+                if ($scope->value instanceof Carbon && $scopeConditions = $scope->conditions) {
+                    $query->whereRaw(strtr($scopeConditions, [':filtered' => $scope->value->format('Y-m-d')]));
+                }
+
+                break;
+            case 'daterangepicker':
+                if (is_array($scope->value) && count($scope->value) > 1 && ($scopeConditions = $scope->conditions)) {
+                    list($after, $before) = array_values($scope->value);
+
+                    if($after instanceof Carbon && $before instanceof Carbon) {
+                        $query->whereRaw(strtr($scopeConditions, [
+                            ':after'  => $after->format('Y-m-d'),
+                            ':before' => $before->format('Y-m-d')
+                        ]));
+                    }
+                }
+
                 break;
             default:
                 $value = is_array($scope->value) ? array_keys($scope->value) : $scope->value;
 
-        /*
-         * Condition
-         */
-        if ($scopeConditions = $scope->conditions) {
+                /*
+                 * Condition
+                 */
+                if ($scopeConditions = $scope->conditions) {
 
-            /*
-             * Switch scope: multiple conditions, value either 1 or 2
-             */
-            if (is_array($scopeConditions)) {
-                $conditionNum = is_array($value) ? 0 : $value - 1;
-                list($scopeConditions) = array_slice($scopeConditions, $conditionNum);
-            }
+                    /*
+                     * Switch scope: multiple conditions, value either 1 or 2
+                     */
+                    if (is_array($scopeConditions)) {
+                        $conditionNum = is_array($value) ? 0 : $value - 1;
+                        list($scopeConditions) = array_slice($scopeConditions, $conditionNum);
+                    }
 
-            if (is_array($value)) {
-                $filtered = implode(',', array_build($value, function ($key, $_value) {
-                    return [$key, Db::getPdo()->quote($_value)];
-                }));
-            }
-            else {
-                $filtered = Db::getPdo()->quote($value);
-            }
+                    if (is_array($value)) {
+                        $filtered = implode(',', array_build($value, function ($key, $_value) {
+                            return [$key, Db::getPdo()->quote($_value)];
+                        }));
+                    }
+                    else {
+                        $filtered = Db::getPdo()->quote($value);
+                    }
 
-            $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [':filtered' => $filtered])));
-        }
+                    $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [':filtered' => $filtered])));
+                }
 
-        /*
-         * Scope
-         */
-        if ($scopeMethod = $scope->scope) {
-            $query->$scopeMethod($value);
+                /*
+                 * Scope
+                 */
+                if ($scopeMethod = $scope->scope) {
+                    $query->$scopeMethod($value);
+                }
         }
 
         return $query;
-    }
-
-
-    protected function applyDateScopeToQuery($scope, $query)
-    {
-        if ('range' === $scope->type) {
-            if (is_array($scope->value) && count($scope->value) > 1 && ( $scopeConditions = $scope->conditions )) {
-                list( $after, $before ) = array_values($scope->value);
-
-                $query->whereRaw(strtr($scopeConditions, [
-                    ':after'  => $after->format('Y-m-d'),
-                    ':before' => $before->format('Y-m-d')
-                ]));
-            }
-        } else {
-            if ($scopeConditions = $scope->conditions) {
-                $query->whereRaw(strtr($scopeConditions, [':filtered' => $scope->value->format('Y-m-d')]));
-            }
-        }
     }
 
     //
@@ -689,7 +686,7 @@ class Filter extends WidgetBase
         $dates = [];
 
         if (null !== $ajaxDates) {
-            if ( ! is_array($ajaxDates)) {
+            if (!is_array($ajaxDates)) {
                 $dates = [$ajaxDates];
             }
 
@@ -709,7 +706,7 @@ class Filter extends WidgetBase
      */
     protected function getFilterDateFormat($scope)
     {
-        if (isset( $scope->date_format )) {
+        if (isset($scope->date_format)) {
             return $scope->date_format;
         }
 
