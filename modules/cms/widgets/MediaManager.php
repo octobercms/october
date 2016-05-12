@@ -1038,7 +1038,7 @@ class MediaManager extends WidgetBase
      */
     protected function cleanFileName($name)
     {
-        $title = Str::ascii($title);
+        $title = Str::ascii($name);
 
         // Convert all dashes/underscores into separator
         $flip = $separator = '-';
