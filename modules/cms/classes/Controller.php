@@ -29,6 +29,7 @@ use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  * The CMS controller class.
@@ -654,6 +655,13 @@ class Controller
                 if ($result instanceof RedirectResponse) {
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
                 }
+                /**
+                 * If the handler returned File response,
+                 * return as it is.
+                 */
+                elseif ($result instanceof BinaryFileResponse) {
+                    return $result;
+                }
 
                 return Response::make($responseContents, $this->statusCode);
             }
@@ -862,7 +870,7 @@ class Controller
             foreach ($partial->settings['components'] as $component => $properties) {
                 // Do not inject the viewBag component to the environment.
                 // Not sure if they're needed there by the requirements,
-                // but there were problems with array-typed properties used by Static Pages 
+                // but there were problems with array-typed properties used by Static Pages
                 // snippets and setComponentPropertiesFromParams(). --ab
                 if ($component == 'viewBag')
                     continue;
