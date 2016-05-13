@@ -219,10 +219,29 @@
     &.control-filter-date-popover {
         min-width: 190px;
 
-        .filter-buttons .btn {
-            border-radius: 0;
-            text-align: center;
+        .filter-buttons {
             margin: 0;
+            padding: 0;
+
+            &:after {
+                content: "";
+                display: block;
+                clear: both;
+            }
+
+            .btn {
+                float: left;
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
+                text-align: center;
+            }
+        }
+
+        &.--range {
+            .filter-buttons .btn {
+                width: 50%;
+            }
         }
     }
 }

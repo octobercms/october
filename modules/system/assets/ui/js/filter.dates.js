@@ -121,7 +121,7 @@
                                 </div>                                                                                  \
                             </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                         \
+                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \
@@ -138,7 +138,7 @@
         return '                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
-                    <div id="controlFilterPopover" class="control-filter-popover control-filter-date-popover">          \
+                    <div id="controlFilterPopover" class="control-filter-popover control-filter-date-popover --range">  \
                         <div class="filter-search loading-indicator-container size-input-text">                         \
                             <div class="field-datepicker">                                                              \
                                 <div class="input-with-icon right-align">                                               \
@@ -168,7 +168,7 @@
                                 <button class="btn btn-block btn-primary oc-icon-search" data-trigger="filter">         \
                                     {{ filter_button_text }}                                                            \
                                 </button>                                                                               \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                         \
+                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \
