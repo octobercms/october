@@ -1,14 +1,14 @@
 <!-- Date Range scope -->
 <a
-    class="filter-scope-date range <?= $scope->value ? 'active' : '' ?>"
+    class="filter-scope-date range <?= isset($after) && isset($before) ? 'active' : '' ?>"
     href="javascript:;"
     data-scope-name="<?= $scope->scopeName ?>"
     data-scope-data="<?= e(json_encode([
-        'dates' => $scope->value && is_array($scope->value) ? array_map(function($value) { return $value && $value instanceof \Carbon\Carbon ? $value->format('Y-m-d') : null; }, $scope->value) : null,
+        'dates' => isset($after) && isset($before) ? [$after, $before] : null,
         'minDate' => $scope->minDate ? $scope->minDate : '2000-01-01',
         'maxDate' => $scope->maxDate ? $scope->maxDate : '2099-12-31',
     ]))
     ?>">
     <span class="filter-label"><?= e(trans($scope->label)) ?>:</span>
-    <span class="filter-setting"><?= $scope->value && is_array($scope->value) ? join(' → ', array_map(function($value) { return $value && $value instanceof \Carbon\Carbon ? $value->format('Y-m-d') : null; }, $scope->value)) : e(trans('backend::lang.filter.date_all')) ?></span>
+    <span class="filter-setting"><?= isset($afterStr) && isset($beforeStr) ? ($afterStr . ' → ' . $beforeStr) : e(trans('backend::lang.filter.date_all')) ?></span>
 </a>
