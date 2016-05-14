@@ -10,11 +10,18 @@
         $contentCss = 'layout-row';
         $paneCss = 'layout-cell';
     }
+
+    $active = 0;
+    foreach ($tabs as $name => $val) {
+        if ($name == $tabs->defaultTab)
+            break;
+        $active++;
+    }
 ?>
 <div class="<?= $navCss ?>">
     <ul class="nav nav-tabs">
         <?php $index = 0; foreach ($tabs as $name => $fields): ?>
-            <li class="<?= $index++==0?'active':''?>"><a href="#<?= $type.'tab-'.$index ?>"><?= e(trans($name)) ?></a></li>
+            <li class="<?= $index++==$active?'active':''?>"><a href="#<?= $type.'tab-'.$index ?>"><?= e(trans($name)) ?></a></li>
         <?php endforeach ?>
     </ul>
 </div>
@@ -22,7 +29,7 @@
 <div class="tab-content <?= $contentCss ?>">
     <?php $index = 0; foreach ($tabs as $name => $fields): ?>
         <div
-            class="tab-pane <?= $index++==0?'active':''?> <?= $paneCss ?>"
+            class="tab-pane <?= $index++==$active?'active':''?> <?= $paneCss ?>"
             id="<?= $type.'tab-'.$index ?>">
             <?= $this->makePartial('form_fields', ['fields' => $fields]) ?>
         </div>
