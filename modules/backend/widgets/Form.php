@@ -961,6 +961,13 @@ class Form extends WidgetBase
          */
         foreach ($this->allFields as $field) {
             /*
+             * Disabled and hidden should be omitted from data set
+             */
+            if ($field->disabled || $field->hidden) {
+                continue;
+            }
+
+            /*
              * Handle HTML array, eg: item[key][another]
              */
             $parts = HtmlHelper::nameToArray($field->fieldName);

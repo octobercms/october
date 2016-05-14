@@ -2825,8 +2825,8 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 @media (min-width:992px){.modal-lg{width:900px}
 }
 .modal-content{-webkit-box-shadow:none;box-shadow:none;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;border:none;background:#f9f9f9}
-.modal-content .close{color:#fff}
 .modal-header{background:#bf5d07;color:#ecf0f1;text-shadow:0 -1px 0 rgba(0,0,0,0.6);-webkit-box-shadow:inset 0 -2px 0 rgba(0,0,0,0.1);box-shadow:inset 0 -2px 0 rgba(0,0,0,0.1);border-top-right-radius:5px;border-top-left-radius:5px;border:none}
+.modal-header .close{color:#fff}
 .modal-header h4{font-weight:600;font-size:16px}
 .modal-footer{background:transparent;border:none;margin-top:0;padding:0 20px 20px 20px}
 .modal-body{padding-bottom:0}
