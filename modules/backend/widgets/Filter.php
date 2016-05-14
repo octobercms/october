@@ -116,10 +116,26 @@ class Filter extends WidgetBase
                     $scope->value[0] && $scope->value[0] instanceof Carbon &&
                     $scope->value[1] && $scope->value[1] instanceof Carbon
                 ) {
-                    $params['afterStr']  = Backend::dateTime($scope->value[0], ['formatAlias' => 'dateMin']);
-                    $params['beforeStr'] = Backend::dateTime($scope->value[1], ['formatAlias' => 'dateMin']);
-                    $params['after']  = $scope->value[0]->format('Y-m-d H:i:s');
-                    $params['before'] = $scope->value[1]->format('Y-m-d H:i:s');
+                    $after = $scope->value[0]->format('Y-m-d H:i:s');
+                    $before = $scope->value[1]->format('Y-m-d H:i:s');
+
+                    if(strcasecmp($after, '0000-00-00 00:00:00') > 0) {
+                        $params['afterStr'] = Backend::dateTime($scope->value[0], ['formatAlias' => 'dateMin']);
+                        $params['after']    = $after;
+                    }
+                    else {
+                        $params['afterStr'] = '∞';
+                        $params['after']    = null;
+                    }
+
+                    if(strcasecmp($before, '2999-12-31 23:59:59') < 0) {
+                        $params['beforeStr'] = Backend::dateTime($scope->value[1], ['formatAlias' => 'dateMin']);
+                        $params['before']    = $before;
+                    }
+                    else {
+                        $params['beforeStr'] = '∞';
+                        $params['before']    = null;
+                    }
                 }
 
                 break;
@@ -737,23 +753,30 @@ class Filter extends WidgetBase
     protected function datesFromAjax($ajaxDates)
     {
         $dates = [];
+        $dateRegex = '/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/';
 
         if (null !== $ajaxDates) {
             if (!is_array($ajaxDates)) {
-                $dates = [$ajaxDates];
-            }
-
-            foreach ($ajaxDates as $date) {
-                if (preg_match('/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/', $date)) {
-                    $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', $date);
+                if(preg_match($dateRegex, $ajaxDates)) {
+                    $dates = [$ajaxDates];
                 }
-                else {
-                    $dates = [];
-                    break;
+            } else {
+                foreach ($ajaxDates as $i => $date) {
+                    if (preg_match($dateRegex, $date)) {
+                        $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', $date);
+                    } elseif (empty($date)) {
+                        if($i == 0) {
+                            $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', '0000-00-00 00:00:00');
+                        } else {
+                            $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', '2999-12-31 23:59:59');
+                        }
+                    } else {
+                        $dates = [];
+                        break;
+                    }
                 }
             }
         }
-
         return $dates;
     }
 
