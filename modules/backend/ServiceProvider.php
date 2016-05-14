@@ -199,6 +199,16 @@ class ServiceProvider extends ModuleServiceProvider
                     'order'       => 500,
                     'keywords'    => 'brand style'
                 ],
+                'editor' => [
+                    'label'       => 'backend::lang.editor.menu_label',
+                    'description' => 'backend::lang.editor.menu_description',
+                    'category'    => SettingsManager::CATEGORY_SYSTEM,
+                    'icon'        => 'icon-code',
+                    'class'       => 'Backend\Models\EditorSetting',
+                    'permissions' => ['backend.manage_editor'],
+                    'order'       => 500,
+                    'keywords'    => 'html code class style'
+                ],
                 'myaccount' => [
                     'label'       => 'backend::lang.myaccount.menu_label',
                     'description' => 'backend::lang.myaccount.menu_description',
