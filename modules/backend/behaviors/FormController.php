@@ -1,16 +1,18 @@
 <?php namespace Backend\Behaviors;
 
-use Str;
-use Lang;
-use Flash;
-use Event;
-use Input;
-use Redirect;
+use ApplicationException;
 use Backend;
 use Backend\Classes\ControllerBehavior;
-use October\Rain\Router\Helper as RouterHelper;
-use ApplicationException;
+use Backend\Traits\FormModelSaver;
+use Event;
 use Exception;
+use Flash;
+use Lang;
+use Model;
+use October\Rain\Database\Builder;
+use October\Rain\Router\Helper as RouterHelper;
+use Redirect;
+use Str;
 
 /**
  * Form Controller Behavior
@@ -21,7 +23,7 @@ use Exception;
  */
 class FormController extends ControllerBehavior
 {
-    use \Backend\Traits\FormModelSaver;
+    use FormModelSaver;
 
     /**
      * @var string Default context for "create" pages.
@@ -71,7 +73,8 @@ class FormController extends ControllerBehavior
     protected $model;
 
     /**
-     * Behavior constructor
+     * Behavior constructor.
+     *
      * @param Backend\Classes\Controller $controller
      */
     public function __construct($controller)
@@ -86,14 +89,17 @@ class FormController extends ControllerBehavior
     }
 
     /**
-     * Prepare the widgets used by this action
+     * Prepare the widgets used by this action.
+     *
+     * @param string $context
      * @param Model $model
      * @return void
      */
-    public function initForm($model, $context = null)
+    public function initForm(Model $model, $context = null)
     {
-        if ($context !== null)
+        if ($context !== null) {
             $this->context = $context;
+        }
 
         $context = $this->formGetContext();
 
@@ -102,13 +108,13 @@ class FormController extends ControllerBehavior
          */
         $formFields = $this->config->form;
 
-        if ($context == self::CONTEXT_CREATE) {
+        if ($context === self::CONTEXT_CREATE) {
             $formFields = $this->getConfig('create[form]', $formFields);
         }
-        elseif ($context == self::CONTEXT_UPDATE) {
+        elseif ($context === self::CONTEXT_UPDATE) {
             $formFields = $this->getConfig('update[form]', $formFields);
         }
-        elseif ($context == self::CONTEXT_PREVIEW) {
+        elseif ($context === self::CONTEXT_PREVIEW) {
             $formFields = $this->getConfig('preview[form]', $formFields);
         }
 
@@ -132,7 +138,9 @@ class FormController extends ControllerBehavior
 
         $this->formWidget->bindEvent('form.beforeRefresh', function ($holder) {
             $result = $this->controller->formExtendRefreshData($this->formWidget, $holder->data);
-            if (is_array($result)) $holder->data = $result;
+            if (is_array($result)) {
+                $holder->data = $result;
+            }
         });
 
         $this->formWidget->bindEvent('form.refreshFields', function ($fields) {
@@ -157,9 +165,11 @@ class FormController extends ControllerBehavior
     }
 
     /**
-     * Prepares common form data
+     * Prepares common form data.
+     *
+     * @param Model $model
      */
-    protected function prepareVars($model)
+    protected function prepareVars(Model $model)
     {
         $this->controller->vars['formModel'] = $model;
         $this->controller->vars['formContext'] = $this->formGetContext();
@@ -196,6 +206,7 @@ class FormController extends ControllerBehavior
 
     /**
      * Ajax handler for saving from the creation form.
+     *
      * @return mixed
      */
     public function create_onSave($context = null)
@@ -230,7 +241,8 @@ class FormController extends ControllerBehavior
     //
 
     /**
-     * Edit Controller action
+     * Update Controller action.
+     *
      * @param int $recordId The model primary key to update.
      * @param string $context Explicitly define a form context.
      * @return void
@@ -254,12 +266,17 @@ class FormController extends ControllerBehavior
 
     /**
      * Ajax handler for updating the form.
+     *
      * @param int $recordId The model primary key to update.
+     * @param string $context Explicitly define a form context.
      * @return mixed
      */
     public function update_onSave($recordId = null, $context = null)
     {
-        $this->context = strlen($context) ? $context : $this->getConfig('update[context]', self::CONTEXT_UPDATE);
+        $this->context = strlen($context)
+            ? $context
+            : $this->getConfig('update[context]', self::CONTEXT_UPDATE);
+
         $model = $this->controller->formFindModelObject($recordId);
         $this->initForm($model);
 
@@ -267,6 +284,7 @@ class FormController extends ControllerBehavior
         $this->controller->formBeforeUpdate($model);
 
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
+
         foreach ($modelsToSave as $modelToSave) {
             $modelToSave->save(null, $this->formWidget->getSessionKey());
         }
@@ -283,8 +301,10 @@ class FormController extends ControllerBehavior
 
     /**
      * Ajax handler for deleting the record.
+     *
      * @param int $recordId The model primary key to delete.
      * @return mixed
+     * @throws \Exception
      */
     public function update_onDelete($recordId = null)
     {
@@ -308,7 +328,8 @@ class FormController extends ControllerBehavior
     //
 
     /**
-     * Preview Controller action
+     * Preview Controller action.
+     *
      * @param int $recordId The model primary key to preview.
      * @param string $context Explicitly define a form context.
      * @return void
@@ -336,8 +357,10 @@ class FormController extends ControllerBehavior
 
     /**
      * Render the form.
+     *
      * @param array $options Custom options to pass to the form widget.
      * @return string Rendered HTML for the form.
+     * @throws ApplicationException
      */
     public function formRender($options = [])
     {
@@ -350,6 +373,7 @@ class FormController extends ControllerBehavior
 
     /**
      * Returns the model initialized by this form behavior.
+     *
      * @return Model
      */
     public function formGetModel()
@@ -359,6 +383,7 @@ class FormController extends ControllerBehavior
 
     /**
      * Returns the form context from the postback or configuration.
+     *
      * @return string
      */
     public function formGetContext()
@@ -367,7 +392,8 @@ class FormController extends ControllerBehavior
     }
 
     /**
-     * Internal method, prepare the form model object
+     * Internal method, prepare the form model object.
+     *
      * @return Model
      */
     protected function createModel()
@@ -379,11 +405,12 @@ class FormController extends ControllerBehavior
 
     /**
      * Returns a Redirect object based on supplied context and parses the model primary key.
+     *
      * @param string $context Redirect context, eg: create, update, delete
      * @param Model $model The active model to parse in it's ID and attributes.
      * @return Redirect
      */
-    public function makeRedirect($context = null, $model = null)
+    public function makeRedirect($context = null, Model $model = null)
     {
         $redirectUrl = null;
         if (post('close') && !ends_with($context, '-close')) {
@@ -398,12 +425,13 @@ class FormController extends ControllerBehavior
             $redirectUrl = RouterHelper::parseValues($model, array_keys($model->getAttributes()), $redirectUrl);
         }
 
-        return ($redirectUrl) ? Backend::redirect($redirectUrl) : null;
+        return $redirectUrl ? Backend::redirect($redirectUrl) : null;
     }
 
     /**
-     * Internal method, returns a redirect URL from the config based on 
+     * Internal method, returns a redirect URL from the config based on
      * supplied context. Otherwise the default redirect is used.
+     *
      * @param string $context Redirect context, eg: create, update, delete.
      * @return string
      */
@@ -427,12 +455,13 @@ class FormController extends ControllerBehavior
 
     /**
      * Parses in some default variables to a language string defined in config.
+     *
      * @param string $name Configuration property containing the language string
      * @param string $default A default language string to use if the config is not found
      * @param array $extras Any extra params to include in the language string variables
      * @return string The translated string.
      */
-    protected function getLang($name, $default = null, $extras = [])
+    protected function getLang($name, $default = null, array $extras = [])
     {
         $name = $this->getConfig($name, $default);
         $vars = [
@@ -448,7 +477,8 @@ class FormController extends ControllerBehavior
 
     /**
      * Renders a single form field.
-     * @param string Field name
+     *
+     * @param string $name Field name
      * @return string The field HTML markup.
      */
     public function formRenderField($name)
@@ -458,7 +488,9 @@ class FormController extends ControllerBehavior
 
     /**
      * Renders the form in preview mode.
+     *
      * @return string The form HTML markup.
+     * @throws ApplicationException
      */
     public function formRenderPreview()
     {
@@ -476,7 +508,9 @@ class FormController extends ControllerBehavior
 
     /**
      * Helper for custom layouts. Renders Outside Fields.
+     *
      * @return string The area HTML markup.
+     * @throws ApplicationException
      */
     public function formRenderOutsideFields()
     {
@@ -494,7 +528,9 @@ class FormController extends ControllerBehavior
 
     /**
      * Helper for custom layouts. Renders Primary Tabs.
+     *
      * @return string The tab HTML markup.
+     * @throws ApplicationException
      */
     public function formRenderPrimaryTabs()
     {
@@ -512,7 +548,9 @@ class FormController extends ControllerBehavior
 
     /**
      * Helper for custom layouts. Renders Secondary Tabs.
+     *
      * @return string The tab HTML markup.
+     * @throws ApplicationException
      */
     public function formRenderSecondaryTabs()
     {
@@ -521,6 +559,7 @@ class FormController extends ControllerBehavior
 
     /**
      * Returns the widget used by this behavior.
+     *
      * @return Backend\Classes\WidgetBase
      */
     public function formGetWidget()
@@ -530,6 +569,8 @@ class FormController extends ControllerBehavior
 
     /**
      * Helper to get a unique ID for the form widget.
+     *
+     * @param string $suffix
      * @return string
      */
     public function formGetId($suffix = null)
@@ -539,6 +580,8 @@ class FormController extends ControllerBehavior
 
     /**
      * Helper to get the form session key.
+     *
+     * @param string $suffix
      * @return string
      */
     public function formGetSessionKey($suffix = null)
@@ -552,23 +595,29 @@ class FormController extends ControllerBehavior
 
     /**
      * Called before the creation or updating form is saved.
-     * @param Model
+     *
+     * @param Model $model
+     * @return void
      */
-    public function formBeforeSave($model)
+    public function formBeforeSave(Model $model)
     {
     }
 
     /**
      * Called after the creation or updating form is saved.
-     * @param Model
+     *
+     * @param Model $model
+     * @return void
      */
-    public function formAfterSave($model)
+    public function formAfterSave(Model $model)
     {
     }
 
     /**
      * Called before the creation form is saved.
-     * @param Model
+     *
+     * @param Model $model
+     * @return void
      */
     public function formBeforeCreate($model)
     {
@@ -576,7 +625,9 @@ class FormController extends ControllerBehavior
 
     /**
      * Called after the creation form is saved.
-     * @param Model
+     *
+     * @param Model $model
+     * @return void
      */
     public function formAfterCreate($model)
     {
@@ -584,7 +635,9 @@ class FormController extends ControllerBehavior
 
     /**
      * Called before the updating form is saved.
-     * @param Model
+     *
+     * @param Model $model
+     * @return void
      */
     public function formBeforeUpdate($model)
     {
@@ -592,7 +645,9 @@ class FormController extends ControllerBehavior
 
     /**
      * Called after the updating form is saved.
-     * @param Model
+     *
+     * @param Model $model
+     * @return void
      */
     public function formAfterUpdate($model)
     {
@@ -600,7 +655,9 @@ class FormController extends ControllerBehavior
 
     /**
      * Called after the form model is deleted.
-     * @param Model
+     *
+     * @param Model $model
+     * @return void
      */
     public function formAfterDelete($model)
     {
@@ -609,12 +666,14 @@ class FormController extends ControllerBehavior
     /**
      * Finds a Model record by its primary identifier, used by update actions. This logic
      * can be changed by overriding it in the controller.
+     *
      * @param string $recordId
      * @return Model
+     * @throws ApplicationException
      */
     public function formFindModelObject($recordId)
     {
-        if (!strlen($recordId)) {
+        if ($recordId === '' || $recordId === null) {
             throw new ApplicationException($this->getLang('not-found-message', 'backend::lang.form.missing_id'));
         }
 
@@ -641,6 +700,7 @@ class FormController extends ControllerBehavior
     /**
      * Creates a new instance of a form model. This logic can be changed
      * by overriding it in the controller.
+     *
      * @return Model
      */
     public function formCreateModelObject()
@@ -650,6 +710,7 @@ class FormController extends ControllerBehavior
 
     /**
      * Called before the form fields are defined.
+     *
      * @param Backend\Widgets\Form $host The hosting form widget
      * @return void
      */
@@ -659,6 +720,7 @@ class FormController extends ControllerBehavior
 
     /**
      * Called after the form fields are defined.
+     *
      * @param Backend\Widgets\Form $host The hosting form widget
      * @return void
      */
@@ -668,6 +730,7 @@ class FormController extends ControllerBehavior
 
     /**
      * Called before the form is refreshed, should return an array of additional save data.
+     *
      * @param Backend\Widgets\Form $host The hosting form widget
      * @param array $saveData Current save data
      * @return array
@@ -678,6 +741,7 @@ class FormController extends ControllerBehavior
 
     /**
      * Called when the form is refreshed, giving the opportunity to modify the form fields.
+     *
      * @param Backend\Widgets\Form $host The hosting form widget
      * @param array $fields Current form fields
      * @return array
@@ -688,6 +752,7 @@ class FormController extends ControllerBehavior
 
     /**
      * Called after the form is refreshed, should return an array of additional result parameters.
+     *
      * @param Backend\Widgets\Form $host The hosting form widget
      * @param array $result Current result parameters.
      * @return array
@@ -699,6 +764,7 @@ class FormController extends ControllerBehavior
     /**
      * Extend supplied model used by create and update actions, the model can
      * be altered by overriding it in the controller.
+     *
      * @param Model $model
      * @return Model
      */
@@ -709,16 +775,18 @@ class FormController extends ControllerBehavior
     /**
      * Extend the query used for finding the form model. Extra conditions
      * can be applied to the query, for example, $query->withTrashed();
-     * @param October\Rain\Database\Builder $query
+     *
+     * @param Builder $query
      * @return void
      */
-    public function formExtendQuery($query)
+    public function formExtendQuery(Builder $query)
     {
     }
 
     /**
      * Static helper for extending form fields.
-     * @param  callable $callback
+     *
+     * @param callable $callback
      * @return void
      */
     public static function extendFormFields($callback)
@@ -731,5 +799,4 @@ class FormController extends ControllerBehavior
             call_user_func_array($callback, [$widget, $widget->model, $widget->getContext()]);
         });
     }
-
 }
