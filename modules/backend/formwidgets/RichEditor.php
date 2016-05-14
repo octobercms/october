@@ -119,10 +119,13 @@ class RichEditor extends FormWidgetBase
     {
         $this->addCss('css/richeditor.css', 'core');
         $this->addJs('js/build-min.js', 'core');
+        $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
 
-        if ($lang = $this->getValidEditorLang()) {
-            $this->addJs('vendor/redactor/lang/'.$lang.'.js', 'core');
-        }
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // if ($lang = $this->getValidEditorLang()) {
+        //     $this->addJs('vendor/redactor/lang/'.$lang.'.js', 'core');
+        // }
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
     /**

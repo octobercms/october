@@ -7,14 +7,8 @@
         class="field-richeditor size-<?= $size ?> <?= $stretch?'layout-relative stretch':'' ?>"
         <?php if ($editorLang): ?>data-editor-lang="<?= $editorLang ?>"<?php endif ?>
         <?php if ($fullPage): ?>data-fullpage="true"<?php endif ?>
-        data-data-locker="#<?= $this->getId('dataLocker') ?>"
         data-links-handler="<?= $this->getEventHandler('onGetPageLinks') ?>"
         data-control="richeditor">
-        <textarea id="<?= $this->getId('textarea') ?>"></textarea>
-    </div>
-
-    <!-- Data locker -->
-    <div style="display: none">
-        <textarea name="<?= $name ?>" id="<?= $this->getId('dataLocker') ?>"><?= e($value) ?></textarea>
+        <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>"><?= e($value) ?></textarea>
     </div>
 <?php endif ?>

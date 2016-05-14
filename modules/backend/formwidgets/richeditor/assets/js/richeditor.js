@@ -22,7 +22,6 @@
         this.$el         = $(element)
         this.$textarea   = this.$el.find('>textarea:first')
         this.$form       = this.$el.closest('form')
-        this.$dataLocker = null
         this.$editor     = null
         this.redactor    = null
 
@@ -37,7 +36,6 @@
     RichEditor.prototype.constructor = RichEditor
 
     RichEditor.DEFAULTS = {
-        dataLocker: null,
         linksHandler: null,
         stylesheet: null,
         fullpage: false,
@@ -50,15 +48,6 @@
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
         /*
-         * Sync all changes to a data locker, since fullscreen mode
-         * will pull the textarea outside of the form element.
-         */
-        if (this.options.dataLocker) {
-            this.$dataLocker = $(this.options.dataLocker)
-            this.$textarea.val(this.$dataLocker.val())
-        }
-
-        /*
          * Textarea must have an identifier
          */
         if (!this.$textarea.attr('id')) {
@@ -68,52 +57,66 @@
         /*
          * Initialize Redactor editor
          */
-        var redactorOptions = {
-            lang: this.options.editorLang,
-            imageEditable: true,
-            imageResizable: true,
-            buttonSource: true,
-            removeDataAttr: false,
-            toolbarFixed: false,
-            visualCallback: this.proxy(this.onVisualMode),
-            syncBeforeCallback: this.proxy(this.onSyncBefore),
-            focusCallback: this.proxy(this.onFocus),
-            blurCallback: this.proxy(this.onBlur),
-            keydownCallback: this.proxy(this.onKeydown),
-            enterCallback: this.proxy(this.onEnter),
-            changeCallback: this.proxy(this.onChange),
-            pageLinksHandler: this.options.linksHandler,
-            initCallback: function() { self.build(this) }
+        var froalaOptions = {
+            editorClass: 'control-richeditor',
+            height: Infinity // Height set via CSS, enable the scrollbars
         }
 
-        if (this.options.fullpage) {
-            redactorOptions.fullpage = true
+        froalaOptions.toolbarButtons =  [
+            'fullscreen',
+            'bold',
+            'italic',
+            'underline',
+            'strikeThrough',
+            'subscript',
+            'superscript',
+            'fontFamily',
+            'fontSize',
+            'color',
+            'emoticons',
+            'inlineStyle',
+            'paragraphStyle',
+            'paragraphFormat',
+            'align',
+            'formatOL',
+            'formatUL',
+            'outdent',
+            'indent',
+            'quote',
+            'insertHR',
+            'insertLink',
+            'insertImage',
+            'insertVideo',
+            'insertFile',
+            'insertTable',
+            'undo',
+            'redo',
+            'clearFormatting',
+            'selectAll',
+            'html'
+        ]
+
+        froalaOptions.toolbarButtonsMD = froalaOptions.toolbarButtons
+        froalaOptions.toolbarButtonsSM = froalaOptions.toolbarButtons
+        froalaOptions.toolbarButtonsXS = froalaOptions.toolbarButtons
+        froalaOptions.htmlAllowedEmptyTags = ['figure', 'textarea', 'a', 'iframe', 'object', 'video', 'style', 'script']
+        froalaOptions.htmlDoNotWrapTags = ['figure', 'script', 'style']
+
+        $.FroalaEditor.ICON_TEMPLATES = {
+            font_awesome: '<i class="icon-[NAME]"></i>',
+            text: '<span style="text-align: center;">[NAME]</span>',
+            image: '<img src=[SRC] alt=[ALT] />'
         }
 
-        redactorOptions.plugins = ['fullscreen', 'figure', 'table', 'pagelinks', 'mediamanager']
-        redactorOptions.buttons = ['html', 'formatting', 'bold', 'italic', 'alignment', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
+        this.$textarea.on('froalaEditor.initialized', this.proxy(this.build))
 
-        this.$textarea.redactor(redactorOptions)
-
-        this.redactor = this.$textarea.redactor('core.getObject')
-        this.$editor = this.redactor.$editor
+        this.$textarea.froalaEditor(froalaOptions)
     }
 
     RichEditor.prototype.dispose = function() {
         this.unregisterHandlers()
 
-        // Release clickedElement reference inside redactor.js
-        $(document).trigger('mousedown')
-
-        this.redactor.core.destroy()
-
-        // The figure plugin keeps references to the editor,
-        // DOM elements and event handlers. It was hacked and
-        // extended with the destroy() method.
-        if (this.redactor.figure) {
-            this.redactor.figure.destroy()
-            this.redactor.figure = null
-        }
+        this.$textarea.froalaEditor('destroy')
 
         this.$el.removeData('oc.richEditor')
 
@@ -121,13 +124,7 @@
         this.$el = null
         this.$textarea = null
         this.$form = null
-        this.$dataLocker = null
         this.$editor = null
-
-        this.redactor.$textarea = null
-        this.redactor.$element = null
-
-        this.redactor = null
 
         BaseProto.dispose.call(this)
     }
@@ -138,7 +135,7 @@
         this.$el.off('dispose-control', this.proxy(this.dispose))
     }
 
-    RichEditor.prototype.build = function(redactor) {
+    RichEditor.prototype.build = function(event, editor) {
         this.updateLayout()
 
         $(window).on('resize', this.proxy(this.updateLayout))
@@ -148,12 +145,12 @@
 
         this.initUiBlocks()
 
-        var self = this
-        redactor.default = {
-            onShow: function($figure, $toolbar) {
-                self.onShowFigureToolbar($figure, $toolbar)
-            }
-        }
+        // var self = this
+        // redactor.default = {
+        //     onShow: function($figure, $toolbar) {
+        //         self.onShowFigureToolbar($figure, $toolbar)
+        //     }
+        // }
     }
 
     RichEditor.prototype.getElement = function() {
@@ -175,18 +172,23 @@
     }
 
     RichEditor.prototype.updateLayout = function() {
-        var $editor = $('.redactor-editor', this.$el),
-            $codeEditor = $('textarea', this.$el),
-            $toolbar = $('.redactor-toolbar', this.$el)
+        var $editor = $('.fr-wrapper', this.$el),
+            $codeEditor = $('.fr-code', this.$el),
+            $toolbar = $('.fr-toolbar', this.$el),
+            $box = $('.fr-box', this.$el)
 
         if (!$editor.length) {
             return
         }
 
-        if (this.$el.hasClass('stretch')) {
+        if (this.$el.hasClass('stretch') && !$box.hasClass('fr-fullscreen')) {
             var height = $toolbar.outerHeight(true)
             $editor.css('top', height+1)
             $codeEditor.css('top', height)
+        }
+        else {
+            $editor.css('top', '')
+            $codeEditor.css('top', '')
         }
     }
 
@@ -289,7 +291,7 @@
     }
 
     RichEditor.prototype.initUiBlocks = function() {
-        $('.redactor-editor [data-video], .redactor-editor [data-audio]', this.$el).each(function() {
+        $('.fr-wrapper [data-video], .fr-wrapper [data-audio]', this.$el).each(function() {
             $(this).attr({
                 'data-ui-block': true,
                 'tabindex': '0'
@@ -436,10 +438,6 @@
         this.sanityCheckContent()
         this.$editor.trigger('mutate')
         this.$form.trigger('change')
-
-        if (this.$dataLocker) {
-            this.$dataLocker.val(this.syncBefore(this.$editor.html()))
-        }
     }
 
     // RICHEDITOR PLUGIN DEFINITION

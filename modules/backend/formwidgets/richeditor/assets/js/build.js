@@ -7,11 +7,10 @@
  * @see build-min.js
  *
 
-=require ../vendor/redactor/redactor.js
-=require plugin.fullscreen.js
-=require plugin.figure.js
-=require plugin.table.js
-=require plugin.pagelinks.js
+=require ../vendor/froala/js/froala_editor.min.js
+=require ../vendor/froala/js/plugins/fullscreen.min.js
+=require ../vendor/froala/js/plugins/code_beautifier.min.js
+=require ../vendor/froala_drm/js/plugins/code_view.js
 =require richeditor.js
 
 */
