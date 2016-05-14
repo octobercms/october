@@ -288,14 +288,20 @@
     FilterWidget.prototype.updateScopeDateSetting = function ($scope, dates) {
         var self = this,
             $setting = $scope.find('.filter-setting'),
-            dateFormat = self.getDateFormat()
+            dateFormat = self.getDateFormat(),
+            dateRegex =/\d{4}-\d{2}-\d{2}/,
+            reset = false
 
-        if (dates && dates.length) {
+        if (dates && dates.length && dates[0].match(dateRegex)) {
             if (dates.length > 1) {
-                var after = moment(dates[0], 'YYYY-MM-DD').format(dateFormat),
-                    before = moment(dates[1], 'YYYY-MM-DD').format(dateFormat);
+                if(dates[1].match(dateRegex)) {
+                    var after = moment(dates[0], 'YYYY-MM-DD').format(dateFormat),
+                        before = moment(dates[1], 'YYYY-MM-DD').format(dateFormat);
 
-                $setting.text(after + ' → ' + before)
+                    $setting.text(after + ' → ' + before)
+                } else {
+                    reset = true
+                }
             }
             else {
                 $setting.text(moment(dates[0], 'YYYY-MM-DD').format(dateFormat))
@@ -304,6 +310,10 @@
             $scope.addClass('active')
         }
         else {
+            reset = true
+        }
+
+        if(reset) {
             $setting.text(this.getLang('filter.dates.all', 'all'));
             $scope.removeClass('active')
         }

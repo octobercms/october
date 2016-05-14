@@ -4,11 +4,11 @@
     href="javascript:;"
     data-scope-name="<?= $scope->scopeName ?>"
     data-scope-data="<?= e(json_encode([
-        'dates' => $scope->value && is_array($scope->value) ? array_map(function($value) { return $value instanceof \Carbon\Carbon ? $value->format('Y-m-d') : null; }, $scope->value) : null,
+        'dates' => $scope->value && is_array($scope->value) ? array_map(function($value) { return $value && $value instanceof \Carbon\Carbon ? $value->format('Y-m-d') : null; }, $scope->value) : null,
         'minDate' => $scope->minDate ? $scope->minDate : '2000-01-01',
         'maxDate' => $scope->maxDate ? $scope->maxDate : '2099-12-31',
     ]))
     ?>">
     <span class="filter-label"><?= e(trans($scope->label)) ?>:</span>
-    <span class="filter-setting"><?= $scope->value && is_array($scope->value) ? join(' → ', array_map(function($value) { return $value instanceof \Carbon\Carbon ? $value->format('Y-m-d') : null; }, $scope->value)) : e(trans('backend::lang.filter.date_all')) ?></span>
+    <span class="filter-setting"><?= $scope->value && is_array($scope->value) ? join(' → ', array_map(function($value) { return $value && $value instanceof \Carbon\Carbon ? $value->format('Y-m-d') : null; }, $scope->value)) : e(trans('backend::lang.filter.date_all')) ?></span>
 </a>
