@@ -121,7 +121,7 @@
                                 </div>                                                                                  \
                             </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                         \
+                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \
@@ -138,7 +138,7 @@
         return '                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
-                    <div id="controlFilterPopover" class="control-filter-popover control-filter-date-popover">          \
+                    <div id="controlFilterPopover" class="control-filter-popover control-filter-date-popover --range">  \
                         <div class="filter-search loading-indicator-container size-input-text">                         \
                             <div class="field-datepicker">                                                              \
                                 <div class="input-with-icon right-align">                                               \
@@ -165,10 +165,10 @@
                                 </div>                                                                                  \
                             </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
-                                <button class="btn btn-block btn-primary oc-icon-search" data-trigger="filter">         \
+                                <button class="btn btn-block btn-primary" data-trigger="filter">                        \
                                     {{ filter_button_text }}                                                            \
                                 </button>                                                                               \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                         \
+                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \
@@ -184,8 +184,8 @@
             data = this.scopeValues[scopeName]
 
         data = $.extend({}, data, {
-            filter_button_text: $.oc.lang.get('filter.dates.filter_button_text'),
-            reset_button_text: $.oc.lang.get('filter.dates.reset_button_text'),
+            filter_button_text: this.getLang('filter.dates.filter_button_text'),
+            reset_button_text: this.getLang('filter.dates.reset_button_text'),
             date_placeholder: this.getLang('filter.dates.date_placeholder', 'Date')
         })
 
@@ -195,7 +195,7 @@
         $scope.data('oc.popover', null)
 
         $scope.ocPopover({
-            content: Mustache.render(self.getPopoverDateTemplate(), data),
+            content: Mustache.render(this.getPopoverDateTemplate(), data),
             modal: false,
             highlightModalTarget: true,
             closeOnPageClick: true,
@@ -212,8 +212,8 @@
             data = this.scopeValues[scopeName]
 
         data = $.extend({}, data, {
-            filter_button_text: $.oc.lang.get('filter.dates.filter_button_text'),
-            reset_button_text: $.oc.lang.get('filter.dates.reset_button_text'),
+            filter_button_text: this.getLang('filter.dates.filter_button_text'),
+            reset_button_text: this.getLang('filter.dates.reset_button_text'),
             after_placeholder: this.getLang('filter.dates.after_placeholder', 'After'),
             before_placeholder: this.getLang('filter.dates.before_placeholder', 'Before')
         })
@@ -224,7 +224,7 @@
         $scope.data('oc.popover', null)
 
         $scope.ocPopover({
-            content: Mustache.render(self.getPopoverRangeTemplate(), data),
+            content: Mustache.render(this.getPopoverRangeTemplate(), data),
             modal: false,
             highlightModalTarget: true,
             closeOnPageClick: true,
@@ -237,9 +237,9 @@
 
     FilterWidget.prototype.initDatePickers = function (isRange) {
         var self = this,
-            scopeData = self.$activeScope.data('scope-data'),
+            scopeData = this.$activeScope.data('scope-data'),
             $inputs = $('.field-datepicker input', '#controlFilterPopover'),
-            data = self.scopeValues[self.activeScopeName]
+            data = this.scopeValues[this.activeScopeName]
 
         if (!data) {
             data = {
@@ -256,11 +256,11 @@
                     yearRange: 10,
                     setDefaultDate: '' !== defaultValue ? defaultValue.toDate() : '',
                     format: self.getDateFormat(),
-                    i18n: $.oc.lang.get('datepicker')
+                    i18n: self.getLang('datepicker')
                 }
 
             if (0 <= index && index < data.dates.length) {
-                defaultValue = moment(data.dates[index], 'YYYY-MM-DD')
+                defaultValue = moment.tz(data.dates[index], self.appTimezone).tz(self.timezone)
             }
 
             if (!isRange) {
@@ -286,24 +286,33 @@
     }
 
     FilterWidget.prototype.updateScopeDateSetting = function ($scope, dates) {
-        var self = this,
-            $setting = $scope.find('.filter-setting'),
-            dateFormat = self.getDateFormat()
+        var $setting = $scope.find('.filter-setting'),
+            dateFormat = this.getDateFormat(),
+            dateRegex =/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/,
+            reset = false
 
-        if (dates && dates.length) {
+        if (dates && dates.length && dates[0].match(dateRegex)) {
             if (dates.length > 1) {
-                var after = moment(dates[0], 'YYYY-MM-DD').format(dateFormat),
-                    before = moment(dates[1], 'YYYY-MM-DD').format(dateFormat);
+                if(dates[1].match(dateRegex)) {
+                    var after = moment.tz(dates[0], this.appTimezone).tz(this.timezone).format(dateFormat),
+                        before = moment.tz(dates[1], this.appTimezone).tz(this.timezone).format(dateFormat);
 
-                $setting.text(after + ' → ' + before)
+                    $setting.text(after + ' → ' + before)
+                } else {
+                    reset = true
+                }
             }
             else {
-                $setting.text(moment(dates[0], 'YYYY-MM-DD').format(dateFormat))
+                $setting.text(moment.tz(dates[0], this.appTimezone).tz(this.timezone).format(dateFormat))
             }
 
             $scope.addClass('active')
         }
         else {
+            reset = true
+        }
+
+        if(reset) {
             $setting.text(this.getLang('filter.dates.all', 'all'));
             $scope.removeClass('active')
         }
@@ -315,16 +324,26 @@
 
         if (!isReset) {
             $('.field-datepicker input', '#controlFilterPopover').each(function (index, datepicker) {
-                dates.push($(datepicker).data('pikaday').toString('YYYY-MM-DD'))
+                var date = $(datepicker).data('pikaday').toString('YYYY-MM-DD');
+
+                if (index === 0) {
+                    date += '00:00:00'
+                } else if (index === 1) {
+                    date += '23:59:59'
+                }
+
+                dates.push(moment.tz(date, self.timezone)
+                    .tz(self.appTimezone)
+                    .format('YYYY-MM-DD HH:mm:ss'))
             })
         }
 
-        self.updateScopeDateSetting(self.$activeScope, dates);
-        self.scopeValues[self.activeScopeName] = {
+        this.updateScopeDateSetting(this.$activeScope, dates);
+        this.scopeValues[this.activeScopeName] = {
             dates: dates
         }
-        self.isActiveScopeDirty = true;
-        self.$activeScope.data('oc.popover').hide()
+        this.isActiveScopeDirty = true;
+        this.$activeScope.data('oc.popover').hide()
     }
 
     FilterWidget.prototype.getDateFormat = function () {
