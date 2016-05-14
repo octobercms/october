@@ -102,12 +102,9 @@ class Filter extends WidgetBase
     public function renderScopeElement($scope)
     {
         $params = ['scope' => $scope];
-        $loadDatePicker = false;
 
         switch ($scope->type) {
             case 'date':
-                $loadDatePicker = true;
-
                 if ($scope->value && $scope->value instanceof Carbon) {
                     $params['dateStr'] = Backend::dateTime($scope->value, ['formatAlias' => 'dateMin']);
                     $params['date']    = $scope->value->format('Y-m-d H:i:s');
@@ -115,8 +112,6 @@ class Filter extends WidgetBase
 
                 break;
             case 'daterange':
-                $loadDatePicker = true;
-
                 if ($scope->value && is_array($scope->value) && count($scope->value) === 2 &&
                     $scope->value[0] && $scope->value[0] instanceof Carbon &&
                     $scope->value[1] && $scope->value[1] instanceof Carbon
@@ -128,11 +123,6 @@ class Filter extends WidgetBase
                 }
 
                 break;
-        }
-
-        if($loadDatePicker) {
-            // Load datepicker assets
-            new DatePicker($this->controller, new FormField('dummy', 'dummy'));
         }
 
         return $this->makePartial('scope_'.$scope->type, $params);
@@ -262,6 +252,7 @@ class Filter extends WidgetBase
         foreach ($options as $option) {
             $available[$option->getKey()] = $option->{$nameColumn};
         }
+
         return $available;
     }
 
@@ -533,7 +524,7 @@ class Filter extends WidgetBase
                     /*
                      * Condition
                      */
-                    if($scopeConditions = $scope->conditions) {
+                    if ($scopeConditions = $scope->conditions) {
                         $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [
                             ':filtered' => $value->format('Y-m-d'),
                             ':after'    => $value->format('Y-m-d H:i:s'),
@@ -554,12 +545,12 @@ class Filter extends WidgetBase
                 if (is_array($scope->value) && count($scope->value) > 1) {
                     list($after, $before) = array_values($scope->value);
 
-                    if($after && $after instanceof Carbon && $before && $before instanceof Carbon) {
+                    if ($after && $after instanceof Carbon && $before && $before instanceof Carbon) {
 
                         /*
                          * Condition
                          */
-                        if($scopeConditions = $scope->conditions) {
+                        if ($scopeConditions = $scope->conditions) {
                             $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [
                                 ':afterDate'  => $after->format('Y-m-d'),
                                 ':after'      => $after->format('Y-m-d H:i:s'),
@@ -753,9 +744,10 @@ class Filter extends WidgetBase
             }
 
             foreach ($ajaxDates as $date) {
-                if(preg_match('/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/', $date)) {
+                if (preg_match('/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/', $date)) {
                     $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', $date);
-                } else {
+                }
+                else {
                     $dates = [];
                     break;
                 }

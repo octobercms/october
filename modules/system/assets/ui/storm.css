@@ -2792,7 +2792,10 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .control-filter-popover .filter-active-items a:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f00d"}
 .control-filter-popover .filter-active-items li.animate-enter{-webkit-animation:fadeInDown 0.5s;animation:fadeInDown 0.5s}
 .control-filter-popover.control-filter-date-popover{min-width:190px}
-.control-filter-popover.control-filter-date-popover .filter-buttons .btn{border-radius:0;text-align:center;margin:0}
+.control-filter-popover.control-filter-date-popover .filter-buttons{margin:0;padding:0}
+.control-filter-popover.control-filter-date-popover .filter-buttons:after{content:"";display:block;clear:both}
+.control-filter-popover.control-filter-date-popover .filter-buttons .btn{float:left;width:100%;margin:0;border-radius:0;text-align:center}
+.control-filter-popover.control-filter-date-popover.--range .filter-buttons .btn{width:50%}
 @media (max-width:480px){.control-filter-popover .filter-items{max-height:200px}
 .control-filter-popover .filter-search input{padding-left:36px;padding-right:36px}
 .control-filter-popover .filter-search .form-control.icon.search{background-position:0 -81px}

@@ -2807,7 +2807,7 @@ this.timezone=$('meta[name="backend-timezone"]').attr('content')
 this.appTimezone=$('meta[name="app-timezone"]').attr('content')
 if(!this.appTimezone){this.appTimezone='UTC'}
 if(!this.timezone){this.timezone='UTC'}}
-DatePicker.prototype.getLang=function(key,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
+DatePicker.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
 return $.oc.lang.get(name,defaultValue)}
 DatePicker.DEFAULTS={minDate:null,maxDate:null,format:'YYYY-MM-DD',yearRange:10}
 var old=$.fn.datePicker
@@ -2999,7 +2999,7 @@ if(this.options.updateHandler){var $form=this.$el.closest('form'),data={scopeNam
 $.oc.stripeLoadIndicator.show()
 $form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
 $scope.toggleClass('active',!!switchValue)}
-FilterWidget.prototype.getLang=function(key,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
+FilterWidget.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
 return $.oc.lang.get(name,defaultValue)}
 var old=$.fn.filterWidget
 $.fn.filterWidget=function(option){var args=arguments,result
@@ -3051,7 +3051,7 @@ FilterWidget.prototype.getPopoverDateTemplate=function(){return'                
                                 </div>                                                                                  \
                             </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                         \
+                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \
@@ -3062,7 +3062,7 @@ FilterWidget.prototype.getPopoverDateTemplate=function(){return'                
 FilterWidget.prototype.getPopoverRangeTemplate=function(){return'                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
-                    <div id="controlFilterPopover" class="control-filter-popover control-filter-date-popover">          \
+                    <div id="controlFilterPopover" class="control-filter-popover control-filter-date-popover --range">  \
                         <div class="filter-search loading-indicator-container size-input-text">                         \
                             <div class="field-datepicker">                                                              \
                                 <div class="input-with-icon right-align">                                               \
@@ -3089,10 +3089,10 @@ FilterWidget.prototype.getPopoverRangeTemplate=function(){return'               
                                 </div>                                                                                  \
                             </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
-                                <button class="btn btn-block btn-primary oc-icon-search" data-trigger="filter">         \
+                                <button class="btn btn-block btn-primary" data-trigger="filter">                        \
                                     {{ filter_button_text }}                                                            \
                                 </button>                                                                               \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                         \
+                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \
@@ -3101,34 +3101,39 @@ FilterWidget.prototype.getPopoverRangeTemplate=function(){return'               
                 </form>                                                                                                 \
             '}
 FilterWidget.prototype.displayPopoverDate=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName]
-data=$.extend({},data,{filter_button_text:$.oc.lang.get('filter.dates.filter_button_text'),reset_button_text:$.oc.lang.get('filter.dates.reset_button_text'),date_placeholder:this.getLang('filter.dates.date_placeholder','Date')})
+data=$.extend({},data,{filter_button_text:this.getLang('filter.dates.filter_button_text'),reset_button_text:this.getLang('filter.dates.reset_button_text'),date_placeholder:this.getLang('filter.dates.date_placeholder','Date')})
 data.scopeName=scopeName
 $scope.data('oc.popover',null)
-$scope.ocPopover({content:Mustache.render(self.getPopoverDateTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',onCheckDocumentClickTarget:function(target){return self.onCheckDocumentClickTargetDatePicker(target);}})}
+$scope.ocPopover({content:Mustache.render(this.getPopoverDateTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',onCheckDocumentClickTarget:function(target){return self.onCheckDocumentClickTargetDatePicker(target);}})}
 FilterWidget.prototype.displayPopoverRange=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName]
-data=$.extend({},data,{filter_button_text:$.oc.lang.get('filter.dates.filter_button_text'),reset_button_text:$.oc.lang.get('filter.dates.reset_button_text'),after_placeholder:this.getLang('filter.dates.after_placeholder','After'),before_placeholder:this.getLang('filter.dates.before_placeholder','Before')})
+data=$.extend({},data,{filter_button_text:this.getLang('filter.dates.filter_button_text'),reset_button_text:this.getLang('filter.dates.reset_button_text'),after_placeholder:this.getLang('filter.dates.after_placeholder','After'),before_placeholder:this.getLang('filter.dates.before_placeholder','Before')})
 data.scopeName=scopeName
-$scope.data('oc.popover',null);$scope.ocPopover({content:Mustache.render(self.getPopoverRangeTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',onCheckDocumentClickTarget:function(target){return self.onCheckDocumentClickTargetDatePicker(target);}})}
-FilterWidget.prototype.initDatePickers=function(isRange){var self=this,scopeData=self.$activeScope.data('scope-data'),$inputs=$('.field-datepicker input','#controlFilterPopover'),data=self.scopeValues[self.activeScopeName];if(!data){data={dates:isRange?(scopeData.dates?scopeData.dates:[]):(scopeData.date?[scopeData.date]:[])}}
-$inputs.each(function(index,datepicker){var defaultValue='',$datepicker=$(datepicker),defaults={minDate:new Date(scopeData.minDate),maxDate:new Date(scopeData.maxDate),yearRange:10,setDefaultDate:''!==defaultValue?defaultValue.toDate():'',format:self.getDateFormat(),i18n:$.oc.lang.get('datepicker')}
-if(0<=index&&index<data.dates.length){defaultValue=moment(data.dates[index],'YYYY-MM-DD')}
+$scope.data('oc.popover',null)
+$scope.ocPopover({content:Mustache.render(this.getPopoverRangeTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',onCheckDocumentClickTarget:function(target){return self.onCheckDocumentClickTargetDatePicker(target)}})}
+FilterWidget.prototype.initDatePickers=function(isRange){var self=this,scopeData=this.$activeScope.data('scope-data'),$inputs=$('.field-datepicker input','#controlFilterPopover'),data=this.scopeValues[this.activeScopeName]
+if(!data){data={dates:isRange?(scopeData.dates?scopeData.dates:[]):(scopeData.date?[scopeData.date]:[])}}
+$inputs.each(function(index,datepicker){var defaultValue='',$datepicker=$(datepicker),defaults={minDate:new Date(scopeData.minDate),maxDate:new Date(scopeData.maxDate),yearRange:10,setDefaultDate:''!==defaultValue?defaultValue.toDate():'',format:self.getDateFormat(),i18n:self.getLang('datepicker')}
+if(0<=index&&index<data.dates.length){defaultValue=moment.tz(data.dates[index],self.appTimezone).tz(self.timezone)}
 if(!isRange){defaults.onSelect=function(){self.filterByDate()}}
 datepicker.value=''!==defaultValue?defaultValue.format(self.getDateFormat()):'';$datepicker.pikaday(defaults)})}
 FilterWidget.prototype.clearDatePickers=function(){var $inputs=$('.field-datepicker input','#controlFilterPopover')
 $inputs.each(function(index,datepicker){var $datepicker=$(datepicker)
 $datepicker.data('pikaday').destroy()})}
-FilterWidget.prototype.updateScopeDateSetting=function($scope,dates){var self=this,$setting=$scope.find('.filter-setting'),dateFormat=self.getDateFormat()
-if(dates&&dates.length){if(dates.length>1){var after=moment(dates[0],'YYYY-MM-DD').format(dateFormat),before=moment(dates[1],'YYYY-MM-DD').format(dateFormat);$setting.text(after+' → '+before)}
-else{$setting.text(moment(dates[0],'YYYY-MM-DD').format(dateFormat))}
+FilterWidget.prototype.updateScopeDateSetting=function($scope,dates){var $setting=$scope.find('.filter-setting'),dateFormat=this.getDateFormat(),dateRegex=/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/,reset=false
+if(dates&&dates.length&&dates[0].match(dateRegex)){if(dates.length>1){if(dates[1].match(dateRegex)){var after=moment.tz(dates[0],this.appTimezone).tz(this.timezone).format(dateFormat),before=moment.tz(dates[1],this.appTimezone).tz(this.timezone).format(dateFormat);$setting.text(after+' → '+before)}else{reset=true}}
+else{$setting.text(moment.tz(dates[0],this.appTimezone).tz(this.timezone).format(dateFormat))}
 $scope.addClass('active')}
-else{$setting.text(this.getLang('filter.dates.all','all'));$scope.removeClass('active')}}
+else{reset=true}
+if(reset){$setting.text(this.getLang('filter.dates.all','all'));$scope.removeClass('active')}}
 FilterWidget.prototype.filterByDate=function(isReset){var self=this,dates=[]
-if(!isReset){$('.field-datepicker input','#controlFilterPopover').each(function(index,datepicker){dates.push($(datepicker).data('pikaday').toString('YYYY-MM-DD'))})}
-self.updateScopeDateSetting(self.$activeScope,dates);self.scopeValues[self.activeScopeName]={dates:dates}
-self.isActiveScopeDirty=true;self.$activeScope.data('oc.popover').hide()}
+if(!isReset){$('.field-datepicker input','#controlFilterPopover').each(function(index,datepicker){var date=$(datepicker).data('pikaday').toString('YYYY-MM-DD');if(index===0){date+='00:00:00'}else if(index===1){date+='23:59:59'}
+dates.push(moment.tz(date,self.timezone).tz(self.appTimezone).format('YYYY-MM-DD HH:mm:ss'))})}
+this.updateScopeDateSetting(this.$activeScope,dates);this.scopeValues[this.activeScopeName]={dates:dates}
+this.isActiveScopeDirty=true;this.$activeScope.data('oc.popover').hide()}
 FilterWidget.prototype.getDateFormat=function(){if(this.locale){return moment().locale(this.locale).localeData().longDateFormat('l')}
 return'YYYY-MM-DD'}
-FilterWidget.prototype.onCheckDocumentClickTargetDatePicker=function(target){var $target=$(target);return $target.hasClass('pika-next')||$target.hasClass('pika-prev')||$target.hasClass('pika-select')||$target.hasClass('pika-button')||$target.parents('.pika-table').length||$target.parents('.pika-title').length;}
+FilterWidget.prototype.onCheckDocumentClickTargetDatePicker=function(target){var $target=$(target)
+return $target.hasClass('pika-next')||$target.hasClass('pika-prev')||$target.hasClass('pika-select')||$target.hasClass('pika-button')||$target.parents('.pika-table').length||$target.parents('.pika-title').length}
 FilterWidget.prototype.initRegion=function(){this.locale=$('meta[name="backend-locale"]').attr('content')
 this.timezone=$('meta[name="backend-timezone"]').attr('content')
 this.appTimezone=$('meta[name="app-timezone"]').attr('content')
