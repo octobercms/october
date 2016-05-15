@@ -91,8 +91,8 @@ class ReportContainer extends WidgetBase
 
         parent::__construct($controller, $configuration);
 
-        $this->bindToController();
         $this->fillFromConfig();
+        $this->bindToController();
     }
 
     /**
