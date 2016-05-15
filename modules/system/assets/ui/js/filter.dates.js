@@ -27,7 +27,7 @@
     var overloaded_init = FilterWidget.prototype.init;
 
     FilterWidget.prototype.init = function () {
-        overloaded_init.apply(this);
+        overloaded_init.apply(this)
 
         this.initRegion()
         this.initFilterDate()
@@ -42,11 +42,11 @@
 
         this.$el.on('show.oc.popover', 'a.filter-scope-date', function () {
             self.initDatePickers($(this).hasClass('range'))
-        });
+        })
 
         this.$el.on('hiding.oc.popover', 'a.filter-scope-date', function () {
             self.clearDatePickers()
-        });
+        })
 
         this.$el.on('hide.oc.popover', 'a.filter-scope-date', function () {
             var $scope = $(this)
@@ -58,7 +58,7 @@
             setTimeout(function () {
                 $scope.removeClass('filter-scope-open')
             }, 200)
-        });
+        })
 
         this.$el.on('click', 'a.filter-scope-date', function () {
             var $scope = $(this),
@@ -82,14 +82,14 @@
             }
 
             $scope.addClass('filter-scope-open')
-        });
+        })
 
         $(document).on('click', '#controlFilterPopover [data-trigger="filter"]', function (e) {
             e.preventDefault()
             e.stopPropagation()
 
             self.filterByDate()
-        });
+        })
 
         $(document).on('click', '#controlFilterPopover [data-trigger="clear"]', function (e) {
             e.preventDefault()
@@ -201,7 +201,7 @@
             closeOnPageClick: true,
             placement: 'bottom',
             onCheckDocumentClickTarget: function (target) {
-                return self.onCheckDocumentClickTargetDatePicker(target);
+                return self.onCheckDocumentClickTargetDatePicker(target)
             }
         })
     }
@@ -260,7 +260,7 @@
                 }
 
             if (0 <= index && index < data.dates.length) {
-                defaultValue = moment.tz(data.dates[index], self.appTimezone).tz(self.timezone)
+                defaultValue = data.dates[index] ? moment.tz(data.dates[index], self.appTimezone).tz(self.timezone) : ''
             }
 
             if (!isRange) {
@@ -291,22 +291,26 @@
             dateRegex =/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/,
             reset = false
 
-        if (dates && dates.length && dates[0].match(dateRegex)) {
+        if (dates && dates.length) {
+            dates[0] = dates[0] && dates[0].match(dateRegex) ? dates[0] : null
+
             if (dates.length > 1) {
-                if(dates[1].match(dateRegex)) {
-                    var after = moment.tz(dates[0], this.appTimezone).tz(this.timezone).format(dateFormat),
-                        before = moment.tz(dates[1], this.appTimezone).tz(this.timezone).format(dateFormat);
+                dates[1] = dates[1] && dates[1].match(dateRegex) ? dates[1] : null
+
+                if(dates[0] || dates[1]) {
+                    var after = dates[0] ? moment.tz(dates[0], this.appTimezone).tz(this.timezone).format(dateFormat) : '∞',
+                        before = dates[1] ? moment.tz(dates[1], this.appTimezone).tz(this.timezone).format(dateFormat) : '∞'
 
                     $setting.text(after + ' → ' + before)
                 } else {
                     reset = true
                 }
             }
-            else {
+            else if(dates[0]) {
                 $setting.text(moment.tz(dates[0], this.appTimezone).tz(this.timezone).format(dateFormat))
+            } else {
+                reset = true
             }
-
-            $scope.addClass('active')
         }
         else {
             reset = true
@@ -315,6 +319,8 @@
         if(reset) {
             $setting.text(this.getLang('filter.dates.all', 'all'));
             $scope.removeClass('active')
+        } else {
+            $scope.addClass('active')
         }
     }
 
@@ -323,18 +329,26 @@
             dates = []
 
         if (!isReset) {
-            $('.field-datepicker input', '#controlFilterPopover').each(function (index, datepicker) {
-                var date = $(datepicker).data('pikaday').toString('YYYY-MM-DD');
+            var datepickers = $('.field-datepicker input', '#controlFilterPopover')
 
-                if (index === 0) {
-                    date += '00:00:00'
-                } else if (index === 1) {
-                    date += '23:59:59'
+            datepickers.each(function (index, datepicker) {
+                var date = $(datepicker).data('pikaday').toString('YYYY-MM-DD')
+
+                if(date.match(/\d{4}-\d{2}-\d{2}/)) {
+                    if (index === 0) {
+                        date += ' 00:00:00'
+                    } else if (index === 1) {
+                        date += ' 23:59:59'
+                    }
+
+                    date = moment.tz(date, self.timezone)
+                        .tz(self.appTimezone)
+                        .format('YYYY-MM-DD HH:mm:ss')
+                } else {
+                    date = null
                 }
 
-                dates.push(moment.tz(date, self.timezone)
-                    .tz(self.appTimezone)
-                    .format('YYYY-MM-DD HH:mm:ss'))
+                dates.push(date)
             })
         }
 
