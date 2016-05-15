@@ -164,6 +164,7 @@ class Index extends Controller
             }
         }
 
+        $template->attributes = [];
         $template->fill($templateData);
         $template->save();
 
