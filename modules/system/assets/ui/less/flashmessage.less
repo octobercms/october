@@ -38,12 +38,13 @@
 
     &.fade {
         .opacity(0);
-        .transition(~'opacity .15s linear');
+        .transition(~'all 0.5s, width 0s');
+        .transform(~'scale(0.9)');
     }
 
     &.fade.in {
         .opacity(1);
-        .animation(~'flashmessage-fade-in 1s cubic-bezier(0.2, 0.7, 0.5, 1)');
+        .transform( ~'scale(1)');
     }
 
     &.success { background: @color-flash-success-bg; }
@@ -80,18 +81,5 @@
         top: 10px;
         margin-left: 0;
         width: auto;
-    }
-}
-
-@keyframes flashmessage-fade-in {
-    0% {
-        .transform(~"translateY(-30%)");
-        opacity: 0;
-    }
-    70% {
-        opacity: 1;
-    }
-    100% {
-        .transform(~"translateY(0)");
     }
 }
