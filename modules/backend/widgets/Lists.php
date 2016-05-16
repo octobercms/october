@@ -633,10 +633,8 @@ class Lists extends WidgetBase
     protected function defineListColumns()
     {
         if (!isset($this->columns) || !is_array($this->columns) || !count($this->columns)) {
-            throw new ApplicationException(Lang::get(
-                'backend::lang.list.missing_columns',
-                ['class'=>get_class($this->controller)]
-            ));
+            $class = get_class($this->model instanceof Model ? $this->model : $this->controller);
+            throw new ApplicationException(Lang::get('backend::lang.list.missing_columns', compact('class')));
         }
 
         $this->addColumns($this->columns);

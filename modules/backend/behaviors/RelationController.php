@@ -714,6 +714,25 @@ class RelationController extends ControllerBehavior
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 
             /*
+             * Apply defined constraints
+             */
+            if ($sqlConditions = $this->getConfig('manage[conditions]')) {
+                $widget->bindEvent('list.extendQueryBefore', function($query) use ($sqlConditions) {
+                    $query->whereRaw($sqlConditions);
+                });
+            }
+            elseif ($scopeMethod = $this->getConfig('manage[scope]')) {
+                $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
+                    $query->$scopeMethod();
+                });
+            }
+            else {
+                $widget->bindEvent('list.extendQueryBefore', function($query) {
+                    $this->relationObject->addDefinedConstraintsToQuery($query);
+                });
+            }
+
+            /*
              * Link the Search Widget to the List Widget
              */
             if ($this->searchWidget) {

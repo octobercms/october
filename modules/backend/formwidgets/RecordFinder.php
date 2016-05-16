@@ -250,15 +250,19 @@ class RecordFinder extends FormWidgetBase
             'scope' => $this->searchScope,
         ]);
 
-        if ($scopeMethod = $this->scope) {
+        if ($sqlConditions = $this->conditions) {
+            $widget->bindEvent('list.extendQueryBefore', function($query) use ($sqlConditions) {
+                $query->whereRaw($sqlConditions);
+            });
+        }
+        elseif ($scopeMethod = $this->scope) {
             $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
                 $query->$scopeMethod();
             });
         }
-
-        if ($sqlConditions = $this->conditions) {
-            $widget->bindEvent('list.extendQueryBefore', function($query) use ($sqlConditions) {
-                $query->whereRaw($sqlConditions);
+        else {
+            $widget->bindEvent('list.extendQueryBefore', function($query) {
+                $this->getRelationObject()->addDefinedConstraintsToQuery($query);
             });
         }
 

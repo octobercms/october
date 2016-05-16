@@ -547,16 +547,16 @@ class Filter extends WidgetBase
                             ':before'   => $value->copy()->addDay()->addMinutes(-1)->format('Y-m-d H:i:s')
                         ])));
                     }
-
                     /*
                      * Scope
                      */
-                    if ($scopeMethod = $scope->scope) {
+                    elseif ($scopeMethod = $scope->scope) {
                         $query->$scopeMethod($value);
                     }
                 }
 
                 break;
+
             case 'daterange':
                 if (is_array($scope->value) && count($scope->value) > 1) {
                     list($after, $before) = array_values($scope->value);
@@ -574,17 +574,17 @@ class Filter extends WidgetBase
                                 ':before'     => $before->format('Y-m-d H:i:s')
                             ])));
                         }
-
                         /*
                          * Scope
                          */
-                        if ($scopeMethod = $scope->scope) {
+                        elseif ($scopeMethod = $scope->scope) {
                             $query->$scopeMethod($after, $before);
                         }
                     }
                 }
 
                 break;
+
             default:
                 $value = is_array($scope->value) ? array_keys($scope->value) : $scope->value;
 
@@ -612,13 +612,14 @@ class Filter extends WidgetBase
 
                     $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [':filtered' => $filtered])));
                 }
-
                 /*
                  * Scope
                  */
-                if ($scopeMethod = $scope->scope) {
+                elseif ($scopeMethod = $scope->scope) {
                     $query->$scopeMethod($value);
                 }
+
+                break;
         }
 
         return $query;
