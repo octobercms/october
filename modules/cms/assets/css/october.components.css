@@ -109,7 +109,7 @@ div.control-componentlist div.components div.layout-cell.placeholder > div:after
   text-shadow: none !important;
 }
 [data-field-name="components"] + .control-tabs.primary-tabs {
-  margin-top: -20px;
+  margin-top: -10px;
 }
 div.control-componentlist {
   position: relative;
