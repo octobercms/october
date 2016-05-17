@@ -97,7 +97,7 @@ class Index extends Controller
         // before it loads dynamically.
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
 
-        $this->bodyClass = 'compact-container side-panel-not-fixed';
+        $this->bodyClass = 'compact-container';
         $this->pageTitle = 'cms::lang.cms.menu_label';
         $this->pageTitleTemplate = '%s '.trans($this->pageTitle);
 
