@@ -285,7 +285,7 @@
 .control-treeview ol > li > div span.comment{display:block;font-weight:400;color:#95a5a6;font-size:14px;margin-top:2px;overflow:hidden;text-overflow:ellipsis}
 .control-treeview ol > li > div > span.expand{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;display:none;position:absolute;width:20px;height:20px;top:24px;left:2px;cursor:pointer;color:#bdc3c7;-webkit-transition:transform 0.1s ease;transition:transform 0.1s ease}
 .control-treeview ol > li > div > span.expand:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0da";line-height:100%;font-size:15px;position:relative;left:8px;top:2px}
-.control-treeview ol > li > div > span.drag-handle{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;-webkit-transition:opacity 0.4s;transition:opacity 0.4s;position:absolute;right:18px;bottom:5px;width:18px;height:19px;cursor:move;color:#bdc3c7;opacity:0;filter:alpha(opacity=0)}
+.control-treeview ol > li > div > span.drag-handle{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;-webkit-transition:opacity 0.4s;transition:opacity 0.4s;position:absolute;right:10px;bottom:5px;width:18px;height:19px;cursor:move;color:#bdc3c7;opacity:0;filter:alpha(opacity=0)}
 .control-treeview ol > li > div > span.drag-handle:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0c9";font-size:18px}
 .control-treeview ol > li > div span.borders{font-size:0}
 .control-treeview ol > li > div > ul.submenu{position:absolute;left:20px;bottom:-37px;padding:0;list-style:none;z-index:200;height:37px;display:none;margin-left:15px;background:transparent url(../images/treeview-submenu-tabs.png) repeat-x left -39px}
@@ -314,15 +314,13 @@
 .control-treeview ol > li[data-no-drag-mode] div:hover span.drag-handle{cursor:default !important;opacity:0.3 !important;filter:alpha(opacity=30) !important}
 .control-treeview ol > li.dragged li.has-subitems > div:before,.control-treeview ol > li.dragged.has-subitems > div:before{background-position:0px -52px}
 .control-treeview ol > li.dragged div > ul.submenu{display:none !important}
-.control-treeview ol > li > ol{padding-left:20px}
+.control-treeview ol > li > ol{padding-left:20px;padding-right:20px}
 .control-treeview ol > li[data-status=collapsed] > ol{display:none}
 .control-treeview ol > li.has-subitems > div:before{background-position:0 0;width:23px;height:26px;left:26px}
 .control-treeview ol > li.has-subitems > div:hover:before,.control-treeview ol > li.has-subitems > div.popover-highlight:before{background-position:0px -52px}
 .control-treeview ol > li.has-subitems > div span.expand{display:block}
-.control-treeview ol > li.placeholder{height:0;position:relative;border-bottom:1px dotted #c03f31}
-.control-treeview ol > li.placeholder:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0da";font-size:23px;color:white;position:absolute;left:-11px;top:-17px;z-index:1900}
-.control-treeview ol > li.placeholder:after{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0da";font-size:21px;color:#c03f31;position:absolute;left:-10px;top:-14px;z-index:1901}
-.control-treeview ol > li.dragged{position:absolute;z-index:2000;opacity:0.5;filter:alpha(opacity=50)}
+.control-treeview ol > li.placeholder{position:relative;opacity:0.5;filter:alpha(opacity=50)}
+.control-treeview ol > li.dragged{position:absolute;z-index:2000;opacity:0.25;filter:alpha(opacity=25)}
 .control-treeview ol > li.dragged > div{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .control-treeview ol > li.drop-target > div{background-color:#2581b8 !important}
 .control-treeview ol > li.drop-target > div > a{color:#ffffff}
@@ -338,43 +336,43 @@
 .control-treeview ol > li.active > div > span.borders:before{top:-1px}
 .control-treeview ol > li.active > div > span.borders:after{bottom:-1px}
 .control-treeview ol > li.no-data{padding:18px 0;margin:0;color:#666666;font-size:14px;text-align:center;font-weight:400}
-.control-treeview ol > li > ol > li > div{margin-left:-20px;padding-left:71px}
+.control-treeview ol > li > ol > li > div{margin-left:-20px;margin-right:-20px;padding-left:71px}
 .control-treeview ol > li > ol > li > div > a{margin-left:-71px;padding-left:71px}
 .control-treeview ol > li > ol > li > div:before{margin-left:10px}
 .control-treeview ol > li > ol > li > div > span.expand{left:12px}
-.control-treeview ol > li > ol > li > ol > li > div{margin-left:-40px;padding-left:81px}
+.control-treeview ol > li > ol > li > ol > li > div{margin-left:-40px;margin-right:-40px;padding-left:81px}
 .control-treeview ol > li > ol > li > ol > li > div > a{margin-left:-81px;padding-left:81px}
 .control-treeview ol > li > ol > li > ol > li > div:before{margin-left:20px}
 .control-treeview ol > li > ol > li > ol > li > div > span.expand{left:22px}
-.control-treeview ol > li > ol > li > ol > li > ol > li > div{margin-left:-60px;padding-left:91px}
+.control-treeview ol > li > ol > li > ol > li > ol > li > div{margin-left:-60px;margin-right:-60px;padding-left:91px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > div > a{margin-left:-91px;padding-left:91px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > div:before{margin-left:30px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > div > span.expand{left:32px}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-80px;padding-left:101px}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-80px;margin-right:-80px;padding-left:101px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div > a{margin-left:-101px;padding-left:101px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div:before{margin-left:40px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand{left:42px}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-100px;padding-left:111px}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-100px;margin-right:-100px;padding-left:111px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a{margin-left:-111px;padding-left:111px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before{margin-left:50px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand{left:52px}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-120px;padding-left:121px}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-120px;margin-right:-120px;padding-left:121px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a{margin-left:-121px;padding-left:121px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before{margin-left:60px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand{left:62px}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-140px;padding-left:131px}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-140px;margin-right:-140px;padding-left:131px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a{margin-left:-131px;padding-left:131px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before{margin-left:70px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand{left:72px}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-160px;padding-left:141px}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-160px;margin-right:-160px;padding-left:141px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a{margin-left:-141px;padding-left:141px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before{margin-left:80px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand{left:82px}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-180px;padding-left:151px}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-180px;margin-right:-180px;padding-left:151px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a{margin-left:-151px;padding-left:151px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before{margin-left:90px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand{left:92px}
-.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-200px;padding-left:161px}
+.control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div{margin-left:-200px;margin-right:-200px;padding-left:161px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a{margin-left:-161px;padding-left:161px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before{margin-left:100px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand{left:102px}
@@ -396,6 +394,10 @@
 .control-treeview.light ol > li > div > ul.submenu li p{display:table;height:100%;padding:0;margin:0}
 .control-treeview.light ol > li > div > ul.submenu li p a{display:table-cell;vertical-align:middle;height:100%;padding:0 20px;font-size:13px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .control-treeview.light ol > li > div > ul.submenu li p a i.control-icon{font-size:22px;margin-right:0}
+body.dragging .control-treeview ol.dragging,body.dragging .control-treeview ol.dragging ol{background:#ccc;padding-right:20px;-webkit-transition:padding 1s;transition:padding 1s}
+body.dragging .control-treeview ol.dragging > li > div,body.dragging .control-treeview ol.dragging ol > li > div{margin-right:0;-webkit-transition:margin 1s;transition:margin 1s}
+body.dragging .control-treeview ol.dragging > li > div .custom-checkbox,body.dragging .control-treeview ol.dragging ol > li > div .custom-checkbox{-webkit-transition:opacity 0.5s;transition:opacity 0.5s;opacity:0;filter:alpha(opacity=0)}
+body.dragging .control-treeview.light ol.dragging > li > div,body.dragging .control-treeview.light ol.dragging ol > li > div{background-color:#f9f9f9}
 @media only screen and (-moz-min-device-pixel-ratio:1.5),only screen and (-o-min-device-pixel-ratio:3/2),only screen and (-webkit-min-device-pixel-ratio:1.5),only screen and (min-devicepixel-ratio:1.5),only screen and (min-resolution:1.5dppx){.control-treeview ol > li > div:before{background-position:0px -79px;background-size:21px auto}
 .control-treeview ol > li.has-subitems > div:before{background-position:0px -52px}
 .control-treeview ol > li.has-subitems > div:hover:before,.control-treeview ol > li.has-subitems > div.popover-highlight:before{background-position:0px -102px}

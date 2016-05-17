@@ -87,7 +87,7 @@
                     .transition(opacity 0.4s);
 
                     position: absolute;
-                    right: 18px;
+                    right: 10px;
                     bottom: 5px;
                     width: 18px;
                     height: 19px;
@@ -229,7 +229,7 @@
             &[data-no-drag-mode] div:hover {
                 span.drag-handle {
                     cursor: default!important;
-                    .opacity(0.3)!important;
+                    .opacity(.3)!important;
                 }
             }
 
@@ -247,6 +247,7 @@
 
             > ol {
                 padding-left: 20px;
+                padding-right: 20px;
             }
 
             &[data-status=collapsed] > ol {
@@ -263,7 +264,7 @@
                     }
 
                     &:hover, &.popover-highlight {
-                        &:before {background-position: 0px -52px;}
+                        &:before { background-position: 0px -52px; }
                     }
 
                     span.expand {
@@ -273,44 +274,21 @@
             }
 
             &.placeholder {
-                height: 0;
                 position: relative;
-                border-bottom: 1px dotted #c03f31;
-
-                &:before {
-                    .icon(@caret-right);
-                    font-size: 23px;
-                    color: white;
-                    position: absolute;
-                    left: -11px;
-                    top: -17px;
-                    z-index: 1900;
-                }
-
-                &:after {
-                    .icon(@caret-right);
-                    font-size: 21px;
-                    color: #c03f31;
-                    position: absolute;
-                    left: -10px;
-                    top: -14px;
-                    z-index: 1901;
-                }
+                .opacity(.5);
             }
 
             &.dragged {
                 position: absolute;
                 z-index: 2000;
-                // width: auto!important;
-                // height: auto!important;
-                .opacity(0.5);
+                .opacity(.25);
 
                 > div {
                     .border-radius(3px);
                 }
             }
 
-            &.drop-target  {
+            &.drop-target {
                 > div {
                     background-color: #2581b8!important;
 
@@ -388,6 +366,7 @@
                 > ol {
                     > li > div {
                         margin-left: -20-(@max-level - @level)*20px;
+                        margin-right: -20-(@max-level - @level)*20px;
                         padding-left: 61+(@max-level - @level + 1)*10px;
 
                         > a {
@@ -536,7 +515,43 @@
     }
 }
 
-// Retina 
+//
+// Sorting guides
+//
+
+body.dragging .control-treeview {
+    ol.dragging, ol.dragging ol {
+        background: #ccc;
+        padding-right: 20px;
+        .transition(padding 1s);
+
+        > li {
+            > div {
+                margin-right: 0;
+                .transition(margin 1s);
+
+                .custom-checkbox {
+                    .transition(opacity .5s);
+                    .opacity(0);
+                }
+            }
+        }
+    }
+
+    &.light {
+        ol.dragging, ol.dragging ol {
+            > li > div  {
+                background-color: #f9f9f9;
+            }
+        }
+    }
+}
+
+
+//
+// Retina
+//
+
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
     .control-treeview {
         ol {

@@ -3013,14 +3013,18 @@ return result?result:this}
 $.fn.filterWidget.Constructor=FilterWidget
 $.fn.filterWidget.noConflict=function(){$.fn.filterWidget=old
 return this}
-$(document).render(function(){$('[data-control="filterwidget"]').filterWidget();})}(window.jQuery);+function($){"use strict";var FilterWidget=$.fn.filterWidget.Constructor;var overloaded_init=FilterWidget.prototype.init;FilterWidget.prototype.init=function(){overloaded_init.apply(this);this.initRegion()
+$(document).render(function(){$('[data-control="filterwidget"]').filterWidget();})}(window.jQuery);+function($){"use strict";var FilterWidget=$.fn.filterWidget.Constructor;var overloaded_init=FilterWidget.prototype.init;FilterWidget.prototype.init=function(){overloaded_init.apply(this)
+this.initRegion()
 this.initFilterDate()}
 FilterWidget.prototype.initFilterDate=function(){var self=this
-this.$el.on('show.oc.popover','a.filter-scope-date',function(){self.initDatePickers($(this).hasClass('range'))});this.$el.on('hiding.oc.popover','a.filter-scope-date',function(){self.clearDatePickers()});this.$el.on('hide.oc.popover','a.filter-scope-date',function(){var $scope=$(this)
+this.$el.on('show.oc.popover','a.filter-scope-date',function(){self.initDatePickers($(this).hasClass('range'))})
+this.$el.on('hiding.oc.popover','a.filter-scope-date',function(){self.clearDatePickers()})
+this.$el.on('hide.oc.popover','a.filter-scope-date',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
 self.activeScopeName=null
 self.$activeScope=null
-setTimeout(function(){$scope.removeClass('filter-scope-open')},200)});this.$el.on('click','a.filter-scope-date',function(){var $scope=$(this),scopeName=$scope.data('scope-name')
+setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})
+this.$el.on('click','a.filter-scope-date',function(){var $scope=$(this),scopeName=$scope.data('scope-name')
 if($scope.hasClass('filter-scope-open'))return
 if(null!==self.activeScopeName)return
 self.$activeScope=$scope
@@ -3028,9 +3032,11 @@ self.activeScopeName=scopeName
 self.isActiveScopeDirty=false
 if($scope.hasClass('range')){self.displayPopoverRange($scope)}
 else{self.displayPopoverDate($scope)}
-$scope.addClass('filter-scope-open')});$(document).on('click','#controlFilterPopover [data-trigger="filter"]',function(e){e.preventDefault()
+$scope.addClass('filter-scope-open')})
+$(document).on('click','#controlFilterPopover [data-trigger="filter"]',function(e){e.preventDefault()
 e.stopPropagation()
-self.filterByDate()});$(document).on('click','#controlFilterPopover [data-trigger="clear"]',function(e){e.preventDefault()
+self.filterByDate()})
+$(document).on('click','#controlFilterPopover [data-trigger="clear"]',function(e){e.preventDefault()
 e.stopPropagation()
 self.filterByDate(true)})}
 FilterWidget.prototype.getPopoverDateTemplate=function(){return'                                                                                                        \
@@ -3104,7 +3110,7 @@ FilterWidget.prototype.displayPopoverDate=function($scope){var self=this,scopeNa
 data=$.extend({},data,{filter_button_text:this.getLang('filter.dates.filter_button_text'),reset_button_text:this.getLang('filter.dates.reset_button_text'),date_placeholder:this.getLang('filter.dates.date_placeholder','Date')})
 data.scopeName=scopeName
 $scope.data('oc.popover',null)
-$scope.ocPopover({content:Mustache.render(this.getPopoverDateTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',onCheckDocumentClickTarget:function(target){return self.onCheckDocumentClickTargetDatePicker(target);}})}
+$scope.ocPopover({content:Mustache.render(this.getPopoverDateTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',onCheckDocumentClickTarget:function(target){return self.onCheckDocumentClickTargetDatePicker(target)}})}
 FilterWidget.prototype.displayPopoverRange=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName]
 data=$.extend({},data,{filter_button_text:this.getLang('filter.dates.filter_button_text'),reset_button_text:this.getLang('filter.dates.reset_button_text'),after_placeholder:this.getLang('filter.dates.after_placeholder','After'),before_placeholder:this.getLang('filter.dates.before_placeholder','Before')})
 data.scopeName=scopeName
@@ -3113,21 +3119,26 @@ $scope.ocPopover({content:Mustache.render(this.getPopoverRangeTemplate(),data),m
 FilterWidget.prototype.initDatePickers=function(isRange){var self=this,scopeData=this.$activeScope.data('scope-data'),$inputs=$('.field-datepicker input','#controlFilterPopover'),data=this.scopeValues[this.activeScopeName]
 if(!data){data={dates:isRange?(scopeData.dates?scopeData.dates:[]):(scopeData.date?[scopeData.date]:[])}}
 $inputs.each(function(index,datepicker){var defaultValue='',$datepicker=$(datepicker),defaults={minDate:new Date(scopeData.minDate),maxDate:new Date(scopeData.maxDate),yearRange:10,setDefaultDate:''!==defaultValue?defaultValue.toDate():'',format:self.getDateFormat(),i18n:self.getLang('datepicker')}
-if(0<=index&&index<data.dates.length){defaultValue=moment.tz(data.dates[index],self.appTimezone).tz(self.timezone)}
+if(0<=index&&index<data.dates.length){defaultValue=data.dates[index]?moment.tz(data.dates[index],self.appTimezone).tz(self.timezone):''}
 if(!isRange){defaults.onSelect=function(){self.filterByDate()}}
 datepicker.value=''!==defaultValue?defaultValue.format(self.getDateFormat()):'';$datepicker.pikaday(defaults)})}
 FilterWidget.prototype.clearDatePickers=function(){var $inputs=$('.field-datepicker input','#controlFilterPopover')
 $inputs.each(function(index,datepicker){var $datepicker=$(datepicker)
 $datepicker.data('pikaday').destroy()})}
 FilterWidget.prototype.updateScopeDateSetting=function($scope,dates){var $setting=$scope.find('.filter-setting'),dateFormat=this.getDateFormat(),dateRegex=/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/,reset=false
-if(dates&&dates.length&&dates[0].match(dateRegex)){if(dates.length>1){if(dates[1].match(dateRegex)){var after=moment.tz(dates[0],this.appTimezone).tz(this.timezone).format(dateFormat),before=moment.tz(dates[1],this.appTimezone).tz(this.timezone).format(dateFormat);$setting.text(after+' → '+before)}else{reset=true}}
-else{$setting.text(moment.tz(dates[0],this.appTimezone).tz(this.timezone).format(dateFormat))}
-$scope.addClass('active')}
+if(dates&&dates.length){dates[0]=dates[0]&&dates[0].match(dateRegex)?dates[0]:null
+if(dates.length>1){dates[1]=dates[1]&&dates[1].match(dateRegex)?dates[1]:null
+if(dates[0]||dates[1]){var after=dates[0]?moment.tz(dates[0],this.appTimezone).tz(this.timezone).format(dateFormat):'∞',before=dates[1]?moment.tz(dates[1],this.appTimezone).tz(this.timezone).format(dateFormat):'∞'
+$setting.text(after+' → '+before)}else{reset=true}}
+else if(dates[0]){$setting.text(moment.tz(dates[0],this.appTimezone).tz(this.timezone).format(dateFormat))}else{reset=true}}
 else{reset=true}
-if(reset){$setting.text(this.getLang('filter.dates.all','all'));$scope.removeClass('active')}}
+if(reset){$setting.text(this.getLang('filter.dates.all','all'));$scope.removeClass('active')}else{$scope.addClass('active')}}
 FilterWidget.prototype.filterByDate=function(isReset){var self=this,dates=[]
-if(!isReset){$('.field-datepicker input','#controlFilterPopover').each(function(index,datepicker){var date=$(datepicker).data('pikaday').toString('YYYY-MM-DD');if(index===0){date+='00:00:00'}else if(index===1){date+='23:59:59'}
-dates.push(moment.tz(date,self.timezone).tz(self.appTimezone).format('YYYY-MM-DD HH:mm:ss'))})}
+if(!isReset){var datepickers=$('.field-datepicker input','#controlFilterPopover')
+datepickers.each(function(index,datepicker){var date=$(datepicker).data('pikaday').toString('YYYY-MM-DD')
+if(date.match(/\d{4}-\d{2}-\d{2}/)){if(index===0){date+=' 00:00:00'}else if(index===1){date+=' 23:59:59'}
+date=moment.tz(date,self.timezone).tz(self.appTimezone).format('YYYY-MM-DD HH:mm:ss')}else{date=null}
+dates.push(date)})}
 this.updateScopeDateSetting(this.$activeScope,dates);this.scopeValues[this.activeScopeName]={dates:dates}
 this.isActiveScopeDirty=true;this.$activeScope.data('oc.popover').hide()}
 FilterWidget.prototype.getDateFormat=function(){if(this.locale){return moment().locale(this.locale).localeData().longDateFormat('l')}
@@ -3991,12 +4002,15 @@ if(this.options.tweakCursorAdjustment){this.cursorAdjustment=this.options.tweakC
 $item.css({height:$item.height(),width:$item.width()})
 $item.addClass('dragged')
 $('body').addClass('dragging')
+this.$el.addClass('dragging')
 if(this.options.useAnimation){$item.data('oc.animated',true)}
-if(this.options.usePlaceholderClone){$(container.rootGroup.placeholder).html($item.html())}}
+if(this.options.usePlaceholderClone){$(container.rootGroup.placeholder).html($item.html())}
+if(!this.options.useDraggingClone){$item.hide()}}
 Sortable.prototype.onDrag=function($item,position,_super,event){if(this.cursorAdjustment){$item.css({left:position.left-this.cursorAdjustment.left,top:position.top-this.cursorAdjustment.top})}
 else{$item.css(position)}}
 Sortable.prototype.onDrop=function($item,container,_super,event){$item.removeClass('dragged').removeAttr('style')
 $('body').removeClass('dragging')
+this.$el.removeClass('dragging')
 if($item.data('oc.animated')){$item.hide().slideDown(200)}}
 Sortable.prototype.enable=function(){this.$el.jqSortable('enable')}
 Sortable.prototype.disable=function(){this.$el.jqSortable('disable')}
@@ -4005,7 +4019,7 @@ Sortable.prototype.serialize=function(){this.$el.jqSortable('serialize')}
 Sortable.prototype.destroy=function(){this.dispose()}
 Sortable.prototype.destroyGroup=function(){var jqSortable=this.$el.data('jqSortable')
 if(jqSortable.group){jqSortable.group._destroy()}}
-Sortable.DEFAULTS={useAnimation:false,usePlaceholderClone:false,tweakCursorAdjustment:null}
+Sortable.DEFAULTS={useAnimation:false,usePlaceholderClone:false,useDraggingClone:true,tweakCursorAdjustment:null}
 var old=$.fn.sortable
 $.fn.sortable=function(option){var args=arguments;return this.each(function(){var $this=$(this)
 var data=$this.data('oc.sortable')

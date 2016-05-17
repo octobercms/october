@@ -963,8 +963,10 @@ $.fn.sidePanelTab.Constructor=SidePanelTab
 $.fn.sidePanelTab.noConflict=function(){$.fn.sidePanelTab=old
 return this}
 $(window).load(function(){$('[data-control=layout-sidepanel]').sidePanelTab()})
-$(document).ready(function(){if(Modernizr.touch||(typeof(localStorage)!=='undefined'&&localStorage.ocSidePanelFixed==1)){$(document.body).removeClass('side-panel-not-fixed')
-$(window).trigger('resize')}})}(window.jQuery);+function($){"use strict";var SimpleList=function(element,options){var $el=this.$el=$(element)
+$(document).ready(function(){if(Modernizr.touch||(typeof(localStorage)!=='undefined')){if(localStorage.ocSidePanelFixed==0){$(document.body).addClass('side-panel-not-fixed')
+$(window).trigger('resize')}
+else if(localStorage.ocSidePanelFixed==1){$(document.body).removeClass('side-panel-not-fixed')
+$(window).trigger('resize')}}})}(window.jQuery);+function($){"use strict";var SimpleList=function(element,options){var $el=this.$el=$(element)
 this.options=options||{}
 if($el.hasClass('is-sortable')){var sortableOptions={distance:10}
 if(this.options.sortableHandle)

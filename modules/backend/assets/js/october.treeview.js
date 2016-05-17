@@ -208,7 +208,9 @@
             tweakCursorAdjustment: this.proxy(this.tweakCursorAdjustment),
             isValidTarget: this.proxy(this.isValidTarget),
             useAnimation: false,
-            handle: 'span.drag-handle'
+            usePlaceholderClone: true,
+            handle: 'span.drag-handle',
+            tolerance: -20 // Give 20px of carry between containers
         })
 
         this.$el.on('move.oc.treelist', this.proxy(this.onNodeMove))
