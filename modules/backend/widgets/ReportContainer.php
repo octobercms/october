@@ -135,9 +135,10 @@ class ReportContainer extends WidgetBase
         $alias = Request::input('alias');
 
         $widget = $this->findWidgetByAlias($alias);
-        $this->saveWidgetProperties($alias, $widget->setProperties(
-            json_decode(Request::input('fields'), true)
-        ));
+
+        $widget->setProperties(json_decode(Request::input('fields'), true));
+
+        $this->saveWidgetProperties($alias, $widget->getProperties());
 
         return [
             '#'.$alias => $widget->render()
