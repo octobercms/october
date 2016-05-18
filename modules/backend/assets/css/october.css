@@ -1,4 +1,4 @@
-@import "../vendor/jcrop/css/jquery.Jcrop.min.css";@import "../../../system/assets/vendor/prettify/prettify.css";@import "../../../system/assets/vendor/prettify/theme-desert.css";@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700,700italic);@-webkit-keyframes showSweetAlert{0%{transform:scale(0.7);-webkit-transform:scale(0.7)}
+@import "../vendor/jcrop/css/jquery.Jcrop.min.css";@import "../../../system/assets/vendor/prettify/prettify.css";@import "../../../system/assets/vendor/prettify/theme-desert.css";@-webkit-keyframes showSweetAlert{0%{transform:scale(0.7);-webkit-transform:scale(0.7)}
 45%{transform:scale(1.05);-webkit-transform:scale(1.05)}
 80%{transform:scale(0.95);-webkit-tranform:scale(0.95)}
 100%{transform:scale(1);-webkit-transform:scale(1)}
@@ -586,7 +586,6 @@ body.no-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:no
 html,body{height:100%; }
 body{webkit-font-smoothing:antialiased;font-family:sans-serif;background:#f9f9f9}
 #layout-canvas{min-height:100%;height:100%}
-body{font-family:'Noto Sans',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .control-tabs.primary-tabs > ul.nav-tabs,.control-tabs.primary-tabs > div > ul.nav-tabs,.control-tabs.primary-tabs > div > div > ul.nav-tabs{margin-left:-20px;margin-right:-20px}
 .control-tabs.primary-tabs.tabs-no-inset > ul.nav-tabs,.control-tabs.primary-tabs.tabs-no-inset > div > ul.nav-tabs,.control-tabs.primary-tabs.tabs-no-inset > div > div > ul.nav-tabs{margin-left:0;margin-right:0}
 .layout{display:table;table-layout:fixed;height:100%;width:100%}
