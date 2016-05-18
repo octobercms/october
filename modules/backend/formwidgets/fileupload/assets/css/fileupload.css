@@ -130,7 +130,7 @@
 .field-fileupload.style-file-multi .info p.size{width:25% !important;padding-right:35px !important}
 .field-fileupload.style-file-multi .meta{width:25% !important}
 }
-.field-fileupload.style-file-single{background-color:#ffffff;border:1px solid #bdc3c7;overflow:hidden;position:relative;padding-right:30px;border-radius:3px;-webkit-box-shadow:inset 0 1px 0 #bdc3c7,0 1px 0 #fff;box-shadow:inset 0 1px 0 #bdc3c7,0 1px 0 #fff}
+.field-fileupload.style-file-single{background-color:#ffffff;border:1px solid #bdc3c7;overflow:hidden;position:relative;padding-right:30px;border-radius:3px;-webkit-box-shadow:inset 0 1px 0 rgba(189,195,199,0.25),0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 1px 0 rgba(189,195,199,0.25),0 1px 0 rgba(255,255,255,.5)}
 .field-fileupload.style-file-single .upload-button{position:absolute;top:50%;margin-top:-44px;height:88px;background:transparent;right:-2px;color:#595959}
 .field-fileupload.style-file-single .upload-button i{font-size:14px}
 .field-fileupload.style-file-single .upload-button:hover{color:#333333}

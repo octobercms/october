@@ -26,6 +26,16 @@
             font-size: 14px;
             line-height: 14px;
             position: relative;
+            opacity: .5;
+        }
+
+        &.on,
+        &:hover,
+        &:focus,
+        &.focus {
+            &:before {
+                opacity: 1;
+            }
         }
     }
 
@@ -35,7 +45,7 @@
 
     &.active,
     &:active {
-        .box-shadow(inset 0 2px 0 rgba(0,0,0,.3));
+        .box-shadow(inset 0 1px 0 rgba(0,0,0,.3));
     }
 }
 
