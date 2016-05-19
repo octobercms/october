@@ -24,6 +24,11 @@ class RichEditor extends FormWidgetBase
      */
     public $fullPage = false;
 
+    /**
+     * @var boolean Determines whether content has HEAD and HTML tags.
+     */
+    public $toolbarButtons = null;
+
     //
     // Object properties
     //
@@ -40,6 +45,7 @@ class RichEditor extends FormWidgetBase
     {
         $this->fillFromConfig([
             'fullPage',
+            'toolbarButtons',
         ]);
     }
 
@@ -57,12 +63,31 @@ class RichEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['field'] = $this->formField;
         $this->vars['editorLang'] = $this->getValidEditorLang();
         $this->vars['fullPage'] = $this->fullPage;
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->formField->getName();
         $this->vars['value'] = $this->getLoadValue();
+        $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
+    }
+
+    /**
+     * Determine the toolbar buttons to use based on config.
+     * @return string
+     */
+    protected function evalToolbarButtons()
+    {
+        $buttons = $this->toolbarButtons;
+
+        if (is_string($buttons)) {
+            $buttons = array_map(function($button) {
+                return strlen($button) ? $button : '|';
+            }, explode('|', $buttons));
+        }
+
+        return $buttons;
     }
 
     /**

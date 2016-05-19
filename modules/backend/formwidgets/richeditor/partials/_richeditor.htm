@@ -7,8 +7,11 @@
         class="field-richeditor size-<?= $size ?> <?= $stretch?'layout-relative stretch':'' ?>"
         <?php if ($editorLang): ?>data-editor-lang="<?= $editorLang ?>"<?php endif ?>
         <?php if ($fullPage): ?>data-fullpage="true"<?php endif ?>
+        <?php if ($toolbarButtons): ?>data-toolbar-buttons="<?= implode(',', $toolbarButtons) ?>"<?php endif ?>
         data-links-handler="<?= $this->getEventHandler('onGetPageLinks') ?>"
+        placeholder="<?= e(trans($field->placeholder)) ?>"
         data-control="richeditor">
         <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>"><?= e($value) ?></textarea>
+        <div class="height-indicator"></div>
     </div>
 <?php endif ?>

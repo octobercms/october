@@ -10,10 +10,41 @@
 @color-richeditor-toolbar-btn-bg-active:     #404040;
 @color-richeditor-toolbar-btn-color-hover:   #ffffff;
 
+@import "../vendor/froala_drm/less/froala.less";
+@import "../vendor/froala_drm/less/style.less";
+
+// Buttons
+@import "../vendor/froala_drm/less/plugins/fullscreen.less";
 @import "../vendor/froala_drm/less/plugins/code_view.less";
-@import "../vendor/froala/css/froala_editor.min.css";
-@import "../vendor/froala/css/froala_style.min.css";
-@import "../vendor/froala/css/plugins/fullscreen.css";
+@import "../vendor/froala_drm/less/plugins/file.less";
+@import "../vendor/froala_drm/less/plugins/image.less";
+@import "../vendor/froala_drm/less/plugins/table.less";
+@import "../vendor/froala_drm/less/plugins/video.less";
+@import "../vendor/froala_drm/less/plugins/colors.less";
+@import "../vendor/froala_drm/less/plugins/emoticons.less";
+
+// Functional
+@import "../vendor/froala_drm/less/plugins/line_breaker.less";
+@import "../vendor/froala_drm/less/plugins/draggable.less";
+
+
+// Modifications
+@import "_froala.less";
+
+@font-family: @font-family-sans-serif;
+@border-radius: @input-border-radius;
+@tooltip-bg: #34495e; // Taken from toolbar.variables.less
+@tooltip-font-size: @font-size-small;
+@arrow-size: 7px;
+@ui-border-color: @input-border-color;
+@ui-border-top: 1px solid @ui-border-color;
+@editor-padding: 20px;
+@btn-text: rgba(0,0,0,.5);
+@btn-active-text: #222;
+
+//
+// Rich Editor
+//
 
 .field-flush .field-richeditor {
     &, &.editor-focus {
@@ -28,10 +59,17 @@
             min-height: @size;
         }
     }
+
+    .height-indicator {
+        height: @size;
+        display: none;
+    }
 }
 
 .field-richeditor {
-    border: 1px solid @color-form-field-border;
+    border: 1px solid @input-border;
+    .box-shadow(@input-box-shadow);
+    .border-radius(@input-border-radius);
     .transition(@input-transition);
 
     &.editor-focus {
@@ -43,14 +81,6 @@
     &.size-large  { .richeditor-set-height(@size-large); }
     &.size-huge   { .richeditor-set-height(@size-huge); }
     &.size-giant  { .richeditor-set-height(@size-giant); }
-}
-
-//
-// Overrides
-//
-
-.fr-toolbar {
-    border-top: none;
 }
 
 //
@@ -68,6 +98,7 @@
 
         .fr-toolbar {
             .border-radius(0) !important;
+            border-top-color: white;
         }
 
         .fr-wrapper {
@@ -77,12 +108,13 @@
             bottom: 0;
             position: absolute;
             height: auto !important;
-            padding: 20px;
+            .fr-view {
+                min-height: 0;
+            }
         }
 
         .fr-view, textarea {
             height: 100%;
-            padding: 0;
         }
 
         .fr-placeholder {

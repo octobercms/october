@@ -39,7 +39,8 @@
         linksHandler: null,
         stylesheet: null,
         fullpage: false,
-        editorLang: 'en'
+        editorLang: 'en',
+        toolbarButtons: null
     }
 
     RichEditor.prototype.init = function() {
@@ -55,52 +56,52 @@
         }
 
         /*
-         * Initialize Redactor editor
+         * Initialize Froala editor
          */
+        this.initFroala()
+    }
+
+    RichEditor.prototype.initFroala = function() {
         var froalaOptions = {
-            editorClass: 'control-richeditor',
-            height: Infinity // Height set via CSS, enable the scrollbars
+            editorClass: 'control-richeditor'
         }
 
-        froalaOptions.toolbarButtons =  [
-            'fullscreen',
-            'bold',
-            'italic',
-            'underline',
-            'strikeThrough',
-            'subscript',
-            'superscript',
-            'fontFamily',
-            'fontSize',
-            'color',
-            'emoticons',
-            'inlineStyle',
-            'paragraphStyle',
-            'paragraphFormat',
-            'align',
-            'formatOL',
-            'formatUL',
-            'outdent',
-            'indent',
-            'quote',
-            'insertHR',
-            'insertLink',
-            'insertImage',
-            'insertVideo',
-            'insertFile',
-            'insertTable',
-            'undo',
-            'redo',
-            'clearFormatting',
-            'selectAll',
-            'html'
-        ]
+        if (this.options.toolbarButtons) {
+            froalaOptions.toolbarButtons = this.options.toolbarButtons.split(',')
+        }
+        else {
+            froalaOptions.toolbarButtons = [
+                'paragraphFormat',
+                'paragraphStyle',
+                'quote',
+                'bold',
+                'italic',
+                'align',
+                'formatOL',
+                'formatUL',
+                'insertTable',
+                'insertLink',
+                'insertImage',
+                'insertVideo',
+                'insertFile',
+                'insertHR',
+                'fullscreen',
+                'html'
+            ]
+        }
 
         froalaOptions.toolbarButtonsMD = froalaOptions.toolbarButtons
         froalaOptions.toolbarButtonsSM = froalaOptions.toolbarButtons
         froalaOptions.toolbarButtonsXS = froalaOptions.toolbarButtons
         froalaOptions.htmlAllowedEmptyTags = ['figure', 'textarea', 'a', 'iframe', 'object', 'video', 'style', 'script']
         froalaOptions.htmlDoNotWrapTags = ['figure', 'script', 'style']
+
+        var placeholder = this.$textarea.attr('placeholder')
+        froalaOptions.placeholderText = placeholder ? placeholder : ''
+
+        froalaOptions.height = this.$el.hasClass('stretch')
+            ? Infinity
+            : $('.height-indicator', this.$el).height()
 
         $.FroalaEditor.ICON_TEMPLATES = {
             font_awesome: '<i class="icon-[NAME]"></i>',
