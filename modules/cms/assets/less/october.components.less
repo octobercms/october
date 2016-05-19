@@ -51,7 +51,7 @@ div.control-componentlist div.components div.layout-cell {
             position: absolute;
             font-size: 16px;
             left: 15px;
-            top: 8px;
+            top: 7px;
             .opacity(0.7);
         }
 
@@ -161,6 +161,18 @@ div.control-componentlist {
                 bottom: 5px;
             }
 
+            &:first-child {
+                > div.popover-highlight {
+                    .border-left-radius(3px);
+                }
+            }
+
+            &:last-child {
+                > div.popover-highlight {
+                    .border-right-radius(3px);
+                }
+            }
+
             > div {
                 .translate(0, 0);
                 .transition-transform(0.2s);
@@ -217,12 +229,13 @@ div.control-componentlist {
                     display: inline-block;
                     top: 1px;
                     right: 5px;
-                    color: @color-component-text;
-                    font-size: 14px;
-                    .opacity(0.3);
+                    color: @close-color;
+                    font-size: 17px;
+                    font-weight: @close-font-weight;
+                    .opacity(.3);
 
                     &:hover {
-                        .opacity(1);
+                        .opacity(.5);
                         text-decoration: none;
                     }
                 }

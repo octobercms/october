@@ -13,6 +13,7 @@
 // --------------------------------------------------
 
 @color-inspector-bg:                         #f2f2f2;
+@color-inspector-value-bg:                   #ffffff;
 @color-inspector-active-bg:                  #ffffff;
 @color-inspector-text:                       #333333;
 @color-inspector-input-text:                 #385487;
@@ -107,17 +108,15 @@
 
     td {
         font-weight: 300;
-        border-left: 1px solid @color-inspector-bg;
+        border-left: 1px solid @color-inspector-grid;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        background: @color-inspector-value-bg;
 
         &.text {
-            background: #F9F7F7;
 
             input[type=text] {
-                background: transparent;
-
                 &::-webkit-input-placeholder {
                     font-weight: normal!important;
                     color: #b5babd;
@@ -138,7 +137,6 @@
 
             &.active {
                 background: @color-inspector-active-bg;
-                border-left: 1px solid @color-inspector-grid;
             }
         }
 
@@ -380,7 +378,6 @@
         width: 100% !important;
 
         .select2-selection {
-            background: transparent;
             height: 29px;
             line-height: 29px;
             padding: 0 3px 0 12px;
@@ -404,9 +401,7 @@
             .border-radius(0) !important;
             border: none !important;
 
-            .select2-selection {
-                background: white;
-            }
+            .select2-selection {}
         }
 
         .select2-selection__rendered {
@@ -479,7 +474,7 @@ div.control-popover {
 
     .inspector-wrapper {
         background: #f2f2f2; // Use @color-inspector-bg instead
-        border-left: 2px solid #bdc3c7; 
+        border-left: 2px solid #bdc3c7;
     }
 
     .toolbar {
@@ -571,13 +566,14 @@ div.inspector-dictionary-container {
 }
 
 .inspector-header {
-    background: #d35400;
+    background: @color-popover-head-bg;
     padding: 14px 16px;
     position: relative;
-    color: #ffffff;
+    color: @color-popover-head-text;
+    border-bottom: 2px solid @color-popover-border;
 
     h3 {
-        font-size: 16px;
+        font-size: @font-size-base;
         font-weight: bold;
         margin-top: 0;
         margin-bottom: 0;
@@ -586,7 +582,7 @@ div.inspector-dictionary-container {
     }
 
     p {
-        font-size: 14px;
+        font-size: @font-size-base - 2;
         font-weight: normal;
         margin: 5px 0 0 0;
 
@@ -600,18 +596,20 @@ div.inspector-dictionary-container {
         position: absolute;
         top: 12px;
         float: none;
-        color: #ffffff;
+        color: @close-color;
         cursor: pointer;
+        line-height: 1;
 
         .opacity(0.4);
         &:hover {
             .opacity(1);
-            color: #ffffff;
+            color: @close-color;
         }
     }
 
     .detach {
         right: 26px;
+        line-height: 22px;
     }
 
     .close {
@@ -621,7 +619,7 @@ div.inspector-dictionary-container {
 }
 
 .inspector-container {
-    &:empty { 
+    &:empty {
         display: none;
     }
 

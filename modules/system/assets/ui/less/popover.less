@@ -12,8 +12,8 @@
 
 @color-popover-bg:                           #ffffff;
 @color-popover-border:                       rgba(0,0,0,.15);
-@color-popover-head-bg:                      mix(black, saturate(@brand-secondary, 20%), 25%);
-@color-popover-head-text:                    #ffffff;
+@color-popover-head-bg:                      #f9f9f9;
+@color-popover-head-text:                    #2a3e51;
 @color-popover-danger-bg:                    #ab2a1c;
 
 div.control-popover {
@@ -132,6 +132,7 @@ div.control-popover {
         position: relative;
         color: @color-popover-head-text;
         .border-top-radius(2px);
+        border-bottom: 2px solid @color-popover-border;
 
         &:before {
             z-index: 602;
@@ -177,13 +178,14 @@ div.control-popover {
             top: 14px;
             right: 26px;
             float: none;
-            color: #ffffff;
+            color: @close-color;
             cursor: pointer;
             text-decoration: none;
+            line-height: 17px;
 
             &:hover {
                 .opacity(1);
-                color: #ffffff;
+                color: @close-color;
             }
 
             &:before {
