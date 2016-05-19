@@ -2,9 +2,14 @@
 // Custom alerts (Based on Sweet Alert)
 // --------------------------------------------------
 
+.sweet-overlay {
+    background-color: @overlay-background;
+}
 
 .sweet-alert {
     text-align: right;
+    border-radius: @border-radius-base;
+    .box-shadow(@popup-box-shadow);
 
     h2 {
         word-break: word-break;

@@ -72,6 +72,11 @@
     .border-radius(@input-border-radius);
     .transition(@input-transition);
 
+    // Prevents an ugly flash during the time the editor loads
+    > textarea {
+        display: none;
+    }
+
     &.editor-focus {
         border-color: @color-form-field-border-focus;
     }

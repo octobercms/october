@@ -1,6 +1,6 @@
-.field-codeeditor{width:100%;position:relative;border:2px solid #bdc3c7;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+.field-codeeditor{width:100%;position:relative;border:2px solid #d1d6d9;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .field-codeeditor textarea{opacity:0;filter:alpha(opacity=0)}
-.field-codeeditor.editor-focus{border:2px solid #bdc3c7}
+.field-codeeditor.editor-focus{border:2px solid #d1d6d9}
 .field-codeeditor.size-tiny{min-height:50px}
 .field-codeeditor.size-small{min-height:100px}
 .field-codeeditor.size-large{min-height:200px}

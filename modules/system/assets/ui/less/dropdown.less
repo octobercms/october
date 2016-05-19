@@ -28,13 +28,13 @@
 
     .dropdown-container {
         > ul {
-            border: 1px solid @dropdown-border;
             background-color: @dropdown-bg;
-            .border-radius(@border-radius-base);
             padding: 0;
             list-style: none;
             position: relative;
             margin-top: 7px;
+            .box-shadow(@overlay-box-shadow);
+            .border-radius(@border-radius-base);
 
             &:after {
                 .triangle(up, 15px, 8px, @dropdown-bg);
@@ -60,17 +60,29 @@
                     display: block;
                     color: @dropdown-link-color;
                     position: relative;
+                    text-decoration: none;
 
                     &:hover,
                     &:focus {
-                        text-decoration: none;
                         color: @color-dropdown-hover-text;
-                        background-color: @color-dropdown-hover-color;
+                        background-color: @color-dropdown-hover-bg;
 
                         &[class^="oc-icon-"],
                         &[class*=" oc-icon-"] {
                             &:before {
-                                color: white;
+                                color: @color-dropdown-hover-text;
+                            }
+                        }
+                    }
+
+                    &:active {
+                        color: @color-dropdown-active-text;
+                        background-color: @color-dropdown-active-bg;
+
+                        &[class^="oc-icon-"],
+                        &[class*=" oc-icon-"] {
+                            &:before {
+                                color: @color-dropdown-active-text;
                             }
                         }
                     }
@@ -91,20 +103,25 @@
 
                 &.first-item {
                     a {
-                        &:hover, &:focus {
+                        &:hover, &:focus, &:active {
                             &:after {
-                                .triangle(up, 15px, 8px, @color-dropdown-hover-color);
+                                .triangle(up, 15px, 8px, @color-dropdown-hover-bg);
                                 position: absolute;
                                 left: 15px;
                                 top: -8px;
                                 z-index: 102;
                             }
                         }
+                        &:active {
+                            &:after {
+                                .triangle(up, 15px, 8px, @color-dropdown-active-bg);
+                            }
+                        }
                     }
                 }
 
-                &.dropdown-title {display: none;}
-                &.divider {margin: 0;}
+                &.dropdown-title { display: none; }
+                &.divider { margin: 0; }
             }
         }
     }

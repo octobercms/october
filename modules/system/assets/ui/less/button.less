@@ -19,6 +19,38 @@
     font-size: @font-size-base - 1;
     text-align: left;
     outline: none !important;
+    .box-shadow(~"inset 0 -2px 0 rgba(0,0,0,.15)");
+
+    &[disabled] {
+        color: rgba(255,255,255,.6);
+    }
+
+    &.active,
+    &:active {
+        .box-shadow(inset 0 1px 0 rgba(0,0,0,.3));
+    }
+}
+
+//
+// Buttons with icons
+//
+
+.btn {
+    i[class^="icon-"],
+    i[class*=" icon-"] {
+        opacity: .5;
+
+    }
+
+    &.on,
+    &:hover,
+    &:focus,
+    &.focus {
+        i[class^="icon-"],
+        i[class*=" icon-"] {
+            opacity: 1;
+        }
+    }
 
     &[class^="oc-icon-"],
     &[class*=" oc-icon-"] {
@@ -38,22 +70,19 @@
             }
         }
     }
-
-    &[disabled] {
-        color: rgba(255,255,255,.6);
-    }
-
-    &.active,
-    &:active {
-        .box-shadow(inset 0 1px 0 rgba(0,0,0,.3));
-    }
 }
 
 .btn-secondary {
     text-shadow: 0 1px 0 rgba(255,255,255,.8);
+    .box-shadow(~"inset 0 -2px 0 rgba(0,0,0,.1)");
 
     &[disabled] {
         color: rgba(0,0,0,.6);
+    }
+
+    &.active,
+    &:active {
+        .box-shadow(inset 0 1px 0 rgba(0,0,0,.2));
     }
 }
 

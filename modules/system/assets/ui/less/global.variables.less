@@ -63,9 +63,9 @@
 // Typography
 // --------------------------------------------------
 
-@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-@font-family-serif:       Georgia, "Times New Roman", Times, serif;
-@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+@font-family-sans-serif:  sans-serif;
+@font-family-serif:       serif;
+@font-family-monospace:   monospace;
 @font-family-base:        @font-family-sans-serif;
 
 @font-size-base:          14px;
@@ -148,6 +148,18 @@
 @state-danger-border:    darken(spin(@state-danger-bg, -10), 5%);
 
 //
+// Highlights
+// --------------------------------------------------
+
+@highlight-hover-bg: mix(white, @brand-accent, 13%);
+@highlight-hover-text: #fff;
+@highlight-hover-text-shadow: fade(contrast(@highlight-hover-text, black, white), 30%);
+
+@highlight-active-bg: @brand-accent;
+@highlight-active-text: #fff;
+@highlight-active-text-shadow: fade(contrast(@highlight-active-text, black, white), 30%);
+
+//
 // General
 // --------------------------------------------------
 @padding-standard:          20px;
@@ -180,3 +192,6 @@
 @spacer: @padding-standard;
 @spacer-y: @spacer;
 @spacer-x: @spacer;
+
+@overlay-box-shadow: ~"0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)";
+@overlay-background: rgba(0,0,0,0.2);

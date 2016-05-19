@@ -575,6 +575,13 @@
             &:last-child {
                 margin-right: 0;
             }
+
+            &[class^="oc-icon-"],
+            &[class*=" oc-icon-"] {
+                &:before {
+                    opacity: 1;
+                }
+            }
         }
     }
 
