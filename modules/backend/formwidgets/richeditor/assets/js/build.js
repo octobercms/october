@@ -37,6 +37,7 @@
 =require ../vendor/froala_drm/js/plugins/draggable.min.js
 =require ../vendor/froala_drm/js/plugins/code_beautifier.min.js
 
+=require plugins/figures.js
 =require richeditor.js
 
 */
