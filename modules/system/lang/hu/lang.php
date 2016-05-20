@@ -251,7 +251,7 @@ return [
         'update_label' => 'Honlap frissítése',
         'update_completing' => 'Frissítési folyamat befejezése',
         'update_loading' => 'Elérhető frissítések betöltése...',
-        'update_success' => 'A frissítési sikeresen végrehajtásra került.',
+        'update_success' => 'A frissítés sikeresen megtörtént.',
         'update_failed_label' => 'A frissítés nem sikerült.',
         'force_label' => 'Frissítés kényszerítése',
         'found' => [
