@@ -177,7 +177,6 @@
          * Destroy.
          */
         function _destroy () {
-            editor.$el.off('keydown', 'figure', _onFigureKeydown)
         }
 
         // Expose public methods. If _init is not public then the plugin won't be initialized.

@@ -954,8 +954,12 @@ class MediaManager extends WidgetBase
     protected function checkUploadPostback()
     {
         $fileName = null;
+        $quickMode = false;
 
-        if (!($uniqueId = Request::header('X-OCTOBER-FILEUPLOAD')) || $uniqueId != $this->getId()) {
+        if (
+            (!($uniqueId = Request::header('X-OCTOBER-FILEUPLOAD')) || $uniqueId != $this->getId()) &&
+            (!$quickMode = post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD'))
+        ) {
             return;
         }
 
@@ -995,15 +999,19 @@ class MediaManager extends WidgetBase
                 throw new ApplicationException($uploadedFile->getErrorMessage());
             }
 
-            $path = Input::get('path');
+            $path = $quickMode ? '/uploaded-files' : Input::get('path');
             $path = MediaLibrary::validatePath($path);
+            $filePath = $path.'/'.$fileName;
 
             MediaLibrary::instance()->put(
-                $path.'/'.$fileName,
+                $filePath,
                 File::get($uploadedFile->getRealPath())
             );
 
-            Response::json(['result' => 'success'])->send();
+            Response::json([
+                'link' => MediaLibrary::url($filePath),
+                'result' => 'success'
+            ])->send();
         }
         catch (Exception $ex) {
             Response::json($ex->getMessage(), 400)->send();

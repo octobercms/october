@@ -362,6 +362,12 @@ div[data-control="media-manager"] {
             background: transparent !important;
             cursor: default !important;
         }
+
+        table.table.data {
+            tbody tr:not(.no-data):active td {
+                background: @color-list-hover-bg !important;
+            }
+        }
     }
 
     [data-control="item-list"] {

@@ -99,6 +99,11 @@
         froalaOptions.shortcutsEnabled = ['show', 'bold', 'italic', 'underline', 'indent', 'outdent', 'undo', 'redo']
         froalaOptions.linkInsertButtons = ['linkBack', '|']
 
+        // File upload
+        froalaOptions.imageUploadURL = froalaOptions.fileUploadURL = window.location
+        froalaOptions.imageUploadParam = froalaOptions.fileUploadParam = 'file_data'
+        froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = { X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD: 1 }
+
         var placeholder = this.$textarea.attr('placeholder')
         froalaOptions.placeholderText = placeholder ? placeholder : ''
 
