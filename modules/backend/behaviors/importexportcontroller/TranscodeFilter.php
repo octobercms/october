@@ -2,7 +2,7 @@
 
 use php_user_filter;
 
-stream_filter_register(StreamFilterTranscode::FILTER_NAME . "*", StreamFilterTranscode::class);
+stream_filter_register(TranscodeFilter::FILTER_NAME . "*", TranscodeFilter::class);
 
 /**
  * Transcode stream filter.
