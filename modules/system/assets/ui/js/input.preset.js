@@ -107,6 +107,12 @@
         'ç':'c', 'ə':'e', 'ğ':'g', 'ı':'i', 'ö':'o', 'ş':'s', 'ü':'u',
         'Ç':'C', 'Ə':'E', 'Ğ':'G', 'İ':'I', 'Ö':'O', 'Ş':'S', 'Ü':'U'
     },
+    SPECIFIC_MAPS = {
+        'de': {
+            'Ä': 'AE', 'Ö': 'OE', 'Ü': 'UE',
+            'ä': 'ae', 'ö': 'oe', 'ü': 'ue'
+        }
+    },
     ALL_MAPS = [
         LATIN_MAP,
         LATIN_SYMBOLS_MAP,
@@ -130,6 +136,8 @@
         "than", "the", "this", "that", "to", "up", "via", "with"
     ]
 
+    var locale = $('meta[name="backend-locale"]').attr('content')
+
     var Downcoder = {
         Initialize: function() {
             if (Downcoder.map) {
@@ -137,6 +145,9 @@
             }
             Downcoder.map = {};
             Downcoder.chars = [];
+            if(typeof SPECIFIC_MAPS[locale] === 'object') {
+                ALL_MAPS.push(SPECIFIC_MAPS[locale]);
+            }
             for (var i=0; i<ALL_MAPS.length; i++) {
                 var lookup = ALL_MAPS[i];
                 for (var c in lookup) {
