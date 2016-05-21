@@ -9,11 +9,14 @@
         /**
          * Insert UI Blocks
          */
-        function insert($el) {
+        function insertElement($el) {
             var html = $('<div />').append($el.clone()).remove().html()
 
-            editor.html.insert(html)
+            // Make sure we have focus.
+            editor.events.focus(true)
             editor.selection.restore()
+
+            editor.html.insert(html)
             editor.html.cleanEmptyTags()
 
             // Clean up wrapping paragraphs or empty paragraphs
@@ -22,14 +25,45 @@
                     $parent = $this.parent('p'),
                     $next = $this.next('p')
 
+                // If block is inserted to a paragraph, insert it afterwards.
                 if (!!$parent.length) {
-                    $this.unwrap()
+                    $this.insertAfter($parent)
                 }
 
+                // Inserting a figure tag will put an empty paragraph tag 
+                // directly after it, strip these instances out
                 if (!!$next.length && $.trim($next.text()).length == 0) {
                     $next.remove()
                 }
             })
+
+            editor.undo.saveStep()
+        }
+
+        function _makeUiBlockElement() {
+            var $node = $('<figure contenteditable="false" tabindex="0" data-ui-block="true">&nbsp;</figure>')
+
+            $node.get(0).contentEditable = false
+
+            return $node
+        }
+
+        function insertVideo(url, text) {
+            var $node = _makeUiBlockElement()
+
+            $node.attr('data-video', url)
+            $node.attr('data-label', text)
+
+            insertElement($node)
+        }
+
+        function insertAudio(url, text) {
+            var $node = _makeUiBlockElement()
+
+            $node.attr('data-audio', url)
+            $node.attr('data-label', text)
+
+            insertElement($node)
         }
 
         /**
@@ -183,9 +217,13 @@
             return $domTree.html()
         }
 
-        // The start point for your plugin.
+        /**
+         * Init.
+         */
         function _init () {
             editor.events.on('initialized', _initUiBlocks)
+
+            editor.events.on('html.set', _initUiBlocks)
 
             editor.events.on('html.get', _onSync)
 
@@ -205,7 +243,9 @@
 
         return {
             _init: _init,
-            insert: insert
+            insert: insertElement,
+            insertVideo: insertVideo,
+            insertAudio: insertAudio
         }
     }
 })(jQuery);

@@ -82,6 +82,7 @@
                 'insertLink',
                 'insertImage',
                 'insertVideo',
+                'insertAudio',
                 'insertFile',
                 'insertHR',
                 'fullscreen',
@@ -221,6 +222,14 @@
      */
     RichEditor.prototype.insertUiBlock = function($node) {
         this.$textarea.froalaEditor('figures.insert', $node)
+    }
+
+    RichEditor.prototype.insertVideo = function(url, title) {
+        this.$textarea.froalaEditor('figures.insertVideo', url, title)
+    }
+
+    RichEditor.prototype.insertAudio = function(url, title) {
+        this.$textarea.froalaEditor('figures.insertAudio', url, title)
     }
 
     // EVENT HANDLERS

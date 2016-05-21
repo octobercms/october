@@ -16,7 +16,7 @@
 =require ../vendor/froala_drm/js/plugins/paragraph_format.min.js
 =require ../vendor/froala_drm/js/plugins/align.min.js
 =require ../vendor/froala_drm/js/plugins/lists.min.js
-=require ../vendor/froala_drm/js/plugins/file.min.js
+=require ../vendor/froala_drm/js/plugins/file_extended.js
 =require ../vendor/froala_drm/js/plugins/image.min.js
 
 // Cannot be minified twice
@@ -24,6 +24,7 @@
 
 =require ../vendor/froala_drm/js/plugins/table.min.js
 =require ../vendor/froala_drm/js/plugins/video.min.js
+=require ../vendor/froala_drm/js/plugins/audio.js
 =require ../vendor/froala_drm/js/plugins/quote.min.js
 =require ../vendor/froala_drm/js/plugins/font_size.min.js
 =require ../vendor/froala_drm/js/plugins/font_family.min.js
@@ -37,6 +38,7 @@
 =require ../vendor/froala_drm/js/plugins/draggable.min.js
 =require ../vendor/froala_drm/js/plugins/code_beautifier.min.js
 
+=require plugins/mediamanager.js
 =require plugins/figures.js
 =require richeditor.js
 
