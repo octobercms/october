@@ -41,7 +41,7 @@
                 position: absolute;
                 left: 15px;
                 top: -8px;
-                z-index: 101;
+                z-index: @zindex-dropdown + 1;
             }
 
             &:before {
@@ -49,7 +49,7 @@
                 position: absolute;
                 left: 14px;
                 top: -9px;
-                z-index: 100;
+                z-index: @zindex-dropdown;
             }
 
             li {
@@ -109,7 +109,7 @@
                                 position: absolute;
                                 left: 15px;
                                 top: -8px;
-                                z-index: 102;
+                                z-index: @zindex-dropdown + 2;
                             }
                         }
                         &:active {
@@ -198,7 +198,7 @@ body.dropdown-open {
         right: 0;
         bottom: 0;
         // background: rgba(0,0,0,0.1);
-        z-index: 300;
+        z-index: @zindex-dropdown - 1;
     }
 }
 

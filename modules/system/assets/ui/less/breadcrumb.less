@@ -47,7 +47,7 @@
             top: 0;
             right: -15px;
             position: absolute;
-            z-index: 10;
+            z-index: @zindex-breadcrumb;
         }
 
         &:after {
@@ -56,7 +56,7 @@
 
         &:before {
             right: -16px;
-            z-index: 9;
+            z-index: @zindex-breadcrumb - 1;
             .triangle(right, 15px, 45px, @color-breadcrumb-background);
         }
 

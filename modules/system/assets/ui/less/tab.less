@@ -78,7 +78,7 @@
             vertical-align: bottom;
             margin-right: 20px;
             position: relative;
-            z-index: 90;
+            z-index: @zindex-tab - 2;
 
             &:last-child {
                 margin-right: 0;
@@ -120,7 +120,7 @@
             }
 
             &.active {
-                z-index: 100;
+                z-index: @zindex-tab;
 
                 a {
                     color: @color-tab-active-text;
@@ -183,7 +183,7 @@
                     cursor: pointer;
                     i {
                         display: inline-block;
-                        z-index: 101;
+                        z-index: @zindex-tab + 1;
                         top: -7px;
                         right: 5px;
                         position: relative;
@@ -222,7 +222,7 @@
                     font-size: 15px;
                     border-bottom: transparent 4px solid;
                     position: relative;
-                    z-index: 101;
+                    z-index: @zindex-tab + 1;
                     line-height: 100%;
                 }
 
@@ -250,7 +250,7 @@
                 bottom: 0;
                 height: 1px;
                 width: 100%;
-                z-index: 95;
+                z-index: @zindex-tab - 1;
                 content: ' ';
                 border-bottom: 2px solid @color-tab-active-border;
             }
@@ -275,7 +275,7 @@
                     padding-bottom: 3px;
                     margin: 0;
                     position: relative;
-                    z-index: 101;
+                    z-index: @zindex-tab + 1;
                     background: transparent;
                     overflow: visible;
 
@@ -284,7 +284,7 @@
                         display: inline-block;
                         padding: 4px 25px 0px 25px;
                         .box-sizing(border-box);
-                        z-index: 100;
+                        z-index: @zindex-tab;
 
                         &:before, &:after {
                             content: '';
@@ -326,10 +326,10 @@
                 }
 
                 &.active a {
-                    z-index: 107;
+                    z-index: @zindex-tab + 3;
 
                     > span.title {
-                        z-index: 105;
+                        z-index: @zindex-tab + 2;
                         border-top-color: #d6d6d6;
 
                         &:before, &:after{

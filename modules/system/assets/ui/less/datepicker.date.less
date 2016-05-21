@@ -3,7 +3,7 @@
 // --------------------------------------------------
 
 .pika-single {
-    z-index: 9999;
+    z-index: @zindex-datepicker;
     display: block;
     position: relative;
     width: 240px;
@@ -36,7 +36,7 @@
     display: inline-block;
     *display: inline;
     position: relative;
-    z-index: 9999;
+    z-index: @zindex-datepicker;
     overflow: hidden;
     margin: 0;
     padding: 5px 3px;
@@ -50,7 +50,7 @@
     select {
         cursor: pointer;
         position: absolute;
-        z-index: 9998;
+        z-index: @zindex-datepicker - 1;
         margin: 0;
         left: 0;
         top: 5px;
