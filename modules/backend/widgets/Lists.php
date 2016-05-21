@@ -341,7 +341,10 @@ class Lists extends WidgetBase
                 if ($this->isColumnRelated($column)) {
                     $table = $this->model->makeRelation($column->relation)->getTable();
                     $columnName = isset($column->sqlSelect)
-                        ? DbDongle::raw($this->parseTableName($column->sqlSelect, $table))
+                        ? ( DbDongle::getDriver() == 'sqlsrv' 
+							? DbDongle::raw("" . $sqlSelect . " + ', '")
+							: DbDongle::raw($this->parseTableName($column->sqlSelect, $table))
+					      )
                         : $table . '.' . $column->valueFrom;
 
                     $relationSearchable[$column->relation][] = $columnName;
