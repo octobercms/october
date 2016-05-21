@@ -146,11 +146,9 @@ class RichEditor extends FormWidgetBase
         $this->addJs('js/build-min.js', 'core');
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
 
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // if ($lang = $this->getValidEditorLang()) {
-        //     $this->addJs('vendor/redactor/lang/'.$lang.'.js', 'core');
-        // }
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if ($lang = $this->getValidEditorLang()) {
+            $this->addJs('vendor/froala/js/languages/'.$lang.'.js', 'core');
+        }
     }
 
     /**
@@ -167,7 +165,7 @@ class RichEditor extends FormWidgetBase
         }
 
         $locale = str_replace('-', '_', strtolower($locale));
-        $path = base_path('modules/backend/formwidgets/richeditor/assets/vendor/redactor/lang/'.$locale.'.js');
+        $path = base_path('modules/backend/formwidgets/richeditor/assets/vendor/froala/js/languages/'.$locale.'.js');
 
         return File::exists($path) ? $locale : false;
     }

@@ -62,7 +62,8 @@
 
     RichEditor.prototype.initFroala = function() {
         var froalaOptions = {
-            editorClass: 'control-richeditor'
+            editorClass: 'control-richeditor',
+            language: this.options.editorLang
         }
 
         if (this.options.toolbarButtons) {

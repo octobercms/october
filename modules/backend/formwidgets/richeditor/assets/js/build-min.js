@@ -468,7 +468,7 @@ RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang
 RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
 this.initFroala()}
-RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor'}
+RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor',language:this.options.editorLang}
 if(this.options.toolbarButtons){froalaOptions.toolbarButtons=this.options.toolbarButtons.split(',')}
 else{froalaOptions.toolbarButtons=['paragraphFormat','paragraphStyle','quote','bold','italic','align','formatOL','formatUL','insertTable','insertLink','insertImage','insertVideo','insertAudio','insertFile','insertHR','fullscreen','html']}
 froalaOptions.toolbarButtonsMD=froalaOptions.toolbarButtons
