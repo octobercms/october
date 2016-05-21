@@ -368,7 +368,7 @@ body .fr-box .ace_editor{display:none}
 body .fr-box .ace_editor{position:absolute;top:0;bottom:0;left:0;right:0;margin:0}
 body .fr-box.fr-code-view .ace_editor{display:block}
 body .fr-command.fr-btn[data-cmd=fullscreen]{float:right}
-body .fr-box.fr-fullscreen{z-index:9997 !important}
+body .fr-box.fr-fullscreen{z-index:300 !important}
 body .fr-toolbar{border-top-color:transparent;background:#f2f2f2}
 body .fr-popup.fr-desktop .fr-arrow,body .fr-toolbar.fr-inline.fr-desktop .fr-arrow{top:-7px}
 body .fr-popup.fr-desktop.fr-above .fr-arrow,body .fr-toolbar.fr-inline.fr-desktop.fr-above .fr-arrow{bottom:-7px}

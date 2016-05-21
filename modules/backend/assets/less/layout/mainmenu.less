@@ -177,8 +177,10 @@ nav#layout-mainmenu {
                 padding: 0 15px 0 10px;
                 font-size: @font-size-base - 1;
                 position: relative;
-                // z-index: 200; // Previous value 590 was overlappnig with drop-down menus on small screens
-                z-index: 590; // @todo Investigate: This causes the button to dim without 590
+            }
+
+            &.highlight > a {
+                z-index: @zindex-popover;
             }
 
             img.account-avatar {
@@ -240,7 +242,7 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu {
     top: 0; // See mode for this value
     right: @padding-standard;
     background: @color-accountmenu-bg;
-    z-index: 590;
+    z-index: @zindex-popover;
     display: none;
     .box-shadow(@overlay-box-shadow);
     border-radius: @border-radius-base;

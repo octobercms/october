@@ -1,7 +1,5 @@
 @import "../../../../assets/less/core/boot.less";
 
-@codeeditor-zindex: 600;
-
 .field-codeeditor {
     width: 100%;
     position: relative;
@@ -21,7 +19,7 @@
         font-family: @font-family-base;
         font-size: 14px;
         color: @text-color;
-        z-index: @codeeditor-zindex + 3;
+        z-index: @zindex-form + 3;
     }
 
     .editor-code {
@@ -32,7 +30,7 @@
         position: absolute;
         top: 10px;
         right: 10px;
-        z-index: @codeeditor-zindex;
+        z-index: @zindex-form;
         > ul, ul > li { list-style-type: none; padding: 0; margin: 0; }
         > ul > li {
             float: left;
@@ -68,7 +66,7 @@
     }
 
     &.editor-fullscreen {
-        z-index: @codeeditor-zindex + 1;
+        z-index: @zindex-fullscreen + 1;
         position: fixed!important;
         top: 0;
         left: 0;
@@ -76,6 +74,7 @@
         border-width: 0;
         .border-radius(0);
         .editor-code { .border-radius(0); }
-        .editor-toolbar { z-index: @codeeditor-zindex + 2; }
+        .editor-toolbar { z-index: @zindex-fullscreen + 2; }
+        .ace_search { z-index: @zindex-fullscreen + 3; }
     }
 }

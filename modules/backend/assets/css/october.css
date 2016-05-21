@@ -83,8 +83,8 @@
 100%{background-color:#F8BB86}
 }
 .pulseWarningIns{-webkit-animation:pulseWarningIns 0.75s infinite alternate;animation:pulseWarningIns 0.75s infinite alternate}
-.sweet-overlay{background-color:rgba(0,0,0,0.4);position:fixed;left:0;right:0;top:0;bottom:0;display:none;z-index:8050}
-.sweet-alert{background-color:#f9f9f9;width:478px;padding:17px;border-radius:5px;text-align:center;position:fixed;left:50%;top:50%;margin-left:-256px;margin-top:-200px;overflow:hidden;display:none;z-index:9050}
+.sweet-overlay{background-color:rgba(0,0,0,0.4);position:fixed;left:0;right:0;top:0;bottom:0;display:none;z-index:7600}
+.sweet-alert{background-color:#f9f9f9;width:478px;padding:17px;border-radius:5px;text-align:center;position:fixed;left:50%;top:50%;margin-left:-256px;margin-top:-200px;overflow:hidden;display:none;z-index:8600}
 @media all and (max-width:767px){.sweet-alert{width:auto;margin-left:0;margin-right:0;left:15px;right:15px}
 }
 .sweet-alert .icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;margin:20px auto;position:relative;box-sizing:content-box}
@@ -115,8 +115,8 @@
 .sweet-alert .btn-danger:focus{border-color:#952518;outline:0}
 .sweet-alert .btn-warning:focus{border-color:#eea236;outline:0}
 .sweet-alert button::-moz-focus-inner{border:0}
-.sweet-overlay{background-color:rgba(0,0,0,0.2)}
-.sweet-alert{text-align:right;border-radius:3px;-webkit-box-shadow:0 27px 24px 0 rgba(0,0,0,0.2),0 40px 77px 0 rgba(0,0,0,0.22);box-shadow:0 27px 24px 0 rgba(0,0,0,0.2),0 40px 77px 0 rgba(0,0,0,0.22)}
+.sweet-overlay{background-color:rgba(0,0,0,0.2);z-index:10499}
+.sweet-alert{text-align:right;border-radius:3px;-webkit-box-shadow:0 27px 24px 0 rgba(0,0,0,0.2),0 40px 77px 0 rgba(0,0,0,0.22);box-shadow:0 27px 24px 0 rgba(0,0,0,0.2),0 40px 77px 0 rgba(0,0,0,0.22);z-index:10500}
 .sweet-alert h2{word-break:word-break;word-wrap:break-word;max-height:350px;overflow-y:auto;margin:10px 0 17px 0;color:#2b3e50;text-align:left;font-size:15px;line-height:23px}
 .sweet-alert p{margin:0}
 .sweet-alert p.text-muted{margin-bottom:20px;color:#555555}
@@ -691,12 +691,13 @@ nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview{margin:0 0 0 21px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview i{font-size:20px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview a{position:relative;padding:0 10px;top:-1px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account{margin-right:0}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account > a{padding:0 15px 0 10px;font-size:13px;position:relative;z-index:590}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account > a{padding:0 15px 0 10px;font-size:13px;position:relative}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account.highlight > a{z-index:600}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{width:45px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account .account-name{margin-right:15px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account ul{line-height:23px}
 html.svg nav#layout-mainmenu img.svg-icon,html.svg .mainmenu-collapsed img.svg-icon{display:inline-block}
-nav#layout-mainmenu ul li .mainmenu-accountmenu{position:fixed;top:0;right:20px;background:#f9f9f9;z-index:590;display:none;-webkit-box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24);box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24);border-radius:3px}
+nav#layout-mainmenu ul li .mainmenu-accountmenu{position:fixed;top:0;right:20px;background:#f9f9f9;z-index:600;display:none;-webkit-box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24);box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24);border-radius:3px}
 nav#layout-mainmenu ul li .mainmenu-accountmenu.active{display:block}
 nav#layout-mainmenu ul li .mainmenu-accountmenu:after{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #f9f9f9;right:9px;top:-7px;position:absolute}
 nav#layout-mainmenu ul li .mainmenu-accountmenu ul{float:none;display:block;overflow:visible}
