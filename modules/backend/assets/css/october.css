@@ -669,7 +669,7 @@ body.slim-container .layout.layout-container,body.slim-container .layout .layout
 .flex-layout-item.width-200{width:200px}
 .flex-layout-item.width-300{width:300px}
 body.mainmenu-open{overflow:hidden}
-.mainmenu-tooltip .tooltip-inner{font-size:13px;padding:6px 16px;border-radius:0}
+.mainmenu-tooltip .tooltip-inner{font-size:13px;padding:6px 16px}
 nav#layout-mainmenu{background-color:#000000;padding:0 0 0 20px;line-height:0;white-space:nowrap;vertical-align:top}
 nav#layout-mainmenu a{text-decoration:none}
 nav#layout-mainmenu a:focus{background:transparent}
@@ -701,7 +701,7 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu.active{display:block}
 nav#layout-mainmenu ul li .mainmenu-accountmenu:after{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #f9f9f9;right:9px;top:-7px;position:absolute}
 nav#layout-mainmenu ul li .mainmenu-accountmenu ul{float:none;display:block;overflow:visible}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li{padding:0;margin:0;font-weight:normal;text-align:left;display:block}
-nav#layout-mainmenu ul li .mainmenu-accountmenu li a{display:block;padding:10px 30px;text-align:left;font-size:13px;color:#666666;text-shadow:none}
+nav#layout-mainmenu ul li .mainmenu-accountmenu li a{display:block;padding:10px 30px;text-align:left;font-size:14px;color:#666666;text-shadow:none}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li a:hover,nav#layout-mainmenu ul li .mainmenu-accountmenu li a:focus{background:#4ea5e0;color:#ffffff;text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li a:active{background:#3498db;color:#ffffff;text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:hover:after,nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:focus:after,nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:active:after{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #4ea5e0;position:absolute;right:9px;top:-7px;z-index:102}
@@ -966,9 +966,8 @@ body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizonta
 .fancy-layout .field-codeeditor{border:none !important;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 .fancy-layout .field-codeeditor .editor-code{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 .fancy-layout .field-richeditor{border:none;border-left:1px solid #d1d6d9 !important}
-.fancy-layout .field-richeditor,.fancy-layout .field-richeditor .redactor_box,.fancy-layout .field-richeditor .redactor_toolbar{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;border-top-right-radius:0;border-top-left-radius:0}
-.fancy-layout .field-richeditor .redactor-box textarea{background:white;padding:20px !important;color:#333333;font-size:14px}
-.fancy-layout .secondary-content-tabs .field-richeditor .redactor-box .redactor-toolbar{margin:20px 0 0 0!important;left:20px;right:20px;width:auto;-webkit-border-radius:3px !important;-moz-border-radius:3px !important;border-radius:3px !important}
+.fancy-layout .field-richeditor,.fancy-layout .field-richeditor .fr-toolbar,.fancy-layout .field-richeditor .fr-wrapper{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;border-top-right-radius:0;border-top-left-radius:0}
+.fancy-layout .secondary-content-tabs .field-richeditor .fr-toolbar{background:white}
 body.side-panel-not-fixed .fancy-layout .field-richeditor{border-left:none}
 html.cssanimations .fancy-layout .form-tabless-fields .loading-indicator-container .loading-indicator > span{-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite;background-image:url('../../../system/assets/ui/images/loader-white.svg');background-size:20px 20px}
 html.gecko .fancy-layout .control-tabs.secondary-tabs > div > ul.nav-tabs > li.active a{padding-top:13px}

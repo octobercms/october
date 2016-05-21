@@ -613,26 +613,15 @@
         border: none;
         border-left: 1px solid @color-form-field-border !important;
 
-        &, .redactor_box, .redactor_toolbar {
+        &, .fr-toolbar, .fr-wrapper {
             .border-radius(0);
             .border-top-radius(0);
-        }
-
-        .redactor-box textarea {
-            background: white;
-            padding: 20px !important;
-            color: #333333;
-            font-size: 14px;
         }
     }
 
     .secondary-content-tabs .field-richeditor {
-        .redactor-box .redactor-toolbar {
-            margin: 20px 0 0 0!important;
-            left: 20px;
-            right: 20px;
-            width: auto;
-            .border-radius(3px) !important;
+        .fr-toolbar {
+            background: white;
         }
     }
 }

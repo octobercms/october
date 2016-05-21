@@ -664,7 +664,7 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 .tooltip.right{margin-left:3px;padding:0 5px}
 .tooltip.bottom{margin-top:3px;padding:5px 0}
 .tooltip.left{margin-left:-3px;padding:0 5px}
-.tooltip-inner{max-width:200px;padding:3px 8px;color:#ffffff;text-align:center;text-decoration:none;background-color:#34495e;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+.tooltip-inner{max-width:200px;padding:3px 8px;color:#ffffff;text-align:center;text-decoration:none;background-color:#34495e;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 3px 6px rgba(0,0,0,0.16),0 2px 4px rgba(0,0,0,0.23);box-shadow:0 3px 6px rgba(0,0,0,0.16),0 2px 4px rgba(0,0,0,0.23)}
 .tooltip-arrow{position:absolute;width:0;height:0;border-color:transparent;border-style:solid}
 .tooltip.top .tooltip-arrow{bottom:0;left:50%;margin-left:-5px;border-width:5px 5px 0;border-top-color:#34495e}
 .tooltip.top-left .tooltip-arrow{bottom:0;left:5px;border-width:5px 5px 0;border-top-color:#34495e}

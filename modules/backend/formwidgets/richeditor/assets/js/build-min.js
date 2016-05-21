@@ -480,6 +480,7 @@ froalaOptions.htmlAllowedEmptyTags=['figure','textarea','a','iframe','object','v
 froalaOptions.htmlDoNotWrapTags=['figure','script','style']
 froalaOptions.lineBreakerTags=['figure','table','hr','iframe','form','dl']
 froalaOptions.shortcutsEnabled=['show','bold','italic','underline','indent','outdent','undo','redo']
+froalaOptions.linkInsertButtons=['linkBack','|']
 var placeholder=this.$textarea.attr('placeholder')
 froalaOptions.placeholderText=placeholder?placeholder:''
 froalaOptions.height=this.$el.hasClass('stretch')?Infinity:$('.height-indicator',this.$el).height()

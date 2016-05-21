@@ -40,8 +40,9 @@
 @ui-border-color: @input-border-color;
 @ui-border-top: 1px solid @ui-border-color;
 @editor-padding: 20px;
-@btn-text: fade(@btn-secondary-color, 60%);
+@btn-text: fade(@btn-secondary-color, 80%);
 @btn-active-text: #000;
+@input-label-color: @color-label;
 
 //
 // Rich Editor
@@ -137,6 +138,7 @@
 .control-richeditor {
     .richeditor-snippet() {
         display: inline-block;
+        width: 100%;
         margin: 0 0 15px 0;
         padding: 10px 10px 10px 36px;
         border: 2px dotted #bdc3c7;
