@@ -166,12 +166,24 @@ class PluginManager
             $pluginId = $this->getIdentifier($plugin);
         }
 
-        if (!$plugin || $plugin->disabled) {
+        if (!$plugin) {
             return;
         }
 
         $pluginPath = $this->getPluginPath($plugin);
         $pluginNamespace = strtolower($pluginId);
+
+        /*
+         * Register language namespaces
+         */
+        $langPath = $pluginPath . '/lang';
+        if (File::isDirectory($langPath)) {
+            Lang::addNamespace($pluginNamespace, $langPath);
+        }
+
+        if ($plugin->disabled) {
+            return;
+        }
 
         /*
          * Register plugin class autoloaders
@@ -183,14 +195,6 @@ class PluginManager
 
         if (!self::$noInit || $plugin->elevated) {
             $plugin->register();
-        }
-
-        /*
-         * Register language namespaces
-         */
-        $langPath = $pluginPath . '/lang';
-        if (File::isDirectory($langPath)) {
-            Lang::addNamespace($pluginNamespace, $langPath);
         }
 
         /*
