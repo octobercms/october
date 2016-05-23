@@ -72,6 +72,16 @@ return [
             'before_placeholder' => 'Before'
         ]
     ],
+
+    'eventlog' => [
+        'editor' => [
+            'title' => 'Select the source code editor to use',
+            'description' => 'Your environnement must be configured to listen to one of these URL schemes.',
+            'openWith' => 'Open with',
+            'openAndRemember' => 'Open & Remember for this session',
+            'open' => 'Open'
+        ]
+    ]
 ];
 
 

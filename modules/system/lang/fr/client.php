@@ -75,6 +75,16 @@ return [
             'before_placeholder' => 'Avant le',
         ]
     ],
+
+    'eventlog' => [
+        'editor' => [
+            'title' => 'Sélectionnez l’éditeur de code source à utiliser',
+            'description' => 'Votre environnement doit être configuré pour ouvrir l’un des schéma d’URL ci-dessous.',
+            'openWith' => 'Ouvrir avec',
+            'openAndRemember' => 'Ouvrir et enregistrer pour la session',
+            'open' => 'Ouvrir'
+        ]
+    ]
 ];
 
 

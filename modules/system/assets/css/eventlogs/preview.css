@@ -1,0 +1,83 @@
+[data-plugin="exception-beautifier"] {
+    width: auto !important;
+}
+
+.markup_exception_container {
+    overflow-x: scroll;
+}
+
+.markup_exception_name {
+    display: block;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.markup_exception_message {
+    display: block;
+    padding: 15px 0;
+    font-size: 1.1em;
+}
+
+.markup_exception_stacktrace_title {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.markup_exception_stacktrace_line {
+    display: block;
+    white-space: nowrap;
+    padding: 8px 0;
+}
+
+.markup_exception_stacktrace_line:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.markup_exception_stacktrace_line:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.markup_exception_stacktrace_line_number {
+    display: inline-block;
+    width: 40px;
+    margin-right: 15px;
+    text-align: right;
+    color: black;
+}
+
+.markup_exception_stacktrace_line_internal {
+    color: #2C3E50;
+}
+
+.markup_exception_stacktrace_line_function {
+    display: block;
+    margin-left: 55px;
+}
+
+.markup_exception_file {
+    color: #0c7eff;
+}
+
+.markup_exception_line_number {
+    color: #af0016;
+}
+
+.markup_exception_class {
+    font-weight: bold;
+    font-family: monospace;
+}
+
+.markup_exception_function {
+    font-weight: bold;
+    color: #4d9a98;
+    font-family: monospace;
+}
+
+.markup_exception_function.--system {
+    color: #3d7a78;
+}
+
+.markup_exception_sign {
+    color: #4d9a98;
+}
