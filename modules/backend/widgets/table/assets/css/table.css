@@ -45,9 +45,9 @@
 }
 .control-table table.headers th {
   padding: 7px 10px;
-  font-size: 13px;
+  font-weight: normal;
   text-transform: uppercase;
-  font-weight: 600;
+  font-size: 11px;
   color: #333333;
   background: white;
   border-right: 1px solid #ecf0f1;
@@ -139,7 +139,7 @@
 }
 .control-table .toolbar a.btn {
   color: #323e50;
-  padding: 10px;
+  padding: 8px 10px;
   opacity: 0.5;
   filter: alpha(opacity=50);
   -webkit-box-shadow: none !important;
@@ -219,7 +219,7 @@
   display: block;
   outline: none;
   border: none;
-  padding: 5px 10px;
+  padding: 6px 10px 7px;
 }
 ul.table-widget-autocomplete {
   background: white;
