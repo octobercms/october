@@ -52,16 +52,16 @@
             font-size: 30px;
             font-weight: 100;
             color: @color-scoreboard-title;
-            z-index: 10;
+            z-index: @zindex-chart - 1;
         }
 
         svg {
-            z-index: 20;
+            z-index: @zindex-chart;
         }
     }
 
     &.full-width div.canvas {
-        margin-right: 0!important;
+        margin-right: 0 !important;
     }
 
     ul {
@@ -169,7 +169,7 @@
     padding: 7px 10px;
     background: @color-chart-tooltip-bg;
     position: absolute;
-    z-index: 100;
+    z-index: @zindex-tooltip;
     color: @color-chart-tooltip-text;
     .border-radius(@border-radius-base*2);
     font-size: 12px;

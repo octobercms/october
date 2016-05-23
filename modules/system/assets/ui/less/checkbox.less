@@ -68,7 +68,7 @@
             margin-right: 15px;
             position: absolute;
             left: -3px;
-            top: 0;
+            top: -1px;
             background-color: #FFFFFF;
             border: 1px solid @color-checkbox-border;
             .box-shadow(@input-box-shadow);
@@ -198,7 +198,7 @@
     * { .box-sizing(border-box); }
     &.disabled { .opacity(.5); }
     .slide-button {
-        z-index: 4;
+        z-index: @zindex-checkbox - 1;
         display: block;
         position: absolute;
         right: 42px;
@@ -217,14 +217,14 @@
     }
 
     label {
-        z-index: 3;
+        z-index: @zindex-checkbox - 2;
         width: 100%;
         display: block;
         position: relative;
     }
 
     input {
-        z-index: 5;
+        z-index: @zindex-checkbox;
         position: absolute;
         left: 0;
         top: 0;
@@ -260,7 +260,7 @@
         .border-radius(20px);
 
         span {
-            z-index: 5;
+            z-index: @zindex-checkbox;
             display: block;
             width: 50%;
             position: absolute;

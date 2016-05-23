@@ -18,7 +18,6 @@
 .control-breadcrumb {
     margin: -(@padding-standard) -(@padding-standard) @padding-standard -(@padding-standard);
     background-color: @color-breadcrumb-background;
-    .box-shadow(inset 0 -2px 0 rgba(0,0,0,.05));
 
     ul {
         padding: 0;
@@ -48,7 +47,7 @@
             top: 0;
             right: -15px;
             position: absolute;
-            z-index: 10;
+            z-index: @zindex-breadcrumb;
         }
 
         &:after {
@@ -57,7 +56,7 @@
 
         &:before {
             right: -16px;
-            z-index: 9;
+            z-index: @zindex-breadcrumb - 1;
             .triangle(right, 15px, 45px, @color-breadcrumb-background);
         }
 

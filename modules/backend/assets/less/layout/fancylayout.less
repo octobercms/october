@@ -59,7 +59,7 @@
                         padding-top: 3px;
 
                         span.tab-close{
-                            top: 15px;
+                            top: 14px;
                             right: -3px;
                             left: auto;
                             z-index: 110;
@@ -70,6 +70,7 @@
                                 color: rgba(255, 255, 255, 0.3) !important;
                                 font-style: normal;
                                 font-weight: bold;
+                                font-size: 16px;
 
                                 &:hover { color: @color-fancy-master-tabs-active-text !important; }
                             }
@@ -160,7 +161,7 @@
 
                         &[data-modified] {
                             span.tab-close i {
-                                top: 3px;
+                                top: 5px;
                                 .hide-text();
 
                                 &:before {
@@ -575,6 +576,13 @@
             &:last-child {
                 margin-right: 0;
             }
+
+            &[class^="oc-icon-"],
+            &[class*=" oc-icon-"] {
+                &:before {
+                    opacity: 1;
+                }
+            }
         }
     }
 
@@ -605,26 +613,15 @@
         border: none;
         border-left: 1px solid @color-form-field-border !important;
 
-        &, .redactor_box, .redactor_toolbar {
+        &, .fr-toolbar, .fr-wrapper {
             .border-radius(0);
             .border-top-radius(0);
-        }
-
-        .redactor-box textarea {
-            background: white;
-            padding: 20px !important;
-            color: #333333;
-            font-size: 14px;
         }
     }
 
     .secondary-content-tabs .field-richeditor {
-        .redactor-box .redactor-toolbar {
-            margin: 20px 0 0 0!important;
-            left: 20px;
-            right: 20px;
-            width: auto;
-            .border-radius(3px) !important;
+        .fr-toolbar {
+            background: white;
         }
     }
 }

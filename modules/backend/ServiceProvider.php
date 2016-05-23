@@ -67,11 +67,17 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/backend/assets/less/october.less');
             $combiner->registerBundle('~/modules/backend/assets/js/october.js');
             $combiner->registerBundle('~/modules/backend/widgets/table/assets/js/build.js');
-            $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/less/richeditor.less');
-            $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/less/codeeditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/fileupload/assets/less/fileupload.less');
+
+            /*
+             * Rich Editor is protected by DRM
+             */
+            if (file_exists(base_path('modules/backend/formwidgets/richeditor/assets/vendor/froala_drm'))) {
+                $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/less/richeditor.less');
+                $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
+            }
         });
     }
 
@@ -198,6 +204,16 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['backend.manage_branding'],
                     'order'       => 500,
                     'keywords'    => 'brand style'
+                ],
+                'editor' => [
+                    'label'       => 'backend::lang.editor.menu_label',
+                    'description' => 'backend::lang.editor.menu_description',
+                    'category'    => SettingsManager::CATEGORY_SYSTEM,
+                    'icon'        => 'icon-code',
+                    'class'       => 'Backend\Models\EditorSetting',
+                    'permissions' => ['backend.manage_editor'],
+                    'order'       => 500,
+                    'keywords'    => 'html code class style'
                 ],
                 'myaccount' => [
                     'label'       => 'backend::lang.myaccount.menu_label',

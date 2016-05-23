@@ -151,17 +151,18 @@ table.table.data {
             }
         }
         tr:not(.no-data):hover td, tr:not(.no-data).selected td, {
-           background: @color-list-hover-bg !important;
-           text-shadow: 0 -1px 0 rgba(0,0,0,.3);
-           color: white;
+            background: @color-list-hover-bg !important;
+            text-shadow: 0 -1px 0 @highlight-hover-text-shadow;
+            color: @highlight-hover-text;
 
             a:not(.btn), span, i[class^="icon-"] {
-               color: white;
+               color: @highlight-hover-text;
             }
         }
         tr:not(.no-data):active td {
-           background: @color-list-active-bg !important;
-           color: white;
+            text-shadow: 0 -1px 0 @highlight-active-text-shadow;
+            background: @color-list-active-bg !important;
+            color: @color-list-active-text;
         }
 
         tr.hidden {

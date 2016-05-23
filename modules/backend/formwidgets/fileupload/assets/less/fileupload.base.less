@@ -373,11 +373,7 @@
         }
     }
 
-
     .file-upload-modal-image-header {
-        // Alternative color if below doesn't look nice
-        //background-color: #5a6060;
-
         // Photoshop transparent background
         // Based on: http://lea.verou.me/css3patterns/#checkerboard
         background-color: #FEFEFE;
@@ -401,5 +397,9 @@
             top: 20px;
             right: 20px;
         }
+    }
+
+    .file-upload-modal-image-header + .modal-body {
+        padding-top: @padding-standard;
     }
 }

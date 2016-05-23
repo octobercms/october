@@ -19,7 +19,7 @@
     font-weight: 500;
     background: @body-bg;
     text-align: left;
-    z-index: 100;
+    z-index: @zindex-loader;
 
     > span {
         background: transparent url('@{loader-image-path}/loader.gif') no-repeat 0 50%;
@@ -221,7 +221,7 @@ html.cssanimations {
     left: 0;
     width: 100%;
     overflow: hidden;
-    z-index: 2000;
+    z-index: @zindex-flashmessage;
 
     .stripe, .stripe-loaded {
         height: @stripe-loader-height;

@@ -1,0 +1,99 @@
+# ===================================
+#  Field Definitions
+# ===================================
+#
+tabs:
+    fields:
+        html_custom_styles:
+            label: Custom stylesheet
+            comment: Custom styles to include in the HTML editor.
+            tab: HTML Styles
+            type: codeeditor
+            size: giant
+            language: css
+
+        html_style_paragraph:
+            label: Paragraph
+            tab: HTML Classes
+            span: auto
+            type: datatable
+            columns:
+                class_label:
+                    title: Label
+                class_name:
+                    title: Class name
+
+        html_style_link:
+            label: Link
+            tab: HTML Classes
+            span: auto
+            type: datatable
+            columns:
+                class_label:
+                    title: Label
+                class_name:
+                    title: Class name
+
+        html_style_table:
+            label: Table
+            tab: HTML Classes
+            span: auto
+            type: datatable
+            columns:
+                class_label:
+                    title: Label
+                class_name:
+                    title: Class name
+
+        html_style_table_cell:
+            label: Table Cell
+            tab: HTML Classes
+            span: auto
+            type: datatable
+            columns:
+                class_label:
+                    title: Label
+                class_name:
+                    title: Class name
+
+        html_style_image:
+            label: Image
+            tab: HTML Classes
+            span: auto
+            type: datatable
+            columns:
+                class_label:
+                    title: Label
+                class_name:
+                    title: Class name
+
+
+
+
+        html_allow_empty_tags:
+            label: Allowed empty tags
+            comment: The list of tags that are not removed when they have no content inside.
+            tab: HTML Tags
+            type: textarea
+            span: auto
+
+        html_allow_tags:
+            label: Allowed tags
+            comment: The list of allowed tags.
+            tab: HTML Tags
+            type: textarea
+            span: auto
+
+        html_no_wrap_tags:
+            label: Do not wrap tags
+            comment: The list of tags that should not be wrapped inside block tags.
+            tab: HTML Tags
+            type: textarea
+            span: auto
+
+        html_remove_tags:
+            label: Remove tags
+            comment: The list of tags that are removed together with their content.
+            tab: HTML Tags
+            type: textarea
+            span: auto

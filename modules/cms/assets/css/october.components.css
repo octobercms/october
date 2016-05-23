@@ -28,7 +28,7 @@ div.control-componentlist div.components div.layout-cell > div:before {
   position: absolute;
   font-size: 16px;
   left: 15px;
-  top: 8px;
+  top: 7px;
   opacity: 0.7;
   filter: alpha(opacity=70);
 }
@@ -154,6 +154,14 @@ div.control-componentlist div.components div.layout-cell:nth-child(2n) > div:aft
   top: auto;
   bottom: 5px;
 }
+div.control-componentlist div.components div.layout-cell:first-child > div.popover-highlight {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+div.control-componentlist div.components div.layout-cell:last-child > div.popover-highlight {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
 div.control-componentlist div.components div.layout-cell > div {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
@@ -207,14 +215,15 @@ div.control-componentlist div.components div.layout-cell > div a.remove {
   display: inline-block;
   top: 1px;
   right: 5px;
-  color: #475354;
-  font-size: 14px;
+  color: #000000;
+  font-size: 17px;
+  font-weight: bold;
   opacity: 0.3;
   filter: alpha(opacity=30);
 }
 div.control-componentlist div.components div.layout-cell > div a.remove:hover {
-  opacity: 1;
-  filter: alpha(opacity=100);
+  opacity: 0.5;
+  filter: alpha(opacity=50);
   text-decoration: none;
 }
 div.control-componentlist div.components div.layout-cell > div:hover a.remove {
@@ -321,7 +330,7 @@ div.control-componentlist div.components div.layout-cell.adding > div {
 .control-filelist.component-list ul li div.group i {
   position: absolute;
   left: 22px;
-  top: 20px;
+  top: 21px;
   font-size: 16px;
   opacity: 0.7;
   filter: alpha(opacity=70);

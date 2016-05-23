@@ -5,6 +5,7 @@ use File;
 use Event;
 use Request;
 use Backend\Classes\FormWidgetBase;
+use Backend\Models\EditorSetting;
 
 /**
  * Rich Editor
@@ -24,6 +25,11 @@ class RichEditor extends FormWidgetBase
      */
     public $fullPage = false;
 
+    /**
+     * @var boolean Determines whether content has HEAD and HTML tags.
+     */
+    public $toolbarButtons = null;
+
     //
     // Object properties
     //
@@ -40,6 +46,7 @@ class RichEditor extends FormWidgetBase
     {
         $this->fillFromConfig([
             'fullPage',
+            'toolbarButtons',
         ]);
     }
 
@@ -57,12 +64,42 @@ class RichEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['field'] = $this->formField;
         $this->vars['editorLang'] = $this->getValidEditorLang();
         $this->vars['fullPage'] = $this->fullPage;
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->formField->getName();
         $this->vars['value'] = $this->getLoadValue();
+        $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
+
+        $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
+        $this->vars['allowTags'] = EditorSetting::getConfigured('html_allow_tags');
+        $this->vars['noWrapTags'] = EditorSetting::getConfigured('html_no_wrap_tags');
+        $this->vars['removeTags'] = EditorSetting::getConfigured('html_remove_tags');
+
+        $this->vars['imageStyles'] = EditorSetting::getConfiguredStyles('html_style_image');
+        $this->vars['linkStyles'] = EditorSetting::getConfiguredStyles('html_style_link');
+        $this->vars['paragraphStyles'] = EditorSetting::getConfiguredStyles('html_style_paragraph');
+        $this->vars['tableStyles'] = EditorSetting::getConfiguredStyles('html_style_table');
+        $this->vars['tableCellStyles'] = EditorSetting::getConfiguredStyles('html_style_table_cell');
+    }
+
+    /**
+     * Determine the toolbar buttons to use based on config.
+     * @return string
+     */
+    protected function evalToolbarButtons()
+    {
+        $buttons = $this->toolbarButtons;
+
+        if (is_string($buttons)) {
+            $buttons = array_map(function($button) {
+                return strlen($button) ? $button : '|';
+            }, explode('|', $buttons));
+        }
+
+        return $buttons;
     }
 
     /**
@@ -119,9 +156,10 @@ class RichEditor extends FormWidgetBase
     {
         $this->addCss('css/richeditor.css', 'core');
         $this->addJs('js/build-min.js', 'core');
+        $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
 
         if ($lang = $this->getValidEditorLang()) {
-            $this->addJs('vendor/redactor/lang/'.$lang.'.js', 'core');
+            $this->addJs('vendor/froala/js/languages/'.$lang.'.js', 'core');
         }
     }
 
@@ -139,7 +177,7 @@ class RichEditor extends FormWidgetBase
         }
 
         $locale = str_replace('-', '_', strtolower($locale));
-        $path = base_path('modules/backend/formwidgets/richeditor/assets/vendor/redactor/lang/'.$locale.'.js');
+        $path = base_path('modules/backend/formwidgets/richeditor/assets/vendor/froala/js/languages/'.$locale.'.js');
 
         return File::exists($path) ? $locale : false;
     }

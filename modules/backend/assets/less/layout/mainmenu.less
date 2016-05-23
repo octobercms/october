@@ -23,7 +23,7 @@ body.mainmenu-open {
     text-shadow: 0 0 2px black;
 
     &:hover {
-        background-color: transparent !important;
+        background-color: transparent;
     }
 
     &:active, &:focus {
@@ -72,7 +72,6 @@ body.mainmenu-open {
     .tooltip-inner {
         font-size: @font-size-base - 1;
         padding: 6px 16px;
-        border-radius: 0;
     }
 }
 
@@ -178,8 +177,10 @@ nav#layout-mainmenu {
                 padding: 0 15px 0 10px;
                 font-size: @font-size-base - 1;
                 position: relative;
-                // z-index: 200; // Previous value 590 was overlappnig with drop-down menus on small screens
-                z-index: 590; // @todo Investigate: This causes the button to dim without 590
+            }
+
+            &.highlight > a {
+                z-index: @zindex-popover;
             }
 
             img.account-avatar {
@@ -239,10 +240,12 @@ html.svg {
 nav#layout-mainmenu ul li .mainmenu-accountmenu {
     position: fixed;
     top: 0; // See mode for this value
-    right: 0;
+    right: @padding-standard;
     background: @color-accountmenu-bg;
-    z-index: 590;
+    z-index: @zindex-popover;
     display: none;
+    .box-shadow(@overlay-box-shadow);
+    border-radius: @border-radius-base;
 
     &.active {
         display: block;
@@ -250,7 +253,7 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu {
 
     &:after {
         .triangle(up, 17px, 7px, @color-accountmenu-bg);
-        right: 29px;
+        right: 9px;
         top: -7px;
         position: absolute;
     }
@@ -258,6 +261,7 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu {
     ul {
         float: none;
         display: block;
+        overflow: visible;
     }
 
     li {
@@ -269,13 +273,40 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu {
 
         a {
             display: block;
-            padding: 12px 30px;
+            padding: (@padding-standard * 0.5) (@padding-standard * 1.5);
             text-align: left;
-            font-size: @font-size-base - 1;
+            font-size: @font-size-base;
+            color: @color-accountmenu-text;
+            text-shadow: none;
+
+            &:hover, &:focus {
+                background: @highlight-hover-bg;
+                color: @highlight-hover-text;
+                text-shadow: 0 -1px 0 @highlight-hover-text-shadow;
+            }
+
+            &:active {
+                background: @highlight-active-bg;
+                color: @highlight-active-text;
+                text-shadow: 0 -1px 0 @highlight-active-text-shadow;
+            }
         }
 
-        &:hover {
-            background: #3d5265 !important;
+        &:first-child a {
+            &:hover, &:focus, &:active {
+                &:after {
+                    .triangle(up, 17px, 7px, @highlight-hover-bg);
+                    position: absolute;
+                    right: 9px;
+                    top: -7px;
+                    z-index: 102;
+                }
+            }
+            &:active {
+                &:after {
+                    .triangle(up, 17px, 7px, @highlight-active-bg);
+                }
+            }
         }
     }
 
@@ -568,7 +599,12 @@ nav#layout-mainmenu.navbar ul li,
     //     }
     // }
 
-    &.active, &.highlight {
+    // Used by account menu
+    &.highlight > a {
+        color: @color-mainmenu-active !important;
+    }
+
+    &.active {
         color: @color-mainmenu-active !important;
 
         a {

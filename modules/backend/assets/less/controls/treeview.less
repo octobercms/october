@@ -20,7 +20,7 @@
             .transition(width 1s);
 
             > div {
-                font-size: @font-size-base + 1;
+                font-size: @font-size-base;
                 font-weight: normal;
                 background: @color-treeview-item-bg;
                 border-bottom: 1px solid @color-panel-light;
@@ -28,7 +28,7 @@
 
                 > a {
                     color: @color-treeview-item-title;
-                    padding: 16px 45px 15px 61px;
+                    padding: 11px 45px 10px 61px;
                     display: block;
                     line-height: 150%;
                     text-decoration: none;
@@ -46,14 +46,14 @@
                     width: 21px;
                     height: 22px;
                     left: 28px;
-                    top: 20px;
+                    top: 15px;
                 }
 
                 span.comment {
                     display: block;
                     font-weight: 400;
                     color: @color-treeview-item-comment;
-                    font-size: @font-size-base;
+                    font-size: @font-size-base - 1;
                     margin-top: 2px;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -65,7 +65,7 @@
                     position: absolute;
                     width: 20px;
                     height: 20px;
-                    top: 24px;
+                    top: 19px;
                     left: 2px;
                     cursor: pointer;
                     color: @color-treeview-control;
@@ -87,8 +87,8 @@
                     .transition(opacity 0.4s);
 
                     position: absolute;
-                    right: 10px;
-                    bottom: 5px;
+                    right: 9px;
+                    bottom: 0;
                     width: 18px;
                     height: 19px;
                     cursor: move;
@@ -162,7 +162,7 @@
 
                 .checkbox {
                     position: absolute;
-                    top: 0;
+                    top: -2px;
                     right: 0;
 
                     label {
@@ -425,7 +425,7 @@
      * Light version of the treeview - transparent background, no bottom borders,
      * smaller paddings, inline submenu
      */
-    &.light {
+    &.treeview-light {
         margin-bottom: 0;
         margin-top: 20px;
 
@@ -538,7 +538,7 @@ body.dragging .control-treeview {
         }
     }
 
-    &.light {
+    &.treeview-light {
         ol.dragging, ol.dragging ol {
             > li > div  {
                 background-color: #f9f9f9;
@@ -546,7 +546,6 @@ body.dragging .control-treeview {
         }
     }
 }
-
 
 //
 // Retina

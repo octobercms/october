@@ -336,6 +336,10 @@ div[data-control="media-manager"] {
             .icon-message();
             margin-top: 25px;
         }
+
+        img {
+            max-width: 100%;
+        }
     }
 
     .list-container {
@@ -357,6 +361,12 @@ div[data-control="media-manager"] {
             border: none !important;
             background: transparent !important;
             cursor: default !important;
+        }
+
+        table.table.data {
+            tbody tr:not(.no-data):active td {
+                background: @color-list-hover-bg !important;
+            }
         }
     }
 

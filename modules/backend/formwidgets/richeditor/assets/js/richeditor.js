@@ -8,7 +8,7 @@
  * $('textarea').richEditor()
  *
  * Dependancies:
- * - Redactor Editor (redactor.js)
+ * - Froala Editor (froala_editor.js)
  */
 +function ($) { "use strict";
     var Base = $.oc.foundation.base,
@@ -22,9 +22,7 @@
         this.$el         = $(element)
         this.$textarea   = this.$el.find('>textarea:first')
         this.$form       = this.$el.closest('form')
-        this.$dataLocker = null
-        this.$editor     = null
-        this.redactor    = null
+        this.editor      = null
 
         $.oc.foundation.controlUtils.markDisposable(element)
 
@@ -37,26 +35,26 @@
     RichEditor.prototype.constructor = RichEditor
 
     RichEditor.DEFAULTS = {
-        dataLocker: null,
         linksHandler: null,
         stylesheet: null,
         fullpage: false,
-        editorLang: 'en'
+        editorLang: 'en',
+        toolbarButtons: null,
+        allowEmptyTags: null,
+        allowTags: null,
+        noWrapTags: null,
+        removeTags: null,
+        imageStyles: null,
+        linkStyles: null,
+        paragraphStyles: null,
+        tableStyles: null,
+        tableCellStyles: null
     }
 
     RichEditor.prototype.init = function() {
         var self = this;
 
         this.$el.one('dispose-control', this.proxy(this.dispose))
-
-        /*
-         * Sync all changes to a data locker, since fullscreen mode
-         * will pull the textarea outside of the form element.
-         */
-        if (this.options.dataLocker) {
-            this.$dataLocker = $(this.options.dataLocker)
-            this.$textarea.val(this.$dataLocker.val())
-        }
 
         /*
          * Textarea must have an identifier
@@ -66,54 +64,139 @@
         }
 
         /*
-         * Initialize Redactor editor
+         * Initialize Froala editor
          */
-        var redactorOptions = {
-            lang: this.options.editorLang,
-            imageEditable: true,
-            imageResizable: true,
-            buttonSource: true,
-            removeDataAttr: false,
-            toolbarFixed: false,
-            visualCallback: this.proxy(this.onVisualMode),
-            syncBeforeCallback: this.proxy(this.onSyncBefore),
-            focusCallback: this.proxy(this.onFocus),
-            blurCallback: this.proxy(this.onBlur),
-            keydownCallback: this.proxy(this.onKeydown),
-            enterCallback: this.proxy(this.onEnter),
-            changeCallback: this.proxy(this.onChange),
-            pageLinksHandler: this.options.linksHandler,
-            initCallback: function() { self.build(this) }
+        this.initFroala()
+    }
+
+    RichEditor.prototype.initFroala = function() {
+        var froalaOptions = {
+            editorClass: 'control-richeditor',
+            language: this.options.editorLang,
+            fullPage: this.options.fullpage
         }
 
-        if (this.options.fullpage) {
-            redactorOptions.fullpage = true
+        if (this.options.toolbarButtons) {
+            froalaOptions.toolbarButtons = this.options.toolbarButtons.split(',')
+        }
+        else {
+            froalaOptions.toolbarButtons = [
+                'paragraphFormat',
+                'paragraphStyle',
+                'quote',
+                'bold',
+                'italic',
+                'align',
+                'formatOL',
+                'formatUL',
+                'insertTable',
+                'insertLink',
+                'insertImage',
+                'insertVideo',
+                'insertAudio',
+                'insertFile',
+                'insertHR',
+                'fullscreen',
+                'html'
+            ]
         }
 
-        redactorOptions.plugins = ['fullscreen', 'figure', 'table', 'pagelinks', 'mediamanager']
-        redactorOptions.buttons = ['html', 'formatting', 'bold', 'italic', 'alignment', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
+        froalaOptions.imageStyles = this.options.imageStyles
+            ? this.options.imageStyles
+            : {
+              'oc-img-rounded': 'Rounded',
+              'oc-img-bordered': 'Bordered'
+            }
 
-        this.$textarea.redactor(redactorOptions)
+        froalaOptions.linkStyles = this.options.linkStyles
+            ? this.options.linkStyles
+            : {
+              'oc-link-green': 'Green',
+              'oc-link-strong': 'Thick'
+            }
 
-        this.redactor = this.$textarea.redactor('core.getObject')
-        this.$editor = this.redactor.$editor
+        froalaOptions.paragraphStyles = this.options.paragraphStyles
+            ? this.options.paragraphStyles
+            : {
+              'oc-text-gray': 'Gray',
+              'oc-text-bordered': 'Bordered',
+              'oc-text-spaced': 'Spaced',
+              'oc-text-uppercase': 'Uppercase'
+            }
+
+        froalaOptions.tableStyles = this.options.tableStyles
+            ? this.options.tableStyles
+            : {
+              'oc-dashed-borders': 'Dashed Borders',
+              'oc-alternate-rows': 'Alternate Rows'
+            }
+
+        froalaOptions.tableCellStyles = this.options.tableCellStyles
+            ? this.options.tableCellStyles
+            : {
+              'oc-cell-highlighted': 'Highlighted',
+              'oc-cell-thick-border': 'Thick'
+            }
+
+        froalaOptions.toolbarButtonsMD = froalaOptions.toolbarButtons
+        froalaOptions.toolbarButtonsSM = froalaOptions.toolbarButtons
+        froalaOptions.toolbarButtonsXS = froalaOptions.toolbarButtons
+
+        if (this.options.htmlAllowedEmptyTags) {
+            froalaOptions.allowEmptyTags = this.options.htmlAllowedEmptyTags.split(/[\s,]+/)
+        }
+
+        if (this.options.allowTags) {
+            froalaOptions.htmlAllowedTags = this.options.allowTags.split(/[\s,]+/)
+        }
+
+        froalaOptions.htmlDoNotWrapTags = this.options.noWrapTags
+            ? this.options.noWrapTags.split(/[\s,]+/)
+            : ['figure', 'script', 'style']
+
+        if (this.options.removeTags) {
+            froalaOptions.htmlRemoveTags = this.options.removeTags.split(/[\s,]+/)
+        }
+
+        froalaOptions.lineBreakerTags = ['figure', 'table', 'hr', 'iframe', 'form', 'dl']
+        froalaOptions.shortcutsEnabled = ['show', 'bold', 'italic', 'underline', 'indent', 'outdent', 'undo', 'redo']
+        froalaOptions.linkInsertButtons = ['linkBack', '|']
+
+        // File upload
+        froalaOptions.imageUploadURL = froalaOptions.fileUploadURL = window.location
+        froalaOptions.imageUploadParam = froalaOptions.fileUploadParam = 'file_data'
+        froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = { X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD: 1 }
+
+        var placeholder = this.$textarea.attr('placeholder')
+        froalaOptions.placeholderText = placeholder ? placeholder : ''
+
+        froalaOptions.height = this.$el.hasClass('stretch')
+            ? Infinity
+            : $('.height-indicator', this.$el).height()
+
+        $.FroalaEditor.ICON_TEMPLATES = {
+            font_awesome: '<i class="icon-[NAME]"></i>',
+            text: '<span style="text-align: center;">[NAME]</span>',
+            image: '<img src=[SRC] alt=[ALT] />'
+        }
+
+        this.$textarea.on('froalaEditor.initialized', this.proxy(this.build))
+        this.$textarea.on('froalaEditor.contentChanged', this.proxy(this.onChange))
+        this.$textarea.on('froalaEditor.keydown', this.proxy(this.onKeydown))
+        this.$textarea.on('froalaEditor.html.get', this.proxy(this.onSyncContent))
+        this.$textarea.on('froalaEditor.html.set', this.proxy(this.onSetContent))
+
+        this.$textarea.froalaEditor(froalaOptions)
+
+        this.editor = this.$textarea.data('froala.editor')
+
+        this.$el.on('keydown', '.fr-view figure', this.proxy(this.onFigureKeydown))
     }
 
     RichEditor.prototype.dispose = function() {
         this.unregisterHandlers()
 
-        // Release clickedElement reference inside redactor.js
-        $(document).trigger('mousedown')
-
-        this.redactor.core.destroy()
-
-        // The figure plugin keeps references to the editor,
-        // DOM elements and event handlers. It was hacked and
-        // extended with the destroy() method.
-        if (this.redactor.figure) {
-            this.redactor.figure.destroy()
-            this.redactor.figure = null
-        }
+        this.$textarea.froalaEditor('destroy')
 
         this.$el.removeData('oc.richEditor')
 
@@ -121,39 +204,32 @@
         this.$el = null
         this.$textarea = null
         this.$form = null
-        this.$dataLocker = null
-        this.$editor = null
-
-        this.redactor.$textarea = null
-        this.redactor.$element = null
-
-        this.redactor = null
+        this.editor = null
 
         BaseProto.dispose.call(this)
     }
 
     RichEditor.prototype.unregisterHandlers = function() {
+        this.$el.off('keydown', '.fr-view figure', this.proxy(this.onFigureKeydown))
+
+        this.$textarea.off('froalaEditor.initialized', this.proxy(this.build))
+        this.$textarea.off('froalaEditor.contentChanged', this.proxy(this.onChange))
+        this.$textarea.off('froalaEditor.keydown', this.proxy(this.onKeydown))
+        this.$textarea.off('froalaEditor.html.get', this.proxy(this.onSyncContent))
+        this.$textarea.off('froalaEditor.html.set', this.proxy(this.onSetContent))
+
         $(window).off('resize', this.proxy(this.updateLayout))
         $(window).off('oc.updateUi', this.proxy(this.updateLayout))
         this.$el.off('dispose-control', this.proxy(this.dispose))
     }
 
-    RichEditor.prototype.build = function(redactor) {
+    RichEditor.prototype.build = function(event, editor) {
         this.updateLayout()
 
         $(window).on('resize', this.proxy(this.updateLayout))
         $(window).on('oc.updateUi', this.proxy(this.updateLayout))
 
         this.$textarea.trigger('init.oc.richeditor', [this])
-
-        this.initUiBlocks()
-
-        var self = this
-        redactor.default = {
-            onShow: function($figure, $toolbar) {
-                self.onShowFigureToolbar($figure, $toolbar)
-            }
-        }
     }
 
     RichEditor.prototype.getElement = function() {
@@ -161,239 +237,85 @@
     }
 
     RichEditor.prototype.getEditor = function() {
-        return this.$editor
+        return this.editor
     }
 
     RichEditor.prototype.getTextarea = function() {
         return this.$textarea
     }
 
-    RichEditor.prototype.setContent = function(html) {
-        this.$textarea.redactor('code.set', html)
+    RichEditor.prototype.getContent = function() {
+        return this.$textarea.froalaEditor('html.get')
+    }
 
-        this.$textarea.trigger('setContent.oc.richeditor', [this])
+    RichEditor.prototype.setContent = function(html) {
+        this.$textarea.froalaEditor('html.set', html)
+    }
+
+    RichEditor.prototype.syncContent = function() {
+        this.editor.events.trigger('contentChanged')
     }
 
     RichEditor.prototype.updateLayout = function() {
-        var $editor = $('.redactor-editor', this.$el),
-            $codeEditor = $('textarea', this.$el),
-            $toolbar = $('.redactor-toolbar', this.$el)
+        var $editor = $('.fr-wrapper', this.$el),
+            $codeEditor = $('.fr-code', this.$el),
+            $toolbar = $('.fr-toolbar', this.$el),
+            $box = $('.fr-box', this.$el)
 
         if (!$editor.length) {
             return
         }
 
-        if (this.$el.hasClass('stretch')) {
+        if (this.$el.hasClass('stretch') && !$box.hasClass('fr-fullscreen')) {
             var height = $toolbar.outerHeight(true)
             $editor.css('top', height+1)
             $codeEditor.css('top', height)
         }
+        else {
+            $editor.css('top', '')
+            $codeEditor.css('top', '')
+        }
     }
 
-    RichEditor.prototype.sanityCheckContent = function() {
-        // First and last elements should always be paragraphs, lists or pre
-        var safeElements = 'p, h1, h2, h3, h4, h5, pre, figure, ol, ul';
-
-        if (!this.$editor.children(':last-child').is(safeElements)) {
-            this.$editor.append('<p><br></p>')
-        }
-
-        if (!this.$editor.children(':first-child').is(safeElements)) {
-            this.$editor.prepend('<p><br></p>')
-        }
-
-        this.$textarea.trigger('sanitize.oc.richeditor', [this])
+    RichEditor.prototype.insertHtml = function(html) {
+        this.editor.html.insert(html)
+        this.editor.selection.restore()
     }
 
-    RichEditor.prototype.syncBefore = function(html) {
-        var container = {
-            html: html
-        }
-
-        this.$textarea.trigger('syncBefore.oc.richeditor', [this, container])
-
-        var $domTree = $('<div>'+container.html+'</div>')
-
-        // This code removes Redactor-specific attributes and tags from the code.
-        // It seems to be a known problem with Redactor, try googling for
-        // "data-redactor-tag" or "redactor-invisible-space" (with quotes)
-        $('*', $domTree).removeAttr('data-redactor-tag')
-
-        $domTree.find('span[data-redactor-class="redactor-invisible-space"]').each(function(){
-            $(this).children().insertBefore(this)
-            $(this).remove()
-        })
-
-        $domTree.find('span.redactor-invisible-space').each(function(){
-            $(this).children().insertBefore(this)
-            $(this).remove()
-        })
-
-        $domTree.find('[data-video], [data-audio]').each(function(){
-            $(this).removeAttr('contenteditable data-ui-block tabindex')
-        })
-
-        $domTree.find('div.oc-figure-controls').remove()
-
-        return $domTree.html()
-    }
-
-    RichEditor.prototype.onShowFigureToolbar = function($figure, $toolbar) {
-        // Deal with the case when the toolbar top has negative value
-        var toolbarTop = $figure.position().top - $toolbar.height() - 10
-
-        $toolbar.toggleClass('bottom', toolbarTop < 0)
+    RichEditor.prototype.insertElement = function($el) {
+        this.insertHtml($('<div />').append($el.clone()).remove().html())
     }
 
     /*
      * Inserts non-editable block (used for snippets, audio and video)
      */
     RichEditor.prototype.insertUiBlock = function($node) {
-        var current = this.redactor.selection.getCurrent(),
-            inserted = false
-
-        if (current === false) {
-            this.redactor.focus.setStart()
-        }
-
-        current = this.redactor.selection.getCurrent()
-
-        if (current !== false) {
-            // If the block is inserted into a paragraph, insert it after the paragraph.
-            var $paragraph = $(current).closest('p')
-            if ($paragraph.length > 0) {
-                this.redactor.caret.setAfter($paragraph.get(0))
-
-                // If the paragraph is empty, remove it.
-                if ($.trim($paragraph.text()).length == 0) {
-                    $paragraph.remove()
-                }
-            }
-            else {
-                // If block is inserted into another UI block, insert it after the existing block.
-                var $closestBlock = $(current).closest('[data-ui-block]')
-                if ($closestBlock.length > 0) {
-                    $node.insertBefore($closestBlock.get(0))
-                    inserted = true
-                }
-            }
-        }
-
-        if (!inserted) {
-            this.redactor.insert.node($node)
-        }
-
-        this.redactor.code.sync()
-
-        $node.focus()
+        this.$textarea.froalaEditor('figures.insert', $node)
     }
 
-    RichEditor.prototype.initUiBlocks = function() {
-        $('.redactor-editor [data-video], .redactor-editor [data-audio]', this.$el).each(function() {
-            $(this).attr({
-                'data-ui-block': true,
-                'tabindex': '0'
-            })
-            this.contentEditable = false
-        })
+    RichEditor.prototype.insertVideo = function(url, title) {
+        this.$textarea.froalaEditor('figures.insertVideo', url, title)
     }
 
-    RichEditor.prototype.handleUiBlocksKeydown = function(ev) {
-        if (this.$textarea === undefined) {
-            return
-        }
-
-        if (ev.target && $(ev.target).attr('data-ui-block') !== undefined) {
-            this.uiBlockKeyDown(ev, ev.target)
-
-            ev.preventDefault()
-            return
-        }
-
-        switch (ev.which) {
-            case 38:
-                // Up arrow
-                var block = this.redactor.selection.getBlock()
-                if (block)
-                    this.handleUiBlockCaretIn($(block).prev())
-            break
-            case 40:
-                // Down arrow
-                var block = this.redactor.selection.getBlock()
-                if (block)
-                    this.handleUiBlockCaretIn($(block).next())
-            break
-        }
-    }
-
-    RichEditor.prototype.handleUiBlockCaretIn = function($block) {
-        if ($block.attr('data-ui-block') !== undefined) {
-            $block.focus()
-            this.redactor.selection.remove()
-
-            return true
-        }
-
-        return false
-    }
-
-    RichEditor.prototype.uiBlockKeyDown = function(ev, block) {
-        if (ev.which == 40 || ev.which == 38 || ev.which == 13 || ev.which == 8) {
-            switch (ev.which) {
-                case 40:
-                    // Down arrow
-                    this.focusUiBlockOrText($(block).next(), true)
-                break
-                case 38:
-                    // Up arrow
-                    this.focusUiBlockOrText($(block).prev(), false)
-                break
-                case 13:
-                    // Enter key
-                    var $paragraph = $('<p><br/></p>')
-                    $paragraph.insertAfter(block)
-                    this.redactor.caret.setStart($paragraph.get(0))
-                break
-                case 8:
-                    // Backspace key
-                    var $nextFocus = $(block).next(),
-                        gotoStart = true
-
-                    if ($nextFocus.length == 0) {
-                        $nextFocus = $(block).prev()
-                        gotoStart = false
-                    }
-
-                    this.focusUiBlockOrText($nextFocus, gotoStart)
-
-                    $(block).remove()
-                break
-            }
-        }
-    }
-
-    RichEditor.prototype.focusUiBlockOrText = function($block, gotoStart) {
-        if ($block.length > 0) {
-            if (!this.handleUiBlockCaretIn($block, this.redactor)) {
-                if (gotoStart) {
-                    this.redactor.caret.setStart($block.get(0))
-                }
-                else {
-                    this.redactor.caret.setEnd($block.get(0))
-                }
-            }
-        }
+    RichEditor.prototype.insertAudio = function(url, title) {
+        this.$textarea.froalaEditor('figures.insertAudio', url, title)
     }
 
     // EVENT HANDLERS
     // ============================
 
-    RichEditor.prototype.onVisualMode = function(html) {
-        this.$textarea.trigger('visualMode.oc.richeditor', [this])
+    RichEditor.prototype.onSetContent = function(ev, editor) {
+        this.$textarea.trigger('setContent.oc.richeditor', [this])
     }
 
-    RichEditor.prototype.onSyncBefore = function(html) {
-        return this.syncBefore(html)
+    RichEditor.prototype.onSyncContent = function(ev, editor, html) {
+        var container = {
+            html: html
+        }
+
+        this.$textarea.trigger('syncContent.oc.richeditor', [this, container])
+
+        return container.html
     }
 
     RichEditor.prototype.onFocus = function() {
@@ -404,28 +326,12 @@
         this.$el.removeClass('editor-focus')
     }
 
-    RichEditor.prototype.onKeydown = function(ev) {
-        this.$textarea.trigger('keydown.oc.richeditor', [ev, this])
-
-        if (ev.isDefaultPrevented()) {
-            return false
-        }
-
-        this.handleUiBlocksKeydown(ev)
-
-        if (ev.isDefaultPrevented()) {
-            return false
-        }
+    RichEditor.prototype.onFigureKeydown = function(ev) {
+        this.$textarea.trigger('figureKeydown.oc.richeditor', [ev, this])
     }
 
-    RichEditor.prototype.onEnter = function(ev) {
-        this.$textarea.trigger('enter.oc.richeditor', [ev, this])
-
-        if (ev.isDefaultPrevented()) {
-            return false
-        }
-
-        this.handleUiBlocksKeydown(ev)
+    RichEditor.prototype.onKeydown = function(ev, editor, keyEv) {
+        this.$textarea.trigger('keydown.oc.richeditor', [keyEv, this])
 
         if (ev.isDefaultPrevented()) {
             return false
@@ -433,13 +339,7 @@
     }
 
     RichEditor.prototype.onChange = function(ev) {
-        this.sanityCheckContent()
-        this.$editor.trigger('mutate')
         this.$form.trigger('change')
-
-        if (this.$dataLocker) {
-            this.$dataLocker.val(this.syncBefore(this.$editor.html()))
-        }
     }
 
     // RICHEDITOR PLUGIN DEFINITION

@@ -271,8 +271,8 @@ return [
         'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.'
     ],
     'editor' => [
-        'menu_label' => 'Code editor preferences',
-        'menu_description' => 'Customize your code editor preferences, such as font size and color scheme.',
+        'menu_label' => 'Editor settings',
+        'menu_description' => 'Customize the global editor preferences, such as font size and color scheme.',
         'font_size' => 'Font size',
         'tab_size' => 'Tab size',
         'use_hard_tabs' => 'Indent using tabs',

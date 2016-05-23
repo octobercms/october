@@ -38,6 +38,7 @@
 .fileupload-config-form .file-upload-modal-image-header{background-color:#FEFEFE;background-image:-webkit-linear-gradient(45deg,#cbcbcb 25%,transparent 25%,transparent 75%,#cbcbcb 75%,#cbcbcb),-webkit-linear-gradient(45deg,#cbcbcb 25%,transparent 25%,transparent 75%,#cbcbcb 75%,#cbcbcb);background-image:-moz-linear-gradient(45deg,#cbcbcb 25%,transparent 25%,transparent 75%,#cbcbcb 75%,#cbcbcb),-moz-linear-gradient(45deg,#cbcbcb 25%,transparent 25%,transparent 75%,#cbcbcb 75%,#cbcbcb);background-image:-o-linear-gradient(45deg,#cbcbcb 25%,transparent 25%,transparent 75%,#cbcbcb 75%,#cbcbcb),-o-linear-gradient(45deg,#cbcbcb 25%,transparent 25%,transparent 75%,#cbcbcb 75%,#cbcbcb);background-image:-ms-linear-gradient(45deg,#cbcbcb 25%,transparent 25%,transparent 75%,#cbcbcb 75%,#cbcbcb),-ms-linear-gradient(45deg,#cbcbcb 25%,transparent 25%,transparent 75%,#cbcbcb 75%,#cbcbcb);background-image:linear-gradient(45deg,#cbcbcb 25%,transparent 25%,transparent 75%,#cbcbcb 75%,#cbcbcb),linear-gradient(45deg,#cbcbcb 25%,transparent 25%,transparent 75%,#cbcbcb 75%,#cbcbcb);-webkit-background-size:20px 20px;-moz-background-size:20px 20px;background-size:20px 20px;background-position:0 0,10px 10px}
 .fileupload-config-form .file-upload-modal-image-header,.fileupload-config-form .file-upload-modal-image-header img{border-top-right-radius:2px;border-top-left-radius:2px}
 .fileupload-config-form .file-upload-modal-image-header .close{position:absolute;top:20px;right:20px}
+.fileupload-config-form .file-upload-modal-image-header + .modal-body{padding-top:20px}
 .field-fileupload.style-image-multi .upload-button,.field-fileupload.style-image-multi .upload-object{margin:0 10px 10px 0}
 .field-fileupload.style-image-multi .upload-button{display:block;border:2px dashed #BDC3C7;background-clip:content-box;background-color:#F9F9F9;position:relative;outline:none;float:left;width:76px;height:76px}
 .field-fileupload.style-image-multi .upload-button .upload-button-icon{position:absolute;width:22px;height:22px;top:50%;left:50%;margin-top:-11px;margin-left:-11px}
@@ -130,7 +131,7 @@
 .field-fileupload.style-file-multi .info p.size{width:25% !important;padding-right:35px !important}
 .field-fileupload.style-file-multi .meta{width:25% !important}
 }
-.field-fileupload.style-file-single{background-color:#ffffff;border:1px solid #bdc3c7;overflow:hidden;position:relative;padding-right:30px;border-radius:3px;-webkit-box-shadow:inset 0 1px 0 rgba(189,195,199,0.25),0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 1px 0 rgba(189,195,199,0.25),0 1px 0 rgba(255,255,255,.5)}
+.field-fileupload.style-file-single{background-color:#ffffff;border:1px solid #d1d6d9;overflow:hidden;position:relative;padding-right:30px;border-radius:3px;-webkit-box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5)}
 .field-fileupload.style-file-single .upload-button{position:absolute;top:50%;margin-top:-44px;height:88px;background:transparent;right:-2px;color:#595959}
 .field-fileupload.style-file-single .upload-button i{font-size:14px}
 .field-fileupload.style-file-single .upload-button:hover{color:#333333}
