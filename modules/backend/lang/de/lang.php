@@ -150,6 +150,7 @@ return [
         'saving' => 'Wird gespeichert...',
         'delete' => 'Löschen',
         'deleting' => 'Löschen...',
+        'confirm_delete' => 'Wollen Sie diesen Eintrag wirklich löschen?',
         'undefined_tab' => 'Divers',
         'field_off' => 'Aus',
         'field_on' => 'An',
@@ -157,7 +158,7 @@ return [
         'cancel' => 'Abbrechen',
         'close' => 'Schließen',
         'ok' => 'OK',
-        'or' => 'or',
+        'or' => 'oder',
         'confirm_tab_close' => 'Wollen Sie den Tab wirklich schließen? Ungespeicherte Änderungen gehen verloren.',
         'behavior_not_ready' => 'Formularverhalten kann nicht initialisiert werden, überprüfen Sie den Aufruf von makeLists() in Ihrem Controller.',
         'preview_no_files_message' => 'Keine Dateien wurden hochgeladen',
@@ -170,6 +171,7 @@ return [
         'concurrency_file_changed_title' => 'Datei wurde geändert',
         'concurrency_file_changed_description' => 'Die Datei, welche Sie bearbeiten, wurde auf von einem anderen Benutzer geändert. Sie können die Datei entweder erneut laden, wodurch Ihre Änderungen verloren gehen oder Sie überschreiben die Datei auf dem Server',
         'reload' => 'Erneut laden',
+        'return_to_list' => 'Zurück zur Liste'
     ],
     'relation' => [
         'missing_definition' => "Verhalten (behaviour) der Verbindung umfasst keine Definition für ':field'.",
