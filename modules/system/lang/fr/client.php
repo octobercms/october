@@ -59,7 +59,7 @@ return [
         'nextMonth'     => 'Mois suivant',
         'months'        => ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
         'weekdays'      => ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-        'weekdaysShort' => ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
+        'weekdaysShort' => ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
     ],
 
     'filter' => [
@@ -73,17 +73,18 @@ return [
             'date_placeholder' =>   'Date',
             'after_placeholder' => 'Après le',
             'before_placeholder' => 'Avant le',
-        ]
+        ],
     ],
 
     'eventlog' => [
         'editor' => [
             'title' => 'Sélectionnez l’éditeur de code source à utiliser',
-            'description' => 'Votre environnement doit être configuré pour ouvrir l’un des schéma d’URL ci-dessous.',
+            'description' => 'L’environnement de votre système d’exploitation doit être configuré pour ouvrir l’un des schémas d’URL ci-dessous.',
             'openWith' => 'Ouvrir avec',
-            'openAndRemember' => 'Ouvrir et enregistrer pour la session',
-            'open' => 'Ouvrir'
-        ]
+            'rememberChoice' => 'Se souvenir de la sélection pour la durée de la session dans ce navigateur',
+            'open' => 'Ouvrir',
+            'cancel' => 'Annuler',
+        ],
     ]
 ];
 

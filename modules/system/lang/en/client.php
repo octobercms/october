@@ -76,10 +76,11 @@ return [
     'eventlog' => [
         'editor' => [
             'title' => 'Select the source code editor to use',
-            'description' => 'Your environnement must be configured to listen to one of these URL schemes.',
+            'description' => 'Your OS environnement must be configured to listen to one of these URL schemes.',
             'openWith' => 'Open with',
-            'openAndRemember' => 'Open & Remember for this session',
-            'open' => 'Open'
+            'rememberChoice' => 'Remember the selected option for this browser session',
+            'open' => 'Open',
+            'cancel' => 'Cancel'
         ]
     ]
 ];

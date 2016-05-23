@@ -1,0 +1,99 @@
+[data-plugin="exception-beautifier"] {
+    width: auto !important;
+}
+
+.plugin-exception-beautifier .beautifier-name {
+    display: block;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.plugin-exception-beautifier .beautifier-message {
+    display: block;
+    padding: 15px 0;
+    font-size: 1.1em;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-title {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line {
+    display: block;
+    white-space: nowrap;
+    padding: 10px 0;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line-number {
+    display: inline-block;
+    width: 40px;
+    margin-right: 15px;
+    text-align: right;
+    color: #000000;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line-internal {
+    color: #2C3E50;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line-function {
+    display: block;
+    margin-left: 55px;
+}
+
+.plugin-exception-beautifier .beautifier-file {
+    color: #204bff;
+}
+
+.plugin-exception-beautifier .beautifier-line-number {
+    color: #af0016;
+}
+
+.plugin-exception-beautifier .beautifier-string,
+.plugin-exception-beautifier .beautifier-number,
+.plugin-exception-beautifier .beautifier-class,
+.plugin-exception-beautifier .beautifier-code,
+.plugin-exception-beautifier .beautifier-function,
+.plugin-exception-beautifier .beautifier-system-function {
+    font-family: monospace;
+}
+
+.plugin-exception-beautifier .beautifier-class,
+.plugin-exception-beautifier .beautifier-function,
+.plugin-exception-beautifier .beautifier-system-function {
+    font-weight: bold;
+}
+
+.plugin-exception-beautifier .beautifier-class {
+    color: #252623;
+}
+
+.plugin-exception-beautifier .beautifier-function {
+    color: #cc204d;
+}
+
+.plugin-exception-beautifier .beautifier-system-function {
+    color: #e33a37;
+}
+
+.plugin-exception-beautifier .beautifier-code {
+    color: #736b88;
+}
+
+.plugin-exception-beautifier .beautifier-string {
+    color: #0EA804;
+}
+
+.plugin-exception-beautifier .beautifier-number {
+    color: #2196F3;
+}
