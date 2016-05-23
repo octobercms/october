@@ -136,10 +136,11 @@ return [
         'refresh' => 'Refresh',
         'updating' => 'Updating...',
         'loading' => 'Loading...',
-        'setup_title' => 'List Setup',
+        'setup_title' => 'List setup',
         'setup_help' => 'Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.',
         'records_per_page' => 'Records per page',
         'records_per_page_help' => 'Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.',
+        'check' => 'Check',
         'delete_selected' => 'Delete selected',
         'delete_selected_empty' => 'There are no selected records to delete.',
         'delete_selected_confirm' => 'Delete the selected records?',
@@ -253,7 +254,7 @@ return [
     ],
     'reorder' => [
         'default_title' => 'Reorder records',
-        'no_records' => 'There are no records available to sort.',
+        'no_records' => 'There are no records available to sort.'
     ],
     'model' => [
         'name' => 'Model',
@@ -328,7 +329,7 @@ return [
         'menu_mode' => 'Menu style',
         'menu_mode_inline' => 'Inline',
         'menu_mode_tile' => 'Tiles',
-        'menu_mode_collapsed' => 'Collapsed',
+        'menu_mode_collapsed' => 'Collapsed'
     ],
     'backend_preferences' => [
         'menu_label' => 'Back-end preferences',
@@ -354,7 +355,7 @@ return [
     'filter' => [
         'all' => 'all',
         'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':filter' filter.",
-        'date_all' => 'all period',
+        'date_all' => 'all period'
     ],
     'import_export' => [
         'upload_csv_file' => '1. Upload a CSV file',
@@ -426,6 +427,6 @@ return [
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, Western European revision with euro sign)',
             'windows_1251' => 'Windows-1251 (CP1251)',
             'windows_1252' => 'Windows-1252 (CP1252)'
-        ],
-    ],
+        ]
+    ]
 ];
