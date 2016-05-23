@@ -39,7 +39,16 @@
         stylesheet: null,
         fullpage: false,
         editorLang: 'en',
-        toolbarButtons: null
+        toolbarButtons: null,
+        allowEmptyTags: null,
+        allowTags: null,
+        noWrapTags: null,
+        removeTags: null,
+        imageStyles: null,
+        linkStyles: null,
+        paragraphStyles: null,
+        tableStyles: null,
+        tableCellStyles: null
     }
 
     RichEditor.prototype.init = function() {
@@ -63,7 +72,8 @@
     RichEditor.prototype.initFroala = function() {
         var froalaOptions = {
             editorClass: 'control-richeditor',
-            language: this.options.editorLang
+            language: this.options.editorLang,
+            fullPage: this.options.fullpage
         }
 
         if (this.options.toolbarButtons) {
@@ -91,11 +101,63 @@
             ]
         }
 
+        froalaOptions.imageStyles = this.options.imageStyles
+            ? this.options.imageStyles
+            : {
+              'oc-img-rounded': 'Rounded',
+              'oc-img-bordered': 'Bordered'
+            }
+
+        froalaOptions.linkStyles = this.options.linkStyles
+            ? this.options.linkStyles
+            : {
+              'oc-link-green': 'Green',
+              'oc-link-strong': 'Thick'
+            }
+
+        froalaOptions.paragraphStyles = this.options.paragraphStyles
+            ? this.options.paragraphStyles
+            : {
+              'oc-text-gray': 'Gray',
+              'oc-text-bordered': 'Bordered',
+              'oc-text-spaced': 'Spaced',
+              'oc-text-uppercase': 'Uppercase'
+            }
+
+        froalaOptions.tableStyles = this.options.tableStyles
+            ? this.options.tableStyles
+            : {
+              'oc-dashed-borders': 'Dashed Borders',
+              'oc-alternate-rows': 'Alternate Rows'
+            }
+
+        froalaOptions.tableCellStyles = this.options.tableCellStyles
+            ? this.options.tableCellStyles
+            : {
+              'oc-cell-highlighted': 'Highlighted',
+              'oc-cell-thick-border': 'Thick'
+            }
+
         froalaOptions.toolbarButtonsMD = froalaOptions.toolbarButtons
         froalaOptions.toolbarButtonsSM = froalaOptions.toolbarButtons
         froalaOptions.toolbarButtonsXS = froalaOptions.toolbarButtons
-        froalaOptions.htmlAllowedEmptyTags = ['figure', 'textarea', 'a', 'iframe', 'object', 'video', 'style', 'script']
-        froalaOptions.htmlDoNotWrapTags = ['figure', 'script', 'style']
+
+        if (this.options.htmlAllowedEmptyTags) {
+            froalaOptions.allowEmptyTags = this.options.htmlAllowedEmptyTags.split(/[\s,]+/)
+        }
+
+        if (this.options.allowTags) {
+            froalaOptions.htmlAllowedTags = this.options.allowTags.split(/[\s,]+/)
+        }
+
+        froalaOptions.htmlDoNotWrapTags = this.options.noWrapTags
+            ? this.options.noWrapTags.split(/[\s,]+/)
+            : ['figure', 'script', 'style']
+
+        if (this.options.removeTags) {
+            froalaOptions.htmlRemoveTags = this.options.removeTags.split(/[\s,]+/)
+        }
+
         froalaOptions.lineBreakerTags = ['figure', 'table', 'hr', 'iframe', 'form', 'dl']
         froalaOptions.shortcutsEnabled = ['show', 'bold', 'italic', 'underline', 'indent', 'outdent', 'undo', 'redo']
         froalaOptions.linkInsertButtons = ['linkBack', '|']

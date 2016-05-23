@@ -11,7 +11,6 @@
 @color-richeditor-toolbar-btn-color-hover:   #ffffff;
 
 @import "../vendor/froala_drm/less/froala.less";
-@import "../vendor/froala_drm/less/style.less";
 
 // Buttons
 @import "../vendor/froala_drm/less/plugins/fullscreen.less";
@@ -27,6 +26,12 @@
 @import "../vendor/froala_drm/less/plugins/line_breaker.less";
 @import "../vendor/froala_drm/less/plugins/draggable.less";
 
+// Base styles
+@import "_base_styles.less";
+
+.fr-view {
+    @import "../../../../models/editorsetting/default_styles.less";
+}
 
 // Modifications
 @import "_froala.less";

@@ -5,6 +5,7 @@ use File;
 use Event;
 use Request;
 use Backend\Classes\FormWidgetBase;
+use Backend\Models\EditorSetting;
 
 /**
  * Rich Editor
@@ -71,6 +72,17 @@ class RichEditor extends FormWidgetBase
         $this->vars['name'] = $this->formField->getName();
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
+
+        $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
+        $this->vars['allowTags'] = EditorSetting::getConfigured('html_allow_tags');
+        $this->vars['noWrapTags'] = EditorSetting::getConfigured('html_no_wrap_tags');
+        $this->vars['removeTags'] = EditorSetting::getConfigured('html_remove_tags');
+
+        $this->vars['imageStyles'] = EditorSetting::getConfiguredStyles('html_style_image');
+        $this->vars['linkStyles'] = EditorSetting::getConfiguredStyles('html_style_link');
+        $this->vars['paragraphStyles'] = EditorSetting::getConfiguredStyles('html_style_paragraph');
+        $this->vars['tableStyles'] = EditorSetting::getConfiguredStyles('html_style_table');
+        $this->vars['tableCellStyles'] = EditorSetting::getConfiguredStyles('html_style_table_cell');
     }
 
     /**
