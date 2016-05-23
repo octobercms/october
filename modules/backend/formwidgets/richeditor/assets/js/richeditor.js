@@ -219,15 +219,16 @@
         // "data-redactor-tag" or "redactor-invisible-space" (with quotes)
         $('*', $domTree).removeAttr('data-redactor-tag')
 
-        $domTree.find('span[data-redactor-class="redactor-invisible-space"]').each(function(){
-            $(this).children().insertBefore(this)
-            $(this).remove()
+        $domTree.find($('span[data-redactor-class="redactor-invisible-space"]').get().reverse()).each(function(){
+            $($(this).children().html()).insertBefore(this);
+            $(this).remove();
         })
 
-        $domTree.find('span.redactor-invisible-space').each(function(){
-            $(this).children().insertBefore(this)
-            $(this).remove()
-        })
+        $domTree.find($('span.redactor-invisible-space').get().reverse()).each(function(){
+            $($(this).children().html()).insertBefore(this);
+            $(this).remove();
+        });
+
 
         $domTree.find('[data-video], [data-audio]').each(function(){
             $(this).removeAttr('contenteditable data-ui-block tabindex')
