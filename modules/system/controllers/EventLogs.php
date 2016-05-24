@@ -74,11 +74,11 @@ class EventLogs extends Controller
 
     public function preview($id)
     {
-        $this->addCss('/modules/system/assets/css/eventlogs/preview.css', 'core');
-        $this->addJs('/modules/system/assets/js/eventlogs/preview.js', 'core');
+        $this->addCss('/modules/system/assets/css/eventlogs/exception-beautifier.css', 'core');
+        $this->addJs('/modules/system/assets/js/eventlogs/exception-beautifier.js', 'core');
 
         if (in_array(App::environment(), ['dev', 'local'])) {
-            $this->addJs('/modules/system/assets/js/eventlogs/preview.links.js', 'core');
+            $this->addJs('/modules/system/assets/js/eventlogs/exception-beautifier.links.js', 'core');
         }
 
         return $this->asExtension('FormController')->preview($id);
