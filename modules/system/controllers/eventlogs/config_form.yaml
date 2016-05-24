@@ -16,4 +16,4 @@ defaultRedirect: system/eventlogs
 
 # Preview page
 preview:
-    title: Event
+    title: system::lang.event_log.preview_title

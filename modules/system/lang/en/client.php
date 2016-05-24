@@ -74,6 +74,12 @@ return [
     ],
 
     'eventlog' => [
+        'show_stacktrace' => 'Show the stacktrace',
+        'hide_stacktrace' => 'Hide the stacktrace',
+        'tabs' => [
+            'formatted' => 'Formatted',
+            'raw' => 'Raw',
+        ],
         'editor' => [
             'title' => 'Select the source code editor to use',
             'description' => 'Your OS environnement must be configured to listen to one of these URL schemes.',
