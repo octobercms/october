@@ -91,7 +91,7 @@
     //
 
     MarkdownEditor.prototype.onClickToolbarButton = function(ev) {
-        var $button = $(ev.target),
+        var $button = $(ev.target).closest('.btn'),
             action = $button.data('button-action'),
             template = $button.data('button-template')
 
@@ -251,7 +251,7 @@
             $button.addClass(button.cssClass)
         }
         else {
-            $button.addClass('tb-icon tb-' + button.icon)
+            $button.append('<i class="icon-' + button.icon + '"></i>')
         }
 
         return $button
@@ -705,7 +705,7 @@
 
         formatting: {
             label: 'markdowneditor.formatting',
-            icon: 'formatting',
+            icon: 'paragraph',
             dropdown: {
                 quote: {
                     label: 'markdowneditor.quote',
@@ -771,13 +771,13 @@
         },
         unorderedlist: {
             label: 'markdowneditor.unorderedlist',
-            icon: 'unorderedlist',
+            icon: 'list-ul',
             action: 'formatBlockMulti',
             template: '* $1'
         },
         orderedlist: {
             label: 'markdowneditor.orderedlist',
-            icon: 'orderedlist',
+            icon: 'list-ol',
             action: 'formatBlockMulti',
             template: '1. $1'
         },
@@ -795,7 +795,7 @@
         },
         horizontalrule: {
             label: 'markdowneditor.horizontalrule',
-            icon: 'horizontalrule',
+            icon: 'minus',
             action: 'insertLine',
             template: '\n\n---\n'
         },
@@ -813,13 +813,13 @@
         },
         fullscreen: {
             label: 'markdowneditor.fullscreen',
-            icon: 'fullscreen',
+            icon: 'expand',
             action: 'toggleFullscreen',
             fixed: true
         },
         preview: {
             label: 'markdowneditor.preview',
-            cssClass: 'oc-button oc-icon-eye',
+            icon: 'eye',
             action: 'togglePreview',
             fixed: true
         }
