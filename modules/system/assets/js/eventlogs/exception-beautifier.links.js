@@ -55,7 +55,7 @@
                     <label for="editor-remember-choice">' + rememberChoice + '</label>                                 \
                 </div>                                                                                                 \
             </div>                                                                                                     \
-            <div class="modal-footer">                                                                                 \                                                                                             \
+            <div class="modal-footer">                                                                                 \
                 <button type="button" class="btn btn-primary"                                                          \
                     data-action="submit" data-dismiss="modal">' + open + '</button>                                    \
                 <button type="button" class="btn btn-default" data-dismiss="popup">' + cancel + '</button>             \
