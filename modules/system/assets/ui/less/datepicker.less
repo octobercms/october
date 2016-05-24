@@ -16,32 +16,43 @@
 }
 
 .pika-single {
-    border-color: @color-focus;
+    border: none;
     border-radius: @border-radius-base;
     font-size: 12px;
     margin-top: 5px;
+    z-index: @zindex-datepicker;
+    font-family: @font-family-sans-serif;
+    width: 310px;
+
     &.is-bound {
-        box-shadow: 0 5px 10px -5px rgba(0,0,0,.5);
+        .box-shadow(@overlay-box-shadow);
     }
+
     abbr {
         border-bottom: none;
     }
     .pika-button {
-        border-radius: 0!important;
+        border-radius: 999px !important;
+        text-align: center;
+        width: 29px;
+        height: 29px;
+        margin: 3px;
+        background: transparent;
     }
     .is-today .pika-button {
         background: #ddd;
         font-weight: bold;
-        color: @color-datepicker-button-today;
+        color: @color-datepicker-today-text;
     }
 
     .is-selected .pika-button {
         box-shadow: none;
-        background: @color-datepicker-button;
+        background: @color-datepicker-selected-bg;
     }
 
     .pika-button:hover {
-        background: @color-datepicker-button-hover !important;
+        color: @color-datepicker-hover-text !important;
+        background: @color-datepicker-hover-bg !important;
     }
 
     .pika-label {
@@ -50,11 +61,14 @@
 
     .pika-table th {
         text-transform: uppercase;
+        font-weight: normal;
+        line-height: 30px;
+        font-size: @font-size-base - 3;
     }
 
     .pika-footer {
         .pika-label {
-            font-size: 12px;
+            font-size: @font-size-base - 3;
         }
     }
 }

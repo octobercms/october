@@ -2879,13 +2879,13 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .clockpicker-canvas line{stroke:#0095dd;stroke-width:1;stroke-linecap:round}
 .clockpicker-button.am-button{margin:1px;padding:5px;border:1px solid rgba(0,0,0,0.2);border-radius:4px}
 .clockpicker-button.pm-button{margin:1px 1px 1px 136px;padding:5px;border:1px solid rgba(0,0,0,0.2);border-radius:4px}
-.pika-single{border-color:#34495e;border-radius:3px;font-size:12px;margin-top:5px}
-.pika-single.is-bound{box-shadow:0 5px 10px -5px rgba(0,0,0,0.5)}
+.pika-single{border:none;border-radius:3px;font-size:12px;margin-top:5px;z-index:10100;font-family:sans-serif;width:310px}
+.pika-single.is-bound{-webkit-box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24);box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24)}
 .pika-single abbr{border-bottom:none}
-.pika-single .pika-button{border-radius:0 !important}
+.pika-single .pika-button{border-radius:999px !important;text-align:center;width:29px;height:29px;margin:3px;background:transparent}
 .pika-single .is-today .pika-button{background:#ddd;font-weight:bold;color:#34495e}
-.pika-single .is-selected .pika-button{box-shadow:none;background:#e67e22}
-.pika-single .pika-button:hover{background:#5fb6f5 !important}
+.pika-single .is-selected .pika-button{box-shadow:none;background:#3498db}
+.pika-single .pika-button:hover{color:#34495e !important;background:#f5f5f5 !important}
 .pika-single .pika-label{font-weight:normal}
-.pika-single .pika-table th{text-transform:uppercase}
-.pika-single .pika-footer .pika-label{font-size:12px}
+.pika-single .pika-table th{text-transform:uppercase;font-weight:normal;line-height:30px;font-size:11px}
+.pika-single .pika-footer .pika-label{font-size:11px}
