@@ -122,7 +122,7 @@ tabs:
 
         ses_key:
           label: system::lang.mail.ses_key
-          commentAbove: system::lang.mail.ses_key
+          commentAbove: system::lang.mail.ses_key_comment
           tab: system::lang.mail.general
           span: left
           trigger:
