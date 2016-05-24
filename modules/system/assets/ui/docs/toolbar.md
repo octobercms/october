@@ -105,12 +105,14 @@ All toolbar items (`toolbar-item`) should have a fixed width, except for the pri
                 <div class="dropdown dropdown-fixed">
                     <button
                         type="button"
-                        class="btn tb-icon tb-formatting"
+                        class="btn"
                         title="Formatting"
                         data-toggle="dropdown"
                         data-control="tooltip"
                         data-placement="bottom"
-                        data-container="body"></button>
+                        data-container="body">
+                        <i class="icon-paragraph"></i>
+                    </button>
                     <ul class="dropdown-menu" data-dropdown-title="Formatting">
                         <li><a href="#" tabindex="-1" class="oc-icon-quote-right">Quote</a></li>
                         <li><a href="#" tabindex="-1" class="oc-icon-code">Code</a></li>
@@ -126,19 +128,31 @@ All toolbar items (`toolbar-item`) should have a fixed width, except for the pri
                 <!-- Item with tooltip -->
                 <button
                     type="button"
-                    class="btn tb-icon tb-bold"
+                    class="btn"
                     title="Bold"
                     data-control="tooltip"
                     data-placement="bottom"
-                    data-container="body"></button>
+                    data-container="body">
+                    <i class="icon-bold"></i>
+                </button>
 
                 <!-- Disabled item -->
-                <button type="button" disabled class="btn tb-icon tb-italic"></button>
+                <button type="button" disabled class="btn">
+                    <i class="icon-italic"></i>
+                </button>
 
-                <button type="button" class="btn tb-icon tb-unorderedlist"></button>
-                <button type="button" class="btn tb-icon tb-orderedlist"></button>
-                <button type="button" class="btn tb-icon tb-link"></button>
-                <button type="button" class="btn tb-icon tb-horizontalrule"></button>
+                <button type="button" class="btn">
+                    <i class="icon-list-ul"></i>
+                </button>
+                <button type="button" class="btn">
+                    <i class="icon-list-ol"></i>
+                </button>
+                <button type="button" class="btn">
+                    <i class="icon-link"></i>
+                </button>
+                <button type="button" class="btn">
+                    <i class="icon-minus"></i>
+                </button>
             </div>
         </div>
         <div class="toolbar-item" style="width: 80px">
