@@ -2794,6 +2794,8 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .modal-footer{background:transparent;border:none;margin-top:0;padding:0 20px 20px 20px}
 .modal-body{padding-top:0;padding-bottom:0}
 .modal-body > p:last-child{margin-bottom:20px}
+.modal-body.modal-no-header{padding-top:20px}
+.modal-body.modal-no-footer{padding-bottom:20px}
 .modal-dialog.size-adaptive{width:100%;padding-right:50px;padding-left:50px}
 .modal-dialog.adaptive-height{height:100%;min-height:600px;margin-top:0;margin-bottom:0;padding-top:50px;padding-bottom:50px}
 .modal-dialog.adaptive-height .modal-content{height:100%}
