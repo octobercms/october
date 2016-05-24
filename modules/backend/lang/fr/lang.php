@@ -89,6 +89,7 @@ return [
         'password' => 'Mot de passe',
         'password_confirmation' => 'Confirmer le mot de passe',
         'permissions' => 'Permissions',
+        'account' => 'Compte',
         'superuser' => 'Super utilisateur',
         'superuser_comment' => 'Cocher cette case pour autoriser cet utilisateur à accéder à l’ensemble des zones.',
         'send_invite' => 'Envoyer une invitation par e-mail',
@@ -98,7 +99,6 @@ return [
         'allow' => 'Autoriser',
         'inherit' => 'Hériter',
         'deny' => 'Interdire',
-        'account' => 'Compte',
         'group' => [
             'name' => 'Groupe',
             'name_field' => 'Nom',
@@ -127,9 +127,11 @@ return [
         'missing_definition' => 'La liste utilisée ne contient de pas de colonne pour le champ ":field".',
         'behavior_not_ready' => 'La liste utilisée n’a pas été initialisée, vérifier que la méthode d’appel de makeLists() a été soumise au contrôleur.',
         'invalid_column_datetime' => 'La valeur de la colonne ":column" n’est pas un objet DateTime, il y a t-il une référence manquante de \$dates dans le modèle ?',
-        'pagination' => 'Enregistrements affichés: :from-:to sur :total',
+        'pagination' => 'Enregistrements affichés : :from-:to sur :total',
         'prev_page' => 'Page précédente',
         'next_page' => 'Page suivante',
+        'refresh' => 'Actualiser',
+        'updating' => 'Mise à jour en cours…',
         'loading' => 'Chargement…',
         'setup_title' => 'Installation de la liste',
         'setup_help' => 'Cocher les colonnes qui doivent être affichées dans la liste. Il est possible de modifier l’ordre des colonnes en les glissant vers le haut ou le bas.',
@@ -151,7 +153,7 @@ return [
         'attachment_url' => 'Adresse URL du fichier joint',
         'upload_file' => 'Télécharger le fichier',
         'upload_error' => 'Erreur durant le téléchargement',
-        'remove_confirm' => 'Confirmer l’action ?',
+        'remove_confirm' => 'Confirmer l’action ?',
         'remove_file' => 'Supprimer le fichier',
     ],
     'form' => [
@@ -176,6 +178,8 @@ return [
         'saving_name' => 'Enregistrement de :name en cours…',
         'delete' => 'Supprimer',
         'deleting' => 'Suppression en cours…',
+        'confirm_delete' => 'Confirmer la suppression de cet enregistrement ?',
+        'confirm_delete_multiple' => 'Confirmer la suppression des enregistrements sélectionnés ?',
         'deleting_name' => 'Suppression de :name en cours…',
         'reset_default' => 'Restaurer les valeurs par défaut',
         'resetting' => 'Restauration',
@@ -201,9 +205,14 @@ return [
         'select_none' => 'aucun',
         'select_placeholder' => 'Sélectionner une valeur',
         'insert_row' => 'Insérer une ligne',
+        'insert_row_below' => 'Insérer une ligne en dessous',
         'delete_row' => 'Supprimer une ligne',
         'concurrency_file_changed_title' => 'Le fichier à été modifié',
         'concurrency_file_changed_description' => 'Durant votre modification de ce fichier un autre utilisateur a modifié celui-ci sur le disque. Il est possible de charger à nouveau le fichier depuis le disque (sans prendre en compte vos modifications) ou d’écraser ce fichier avec vos propres modifications.'
+        'return_to_list' => 'Retour à la liste'
+    ],
+    'recordfinder' => [
+        'find_record' => 'Rechercher un enregistrement'
     ],
     'relation' => [
         'missing_config' => 'La relation n’a pas de configuration pour ":config".',
@@ -237,6 +246,10 @@ return [
         'unlink' => 'Séparer',
         'unlink_name' => 'Séparer :name',
         'unlink_confirm' => 'Confirmer la séparation ?',
+    ],
+    'reorder' => [
+        'default_title' => 'Réorganiser les enregistrements',
+        'no_records' => 'Il n’y a aucun enregistrement à réorganiser.',
     ],
     'model' => [
         'name' => 'Modèle',
