@@ -378,7 +378,22 @@ $.FE.DEFAULTS.imageInsertButtons.push('mmImageManager');$.FE.RegisterCommand('mm
 $.FE.DefineIcon('mmImageManager',{NAME:'folder'});$.FE.DEFAULTS.fileInsertButtons.push('mmFileManager');$.FE.RegisterCommand('mmFileManager',{title:'Browse',undo:false,focus:false,callback:function(){this.mediaManager.insertFile();},plugin:'mediaManager'})
 $.FE.DefineIcon('mmFileManager',{NAME:'folder'});$.FE.DEFAULTS.videoInsertButtons.push('mmVideoManager');$.FE.RegisterCommand('mmVideoManager',{title:'Browse',undo:false,focus:false,callback:function(){this.mediaManager.insertVideo();},plugin:'mediaManager'})
 $.FE.DefineIcon('mmVideoManager',{NAME:'folder'});$.FE.DEFAULTS.audioInsertButtons.push('mmAudioManager');$.FE.RegisterCommand('mmAudioManager',{title:'Browse',undo:false,focus:false,callback:function(){this.mediaManager.insertAudio();},plugin:'mediaManager'})
-$.FE.DefineIcon('mmAudioManager',{NAME:'folder'});})(jQuery);(function($){$.FroalaEditor.PLUGINS.figures=function(editor){function insertElement($el){var html=$('<div />').append($el.clone()).remove().html()
+$.FE.DefineIcon('mmAudioManager',{NAME:'folder'});})(jQuery);var richeditorPageLinksPlugin
+function richeditorPageLinksSelectPage($form){richeditorPageLinksPlugin.setLinkValueFromPopup($form)}
+(function($){$.FroalaEditor.PLUGINS.pageLinks=function(editor){function setLinkValueFromPopup($form){var $select=$('select[name=pagelink]',$form)
+var link={text:$('option:selected',$select).text().trim(),href:$select.val()}
+setTimeout(function(){editor.popups.show('link.insert')
+setLinkValue(link)},300)}
+function setLinkValue(link){var $popup=editor.popups.get('link.insert');var text_inputs=$popup.find('input.fr-link-attr[type="text"]');var check_inputs=$popup.find('input.fr-link-attr[type="checkbox"]');var $input;var i;for(i=0;i<text_inputs.length;i++){$input=$(text_inputs[i]);if(link[$input.attr('name')]){$input.val(link[$input.attr('name')]);}
+else if($input.attr('name')!='text'){$input.val('');}}
+for(i=0;i<check_inputs.length;i++){$input=$(check_inputs[i]);$input.prop('checked',$input.data('checked')==link[$input.attr('name')]);}}
+function insertLink(){richeditorPageLinksPlugin=this
+editor.$el.popup({handler:'onLoadPageLinksForm'})}
+function _init(){}
+return{_init:_init,setLinkValueFromPopup:setLinkValueFromPopup,setLinkValue:setLinkValue,insertLink:insertLink}}
+$.FE.DEFAULTS.audioInsertButtons.push('mmAudioManager');$.FE.DEFAULTS.linkInsertButtons=['linkBack','|','linkPageLinks']
+$.FE.RegisterCommand('linkPageLinks',{title:'Choose Link',undo:false,focus:false,callback:function(){this.pageLinks.insertLink()},plugin:'pageLinks'})
+$.FE.DefineIcon('linkPageLinks',{NAME:'search'});})(jQuery);(function($){$.FroalaEditor.PLUGINS.figures=function(editor){function insertElement($el){var html=$('<div />').append($el.clone()).remove().html()
 editor.events.focus(true)
 editor.selection.restore()
 editor.html.insert(html)
@@ -485,7 +500,6 @@ froalaOptions.htmlDoNotWrapTags=this.options.noWrapTags?this.options.noWrapTags.
 if(this.options.removeTags){froalaOptions.htmlRemoveTags=this.options.removeTags.split(/[\s,]+/)}
 froalaOptions.lineBreakerTags=['figure','table','hr','iframe','form','dl']
 froalaOptions.shortcutsEnabled=['show','bold','italic','underline','indent','outdent','undo','redo']
-froalaOptions.linkInsertButtons=['linkBack','|']
 froalaOptions.imageUploadURL=froalaOptions.fileUploadURL=window.location
 froalaOptions.imageUploadParam=froalaOptions.fileUploadParam='file_data'
 froalaOptions.imageUploadParams=froalaOptions.fileUploadParams={X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD:1}

@@ -39,6 +39,7 @@
 =require ../vendor/froala_drm/js/plugins/code_beautifier.min.js
 
 =require plugins/mediamanager.js
+=require plugins/pagelinks.js
 =require plugins/figures.js
 =require richeditor.js
 

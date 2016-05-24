@@ -102,51 +102,10 @@ class RichEditor extends FormWidgetBase
         return $buttons;
     }
 
-    /**
-     * Returns a single collection of available page links.
-     * This implementation has room to place links under
-     * different groups based on the link type.
-     * @return array
-     */
-    public function onGetPageLinks()
+    public function onLoadPageLinksForm()
     {
-        $links = [];
-        $types = $this->getPageLinkTypes();
-
-        $links[] = ['name' => 'Select a page...', 'url' => false];
-
-        $iterator = function($links, $level = 0) use (&$iterator) {
-            $result = [];
-            foreach ($links as $linkUrl => $link) {
-
-                /*
-                 * Remove scheme and host from URL
-                 */
-                $baseUrl = Request::getSchemeAndHttpHost();
-                if (strpos($linkUrl, $baseUrl) === 0) {
-                    $linkUrl = substr($linkUrl, strlen($baseUrl));
-                }
-
-                $linkName = str_repeat('&nbsp;', $level * 4);
-                $linkName .= is_array($link) ? array_get($link, 'title', '') : $link;
-                $result[] = ['name' => $linkName, 'url' => $linkUrl];
-
-                if (is_array($link)) {
-                    $result = array_merge(
-                        $result,
-                        $iterator(array_get($link, 'links', []), $level + 1)
-                    );
-                }
-            }
-
-            return $result;
-        };
-
-        foreach ($types as $typeCode => $typeName) {
-            $links = array_merge($links, $iterator($this->getPageLinks($typeCode)));
-        }
-
-        return ['links' => $links];
+        $this->vars['links'] = $this->getPageLinksArray();
+        return $this->makePartial('page_links_form');
     }
 
     /**
@@ -224,5 +183,52 @@ class RichEditor extends FormWidgetBase
         }
 
         return $result;
+    }
+
+    /**
+     * Returns a single collection of available page links.
+     * This implementation has room to place links under
+     * different groups based on the link type.
+     * @return array
+     */
+    protected function getPageLinksArray()
+    {
+        $links = [];
+        $types = $this->getPageLinkTypes();
+
+        $links[] = ['name' => 'Select a page...', 'url' => false];
+
+        $iterator = function($links, $level = 0) use (&$iterator) {
+            $result = [];
+            foreach ($links as $linkUrl => $link) {
+
+                /*
+                 * Remove scheme and host from URL
+                 */
+                $baseUrl = Request::getSchemeAndHttpHost();
+                if (strpos($linkUrl, $baseUrl) === 0) {
+                    $linkUrl = substr($linkUrl, strlen($baseUrl));
+                }
+
+                $linkName = str_repeat('&nbsp;', $level * 4);
+                $linkName .= is_array($link) ? array_get($link, 'title', '') : $link;
+                $result[] = ['name' => $linkName, 'url' => $linkUrl];
+
+                if (is_array($link)) {
+                    $result = array_merge(
+                        $result,
+                        $iterator(array_get($link, 'links', []), $level + 1)
+                    );
+                }
+            }
+
+            return $result;
+        };
+
+        foreach ($types as $typeCode => $typeName) {
+            $links = array_merge($links, $iterator($this->getPageLinks($typeCode)));
+        }
+
+        return $links;
     }
 }

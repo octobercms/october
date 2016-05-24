@@ -160,7 +160,6 @@
 
         froalaOptions.lineBreakerTags = ['figure', 'table', 'hr', 'iframe', 'form', 'dl']
         froalaOptions.shortcutsEnabled = ['show', 'bold', 'italic', 'underline', 'indent', 'outdent', 'undo', 'redo']
-        froalaOptions.linkInsertButtons = ['linkBack', '|']
 
         // File upload
         froalaOptions.imageUploadURL = froalaOptions.fileUploadURL = window.location
