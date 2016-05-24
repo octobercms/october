@@ -3,7 +3,7 @@
 # ===================================
 # Light palette: [#1abc9c, #2ecc71, #3498db, #9b59b6, #34495e, #f1c40f, #e67e22, #e74c3c, #ecf0f1, #95a5a6]
 # Dark palette:  [#16a085, #27ae60, #2980b9, #8e44ad, #2b3e50, #f39c12, #d35400, #c0392b, #bdc3c7, #7f8c8d]
-#
+
 tabs:
     fields:
 
@@ -14,16 +14,19 @@ tabs:
             mode: image
             imageHeight: 170
             tab: backend::lang.branding.brand
+            span: right
 
         app_name:
             label: backend::lang.branding.app_name
             commentAbove: backend::lang.branding.app_name_description
             tab: backend::lang.branding.brand
+            span: left
 
         app_tagline:
             label: backend::lang.branding.app_tagline
             commentAbove: backend::lang.branding.app_tagline_description
             tab: backend::lang.branding.brand
+            span: left
 
         primary_color:
             label: backend::lang.branding.primary_color
