@@ -140,6 +140,7 @@ return [
         'setup_help' => 'Cocher les colonnes qui doivent être affichées dans la liste. Il est possible de modifier l’ordre des colonnes en les glissant vers le haut ou le bas.',
         'records_per_page' => 'Nombre d’enregistrements par page',
         'records_per_page_help' => 'Choisir le nombre d’enregistrements à afficher. Note : un nombre d’enregistrements trop élevé sur une seule page peut réduire les performances.',
+        'check' => 'Sélectionner',
         'delete_selected' => 'Supprimer la sélection',
         'delete_selected_empty' => 'Il n’y a aucun enregistrement à supprimer',
         'delete_selected_confirm' => 'Confirmer la suppression des enregistrements sélectionnés ?',
@@ -291,6 +292,9 @@ return [
         'display_indent_guides'=> 'Afficher les guides d’indentation',
         'show_print_margin'=> 'Afficher les marges d’impression',
         'mode_off' => 'Désactivé',
+        'mode_fluid' => 'Fluide',
+        '40_characters' => '40 caractères',
+        '80_characters' => '80 caractères',
         'theme' => 'Coloration syntaxique'
     ],
     'tooltips' => [
@@ -334,6 +338,7 @@ return [
         'region' => 'Région',
         'code_editor' => 'Editeur de code',
         'timezone' => 'Fuseau horaire',
+        'timezone_comment' => 'Ajuster les dates affichées à ce fuseau horaire.',
         'locale' => 'Langue',
         'locale_comment' => 'Choisir une langue.'
     ],
