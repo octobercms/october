@@ -1,96 +1,97 @@
 # ===================================
 #  Field Definitions
 # ===================================
-#
+
 tabs:
     fields:
+
         html_custom_styles:
-            label: Custom stylesheet
-            comment: Custom styles to include in the HTML editor.
-            tab: Markup Styles
+            label: backend::lang.editor.custom_styles
+            comment: backend::lang.editor.custom styles_comment
+            tab: backend::lang.editor.markup_styles
             type: codeeditor
             size: giant
             language: css
 
         html_style_paragraph:
-            label: Paragraph
-            tab: Markup Classes
+            label: backend::lang.editor.paragraph
+            tab: backend::lang.editor.markup_classes
             span: auto
             type: datatable
             columns:
                 class_label:
-                    title: Label
+                    title: backend::lang.editor.label
                 class_name:
-                    title: Class name
+                    title: backend::lang.editor.class_name
 
         html_style_link:
-            label: Link
-            tab: Markup Classes
+            label: backend::lang.editor.link
+            tab: backend::lang.editor.markup_classes
             span: auto
             type: datatable
             columns:
                 class_label:
-                    title: Label
+                    title: backend::lang.editor.label
                 class_name:
-                    title: Class name
+                    title: backend::lang.editor.class_name
 
         html_style_table:
-            label: Table
-            tab: Markup Classes
+            label: backend::lang.editor.table
+            tab: backend::lang.editor.markup_classes
             span: auto
             type: datatable
             columns:
                 class_label:
-                    title: Label
+                    title: backend::lang.editor.label
                 class_name:
-                    title: Class name
+                    title: backend::lang.editor.class_name
 
         html_style_table_cell:
-            label: Table Cell
-            tab: Markup Classes
+            label: backend::lang.editor.table_cell
+            tab: backend::lang.editor.markup_classes
             span: auto
             type: datatable
             columns:
                 class_label:
-                    title: Label
+                    title: backend::lang.editor.label
                 class_name:
-                    title: Class name
+                    title: backend::lang.editor.class_name
 
         html_style_image:
-            label: Image
-            tab: Markup Classes
+            label: backend::lang.editor.image
+            tab: backend::lang.editor.markup_classes
             span: auto
             type: datatable
             columns:
                 class_label:
-                    title: Label
+                    title: backend::lang.editor.label
                 class_name:
-                    title: Class name
+                    title: backend::lang.editor.class_name
 
         html_allow_empty_tags:
-            label: Allowed empty tags
-            comment: The list of tags that are not removed when they have no content inside.
-            tab: Markup Tags
+            label: backend::lang.editor.allowed_empty_tags
+            comment: backend::lang.editor.allowed_empty_tags_comment
+            tab: backend::lang.editor.markup_tags
             type: textarea
             span: auto
 
         html_allow_tags:
-            label: Allowed tags
-            comment: The list of allowed tags.
-            tab: Markup Tags
+            label: backend::lang.editor.allowed_tags
+            comment: backend::lang.editor.allowed_tags_comment
+            tab: backend::lang.editor.markup_tags
             type: textarea
             span: auto
 
         html_no_wrap_tags:
-            label: Do not wrap tags
-            comment: The list of tags that should not be wrapped inside block tags.
-            tab: Markup Tags
+            label: backend::lang.editor.no_wrap
+            comment: backend::lang.editor.no_wrap_comment
+            tab: backend::lang.editor.markup_tags
             type: textarea
             span: auto
 
         html_remove_tags:
-            label: Remove tags
-            comment: The list of tags that are removed together with their content.
-            tab: Markup Tags
+            label: backend::lang.editor.remove_tags
+            comment: backend::lang.editor.remove_tags_comment
+            tab: backend::lang.editor.markup_tags
             type: textarea
             span: auto
