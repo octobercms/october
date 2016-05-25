@@ -585,7 +585,7 @@ body.dragging,body.dragging *{cursor:move !important}
 body.loading,body.loading *{cursor:wait !important}
 body.no-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default !important}
 html,body{height:100%; }
-body{webkit-font-smoothing:antialiased;font-family:sans-serif;background:#f9f9f9}
+body{font-family:sans-serif;background:#f9f9f9;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 #layout-canvas{min-height:100%;height:100%}
 .control-tabs.primary-tabs > ul.nav-tabs,.control-tabs.primary-tabs > div > ul.nav-tabs,.control-tabs.primary-tabs > div > div > ul.nav-tabs{margin-left:-20px;margin-right:-20px}
 .control-tabs.primary-tabs.tabs-no-inset > ul.nav-tabs,.control-tabs.primary-tabs.tabs-no-inset > div > ul.nav-tabs,.control-tabs.primary-tabs.tabs-no-inset > div > div > ul.nav-tabs{margin-left:0;margin-right:0}
