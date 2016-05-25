@@ -78,8 +78,9 @@ return [
             'title' => 'Válassza ki melyik szerkesztőt szeretné használni',
             'description' => 'Your environnement must be configured to listen to one of these URL schemes.',
             'openWith' => 'Megnyitás mint',
-            'openAndRemember' => 'Megnyitás és munkamenet megjegyzése',
-            'open' => 'Megnyitás'
+            'rememberChoice' => 'Megnyitás és munkamenet megjegyzése',
+            'open' => 'Megnyitás',
+            'cancel' => 'Mégsem'
         ]
     ]
 ];
