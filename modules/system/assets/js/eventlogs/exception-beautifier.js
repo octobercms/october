@@ -22,7 +22,7 @@
         internalLine: /^(#[0-9]+)\s+(\[internal function\]\s*:)(.*)/,
         defaultLine: /^(#[0-9]+)\s*(.*)/,
         className: /([a-z0-9]+\\[a-z0-9\\]+(?:\.\.\.)?)/gi,
-        filePath: /((?:[A-Z]:[/\\]|\/)?[\w/\\]+\.php)(\(([0-9]+)\)|:([0-9]+))?/gi,
+        filePath: /((?:[A-Z]:)?(?:[\\\/][\w\.-_~@%]+)\.(?:php|js|css|less|yaml|txt|ini))(\(([0-9]+)\)|:([0-9]+)|\s|$)/gi,
         staticCall: /::([^( ]+)\(([^()]*|(?:[^(]*\(.+\)[^)]*))\)/,
         functionCall: /->([^(]+)\(([^()]*|(?:[^(]*\(.+\)[^)]*))\)/,
         closureCall: /\{closure\}\(([^()]*|(?:[^(]*\(.+\)[^)]*))\)/
@@ -31,7 +31,8 @@
     ExceptionBeautifier.extensions = []
 
     ExceptionBeautifier.prototype.init = function () {
-        var self = this
+        var self = this,
+            markup
 
         ExceptionBeautifier.extensions.forEach(function (extension) {
             if (typeof extension.onInit === 'function') {
@@ -39,13 +40,17 @@
             }
         })
 
-        self.$el.addClass('plugin-exception-beautifier')
-        self.$el.html(self.parseSource()).find('.beautifier-message-container').addClass('form-control')
+        markup = self.parseSource(self.$el.text())
+
+        self.$el
+            .addClass('plugin-exception-beautifier')
+            .empty()
+            .append(markup)
     }
 
-    ExceptionBeautifier.prototype.parseSource = function () {
+    ExceptionBeautifier.prototype.parseSource = function (raw) {
         var self = this,
-            source = self.$el.text(),
+            source = raw,
             markup = {lines: []},
             start = 0,
             end
@@ -57,10 +62,6 @@
         if (source.indexOf('Stack trace:') < 0) {
             source = '{exception-beautifier-message-container}{exception-beautifier-message}' + self.formatMessage(source) + '{/exception-beautifier-message}{/exception-beautifier-message-container}'
         } else {
-            end = source.indexOf(':', start) + 1
-            markup.name = source.substring(start, end)
-
-            start = end
             end = source.indexOf('Stack trace:', start)
             markup.message = source.substring(start, end)
 
@@ -73,14 +74,15 @@
             markup.lines.push(self.parseLine(source.substring(start)))
 
             source = '{exception-beautifier-message-container}' +
-                '{exception-beautifier-name}' + markup.name + '{/exception-beautifier-name}' +
                 '{exception-beautifier-message}' + self.formatMessage(markup.message) + '{/exception-beautifier-message}' +
                 '{/exception-beautifier-message-container}' +
-                '{exception-beautifier-stacktrace-title}Stack trace:{/exception-beautifier-stacktrace-title}'
+                '{exception-beautifier-stacktrace#div}'
 
             markup.lines.forEach(function (line) {
                 source += '{exception-beautifier-stacktrace-line}' + self.formatStackTraceLine(line) + '{/exception-beautifier-stacktrace-line}'
             })
+
+            source += '{/exception-beautifier-stacktrace#div}'
 
             ExceptionBeautifier.extensions.forEach(function (extension) {
                 if (typeof extension.onParse === 'function') {
@@ -89,7 +91,9 @@
             })
         }
 
-        return self.buildMarkup('{exception-beautifier-container}' + source + '{/exception-beautifier-container}')
+        markup = $(self.buildMarkup('{exception-beautifier-container}' + source + '{/exception-beautifier-container}'))
+
+        return self.finalizeMarkup(markup, raw)
     }
 
     ExceptionBeautifier.prototype.parseLine = function (str) {
@@ -117,13 +121,14 @@
         return line
     }
 
+
     ExceptionBeautifier.prototype.formatMessage = function (str) {
         var self = this
 
         return self.formatLineCode(
             str
                 .replace(/^\s+/, '')
-                .replace(/\r|\n|\r\n/g, '{x-newline}')
+                .replace(/\r\n|\r|\n/g, '{x-newline}')
                 .replace(/\t| {2}/g, '{x-tabulation}')
         )
     }
@@ -190,7 +195,7 @@
 
         str = str.replace(ExceptionBeautifier.REGEX.filePath, function (str, path, line, lineNumber, altLineNumber) {
             return self.formatFilePath(path, (lineNumber || '') + (altLineNumber || '')) +
-                '{exception-beautifier-line-number}' + line + '{/exception-beautifier-line-number}'
+                ($.trim(line).length > 0 ? ('{exception-beautifier-line-number}' + line + '{/exception-beautifier-line-number}') : ' ')
         })
 
         str = str.replace(ExceptionBeautifier.REGEX.className, function (str, name) {
@@ -269,6 +274,71 @@
         }
 
         return markup
+    }
+
+    ExceptionBeautifier.prototype.finalizeMarkup = function (markup, source) {
+        var stacktrace,
+            tabs
+
+        markup.find('.beautifier-file').each(function () {
+            $(this).find('.beautifier-class').each(function () {
+                var $el = $(this)
+
+                $el.replaceWith($el.text())
+            })
+        })
+
+        markup.find('.beautifier-file+.beautifier-line-number').each(function () {
+            var $el = $(this)
+
+            $el.appendTo($el.prev())
+        })
+
+        markup.find('.beautifier-message-container')
+            .addClass('form-control')
+
+        stacktrace = markup.find('.beautifier-stacktrace')
+            .addClass('hidden')
+
+        $('<a class="beautifier-toggle-stacktrace --hidden" href="#" data-hide-text="' + $.oc.lang.get('eventlog.hide_stacktrace') + '"><i class="icon-chevron-down"></i>&nbsp;<span>' + $.oc.lang.get('eventlog.show_stacktrace') + '</span></a>')
+            .insertBefore(stacktrace)
+            .on('click', function (event) {
+                var $el = $(this)
+
+                event.preventDefault()
+                event.stopPropagation()
+
+                $('.beautifier-stacktrace', markup).toggleClass('hidden')
+                $el.toggleClass('--hidden')
+
+                if(!$el.hasClass('--hidden')) {
+                    if(!$el.data('show-text')) {
+                        $el.data('show-text', $('span', $el).html())
+                    }
+
+                    $('i', $el).removeClass('icon-chevron-down').addClass('icon-chevron-up')
+                    $('span', $el).html($el.data('hide-text'))
+                } else {
+                    $('i', $el).removeClass('icon-chevron-up').addClass('icon-chevron-down')
+                    $('span', $el).html($el.data('show-text'))
+                }
+            })
+
+        tabs = $('<div class="control-tabs content-tabs">' +
+            '<ul class="nav nav-tabs">' +
+            '<li class="active"><a href="#beautifier-tab-formatted">' + $.oc.lang.get('eventlog.tabs.formatted') + '</a></li>' +
+            '<li><a href="#beautifier-tab-raw">' + $.oc.lang.get('eventlog.tabs.raw') + '</a></li>' +
+            '</ul><div class="tab-content">' +
+            '<div class="tab-pane active" id="beautifier-tab-formatted"></div>' +
+            '<div class="tab-pane" id="beautifier-tab-raw"></div>' +
+            '</div></div>')
+
+        tabs.find('#beautifier-tab-formatted').append(markup)
+        tabs.find('#beautifier-tab-raw').append('<div class="form-control">' + source.replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>')
+
+        tabs.ocTab({closable: false})
+
+        return tabs
     }
 
 

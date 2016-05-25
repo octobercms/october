@@ -311,6 +311,7 @@ return [
         'created_at' => 'Date et heure',
         'message' => 'Message',
         'level' => 'Niveau',
+        'preview_title' => 'Évènement',
     ],
     'request_log' => [
         'hint' => 'Ce journal affiche une liste de requêtes potentiellement suspectes. par exemple, si un visiteur ouvre une page introuvable du CMS, une ligne avec le statut code 404 est alors créée.',

@@ -310,7 +310,8 @@ return [
         'id_label' => 'Event ID',
         'created_at' => 'Date & Time',
         'message' => 'Message',
-        'level' => 'Level'
+        'level' => 'Level',
+        'preview_title' => 'Event'
     ],
     'request_log' => [
         'hint' => 'This log displays a list of browser requests that may require attention. For example, if a visitor opens a CMS page that cannot be found, a record is created with the status code 404.',

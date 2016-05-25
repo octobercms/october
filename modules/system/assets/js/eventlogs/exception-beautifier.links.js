@@ -22,7 +22,7 @@
             exceptionBeautfier.initEditorPopup()
         },
         onParse: function (exceptionBeautfier) {
-            exceptionBeautfier.$el.on('click', 'a', function () {
+            exceptionBeautfier.$el.on('click', 'a[data-href]', function () {
                 exceptionBeautfier.openWithEditor($(this).data('href'))
             })
         }
@@ -33,7 +33,7 @@
             var title = $.oc.lang.get('eventlog.editor.title'),
                 description = $.oc.lang.get('eventlog.editor.description'),
                 openWith = $.oc.lang.get('eventlog.editor.openWith'),
-                rememberChoice = $.oc.lang.get('eventlog.editor.rememberChoice'),
+                rememberChoice = $.oc.lang.get('eventlog.editor.remember_choice'),
                 open = $.oc.lang.get('eventlog.editor.open'),
                 cancel = $.oc.lang.get('eventlog.editor.cancel'),
                 popup = $('                                                                                            \
@@ -120,7 +120,7 @@
     }
 
     ExceptionBeautifier.prototype.rewritePath = function (path) {
-        return path
+        return path.replace(/\\/g, '/')
     }
 
     ExceptionBeautifier.prototype.initCustomSelect = function (select) {

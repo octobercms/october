@@ -2,28 +2,38 @@
     width: auto !important;
 }
 
-.plugin-exception-beautifier .beautifier-name {
-    display: block;
-    font-weight: bold;
-    font-size: 1.2em;
-}
-
 .plugin-exception-beautifier .beautifier-message {
     display: block;
     padding: 15px 0;
     font-size: 1.1em;
 }
 
-.plugin-exception-beautifier .beautifier-stacktrace-title {
+.plugin-exception-beautifier .beautifier-toggle-stacktrace {
+    background: #D0D9DD;
+    color: #2b3e50;
+    text-decoration: none;
     display: block;
-    margin-top: 15px;
-    font-weight: bold;
+    padding: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.plugin-exception-beautifier .beautifier-toggle-stacktrace.--hidden {
+    background: #ecf0f1;
+    color: #2b3e50;
+}
+
+.plugin-exception-beautifier .beautifier-toggle-stacktrace:hover,
+.plugin-exception-beautifier .beautifier-toggle-stacktrace.--hidden:hover {
+    background: #0181b9;
+    color: white;
 }
 
 .plugin-exception-beautifier .beautifier-stacktrace-line {
     display: block;
-    white-space: nowrap;
     padding: 10px 0;
+    white-space: nowrap;
 }
 
 .plugin-exception-beautifier .beautifier-stacktrace-line:nth-child(even) {
@@ -53,6 +63,7 @@
 
 .plugin-exception-beautifier .beautifier-file {
     color: #204bff;
+    white-space: nowrap;
 }
 
 .plugin-exception-beautifier .beautifier-line-number {
