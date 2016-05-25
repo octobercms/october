@@ -8,11 +8,15 @@
  */
 +function ($) { "use strict";
 
-    $(document).on('shown.bs.dropdown', '.dropdown', function() {
+    $(document).on('shown.bs.dropdown', '.dropdown', function(event, relatedTarget) {
         $(document.body).addClass('dropdown-open')
 
-        var dropdown = $('.dropdown-menu', this),
+        var dropdown = $(relatedTarget.relatedTarget).siblings('.dropdown-menu'),
             dropdownContainer = $(this).data('dropdown-container')
+
+        if (dropdown.length === 0){
+            dropdown = $('.dropdown-menu', this)
+        }
 
         if ($('.dropdown-container', dropdown).length == 0) {
 

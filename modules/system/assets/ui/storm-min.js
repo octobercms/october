@@ -2668,8 +2668,9 @@ if(!data)$this.data('oc.balloon-selector',(data=new BalloonSelector(this,options
 $.fn.balloonSelector.Constructor=BalloonSelector
 $.fn.balloonSelector.noConflict=function(){$.fn.balloonSelector=old
 return this}
-$(document).on('render',function(){$('div[data-control=balloon-selector]').balloonSelector()})}(window.jQuery);+function($){"use strict";$(document).on('shown.bs.dropdown','.dropdown',function(){$(document.body).addClass('dropdown-open')
-var dropdown=$('.dropdown-menu',this),dropdownContainer=$(this).data('dropdown-container')
+$(document).on('render',function(){$('div[data-control=balloon-selector]').balloonSelector()})}(window.jQuery);+function($){"use strict";$(document).on('shown.bs.dropdown','.dropdown',function(event,relatedTarget){$(document.body).addClass('dropdown-open')
+var dropdown=$(relatedTarget.relatedTarget).siblings('.dropdown-menu'),dropdownContainer=$(this).data('dropdown-container')
+if(dropdown.length===0){dropdown=$('.dropdown-menu',this)}
 if($('.dropdown-container',dropdown).length==0){var title=$('[data-toggle=dropdown]',this).text(),titleAttr=dropdown.data('dropdown-title'),timer=null
 if(titleAttr!==undefined)
 title=titleAttr
