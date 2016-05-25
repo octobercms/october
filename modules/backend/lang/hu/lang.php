@@ -105,7 +105,7 @@ return [
             'name_field' => 'Név',
             'description_field' => 'Leírás',
             'is_new_user_default_field_label' => 'Alapértelmezett csoport',
-            'is_new_user_default_field_comment' => 'Az új adminisztrátorok hozzáadása alapértelmezésként ehhez a csoporthoz.',
+            'is_new_user_default_field_comment' => 'Az új adminisztrátorok hozzáadása ehhez a csoporthoz.',
             'code_field' => 'Kód',
             'code_comment' => 'Adjon meg egy egyedi kódot, ha az API-val kíván hozzáférni.',
             'menu_label' => 'Csoportok',
@@ -272,8 +272,8 @@ return [
         'extension' => 'A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.'
     ],
     'editor' => [
-        'menu_label' => 'Kódszerkesztő',
-        'menu_description' => 'A megjelenésének egyedivé tétele.',
+        'menu_label' => 'Szövegszerkesztő',
+        'menu_description' => 'A megjelenésének és működésének testreszabása.',
         'font_size' => 'Betűméret',
         'tab_size' => 'Tabulátor mérete',
         'use_hard_tabs' => 'Behúzás tabulátorokkal',
@@ -295,7 +295,27 @@ return [
         'mode_fluid' => 'Folytonos',
         '40_characters' => '40 karakter',
         '80_characters' => '80 karakter',
-        'theme' => 'Színséma'
+        'theme' => 'Színséma',
+        'markup_styles' => 'Stílusok',
+        'custom_styles' => 'Egyéni megjelenés',
+        'custom styles_comment' => 'Saját stílusok megadása, amik a HTML szerkesztőre is vonatkoznak.',
+        'markup_classes' => 'CSS osztályok',
+        'paragraph' => 'Bekezdés',
+        'link' => 'Hivatkozás',
+        'table' => 'Táblázat',
+        'table_cell' => 'Táblázat cella',
+        'image' => 'Kép',
+        'label' => 'Címke',
+        'class_name' => 'Osztály neve',
+        'markup_tags' => 'HTML elemek',
+        'allowed_empty_tags' => 'Engedélyezett üres elemek',
+        'allowed_empty_tags_comment' => 'Azon HTML elemek, amik üres érték esetén sem lesznek eltávolítva.',
+        'allowed_tags' => 'Engedélyezett elemek',
+        'allowed_tags_comment' => 'Azon HTML elemek, amik használata megengedett.',
+        'no_wrap' => 'Nem tördelhető elemek',
+        'no_wrap_comment' => 'Azon HTML elemek, amik tartalma nem tördelhető.',
+        'remove_tags' => 'Eltávolítható elemek',
+        'remove_tags_comment' => 'Azon HTML elemek, amik a tartalmukkal együtt törölhetőek.'
     ],
     'tooltips' => [
         'preview_website' => 'Weboldal megtekintése'
