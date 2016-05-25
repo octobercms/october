@@ -56,7 +56,7 @@ return [
             'team' => 'Csapat',
             'users' => 'Felhasználók',
             'system' => 'Rendszer',
-            'social' => 'Közösségi',
+            'social' => 'Közösség',
             'events' => 'Események',
             'customers' => 'Vevők',
             'my_settings' => 'Beállításaim'
@@ -74,7 +74,7 @@ return [
         'install' => 'Téma telepítése',
         'search' => 'Keresés...',
         'installed' => 'Telepítve',
-        'no_themes' => 'A piactérről nem lett telepítve téma.',
+        'no_themes' => 'A piactérről még nem lett telepítve téma.',
         'recommended' => 'Ajánlott',
         'remove_confirm' => 'Valóban törölni akarja ezt a témát?'
     ],
@@ -90,11 +90,11 @@ return [
         'manage' => 'Bővítmények kezelése',
         'enable_or_disable' => 'Műveletek',
         'enable_or_disable_title' => 'Engedélyezés vagy letiltás',
-        'install' => 'Bővítmény telepítése',
+        'install' => 'Kiegészítők telepítése',
         'install_products' => 'Kiegészítők telepítése',
         'search' => 'Keresés...',
         'installed' => 'Telepítve',
-        'no_plugins' => 'A piactérről nem lett telepítve bővítmény.',
+        'no_plugins' => 'A piactérről még nem lett telepítve bővítmény.',
         'recommended' => 'Ajánlott',
         'remove' => 'Eltávolítás',
         'refresh' => 'Frissítés',
@@ -222,11 +222,11 @@ return [
     ],
     'updates' => [
         'title' => 'Gépház',
-        'name' => 'Szoftver frissítése',
+        'name' => 'Honlap frissítések',
         'menu_label' => 'Gépház',
-        'menu_description' => 'A rendszer frissítése, valamint új bővítmények telepítése.',
+        'menu_description' => 'A rendszer frissítése, valamint a bővítmények kezelése.',
         'return_link' => 'Vissza a gépházhoz',
-        'check_label' => 'Frissítés keresése',
+        'check_label' => 'Frissítések keresése',
         'retry_label' => 'Újra próbál',
         'plugin_name' => 'Név',
         'plugin_code' => 'Kód',
@@ -236,8 +236,8 @@ return [
         'core_current_build' => 'Verzió',
         'core_build' => 'Új verzió: :build',
         'core_build_help' => 'Elérhető a legújabb hivatalos kiadás.',
-        'core_downloading' => 'Weboldal frissítés letöltése...',
-        'core_extracting' => 'Weboldal frissítés kicsomagolása...',
+        'core_downloading' => 'Honlap frissítés letöltése...',
+        'core_extracting' => 'Honlap frissítés kicsomagolása...',
         'plugins' => 'Bővítmények',
         'themes' => 'Témák',
         'disabled' => 'Letiltva',
@@ -256,7 +256,7 @@ return [
         'force_label' => 'Frissítés kényszerítése',
         'found' => [
             'label' => 'Új verzió elérhető!',
-            'help' => 'Kattintson a Honlap fissítése gombra a folyamat megkezdéséhez.'
+            'help' => 'Töltse le a legújabb frissítéseket, hogy weboldala egyre jobbá váljon és hatékonyan segítse a munkáját.'
         ],
         'none' => [
             'label' => 'A weboldal naprakész',
@@ -272,7 +272,7 @@ return [
         'important_view_guide' => 'Frissítési útmutat megtekintése',
         'important_alert_text' => 'Néhány frissítés körültekintést igényel.',
         'details_title' => 'Bővítmény részletei',
-        'details_view_homepage' => 'Weboldal',
+        'details_view_homepage' => 'Honlap megtekintése',
         'details_readme' => 'Dokumentáció',
         'details_readme_missing' => 'Nincs megadva dokumentáció.',
         'details_upgrades' => 'Frissítési útmutató',
@@ -305,12 +305,13 @@ return [
         'empty_link' => 'Eseménynapló kiürítése',
         'empty_loading' => 'Az eseménynapló kiürítése...',
         'empty_success' => 'Az eseménynapló kiürítése sikerült.',
-        'return_link' => 'Vissza az eseménynapló listához',
+        'return_link' => 'Vissza az eseménynaplóhoz',
         'id' => 'Azonosító',
         'id_label' => 'Esemény azonosítója',
         'created_at' => 'Időpont',
         'message' => 'Üzenet',
-        'level' => 'Szint'
+        'level' => 'Típus',
+        'preview_title' => 'Esemény'
     ],
     'request_log' => [
         'hint' => 'Ez a napló a böngészőkérelmeket listázza ki. Ha például egy látogató nem létező aloldalt nyit meg, akkor egy 404-es állapotkódú bejegyzés jön létre.',
@@ -319,13 +320,14 @@ return [
         'empty_link' => 'Kérelemnapló kiürítése',
         'empty_loading' => 'A kérelemnapló kiürítése...',
         'empty_success' => 'A kérelemnapló kiürítése megtörtént.',
-        'return_link' => 'Vissza a kérelemnapló listához',
+        'return_link' => 'Vissza a kérelemnaplóhoz',
         'id' => 'Azonosító',
         'id_label' => 'Napló azonosító',
         'count' => 'Számláló',
         'referer' => 'Hivatkozók',
         'url' => 'Webcím',
-        'status_code' => 'Állapot'
+        'status_code' => 'Állapotkód',
+        'preview_title' => 'Kérelem'
     ],
     'permissions' => [
         'name' => 'Rendszer',

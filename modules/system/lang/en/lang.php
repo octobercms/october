@@ -326,7 +326,8 @@ return [
         'count' => 'Counter',
         'referer' => 'Referers',
         'url' => 'URL',
-        'status_code' => 'Status'
+        'status_code' => 'Status',
+        'preview_title' => 'Request'
     ],
     'permissions' => [
         'name' => 'System',

@@ -86,7 +86,7 @@ return [
         'settings_menu' => 'Karbantartás',
         'settings_menu_description' => 'Szolgáltatás aktiválása és testreszabása.',
         'is_enabled' => 'Karbantartás engedélyezése',
-        'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói a kiválasztott lapot fogják látni.'
+        'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói csak a kiválasztott lapot fogják látni.'
     ],
     'page' => [
         'not_found_name' => "A következő lap nem található: ':name'",
@@ -96,7 +96,7 @@ return [
         ],
         'custom_error' => [
             'label' => 'Laphiba',
-            'help' => 'Sajnos valami elromlott, így a lap nem jeleníthető meg.'
+            'help' => 'Sajnos valami elromlott, ezért a lap nem jeleníthető meg.'
         ],
         'menu_label' => 'Lapok',
         'unsaved_label' => 'Nem mentett lap(ok)',
@@ -155,9 +155,9 @@ return [
         'layout' => 'Elrendezés',
         'description' => 'Leírás',
         'preview' => 'Előnézet',
-        'meta' => 'Meta',
-        'meta_title' => 'Meta cím',
-        'meta_description' => 'Meta leírás',
+        'meta' => 'Továbbiak',
+        'meta_title' => 'Keresőbarát cím',
+        'meta_description' => 'Keresőbarát leírás',
         'markup' => 'HTML',
         'code' => 'PHP',
         'content' => 'Tartalom',
