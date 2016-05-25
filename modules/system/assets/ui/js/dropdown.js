@@ -14,6 +14,8 @@
         var dropdown = $(relatedTarget.relatedTarget).siblings('.dropdown-menu'),
             dropdownContainer = $(this).data('dropdown-container')
 
+        // The dropdown menu should be a sibling of the triggering element (above)
+        // otherwise, look for any dropdown menu within this context.
         if (dropdown.length === 0){
             dropdown = $('.dropdown-menu', this)
         }
