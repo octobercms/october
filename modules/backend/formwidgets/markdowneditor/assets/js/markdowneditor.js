@@ -141,8 +141,12 @@
     }
 
     MarkdownEditor.prototype.onEditorChange = function() {
+        var html = this.editor.getSession().getValue()
+
         this.$form.trigger('change')
-        this.$textarea.trigger('oc.markdownEditorChange')
+
+        this.$textarea.trigger('changeContent.oc.markdowneditor', [this, html])
+
         this.handleChange()
     }
 
@@ -376,6 +380,14 @@
         return this.editor
     }
 
+    MarkdownEditor.prototype.getContent = function() {
+        return this.editor.getSession().getValue()
+    }
+
+    MarkdownEditor.prototype.setContent = function(html) {
+        this.editor.getSession().setValue(html)
+    }
+
     //
     // Preview
     //
@@ -402,7 +414,7 @@
         $('pre', this.$preview).addClass('prettyprint')
         prettyPrint()
 
-        this.$el.trigger('oc.markdownEditorInitPreview')
+        this.$el.trigger('initPreview.oc.markdowneditor')
     }
 
     MarkdownEditor.prototype.pauseUpdates = function() {
