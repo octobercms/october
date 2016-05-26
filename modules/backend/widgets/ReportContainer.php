@@ -5,7 +5,7 @@ use Lang;
 use Request;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
-use Backend\Models\UserPreferences;
+use Backend\Models\UserPreference;
 use ApplicationException;
 
 /**
@@ -317,7 +317,7 @@ class ReportContainer extends WidgetBase
 
     protected function getWidgetsFromUserPreferences()
     {
-        $widgets = UserPreferences::forUser()
+        $widgets = UserPreference::forUser()
             ->get($this->getUserPreferencesKey(), $this->defaultWidgets);
 
         if (!is_array($widgets)) {
@@ -328,7 +328,7 @@ class ReportContainer extends WidgetBase
 
     protected function setWidgetsToUserPreferences($widgets)
     {
-        UserPreferences::forUser()->set($this->getUserPreferencesKey(), $widgets);
+        UserPreference::forUser()->set($this->getUserPreferencesKey(), $widgets);
     }
 
     protected function saveWidgetProperties($alias, $properties)

@@ -12,7 +12,7 @@ use October\Rain\Auth\Models\Preferences as PreferencesBase;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class UserPreferences extends PreferencesBase
+class UserPreference extends PreferencesBase
 {
     /**
      * @var string The database table used by the model.

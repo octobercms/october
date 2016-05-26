@@ -13,7 +13,7 @@ use Session;
 use Response;
 use Exception;
 use BackendAuth;
-use Backend\Models\UserPreferences;
+use Backend\Models\UserPreference;
 use Backend\Models\Preferences as BackendPreferences;
 use Cms\Widgets\MediaManager;
 use System\Classes\ErrorHandler;
@@ -631,7 +631,7 @@ class Controller extends Extendable
             throw new ApplicationException('Missing a hint name.');
         }
 
-        $preferences = UserPreferences::forUser();
+        $preferences = UserPreference::forUser();
         $hiddenHints = $preferences->get('backend::hints.hidden', []);
         $hiddenHints[$name] = 1;
 
@@ -645,7 +645,7 @@ class Controller extends Extendable
      */
     public function isBackendHintHidden($name)
     {
-        $hiddenHints = UserPreferences::forUser()->get('backend::hints.hidden', []);
+        $hiddenHints = UserPreference::forUser()->get('backend::hints.hidden', []);
         return array_key_exists($name, $hiddenHints);
     }
 

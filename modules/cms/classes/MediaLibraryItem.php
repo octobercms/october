@@ -2,7 +2,6 @@
 
 use File;
 use Config;
-use Backend\Models\UserPreferences;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 use Carbon\Carbon;
 
