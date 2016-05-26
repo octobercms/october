@@ -22,7 +22,7 @@ tabs:
 
         drivers_hint:
             type: partial
-            path: ~/modules/system/models/mailsettings/_drivers_hint.htm
+            path: ~/modules/system/models/mailsetting/_drivers_hint.htm
             tab: system::lang.mail.general
             trigger:
                 action: show

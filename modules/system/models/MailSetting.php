@@ -9,7 +9,7 @@ use Model;
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-class MailSettings extends Model
+class MailSetting extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
