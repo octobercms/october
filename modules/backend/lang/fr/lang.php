@@ -6,25 +6,25 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Type de champ invalide :type.',
-        'options_method_not_exists' => 'La classe modèle :model doit définir une méthode :method() renvoyant des options pour le champ de formulaire ":field".',
+        'options_method_not_exists' => 'La classe du modèle :model doit définir une méthode :method() renvoyant des options pour le champ ":field" du formulaire.',
     ],
     'widget' => [
-        'not_registered' => 'Le nom de classe ":name" d’un Widget n’a pas été enregistrée',
-        'not_bound' => 'Un Widget ayant le nom de classe ":name" n’a pas pu s’authentifier auprès du contrôleur'
+        'not_registered' => 'Aucun widget au nom de classe ":name" n’a été enregistrée',
+        'not_bound' => 'Un widget au nom de classe ":name" n’a pas été lié au contrôleur'
     ],
     'page' => [
         'untitled' => 'Sans titre',
         'access_denied' => [
             'label' => 'Accès refusé',
-            'help' => 'Vous n’avez pas l’autorisation de consulter cette page.',
-            'cms_link' => 'Retour à l’administration'
+            'help' => 'Vous n’êtes pas autorisé à consulter cette page.',
+            'cms_link' => 'Retour à l’interface d’administration'
         ],
         'invalid_token' => [
             'label' => 'La clé de sécurité est invalide'
         ]
     ],
     'partial' => [
-        'not_found_name' => 'Le nom partiel ":name" est introuvable.'
+        'not_found_name' => 'Le modèle partiel ":name" est introuvable.'
     ],
     'account' => [
         'sign_out' => 'Déconnexion',
@@ -39,7 +39,7 @@ return [
         'email_placeholder' => 'adresse e-mail',
         'enter_new_password' => 'Saisir votre nouveau mot de passe',
         'password_reset' => 'Réinitialiser le mot de passe',
-        'restore_success' => 'Un e-mail contenant les instructions de réinitialisation du mot de passe a été envoyé à l’adresse e-mail de votre compte.',
+        'restore_success' => 'Un e-mail contenant les instructions a été envoyé à l’adresse e-mail de votre compte.',
         'restore_error' => 'L’identifiant ":login" ne correspond à aucun utilisateur',
         'reset_success' => 'Mot de passe réinitialisé avec succès. Vous pouvez maintenant vous connecter.',
         'reset_error' => 'Données de réinitialisation du mot de passe invalides. Veuillez réessayer !',
@@ -75,7 +75,7 @@ return [
     'user' => [
         'name' => 'Administrateur',
         'menu_label' => 'Administrateurs',
-        'menu_description' => 'Gérer les utilisateurs, les groupes et les permissions depuis l’administration.',
+        'menu_description' => 'Gérer les utilisateurs, les groupes et les permissions de l’interface d’administration.',
         'list_title' => 'Gérer les administrateurs',
         'new' => 'Créer un nouvel administrateur',
         'login' => 'S’identifier',
@@ -84,17 +84,17 @@ return [
         'full_name' => 'Nom complet',
         'email' => 'Adresse e-mail',
         'groups' => 'Groupes',
-        'groups_comment' => 'Préciser le(s) groupe(s) d’adhésion de cette personne.',
+        'groups_comment' => 'Préciser les groupes auxquels ce compte doit appartenir. Les groupes définissent les permissions des utilisateurs, qui peuvent être surchargées au niveau de l’utilisateur, dans l’onglet Permissions.',
         'avatar' => 'Avatar',
         'password' => 'Mot de passe',
         'password_confirmation' => 'Confirmer le mot de passe',
         'permissions' => 'Permissions',
         'account' => 'Compte',
         'superuser' => 'Super utilisateur',
-        'superuser_comment' => 'Cocher cette case pour autoriser cet utilisateur à accéder à l’ensemble des zones.',
+        'superuser_comment' => 'Donner à ce compte un niveau d’accès illimité à toutes les sections du système. Les super-utilisateurs peuvent ajouter et gérer les autres utilisateurs.',
         'send_invite' => 'Envoyer une invitation par e-mail',
-        'send_invite_comment' => 'Cocher cette case pour envoyer une invitation aux utilisateurs par e-mail.',
-        'delete_confirm' => 'Confirmer la suppression de cet administrateur ?',
+        'send_invite_comment' => 'Envoyer une invitation aux utilisateurs par e-mail contenant l’identifiant et le mot de passe.',
+        'delete_confirm' => 'Supprimer cet administrateur ?',
         'return' => 'Retour à la liste des administrateurs',
         'allow' => 'Autoriser',
         'inherit' => 'Hériter',
@@ -105,18 +105,18 @@ return [
             'name_field' => 'Nom',
             'description_field' => 'Description',
             'is_new_user_default_field_label' => 'Groupe par défaut',
-            'is_new_user_default_field_comment' => 'Ajouter les nouveaux administrateurs dans ce groupe, par défaut.',
+            'is_new_user_default_field_comment' => 'Ajouter les nouveaux administrateurs dans ce groupe par défaut.',
             'code_field' => 'Code',
-            'code_comment' => 'Saisir un code d’accès unique si vous souhaitez accéder à ce groupe via une API.',
+            'code_comment' => 'Saisir un code d’accès unique si vous souhaitez accéder à ce groupe via l’API.',
             'menu_label' => 'Groupes',
             'list_title' => 'Gérer les groupes',
             'new' => 'Ajouter un groupe d’administrateur',
-            'delete_confirm' => 'Confirmer la suppression de ce groupe d’administrateurs ?',
+            'delete_confirm' => 'Supprimer ce groupe d’administrateurs ?',
             'return' => 'Retour à la liste des groupes',
             'users_count' => 'Utilisateurs'
         ],
         'preferences' => [
-            'not_authenticated' => 'Il n’y a aucun utilisateur identifié pour lequel il est possible de charger ou modifier les préférences.'
+            'not_authenticated' => 'Il n’y a aucun utilisateur authentifié pour lequel il est possible de charger ou modifier les préférences.'
         ]
     ],
     'list' => [
@@ -129,7 +129,7 @@ return [
         'missing_definition' => 'La liste utilisée ne contient de pas de colonne pour le champ ":field".',
         'missing_parent_definition' => "Le behavior List ne contient pas de définition pour ':definition'.",
         'behavior_not_ready' => 'La liste utilisée n’a pas été initialisée, vérifier que la méthode d’appel de makeLists() a été soumise au contrôleur.',
-        'invalid_column_datetime' => 'La valeur de la colonne ":column" n’est pas un objet DateTime, il y a t-il une référence manquante dans la propriété \$dates du modèle ?',
+        'invalid_column_datetime' => 'La valeur de la colonne ":column" n’est pas un objet DateTime, manque-t-il une référence dans la propriété \$dates du modèle ?',
         'pagination' => 'Enregistrements affichés: :from-:to sur :total',
         'prev_page' => 'Page précédente',
         'next_page' => 'Page suivante',
@@ -144,7 +144,7 @@ return [
         'delete_selected' => 'Supprimer la sélection',
         'delete_selected_empty' => 'Il n’y a aucun enregistrement à supprimer',
         'delete_selected_confirm' => 'Confirmer la suppression des enregistrements sélectionnés ?',
-        'delete_selected_success' => 'Les enregistrements ont bien été supprimés.',
+        'delete_selected_success' => 'Les enregistrements ont été supprimés.',
         'column_switch_true' => 'Oui',
         'column_switch_false' => 'Non'
     ],
@@ -169,9 +169,9 @@ return [
         'delete_success' => ':name a été supprimé avec succès',
         'reset_success' => 'Réinitialisation terminée',
         'missing_id' => 'L’ID de l’enregistrement du formulaire n’est pas précisé.',
-        'missing_model' => 'Le formulaire utilisé dans la classe :class n’a pas de modèle défini.',
-        'missing_definition' => 'Le formulaire utilisé n’a pas de champ pour ":field".',
-        'not_found' => 'Aucun enregistrement ne correspond a l’ID :id.',
+        'missing_model' => 'Le behavior formulaire utilisé dans la classe :class n’a pas de modèle défini.',
+        'missing_definition' => 'Le behavior formulaire utilisé n’a pas de champ pour ":field".',
+        'not_found' => 'Aucun enregistrement de formulaire ne correspond a l’ID :id.',
         'action_confirm' => 'Confirmer l’action ?',
         'create' => 'Créer',
         'create_and_close' => 'Créer et fermer',
@@ -183,8 +183,8 @@ return [
         'saving_name' => 'Enregistrement de :name en cours…',
         'delete' => 'Supprimer',
         'deleting' => 'Suppression en cours…',
-        'confirm_delete' => 'Confirmez-vous la suppression de cet enregistrement?',
-        'confirm_delete_multiple' => 'Confirmez-vous la suppression des enregistrements sélectionnés ?',
+        'confirm_delete' => 'Supprimer cet enregistrement?',
+        'confirm_delete_multiple' => 'Supprimer les enregistrements sélectionnés ?',
         'deleting_name' => 'Suppression de :name en cours…',
         'reset_default' => 'Restaurer les valeurs par défaut',
         'resetting' => 'Restauration',
@@ -201,8 +201,8 @@ return [
         'complete' => 'Terminé',
         'ok' => 'OK',
         'or' => 'ou',
-        'confirm_tab_close' => 'Confirmer la fermeture de cet onglet ? Les modifications réalisées seront perdues.',
-        'behavior_not_ready' => 'Le formulaire n’a pas encore été initialisé, vérifier que la méthode d’appel de initForm() a été soumise au contrôleur.',
+        'confirm_tab_close' => 'Fermer cet onglet ? Les modifications réalisées seront perdues.',
+        'behavior_not_ready' => 'Le behavior formulaire n’a pas encore été initialisé, vérifier que la méthode initForm() est appelée par le contrôleur.',
         'preview_no_files_message' => 'Les fichiers ne sont pas envoyés.',
         'preview_no_record_message' => 'Il n’y a aucun enregistrement sélectionné.',
         'select' => 'Sélectionner',
@@ -213,17 +213,17 @@ return [
         'insert_row_below' => 'Insérer une ligne dessous',
         'delete_row' => 'Supprimer une ligne',
         'concurrency_file_changed_title' => 'Le fichier à été modifié',
-        'concurrency_file_changed_description' => 'Durant votre modification de ce fichier un autre utilisateur a modifié celui-ci sur le disque. Il est possible de charger à nouveau le fichier depuis le disque (sans prendre en compte vos modifications) ou d’écraser ce fichier avec vos propres modifications.',
+        'concurrency_file_changed_description' => 'Un autre utilisateur a modifié ce fichier sur le disque. Vous pouvez charger à nouveau le fichier depuis le disque et perdre vos modifications) ou écraser le fichier sur le disque.',
         'return_to_list' => 'Retourner à la liste'
     ],
     'recordfinder' => [
         'find_record' => 'Trouver un enregistrement'
     ],
     'relation' => [
-        'missing_config' => 'La relation n’a pas de configuration pour ":config".',
-        'missing_definition' => 'La relation n’a pas de définition pour le champ ":field".',
-        'missing_model' => 'La relation utilisée dans la classe :class n’a pas de modèle défini.',
-        'invalid_action_single' => 'Cette action ne peut être effectuée sur une relation singulière.',
+        'missing_config' => 'La behavior relation n’a pas de configuration pour ":config".',
+        'missing_definition' => 'La behavior relation n’a pas de définition pour le champ ":field".',
+        'missing_model' => 'La behavior relation utilisée dans la classe :class n’a pas de modèle défini.',
+        'invalid_action_single' => 'Cette action ne peut être effectuée sur une relation unitaire.',
         'invalid_action_multi' => 'Cette action ne peut être effectuée sur une relation multiple.',
         'help' => 'Cliquer sur un élément pour l’ajouter',
         'related_data' => 'Donnée liée :name',
@@ -245,12 +245,12 @@ return [
         'remove_name' => 'Retirer :name',
         'delete' => 'Supprimer',
         'delete_name' => 'Suppression de :name',
-        'delete_confirm' => 'Confirmer la suppression ?',
+        'delete_confirm' => 'Êtes vous sûr(e) ?',
         'link' => 'Lier',
         'link_name' => 'Lier :name',
         'unlink' => 'Séparer',
         'unlink_name' => 'Séparer :name',
-        'unlink_confirm' => 'Confirmer la séparation ?',
+        'unlink_confirm' => 'Êtes vous sûr(e) ?',
     ],
     'reorder' => [
         'default_title' => 'Réorganiser les enregistrements',
@@ -263,12 +263,12 @@ return [
         'missing_relation' => 'Le modèle ":class" ne contient pas de définition ":relation".',
         'missing_method' => 'Le modèle ":class" ne contient pas de méthode ":method".',
         'invalid_class' => 'Le modèle :model utilisé dans la classe :class est invalide, il doit hériter de la classe \Model.',
-        'mass_assignment_failed' => 'La tâche de masse a échoué pour l’attribut du modèle ":attribute".'
+        'mass_assignment_failed' => 'L’affectation de masse a échoué pour l’attribut ":attribute" du modèle.'
     ],
     'warnings' => [
-        'tips' => 'Aide à la configuration du système',
-        'tips_description' => 'Il y a des éléments à prendre en compte pour configurer le système proprement.',
-        'permissions'  => 'Il n’est pas possible au language PHP d’écrire sur le répertoire :name ou ses sous-dossiers. Veuillez modifier les autorisation d’écriture sur ce répertoire, depuis le serveur Web.',
+        'tips' => 'Astuces de configuration du système',
+        'tips_description' => 'Il y a des éléments à prendre en compte pour configurer le système correctement.',
+        'permissions'  => 'PHP ne peut pas écrire dans le répertoire :name et ses sous-dossiers. Veuillez modifier les permissions en écriture du serveur web pour ce répertoire.',
         'extension' => 'L’extension PHP :name n’est pas installée. Veuillez installer la librairie et activer l’extension.'
     ],
     'editor' => [
@@ -283,7 +283,7 @@ return [
         'autocompletion' => 'Auto-complétion',
         'word_wrap' => 'Retour à la ligne',
         'highlight_active_line' => 'Sélectionner la ligne active',
-        'auto_closing' => 'Fermer Automatiquement les tags et les caractères spéciaux',
+        'auto_closing' => 'Fermer Automatiquement les tags',
         'show_invisibles' => 'Afficher les caractères invisibles',
         'show_gutter' => 'Afficher les numéros de ligne',
         'basic_autocompletion'=> 'Auto-complétion basique (Ctrl + Espace)',
@@ -295,37 +295,56 @@ return [
         'mode_fluid' => 'Fluide',
         '40_characters' => '40 caractères',
         '80_characters' => '80 caractères',
-        'theme' => 'Coloration syntaxique'
+        'theme' => 'Coloration syntaxique',
+        'markup_styles' => 'Styles du balisage',
+        'custom_styles' => 'Feuille de styles personnalisée',
+        'custom styles_comment' => 'Styles personnalisés à inclure dans l’editeur HTML.',
+        'markup_classes' => 'Classes de style',
+        'paragraph' => 'Paragraphe',
+        'link' => 'Lien',
+        'table' => 'Tableau',
+        'table_cell' => 'Cellule d’un tableau',
+        'image' => 'Image',
+        'label' => 'Libellé',
+        'class_name' => 'Nom de la classe',
+        'markup_tags' => 'Balises',
+        'allowed_empty_tags' => 'Autoriser les balises vides',
+        'allowed_empty_tags_comment' => 'Liste des balises qui ne sont pas supprimées lorsqu’elles sont vides.',
+        'allowed_tags' => 'Balises autorisées',
+        'allowed_tags_comment' => 'Liste des balises autorisées.',
+        'no_wrap' => 'Balises non encadrées',
+        'no_wrap_comment' => 'Liste des balises qui ne doivent pas être encadrées dans par des balises de bloc.',
+        'remove_tags' => 'Balises supprimées',
+        'remove_tags_comment' => 'Liste des balises qui sont supprimées ainsi que leur contenu.'
     ],
     'tooltips' => [
         'preview_website' => 'Aperçu du site'
     ],
     'mysettings' => [
         'menu_label' => 'Mes paramètres',
-        'menu_description' => 'Paramètres en lien avec votre compte d’administrateur'
+        'menu_description' => 'Paramètres de votre compte administrateur'
     ],
     'myaccount' => [
         'menu_label' => 'Mon compte',
         'menu_description' => 'Modifier les informations de votre compte comme le nom, l’adresse e-mail ou le mot de passe.',
-        'menu_keywords' => 'sécurité du compte'
+        'menu_keywords' => 'security login sécurité authentification identification'
     ],
     'branding' => [
-        'menu_label' => 'Personnalisation de l’interface d’administration',
+        'menu_label' => 'Personnaliser l’interface d’administration',
         'menu_description' => 'Personnaliser l’interface d’administration comme le nom, les couleurs ou le logo.',
         'brand' => 'Marque',
         'logo' => 'Logo',
-        'logo_description' => 'Envoyer un logo personnalisé pour l’utiliser dans l’interface d’administration.',
+        'logo_description' => 'Envoyer un logo personnalisé à utiliser dans l’interface d’administration.',
         'app_name' => 'Nom de l’application',
         'app_name_description' => 'Ce nom est affiché comme titre dans l’interface d’administration.',
         'app_tagline' => 'Slogan de l’application',
         'app_tagline_description' => 'Ce slogan est affiché sur la page d’inscription à l’interface d’administration.',
         'colors' => 'Couleurs',
-        'appearance' => 'Apparence',
         'primary_color' => 'Couleur principale',
         'secondary_color' => 'Couleur secondaire',
         'accent_color' => 'Couleur d’accentuation',
         'styles' => 'Styles',
-        'custom_stylesheet' => 'Feuille de style personnalisée (CSS)',
+        'custom_stylesheet' => 'Feuille de styles personnalisée',
         'navigation' => 'Navigation',
         'menu_mode' => 'Style du menu',
         'menu_mode_inline' => 'Horizontal',
@@ -334,19 +353,19 @@ return [
     ],
     'backend_preferences' => [
         'menu_label' => 'Préférences d’administration',
-        'menu_description' => 'Gérer les préférences de votre compte telle que la langue utilisée.',
+        'menu_description' => 'Gérer les préférences de votre compte telles que la langue utilisée.',
         'region' => 'Région',
-        'code_editor' => 'Editeur de code',
+        'code_editor' => 'Éditeur de code',
         'timezone' => 'Fuseau horaire',
         'timezone_comment' => 'Ajuster les dates affichées à ce fuseau horaire.',
         'locale' => 'Langue',
         'locale_comment' => 'Choisir une langue.'
     ],
     'access_log' => [
-        'hint' => 'Ce journal affiche la liste des accès à l’administration par les administrateurs. Les données sont sauvegardées pendant :days jours.',
+        'hint' => 'Ce journal affiche la liste des tentatives d’authentification réussies des administrateurs. Les données sont sauvegardées pendant :days jours.',
         'menu_label' => 'Journal des accès',
-        'menu_description' => 'Affiche la liste des utilisateurs s’étant connectés à l’administration avec succès.',
-        'created_at' => 'Date & heure',
+        'menu_description' => 'Affiche la liste des authentifications réussies des utilisateurs de l’interface d’administration.',
+        'created_at' => 'Date et heure',
         'login' => 'Identifiant',
         'ip_address' => 'Adresse IP',
         'first_name' => 'Prénom',
@@ -377,7 +396,7 @@ return [
         'select_columns' => '2. Choisissez les colonnes à exporter',
         'column' => 'Colonne',
         'columns' => 'Colonnes',
-        'set_export_options' => '3. Fixer les options d’exportation',
+        'set_export_options' => '3. Définir les options d’exportation',
         'show_ignored_columns' => 'Voir les colonnes ignorées',
         'auto_match_columns' => 'Correspondance automatique des colonnes',
         'created' => 'Créés',
