@@ -223,7 +223,7 @@ return [
     'updates' => [
         'title' => 'Manage Updates',
         'name' => 'Software update',
-        'menu_label' => 'Updates',
+        'menu_label' => 'Updates & Plugins',
         'menu_description' => 'Update the system, manage and install plugins and themes.',
         'return_link' => 'Return to system updates',
         'check_label' => 'Check for updates',
