@@ -17,7 +17,7 @@ use Carbon\Carbon;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class Preferences extends Model
+class Preference extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 

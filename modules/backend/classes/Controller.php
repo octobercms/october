@@ -14,7 +14,7 @@ use Response;
 use Exception;
 use BackendAuth;
 use Backend\Models\UserPreference;
-use Backend\Models\Preferences as BackendPreferences;
+use Backend\Models\Preference as BackendPreference;
 use Cms\Widgets\MediaManager;
 use System\Classes\ErrorHandler;
 use October\Rain\Exception\AjaxException;
@@ -218,8 +218,8 @@ class Controller extends Extendable
         /*
          * Set the admin preference locale
          */
-        BackendPreferences::setAppLocale();
-        BackendPreferences::setAppFallbackLocale();
+        BackendPreference::setAppLocale();
+        BackendPreference::setAppFallbackLocale();
 
         /*
          * Execute AJAX event

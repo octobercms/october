@@ -6,7 +6,7 @@ use Backend;
 use BackendMenu;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager;
-use Backend\Models\Preferences as PreferencesModel;
+use Backend\Models\Preference as PreferenceModel;
 
 /**
  * Editor Settings controller
@@ -73,6 +73,6 @@ class Preferences extends Controller
 
     public function formFindModelObject()
     {
-        return PreferencesModel::instance();
+        return PreferenceModel::instance();
     }
 }

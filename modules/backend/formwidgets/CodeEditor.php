@@ -1,6 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
-use Backend\Models\Preferences as BackendPreferences;
+use Backend\Models\Preference as BackendPreference;
 use Backend\Classes\FormWidgetBase;
 
 /**
@@ -182,7 +182,7 @@ class CodeEditor extends FormWidgetBase
     protected function applyEditorPreferences()
     {
         // Load the editor system settings
-        $preferences = BackendPreferences::instance();
+        $preferences = BackendPreference::instance();
 
         $this->fontSize = $preferences->editor_font_size;
         $this->wordWrap = $preferences->editor_word_wrap;
