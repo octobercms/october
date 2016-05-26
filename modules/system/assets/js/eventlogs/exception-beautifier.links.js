@@ -37,24 +37,26 @@
                 open = $.oc.lang.get('eventlog.editor.open'),
                 cancel = $.oc.lang.get('eventlog.editor.cancel'),
                 popup = $('                                                                                            \
-<div class="modal-header">                                                                                             \
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>                       \
-    <h4 class="modal-title">' + title + '</h4>                                                                         \
-</div>                                                                                                                 \
-<div class="modal-body">                                                                                               \
-    <p>' + description + '</p>                                                                                         \
-    <div class="form-group">                                                                                           \
-        <label class="control-label">' + openWith + ':</label>                                                         \
-        <select class="form-control" name="select-exception-link-editor"></select>                                     \
+<div>                                                                                                                  \
+    <div class="modal-header">                                                                                         \
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>                   \
+        <h4 class="modal-title">' + title + '</h4>                                                                     \
     </div>                                                                                                             \
-    <div class="checkbox custom-checkbox">                                                                             \
-        <input name="checkbox" value="1" type="checkbox" id="editor-remember-choice" />                                \
-        <label for="editor-remember-choice">' + rememberChoice + '</label>                                             \
+    <div class="modal-body">                                                                                           \
+        <p>' + description + '</p>                                                                                     \
+        <div class="form-group">                                                                                       \
+            <label class="control-label">' + openWith + ':</label>                                                     \
+            <select class="form-control" name="select-exception-link-editor"></select>                                 \
+        </div>                                                                                                         \
+        <div class="checkbox custom-checkbox">                                                                         \
+            <input name="checkbox" value="1" type="checkbox" id="editor-remember-choice" />                            \
+            <label for="editor-remember-choice">' + rememberChoice + '</label>                                         \
+        </div>                                                                                                         \
     </div>                                                                                                             \
-</div>                                                                                                                 \
-<div class="modal-footer">                                                                                             \
-    <button type="button" class="btn btn-primary" data-action="submit" data-dismiss="modal">' + open + '</button>      \
-    <button type="button" class="btn btn-default" data-dismiss="popup">' + cancel + '</button>                         \
+    <div class="modal-footer">                                                                                         \
+        <button type="button" class="btn btn-primary" data-action="submit" data-dismiss="modal">' + open + '</button>  \
+        <button type="button" class="btn btn-default" data-dismiss="popup">' + cancel + '</button>                     \
+    </div>                                                                                                             \
 </div>'
                 ),
                 select = $('select', popup)
@@ -65,7 +67,7 @@
                 }
             }
 
-            ExceptionBeautifier.LINKER_POPUP_CONTENT = popup
+            ExceptionBeautifier.LINKER_POPUP_CONTENT = popup.html()
         }
     }
 
