@@ -73,7 +73,8 @@
         var froalaOptions = {
             editorClass: 'control-richeditor',
             language: this.options.editorLang,
-            fullPage: this.options.fullpage
+            fullPage: this.options.fullpage,
+            pageLinksHandler: this.options.linksHandler
         }
 
         if (this.options.toolbarButtons) {

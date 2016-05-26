@@ -8,6 +8,12 @@ function richeditorPageLinksSelectPage($form) {
     richeditorPageLinksPlugin.setLinkValueFromPopup($form)
 }
 
+$.FroalaEditor.DEFAULTS = $.extend($.FroalaEditor.DEFAULTS, {
+    pageLinksHandler: 'onLoadPageLinksForm'
+});
+
+$.FroalaEditor.DEFAULTS.key = 'HHMDUGENKACTMXQL==';
+
 (function ($) {
     $.FroalaEditor.PLUGINS.pageLinks = function (editor) {
 
@@ -54,7 +60,7 @@ function richeditorPageLinksSelectPage($form) {
             richeditorPageLinksPlugin = this
 
             editor.$el.popup({
-                handler: 'onLoadPageLinksForm'
+                handler: editor.opts.pageLinksHandler
             })
         }
 
@@ -71,8 +77,6 @@ function richeditorPageLinksSelectPage($form) {
             insertLink: insertLink
         }
     }
-
-    $.FE.DEFAULTS.audioInsertButtons.push('mmAudioManager');
 
     $.FE.DEFAULTS.linkInsertButtons = ['linkBack', '|', 'linkPageLinks']
 

@@ -380,7 +380,7 @@ $.FE.DefineIcon('mmFileManager',{NAME:'folder'});$.FE.DEFAULTS.videoInsertButton
 $.FE.DefineIcon('mmVideoManager',{NAME:'folder'});$.FE.DEFAULTS.audioInsertButtons.push('mmAudioManager');$.FE.RegisterCommand('mmAudioManager',{title:'Browse',undo:false,focus:false,callback:function(){this.mediaManager.insertAudio();},plugin:'mediaManager'})
 $.FE.DefineIcon('mmAudioManager',{NAME:'folder'});})(jQuery);var richeditorPageLinksPlugin
 function richeditorPageLinksSelectPage($form){richeditorPageLinksPlugin.setLinkValueFromPopup($form)}
-(function($){$.FroalaEditor.PLUGINS.pageLinks=function(editor){function setLinkValueFromPopup($form){var $select=$('select[name=pagelink]',$form)
+$.FroalaEditor.DEFAULTS=$.extend($.FroalaEditor.DEFAULTS,{pageLinksHandler:'onLoadPageLinksForm'});$.FroalaEditor.DEFAULTS.key='HHMDUGENKACTMXQL==';(function($){$.FroalaEditor.PLUGINS.pageLinks=function(editor){function setLinkValueFromPopup($form){var $select=$('select[name=pagelink]',$form)
 var link={text:$('option:selected',$select).text().trim(),href:$select.val()}
 setTimeout(function(){editor.popups.show('link.insert')
 setLinkValue(link)},300)}
@@ -388,10 +388,10 @@ function setLinkValue(link){var $popup=editor.popups.get('link.insert');var text
 else if($input.attr('name')!='text'){$input.val('');}}
 for(i=0;i<check_inputs.length;i++){$input=$(check_inputs[i]);$input.prop('checked',$input.data('checked')==link[$input.attr('name')]);}}
 function insertLink(){richeditorPageLinksPlugin=this
-editor.$el.popup({handler:'onLoadPageLinksForm'})}
+editor.$el.popup({handler:editor.opts.pageLinksHandler})}
 function _init(){}
 return{_init:_init,setLinkValueFromPopup:setLinkValueFromPopup,setLinkValue:setLinkValue,insertLink:insertLink}}
-$.FE.DEFAULTS.audioInsertButtons.push('mmAudioManager');$.FE.DEFAULTS.linkInsertButtons=['linkBack','|','linkPageLinks']
+$.FE.DEFAULTS.linkInsertButtons=['linkBack','|','linkPageLinks']
 $.FE.RegisterCommand('linkPageLinks',{title:'Choose Link',undo:false,focus:false,callback:function(){this.pageLinks.insertLink()},plugin:'pageLinks'})
 $.FE.DefineIcon('linkPageLinks',{NAME:'search'});})(jQuery);(function($){$.FroalaEditor.PLUGINS.figures=function(editor){function insertElement($el){var html=$('<div />').append($el.clone()).remove().html()
 editor.events.focus(true)
@@ -413,7 +413,7 @@ function insertAudio(url,text){var $node=_makeUiBlockElement()
 $node.attr('data-audio',url)
 $node.attr('data-label',text)
 insertElement($node)}
-function _initUiBlocks(){$('[data-video], [data-audio]',editor.$el).each(function(){$(this).attr({'data-ui-block':true,'tabindex':'0'})
+function _initUiBlocks(){$('[data-video], [data-audio]',editor.$el).each(function(){$(this).addClass('fr-draggable').attr({'data-ui-block':'true','draggable':'true','tabindex':'0'}).html('&nbsp;')
 this.contentEditable=false})}
 function _handleUiBlocksKeydown(ev){if(ev.which==40||ev.which==38||ev.which==8||ev.which==46){var $block=$(editor.selection.element())
 if($block.is('br')){$block=$block.parent()}
@@ -459,7 +459,7 @@ if(ev.isDefaultPrevented()){return false}}
 function _onFigureKeydown(ev){if(ev.target&&$(ev.target).attr('data-ui-block')!==undefined){_uiBlockKeyDown(ev,ev.target)}
 if(ev.isDefaultPrevented()){return false}}
 function _onSync(html){var $domTree=$('<div>'+html+'</div>')
-$domTree.find('[data-video], [data-audio]').each(function(){$(this).removeAttr('contenteditable data-ui-block tabindex')})
+$domTree.find('[data-video], [data-audio]').each(function(){$(this).removeAttr('contenteditable data-ui-block tabindex draggable').removeClass('fr-draggable fr-dragging')})
 return $domTree.html()}
 function _init(){editor.events.on('initialized',_initUiBlocks)
 editor.events.on('html.set',_initUiBlocks)
@@ -483,7 +483,7 @@ RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang
 RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
 this.initFroala()}
-RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor',language:this.options.editorLang,fullPage:this.options.fullpage}
+RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor',language:this.options.editorLang,fullPage:this.options.fullpage,pageLinksHandler:this.options.linksHandler}
 if(this.options.toolbarButtons){froalaOptions.toolbarButtons=this.options.toolbarButtons.split(',')}
 else{froalaOptions.toolbarButtons=['paragraphFormat','paragraphStyle','quote','bold','italic','align','formatOL','formatUL','insertTable','insertLink','insertImage','insertVideo','insertAudio','insertFile','insertHR','fullscreen','html']}
 froalaOptions.imageStyles=this.options.imageStyles?this.options.imageStyles:{'oc-img-rounded':'Rounded','oc-img-bordered':'Bordered'}

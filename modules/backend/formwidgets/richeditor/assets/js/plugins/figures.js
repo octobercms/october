@@ -71,10 +71,15 @@
          */
         function _initUiBlocks () {
             $('[data-video], [data-audio]', editor.$el).each(function() {
-                $(this).attr({
-                    'data-ui-block': true,
-                    'tabindex': '0'
-                })
+                $(this)
+                    .addClass('fr-draggable')
+                    .attr({
+                        'data-ui-block': 'true',
+                        'draggable': 'true',
+                        'tabindex': '0'
+                    })
+                    .html('&nbsp;')
+
                 this.contentEditable = false
             })
         }
@@ -211,7 +216,9 @@
             var $domTree = $('<div>' + html + '</div>')
 
             $domTree.find('[data-video], [data-audio]').each(function(){
-                $(this).removeAttr('contenteditable data-ui-block tabindex')
+                $(this)
+                    .removeAttr('contenteditable data-ui-block tabindex draggable')
+                    .removeClass('fr-draggable fr-dragging')
             })
 
             return $domTree.html()

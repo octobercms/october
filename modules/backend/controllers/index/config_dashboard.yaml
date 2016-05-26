@@ -1,3 +1,7 @@
+# ===================================
+#  Dashboard Config
+# ===================================
+
 defaultWidgets:
    systemStatus:
         class: System\ReportWidgets\Status
