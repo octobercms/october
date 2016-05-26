@@ -1,7 +1,7 @@
 <?php
     $activeItem = BackendMenu::getActiveMainMenuItem();
     $mySettings = System\Classes\SettingsManager::instance()->listItems('mysettings');
-    $navbarMode = Backend\Models\BrandSettings::get('menu_mode', 'inline');
+    $navbarMode = Backend\Models\BrandSetting::get('menu_mode', 'inline');
 ?>
 <nav class="navbar control-toolbar navbar-mode-<?= $navbarMode ?>" id="layout-mainmenu" role="navigation">
     <div class="toolbar-item toolbar-primary">

@@ -7,8 +7,8 @@
 <meta name="backend-locale" content="<?= e(Backend\Models\Preferences::get('locale')) ?>">
 <meta name="csrf-token" content="<?= csrf_token() ?>">
 <link rel="icon" type="image/png" href="<?= Backend::skinAsset('assets/images/favicon.png') ?>">
-<title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s' : e($this->pageTitleTemplate) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?>">
-    <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSettings::get('app_name')) ?>
+<title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s' : e($this->pageTitleTemplate) ?> | <?= e(Backend\Models\BrandSetting::get('app_name')) ?>">
+    <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSetting::get('app_name')) ?>
 </title>
 <?php
     $coreBuild = System\Models\Parameters::get('system::core.build', 1);

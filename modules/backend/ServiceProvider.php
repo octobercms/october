@@ -200,7 +200,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'backend::lang.branding.menu_description',
                     'category'    => SettingsManager::CATEGORY_SYSTEM,
                     'icon'        => 'icon-paint-brush',
-                    'class'       => 'Backend\Models\BrandSettings',
+                    'class'       => 'Backend\Models\BrandSetting',
                     'permissions' => ['backend.manage_branding'],
                     'order'       => 500,
                     'keywords'    => 'brand style'

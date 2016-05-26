@@ -13,7 +13,7 @@ use Exception;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class BrandSettings extends Model
+class BrandSetting extends Model
 {
     use \System\Traits\ViewMaker;
     use \October\Rain\Database\Traits\Validation;

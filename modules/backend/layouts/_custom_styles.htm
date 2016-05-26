@@ -1,10 +1,10 @@
 <?php
-    use Backend\Models\BrandSettings;
+    use Backend\Models\BrandSetting;
     use Backend\Models\EditorSetting;
 ?>
-<?php if (BrandSettings::isConfigured()): ?>
+<?php if (BrandSetting::isConfigured()): ?>
     <style>
-        <?= BrandSettings::renderCss() ?>
+        <?= BrandSetting::renderCss() ?>
     </style>
 <?php endif ?>
 <?php if (EditorSetting::isConfigured()): ?>
