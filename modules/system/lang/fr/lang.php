@@ -2,7 +2,7 @@
 
 return [
     'app' => [
-        'name' => 'October CMS',
+        'name' => 'OctoberCMS',
         'tagline' => 'Retourner à l’essentiel',
     ],
     'locale' => [
@@ -42,7 +42,7 @@ return [
         'create_fail' => "Impossible de créer le fichier : :name",
     ],
     'combiner' => [
-        'not_found' => "Le fichier combinateur ':name' est introuvable.",
+        'not_found' => "Le fichier combiné ':name' est introuvable.",
     ],
     'system' => [
         'name' => 'Système',
@@ -74,9 +74,9 @@ return [
         'install' => 'Installer des thèmes',
         'search' => 'Recherche des thème à installer…',
         'installed' => 'Thèmes installés',
-        'no_themes' => 'Il n’y a aucun thème installé depuis le site d’October CMS.',
+        'no_themes' => 'Il n’y a aucun thème installé depuis le Marketplace.',
         'recommended' => 'Recommandé',
-        'remove_confirm' => 'Confirmer la suppression de ce thème ?'
+        'remove_confirm' => 'Êtes-vous sûr(e) de vouloir supprimer ce thème ?'
     ],
     'plugin' => [
         'label' => 'Plugin',
@@ -103,14 +103,14 @@ return [
         'frozen_label' => 'Mises à jour bloquées',
         'frozen_help' => 'Les plugins bloqués seront ignorés par le processus de mise à jour.',
         'selected_amount' => 'Plugins sélectionnés : :amount',
-        'remove_confirm' => 'Confirmer la suppression de ce plugin ?',
+        'remove_confirm' => 'Êtes-vous sûr(e) de vouloir supprimer ce plugin ?',
         'remove_success' => "Les plugins ont été supprimés avec succès.",
-        'refresh_confirm' => 'Confirmer ?',
+        'refresh_confirm' => 'Êtes-vous sûr(e) ?',
         'refresh_success' => "Les plugins ont été actualisés avec succès.",
-        'disable_confirm' => 'Confirmer ?',
+        'disable_confirm' => 'Êtes-vous sûr(e) ?',
         'disable_success' => "Les plugins ont été désactivés avec succès.",
         'enable_success' => "Les plugins ont été activés avec succès.",
-        'unknown_plugin' => 'Le plugin a été supprimé avec succès.'
+        'unknown_plugin' => 'Le plugin a été supprimé du système de fichiers.'
     ],
     'project' => [
         'name' => 'Projet',
@@ -120,7 +120,7 @@ return [
         'none' => 'Aucun',
         'id' => [
             'label' => 'ID du projet',
-            'help' => 'Comment trouver l’ID de son projet',
+            'help' => 'Comment trouver l’ID de votre projet',
             'missing' => 'Spécifier un ID de projet.',
         ],
         'detach_confirm' => 'Confirmer le détachement de ce projet ?',
@@ -129,13 +129,13 @@ return [
     'settings' => [
         'menu_label' => 'Réglages',
         'not_found' => 'Les paramètres spécifiés sont introuvables.',
-        'missing_model' => 'La page de réglages nécessite une définition de modèle.',
+        'missing_model' => 'La page de réglages nécessite la définition d’un Model.',
         'update_success' => 'Les réglages pour :name ont étés mis à jour avec succès.',
         'return' => 'Retourner à la page des réglages du système',
         'search' => 'Rechercher'
     ],
     'mail' => [
-        'log_file' => 'Journal du fichier',
+        'log_file' => 'Fichier journal',
         'menu_label' => 'Configuration des adresses e-mails',
         'menu_description' => 'Gérer la configuration des adresses e-mails.',
         'general' => 'Général',
@@ -157,33 +157,33 @@ return [
         'smtp_encryption_ssl' => 'SSL',
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Chemin vers Sendmail',
-        'sendmail_path_comment' => 'Saisir le chemin du programme Sendmail.',
+        'sendmail_path_comment' => 'Saisir le chemin du programme sendmail.',
         'mailgun' => 'Mailgun',
         'mailgun_domain' => 'Domaine Mailgun',
         'mailgun_domain_comment' => 'Saisir le nom de domaine Mailgun.',
         'mailgun_secret' => 'Clé secrète Mailgun',
-        'mailgun_secret_comment' => 'Saisir la clé de l’API Mailgun.',
+        'mailgun_secret_comment' => 'Saisir votre clé API Mailgun.',
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Clé secrète Mandrill',
-        'mandrill_secret_comment' => 'Saisir la clé de l’API Mandrill.',
+        'mandrill_secret_comment' => 'Saisir votre clé API Mandrill.',
         'ses' => 'SES',
         'ses_key' => 'Clé SES',
-        'ses_key_comment' => 'Saisir la clé de l’API SES',
+        'ses_key_comment' => 'Saisir votre clé API SES',
         'ses_secret' => 'Clé secrète SES',
-        'ses_secret_comment' => 'Saisir la clé secrète de l’API SES',
+        'ses_secret_comment' => 'Saisir votre clé secrète de l’API SES',
         'ses_region' => 'Région SES',
-        'ses_region_comment' => 'Saisir la région SES (e.g. us-east-1)',
+        'ses_region_comment' => 'Saisir votre région SES (e.g. us-east-1)',
         'drivers_hint_header' => 'Les drivers ne sont pas installés',
         'drivers_hint_content' => 'Cette méthode d’envoi d’e-mails nécessite que le plugin ":plugin" soit installé avant de pouvoir envoyer des e-mails.'
     ],
     'mail_templates' => [
-        'menu_label' => 'Modèles des adresses e-mails',
+        'menu_label' => 'Modèles des e-mails',
         'menu_description' => 'Gérer les modèles et maquettes des e-mails envoyés aux utilisateurs et aux administrateurs.',
         'new_template' => 'Nouveau modèle',
         'new_layout' => 'Nouvelle maquette',
         'template' => 'Modèle',
         'templates' => 'Modèles',
-        'menu_layouts_label' => 'Maquettes des adresses e-mails',
+        'menu_layouts_label' => 'Maquettes des e-mails',
         'layout' => 'Maquette',
         'layouts' => 'Maquettes',
         'no_layout' => '-- Aucune maquette --',
@@ -204,8 +204,8 @@ return [
         'creating_layout' => 'Création de la maquette...',
         'saving' => 'Sauvegarde du modèle en cours…',
         'saving_layout' => 'Enregistrement de la maquette...',
-        'delete_confirm' => 'Confirmez-vous la suppression de ce modèle ?',
-        'delete_layout_confirm' => 'Confirmez-vous la suppression de cette maquette ?',
+        'delete_confirm' => 'Supprimer ce modèle ?',
+        'delete_layout_confirm' => 'Supprimer cette maquette ?',
         'deleting' => 'Suppression du modèle...',
         'deleting_layout' => 'Suppression de la maquette...',
         'sending' => 'Envoi du message de test en cours…',
@@ -260,12 +260,12 @@ return [
         ],
         'none' => [
             'label' => 'Aucune mise à jour n’est disponible.',
-            'help' => 'Aucune nouvelle mise à jour n’a été trouvée.',
+            'help' => 'Aucune mise à jour plus récente n’a été trouvée.',
         ],
         'important_action' => [
             'empty' => 'Sélectionner l’action',
             'confirm' => 'Confirmer la mise à jour',
-            'skip' => 'Ignorer ce plugin (cette fois seulement)',
+            'skip' => 'Ignorer ce plugin (cette fois uniquement)',
             'ignore' => 'Ignorer ce plugin (toujours)',
         ],
         'important_action_required' => 'Action requise',
@@ -274,9 +274,9 @@ return [
         'details_title' => 'Détails du plugin',
         'details_view_homepage' => 'Voir la page d’accueil',
         'details_readme' => 'Documentation',
-        'details_readme_missing' => 'Il n’y a pas de documentation disponible.',
+        'details_readme_missing' => 'Aucune documentation fournie.',
         'details_upgrades' => 'Guide de mise à jour',
-        'details_upgrades_missing' => 'Il n’y a pas d’instruction disponible.',
+        'details_upgrades_missing' => 'Aucune instruction de mise à jour fournie.',
         'details_current_version' => 'Version actuelle',
         'details_author' => 'Auteur',
     ],
@@ -289,7 +289,7 @@ return [
         'file_corrupt' => 'Le fichier provenant du serveur est corrompu.',
     ],
     'behavior' => [
-        'missing_property' => 'La classe :class doit définir la propriété $:property utilisée par le comportement (behavior) :behavior.',
+        'missing_property' => 'La classe :class doit définir la propriété $:property utilisée par le behavior :behavior.',
     ],
     'config' => [
         'not_found' => 'Impossible de trouver le fichier de configuration :file défini dans :location.',
@@ -314,7 +314,7 @@ return [
         'preview_title' => 'Évènement',
     ],
     'request_log' => [
-        'hint' => 'Ce journal affiche une liste de requêtes potentiellement suspectes. par exemple, si un visiteur ouvre une page introuvable du CMS, une ligne avec le statut code 404 est alors créée.',
+        'hint' => 'Ce journal affiche une liste de requêtes potentiellement suspectes. Par exemple, si un visiteur ouvre une page introuvable du CMS, une ligne avec le code statut 404 est alors créée.',
         'menu_label' => 'Journal des requêtes',
         'menu_description' => 'Affiche les requêtes erronées ou redirigées, comme les erreurs 404.',
         'empty_link' => 'Purger le journal des requêtes',
@@ -327,6 +327,7 @@ return [
         'referer' => 'Référents',
         'url' => 'Adresse URL',
         'status_code' => 'Statut',
+        'preview_title' => 'Requête'
     ],
     'permissions' => [
         'name' => 'Système',
