@@ -3,7 +3,7 @@
 use BackendAuth;
 use System\Models\Parameters;
 use System\Classes\UpdateManager;
-use Cms\Models\MaintenanceSettings;
+use Cms\Models\MaintenanceSetting;
 use Backend\Classes\ReportWidgetBase;
 use Exception;
 
@@ -46,7 +46,7 @@ class Status extends ReportWidgetBase
     protected function loadData()
     {
         $manager = UpdateManager::instance();
-        $this->vars['inMaintenance'] = MaintenanceSettings::get('is_enabled');
+        $this->vars['inMaintenance'] = MaintenanceSetting::get('is_enabled');
         $this->vars['showUpdates'] = BackendAuth::getUser()->hasAccess('system.manage_updates');
         $this->vars['updates'] = $manager->check();
     }

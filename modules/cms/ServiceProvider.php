@@ -234,7 +234,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'cms::lang.maintenance.settings_menu_description',
                     'category'    => SettingsManager::CATEGORY_CMS,
                     'icon'        => 'icon-plug',
-                    'class'       => 'Cms\Models\MaintenanceSettings',
+                    'class'       => 'Cms\Models\MaintenanceSetting',
                     'permissions' => ['cms.manage_themes'],
                     'order'       => 300
                 ],

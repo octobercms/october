@@ -11,7 +11,7 @@ use ApplicationException;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class MaintenanceSettings extends Model
+class MaintenanceSetting extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
