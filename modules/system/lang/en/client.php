@@ -84,7 +84,7 @@ return [
             'title' => 'Select the source code editor to use',
             'description' => 'Your OS environnement must be configured to listen to one of these URL schemes.',
             'openWith' => 'Open with',
-            'rememberChoice' => 'Remember the selected option for this browser session',
+            'remember_choice' => 'Remember the selected option for this browser session',
             'open' => 'Open',
             'cancel' => 'Cancel'
         ]
