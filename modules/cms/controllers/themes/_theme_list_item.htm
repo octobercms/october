@@ -3,7 +3,7 @@
 ?>
 
 <div class="layout-cell min-height theme-thumbnail">
-    <div class="thumbnail-container"><img src="<?= $theme->getPreviewImageUrl() ?>"/></div>
+    <div class="thumbnail-container"><img src="<?= $theme->getPreviewImageUrl() ?>" alt="" /></div>
 </div>
 <div class="layout-cell min-height theme-description">
     <h3><?= e($theme->getConfigValue('name', $theme->getDirName())) ?></h3>

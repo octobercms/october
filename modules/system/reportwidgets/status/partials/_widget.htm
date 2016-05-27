@@ -2,27 +2,56 @@
     <h3><?= e(trans($this->property('title'))) ?></h3>
 
     <?php if (!isset($error)): ?>
-        <ul class="status-list">
-            <li>
-                <a href="<?= Backend::url('system/settings/update/october/cms/maintenance_settings') ?>">
-                    <?php if ($inMaintenance): ?>
-                        <span class="status circle warning"></span>
-                        <?= e(trans('backend::lang.dashboard.status.maintenance')) ?>
-                    <?php else: ?>
-                        <span class="status circle success"></span>
-                        <?= e(trans('backend::lang.dashboard.status.online')) ?>
-                    <?php endif ?>
-                </a>
-            </li>
-            <?php if ($showUpdates): ?>
+        <div class="control-status-list">
+            <ul>
                 <li>
-                    <a href="<?= Backend::url('system/updates') ?>">
-                        <span class="status primary"><?= $updates ?></span>
-                        <?= e(trans_choice('backend::lang.dashboard.status.update_available', $updates)) ?>
-                    </a>
+                    <?php if ($updates): ?>
+                        <span class="status-icon warning"><i class="icon-exclamation"></i></span>
+                        <span class="status-text warning">Pending software updates</span>
+                        <?php if ($canUpdate): ?>
+                            <a href="<?= Backend::url('system/updates') ?>" class="status-label link">Update</a>
+                        <?php endif ?>
+                    <?php else: ?>
+                        <span class="status-icon success"><i class="icon-check"></i></span>
+                        <span class="status-text success">Software is up to date</span>
+                    <?php endif ?>
                 </li>
-            <?php endif ?>
-        </ul>
+                <li>
+                    <?php if ($warnings): ?>
+                        <span class="status-icon warning"><i class="icon-exclamation"></i></span>
+                        <span class="status-text warning">Some issues need attention</span>
+                        <a href="#todo" class="status-label link">View</a>
+                    <?php else: ?>
+                        <span class="status-icon success"><i class="icon-check"></i></span>
+                        <span class="status-text success">No warnings to display</span>
+                    <?php endif ?>
+                </li>
+                <?php if ($coreBuild): ?>
+                    <li>
+                        <span class="status-icon"><i class="icon-info"></i></span>
+                        <span class="status-text">System build</span>
+                        <span class="status-label primary"><?= $coreBuild ?></span>
+                    </li>
+                <?php endif ?>
+                <li>
+                    <span class="status-icon"><i class="icon-info"></i></span>
+                    <span class="status-text">Event log items</span>
+                    <span class="status-label primary"><?= $eventLog ?></span>
+                </li>
+                <li>
+                    <span class="status-icon"><i class="icon-info"></i></span>
+                    <span class="status-text">Request log items</span>
+                    <span class="status-label primary"><?= $requestLog ?></span>
+                </li>
+                <!--
+                <li>
+                    <span class="status-icon"><i class="icon-info"></i></span>
+                    <span class="status-text">Online since</span>
+                    <span class="status-label link">4th April 2014</span>
+                </li>
+                -->
+            </ul>
+        </div>
     <?php else: ?>
         <p class="flash-message static warning"><?= e($error) ?></p>
     <?php endif ?>

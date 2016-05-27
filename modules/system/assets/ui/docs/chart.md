@@ -63,3 +63,45 @@ The next example shows a bar chart markup. The **wrap-legend** class is optional
             <li>Label 3 <span>100</span></li>
         </ul>
     </div>
+
+
+<a name="bar-chart" class="anchor" href="#bar-chart"></a>
+## Status list
+
+A list of statuses and values
+
+# Example
+
+    <div class="control-status-list">
+        <ul>
+            <li>
+                <span class="status-icon success"><i class="icon-check"></i></span>
+                <span class="status-text success">Software is up to date</span>
+                <a href="#" class="status-label link">Update</a>
+            </li>
+
+            <li>
+                <span class="status-icon warning"><i class="icon-exclamation"></i></span>
+                <span class="status-text warning">Some issues need attention</span>
+                <a href="#" class="status-label link">View</a>
+            </li>
+
+            <li>
+                <span class="status-icon"><i class="icon-info"></i></span>
+                <span class="status-text">System build</span>
+                <span class="status-label primary">313</span>
+            </li>
+
+            <li>
+                <span class="status-icon"><i class="icon-info"></i></span>
+                <span class="status-text">Event log items</span>
+                <span class="status-label primary">200</span>
+            </li>
+
+            <li>
+                <span class="status-icon"><i class="icon-info"></i></span>
+                <span class="status-text">Online since</span>
+                <span class="status-label link">4th April 2014</span>
+            </li>
+        </ul>
+    </div>
