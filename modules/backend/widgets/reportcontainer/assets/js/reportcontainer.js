@@ -92,15 +92,20 @@
             })
         })
 
-        $(window).on('oc.report-widget-added', function(){
+        $(window).on('oc.reportWidgetAdded', function(){
             self.redraw()
             self.setSortOrders()
+        })
+
+        $(window).on('oc.reportWidgetRefresh', function(){
+            self.redraw()
         })
 
         window.setTimeout(function(){
             self.updateWidth()
             self.redraw()
         }, 200)
+
         this.setSortOrders()
     }
 

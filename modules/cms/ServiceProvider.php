@@ -33,6 +33,7 @@ class ServiceProvider extends ModuleServiceProvider
          */
         if (App::runningInBackend()) {
             $this->registerBackendNavigation();
+            $this->registerBackendReportWidgets();
             $this->registerBackendPermissions();
             $this->registerBackendWidgets();
             $this->registerBackendSettings();
@@ -149,6 +150,19 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['media.*'],
                     'order'       => 20
                 ]
+            ]);
+        });
+    }
+
+    /*
+     * Register report widgets
+     */
+    protected function registerBackendReportWidgets()
+    {
+        WidgetManager::instance()->registerReportWidgets(function ($manager) {
+            $manager->registerReportWidget('Cms\ReportWidgets\ActiveTheme', [
+                'label'   => 'cms::lang.dashboard.active_theme.widget_title_default',
+                'context' => 'dashboard'
             ]);
         });
     }

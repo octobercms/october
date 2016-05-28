@@ -89,6 +89,24 @@ class Parameters extends Model
     }
 
     /**
+     * Resets a setting value by deleting the record.
+     * @param string $key Specifies the setting key value.
+     * @return bool
+     */
+    public function reset($key)
+    {
+        $record = static::findRecord($key);
+        if (!$record) {
+            return false;
+        }
+
+        $record->delete();
+
+        unset(static::$cache[$key]);
+        return true;
+    }
+
+    /**
      * Returns a record (cached)
      * @return self
      */

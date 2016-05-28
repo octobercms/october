@@ -337,7 +337,6 @@ class ServiceProvider extends ModuleServiceProvider
                 'context' => 'dashboard'
             ]);
         });
-
     }
 
     /*

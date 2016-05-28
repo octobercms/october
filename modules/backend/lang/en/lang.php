@@ -54,6 +54,7 @@ return [
         'widget_label' => 'Widget',
         'widget_width' => 'Width',
         'full_width' => 'full width',
+        'manage_widgets' => 'Manage widgets',
         'add_widget' => 'Add widget',
         'widget_inspector_title' => 'Widget configuration',
         'widget_inspector_description' => 'Configure the report widget',
@@ -65,6 +66,12 @@ return [
         'widget_new_row_description' => 'Put the widget in a new row.',
         'widget_title_label' => 'Widget title',
         'widget_title_error' => 'The Widget Title is required.',
+        'reset_layout' => 'Reset layout',
+        'reset_layout_confirm' => 'Reset layout back to default?',
+        'reset_layout_success' => 'Layout has been reset',
+        'make_default' => 'Make default',
+        'make_default_confirm' => 'Set the current layout as the default?',
+        'make_default_success' => 'Current layout is now the default',
         'status' => [
             'widget_title_default' => 'System status',
             'update_available' => '{0} updates available!|{1} update available!|[2,Inf] updates available!',
@@ -89,7 +96,6 @@ return [
             'nice_message' => 'Have a great day!',
         ]
     ],
-
     'user' => [
         'name' => 'Administrator',
         'menu_label' => 'Administrators',

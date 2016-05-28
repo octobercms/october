@@ -122,7 +122,7 @@
             }
 
             &.separator {
-                width: 100%!important;
+                width: 100% !important;
             }
         }
 
@@ -132,12 +132,12 @@
 
         &.wrapped {
             .item {
-                width: 100%!important;
+                width: 100% !important;
             }
         }
     }
 
-    .add-widget {
+    .manage-widgets {
         display: inline-block;
         color: #bcc3c7;
         padding: 10px 15px;
@@ -160,7 +160,16 @@
         }
     }
 
-    /**** Isotope CSS3 transitions ****/
+    .dropdown.open .manage-widgets {
+        text-decoration: none;
+        background-color: @link-color;
+        color: white;
+        border: 1px solid @link-color;
+    }
+
+    //
+    // Isotope CSS3 transitions
+    //
 
     &.isotope,
     &.isotope .isotope-item {
