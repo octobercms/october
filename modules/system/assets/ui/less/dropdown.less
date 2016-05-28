@@ -95,8 +95,8 @@
                             position: absolute;
                             font-size: 14px;
                             left: 9px;
-                            top: 10px;
-                            color: @dropdown-border;
+                            top: 8px;
+                            color: fade(@dropdown-link-color, 60%);
                         }
                     }
                 }
@@ -146,20 +146,52 @@
             }
         }
     }
+}
 
-    &.top {
-        .dropdown-container {
-            > ul {
-                &:after {
-                    .triangle(down, 15px, 8px, @dropdown-bg);
-                    top: auto;
-                    bottom: -8px;
+//
+// Drop up
+//
+
+.dropdown.dropup .dropdown-menu {
+    .dropdown-container {
+        > ul {
+            margin-top: 0;
+            margin-bottom: 7px;
+
+            &:after {
+                .triangle(down, 15px, 8px, @dropdown-bg);
+                top: auto;
+                bottom: -8px;
+            }
+
+            &:before {
+                .triangle(down, 17px, 9px, @dropdown-border);
+                top: auto;
+                bottom: -9px;
+            }
+
+            li.first-item {
+                a {
+                    &:after { display: none; }
                 }
+            }
 
-                &:before {
-                    .triangle(down, 17px, 9px, @dropdown-border);
-                    top: auto;
-                    bottom: -9px;
+            li.last-item {
+                a {
+                    &:hover, &:focus, &:active {
+                        &:after {
+                            .triangle(down, 15px, 8px, @color-dropdown-hover-bg);
+                            position: absolute;
+                            left: 15px;
+                            bottom: -8px;
+                            z-index: @zindex-dropdown + 2;
+                        }
+                    }
+                    &:active {
+                        &:after {
+                            .triangle(down, 15px, 8px, @color-dropdown-active-bg);
+                        }
+                    }
                 }
             }
         }

@@ -2675,8 +2675,9 @@ if($('.dropdown-container',dropdown).length==0){var title=$('[data-toggle=dropdo
 if(titleAttr!==undefined)
 title=titleAttr
 $('li:first-child',dropdown).addClass('first-item')
-dropdown.prepend($('<li/>').addClass('dropdown-title').text(title))
-var container=$('<li/>').addClass('dropdown-container'),ul=$('<ul/>')
+$('li:last-child',dropdown).addClass('last-item')
+dropdown.prepend($('<li />').addClass('dropdown-title').text(title))
+var container=$('<li />').addClass('dropdown-container'),ul=$('<ul />')
 container.prepend(ul)
 ul.prepend(dropdown.children())
 dropdown.prepend(container)
@@ -3506,8 +3507,8 @@ $.fn.popup.Constructor=Popup
 $.popup=function(option){return $('<a />').popup(option)}
 $.fn.popup.noConflict=function(){$.fn.popup=old
 return this}
-$(document).on('click.oc.popup','[data-control="popup"]',function(){$(this).popup()
-return false});$(document).on('ajaxPromise','[data-popup-load-indicator]',function(event,context){if($(this).data('request')!=context.handler)return
+$(document).on('click.oc.popup','[data-control="popup"]',function(event){event.preventDefault()
+$(this).popup()});$(document).on('ajaxPromise','[data-popup-load-indicator]',function(event,context){if($(this).data('request')!=context.handler)return
 $(this).closest('.control-popup').removeClass('in').popup('setLoading',true)}).on('ajaxFail','[data-popup-load-indicator]',function(event,context){if($(this).data('request')!=context.handler)return
 $(this).closest('.control-popup').addClass('in').popup('setLoading',false)}).on('ajaxDone','[data-popup-load-indicator]',function(event,context){if($(this).data('request')!=context.handler)return
 $(this).closest('.control-popup').popup('hideLoading')})}(window.jQuery);+function($){"use strict";var ChartUtils=function(){}

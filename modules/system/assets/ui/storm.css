@@ -631,7 +631,7 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 .btn{font-size:13px;text-align:left;outline:none !important;-webkit-box-shadow:inset 0 -2px 0 rgba(0,0,0,.15);box-shadow:inset 0 -2px 0 rgba(0,0,0,.15)}
 .btn[disabled]{color:rgba(255,255,255,0.6)}
 .btn.active,.btn:active{-webkit-box-shadow:inset 0 1px 0 rgba(0,0,0,0.3);box-shadow:inset 0 1px 0 rgba(0,0,0,0.3)}
-.btn i[class^="icon-"],.btn i[class*=" icon-"]{opacity:.5}
+.btn i[class^="icon-"],.btn i[class*=" icon-"]{opacity:.6}
 .btn.on i[class^="icon-"],.btn:hover i[class^="icon-"],.btn:focus i[class^="icon-"],.btn.focus i[class^="icon-"],.btn.on i[class*=" icon-"],.btn:hover i[class*=" icon-"],.btn:focus i[class*=" icon-"],.btn.focus i[class*=" icon-"]{opacity:1}
 .btn[class^="oc-icon-"]:before,.btn[class*=" oc-icon-"]:before{font-size:14px;line-height:14px;position:relative;opacity:.6}
 .btn[class^="oc-icon-"].on:before,.btn[class*=" oc-icon-"].on:before,.btn[class^="oc-icon-"]:hover:before,.btn[class*=" oc-icon-"]:hover:before,.btn[class^="oc-icon-"]:focus:before,.btn[class*=" oc-icon-"]:focus:before,.btn[class^="oc-icon-"].focus:before,.btn[class*=" oc-icon-"].focus:before{opacity:1}
@@ -1305,7 +1305,7 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 .dropdown-menu .dropdown-container > ul li a:active{color:#ffffff;background-color:#3498db}
 .dropdown-menu .dropdown-container > ul li a:active[class^="oc-icon-"]:before,.dropdown-menu .dropdown-container > ul li a:active[class*=" oc-icon-"]:before{color:#ffffff}
 .dropdown-menu .dropdown-container > ul li a[class^="oc-icon-"],.dropdown-menu .dropdown-container > ul li a[class*=" oc-icon-"]{padding-left:30px}
-.dropdown-menu .dropdown-container > ul li a[class^="oc-icon-"]:before,.dropdown-menu .dropdown-container > ul li a[class*=" oc-icon-"]:before{position:absolute;font-size:14px;left:9px;top:10px;color:rgba(0,0,0,0.2)}
+.dropdown-menu .dropdown-container > ul li a[class^="oc-icon-"]:before,.dropdown-menu .dropdown-container > ul li a[class*=" oc-icon-"]:before{position:absolute;font-size:14px;left:9px;top:8px;color:rgba(57,69,74,0.6)}
 .dropdown-menu .dropdown-container > ul li.first-item a:hover:after,.dropdown-menu .dropdown-container > ul li.first-item a:focus:after,.dropdown-menu .dropdown-container > ul li.first-item a:active:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:8px solid #4ea5e0;position:absolute;left:15px;top:-8px;z-index:602}
 .dropdown-menu .dropdown-container > ul li.first-item a:active:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:8px solid #3498db}
 .dropdown-menu .dropdown-container > ul li.dropdown-title{display:none}
@@ -1313,8 +1313,12 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 .dropdown-menu.pull-right .dropdown-container > ul:after{left:auto;right:15px}
 .dropdown-menu.pull-right .dropdown-container > ul:before{left:auto;right:14px}
 .dropdown-menu.pull-right .dropdown-container > ul li.first-item a:hover:after,.dropdown-menu.pull-right .dropdown-container > ul li.first-item a:focus:after{left:auto;right:15px}
-.dropdown-menu.top .dropdown-container > ul:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #ffffff;border-bottom-width:0;top:auto;bottom:-8px}
-.dropdown-menu.top .dropdown-container > ul:before{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-top:9px solid rgba(0,0,0,0.2);border-bottom-width:0;top:auto;bottom:-9px}
+.dropdown.dropup .dropdown-menu .dropdown-container > ul{margin-top:0;margin-bottom:7px}
+.dropdown.dropup .dropdown-menu .dropdown-container > ul:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #ffffff;border-bottom-width:0;top:auto;bottom:-8px}
+.dropdown.dropup .dropdown-menu .dropdown-container > ul:before{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-top:9px solid rgba(0,0,0,0.2);border-bottom-width:0;top:auto;bottom:-9px}
+.dropdown.dropup .dropdown-menu .dropdown-container > ul li.first-item a:after{display:none}
+.dropdown.dropup .dropdown-menu .dropdown-container > ul li.last-item a:hover:after,.dropdown.dropup .dropdown-menu .dropdown-container > ul li.last-item a:focus:after,.dropdown.dropup .dropdown-menu .dropdown-container > ul li.last-item a:active:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #4ea5e0;border-bottom-width:0;position:absolute;left:15px;bottom:-8px;z-index:602}
+.dropdown.dropup .dropdown-menu .dropdown-container > ul li.last-item a:active:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #3498db;border-bottom-width:0}
 .touch .dropdown-menu .dropdown-container > ul li a:hover{color:#39454a;background:white}
 .touch .dropdown-menu .dropdown-container > ul li a:hover:before{position:absolute;font-size:14px;left:9px;top:7px;color:rgba(0,0,0,0.2)}
 .touch .dropdown-menu .dropdown-container > ul li.first-item a:hover:after{content:'';display:none}

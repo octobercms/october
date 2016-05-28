@@ -30,10 +30,12 @@
                 title = titleAttr
 
             $('li:first-child', dropdown).addClass('first-item')
-            dropdown.prepend($('<li/>').addClass('dropdown-title').text(title))
+            $('li:last-child', dropdown).addClass('last-item')
 
-            var container = $('<li/>').addClass('dropdown-container'),
-                ul = $('<ul/>')
+            dropdown.prepend($('<li />').addClass('dropdown-title').text(title))
+
+            var container = $('<li />').addClass('dropdown-container'),
+                ul = $('<ul />')
 
             container.prepend(ul)
             ul.prepend(dropdown.children())

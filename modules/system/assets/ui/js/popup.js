@@ -333,10 +333,10 @@
     // POPUP DATA-API
     // ===============
 
-    $(document).on('click.oc.popup', '[data-control="popup"]', function() {
-        $(this).popup()
+    $(document).on('click.oc.popup', '[data-control="popup"]', function(event) {
+        event.preventDefault()
 
-        return false
+        $(this).popup()
     });
 
     /*
