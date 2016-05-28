@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
@@ -12,7 +12,7 @@ return [
     | such as the size rules. Feel free to tweak each of these messages.
     |
     */
-
+    
     "accepted"         => 'Le champ :attribute doit être accepté.',
     "active_url"       => 'Le champ :attribute n’est pas une URL valide.',
     "after"            => 'Le champ :attribute doit être une date après le :date.',
@@ -45,8 +45,8 @@ return [
         "string"  => 'Le champ :attribute ne peut pas être supérieure à :max caractères.',
         "array"   => 'Le champ :attribute ne peut pas être supérieure à :max objets.',
     ],
-    "mimes"            => 'Le champ :attribute doit être un fichier de type : :values.',
-    "extensions"       => 'Le champ :attribute doit être une extension de : :values.',
+    "mimes"            => 'Le champ :attribute doit être un fichier de type : :values.',
+    "extensions"       => 'Le champ :attribute doit être une extension de : :values.',
     "min"              => [
         "numeric" => 'Le champ :attribute doit être au minimum de :min.',
         "file"    => 'Le champ :attribute doit être au minimum de :min kilooctets.',
@@ -69,7 +69,7 @@ return [
     ],
     "unique"           => 'Le champ :attribute doit être unique. La valeur renseignée est déjà utilisée.',
     "url"              => 'Le champ :attribute n’est pas une URL valide.',
-
+    
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -80,9 +80,9 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
-
-    'custom' => array(),
-
+    
+    'custom' => [],
+    
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
@@ -93,7 +93,7 @@ return [
     | of "email". This simply helps us make messages a little cleaner.
     |
     */
-
-    'attributes' => array(),
-
+    
+    'attributes' => [],
+    
 ];
