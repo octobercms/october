@@ -148,7 +148,7 @@
             case  'phpline':
                 return '{exception-beautifier-stacktrace-line-number}' + line.number + '{/exception-beautifier-stacktrace-line-number}' +
                     self.formatFilePath(line.file, line.lineNumber) +
-                    '{exception-beautifier-line-number}(' + line.lineNumber + '){/exception-beautifier-line-number}: ' +
+                    '{exception-beautifier-line-number}(' + line.lineNumber + '):{/exception-beautifier-line-number} ' +
                     '{exception-beautifier-stacktrace-line-function}' + line.function + '{/exception-beautifier-stacktrace-line-function}'
 
             case  'internal':
@@ -278,6 +278,7 @@
 
     ExceptionBeautifier.prototype.finalizeMarkup = function (markup, source) {
         var stacktrace,
+            messageContainer,
             tabs
 
         markup.find('.beautifier-file').each(function () {
@@ -294,47 +295,37 @@
             $el.appendTo($el.prev())
         })
 
-        markup.find('.beautifier-message-container')
-            .addClass('form-control')
+        messageContainer = markup.find('.beautifier-message-container')
 
         stacktrace = markup.find('.beautifier-stacktrace')
             .addClass('hidden')
 
-        $('<a class="beautifier-toggle-stacktrace --hidden" href="#" data-hide-text="' + $.oc.lang.get('eventlog.hide_stacktrace') + '"><i class="icon-chevron-down"></i>&nbsp;<span>' + $.oc.lang.get('eventlog.show_stacktrace') + '</span></a>')
-            .insertBefore(stacktrace)
-            .on('click', function (event) {
-                var $el = $(this)
+        if (!!stacktrace.length) {
+            $('<a class="beautifier-toggle-stacktrace" href="javascript:;"><span>' + $.oc.lang.get('eventlog.show_stacktrace') + '</span></a>')
+                .appendTo(messageContainer)
+                .on('click', function (event) {
+                    var $el = $(this)
 
-                event.preventDefault()
-                event.stopPropagation()
+                    event.preventDefault()
+                    event.stopPropagation()
 
-                $('.beautifier-stacktrace', markup).toggleClass('hidden')
-                $el.toggleClass('--hidden')
+                    $('.beautifier-stacktrace', markup).toggleClass('hidden')
 
-                if(!$el.hasClass('--hidden')) {
-                    if(!$el.data('show-text')) {
-                        $el.data('show-text', $('span', $el).html())
-                    }
+                    $el.hide()
+                })
+        }
 
-                    $('i', $el).removeClass('icon-chevron-down').addClass('icon-chevron-up')
-                    $('span', $el).html($el.data('hide-text'))
-                } else {
-                    $('i', $el).removeClass('icon-chevron-up').addClass('icon-chevron-down')
-                    $('span', $el).html($el.data('show-text'))
-                }
-            })
-
-        tabs = $('<div class="control-tabs content-tabs">' +
+        tabs = $('<div class="control-tabs content-tabs tabs-inset">' +
             '<ul class="nav nav-tabs">' +
             '<li class="active"><a href="#beautifier-tab-formatted">' + $.oc.lang.get('eventlog.tabs.formatted') + '</a></li>' +
             '<li><a href="#beautifier-tab-raw">' + $.oc.lang.get('eventlog.tabs.raw') + '</a></li>' +
             '</ul><div class="tab-content">' +
-            '<div class="tab-pane active" id="beautifier-tab-formatted"></div>' +
-            '<div class="tab-pane" id="beautifier-tab-raw"></div>' +
+            '<div class="tab-pane pane-inset active" id="beautifier-tab-formatted"></div>' +
+            '<div class="tab-pane pane-inset" id="beautifier-tab-raw"></div>' +
             '</div></div>')
 
         tabs.find('#beautifier-tab-formatted').append(markup)
-        tabs.find('#beautifier-tab-raw').append('<div class="form-control">' + source.replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>')
+        tabs.find('#beautifier-tab-raw').append('<div class="beautifier-raw-content">' + source.trim().replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>')
 
         tabs.ocTab({closable: false})
 

@@ -1,15 +1,18 @@
-[data-plugin="exception-beautifier"] {
-    width: auto !important;
+.plugin-exception-beautifier .beautifier-message-container {
+    display: block;
+    padding: 20px;
+    background: #fff;
 }
 
 .plugin-exception-beautifier .beautifier-message {
     display: block;
-    padding: 15px 0;
     font-size: 1.1em;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .plugin-exception-beautifier .beautifier-toggle-stacktrace {
-    background: #D0D9DD;
+    background: #ecf0f1;
     color: #2b3e50;
     text-decoration: none;
     display: block;
@@ -17,15 +20,10 @@
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
+    margin-top: 20px;
 }
 
-.plugin-exception-beautifier .beautifier-toggle-stacktrace.--hidden {
-    background: #ecf0f1;
-    color: #2b3e50;
-}
-
-.plugin-exception-beautifier .beautifier-toggle-stacktrace:hover,
-.plugin-exception-beautifier .beautifier-toggle-stacktrace.--hidden:hover {
+.plugin-exception-beautifier .beautifier-toggle-stacktrace:hover {
     background: #0181b9;
     color: white;
 }
@@ -33,7 +31,8 @@
 .plugin-exception-beautifier .beautifier-stacktrace-line {
     display: block;
     padding: 10px 0;
-    white-space: nowrap;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .plugin-exception-beautifier .beautifier-stacktrace-line:nth-child(even) {
@@ -44,9 +43,15 @@
     background-color: #f2f2f2;
 }
 
+.plugin-exception-beautifier .beautifier-stacktrace-line > * {
+    margin-left: 55px;
+    display: block;
+}
+
 .plugin-exception-beautifier .beautifier-stacktrace-line-number {
-    display: inline-block;
+    float: left;
     width: 40px;
+    margin-left: 0;
     margin-right: 15px;
     text-align: right;
     color: #000000;
@@ -63,7 +68,8 @@
 
 .plugin-exception-beautifier .beautifier-file {
     color: #204bff;
-    white-space: nowrap;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .plugin-exception-beautifier .beautifier-line-number {
@@ -107,4 +113,20 @@
 
 .plugin-exception-beautifier .beautifier-number {
     color: #2196F3;
+}
+
+.plugin-exception-beautifier .beautifier-raw-content {
+    background: #fff;
+    font-family: monospace;
+    padding: 20px;
+    white-space: nowrap;
+
+    width: 100%;
+    overflow: auto;
+}
+
+.plugin-exception-beautifier .beautifier-raw-content br {
+    content: '';
+    display: block;
+    margin-bottom: 15px;
 }
