@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'Logrīka virsraksts ir obligāts.',
         'status' => [
             'widget_title_default' => 'Sistēmas statuss',
-            'online' => 'online',
-            'maintenance' => 'atkopšana',
             'update_available' => '{0} atjauninājumi pieejami!|{1} atjauninājums pieejams!|[2,Inf] atjauninājumi pieejami!'
         ]
     ],

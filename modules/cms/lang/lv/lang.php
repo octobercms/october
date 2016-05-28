@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Tika veiksmīgi izdzēstas veidnes: :count.',
         'file_name_required' => 'Faila nosaukuma lauks ir obligāts.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'online',
+            'maintenance' => 'atkopšana',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "Tēma ':name' netika atrasta.",
         'active' => [

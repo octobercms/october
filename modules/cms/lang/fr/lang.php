@@ -13,6 +13,12 @@ return [
         'file_name_required' => 'Le nom du fichier est requis.',
         'safe_mode_enabled' => 'Le mode protégé est activé.',
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'en ligne',
+            'maintenance' => 'en cours de maintenance',
+        ]
+    ],
     'theme' => [
         'not_found_name' => 'Le thème ":name" n’a pas été trouvé.',
         'active' => [

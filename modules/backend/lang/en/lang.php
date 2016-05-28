@@ -67,11 +67,29 @@ return [
         'widget_title_error' => 'The Widget Title is required.',
         'status' => [
             'widget_title_default' => 'System status',
-            'online' => 'online',
-            'maintenance' => 'in maintenance',
-            'update_available' => '{0} updates available!|{1} update available!|[2,Inf] updates available!'
+            'update_available' => '{0} updates available!|{1} update available!|[2,Inf] updates available!',
+            'updates_pending' => 'Pending software updates',
+            'updates_nil' => 'Software is up to date',
+            'updates_link' => 'Update',
+            'warnings_pending' => 'Some issues need attention',
+            'warnings_nil' => 'No warnings to display',
+            'warnings_link' => 'View',
+            'core_build' => 'System build',
+            'event_log' => 'Event log',
+            'request_log' => 'Request log',
+            'app_birthday' => 'Online since',
+        ],
+        'welcome' => [
+            'widget_title_default' => 'Welcome',
+            'welcome_back_name' => 'Welcome back to :app, :name.',
+            'welcome_to_name' => 'Welcome to :app, :name.',
+            'first_sign_in' => 'This is the first time you have signed in.',
+            'last_sign_in' => 'Your last sign in was',
+            'view_access_logs' => 'View access logs',
+            'nice_message' => 'Have a great day!',
         ]
     ],
+
     'user' => [
         'name' => 'Administrator',
         'menu_label' => 'Administrators',

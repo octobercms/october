@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'O τίτλος του Widget είναι απαραίτητος.',
         'status' => [
             'widget_title_default' => 'Κατάσταση συστήματος',
-            'online' => 'ενεργό',
-            'maintenance' => 'σε συντήρηση',
             'update_available' => '{0} διαθέσιμες ενημερώσεις!|{1} διαθέσιμη ενημέρωση!|[2,Inf] διαθέσιμες ενημερώσεις!',
         ]
     ],

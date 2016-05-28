@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'Le titre du Widget est obligatoire.',
         'status' => [
             'widget_title_default' => 'État du système',
-            'online' => 'en ligne',
-            'maintenance' => 'en cours de maintenance',
             'update_available' => '{0} mise à jour disponible !|{1} mise à jour disponible !|[2,Inf] mises à jour disponibles !'
         ]
     ],

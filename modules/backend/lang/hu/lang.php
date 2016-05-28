@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'A widget címének megadása kötelező.',
         'status' => [
             'widget_title_default' => 'Rendszer állapota',
-            'online' => 'online',
-            'maintenance' => 'karbantartás',
             'update_available' => '{0} frissítés érhető el!|{1} frissítés érhető el!|[2,Inf] frissítés érhető el!'
         ]
     ],

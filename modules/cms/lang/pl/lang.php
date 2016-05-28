@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Szablony zostały prawidłowo usunięte: :count.',
         'file_name_required' => 'Pole Nazwa Pliku jest wymagane.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'online',
+            'maintenance' => 'w konserwacji',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "Motyw ':name' nie został odnaleziony.",
         'active' => [

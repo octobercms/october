@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Templates zijn succesvol verwijderd: :count.',
         'file_name_required' => 'Het invullen van een bestandsnaam is verplicht.',
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'online',
+            'maintenance' => 'in onderhoud',
+        ]
+    ],
     'theme' => [
         'not_found_name' => 'Het thema \':name\' is niet gevonden.',
         'active' => [

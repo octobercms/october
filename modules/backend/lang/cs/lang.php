@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'Musíte zadat název widgetu',
         'status' => [
             'widget_title_default' => 'Status systému',
-            'online' => 'online',
-            'maintenance' => 'v údržbě',
             'update_available' => '{0} dostupných aktualizací!|{1} dostupná aktualizace!|[2,Inf] dostupných aktualizací!'
         ]
     ],

@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Template eliminati correttamente: :count.',
         'file_name_required' => 'Il campo Nome file è obbligatorio.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'online',
+            'maintenance' => 'in manutenzione',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "Tema ':name' non trovato.",
         'active' => [

@@ -13,6 +13,14 @@ return [
         'file_name_required' => 'The File Name field is required.',
         'safe_mode_enabled' => 'Safe mode is currently enabled.',
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'widget_title_default' => 'Website',
+            'online' => 'Online',
+            'maintenance' => 'In maintenance',
+            'manage_themes' => 'Manage themes',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "The theme ':name' is not found.",
         'active' => [

@@ -1,11 +1,13 @@
 <?php namespace System\ReportWidgets;
 
+use Lang;
 use BackendAuth;
 use System\Models\Parameters;
 use System\Classes\UpdateManager;
 use Backend\Classes\ReportWidgetBase;
 use System\Models\EventLog;
 use System\Models\RequestLog;
+use System\Models\PluginVersion;
 use Exception;
 
 /**
@@ -16,6 +18,11 @@ use Exception;
  */
 class Status extends ReportWidgetBase
 {
+    /**
+     * @var string A unique alias to identify this widget.
+     */
+    protected $defaultAlias = 'status';
+
     /**
      * Renders the widget.
      */
@@ -49,9 +56,54 @@ class Status extends ReportWidgetBase
         $manager = UpdateManager::instance();
         $this->vars['canUpdate'] = BackendAuth::getUser()->hasAccess('system.manage_updates');
         $this->vars['updates'] = $manager->check();
-        $this->vars['warnings'] = false;
+        $this->vars['warnings'] = $this->getSystemWarnings();
         $this->vars['coreBuild'] = Parameters::get('system::core.build');
         $this->vars['eventLog'] = EventLog::count();
         $this->vars['requestLog'] = RequestLog::count();
+        $this->vars['appBirthday'] = PluginVersion::orderBy('created_at')->pluck('created_at');
+    }
+
+    public function onLoadWarningsForm()
+    {
+        $this->vars['warnings'] = $this->getSystemWarnings();
+        return $this->makePartial('warnings_form');
+    }
+
+    protected function getSystemWarnings()
+    {
+        $warnings = [];
+
+        $writablePaths = [
+            temp_path(),
+            themes_path(),
+            storage_path(),
+            storage_path('app'),
+            storage_path('logs'),
+            storage_path('framework'),
+            storage_path('cms'),
+            storage_path('cms/cache'),
+            storage_path('cms/twig'),
+            storage_path('cms/combiner'),
+        ];
+        $requiredExtensions = [
+            'GD' => extension_loaded('gd'),
+            'fileinfo' => extension_loaded('fileinfo'),
+            'Zip' => class_exists('ZipArchive'),
+            'cURL' => function_exists('curl_init') && defined('CURLOPT_FOLLOWLOCATION'),
+            'OpenSSL' => function_exists('openssl_random_pseudo_bytes'),
+        ];
+
+        foreach ($writablePaths as $path) {
+            if (!is_writable($path)) {
+                $warnings[] = Lang::get('backend::lang.warnings.permissions', ['name' => '<strong>'.$path.'</strong>']);
+            }
+        }
+        foreach ($requiredExtensions as $extension => $installed) {
+            if (!$installed) {
+                $warnings[] = Lang::get('backend::lang.warnings.extension', ['name' => '<strong>'.$extension.'</strong>']);
+            }
+        }
+
+        return $warnings;
     }
 }

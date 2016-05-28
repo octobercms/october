@@ -12,6 +12,12 @@ return [
         'delete_success'           => 'Los templates fueron borrados satisfactoriamente: :count.',
         'file_name_required'       => 'Falta el nombre del campo del archivo.',
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'en línea',
+            'maintenance' => 'en mantenimiento',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "El tema ':name' no se ha encontrado.",
         'active' => [

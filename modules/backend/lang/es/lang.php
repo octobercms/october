@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'El título del módulo es obligatorio.',
         'status'                       => [
             'widget_title_default' => 'Estado del sistema',
-            'online' => 'en línea',
-            'maintenance' => 'en mantenimiento',
             'update_available' => '{0} actualizaciones disponibles!|{1} actualización disponible!|[2,Inf] actualizaciones disponibles!'
         ]
     ],

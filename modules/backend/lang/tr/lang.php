@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'Eklenti Başlığı gerekli.',
         'status' => [
             'widget_title_default' => 'Sistem durumu',
-            'online' => 'yayında',
-            'maintenance' => 'bakım modunda',
             'update_available' => '{0} güncelleme var!|{1} güncelleme var!|[2,Inf] güncelleme var!'
         ]
     ],

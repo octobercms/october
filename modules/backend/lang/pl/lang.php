@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'Nazwa widgetu jest wymagana.',
         'status' => [
             'widget_title_default' => 'Status systemu',
-            'online' => 'online',
-            'maintenance' => 'w konserwacji',
             'update_available' => '{0} dostępnych aktualizacji!|{1} dostępna aktualizacja!|[2,Inf] dostępne aktualizacje!'
         ]
     ],

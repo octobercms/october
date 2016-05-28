@@ -309,7 +309,7 @@
 
     li {
         margin: 0;
-        padding: 7px 15px;
+        padding: 7px 15px 6px;
         list-style: none;
         display: block;
         font-size: @font-size-base - 1;
@@ -322,6 +322,7 @@
 
         a {
             color: @color-status-list-text;
+            text-decoration: none;
             &:hover {
                 color: @link-color;
                 text-decoration: none;
@@ -343,7 +344,6 @@
             float: right;
             display: inline-block;
             padding: 1px 5px;
-            font-size: @font-size-base;
             .border-radius(@border-radius-base);
 
             &:not(.link) {

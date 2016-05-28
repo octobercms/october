@@ -64,8 +64,6 @@ return [
         'widget_title_error' => 'Tajuk gawit diperlukan.',
         'status' => [
             'widget_title_default' => 'Status sistem',
-            'online' => 'daring',
-            'maintenance' => 'dalam perawatan',
             'update_available' => '{0} pembaruan tersedia!|{1} pembaruan tersedia!|[2,Inf] pembaruan tersedia!'
         ]
     ],

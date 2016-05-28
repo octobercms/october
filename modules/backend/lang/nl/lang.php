@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'Een widget titel is verplicht.',
         'status' => [
             'widget_title_default' => 'Systeemstatus',
-            'online' => 'online',
-            'maintenance' => 'in onderhoud',
             'update_available' => '{0} updates beschikbaar!|{1} update beschikbaar!|[2,Inf] updates beschikbaar!',
         ],
     ],

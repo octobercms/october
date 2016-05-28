@@ -13,6 +13,12 @@ return [
         'file_name_required' => 'A Fájlnév mező kitöltése kötelező.',
         'safe_mode_enabled' => 'A biztonságos mód jelenleg engedélyezett.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'online',
+            'maintenance' => 'karbantartás',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "A következő sablon nem található: ':name'",
         'active' => [
