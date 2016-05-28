@@ -369,9 +369,13 @@ if (window.jQuery === undefined)
         $(this).request()
     })
 
-    $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function documentOnClick() {
+    $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function documentOnClick(e) {
+        e.preventDefault()
+
         $(this).request()
-        return false
+
+        if ($(this).is('[type=submit]'))
+            return false
     })
 
     $(document).on('keydown', 'input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]', function documentOnKeydown(e) {
@@ -385,11 +389,12 @@ if (window.jQuery === undefined)
     })
 
     $(document).on('keyup', 'input[data-request][data-track-input]', function documentOnKeyup(e) {
-        if (!$(this).is('[type=email],[type=number],[type=password],[type=search],[type=text]')) return
-
         var
             $el = $(this),
             lastValue = $el.data('oc.lastvalue')
+
+        if (!$el.is('[type=email],[type=number],[type=password],[type=search],[type=text]'))
+            return
 
         if (lastValue !== undefined && lastValue == this.value)
             return
