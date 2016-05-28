@@ -221,10 +221,6 @@ class UpdateManager
             'force' => $force
         ];
 
-        if ($projectId = Parameters::get('system::project.id')) {
-            $params['project'] = $projectId;
-        }
-
         $result = $this->requestServerData('core/update', $params);
         $updateCount = (int) array_get($result, 'update', 0);
 
@@ -776,10 +772,6 @@ class UpdateManager
     {
         $filePath = $this->getFilePath($fileCode);
 
-        if ($projectId = Parameters::get('system::project.id')) {
-            $postData['project'] = $projectId;
-        }
-
         $result = Http::post($this->createServerUrl($uri), function ($http) use ($postData, $filePath) {
             $this->applyHttpAttributes($http, $postData);
             $http->toFile($filePath);
@@ -841,6 +833,11 @@ class UpdateManager
     protected function applyHttpAttributes($http, $postData)
     {
         $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => URL::to('/')]));
+
+        if ($projectId = Parameters::get('system::project.id')) {
+            $postData['project'] = $projectId;
+        }
+
         if (Config::get('cms.edgeUpdates', false)) {
             $postData['edge'] = 1;
         }
