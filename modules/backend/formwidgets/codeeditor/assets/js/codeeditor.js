@@ -340,6 +340,14 @@
         })
     }
 
+    CodeEditor.prototype.getContent = function() {
+        return this.editor.getSession().getValue()
+    }
+
+    CodeEditor.prototype.setContent = function(html) {
+        this.editor.getSession().setValue(html)
+    }
+
     CodeEditor.prototype.getEditorObject = function() {
         return this.editor
     }

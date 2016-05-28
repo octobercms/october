@@ -4713,6 +4713,8 @@ renderer.setPrintMarginColumn(80)
 break}}
 CodeEditor.prototype.setTheme=function(theme){var self=this
 assetManager.load({js:[this.options.vendorPath+'/theme-'+theme+'.js']},function(){self.editor.setTheme('ace/theme/'+theme)})}
+CodeEditor.prototype.getContent=function(){return this.editor.getSession().getValue()}
+CodeEditor.prototype.setContent=function(html){this.editor.getSession().setValue(html)}
 CodeEditor.prototype.getEditorObject=function(){return this.editor}
 CodeEditor.prototype.getToolbar=function(){return this.$toolbar}
 CodeEditor.prototype.toggleFullscreen=function(){this.$el.toggleClass('editor-fullscreen')

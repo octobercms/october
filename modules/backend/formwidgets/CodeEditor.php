@@ -63,9 +63,19 @@ class CodeEditor extends FormWidgetBase
     public $margin = 0;
 
     /**
-     * @var $theme Ace Editor theme to use.
+     * @var string Ace Editor theme to use.
      */
     public $theme = 'twilight';
+
+    /**
+     * @var bool Show invisible characters.
+     */
+    public $showInvisibles = false;
+
+    /**
+     * @var bool Highlight the active line.
+     */
+    public $highlightActiveLine = true;
 
     /**
      * @var boolean If true, the editor is set to read-only mode
@@ -119,6 +129,8 @@ class CodeEditor extends FormWidgetBase
             'fontSize',
             'margin',
             'theme',
+            'showInvisibles',
+            'highlightActiveLine',
             'readOnly',
             'autocompletion',
             'enableSnippets',
