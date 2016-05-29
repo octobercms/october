@@ -74,7 +74,7 @@ return [
         'make_default_success' => 'La maquette actuelle est définie comme celle par défaut',
         'status' => [
             'widget_title_default' => 'État du système',
-            'update_available' => '{0} mise à jour disponible !|{1} mise à jour disponible !|[2,Inf] mises à jour disponibles !'
+            'update_available' => '{0} mise à jour disponible !|{1} mise à jour disponible !|[2,Inf] mises à jour disponibles !',
             'updates_pending' => 'Mises à jour du logiciel en attente',
             'updates_nil' => 'Le logiciel est à jour',
             'updates_link' => 'Mettre à jour',
@@ -471,6 +471,6 @@ return [
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, européen occidental révisé avec le signe euro)',
             'windows_1251' => 'Windows-1251 (CP1251)',
             'windows_1252' => 'Windows-1252 (CP1252)'
-        ],
-    ],
+        ]
+    ]
 ];
