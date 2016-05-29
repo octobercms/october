@@ -403,6 +403,7 @@
 
         this.initRulers()
         this.initJCrop()
+        this.applySelectionMode()
     }
 
     MediaManagerImageCropPopup.prototype.onSelectionModeChanged = function() {
