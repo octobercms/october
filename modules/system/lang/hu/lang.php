@@ -256,7 +256,7 @@ return [
         'force_label' => 'Frissítés kényszerítése',
         'found' => [
             'label' => 'Új verzió elérhető!',
-            'help' => 'Töltse le a legújabb frissítéseket, hogy weboldala egyre jobbá váljon és hatékonyan segítse a munkáját.'
+            'help' => 'Töltse le a legújabb frissítéseket.'
         ],
         'none' => [
             'label' => 'A weboldal naprakész',
