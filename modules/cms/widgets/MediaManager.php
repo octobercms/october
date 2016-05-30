@@ -1179,9 +1179,11 @@ class MediaManager extends WidgetBase
                 throw new SystemException('Invalid selection data.');
             }
 
-            if (!ctype_digit($selectionData[$paramName])) {
+            if (!is_numeric($selectionData[$paramName])) {
                 throw new SystemException('Invalid selection data.');
             }
+
+            $selectionData[$paramName] = (int) $selectionData[$paramName];
         }
 
         $sessionDirectoryPath = $this->getCropSessionDirPath($cropSessionKey);
