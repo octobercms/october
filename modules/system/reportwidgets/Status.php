@@ -2,7 +2,7 @@
 
 use Lang;
 use BackendAuth;
-use System\Models\Parameters;
+use System\Models\Parameter;
 use System\Classes\UpdateManager;
 use Backend\Classes\ReportWidgetBase;
 use System\Models\EventLog;
@@ -57,7 +57,7 @@ class Status extends ReportWidgetBase
         $this->vars['canUpdate'] = BackendAuth::getUser()->hasAccess('system.manage_updates');
         $this->vars['updates'] = $manager->check();
         $this->vars['warnings'] = $this->getSystemWarnings();
-        $this->vars['coreBuild'] = Parameters::get('system::core.build');
+        $this->vars['coreBuild'] = Parameter::get('system::core.build');
         $this->vars['eventLog'] = EventLog::count();
         $this->vars['requestLog'] = RequestLog::count();
         $this->vars['appBirthday'] = PluginVersion::orderBy('created_at')->pluck('created_at');

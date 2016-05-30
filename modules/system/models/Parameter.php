@@ -11,7 +11,7 @@ use Exception;
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-class Parameters extends Model
+class Parameter extends Model
 {
     use \October\Rain\Support\Traits\KeyParser;
 

@@ -11,7 +11,7 @@ use Schema;
 use Config;
 use ApplicationException;
 use Cms\Classes\ThemeManager;
-use System\Models\Parameters;
+use System\Models\Parameter;
 use System\Models\PluginVersion;
 use System\Helpers\Cache as CacheHelper;
 use October\Rain\Filesystem\Zip;
@@ -141,7 +141,7 @@ class UpdateManager
             $this->updatePlugin($plugin);
         }
 
-        Parameters::set('system::update.count', 0);
+        Parameter::set('system::update.count', 0);
         CacheHelper::clear();
 
         /*
@@ -168,7 +168,7 @@ class UpdateManager
         /*
          * Already know about updates, never retry.
          */
-        $oldCount = Parameters::get('system::update.count');
+        $oldCount = Parameter::get('system::update.count');
         if ($oldCount > 0) {
             return $oldCount;
         }
@@ -176,7 +176,7 @@ class UpdateManager
         /*
          * Retry period not passed, skipping.
          */
-        if (!$force && ($retryTimestamp = Parameters::get('system::update.retry'))) {
+        if (!$force && ($retryTimestamp = Parameter::get('system::update.retry'))) {
             if (Carbon::createFromTimeStamp($retryTimestamp)->isFuture()) {
                 return $oldCount;
             }
@@ -193,8 +193,8 @@ class UpdateManager
         /*
          * Remember update count, set retry date
          */
-        Parameters::set('system::update.count', $newCount);
-        Parameters::set('system::update.retry', Carbon::now()->addHours(24)->timestamp);
+        Parameter::set('system::update.count', $newCount);
+        Parameter::set('system::update.retry', Carbon::now()->addHours(24)->timestamp);
 
         return $newCount;
     }
@@ -212,7 +212,7 @@ class UpdateManager
         $icons = $installed->lists('icon', 'code');
         $frozen = $installed->lists('is_frozen', 'code');
         $updatable = $installed->lists('is_updatable', 'code');
-        $build = Parameters::get('system::core.build');
+        $build = Parameter::get('system::core.build');
 
         $params = [
             'core' => $this->getHash(),
@@ -228,7 +228,7 @@ class UpdateManager
          * Inject known core build
          */
         if ($core = array_get($result, 'core')) {
-            $core['old_build'] = Parameters::get('system::core.build');
+            $core['old_build'] = Parameter::get('system::core.build');
             $result['core'] = $core;
         }
 
@@ -283,7 +283,7 @@ class UpdateManager
         $updateCount += count($themes);
         $result['hasUpdates'] = $updateCount > 0;
         $result['update'] = $updateCount;
-        Parameters::set('system::update.count', $updateCount);
+        Parameter::set('system::update.count', $updateCount);
 
         return $result;
     }
@@ -352,7 +352,7 @@ class UpdateManager
      */
     public function getHash()
     {
-        return Parameters::get('system::core.hash', md5('NULL'));
+        return Parameter::get('system::core.hash', md5('NULL'));
     }
 
     /**
@@ -419,7 +419,7 @@ class UpdateManager
         // Database may fall asleep after this long process
         Db::reconnect();
 
-        Parameters::set([
+        Parameter::set([
             'system::core.hash'  => $hash,
             'system::core.build' => $build
         ]);
@@ -834,7 +834,7 @@ class UpdateManager
     {
         $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => URL::to('/')]));
 
-        if ($projectId = Parameters::get('system::project.id')) {
+        if ($projectId = Parameter::get('system::project.id')) {
             $postData['project'] = $projectId;
         }
 

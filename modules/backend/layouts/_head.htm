@@ -11,7 +11,7 @@
     <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSetting::get('app_name')) ?>
 </title>
 <?php
-    $coreBuild = System\Models\Parameters::get('system::core.build', 1);
+    $coreBuild = System\Models\Parameter::get('system::core.build', 1);
 ?>
 <link href="<?= URL::asset('modules/system/assets/ui/storm.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
 <link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">

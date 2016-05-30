@@ -9,7 +9,7 @@ use Cache;
 use Event;
 use Config;
 use Cms\Models\ThemeData;
-use System\Models\Parameters;
+use System\Models\Parameter;
 use October\Rain\Halcyon\Datasource\FileDatasource;
 use ApplicationException;
 use SystemException;
@@ -150,11 +150,11 @@ class Theme
         if (App::hasDatabase()) {
             try {
                 $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function() {
-                    return Parameters::applyKey(self::ACTIVE_KEY)->pluck('value');
+                    return Parameter::applyKey(self::ACTIVE_KEY)->pluck('value');
                 });
             }
             catch (Exception $ex) {
-                $dbResult = Parameters::applyKey(self::ACTIVE_KEY)->pluck('value');
+                $dbResult = Parameter::applyKey(self::ACTIVE_KEY)->pluck('value');
             }
 
             if ($dbResult !== null && static::exists($dbResult)) {
@@ -204,7 +204,7 @@ class Theme
     {
         self::resetCache();
 
-        Parameters::set(self::ACTIVE_KEY, $code);
+        Parameter::set(self::ACTIVE_KEY, $code);
 
         Event::fire('cms.theme.setActiveTheme', compact('code'));
     }

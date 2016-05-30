@@ -7,7 +7,7 @@ use Request;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
 use Backend\Models\UserPreference;
-use System\Models\Parameters as SystemParameters;
+use System\Models\Parameter as SystemParameters;
 use ApplicationException;
 
 /**

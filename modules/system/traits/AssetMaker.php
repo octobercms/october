@@ -2,7 +2,7 @@
 
 use Url;
 use Html;
-use System\Models\Parameters;
+use System\Models\Parameter;
 use System\Models\PluginVersion;
 
 /**
@@ -244,7 +244,7 @@ trait AssetMaker
             $build = $asset['attributes']['build'];
 
             if ($build == 'core') {
-                $build = 'v' . Parameters::get('system::core.build', 1);
+                $build = 'v' . Parameter::get('system::core.build', 1);
             }
             elseif ($pluginVersion = PluginVersion::getVersion($build)) {
                 $build = 'v' . $pluginVersion;
