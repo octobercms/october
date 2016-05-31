@@ -49,7 +49,7 @@ class ThemeData extends Model
         /*
          * Dynamic attributes are stored in the jsonable attribute 'data'.
          */
-        $staticAttributes = ['id', 'theme', 'data'];
+        $staticAttributes = ['id', 'theme', 'data', 'created_at', 'updated_at'];
         $dynamicAttributes = array_except($this->getAttributes(), $staticAttributes);
 
         $this->data = $dynamicAttributes;
