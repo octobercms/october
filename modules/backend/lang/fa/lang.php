@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'گزینه "عنوان ابزارک" حتما باید وارد شود.',
         'status' => [
             'widget_title_default' => 'وضعیت سیستم',
-            'online' => 'online',
-            'maintenance' => 'در حال به روز رسانی',
             'update_available' => '{0} به روز رسانی موجود است!|{1} به روز رسانی موجود است!|[2,Inf] به روز رسانی موجود است!',
         ]
     ],

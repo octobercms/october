@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'Il titolo del widget è un campo obbligatorio.',
         'status' => [
             'widget_title_default' => 'Stato del sistema',
-            'online' => 'online',
-            'maintenance' => 'in manutenzione',
             'update_available' => '{0} aggiornamenti disponibili!|{1} aggiornamento disponibile!|[2,Inf] aggiornamenti disponibili!'
         ]
     ],

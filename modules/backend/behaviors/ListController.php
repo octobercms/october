@@ -190,6 +190,11 @@ class ListController extends ControllerBehavior
                     return $widget->onRefresh();
                 });
 
+                $widget->setSearchOptions([
+                    'mode' => $searchWidget->mode,
+                    'scope' => $searchWidget->scope,
+                ]);
+
                 // Find predefined search term
                 $widget->setSearchTerm($searchWidget->getActiveTerm());
             }

@@ -1,5 +1,6 @@
 <?php namespace Cms\Widgets;
 
+use App;
 use Str;
 use Lang;
 use Input;
@@ -102,7 +103,7 @@ class ComponentList extends WidgetBase
             foreach ($components as $componentInfo) {
                 $className = $componentInfo->className;
                 $alias = $componentInfo->alias;
-                $component = new $className();
+                $component = App::make($className);
 
                 if ($component->isHidden) {
                     continue;

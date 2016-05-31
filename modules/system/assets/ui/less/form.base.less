@@ -122,7 +122,6 @@ output {
     color: @input-color;
     background-color: @input-bg;
     background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
-    border: 2px solid @input-border;
     .border-radius(@input-border-radius);
     .transition(@input-transition);
 
@@ -142,6 +141,7 @@ output {
     fieldset[disabled] & {
         cursor: not-allowed;
         background-color: @input-bg-disabled;
+        color: @input-color-disabled;
         opacity: 1; // iOS fix for unreadable disabled content
     }
 

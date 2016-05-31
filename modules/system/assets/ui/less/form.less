@@ -34,6 +34,22 @@
     &.form-flush {
         border-top: none;
     }
+
+    // Style primary tabs
+    .control-tabs.primary-tabs {
+        > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
+            > li a > span.title {
+                &:before, &:after {
+                    background: white;
+                }
+            }
+            > li.active a {
+                &:before {
+                    background-color: white;
+                }
+            }
+        }
+    }
 }
 
 //
@@ -47,9 +63,11 @@
 .form-control {
     position: relative;
     -webkit-appearance: none;
+    border: 1px solid @input-border;
+    .box-shadow(@input-box-shadow);
 
     &:focus {
-        border: 2px solid @color-form-field-border-focus;
+        border: 1px solid @color-form-field-border-focus;
     }
 
     &.icon {
@@ -131,7 +149,11 @@
     }
 
     &.checkbox-align {
-        padding-left: 34px;
+        padding-left: 28px;
+        margin-top: -5px;
+    }
+
+    &.field-align-above {
         margin-top: -5px;
     }
 
@@ -166,9 +188,12 @@
 .form-group-preview {
 
     .form-control {
-        background-color: @color-form-field-preview;
+        background-color: @color-form-field-preview-bg;
+        color: @color-form-field-preview-text;
         height: auto;
         min-height: 38px;
+        border-color: #eee;
+        .box-shadow(none);
     }
 
     .custom-checkbox,
@@ -191,11 +216,12 @@
 
     > .icon {
         position: absolute;
-        z-index: 2;
+        z-index: @zindex-form;
         padding: 13px;
         pointer-events: none;
         color: @color-form-field-icon;
         font-size: 15px;
+        margin-top: -1px;
     }
 
     &.right-align {
@@ -265,18 +291,25 @@
     &.size-giant { min-height: @size-giant; }
 }
 
-.field-checkboxlist {
+.field-checkboxlist:not(.is-scrollable) {
     padding: 20px 20px 2px 20px;
     .border-radius(@border-radius-base);
     background: @color-form-checkboxlist-background;
+    border: 1px solid @color-form-checkboxlist-border;
 
-    .checkbox:last-of-type {
-        margin-bottom: 0;
+    //.checkbox:last-of-type {
+    //    margin-bottom: 0;
+    //}
+}
+
+.field-checkboxlist.is-scrollable {
+    small {
+        color: @text-muted;
     }
 }
 
 .field-checkboxlist-scrollable {
-    background: white;
+    background: @color-form-checkboxlist-background;
     border: 1px solid @color-form-checkboxlist-border;
     padding-left: 15px;
     height: @size-large + 100;
@@ -296,6 +329,9 @@
     border: 1px solid @color-form-field-border;
     overflow: hidden;
     position: relative;
+    .box-shadow(@input-box-shadow);
+    .border-radius(@input-border-radius);
+
     .form-control {
         background: transparent;
         border-color: transparent;
@@ -303,16 +339,20 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        padding: 8px 30px 10px 11px;
+        padding: 7px 30px 7px 11px;
+        .box-shadow(none);
     }
     .btn {
         background: transparent;
         position: absolute;
         right: -2px;
         top: 50%;
-        margin-top: -44px;
+        margin-top: -43px;
         height: 88px;
         color: lighten(@color-form-field-recordfinder-btn, 15%);
+        text-shadow: none;
+        padding-left: 15px;
+        padding-right: 15px;
 
         i {
             font-size: 14px;
@@ -348,7 +388,7 @@
     font-size: 0;
 
     .btn {
-        margin-right: 20px;
+        margin-right: 15px;
 
         &.no-margin-right {
             margin-right: 0;
@@ -397,7 +437,7 @@ body.slim-container {
 }
 
 .select2-dropdown {
-    z-index: 10000;
+    z-index: @zindex-select;
 }
 
 //

@@ -229,7 +229,7 @@ abstract class WidgetBase
         $currentStore = $this->getSession();
         $currentStore[$key] = $value;
 
-        Session::put($sessionId, serialize($currentStore));
+        Session::put($sessionId, base64_encode(serialize($currentStore)));
     }
 
     /**
@@ -241,10 +241,13 @@ abstract class WidgetBase
     protected function getSession($key = null, $default = null)
     {
         $sessionId = $this->makeSessionId();
-
         $currentStore = [];
-        if (Session::has($sessionId)) {
-            $currentStore = unserialize(Session::get($sessionId));
+
+        if (
+            Session::has($sessionId) &&
+            ($cached = @unserialize(@base64_decode(Session::get($sessionId)))) !== false
+        ) {
+            $currentStore = $cached;
         }
 
         if ($key === null) {

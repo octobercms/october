@@ -45,13 +45,12 @@
 
     .select2-search--dropdown {
         position: relative;
-        padding: 9px;
 
         &:after {
             position: absolute;
             .icon(@search);
-            right: 19px;
-            top: 15px;
+            right: 13px;
+            top: 9px;
             color: #95a5a6;
         }
 
@@ -167,14 +166,14 @@
         // Handle border radii of the container when the dropdown is showing.
         //
         &.select2-container--below {
-            .select2-selection {
+            .select2-selection:not(.select-no-dropdown) {
                 .border-bottom-radius(0);
                 border-bottom-color: transparent;
             }
         }
 
         &.select2-container--above {
-            .select2-selection {
+            .select2-selection:not(.select-no-dropdown) {
                 .border-top-radius(0);
                 border-top-color: transparent;
             }
@@ -224,7 +223,6 @@
         border-color: @input-border-focus;
         overflow-x: hidden;
         margin-top: -1px;
-        border-width: 2px;
         &--above {
             margin-top: 1px;
             .box-shadow(@select-box-shadow-above);
@@ -235,6 +233,19 @@
         font-size: @input-font-size;
         max-height: 200px;
         overflow-y: auto;
+    }
+
+    // No Dropdown
+    //------------------------------------
+
+    .select2-dropdown.select-no-dropdown {
+        display: none !important;
+    }
+
+    .select2-dropdown.select-hide-selected {
+        li[aria-selected=true] {
+            display: none !important;
+        }
     }
 
     // Single select
@@ -528,7 +539,7 @@
     display: table;
     table-layout: fixed;
     position: relative;
-    z-index: 2;
+    z-index: @zindex-form;
     float: left;
     width: 100%;
     margin-bottom: 0;

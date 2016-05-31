@@ -56,6 +56,10 @@
     .button-variant(@btn-primary-color; lighten(@btn-primary-bg, 5%); @btn-primary-border; @btn-primary-bg; @btn-primary-bg);
     font-weight: bold;
 }
+.btn-secondary {
+    .button-variant(#000; lighten(@btn-secondary-bg, 5%); @btn-secondary-border; @btn-secondary-bg; @btn-secondary-bg);
+    color: @btn-secondary-color;
+}
 // Success appears as green
 .btn-success {
     .button-variant(@btn-success-color; @btn-default-bg; @btn-success-border; @btn-success-bg; @btn-success-bg);
@@ -71,6 +75,32 @@
 // Danger and error appear as red
 .btn-danger {
     .button-variant(@btn-danger-color; @btn-default-bg; @btn-danger-border; @btn-danger-bg; @btn-danger-bg);
+}
+
+
+// Outline buttons
+// --------------------------------------------------
+
+.btn-outline-default {
+    .button-outline-variant(@btn-default-bg);
+}
+.btn-outline-primary {
+    .button-outline-variant(@btn-primary-bg);
+}
+.btn-outline-secondary {
+    .button-outline-variant(darken(@btn-secondary-bg, 15%));
+}
+.btn-outline-info {
+    .button-outline-variant(@btn-info-bg);
+}
+.btn-outline-success {
+    .button-outline-variant(@btn-success-bg);
+}
+.btn-outline-warning {
+    .button-outline-variant(@btn-warning-bg);
+}
+.btn-outline-danger {
+    .button-outline-variant(@btn-danger-bg);
 }
 
 

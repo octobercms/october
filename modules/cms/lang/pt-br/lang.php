@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Templates apagados com sucesso: :count.',
         'file_name_required' => 'O campo de Nome do Arquivo é necessário.',
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'online',
+            'maintenance' => 'em manutenção',
+        ]
+    ],
     'theme' => [
         'not_found_name' => 'O tema ":name" não foi encontrado.',
         'active' => [

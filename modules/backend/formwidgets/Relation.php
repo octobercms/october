@@ -2,6 +2,7 @@
 
 use Db;
 use Lang;
+use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 use ApplicationException;
 use SystemException;
@@ -153,6 +154,10 @@ class Relation extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
+        if ($this->formField->disabled || $this->formField->hidden) {
+            return FormField::NO_SAVE_DATA;
+        }
+
         if (is_string($value) && !strlen($value)) {
             return null;
         }

@@ -235,9 +235,15 @@
     // ====================
 
     $(document).ready(function(){
-        if (Modernizr.touch || (typeof(localStorage) !== 'undefined' && localStorage.ocSidePanelFixed == 1)) {
-            $(document.body).removeClass('side-panel-not-fixed')
-            $(window).trigger('resize')
+        if (Modernizr.touch || (typeof(localStorage) !== 'undefined')) {
+            if (localStorage.ocSidePanelFixed == 0) {
+                $(document.body).addClass('side-panel-not-fixed')
+                $(window).trigger('resize')
+            }
+            else if (localStorage.ocSidePanelFixed == 1) {
+                $(document.body).removeClass('side-panel-not-fixed')
+                $(window).trigger('resize')
+            }
         }
     })
 }(window.jQuery);

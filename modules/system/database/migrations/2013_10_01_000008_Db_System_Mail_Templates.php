@@ -1,13 +1,13 @@
 <?php
 
+use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
 class DbSystemMailTemplates extends Migration
 {
-
     public function up()
     {
-        Schema::create('system_mail_templates', function ($table) {
+        Schema::create('system_mail_templates', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('code')->nullable();

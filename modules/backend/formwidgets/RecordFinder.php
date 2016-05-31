@@ -53,6 +53,29 @@ class RecordFinder extends FormWidgetBase
      */
     public $prompt = 'Click the %s button to find a record';
 
+    /**
+     * @var string Use a custom scope method for the list query.
+     */
+    public $scope;
+
+    /**
+     * @var string Filters the relation using a raw where query statement.
+     */
+    public $conditions;
+
+    /**
+     * @var string If searching the records, specifies a policy to use.
+     * - all: result must contain all words
+     * - any: result can contain any word
+     * - exact: result must contain the exact phrase
+     */
+    public $searchMode;
+
+    /**
+     * @var string Use a custom scope method for performing searches.
+     */
+    public $searchScope;
+
     //
     // Object properties
     //
@@ -68,12 +91,12 @@ class RecordFinder extends FormWidgetBase
     public $relationModel;
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the widget used for viewing (list or form).
+     * @var \Backend\Classes\WidgetBase Reference to the widget used for viewing (list or form).
      */
     protected $listWidget;
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the widget used for searching.
+     * @var \Backend\Classes\WidgetBase Reference to the widget used for searching.
      */
     protected $searchWidget;
 
@@ -88,6 +111,10 @@ class RecordFinder extends FormWidgetBase
             'keyFrom',
             'nameFrom',
             'descriptionFrom',
+            'scope',
+            'conditions',
+            'searchMode',
+            'searchScope',
         ]);
 
         if (post('recordfinder_flag')) {
@@ -214,21 +241,30 @@ class RecordFinder extends FormWidgetBase
         $config->alias = $this->alias . 'List';
         $config->showSetup = false;
         $config->showCheckboxes = false;
-        $config->recordsPerPage = 20;
+        $config->recordsPerPage = 10;
         $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':" . $this->keyFrom . "')", $this->getId());
         $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 
-        // $widget->bindEvent('list.extendQueryBefore', function($query) {
+        $widget->setSearchOptions([
+            'mode' => $this->searchMode,
+            'scope' => $this->searchScope,
+        ]);
 
-        //     /*
-        //      * Where not in the current list of related records
-        //      */
-        //     $existingIds = $this->findExistingRelationIds();
-        //     if (count($existingIds)) {
-        //         $query->whereNotIn('id', $existingIds);
-        //     }
-
-        // });
+        if ($sqlConditions = $this->conditions) {
+            $widget->bindEvent('list.extendQueryBefore', function($query) use ($sqlConditions) {
+                $query->whereRaw($sqlConditions);
+            });
+        }
+        elseif ($scopeMethod = $this->scope) {
+            $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
+                $query->$scopeMethod();
+            });
+        }
+        else {
+            $widget->bindEvent('list.extendQueryBefore', function($query) {
+                $this->getRelationObject()->addDefinedConstraintsToQuery($query);
+            });
+        }
 
         return $widget;
     }

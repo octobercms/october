@@ -19,7 +19,7 @@ use System\Twig\Engine as TwigEngine;
 use System\Twig\Loader as TwigLoader;
 use System\Twig\Extension as TwigExtension;
 use System\Models\EventLog;
-use System\Models\MailSettings;
+use System\Models\MailSetting;
 use System\Models\MailTemplate;
 use System\Classes\CombineAssets;
 use Backend\Classes\WidgetManager;
@@ -207,7 +207,7 @@ class ServiceProvider extends ModuleServiceProvider
          * Add CMS based cache clearing to native command
          */
         Event::listen('cache:cleared', function() {
-            \System\Helpers\Cache::clear();
+            \System\Helpers\Cache::clearInternal();
         });
 
         /*
@@ -284,8 +284,8 @@ class ServiceProvider extends ModuleServiceProvider
          * Override system mailer with mail settings
          */
         Event::listen('mailer.beforeRegister', function () {
-            if (MailSettings::isConfigured()) {
-                MailSettings::applyConfigValues();
+            if (MailSetting::isConfigured()) {
+                MailSetting::applyConfigValues();
             }
         });
 
@@ -337,7 +337,6 @@ class ServiceProvider extends ModuleServiceProvider
                 'context' => 'dashboard'
             ]);
         });
-
     }
 
     /*
@@ -397,7 +396,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'system::lang.mail.menu_description',
                     'category'    => SettingsManager::CATEGORY_MAIL,
                     'icon'        => 'icon-envelope',
-                    'class'       => 'System\Models\MailSettings',
+                    'class'       => 'System\Models\MailSetting',
                     'permissions' => ['system.manage_mail_settings'],
                     'order'       => 600
                 ],

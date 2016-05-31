@@ -4,10 +4,11 @@
 
 .select-input-defaults() {
     background-color: @input-bg;
-    border: 2px solid @input-border;
+    border: 1px solid @input-border;
     border-radius: @input-border-radius;
     color: @input-color;
     font-size: @input-font-size;
+    .box-shadow(@input-box-shadow);
 }
 
 .validation-state-focus(@color) {

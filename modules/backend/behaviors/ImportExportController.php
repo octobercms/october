@@ -226,7 +226,8 @@ class ImportExportController extends ControllerBehavior
             $reader->setOffset(1);
         }
 
-        $data = $reader->setLimit(50)->fetchColumn((int) $columnId);
+        $result = $reader->setLimit(50)->fetchColumn((int) $columnId);
+        $data = iterator_to_array($result, false);
 
         /*
          * Clean up data

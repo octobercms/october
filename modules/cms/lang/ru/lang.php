@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Шаблоны были успешно удалены: :count.',
         'file_name_required' => 'Пожалуйста, укажите имя файла шаблона.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'Онлайн',
+            'maintenance' => 'в разработке',
+        ]
+    ],
     'theme' => [
       'not_found_name' => "Тема ':name' не найдена.",
         'active' => [

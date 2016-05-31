@@ -1,7 +1,5 @@
 @import "../../../../assets/less/core/boot.less";
 
-@markdowneditor-zindex: 600;
-
 @color-markdowneditor-toolbar:                   #dddddd;
 @color-markdowneditor-toolbar-btn-color:         #404040;
 @color-markdowneditor-toolbar-btn-bg-hover:      #999999;
@@ -147,7 +145,7 @@
     //
 
     &.is-fullscreen {
-        z-index: 1020;
+        z-index: @zindex-fullscreen;
         position: fixed !important;
         top: 0;
         left: 0;

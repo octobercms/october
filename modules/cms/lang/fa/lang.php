@@ -12,6 +12,12 @@ return [
         'delete_success' => 'تعداد :count فایل با موفقیت حذف شد.',
         'file_name_required' => 'نام فایل را وارد نمایید.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'online',
+            'maintenance' => 'در حال به روز رسانی',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "یافتن قالبی با نام  ':name یافت نشد.'",
         'active' => [

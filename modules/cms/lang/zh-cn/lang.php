@@ -12,6 +12,12 @@ return [
         'delete_success' => '模板成功删除: :count.',
         'file_name_required' => '需要文件名字段.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => '在线',
+            'maintenance' => '维护中',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "主题 ':name' 没找到.",
         'active' => [

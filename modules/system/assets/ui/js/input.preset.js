@@ -31,8 +31,9 @@
         'Ý': 'Y', 'Þ': 'TH', 'Ÿ': 'Y', 'ß': 'ss', 'à':'a', 'á':'a', 'â': 'a', 'ã':
         'a', 'ä': 'a', 'å': 'a', 'æ': 'ae', 'ç': 'c', 'è': 'e', 'é': 'e', 'ê': 'e',
         'ë': 'e', 'ì': 'i', 'í': 'i', 'î': 'i', 'ï': 'i', 'ð': 'd', 'ñ': 'n', 'ò':
-        'o', 'ó': 'o', 'ô': 'o', 'õ': 'o', 'ö': 'o', 'ő': 'o', 'ø': 'o', 'ù': 'u',
-        'ú': 'u', 'û': 'u', 'ü': 'u', 'ű': 'u', 'ý': 'y', 'þ': 'th', 'ÿ': 'y'
+        'o', 'ó': 'o', 'ô': 'o', 'õ': 'o', 'ö': 'o', 'ő': 'o', 'ø': 'o', 'ō': 'o',
+        'œ': 'oe', 'ù': 'u', 'ú': 'u', 'û': 'u', 'ü': 'u', 'ű': 'u', 'ý': 'y', 'þ':
+        'th', 'ÿ': 'y'
     },
     LATIN_SYMBOLS_MAP = {
         '©':'(c)'
@@ -106,6 +107,12 @@
         'ç':'c', 'ə':'e', 'ğ':'g', 'ı':'i', 'ö':'o', 'ş':'s', 'ü':'u',
         'Ç':'C', 'Ə':'E', 'Ğ':'G', 'İ':'I', 'Ö':'O', 'Ş':'S', 'Ü':'U'
     },
+    SPECIFIC_MAPS = {
+        'de': {
+            'Ä': 'AE', 'Ö': 'OE', 'Ü': 'UE',
+            'ä': 'ae', 'ö': 'oe', 'ü': 'ue'
+        }
+    },
     ALL_MAPS = [
         LATIN_MAP,
         LATIN_SYMBOLS_MAP,
@@ -129,6 +136,8 @@
         "than", "the", "this", "that", "to", "up", "via", "with"
     ]
 
+    var locale = $('meta[name="backend-locale"]').attr('content')
+
     var Downcoder = {
         Initialize: function() {
             if (Downcoder.map) {
@@ -136,6 +145,9 @@
             }
             Downcoder.map = {};
             Downcoder.chars = [];
+            if(typeof SPECIFIC_MAPS[locale] === 'object') {
+                ALL_MAPS.push(SPECIFIC_MAPS[locale]);
+            }
             for (var i=0; i<ALL_MAPS.length; i++) {
                 var lookup = ALL_MAPS[i];
                 for (var c in lookup) {

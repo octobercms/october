@@ -67,8 +67,6 @@ return [
         'widget_title_error' => '需要小工具标题.',
         'status' => [
             'widget_title_default' => '系统状态',
-            'online' => '在线',
-            'maintenance' => '维护中',
             'update_available' => '{0} 更新可用!|{1} 更新可用!|[2,Inf] 更新可用!'
         ]
     ],

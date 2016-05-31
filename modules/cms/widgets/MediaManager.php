@@ -220,7 +220,7 @@ class MediaManager extends WidgetBase
         ];
     }
 
-    public function onDelete()
+    public function onDeleteItem()
     {
         $paths = Input::get('paths');
 
@@ -244,8 +244,9 @@ class MediaManager extends WidgetBase
             }
         }
 
-        if (count($filesToDelete) > 0)
+        if (count($filesToDelete) > 0) {
             $library->deleteFiles($filesToDelete);
+        }
 
         $library->resetCache();
         $this->prepareVars();
@@ -953,8 +954,12 @@ class MediaManager extends WidgetBase
     protected function checkUploadPostback()
     {
         $fileName = null;
+        $quickMode = false;
 
-        if (!($uniqueId = Request::header('X-OCTOBER-FILEUPLOAD')) || $uniqueId != $this->getId()) {
+        if (
+            (!($uniqueId = Request::header('X-OCTOBER-FILEUPLOAD')) || $uniqueId != $this->getId()) &&
+            (!$quickMode = post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD'))
+        ) {
             return;
         }
 
@@ -994,15 +999,19 @@ class MediaManager extends WidgetBase
                 throw new ApplicationException($uploadedFile->getErrorMessage());
             }
 
-            $path = Input::get('path');
+            $path = $quickMode ? '/uploaded-files' : Input::get('path');
             $path = MediaLibrary::validatePath($path);
+            $filePath = $path.'/'.$fileName;
 
             MediaLibrary::instance()->put(
-                $path.'/'.$fileName,
+                $filePath,
                 File::get($uploadedFile->getRealPath())
             );
 
-            Response::json(['result' => 'success'])->send();
+            Response::json([
+                'link' => MediaLibrary::url($filePath),
+                'result' => 'success'
+            ])->send();
         }
         catch (Exception $ex) {
             Response::json($ex->getMessage(), 400)->send();
@@ -1037,7 +1046,7 @@ class MediaManager extends WidgetBase
      */
     protected function cleanFileName($name)
     {
-        $title = Str::ascii($title);
+        $title = Str::ascii($name);
 
         // Convert all dashes/underscores into separator
         $flip = $separator = '-';
@@ -1170,9 +1179,11 @@ class MediaManager extends WidgetBase
                 throw new SystemException('Invalid selection data.');
             }
 
-            if (!ctype_digit($selectionData[$paramName])) {
+            if (!is_numeric($selectionData[$paramName])) {
                 throw new SystemException('Invalid selection data.');
             }
+
+            $selectionData[$paramName] = (int) $selectionData[$paramName];
         }
 
         $sessionDirectoryPath = $this->getCropSessionDirPath($cropSessionKey);

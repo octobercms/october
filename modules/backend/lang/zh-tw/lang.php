@@ -64,8 +64,6 @@ return [
         'widget_title_error' => '需要元件標題',
         'status' => [
             'widget_title_default' => '系統狀態',
-            'online' => '在線',
-            'maintenance' => '維護中',
             'update_available' => '{0} 更新可用!|{1} 更新可用!|[2,Inf] 更新可用!'
         ]
     ],

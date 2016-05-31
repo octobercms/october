@@ -173,9 +173,7 @@ if($item.data('item-type')=='folder'){if(!$item.data('clear-search'))
 this.gotoFolder($item.data('path'))
 else{this.resetSearch()
 this.gotoFolder($item.data('path'),true)}}
-else if($item.data('item-type')=='file'){var $html=$(document.documentElement)
-if($html.hasClass('safari')&&!$html.hasClass('chrome')){return}
-this.$el.trigger('popupcommand',['insert'])}}
+else if($item.data('item-type')=='file'){this.$el.trigger('popupcommand',['insert'])}}
 MediaManager.prototype.isPreviewSidebarVisible=function(){return!this.$el.find('[data-control="preview-sidebar"]').hasClass('hide')}
 MediaManager.prototype.toggleSidebar=function(ev){var isVisible=this.isPreviewSidebarVisible(),$sidebar=this.$el.find('[data-control="preview-sidebar"]'),$button=$(ev.target)
 if(!isVisible){$sidebar.removeClass('hide')
@@ -351,7 +349,7 @@ var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
 for(var i=0,len=items.length;i<len;i++){paths.push({'path':items[i].getAttribute('data-path'),'type':items[i].getAttribute('data-item-type')})}
 var data={paths:paths}
 $.oc.stripeLoadIndicator.show()
-this.$form.request(this.options.alias+'::onDelete',{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.afterNavigate))}
+this.$form.request(this.options.alias+'::onDeleteItem',{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.afterNavigate))}
 MediaManager.prototype.createFolder=function(ev){$(ev.target).popup({content:this.$el.find('[data-control="new-folder-template"]').html(),zIndex:1200})}
 MediaManager.prototype.onFolderPopupShown=function(ev,button,popup){$(popup).find('input[name=name]').focus()
 $(popup).on('submit.media','form',this.proxy(this.onNewFolderSubmit))}
@@ -467,7 +465,7 @@ eventHandled=true
 break;}
 if(eventHandled){ev.preventDefault()
 ev.stopPropagation()}}
-MediaManager.DEFAULTS={url:window.location,alias:'',uniqueId:null,deleteEmpty:'Please select files to delete.',deleteConfirm:'Do you really want to delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false}
+MediaManager.DEFAULTS={url:window.location,alias:'',uniqueId:null,deleteEmpty:'Please select files to delete.',deleteConfirm:'Delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false}
 var old=$.fn.mediaManager
 $.fn.mediaManager=function(option){var args=Array.prototype.slice.call(arguments,1),result=undefined
 this.each(function(){var $this=$(this)

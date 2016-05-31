@@ -11,8 +11,8 @@
 
 @color-breadcrumb-text:                      #FFFFFF;
 @color-breadcrumb-active-text:               #2A3E51;
-@color-breadcrumb-background:                #D3D9DA;
-@color-breadcrumb-inactive-background:       #9DA4A5;
+@color-breadcrumb-background:                #d0d9dd;
+@color-breadcrumb-inactive-background:       #9098a2;
 @color-breadcrumb-active-background:         #1F99DC;
 
 .control-breadcrumb {
@@ -26,10 +26,10 @@
     }
 
     li {
-        font-size: 15px;
+        font-size: @font-size-base;
         list-style: none;
         margin: 0;
-        padding:  12px 10px 13px 30px;
+        padding:  12px 10px 12px 30px;
         display: inline-block;
         position: relative;
         color: @color-breadcrumb-text;
@@ -39,6 +39,7 @@
             display: inline-block;
             color: @color-breadcrumb-text;
             text-decoration: none;
+            text-shadow: 0 1px 0 rgba(0,0,0,.15);
             &:hover { color: @color-breadcrumb-text; }
         }
 
@@ -46,17 +47,17 @@
             top: 0;
             right: -15px;
             position: absolute;
-            z-index: 10;
+            z-index: @zindex-breadcrumb;
         }
 
         &:after {
-            .triangle(right, 15px, 46px, @color-breadcrumb-inactive-background);
+            .triangle(right, 15px, 45px, @color-breadcrumb-inactive-background);
         }
 
         &:before {
             right: -16px;
-            z-index: 9;
-            .triangle(right, 15px, 46px, @color-breadcrumb-background);
+            z-index: @zindex-breadcrumb - 1;
+            .triangle(right, 15px, 45px, @color-breadcrumb-background);
         }
 
         &:first-child {
@@ -70,6 +71,7 @@
         &:last-child {
             background-color: transparent;
             color: @color-breadcrumb-active-text;
+            text-shadow: 0 1px 0 rgba(255,255,255,.35);
 
             &:after {
                 display: none;

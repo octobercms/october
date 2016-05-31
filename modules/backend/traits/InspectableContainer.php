@@ -15,6 +15,9 @@ trait InspectableContainer
 {
     public function onInspectableGetOptions()
     {
+        // Disable asset broadcasting
+        $this->flushAssets();
+
         $property = trim(Request::input('inspectorProperty'));
         if (!$property) {
             throw new ApplicationException('The property name is not specified.');
@@ -30,7 +33,7 @@ trait InspectableContainer
             throw new ApplicationException('The options cannot be loaded for the specified class.');
         }
 
-        $obj = new $className(null);
+        $obj = new $className;
 
         // Nested properties have names like object.property.
         // Convert them to Object.Property.

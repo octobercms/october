@@ -64,8 +64,6 @@ return [
         'widget_title_error' => 'Tittel er obligatorisk.',
         'status' => [
             'widget_title_default' => 'Systemstatus',
-            'online' => 'online',
-            'maintenance' => 'in maintenance',
             'update_available' => '{0} oppdateringer tilgjengelig!|{1} oppdatering tilgjengelig!|[2,Inf] oppdateringer tilgjengelig!'
         ]
     ],

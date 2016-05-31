@@ -116,7 +116,11 @@
         $(document)
             .off('focusin.bs.modal') // Guard against infinite focus loop
             .on('focusin.bs.modal', $.proxy(function (e) {
-                if ($(e.target).hasClass('select2-search__field')) {
+                var $target = $(e.target)
+                if (
+                    $target.hasClass('select2-search__field') ||
+                    $target.hasClass('popup-allow-focus')
+                ) {
                     return // Allow select2 to be focused
                 }
 

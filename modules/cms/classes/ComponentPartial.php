@@ -23,17 +23,17 @@ class ComponentPartial extends Extendable implements CmsObjectContract
     /**
      * @var string The component partial file name.
      */
-    protected $fileName;
+    public $fileName;
 
     /**
      * @var string Last modified time.
      */
-    protected $mtime;
+    public $mtime;
 
     /**
      * @var string Partial content.
      */
-    protected $content;
+    public $content;
 
     /**
      * @var int The maximum allowed path nesting level. The default value is 2,

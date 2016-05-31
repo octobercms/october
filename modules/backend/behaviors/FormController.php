@@ -185,7 +185,7 @@ class FormController extends ControllerBehavior
             );
 
             $model = $this->controller->formCreateModelObject();
-            $model = $this->controller->formExtendModel($model);
+            $model = $this->controller->formExtendModel($model) ?: $model;
 
             $this->initForm($model);
         }
@@ -203,7 +203,7 @@ class FormController extends ControllerBehavior
         $this->context = strlen($context) ? $context : $this->getConfig('create[context]', self::CONTEXT_CREATE);
 
         $model = $this->controller->formCreateModelObject();
-        $model = $this->controller->formExtendModel($model);
+        $model = $this->controller->formExtendModel($model) ?: $model;
 
         $this->initForm($model);
 
@@ -466,6 +466,15 @@ class FormController extends ControllerBehavior
     }
 
     /**
+     * Helper to check if a form tab has fields.
+     * @return bool
+     */
+    public function formHasOutsideFields()
+    {
+        return $this->formWidget->getTab('outside')->hasFields();
+    }
+
+    /**
      * Helper for custom layouts. Renders Outside Fields.
      * @return string The area HTML markup.
      */
@@ -475,12 +484,30 @@ class FormController extends ControllerBehavior
     }
 
     /**
+     * Helper to check if a form tab has fields.
+     * @return bool
+     */
+    public function formHasPrimaryTabs()
+    {
+        return $this->formWidget->getTab('primary')->hasFields();
+    }
+
+    /**
      * Helper for custom layouts. Renders Primary Tabs.
      * @return string The tab HTML markup.
      */
     public function formRenderPrimaryTabs()
     {
         return $this->formRender(['section' => 'primary']);
+    }
+
+    /**
+     * Helper to check if a form tab has fields.
+     * @return bool
+     */
+    public function formHasSecondaryTabs()
+    {
+        return $this->formWidget->getTab('secondary')->hasFields();
     }
 
     /**
@@ -606,7 +633,7 @@ class FormController extends ControllerBehavior
             ]));
         }
 
-        $result = $this->controller->formExtendModel($result);
+        $result = $this->controller->formExtendModel($result) ?: $result;
 
         return $result;
     }
@@ -677,7 +704,6 @@ class FormController extends ControllerBehavior
      */
     public function formExtendModel($model)
     {
-        return $model;
     }
 
     /**

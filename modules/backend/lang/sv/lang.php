@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'En widgets titel är tvingande.',
         'status' => [
             'widget_title_default' => 'Systemstatus',
-            'online' => 'online',
-            'maintenance' => 'i underhåll',
             'update_available' => '{0} uppdateringar tillgängliga!|{1} uppdatering tillgänglig!|[2,Inf] uppdateringar tillgängliga!'
         ]
     ],

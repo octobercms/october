@@ -8,13 +8,13 @@ use Lang;
 use Cache;
 use Event;
 use Config;
-use DbDongle;
 use Cms\Models\ThemeData;
-use System\Models\Parameters;
+use System\Models\Parameter;
 use October\Rain\Halcyon\Datasource\FileDatasource;
 use ApplicationException;
 use SystemException;
 use DirectoryIterator;
+use Exception;
 
 /**
  * This class represents the CMS theme.
@@ -147,10 +147,15 @@ class Theme
     {
         $activeTheme = Config::get('cms.activeTheme');
 
-        if (DbDongle::hasDatabase()) {
-            $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function() {
-                return Parameters::applyKey(self::ACTIVE_KEY)->pluck('value');
-            });
+        if (App::hasDatabase()) {
+            try {
+                $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function() {
+                    return Parameter::applyKey(self::ACTIVE_KEY)->pluck('value');
+                });
+            }
+            catch (Exception $ex) {
+                $dbResult = Parameter::applyKey(self::ACTIVE_KEY)->pluck('value');
+            }
 
             if ($dbResult !== null && static::exists($dbResult)) {
                 $activeTheme = $dbResult;
@@ -199,7 +204,7 @@ class Theme
     {
         self::resetCache();
 
-        Parameters::set(self::ACTIVE_KEY, $code);
+        Parameter::set(self::ACTIVE_KEY, $code);
 
         Event::fire('cms.theme.setActiveTheme', compact('code'));
     }

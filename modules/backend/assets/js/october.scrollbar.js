@@ -19,7 +19,7 @@
 
     var Scrollbar = function (element, options) {
 
-        var 
+        var
             $el = this.$el  = $(element),
             el = $el.get(0),
             self = this,

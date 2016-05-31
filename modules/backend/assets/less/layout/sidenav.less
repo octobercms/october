@@ -25,10 +25,6 @@
         height: 100%;
         overflow: hidden;
 
-        &, li:first-child a {
-            .box-shadow(inset 0 6px 3px -3px rgba(0,0,0,.1));
-        }
-
         &:after {
             .sidenav-shadow-element();
         }
@@ -61,6 +57,15 @@
                     margin-bottom: 5px;
                     font-size: 28px;
                 }
+
+                .nav-label,
+                .nav-icon {
+                    text-shadow: 0 -1px 0 rgba(0,0,0,.6);
+                }
+            }
+
+            &:first-child a {
+                padding-top: 30px;
             }
 
             &.active a, a:hover {
@@ -69,10 +74,9 @@
             }
 
             &.active a {
-                //background: @color-sidebarnav-active-bg;
-                text-shadow: 1px 1px 0 rgba(0,0,0,.2);
-                > i {
-                    text-shadow: none;
+                .nav-label,
+                .nav-icon {
+                    text-shadow: 0 -1px 0 rgba(0,0,0,.3);
                 }
             }
 

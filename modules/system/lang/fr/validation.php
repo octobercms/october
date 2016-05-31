@@ -1,7 +1,7 @@
 <?php
 
-return array(
-
+return [
+    
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
@@ -12,7 +12,7 @@ return array(
     | such as the size rules. Feel free to tweak each of these messages.
     |
     */
-
+    
     "accepted"         => 'Le champ :attribute doit être accepté.',
     "active_url"       => 'Le champ :attribute n’est pas une URL valide.',
     "after"            => 'Le champ :attribute doit être une date après le :date.',
@@ -21,12 +21,12 @@ return array(
     "alpha_num"        => 'Le champ :attribute ne peut contenir que des lettres et des chiffres.',
     "array"            => 'Le champ :attribute doit être un groupe.',
     "before"           => 'Le champ :attribute doit être une date avant le :date.',
-    "between"          => array(
+    "between"          => [
         "numeric" => 'Le champ :attribute doit être compris entre :min - :max.',
         "file"    => 'Le champ :attribute doit être compris entre :min - :max kilooctets.',
         "string"  => 'Le champ :attribute doit être compris entre :min - :max caractères.',
         "array"   => 'Le champ :attribute doit être compris entre :min - :max objets.',
-    ),
+    ],
     "confirmed"        => 'Le champ de confirmation :attribute ne correspond pas.',
     "date"             => 'Le champ :attribute n’est pas une date valide.',
     "date_format"      => 'Le champ :attribute ne correspond pas au format :format.',
@@ -39,20 +39,20 @@ return array(
     "in"               => 'Le champ :attribute sélectionné n’est pas valide.',
     "integer"          => 'Le champ :attribute doit être un entier.',
     "ip"               => 'Le champ :attribute doit être une adresse IP valide.',
-    "max"              => array(
+    "max"              => [
         "numeric" => 'Le champ :attribute ne peut pas être supérieure à :max.',
         "file"    => 'Le champ :attribute ne peut pas être supérieure à :max kilooctets.',
         "string"  => 'Le champ :attribute ne peut pas être supérieure à :max caractères.',
         "array"   => 'Le champ :attribute ne peut pas être supérieure à :max objets.',
-    ),
-    "mimes"            => 'Le champ :attribute doit être un fichier de type : :values.',
-    "extensions"       => 'Le champ :attribute doit être une extension de : :values.',
-    "min"              => array(
+    ],
+    "mimes"            => 'Le champ :attribute doit être un fichier de type : :values.',
+    "extensions"       => 'Le champ :attribute doit être une extension de : :values.',
+    "min"              => [
         "numeric" => 'Le champ :attribute doit être au minimum de :min.',
         "file"    => 'Le champ :attribute doit être au minimum de :min kilooctets.',
         "string"  => 'Le champ :attribute doit être au minimum de :min caractères.',
         "array"   => 'Le champ :attribute doit être au minimum de :min objets.',
-    ),
+    ],
     "not_in"           => 'Le champ :attribute sélectionné n’est pas valide.',
     "numeric"          => 'Le champ :attribute doit être un nombre.',
     "regex"            => 'Le format du champ :attribute n’est pas valide.',
@@ -61,15 +61,15 @@ return array(
     "required_with"    => 'Le champ :attribute est obligatoire quand :values est présent.',
     "required_without" => 'Le champ :attribute est obligatoire quand :values est absent.',
     "same"             => 'Le champ :attribute et :other doivent correspondre.',
-    "size"             => array(
+    "size"             => [
         "numeric" => 'Le champ :attribute doit être de :size.',
         "file"    => 'Le champ :attribute doit être de :size kilooctets.',
         "string"  => 'Le champ :attribute doit être de :size caractères.',
         "array"   => 'Le champ :attribute doit contenir :size objets.',
-    ),
+    ],
     "unique"           => 'Le champ :attribute doit être unique. La valeur renseignée est déjà utilisée.',
     "url"              => 'Le champ :attribute n’est pas une URL valide.',
-
+    
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -80,9 +80,9 @@ return array(
     | specify a specific custom language line for a given attribute rule.
     |
     */
-
-    'custom' => array(),
-
+    
+    'custom' => [],
+    
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
@@ -93,7 +93,7 @@ return array(
     | of "email". This simply helps us make messages a little cleaner.
     |
     */
-
-    'attributes' => array(),
-
-);
+    
+    'attributes' => [],
+    
+];

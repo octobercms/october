@@ -413,19 +413,8 @@
             }
         } 
         else if ($item.data('item-type') == 'file') {
-            // Trigger the Insert popup command if a file item 
+            // Trigger the Insert popup command if a file item
             // was double clicked or Enter key was pressed.
-
-            var $html = $(document.documentElement)
-            if ($html.hasClass('safari') && !$html.hasClass('chrome')) {
-                // Inserting media/link in Safari with Enter key and double click 
-                // is buggy. It causes endless recursion inside the rich editor 
-                // third-party code.
-                // See https://github.com/octobercms/october/issues/1733
-
-                return
-            }
-
             this.$el.trigger('popupcommand', ['insert'])
         }
     }
@@ -940,7 +929,7 @@
             }
 
         $.oc.stripeLoadIndicator.show()
-        this.$form.request(this.options.alias+'::onDelete', {
+        this.$form.request(this.options.alias+'::onDeleteItem', {
             data: data
         }).always(function() {
             $.oc.stripeLoadIndicator.hide()
@@ -967,7 +956,7 @@
         var data = {
                 name: $(ev.target).find('input[name=name]').val(),
                 path: this.$el.find('[data-type="current-folder"]').val()
-            } 
+            }
 
         $.oc.stripeLoadIndicator.show()
         this.$form.request(this.options.alias+'::onCreateFolder', {
@@ -1279,7 +1268,7 @@
         alias: '',
         uniqueId: null,
         deleteEmpty: 'Please select files to delete.',
-        deleteConfirm: 'Do you really want to delete the selected file(s)?',
+        deleteConfirm: 'Delete the selected file(s)?',
         moveEmpty: 'Please select files to move.',
         selectSingleImage: 'Please select a single image.',
         selectionNotImage: 'The selected item is not an image.',

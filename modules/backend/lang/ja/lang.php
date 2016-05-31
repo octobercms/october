@@ -64,8 +64,6 @@ return [
         'widget_title_error' => 'ウィジェットタイトルを指定してください。',
         'status' => [
             'widget_title_default' => 'システム状態',
-            'online' => 'オンライン',
-            'maintenance' => 'メンテナンスモード',
             'update_available' => '{0}個のアップデートが見つかりました。|{1} 個のアップデートが見つかりました。|[2,Inf] 個のアップデートが見つかりました。'
         ],
     ],

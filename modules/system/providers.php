@@ -36,5 +36,6 @@ return [
     October\Rain\Scaffold\ScaffoldServiceProvider::class,
     October\Rain\Flash\FlashServiceProvider::class,
     October\Rain\Mail\MailServiceProvider::class,
+    October\Rain\Argon\ArgonServiceProvider::class,
 
 ];

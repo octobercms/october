@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Τα πρότυπα τα οποία διαγράφηκαν επιτυχώς: :count.',
         'file_name_required' => 'Το πεδίο του Ονόματος του Αρχείου είναι υποχρεωτικό.',
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'ενεργό',
+            'maintenance' => 'σε συντήρηση',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "Το θέμα ':name' δεν βρέθηκε.",
         'active' => [

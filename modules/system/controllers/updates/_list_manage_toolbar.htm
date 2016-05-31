@@ -44,6 +44,7 @@
             data-trigger-action="enable"
             data-trigger=".control-list input[type=checkbox]"
             data-trigger-condition="checked"
+            data-request-success="$(this).closest('.btn-group').find('button').prop('disabled', true)"
             data-stripe-load-indicator>
             <?= e(trans('system::lang.plugins.remove')) ?>
         </button>

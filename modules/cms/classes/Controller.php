@@ -18,7 +18,7 @@ use Twig_Environment;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
-use Cms\Models\MaintenanceSettings;
+use Cms\Models\MaintenanceSetting;
 use System\Models\RequestLog;
 use System\Classes\ErrorHandler;
 use System\Classes\CombineAssets;
@@ -164,15 +164,15 @@ class Controller
          * Maintenance mode
          */
         if (
-            MaintenanceSettings::isConfigured() &&
-            MaintenanceSettings::get('is_enabled', false) &&
+            MaintenanceSetting::isConfigured() &&
+            MaintenanceSetting::get('is_enabled', false) &&
             !BackendAuth::getUser()
         ) {
             if (!Request::ajax()) {
                 $this->setStatusCode(503);
             }
 
-            $page = Page::loadCached($this->theme, MaintenanceSettings::get('cms_page'));
+            $page = Page::loadCached($this->theme, MaintenanceSetting::get('cms_page'));
         }
 
         /*

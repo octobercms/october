@@ -33,6 +33,7 @@ class ServiceProvider extends ModuleServiceProvider
          */
         if (App::runningInBackend()) {
             $this->registerBackendNavigation();
+            $this->registerBackendReportWidgets();
             $this->registerBackendPermissions();
             $this->registerBackendWidgets();
             $this->registerBackendSettings();
@@ -71,7 +72,6 @@ class ServiceProvider extends ModuleServiceProvider
          * Register asset bundles
          */
         CombineAssets::registerCallback(function($combiner) {
-            $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-global.js');
             $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-browser.js');
             $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/less/mediamanager.less');
         });
@@ -150,6 +150,19 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['media.*'],
                     'order'       => 20
                 ]
+            ]);
+        });
+    }
+
+    /*
+     * Register report widgets
+     */
+    protected function registerBackendReportWidgets()
+    {
+        WidgetManager::instance()->registerReportWidgets(function ($manager) {
+            $manager->registerReportWidget('Cms\ReportWidgets\ActiveTheme', [
+                'label'   => 'cms::lang.dashboard.active_theme.widget_title_default',
+                'context' => 'dashboard'
             ]);
         });
     }
@@ -235,7 +248,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'cms::lang.maintenance.settings_menu_description',
                     'category'    => SettingsManager::CATEGORY_CMS,
                     'icon'        => 'icon-plug',
-                    'class'       => 'Cms\Models\MaintenanceSettings',
+                    'class'       => 'Cms\Models\MaintenanceSetting',
                     'permissions' => ['cms.manage_themes'],
                     'order'       => 300
                 ],

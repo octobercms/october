@@ -52,7 +52,7 @@ class TemplateList extends WidgetBase
     /**
      * @var string Message to display when the Delete button is clicked.
      */
-    public $deleteConfirmation = 'Do you really want to delete selected templates?';
+    public $deleteConfirmation = 'Delete selected templates?';
 
     /**
      * @var string Specifies the item type.
@@ -322,7 +322,7 @@ class TemplateList extends WidgetBase
         return true;
     }
 
-    protected function itemContainsWord($word, $item , $exact = false)
+    protected function itemContainsWord($word, $item, $exact = false)
     {
         $operator = $exact ? 'is' : 'contains';
 

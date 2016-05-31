@@ -16,10 +16,41 @@
 // --------------------------------------------------
 
 .btn {
-    font-size: @font-size-base;
-    border: none;
+    font-size: @font-size-base - 1;
     text-align: left;
     outline: none !important;
+    .box-shadow(~"inset 0 -2px 0 rgba(0,0,0,.15)");
+
+    &[disabled] {
+        color: rgba(255,255,255,.6);
+    }
+
+    &.active,
+    &:active {
+        .box-shadow(inset 0 1px 0 rgba(0,0,0,.3));
+    }
+}
+
+//
+// Buttons with icons
+//
+
+.btn {
+    i[class^="icon-"],
+    i[class*=" icon-"] {
+        opacity: .6;
+
+    }
+
+    &.on,
+    &:hover,
+    &:focus,
+    &.focus {
+        i[class^="icon-"],
+        i[class*=" icon-"] {
+            opacity: 1;
+        }
+    }
 
     &[class^="oc-icon-"],
     &[class*=" oc-icon-"] {
@@ -27,20 +58,37 @@
             font-size: 14px;
             line-height: 14px;
             position: relative;
+            opacity: .6;
+        }
+
+        &.on,
+        &:hover,
+        &:focus,
+        &.focus {
+            &:before {
+                opacity: 1;
+            }
         }
     }
+}
+
+.btn-secondary {
+    text-shadow: 0 1px 0 rgba(255,255,255,.8);
+    .box-shadow(~"inset 0 -2px 0 rgba(0,0,0,.1)");
 
     &[disabled] {
-        background-color: @color-button-disabled-bg;
-        color: @color-button-disabled-text;
+        color: rgba(0,0,0,.6);
     }
-
-    .box-shadow(inset 0 -2px 0 rgba(0,0,0,.2));
 
     &.active,
     &:active {
-        .box-shadow(inset 0 2px 0 rgba(0,0,0,.3));
+        .box-shadow(inset 0 1px 0 rgba(0,0,0,.2));
     }
+}
+
+.btn-link {
+    .box-shadow(none) !important;
+    text-shadow: none !important;
 }
 
 .btn-group {

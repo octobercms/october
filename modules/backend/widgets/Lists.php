@@ -137,6 +137,19 @@ class Lists extends WidgetBase
     protected $searchTerm;
 
     /**
+     * @var string If searching the records, specifies a policy to use.
+     * - all: result must contain all words
+     * - any: result can contain any word
+     * - exact: result must contain the exact phrase
+     */
+    protected $searchMode;
+
+    /**
+     * @var string Use a custom scope method for performing searches.
+     */
+    protected $searchScope;
+
+    /**
      * @var array Collection of functions to apply to each list query.
      */
     protected $filterCallbacks = [];
@@ -378,7 +391,7 @@ class Lists extends WidgetBase
              * Search primary columns
              */
             if (count($primarySearchable) > 0) {
-                $innerQuery->orSearchWhere($this->searchTerm, $primarySearchable);
+                $this->applySearchToQuery($innerQuery, $primarySearchable, 'or');
             }
 
             /*
@@ -394,7 +407,7 @@ class Lists extends WidgetBase
 
                     if (count($columnsToSearch) > 0) {
                         $innerQuery->orWhereHas($join, function ($_query) use ($columnsToSearch) {
-                            $_query->searchWhere($this->searchTerm, $columnsToSearch);
+                            $this->applySearchToQuery($_query, $columnsToSearch);
                         });
                     }
                 }
@@ -620,10 +633,8 @@ class Lists extends WidgetBase
     protected function defineListColumns()
     {
         if (!isset($this->columns) || !is_array($this->columns) || !count($this->columns)) {
-            throw new ApplicationException(Lang::get(
-                'backend::lang.list.missing_columns',
-                ['class'=>get_class($this->controller)]
-            ));
+            $class = get_class($this->model instanceof Model ? $this->model : $this->controller);
+            throw new ApplicationException(Lang::get('backend::lang.list.missing_columns', compact('class')));
         }
 
         $this->addColumns($this->columns);
@@ -900,13 +911,20 @@ class Lists extends WidgetBase
             return null;
         }
 
-        $value = $this->validateDateTimeValue($value, $column);
+        $dateTime = $this->validateDateTimeValue($value, $column);
 
         if ($column->format !== null) {
-            return $value->format($column->format);
+            $value = $dateTime->format($column->format);
+        }
+        else {
+            $value = $dateTime->toDayDateTimeString();
         }
 
-        return $value->toDayDateTimeString();
+        return Backend::dateTime($dateTime, [
+            'defaultValue' => $value,
+            'format' => $column->format,
+            'formatAlias' => 'dateTimeLongMin'
+        ]);
     }
 
     /**
@@ -918,13 +936,17 @@ class Lists extends WidgetBase
             return null;
         }
 
-        $value = $this->validateDateTimeValue($value, $column);
+        $dateTime = $this->validateDateTimeValue($value, $column);
 
-        if ($column->format === null) {
-            $column->format = 'g:i A';
-        }
+        $format = $column->format !== null ? $column->format : 'g:i A';
 
-        return $value->format($column->format);
+        $value = $dateTime->format($format);
+
+        return Backend::dateTime($dateTime, [
+            'defaultValue' => $value,
+            'format' => $column->format,
+            'formatAlias' => 'time'
+        ]);
     }
 
     /**
@@ -936,13 +958,20 @@ class Lists extends WidgetBase
             return null;
         }
 
-        $value = $this->validateDateTimeValue($value, $column);
+        $dateTime = $this->validateDateTimeValue($value, $column);
 
         if ($column->format !== null) {
-            return $value->format($column->format);
+            $value = $dateTime->format($column->format);
+        }
+        else {
+            $value = $dateTime->toFormattedDateString();
         }
 
-        return $value->toFormattedDateString();
+        return Backend::dateTime($dateTime, [
+            'defaultValue' => $value,
+            'format' => $column->format,
+            'formatAlias' => 'dateLongMin'
+        ]);
     }
 
     /**
@@ -954,9 +983,14 @@ class Lists extends WidgetBase
             return null;
         }
 
-        $value = $this->validateDateTimeValue($value, $column);
+        $dateTime = $this->validateDateTimeValue($value, $column);
 
-        return DateTimeHelper::timeSince($value);
+        $value = DateTimeHelper::timeSince($dateTime);
+
+        return Backend::dateTime($dateTime, [
+            'defaultValue' => $value,
+            'timeSince' => true
+        ]);
     }
 
     /**
@@ -968,9 +1002,14 @@ class Lists extends WidgetBase
             return null;
         }
 
-        $value = $this->validateDateTimeValue($value, $column);
+        $dateTime = $this->validateDateTimeValue($value, $column);
 
-        return DateTimeHelper::timeTense($value);
+        $value = DateTimeHelper::timeTense($dateTime);
+
+        return Backend::dateTime($dateTime, [
+            'defaultValue' => $value,
+            'timeTense' => true
+        ]);
     }
 
     /**
@@ -978,7 +1017,7 @@ class Lists extends WidgetBase
      */
     protected function validateDateTimeValue($value, $column)
     {
-        $value = DateTimeHelper::instance()->makeCarbon($value, false);
+        $value = DateTimeHelper::makeCarbon($value, false);
 
         if (!$value instanceof Carbon) {
             throw new ApplicationException(Lang::get(
@@ -1018,6 +1057,21 @@ class Lists extends WidgetBase
     }
 
     /**
+     * Applies a search options to the list search.
+     * @param array $options
+     */
+    public function setSearchOptions($options = [])
+    {
+        extract(array_merge([
+            'mode' => null,
+            'scope' => null
+        ], $options));
+
+        $this->searchMode = $mode;
+        $this->searchScope = $scope;
+    }
+
+    /**
      * Returns a collection of columns which can be searched.
      * @return array
      */
@@ -1035,6 +1089,25 @@ class Lists extends WidgetBase
         }
 
         return $searchable;
+    }
+
+    /**
+     * Applies the search constraint to a query.
+     */
+    protected function applySearchToQuery($query, $columns, $boolean = 'and')
+    {
+        $term = $this->searchTerm;
+
+        if ($scopeMethod = $this->searchScope) {
+            $searchMethod = $boolean == 'and' ? 'where' : 'orWhere';
+            $query->$searchMethod(function($q) use ($term, $scopeMethod) {
+                $q->$scopeMethod($term);
+            });
+        }
+        else {
+            $searchMethod = $boolean == 'and' ? 'searchWhere' : 'orSearchWhere';
+            $query->$searchMethod($term, $columns, $this->searchMode);
+        }
     }
 
     //

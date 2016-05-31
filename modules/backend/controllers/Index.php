@@ -34,7 +34,7 @@ class Index extends Controller
         $this->addCss('/modules/backend/assets/css/dashboard/dashboard.css', 'core');
 
         if (BackendAuth::check()) {
-            new ReportContainer($this);
+            new ReportContainer($this, 'config_dashboard.yaml');
         }
     }
 

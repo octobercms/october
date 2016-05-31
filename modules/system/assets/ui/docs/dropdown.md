@@ -1,6 +1,6 @@
 Customized dropdown menu
 
-### Small
+### Small dropdown
 
     <div class="dropdown">
         <a href="#" data-toggle="dropdown" class="btn btn-primary oc-icon-plus">Add small</a>
@@ -11,7 +11,15 @@ Customized dropdown menu
         </ul>
     </div>
 
-### Large
+### Drop "up"
+
+Add the `dropup` class to the dropdown container and the dropdown will appear in an upward direction.
+
+    <div class="dropdown dropup">
+        ...
+    </div>
+
+### Large dropdown
 
     <div class="dropdown">
         <a href="#" data-toggle="dropdown" class="btn btn-primary oc-icon-plus">Add large</a>

@@ -78,27 +78,34 @@
         })
 
         this.$el.on('click', '.content > button.close', function() {
-            if (!confirm('Remove the widget?'))
-                return false
+            var $btn = $(this)
+            $.oc.confirm('Remove this widget?', function() {
+                self.$form.request(self.alias + '::onRemoveWidget', {
+                    data: {
+                        'alias': $('[data-widget-alias]', $btn.closest('div.content')).val()
+                    }
+                })
 
-            self.$form.request(self.alias + '::onRemoveWidget', {data: {
-                'alias': $('[data-widget-alias]', $(this).closest('div.content')).val()
-            }})
+                $btn.closest('li').remove()
+                self.redraw()
+                self.setSortOrders()
+            })
+        })
 
-            $(this).closest('li').remove()
+        $(window).on('oc.reportWidgetAdded', function(){
             self.redraw()
             self.setSortOrders()
         })
 
-        $(window).on('oc.report-widget-added', function(){
+        $(window).on('oc.reportWidgetRefresh', function(){
             self.redraw()
-            self.setSortOrders()
         })
 
         window.setTimeout(function(){
             self.updateWidth()
             self.redraw()
         }, 200)
+
         this.setSortOrders()
     }
 

@@ -163,8 +163,16 @@ class CmsCompoundObject extends CmsObject
     public function runComponents()
     {
         foreach ($this->components as $component) {
+            if ($event = $component->fireEvent('component.beforeRun', [], true)) {
+                return $event;
+            }
+
             if ($result = $component->onRun()) {
                 return $result;
+            }
+
+            if ($event = $component->fireEvent('component.run', [], true)) {
+                return $event;
             }
         }
     }
@@ -268,7 +276,7 @@ class CmsCompoundObject extends CmsObject
         }
         else {
             $cached = Cache::get($key, false);
-            $unserialized = $cached ? @unserialize($cached) : false;
+            $unserialized = $cached ? @unserialize(@base64_decode($cached)) : false;
             $objectComponentMap = $unserialized ? $unserialized : [];
             if ($objectComponentMap) {
                 self::$objectComponentPropertyMap = $objectComponentMap;
@@ -312,7 +320,7 @@ class CmsCompoundObject extends CmsObject
 
         self::$objectComponentPropertyMap = $objectComponentMap;
 
-        Cache::put($key, serialize($objectComponentMap), Config::get('cms.parsedPageCacheTTL', 10));
+        Cache::put($key, base64_encode(serialize($objectComponentMap)), Config::get('cms.parsedPageCacheTTL', 10));
 
         if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
             return $objectComponentMap[$objectCode][$componentName];
@@ -427,6 +435,22 @@ class CmsCompoundObject extends CmsObject
         }
 
         return parent::__get($name);
+    }
+
+    /**
+     * Dynamically set attributes on the model.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public function __set($key, $value)
+    {
+        parent::__set($key, $value);
+
+        if (array_key_exists($key, $this->settings)) {
+            $this->settings[$key] = $this->attributes[$key];
+        }
     }
 
     /**

@@ -1,0 +1,39 @@
+<div class="report-widget widget-welcome">
+    <h3><?= e(trans($this->property('title'))) ?></h3>
+
+    <?php if (!isset($error)): ?>
+        <div class="welcome-container">
+            <div class="welcome-logo">
+                <div class="oc-logo"></div>
+            </div>
+            <div class="welcome-message">
+                <?php if ($lastSeen): ?>
+                    <p>
+                        <?= e(trans('backend::lang.dashboard.welcome.welcome_back_name', ['app'=>$appName, 'name'=>$user->first_name])) ?>
+                        <?= e(trans('backend::lang.dashboard.welcome.last_sign_in')) ?>
+                    </p>
+                    <p>
+                        <strong><?= Backend::dateTime($lastSeen->created_at, ['formatAlias' => 'dateTimeLongMin']) ?></strong>
+                    </p>
+                    <p>
+                        <a href="<?= Backend::url('backend/accesslogs') ?>"><?= e(trans('backend::lang.dashboard.welcome.view_access_logs')) ?></a>
+                    </p>
+                <?php else: ?>
+                    <p>
+                        <?= e(trans('backend::lang.dashboard.welcome.welcome_to_name', ['app'=>$appName, 'name'=>$user->first_name])) ?>
+                    </p>
+                    <p>
+                        <?= e(trans('backend::lang.dashboard.welcome.first_sign_in')) ?>
+                    </p>
+                    <p>
+                        <?= e(trans('backend::lang.dashboard.welcome.nice_message')) ?>
+                    </p>
+                <?php endif ?>
+            </div>
+        </div>
+    <?php else: ?>
+        <div class="callout callout-warning">
+            <div class="content"><?= e($error) ?></div>
+        </div>
+    <?php endif ?>
+</div>

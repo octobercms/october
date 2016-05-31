@@ -37,10 +37,10 @@ trait SelectableWidget
 
     protected function extendSelection()
     {
-        $items = Input::get($this->selectionInputName, []);
+        $items = (array) Input::get($this->selectionInputName, []);
         $currentSelection = $this->getSelectedItems();
 
-        $this->putSession('selected', array_merge($currentSelection, $items));
+        $this->putSession('selected', $currentSelection + $items);
     }
 
     protected function resetSelection()
