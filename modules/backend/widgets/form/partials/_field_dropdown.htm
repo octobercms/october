@@ -1,5 +1,6 @@
 <?php
     $fieldOptions = $field->options();
+    $useSearch = $field->getConfig('showSearch', true);
 ?>
 <!-- Dropdown -->
 <?php if ($this->previewMode): ?>
@@ -8,7 +9,7 @@
     <select
         id="<?= $field->getId() ?>"
         name="<?= $field->getName() ?>"
-        class="form-control custom-select"
+        class="form-control custom-select <?= $useSearch ? '' : 'select-no-search' ?>"
         <?= $field->getAttributes() ?>>
         <?php if ($field->placeholder): ?>
             <option value=""><?= e(trans($field->placeholder)) ?></option>

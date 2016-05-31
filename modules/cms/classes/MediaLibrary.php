@@ -1,13 +1,14 @@
 <?php namespace Cms\Classes;
 
-use Request;
-use ApplicationException;
-use SystemException;
-use Config;
-use Storage;
+use Str;
 use Lang;
 use Cache;
-use Str;
+use Config;
+use Storage;
+use Request;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
+use ApplicationException;
+use SystemException;
 
 /**
  * Provides abstraction level for the Media Library operations.
@@ -41,17 +42,14 @@ class MediaLibrary
     protected $storageDisk;
 
     /**
-     * @var array Contains a default list of files and directories to ignore.
-     * The list can be customized with cms.storage.media.ignore configuration option.
-     */
-    protected $defaultIgnoreNames = ['.svn', '.git', '.DS_Store'];
-
-    /**
      * @var array Contains a list of files and directories to ignore.
      * The list can be customized with cms.storage.media.ignore configuration option.
      */
     protected $ignoreNames;
 
+    /**
+     * @var int Cache for the storage folder name length.
+     */
     protected $storageFolderNameLength;
 
     /**
@@ -66,7 +64,7 @@ class MediaLibrary
             $this->storagePath = Request::getBasePath() . $this->storagePath;
         }
 
-        $this->ignoreNames = Config::get('cms.storage.media.ignore', $this->defaultIgnoreNames);
+        $this->ignoreNames = Config::get('cms.storage.media.ignore', FileDefinitions::get('ignoreFiles'));
 
         $this->storageFolderNameLength = strlen($this->storageFolder);
     }
@@ -90,7 +88,7 @@ class MediaLibrary
          */
 
         $cached = Cache::get('cms-media-library-contents', false);
-        $cached = $cached ? @unserialize($cached) : [];
+        $cached = $cached ? @unserialize(@base64_decode($cached)) : [];
 
         if (!is_array($cached)) {
             $cached = [];
@@ -103,7 +101,11 @@ class MediaLibrary
             $folderContents = $this->scanFolderContents($fullFolderPath);
 
             $cached[$fullFolderPath] = $folderContents;
-            Cache::put(self::CACHE_KEY, serialize($cached), Config::get('cms.storage.media.ttl', 10));
+            Cache::put(
+                self::CACHE_KEY,
+                base64_encode(serialize($cached)),
+                Config::get('cms.storage.media.ttl', 10)
+            );
         }
 
         /*
@@ -529,6 +531,7 @@ class MediaLibrary
             : $this->getFolderItemCount($path);
 
         $publicUrl = $this->storagePath.$relativePath;
+
         return new MediaLibraryItem($relativePath, $size, $lastModified, $itemType, $publicUrl);
     }
 

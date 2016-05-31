@@ -3,7 +3,7 @@
 # ===================================
 
 # Record name
-name: Log
+name: system::lang.event_log.menu_label
 
 # Model Form Field configuration
 form: ~/modules/system/models/requestlog/fields.yaml
@@ -16,4 +16,4 @@ defaultRedirect: system/requestlogs
 
 # Preview page
 preview:
-    title: Request
+    title: system::lang.request_log.preview_title

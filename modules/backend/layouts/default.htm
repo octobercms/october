@@ -15,7 +15,7 @@
                 <?php $flyoutContent = Block::placeholder('sidepanel-flyout') ?>
 
                 <div class="layout-row">
-                    <div class="layout flyout-container" 
+                    <div class="layout flyout-container"
                         <?php if ($flyoutContent): ?>
                             data-control="flyout"
                             data-flyout-width="400"
@@ -31,7 +31,7 @@
 
                         <!-- Side panel -->
                         <?php if ($sidePanelContent = Block::placeholder('sidepanel')): ?>
-                            <div class="layout-cell width-300 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel">
+                            <div class="layout-cell w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel">
                                 <?= $sidePanelContent ?>
                             </div>
                         <?php endif ?>

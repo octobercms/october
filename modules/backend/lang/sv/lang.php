@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'En widgets titel är tvingande.',
         'status' => [
             'widget_title_default' => 'Systemstatus',
-            'online' => 'online',
-            'maintenance' => 'i underhåll',
             'update_available' => '{0} uppdateringar tillgängliga!|{1} uppdatering tillgänglig!|[2,Inf] uppdateringar tillgängliga!'
         ]
     ],
@@ -292,10 +290,9 @@ return [
         'app_tagline' => 'Applikationstaggning',
         'app_tagline_description' => 'Detta namn visas på inloggningsskärmen för back-end.',
         'colors' => 'Färger',
-        'primary_light' => 'Primär (Ljus)',
-        'primary_dark' => 'Primär (Mörk)',
-        'secondary_light' => 'Sekundär (Ljus)',
-        'secondary_dark' => 'Sekundär (Mörk)',
+        'primary_color' => 'Primär color',
+        'secondary_color' => 'Sekundär color',
+        'accent_color' => 'Accent color',
         'styles' => 'Formatmallar',
         'custom_stylesheet' => 'Anpassad formatmall'
     ],

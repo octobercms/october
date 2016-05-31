@@ -8,11 +8,17 @@
  */
 +function ($) { "use strict";
 
-    $(document).on('shown.bs.dropdown', '.dropdown', function() {
+    $(document).on('shown.bs.dropdown', '.dropdown', function(event, relatedTarget) {
         $(document.body).addClass('dropdown-open')
 
-        var dropdown = $('.dropdown-menu', this),
+        var dropdown = $(relatedTarget.relatedTarget).siblings('.dropdown-menu'),
             dropdownContainer = $(this).data('dropdown-container')
+
+        // The dropdown menu should be a sibling of the triggering element (above)
+        // otherwise, look for any dropdown menu within this context.
+        if (dropdown.length === 0){
+            dropdown = $('.dropdown-menu', this)
+        }
 
         if ($('.dropdown-container', dropdown).length == 0) {
 
@@ -24,10 +30,12 @@
                 title = titleAttr
 
             $('li:first-child', dropdown).addClass('first-item')
-            dropdown.prepend($('<li/>').addClass('dropdown-title').text(title))
+            $('li:last-child', dropdown).addClass('last-item')
 
-            var container = $('<li/>').addClass('dropdown-container'),
-                ul = $('<ul/>')
+            dropdown.prepend($('<li />').addClass('dropdown-title').text(title))
+
+            var container = $('<li />').addClass('dropdown-container'),
+                ul = $('<ul />')
 
             container.prepend(ul)
             ul.prepend(dropdown.children())

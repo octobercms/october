@@ -3,7 +3,6 @@
 use Str;
 use App;
 use File;
-use Config;
 use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
 use Closure;

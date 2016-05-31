@@ -13,8 +13,10 @@
 // --------------------------------------------------
 
 @color-inspector-bg:                         #f2f2f2;
+@color-inspector-value-bg:                   #ffffff;
 @color-inspector-active-bg:                  #ffffff;
 @color-inspector-text:                       #333333;
+@color-inspector-input-text:                 #385487;
 @color-inspector-grid:                       #c8cccd;
 @color-inspector-changed:                    #c03f31;
 
@@ -25,7 +27,7 @@
 .inspector-autocomplete-list() {
     background: white;
     font-size: 12px;
-    z-index: 100000; // It's safe to set z-index any high value for drop-downs
+    z-index: @zindex-inspector;
 
     li a {
         padding: 5px 12px;
@@ -43,11 +45,18 @@
 
     td, th {
         padding: 5px 12px;
-        color: @color-inspector-text;
         font-size: 12px;
         width: 50%;
         border-bottom: 1px solid @color-inspector-grid;
         text-align: left;
+    }
+
+    th {
+        color: @color-inspector-text;
+    }
+
+    td {
+        color: @color-inspector-input-text;
     }
 
     tr:last-child {
@@ -99,17 +108,15 @@
 
     td {
         font-weight: 300;
-        border-left: 1px solid @color-inspector-bg;
+        border-left: 1px solid @color-inspector-grid;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        background: @color-inspector-value-bg;
 
         &.text {
-            background: #F9F7F7;
 
             input[type=text] {
-                background: transparent;
-
                 &::-webkit-input-placeholder {
                     font-weight: normal!important;
                     color: #b5babd;
@@ -130,7 +137,6 @@
 
             &.active {
                 background: @color-inspector-active-bg;
-                border-left: 1px solid @color-inspector-grid;
             }
         }
 
@@ -372,13 +378,13 @@
         width: 100% !important;
 
         .select2-selection {
-            background: transparent;
             height: 29px;
             line-height: 29px;
             padding: 0 3px 0 12px;
-            .border-radius(0) !important;
             border: none !important;
             font-size: 12px;
+            .border-radius(0) !important;
+            .box-shadow(none) !important;
 
             &.select2-default {
                 font-weight: normal !important;
@@ -395,13 +401,12 @@
             .border-radius(0) !important;
             border: none !important;
 
-            .select2-selection {
-                background: white;
-            }
+            .select2-selection {}
         }
 
         .select2-selection__rendered {
             padding: 0 22px 0 0;
+            color: @color-inspector-input-text;
         }
     }
 
@@ -425,7 +430,6 @@ div.control-popover {
         > div {
             background: @color-inspector-bg;
             border: none;
-            .box-shadow(none);
 
             &:before, &:after {
                 display: none;
@@ -470,7 +474,7 @@ div.control-popover {
 
     .inspector-wrapper {
         background: #f2f2f2; // Use @color-inspector-bg instead
-        border-left: 2px solid #bdc3c7; 
+        border-left: 2px solid #bdc3c7;
     }
 
     .toolbar {
@@ -516,7 +520,7 @@ div.inspector-dictionary-container {
         }
     }
 
-    table.inspector-dictionary-table{
+    table.inspector-dictionary-table {
         width: 100%;
         border: none;
 
@@ -541,6 +545,7 @@ div.inspector-dictionary-container {
                     outline: none;
                     border: none;
                     padding: 7px 5px;
+                    .box-shadow(none);
 
                     &:focus {
                         border: none;
@@ -561,14 +566,15 @@ div.inspector-dictionary-container {
 }
 
 .inspector-header {
-    background: #d35400;
+    background: @color-popover-head-bg;
     padding: 14px 16px;
     position: relative;
-    color: #ffffff;
+    color: @color-popover-head-text;
+    border-bottom: 2px solid @color-popover-border;
 
     h3 {
-        font-size: 14px;
-        font-weight: 600;
+        font-size: @font-size-base;
+        font-weight: bold;
         margin-top: 0;
         margin-bottom: 0;
         padding-right: 15px;
@@ -576,9 +582,9 @@ div.inspector-dictionary-container {
     }
 
     p {
-        font-size: 13px;
-        font-weight: 100;
-        margin: 10px 0 0 0;
+        font-size: @font-size-base - 2;
+        font-weight: normal;
+        margin: 5px 0 0 0;
 
         &:empty {
             display: none;
@@ -590,18 +596,20 @@ div.inspector-dictionary-container {
         position: absolute;
         top: 12px;
         float: none;
-        color: #ffffff;
+        color: @close-color;
         cursor: pointer;
+        line-height: 1;
 
         .opacity(0.4);
         &:hover {
             .opacity(1);
-            color: #ffffff;
+            color: @close-color;
         }
     }
 
     .detach {
         right: 26px;
+        line-height: 22px;
     }
 
     .close {
@@ -611,7 +619,7 @@ div.inspector-dictionary-container {
 }
 
 .inspector-container {
-    &:empty { 
+    &:empty {
         display: none;
     }
 
@@ -656,7 +664,7 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete {
         .select2-search {
             min-height: 26px;
             position: relative;
-            border-bottom: 1px solid #b2b9be; 
+            border-bottom: 1px solid #b2b9be;
 
             &:after {
                 position: absolute;
@@ -669,8 +677,9 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete {
             input.select2-search__field {
                 min-height: 26px;
                 background: transparent !important;
-                padding-left: 12px;
-                padding-right: 12px;
+                font-size: @input-font-size - 1;
+                padding-left: 4px;
+                padding-right: 20px;
                 border: none;
             }
         }

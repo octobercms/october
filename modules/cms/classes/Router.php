@@ -54,12 +54,12 @@ class Router
     /**
      * @var array Contains the URL map - the list of page file names and corresponding URL patterns.
      */
-    protected static $urlMap = [];
+    protected $urlMap = [];
 
     /**
      * October\Rain\Router\Router Router object with routes preloaded.
      */
-    protected static $routerObj;
+    protected $routerObj;
 
     /**
      * Creates the router instance.
@@ -117,7 +117,11 @@ class Router
                             : $fileName;
 
                         $key = $this->getUrlListCacheKey();
-                        Cache::put($key, serialize($urlList), Config::get('cms.urlCacheTtl', 1));
+                        Cache::put(
+                            $key,
+                            base64_encode(serialize($urlList)),
+                            Config::get('cms.urlCacheTtl', 1)
+                        );
                     }
                 }
             }
@@ -169,8 +173,8 @@ class Router
      */
     protected function getRouterObject()
     {
-        if (self::$routerObj !== null) {
-            return self::$routerObj;
+        if ($this->routerObj !== null) {
+            return $this->routerObj;
         }
 
         /*
@@ -186,7 +190,7 @@ class Router
          */
         $router->sortRules();
 
-        return self::$routerObj = $router;
+        return $this->routerObj = $router;
     }
 
     /**
@@ -195,11 +199,11 @@ class Router
      */
     protected function getUrlMap()
     {
-        if (!count(self::$urlMap)) {
+        if (!count($this->urlMap)) {
             $this->loadUrlMap();
         }
 
-        return self::$urlMap;
+        return $this->urlMap;
     }
 
     /**
@@ -221,7 +225,7 @@ class Router
             $cached = false;
         }
 
-        if (!$cached || ($unserialized = @unserialize($cached)) === false) {
+        if (!$cached || ($unserialized = @unserialize(@base64_decode($cached))) === false) {
             /*
              * The item doesn't exist in the cache, create the map
              */
@@ -235,15 +239,15 @@ class Router
                 $map[] = ['file' => $page->getFileName(), 'pattern' => $page->url];
             }
 
-            self::$urlMap = $map;
+            $this->urlMap = $map;
             if ($cacheable) {
-                Cache::put($key, serialize($map), Config::get('cms.urlCacheTtl', 1));
+                Cache::put($key, base64_encode(serialize($map)), Config::get('cms.urlCacheTtl', 1));
             }
 
             return false;
         }
 
-        self::$urlMap = $unserialized;
+        $this->urlMap = $unserialized;
         return true;
     }
 
@@ -327,7 +331,11 @@ class Router
         $key = $this->getUrlListCacheKey();
         $urlList = Cache::get($key, false);
 
-        if ($urlList && ($urlList = @unserialize($urlList)) && is_array($urlList)) {
+        if (
+            $urlList &&
+            ($urlList = @unserialize(@base64_decode($urlList))) &&
+            is_array($urlList)
+        ) {
             if (array_key_exists($url, $urlList)) {
                 return $urlList[$url];
             }

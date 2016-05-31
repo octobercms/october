@@ -1,9 +1,8 @@
 /* ========================================================================
- * October CMS: front-end JavaScript extras
+ * OctoberCMS: front-end JavaScript extras
  * http://octobercms.com
  * ========================================================================
- * Copyright 2014 Alexey Bobkov, Samuel Georges
- *
+ * Copyright 2016 Alexey Bobkov, Samuel Georges
  * ======================================================================== */
 
 /*
@@ -23,14 +22,17 @@
     if ($.oc === undefined)
         $.oc = {}
 
-    var StripeLoadIndicator = function () {
+    var StripeLoadIndicator = function() {
+        var self = this
         this.counter = 0
         this.indicator = $('<div/>').addClass('stripe-loading-indicator loaded')
                             .append($('<div />').addClass('stripe'))
                             .append($('<div />').addClass('stripe-loaded'))
         this.stripe = this.indicator.find('.stripe')
 
-        $(document.body).append(this.indicator)
+        $(document).ready(function() {
+            $(document.body).append(self.indicator)
+        })
     }
 
     StripeLoadIndicator.prototype.show = function() {
@@ -57,9 +59,7 @@
         }
     }
 
-    $(document).ready(function(){
-        $.oc.stripeLoadIndicator = new StripeLoadIndicator()
-    })
+    $.oc.stripeLoadIndicator = new StripeLoadIndicator()
 
     // STRIPE LOAD INDICATOR DATA-API
     // ==============
@@ -75,7 +75,7 @@
             // This code will cover instances where the element has been removed
             // from the DOM, making the resolution event below an orphan.
             var $el = $(this)
-            $(window).one('ajaxUpdateComplete', function(){
+            $(window).one('ajaxUpdateComplete', function() {
                 if ($el.closest('html').length === 0)
                     $.oc.stripeLoadIndicator.hide()
              })

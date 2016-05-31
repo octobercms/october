@@ -19,7 +19,7 @@ use System\Twig\Engine as TwigEngine;
 use System\Twig\Loader as TwigLoader;
 use System\Twig\Extension as TwigExtension;
 use System\Models\EventLog;
-use System\Models\MailSettings;
+use System\Models\MailSetting;
 use System\Models\MailTemplate;
 use System\Classes\CombineAssets;
 use Backend\Classes\WidgetManager;
@@ -97,9 +97,11 @@ class ServiceProvider extends ModuleServiceProvider
         App::singleton('backend.helper', function () {
             return new \Backend\Helpers\Backend;
         });
+
         App::singleton('backend.menu', function () {
             return \Backend\Classes\NavigationManager::instance();
         });
+
         App::singleton('backend.auth', function () {
             return \Backend\Classes\AuthManager::instance();
         });
@@ -205,7 +207,7 @@ class ServiceProvider extends ModuleServiceProvider
          * Add CMS based cache clearing to native command
          */
         Event::listen('cache:cleared', function() {
-            \System\Helpers\Cache::clear();
+            \System\Helpers\Cache::clearInternal();
         });
 
         /*
@@ -282,8 +284,8 @@ class ServiceProvider extends ModuleServiceProvider
          * Override system mailer with mail settings
          */
         Event::listen('mailer.beforeRegister', function () {
-            if (MailSettings::isConfigured()) {
-                MailSettings::applyConfigValues();
+            if (MailSetting::isConfigured()) {
+                MailSetting::applyConfigValues();
             }
         });
 
@@ -291,9 +293,8 @@ class ServiceProvider extends ModuleServiceProvider
          * Override standard Mailer content with template
          */
         Event::listen('mailer.beforeAddContent', function ($mailer, $message, $view, $data) {
-            if (MailTemplate::addContentToMailer($message, $view, $data)) {
-                return false;
-            }
+            MailTemplate::addContentToMailer($message, $view, $data);
+            return false;
         });
     }
 
@@ -307,6 +308,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'system' => [
                     'label'       => 'system::lang.settings.menu_label',
                     'icon'        => 'icon-cog',
+                    'iconSvg'     => 'modules/system/assets/images/cog-icon.svg',
                     'url'         => Backend::url('system/settings'),
                     'permissions' => [],
                     'order'       => 1000
@@ -335,7 +337,6 @@ class ServiceProvider extends ModuleServiceProvider
                 'context' => 'dashboard'
             ]);
         });
-
     }
 
     /*
@@ -395,7 +396,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'system::lang.mail.menu_description',
                     'category'    => SettingsManager::CATEGORY_MAIL,
                     'icon'        => 'icon-envelope',
-                    'class'       => 'System\Models\MailSettings',
+                    'class'       => 'System\Models\MailSetting',
                     'permissions' => ['system.manage_mail_settings'],
                     'order'       => 600
                 ],

@@ -2,7 +2,7 @@
 
 use Event;
 use Twig_LoaderInterface;
-use Cms\Classes\CmsObject;
+use Cms\Contracts\CmsObject;
 
 /**
  * This class implements a Twig template loader for the CMS.
@@ -19,7 +19,7 @@ class Loader implements Twig_LoaderInterface
 
     /**
      * Sets a CMS object to load the template from.
-     * @param \Cms\Classes\CmsObject $obj Specifies the CMS object.
+     * @param \Cms\Contracts\CmsObject $obj Specifies the CMS object.
      */
     public function setObject(CmsObject $obj)
     {
@@ -49,7 +49,7 @@ class Loader implements Twig_LoaderInterface
      */
     public function getCacheKey($name)
     {
-        return $this->obj->getFullPath();
+        return $this->obj->getTwigCacheKey();
     }
 
     /**

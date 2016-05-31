@@ -42,20 +42,25 @@
 
     OctoberLayout.prototype.toggleAccountMenu = function(el) {
         var self = this,
-            $menu = $(el).next()
+            $el = $(el),
+            $parent = $(el).parent(),
+            $menu = $el.next()
 
         if ($menu.hasClass('active')) {
             self.$accountMenuOverlay.remove()
+            $parent.removeClass('highlight')
             $menu.removeClass('active')
         }
         else {
             self.$accountMenuOverlay = $('<div />').addClass('popover-overlay')
             $(document.body).append(self.$accountMenuOverlay)
+            $parent.addClass('highlight')
             $menu.addClass('active')
 
             self.$accountMenuOverlay.one('click', function(){
                 self.$accountMenuOverlay.remove()
                 $menu.removeClass('active')
+                $parent.removeClass('highlight')
             })
         }
     }

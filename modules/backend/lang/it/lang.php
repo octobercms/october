@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'Il titolo del widget è un campo obbligatorio.',
         'status' => [
             'widget_title_default' => 'Stato del sistema',
-            'online' => 'online',
-            'maintenance' => 'in manutenzione',
             'update_available' => '{0} aggiornamenti disponibili!|{1} aggiornamento disponibile!|[2,Inf] aggiornamenti disponibili!'
         ]
     ],
@@ -287,10 +285,9 @@ return [
         'app_tagline' => 'Slogan dell\'applicazione',
         'app_tagline_description' => 'Questo campo verrà visualizzato nella schermata di login del pannello di controllo.',
         'colors' => 'Colori',
-        'primary_light' => 'Principale (Chiaro)',
-        'primary_dark' => 'Principale (Scuro)',
-        'secondary_light' => 'Secondario (Chiaro)',
-        'secondary_dark' => 'Secondario (Scuro)',
+        'primary_color' => 'Principale color',
+        'secondary_color' => 'Secondario color',
+        'accent_color' => 'Accent color',
         'styles' => 'Stili',
         'custom_stylesheet' => 'Foglio di stile personalizzato'
     ],

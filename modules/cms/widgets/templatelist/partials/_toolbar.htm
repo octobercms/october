@@ -1,13 +1,13 @@
 <div class="layout-row min-size">
-    <div class="control-toolbar toolbar-padded">
+    <div class="control-toolbar toolbar-padded <?= $toolbarClass ?>">
 
         <!-- Control Panel -->
         <div class="toolbar-item" data-calculate-width>
             <div class="btn-group">
-                <button type="button" class="btn btn-primary oc-icon-plus last"
+                <button type="button" class="btn btn-default oc-icon-plus last"
                     data-control="create-template"
                     ><?= e(trans('cms::lang.sidebar.add')) ?></button>
-                <button type="button" class="btn btn-primary empty oc-icon-trash-o hide"
+                <button type="button" class="btn btn-default empty oc-icon-trash-o hide"
                     id="<?= $this->getId('delete-button') ?>"
                     data-control="delete-template"
                     data-confirmation="<?= e(trans($this->deleteConfirmation)) ?>"

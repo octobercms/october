@@ -31,12 +31,24 @@ class Table extends WidgetBase
      */
     protected $showHeader = true;
 
+    /**
+     * @var Backend\Widgets\Table\DatasourceBase
+     */
     protected $dataSource = null;
 
+    /**
+     * @var string Field name used for request data.
+     */
+    protected $fieldName = null;
+
+    /**
+     * @var string
+     */
     protected $recordsKeyFrom;
 
     protected $dataSourceAliases = [
-        'client' => '\Backend\Classes\TableClientMemoryDataSource'
+        'client' => '\Backend\Widgets\Table\ClientMemoryDataSource',
+        'server' => '\Backend\Widgets\Table\ServerEventDataSource'
     ];
 
     /**
@@ -45,6 +57,8 @@ class Table extends WidgetBase
     public function init()
     {
         $this->columns = $this->getConfig('columns', []);
+
+        $this->fieldName = $this->getConfig('fieldName', $this->alias);
 
         $this->recordsKeyFrom = $this->getConfig('keyFrom', 'id');
 
@@ -64,10 +78,12 @@ class Table extends WidgetBase
         $this->dataSource = new $dataSourceClass($this->recordsKeyFrom);
 
         if (Request::method() == 'POST' && $this->isClientDataSource()) {
-            if (strpos($this->alias, '[') === false)
-                $requestDataField = $this->alias.'TableData';
-            else
-                $requestDataField = $this->alias.'[TableData]';
+            if (strpos($this->fieldName, '[') === false) {
+                $requestDataField = $this->fieldName.'TableData';
+            }
+            else {
+                $requestDataField = $this->fieldName.'[TableData]';
+            }
 
             if (Request::exists($requestDataField)) {
                 // Load data into the client memory data source on POST
@@ -79,7 +95,7 @@ class Table extends WidgetBase
 
     /**
      * Returns the data source object.
-     * @return \Backend\Classes\TableDataSourceBase 
+     * @return \Backend\Widgets\Table\DataSourceBase
      */
     public function getDataSource()
     {
@@ -118,9 +134,10 @@ class Table extends WidgetBase
         $isClientDataSource = $this->isClientDataSource();
 
         $this->vars['clientDataSourceClass'] = $isClientDataSource ? 'client' : 'server';
-        $this->vars['data'] = $isClientDataSource
-            ? json_encode($this->dataSource->getAllRecords())
-            : [];
+        $this->vars['data'] = json_encode($isClientDataSource
+            ? $this->dataSource->getAllRecords()
+            : []
+        );
     }
 
     //
@@ -174,12 +191,69 @@ class Table extends WidgetBase
 
     protected function isClientDataSource()
     {
-        return $this->dataSource instanceof \Backend\Classes\TableClientMemoryDataSource;
+        return $this->dataSource instanceof \Backend\Widgets\Table\ClientMemoryDataSource;
     }
 
-    /*
-     * Event handlers
-     */
+    //
+    // Event handlers
+    //
+
+    public function onServerGetRecords()
+    {
+        // Disable asset broadcasting
+        $this->controller->flushAssets();
+
+        if ($this->isClientDataSource()) {
+            throw new SystemException('The Table widget is not configured to use the server data source.');
+        }
+
+        $count = post('count');
+
+        // Oddly, JS may pass false as a string (@todo)
+        if ($count === 'false') {
+            $count = false;
+        }
+
+        return [
+            'records' => $this->dataSource->getRecords(post('offset'), $count),
+            'count' => $this->dataSource->getCount()
+        ];
+    }
+
+    public function onServerCreateRecord()
+    {
+        if ($this->isClientDataSource()) {
+            throw new SystemException('The Table widget is not configured to use the server data source.');
+        }
+
+        $this->dataSource->createRecord(
+            post('recordData'),
+            post('placement'),
+            post('relativeToKey')
+        );
+
+        return $this->onServerGetRecords();
+    }
+
+    public function onServerUpdateRecord()
+    {
+        if ($this->isClientDataSource()) {
+            throw new SystemException('The Table widget is not configured to use the server data source.');
+        }
+
+        $this->dataSource->updateRecord(post('key'), post('recordData'));
+    }
+
+    public function onServerDeleteRecord()
+    {
+        if ($this->isClientDataSource()) {
+            throw new SystemException('The Table widget is not configured to use the server data source.');
+        }
+
+        $this->dataSource->deleteRecord(post('key'));
+
+        return $this->onServerGetRecords();
+    }
 
     public function onGetDropdownOptions()
     {

@@ -14,9 +14,9 @@ We work hard to process bugs that are reported, to assist with this please ensur
 
 - **Reproduce steps**: Clearly mention the steps to reproduce the bug.
 
-- **Expected result**: How OctoberCMS should behave on above mentioned steps.
+- **Expected behavior**: How OctoberCMS should behave on above mentioned steps.
 
-- **Actual result**: What is the actual result on running above steps i.e. the bug behavior - **include any error messages**.
+- **Actual behavior**: What is the actual result on running above steps i.e. the bug behavior - **include any error messages**.
 
 #### Here's how to report a bug on GitHub
 
@@ -72,3 +72,13 @@ Also ensure that your Pull Request satisfies the following coding standards:
 #### Team rules
 
 The October team follows the [developer guidelines](http://octobercms.com/docs/help/developer-guide) as much as possible.
+
+#### Code of conduct
+
+We promise to extend courtesy and respect to everyone opening an issue. We expect anyone using the bug trackers to do the same.
+
+All reported issues to this project are valuable. Please act with respect and avoid demeaning, condescending, racist, sexist and other inappropriate language and conduct. Please ensure comments stay professional and constructive.
+
+#### Escalation process
+
+We do our best to attend to all reported issues. If you have an important issue that requires attention, consider submitting a bounty using the [OctoberCMS Bounty Program](https://www.bountysource.com/teams/october).

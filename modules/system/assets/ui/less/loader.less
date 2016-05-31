@@ -9,7 +9,7 @@
 // --------------------------------------------------
 
 @color-loading-indicator-text:               #999999;
-@color-stripe-loader:                        #0090c0;
+@color-stripe-loader:                        @brand-accent;
 @loader-image-path:                          @image-path;
 
 .loading-indicator {
@@ -19,7 +19,7 @@
     font-weight: 500;
     background: @body-bg;
     text-align: left;
-    z-index: 100;
+    z-index: @zindex-loader;
 
     > span {
         background: transparent url('@{loader-image-path}/loader.gif') no-repeat 0 50%;
@@ -108,9 +108,9 @@ html.cssanimations {
     }
 
     > div {
-        top: auto;
         text-align: center;
         position: relative;
+        margin-top: 30px;
     }
 }
 
@@ -126,6 +126,11 @@ html.cssanimations {
 }
 
 // Form fields
+
+.loading-indicator-container.size-form-field,
+.loading-indicator-container.size-input-text {
+    min-height: 0;
+}
 
 .loading-indicator-container.size-form-field .loading-indicator,
 .loading-indicator-container.size-input-text .loading-indicator {
@@ -216,7 +221,7 @@ html.cssanimations {
     left: 0;
     width: 100%;
     overflow: hidden;
-    z-index: 2000;
+    z-index: @zindex-flashmessage;
 
     .stripe, .stripe-loaded {
         height: @stripe-loader-height;
@@ -233,22 +238,15 @@ html.cssanimations {
 
     .stripe-loaded {
         width: 0;
-
-        // Opacity replaced with display. Leaving the animated indicator element
-        // in the rendering tree, even invisible, affects the performance.
-        // .opacity(0);
-        display: none;
+        .opacity(0);
     }
 
     &.loaded {
-        // .opacity(0);
-        display: none;
-
+        .opacity(0);
         .transition(opacity .4s linear);
         .transition-delay(.3s);
         .stripe-loaded {
-            display: block;
-            // .opacity(1);
+            .opacity(1);
             .transition(width .3s linear);
             width: 100% !important;
         }
@@ -316,4 +314,25 @@ html.cssanimations {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(359deg); }
+}
+
+@-moz-keyframes rspin {
+    0% { -moz-transform: rotate(359deg); }
+    100% { -moz-transform: rotate(0deg); }
+}
+@-webkit-keyframes rspin {
+    0% { -webkit-transform: rotate(359deg); }
+    100% { -webkit-transform: rotate(0deg); }
+}
+@-o-keyframes rspin {
+    0% { -o-transform: rotate(359deg); }
+    100% { -o-transform: rotate(0deg); }
+}
+@-ms-keyframes rspin {
+    0% { -ms-transform: rotate(359deg); }
+    100% { -ms-transform: rotate(0deg); }
+}
+@keyframes rspin {
+    0% { transform: rotate(359deg); }
+    100% { transform: rotate(0deg); }
 }

@@ -51,7 +51,42 @@ return [
         'cancel_button_text' => 'Cancel',
     ],
 
+    'datepicker' => [
+        'previousMonth' => 'Previous Month',
+        'nextMonth' => 'Next Month',
+        'months' => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        'weekdays' => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        'weekdaysShort' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    ],
+
+    'filter' => [
+        'group' => [
+            'all' => 'all'
+        ],
+        'dates' => [
+            'all' => 'all',
+            'filter_button_text' => 'Filter',
+            'reset_button_text'  => 'Reset',
+            'date_placeholder' => 'Date',
+            'after_placeholder' => 'After',
+            'before_placeholder' => 'Before'
+        ]
+    ],
+
+    'eventlog' => [
+        'show_stacktrace' => 'Show the stacktrace',
+        'hide_stacktrace' => 'Hide the stacktrace',
+        'tabs' => [
+            'formatted' => 'Formatted',
+            'raw' => 'Raw',
+        ],
+        'editor' => [
+            'title' => 'Source code editor',
+            'description' => 'Your operating system should be configured to listen to one of these URL schemes.',
+            'openWith' => 'Open with',
+            'remember_choice' => 'Remember selected option for this session',
+            'open' => 'Open',
+            'cancel' => 'Cancel'
+        ]
+    ]
 ];
-
-
-

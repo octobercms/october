@@ -174,7 +174,7 @@
 
     /*
      * Determines whether the specified element is some element created by the 
-     * processor. 
+     * processor.
      */
     Base.prototype.elementBelongsToProcessor = function(element) {
         return false

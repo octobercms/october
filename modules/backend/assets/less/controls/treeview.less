@@ -5,7 +5,7 @@
         padding: 18px 0;
         margin: 0;
         color: @color-filelist-norecords-text;
-        font-size: 12px;
+        font-size: @font-size-base;
         text-align: center;
         font-weight: 400;
     }
@@ -20,15 +20,15 @@
             .transition(width 1s);
 
             > div {
-                font-size: 13px;
-                font-weight: 600;
+                font-size: @font-size-base;
+                font-weight: normal;
                 background: @color-treeview-item-bg;
                 border-bottom: 1px solid @color-panel-light;
                 position: relative;
 
                 > a {
                     color: @color-treeview-item-title;
-                    padding: 16px 45px 15px 61px;
+                    padding: 11px 45px 10px 61px;
                     display: block;
                     line-height: 150%;
                     text-decoration: none;
@@ -46,14 +46,14 @@
                     width: 21px;
                     height: 22px;
                     left: 28px;
-                    top: 20px;
+                    top: 15px;
                 }
 
                 span.comment {
                     display: block;
                     font-weight: 400;
                     color: @color-treeview-item-comment;
-                    font-size: 12px;
+                    font-size: @font-size-base - 1;
                     margin-top: 2px;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -63,10 +63,9 @@
                     .hide-text();
                     display: none;
                     position: absolute;
-                    left: 0;
                     width: 20px;
                     height: 20px;
-                    top: 24px;
+                    top: 19px;
                     left: 2px;
                     cursor: pointer;
                     color: @color-treeview-control;
@@ -75,7 +74,7 @@
                     &:before {
                         .icon(@caret-right);
                         line-height: 100%;
-                        font-size: 15px;
+                        font-size: @font-size-base + 1;
 
                         position: relative;
                         left: 8px;
@@ -88,17 +87,17 @@
                     .transition(opacity 0.4s);
 
                     position: absolute;
-                    right: 24px;
-                    bottom: 5px;
-                    width: 14px;
-                    height: 14px;
+                    right: 9px;
+                    bottom: 0;
+                    width: 18px;
+                    height: 19px;
                     cursor: move;
                     color: @color-treeview-control;
                     .opacity(0);
 
                     &:before {
                         .icon(@bars);
-                        font-size: 14px;
+                        font-size: 18px;
                     }
                 }
 
@@ -139,7 +138,7 @@
                     }
 
                     li {
-                        font-size: 12px;
+                        font-size: @font-size-base - 2;
 
                         a {
                             display: block;
@@ -163,8 +162,8 @@
 
                 .checkbox {
                     position: absolute;
-                    top: 19px;
-                    right: 17px;
+                    top: -2px;
+                    right: 0;
 
                     label {
                         margin-right: 0;
@@ -230,7 +229,7 @@
             &[data-no-drag-mode] div:hover {
                 span.drag-handle {
                     cursor: default!important;
-                    .opacity(0.3)!important;
+                    .opacity(.3)!important;
                 }
             }
 
@@ -248,6 +247,7 @@
 
             > ol {
                 padding-left: 20px;
+                padding-right: 20px;
             }
 
             &[data-status=collapsed] > ol {
@@ -264,7 +264,7 @@
                     }
 
                     &:hover, &.popover-highlight {
-                        &:before {background-position: 0px -52px;}
+                        &:before { background-position: 0px -52px; }
                     }
 
                     span.expand {
@@ -274,44 +274,21 @@
             }
 
             &.placeholder {
-                height: 0;
                 position: relative;
-                border-bottom: 1px dotted #c03f31;
-
-                &:before {
-                    .icon(@caret-right);
-                    font-size: 23px;
-                    color: white;
-                    position: absolute;
-                    left: -11px;
-                    top: -17px;
-                    z-index: 1900;
-                }
-
-                &:after {
-                    .icon(@caret-right);
-                    font-size: 21px;
-                    color: #c03f31;
-                    position: absolute;
-                    left: -10px;
-                    top: -14px;
-                    z-index: 1901;
-                }
+                .opacity(.5);
             }
 
             &.dragged {
                 position: absolute;
                 z-index: 2000;
-                // width: auto!important;
-                // height: auto!important;
-                .opacity(0.5);
+                .opacity(.25);
 
                 > div {
                     .border-radius(3px);
                 }
             }
 
-            &.drop-target  {
+            &.drop-target {
                 > div {
                     background-color: #2581b8!important;
 
@@ -389,6 +366,7 @@
                 > ol {
                     > li > div {
                         margin-left: -20-(@max-level - @level)*20px;
+                        margin-right: -20-(@max-level - @level)*20px;
                         padding-left: 61+(@max-level - @level + 1)*10px;
 
                         > a {
@@ -423,7 +401,7 @@
         padding: 13px 15px;
         border: dotted 2px #ebebeb;
         color: #bdc3c7;
-        font-size: 12px;
+        font-size: @font-size-base - 2;
         font-weight: 600;
         text-transform: uppercase;
         .border-radius(5px);
@@ -431,8 +409,8 @@
 
         &:hover {
             text-decoration: none;
-            background-color: @color-treeview-hover-bg!important;
-            color: @color-treeview-hover-text!important;
+            background-color: @color-treeview-hover-bg !important;
+            color: @color-treeview-hover-text !important;
             border: none;
             padding: 15px 17px;
         }
@@ -446,8 +424,8 @@
     /*
      * Light version of the treeview - transparent background, no bottom borders,
      * smaller paddings, inline submenu
-     */ 
-    &.light {
+     */
+    &.treeview-light {
         margin-bottom: 0;
         margin-top: 20px;
 
@@ -520,7 +498,7 @@
                                     vertical-align: middle;
                                     height: 100%;
                                     padding: 0 20px;
-                                    font-size: 13px;
+                                    font-size: @font-size-base - 1;
                                     .box-sizing(border-box);
 
                                     i.control-icon {
@@ -537,7 +515,42 @@
     }
 }
 
-// Retina 
+//
+// Sorting guides
+//
+
+body.dragging .control-treeview {
+    ol.dragging, ol.dragging ol {
+        background: #ccc;
+        padding-right: 20px;
+        .transition(padding 1s);
+
+        > li {
+            > div {
+                margin-right: 0;
+                .transition(margin 1s);
+
+                .custom-checkbox {
+                    .transition(opacity .5s);
+                    .opacity(0);
+                }
+            }
+        }
+    }
+
+    &.treeview-light {
+        ol.dragging, ol.dragging ol {
+            > li > div  {
+                background-color: #f9f9f9;
+            }
+        }
+    }
+}
+
+//
+// Retina
+//
+
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
     .control-treeview {
         ol {

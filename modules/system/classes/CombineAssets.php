@@ -167,11 +167,11 @@ class CombineAssets
     {
         $cacheInfo = $this->getCache($cacheId);
         if (!$cacheInfo) {
-            throw new ApplicationException(Lang::get('cms::lang.combiner.not_found', ['name'=>$cacheId]));
+            throw new ApplicationException(Lang::get('system::lang.combiner.not_found', ['name'=>$cacheId]));
         }
 
         $this->localPath = $cacheInfo['path'];
-        $this->storagePath = storage_path().'/cms/combiner/assets';
+        $this->storagePath = storage_path('cms/combiner/assets');
 
         $combiner = $this->prepareCombiner($cacheInfo['files']);
         $contents = $combiner->dump();
@@ -278,7 +278,7 @@ class CombineAssets
         }
 
         $this->localPath = $localPath;
-        $this->storagePath = storage_path().'/cms/combiner/assets';
+        $this->storagePath = storage_path('cms/combiner/assets');
 
         list($assets, $extension) = $this->prepareAssets($assets);
 
@@ -615,7 +615,7 @@ class CombineAssets
         }
 
         $this->putCacheIndex($cacheId);
-        Cache::forever($cacheId, serialize($cacheInfo));
+        Cache::forever($cacheId, base64_encode(serialize($cacheInfo)));
         return true;
     }
 
@@ -632,7 +632,7 @@ class CombineAssets
             return false;
         }
 
-        return unserialize(Cache::get($cacheId));
+        return @unserialize(@base64_decode(Cache::get($cacheId)));
     }
 
     /**
@@ -655,7 +655,8 @@ class CombineAssets
             return;
         }
 
-        $index = unserialize(Cache::get('combiner.index'));
+        $index = (array) @unserialize(@base64_decode(Cache::get('combiner.index'))) ?: [];
+
         foreach ($index as $cacheId) {
             Cache::forget($cacheId);
         }
@@ -672,9 +673,9 @@ class CombineAssets
     protected function putCacheIndex($cacheId)
     {
         $index = [];
-        
+
         if (Cache::has('combiner.index')) {
-            $index = unserialize(Cache::get('combiner.index'));
+            $index = (array) @unserialize(@base64_decode(Cache::get('combiner.index'))) ?: [];
         }
 
         if (in_array($cacheId, $index)) {
@@ -683,7 +684,8 @@ class CombineAssets
 
         $index[] = $cacheId;
 
-        Cache::forever('combiner.index', serialize($index));
+        Cache::forever('combiner.index', base64_encode(serialize($index)));
+
         return true;
     }
 }

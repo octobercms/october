@@ -2,9 +2,17 @@
 
 use Cms\Classes\Theme;
 use Cms\Classes\Controller;
+use October\Rain\Halcyon\Model;
 
 class ControllerTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        Model::clearBootedModels();
+        Model::flushEventListeners();
+    }
 
     public function testThemeUrl()
     {

@@ -110,9 +110,9 @@
     SidePanelTab.prototype.displayTab = function(menuItem) {
         var menuItemId = $(menuItem).data('menu-item')
 
-        this.$sideNavItems.removeClass('active')
-        $(menuItem).addClass('active')
         this.visibleItemId = menuItemId
+
+        $.oc.sideNav.setActiveItem(menuItemId)
 
         this.$sidePanelItems.each(function(){
             var  $el = $(this)
@@ -162,10 +162,10 @@
 
     SidePanelTab.prototype.updateActiveTab = function() {
         if (!this.panelVisible && ($(window).width() < this.options.breakpoint || !this.panelFixed())) {
-            this.$sideNavItems.removeClass('active')
+            $.oc.sideNav.unsetActiveItem()
         }
         else {
-            this.$sideNavItems.filter('[data-menu-item='+this.visibleItemId+']').addClass('active')
+            $.oc.sideNav.setActiveItem(this.visibleItemId)
         }
     }
 
@@ -235,9 +235,15 @@
     // ====================
 
     $(document).ready(function(){
-        if (Modernizr.touch || (typeof(localStorage) !== 'undefined' && localStorage.ocSidePanelFixed == 1)) {
-            $(document.body).removeClass('side-panel-not-fixed')
-            $(window).trigger('resize')
+        if (Modernizr.touch || (typeof(localStorage) !== 'undefined')) {
+            if (localStorage.ocSidePanelFixed == 0) {
+                $(document.body).addClass('side-panel-not-fixed')
+                $(window).trigger('resize')
+            }
+            else if (localStorage.ocSidePanelFixed == 1) {
+                $(document.body).removeClass('side-panel-not-fixed')
+                $(window).trigger('resize')
+            }
         }
     })
 }(window.jQuery);

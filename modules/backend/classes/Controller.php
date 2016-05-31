@@ -1,7 +1,7 @@
 <?php namespace Backend\Classes;
 
 use App;
-use Log;
+use Str;
 use Lang;
 use View;
 use Flash;
@@ -10,12 +10,11 @@ use Config;
 use Request;
 use Backend;
 use Session;
-use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
-use Backend\Models\UserPreferences;
-use Backend\Models\BackendPreferences;
+use Backend\Models\UserPreference;
+use Backend\Models\Preference as BackendPreference;
 use Cms\Widgets\MediaManager;
 use System\Classes\ErrorHandler;
 use October\Rain\Exception\AjaxException;
@@ -219,13 +218,8 @@ class Controller extends Extendable
         /*
          * Set the admin preference locale
          */
-        if (Session::has('locale')) {
-            App::setLocale(Session::get('locale'));
-        }
-        elseif ($this->user && ($locale = BackendPreferences::get('locale'))) {
-            Session::put('locale', $locale);
-            App::setLocale($locale);
-        }
+        BackendPreference::setAppLocale();
+        BackendPreference::setAppFallbackLocale();
 
         /*
          * Execute AJAX event
@@ -637,7 +631,7 @@ class Controller extends Extendable
             throw new ApplicationException('Missing a hint name.');
         }
 
-        $preferences = UserPreferences::forUser();
+        $preferences = UserPreference::forUser();
         $hiddenHints = $preferences->get('backend::hints.hidden', []);
         $hiddenHints[$name] = 1;
 
@@ -651,7 +645,7 @@ class Controller extends Extendable
      */
     public function isBackendHintHidden($name)
     {
-        $hiddenHints = UserPreferences::forUser()->get('backend::hints.hidden', []);
+        $hiddenHints = UserPreference::forUser()->get('backend::hints.hidden', []);
         return array_key_exists($name, $hiddenHints);
     }
 
@@ -677,7 +671,7 @@ class Controller extends Extendable
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
-        return \Symfony\Component\Security\Core\Util\StringUtils::equals(
+        return Str::equals(
             Session::getToken(),
             $token
         );

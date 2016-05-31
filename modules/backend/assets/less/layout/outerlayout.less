@@ -12,27 +12,38 @@ body.outer {
                 background: @color-outer-header;
 
                 > .layout-cell {
-                    height: 300px!important;
+                    height: 40%;
                     padding: 50px 0;
                     .box-sizing(border-box);
                     vertical-align: middle;
+                    position: relative;
 
-                    h1.oc-logo-white {
+                    &:after {
+                        .triangle(down, 70px, 25px, @color-outer-header);
+                        position: absolute;
+                        bottom: -25px;
+                        left: 50%;
+                        margin-left: -22px;
+                    }
+
+                    h1.oc-logo {
                         .hide-text();
                         display: inline-block;
                         width: 100%;
-                        max-width: 410px;
-                        height: 72px;
+                        max-width: 450px;
+                        height: 170px;
+                        min-height: 72px;
                     }
                 }
             }
 
             > .layout-cell {
-                vertical-align: middle;
+                vertical-align: top;
 
                 .outer-form-container {
                     margin: 0 auto;
                     width: 436px;
+                    padding: (@padding-standard * 2) 0;
 
                     h2 {
                         font-size: 18px;
@@ -112,51 +123,23 @@ html.csstransitions {
     }
 }
 
-/*
-
-.outer-form-container {
-    width: 240px;
-    display: inline-block;
-    text-align: left;
-
-    h1 {
-        color: @color-outer-heading;
-        font-size: 39px;
-        font-weight: 400;
-        margin-bottom: 4px;
-
-        + p {
-            font-size: 13px;
-            color: @color-outer-description;
-            margin-bottom: 20px;
-        }
-    }
-
-    .form-group.combine-fields {
-        input:first-child {
-            border-bottom: 1px solid lighten(@color-form-field-border, 5%);
-            .border-bottom-radius(0);
-        }
-        input:last-child {
-            border-top: none;
-            .border-top-radius(0);
+@media (max-width: @screen-sm) {
+    body.outer .layout > .layout-row {
+        &.layout-head {
+            > .layout-cell {
+                padding: 50px @padding-standard;
+            }
         }
 
-        &.october {
-            position: relative;
+        > .layout-cell .outer-form-container {
+            width: auto;
+            padding: @padding-standard * 2;
 
-            &:after {
-                content: '';
-                position: absolute;
+            .horizontal-form input {
                 display: block;
-                width: 145px;
-                height: 155px;
-                top: -149px;
-                right: -57px;
-                background: transparent url(../images/tree.png) no-repeat left top;
+                width: 100% !important;
+                margin-bottom: @padding-standard;
             }
         }
     }
 }
-
-*/

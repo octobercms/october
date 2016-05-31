@@ -67,7 +67,7 @@ class CmsExceptionTest extends TestCase
         $exception = new CmsException($page, 300);
         $exception->setMask($foreignException);
 
-        $this->assertEquals($page->getFullPath(), $exception->getFile());
+        $this->assertEquals($page->getFilePath(), $exception->getFile());
         $this->assertEquals('PHP Content', $exception->getErrorType());
         $this->assertEquals('This is a general error', $exception->getMessage());
     }

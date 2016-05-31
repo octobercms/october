@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'O τίτλος του Widget είναι απαραίτητος.',
         'status' => [
             'widget_title_default' => 'Κατάσταση συστήματος',
-            'online' => 'ενεργό',
-            'maintenance' => 'σε συντήρηση',
             'update_available' => '{0} διαθέσιμες ενημερώσεις!|{1} διαθέσιμη ενημέρωση!|[2,Inf] διαθέσιμες ενημερώσεις!',
         ]
     ],
@@ -292,10 +290,9 @@ return [
         'app_tagline' => 'Ετικέτα Εφαρμογής',
         'app_tagline_description' => 'Αυτό το όνομα εμφανίζεται στην οθόνη σύνδεσης στο back-end.',
         'colors' => 'Χρώματα',
-        'primary_light' => 'Πρωτεύων (Ανοιχτό)',
-        'primary_dark' => 'Πρωτεύων (Σκούρο)',
-        'secondary_light' => 'Δευτερεύων (Ανοιχτό)',
-        'secondary_dark' => 'Δευτερεύων (Σκούρο)',
+        'primary_color' => 'Πρωτεύων color',
+        'secondary_color' => 'Δευτερεύων color',
+        'accent_color' => 'Accent color',
         'styles' => 'Στυλ',
         'custom_stylesheet' => 'Προσαρμοσμένα στυλ',
     ],

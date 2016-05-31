@@ -173,9 +173,7 @@ if($item.data('item-type')=='folder'){if(!$item.data('clear-search'))
 this.gotoFolder($item.data('path'))
 else{this.resetSearch()
 this.gotoFolder($item.data('path'),true)}}
-else if($item.data('item-type')=='file'){var $html=$(document.documentElement)
-if($html.hasClass('safari')&&!$html.hasClass('chrome')){return}
-this.$el.trigger('popupcommand',['insert'])}}
+else if($item.data('item-type')=='file'){this.$el.trigger('popupcommand',['insert'])}}
 MediaManager.prototype.isPreviewSidebarVisible=function(){return!this.$el.find('[data-control="preview-sidebar"]').hasClass('hide')}
 MediaManager.prototype.toggleSidebar=function(ev){var isVisible=this.isPreviewSidebarVisible(),$sidebar=this.$el.find('[data-control="preview-sidebar"]'),$button=$(ev.target)
 if(!isVisible){$sidebar.removeClass('hide')
@@ -282,7 +280,10 @@ this.scrollContentElement.insertBefore(this.selectionMarker,this.scrollContentEl
 MediaManager.prototype.doObjectsCollide=function(aTop,aLeft,aWidth,aHeight,bTop,bLeft,bWidth,bHeight){return!(((aTop+aHeight)<(bTop))||(aTop>(bTop+bHeight))||((aLeft+aWidth)<bLeft)||(aLeft>(bLeft+bWidth)))}
 MediaManager.prototype.initUploader=function(){if(!this.itemListElement)
 return
-var uploaderOptions={clickable:this.$el.find('[data-control="upload"]').get(0),method:'POST',url:window.location,paramName:'file_data',createImageThumbnails:false}
+var uploaderOptions={clickable:this.$el.find('[data-control="upload"]').get(0),url:this.options.url,paramName:'file_data',headers:{},createImageThumbnails:false}
+if(this.options.uniqueId){uploaderOptions.headers['X-OCTOBER-FILEUPLOAD']=this.options.uniqueId}
+var token=$('meta[name="csrf-token"]').attr('content')
+if(token){uploaderOptions.headers['X-CSRF-TOKEN']=token}
 this.dropzone=new Dropzone(this.$el.get(0),uploaderOptions)
 this.dropzone.on('addedfile',this.proxy(this.uploadFileAdded))
 this.dropzone.on('totaluploadprogress',this.proxy(this.uploadUpdateTotalProgress))
@@ -310,8 +311,7 @@ progressBar.setAttribute('class','progress-bar')}
 MediaManager.prototype.uploadQueueComplete=function(){this.$el.find('[data-command="cancel-uploading"]').addClass('hide')
 this.$el.find('[data-command="close-uploader"]').removeClass('hide')
 this.refresh()}
-MediaManager.prototype.uploadSending=function(file,xhr,formData){formData.append('path',this.$el.find('[data-type="current-folder"]').val())
-formData.append('X_OCTOBER_FILEUPLOAD',this.options.uniqueId)}
+MediaManager.prototype.uploadSending=function(file,xhr,formData){formData.append('path',this.$el.find('[data-type="current-folder"]').val())}
 MediaManager.prototype.uploadCancelAll=function(){this.dropzone.removeAllFiles(true)
 this.hideUploadUi()}
 MediaManager.prototype.updateUploadBar=function(templateName,classNames){var fileNumberLabel=this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),successTemplate=fileNumberLabel.getAttribute('data-'+templateName+'-template'),progressBar=this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
@@ -349,7 +349,7 @@ var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
 for(var i=0,len=items.length;i<len;i++){paths.push({'path':items[i].getAttribute('data-path'),'type':items[i].getAttribute('data-item-type')})}
 var data={paths:paths}
 $.oc.stripeLoadIndicator.show()
-this.$form.request(this.options.alias+'::onDelete',{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.afterNavigate))}
+this.$form.request(this.options.alias+'::onDeleteItem',{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.afterNavigate))}
 MediaManager.prototype.createFolder=function(ev){$(ev.target).popup({content:this.$el.find('[data-control="new-folder-template"]').html(),zIndex:1200})}
 MediaManager.prototype.onFolderPopupShown=function(ev,button,popup){$(popup).find('input[name=name]').focus()
 $(popup).on('submit.media','form',this.proxy(this.onNewFolderSubmit))}
@@ -465,7 +465,7 @@ eventHandled=true
 break;}
 if(eventHandled){ev.preventDefault()
 ev.stopPropagation()}}
-MediaManager.DEFAULTS={alias:'',uniqueId:null,deleteEmpty:'Please select files to delete.',deleteConfirm:'Do you really want to delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false}
+MediaManager.DEFAULTS={url:window.location,alias:'',uniqueId:null,deleteEmpty:'Please select files to delete.',deleteConfirm:'Delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false}
 var old=$.fn.mediaManager
 $.fn.mediaManager=function(option){var args=Array.prototype.slice.call(arguments,1),result=undefined
 this.each(function(){var $this=$(this)

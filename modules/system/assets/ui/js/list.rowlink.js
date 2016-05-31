@@ -37,6 +37,9 @@
                 onclick = (typeof link.get(0).onclick == "function") ? link.get(0).onclick : null
 
             $(this).find('td').not('.' + options.excludeClass).click(function(e) {
+                if ($(document.body).hasClass('drag'))
+                    return
+
                 if (onclick)
                     onclick.apply(link.get(0))
                 else if (e.ctrlKey)

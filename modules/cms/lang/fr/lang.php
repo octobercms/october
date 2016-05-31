@@ -2,15 +2,22 @@
 
 return [
     'cms_object' => [
-        'invalid_file' => 'Nom de fichier invalide : :name. Les noms de fichiers ne peuvent contenir que des caractères alphanumériques, des tiret bas, des tirets et des points. Voir ces exemples de noms de fichiers valides : page.htm, page, subdirectory/page',
+        'invalid_file' => 'Nom de fichier invalide : :name. Les noms de fichiers ne peuvent contenir que des caractères alphanumériques, des tirets bas, des tirets et des points. Voici des exemples de noms de fichiers valides : page.htm, ma-page, sous_repertoire/nouvelle.page',
         'invalid_property' => 'L’attribut ":name" ne peut pas être défini',
         'file_already_exists' => 'Le fichier ":name" existe déjà.',
-        'error_saving' => 'Erreur lors de l’enregistrement du fichier ":name".',
-        'error_creating_directory' => 'Erreur lors de la création du répertoire :name',
+        'error_saving' => 'Erreur lors de l’enregistrement du fichier ":name". Veuillez vérifier les permissions en écriture.',
+        'error_creating_directory' => 'Erreur lors de la création du répertoire :name. Veuillez vérifier les permissions en écriture.',
         'invalid_file_extension' => 'Extension de fichier invalide : :invalid. Les extensions autorisées sont : :allowed.',
-        'error_deleting' => 'Erreur lors de la suppression du modèle ":name".',
+        'error_deleting' => 'Erreur lors de la suppression du modèle ":name". Veuillez vérifier les permissions en écriture.',
         'delete_success' => 'Les modèles ont été supprimés avec succès : :count.',
-        'file_name_required' => 'Le nom du fichier est requis.'
+        'file_name_required' => 'Le nom du fichier est requis.',
+        'safe_mode_enabled' => 'Le mode protégé est activé.',
+    ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'en ligne',
+            'maintenance' => 'en cours de maintenance',
+        ]
     ],
     'theme' => [
         'not_found_name' => 'Le thème ":name" n’a pas été trouvé.',
@@ -19,9 +26,9 @@ return [
             'not_found' => 'Le thème activé est introuvable.',
         ],
         'edit' => [
-            'not_set' => 'Le thème de rédaction n’est pas activé.',
-            'not_found' => 'Le thème de rédaction est introuvable.',
-            'not_match' => 'L’objet actuellement ouvert n’appartient pas au thème en cours de modification. Merci de recharger la page.'
+            'not_set' => 'Le thème à modifier n’est pas activé.',
+            'not_found' => 'Le thème à modifier est introuvable.',
+            'not_match' => 'L’objet auquel vous souhaitez accéder n’appartient pas au thème en cours de modification. Veuillez recharger la page.'
         ],
         'settings_menu' => 'Thème frontal',
         'settings_menu_description' => 'Aperçu des thèmes installés et sélection du thème actif.',
@@ -83,9 +90,9 @@ return [
     ],
     'maintenance' => [
         'settings_menu' => 'Maintenance',
-        'settings_menu_description' => 'Paramètres de la page de maintenance et ses options.',
+        'settings_menu_description' => 'Configurer la page de maintenance et ajuster ses options.',
         'is_enabled' => 'Activer la maintenance',
-        'is_enabled_comment' => 'Si activé, les visiteurs du site Web verront la page choisie ci-dessous.'
+        'is_enabled_comment' => 'Si activé, la page choisie ci-dessous sera affichée pour les visiteurs du site web.'
     ],
     'page' => [
         'not_found_name' => 'La page ":name" est introuvable',
@@ -163,14 +170,18 @@ return [
         'hidden' => 'Caché',
         'hidden_comment' => 'Les pages cachées sont seulement accessibles aux administrateurs connectés.',
         'enter_fullscreen' => 'Activer le mode plein écran',
-        'exit_fullscreen' => 'Annuler le mode plein écran'
+        'exit_fullscreen' => 'Annuler le mode plein écran',
+        'open_searchbox' => 'Ouvrir la boite de dialogue Rechercher',
+        'close_searchbox'  => 'Fermer la boite de dialogue Rechercher',
+        'open_replacebox' => 'Ouvrir la boite de dialogue Remplacer',
+        'close_replacebox'  => 'Fermer la boite de dialogue Remplacer'
     ],
     'asset' => [
         'menu_label' => 'Assets',
         'unsaved_label' => 'Asset(s) non sauvegardé(s)',
         'drop_down_add_title' => 'Ajouter…',
         'drop_down_operation_title' => 'Action…',
-        'upload_files' => 'Télécharger un fichier',
+        'upload_files' => 'Déposer des fichiers',
         'create_file' => 'Créer un fichier',
         'create_directory' => 'Créer un répertoire',
         'directory_popup_title' => 'Nouveau répertoire',
@@ -191,10 +202,10 @@ return [
         'already_exists' => 'Un fichier ou un répertoire avec le même nom existe déjà',
         'error_renaming' => 'Erreur pour renommer le fichier ou le répertoire',
         'name_cant_be_empty' => 'Le nom ne peut être vide',
-        'too_large' => 'Le fichier téléchargé est trop grand. La taille maximum autorisée est de :max_size',
+        'too_large' => 'Le fichier téléchargé est trop volumineux. La taille maximum autorisée est de :max_size',
         'type_not_allowed' => 'Les types de fichiers autorisés sont les suivants : :allowed_types',
         'file_not_valid' => 'Fichier invalide',
-        'error_uploading_file' => 'Erreur lors du téléchargement du fichier ":name" : :error',
+        'error_uploading_file' => 'Erreur lors du dépôt du fichier ":name" : :error',
         'move_please_select' => 'Faire une sélection',
         'move_destination' => 'Répertoire de destination',
         'move_popup_title' => 'Déplacer les assets',
@@ -213,34 +224,34 @@ return [
         'no_description' => 'Aucune description n’a été fournie',
         'alias' => 'Alias',
         'alias_description' => 'Nom unique fourni lors de l’utilisation du composant sur une page ou une maquette.',
-        'validation_message' => 'Les alias du composant sont requis et ne peuvent contenir uniquement des symboles latins, des chiffres et des tirets bas. Les alias doivent commencer par un symbole latin.',
-        'invalid_request' => 'Le modèle ne peut être enregistré puisque les données d’un composant sont invalides.',
+        'validation_message' => 'Les alias du composant sont requis et doivent contenir uniquement des symboles latins, des chiffres et des tirets bas. Les alias doivent commencer par un symbole latin.',
+        'invalid_request' => 'Le modèle ne peut être enregistré car les données d’un composant ne sont pas valides.',
         'no_records' => 'Aucun composant n’a été trouvé',
         'not_found' => 'Le composant ":name" est introuvable.',
         'method_not_found' => 'Le composant ":name" ne contient pas de méthode ":method".',
     ],
     'template' => [
         'invalid_type' => 'Type de modèle inconnu.',
-        'not_found' => 'Le modèle demandé est introuvable.',
-        'saved'=> 'Le modèle demandé a été sauvegardé avec succès.'
+        'not_found' => 'Le modèle est introuvable.',
+        'saved'=> 'Le modèle a été sauvegardé avec succès.'
     ],
     'permissions' => [
         'name' => 'CMS',
-        'manage_content' => 'Gérer le contenu',
-        'manage_assets' => 'Gérer les assets',
-        'manage_pages' => 'Gérer les pages',
-        'manage_layouts' => 'Gérer les maquettes',
-        'manage_partials' => 'Gérer les modèles partiels',
-        'manage_themes' => 'Gérer les thèmes',
-        'manage_media' => 'Gérer les médias'
+        'manage_content' => 'Gérer le contenu du site web',
+        'manage_assets' => 'Gérer les assets site web - images, fichiers JavaScript et CSS',
+        'manage_pages' => 'Créer, modifier et supprimer des pages du site web',
+        'manage_layouts' => 'Créer, modifier et supprimer des maquettes du CMS',
+        'manage_partials' => 'Créer, modifier et supprimer des modèles partiels du CMS',
+        'manage_themes' => 'Activer, désactiver et configurer les thèmes',
+        'manage_media' => 'Déposer et gérer les contenus media - images, vidéos, sons, documents'
     ],
     'mediafinder' => [
-        'default_prompt' => 'Cliquer su le bouton %s pour trouver un média'
+        'default_prompt' => 'Cliquez sur le bouton %s pour trouver un élément média'
     ],
     'media' => [
         'invalid_path' => "Le chemin du fichier indiqué est invalide : ':path'.",
         'menu_label' => 'Média',
-        'upload' => 'Télécharger',
+        'upload' => 'Déposer un fichier',
         'move' => 'Déplacer',
         'delete' => 'Supprimer',
         'add_folder' => 'Ajouter un répertoire',
@@ -262,9 +273,11 @@ return [
         'return_to_parent' => 'Retourner au répertoire parent',
         'return_to_parent_label' => 'Monter…',
         'nothing_selected' => 'Aucun sélection.',
-        'multiple_selected' => 'Plusieurs articles sélectionnés.',
-        'uploading_file_num' => 'Téléchargement de :number fichier(s)…',
-        'uploading_complete' => 'Téléchargement complet',
+        'multiple_selected' => 'Plusieurs éléments sélectionnés.',
+        'uploading_file_num' => 'Dépôt de :number fichier(s)…',
+        'uploading_complete' => 'Dépôt des fichiers terminé',
+        'uploading_error' => 'Le dépôt des fichiers a échoué',
+        'type_blocked' => 'Le type de fichier utilisé est bloqué pour des raisons de sécurité.',
         'order_by' => 'Trier par',
         'folder' => 'Répertoire',
         'no_files_found' => 'Aucun fichier trouvé.',

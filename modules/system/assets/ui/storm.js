@@ -18,6 +18,11 @@
 =require vendor/select2/js/select2.full.js
 =require vendor/mousewheel/mousewheel.js
 =require vendor/sortable/jquery-sortable.js
+=require vendor/moment/moment.js
+=require vendor/moment/moment-timezone-with-data.js
+=require vendor/pikaday/js/pikaday.js
+=require vendor/pikaday/js/pikaday.jquery.js
+=require vendor/clockpicker/js/jquery-clockpicker.js
 
 =require js/foundation.baseclass.js
 =require js/foundation.element.js
@@ -28,9 +33,11 @@
 =require js/checkbox.balloon.js
 =require js/dropdown.js
 =require js/callout.js
+=require js/datepicker.js
 =require js/tooltip.js
 =require js/toolbar.js
 =require js/filter.js
+=require js/filter.dates.js
 =require js/select.js
 =require js/loader.base.js
 =require js/loader.cursor.js

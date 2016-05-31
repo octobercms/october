@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Mallarna är nu raderade: :count.',
         'file_name_required' => 'Filnamnsfältet är obligatoriskt.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'online',
+            'maintenance' => 'i underhåll',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "Kunde inte hitta temat ':name'.",
         'active' => [

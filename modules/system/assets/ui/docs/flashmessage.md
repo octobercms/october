@@ -11,7 +11,7 @@ Displays a floating flash message on the screen.
 ### Trigger
 
     <p>
-        <a href="#" class="btn btn-primary" onclick="$.oc.flashMsg({text: 'The record has been successfujavascript:;ly saved. This message will go away in 1 second.', 'class': 'success', 'interval': 1}); return false;">
+        <a href="#" class="btn btn-primary" onclick="$.oc.flashMsg({text: 'The record has been successfully saved. This message will go away in 1 second.', 'class': 'success', 'interval': 1}); return false;">
             Create Success message
         </a>
     </p>
@@ -37,7 +37,7 @@ Displays a floating flash message on the screen.
 
 ```js
 $.oc.flashMsg({
-    'text': 'The record has been successfully saved.',
+    'text': 'Record saved.',
     'class': 'success',
     'interval': 3
 })

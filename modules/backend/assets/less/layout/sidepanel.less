@@ -5,12 +5,16 @@
 #layout-side-panel {
     .fix-button {
         position: absolute;
-        right: 2px;
-        top: 1px;
-        display: block;
-        width: 20px;
-        height: 20px;
+        right: -25px;
+        top: 0;
+        display: none;
+        width: 25px;
+        height: 25px;
         font-size: 13px;
+        background: #ecf0f1;
+        z-index: 120;
+        .opacity(0.5);
+        .border-radius(~'0 4px 4px 0');
 
         i {
             display: block;
@@ -21,24 +25,26 @@
 
         &:hover {
             text-decoration: none;
+            display: block;
             .opacity(1)!important;
         }
     }
 
-    .fix-button-content-header .fix-button {
-        top: 9px;
-        right: 7px;
-
-        i {
-            color: @color-scrollpanel-fix-button-light;
+    &:hover {
+        .fix-button {
+            display: block;
         }
+    }
+
+    .fix-button-content-header .fix-button {
+        top: 46px;
     }
 
     .sidepanel-content-header {
         background: #d35400;
         color: white;
-        font-size: 14px;
-        padding: 8px 15px;
+        font-size: 15px;
+        padding: 12px 20px 13px;
         position: relative;
 
         &:after {
@@ -65,7 +71,7 @@ body.display-side-panel {
         display: block;
         position: absolute;
         z-index: 500;
-        width: 300px;
+        width: 350px;
         .box-shadow(2px 0px 2px 0 rgba(0, 0, 0, 0.3));
     }
 }

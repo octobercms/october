@@ -24,18 +24,18 @@
         "source": "https://github.com/octobercms/october"
     },
     "require": {
-        "php": ">=5.4",
-        "october/rain": "~1.0",
-        "october/system": "~1.0",
-        "october/backend": "~1.0",
-        "october/cms": "~1.0",
-        "laravel/framework": "5.0.*",
-        "illuminate/html": "5.0.*",
+        "php": ">=5.5.9",
+        "october/rain": "dev-develop",
+        "october/system": "dev-develop",
+        "october/backend": "dev-develop",
+        "october/cms": "dev-develop",
+        "laravel/framework": "5.1.*",
         "wikimedia/composer-merge-plugin": "dev-master"
     },
     "require-dev": {
+        "fzaninotto/faker": "~1.4",
         "phpunit/phpunit": "~4.0",
-        "phpunit/phpunit-selenium": ">=1.2"
+        "phpunit/phpunit-selenium": "~1.2"
     },
     "autoload-dev": {
         "classmap": [
@@ -62,6 +62,6 @@
             "recurse": true,
             "replace": false,
             "merge-dev": false
-        }
+}
     }
 }

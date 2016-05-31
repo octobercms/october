@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'Заголовок виджета обязателен.',
         'status' => [
             'widget_title_default' => 'Статус системы',
-            'online' => 'Онлайн',
-            'maintenance' => 'в разработке',
             'update_available' => '{0} нет новый обновлений!|{1} доступно новое обновление!|[2,Inf] доступны новые обновления!'
         ]
     ],
@@ -303,10 +301,9 @@ return [
         'app_tagline' => 'Слоган приложения',
         'app_tagline_description' => 'Слоган будет отображаться на экране входа в панель управления.',
         'colors' => 'Цвета',
-        'primary_light' => 'Первичный (Светлый)',
-        'primary_dark' => 'Первичный (Тёмный)',
-        'secondary_light' => 'Вторичный (Светлый)',
-        'secondary_dark' => 'Вторичный (Тёмный)',
+        'primary_color' => 'Первичный color',
+        'secondary_color' => 'Вторичный color',
+        'accent_color' => 'Accent color',
         'styles' => 'Стили',
         'custom_stylesheet' => 'Пользовательские стили'
     ],

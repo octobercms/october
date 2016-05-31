@@ -1,0 +1,23 @@
+# ===================================
+#  Dashboard Config
+# ===================================
+
+defaultWidgets:
+
+   welcome:
+        class: Backend\ReportWidgets\Welcome
+        sortOrder: 50
+        configuration:
+            ocWidgetWidth: 6
+
+   systemStatus:
+        class: System\ReportWidgets\Status
+        sortOrder: 60
+        configuration:
+            ocWidgetWidth: 6
+
+   activeTheme:
+        class: Cms\ReportWidgets\ActiveTheme
+        sortOrder: 70
+        configuration:
+            ocWidgetWidth: 4

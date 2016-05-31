@@ -30,18 +30,27 @@ class Index extends Controller
         parent::__construct();
 
         BackendMenu::setContextOwner('October.Backend');
+
+        $this->addCss('/modules/backend/assets/css/dashboard/dashboard.css', 'core');
+
         if (BackendAuth::check()) {
-            new ReportContainer($this);
+            new ReportContainer($this, 'config_dashboard.yaml');
         }
     }
 
     public function index()
     {
-        if ($redirect = $this->checkPermissionRedirect())
+        if ($redirect = $this->checkPermissionRedirect()) {
             return $redirect;
+        }
 
         $this->pageTitle = 'backend::lang.dashboard.menu_label';
         BackendMenu::setContextMainMenu('dashboard');
+    }
+
+    public function index_onInitReportContainer()
+    {
+        return ['#dashReportContainer' => $this->widget->reportContainer->render()];
     }
 
     /**

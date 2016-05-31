@@ -2,6 +2,7 @@
 
 use App;
 use File;
+use Cache as CacheFacade;
 use Config;
 
 class Cache
@@ -12,6 +13,12 @@ class Cache
      * Execute the console command.
      */
     public static function clear()
+    {
+        CacheFacade::flush();
+        self::clearInternal();
+    }
+
+    public static function clearInternal()
     {
         $instance = self::instance();
         $instance->clearCombiner();

@@ -1,0 +1,16 @@
+<?php
+    $availableOptions = array_unique(array_merge($selectedValues, $fieldOptions));
+?>
+<!-- Tag List -->
+<select
+    id="<?= $field->getId() ?>"
+    name="<?= $field->getName() ?>[]"
+    class="form-control custom-select <?= !count($fieldOptions) ? 'select-no-dropdown' : '' ?> select-hide-selected"
+    <?php if ($customSeparators): ?>data-token-separators="<?= $customSeparators ?>"<?php endif ?>
+    multiple
+    <?= $field->getAttributes() ?>>
+    <?php foreach ($availableOptions as $option): ?>
+        <?php if (!strlen($option)) continue ?>
+        <option value="<?= e($option) ?>" <?= in_array($option, $selectedValues) ? 'selected="selected"' : '' ?>><?= e(trans($option)) ?></option>
+    <?php endforeach ?>
+</select>

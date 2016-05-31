@@ -11,9 +11,9 @@
 // --------------------------------------------------
 
 @color-popover-bg:                           #ffffff;
-@color-popover-border:                       @dropdown-border;
-@color-popover-head-bg:                      #d35400;
-@color-popover-head-text:                    #ffffff;
+@color-popover-border:                       rgba(0,0,0,.15);
+@color-popover-head-bg:                      #f9f9f9;
+@color-popover-head-text:                    #2a3e51;
 @color-popover-danger-bg:                    #ab2a1c;
 
 div.control-popover {
@@ -21,7 +21,7 @@ div.control-popover {
     background-clip: content-box;
     left: 0;
     top: 0;
-    z-index: 570;
+    z-index: @zindex-popover - 1;
     visibility: hidden;
 
     &.in, &.fade {
@@ -46,7 +46,7 @@ div.control-popover {
     & > div {
         position: relative;
         background: @color-popover-bg;
-        .box-shadow(2px 2px 2px rgba(0,0,0,0.05));
+        .box-shadow(@overlay-box-shadow);
         .border-top-radius(5px);
         .border-bottom-radius(2px);
 
@@ -54,13 +54,11 @@ div.control-popover {
             position: absolute;
         }
 
-        &:after { z-index: 601; }
-        &:before { z-index: 600; }
+        &:after { z-index: @zindex-popover + 1; }
+        &:before { z-index: @zindex-popover; }
     }
 
     &.placement-bottom > div {
-        border: 1px solid @color-popover-border;
-
         &:after {
             .triangle(up, 15px, 8px, @color-popover-bg);
             left: 15px;
@@ -134,15 +132,16 @@ div.control-popover {
         position: relative;
         color: @color-popover-head-text;
         .border-top-radius(2px);
+        border-bottom: 2px solid @color-popover-border;
 
         &:before {
-            z-index: 602;
+            z-index: @zindex-popover + 2;
             position: absolute;
         }
 
         h3 {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: @font-size-base;
+            font-weight: bold;
             margin-top: 0;
             margin-bottom: 0;
             padding-right: 15px;
@@ -150,9 +149,9 @@ div.control-popover {
         }
 
         p {
-            font-size: 13px;
-            font-weight: 100;
-            margin: 10px 0 0 0;
+            font-size: @font-size-base - 2;
+            font-weight: normal;
+            margin: 5px 0 0 0;
 
             &:empty {
                 display: none;
@@ -176,16 +175,17 @@ div.control-popover {
         .inspector-move-to-container {
             .opacity(0.4);
             position: absolute;
-            top: 12px;
+            top: 14px;
             right: 26px;
             float: none;
-            color: #ffffff;
+            color: @close-color;
             cursor: pointer;
             text-decoration: none;
+            line-height: 17px;
 
             &:hover {
                 .opacity(1);
-                color: #ffffff;
+                color: @close-color;
             }
 
             &:before {
@@ -235,7 +235,14 @@ div.control-popover {
         }
 
         .popover-head {
+            color: #fff;
             background-color: @color-popover-danger-bg;
+            border-bottom: 2px solid rgba(255,255,255,.15);
+
+            .close {
+                color: #fff;
+                text-shadow: none;
+            }
         }
     }
 
@@ -246,9 +253,9 @@ div.control-popover {
 
 .popover-highlight {
     position: relative;
-    z-index: 562 !important;
+    z-index: (@zindex-popover - 2) !important;
     &:hover, &:active, &:focus {
-        z-index: 562 !important;
+        z-index: (@zindex-popover - 2) !important;
     }
 }
 
@@ -258,8 +265,8 @@ div.popover-overlay {
     top: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.3);
-    z-index: 560;
+    background: @overlay-background;
+    z-index: @zindex-popover - 3;
 }
 
 @media (max-width: @screen-xs) {
@@ -274,7 +281,7 @@ div.popover-overlay {
             margin: 0;
             padding: 10px;
             width: 100% !important;
-            z-index: 609;
+            z-index: @zindex-popover + 3;
             top: 0 !important;
             right: 0 !important;
             bottom: 0 !important;
@@ -283,7 +290,6 @@ div.popover-overlay {
             > div {
                 padding: 0;
                 min-height: 100%;
-                .box-shadow(none);
 
                 &:before, &:after {
                     display: none;

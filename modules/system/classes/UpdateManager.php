@@ -11,7 +11,7 @@ use Schema;
 use Config;
 use ApplicationException;
 use Cms\Classes\ThemeManager;
-use System\Models\Parameters;
+use System\Models\Parameter;
 use System\Models\PluginVersion;
 use System\Helpers\Cache as CacheHelper;
 use October\Rain\Filesystem\Zip;
@@ -122,7 +122,7 @@ class UpdateManager
         $firstUp = !Schema::hasTable('migrations');
         if ($firstUp) {
             $this->repository->createRepository();
-            $this->note('Migration table created successfully.');
+            $this->note('Migration table created');
         }
 
         /*
@@ -141,7 +141,7 @@ class UpdateManager
             $this->updatePlugin($plugin);
         }
 
-        Parameters::set('system::update.count', 0);
+        Parameter::set('system::update.count', 0);
         CacheHelper::clear();
 
         /*
@@ -168,7 +168,7 @@ class UpdateManager
         /*
          * Already know about updates, never retry.
          */
-        $oldCount = Parameters::get('system::update.count');
+        $oldCount = Parameter::get('system::update.count');
         if ($oldCount > 0) {
             return $oldCount;
         }
@@ -176,7 +176,7 @@ class UpdateManager
         /*
          * Retry period not passed, skipping.
          */
-        if (!$force && ($retryTimestamp = Parameters::get('system::update.retry'))) {
+        if (!$force && ($retryTimestamp = Parameter::get('system::update.retry'))) {
             if (Carbon::createFromTimeStamp($retryTimestamp)->isFuture()) {
                 return $oldCount;
             }
@@ -193,8 +193,8 @@ class UpdateManager
         /*
          * Remember update count, set retry date
          */
-        Parameters::set('system::update.count', $newCount);
-        Parameters::set('system::update.retry', Carbon::now()->addHours(24)->timestamp);
+        Parameter::set('system::update.count', $newCount);
+        Parameter::set('system::update.retry', Carbon::now()->addHours(24)->timestamp);
 
         return $newCount;
     }
@@ -211,7 +211,8 @@ class UpdateManager
         $names = $installed->lists('name', 'code');
         $icons = $installed->lists('icon', 'code');
         $frozen = $installed->lists('is_frozen', 'code');
-        $build = Parameters::get('system::core.build');
+        $updatable = $installed->lists('is_updatable', 'code');
+        $build = Parameter::get('system::core.build');
 
         $params = [
             'core' => $this->getHash(),
@@ -220,10 +221,6 @@ class UpdateManager
             'force' => $force
         ];
 
-        if ($projectId = Parameters::get('system::project.id')) {
-            $params['project'] = $projectId;
-        }
-
         $result = $this->requestServerData('core/update', $params);
         $updateCount = (int) array_get($result, 'update', 0);
 
@@ -231,7 +228,7 @@ class UpdateManager
          * Inject known core build
          */
         if ($core = array_get($result, 'core')) {
-            $core['old_build'] = Parameters::get('system::core.build');
+            $core['old_build'] = Parameter::get('system::core.build');
             $result['core'] = $core;
         }
 
@@ -245,10 +242,13 @@ class UpdateManager
             $info['icon'] = isset($icons[$code]) ? $icons[$code] : false;
 
             /*
-             * If plugin has updates frozen, do not add it to the list
-             * and discount an update unit.
+             * If a plugin has updates frozen, or cannot be updated,
+             * do not add to the list and discount an update unit.
              */
-            if (isset($frozen[$code]) && $frozen[$code]) {
+            if (
+                (isset($frozen[$code]) && $frozen[$code]) ||
+                (isset($updatable[$code]) && !$updatable[$code])
+            ) {
                 $updateCount = max(0, --$updateCount);
             }
             else {
@@ -283,7 +283,7 @@ class UpdateManager
         $updateCount += count($themes);
         $result['hasUpdates'] = $updateCount > 0;
         $result['update'] = $updateCount;
-        Parameters::set('system::update.count', $updateCount);
+        Parameter::set('system::update.count', $updateCount);
 
         return $result;
     }
@@ -352,7 +352,7 @@ class UpdateManager
      */
     public function getHash()
     {
-        return Parameters::get('system::core.hash', md5('NULL'));
+        return Parameter::get('system::core.hash', md5('NULL'));
     }
 
     /**
@@ -419,7 +419,7 @@ class UpdateManager
         // Database may fall asleep after this long process
         Db::reconnect();
 
-        Parameters::set([
+        Parameter::set([
             'system::core.hash'  => $hash,
             'system::core.build' => $build
         ]);
@@ -633,11 +633,11 @@ class UpdateManager
         $cacheKey = 'system-updates-popular-'.$type;
 
         if (Cache::has($cacheKey)) {
-            return @unserialize(Cache::get($cacheKey)) ?: [];
+            return @unserialize(@base64_decode(Cache::get($cacheKey))) ?: [];
         }
 
         $data = $this->requestServerData($type.'/popular');
-        Cache::put($cacheKey, serialize($data), 60);
+        Cache::put($cacheKey, base64_encode(serialize($data)), 60);
 
         foreach ($data as $product) {
             $code = array_get($product, 'code', -1);
@@ -655,7 +655,7 @@ class UpdateManager
         $cacheKey = 'system-updates-product-details';
 
         if (Cache::has($cacheKey)) {
-            $this->productCache = @unserialize(Cache::get($cacheKey)) ?: $defaultCache;
+            $this->productCache = @unserialize(@base64_decode(Cache::get($cacheKey))) ?: $defaultCache;
         }
         else {
             $this->productCache = $defaultCache;
@@ -670,7 +670,7 @@ class UpdateManager
 
         $cacheKey = 'system-updates-product-details';
         $expiresAt = Carbon::now()->addDays(2);
-        Cache::put($cacheKey, serialize($this->productCache), $expiresAt);
+        Cache::put($cacheKey, base64_encode(serialize($this->productCache)), $expiresAt);
     }
 
     protected function cacheProductDetail($type, $code, $data)
@@ -772,10 +772,6 @@ class UpdateManager
     {
         $filePath = $this->getFilePath($fileCode);
 
-        if ($projectId = Parameters::get('system::project.id')) {
-            $postData['project'] = $projectId;
-        }
-
         $result = Http::post($this->createServerUrl($uri), function ($http) use ($postData, $filePath) {
             $this->applyHttpAttributes($http, $postData);
             $http->toFile($filePath);
@@ -820,7 +816,7 @@ class UpdateManager
      */
     protected function createServerUrl($uri)
     {
-        $gateway = Config::get('cms.updateServer', 'http://octobercms.com/api');
+        $gateway = Config::get('cms.updateServer', 'http://gateway.octobercms.com/api');
         if (substr($gateway, -1) != '/') {
             $gateway .= '/';
         }
@@ -837,6 +833,11 @@ class UpdateManager
     protected function applyHttpAttributes($http, $postData)
     {
         $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => URL::to('/')]));
+
+        if ($projectId = Parameter::get('system::project.id')) {
+            $postData['project'] = $projectId;
+        }
+
         if (Config::get('cms.edgeUpdates', false)) {
             $postData['edge'] = 1;
         }

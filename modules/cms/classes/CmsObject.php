@@ -1,16 +1,12 @@
 <?php namespace Cms\Classes;
 
-use File;
+use App;
 use Lang;
-use Cache;
 use Config;
-use Validator;
-use Cms\Helpers\File as FileHelper;
+use October\Rain\Halcyon\Model as HalcyonModel;
+use Cms\Contracts\CmsObject as CmsObjectContract;
 use ApplicationException;
 use ValidationException;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use ArrayAccess;
 use Exception;
 
 /**
@@ -20,55 +16,94 @@ use Exception;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class CmsObject implements ArrayAccess
+class CmsObject extends HalcyonModel implements CmsObjectContract
 {
-    /**
-     * @var string Specifies the file name corresponding the CMS object.
-     */
-    protected $fileName;
+    use \October\Rain\Halcyon\Traits\Validation;
 
     /**
-     * @var string Specifies the file name, the CMS object was loaded from.
+     * @var array The rules to be applied to the data.
      */
-    protected $originalFileName = null;
+    public $rules = [];
 
     /**
-     * @var string The entire file content.
+     * @var array The array of custom attribute names.
      */
-    protected $content;
+    public $attributeNames = [];
+
+    /**
+     * @var array The array of custom error messages.
+     */
+    public $customMessages = [];
+
+    /**
+     * @var array The attributes that are mass assignable.
+     */
+    protected $fillable = [
+        'content'
+    ];
+
+    /**
+     * @var bool Model supports code and settings sections.
+     */
+    protected $isCompoundObject = false;
 
     /**
      * @var \Cms\Classes\Theme A reference to the CMS theme containing the object.
      */
-    protected $theme;
+    protected $themeCache;
 
     /**
-     * @var boolean Indicated whether the object was loaded from the cache.
+     * Create a new CMS object instance.
+     *
+     * @param  array  $attributes
+     * @return void
      */
-    protected $loadedFromCache = false;
-
-    protected static $fillable = [
-        'content',
-        'fileName'
-    ];
-
-    protected static $allowedExtensions = ['htm'];
-
-    protected static $defaultExtension = 'htm';
-
-    /**
-     * @var integer The template file modification time.
-     */
-    public $mtime;
-
-    /**
-     * Creates an instance of the object and associates it with a CMS theme.
-     * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
-     * If the theme is specified as NULL, then a query can be performed on the object directly.
-     */
-    public function __construct(Theme $theme = null)
+    public function __construct(array $attributes = [])
     {
-        $this->theme = $theme;
+        parent::__construct($attributes);
+    }
+
+    /**
+     * The "booting" method of the model.
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::bootDefaultTheme();
+    }
+
+    /**
+     * Boot all of the bootable traits on the model.
+     * @return void
+     */
+    protected static function bootDefaultTheme()
+    {
+        $resolver = static::getDatasourceResolver();
+        if ($resolver->getDefaultDatasource()) {
+            return;
+        }
+
+        $defaultTheme = App::runningInBackend()
+            ? Theme::getEditThemeCode()
+            : Theme::getActiveThemeCode();
+
+        Theme::load($defaultTheme);
+
+        $resolver->setDefaultDatasource($defaultTheme);
+    }
+
+    /**
+     * Loads the object from a file.
+     * This method is used in the CMS back-end. It doesn't use any caching.
+     * @param mixed $theme Specifies the theme the object belongs to.
+     * @param string $fileName Specifies the file name, with the extension.
+     * The file name can contain only alphanumeric symbols, dashes and dots.
+     * @return mixed Returns a CMS object instance or null if the object wasn't found.
+     */
+    public static function load($theme, $fileName)
+    {
+        return static::inTheme($theme)->find($fileName);
     }
 
     /**
@@ -80,126 +115,95 @@ class CmsObject implements ArrayAccess
      */
     public static function loadCached($theme, $fileName)
     {
-        if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting())) {
-            throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
-        }
-
-        if (!strlen(File::extension($fileName))) {
-            $fileName .= '.'.static::$defaultExtension;
-        }
-
-        $filePath = static::getFilePath($theme, $fileName);
-        if (array_key_exists($filePath, ObjectMemoryCache::$cache)) {
-            return ObjectMemoryCache::$cache[$filePath];
-        }
-
-        $key = self::getObjectTypeDirName().crc32($filePath);
-
-        clearstatcache($filePath);
-        $cached = Cache::get($key, false);
-        if ($cached !== false && ($cached = @unserialize($cached)) !== false) {
-            if ($cached['mtime'] != @File::lastModified($filePath)) {
-                $cached = false;
-            }
-        }
-
-        if ($cached && !File::isFile($filePath)) {
-            $cached = false;
-        }
-
-        if ($cached !== false) {
-            /*
-             * The cached item exists and successfully unserialized. 
-             * Initialize the object from the cached data.
-             */
-            $obj = new static($theme);
-            $obj->content = $cached['content'];
-            $obj->fileName = $fileName;
-            $obj->mtime = File::lastModified($filePath);
-            $obj->loadedFromCache = true;
-            $obj->initFromCache($cached);
-
-            return ObjectMemoryCache::$cache[$filePath] = $obj;
-        }
-
-        /*
-         * The cached item doesn't exists.
-         * Load the object from the file and create the cache.
-         */
-        if (($obj = static::load($theme, $fileName)) === null) {
-            /*
-             * If the object cannot be loaded from the disk, delete the cache item.
-             */
-            Cache::forget($key);
-            return null;
-        }
-
-        $cached = [
-            'mtime'   => @File::lastModified($filePath),
-            'content' => $obj->content
-        ];
-
-        $obj->loadedFromCache = false;
-        $obj->initCacheItem($cached);
-        Cache::put($key, serialize($cached), Config::get('cms.parsedPageCacheTTL', 1440));
-
-        return ObjectMemoryCache::$cache[$filePath] = $obj;
+        return static::inTheme($theme)
+            ->remember(Config::get('cms.parsedPageCacheTTL', 1440))
+            ->find($fileName)
+        ;
     }
 
     /**
-     * Loads the object from a file.
-     * This method is used in the CMS back-end. It doesn't use any caching.
-     * @param \Cms\Classes\Theme $theme Specifies the theme the object belongs to.
-     * @param string $fileName Specifies the file name, with the extension.
-     * The file name can contain only alphanumeric symbols, dashes and dots.
-     * @return mixed Returns a CMS object instance or null if the object wasn't found.
+     * Returns the list of objects in the specified theme.
+     * This method is used internally by the system.
+     * @param \Cms\Classes\Theme $theme Specifies a parent theme.
+     * @param boolean $skipCache Indicates if objects should be reloaded from the disk bypassing the cache.
+     * @return array Returns an array of CMS objects.
      */
-    public static function load($theme, $fileName)
+    public static function listInTheme($theme, $skipCache = false)
     {
-        if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting())) {
-            throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName]));
+        $instance = static::inTheme($theme);
+
+        if ($skipCache) {
+            return $instance->get();
         }
 
-        if (!strlen(File::extension($fileName))) {
-            $fileName .= '.'.static::$defaultExtension;
+        $result = [];
+        $items = $instance->newQuery()->lists('fileName');
+
+        foreach ($items as $item) {
+            $result[] = static::loadCached($theme, $item);
         }
 
-        $fullPath = static::getFilePath($theme, $fileName);
-
-        if (!File::isFile($fullPath)) {
-            return null;
-        }
-
-        if (($content = @File::get($fullPath)) === false) {
-            return null;
-        }
-
-        $obj = new static($theme);
-        $obj->fileName = $fileName;
-        $obj->originalFileName = $fileName;
-        $obj->mtime = File::lastModified($fullPath);
-        $obj->content = $content;
-        return $obj;
+        return $instance->newCollection($result);
     }
 
     /**
-     * Returns the maximum allowed path nesting level. 
-     * The default value is 2, meaning that files
-     * can only exist in the root directory, or in a subdirectory.
-     * @return mixed Returns the maximum nesting level or null if any level is allowed.
+     * Prepares the theme datasource for the model.
+     * @param \Cms\Classes\Theme $theme Specifies a parent theme.
+     * @return $this
      */
-    protected static function getMaxAllowedPathNesting()
+    public static function inTheme($theme)
     {
-        return 2;
+        if (is_string($theme)) {
+            $theme = Theme::load($theme);
+        }
+
+        return static::on($theme->getDirName());
     }
 
     /**
-     * Returns the file content.
+     * Save the object to the theme.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function save(array $options = null)
+    {
+        try {
+            parent::save($options);
+        }
+        catch (Exception $ex) {
+            $this->throwHalcyonSaveException($ex);
+        }
+    }
+
+    /**
+     * Returns the CMS theme this object belongs to.
+     * @return \Cms\Classes\Theme
+     */
+    public function getThemeAttribute()
+    {
+        if ($this->themeCache !== null) {
+            return $this->themeCache;
+        }
+
+        $themeName = $this->getDatasourceName()
+            ?: static::getDatasourceResolver()->getDefaultDatasource();
+
+        return $this->themeCache = Theme::load($themeName);
+    }
+
+    /**
+     * Returns the full path to the template file corresponding to this object.
+     * @param  string  $fileName
      * @return string
      */
-    public function getContent()
+    public function getFilePath($fileName = null)
     {
-        return $this->content;
+        if ($fileName === null) {
+            $fileName = $this->fileName;
+        }
+
+        return $this->theme->getPath().'/'.$this->getObjectTypeDirName().'/'.$fileName;
     }
 
     /**
@@ -236,67 +240,17 @@ class CmsObject implements ArrayAccess
     }
 
     /**
-     * Sets the object file name.
-     * @param string $fileName Specifies the file name.
-     * @return \Cms\Classes\CmsObject Returns the object instance.
-     */
-    public function setFileName($fileName)
-    {
-        $fileName = trim($fileName);
-
-        if (!strlen($fileName)) {
-            throw new ValidationException(['fileName' =>
-                Lang::get('cms::lang.cms_object.file_name_required', [
-                    'allowed' => implode(', ', static::$allowedExtensions),
-                    'invalid' => pathinfo($fileName, PATHINFO_EXTENSION)
-                ])
-            ]);
-        }
-
-        if (!FileHelper::validateExtension($fileName, static::$allowedExtensions)) {
-            throw new ValidationException(['fileName' =>
-                Lang::get('cms::lang.cms_object.invalid_file_extension', [
-                    'allowed' => implode(', ', static::$allowedExtensions),
-                    'invalid' => pathinfo($fileName, PATHINFO_EXTENSION)
-                ])
-            ]);
-        }
-
-        if (!FileHelper::validatePath($fileName, static::getMaxAllowedPathNesting())) {
-            throw new ValidationException([
-               'fileName' => Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$fileName])
-            ]);
-        }
-
-        if (!strlen(File::extension($fileName))) {
-            $fileName .= '.htm';
-        }
-
-        $this->fileName = $fileName;
-        return $this;
-    }
-
-    /**
-     * Returns the full path to the template file corresponding to this object.
+     * Returns the file content.
      * @return string
      */
-    public function getFullPath()
+    public function getContent()
     {
-        return static::getFilePath($this->theme, $this->fileName);
-    }
-
-    /**
-     * Returns true if the object was loaded from the cache.
-     * This method is used by the CMS internally.
-     * @return boolean
-     */
-    public function isLoadedFromCache()
-    {
-        return $this->loadedFromCache;
+        return $this->content;
     }
 
     /**
      * Returns the Twig content string.
+     * @return string
      */
     public function getTwigContent()
     {
@@ -304,299 +258,66 @@ class CmsObject implements ArrayAccess
     }
 
     /**
-     * Sets the object attributes.
-     * @param array $attributes A list of attributes to set.
-     */
-    public function fill(array $attributes)
-    {
-        foreach ($attributes as $key => $value) {
-            if (!in_array($key, static::$fillable)) {
-                throw new ApplicationException(Lang::get(
-                    'cms::lang.cms_object.invalid_property',
-                    ['name' => $key]
-                ));
-            }
-
-            $methodName = 'set'.ucfirst($key);
-            if (method_exists($this, $methodName)) {
-                $this->$methodName($value);
-            }
-            else {
-                $this->$key = $value;
-            }
-        }
-    }
-
-    /**
-     * Saves the object to the disk.
-     */
-    public function save()
-    {
-        $fullPath = static::getFilePath($this->theme, $this->fileName);
-
-        if (File::isFile($fullPath) && $this->originalFileName !== $this->fileName) {
-            throw new ApplicationException(Lang::get(
-                'cms::lang.cms_object.file_already_exists',
-                ['name'=>$this->fileName]
-            ));
-        }
-
-        $dirPath = rtrim(static::getFilePath($this->theme, ''), '/');
-        if (!file_exists($dirPath) || !is_dir($dirPath)) {
-            if (!File::makeDirectory($dirPath, 0777, true, true)) {
-                throw new ApplicationException(Lang::get(
-                    'cms::lang.cms_object.error_creating_directory',
-                    ['name'=>$dirPath]
-                ));
-            }
-        }
-
-        if (($pos = strpos($this->fileName, '/')) !== false) {
-            $dirPath = static::getFilePath($this->theme, dirname($this->fileName));
-
-            if (!is_dir($dirPath) && !File::makeDirectory($dirPath, 0777, true, true)) {
-                throw new ApplicationException(Lang::get(
-                    'cms::lang.cms_object.error_creating_directory',
-                    ['name'=>$dirPath]
-                ));
-            }
-        }
-
-        $newFullPath = $fullPath;
-        if (@File::put($fullPath, $this->content) === false) {
-            throw new ApplicationException(Lang::get(
-                'cms::lang.cms_object.error_saving',
-                ['name'=>$this->fileName]
-            ));
-        }
-
-        if (strlen($this->originalFileName) && $this->originalFileName !== $this->fileName) {
-            $fullPath = static::getFilePath($this->theme, $this->originalFileName);
-
-            if (File::isFile($fullPath)) {
-                @unlink($fullPath);
-            }
-        }
-
-        clearstatcache();
-
-        $this->mtime = @File::lastModified($newFullPath);
-        $this->originalFileName = $this->fileName;
-    }
-
-    /**
-     * Deletes the object from the disk.
-     */
-    public function delete()
-    {
-        $fullPath = static::getFilePath($this->theme, $this->fileName);
-        if (File::isFile($fullPath) && !is_dir($fullPath) && !@unlink($fullPath)) {
-            throw new ApplicationException(Lang::get('cms::lang.cms_object.error_deleting', ['name'=>$this->fileName]));
-        }
-    }
-
-    /**
-     * Clears the internal request-level object cache.
-     */
-    public static function clearInternalCache()
-    {
-        ObjectMemoryCache::$cache = [];
-    }
-
-    /**
-     * Returns the list of objects in the specified theme.
-     * This method is used internally by the system.
-     * @param \Cms\Classes\Theme $theme Specifies a parent theme.
-     * @param boolean $skipCache Indicates if objects should be reloaded from the disk bypassing the cache.
-     * @return array Returns an array of CMS objects.
-     */
-    public static function listInTheme($theme, $skipCache = false)
-    {
-        if (!$theme) {
-            throw new ApplicationException(Lang::get('cms::lang.theme.active.not_set'));
-        }
-
-        $dirPath = $theme->getPath().'/'.static::getObjectTypeDirName();
-        $result = [];
-
-        if (!File::isDirectory($dirPath)) {
-            return $result;
-        }
-
-        $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirPath));
-        $it->setMaxDepth(1); // Support only a single level of subdirectories
-        $it->rewind();
-
-        while ($it->valid()) {
-            if ($it->isFile() && in_array($it->getExtension(), static::$allowedExtensions)) {
-                $filePath = $it->getBasename();
-                if ($it->getDepth() > 0) {
-                    $filePath = basename($it->getPath()).'/'.$filePath;
-                }
-
-                $page = $skipCache ? static::load($theme, $filePath) : static::loadCached($theme, $filePath);
-                $result[] = $page;
-            }
-
-            $it->next();
-        }
-
-        return $result;
-    }
-    
-    /**
-     * Returns the absolute file path.
-     * @param \Cms\Classes\Theme $theme Specifies a theme the file belongs to.
-     * @param string$fileName Specifies the file name to return the path to.
+     * Returns the key used by the Twig cache.
      * @return string
      */
-    protected static function getFilePath($theme, $fileName)
+    public function getTwigCacheKey()
     {
-        return $theme->getPath().'/'.static::getObjectTypeDirName().'/'.$fileName;
-    }
+        $key = $this->getFilePath();
 
-    /**
-     * Implements the getter functionality.
-     * @param  string  $name
-     * @return null|string
-     */
-    public function __get($name)
-    {
-        $methodName = 'get'.ucfirst($name);
-        if (method_exists($this, $methodName)) {
-            return $this->$methodName();
+        if ($event = $this->fireEvent('cmsObject.getTwigCacheKey', compact('key'), true)) {
+            $key = $event;
         }
 
-        return null;
+        return $key;
     }
 
+    //
+    // Internals
+    //
+
     /**
-     * Determine if an attribute exists on the object.
-     * @param  string  $key
-     * @return bool
+     * Converts an exception type thrown by Halcyon to a native CMS exception.
+     * @param Exception $ex
      */
-    public function __isset($key)
+    protected function throwHalcyonSaveException(Exception $ex)
     {
-        $methodName = 'get'.ucfirst($key);
-        if (method_exists($this, $methodName)) {
-            return true;
+        if ($ex instanceof \October\Rain\Halcyon\Exception\MissingFileNameException) {
+            throw new ValidationException([
+                'fileName' => Lang::get('cms::lang.cms_object.file_name_required')
+            ]);
         }
-
-        return false;
-    }
-
-    /**
-     * Determine if the given attribute exists.
-     * @param  mixed  $offset
-     * @return bool
-     */
-    public function offsetExists($offset)
-    {
-        return isset($this->$offset);
-    }
-
-    /**
-     * Get the value for a given offset.
-     * @param  mixed  $offset
-     * @return mixed
-     */
-    public function offsetGet($offset)
-    {
-        return $this->$offset;
-    }
-
-    /**
-     * Set the value for a given offset.
-     * @param  mixed  $offset
-     * @param  mixed  $value
-     * @return void
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->$offset = $value;
-    }
-
-    /**
-     * Unset the value for a given offset.
-     * @param  mixed  $offset
-     * @return void
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->$offset);
-    }
-
-    //
-    // Queries
-    //
-
-    /**
-     * Get a new query builder for the object
-     * @return CmsObjectQuery
-     */
-    public function newQuery()
-    {
-        $query = new CmsObjectQuery($this, $this->theme);
-        return $query;
-    }
-
-    /**
-     * Handle dynamic method calls into the method.
-     * @param  string  $method
-     * @param  array   $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        // If this object is populated with a theme, then a query
-        // cannot be performed on it to reduce overhead on populated objects.
-        if (!$this->theme) {
-            $query = $this->newQuery();
-            return call_user_func_array(array($query, $method), $parameters);
+        elseif ($ex instanceof \October\Rain\Halcyon\Exception\InvalidExtensionException) {
+            throw new ValidationException(['fileName' =>
+                Lang::get('cms::lang.cms_object.invalid_file_extension', [
+                    'allowed' => implode(', ', $ex->getAllowedExtensions()),
+                    'invalid' => $ex->getInvalidExtension()
+                ])
+            ]);
         }
-
-        $className = get_class($this);
-        throw new \BadMethodCallException("Call to undefined method {$className}::{$method}()");
+        elseif ($ex instanceof \October\Rain\Halcyon\Exception\InvalidFileNameException) {
+            throw new ValidationException([
+               'fileName' => Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$ex->getInvalidFileName()])
+            ]);
+        }
+        elseif ($ex instanceof \October\Rain\Halcyon\Exception\FileExistsException) {
+            throw new ApplicationException(
+                Lang::get('cms::lang.cms_object.file_already_exists', ['name' => $ex->getInvalidPath()])
+            );
+        }
+        elseif ($ex instanceof \October\Rain\Halcyon\Exception\CreateDirectoryException) {
+            throw new ApplicationException(
+                Lang::get('cms::lang.cms_object.error_creating_directory', ['name' => $ex->getInvalidPath()])
+            );
+        }
+        elseif ($ex instanceof \October\Rain\Halcyon\Exception\CreateFileException) {
+            throw new ApplicationException(
+                Lang::get('cms::lang.cms_object.error_saving', ['name' => $ex->getInvalidPath()])
+            );
+        }
+        else {
+            throw $ex;
+        }
     }
 
-    /**
-     * Handle dynamic static method calls into the method.
-     * @param  string  $method
-     * @param  array   $parameters
-     * @return mixed
-     */
-    public static function __callStatic($method, $parameters)
-    {
-        $instance = new static;
-        return call_user_func_array([$instance, $method], $parameters);
-    }
-
-    //
-    // Overrides
-    //
-
-    /**
-     * Initializes the object properties from the cached data.
-     * @param array $cached The cached data array.
-     */
-    protected function initFromCache($cached)
-    {
-    }
-
-    /**
-     * Initializes a cache item.
-     * @param array &$item The cached item array.
-     */
-    protected function initCacheItem(&$item)
-    {
-    }
-
-    /**
-     * Returns the directory name corresponding to the object type.
-     * For pages the directory name is "pages", for layouts - "layouts", etc.
-     * @return string
-     */
-    public static function getObjectTypeDirName()
-    {
-    }
 }
