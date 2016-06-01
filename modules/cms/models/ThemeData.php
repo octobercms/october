@@ -3,6 +3,7 @@
 use Lang;
 use Model;
 use Cms\Classes\Theme as CmsTheme;
+use System\Classes\CombineAssets;
 
 /**
  * Customization data used by a theme
@@ -40,6 +41,11 @@ class ThemeData extends Model
     public $rules = [];
 
     /**
+     * @var array Relations
+     */
+    public $attachOne = [];
+
+    /**
      * @var ThemeData Cached array of objects
      */
     protected static $instances = [];
@@ -54,6 +60,11 @@ class ThemeData extends Model
 
         $this->data = $dynamicAttributes;
         $this->setRawAttributes(array_only($this->getAttributes(), $staticAttributes));
+    }
+
+    public function afterSave()
+    {
+        CombineAssets::resetCache();
     }
 
     /**
@@ -78,8 +89,15 @@ class ThemeData extends Model
          * Repeater form fields store arrays and must be jsonable.
          */
         foreach ($this->getFormFields() as $id => $field) {
-            if (isset($field['type']) && $field['type'] == 'repeater') {
+            if (!isset($field['type'])) {
+                continue;
+            }
+
+            if ($field['type'] == 'repeater') {
                 $this->jsonable[] = $id;
+            }
+            elseif ($field['type'] == 'fileupload') {
+                $this->attachOne[$id] = 'System\Models\File';
             }
         }
 
@@ -91,8 +109,9 @@ class ThemeData extends Model
 
     public function beforeValidate()
     {
-        if (!$this->exists)
+        if (!$this->exists) {
             $this->setDefaultValues();
+        }
     }
 
     /**
@@ -119,6 +138,7 @@ class ThemeData extends Model
 
     /**
      * Returns all fields defined for this model, based on form field definitions.
+     * @return array
      */
     public function getFormFields()
     {
@@ -128,5 +148,24 @@ class ThemeData extends Model
         return $theme->getConfigValue('form.fields', []) +
             $theme->getConfigValue('form.tabs.fields', []) +
             $theme->getConfigValue('form.secondaryTabs.fields', []);
+    }
+
+    /**
+     * Returns variables that should be passed to the asset combiner.
+     * @return array
+     */
+    public function getAssetVariables()
+    {
+        $result = [];
+
+        foreach ($this->getFormFields() as $attribute => $field) {
+            if (!$varName = array_get($field, 'assetVar')) {
+                continue;
+            }
+
+            $result[$varName] = $this->{$attribute};
+        }
+
+        return $result;
     }
 }

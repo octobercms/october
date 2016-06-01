@@ -1,7 +1,7 @@
 <?php namespace System\Classes;
 
 use App;
-use URL;
+use Url;
 use File;
 use Lang;
 use Cache;
@@ -9,11 +9,13 @@ use Route;
 use Config;
 use Request;
 use Response;
-use Assetic\Asset\AssetCollection;
+use Cms\Classes\Theme;
 use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCache;
+use Assetic\Asset\AssetCollection;
 use Assetic\Cache\FilesystemCache;
+use System\Helpers\Cache as CacheHelper;
 use ApplicationException;
 use DateTime;
 
@@ -317,6 +319,7 @@ class CombineAssets
         $filesSalt = null;
         foreach ($assets as $asset) {
             $filters = $this->getFilters(File::extension($asset)) ?: [];
+            $filters = $this->processFilters($filters);
             $path = File::symbolizePath($asset, null) ?: $this->localPath . $asset;
             $files[] = new FileAsset($path, $filters, public_path());
             $filesSalt .= $this->localPath . $asset;
@@ -346,7 +349,7 @@ class CombineAssets
         $actionExists = Route::getRoutes()->getByAction($combineAction) !== null;
 
         if ($actionExists) {
-            return URL::action($combineAction, [$outputFilename], false);
+            return Url::action($combineAction, [$outputFilename], false);
         }
         else {
             return '/combine/'.$outputFilename;
@@ -463,6 +466,29 @@ class CombineAssets
         else {
             return null;
         }
+    }
+
+    /**
+     * Preprocess filters to use standard configuration provided by the system.
+     * @param array $filters
+     * @return array
+     */
+    protected function processFilters($filters)
+    {
+        $theme = Theme::getActiveTheme();
+        if (!$theme->hasCustomData()) {
+            return $filters;
+        }
+
+        $assetVars = $theme->getCustomData()->getAssetVariables();
+
+        foreach ($filters as $filter) {
+            if (method_exists($filter, 'setPresets')) {
+                $filter->setPresets($assetVars);
+            }
+        }
+
+        return $filters;
     }
 
     //
@@ -651,17 +677,17 @@ class CombineAssets
      */
     public static function resetCache()
     {
-        if (!Cache::has('combiner.index')) {
-            return;
+        if (Cache::has('combiner.index')) {
+            $index = (array) @unserialize(@base64_decode(Cache::get('combiner.index'))) ?: [];
+
+            foreach ($index as $cacheId) {
+                Cache::forget($cacheId);
+            }
+
+            Cache::forget('combiner.index');
         }
 
-        $index = (array) @unserialize(@base64_decode(Cache::get('combiner.index'))) ?: [];
-
-        foreach ($index as $cacheId) {
-            Cache::forget($cacheId);
-        }
-
-        Cache::forget('combiner.index');
+        CacheHelper::instance()->clearCombiner();
     }
 
     /**

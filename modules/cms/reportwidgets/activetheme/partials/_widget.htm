@@ -24,6 +24,14 @@
             <li>
                 <a href="<?= Backend::url('cms/themes') ?>"><?= e(trans('cms::lang.dashboard.active_theme.manage_themes')) ?></a>
             </li>
+            <?php if ($theme->hasCustomData()): ?>
+                <li>
+                    <a
+                        href="<?= Backend::url('cms/themes/update/'.$theme->getDirName()) ?>">
+                        Customize theme
+                    </a>
+                </li>
+            <?php endif ?>
         </ul>
     <?php else: ?>
         <div class="callout callout-warning">
