@@ -15,8 +15,10 @@ return [
     ],
     'dashboard' => [
         'active_theme' => [
-            'online' => 'online',
-            'maintenance' => 'karbantartás',
+            'widget_title_default' => 'Honlap',
+            'online' => 'Online',
+            'maintenance' => 'Karbantartás alatt',
+            'manage_themes' => 'Témák kezelése'
         ]
     ],
     'theme' => [

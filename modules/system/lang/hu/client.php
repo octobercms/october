@@ -74,6 +74,12 @@ return [
     ],
 
     'eventlog' => [
+        'show_stacktrace' => 'Mutatás',
+        'hide_stacktrace' => 'Rejtés',
+        'tabs' => [
+            'formatted' => 'Formázott',
+            'raw' => 'Tömörített',
+        ],
         'editor' => [
             'title' => 'Válassza ki melyik szerkesztőt szeretné használni',
             'description' => 'Your environnement must be configured to listen to one of these URL schemes.',
