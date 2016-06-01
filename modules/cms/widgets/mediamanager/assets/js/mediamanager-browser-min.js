@@ -619,8 +619,8 @@ MediaManagerImageCropPopup.prototype.undoResizing=function(){this.updateImage(th
 MediaManagerImageCropPopup.prototype.updateSelectionSizeLabel=function(width,height){if(width==0&&height==0){this.selectionSizeLabel.setAttribute('class','hide')
 return}
 this.selectionSizeLabel.setAttribute('class','')
-this.selectionSizeLabel.querySelector('[data-label=selection-width]').textContent=width
-this.selectionSizeLabel.querySelector('[data-label=selection-height]').textContent=height}
+this.selectionSizeLabel.querySelector('[data-label=selection-width]').textContent=parseInt(width)
+this.selectionSizeLabel.querySelector('[data-label=selection-height]').textContent=parseInt(height)}
 MediaManagerImageCropPopup.prototype.onPopupHidden=function(event,element,popup){this.$popupElement.find('form').request(this.options.alias+'::onEndCroppingSession')
 $(document).trigger('mousedown')
 this.dispose()}
@@ -634,7 +634,8 @@ this.selectionSizeLabel=popup.find('[data-label="selection-size"]').get(0)
 this.getWidthInput().on('change',this.proxy(this.onSizeInputChange))
 this.getHeightInput().on('change',this.proxy(this.onSizeInputChange))
 this.initRulers()
-this.initJCrop()}
+this.initJCrop()
+this.applySelectionMode()}
 MediaManagerImageCropPopup.prototype.onSelectionModeChanged=function(){var mode=this.getSelectionMode(),$widthInput=this.getWidthInput(),$heightInput=this.getHeightInput()
 if(mode==='normal'){$widthInput.attr('disabled','disabled')
 $heightInput.attr('disabled','disabled')}

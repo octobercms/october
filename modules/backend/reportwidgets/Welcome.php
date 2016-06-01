@@ -28,7 +28,6 @@ class Welcome extends ReportWidgetBase
             $this->loadData();
         }
         catch (Exception $ex) {
-            traceLog($ex);
             $this->vars['error'] = $ex->getMessage();
         }
 
