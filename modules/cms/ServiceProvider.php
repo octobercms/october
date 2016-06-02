@@ -12,7 +12,7 @@ use System\Classes\SettingsManager;
 use System\Classes\CombineAssets;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\Page as CmsPage;
-use Cms\Classes\Theme as CmsTheme;
+use Cms\Models\ThemeData;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -27,6 +27,7 @@ class ServiceProvider extends ModuleServiceProvider
 
         $this->registerComponents();
         $this->registerAssetBundles();
+        $this->registerCombinerEvents();
 
         /*
          * Backend specific
@@ -74,6 +75,25 @@ class ServiceProvider extends ModuleServiceProvider
         CombineAssets::registerCallback(function($combiner) {
             $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-browser.js');
             $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/less/mediamanager.less');
+        });
+    }
+
+    /**
+     * Registers events for the asset combiner.
+     */
+    protected function registerCombinerEvents()
+    {
+        if (App::runningInBackend() || App::runningInConsole()) {
+            return;
+        }
+
+        Event::listen('cms.combiner.beforePrepare', function ($combiner, $assets) {
+            $filters = array_flatten($combiner->getFilters());
+            ThemeData::applyAssetVariablesToCombinerFilters($filters);
+        });
+
+        Event::listen('cms.combiner.getCacheKey', function ($combiner, $holder) {
+            $holder->key = $holder->key . ThemeData::getCombinerCacheKey();
         });
     }
 

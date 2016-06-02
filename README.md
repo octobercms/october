@@ -21,14 +21,6 @@ Instructions on how to install October can be found at the [installation guide](
 
 October was created by [Alexey Bobkov](http://ca.linkedin.com/pub/aleksey-bobkov/2b/ba0/232) and [Samuel Georges](http://au.linkedin.com/pub/sam-georges/31/641/a9), who both continue to develop the platform.
 
-### Coding standards
-
-Please follow the following guides and code standards:
-
-* [PSR 4 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
-* [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
-* [PSR 1 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
-
 ### Foundation library
 
 The CMS uses [Laravel](http://laravel.com) as a foundation PHP framework.
@@ -48,3 +40,11 @@ The OctoberCMS platform is open-sourced software licensed under the [MIT license
 ### Contributing
 
 Before sending a Pull Request, be sure to review the [Contributing Guidelines](CONTRIBUTING.md) first.
+
+### Coding standards
+
+Please follow the following guides and code standards:
+
+* [PSR 4 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
+* [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
+* [PSR 1 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)

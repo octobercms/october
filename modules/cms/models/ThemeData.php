@@ -64,7 +64,10 @@ class ThemeData extends Model
 
     public function afterSave()
     {
-        CombineAssets::resetCache();
+        try {
+            CombineAssets::resetCache();
+        }
+        catch (Exception $ex) {}
     }
 
     /**
@@ -85,6 +88,8 @@ class ThemeData extends Model
 
     public function afterFetch()
     {
+        $data = (array) $this->data + $this->getDefaultValues();
+
         /*
          * Repeater form fields store arrays and must be jsonable.
          */
@@ -98,13 +103,14 @@ class ThemeData extends Model
             }
             elseif ($field['type'] == 'fileupload') {
                 $this->attachOne[$id] = 'System\Models\File';
+                unset($data[$id]);
             }
         }
 
         /*
          * Fill this model with the jsonable attributes kept in 'data'.
          */
-        $this->setRawAttributes((array) $this->getAttributes() + (array) $this->data, true);
+        $this->setRawAttributes((array) $this->getAttributes() + $data, true);
     }
 
     public function beforeValidate()
@@ -127,13 +133,27 @@ class ThemeData extends Model
      */
     public function setDefaultValues()
     {
+        foreach ($this->getDefaultValues() as $attribute => $field) {
+            $this->{$attribute} = $value;
+        }
+    }
+
+    /**
+     * Gets default values for this model based on form field definitions.
+     */
+    public function getDefaultValues()
+    {
+        $result = [];
+
         foreach ($this->getFormFields() as $attribute => $field) {
             if (!$value = array_get($field, 'default')) {
                 continue;
             }
 
-            $this->{$attribute} = $value;
+            $result[$attribute] = $value;
         }
+
+        return $result;
     }
 
     /**
@@ -145,9 +165,11 @@ class ThemeData extends Model
         if (!$theme = CmsTheme::load($this->theme))
             throw new Exception(Lang::get('Unable to find theme with name :name', $this->theme));
 
-        return $theme->getConfigValue('form.fields', []) +
-            $theme->getConfigValue('form.tabs.fields', []) +
-            $theme->getConfigValue('form.secondaryTabs.fields', []);
+        $config = $theme->getConfigArray('form');
+
+        return array_get($config, 'fields', []) +
+            array_get($config, 'tabs.fields', []) +
+            array_get($config, 'secondaryTabs.fields', []);
     }
 
     /**
@@ -167,5 +189,41 @@ class ThemeData extends Model
         }
 
         return $result;
+    }
+
+    /**
+     * Applies asset variables to the combiner filters that support it.
+     * @return void
+     */
+    public static function applyAssetVariablesToCombinerFilters($filters)
+    {
+        $theme = CmsTheme::getActiveTheme();
+        if (!$theme->hasCustomData()) {
+            return;
+        }
+
+        $assetVars = $theme->getCustomData()->getAssetVariables();
+
+        foreach ($filters as $filter) {
+            if (method_exists($filter, 'setPresets')) {
+                $filter->setPresets($assetVars);
+            }
+        }
+    }
+
+    /**
+     * Generate a cache key for the combiner, this allows variables to bust the cache.
+     * @return string
+     */
+    public static function getCombinerCacheKey()
+    {
+        $theme = CmsTheme::getActiveTheme();
+        if (!$theme->hasCustomData()) {
+            return '';
+        }
+
+        $customData = $theme->getCustomData();
+
+        return (string) $customData->updated_at ?: '';
     }
 }
