@@ -224,16 +224,23 @@
     }
 
     DatePicker.prototype.isTimeTwelveHour = function() {
-        var momentObj = moment()
+        return false
 
-        if (this.locale) {
-            momentObj = momentObj.locale(this.locale)
-        }
+        // Disabled for now: The analog clock design is pretty good
+        // at representing time regardless of the format. If we want
+        // to enable this, there should be some way to disable it
+        // again via the form field options.
 
-        return momentObj
-            .localeData()
-            .longDateFormat('LT')
-            .indexOf('A') !== -1;
+        // var momentObj = moment()
+
+        // if (this.locale) {
+        //     momentObj = momentObj.locale(this.locale)
+        // }
+
+        // return momentObj
+        //     .localeData()
+        //     .longDateFormat('LT')
+        //     .indexOf('A') !== -1;
     }
 
     //

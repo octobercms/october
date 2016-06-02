@@ -16,7 +16,6 @@
 }
 
 .pika-single {
-    border: none;
     border-radius: @border-radius-base;
     font-size: 12px;
     margin-top: 5px;
@@ -71,4 +70,48 @@
             font-size: @font-size-base - 3;
         }
     }
+}
+
+.clockpicker-popover {
+    z-index: @zindex-datepicker;
+    .box-shadow(@overlay-box-shadow);
+    border-radius: @border-radius-base;
+
+    .popover-title {
+        font-size: 20px;
+        font-weight: normal;
+        border: none;
+    }
+
+    &.top {
+        margin-top: -5px;
+    }
+    &.right {
+        margin-left: 5px;
+    }
+    &.bottom {
+        margin-top: 5px;
+    }
+    &.left {
+        margin-left: -5px;
+    }
+
+    > .arrow {
+        display: none;
+    }
+}
+
+.clockpicker-plate {
+    border: none;
+}
+
+.clockpicker-hours .clockpicker-tick {
+    font-size: 12px;
+
+    &.tick-inner {
+        font-size: 16px;
+    }
+}
+.clockpicker-minutes .clockpicker-tick {
+    font-size: 16px;
 }

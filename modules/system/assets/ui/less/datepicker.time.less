@@ -10,7 +10,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: @zindex-datepicker;
     display: none;
     max-width: 276px;
     padding: 1px;
@@ -18,10 +17,7 @@
     white-space: normal;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, .2);
-    border-radius: 6px;
-    .box-shadow(0 5px 10px rgba(0, 0, 0, .2));
+
     &.top {
         margin-top: -10px;
     }
@@ -48,6 +44,7 @@
     .popover-content {
         padding: 9px 14px;
     }
+    /*
     > .arrow,
     > .arrow:after {
         position: absolute;
@@ -139,6 +136,7 @@
         border-right-width: 0;
         border-left-color: #fff;
     }
+    */
 }
 
 //

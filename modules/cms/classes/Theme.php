@@ -397,6 +397,15 @@ class Theme
     }
 
     /**
+     * Returns data specific to this theme
+     * @return Cms\Models\ThemeData
+     */
+    public function getCustomData()
+    {
+        return ThemeData::forTheme($this);
+    }
+
+    /**
      * Ensures this theme is registered as a Halcyon them datasource.
      * @return void
      */
@@ -418,7 +427,7 @@ class Theme
     public function __get($name)
     {
         if ($this->hasCustomData()) {
-            $theme = ThemeData::forTheme($this);
+            $theme = $this->getCustomData();
             return $theme->{$name};
         }
 
@@ -433,11 +442,10 @@ class Theme
     public function __isset($key)
     {
         if ($this->hasCustomData()) {
-            $theme = ThemeData::forTheme($this);
-            return isset($theme->{$key});
+            $theme = $this->getCustomData();
+            return $theme->offsetExists($key);
         }
 
         return false;
     }
-
 }

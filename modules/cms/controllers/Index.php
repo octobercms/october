@@ -158,6 +158,10 @@ class Index extends Controller
             $templateData['markup'] = $this->convertLineEndings($templateData['markup']);
         }
 
+        if (!empty($templateData['code']) && Config::get('cms.convertLineEndings', false) === true) {
+            $templateData['code'] = $this->convertLineEndings($templateData['code']);
+        }
+
         if (!Request::input('templateForceSave') && $template->mtime) {
             if (Request::input('templateMtime') != $template->mtime) {
                 throw new ApplicationException('mtime-mismatch');

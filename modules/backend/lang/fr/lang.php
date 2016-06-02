@@ -9,7 +9,7 @@ return [
         'options_method_not_exists' => 'La classe du modèle :model doit définir une méthode :method() renvoyant des options pour le champ ":field" du formulaire.',
     ],
     'widget' => [
-        'not_registered' => 'Aucun widget au nom de classe ":name" n’a été enregistrée',
+        'not_registered' => 'Aucun widget au nom de classe ":name" n’a été enregistré',
         'not_bound' => 'Un widget au nom de classe ":name" n’a pas été lié au contrôleur'
     ],
     'page' => [
@@ -54,6 +54,7 @@ return [
         'widget_label' => 'Widget',
         'widget_width' => 'Taille',
         'full_width' => 'Plein écran',
+        'manage_widgets' => 'Gestion des Widgets',
         'add_widget' => 'Ajouter un Widget',
         'widget_inspector_title' => 'Configuration du Widget',
         'widget_inspector_description' => 'Configurer le Widget',
@@ -65,9 +66,34 @@ return [
         'widget_new_row_description' => 'Placer le Widget sur une nouvelle ligne.',
         'widget_title_label' => 'Titre du Widget',
         'widget_title_error' => 'Le titre du Widget est obligatoire.',
+        'reset_layout' => 'Réinitialisation de la maquette',
+        'reset_layout_confirm' => 'Réinitialisation vers la maquette par défaut ?',
+        'reset_layout_success' => 'La maquette a été réinitialisée',
+        'make_default' => 'Par défaut',
+        'make_default_confirm' => 'Définir la maquette actuelle comme celle par défaut ?',
+        'make_default_success' => 'La maquette actuelle est définie comme celle par défaut',
         'status' => [
             'widget_title_default' => 'État du système',
-            'update_available' => '{0} mise à jour disponible !|{1} mise à jour disponible !|[2,Inf] mises à jour disponibles !'
+            'update_available' => '{0} mise à jour disponible !|{1} mise à jour disponible !|[2,Inf] mises à jour disponibles !',
+            'updates_pending' => 'Mises à jour du logiciel en attente',
+            'updates_nil' => 'Le logiciel est à jour',
+            'updates_link' => 'Mettre à jour',
+            'warnings_pending' => 'Certaines anomalies méritent votre attention',
+            'warnings_nil' => 'Aucun avertissement à afficher',
+            'warnings_link' => 'Vue',
+            'core_build' => 'Version du système',
+            'event_log' => 'Journal des évènements',
+            'request_log' => 'Journal des requêtes',
+            'app_birthday' => 'En ligne depuis',
+        ],
+        'welcome' => [
+            'widget_title_default' => 'Bienvenue',
+            'welcome_back_name' => 'Bienvenue sur :app, :name.',
+            'welcome_to_name' => 'Bienvenue sur :app, :name.',
+            'first_sign_in' => 'C’est la première fois que vous vous connectez.',
+            'last_sign_in' => 'Votre dernière connexion remonte au',
+            'view_access_logs' => 'Consulter le journal des accès',
+            'nice_message' => 'Passez une agréable journée !',
         ]
     ],
     'user' => [
@@ -128,7 +154,7 @@ return [
         'missing_parent_definition' => "Le behavior List ne contient pas de définition pour ':definition'.",
         'behavior_not_ready' => 'La liste utilisée n’a pas été initialisée, vérifier que la méthode d’appel de makeLists() a été soumise au contrôleur.',
         'invalid_column_datetime' => 'La valeur de la colonne ":column" n’est pas un objet DateTime, manque-t-il une référence dans la propriété \$dates du modèle ?',
-        'pagination' => 'Enregistrements affichés: :from-:to sur :total',
+        'pagination' => 'Enregistrements affichés : :from-:to sur :total',
         'prev_page' => 'Page précédente',
         'next_page' => 'Page suivante',
         'refresh' => 'Actualiser',
@@ -154,8 +180,8 @@ return [
         'default_prompt' => 'Cliquer sur %s ou déposer un fichier ici pour le télécharger',
         'attachment_url' => 'Adresse URL du fichier joint',
         'upload_file' => 'Télécharger le fichier',
-        'upload_error' => 'Erreur durant le téléchargement',
-        'remove_confirm' => 'Confirmer l’action ?',
+        'upload_error' => 'Erreur lors du téléchargement',
+        'remove_confirm' => 'Confirmer l’action ?',
         'remove_file' => 'Supprimer le fichier',
     ],
     'form' => [
@@ -445,6 +471,6 @@ return [
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, européen occidental révisé avec le signe euro)',
             'windows_1251' => 'Windows-1251 (CP1251)',
             'windows_1252' => 'Windows-1252 (CP1252)'
-        ],
-    ],
+        ]
+    ]
 ];
