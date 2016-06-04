@@ -308,6 +308,13 @@ class Lists extends WidgetBase
     {
         return str_replace('@', $table.'.', $sql);
     }
+    
+    protected function castForPostgres($columnName, $column){
+      if($this->model->getConnection() instanceof \Illuminate\Database\PostgresConnection  && $column->type == 'number'){
+        return 'CAST('. $columnName .' as TEXT)';
+      }
+      return $columnName;
+    }
 
     /**
      * Applies any filters to the model.
@@ -352,7 +359,7 @@ class Lists extends WidgetBase
                 else {
                     $columnName = isset($column->sqlSelect)
                         ? DbDongle::raw($this->parseTableName($column->sqlSelect, $primaryTable))
-                        : Db::getTablePrefix() . $primaryTable . '.' . $column->columnName;
+                        : $this->castForPostgres(Db::getTablePrefix() . $primaryTable . '.' . $column->columnName, $column);
 
                     $primarySearchable[] = $columnName;
                 }
