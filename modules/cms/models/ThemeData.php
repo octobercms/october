@@ -134,7 +134,7 @@ class ThemeData extends Model
     public function setDefaultValues()
     {
         foreach ($this->getDefaultValues() as $attribute => $field) {
-            $this->{$attribute} = $value;
+            $this->{$attribute} = $field;
         }
     }
 
