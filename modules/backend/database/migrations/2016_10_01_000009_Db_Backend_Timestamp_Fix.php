@@ -1,6 +1,8 @@
 <?php
 
 use October\Rain\Database\Updates\Migration;
+use Backend\Models\Preference as PreferenceModel;
+use Backend\Models\BrandSetting as BrandSettingModel;
 
 /**
  * This migration addresses a MySQL specific issue around STRICT MODE.
@@ -23,6 +25,10 @@ class DbBackendTimestampFix extends Migration
         foreach ($this->backendTables as $table) {
             DbDongle::convertTimestamps($table);
         }
+
+        // Use this opportunity to reset backend preferences and styles for stable
+        PreferenceModel::instance()->resetDefault();
+        BrandSettingModel::instance()->resetDefault();
     }
 
     public function down()
