@@ -16,6 +16,16 @@ class OctoberEnv extends Command
     protected $description = 'Creates .env file with default configuration values.';
 
     /**
+     * The current config cursor.
+     */
+    protected $config;
+
+    /**
+     * The current database connection cursor.
+     */
+    protected $connection;
+
+    /**
      * Create a new command instance.
      */
     public function __construct()
@@ -42,34 +52,105 @@ class OctoberEnv extends Command
      */
     private function overwriteConfig()
     {
-        foreach ($this->config() as $file => $keys) {
-            $content = $this->configToEnv($file, $keys);
+        foreach (array_keys($this->config()) as $config) {
+            $this->config = $config;
 
-            $this->writeToConfigFile($file, $content);
+            $this->configToEnv();
         }
     }
 
     /**
      * Replace config values with env() syntax
+     */
+    private function configToEnv()
+    {
+        $content = $this->parseConfigFile();
+
+        $this->writeToConfigFile($content);
+    }
+
+    /**
+     * Parse config file line by line
      *
-     * @param $file
-     * @param $keys
      * @return string
      */
-    private function configToEnv($file, $keys)
+    private function parseConfigFile()
     {
-        $content = $this->readConfigFile($file);
+        $lines = [];
 
-        foreach ($keys as $envKey => $configKey) {
-            $pattern = $this->buildPattern($configKey);
-            $callback = $this->buildCallback($file, $envKey, $configKey);
+        foreach ($this->lines() as $line) {
+            $keys = $this->config()[$this->config];
 
-            $content = preg_replace_callback($pattern, $callback, $content);
+            $lines[] = $this->parseLine($line, $keys);
         }
 
         $this->writeToEnv("\n");
 
-        return $content;
+        return implode('', $lines);
+    }
+
+    /**
+     * @param $keys
+     * @param $line
+     * @return mixed
+     */
+    private function parseLine($line, $keys)
+    {
+        $line = $this->replaceConfigLine($line, $keys);
+
+        $line = $this->replaceDbConfigLine($line);
+
+        return $line;
+    }
+
+    /**
+     * @param $line
+     * @param $keys
+     * @return mixed
+     */
+    private function replaceConfigLine($line, $keys)
+    {
+        foreach ($keys as $envKey => $configKey) {
+            $pattern = $this->buildPattern($configKey);
+            $callback = $this->buildCallback($envKey, $configKey);
+
+            if (preg_match($pattern, $line)) {
+                $line = preg_replace_callback($pattern, $callback, $line);
+            }
+        }
+
+        return $line;
+    }
+
+    /**
+     * @param $line
+     * @return mixed
+     */
+    private function replaceDbConfigLine($line)
+    {
+        if ($this->config == 'database') {
+
+            foreach ($this->dbConfig() as $connection => $settings) {
+                $this->setCurrentConnection($line, $connection);
+
+                if ($this->connection == $connection) {
+                    $line = $this->replaceConfigLine($line, $settings);
+                }
+            }
+        }
+
+        return $line;
+    }
+
+    /**
+     * @param $line
+     * @param $connection
+     */
+    private function setCurrentConnection($line, $connection)
+    {
+        if (preg_match("/['\"]" . $connection . "['\"]" . "\s*=>/", $line)) {
+            $this->connection = $connection;
+        }
     }
 
     /**
@@ -82,36 +163,58 @@ class OctoberEnv extends Command
     }
 
     /**
-     * @param $file
      * @param $envKey
      * @param $configKey
      * @return \Closure
      */
-    private function buildCallback($file, $envKey, $configKey)
+    private function buildCallback($envKey, $configKey)
     {
-        return function ($matches) use ($envKey, $configKey, $file) {
+        return function ($matches) use ($envKey, $configKey) {
 
-            $value = $this->envValue($file, $configKey);
+            $value = $this->envValue($configKey);
 
-            if ( ! $this->envKeyExists($envKey)) {
-                $envLine = sprintf("%s=%s\n", $envKey, $this->stripQuotes($value));
-                $this->writeToEnv($envLine);
-            }
+            $this->saveEnvSettings($envKey, $value);
 
             return $this->isEnv($matches[0]) ? $matches[0] : "'$configKey' => env('$envKey', {$value}),";
         };
     }
 
     /**
-     * @param $config
+     * @param $key
+     * @param $value
+     */
+    private function saveEnvSettings($key, $value)
+    {
+        if ( ! $this->envKeyExists($key)) {
+            $line = sprintf("%s=%s\n", $key, $this->stripQuotes($value));
+
+            if ($this->config == 'database' && $key != 'DB_CONNECTION') {
+                $this->writeDbEnvSettings($line);
+            } else {
+                $this->writeToEnv($line);
+            }
+        }
+    }
+
+    /**
+     * @param $line
+     */
+    private function writeDbEnvSettings($line)
+    {
+        if ($this->connection == config('database.default') || $this->connection == 'redis') {
+            $this->writeToEnv($line);
+        }
+    }
+
+    /**
      * @param $configKey
      * @return string
      */
-    private function envValue($config, $configKey)
+    private function envValue($configKey)
     {
-        $value = config("$config.$configKey");
+        $value = config("$this->config.$configKey");
 
-        if ($config == 'database') {
+        if ($this->config == 'database') {
             $value = $this->databaseConfigValue($configKey);
         }
 
@@ -124,11 +227,15 @@ class OctoberEnv extends Command
      */
     private function databaseConfigValue($configKey)
     {
-        $defaultConnection = config('database.default');
+        if ($configKey == 'default') {
+            return config('database.default');
+        }
 
-        return $configKey == 'default'
-            ? $defaultConnection
-            : config("database.connections.$defaultConnection.$configKey");
+        if ($this->connection == 'redis') {
+            return config("database.redis.default.$configKey");
+        }
+
+        return config("database.connections.$this->connection.$configKey");
     }
 
     /**
@@ -149,8 +256,6 @@ class OctoberEnv extends Command
     }
 
     /**
-     * Strip single and double quotes
-     *
      * @param $string
      * @return string
      */
@@ -169,8 +274,6 @@ class OctoberEnv extends Command
     }
 
     /**
-     * Write content to .env file
-     *
      * @param $content
      */
     private function writeToEnv($content)
@@ -187,23 +290,19 @@ class OctoberEnv extends Command
     }
 
     /**
-     * Write content to config file
-     *
-     * @param $file
      * @param $content
      */
-    private function writeToConfigFile($file, $content)
+    private function writeToConfigFile($content)
     {
-        file_put_contents(config_path($file . '.php'), $content);
+        file_put_contents(config_path($this->config . '.php'), $content);
     }
 
     /**
-     * @param $file
-     * @return string
+     * @return array
      */
-    private function readConfigFile($file)
+    private function lines()
     {
-        return file_get_contents(config_path($file . '.php'));
+        return file(config_path($this->config . '.php'));
     }
 
     /**
@@ -216,8 +315,6 @@ class OctoberEnv extends Command
     }
 
     /**
-     * Configuration array for search and replace
-     *
      * @return array
      */
     private function config()
@@ -230,11 +327,6 @@ class OctoberEnv extends Command
             ],
             'database' => [
                 'DB_CONNECTION' => 'default',
-                'DB_HOST' => 'host',
-                'DB_PORT' => 'port',
-                'DB_DATABASE' => 'database',
-                'DB_USERNAME' => 'username',
-                'DB_PASSWORD' => 'password',
             ],
             'cache' => [
                 'CACHE_DRIVER' => 'default',
@@ -258,6 +350,37 @@ class OctoberEnv extends Command
                 'ASSET_CACHE' => 'enableAssetCache',
                 'LINK_POLICY' => 'linkPolicy',
                 'ENABLE_CSRF' => 'enableCsrfProtection',
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function dbConfig()
+    {
+        return [
+            'sqlite' => [
+                'DB_DATABASE' => 'database',
+            ],
+            'mysql' => [
+                'DB_HOST' => 'host',
+                'DB_PORT' => 'port',
+                'DB_DATABASE' => 'database',
+                'DB_USERNAME' => 'username',
+                'DB_PASSWORD' => 'password',
+            ],
+            'pgsql' => [
+                'DB_HOST' => 'host',
+                'DB_PORT' => 'port',
+                'DB_DATABASE' => 'database',
+                'DB_USERNAME' => 'username',
+                'DB_PASSWORD' => 'password',
+            ],
+            'redis' => [
+                'REDIS_HOST' => 'host',
+                'REDIS_PASSWORD' => 'password',
+                'REDIS_PORT' => 'port',
             ],
         ];
     }
