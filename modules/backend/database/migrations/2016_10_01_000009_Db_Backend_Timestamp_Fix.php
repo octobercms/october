@@ -1,6 +1,5 @@
 <?php
 
-use Db;
 use October\Rain\Database\Updates\Migration;
 
 /**
