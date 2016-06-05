@@ -1,8 +1,7 @@
 <?php
 
+use Db;
 use October\Rain\Database\Updates\Migration;
-use Backend\Models\Preference as PreferenceModel;
-use Backend\Models\BrandSetting as BrandSettingModel;
 
 /**
  * This migration addresses a MySQL specific issue around STRICT MODE.
@@ -27,8 +26,17 @@ class DbBackendTimestampFix extends Migration
         }
 
         // Use this opportunity to reset backend preferences and styles for stable
-        PreferenceModel::instance()->resetDefault();
-        BrandSettingModel::instance()->resetDefault();
+        Db::table('system_settings')
+            ->where('item', 'backend_brand_settings')
+            ->delete()
+        ;
+
+        Db::table('backend_user_preferences')
+            ->where('namespace', 'backend')
+            ->where('group', 'backend')
+            ->where('item', 'preferences')
+            ->delete()
+        ;
     }
 
     public function down()
