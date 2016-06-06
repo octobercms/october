@@ -19,6 +19,11 @@ return [
             'help' => 'Je hebt niet de benodigde rechten om deze pagina te bekijken.',
             'cms_link' => 'Terug naar CMS',
         ],
+        'no_database' => [
+            'label' => 'Database niet gevonden',
+            'help' => 'Een database is nodig om toegang te krijgen tot de back-end. Controleer of de database juist is geconfigureerd en probeer het opnieuw.',
+            'cms_link' => 'Terug naar homepagina',
+        ],
         'invalid_token' => [
             'label' => 'Ongeldig token',
         ],
@@ -75,11 +80,11 @@ return [
         'status' => [
             'widget_title_default' => 'Systeemstatus',
             'update_available' => '{0} updates beschikbaar!|{1} update beschikbaar!|[2,Inf] updates beschikbaar!',
-            'updates_pending' => 'Updates in afwachting',
+            'updates_pending' => 'Er staan updates klaar',
             'updates_nil' => 'De software is up-to-date',
-            'updates_link' => 'Update',
+            'updates_link' => 'Updates installeren',
             'warnings_pending' => 'Sommige problemen hebben aandacht nodig',
-            'warnings_nil' => 'Geen waarschuwingen om weer te geven',
+            'warnings_nil' => 'Alles OK',
             'warnings_link' => 'Weergeven',
             'core_build' => 'Systeem build',
             'event_log' => 'Gebeurtenis logboek',
@@ -237,7 +242,7 @@ return [
         'insert_row_below' => 'Rij onder invoegen',
         'delete_row' => 'Rij verwijderen',
         'concurrency_file_changed_title' => 'Bestand is gewijzigd',
-        'concurrency_file_changed_description' => 'Heb bestand wat je aan het bewerken bent is gewijzigd door een andere gebruiker. Je kan het bestand opnieuw inladen (en wijzigingen verliezen) of het bestand te overschrijven.',
+        'concurrency_file_changed_description' => 'Heb bestand wat je aan het bewerken bent is gewijzigd door een andere gebruiker. Je kunt het bestand opnieuw inladen (en wijzigingen verliezen) of het bestand te overschrijven.',
         'return_to_list' => 'Terug naar lijst',
     ],
     'recordfinder' => [
@@ -292,7 +297,7 @@ return [
     'warnings' => [
         'tips' => 'Systeem configuratie tips',
         'tips_description' => 'Er zijn problemen gevonden waar je aandacht aan moet besteden om uw systeem goed te configureren.',
-        'permissions' => 'De map :name of de submapen zijn niet schrijfbaar voor PHP. Zet de bijhorende rechten voor de webserver in deze map.',
+        'permissions' => 'De map :name of de submappen zijn niet schrijfbaar voor PHP. Zet de bijhorende rechten voor de webserver in deze map.',
         'extension' => 'De PHP extensie :name is niet geïnstalleerd. Installeer deze bibliotheek en activeer de extensie.',
     ],
     'editor' => [
@@ -322,7 +327,7 @@ return [
         'theme' => 'Kleurschema',
         'markup_styles' => 'Opmaakstijlen',
         'custom_styles' => 'Eigen stylesheet',
-        'custom styles_comment' => 'Eigen stijlen die in de HTML editor gebruikt moeten worden.',
+        'custom styles_comment' => 'Eigen stijlen die in de HTML-editor gebruikt moeten worden.',
         'markup_classes' => 'Opmaak classes',
         'paragraph' => 'Paragraaf',
         'link' => 'Link',
