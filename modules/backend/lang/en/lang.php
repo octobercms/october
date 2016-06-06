@@ -19,6 +19,11 @@ return [
             'help' => "You don't have the required permissions to view this page.",
             'cms_link' => 'Return to the back-end'
         ],
+        'no_database' => [
+            'label' => 'Database missing',
+            'help' => "A database is required to access the back-end. Check the database is configured and migrated before trying again.",
+            'cms_link' => 'Return to the homepage'
+        ],
         'invalid_token' => [
             'label' => 'Invalid security token'
         ]

@@ -23,6 +23,19 @@ class DbBackendTimestampFix extends Migration
         foreach ($this->backendTables as $table) {
             DbDongle::convertTimestamps($table);
         }
+
+        // Use this opportunity to reset backend preferences and styles for stable
+        Db::table('system_settings')
+            ->where('item', 'backend_brand_settings')
+            ->delete()
+        ;
+
+        Db::table('backend_user_preferences')
+            ->where('namespace', 'backend')
+            ->where('group', 'backend')
+            ->where('item', 'preferences')
+            ->delete()
+        ;
     }
 
     public function down()

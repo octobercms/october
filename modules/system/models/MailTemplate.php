@@ -7,6 +7,7 @@ use View;
 use Model;
 use October\Rain\Mail\MailParser;
 use System\Classes\PluginManager;
+use System\Helpers\View as ViewHelper;
 
 /**
  * Mail template
@@ -139,6 +140,14 @@ class MailTemplate extends Model
         }
         else {
             self::$cache[$code] = $template = self::findOrMakeTemplate($code);
+        }
+
+        /*
+         * Inject global view variables
+         */
+        $globalVars = ViewHelper::getGlobalVars();
+        if (!empty($globalVars)) {
+            $data = (array) $data + $globalVars;
         }
 
         /*

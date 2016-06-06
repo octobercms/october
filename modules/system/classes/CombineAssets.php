@@ -4,12 +4,12 @@ use App;
 use Url;
 use File;
 use Lang;
+use Event;
 use Cache;
 use Route;
 use Config;
 use Request;
 use Response;
-use Cms\Classes\Theme;
 use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCache;
@@ -165,11 +165,11 @@ class CombineAssets
      * Returns the combined contents from a prepared cache identifier.
      * @return string Combined file contents.
      */
-    public function getContents($cacheId)
+    public function getContents($cacheKey)
     {
-        $cacheInfo = $this->getCache($cacheId);
+        $cacheInfo = $this->getCache($cacheKey);
         if (!$cacheInfo) {
-            throw new ApplicationException(Lang::get('system::lang.combiner.not_found', ['name'=>$cacheId]));
+            throw new ApplicationException(Lang::get('system::lang.combiner.not_found', ['name'=>$cacheKey]));
         }
 
         $this->localPath = $cacheInfo['path'];
@@ -287,23 +287,23 @@ class CombineAssets
         /*
          * Cache and process
          */
-        $cacheId = $this->makeCacheId($assets);
-        $cacheInfo = $this->useCache ? $this->getCache($cacheId) : false;
+        $cacheKey = $this->getCacheKey($assets);
+        $cacheInfo = $this->useCache ? $this->getCache($cacheKey) : false;
 
         if (!$cacheInfo) {
             $combiner = $this->prepareCombiner($assets);
             $lastMod = $combiner->getLastModified();
 
             $cacheInfo = [
-                'version'   => $cacheId.'-'.$lastMod,
-                'etag'      => $cacheId,
+                'version'   => $cacheKey.'-'.$lastMod,
+                'etag'      => $cacheKey,
                 'lastMod'   => $lastMod,
                 'files'     => $assets,
                 'path'      => $this->localPath,
                 'extension' => $extension
             ];
 
-            $this->putCache($cacheId, $cacheInfo);
+            $this->putCache($cacheKey, $cacheInfo);
         }
 
         return $this->getCombinedUrl($cacheInfo['version']);
@@ -315,11 +315,15 @@ class CombineAssets
      */
     protected function prepareCombiner(array $assets, $rewritePath = null)
     {
+        /*
+         * Extensibility
+         */
+        Event::fire('cms.combiner.beforePrepare', [$this, $assets]);
+
         $files = [];
         $filesSalt = null;
         foreach ($assets as $asset) {
             $filters = $this->getFilters(File::extension($asset)) ?: [];
-            $filters = $this->processFilters($filters);
             $path = File::symbolizePath($asset, null) ?: $this->localPath . $asset;
             $files[] = new FileAsset($path, $filters, public_path());
             $filesSalt .= $this->localPath . $asset;
@@ -468,29 +472,6 @@ class CombineAssets
         }
     }
 
-    /**
-     * Preprocess filters to use standard configuration provided by the system.
-     * @param array $filters
-     * @return array
-     */
-    protected function processFilters($filters)
-    {
-        $theme = Theme::getActiveTheme();
-        if (!$theme->hasCustomData()) {
-            return $filters;
-        }
-
-        $assetVars = $theme->getCustomData()->getAssetVariables();
-
-        foreach ($filters as $filter) {
-            if (method_exists($filter, 'setPresets')) {
-                $filter->setPresets($assetVars);
-            }
-        }
-
-        return $filters;
-    }
-
     //
     // Bundles
     //
@@ -632,16 +613,16 @@ class CombineAssets
      * @var array List of asset files.
      * @return bool Successful
      */
-    protected function putCache($cacheId, array $cacheInfo)
+    protected function putCache($cacheKey, array $cacheInfo)
     {
-        $cacheId = 'combiner.'.$cacheId;
+        $cacheKey = 'combiner.'.$cacheKey;
 
-        if (Cache::has($cacheId)) {
+        if (Cache::has($cacheKey)) {
             return false;
         }
 
-        $this->putCacheIndex($cacheId);
-        Cache::forever($cacheId, base64_encode(serialize($cacheInfo)));
+        $this->putCacheIndex($cacheKey);
+        Cache::forever($cacheKey, base64_encode(serialize($cacheInfo)));
         return true;
     }
 
@@ -650,15 +631,15 @@ class CombineAssets
      * @var string Cache identifier
      * @return array Cache information
      */
-    protected function getCache($cacheId)
+    protected function getCache($cacheKey)
     {
-        $cacheId = 'combiner.'.$cacheId;
+        $cacheKey = 'combiner.'.$cacheKey;
 
-        if (!Cache::has($cacheId)) {
+        if (!Cache::has($cacheKey)) {
             return false;
         }
 
-        return @unserialize(@base64_decode(Cache::get($cacheId)));
+        return @unserialize(@base64_decode(Cache::get($cacheKey)));
     }
 
     /**
@@ -666,9 +647,18 @@ class CombineAssets
      * @var array Asset files
      * @return string Unique identifier
      */
-    protected function makeCacheId(array $assets)
+    protected function getCacheKey(array $assets)
     {
-        return md5($this->localPath . implode('|', $assets));
+        $cacheKey = $this->localPath . implode('|', $assets);
+
+        /*
+         * Extensibility
+         */
+        $dataHolder = (object) ['key' => $cacheKey];
+        Event::fire('cms.combiner.getCacheKey', [$this, $dataHolder]);
+        $cacheKey = $dataHolder->key;
+
+        return md5($cacheKey);
     }
 
     /**
@@ -680,8 +670,8 @@ class CombineAssets
         if (Cache::has('combiner.index')) {
             $index = (array) @unserialize(@base64_decode(Cache::get('combiner.index'))) ?: [];
 
-            foreach ($index as $cacheId) {
-                Cache::forget($cacheId);
+            foreach ($index as $cacheKey) {
+                Cache::forget($cacheKey);
             }
 
             Cache::forget('combiner.index');
@@ -696,7 +686,7 @@ class CombineAssets
      * @var string Cache identifier
      * @return bool Returns false if identifier is already in store
      */
-    protected function putCacheIndex($cacheId)
+    protected function putCacheIndex($cacheKey)
     {
         $index = [];
 
@@ -704,11 +694,11 @@ class CombineAssets
             $index = (array) @unserialize(@base64_decode(Cache::get('combiner.index'))) ?: [];
         }
 
-        if (in_array($cacheId, $index)) {
+        if (in_array($cacheKey, $index)) {
             return false;
         }
 
-        $index[] = $cacheId;
+        $index[] = $cacheKey;
 
         Cache::forever('combiner.index', base64_encode(serialize($index)));
 
