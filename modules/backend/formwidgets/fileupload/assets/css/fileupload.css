@@ -69,6 +69,8 @@
 .field-fileupload.style-image-multi .upload-object:hover .icon-container{border-right-color:#4da7e8 !important}
 .field-fileupload.style-image-multi .upload-object:hover h4{padding-right:35px}
 .field-fileupload.style-image-multi.is-preview .upload-files-container{margin-left:0}
+.form-sidebar .field-fileupload.style-image-multi .upload-files-container {margin-left:0px}
+.form-sidebar .field-fileupload.style-image-multi .upload-button {width: 100%}
 @media (max-width:1280px){.field-fileupload.style-image-multi .upload-object{width:230px}
 }
 @media (max-width:1024px){.field-fileupload.style-image-multi .upload-button{width:100%}
