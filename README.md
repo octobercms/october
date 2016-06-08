@@ -17,6 +17,15 @@ The best place to learn October is by [reading the documentation](http://october
 
 Instructions on how to install October can be found at the [installation guide](http://octobercms.com/docs/setup/installation).
 
+### Quick start installation
+
+For advanced users, run this in your terminal to install October from command line:
+
+```
+wget https://octobercms.com/api/installer -O temp.zip && unzip temp.zip && rm temp.zip
+php artisan october:install
+```
+
 ### Development Team
 
 October was created by [Alexey Bobkov](http://ca.linkedin.com/pub/aleksey-bobkov/2b/ba0/232) and [Samuel Georges](http://au.linkedin.com/pub/sam-georges/31/641/a9), who both continue to develop the platform.
