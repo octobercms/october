@@ -9,7 +9,7 @@ return [
         'cs' => 'Czech',
         'en' => 'Inglês',
         'en-au' => 'Inglês (Austrália)',
-        'en-ca' => 'Inglês (Canadá)'
+        'en-ca' => 'Inglês (Canadá)',
         'en-gb' => 'Inglês (Reino Unido)',
         'de' => 'Alemão',
         'es' => 'Espanhol',
