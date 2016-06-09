@@ -1247,11 +1247,12 @@ class Lists extends WidgetBase
     {
         if (($visibleColumns = post('visible_columns')) && is_array($visibleColumns)) {
             $this->columnOverride = array_keys($visibleColumns);
-            $this->putSession('visible', array_keys($visibleColumns));
+            $this->putSession('visible', $this->columnOverride);
         }
 
+        $this->recordsPerPage = post('records_per_page', $this->recordsPerPage);
         $this->putSession('order', post('column_order'));
-        $this->putSession('per_page', post('records_per_page', $this->recordsPerPage));
+        $this->putSession('per_page', $this->recordsPerPage);
         return $this->onRefresh();
     }
 
