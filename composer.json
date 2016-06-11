@@ -62,6 +62,6 @@
             "recurse": true,
             "replace": false,
             "merge-dev": false
-}
+        }
     }
 }
