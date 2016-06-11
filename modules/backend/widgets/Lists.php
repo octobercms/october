@@ -343,7 +343,6 @@ class Lists extends WidgetBase
                     $columnName = isset($column->sqlSelect)
                         ? DbDongle::raw($this->parseTableName($column->sqlSelect, $table))
                         : $table . '.' . $column->valueFrom;
-                    $columnName = DbDongle::cast($columnName, 'text');
                     $relationSearchable[$column->relation][] = $columnName;
                 }
                 /*
