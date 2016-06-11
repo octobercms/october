@@ -302,15 +302,13 @@
          * Ensure any active items do not appear in the search results
          */
         if (items.active.length) {
-            var compareFunc = function(a, b) { return a.id == b.id },
-                inArrayFunc = function(elem, array, testFunc) {
-                    var i = array.length
-                    do { if (i-- === 0) return i } while (testFunc(array[i], elem))
-                    return i
-                }
+            var activeIds = []
+            $.each(items.active, function (key, obj) {
+                activeIds.push(obj.id)
+            })
 
             filtered = $.grep(available, function(item) {
-                return !inArrayFunc(item, items.active, compareFunc)
+                return $.inArray(item.id, activeIds) === -1
             })
         }
         else {

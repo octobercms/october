@@ -2974,10 +2974,9 @@ if(!this.scopeValues[this.activeScopeName])
 return
 var
 self=this,filtered=[],items=this.scopeValues[scopeName]
-if(items.active.length){var compareFunc=function(a,b){return a.id==b.id},inArrayFunc=function(elem,array,testFunc){var i=array.length
-do{if(i--===0)return i}while(testFunc(array[i],elem))
-return i}
-filtered=$.grep(available,function(item){return!inArrayFunc(item,items.active,compareFunc)})}
+if(items.active.length){var activeIds=[]
+$.each(items.active,function(key,obj){activeIds.push(obj.id)})
+filtered=$.grep(available,function(item){return $.inArray(item.id,activeIds)===-1})}
 else{filtered=available}
 var container=$('#controlFilterPopover .filter-items > ul').empty()
 self.addItemsToListElement(container,filtered)}
