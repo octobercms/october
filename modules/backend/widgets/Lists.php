@@ -308,13 +308,6 @@ class Lists extends WidgetBase
     {
         return str_replace('@', $table.'.', $sql);
     }
-    
-    protected function castForPostgres($columnName, $column){
-      if($this->model->getConnection() instanceof \Illuminate\Database\PostgresConnection  && $column->type == 'number'){
-        return 'CAST('. $columnName .' as TEXT)';
-      }
-      return $columnName;
-    }
 
     /**
      * Applies any filters to the model.
@@ -350,7 +343,7 @@ class Lists extends WidgetBase
                     $columnName = isset($column->sqlSelect)
                         ? DbDongle::raw($this->parseTableName($column->sqlSelect, $table))
                         : $table . '.' . $column->valueFrom;
-
+                    $columnName = DbDongle::cast($columnName, 'text');
                     $relationSearchable[$column->relation][] = $columnName;
                 }
                 /*
@@ -358,8 +351,8 @@ class Lists extends WidgetBase
                  */
                 else {
                     $columnName = isset($column->sqlSelect)
-                        ? DbDongle::raw($this->parseTableName($column->sqlSelect, $primaryTable))
-                        : $this->castForPostgres(Db::getTablePrefix() . $primaryTable . '.' . $column->columnName, $column);
+                       ? DbDongle::raw($this->parseTableName($column->sqlSelect, $primaryTable))
+                       : DbDongle::cast(Db::getTablePrefix() . $primaryTable . '.' . $column->columnName,'text');
 
                     $primarySearchable[] = $columnName;
                 }
