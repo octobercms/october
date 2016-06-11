@@ -81,25 +81,7 @@
             froalaOptions.toolbarButtons = this.options.toolbarButtons.split(',')
         }
         else {
-            froalaOptions.toolbarButtons = [
-                'paragraphFormat',
-                'paragraphStyle',
-                'quote',
-                'bold',
-                'italic',
-                'align',
-                'formatOL',
-                'formatUL',
-                'insertTable',
-                'insertLink',
-                'insertImage',
-                'insertVideo',
-                'insertAudio',
-                'insertFile',
-                'insertHR',
-                'fullscreen',
-                'html'
-            ]
+            froalaOptions.toolbarButtons = $.oc.richEditorButtons
         }
 
         froalaOptions.imageStyles = this.options.imageStyles
@@ -376,5 +358,32 @@
     $(document).render(function() {
         $('[data-control="richeditor"]').richEditor()
     })
+
+
+    // BUTTON DEFINITIONS
+    // =================
+
+    if ($.oc === undefined)
+        $.oc = {}
+
+    $.oc.richEditorButtons = [
+        'paragraphFormat',
+        'paragraphStyle',
+        'quote',
+        'bold',
+        'italic',
+        'align',
+        'formatOL',
+        'formatUL',
+        'insertTable',
+        'insertLink',
+        'insertImage',
+        'insertVideo',
+        'insertAudio',
+        'insertFile',
+        'insertHR',
+        'fullscreen',
+        'html'
+    ]
 
 }(window.jQuery);

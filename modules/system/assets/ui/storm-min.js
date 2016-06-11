@@ -3588,25 +3588,31 @@ if(typeof option=='string')data[option].call($this)})}
 $.fn.chartLine.Constructor=ChartLine
 $.fn.chartLine.noConflict=function(){$.fn.chartLine=old
 return this}
-$(document).render(function(){$('[data-control="chart-line"]').chartLine()})}(window.jQuery);+function($){"use strict";var BarChart=function(element,options){this.options=options||{};var
-$el=this.$el=$(element),size=this.size=$el.height(),total=0,self=this,values=$.oc.chartUtils.loadListValues($('ul',$el)),$legend=$.oc.chartUtils.createLegend($('ul',$el)),indicators=$.oc.chartUtils.initLegendColorIndicators($legend),isFullWidth=this.isFullWidth(),chartHeight=this.options.height!==undefined?this.options.height:size,chartWidth=isFullWidth?this.$el.width():size,barWidth=(chartWidth-(values.values.length-1)*this.options.gap)/values.values.length
+$(document).render(function(){$('[data-control="chart-line"]').chartLine()})}(window.jQuery);+function($){"use strict";var BarChart=function(element,options){this.options=options||{}
+var
+$el=this.$el=$(element),size=this.size=$el.height(),self=this,values=$.oc.chartUtils.loadListValues($('ul',$el)),$legend=$.oc.chartUtils.createLegend($('ul',$el)),indicators=$.oc.chartUtils.initLegendColorIndicators($legend),isFullWidth=this.isFullWidth(),chartHeight=this.options.height!==undefined?this.options.height:size,chartWidth=isFullWidth?this.$el.width():size,barWidth=(chartWidth-(values.values.length-1)*this.options.gap)/values.values.length
 var $canvas=$('<div/>').addClass('canvas').height(chartHeight).width(isFullWidth?'100%':chartWidth)
 $el.prepend($canvas)
 $el.toggleClass('full-width',isFullWidth)
-Raphael($canvas.get(0),isFullWidth?'100%':chartWidth,chartHeight,function(){self.paper=this;self.bars=this.set()
+Raphael($canvas.get(0),isFullWidth?'100%':chartWidth,chartHeight,function(){self.paper=this
+self.bars=this.set()
 self.paper.customAttributes.bar=function(start,height){return{path:[["M",start,chartHeight],["L",start,chartHeight-height],["L",start+barWidth,chartHeight-height],["L",start+barWidth,chartHeight],["Z"]]}}
-var start=0;$.each(values.values,function(index,valueInfo){var color=valueInfo.color!==undefined?valueInfo.color:$.oc.chartUtils.getColor(index),path=self.paper.path().attr({"stroke-width":0}).attr({bar:[start,0]}).attr({fill:color})
+var start=0
+$.each(values.values,function(index,valueInfo){var color=valueInfo.color!==undefined?valueInfo.color:$.oc.chartUtils.getColor(index),path=self.paper.path().attr({"stroke-width":0}).attr({bar:[start,0]}).attr({fill:color})
 self.bars.push(path)
 indicators[index].css('background-color',color)
 start+=barWidth+self.options.gap
 path.hover(function(ev){$.oc.chartUtils.showTooltip(ev.pageX,ev.pageY,$.trim($.oc.chartUtils.getLegendLabel($legend,index))+': <strong>'+valueInfo.value+'</stong>')},function(){$.oc.chartUtils.hideTooltip()})})
 start=0
-$.each(values.values,function(index,valueInfo){var height=chartHeight/values.max*valueInfo.value;self.bars[index].animate({bar:[start,height]},1000,"bounce")
-start+=barWidth+self.options.gap;})
-if(isFullWidth){$(window).on('resize',function(){chartWidth=self.$el.width(),barWidth=(chartWidth-(values.values.length-1)*self.options.gap)/values.values.length
+$.each(values.values,function(index,valueInfo){var height=(values.max&&valueInfo.value)?chartHeight/values.max*valueInfo.value:0
+self.bars[index].animate({bar:[start,height]},1000,"bounce")
+start+=barWidth+self.options.gap})
+if(isFullWidth){$(window).on('resize',function(){chartWidth=self.$el.width()
+barWidth=(chartWidth-(values.values.length-1)*self.options.gap)/values.values.length
 var start=0
-$.each(values.values,function(index,valueInfo){var height=chartHeight/values.max*valueInfo.value;self.bars[index].animate({bar:[start,height]},10,"bounce")
-start+=barWidth+self.options.gap;})})}});}
+$.each(values.values,function(index,valueInfo){var height=(values.max&&valueInfo.value)?chartHeight/values.max*valueInfo.value:0
+self.bars[index].animate({bar:[start,height]},10,"bounce")
+start+=barWidth+self.options.gap})})}})}
 BarChart.prototype.isFullWidth=function(){return this.options.fullWidth!==undefined&&this.options.fullWidth}
 BarChart.DEFAULTS={gap:2}
 var old=$.fn.barChart
@@ -3614,38 +3620,49 @@ $.fn.barChart=function(option){return this.each(function(){var $this=$(this)
 var data=$this.data('oc.barChart')
 var options=$.extend({},BarChart.DEFAULTS,$this.data(),typeof option=='object'&&option)
 if(!data)
-$this.data('oc.barChart',(data=new BarChart(this,options)))})}
+$this.data('oc.barChart',new BarChart(this,options))})}
 $.fn.barChart.Constructor=BarChart
 $.fn.barChart.noConflict=function(){$.fn.barChart=old
 return this}
-$(document).render(function(){$('[data-control=chart-bar]').barChart()})}(window.jQuery);+function($){"use strict";var PieChart=function(element,options){this.options=options||{};var
-$el=this.$el=$(element),size=this.size=(this.options.size!==undefined?this.options.size:$el.height()),outerRadius=size/2-1,innerRadius=outerRadius-outerRadius/3.5,total=0,values=$.oc.chartUtils.loadListValues($('ul',$el)),$legend=$.oc.chartUtils.createLegend($('ul',$el)),indicators=$.oc.chartUtils.initLegendColorIndicators($legend),self=this;var $canvas=$('<div/>').addClass('canvas').width(size).height(size)
+$(document).render(function(){$('[data-control=chart-bar]').barChart()})}(window.jQuery)
++function($){"use strict";var PieChart=function(element,options){this.options=options||{}
+var
+$el=this.$el=$(element),size=this.size=(this.options.size!==undefined?this.options.size:$el.height()),outerRadius=size/2-1,innerRadius=outerRadius-outerRadius/3.5,values=$.oc.chartUtils.loadListValues($('ul',$el)),$legend=$.oc.chartUtils.createLegend($('ul',$el)),indicators=$.oc.chartUtils.initLegendColorIndicators($legend),self=this
+var $canvas=$('<div/>').addClass('canvas').width(size).height(size)
 $el.prepend($canvas)
-Raphael($canvas.get(0),size,size,function(){self.paper=this;self.segments=this.set()
+Raphael($canvas.get(0),size,size,function(){self.paper=this
+self.segments=this.set()
 self.paper.customAttributes.segment=function(startAngle,endAngle){var
-p1=self.arcCoords(outerRadius,startAngle),p2=self.arcCoords(outerRadius,endAngle),p3=self.arcCoords(innerRadius,endAngle),p4=self.arcCoords(innerRadius,startAngle),flag=(endAngle-startAngle)>180,path=[["M",p1.x,p1.y],["A",outerRadius,outerRadius,0,+flag,0,p2.x,p2.y],["L",p3.x,p3.y],["A",innerRadius,innerRadius,0,+flag,1,p4.x,p4.y],["Z"]];return{path:path}}
+p1=self.arcCoords(outerRadius,startAngle),p2=self.arcCoords(outerRadius,endAngle),p3=self.arcCoords(innerRadius,endAngle),p4=self.arcCoords(innerRadius,startAngle),flag=(endAngle-startAngle)>180,path=[["M",p1.x,p1.y],["A",outerRadius,outerRadius,0,+flag,0,p2.x,p2.y],["L",p3.x,p3.y],["A",innerRadius,innerRadius,0,+flag,1,p4.x,p4.y],["Z"]]
+return{path:path}}
 self.paper.circle(size/2,size/2,innerRadius+(outerRadius-innerRadius)/2).attr({"stroke-width":outerRadius-innerRadius-0.5}).attr({stroke:$.oc.chartUtils.defaultValueColor})
 $.each(values.values,function(index,valueInfo){var color=valueInfo.color!==undefined?valueInfo.color:$.oc.chartUtils.getColor(index),path=self.paper.path().attr({"stroke-width":0}).attr({segment:[0,0]}).attr({fill:color})
 self.segments.push(path)
 indicators[index].css('background-color',color)
 path.hover(function(ev){$.oc.chartUtils.showTooltip(ev.pageX,ev.pageY,$.trim($.oc.chartUtils.getLegendLabel($legend,index))+': <strong>'+valueInfo.value+'</stong>')},function(){$.oc.chartUtils.hideTooltip()})})
-var start=self.options.startAngle;$.each(values.values,function(index,valueInfo){var length=360/values.total*valueInfo.value;if(length==360)
-length--;self.segments[index].animate({segment:[start,start+length]},1000,"bounce")
-start+=length})});if(this.options.centerText!==undefined){var $text=$('<span>').addClass('center').html(this.options.centerText)
+var start=self.options.startAngle
+$.each(values.values,function(index,valueInfo){var length=(values.total&&valueInfo.value)?360/values.total*valueInfo.value:0
+if(length==360)
+length--
+self.segments[index].animate({segment:[start,start+length]},1000,"bounce")
+start+=length})})
+if(this.options.centerText!==undefined){var $text=$('<span>').addClass('center').html(this.options.centerText)
 $canvas.append($text)}}
 PieChart.prototype.arcCoords=function(radius,angle){var
-a=Raphael.rad(angle),x=this.size/2+radius*Math.cos(a),y=this.size/2-radius*Math.sin(a);return{'x':x,'y':y}}
+a=Raphael.rad(angle),x=this.size/2+radius*Math.cos(a),y=this.size/2-radius*Math.sin(a)
+return{'x':x,'y':y}}
 PieChart.DEFAULTS={startAngle:45}
 var old=$.fn.pieChart
 $.fn.pieChart=function(option){return this.each(function(){var $this=$(this)
 var data=$this.data('oc.pieChart')
 var options=$.extend({},PieChart.DEFAULTS,$this.data(),typeof option=='object'&&option)
 if(!data)
-$this.data('oc.pieChart',(data=new PieChart(this,options)))})}
+$this.data('oc.pieChart',new PieChart(this,options))})}
 $.fn.pieChart.Constructor=PieChart
 $.fn.pieChart.noConflict=function(){$.fn.pieChart=old
 return this}
-$(document).render(function(){$('[data-control=chart-pie]').pieChart()})}(window.jQuery);+function($){"use strict";var GoalMeter=function(element,options){var
+$(document).render(function(){$('[data-control=chart-pie]').pieChart()})}(window.jQuery)
++function($){"use strict";var GoalMeter=function(element,options){var
 $el=this.$el=$(element),self=this;this.options=options||{};this.$indicatorBar=$('<span/>').text(this.options.value+'%')
 this.$indicatorOuter=$('<span/>').addClass('goal-meter-indicator').append(this.$indicatorBar)
 $('p',this.$el).first().before(this.$indicatorOuter)

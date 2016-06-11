@@ -485,7 +485,7 @@ if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random()
 this.initFroala()}
 RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor',language:this.options.editorLang,fullPage:this.options.fullpage,pageLinksHandler:this.options.linksHandler}
 if(this.options.toolbarButtons){froalaOptions.toolbarButtons=this.options.toolbarButtons.split(',')}
-else{froalaOptions.toolbarButtons=['paragraphFormat','paragraphStyle','quote','bold','italic','align','formatOL','formatUL','insertTable','insertLink','insertImage','insertVideo','insertAudio','insertFile','insertHR','fullscreen','html']}
+else{froalaOptions.toolbarButtons=$.oc.richEditorButtons}
 froalaOptions.imageStyles=this.options.imageStyles?this.options.imageStyles:{'oc-img-rounded':'Rounded','oc-img-bordered':'Bordered'}
 froalaOptions.linkStyles=this.options.linkStyles?this.options.linkStyles:{'oc-link-green':'Green','oc-link-strong':'Thick'}
 froalaOptions.paragraphStyles=this.options.paragraphStyles?this.options.paragraphStyles:{'oc-text-gray':'Gray','oc-text-bordered':'Bordered','oc-text-spaced':'Spaced','oc-text-uppercase':'Uppercase'}
@@ -578,4 +578,7 @@ return result?result:this}
 $.fn.richEditor.Constructor=RichEditor
 $.fn.richEditor.noConflict=function(){$.fn.richEditor=old
 return this}
-$(document).render(function(){$('[data-control="richeditor"]').richEditor()})}(window.jQuery);
+$(document).render(function(){$('[data-control="richeditor"]').richEditor()})
+if($.oc===undefined)
+$.oc={}
+$.oc.richEditorButtons=['paragraphFormat','paragraphStyle','quote','bold','italic','align','formatOL','formatUL','insertTable','insertLink','insertImage','insertVideo','insertAudio','insertFile','insertHR','fullscreen','html']}(window.jQuery);
