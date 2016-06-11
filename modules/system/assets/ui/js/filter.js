@@ -261,8 +261,12 @@
     }
 
     FilterWidget.prototype.fillOptions = function(scopeName, data) {
-        if (this.scopeValues[scopeName])
-            return
+        // Check if scope is forced to ajax load items each time
+        var checkIsForced = ($("a.filter-scope-open[data-scope-name='"+scopeName+"']").data('force-ajax-load') != undefined) ? true : false
+
+        // Return items, if they were loaded before and scope is not forced to ajax load items each time
+        if (this.scopeValues[scopeName] && !checkIsForced)
+           return
 
         if (!data.active) data.active = []
         if (!data.available) data.available = []
@@ -283,6 +287,8 @@
          * Inject active
          */
         var container = $('#controlFilterPopover .filter-active-items > ul')
+        // If scope is forced to ajax load items each time, then empty active items first
+        if(checkIsForced == true) container.empty()
         this.addItemsToListElement(container, data.active)
     }
 
@@ -302,15 +308,16 @@
          * Ensure any active items do not appear in the search results
          */
         if (items.active.length) {
-            var compareFunc = function(a, b) { return a.id == b.id },
-                inArrayFunc = function(elem, array, testFunc) {
-                    var i = array.length
-                    do { if (i-- === 0) return i } while (testFunc(array[i], elem))
-                    return i
-                }
-
-            filtered = $.grep(available, function(item) {
-                return !inArrayFunc(item, items.active, compareFunc)
+            $.grep(available, function (item) {
+                var activeIds = []
+                $.each(items.active, function (key, obj) {
+                    activeIds.push(obj.id)
+                })
+                $.each(item, function (key, obj) {
+                    if (key == 'id' && $.inArray(obj, activeIds) == -1) {
+                        filtered.push(item)
+                    }
+                })
             })
         }
         else {
