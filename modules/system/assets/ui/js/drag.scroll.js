@@ -159,7 +159,7 @@
             var current = event[eventElementName],
                 offset = dragStart - current
 
-            if (Math.abs(offset) > 2) {
+            if (Math.abs(offset) > 3) {
                 if (!dragging) {
                     dragging = true
                     $el.trigger('start.oc.dragScroll')

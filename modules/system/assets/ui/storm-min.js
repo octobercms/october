@@ -4087,7 +4087,7 @@ $(window).on('mouseup.dragScroll',function(mouseUpEvent){var isClick=event.pageX
 stopDrag(isClick)
 return false})}}
 function moveDrag(event){var current=event[eventElementName],offset=dragStart-current
-if(Math.abs(offset)>2){if(!dragging){dragging=true
+if(Math.abs(offset)>3){if(!dragging){dragging=true
 $el.trigger('start.oc.dragScroll')
 self.options.start()
 $(document.body).addClass(self.options.dragClass)}
