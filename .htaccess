@@ -29,6 +29,7 @@
     ## White listed folders and files
     ##
     RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_FILENAME} !^index\.php$
     RewriteCond %{REQUEST_FILENAME} !\.js$
     RewriteCond %{REQUEST_FILENAME} !\.map$
     RewriteCond %{REQUEST_FILENAME} !\.ico$
