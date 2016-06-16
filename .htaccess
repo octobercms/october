@@ -13,9 +13,8 @@
     # RewriteBase /
 
     ##
-    ## Black list protected files
+    ## Black listed folders
     ##
-    RewriteRule ^themes/.*/(layouts|pages|partials)/.*.htm index.php [L,NC]
     RewriteRule ^bootstrap/.* index.php [L,NC]
     RewriteRule ^config/.* index.php [L,NC]
     RewriteRule ^vendor/.* index.php [L,NC]
@@ -26,47 +25,23 @@
     RewriteRule ^storage/app/uploads/protected/.* index.php [L,NC]
 
     ##
-    ## White listed folders and files
+    ## White listed folders
     ##
     RewriteCond %{REQUEST_FILENAME} -f
-    RewriteCond %{REQUEST_FILENAME} !^index\.php$
-    RewriteCond %{REQUEST_FILENAME} !\.js$
-    RewriteCond %{REQUEST_FILENAME} !\.map$
-    RewriteCond %{REQUEST_FILENAME} !\.ico$
-    RewriteCond %{REQUEST_FILENAME} !\.jpg$
-    RewriteCond %{REQUEST_FILENAME} !\.jpeg$
-    RewriteCond %{REQUEST_FILENAME} !\.bmp$
-    RewriteCond %{REQUEST_FILENAME} !\.png$
-    RewriteCond %{REQUEST_FILENAME} !\.gif$
-    RewriteCond %{REQUEST_FILENAME} !\.svg$
-    RewriteCond %{REQUEST_FILENAME} !\.css$
-    RewriteCond %{REQUEST_FILENAME} !\.less$
-    RewriteCond %{REQUEST_FILENAME} !\.scss$
-    RewriteCond %{REQUEST_FILENAME} !\.pdf$
-    RewriteCond %{REQUEST_FILENAME} !\.swf$
-    RewriteCond %{REQUEST_FILENAME} !\.txt$
-    RewriteCond %{REQUEST_FILENAME} !\.xml$
-    RewriteCond %{REQUEST_FILENAME} !\.xls$
-    RewriteCond %{REQUEST_FILENAME} !\.eot$
-    RewriteCond %{REQUEST_FILENAME} !\.woff$
-    RewriteCond %{REQUEST_FILENAME} !\.woff2$
-    RewriteCond %{REQUEST_FILENAME} !\.ttf$
-    RewriteCond %{REQUEST_FILENAME} !\.flv$
-    RewriteCond %{REQUEST_FILENAME} !\.wmv$
-    RewriteCond %{REQUEST_FILENAME} !\.mp3$
-    RewriteCond %{REQUEST_FILENAME} !\.ogg$
-    RewriteCond %{REQUEST_FILENAME} !\.wav$
-    RewriteCond %{REQUEST_FILENAME} !\.avi$
-    RewriteCond %{REQUEST_FILENAME} !\.mov$
-    RewriteCond %{REQUEST_FILENAME} !\.mp4$
-    RewriteCond %{REQUEST_FILENAME} !\.mpeg$
-    RewriteCond %{REQUEST_FILENAME} !\.webm$
-    RewriteCond %{REQUEST_FILENAME} !\.mkv$
-    RewriteCond %{REQUEST_FILENAME} !\.rar$
-    RewriteCond %{REQUEST_FILENAME} !\.zip$
-    RewriteCond %{REQUEST_URI} !docs/.*
-    RewriteCond %{REQUEST_URI} !themes/.*
-    RewriteRule ^ index.php [L,NC]
+    RewriteCond %{REQUEST_FILENAME} !/storage/app/uploads/.*
+    RewriteCond %{REQUEST_FILENAME} !/storage/app/media/.*
+    RewriteCond %{REQUEST_FILENAME} !/storage/temp/public/.*
+    RewriteCond %{REQUEST_FILENAME} !/themes/.*/(assets|resources)/.*
+    RewriteCond %{REQUEST_FILENAME} !/plugins/.*/(assets|resources)/.*
+    RewriteCond %{REQUEST_FILENAME} !/modules/.*/(assets|resources)/.*
+    RewriteRule !^index.php index.php [L,NC]
+
+    ##
+    ## Block all PHP files, except index
+    ##
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_FILENAME} \.php$
+    RewriteRule !^index.php index.php [L,NC]
 
     ##
     ## Standard routes
