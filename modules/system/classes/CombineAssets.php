@@ -14,7 +14,7 @@ use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCache;
 use Assetic\Asset\AssetCollection;
-use Assetic\Cache\FilesystemCache;
+use October\Rain\Parse\Assetic\FilesystemCache;
 use System\Helpers\Cache as CacheHelper;
 use ApplicationException;
 use DateTime;
@@ -98,21 +98,21 @@ class CombineAssets
         /*
          * Register JavaScript filters
          */
-        $this->registerFilter('js', new \October\Rain\Support\Filters\JavascriptImporter);
+        $this->registerFilter('js', new \October\Rain\Parse\Assetic\JavascriptImporter);
 
         /*
          * Register CSS filters
          */
         $this->registerFilter('css', new \Assetic\Filter\CssImportFilter);
         $this->registerFilter(['css', 'less'], new \Assetic\Filter\CssRewriteFilter);
-        $this->registerFilter('less', new \October\Rain\Support\Filters\LessCompiler);
+        $this->registerFilter('less', new \October\Rain\Parse\Assetic\LessCompiler);
 
         /*
          * Minification filters
          */
         if ($this->useMinify) {
             $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
-            $this->registerFilter(['css', 'less'], new \October\Rain\Support\Filters\StylesheetMinify);
+            $this->registerFilter(['css', 'less'], new \October\Rain\Parse\Assetic\StylesheetMinify);
         }
 
         /*
@@ -335,6 +335,10 @@ class CombineAssets
 
         if ($this->storagePath === null) {
             return $collection;
+        }
+
+        if (!File::isDirectory($this->storagePath)) {
+            File::makeDirectory($this->storagePath);
         }
 
         $cache = new FilesystemCache($this->storagePath);
