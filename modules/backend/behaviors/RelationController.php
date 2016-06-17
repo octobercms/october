@@ -1313,7 +1313,8 @@ class RelationController extends ControllerBehavior
             case 'hasMany':
             case 'belongsToMany':
                 return ['create', 'add', 'delete', 'remove'];
-
+            case 'morphMany':
+                return ['create', 'delete'];                
             case 'hasOne':
             case 'belongsTo':
                 return ['create', 'update', 'link', 'delete', 'unlink'];
@@ -1334,7 +1335,8 @@ class RelationController extends ControllerBehavior
             case 'hasMany':
             case 'belongsToMany':
                 return 'multi';
-
+            case 'morphMany':
+                return 'multi';
             case 'hasOne':
             case 'belongsTo':
                 return 'single';
@@ -1408,7 +1410,10 @@ class RelationController extends ControllerBehavior
             case 'hasMany':
                 if ($this->eventTarget == 'button-add') return 'list';
                 else return 'form';
+			case 'morphMany':
+                return 'form';
         }
+        
     }
 
     /**
