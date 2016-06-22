@@ -4,18 +4,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Back-end URI prefix
-    |--------------------------------------------------------------------------
-    |
-    | Specifies the URL name used for accessing back-end pages.
-    | For example: backend -> http://localhost/backend
-    |
-    */
-
-    'backendUri' => 'backend',
-
-    /*
-    |--------------------------------------------------------------------------
     | Specifies the default CMS theme.
     |--------------------------------------------------------------------------
     |
@@ -37,6 +25,18 @@ return [
     */
 
     'edgeUpdates' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Back-end URI prefix
+    |--------------------------------------------------------------------------
+    |
+    | Specifies the URL name used for accessing back-end pages.
+    | For example: backend -> http://localhost/backend
+    |
+    */
+
+    'backendUri' => 'backend',
 
     /*
     |--------------------------------------------------------------------------

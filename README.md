@@ -23,6 +23,11 @@ For advanced users, run this in your terminal to install October from command li
 
 ```
 wget https://octobercms.com/api/installer -O temp.zip && unzip temp.zip && rm temp.zip
+```
+
+If you plan on using a database, run this command:
+
+```
 php artisan october:install
 ```
 
