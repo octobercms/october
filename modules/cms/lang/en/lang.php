@@ -94,7 +94,8 @@ return [
         'settings_menu' => 'Maintenance mode',
         'settings_menu_description' => 'Configure the maintenance mode page and toggle the setting.',
         'is_enabled' => 'Enable maintenance mode',
-        'is_enabled_comment' => 'When activated website visitors will see the page chosen below.'
+        'is_enabled_comment' => 'Select the page to show when maintenance mode is activated.',
+        'hint' => 'Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.',
     ],
     'page' => [
         'not_found_name' => "The page ':name' is not found",
