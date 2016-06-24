@@ -11,6 +11,15 @@ return [
         'error_deleting' => 'Erro ao excluir o arquivo de template ":name". Verifique as permissões de escrita.',
         'delete_success' => 'Templates apagados com sucesso: :count.',
         'file_name_required' => 'O campo de Nome do Arquivo é necessário.',
+        'safe_mode_enabled' => 'Safe mode is currently enabled.',
+    ],
+    'dashboard' => [
+        'active_theme' => [
+            'widget_title_default' => 'Website',
+            'online' => 'online',
+            'maintenance' => 'em manutenção',
+            'manage_themes' => 'Manage themes',
+        ]
     ],
     'theme' => [
         'not_found_name' => 'O tema ":name" não foi encontrado.',
@@ -164,6 +173,10 @@ return [
         'hidden_comment' => 'Páginas ocultas são acessíveis somente para administradores.',
         'enter_fullscreen' => 'Entrar no modo de tela cheia',
         'exit_fullscreen' => 'Sair do modo de tela cheia',
+        'open_searchbox' => 'Open Search box',
+        'close_searchbox'  => 'Close Search box',
+        'open_replacebox' => 'Open Replace box',
+        'close_replacebox'  => 'Close Replace box'
     ],
     'asset' => [
         'menu_label' => 'Arquivos',
@@ -252,7 +265,7 @@ return [
         'filter_audio' => 'Áudios',
         'filter_documents' => 'Documentos',
         'library' => 'Biblioteca',
-        'folder_size_items' => 'item(s)',
+        'folder_size_items' => 'item(ns)',
         'size' => 'Tamanho',
         'title' => 'Título',
         'last_modified' => 'Última modificação',
@@ -287,6 +300,8 @@ return [
         'selection_not_image' => 'O arquivo selecionado não é uma imagem.',
         'restore' => 'Desfazer todas as alterações',
         'resize' => 'Redimensionar...',
+        'restore' => 'Undo all changes',
+        'resize' => 'Resize...',
         'selection_mode_normal' => 'Normal',
         'selection_mode_fixed_ratio' => 'Proporção fixa',
         'selection_mode_fixed_size' => 'Tamanho fixo',
