@@ -1,6 +1,8 @@
 <div class="fileupload-config-form">
     <?= Form::open() ?>
         <input type="hidden" name="file_id" value="<?= $file->id ?>" />
+        <input type="hidden" name="manage_id" value="<?= $relationManageId ?>" />
+        <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
 
         <?php if (starts_with($displayMode, 'image')): ?>
             <div class="file-upload-modal-image-header">
