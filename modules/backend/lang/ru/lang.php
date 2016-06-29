@@ -99,9 +99,11 @@ return [
         'deny' => 'Запретить',
         'group' => [
             'name' => 'Группы',
+            'name_comment' => 'Название отображается в списке групп в форме создания/редактирования администраторов.',
             'name_field' => 'Название',
             'description_field' => 'Описание',
-            'is_new_user_default_field' => 'Добавлять новых администраторов в эту группу по умолчанию.',
+            'is_new_user_default_field_label' => 'Группа по умолчанию',
+            'is_new_user_default_field_comment' => 'Добавлять новых администраторов в эту группу по умолчанию.',
             'code_field' => 'Уникальный код',
             'code_comment' => 'Введите уникальный код, если вы хотите открыть доступ к нему с помощью API.',
             'menu_label' => 'Группы',
@@ -276,7 +278,27 @@ return [
         'auto_closing' => 'Автоматическое закрытие тегов и специальных символов',
         'show_invisibles' => 'Показывать невидимые символы',
         'show_gutter' => 'Показывать нумерацию строк',
-        'theme' => 'Цветовая схема'
+        'theme' => 'Цветовая схема',
+        'markup_styles' => 'Стили разметки',
+        'custom_styles' => 'Дополнительные CSS стили',
+        'custom styles_comment' => 'Дополнительные стили для использования в HTML редакторе.',
+        'markup_classes' => 'Классы разметки',
+        'paragraph' => 'Параграф',
+        'link' => 'Ссылка',
+        'table' => 'Таблица',
+        'table_cell' => 'Ячейка таблицы',
+        'image' => 'Изображение',
+        'label' => 'Название',
+        'class_name' => 'Класс',
+        'markup_tags' => 'Теги разметки',
+        'allowed_empty_tags' => 'Разрешенные пустые теги',
+        'allowed_empty_tags_comment' => 'Список тегов, которые не будут удаляться, если внутри них нет содержания.',
+        'allowed_tags' => 'Разрешенные теги',
+        'allowed_tags_comment' => 'Список разрешенных тегов.',
+        'no_wrap' => 'Do not wrap теги',
+        'no_wrap_comment' => 'Список тегов, которые не должны быть обернуты в блочные элементы.',
+        'remove_tags' => 'Удаляемые теги',
+        'remove_tags_comment' => 'Список тегов, которые будут удалены вместе с их содержанием.'
     ],
     'tooltips' => [
         'preview_website' => 'Просмотр сайта'
@@ -305,11 +327,20 @@ return [
         'secondary_color' => 'Вторичный color',
         'accent_color' => 'Accent color',
         'styles' => 'Стили',
-        'custom_stylesheet' => 'Пользовательские стили'
+        'custom_stylesheet' => 'Пользовательские стили',
+        'navigation' => 'Навигация',
+        'menu_mode' => 'Стиль меню',
+        'menu_mode_inline' => 'Строчный',
+        'menu_mode_tile' => 'Плитка',
+        'menu_mode_collapsed' => 'Схлопнутый'
     ],
     'backend_preferences' => [
         'menu_label' => 'Настройки панели управления',
         'menu_description' => 'Управление языком и внешним видом панели управления.',
+        'region' => 'Регион',
+        'code_editor' => 'Редактор кода',
+        'timezone' => 'Часовой пояс',
+        'timezone_comment' => 'Выводить даты в выбранном часовом поясе.',
         'locale' => 'Язык',
         'locale_comment' => 'Выберите желаемый язык панели управления.'
     ],
