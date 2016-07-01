@@ -91,7 +91,8 @@
     //
 
     MarkdownEditor.prototype.onClickToolbarButton = function(ev) {
-        var $button = $(ev.target).closest('.btn'),
+        var $target = $(ev.target),
+            $button = $target.is('a') ? $target : $target.closest('.btn'),
             action = $button.data('button-action'),
             template = $button.data('button-template')
 
