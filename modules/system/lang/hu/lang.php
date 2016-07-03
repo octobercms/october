@@ -6,6 +6,7 @@ return [
         'tagline' => 'Visszatérés az alapokhoz'
     ],
     'locale' => [
+        'da' => 'Danish',
         'en' => 'Angol (amerikai)',
         'en-au' => 'Angol (ausztrál)',
         'en-ca' => 'Angol (kanadai)',
