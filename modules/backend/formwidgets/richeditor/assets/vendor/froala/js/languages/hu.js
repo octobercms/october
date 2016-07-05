@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.3.0 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.3.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -11,7 +11,7 @@
 $.FE.LANGUAGE['hu'] = {
   translation: {
     // Place holder
-    "Type something": "T\u00edpus valami",
+    "Type something": "Sz\u00f6veg...",
 
     // Basic formatting
     "Bold": "F\u00e9lk\u00f6v\u00e9r",
@@ -20,12 +20,12 @@ $.FE.LANGUAGE['hu'] = {
     "Strikethrough": "\u00c1th\u00fazott",
 
     // Main buttons
-    "Insert": "Beilleszt\u00e9se",
+    "Insert": "Beilleszt\u00e9s",
     "Delete": "T\u00f6r\u00f6l",
     "Cancel": "M\u00e9gse",
     "OK": "Rendben",
     "Back": "Vissza",
-    "Remove": "Elt\u00e1vol\u00edt\u00e1sa",
+    "Remove": "Elt\ u00e1vol\u00edt\u00e1s",
     "More": "T\u00f6bb",
     "Update": "Friss\u00edt\u00e9s",
     "Style": "St\u00edlus",
@@ -50,7 +50,7 @@ $.FE.LANGUAGE['hu'] = {
 
     // Style
     "Paragraph Style": "Bekezd\u00e9s st\u00edlus\u00e1t",
-    "Inline Style": "Helyi st\u00edlus",
+    "Inline Style": " Helyi st\u00edlus",
 
     // Alignment
     "Align": "Igaz\u00edt\u00e1s",
@@ -69,25 +69,25 @@ $.FE.LANGUAGE['hu'] = {
     "Increase Indent": "Beh\u00faz\u00e1s n\u00f6vel\u00e9se",
 
     // Links
-    "Insert Link": "Link beilleszt\u00e9se",
+    "Insert Link": "Hivatkoz\u00e1s beilleszt\u00e9se",
     "Open in new tab": "Megnyit\u00e1s \u00faj lapon",
-    "Open Link": "Link megnyit\u00e1sa",
-    "Edit Link": "Szerkeszt\u00e9s linkre",
+    "Open Link": "Hivatkoz\u00e1s megnyit\u00e1sa",
+    "Edit Link": "Hivatkoz\u00e1 s szerkeszt\u00e9se",
     "Unlink": "Hivatkoz\u00e1s t\u00f6rl\u00e9se",
-    "Choose Link": "V\u00e1lasztani linket",
+    "Choose Link": "V\u00e1lasszon weboldalt",
 
     // Images
-    "Insert Image": "K\u00e9p besz\u00far\u00e1sa",
-    "Upload Image": "Felt\u00f6lt\u00e9s k\u00e9p",
-    "By URL": "\u00c1ltal URL",
-    "Browse": "B\u00f6ng\u00e9sszen",
-    "Drop image": "Dobd k\u00e9p",
-    "or click": "vagy kattintson",
+    "Insert Image": "K\u00e9p beilleszt\u00e9se",
+    "Upload Image": "K\u00e9p felt\u00f6lt\u00e9se",
+    "By URL": "Webc\u00edm megad\u00e1sa",
+    "Browse": "B\u00f6ng\u00e9sz\u00e9s",
+    "Drop image": "H\u00fazza ide a k\u00e9pet",
+    "or click": "vagy kattintson ide",
     "Manage Images": "K\u00e9pek kezel\u00e9se",
-    "Loading": "Terhel\u00e9s",
+    "Loading": "Bet\u00f6lt\u00e9s...",
     "Deleting": "T\u00f6rl\u00e9se",
     "Tags": "C\u00edmk\u00e9k",
-    "Are you sure? Image will be deleted.": "Biztos vagy benne? K\u00e9p t\u00f6rl\u00e9sre ker\u00fcl.",
+    "Are you sure? Image will be deleted.": "Biztos benne? K\u00e9p t\u00f6rl\u00e9sre ker\u00fcl.",
     "Replace": "Cser\u00e9je",
     "Uploading": "Felt\u00f6lt\u00e9s",
     "Loading image": "K\u00e9pfelt\u00f6lt\u00e9s",
@@ -102,12 +102,12 @@ $.FE.LANGUAGE['hu'] = {
 
     // Video
     "Insert Video": "Vide\u00f3 beilleszt\u00e9se",
-    "Embedded Code": "Be\u00e1gyazott k\u00f3dot",
+    "Embedded Code": "Vide\u00f3 be\u00e1gyazása",
 
     // Tables
     "Insert Table": "T\u00e1bl\u00e1zat beilleszt\u00e9se",
-    "Table Header": "T\u00e1bl\u00e1zat fejl\u00e9ce",
-    "Remove Table": "T\u00e1bla elt\u00e1vol\u00edt\u00e1sa",
+    "Table Header": "T\u00e1bl\u00e1zat fejl\u00e9c",
+    "Remove Table": "T\u00e1bla elt\u00e1vol\u00edt\u00e1s",
     "Table Style": "T\u00e1bl\u00e1zat st\u00edlus",
     "Horizontal Align": "V\u00edzszintes igaz\u00edt\u00e1s",
     "Row": "Sor",
@@ -134,7 +134,7 @@ $.FE.LANGUAGE['hu'] = {
 
     // Files
     "Upload File": "F\u00e1jl felt\u00f6lt\u00e9se",
-    "Drop file": "Csepp f\u00e1jl",
+    "Drop file": "H\u00fazza ide a f\u00e1jl",
 
     // Emoticons
     "Emoticons": "Hangulatjelek",
@@ -142,7 +142,7 @@ $.FE.LANGUAGE['hu'] = {
     "Grinning face with smiling eyes": "Vigyorg\u00f3 arca mosolyg\u00f3 szemek",
     "Face with tears of joy": "Arc \u00e1t az \u00f6r\u00f6m k\u00f6nnyei",
     "Smiling face with open mouth": "Mosolyg\u00f3 arc t\u00e1tott sz\u00e1jjal",
-    "Smiling face with open mouth and smiling eyes": "Mosolyg\u00f3 arc t\u00e1tott sz\u00e1jjal \u00e9s mosolyg\u00f3 szemek",
+    "Smiling face with open mouth and smiling eyes": "Mosoly g\u00f3 arc t\u00e1tott sz\u00e1jjal \u00e9s mosolyg\u00f3 szemek",
     "Smiling face with open mouth and cold sweat": "Mosolyg\u00f3 arc t\u00e1tott sz\u00e1jjal \u00e9s hideg ver\u00edt\u00e9k",
     "Smiling face with open mouth and tightly-closed eyes": "Mosolyg\u00f3 arc t\u00e1tott sz\u00e1jjal \u00e9s szorosan lehunyt szemmel",
     "Smiling face with halo": "Mosolyg\u00f3 arc halo",
@@ -152,7 +152,7 @@ $.FE.LANGUAGE['hu'] = {
     "Face savoring delicious food": "Arc \u00edzlelgette \u00edzletes \u00e9telek",
     "Relieved face": "Megk\u00f6nnyebb\u00fclt arccal",
     "Smiling face with heart-shaped eyes": "Mosolyg\u00f3 arc sz\u00edv alak\u00fa szemek",
-    "Smiling face with sunglasses": "Mosolyg\u00f3 arc, napszem\u00fcveg",
+    "Smilin g face with sunglasses": "Mosolyg\u00f3 arc, napszem\u00fcveg",
     "Smirking face": "Vigyorg\u00f3 arca",
     "Neutral face": "Semleges arc",
     "Expressionless face": "Kifejez\u00e9stelen arc",
@@ -165,7 +165,7 @@ $.FE.LANGUAGE['hu'] = {
     "Face throwing a kiss": "Arc dobott egy cs\u00f3kot",
     "Kissing face with smiling eyes": "Cs\u00f3kos arc\u00e1t mosolyg\u00f3 szemek",
     "Kissing face with closed eyes": "Cs\u00f3kos arc\u00e1t csukott szemmel",
-    "Face with stuck out tongue": "Szembe kiny\u00fajtotta a nyelv\u00e9t",
+    "Face with stuck out tongue": "Szembe kiny\u00faj totta a nyelv\u00e9t",
     "Face with stuck out tongue and winking eye": "Szembe kiny\u00fajtotta a nyelv\u00e9t, \u00e9s kacsintott szem",
     "Face with stuck out tongue and tightly-closed eyes": "Arc kiny\u00fajtotta a nyelv\u00e9t, \u00e9s szorosan lehunyt szemmel",
     "Disappointed face": "Csal\u00f3dott arca",
@@ -191,22 +191,22 @@ $.FE.LANGUAGE['hu'] = {
     "Astonished face": "Meglepett arca",
     "Flushed face": "Kipirult arc",
     "Sleeping face": "Alv\u00f3 arc\u00e1t",
-    "Dizzy face": "sz\u00e1d\u00fcl arca",
+    "Dizzy face": " sz\u00e1d\u00fcl arca",
     "Face without mouth": "Arc n\u00e9lkül sz\u00e1j",
     "Face with medical mask": "Arc\u00e1t orvosi maszk",
 
     // Line breaker
-    "Break": "T\u00f6r",
+    "Break": "T\u00f6r\u00e9s",
 
     // Math
     "Subscript": "Als\u00f3 index",
     "Superscript": "Fels\u0151 index",
 
     // Full screen
-    "Fullscreen": "Teljes k\u00e9perny\u0151s",
+    "Fullscreen": "Teljes k\u00e9perny\u0151",
 
     // Horizontal line
-    "Insert Horizontal Line": "Helyezze v\u00edzszintes vonal",
+    "Insert Horizontal Line": "V\u00edzszintes vonal",
 
     // Clear formatting
     "Clear Formatting": "Form\u00e1z\u00e1s elt\u00e1vol\u00edt\u00e1sa",
@@ -219,15 +219,15 @@ $.FE.LANGUAGE['hu'] = {
     "Select All": "Minden kijel\u00f6l\u00e9se",
 
     // Code view
-    "Code View": "K\u00f3d n\u00e9zet",
+    "Code View": "Forr\u00e1sk\u00f3d",
 
     // Quote
     "Quote": "Id\u00e9zet",
     "Increase": "N\u00f6veked\u00e9s",
-    "Decrease": "Cs\u00f6kkent",
+    "Decrease": "Cs\u00f6kken\u00e9s",
 
     // Quick Insert
-    "Quick Insert": "Gyors bet\u00e9t"
+    "Quick Insert": "Beilleszt\u00e9s"
   },
   direction: "ltr"
 };
