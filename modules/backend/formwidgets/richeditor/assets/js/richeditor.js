@@ -227,11 +227,11 @@
     }
 
     RichEditor.prototype.getContent = function() {
-        return this.$textarea.froalaEditor('html.get')
+        return this.editor.html.get()
     }
 
     RichEditor.prototype.setContent = function(html) {
-        this.$textarea.froalaEditor('html.set', html)
+        this.editor.html.set(html)
     }
 
     RichEditor.prototype.syncContent = function() {
@@ -291,6 +291,11 @@
     }
 
     RichEditor.prototype.onSyncContent = function(ev, editor, html) {
+        // Beautify HTML.
+        if (editor.codeBeautifier) {
+            html = editor.codeBeautifier.run(html, editor.opts.codeBeautifierOptions)
+        }
+
         var container = {
             html: html
         }

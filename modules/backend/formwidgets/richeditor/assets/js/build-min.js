@@ -540,8 +540,8 @@ this.$textarea.trigger('init.oc.richeditor',[this])}
 RichEditor.prototype.getElement=function(){return this.$el}
 RichEditor.prototype.getEditor=function(){return this.editor}
 RichEditor.prototype.getTextarea=function(){return this.$textarea}
-RichEditor.prototype.getContent=function(){return this.$textarea.froalaEditor('html.get')}
-RichEditor.prototype.setContent=function(html){this.$textarea.froalaEditor('html.set',html)}
+RichEditor.prototype.getContent=function(){return this.editor.html.get()}
+RichEditor.prototype.setContent=function(html){this.editor.html.set(html)}
 RichEditor.prototype.syncContent=function(){this.editor.events.trigger('contentChanged')}
 RichEditor.prototype.updateLayout=function(){var $editor=$('.fr-wrapper',this.$el),$codeEditor=$('.fr-code',this.$el),$toolbar=$('.fr-toolbar',this.$el),$box=$('.fr-box',this.$el)
 if(!$editor.length){return}
@@ -557,7 +557,8 @@ RichEditor.prototype.insertUiBlock=function($node){this.$textarea.froalaEditor('
 RichEditor.prototype.insertVideo=function(url,title){this.$textarea.froalaEditor('figures.insertVideo',url,title)}
 RichEditor.prototype.insertAudio=function(url,title){this.$textarea.froalaEditor('figures.insertAudio',url,title)}
 RichEditor.prototype.onSetContent=function(ev,editor){this.$textarea.trigger('setContent.oc.richeditor',[this])}
-RichEditor.prototype.onSyncContent=function(ev,editor,html){var container={html:html}
+RichEditor.prototype.onSyncContent=function(ev,editor,html){if(editor.codeBeautifier){html=editor.codeBeautifier.run(html,editor.opts.codeBeautifierOptions)}
+var container={html:html}
 this.$textarea.trigger('syncContent.oc.richeditor',[this,container])
 return container.html}
 RichEditor.prototype.onFocus=function(){this.$el.addClass('editor-focus')}
