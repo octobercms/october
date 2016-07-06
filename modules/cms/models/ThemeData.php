@@ -207,11 +207,11 @@ class ThemeData extends Model
     public static function applyAssetVariablesToCombinerFilters($filters)
     {
         $theme = CmsTheme::getActiveTheme();
-        
-        if(!$theme){
+
+        if (!$theme){
             return;
         }
-        
+
         if (!$theme->hasCustomData()) {
             return;
         }
