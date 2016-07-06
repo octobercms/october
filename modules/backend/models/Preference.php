@@ -125,6 +125,7 @@ class Preference extends Model
     {
         $locales = Config::get('app.localeOptions', [
             'cs' => [Lang::get('system::lang.locale.cs'), 'flag-cz'],
+            'da' => [Lang::get('system::lang.locale.da'), 'flag-dk'],
             'en' => [Lang::get('system::lang.locale.en'), 'flag-us'],
             'en-au' => [Lang::get('system::lang.locale.en-au'), 'flag-au'],
             'en-ca' => [Lang::get('system::lang.locale.en-ca'), 'flag-ca'],

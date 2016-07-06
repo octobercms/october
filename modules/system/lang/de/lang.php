@@ -7,6 +7,7 @@ return [
     ],
     'locale' => [
         'cs' => 'Tschechisch',
+        'da' => 'Danish',
         'en' => 'Englisch',
         'de' => 'Deutsch',
         'el' => 'Griechisch',
