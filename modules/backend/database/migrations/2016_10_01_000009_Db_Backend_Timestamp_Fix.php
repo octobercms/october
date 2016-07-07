@@ -21,7 +21,7 @@ class DbBackendTimestampFix extends Migration
         DbDongle::disableStrictMode();
 
         foreach ($this->backendTables as $table) {
-            DbDongle::convertTimestamps($table);
+            DbDongle::convertTimestamps(DbDongle::getTablePrefix() . $table);
         }
 
         // Use this opportunity to reset backend preferences and styles for stable
