@@ -513,6 +513,7 @@ this.$textarea.on('froalaEditor.contentChanged',this.proxy(this.onChange))
 this.$textarea.on('froalaEditor.keydown',this.proxy(this.onKeydown))
 this.$textarea.on('froalaEditor.html.get',this.proxy(this.onSyncContent))
 this.$textarea.on('froalaEditor.html.set',this.proxy(this.onSetContent))
+this.$form.on('oc.beforeRequest',this.proxy(this.onFormBeforeRequest))
 this.$textarea.froalaEditor(froalaOptions)
 this.editor=this.$textarea.data('froala.editor')
 this.$el.on('keydown','.fr-view figure',this.proxy(this.onFigureKeydown))}
@@ -531,6 +532,7 @@ this.$textarea.off('froalaEditor.contentChanged',this.proxy(this.onChange))
 this.$textarea.off('froalaEditor.keydown',this.proxy(this.onKeydown))
 this.$textarea.off('froalaEditor.html.get',this.proxy(this.onSyncContent))
 this.$textarea.off('froalaEditor.html.set',this.proxy(this.onSetContent))
+this.$form.off('oc.beforeRequest',this.proxy(this.onFormBeforeRequest))
 $(window).off('resize',this.proxy(this.updateLayout))
 $(window).off('oc.updateUi',this.proxy(this.updateLayout))
 this.$el.off('dispose-control',this.proxy(this.dispose))}
@@ -568,6 +570,7 @@ RichEditor.prototype.onFigureKeydown=function(ev){this.$textarea.trigger('figure
 RichEditor.prototype.onKeydown=function(ev,editor,keyEv){this.$textarea.trigger('keydown.oc.richeditor',[keyEv,this])
 if(ev.isDefaultPrevented()){return false}}
 RichEditor.prototype.onChange=function(ev){this.$form.trigger('change')}
+RichEditor.prototype.onFormBeforeRequest=function(ev){this.$textarea.val(this.$textarea.froalaEditor('html.get'))}
 var old=$.fn.richEditor
 $.fn.richEditor=function(option){var args=Array.prototype.slice.call(arguments,1),result
 this.each(function(){var $this=$(this)
