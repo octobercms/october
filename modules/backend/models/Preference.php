@@ -36,7 +36,7 @@ class Preference extends Model
     {
         $config = App::make('config');
         $this->locale = $config->get('app.locale', 'en');
-        $this->fallback_locale = $this->getFallbackLocale($this->locale);
+        $this->fallback_locale = static::getFallbackLocale($this->locale);
         $this->timezone = $config->get('cms.backendTimezone', $config->get('app.timezone'));
 
         $this->editor_font_size = $config->get('editor.font_size', 12);
@@ -85,7 +85,7 @@ class Preference extends Model
 
     public function beforeValidate()
     {
-        $this->fallback_locale = $this->getFallbackLocale($this->locale);
+        $this->fallback_locale = static::getFallbackLocale($this->locale);
     }
 
     public function afterSave()
@@ -105,10 +105,10 @@ class Preference extends Model
     {
         $settings = self::instance();
         Config::set('app.locale', $settings->locale);
-        Config::set('app.fallback_locale', $this->getFallbackLocale($settings->locale));
+        Config::set('app.fallback_locale', static::getFallbackLocale($settings->locale));
     }
 
-    protected function getFallbackLocale($locale)
+    public static function getFallbackLocale($locale)
     {
         if ($position = strpos($locale, '-')) {
             return substr($locale, 0, $position);
