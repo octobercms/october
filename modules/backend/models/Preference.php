@@ -105,7 +105,7 @@ class Preference extends Model
     {
         $settings = self::instance();
         Config::set('app.locale', $settings->locale);
-        Config::set('app.fallback_locale', $this->getFallbackLocale($settings->locale));
+        Config::set('app.fallback_locale', $settings->fallback_locale);
     }
 
     protected function getFallbackLocale($locale)
