@@ -222,7 +222,11 @@ return [
         'manage_pages' => 'Seiten verwalten',
         'manage_layouts' => 'Layouts verwalten',
         'manage_partials' => 'Partials verwalten',
-        'manage_themes' => 'Themes verwalten'
+        'manage_themes' => 'Themes verwalten',
+        'manage_media' => 'Medien verwalten',
+    ],
+    'mediafinder' => [
+        'default_prompt' => 'Klicke auf %s um eine Mediendatei auszuwählen'
     ],
     'media' => [
         'invalid_path' => "Ungültiger Dateipfad: ':path'.",
