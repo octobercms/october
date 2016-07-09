@@ -1126,7 +1126,7 @@ class RelationController extends ControllerBehavior
                 if ($this->relationType == 'belongsToMany') {
                     $this->relationObject->detach($checkedIds);
                 }
-                elseif ($this->relationType == 'hasMany') {
+                elseif ($this->relationType == 'hasMany' || $this->relationType == 'morphMany') {
                     $relatedModel = $this->relationObject->getRelated();
                     foreach ($checkedIds as $relationId) {
                         if ($obj = $relatedModel->find($relationId)) {
@@ -1145,7 +1145,7 @@ class RelationController extends ControllerBehavior
                 $this->relationObject->dissociate();
                 $this->relationObject->getParent()->save();
             }
-            elseif ($this->relationType == 'hasOne') {
+            elseif ($this->relationType == 'hasOne' || $this->relationType == 'morphOne') {
                 if ($obj = $this->relationModel->find($recordId)) {
                     $this->relationObject->remove($obj);
                 }
@@ -1311,10 +1311,12 @@ class RelationController extends ControllerBehavior
 
         switch ($this->relationType) {
             case 'hasMany':
+            case 'morphMany':
             case 'belongsToMany':
                 return ['create', 'add', 'delete', 'remove'];
 
             case 'hasOne':
+            case 'morphOne':
             case 'belongsTo':
                 return ['create', 'update', 'link', 'delete', 'unlink'];
         }
@@ -1332,10 +1334,12 @@ class RelationController extends ControllerBehavior
 
         switch ($this->relationType) {
             case 'hasMany':
+            case 'morphMany':
             case 'belongsToMany':
                 return 'multi';
 
             case 'hasOne':
+            case 'morphOne':
             case 'belongsTo':
                 return 'single';
         }
@@ -1405,7 +1409,9 @@ class RelationController extends ControllerBehavior
                 else return 'list';
 
             case 'hasOne':
+            case 'morphOne':
             case 'hasMany':
+            case 'morphMany':
                 if ($this->eventTarget == 'button-add') return 'list';
                 else return 'form';
         }
