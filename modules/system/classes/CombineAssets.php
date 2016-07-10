@@ -104,15 +104,16 @@ class CombineAssets
          * Register CSS filters
          */
         $this->registerFilter('css', new \Assetic\Filter\CssImportFilter);
-        $this->registerFilter(['css', 'less'], new \Assetic\Filter\CssRewriteFilter);
+        $this->registerFilter(['css', 'less', 'scss'], new \Assetic\Filter\CssRewriteFilter);
         $this->registerFilter('less', new \October\Rain\Parse\Assetic\LessCompiler);
+        $this->registerFilter('scss', new \October\Rain\Parse\Assetic\ScssCompiler);
 
         /*
          * Minification filters
          */
         if ($this->useMinify) {
             $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
-            $this->registerFilter(['css', 'less'], new \October\Rain\Parse\Assetic\StylesheetMinify);
+            $this->registerFilter(['css', 'less', 'scss'], new \October\Rain\Parse\Assetic\StylesheetMinify);
         }
 
         /*
