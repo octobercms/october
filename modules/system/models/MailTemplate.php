@@ -106,9 +106,9 @@ class MailTemplate extends Model
         }
     }
 
-    public function fillFromView()
+    public function fillFromView($data)
     {
-        $sections = self::getTemplateSections($this->code);
+        $sections = self::getTemplateSections($this->code, $data);
         $this->content_html = $sections['html'];
         $this->content_text = $sections['text'];
         $this->subject = array_get($sections, 'settings.subject', 'No subject');
@@ -117,17 +117,22 @@ class MailTemplate extends Model
         $this->layout_id = MailLayout::getIdFromCode($layoutCode);
     }
 
-    protected static function getTemplateSections($code)
+    protected static function getTemplateSections($code, $data = [])
     {
-        return MailParser::parse(File::get(View::make($code)->getPath()));
+        return MailParser::parse(
+            Twig::parse(
+                File::get(View::make($code)->getPath()),
+                $data
+            )
+        );
     }
 
-    public static function findOrMakeTemplate($code)
+    public static function findOrMakeTemplate($code, $data)
     {
         if (!$template = self::whereCode($code)->first()) {
             $template = new self;
             $template->code = $code;
-            $template->fillFromView();
+            $template->fillFromView($data);
         }
 
         return $template;
@@ -139,7 +144,7 @@ class MailTemplate extends Model
             $template = self::$cache[$code];
         }
         else {
-            self::$cache[$code] = $template = self::findOrMakeTemplate($code);
+            self::$cache[$code] = $template = self::findOrMakeTemplate($code, $data);
         }
 
         /*
