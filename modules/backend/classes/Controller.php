@@ -419,17 +419,6 @@ class Controller extends Extendable
                 }
 
                 /*
-                 * If the handler returned an array, we should add it to output for rendering.
-                 * If it is a string, add it to the array with the key "result".
-                 */
-                if (is_array($result)) {
-                    $responseContents = array_merge($responseContents, $result);
-                }
-                elseif (is_string($result)) {
-                    $responseContents['result'] = $result;
-                }
-
-                /*
                  * Render partials and return the response as array that will be converted to JSON automatically.
                  */
                 foreach ($partialList as $partial) {
@@ -455,6 +444,17 @@ class Controller extends Extendable
                  */
                 if ($this->hasAssetsDefined()) {
                     $responseContents['X_OCTOBER_ASSETS'] = $this->getAssetPaths();
+                }
+                
+                /*
+                 * If the handler returned an array, we should add it to output for rendering.
+                 * If it is a string, add it to the array with the key "result".
+                 */
+                if (is_array($result)) {
+                    $responseContents = array_merge($responseContents, $result);
+                }
+                elseif (is_string($result)) {
+                    $responseContents['result'] = $result;
                 }
 
                 return Response::make()->setContent($responseContents);
