@@ -23,7 +23,7 @@ class OctoberMirror extends Command
     /**
      * The console command description.
      */
-    protected $description = '(Experimental) Generates a mirrored public folder using symbolic links.';
+    protected $description = 'Generates a mirrored public folder using symbolic links.';
 
     protected $files = [
         '.htaccess',
