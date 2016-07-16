@@ -208,7 +208,7 @@ trait AssetMaker
      */
     public function getAssetPath($fileName, $assetPath = null)
     {
-        if (preg_match("/(\/\/|http|https)/", $fileName)) {
+        if (starts_with($fileName, ['//', 'http://', 'https://'])) {
             return $fileName;
         }
 
@@ -263,7 +263,7 @@ trait AssetMaker
      */
     protected function getAssetScheme($asset)
     {
-        if (preg_match("/(\/\/|http|https)/", $asset)) {
+        if (starts_with($asset, ['//', 'http://', 'https://'])) {
             return $asset;
         }
 

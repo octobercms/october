@@ -60,7 +60,7 @@ class MediaLibrary
         $this->storageFolder = self::validatePath(Config::get('cms.storage.media.folder', 'media'), true);
         $this->storagePath = rtrim(Config::get('cms.storage.media.path', '/storage/app/media'), '/');
 
-        if (!preg_match("/(\/\/|http|https)/", $this->storagePath)) {
+        if (!starts_with($this->storagePath, ['//', 'http://', 'https://'])) {
             $this->storagePath = Request::getBasePath() . $this->storagePath;
         }
 
