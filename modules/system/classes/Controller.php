@@ -35,7 +35,7 @@ class Controller extends ControllerBase
 
         }
         catch (Exception $ex) {
-            return '/* '.$ex->getMessage().' */';
+            return '/* '.e($ex->getMessage()).' */';
         }
     }
 }
