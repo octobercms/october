@@ -80,7 +80,7 @@ class Router
         $this->url = $url;
         $url = RouterHelper::normalizeUrl($url);
 
-        $apiResult = Event::fire('cms.router.beforeRoute', [$url], true);
+        $apiResult = Event::fire('cms.router.beforeRoute', [$url, $this], true);
         if ($apiResult !== null) {
             return $apiResult;
         }
