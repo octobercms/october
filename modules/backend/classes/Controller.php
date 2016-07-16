@@ -445,7 +445,7 @@ class Controller extends Extendable
                 if ($this->hasAssetsDefined()) {
                     $responseContents['X_OCTOBER_ASSETS'] = $this->getAssetPaths();
                 }
-                
+
                 /*
                  * If the handler returned an array, we should add it to output for rendering.
                  * If it is a string, add it to the array with the key "result".
