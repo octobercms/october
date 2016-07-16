@@ -1,7 +1,6 @@
 <?php
-/* Greek Language Updated on 2015-08-29 v1.01 */
+/* Greek Language Updated on 2016-07-16 v1.02 */
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Client-side Language Lines
@@ -11,7 +10,6 @@ return [
     | To compile this file run: php artisan october:util compile lang
     |
     */
-
     'markdowneditor' => [
         'formatting' => 'Μορφοποίηση',
         'quote' => 'Παράθεση',
@@ -33,7 +31,6 @@ return [
         'fullscreen' => 'Πλήρης οθόνη',
         'preview' => 'Προεπισκόπηση',
     ],
-
     'mediamanager' => [
         'insert_link' => "Εισαγωγή Συνδέσμου από τα Μέσα",
         'insert_image' => "Εισαγωγή Εικόνας από τα Μέσα",
@@ -45,9 +42,44 @@ return [
         'invalid_video_empty_insert' => "Παρακαλούμε επιλέξτε ένα αρχείο βίντεο για εισαγωγή.",
         'invalid_audio_empty_insert' => "Παρακαλούμε επιλέξτε ένα αρχείο ήχου για εισαγωγή.",
     ],
-
     'alert' => [
         'confirm_button_text' => 'Εντάξει',
         'cancel_button_text' => 'Άκυρο',
     ],
+    'datepicker' => [
+        'previousMonth' => 'Προηγούμενος Μήνας',
+        'nextMonth' => 'Επόμενος Μήνας',
+        'months' => ['Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος', 'Μάιος', 'Ιούνιος', 'Ιούλιος', 'Αύγουστος', 'Σεπτέμβριος', 'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος'], 
+        'weekdays' => ['Κυριακή', 'Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή', 'Σάββατο'], 
+        'weekdaysShort' => ['Κυρ', 'Δευ', 'Τρι', 'Τετ', 'Πεμ', 'Παρ', 'Σαβ'] 
+    ],
+    'filter' => [
+        'group' => [
+            'all' => 'όλα',
+        ],
+        'dates' => [
+            'all' => 'όλα',
+            'filter_button_text' => 'Φίλτρο',
+            'reset_button_text'  => 'Επαναφορά',
+            'date_placeholder' => 'Ημερομηνία',
+            'after_placeholder' => 'Μετά',
+            'before_placeholder' => 'Πρίν',
+        ]
+    ],
+    'eventlog' => [
+        'show_stacktrace' => 'Εμφάνιση stacktrace',
+        'hide_stacktrace' => 'Απόκρυψη stachtrace',
+        'tabs' => [
+            'formatted' => 'Μορφοποιημένο',
+            'raw' => 'Ακατέργαστο',
+        ],
+        'editor' => [
+            'title' => 'Επεξεργαστής πηγαίου κώδικα',
+            'description' => 'Το λειτουργικό σου σύστημα θα πρέπει να ρυθμιστεί για να ανταποκρίνεται σε μία από τις ακόλουθες URL απεικονίσεις.',
+            'openWith' => 'Άνοιγμα με',
+            'remember_choice' => 'Απομνημόνευση αυτής της επιλογής για αυτήν την περίοδο λειτουργίας',
+            'open' => 'Άνοιγμα',
+            'cancel' => 'Άκυρο',
+        ]
+    ]
 ];
