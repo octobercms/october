@@ -136,6 +136,11 @@ class ReorderController extends ControllerBehavior
                     break;
             }
         }
+
+        $model->fireEvent('model.afterSort');
+        if ($model->methodExists('afterSort')) {
+            $model->afterSort();
+        }
     }
 
     //
