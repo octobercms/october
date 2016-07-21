@@ -13,7 +13,8 @@
         <a
             href="javascript:;"
             data-load-indicator
-            data-request="<?= $this->getEventHandler('onAddItem') ?>">
+            data-request="<?= $this->getEventHandler('onAddItem') ?>"
+            data-request-success="$('#<?= $this->getId('items') ?> .field-repeater-form:last').formWidget()">
             <?= e(trans($prompt)) ?>
         </a>
     </div>
