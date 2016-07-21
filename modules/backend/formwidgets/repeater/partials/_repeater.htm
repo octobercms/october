@@ -1,4 +1,7 @@
-<div class="field-repeater" data-control="fieldrepeater">
+<div class="field-repeater"
+     data-control="fieldrepeater"
+     data-sortable-container="#<?= $this->getId('items') ?>"
+     data-sortable-handle=".<?= $this->getId('items') ?>-handle">
 
     <ul id="<?= $this->getId('items') ?>" class="field-repeater-items">
         <?php foreach ($this->formWidgets as $index => $widget): ?>
