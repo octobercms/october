@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'auth' => [
+        'title' => 'Admin-Bereich'
+    ],
     'field' => [
         'invalid_type' => 'Ungültiger Feldtyp :type.',
         'options_method_not_exists' => 'Die Model-Klasse :model muss eine Methode :method() mit Rückgabe der Werte von ":field" besitzen.',
@@ -68,20 +71,23 @@ return [
     'user' => [
         'name' => 'Administrator',
         'menu_label' => 'Administratoren',
+        'menu_description' => 'Backend-Benutzer, Administratoren, Gruppen und Zugriffsrechte verwalten.',
         'list_title' => 'Administratoren verwalten',
         'new' => 'Neuer Administrator',
-        'login' => "Benutzername",
-        'first_name' => "Vorname",
-        'last_name' => "Nachname",
-        'full_name' => "Kompletter Name",
-        'email' => "E-Mail",
-        'groups' => "Gruppen",
-        'groups_comment' => "Geben Sie hier die Gruppenzugehörigkeit an",
-        'avatar' => "Avatar",
-        'password' => "Passwort",
-        'password_confirmation' => "Passwort bestätigen",
-        'superuser' => "Super User",
-        'superuser_comment' => "Bestätigen Sie hier, um dem Nutzer Vollzugriff zu geben",
+        'login' => 'Benutzername',
+        'first_name' => 'Vorname',
+        'last_name' => 'Nachname',
+        'full_name' => 'Kompletter Name',
+        'email' => 'E-Mail',
+        'groups' => 'Gruppen',
+        'groups_comment' => 'Geben Sie hier die Gruppenzugehörigkeit an',
+        'avatar' => 'Avatar',
+        'password' => 'Passwort',
+        'password_confirmation' => 'Passwort bestätigen',
+        'permissions' => 'Rechte',
+        'account' => 'Account',
+        'superuser' => 'Super-User',
+        'superuser_comment' => 'Bestätigen Sie hier, um dem Nutzer Vollzugriff zu geben',
         'send_invite' => 'Einladung per E-Mail versenden',
         'send_invite_comment' => 'Hier bestätigen, dass eine Einladung per E-Mail erfolgt',
         'delete_confirm' => 'Möchten Sie diesen Administrator-Account wirklich löschen?',
@@ -92,11 +98,16 @@ return [
         'group' => [
             'name' => 'Gruppe',
             'name_field' => 'Name',
+            'description_field' => 'Beschreibung',
+            'is_new_user_default_field' => 'Neue Admins dieser Gruppe per Voreinstellung hinzufügen.',
+            'code_field' => 'Code',
+            'code_comment' => 'Eindeutigen Code hinzufügen, wenn dies über die API bearbeitet werden soll.',
             'menu_label' => 'Gruppen',
             'list_title' => 'Gruppen verwalten',
             'new' => 'Neue Administratoren Gruppe',
             'delete_confirm' => 'Möchten Sie diesen Administratoren-Gruppe wirklich löschen?',
-            'return' => 'Zurück zur Gruppen Übersicht',
+            'return' => 'Zurück zur Gruppen-Übersicht',
+            'users_count' => 'Benutzer',
         ],
         'preferences' => [
             'not_authenticated' => 'Zum Speichern oder Anzeigen dieser Einstellungen liegt kein Nutzerkonto vor'
@@ -129,7 +140,13 @@ return [
         'attachment' => 'Anhang',
         'help' => 'Fügen Sie dem Anhang einen Titel und eine Beschreibung hinzu.',
         'title_label' => 'Titel',
-        'description_label' => 'Beschreibung'
+        'description_label' => 'Beschreibung',
+        'default_prompt' => 'Auf %s klicken oder eine Datei hierhin ziehen, um sie hochzuladen',
+        'attachment_url' => 'Originaldatei-URL',
+        'upload_file' => 'Datei hochladen',
+        'upload_error' => 'Fehler beim hochladen',
+        'remove_confirm' => 'Sind Sie sicher?',
+        'remove_file' => 'Datei entfernen',
     ],
     'form' => [
         'create_title' => "Neuer :name",
@@ -174,6 +191,7 @@ return [
         'return_to_list' => 'Zurück zur Liste'
     ],
     'relation' => [
+        'missing_config' => "Verhalten (behaviour) der Verbindung hat keine Konfiguration für ':config'.",
         'missing_definition' => "Verhalten (behaviour) der Verbindung umfasst keine Definition für ':field'.",
         'missing_model' => "Verhalten (behaviour) der Verbindung, die in :class benutzt wird, hat kein definiertes Model",
         'invalid_action_single' => "Dieser Vorgang kann nicht auf eine Einwege-Verbindung (singular) angewendet werden.",
@@ -181,6 +199,12 @@ return [
         'help'  => "Zum Hinzufügen auf ein Item klicken",
         'related_data' => "Verwandte :name Daten",
         'add' => "Hinzufügen",
+        'add_selected' => 'Auswahl hinzufügen',
+        'add_a_new' => ':name hinzufügen',
+        'link_selected' => 'Auswahl verlinken',
+        'link_a_new' => ':name  verlinken',
+        'cancel' => 'Abbrechen',
+        'close' => 'Schließen',
         'add_name' => ":name hinzufügen",
         'create' => "Erstellen",
         'create_name' => "Erstelle :name",
@@ -191,6 +215,11 @@ return [
         'delete' => "Löschen",
         'delete_name' => ":name löschen",
         'delete_confirm' => "Sind Sie sicher?",
+        'link' => 'Link',
+        'link_name' => 'Link :name',
+        'unlink' => 'Link entfernen',
+        'unlink_name' => 'Link von :name entfernen',
+        'unlink_confirm' => 'Sind Sie sicher?'
     ],
     'model' => [
         'name' => "Model",
@@ -230,6 +259,24 @@ return [
         'menu_label' => 'Mein Account',
         'menu_description' => 'Updaten Sie Ihre Account-Details wie z.B. den Namen, die E-Mail-Adresse und das Passwort.',
         'menu_keywords' => 'Sicheres Anmelden'
+    ],
+    'branding' => [
+        'menu_label' => 'Backend anpassen',
+        'menu_description' => 'Passe den Admin-Bereich an - z.B. Name, Farben und Logo.',
+        'brand' => 'Brand',
+        'logo' => 'Logo',
+        'logo_description' => 'Lade ein eigenes Logo hoch, das im Backend verwendet werden soll.',
+        'app_name' => 'App-Name',
+        'app_name_description' => 'Dieser Name wird als Titel des Backends angezeigt.',
+        'app_tagline' => 'App-Tagline',
+        'app_tagline_description' => 'Die Tagline wird im Log-In-Bereich des Backends angezeigt.',
+        'colors' => 'Farben',
+        'primary_light' => 'Primär (Hell)',
+        'primary_dark' => 'Primär (Dunkel)',
+        'secondary_light' => 'Sekundär (Hell)',
+        'secondary_dark' => 'Sekundär (Dunkel)',
+        'styles' => 'Styles',
+        'custom_stylesheet' => 'Benutzerdefiniertes Stylesheet',
     ],
     'backend_preferences' => [
         'menu_label' => 'Backend Einstellungen',

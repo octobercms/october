@@ -105,7 +105,7 @@ class Preference extends Model
     {
         $settings = self::instance();
         Config::set('app.locale', $settings->locale);
-        Config::set('app.fallback_locale', $this->getFallbackLocale($settings->locale));
+        Config::set('app.fallback_locale', $settings->fallback_locale);
     }
 
     protected function getFallbackLocale($locale)
@@ -125,6 +125,7 @@ class Preference extends Model
     {
         $locales = Config::get('app.localeOptions', [
             'cs' => [Lang::get('system::lang.locale.cs'), 'flag-cz'],
+            'da' => [Lang::get('system::lang.locale.da'), 'flag-dk'],
             'en' => [Lang::get('system::lang.locale.en'), 'flag-us'],
             'en-au' => [Lang::get('system::lang.locale.en-au'), 'flag-au'],
             'en-ca' => [Lang::get('system::lang.locale.en-ca'), 'flag-ca'],
@@ -134,7 +135,7 @@ class Preference extends Model
             'es-ar' => [Lang::get('system::lang.locale.es-ar'), 'flag-ar'],
             'fa' => [Lang::get('system::lang.locale.fa'), 'flag-ir'],
             'fr' => [Lang::get('system::lang.locale.fr'), 'flag-fr'],
-            'fr-ca' => [Lang::get('system::lang.locale.fr-ca'), 'flag-fr'],
+            'fr-ca' => [Lang::get('system::lang.locale.fr-ca'), 'flag-ca'],
             'hu' => [Lang::get('system::lang.locale.hu'), 'flag-hu'],
             'id' => [Lang::get('system::lang.locale.id'), 'flag-id'],
             'it' => [Lang::get('system::lang.locale.it'), 'flag-it'],
