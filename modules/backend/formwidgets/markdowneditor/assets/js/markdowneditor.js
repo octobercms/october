@@ -281,7 +281,7 @@
                 this.$fixedButtons.append($button)
             }
             else {
-                this.$buttons.append($button)
+                $('[data-control="toolbar"]', this.$buttons).append($button)
             }
         }
 
