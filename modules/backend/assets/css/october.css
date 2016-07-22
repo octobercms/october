@@ -821,7 +821,7 @@ body.drag nav#layout-mainmenu.navbar ul.nav li a:active .nav-label,body.drag .ma
 #layout-side-panel .sidepanel-content-header:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #d35400;border-bottom-width:0;position:absolute;left:14px;bottom:-8px}
 body.side-panel-not-fixed #layout-side-panel{display:none}
 body.side-panel-not-fixed #layout-side-panel .fix-button{opacity:0.5;filter:alpha(opacity=50)}
-body.display-side-panel #layout-side-panel{display:block;position:absolute;z-index:500;width:350px;-webkit-box-shadow:2px 0px 2px 0 rgba(0,0,0,0.3);box-shadow:2px 0px 2px 0 rgba(0,0,0,0.3)}
+body.display-side-panel #layout-side-panel{display:block;position:absolute;z-index:600;width:350px;-webkit-box-shadow:2px 0px 2px 0 rgba(0,0,0,0.3);box-shadow:2px 0px 2px 0 rgba(0,0,0,0.3)}
 @media (min-width:992px){body.side-panel-fix-shadow #layout-side-panel{-webkit-box-shadow:none;box-shadow:none}
 }
 .touch #layout-side-panel .fix-button{display:none}
