@@ -343,7 +343,6 @@ class Lists extends WidgetBase
                     $columnName = isset($column->sqlSelect)
                         ? DbDongle::raw($this->parseTableName($column->sqlSelect, $table))
                         : $table . '.' . $column->valueFrom;
-
                     $relationSearchable[$column->relation][] = $columnName;
                 }
                 /*
@@ -351,8 +350,8 @@ class Lists extends WidgetBase
                  */
                 else {
                     $columnName = isset($column->sqlSelect)
-                        ? DbDongle::raw($this->parseTableName($column->sqlSelect, $primaryTable))
-                        : Db::getTablePrefix() . $primaryTable . '.' . $column->columnName;
+                       ? DbDongle::raw($this->parseTableName($column->sqlSelect, $primaryTable))
+                       : DbDongle::cast(Db::getTablePrefix() . $primaryTable . '.' . $column->columnName,'text');
 
                     $primarySearchable[] = $columnName;
                 }
