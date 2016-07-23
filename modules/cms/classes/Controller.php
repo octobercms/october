@@ -648,16 +648,16 @@ class Controller
 
                 /*
                  * If the handler returned an array, we should add it to output for rendering.
-                 * If it is a scalar, add it to the array with the key "result".
-                 * Otherwise, pass it to Laravel as a response object.
+                 * If it is a string, add it to the array with the key "result".
+                 * If an object, pass it to Laravel as a response object.
                  */
                 if (is_array($result)) {
                     $responseContents = array_merge($responseContents, $result);
                 }
-                elseif (is_scalar($result)) {
+                elseif (is_string($result)) {
                     $responseContents['result'] = $result;
                 }
-                elseif ($result !== null) {
+                elseif (is_object($result)) {
                     return $result;
                 }
 
