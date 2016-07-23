@@ -38,15 +38,15 @@
 
         var sortableOptions = {
             // useAnimation: true,
-            handle: '.repeater-item-handle',
+            handle: this.$el.data('sortable-handle'),
             nested: false
         }
 
-        $('ul.field-repeater-items', this.$el).sortable(sortableOptions)
+        $(this.$el.data('sortable-container'), this.$el).sortable(sortableOptions)
     }
 
     Repeater.prototype.unbind = function() {
-        this.$el.find('ul.field-repeater-items').sortable('destroy')
+        this.$el.find(this.$el.data('sortable-container')).sortable('destroy')
         this.$el.removeData('oc.repeater')
     }
 
