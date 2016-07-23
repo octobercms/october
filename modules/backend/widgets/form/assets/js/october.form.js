@@ -77,12 +77,13 @@
     FormWidget.prototype.bindDependants = function() {
         var self = this,
             form = this.$el,
-            fieldMap = {}
+            fieldMap = {},
+            nestedDependencies = form.find('[data-control="formwidget"] [data-field-depends]');
 
         /*
          * Map master and slave fields
          */
-        form.find('[data-field-depends]').each(function() {
+        form.find('[data-field-depends]').not(nestedDependencies).each(function() {
             var name = $(this).data('field-name'),
                 depends = $(this).data('field-depends')
 
@@ -100,6 +101,8 @@
         $.each(fieldMap, function(fieldName, toRefresh){
             form
                 .find('[data-field-name="'+fieldName+'"]')
+                // Exclude nested formwidget elements
+                .not(form.find('[data-control="formwidget"] [data-field-name="'+fieldName+'"]'))
                 .on('change.oc.formwidget', $.proxy(self.onRefreshDependants, self, fieldName, toRefresh))
         })
     }
@@ -119,7 +122,7 @@
 
         this.dependantUpdateTimers[fieldName] = window.setTimeout(function() {
             formEl.request(self.options.refreshHandler, {
-                data: toRefresh
+                data: $.extend({}, toRefresh, form.data('refresh-data'))
             }).success(function() {
                 self.toggleEmptyTabs()
             })
@@ -127,6 +130,8 @@
 
         $.each(toRefresh.fields, function(index, field) {
             form.find('[data-field-name="'+field+'"]:visible')
+                // Exclude nested formwidget elements
+                .not(form.find('[data-control="formwidget"] [data-field-name="'+field+'"]:visible'))
                 .addClass('loading-indicator-container size-form-field')
                 .loadIndicator()
         })
