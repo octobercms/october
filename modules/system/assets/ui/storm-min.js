@@ -3428,13 +3428,13 @@ return
 this.setBackdrop(true)
 if(!this.options.content)
 this.setLoading(true)
-if(this.options.handler){this.$el.request(this.options.handler,{data:this.options.extraData,success:function(data,textStatus,jqXHR){this.success(data,textStatus,jqXHR).done(function(){self.setContent(data.result)
+if(this.options.handler){this.$el.request(this.options.handler,{data:paramToObj('data-extra-data',this.options.extraData),success:function(data,textStatus,jqXHR){this.success(data,textStatus,jqXHR).done(function(){self.setContent(data.result)
 $(window).trigger('ajaxUpdateComplete',[this,data,textStatus,jqXHR])
 self.triggerEvent('popupComplete')
 self.triggerEvent('complete.oc.popup')})},error:function(jqXHR,textStatus,errorThrown){this.error(jqXHR,textStatus,errorThrown).done(function(){self.hide()
 self.triggerEvent('popupError')
 self.triggerEvent('error.oc.popup')})}})}
-else if(this.options.ajax){$.ajax({url:this.options.ajax,data:this.options.extraData,success:function(data){self.setContent(data)},cache:false})}
+else if(this.options.ajax){$.ajax({url:this.options.ajax,data:paramToObj('data-extra-data',this.options.extraData),success:function(data){self.setContent(data)},cache:false})}
 else if(this.options.content){var content=typeof this.options.content=='function'?this.options.content.call(this.$el[0],this):this.options.content
 this.setContent(content)}}
 Popup.prototype.createPopupContainer=function(){var
@@ -3510,6 +3510,10 @@ $.fn.popup.Constructor=Popup
 $.popup=function(option){return $('<a />').popup(option)}
 $.fn.popup.noConflict=function(){$.fn.popup=old
 return this}
+function paramToObj(name,value){if(value===undefined)value=''
+if(typeof value=='object')return value
+try{return JSON.parse(JSON.stringify(eval("({"+value+"})")))}
+catch(e){throw new Error('Error parsing the '+name+' attribute value. '+e)}}
 $(document).on('click.oc.popup','[data-control="popup"]',function(event){event.preventDefault()
 $(this).popup()});$(document).on('ajaxPromise','[data-popup-load-indicator]',function(event,context){if($(this).data('request')!=context.handler)return
 $(this).closest('.control-popup').removeClass('in').popup('setLoading',true)}).on('ajaxFail','[data-popup-load-indicator]',function(event,context){if($(this).data('request')!=context.handler)return

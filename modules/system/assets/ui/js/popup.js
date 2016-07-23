@@ -101,7 +101,7 @@
         if (this.options.handler) {
 
             this.$el.request(this.options.handler, {
-                data: this.options.extraData,
+                data: paramToObj('data-extra-data', this.options.extraData),
                 success: function(data, textStatus, jqXHR) {
                     this.success(data, textStatus, jqXHR).done(function(){
                         self.setContent(data.result)
@@ -128,7 +128,7 @@
 
             $.ajax({
                 url: this.options.ajax,
-                data: this.options.extraData,
+                data: paramToObj('data-extra-data', this.options.extraData),
                 success: function(data) {
                     self.setContent(data)
                 },
@@ -332,6 +332,18 @@
 
     // POPUP DATA-API
     // ===============
+
+    function paramToObj(name, value) {
+        if (value === undefined) value = ''
+        if (typeof value == 'object') return value
+
+        try {
+            return JSON.parse(JSON.stringify(eval("({" + value + "})")))
+        }
+        catch (e) {
+            throw new Error('Error parsing the '+name+' attribute value. '+e)
+        }
+    }
 
     $(document).on('click.oc.popup', '[data-control="popup"]', function(event) {
         event.preventDefault()
