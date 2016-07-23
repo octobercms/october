@@ -20,13 +20,15 @@
     var Repeater = function(element, options) {
         this.options   = options
         this.$el       = $(element)
+        this.$sortable = $(options.sortableContainer, this.$el)
 
         // Init
         this.init()
     }
 
     Repeater.DEFAULTS = {
-        option: 'default'
+        sortableHandle: '.repeater-item-handle',
+        sortableContainer: 'ul.field-repeater-items'
     }
 
     Repeater.prototype.init = function() {
@@ -35,18 +37,16 @@
     }
 
     Repeater.prototype.bindSorting = function() {
-
         var sortableOptions = {
-            // useAnimation: true,
-            handle: this.$el.data('sortable-handle'),
+            handle: this.options.sortableHandle,
             nested: false
         }
 
-        $(this.$el.data('sortable-container'), this.$el).sortable(sortableOptions)
+        this.$sortable.sortable(sortableOptions)
     }
 
     Repeater.prototype.unbind = function() {
-        this.$el.find(this.$el.data('sortable-container')).sortable('destroy')
+        this.$sortable.sortable('destroy')
         this.$el.removeData('oc.repeater')
     }
 
