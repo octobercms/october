@@ -1041,10 +1041,10 @@ class Form extends WidgetBase
             }
 
             if ($this->objectMethodExists($model, $methodName)) {
-                $fieldOptions = $model->$methodName($field->value);
+                $fieldOptions = $model->$methodName($field->value, $this->data);
             }
             else {
-                $fieldOptions = $model->getDropdownOptions($attribute, $field->value);
+                $fieldOptions = $model->getDropdownOptions($attribute, $field->value, $this->data);
             }
         }
         /*
