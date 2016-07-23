@@ -160,7 +160,7 @@ class Repeater extends FormWidgetBase
 
     public function onRefresh()
     {
-        $index = post('_index');
+        $index = post('_repeater_index');
 
         $widget = $this->makeItemFormWidget($index);
 

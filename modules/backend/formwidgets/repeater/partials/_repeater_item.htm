@@ -20,7 +20,7 @@
     <div class="field-repeater-form"
          data-control="formwidget"
          data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
-         data-refresh-data='{"_index": "<?= $indexValue ?>"}'>
+         data-refresh-data="'_repeater_index': '<?= $indexValue ?>'">
         <?php foreach ($widget->getFields() as $field): ?>
             <?= $widget->renderField($field) ?>
         <?php endforeach ?>
