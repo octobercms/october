@@ -61,6 +61,7 @@ class TagList extends FormWidgetBase
             'customTags',
             'options',
             'mode',
+            'nameFrom',
         ]);
     }
 
