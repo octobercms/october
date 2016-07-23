@@ -638,22 +638,27 @@ class Controller
                 }
 
                 /*
-                 * If the handler returned a redirect, process it so framework.js knows to redirect
-                 * the browser and not the request!
+                 * If the handler returned a redirect, process the URL and dispose of it so
+                 * framework.js knows to redirect the browser and not the request!
                  */
                 if ($result instanceof RedirectResponse) {
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
+                    $result = null;
                 }
 
                 /*
                  * If the handler returned an array, we should add it to output for rendering.
-                 * If it is a string, add it to the array with the key "result".
+                 * If it is a scalar, add it to the array with the key "result".
+                 * Otherwise, pass it to Laravel as a response object.
                  */
                 if (is_array($result)) {
                     $responseContents = array_merge($responseContents, $result);
                 }
-                elseif (is_string($result)) {
+                elseif (is_scalar($result)) {
                     $responseContents['result'] = $result;
+                }
+                elseif ($result !== null) {
+                    return $result;
                 }
 
                 return Response::make($responseContents, $this->statusCode);
