@@ -51,16 +51,23 @@ trait FormModelSaver
         }
 
         $singularTypes = ['belongsTo', 'hasOne', 'morphOne'];
+        $multipleTypes = ['belongsToMany', 'hasMany'];
         foreach ($saveData as $attribute => $value) {
             $isNested = $attribute == 'pivot' || (
                 $model->hasRelation($attribute) &&
                 in_array($model->getRelationType($attribute), $singularTypes)
             );
+            
+            $isMultiple = (
+                $model->hasRelation($attribute) &&
+                in_array($model->getRelationType($attribute), $multipleTypes)
+            );
 
             if ($isNested && is_array($value)) {
                 $this->setModelAttributes($model->{$attribute}, $value);
-            }
-            elseif ($value !== FormField::NO_SAVE_DATA) {
+            } elseif($model->exists && $isMultiple && is_array($value)) {
+                $model->{$attribute}()->sync($value);
+            } elseif ($value !== FormField::NO_SAVE_DATA) {
                 $model->{$attribute} = $value;
             }
         }
