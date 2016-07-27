@@ -35,6 +35,15 @@ columns:
         select: name
         sortable: false
 
+    is_activated:
+        label: backend::lang.user.activated
+        invisible: true
+        type: switch
+
+    is_superuser:
+        label: backend::lang.user.superuser
+        type: switch
+
     last_login:
         label: backend::lang.user.last_login
         searchable: true
