@@ -1,0 +1,30 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    is_activated:
+        label: backend::lang.user.activated
+        type: checkbox
+        conditions: is_activated = 1
+
+    is_superuser:
+        label: backend::lang.user.superuser
+        type: checkbox
+        conditions: is_superuser = 1
+
+    login_date:
+        label: backend::lang.user.last_login
+        type: daterange
+        conditions: last_login >= ':after' AND last_login <= ':before'
+
+    created_date:
+        label: backend::lang.user.created_at
+        type: daterange
+        conditions: created_at >= ':after' AND created_at <= ':before'
+
+    updated_date:
+        label: backend::lang.user.updated_at
+        type: daterange
+        conditions: updated_at >= ':after' AND updated_at <= ':before'
