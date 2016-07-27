@@ -314,45 +314,45 @@ class CombineAssets
      * Returns the combined contents from a prepared cache identifier.
      * @return string Combined file contents.
      */
-     protected function prepareCombiner(array $assets, $rewritePath = null)
-     {
-         /*
-          * Extensibility
-          */
-         Event::fire('cms.combiner.beforePrepare', [$this, $assets]);
+    protected function prepareCombiner(array $assets, $rewritePath = null)
+    {
+        /*
+         * Extensibility
+         */
+        Event::fire('cms.combiner.beforePrepare', [$this, $assets]);
 
-         $files = [];
-         $filesSalt = null;
-         foreach ($assets as $asset) {
-             $filters = $this->getFilters(File::extension($asset)) ?: [];
-             $path = File::symbolizePath($asset, null) ?: $this->localPath . $asset;
-             $files[] = new FileAsset($path, $filters, public_path());
-             $filesSalt .= $this->localPath . $asset;
-         }
-         $filesSalt = md5($filesSalt);
+        $files = [];
+        $filesSalt = null;
+        foreach ($assets as $asset) {
+            $filters = $this->getFilters(File::extension($asset)) ?: [];
+            $path = File::symbolizePath($asset, null) ?: $this->localPath . $asset;
+            $files[] = new FileAsset($path, $filters, public_path());
+            $filesSalt .= $this->localPath . $asset;
+        }
+        $filesSalt = md5($filesSalt);
 
-         $collection = new AssetCollection($files, [], $filesSalt);
-         $collection->setTargetPath($this->getTargetPath($rewritePath));
+        $collection = new AssetCollection($files, [], $filesSalt);
+        $collection->setTargetPath($this->getTargetPath($rewritePath));
 
-         if ($this->storagePath === null) {
-             return $collection;
-         }
+        if ($this->storagePath === null) {
+            return $collection;
+        }
 
-         if (!File::isDirectory($this->storagePath)) {
-             File::makeDirectory($this->storagePath);
-         }
+        if (!File::isDirectory($this->storagePath)) {
+            File::makeDirectory($this->storagePath);
+        }
 
-         $cache = new FilesystemCache($this->storagePath);
+        $cache = new FilesystemCache($this->storagePath);
 
-         $cachedFiles = [];
-         foreach ($files as $file) {
-             $cachedFiles[] = new AssetCache($file, $cache);
-         }
+        $cachedFiles = [];
+        foreach ($files as $file) {
+            $cachedFiles[] = new AssetCache($file, $cache);
+        }
 
-         $cachedCollection = new AssetCollection($cachedFiles, [], $filesSalt);
-         $cachedCollection->setTargetPath($this->getTargetPath($rewritePath));
-         return $cachedCollection;
-     }
+        $cachedCollection = new AssetCollection($cachedFiles, [], $filesSalt);
+        $cachedCollection->setTargetPath($this->getTargetPath($rewritePath));
+        return $cachedCollection;
+    }
 
     /**
      * Returns the URL used for accessing the combined files.
