@@ -389,6 +389,10 @@ class FormController extends ControllerBehavior
         if (post('close') && !ends_with($context, '-close')) {
             $context .= '-close';
         }
+        
+        if (post('refresh', false)) {
+	        return Redirect::refresh();
+        }
 
         if (post('redirect', true)) {
             $redirectUrl = $this->getRedirectUrl($context);
