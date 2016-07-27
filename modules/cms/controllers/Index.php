@@ -1,6 +1,6 @@
 <?php namespace Cms\Controllers;
 
-use URL;
+use Url;
 use Lang;
 use Flash;
 use Event;
@@ -139,7 +139,10 @@ class Index extends Controller
         $templatePath = trim(Request::input('templatePath'));
         $template = $templatePath ? $this->loadTemplate($type, $templatePath) : $this->createTemplate($type);
 
-        $settings = Request::input('settings') ?: [];
+        $formWidget = $this->makeTemplateFormWidget($type, $template);
+        $saveData = $formWidget->getSaveData();
+
+        $settings = array_get($saveData, 'settings', []) + Request::input('settings', []);
         $settings = $this->upgradeSettings($settings);
 
         $templateData = [];
@@ -187,7 +190,7 @@ class Index extends Controller
         ];
 
         if ($type == 'page') {
-            $result['pageUrl'] = URL::to($template->url);
+            $result['pageUrl'] = Url::to($template->url);
             $router = new Router($this->theme);
             $router->clearCache();
             CmsCompoundObject::clearCache($this->theme);
