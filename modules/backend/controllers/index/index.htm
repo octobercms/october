@@ -5,7 +5,7 @@
         <div class="loading-indicator-container">
             <div class="loading-indicator indicator-center">
                 <span></span>
-                <div>Loading...</div>
+                <div><?= e(trans('backend::lang.list.loading')) ?></div>
             </div>
         </div>
 
@@ -14,7 +14,7 @@
 
 <script>
     $(document).ready(function() {
-        $.request('onInitReportContainer').done(function(){
+        $.request('onInitReportContainer').done(function() {
             $('#dashReportContainer').removeClass('loading')
         })
     })
