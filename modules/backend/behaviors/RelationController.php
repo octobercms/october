@@ -1315,7 +1315,7 @@ class RelationController extends ControllerBehavior
             case 'belongsToMany':
                 return ['create', 'add', 'delete', 'remove'];
             case 'morphMany':
-                return ['create', 'delete'];                
+                return ['create', 'delete'];
             case 'hasOne':
             case 'morphOne':
             case 'belongsTo':
