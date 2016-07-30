@@ -394,15 +394,17 @@ class CombineAssets
     {
         $key = '';
 
-        $allFilters = call_user_func_array('array_merge', $this->getFilters());
-
         $assetFiles = array_map(function($file) {
             return $this->localPath.'/'.$file;
         }, $assets);
 
-        foreach ($allFilters as $filter) {
-            if (method_exists($filter, 'hashFromAssets')) {
-                $key .= $filter->hashFromAssets($assetFiles, $this->localPath);
+        foreach ($assetFiles as $file) {
+            $filters = $this->getFilters(File::extension($file));
+
+            foreach ($filters as $filter) {
+                if (method_exists($filter, 'hashAsset')) {
+                    $key .= $filter->hashAsset([$file], $this->localPath);
+                }
             }
         }
 
