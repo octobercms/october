@@ -403,7 +403,7 @@ class CombineAssets
 
             foreach ($filters as $filter) {
                 if (method_exists($filter, 'hashAsset')) {
-                    $key .= $filter->hashAsset([$file], $this->localPath);
+                    $key .= $filter->hashAsset($file, $this->localPath);
                 }
             }
         }
