@@ -309,8 +309,14 @@ class CombineAssets
             $this->setHashOnCombinerFilters($cacheKey);
 
             $combiner = $this->prepareCombiner($assets);
-            $factory = new AssetFactory($this->localPath);
-            $lastMod = $factory->getLastModified($combiner);
+
+            if ($this->useDeepHashing) {
+                $factory = new AssetFactory($this->localPath);
+                $lastMod = $factory->getLastModified($combiner);
+            }
+            else {
+                $lastMod = $combiner->getLastModified();
+            }
 
             $cacheInfo = [
                 'version'   => $cacheKey.'-'.$lastMod,
