@@ -128,6 +128,10 @@ return [
         'allow' => 'Allow',
         'inherit' => 'Inherit',
         'deny' => 'Deny',
+        'activated' => 'Activated',
+        'last_login' => 'Last login',
+        'created_at' => 'Created at',
+        'updated_at' => 'Updated at',
         'group' => [
             'name' => 'Group',
             'name_comment' => 'The name is displayed in the group list on the Create/Edit Administrator form.',
