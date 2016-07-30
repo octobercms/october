@@ -104,15 +104,16 @@ class CombineAssets
          * Register CSS filters
          */
         $this->registerFilter('css', new \Assetic\Filter\CssImportFilter);
-        $this->registerFilter(['css', 'less'], new \Assetic\Filter\CssRewriteFilter);
+        $this->registerFilter(['css', 'less', 'scss'], new \Assetic\Filter\CssRewriteFilter);
         $this->registerFilter('less', new \October\Rain\Parse\Assetic\LessCompiler);
+        $this->registerFilter('scss', new \October\Rain\Parse\Assetic\ScssCompiler);
 
         /*
          * Minification filters
          */
         if ($this->useMinify) {
             $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
-            $this->registerFilter(['css', 'less'], new \October\Rain\Parse\Assetic\StylesheetMinify);
+            $this->registerFilter(['css', 'less', 'scss'], new \October\Rain\Parse\Assetic\StylesheetMinify);
         }
 
         /*
@@ -267,7 +268,7 @@ class CombineAssets
     }
 
     /**
-     * Combines asset file references of a single type to produce 
+     * Combines asset file references of a single type to produce
      * a URL reference to the combined contents.
      * @var array List of asset files.
      * @var string File extension, used for aesthetic purposes only.
@@ -342,7 +343,14 @@ class CombineAssets
         }
 
         $cache = new FilesystemCache($this->storagePath);
-        $cachedCollection = new AssetCache($collection, $cache);
+
+        $cachedFiles = [];
+        foreach ($files as $file) {
+            $cachedFiles[] = new AssetCache($file, $cache);
+        }
+
+        $cachedCollection = new AssetCollection($cachedFiles, [], $filesSalt);
+        $cachedCollection->setTargetPath($this->getTargetPath($rewritePath));
         return $cachedCollection;
     }
 
