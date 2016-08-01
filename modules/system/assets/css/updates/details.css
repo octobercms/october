@@ -52,3 +52,18 @@
   margin-left: -50px;
   padding-left: 50px;
 }
+.plugin-details-content table th {
+    font-weight: bold
+}
+.plugin-details-content table th,
+.plugin-details-content table td {
+    padding: 6px 13px;
+    border: 1px solid #ddd
+}
+.plugin-details-content table tr {
+    background-color: #fff;
+    border-top: 1px solid #ccc
+}
+.plugin-details-content table tr:nth-child(2n) {
+    background-color: #f8f8f8
+}

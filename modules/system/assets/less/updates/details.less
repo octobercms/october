@@ -48,4 +48,24 @@
         margin-left: -((@padding-standard * 2) + @padding-container);
         padding-left: ((@padding-standard * 2) + @padding-container);
     }
+
+    table {
+        th {
+            font-weight: bold;
+        }
+
+        th, td {
+            padding: 6px 13px;
+            border: 1px solid #ddd;
+        }
+
+        tr {
+            background-color: #fff;
+            border-top: 1px solid #ccc;
+
+            &:nth-child(2n) {
+                background-color: #f8f8f8;
+            }
+        }
+    }
 }
