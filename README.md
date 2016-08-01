@@ -23,13 +23,13 @@ Instructions on how to install October can be found at the [installation guide](
 
 For advanced users, run this in your terminal to install October from command line:
 
-```
+```shell
 php -r "eval('?>'.file_get_contents('https://octobercms.com/api/installer'));"
 ```
 
 If you plan on using a database, run this command:
 
-```
+```shell
 php artisan october:install
 ```
 
