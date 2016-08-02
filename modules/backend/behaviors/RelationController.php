@@ -623,7 +623,10 @@ class RelationController extends ControllerBehavior
                 /*
                  * Allows pivot data to enter the fray
                  */
-                if ($this->relationType == 'belongsToMany') {
+                if ($this->relationType == 'belongsToMany'
+                    || $this->relationType == 'morphToMany'
+                    || $this->relationType == 'morphedByMany'
+                ) {
                     $this->relationObject->setQuery($query->getQuery());
                     return $this->relationObject;
                 }
@@ -1022,7 +1025,7 @@ class RelationController extends ControllerBehavior
         if ($this->viewMode == 'multi') {
             if (($checkedIds = post('checked')) && is_array($checkedIds)) {
                 $relatedModel = $this->relationObject->getRelated();
-                 foreach ($checkedIds as $relationId) {
+                foreach ($checkedIds as $relationId) {
                     if (!$obj = $relatedModel->find($relationId)) {
                         continue;
                     }
@@ -1123,7 +1126,10 @@ class RelationController extends ControllerBehavior
 
             if (is_array($checkedIds)) {
 
-                if ($this->relationType == 'belongsToMany') {
+                if ($this->relationType == 'belongsToMany'
+                    || $this->relationType == 'morphToMany'
+                    || $this->relationType == 'morphedByMany'
+                ) {
                     $this->relationObject->detach($checkedIds);
                 }
                 elseif ($this->relationType == 'hasMany' || $this->relationType == 'morphMany') {
@@ -1312,10 +1318,11 @@ class RelationController extends ControllerBehavior
         switch ($this->relationType) {
             case 'hasMany':
             case 'morphMany':
+            case 'morphToMany':
+            case 'morphedByMany':
             case 'belongsToMany':
                 return ['create', 'add', 'delete', 'remove'];
-            case 'morphMany':
-                return ['create', 'delete'];
+
             case 'hasOne':
             case 'morphOne':
             case 'belongsTo':
@@ -1336,10 +1343,11 @@ class RelationController extends ControllerBehavior
         switch ($this->relationType) {
             case 'hasMany':
             case 'morphMany':
+            case 'morphToMany':
+            case 'morphedByMany':
             case 'belongsToMany':
                 return 'multi';
-            case 'morphMany':
-                return 'multi';
+
             case 'hasOne':
             case 'morphOne':
             case 'belongsTo':
@@ -1362,19 +1370,17 @@ class RelationController extends ControllerBehavior
             case 'list':
                 if ($this->eventTarget == 'button-link') {
                     return 'backend::lang.relation.link_a_new';
-                }
-                else {
+                } else {
                     return 'backend::lang.relation.add_a_new';
                 }
-            break;
+                break;
             case 'form':
                 if ($this->readOnly) {
                     return 'backend::lang.relation.preview_name';
-                }
-                else {
+                } else {
                     return 'backend::lang.relation.update_name';
                 }
-            break;
+                break;
         }
     }
 
@@ -1405,6 +1411,8 @@ class RelationController extends ControllerBehavior
             case 'belongsTo':
                 return 'list';
 
+            case 'morphToMany':
+            case 'morphedByMany':
             case 'belongsToMany':
                 if (isset($this->config->pivot)) return 'pivot';
                 elseif ($this->eventTarget == 'list') return 'form';
@@ -1416,10 +1424,7 @@ class RelationController extends ControllerBehavior
             case 'morphMany':
                 if ($this->eventTarget == 'button-add') return 'list';
                 else return 'form';
-			case 'morphMany':
-                return 'form';
         }
-        
     }
 
     /**
