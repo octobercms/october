@@ -94,7 +94,8 @@ return [
         'settings_menu' => 'Karbantartás',
         'settings_menu_description' => 'Szolgáltatás aktiválása és testreszabása.',
         'is_enabled' => 'Karbantartás engedélyezése',
-        'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói csak a kiválasztott lapot fogják látni.'
+        'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói csak a kiválasztott lapot fogják látni.',
+        'hint' => 'Karbantartás módban a lentebb megadott lap fog megjelenni azon látogatók számára, akik nincsennek bejelentkezve az admin felületre.'
     ],
     'page' => [
         'not_found_name' => "A következő lap nem található: ':name'",
