@@ -401,7 +401,7 @@ class CombineAssets
         $key = '';
 
         $assetFiles = array_map(function($file) {
-            return $this->localPath.'/'.$file;
+            return File::symbolizePath($file, null) ?: $this->localPath . $file;
         }, $assets);
 
         foreach ($assetFiles as $file) {
