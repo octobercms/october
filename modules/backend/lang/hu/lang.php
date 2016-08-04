@@ -174,7 +174,7 @@ return [
         'records_per_page' => 'Listázás',
         'records_per_page_help' => 'Adja meg az elemek laponként megjelenítendő számát. Minél nagyobbat választ, annál több időbe kerül a lista frissítése. Az ajánlott érték 20 és 40 közötti.',
         'check' => 'Bejelöl',
-        'delete_selected' => 'Kiválasztottak törlése',
+        'delete_selected' => 'Eltávolítás',
         'delete_selected_empty' => 'A törléshez előbb ki kell választani elemet.',
         'delete_selected_confirm' => 'Töröljük a kiválasztott elemeket?',
         'delete_selected_success' => 'Sikeresen törölve lettek a kiválasztott elemek.',
