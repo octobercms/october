@@ -1268,13 +1268,13 @@ class Controller
     public function findComponentByHandler($handler)
     {
         foreach ($this->page->components as $component) {
-            if (method_exists($component, $handler)) {
+            if ($component->methodExists($handler)) {
                 return $component;
             }
         }
 
         foreach ($this->layout->components as $component) {
-            if (method_exists($component, $handler)) {
+            if ($component->methodExists($handler)) {
                 return $component;
             }
         }
