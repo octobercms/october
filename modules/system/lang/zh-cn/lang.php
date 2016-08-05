@@ -29,7 +29,7 @@ return [
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
         'zh-cn' => '简体中文',
-        'zh-tw' => 'Chinese (Taiwan)',
+        'zh-tw' => '繁體中文',
         'el' => 'Greek'
     ],
     'directory' => [
@@ -300,7 +300,8 @@ return [
         'count' => '次数',
         'referer' => '来源',
         'url' => 'URL',
-        'status_code' => '状态'
+        'status_code' => '状态',
+        'preview_title' => '预览事件日志'
     ],
     'permissions' => [
         'name' => '系统',
