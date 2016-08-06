@@ -31,6 +31,11 @@ class RelationController extends ControllerBehavior
     const PARAM_MODE = '_relation_mode';
 
     /**
+     * @var const Postback parameter for read only mode.
+     */
+    const PARAM_READ_ONLY = '_relation_read_only';
+
+    /**
      * @var Backend\Classes\WidgetBase Reference to the search widget object.
      */
     protected $searchWidget;
@@ -237,6 +242,7 @@ class RelationController extends ControllerBehavior
         $this->vars['relationViewWidget'] = $this->viewWidget;
         $this->vars['relationViewModel'] = $this->viewModel;
         $this->vars['relationPivotWidget'] = $this->pivotWidget;
+        $this->vars['relationReadOnly'] = $this->readOnly ? 1 : 0;
         $this->vars['relationSessionKey'] = $this->relationGetSessionKey();
     }
 
@@ -310,7 +316,6 @@ class RelationController extends ControllerBehavior
         $this->relationObject = $this->model->{$field}();
         $this->relationModel = $this->relationObject->getRelated();
 
-        $this->readOnly = $this->getConfig('readOnly');
         $this->deferredBinding = $this->getConfig('deferredBinding') || !$this->model->exists;
         $this->toolbarButtons = $this->evalToolbarButtons();
         $this->viewMode = $this->evalViewMode();
@@ -358,6 +363,13 @@ class RelationController extends ControllerBehavior
                 $this->pivotWidget->bindToController();
             }
         }
+
+        /*
+         * Read only mode
+         */
+        if (post(self::PARAM_READ_ONLY, $this->getConfig('readOnly'))) {
+            $this->makeReadOnly();
+        }
     }
 
     /**
@@ -374,14 +386,21 @@ class RelationController extends ControllerBehavior
             $options = ['sessionKey' => $options];
         }
 
-        $this->prepareVars();
-
         /*
          * Session key
          */
         if (isset($options['sessionKey'])) {
             $this->sessionKey = $options['sessionKey'];
         }
+
+        /*
+         * Read only mode
+         */
+        if (isset($options['readOnly']) && $options['readOnly']) {
+            $this->makeReadOnly();
+        }
+
+        $this->prepareVars();
 
         /*
          * Determine the partial to use based on the supplied section option
@@ -506,11 +525,9 @@ class RelationController extends ControllerBehavior
         /*
          * Add buttons to toolbar
          */
-        $defaultButtons = null;
-
-        if (!$this->readOnly && $this->toolbarButtons) {
-            $defaultButtons = '~/modules/backend/behaviors/relationcontroller/partials/_toolbar.htm';
-        }
+        $defaultButtons = $this->toolbarButtons
+            ? '~/modules/backend/behaviors/relationcontroller/partials/_toolbar.htm'
+            : null;
 
         $defaultConfig['buttons'] = $this->getConfig('view[toolbarPartial]', $defaultButtons);
 
@@ -578,7 +595,7 @@ class RelationController extends ControllerBehavior
             $config->showSorting = $this->getConfig('view[showSorting]', true);
             $config->defaultSort = $this->getConfig('view[defaultSort]');
             $config->recordsPerPage = $this->getConfig('view[recordsPerPage]');
-            $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', !$this->readOnly);
+            $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', true);
             $config->recordUrl = $this->getConfig('view[recordUrl]', null);
 
             $defaultOnClick = sprintf(
@@ -1416,10 +1433,9 @@ class RelationController extends ControllerBehavior
             case 'morphMany':
                 if ($this->eventTarget == 'button-add') return 'list';
                 else return 'form';
-			case 'morphMany':
+            case 'morphMany':
                 return 'form';
         }
-        
     }
 
     /**
@@ -1442,6 +1458,22 @@ class RelationController extends ControllerBehavior
         }
 
         return $context;
+    }
+
+    /**
+     * Apply read only mode.
+     */
+    protected function makeReadOnly()
+    {
+        $this->readOnly = true;
+
+        if ($this->toolbarWidget && !$this->getConfig('view[toolbarPartial]', false)) {
+            $this->toolbarWidget->buttons = null;
+        }
+
+        if ($this->viewWidget && $this->viewMode == 'multi' && !$this->getConfig('view[showCheckboxes]', false)) {
+            $this->viewWidget->showCheckboxes = false;
+        }
     }
 
     /**
