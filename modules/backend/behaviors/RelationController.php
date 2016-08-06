@@ -307,6 +307,11 @@ class RelationController extends ControllerBehavior
 
         $this->alias = camel_case('relation ' . $field);
         $this->config = $this->makeConfig($this->getConfig($field), $this->requiredRelationProperties);
+        
+        /*
+         * Extend the field's config
+         */
+        Event::fire('backend.relationController.modifyFieldConfig', [$field, $this->config, $model]);
 
         /*
          * Relationship details
