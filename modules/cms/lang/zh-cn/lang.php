@@ -92,7 +92,8 @@ return [
         'settings_menu' => '维护模式',
         'settings_menu_description' => '配置维护模式页面和开关设置.',
         'is_enabled' => '启用维护模式',
-        'is_enabled_comment' => '当启用时, 网站访问者会看到下述页面.'
+        'is_enabled_comment' => '当启用时, 网站访问者会看到下述页面.',
+        'hint' => '维护模式将对未登陆后台的访客展示维护页面.',
     ],
     'page' => [
         'not_found_name' => "页面 ':name' 找不到",
