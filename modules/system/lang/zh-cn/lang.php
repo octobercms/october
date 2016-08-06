@@ -29,7 +29,7 @@ return [
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
         'zh-cn' => '简体中文',
-        'zh-tw' => 'Chinese (Taiwan)',
+        'zh-tw' => '繁體中文',
         'el' => 'Greek'
     ],
     'directory' => [
