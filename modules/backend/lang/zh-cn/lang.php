@@ -99,9 +99,11 @@ return [
         'deny' => '拒绝',
         'group' => [
             'name' => '组',
+            'name_comment' => '该名字将在群组列表中展示',
             'name_field' => '名字',
             'description_field' => '描述',
-            'is_new_user_default_field' => '默认增加新管理员到这个组',
+            'is_new_user_default_field_label' => '默认组',
+            'is_new_user_default_field_comment' => '默认增加新管理员到这个组',
             'code_field' => '代码',
             'code_comment' => '如果你想访问 API, 请输入唯一码.',
             'menu_label' => '群组',
