@@ -10,7 +10,8 @@ return [
         'invalid_file_extension'=>'不合法的文件扩展: :invalid. 允许的扩展: :allowed.',
         'error_deleting' => "删除模板文件 ':name' 错误. 请检查写权限.",
         'delete_success' => '模板成功删除: :count.',
-        'file_name_required' => '需要文件名字段.'
+        'file_name_required' => '需要文件名字段.',
+        'safe_mode_enabled' => '安全模式已经启用.',
     ],
     'dashboard' => [
         'active_theme' => [
@@ -237,7 +238,8 @@ return [
         'manage_pages' => '管理页面',
         'manage_layouts' => '管理布局',
         'manage_partials' => '管理部件',
-        'manage_themes' => '管理主题'
+        'manage_themes' => '管理主题',
+        'manage_media' => '管理媒体'
     ],
    'media' => [
         'invalid_path' => "不合法的路径: ':path'.",
