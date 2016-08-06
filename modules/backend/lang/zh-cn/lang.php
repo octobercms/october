@@ -79,7 +79,7 @@ return [
         'login' => '登录',
         'first_name' => '名',
         'last_name' => '姓',
-        'full_name' => '全民',
+        'full_name' => '全名',
         'email' => '邮件',
         'groups' => '团队',
         'groups_comment' => '指明这个人属于哪个组.',
