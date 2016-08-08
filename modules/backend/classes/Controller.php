@@ -511,7 +511,7 @@ class Controller extends Extendable
                 throw new SystemException(Lang::get('backend::lang.widget.not_bound', ['name'=>$widgetName]));
             }
 
-            if (($widget = $this->widget->{$widgetName}) && method_exists($widget, $handlerName)) {
+            if (($widget = $this->widget->{$widgetName}) && $widget->methodExists($handlerName)) {
                 $result = call_user_func_array([$widget, $handlerName], $this->params);
                 return ($result) ?: true;
             }
@@ -542,7 +542,7 @@ class Controller extends Extendable
             $this->execPageAction($this->action, $this->params);
 
             foreach ((array) $this->widget as $widget) {
-                if (method_exists($widget, $handler)) {
+                if ($widget->methodExists($handler)) {
                     $result = call_user_func_array([$widget, $handler], $this->params);
                     return ($result) ?: true;
                 }

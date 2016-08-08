@@ -249,7 +249,10 @@
     }
 
     InputPreset.prototype.formatValue = function() {
-        if (this.options.inputPresetType == 'namespace') {
+        if (this.options.inputPresetType == 'exact') {
+            return this.$src.val();
+        }
+        else if (this.options.inputPresetType == 'namespace') {
             return this.formatNamespace()
         }
 

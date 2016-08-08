@@ -313,7 +313,7 @@ class ListController extends ControllerBehavior
             Flash::error(Lang::get('backend::lang.list.delete_selected_empty'));
         }
 
-        return $this->controller->listRefresh();
+        return $this->controller->listRefresh($definition);
     }
 
     /**

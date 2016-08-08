@@ -325,7 +325,7 @@ return [
         'id' => 'Azonosító',
         'id_label' => 'Napló azonosító',
         'count' => 'Számláló',
-        'referer' => 'Hivatkozók',
+        'referer' => 'Hivatkozás',
         'url' => 'Webcím',
         'status_code' => 'Állapotkód',
         'preview_title' => 'Kérelem'
