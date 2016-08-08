@@ -64,7 +64,7 @@ body.oc-loading, body.oc-loading * {
 @start: 0;
 .infinite-class (@index, @val, @count) when (@index = 0) {
     @tmpSelector: ~"@{index}%";
-    @{tmpSelector} { width: 0%; }
+    @{tmpSelector} { width: 0; }
     .infinite-class(@index + 10, @val + (@val / (@count * 2)), @count + 1);
 }
 .infinite-class (@index, @val, @count) when (@index < 101) and (@index > 9) {

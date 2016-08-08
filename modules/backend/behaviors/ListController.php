@@ -27,17 +27,17 @@ class ListController extends ControllerBehavior
     protected $primaryDefinition;
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the list widget object.
+     * @var \Backend\Classes\WidgetBase Reference to the list widget object.
      */
     protected $listWidgets = [];
 
     /**
-     * @var WidgetBase Reference to the toolbar widget objects.
+     * @var \Backend\Classes\WidgetBase Reference to the toolbar widget objects.
      */
     protected $toolbarWidgets = [];
 
     /**
-     * @var WidgetBase Reference to the filter widget objects.
+     * @var \Backend\Classes\WidgetBase Reference to the filter widget objects.
      */
     protected $filterWidgets = [];
 
@@ -55,7 +55,7 @@ class ListController extends ControllerBehavior
 
     /**
      * Behavior constructor
-     * @param Backend\Classes\Controller $controller
+     * @param \Backend\Classes\Controller $controller
      */
     public function __construct($controller)
     {
@@ -189,6 +189,11 @@ class ListController extends ControllerBehavior
                     $widget->setSearchTerm($searchWidget->getActiveTerm());
                     return $widget->onRefresh();
                 });
+
+                $widget->setSearchOptions([
+                    'mode' => $searchWidget->mode,
+                    'scope' => $searchWidget->scope,
+                ]);
 
                 // Find predefined search term
                 $widget->setSearchTerm($searchWidget->getActiveTerm());
@@ -361,7 +366,7 @@ class ListController extends ControllerBehavior
 
     /**
      * Returns the widget used by this behavior.
-     * @return Backend\Classes\WidgetBase
+     * @return \Backend\Classes\WidgetBase
      */
     public function listGetWidget($definition = null)
     {
@@ -387,7 +392,7 @@ class ListController extends ControllerBehavior
 
     /**
      * Called after the list columns are defined.
-     * @param Backend\Widgets\List $host The hosting list widget
+     * @param \Backend\Widgets\List $host The hosting list widget
      * @return void
      */
     public function listExtendColumns($host)
@@ -407,7 +412,7 @@ class ListController extends ControllerBehavior
     /**
      * Controller override: Extend the query used for populating the list
      * before the default query is processed.
-     * @param October\Rain\Database\Builder $query
+     * @param \October\Rain\Database\Builder $query
      */
     public function listExtendQueryBefore($query, $definition = null)
     {
@@ -416,7 +421,7 @@ class ListController extends ControllerBehavior
     /**
      * Controller override: Extend the query used for populating the list
      * after the default query is processed.
-     * @param October\Rain\Database\Builder $query
+     * @param \October\Rain\Database\Builder $query
      */
     public function listExtendQuery($query, $definition = null)
     {
@@ -425,7 +430,7 @@ class ListController extends ControllerBehavior
     /**
      * Controller override: Extend the query used for populating the filter 
      * options before the default query is processed.
-     * @param October\Rain\Database\Builder $query
+     * @param \October\Rain\Database\Builder $query
      * @param array $scope
      */
     public function listFilterExtendQuery($query, $scope)

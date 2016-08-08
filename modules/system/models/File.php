@@ -22,7 +22,7 @@ class File extends FileBase
      */
     protected function getLocalRootPath()
     {
-        return Config::get('filesystems.disks.local.root', storage_path().'/app');
+        return Config::get('filesystems.disks.local.root', storage_path('app'));
     }
 
     /**
@@ -32,7 +32,7 @@ class File extends FileBase
     {
         $uploadsPath = Config::get('cms.storage.uploads.path', '/storage/app/uploads');
 
-        if (!preg_match("/(\/\/|http|https)/", $uploadsPath)) {
+        if (!starts_with($uploadsPath, ['//', 'http://', 'https://'])) {
             $uploadsPath = Request::getBasePath() . $uploadsPath;
         }
 

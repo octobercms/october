@@ -64,8 +64,6 @@ return [
         'widget_title_error' => 'Tajuk gawit diperlukan.',
         'status' => [
             'widget_title_default' => 'Status sistem',
-            'online' => 'daring',
-            'maintenance' => 'dalam perawatan',
             'update_available' => '{0} pembaruan tersedia!|{1} pembaruan tersedia!|[2,Inf] pembaruan tersedia!'
         ]
     ],
@@ -274,10 +272,9 @@ return [
         'app_tagline' => 'Slogan Apl',
         'app_tagline_description' => 'Nama ini akan ditampilkan pada layar masuk back-end.',
         'colors' => 'Warna',
-        'primary_light' => 'Primer (Terang)',
-        'primary_dark' => 'Primer (Gelap)',
-        'secondary_light' => 'Sekunder (Terang)',
-        'secondary_dark' => 'Sekunder (Gelap)',
+        'primary_color' => 'Primer color',
+        'secondary_color' => 'Sekunder color',
+        'accent_color' => 'Accent color',
         'styles' => 'Gaya',
         'custom_stylesheet' => 'Lembar gaya ubah suai'
     ],

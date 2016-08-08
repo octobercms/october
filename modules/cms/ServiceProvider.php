@@ -12,6 +12,7 @@ use System\Classes\SettingsManager;
 use System\Classes\CombineAssets;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\Page as CmsPage;
+use Cms\Models\ThemeData;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -26,12 +27,14 @@ class ServiceProvider extends ModuleServiceProvider
 
         $this->registerComponents();
         $this->registerAssetBundles();
+        $this->registerCombinerEvents();
 
         /*
          * Backend specific
          */
         if (App::runningInBackend()) {
             $this->registerBackendNavigation();
+            $this->registerBackendReportWidgets();
             $this->registerBackendPermissions();
             $this->registerBackendWidgets();
             $this->registerBackendSettings();
@@ -70,9 +73,27 @@ class ServiceProvider extends ModuleServiceProvider
          * Register asset bundles
          */
         CombineAssets::registerCallback(function($combiner) {
-            $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-global.js');
             $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-browser.js');
             $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/less/mediamanager.less');
+        });
+    }
+
+    /**
+     * Registers events for the asset combiner.
+     */
+    protected function registerCombinerEvents()
+    {
+        if (App::runningInBackend() || App::runningInConsole()) {
+            return;
+        }
+
+        Event::listen('cms.combiner.beforePrepare', function ($combiner, $assets) {
+            $filters = array_flatten($combiner->getFilters());
+            ThemeData::applyAssetVariablesToCombinerFilters($filters);
+        });
+
+        Event::listen('cms.combiner.getCacheKey', function ($combiner, $holder) {
+            $holder->key = $holder->key . ThemeData::getCombinerCacheKey();
         });
     }
 
@@ -86,6 +107,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'cms' => [
                     'label'       => 'cms::lang.cms.menu_label',
                     'icon'        => 'icon-magic',
+                    'iconSvg'     => 'modules/cms/assets/images/cms-icon.svg',
                     'url'         => Backend::url('cms'),
                     'permissions' => ['cms.*'],
                     'order'       => 10,
@@ -143,10 +165,24 @@ class ServiceProvider extends ModuleServiceProvider
                 'media' => [
                     'label'       => 'cms::lang.media.menu_label',
                     'icon'        => 'icon-folder',
+                    'iconSvg'     => 'modules/cms/assets/images/media-icon.svg',
                     'url'         => Backend::url('cms/media'),
                     'permissions' => ['media.*'],
                     'order'       => 20
                 ]
+            ]);
+        });
+    }
+
+    /*
+     * Register report widgets
+     */
+    protected function registerBackendReportWidgets()
+    {
+        WidgetManager::instance()->registerReportWidgets(function ($manager) {
+            $manager->registerReportWidget('Cms\ReportWidgets\ActiveTheme', [
+                'label'   => 'cms::lang.dashboard.active_theme.widget_title_default',
+                'context' => 'dashboard'
             ]);
         });
     }
@@ -232,7 +268,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'cms::lang.maintenance.settings_menu_description',
                     'category'    => SettingsManager::CATEGORY_CMS,
                     'icon'        => 'icon-plug',
-                    'class'       => 'Cms\Models\MaintenanceSettings',
+                    'class'       => 'Cms\Models\MaintenanceSetting',
                     'permissions' => ['cms.manage_themes'],
                     'order'       => 300
                 ],
@@ -281,5 +317,4 @@ class ServiceProvider extends ModuleServiceProvider
             }
         });
     }
-
 }

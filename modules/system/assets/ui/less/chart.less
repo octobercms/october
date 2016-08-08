@@ -52,16 +52,16 @@
             font-size: 30px;
             font-weight: 100;
             color: @color-scoreboard-title;
-            z-index: 10;
+            z-index: @zindex-chart - 1;
         }
 
         svg {
-            z-index: 20;
+            z-index: @zindex-chart;
         }
     }
 
     &.full-width div.canvas {
-        margin-right: 0!important;
+        margin-right: 0 !important;
     }
 
     ul {
@@ -169,7 +169,7 @@
     padding: 7px 10px;
     background: @color-chart-tooltip-bg;
     position: absolute;
-    z-index: 100;
+    z-index: @zindex-tooltip;
     color: @color-chart-tooltip-text;
     .border-radius(@border-radius-base*2);
     font-size: 12px;
@@ -299,59 +299,95 @@
     }
 }
 
-ul.status-list {
+//
+// Status list
+// --------------------------------------------------
+
+.control-status-list > ul {
     margin-bottom: 0;
     padding: 0;
 
     li {
-        margin: 0 15px 0 0;
+        margin: 0;
+        padding: 7px 15px 6px;
         list-style: none;
-        display: inline-block;
-        font-size: 14px;
+        display: block;
+        font-size: @font-size-base - 1;
         color: @color-status-list-text;
+        border-bottom: 1px solid #f0f0f0;
 
         &:last-child {
-            margin-right: 0;
+            border-bottom: none;
         }
 
         a {
             color: @color-status-list-text;
+            text-decoration: none;
             &:hover {
                 color: @link-color;
                 text-decoration: none;
             }
         }
 
-        span.status {
+        .status-text {
+            margin: 0 5px;
+
+            &.muted { color: @text-muted; }
+            &.primary { .text-emphasis-variant(@brand-primary); }
+            &.success { .text-emphasis-variant(@state-success-text); }
+            &.info { .text-emphasis-variant(@state-info-text); }
+            &.warning { .text-emphasis-variant(@state-warning-text); }
+            &.danger { .text-emphasis-variant(@state-danger-text); }
+        }
+
+        .status-label {
+            float: right;
             display: inline-block;
             padding: 1px 5px;
-            color: white;
             .border-radius(@border-radius-base);
 
-            &.circle {
-                .border-radius(10px);
-                width: 12px;
-                height: 12px;
-                vertical-align: middle;
-                position: relative;
-                top: -1px;
+            &:not(.link) {
+                color: white;
+                letter-spacing: 1px;
+                font-family: @font-family-monospace;
             }
+        }
 
-            &.success {background: @brand-success;}
-            &.primary {background: @brand-primary;}
-            &.warning {background: @brand-warning;}
-            &.danger {background: @brand-danger;}
-            &.info {background: @brand-info;}
+        .status-icon {
+            display: inline-block;
+            text-align: center;
+            color: white;
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+            position: relative;
+            top: -1px;
+            .border-radius(100px);
+
+            > i {
+                font-size: 10px;
+            }
+        }
+
+        .status-icon,
+        .status-label {
+            background: #aaa;
+            &.success { background: @brand-success; }
+            &.primary { background: @brand-primary; }
+            &.warning { background: @brand-warning; }
+            &.danger { background: @brand-danger; }
+            &.info { background: @brand-info; }
+            &.link { background: transparent; }
         }
     }
 }
 
-.gecko ul.status-list li span.status.circle {
+.gecko .control-status-list > ul li span.status.circle {
     top: -2px;
 }
 
 .report-container {
-    ul.status-list {
-        margin-top: -10px;
+    .control-status-list > ul {
+        margin: -15px;
     }
 }

@@ -67,8 +67,6 @@ return [
         'widget_title_error' => 'گزینه "عنوان ابزارک" حتما باید وارد شود.',
         'status' => [
             'widget_title_default' => 'وضعیت سیستم',
-            'online' => 'online',
-            'maintenance' => 'در حال به روز رسانی',
             'update_available' => '{0} به روز رسانی موجود است!|{1} به روز رسانی موجود است!|[2,Inf] به روز رسانی موجود است!',
         ]
     ],
@@ -303,10 +301,9 @@ return [
         'app_tagline' => 'شعار برنامه',
         'app_tagline_description' => 'این شعار در قسمت ورود به بخش مدیریت نمایش داده می شود.',
         'colors' => 'رنگ ها',
-        'primary_light' => 'اصلی (روشن)',
-        'primary_dark' => 'اصلی (تیره)',
-        'secondary_light' => 'ثانویه (روشن)',
-        'secondary_dark' => 'ثانویه (تیره)',
+        'primary_color' => 'اصلی color',
+        'secondary_color' => 'ثانویه color',
+        'accent_color' => 'Accent color',
         'styles' => 'شیوه نامه ها',
         'custom_stylesheet' => 'شیوه نامه های سفارشی'
     ],

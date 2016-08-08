@@ -1,13 +1,13 @@
 <?php if ($relationViewMode == 'single'): ?>
     <button
-        class="btn btn-sm btn-default oc-icon-minus"
+        class="btn btn-sm btn-secondary oc-icon-minus"
         data-request="onRelationButtonRemove"
         data-stripe-load-indicator>
         <?= e(trans('backend::lang.relation.remove')) ?>
     </button>
 <?php else: ?>
     <button
-        class="btn btn-sm btn-default oc-icon-minus"
+        class="btn btn-sm btn-secondary oc-icon-minus"
         onclick="$(this).data('request-data', {
             checked: $('#<?= $this->relationGetId('view') ?> .control-list').listWidget('getChecked')
         })"

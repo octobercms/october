@@ -19,6 +19,7 @@
         this.options = options
         this.$el= $(element)
         this.$form = this.$el.closest('form')
+        this.$toolbar = $('[data-container-toolbar]', this.$form)
         this.alias = $('[data-container-alias]', this.$form).val()
 
         this.init();
@@ -40,7 +41,7 @@
         $(window).resize($.proxy(this.updateWidth, this))
         this.updateWidth()
 
-        if (!Modernizr.touch)
+        if (!Modernizr.touch) {
             this.$el.sortable({
                 vertical: false,
                 handle: '.drag-handle',
@@ -53,6 +54,7 @@
                     self.postSortOrders()
                 }
             })
+        }
 
         this.$el.on('hidden.oc.inspector', '[data-inspectable]', function() {
             var values = $('[data-inspector-values]', this).val(),
@@ -78,27 +80,34 @@
         })
 
         this.$el.on('click', '.content > button.close', function() {
-            if (!confirm('Remove the widget?'))
-                return false
+            var $btn = $(this)
+            $.oc.confirm('Remove this widget?', function() {
+                self.$form.request(self.alias + '::onRemoveWidget', {
+                    data: {
+                        'alias': $('[data-widget-alias]', $btn.closest('div.content')).val()
+                    }
+                })
 
-            self.$form.request(self.alias + '::onRemoveWidget', {data: {
-                'alias': $('[data-widget-alias]', $(this).closest('div.content')).val()
-            }})
+                $btn.closest('li').remove()
+                self.redraw()
+                self.setSortOrders()
+            })
+        })
 
-            $(this).closest('li').remove()
+        $(window).on('oc.reportWidgetAdded', function(){
             self.redraw()
             self.setSortOrders()
         })
 
-        $(window).on('oc.report-widget-added', function(){
+        $(window).on('oc.reportWidgetRefresh', function(){
             self.redraw()
-            self.setSortOrders()
         })
 
         window.setTimeout(function(){
             self.updateWidth()
             self.redraw()
         }, 200)
+
         this.setSortOrders()
     }
 
@@ -119,7 +128,11 @@
             .isotope('reloadItems')
             .isotope({ sortBy: 'original-order' })
 
-        $('li.item', this.$el).css({'width': '', 'height': ''})
+        var $items = $('li.item', this.$el)
+
+        $items.css({'width': '', 'height': ''})
+
+        $('> .dropdown', this.$toolbar).toggleClass('dropup', !!$items.length)
     }
 
     ReportContainer.prototype.setSortOrders = function() {

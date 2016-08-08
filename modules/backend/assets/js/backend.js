@@ -162,6 +162,28 @@ AssetManager = function() {
 assetManager = new AssetManager();
 
 /*
+ * String escape
+ */
+if ($.oc === undefined)
+    $.oc = {}
+
+$.oc.escapeHtmlString = function(string) {
+    var htmlEscapes = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;',
+            '/': '&#x2F;'
+        },
+        htmlEscaper = /[&<>"'\/]/g
+
+    return ('' + string).replace(htmlEscaper, function(match) {
+        return htmlEscapes[match];
+    })
+}
+
+/*
  * Inverse Click Event (not used)
  *
  * Calls the handler function if the user has clicked outside the object 
@@ -185,27 +207,4 @@ $.fn.extend({
         return this;
     }
 })
-*/
-/*
- * String escape (not used)
- */
-/*
-if ($.oc === undefined)
-    $.oc = {}
-
-$.oc.escapeHtmlString = function(string) {
-    var htmlEscapes = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#x27;',
-            '/': '&#x2F;'
-        },
-        htmlEscaper = /[&<>"'\/]/g
-
-    return ('' + string).replace(htmlEscaper, function(match) {
-        return htmlEscapes[match];
-    })
-}
 */

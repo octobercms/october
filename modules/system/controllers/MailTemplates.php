@@ -49,7 +49,7 @@ class MailTemplates extends Controller
 
     public function formBeforeSave($model)
     {
-        $model->is_custom = true;
+        $model->is_custom = 1;
     }
 
     public function onTest($recordId)

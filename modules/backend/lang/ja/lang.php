@@ -64,8 +64,6 @@ return [
         'widget_title_error' => 'ウィジェットタイトルを指定してください。',
         'status' => [
             'widget_title_default' => 'システム状態',
-            'online' => 'オンライン',
-            'maintenance' => 'メンテナンスモード',
             'update_available' => '{0}個のアップデートが見つかりました。|{1} 個のアップデートが見つかりました。|[2,Inf] 個のアップデートが見つかりました。'
         ],
     ],
@@ -270,10 +268,9 @@ return [
         'app_tagline' => 'アプリタグライン',
         'app_tagline_description' => 'この名前はバックエンドのサインインページに表示されます。',
         'colors' => '配色',
-        'primary_light' => 'プライマリ (明るい)',
-        'primary_dark' => 'プライマリ (暗い)',
-        'secondary_light' => 'セカンダリ (明るい)',
-        'secondary_dark' => 'セカンダリ (暗い)',
+        'primary_color' => 'プライマリ color',
+        'secondary_color' => 'セカンダリ color',
+        'accent_color' => 'Accent color',
         'styles' => 'スタイル',
         'custom_stylesheet' => 'カスタムスタイルシート'
     ],

@@ -1,7 +1,6 @@
 <?php namespace Cms\Classes;
 
 use Str;
-use Illuminate\Container\Container;
 use System\Classes\PluginManager;
 use SystemException;
 use Illuminate\Support\Facades\App;
@@ -81,6 +80,7 @@ class ComponentManager
      *   });
      * </pre>
      *
+     * @param callable $definitions
      * @return array Array values are class names.
      */
     public function registerComponents(callable $definitions)
@@ -189,7 +189,7 @@ class ComponentManager
 
     /**
      * Makes a component object with properties set.
-     * @param $name A component class name or code.
+     * @param string $name A component class name or code.
      * @param CmsObject $cmsObject The Cms object that spawned this component.
      * @param array $properties The properties set by the Page or Layout.
      * @return ComponentBase The component object.

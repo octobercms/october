@@ -26,13 +26,13 @@
     height: 9px;
     margin-bottom: @line-height-computed;
     background-color: @progress-bg;
-    border-radius: @border-radius-base;
+    .border-radius(@border-radius-base);
 }
 
 // Bar of progress
 .progress-bar {
     float: left;
-    width: 0%;
+    width: 0;
     height: 100%;
     font-size: @font-size-small;
     line-height: 9px;

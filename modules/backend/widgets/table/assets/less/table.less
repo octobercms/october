@@ -4,7 +4,7 @@
  * General control styling
  */
 
-@table-active-border: #808c8d;
+@table-active-border: #e0e0e0;
 @table-inactive-border: #e0e0e0;
 
 .control-table {
@@ -57,9 +57,9 @@
 
         th {
             padding: 7px 10px;
-            font-size: 13px;
+            font-weight: normal;
             text-transform: uppercase;
-            font-weight: 600;
+            font-size: @font-size-base - 3;
             color: #333333;
             background: white;
             border-right: 1px solid #ecf0f1;
@@ -118,7 +118,7 @@
             }
         }
 
-        tr { 
+        tr {
             background-color: white;
 
             &.error {
@@ -126,7 +126,7 @@
 
                 td.active.error {
                     border-color: #ec0000!important;
-    
+
                     .content-container {
                         border-color: #ec0000!important;
                         &:before, &:after {
@@ -179,8 +179,10 @@
 
         a.btn {
             color: #323e50;
-            padding: 10px;
+            padding: 8px 10px;
             .opacity(0.5);
+            .box-shadow(none) !important;
+            text-shadow: none;
 
             &:hover {
                 .opacity(1);
@@ -236,7 +238,7 @@
                 }
 
                 &.active {
-                    background: @brand-primary;
+                    background: @brand-accent;
 
                     a {color: #ffffff;}
                 }
@@ -277,7 +279,7 @@
             display: block;
             outline: none;
             border: none;
-            padding: 5px 10px;
+            padding: 6px 10px 7px;
         }
     }
 }

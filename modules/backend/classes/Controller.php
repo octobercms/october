@@ -1,7 +1,7 @@
 <?php namespace Backend\Classes;
 
 use App;
-use Log;
+use Str;
 use Lang;
 use View;
 use Flash;
@@ -10,12 +10,11 @@ use Config;
 use Request;
 use Backend;
 use Session;
-use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
-use Backend\Models\UserPreferences;
-use Backend\Models\BackendPreferences;
+use Backend\Models\UserPreference;
+use Backend\Models\Preference as BackendPreference;
 use Cms\Widgets\MediaManager;
 use System\Classes\ErrorHandler;
 use October\Rain\Exception\AjaxException;
@@ -219,13 +218,8 @@ class Controller extends Extendable
         /*
          * Set the admin preference locale
          */
-        if (Session::has('locale')) {
-            App::setLocale(Session::get('locale'));
-        }
-        elseif ($this->user && ($locale = BackendPreferences::get('locale'))) {
-            Session::put('locale', $locale);
-            App::setLocale($locale);
-        }
+        BackendPreference::setAppLocale();
+        BackendPreference::setAppFallbackLocale();
 
         /*
          * Execute AJAX event
@@ -425,17 +419,6 @@ class Controller extends Extendable
                 }
 
                 /*
-                 * If the handler returned an array, we should add it to output for rendering.
-                 * If it is a string, add it to the array with the key "result".
-                 */
-                if (is_array($result)) {
-                    $responseContents = array_merge($responseContents, $result);
-                }
-                elseif (is_string($result)) {
-                    $responseContents['result'] = $result;
-                }
-
-                /*
                  * Render partials and return the response as array that will be converted to JSON automatically.
                  */
                 foreach ($partialList as $partial) {
@@ -443,11 +426,12 @@ class Controller extends Extendable
                 }
 
                 /*
-                 * If the handler returned a redirect, process it so framework.js knows to redirect
-                 * the browser and not the request!
+                 * If the handler returned a redirect, process the URL and dispose of it so
+                 * framework.js knows to redirect the browser and not the request!
                  */
                 if ($result instanceof RedirectResponse) {
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
+                    $result = null;
                 }
                 /*
                  * No redirect is used, look for any flash messages
@@ -461,6 +445,21 @@ class Controller extends Extendable
                  */
                 if ($this->hasAssetsDefined()) {
                     $responseContents['X_OCTOBER_ASSETS'] = $this->getAssetPaths();
+                }
+
+                /*
+                 * If the handler returned an array, we should add it to output for rendering.
+                 * If it is a string, add it to the array with the key "result".
+                 * If an object, pass it to Laravel as a response object.
+                 */
+                if (is_array($result)) {
+                    $responseContents = array_merge($responseContents, $result);
+                }
+                elseif (is_string($result)) {
+                    $responseContents['result'] = $result;
+                }
+                elseif (is_object($result)) {
+                    return $result;
                 }
 
                 return Response::make()->setContent($responseContents);
@@ -637,7 +636,7 @@ class Controller extends Extendable
             throw new ApplicationException('Missing a hint name.');
         }
 
-        $preferences = UserPreferences::forUser();
+        $preferences = UserPreference::forUser();
         $hiddenHints = $preferences->get('backend::hints.hidden', []);
         $hiddenHints[$name] = 1;
 
@@ -651,7 +650,7 @@ class Controller extends Extendable
      */
     public function isBackendHintHidden($name)
     {
-        $hiddenHints = UserPreferences::forUser()->get('backend::hints.hidden', []);
+        $hiddenHints = UserPreference::forUser()->get('backend::hints.hidden', []);
         return array_key_exists($name, $hiddenHints);
     }
 
@@ -677,7 +676,7 @@ class Controller extends Extendable
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
-        return \Symfony\Component\Security\Core\Util\StringUtils::equals(
+        return Str::equals(
             Session::getToken(),
             $token
         );

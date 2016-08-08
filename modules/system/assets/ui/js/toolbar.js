@@ -38,7 +38,7 @@
 
         $el.dragScroll({
             scrollClassContainer: scrollClassContainer,
-            noDragSupport: noDragSupport
+            useDrag: !noDragSupport
         })
 
         $('.form-control.growable', $toolbar).on('focus.toolbar', function(){

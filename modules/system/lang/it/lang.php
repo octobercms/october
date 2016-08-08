@@ -7,12 +7,18 @@ return [
     ],
     'locale' => [
         'cs' => 'Ceco',
-        'en' => 'Inglese',
+        'da' => 'Danish',
+        'en' => 'Inglese (Stati Uniti)',
+        'en-au' => 'Inglese (Australia)',
+        'en-ca' => 'Inglese (Canada)',
+        'en-gb' => 'Inglese (Regno Unito)',
         'de' => 'Tedesco',
+        'el' => 'Greco',
         'es' => 'Spagnolo',
         'es-ar' => 'Spagnolo (Argentina)',
         'fa' => 'Persiano',
         'fr' => 'Francese',
+        'fr-ca' => 'Francese (Canada)',
         'hu' => 'Ungherese',
         'id' => 'Indonesiano',
         'it' => 'Italiano',
@@ -28,7 +34,7 @@ return [
         'sk' => 'Slovacco (Slovacchia)',
         'tr' => 'Turco',
         'zh-cn' => 'Cinese (Cina)',
-        'el' => 'Greco'
+        'zh-tw' => 'Cinese (Taiwan)'
     ],
     'directory' => [
         'create_fail' => 'Impossibile creare la cartella: :name',
@@ -146,6 +152,10 @@ return [
         'smtp_password' => 'Password',
         'smtp_port' => 'Porta SMTP',
         'smtp_ssl' => 'Connessione SSL richiesta',
+        'smtp_encryption' => 'Protocollo di crittografia SMTP',
+        'smtp_encryption_none' => 'Nessuna crittografia',
+        'smtp_encryption_tls' => 'TLS',
+        'smtp_encryption_ssl' => 'SSL',
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Percorso Sendmail',
         'sendmail_path_comment' => 'Inserisci il percorso al servizio sendmail.',
@@ -157,6 +167,13 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Chiave Mandrill',
         'mandrill_secret_comment' => 'Inserisci la tua chiave per l\'utilizzo delle API Mandrill.',
+        'ses' => 'SES',
+        'ses_key' => 'Chiave SES',
+        'ses_key_comment' => 'Inserisci la chiave per l\'utilizzo delle API SES',
+        'ses_secret' => 'Chiave privata SES',
+        'ses_secret_comment' => 'Inserisci la chiave privata per l\'utilizzo delle API SES',
+        'ses_region' => 'Regione SES',
+        'ses_region_comment' => 'Inserisci la tua regione SES (ad es. us-east-1)',
         'drivers_hint_header' => 'Driver non installati',
         'drivers_hint_content' => 'Questa modalità di invio richiede che il plugin ":plugin" sia installato prima che tu possa inviare messaggi.'
     ],
@@ -170,6 +187,7 @@ return [
         'menu_layouts_label' => 'Layouts delle e-mail',
         'layout' => 'Layout',
         'layouts' => 'Layouts',
+        'no_layout' => '-- Nessun layout --',
         'name' => 'Nome',
         'name_comment' => 'Nome univoco utilizzato come riferimento a questo modello.',
         'code' => 'Codice',
@@ -182,6 +200,16 @@ return [
         'content_text' => 'Testo piano',
         'test_send' => 'Invia un messaggio di prova',
         'test_success' => 'Il messaggio di prova è stato inviato con successo.',
+        'test_confirm' => 'Invio del messaggio di prova a :email. Continuare?',
+        'creating' => 'Creazione modello...',
+        'creating_layout' => 'Creazione layout...',
+        'saving' => 'Salvataggio modello...',
+        'saving_layout' => 'Salvataggio layout...',
+        'delete_confirm' => 'Eliminare questo modello?',
+        'delete_layout_confirm' => 'Eliminare questo layout?',
+        'deleting' => 'Eliminazione modello...',
+        'deleting_layout' => 'Eliminazione layout...',
+        'sending' => 'Invio del messaggio di prova...',
         'return' => 'Ritorna all\'elenco dei modelli',
     ],
     'install' => [
@@ -196,7 +224,7 @@ return [
     'updates' => [
         'title' => 'Gestisci aggiornamenti',
         'name' => 'Aggiornamento del software',
-        'menu_label' => 'Aggiornamenti',
+        'menu_label' => 'Aggiornamenti & Plugin',
         'menu_description' => 'Aggiorna il sistema, gestisci ed installa plugin e temi.',
         'return_link' => 'Ritorna agli aggiornamenti di sistema',
         'check_label' => 'Verifica gli aggiornamenti',
@@ -212,7 +240,7 @@ return [
         'core_downloading' => 'Scaricamento dei file in corso',
         'core_extracting' => 'Estrazione dei file in corso',
         'plugins' => 'Plugin',
-        'themes' => 'Themi',
+        'themes' => 'Temi',
         'disabled' => 'Disabilitati',
         'plugin_downloading' => 'Scaricamento plugin: :name',
         'plugin_extracting' => 'Estrazione plugin: :name',
@@ -262,7 +290,7 @@ return [
         'file_corrupt' => 'Il file è corrotto.',
     ],
     'behavior' => [
-        'missing_property' => 'La classe :class deve definire la proprietà $:property utilizzata dalla funzione :behavior.',
+        'missing_property' => 'La classe :class deve definire la proprietà $:property utilizzata dal comportamento :behavior.',
     ],
     'config' => [
         'not_found' => 'Il file di configurazione :file definito per :location non è stato trovato.',
@@ -284,6 +312,7 @@ return [
         'created_at' => 'Data e ora',
         'message' => 'Messaggio',
         'level' => 'Livello',
+        'preview_title' => 'Evento'
     ],
     'request_log' => [
         'hint' => 'Questo registro visualizza un elenco delle richieste del browser che possono richiedere attenzione. Ad esempio, se un visitatore apre una pagina del CMS che non può essere trovata, viene creato un record con il codice di errore 404.',
@@ -299,6 +328,7 @@ return [
         'referer' => 'Provenienza',
         'url' => 'URL',
         'status_code' => 'Codice di stato',
+        'preview_title' => 'Richiesta'
     ],
     'permissions' => [
         'name' => 'Sistema',
@@ -308,6 +338,8 @@ return [
         'manage_mail_templates' => 'Gestisci i modelli e-mail',
         'manage_mail_settings' => 'Gestisci impostazioni e-mail',
         'manage_other_administrators' => 'Gestisci altri amministratori',
+        'manage_preferences' => 'Gestisci preferenze pannello di controllo',
+        'manage_editor' => 'Gestisci preferenze editor di codice',
         'view_the_dashboard' => 'Visualizza la dashboard',
         'manage_branding' => 'Personalizza il pannello di controllo'
     ]

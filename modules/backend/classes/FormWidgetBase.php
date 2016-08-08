@@ -17,7 +17,7 @@ abstract class FormWidgetBase extends WidgetBase
     //
 
     /**
-     * @var Model Form model object.
+     * @var \October\Rain\Database\Model Form model object.
      */
     public $model;
 
@@ -63,7 +63,6 @@ abstract class FormWidgetBase extends WidgetBase
     /**
      * Constructor
      * @param $controller Controller Active controller object.
-     * @param $model Model The relevant model to reference.
      * @param $formField FormField Object containing general form field information.
      * @param $configuration array Configuration the relates to this widget.
      */
@@ -99,7 +98,7 @@ abstract class FormWidgetBase extends WidgetBase
     /**
      * Process the postback value for this widget. If the value is omitted from
      * postback data, it will be NULL, otherwise it will be an empty string.
-     * @param $value The existing value for this widget.
+     * @param mixed $value The existing value for this widget.
      * @return string The new value for this widget.
      */
     public function getSaveValue($value)
@@ -119,18 +118,6 @@ abstract class FormWidgetBase extends WidgetBase
             : null;
 
         return $this->formField->getValueFromData($this->data ?: $this->model, $defaultValue);
-    }
-
-    /**
-     * Returns the final model and attribute name of
-     * a nested HTML array attribute.
-     * Eg: list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-     * @param  string $attribute.
-     * @return array
-     */
-    public function resolveModelAttribute($attribute)
-    {
-        return $this->formField->resolveModelAttribute($this->model, $attribute);
     }
 
 }

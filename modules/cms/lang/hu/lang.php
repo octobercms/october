@@ -7,10 +7,19 @@ return [
         'file_already_exists' => "Már létezik ':name' nevű fájl.",
         'error_saving' => "Hiba a(z) ':name' fájl mentésekor. Ellenőrizze az írási engedélyeket.",
         'error_creating_directory' => 'Hiba a(z) :name könyvtár létrehozásakor. Ellenőrizze az írási engedélyeket.',
-        'invalid_file_extension'=>'Érvénytelen fájlkiterjesztés: :invalid. Az engedélyezett kiterjesztések: :allowed.',
+        'invalid_file_extension'=>'Érvénytelen fájl kiterjesztés: :invalid. Az engedélyezett kiterjesztések: :allowed.',
         'error_deleting' => "Hiba a(z) ':name' sablonfájl törlésekor. Ellenőrizze az írási engedélyeket.",
         'delete_success' => 'A sablonok törlése sikerült: :count.',
-        'file_name_required' => 'A Fájlnév mező kitöltése kötelező.'
+        'file_name_required' => 'A Fájlnév mező kitöltése kötelező.',
+        'safe_mode_enabled' => 'A biztonságos mód jelenleg engedélyezett.'
+    ],
+    'dashboard' => [
+        'active_theme' => [
+            'widget_title_default' => 'Honlap',
+            'online' => 'Online',
+            'maintenance' => 'Karbantartás alatt',
+            'manage_themes' => 'Témák kezelése'
+        ]
     ],
     'theme' => [
         'not_found_name' => "A következő sablon nem található: ':name'",
@@ -83,9 +92,9 @@ return [
     ],
     'maintenance' => [
         'settings_menu' => 'Karbantartás',
-        'settings_menu_description' => 'Szolgáltatás be / ki kapcsolása és testreszabása.',
-        'is_enabled' => 'Karbantartási mód engedélyezése',
-        'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói az alább kiválasztott lapot fogják látni.'
+        'settings_menu_description' => 'Szolgáltatás aktiválása és testreszabása.',
+        'is_enabled' => 'Karbantartás engedélyezése',
+        'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói csak a kiválasztott lapot fogják látni.'
     ],
     'page' => [
         'not_found_name' => "A következő lap nem található: ':name'",
@@ -95,7 +104,7 @@ return [
         ],
         'custom_error' => [
             'label' => 'Laphiba',
-            'help' => 'Sajnos valami elromlott és a lap nem jeleníthető meg.'
+            'help' => 'Sajnos valami elromlott, ezért a lap nem jeleníthető meg.'
         ],
         'menu_label' => 'Lapok',
         'unsaved_label' => 'Nem mentett lap(ok)',
@@ -154,16 +163,20 @@ return [
         'layout' => 'Elrendezés',
         'description' => 'Leírás',
         'preview' => 'Előnézet',
-        'meta' => 'Meta',
-        'meta_title' => 'Meta cím',
-        'meta_description' => 'Meta leírás',
+        'meta' => 'Továbbiak',
+        'meta_title' => 'Keresőbarát cím',
+        'meta_description' => 'Keresőbarát leírás',
         'markup' => 'HTML',
         'code' => 'PHP',
         'content' => 'Tartalom',
         'hidden' => 'Rejtett',
-        'hidden_comment' => 'A rejtett lapok csak a bejelentkezett felhasználók által hozzáférhetők.',
+        'hidden_comment' => 'Csak a bejelentkezett felhasználók láthatják.',
         'enter_fullscreen' => 'Váltás teljes képernyőre',
-        'exit_fullscreen' => 'Kilépés a teljes képernyőből'
+        'exit_fullscreen' => 'Kilépés a teljes képernyőből',
+        'open_searchbox' => 'Keresési panel megnyitása',
+        'close_searchbox'  => 'Keresési panel bezárása',
+        'open_replacebox' => 'Cserepanel megnyitása',
+        'close_replacebox'  => 'Cserepanel bezárása'
     ],
     'asset' => [
         'menu_label' => 'Fájlok',
@@ -232,7 +245,7 @@ return [
         'manage_layouts' => 'Elrendezések kezelése',
         'manage_partials' => 'Részlapok kezelése',
         'manage_themes' => 'Témák kezelése',
-        'manage_media' => 'Fájlok kezelése'
+        'manage_media' => 'Média kezelése'
     ],
     'mediafinder' => [
         'default_prompt' => 'Kattintson a(z) %s gombra új média fájl kereséséhez.'
@@ -244,7 +257,7 @@ return [
         'move' => 'Áthelyezés',
         'delete' => 'Törlés',
         'add_folder' => 'Könyvtár létrehozása',
-        'search' => 'Keresés',
+        'search' => 'Keresés...',
         'display' => 'Megjelenítés',
         'filter_everything' => 'Összes',
         'filter_images' => 'Kép',
@@ -255,36 +268,37 @@ return [
         'folder_size_items' => 'fájl',
         'size' => 'Méret',
         'title' => 'Név',
-        'last_modified' => 'Utoljára módosítva',
-        'public_url' => 'Publikus cím',
+        'last_modified' => 'Módosítva',
+        'public_url' => 'Webcím',
         'click_here' => 'Megtekintés',
         'thumbnail_error' => 'Hiba a bélyegkép létrehozásánál.',
         'return_to_parent' => 'Vissza a szülő könyvtárhoz',
         'return_to_parent_label' => 'Eggyel vissza ..',
-        'nothing_selected' => 'Nincs fájl kiválasztva.',
+        'nothing_selected' => 'Nincs kiválasztva fájl.',
         'multiple_selected' => 'Több fájl kiválasztva.',
         'uploading_file_num' => 'Feltöltve :number fájl...',
         'uploading_complete' => 'Feltöltés sikeresen befejezve',
         'uploading_error' => 'Feltöltés sikertelen',
+        'type_blocked' => 'A fájltípus blokkolva lett biztonsági okokból.',
         'order_by' => 'Rendezés',
         'folder' => 'Könyvtárak',
         'no_files_found' => 'Nem található fájl a lekérésben.',
-        'delete_empty' => 'Kérjük, válassza ki a törölni kívánt fájlokat.',
+        'delete_empty' => 'Kérjük válassza ki a törölni kívánt fájlokat.',
         'delete_confirm' => 'Valóban törölni akarja a kiválasztott fájlokat?',
         'error_renaming_file' => 'Hiba a fájl átnevezésében.',
         'new_folder_title' => 'Új könyvtár',
         'folder_name' => 'Könyvtár neve',
         'error_creating_folder' => 'Hiba a könyvtár létrehozásánál',
         'folder_or_file_exist' => 'Már létezik ilyen nevű fájl vagy könyvtár.',
-        'move_empty' => 'Kérjük, válasszon ki fájlt az áthelyezéshez.',
+        'move_empty' => 'Kérjük válasszon ki fájlt az áthelyezéshez.',
         'move_popup_title' => 'Fájlok vagy könyvtárak áthelyezése',
         'move_destination' => 'Célkönyvtár',
-        'please_select_move_dest' => 'Kérjük, válasszon célkönyvtárat.',
-        'move_dest_src_match' => 'Kérjük, válasszon másik célkönyvtárat.',
+        'please_select_move_dest' => 'Kérjük válasszon célkönyvtárat.',
+        'move_dest_src_match' => 'Kérjük válasszon másik célkönyvtárat.',
         'empty_library' => 'Kezdésként hozzon létre könyvtárat és töltsön fel fájlokat.',
         'insert' => 'Beillesztés',
         'crop_and_insert' => 'Vágás és beillesztés',
-        'select_single_image' => 'Kérjük, válasszon ki egy képet.',
+        'select_single_image' => 'Kérjük válasszon ki egy képet.',
         'selection_not_image' => 'A kiválasztott fájl nem kép.',
         'restore' => 'Összes változtatás visszavonása',
         'resize' => 'Átméretezés...',

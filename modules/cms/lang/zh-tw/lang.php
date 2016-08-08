@@ -12,6 +12,12 @@ return [
         'delete_success' => '模板成功刪除: :count.',
         'file_name_required' => '需要檔案名字串.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => '在線',
+            'maintenance' => '維護中',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "主題 ':name' 沒找到.",
         'active' => [

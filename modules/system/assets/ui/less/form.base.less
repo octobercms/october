@@ -32,10 +32,10 @@ legend {
 label {
     display: inline-block;
     margin-bottom: 5px;
-    font-weight: 600;
+    font-weight: normal;
     font-size: @label-font-size;
+    color: @color-label;
 }
-
 
 // Normalize form controls
 //
@@ -116,14 +116,13 @@ output {
     display: block;
     width: 100%;
     height: @input-height-base; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
-    padding: @padding-base-vertical @padding-base-horizontal;
+    padding: (@padding-base-vertical) @padding-base-horizontal (@padding-base-vertical + 1);
     font-size: @input-font-size;
     line-height: @line-height-base;
     color: @input-color;
     background-color: @input-bg;
     background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
-    border: 1px solid @input-border;
-    border-radius: @input-border-radius;
+    .border-radius(@input-border-radius);
     .transition(@input-transition);
 
     // Customize the `:focus` state to imitate native WebKit styles.
@@ -142,6 +141,7 @@ output {
     fieldset[disabled] & {
         cursor: not-allowed;
         background-color: @input-bg-disabled;
+        color: @input-color-disabled;
         opacity: 1; // iOS fix for unreadable disabled content
     }
 
@@ -320,7 +320,12 @@ input[type="checkbox"],
     display: block; // account for any element using help-block
     margin-top: 5px;
     margin-bottom: 10px;
-    color: lighten(@text-color, 25%); // lighten the text some for contrast
+    color: @color-help-block-text;
+}
+
+label + .help-block,
+label + .help-block.before-field {
+    margin-top: 0;
 }
 
 // Inline forms

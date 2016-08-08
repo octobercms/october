@@ -1,13 +1,12 @@
 /* ========================================================================
- * October CMS: front-end JavaScript framework
+ * OctoberCMS: front-end JavaScript framework
  * http://octobercms.com
  * ========================================================================
- * Copyright 2014 Alexey Bobkov, Samuel Georges
- *
+ * Copyright 2016 Alexey Bobkov, Samuel Georges
  * ======================================================================== */
 
 if (window.jQuery === undefined)
-    throw new Error('The jQuery library is not loaded. The October CMS framework cannot be initialized.');
+    throw new Error('The jQuery library is not loaded. The OctoberCMS framework cannot be initialized.');
 
 +function ($) { "use strict";
 
@@ -33,7 +32,7 @@ if (window.jQuery === undefined)
 
             _event.promise = $.Deferred()
             if ($(window).triggerHandler(_event, [message]) !== undefined) {
-                _event.promise.done(function(){
+                _event.promise.done(function() {
                     options.confirm = null
                     new Request(element, handler, options)
                 })
@@ -56,24 +55,25 @@ if (window.jQuery === undefined)
          */
 
         var
-            form = $el.closest('form'),
+            $form = $el.closest('form'),
+            $triggerEl = !!$form.length ? $form : $el,
             context = { handler: handler, options: options },
             loading = options.loading !== undefined && options.loading.length ? $(options.loading) : null,
             isRedirect = options.redirect !== undefined && options.redirect.length
 
         var _event = jQuery.Event('oc.beforeRequest')
-        form.trigger(_event, context)
+        $triggerEl.trigger(_event, context)
         if (_event.isDefaultPrevented()) return
 
-        var data = [form.serialize()]
+        var data = [$form.serialize()]
 
-        $.each($el.parents('[data-request-data]').toArray().reverse(), function extendReque(){
+        $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
             data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
         })
 
-        if ($el.is(':input') && !form.length) {
+        if ($el.is(':input') && !$form.length) {
             var inputName = $el.attr('name')
-            if (options.data[inputName] === undefined)
+            if (inputName !== undefined && options.data[inputName] === undefined)
                 options.data[inputName] = $el.val()
         }
 
@@ -97,7 +97,7 @@ if (window.jQuery === undefined)
                  * Trigger 'ajaxBeforeUpdate' on the form, halt if event.preventDefault() is called
                  */
                 var _event = jQuery.Event('ajaxBeforeUpdate')
-                form.trigger(_event, [context, data, textStatus, jqXHR])
+                $triggerEl.trigger(_event, [context, data, textStatus, jqXHR])
                 if (_event.isDefaultPrevented()) return
 
                 /*
@@ -105,8 +105,8 @@ if (window.jQuery === undefined)
                  */
                 var updatePromise = requestOptions.handleUpdateResponse(data, textStatus, jqXHR)
 
-                updatePromise.done(function(){
-                    form.trigger('ajaxSuccess', [context, data, textStatus, jqXHR])
+                updatePromise.done(function() {
+                    $triggerEl.trigger('ajaxSuccess', [context, data, textStatus, jqXHR])
                     options.evalSuccess && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalSuccess+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')
                 })
 
@@ -141,14 +141,14 @@ if (window.jQuery === undefined)
                     updatePromise.resolve()
                 }
 
-                updatePromise.done(function(){
+                updatePromise.done(function() {
                     $el.data('error-message', errorMsg)
 
                     /*
                      * Trigger 'ajaxError' on the form, halt if event.preventDefault() is called
                      */
                     var _event = jQuery.Event('ajaxError')
-                    form.trigger(_event, [context, textStatus, jqXHR])
+                    $triggerEl.trigger(_event, [context, textStatus, jqXHR])
                     if (_event.isDefaultPrevented()) return
 
                     /*
@@ -163,7 +163,7 @@ if (window.jQuery === undefined)
                 return updatePromise
             },
             complete: function(data, textStatus, jqXHR) {
-                form.trigger('ajaxComplete', [context, data, textStatus, jqXHR])
+                $triggerEl.trigger('ajaxComplete', [context, data, textStatus, jqXHR])
                 options.evalComplete && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalComplete+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')
             },
 
@@ -186,7 +186,7 @@ if (window.jQuery === undefined)
                 /*
                  * Update partials and finish request
                  */
-                var updatePromise = $.Deferred().done(function(){
+                var updatePromise = $.Deferred().done(function() {
                     for (var partial in data) {
                         /*
                          * If a partial has been supplied on the client side that matches the server supplied key, look up
@@ -206,7 +206,7 @@ if (window.jQuery === undefined)
                     /*
                      * Wait for .html() method to finish rendering from partial updates
                      */
-                    setTimeout(function(){
+                    setTimeout(function() {
                         $(window)
                             .trigger('ajaxUpdateComplete', [context, data, textStatus, jqXHR])
                             .trigger('resize')
@@ -229,8 +229,8 @@ if (window.jQuery === undefined)
                  */
                 if (data['X_OCTOBER_ERROR_FIELDS']) {
                     var isFirstInvalidField = true
-                    $.each(data['X_OCTOBER_ERROR_FIELDS'], function focusErrorField(fieldName, fieldMessages){
-                        var fieldElement = form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
+                    $.each(data['X_OCTOBER_ERROR_FIELDS'], function focusErrorField(fieldName, fieldMessages) {
+                        var fieldElement = $form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
                         if (fieldElement.length > 0) {
 
                             var _event = jQuery.Event('ajaxInvalidField')
@@ -272,19 +272,19 @@ if (window.jQuery === undefined)
         $(window).trigger('ajaxBeforeSend', [context])
         $el.trigger('ajaxPromise', [context])
         return $.ajax(requestOptions)
-            .fail(function(jqXHR, textStatus, errorThrown){
+            .fail(function(jqXHR, textStatus, errorThrown) {
                 if (!isRedirect) {
                     $el.trigger('ajaxFail', [context, textStatus, jqXHR])
                     if (loading) loading.hide()
                 }
             })
-            .done(function(data, textStatus, jqXHR){
+            .done(function(data, textStatus, jqXHR) {
                 if (!isRedirect) {
                     $el.trigger('ajaxDone', [context, data, textStatus, jqXHR])
                     if (loading) loading.hide()
                 }
             })
-            .always(function(dataOrXhr, textStatus, xhrOrError){
+            .always(function(dataOrXhr, textStatus, xhrOrError) {
                 $el.trigger('ajaxAlways', [context, dataOrXhr, textStatus, xhrOrError])
             })
     }
@@ -316,7 +316,7 @@ if (window.jQuery === undefined)
 
     var old = $.fn.request
 
-    $.fn.request = function (handler, option) {
+    $.fn.request = function(handler, option) {
         var args = arguments
 
         var $this = $(this).first()
@@ -338,14 +338,14 @@ if (window.jQuery === undefined)
 
     $.fn.request.Constructor = Request
 
-    $.request = function (handler, option) {
+    $.request = function(handler, option) {
         return $('<form />').request(handler, option)
     }
 
     // REQUEST NO CONFLICT
     // =================
 
-    $.fn.request.noConflict = function () {
+    $.fn.request.noConflict = function() {
         $.fn.request = old
         return this
     }
@@ -365,16 +365,20 @@ if (window.jQuery === undefined)
         }
     }
 
-    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function documentOnChange(){
+    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function documentOnChange() {
         $(this).request()
     })
 
-    $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function documentOnClick(){
+    $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function documentOnClick(e) {
+        e.preventDefault()
+
         $(this).request()
-        return false
+
+        if ($(this).is('[type=submit]'))
+            return false
     })
 
-    $(document).on('keydown', 'input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]', function documentOnKeydown(e){
+    $(document).on('keydown', 'input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]', function documentOnKeydown(e) {
         if (e.keyCode == 13) {
             if (this.dataTrackInputTimer !== undefined)
                 window.clearTimeout(this.dataTrackInputTimer)
@@ -384,12 +388,13 @@ if (window.jQuery === undefined)
         }
     })
 
-    $(document).on('keyup', 'input[data-request][data-track-input]', function documentOnKeyup(e){
-        if (!$(this).is('[type=email],[type=number],[type=password],[type=search],[type=text]')) return
-
+    $(document).on('keyup', 'input[data-request][data-track-input]', function documentOnKeyup(e) {
         var
             $el = $(this),
             lastValue = $el.data('oc.lastvalue')
+
+        if (!$el.is('[type=email],[type=number],[type=password],[type=search],[type=text]'))
+            return
 
         if (lastValue !== undefined && lastValue == this.value)
             return
@@ -404,17 +409,17 @@ if (window.jQuery === undefined)
             interval = 300
 
         var self = this
-        this.dataTrackInputTimer = window.setTimeout(function(){
+        this.dataTrackInputTimer = window.setTimeout(function() {
             $(self).request()
         }, interval)
     })
 
-    $(document).on('submit', '[data-request]', function documentOnsubmit(){
+    $(document).on('submit', '[data-request]', function documentOnSubmit() {
         $(this).request()
         return false
     })
 
-    $(window).on('beforeunload', function documentOnBeforeunload() {
+    $(window).on('beforeunload', function documentOnBeforeUnload() {
         window.ocUnloading = true
     })
 
@@ -422,10 +427,10 @@ if (window.jQuery === undefined)
      * Invent our own event that unifies document.ready with window.ajaxUpdateComplete
      *
      * $(document).render(function() { })
-     * $(document).on('render', function(){ })
+     * $(document).on('render', function() { })
      */
 
-    $(document).ready(function triggerRenderOnReady(){
+    $(document).ready(function triggerRenderOnReady() {
         $(document).trigger('render')
     })
 

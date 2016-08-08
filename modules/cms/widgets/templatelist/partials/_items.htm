@@ -12,8 +12,13 @@
             <?php
                 $dataId = $this->itemType.'-'.$this->theme->getDirName().'-'.$item->fileName;
             ?>
-                <li class="item" data-item-path="<?= e($item->fileName) ?>" data-item-theme="<?= e($this->theme->getDirName()) ?>" data-item-type="<?= $this->itemType ?>" data-id="<?= e($dataId) ?>">
-                    <a href="#">
+                <li
+                    class="item"
+                    data-item-path="<?= e($item->fileName) ?>"
+                    data-item-theme="<?= e($this->theme->getDirName()) ?>"
+                    data-item-type="<?= $this->itemType ?>"
+                    data-id="<?= e($dataId) ?>">
+                    <a href="javascript:;">
                         <span class="title"><?= e($item->title) ?></span>
                         <span class="description">
                             <?php foreach ($item->descriptions as $title => $value): ?>
@@ -27,14 +32,14 @@
                         <span class="borders"></span>
                     </a>
 
-                    <input type="hidden" name="template[<?= e($item->fileName) ?>]" value="0"/>
+                    <input type="hidden" name="template[<?= e($item->fileName) ?>]" value="0" />
                     <div class="checkbox custom-checkbox nolabel">
                         <?php $cbId = 'cb'.md5($item->fileName) ?>
                         <input
-                            id="<?= $cbId ?>" 
+                            id="<?= $cbId ?>"
                             type="checkbox"
                             name="template[<?= e($item->fileName) ?>]"
-                            <?= $this->isTemplateSelected($item) ? 'checked' : null ?>
+                            <?= $this->isItemSelected($item->fileName) ? 'checked' : null ?>
                             data-request="<?= $this->getEventHandler('onSelect') ?>"
                             value="1">
                         <label for="<?= $cbId ?>">Select</label>

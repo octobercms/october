@@ -64,8 +64,6 @@ return [
         'widget_title_error' => 'Tittel er obligatorisk.',
         'status' => [
             'widget_title_default' => 'Systemstatus',
-            'online' => 'online',
-            'maintenance' => 'in maintenance',
             'update_available' => '{0} oppdateringer tilgjengelig!|{1} oppdatering tilgjengelig!|[2,Inf] oppdateringer tilgjengelig!'
         ]
     ],
@@ -275,10 +273,9 @@ return [
         'app_tagline' => 'App Tagline',
         'app_tagline_description' => 'Denne teksten vises på innloggingssiden backend.',
         'colors' => 'Farger',
-        'primary_light' => 'Primær (Lys)',
-        'primary_dark' => 'Primær (Mørk)',
-        'secondary_light' => 'Sekundær (Lys)',
-        'secondary_dark' => 'Sekundær (Mørk)',
+        'primary_color' => 'Primær color',
+        'secondary_color' => 'Sekundær color',
+        'accent_color' => 'Accent color',
         'styles' => 'Stilsett',
         'custom_stylesheet' => 'Eget stilsett'
     ],

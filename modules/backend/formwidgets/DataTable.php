@@ -147,14 +147,10 @@ class DataTable extends FormWidgetBase
     protected function makeTableWidget()
     {
         $config = $this->makeConfig((array) $this->config);
-        $config->dataSource = 'client';
 
-        // It's safe to use the field name as an alias
-        // as field names do not repeat in forms. This
-        // approach lets to access the table data by the
-        // field name in POST requests directly (required
-        // in some edge cases).
+        $config->dataSource = 'client';
         $config->alias = studly_case(HtmlHelper::nameToId($this->fieldName)) . 'datatable';
+        $config->fieldName = $this->fieldName;
 
         $table = new Table($this->controller, $config);
 

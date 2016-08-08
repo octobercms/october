@@ -10,8 +10,50 @@
 @color-richeditor-toolbar-btn-bg-active:     #404040;
 @color-richeditor-toolbar-btn-color-hover:   #ffffff;
 
-@import "_figures.less";
-@import "../vendor/redactor/redactor.less";
+@import "../vendor/froala_drm/less/froala.less";
+
+// Buttons
+@import "../vendor/froala_drm/less/plugins/fullscreen.less";
+@import "../vendor/froala_drm/less/plugins/code_view.less";
+@import "../vendor/froala_drm/less/plugins/file.less";
+@import "../vendor/froala_drm/less/plugins/image.less";
+@import "../vendor/froala_drm/less/plugins/table.less";
+@import "../vendor/froala_drm/less/plugins/video.less";
+@import "../vendor/froala_drm/less/plugins/colors.less";
+@import "../vendor/froala_drm/less/plugins/emoticons.less";
+
+// Functional
+@import "../vendor/froala_drm/less/plugins/line_breaker.less";
+@import "../vendor/froala_drm/less/plugins/draggable.less";
+
+// Base styles
+@import "_base_styles.less";
+
+.fr-view {
+    @import "../../../../models/editorsetting/default_styles.less";
+}
+
+// Modifications
+@import "_froala.less";
+
+@font-family: @font-family-sans-serif;
+@border-radius: @input-border-radius;
+@tooltip-bg: #34495e; // Taken from toolbar.variables.less
+@tooltip-font-size: @font-size-small;
+@arrow-size: 7px;
+@ui-bg: #f9f9f9;
+@ui-border-color: @input-border-color;
+@ui-border-top: 1px solid @ui-border-color;
+@editor-padding: 20px;
+@btn-hover-bg: #ddd;
+@btn-text: fade(@btn-secondary-color, 80%);
+@btn-font-size: 14;
+@btn-active-text: #000;
+@input-label-color: @color-label;
+
+//
+// Rich Editor
+//
 
 .field-flush .field-richeditor {
     &, &.editor-focus {
@@ -19,107 +61,40 @@
     }
 }
 
+.richeditor-set-height(@size) {
+    .fr-wrapper {
+        height: @size;
+        .fr-view {
+            min-height: @size;
+        }
+    }
+
+    .height-indicator {
+        height: @size;
+        display: none;
+    }
+}
+
 .field-richeditor {
-    border: 1px solid @color-form-field-border;
+    border: 1px solid @input-border;
+    .box-shadow(@input-box-shadow);
+    .border-radius(@input-border-radius);
     .transition(@input-transition);
 
-    &, .redactor-box {
-        .border-radius(5px);
-    }
-    .redactor-toolbar {
-        .border-top-radius(5px);
+    // Prevents an ugly flash during the time the editor loads
+    > textarea {
+        display: none;
     }
 
     &.editor-focus {
         border-color: @color-form-field-border-focus;
     }
 
-    &.size-tiny .redactor-editor     { height: (@size-tiny - @richeditor-toolbar-size) !important; }
-    &.size-small .redactor-editor    { height: (@size-small - @richeditor-toolbar-size) !important; }
-    &.size-large .redactor-editor    { height: (@size-large - @richeditor-toolbar-size) !important; }
-    &.size-huge .redactor-editor     { height: (@size-huge - @richeditor-toolbar-size) !important; }
-    &.size-giant .redactor-editor    { height: (@size-giant - @richeditor-toolbar-size) !important; }
-}
-
-//
-// Override redactor defaults
-//
-
-.redactor-box {
-    margin-bottom: 0;
-    overflow: hidden;
-
-    & iframe {
-        border: none; // Oc
-    }
-}
-
-.redactor-box-fullscreen {
-    z-index: @richeditor-zindex + 115 !important;
-}
-
-.redactor-dropdown {
-    z-index: @richeditor-zindex + 125 !important;
-}
-#redactor-modal-overlay,
-#redactor-modal-box,
-#redactor-modal {
-    z-index: @richeditor-zindex + 120 !important;
-}
-
-.redactor-toolbar {
-    background: @color-richeditor-toolbar;
-    .box-shadow(none);
-    z-index: 410 !important;
-
-    li.redactor-btn-right {
-        float: right;
-        margin-right: 2px;
-    }
-
-    li a {
-        color: @color-richeditor-toolbar-btn-color;
-        font-size: 14px;
-        width: 20px;
-        line-height: 20px;
-
-        .user-select(none);
-
-        &:hover {
-            background-color: @color-richeditor-toolbar-btn-bg-hover;
-            color: @color-richeditor-toolbar-btn-color-hover;
-        }
-
-        &:active,
-        &.redactor-act {
-            background-color: @color-richeditor-toolbar-btn-bg-active;
-            color: @color-richeditor-toolbar-btn-color-hover;
-        }
-
-        &.fa-redactor-btn {
-            padding: 9px 10px;
-            line-height: 20px;
-        }
-
-        &.oc-redactor-button i:before {
-            font-size: 16px !important;
-        }
-
-        &.oc-autumn-button {
-            color: #c03f31;
-
-            &:hover {
-                color: white !important;
-            }
-        }
-    }
-}
-
-.redactor-editor {
-    border: none;
-    font-size: 13px;
-    color: @input-color;
-    padding: 15px;
+    &.size-tiny   { .richeditor-set-height(@size-tiny); }
+    &.size-small  { .richeditor-set-height(@size-small); }
+    &.size-large  { .richeditor-set-height(@size-large); }
+    &.size-huge   { .richeditor-set-height(@size-huge); }
+    &.size-giant  { .richeditor-set-height(@size-giant); }
 }
 
 //
@@ -127,7 +102,7 @@
 //
 
 .field-richeditor.stretch {
-    .redactor-box {
+    .fr-box:not(.fr-fullscreen) {
         display: block;
         position: relative;
         height: 100% !important;
@@ -135,51 +110,31 @@
         .border-radius(0) !important;
         overflow: hidden;
 
-        .redactor-toolbar {
+        .fr-toolbar {
             .border-radius(0) !important;
-
-            display: block;
-            border-bottom: none;
-            position: absolute;
-            width: 100%;
-            top: 0;
+            border-top-color: white;
         }
 
-        .redactor-editor, textarea {
+        .fr-wrapper {
             width: 100% !important;
             left: 0;
             top: 0;
             bottom: 0;
             position: absolute;
             height: auto !important;
-            padding: 20px;
+            .fr-view {
+                min-height: 0;
+            }
         }
 
-        .redactor-editor {
-            height: auto !important;
+        .fr-view, textarea {
+            height: 100%;
         }
 
-        textarea {
-            padding: 10px;
+        .fr-placeholder {
+            top: 20px;
+            left: 20px;
         }
-    }
-}
-
-//
-// Full screen
-//
-
-body .redactor-box-fullscreen {
-    background: @body-bg;
-    overflow-y: scroll !important;
-    width: 100% !important;
-    .redactor-editor {
-        background: #fff;
-        max-width: 960px;
-        padding: 50px 30px !important;
-        margin: @richeditor-gutter auto !important;
-        padding: @richeditor-gutter;
-        top: 0 !important;
     }
 }
 
@@ -187,9 +142,10 @@ body .redactor-box-fullscreen {
 // Placeholders and snippets
 //
 
-.redactor-editor {
+.control-richeditor {
     .richeditor-snippet() {
-        display: block;
+        display: inline-block;
+        width: 100%;
         margin: 0 0 15px 0;
         padding: 10px 10px 10px 36px;
         border: 2px dotted #bdc3c7;

@@ -64,8 +64,6 @@ return [
         'widget_title_error' => '需要元件標題',
         'status' => [
             'widget_title_default' => '系統狀態',
-            'online' => '在線',
-            'maintenance' => '維護中',
             'update_available' => '{0} 更新可用!|{1} 更新可用!|[2,Inf] 更新可用!'
         ]
     ],
@@ -275,10 +273,9 @@ return [
         'app_tagline' => '網站標語',
         'app_tagline_description' => '標語顯示在管理介面的登入介面',
         'colors' => '顏色',
-        'primary_light' => '主要 (Light)',
-        'primary_dark' => '主要 (Dark)',
-        'secondary_light' => '次要 (Light)',
-        'secondary_dark' => '次要 (Dark)',
+        'primary_color' => '主要 color',
+        'secondary_color' => '次要 color',
+        'accent_color' => 'Accent color',
         'styles' => '樣式',
         'custom_stylesheet' => '自訂樣式'
     ],

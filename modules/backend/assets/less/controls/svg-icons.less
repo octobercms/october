@@ -1,0 +1,33 @@
+.svg-icon-container {
+    img.svg-icon {
+        // SVG icons are invisible until SVG support is detected
+        // with JavaScript to reduce flickering on page load.
+        // This should be overridden in a specific control,
+        // inside html.svg {}
+        display: none;
+    }
+
+    &.svg-active-effects {
+        img.svg-icon {
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+            .opacity(0.6);
+        }
+
+        &:hover, &.active {
+            img.svg-icon {
+                -webkit-filter: none;
+                filter: none;
+                .opacity(1);
+            }
+        }
+    }
+}
+
+html.svg {
+    .svg-icon-container {
+        i.svg-replace {
+            display: none;
+        }
+    }
+}

@@ -4,6 +4,7 @@ use Str;
 use File;
 use Session;
 use October\Rain\Html\Helper as HtmlHelper;
+use October\Rain\Extension\Extendable;
 use stdClass;
 
 /**
@@ -12,7 +13,7 @@ use stdClass;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-abstract class WidgetBase
+abstract class WidgetBase extends Extendable
 {
     use \System\Traits\ViewMaker;
     use \System\Traits\AssetMaker;
@@ -26,7 +27,7 @@ abstract class WidgetBase
     public $config;
 
     /**
-     * @var Backend\Classes\Controller Backend controller object.
+     * @var \Backend\Classes\Controller Backend controller object.
      */
     protected $controller;
 
@@ -42,9 +43,8 @@ abstract class WidgetBase
 
     /**
      * Constructor
-     * @param Backend\Classes\Controller $controller
+     * @param \Backend\Classes\Controller $controller
      * @param array $configuration Proactive configuration definition.
-     * @return void
      */
     public function __construct($controller, $configuration = [])
     {
@@ -71,6 +71,8 @@ abstract class WidgetBase
          * Prepare assets used by this widget.
          */
         $this->loadAssets();
+
+        parent::__construct();
 
         /*
          * Initialize the widget.
@@ -112,7 +114,7 @@ abstract class WidgetBase
     public function bindToController()
     {
         if ($this->controller->widget === null) {
-            $this->controller->widget = new \stdClass();
+            $this->controller->widget = new stdClass();
         }
 
         $this->controller->widget->{$this->alias} = $this;
@@ -230,7 +232,7 @@ abstract class WidgetBase
         $currentStore = $this->getSession();
         $currentStore[$key] = $value;
 
-        Session::put($sessionId, serialize($currentStore));
+        Session::put($sessionId, base64_encode(serialize($currentStore)));
     }
 
     /**
@@ -242,10 +244,13 @@ abstract class WidgetBase
     protected function getSession($key = null, $default = null)
     {
         $sessionId = $this->makeSessionId();
-
         $currentStore = [];
-        if (Session::has($sessionId)) {
-            $currentStore = unserialize(Session::get($sessionId));
+
+        if (
+            Session::has($sessionId) &&
+            ($cached = @unserialize(@base64_decode(Session::get($sessionId)))) !== false
+        ) {
+            $currentStore = $cached;
         }
 
         if ($key === null) {

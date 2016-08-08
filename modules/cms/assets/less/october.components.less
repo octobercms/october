@@ -4,10 +4,10 @@
 // Component list
 // --------------------------------------------------
 
-@color-component-list-bg:       #2C3E50;
+@color-component-list-bg:       @brand-secondary;
 @color-component-bg:            #ffffff;
 @color-component-text:          #475354;
-@color-component-hover-bg:      #3382b6;
+@color-component-hover-bg:      #3498db;
 @color-component-hover-text:    #ffffff;
 @color-component-placeholder:   #e0e0e0;
 @color-group-bg:                #f1f3f4;
@@ -47,16 +47,19 @@ div.control-componentlist div.components div.layout-cell {
         position: relative;
         border-right: 1px solid @color-panel-light;
 
-        &:hover {
-            color: @color-component-hover-text;
-        }
-
         &:before {
             position: absolute;
             font-size: 16px;
             left: 15px;
-            top: 9px;
+            top: 7px;
             .opacity(0.7);
+        }
+
+        &:hover {
+            color: @color-component-hover-text;
+            &:before {
+                .opacity(1);
+            }
         }
 
         &:after {
@@ -76,14 +79,14 @@ div.control-componentlist div.components div.layout-cell {
                 padding: 8px 15px 0;
                 font-weight: 400;
                 line-height: 20px;
-                font-size: 12px;
+                font-size: @font-size-base - 1;
             }
 
             &.description {
                 padding: 0 15px 10px;
                 margin-top: 8px;
                 font-weight: 100;
-                font-size: 11px;
+                font-size: @font-size-base - 3;
                 line-height: 150%;
             }
         }
@@ -99,9 +102,14 @@ div.control-componentlist div.components div.layout-cell {
     }
 }
 
+// Reduce the double standard padding, since the tabs have padding
+// at the top and the components field has padding at the bottom.
+[data-field-name="components"] + .control-tabs.primary-tabs {
+    margin-top: -(@padding-standard / 2);
+}
+
 div.control-componentlist {
     position: relative;
-    background-color: @color-component-list-bg;
     padding: 0;
     .transition(all 0.3s ease);
 
@@ -110,7 +118,7 @@ div.control-componentlist {
     }
 
     &.has-components {
-        padding: 10px;
+        padding: 0 @padding-standard @padding-standard;
     }
 
     div.layout {
@@ -153,6 +161,18 @@ div.control-componentlist {
                 bottom: 5px;
             }
 
+            &:first-child {
+                > div.popover-highlight {
+                    .border-left-radius(3px);
+                }
+            }
+
+            &:last-child {
+                > div.popover-highlight {
+                    .border-right-radius(3px);
+                }
+            }
+
             > div {
                 .translate(0, 0);
                 .transition-transform(0.2s);
@@ -164,6 +184,9 @@ div.control-componentlist {
                     border-right-color: rgba(0,0,0,0);
                     background: @color-component-bg!important;
                     color: @color-component-text!important;
+                    &:before {
+                        .opacity(0.7);
+                    }
 
                     &:after {
                         color: @color-component-bg;
@@ -206,12 +229,13 @@ div.control-componentlist {
                     display: inline-block;
                     top: 1px;
                     right: 5px;
-                    color: @color-component-text;
-                    font-size: 14px;
-                    .opacity(0.3);
+                    color: @close-color;
+                    font-size: 17px;
+                    font-weight: @close-font-weight;
+                    .opacity(.3);
 
                     &:hover {
-                        .opacity(1);
+                        .opacity(.5);
                         text-decoration: none;
                     }
                 }
@@ -294,13 +318,13 @@ div.control-componentlist {
         div.group {
             background: @color-group-bg;
             border-top: 1px solid darken(@color-panel-light, 2%);
-            padding: 10px;
+            padding: 10px 15px 10px 10px;
             position: relative;
             cursor: pointer;
 
             h4 {
                 text-transform: uppercase;
-                font-size: 12px;
+                font-size: 14px;
                 margin-top: 3px;
 
                 a {
@@ -318,14 +342,15 @@ div.control-componentlist {
 
             span.description {
                 display: block;
-                font-size: 12px;
+                font-size: 13px;
                 padding-left: 33px;
+                color: @color-text-description;
             }
 
             i {
                 position: absolute;
                 left: 22px;
-                top: 20px;
+                top: 21px;
                 font-size: 16px;
                 .opacity(0.7);
                 color: @color-text-title;
@@ -352,17 +377,19 @@ div.control-componentlist {
     }
 }
 
-.fancy-layout {
-    .control-tabs, &.control-tabs {
-        &.primary-tabs {
-            > div > ul.nav-tabs {
-                &.component-area {
-                    background: @color-component-list-bg;
-                }
-            }
-        }
-    }
-}
+// Modifies the color of the tab background when components are present
+// this is no longer required since the colors are the same! :-) -sg
+// .fancy-layout {
+//     .control-tabs, &.control-tabs {
+//         &.primary-tabs {
+//             > div > ul.nav-tabs {
+//                 &.component-area {
+//                     background: @color-component-list-bg;
+//                 }
+//             }
+//         }
+//     }
+// }
 
 body.drag div.control-componentlist div.components div.layout-cell {
     > div, > div:hover, > div:active {

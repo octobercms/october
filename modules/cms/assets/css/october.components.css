@@ -12,7 +12,7 @@ div.control-componentlist div.components div.layout-cell {
 .draggable-component-item:hover,
 .component-list .components div.layout-cell:hover,
 div.control-componentlist div.components div.layout-cell:hover {
-  background: #3382b6;
+  background: #3498db;
 }
 .draggable-component-item > div,
 .component-list .components div.layout-cell > div,
@@ -22,20 +22,26 @@ div.control-componentlist div.components div.layout-cell > div {
   position: relative;
   border-right: 1px solid #ecf0f1;
 }
-.draggable-component-item > div:hover,
-.component-list .components div.layout-cell > div:hover,
-div.control-componentlist div.components div.layout-cell > div:hover {
-  color: #ffffff;
-}
 .draggable-component-item > div:before,
 .component-list .components div.layout-cell > div:before,
 div.control-componentlist div.components div.layout-cell > div:before {
   position: absolute;
   font-size: 16px;
   left: 15px;
-  top: 9px;
+  top: 7px;
   opacity: 0.7;
   filter: alpha(opacity=70);
+}
+.draggable-component-item > div:hover,
+.component-list .components div.layout-cell > div:hover,
+div.control-componentlist div.components div.layout-cell > div:hover {
+  color: #ffffff;
+}
+.draggable-component-item > div:hover:before,
+.component-list .components div.layout-cell > div:hover:before,
+div.control-componentlist div.components div.layout-cell > div:hover:before {
+  opacity: 1;
+  filter: alpha(opacity=100);
 }
 .draggable-component-item > div:after,
 .component-list .components div.layout-cell > div:after,
@@ -62,7 +68,7 @@ div.control-componentlist div.components div.layout-cell > div:after {
 .component-list .components div.layout-cell > div:hover:after,
 div.control-componentlist div.components div.layout-cell > div:hover:after {
   text-shadow: none;
-  color: #3382b6;
+  color: #3498db;
 }
 .draggable-component-item > div span,
 .component-list .components div.layout-cell > div span,
@@ -76,7 +82,7 @@ div.control-componentlist div.components div.layout-cell > div span.name {
   padding: 8px 15px 0;
   font-weight: 400;
   line-height: 20px;
-  font-size: 12px;
+  font-size: 13px;
 }
 .draggable-component-item > div span.description,
 .component-list .components div.layout-cell > div span.description,
@@ -102,18 +108,20 @@ div.control-componentlist div.components div.layout-cell.placeholder > div:after
   color: #e0e0e0 !important;
   text-shadow: none !important;
 }
+[data-field-name="components"] + .control-tabs.primary-tabs {
+  margin-top: -10px;
+}
 div.control-componentlist {
   position: relative;
-  background-color: #2c3e50;
   padding: 0;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 div.control-componentlist.droppable {
-  background-color: #507192;
+  background-color: #f0b37e;
 }
 div.control-componentlist.has-components {
-  padding: 10px;
+  padding: 0 20px 20px;
 }
 div.control-componentlist div.layout {
   width: auto;
@@ -146,6 +154,14 @@ div.control-componentlist div.components div.layout-cell:nth-child(2n) > div:aft
   top: auto;
   bottom: 5px;
 }
+div.control-componentlist div.components div.layout-cell:first-child > div.popover-highlight {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+div.control-componentlist div.components div.layout-cell:last-child > div.popover-highlight {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
 div.control-componentlist div.components div.layout-cell > div {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
@@ -161,6 +177,10 @@ div.control-componentlist div.components div.layout-cell > div.popover-highlight
   border-right-color: rgba(0, 0, 0, 0);
   background: #ffffff !important;
   color: #475354 !important;
+}
+div.control-componentlist div.components div.layout-cell > div.popover-highlight:before {
+  opacity: 0.7;
+  filter: alpha(opacity=70);
 }
 div.control-componentlist div.components div.layout-cell > div.popover-highlight:after {
   color: #ffffff;
@@ -195,14 +215,15 @@ div.control-componentlist div.components div.layout-cell > div a.remove {
   display: inline-block;
   top: 1px;
   right: 5px;
-  color: #475354;
-  font-size: 14px;
+  color: #000000;
+  font-size: 17px;
+  font-weight: bold;
   opacity: 0.3;
   filter: alpha(opacity=30);
 }
 div.control-componentlist div.components div.layout-cell > div a.remove:hover {
-  opacity: 1;
-  filter: alpha(opacity=100);
+  opacity: 0.5;
+  filter: alpha(opacity=50);
   text-decoration: none;
 }
 div.control-componentlist div.components div.layout-cell > div:hover a.remove {
@@ -267,7 +288,7 @@ div.control-componentlist div.components div.layout-cell.adding > div {
 }
 .component-list .components div.layout div.layout-row div.layout-cell > div:hover:before {
   text-shadow: none;
-  color: #3382b6;
+  color: #3498db;
 }
 .component-list .components div.layout div.layout-row:first-child div.layout-cell > div:before {
   display: none;
@@ -282,13 +303,13 @@ div.control-componentlist div.components div.layout-cell.adding > div {
 .control-filelist.component-list ul li div.group {
   background: #f1f3f4;
   border-top: 1px solid #e6ebed;
-  padding: 10px;
+  padding: 10px 15px 10px 10px;
   position: relative;
   cursor: pointer;
 }
 .control-filelist.component-list ul li div.group h4 {
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 3px;
 }
 .control-filelist.component-list ul li div.group h4 a {
@@ -302,13 +323,14 @@ div.control-componentlist div.components div.layout-cell.adding > div {
 }
 .control-filelist.component-list ul li div.group span.description {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   padding-left: 33px;
+  color: #8f8f8f;
 }
 .control-filelist.component-list ul li div.group i {
   position: absolute;
   left: 22px;
-  top: 20px;
+  top: 21px;
   font-size: 16px;
   opacity: 0.7;
   filter: alpha(opacity=70);
@@ -325,10 +347,6 @@ div.control-componentlist div.components div.layout-cell.adding > div {
 .touch div.control-componentlist div.components div.layout-cell > div:active:focus:after {
   text-shadow: 0 0 1px #475354 !important;
   color: #ffffff !important;
-}
-.fancy-layout .control-tabs.primary-tabs > div > ul.nav-tabs.component-area,
-.fancy-layout.control-tabs.primary-tabs > div > ul.nav-tabs.component-area {
-  background: #2c3e50;
 }
 body.drag div.control-componentlist div.components div.layout-cell > div,
 body.drag div.control-componentlist div.components div.layout-cell > div:hover,

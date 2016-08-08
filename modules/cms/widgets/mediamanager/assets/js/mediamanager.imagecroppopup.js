@@ -202,7 +202,7 @@
             mode = this.getSelectionMode()
 
         switch (mode) {
-            case 'fixed-ratio' : 
+            case 'fixed-ratio' :
                 this.jCrop.setOptions({
                     aspectRatio: width/height,
                     minSize: [0, 0],
@@ -210,7 +210,7 @@
                     allowResize: true
                 })
             break
-            case 'fixed-size' : 
+            case 'fixed-size' :
                 this.jCrop.setOptions({
                     aspectRatio: 0,
                     minSize: [width, height],
@@ -218,7 +218,7 @@
                     allowResize: false
                 })
             break
-            case 'normal' : 
+            case 'normal' :
                 this.jCrop.setOptions({
                     aspectRatio: 0,
                     minSize: [0, 0],
@@ -314,7 +314,7 @@
         var data = {
                 cropSessionKey: this.$popupElement.find('input[name=cropSessionKey]').val(),
                 path: this.$popupElement.find('input[name=path]').val()
-            } 
+            }
 
         $.oc.stripeLoadIndicator.show()
         $(ev.target).request(this.options.alias+'::onResizeImage', {
@@ -338,7 +338,7 @@
 
         this.$popupElement.find('span[data-label=width]').text(width)
         this.$popupElement.find('span[data-label=height]').text(hegiht)
-        
+
         this.$popupElement.find('input[data-control=dimension-width]').val(width)
         this.$popupElement.find('input[data-control=dimension-height]').val(hegiht)
 
@@ -370,8 +370,8 @@
         }
 
         this.selectionSizeLabel.setAttribute('class', '')
-        this.selectionSizeLabel.querySelector('[data-label=selection-width]').textContent = width
-        this.selectionSizeLabel.querySelector('[data-label=selection-height]').textContent = height
+        this.selectionSizeLabel.querySelector('[data-label=selection-width]').textContent = parseInt(width)
+        this.selectionSizeLabel.querySelector('[data-label=selection-height]').textContent = parseInt(height)
     }
 
     // EVENT HANDLERS
@@ -403,6 +403,7 @@
 
         this.initRulers()
         this.initJCrop()
+        this.applySelectionMode()
     }
 
     MediaManagerImageCropPopup.prototype.onSelectionModeChanged = function() {

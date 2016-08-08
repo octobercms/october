@@ -1,6 +1,6 @@
 <?php
-/* Greek Language Updated on 2015-07-06 v1.02 */
-return array(
+/* Greek Language Updated on 2015-07-06 v1.01 */
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -21,12 +21,12 @@ return array(
     "alpha_num"        => "Το :attribute πρέπει να περιέχει μόνο γράμματα και νούμερα.",
     "array"            => "Το :attribute πρέπει να είναι ένας πίνακας.",
     "before"           => "Η :attribute πρέπει να είναι μια ημερομηνία πριν την :date.",
-    "between"          => array(
+    "between"          => [
         "numeric" => "Το :attribute πρέπει να είναι μεταξύ :min - :max.",
         "file"    => "Το :attribute πρέπει να είναι μεταξύ :min - :max kilobytes.",
         "string"  => "Το :attribute πρέπει να είναι μεταξύ :min - :max χαρακτήρες.",
         "array"   => "Ο :attribute πρέπει να εχει μεταξύ :min - :max αντικείμενα.",
-    ),
+    ],
     "confirmed"        => "Η επαλήθευση του :attribute δεν ταυτίζεται.",
     "date"             => "Η :attribute δεν είναι μια έγκυρη ημερομηνία.",
     "date_format"      => "Η :attribute δεν ταυτίζεται με την μορφοποίηση :format",
@@ -39,20 +39,20 @@ return array(
     "in"               => "Η επιλεγμένη :attribute είναι μη έγκυρη.",
     "integer"          => "Ο :attribute πρέπει να είναι ένας ακέραιος αριθμός.",
     "ip"               => "Η :attribute πρέπει να είναι μια έγκυρη IP διεύθυνση.",
-    "max"              => array(
+    "max"              => [
         "numeric" => "Το :attribute δεν πρέπει να είναι μεγαλύτερο από :max.",
         "file"    => "Το :attribute δεν πρέπει να είναι μεγαλύτερο από :max kilobytes.",
         "string"  => "Το :attribute δεν πρέπει να είναι μεγαλύτερο από :max χαρακτήρες.",
         "array"   => "Το :attribute δεν πρέπει να είναι έχει περισσότερα από :max αντικείμενα.",
-    ),
+    ],
     "mimes"            => "Το :attribute πρέπει να είναι ένα αρχείο με τύπο: :values.",
     "extensions"       => "Το :attribute πρέπει να έχει μια επέκταση από: :values.",
-    "min"              => array(
+    "min"              => [
         "numeric" => "Το :attribute πρέπει να είναι το λιγότερο :min.",
         "file"    => "Το :attribute πρέπει να είναι το λιγότερο :min kilobytes.",
         "string"  => "Το :attribute πρέπει να είναι το λιγότερο :min χαρακτήρες.",
         "array"   => "Το :attribute πρέπει να έχει το λιγότερο :min αντικείμενα.",
-    ),
+    ],
     "not_in"           => "Το επιλεγμένο :attribute είναι μη έγκυρο.",
     "numeric"          => "Το :attribute πρέπει να είναι ένας αριθμός.",
     "regex"            => "Η μορφοποίηση του :attribute είναι μη έγκυρη.",
@@ -61,12 +61,12 @@ return array(
     "required_with"    => "Το πεδίο :attribute απαιτείται όταν οι :values είναι δηλωμένες.",
     "required_without" => "Το πεδίο :attribute απαιτείται όταν οι :values δεν είναι δηλωμένες. ",
     "same"             => "Το :attribute και το :other δεν ταυτίζονται.",
-    "size"             => array(
+    "size"             => [
         "numeric" => "Το :attribute πρέπει να είναι :size.",
         "file"    => "Το :attribute πρέπει να είναι :size kilobytes.",
         "string"  => "Το :attribute πρέπει να είναι :size χαρακτήρες.",
         "array"   => "Το :attribute πρέπει να είναι :size αντικείμενα.",
-    ),
+    ],
     "unique"           => "Η :attribute έχει ήδη χρησιμοποιηθεί.",
     "url"              => "Η :attribute είναι μη έγκυρη.",
     
@@ -81,7 +81,7 @@ return array(
     |
     */
 
-    'custom' => array(),
+    'custom' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -94,6 +94,6 @@ return array(
     |
     */
 
-    'attributes' => array(),
+    'attributes' => [],
 
-);
+];

@@ -2,10 +2,12 @@
 
 use File;
 use Lang;
+use Flash;
 use Request;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
-use Backend\Models\UserPreferences;
+use Backend\Models\UserPreference;
+use System\Models\Parameter as SystemParameters;
 use ApplicationException;
 
 /**
@@ -91,8 +93,8 @@ class ReportContainer extends WidgetBase
 
         parent::__construct($controller, $configuration);
 
-        $this->bindToController();
         $this->fillFromConfig();
+        $this->bindToController();
     }
 
     /**
@@ -130,14 +132,35 @@ class ReportContainer extends WidgetBase
     // Event handlers
     //
 
+    public function onResetWidgets()
+    {
+        $this->resetWidgets();
+
+        $this->vars['widgets'] = $this->reportWidgets;
+
+        Flash::success(Lang::get('backend::lang.dashboard.reset_layout_success'));
+
+        return ['#'.$this->getId('container-list') => $this->makePartial('widget_list')];
+    }
+
+    public function onMakeLayoutDefault()
+    {
+        $widgets = $this->getWidgetsFromUserPreferences();
+
+        SystemParameters::set($this->getSystemParametersKey(), $widgets);
+
+        Flash::success(Lang::get('backend::lang.dashboard.make_default_success'));
+    }
+
     public function onUpdateWidget()
     {
         $alias = Request::input('alias');
 
         $widget = $this->findWidgetByAlias($alias);
-        $this->saveWidgetProperties($alias, $widget->setProperties(
-            json_decode(Request::input('fields'), true)
-        ));
+
+        $widget->setProperties(json_decode(Request::input('fields'), true));
+
+        $this->saveWidgetProperties($alias, $widget->getProperties());
 
         return [
             '#'.$alias => $widget->render()
@@ -195,6 +218,10 @@ class ReportContainer extends WidgetBase
 
     public function addWidget($widget, $size)
     {
+        if (!$this->canAddAndDelete) {
+            throw new ApplicationException('Access denied.');
+        }
+
         $widgets = $this->getWidgetsFromUserPreferences();
 
         $num =  count($widgets);
@@ -258,7 +285,7 @@ class ReportContainer extends WidgetBase
     }
 
     //
-    // Methods for the internal use
+    // Methods for internal use
     //
 
     /**
@@ -314,35 +341,21 @@ class ReportContainer extends WidgetBase
         return ['widget' => $widget, 'sortOrder' => $widgetInfo['sortOrder']];
     }
 
-    protected function getWidgetsFromUserPreferences()
+    protected function resetWidgets()
     {
-        $widgets = UserPreferences::forUser()
-            ->get($this->getUserPreferencesKey(), $this->defaultWidgets);
+        $this->resetWidgetsUserPreferences();
 
-        if (!is_array($widgets)) {
-            return [];
-        }
-        return $widgets;
-    }
+        $this->reportsDefined = false;
 
-    protected function setWidgetsToUserPreferences($widgets)
-    {
-        UserPreferences::forUser()->set($this->getUserPreferencesKey(), $widgets);
-    }
-
-    protected function saveWidgetProperties($alias, $properties)
-    {
-        $widgets = $this->getWidgetsFromUserPreferences();
-
-        if (isset($widgets[$alias])) {
-            $widgets[$alias]['configuration'] = $properties;
-
-            $this->setWidgetsToUserPreferences($widgets);
-        }
+        $this->defineReportWidgets();
     }
 
     protected function removeWidget($alias)
     {
+        if (!$this->canAddAndDelete) {
+            throw new ApplicationException('Access denied.');
+        }
+
         $widgets = $this->getWidgetsFromUserPreferences();
 
         if (isset($widgets[$alias])) {
@@ -435,8 +448,52 @@ class ReportContainer extends WidgetBase
         return json_encode($result);
     }
 
+    //
+    // User and system value storage
+    //
+
+    protected function getWidgetsFromUserPreferences()
+    {
+        $defaultWidgets = SystemParameters::get($this->getSystemParametersKey(), $this->defaultWidgets);
+
+        $widgets = UserPreference::forUser()
+            ->get($this->getUserPreferencesKey(), $defaultWidgets);
+
+        if (!is_array($widgets)) {
+            return [];
+        }
+
+        return $widgets;
+    }
+
+    protected function setWidgetsToUserPreferences($widgets)
+    {
+        UserPreference::forUser()->set($this->getUserPreferencesKey(), $widgets);
+    }
+
+    protected function resetWidgetsUserPreferences()
+    {
+        UserPreference::forUser()->reset($this->getUserPreferencesKey());
+    }
+
+    protected function saveWidgetProperties($alias, $properties)
+    {
+        $widgets = $this->getWidgetsFromUserPreferences();
+
+        if (isset($widgets[$alias])) {
+            $widgets[$alias]['configuration'] = $properties;
+
+            $this->setWidgetsToUserPreferences($widgets);
+        }
+    }
+
     protected function getUserPreferencesKey()
     {
         return 'backend::reportwidgets.'.$this->context;
+    }
+
+    protected function getSystemParametersKey()
+    {
+        return 'backend::reportwidgets.default.'.$this->context;
     }
 }

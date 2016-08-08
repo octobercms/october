@@ -48,8 +48,11 @@
 //
 
 .control-simplelist {
-
     font-size: 13px;
+    padding: 20px 20px 2px 20px;
+    margin-bottom: @padding-standard;
+    background: @color-form-checkboxlist-background;
+    .border-radius(@border-radius-base);
 
     ul { padding-left: 15px; }
 
@@ -71,7 +74,25 @@
         }
     }
 
-    &.with-checkboxes {}
+    &.with-checkboxes {
+        li {
+            margin-top: -5px;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                div.custom-checkbox {
+                    margin-bottom: 0;
+
+                    label {
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+    }
 
     &.is-sortable {
 

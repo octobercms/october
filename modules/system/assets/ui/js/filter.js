@@ -82,12 +82,20 @@
         var self = this
 
         this.$el.on('change', '.filter-scope input[type="checkbox"]', function(){
-            var isChecked = $(this).is(':checked'),
-                $scope = $(this).closest('.filter-scope'),
-                scopeName = $scope.data('scope-name')
+            var $scope = $(this).closest('.filter-scope')
 
-            self.scopeValues[scopeName] = isChecked
-            self.checkboxToggle(scopeName, isChecked)
+            if ($scope.hasClass('is-indeterminate')) {
+                self.switchToggle($(this))
+            }
+            else {
+                self.checkboxToggle($(this))
+            }
+        })
+
+        $('.filter-scope input[type="checkbox"]', this.$el).each(function() {
+            $(this)
+                .closest('.filter-scope')
+                .toggleClass('active', $(this).is(':checked'))
         })
 
         this.$el.on('click', 'a.filter-scope', function(){
@@ -150,7 +158,7 @@
             $scope.addClass('active')
         }
         else {
-            $setting.text('all')
+            $setting.text(this.getLang('filter.group.all', 'all'))
             $scope.removeClass('active')
         }
     }
@@ -294,15 +302,13 @@
          * Ensure any active items do not appear in the search results
          */
         if (items.active.length) {
-            var compareFunc = function(a, b) { return a.id == b.id },
-                inArrayFunc = function(elem, array, testFunc) {
-                    var i = array.length
-                    do { if (i-- === 0) return i } while (testFunc(array[i], elem))
-                    return i
-                }
+            var activeIds = []
+            $.each(items.active, function (key, obj) {
+                activeIds.push(obj.id)
+            })
 
             filtered = $.grep(available, function(item) {
-                return !inArrayFunc(item, items.active, compareFunc)
+                return $.inArray(item.id, activeIds) === -1
             })
         }
         else {
@@ -343,22 +349,62 @@
         })
     }
 
-    FilterWidget.prototype.checkboxToggle = function(scopeName, isChecked) {
-        if (!this.options.updateHandler)
-            return
+    FilterWidget.prototype.checkboxToggle = function($el) {
+        var isChecked = $el.is(':checked'),
+            $scope = $el.closest('.filter-scope'),
+            scopeName = $scope.data('scope-name')
 
-        var $form = this.$el.closest('form'),
-            data = {
-                scopeName: scopeName,
-                value: isChecked
-            }
+        this.scopeValues[scopeName] = isChecked
 
-        $.oc.stripeLoadIndicator.show()
-        $form.request(this.options.updateHandler, {
-            data: data
-        }).always(function(){
-            $.oc.stripeLoadIndicator.hide()
-        })
+        if (this.options.updateHandler) {
+            var $form = this.$el.closest('form'),
+                data = {
+                    scopeName: scopeName,
+                    value: isChecked
+                }
+
+            $.oc.stripeLoadIndicator.show()
+            $form.request(this.options.updateHandler, {
+                data: data
+            }).always(function(){
+                $.oc.stripeLoadIndicator.hide()
+            })
+        }
+
+        $scope.toggleClass('active', isChecked)
+    }
+
+    FilterWidget.prototype.switchToggle = function($el) {
+        var switchValue = $el.data('checked'),
+            $scope = $el.closest('.filter-scope'),
+            scopeName = $scope.data('scope-name')
+
+        this.scopeValues[scopeName] = switchValue
+
+        if (this.options.updateHandler) {
+            var $form = this.$el.closest('form'),
+                data = {
+                    scopeName: scopeName,
+                    value: switchValue
+                }
+
+            $.oc.stripeLoadIndicator.show()
+            $form.request(this.options.updateHandler, {
+                data: data
+            }).always(function(){
+                $.oc.stripeLoadIndicator.hide()
+            })
+        }
+
+        $scope.toggleClass('active', !!switchValue)
+    }
+
+    FilterWidget.prototype.getLang = function(name, defaultValue) {
+        if ($.oc === undefined || $.oc.lang === undefined) {
+            return defaultValue
+        }
+
+        return $.oc.lang.get(name, defaultValue)
     }
 
 

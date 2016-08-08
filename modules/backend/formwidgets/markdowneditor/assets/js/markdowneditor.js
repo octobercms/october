@@ -91,7 +91,8 @@
     //
 
     MarkdownEditor.prototype.onClickToolbarButton = function(ev) {
-        var $button = $(ev.target),
+        var $target = $(ev.target),
+            $button = $target.is('a') ? $target : $target.closest('.btn'),
             action = $button.data('button-action'),
             template = $button.data('button-template')
 
@@ -141,8 +142,12 @@
     }
 
     MarkdownEditor.prototype.onEditorChange = function() {
+        var html = this.editor.getSession().getValue()
+
         this.$form.trigger('change')
-        this.$textarea.trigger('oc.markdownEditorChange')
+
+        this.$textarea.trigger('changeContent.oc.markdowneditor', [this, html])
+
         this.handleChange()
     }
 
@@ -251,7 +256,7 @@
             $button.addClass(button.cssClass)
         }
         else {
-            $button.addClass('tb-icon tb-' + button.icon)
+            $button.append('<i class="icon-' + button.icon + '"></i>')
         }
 
         return $button
@@ -276,7 +281,7 @@
                 this.$fixedButtons.append($button)
             }
             else {
-                this.$buttons.append($button)
+                $('[data-control="toolbar"]', this.$buttons).append($button)
             }
         }
 
@@ -376,6 +381,14 @@
         return this.editor
     }
 
+    MarkdownEditor.prototype.getContent = function() {
+        return this.editor.getSession().getValue()
+    }
+
+    MarkdownEditor.prototype.setContent = function(html) {
+        this.editor.getSession().setValue(html)
+    }
+
     //
     // Preview
     //
@@ -402,7 +415,7 @@
         $('pre', this.$preview).addClass('prettyprint')
         prettyPrint()
 
-        this.$el.trigger('oc.markdownEditorInitPreview')
+        this.$el.trigger('initPreview.oc.markdowneditor')
     }
 
     MarkdownEditor.prototype.pauseUpdates = function() {
@@ -705,7 +718,7 @@
 
         formatting: {
             label: 'markdowneditor.formatting',
-            icon: 'formatting',
+            icon: 'paragraph',
             dropdown: {
                 quote: {
                     label: 'markdowneditor.quote',
@@ -771,13 +784,13 @@
         },
         unorderedlist: {
             label: 'markdowneditor.unorderedlist',
-            icon: 'unorderedlist',
+            icon: 'list-ul',
             action: 'formatBlockMulti',
             template: '* $1'
         },
         orderedlist: {
             label: 'markdowneditor.orderedlist',
-            icon: 'orderedlist',
+            icon: 'list-ol',
             action: 'formatBlockMulti',
             template: '1. $1'
         },
@@ -795,7 +808,7 @@
         },
         horizontalrule: {
             label: 'markdowneditor.horizontalrule',
-            icon: 'horizontalrule',
+            icon: 'minus',
             action: 'insertLine',
             template: '\n\n---\n'
         },
@@ -813,13 +826,13 @@
         },
         fullscreen: {
             label: 'markdowneditor.fullscreen',
-            icon: 'fullscreen',
+            icon: 'expand',
             action: 'toggleFullscreen',
             fixed: true
         },
         preview: {
             label: 'markdowneditor.preview',
-            cssClass: 'oc-button oc-icon-eye',
+            icon: 'eye',
             action: 'togglePreview',
             fixed: true
         }

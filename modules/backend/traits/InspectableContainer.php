@@ -1,7 +1,6 @@
 <?php namespace Backend\Traits;
 
 use Request;
-use SystemException;
 use ApplicationException;
 
 /**
@@ -16,6 +15,9 @@ trait InspectableContainer
 {
     public function onInspectableGetOptions()
     {
+        // Disable asset broadcasting
+        $this->flushAssets();
+
         $property = trim(Request::input('inspectorProperty'));
         if (!$property) {
             throw new ApplicationException('The property name is not specified.');

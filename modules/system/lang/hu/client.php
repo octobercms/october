@@ -49,6 +49,44 @@ return [
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Mégsem'
-    ]
+    ],
 
+    'datepicker' => [
+        'previousMonth' => 'Előző hónap',
+        'nextMonth' => 'Következő hónap',
+        'months' => ['január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december'],
+        'weekdays' => ['vasárnap', 'hétfő', 'kedd', 'szerda', 'csütörtök', 'péntek', 'szombat'],
+        'weekdaysShort' => ['va', 'hé', 'ke', 'sze', 'cs', 'pé', 'szo']
+    ],
+
+    'filter' => [
+        'group' => [
+            'all' => 'összes'
+        ],
+        'dates' => [
+            'all' => 'összes',
+            'filter_button_text' => 'Szűrés',
+            'reset_button_text'  => 'Alaphelyzet',
+            'date_placeholder' => 'Dátum',
+            'after_placeholder' => 'Utána',
+            'before_placeholder' => 'Előtte'
+        ]
+    ],
+
+    'eventlog' => [
+        'show_stacktrace' => 'Mutatás',
+        'hide_stacktrace' => 'Rejtés',
+        'tabs' => [
+            'formatted' => 'Formázott',
+            'raw' => 'Tömörített',
+        ],
+        'editor' => [
+            'title' => 'Válassza ki melyik szerkesztőt szeretné használni',
+            'description' => 'Your environnement must be configured to listen to one of these URL schemes.',
+            'openWith' => 'Megnyitás mint',
+            'remember_choice' => 'Megnyitás és munkamenet megjegyzése',
+            'open' => 'Megnyitás',
+            'cancel' => 'Mégsem'
+        ]
+    ]
 ];

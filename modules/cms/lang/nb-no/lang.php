@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Templates som ble slettet: :count.',
         'file_name_required' => 'Filnavnfeltet er obligatorisk.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'online',
+            'maintenance' => 'in maintenance',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "Tema ':name' ble ikke funnet.",
         'active' => [

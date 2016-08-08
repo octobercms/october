@@ -3,7 +3,9 @@
 use Str;
 use App;
 use File;
+use View;
 use Config;
+use Response;
 use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
 use Closure;
@@ -61,6 +63,15 @@ class BackendController extends ControllerBase
     public function run($url = null)
     {
         $params = RouterHelper::segmentizeUrl($url);
+
+        /*
+         * Database check
+         */
+        if (!App::hasDatabase()) {
+            return Config::get('app.debug', false)
+                ? Response::make(View::make('backend::no_database'), 200)
+                : App::make('Cms\Classes\Controller')->run($url);
+        }
 
         /*
          * Look for a Module controller
