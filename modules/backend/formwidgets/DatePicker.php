@@ -35,6 +35,12 @@ class DatePicker extends FormWidgetBase
      */
     public $maxDate = null;
 
+    /**
+     * @var string default value for datepicker in strtotime compatible format
+     * eg: tomorrow + 3 hours 15 minutes
+     */
+    public $default = null;
+
     //
     // Object properties
     //
@@ -54,6 +60,7 @@ class DatePicker extends FormWidgetBase
             'mode',
             'minDate',
             'maxDate',
+            'default'
         ]);
 
         $this->mode = strtolower($this->mode);
@@ -89,7 +96,11 @@ class DatePicker extends FormWidgetBase
 
 
         if ($value = $this->getLoadValue()) {
-            $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
+            if ($value instanceof Carbon) {
+                $value = $value->toDateTimeString();
+            } elseif ($value == $this->default) {
+                $value = Carbon::createFromTimestamp(strtotime($this->default));
+            }
 
             /*
              * Time
