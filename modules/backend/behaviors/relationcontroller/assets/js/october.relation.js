@@ -9,7 +9,7 @@
             $(el).closest('.control-list').listWidget('toggleChecked', [el])
         }
 
-        this.clickViewListRecord = function(recordId, relationField, sessionKey) {
+        this.clickViewListRecord = function(recordId, relationField, sessionKey, readOnly) {
             var newPopup = $('<a />')
 
             newPopup.popup({
@@ -18,7 +18,8 @@
                 extraData: {
                     'manage_id': recordId,
                     '_relation_field': relationField,
-                    '_session_key': sessionKey
+                    '_session_key': sessionKey,
+                    '_relation_read_only': readOnly ? 1 : 0
                 }
             })
         }
