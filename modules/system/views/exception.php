@@ -62,6 +62,7 @@
 
         <script>
             SyntaxHighlighter.defaults['toolbar'] = false;
+            SyntaxHighlighter.defaults['quick-code'] = false;
             SyntaxHighlighter.defaults['html-script'] = true;
             SyntaxHighlighter.defaults['first-line'] = <?= $exception->getHighlight()->startLine+1 ?>;
             SyntaxHighlighter.defaults['highlight'] = <?= $exception->getLine() ?>;
