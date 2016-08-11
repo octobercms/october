@@ -94,12 +94,11 @@ class DatePicker extends FormWidgetBase
     {
         $this->vars['name'] = $this->formField->getName();
 
-
         if ($value = $this->getLoadValue()) {
             if ($value instanceof Carbon) {
                 $value = $value->toDateTimeString();
             } elseif ($value == $this->default) {
-                $value = Carbon::createFromTimestamp(strtotime($this->default));
+                $value = Carbon::parse($this->default);
             }
 
             /*
