@@ -621,10 +621,30 @@ class RelationController extends ControllerBehavior
                 $config->noRecordsMessage = $emptyMessage;
             }
 
+            $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
+
+            /*
+             * Apply defined constraints
+             */
+            if ($sqlConditions = $this->getConfig('view[conditions]')) {
+                $widget->bindEvent('list.extendQueryBefore', function($query) use ($sqlConditions) {
+                    $query->whereRaw($sqlConditions);
+                });
+            }
+            elseif ($scopeMethod = $this->getConfig('view[scope]')) {
+                $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
+                    $query->$scopeMethod();
+                });
+            }
+            else {
+                $widget->bindEvent('list.extendQueryBefore', function($query) {
+                    $this->relationObject->addDefinedConstraintsToQuery($query);
+                });
+            }
+
             /*
              * Constrain the query by the relationship and deferred items
              */
-            $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
             $widget->bindEvent('list.extendQuery', function ($query) {
                 $this->relationObject->setQuery($query);
 
