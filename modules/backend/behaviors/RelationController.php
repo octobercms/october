@@ -1038,9 +1038,8 @@ class RelationController extends ControllerBehavior
          */
         if ($this->viewMode == 'multi') {
             if (($checkedIds = post('checked')) && is_array($checkedIds)) {
-                $relatedModel = $this->relationObject->getRelated();
                  foreach ($checkedIds as $relationId) {
-                    if (!$obj = $relatedModel->find($relationId)) {
+                    if (!$obj = $this->relationModel->find($relationId)) {
                         continue;
                     }
 
@@ -1130,6 +1129,8 @@ class RelationController extends ControllerBehavior
         $this->beforeAjax();
 
         $recordId = post('record_id');
+        $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey() : null;
+        $relatedModel = $this->relationModel;
 
         /*
          * Remove
@@ -1139,19 +1140,12 @@ class RelationController extends ControllerBehavior
             $checkedIds = $recordId ? [$recordId] : post('checked');
 
             if (is_array($checkedIds)) {
+                $foreignKeyName = $relatedModel->getKeyName();
 
-                if ($this->relationType == 'belongsToMany') {
-                    $this->relationObject->detach($checkedIds);
+                $models = $relatedModel->whereIn($foreignKeyName, $checkedIds)->get();
+                foreach ($models as $model) {
+                    $this->relationObject->remove($model, $sessionKey);
                 }
-                elseif ($this->relationType == 'hasMany' || $this->relationType == 'morphMany') {
-                    $relatedModel = $this->relationObject->getRelated();
-                    foreach ($checkedIds as $relationId) {
-                        if ($obj = $relatedModel->find($relationId)) {
-                            $this->relationObject->remove($obj);
-                        }
-                    }
-                }
-
             }
         }
         /*
@@ -1163,11 +1157,11 @@ class RelationController extends ControllerBehavior
                 $this->relationObject->getParent()->save();
             }
             elseif ($this->relationType == 'hasOne' || $this->relationType == 'morphOne') {
-                if ($obj = $this->relationModel->find($recordId)) {
-                    $this->relationObject->remove($obj);
+                if ($obj = $relatedModel->find($recordId)) {
+                    $this->relationObject->remove($obj, $sessionKey);
                 }
                 elseif ($this->viewModel->exists) {
-                    $this->relationObject->remove($this->viewModel);
+                    $this->relationObject->remove($this->viewModel, $sessionKey);
                 }
             }
 
