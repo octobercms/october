@@ -311,7 +311,7 @@ class MediaManager extends WidgetBase
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
         }
 
-        if (!$this->validateFileType($newName)) {
+        if (!$this->validateFileType($name)) {
             throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
         }
 
@@ -1052,7 +1052,7 @@ class MediaManager extends WidgetBase
      */
     protected function validateFileType($name)
     {
-        $extension = File::extension($name);
+        $extension = strtolower(File::extension($name));
 
         $blockedFileTypes = FileDefinitions::get('blockedExtensions');
 
