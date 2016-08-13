@@ -89,14 +89,10 @@ class DatePicker extends FormWidgetBase
 
 
         if ($value = $this->getLoadValue()) {
-            $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
 
-            /*
-             * Time
-             */
-            if (strlen($value) <= 8) {
-                $value = Carbon::now()->toDateString() . ' ' . $value;
-            }
+            $value = DateTimeHelper::makeCarbon($value, false);
+
+            $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
         }
 
         /*
