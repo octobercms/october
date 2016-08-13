@@ -599,10 +599,11 @@ class RelationController extends ControllerBehavior
             $config->recordUrl = $this->getConfig('view[recordUrl]', null);
 
             $defaultOnClick = sprintf(
-                "$.oc.relationBehavior.clickViewListRecord(':%s', '%s', '%s')",
+                "$.oc.relationBehavior.clickViewListRecord(':%s', '%s', '%s', %s)",
                 $this->relationModel->getKeyName(),
                 $this->field,
-                $this->relationGetSessionKey()
+                $this->relationGetSessionKey(),
+                $this->readOnly ? 1 : 0
             );
 
             if ($config->recordUrl) {
