@@ -285,7 +285,7 @@ return [
         'locale_comment' => 'Wählen Sie Ihre gewünschte Sprache für das Backend.',
     ],
     'access_log' => [
-        'hint' => 'Dieser Log zeigt eine Liste mit erfolgreichen Anmelde-Verscuhen von Administratoren. Die Aufzeichnungen bleiben erhalten für :days Tage.',
+        'hint' => 'Dieser Log zeigt eine Liste mit erfolgreichen Anmelde-Versuchen von Administratoren. Die Aufzeichnungen bleiben erhalten für :days Tage.',
         'menu_label' => 'Zugriffslog',
         'menu_description' => 'Sehen Sie sich eine Liste mit erfolgreichen Backend Benutzeranmeldungen an.',
         'created_at' => 'Datum & Uhrzeit',
