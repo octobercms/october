@@ -49,7 +49,7 @@ $.FE.LANGUAGE['hu'] = {
     "Heading 4": "C\u00edmsor 4",
 
     // Style
-    "Paragraph Style": "Bekezd\u00e9s st\u00edlus\u00e1t",
+    "Paragraph Style": "Bekezd\u00e9s st\u00edlusa",
     "Inline Style": " Helyi st\u00edlus",
 
     // Alignment
@@ -102,7 +102,10 @@ $.FE.LANGUAGE['hu'] = {
 
     // Video
     "Insert Video": "Vide\u00f3 beilleszt\u00e9se",
-    "Embedded Code": "Vide\u00f3 be\u00e1gyazása",
+    "Embedded Code": "K\u00f3d bem\u00e1sol\u00e1sa",
+
+    // Audio
+    "Insert Audio": "Audi\u00f3 beilleszt\u00e9se",
 
     // Tables
     "Insert Table": "T\u00e1bl\u00e1zat beilleszt\u00e9se",
@@ -134,7 +137,8 @@ $.FE.LANGUAGE['hu'] = {
 
     // Files
     "Upload File": "F\u00e1jl felt\u00f6lt\u00e9se",
-    "Drop file": "H\u00fazza ide a f\u00e1jl",
+    "Drop file": "H\u00fazza ide a f\u00e1jlt",
+    "Insert File": "F\u00e1jl beilleszt\u00e9se",
 
     // Emoticons
     "Emoticons": "Hangulatjelek",
