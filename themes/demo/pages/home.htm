@@ -57,7 +57,7 @@ layout = "default"
         Partials are chunks of HTML defined in separate files which can be included anywhere.
         In this example we placed the footer content to the <code>partials/footer.htm</code> partial.
         Partials are rendered with:
-        <pre>{{ "{% partial \"partial-name\" %}" }}</pre> 
+        <pre>{{ "{% partial \"partial-name\" %}" }}</pre>
         It can be used inside pages, templates or other partials.
     </p>
 
@@ -70,7 +70,7 @@ layout = "default"
     </p>
     <p>
         The introductory text used on this page is defined in the <code>content/welcome.htm</code> file.
-        Content blocks are defined and rendered with: 
+        Content blocks are defined and rendered with:
         <pre>{{ "{% content \"content-name.htm\" %}" }}</pre>
     </p>
 
@@ -89,11 +89,11 @@ layout = "default"
     <div class="row">
         <div class="col-md-6">
             Layout file:
-            <pre>{% filter escape %}{% content "placeholder/layout.txt" %}{% endfilter %}</pre>
+            <pre>{% content "placeholder/layout.txt" %}</pre>
         </div>
         <div class="col-md-6">
             Page file:
-            <pre>{% filter escape %}{% content "placeholder/page.txt" %}{% endfilter %}</pre>
+            <pre>{% content "placeholder/page.txt" %}</pre>
         </div>
     </div>
 
