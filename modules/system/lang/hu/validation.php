@@ -95,11 +95,20 @@ return [
     */
 
     'attributes' => [
-        'nev'     => 'név',
-        'email'   => 'e-mail',
-        'telefon' => 'telefon',
-        'targy'   => 'tárgy',
-        'uzenet'  => 'üzenet',
+        'nev'       => 'név',
+        'vnev'      => 'vezetéknév',
+        'knev'      => 'keresztnév',
+        'email'     => 'e-mail',
+        'telefon'   => 'telefonszám',
+        'mobil'     => 'mobilszám',
+        'targy'     => 'tárgy',
+        'uzenet'    => 'üzenet',
+        'varos'     => 'város',
+        'telepules' => 'település',
+        'cim'       => 'cím',
+        'utca'      => 'útca',
+        'irszam'    => 'irányítószám',
+        'kep'       => 'kép',
     ],
 
 ];

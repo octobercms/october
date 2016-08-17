@@ -2,7 +2,7 @@
 
 return [
     'auth' => [
-        'title' => 'Adminisztrációs oldal'
+        'title' => 'Admin felület'
     ],
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
@@ -18,6 +18,11 @@ return [
             'label' => 'Hozzáférés megtagadva',
             'help' => 'Ön nem rendelkezik a szükséges engedélyekkel ennek a lapnak a megtekintéséhez.',
             'cms_link' => 'Vissza a látogatói oldalra'
+        ],
+        'no_database' => [
+            'label' => 'Hiányzó adatbázis',
+            'help' => 'Az admin felület eléréséhez szükséges az adatbázis. Kérjük ellenőrizze a hozzáférési adatok helyességét majd próbálja újra.',
+            'cms_link' => 'Vissza a weboldalra'
         ],
         'invalid_token' => [
             'label' => 'Érvénytelen a biztonsági kód.'
@@ -123,6 +128,10 @@ return [
         'allow' => 'Engedélyezés',
         'inherit' => 'Öröklés',
         'deny' => 'Tiltás',
+        'activated' => 'Aktivált',
+        'last_login' => 'Bejelentkezve',
+        'created_at' => 'Létrehozva',
+        'updated_at' => 'Módosítva',
         'group' => [
             'name' => 'Csoport',
             'name_comment' => 'A név a csoport létrehozásnál és szerkesztésnél jelenik meg.',
@@ -165,7 +174,7 @@ return [
         'records_per_page' => 'Listázás',
         'records_per_page_help' => 'Adja meg az elemek laponként megjelenítendő számát. Minél nagyobbat választ, annál több időbe kerül a lista frissítése. Az ajánlott érték 20 és 40 közötti.',
         'check' => 'Bejelöl',
-        'delete_selected' => 'Kiválasztottak törlése',
+        'delete_selected' => 'Eltávolítás',
         'delete_selected_empty' => 'A törléshez előbb ki kell választani elemet.',
         'delete_selected_confirm' => 'Töröljük a kiválasztott elemeket?',
         'delete_selected_success' => 'Sikeresen törölve lettek a kiválasztott elemek.',
@@ -322,16 +331,16 @@ return [
         'theme' => 'Színséma',
         'markup_styles' => 'Stílusok',
         'custom_styles' => 'Egyéni megjelenés',
-        'custom styles_comment' => 'Saját stílusok megadása, amik a HTML szerkesztőre is vonatkoznak.',
-        'markup_classes' => 'CSS osztályok',
+        'custom styles_comment' => 'Saját stílusok és megjelenések megadása.',
+        'markup_classes' => 'Értékek',
         'paragraph' => 'Bekezdés',
         'link' => 'Hivatkozás',
         'table' => 'Táblázat',
         'table_cell' => 'Táblázat cella',
         'image' => 'Kép',
-        'label' => 'Címke',
-        'class_name' => 'Osztály neve',
-        'markup_tags' => 'HTML elemek',
+        'label' => 'Megnevezés',
+        'class_name' => 'CSS osztály',
+        'markup_tags' => 'Szabályok',
         'allowed_empty_tags' => 'Engedélyezett üres elemek',
         'allowed_empty_tags_comment' => 'Azon HTML elemek, amik üres érték esetén sem lesznek eltávolítva.',
         'allowed_tags' => 'Engedélyezett elemek',
@@ -381,7 +390,7 @@ return [
         'region' => 'Régió',
         'code_editor' => 'Kódszerkesztő',
         'timezone' => 'Időzóna',
-        'timezone_comment' => 'Dátumok megjelenítése a választott időzóna alapján.',
+        'timezone_comment' => 'Válassza ki az alapértelmezett időzónát.',
         'locale' => 'Nyelv',
         'locale_comment' => 'Válassza ki az alapértelmezett nyelvet.'
     ],
@@ -447,7 +456,7 @@ return [
         'required_match_column_error' => 'Please specify a match for the required field :label.',
         'empty_export_columns_error' => 'Kérjük adjon meg néhány oszlopot az exportáláshoz.',
         'behavior_missing_uselist_error' => 'You must implement the controller behavior ListController with the export "useList" option enabled.',
-        'missing_model_class_error' => 'Please specify the modelClass property for :type',
+        'missing_model_class_error' => 'Kérjük adja meg a modelClass tulajdonságát ehhez: :type',
         'missing_column_id_error' => 'Hiányzó oszlop azonosító',
         'unknown_column_error' => 'Ismeretlen oszlop',
         'encoding_not_supported_error' => 'Source file encoding is not recognized. Please select the custom file format option with the proper encoding to import your file.',

@@ -279,6 +279,10 @@ class MediaManager extends WidgetBase
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
         }
 
+        if (!$this->validateFileType($newName)) {
+            throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
+        }
+
         $originalPath = Input::get('originalPath');
         $originalPath = MediaLibrary::validatePath($originalPath);
 
@@ -305,6 +309,10 @@ class MediaManager extends WidgetBase
 
         if (!$this->validateFileName($name)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
+        }
+
+        if (!$this->validateFileType($name)) {
+            throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
         }
 
         $path = Input::get('path');
@@ -979,19 +987,18 @@ class MediaManager extends WidgetBase
             $fileName = File::name($fileName).'.'.$extension;
 
             /*
-             * Check for unsafe file extensions
-             */
-            $blockedFileTypes = FileDefinitions::get('blockedExtensions');
-            if (in_array($extension, $blockedFileTypes)) {
-                throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
-            }
-
-            /*
              * File name contains non-latin characters, attempt to slug the value
              */
             if (!$this->validateFileName($fileName)) {
                 $fileNameClean = $this->cleanFileName(File::name($fileName));
                 $fileName = $fileNameClean . '.' . $extension;
+            }
+
+            /*
+             * Check for unsafe file extensions
+             */
+            if (!$this->validateFileType($fileName)) {
+                throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
             }
 
             // See mime type handling in the asset manager
@@ -1023,7 +1030,7 @@ class MediaManager extends WidgetBase
     /**
      * Validate a proposed media item file name.
      * @param string
-     * @return string
+     * @return bool
      */
     protected function validateFileName($name)
     {
@@ -1032,6 +1039,24 @@ class MediaManager extends WidgetBase
         }
 
         if (strpos($name, '..') !== false) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Check for blocked / unsafe file extensions
+     * @param string
+     * @return bool
+     */
+    protected function validateFileType($name)
+    {
+        $extension = strtolower(File::extension($name));
+
+        $blockedFileTypes = FileDefinitions::get('blockedExtensions');
+
+        if (in_array($extension, $blockedFileTypes)) {
             return false;
         }
 

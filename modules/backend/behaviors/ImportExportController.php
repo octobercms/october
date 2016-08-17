@@ -8,6 +8,7 @@ use Backend;
 use BackendAuth;
 use Backend\Classes\ControllerBehavior;
 use Backend\Behaviors\ImportExportController\TranscodeFilter;
+use Illuminate\Database\Eloquent\MassAssignmentException;
 use League\Csv\Reader as CsvReader;
 use League\Csv\Writer as CsvWriter;
 use ApplicationException;
@@ -188,6 +189,12 @@ class ImportExportController extends ControllerBehavior
 
             $this->vars['importResults'] = $model->getResultStats();
             $this->vars['returnUrl'] = $this->getRedirectUrlForType('import');
+        }
+        catch (MassAssignmentException $ex) {
+            $this->controller->handleError(new ApplicationException(Lang::get(
+                'backend::lang.model.mass_assignment_failed',
+                ['attribute' => $ex->getMessage()]
+            )));
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -410,6 +417,12 @@ class ImportExportController extends ControllerBehavior
 
             $this->vars['fileUrl'] = $fileUrl;
             $this->vars['returnUrl'] = $this->getRedirectUrlForType('export');
+        }
+        catch (MassAssignmentException $ex) {
+            $this->controller->handleError(new ApplicationException(Lang::get(
+                'backend::lang.model.mass_assignment_failed',
+                ['attribute' => $ex->getMessage()]
+            )));
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);

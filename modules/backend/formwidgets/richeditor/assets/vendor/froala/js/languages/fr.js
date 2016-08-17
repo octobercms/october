@@ -80,7 +80,7 @@ $.FE.LANGUAGE['fr'] = {
     "Insert Image": "Ins\u00e9rer une image",
     "Upload Image": "T\u00e9l\u00e9charger une image",
     "By URL": "Par URL",
-    "Browse": "Feuilleter",
+    "Browse": "Parcourir",
     "Drop image": "D\u00e9posez l'image",
     "or click": "ou cliquez",
     "Manage Images": "Gestion des images",
@@ -103,6 +103,9 @@ $.FE.LANGUAGE['fr'] = {
     // Video
     "Insert Video": "Ins\u00e9rer une vid\u00e9o",
     "Embedded Code": "Code embarqu\u00e9",
+
+    // Audio
+    "Insert Audio": "Ins\u00e9rer un m\u00e9dia sonore",
 
     // Tables
     "Insert Table": "Ins\u00e9rer un tableau",
@@ -135,6 +138,7 @@ $.FE.LANGUAGE['fr'] = {
     // Files
     "Upload File": "T\u00e9l\u00e9charger le fichier",
     "Drop file": "D\u00e9posez le fichier",
+    "Insert File": "Ins\u00e9rer un fichier",
 
     // Emoticons
     "Emoticons": "\u00c9motic\u00f4nes",
@@ -219,7 +223,7 @@ $.FE.LANGUAGE['fr'] = {
     "Select All": "Tout s\u00e9lectionner",
 
     // Code view
-    "Code View": "Vue de code",
+    "Code View": "Voir le code source",
 
     // Quote
     "Quote": "Citer",

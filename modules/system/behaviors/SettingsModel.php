@@ -100,6 +100,7 @@ class SettingsModel extends ModelBehavior
 
     /**
      * Checks if the model has been set up previously, intended as a static method
+     * @return bool
      */
     public function isConfigured()
     {
