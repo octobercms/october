@@ -48,7 +48,8 @@ return [
 
     'alert' => [
         'confirm_button_text' => 'OK',
-        'cancel_button_text' => 'Mégsem'
+        'cancel_button_text' => 'Mégsem',
+        'widget_remove_confirm' => 'Valóban törölni akarja?'
     ],
 
     'datepicker' => [
