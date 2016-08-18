@@ -1,5 +1,6 @@
 <?php namespace Backend\Models;
 
+use Backend\Behaviors\ImportExportController\TranscodeFilter;
 use Str;
 use Lang;
 use Model;
@@ -96,7 +97,8 @@ abstract class ImportModel extends Model
             'firstRowTitles' => true,
             'delimiter' => null,
             'enclosure' => null,
-            'escape' => null
+            'escape' => null,
+            'encoding' => null
         ];
 
         $options = array_merge($defaultOptions, $options);
@@ -125,6 +127,18 @@ abstract class ImportModel extends Model
 
         if ($options['firstRowTitles']) {
             $reader->setOffset(1);
+        }
+
+        if (
+            $options['encoding'] !== null &&
+            $reader->isActiveStreamFilter()
+        ) {
+            $reader->appendStreamFilter(sprintf(
+                '%s%s:%s',
+                TranscodeFilter::FILTER_NAME,
+                strtolower($options['encoding']),
+                'utf-8'
+            ));
         }
 
         $result = [];
