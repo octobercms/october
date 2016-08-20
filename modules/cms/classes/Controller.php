@@ -1,12 +1,12 @@
 <?php namespace Cms\Classes;
 
+use Cms;
 use Url;
 use Str;
 use App;
 use File;
 use View;
 use Lang;
-use Route;
 use Event;
 use Config;
 use Session;
@@ -1124,19 +1124,7 @@ class Controller
             return null;
         }
 
-        if (substr($url, 0, 1) == '/') {
-            $url = substr($url, 1);
-        }
-
-        $routeAction = 'Cms\Classes\CmsController@run';
-        $actionExists = Route::getRoutes()->getByAction($routeAction) !== null;
-
-        if ($actionExists) {
-            return Url::action($routeAction, ['slug' => $url]);
-        }
-        else {
-            return Url::to($url);
-        }
+        return Cms::url($url);
     }
 
     /**

@@ -1,17 +1,17 @@
-<?php namespace Backend\Facades;
+<?php namespace Cms\Facades;
 
 use October\Rain\Support\Facade;
 
-class Backend extends Facade
+class Cms extends Facade
 {
     /**
      * Get the registered name of the component.
      * 
-     * @see \Backend\Helpers\Backend
+     * @see \Cms\Helpers\Cms
      * @return string
      */
     protected static function getFacadeAccessor()
     {
-        return 'backend.helper';
+        return 'cms.helper';
     }
 }
