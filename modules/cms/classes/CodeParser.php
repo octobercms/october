@@ -1,6 +1,7 @@
 <?php namespace Cms\Classes;
 
 use File;
+use Log;
 use Lang;
 use Cache;
 use Config;
@@ -41,7 +42,7 @@ class CodeParser
     public function __construct(CmsCompoundObject $object)
     {
         $this->object = $object;
-        $this->filePath = $object->getFullPath();
+        $this->filePath = $object->getFilePath();
     }
 
     /**
@@ -66,12 +67,13 @@ class CodeParser
          * Try to load the parsed data from the file cache
          */
         $path = $this->getFilePath();
+		
         $result = [
             'filePath' => $path,
             'offset' => 0
         ];
 
-        if (File::isFile($path)) {
+        if (File::isFile($path)) { //if the file exists and is not empty
             $cachedInfo = $this->getCachedFileInfo();
             if ($cachedInfo !== null && $cachedInfo['mtime'] == $this->object->mtime) {
                 $result['className'] = $cachedInfo['className'];
@@ -84,61 +86,110 @@ class CodeParser
         /*
          * If the file was not found, or the cache is stale, prepare the new file and cache information about it
          */
-        $uniqueName = uniqid().'_'.abs(crc32(md5(mt_rand())));
-        $className = 'Cms'.$uniqueName.'Class';
+		$lock = fopen($path, "a");
+		flock($lock, LOCK_EX);
+		$fileContent = "";
+		if (File::isFile($path))
+			$fileContent = File::get($path);
+		
+		$rebuild = true;
+		if ($fileContent != "") { //if the file exists and is not empty
+			$cachedInfo = $this->getCachedFileInfo();
+			if ($cachedInfo !== null && $cachedInfo['mtime'] == $this->object->mtime) {
+				$result['className'] = $cachedInfo['className'];
+				$result['source'] = 'cache';
+				self::$cache[$this->filePath] = $result;
+				flock($lock, LOCK_UN);
+				return $result;
+		    } else {
+				$rebuild = $this->object->mtime > File::lastModified($path);
+			}
+		}
 
-        $body = $this->object->code;
-        $body = preg_replace('/^\s*function/m', 'public function', $body);
-
-        $codeNamespaces = [];
-        $pattern = '/(use\s+[a-z0-9_\\\\]+;\n?)/mi';
-        preg_match_all($pattern, $body, $namespaces);
-        $body = preg_replace($pattern, '', $body);
-
-        $parentClass = $this->object->getCodeClassParent();
-        if ($parentClass !== null) {
-            $parentClass = ' extends '.$parentClass;
-        }
-
-        $fileContents = '<?php '.PHP_EOL;
-
-        foreach ($namespaces[0] as $namespace) {
-            $fileContents .= $namespace;
-        }
-
-        $fileContents .= 'class '.$className.$parentClass.PHP_EOL;
-        $fileContents .= '{'.PHP_EOL;
-        $fileContents .= $body.PHP_EOL;
-        $fileContents .= '}'.PHP_EOL;
-
-        $this->validate($fileContents);
-
-        $dir = dirname($path);
-        if (!File::isDirectory($dir) && !@File::makeDirectory($dir, 0777, true)) {
-            throw new SystemException(Lang::get('system::lang.directory.create_fail', ['name'=>$dir]));
-        }
-
-        if (!@File::put($path, $fileContents)) {
-            throw new SystemException(Lang::get('system::lang.file.create_fail', ['name'=>$dir]));
-        }
-
-        $cached = $this->getCachedInfo();
-        if (!$cached) {
-            $cached = [];
-        }
-
+		$className = "";
+		if ($rebuild){
+			$className = $this->rebuild($path);
+		} 
+		else 
+		{
+			$matches = [];
+			preg_match("/Cms\S+_\S+Class/", $fileContent, $matches);
+			if (count($matches) == 0){
+				$className = $this->rebuild($path);
+			} 
+			else
+			{
+				$className = $matches[0];
+			}
+		}
+		
         $result['className'] = $className;
         $result['source'] = 'parser';
-
         $cacheItem = $result;
         $cacheItem['mtime'] = $this->object->mtime;
         $cached[$this->filePath] = $cacheItem;
-
-        Cache::put($this->dataCacheKey, serialize($cached), 1440);
-
-        return self::$cache[$this->filePath] = $result;
+		
+		Cache::put($this->dataCacheKey, base64_encode(serialize($cached)), 1440);
+		
+		self::$cache[$this->filePath] = $result;
+		
+		flock($lock, LOCK_UN);
+		
+        return $result;
     }
 
+	/**
+	* Rebuilds the current file cache.
+	* @param string The path in which the cached file should be stored
+	*/
+	private function rebuild($path)
+	{
+		$uniqueName = uniqid().'_'.abs(crc32(md5(mt_rand())));
+		$className = 'Cms'.$uniqueName.'Class';
+
+		$body = $this->object->code;
+		$body = preg_replace('/^\s*function/m', 'public function', $body);
+
+		$codeNamespaces = [];
+		$pattern = '/(use\s+[a-z0-9_\\\\]+(\s+as\s+[a-z0-9_]+)?;\n?)/mi';
+		preg_match_all($pattern, $body, $namespaces);
+		$body = preg_replace($pattern, '', $body);
+
+		$parentClass = $this->object->getCodeClassParent();
+		if ($parentClass !== null) {
+			$parentClass = ' extends '.$parentClass;
+		}
+
+		$fileContents = '<?php '.PHP_EOL;
+
+		foreach ($namespaces[0] as $namespace) {
+			$fileContents .= $namespace;
+		}
+
+		$fileContents .= 'class '.$className.$parentClass.PHP_EOL;
+		$fileContents .= '{'.PHP_EOL;
+		$fileContents .= $body.PHP_EOL;
+		$fileContents .= '}'.PHP_EOL;
+
+		$this->validate($fileContents);
+
+		$dir = dirname($path);
+		if (!File::isDirectory($dir) && !@File::makeDirectory($dir, 0777, true)) {
+			throw new SystemException(Lang::get('system::lang.directory.create_fail', ['name'=>$dir]));
+		}
+
+		if (!@File::put($path, $fileContents)) {
+			throw new SystemException(Lang::get('system::lang.file.create_fail', ['name'=>$dir]));
+		}
+		
+
+		$cached = $this->getCachedInfo();
+		if (!$cached) {
+			$cached = [];
+		}
+		return $className;
+	}
+	
     /**
      * Runs the object's PHP file and returns the corresponding object.
      * @param \Cms\Classes\Page $page Specifies the CMS page.
@@ -158,7 +209,6 @@ class CodeParser
         if (!class_exists($className) && ($data = $this->handleCorruptCache())) {
             $className = $data['className'];
         }
-
         return new $className($page, $layout, $controller);
     }
 
@@ -171,6 +221,7 @@ class CodeParser
     protected function handleCorruptCache()
     {
         $path = $this->getFilePath();
+
         if (File::isFile($path)) {
             File::delete($path);
         }
@@ -211,7 +262,11 @@ class CodeParser
     protected function getCachedInfo()
     {
         $cached = Cache::get($this->dataCacheKey, false);
-        if ($cached !== false && ($cached = @unserialize($cached)) !== false) {
+
+        if (
+            $cached !== false &&
+            ($cached = @unserialize(@base64_decode($cached))) !== false
+        ) {
             return $cached;
         }
 
@@ -225,6 +280,7 @@ class CodeParser
     protected function getCachedFileInfo()
     {
         $cached = $this->getCachedInfo();
+
         if ($cached !== null) {
             if (array_key_exists($this->filePath, $cached)) {
                 return $cached[$this->filePath];
