@@ -248,6 +248,25 @@ It might be fun to include a status column!
         </table>
     </div>
 
+### Linking rows
+
+You may link an entire row by adding the `data-control="rowlink"` attribute to the table element. The first table data (TD) column with an anchor will be used to link the entire row. To bypass this behavior, simply add the `nolink` class to the column.
+
+    <div class="control-list list-unresponsive">
+        <table class="table data" data-control="rowlink">
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="http://octobercms.com">Link to this</a>
+                    </td>
+                    <td>Row will be linked</td>
+                    <td>This will also be linked</td>
+                    <td class="nolink">No link applied here</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 ### Button column
 
 You may add a small button to a list column by adding the `column-button` class to the table data (TD) element.
@@ -264,7 +283,7 @@ You may add a small button to a list column by adding the `column-button` class 
                 <tr>
                     <td class="column-button nolink">
                         <a
-                            href="http://www.google.com"
+                            href="http://google.com"
                             target="_blank"
                             class="btn btn-default btn-sm">
                             Open Google

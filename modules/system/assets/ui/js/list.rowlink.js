@@ -3,6 +3,8 @@
  *
  * Data attributes:
  * - data-control="rowlink" - enables the plugin on an element
+ * - data-exclude-class="nolink" - disables the link for elements with this class
+ * - data-linked-class="rowlink" - this class is added to affected table rows
  *
  * JavaScript API:
  * $('a#someElement').rowLink()
