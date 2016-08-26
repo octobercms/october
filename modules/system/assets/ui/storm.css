@@ -2810,6 +2810,7 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 @media (min-width:992px){.modal-lg{width:900px}
 }
 .modal-content{-webkit-box-shadow:0 27px 24px 0 rgba(0,0,0,0.2),0 40px 77px 0 rgba(0,0,0,0.22);box-shadow:0 27px 24px 0 rgba(0,0,0,0.2),0 40px 77px 0 rgba(0,0,0,0.22);-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;border:none;background:#f9f9f9}
+.modal-content.popup-shaking{-webkit-animation:popup-shake 0.82s cubic-bezier(0.36,0.07000000000000001,0.19,0.97) both;animation:popup-shake 0.82s cubic-bezier(0.36,0.07000000000000001,0.19,0.97) both;-webkit-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);transform:translate3d(0,0,0);-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;backface-visibility:hidden;-webkit-perspective:1000px;-moz-perspective:1000px;perspective:1000px}
 .modal-header{background:transparent;color:#2a3e51;text-shadow:0 1px 0 rgba(255,255,255,0.35);border-top-right-radius:3px;border-top-left-radius:3px;padding:20px 20px;border:none}
 .modal-header h4{font-weight:normal;font-size:18px}
 .modal-footer{background:transparent;border:none;margin-top:0;padding:0 20px 20px 20px}
@@ -2836,6 +2837,21 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .popup-backdrop .popup-loading-indicator:after{content:' ';display:block;background-size:50px 50px;background-repeat:no-repeat;background-position:50% 50%;background-image:url('images/loader-transparent.svg');-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite;width:50px;height:50px;margin:25px 0 0 25px}
 .popup-backdrop.loading .popup-loading-indicator{opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}
 .mac body.modal-open{margin-right:0}
+@-moz-keyframes popup-shake{10%,90%{-moz-transform:translate3d(-1px,0,0)}
+20%,80%{-moz-transform:translate3d(2px,0,0)}
+30%,50%,70%{-moz-transform:translate3d(-4px,0,0)}
+40%,60%{-moz-transform:translate3d(4px,0,0)}
+}
+@-webkit-keyframes popup-shake{10%,90%{-webkit-transform:translate3d(-1px,0,0)}
+20%,80%{-webkit-transform:translate3d(2px,0,0)}
+30%,50%,70%{-webkit-transform:translate3d(-4px,0,0)}
+40%,60%{-webkit-transform:translate3d(4px,0,0)}
+}
+@keyframes popup-shake{10%,90%{transform:translate3d(-1px,0,0)}
+20%,80%{transform:translate3d(2px,0,0)}
+30%,50%,70%{transform:translate3d(-4px,0,0)}
+40%,60%{transform:translate3d(4px,0,0)}
+}
 .pika-single{display:block;position:relative;width:240px;padding:8px;color:#333;background:#fff}
 .pika-single.is-hidden{display:none}
 .pika-single.is-bound{position:absolute;box-shadow:0 5px 15px -5px rgba(0,0,0,0.5)}
