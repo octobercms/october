@@ -3453,8 +3453,7 @@ this.firstDiv=this.$content.find('>div:first')
 if(this.firstDiv.length>0)
 this.firstDiv.data('oc.popup',this)
 var $defaultFocus=$('[default-focus]',this.$content)
-if($defaultFocus.is(":visible"))
-{window.setTimeout(function(){$defaultFocus.focus()
+if($defaultFocus.is(":visible")){window.setTimeout(function(){$defaultFocus.focus()
 $defaultFocus=null},300)}}
 Popup.prototype.setBackdrop=function(val){if(val&&!this.$backdrop){this.$backdrop=$('<div class="popup-backdrop fade" />')
 if(this.options.zIndex!==null)
@@ -3695,14 +3694,13 @@ this.$el=$(element)
 var tr=this.$el.prop('tagName')=='TR'?this.$el:this.$el.find('tr:has(td)')
 tr.each(function(){var link=$(this).find(options.target).filter(function(){return!$(this).closest('td').hasClass(options.excludeClass)&&!$(this).hasClass(options.excludeClass)}).first()
 if(!link.length)return
-var href=link.attr('href'),onclick=(typeof link.get(0).onclick=="function")?link.get(0).onclick:null
-$(this).find('td').not('.'+options.excludeClass).click(function(e){if($(document.body).hasClass('drag'))
-return
-if(onclick)
-onclick.apply(link.get(0))
-else if(e.ctrlKey)
-window.open(href);else
-window.location=href;})
+var href=link.attr('href'),onclick=(typeof link.get(0).onclick=="function")?link.get(0).onclick:null,popup=link.is('[data-control=popup]'),request=link.is('[data-request]')
+$(this).find('td').not('.'+options.excludeClass).click(function(e){if($(document.body).hasClass('drag')){return}
+if(onclick){onclick.apply(link.get(0))}
+else if(request){link.request()}
+else if(popup){link.popup()}
+else if(e.ctrlKey){window.open(href)}
+else{window.location=href}})
 $(this).addClass(options.linkedClass)
 link.hide().after(link.html())})}
 RowLink.DEFAULTS={target:'a',excludeClass:'nolink',linkedClass:'rowlink'}
