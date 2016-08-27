@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use File;
 use Lang;
 use Cache;
 use Config;
@@ -154,6 +155,8 @@ class CodeParser
         if (!@file_put_contents($path, $fileContents, LOCK_EX)) {
             throw new SystemException(Lang::get('system::lang.file.create_fail', ['name'=>$path]));
         }
+
+        File::chmod($path);
 
         return $className;
     }
@@ -317,8 +320,12 @@ class CodeParser
         $count = 0;
         $dir = dirname($path);
 
-        if (is_dir($dir) && !is_writable($dir)) {
-            throw new SystemException(Lang::get('system::lang.directory.create_fail', ['name'=>$dir]));
+        if (is_dir($dir)) {
+            if (!is_writable($dir)) {
+                throw new SystemException(Lang::get('system::lang.directory.create_fail', ['name'=>$dir]));
+            }
+
+            return;
         }
 
         while (!is_dir($dir) && !@mkdir($dir, 0777, true)) {
@@ -328,6 +335,8 @@ class CodeParser
                 throw new SystemException(Lang::get('system::lang.directory.create_fail', ['name'=>$dir]));
             }
         }
+
+        File::chmodRecursive($path);
     }
 
 }
