@@ -83,7 +83,7 @@ table.table.data {
         }
 
         .list-checkbox .custom-checkbox {
-            top: -20px;
+            top: -16px;
         }
     }
 
@@ -150,7 +150,7 @@ table.table.data {
                 border-left: 3px solid @color-list-stripe-active;
             }
         }
-        tr:not(.no-data):hover td, tr:not(.no-data).selected td, {
+        tr.rowlink:hover td, tr:not(.no-data).selected td, {
             background: @color-list-hover-bg !important;
             text-shadow: 0 -1px 0 @highlight-hover-text-shadow;
             color: @highlight-hover-text;
@@ -159,7 +159,7 @@ table.table.data {
                color: @highlight-hover-text;
             }
         }
-        tr:not(.no-data):active td {
+        tr.rowlink:active td {
             text-shadow: 0 -1px 0 @highlight-active-text-shadow;
             background: @color-list-active-bg !important;
             color: @color-list-active-text;
