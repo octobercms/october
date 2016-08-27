@@ -317,6 +317,10 @@ class CodeParser
         $count = 0;
         $dir = dirname($path);
 
+        if (is_dir($dir) && !is_writable($dir)) {
+            throw new SystemException(Lang::get('system::lang.directory.create_fail', ['name'=>$dir]));
+        }
+
         while (!is_dir($dir) && !@mkdir($dir, 0777, true)) {
             usleep(rand(50000, 200000));
 
