@@ -227,8 +227,8 @@ $.FE.LANGUAGE['hu'] = {
 
     // Quote
     "Quote": "Id\u00e9zet",
-    "Increase": "N\u00f6vel\u00e9s",
-    "Decrease": "Cs\u00f6kkent\u00e9s",
+    "Increase": "Beh\u00faz\u00e1s cs\u00f6kkent\u00e9se",
+    "Decrease": "Beh\u00faz\u00e1s n\u00f6vel\u00e9se",
 
     // Quick Insert
     "Quick Insert": "Beilleszt\u00e9s"
