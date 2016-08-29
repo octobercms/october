@@ -1,1 +1,6 @@
-<?= $relationViewWidget->render() ?>
+<div
+    id="<?= $this->relationGetId() ?>"
+    data-request-data="_relation_field: '<?= $relationField ?>', _relation_read_only: <?= $relationReadOnly ?>"
+    class="relation-behavior relation-view-<?= $relationViewMode ?>">
+    <?= $relationViewWidget->render() ?>
+</div>
