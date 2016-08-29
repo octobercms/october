@@ -231,6 +231,12 @@
 
             $el.val(prefix + self.formatValue())
         })
+        this.$src.on('paste', function() {
+            if (self.cancelled)
+                return
+
+            setTimeout(function() {$el.val(prefix + self.formatValue())}, 100)
+        })
 
         this.$el.on('change', function() {
             self.cancelled = true
