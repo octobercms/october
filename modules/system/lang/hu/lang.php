@@ -6,12 +6,12 @@ return [
         'tagline' => 'Visszatérés az alapokhoz'
     ],
     'locale' => [
-        'da' => 'Danish',
         'en' => 'Angol (amerikai)',
         'en-au' => 'Angol (ausztrál)',
         'en-ca' => 'Angol (kanadai)',
         'en-gb' => 'Angol (brit)',
         'cs' => 'Cseh',
+        'da' => 'Dán',
         'de' => 'Német',
         'el' => 'Görög',
         'es' => 'Spanyol',
