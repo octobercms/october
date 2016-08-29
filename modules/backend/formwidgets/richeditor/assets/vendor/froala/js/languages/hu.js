@@ -74,7 +74,7 @@ $.FE.LANGUAGE['hu'] = {
     "Open Link": "Hivatkoz\u00e1s megnyit\u00e1sa",
     "Edit Link": "Hivatkoz\u00e1 s szerkeszt\u00e9se",
     "Unlink": "Hivatkoz\u00e1s t\u00f6rl\u00e9se",
-    "Choose Link": "V\u00e1lasszon weboldalt",
+    "Choose Link": "Keres\u00e9s a lapok k\u00f6z\u00f6tt",
 
     // Images
     "Insert Image": "K\u00e9p beilleszt\u00e9se",
