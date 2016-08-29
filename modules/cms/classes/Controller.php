@@ -15,6 +15,7 @@ use Response;
 use Exception;
 use BackendAuth;
 use Twig_Environment;
+use Backend\Models\BrandSetting;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
@@ -292,6 +293,10 @@ class Controller
             'controller'  => $this,
             'environment' => App::environment(),
             'session'     => App::make('session'),
+            'app'         => [
+                'name'    => BrandSetting::get('app_name'),
+                'tagline' => BrandSetting::get('app_tagline'),
+            ],
         ];
 
         /*
