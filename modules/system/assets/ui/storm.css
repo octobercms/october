@@ -2511,7 +2511,7 @@ table td[class*="col-"],table th[class*="col-"]{position:static;float:none;displ
 .table-responsive > .table-bordered > thead > tr > th:last-child,.table-responsive > .table-bordered > tbody > tr > th:last-child,.table-responsive > .table-bordered > tfoot > tr > th:last-child,.table-responsive > .table-bordered > thead > tr > td:last-child,.table-responsive > .table-bordered > tbody > tr > td:last-child,.table-responsive > .table-bordered > tfoot > tr > td:last-child{border-right:0}
 .table-responsive > .table-bordered > tbody > tr:last-child > th,.table-responsive > .table-bordered > tfoot > tr:last-child > th,.table-responsive > .table-bordered > tbody > tr:last-child > td,.table-responsive > .table-bordered > tfoot > tr:last-child > td{border-bottom:0}
 }
-table.table.data{font-size:13px}
+table.table.data{font-size:13px;border-bottom:1px solid #d4d8da}
 table.table.data.no-offset-bottom{margin-bottom:0 !important}
 table.table.data thead{background:#ffffff}
 table.table.data thead td,table.table.data thead th{border-width:1px;border-top:1px solid #d4d8da !important;border-bottom:2px solid #d4d8da !important;border-color:#d4d8da;padding:0;font-weight:normal;text-transform:uppercase;font-size:11px;white-space:nowrap}
@@ -2591,17 +2591,23 @@ table.table.data tr.list-tree-level-10 a.list-expand-collapse{left:120px}
 table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
 .list-preview{padding:0;margin-bottom:20px;background:white;border:1px solid #d4d8da}
 .list-preview .list-header:first-child{padding-top:20px}
-.list-preview .control-list:last-child > table{margin-bottom:0}
+.list-preview .control-list:last-child{margin-bottom:0}
+.list-preview .control-list:last-child > table{border-bottom:none}
 .list-flush table.table.data thead tr th{border-top:none !important}
+.list-with-sidebar table.table.data{border-left:1px solid #d4d8da}
+.control-list{margin-bottom:20px}
 .control-list p.no-data{padding:18px 20px;margin:0 20px;color:#555555;font-size:13px;text-align:center;font-weight:300;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+.control-list table.table.data{margin-bottom:0}
 .control-list table.table.data .list-setup{width:48px}
 .control-list table.table.data .list-setup a{display:block;color:#000000}
 .control-list table.table.data .list-setup a:before{font-size:14px;line-height:14px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0ca";display:inline-block;margin-left:8px;vertical-align:baseline;opacity:0.6;filter:alpha(opacity=60)}
 .control-list table.table.data .list-setup a:hover:before{opacity:1;filter:alpha(opacity=100);color:#4ea5e0 !important}
-.control-list table.table.data .list-pagination{font-size:14px;text-align:right;padding-top:20px}
-.control-list table.table.data .list-pagination .loading-indicator div{margin-left:20px;font-size:12px}
 .list-header{background-color:transparent;padding:0 20px 1px 20px}
 .list-header h3{font-size:14px;color:#7e8c8d;text-transform:uppercase;font-weight:600;margin-top:0;margin-bottom:15px}
+.list-footer{padding:10px 15px}
+.list-footer a{color:#666666;text-decoration:none}
+.list-footer .list-pagination{font-size:14px;text-align:right;padding-top:10px;overflow:hidden; }
+.list-footer .list-pagination .loading-indicator div{margin-left:20px;font-size:12px}
 .report-widget .table-container{margin:-15px}
 .report-widget .table-container table.table.data{margin-bottom:0}
 .report-widget .table-container table.table.data thead tr th{border-top:none !important}
