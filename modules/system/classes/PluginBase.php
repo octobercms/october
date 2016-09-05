@@ -17,7 +17,7 @@ class PluginBase extends ServiceProviderBase
     /**
      * @var boolean
      */
-    protected $loadedYamlConfigration = false;
+    protected $loadedYamlConfiguration = false;
 
     /**
      * @var array Plugin dependencies
@@ -219,8 +219,8 @@ class PluginBase extends ServiceProviderBase
      */
     protected function getConfigurationFromYaml($exceptionMessage = null)
     {
-        if ($this->loadedYamlConfigration !== false) {
-            return $this->loadedYamlConfigration;
+        if ($this->loadedYamlConfiguration !== false) {
+            return $this->loadedYamlConfiguration;
         }
 
         $reflection = new ReflectionClass(get_class($this));
@@ -231,16 +231,16 @@ class PluginBase extends ServiceProviderBase
                 throw new SystemException($exceptionMessage);
             }
             else {
-                $this->loadedYamlConfigration = [];
+                $this->loadedYamlConfiguration = [];
             }
         }
         else {
-            $this->loadedYamlConfigration = Yaml::parse(file_get_contents($yamlFilePath));
-            if (!is_array($this->loadedYamlConfigration)) {
+            $this->loadedYamlConfiguration = Yaml::parse(file_get_contents($yamlFilePath));
+            if (!is_array($this->loadedYamlConfiguration)) {
                 throw new SystemException('Invalid format of the plugin configuration file: %s. The file should define an array.', $yamlFilePath);
             }
         }
 
-        return $this->loadedYamlConfigration;
+        return $this->loadedYamlConfiguration;
     }
 }
