@@ -23,7 +23,7 @@
     </div>
 
     <script type="text/template" id="executeFailed">
-        <div class="modal-body p-t">
+        <div class="modal-body modal-no-header">
             <div class="callout callout-danger no-icon">
                 <div class="header">
                     <h3><?= e(trans('system::lang.updates.update_failed_label')) ?></h3>
@@ -55,7 +55,7 @@
 
 <?php else: ?>
 
-    <div class="modal-body">
+    <div class="modal-body modal-no-header">
         <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
     </div>
     <div class="modal-footer">
