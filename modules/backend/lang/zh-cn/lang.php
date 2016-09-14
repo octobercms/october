@@ -65,9 +65,25 @@ return [
         'widget_new_row_description' => '把小工具放到新列.',
         'widget_title_label' => '小工具标题',
         'widget_title_error' => '需要小工具标题.',
+        'reset_layout' => '重置布局',
+        'reset_layout_confirm' => '重置布局恢复为默认？',
+        'reset_layout_success' => '布局已经复位',
+        'make_default' => '设为默认',
+        'make_default_confirm' => '设置当前布局作为默认？',
+        'make_default_success' => '现在目前的布局是默认',
         'status' => [
             'widget_title_default' => '系统状态',
-            'update_available' => '{0} 更新可用!|{1} 更新可用!|[2,Inf] 更新可用!'
+            'update_available' => '{0} 更新可用!|{1} 更新可用!|[2,Inf] 更新可用!',
+            'updates_pending' => '待定软件更新',
+            'updates_nil' => '软件是最新的',
+            'updates_link' => '更新',
+            'warnings_pending' => '有些问题需要注意',
+            'warnings_nil' => '没有警告显示',
+            'warnings_link' => '查看',
+            'core_build' => '系统建设',
+            'event_log' => '事件日志',
+            'request_log' => '请求日志',
+            'app_birthday' => '在线日期',
         ]
     ],
     'user' => [
