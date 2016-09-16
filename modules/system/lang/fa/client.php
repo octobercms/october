@@ -49,9 +49,45 @@ return [
     'alert' => [
         'confirm_button_text' => 'تایید',
         'cancel_button_text' => 'انصراف',
+        'widget_remove_confirm' => 'این ابزارک حذف شود؟'
     ],
 
+'datepicker' => [
+        'previousMonth' => 'ماه قبل',
+        'nextMonth' => 'ماه بعذ',
+        'months' => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        'weekdays' => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        'weekdaysShort' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    ],
+
+    'filter' => [
+        'group' => [
+            'all' => 'همه'
+        ],
+        'dates' => [
+            'all' => 'همه',
+            'filter_button_text' => 'فیلتر',
+            'reset_button_text'  => 'بازنشانی',
+            'date_placeholder' => 'تاریخ',
+            'after_placeholder' => 'بعد از',
+            'before_placeholder' => 'قبل از'
+        ]
+    ],
+
+    'eventlog' => [
+        'show_stacktrace' => 'نمایش روند اجرا',
+        'hide_stacktrace' => 'مخفی سازی روند اجرا',
+        'tabs' => [
+            'formatted' => 'قالب بندی شده',
+            'raw' => 'خام',
+        ],
+        'editor' => [
+            'title' => 'ویرایشگر کد',
+            'description' => 'سیستم عامل شما باید برای یکی از این شمای آدرس ها پیکربندی شده باشد.',
+            'openWith' => 'باز کردن توسط',
+            'remember_choice' => 'گزینه انتخاب شده را به خاطر داشته باش',
+            'open' => 'باز کردن',
+            'cancel' => 'انصراف'
+        ]
+    ]
 ];
-
-
-
