@@ -11,6 +11,7 @@ use Backend\Classes\FormWidgetBase;
 use October\Rain\Database\Model;
 use October\Rain\Html\Helper as HtmlHelper;
 use ApplicationException;
+use Exception;
 
 /**
  * Form Widget
@@ -1027,17 +1028,27 @@ class Form extends WidgetBase
          * Refer to the model method or any of its behaviors
          */
         if (!is_array($fieldOptions) && !$fieldOptions) {
-            list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
+
+            try {
+                list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
+            }
+            catch (Exception $ex) {
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
+                    'model' => get_class($this->model),
+                    'field' => $field->fieldName
+                ]));
+            }
 
             $methodName = 'get'.studly_case($attribute).'Options';
             if (
                 !$this->objectMethodExists($model, $methodName) &&
                 !$this->objectMethodExists($model, 'getDropdownOptions')
             ) {
-                throw new ApplicationException(Lang::get(
-                    'backend::lang.field.options_method_not_exists',
-                    ['model'=>get_class($model), 'method'=>$methodName, 'field'=>$field->fieldName]
-                ));
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
+                    'model'  => get_class($model),
+                    'method' => $methodName,
+                    'field'  => $field->fieldName
+                ]));
             }
 
             if ($this->objectMethodExists($model, $methodName)) {
@@ -1052,10 +1063,11 @@ class Form extends WidgetBase
          */
         elseif (is_string($fieldOptions)) {
             if (!$this->objectMethodExists($this->model, $fieldOptions)) {
-                throw new ApplicationException(Lang::get(
-                    'backend::lang.field.options_method_not_exists',
-                    ['model'=>get_class($this->model), 'method'=>$fieldOptions, 'field'=>$field->fieldName]
-                ));
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
+                    'model'  => get_class($this->model),
+                    'method' => $fieldOptions,
+                    'field'  => $field->fieldName
+                ]));
             }
 
             $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName);
