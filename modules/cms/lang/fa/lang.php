@@ -10,12 +10,15 @@ return [
         'invalid_file_extension'=>'پسوند :invalid برای فایل نا معتبر است. پسوند های معتبر عبارتند از: :allowed.',
         'error_deleting' => 'خطا در خذف فایل ":name". لطفا سطح دسترسی ها را بررسی نمایید.',
         'delete_success' => 'تعداد :count فایل با موفقیت حذف شد.',
-        'file_name_required' => 'نام فایل را وارد نمایید.'
+        'file_name_required' => 'نام فایل را وارد نمایید.',
+        'safe_mode_enabled' => 'حالت محافظت شده فعال می باشد.',
     ],
     'dashboard' => [
         'active_theme' => [
+            'widget_title_default' => 'وب سایت',
             'online' => 'online',
             'maintenance' => 'در حال به روز رسانی',
+            'manage_themes' => 'مدیریت قالب ها',
         ]
     ],
     'theme' => [
@@ -91,7 +94,8 @@ return [
         'settings_menu' => 'حالت تعمیرات',
         'settings_menu_description' => 'تنظیم کردن صفحه مربوط به تعمیرات و تغییر تنظیمات این حالت.',
         'is_enabled' => 'فعال سازی حالت تعمیرات',
-        'is_enabled_comment' => 'اگر فعال شود کاربران به این صفحه هدایت خواهند شد.'
+        'is_enabled_comment' => 'اگر فعال شود کاربران به این صفحه هدایت خواهند شد.',
+        'hint' => 'حالت تعمیرات کاربرانی را که در بخش مدیریت وارد نشده اند را به صفحه تعمیرات منتقل می کند.',
     ],
     'page' => [
         'not_found_name' => "صفحه ای با نام ':name' یافت نشد",
@@ -106,7 +110,7 @@ return [
         'menu_label' => 'صفحات',
         'unsaved_label' => 'صفحه(های) ذخیره نشده',
         'no_list_records' => 'صفحه ای یافت نشد',
-        'new' => 'New page',
+        'new' => 'صفحه جدید',
         'invalid_url' => 'قالب آدرس صحیح نمی باشد. آدرس باید با اسلش شروع شده و می تواند شامل اعداد، حروف لاتین و این کاراکتر ها باشد: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'آیا از حذف صفحات انتخاب شده اطمینان دارید؟',
         'delete_confirm_single' => 'آیا از حذف این صفحه اطمینان دارید؟',
@@ -169,7 +173,11 @@ return [
         'hidden' => 'مخفی',
         'hidden_comment' => 'صفحات مخفی فقط برای کاربران وارد شده به سیستم نمایش داده می شود.',
         'enter_fullscreen' => 'حالت تمام صفحه',
-        'exit_fullscreen' => 'خروج از حالت تمام صفحه'
+        'exit_fullscreen' => 'خروج از حالت تمام صفحه',
+         'open_searchbox' => 'نمایش جستجو',
+        'close_searchbox'  => 'بستن جستجو',
+        'open_replacebox' => 'نمایش جایگزینی',
+        'close_replacebox'  => 'بستن جایگزینی'
     ],
     'asset' => [
         'menu_label' => "فایلها",
@@ -272,6 +280,7 @@ return [
         'uploading_file_num' => 'ارسال :number فایل(ها)...',
         'uploading_complete' => 'ارسال انجام شد',
         'uploading_error' => 'خطا در ارسال',
+        'type_blocked' => 'نوع فایل استفاده شده به دلیل مسایل امنیتی مجاز نمی باشد..',
         'order_by' => 'مرتب سازی با',
         'folder' => 'پوشه',
         'no_files_found' => 'فایلی با درخواست شما یافت نشد',
