@@ -2,19 +2,23 @@
 
 return [
     'app' => [
-        'name' => 'October CMS',
+        'name' => 'OctoberCMS',
         'tagline' => 'Sadeliğe dönüş...'
     ],
     'locale' => [
         'cs' => 'Čeština (Česko)',
         'da' => 'Danish',
         'en' => 'English (United States)',
+        'en-au' => 'English (Australia)',
+        'en-ca' => 'English (Canada)',
+        'en-gb' => 'English (United Kingdom)',
         'de' => 'Deutsch (Deutschland)',
         'el' => 'Ελληνικά (Ελλάδα)',
         'es' => 'Español (Spanish)',
         'es-ar' => 'Español (Argentina)',
         'fa' => '‏فارسی‏ (Iran) ايران',
         'fr' => 'Français (France)',
+        'fr-ca' => 'Français (Canada)',
         'hu' => 'Magyar - Magyarország (Hungary)',
         'id' => 'Bahasa Indonesia (Indonesia)',
         'it' => 'Italiano (Italia)',
@@ -163,6 +167,13 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill Gizli Anahtarı',
         'mandrill_secret_comment' => 'Mandrill API anahtarını girin.',
+        'ses' => 'SES',
+        'ses_key' => 'SES key',
+        'ses_key_comment' => 'SES API keyi girin',
+        'ses_secret' => 'SES secret',
+        'ses_secret_comment' => 'SES API secret keyi girin',
+        'ses_region' => 'SES bölgesi',
+        'ses_region_comment' => 'SES bölgenizi girin (örnek: us-east-1)',
         'drivers_hint_header' => 'Sürücüler yüklenmemiş',
         'drivers_hint_content' => 'Bu eposta yöntemiyle eposta gönderebilmeniz için ":plugin" eklentisinin kurulmuş olması gerekir.'
     ],
@@ -300,7 +311,8 @@ return [
         'id_label' => 'Olay Numarası',
         'created_at' => 'Tarih & Saat',
         'message' => 'Mesaj',
-        'level' => 'Seviye'
+        'level' => 'Seviye',
+        'preview_title' => 'Olay'
     ],
     'request_log' => [
         'hint' => 'Bu günlük dikkat edilmesi gereken tarayıcı isteklerinin bir listesini görüntüler. Örneğin, bir ziyaretçi bulunmayan bir CMS sayfasını açarsa 404 kodu ile bir kayıt oluşturulur.',
@@ -315,7 +327,8 @@ return [
         'count' => 'Sayaç',
         'referer' => 'Referer',
         'url' => 'URL',
-        'status_code' => 'Durum'
+        'status_code' => 'Durum',
+        'preview_title' => 'İstek'
     ],
     'permissions' => [
         'name' => 'Sistem',
