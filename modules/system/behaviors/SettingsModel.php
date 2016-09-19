@@ -149,7 +149,7 @@ class SettingsModel extends ModelBehavior
             return $this->fieldValues[$key];
         }
 
-        return $default;
+        return array_get($this->fieldValues, $key, $default);
     }
 
     /**
