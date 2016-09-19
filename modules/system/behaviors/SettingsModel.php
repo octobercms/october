@@ -145,13 +145,11 @@ class SettingsModel extends ModelBehavior
      */
     public function getSettingsValue($key, $default = null)
     {
-        if(str_contains($key, '.')) {
-            return array_get($this->fieldValues, $key, $default);
-        } else if (array_key_exists($key, $this->fieldValues)) {
+        if (array_key_exists($key, $this->fieldValues)) {
             return $this->fieldValues[$key];
         }
 
-        return $default;
+        return array_get($this->fieldValues, $key, $default);
     }
 
     /**
