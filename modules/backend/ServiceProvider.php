@@ -1,8 +1,6 @@
 <?php namespace Backend;
 
 use App;
-use Lang;
-use Event;
 use Backend;
 use BackendMenu;
 use BackendAuth;
@@ -31,6 +29,7 @@ class ServiceProvider extends ModuleServiceProvider
          */
         if (App::runningInBackend()) {
             $this->registerBackendNavigation();
+            $this->registerBackendReportWidgets();
             $this->registerBackendWidgets();
             $this->registerBackendPermissions();
             $this->registerBackendSettings();
@@ -69,12 +68,17 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/backend/assets/less/october.less');
             $combiner->registerBundle('~/modules/backend/assets/js/october.js');
             $combiner->registerBundle('~/modules/backend/widgets/table/assets/js/build.js');
-            $combiner->registerBundle('~/modules/backend/formwidgets/datepicker/assets/js/build.js');
-            $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/less/richeditor.less');
-            $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/less/codeeditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/fileupload/assets/less/fileupload.less');
+
+            /*
+             * Rich Editor is protected by DRM
+             */
+            if (file_exists(base_path('modules/backend/formwidgets/richeditor/assets/vendor/froala_drm'))) {
+                $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/less/richeditor.less');
+                $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
+            }
         });
     }
 
@@ -88,10 +92,24 @@ class ServiceProvider extends ModuleServiceProvider
                 'dashboard' => [
                     'label'       => 'backend::lang.dashboard.menu_label',
                     'icon'        => 'icon-dashboard',
+                    'iconSvg'     => 'modules/backend/assets/images/dashboard-icon.svg',
                     'url'         => Backend::url('backend'),
                     'permissions' => ['backend.access_dashboard'],
                     'order'       => 1
                 ]
+            ]);
+        });
+    }
+
+    /*
+     * Register report widgets
+     */
+    protected function registerBackendReportWidgets()
+    {
+        WidgetManager::instance()->registerReportWidgets(function ($manager) {
+            $manager->registerReportWidget('Backend\ReportWidgets\Welcome', [
+                'label'   => 'backend::lang.dashboard.welcome.widget_title_default',
+                'context' => 'dashboard'
             ]);
         });
     }
@@ -165,10 +183,6 @@ class ServiceProvider extends ModuleServiceProvider
                 'label' => 'Color picker',
                 'code'  => 'colorpicker'
             ]);
-            $manager->registerFormWidget('Backend\FormWidgets\DataGrid', [
-                'label' => 'Data Grid',
-                'code'  => 'datagrid'
-            ]); // @deprecated if year >= 2016
             $manager->registerFormWidget('Backend\FormWidgets\DataTable', [
                 'label' => 'Data Table',
                 'code'  => 'datatable'
@@ -180,6 +194,10 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\Repeater', [
                 'label' => 'Repeater',
                 'code'  => 'repeater'
+            ]);
+            $manager->registerFormWidget('Backend\FormWidgets\TagList', [
+                'label' => 'Tag List',
+                'code'  => 'taglist'
             ]);
         });
     }
@@ -196,9 +214,20 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'backend::lang.branding.menu_description',
                     'category'    => SettingsManager::CATEGORY_SYSTEM,
                     'icon'        => 'icon-paint-brush',
-                    'class'       => 'Backend\Models\BrandSettings',
+                    'class'       => 'Backend\Models\BrandSetting',
                     'permissions' => ['backend.manage_branding'],
-                    'order'       => 500
+                    'order'       => 500,
+                    'keywords'    => 'brand style'
+                ],
+                'editor' => [
+                    'label'       => 'backend::lang.editor.menu_label',
+                    'description' => 'backend::lang.editor.menu_description',
+                    'category'    => SettingsManager::CATEGORY_SYSTEM,
+                    'icon'        => 'icon-code',
+                    'class'       => 'Backend\Models\EditorSetting',
+                    'permissions' => ['backend.manage_editor'],
+                    'order'       => 500,
+                    'keywords'    => 'html code class style'
                 ],
                 'myaccount' => [
                     'label'       => 'backend::lang.myaccount.menu_label',
@@ -210,24 +239,14 @@ class ServiceProvider extends ModuleServiceProvider
                     'context'     => 'mysettings',
                     'keywords'    => 'backend::lang.myaccount.menu_keywords'
                 ],
-                'backend_preferences' => [
+                'preferences' => [
                     'label'       => 'backend::lang.backend_preferences.menu_label',
                     'description' => 'backend::lang.backend_preferences.menu_description',
                     'category'    => SettingsManager::CATEGORY_MYSETTINGS,
                     'icon'        => 'icon-laptop',
-                    'class'       => 'Backend\Models\BackendPreferences',
+                    'url'         => Backend::URL('backend/preferences'),
                     'permissions' => ['backend.manage_preferences'],
                     'order'       => 510,
-                    'context'     => 'mysettings'
-                ],
-                'editor' => [
-                    'label'       => 'backend::lang.editor.menu_label',
-                    'description' => 'backend::lang.editor.menu_description',
-                    'category'    => SettingsManager::CATEGORY_MYSETTINGS,
-                    'icon'        => 'icon-code',
-                    'url'         => Backend::URL('backend/editorpreferences'),
-                    'permissions' => ['backend.manage_editor'],
-                    'order'       => 520,
                     'context'     => 'mysettings'
                 ],
                 'access_logs' => [

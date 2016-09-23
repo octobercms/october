@@ -158,4 +158,12 @@ class Repeater extends FormWidgetBase
         // Useful for deleting relations
     }
 
+    public function onRefresh()
+    {
+        $index = post('_repeater_index');
+
+        $widget = $this->makeItemFormWidget($index);
+
+        return $widget->onRefresh();
+    }
 }

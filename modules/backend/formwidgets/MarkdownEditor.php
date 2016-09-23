@@ -18,7 +18,7 @@ class MarkdownEditor extends FormWidgetBase
     //
 
     /**
-     * @var bool Display mode: split, tab.
+     * @var string Display mode: split, tab.
      */
     public $mode = 'tab';
 

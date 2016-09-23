@@ -3,20 +3,20 @@
 // --------------------------------------------------
 
 #layout-sidenav {
-    .virtualFullHeight() {
-        content: ' ';
-        position: absolute;
-        height: 100%;
-        top: 0;
-    }
-
-    background-color: @color-sidebarnav-bg;
     position: absolute;
     height: 100%;
     width: 100%;
-    padding: 10px 0;
-
     .box-sizing(border-box);
+
+    .sidenav-shadow-element() {
+        content: '';
+        position: absolute;
+        height: 100%;
+        top: 0;
+        right: 0;
+        width: 10px;
+        .box-shadow(inset -5px 0 3px rgba(0,0,0,.1));
+    }
 
     ul {
         position: relative;
@@ -25,17 +25,22 @@
         height: 100%;
         overflow: hidden;
 
+        &:after {
+            .sidenav-shadow-element();
+        }
+
         li {
             display: block;
             text-align: center;
             position: relative;
 
             a {
-                padding: 13px;
+                padding: 20px 10px;
                 display: block;
-                font-size: 12px;
+                font-size: @font-size-base - 1;
                 color: @color-sidebarnav-inactive-text;
                 font-weight: normal;
+                position: relative;
 
                 &:hover {
                     text-decoration: none;
@@ -52,11 +57,27 @@
                     margin-bottom: 5px;
                     font-size: 28px;
                 }
+
+                .nav-label,
+                .nav-icon {
+                    text-shadow: 0 -1px 0 rgba(0,0,0,.6);
+                }
+            }
+
+            &:first-child a {
+                padding-top: 30px;
             }
 
             &.active a, a:hover {
                 color: @color-sidebarnav-active-text;
                 i { color: @color-sidebarnav-active-icon; }
+            }
+
+            &.active a {
+                .nav-label,
+                .nav-icon {
+                    text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+                }
             }
 
             span.counter {
@@ -81,8 +102,6 @@
             }
         }
     }
-
-    .vertical-scroll-marker(@color-sidebarnav-inactive-icon);
 }
 
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,

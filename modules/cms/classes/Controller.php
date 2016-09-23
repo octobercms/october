@@ -1,12 +1,12 @@
 <?php namespace Cms\Classes;
 
-use URL;
+use Cms;
+use Url;
 use Str;
 use App;
 use File;
 use View;
 use Lang;
-use Route;
 use Event;
 use Config;
 use Session;
@@ -18,8 +18,9 @@ use Twig_Environment;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
-use Cms\Models\MaintenanceSettings;
+use Cms\Models\MaintenanceSetting;
 use System\Models\RequestLog;
+use System\Helpers\View as ViewHelper;
 use System\Classes\ErrorHandler;
 use System\Classes\CombineAssets;
 use System\Twig\Extension as SystemTwigExtension;
@@ -27,7 +28,7 @@ use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
-use October\Rain\Parse\Template as TextParser;
+use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
 
 /**
@@ -103,7 +104,7 @@ class Controller
     protected static $instance = null;
 
     /**
-     * @var Cms\Classes\ComponentBase Object of the active component, used internally.
+     * @var \Cms\Classes\ComponentBase Object of the active component, used internally.
      */
     protected $componentContext = null;
 
@@ -164,12 +165,15 @@ class Controller
          * Maintenance mode
          */
         if (
-            MaintenanceSettings::isConfigured() &&
-            MaintenanceSettings::get('is_enabled', false) &&
+            MaintenanceSetting::isConfigured() &&
+            MaintenanceSetting::get('is_enabled', false) &&
             !BackendAuth::getUser()
         ) {
-            $this->setStatusCode(503);
-            $page = Page::loadCached($this->theme, MaintenanceSettings::get('cms_page'));
+            if (!Request::ajax()) {
+                $this->setStatusCode(503);
+            }
+
+            $page = Page::loadCached($this->theme, MaintenanceSetting::get('cms_page'));
         }
 
         /*
@@ -191,7 +195,9 @@ class Controller
          * If the page was not found, render the 404 page - either provided by the theme or the built-in one.
          */
         if (!$page || $url === '404') {
-            $this->setStatusCode(404);
+            if (!Request::ajax()) {
+                $this->setStatusCode(404);
+            }
 
             // Log the 404 request
             if (!App::runningUnitTests()) {
@@ -367,7 +373,7 @@ class Controller
              */
             CmsException::mask($this->page, 400);
             $this->loader->setObject($this->page);
-            $template = $this->twig->loadTemplate($this->page->getFullPath());
+            $template = $this->twig->loadTemplate($this->page->getFilePath());
             $this->pageContents = $template->render($this->vars);
             CmsException::unmask();
         }
@@ -377,7 +383,7 @@ class Controller
          */
         CmsException::mask($this->layout, 400);
         $this->loader->setObject($this->layout);
-        $template = $this->twig->loadTemplate($this->layout->getFullPath());
+        $template = $this->twig->loadTemplate($this->layout->getFilePath());
         $result = $template->render($this->vars);
         CmsException::unmask();
 
@@ -625,17 +631,6 @@ class Controller
                 }
 
                 /*
-                 * If the handler returned an array, we should add it to output for rendering.
-                 * If it is a string, add it to the array with the key "result".
-                 */
-                if (is_array($result)) {
-                    $responseContents = array_merge($responseContents, $result);
-                }
-                elseif (is_string($result)) {
-                    $responseContents['result'] = $result;
-                }
-
-                /*
                  * Render partials and return the response as array that will be converted to JSON automatically.
                  */
                 foreach ($partialList as $partial) {
@@ -643,11 +638,27 @@ class Controller
                 }
 
                 /*
-                 * If the handler returned a redirect, process it so framework.js knows to redirect
-                 * the browser and not the request!
+                 * If the handler returned a redirect, process the URL and dispose of it so
+                 * framework.js knows to redirect the browser and not the request!
                  */
                 if ($result instanceof RedirectResponse) {
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
+                    $result = null;
+                }
+
+                /*
+                 * If the handler returned an array, we should add it to output for rendering.
+                 * If it is a string, add it to the array with the key "result".
+                 * If an object, pass it to Laravel as a response object.
+                 */
+                if (is_array($result)) {
+                    $responseContents = array_merge($responseContents, $result);
+                }
+                elseif (is_string($result)) {
+                    $responseContents['result'] = $result;
+                }
+                elseif (is_object($result)) {
+                    return $result;
                 }
 
                 return Response::make($responseContents, $this->statusCode);
@@ -753,6 +764,7 @@ class Controller
     public function renderPartial($name, $parameters = [], $throwException = true)
     {
         $vars = $this->vars;
+        $this->vars = array_merge($this->vars, $parameters);
 
         /*
          * Alias @ symbol for ::
@@ -895,7 +907,7 @@ class Controller
          */
         CmsException::mask($partial, 400);
         $this->loader->setObject($partial);
-        $template = $this->twig->loadTemplate($partial->getFullPath());
+        $template = $this->twig->loadTemplate($partial->getFilePath());
         $result = $template->render(array_merge($this->vars, $parameters));
         CmsException::unmask();
 
@@ -933,6 +945,14 @@ class Controller
         }
 
         $fileContent = $content->parsedMarkup;
+
+        /*
+         * Inject global view variables
+         */
+        $globalVars = ViewHelper::getGlobalVars();
+        if (!empty($globalVars)) {
+            $parameters = (array) $parameters + $globalVars;
+        }
 
         /*
          * Parse basic template variables
@@ -1090,6 +1110,9 @@ class Controller
          */
         if (is_bool($parameters)) {
             $routePersistence = $parameters;
+        }
+
+        if (!is_array($parameters)) {
             $parameters = [];
         }
 
@@ -1101,19 +1124,7 @@ class Controller
             return null;
         }
 
-        if (substr($url, 0, 1) == '/') {
-            $url = substr($url, 1);
-        }
-
-        $routeAction = 'Cms\Classes\CmsController@run';
-        $actionExists = Route::getRoutes()->getByAction($routeAction) !== null;
-
-        if ($actionExists) {
-            return URL::action($routeAction, ['slug' => $url]);
-        }
-        else {
-            return URL::to($url);
-        }
+        return Cms::url($url);
     }
 
     /**
@@ -1142,14 +1153,14 @@ class Controller
         $themeDir = $this->getTheme()->getDirName();
 
         if (is_array($url)) {
-            $_url = URL::to(CombineAssets::combine($url, themes_path().'/'.$themeDir));
+            $_url = Url::to(CombineAssets::combine($url, themes_path().'/'.$themeDir));
         }
         else {
             $_url = Config::get('cms.themesPath', '/themes').'/'.$themeDir;
             if ($url !== null) {
                 $_url .= '/'.$url;
             }
-            $_url = URL::asset($_url);
+            $_url = Url::asset($_url);
         }
 
         return $_url;
@@ -1245,13 +1256,13 @@ class Controller
     public function findComponentByHandler($handler)
     {
         foreach ($this->page->components as $component) {
-            if (method_exists($component, $handler)) {
+            if ($component->methodExists($handler)) {
                 return $component;
             }
         }
 
         foreach ($this->layout->components as $component) {
-            if (method_exists($component, $handler)) {
+            if ($component->methodExists($handler)) {
                 return $component;
             }
         }
@@ -1267,23 +1278,13 @@ class Controller
     public function findComponentByPartial($partial)
     {
         foreach ($this->page->components as $component) {
-            $fileName = ComponentPartial::getFilePath($component, $partial);
-            if (!strlen(File::extension($fileName))) {
-                $fileName .= '.htm';
-            }
-
-            if (File::isFile($fileName)) {
+            if (ComponentPartial::check($component, $partial)) {
                 return $component;
             }
         }
 
         foreach ($this->layout->components as $component) {
-            $fileName = ComponentPartial::getFilePath($component, $partial);
-            if (!strlen(File::extension($fileName))) {
-                $fileName .= '.htm';
-            }
-
-            if (File::isFile($fileName)) {
+            if (ComponentPartial::check($component, $partial)) {
                 return $component;
             }
         }

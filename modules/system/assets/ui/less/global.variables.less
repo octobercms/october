@@ -6,13 +6,8 @@
 @body-bg:               #f9f9f9;
 
 @text-color:            @gray-dark;
-
-// Old
-// @link-color:                     darken(@brand-primary, 15%);
-// @link-hover-color:               darken(@link-color, 30%);
-
-@link-color:                     #0181b9;
-@link-hover-color:               darken(@link-color, 30%);
+@link-color:            #0181b9;
+@link-hover-color:      darken(@link-color, 30%);
 
 @link-hover-decoration: underline;
 
@@ -53,24 +48,12 @@
 @screen-md-max:              (@screen-lg-min - 1);
 
 //
-// Z-Indexes
-// --------------------------------------------------
-
-@zindex-navbar:            1000;
-@zindex-dropdown:          1000;
-@zindex-popover:           1010;
-@zindex-navbar-fixed:      1030;
-@zindex-modal-background:  1040;
-@zindex-modal:             1050;
-@zindex-tooltip:           1060; // Tooltips should always be on the top
-
-//
 // Typography
 // --------------------------------------------------
 
-@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-@font-family-serif:       Georgia, "Times New Roman", Times, serif;
-@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+@font-family-sans-serif:  sans-serif;
+@font-family-serif:       serif;
+@font-family-monospace:   monospace;
 @font-family-base:        @font-family-sans-serif;
 
 @font-size-base:          14px;
@@ -115,10 +98,12 @@
 //
 // Colors
 // --------------------------------------------------
-@brand-primary:          #4da7e8; // Original was #5fb6f5 -sg
+@brand-primary:          #34495e;
+@brand-secondary:        #e67e22;
+@brand-accent:           #3498db;
 @brand-success:          #31ac5f;
-@brand-info:             #5bc0de; // @todo Find a non-BS color
-@brand-warning:          #f0ad4e; // @todo Find a non-BS color
+@brand-info:             #5bc0de;
+@brand-warning:          #f0ad4e;
 @brand-danger:           #ab2a1c;
 
 @color-text-title:       #405261;
@@ -151,10 +136,24 @@
 @state-danger-border:    darken(spin(@state-danger-bg, -10), 5%);
 
 //
+// Highlights
+// --------------------------------------------------
+
+@highlight-hover-bg: mix(white, @brand-accent, 13%);
+@highlight-hover-text: #fff;
+@highlight-hover-text-shadow: fade(contrast(@highlight-hover-text, black, white), 30%);
+
+@highlight-active-bg: @brand-accent;
+@highlight-active-text: #fff;
+@highlight-active-text-shadow: fade(contrast(@highlight-active-text, black, white), 30%);
+
+//
 // General
 // --------------------------------------------------
-@padding-base-vertical:     9px;
-@padding-base-horizontal:   11px;
+@padding-standard:          20px;
+
+@padding-base-vertical:     8px;
+@padding-base-horizontal:   13px;
 
 @padding-large-vertical:    10px;
 @padding-large-horizontal:  16px;
@@ -168,7 +167,7 @@
 @line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
 @line-height-small:         1.5;
 
-@border-radius-base:        2px;
+@border-radius-base:        3px;
 @border-radius-large:       6px;
 @border-radius-small:       3px;
 
@@ -177,3 +176,10 @@
 
 @caret-width-base:          4px;
 @caret-width-large:         5px;
+
+@spacer: @padding-standard;
+@spacer-y: @spacer;
+@spacer-x: @spacer;
+
+@overlay-box-shadow: ~"0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)";
+@overlay-background: rgba(0,0,0,0.2);

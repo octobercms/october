@@ -9,9 +9,12 @@
 
 <h3 class="section"><?= e(trans('cms::lang.media.order_by')) ?></h3>
 
-<select name="sorting" class="form-control custom-select" data-control="sorting">
+<select
+    name="sorting"
+    class="form-control custom-select select-no-search"
+    data-control="sorting">
     <?php foreach ($sortModes as $code=>$title): ?>
-        <option 
+        <option
             <?= $code == $sortBy ? 'selected="selected"' : '' ?>
             value="<?= $code ?>"
         ><?= e($title) ?></option>

@@ -12,6 +12,10 @@
         data-tab-size="<?= $tabSize ?>"
         data-theme="<?= $theme ?>"
         data-show-invisibles="<?= $showInvisibles ?>"
+        data-autocompletion="<?= $autocompletion ?>"
+        data-enable-snippets="<?= $enableSnippets ?>"
+        data-display-indent-guides="<?= $displayIndentGuides ?>"
+        data-show-print-margin="<?= $showPrintMargin ?>"
         data-highlight-active-line="<?= $highlightActiveLine ?>"
         data-use-soft-tabs="<?= $useSoftTabs ?>"
         data-show-gutter="<?= $showGutter ? 'true' : 'false' ?>"
@@ -21,6 +25,30 @@
         data-vendor-path="<?= URL::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>">
         <div class="editor-toolbar">
             <ul>
+                <li class="searchbox-enable">
+                    <a href="javascript:;">
+                        <i class="icon-search"></i>
+                        <abbr title="ctrl+f"><?= e(trans('cms::lang.editor.open_searchbox')) ?></abbr>
+                    </a>
+                </li>
+                <li class="searchbox-disable">
+                    <a href="javascript:;">
+                        <i class="icon-search"></i>
+                        <abbr title="ctrl+f or esc"><?= e(trans('cms::lang.editor.close_searchbox')) ?></abbr>
+                    </a>
+                </li>
+                <li class="replacebox-enable">
+                    <a href="javascript:;">
+                        <i class="icon-random"></i>
+                        <abbr title="ctrl+h"><?= e(trans('cms::lang.editor.open_replacebox')) ?></abbr>
+                    </a>
+                </li>
+                <li class="replacebox-disable">
+                    <a href="javascript:;">
+                        <i class="icon-random"></i>
+                        <abbr title="ctrl+h or esc"><?= e(trans('cms::lang.editor.close_replacebox')) ?></abbr>
+                    </a>
+                </li>
                 <li class="fullscreen-enable">
                     <a href="javascript:;">
                         <i class="icon-desktop"></i>

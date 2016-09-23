@@ -33,7 +33,6 @@ return [
         'fullscreen' => 'Volledig scherm',
         'preview' => 'Voorbeeldweergave',
     ],
-
     'mediamanager' => [
         'insert_link' => 'Invoegen Media Link',
         'insert_image' => 'Invoegen Media Afbeelding',
@@ -45,10 +44,44 @@ return [
         'invalid_video_empty_insert' => 'Selecteer een video bestand om in te voegen.',
         'invalid_audio_empty_insert' => 'Selecteer een audio bestand om in te voegen.',
     ],
-
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Annuleren',
     ],
-
+    'datepicker' => [
+        'previousMonth' => 'Vorige maand',
+        'nextMonth' => 'Volgende maan',
+        'months' => ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
+        'weekdays' => ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'],
+        'weekdaysShort' => ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za']
+    ],
+    'filter' => [
+        'group' => [
+            'all' => 'alle'
+        ],
+        'dates' => [
+            'all' => 'alle',
+            'filter_button_text' => 'Filteren',
+            'reset_button_text'  => 'Resetten',
+            'date_placeholder' => 'Datum',
+            'after_placeholder' => 'Na',
+            'before_placeholder' => 'Voor'
+        ]
+    ],
+    'eventlog' => [
+        'show_stacktrace' => 'Toon stacktrace',
+        'hide_stacktrace' => 'Verberg stacktrace',
+        'tabs' => [
+            'formatted' => 'Geformatteerd',
+            'raw' => 'Bronversie',
+        ],
+        'editor' => [
+            'title' => 'Broncode editor',
+            'description' => 'Je besturingssysteem moet in staat zijn om met deze URL-schema\'s om te kunnen gaan.',
+            'openWith' => 'Openen met',
+            'remember_choice' => 'Onthoudt de geselecteerde optie voor deze browser-sessie',
+            'open' => 'Openen',
+            'cancel' => 'Annuleren'
+        ]
+    ]
 ];

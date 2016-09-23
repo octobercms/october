@@ -16,42 +16,61 @@
         $.oc = {}
 
     var StripeLoadIndicator = function () {
+        var self = this
         this.counter = 0
-        this.indicator = $('<div/>').addClass('stripe-loading-indicator loaded')
-                            .append($('<div />').addClass('stripe'))
-                            .append($('<div />').addClass('stripe-loaded'))
+        this.indicator = this.makeIndicator()
         this.stripe = this.indicator.find('.stripe')
+        this.animationTimer = null
 
-        $(document.body).append(this.indicator)
+        $(document).ready(function(){
+            $(document.body).append(self.indicator)
+        })
+    }
+
+    StripeLoadIndicator.prototype.makeIndicator = function() {
+        return $('<div/>')
+            .addClass('stripe-loading-indicator loaded')
+            .append($('<div />').addClass('stripe'))
+            .append($('<div />').addClass('stripe-loaded'))
     }
 
     StripeLoadIndicator.prototype.show = function() {
+        window.clearTimeout(this.animationTimer)
+        this.indicator.show()
         this.counter++
 
         // Restart the animation
         this.stripe.after(this.stripe = this.stripe.clone()).remove()
 
-        if (this.counter > 1)
+        if (this.counter > 1) {
             return
+        }
 
         this.indicator.removeClass('loaded')
         $(document.body).addClass('loading')
     }
 
     StripeLoadIndicator.prototype.hide = function(force) {
+
         this.counter--
-        if (force !== undefined && force)
+        if (force !== undefined && force) {
             this.counter = 0
+        }
 
         if (this.counter <= 0) {
             this.indicator.addClass('loaded')
             $(document.body).removeClass('loading')
+
+            // Stripe should be hidden using `display: none` because leaving the animated
+            // element in the rendering tree, even invisible, affects performance.
+            var self = this
+            this.animationTimer = window.setTimeout(function() {
+                self.indicator.hide()
+            }, 1000)
         }
     }
 
-    $(document).ready(function(){
-        $.oc.stripeLoadIndicator = new StripeLoadIndicator()
-    })
+    $.oc.stripeLoadIndicator = new StripeLoadIndicator()
 
     // STRIPE LOAD INDICATOR DATA-API
     // ==============

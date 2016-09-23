@@ -13,7 +13,7 @@ use Response;
 use BackendMenu;
 use Cms\Classes\ThemeManager;
 use Backend\Classes\Controller;
-use System\Models\Parameters;
+use System\Models\Parameter;
 use System\Models\PluginVersion;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
@@ -56,10 +56,10 @@ class Updates extends Controller
      */
     public function index()
     {
-        $this->vars['coreBuild'] = Parameters::get('system::core.build');
-        $this->vars['projectId'] = Parameters::get('system::project.id');
-        $this->vars['projectName'] = Parameters::get('system::project.name');
-        $this->vars['projectOwner'] = Parameters::get('system::project.owner');
+        $this->vars['coreBuild'] = Parameter::get('system::core.build');
+        $this->vars['projectId'] = Parameter::get('system::project.id');
+        $this->vars['projectName'] = Parameter::get('system::project.name');
+        $this->vars['projectOwner'] = Parameter::get('system::project.owner');
         $this->vars['pluginsActiveCount'] = PluginVersion::applyEnabled()->count();
         $this->vars['pluginsCount'] = PluginVersion::count();
         return $this->asExtension('ListController')->index();
@@ -273,6 +273,7 @@ class Updates extends Controller
             $manager = UpdateManager::instance();
             $result = $manager->requestUpdateList();
 
+            $result = $this->processUpdateLists($result);
             $result = $this->processImportantUpdates($result);
 
             $this->vars['core'] = array_get($result, 'core', false);
@@ -290,6 +291,8 @@ class Updates extends Controller
 
     /**
      * Loops the update list and checks for actionable updates.
+     * @param array  $result
+     * @return array
      */
     protected function processImportantUpdates($result)
     {
@@ -310,6 +313,24 @@ class Updates extends Controller
         }
 
         $result['hasImportantUpdates'] = $hasImportantUpdates;
+        return $result;
+    }
+
+    /**
+     * Reverses the update lists for the core and all plugins.
+     * @param array  $result
+     * @return array
+     */
+    protected function processUpdateLists($result)
+    {
+        if ($core = array_get($result, 'core')) {
+            $result['core']['updates'] = array_reverse(array_get($core, 'updates', []), true);
+        }
+
+        foreach (array_get($result, 'plugins', []) as $code => $plugin) {
+            $result['plugins'][$code]['updates'] = array_reverse(array_get($plugin, 'updates', []), true);
+        }
+
         return $result;
     }
 
@@ -555,7 +576,7 @@ class Updates extends Controller
             $manager = UpdateManager::instance();
             $result = $manager->requestProjectDetails($projectId);
 
-            Parameters::set([
+            Parameter::set([
                 'system::project.id'    => $projectId,
                 'system::project.name'  => $result['name'],
                 'system::project.owner' => $result['owner'],
@@ -571,7 +592,7 @@ class Updates extends Controller
 
     public function onDetachProject()
     {
-        Parameters::set([
+        Parameter::set([
             'system::project.id'    => null,
             'system::project.name'  => null,
             'system::project.owner' => null,
@@ -852,7 +873,7 @@ class Updates extends Controller
 
     protected function getInstalledThemes()
     {
-        $history = Parameters::get('system::theme.history', []);
+        $history = Parameter::get('system::theme.history', []);
         $manager = UpdateManager::instance();
         $installed = $manager->requestProductDetails(array_keys($history), 'theme');
 
@@ -892,11 +913,11 @@ class Updates extends Controller
     //
 
     /**
-     * Encode HTML safe product code.
+     * Encode HTML safe product code, this is to prevent issues with array_get().
      */
     protected function encodeCode($code)
     {
-        return str_replace('.', '_', $code);
+        return str_replace('.', ':', $code);
     }
 
     /**
@@ -904,6 +925,6 @@ class Updates extends Controller
      */
     protected function decodeCode($code)
     {
-        return str_replace('_', '.', $code);
+        return str_replace(':', '.', $code);
     }
 }

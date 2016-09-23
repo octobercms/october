@@ -15,8 +15,9 @@
 
         $('body > p.flash-message').remove()
 
-        if ($element.length == 0)
+        if ($element.length == 0) {
             $element = $('<p/>').addClass(options.class).html(options.text)
+        }
 
         $element.addClass('flash-message fade')
         $element.attr('data-control', null)

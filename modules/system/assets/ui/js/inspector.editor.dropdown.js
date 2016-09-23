@@ -218,7 +218,9 @@
     }
 
     DropdownEditor.prototype.onExternalPropertyEditorHidden = function() {
-        this.loadDynamicOptions(false)
+        if (this.dynamicOptions) {
+            this.loadDynamicOptions(false)
+        }
     }
 
     //

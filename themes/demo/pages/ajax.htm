@@ -5,9 +5,9 @@ layout = "default"
 <?php
 function onTest()
 {
-    $value1 = post('value1');
-    $value2 = post('value2');
-    $operation = post('operation');
+    $value1 = input('value1');
+    $value2 = input('value2');
+    $operation = input('operation');
 
     switch ($operation) {
         case '+' :

@@ -42,7 +42,7 @@
                             id="<?= $cbId ?>"
                             type="checkbox"
                             name="file[<?= e($item->path) ?>]"
-                            <?= $this->isFileSelected($item) ? 'checked' : null ?> 
+                            <?= $this->isItemSelected($item->path) ? 'checked' : null ?>
                             data-request="<?= $this->getEventHandler('onSelect') ?>"
                             value="1">
                         <label for="<?= $cbId ?>"><?= e(trans('cms::lang.asset.select')) ?></label>

@@ -1,0 +1,164 @@
+//
+// Coded variables
+//
+// @logo-image
+// @brand-primary
+// @brand-secondary
+// @brand-accent
+//
+
+.br-p     { color: @brand-primary; }
+.br-s     { color: @brand-secondary; }
+.br-a     { color: @brand-accent; }
+.br-p-s10 { color: saturate(@brand-primary,   10%); }
+.br-s-s10 { color: saturate(@brand-secondary, 10%); }
+.br-a-s10 { color: saturate(@brand-accent,    10%); }
+.br-p-s20 { color: saturate(@brand-primary,   20%); }
+.br-s-s20 { color: saturate(@brand-secondary, 20%); }
+.br-a-s20 { color: saturate(@brand-accent,    20%); }
+
+.bg-p     { background-color: @brand-primary; }
+.bg-s     { background-color: @brand-secondary; }
+.bg-a     { background-color: @brand-accent; }
+.bg-p-s10 { background-color: saturate(@brand-primary,   10%); }
+.bg-s-s10 { background-color: saturate(@brand-secondary, 10%); }
+.bg-a-s10 { background-color: saturate(@brand-accent,    10%); }
+.bg-p-s20 { background-color: saturate(@brand-primary,   20%); }
+.bg-s-s20 { background-color: saturate(@brand-secondary, 20%); }
+.bg-a-s20 { background-color: saturate(@brand-accent,    20%); }
+
+@custom-dark-accent: mix(black, desaturate(@brand-accent, 35%), 20%);
+@custom-dark-secondary: mix(black, saturate(@brand-secondary, 20%), 25%);
+@custom-dark-primary: mix(black, saturate(@brand-primary, 5%), 15%);
+
+//
+// Sidenav
+//
+
+#layout-sidenav ul li a .nav-label,
+#layout-sidenav ul li a .nav-icon {
+    text-shadow: 0 -1px 0 fade(darken(@brand-primary, 20%), 60%);
+}
+
+//
+// Sidenav Tree
+//
+
+.sidenav-tree ul.top-level > li {
+    > div.group:before {
+        border-top-color: @brand-primary;
+    }
+    > ul li.active {
+        border-color: @brand-secondary;
+    }
+}
+
+//
+// Outside Layout
+//
+
+body.outer {
+    background: @custom-dark-primary;
+}
+
+//
+// Logos
+//
+
+.oc-logo-transparent when not (@logo-image = '') {
+    background-image: url('@{logo-image}') !important;
+}
+
+.oc-logo when not (@logo-image = '') {
+    background-image: url('@{logo-image}');
+}
+
+//
+// List
+//
+
+table.table.data {
+    tbody {
+        tr.active td {
+            &:first-child {
+                border-left: 3px solid @brand-secondary;
+            }
+        }
+        // tr:not(.no-data):hover td,
+        // tr:not(.no-data).selected td {
+        //     background: mix(white, @brand-accent, 13%) !important;
+        // }
+        // tr:not(.no-data):active td {
+        //     background: @brand-accent !important;
+        // }
+    }
+}
+
+//
+// Fancy Layout
+//
+
+.fancy-layout .form-tabless-fields {
+    background: @brand-secondary;
+
+    .loading-indicator-container .loading-indicator {
+        background: @brand-secondary;
+    }
+}
+
+.fancy-layout .control-tabs.master-tabs,
+.fancy-layout.control-tabs.master-tabs {
+    > div > div.tabs-container > ul.nav-tabs > li.active a > span.title {
+        &, &:before, &:after {
+            background: @brand-secondary;
+        }
+    }
+
+    > div > div.tabs-container > ul.nav-tabs > li a > span.title {
+        &, &:before, &:after {
+            background-color: mix(black, saturate(@brand-secondary, 20%), 31%);
+        }
+    }
+
+    > div > div.tabs-container {
+        background-color: @custom-dark-secondary;
+    }
+}
+
+.fancy-layout .control-tabs.primary-tabs,
+.fancy-layout.control-tabs.primary-tabs {
+    > div > ul.nav-tabs.master-area {
+        background: @brand-secondary;
+    }
+}
+
+.fancy-layout .control-tabs.secondary-tabs.secondary-content-tabs.primary-collapsed,
+.fancy-layout.control-tabs.secondary-tabs.secondary-content-tabs.primary-collapsed {
+    > div > ul.nav-tabs {
+        background: @brand-secondary;
+    }
+}
+
+.control-filelist ul li.active > a:after {
+    background: @brand-secondary;
+}
+
+//
+// Component List
+//
+
+div.control-componentlist {
+    &.droppable {
+        background-color: lighten(@brand-secondary, 20%);
+    }
+}
+
+//
+// Stripe Indicator
+//
+
+.stripe-loading-indicator {
+    .stripe, .stripe-loaded {
+        background: @brand-accent;
+    }
+}

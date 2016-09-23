@@ -1,6 +1,6 @@
 <?php namespace Cms\Controllers;
 
-use URL;
+use Url;
 use Lang;
 use Flash;
 use Event;
@@ -97,7 +97,7 @@ class Index extends Controller
         // before it loads dynamically.
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
 
-        $this->bodyClass = 'compact-container side-panel-not-fixed';
+        $this->bodyClass = 'compact-container';
         $this->pageTitle = 'cms::lang.cms.menu_label';
         $this->pageTitleTemplate = '%s '.trans($this->pageTitle);
 
@@ -138,24 +138,36 @@ class Index extends Controller
         $type = Request::input('templateType');
         $templatePath = trim(Request::input('templatePath'));
         $template = $templatePath ? $this->loadTemplate($type, $templatePath) : $this->createTemplate($type);
+        $formWidget = $this->makeTemplateFormWidget($type, $template);
 
-        $settings = Request::input('settings') ?: [];
+        $saveData = $formWidget->getSaveData();
+        $postData = post();
+        $templateData = [];
+
+        $settings = array_get($saveData, 'settings', []) + Request::input('settings', []);
         $settings = $this->upgradeSettings($settings);
 
-        $templateData = [];
         if ($settings) {
             $templateData['settings'] = $settings;
         }
 
         $fields = ['markup', 'code', 'fileName', 'content'];
+
         foreach ($fields as $field) {
-            if (array_key_exists($field, $_POST)) {
-                $templateData[$field] = Request::input($field);
+            if (array_key_exists($field, $saveData)) {
+                $templateData[$field] = $saveData[$field];
+            }
+            elseif (array_key_exists($field, $postData)) {
+                $templateData[$field] = $postData[$field];
             }
         }
 
         if (!empty($templateData['markup']) && Config::get('cms.convertLineEndings', false) === true) {
             $templateData['markup'] = $this->convertLineEndings($templateData['markup']);
+        }
+
+        if (!empty($templateData['code']) && Config::get('cms.convertLineEndings', false) === true) {
+            $templateData['code'] = $this->convertLineEndings($templateData['code']);
         }
 
         if (!Request::input('templateForceSave') && $template->mtime) {
@@ -164,6 +176,7 @@ class Index extends Controller
             }
         }
 
+        $template->attributes = [];
         $template->fill($templateData);
         $template->save();
 
@@ -182,7 +195,7 @@ class Index extends Controller
         ];
 
         if ($type == 'page') {
-            $result['pageUrl'] = URL::to($template->url);
+            $result['pageUrl'] = Url::to($template->url);
             $router = new Router($this->theme);
             $router->clearCache();
             CmsCompoundObject::clearCache($this->theme);
@@ -202,7 +215,7 @@ class Index extends Controller
         $template = $this->createTemplate($type);
 
         if ($type == 'asset') {
-            $template->setInitialPath($this->widget->assetList->getCurrentRelativePath());
+            $template->fileName = $this->widget->assetList->getCurrentRelativePath();
         }
 
         $widget = $this->makeTemplateFormWidget($type, $template);
@@ -273,7 +286,7 @@ class Index extends Controller
     {
         $this->validateRequestTheme();
 
-        $page = new Page($this->theme);
+        $page = Page::inTheme($this->theme);
         return [
             'layouts' => $page->getLayoutOptions()
         ];
@@ -343,7 +356,7 @@ class Index extends Controller
     {
         $class = $this->resolveTypeClassName($type);
 
-        if (!($template = call_user_func(array($class, 'load'), $this->theme, $path))) {
+        if (!($template = call_user_func([$class, 'load'], $this->theme, $path))) {
             throw new ApplicationException(trans('cms::lang.template.not_found'));
         }
 
@@ -356,7 +369,7 @@ class Index extends Controller
     {
         $class = $this->resolveTypeClassName($type);
 
-        if (!($template = new $class($this->theme))) {
+        if (!($template = $class::inTheme($this->theme))) {
             throw new ApplicationException(trans('cms::lang.template.not_found'));
         }
 

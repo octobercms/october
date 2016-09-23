@@ -3,6 +3,7 @@
 # ===================================
 
 columns:
+
     first_name:
         label: backend::lang.user.first_name
         searchable: true
@@ -33,3 +34,30 @@ columns:
         relation: groups
         select: name
         sortable: false
+
+    last_login:
+        label: backend::lang.user.last_login
+        searchable: true
+        type: datetime
+
+    created_at:
+        label: backend::lang.user.created_at
+        searchable: true
+        invisible: true
+        type: datetime
+
+    updated_at:
+        label: backend::lang.user.updated_at
+        searchable: true
+        invisible: true
+        type: datetime
+
+    is_activated:
+        label: backend::lang.user.activated
+        invisible: true
+        type: switch
+
+    is_superuser:
+        label: backend::lang.user.superuser
+        invisible: true
+        type: switch

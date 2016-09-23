@@ -6,13 +6,14 @@
  *
  * @see build-min.js
  *
- * Current Ace build v1.2.0 using "src-noconflict"
+ * Current Ace build v1.2.3 using "src-noconflict"
  * https://github.com/ajaxorg/ace-builds/
  *
 
 =require ../vendor/emmet/emmet.js
 =require ../vendor/ace/ace.js
 =require ../vendor/ace/ext-emmet.js
+=require ../vendor/ace/ext-language_tools.js
 =require ../vendor/ace/mode-php.js
 =require ../vendor/ace/mode-twig.js
 =require ../vendor/ace/mode-markdown.js

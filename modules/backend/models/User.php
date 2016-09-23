@@ -1,6 +1,7 @@
 <?php namespace Backend\Models;
 
 use Mail;
+use Event;
 use Backend;
 use October\Rain\Auth\Models\User as UserBase;
 
@@ -99,6 +100,10 @@ class User extends UserBase
         }
     }
 
+    /**
+     * After create event
+     * @return void
+     */
     public function afterCreate()
     {
         $this->restorePurgedValues();
@@ -108,6 +113,20 @@ class User extends UserBase
         }
     }
 
+    /**
+     * After login event
+     * @return void
+     */
+    public function afterLogin()
+    {
+        parent::afterLogin();
+        Event::fire('backend.user.login', [$this]);
+    }
+
+    /**
+     * Sends an invitation to the user using template "backend::mail.invite".
+     * @return void
+     */
     public function sendInvitation()
     {
         $data = [

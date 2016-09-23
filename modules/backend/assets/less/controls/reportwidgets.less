@@ -3,9 +3,10 @@
     background: white;
     .box-sizing(border-box);
     .border-radius(@border-radius-base);
+    font-size: @font-size-base - 1;
 
     h3 {
-        font-size: 14px;
+        font-size: @font-size-base;
         color: @color-report-widget-title;
         text-transform: uppercase;
         font-weight: 600;
@@ -13,11 +14,11 @@
         margin-bottom: 30px;
     }
 
-    .height-100 {height: 100px;}
-    .height-200 {height: 200px;}
-    .height-300 {height: 300px;}
-    .height-400 {height: 400px;}
-    .height-500 {height: 500px;}
+    .height-100 { height: 100px; }
+    .height-200 { height: 200px; }
+    .height-300 { height: 300px; }
+    .height-400 { height: 400px; }
+    .height-500 { height: 500px; }
 
     p.report-description {
         margin-bottom: 0;
@@ -27,7 +28,24 @@
         color: @color-report-widget-description;
     }
 
+    a:not(.btn) {
+        color: @color-report-widget-link;
+        text-decoration: none;
+        &:hover {
+            color: @link-color;
+            text-decoration: none;
+        }
+    }
+
     p.flash-message.static {
         margin-bottom: 0;
+    }
+
+    .icon-circle {
+        &.success { color: @brand-success; }
+        &.primary { color: @brand-primary; }
+        &.warning { color: @brand-warning; }
+        &.danger { color: @brand-danger; }
+        &.info { color: @brand-info; }
     }
 }

@@ -17,6 +17,7 @@ use ApplicationException;
 use ValidationException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use DirectoryIterator;
@@ -30,13 +31,13 @@ use Exception;
  */
 class AssetList extends WidgetBase
 {
+    use \Backend\Traits\SelectableWidget;
+
     protected $searchTerm = false;
 
     protected $theme;
 
     protected $groupStatusCache = false;
-
-    protected $selectedFilesCache = false;
 
     /**
      * @var string Message to display when there are no records in the list.
@@ -46,37 +47,13 @@ class AssetList extends WidgetBase
     /**
      * @var string Message to display when the Delete button is clicked.
      */
-    public $deleteConfirmation = 'Do you really want to delete selected files or directories?';
-
-    /**
-     * @var array A list of default allowed file types.
-     * This parameter can be overridden with the cms.allowedAssetTypes configuration option.
-     */
-    public $allowedAssetTypes = [
-        'jpg',
-        'jpeg',
-        'bmp',
-        'png',
-        'gif',
-        'css',
-        'js',
-        'woff',
-        'woff2',
-        'svg',
-        'ttf',
-        'eot',
-        'otf',
-        'json',
-        'md',
-        'less',
-        'sass',
-        'scss'
-    ];
+    public $deleteConfirmation = 'Delete selected files or directories?';
 
     public function __construct($controller, $alias)
     {
         $this->alias = $alias;
         $this->theme = Theme::getEditTheme();
+        $this->selectionInputName = 'file';
 
         parent::__construct($controller, []);
         $this->bindToController();
@@ -100,7 +77,7 @@ class AssetList extends WidgetBase
     public function render()
     {
         return $this->makePartial('body', [
-           'data'=>$this->getData()
+           'data' => $this->getData()
         ]);
     }
 
@@ -111,11 +88,6 @@ class AssetList extends WidgetBase
     public function onGroupStatusUpdate()
     {
         $this->setGroupStatus(Input::get('group'), Input::get('status'));
-    }
-
-    public function onSelect()
-    {
-        $this->extendSelection();
     }
 
     public function onOpenDirectory()
@@ -132,14 +104,14 @@ class AssetList extends WidgetBase
 
         $this->putSession('currentPath', $path);
         return [
-            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
+            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items' => $this->getData()])
         ];
     }
 
     public function onRefresh()
     {
         return [
-            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
+            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items' => $this->getData()])
         ];
     }
 
@@ -321,7 +293,7 @@ class AssetList extends WidgetBase
         $this->listDestinationDirectories($directories, $selectedList);
 
         $this->vars['directories'] = $directories;
-        $this->vars['selectedList'] = serialize(array_keys($selectedList));
+        $this->vars['selectedList'] = base64_encode(serialize(array_keys($selectedList)));
         return $this->makePartial('move_form');
     }
 
@@ -344,7 +316,7 @@ class AssetList extends WidgetBase
             throw new ApplicationException(Lang::get('cms::lang.asset.destination_not_found'));
         }
 
-        $list = @unserialize($selectedList);
+        $list = @unserialize(@base64_decode($selectedList));
         if ($list === false) {
             throw new ApplicationException(Lang::get('cms::lang.asset.selected_files_not_found'));
         }
@@ -393,7 +365,7 @@ class AssetList extends WidgetBase
                     ));
                 }
 
-                if (!@File::deleteDirectory($originalFullPath, $directory)) {
+                if (!@File::deleteDirectory($originalFullPath)) {
                     throw new ApplicationException(Lang::get(
                         'cms::lang.asset.error_deleting_directory',
                         ['dir'=>$basename]
@@ -604,30 +576,6 @@ class AssetList extends WidgetBase
         return $prefix.$this->theme->getDirName();
     }
 
-    protected function getSelectedFiles()
-    {
-        if ($this->selectedFilesCache !== false) {
-            return $this->selectedFilesCache;
-        }
-
-        $files = $this->getSession($this->getThemeSessionKey('selected'), []);
-        if (!is_array($files)) {
-            return $this->selectedFilesCache = [];
-        }
-
-        return $this->selectedFilesCache = $files;
-    }
-
-    protected function isFileSelected($item)
-    {
-        $selectedFiles = $this->getSelectedFiles();
-        if (!is_array($selectedFiles) || !isset($selectedFiles[$item->path])) {
-            return false;
-        }
-
-        return $selectedFiles[$item->path];
-    }
-
     protected function getUpPath()
     {
         $path = $this->getCurrentRelativePath();
@@ -636,23 +584,6 @@ class AssetList extends WidgetBase
         }
 
         return dirname($path);
-    }
-
-    protected function extendSelection()
-    {
-        $items = Input::get('file', []);
-        $currentSelection = $this->getSelectedFiles();
-
-        $this->putSession($this->getThemeSessionKey('selected'), array_merge($currentSelection, $items));
-    }
-
-    protected function removeSelection($path)
-    {
-        $currentSelection = $this->getSelectedFiles();
-
-        unset($currentSelection[$path]);
-        $this->putSession($this->getThemeSessionKey('selected'), $currentSelection);
-        $this->selectedFilesCache = $currentSelection;
     }
 
     protected function validateRequestTheme()
@@ -681,10 +612,7 @@ class AssetList extends WidgetBase
 
             // Don't rely on Symfony's mime guessing implementation, it's not accurate enough.
             // Use the simple extension validation.
-            $allowedAssetTypes = Config::get('cms.allowedAssetTypes');
-            if (!$allowedAssetTypes) {
-                $allowedAssetTypes = $this->allowedAssetTypes;
-            }
+            $allowedAssetTypes = FileDefinitions::get('assetExtensions');
 
             $maxSize = UploadedFile::getMaxFilesize();
             if ($uploadedFile->getSize() > $maxSize) {

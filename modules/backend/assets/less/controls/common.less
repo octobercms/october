@@ -37,9 +37,30 @@
     background-size: contain;
 }
 
-.oc-bg-logo {
-    background-image: url(../images/october-logo-transparent.svg);
+.oc-logo {
+    background-image: url(../images/october-logo.svg);
     background-position: 50% 50%;
     background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.layout.control-tabs.oc-logo-transparent:not(.has-tabs),
+.flex-layout-column.oc-logo-transparent:not(.has-tabs),
+.layout-cell.oc-logo-transparent {
     background-size: 50% auto;
+    background-repeat: no-repeat;
+    background-image: url(../images/october-logo.svg);
+    background-position: 50% 50%;
+    position: relative;
+
+    &:after {
+        content: '';
+        display: table-cell;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba(249,249,249,0.7);
+    }
 }

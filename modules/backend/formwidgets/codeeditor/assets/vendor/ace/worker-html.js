@@ -5,15 +5,16 @@ if (typeof window.window != "undefined" && window.document)
 if (window.require && window.define)
     return;
 
-window.console = function() {
-    var msgs = Array.prototype.slice.call(arguments, 0);
-    postMessage({type: "log", data: msgs});
-};
-window.console.error =
-window.console.warn = 
-window.console.log =
-window.console.trace = window.console;
-
+if (!window.console) {
+    window.console = function() {
+        var msgs = Array.prototype.slice.call(arguments, 0);
+        postMessage({type: "log", data: msgs});
+    };
+    window.console.error =
+    window.console.warn = 
+    window.console.log =
+    window.console.trace = window.console;
+}
 window.window = window;
 window.ace = window;
 
@@ -562,7 +563,7 @@ var Range = function(startRow, startColumn, endRow, endColumn) {
         if (!this.isMultiLine()) {
             if (row === this.start.row) {
                 return column < this.start.column ? -1 : (column > this.end.column ? 1 : 0);
-            };
+            }
         }
 
         if (row < this.start.row)
@@ -1245,7 +1246,7 @@ var Document = function(textOrLines) {
         }
     };
     this.replace = function(range, text) {
-        if (!range instanceof Range)
+        if (!(range instanceof Range))
             range = Range.fromPoints(range.start, range.end);
         if (text.length === 0 && range.isEmpty())
             return range.start;
@@ -10856,7 +10857,7 @@ var SAXParser = require("./html/saxparser").SAXParser;
 var errorTypes = {
     "expected-doctype-but-got-start-tag": "info",
     "expected-doctype-but-got-chars": "info",
-    "non-html-root": "info",
+    "non-html-root": "info"
 }
 
 var Worker = exports.Worker = function(sender) {

@@ -2,7 +2,7 @@
 
 use File;
 use ApplicationException;
-use System\Models\Parameters;
+use System\Models\Parameter;
 use Cms\Classes\Theme as CmsTheme;
 
 /**
@@ -25,7 +25,7 @@ class ThemeManager
      */
     public function getInstalled()
     {
-        return Parameters::get('system::theme.history', []);
+        return Parameter::get('system::theme.history', []);
     }
 
     /**
@@ -35,12 +35,13 @@ class ThemeManager
      */
     public function isInstalled($name)
     {
-        return array_key_exists($name, Parameters::get('system::theme.history', []));
+        return array_key_exists($name, Parameter::get('system::theme.history', []));
     }
 
     /**
      * Flags a theme as being installed, so it is not downloaded twice.
-     * @param string $name Theme code
+     * @param string $code Theme code
+     * @param string|null $dirName
      */
     public function setInstalled($code, $dirName = null)
     {
@@ -48,23 +49,23 @@ class ThemeManager
             $dirName = strtolower(str_replace('.', '-', $code));
         }
 
-        $history = Parameters::get('system::theme.history', []);
+        $history = Parameter::get('system::theme.history', []);
         $history[$code] = $dirName;
-        Parameters::set('system::theme.history', $history);
+        Parameter::set('system::theme.history', $history);
     }
 
     /**
      * Flags a theme as being uninstalled.
-     * @param string $name Theme code
+     * @param string $code Theme code
      */
     public function setUninstalled($code)
     {
-        $history = Parameters::get('system::theme.history', []);
+        $history = Parameter::get('system::theme.history', []);
         if (array_key_exists($code, $history)) {
             unset($history[$code]);
         }
 
-        Parameters::set('system::theme.history', $history);
+        Parameter::set('system::theme.history', $history);
     }
 
     /**
@@ -89,7 +90,7 @@ class ThemeManager
 
     /**
      * Completely delete a theme from the system.
-     * @param string $id Theme code/namespace
+     * @param string $theme Theme code/namespace
      * @return void
      */
     public function deleteTheme($theme)

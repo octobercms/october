@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Šablony úspěšně smazány: :count.',
         'file_name_required' => 'Je nutno vyplnit Název souboru.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'online',
+            'maintenance' => 'v údržbě',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "Téma ':name' nebylo nalezeno.",
         'active' => [

@@ -10,18 +10,20 @@
 +function ($) { "use strict";
 
     var VerticalMenu = function (element, toggle, options) {
+        this.$el = $(element)
         this.body = $('body')
         this.toggle = $(toggle)
         this.options = options || {}
         this.options = $.extend({}, VerticalMenu.DEFAULTS, this.options)
         this.wrapper = $(this.options.contentWrapper)
+        this.breakpoint = options.breakpoint
 
         /*
          * Insert the menu
          */
         this.menuPanel = $('<div></div>').appendTo('body').addClass(this.options.collapsedMenuClass).css('width', 0)
         this.menuContainer = $('<div></div>').appendTo(this.menuPanel).css('display', 'none')
-        this.menuElement = $(element).clone().appendTo(this.menuContainer).css('width', 'auto')
+        this.menuElement = this.$el.clone().appendTo(this.menuContainer).css('width', 'auto')
 
         var self = this
 
@@ -43,15 +45,15 @@
                 self.menuContainer.css('display', 'block')
 
                 self.wrapper.animate({'left': self.options.menuWidth}, { duration: 200, queue: false })
-                self.menuPanel.animate({'width': self.options.menuWidth},
-                    {
-                        duration: 200,
-                        queue: false,
-                        complete: function() {
-                            self.menuElement.css('width', self.options.menuWidth)
-                        }
-                    })
-            } else {
+                self.menuPanel.animate({'width': self.options.menuWidth}, {
+                    duration: 200,
+                    queue: false,
+                    complete: function() {
+                        self.menuElement.css('width', self.options.menuWidth)
+                    }
+                })
+            }
+            else {
                 closeMenu()
             }
 
@@ -70,7 +72,7 @@
          */
         $(window).resize(function() {
             if (self.body.hasClass(self.options.bodyMenuOpenClass)) {
-                if ($(window).width() > self.options.breakpoint) {
+                if ($(window).width() > self.breakpoint) {
                     hideMenu()
                 }
             }
@@ -120,8 +122,7 @@
     }
 
     VerticalMenu.DEFAULTS = {
-        menuWidth: 250,
-        minContentWidth: 769,
+        menuWidth: 230,
         breakpoint: 769,
         bodyMenuOpenClass: 'mainmenu-open',
         collapsedMenuClass: 'mainmenu-collapsed',

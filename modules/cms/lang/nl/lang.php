@@ -11,6 +11,15 @@ return [
         'error_deleting' => 'Fout bij het verwijderen van template: ":name". Controleer de schrijfrechten.',
         'delete_success' => 'Templates zijn succesvol verwijderd: :count.',
         'file_name_required' => 'Het invullen van een bestandsnaam is verplicht.',
+        'safe_mode_enabled' => 'Safe-modus is op dit moment ingeschakeld.',
+    ],
+    'dashboard' => [
+        'active_theme' => [
+            'widget_title_default' => 'Website',
+            'online' => 'online',
+            'maintenance' => 'in onderhoud',
+            'manage_themes' => 'Beheer thema\'s',
+        ],
     ],
     'theme' => [
         'not_found_name' => 'Het thema \':name\' is niet gevonden.',
@@ -164,6 +173,10 @@ return [
         'hidden_comment' => 'Verborgen pagina zijn alleen toegankelijk voor ingelogde gebruikers.',
         'enter_fullscreen' => 'Volledig scherm starten',
         'exit_fullscreen' => 'Volledig scherm afsluiten',
+        'open_searchbox' => 'Open zoekveld',
+        'close_searchbox' => 'Sluit zoekveld',
+        'open_replacebox' => 'Open vervang veld',
+        'close_replacebox' => 'Sluit vervang veld',
     ],
     'asset' => [
         'menu_label' => 'Middelen',
@@ -266,6 +279,7 @@ return [
         'uploading_file_num' => 'Uploaden van :number bestanden...',
         'uploading_complete' => 'Uploaden voltooid',
         'uploading_error' => 'Upload mislukt',
+        'type_blocked' => 'Het bestandstype is i.v.m. veiligheidsredenen geblokkeerd.',
         'order_by' => 'Sorteer op',
         'folder' => 'Map',
         'no_files_found' => 'Er zijn geen bestanden gevonden.',

@@ -1,8 +1,10 @@
 /*
  * Table row linking plugin
- * 
+ *
  * Data attributes:
  * - data-control="rowlink" - enables the plugin on an element
+ * - data-exclude-class="nolink" - disables the link for elements with this class
+ * - data-linked-class="rowlink" - this class is added to affected table rows
  *
  * JavaScript API:
  * $('a#someElement').rowLink()
@@ -34,13 +36,30 @@
             if (!link.length) return
 
             var href = link.attr('href'),
-                onclick = (typeof link.get(0).onclick == "function") ? link.get(0).onclick : null
+                onclick = (typeof link.get(0).onclick == "function") ? link.get(0).onclick : null,
+                popup = link.is('[data-control=popup]'),
+                request = link.is('[data-request]')
 
-            $(this).find('td').not('.' + options.excludeClass).click(function() {
-                if (onclick)
+            $(this).find('td').not('.' + options.excludeClass).click(function(e) {
+                if ($(document.body).hasClass('drag')) {
+                    return
+                }
+
+                if (onclick) {
                     onclick.apply(link.get(0))
-                else
-                    window.location = href;
+                }
+                else if (request) {
+                    link.request()
+                }
+                else if (popup) {
+                    link.popup()
+                }
+                else if (e.ctrlKey) {
+                    window.open(href)
+                }
+                else {
+                    window.location = href
+                }
             })
 
             $(this).addClass(options.linkedClass)

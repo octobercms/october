@@ -7,6 +7,7 @@ return [
     ],
     'locale' => [
         'cs' => 'Czech',
+        'da' => 'Danish',
         'en' => 'English',
         'de' => 'German',
         'es' => 'Spanish',
@@ -28,7 +29,7 @@ return [
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
         'zh-cn' => '简体中文',
-        'zh-tw' => 'Chinese (Taiwan)',
+        'zh-tw' => '繁體中文',
         'el' => 'Greek'
     ],
     'directory' => [
@@ -299,7 +300,8 @@ return [
         'count' => '次数',
         'referer' => '来源',
         'url' => 'URL',
-        'status_code' => '状态'
+        'status_code' => '状态',
+        'preview_title'=> '预览事件日志'
     ],
     'permissions' => [
         'name' => '系统',
@@ -309,6 +311,8 @@ return [
         'manage_mail_templates' => '管理邮件模板',
         'manage_mail_settings' => '管理邮件设置',
         'manage_other_administrators' => '管理其他管理员',
+        'manage_preferences' => '管理后台偏好设置',
+        'manage_editor' => '管理代码编辑器偏好设置',
         'view_the_dashboard' => '查看仪表盘',
         'manage_branding' => '自定义后台'
     ]

@@ -116,7 +116,7 @@
      *
      * The onSuccess callback parameters: records, totalCount.
      */
-    Base.prototype.deleteRecord = function(key, newRecordData, offset, count, onSuccess) {
+    Client.prototype.deleteRecord = function(key, newRecordData, offset, count, onSuccess) {
         var recordIndex = this.getIndexOfKey(key)
 
         if (recordIndex !== -1) {

@@ -2,10 +2,8 @@
 
 use Url;
 use Html;
-use File;
-use System\Models\Parameters;
+use System\Models\Parameter;
 use System\Models\PluginVersion;
-use SystemException;
 
 /**
  * Asset Maker Trait
@@ -14,7 +12,6 @@ use SystemException;
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-
 trait AssetMaker
 {
 
@@ -27,6 +24,17 @@ trait AssetMaker
      * @var string Specifies a path to the asset directory.
      */
     public $assetPath;
+
+    /**
+     * Disables the use, and subequent broadcast, of assets. This is useful
+     * to call during an AJAX request to speed things up. This method works
+     * by specifically targeting the hasAssetsDefined method.
+     * @return void
+     */
+    public function flushAssets()
+    {
+        $this->assets = ['js'=>[], 'css'=>[], 'rss'=>[]];
+    }
 
     /**
      * Outputs <link> and <script> tags to load assets previously added with addJs and addCss method calls
@@ -200,7 +208,7 @@ trait AssetMaker
      */
     public function getAssetPath($fileName, $assetPath = null)
     {
-        if (preg_match("/(\/\/|http|https)/", $fileName)) {
+        if (starts_with($fileName, ['//', 'http://', 'https://'])) {
             return $fileName;
         }
 
@@ -236,7 +244,7 @@ trait AssetMaker
             $build = $asset['attributes']['build'];
 
             if ($build == 'core') {
-                $build = 'v' . Parameters::get('system::core.build', 1);
+                $build = 'v' . Parameter::get('system::core.build', 1);
             }
             elseif ($pluginVersion = PluginVersion::getVersion($build)) {
                 $build = 'v' . $pluginVersion;
@@ -255,7 +263,7 @@ trait AssetMaker
      */
     protected function getAssetScheme($asset)
     {
-        if (preg_match("/(\/\/|http|https)/", $asset)) {
+        if (starts_with($asset, ['//', 'http://', 'https://'])) {
             return $asset;
         }
 

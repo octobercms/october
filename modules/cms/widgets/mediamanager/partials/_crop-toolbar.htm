@@ -22,17 +22,17 @@
             </div>
 
             <label for="mmcropimagewidth"><?= e(trans('cms::lang.media.selection_mode')) ?></label>
-            <select name="selectionMode" class="form-control custom-select width-150" data-control="selection-mode">
+            <select name="selectionMode" class="form-control custom-select w-150" data-control="selection-mode">
                 <?php foreach ($selectionModes as $mode=>$name): ?>
                     <option <?= $mode == $currentSelectionMode ? 'selected="selected"' : null ?> value="<?= $mode ?>"><?= e($name) ?></option>
                 <?php endforeach ?>
             </select>
 
             <label for="mmcropimagewidth"><?= e(trans('cms::lang.media.width')) ?></label>
-            <input id="mmcropimagewidth" type="text" class="form-control width-50" data-control="crop-width-input" name="selectionWidth" value="<?= e($currentSelectionWidth) ?>" <?= $sizeDisabledAttr ?>/>
+            <input id="mmcropimagewidth" type="text" class="form-control w-50" data-control="crop-width-input" name="selectionWidth" value="<?= e($currentSelectionWidth) ?>" <?= $sizeDisabledAttr ?>/>
 
             <label for="mmcropimageheight"><?= e(trans('cms::lang.media.height')) ?></label>
-            <input id="mmcropimageheight" type="text" class="form-control width-50" data-control="crop-height-input" name="selectionHeight" value="<?= e($currentSelectionHeight) ?>" <?= $sizeDisabledAttr ?>/>
+            <input id="mmcropimageheight" type="text" class="form-control w-50" data-control="crop-height-input" name="selectionHeight" value="<?= e($currentSelectionHeight) ?>" <?= $sizeDisabledAttr ?>/>
 
             <label class="standalone hide" data-label="selection-size"><?= e(trans('cms::lang.media.selected_size')) ?> <span data-label="selection-width"></span> x <span data-label="selection-height"></span></label>
 

@@ -1,6 +1,6 @@
 <?php if ($relationViewMode == 'single'): ?>
     <button
-        class="btn btn-sm btn-default oc-icon-trash-o"
+        class="btn btn-sm btn-secondary oc-icon-trash-o"
         data-request="onRelationButtonDelete"
         data-request-confirm="<?= e(trans('backend::lang.relation.delete_confirm')) ?>"
         data-stripe-load-indicator>
@@ -8,7 +8,7 @@
     </button>
 <?php else: ?>
     <button
-        class="btn btn-sm btn-default oc-icon-trash-o"
+        class="btn btn-sm btn-secondary oc-icon-trash-o"
         onclick="$(this).data('request-data', {
             checked: $('#<?= $this->relationGetId('view') ?> .control-list').listWidget('getChecked')
         })"

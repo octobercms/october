@@ -2,6 +2,7 @@
 
 use Db;
 use Lang;
+use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 use ApplicationException;
 use SystemException;
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\Relation as RelationBase;
  */
 class Relation extends FormWidgetBase
 {
+    use \Backend\Traits\FormModelWidget;
+
     //
     // Configurable properties
     //
@@ -151,6 +154,10 @@ class Relation extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
+        if ($this->formField->disabled || $this->formField->hidden) {
+            return FormField::NO_SAVE_DATA;
+        }
+
         if (is_string($value) && !strlen($value)) {
             return null;
         }
@@ -161,25 +168,4 @@ class Relation extends FormWidgetBase
 
         return $value;
     }
-
-
-    /**
-     * Returns the value as a relation object from the model,
-     * supports nesting via HTML array.
-     * @return Relation
-     */
-    protected function getRelationObject()
-    {
-        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-
-        if (!$model->hasRelation($attribute)) {
-            throw new ApplicationException(Lang::get('backend::lang.model.missing_relation', [
-                'class' => get_class($model),
-                'relation' => $attribute
-            ]));
-        }
-
-        return $model->{$attribute}();
-    }
-
 }

@@ -1,7 +1,7 @@
 <?php namespace System\Behaviors;
 
+use App;
 use Cache;
-use DbDongle;
 use System\Classes\ModelBehavior;
 use ApplicationException;
 
@@ -25,6 +25,9 @@ class SettingsModel extends ModelBehavior
     protected $fieldConfig;
     protected $fieldValues = [];
 
+    /**
+     * @var array Internal cache of model objects.
+     */
     private static $instances = [];
 
     /**
@@ -97,10 +100,11 @@ class SettingsModel extends ModelBehavior
 
     /**
      * Checks if the model has been set up previously, intended as a static method
+     * @return bool
      */
     public function isConfigured()
     {
-        return DbDongle::hasDatabase() && $this->getSettingsRecord() !== null;
+        return App::hasDatabase() && $this->getSettingsRecord() !== null;
     }
 
     /**
@@ -248,5 +252,14 @@ class SettingsModel extends ModelBehavior
     protected function getCacheKey()
     {
         return 'system::settings.'.$this->recordCode;
+    }
+
+    /**
+     * Clears the internal memory cache of model instances.
+     * @return void
+     */
+    public static function clearInternalCache()
+    {
+        static::$instances = [];
     }
 }

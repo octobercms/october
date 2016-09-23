@@ -1,5 +1,6 @@
 <?php namespace System\Controllers;
 
+use App;
 use Str;
 use Lang;
 use File;
@@ -68,5 +69,18 @@ class EventLogs extends Controller
         }
 
         return $this->listRefresh();
+    }
+
+
+    public function preview($id)
+    {
+        $this->addCss('/modules/system/assets/css/eventlogs/exception-beautifier.css', 'core');
+        $this->addJs('/modules/system/assets/js/eventlogs/exception-beautifier.js', 'core');
+
+        if (in_array(App::environment(), ['dev', 'local'])) {
+            $this->addJs('/modules/system/assets/js/eventlogs/exception-beautifier.links.js', 'core');
+        }
+
+        return $this->asExtension('FormController')->preview($id);
     }
 }

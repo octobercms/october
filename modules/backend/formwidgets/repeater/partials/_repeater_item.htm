@@ -1,6 +1,6 @@
 <li class="field-repeater-item">
 
-    <div class="repeater-item-handle">
+    <div class="repeater-item-handle <?= $this->getId('items') ?>-handle">
         <i class="icon-bars"></i>
     </div>
 
@@ -17,7 +17,10 @@
         </button>
     </div>
 
-    <div class="field-repeater-form">
+    <div class="field-repeater-form"
+         data-control="formwidget"
+         data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
+         data-refresh-data="'_repeater_index': '<?= $indexValue ?>'">
         <?php foreach ($widget->getFields() as $field): ?>
             <?= $widget->renderField($field) ?>
         <?php endforeach ?>

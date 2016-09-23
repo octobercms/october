@@ -117,6 +117,8 @@ class Settings extends Controller
         $model = $this->createModel($item);
         $model->resetDefault();
 
+        Flash::success(Lang::get('backend::lang.form.reset_success'));
+
         return Backend::redirect('system/settings/update/'.$author.'/'.$plugin.'/'.$code);
     }
 

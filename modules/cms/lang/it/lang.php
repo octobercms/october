@@ -10,7 +10,16 @@ return [
         'invalid_file_extension'=>'Estensione del file non valida: :invalid. Le estensioni consentite sono: :allowed.',
         'error_deleting' => "Errore nella cancellazione del file ':name'. Verifica le autorizzazioni di scrittura.",
         'delete_success' => 'Template eliminati correttamente: :count.',
-        'file_name_required' => 'Il campo Nome file è obbligatorio.'
+        'file_name_required' => 'Il campo Nome file è obbligatorio.',
+        'safe_mode_enabled' => 'La modalità sicura è attualmente abilitata.',
+    ],
+    'dashboard' => [
+        'active_theme' => [
+            'widget_title_default' => 'Sito web',
+            'online' => 'Online',
+            'maintenance' => 'In manutenzione',
+            'manage_themes' => 'Gestione temi',
+        ]
     ],
     'theme' => [
         'not_found_name' => "Tema ':name' non trovato.",
@@ -163,7 +172,11 @@ return [
         'hidden' => 'Nascosto',
         'hidden_comment' => 'Le pagine nascoste sono accessibili solo dagli utenti collegati al pannello di controllo.',
         'enter_fullscreen' => 'Visualizza a schermo intero',
-        'exit_fullscreen' => 'Esci dalla visualizzazione a schermo intero'
+        'exit_fullscreen' => 'Esci dalla visualizzazione a schermo intero',
+        'open_searchbox' => 'Apri casella di ricerca',
+        'close_searchbox'  => 'Chiudi casella di ricerca',
+        'open_replacebox' => 'Apri casella di sostituzione',
+        'close_replacebox'  => 'Chiudi casella di sostituzione'
     ],
     'asset' => [
         'menu_label' => 'Assets',
@@ -265,6 +278,8 @@ return [
         'multiple_selected' => 'Elementi multipli selezionati.',
         'uploading_file_num' => 'Caricamento in corso di :number file(s)...',
         'uploading_complete' => 'Caricamento completato',
+        'uploading_error' => 'Caricamento fallito',
+        'type_blocked' => 'Il tipo di file utilizzato è bloccato per questioni di sicurezza.',
         'order_by' => 'Ordina per',
         'folder' => 'Cartella',
         'no_files_found' => 'Nessun file corrisponde alla tua richiesta.',

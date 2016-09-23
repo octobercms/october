@@ -2,6 +2,7 @@
 <html lang="<?= App::getLocale() ?>" class="no-js">
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="backend-base-path" content="<?= Backend::baseUrl() ?>">
@@ -24,7 +25,7 @@
 
                 <div class="layout-row min-size layout-head">
                     <div class="layout-cell">
-                        <h1 class="oc-logo-white"><?= e(Backend\Models\BrandSettings::get('app_name')) ?></h1>
+                        <h1 class="oc-logo"><?= e(Backend\Models\BrandSetting::get('app_name')) ?></h1>
                     </div>
                 </div>
                 <div class="layout-row">
