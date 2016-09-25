@@ -58,14 +58,17 @@ Feel free to use them alongside your buttons.
 <div class="category-icons">
 <ul>
     <li><i class="icon-adjust"></i> icon-adjust</li>
+    <li><i class="icon-american-sign-language-interpreting"></i> icon-american-sign-language-interpreting</li>
     <li><i class="icon-anchor"></i> icon-anchor</li>
     <li><i class="icon-archive"></i> icon-archive</li>
     <li><i class="icon-area-chart"></i> icon-area-chart</li>
     <li><i class="icon-arrows"></i> icon-arrows</li>
     <li><i class="icon-arrows-h"></i> icon-arrows-h</li>
     <li><i class="icon-arrows-v"></i> icon-arrows-v</li>
+    <li><i class="icon-assistive-listening-systems"></i> icon-assistive-listening-systems</li>
     <li><i class="icon-asterisk"></i> icon-asterisk</li>
     <li><i class="icon-at"></i> icon-at</li>
+    <li><i class="icon-audio-description"></i> icon-audio-description</li>
     <li><i class="icon-balance-scale"></i> icon-balance-scale</li>
     <li><i class="icon-ban"></i> icon-ban</li>
     <li><i class="icon-bar-chart"></i> icon-bar-chart</li>
@@ -85,11 +88,15 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-bicycle"></i> icon-bicycle</li>
     <li><i class="icon-binoculars"></i> icon-binoculars</li>
     <li><i class="icon-birthday-cake"></i> icon-birthday-cake</li>
+    <li><i class="icon-blind"></i> icon-blind</li>
+    <li><i class="icon-bluetooth"></i> icon-bluetooth</li>
+    <li><i class="icon-bluetooth-b"></i> icon-bluetooth-b</li>
     <li><i class="icon-bolt"></i> icon-bolt</li>
     <li><i class="icon-bomb"></i> icon-bomb</li>
     <li><i class="icon-book"></i> icon-book</li>
     <li><i class="icon-bookmark"></i> icon-bookmark</li>
     <li><i class="icon-bookmark-o"></i> icon-bookmark-o</li>
+    <li><i class="icon-braille"></i> icon-braille</li>
     <li><i class="icon-briefcase"></i> icon-briefcase</li>
     <li><i class="icon-bug"></i> icon-bug</li>
     <li><i class="icon-building"></i> icon-building</li>
@@ -137,22 +144,24 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-cogs"></i> icon-cogs</li>
     <li><i class="icon-comment"></i> icon-comment</li>
     <li><i class="icon-comment-o"></i> icon-comment-o</li>
-    <li><i class="icon-commenting"></i> icon-commenting</li>
-    <li><i class="icon-commenting-o"></i> icon-commenting-o</li>
 </ul>
 <ul>
+    <li><i class="icon-commenting"></i> icon-commenting</li>
+    <li><i class="icon-commenting-o"></i> icon-commenting-o</li>
     <li><i class="icon-comments"></i> icon-comments</li>
     <li><i class="icon-comments-o"></i> icon-comments-o</li>
     <li><i class="icon-compass"></i> icon-compass</li>
     <li><i class="icon-copyright"></i> icon-copyright</li>
     <li><i class="icon-creative-commons"></i> icon-creative-commons</li>
     <li><i class="icon-credit-card"></i> icon-credit-card</li>
+    <li><i class="icon-credit-card-alt"></i> icon-credit-card-alt</li>
     <li><i class="icon-crop"></i> icon-crop</li>
     <li><i class="icon-crosshairs"></i> icon-crosshairs</li>
     <li><i class="icon-cube"></i> icon-cube</li>
     <li><i class="icon-cubes"></i> icon-cubes</li>
     <li><i class="icon-cutlery"></i> icon-cutlery</li>
     <li><i class="icon-database"></i> icon-database</li>
+    <li><i class="icon-deaf"></i> icon-deaf</li>
     <li><i class="icon-desktop"></i> icon-desktop</li>
     <li><i class="icon-diamond"></i> icon-diamond</li>
     <li><i class="icon-dot-circle-o"></i> icon-dot-circle-o</li>
@@ -211,6 +220,7 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-hand-rock-o"></i> icon-hand-rock-o</li>
     <li><i class="icon-hand-scissors-o"></i> icon-hand-scissors-o</li>
     <li><i class="icon-hand-spock-o"></i> icon-hand-spock-o</li>
+    <li><i class="icon-hashtag"></i> icon-hashtag</li>
     <li><i class="icon-hdd-o"></i> icon-hdd-o</li>
     <li><i class="icon-headphones"></i> icon-headphones</li>
     <li><i class="icon-heart"></i> icon-heart</li>
@@ -243,6 +253,7 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-line-chart"></i> icon-line-chart</li>
     <li><i class="icon-location-arrow"></i> icon-location-arrow</li>
     <li><i class="icon-lock"></i> icon-lock</li>
+    <li><i class="icon-low-vision"></i> icon-low-vision</li>
     <li><i class="icon-magic"></i> icon-magic</li>
     <li><i class="icon-magnet"></i> icon-magnet</li>
     <li><i class="icon-male"></i> icon-male</li>
@@ -274,6 +285,7 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-pencil"></i> icon-pencil</li>
     <li><i class="icon-pencil-square"></i> icon-pencil-square</li>
     <li><i class="icon-pencil-square-o"></i> icon-pencil-square-o</li>
+    <li><i class="icon-percent"></i> icon-percent</li>
     <li><i class="icon-phone"></i> icon-phone</li>
     <li><i class="icon-phone-square"></i> icon-phone-square</li>
     <li><i class="icon-picture-o"></i> icon-picture-o</li>
@@ -290,6 +302,7 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-qrcode"></i> icon-qrcode</li>
     <li><i class="icon-question"></i> icon-question</li>
     <li><i class="icon-question-circle"></i> icon-question-circle</li>
+    <li><i class="icon-question-circle-o"></i> icon-question-circle-o</li>
     <li><i class="icon-quote-left"></i> icon-quote-left</li>
     <li><i class="icon-quote-right"></i> icon-quote-right</li>
     <li><i class="icon-random"></i> icon-random</li>
@@ -307,17 +320,20 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-search-minus"></i> icon-search-minus</li>
     <li><i class="icon-search-plus"></i> icon-search-plus</li>
     <li><i class="icon-server"></i> icon-server</li>
+    <li><i class="icon-share"></i> icon-share</li>
 </ul>
 <ul>
-    <li><i class="icon-share"></i> icon-share</li>
     <li><i class="icon-share-alt"></i> icon-share-alt</li>
     <li><i class="icon-share-alt-square"></i> icon-share-alt-square</li>
     <li><i class="icon-share-square"></i> icon-share-square</li>
     <li><i class="icon-share-square-o"></i> icon-share-square-o</li>
     <li><i class="icon-shield"></i> icon-shield</li>
     <li><i class="icon-ship"></i> icon-ship</li>
+    <li><i class="icon-shopping-bag"></i> icon-shopping-bag</li>
+    <li><i class="icon-shopping-basket"></i> icon-shopping-basket</li>
     <li><i class="icon-shopping-cart"></i> icon-shopping-cart</li>
     <li><i class="icon-sign-in"></i> icon-sign-in</li>
+    <li><i class="icon-sign-language"></i> icon-sign-language</li>
     <li><i class="icon-sign-out"></i> icon-sign-out</li>
     <li><i class="icon-signal"></i> icon-signal</li>
     <li><i class="icon-sitemap"></i> icon-sitemap</li>
@@ -374,6 +390,7 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-truck"></i> icon-truck</li>
     <li><i class="icon-tty"></i> icon-tty</li>
     <li><i class="icon-umbrella"></i> icon-umbrella</li>
+    <li><i class="icon-universal-access"></i> icon-universal-access</li>
     <li><i class="icon-university"></i> icon-university</li>
     <li><i class="icon-unlock"></i> icon-unlock</li>
     <li><i class="icon-unlock-alt"></i> icon-unlock-alt</li>
@@ -384,10 +401,12 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-user-times"></i> icon-user-times</li>
     <li><i class="icon-users"></i> icon-users</li>
     <li><i class="icon-video-camera"></i> icon-video-camera</li>
+    <li><i class="icon-volume-control-phone"></i> icon-volume-control-phone</li>
     <li><i class="icon-volume-down"></i> icon-volume-down</li>
     <li><i class="icon-volume-off"></i> icon-volume-off</li>
     <li><i class="icon-volume-up"></i> icon-volume-up</li>
     <li><i class="icon-wheelchair"></i> icon-wheelchair</li>
+    <li><i class="icon-wheelchair-alt"></i> icon-wheelchair-alt</li>
     <li><i class="icon-wifi"></i> icon-wifi</li>
     <li><i class="icon-wrench"></i> icon-wrench</li>
 </ul>
@@ -400,20 +419,21 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-ambulance"></i> icon-ambulance</li>
     <li><i class="icon-h-square"></i> icon-h-square</li>
     <li><i class="icon-heart"></i> icon-heart</li>
+    <li><i class="icon-heart-o"></i> icon-heart-o</li>
 </ul>
 <ul>
-    <li><i class="icon-heart-o"></i> icon-heart-o</li>
     <li><i class="icon-heartbeat"></i> icon-heartbeat</li>
     <li><i class="icon-hospital-o"></i> icon-hospital-o</li>
+    <li><i class="icon-medkit"></i> icon-medkit</li>
 </ul>
 <ul>
-    <li><i class="icon-medkit"></i> icon-medkit</li>
     <li><i class="icon-plus-square"></i> icon-plus-square</li>
     <li><i class="icon-stethoscope"></i> icon-stethoscope</li>
+    <li><i class="icon-user-md"></i> icon-user-md</li>
 </ul>
 <ul>
-    <li><i class="icon-user-md"></i> icon-user-md</li>
     <li><i class="icon-wheelchair"></i> icon-wheelchair</li>
+    <li><i class="icon-wheelchair-alt"></i> icon-wheelchair-alt</li>
 </ul>
 </div>
 
@@ -584,23 +604,27 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-compress"></i> icon-compress</li>
     <li><i class="icon-eject"></i> icon-eject</li>
     <li><i class="icon-expand"></i> icon-expand</li>
+    <li><i class="icon-fast-backward"></i> icon-fast-backward</li>
 </ul>
 <ul>
-    <li><i class="icon-fast-backward"></i> icon-fast-backward</li>
     <li><i class="icon-fast-forward"></i> icon-fast-forward</li>
     <li><i class="icon-forward"></i> icon-forward</li>
     <li><i class="icon-pause"></i> icon-pause</li>
+    <li><i class="icon-pause-circle"></i> icon-pause-circle</li>
+    <li><i class="icon-pause-circle-o"></i> icon-pause-circle-o</li>
 </ul>
 <ul>
     <li><i class="icon-play"></i> icon-play</li>
     <li><i class="icon-play-circle"></i> icon-play-circle</li>
     <li><i class="icon-play-circle-o"></i> icon-play-circle-o</li>
     <li><i class="icon-random"></i> icon-random</li>
+    <li><i class="icon-step-backward"></i> icon-step-backward</li>
 </ul>
 <ul>
-    <li><i class="icon-step-backward"></i> icon-step-backward</li>
     <li><i class="icon-step-forward"></i> icon-step-forward</li>
     <li><i class="icon-stop"></i> icon-stop</li>
+    <li><i class="icon-stop-circle"></i> icon-stop-circle</li>
+    <li><i class="icon-stop-circle-o"></i> icon-stop-circle-o</li>
     <li><i class="icon-youtube-play"></i> icon-youtube-play</li>
 </ul>
 </div>
@@ -637,23 +661,24 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-bicycle"></i> icon-bicycle</li>
     <li><i class="icon-bus"></i> icon-bus</li>
     <li><i class="icon-car"></i> icon-car</li>
+    <li><i class="icon-fighter-jet"></i> icon-fighter-jet</li>
 </ul>
 <ul>
-    <li><i class="icon-fighter-jet"></i> icon-fighter-jet</li>
     <li><i class="icon-motorcycle"></i> icon-motorcycle</li>
     <li><i class="icon-plane"></i> icon-plane</li>
     <li><i class="icon-rocket"></i> icon-rocket</li>
+    <li><i class="icon-ship"></i> icon-ship</li>
 </ul>
 <ul>
-    <li><i class="icon-ship"></i> icon-ship</li>
     <li><i class="icon-space-shuttle"></i> icon-space-shuttle</li>
     <li><i class="icon-subway"></i> icon-subway</li>
     <li><i class="icon-taxi"></i> icon-taxi</li>
+    <li><i class="icon-train"></i> icon-train</li>
 </ul>
 <ul>
-    <li><i class="icon-train"></i> icon-train</li>
     <li><i class="icon-truck"></i> icon-truck</li>
     <li><i class="icon-wheelchair"></i> icon-wheelchair</li>
+    <li><i class="icon-wheelchair-alt"></i> icon-wheelchair-alt</li>
 </ul>
 </div>
 
@@ -689,6 +714,8 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-bitbucket"></i> icon-bitbucket</li>
     <li><i class="icon-bitbucket-square"></i> icon-bitbucket-square</li>
     <li><i class="icon-black-tie"></i> icon-black-tie</li>
+    <li><i class="icon-bluetooth"></i> icon-bluetooth</li>
+    <li><i class="icon-bluetooth-b"></i> icon-bluetooth-b</li>
     <li><i class="icon-btc"></i> icon-btc</li>
     <li><i class="icon-buysellads"></i> icon-buysellads</li>
     <li><i class="icon-cc-amex"></i> icon-cc-amex</li>
@@ -701,6 +728,7 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-cc-visa"></i> icon-cc-visa</li>
     <li><i class="icon-chrome"></i> icon-chrome</li>
     <li><i class="icon-codepen"></i> icon-codepen</li>
+    <li><i class="icon-codiepie"></i> icon-codiepie</li>
     <li><i class="icon-connectdevelop"></i> icon-connectdevelop</li>
     <li><i class="icon-contao"></i> icon-contao</li>
     <li><i class="icon-css3"></i> icon-css3</li>
@@ -711,16 +739,21 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-dribbble"></i> icon-dribbble</li>
     <li><i class="icon-dropbox"></i> icon-dropbox</li>
     <li><i class="icon-drupal"></i> icon-drupal</li>
+    <li><i class="icon-edge"></i> icon-edge</li>
     <li><i class="icon-empire"></i> icon-empire</li>
+    <li><i class="icon-envira"></i> icon-envira</li>
     <li><i class="icon-expeditedssl"></i> icon-expeditedssl</li>
-</ul>
-<ul>
     <li><i class="icon-facebook"></i> icon-facebook</li>
     <li><i class="icon-facebook-official"></i> icon-facebook-official</li>
+</ul>
+<ul>
     <li><i class="icon-facebook-square"></i> icon-facebook-square</li>
     <li><i class="icon-firefox"></i> icon-firefox</li>
+    <li><i class="icon-first-order"></i> icon-first-order</li>
     <li><i class="icon-flickr"></i> icon-flickr</li>
+    <li><i class="icon-font-awesome"></i> icon-font-awesome</li>
     <li><i class="icon-fonticons"></i> icon-fonticons</li>
+    <li><i class="icon-fort-awesome"></i> icon-fort-awesome</li>
     <li><i class="icon-forumbee"></i> icon-forumbee</li>
     <li><i class="icon-foursquare"></i> icon-foursquare</li>
     <li><i class="icon-get-pocket"></i> icon-get-pocket</li>
@@ -731,8 +764,12 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-github"></i> icon-github</li>
     <li><i class="icon-github-alt"></i> icon-github-alt</li>
     <li><i class="icon-github-square"></i> icon-github-square</li>
+    <li><i class="icon-gitlab"></i> icon-gitlab</li>
+    <li><i class="icon-glide"></i> icon-glide</li>
+    <li><i class="icon-glide-g"></i> icon-glide-g</li>
     <li><i class="icon-google"></i> icon-google</li>
     <li><i class="icon-google-plus"></i> icon-google-plus</li>
+    <li><i class="icon-google-plus-official"></i> icon-google-plus-official</li>
     <li><i class="icon-google-plus-square"></i> icon-google-plus-square</li>
     <li><i class="icon-google-wallet"></i> icon-google-wallet</li>
     <li><i class="icon-gratipay"></i> icon-gratipay</li>
@@ -749,12 +786,14 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-leanpub"></i> icon-leanpub</li>
     <li><i class="icon-linkedin"></i> icon-linkedin</li>
     <li><i class="icon-linkedin-square"></i> icon-linkedin-square</li>
-</ul>
-<ul>
     <li><i class="icon-linux"></i> icon-linux</li>
     <li><i class="icon-maxcdn"></i> icon-maxcdn</li>
+</ul>
+<ul>
     <li><i class="icon-meanpath"></i> icon-meanpath</li>
     <li><i class="icon-medium"></i> icon-medium</li>
+    <li><i class="icon-mixcloud"></i> icon-mixcloud</li>
+    <li><i class="icon-modx"></i> icon-modx</li>
     <li><i class="icon-odnoklassniki"></i> icon-odnoklassniki</li>
     <li><i class="icon-odnoklassniki-square"></i> icon-odnoklassniki-square</li>
     <li><i class="icon-opencart"></i> icon-opencart</li>
@@ -765,15 +804,19 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-paypal"></i> icon-paypal</li>
     <li><i class="icon-pied-piper"></i> icon-pied-piper</li>
     <li><i class="icon-pied-piper-alt"></i> icon-pied-piper-alt</li>
+    <li><i class="icon-pied-piper-pp"></i> icon-pied-piper-pp</li>
     <li><i class="icon-pinterest"></i> icon-pinterest</li>
     <li><i class="icon-pinterest-p"></i> icon-pinterest-p</li>
     <li><i class="icon-pinterest-square"></i> icon-pinterest-square</li>
+    <li><i class="icon-product-hunt"></i> icon-product-hunt</li>
     <li><i class="icon-qq"></i> icon-qq</li>
     <li><i class="icon-rebel"></i> icon-rebel</li>
     <li><i class="icon-reddit"></i> icon-reddit</li>
+    <li><i class="icon-reddit-alien"></i> icon-reddit-alien</li>
     <li><i class="icon-reddit-square"></i> icon-reddit-square</li>
     <li><i class="icon-renren"></i> icon-renren</li>
     <li><i class="icon-safari"></i> icon-safari</li>
+    <li><i class="icon-scribd"></i> icon-scribd</li>
     <li><i class="icon-sellsy"></i> icon-sellsy</li>
     <li><i class="icon-share-alt"></i> icon-share-alt</li>
     <li><i class="icon-share-alt-square"></i> icon-share-alt-square</li>
@@ -783,6 +826,9 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-skype"></i> icon-skype</li>
     <li><i class="icon-slack"></i> icon-slack</li>
     <li><i class="icon-slideshare"></i> icon-slideshare</li>
+    <li><i class="icon-snapchat"></i> icon-snapchat</li>
+    <li><i class="icon-snapchat-ghost"></i> icon-snapchat-ghost</li>
+    <li><i class="icon-snapchat-square"></i> icon-snapchat-square</li>
     <li><i class="icon-soundcloud"></i> icon-soundcloud</li>
     <li><i class="icon-spotify"></i> icon-spotify</li>
 </ul>
@@ -794,6 +840,7 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-stumbleupon"></i> icon-stumbleupon</li>
     <li><i class="icon-stumbleupon-circle"></i> icon-stumbleupon-circle</li>
     <li><i class="icon-tencent-weibo"></i> icon-tencent-weibo</li>
+    <li><i class="icon-themeisle"></i> icon-themeisle</li>
     <li><i class="icon-trello"></i> icon-trello</li>
     <li><i class="icon-tripadvisor"></i> icon-tripadvisor</li>
     <li><i class="icon-tumblr"></i> icon-tumblr</li>
@@ -801,7 +848,10 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-twitch"></i> icon-twitch</li>
     <li><i class="icon-twitter"></i> icon-twitter</li>
     <li><i class="icon-twitter-square"></i> icon-twitter-square</li>
+    <li><i class="icon-usb"></i> icon-usb</li>
     <li><i class="icon-viacoin"></i> icon-viacoin</li>
+    <li><i class="icon-viadeo"></i> icon-viadeo</li>
+    <li><i class="icon-viadeo-square"></i> icon-viadeo-square</li>
     <li><i class="icon-vimeo"></i> icon-vimeo</li>
     <li><i class="icon-vimeo-square"></i> icon-vimeo-square</li>
     <li><i class="icon-vine"></i> icon-vine</li>
@@ -812,11 +862,14 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-wikipedia-w"></i> icon-wikipedia-w</li>
     <li><i class="icon-windows"></i> icon-windows</li>
     <li><i class="icon-wordpress"></i> icon-wordpress</li>
+    <li><i class="icon-wpbeginner"></i> icon-wpbeginner</li>
+    <li><i class="icon-wpforms"></i> icon-wpforms</li>
     <li><i class="icon-xing"></i> icon-xing</li>
     <li><i class="icon-xing-square"></i> icon-xing-square</li>
     <li><i class="icon-y-combinator"></i> icon-y-combinator</li>
     <li><i class="icon-yahoo"></i> icon-yahoo</li>
     <li><i class="icon-yelp"></i> icon-yelp</li>
+    <li><i class="icon-yoast"></i> icon-yoast</li>
     <li><i class="icon-youtube"></i> icon-youtube</li>
     <li><i class="icon-youtube-play"></i> icon-youtube-play</li>
     <li><i class="icon-youtube-square"></i> icon-youtube-square</li>
@@ -858,16 +911,17 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-cc-amex"></i> icon-cc-amex</li>
     <li><i class="icon-cc-diners-club"></i> icon-cc-diners-club</li>
     <li><i class="icon-cc-discover"></i> icon-cc-discover</li>
+    <li><i class="icon-cc-jcb"></i> icon-cc-jcb</li>
 </ul>
 <ul>
-    <li><i class="icon-cc-jcb"></i> icon-cc-jcb</li>
     <li><i class="icon-cc-mastercard"></i> icon-cc-mastercard</li>
     <li><i class="icon-cc-paypal"></i> icon-cc-paypal</li>
+    <li><i class="icon-cc-stripe"></i> icon-cc-stripe</li>
 </ul>
 <ul>
-    <li><i class="icon-cc-stripe"></i> icon-cc-stripe</li>
     <li><i class="icon-cc-visa"></i> icon-cc-visa</li>
     <li><i class="icon-credit-card"></i> icon-credit-card</li>
+    <li><i class="icon-credit-card-alt"></i> icon-credit-card-alt</li>
 </ul>
 <ul>
     <li><i class="icon-google-wallet"></i> icon-google-wallet</li>
@@ -898,6 +952,34 @@ Feel free to use them alongside your buttons.
     <li><i class="icon-rub"></i> icon-rub</li>
     <li><i class="icon-try"></i> icon-try</li>
     <li><i class="icon-usd"></i> icon-usd</li>
+</ul>
+</div>
+
+### Accessibility Icons
+
+<div class="category-icons">
+<ul>
+    <li><i class="icon-american-sign-language-interpreting"></i> icon-american-sign-language-interpreting</li>
+    <li><i class="icon-assistive-listening-systems"></i> icon-assistive-listening-systems</li>
+    <li><i class="icon-audio-description"></i> icon-audio-description</li>
+    <li><i class="icon-blind"></i> icon-blind</li>
+</ul>
+<ul>
+    <li><i class="icon-braille"></i> icon-braille</li>
+    <li><i class="icon-cc"></i> icon-cc</li>
+    <li><i class="icon-deaf"></i> icon-deaf</li>
+    <li><i class="icon-low-vision"></i> icon-low-vision</li>
+</ul>
+<ul>
+    <li><i class="icon-question-circle-o"></i> icon-question-circle-o</li>
+    <li><i class="icon-sign-language"></i> icon-sign-language</li>
+    <li><i class="icon-tty"></i> icon-tty</li>
+    <li><i class="icon-universal-access"></i> icon-universal-access</li>
+</ul>
+<ul>
+    <li><i class="icon-volume-control-phone"></i> icon-volume-control-phone</li>
+    <li><i class="icon-wheelchair"></i> icon-wheelchair</li>
+    <li><i class="icon-wheelchair-alt"></i> icon-wheelchair-alt</li>
 </ul>
 </div>
 
