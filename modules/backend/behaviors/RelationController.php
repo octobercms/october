@@ -380,6 +380,13 @@ class RelationController extends ControllerBehavior
      */
     public function relationRender($field, $options = [])
     {
+        /*
+         * Read only mode
+         */
+        if (isset($options['readOnly']) && $options['readOnly'] && property_exists($this->originalConfig, $field)) {
+            $this->originalConfig->{$field}['readOnly'] = true;
+        }
+
         $field = $this->validateField($field);
 
         if (is_string($options)) {
@@ -391,13 +398,6 @@ class RelationController extends ControllerBehavior
          */
         if (isset($options['sessionKey'])) {
             $this->sessionKey = $options['sessionKey'];
-        }
-
-        /*
-         * Read only mode
-         */
-        if (isset($options['readOnly']) && $options['readOnly']) {
-            $this->makeReadOnly();
         }
 
         $this->prepareVars();
@@ -603,7 +603,7 @@ class RelationController extends ControllerBehavior
                 $this->relationModel->getKeyName(),
                 $this->field,
                 $this->relationGetSessionKey(),
-                $this->readOnly ? 1 : 0
+                $this->getConfig('readOnly') ? 1 : 0
             );
 
             if ($config->recordUrl) {
