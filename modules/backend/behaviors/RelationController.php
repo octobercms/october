@@ -311,7 +311,7 @@ class RelationController extends ControllerBehavior
         }
 
         if ($extraConfig = post(self::PARAM_EXTRA_CONFIG)) {
-            $this->applyExtraConfig($field, $extraConfig);
+            $this->applyExtraConfig($extraConfig);
         }
 
         $this->alias = camel_case('relation ' . $field);
@@ -398,10 +398,10 @@ class RelationController extends ControllerBehavior
         /*
          * Apply options and extra config
          */
-        $allowConfig = ['readOnly'];
+        $allowConfig = ['readOnly', 'recordUrl'];
         if ($extraConfig = array_only($options, $allowConfig)) {
             $this->extraConfig = $extraConfig;
-            $this->applyExtraConfig($field, $extraConfig);
+            $this->applyExtraConfig($extraConfig, $field);
         }
 
         /*
@@ -1504,12 +1504,19 @@ class RelationController extends ControllerBehavior
     /**
      * Apply extra configuration
      */
-    protected function applyExtraConfig($field, $config)
+    protected function applyExtraConfig($config, $field = null)
     {
+        if (!$field) {
+            $field = $this->field;
+        }
+
+        $parsedConfig = array_only($config, ['readOnly']);
+        $parsedConfig['view'] = array_only($config, ['recordUrl']);
+
         if (is_array($config) && isset($this->originalConfig->{$field})) {
-            $this->originalConfig->{$field} = array_merge(
+            $this->originalConfig->{$field} = array_merge_recursive(
                 $this->originalConfig->{$field},
-                $config
+                $parsedConfig
             );
         }
     }
