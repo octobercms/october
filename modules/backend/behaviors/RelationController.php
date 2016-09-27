@@ -795,7 +795,10 @@ class RelationController extends ControllerBehavior
          */
         elseif ($this->manageMode == 'form') {
 
-            $config = $this->makeConfigForMode('manage', 'form');
+            if (!$config = $this->makeConfigForMode('manage', 'form', false)) {
+                return null;
+            }
+
             $config->model = $this->relationModel;
             $config->arrayName = class_basename($this->relationModel);
             $config->context = $this->evalFormContext('manage', !!$this->manageId);
