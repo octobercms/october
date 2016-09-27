@@ -307,6 +307,7 @@ class RelationController extends ControllerBehavior
 
         $this->alias = camel_case('relation ' . $field);
         $this->config = $this->makeConfig($this->getConfig($field), $this->requiredRelationProperties);
+        $this->controller->relationExtendConfig($this->config, $this->field);
 
         /*
          * Relationship details
@@ -1265,6 +1266,15 @@ class RelationController extends ControllerBehavior
     //
     // Overrides
     //
+
+    /**
+     * Provides an opportunity to manipulate the field configuration.
+     * @param object $config
+     * @param string $field
+     */
+    public function relationExtendConfig($config, $field)
+    {
+    }
 
     /**
      * Provides an opportunity to manipulate the view widget.
