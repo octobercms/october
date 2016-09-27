@@ -352,7 +352,7 @@ class Lists extends WidgetBase
                 else {
                     $columnName = isset($column->sqlSelect)
                         ? DbDongle::raw($this->parseTableName($column->sqlSelect, $primaryTable))
-                        : Db::getTablePrefix() . $primaryTable . '.' . $column->columnName;
+                        : DbDongle::cast(Db::getTablePrefix() . $primaryTable . '.' . $column->columnName, 'TEXT');
 
                     $primarySearchable[] = $columnName;
                 }
@@ -1247,11 +1247,12 @@ class Lists extends WidgetBase
     {
         if (($visibleColumns = post('visible_columns')) && is_array($visibleColumns)) {
             $this->columnOverride = array_keys($visibleColumns);
-            $this->putSession('visible', array_keys($visibleColumns));
+            $this->putSession('visible', $this->columnOverride);
         }
 
+        $this->recordsPerPage = post('records_per_page', $this->recordsPerPage);
         $this->putSession('order', post('column_order'));
-        $this->putSession('per_page', post('records_per_page', $this->recordsPerPage));
+        $this->putSession('per_page', $this->recordsPerPage);
         return $this->onRefresh();
     }
 

@@ -44,6 +44,10 @@
             } else {
                 if (typeof args[0] === 'string' && typeof plugin[args[0]] === 'function') {
                     plugin[args[0]].apply(plugin, Array.prototype.slice.call(args,1));
+
+                    if (args[0] === 'destroy') {
+                        self.removeData('pikaday');
+                    }
                 }
             }
         });

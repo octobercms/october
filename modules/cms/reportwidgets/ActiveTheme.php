@@ -1,8 +1,10 @@
 <?php namespace Cms\ReportWidgets;
 
+use Lang;
 use Cms\Classes\Theme;
 use Cms\Models\MaintenanceSetting;
 use Backend\Classes\ReportWidgetBase;
+use ApplicationException;
 use Exception;
 
 /**
@@ -56,7 +58,11 @@ class ActiveTheme extends ReportWidgetBase
 
     protected function loadData()
     {
-        $this->vars['theme'] = Theme::getActiveTheme();
+        if (!$theme = Theme::getActiveTheme()) {
+            throw new ApplicationException(Lang::get('cms::lang.theme.not_found_name', ['name'=>Theme::getActiveThemeCode()]));
+        }
+
+        $this->vars['theme'] = $theme;
         $this->vars['inMaintenance'] = MaintenanceSetting::get('is_enabled');
     }
 }

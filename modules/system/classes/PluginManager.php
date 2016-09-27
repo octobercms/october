@@ -442,7 +442,7 @@ class PluginManager
         }
 
         if (File::exists($path)) {
-            $disabled = json_decode(File::get($path), true);
+            $disabled = json_decode(File::get($path), true) ?: [];
             $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
         }
         else {

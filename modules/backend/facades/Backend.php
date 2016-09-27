@@ -7,9 +7,7 @@ class Backend extends Facade
     /**
      * Get the registered name of the component.
      * 
-     * Resolves to:
-     * - Backend\Helpers\Backend
-     * 
+     * @see \Backend\Helpers\Backend
      * @return string
      */
     protected static function getFacadeAccessor()

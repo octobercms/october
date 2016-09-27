@@ -2,7 +2,7 @@
 
 return [
     'auth' => [
-        'title' => 'Adminisztrációs oldal'
+        'title' => 'Admin felület'
     ],
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
@@ -18,6 +18,11 @@ return [
             'label' => 'Hozzáférés megtagadva',
             'help' => 'Ön nem rendelkezik a szükséges engedélyekkel ennek a lapnak a megtekintéséhez.',
             'cms_link' => 'Vissza a látogatói oldalra'
+        ],
+        'no_database' => [
+            'label' => 'Hiányzó adatbázis',
+            'help' => 'Az admin felület eléréséhez szükséges az adatbázis. Kérjük ellenőrizze a hozzáférési adatok helyességét majd próbálja újra.',
+            'cms_link' => 'Vissza a weboldalra'
         ],
         'invalid_token' => [
             'label' => 'Érvénytelen a biztonsági kód.'
@@ -123,6 +128,10 @@ return [
         'allow' => 'Engedélyezés',
         'inherit' => 'Öröklés',
         'deny' => 'Tiltás',
+        'activated' => 'Aktivált',
+        'last_login' => 'Bejelentkezve',
+        'created_at' => 'Létrehozva',
+        'updated_at' => 'Módosítva',
         'group' => [
             'name' => 'Csoport',
             'name_comment' => 'A név a csoport létrehozásnál és szerkesztésnél jelenik meg.',
@@ -151,8 +160,8 @@ return [
         'missing_column' => 'Nincsenek oszlop definíciók a(z) :columns oszlopok számára.',
         'missing_columns' => 'A(z) :class osztályban használt listának nincsenek definiált lista oszlopai.',
         'missing_definition' => "A lista viselkedés nem tartalmaz oszlopot a(z) ':field' mező számára.",
-        'missing_parent_definition' => "A lista viselkedés nem tartalmaz definiciót az alábbihoz: ':definition'.",
-        'behavior_not_ready' => 'Nem történt meg a lista viselkedés inicializálása és ellenőrizze, hogy meghívta-e a(z) makeLists() függvényt a vezérlőben.',
+        'missing_parent_definition' => "A lista viselkedés nem tartalmaz definíciót az alábbihoz: ':definition'.",
+        'behavior_not_ready' => 'Nem történt meg a lista viselkedés inicializálása. Kérjük ellenőrizze, hogy meghívta-e a makeLists() függvényt a vezérlőben.',
         'invalid_column_datetime' => "A(z) ':column' oszlopérték nem DateTime objektum, hiányzik egy \$dates hivatkozás a Modellben?",
         'pagination' => 'Megjelenített elemek: :from-:to / :total',
         'prev_page' => 'Előző lap',
@@ -165,7 +174,7 @@ return [
         'records_per_page' => 'Listázás',
         'records_per_page_help' => 'Adja meg az elemek laponként megjelenítendő számát. Minél nagyobbat választ, annál több időbe kerül a lista frissítése. Az ajánlott érték 20 és 40 közötti.',
         'check' => 'Bejelöl',
-        'delete_selected' => 'Kiválasztottak törlése',
+        'delete_selected' => 'Eltávolítás',
         'delete_selected_empty' => 'A törléshez előbb ki kell választani elemet.',
         'delete_selected_confirm' => 'Töröljük a kiválasztott elemeket?',
         'delete_selected_success' => 'Sikeresen törölve lettek a kiválasztott elemek.',
@@ -226,8 +235,8 @@ return [
         'ok' => 'OK',
         'or' => 'vagy',
         'confirm_tab_close' => 'Valóban be akarja zárni a fület? El fognak veszni a nem mentett módosítások.',
-        'behavior_not_ready' => 'Nem történt meg az űrlap viselkedésének inicializálása. Ellenőrizze, hogy meghívta-e az initForm() függvényt a vezérlőben.',
-        'preview_no_files_message' => 'Nincsennek feltöltve fájlok.',
+        'behavior_not_ready' => 'Nem történt meg az űrlap viselkedésének inicializálása. Kérjük ellenőrizze, hogy meghívta-e az initForm() függvényt a vezérlőben.',
+        'preview_no_files_message' => 'Nincsenek feltöltve fájlok.',
         'preview_no_record_message' => 'Egy mező sincs kiválasztva.',
         'select' => 'Válasszon',
         'select_all' => 'mind',
@@ -292,7 +301,7 @@ return [
     'warnings' => [
         'tips' => 'Rendszer konfigurációs tippek',
         'tips_description' => 'Olyan problémák vannak, melyekre figyeljen oda a rendszer megfelelő konfigurálása érdekében.',
-        'permissions'  => 'A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a webkiszolgálónak erre a könyvtárra.',
+        'permissions'  => 'A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a kiszolgálónak erre a könyvtárra.',
         'extension' => 'A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.'
     ],
     'editor' => [
@@ -310,7 +319,7 @@ return [
         'auto_closing' => 'Automatikus kódlezárás',
         'show_invisibles' => 'Láthatatlan karakterek mutatása',
         'show_gutter' => 'Margó megjelenítése',
-        'basic_autocompletion'=> 'Egyszerű mód (Ctrl + Space)',
+        'basic_autocompletion'=> 'Egyszerű mód (Ctrl + Szóköz)',
         'live_autocompletion'=> 'Intelligens mód',
         'enable_snippets'=> 'Kódrészletek engedélyezése (Tab)',
         'display_indent_guides'=> 'Bekezdés megjelenítése',
@@ -322,16 +331,16 @@ return [
         'theme' => 'Színséma',
         'markup_styles' => 'Stílusok',
         'custom_styles' => 'Egyéni megjelenés',
-        'custom styles_comment' => 'Saját stílusok megadása, amik a HTML szerkesztőre is vonatkoznak.',
-        'markup_classes' => 'CSS osztályok',
+        'custom styles_comment' => 'Saját stílusok és megjelenések megadása.',
+        'markup_classes' => 'Értékek',
         'paragraph' => 'Bekezdés',
         'link' => 'Hivatkozás',
         'table' => 'Táblázat',
         'table_cell' => 'Táblázat cella',
         'image' => 'Kép',
-        'label' => 'Címke',
-        'class_name' => 'Osztály neve',
-        'markup_tags' => 'HTML elemek',
+        'label' => 'Megnevezés',
+        'class_name' => 'CSS osztály',
+        'markup_tags' => 'Szabályok',
         'allowed_empty_tags' => 'Engedélyezett üres elemek',
         'allowed_empty_tags_comment' => 'Azon HTML elemek, amik üres érték esetén sem lesznek eltávolítva.',
         'allowed_tags' => 'Engedélyezett elemek',
@@ -381,7 +390,7 @@ return [
         'region' => 'Régió',
         'code_editor' => 'Kódszerkesztő',
         'timezone' => 'Időzóna',
-        'timezone_comment' => 'Dátumok megjelenítése a választott időzóna alapján.',
+        'timezone_comment' => 'Válassza ki az alapértelmezett időzónát.',
         'locale' => 'Nyelv',
         'locale_comment' => 'Válassza ki az alapértelmezett nyelvet.'
     ],
@@ -444,10 +453,10 @@ return [
         'empty_error' => 'Nincs adat az exportáláshoz.',
         'empty_import_columns_error' => 'Kérjük adjon meg néhány oszlopot az importáláshoz.',
         'match_some_column_error' => 'Kérjük elsőként párosítson össze oszlopokat.',
-        'required_match_column_error' => 'Please specify a match for the required field :label.',
+        'required_match_column_error' => 'Kérjük adja meg a párosítást ehhez a kötelező mezőhöz: :label.',
         'empty_export_columns_error' => 'Kérjük adjon meg néhány oszlopot az exportáláshoz.',
         'behavior_missing_uselist_error' => 'You must implement the controller behavior ListController with the export "useList" option enabled.',
-        'missing_model_class_error' => 'Please specify the modelClass property for :type',
+        'missing_model_class_error' => 'Kérjük adja meg a modelClass tulajdonságát ehhez: :type',
         'missing_column_id_error' => 'Hiányzó oszlop azonosító',
         'unknown_column_error' => 'Ismeretlen oszlop',
         'encoding_not_supported_error' => 'Source file encoding is not recognized. Please select the custom file format option with the proper encoding to import your file.',

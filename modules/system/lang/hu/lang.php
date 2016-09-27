@@ -11,13 +11,14 @@ return [
         'en-ca' => 'Angol (kanadai)',
         'en-gb' => 'Angol (brit)',
         'cs' => 'Cseh',
+        'da' => 'Dán',
         'de' => 'Német',
         'el' => 'Görög',
         'es' => 'Spanyol',
-        'es-ar' => 'Spanyol (argentín)',
+        'es-ar' => 'Spanyol (argentin)',
         'fa' => 'Perzsa',
         'fr' => 'Francia',
-        'fr-ca' => 'French (kanadai)',
+        'fr-ca' => 'Francia (kanadai)',
         'hu' => 'Magyar',
         'id' => 'Indonéz',
         'it' => 'Olasz',
@@ -26,7 +27,7 @@ return [
         'nb-no' => 'Norvég',
         'nl' => 'Holland',
         'pl' => 'Lengyel',
-        'pt-br' => 'Portugál (brazíl)',
+        'pt-br' => 'Portugál (brazil)',
         'ro' => 'Román',
         'ru' => 'Orosz',
         'sv' => 'Svéd',
@@ -42,7 +43,7 @@ return [
         'create_fail' => 'Nem hozható létre a fájl: :name'
     ],
     'combiner' => [
-        'not_found' => "A(z) ':name' egyesítőfájl nem található."
+        'not_found' => "A(z) ':name' egyesítő fájl nem található."
     ],
     'system' => [
         'name' => 'Rendszer',
@@ -64,7 +65,7 @@ return [
     ],
     'theme' => [
         'label' => 'Téma',
-        'unnamed' => 'Névtelen témák',
+        'unnamed' => 'Névtelen téma',
         'name' => [
             'label' => 'Téma neve',
             'help' => 'A névnek egyedinek kell lennie. Például: RainLab.Vanilla'
@@ -110,7 +111,7 @@ return [
         'disable_confirm' => 'Biztos benne?',
         'disable_success' => 'A bővítmények sikeresen letiltásra kerültek.',
         'enable_success' => 'A bővítmények sikeresen engedélyezésre kerültek.',
-        'unknown_plugin' => 'A bővítmények eltávolítása megtörtént.'
+        'unknown_plugin' => 'A bővítmény nem található.'
     ],
     'project' => [
         'name' => 'Projekt',
@@ -269,7 +270,7 @@ return [
             'ignore' => 'Bővítmény kihagyása (mindig)'
         ],
         'important_action_required' => 'Művelet szükséges',
-        'important_view_guide' => 'Frissítési útmutat megtekintése',
+        'important_view_guide' => 'Frissítési útmutató megtekintése',
         'important_alert_text' => 'Néhány frissítés körültekintést igényel.',
         'details_title' => 'Bővítmény részletei',
         'details_view_homepage' => 'Honlap megtekintése',
@@ -324,7 +325,7 @@ return [
         'id' => 'Azonosító',
         'id_label' => 'Napló azonosító',
         'count' => 'Számláló',
-        'referer' => 'Hivatkozók',
+        'referer' => 'Hivatkozás',
         'url' => 'Webcím',
         'status_code' => 'Állapotkód',
         'preview_title' => 'Kérelem'

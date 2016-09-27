@@ -1,12 +1,12 @@
 <?php namespace Cms\Classes;
 
-use URL;
+use Cms;
+use Url;
 use Str;
 use App;
 use File;
 use View;
 use Lang;
-use Route;
 use Event;
 use Config;
 use Session;
@@ -631,17 +631,6 @@ class Controller
                 }
 
                 /*
-                 * If the handler returned an array, we should add it to output for rendering.
-                 * If it is a string, add it to the array with the key "result".
-                 */
-                if (is_array($result)) {
-                    $responseContents = array_merge($responseContents, $result);
-                }
-                elseif (is_string($result)) {
-                    $responseContents['result'] = $result;
-                }
-
-                /*
                  * Render partials and return the response as array that will be converted to JSON automatically.
                  */
                 foreach ($partialList as $partial) {
@@ -649,11 +638,27 @@ class Controller
                 }
 
                 /*
-                 * If the handler returned a redirect, process it so framework.js knows to redirect
-                 * the browser and not the request!
+                 * If the handler returned a redirect, process the URL and dispose of it so
+                 * framework.js knows to redirect the browser and not the request!
                  */
                 if ($result instanceof RedirectResponse) {
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
+                    $result = null;
+                }
+
+                /*
+                 * If the handler returned an array, we should add it to output for rendering.
+                 * If it is a string, add it to the array with the key "result".
+                 * If an object, pass it to Laravel as a response object.
+                 */
+                if (is_array($result)) {
+                    $responseContents = array_merge($responseContents, $result);
+                }
+                elseif (is_string($result)) {
+                    $responseContents['result'] = $result;
+                }
+                elseif (is_object($result)) {
+                    return $result;
                 }
 
                 return Response::make($responseContents, $this->statusCode);
@@ -1119,19 +1124,7 @@ class Controller
             return null;
         }
 
-        if (substr($url, 0, 1) == '/') {
-            $url = substr($url, 1);
-        }
-
-        $routeAction = 'Cms\Classes\CmsController@run';
-        $actionExists = Route::getRoutes()->getByAction($routeAction) !== null;
-
-        if ($actionExists) {
-            return URL::action($routeAction, ['slug' => $url]);
-        }
-        else {
-            return URL::to($url);
-        }
+        return Cms::url($url);
     }
 
     /**
@@ -1160,14 +1153,14 @@ class Controller
         $themeDir = $this->getTheme()->getDirName();
 
         if (is_array($url)) {
-            $_url = URL::to(CombineAssets::combine($url, themes_path().'/'.$themeDir));
+            $_url = Url::to(CombineAssets::combine($url, themes_path().'/'.$themeDir));
         }
         else {
             $_url = Config::get('cms.themesPath', '/themes').'/'.$themeDir;
             if ($url !== null) {
                 $_url .= '/'.$url;
             }
-            $_url = URL::asset($_url);
+            $_url = Url::asset($_url);
         }
 
         return $_url;
@@ -1263,13 +1256,13 @@ class Controller
     public function findComponentByHandler($handler)
     {
         foreach ($this->page->components as $component) {
-            if (method_exists($component, $handler)) {
+            if ($component->methodExists($handler)) {
                 return $component;
             }
         }
 
         foreach ($this->layout->components as $component) {
-            if (method_exists($component, $handler)) {
+            if ($component->methodExists($handler)) {
                 return $component;
             }
         }

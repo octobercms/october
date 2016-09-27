@@ -94,7 +94,8 @@ return [
         'settings_menu' => 'Karbantartás',
         'settings_menu_description' => 'Szolgáltatás aktiválása és testreszabása.',
         'is_enabled' => 'Karbantartás engedélyezése',
-        'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói csak a kiválasztott lapot fogják látni.'
+        'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói csak a kiválasztott lapot fogják látni.',
+        'hint' => 'Karbantartás módban a lentebb megadott lap fog megjelenni azon látogatók számára, akik nincsenek bejelentkezve az admin felületre.'
     ],
     'page' => [
         'not_found_name' => "A következő lap nem található: ':name'",
@@ -226,7 +227,7 @@ return [
         'no_description' => 'Nincs megadott leírás',
         'alias' => 'Alias',
         'alias_description' => 'Ennek a komponensnek a lap vagy az elrendezés kódjában való használatkor adott egyedi név.',
-        'validation_message' => 'A komponens aliasok kötelezőek, és csak latin szimbólumokat, számokat, valamint aláhúzásjeleket tartalmazhatnak. Az aliasoknak latin szimbólummal kell kezdődniük.',
+        'validation_message' => 'A komponens aliasok kötelezőek, és csak latin szimbólumokat, számokat, valamint aláhúzás jeleket tartalmazhatnak. Az aliasoknak latin szimbólummal kell kezdődniük.',
         'invalid_request' => 'A sablon érvénytelen komponens adatok miatt nem menthető.',
         'no_records' => 'Nem találhatók komponensek',
         'not_found' => "A(z) ':name' komponens nem található.",

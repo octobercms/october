@@ -1,6 +1,6 @@
 <?php namespace Cms\Controllers;
 
-use URL;
+use Url;
 use Lang;
 use Flash;
 use Event;
@@ -138,19 +138,27 @@ class Index extends Controller
         $type = Request::input('templateType');
         $templatePath = trim(Request::input('templatePath'));
         $template = $templatePath ? $this->loadTemplate($type, $templatePath) : $this->createTemplate($type);
+        $formWidget = $this->makeTemplateFormWidget($type, $template);
 
-        $settings = Request::input('settings') ?: [];
+        $saveData = $formWidget->getSaveData();
+        $postData = post();
+        $templateData = [];
+
+        $settings = array_get($saveData, 'settings', []) + Request::input('settings', []);
         $settings = $this->upgradeSettings($settings);
 
-        $templateData = [];
         if ($settings) {
             $templateData['settings'] = $settings;
         }
 
         $fields = ['markup', 'code', 'fileName', 'content'];
+
         foreach ($fields as $field) {
-            if (array_key_exists($field, $_POST)) {
-                $templateData[$field] = Request::input($field);
+            if (array_key_exists($field, $saveData)) {
+                $templateData[$field] = $saveData[$field];
+            }
+            elseif (array_key_exists($field, $postData)) {
+                $templateData[$field] = $postData[$field];
             }
         }
 
@@ -187,7 +195,7 @@ class Index extends Controller
         ];
 
         if ($type == 'page') {
-            $result['pageUrl'] = URL::to($template->url);
+            $result['pageUrl'] = Url::to($template->url);
             $router = new Router($this->theme);
             $router->clearCache();
             CmsCompoundObject::clearCache($this->theme);

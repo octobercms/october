@@ -149,12 +149,19 @@ class Theme
 
         if (App::hasDatabase()) {
             try {
-                $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function() {
-                    return Parameter::applyKey(self::ACTIVE_KEY)->pluck('value');
-                });
+                try {
+                    $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function() {
+                        return Parameter::applyKey(self::ACTIVE_KEY)->pluck('value');
+                    });
+                }
+                catch (Exception $ex) {
+                    // Cache failed
+                    $dbResult = Parameter::applyKey(self::ACTIVE_KEY)->pluck('value');
+                }
             }
             catch (Exception $ex) {
-                $dbResult = Parameter::applyKey(self::ACTIVE_KEY)->pluck('value');
+                // Database failed
+                $dbResult = null;
             }
 
             if ($dbResult !== null && static::exists($dbResult)) {

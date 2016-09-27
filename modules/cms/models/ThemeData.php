@@ -4,6 +4,7 @@ use Lang;
 use Model;
 use Cms\Classes\Theme as CmsTheme;
 use System\Classes\CombineAssets;
+use Exception;
 
 /**
  * Customization data used by a theme
@@ -82,7 +83,14 @@ class ThemeData extends Model
             return $themeData;
         }
 
-        $themeData = ThemeData::firstOrCreate(['theme' => $dirName]);
+        try {
+            $themeData = ThemeData::firstOrCreate(['theme' => $dirName]);
+        }
+        catch (Exception $ex) {
+            // Database failed
+            $themeData = new ThemeData(['theme' => $dirName]);
+        }
+
         return self::$instances[$dirName] = $themeData;
     }
 
@@ -162,8 +170,9 @@ class ThemeData extends Model
      */
     public function getFormFields()
     {
-        if (!$theme = CmsTheme::load($this->theme))
+        if (!$theme = CmsTheme::load($this->theme)) {
             throw new Exception(Lang::get('Unable to find theme with name :name', $this->theme));
+        }
 
         $config = $theme->getConfigArray('form');
 
@@ -198,6 +207,11 @@ class ThemeData extends Model
     public static function applyAssetVariablesToCombinerFilters($filters)
     {
         $theme = CmsTheme::getActiveTheme();
+
+        if (!$theme){
+            return;
+        }
+
         if (!$theme->hasCustomData()) {
             return;
         }

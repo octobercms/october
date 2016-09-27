@@ -1,0 +1,24 @@
+<?php if ($toolbar): ?>
+    <?= $toolbar->render() ?>
+<?php endif ?>
+
+<?php if ($filter): ?>
+    <?= $filter->render() ?>
+<?php endif ?>
+
+<?php if ($topPartial): ?>
+    <?= $this->makePartial($topPartial) ?>
+<?php endif ?>
+
+<?php if ($sidePartial): ?>
+    <div class="row row-flush">
+        <div class="col-sm-3">
+            <?= $this->makePartial($sidePartial) ?>
+        </div>
+        <div class="col-sm-9 list-with-sidebar">
+            <?= $list->render() ?>
+        </div>
+    </div>
+<?php else: ?>
+    <?= $list->render() ?>
+<?php endif ?>

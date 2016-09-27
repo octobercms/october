@@ -100,6 +100,7 @@ class SettingsModel extends ModelBehavior
 
     /**
      * Checks if the model has been set up previously, intended as a static method
+     * @return bool
      */
     public function isConfigured()
     {
@@ -148,7 +149,7 @@ class SettingsModel extends ModelBehavior
             return $this->fieldValues[$key];
         }
 
-        return $default;
+        return array_get($this->fieldValues, $key, $default);
     }
 
     /**

@@ -138,6 +138,7 @@
 .control-simplelist.is-scrollable.size-large{min-height:400px}
 .control-simplelist.is-scrollable.size-huge{min-height:450px}
 .control-simplelist.is-scrollable.size-giant{min-height:550px}
+.control-simplelist.is-divided,.control-simplelist.is-selectable{padding:0}
 .control-simplelist.is-divided li,.control-simplelist.is-selectable li{padding:5px 10px;border-bottom:1px solid #d4d8da}
 .control-simplelist.is-divided li .heading,.control-simplelist.is-selectable li .heading{font-size:14px;font-weight:bold}
 .control-simplelist.is-divided li:last-child,.control-simplelist.is-selectable li:last-child{border-bottom:none}
@@ -250,8 +251,8 @@
 .tooltip.in{opacity:1;filter:alpha(opacity=100)}
 .oc-logo-white{background-image:url(../images/october-logo-white.svg);background-position:50% 50%;background-repeat:no-repeat;background-size:contain}
 .oc-logo{background-image:url(../images/october-logo.svg);background-position:50% 50%;background-repeat:no-repeat;background-size:contain}
-.layout.control-tabs.oc-logo-transparent:not(.has-tabs),.layout-cell.oc-logo-transparent{background-size:50% auto;background-repeat:no-repeat;background-image:url(../images/october-logo.svg);background-position:50% 50%;position:relative}
-.layout.control-tabs.oc-logo-transparent:not(.has-tabs):after,.layout-cell.oc-logo-transparent:after{content:'';display:table-cell;position:absolute;left:0;top:0;height:100%;width:100%;background:rgba(249,249,249,0.7)}
+.layout.control-tabs.oc-logo-transparent:not(.has-tabs),.flex-layout-column.oc-logo-transparent:not(.has-tabs),.layout-cell.oc-logo-transparent{background-size:50% auto;background-repeat:no-repeat;background-image:url(../images/october-logo.svg);background-position:50% 50%;position:relative}
+.layout.control-tabs.oc-logo-transparent:not(.has-tabs):after,.flex-layout-column.oc-logo-transparent:not(.has-tabs):after,.layout-cell.oc-logo-transparent:after{content:'';display:table-cell;position:absolute;left:0;top:0;height:100%;width:100%;background:rgba(249,249,249,0.7)}
 .report-widget{padding:15px;background:white;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;font-size:13px}
 .report-widget h3{font-size:14px;color:#7e8c8d;text-transform:uppercase;font-weight:600;margin-top:0;margin-bottom:30px}
 .report-widget .height-100{height:100px}
@@ -260,8 +261,8 @@
 .report-widget .height-400{height:400px}
 .report-widget .height-500{height:500px}
 .report-widget p.report-description{margin-bottom:0;margin-top:15px;font-size:12px;line-height:190%;color:#7e8c8d}
-.report-widget a{color:#7e8c8d;text-decoration:none}
-.report-widget a:hover{color:#0181b9;text-decoration:none}
+.report-widget a:not(.btn){color:#7e8c8d;text-decoration:none}
+.report-widget a:not(.btn):hover{color:#0181b9;text-decoration:none}
 .report-widget p.flash-message.static{margin-bottom:0}
 .report-widget .icon-circle.success{color:#31ac5f}
 .report-widget .icon-circle.primary{color:#34495e}
@@ -821,7 +822,7 @@ body.drag nav#layout-mainmenu.navbar ul.nav li a:active .nav-label,body.drag .ma
 #layout-side-panel .sidepanel-content-header:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #d35400;border-bottom-width:0;position:absolute;left:14px;bottom:-8px}
 body.side-panel-not-fixed #layout-side-panel{display:none}
 body.side-panel-not-fixed #layout-side-panel .fix-button{opacity:0.5;filter:alpha(opacity=50)}
-body.display-side-panel #layout-side-panel{display:block;position:absolute;z-index:500;width:350px;-webkit-box-shadow:2px 0px 2px 0 rgba(0,0,0,0.3);box-shadow:2px 0px 2px 0 rgba(0,0,0,0.3)}
+body.display-side-panel #layout-side-panel{display:block;position:absolute;z-index:600;width:350px;-webkit-box-shadow:2px 0px 2px 0 rgba(0,0,0,0.3);box-shadow:2px 0px 2px 0 rgba(0,0,0,0.3)}
 @media (min-width:992px){body.side-panel-fix-shadow #layout-side-panel{-webkit-box-shadow:none;box-shadow:none}
 }
 .touch #layout-side-panel .fix-button{display:none}

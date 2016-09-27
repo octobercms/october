@@ -107,6 +107,10 @@
         'ç':'c', 'ə':'e', 'ğ':'g', 'ı':'i', 'ö':'o', 'ş':'s', 'ü':'u',
         'Ç':'C', 'Ə':'E', 'Ğ':'G', 'İ':'I', 'Ö':'O', 'Ş':'S', 'Ü':'U'
     },
+    ROMANIAN_MAP = {
+        'ă':'a', 'â':'a', 'î':'i', 'ș':'s', 'ț':'t',
+        'Ă':'A', 'Â':'A', 'Î':'I', 'Ș':'S', 'Ț':'T'
+    },
     SPECIFIC_MAPS = {
         'de': {
             'Ä': 'AE', 'Ö': 'OE', 'Ü': 'UE',
@@ -127,7 +131,8 @@
         PERSIAN_MAP,
         LITHUANIAN_MAP,
         SERBIAN_MAP,
-        AZERBAIJANI_MAP
+        AZERBAIJANI_MAP,
+        ROMANIAN_MAP
     ]
 
     var removeList = [
@@ -244,7 +249,10 @@
     }
 
     InputPreset.prototype.formatValue = function() {
-        if (this.options.inputPresetType == 'namespace') {
+        if (this.options.inputPresetType == 'exact') {
+            return this.$src.val();
+        }
+        else if (this.options.inputPresetType == 'namespace') {
             return this.formatNamespace()
         }
 

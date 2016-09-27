@@ -81,25 +81,7 @@
             froalaOptions.toolbarButtons = this.options.toolbarButtons.split(',')
         }
         else {
-            froalaOptions.toolbarButtons = [
-                'paragraphFormat',
-                'paragraphStyle',
-                'quote',
-                'bold',
-                'italic',
-                'align',
-                'formatOL',
-                'formatUL',
-                'insertTable',
-                'insertLink',
-                'insertImage',
-                'insertVideo',
-                'insertAudio',
-                'insertFile',
-                'insertHR',
-                'fullscreen',
-                'html'
-            ]
+            froalaOptions.toolbarButtons = $.oc.richEditorButtons
         }
 
         froalaOptions.imageStyles = this.options.imageStyles
@@ -185,6 +167,7 @@
         this.$textarea.on('froalaEditor.keydown', this.proxy(this.onKeydown))
         this.$textarea.on('froalaEditor.html.get', this.proxy(this.onSyncContent))
         this.$textarea.on('froalaEditor.html.set', this.proxy(this.onSetContent))
+        this.$form.on('oc.beforeRequest', this.proxy(this.onFormBeforeRequest))
 
         this.$textarea.froalaEditor(froalaOptions)
 
@@ -217,6 +200,7 @@
         this.$textarea.off('froalaEditor.keydown', this.proxy(this.onKeydown))
         this.$textarea.off('froalaEditor.html.get', this.proxy(this.onSyncContent))
         this.$textarea.off('froalaEditor.html.set', this.proxy(this.onSetContent))
+        this.$form.off('oc.beforeRequest', this.proxy(this.onFormBeforeRequest))
 
         $(window).off('resize', this.proxy(this.updateLayout))
         $(window).off('oc.updateUi', this.proxy(this.updateLayout))
@@ -245,11 +229,11 @@
     }
 
     RichEditor.prototype.getContent = function() {
-        return this.$textarea.froalaEditor('html.get')
+        return this.editor.html.get()
     }
 
     RichEditor.prototype.setContent = function(html) {
-        this.$textarea.froalaEditor('html.set', html)
+        this.editor.html.set(html)
     }
 
     RichEditor.prototype.syncContent = function() {
@@ -309,6 +293,11 @@
     }
 
     RichEditor.prototype.onSyncContent = function(ev, editor, html) {
+        // Beautify HTML.
+        if (editor.codeBeautifier) {
+            html = editor.codeBeautifier.run(html, editor.opts.codeBeautifierOptions)
+        }
+
         var container = {
             html: html
         }
@@ -340,6 +329,14 @@
 
     RichEditor.prototype.onChange = function(ev) {
         this.$form.trigger('change')
+    }
+
+    RichEditor.prototype.onFormBeforeRequest = function(ev) {
+        // Instantly synchronizes HTML content. 
+        // The onSyncContent() method (above) is involved
+        // into this call, so the resulting HTML is (optionally)
+        // beautified
+        this.$textarea.val(this.$textarea.froalaEditor('html.get'))
     }
 
     // RICHEDITOR PLUGIN DEFINITION
@@ -376,5 +373,32 @@
     $(document).render(function() {
         $('[data-control="richeditor"]').richEditor()
     })
+
+
+    // BUTTON DEFINITIONS
+    // =================
+
+    if ($.oc === undefined)
+        $.oc = {}
+
+    $.oc.richEditorButtons = [
+        'paragraphFormat',
+        'paragraphStyle',
+        'quote',
+        'bold',
+        'italic',
+        'align',
+        'formatOL',
+        'formatUL',
+        'insertTable',
+        'insertLink',
+        'insertImage',
+        'insertVideo',
+        'insertAudio',
+        'insertFile',
+        'insertHR',
+        'fullscreen',
+        'html'
+    ]
 
 }(window.jQuery);

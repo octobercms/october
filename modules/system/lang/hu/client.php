@@ -48,7 +48,8 @@ return [
 
     'alert' => [
         'confirm_button_text' => 'OK',
-        'cancel_button_text' => 'Mégsem'
+        'cancel_button_text' => 'Mégsem',
+        'widget_remove_confirm' => 'Valóban törölni akarja?'
     ],
 
     'datepicker' => [
@@ -68,23 +69,23 @@ return [
             'filter_button_text' => 'Szűrés',
             'reset_button_text'  => 'Alaphelyzet',
             'date_placeholder' => 'Dátum',
-            'after_placeholder' => 'Utána',
-            'before_placeholder' => 'Előtte'
+            'after_placeholder' => 'Kezdete',
+            'before_placeholder' => 'Vége'
         ]
     ],
 
     'eventlog' => [
-        'show_stacktrace' => 'Mutatás',
+        'show_stacktrace' => 'Részletek',
         'hide_stacktrace' => 'Rejtés',
         'tabs' => [
             'formatted' => 'Formázott',
             'raw' => 'Tömörített',
         ],
         'editor' => [
-            'title' => 'Válassza ki melyik szerkesztőt szeretné használni',
-            'description' => 'Your environnement must be configured to listen to one of these URL schemes.',
+            'title' => 'Forráskód szerkesztő',
+            'description' => 'Your operating system should be configured to listen to one of these URL schemes.',
             'openWith' => 'Megnyitás mint',
-            'remember_choice' => 'Megnyitás és munkamenet megjegyzése',
+            'remember_choice' => 'Kiválasztott beállítások megjegyzése ebben a munkamenetben',
             'open' => 'Megnyitás',
             'cancel' => 'Mégsem'
         ]

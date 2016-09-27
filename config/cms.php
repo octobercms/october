@@ -4,18 +4,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Back-end URI prefix
-    |--------------------------------------------------------------------------
-    |
-    | Specifies the URL name used for accessing back-end pages.
-    | For example: backend -> http://localhost/backend
-    |
-    */
-
-    'backendUri' => 'backend',
-
-    /*
-    |--------------------------------------------------------------------------
     | Specifies the default CMS theme.
     |--------------------------------------------------------------------------
     |
@@ -37,6 +25,18 @@ return [
     */
 
     'edgeUpdates' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Back-end URI prefix
+    |--------------------------------------------------------------------------
+    |
+    | Specifies the URL name used for accessing back-end pages.
+    | For example: backend -> http://localhost/backend
+    |
+    */
+
+    'backendUri' => 'backend',
 
     /*
     |--------------------------------------------------------------------------
@@ -165,6 +165,20 @@ return [
     */
 
     'enableAssetMinify' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Check import timestamps when combining assets
+    |--------------------------------------------------------------------------
+    |
+    | If deep hashing is enabled, the combiner cache will be reset when a change
+    | is detected on imported files, in addition to those referenced directly.
+    | This will cause slower page performance. If set to null, assets are
+    | minified, when debug mode (app.debug) is disabled.
+    |
+    */
+
+    'enableAssetDeepHashing' => false,
 
     /*
     |--------------------------------------------------------------------------

@@ -6,6 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
+        'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
         'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field."
     ],
     'widget' => [
@@ -128,6 +129,10 @@ return [
         'allow' => 'Allow',
         'inherit' => 'Inherit',
         'deny' => 'Deny',
+        'activated' => 'Activated',
+        'last_login' => 'Last login',
+        'created_at' => 'Created at',
+        'updated_at' => 'Updated at',
         'group' => [
             'name' => 'Group',
             'name_comment' => 'The name is displayed in the group list on the Create/Edit Administrator form.',

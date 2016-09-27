@@ -1,4 +1,7 @@
-<div class="field-repeater" data-control="fieldrepeater">
+<div class="field-repeater"
+     data-control="fieldrepeater"
+     data-sortable-container="#<?= $this->getId('items') ?>"
+     data-sortable-handle=".<?= $this->getId('items') ?>-handle">
 
     <ul id="<?= $this->getId('items') ?>" class="field-repeater-items">
         <?php foreach ($this->formWidgets as $index => $widget): ?>
@@ -12,11 +15,10 @@
     <div class="field-repeater-add-item loading-indicator-container indicator-center">
         <a
             href="javascript:;"
-            data-load-indicator
-            data-request="<?= $this->getEventHandler('onAddItem') ?>">
+            data-request="<?= $this->getEventHandler('onAddItem') ?>"
+            data-load-indicator>
             <?= e(trans($prompt)) ?>
         </a>
     </div>
 
 </div>
-

@@ -9,6 +9,8 @@
     </ul>
 
     <?php if ($this->canAddAndDelete): ?>
-        <?= $this->makePartial('widget_toolbar') ?>
+        <div id="<?= $this->getId('container-toolbar') ?>" data-container-toolbar>
+            <?= $this->makePartial('widget_toolbar') ?>
+        </div>
     <?php endif ?>
 </div>

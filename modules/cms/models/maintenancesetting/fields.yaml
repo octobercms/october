@@ -4,6 +4,10 @@
 
 fields:
 
+    hint:
+        type: hint
+        path: ~/modules/cms/models/maintenancesetting/_hint.htm
+
     is_enabled:
         label: cms::lang.maintenance.is_enabled
         comment: cms::lang.maintenance.is_enabled_comment

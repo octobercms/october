@@ -1,6 +1,6 @@
 ### Basic example
 
-    <div class="control-list list-unresponsive">
+    <div class="control-list">
         <table class="table data">
             <thead>
                 <tr>
@@ -25,7 +25,7 @@
 
 ### Complete example
 
-    <div class="control-list list-unresponsive">
+    <div class="control-list">
         <table class="table data" data-control="rowlink">
             <thead>
                 <tr>
@@ -120,22 +120,20 @@
                     <td>&nbsp;</td>
                 </tr>
             </body>
-            <tfoot>
-                <tr>
-                    <td colspan="8" class="list-pagination nolink">
-                        <div class="control-pagination">
-                            <span class="page-iteration">1-5 of 20</span>
-                            <a href="#" class="page-back" title="Previous page"></a><a href="#" class="page-next" title="Next page"></a>
-                        </div>
-                    </td>
-                </tr>
-            </tfoot>
         </table>
+        <div class="list-footer">
+            <div class="list-pagination">
+                <div class="control-pagination">
+                    <span class="page-iteration">1-5 of 20</span>
+                    <a href="#" class="page-back" title="Previous page"></a><a href="#" class="page-next" title="Next page"></a>
+                </div>
+            </div>
+        </div>
     </div>
 
-### Responsive list
+### Empty list
 
-Lists are responsive by default and will collapse at a breakpoint of `980px`. This behavior can be disabled by adding the `list-unresponsive` class.
+Use the `no-data` class to display a list that contains no records.
 
     <div class="control-list">
         <table class="table data">
@@ -143,33 +141,17 @@ Lists are responsive by default and will collapse at a breakpoint of `980px`. Th
                 <tr>
                     <th class="sort-desc"><a href="/">Title</a></th>
                     <th class="active sort-asc"><a href="/">Created</a></th>
-                    <th><span>Categories</span></th>
-                    <th><span>Published</span></th>
-                    <th><span>Updated</span></th>
-                    <th class="list-setup"><a href="/" title="List options"></a></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td data-title="Title">Welcome to October</td>
-                    <td data-title="Created">Oct 01, 2013</td>
-                    <td data-title="Categories">News</td>
-                    <td data-title="Published">Oct 01, 2013</td>
-                    <td data-title="Updated">Oct 01, 2013</td>
-                    <td class="list-setup">&nbsp;</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="5" class="list-pagination nolink">
-                        <div class="control-pagination">
-                            <span class="page-iteration">
-                                Displayed records: 1-1 of 1
-                            </span>
-                        </div>
+                <tr class="no-data">
+                    <td colspan="100" class="nolink">
+                        <p class="no-data">
+                            There are no records in this view.
+                        </p>
                     </td>
                 </tr>
-            </tfoot>
+            </tbody>
         </table>
     </div>
 
@@ -177,7 +159,7 @@ Lists are responsive by default and will collapse at a breakpoint of `980px`. Th
 
 The following colored classes are available to use on the table row elements.
 
-    <div class="control-list list-unresponsive">
+    <div class="control-list">
         <table class="table data">
             <thead>
                 <tr>
@@ -203,7 +185,7 @@ The following colored classes are available to use on the table row elements.
 
 It might be fun to include a status column!
 
-    <div class="control-list list-unresponsive">
+    <div class="control-list">
         <table class="table data">
             <thead>
                 <tr>
@@ -248,11 +230,30 @@ It might be fun to include a status column!
         </table>
     </div>
 
+### Linking rows
+
+You may link an entire row by adding the `data-control="rowlink"` attribute to the table element. The first table data (TD) column with an anchor will be used to link the entire row. To bypass this behavior, simply add the `nolink` class to the column.
+
+    <div class="control-list">
+        <table class="table data" data-control="rowlink">
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="http://octobercms.com">Link to this</a>
+                    </td>
+                    <td>Row will be linked</td>
+                    <td>This will also be linked</td>
+                    <td class="nolink">No link applied here</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 ### Button column
 
 You may add a small button to a list column by adding the `column-button` class to the table data (TD) element.
 
-    <div class="control-list list-unresponsive">
+    <div class="control-list">
         <table class="table data" data-control="rowlink">
             <thead>
                 <tr>
@@ -264,9 +265,9 @@ You may add a small button to a list column by adding the `column-button` class 
                 <tr>
                     <td class="column-button nolink">
                         <a
-                            href="http://www.google.com"
+                            href="http://google.com"
                             target="_blank"
-                            class="btn btn-default btn-sm">
+                            class="btn btn-secondary btn-sm">
                             Open Google
                         </a>
                     </td>
@@ -279,4 +280,3 @@ You may add a small button to a list column by adding the `column-button` class 
             </tbody>
         </table>
     </div>
-

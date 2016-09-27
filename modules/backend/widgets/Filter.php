@@ -333,10 +333,11 @@ class Filter extends WidgetBase
             $methodName = $options;
 
             if (!$model->methodExists($methodName)) {
-                throw new ApplicationException(Lang::get(
-                    'backend::lang.filter.options_method_not_exists',
-                    ['model'=>get_class($model), 'method'=>$methodName, 'filter'=>$scope->scopeName]
-                ));
+                throw new ApplicationException(Lang::get('backend::lang.filter.options_method_not_exists', [
+                    'model'  => get_class($model),
+                    'method' => $methodName,
+                    'filter' => $scope->scopeName
+                ]));
             }
 
             $options = $model->$methodName();

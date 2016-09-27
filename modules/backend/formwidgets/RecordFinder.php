@@ -54,6 +54,11 @@ class RecordFinder extends FormWidgetBase
     public $prompt = 'Click the %s button to find a record';
 
     /**
+     * @var int Maximum rows to display for each page.
+     */
+    public $recordsPerPage = 10;
+
+    /**
      * @var string Use a custom scope method for the list query.
      */
     public $scope;
@@ -115,6 +120,7 @@ class RecordFinder extends FormWidgetBase
             'conditions',
             'searchMode',
             'searchScope',
+            'recordsPerPage',
         ]);
 
         if (post('recordfinder_flag')) {
@@ -124,6 +130,8 @@ class RecordFinder extends FormWidgetBase
             $this->searchWidget = $this->makeSearchWidget();
             $this->searchWidget->bindToController();
 
+            $this->listWidget->setSearchTerm($this->searchWidget->getActiveTerm());
+
             /*
              * Link the Search Widget to the List Widget
              */
@@ -131,8 +139,6 @@ class RecordFinder extends FormWidgetBase
                 $this->listWidget->setSearchTerm($this->searchWidget->getActiveTerm());
                 return $this->listWidget->onRefresh();
             });
-
-            $this->searchWidget->setActiveTerm(null);
         }
     }
 
@@ -231,6 +237,15 @@ class RecordFinder extends FormWidgetBase
     public function onFindRecord()
     {
         $this->prepareVars();
+
+        /*
+         * Purge the search term stored in session
+         */
+        if ($this->searchWidget) {
+            $this->listWidget->setSearchTerm(null);
+            $this->searchWidget->setActiveTerm(null);
+        }
+
         return $this->makePartial('recordfinder_form');
     }
 
@@ -241,7 +256,7 @@ class RecordFinder extends FormWidgetBase
         $config->alias = $this->alias . 'List';
         $config->showSetup = false;
         $config->showCheckboxes = false;
-        $config->recordsPerPage = 10;
+        $config->recordsPerPage = $this->recordsPerPage;
         $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':" . $this->keyFrom . "')", $this->getId());
         $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 

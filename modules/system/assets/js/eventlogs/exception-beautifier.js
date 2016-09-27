@@ -325,7 +325,7 @@
             '</div></div>')
 
         tabs.find('#beautifier-tab-formatted').append(markup)
-        tabs.find('#beautifier-tab-raw').append('<div class="beautifier-raw-content">' + source.trim().replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>')
+        tabs.find('#beautifier-tab-raw').append('<div class="beautifier-raw-content">' + $.oc.escapeHtmlString(source.trim()).replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>')
 
         tabs.ocTab({closable: false})
 

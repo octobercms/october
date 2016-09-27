@@ -14,7 +14,8 @@ use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCache;
 use Assetic\Asset\AssetCollection;
-use Assetic\Cache\FilesystemCache;
+use Assetic\Factory\AssetFactory;
+use October\Rain\Parse\Assetic\FilesystemCache;
 use System\Helpers\Cache as CacheHelper;
 use ApplicationException;
 use DateTime;
@@ -76,6 +77,12 @@ class CombineAssets
     public $useMinify = false;
 
     /**
+     * @var bool When true, cache will be busted when an import is modified.
+     * Enabling this feature will make page loading slower.
+     */
+    public $useDeepHashing = false;
+
+    /**
      * @var array Cache of registration callbacks.
      */
     private static $callbacks = [];
@@ -90,29 +97,35 @@ class CombineAssets
          */
         $this->useCache = Config::get('cms.enableAssetCache', false);
         $this->useMinify = Config::get('cms.enableAssetMinify', null);
+        $this->useDeepHashing = Config::get('cms.enableAssetDeepHashing', null);
 
         if ($this->useMinify === null) {
             $this->useMinify = !Config::get('app.debug', false);
         }
 
+        if ($this->useDeepHashing === null) {
+            $this->useDeepHashing = Config::get('app.debug', false);
+        }
+
         /*
          * Register JavaScript filters
          */
-        $this->registerFilter('js', new \October\Rain\Support\Filters\JavascriptImporter);
+        $this->registerFilter('js', new \October\Rain\Parse\Assetic\JavascriptImporter);
 
         /*
          * Register CSS filters
          */
         $this->registerFilter('css', new \Assetic\Filter\CssImportFilter);
-        $this->registerFilter(['css', 'less'], new \Assetic\Filter\CssRewriteFilter);
-        $this->registerFilter('less', new \October\Rain\Support\Filters\LessCompiler);
+        $this->registerFilter(['css', 'less', 'scss'], new \Assetic\Filter\CssRewriteFilter);
+        $this->registerFilter('less', new \October\Rain\Parse\Assetic\LessCompiler);
+        $this->registerFilter('scss', new \October\Rain\Parse\Assetic\ScssCompiler);
 
         /*
          * Minification filters
          */
         if ($this->useMinify) {
             $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
-            $this->registerFilter(['css', 'less'], new \October\Rain\Support\Filters\StylesheetMinify);
+            $this->registerFilter(['css', 'less', 'scss'], new \October\Rain\Parse\Assetic\StylesheetMinify);
         }
 
         /*
@@ -174,6 +187,8 @@ class CombineAssets
 
         $this->localPath = $cacheInfo['path'];
         $this->storagePath = storage_path('cms/combiner/assets');
+
+        $this->setHashOnCombinerFilters($cacheKey);
 
         $combiner = $this->prepareCombiner($cacheInfo['files']);
         $contents = $combiner->dump();
@@ -267,7 +282,7 @@ class CombineAssets
     }
 
     /**
-     * Combines asset file references of a single type to produce 
+     * Combines asset file references of a single type to produce
      * a URL reference to the combined contents.
      * @var array List of asset files.
      * @var string File extension, used for aesthetic purposes only.
@@ -291,8 +306,17 @@ class CombineAssets
         $cacheInfo = $this->useCache ? $this->getCache($cacheKey) : false;
 
         if (!$cacheInfo) {
+            $this->setHashOnCombinerFilters($cacheKey);
+
             $combiner = $this->prepareCombiner($assets);
-            $lastMod = $combiner->getLastModified();
+
+            if ($this->useDeepHashing) {
+                $factory = new AssetFactory($this->localPath);
+                $lastMod = $factory->getLastModified($combiner);
+            }
+            else {
+                $lastMod = $combiner->getLastModified();
+            }
 
             $cacheInfo = [
                 'version'   => $cacheKey.'-'.$lastMod,
@@ -337,9 +361,60 @@ class CombineAssets
             return $collection;
         }
 
+        if (!File::isDirectory($this->storagePath)) {
+            File::makeDirectory($this->storagePath);
+        }
+
         $cache = new FilesystemCache($this->storagePath);
-        $cachedCollection = new AssetCache($collection, $cache);
+
+        $cachedFiles = [];
+        foreach ($files as $file) {
+            $cachedFiles[] = new AssetCache($file, $cache);
+        }
+
+        $cachedCollection = new AssetCollection($cachedFiles, [], $filesSalt);
+        $cachedCollection->setTargetPath($this->getTargetPath($rewritePath));
         return $cachedCollection;
+    }
+
+    /**
+     * Busts the cache based on a different cache key.
+     * @return void
+     */
+    protected function setHashOnCombinerFilters($hash)
+    {
+        $allFilters = call_user_func_array('array_merge', $this->getFilters());
+
+        foreach ($allFilters as $filter) {
+            if (method_exists($filter, 'setHash')) {
+                $filter->setHash($hash);
+            }
+        }
+    }
+
+    /**
+     * Returns a deep hash on filters that support it.
+     * @return void
+     */
+    protected function getDeepHashFromAssets($assets)
+    {
+        $key = '';
+
+        $assetFiles = array_map(function($file) {
+            return File::symbolizePath($file, null) ?: $this->localPath . $file;
+        }, $assets);
+
+        foreach ($assetFiles as $file) {
+            $filters = $this->getFilters(File::extension($file));
+
+            foreach ($filters as $filter) {
+                if (method_exists($filter, 'hashAsset')) {
+                    $key .= $filter->hashAsset($file, $this->localPath);
+                }
+            }
+        }
+
+        return $key;
     }
 
     /**
@@ -650,6 +725,13 @@ class CombineAssets
     protected function getCacheKey(array $assets)
     {
         $cacheKey = $this->localPath . implode('|', $assets);
+
+        /*
+         * Deep hashing
+         */
+        if ($this->useDeepHashing) {
+            $cacheKey .= $this->getDeepHashFromAssets($assets);
+        }
 
         /*
          * Extensibility
