@@ -399,10 +399,9 @@ class RelationController extends ControllerBehavior
          * Apply options and extra config
          */
         $allowConfig = ['readOnly', 'recordUrl'];
-        if ($extraConfig = array_only($options, $allowConfig)) {
-            $this->extraConfig = $extraConfig;
-            $this->applyExtraConfig($extraConfig, $field);
-        }
+        $extraConfig = array_only($options, $allowConfig);
+        $this->extraConfig = $extraConfig;
+        $this->applyExtraConfig($extraConfig, $field);
 
         /*
          * Initialize
