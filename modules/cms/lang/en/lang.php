@@ -114,7 +114,8 @@ return [
         'invalid_url' => 'Invalid URL format. The URL should start with the forward slash symbol and can contain digits, Latin letters and the following symbols: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Delete selected pages?',
         'delete_confirm_single' => 'Delete this page?',
-        'no_layout' => '-- no layout --'
+        'no_layout' => '-- no layout --',
+        'cms_page' => 'CMS page'
     ],
     'layout' => [
         'not_found_name' => "The layout ':name' is not found",
@@ -249,6 +250,7 @@ return [
         'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents'
     ],
     'mediafinder' => [
+        'label' => 'Media Finder',
         'default_prompt' => 'Click the %s button to find a media item'
     ],
     'media' => [
