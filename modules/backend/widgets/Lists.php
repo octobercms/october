@@ -777,7 +777,7 @@ class Lists extends WidgetBase
                 $value = null;
             }
             elseif ($this->isColumnRelated($column, true)) {
-                $value = implode(', ', $record->{$columnName}->lists($column->valueFrom));
+                $value = $record->{$columnName}->lists($column->valueFrom);
             }
             elseif ($this->isColumnRelated($column) || $this->isColumnPivot($column)) {
                 $value = $record->{$columnName} ? $record->{$columnName}->{$column->valueFrom} : null;
@@ -867,6 +867,10 @@ class Lists extends WidgetBase
      */
     protected function evalTextTypeValue($record, $column, $value)
     {
+        if (is_array($value) && count($value) == count($value, COUNT_RECURSIVE)) {
+            $value = implode(', ', $value);
+        }
+
         return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
     }
 
