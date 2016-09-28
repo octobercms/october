@@ -60,19 +60,19 @@ return [
         'manage_title' => 'Téma menedzselése',
         'edit_properties_title' => 'Téma',
         'edit_properties_button' => 'Tulajdonságok',
-        'save_properties' => 'Tulajdonságok mentése',
+        'save_properties' => 'Mentés',
         'import_button' => 'Importálás',
         'import_title' => 'Téma importálása',
         'import_theme_success' => 'A téma importálása sikeresen megtörtént!',
         'import_uploaded_file' => 'Téma archív fájl',
         'import_overwrite_label' => 'Létező fájlok felülírása',
-        'import_overwrite_comment' => 'Ne jelölje be ezt a négyzetet, ha csak új fájlok akar importálni.',
+        'import_overwrite_comment' => 'Ne jelölje be ezt a négyzetet, ha csak új fájlokat akar importálni.',
         'import_folders_label' => 'Könyvtárak',
-        'import_folders_comment' => 'Válassza ki a téma könyvtárát, amiket importálni szeretne.',
+        'import_folders_comment' => 'Válassza ki azokat a könyvtárakat, amiket importálni szeretne.',
         'export_button' => 'Exportálás',
         'export_title' => 'Téma exportálása',
         'export_folders_label' => 'Könyvtárak',
-        'export_folders_comment' => 'Válassza ki a téma könyvtárát, amiket exportálni szeretne.',
+        'export_folders_comment' => 'Válassza ki azokat a könyvtárakat, amiket exportálni szeretne.',
         'delete_button' => 'Törlés',
         'delete_confirm' => 'Biztos, hogy törölni szeretné a témát?',
         'delete_active_theme_failed' => 'Nem lehet törölni a témát. Először aktiváljon egy másik témát.',
@@ -88,7 +88,7 @@ return [
         'dir_name_taken' => 'A megadott könyvtár név már létezik.',
         'find_more_themes' => 'További témák az OctoberCMS piacterén.',
         'saving' => 'Téma mentése...',
-        'return' => 'Vissza a sablonokhoz'
+        'return' => 'Vissza a témákhoz'
     ],
     'maintenance' => [
         'settings_menu' => 'Karbantartás',
@@ -114,7 +114,8 @@ return [
         'invalid_url' => 'Érvénytelen a webcím formátuma. A webcímnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő karaktereket tartalmazhatja: ._-[]:?|/+*',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt lapokat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a lapot?',
-        'no_layout' => '-- nincs --'
+        'no_layout' => '-- nincs --',
+        'cms_page' => 'Lapok'
     ],
     'layout' => [
         'not_found_name' => "A(z) ':name' elrendezés nem található",
@@ -249,6 +250,7 @@ return [
         'manage_media' => 'Média kezelése'
     ],
     'mediafinder' => [
+        'label' => 'Média',
         'default_prompt' => 'Kattintson a(z) %s gombra új média fájl kereséséhez.'
     ],
     'media' => [

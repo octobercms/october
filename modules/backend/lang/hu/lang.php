@@ -163,11 +163,11 @@ return [
         'missing_parent_definition' => "A lista viselkedés nem tartalmaz definíciót az alábbihoz: ':definition'.",
         'behavior_not_ready' => 'Nem történt meg a lista viselkedés inicializálása. Kérjük ellenőrizze, hogy meghívta-e a makeLists() függvényt a vezérlőben.',
         'invalid_column_datetime' => "A(z) ':column' oszlopérték nem DateTime objektum, hiányzik egy \$dates hivatkozás a Modellben?",
-        'pagination' => 'Megjelenített elemek: :from-:to / :total',
+        'pagination' => 'Megjelenítve: :from-:to / :total',
         'prev_page' => 'Előző lap',
         'next_page' => 'Következő lap',
         'refresh' => 'Frissítés',
-        'updating' => 'Feltöltés...',
+        'updating' => 'Folyamatban...',
         'loading' => 'Betöltés...',
         'setup_title' => 'Lista testreszabása',
         'setup_help' => 'A jelölőnégyzetek használatával válassza ki azokat az oszlopokat, melyeket látni szeretne a listában. Az oszlopok pozícióját felfelé vagy lefelé húzással módosíthatja.',
@@ -385,7 +385,7 @@ return [
         'menu_mode_collapsed' => 'Összezárt'
     ],
     'backend_preferences' => [
-        'menu_label' => 'Admin felület',
+        'menu_label' => 'Beállításaim',
         'menu_description' => 'A működésének testreszabása.',
         'region' => 'Régió',
         'code_editor' => 'Kódszerkesztő',
