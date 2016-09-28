@@ -177,9 +177,9 @@ class AssetList extends WidgetBase
         }
 
         return [
-            'deleted'=>$deleted,
-            'error'=>$error,
-            'theme'=>Request::input('theme')
+            'deleted' => $deleted,
+            'error'   => $error,
+            'theme'   => Request::input('theme')
         ];
     }
 
@@ -194,6 +194,7 @@ class AssetList extends WidgetBase
 
         $this->vars['originalPath'] = $path;
         $this->vars['name'] = basename($path);
+
         return $this->makePartial('rename_form');
     }
 
@@ -294,6 +295,7 @@ class AssetList extends WidgetBase
 
         $this->vars['directories'] = $directories;
         $this->vars['selectedList'] = base64_encode(serialize(array_keys($selectedList)));
+
         return $this->makePartial('move_form');
     }
 
@@ -676,10 +678,10 @@ class AssetList extends WidgetBase
 
                 if ($this->pathMatchesSearch($words, $path)) {
                     $result[] = (object)[
-                        'type'=>'file',
-                        'path'=>File::normalizePath($path),
-                        'name'=>$item->getFilename(),
-                        'editable'=>in_array(strtolower($item->getExtension()), $editableAssetTypes)
+                        'type'     => 'file',
+                        'path'     => File::normalizePath($path),
+                        'name'     => $item->getFilename(),
+                        'editable' => in_array(strtolower($item->getExtension()), $editableAssetTypes)
                     ];
                 }
             }
