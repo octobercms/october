@@ -313,7 +313,10 @@ class Filter extends WidgetBase
             return $query->get();
         }
 
-        $searchFields = [$model->getKeyName(), $this->getScopeNameFrom($scope)];
+        $searchFields = [
+          DbDongle::cast($model->getKeyName(), 'TEXT'), 
+          DbDongle::cast($this->getScopeNameFrom($scope), 'TEXT')
+        ];
         return $query->searchWhere($searchQuery, $searchFields)->get();
     }
 
