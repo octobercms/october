@@ -213,7 +213,7 @@ It might be fun to include a status column!
                 <tr>
                     <td>
                         <span class="oc-icon-circle text-success">
-                            Pending
+                            Approved
                         </span>
                     </td>
                     <td>The sun is shining</td>
@@ -223,6 +223,60 @@ It might be fun to include a status column!
                         <span class="oc-icon-circle text-danger">
                             Cancelled
                         </span>
+                    </td>
+                    <td>The weather is sweet here</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+### Badge column
+
+You can also include an icon badge inside a column.
+
+    <div class="control-list">
+        <table class="table data">
+            <thead>
+                <tr>
+                    <th style="width: 150px"><span>Status</span></th>
+                    <th class="active sort-asc"><a href="/">Title</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="list-badge badge-info">
+                            <i class="icon-info"></i>
+                        </span>
+                        Draft
+                    </td>
+                    <td>Welcome to October</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="list-badge badge-warning">
+                            <i class="icon-exclamation"></i>
+                        </span>
+                        Pending
+                    </td>
+                    <td>What a wonderful day</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="list-badge badge-success">
+                            <i class="icon-check"></i>
+                        </span>
+                        Approved
+                    </td>
+                    <td>The sun is shining</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="list-badge badge-danger">
+                            <i class="icon-times"></i>
+                        </span>
+                        Cancelled
                     </td>
                     <td>The weather is sweet here</td>
                 </tr>

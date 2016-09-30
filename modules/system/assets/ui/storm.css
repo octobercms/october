@@ -2612,6 +2612,13 @@ table.table.data.no-active-indicator tbody tr td:first-child{border-left:none}
 table.table.data tfoot a{color:#666666;text-decoration:none}
 table.table.data tfoot td,table.table.data tfoot th{border-color:#d4d8da;padding:10px 15px}
 table.table.data th.list-cell-type-switch,table.table.data td.list-cell-type-switch{text-align:center}
+table.table.data .list-badge{display:inline-block;position:relative;top:-1px;margin:0 5px 0 0;padding:1px 0 0 0;font-size:10px;width:15px;height:15px;text-align:center;border-radius:3px;color:#fff}
+table.table.data .list-badge.badge-default{background:#999999}
+table.table.data .list-badge.badge-primary{background:#34495e}
+table.table.data .list-badge.badge-success{background:#31ac5f}
+table.table.data .list-badge.badge-info{background:#5bc0de}
+table.table.data .list-badge.badge-warning{background:#f0ad4e}
+table.table.data .list-badge.badge-danger{background:#ab2a1c}
 table.table.data .list-checkbox{width:52px;vertical-align:top;border-right:1px solid #eeeeee}
 table.table.data .list-checkbox .checkbox{margin:0;min-height:0}
 table.table.data .list-checkbox .custom-checkbox{position:relative;top:-14px;left:-2px}
