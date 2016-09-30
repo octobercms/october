@@ -35,9 +35,12 @@ Include the `no-subheader` class to omit the sub heading.
 
 Include the `no-icon` class to omit the icon.
 
-    <div class="callout fade in callout-danger no-icon no-subheader">
+    <div class="callout fade in callout-danger no-icon">
         <div class="header">
             <h3>There was a hull breach</h3>
+            <ul>
+                <li>Get to the chopper</li>
+            </ul>
         </div>
     </div>
 

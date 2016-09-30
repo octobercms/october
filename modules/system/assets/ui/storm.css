@@ -1479,7 +1479,8 @@ to{background-position:0 0}
 .callout > .header + .content{border-top:none}
 .callout > .header{padding:20px;padding-bottom:15px;-webkit-border-radius:4px 4px 0 0;-moz-border-radius:4px 4px 0 0;border-radius:4px 4px 0 0;color:#2f2d26}
 .callout > .header h3{letter-spacing:0;margin:0 0 7px 0;font-size:13px;font-weight:bold}
-.callout > .header h3,.callout > .header p{margin-left:35px}
+.callout > .header h3,.callout > .header p,.callout > .header ul,.callout > .header ol{margin-left:35px}
+.callout > .header ul,.callout > .header ol{padding-left:20px}
 .callout > .header *:last-child{margin-bottom:0}
 .callout > .header:last-child{-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px}
 .callout > .header i{font-size:26px;float:left}
@@ -1492,9 +1493,10 @@ to{background-position:0 0}
 .callout > .content h5{font-size:18px}
 .callout > .content h6{font-size:16px}
 .callout > .content *:last-child{margin-bottom:0}
+.callout > .content ul,.callout > .content ol{padding-left:20px}
 .callout > .content ul li,.callout > .content ol li{margin-bottom:5px}
 .callout > .content .action-panel{padding:10px 0 0 0}
-.callout.no-icon > .header h3,.callout.no-icon > .header p{margin-left:0}
+.callout.no-icon > .header h3,.callout.no-icon > .header p,.callout.no-icon > .header ul,.callout.no-icon > .header ol{margin-left:0}
 .callout.no-subheader > .header i{margin-top:-5px}
 .form-group > .callout{margin-bottom:0}
 .nav{margin-bottom:0;padding-left:0;list-style:none}

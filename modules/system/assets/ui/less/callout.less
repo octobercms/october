@@ -104,8 +104,12 @@
             font-weight: bold;
         }
 
-        h3, p {
+        h3, p, ul, ol {
             margin-left: 35px;
+        }
+
+        ul, ol {
+            padding-left: @padding-standard;
         }
 
         *:last-child {
@@ -145,6 +149,8 @@
         }
 
         ul, ol {
+            padding-left: @padding-standard;
+
             li {
                 margin-bottom: 5px;
             }
@@ -157,7 +163,7 @@
 
     &.no-icon {
         > .header {
-            h3, p {
+            h3, p, ul, ol {
                 margin-left: 0;
             }
         }
