@@ -155,7 +155,7 @@ return [
     'list' => [
         'default_title' => 'Lista',
         'search_prompt' => 'Keresés...',
-        'no_records' => 'Nincs megjeleníthető tartalom.',
+        'no_records' => 'Nincs megjeleníthető tartalom',
         'missing_model' => 'Nincs modell definiálva a(z) :class osztályban használt lista viselkedéshez.',
         'missing_column' => 'Nincsenek oszlop definíciók a(z) :columns oszlopok számára.',
         'missing_columns' => 'A(z) :class osztályban használt listának nincsenek definiált lista oszlopai.',
@@ -196,7 +196,7 @@ return [
     'form' => [
         'create_title' => 'Új :name',
         'update_title' => ':name szerkesztése',
-        'preview_title' => ':name villámnézete',
+        'preview_title' => ':name gyorsnézete',
         'create_success' => 'A(z) :name létrehozása sikerült',
         'update_success' => 'A(z) :name módosítása sikerült',
         'delete_success' => 'A(z) :name törlése sikerült',
@@ -407,7 +407,7 @@ return [
     ],
     'filter' => [
         'all' => 'mind',
-        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':filter' filter.",
+        'options_method_not_exists' => "A(z) :model osztálynak kötelező definiálni a(z) :method() metódust a(z) ':filter' szűrő feltételhez.",
         'date_all' => 'minden időszak'
     ],
     'import_export' => [
