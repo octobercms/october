@@ -78,6 +78,12 @@ class Toolbar extends WidgetBase
     public function render()
     {
         $this->prepareVars();
+        
+        // If there are no buttons - return false, the result does not display the empty html block
+        if (!isset($this->buttons)) {
+            return false;
+        }
+        
         return $this->makePartial('toolbar');
     }
 
