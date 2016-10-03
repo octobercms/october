@@ -6,7 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
-        'options_method_not_exists' => "A(z) :model modellosztálynak egy :method() metódus visszaadandó beállításait kell definiálnia a(z) ':field' űrlapmező számára."
+        'options_method_not_exists' => "A(z) :model modell osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára."
     ],
     'widget' => [
         'not_registered' => "A(z) ':name' widget osztálynév regisztrálása nem történt meg.",
@@ -44,7 +44,7 @@ return [
         'email_placeholder' => 'e-mail cím',
         'enter_new_password' => 'Adjon meg egy új jelszót',
         'password_reset' => 'Új jelszó kiadása',
-        'restore_success' => 'A visszaállítással kapcsolatos utasításokat tartalmazó levél elküldésre került az e-mail címére.',
+        'restore_success' => 'A visszaállítással kapcsolatos utasításokat tartalmazó levél elküldésre került.',
         'restore_error' => "Nem található a(z) ':login' nevű felhasználó.",
         'reset_success' => 'A jelszó átállítása sikerült. Most már bejelentkezhet.',
         'reset_error' => 'A megadott jelszó átállítási adatok érvénytelenek. Próbálja újra!',
@@ -202,7 +202,7 @@ return [
         'delete_success' => 'A(z) :name törlése sikerült',
         'reset_success' => 'A visszaállítás sikerült',
         'missing_id' => 'Nincs megadva az űrlap rekord azonosítója.',
-        'missing_model' => 'A(z) :class osztályban használt űrlap viselkedésnek nincs definiált modellje.',
+        'missing_model' => 'A(z) :class osztályban használt űrlap viselkedésének nincs definiált modellje.',
         'missing_definition' => "Az űrlap viselkedés nem tartalmaz mezőt a(z) ':field' mezőhöz.",
         'not_found' => 'A(z) :id azonosítójú űrlap rekord nem található.',
         'action_confirm' => 'Biztos benne?',
@@ -246,7 +246,7 @@ return [
         'insert_row_below' => 'Sor beszúrása alá',
         'delete_row' => 'Sor törlése',
         'concurrency_file_changed_title' => 'A fájl megváltozott',
-        'concurrency_file_changed_description' => 'Az Ön által szerkesztett fájlt már egy máik felhasználó módosította. Vagy újratöltheti a fájlt és elveszti a változtatásait, vagy felülírja a fájlt.',
+        'concurrency_file_changed_description' => 'Az Ön által szerkesztett fájlt már egy máik felhasználó módosította. Újratöltheti a fájlt és elveszti a változtatásait, vagy felülírja a fájlt.',
         'return_to_list' => 'Vissza a listához'
     ],
     'recordfinder' => [
@@ -292,7 +292,7 @@ return [
     'model' => [
         'name' => 'Modell',
         'not_found' => "Nem található :id azonosítójú ':class' modell.",
-        'missing_id' => 'Nincs azonosító megadva a modellrekord kereséséhez.',
+        'missing_id' => 'Nincs azonosító megadva a modell rekord kereséséhez.',
         'missing_relation' => "A(z) ':class' modell nem tartalmaz definíciót a(z) ':relation' reláció számára.",
         'missing_method' => "A(z) ':class' modell nem tartalmaz ':method' metódust.",
         'invalid_class' => "A(z) :class osztályban használt :model modell nem érvényes, örökölnie kell a \Model osztályt.",
@@ -459,7 +459,7 @@ return [
         'missing_model_class_error' => 'Kérjük adja meg a modelClass tulajdonságát ehhez: :type',
         'missing_column_id_error' => 'Hiányzó oszlop azonosító',
         'unknown_column_error' => 'Ismeretlen oszlop',
-        'encoding_not_supported_error' => 'Source file encoding is not recognized. Please select the custom file format option with the proper encoding to import your file.',
+        'encoding_not_supported_error' => 'A forrásfájl kódolása nem felismerhető. Please select the custom file format option with the proper encoding to import your file.',
         'encoding_format' => 'Fájl kódolása',
         'encodings' => [
             'utf_8' => 'UTF-8',
