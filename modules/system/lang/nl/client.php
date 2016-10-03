@@ -47,7 +47,6 @@ return [
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Annuleren',
-        'widget_remove_confirm' => 'Deze widget verwijderen?'
     ],
     'datepicker' => [
         'previousMonth' => 'Vorige maand',
