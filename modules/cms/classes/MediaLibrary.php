@@ -346,7 +346,7 @@ class MediaLibrary
     {
         if (Str::lower($originalPath) !== Str::lower($newPath)) {
             // If there is no risk that the directory was renamed
-            // by just changing the letter case in the name - 
+            // by just changing the letter case in the name -
             // copy the directory to the destination path and delete
             // the source directory.
 
@@ -438,6 +438,8 @@ class MediaLibrary
         if (preg_match($regex, $path) !== 0 || strpos($path, '//') !== false) {
             throw new ApplicationException(Lang::get('cms::lang.media.invalid_path', compact('path')));
         }
+
+        $path = str_replace('', '%20', $path);
 
         return $path;
     }
