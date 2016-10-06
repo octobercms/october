@@ -538,12 +538,19 @@ class ImportExportController extends ControllerBehavior
 
     protected function checkUseListExportMode()
     {
-        if (!$listDefinition = $this->getConfig('export[useList]')) {
+        if (!$useList = $this->getConfig('export[useList]')) {
             return false;
         }
 
         if (!$this->controller->isClassExtendedWith('Backend.Behaviors.ListController')) {
             throw new ApplicationException(Lang::get('backend::lang.import_export.behavior_missing_uselist_error'));
+        }
+
+        if (is_array($useList)) {
+            $listDefinition = array_get($useList, 'definition');
+        }
+        else {
+            $listDefinition = $useList;
         }
 
         $this->exportFromList($listDefinition);
@@ -594,12 +601,20 @@ class ImportExportController extends ControllerBehavior
         /*
          * Add records
          */
+        $getter = $this->getConfig('export[useList][raw]', false)
+            ? 'getColumnValueRaw'
+            : 'getColumnValue';
+
         $model = $widget->prepareModel();
         $results = $model->get();
         foreach ($results as $result) {
             $record = [];
             foreach ($columns as $column) {
-                $record[] = $widget->getColumnValue($result, $column);
+                $value = $widget->$getter($result, $column);
+                if (is_array($value)) {
+                    $value = implode('|', $value);
+                }
+                $record[] = $value;
             }
             $csv->insertOne($record);
         }

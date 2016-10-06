@@ -761,9 +761,10 @@ class Lists extends WidgetBase
     }
 
     /**
-     * Looks up the column value
+     * Returns a raw column value
+     * @return string
      */
-    public function getColumnValue($record, $column)
+    public function getColumnValueRaw($record, $column)
     {
         $columnName = $column->columnName;
 
@@ -809,6 +810,17 @@ class Lists extends WidgetBase
                 $value = $record->{$columnName};
             }
         }
+
+        return $value;
+    }
+
+    /**
+     * Returns a column value, with filters applied
+     * @return string
+     */
+    public function getColumnValue($record, $column)
+    {
+        $value = $this->getColumnValueRaw($record, $column);
 
         if (method_exists($this, 'eval'. studly_case($column->type) .'TypeValue')) {
             $value = $this->{'eval'. studly_case($column->type) .'TypeValue'}($record, $column, $value);
