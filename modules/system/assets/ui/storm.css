@@ -1726,6 +1726,7 @@ a.control-status-list > ul li .status-text.danger:hover{color:#843534}
 .control-toolbar .toolbar-item .btn,.control-toolbar .toolbar-item .btn-group,.control-toolbar .toolbar-item .dropdown{white-space:nowrap;float:none;display:inline-block;margin-right:10px}
 .control-toolbar .toolbar-item .btn:last-child,.control-toolbar .toolbar-item .btn-group:last-child,.control-toolbar .toolbar-item .dropdown:last-child{margin-right:0}
 .control-toolbar .toolbar-item .btn.standalone,.control-toolbar .toolbar-item .btn-group.standalone,.control-toolbar .toolbar-item .dropdown.standalone{margin-right:15px}
+.control-toolbar .toolbar-item .dropdown > .btn{margin-right:0}
 .control-toolbar .toolbar-item .btn-group > .btn,.control-toolbar .toolbar-item .btn-group > .dropdown{margin-right:0;display:inline-block;float:none}
 .control-toolbar .toolbar-item .btn-group .dropdown > .btn{margin-right:0;border-bottom-right-radius:0;border-top-right-radius:0}
 .control-toolbar .toolbar-item .btn-group .dropdown.last > .btn{border-bottom-right-radius:3px !important;border-top-right-radius:3px !important}
