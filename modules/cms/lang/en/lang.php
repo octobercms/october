@@ -220,6 +220,8 @@ return [
         'error_moving_file' => 'Error moving file :file',
         'error_moving_directory' => 'Error moving directory :dir',
         'error_deleting_directory' => 'Error deleting the original directory :dir',
+        'no_list_records' => 'No files found',
+        'delete_confirm' => 'Delete selected files or directories?',
         'path' => 'Path'
     ],
     'component' => [
@@ -237,7 +239,9 @@ return [
     'template' => [
         'invalid_type' => 'Unknown template type.',
         'not_found' => 'Template not found.',
-        'saved'=> 'Template saved.'
+        'saved' => 'Template saved.',
+        'no_list_records' => 'No records found',
+        'delete_confirm' => 'Delete selected templates?'
     ],
     'permissions' => [
         'name' => 'CMS',

@@ -109,7 +109,7 @@ return [
         ],
         'menu_label' => 'Lapok',
         'unsaved_label' => 'Nem mentett lap(ok)',
-        'no_list_records' => 'Nem találhatóak lapok',
+        'no_list_records' => 'Nincs találat',
         'new' => 'Új lap',
         'invalid_url' => 'Érvénytelen a webcím formátuma. A webcímnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő karaktereket tartalmazhatja: ._-[]:?|/+*',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt lapokat?',
@@ -121,7 +121,7 @@ return [
         'not_found_name' => "A(z) ':name' elrendezés nem található",
         'menu_label' => 'Elrendezések',
         'unsaved_label' => 'Nem mentett elrendezés(ek)',
-        'no_list_records' => 'Nem találhatók elrendezések',
+        'no_list_records' => 'Nincs találat',
         'new' => 'Új elrendezés',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt elrendezéseket?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt az elrendezést?'
@@ -131,7 +131,7 @@ return [
         'invalid_name' => 'Érvénytelen részlapnév: :name.',
         'menu_label' => 'Részlapok',
         'unsaved_label' => 'Nem mentett részlap(ok)',
-        'no_list_records' => 'Nem találhatók részlapok',
+        'no_list_records' => 'Nincs találat',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt részlapokat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a részlapot?',
         'new' => 'Új részlap'
@@ -140,7 +140,7 @@ return [
         'not_found_name' => "A(z) ':name' tartalomfájl nem található.",
         'menu_label' => 'Tartalom',
         'unsaved_label' => 'Nem mentett tartalom',
-        'no_list_records' => 'Nem találhatók tartalomfájlok',
+        'no_list_records' => 'Nincs találat',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt tartalomfájlokat vagy könyvtárakat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a tartalomfájlt?',
         'new' => 'Új tartalomfájl'
@@ -220,6 +220,8 @@ return [
         'error_moving_file' => 'Hiba a(z) :file fájl áthelyezésekor.',
         'error_moving_directory' => 'Hiba a(z) :dir könyvtár áthelyezésekor.',
         'error_deleting_directory' => 'Hiba a(z) :dir eredeti könyvtár áthelyezésekor.',
+        'no_list_records' => 'Nincs találat',
+        'delete_confirm' => 'Valóban törölni akarja a kiválasztott fájlokat és könyvtárakat?',
         'path' => 'Elérési út'
     ],
     'component' => [
@@ -237,7 +239,9 @@ return [
     'template' => [
         'invalid_type' => 'Ismeretlen sablon típus.',
         'not_found' => 'A kért sablon nem található.',
-        'saved' => 'A módosítások sikeresen mentésre kerültek.'
+        'saved' => 'A módosítások sikeresen mentésre kerültek.',
+        'no_list_records' => 'Nincs találat',
+        'delete_confirm' => 'Valóban törölni akarja a témát?'
     ],
     'permissions' => [
         'name' => 'Testreszabás',

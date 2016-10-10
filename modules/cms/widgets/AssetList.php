@@ -42,12 +42,12 @@ class AssetList extends WidgetBase
     /**
      * @var string Message to display when there are no records in the list.
      */
-    public $noRecordsMessage = 'No files found';
+    public $noRecordsMessage = 'cms::lang.asset.no_list_records';
 
     /**
      * @var string Message to display when the Delete button is clicked.
      */
-    public $deleteConfirmation = 'Delete selected files or directories?';
+    public $deleteConfirmation = 'cms::lang.asset.delete_confirm';
 
     public function __construct($controller, $alias)
     {
