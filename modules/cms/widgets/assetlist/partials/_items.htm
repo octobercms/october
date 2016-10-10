@@ -27,8 +27,8 @@
                     <div class="controls">
                         <a
                             href="javascript:;"
-                            class="control icon btn-primary oc-icon-terminal" 
-                            title="Rename"
+                            class="control icon btn-primary oc-icon-terminal"
+                            title="<?= e(trans('cms::lang.asset.rename')) ?>"
                             data-control="popup"
                             data-request-data="renamePath: '<?= e($item->path) ?>'"
                             data-handler="<?= $this->getEventHandler('onLoadRenamePopup') ?>"
@@ -38,7 +38,7 @@
                     <input type="hidden" name="file[<?= e($item->path) ?>]" value="0"/>
                     <div class="checkbox custom-checkbox nolabel">
                         <?php $cbId = 'cb'.md5($item->path) ?>
-                        <input 
+                        <input
                             id="<?= $cbId ?>"
                             type="checkbox"
                             name="file[<?= e($item->path) ?>]"

@@ -224,7 +224,7 @@ class Index extends Controller
 
         return [
             'tabTitle' => $this->getTabTitle($type, $template),
-            'tab'   => $this->makePartial('form_page', [
+            'tab'      => $this->makePartial('form_page', [
                 'form'          => $widget,
                 'templateType'  => $type,
                 'templateTheme' => $this->theme->getDirName(),
@@ -498,6 +498,7 @@ class Index extends Controller
     {
         $markup = str_replace("\r\n", "\n", $markup);
         $markup = str_replace("\r", "\n", $markup);
+
         return $markup;
     }
 }

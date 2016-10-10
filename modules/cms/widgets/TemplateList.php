@@ -47,12 +47,12 @@ class TemplateList extends WidgetBase
     /**
      * @var string Message to display when there are no records in the list.
      */
-    public $noRecordsMessage = 'No records found';
+    public $noRecordsMessage = 'cms::lang.template.no_list_records';
 
     /**
      * @var string Message to display when the Delete button is clicked.
      */
-    public $deleteConfirmation = 'Delete selected templates?';
+    public $deleteConfirmation = 'cms::lang.template.delete_confirm';
 
     /**
      * @var string Specifies the item type.

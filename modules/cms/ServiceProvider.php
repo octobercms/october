@@ -241,7 +241,7 @@ class ServiceProvider extends ModuleServiceProvider
         WidgetManager::instance()->registerFormWidgets(function ($manager) {
             $manager->registerFormWidget('Cms\FormWidgets\Components');
             $manager->registerFormWidget('Cms\FormWidgets\MediaFinder', [
-                'label' => 'Media Finder',
+                'label' => 'cms::lang.mediafinder.label',
                 'code'  => 'mediafinder'
             ]);
         });
@@ -283,7 +283,7 @@ class ServiceProvider extends ModuleServiceProvider
     {
         Event::listen('pages.menuitem.listTypes', function () {
             return [
-                'cms-page' => 'CMS Page'
+                'cms-page' => 'cms::lang.page.cms_page'
             ];
         });
 
@@ -307,7 +307,7 @@ class ServiceProvider extends ModuleServiceProvider
     {
         Event::listen('backend.richeditor.listTypes', function () {
             return [
-                'cms-page' => 'CMS Page'
+                'cms-page' => 'cms::lang.page.cms_page'
             ];
         });
 
