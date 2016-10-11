@@ -1509,6 +1509,13 @@ class RelationController extends ControllerBehavior
             $field = $this->field;
         }
 
+        if (isset($config['readOnly'])) {
+			if (strtolower($config['readOnly']) === 'false') {
+		        $config['readOnly'] = false;
+	        } else {
+		        $config['readOnly'] = (bool) $config['readOnly'];
+	        }
+	    }
         $parsedConfig = array_only($config, ['readOnly']);
         $parsedConfig['view'] = array_only($config, ['recordUrl']);
 
