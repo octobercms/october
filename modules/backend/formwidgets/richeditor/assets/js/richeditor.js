@@ -48,7 +48,8 @@
         linkStyles: null,
         paragraphStyles: null,
         tableStyles: null,
-        tableCellStyles: null
+        tableCellStyles: null,
+        aceVendorPath: '/'
     }
 
     RichEditor.prototype.init = function() {
@@ -74,7 +75,8 @@
             editorClass: 'control-richeditor',
             language: this.options.editorLang,
             fullPage: this.options.fullpage,
-            pageLinksHandler: this.options.linksHandler
+            pageLinksHandler: this.options.linksHandler,
+            aceEditorVendorPath: this.options.aceVendorPath
         }
 
         if (this.options.toolbarButtons) {
