@@ -333,12 +333,17 @@
         this.$form.trigger('change')
     }
 
+    /*
+     * Instantly synchronizes HTML content.
+     * The onSyncContent() method (above) is involved into this call,
+     * so the resulting HTML is (optionally) beautified.
+     */
     RichEditor.prototype.onFormBeforeRequest = function(ev) {
-        // Instantly synchronizes HTML content. 
-        // The onSyncContent() method (above) is involved
-        // into this call, so the resulting HTML is (optionally)
-        // beautified
-        this.$textarea.val(this.$textarea.froalaEditor('html.get'))
+        if (this.editor.codeView && this.editor.codeView.isActive()) {
+            this.editor.html.set(this.editor.codeView.get())
+        }
+
+        this.$textarea.val(this.editor.html.get())
     }
 
     // RICHEDITOR PLUGIN DEFINITION

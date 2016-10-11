@@ -575,7 +575,8 @@ RichEditor.prototype.onFigureKeydown=function(ev){this.$textarea.trigger('figure
 RichEditor.prototype.onKeydown=function(ev,editor,keyEv){this.$textarea.trigger('keydown.oc.richeditor',[keyEv,this])
 if(ev.isDefaultPrevented()){return false}}
 RichEditor.prototype.onChange=function(ev){this.$form.trigger('change')}
-RichEditor.prototype.onFormBeforeRequest=function(ev){this.$textarea.val(this.$textarea.froalaEditor('html.get'))}
+RichEditor.prototype.onFormBeforeRequest=function(ev){if(this.editor.codeView&&this.editor.codeView.isActive()){this.editor.html.set(this.editor.codeView.get())}
+this.$textarea.val(this.editor.html.get())}
 var old=$.fn.richEditor
 $.fn.richEditor=function(option){var args=Array.prototype.slice.call(arguments,1),result
 this.each(function(){var $this=$(this)
