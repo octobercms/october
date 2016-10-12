@@ -339,6 +339,10 @@
      * so the resulting HTML is (optionally) beautified.
      */
     RichEditor.prototype.onFormBeforeRequest = function(ev) {
+        if (!this.editor) {
+            return
+        }
+
         if (this.editor.codeView && this.editor.codeView.isActive()) {
             this.editor.html.set(this.editor.codeView.get())
         }
