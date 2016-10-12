@@ -325,7 +325,7 @@
             '</div></div>')
 
         if (source.indexOf('Message-ID:') > 0) {
-            markup = '<div class="beautifier-raw-content">' + source.trim().replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>'
+            markup = '<div class="beautifier-formatted-content">' + source.trim().replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>'
         }
 
         tabs.find('#beautifier-tab-formatted').append(markup)
