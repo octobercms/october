@@ -13,13 +13,13 @@
                 title="<?= e(trans('backend::lang.list.prev_page')) ?>"></a>
         <?php endif ?>
         <?php if ($pageLast > $pageCurrent): ?>
-        <a
-            href="javascript:;"
-            class="page-next"
-            data-request-data="page: <?= $pageCurrent+1 ?>"
-            data-request="<?= $this->getEventHandler('onPaginate') ?>"
-            data-load-indicator="<?= e(trans('backend::lang.list.loading')) ?>"
-            title="<?= e(trans('backend::lang.list.next_page')) ?>"></a>
+            <a
+                href="javascript:;"
+                class="page-next"
+                data-request-data="page: <?= $pageCurrent+1 ?>"
+                data-request="<?= $this->getEventHandler('onPaginate') ?>"
+                data-load-indicator="<?= e(trans('backend::lang.list.loading')) ?>"
+                title="<?= e(trans('backend::lang.list.next_page')) ?>"></a>
         <?php endif ?>
     </div>
 </div>
