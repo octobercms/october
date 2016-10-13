@@ -6,29 +6,35 @@ return [
         'tagline' => 'Getting back to basics'
     ],
     'locale' => [
-        'cs' => 'Czech',
-        'da' => 'Danish',
-        'en' => 'Engelsk',
+        'cs' => 'Tjekkisk',
+        'da' => 'Dansk',
+        'en' => 'Engelsk (USA)',
+        'en-au' => 'Engelsk (Australia)',
+        'en-ca' => 'Engelsk (Canada)',
+        'en-gb' => 'Engelsk (Storbritannia)',
         'de' => 'Tysk',
+        'el' => 'Gresk',
         'es' => 'Spansk',
         'es-ar' => 'Spansk (Argentina)',
         'fa' => 'Persisk',
         'fr' => 'Fransk',
+        'fr-ca' => 'Fransk (Canada)',
         'hu' => 'Ungarsk',
         'id' => 'Indonesisk',
         'it' => 'Italiensk',
         'ja' => 'Japansk',
+        'lv' => 'Latvisk',
+        'nb-no' => 'Norsk bokmål',
         'nl' => 'Nederlandsk',
         'pl' => 'Polsk',
-        'pt-br' => 'Brasiliansk Portugisk',
+        'pt-br' => 'Portugisisk (Brazil)',
         'ro' => 'Rumensk',
         'ru' => 'Russisk',
         'sv' => 'Svensk',
-        'sk' => 'Slovak (Slovakia)',
+        'sk' => 'Slovakisk',
         'tr' => 'Tyrkisk',
-        'nb-no' => 'Norsk (Bokmål)',
         'zh-cn' => 'Kinesisk (Kina)',
-        'zh-tw' => 'Chinese (Taiwan)',
+        'zh-tw' => 'Kinesisk (Taiwan)'
     ],
     'directory' => [
         'create_fail' => 'Kan ikke opprette mappen: :name'
@@ -58,11 +64,12 @@ return [
         ]
     ],
     'theme' => [
-        'unnamed' => 'Navnløst tema',
+        'label' => 'Tema',
+        'unnamed' => 'Tema uten navn',
         'name' => [
-            'label' => 'Tema-navn',
+            'label' => 'Navn på tema',
             'help' => 'Navngi temaet ved et unikt navn. For eksempel, RainLab.Vanilla'
-        ]
+        ],
     ],
     'themes' => [
         'install' => 'Installer tema',
@@ -73,14 +80,15 @@ return [
         'remove_confirm' => 'Vil du virkelig slette dette temaet?'
     ],
     'plugin' => [
-        'unnamed' => 'Navnløs plugin',
+        'label' => 'Plugin',
+        'unnamed' => 'Plugin uten navn',
         'name' => [
-            'label' => 'Plugin-navn',
+            'label' => 'Navn på plugin',
             'help' => 'Navngi pluginen ved et unikt navn. For eksempel, RainLab.Blog'
         ]
     ],
     'plugins' => [
-        'manage' => 'Administrer plugins',
+        'manage' => 'Administrere plugins',
         'enable_or_disable' => 'Aktivere eller deaktivere',
         'enable_or_disable_title' => 'Aktivere eller deaktivere plugins',
         'install' => 'Installer plugins',
@@ -93,6 +101,8 @@ return [
         'refresh' => 'Oppdater',
         'disabled_label' => 'Deaktivert',
         'disabled_help' => 'Deaktiverte plugins blir ignorert av applikasjonen.',
+        'frozen_label' => 'Frys oppdaterionger',
+        'frozen_help' => 'Fryste plugins blir ignorert ved oppdatering.',
         'selected_amount' => 'Valgte plugins: :amount',
         'remove_confirm' => 'Er du sikker?',
         'remove_success' => 'Plugins har blitt fjernet fra systemet.',
@@ -142,6 +152,10 @@ return [
         'smtp_password' => 'Passord',
         'smtp_port' => 'SMTP-port',
         'smtp_ssl' => 'SSL-tilkobling påkrevd',
+        'smtp_encryption' => 'SMTP krypteringsprotkoll',
+        'smtp_encryption_none' => 'Ingen kryptering',
+        'smtp_encryption_tls' => 'TLS',
+        'smtp_encryption_ssl' => 'SSL',
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Sendmail-sti',
         'sendmail_path_comment' => 'Vennligst oppgi stien til sendmail-programmet.',
@@ -152,7 +166,16 @@ return [
         'mailgun_secret_comment' => 'Oppgi din Mailgun-API-nøkkel.',
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill Secret',
-        'mandrill_secret_comment' => 'Enter your Mandrill API key.'
+        'mandrill_secret_comment' => 'Oppgi din Mandrill API-nøkkel.',
+        'ses' => 'SES',
+        'ses_key' => 'SES nøkkel',
+        'ses_key_comment' => 'Oppgi din SES API-nøkkel',
+        'ses_secret' => 'SES secret',
+        'ses_secret_comment' => 'Oppgi din hemmelige SES API-nøkkel',
+        'ses_region' => 'SES region',
+        'ses_region_comment' => 'Legg inn din SES region (feks. us-east-1)',
+        'drivers_hint_header' => 'Drivere ikke installert',
+        'drivers_hint_content' => 'Denne mailmetoden krever at plugin ":plugin" er installert før du kan sende mail.'
     ],
     'mail_templates' => [
         'menu_label' => 'E-postmaler',
@@ -164,6 +187,7 @@ return [
         'menu_layouts_label' => 'E-postlayouts',
         'layout' => 'Layout',
         'layouts' => 'Layouts',
+        'no_layout' => '-- ingen layout --',
         'name' => 'Navn',
         'name_comment' => 'Unikt navn som tilknyttes denne layouten',
         'code' => 'Code',
@@ -173,10 +197,20 @@ return [
         'description' => 'Beskrivelse',
         'content_html' => 'HTML',
         'content_css' => 'CSS',
-        'content_text' => 'Klartekst',
+        'content_text' => 'Ren tekst',
         'test_send' => 'Send testmelding',
-        'test_success' => 'Testmeldingen har blitt sendt.',
-        'return' => 'Tilbake til malliste'
+        'test_success' => 'Testmeldingen er sendt.',
+        'test_confirm' => 'Sender testmelding til :email. Fortsette?',
+        'creating' => 'Oppretter mal...',
+        'creating_layout' => 'Oppretter layout...',
+        'saving' => 'Lagrer mal...',
+        'saving_layout' => 'Lagrer layout...',
+        'delete_confirm' => 'Slette denne malen?',
+        'delete_layout_confirm' => 'Slette denne layouten?',
+        'deleting' => 'Sletter mal...',
+        'deleting_layout' => 'Sletter layout...',
+        'sending' => 'Sender testmelding...',
+        'return' => 'Tilbake til mallisten'
     ],
     'install' => [
         'project_label' => 'Tilkoble prosjekt',
@@ -192,9 +226,11 @@ return [
         'name' => 'Programvareoppdateringer',
         'menu_label' => 'Oppdateringer',
         'menu_description' => 'Oppdatere systemet, administrer og installere plugins og temaer.',
+        'return_link' => 'Tilbake til oppdateringer',
         'check_label' => 'Se etter oppdateringer',
         'retry_label' => 'Prøv igjen',
         'plugin_name' => 'Navn',
+        'plugin_code' => 'Kode',
         'plugin_description' => 'Beskrivelse',
         'plugin_version' => 'Versjon',
         'plugin_author' => 'Utgiver',
@@ -202,16 +238,17 @@ return [
         'core_build' => 'Build :build',
         'core_build_help' => 'Siste build er tilgjengelig.',
         'core_downloading' => 'Laster ned applikasjonsfiler',
-        'core_extracting' => 'Pakker opp applikasjonsfiler',
+        'core_extracting' => 'Pakker ut applikasjonsfiler',
         'plugins' => 'Plugins',
         'themes' => 'Teamer',
         'disabled' => 'Deaktivert',
         'plugin_downloading' => 'Laster ned plugin: :name',
-        'plugin_extracting' => 'Pakker opp plugin: :name',
+        'plugin_extracting' => 'Pakker ut plugin: :name',
         'plugin_version_none' => 'Ny plugin',
+        'plugin_current_version' => 'Nåværende versjon',
         'theme_new_install' => 'Ny tema-installasjon.',
         'theme_downloading' => 'Laster ned tema: :name',
-        'theme_extracting' => 'Pakker opp tema: :name',
+        'theme_extracting' => 'Pakker ut tema: :name',
         'update_label' => 'Oppdatér programvare',
         'update_completing' => 'Ferdiggjør oppdatering',
         'update_loading' => 'Henter tilgjengelige oppdateringer...',
@@ -225,7 +262,24 @@ return [
         'none' => [
             'label' => 'Ingen oppdateringer',
             'help' => 'Ingen nye oppdateringer ble funnet.'
-        ]
+        ],
+        'important_action' => [
+            'empty' => 'Velg handling',
+            'confirm' => 'Bekreft oppdatering',
+            'skip' => 'Hopp over plugin (bare denne gangen)',
+            'ignore' => 'Hopp over plugin (alltid)',
+        ],
+        'important_action_required' => 'Velg handling',
+        'important_view_guide' => 'Vis oppgraderingsguide',
+        'important_alert_text' => 'Noen oppdateringer krever ettersyn.',
+        'details_title' => 'Plugin detaljer',
+        'details_view_homepage' => 'Vis nettside',
+        'details_readme' => 'Dokumentasjon',
+        'details_readme_missing' => 'Ingen dokumentasjon å vise.',
+        'details_upgrades' => 'Oppgraderingsguide',
+        'details_upgrades_missing' => 'Det er ingen instruksjoner å vise.',
+        'details_current_version' => 'Nåværende versjon',
+        'details_author' => 'Forfatter',
     ],
     'server' => [
         'connect_error' => 'Kunne ikke koble til serveren.',
@@ -257,7 +311,8 @@ return [
         'id_label' => 'Hendelses-ID',
         'created_at' => 'Tid',
         'message' => 'Melding',
-        'level' => 'Nivå'
+        'level' => 'Nivå',
+        'preview_title' => 'Hendelse'
     ],
     'request_log' => [
         'hint' => 'Denne loggen viser en liste over nettleserforespørsler som kan kreve oppmerksomhet. For eksempel, hvis en bruker besøker en side som ikke eksisterer, vil det bli oppført her med statuskode 404.',
@@ -272,7 +327,8 @@ return [
         'count' => 'Antall',
         'referer' => 'Referers',
         'url' => 'URL',
-        'status_code' => 'Status'
+        'status_code' => 'Status',
+        'preview_title' => 'Forespørsel'
     ],
     'permissions' => [
         'name' => 'System',
@@ -282,6 +338,8 @@ return [
         'manage_mail_templates' => 'Administrer e-postmaler',
         'manage_mail_settings' => 'Administrer e-postinnstillinger',
         'manage_other_administrators' => 'Administrer andre administratorer',
+        'manage_preferences' => 'Administrer backend-innstillinger',
+        'manage_editor' => 'Administrer kodeeditor-innstillinger',
         'view_the_dashboard' => 'Se dashboard',
         'manage_branding' => 'Tilpasse backend'
     ]
