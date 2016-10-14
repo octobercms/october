@@ -1509,15 +1509,24 @@ class RelationController extends ControllerBehavior
             $field = $this->field;
         }
 
+        if (!$config || !isset($this->originalConfig->{$field})) {
+            return;
+        }
+
+        if (
+            !is_array($config) &&
+            (!$config = @json_decode(@base64_decode($config), true))
+        ) {
+            return;
+        }
+
         $parsedConfig = array_only($config, ['readOnly']);
         $parsedConfig['view'] = array_only($config, ['recordUrl']);
 
-        if (is_array($config) && isset($this->originalConfig->{$field})) {
-            $this->originalConfig->{$field} = array_merge_recursive(
-                $this->originalConfig->{$field},
-                $parsedConfig
-            );
-        }
+        $this->originalConfig->{$field} = array_replace_recursive(
+            $this->originalConfig->{$field},
+            $parsedConfig
+        );
     }
 
     /**
