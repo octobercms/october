@@ -398,7 +398,7 @@ class RelationController extends ControllerBehavior
         /*
          * Apply options and extra config
          */
-        $allowConfig = ['readOnly', 'recordUrl'];
+        $allowConfig = ['readOnly', 'recordUrl', 'recordOnClick'];
         $extraConfig = array_only($options, $allowConfig);
         $this->extraConfig = $extraConfig;
         $this->applyExtraConfig($extraConfig, $field);
@@ -1521,7 +1521,7 @@ class RelationController extends ControllerBehavior
         }
 
         $parsedConfig = array_only($config, ['readOnly']);
-        $parsedConfig['view'] = array_only($config, ['recordUrl']);
+        $parsedConfig['view'] = array_only($config, ['recordUrl', 'recordOnClick']);
 
         $this->originalConfig->{$field} = array_replace_recursive(
             $this->originalConfig->{$field},
