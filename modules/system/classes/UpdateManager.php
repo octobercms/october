@@ -142,7 +142,6 @@ class UpdateManager
         }
 
         Parameter::set('system::update.count', 0);
-        CacheHelper::clear();
 
         /*
          * Seed modules
