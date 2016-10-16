@@ -109,8 +109,9 @@ class Updates extends Controller
 
             $readmeFiles = ['README.md', 'readme.md'];
             $upgradeFiles = ['UPGRADE.md', 'upgrade.md'];
+            $licenceFiles = ['LICENCE.md', 'licence.md'];
 
-            $upgrades = $readme = $name = null;
+            $readme = $changelog = $upgrades = $licence = $name = null;
             $code = str_replace('-', '.', $urlCode);
 
             /*
@@ -124,7 +125,9 @@ class Updates extends Controller
             if ($path && $plugin) {
                 $details = $plugin->pluginDetails();
                 $readme = $this->getPluginMarkdownFile($path, $readmeFiles);
+                $changelog = File::get($path.'/updates/version.yaml');
                 $upgrades = $this->getPluginMarkdownFile($path, $upgradeFiles);
+                $licence = $this->getPluginMarkdownFile($path, $licenceFiles);
 
                 $pluginVersion = PluginVersion::whereCode($code)->first();
                 $this->vars['pluginName'] = array_get($details, 'name', 'system::lang.plugin.unnamed');
@@ -147,8 +150,10 @@ class Updates extends Controller
 
             $this->vars['activeTab'] = $tab ?: 'readme';
             $this->vars['urlCode'] = $urlCode;
-            $this->vars['upgrades'] = $upgrades;
             $this->vars['readme'] = $readme;
+            $this->vars['changelog'] = nl2br(str_replace('- ', '&nbsp; &nbsp; - ', '<p>'.$changelog.'</p>'));
+            $this->vars['upgrades'] = $upgrades;
+            $this->vars['licence'] = $licence;
         }
         catch (Exception $ex) {
             $this->handleError($ex);
