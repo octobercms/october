@@ -3,6 +3,7 @@
 use Str;
 use Lang;
 use Html;
+use Yaml;
 use File;
 use Flash;
 use Config;
@@ -125,7 +126,7 @@ class Updates extends Controller
             if ($path && $plugin) {
                 $details = $plugin->pluginDetails();
                 $readme = $this->getPluginMarkdownFile($path, $readmeFiles);
-                $changelog = File::get($path.'/updates/version.yaml');
+                $changelog = $this->getPluginVersionFile($path, 'updates/version.yaml');
                 $upgrades = $this->getPluginMarkdownFile($path, $upgradeFiles);
                 $licence = $this->getPluginMarkdownFile($path, $licenceFiles);
 
@@ -151,13 +152,32 @@ class Updates extends Controller
             $this->vars['activeTab'] = $tab ?: 'readme';
             $this->vars['urlCode'] = $urlCode;
             $this->vars['readme'] = $readme;
-            $this->vars['changelog'] = nl2br(str_replace('- ', '&nbsp; &nbsp; - ', '<p>'.$changelog.'</p>'));
+            $this->vars['changelog'] = $changelog;
             $this->vars['upgrades'] = $upgrades;
             $this->vars['licence'] = $licence;
         }
         catch (Exception $ex) {
             $this->handleError($ex);
         }
+    }
+
+    protected function getPluginVersionFile($path, $filename)
+    {
+        $contents = [];
+
+        try {
+            $updates = Yaml::parseFile($path.'/'.$filename);
+            $updates = is_array($updates) ? array_reverse($updates) : [];
+
+            foreach ($updates as $version => $details) {
+                $contents[$version] = is_array($details)
+                    ? array_shift($details)
+                    : $details;
+            }
+        }
+        catch (Exception $ex) {}
+
+        return $contents;
     }
 
     protected function getPluginMarkdownFile($path, $filenames)
