@@ -99,12 +99,4 @@
         }
     })
 
-    $(document).on('focus', 'select.custom-select', function(event) {
-        setTimeout($.proxy(function() {
-            if ($(this).data('select2') != null) {
-                $(this).select2('focus')
-            }
-        }, this), 10)
-    })
-
 })(jQuery);
