@@ -45,6 +45,8 @@ return [
         'homepage_placeholder' => 'A honlap webcíme',
         'code_label' => 'Kód',
         'code_placeholder' => 'Egyedi azonosító ehhez a témához',
+        'preview_label' => 'Előnézet',
+        'preview_placeholder' => 'A téma előnézeti képének elérési útvonala.',
         'dir_name_label' => 'Könyvtár',
         'dir_name_create_label' => 'A célkönyvtár',
         'theme_label' => 'Téma',

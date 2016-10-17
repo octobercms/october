@@ -11,14 +11,14 @@ return [
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
         'delete_success' => 'Templates deleted: :count.',
         'file_name_required' => 'The File Name field is required.',
-        'safe_mode_enabled' => 'Safe mode is currently enabled.',
+        'safe_mode_enabled' => 'Safe mode is currently enabled.'
     ],
     'dashboard' => [
         'active_theme' => [
             'widget_title_default' => 'Website',
             'online' => 'Online',
             'maintenance' => 'In maintenance',
-            'manage_themes' => 'Manage themes',
+            'manage_themes' => 'Manage themes'
         ]
     ],
     'theme' => [
@@ -45,6 +45,8 @@ return [
         'homepage_placeholder' => 'Website URL',
         'code_label' => 'Code',
         'code_placeholder' => 'A unique code for this theme used for distribution',
+        'preview_label' => 'Preview',
+        'preview_placeholder' => 'The path of theme preview image.',
         'dir_name_label' => 'Directory name',
         'dir_name_create_label' => 'The destination theme directory',
         'theme_label' => 'Theme',
@@ -88,14 +90,14 @@ return [
         'dir_name_taken' => 'Desired theme directory already exists.',
         'find_more_themes' => 'Find more themes',
         'saving' => 'Saving theme...',
-        'return' => 'Return to themes list',
+        'return' => 'Return to themes list'
     ],
     'maintenance' => [
         'settings_menu' => 'Maintenance mode',
         'settings_menu_description' => 'Configure the maintenance mode page and toggle the setting.',
         'is_enabled' => 'Enable maintenance mode',
         'is_enabled_comment' => 'Select the page to show when maintenance mode is activated.',
-        'hint' => 'Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.',
+        'hint' => 'Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.'
     ],
     'page' => [
         'not_found_name' => "The page ':name' is not found",

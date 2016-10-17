@@ -45,3 +45,10 @@ tabs:
         code:
             label: cms::lang.theme.code_label
             placeholder: cms::lang.theme.code_placeholder
+            span: auto
+
+        preview:
+            label: cms::lang.theme.preview_label
+            placeholder: cms::lang.theme.preview_placeholder
+            default: '/assets/images/theme-preview.png'
+            span: auto
