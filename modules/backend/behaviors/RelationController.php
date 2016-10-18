@@ -316,7 +316,7 @@ class RelationController extends ControllerBehavior
 
         $this->alias = camel_case('relation ' . $field);
         $this->config = $this->makeConfig($this->getConfig($field), $this->requiredRelationProperties);
-        $this->controller->relationExtendConfig($this->config, $this->field);
+        $this->controller->relationExtendConfig($this->config, $this->field, $this->model);
 
         /*
          * Relationship details
@@ -353,7 +353,7 @@ class RelationController extends ControllerBehavior
          * View widget
          */
         if ($this->viewWidget = $this->makeViewWidget()) {
-            $this->controller->relationExtendViewWidget($this->viewWidget, $this->field);
+            $this->controller->relationExtendViewWidget($this->viewWidget, $this->field, $this->model);
             $this->viewWidget->bindToController();
         }
 
@@ -361,7 +361,7 @@ class RelationController extends ControllerBehavior
          * Manage widget
          */
         if ($this->manageWidget = $this->makeManageWidget()) {
-            $this->controller->relationExtendManageWidget($this->manageWidget, $this->field);
+            $this->controller->relationExtendManageWidget($this->manageWidget, $this->field, $this->model);
             $this->manageWidget->bindToController();
         }
 
@@ -370,7 +370,7 @@ class RelationController extends ControllerBehavior
          */
         if ($this->manageMode == 'pivot') {
             if ($this->pivotWidget = $this->makePivotWidget()) {
-                $this->controller->relationExtendPivotWidget($this->pivotWidget, $this->field);
+                $this->controller->relationExtendPivotWidget($this->pivotWidget, $this->field, $this->model);
                 $this->pivotWidget->bindToController();
             }
         }
@@ -1278,8 +1278,9 @@ class RelationController extends ControllerBehavior
      * Provides an opportunity to manipulate the field configuration.
      * @param object $config
      * @param string $field
+     * @param October\Rain\Database\Model $model
      */
-    public function relationExtendConfig($config, $field)
+    public function relationExtendConfig($config, $field, $model)
     {
     }
 
@@ -1287,8 +1288,9 @@ class RelationController extends ControllerBehavior
      * Provides an opportunity to manipulate the view widget.
      * @param Backend\Classes\WidgetBase $widget
      * @param string $field
+     * @param October\Rain\Database\Model $model
      */
-    public function relationExtendViewWidget($widget, $field)
+    public function relationExtendViewWidget($widget, $field, $model)
     {
     }
 
@@ -1296,8 +1298,9 @@ class RelationController extends ControllerBehavior
      * Provides an opportunity to manipulate the manage widget.
      * @param Backend\Classes\WidgetBase $widget
      * @param string $field
+     * @param October\Rain\Database\Model $model
      */
-    public function relationExtendManageWidget($widget, $field)
+    public function relationExtendManageWidget($widget, $field, $model)
     {
     }
 
@@ -1305,8 +1308,9 @@ class RelationController extends ControllerBehavior
      * Provides an opportunity to manipulate the pivot widget.
      * @param Backend\Classes\WidgetBase $widget
      * @param string $field
+     * @param October\Rain\Database\Model $model
      */
-    public function relationExtendPivotWidget($widget, $field)
+    public function relationExtendPivotWidget($widget, $field, $model)
     {
     }
 
