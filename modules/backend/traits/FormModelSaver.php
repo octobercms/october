@@ -87,7 +87,7 @@ trait FormModelSaver
          * and make them available again if necessary.
          */
         if (method_exists($model, 'getPurgeableAttributes')) {
-            $model->addPurgeableAttribute($attributesToPurge);
+            $model->addPurgeable($attributesToPurge);
         }
         else {
             $model->bindEvent('model.saveInternal', function() use ($model, $attributesToPurge) {
