@@ -560,8 +560,9 @@ class RelationController extends ControllerBehavior
         /*
          * No buttons, no search should mean no toolbar
          */
-        if (empty($toolbarConfig->search) && empty($toolbarConfig->buttons))
+        if (empty($toolbarConfig->search) && empty($toolbarConfig->buttons)) {
             return;
+        }
 
         $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
         $toolbarWidget->cssClasses[] = 'list-header';

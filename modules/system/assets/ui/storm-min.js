@@ -2773,12 +2773,12 @@ this.$el.removeData('oc.datePicker')
 this.$el=null
 this.options=null
 BaseProto.dispose.call(this)}
-DatePicker.prototype.initDatePicker=function(){var self=this
-var pikadayOptions={yearRange:this.options.yearRange,format:this.getDateFormat(),setDefaultDate:moment().tz(this.timezone).format('l'),onOpen:function(){var $field=$(this._o.trigger)
+DatePicker.prototype.initDatePicker=function(){var self=this,dateFormat=this.getDateFormat(),now=moment().tz(this.timezone).format(dateFormat)
+var pikadayOptions={yearRange:this.options.yearRange,format:dateFormat,setDefaultDate:now,onOpen:function(){var $field=$(this._o.trigger)
 $(this.el).css({left:'auto',right:$(window).width()-$field.offset().left-$field.outerWidth()})},onSelect:function(){self.onSelectDatePicker.call(self,this.getMoment())}}
 var lang=this.getLang('datepicker',false)
 if(lang){pikadayOptions.i18n=lang}
-this.$datePicker.val(this.getDataLockerValue('l'))
+this.$datePicker.val(this.getDataLockerValue(dateFormat))
 if(this.options.minDate){pikadayOptions.minDate=new Date(this.options.minDate)}
 if(this.options.maxDate){pikadayOptions.maxDate=new Date(this.options.maxDate)}
 this.$datePicker.pikaday(pikadayOptions)}
@@ -2790,8 +2790,9 @@ this.$dataLocker.val(lockerValue)}
 DatePicker.prototype.getDatePickerValue=function(){var value=this.$datePicker.val()
 if(!this.hasDate||!value){return moment.tz(this.appTimezone).tz(this.timezone).format(this.dbDateFormat)}
 return moment(value,this.getDateFormat()).format(this.dbDateFormat)}
-DatePicker.prototype.getDateFormat=function(){var format=this.options.format
-if(this.locale){format=moment().locale(this.locale).localeData().longDateFormat('l')}
+DatePicker.prototype.getDateFormat=function(){var format='YYYY-MM-DD'
+if(this.options.format){format=this.options.format}
+else if(this.locale){format=moment().locale(this.locale).localeData().longDateFormat('l')}
 return format}
 DatePicker.prototype.initTimePicker=function(){this.$timePicker.clockpicker({autoclose:'true',placement:'bottom',align:'right',twelvehour:this.isTimeTwelveHour()})
 this.$timePicker.val(this.getDataLockerValue(this.getTimeFormat()))}
@@ -2822,7 +2823,7 @@ if(!this.appTimezone){this.appTimezone='UTC'}
 if(!this.timezone){this.timezone='UTC'}}
 DatePicker.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
 return $.oc.lang.get(name,defaultValue)}
-DatePicker.DEFAULTS={minDate:null,maxDate:null,format:'YYYY-MM-DD',yearRange:10}
+DatePicker.DEFAULTS={minDate:null,maxDate:null,format:null,yearRange:10}
 var old=$.fn.datePicker
 $.fn.datePicker=function(option){var args=Array.prototype.slice.call(arguments,1),items,result
 items=this.each(function(){var $this=$(this)

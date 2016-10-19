@@ -24,6 +24,11 @@ class DatePicker extends FormWidgetBase
     public $mode = 'datetime';
 
     /**
+     * @var string Provide an explicit date display format.
+     */
+    public $format = null;
+
+    /**
      * @var string the minimum/earliest date that can be selected.
      * eg: 2000-01-01
      */
@@ -85,8 +90,6 @@ class DatePicker extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['name'] = $this->formField->getName();
-
 
         if ($value = $this->getLoadValue()) {
 
@@ -95,25 +98,15 @@ class DatePicker extends FormWidgetBase
             $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
         }
 
-        /*
-         * Display alias, used by preview mode
-         */
-        if ($this->mode == 'time') {
-            $formatAlias = 'time';
-        }
-        elseif ($this->mode == 'date') {
-            $formatAlias = 'dateLong';
-        }
-        else {
-            $formatAlias = 'dateTimeLong';
-        }
-
-        $this->vars['formatAlias'] = $formatAlias;
+        $this->vars['name'] = $this->formField->getName();
         $this->vars['value'] = $value ?: '';
         $this->vars['field'] = $this->formField;
         $this->vars['mode'] = $this->mode;
         $this->vars['minDate'] = $this->minDate;
         $this->vars['maxDate'] = $this->maxDate;
+        $this->vars['format'] = $this->format;
+        $this->vars['formatMoment'] = $this->getDateFormatMoment();
+        $this->vars['formatAlias'] = $this->getDateFormatAlias();
     }
 
     /**
@@ -130,5 +123,35 @@ class DatePicker extends FormWidgetBase
         }
 
         return $value;
+    }
+
+    /**
+     * Convert PHP format to JS format
+     */
+    protected function getDateFormatMoment()
+    {
+        if ($this->format) {
+            return DateTimeHelper::momentFormat($this->format);
+        }
+    }
+
+    /*
+     * Display alias, used by preview mode
+     */
+    protected function getDateFormatAlias()
+    {
+        if ($this->format) {
+            return null;
+        }
+
+        if ($this->mode == 'time') {
+            return 'time';
+        }
+        elseif ($this->mode == 'date') {
+            return 'dateLong';
+        }
+        else {
+            return 'dateTimeLong';
+        }
     }
 }
