@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Helpers\DateTime as DateTimeHelper;
+use System\Classes\PluginManager;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
 use ApplicationException;
@@ -825,6 +826,9 @@ class Lists extends WidgetBase
         if (method_exists($this, 'eval'. studly_case($column->type) .'TypeValue')) {
             $value = $this->{'eval'. studly_case($column->type) .'TypeValue'}($record, $column, $value);
         }
+        else {
+            $value = $this->evalCustomListType($column->type, $record, $column, $value);
+        }
 
         /*
          * Apply default value.
@@ -873,6 +877,28 @@ class Lists extends WidgetBase
     //
     // Value processing
     //
+
+    /**
+     * Process a custom list types registered by plugins.
+     */
+    protected function evalCustomListType($type, $record, $column, $value)
+    {
+        $plugins = PluginManager::instance()->getRegistrationMethodValues('registerListColumnTypes');
+
+        foreach ($plugins as $availableTypes) {
+            if (!isset($availableTypes[$type])) {
+                continue;
+            }
+
+            $callback = $availableTypes[$type];
+
+            if (is_callable($callback)) {
+                return call_user_func_array($callback, [$value, $column, $record]);
+            }
+        }
+
+        throw new ApplicationException(sprintf('List column type "%s" could not be found.', $type));
+    }
 
     /**
      * Process as text, escape the value

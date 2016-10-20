@@ -182,6 +182,16 @@ class PluginBase extends ServiceProviderBase
     }
 
     /**
+     * Registers custom back-end list column types introduced by this plugin.
+     *
+     * @return array
+     */
+    public function registerListColumnTypes()
+    {
+        return [];
+    }
+
+    /**
      * Registers any mail templates implemented by this plugin.
      * The templates must be returned in the following format:
      * ['acme.blog::mail.welcome' => 'This is a description of the welcome template'],
