@@ -913,6 +913,14 @@ class Lists extends WidgetBase
     }
 
     /**
+     * Process as number, proxy to text
+     */
+    protected function evalNumberTypeValue($record, $column, $value)
+    {
+        return $this->evalTextTypeValue($record, $column, $value);
+    }
+
+    /**
      * Process as partial reference
      */
     protected function evalPartialTypeValue($record, $column, $value)
