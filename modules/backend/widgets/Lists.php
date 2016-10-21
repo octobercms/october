@@ -921,6 +921,16 @@ class Lists extends WidgetBase
     }
 
     /**
+     * Common mistake, relation is not a valid list column.
+     * @deprecated Remove if year >= 2018
+     */
+    protected function evalRelationTypeValue($record, $column, $value)
+    {
+        traceLog(sprintf('Warning: List column type "relation" for class "%s" is not valid.', get_class($record)));
+        return $this->evalTextTypeValue($record, $column, $value);
+    }
+
+    /**
      * Process as partial reference
      */
     protected function evalPartialTypeValue($record, $column, $value)
