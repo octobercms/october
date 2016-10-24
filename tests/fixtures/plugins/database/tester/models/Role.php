@@ -27,7 +27,10 @@ class Role extends Model
      * @var array Relations
      */
     public $belongsToMany = [
-        'authors' => ['Database\Tester\Models\User', 'table' => 'database_tester_authors_roles']
+        'authors' => [
+            'Database\Tester\Models\User',
+            'table' => 'database_tester_authors_roles'
+        ],
     ];
 
 }
