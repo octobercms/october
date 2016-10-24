@@ -195,6 +195,7 @@ abstract class ImportModel extends Model
         $file = $this
             ->import_file()
             ->withDeferred($sessionKey)
+            ->orderBy('updated_at', 'desc')
             ->first()
         ;
 
