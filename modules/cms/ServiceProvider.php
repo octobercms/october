@@ -109,9 +109,14 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-magic',
                     'iconSvg'     => 'modules/cms/assets/images/cms-icon.svg',
                     'url'         => Backend::url('cms'),
-                    'permissions' => ['cms.*'],
+                    'permissions' => [
+                        'cms.manage_content',
+                        'cms.manage_assets',
+                        'cms.manage_pages',
+                        'cms.manage_layouts',
+                        'cms.manage_partials'
+                    ],
                     'order'       => 10,
-
                     'sideMenu' => [
                         'pages' => [
                             'label'        => 'cms::lang.page.menu_label',
