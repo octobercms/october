@@ -45,6 +45,17 @@ trait ViewMaker
     public $suppressLayout = false;
 
     /**
+     * Prepends a path on the available view locations.
+     * @param string $path
+     * @return void
+     */
+    public function addViewPath($path)
+    {
+        $this->viewPath = (array) $this->viewPath;
+        array_unshift($this->viewPath, $path);
+    }
+
+    /**
      * Render a partial file contents located in the views folder.
      * @param string $partial The view to load.
      * @param array $params Parameter variables to pass to the view.

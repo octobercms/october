@@ -22,11 +22,11 @@ Place icons just about anywhere with the `<i>` tag or to an existing element usi
 
 To increase icon sizes relative to their container, use the `icon-lg` (33% increase), `icon-2x`, `icon-3x`, `icon-4x`, or `icon-5x` classes.
 
-    <i class="fa icon-camera-retro icon-5x"></i> icon-5x
-    <i class="fa icon-camera-retro icon-4x"></i> icon-4x
-    <i class="fa icon-camera-retro icon-3x"></i> icon-3x
-    <i class="fa icon-camera-retro icon-2x"></i> icon-2x
-    <i class="fa icon-camera-retro icon-lg"></i> icon-lg
+    <i class="icon-camera-retro icon-5x"></i> icon-5x
+    <i class="icon-camera-retro icon-4x"></i> icon-4x
+    <i class="icon-camera-retro icon-3x"></i> icon-3x
+    <i class="icon-camera-retro icon-2x"></i> icon-2x
+    <i class="icon-camera-retro icon-lg"></i> icon-lg
 
 ### Icon buttons
 

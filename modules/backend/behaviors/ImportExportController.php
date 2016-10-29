@@ -273,7 +273,7 @@ class ImportExportController extends ControllerBehavior
 
     public function importRender()
     {
-        return $this->importExportMakePartial('import');
+        return $this->importExportMakePartial('container_import');
     }
 
     public function importGetModel()
@@ -456,7 +456,7 @@ class ImportExportController extends ControllerBehavior
 
     public function exportRender()
     {
-        return $this->importExportMakePartial('export');
+        return $this->importExportMakePartial('container_export');
     }
 
     public function exportGetModel()

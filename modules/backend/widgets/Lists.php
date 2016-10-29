@@ -97,6 +97,11 @@ class Lists extends WidgetBase
      */
     public $showPagination = 'auto';
 
+    /**
+     * @var string Specify a custom view path to override partials used by the list.
+     */
+    public $customViewPath;
+
     //
     // Object properties
     //
@@ -194,6 +199,7 @@ class Lists extends WidgetBase
             'showTree',
             'treeExpanded',
             'showPagination',
+            'customViewPath',
         ]);
 
         /*
@@ -203,6 +209,10 @@ class Lists extends WidgetBase
 
         if ($this->showPagination == 'auto') {
             $this->showPagination = $this->recordsPerPage && $this->recordsPerPage > 0;
+        }
+
+        if ($this->customViewPath) {
+            $this->addViewPath($this->customViewPath);
         }
 
         $this->validateModel();
