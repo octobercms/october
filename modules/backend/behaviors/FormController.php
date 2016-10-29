@@ -1,5 +1,6 @@
 <?php namespace Backend\Behaviors;
 
+use Db;
 use Str;
 use Lang;
 use Flash;
@@ -211,9 +212,11 @@ class FormController extends ControllerBehavior
         $this->controller->formBeforeCreate($model);
 
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
-        foreach ($modelsToSave as $modelToSave) {
-            $modelToSave->save(null, $this->formWidget->getSessionKey());
-        }
+        Db::transaction(function() use ($modelsToSave) {
+            foreach ($modelsToSave as $modelToSave) {
+                $modelToSave->save(null, $this->formWidget->getSessionKey());
+            }
+        });
 
         $this->controller->formAfterSave($model);
         $this->controller->formAfterCreate($model);
@@ -267,9 +270,11 @@ class FormController extends ControllerBehavior
         $this->controller->formBeforeUpdate($model);
 
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
-        foreach ($modelsToSave as $modelToSave) {
-            $modelToSave->save(null, $this->formWidget->getSessionKey());
-        }
+        Db::transaction(function() use ($modelsToSave) {
+            foreach ($modelsToSave as $modelToSave) {
+                $modelToSave->save(null, $this->formWidget->getSessionKey());
+            }
+        });
 
         $this->controller->formAfterSave($model);
         $this->controller->formAfterUpdate($model);
