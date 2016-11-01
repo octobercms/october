@@ -543,7 +543,7 @@ class Controller extends Extendable
 
             foreach ((array) $this->widget as $widget) {
                 if ($widget->methodExists($handler)) {
-                    $result = $this->runAjaxHandlerForWidget($widget, $handlerName);
+                    $result = $this->runAjaxHandlerForWidget($widget, $handler);
                     return ($result) ?: true;
                 }
             }
