@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Helpers\DateTime as DateTimeHelper;
+use System\Classes\PluginManager;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
 use ApplicationException;
@@ -95,6 +96,11 @@ class Lists extends WidgetBase
      * @var bool|string Display pagination when limiting records per page.
      */
     public $showPagination = 'auto';
+
+    /**
+     * @var string Specify a custom view path to override partials used by the list.
+     */
+    public $customViewPath;
 
     //
     // Object properties
@@ -193,6 +199,7 @@ class Lists extends WidgetBase
             'showTree',
             'treeExpanded',
             'showPagination',
+            'customViewPath',
         ]);
 
         /*
@@ -202,6 +209,10 @@ class Lists extends WidgetBase
 
         if ($this->showPagination == 'auto') {
             $this->showPagination = $this->recordsPerPage && $this->recordsPerPage > 0;
+        }
+
+        if ($this->customViewPath) {
+            $this->addViewPath($this->customViewPath);
         }
 
         $this->validateModel();
@@ -761,9 +772,10 @@ class Lists extends WidgetBase
     }
 
     /**
-     * Looks up the column value
+     * Returns a raw column value
+     * @return string
      */
-    public function getColumnValue($record, $column)
+    public function getColumnValueRaw($record, $column)
     {
         $columnName = $column->columnName;
 
@@ -777,7 +789,7 @@ class Lists extends WidgetBase
                 $value = null;
             }
             elseif ($this->isColumnRelated($column, true)) {
-                $value = implode(', ', $record->{$columnName}->lists($column->valueFrom));
+                $value = $record->{$columnName}->lists($column->valueFrom);
             }
             elseif ($this->isColumnRelated($column) || $this->isColumnPivot($column)) {
                 $value = $record->{$columnName} ? $record->{$columnName}->{$column->valueFrom} : null;
@@ -810,8 +822,22 @@ class Lists extends WidgetBase
             }
         }
 
+        return $value;
+    }
+
+    /**
+     * Returns a column value, with filters applied
+     * @return string
+     */
+    public function getColumnValue($record, $column)
+    {
+        $value = $this->getColumnValueRaw($record, $column);
+
         if (method_exists($this, 'eval'. studly_case($column->type) .'TypeValue')) {
             $value = $this->{'eval'. studly_case($column->type) .'TypeValue'}($record, $column, $value);
+        }
+        else {
+            $value = $this->evalCustomListType($column->type, $record, $column, $value);
         }
 
         /*
@@ -863,11 +889,55 @@ class Lists extends WidgetBase
     //
 
     /**
+     * Process a custom list types registered by plugins.
+     */
+    protected function evalCustomListType($type, $record, $column, $value)
+    {
+        $plugins = PluginManager::instance()->getRegistrationMethodValues('registerListColumnTypes');
+
+        foreach ($plugins as $availableTypes) {
+            if (!isset($availableTypes[$type])) {
+                continue;
+            }
+
+            $callback = $availableTypes[$type];
+
+            if (is_callable($callback)) {
+                return call_user_func_array($callback, [$value, $column, $record]);
+            }
+        }
+
+        throw new ApplicationException(sprintf('List column type "%s" could not be found.', $type));
+    }
+
+    /**
      * Process as text, escape the value
      */
     protected function evalTextTypeValue($record, $column, $value)
     {
+        if (is_array($value) && count($value) == count($value, COUNT_RECURSIVE)) {
+            $value = implode(', ', $value);
+        }
+
         return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
+    }
+
+    /**
+     * Process as number, proxy to text
+     */
+    protected function evalNumberTypeValue($record, $column, $value)
+    {
+        return $this->evalTextTypeValue($record, $column, $value);
+    }
+
+    /**
+     * Common mistake, relation is not a valid list column.
+     * @deprecated Remove if year >= 2018
+     */
+    protected function evalRelationTypeValue($record, $column, $value)
+    {
+        traceLog(sprintf('Warning: List column type "relation" for class "%s" is not valid.', get_class($record)));
+        return $this->evalTextTypeValue($record, $column, $value);
     }
 
     /**

@@ -81,6 +81,7 @@ if (window.jQuery === undefined)
             data.push($.param(options.data))
 
         var requestOptions = {
+            url: window.location.href,
             context: context,
             headers: {
                 'X-OCTOBER-REQUEST-HANDLER': handler,

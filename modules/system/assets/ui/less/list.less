@@ -284,6 +284,57 @@ table.table.data {
         text-align: center;
     }
 
+    th.list-cell-type-number,
+    td.list-cell-type-number {
+        text-align: right;
+    }
+
+    //
+    // Labels
+    //
+
+    .list-badge {
+        display: inline-block;
+        position: relative;
+        top: -1px;
+        margin: 0 5px 0 0;
+        padding: 1px 0 0 0;
+        font-size: 10px;
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        border-radius: @border-radius-base;
+        color: #fff;
+
+        &.badge-default {
+            background: @gray-light;
+        }
+
+        &.badge-primary {
+            background: @brand-primary;
+        }
+
+        &.badge-success {
+            background: @brand-success;
+        }
+
+        &.badge-info {
+            background: @brand-info;
+        }
+
+        &.badge-warning {
+            background: @brand-warning;
+        }
+
+        &.badge-danger {
+            background: @brand-danger;
+        }
+    }
+
+    //
+    // Checkbox
+    //
+
     .list-checkbox {
         width: 52px;
         vertical-align: top;
@@ -311,6 +362,10 @@ table.table.data {
     thead tr th.list-checkbox {
         padding: 18px 0 0 @padding-standard;
     }
+
+    //
+    // Trees
+    //
 
     .list-tree {
         width: 10px;

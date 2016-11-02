@@ -95,6 +95,11 @@ class FormField
     public $required = false;
 
     /**
+     * @var bool Specify if the field is read-only or not.
+     */
+    public $readOnly = false;
+
+    /**
      * @var bool Specify if the field is disabled or not.
      */
     public $disabled = false;
@@ -266,6 +271,7 @@ class FormField
             'placeholder',
             'dependsOn',
             'required',
+            'readOnly',
             'disabled',
             'cssClass',
             'stretch',
@@ -415,6 +421,10 @@ class FormField
 
         if ($position == 'field' && $this->disabled) {
             $attributes = $attributes + ['disabled' => 'disabled'];
+        }
+
+        if ($position == 'field' && $this->readOnly) {
+            $attributes = $attributes + ['readonly' => 'readonly'];
         }
 
         return $attributes;

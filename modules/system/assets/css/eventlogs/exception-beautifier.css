@@ -115,14 +115,17 @@
     color: #2196F3;
 }
 
+.plugin-exception-beautifier .beautifier-formatted-content,
 .plugin-exception-beautifier .beautifier-raw-content {
     background: #fff;
-    font-family: monospace;
     padding: 20px;
-    white-space: nowrap;
+}
 
-    width: 100%;
+.plugin-exception-beautifier .beautifier-raw-content {
+    font-family: monospace;
+    white-space: nowrap;
     overflow: auto;
+    width: 100%;
 }
 
 .plugin-exception-beautifier .beautifier-raw-content br {

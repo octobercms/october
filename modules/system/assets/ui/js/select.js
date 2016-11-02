@@ -12,9 +12,6 @@
      * Custom drop downs (Desktop only)
      */
     $(document).render(function(){
-        if (Modernizr.touch)
-            return
-
         var formatSelectOption = function(state) {
             if (!state.id)
                 return state.text; // optgroup
@@ -96,12 +93,10 @@
         })
     })
 
-    $(document).on('disable', 'select.custom-select', function(event, status){
-        $(this).select2('enable', !status)
-    })
-
-    $(document).on('focus', 'select.custom-select', function(event){
-        setTimeout($.proxy(function() { $(this).select2('focus') }, this), 10)
+    $(document).on('disable', 'select.custom-select', function(event, status) {
+        if ($(this).data('select2') != null) {
+            $(this).select2('enable', !status)
+        }
     })
 
 })(jQuery);

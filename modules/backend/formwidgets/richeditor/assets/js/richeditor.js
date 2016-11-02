@@ -48,7 +48,8 @@
         linkStyles: null,
         paragraphStyles: null,
         tableStyles: null,
-        tableCellStyles: null
+        tableCellStyles: null,
+        aceVendorPath: '/'
     }
 
     RichEditor.prototype.init = function() {
@@ -74,7 +75,8 @@
             editorClass: 'control-richeditor',
             language: this.options.editorLang,
             fullPage: this.options.fullpage,
-            pageLinksHandler: this.options.linksHandler
+            pageLinksHandler: this.options.linksHandler,
+            aceEditorVendorPath: this.options.aceVendorPath
         }
 
         if (this.options.toolbarButtons) {
@@ -331,12 +333,21 @@
         this.$form.trigger('change')
     }
 
+    /*
+     * Instantly synchronizes HTML content.
+     * The onSyncContent() method (above) is involved into this call,
+     * so the resulting HTML is (optionally) beautified.
+     */
     RichEditor.prototype.onFormBeforeRequest = function(ev) {
-        // Instantly synchronizes HTML content. 
-        // The onSyncContent() method (above) is involved
-        // into this call, so the resulting HTML is (optionally)
-        // beautified
-        this.$textarea.val(this.$textarea.froalaEditor('html.get'))
+        if (!this.editor) {
+            return
+        }
+
+        if (this.editor.codeView && this.editor.codeView.isActive()) {
+            this.editor.html.set(this.editor.codeView.get())
+        }
+
+        this.$textarea.val(this.editor.html.get())
     }
 
     // RICHEDITOR PLUGIN DEFINITION

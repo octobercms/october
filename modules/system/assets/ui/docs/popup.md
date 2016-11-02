@@ -103,7 +103,7 @@ Using the `data-ajax` attribute you can refer to an external file or URL directl
 ### Options:
 - content: content HTML string or callback
 
-### Data attributes:
+### Data attributes
 - data-control="popup" - enables the ajax popup plugin
 - data-ajax="popup-content.htm" - ajax content to load
 - data-handler="onLoadContent" - October ajax request name
@@ -111,7 +111,7 @@ Using the `data-ajax` attribute you can refer to an external file or URL directl
 - data-extra-data="file_id: 1" - October ajax request data
 - data-size="large" - Popup size, available sizes: giant, huge, large, small, tiny
 
-### JavaScript API:
+### JavaScript API
 
 ```js
 $('a#someLink').popup({ ajax: 'popup-content.htm' })

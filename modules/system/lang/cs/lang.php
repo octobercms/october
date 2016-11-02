@@ -206,7 +206,7 @@ return [
     'updates' => [
         'title' => 'Správa aktualizací',
         'name' => 'Software update',
-        'menu_label' => 'Aktualizace',
+        'menu_label' => 'Aktualizace & pluginy',
         'menu_description' => 'Aktualizace systému, správa a instalace pluginů a témat.',
         'return_link' => 'Zpět na systémové aktualizace',
         'check_label' => 'Kontrola aktualizací',

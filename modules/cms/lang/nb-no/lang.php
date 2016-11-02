@@ -10,12 +10,15 @@ return [
         'invalid_file_extension' => 'Ugyldig filtype: :invalid. Tillatte filtyper er: :allowed.',
         'error_deleting' => "Kunne ikke slette filen ':name'. Vennligst sjekk skriverettigheter på serveren.",
         'delete_success' => 'Templates som ble slettet: :count.',
-        'file_name_required' => 'Filnavnfeltet er obligatorisk.'
+        'file_name_required' => 'Filnavnfeltet er obligatorisk.',
+        'safe_mode_enabled' => 'Sikkert modus er aktivert.',
     ],
     'dashboard' => [
         'active_theme' => [
-            'online' => 'online',
-            'maintenance' => 'in maintenance',
+            'widget_title_default' => 'Website',
+            'online' => 'Online',
+            'maintenance' => 'Vedlikeholdsmodus',
+            'manage_themes' => 'Administrer temaer',
         ]
     ],
     'theme' => [
@@ -31,6 +34,7 @@ return [
         ],
         'settings_menu' => 'Frontend tema',
         'settings_menu_description' => 'Forhåndsvis en liste over installerte temaer og velg et aktivt tema.',
+        'default_tab' => 'Egenskaper',
         'name_label' => 'Navn',
         'name_create_placeholder' => 'Temanavn',
         'author_label' => 'Forfatter',
@@ -44,8 +48,10 @@ return [
         'dir_name_label' => 'Mappenavn',
         'dir_name_create_label' => 'Temaets mappenavn',
         'theme_label' => 'Tema',
+        'theme_title' => 'Temaer',
         'activate_button' => 'Aktivér',
         'active_button' => 'Aktivér',
+        'customize_theme' => 'Tilpass tema',
         'customize_button' => 'Tilpass',
         'duplicate_button' => 'Duplisér',
         'duplicate_title' => 'Duplisér tema',
@@ -81,13 +87,15 @@ return [
         'dir_name_invalid' => 'Navnet kan kun inneholde tall, latinske bokstaver og følgende symbol: _-',
         'dir_name_taken' => 'Temamappen eksiterer allerede.',
         'find_more_themes' => 'Finn flere temaer på OctoberCMS Theme Marketplace',
+        'saving' => 'Lagrer tema...',
         'return' => 'Tilbake til temaliste',
     ],
     'maintenance' => [
         'settings_menu' => 'Vedlikeholdsmodus',
         'settings_menu_description' => 'Konfigurer vedlikeholdsmodussiden og endre innstillinger.',
         'is_enabled' => 'Aktivér vedlikeholdsmodus',
-        'is_enabled_comment' => 'Når aktivert, vil besøkende se følgende side:'
+        'is_enabled_comment' => 'Når aktivert, vil besøkende se følgende side:',
+        'hint' => 'Vedlikeholdsmodus vil vise vedlikehodsmodussiden til besøkende som ikke er logget inn.',
     ],
     'page' => [
         'not_found_name' => "Siden ':name' ble ikke funnet",
@@ -165,7 +173,11 @@ return [
         'hidden' => 'Skjult',
         'hidden_comment' => 'Kun backend-brukere har tilgang til skjulte sider.',
         'enter_fullscreen' => 'Fullskjermmodus',
-        'exit_fullscreen' => 'Avslutt fullskjermmodus'
+        'exit_fullscreen' => 'Avslutt fullskjermmodus',
+        'open_searchbox' => 'Vis søkefelt',
+        'close_searchbox'  => 'Skjul søkefelt',
+        'open_replacebox' => 'Vis erstatt-felt',
+        'close_replacebox'  => 'Skjul erstatt-felt'
     ],
     'asset' => [
         'menu_label' => 'Ressurser',
@@ -233,7 +245,11 @@ return [
         'manage_pages' => 'Administrer sider',
         'manage_layouts' => 'Administrer layouts',
         'manage_partials' => 'Administrer partials',
-        'manage_themes' => 'Administrer maler'
+        'manage_themes' => 'Administrer maler',
+        'manage_media' => 'Last opp og behandle media - bilder, video, lydfiler, dokumenter',
+    ],
+    'mediafinder' => [
+        'default_prompt' => 'Klikk på %s knappen for å hente media'
     ],
     'media' => [
         'invalid_path' => "Ugyldig filsti: ':path'.",
@@ -263,6 +279,8 @@ return [
         'multiple_selected' => 'Flere filer er valgt.',
         'uploading_file_num' => 'Laster opp :number fil(er)...',
         'uploading_complete' => 'Opplasting fullført',
+        'uploading_error' => 'Opplasting feilet',
+        'type_blocked' => 'Filtypen er blokkert av sikkerhetsgrunner.',
         'order_by' => 'Sorter etter',
         'folder' => 'Mappe',
         'no_files_found' => 'Ingen filer ble funnet.',

@@ -1,5 +1,6 @@
 <?php namespace Backend\Traits;
 
+use Str;
 use Backend\Classes\FormField;
 
 /**
@@ -23,7 +24,6 @@ use Backend\Classes\FormField;
 
 trait FormModelSaver
 {
-
     /**
      * @var array List of prepared models that require saving.
      */
@@ -50,7 +50,9 @@ trait FormModelSaver
             return;
         }
 
+        $attributesToPurge = [];
         $singularTypes = ['belongsTo', 'hasOne', 'morphOne'];
+
         foreach ($saveData as $attribute => $value) {
             $isNested = $attribute == 'pivot' || (
                 $model->hasRelation($attribute) &&
@@ -61,9 +63,38 @@ trait FormModelSaver
                 $this->setModelAttributes($model->{$attribute}, $value);
             }
             elseif ($value !== FormField::NO_SAVE_DATA) {
+                if (Str::startsWith($attribute, '_')) {
+                    $attributesToPurge[] = $attribute;
+                }
                 $model->{$attribute} = $value;
             }
         }
+
+        if ($attributesToPurge) {
+            $this->deferPurgedSaveAttributes($model, $attributesToPurge);
+        }
     }
 
+    protected function deferPurgedSaveAttributes($model, $attributesToPurge)
+    {
+        if (!is_array($attributesToPurge)) {
+            return;
+        }
+
+        /*
+         * Compatibility with Purgeable trait:
+         * This will give the ability to restore purged attributes
+         * and make them available again if necessary.
+         */
+        if (method_exists($model, 'getPurgeableAttributes')) {
+            $model->addPurgeable($attributesToPurge);
+        }
+        else {
+            $model->bindEvent('model.saveInternal', function() use ($model, $attributesToPurge) {
+                foreach ($attributesToPurge as $attribute) {
+                    unset($model->attributes[$attribute]);
+                }
+            });
+        }
+    }
 }
