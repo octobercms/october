@@ -1,6 +1,7 @@
 <?php
     $fieldOptions = $field->options();
     $useSearch = $field->getConfig('showSearch', true);
+    $allowClear = $field->getConfig('allowClear', false);
 ?>
 <!-- Dropdown -->
 <?php if ($this->previewMode): ?>
@@ -9,7 +10,7 @@
     <select
         id="<?= $field->getId() ?>"
         name="<?= $field->getName() ?>"
-        class="form-control custom-select <?= $useSearch ? '' : 'select-no-search' ?>"
+        class="form-control custom-select <?= $useSearch ? '' : 'select-no-search' ?> <?= $allowClear ? 'select-allow-clear' : '' ?>"
         <?= $field->getAttributes() ?>
         <?= $field->placeholder ? 'data-placeholder="'.e(trans($field->placeholder)).'"' : '' ?>
         >
