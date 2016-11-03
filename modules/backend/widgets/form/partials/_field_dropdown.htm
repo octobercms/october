@@ -10,10 +10,9 @@
         id="<?= $field->getId() ?>"
         name="<?= $field->getName() ?>"
         class="form-control custom-select <?= $useSearch ? '' : 'select-no-search' ?>"
-        <?= $field->getAttributes() ?>>
-        <?php if ($field->placeholder): ?>
-            <option value=""><?= e(trans($field->placeholder)) ?></option>
-        <?php endif ?>
+        <?= $field->getAttributes() ?>
+        <?= $field->placeholder ? 'data-placeholder="'.e(trans($field->placeholder)).'"' : '' ?>
+        >
         <?php foreach ($fieldOptions as $value => $option): ?>
             <?php
                 if (!is_array($option)) $option = [$option];
