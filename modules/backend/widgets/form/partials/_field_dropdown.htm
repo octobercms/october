@@ -2,9 +2,10 @@
     $fieldOptions = $field->options();
     $useSearch = $field->getConfig('showSearch', true);
     $allowClear = $field->getConfig('allowClear', false);
-    if ($allowClear == true && !$field->placeholder)
+    // If allowClear is true, define a default placeholder in case there is not one already defined.
+    if ($allowClear == true)
     {
-        $field->placeholder = e(trans('backend::lang.form.select_placeholder'));
+        $field->placeholder = $field->getConfig('placeholder', e(trans('backend::lang.form.select_placeholder')));
     }
 ?>
 <!-- Dropdown -->
