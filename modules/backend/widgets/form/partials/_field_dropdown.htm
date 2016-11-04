@@ -2,6 +2,10 @@
     $fieldOptions = $field->options();
     $useSearch = $field->getConfig('showSearch', true);
     $allowClear = $field->getConfig('allowClear', false);
+    if ($allowClear == true && !$field->placeholder)
+    {
+        $field->placeholder = e(trans('backend::lang.form.select_placeholder'));
+    }
 ?>
 <!-- Dropdown -->
 <?php if ($this->previewMode): ?>
