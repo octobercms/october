@@ -63,6 +63,12 @@ class Form extends WidgetBase
      */
     public $arrayName;
 
+    /**
+     * @var bool Used to flag that this form is being rendered as part of another form,
+     * a good indicator to expect that the form model and dataset values will differ.
+     */
+    public $isNested = false;
+
     //
     // Object properties
     //
@@ -124,8 +130,9 @@ class Form extends WidgetBase
             'secondaryTabs',
             'model',
             'data',
-            'arrayName',
             'context',
+            'arrayName',
+            'isNested',
         ]);
 
         $this->widgetManager = WidgetManager::instance();
@@ -1070,7 +1077,7 @@ class Form extends WidgetBase
                 ]));
             }
 
-            $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName);
+            $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName, $this->data);
         }
 
         return $fieldOptions;

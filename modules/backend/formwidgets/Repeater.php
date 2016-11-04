@@ -114,7 +114,9 @@ class Repeater extends FormWidgetBase
 
         $itemIndexes = post(self::INDEX_PREFIX.$this->formField->getName(false), $loadValue);
 
-        if (!is_array($itemIndexes)) return;
+        if (!is_array($itemIndexes)) {
+            return;
+        }
 
         foreach ($itemIndexes as $itemIndex) {
             $this->makeItemFormWidget($itemIndex);
@@ -125,13 +127,16 @@ class Repeater extends FormWidgetBase
     protected function makeItemFormWidget($index = 0)
     {
         $loadValue = $this->getLoadValue();
-        if (!is_array($loadValue)) $loadValue = [];
+        if (!is_array($loadValue)) {
+            $loadValue = [];
+        }
 
         $config = $this->makeConfig($this->form);
         $config->model = $this->model;
         $config->data = array_get($loadValue, $index, []);
         $config->alias = $this->alias . 'Form'.$index;
         $config->arrayName = $this->formField->getName().'['.$index.']';
+        $config->isNested = true;
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);
         $widget->bindToController();
