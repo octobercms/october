@@ -112,8 +112,6 @@ class Relation extends FormWidgetBase
                 $field->type = 'dropdown';
             }
 
-            $field->placeholder = $this->emptyOption;
-
             // It is safe to assume that if the model and related model are of
             // the exact same class, then it cannot be related to itself
             if ($model->exists && (get_class($model) == get_class($relationModel))) {

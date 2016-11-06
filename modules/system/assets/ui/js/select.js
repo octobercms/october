@@ -90,16 +90,9 @@
             }
 
             var placeholder = $element.data('placeholder')
-            if (placeholder)
-            {
+            if (placeholder) {
                 extraOptions.placeholder =  placeholder;
             }
-
-            if ($element.hasClass('select-allow-clear'))
-            {
-                extraOptions.allowClear = true;
-            }
-
 
             $element.select2($.extend({}, selectOptions, extraOptions))
         })
