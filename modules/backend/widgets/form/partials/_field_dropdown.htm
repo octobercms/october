@@ -1,6 +1,12 @@
 <?php
     $fieldOptions = $field->options();
     $useSearch = $field->getConfig('showSearch', true);
+    $allowClear = $field->getConfig('allowClear', false);
+    // If allowClear is true, define a default placeholder in case there is not one already defined.
+    if ($allowClear == true)
+    {
+        $field->placeholder = $field->getConfig('placeholder', e(trans('backend::lang.form.select_placeholder')));
+    }
 ?>
 <!-- Dropdown -->
 <?php if ($this->previewMode): ?>
@@ -9,11 +15,10 @@
     <select
         id="<?= $field->getId() ?>"
         name="<?= $field->getName() ?>"
-        class="form-control custom-select <?= $useSearch ? '' : 'select-no-search' ?>"
-        <?= $field->getAttributes() ?>>
-        <?php if ($field->placeholder): ?>
-            <option value=""><?= e(trans($field->placeholder)) ?></option>
-        <?php endif ?>
+        class="form-control custom-select <?= $useSearch ? '' : 'select-no-search' ?> <?= $allowClear ? 'select-allow-clear' : '' ?>"
+        <?= $field->getAttributes() ?>
+        <?= $field->placeholder ? 'data-placeholder="'.e(trans($field->placeholder)).'"' : '' ?>
+        >
         <?php foreach ($fieldOptions as $value => $option): ?>
             <?php
                 if (!is_array($option)) $option = [$option];
