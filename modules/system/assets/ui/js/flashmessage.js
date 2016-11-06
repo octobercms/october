@@ -27,7 +27,7 @@
 
         $(document.body).append($element)
 
-        setTimeout(function(){
+        setTimeout(function() {
             $element.addClass('in')
         }, 1)
 

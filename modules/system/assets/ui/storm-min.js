@@ -2534,8 +2534,7 @@ if($.oc.foundation===undefined)
 $.oc.foundation={}
 $.oc.foundation._proxyCounter=0
 var Base=function(){this.proxiedMethods={}}
-Base.prototype.dispose=function()
-{for(var key in this.proxiedMethods){this.proxiedMethods[key]=null}
+Base.prototype.dispose=function(){for(var key in this.proxiedMethods){this.proxiedMethods[key]=null}
 this.proxiedMethods=null}
 Base.prototype.proxy=function(method){if(method.ocProxyId===undefined){$.oc.foundation._proxyCounter++
 method.ocProxyId=$.oc.foundation._proxyCounter}
@@ -2868,7 +2867,7 @@ if(typeof option=='string')data[option].apply(data,args)})}
 $.fn.toolbar.Constructor=Toolbar
 $.fn.toolbar.noConflict=function(){$.fn.toolbar=old
 return this}
-$(document).on('render',function(){$('[data-control=toolbar]').toolbar()})}(window.jQuery);+function($){"use strict";var FilterWidget=function(element,options){var $el=this.$el=$(element);this.options=options||{}
+$(document).on('render',function(){$('[data-control=toolbar]').toolbar()})}(window.jQuery);+function($){"use strict";var FilterWidget=function(element,options){this.$el=$(element);this.options=options||{}
 this.scopeValues={}
 this.$activeScope=null
 this.activeScopeName=null
@@ -3186,7 +3185,7 @@ extraOptions.closeOnSelect=false
 $element.on('select2:closing',function(){$('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').removeClass('select2-results__option--highlighted')
 $('.select2-dropdown.select-no-dropdown:first .select2-results__option:first').addClass('select2-results__option--highlighted')})}}
 $element.select2($.extend({},selectOptions,extraOptions))})})
-$(document).on('disable','select.custom-select',function(event,status){if($(this).data('select2')!=null){$(this).select2('enable',!status)}})})(jQuery);+function($){"use strict";var LoadIndicator=function(element,options){var $el=this.$el=$(element)
+$(document).on('disable','select.custom-select',function(event,status){if($(this).data('select2')!=null){$(this).select2('enable',!status)}})})(jQuery);+function($){"use strict";var LoadIndicator=function(element,options){this.$el=$(element)
 this.options=options||{}
 this.tally=0
 this.show()}
@@ -3234,7 +3233,7 @@ return
 this.counter++
 if(this.counter>1)
 return
-var self=this,$window=$(window);if(event!==undefined&&event.clientY!==undefined){self.indicator.css({left:event.clientX+15,top:event.clientY+15})}
+var self=this;if(event!==undefined&&event.clientY!==undefined){self.indicator.css({left:event.clientX+15,top:event.clientY+15})}
 this.indicator.removeClass('hide')
 $(window).on('mousemove.cursorLoadIndicator',function(e){self.indicator.css({left:e.clientX+15,top:e.clientY+15,})})}
 CursorLoadIndicator.prototype.hide=function(force){if(Modernizr.touch)
@@ -3578,7 +3577,8 @@ this.defaultDataSetOptions={shadowSize:0}
 var parsedOptions={}
 try{parsedOptions=JSON.parse(JSON.stringify(eval("({"+options.chartOptions+"})")));}catch(e){throw new Error('Error parsing the data-chart-options attribute value. '+e);}
 this.chartOptions=$.extend({},this.chartOptions,parsedOptions)
-this.options=options,this.$el=$(element)
+this.options=options
+this.$el=$(element)
 this.fullDataSet=[]
 this.resetZoomLink=$(options.resetZoomLink)
 this.$el.trigger('oc.chartLineInit',[this])
@@ -3737,7 +3737,7 @@ $.fn.rowLink.Constructor=RowLink
 $.fn.rowLink.noConflict=function(){$.fn.rowLink=old
 return this}
 $(document).render(function(){$('[data-control="rowlink"]').rowLink()})}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
-var ChangeMonitor=function(element,options){var $el=this.$el=$(element);this.paused=false
+var ChangeMonitor=function(element,options){this.$el=$(element);this.paused=false
 this.options=options||{}
 $.oc.foundation.controlUtils.markDisposable(element)
 Base.call(this)
@@ -3999,7 +3999,7 @@ $editorArea.codeEditor('getEditorObject').insert(this.textValue)}
 DragValue.prototype.handleClickContentEditable=function(){var sel,range,html;if(window.getSelection){sel=window.getSelection();if(sel.getRangeAt&&sel.rangeCount){range=sel.getRangeAt(0);range.deleteContents();range.insertNode(document.createTextNode(this.textValue));}}
 else if(document.selection&&document.selection.createRange){document.selection.createRange().text=this.textValue;}}
 DragValue.prototype.insertAtCaret=function(el,insertValue){if(document.selection){el.focus()
-sel=document.selection.createRange()
+var sel=document.selection.createRange()
 sel.text=insertValue
 el.focus()}
 else if(el.selectionStart||el.selectionStart=='0'){var startPos=el.selectionStart,endPos=el.selectionEnd,scrollTop=el.scrollTop
@@ -6542,7 +6542,8 @@ $list.on('dragenter','> li',this.proxy(this.onDragEnter))
 $list.on('dragleave','> li',this.proxy(this.onDragLeave))
 $list.on('drop','> li',this.proxy(this.onDragDrop))
 $list.on('dragend','> li',this.proxy(this.onDragEnd))}
-ListSortable.prototype.unregisterListHandlers=function(list){$list.off('dragstart','> li',this.proxy(this.onDragStart))
+ListSortable.prototype.unregisterListHandlers=function(list){var $list=$(list)
+$list.off('dragstart','> li',this.proxy(this.onDragStart))
 $list.off('dragover','> li',this.proxy(this.onDragOver))
 $list.off('dragenter','> li',this.proxy(this.onDragEnter))
 $list.off('dragleave','> li',this.proxy(this.onDragLeave))
@@ -6559,8 +6560,7 @@ this.unregisterHandlers()
 this.options=null
 this.lists=[]
 BaseProto.dispose.call(this)}
-ListSortable.prototype.elementBelongsToManagedList=function(element){for(var i=this.lists.length-1;i>=0;i--){var list=this.lists[i],children=[].slice.call(list.children)
-if(children.indexOf(element)!==-1){return true}}
+ListSortable.prototype.elementBelongsToManagedList=function(element){for(var i=this.lists.length-1;i>=0;i--){var list=this.lists[i],children=[].slice.call(list.children);if(children.indexOf(element)!==-1){return true}}
 return false}
 ListSortable.prototype.isDragStartAllowed=function(element){return true}
 ListSortable.prototype.elementIsPlaceholder=function(element){return element.getAttribute('class')==='list-sortable-placeholder'}

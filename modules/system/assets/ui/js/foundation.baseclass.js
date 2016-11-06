@@ -51,8 +51,7 @@
         this.proxiedMethods = {}
     }
 
-    Base.prototype.dispose = function()
-    {
+    Base.prototype.dispose = function() {
         for (var key in this.proxiedMethods) {
             this.proxiedMethods[key] = null
         }

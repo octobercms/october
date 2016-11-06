@@ -386,7 +386,7 @@
                 data[option].apply(data, methodArgs)
             }
         })
-      }
+    }
 
     $.fn.ocPopover.Constructor = Popover
 
