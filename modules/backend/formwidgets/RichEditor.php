@@ -3,6 +3,7 @@
 use App;
 use File;
 use Event;
+use Lang;
 use Request;
 use Backend\Classes\FormWidgetBase;
 use Backend\Models\EditorSetting;
@@ -196,7 +197,7 @@ class RichEditor extends FormWidgetBase
         $links = [];
         $types = $this->getPageLinkTypes();
 
-        $links[] = ['name' => 'Select a page...', 'url' => false];
+        $links[] = ['name' => Lang::get('backend::lang.pagelist.select_page'), 'url' => false];
 
         $iterator = function($links, $level = 0) use (&$iterator) {
             $result = [];
