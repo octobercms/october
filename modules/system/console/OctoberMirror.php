@@ -104,12 +104,14 @@ class OctoberMirror extends Command
         $this->output->writeln(sprintf('<info> - Mirroring: %s</info>', $file));
 
         $src = base_path().'/'.$file;
+
         $dest = $this->getDestinationPath().'/'.$file;
-        if (!File::isFile($src) || File::isFile($dest)) return false;
 
-        $normalizedSrc = $this->normalizeSourcePath($src, $dest);
+        if (!File::isFile($src) || File::isFile($dest)) {
+            return false;
+        }
 
-        symlink($normalizedSrc, $dest);
+        $this->mirror($src, $dest);
     }
 
     protected function mirrorDirectory($directory)
@@ -117,13 +119,18 @@ class OctoberMirror extends Command
         $this->output->writeln(sprintf('<info> - Mirroring: %s</info>', $directory));
 
         $src = base_path().'/'.$directory;
+
         $dest = $this->getDestinationPath().'/'.$directory;
-        if (!File::isDirectory($src) || File::isDirectory($dest)) return false;
-        if (!File::isDirectory(dirname($dest))) File::makeDirectory(dirname($dest), 0755, true);
 
-        $normalizedSrc = $this->normalizeSourcePath($src, $dest);
+        if (!File::isDirectory($src) || File::isDirectory($dest)) {
+            return false;
+        }
 
-        symlink($normalizedSrc, $dest);
+        if (!File::isDirectory(dirname($dest))) {
+            File::makeDirectory(dirname($dest), 0755, true);
+        }
+
+        $this->mirror($src, $dest);
     }
 
     protected function mirrorWildcard($wildcard)
@@ -133,12 +140,29 @@ class OctoberMirror extends Command
         }
 
         list($start, $end) = explode('*', $wildcard, 2);
+
         $startDir = base_path().'/'.$start;
-        if (!File::isDirectory($startDir)) return false;
+
+        if (!File::isDirectory($startDir)) {
+            return false;
+        }
 
         foreach (File::directories($startDir) as $directory) {
             $this->mirrorWildcard($start.basename($directory).$end);
         }
+    }
+
+    protected function mirror($src, $dest)
+    {
+        if ($this->option('relative')) {
+            $src = $this->getRelativePath($dest, $src);
+
+            if (strpos($src, '../') === 0) {
+                $src = rtrim(substr($src, 3), '/');
+            }
+        }
+
+        symlink($src, $dest);
     }
 
     protected function getDestinationPath()
@@ -163,20 +187,20 @@ class OctoberMirror extends Command
         return $this->destinationPath = $destPath;
     }
 
-    private function normalizeSourcePath($src, $dest)
+    protected function getRelativePath($from, $to)
     {
-        $relative = $this->option('relative');
+        $from = str_replace('\\', '/', $from);
+        $to = str_replace('\\', '/', $to);
 
-        if ($relative) {
-            $filesystem = new Filesystem();
-            $src = $filesystem->makePathRelative($src, $dest);
+        $dir = explode('/', is_file($from) ? dirname($from) : rtrim($from, '/'));
+        $file = explode('/', $to);
 
-            if (strpos($src, '../') === 0) {
-                $src = rtrim(substr($src, 3), '/');
-            }
+        while ($dir && $file && ($dir[0] == $file[0])) {
+            array_shift($dir);
+            array_shift($file);
         }
 
-        return $src;
+        return str_repeat('../', count($dir)) . implode('/', $file);
     }
 
     /**
