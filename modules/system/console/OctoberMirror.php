@@ -4,6 +4,7 @@ use File;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * This command will create symbolic links to files and directories
@@ -105,7 +106,10 @@ class OctoberMirror extends Command
         $src = base_path().'/'.$file;
         $dest = $this->getDestinationPath().'/'.$file;
         if (!File::isFile($src) || File::isFile($dest)) return false;
-        symlink($src, $dest);
+
+        $normalizedSrc = $this->normalizeSourcePath($src, $dest);
+
+        symlink($normalizedSrc, $dest);
     }
 
     protected function mirrorDirectory($directory)
@@ -116,7 +120,10 @@ class OctoberMirror extends Command
         $dest = $this->getDestinationPath().'/'.$directory;
         if (!File::isDirectory($src) || File::isDirectory($dest)) return false;
         if (!File::isDirectory(dirname($dest))) File::makeDirectory(dirname($dest), 0755, true);
-        symlink($src, $dest);
+
+        $normalizedSrc = $this->normalizeSourcePath($src, $dest);
+
+        symlink($normalizedSrc, $dest);
     }
 
     protected function mirrorWildcard($wildcard)
@@ -149,9 +156,27 @@ class OctoberMirror extends Command
             File::makeDirectory($destPath, 0755, true);
         }
 
+        $destPath = realpath($destPath);
+
         $this->output->writeln(sprintf('<info>Destination: %s</info>', $destPath));
 
         return $this->destinationPath = $destPath;
+    }
+
+    private function normalizeSourcePath($src, $dest)
+    {
+        $relative = $this->option('relative');
+
+        if ($relative) {
+            $filesystem = new Filesystem();
+            $src = $filesystem->makePathRelative($src, $dest);
+
+            if (strpos($src, '../') === 0) {
+                $src = rtrim(substr($src, 3), '/');
+            }
+        }
+
+        return $src;
     }
 
     /**
@@ -169,6 +194,8 @@ class OctoberMirror extends Command
      */
     protected function getOptions()
     {
-        return [];
+        return [
+            ['relative', null, InputOption::VALUE_NONE, 'Create symlinks relative to the public directory.'],
+        ];
     }
 }
