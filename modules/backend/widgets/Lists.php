@@ -713,12 +713,25 @@ class Lists extends WidgetBase
             $label = studly_case($name);
         }
 
+        /*
+         * Auto configure pivot relation
+         */
         if (starts_with($name, 'pivot[') && strpos($name, ']') !== false) {
             $_name = HtmlHelper::nameToArray($name);
-            $config['relation'] = array_shift($_name);
-            $config['valueFrom'] = array_shift($_name);
+            $relationName = array_shift($_name);
+            $valueFrom = array_shift($_name);
+
+            if (count($_name) > 0) {
+                $valueFrom  .= '['.implode('][', $_name).']';
+            }
+
+            $config['relation'] = $relationName;
+            $config['valueFrom'] = $valueFrom;
             $config['searchable'] = false;
         }
+        /*
+         * Auto configure standard relation
+         */
         elseif (strpos($name, '[') !== false && strpos($name, ']') !== false) {
             $config['valueFrom'] = $name;
             $config['sortable'] = false;
@@ -792,7 +805,9 @@ class Lists extends WidgetBase
                 $value = $record->{$columnName}->lists($column->valueFrom);
             }
             elseif ($this->isColumnRelated($column) || $this->isColumnPivot($column)) {
-                $value = $record->{$columnName} ? $record->{$columnName}->{$column->valueFrom} : null;
+                $value = $record->{$columnName}
+                    ? $column->getValueFromData($record->{$columnName})
+                    : null;
             }
             else {
                 $value = null;
@@ -802,11 +817,7 @@ class Lists extends WidgetBase
          * Handle taking value from model attribute.
          */
         elseif ($column->valueFrom) {
-            $keyParts = HtmlHelper::nameToArray($column->valueFrom);
-            $value = $record;
-            foreach ($keyParts as $key) {
-                $value = $value->{$key};
-            }
+            $value = $column->getValueFromData($record);
         }
         /*
          * Otherwise, if the column is a relation, it will be a custom select,

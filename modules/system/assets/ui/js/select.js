@@ -91,7 +91,7 @@
 
             var placeholder = $element.data('placeholder')
             if (placeholder) {
-                extraOptions.placeholder =  placeholder;
+                extraOptions.placeholder = placeholder
             }
 
             $element.select2($.extend({}, selectOptions, extraOptions))
