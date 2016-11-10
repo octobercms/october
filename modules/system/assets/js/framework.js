@@ -10,6 +10,21 @@ if (window.jQuery === undefined)
 
 +function ($) { "use strict";
 
+    /*
+     * Get XSRF-TOKEN from cookie
+     */
+    function getXsrfToken() {
+        var cookies = document.cookie.split(';')
+        var xsrfToken
+
+        cookies.forEach(function (cookieRow) {
+            var cookie = cookieRow.split('=')
+            cookie[0] === 'XSRF-TOKEN' ? xsrfToken = (''+cookie[1]).trim() : null
+        })
+
+        return decodeURIComponent(xsrfToken)
+    }
+
     var Request = function (element, handler, options) {
         var $el = this.$el = $(element);
         this.options = options || {};
@@ -85,7 +100,8 @@ if (window.jQuery === undefined)
             context: context,
             headers: {
                 'X-OCTOBER-REQUEST-HANDLER': handler,
-                'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update)
+                'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update),
+                'X-XSRF-TOKEN': getXsrfToken() // inject encoded CSRF token into AJAX requests as header
             },
             success: function(data, textStatus, jqXHR) {
                 /*
