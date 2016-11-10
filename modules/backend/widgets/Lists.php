@@ -493,6 +493,8 @@ class Lists extends WidgetBase
             $callback($query);
         }
 
+        $query->select($selects);
+
         /*
          * Add custom selects
          */
