@@ -48,7 +48,7 @@
                 submit: 0,
                 color: this.$customColor.data('hexColor'),
                 onShow: function(cal) {
-                    var el = $(cal).data('colpick').el
+                    var el = $(cal).css('zIndex', 1050).data('colpick').el
                     self.selectColor(el)
                 },
                 onChange: function(hsb, hex, rgb, el, bySetColor) {
