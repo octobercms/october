@@ -545,6 +545,7 @@ RichEditor.prototype.build=function(event,editor){this.updateLayout()
 $(window).on('resize',this.proxy(this.updateLayout))
 $(window).on('oc.updateUi',this.proxy(this.updateLayout))
 this.$textarea.trigger('init.oc.richeditor',[this])}
+RichEditor.prototype.isCodeViewActive=function(){return this.editor&&this.editor.codeView&&this.editor.codeView.isActive()}
 RichEditor.prototype.getElement=function(){return this.$el}
 RichEditor.prototype.getEditor=function(){return this.editor}
 RichEditor.prototype.getTextarea=function(){return this.$textarea}
@@ -576,7 +577,7 @@ RichEditor.prototype.onKeydown=function(ev,editor,keyEv){this.$textarea.trigger(
 if(ev.isDefaultPrevented()){return false}}
 RichEditor.prototype.onChange=function(ev){this.$form.trigger('change')}
 RichEditor.prototype.onFormBeforeRequest=function(ev){if(!this.editor){return}
-if(this.editor.codeView&&this.editor.codeView.isActive()){this.editor.html.set(this.editor.codeView.get())}
+if(this.isCodeViewActive()){this.editor.html.set(this.editor.codeView.get())}
 this.$textarea.val(this.editor.html.get())}
 var old=$.fn.richEditor
 $.fn.richEditor=function(option){var args=Array.prototype.slice.call(arguments,1),result
