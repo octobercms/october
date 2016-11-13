@@ -4201,8 +4201,8 @@ data[option].apply(data,methodArgs)}})}
 $.fn.dragScroll.Constructor=DragScroll
 $.fn.dragScroll.noConflict=function(){$.fn.dragScroll=old
 return this}}(window.jQuery);+function($){"use strict";var Tab=function(element,options){var $el=this.$el=$(element);this.options=options||{}
-this.$tabsContainer=$('.nav-tabs',$el)
-this.$pagesContainer=$('.tab-content',$el)
+this.$tabsContainer=$('.nav-tabs:first',$el)
+this.$pagesContainer=$('.tab-content:first',$el)
 this.tabId='tabs'+$el.parents().length+Math.round(Math.random()*1000);if(this.options.closable!==undefined&&this.options.closable!==false)
 $el.attr('data-closable','')
 this.init()}
