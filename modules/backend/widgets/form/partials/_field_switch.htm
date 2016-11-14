@@ -21,6 +21,21 @@
         <?= $this->previewMode ? 'readonly="readonly"' : '' ?>
         <?= $field->value == 1 ? 'checked="checked"' : '' ?>
         <?= $field->getAttributes() ?>>
-    <span><span><?= e(trans('backend::lang.form.field_on')) ?></span><span><?= e(trans('backend::lang.form.field_off')) ?></span></span>
+    <span>
+      <span>
+        <?php if(isset($field->onText)) : ?>
+          <?= $field->onText ?>
+        <?php else: ?>
+          <?= e(trans('backend::lang.form.field_on')) ?>
+        <?php endif ?>
+      </span>
+      <span>
+        <?php if(isset($field->offText)) : ?>
+          <?= $field->offText ?>
+        <?php else: ?>
+          <?= e(trans('backend::lang.form.field_off')) ?>
+        <?php endif ?>
+      </span>
+    </span>
     <a class="slide-button"></a>
 </label>
