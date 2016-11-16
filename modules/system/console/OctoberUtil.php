@@ -18,6 +18,7 @@ use System\Classes\CombineAssets;
  *   - compile assets: Compile registered Language, LESS and JS files.
  *   - compile js: Compile registered JS files only.
  *   - compile less: Compile registered LESS files only.
+ *   - compile scss: Compile registered SCSS files only.
  *   - compile lang: Compile registered Language files only.
  *
  */
@@ -94,6 +95,11 @@ class OctoberUtil extends Command
     protected function utilCompileLess()
     {
         $this->utilCompileAssets('less');
+    }
+
+    protected function utilCompileScss()
+    {
+        $this->utilCompileAssets('scss');
     }
 
     protected function utilCompileAssets($type = null)
