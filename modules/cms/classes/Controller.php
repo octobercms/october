@@ -7,6 +7,7 @@ use App;
 use File;
 use View;
 use Lang;
+use Flash;
 use Event;
 use Config;
 use Session;
@@ -644,6 +645,12 @@ class Controller
                 if ($result instanceof RedirectResponse) {
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
                     $result = null;
+                }
+                /*
+                 * No redirect is used, look for any flash messages
+                 */
+                elseif (Request::header('X_OCTOBER_REQUEST_FLASH') && Flash::check()) {
+                    $responseContents['X_OCTOBER_FLASH_MESSAGES'] = Flash::all();
                 }
 
                 /*
