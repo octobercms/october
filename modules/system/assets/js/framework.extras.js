@@ -41,6 +41,8 @@
             $container = $('[data-validate-error]', $this),
             messages = [],
             $field
+        
+        $('.form-group.has-error', $this).removeClass('has-error')
 
         $.each(fields, function(fieldName, fieldMessages) {
             $field = $('[data-validate-for='+fieldName+']', $this)
@@ -52,6 +54,7 @@
                         .text(fieldMessages.join(', '))
                 }
                 $field.addClass('visible')
+                $field.closest('.form-group', $this).addClass('has-error')
             }
         })
 
