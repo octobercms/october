@@ -429,6 +429,7 @@ address{margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .bg-s-s20{background-color:#ff7c09}
 .bg-a-s20{background-color:#1c9df3}
 .t-ww{word-wrap:break-word;word-break:break-word}
+.t-nw{white-space:nowrap}
 .pos-r{position:relative !important}
 .pos-a{position:absolute !important}
 .pos-f{position:fixed !important}
