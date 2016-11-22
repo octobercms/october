@@ -43,7 +43,7 @@
             $field
 
         $.each(fields, function(fieldName, fieldMessages) {
-            $field = $('[data-validate-for='+fieldName+']', $this)
+            $field = $('[data-validate-for="'+fieldName+'"]', $this)
             messages = $.merge(messages, fieldMessages)
             if (!!$field.length) {
                 if (!$field.text().length || $field.data('emptyMode') == true) {
