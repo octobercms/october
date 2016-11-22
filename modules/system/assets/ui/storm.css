@@ -2429,6 +2429,7 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .custom-switch > span span:first-of-type{padding-left:13px;display:none;color:#666666}
 .form-preview{padding:20px;margin-bottom:20px;background:white;border:1px solid #eee}
 .form-preview > .form-group:last-child{padding-bottom:0}
+.form-preview > .form-group:last-child .radio,.form-preview > .form-group:last-child .checkbox{margin-bottom:0}
 .form-preview.form-flush{border-top:none}
 .form-preview .control-tabs.primary-tabs > ul.nav-tabs > li a > span.title:before,.form-preview .control-tabs.primary-tabs > div > ul.nav-tabs > li a > span.title:before,.form-preview .control-tabs.primary-tabs > div > div > ul.nav-tabs > li a > span.title:before,.form-preview .control-tabs.primary-tabs > ul.nav-tabs > li a > span.title:after,.form-preview .control-tabs.primary-tabs > div > ul.nav-tabs > li a > span.title:after,.form-preview .control-tabs.primary-tabs > div > div > ul.nav-tabs > li a > span.title:after{background:white}
 .form-preview .control-tabs.primary-tabs > ul.nav-tabs > li.active a:before,.form-preview .control-tabs.primary-tabs > div > ul.nav-tabs > li.active a:before,.form-preview .control-tabs.primary-tabs > div > div > ul.nav-tabs > li.active a:before{background-color:white}
