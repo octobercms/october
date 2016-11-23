@@ -86,6 +86,16 @@ abstract class FormWidgetBase extends WidgetBase
     }
 
     /**
+     * Returns the HTML element field name this form widget when
+     * passing the value back when saving.
+     * @return string HTML element name
+     */
+    public function getFieldName()
+    {
+        return $this->formField->getName();
+    }
+
+    /**
      * Returns a unique ID for this widget. Useful in creating HTML markup.
      */
     public function getId($suffix = null)
