@@ -140,8 +140,8 @@ class Relation extends FormWidgetBase
             }
 
             $field->options = $usesTree
-                ? $result->listsNested($nameFrom, $relationModel->getKeyName())
-                : $result->lists($nameFrom, $relationModel->getKeyName());
+                ? $result->listsNested($nameFrom, $relationObject->getOtherKey())
+                : $result->lists($nameFrom, $relationObject->getOtherKey());
 
             return $field;
         });
