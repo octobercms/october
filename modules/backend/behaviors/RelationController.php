@@ -1402,6 +1402,7 @@ class RelationController extends ControllerBehavior
             case 'morphToMany':
             case 'morphedByMany':
             case 'belongsToMany':
+            case 'hasManyThrough':
                 return 'multi';
 
             case 'hasOne':
