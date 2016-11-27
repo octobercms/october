@@ -135,7 +135,7 @@ class Repeater extends FormWidgetBase
         $config->model = $this->model;
         $config->data = array_get($loadValue, $index, []);
         $config->alias = $this->alias . 'Form'.$index;
-        $config->arrayName = $this->formField->getName().'['.$index.']';
+        $config->arrayName = $this->getFieldName().'['.$index.']';
         $config->isNested = true;
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);

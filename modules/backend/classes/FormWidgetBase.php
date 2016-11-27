@@ -86,8 +86,8 @@ abstract class FormWidgetBase extends WidgetBase
     }
 
     /**
-     * Returns the HTML element field name this form widget when
-     * passing the value back when saving.
+     * Returns the HTML element field name for this widget, used for capturing
+     * user input, passed back to the getSaveValue method when saving.
      * @return string HTML element name
      */
     public function getFieldName()
