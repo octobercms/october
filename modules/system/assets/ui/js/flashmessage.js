@@ -52,7 +52,7 @@
     FlashMessage.DEFAULTS = {
         class: 'success',
         text: 'Default text',
-        interval: 2
+        interval: 5
     }
 
     // FLASH MESSAGE PLUGIN DEFINITION
