@@ -22,6 +22,8 @@ use Exception;
  */
 class Form extends WidgetBase
 {
+    use \Backend\Traits\FormModelSaver;
+
     //
     // Configurable properties
     //
@@ -319,12 +321,21 @@ class Form extends WidgetBase
             $data = $this->getSaveData();
         }
 
-        if (method_exists($this->model, 'forceFill')) {
-            $this->model->forceFill($data);
+        /*
+         * Fill the model as if it were to be saved
+         */
+        $this->prepareModelsToSave($this->model, $data);
+
+        /*
+         * Data set differs from model
+         */
+        if ($this->data !== $this->model) {
+            $this->data = (object) array_merge((array) $this->data, (array) $data);
         }
 
-        $this->data = (object) array_merge((array) $this->data, (array) $data);
-
+        /*
+         * Set field values from data source
+         */
         foreach ($this->allFields as $field) {
             $field->value = $this->getFieldValue($field);
         }
