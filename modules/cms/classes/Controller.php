@@ -875,7 +875,7 @@ class Controller
             foreach ($partial->settings['components'] as $component => $properties) {
                 // Do not inject the viewBag component to the environment.
                 // Not sure if they're needed there by the requirements,
-                // but there were problems with array-typed properties used by Static Pages 
+                // but there were problems with array-typed properties used by Static Pages
                 // snippets and setComponentPropertiesFromParams(). --ab
                 if ($component == 'viewBag')
                     continue;
@@ -912,6 +912,7 @@ class Controller
         /*
          * Render the partial
          */
+        Event::fire('cms.partial.beforeRender', [$this, $partial], true);
         CmsException::mask($partial, 400);
         $this->loader->setObject($partial);
         $template = $this->twig->loadTemplate($partial->getFilePath());
