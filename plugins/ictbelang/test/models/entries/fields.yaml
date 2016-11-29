@@ -1,0 +1,5 @@
+fields:
+    status:
+        label: Status
+        span: left
+        type: switch

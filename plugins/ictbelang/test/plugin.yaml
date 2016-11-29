@@ -1,0 +1,6 @@
+plugin:
+    name: 'ictbelang.test::lang.plugin.name'
+    description: 'ictbelang.test::lang.plugin.description'
+    author: SebastiaanKloos
+    icon: oc-icon-database
+    homepage: ''
