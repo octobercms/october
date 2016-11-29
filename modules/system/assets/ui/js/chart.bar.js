@@ -116,7 +116,7 @@
             if (!data)
                 $this.data('oc.barChart', new BarChart(this, options))
         })
-      }
+    }
 
     $.fn.barChart.Constructor = BarChart
 

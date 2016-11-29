@@ -39,7 +39,13 @@ class Index extends Controller
 
     protected $theme;
 
-    public $requiredPermissions = ['cms.*'];
+    public $requiredPermissions = [
+        'cms.manage_content',
+        'cms.manage_assets',
+        'cms.manage_pages',
+        'cms.manage_layouts',
+        'cms.manage_partials'
+    ];
 
     /**
      * Constructor.

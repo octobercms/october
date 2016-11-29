@@ -20,7 +20,7 @@
 
     var FilterWidget = function (element, options) {
 
-        var $el = this.$el = $(element);
+        this.$el = $(element);
 
         this.options = options || {}
         this.scopeValues = {}
@@ -427,7 +427,7 @@
         })
 
         return result ? result : this
-      }
+    }
 
     $.fn.filterWidget.Constructor = FilterWidget
 

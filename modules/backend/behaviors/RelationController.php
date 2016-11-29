@@ -595,6 +595,8 @@ class RelationController extends ControllerBehavior
 
     protected function makeViewWidget()
     {
+        $widget = null;
+
         /*
          * Multiple (has many, belongs to many)
          */

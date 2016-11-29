@@ -253,6 +253,10 @@ return [
     'recordfinder' => [
         'find_record' => 'Find Record'
     ],
+    'pagelist' => [
+        'page_link' => 'Page link',
+        'select_page' => 'Select a page...'
+    ],
     'relation' => [
         'missing_config' => "Relation behavior does not have any configuration for ':config'.",
         'missing_definition' => "Relation behavior does not contain a definition for ':field'.",

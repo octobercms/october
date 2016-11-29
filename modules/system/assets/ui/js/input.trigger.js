@@ -157,7 +157,7 @@
 
             if (!data) $this.data('oc.triggerOn', (data = new TriggerOn(this, options)))
         })
-      }
+    }
 
     $.fn.triggerOn.Constructor = TriggerOn
 

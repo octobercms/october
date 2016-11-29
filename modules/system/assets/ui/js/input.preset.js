@@ -305,7 +305,8 @@
     // INPUT CONVERTER DATA-API
     // ===============
 
-    $(document).render(function(){
+    $(document).render(function() {
         $('[data-input-preset]').inputPreset()
     })
+
 }(window.jQuery);

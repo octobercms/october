@@ -1,5 +1,6 @@
 <?php namespace Backend\Classes;
 
+use October\Rain\Database\Model;
 use October\Rain\Html\Helper as HtmlHelper;
 
 /**
@@ -191,5 +192,54 @@ class ListColumn
         }
 
         return HtmlHelper::nameToId($id);
+    }
+
+    /**
+     * Returns this columns value from a supplied data set, which can be
+     * an array or a model or another generic collection.
+     * @param mixed $data
+     * @param mixed $default
+     * @return mixed
+     */
+    public function getValueFromData($data, $default = null)
+    {
+        $columnName = $this->valueFrom ?: $this->columnName;
+        return $this->getColumnNameFromData($columnName, $data, $default);
+    }
+
+    /**
+     * Internal method to extract the value of a column name from a data set.
+     * @param string $columnName
+     * @param mixed $data
+     * @param mixed $default
+     * @return mixed
+     */
+    protected function getColumnNameFromData($columnName, $data, $default = null)
+    {
+        /*
+         * Array column name, eg: column[key][key2][key3]
+         */
+        $keyParts = HtmlHelper::nameToArray($columnName);
+        $result = $data;
+
+        /*
+         * Loop the column key parts and build a value.
+         * To support relations only the last column should return the
+         * relation value, all others will look up the relation object as normal.
+         */
+        foreach ($keyParts as $key) {
+            if ($result instanceof Model && $result->hasRelation($key)) {
+                $result = $result->{$key};
+            }
+            else {
+                if (!isset($result->{$key})) {
+                    return $default;
+                }
+
+                $result = $result->{$key};
+            }
+        }
+
+        return $result;
     }
 }

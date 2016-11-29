@@ -137,6 +137,7 @@ class ListController extends ControllerBehavior
             'showCheckboxes',
             'showTree',
             'treeExpanded',
+            'customViewPath',
         ];
 
         foreach ($configFieldsToTransfer as $field) {
@@ -342,17 +343,7 @@ class ListController extends ControllerBehavior
             'toolbar' => null,
             'filter' => null,
             'list' => null,
-            'topPartial' => null,
-            'sidePartial' => null
         ];
-
-        if (isset($listConfig->topPartial)) {
-            $vars['topPartial'] = $listConfig->topPartial;
-        }
-
-        if (isset($listConfig->sidePartial)) {
-            $vars['sidePartial'] = $listConfig->sidePartial;
-        }
 
         if (isset($this->toolbarWidgets[$definition])) {
             $vars['toolbar'] = $this->toolbarWidgets[$definition];
@@ -364,7 +355,23 @@ class ListController extends ControllerBehavior
 
         $vars['list'] = $this->listWidgets[$definition];
 
-        return $this->makePartial('list', $vars);
+        return $this->listMakePartial('container', $vars);
+    }
+
+    /**
+     * Controller accessor for making partials within this behavior.
+     * @param string $partial
+     * @param array $params
+     * @return string Partial contents
+     */
+    public function listMakePartial($partial, $params = [])
+    {
+        $contents = $this->controller->makePartial('list_'.$partial, $params + $this->vars, false);
+        if (!$contents) {
+            $contents = $this->makePartial($partial, $params);
+        }
+
+        return $contents;
     }
 
     /**
