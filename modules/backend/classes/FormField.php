@@ -170,16 +170,6 @@ class FormField
     public $preset;
 
     /**
-     * @var string Specifies ON text of the field.
-     */
-    public $onText;
-
-    /**
-     * @var string Specifies OFF text of the field.
-     */
-    public $offText;
-
-    /**
      * Constructor.
      * @param string $fieldName
      * @param string $label
@@ -290,8 +280,6 @@ class FormField
             'trigger',
             'preset',
             'path',
-            'onText',
-            'offText'
         ];
 
         foreach ($applyConfigValues as $value) {
