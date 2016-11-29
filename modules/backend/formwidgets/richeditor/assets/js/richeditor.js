@@ -218,6 +218,10 @@
         this.$textarea.trigger('init.oc.richeditor', [this])
     }
 
+    RichEditor.prototype.isCodeViewActive = function() {
+        return this.editor && this.editor.codeView && this.editor.codeView.isActive()
+    }
+
     RichEditor.prototype.getElement = function() {
         return this.$el
     }
@@ -343,7 +347,7 @@
             return
         }
 
-        if (this.editor.codeView && this.editor.codeView.isActive()) {
+        if (this.isCodeViewActive()) {
             this.editor.html.set(this.editor.codeView.get())
         }
 

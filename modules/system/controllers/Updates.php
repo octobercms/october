@@ -110,7 +110,7 @@ class Updates extends Controller
 
             $readmeFiles = ['README.md', 'readme.md'];
             $upgradeFiles = ['UPGRADE.md', 'upgrade.md'];
-            $licenceFiles = ['LICENCE.md', 'licence.md'];
+            $licenceFiles = ['LICENCE.md', 'licence.md', 'LICENSE.md', 'license.md'];
 
             $readme = $changelog = $upgrades = $licence = $name = null;
             $code = str_replace('-', '.', $urlCode);

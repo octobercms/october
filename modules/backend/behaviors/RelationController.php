@@ -645,7 +645,7 @@ class RelationController extends ControllerBehavior
             }
             elseif ($scopeMethod = $this->getConfig('view[scope]')) {
                 $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
-                    $query->$scopeMethod();
+                    $query->$scopeMethod($this->model);
                 });
             }
             else {
@@ -775,7 +775,7 @@ class RelationController extends ControllerBehavior
             }
             elseif ($scopeMethod = $this->getConfig('manage[scope]')) {
                 $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
-                    $query->$scopeMethod();
+                    $query->$scopeMethod($this->model);
                 });
             }
             else {

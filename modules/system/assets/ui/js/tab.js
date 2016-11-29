@@ -14,8 +14,8 @@
 
         var $el = this.$el = $(element);
         this.options = options || {}
-        this.$tabsContainer = $('.nav-tabs', $el)
-        this.$pagesContainer = $('.tab-content', $el)
+        this.$tabsContainer = $('.nav-tabs:first', $el)
+        this.$pagesContainer = $('.tab-content:first', $el)
         this.tabId = 'tabs' + $el.parents().length + Math.round(Math.random()*1000);
 
         if (this.options.closable !== undefined && this.options.closable !== false)
