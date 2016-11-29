@@ -154,7 +154,7 @@ class RecordFinder extends FormWidgetBase
     public function onRefresh()
     {
         list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-        $model->{$attribute} = post($this->formField->getName());
+        $model->{$attribute} = post($this->getFieldName());
 
         $this->prepareVars();
         return ['#'.$this->getId('container') => $this->makePartial('recordfinder')];
@@ -272,7 +272,7 @@ class RecordFinder extends FormWidgetBase
         }
         elseif ($scopeMethod = $this->scope) {
             $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
-                $query->$scopeMethod();
+                $query->$scopeMethod($this->model);
             });
         }
         else {

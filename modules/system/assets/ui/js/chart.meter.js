@@ -54,7 +54,7 @@
             else
                 data.update(option)
         })
-      }
+    }
 
     $.fn.goalMeter.Constructor = GoalMeter
 

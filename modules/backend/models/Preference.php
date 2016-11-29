@@ -108,10 +108,19 @@ class Preference extends Model
         Config::set('app.fallback_locale', $settings->fallback_locale);
     }
 
+    /**
+     * Attempt to extract the language from the locale,
+     * otherwise use the configuration.
+     * @return string
+     */
     protected function getFallbackLocale($locale)
     {
         if ($position = strpos($locale, '-')) {
-            return substr($locale, 0, $position);
+            $target = substr($locale, 0, $position);
+            $available = $this->getLocaleOptions();
+            if (isset($available[$target])) {
+                return $target;
+            }
         }
 
         return Config::get('app.fallback_locale');
@@ -123,7 +132,7 @@ class Preference extends Model
      */
     public function getLocaleOptions()
     {
-        $locales = Config::get('app.localeOptions', [
+        $localeOptions = [
             'cs' => [Lang::get('system::lang.locale.cs'), 'flag-cz'],
             'da' => [Lang::get('system::lang.locale.da'), 'flag-dk'],
             'en' => [Lang::get('system::lang.locale.en'), 'flag-us'],
@@ -153,7 +162,9 @@ class Preference extends Model
             'zh-tw' => [Lang::get('system::lang.locale.zh-tw'), 'flag-tw'],
             'nb-no' => [Lang::get('system::lang.locale.nb-no'), 'flag-no'],
             'el' => [Lang::get('system::lang.locale.el'), 'flag-gr'],
-        ]);
+        ];
+
+        $locales = Config::get('app.localeOptions', $localeOptions);
 
         // Sort locales alphabetically
         asort($locales);

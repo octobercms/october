@@ -267,7 +267,7 @@ return [
             'empty' => 'Select action',
             'confirm' => 'Confirm update',
             'skip' => 'Skip this plugin (once only)',
-            'ignore' => 'Skip this plugin (always)',
+            'ignore' => 'Skip this plugin (always)'
         ],
         'important_action_required' => 'Action required',
         'important_view_guide' => 'View upgrade guide',
@@ -276,10 +276,14 @@ return [
         'details_view_homepage' => 'View homepage',
         'details_readme' => 'Documentation',
         'details_readme_missing' => 'There is no documentation provided.',
+        'details_changelog' => 'Changelog',
+        'details_changelog_missing' => 'There is no changelog provided.',
         'details_upgrades' => 'Upgrade Guide',
         'details_upgrades_missing' => 'There are no upgrade instructions provided.',
+        'details_licence' => 'Licence',
+        'details_licence_missing' => 'There is no licence provided.',
         'details_current_version' => 'Current version',
-        'details_author' => 'Author',
+        'details_author' => 'Author'
     ],
     'server' => [
         'connect_error' => 'Error connecting to the server.',

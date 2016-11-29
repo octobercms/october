@@ -56,6 +56,11 @@ class PluginManager
     protected $disabledPlugins = [];
 
     /**
+     * @var array Cache of registration method results.
+     */
+    protected $registrationMethodCache = [];
+
+    /**
      * @var boolean Prevent all plugins from registering or booting
      */
     public static $noInit = false;
@@ -418,6 +423,31 @@ class PluginManager
         return $identifier;
     }
 
+    /**
+     * Spins over every plugin object and collects the results of a method call.
+     * @param  string $methodName
+     * @return array
+     */
+    public function getRegistrationMethodValues($methodName)
+    {
+        if (isset($this->registrationMethodCache[$methodName])) {
+            return $this->registrationMethodCache[$methodName];
+        }
+
+        $results = [];
+        $plugins = $this->getPlugins();
+
+        foreach ($plugins as $id => $plugin) {
+            if (!method_exists($plugin, $methodName)) {
+                continue;
+            }
+
+            $results[$id] = $plugin->{$methodName}();
+        }
+
+        return $this->registrationMethodCache[$methodName] = $results;
+    }
+
     //
     // Disability
     //
@@ -442,7 +472,7 @@ class PluginManager
         }
 
         if (File::exists($path)) {
-            $disabled = json_decode(File::get($path), true);
+            $disabled = json_decode(File::get($path), true) ?: [];
             $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
         }
         else {

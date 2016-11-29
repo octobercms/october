@@ -25,7 +25,7 @@ trait PropertyContainer
      */
     public function validateProperties(array $properties)
     {
-        $definedProperties = $this->defineProperties();
+        $definedProperties = $this->defineProperties() ?: [];
 
         // Determine and implement default values
         $defaultProperties = [];

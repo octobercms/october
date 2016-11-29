@@ -13,6 +13,7 @@ use Backend\Classes\Skin;
  * Backend Helper
  *
  * @package october\backend
+ * @see \Backend\Facades\Backend
  * @author Alexey Bobkov, Samuel Georges
  */
 class Backend

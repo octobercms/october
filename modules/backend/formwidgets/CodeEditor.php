@@ -167,7 +167,6 @@ class CodeEditor extends FormWidgetBase
         $this->vars['margin'] = $this->margin;
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
-        $this->vars['name'] = $this->formField->getName();
         $this->vars['readOnly'] = $this->readOnly;
         $this->vars['autocompletion'] = $this->autocompletion;
         $this->vars['enableSnippets'] = $this->enableSnippets;
@@ -176,6 +175,7 @@ class CodeEditor extends FormWidgetBase
 
         // Double encode when escaping
         $this->vars['value'] = htmlentities($this->getLoadValue(), ENT_QUOTES, 'UTF-8', true);
+        $this->vars['name'] = $this->getFieldName();
     }
 
     /**

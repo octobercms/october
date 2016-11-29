@@ -10,6 +10,7 @@ body.oc-loading, body.oc-loading * {
 
 @stripe-loader-color: #0090c0;
 @stripe-loader-height: 5px;
+
 .stripe-loading-indicator {
 
     height: @stripe-loader-height;
@@ -31,7 +32,7 @@ body.oc-loading, body.oc-loading * {
 
     .stripe {
         width: 100%;
-        .animation(infinite-loader 60s linear);
+        .animation(oc-infinite-loader 60s linear);
     }
 
     .stripe-loaded {
@@ -56,12 +57,145 @@ body.oc-loading, body.oc-loading * {
 }
 
 //
+// Flash Messages
+// --------------------------------------------------
+
+@color-flash-success-bg:                     #8da85e;
+@color-flash-error-bg:                       #cc3300;
+@color-flash-warning-bg:                     #f0ad4e;
+@color-flash-info-bg:                        #5fb6f5;
+@color-flash-text:                           #ffffff;
+
+body > p.flash-message {
+    position: fixed;
+    width: 500px;
+    left: 50%;
+    top: 13px;
+    margin-left: -250px;
+    color: @color-flash-text;
+    font-size: 14px;
+    padding: 10px 30px 10px 15px;
+    z-index: @zindex-flashmessage;
+    word-wrap: break-word;
+    text-shadow: 0 -1px 0px rgba(0,0,0,.15);
+    text-align: center;
+    .box-shadow(@overlay-box-shadow);
+    .border-radius(@border-radius-base);
+
+    &.fade {
+        .opacity(0);
+        .transition(~'all 0.5s, width 0s');
+        .transform(~'scale(0.9)');
+    }
+
+    &.fade.in {
+        .opacity(1);
+        .transform( ~'scale(1)');
+    }
+
+    &.success { background: @color-flash-success-bg; }
+    &.error { background: @color-flash-error-bg; }
+    &.warning { background: @color-flash-warning-bg; }
+    &.info { background: @color-flash-info-bg; }
+
+    button.close {
+        float: none;
+        position: absolute;
+        right: 10px;
+        top: 8px;
+        color: white;
+        font-size: 21px;
+        line-height: 1;
+        font-weight: bold;
+        .opacity(.2);
+
+        padding: 0;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        -webkit-appearance: none;
+        outline: none;
+
+        &:hover,
+        &:focus {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            .opacity(.5);
+        }
+    }
+}
+
+@media (max-width: @screen-sm) {
+    body > p.flash-message {
+        left: 10px;
+        right: 10px;
+        top: 10px;
+        margin-left: 0;
+        width: auto;
+    }
+}
+
+//
+// Form Validation
+// --------------------------------------------------
+
+[data-request][data-request-validate] [data-validate-for],
+[data-request][data-request-validate] [data-validate-error] {
+    &:not(.visible) {
+        display: none;
+    }
+}
+
+//
+// Element Loader
+// --------------------------------------------------
+
+a.oc-loading, button.oc-loading {
+    &:after {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: .4em;
+        height: 1em;
+        width: 1em;
+        animation: oc-rotate-loader 0.8s infinite linear;
+        border: .2em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        .opacity(.5);
+    }
+}
+
+@-moz-keyframes oc-rotate-loader {
+    0%    { -moz-transform: rotate(0deg); }
+    100%  { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes oc-rotate-loader {
+    0%    { -webkit-transform: rotate(0deg); }
+    100%  { -webkit-transform: rotate(360deg); }
+}
+@-o-keyframes oc-rotate-loader {
+    0%    { -o-transform: rotate(0deg); }
+    100%  { -o-transform: rotate(360deg); }
+}
+@-ms-keyframes oc-rotate-loader {
+    0%    { -ms-transform: rotate(0deg); }
+    100%  { -ms-transform: rotate(360deg); }
+}
+@keyframes oc-rotate-loader {
+    0%    { transform: rotate(0deg); }
+    100%  { transform: rotate(360deg); }
+}
+
+//
 // Infinite loading animation
 // --------------------------------------------------
 
 @startCount: 1;
 @startVal: 28%;
 @start: 0;
+
 .infinite-class (@index, @val, @count) when (@index = 0) {
     @tmpSelector: ~"@{index}%";
     @{tmpSelector} { width: 0; }
@@ -73,18 +207,18 @@ body.oc-loading, body.oc-loading * {
     .infinite-class(@index + 10, @val + (@val / @count), @count * 2);
 }
 
-@-moz-keyframes infinite-loader {
+@-moz-keyframes oc-infinite-loader {
     .infinite-class(@start, @startVal, @startCount);
 }
-@-webkit-keyframes infinite-loader {
+@-webkit-keyframes oc-infinite-loader {
     .infinite-class(@start, @startVal, @startCount);
 }
-@-o-keyframes infinite-loader {
+@-o-keyframes oc-infinite-loader {
     .infinite-class(@start, @startVal, @startCount);
 }
-@-ms-keyframes infinite-loader {
+@-ms-keyframes oc-infinite-loader {
     .infinite-class(@start, @startVal, @startCount);
 }
-@keyframes infinite-loader {
+@keyframes oc-infinite-loader {
     .infinite-class(@start, @startVal, @startCount);
 }

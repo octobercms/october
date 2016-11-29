@@ -419,7 +419,7 @@
                 data[option].apply(data, methodArgs)
             }
         })
-      }
+    }
 
     $.fn.dragScroll.Constructor = DragScroll
 

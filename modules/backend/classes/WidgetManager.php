@@ -98,6 +98,10 @@ class WidgetManager
      */
     public function registerFormWidget($className, $widgetInfo = null)
     {
+        if (!is_array($widgetInfo)) {
+            $widgetInfo = ['code' => $widgetInfo];
+        }
+
         $widgetCode = isset($widgetInfo['code']) ? $widgetInfo['code'] : null;
 
         if (!$widgetCode) {

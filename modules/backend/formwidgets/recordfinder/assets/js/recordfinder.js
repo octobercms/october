@@ -23,7 +23,7 @@
         this.$el       = $(element)
 
         this.$el.on('dblclick', function () {
-            $('.btn:first', this.$el).trigger('click')
+            $('.btn:first', self.$el).trigger('click')
         })
     }
 

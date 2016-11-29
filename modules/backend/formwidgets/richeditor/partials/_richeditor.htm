@@ -18,6 +18,7 @@
         <?php if ($tableStyles): ?>data-table-styles="<?= e(json_encode($tableStyles)) ?>"<?php endif ?>
         <?php if ($tableCellStyles): ?>data-table-cell-styles="<?= e(json_encode($tableCellStyles)) ?>"<?php endif ?>
         data-links-handler="<?= $this->getEventHandler('onLoadPageLinksForm') ?>"
+        data-ace-vendor-path="<?= URL::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>"
         placeholder="<?= e(trans($field->placeholder)) ?>"
         data-control="richeditor">
         <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>"><?= e($value) ?></textarea>

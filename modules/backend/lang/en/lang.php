@@ -6,6 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
+        'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
         'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field."
     ],
     'widget' => [
@@ -251,6 +252,10 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Find Record'
+    ],
+    'pagelist' => [
+        'page_link' => 'Page link',
+        'select_page' => 'Select a page...'
     ],
     'relation' => [
         'missing_config' => "Relation behavior does not have any configuration for ':config'.",

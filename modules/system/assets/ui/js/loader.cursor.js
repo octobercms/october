@@ -39,9 +39,7 @@
         if (this.counter > 1)
             return
 
-        var self = this,
-            $window = $(window);
-
+        var self = this;
 
         if (event !== undefined && event.clientY !== undefined) {
             self.indicator.css({
@@ -73,7 +71,7 @@
         }
     }
 
-    $(document).ready(function(){
+    $(document).ready(function() {
         $.oc.cursorLoadIndicator = new CursorLoadIndicator();
     })
 

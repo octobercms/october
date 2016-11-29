@@ -52,6 +52,7 @@ return [
     'Twig'            => October\Rain\Support\Facades\Twig::class,
     'DbDongle'        => October\Rain\Support\Facades\DbDongle::class,
     'Schema'          => October\Rain\Support\Facades\Schema::class,
+    'Cms'             => Cms\Facades\Cms::class,
     'Backend'         => Backend\Facades\Backend::class,
     'BackendMenu'     => Backend\Facades\BackendMenu::class,
     'BackendAuth'     => Backend\Facades\BackendAuth::class,

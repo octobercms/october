@@ -6,6 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Ongeldig type veld: :type.',
+        'options_method_invalid_model' => "Het attribuut ':field' levert geen geldig model op. Probeer de opties methode expliciet te specifieren voor modelklasse :model.",
         'options_method_not_exists' => 'De modelklasse :model moet de methode :method() definiëren met daarin opties voor het veld ":field".',
     ],
     'widget' => [
@@ -128,6 +129,10 @@ return [
         'allow' => 'Toestaat',
         'inherit' => 'Overerven',
         'deny' => 'Weigeren',
+        'activated' => 'Geactiveerd',
+        'last_login' => 'Laatste login',
+        'created_at' => 'Aangemaakt op',
+        'updated_at' => 'Gewijzigd op',
         'group' => [
             'name' => 'Groep',
             'name_comment' => 'De naam die wordt weergegeven in de groepenlijst bij het aanmaken of bewerken van een beheerder.',

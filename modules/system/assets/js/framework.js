@@ -80,12 +80,19 @@ if (window.jQuery === undefined)
         if (options.data !== undefined && !$.isEmptyObject(options.data))
             data.push($.param(options.data))
 
+        var requestHeaders = {
+            'X-OCTOBER-REQUEST-HANDLER': handler,
+            'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update)
+        }
+
+        if (options.flash !== undefined) {
+            requestHeaders['X-OCTOBER-REQUEST-FLASH'] = 1
+        }
+
         var requestOptions = {
+            url: window.location.href,
             context: context,
-            headers: {
-                'X-OCTOBER-REQUEST-HANDLER': handler,
-                'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update)
-            },
+            headers: requestHeaders,
             success: function(data, textStatus, jqXHR) {
                 /*
                  * Halt here if beforeUpdate() or data-request-before-update returns false
@@ -148,13 +155,13 @@ if (window.jQuery === undefined)
                      * Trigger 'ajaxError' on the form, halt if event.preventDefault() is called
                      */
                     var _event = jQuery.Event('ajaxError')
-                    $triggerEl.trigger(_event, [context, textStatus, jqXHR])
+                    $triggerEl.trigger(_event, [context, errorMsg, textStatus, jqXHR])
                     if (_event.isDefaultPrevented()) return
 
                     /*
                      * Halt here if the data-request-error attribute returns false
                      */
-                    if (options.evalError && eval('(function($el, context, textStatus, jqXHR) {'+options.evalError+'}.call($el.get(0), $el, context, textStatus, jqXHR))') === false)
+                    if (options.evalError && eval('(function($el, context, errorMsg, textStatus, jqXHR) {'+options.evalError+'}.call($el.get(0), $el, context, errorMsg, textStatus, jqXHR))') === false)
                         return
 
                     requestOptions.handleErrorMessage(errorMsg)
@@ -228,6 +235,8 @@ if (window.jQuery === undefined)
                  * Focus fields with errors
                  */
                 if (data['X_OCTOBER_ERROR_FIELDS']) {
+                    $triggerEl.trigger('ajaxValidation', [context, data['X_OCTOBER_ERROR_MESSAGE'], data['X_OCTOBER_ERROR_FIELDS']])
+
                     var isFirstInvalidField = true
                     $.each(data['X_OCTOBER_ERROR_FIELDS'], function focusErrorField(fieldName, fieldMessages) {
                         var fieldElement = $form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
@@ -250,8 +259,9 @@ if (window.jQuery === undefined)
                  if (data['X_OCTOBER_ASSETS']) {
                     assetManager.load(data['X_OCTOBER_ASSETS'], $.proxy(updatePromise.resolve, updatePromise))
                  }
-                 else
+                 else {
                     updatePromise.resolve()
+                }
 
                 return updatePromise
             }
@@ -328,6 +338,7 @@ if (window.jQuery === undefined)
             confirm: $this.data('request-confirm'),
             redirect: $this.data('request-redirect'),
             loading: $this.data('request-loading'),
+            flash: $this.data('request-flash'),
             update: paramToObj('data-request-update', $this.data('request-update')),
             data: paramToObj('data-request-data', $this.data('request-data'))
         }

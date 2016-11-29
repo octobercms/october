@@ -1,12 +1,13 @@
 <?php namespace Cms\Classes;
 
-use URL;
+use Cms;
+use Url;
 use Str;
 use App;
 use File;
 use View;
 use Lang;
-use Route;
+use Flash;
 use Event;
 use Config;
 use Session;
@@ -645,6 +646,12 @@ class Controller
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
                     $result = null;
                 }
+                /*
+                 * No redirect is used, look for any flash messages
+                 */
+                elseif (Request::header('X_OCTOBER_REQUEST_FLASH') && Flash::check()) {
+                    $responseContents['X_OCTOBER_FLASH_MESSAGES'] = Flash::all();
+                }
 
                 /*
                  * If the handler returned an array, we should add it to output for rendering.
@@ -1127,19 +1134,7 @@ class Controller
             return null;
         }
 
-        if (substr($url, 0, 1) == '/') {
-            $url = substr($url, 1);
-        }
-
-        $routeAction = 'Cms\Classes\CmsController@run';
-        $actionExists = Route::getRoutes()->getByAction($routeAction) !== null;
-
-        if ($actionExists) {
-            return URL::action($routeAction, ['slug' => $url]);
-        }
-        else {
-            return URL::to($url);
-        }
+        return Cms::url($url);
     }
 
     /**
@@ -1168,14 +1163,14 @@ class Controller
         $themeDir = $this->getTheme()->getDirName();
 
         if (is_array($url)) {
-            $_url = URL::to(CombineAssets::combine($url, themes_path().'/'.$themeDir));
+            $_url = Url::to(CombineAssets::combine($url, themes_path().'/'.$themeDir));
         }
         else {
             $_url = Config::get('cms.themesPath', '/themes').'/'.$themeDir;
             if ($url !== null) {
                 $_url .= '/'.$url;
             }
-            $_url = URL::asset($_url);
+            $_url = Url::asset($_url);
         }
 
         return $_url;

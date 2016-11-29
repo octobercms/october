@@ -11,6 +11,7 @@ use Backend\Classes\FormWidgetBase;
 use October\Rain\Database\Model;
 use October\Rain\Html\Helper as HtmlHelper;
 use ApplicationException;
+use Exception;
 
 /**
  * Form Widget
@@ -61,6 +62,12 @@ class Form extends WidgetBase
      * Eg: <input name="nameArray[fieldName]" />
      */
     public $arrayName;
+
+    /**
+     * @var bool Used to flag that this form is being rendered as part of another form,
+     * a good indicator to expect that the form model and dataset values will differ.
+     */
+    public $isNested = false;
 
     //
     // Object properties
@@ -123,8 +130,9 @@ class Form extends WidgetBase
             'secondaryTabs',
             'model',
             'data',
-            'arrayName',
             'context',
+            'arrayName',
+            'isNested',
         ]);
 
         $this->widgetManager = WidgetManager::instance();
@@ -311,7 +319,10 @@ class Form extends WidgetBase
             $data = $this->getSaveData();
         }
 
-        $this->model->forceFill($data);
+        if (method_exists($this->model, 'forceFill')) {
+            $this->model->forceFill($data);
+        }
+
         $this->data = (object) array_merge((array) $this->data, (array) $data);
 
         foreach ($this->allFields as $field) {
@@ -1027,17 +1038,27 @@ class Form extends WidgetBase
          * Refer to the model method or any of its behaviors
          */
         if (!is_array($fieldOptions) && !$fieldOptions) {
-            list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
+
+            try {
+                list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
+            }
+            catch (Exception $ex) {
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
+                    'model' => get_class($this->model),
+                    'field' => $field->fieldName
+                ]));
+            }
 
             $methodName = 'get'.studly_case($attribute).'Options';
             if (
                 !$this->objectMethodExists($model, $methodName) &&
                 !$this->objectMethodExists($model, 'getDropdownOptions')
             ) {
-                throw new ApplicationException(Lang::get(
-                    'backend::lang.field.options_method_not_exists',
-                    ['model'=>get_class($model), 'method'=>$methodName, 'field'=>$field->fieldName]
-                ));
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
+                    'model'  => get_class($model),
+                    'method' => $methodName,
+                    'field'  => $field->fieldName
+                ]));
             }
 
             if ($this->objectMethodExists($model, $methodName)) {
@@ -1052,13 +1073,14 @@ class Form extends WidgetBase
          */
         elseif (is_string($fieldOptions)) {
             if (!$this->objectMethodExists($this->model, $fieldOptions)) {
-                throw new ApplicationException(Lang::get(
-                    'backend::lang.field.options_method_not_exists',
-                    ['model'=>get_class($this->model), 'method'=>$fieldOptions, 'field'=>$field->fieldName]
-                ));
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
+                    'model'  => get_class($this->model),
+                    'method' => $fieldOptions,
+                    'field'  => $field->fieldName
+                ]));
             }
 
-            $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName);
+            $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName, $this->data);
         }
 
         return $fieldOptions;

@@ -9,7 +9,7 @@
         BaseProto = Base.prototype
 
     var ChangeMonitor = function (element, options) {
-        var $el = this.$el = $(element);
+        this.$el = $(element);
 
         this.paused = false
         this.options = options || {}
@@ -135,7 +135,7 @@
 
             if (!data) $this.data('oc.changeMonitor', (data = new ChangeMonitor(this, options)))
         })
-      }
+    }
 
     $.fn.changeMonitor.Constructor = ChangeMonitor
 

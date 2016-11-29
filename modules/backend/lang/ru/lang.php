@@ -150,7 +150,7 @@ return [
         'title_label' => 'Название',
         'description_label' => 'Описание',
         'default_prompt' => 'Кликните по %s или перетащите файл сюда для загрузки',
-        'attachment_url' => 'Привязать URL',
+        'attachment_url' => 'URL',
         'upload_file' => 'Загрузить файл',
         'upload_error' => 'Ошибка загрузки',
         'remove_confirm' => 'Вы уверены?',

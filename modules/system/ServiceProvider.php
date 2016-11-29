@@ -94,6 +94,10 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerSingletons()
     {
+        App::singleton('cms.helper', function () {
+            return new \Cms\Helpers\Cms;
+        });
+
         App::singleton('backend.helper', function () {
             return new \Backend\Helpers\Backend;
         });

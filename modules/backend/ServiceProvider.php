@@ -151,54 +151,18 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerBackendWidgets()
     {
         WidgetManager::instance()->registerFormWidgets(function ($manager) {
-            $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', [
-                'label' => 'Code editor',
-                'code'  => 'codeeditor'
-            ]);
-            $manager->registerFormWidget('Backend\FormWidgets\RichEditor', [
-                'label' => 'Rich editor',
-                'code'  => 'richeditor'
-            ]);
-            $manager->registerFormWidget('Backend\FormWidgets\MarkdownEditor', [
-                'label' => 'Markdown editor',
-                'code'  => 'markdown'
-            ]);
-            $manager->registerFormWidget('Backend\FormWidgets\FileUpload', [
-                'label' => 'File uploader',
-                'code'  => 'fileupload'
-            ]);
-            $manager->registerFormWidget('Backend\FormWidgets\Relation', [
-                'label' => 'Relationship',
-                'code'  => 'relation'
-            ]);
-            $manager->registerFormWidget('Backend\FormWidgets\DatePicker', [
-                'label' => 'Date picker',
-                'code'  => 'datepicker'
-            ]);
-            $manager->registerFormWidget('Backend\FormWidgets\TimePicker', [
-                'label' => 'Time picker',
-                'code'  => 'timepicker'
-            ]);
-            $manager->registerFormWidget('Backend\FormWidgets\ColorPicker', [
-                'label' => 'Color picker',
-                'code'  => 'colorpicker'
-            ]);
-            $manager->registerFormWidget('Backend\FormWidgets\DataTable', [
-                'label' => 'Data Table',
-                'code'  => 'datatable'
-            ]);
-            $manager->registerFormWidget('Backend\FormWidgets\RecordFinder', [
-                'label' => 'Record Finder',
-                'code'  => 'recordfinder'
-            ]);
-            $manager->registerFormWidget('Backend\FormWidgets\Repeater', [
-                'label' => 'Repeater',
-                'code'  => 'repeater'
-            ]);
-            $manager->registerFormWidget('Backend\FormWidgets\TagList', [
-                'label' => 'Tag List',
-                'code'  => 'taglist'
-            ]);
+            $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', 'codeeditor');
+            $manager->registerFormWidget('Backend\FormWidgets\RichEditor', 'richeditor');
+            $manager->registerFormWidget('Backend\FormWidgets\MarkdownEditor', 'markdown');
+            $manager->registerFormWidget('Backend\FormWidgets\FileUpload', 'fileupload');
+            $manager->registerFormWidget('Backend\FormWidgets\Relation', 'relation');
+            $manager->registerFormWidget('Backend\FormWidgets\DatePicker', 'datepicker');
+            $manager->registerFormWidget('Backend\FormWidgets\TimePicker', 'timepicker');
+            $manager->registerFormWidget('Backend\FormWidgets\ColorPicker', 'colorpicker');
+            $manager->registerFormWidget('Backend\FormWidgets\DataTable', 'datatable');
+            $manager->registerFormWidget('Backend\FormWidgets\RecordFinder', 'recordfinder');
+            $manager->registerFormWidget('Backend\FormWidgets\Repeater', 'repeater');
+            $manager->registerFormWidget('Backend\FormWidgets\TagList', 'taglist');
         });
     }
 

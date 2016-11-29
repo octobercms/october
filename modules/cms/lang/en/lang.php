@@ -114,7 +114,8 @@ return [
         'invalid_url' => 'Invalid URL format. The URL should start with the forward slash symbol and can contain digits, Latin letters and the following symbols: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Delete selected pages?',
         'delete_confirm_single' => 'Delete this page?',
-        'no_layout' => '-- no layout --'
+        'no_layout' => '-- no layout --',
+        'cms_page' => 'CMS page'
     ],
     'layout' => [
         'not_found_name' => "The layout ':name' is not found",
@@ -219,6 +220,8 @@ return [
         'error_moving_file' => 'Error moving file :file',
         'error_moving_directory' => 'Error moving directory :dir',
         'error_deleting_directory' => 'Error deleting the original directory :dir',
+        'no_list_records' => 'No files found',
+        'delete_confirm' => 'Delete selected files or directories?',
         'path' => 'Path'
     ],
     'component' => [
@@ -236,7 +239,9 @@ return [
     'template' => [
         'invalid_type' => 'Unknown template type.',
         'not_found' => 'Template not found.',
-        'saved'=> 'Template saved.'
+        'saved' => 'Template saved.',
+        'no_list_records' => 'No records found',
+        'delete_confirm' => 'Delete selected templates?'
     ],
     'permissions' => [
         'name' => 'CMS',
@@ -249,6 +254,7 @@ return [
         'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents'
     ],
     'mediafinder' => [
+        'label' => 'Media Finder',
         'default_prompt' => 'Click the %s button to find a media item'
     ],
     'media' => [

@@ -270,7 +270,7 @@ return [
             'ignore' => 'Negeer deze plugin (altijd)',
         ],
         'important_action_required' => 'Actie vereist!',
-        'important_view_guide' => 'Toon uprgade handleiding',
+        'important_view_guide' => 'Toon upgrade handleiding',
         'important_alert_text' => 'Een aantal updates vereisen aandacht.',
         'details_title' => 'Plugin details',
         'details_view_homepage' => 'Toon homepagina',

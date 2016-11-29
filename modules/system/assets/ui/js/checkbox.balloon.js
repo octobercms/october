@@ -41,7 +41,7 @@
 
             if (!data) $this.data('oc.balloon-selector', (data = new BalloonSelector(this, options)))
         })
-      }
+    }
 
     $.fn.balloonSelector.Constructor = BalloonSelector
 
