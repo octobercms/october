@@ -34,6 +34,7 @@ secondaryTabs:
         content_html:
             type: codeeditor
             size: giant
+            language: html
             tab: system::lang.mail_templates.content_html
 
         content_text:
