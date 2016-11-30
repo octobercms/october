@@ -19,7 +19,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | If you are developing with October, it is important to have the latest
-    | code base, set this value to 'true' to tell the platform to download
+    | code base. Set this value to 'true' to tell the platform to download
     | and use the development copies of core files and plugins.
     |
     */
