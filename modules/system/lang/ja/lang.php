@@ -167,6 +167,7 @@ return [
         'plugin_description' => '説明',
         'plugin_version' => 'バージョン',
         'plugin_author' => '作者',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => '現在のビルド',
         'core_build' => 'ビルド :build',
         'core_build_help' => '新しいビルドが存在します。',

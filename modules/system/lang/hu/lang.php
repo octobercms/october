@@ -234,6 +234,7 @@ return [
         'plugin_description' => 'Leírás',
         'plugin_version' => 'Verzió',
         'plugin_author' => 'Fejlesztő',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Verzió',
         'core_build' => 'Új verzió: :build',
         'core_build_help' => 'Elérhető a legújabb hivatalos kiadás.',

@@ -216,6 +216,7 @@ return [
         'plugin_description' => 'Beskrivning',
         'plugin_version' => 'Version',
         'plugin_author' => 'Skapare',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Nuvarande build',
         'core_build' => 'Build :build',
         'core_build_help' => 'Senaste build är tillgänglig.',

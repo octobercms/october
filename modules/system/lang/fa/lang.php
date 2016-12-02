@@ -234,6 +234,7 @@ return [
         'plugin_description' => 'توضیحات',
         'plugin_version' => 'نسخه',
         'plugin_author' => 'تولید کننده',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'نسخه ی کنونی',
         'core_build' => 'نسخه ی :build',
         'core_build_help' => 'به روز رسانی جدید موجود است',
