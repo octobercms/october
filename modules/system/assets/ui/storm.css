@@ -1416,10 +1416,10 @@ div.control-popover.placement-bottom .popover-head:before{content:'';display:blo
 div.control-popover.placement-left .popover-head:before{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-left:8px solid #f9f9f9;right:-8px;top:7px}
 div.control-popover.placement-right .popover-head:before{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-right:8px solid #f9f9f9;left:-8px;top:7px}
 div.control-popover.popover-danger > div{color:#fff;background-color:#ab2a1c}
-div.control-popover.popover-danger.placement-bottom > div:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:8px solid #ab2a1c}
-div.control-popover.popover-danger.placement-top > div:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #ab2a1c;border-bottom-width:0}
-div.control-popover.popover-danger.placement-left > div:after{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-left:8px solid #ab2a1c}
-div.control-popover.popover-danger.placement-right > div:after{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-right:8px solid #ab2a1c}
+div.control-popover.popover-danger.placement-bottom > div:after,div.control-popover.popover-danger.placement-bottom .popover-head:before{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:8px solid #ab2a1c}
+div.control-popover.popover-danger.placement-top > div:after,div.control-popover.popover-danger.placement-top .popover-head:before{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #ab2a1c;border-bottom-width:0}
+div.control-popover.popover-danger.placement-left > div:after,div.control-popover.popover-danger.placement-left .popover-head:before{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-left:8px solid #ab2a1c}
+div.control-popover.popover-danger.placement-right > div:after,div.control-popover.popover-danger.placement-right .popover-head:before{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-right:8px solid #ab2a1c}
 div.control-popover.popover-danger .popover-head{color:#fff;background-color:#ab2a1c;border-bottom:2px solid rgba(255,255,255,0.15)}
 div.control-popover.popover-danger .popover-head .close{color:#fff;text-shadow:none}
 div.control-popover div.popover-fixed-height{height:300px}
