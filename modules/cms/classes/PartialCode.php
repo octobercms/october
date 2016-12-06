@@ -19,6 +19,6 @@ class PartialCode extends CodeBase
     }
 
     public function getParams() {
-        return $this->controller->vars["this"]["param"];
+        return $this->controller->vars["this"]["partial"]["vars"];
     }
 }
