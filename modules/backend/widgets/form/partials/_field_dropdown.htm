@@ -24,9 +24,8 @@
             <option
                 <?= $value == $field->value ? 'selected="selected"' : '' ?>
                 <?php if (isset($option[1])): ?>data-<?=strpos($option[1],'.')?'image':'icon'?>="<?= $option[1] ?>"<?php endif ?>
-                value="<?= $value ?>">
-                    <?= e(trans($option[0])) ?>
-            </option>
+                value="<?= $value ?>"
+            ><?= e(trans($option[0])) ?></option>
         <?php endforeach ?>
     </select>
 <?php endif?>
