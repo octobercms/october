@@ -1511,7 +1511,7 @@ to{background-position:0 0}
 .nav-tabs > li{float:left;margin-bottom:-1px}
 .nav-tabs > li > a{margin-right:2px;line-height:1.42857143;border:1px solid transparent;border-radius:3px 3px 0 0}
 .nav-tabs > li > a:hover{border-color:#eeeeee #eeeeee #dddddd}
-.nav-tabs > li.active > a,.nav-tabs > li.active > a:hover,.nav-tabs > li.active > a:focus{color:#555555;border:1px solid #dddddd;border-bottom-color:transparent;cursor:default}
+.nav-tabs > li.active > a,.nav-tabs > li.active > a:hover,.nav-tabs > li.active > a:focus{color:#555555;background-color:transparent;border:1px solid #dddddd;border-bottom-color:transparent;cursor:default}
 .nav-tabs.nav-justified{width:100%;border-bottom:0}
 .nav-tabs.nav-justified > li{float:none}
 .nav-tabs.nav-justified > li > a{text-align:center;margin-bottom:5px}
