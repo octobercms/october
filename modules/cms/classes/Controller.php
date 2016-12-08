@@ -781,9 +781,18 @@ class Controller
         }
 
         /*
+         * Extensibility
+         */
+        if (
+            ($event = $this->fireEvent('page.beforeRenderPartial', [$name], true)) ||
+            ($event = Event::fire('cms.page.beforeRenderPartial', [$this, $name], true))
+        ) {
+            $partial = $event;
+        }
+        /*
          * Process Component partial
          */
-        if (strpos($name, '::') !== false) {
+        elseif (strpos($name, '::') !== false) {
 
             list($componentAlias, $partialName) = explode('::', $name);
 
@@ -802,10 +811,10 @@ class Controller
                         return false;
                     }
                 }
+            }
             /*
              * Component alias is supplied
              */
-            }
             else {
                 if (($componentObj = $this->findComponentByName($componentAlias)) === null) {
                     if ($throwException) {
@@ -866,7 +875,6 @@ class Controller
         /*
          * Run functions for CMS partials only (Cms\Classes\Partial)
          */
-
         if ($partial instanceof Partial) {
             $this->partialStack->stackPartial();
 
@@ -877,8 +885,9 @@ class Controller
                 // Not sure if they're needed there by the requirements,
                 // but there were problems with array-typed properties used by Static Pages 
                 // snippets and setComponentPropertiesFromParams(). --ab
-                if ($component == 'viewBag')
+                if ($component == 'viewBag') {
                     continue;
+                }
 
                 list($name, $alias) = strpos($component, ' ')
                     ? explode(' ', $component)
@@ -915,7 +924,7 @@ class Controller
         CmsException::mask($partial, 400);
         $this->loader->setObject($partial);
         $template = $this->twig->loadTemplate($partial->getFilePath());
-        $result = $template->render(array_merge($this->vars, $parameters));
+        $partialContent = $template->render(array_merge($this->vars, $parameters));
         CmsException::unmask();
 
         if ($partial instanceof Partial) {
@@ -923,7 +932,18 @@ class Controller
         }
 
         $this->vars = $vars;
-        return $result;
+
+        /*
+         * Extensibility
+         */
+        if (
+            ($event = $this->fireEvent('page.renderPartial', [$name, $partialContent], true)) ||
+            ($event = Event::fire('cms.page.renderPartial', [$this, $name, $partialContent], true))
+        ) {
+            return $event;
+        }
+
+        return $partialContent;
     }
 
     /**
