@@ -3,14 +3,11 @@
 use Url;
 use Lang;
 use Flash;
-use Event;
 use Config;
 use Request;
 use Response;
 use Exception;
 use BackendMenu;
-use Backend\Classes\Controller;
-use Backend\Classes\WidgetManager;
 use Cms\Widgets\AssetList;
 use Cms\Widgets\TemplateList;
 use Cms\Widgets\ComponentList;
@@ -23,9 +20,10 @@ use Cms\Classes\Content;
 use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
-use ApplicationException;
-use Backend\Traits\InspectableContainer;
+use Backend\Classes\Controller;
+use Backend\Classes\WidgetManager;
 use October\Rain\Router\Router as RainRouter;
+use ApplicationException;
 
 /**
  * CMS index
@@ -35,7 +33,7 @@ use October\Rain\Router\Router as RainRouter;
  */
 class Index extends Controller
 {
-    use InspectableContainer;
+    use \Backend\Traits\InspectableContainer;
 
     protected $theme;
 
@@ -189,8 +187,7 @@ class Index extends Controller
         /*
          * Extensibility
          */
-        Event::fire('cms.template.save', [$this, $template, $type]);
-        $this->fireEvent('template.save', [$template, $type]);
+        $this->fireSystemEvent('cms.template.save', [$template, $type]);
 
         Flash::success(Lang::get('cms::lang.template.saved'));
 
@@ -263,8 +260,7 @@ class Index extends Controller
         /*
          * Extensibility
          */
-        Event::fire('cms.template.delete', [$this, $type]);
-        $this->fireEvent('template.delete', [$type]);
+        $this->fireSystemEvent('cms.template.delete', [$type]);
 
         return [
             'deleted' => $deleted,
@@ -284,8 +280,7 @@ class Index extends Controller
         /*
          * Extensibility
          */
-        Event::fire('cms.template.delete', [$this, $type]);
-        $this->fireEvent('template.delete', [$type]);
+        $this->fireSystemEvent('cms.template.delete', [$type]);
     }
 
     public function onGetTemplateList()
@@ -366,7 +361,10 @@ class Index extends Controller
             throw new ApplicationException(trans('cms::lang.template.not_found'));
         }
 
-        Event::fire('cms.template.processSettingsAfterLoad', [$this, $template]);
+        /*
+         * Extensibility
+         */
+        $this->fireSystemEvent('cms.template.processSettingsAfterLoad', [$template]);
 
         return $template;
     }
@@ -475,11 +473,9 @@ class Index extends Controller
         /*
          * Extensibility
          */
-        $dataHolder = (object)[
-            'settings' => $settings
-        ];
+        $dataHolder = (object) ['settings' => $settings];
 
-        Event::fire('cms.template.processSettingsBeforeSave', [$this, $dataHolder]);
+        $this->fireSystemEvent('cms.template.processSettingsBeforeSave', [$dataHolder]);
 
         return $dataHolder->settings;
     }

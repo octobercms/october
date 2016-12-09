@@ -1,7 +1,6 @@
 <?php namespace Backend\Widgets;
 
 use Lang;
-use Event;
 use Form as FormHelper;
 use Backend\Classes\FormTabs;
 use Backend\Classes\FormField;
@@ -357,8 +356,7 @@ class Form extends WidgetBase
          * Extensibility
          */
         $dataHolder = (object) ['data' => $saveData];
-        $this->fireEvent('form.beforeRefresh', [$dataHolder]);
-        Event::fire('backend.form.beforeRefresh', [$this, $dataHolder]);
+        $this->fireSystemEvent('backend.form.beforeRefresh', [$dataHolder]);
         $saveData = $dataHolder->data;
 
         /*
@@ -370,8 +368,7 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        $this->fireEvent('form.refreshFields', [$this->allFields]);
-        Event::fire('backend.form.refreshFields', [$this, $this->allFields]);
+        $this->fireSystemEvent('backend.form.refreshFields', [$this->allFields]);
 
         /*
          * If an array of fields is supplied, update specified fields individually.
@@ -399,10 +396,7 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        $eventResults = array_merge(
-            $this->fireEvent('form.refresh', [$result]),
-            Event::fire('backend.form.refresh', [$this, $result])
-        );
+        $eventResults = $this->fireSystemEvent('backend.form.refresh', [$result], false);
 
         foreach ($eventResults as $eventResult) {
             $result = $eventResult + $result;
@@ -426,8 +420,7 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        Event::fire('backend.form.extendFieldsBefore', [$this]);
-        $this->fireEvent('form.extendFieldsBefore');
+        $this->fireSystemEvent('backend.form.extendFieldsBefore');
 
         /*
          * Outside fields
@@ -462,8 +455,7 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        $this->fireEvent('form.extendFields', [$this->allFields]);
-        Event::fire('backend.form.extendFields', [$this, $this->allFields]);
+        $this->fireSystemEvent('backend.form.extendFields', [$this->allFields]);
 
         /*
          * Convert automatic spanned fields
