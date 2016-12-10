@@ -207,6 +207,7 @@ return [
         'plugin_description' => 'Apraksts',
         'plugin_version' => 'Versija',
         'plugin_author' => 'Autors',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Patreizējā versija',
         'core_build' => 'Versija :build',
         'core_build_help' => 'Jaunāka versija ir pieejama.',

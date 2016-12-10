@@ -234,6 +234,7 @@ return [
         'plugin_description' => 'Περιγραφή',
         'plugin_version' => 'Έκδοση',
         'plugin_author' => 'Δημιουργός',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Τρέχουσα έκδοση',
         'core_build' => 'Έκδοση :build',
         'core_build_help' => 'Η τελευταία έκδοση είναι διαθέσιμη.',

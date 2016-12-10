@@ -234,6 +234,7 @@ return [
         'plugin_description' => 'Beskrivelse',
         'plugin_version' => 'Version',
         'plugin_author' => 'Ejer',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Nuværende build',
         'core_build' => 'Build :build',
         'core_build_help' => 'Seneste build er tilgængelig.',

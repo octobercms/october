@@ -138,7 +138,7 @@ class Updates extends Controller
                 $this->vars['pluginHomepage'] = array_get($details, 'homepage');
             }
             else {
-                throw new ApplicationException('Plugin not found');
+                throw new ApplicationException(Lang::get('system::lang.updates.plugin_not_found'));
             }
 
             /*

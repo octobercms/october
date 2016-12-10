@@ -234,6 +234,7 @@ return [
         'plugin_description' => 'Descrizione',
         'plugin_version' => 'Versione',
         'plugin_author' => 'Autore',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Build corrente',
         'core_build' => 'Build :build',
         'core_build_help' => 'Disponibile l\'ultima build.',

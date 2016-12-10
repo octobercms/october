@@ -234,6 +234,7 @@ return [
         'plugin_description' => 'Açıklama',
         'plugin_version' => 'Versiyon',
         'plugin_author' => 'Yazar',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Mevcut versiyon',
         'core_build' => 'Versiyon :build',
         'core_build_help' => 'Son versiyon kullanılabilir.',
