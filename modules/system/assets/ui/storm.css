@@ -2629,28 +2629,30 @@ table.table.data .list-checkbox .custom-checkbox{position:relative;top:-14px;lef
 table.table.data .list-checkbox .custom-checkbox label{margin-right:0;margin-bottom:0}
 table.table.data tbody tr td.list-checkbox{padding-left:17px;padding-right:3px}
 table.table.data thead tr th.list-checkbox{padding:18px 0 0 20px}
-table.table.data .list-tree{width:10px;padding:0}
-table.table.data .list-tree a.list-expand-collapse{padding:5px;display:block;text-align:center;font-size:18px;position:relative;top:5px;left:10px;text-decoration:none !important}
-table.table.data tr.list-tree-level-1 a.list-expand-collapse{left:30px}
-table.table.data tr.list-tree-level-1 td.list-cell-index-1{padding-left:35px}
-table.table.data tr.list-tree-level-2 a.list-expand-collapse{left:40px}
-table.table.data tr.list-tree-level-2 td.list-cell-index-1{padding-left:45px}
-table.table.data tr.list-tree-level-3 a.list-expand-collapse{left:50px}
-table.table.data tr.list-tree-level-3 td.list-cell-index-1{padding-left:55px}
-table.table.data tr.list-tree-level-4 a.list-expand-collapse{left:60px}
-table.table.data tr.list-tree-level-4 td.list-cell-index-1{padding-left:65px}
-table.table.data tr.list-tree-level-5 a.list-expand-collapse{left:70px}
-table.table.data tr.list-tree-level-5 td.list-cell-index-1{padding-left:75px}
-table.table.data tr.list-tree-level-6 a.list-expand-collapse{left:80px}
-table.table.data tr.list-tree-level-6 td.list-cell-index-1{padding-left:85px}
-table.table.data tr.list-tree-level-7 a.list-expand-collapse{left:90px}
-table.table.data tr.list-tree-level-7 td.list-cell-index-1{padding-left:95px}
-table.table.data tr.list-tree-level-8 a.list-expand-collapse{left:100px}
-table.table.data tr.list-tree-level-8 td.list-cell-index-1{padding-left:105px}
-table.table.data tr.list-tree-level-9 a.list-expand-collapse{left:110px}
-table.table.data tr.list-tree-level-9 td.list-cell-index-1{padding-left:115px}
-table.table.data tr.list-tree-level-10 a.list-expand-collapse{left:120px}
-table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
+table.table.data .list-tree{width:10px;padding:0;padding-left:0 !important;vertical-align:middle}
+table.table.data .list-tree a.list-expand-collapse{padding:5px;display:block;text-align:center;font-size:14px;position:relative;text-decoration:none !important;color:#999999}
+table.table.data tr.list-tree-level-0 a.list-expand-collapse{left:10px}
+table.table.data tr.list-tree-level-0 td.list-cell-index-1{padding-left:15px}
+table.table.data tr.list-tree-level-1 a.list-expand-collapse{left:20px}
+table.table.data tr.list-tree-level-1 td.list-cell-index-1{padding-left:25px}
+table.table.data tr.list-tree-level-2 a.list-expand-collapse{left:30px}
+table.table.data tr.list-tree-level-2 td.list-cell-index-1{padding-left:35px}
+table.table.data tr.list-tree-level-3 a.list-expand-collapse{left:40px}
+table.table.data tr.list-tree-level-3 td.list-cell-index-1{padding-left:45px}
+table.table.data tr.list-tree-level-4 a.list-expand-collapse{left:50px}
+table.table.data tr.list-tree-level-4 td.list-cell-index-1{padding-left:55px}
+table.table.data tr.list-tree-level-5 a.list-expand-collapse{left:60px}
+table.table.data tr.list-tree-level-5 td.list-cell-index-1{padding-left:65px}
+table.table.data tr.list-tree-level-6 a.list-expand-collapse{left:70px}
+table.table.data tr.list-tree-level-6 td.list-cell-index-1{padding-left:75px}
+table.table.data tr.list-tree-level-7 a.list-expand-collapse{left:80px}
+table.table.data tr.list-tree-level-7 td.list-cell-index-1{padding-left:85px}
+table.table.data tr.list-tree-level-8 a.list-expand-collapse{left:90px}
+table.table.data tr.list-tree-level-8 td.list-cell-index-1{padding-left:95px}
+table.table.data tr.list-tree-level-9 a.list-expand-collapse{left:100px}
+table.table.data tr.list-tree-level-9 td.list-cell-index-1{padding-left:105px}
+table.table.data tr.list-tree-level-10 a.list-expand-collapse{left:110px}
+table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:115px}
 .list-preview{padding:0;margin-bottom:20px;background:white;border:1px solid #d4d8da}
 .list-preview .list-header:first-child{padding-top:20px}
 .list-preview .control-list:last-child{margin-bottom:0}
