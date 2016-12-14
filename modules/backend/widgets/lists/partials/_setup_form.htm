@@ -14,11 +14,11 @@
                             <input
                                 type="hidden"
                                 name="column_order[]"
-                                value="<?= $column->columnName ?>" />
+                                value="<?= e($column->columnName) ?>" />
                             <input
                                 id="<?= $this->getId('setupCheckbox-'.$column->columnName) ?>"
-                                name="visible_columns[<?= $column->columnName ?>]"
-                                value="1"
+                                name="visible_columns[]"
+                                value="<?= e($column->columnName) ?>"
                                 <?= $column->invisible ? '' : 'checked="checked"' ?>
                                 type="checkbox" />
                             <label

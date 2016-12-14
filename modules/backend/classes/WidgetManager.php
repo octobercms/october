@@ -117,10 +117,7 @@ class WidgetManager
      * Usage:
      * <pre>
      *   WidgetManager::registerFormWidgets(function($manager){
-     *       $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', [
-     *           'name' => 'Code editor',
-     *           'code'  => 'codeeditor'
-     *       ]);
+     *       $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', 'codeeditor');
      *   });
      * </pre>
      */

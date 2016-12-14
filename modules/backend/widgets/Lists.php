@@ -1312,7 +1312,7 @@ class Lists extends WidgetBase
     public function onApplySetup()
     {
         if (($visibleColumns = post('visible_columns')) && is_array($visibleColumns)) {
-            $this->columnOverride = array_keys($visibleColumns);
+            $this->columnOverride = $visibleColumns;
             $this->putSession('visible', $this->columnOverride);
         }
 
