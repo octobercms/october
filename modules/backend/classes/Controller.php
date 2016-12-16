@@ -9,6 +9,7 @@ use Config;
 use Request;
 use Backend;
 use Session;
+use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
@@ -172,6 +173,13 @@ class Controller extends Extendable
          */
         if (!$this->verifyCsrfToken()) {
             return Response::make(Lang::get('backend::lang.page.invalid_token.label'), 403);
+        }
+
+        /*
+         * Check forced HTTPS protocol.
+         */
+        if (!$this->verifyForceSecure()) {
+            return Redirect::secure(Request::path());
         }
 
         /*
@@ -667,7 +675,7 @@ class Controller extends Extendable
     }
 
     //
-    // CSRF Protection
+    // Security
     //
 
     /**
@@ -692,5 +700,24 @@ class Controller extends Extendable
             Session::getToken(),
             $token
         );
+    }
+
+    /**
+     * Checks if the back-end should force a secure protocol (HTTPS) enabled by config.
+     * @return bool
+     */
+    protected function verifyForceSecure()
+    {
+        if (Request::secure() || Request::ajax()) {
+            return true;
+        }
+
+        // @todo if year >= 2018 change default from false to null
+        $forceSecure = Config::get('cms.backendForceSecure', false);
+        if ($forceSecure === null) {
+            $forceSecure = !Config::get('app.debug', false);
+        }
+
+        return !$forceSecure;
     }
 }

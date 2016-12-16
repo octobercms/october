@@ -53,13 +53,14 @@ class ErrorHandler extends ErrorHandlerBase
      */
     public function handleCustomError()
     {
-        if (Config::get('app.debug', false))
+        if (Config::get('app.debug', false)) {
             return null;
+        }
 
         $theme = Theme::getActiveTheme();
+        $router = new Router($theme);
 
         // Use the default view if no "/error" URL is found.
-        $router = new Router($theme);
         if (!$router->findByUrl('/error')) {
             return View::make('cms::error');
         }
