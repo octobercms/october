@@ -1,16 +1,18 @@
 <div class="loading-indicator-container size-small pull-right">
     <div class="control-pagination">
+        <?php if ($recordTotal > 0): ?>
         <span class="page-iteration">
             <?= e(trans('backend::lang.list.pagination', ['from' => $pageFrom, 'to' => $pageTo, 'total' => $recordTotal])) ?>
         </span>
+        <?php endif ?>
         <?php if ($pageCurrent > 1): ?>
-            <a
-                href="javascript:;"
-                class="page-back"
-                data-request="<?= $this->getEventHandler('onPaginate') ?>"
-                data-request-data="page: <?= $pageCurrent-1 ?>"
-                data-load-indicator="<?= e(trans('backend::lang.list.loading')) ?>"
-                title="<?= e(trans('backend::lang.list.prev_page')) ?>"></a>
+        <a
+            href="javascript:;"
+            class="page-back"
+            data-request="<?= $this->getEventHandler('onPaginate') ?>"
+            data-request-data="page: <?= $pageCurrent-1 ?>"
+            data-load-indicator="<?= e(trans('backend::lang.list.loading')) ?>"
+            title="<?= e(trans('backend::lang.list.prev_page')) ?>"></a>
         <?php endif ?>
         <?php if ($pageLast > $pageCurrent): ?>
             <a
