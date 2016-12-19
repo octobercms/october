@@ -2424,3 +2424,58 @@ oop.inherits(Mode, TextMode);
 
 exports.Mode = Mode;
 });
+
+ace.define("ace/mode/curly_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/html_highlight_rules"], function(require, exports, module) {
+"use strict";
+
+var oop = require("../lib/oop");
+var HtmlHighlightRules = require("./html_highlight_rules").HtmlHighlightRules;
+
+
+var CurlyHighlightRules = function() {
+    HtmlHighlightRules.call(this);
+
+    this.$rules["start"].unshift({
+        token: "variable",
+        regex: "{{",
+        push: "curly-start"
+    });
+
+    this.$rules["curly-start"] = [{
+        token: "variable",
+        regex: "}}",
+        next: "pop"
+    }];
+
+    this.normalizeRules();
+};
+
+oop.inherits(CurlyHighlightRules, HtmlHighlightRules);
+
+exports.CurlyHighlightRules = CurlyHighlightRules;
+
+});
+
+ace.define("ace/mode/curly",["require","exports","module","ace/lib/oop","ace/mode/html","ace/mode/matching_brace_outdent","ace/mode/folding/html","ace/mode/curly_highlight_rules"], function(require, exports, module) {
+"use strict";
+
+var oop = require("../lib/oop");
+var HtmlMode = require("./html").Mode;
+var MatchingBraceOutdent = require("./matching_brace_outdent").MatchingBraceOutdent;
+var HtmlFoldMode = require("./folding/html").FoldMode;
+var CurlyHighlightRules = require("./curly_highlight_rules").CurlyHighlightRules;
+
+var Mode = function() {
+    HtmlMode.call(this);
+    this.HighlightRules = CurlyHighlightRules;
+    this.$outdent = new MatchingBraceOutdent();
+    this.foldingRules = new HtmlFoldMode();
+};
+oop.inherits(Mode, HtmlMode);
+
+(function() {
+    this.$id = "ace/mode/curly";
+}).call(Mode.prototype);
+
+exports.Mode = Mode;
+});

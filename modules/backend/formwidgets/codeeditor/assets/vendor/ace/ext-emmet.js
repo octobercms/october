@@ -243,6 +243,7 @@ var SnippetManager = function() {
         if (cursor.column < indentString.length)
             indentString = indentString.slice(0, cursor.column);
 
+        snippetText = snippetText.replace(/\r/g, "");
         var tokens = this.tokenizeTmSnippet(snippetText);
         tokens = this.resolveVariables(tokens, editor);
         tokens = tokens.map(function(x) {
@@ -320,9 +321,10 @@ var SnippetManager = function() {
         var text = "";
         tokens.forEach(function(t) {
             if (typeof t === "string") {
-                if (t[0] === "\n"){
-                    column = t.length - 1;
-                    row ++;
+                var lines = t.split("\n");
+                if (lines.length > 1){
+                    column = lines[lines.length - 1].length;
+                    row += lines.length - 1;
                 } else
                     column += t.length;
                 text += t;
@@ -904,7 +906,7 @@ var Editor = require("./editor").Editor;
 
 });
 
-ace.define("ace/ext/emmet",["require","exports","module","ace/keyboard/hash_handler","ace/editor","ace/snippets","ace/range","resources","resources","range","tabStops","resources","utils","actions","ace/config","ace/config"], function(require, exports, module) {
+ace.define("ace/ext/emmet",["require","exports","module","ace/keyboard/hash_handler","ace/editor","ace/snippets","ace/range","resources","resources","tabStops","resources","utils","actions","ace/config","ace/config"], function(require, exports, module) {
 "use strict";
 var HashHandler = require("ace/keyboard/hash_handler").HashHandler;
 var Editor = require("ace/editor").Editor;
@@ -919,7 +921,8 @@ AceEmmetEditor.prototype = {
         this.indentation = editor.session.getTabString();
         if (!emmet)
             emmet = window.emmet;
-        emmet.require("resources").setVariable("indentation", this.indentation);
+        var resources = emmet.resources || emmet.require("resources");
+        resources.setVariable("indentation", this.indentation);
         this.$syntax = null;
         this.$syntax = this.getSyntax();
     },
@@ -999,13 +1002,14 @@ AceEmmetEditor.prototype = {
         return syntax;
     },
     getProfileName: function() {
+        var resources = emmet.resources || emmet.require("resources");
         switch (this.getSyntax()) {
           case "css": return "css";
           case "xml":
           case "xsl":
             return "xml";
           case "html":
-            var profile = emmet.require("resources").getVariable("profile");
+            var profile = resources.getVariable("profile");
             if (!profile)
                 profile = this.ace.session.getLines(0,2).join("").search(/<!DOCTYPE[^>]+XHTML/i) != -1 ? "xhtml": "html";
             return profile;
@@ -1027,9 +1031,9 @@ AceEmmetEditor.prototype = {
         var base = 1000;
         var zeroBase = 0;
         var lastZero = null;
-        var range = emmet.require('range');
-        var ts = emmet.require('tabStops');
-        var settings = emmet.require('resources').getVocabulary("user");
+        var ts = emmet.tabStops || emmet.require('tabStops');
+        var resources = emmet.resources || emmet.require("resources");
+        var settings = resources.getVocabulary("user");
         var tabstopOptions = {
             tabstop: function(data) {
                 var group = parseInt(data.group, 10);
@@ -1047,7 +1051,7 @@ AceEmmetEditor.prototype = {
                 var result = '${' + group + (placeholder ? ':' + placeholder : '') + '}';
 
                 if (isZero) {
-                    lastZero = range.create(data.start, result);
+                    lastZero = [data.start, result];
                 }
 
                 return result;
@@ -1064,7 +1068,8 @@ AceEmmetEditor.prototype = {
         if (settings.variables['insert_final_tabstop'] && !/\$\{0\}$/.test(value)) {
             value += '${0}';
         } else if (lastZero) {
-            value = emmet.require('utils').replaceSubstring(value, '${0}', lastZero);
+            var common = emmet.utils ? emmet.utils.common : emmet.require('utils');
+            value = common.replaceSubstring(value, '${0}', lastZero[0], lastZero[1]);
         }
         
         return value;
@@ -1103,7 +1108,7 @@ exports.commands = new HashHandler();
 exports.runEmmetCommand = function runEmmetCommand(editor) {
     try {
         editorProxy.setupContext(editor);
-        var actions = emmet.require("actions");
+        var actions = emmet.actions || emmet.require("actions");
     
         if (this.action == "expand_abbreviation_with_tab") {
             if (!editor.selection.isEmpty())

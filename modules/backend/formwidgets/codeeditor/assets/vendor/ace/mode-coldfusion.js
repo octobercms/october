@@ -2424,3 +2424,90 @@ oop.inherits(Mode, TextMode);
 
 exports.Mode = Mode;
 });
+
+ace.define("ace/mode/coldfusion_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/javascript_highlight_rules","ace/mode/html_highlight_rules"], function(require, exports, module) {
+"use strict";
+
+var oop = require("../lib/oop");
+var JavaScriptHighlightRules = require("./javascript_highlight_rules").JavaScriptHighlightRules;
+var HtmlHighlightRules = require("./html_highlight_rules").HtmlHighlightRules;
+
+var ColdfusionHighlightRules = function() {
+    HtmlHighlightRules.call(this);
+    this.$rules.tag[2].token = function (start, tag) {
+        var group = tag.slice(0,2) == "cf" ? "keyword" : "meta.tag";
+        return ["meta.tag.punctuation." + (start == "<" ? "" : "end-") + "tag-open.xml",
+            group + ".tag-name.xml"];
+    }
+
+    var jsAndCss = Object.keys(this.$rules).filter(function(x) {
+        return /^(js|css)-/.test(x);
+    });
+    this.embedRules({
+        cfmlComment: [
+            { regex: "<!---", token: "comment.start", push: "cfmlComment"}, 
+            { regex: "--->", token: "comment.end", next: "pop"},
+            { defaultToken: "comment"}
+        ]
+    }, "", [
+        { regex: "<!---", token: "comment.start", push: "cfmlComment"}
+    ], [
+        "comment", "start", "tag_whitespace", "cdata"
+    ].concat(jsAndCss));
+    
+    
+    this.$rules.cfTag = [
+        {include : "attributes"},
+        {token : "meta.tag.punctuation.tag-close.xml", regex : "/?>", next : "pop"}
+    ];
+    var cfTag = {
+        token : function(start, tag) {
+            return ["meta.tag.punctuation." + (start == "<" ? "" : "end-") + "tag-open.xml",
+                "keyword.tag-name.xml"];
+        },
+        regex : "(</?)(cf[-_a-zA-Z0-9:.]+)",
+        push: "cfTag"
+    };
+    jsAndCss.forEach(function(s) {
+        this.$rules[s].unshift(cfTag);
+    }, this);
+    
+    this.embedTagRules(new JavaScriptHighlightRules({jsx: false}).getRules(), "cfjs-", "cfscript");
+
+    this.normalizeRules();
+};
+
+oop.inherits(ColdfusionHighlightRules, HtmlHighlightRules);
+
+exports.ColdfusionHighlightRules = ColdfusionHighlightRules;
+});
+
+ace.define("ace/mode/coldfusion",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/html","ace/mode/coldfusion_highlight_rules"], function(require, exports, module) {
+"use strict";
+
+var oop = require("../lib/oop");
+var lang = require("../lib/lang");
+var HtmlMode = require("./html").Mode;
+var ColdfusionHighlightRules = require("./coldfusion_highlight_rules").ColdfusionHighlightRules;
+
+var voidElements = "cfabort|cfapplication|cfargument|cfassociate|cfbreak|cfcache|cfcollection|cfcookie|cfdbinfo|cfdirectory|cfdump|cfelse|cfelseif|cferror|cfexchangecalendar|cfexchangeconnection|cfexchangecontact|cfexchangefilter|cfexchangetask|cfexit|cffeed|cffile|cfflush|cfftp|cfheader|cfhtmlhead|cfhttpparam|cfimage|cfimport|cfinclude|cfindex|cfinsert|cfinvokeargument|cflocation|cflog|cfmailparam|cfNTauthenticate|cfobject|cfobjectcache|cfparam|cfpdfformparam|cfprint|cfprocparam|cfprocresult|cfproperty|cfqueryparam|cfregistry|cfreportparam|cfrethrow|cfreturn|cfschedule|cfsearch|cfset|cfsetting|cfthrow|cfzipparam)".split("|");
+
+var Mode = function() {
+    HtmlMode.call(this);
+    
+    this.HighlightRules = ColdfusionHighlightRules;
+};
+oop.inherits(Mode, HtmlMode);
+
+(function() {
+    this.voidElements = oop.mixin(lang.arrayToMap(voidElements), this.voidElements);
+
+    this.getNextLineIndent = function(state, line, tab) {
+        return this.$getIndent(line);
+    };
+
+    this.$id = "ace/mode/coldfusion";
+}).call(Mode.prototype);
+
+exports.Mode = Mode;
+});
