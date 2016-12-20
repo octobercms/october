@@ -164,6 +164,7 @@ return [
         'preview' => '预览',
         'meta' => '元素',
         'meta_title' => '元素标题',
+        'meta_keywords' => '元素关键词',
         'meta_description' => '元素描述',
         'markup' => '标记',
         'code' => '代码',
