@@ -1,3 +1,6 @@
+.report-container {
+  margin-bottom: 15px;
+}
 .report-container > ul {
   list-style: none;
   padding: 0;
@@ -120,9 +123,9 @@
   width: 100%;
 }
 .report-container > ul .item.dragged {
-  -webkit-transition-duration: 0!important;
-  -moz-transition-duration: 0!important;
-  transition-duration: 0!important;
+  -webkit-transition-duration: 0s !important;
+  -moz-transition-duration: 0s !important;
+  transition-duration: 0s !important;
   -webkit-transform: translate3d(0, 0, 0) !important;
   transform: translate3d(0, 0, 0) !important;
   position: absolute;
@@ -152,7 +155,6 @@
   -moz-border-radius: 3px;
   border-radius: 3px;
   margin-left: 5px;
-  margin-bottom: 15px;
 }
 .report-container .manage-widgets i {
   margin-right: 5px;
