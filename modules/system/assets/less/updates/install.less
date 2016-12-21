@@ -22,9 +22,7 @@
         }
 
         button, .image, .details {
-            -webkit-transition: opacity .2s linear;
-            -moz-transition: opacity .2s linear;
-            transition: opacity .2s linear;
+            .transition(opacity .2s linear);
         }
     }
     li:hover {
@@ -82,9 +80,7 @@
         background: #fff;
         position: relative;
         .border-radius(3px);
-        -webkit-transition: border .2s linear;
-        -moz-transition: border .2s linear;
-        transition: border .2s linear;
+        .transition(border .2s linear);
         .image {
             padding: 5px;
             img {
@@ -219,9 +215,8 @@
         display: block;
         width: 24px;
         height: 24px;
-        background-image: url('../../../../system/assets/ui/images/loader-transparent.svg');
+        background: url('../../../../system/assets/ui/images/loader-transparent.svg') 50% 50%;
         background-size: 24px 24px;
-        background-position: 50% 50%;
         .animation(spin 1s linear infinite);
     }
 }
@@ -235,7 +230,7 @@
     font-size: 24px;
     line-height: 30px;
     border: 1px solid #024e6a;
-    border-radius: 3px;
+    .border-radius(3px);
     outline: none;
 }
 .typeahead {
@@ -258,10 +253,8 @@
     background-color: #fff;
     border: 1px solid #ccc;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
-    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    .border-radius(3px);
+    .box-shadow(0 5px 10px rgba(0,0,0,.2));
 }
 .tt-suggestion {
     font-size: 14px;
