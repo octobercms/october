@@ -247,18 +247,19 @@
         if ($el.val().length && $el.val() != prefix)
             return
 
-        $el.val(prefix)
+        $el.val(prefix).trigger('change')
 
         this.$src = $(options.inputPreset, parent),
         this.$src.on('keyup', function() {
             if (self.cancelled)
                 return
 
-            $el.val(prefix + self.formatValue())
+            $el.val(prefix + self.formatValue()).trigger('change')
         })
 
-        this.$el.on('change', function() {
-            self.cancelled = true
+        this.$el.on('change', function(event) {
+            if (event.originalEvent !== undefined) // Change triggered by human
+                self.cancelled = true
         })
     }
 
