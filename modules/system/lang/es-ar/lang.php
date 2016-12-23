@@ -5,23 +5,6 @@ return [
         'name' => 'October CMS',
         'tagline' => 'Getting back to basics',
     ],
-    'locale' => [
-        'cs' => 'Checo',
-        'da' => 'Danish',
-        'en' => 'Inglés',
-        'nl' => 'Holandés',
-        'ja' => 'Japonés',
-        'sv' => 'Suizo',
-        'tr' => 'Turco',
-        'de' => 'Alemán',
-        'ru' => 'Ruso',
-        'fr' => 'Frances',
-        'it' => 'Italiano',
-        'ro' => 'Romana',
-        'pt-br' => 'Portugués Brasilero',
-        'es-Ar' => 'Español Argentino',
-        'nb-no' => 'Noruego (Bokmål)'
-    ],
     'directory' => [
         'create_fail' => "No se puede crear el directorio: :name",
     ],

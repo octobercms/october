@@ -5,33 +5,6 @@ return [
         'name' => 'October CMS',
         'tagline' => '欢迎使用October CMS！'
     ],
-    'locale' => [
-        'cs' => 'Czech',
-        'da' => 'Danish',
-        'en' => 'English',
-        'de' => 'German',
-        'es' => 'Spanish',
-        'es-ar' => 'Spanish (Argentina)',
-        'fa' => 'Persian',
-        'fr' => 'French',
-        'hu' => 'Hungarian',
-        'id' => 'Bahasa Indonesia',
-        'it' => 'Italian',
-        'ja' => 'Japanese',
-        'lv' => 'Latvian',
-        'nb-no' => 'Norwegian (Bokmål)',
-        'nl' => 'Dutch',
-        'pl' => 'Polish',
-        'pt-br' => 'Portuguese (Brazil)',
-        'ro' => 'Romanian',
-        'ru' => 'Russian',
-        'sv' => 'Swedish',
-        'sk' => 'Slovak (Slovakia)',
-        'tr' => 'Turkish',
-        'zh-cn' => '简体中文',
-        'zh-tw' => '繁體中文',
-        'el' => 'Greek'
-    ],
     'directory' => [
         'create_fail' => '不能创建目录: :name'
     ],
