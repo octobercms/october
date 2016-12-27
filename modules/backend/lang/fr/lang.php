@@ -102,7 +102,7 @@ return [
         'menu_description' => 'Gérer les utilisateurs, les groupes et les permissions de l’interface d’administration.',
         'list_title' => 'Gérer les administrateurs',
         'new' => 'Créer un nouvel administrateur',
-        'login' => 'S’identifier',
+        'login' => 'Identifiant',
         'first_name' => 'Prénom',
         'last_name' => 'Nom',
         'full_name' => 'Nom complet',
