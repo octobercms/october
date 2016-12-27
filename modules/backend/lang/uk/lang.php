@@ -63,7 +63,7 @@ return [
         'widget_new_row_label' => 'Створити новий рядок',
         'widget_new_row_description' => 'Помістити віджет у новий рядок.',
         'widget_title_label' => 'Назва віджету',
-        'widget_title_error' => 'Назва віджету є обов'язковою.',
+        'widget_title_error' => 'Назва віджету є обов\'язковою.',
         'status' => [
             'widget_title_default' => 'Статус системи',
             'online' => 'онлайн',
