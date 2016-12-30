@@ -19,7 +19,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | If you are developing with October, it is important to have the latest
-    | code base, set this value to 'true' to tell the platform to download
+    | code base. Set this value to 'true' to tell the platform to download
     | and use the development copies of core files and plugins.
     |
     */
@@ -37,6 +37,19 @@ return [
     */
 
     'backendUri' => 'backend',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Back-end force HTTPS security
+    |--------------------------------------------------------------------------
+    |
+    | Use this setting to force a secure protocol when accessing any back-end
+    | pages, including the authentication pages. If set to null, this setting
+    | is enabled when debug mode (app.debug) is disabled.
+    |
+    */
+
+    'backendForceSecure' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -284,8 +297,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | If safe mode is enabled, the PHP code section is disabled in the CMS
-    | for security reasons. If set to null, safe mode is on when debug mode
-    | (app.debug) is disabled.
+    | for security reasons. If set to null, safe mode is enabled when
+    | debug mode (app.debug) is disabled.
     |
     */
 

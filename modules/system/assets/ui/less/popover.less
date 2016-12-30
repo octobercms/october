@@ -218,20 +218,28 @@ div.control-popover {
             background-color: @color-popover-danger-bg;
         }
 
-        &.placement-bottom > div:after {
-            .triangle(up, 15px, 8px, @color-popover-danger-bg);
+        &.placement-bottom {
+            > div:after, .popover-head:before {
+                .triangle(up, 15px, 8px, @color-popover-danger-bg);
+            }
         }
 
-        &.placement-top > div:after {
-            .triangle(down, 15px, 8px, @color-popover-danger-bg);
+        &.placement-top {
+            > div:after, .popover-head:before {
+                .triangle(down, 15px, 8px, @color-popover-danger-bg);
+            }
         }
 
-        &.placement-left > div:after {
-            .triangle(right, 8px, 15px, @color-popover-danger-bg);
+        &.placement-left {
+            > div:after, .popover-head:before {
+                .triangle(right, 8px, 15px, @color-popover-danger-bg);
+            }
         }
 
-        &.placement-right > div:after {
-            .triangle(left, 8px, 15px, @color-popover-danger-bg);
+        &.placement-right {
+            > div:after, .popover-head:before {
+                .triangle(left, 8px, 15px, @color-popover-danger-bg);
+            }
         }
 
         .popover-head {

@@ -152,6 +152,7 @@ return [
         'plugin_description' => 'Descriere',
         'plugin_version' => 'Versiune',
         'plugin_author' => 'Autor',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Versiune curenta',
         'core_build' => 'Versiune :build',
         'core_build_help' => 'Ultima versiune este disponibila.',

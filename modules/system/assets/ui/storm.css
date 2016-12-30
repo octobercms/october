@@ -429,6 +429,7 @@ address{margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .bg-s-s20{background-color:#ff7c09}
 .bg-a-s20{background-color:#1c9df3}
 .t-ww{word-wrap:break-word;word-break:break-word}
+.t-nw{white-space:nowrap}
 .pos-r{position:relative !important}
 .pos-a{position:absolute !important}
 .pos-f{position:fixed !important}
@@ -1415,10 +1416,10 @@ div.control-popover.placement-bottom .popover-head:before{content:'';display:blo
 div.control-popover.placement-left .popover-head:before{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-left:8px solid #f9f9f9;right:-8px;top:7px}
 div.control-popover.placement-right .popover-head:before{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-right:8px solid #f9f9f9;left:-8px;top:7px}
 div.control-popover.popover-danger > div{color:#fff;background-color:#ab2a1c}
-div.control-popover.popover-danger.placement-bottom > div:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:8px solid #ab2a1c}
-div.control-popover.popover-danger.placement-top > div:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #ab2a1c;border-bottom-width:0}
-div.control-popover.popover-danger.placement-left > div:after{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-left:8px solid #ab2a1c}
-div.control-popover.popover-danger.placement-right > div:after{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-right:8px solid #ab2a1c}
+div.control-popover.popover-danger.placement-bottom > div:after,div.control-popover.popover-danger.placement-bottom .popover-head:before{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:8px solid #ab2a1c}
+div.control-popover.popover-danger.placement-top > div:after,div.control-popover.popover-danger.placement-top .popover-head:before{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #ab2a1c;border-bottom-width:0}
+div.control-popover.popover-danger.placement-left > div:after,div.control-popover.popover-danger.placement-left .popover-head:before{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-left:8px solid #ab2a1c}
+div.control-popover.popover-danger.placement-right > div:after,div.control-popover.popover-danger.placement-right .popover-head:before{content:'';display:block;width:0;height:0;border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;border-right:8px solid #ab2a1c}
 div.control-popover.popover-danger .popover-head{color:#fff;background-color:#ab2a1c;border-bottom:2px solid rgba(255,255,255,0.15)}
 div.control-popover.popover-danger .popover-head .close{color:#fff;text-shadow:none}
 div.control-popover div.popover-fixed-height{height:300px}
@@ -1510,7 +1511,7 @@ to{background-position:0 0}
 .nav-tabs > li{float:left;margin-bottom:-1px}
 .nav-tabs > li > a{margin-right:2px;line-height:1.42857143;border:1px solid transparent;border-radius:3px 3px 0 0}
 .nav-tabs > li > a:hover{border-color:#eeeeee #eeeeee #dddddd}
-.nav-tabs > li.active > a,.nav-tabs > li.active > a:hover,.nav-tabs > li.active > a:focus{color:#555555;background-color:#f9f9f9;border:1px solid #dddddd;border-bottom-color:transparent;cursor:default}
+.nav-tabs > li.active > a,.nav-tabs > li.active > a:hover,.nav-tabs > li.active > a:focus{color:#555555;background-color:transparent;border:1px solid #dddddd;border-bottom-color:transparent;cursor:default}
 .nav-tabs.nav-justified{width:100%;border-bottom:0}
 .nav-tabs.nav-justified > li{float:none}
 .nav-tabs.nav-justified > li > a{text-align:center;margin-bottom:5px}
@@ -1558,7 +1559,7 @@ to{background-position:0 0}
 .control-tabs > ul.nav-tabs,.control-tabs > div > ul.nav-tabs,.control-tabs > div > div > ul.nav-tabs{white-space:nowrap;font-size:0;overflow:hidden;border-bottom:none;vertical-align:bottom}
 .control-tabs > ul.nav-tabs > li,.control-tabs > div > ul.nav-tabs > li,.control-tabs > div > div > ul.nav-tabs > li{font-size:15px;float:none;display:inline-block;vertical-align:bottom;margin-right:20px;position:relative;z-index:8}
 .control-tabs > ul.nav-tabs > li:last-child,.control-tabs > div > ul.nav-tabs > li:last-child,.control-tabs > div > div > ul.nav-tabs > li:last-child{margin-right:0}
-.control-tabs > ul.nav-tabs > li a,.control-tabs > div > ul.nav-tabs > li a,.control-tabs > div > div > ul.nav-tabs > li a{border-left:none !important;border-top:none !important;border-right:none !important;padding:0 0 10px 0;color:rgba(0,0,0,0.4);background:#f9f9f9;font-weight:400;overflow:hidden}
+.control-tabs > ul.nav-tabs > li a,.control-tabs > div > ul.nav-tabs > li a,.control-tabs > div > div > ul.nav-tabs > li a{border-left:none !important;border-top:none !important;border-right:none !important;padding:0 0 10px 0;color:rgba(0,0,0,0.4);font-weight:400;overflow:hidden}
 .control-tabs > ul.nav-tabs > li a:hover,.control-tabs > div > ul.nav-tabs > li a:hover,.control-tabs > div > div > ul.nav-tabs > li a:hover{background-color:transparent;border-bottom-color:transparent}
 .control-tabs > ul.nav-tabs > li a:before,.control-tabs > div > ul.nav-tabs > li a:before,.control-tabs > div > div > ul.nav-tabs > li a:before{font-size:14px}
 .control-tabs > ul.nav-tabs > li a > span.title > span,.control-tabs > div > ul.nav-tabs > li a > span.title > span,.control-tabs > div > div > ul.nav-tabs > li a > span.title > span{max-width:150px;overflow:hidden;text-overflow:ellipsis;display:inline-block;border-top:2px solid #e0e0e0;margin-top:-4px;padding-top:7px}
@@ -2428,6 +2429,7 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .custom-switch > span span:first-of-type{padding-left:13px;display:none;color:#666666}
 .form-preview{padding:20px;margin-bottom:20px;background:white;border:1px solid #eee}
 .form-preview > .form-group:last-child{padding-bottom:0}
+.form-preview > .form-group:last-child .radio,.form-preview > .form-group:last-child .checkbox{margin-bottom:0}
 .form-preview.form-flush{border-top:none}
 .form-preview .control-tabs.primary-tabs > ul.nav-tabs > li a > span.title:before,.form-preview .control-tabs.primary-tabs > div > ul.nav-tabs > li a > span.title:before,.form-preview .control-tabs.primary-tabs > div > div > ul.nav-tabs > li a > span.title:before,.form-preview .control-tabs.primary-tabs > ul.nav-tabs > li a > span.title:after,.form-preview .control-tabs.primary-tabs > div > ul.nav-tabs > li a > span.title:after,.form-preview .control-tabs.primary-tabs > div > div > ul.nav-tabs > li a > span.title:after{background:white}
 .form-preview .control-tabs.primary-tabs > ul.nav-tabs > li.active a:before,.form-preview .control-tabs.primary-tabs > div > ul.nav-tabs > li.active a:before,.form-preview .control-tabs.primary-tabs > div > div > ul.nav-tabs > li.active a:before{background-color:white}
@@ -2627,28 +2629,30 @@ table.table.data .list-checkbox .custom-checkbox{position:relative;top:-14px;lef
 table.table.data .list-checkbox .custom-checkbox label{margin-right:0;margin-bottom:0}
 table.table.data tbody tr td.list-checkbox{padding-left:17px;padding-right:3px}
 table.table.data thead tr th.list-checkbox{padding:18px 0 0 20px}
-table.table.data .list-tree{width:10px;padding:0}
-table.table.data .list-tree a.list-expand-collapse{padding:5px;display:block;text-align:center;font-size:18px;position:relative;top:5px;left:10px;text-decoration:none !important}
-table.table.data tr.list-tree-level-1 a.list-expand-collapse{left:30px}
-table.table.data tr.list-tree-level-1 td.list-cell-index-1{padding-left:35px}
-table.table.data tr.list-tree-level-2 a.list-expand-collapse{left:40px}
-table.table.data tr.list-tree-level-2 td.list-cell-index-1{padding-left:45px}
-table.table.data tr.list-tree-level-3 a.list-expand-collapse{left:50px}
-table.table.data tr.list-tree-level-3 td.list-cell-index-1{padding-left:55px}
-table.table.data tr.list-tree-level-4 a.list-expand-collapse{left:60px}
-table.table.data tr.list-tree-level-4 td.list-cell-index-1{padding-left:65px}
-table.table.data tr.list-tree-level-5 a.list-expand-collapse{left:70px}
-table.table.data tr.list-tree-level-5 td.list-cell-index-1{padding-left:75px}
-table.table.data tr.list-tree-level-6 a.list-expand-collapse{left:80px}
-table.table.data tr.list-tree-level-6 td.list-cell-index-1{padding-left:85px}
-table.table.data tr.list-tree-level-7 a.list-expand-collapse{left:90px}
-table.table.data tr.list-tree-level-7 td.list-cell-index-1{padding-left:95px}
-table.table.data tr.list-tree-level-8 a.list-expand-collapse{left:100px}
-table.table.data tr.list-tree-level-8 td.list-cell-index-1{padding-left:105px}
-table.table.data tr.list-tree-level-9 a.list-expand-collapse{left:110px}
-table.table.data tr.list-tree-level-9 td.list-cell-index-1{padding-left:115px}
-table.table.data tr.list-tree-level-10 a.list-expand-collapse{left:120px}
-table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:125px}
+table.table.data .list-tree{width:10px;padding:0;padding-left:0 !important;vertical-align:middle}
+table.table.data .list-tree a.list-expand-collapse{padding:5px;display:block;text-align:center;font-size:14px;position:relative;text-decoration:none !important;color:#999999}
+table.table.data tr.list-tree-level-0 a.list-expand-collapse{left:10px}
+table.table.data tr.list-tree-level-0 td.list-cell-index-1{padding-left:15px}
+table.table.data tr.list-tree-level-1 a.list-expand-collapse{left:20px}
+table.table.data tr.list-tree-level-1 td.list-cell-index-1{padding-left:25px}
+table.table.data tr.list-tree-level-2 a.list-expand-collapse{left:30px}
+table.table.data tr.list-tree-level-2 td.list-cell-index-1{padding-left:35px}
+table.table.data tr.list-tree-level-3 a.list-expand-collapse{left:40px}
+table.table.data tr.list-tree-level-3 td.list-cell-index-1{padding-left:45px}
+table.table.data tr.list-tree-level-4 a.list-expand-collapse{left:50px}
+table.table.data tr.list-tree-level-4 td.list-cell-index-1{padding-left:55px}
+table.table.data tr.list-tree-level-5 a.list-expand-collapse{left:60px}
+table.table.data tr.list-tree-level-5 td.list-cell-index-1{padding-left:65px}
+table.table.data tr.list-tree-level-6 a.list-expand-collapse{left:70px}
+table.table.data tr.list-tree-level-6 td.list-cell-index-1{padding-left:75px}
+table.table.data tr.list-tree-level-7 a.list-expand-collapse{left:80px}
+table.table.data tr.list-tree-level-7 td.list-cell-index-1{padding-left:85px}
+table.table.data tr.list-tree-level-8 a.list-expand-collapse{left:90px}
+table.table.data tr.list-tree-level-8 td.list-cell-index-1{padding-left:95px}
+table.table.data tr.list-tree-level-9 a.list-expand-collapse{left:100px}
+table.table.data tr.list-tree-level-9 td.list-cell-index-1{padding-left:105px}
+table.table.data tr.list-tree-level-10 a.list-expand-collapse{left:110px}
+table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:115px}
 .list-preview{padding:0;margin-bottom:20px;background:white;border:1px solid #d4d8da}
 .list-preview .list-header:first-child{padding-top:20px}
 .list-preview .control-list:last-child{margin-bottom:0}

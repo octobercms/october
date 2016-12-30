@@ -53,6 +53,7 @@ body.outer {
 
                     .horizontal-form {
                         font-size: 0;
+                        .flex-display();
 
                         input {
                             vertical-align: top;
@@ -60,14 +61,6 @@ body.outer {
                             display: inline-block;
                             border: none;
                             .border-radius(2px);
-
-                            &.width-1 {
-                                width: 160px;
-                            }
-
-                            &.width-2 {
-                                width: 323px;
-                            }
                         }
 
                         button {
@@ -78,11 +71,6 @@ body.outer {
                             height: 40px;
                             vertical-align: top;
                             .box-sizing(border-box);
-
-                            &.login-button {
-                                display: inline-block;
-                                width: 98px;
-                            }
                         }
                     }
 
@@ -135,10 +123,14 @@ html.csstransitions {
             width: auto;
             padding: @padding-standard * 2;
 
-            .horizontal-form input {
+            .horizontal-form {
                 display: block;
-                width: 100% !important;
-                margin-bottom: @padding-standard;
+
+                input {
+                    display: block;
+                    width: 100% !important;
+                    margin-bottom: @padding-standard;
+                }
             }
         }
     }

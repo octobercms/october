@@ -233,6 +233,7 @@ return [
         'plugin_description' => 'Descripción',
         'plugin_version' => 'Versión',
         'plugin_author' => 'Autor',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Versión actual',
         'core_build' => 'Versión :build',
         'core_build_help' => 'Última versión está disponible.',

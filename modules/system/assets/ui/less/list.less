@@ -144,6 +144,7 @@ table.table.data {
             border-left: 3px solid transparent;
             padding-left: 22px;
         }
+
         tr.active td {
             color: @color-list-text-active;
 
@@ -151,6 +152,7 @@ table.table.data {
                 border-left: 3px solid @color-list-stripe-active;
             }
         }
+
         tr.rowlink:hover td, tr:not(.no-data).selected td, {
             background: @color-list-hover-bg !important;
             text-shadow: 0 -1px 0 @highlight-hover-text-shadow;
@@ -160,6 +162,7 @@ table.table.data {
                color: @highlight-hover-text;
             }
         }
+
         tr.rowlink:active td {
             text-shadow: 0 -1px 0 @highlight-active-text-shadow;
             background: @color-list-active-bg !important;
@@ -370,27 +373,29 @@ table.table.data {
     .list-tree {
         width: 10px;
         padding: 0;
+        padding-left: 0 !important;
+        vertical-align: middle;
 
         a.list-expand-collapse {
             padding: 5px;
             display: block;
             text-align: center;
-            font-size: 18px;
+            font-size: 14px;
             position: relative;
-            top: 5px;
-            left: 10px;
             text-decoration: none !important;
+            color: @color-list-text-tree;
         }
     }
 
     // Tree levels 1 - 10
     .makeTreeLevel(@count) {
         tr.list-tree-level-@{count} {
-            a.list-expand-collapse { left: 20px + (10 * @count); }
-            td.list-cell-index-1 { padding-left: 25px + (10 * @count); }
+            a.list-expand-collapse { left: 10px + (10 * @count); }
+            td.list-cell-index-1 { padding-left: 15px + (10 * @count); }
         }
     }
 
+    .makeTreeLevel(0);
     .makeTreeLevel(1);
     .makeTreeLevel(2);
     .makeTreeLevel(3);

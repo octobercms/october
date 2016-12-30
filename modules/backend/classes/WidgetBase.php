@@ -18,8 +18,8 @@ abstract class WidgetBase extends Extendable
     use \System\Traits\ViewMaker;
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
+    use \System\Traits\EventEmitter;
     use \Backend\Traits\WidgetMaker;
-    use \October\Rain\Support\Traits\Emitter;
 
     /**
      * @var object Supplied configuration.

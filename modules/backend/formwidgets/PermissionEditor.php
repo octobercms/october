@@ -38,16 +38,14 @@ class PermissionEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['checkboxMode'] = $this->getControlMode() === 'checkbox';
-
-        $this->vars['permissions'] = BackendAuth::listTabbedPermissions();
-        $this->vars['baseFieldName'] = $this->formField->getName();
         $permissionsData = $this->formField->getValueFromData($this->model);
-
         if (!is_array($permissionsData)) {
             $permissionsData = [];
         }
 
+        $this->vars['checkboxMode'] = $this->getControlMode() === 'checkbox';
+        $this->vars['permissions'] = BackendAuth::listTabbedPermissions();
+        $this->vars['baseFieldName'] = $this->getFieldName();
         $this->vars['permissionsData'] = $permissionsData;
         $this->vars['field'] = $this->formField;
     }

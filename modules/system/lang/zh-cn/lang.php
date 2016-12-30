@@ -207,6 +207,7 @@ return [
         'plugin_description' => '描述',
         'plugin_version' => '版本',
         'plugin_author' => '作者',
+        'plugin_not_found' => 'Plugin not found',
         'core_build' => '当前版本',
         'core_build_old' => '当前版本 :build',
         'core_build_new' => '版本 :build',

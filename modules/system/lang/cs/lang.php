@@ -216,6 +216,7 @@ return [
         'plugin_description' => 'Popis',
         'plugin_version' => 'Verze',
         'plugin_author' => 'Autor',
+        'plugin_not_found' => 'Plugin nenalezen',
         'core_current_build' => 'Aktuální sestavení',
         'core_build' => 'Sestavení :build',
         'core_build_help' => 'Nejnovější sestavení je dostupné.',

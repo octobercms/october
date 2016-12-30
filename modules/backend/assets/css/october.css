@@ -842,12 +842,9 @@ body.outer .layout > .layout-row.layout-head > .layout-cell h1.oc-logo{font:0/0 
 body.outer .layout > .layout-row > .layout-cell{vertical-align:top}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container{margin:0 auto;width:436px;padding:40px 0}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container h2{font-size:18px;margin:20px 0;color:#feffff}
-body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form{font-size:0}
+body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form{font-size:0;display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex;display:flex}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form input{vertical-align:top;margin-right:9px;display:inline-block;border:none;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px}
-body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form input.width-1{width:160px}
-body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form input.width-2{width:323px}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form button{background:#0181b9;text-align:center;font-size:13px;font-weight:600;height:40px;vertical-align:top;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
-body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form button.login-button{display:inline-block;width:98px}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .forgot-password{margin-top:30px;font-size:13px;top:8px}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .forgot-password a{color:rgba(255,255,255,0.44)}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .forgot-password:before{color:rgba(255,255,255,0.44);font-size:14px;position:relative;margin-right:5px}
@@ -855,6 +852,7 @@ html.csstransitions body.outer .outer-form-container{-webkit-transition:all 0.5s
 html.csstransitions body.outer.preload .outer-form-container{-webkit-transform:scale(0.2,0.2);-moz-transform:scale(0.2,0.2);-ms-transform:scale(0.2,0.2);-o-transform:scale(0.2,0.2);transform:scale(0.2,0.2)}
 @media (max-width:768px){body.outer .layout > .layout-row.layout-head > .layout-cell{padding:50px 20px}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container{width:auto;padding:40px}
+body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form{display:block}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form input{display:block;width:100% !important;margin-bottom:20px}
 }
 .fancy-layout .tab-collapse-icon{position:absolute;display:block;text-decoration:none;outline:none;opacity:0.6;filter:alpha(opacity=60);-webkit-transition:all 0.3s;transition:all 0.3s;font-size:12px;color:#ffffff;right:11px}

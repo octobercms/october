@@ -1,11 +1,10 @@
 <?php namespace Backend\Widgets;
 
 use Db;
-use Html;
 use App;
+use Html;
 use Lang;
 use Input;
-use Event;
 use Backend;
 use DbDongle;
 use Carbon\Carbon;
@@ -15,8 +14,8 @@ use System\Helpers\DateTime as DateTimeHelper;
 use System\Classes\PluginManager;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
-use ApplicationException;
 use October\Rain\Database\Model;
+use ApplicationException;
 use DateTime;
 
 /**
@@ -334,8 +333,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        Event::fire('backend.list.extendQueryBefore', [$this, $query]);
-        $this->fireEvent('list.extendQueryBefore', [$query]);
+        $this->fireSystemEvent('backend.list.extendQueryBefore', [$query]);
 
         /*
          * Prepare searchable column names
@@ -501,10 +499,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('list.extendQuery', [$query], true)) ||
-            ($event = Event::fire('backend.list.extendQuery', [$this, $query], true))
-        ) {
+        if ($event = $this->fireSystemEvent('backend.list.extendQuery', [$query])) {
             return $event;
         }
 
@@ -653,8 +648,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        Event::fire('backend.list.extendColumns', [$this]);
-        $this->fireEvent('list.extendColumns');
+        $this->fireSystemEvent('backend.list.extendColumns');
 
         /*
          * Use a supplied column order
@@ -754,12 +748,15 @@ class Lists extends WidgetBase
     {
         $columns = $this->visibleColumns ?: $this->getVisibleColumns();
         $total = count($columns);
+
         if ($this->showCheckboxes) {
             $total++;
         }
+
         if ($this->showSetup) {
             $total++;
         }
+
         return $total;
     }
 
@@ -773,11 +770,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if ($response = Event::fire('backend.list.overrideHeaderValue', [$this, $column, $value], true)) {
-            $value = $response;
-        }
-
-        if ($response = $this->fireEvent('list.overrideHeaderValue', [$column, $value], true)) {
+        if ($response = $this->fireSystemEvent('backend.list.overrideHeaderValue', [$column, $value])) {
             $value = $response;
         }
 
@@ -861,11 +854,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if (($response = Event::fire('backend.list.overrideColumnValue', [$this, $record, $column, $value], true)) !== null) {
-            $value = $response;
-        }
-
-        if (($response = $this->fireEvent('list.overrideColumnValue', [$record, $column, $value], true)) !== null) {
+        if ($response = $this->fireSystemEvent('backend.list.overrideColumnValue', [$record, $column, &$value])) {
             $value = $response;
         }
 
@@ -884,11 +873,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if ($response = Event::fire('backend.list.injectRowClass', [$this, $record], true)) {
-            $value = $response;
-        }
-
-        if ($response = $this->fireEvent('list.injectRowClass', [$record], true)) {
+        if ($response = $this->fireSystemEvent('backend.list.injectRowClass', [$record])) {
             $value = $response;
         }
 
@@ -1181,8 +1166,8 @@ class Lists extends WidgetBase
 
         if ($scopeMethod = $this->searchScope) {
             $searchMethod = $boolean == 'and' ? 'where' : 'orWhere';
-            $query->$searchMethod(function($q) use ($term, $scopeMethod) {
-                $q->$scopeMethod($term);
+            $query->$searchMethod(function($q) use ($term, $columns, $scopeMethod) {
+                $q->$scopeMethod($term, $columns);
             });
         }
         else {
@@ -1327,7 +1312,7 @@ class Lists extends WidgetBase
     public function onApplySetup()
     {
         if (($visibleColumns = post('visible_columns')) && is_array($visibleColumns)) {
-            $this->columnOverride = array_keys($visibleColumns);
+            $this->columnOverride = $visibleColumns;
             $this->putSession('visible', $this->columnOverride);
         }
 

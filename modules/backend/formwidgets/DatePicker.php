@@ -98,7 +98,7 @@ class DatePicker extends FormWidgetBase
             $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
         }
 
-        $this->vars['name'] = $this->formField->getName();
+        $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $value ?: '';
         $this->vars['field'] = $this->formField;
         $this->vars['mode'] = $this->mode;

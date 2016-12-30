@@ -1,10 +1,9 @@
 <?php
-    if ($showTree) {
-        $expanded = $this->isTreeNodeExpanded($record);
-        $childRecords = $record->getChildren();
-    }
+    $expanded = $showTree ? $this->isTreeNodeExpanded($record) : null;
+    $childRecords = $showTree ? $record->getChildren() : null;
+    $treeLevelClass = $showTree ? 'list-tree-level-'.$treeLevel : '';
 ?>
-<tr class="list-tree-level-<?= $treeLevel ?> <?= $this->getRowClass($record) ?>">
+<tr class="<?= $treeLevelClass ?> <?= $this->getRowClass($record) ?>">
     <?php if ($showCheckboxes): ?>
         <?= $this->makePartial('list_body_checkbox', ['record' => $record]) ?>
     <?php endif ?>
