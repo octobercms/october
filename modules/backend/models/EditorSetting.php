@@ -115,7 +115,7 @@ class EditorSetting extends Model
     }
 
     /**
-     * Returns the value only if it differs from the default value.
+     * Returns the configured value.
      * @return mixed
      */
     public static function getConfigured($key, $default = null)
@@ -124,9 +124,9 @@ class EditorSetting extends Model
 
         $value = $instance->get($key);
 
-        $defaultValue = $instance->getDefaultValue($key);
+        $defaultValue = $default ?: $instance->getDefaultValue($key);
 
-        return $value != $defaultValue ? $value : $default;
+        return $value ?: $defaultValue;
     }
 
     public function getDefaultValue($attribute)
