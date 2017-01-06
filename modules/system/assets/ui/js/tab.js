@@ -109,6 +109,12 @@
             $(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){
                 $(this).trigger('close.oc.tab')
                 return false
+            }).hotKey({
+                hotkey: 'ctrl+q, cmd+q',
+                callback: function(element){
+                    $(element).trigger('close.oc.tab');
+                    return false
+                }
             }))
         }
 
