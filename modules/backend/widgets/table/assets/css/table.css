@@ -158,8 +158,7 @@
   margin-right: 8px;
   position: relative;
   top: 3px;
-  background: transparent url(../images/table-icons.gif) no-repeat;
-  background-position: 0 0;
+  background: transparent url(../images/table-icons.gif) no-repeat 0 0;
   background-size: 32px auto;
 }
 .control-table .toolbar a.table-icon.add-table-row-above:before {
@@ -334,9 +333,8 @@ ul.table-widget-autocomplete li a {
 }
 /* Frameless control styles end */
 html.cssanimations .control-table td[data-column-type=dropdown] [data-view-container].loading:after {
-  background-image: url('../../../../../../modules/system/assets/ui/images/loader-transparent.svg');
+  background: url('../../../../../../modules/system/assets/ui/images/loader-transparent.svg') 50% 50%;
   background-size: 15px 15px;
-  background-position: 50% 50%;
   position: absolute;
   width: 15px;
   height: 15px;

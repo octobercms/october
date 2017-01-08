@@ -16,6 +16,10 @@
 
     h1, h2 { padding-bottom: 10px; border-bottom: 1px solid #ccc; }
 
+    img {
+        max-width: 100%;
+    }
+
     ul, ol {
         padding-left: @padding-standard;
     }
@@ -23,16 +27,13 @@
     pre {
         display: block;
         border: none;
+        margin: 10px -(@padding-standard + @padding-container) 20px;
         padding: 10px 10px 10px (@padding-standard + @padding-container);
         font-size: 13px;
         word-break: break-all;
         word-wrap: break-word;
         color: #fff;
         background-color: #333;
-        margin-top: 10px;
-        margin-bottom: 20px;
-        margin-left: -(@padding-standard + @padding-container);
-        margin-right: -(@padding-standard + @padding-container);
         code {
             padding: 0;
             font-size: inherit;

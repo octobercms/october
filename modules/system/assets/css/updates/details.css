@@ -21,6 +21,9 @@
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;
 }
+.plugin-details-content img {
+  max-width: 100%;
+}
 .plugin-details-content ul,
 .plugin-details-content ol {
   padding-left: 20px;
@@ -28,16 +31,13 @@
 .plugin-details-content pre {
   display: block;
   border: none;
+  margin: 10px -20px 20px;
   padding: 10px 10px 10px 20px;
   font-size: 13px;
   word-break: break-all;
   word-wrap: break-word;
   color: #fff;
   background-color: #333;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  margin-left: -20px;
-  margin-right: -20px;
 }
 .plugin-details-content pre code {
   padding: 0;
