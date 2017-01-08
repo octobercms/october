@@ -20,40 +20,62 @@
 
 .control-pagination {
     font-size: 0;
+    text-align: center;
+    @media (min-width: @screen-sm-min) {
+        text-align: right;
+    }
     .page-iteration {
         margin-right: 4px;
         font-size: @font-size-base - 1;
         color: @color-pagination;
+        display: block;
+        @media (min-width: @screen-sm-min) {
+            display: inline-block;
+        }
     }
-    .page-next, .page-back {
+    select, .select2-container {
+        width: 80px;
+        text-align: center;
+        display: inline-block;
+        vertical-align: bottom;
+        bottom: 4px;
+
+        .select2-selection--single {
+            height: auto;
+            padding: 4px 25px 4px 4px;
+        }
+    }
+    .page-next, .page-back, .page-last, .page-first {
         display: inline-block;
         padding: 10px 15px;
         &:before {
             color: @color-pagination-icon;
-            font-size: 19px;
-            line-height: 19px;
+            font-size: 24px;
+            line-height: 24px;
             display: inline-block;
             vertical-align: baseline;
             position: relative;
             top: 2px;
         }
     }
-    a.page-next, a.page-back {
+    a.page-next, a.page-back, a.page-last, a.page-first {
         &:hover:before {
             color: @color-pagination-hover;
         }
     }
-    span.page-next, span.page-back {
+    span.page-next, span.page-back, span.page-last, span.page-first {
         &:before {
             color: @color-pagination-inactive;
         }
     }
-    .page-next {
+    .page-last {
         padding-left: 6px;
     }
-    .page-back {
+    .page-first {
         padding-right: 6px;
     }
     .page-next:before { .icon(@angle-right); }
     .page-back:before { .icon(@angle-left); }
+    .page-last:before { .icon(@angle-double-right); }
+    .page-first:before { .icon(@angle-double-left); }
 }
