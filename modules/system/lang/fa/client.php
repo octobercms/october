@@ -33,7 +33,6 @@ return [
         'fullscreen' => 'تمام صفحه',
         'preview' => 'پیش نمایش',
     ],
-
     'mediamanager' => [
         'insert_link' => "درج آدرس رسانه",
         'insert_image' => "درج تصویر",
@@ -45,13 +44,11 @@ return [
         'invalid_video_empty_insert' => "لطفا ویدیو را جهت درج انتخاب نمایید.",
         'invalid_audio_empty_insert' => "لطفا فایل صوتی را جهت درج انتخاب نمایید",
     ],
-
     'alert' => [
         'confirm_button_text' => 'تایید',
         'cancel_button_text' => 'انصراف',
         'widget_remove_confirm' => 'این ابزارک حذف شود؟'
     ],
-
 'datepicker' => [
         'previousMonth' => 'ماه قبل',
         'nextMonth' => 'ماه بعذ',
@@ -59,7 +56,6 @@ return [
         'weekdays' => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         'weekdaysShort' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     ],
-
     'filter' => [
         'group' => [
             'all' => 'همه'
@@ -73,7 +69,6 @@ return [
             'before_placeholder' => 'قبل از'
         ]
     ],
-
     'eventlog' => [
         'show_stacktrace' => 'نمایش روند اجرا',
         'hide_stacktrace' => 'مخفی سازی روند اجرا',

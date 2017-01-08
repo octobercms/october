@@ -277,8 +277,12 @@ return [
         'details_view_homepage' => 'نمایش صفحه اصلی',
         'details_readme' => 'مستندات',
         'details_readme_missing' => 'مستنداتی در دسترس نمی باشد',
+        'details_changelog' => 'تغییرات',
+        'details_changelog_missing' => 'لیست تغییرات موجود نمی باشد.',
         'details_upgrades' => 'راهنمای به روز رسانی',
         'details_upgrades_missing' => 'راهنمایی جهت به روز رسانی در دسترس نیست.',
+        'details_licence' => 'گواهی نامه',
+        'details_licence_missing' => 'هیچ گواهی نامه ای موجود نیست.',
         'details_current_version' => 'نسخه کنونی',
         'details_author' => 'نویسنده',
     ],
@@ -329,6 +333,7 @@ return [
         'referer' => 'منتقل شده از',
         'url' => 'آدرس',
         'status_code' => 'وضعیت',
+        'preview_title' => 'درخواست'
     ],
     'permissions' => [
         'name' => 'سیستم',

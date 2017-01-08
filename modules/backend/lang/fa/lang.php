@@ -6,6 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'نوع فیلد :type نا معتبر می باشد.',
+        'options_method_invalid_model' => "خصیصه ':field' به مدل معتبری اشاره نمی کند. گزینه مورد نظر را در مدل :model ایجاد نمایید.",
         'options_method_not_exists' => 'کلاس مدل :model باید شامل متد :method() باشد و گزینه های مورد نیاز ":field" را بازنشاند.',
     ],
     'widget' => [
@@ -251,6 +252,10 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'انتخاب مورد'
+    ],
+    'pagelist' => [
+        'page_link' => 'لینک صفحه',
+        'select_page' => 'صفحه ای را انتخاب نمایید...'
     ],
     'relation' => [
         'missing_config' => "کنترل کننده ارتباطات پایگاه داده شامل تعریفی برای ':config' نمی باشد.",
