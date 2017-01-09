@@ -53,7 +53,7 @@ trait PropertyContainer
     /**
      * Sets multiple properties.
      * @param array $properties
-     * @return array
+     * @return void
      */
     public function setProperties($properties)
     {

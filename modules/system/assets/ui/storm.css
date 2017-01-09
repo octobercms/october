@@ -2796,16 +2796,29 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .select2-dropdown.ocInspectorDropdown .select2-search{min-height:26px;position:relative;border-bottom:1px solid #b2b9be}
 .select2-dropdown.ocInspectorDropdown .select2-search:after{position:absolute;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f002";right:10px;top:10px;color:#95a5a6}
 .select2-dropdown.ocInspectorDropdown .select2-search input.select2-search__field{min-height:26px;background:transparent !important;font-size:13px;padding-left:4px;padding-right:20px;border:none}
-.control-pagination{font-size:0}
-.control-pagination .page-iteration{margin-right:4px;font-size:13px;color:#98a7a8}
-.control-pagination .page-next,.control-pagination .page-back{display:inline-block;padding:10px 15px}
-.control-pagination .page-next:before,.control-pagination .page-back:before{color:#666666;font-size:19px;line-height:19px;display:inline-block;vertical-align:baseline;position:relative;top:2px}
-.control-pagination a.page-next:hover:before,.control-pagination a.page-back:hover:before{color:#0181b9}
-.control-pagination span.page-next:before,.control-pagination span.page-back:before{color:#b6b6b6}
+.control-pagination{font-size:0;text-align:center}
+@media (min-width:768px){.control-pagination{text-align:right}
+}
+.control-pagination .page-iteration{margin-right:4px;font-size:13px;color:#98a7a8;display:block}
+@media (min-width:768px){.control-pagination .page-iteration{display:inline-block}
+}
+.control-pagination select{width:50px;border:none;background:transparent}
+.control-pagination select,.control-pagination .select2-container{text-align:center;display:inline-block}
+.control-pagination .select2-container{min-width:50px;vertical-align:bottom;bottom:2px}
+.control-pagination .select2-container .select2-selection{height:29px;line-height:29px;padding:0 30px 0 10px;border:none !important;font-size:12px;background-color:transparent;-webkit-border-radius:0 !important;-moz-border-radius:0 !important;border-radius:0 !important;-webkit-box-shadow:none !important;box-shadow:none !important}
+.control-pagination .select2-container .select2-selection.select2-default{font-weight:normal !important}
+.control-pagination .page-next,.control-pagination .page-back,.control-pagination .page-last,.control-pagination .page-first{display:inline-block;padding:10px 15px}
+.control-pagination .page-next:before,.control-pagination .page-back:before,.control-pagination .page-last:before,.control-pagination .page-first:before{color:#666666;font-size:19px;line-height:19px;display:inline-block;vertical-align:baseline;position:relative;top:2px}
+.control-pagination a.page-next:hover:before,.control-pagination a.page-back:hover:before,.control-pagination a.page-last:hover:before,.control-pagination a.page-first:hover:before{color:#0181b9}
+.control-pagination span.page-next:before,.control-pagination span.page-back:before,.control-pagination span.page-last:before,.control-pagination span.page-first:before{color:#b6b6b6}
 .control-pagination .page-next{padding-left:6px}
 .control-pagination .page-back{padding-right:6px}
+.control-pagination .page-last{padding-left:6px}
+.control-pagination .page-first{padding-right:6px}
 .control-pagination .page-next:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105"}
 .control-pagination .page-back:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f104"}
+.control-pagination .page-last:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f101"}
+.control-pagination .page-first:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f100"}
 .control-filter{padding:0 10px;color:rgba(0,0,0,0.6);background-color:#ecf0f1;border-top:1px solid #d7dbdd;border-bottom:1px solid #d7dbdd;font-size:13px}
 .control-filter .custom-checkbox label{font-size:13px;color:rgba(0,0,0,0.6)}
 .control-filter a{text-decoration:none;color:rgba(0,0,0,0.6)}

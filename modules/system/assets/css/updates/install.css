@@ -198,9 +198,8 @@
   display: block;
   width: 24px;
   height: 24px;
-  background-image: url('../../../../system/assets/ui/images/loader-transparent.svg');
+  background: url('../../../../system/assets/ui/images/loader-transparent.svg') 50% 50%;
   background-size: 24px 24px;
-  background-position: 50% 50%;
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
 }
@@ -215,6 +214,8 @@
   font-size: 24px;
   line-height: 30px;
   border: 1px solid #024e6a;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
   outline: none;
 }
@@ -238,6 +239,8 @@
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
