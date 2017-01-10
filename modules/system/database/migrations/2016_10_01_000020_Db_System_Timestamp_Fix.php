@@ -33,7 +33,7 @@ class DbSystemTimestampFix extends Migration
     {
         return [
             'deferred_bindings',
-            config('queue.failed.table') => 'failed_at',
+            Config::get('queue.failed.table') => 'failed_at',
             'system_files',
             'system_event_logs',
             'system_mail_layouts',

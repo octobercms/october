@@ -119,7 +119,7 @@ class UpdateManager
      */
     public function update()
     {
-        $firstUp = !Schema::hasTable(config('database.migrations'));
+        $firstUp = !Schema::hasTable(Config::get('database.migrations'));
         if ($firstUp) {
             $this->repository->createRepository();
             $this->note('Migration table created');
@@ -337,7 +337,7 @@ class UpdateManager
             }
         }
 
-        Schema::dropIfExists(config('database.migrations'));
+        Schema::dropIfExists(Config::get('database.migrations'));
 
         return $this;
     }
