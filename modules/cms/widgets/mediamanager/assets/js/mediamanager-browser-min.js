@@ -66,9 +66,7 @@ this.initScroll()}
 MediaManager.prototype.registerHandlers=function(){this.$el.on('dblclick',this.proxy(this.onNavigate))
 this.$el.on('click.tree-path','ul.tree-path, [data-control="sidebar-labels"]',this.proxy(this.onNavigate))
 this.$el.on('click.command','[data-command]',this.proxy(this.onCommandClick))
-if(!Modernizr.touch)
 this.$el.on('click.item','[data-type="media-item"]',this.proxy(this.onItemClick))
-else
 this.$el.on('touchend','[data-type="media-item"]',this.proxy(this.onItemTouch))
 this.$el.on('change','[data-control="sorting"]',this.proxy(this.onSortingChanged))
 this.$el.on('keyup','[data-control="search"]',this.proxy(this.onSearchChanged))
@@ -83,9 +81,7 @@ this.itemListElement.addEventListener('mousedown',this.proxy(this.onListMouseDow
 MediaManager.prototype.unregisterHandlers=function(){this.$el.off('dblclick',this.proxy(this.onNavigate))
 this.$el.off('click.tree-path',this.proxy(this.onNavigate))
 this.$el.off('click.command',this.proxy(this.onCommandClick))
-if(!Modernizr.touch)
 this.$el.off('click.item',this.proxy(this.onItemClick))
-else
 this.$el.off('touchend','[data-type="media-item"]',this.proxy(this.onItemTouch))
 this.$el.off('change','[data-control="sorting"]',this.proxy(this.onSortingChanged))
 this.$el.off('keyup','[data-control="search"]',this.proxy(this.onSearchChanged))
@@ -407,11 +403,12 @@ return false}
 MediaManager.prototype.onItemClick=function(ev){if(ev.target.tagName=='I'&&ev.target.hasAttribute('data-rename-control'))
 return
 this.selectItem(ev.currentTarget,ev.shiftKey)}
-MediaManager.prototype.onItemTouch=function(ev){this.onItemClick(ev)
+MediaManager.prototype.onItemTouch=function(ev){ev.preventDefault()
+ev.stopPropagation()
 if(this.dblTouchFlag){this.onNavigate(ev)
 this.dblTouchFlag=null}
-else
-this.dblTouchFlag=true
+else{this.onItemClick(ev)
+this.dblTouchFlag=true}
 this.clearDblTouchTimer()
 this.dblTouchTimer=setTimeout(this.proxy(this.clearDblTouchFlag),300)}
 MediaManager.prototype.onListMouseDown=function(ev){this.itemListElement.addEventListener('mousemove',this.proxy(this.onListMouseMove))
