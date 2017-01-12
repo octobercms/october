@@ -29,11 +29,13 @@ class DbSystemTimestampFix extends Migration
         // ...
     }
 
-    private function getCoreTables()
+    protected function getCoreTables()
     {
+        $failedJobsTable = Config::get('queue.failed.table', 'failed_jobs');
+
         return [
             'deferred_bindings',
-            Config::get('queue.failed.table') => 'failed_at',
+            $failedJobsTable => 'failed_at',
             'system_files',
             'system_event_logs',
             'system_mail_layouts',

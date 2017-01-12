@@ -7,7 +7,7 @@ class DbFailedJobs extends Migration
 {
     public function up()
     {
-        Schema::create(Config::get('queue.failed.table'), function (Blueprint $table) {
+        Schema::create($this->getTableName(), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->text('connection');
@@ -19,6 +19,11 @@ class DbFailedJobs extends Migration
 
     public function down()
     {
-        Schema::dropIfExists(Config::get('queue.failed.table'));
+        Schema::dropIfExists($this->getTableName());
+    }
+
+    protected function getTableName()
+    {
+        return Config::get('queue.failed.table', 'failed_jobs');
     }
 }
