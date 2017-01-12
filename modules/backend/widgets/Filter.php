@@ -473,6 +473,17 @@ class Filter extends WidgetBase
             $this->allScopes[$name] = $scopeObj;
         }
     }
+    
+    /**
+     * Programatically remove a scope, used for extensibility.
+     * @param string $scopeName Scope name
+     */
+    public function removeScope($scopeName)
+    {
+        if (isset($this->allScopes[$scopeName])) {
+            unset($this->allScopes[$scopeName]);
+        }
+    }
 
     /**
      * Creates a filter scope object from name and configuration.
