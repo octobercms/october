@@ -247,19 +247,18 @@
         if ($el.val().length && $el.val() != prefix)
             return
 
-        $el.val(prefix).trigger('change')
+        $el.val(prefix).trigger('oc.inputPreset.afterUpdate')
 
         this.$src = $(options.inputPreset, parent),
         this.$src.on('keyup', function() {
             if (self.cancelled)
                 return
 
-            $el.val(prefix + self.formatValue()).trigger('change')
+            $el.val(prefix + self.formatValue()).trigger('oc.inputPreset.afterUpdate')
         })
 
         this.$el.on('change', function(event) {
-            if (event.originalEvent !== undefined) // Change triggered by human
-                self.cancelled = true
+            self.cancelled = true
         })
     }
 
