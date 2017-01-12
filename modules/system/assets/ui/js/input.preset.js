@@ -257,7 +257,7 @@
             $el.val(prefix + self.formatValue()).trigger('oc.inputPreset.afterUpdate')
         })
 
-        this.$el.on('change', function(event) {
+        this.$el.on('change', function() {
             self.cancelled = true
         })
     }
