@@ -76,9 +76,10 @@ class MediaLibrary
      * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants) and FALSE.
      * @param string $filter Determines the document type filtering preference.
      * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
+     * @param boolean $ignoreFolders Determines whether folders should be suppressed in the result list.
      * @return array Returns an array of MediaLibraryItem objects.
      */
-    public function listFolderContents($folder = '/', $sortBy = 'title', $filter = null)
+    public function listFolderContents($folder = '/', $sortBy = 'title', $filter = null, $ignoreFolders = false)
     {
         $folder = self::validatePath($folder);
         $fullFolderPath = $this->getMediaPath($folder);
@@ -119,7 +120,12 @@ class MediaLibrary
 
         $this->filterItemList($folderContents['files'], $filter);
 
-        $folderContents = array_merge($folderContents['folders'], $folderContents['files']);
+        if (!$ignoreFolders) {
+            $folderContents = array_merge($folderContents['folders'], $folderContents['files']);
+        }
+        else {
+            $folderContents = $folderContents['files'];
+        }
 
         return $folderContents;
     }
