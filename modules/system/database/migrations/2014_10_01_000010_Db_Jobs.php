@@ -7,7 +7,7 @@ class DbJobs extends Migration
 {
     public function up()
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create($this->getTableName(), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->string('queue');
@@ -22,6 +22,11 @@ class DbJobs extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists($this->getTableName());
+    }
+
+    protected function getTableName()
+    {
+        return Config::get('queue.connections.database.table', 'jobs');
     }
 }
