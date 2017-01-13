@@ -1360,6 +1360,7 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 .dropdown-menu .dropdown-container > ul li.first-item a:active:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-bottom:8px solid #3498db}
 .dropdown-menu .dropdown-container > ul li.dropdown-title{display:none}
 .dropdown-menu .dropdown-container > ul li.divider{margin:0}
+.dropdown-menu .dropdown-container > ul li.active > a{font-weight:bold}
 .dropdown-menu.pull-right .dropdown-container > ul:after{left:auto;right:15px}
 .dropdown-menu.pull-right .dropdown-container > ul:before{left:auto;right:14px}
 .dropdown-menu.pull-right .dropdown-container > ul li.first-item a:hover:after,.dropdown-menu.pull-right .dropdown-container > ul li.first-item a:focus:after{left:auto;right:15px}
