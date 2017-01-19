@@ -348,12 +348,15 @@ class Lists extends WidgetBase
                  * Related
                  */
                 if ($this->isColumnRelated($column)) {
-                    $table = $this->model->makeRelation($column->relation)->getTable();
-                    $columnName = isset($column->sqlSelect)
-                        ? DbDongle::raw($this->parseTableName($column->sqlSelect, $table))
-                        : $table . '.' . $column->valueFrom;
+                    $relationObject = $this->model->makeRelation($column->relation);
+                    if ($relationObject) {
+                        $table = $relationObject->getTable();
+                        $columnName = isset($column->sqlSelect)
+                            ? DbDongle::raw($this->parseTableName($column->sqlSelect, $table))
+                            : $table . '.' . $column->valueFrom;
 
-                    $relationSearchable[$column->relation][] = $columnName;
+                        $relationSearchable[$column->relation][] = $columnName;
+                    }
                 }
                 /*
                  * Primary
