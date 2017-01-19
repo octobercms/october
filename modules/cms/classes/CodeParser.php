@@ -150,13 +150,9 @@ class CodeParser
 
         $this->validate($fileContents);
 
-        $this->makeDirectoryForPath($path);
+        $this->makeDirectorySafe(dirname($path));
 
-        if (!@file_put_contents($path, $fileContents, LOCK_EX)) {
-            throw new SystemException(Lang::get('system::lang.file.create_fail', ['name'=>$path]));
-        }
-
-        File::chmod($path);
+        $this->writeContentSafe($path, $fileContents);
 
         return $className;
     }
@@ -313,12 +309,45 @@ class CodeParser
     }
 
     /**
-     * Make directory with concurrency support
+     * Writes content with concurrency support and cache busting
+     * This work is based on the Twig_Cache_Filesystem class
      */
-    protected function makeDirectoryForPath($path)
+    protected function writeContentSafe($path, $content)
     {
         $count = 0;
-        $dir = dirname($path);
+        $tmpFile = tempnam(dirname($path), basename($path));
+
+        if (@file_put_contents($tmpFile, $content) === false) {
+            throw new SystemException(Lang::get('system::lang.file.create_fail', ['name'=>$tmpFile]));
+        }
+
+        while (!@rename($tmpFile, $path)) {
+            usleep(rand(50000, 200000));
+
+            if ($count++ > 10) {
+                throw new SystemException(Lang::get('system::lang.file.create_fail', ['name'=>$path]));
+            }
+        }
+
+        File::chmod($path);
+
+        /*
+         * Compile cached file into bytecode cache
+         */
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($path, true);
+        }
+        elseif (function_exists('apc_compile_file')) {
+            apc_compile_file($path);
+        }
+    }
+
+    /**
+     * Make directory with concurrency support
+     */
+    protected function makeDirectorySafe($dir)
+    {
+        $count = 0;
 
         if (is_dir($dir)) {
             if (!is_writable($dir)) {
@@ -336,7 +365,6 @@ class CodeParser
             }
         }
 
-        File::chmodRecursive($path);
+        File::chmodRecursive($dir);
     }
-
 }

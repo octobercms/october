@@ -376,7 +376,7 @@ class CombineAssets
         }
 
         if (!File::isDirectory($this->storagePath)) {
-            File::makeDirectory($this->storagePath);
+            @File::makeDirectory($this->storagePath);
         }
 
         $cache = new FilesystemCache($this->storagePath);
