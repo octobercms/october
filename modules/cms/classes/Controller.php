@@ -978,15 +978,21 @@ class Controller
      */
     public function renderComponent($name, $parameters = [])
     {
+        $result = null;
+        $previousContext = $this->componentContext;
         if ($componentObj = $this->findComponentByName($name)) {
             $componentObj->id = uniqid($name);
             $componentObj->setProperties(array_merge($componentObj->getProperties(), $parameters));
-            if ($result = $componentObj->onRender()) {
-                return $result;
-            }
+            $this->componentContext = $componentObj;
+            $result = $componentObj->onRender();
         }
-
-        return $this->renderPartial($name.'::default', [], false);
+        
+        if (!$result) {
+            $result = $this->renderPartial($name.'::default', [], false);
+        }
+        
+        $this->componentContext = $previousContext;
+        return $result;
     }
 
     //
