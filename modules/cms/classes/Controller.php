@@ -971,7 +971,7 @@ class Controller
     }
 
     /**
-     * Renders a component's default content.
+     * Renders a component's default content, preserves the previous component context.
      * @param $name
      * @param array $parameters
      * @return string Returns the component default contents.
@@ -980,17 +980,18 @@ class Controller
     {
         $result = null;
         $previousContext = $this->componentContext;
+
         if ($componentObj = $this->findComponentByName($name)) {
             $componentObj->id = uniqid($name);
             $componentObj->setProperties(array_merge($componentObj->getProperties(), $parameters));
             $this->componentContext = $componentObj;
             $result = $componentObj->onRender();
         }
-        
+
         if (!$result) {
             $result = $this->renderPartial($name.'::default', [], false);
         }
-        
+
         $this->componentContext = $previousContext;
         return $result;
     }
