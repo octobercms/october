@@ -5,33 +5,6 @@ return [
         'name' => 'October CMS',
         'tagline' => 'Возвращение к истокам'
     ],
-    'locale' => [
-        'cs' => 'Czech',
-        'da' => 'Danish',
-        'en' => 'English',
-        'de' => 'German',
-        'el' => 'Greek',
-        'es' => 'Spanish',
-        'es-ar' => 'Spanish (Argentina)',
-        'fa' => 'Persian',
-        'fr' => 'French',
-        'hu' => 'Hungarian',
-        'id' => 'Bahasa Indonesia',
-        'it' => 'Italian',
-        'ja' => 'Japanese',
-        'lv' => 'Latvian',
-        'nb-no' => 'Norwegian (Bokmål)',
-        'nl' => 'Dutch',
-        'pl' => 'Polish',
-        'pt-br' => 'Portuguese (Brazil)',
-        'ro' => 'Romanian',
-        'ru' => 'Russian',
-        'sv' => 'Swedish',
-        'sk' => 'Slovak (Slovakia)',
-        'tr' => 'Turkish',
-        'zh-cn' => 'Chinese (China)',
-        'zh-tw' => 'Chinese (Taiwan)'
-    ],
     'directory' => [
         'create_fail' => 'Невозможно создать директорию: :name'
     ],

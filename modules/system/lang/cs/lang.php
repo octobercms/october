@@ -5,33 +5,6 @@ return [
         'name' => 'October CMS',
         'tagline' => 'Getting back to basics'
     ],
-    'locale' => [
-        'cs' => 'Čeština',
-        'da' => 'Danish',
-        'en' => 'Angličtina',
-        'de' => 'Němčina',
-        'el' => 'Řečtina',
-        'es' => 'Španělština',
-        'es-ar' => 'Španělština (Argentinská)',
-        'fa' => 'Perština',
-        'fr' => 'Francouzština',
-        'hu' => 'Maďarština',
-        'id' => 'Bahasa Indonesia',
-        'it' => 'Italština',
-        'ja' => 'Japonština',
-        'lv' => 'Litevština',
-        'nb-no' => 'Norwegian (Bokmål)',
-        'nl' => 'Holandština',
-        'pl' => 'Polština',
-        'pt-br' => 'Portugalština (Brazilská)',
-        'ro' => 'Rumunština',
-        'ru' => 'Ruština',
-        'sv' => 'Švédština',
-        'sk' => 'Slovenština',
-        'tr' => 'Turečtina',
-        'zh-cn' => 'Čínštína (Čína)',
-        'zh-tw' => 'Čínštína (Tchaj-wan)'
-    ],
     'directory' => [
         'create_fail' => 'Nelze vytvořit složku: :name'
     ],
