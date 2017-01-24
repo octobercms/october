@@ -240,12 +240,22 @@ class MediaManager extends WidgetBase
                 $filesToDelete[] = $pathInfo['path'];
             }
             else if ($pathInfo['type'] == 'folder') {
+
+                $this->fireSystemEvent('media.folder.beforeDelete', [$pathInfo['path']]);
+
                 $library->deleteFolder($pathInfo['path']);
+
+                $this->fireSystemEvent('media.folder.afterDelete', [$pathInfo['path']]);
             }
         }
 
         if (count($filesToDelete) > 0) {
+
+            $this->fireSystemEvent('media.files.beforeDelete', [$filesToDelete]);
+
             $library->deleteFiles($filesToDelete);
+
+            $this->fireSystemEvent('media.files.afterDelete', [$filesToDelete]);
         }
 
         $library->resetCache();
@@ -291,10 +301,20 @@ class MediaManager extends WidgetBase
         $type = Input::get('type');
 
         if ($type == MediaLibraryItem::TYPE_FILE) {
+
+            $this->fireSystemEvent('media.file.beforeRename', [$originalPath, $newPath]);
+
             MediaLibrary::instance()->moveFile($originalPath, $newPath);
+
+            $this->fireSystemEvent('media.file.afterRename', [$originalPath, $newPath]);
         }
         else {
+
+            $this->fireSystemEvent('media.folder.beforeRename', [$originalPath, $newPath]);
+
             MediaLibrary::instance()->moveFolder($originalPath, $newPath);
+
+            $this->fireSystemEvent('media.folder.afterRename', [$originalPath, $newPath]);
         }
 
         MediaLibrary::instance()->resetCache();
@@ -326,9 +346,13 @@ class MediaManager extends WidgetBase
             throw new ApplicationException(Lang::get('cms::lang.media.folder_or_file_exist'));
         }
 
+        $this->fireSystemEvent('media.folder.beforeCreate', [$newFolderPath]);
+
         if (!$library->makeFolder($newFolderPath)) {
             throw new ApplicationException(Lang::get('cms::lang.media.error_creating_folder'));
         }
+
+        $this->fireSystemEvent('media.folder.afterCreate', [$newFolderPath]);
 
         $library->resetCache();
 
@@ -394,11 +418,19 @@ class MediaManager extends WidgetBase
         $library = MediaLibrary::instance();
 
         foreach ($files as $path) {
+            $this->fireSystemEvent('media.file.beforeMove', [$path, $dest]);
+
             $library->moveFile($path, $dest.'/'.basename($path));
+
+            $this->fireSystemEvent('media.file.afterMove', [$path, $dest]);
         }
 
         foreach ($folders as $path) {
+            $this->fireSystemEvent('media.folder.beforeMove', [$path, $dest]);
+
             $library->moveFolder($path, $dest.'/'.basename($path));
+
+            $this->fireSystemEvent('media.folder.afterMove', [$path, $dest]);
         }
 
         $library->resetCache();
@@ -1010,10 +1042,14 @@ class MediaManager extends WidgetBase
             $path = MediaLibrary::validatePath($path);
             $filePath = $path.'/'.$fileName;
 
+            $this->fireSystemEvent('media.file.beforeUpload', [$filePath, $uploadedFile]);
+
             MediaLibrary::instance()->put(
                 $filePath,
                 File::get($uploadedFile->getRealPath())
             );
+
+            $this->fireSystemEvent('media.file.afterUpload', [$filePath, $uploadedFile]);
 
             Response::json([
                 'link' => MediaLibrary::url($filePath),
