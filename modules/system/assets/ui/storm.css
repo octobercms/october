@@ -2518,9 +2518,6 @@ body.slim-container .form-buttons{padding:0 20px 20px}
 .select2-container--default .select2-selection--single .select2-selection__arrow b{border:none}
 .select2-dropdown{z-index:10400}
 [data-control=toolbar] .form-control{display:inline-block;margin-right:15px}
-[data-control=toolbar] .form-control.width-50{width:50px}
-[data-control=toolbar] .form-control.width-100{width:100px}
-[data-control=toolbar] .form-control.width-150{width:150px}
 [data-control=toolbar] input[type=text].form-control,[data-control=toolbar] label{position:relative;top:5px}
 [data-control=toolbar] label{margin-right:7px}
 [data-control=toolbar] label.standalone{margin-right:15px}

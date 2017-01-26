@@ -39,17 +39,12 @@
 
 .flex-layout-item {
     margin: 0;
-    &.fix {.flex-fix();}
-    &.stretch {.flex-stretch();}
-    &.stretch-constrain {.flex-stretch-constrain();}
-    &.center {.align-self(center);}
+    &.fix { .flex-fix(); }
+    &.stretch { .flex-stretch(); }
+    &.stretch-constrain { .flex-stretch-constrain(); }
+    &.center { .align-self(center); }
 
-    &.relative {position: relative;}
+    &.relative { position: relative; }
 
-    &.layout-container {max-width: none;}
-
-    // @deprecated Remove if year >= 2017 (3 lines below)
-    &.width-100 {width: 100px;}
-    &.width-200 {width: 200px;}
-    &.width-300 {width: 300px;}
+    &.layout-container { max-width: none; }
 }
