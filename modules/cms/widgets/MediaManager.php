@@ -1,6 +1,6 @@
 <?php namespace Cms\Widgets;
 
-use URL;
+use Url;
 use Str;
 use Lang;
 use File;
@@ -150,7 +150,7 @@ class MediaManager extends WidgetBase
             throw new ApplicationException('Invalid input data');
         }
 
-        // If the thumbnail file exists - just return the thumbnail marup,
+        // If the thumbnail file exists, just return the thumbnail markup,
         // otherwise generate a new thumbnail.
         $thumbnailPath = $this->thumbnailExists($thumbnailParams, $path, $lastModified);
         if ($thumbnailPath) {
@@ -673,9 +673,9 @@ class MediaManager extends WidgetBase
         }
 
         return $this->putSession('media_crop_selection_params', [
-            'mode'=>$selectionMode,
-            'width'=>$selectionWidth,
-            'height'=>$selectionHeight
+            'mode'   => $selectionMode,
+            'width'  => $selectionWidth,
+            'height' => $selectionHeight
         ]);
     }
 
@@ -712,8 +712,9 @@ class MediaManager extends WidgetBase
             $folder = array_pop($path);
 
             $result[$folder] = implode('/', $path).'/'.$folder;
-            if (substr($result[$folder], 0, 1) != '/')
+            if (substr($result[$folder], 0, 1) != '/') {
                 $result[$folder] = '/'.$result[$folder];
+            }
         }
 
         return array_reverse($result);
@@ -757,11 +758,11 @@ class MediaManager extends WidgetBase
     {
         $itemSignature = md5($itemPath).$lastModified;
 
-        $thumbFile = 'thumb_' . 
-            $itemSignature . '_' . 
-            $thumbnailParams['width'] . 'x' . 
-            $thumbnailParams['height'] . '_' . 
-            $thumbnailParams['mode'] . '.' . 
+        $thumbFile = 'thumb_' .
+            $itemSignature . '_' .
+            $thumbnailParams['width'] . 'x' .
+            $thumbnailParams['height'] . '_' .
+            $thumbnailParams['mode'] . '.' .
             $thumbnailParams['ext'];
 
         $partition = implode('/', array_slice(str_split($itemSignature, 3), 0, 3)) . '/';
@@ -773,7 +774,7 @@ class MediaManager extends WidgetBase
 
     protected function getThumbnailImageUrl($imagePath)
     {
-        return URL::to('/storage/temp'.$imagePath);
+        return Url::to('/storage/temp'.$imagePath);
     }
 
     protected function thumbnailExists($thumbnailParams, $itemPath, $lastModified)
@@ -781,8 +782,10 @@ class MediaManager extends WidgetBase
         $thumbnailPath = $this->getThumbnailImagePath($thumbnailParams, $itemPath, $lastModified);
 
         $fullPath = temp_path(ltrim($thumbnailPath, '/'));
-        if (File::exists($fullPath))
+
+        if (File::exists($fullPath)) {
             return $thumbnailPath;
+        }
 
         return false;
     }
@@ -799,8 +802,9 @@ class MediaManager extends WidgetBase
 
         $path = temp_path() . '/media';
 
-        if (!File::isDirectory($path))
+        if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
+        }
 
         return $path.'/'.$fileName;
     }
