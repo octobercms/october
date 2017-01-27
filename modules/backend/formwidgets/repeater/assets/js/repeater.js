@@ -34,6 +34,11 @@
     Repeater.prototype.init = function() {
         // Init with no arguments
         this.bindSorting()
+
+        var self = this
+        this.$el.on('click', '.repeater-item-collapse-one', self.toggleCollapse)
+        this.$el.on('click', '.repeater-collapse-all', self.collapseAll)
+        this.$el.on('click', '.repeater-expand-all', self.expandAll)
     }
 
     Repeater.prototype.bindSorting = function() {
@@ -49,6 +54,46 @@
         this.$sortable.sortable('destroy')
         this.$el.removeData('oc.repeater')
     }
+
+    Repeater.prototype.toggleCollapse = function() {
+        var $item = $(this).closest('.field-repeater-item')
+
+        if ($item.hasClass('collapsed')) {
+            Repeater.prototype.expand($item)
+        } else {
+            Repeater.prototype.collapse($item)
+        }
+    }
+
+    Repeater.prototype.collapseAll = function() {
+        var items = $(this).closest('.field-repeater').find('.field-repeater-item')
+
+        $.each(items, function(key, item){
+            Repeater.prototype.collapse($(item))
+        })
+    }
+
+    Repeater.prototype.expandAll = function() {
+        var items = $(this).closest('.field-repeater').find('.field-repeater-item')
+
+        $.each(items, function(key, item){
+            Repeater.prototype.expand($(item))
+        })
+    }
+
+    Repeater.prototype.collapse = function($item) {
+        $item.addClass('collapsed')
+
+        var $textInput = $item.find('input[type=text]').first()
+        if($textInput.length) {
+            $item.find('.repeater-item-collapsed-title').text($textInput.val());
+        }
+    }
+
+    Repeater.prototype.expand = function($item) {
+        $item.removeClass('collapsed')
+    }
+
 
     // FIELD REPEATER PLUGIN DEFINITION
     // ============================
