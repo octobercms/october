@@ -4,6 +4,30 @@
 
     padding-top: 5px;
 
+    .field-repeater-buttons {
+        text-align: right;
+        margin-bottom: 10px;
+        margin-top: -15px;
+        font-size: 12px;
+
+        * {
+            text-align: left;
+        }
+
+        a {
+            color: #000000;
+            opacity: 0.5;
+            line-height: 20px;
+            margin:0 10px;
+            display: inline-block;
+        }
+        a:hover,
+        a:focus {
+            opacity: 0.7;
+            text-decoration: none;
+        }
+    }
+
     ul.field-repeater-items,
     li.field-repeater-item {
         padding: 0;
@@ -48,6 +72,9 @@
         margin-left: 5px;
         padding-left: 15px;
         border-left: 1px solid #dbdee0;
+        min-height: 30px;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
 
         &:before {
             color: #bdc3c7;
@@ -56,6 +83,55 @@
             position: absolute;
             left: -4px;
             top: -2px;
+        }
+
+        &.collapsed {
+            .field-repeater-form {
+                display:none;
+            }
+
+            .repeater-item-collapse {
+                .repeater-item-collapse-one {
+                    .transform(scale(1,-1));
+                }
+            }
+
+            .repeater-item-collapsed-title{
+                display: block;
+            }
+        }
+
+        .repeater-item-collapse {
+            position: absolute;
+            top: -10px;
+            right: 40px;
+            height: 20px;
+            z-index: 90;
+            font-size: 12px;
+
+            a,
+            button {
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+                color: #000000;
+                opacity: 0.5;
+                line-height: 20px;
+                margin:0 10px;
+                display: block;
+                float: left;
+
+                &:hover,
+                &:focus {
+                    opacity: 0.7;
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .repeater-item-collapsed-title{
+            display: none;
+            top: -7px;
+            position: absolute;
         }
 
         .field-repeater-form {
