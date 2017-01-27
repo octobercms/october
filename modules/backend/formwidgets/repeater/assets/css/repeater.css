@@ -1,6 +1,27 @@
 .field-repeater {
   padding-top: 5px;
 }
+.field-repeater .field-repeater-buttons {
+  text-align: right;
+  margin-bottom: 10px;
+  margin-top: -15px;
+  font-size: 12px;
+}
+.field-repeater .field-repeater-buttons * {
+  text-align: left;
+}
+.field-repeater .field-repeater-buttons .item {
+  color: #000000;
+  opacity: 0.5;
+  line-height: 20px;
+  margin: 0 10px;
+  display: inline-block;
+}
+.field-repeater .field-repeater-buttons .item:hover,
+.field-repeater .field-repeater-buttons .item:focus {
+  opacity: 0.7;
+  text-decoration: none;
+}
 .field-repeater ul.field-repeater-items,
 .field-repeater li.field-repeater-item {
   padding: 0;
@@ -45,6 +66,9 @@
   margin-left: 5px;
   padding-left: 15px;
   border-left: 1px solid #dbdee0;
+  min-height: 30px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 .field-repeater li.field-repeater-item:before {
   color: #bdc3c7;
@@ -59,6 +83,45 @@
   position: absolute;
   left: -4px;
   top: -2px;
+}
+.field-repeater li.field-repeater-item.collapsed .field-repeater-form {
+  display: none;
+}
+.field-repeater li.field-repeater-item.collapsed .repeater-item-collapse .repeater-item-collapse-one {
+  -webkit-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
+}
+.field-repeater li.field-repeater-item.collapsed .repeater-item-collapsed-title {
+  display: block;
+}
+.field-repeater li.field-repeater-item .repeater-item-collapse {
+  position: absolute;
+  top: -10px;
+  right: 40px;
+  height: 20px;
+  z-index: 90;
+  font-size: 12px;
+}
+.field-repeater li.field-repeater-item .repeater-item-collapse a {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  color: #000000;
+  opacity: 0.5;
+  line-height: 20px;
+  margin: 0 10px;
+  display: block;
+  float: left;
+}
+.field-repeater li.field-repeater-item .repeater-item-collapse a:hover,
+.field-repeater li.field-repeater-item .repeater-item-collapse a:focus {
+  opacity: 0.7;
+  text-decoration: none;
+}
+.field-repeater li.field-repeater-item .repeater-item-collapsed-title {
+  display: none;
+  top: -7px;
+  position: absolute;
 }
 .field-repeater li.field-repeater-item .field-repeater-form {
   position: relative;
