@@ -1243,10 +1243,10 @@ class RelationController extends ControllerBehavior
              * Save data to models
              */
             $foreignKeyName = $this->relationModel->getQualifiedKeyName();
-            $hyrdatedModels = $this->relationObject->whereIn($foreignKeyName, $foreignIds)->get();
+            $hydratedModels = $this->relationObject->whereIn($foreignKeyName, $foreignIds)->get();
             $saveData = $this->pivotWidget->getSaveData();
 
-            foreach ($hyrdatedModels as $hydratedModel) {
+            foreach ($hydratedModels as $hydratedModel) {
                 $modelsToSave = $this->prepareModelsToSave($hydratedModel, $saveData);
                 foreach ($modelsToSave as $modelToSave) {
                     $modelToSave->save(null, $this->pivotWidget->getSessionKey());
