@@ -3,16 +3,6 @@
      data-sortable-container="#<?= $this->getId('items') ?>"
      data-sortable-handle=".<?= $this->getId('items') ?>-handle">
 
-    <div class="field-repeater-buttons">
-        <a href="javascript:;" class="item repeater-collapse-all">
-            <?= e(trans('backend::lang.dashboard.collapse_all')) ?>
-        </a>
-
-        <a href="javascript:;" class="item repeater-expand-all">
-            <?= e(trans('backend::lang.dashboard.expand_all')) ?>
-        </a>
-    </div>
-
     <ul id="<?= $this->getId('items') ?>" class="field-repeater-items">
         <?php foreach ($this->formWidgets as $index => $widget): ?>
             <?= $this->makePartial('repeater_item', [

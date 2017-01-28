@@ -1,27 +1,6 @@
 .field-repeater {
   padding-top: 5px;
 }
-.field-repeater .field-repeater-buttons {
-  text-align: right;
-  margin-bottom: 10px;
-  margin-top: -15px;
-  font-size: 12px;
-}
-.field-repeater .field-repeater-buttons * {
-  text-align: left;
-}
-.field-repeater .field-repeater-buttons .item {
-  color: #000000;
-  opacity: 0.5;
-  line-height: 20px;
-  margin: 0 10px;
-  display: inline-block;
-}
-.field-repeater .field-repeater-buttons .item:hover,
-.field-repeater .field-repeater-buttons .item:focus {
-  opacity: 0.7;
-  text-decoration: none;
-}
 .field-repeater ul.field-repeater-items,
 .field-repeater li.field-repeater-item {
   padding: 0;
@@ -39,6 +18,9 @@
 }
 .field-repeater ul.field-repeater-items > li.dragged .repeater-item-remove {
   opacity: 0;
+}
+.field-repeater ul.field-repeater-items > li.dragged .repeater-item-collapsed-title {
+  top: 5px;
 }
 .field-repeater ul.field-repeater-items > li.placeholder {
   display: block;
@@ -67,8 +49,6 @@
   padding-left: 15px;
   border-left: 1px solid #dbdee0;
   min-height: 30px;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
 }
 .field-repeater li.field-repeater-item:before {
   color: #bdc3c7;
@@ -95,33 +75,11 @@
 .field-repeater li.field-repeater-item.collapsed .repeater-item-collapsed-title {
   display: block;
 }
-.field-repeater li.field-repeater-item .repeater-item-collapse {
-  position: absolute;
-  top: -10px;
-  right: 40px;
-  height: 20px;
-  z-index: 90;
-  font-size: 12px;
-}
-.field-repeater li.field-repeater-item .repeater-item-collapse a {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  color: #000000;
-  opacity: 0.5;
-  line-height: 20px;
-  margin: 0 10px;
-  display: block;
-  float: left;
-}
-.field-repeater li.field-repeater-item .repeater-item-collapse a:hover,
-.field-repeater li.field-repeater-item .repeater-item-collapse a:focus {
-  opacity: 0.7;
-  text-decoration: none;
-}
 .field-repeater li.field-repeater-item .repeater-item-collapsed-title {
   display: none;
-  top: -7px;
+  top: -5px;
   position: absolute;
+  font-size: 13px;
 }
 .field-repeater li.field-repeater-item .field-repeater-form {
   position: relative;
@@ -150,18 +108,43 @@
 .field-repeater li.field-repeater-item .repeater-item-handle:hover {
   color: #999;
 }
+.field-repeater li.field-repeater-item .repeater-item-collapse {
+  position: absolute;
+  top: -9px;
+  right: 22px;
+  z-index: 90;
+}
+.field-repeater li.field-repeater-item .repeater-item-collapse a,
+.field-repeater li.field-repeater-item .repeater-item-collapse button {
+  -webkit-transition: transform 0.3s;
+  transition: transform 0.3s;
+  color: #bdc3c7;
+  line-height: 20px;
+  display: block;
+  font-size: 12px;
+}
+.field-repeater li.field-repeater-item .repeater-item-collapse a:hover,
+.field-repeater li.field-repeater-item .repeater-item-collapse button:hover,
+.field-repeater li.field-repeater-item .repeater-item-collapse a:focus,
+.field-repeater li.field-repeater-item .repeater-item-collapse button:focus {
+  color: #999;
+  text-decoration: none;
+}
 .field-repeater li.field-repeater-item .repeater-item-remove {
   position: absolute;
   top: -10px;
   right: 0;
   z-index: 90;
 }
+.field-repeater li.field-repeater-item .repeater-item-collapse,
 .field-repeater li.field-repeater-item .repeater-item-handle,
 .field-repeater li.field-repeater-item .repeater-item-remove {
   width: 20px;
   height: 20px;
   text-align: center;
 }
+.field-repeater li.field-repeater-item:hover .repeater-item-collapse,
+.field-repeater li.field-repeater-item:active .repeater-item-collapse,
 .field-repeater li.field-repeater-item:hover .repeater-item-handle,
 .field-repeater li.field-repeater-item:active .repeater-item-handle,
 .field-repeater li.field-repeater-item:hover .repeater-item-remove,
