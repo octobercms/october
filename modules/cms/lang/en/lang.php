@@ -203,7 +203,7 @@ return [
         'invalid_path' => 'Path can contain only digits, Latin letters, spaces and the following symbols: ._-/',
         'error_deleting_file' => 'Error deleting file :name.',
         'error_deleting_dir_not_empty' => 'Error deleting directory :name. The directory is not empty.',
-        'error_deleting_dir' => 'Error deleting file :name.',
+        'error_deleting_dir' => 'Error deleting directory :name.',
         'invalid_name' => 'Name can contain only digits, Latin letters, spaces and the following symbols: ._-',
         'original_not_found' => 'Original file or directory not found',
         'already_exists' => 'File or directory with this name already exists',
