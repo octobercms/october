@@ -243,21 +243,11 @@ class MediaManager extends WidgetBase
 
             if ($type === MediaLibraryItem::TYPE_FILE) {
                 /*
-                 * Extensibility
-                 */
-                $this->fireSystemEvent('media.file.beforeDelete', [$path]);
-
-                /*
                  * Add to bulk collection
                  */
                 $filesToDelete[] = $path;
             }
             else if ($type === MediaLibraryItem::TYPE_FOLDER) {
-                /*
-                 * Extensibility
-                 */
-                $this->fireSystemEvent('media.folder.beforeDelete', [$path]);
-
                 /*
                  * Delete single folder
                  */
@@ -327,11 +317,6 @@ class MediaManager extends WidgetBase
 
         if ($type == MediaLibraryItem::TYPE_FILE) {
             /*
-             * Extensibility
-             */
-            $this->fireSystemEvent('media.file.beforeRename', [$originalPath, $newPath]);
-
-            /*
              * Move single file
              */
             MediaLibrary::instance()->moveFile($originalPath, $newPath);
@@ -342,11 +327,6 @@ class MediaManager extends WidgetBase
             $this->fireSystemEvent('media.file.rename', [$originalPath, $newPath]);
         }
         else {
-            /*
-             * Extensibility
-             */
-            $this->fireSystemEvent('media.folder.beforeRename', [$originalPath, $newPath]);
-
             /*
              * Move single folder
              */
@@ -386,11 +366,6 @@ class MediaManager extends WidgetBase
         if ($library->folderExists($newFolderPath)) {
             throw new ApplicationException(Lang::get('cms::lang.media.folder_or_file_exist'));
         }
-
-        /*
-         * Extensibility
-         */
-        $this->fireSystemEvent('media.folder.beforeCreate', [$newFolderPath]);
 
         /*
          * Create the new folder
@@ -469,11 +444,6 @@ class MediaManager extends WidgetBase
 
         foreach ($files as $path) {
             /*
-             * Extensibility
-             */
-            $this->fireSystemEvent('media.file.beforeMove', [$path, $dest]);
-
-            /*
              * Move a single file
              */
             $library->moveFile($path, $dest.'/'.basename($path));
@@ -485,11 +455,6 @@ class MediaManager extends WidgetBase
         }
 
         foreach ($folders as $path) {
-            /*
-             * Extensibility
-             */
-            $this->fireSystemEvent('media.folder.beforeMove', [$path, $dest]);
-
             /*
              * Move a single folder
              */
@@ -1133,11 +1098,6 @@ class MediaManager extends WidgetBase
             $path = $quickMode ? '/uploaded-files' : Input::get('path');
             $path = MediaLibrary::validatePath($path);
             $filePath = $path.'/'.$fileName;
-
-            /*
-             * Extensibility
-             */
-            $this->fireSystemEvent('media.file.beforeUpload', [$filePath, $uploadedFile]);
 
             MediaLibrary::instance()->put(
                 $filePath,
