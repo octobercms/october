@@ -45,6 +45,8 @@ return [
         'homepage_placeholder' => 'Adresse URL du site Web',
         'code_label' => 'Code',
         'code_placeholder' => 'Un nom de code unique pour la distribution de ce thème',
+        'preview_image_label' => 'Aperçu',
+        'preview_image_placeholder' => 'Chemin de l’aperçu.',
         'dir_name_label' => 'Nom du répertoire',
         'dir_name_create_label' => 'Le répertoire de destination du thème',
         'theme_label' => 'Thème',
@@ -94,7 +96,8 @@ return [
         'settings_menu' => 'Maintenance',
         'settings_menu_description' => 'Configurer la page de maintenance et ajuster ses options.',
         'is_enabled' => 'Activer la maintenance',
-        'is_enabled_comment' => 'Si activé, la page choisie ci-dessous sera affichée pour les visiteurs du site Web.'
+        'is_enabled_comment' => 'Si activé, la page choisie ci-dessous sera affichée pour les visiteurs du site Web.',
+        'hint' => 'Le mode maintenance affichera la page de maintenance pour les visiteurs qui ne sont pas authentifiés dans l’interface d’administration.'
     ],
     'page' => [
         'not_found_name' => 'La page ":name" est introuvable',
@@ -113,7 +116,11 @@ return [
         'invalid_url' => 'Format d’adresse URL invalide. L’adresse URL doit commencer par un / et peut contenir des chiffres, des lettres et les symboles suivants : ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Confirmer la suppression des pages sélectionnées ?',
         'delete_confirm_single' => 'Confirmer la suppression de cette page ?',
-        'no_layout' => '-- aucune  maquette --'
+        'no_layout' => '-- aucune  maquette --',
+        'cms_page' => 'Page CMS',
+        'title' => 'Titre de la page',
+        'url' => 'URL de la page',
+        'file_name' => 'Nom du fichier de la page'
     ],
     'layout' => [
         'not_found_name' => 'La maquette ":name" est introuvable',
@@ -218,6 +225,8 @@ return [
         'error_moving_file' => 'Erreur lors du déplacement du fichier :file',
         'error_moving_directory' => 'Erreur lors du déplacement du répertoire :dir',
         'error_deleting_directory' => 'Erreur lors de la suppression du répertoire d’origine :dir',
+        'no_list_records' => 'Aucun fichier trouvé',
+        'delete_confirm' => 'Supprimer les fichiers ou répertoires sélectionnés ?',
         'path' => 'Chemin'
     ],
     'component' => [
@@ -235,7 +244,10 @@ return [
     'template' => [
         'invalid_type' => 'Type de modèle inconnu.',
         'not_found' => 'Le modèle est introuvable.',
-        'saved'=> 'Le modèle a été sauvegardé avec succès.'
+        'saved'=> 'Le modèle a été sauvegardé avec succès.',
+        'no_list_records' => 'Aucun enregistrement trouvé',
+        'delete_confirm' => 'Supprimer les modèles sélectionnés ?',
+        'order_by' =>'Trier par'
     ],
     'permissions' => [
         'name' => 'CMS',
@@ -248,6 +260,7 @@ return [
         'manage_media' => 'Déposer et gérer les contenus media - images, vidéos, sons, documents'
     ],
     'mediafinder' => [
+        'label' => 'Galerie média',
         'default_prompt' => 'Cliquez sur le bouton %s pour trouver un élément média'
     ],
     'media' => [
