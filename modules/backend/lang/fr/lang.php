@@ -6,6 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Type de champ invalide :type.',
+        'options_method_invalid_model' => "L’attribut ':field' ne correspond à aucun modèle valide. Essayez de spécifier explicitement la méthode d’options pour la classe du modèle ':model'.",
         'options_method_not_exists' => 'La classe du modèle :model doit définir une méthode :method() renvoyant des options pour le champ ":field" du formulaire.',
     ],
     'widget' => [
@@ -18,6 +19,11 @@ return [
             'label' => 'Accès refusé',
             'help' => 'Vous n’êtes pas autorisé à consulter cette page.',
             'cms_link' => 'Retour à l’interface d’administration'
+        ],
+        'no_database' => [
+            'label' => 'Base de données introuvable',
+            'help' => 'Une base de données est requise pour l’accès à l’interface d’administration. Veuillez vérifier que la base de données existe et que les migrations ont été effectuées avant de ré-essayer.',
+            'cms_link' => 'Retour à l’accueil'
         ],
         'invalid_token' => [
             'label' => 'La clé de sécurité est invalide'
@@ -72,6 +78,8 @@ return [
         'make_default' => 'Par défaut',
         'make_default_confirm' => 'Définir la maquette actuelle comme celle par défaut ?',
         'make_default_success' => 'La maquette actuelle est définie comme celle par défaut',
+        'collapse_all' => 'Réduire tout',
+        'expand_all' => 'Développer tout',
         'status' => [
             'widget_title_default' => 'État du système',
             'update_available' => '{0} mise à jour disponible !|{1} mise à jour disponible !|[2,Inf] mises à jour disponibles !',
@@ -115,7 +123,7 @@ return [
         'permissions' => 'Permissions',
         'account' => 'Compte',
         'superuser' => 'Super utilisateur',
-        'superuser_comment' => 'Donner à ce compte un niveau d’accès illimité à toutes les sections du système. Les super-utilisateurs peuvent ajouter et gérer les autres utilisateurs.',
+        'superuser_comment' => 'Donner à ce compte un niveau d’accès illimité à toutes les sections du système. Les super-utilisateurs peuvent ajouter et gérer les autres utilisateurs. ',
         'send_invite' => 'Envoyer une invitation par e-mail',
         'send_invite_comment' => 'Envoyer une invitation aux utilisateurs par e-mail contenant l’identifiant et le mot de passe.',
         'delete_confirm' => 'Supprimer cet administrateur ?',
@@ -159,6 +167,8 @@ return [
         'behavior_not_ready' => 'La liste utilisée n’a pas été initialisée, vérifier que la méthode d’appel de makeLists() a été soumise au contrôleur.',
         'invalid_column_datetime' => 'La valeur de la colonne ":column" n’est pas un objet DateTime, manque-t-il une référence dans la propriété \$dates du modèle ?',
         'pagination' => 'Enregistrements affichés : :from-:to sur :total',
+        'first_page' => 'Première page',
+        'last_page' => 'Dernière page',
         'prev_page' => 'Page précédente',
         'next_page' => 'Page suivante',
         'refresh' => 'Actualiser',
@@ -246,6 +256,10 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Trouver un enregistrement'
+    ],
+    'pagelist' => [
+        'page_link' => 'Lien de page',
+        'select_page' => 'Sélectionnez une page...'
     ],
     'relation' => [
         'missing_config' => 'La behavior relation n’a pas de configuration pour ":config".',
