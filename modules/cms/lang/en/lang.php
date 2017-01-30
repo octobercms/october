@@ -247,7 +247,7 @@ return [
         'saved' => 'Template saved.',
         'no_list_records' => 'No records found',
         'delete_confirm' => 'Delete selected templates?',
-        'order_by' =>'Order by'
+        'order_by' => 'Order by'
     ],
     'permissions' => [
         'name' => 'CMS',
