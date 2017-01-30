@@ -65,8 +65,8 @@ $.FE.LANGUAGE['hu'] = {
     "Unordered List": "Felsorol\u00e1s",
 
     // Indent
-    "Decrease Indent": "Beh\u00faz\u00e1s cs\u00f6kkent\u00e9se",
-    "Increase Indent": "Beh\u00faz\u00e1s n\u00f6vel\u00e9se",
+    "Decrease Indent": "Beh\u00faz\u00e1s n\u00f6vel\u00e9se",
+    "Increase Indent": "Beh\u00faz\u00e1s cs\u00f6kkent\u00e9se",
 
     // Links
     "Insert Link": "Hivatkoz\u00e1s beilleszt\u00e9se",
