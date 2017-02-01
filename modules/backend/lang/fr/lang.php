@@ -174,7 +174,7 @@ return [
         'refresh' => 'Actualiser',
         'updating' => 'Mise à jour…',
         'loading' => 'Chargement…',
-        'setup_title' => 'Installation de la liste',
+        'setup_title' => 'Configuration de la liste',
         'setup_help' => 'Cocher les colonnes qui doivent être affichées dans la liste. Il est possible de modifier l’ordre des colonnes en les glissant vers le haut ou le bas.',
         'records_per_page' => 'Nombre d’enregistrements par page',
         'records_per_page_help' => 'Choisir le nombre d’enregistrements à afficher. Note : un nombre d’enregistrements trop élevé sur une seule page peut réduire les performances.',
