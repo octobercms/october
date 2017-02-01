@@ -20,7 +20,7 @@ if (window.jQuery === undefined)
         if (handler == undefined)
             throw new Error('The request handler name is not specified.')
 
-        if (!handler.match(/^(?:\w+\:{2})?on*/))
+        if (!handler.match(/^(?:\w+(?:\[\w+\])*\:{2})?on*/))
             throw new Error('Invalid handler name. The correct handler name format is: "onEvent".')
 
         /*
