@@ -1061,7 +1061,7 @@ class RelationController extends ControllerBehavior
             $this->viewModel->save(null, $this->manageWidget->getSessionKey());
         }
 
-        return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
+        return $this->relationRefresh();
     }
 
     /**
