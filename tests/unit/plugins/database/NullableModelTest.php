@@ -31,9 +31,28 @@ class NullableModelTest extends PluginTestCase
         $post = NullablePost::create(['author_nickname' => 'Joe']);
         $this->assertEquals('Joe', $post->author_nickname);
 
-        // Save as "not equal" operator
+        // Save as zero integer
         $post->author_nickname = 0;
         $post->save();
+        $this->assertNotNull($post->author_nickname);
         $this->assertEquals(0, $post->author_nickname);
+
+        // Save as zero float
+        $post->author_nickname = 0.0;
+        $post->save();
+        $this->assertNotNull($post->author_nickname);
+        $this->assertEquals(0.0, $post->author_nickname);
+
+        // Save as zero string
+        $post->author_nickname = '0';
+        $post->save();
+        $this->assertNotNull($post->author_nickname);
+        $this->assertEquals('0', $post->author_nickname);
+
+        // Save as false
+        $post->author_nickname = false;
+        $post->save();
+        $this->assertNotNull($post->author_nickname);
+        $this->assertEquals(false, $post->author_nickname);
     }
 }
