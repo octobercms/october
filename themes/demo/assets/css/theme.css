@@ -428,10 +428,6 @@
   left: 50%;
   transition: all 0.2s ease 0.05s;
 }
-.navbar-collapse:not(.in):not(.collapsing) .navbar-nav li.active > a:after,
-.navbar-collapse:not(.in):not(.collapsing) .navbar-nav li > a:hover:after {
-  background: #000000;
-}
 .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li.active > a:after {
   width: 100% !important;
   left: 0 !important;
@@ -440,11 +436,28 @@
   width: 100%;
   left: 0;
 }
-.navbar-collapse:not(.in):not(.collapsing) .navbar-nav li.active > a:hover:after {
+.navbar-collapse:not(.in):not(.collapsing) .navbar-nav li.active > a {
+  background: transparent;
+}
+.navbar-inverse .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li.active > a:after,
+.navbar-inverse .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li > a:hover:after {
   background: #000000;
 }
-.navbar-collapse:not(.in):not(.collapsing) .navbar-nav li > a:hover:after {
+.navbar-inverse .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li.active > a:hover:after {
+  background: #000000;
+}
+.navbar-inverse .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li > a:hover:after {
   background: #e67e22;
+}
+.navbar-default .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li.active > a:after,
+.navbar-default .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li > a:hover:after {
+  background: #64ae5b;
+}
+.navbar-default .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li.active > a:hover:after {
+  background: #64ae5b;
+}
+.navbar-default .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li > a:hover:after {
+  background: #93dc8a;
 }
 body {
   padding-top: 70px;

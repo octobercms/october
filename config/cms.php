@@ -186,12 +186,12 @@ return [
     |
     | If deep hashing is enabled, the combiner cache will be reset when a change
     | is detected on imported files, in addition to those referenced directly.
-    | This will cause slower page performance. If set to null, assets are
-    | minified, when debug mode (app.debug) is disabled.
+    | This will cause slower page performance. If set to null, deep hashing
+    | is used when debug mode (app.debug) is enabled.
     |
     */
 
-    'enableAssetDeepHashing' => false,
+    'enableAssetDeepHashing' => null,
 
     /*
     |--------------------------------------------------------------------------

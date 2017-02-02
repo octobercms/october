@@ -27,7 +27,6 @@
 }
 
 .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li {
-
     > a {
         transition: color 0.2s ease 0.05s;
     }
@@ -44,11 +43,6 @@
         transition: all 0.2s ease 0.05s;
     }
 
-    &.active > a:after,
-    > a:hover:after {
-        background: @navbar-link-stripe-color-active;
-    }
-
     &.active > a:after {
         width: 100% !important;
         left: 0 !important;
@@ -59,11 +53,37 @@
         left: 0;
     }
 
+    &.active > a {
+        background: transparent;
+    }
+}
+
+.navbar-inverse .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li {
+    &.active > a:after,
+    > a:hover:after {
+        background: @navbar-inverse-stripe-color-active;
+    }
+
     &.active > a:hover:after {
-        background: @navbar-link-stripe-color-active;
+        background: @navbar-inverse-stripe-color-active;
     }
 
     > a:hover:after {
-        background: @navbar-link-stripe-color-hover;
+        background: @navbar-inverse-stripe-color-hover;
+    }
+}
+
+.navbar-default .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li {
+    &.active > a:after,
+    > a:hover:after {
+        background: @navbar-default-stripe-color-active;
+    }
+
+    &.active > a:hover:after {
+        background: @navbar-default-stripe-color-active;
+    }
+
+    > a:hover:after {
+        background: @navbar-default-stripe-color-hover;
     }
 }
