@@ -2,6 +2,8 @@
 
 use Str;
 use Backend\Classes\FormField;
+use October\Rain\Halcyon\Model as HalcyonModel;
+use October\Rain\Database\Model as DatabaseModel;
 
 /**
  * Form Model Saver Trait
@@ -47,6 +49,11 @@ trait FormModelSaver
         $this->modelsToSave[] = $model;
 
         if (!is_array($saveData)) {
+            return;
+        }
+
+        if ($model instanceof HalcyonModel) {
+            $model->fill($saveData);
             return;
         }
 
