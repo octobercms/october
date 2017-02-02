@@ -19,7 +19,7 @@
                 name="<?= $field->getName() ?>"
                 value="<?= $value ?>"
                 type="radio"
-                <?= $field->value == $value ? 'checked="checked"' : '' ?>
+                <?= $field->isSelected($value) ? 'checked="checked"' : '' ?>
                 <?= $this->previewMode ? 'disabled="disabled"' : '' ?>
                 <?= $field->getAttributes() ?>>
 
