@@ -58,8 +58,16 @@ if (window.jQuery === undefined)
             $form = $el.closest('form'),
             $triggerEl = !!$form.length ? $form : $el,
             context = { handler: handler, options: options },
-            loading = options.loading !== undefined && options.loading.length ? $(options.loading) : null,
             isRedirect = options.redirect !== undefined && options.redirect.length
+        
+        var loading = null
+        if (options.loading !== undefined) {
+            if ($.type(options.loading) === 'string') {
+                loading = $(options.loading)
+            } else if ($.type(options.loading) === 'object') {
+                loading = options.loading
+            }
+        }
 
         var _event = jQuery.Event('oc.beforeRequest')
         $triggerEl.trigger(_event, context)
