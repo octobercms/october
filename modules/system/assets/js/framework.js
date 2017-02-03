@@ -58,16 +58,8 @@ if (window.jQuery === undefined)
             $form = $el.closest('form'),
             $triggerEl = !!$form.length ? $form : $el,
             context = { handler: handler, options: options },
+            loading = options.loading !== undefined ? options.loading : null,
             isRedirect = options.redirect !== undefined && options.redirect.length
-        
-        var loading = null
-        if (options.loading !== undefined) {
-            if ($.type(options.loading) === 'string') {
-                loading = $(options.loading)
-            } else if ($.type(options.loading) === 'object') {
-                loading = options.loading
-            }
-        }
 
         var _event = jQuery.Event('oc.beforeRequest')
         $triggerEl.trigger(_event, context)
@@ -95,6 +87,10 @@ if (window.jQuery === undefined)
 
         if (options.flash !== undefined) {
             requestHeaders['X-OCTOBER-REQUEST-FLASH'] = 1
+        }
+
+        if ($.type(loading) == 'string') {
+            loading = $(loading)
         }
 
         var requestOptions = {
@@ -208,11 +204,13 @@ if (window.jQuery === undefined)
                          * it's selector and use that. If not, we assume it is an explicit selector reference.
                          */
                         var selector = (options.update[partial]) ? options.update[partial] : partial
-                        if (jQuery.type(selector) == 'string' && selector.charAt(0) == '@') {
+                        if ($.type(selector) == 'string' && selector.charAt(0) == '@') {
                             $(selector.substring(1)).append(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
-                        } else if (jQuery.type(selector) == 'string' && selector.charAt(0) == '^') {
+                        }
+                        else if ($.type(selector) == 'string' && selector.charAt(0) == '^') {
                             $(selector.substring(1)).prepend(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
-                        } else {
+                        }
+                        else {
                             $(selector).trigger('ajaxBeforeReplace')
                             $(selector).html(data[partial]).trigger('ajaxUpdate', [context, data, textStatus, jqXHR])
                         }
