@@ -275,7 +275,7 @@ if (window.jQuery === undefined)
         context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
 
-        requestOptions.data = data.join('&')
+        requestOptions.data = data.filter(function (value) { return value.trim().length > 0 }).join('&')
 
         if (loading) loading.show()
 

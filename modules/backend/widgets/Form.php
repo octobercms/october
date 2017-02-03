@@ -988,7 +988,7 @@ class Form extends WidgetBase
             if (($value = $this->dataArrayGet($data, $parts)) !== null) {
 
                 /*
-                 * Number fields should be converted to integers
+                 * Number fields should be converted to floats
                  */
                 if ($field->type === 'number') {
                     $value = !strlen(trim($value)) ? null : (float) $value;
