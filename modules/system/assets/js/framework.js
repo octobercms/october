@@ -17,11 +17,13 @@ if (window.jQuery === undefined)
         /*
          * Validate handler name
          */
-        if (handler == undefined)
+        if (handler == undefined) {
             throw new Error('The request handler name is not specified.')
+        }
 
-        if (!handler.match(/^(?:\w+\:{2})?on*/))
+        if (!handler.match(/^(?:\w+\:{2})?on*/)) {
             throw new Error('Invalid handler name. The correct handler name format is: "onEvent".')
+        }
 
         /*
          * Prepare the options and execute the request
@@ -50,8 +52,13 @@ if (window.jQuery === undefined)
                 options.data[inputName] = $el.val()
         }
 
-        if (options.data !== undefined && !$.isEmptyObject(options.data))
+        if (options.data !== undefined && !$.isEmptyObject(options.data)) {
             data.push($.param(options.data))
+        }
+
+        if ($.type(loading) == 'string') {
+            loading = $(loading)
+        }
 
         var requestHeaders = {
             'X-OCTOBER-REQUEST-HANDLER': handler,
@@ -60,10 +67,6 @@ if (window.jQuery === undefined)
 
         if (useFlash) {
             requestHeaders['X-OCTOBER-REQUEST-FLASH'] = 1
-        }
-
-        if ($.type(loading) == 'string') {
-            loading = $(loading)
         }
 
         var requestOptions = {
@@ -158,16 +161,6 @@ if (window.jQuery === undefined)
             },
 
             /*
-             * Custom function, display an error message to the user
-             */
-            handleErrorMessage: function(message) {
-                var _event = jQuery.Event('ajaxErrorMessage')
-                $(window).trigger(_event, [message])
-                if (_event.isDefaultPrevented()) return
-                if (message) alert(message)
-            },
-
-            /*
              * Custom function, requests confirmation from the user
              */
             handleConfirmMessage: function(message) {
@@ -184,6 +177,38 @@ if (window.jQuery === undefined)
 
                 if (_event.isDefaultPrevented()) return
                 if (message) return confirm(message)
+            },
+
+            /*
+             * Custom function, display an error message to the user
+             */
+            handleErrorMessage: function(message) {
+                var _event = jQuery.Event('ajaxErrorMessage')
+                $(window).trigger(_event, [message])
+                if (_event.isDefaultPrevented()) return
+                if (message) alert(message)
+            },
+
+            /*
+             * Custom function, focus fields with errors
+             */
+            handleValidationMessage: function(message, fields) {
+                $triggerEl.trigger('ajaxValidation', [context, message, fields])
+
+                var isFirstInvalidField = true
+                $.each(fields, function focusErrorField(fieldName, fieldMessages) {
+                    var fieldElement = $form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
+                    if (fieldElement.length > 0) {
+
+                        var _event = jQuery.Event('ajaxInvalidField')
+                        $(window).trigger(_event, [fieldElement.get(0), fieldName, fieldMessages, isFirstInvalidField])
+
+                        if (isFirstInvalidField) {
+                            if (!_event.isDefaultPrevented()) fieldElement.focus()
+                            isFirstInvalidField = false
+                        }
+                    }
+                })
             },
 
             /*
@@ -249,25 +274,10 @@ if (window.jQuery === undefined)
                 }
 
                 /*
-                 * Focus fields with errors
+                 * Handle validation
                  */
                 if (data['X_OCTOBER_ERROR_FIELDS']) {
-                    $triggerEl.trigger('ajaxValidation', [context, data['X_OCTOBER_ERROR_MESSAGE'], data['X_OCTOBER_ERROR_FIELDS']])
-
-                    var isFirstInvalidField = true
-                    $.each(data['X_OCTOBER_ERROR_FIELDS'], function focusErrorField(fieldName, fieldMessages) {
-                        var fieldElement = $form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
-                        if (fieldElement.length > 0) {
-
-                            var _event = jQuery.Event('ajaxInvalidField')
-                            $(window).trigger(_event, [fieldElement.get(0), fieldName, fieldMessages, isFirstInvalidField])
-
-                            if (isFirstInvalidField) {
-                                if (!_event.isDefaultPrevented()) fieldElement.focus()
-                                isFirstInvalidField = false
-                            }
-                        }
-                    })
+                    requestOptions.handleValidationMessage(data['X_OCTOBER_ERROR_MESSAGE'], data['X_OCTOBER_ERROR_FIELDS'])
                 }
 
                 /*
