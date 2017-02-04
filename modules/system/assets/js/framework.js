@@ -2,11 +2,15 @@
  * OctoberCMS: front-end JavaScript framework
  * http://octobercms.com
  * ========================================================================
- * Copyright 2016 Alexey Bobkov, Samuel Georges
+ * Copyright 2017 Alexey Bobkov, Samuel Georges
  * ======================================================================== */
 
-if (window.jQuery === undefined)
+if (window.jQuery === undefined) {
     throw new Error('The jQuery library is not loaded. The OctoberCMS framework cannot be initialized.');
+}
+if (window.jQuery.request !== undefined) {
+    throw new Error('The OctoberCMS framework is already loaded.');
+}
 
 +function ($) { "use strict";
 
@@ -17,7 +21,7 @@ if (window.jQuery === undefined)
         /*
          * Validate handler name
          */
-        if (handler == undefined) {
+        if (handler === undefined) {
             throw new Error('The request handler name is not specified.')
         }
 
