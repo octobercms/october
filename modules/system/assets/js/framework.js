@@ -13,10 +13,10 @@ if (window.jQuery === undefined)
     var Request = function (element, handler, options) {
         var $el = this.$el = $(element);
         this.options = options || {};
+
         /*
          * Validate handler name
          */
-
         if (handler == undefined)
             throw new Error('The request handler name is not specified.')
 
@@ -24,49 +24,21 @@ if (window.jQuery === undefined)
             throw new Error('Invalid handler name. The correct handler name format is: "onEvent".')
 
         /*
-         * Custom function, requests confirmation from the user
-         */
-
-        function handleConfirmMessage(message) {
-            var _event = jQuery.Event('ajaxConfirmMessage')
-
-            _event.promise = $.Deferred()
-            if ($(window).triggerHandler(_event, [message]) !== undefined) {
-                _event.promise.done(function() {
-                    options.confirm = null
-                    new Request(element, handler, options)
-                })
-                return false
-            }
-
-            if (_event.isDefaultPrevented()) return
-            if (message) return confirm(message)
-        }
-
-        /*
-         * Initiate request
-         */
-
-        if (options.confirm && !handleConfirmMessage(options.confirm))
-            return
-
-        /*
          * Prepare the options and execute the request
          */
-
-        var
-            $form = $el.closest('form'),
+        var $form = $el.closest('form'),
             $triggerEl = !!$form.length ? $form : $el,
-            context = { handler: handler, options: options },
-            loading = options.loading !== undefined ? options.loading : null,
-            isRedirect = options.redirect !== undefined && options.redirect.length,
-            useFlash = options.flash !== undefined
+            context = { handler: handler, options: options }
 
+        $el.trigger('ajaxSetup', [context])
         var _event = jQuery.Event('oc.beforeRequest')
         $triggerEl.trigger(_event, context)
         if (_event.isDefaultPrevented()) return
 
-        var data = [$form.serialize()]
+        var data = [$form.serialize()],
+            loading = options.loading !== undefined ? options.loading : null,
+            isRedirect = options.redirect !== undefined && options.redirect.length,
+            useFlash = options.flash !== undefined
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
             data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
@@ -196,6 +168,25 @@ if (window.jQuery === undefined)
             },
 
             /*
+             * Custom function, requests confirmation from the user
+             */
+            handleConfirmMessage: function(message) {
+                var _event = jQuery.Event('ajaxConfirmMessage')
+
+                _event.promise = $.Deferred()
+                if ($(window).triggerHandler(_event, [message]) !== undefined) {
+                    _event.promise.done(function() {
+                        options.confirm = null
+                        new Request(element, handler, options)
+                    })
+                    return false
+                }
+
+                if (_event.isDefaultPrevented()) return
+                if (message) return confirm(message)
+            },
+
+            /*
              * Custom function, display a flash message to the user
              */
             handleFlashMessage: function(message, type) {},
@@ -294,6 +285,13 @@ if (window.jQuery === undefined)
         }
 
         /*
+         * Initiate request
+         */
+        if (options.confirm && !requestOptions.handleConfirmMessage(options.confirm)) {
+            return
+        }
+
+        /*
          * Allow default business logic to be called from user functions
          */
         context.success = requestOptions.success
@@ -303,8 +301,8 @@ if (window.jQuery === undefined)
         requestOptions.data = data.join('&')
 
         if (loading) loading.show()
-        $(window).trigger('ajaxBeforeSend', [context, requestOptions])
-        $el.trigger('ajaxPromise', [context, requestOptions])
+        $(window).trigger('ajaxBeforeSend', [context])
+        $el.trigger('ajaxPromise', [context])
 
         return $.ajax(requestOptions)
             .fail(function(jqXHR, textStatus, errorThrown) {

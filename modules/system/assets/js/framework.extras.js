@@ -19,12 +19,12 @@
     // FLASH HANDLING
     // ============================
 
-    $(document).on('ajaxPromise', '[data-request][data-request-flash]', function(event, context, options) {
-        options.handleErrorMessage = function(message) {
+    $(document).on('ajaxSetup', '[data-request][data-request-flash]', function(event, context) {
+        context.options.handleErrorMessage = function(message) {
             $.oc.flashMsg({ text: message, class: 'error' })
         }
 
-        options.handleFlashMessage = function(message, type) {
+        context.options.handleFlashMessage = function(message, type) {
             $.oc.flashMsg({ text: message, class: type })
         }
     })
