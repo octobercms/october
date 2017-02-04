@@ -198,7 +198,14 @@ if (window.jQuery === undefined)
             /*
              * Custom function, display a flash message to the user
              */
-            handleFlashMessage: function(message) {},
+            handleFlashMessage: function(message, type) {},
+
+            /*
+             * Custom function, redirect the browser to another location
+             */
+            handleRedirectResponse: function(url) {
+                window.location.href = url
+            },
 
             /*
              * Custom function, handle any application specific response values
@@ -246,8 +253,9 @@ if (window.jQuery === undefined)
                     isRedirect = true
                 }
 
-                if (isRedirect)
-                    window.location.href = options.redirect
+                if (isRedirect) {
+                    requestOptions.handleRedirectResponse(options.redirect)
+                }
 
                 /*
                  * Focus fields with errors
