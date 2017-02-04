@@ -295,13 +295,6 @@ if (window.jQuery === undefined)
         }
 
         /*
-         * Initiate request
-         */
-        if (options.confirm && !requestOptions.handleConfirmMessage(options.confirm)) {
-            return
-        }
-
-        /*
          * Allow default business logic to be called from user functions
          */
         context.success = requestOptions.success
@@ -309,6 +302,13 @@ if (window.jQuery === undefined)
         context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
         requestOptions.data = data.join('&')
+
+        /*
+         * Initiate request
+         */
+        if (options.confirm && !requestOptions.handleConfirmMessage(options.confirm)) {
+            return
+        }
 
         if (loading) loading.show()
         $(window).trigger('ajaxBeforeSend', [context])
