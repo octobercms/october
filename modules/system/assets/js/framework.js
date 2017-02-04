@@ -59,7 +59,8 @@ if (window.jQuery === undefined)
             $triggerEl = !!$form.length ? $form : $el,
             context = { handler: handler, options: options },
             loading = options.loading !== undefined ? options.loading : null,
-            isRedirect = options.redirect !== undefined && options.redirect.length
+            isRedirect = options.redirect !== undefined && options.redirect.length,
+            useFlash = options.flash !== undefined
 
         var _event = jQuery.Event('oc.beforeRequest')
         $triggerEl.trigger(_event, context)
@@ -85,7 +86,7 @@ if (window.jQuery === undefined)
             'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update)
         }
 
-        if (options.flash !== undefined) {
+        if (useFlash) {
             requestHeaders['X-OCTOBER-REQUEST-FLASH'] = 1
         }
 
@@ -110,6 +111,12 @@ if (window.jQuery === undefined)
                 var _event = jQuery.Event('ajaxBeforeUpdate')
                 $triggerEl.trigger(_event, [context, data, textStatus, jqXHR])
                 if (_event.isDefaultPrevented()) return
+
+                if (useFlash && data['X_OCTOBER_FLASH_MESSAGES']) {
+                    $.each(data['X_OCTOBER_FLASH_MESSAGES'], function(type, message) {
+                        requestOptions.handleFlashMessage(message, type)
+                    })
+                }
 
                 /*
                  * Proceed with the update process
@@ -187,6 +194,11 @@ if (window.jQuery === undefined)
                 if (_event.isDefaultPrevented()) return
                 if (message) alert(message)
             },
+
+            /*
+             * Custom function, display a flash message to the user
+             */
+            handleFlashMessage: function(message) {},
 
             /*
              * Custom function, handle any application specific response values
@@ -280,13 +292,12 @@ if (window.jQuery === undefined)
         context.error = requestOptions.error
         context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
-
         requestOptions.data = data.join('&')
 
         if (loading) loading.show()
+        $(window).trigger('ajaxBeforeSend', [context, requestOptions])
+        $el.trigger('ajaxPromise', [context, requestOptions])
 
-        $(window).trigger('ajaxBeforeSend', [context])
-        $el.trigger('ajaxPromise', [context])
         return $.ajax(requestOptions)
             .fail(function(jqXHR, textStatus, errorThrown) {
                 if (!isRedirect) {
