@@ -122,6 +122,4 @@ class ThemeManager
             $this->setUninstalled($themeCode);
         }
     }
-
-
 }
