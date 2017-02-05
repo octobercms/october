@@ -402,6 +402,7 @@
         'quote',
         'bold',
         'italic',
+        'color',
         'align',
         'formatOL',
         'formatUL',
