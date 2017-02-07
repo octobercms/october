@@ -188,25 +188,7 @@ class NavigationManager
             $this->items = [];
         }
 
-        foreach ($definitions as $code => $definition) {
-            $item = (object) array_merge(self::$mainItemDefaults, array_merge($definition, [
-                'code'  => $code,
-                'owner' => $owner
-            ]));
-
-            foreach ($item->sideMenu as $sideMenuItemCode => $sideMenuDefinition) {
-                $item->sideMenu[$sideMenuItemCode] = (object) array_merge(
-                    self::$sideItemDefaults,
-                    array_merge($sideMenuDefinition, [
-                        'code'  => $sideMenuItemCode,
-                        'owner' => $owner
-                    ])
-                );
-            }
-
-            $itemKey = $this->makeItemKey($owner, $code);
-            $this->items[$itemKey] = $item;
-        }
+        $this->addMainMenuItems($owner, $definitions);
     }
 
     /**
@@ -229,9 +211,8 @@ class NavigationManager
      */
     public function addMainMenuItem($owner, $code, array $definition)
     {
-        $sideMenu = isset($definition['sideMenu']) ? $definition['sideMenu'] : null;
-
         $itemKey = $this->makeItemKey($owner, $code);
+
         if (isset($this->items[$itemKey])) {
             $definition = array_merge((array) $this->items[$itemKey], $definition);
         }
@@ -243,8 +224,8 @@ class NavigationManager
 
         $this->items[$itemKey] = $item;
 
-        if ($sideMenu !== null) {
-            $this->addSideMenuItems($owner, $code, $sideMenu);
+        if ($item->sideMenu) {
+            $this->addSideMenuItems($owner, $code, $item->sideMenu);
         }
     }
 
@@ -280,21 +261,24 @@ class NavigationManager
     public function addSideMenuItem($owner, $code, $sideCode, array $definition)
     {
         $itemKey = $this->makeItemKey($owner, $code);
+
         if (!isset($this->items[$itemKey])) {
             return false;
         }
+
+        $mainItem = $this->items[$itemKey];
 
         $definition = array_merge($definition, [
             'code'  => $sideCode,
             'owner' => $owner
         ]);
 
-        $mainItem = $this->items[$itemKey];
         if (isset($mainItem->sideMenu[$sideCode])) {
             $definition = array_merge((array) $mainItem->sideMenu[$sideCode], $definition);
         }
 
         $item = (object) array_merge(self::$sideItemDefaults, $definition);
+
         $this->items[$itemKey]->sideMenu[$sideCode] = $item;
     }
 

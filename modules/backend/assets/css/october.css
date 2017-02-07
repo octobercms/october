@@ -813,7 +813,7 @@ body.display-side-panel #layout-side-panel{display:block;position:absolute;z-ind
 body.outer{background:#2b3e50}
 body.outer .layout > .layout-row.layout-head{text-align:center;background:#f9f9f9}
 body.outer .layout > .layout-row.layout-head > .layout-cell{height:40%;padding:50px 0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;vertical-align:middle;position:relative}
-body.outer .layout > .layout-row.layout-head > .layout-cell:after{content:'';display:block;width:0;height:0;border-left:35px solid transparent;border-right:35px solid transparent;border-top:25px solid #f9f9f9;border-bottom-width:0;position:absolute;bottom:-25px;left:50%;margin-left:-22px}
+body.outer .layout > .layout-row.layout-head > .layout-cell:after{content:'';display:block;width:0;height:0;border-left:35px solid transparent;border-right:35px solid transparent;border-top:25px solid #f9f9f9;border-bottom-width:0;position:absolute;bottom:-25px;left:50%;margin-left:-35px}
 body.outer .layout > .layout-row.layout-head > .layout-cell h1.oc-logo{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;display:inline-block;width:100%;max-width:450px;height:170px;min-height:72px}
 body.outer .layout > .layout-row > .layout-cell{vertical-align:top}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container{margin:0 auto;width:436px;padding:40px 0}
