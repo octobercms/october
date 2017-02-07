@@ -387,7 +387,7 @@ if (window.jQuery.request !== undefined) {
     $.fn.request.Constructor = Request
 
     $.request = function(handler, option) {
-        return $('<form />').request(handler, option)
+        return $(document).request(handler, option)
     }
 
     // REQUEST NO CONFLICT
