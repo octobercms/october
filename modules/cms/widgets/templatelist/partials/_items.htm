@@ -20,7 +20,7 @@
                     data-id="<?= e($dataId) ?>">
                     <a href="javascript:;">
                         <span class="title"><?= e($item->title) ?></span>
-                        <span class="description">
+                        <span class="description" title="<?= e($item->description) ?>">
                             <?php foreach ($item->descriptions as $title => $value): ?>
                                 <?php if (strlen($value)): ?>
                                     <?= e($title) ?>: <strong><?= e($value) ?></strong>
