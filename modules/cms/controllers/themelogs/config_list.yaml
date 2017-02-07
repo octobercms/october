@@ -1,0 +1,20 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: cms::lang.theme_log.menu_label
+list: ~/modules/cms/models/themelog/columns.yaml
+modelClass: Cms\Models\ThemeLog
+recordUrl: cms/themelogs/preview/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 30
+showSetup: true
+showCheckboxes: true
+defaultSort:
+    column: count
+    direction: desc
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

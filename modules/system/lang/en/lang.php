@@ -312,7 +312,7 @@ return [
         'menu_description' => 'View system log messages with their recorded time and details.',
         'empty_link' => 'Empty event log',
         'empty_loading' => 'Emptying event log...',
-        'empty_success' => 'Successfully emptied the event log.',
+        'empty_success' => 'Event log emptied',
         'return_link' => 'Return to event log',
         'id' => 'ID',
         'id_label' => 'Event ID',
@@ -327,7 +327,7 @@ return [
         'menu_description' => 'View bad or redirected requests, such as Page not found (404).',
         'empty_link' => 'Empty request log',
         'empty_loading' => 'Emptying request log...',
-        'empty_success' => 'Successfully emptied the request log.',
+        'empty_success' => 'Request log emptied',
         'return_link' => 'Return to request log',
         'id' => 'ID',
         'id_label' => 'Log ID',
@@ -349,5 +349,15 @@ return [
         'manage_editor' => 'Manage code editor preferences',
         'view_the_dashboard' => 'View the dashboard',
         'manage_branding' => 'Customize the back-end'
+    ],
+    'log' => [
+        'menu_label' => 'Log settings',
+        'menu_description' => 'Specify which areas should use logging.',
+        'log_events' => 'Log system events',
+        'log_events_comment' => 'Browser requests that may require attention, such as 404 errors.',
+        'log_requests' => 'Log bad requests',
+        'log_requests_comment' => 'When a change is made to the theme using the back-end.',
+        'log_theme' => 'Log theme changes',
+        'log_theme_comment' => 'Store system events in the database in addition to the file-based log.',
     ]
 ];

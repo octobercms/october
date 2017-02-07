@@ -488,5 +488,4 @@ class CmsCompoundObject extends CmsObject
 
         return parent::__call($method, $parameters);
     }
-
 }

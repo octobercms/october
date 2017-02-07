@@ -377,6 +377,10 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerBackendSettings()
     {
+        Event::listen('system.settings.extendItems', function($manager) {
+            \System\Models\LogSetting::filterSettingItems($manager);
+        });
+
         SettingsManager::instance()->registerCallback(function ($manager) {
             $manager->registerSettingItems('October.System', [
                 'updates' => [
@@ -434,7 +438,16 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['system.access_logs'],
                     'order'       => 910,
                     'keywords'    => '404 error'
-                ]
+                ],
+                'log_settings' => [
+                    'label'       => 'system::lang.log.menu_label',
+                    'description' => 'system::lang.log.menu_description',
+                    'category'    => SettingsManager::CATEGORY_LOGS,
+                    'icon'        => 'icon-dot-circle-o',
+                    'class'       => 'System\Models\LogSetting',
+                    'permissions' => ['system.manage_logs'],
+                    'order'       => 990
+                ],
             ]);
         });
     }
