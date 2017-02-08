@@ -71,7 +71,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->getFieldName();
-        $this->vars['value'] = $this->getLoadValue();
+        $this->vars['value'] = $this->formField->value;
         $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
 
         $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
